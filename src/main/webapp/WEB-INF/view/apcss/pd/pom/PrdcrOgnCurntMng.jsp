@@ -251,7 +251,6 @@
 								<th scope="row" class="th_bg th_border_right">법인명</th>
 								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<td colspan="2" class="td_input">
 									<sbux-input
 										uitype="text"
@@ -1363,7 +1362,7 @@
 
 	//생산자조직 다중 세이브
 	async function fn_saveFmList01() {
-		console.log("===============fn_saveFmList01=================");
+		//console.log("===============fn_saveFmList01=================");
 		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 		let saveList = [];
 
@@ -1372,16 +1371,13 @@
 			return;
 		}
 
-		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 		let apoSe = SBUxMethod.get('dtl-input-apoSe');
-		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		if(apoSe == '1'){
 			uoBrno = brno;
 		}
 
-		let uoCd = SBUxMethod.get('dtl-input-uoCd');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
 		for(var i=1; i<=gridData.length; i++ ){
@@ -1392,15 +1388,12 @@
 
 			if(delYn == 'N'){
 
-				if(gfn_isEmpty(rowData.apoCd)){
-					rowData.apoCd = apoCd;
-					rowData.apoSe = apoSe;
-					rowData.crno = crno;
-					rowData.brno = brno;
-					rowData.uoBrno = uoBrno;
-					rowData.uoCd = uoCd;
-					rowData.yr = yr;
-				}
+				rowData.apoSe = apoSe;
+				rowData.brno = brno;
+				rowData.uoBrno = uoBrno;
+				rowData.yr = yr;
+
+				console.log(rowData);
 				//모든데이터 저장 처리
 				rowData.rowSts = "I";
 				saveList.push(rowData);
@@ -1446,45 +1439,69 @@
 
 		}
 	}
+	//필수값 확인
 	function fn_checkRequiredInput(){
-		//필수값 확인
-		console.log("======fn_checkRequiredInput======");
-		//품목 그리드 필수갑 확인
-		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
+		//console.log("======fn_checkRequiredInput======");
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let gridData = objGrid.getGridDataAll();
 
 		for(var i=1; i<=gridData.length; i++ ){
-			let rowData = grdPrdcrOgnCurntMng01.getRowData(i);
-			console.log(rowData);
-			console.log(gfn_isEmpty(rowData.prdcrOgnzNm));
+			let rowData = objGrid.getRowData(i);
 			if(rowData.delYn == 'N'){
 				if(gfn_isEmpty(rowData.prdcrOgnzNm)){
 					alert('생산자조직 리스트의 생산자조직 명을 입력해주세요');
-					grdPrdcrOgnCurntMng01.focus();
+					objGrid.selectRow(i);
+					objGrid.focus();
 					return true;
 				}
 				if(gfn_isEmpty(rowData.itemCd)){
 					alert('생산자조직 리스트의 품목을 선택해주세요');
-					grdPrdcrOgnCurntMng01.focus();
+					objGrid.selectRow(i);
+					objGrid.focus();
 					return true;
 				}
 				if(gfn_isEmpty(rowData.ctgryCd)){
 					alert('생산자조직 리스트의 평가부류를 선택해주세요');
-					grdPrdcrOgnCurntMng01.focus();//그리드 객체로 포커스 이동
+					objGrid.selectRow(i);
+					objGrid.focus();//그리드 객체로 포커스 이동
 					return true;
 				}
 				if(gfn_isEmpty(rowData.clsfCd)){
 					alert('생산자조직 리스트의 부류를 선택해주세요');
-					grdPrdcrOgnCurntMng01.focus();//그리드 객체로 포커스 이동
+					objGrid.selectRow(i);
+					objGrid.focus();//그리드 객체로 포커스 이동
 					return true;
 				}
 				if(gfn_isEmpty(rowData.trmtType)){
 					alert('생산자조직 리스트의 취급유형을 선택해주세요');
-					grdPrdcrOgnCurntMng01.focus();
+					objGrid.selectRow(i);
+					objGrid.focus();
 					return true;
 				}
 				if(gfn_isEmpty(rowData.sttgUpbrItemSe)){
 					alert('생산자조직 리스트의 전문/육성 구분을 선택해주세요');
-					grdPrdcrOgnCurntMng01.focus();
+					objGrid.selectRow(i);
+					objGrid.focus();
+					return true;
+				}
+
+
+				if(gfn_isEmpty(rowData.ctrtDt)){
+					alert('생산자조직 리스트의 계약시기를 선택해주세요');
+					objGrid.selectRow(i);
+					objGrid.focus();
+					return true;
+				}
+				if(gfn_isEmpty(rowData.spmtBgngDt)){
+					alert('생산자조직 리스트의 출하시작시기를 선택해주세요');
+					objGrid.selectRow(i);
+					objGrid.focus();
+					return true;
+				}
+				if(gfn_isEmpty(rowData.spmtEndDt)){
+					alert('생산자조직 리스트의 출하종료시기를 선택해주세요');
+					objGrid.selectRow(i);
+					objGrid.focus();
 					return true;
 				}
 			}
@@ -1764,14 +1781,15 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		//console.log(rowData);
+		console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
-		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//사업자등록번호
 
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
+		console.log(SBUxMethod.get('dtl-input-yr'),gfn_nvl(rowData.yr));
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
 		//console.log(rowData.apoSe);
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
@@ -1793,7 +1811,6 @@
 		//법인체 마감 추가로 통합조직인 경우
 		SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(rowData.prfmncCorpDdlnYn))//실적 법인체 마감
 		</c:if>
-
 
 		fn_clearForm();
 	}
@@ -1882,7 +1899,7 @@
 
 	//생산자조직 리스트 그리드 상세
 	const fn_view01 = async function(){
-		console.log("******************fn_view01**********************************");
+		//console.log("******************fn_view01**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng01.getCol();
@@ -1899,7 +1916,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng01.getRowData(nRow);
-		console.log(rowData.yr);
+		//console.log(rowData.yr);
 		/*
 		if(gfn_isEmpty(rowData.delYn)){
 			return;
@@ -2037,6 +2054,9 @@
 
 	//생산자조직 리스트 조회
 	async function fn_dtlGridSearch01() {
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+
 		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
 		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
 		if(apoSeVal == '2'){
@@ -2048,12 +2068,9 @@
 			uoBrnoVal = null;
 		}
 
-		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
 		fn_clearForm();
-
-		if(gfn_isEmpty(brno)){return;}
 
 		let postJsonPromise01 = gfn_postJSON("/pd/pom/selectTbEvFrmhsApoList.do", {
 			yr : yr
@@ -2099,7 +2116,7 @@
 						,prdcrOgnzNm: 	item.prdcrOgnzNm
 						,rmrk: 			item.rmrk
 
-						,ctrtDt: 	item.ctrtDt
+						,ctrtDt: 		item.ctrtDt
 						,spmtBgngDt: 	item.spmtBgngDt
 						,spmtEndDt: 	item.spmtEndDt
 				}
