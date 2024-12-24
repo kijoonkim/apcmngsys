@@ -1767,26 +1767,63 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
+		let objGrid = grdPrdcrOgnCurntMng01;
+
 		//그리드 해더 row수
-		let captionRow = grdPrdcrOgnCurntMng01.getFixedRows();
+		let captionRow = objGrid.getFixedRows();
 		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
-			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
-			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
+			let rowData01 = objGrid.getRowData(i);
+			let rowSts01 = objGrid.getRowStatus(i);
 			let delYn = rowData01.delYn;
 
 			if(delYn == 'N'){
-				/*
-				let prchsTrstAmtVal = Number(gfn_nvl(rowData01.prchsTrstAmt));
-				let prchsEmspapAmtVal = Number(gfn_nvl(rowData01.prchsEmspapAmt));
-				let prchsTotAmtVal = Number(gfn_nvl(rowData01.prchsTotAmt));
-				let chkVal = Number(prchsTrstAmtVal) + Number(prchsEmspapAmtVal) == Number(prchsTotAmtVal);
-
-				if(!chkVal){
-					alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
-					grdPrdcrOgnCurntMng01.selectRow(i);
+				/* 필수값 확인 */
+				if( Number(rowData01.prchsSortTrstAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSortTrstVlm) || Number(rowData01.prchsSortTrstVlm) == 0)){
+					alert('공동선별수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
 					return false;
 				}
-				*/
+
+				if( Number(rowData01.prchsSpmtTrstAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSpmtTrstVlm) || Number(rowData01.prchsSpmtTrstVlm) == 0)){
+					alert('공동출하수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSmplTrstAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSmplTrstVlm) || Number(rowData01.prchsSmplTrstVlm) == 0)){
+					alert('단순수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSortEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSortEmspapVlm) || Number(rowData01.prchsSortEmspapVlm) == 0)){
+					alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSmplEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSmplEmspapVlm) || Number(rowData01.prchsSmplEmspapVlm) == 0)){
+					alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsTotVlmDiff) !== 0 ){
+					alert('물량의 합계가 일치 해야합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsTotAmtDiff) !== 0 ){
+					alert('금액의 합계가 일치 해야합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
 
 				rowData01.apoCd = apoCd;
 				rowData01.apoSe = apoSe;
@@ -1837,26 +1874,70 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
+		let objGrid = grdPrdcrOgnCurntMng02;
+
 		//그리드 해더 row수
-		let captionRow = grdPrdcrOgnCurntMng02.getFixedRows();
+		let captionRow = objGrid.getFixedRows();
 		for(var i = captionRow; i < gridData02.length + captionRow; i++ ){
-			let rowData02 = grdPrdcrOgnCurntMng02.getRowData(i);
-			let rowSts02 = grdPrdcrOgnCurntMng02.getRowStatus(i);
+			let rowData02 = objGrid.getRowData(i);
+			let rowSts02 = objGrid.getRowStatus(i);
 			let delYn = rowData02.delYn;
 
 			if(delYn == 'N'){
-				/*
-				let slsEmspapAmtVal = Number(gfn_nvl(rowData02.slsEmspapAmt));
-				let slsTrstAmtVal = Number(gfn_nvl(rowData02.slsTrstAmt));
-				let slsTotAmtVal = Number(gfn_nvl(rowData02.slsTotAmt));
-				let chkVal = Number(slsEmspapAmtVal) + Number(slsTrstAmtVal) == Number(slsTotAmtVal);
-
-				if(!chkVal){
-					alert('수탁+매취 의 합계가 합계 금액과 같아야 합니다.');
-					grdPrdcrOgnCurntMng02.selectRow(i);
+				/* 필수값 확인 */
+				if( Number(rowData02.slsCprtnSortTrstAmt) > 0
+						&& (gfn_isEmpty(rowData02.slsCprtnSortTrstVlm) || Number(rowData02.slsCprtnSortTrstVlm) == 0)){
+					alert('공동선별수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
 					return false;
 				}
-				*/
+
+				if( Number(rowData02.slsCprtnTrstAmt) > 0
+						&& (gfn_isEmpty(rowData02.slsCprtnTrstVlm) || Number(rowData02.slsCprtnTrstVlm) == 0)){
+					alert('공동출하수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.slsSmplTrstAmt) > 0
+						&& (gfn_isEmpty(rowData02.slsSmplTrstVlm) || Number(rowData02.slsSmplTrstVlm) == 0)){
+					alert('단순수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.slsCprtnSortEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData02.slsCprtnSortEmspapVlm) || Number(rowData02.slsCprtnSortEmspapVlm) == 0)){
+					alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.slsSmplEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData02.slsSmplEmspapVlm) || Number(rowData02.slsSmplEmspapVlm) == 0)){
+					alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.ddcAmt) > 0
+						&& (gfn_isEmpty(rowData02.ddcVlm) || Number(rowData02.ddcVlm) == 0)){
+					alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.slsTotVlmDiff) !== 0 ){
+					alert('물량의 합계가 일치 해야합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.slsTotAmtDiff) !== 0 ){
+					alert('금액의 합계가 일치 해야합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
 
 				rowData02.apoCd = apoCd;
 				rowData02.apoSe = apoSe;
@@ -1907,25 +1988,77 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let yr = SBUxMethod.get('dtl-input-yr');
 
+		let objGrid = grdPrdcrOgnCurntMng03;
+
 		//그리드 해더 row수
-		let captionRow = grdPrdcrOgnCurntMng03.getFixedRows();
+		let captionRow = objGrid.getFixedRows();
 		for(var i = captionRow; i < gridData03.length + captionRow; i++ ){
-			let rowData03 = grdPrdcrOgnCurntMng03.getRowData(i);
-			let rowSts03 = grdPrdcrOgnCurntMng03.getRowStatus(i);
+			let rowData03 = objGrid.getRowData(i);
+			let rowSts03 = objGrid.getRowStatus(i);
 			let delYn = rowData03.delYn;
 
 			if(delYn == 'N'){
+				/* 필수값 확인 */
+				if( Number(rowData03.pblcWhlslMrktAmt) > 0
+						&& (gfn_isEmpty(rowData03.pblcWhlslMrktVlm) || Number(rowData03.pblcWhlslMrktVlm) == 0)){
+					alert('공영 도매시장 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
 
-				if(rowData03.etcVlm < 0){
+				if( Number(rowData03.lgszRtlAmt) > 0
+						&& (gfn_isEmpty(rowData03.lgszRtlVlm) || Number(rowData03.lgszRtlVlm) == 0)){
+					alert('대형 유통업체 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.armyDlvgdsAmt) > 0
+						&& (gfn_isEmpty(rowData03.armyDlvgdsVlm) || Number(rowData03.armyDlvgdsVlm) == 0)){
+					alert('군납 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.eatoutMtrlMlsrAmt) > 0
+						&& (gfn_isEmpty(rowData03.eatoutMtrlMlsrVlm) || Number(rowData03.eatoutMtrlMlsrVlm) == 0)){
+					alert('외식 식자재 및 단체급식 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.mnfcRtlAmt) > 0
+						&& (gfn_isEmpty(rowData03.mnfcRtlVlm) || Number(rowData03.mnfcRtlVlm) == 0)){
+					alert('가공업체 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.exprtAmt) > 0
+						&& (gfn_isEmpty(rowData03.exprtVlm) || Number(rowData03.exprtVlm) == 0)){
+					alert('수출 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.onlnDlngPrfmncAmt) > 0
+						&& (gfn_isEmpty(rowData03.onlnDlngPrfmncVlm) || Number(rowData03.onlnDlngPrfmncVlm) == 0)){
+					alert('온라인 거래실적 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData03.etcVlm) < 0){
 					alert('기타 물량의 값은 음수일수 없습니다');
-					grdPrdcrOgnCurntMng03.selectRow(i);
+					objGrid.selectRow(i);
 					return false;
 				}
-				if(rowData03.etcAmt < 0){
+				if( Number(rowData03.etcAmt) < 0){
 					alert('기타 금액의 값은 음수일수 없습니다');
-					grdPrdcrOgnCurntMng03.selectRow(i);
+					objGrid.selectRow(i);
 					return false;
 				}
+
 
 				rowData03.apoCd = apoCd;
 				rowData03.apoSe = apoSe;
@@ -2316,20 +2449,20 @@
 				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
 			});
 
-			grdPrdcrOgnCurntMng01.rebuild();
-			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng03.rebuild();
+			grdPrdcrOgnCurntMng02.rebuild();
+			grdPrdcrOgnCurntMng01.rebuild();
 			/* 하단 소계 추가 */
-			grdPrdcrOgnCurntMng01.addRow();
-			grdPrdcrOgnCurntMng02.addRow();
 			grdPrdcrOgnCurntMng03.addRow();
+			grdPrdcrOgnCurntMng02.addRow();
+			grdPrdcrOgnCurntMng01.addRow();
 
 			//그리드 커스텀 disabled 처리
 			fn_gridCustom();
 
-			fn_grdTot01();
-			fn_grdTot02();
 			fn_grdTot03();
+			fn_grdTot02();
+			fn_grdTot01();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
