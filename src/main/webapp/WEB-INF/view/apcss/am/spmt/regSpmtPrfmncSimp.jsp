@@ -728,7 +728,7 @@
 
         try{
             if(data.resultStatus ==="S"){
-                let regQntt = jsonPckgPrfmnc.find(obj => obj.cnptCd == param.cnptCd && obj.itemCd == param.itemCd && obj.vrtyCd == param.vrtyCd && obj.prdcrCd == param.rprsPrdcrCd && obj.spcfctCd == param.spcfctCd);
+                let regQntt = jsonPckgPrfmnc.find(obj => obj.cnptCd == param.cnptCd && obj.itemCd == param.itemCd && obj.vrtyCd == param.vrtyCd && obj.prdcrCd == param.rprsPrdcrCd && obj.spcfctCd == param.spcfctCd && obj.grdCd == param.grdCd);
                 let resultQntt = data.selectCnt;
 
                 if(regQntt){
