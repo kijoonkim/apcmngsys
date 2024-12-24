@@ -455,9 +455,9 @@
         										.map(item => item.itemVrtyCd);
 
         let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
-		if (filteredList.length == 0){
-			filteredList = useYn;
-		}
+		//if (filteredList.length == 0){
+		//	filteredList = useYn;
+		//}
 
         data.resultList = filteredList;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
