@@ -48,7 +48,8 @@
 		<result property="ognzCd" column="OGNZ_CD" />
 		<result property="ognzNm" column="OGNZ_NM" />
 		<result property="corpNm" column="CORP_NM" />
-	
+		<result property="apoSe" column="APO_SE" />
+
 
 	</resultMap>
 
@@ -89,7 +90,7 @@
 				, CU.UNTY_AUTHRT_MNG_YN	AS UNTY_AUTHRT_MNG_YN
 
 			  FROM TB_COM_USER CU
-			  
+
 			 WHERE CU.USER_ID = #{id}
     	]]>
     </select>
@@ -120,6 +121,8 @@
 				, CU.APC_CD			AS APC_CD
 				, CU.BRNO			AS BRNO
 				, CU.CRNO			AS CRNO
+				, (SELECT APO_SE FROM TB_EV_APO WHERE BRNO = CU.BRNO AND CU.TYPE_CD = '1') AS APO_SE
+
 				, CU.ADDR			AS ADDR
 				, CU.FRMER_SN		AS FRMER_SN
 				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
@@ -163,7 +166,7 @@
 					) THEN 'Y'
 					ELSE 'N'
 				  END	AS AUTHRT_MNGR_YN
-				  
+
 				, CASE
 					WHEN CU.TYPE_CD = '1' THEN 'UO' || CU.UNTY_OGNZ_CD
 					WHEN CU.TYPE_CD = '2' AND CU.SGG IS NOT NULL THEN 'US' || CU.SGG
@@ -173,15 +176,15 @@
 
 				, AOI.OGNZ_CD	AS OGNZ_CD
 				, AOI.OGNZ_NM	AS OGNZ_NM
-				
+
 				, AOI.OGNZ_CD	AS CORP_CD
 				, AOI.OGNZ_NM	AS CORP_NM
 
 			 FROM TB_COM_USER CU
-			 
+
 			 LEFT JOIN TB_APC_OGNZ_INFO AOI
 			   ON AOI.OGNZ_CD = CU.UNTY_OGNZ_CD
-			   
+
 			WHERE CU.USER_ID = #{id}
 			  AND CU.PSWD = #{password}
 			  -- AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
@@ -216,6 +219,8 @@
 				, CU.APC_CD			AS APC_CD
 				, CU.BRNO			AS BRNO
 				, CU.CRNO			AS CRNO
+				, (SELECT APO_SE FROM TB_EV_APO WHERE BRNO = CU.BRNO AND CU.TYPE_CD = '1') AS APO_SE
+
 				, (SELECT FN_GET_APC_NM(CU.APC_CD) FROM DUAL) AS APC_NM
 				, (SELECT X.APC_SE_CD FROM TB_APC_EVRMNT_STNG X WHERE X.APC_CD = CU.APC_CD) AS APC_SE_CD
 
@@ -270,15 +275,15 @@
 
 				, AOI.OGNZ_CD	AS OGNZ_CD
 				, AOI.OGNZ_NM	AS OGNZ_NM
-				
+
 				, AOI.OGNZ_CD	AS CORP_CD
 				, AOI.OGNZ_NM	AS CORP_NM
 
 			 FROM TB_COM_USER CU
-			 
+
 			 LEFT JOIN TB_APC_OGNZ_INFO AOI
 			   ON AOI.OGNZ_CD = CU.UNTY_OGNZ_CD
-			   
+
 			WHERE CU.USER_ID = #{id}
 			  AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			  AND CU.DEL_YN = 'N'
@@ -324,8 +329,8 @@
 			   AND CU.EML = #{email}
 			   AND CU.USER_STTS = '01'	-- 사용자 상태: 01 사용
 			   AND CU.DEL_YN = 'N'
-    	]]>
-    </select>
+		]]>
+	</select>
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.co.sys.mapper.LoginMapper.updateFailCount   			-->
 	<!-- DESC : 실패횟수 저장                                           				-->

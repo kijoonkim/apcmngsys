@@ -35,7 +35,7 @@
 
 						<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+					<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
 						<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -952,7 +952,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -1199,7 +1199,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		let brno = rowData.brno
 		</c:if>
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+		<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 		//debugger;
@@ -1321,11 +1321,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	//사용자 화면 조회
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
-		let userType = '${loginVO.userType}';
-		let mbrTypeCd = '${loginVO.mbrTypeCd}';
 
-		console.log('fn_dtlSearch','brno = ',brno , 'userType = ',userType, 'mbrTypeCd = ',mbrTypeCd);
-		//SBUxMethod.set('dtl-input-brno',gfn_nvl(brno));
 		if(gfn_isEmpty(brno)) return;
 
 		//추후 등록 년도 관련 수정 할시 변경
@@ -1709,7 +1705,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					fn_search();
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 					fn_dtlSearch();
 				</c:if>
 			} else {
@@ -1792,7 +1788,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					fn_search();
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 					fn_dtlSearch();
 				</c:if>
 			} else {
