@@ -3434,7 +3434,7 @@
 
         fn_baseFocusedRowChanged(nRow, nCol);
 
-        if (nCol == 5 || nCol == 6 || nCol == 7 || nCol == 8 || nCol == 15 || nCol == 16) {
+        if (nCol == 5 || nCol == 6 || nCol == 8 || nCol == 9 || nCol == 17 || nCol == 18) {
             return;
         }
 
@@ -3447,7 +3447,7 @@
         if (gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) == "") {
             $("#main-btn-del", parent.document).attr('disabled', true);
             $("#main-btn-appr", parent.document).attr('disabled', true);
-            $("#main-btn-save", parent.document).attr('disabled', true);
+            $("#main-btn-save", parent.document).removeAttr('disabled');
             $("#main-btn-attach", parent.document).attr('disabled', true);
             $("#btnPrint").removeAttr('disabled');
 
