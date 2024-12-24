@@ -731,6 +731,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5')
 								  AND OGNZ_STBLT_YN = 'Y'
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
 								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 														FROM TB_EV_FRMHS_APO
 														WHERE 1=1
@@ -769,17 +771,19 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								WHERE 1=1
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5','7')
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
 								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
 								  AND (
-								  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-														FROM TB_EV_FRMHS_APO
-														WHERE 1=1
-														  AND STBLT_YN = 'N'
-														  AND NVL(EXCL_YN,'N') != 'Y'
-														  AND APO_SE = '2'
-														  AND YR = PSTB.YR
-														  AND BRNO = PSTB.BRNO
-														  AND UO_BRNO = PSTB.UO_BRNO
+										PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+															FROM TB_EV_FRMHS_APO
+															WHERE 1=1
+															  AND STBLT_YN = 'N'
+															  AND NVL(EXCL_YN,'N') != 'Y'
+															  AND APO_SE = '2'
+															  AND YR = PSTB.YR
+															  AND BRNO = PSTB.BRNO
+															  AND UO_BRNO = PSTB.UO_BRNO
 													)
 										OR
 										PRDCR_OGNZ_SN = '0'

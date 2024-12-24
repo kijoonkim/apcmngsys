@@ -1030,6 +1030,8 @@
 								WHERE 1=1
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5','7')
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
 								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
 								  AND (
 								  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
