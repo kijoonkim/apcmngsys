@@ -12,11 +12,13 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
      * APC코드
      */
     private String apcCd;
+    private String apcNm;
 
     /**
      * 생산자코드
      */
     private String prdcrCd;
+    private String prdcrNm;
 
     /**
      * 원물입고예정번호

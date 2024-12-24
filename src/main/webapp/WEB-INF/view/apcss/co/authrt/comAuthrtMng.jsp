@@ -78,17 +78,17 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
-						
+
 					</colgroup>
 					<tbody>
 						<tr>
@@ -105,21 +105,21 @@
 							</td>
 							<th scope="row" class="th_bg">권한명</th>
 							<td class="td_input" colspan="3" style="border-right:hidden;">
-								<sbux-input 
-									class="form-control input-sm" 
-									id="srch-inp-authrtNm" 
-									name="srch-inp-authrtNm" 
-									uitype="text" 
+								<sbux-input
+									class="form-control input-sm"
+									id="srch-inp-authrtNm"
+									name="srch-inp-authrtNm"
+									uitype="text"
 									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
 							<th scope="row" class="th_bg">권한ID</th>
 							<td class="td_input" colspan="3" style="border-right:hidden;">
-								<sbux-input 
-									class="form-control input-sm" 
-									id="srch-inp-authrtId" 
-									name="srch-inp-authrtId" 
-									uitype="text" 
+								<sbux-input
+									class="form-control input-sm"
+									id="srch-inp-authrtId"
+									name="srch-inp-authrtId"
+									uitype="text"
 									onkeyenter="fn_search"
 								></sbux-input>
 							</td>
@@ -341,7 +341,7 @@
     			break;
     		case "10":
     			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
-    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM", "MA", "CO"]);
+    			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM", "MA", "FM", "CO"]);
 
     			break;
     		default:
@@ -442,9 +442,9 @@
             	width: '20%',
                 ref: 'useYn', type: 'checkbox',   style: 'text-align:center',
             	typeinfo: {
-            		ignoreupdate : true, 
-            		fixedcellcheckbox : {usemode : true, rowindex : 0}, 
-            		checkedvalue : 'Y', 
+            		ignoreupdate : true,
+            		fixedcellcheckbox : {usemode : true, rowindex : 0},
+            		checkedvalue : 'Y',
             		uncheckedvalue : 'N'
             	},
             },
@@ -999,18 +999,18 @@
     const fn_viewUi = function () {
 
         let nRow = grdComAuthMenu.getRow();
-        
+
         if (nRow < 1) {
             return;
         }
-        
+
         let nCol = grdComAuthMenu.getCol();
         let nColUseYn = grdComAuthMenu.getColRef("useYn");
-        
+
         if (_.isEqual(nCol, nColUseYn)) {
-        	return;	
+        	return;
         }
-        
+
         const rowData = grdComAuthMenu.getRowData(nRow);
 
         if (rowData.menuType != "02") {

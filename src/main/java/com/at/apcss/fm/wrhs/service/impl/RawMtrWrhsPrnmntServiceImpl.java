@@ -1,15 +1,13 @@
 package com.at.apcss.fm.wrhs.service.impl;
 
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.cmns.service.PrdcrService;
-import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsService;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper;
 import com.at.apcss.fm.wrhs.service.RawMtrWrhsPrnmntService;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO;
@@ -60,7 +58,11 @@ public class RawMtrWrhsPrnmntServiceImpl extends BaseServiceImpl implements RawM
     @Override
     public HashMap<String, Object> deleteRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception {
 
-        rawMtrWrhsPrnmntMapper.deleteRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+    	int deletedCnt = rawMtrWrhsPrnmntMapper.deleteRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+		if (deletedCnt != 1) {
+			throw new EgovBizException(getMessage("E0003", "입고예정삭제".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+		}
 
         return null;
     }
@@ -81,9 +83,41 @@ public class RawMtrWrhsPrnmntServiceImpl extends BaseServiceImpl implements RawM
         }
 
         if(needsPrnmntInsert) {
-            rawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+        	int intertedCnt = rawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+        	if (intertedCnt != 1) {
+    			throw new EgovBizException(getMessage("E0003", "입고예정등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+    		}
+
         }
 
         return null;
     }
+
+	@Override
+	public HashMap<String, Object> multiRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception {
+
+		if (ComConstants.ROW_STS_INSERT.equals(rawMtrWrhsPrnmntVO.getRowSts())) {
+			String prnmntno = cmnsTaskNoService.selectFnGetPrnmntNo(rawMtrWrhsPrnmntVO);
+			rawMtrWrhsPrnmntVO.setPrnmntno(prnmntno);
+
+			int intertedCnt = rawMtrWrhsPrnmntMapper.insertRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+        	if (intertedCnt != 1) {
+    			throw new EgovBizException(getMessage("E0003", "입고예정등록".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+    		}
+		}
+
+		if (ComConstants.ROW_STS_UPDATE.equals(rawMtrWrhsPrnmntVO.getRowSts())) {
+
+
+			int updatedCnt = rawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt(rawMtrWrhsPrnmntVO);
+
+        	if (updatedCnt != 1) {
+    			throw new EgovBizException(getMessage("E0003", "입고예정수정".split("\\|\\|")), new Exception());	// "E0003 {0} 시 오류가 발생하였습니다.
+    		}
+		}
+
+		return null;
+	}
 }
