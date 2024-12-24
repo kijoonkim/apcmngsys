@@ -263,7 +263,9 @@
         grd.addStatus(nRow,"insert");
 
         nRow++;
+        grd.setCellDisabled(nRow -1, 0, nRow -1, grd.getCols() - 1, false);
         grd.setCellDisabled(nRow, 0, nRow, grd.getCols() - 1, true);
+
 	}
 
 	/**
