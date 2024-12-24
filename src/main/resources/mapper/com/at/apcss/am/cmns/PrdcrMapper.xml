@@ -749,4 +749,129 @@
 			   AND PRDCR_CD 			= #{prdcrCd}
     	]]>
     </update>
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.selectPrdcrTypeDtlList				-->
+	<!-- DESC : 생산자 목록 조회.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.25  	김 호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdcrTypeDtlList" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO" resultType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		SELECT
+    			  ROWNUM AS ROW_SEQ
+    			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+    			, pt0.*
+    		  FROM (
+    	</if>
+    	<!-- End 페이징 -->
+    	<![CDATA[
+	    	SELECT
+				A.APC_CD
+				, A.PRDCR_CD
+				, A.PRDCR_NM
+				, B.PRDCR_CRTR_TYPE
+				, B.CRTR_CD
+				, B.CRTR_DTL_CD
+				, B.INDCT_SEQ
+				, B.DEL_YN
+
+				 FROM TB_PRDCR_INFO A
+				   , TB_PRDCR_TYPE_DTL B
+
+				WHERE A.APC_CD = B.APC_CD
+				  AND A.PRDCR_CD = B.PRDCR_CD
+				  AND A.DEL_YN = 'N'
+				  AND A.APC_CD  = #{apcCd}
+
+		]]>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+			   	AND B.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='crtrCd != null and crtrCd !=""'>
+			   	AND SUBSTRING(B.CRTR_CD,0,4) = #{crtrCd}
+		</if>
+
+    		 ORDER BY A.PRDCR_NM, A.PRDCR_CD
+
+		<!-- Start 페이징 -->
+    	<if test='pagingYn != null and pagingYn.equals("Y")'>
+    		  ) pt0
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+    	</if>
+    	<!-- End 페이징 -->
+    </select>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.updatePrdcrTypeDtl			-->
+	<!-- DESC : 생산자 상세 유형 등록.				  		                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertPrdcrTypeDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			INSERT INTO TB_PRDCR_TYPE_DTL
+			(
+			 	APC_CD
+				, CRTR_CD
+				, CRTR_DTL_CD
+				, DEL_YN
+				, INDCT_SEQ
+				, PRDCR_CD
+				, PRDCR_CRTR_TYPE
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+
+			)VALUES(
+				#{apcCd}
+				, #{crtrCd}
+				, #{crtrDtlCd}
+				, 'N'
+				, #{indctSeq}
+				, #{prdcrCd}
+				, #{prdcrCrtrType}
+				, SYSDATE
+				, #{sysFrstInptPrgrmId}
+				, #{sysFrstInptUserId}
+				, SYSDATE
+				, #{sysLastChgPrgrmId}
+				, #{sysLastChgUserId}
+			)
+
+    	]]>
+    </insert>
+
+    <!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.PrdcrMapper.deletePrdcrTypeDtl			-->
+	<!-- DESC : 생산자 상세 유형 삭제.				  		                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.07.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deletePrdcrTypeDtl" parameterType="com.at.apcss.am.cmns.vo.PrdcrVO">
+    	<![CDATA[
+			DELETE FROM TB_PRDCR_TYPE_DTL
+			WHERE APC_CD = #{apcCd}
+				AND APC_CD = #{apcCd}
+				AND CRTR_CD = #{crtrCd}
+				AND CRTR_DTL_CD = #{crtrDtlCd}
+				AND PRDCR_CD = #{prdcrCd}
+				AND PRDCR_CRTR_TYPE = #{prdcrCrtrType}
+		]]>
+    </delete>
+
+
+
 </mapper>

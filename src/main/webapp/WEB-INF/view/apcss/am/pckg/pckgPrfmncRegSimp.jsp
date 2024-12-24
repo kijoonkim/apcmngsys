@@ -69,11 +69,10 @@
             position: relative;
         }
         .cell{
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-            flex: 0 0 100%;
-            justify-content: center;
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: repeat(5,1fr);
+            padding: 0px 5px;
         }
         .carouselBtn{
             width: 100%;
@@ -326,10 +325,14 @@
 
 </body>
 <script type="text/javascript">
+
+	let nowPrdcrNm = "";
     /** 포장실적 grid 변수 **/
     var jsonPckgPrfmnc = [];
     let gridPckgPrfmnc;
 
+
+    let jsonSearchItemVrty = [];
     /** 포장 실적 Obj **/
     let pckgObj = {};
 
@@ -388,6 +391,8 @@
 
         /** 포장실적 grid 생성 **/
         await fn_create_pckgPrfmnc();
+
+        await fn_setcomSearchItemVrty();
         fn_addDragEvn("cnptInfoWrap");
         fn_addDragEvn("prdcrInfoWrap");
         fn_addDragEvn("vrtyInfoWrap");
@@ -442,11 +447,19 @@
         await fn_append_button(data,"itemInfoWrap","itemNm","itemCd");
         carouselObj.itemInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#itemInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
-    const fn_search_vrty = async function(_itemCd){
+    const fn_search_vrty = async function(_itemCd,_prdcrNm){
         const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-        data.resultList = useYn;
+        let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
+        										.map(item => item.itemVrtyCd);
+
+        let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
+		if (filteredList.length == 0){
+			filteredList = useYn;
+		}
+
+        data.resultList = filteredList;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
         carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
@@ -544,7 +557,7 @@
         for(let key in dataObj){
             if(key == 'itemcd'){
                 await fn_search_spcfct(dataObj[key]);
-                await fn_search_vrty(dataObj[key]);
+                await fn_search_vrty(dataObj[key],nowPrdcrNm);
                 /** 품목별 품종, 규격 셋팅시 active가 없으면 재고탭 refresh **/
                 /** 품종 **/
                 if(!$(`#vrtyInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
@@ -562,6 +575,9 @@
                         delete pckgObj.spcfctNm;
                     }
                 }
+            }
+            if(key == 'prdcrcd'){
+            	nowPrdcrNm = _el.outerText;
             }
             let prefix = key.replace('cd','');
             pckgObj[prefix + 'Cd'] = String(dataObj[key]);
@@ -718,7 +734,7 @@
         const data = await postJsonPromise;
         try {
             if(data.resultStatus === 'S'){
-                gfn_comAlert("I0001");
+                //gfn_comAlert("I0001");
                 fn_search();
             }
         }catch (e) {
@@ -780,6 +796,45 @@
             SBUxMethod.attr('chkbox_norm','readonly',true);
         }else{
             SBUxMethod.attr('chkbox_norm','readonly',false);
+        }
+    }
+
+
+    const fn_setcomSearchItemVrty = async function() {
+
+
+
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrTypeDtlList.do", {
+			apcCd : gv_apcCd
+			}, null, true);
+
+        let data = await postJsonPromise;
+        try{
+        	let totalRecordCount = 0;
+        	jsonSearchItemVrty.lenght = 0;
+        	data.resultList.forEach((item, index) => {
+				let comCdDtlList = {
+						prdcrNm : item.prdcrNm
+						, prdcrCrtrType : item.prdcrCrtrType
+						, itemCd : item.crtrCd.substring(0,4)
+						, vrtyCd : item.crtrDtlCd
+						, itemVrtyCd : item.crtrCd
+						, indctSeq : item.indctSeq
+						, delYn : item.delYn
+
+				}
+				jsonSearchItemVrty.push(comCdDtlList);
+				if (index === 0) {
+	  					totalRecordCount = item.totalRecordCount;
+				}
+        	});
+
+        } catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
 

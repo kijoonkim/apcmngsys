@@ -171,6 +171,14 @@
     <div id="body-modal-comCd">
     	<jsp:include page="../../am/popup/comCdPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 산지 선택 Modal -->
+    <div>
+        <sbux-modal id="modal-searchItemVrty" name="modal-searchItemVrty" uitype="middle" header-title="조회품종" body-html-id="body-modal-searchItemVrty" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
+    </div>
+    <div id="body-modal-searchItemVrty">
+    	<jsp:include page="../../am/popup/searchItemVrty.jsp"></jsp:include>
+    </div>
      <div>
 		<sbux-modal id="modal-excel-gdsInvntr" name="modal-excel-gdsInvntr"
 			uitype="middle"
@@ -372,6 +380,8 @@
 			{caption: ["은행"],    			ref: 'bankCd',     		type: 'inputcombo', 	width: '120px', 	style: 'text-align:center', sortable: false,
 				typeinfo: {ref:'jsonbankCd', 	label:'label', value:'value', itemcount: 10}},
 			{caption: ["계좌번호"],    		ref: 'actno',     		type: 'input',   width:'130px', style: 'text-align:center'},
+			{caption: ["조회품종"],    	ref: 'searchItemVrty',        		type:'inputbutton',   width:'100px', style: 'text-align:center',
+				typeinfo : {callback: fn_searchItemVrty}},
 	        {caption: ['비고'], 			ref: 'rmrk', 			type: 'input', 	width: '300px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 1000})},
 	        {caption: ['APC코드'], ref: 'apcCd', hidden : true},
@@ -748,6 +758,24 @@
 		SBUxMethod.openModal('modal-comCd');
 
 		popComCd.init(gv_selectedApcCd, gv_selectedApcNm, plorCd,cdVl,cdVlNm, fn_setComNm);
+	}
+
+
+	/**
+	 * @name fn_searchItemVrty
+	 * @description 로즈피아 생산자 - 품목,품종 필터링 추가
+	 */
+	const fn_searchItemVrty = function() {
+		let nRow = grdApcPrdcr.getRow();
+		let rowData = grdApcPrdcr.getRowData(nRow);
+		let plorCd = rowData.searchItemVrty;
+		let prdcrCd = rowData.prdcrCd
+		let cdVlNm = '품목명';
+		let cdVl = 'ITEM_CD';
+
+		SBUxMethod.openModal('modal-searchItemVrty');
+
+		popSearchItemVrty.init(gv_selectedApcCd, gv_selectedApcNm, plorCd,cdVl,cdVlNm,prdcrCd, fn_setComNm);
 	}
 
 	/**
