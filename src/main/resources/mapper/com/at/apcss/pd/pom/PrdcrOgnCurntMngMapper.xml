@@ -216,9 +216,10 @@
 		MERGE INTO TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertEvAplyMng */
 		USING DUAL
 			ON (
-					CLT.BRNO  = #{brno}
-				 AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
-				 AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
+					CLT.BRNO  			= #{brno}
+				AND CLT.YR				= #{yr}
+				AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
+				AND CLT.CLTVTN_LAND_SN	= #{cltvtnLandSn}
 				)
 		WHEN MATCHED THEN
 				 UPDATE
@@ -239,7 +240,7 @@
 						, SPMT_PRC				= #{spmtPrc}
 						, SPMT_RMRK				= #{spmtRmrk}
 
-						, FLNM		= #{flnm}
+						, FLNM					= #{flnm}
 						, CLTVTN_LAND_ADDR		= #{cltvtnLandAddr}
 
 						, SYS_LAST_CHG_DT		= SYSDATE
@@ -625,6 +626,7 @@
 				, CM.PRDCR_OGNZ_SN
 				, CM.PRDCR_OGNZ_CD
 				, CM.PRDCR_OGNZ_NM
+				, CM.CTRT_DT
 				, CM.SPMT_BGNG_DT
 				, CM.SPMT_END_DT
 				, CM.RMRK
@@ -693,8 +695,8 @@
 		MERGE INTO TB_EV_FRMHS_APO CLT  /* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.insertTbEvFrmhsApo */
 		USING DUAL
 			ON (
-					CLT.BRNO			= #{brno}
-				AND CLT.YR 				= #{yr}
+					CLT.YR 				= #{yr}
+				AND CLT.BRNO			= #{brno}
 				AND CLT.PRDCR_OGNZ_SN	= #{prdcrOgnzSn}
 				)
 		WHEN MATCHED THEN
@@ -705,7 +707,7 @@
 
 						, ITEM_CD				= #{itemCd}
 						, UO_BRNO				= #{uoBrno}
-						, UO_CD					= #{uoCd}
+						, UO_CD					= (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{uoBrno})
 						, CTGRY_CD				= (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = #{yr} AND APO_SE = #{apoSe} AND BRNO = #{brno} AND ITEM_CD = #{itemCd})
 						, TRMT_TYPE				= #{trmtType}
 						, STTG_UPBR_ITEM_SE		= #{sttgUpbrItemSe}
@@ -760,16 +762,16 @@
 					)
 				VALUES
 					(
-					    #{apoCd}
+					    (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , #{apoSe}
 					  , #{brno}
-					  , #{crno}
+					  , (SELECT CRNO FROM TB_EV_APO WHERE BRNO = #{brno})
 					  , #{yr}
 					  , #{sttgUpbrItemSe}
 					  , #{ctgryCd}
 					  , #{itemCd}
 					  , #{uoBrno}
-					  , #{uoCd}
+					  , (SELECT APO_CD FROM TB_EV_APO WHERE BRNO = #{uoBrno})
 					  , #{trmtType}
 
 					  , SEQ_PRDCR_OGNZ_SN.NEXTVAL

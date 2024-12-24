@@ -31,7 +31,7 @@
 
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -369,7 +369,7 @@
 		fn_fcltMngCreateGrid();
 		await fn_search();
 		</c:if>
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 		</c:if>
 
@@ -798,7 +798,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -820,7 +820,7 @@
 			,uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/sptDoc5.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -1119,6 +1119,12 @@
 					if (gfn_isEmpty(rowData01.prchsNm)) {
 						objGrid.setCellDisabled(i, columnRefs.slsCnsgnSlsVlm, i, columnRefs.slsCnsgnSlsAmt, true);
 					}
+					//disabled 처리
+					objGrid.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
+					// 배경 속성 추가
+					objGrid.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
+					objGrid.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
+
 					objGrid.setCellStyle('background-color', i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, '#e1e1e1');
 					//objGrid.setCellStyle('background-color', i, columnRefs.uoSpmtVlm, i, columnRefs.uoSpmtAmt, 'lightgreen');
 					break;
@@ -1168,7 +1174,7 @@
 			let rowSts01 = objGrid.getRowStatus(i);
 
 			//매입 값이 있을경우 매출 값을 입력 필수
-			if(rowData01.typeSeNo == '5'){
+			if(rowData01.typeSeNo == '6' && rowData01.trmtType !== '0'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
@@ -1176,12 +1182,43 @@
 						return false;
 					}
 				}
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+			}
+
+			if(rowData01.typeSeNo == '7'){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
+						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+						objGrid.selectRow(i);
+						return false;
+					}
+				}
+
 				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						objGrid.selectRow(i);
 						return false;
 					}
+				}
+
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) && Number(rowData01.slsCnsgnSlsAmt) != 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnSlsVlm) || Number(rowData01.slsCnsgnSlsVlm) == 0)){
+					alert('매입 금액이 있는 경우 매입 물량은 필수 입니다');
+					objGrid.selectRow(i);
+					return;
 				}
 			}
 

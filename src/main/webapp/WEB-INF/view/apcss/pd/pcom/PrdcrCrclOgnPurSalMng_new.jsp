@@ -30,7 +30,7 @@
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report3"></sbux-button>
@@ -305,7 +305,7 @@
 				</table>
 
 				<!-- 통합조직 진척도 -->
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<!--
 					%@ include file="../prgrs/PrgrsUo.jsp" %>
 					-->
@@ -536,7 +536,7 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -1560,7 +1560,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1582,7 +1582,7 @@
 			, uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/totalDoc3.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -1656,7 +1656,7 @@
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리

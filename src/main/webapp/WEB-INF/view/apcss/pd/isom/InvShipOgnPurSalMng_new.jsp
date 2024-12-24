@@ -22,7 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
@@ -30,7 +30,7 @@
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -236,9 +236,9 @@
 					</tbody>
 				</table>
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 				<!-- 통합조직 정보 , 통합조직 진척도 -->
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<table class="table table-bordered tbl_fixed">
 						<caption>통합조직 정보 표기</caption>
 						<tbody>
@@ -246,7 +246,6 @@
 								<th scope="row" class="th_bg th_border_right">법인명</th>
 								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<td colspan="2" class="td_input">
 									<sbux-input
 										uitype="text"
@@ -392,7 +391,7 @@
 				</table>
 
 				<!-- 출자출하조직 진척도 -->
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<!--
 					%@ include file="../prgrs/PrgrsIso.jsp" %>
 					-->
@@ -531,7 +530,7 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear();//기본년도 세팅
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
 		fn_fcltMngCreateGrid01();
@@ -540,10 +539,10 @@
 
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -714,9 +713,9 @@
 		SBGridProperties.frozencols=4;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
-			{caption: ["구분","구분","구분"], 			ref: 'sttgUpbrItemNm',	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["구분","구분","구분"], 			ref: 'sttgUpbrItemNm',	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -724,50 +723,56 @@
 			/*= 수탁 =*/
 			{caption: ["수탁","공동선별수탁","물량(톤)"], ref: 'prchsSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","공동선별수탁","금액(천원)"], ref: 'prchsSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["수탁","공동선별수탁","금액(천원)"], ref: 'prchsSortTrstAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["수탁","공동출하수탁","물량(톤)"], ref: 'prchsSpmtTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","공동출하수탁","금액(천원)"], ref: 'prchsSpmtTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["수탁","공동출하수탁","금액(천원)"], ref: 'prchsSpmtTrstAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["수탁","단순수탁","물량(톤)"], ref: 'prchsSmplTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","단순수탁","금액(천원)"], ref: 'prchsSmplTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["수탁","단순수탁","금액(천원)"], ref: 'prchsSmplTrstAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["수탁","수탁소계","물량(톤)"], ref: 'prchsTrstVlm',   	type:'output',  width:'50px',    style:'text-align:center'
 				,calc : 'fn_trstVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","수탁소계","금액(천원)"], ref: 'prchsTrstAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;'
+			{caption: ["수탁","수탁소계","금액(천원)"], ref: 'prchsTrstAmt',   	type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				,calc : 'fn_trstAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			/*= 매취 =*/
 			{caption: ["매취","공동선별매취","물량(톤)"], 	ref: 'prchsSortEmspapVlm',   type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","공동선별매취","금액(천원)"], 	ref: 'prchsSortEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["매취","공동선별매취","금액(천원)"], 	ref: 'prchsSortEmspapAmt',   type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["매취","단순매취","물량(톤)"], 	ref: 'prchsSmplEmspapVlm',   type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","단순매취","금액(천원)"], 	ref: 'prchsSmplEmspapAmt',   type:'input',  width:'100px',    style:'text-align:center'
+			{caption: ["매취","단순매취","금액(천원)"], 	ref: 'prchsSmplEmspapAmt',   type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["매취","매취소계","물량(톤)"], 	ref: 'prchsEmspapVlm',   type:'output',  width:'50px',    style:'text-align:center'
 				,calc : 'fn_emspapVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","매취소계","금액(천원)"], ref: 'prchsEmspapAmt',   type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;'
+			{caption: ["매취","매취소계","금액(천원)"], ref: 'prchsEmspapAmt',   type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				,calc : 'fn_emspapAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			/*= 매입 합계 =*/
-			{caption: ["합계","합계","물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:center'
+			{caption: ["합계","합계","물량(톤)"], 	ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:center'
 				,calc : 'fn_prchsVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["합계","합계","금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'100px',    style:'text-align:center'
+			{caption: ["합계","합계","차이"], 		ref: 'prchsTotVlmDiff',   		type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
+				, calc : 'fn_prchsVlmDiff'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","합계","금액(천원)"], 	ref: 'prchsTotAmt',   		type:'output',  width:'90px',    style:'text-align:center'
 				,calc : 'fn_prchsAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["합계","합계","차이"], 		ref: 'prchsTotAmtDiff',   		type:'output',  width:'90px',    style:'text-align:center; background-color: lightgray'
+				, calc : 'fn_prchsAmtDiff'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*= 기타 =*/
 			/*
 			{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:center'
@@ -851,11 +856,46 @@
 	function fn_prchsVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(gfn_nvl(rowData.prchsSortTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
-				+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
-				+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm));
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = Number(gfn_nvl(rowData.prchsSortTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm));
+		}else{
+			sumVal = rowData.prchsTotVlm;
+		}
+
+		return sumVal;
+	}
+	//매입 물량 합계 차이
+	function fn_prchsVlmDiff(objGrid, nRow, nCol){
+		nRow = Number(nRow);
+		nCol = Number(nCol);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		if(rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
+			sumVal = Number(gfn_nvl(rowData.prchsTotVlm)) -
+					(
+							Number(gfn_nvl(rowData.prchsSortTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSpmtTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
+							+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
+							+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm))
+					);
+			console.log(sumVal);
+			if(sumVal === 0){
+				console.log('0');
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
+			}else{
+				console.log('!0');
+				console.log(nRow,nCol);
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'red');
+			}
+			return sumVal;
+		}else{
+			sumVal = '';
+		}
 		return sumVal;
 	}
 
@@ -863,11 +903,43 @@
 	function fn_prchsAmtSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		sumVal = Number(gfn_nvl(rowData.prchsSortTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
-				+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
-				+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt));
+		if(rowData.sttgUpbrItemSe == '3'){
+			sumVal = Number(gfn_nvl(rowData.prchsSortTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt));
+		}else{
+			sumVal = rowData.prchsTotAmt;
+		}
+		return sumVal;
+	}
+
+	//매입 금액 합계 차이
+	function fn_prchsAmtDiff(objGrid, nRow, nCol){
+		nRow = Number(nRow);
+		nCol = Number(nCol);
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		//금액의 경우 기타인 경우만 합산 처리
+		if(rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
+			sumVal = Number(gfn_nvl(rowData.prchsTotAmt)) -
+					(
+					Number(gfn_nvl(rowData.prchsSortTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSpmtTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
+					+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
+					+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt))
+					);
+			if(sumVal === 0){
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
+			}else{
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'red');
+			}
+			return sumVal;
+		}else{
+			sumVal = '';
+		}
 		return sumVal;
 	}
 
@@ -943,9 +1015,9 @@
 		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -956,7 +1028,7 @@
 				,calc : 'fn_totTrmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액(천원)"]
-				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,calc : 'fn_totTrmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			/*취급액 공제 실적*/
@@ -964,32 +1036,32 @@
 				,ref: 'ddcExprtVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체수출","금액(천원)"]
-				,ref: 'ddcExprtAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcExprtAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","물량(톤)"]
 				,ref: 'ddcVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","자체공판장","금액(천원)"]
-				,ref: 'ddcAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","물량(톤)"]
 				,ref: 'ddcArmyDlvgdsVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","군납","금액(천원)"]
-				,ref: 'ddcArmyDlvgdsAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcArmyDlvgdsAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","물량(톤)"]
 				,ref: 'ddcMlsrVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","학교급식","금액(천원)"]
-				,ref: 'ddcMlsrAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcMlsrAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","물량(톤)"]
 				,ref: 'ddcTotVlm',   	type:'output',  width:'50px',    style:'text-align:center'
 				, calc : 'fn_ddcTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액(천원)"]
-				,ref: 'ddcTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'ddcTotAmt',   	type:'output',  width:'90px',    style:'text-align:center'
 				, calc : 'fn_ddcTotAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
@@ -999,7 +1071,7 @@
 				, calc : 'fn_ajmtVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","조정 취급실적","조정 취급실적","금액(A)"]//전문품목 매입매출 화면의 매출 총합
-				,ref: 'ajmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
+				,ref: 'ajmtAmt',   	type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;' , fixedstyle:'border-right-color: black !important;'
 				, calc : 'fn_ajmtAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
@@ -1196,9 +1268,9 @@
 		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
-			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'60px',    style:'text-align:center'},
+			{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","소속 통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
@@ -1208,20 +1280,20 @@
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","금액(천원)"]//전문품목 매입매출 화면의 매입 총합
-				,ref: 'totSpmtPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'totSpmtPrfmncAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","물량(톤)"]
 				,ref: 'smplInptVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","단순기표","단순기표","금액(천원)"]
-				,ref: 'smplInptAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'smplInptAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","인정 출하실적","인정 출하실적","물량(톤)"]
 				,ref: 'spmtPrfmncVlm',   	type:'output',  width:'50px',    style:'text-align:center'
 				,calc: 'fn_spmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","인정 출하실적","인정 출하실적","금액(B)"]
-				,ref: 'spmtPrfmncAmt',   	type:'output',  width:'100px',    style:'text-align:center;border-right-color: black !important;'
+				,ref: 'spmtPrfmncAmt',   	type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				,calc: 'fn_spmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
@@ -1229,31 +1301,31 @@
 				,ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별수탁","금액(천원)"]
-				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","물량(톤)"]
 				,ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동선별매취","금액(천원)"]
-				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","물량(톤)"]
 				,ref: 'slsCprtnTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","공동출하수탁","금액(천원)"]
-				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnTrstAmt',   	type:'input',  width:'90px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","물량(톤)"]
 				,ref: 'slsCprtnTotVlm',   	type:'output',  width:'50px',    style:'text-align:center'
 				,calc: 'fn_slsCprtnTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액(천원)"]
-				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'90px',    style:'text-align:center'
 				,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)","출자출하조직\n출하율\n(B/A)"]
-				,ref: 'spmtRtAmt',   	type:'output',  width:'100px',    style:'text-align:center'
+			{caption: ["출자출하조직\n출하율\n(B/A)\n(B:인정 출하실적)\n(A:조정 취급실적)","출자출하조직\n출하율\n(B/A)\n(B:인정 출하실적)\n(A:조정 취급실적)","출자출하조직\n출하율\n(B/A)\n(B:인정 출하실적)\n(A:조정 취급실적)","출자출하조직\n출하율\n(B/A)\n(B:인정 출하실적)\n(A:조정 취급실적)"]
+				,ref: 'spmtRtAmt',   	type:'output',  width:'105px',    style:'text-align:center'
 				,calc: 'fn_spmtRtAmt'
 			},
 
@@ -1478,6 +1550,10 @@
 	/* 출력물 */
 	const fn_report = async function() {
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
@@ -1510,7 +1586,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1532,7 +1608,7 @@
 			, uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -1548,6 +1624,10 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
@@ -1579,7 +1659,7 @@
 		}
 		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1606,7 +1686,7 @@
 		,stbltHldYn : stbltHldYn //적합품목 보유 여부
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		,userType : '21'
 		,stbltYnBrno : brno
 		</c:if>
@@ -1625,7 +1705,7 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
@@ -2251,7 +2331,8 @@
 
 				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
 				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotVlm, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotAmt, i, prchsTotAmt, 'lightgray');
 				//해당 타입 위치 저장
 			}else if (rowData.sttgUpbrItemSe == '3') {
 				objGrid01.setCellDisabled(i, prchsSortTrstVlm, i, prchsSortTrstAmt, false);
@@ -2266,7 +2347,8 @@
 
 				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
 				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
-				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotAmt, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotVlm, i, prchsTotVlm, 'lightgray');
+				objGrid01.setCellStyle('background-color', i, prchsTotAmt, i, prchsTotAmt, 'lightgray');
 			}else{
 				objGrid01.setCellDisabled(i, sttgUpbrItemNm01, i, prchsTotAmt, true);
 				objGrid01.setCellStyle('background-color', i, sttgUpbrItemNm01, i, prchsTotAmt, 'lightgray');
@@ -2380,11 +2462,11 @@
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
 		//출자출하조직이 아닌경우
-		<c:if test="${loginVO.userType ne '22'}">
+		<c:if test="${loginVO.apoSe ne '2'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '2'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 

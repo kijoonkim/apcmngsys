@@ -703,44 +703,53 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 									, YR
 									, STTG_UPBR_ITEM_SE
 									, CTGRY_CD
-									, TO_CHAR(BRNO) AS UO_BRNO
-									, #{brno} AS BRNO
+									, UO_BRNO
+									, BRNO
 									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
 									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
 									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
 								FROM TB_EV_APO_YR_GPC_CD AYGC
 								WHERE 1=1
+								  AND APO_SE = '2'
+								<if test='brno != null and brno != ""'>
+								  AND BRNO = #{brno}
+								</if>
 								<if test='uoBrno != null and uoBrno != ""'>
-							  	  AND BRNO = #{uoBrno}
-							  	</if>
-							  	<if test='yr != null and yr != ""'>
-							  	  AND YR = #{yr}
-							  	</if>
+								  AND UO_BRNO = #{uoBrno}
+								</if>
+								<if test='yr != null and yr != ""'>
+								  AND YR = #{yr}
+								</if>
 							) ITEM ,
 							(SELECT
 									BRNO
 									, ITEM_CD
 									, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
-								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
 								WHERE 1=1
-								AND APO_SE = '2'
-								AND TYPE_SE_NO IN ('5')
-								AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO IN ('5')
+								  AND OGNZ_STBLT_YN = 'Y'
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
+								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 														FROM TB_EV_FRMHS_APO
 														WHERE 1=1
 														  AND STBLT_YN = 'Y'
 														  AND NVL(EXCL_YN,'N') != 'Y'
 														  AND APO_SE = '2'
-														<if test='brno != null and brno != ""'>
-														  AND BRNO = #{brno}
-														</if>
-														<if test='uoBrno != null and uoBrno != ""'>
-														  AND UO_BRNO = #{uoBrno}
-														</if>
-														<if test='yr != null and yr != ""'>
-														  AND YR = #{yr}
-														</if>
+														  AND YR = PSTA.YR
+														  AND BRNO = PSTA.BRNO
+														  AND UO_BRNO = PSTA.UO_BRNO
+													)
+								  AND ITEM_CD IN (SELECT ITEM_CD
+													FROM TB_EV_APO_YR_GPC_CD
+													WHERE 1=1
+													  AND APO_SE = '2'
+													  AND YR = PSTA.YR
+													  AND BRNO = PSTA.BRNO
+													  AND UO_BRNO = PSTA.UO_BRNO
 													)
 								<if test='uoBrno != null and uoBrno != ""'>
 								  AND UO_BRNO = #{uoBrno}
@@ -751,7 +760,6 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								<if test='yr != null and yr != ""'>
 								  AND YR = #{yr}
 								</if>
-
 									GROUP BY  BRNO , ITEM_CD
 							) TOTA ,
 							(SELECT
@@ -759,11 +767,35 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 									, ITEM_CD
 									, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
-								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
 								WHERE 1=1
-								AND APO_SE = '2'
-								AND TYPE_SE_NO IN ('7')
-
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO IN ('5','7')
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
+								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
+								  AND (
+										PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+															FROM TB_EV_FRMHS_APO
+															WHERE 1=1
+															  AND STBLT_YN = 'N'
+															  AND NVL(EXCL_YN,'N') != 'Y'
+															  AND APO_SE = '2'
+															  AND YR = PSTB.YR
+															  AND BRNO = PSTB.BRNO
+															  AND UO_BRNO = PSTB.UO_BRNO
+													)
+										OR
+										PRDCR_OGNZ_SN = '0'
+										)
+								  AND ITEM_CD IN (SELECT ITEM_CD
+													FROM TB_EV_APO_YR_GPC_CD
+													WHERE 1=1
+													  AND APO_SE = '2'
+													  AND YR = PSTB.YR
+													  AND BRNO = PSTB.BRNO
+													  AND UO_BRNO = PSTB.UO_BRNO
+													)
 								<if test='uoBrno != null and uoBrno != ""'>
 								  AND UO_BRNO = #{uoBrno}
 								</if>
@@ -773,7 +805,6 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 								<if test='yr != null and yr != ""'>
 								  AND YR = #{yr}
 								</if>
-
 								GROUP BY  BRNO , ITEM_CD
 							) TOTB
 						WHERE 1=1

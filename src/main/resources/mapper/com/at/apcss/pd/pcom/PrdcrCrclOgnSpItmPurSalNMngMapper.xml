@@ -757,14 +757,13 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
 								FROM TB_EV_APO_YR_GPC_CD AYGC
 								WHERE 1=1
-
+								  AND APO_SE = '1'
 								<if test='brno != null and brno != ""'>
 								  AND BRNO = #{brno}
 								</if>
 								<if test='yr != null and yr != ""'>
 								  AND YR = #{yr}
 								</if>
-
 							) ITEM ,
 							(SELECT
 									BRNO
@@ -772,9 +771,11 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
-								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('2','6')
-								AND (
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO IN ('2','6')
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
+								  AND (
 										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
@@ -806,9 +807,11 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
-								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('2','3','6','7')
-								AND (
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO IN ('2','3','6','7')
+								  AND CTGRY_CD IS NULL
+								  AND CLTVTN_LAND_SN IS NULL
+								  AND (
 										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1

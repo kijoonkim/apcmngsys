@@ -45,4 +45,12 @@ public interface RawMtrWrhsPrnmntService {
      * @throws Exception
      */
     public HashMap<String, Object> insertRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
+
+    /**
+     * 입고예정 저장
+     * @param rawMtrWrhsPrnmntVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> multiRawMtrWrhsPrnmnt(RawMtrWrhsPrnmntVO rawMtrWrhsPrnmntVO) throws Exception;
 }

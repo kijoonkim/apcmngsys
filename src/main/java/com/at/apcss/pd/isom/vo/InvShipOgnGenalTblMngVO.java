@@ -53,6 +53,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String stbltYn;
 	private String orgStbltYn;
 	private String lastStbltYn;//최종 선정여부
+	private String ognzStbltYn;//조직 적합여부
 
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;

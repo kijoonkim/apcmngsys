@@ -520,7 +520,7 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 		//관리자만 사용 예정
 		//await fn_dtlSearch();
 	</c:if>

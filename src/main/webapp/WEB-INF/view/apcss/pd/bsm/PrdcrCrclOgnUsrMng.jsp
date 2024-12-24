@@ -32,7 +32,7 @@
 						</c:if>
 						<sbux-button id="test" name="test" uitype="normal" text="사용자 변경" class="btn btn-sm btn-outline-danger" onclick="fn_userChange"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+					<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 						<!--
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 						-->
@@ -226,6 +226,7 @@
 								<sbux-input id="dtl-input-crno" name="dtl-input-crno" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-input-typeCd" name="dtl-input-typeCd" uitype="hidden"></sbux-input>
 								<sbux-input id="dtl-input-userType" name="dtl-input-userType" uitype="hidden"></sbux-input>
+								<sbux-input id="dtl-input-apoSe" name="dtl-input-apoSe" uitype="hidden"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-userId"
@@ -263,7 +264,7 @@
 							</td>
 							<td colspan="2" class="td_input" style="border-right: hidden;" ></td>
 						</c:if>
-						<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+						<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 							<td colspan="6" class="td_input" style="border-right: hidden;" ></td>
 						</c:if>
 							<th scope="row" class="th_bg">관할기관</th>
@@ -556,7 +557,7 @@
 		//SBUxMethod.attr("dtl-input-coNm", "readonly", "false");//법인명
 		//SBUxMethod.attr("dtl-input-cmptncInst", "readonly", "false");//관할기관
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 	</c:if>
@@ -608,6 +609,7 @@
 
 			{caption: ["1차승인일"], 	ref: 'userType',   		hidden : true},
 			{caption: ["전화번호"], 	ref: 'telno',   			hidden : true},
+			{caption: ["조직 구분"], 	ref: 'apoSe',   			hidden : true},
 			{caption: ["이름"], 		ref: 'userNm',   			hidden : true},
 			{caption: ["핸드폰번호"], 	ref: 'mblTelno',   			hidden : true},
 			{caption: ["2차승인일"], 	ref: 'cmptncInstAprvYmd',   hidden : true},
@@ -717,6 +719,8 @@
 				  , coTelno 		: item.coTelno
 				  , mbrUpdtYn 		: item.mbrUpdtYn
 				  , mbrUpdtTm 		: item.mbrUpdtTm
+
+				  , apoSe 			: item.apoSe
 
 
 				  , cmptncInst 	: item.cmptncInst
@@ -839,7 +843,7 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 				fn_dtlSearch();
 			</c:if>
 			} else {
@@ -913,6 +917,9 @@
 		SBUxMethod.set("dtl-input-cmptncInstAprvYmd", gfn_nvl(rowData.cmptncInstAprvYmd));  //  관할기관승인일
 		SBUxMethod.set("dtl-input-userAprvYmd", gfn_nvl(rowData.userAprvYmd));  //  사용자승인일
 		SBUxMethod.set("dtl-input-coNm", gfn_nvl(rowData.coNm));  //  법인명
+
+		SBUxMethod.set("dtl-input-apoSe", gfn_nvl(rowData.apoSe));
+
 		if(rowData.userStts == '01'){
 			SBUxMethod.set("dtl-input-cmptncInstAprvSe", gfn_nvl(rowData.cmptncInstAprvSe));  //  2차승인
 			SBUxMethod.attr("dtl-input-cmptncInstAprvSe", "readonly", "false");
@@ -1060,6 +1067,7 @@
 		let brno = SBUxMethod.get("dtl-input-brno");
 		let crno = SBUxMethod.get("dtl-input-crno");
 		let typeCd = SBUxMethod.get("dtl-input-typeCd");
+		let apoSe = SBUxMethod.get("dtl-input-apoSe");
 
 		let postJsonPromise = gfn_postJSON("/userChange.do", {
 			userId : userId
@@ -1067,6 +1075,7 @@
 			,crno : crno
 			,typeCd : typeCd
 			,userType : userType
+			,apoSe : apoSe
 		});
 		let data = await postJsonPromise;
 

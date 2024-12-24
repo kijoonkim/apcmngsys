@@ -22,7 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
@@ -30,7 +30,7 @@
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 
 					<!--
@@ -73,12 +73,12 @@
 									id="srch-input-yr"
 									name="srch-input-yr"
 									uitype="normal"
-                					step-value="1"
-                				></sbux-spinner>
-                				<sbux-checkbox
-                					id="srch-input-yrChk"
-                					name="srch-input-yrChk"
-                					uitype="normal"
+									step-value="1"
+								></sbux-spinner>
+								<sbux-checkbox
+									id="srch-input-yrChk"
+									name="srch-input-yrChk"
+									uitype="normal"
 									text="해당년도 신청사용자만 보기"
 									text-left-padding="5px"
 									text-right-padding="25px"
@@ -237,7 +237,7 @@
 					</tbody>
 				</table>
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -389,7 +389,7 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear()//기본년도 세팅
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
 		fn_fcltMngCreateGrid01();
@@ -397,10 +397,10 @@
 
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -622,8 +622,6 @@
 		//grdPrdcrOgnCurntMng.refresh({"combo":true});
 		//클릭 이벤트 바인드
 		//grdPrdcrOgnCurntMng.bind('click','gridClick');
-
-
 	}
 
 	/**
@@ -678,7 +676,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -700,7 +698,7 @@
 			,uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/searchList2.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -714,6 +712,10 @@
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//통합조직인 경우
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
@@ -745,7 +747,7 @@
 		}
 		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -772,7 +774,7 @@
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 			</c:if>
 
-			<c:if test="${loginVO.userType eq '21'}">
+			<c:if test="${loginVO.apoSe eq '1'}">
 			,userType : '21'
 			,stbltYnBrno : brno
 			</c:if>
@@ -914,7 +916,7 @@
 			return;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngList.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngListNew.do", {
 			apoCd : apoCd
 			,apoSe : apoSe
 			,itemCd : itemCd
@@ -1017,7 +1019,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1033,7 +1035,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		fn_clearForm();
 
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
@@ -1066,11 +1068,11 @@
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
 		//출자출하조직이 아닌경우
-		<c:if test="${loginVO.userType ne '22'}">
+		<c:if test="${loginVO.apoSe ne '2'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '2'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 
@@ -1095,8 +1097,9 @@
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
-				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
-				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				await SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				fn_dtlGridSearch();
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1244,8 +1247,8 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList.do", {
-		    yr : yr
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataListNew.do", {
+				yr : yr
 			});
 
 			let data = await postJsonPromise;

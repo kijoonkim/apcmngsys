@@ -34,6 +34,7 @@ import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.co.sys.vo.LoginVO;
+import com.at.apcss.co.user.service.ComUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ubintis.api.ApiUserService;
 import com.ubintis.common.util.AddressUtil;
@@ -71,7 +72,10 @@ public class LoginController extends BaseController {
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
-	
+
+	@Resource(name = "comUserService")
+	private ComUserService comUserService;
+
 	@Autowired
 	ComLogService comLogService;
 
@@ -186,14 +190,14 @@ public class LoginController extends BaseController {
 						} else {
 							// 정상 로그인 진행
 
-							
-							// 
+
+							//
 							logger.debug("untyOgnzCd {}", resultVO.getUntyOgnzCd());
 							logger.debug("ognzCd {}", resultVO.getOgnzCd());
 							logger.debug("ognzNm {}", resultVO.getOgnzNm());
 							logger.debug("corpCd {}", resultVO.getCorpCd());
 							logger.debug("corpNm {}", resultVO.getCorpNm());
-							
+
 							if (!"prd".equals(getServerType())) {
 								//----------------------------------------------------------------------------
 								//경영관리 쎄션정보 가져오기
@@ -201,15 +205,15 @@ public class LoginController extends BaseController {
 								gmap1.put("procedure", 			"JPSESSIONINFO");
 								gmap1.put("getType", 			"json");
 								gmap1.put("cv_count", 			"1");
-								
+
 					    		String gmap2[][] = {
 									{"V_P_LANG_ID",			"KOR"},
 									{"V_P_USERID",			resultVO.getUserId()},
 									{"V_P_PARAM1",			""},
 									{"V_P_PARAM2",			""}
 					        	};
-								Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
-								
+								Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
+
 								//쎄션에 저장
 								Map<String, Object> gmap4 = new HashMap<String, Object>();
 								List<Map<String, Object>> list2 = (ArrayList<Map<String,Object>>)gmap3.get("cv_1");
@@ -220,7 +224,7 @@ public class LoginController extends BaseController {
 								}
 								request.getSession().setAttribute("maSessionInfo", gmap4);
 								logger.debug("=======>>>>>>>>>>>>>>>>>>>maSessionInfo" + gmap4);
-								
+
 								//경영관리 쎄션정보
 								resultVO.setMaBaseCurrCode(nvl(gmap4.get("BASECURRCODE")));
 								resultVO.setMaBaseLangID(nvl(gmap4.get("BASELANGID")));
@@ -294,10 +298,10 @@ public class LoginController extends BaseController {
 								resultVO.setMaUserID(nvl(gmap4.get("USERID")));
 								resultVO.setMaUserName(nvl(gmap4.get("USERNAME")));
 								//----------------------------------------------------------------------------
-								
+
 							}
-							
-							
+
+
 							resultMap.put(ComConstants.PROP_LOGIN_CODE, ComConstants.LOGIN_SUCCESS);
 							resultMap.put(ComConstants.PROP_LOGIN_MESSAGE, null);
 
@@ -318,7 +322,7 @@ public class LoginController extends BaseController {
 							if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 									|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 								resultVO.setApcAdminType(userType);
-								
+
 								List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
 								for ( ApcInfoVO apc : apcInfoList ) {
 
@@ -334,16 +338,43 @@ public class LoginController extends BaseController {
 									logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 
 								}
-								
-							} else {
-								apcInfoVO.setUserId(userId);								
+
+							} else if (ComConstants.CON_USER_TYPE_PRDCR.equals(userType)) {
+
+								List<HashMap<String, Object>> prdcrResultList;
+								HashMap<String, Object> comUserVO = new HashMap<String, Object>();
+								comUserVO.put("userId", resultVO.getId());
+								comUserVO.put("apcCd", resultVO.getApcCd());
+								prdcrResultList = comUserService.selectUserPrdcrList(comUserVO);
+
+								if (prdcrResultList != null && !prdcrResultList.isEmpty()) {
+
+									request.getSession().setAttribute("prdcrResultList", objMapper.writeValueAsString(prdcrResultList));
+								} else {
+									request.getSession().setAttribute("prdcrResultList", null);
+
+								}
+
+								apcInfoVO.setUserId(userId);
 								List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
-								
+
 								if (apcInfoList != null && !apcInfoList.isEmpty()) {
 									for ( ApcInfoVO apc : apcInfoList ) {
-	
+
 										ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-										BeanUtils.copyProperties(apc, comApcJsonVO);	
+										BeanUtils.copyProperties(apc, comApcJsonVO);
+										comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+									}
+								}
+							} else {
+								apcInfoVO.setUserId(userId);
+								List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+
+								if (apcInfoList != null && !apcInfoList.isEmpty()) {
+									for ( ApcInfoVO apc : apcInfoList ) {
+
+										ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+										BeanUtils.copyProperties(apc, comApcJsonVO);
 										comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 									}
 								}
@@ -353,7 +384,7 @@ public class LoginController extends BaseController {
 							if (StringUtils.hasText(loginInfo)) {
 								request.getSession().setAttribute("loginInfo", loginInfo);
 							}
-							
+
 							if (comApcList != null && !comApcList.isEmpty()) {
 								request.getSession().setAttribute("comApcList", comApcList);
 							} else {
@@ -513,6 +544,9 @@ public class LoginController extends BaseController {
 
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
 			String userType = resultVO.getUserType();
+
+			logger.debug("userType >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ", userType);
+
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 				resultVO.setApcAdminType(userType);
@@ -531,16 +565,42 @@ public class LoginController extends BaseController {
 					logger.debug(objMapper.writeValueAsString(comApcJsonVO));
 
 				}
-			} else {
-				//apcInfoVO.setApcCd(resultVO.getApcCd());
-				apcInfoVO.setUserId(userId);								
+			} else if (ComConstants.CON_USER_TYPE_PRDCR.equals(userType)) {
+
+				List<HashMap<String, Object>> prdcrResultList;
+				HashMap<String, Object> comUserVO = new HashMap<String, Object>();
+				comUserVO.put("userId", resultVO.getId());
+				comUserVO.put("apcCd", resultVO.getApcCd());
+				prdcrResultList = comUserService.selectUserPrdcrList(comUserVO);
+
+				if (prdcrResultList != null && !prdcrResultList.isEmpty()) {
+					model.addAttribute("prdcrResultList", objMapper.writeValueAsString(prdcrResultList));
+				} else {
+					model.addAttribute("prdcrResultList", null);
+				}
+
+				apcInfoVO.setUserId(userId);
 				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
-				
+
 				if (apcInfoList != null && !apcInfoList.isEmpty()) {
 					for ( ApcInfoVO apc : apcInfoList ) {
 
 						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-						BeanUtils.copyProperties(apc, comApcJsonVO);	
+						BeanUtils.copyProperties(apc, comApcJsonVO);
+						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+					}
+				}
+			} else {
+
+				//apcInfoVO.setApcCd(resultVO.getApcCd());
+				apcInfoVO.setUserId(userId);
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+
+				if (apcInfoList != null && !apcInfoList.isEmpty()) {
+					for ( ApcInfoVO apc : apcInfoList ) {
+
+						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+						BeanUtils.copyProperties(apc, comApcJsonVO);
 						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 					}
 				}
@@ -665,10 +725,13 @@ public class LoginController extends BaseController {
 
 			// 로그인 사용자가 시스템관리자, AT관리자 일 경우 APC리스트를 세션에 저장
 			String userType = resultVO.getUserType();
+
+			logger.debug("userType >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ", userType);
+
 			if (ComConstants.CON_USER_TYPE_SYS.equals(userType)
 					|| ComConstants.CON_USER_TYPE_AT.equals(userType)) {
 				resultVO.setApcAdminType(userType);
-				
+
 				List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(apcInfoVO);
 				for ( ApcInfoVO apc : apcInfoList ) {
 					ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
@@ -682,27 +745,52 @@ public class LoginController extends BaseController {
 					comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 				}
 
-			} else {
-				//apcInfoVO.setApcCd(resultVO.getApcCd());
-				apcInfoVO.setUserId(id);								
+			} else if (ComConstants.CON_USER_TYPE_PRDCR.equals(userType)) {
+
+				List<HashMap<String, Object>> prdcrResultList;
+				HashMap<String, Object> comUserVO = new HashMap<String, Object>();
+				comUserVO.put("userId", resultVO.getId());
+				comUserVO.put("apcCd", resultVO.getApcCd());
+				prdcrResultList = comUserService.selectUserPrdcrList(comUserVO);
+
+				if (prdcrResultList != null && !prdcrResultList.isEmpty()) {
+					request.getSession().setAttribute("prdcrResultList", objMapper.writeValueAsString(prdcrResultList));
+				} else {
+					request.getSession().setAttribute("prdcrResultList", null);
+
+				}
+
+				apcInfoVO.setUserId(id);
 				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
-				
+
 				if (apcInfoList != null && !apcInfoList.isEmpty()) {
 					for ( ApcInfoVO apc : apcInfoList ) {
 
 						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
-						BeanUtils.copyProperties(apc, comApcJsonVO);	
+						BeanUtils.copyProperties(apc, comApcJsonVO);
+						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
+					}
+				}
+			} else {
+				apcInfoVO.setUserId(id);
+				List<ApcInfoVO> apcInfoList = apcInfoService.selectUserApcList(apcInfoVO);
+
+				if (apcInfoList != null && !apcInfoList.isEmpty()) {
+					for ( ApcInfoVO apc : apcInfoList ) {
+
+						ComApcJsonVO comApcJsonVO = new ComApcJsonVO();
+						BeanUtils.copyProperties(apc, comApcJsonVO);
 						comApcList.add(objMapper.writeValueAsString(comApcJsonVO));
 					}
 				}
 			}
 
-			
+
 			String loginInfo = objMapper.writeValueAsString(resultVO);
 			if (StringUtils.hasText(loginInfo)) {
 				request.getSession().setAttribute("loginInfo", loginInfo);
 			}
-			
+
 			if (comApcList != null && !comApcList.isEmpty()) {
 				request.getSession().setAttribute("comApcList", comApcList);
 			} else {
@@ -793,9 +881,9 @@ public class LoginController extends BaseController {
 
 		return "redirect:/main.do";
 	}
-	
+
 	private static String nvl(Object obj) {
 		return (obj==null) ? "" : obj.toString();
 	}
-	
+
 }

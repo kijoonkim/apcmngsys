@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.aom.service.InvShipOgnReqMngService;
 import com.at.apcss.pd.aom.vo.GpcVO;
 import com.at.apcss.pd.aom.vo.InvShipOgnReqMngVO;
@@ -67,6 +68,16 @@ public class InvShipOgnReqMngController extends BaseController{
 
 		try {
 			insertedCnt = InvShipOgnReqMngService.insertInvShipOgnReqMng(InvShipOgnReqMngVO);
+
+			if(insertedCnt > 0) {
+				LoginVO sessionLoginVo =(LoginVO) requset.getSession().getAttribute("loginVO");
+				String apoSe = sessionLoginVo.getApoSe();
+				String mbrTypeCd = sessionLoginVo.getMbrTypeCd();
+				if(apoSe == null && "1".equals(mbrTypeCd)) {
+					sessionLoginVo.setApoSe("2");
+					requset.getSession().setAttribute("loginVO", sessionLoginVo);
+				}
+			}
 
 			List<GpcVO> GpcVoList = InvShipOgnReqMngVO.getGpcList();
 			for (GpcVO gpcVO : GpcVoList) {

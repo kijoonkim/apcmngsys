@@ -36,4 +36,8 @@ public interface InvShipOgnGenalTblMngService {
 	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+
+	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 }

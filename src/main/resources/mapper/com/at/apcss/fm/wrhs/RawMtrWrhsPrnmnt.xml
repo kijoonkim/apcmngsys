@@ -33,6 +33,9 @@
         <![CDATA[
 				  pt0.*
     		      , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+    		      , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+    		      , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+    		      , (SELECT FN_GET_APC_NM(pt0.APC_CD) FROM DUAL) AS APC_NM
 
             FROM (
                 SELECT /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.selectRawMtrWrhsPrnmntList */
@@ -64,6 +67,12 @@
         </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
                   AND WP.PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd != ""'>
+                  AND WP.ITEM_CD = #{itemCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd != ""'>
+                  AND WP.VRTY_CD = #{vrtyCd}
         </if>
         <![CDATA[
              ORDER BY WP.APC_CD, PRNMNT_YMD DESC
@@ -151,4 +160,34 @@
             )
         ]]>
     </insert>
+
+    <!-- =======================================================================================    -->
+    <!-- NAME : com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt	    	-->
+    <!-- DESC : 입고예정 수정.	                                       			               	 	-->
+    <!-- =======================================================================================    -->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			                -->
+    <!-- ===========  	============  	========================================================    -->
+    <!-- 2024.12.23  	김호        	Initial Creation                                            -->
+    <!-- =======================================================================================    -->
+    <update id="updateRawMtrWrhsPrnmnt" parameterType="com.at.apcss.fm.wrhs.vo.RawMtrWrhsPrnmntVO">
+		<![CDATA[
+        UPDATE /* com.at.apcss.fm.wrhs.mapper.RawMtrWrhsPrnmntMapper.updateRawMtrWrhsPrnmnt */
+            TB_RAW_MTR_WRHS_PRNMNT
+           SET
+           	  ITEM_CD					= #{itemCd}
+           	, VRTY_CD					= #{vrtyCd}
+           	, PRNMNT_HR					= #{prnmntHr}
+           	, PRNMNT_YMD				= #{prnmntYmd}
+           	, PRNMNT_QNTT				= #{prnmntQntt}
+           	, PRNMNT_WGHT               = #{prnmntWght}
+           	, RMRK                      = #{rmrk}
+            , SYS_LAST_CHG_DT 		    = SYSDATE
+            , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+            , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+        WHERE APC_CD   = #{apcCd}
+          AND PRDCR_CD = #{prdcrCd}
+          AND PRNMNTNO = #{prnmntno}
+        ]]>
+	</update>
+
 </mapper>
