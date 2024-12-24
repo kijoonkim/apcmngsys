@@ -1060,7 +1060,6 @@
 	function fn_slsVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		console.log(rowData.sttgUpbrItemSe);
 		if(rowData.sttgUpbrItemSe == '3'){
 			sumVal = Number(gfn_nvl(rowData.slsCprtnSortTrstVlm))
 					+ Number(gfn_nvl(rowData.slsCprtnTrstVlm))

@@ -620,6 +620,12 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear()//기본년도 세팅
+	<c:if test="${loginVO.apoSe eq '1'}">
+		//통합조직 기본정보
+		SBUxMethod.set("dtl-input-userCorpNm","${loginVO.corpNm}");
+		SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
+		SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
+	</c:if>
 		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
