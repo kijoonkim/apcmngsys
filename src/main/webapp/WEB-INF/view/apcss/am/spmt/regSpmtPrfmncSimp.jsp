@@ -339,7 +339,11 @@
         vrtyInfoWrap : {
             CAROUSEL_LENGTH : 0,
             current : 0
-        }
+        },
+        spcfctInfoWrap :{
+            CAROUSEL_LENGTH : 0,
+            current : 0
+        },
     };
     let CAROUSEL_LENGTH = 0;
     let current = 0;
