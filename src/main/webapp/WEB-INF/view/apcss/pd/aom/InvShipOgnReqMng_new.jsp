@@ -40,12 +40,12 @@
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
 					-->
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
-					<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
+					<c:if test="${loginVO.apoSe eq '1'}">
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch01"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</c:if>
-					<c:if test="${loginVO.userType eq '22'}">
+					<c:if test="${loginVO.apoSe eq '2'}">
 						<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
 						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report3"></sbux-button>
 					</c:if>
@@ -775,7 +775,7 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		$(".uoInfo").hide();
 		$(".uoGrid").hide();
 		await fn_dtlSearch();
@@ -974,7 +974,7 @@
 
 		let uoBrno = rowData.brno;
 		</c:if>
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+		<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		let uoBrno = '${loginVO.brno}';
 		</c:if>
 
@@ -1399,11 +1399,11 @@
 	const fn_searchUoList = async function(){
 		//console.log('fn_searchUoList');
 		//출자출하조직이 아닌경우
-		<c:if test="${loginVO.userType ne '22'}">
+		<c:if test="${loginVO.apoSe ne '2'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '2'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 
@@ -1603,15 +1603,15 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 				//통합조직인 경우
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//console.log('통합조직인');
 				//fn_dtlSearch();
 				fn_dtlSearch01();
 				</c:if>
 				//출하조직인 경우
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 				//console.log('출하조직인');
 				fn_dtlSearch02();
 				</c:if>
@@ -1691,15 +1691,15 @@
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 				//통합조직인 경우
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//console.log('통합조직인');
 				//fn_dtlSearch();
 				fn_dtlSearch01();
 				</c:if>
 				//출하조직인 경우
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 				//console.log('출하조직인');
 				fn_dtlSearch02();
 				</c:if>
@@ -1747,7 +1747,7 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 			yr = SBUxMethod.set("srch-input-yr");
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 			yr = SBUxMethod.set("dtl-input-yr");
 			</c:if>
 
@@ -2756,7 +2756,7 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				fn_search();
 			</c:if>
-			<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22' || loginVO.mbrTypeCd eq '1'}">
+			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 				fn_dtlSearch();
 			</c:if>
 			} else {

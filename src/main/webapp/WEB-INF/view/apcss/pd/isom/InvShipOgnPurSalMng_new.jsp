@@ -22,7 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
@@ -30,7 +30,7 @@
 					 -->
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -236,9 +236,9 @@
 					</tbody>
 				</table>
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 				<!-- 통합조직 정보 , 통합조직 진척도 -->
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<table class="table table-bordered tbl_fixed">
 						<caption>통합조직 정보 표기</caption>
 						<tbody>
@@ -246,7 +246,6 @@
 								<th scope="row" class="th_bg th_border_right">법인명</th>
 								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
 								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
 								<td colspan="2" class="td_input">
 									<sbux-input
 										uitype="text"
@@ -392,7 +391,7 @@
 				</table>
 
 				<!-- 출자출하조직 진척도 -->
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<!--
 					%@ include file="../prgrs/PrgrsIso.jsp" %>
 					-->
@@ -531,7 +530,7 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		fn_setYear();//기본년도 세팅
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
 		fn_fcltMngCreateGrid01();
@@ -540,10 +539,10 @@
 
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -1587,7 +1586,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1609,7 +1608,7 @@
 			, uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/totalDoc1.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -1660,7 +1659,7 @@
 		}
 		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1687,7 +1686,7 @@
 		,stbltHldYn : stbltHldYn //적합품목 보유 여부
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		,userType : '21'
 		,stbltYnBrno : brno
 		</c:if>
@@ -1706,7 +1705,7 @@
 			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
@@ -2463,11 +2462,11 @@
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
 		//출자출하조직이 아닌경우
-		<c:if test="${loginVO.userType ne '22'}">
+		<c:if test="${loginVO.apoSe ne '2'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '2'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 

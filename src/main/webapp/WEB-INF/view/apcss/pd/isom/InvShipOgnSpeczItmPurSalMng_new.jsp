@@ -22,7 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 
@@ -32,7 +32,7 @@
 
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -236,9 +236,9 @@
 					</tbody>
 				</table>
 			</c:if>
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 				<!-- 통합조직 정보 , 통합조직 진척도 -->
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<table class="table table-bordered tbl_fixed">
 						<caption>통합조직 정보 표기</caption>
 						<tbody>
@@ -404,7 +404,7 @@
 				</table>
 
 				<!-- 출자출하조직 진척도 -->
-				<c:if test="${loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '2'}">
 					<!--
 					%@ include file="../prgrs/PrgrsIso.jsp" %>
 					-->
@@ -457,9 +457,9 @@
 	const fn_init = async function() {
 		fn_setYear()//기본년도 세팅
 		$("#dtl-input-uoBrno").hide();
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		$("#dtl-input-uoBrno").show();
 		$("#dtl-input-selUoBrno").hide();
 		</c:if>
@@ -469,10 +469,10 @@
 
 		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -957,7 +957,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -979,7 +979,7 @@
 			, uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/sptDoc1.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
@@ -1026,7 +1026,7 @@
 		}
 		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -1052,7 +1052,7 @@
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 			</c:if>
 
-			<c:if test="${loginVO.userType eq '21'}">
+			<c:if test="${loginVO.apoSe eq '1'}">
 			,userType : '21'
 			,stbltYnBrno : brno
 			</c:if>
@@ -1069,7 +1069,7 @@
 			let totalRecordCount = 0;
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				<c:if test="${loginVO.userType eq '21'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
@@ -1201,7 +1201,7 @@
 		SBUxMethod.set('dtl-input-uoBrno' , null);
 		fn_searchUoList();
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		//console.log(brno);
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
@@ -1410,7 +1410,7 @@
 
 			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
 			if(rowData01.typeSeNo == '5'){
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) !== 0){
 					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
 						objGrid.selectRow(i);
@@ -1418,8 +1418,8 @@
 					}
 				}
 
-				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) != 0 )
-						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0)){
+				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) !== 0 )
+						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) !== 0)){
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
 						objGrid.selectRow(i);
@@ -1427,14 +1427,14 @@
 					}
 				}
 
-				if(!gfn_isEmpty(rowData01.uoSpmtAmt) && Number(rowData01.uoSpmtAmt) != 0
-						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0 )){
+				if( Number(rowData01.uoSpmtAmt) > 0
+						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) === 0 )){
 					alert('매출 금액이 있는 경우 물량은 필수 입니다');
 					objGrid.selectRow(i);
 					return;
 				}
-				if(!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0
-						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0 )){
+				if( Number(rowData01.uoOtherSpmtAmt) > 0
+						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoOtherSpmtVlm) === 0 )){
 					alert('매출 금액이 있는 경우 물량은 필수 입니다');
 					objGrid.selectRow(i);
 					return;
@@ -1444,7 +1444,7 @@
 			//'생산자조직 외' 인 경우
 			//매입or매출 값이 있을경우 매입 매출 값을 입력 필수
 			if(rowData01.typeSeNo == '7'){
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) !== 0){
 					if(gfn_isEmpty(rowData01.uoSpmtAmt) && gfn_isEmpty(rowData01.uoOtherSpmtAmt)){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
 						objGrid.selectRow(i);
@@ -1452,8 +1452,8 @@
 					}
 				}
 				//매출 금액 둘중하나라도 존재하는 경우
-				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) != 0 )
-						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0)){
+				if((!gfn_isEmpty(rowData01.uoSpmtAmt) &&  Number(rowData01.uoSpmtAmt) !== 0 )
+						|| (!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) !== 0)){
 					//매입금액을 작성해야함
 					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt)){
 						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
@@ -1461,20 +1461,20 @@
 						return;
 					}
 				}
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
-						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+				if( Number(rowData01.slsCnsgnPrchsAmt) > 0
+						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) === 0)){
 					alert('매입 금액이 있는 경우 물량은 필수 입니다');
 					objGrid.selectRow(i);
 					return;
 				}
-				if(!gfn_isEmpty(rowData01.uoSpmtAmt) && Number(rowData01.uoSpmtAmt) != 0
-						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) == 0)){
+				if( Number(rowData01.uoSpmtAmt) > 0
+						&& (gfn_isEmpty(rowData01.uoSpmtVlm) || Number(rowData01.uoSpmtVlm) === 0)){
 					alert('매출 금액이 있는 경우 물량은 필수 입니다');
 					objGrid.selectRow(i);
 					return;
 				}
-				if(!gfn_isEmpty(rowData01.uoOtherSpmtAmt) && Number(rowData01.uoOtherSpmtAmt) != 0
-						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoOtherSpmtVlm) == 0)){
+				if( Number(rowData01.uoOtherSpmtAmt) > 0
+						&& (gfn_isEmpty(rowData01.uoOtherSpmtVlm) || Number(rowData01.uoOtherSpmtVlm) === 0)){
 					alert('매출 금액이 있는 경우 물량은 필수 입니다');
 					objGrid.selectRow(i);
 					return;
@@ -1522,11 +1522,11 @@
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
 	const fn_searchUoList = async function(){
 		//출자출하조직이 아닌경우
-		<c:if test="${loginVO.userType ne '22'}">
+		<c:if test="${loginVO.apoSe ne '2'}">
 		let brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
-		<c:if test="${loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '2'}">
 		let brno = '${loginVO.brno}';
 		</c:if>
 

@@ -66,6 +66,7 @@ public class LoginVO implements Serializable{
 	private String endLgnIp;
 	private String brno;
 	private String crno;
+	private String apoSe;
 
 	private String lgnRslt;
 	private String delYn;
@@ -82,7 +83,7 @@ public class LoginVO implements Serializable{
 
 	private String ognzCd;
 	private String ognzNm;
-	
+
 	private String clntCd;
 	private String corpCd;
 	private String corpNm;
@@ -102,13 +103,13 @@ public class LoginVO implements Serializable{
 
 	/** 회원유형코드 */
 	private String mbrTypeCd;
-	
+
 	/** 통합조직코드 */
 	private String untyOgnzCd;
-	
+
 	/** 권한관리자여부 */
 	private String authrtMngrYn;
-		
+
 	/** 통합조직ID */
 	private String untyOgnzId;
 
@@ -179,6 +180,12 @@ public class LoginVO implements Serializable{
 	}
 	public void setCrno(String crno) {
 		this.crno = crno;
+	}
+	public String getApoSe() {
+		return apoSe;
+	}
+	public void setApoSe(String apoSe) {
+		this.apoSe = apoSe;
 	}
 	/**
 	 * id attribute 를 리턴한다.

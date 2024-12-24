@@ -31,7 +31,7 @@
 
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -369,7 +369,7 @@
 		fn_fcltMngCreateGrid();
 		await fn_search();
 		</c:if>
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 		</c:if>
 
@@ -798,7 +798,7 @@
 		}
 		</c:if>
 
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
@@ -820,7 +820,7 @@
 			,uoBrno 		: gfn_nvl(uoBrno)
 		});
 		</c:if>
-		<c:if test="${loginVO.userType eq '21'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 		gfn_popClipReport("검색리스트", "pd/sptDoc5.crf", {
 			brno		: gfn_nvl(brno)
 			, yr		: gfn_nvl(yr)
