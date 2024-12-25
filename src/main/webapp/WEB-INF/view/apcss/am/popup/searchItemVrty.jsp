@@ -140,7 +140,7 @@
 			    }},
 		        {caption: ["생산자명"], 	ref: 'prdcrNm',  	type: 'output',  width:'100px',	style:'text-align:center'},
 		        {caption: ['품목코드'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItem', label:'itemNm', value:'itemCd'}, style:'text-align:center'},
-	        	{caption: ['품종코드'], ref: 'vrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'vrtyNm', value:'vrtyCd', filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false}},style:'text-align:center'},
+	        	{caption: ['품종코드'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'vrtyNm', value:'itemVrtyCd', filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false}},style:'text-align:center'},
 	        	{caption: ["순번"], 	ref: 'indctSeq',  	type: 'input',  width:'100px',	style:'text-align:center'},
 
 		        {caption: [""], 	ref: 'rmrk',  	type: 'output',  width:'100px',	style:'text-align:center'}
