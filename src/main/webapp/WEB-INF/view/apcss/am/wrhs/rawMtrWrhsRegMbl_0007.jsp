@@ -547,7 +547,10 @@
      * @description 저장 버튼
      */
     const fn_save = async function() {
-        await fn_add();
+        let flag = await fn_add() ?? true;
+        if(!flag){
+            return;
+        }
 
         let postJsonPromise;
         let postUrl ="/am/wrhs/insertRawMtrWrhsList.do";
@@ -1161,9 +1164,9 @@
         await SBUxMethod.set("srch-inp-pltno",jsonData.pltno);
     }
     const fn_add = async function(){
-        let check = gfn_getTableElement("saveTable","srch-",["pltno","wrhsno","vrtyCd"]);
+        let check = gfn_getTableElement("saveTable","srch-",["pltno","wrhsno","vrtyCd","chckr"]);
         if(!check){
-            return;
+            return false;
         }
         let wrhsSeCd = "2";			// 입고구분 : 수탁
         let gdsSeCd = "1";			// 상품구분

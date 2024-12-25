@@ -237,22 +237,24 @@
 	    SBGridPropertiesApcItem.oneclickedit = true;
 	    SBGridPropertiesApcItem.scrollbubbling = false;
 		SBGridPropertiesApcItem.clickeventarea = {empty: false, fixed: true};
+		SBGridPropertiesApcItem.filtering = true;
+		SBGridPropertiesApcItem.useinitsorting = true;
 	    SBGridPropertiesApcItem.columns = [
 	        {caption: ["삭제"], 	ref: 'empty',   type:'output',  width:'60px',    style:'text-align:center',
 	            renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	                return "<button type='button' class='btn btn-xs btn-outline-danger'  onClick='fn_deleteItem(" + nRow + ")'>삭제</button>";
 	        }},
 	        {caption: ["APC코드"], 		ref: 'apcCd',   	type:'input',  hidden : true},
-	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'70px',    style:'text-align:center'},
-	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'80px',    style:'text-align:center'},
-	        {caption: ["품종"],     	ref: 'vrtrCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
-	        {caption: ["규격"],     	ref: 'spcfctCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
-	        {caption: ["등급"],     	ref: 'grdCnt',  	type:'output',  width:'50px',    style:'text-align:center'},
-			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
-			{caption: ["설비연계"], 	ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'60px',    style:'text-align:center'},
-			{caption: ["GAP인증"],    	ref: 'gapCertNo',  	type:'input',  	width:'70px',    style:'text-align:center',
+	        {caption: ["코드"],     	ref: 'itemCd',  	type:'output',  width:'70px',filtering: {displayui : false},    style:'text-align:center'},
+	        {caption: ["명칭"],     	ref: 'itemNm',  	type:'output',  width:'80px',    filtering: {listsearch : true},  style:'text-align:center'},
+	        {caption: ["품종"],     	ref: 'vrtrCnt',  	type:'output',  width:'50px',filtering: {displayui : false},    style:'text-align:center'},
+	        {caption: ["규격"],     	ref: 'spcfctCnt',  	type:'output',  width:'50px',filtering: {displayui : false},    style:'text-align:center'},
+	        {caption: ["등급"],     	ref: 'grdCnt',  	type:'output',  width:'50px',filtering: {displayui : false},    style:'text-align:center'},
+			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',filtering: {displayui : false},	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
+			{caption: ["설비연계"], 	ref: 'extrnlLnkgCd',fixed:false,	type:'input',  width:'60px',filtering: {displayui : false},    style:'text-align:center'},
+			{caption: ["GAP인증"],    	ref: 'gapCertNo',  	type:'input',  	width:'70px',    style:'text-align:center', filtering: {displayui : false},
 				typeinfo :{mask : {alias : 'numeric'}}, maxlength: 7},
-			{caption: ["이력추적번호"], ref: 'hstryTrcMngNo',  	type:'input',  width:'100px',    style:'text-align:center',
+			{caption: ["이력추적번호"], ref: 'hstryTrcMngNo',  	type:'input',  width:'100px',filtering: {displayui : false},    style:'text-align:center',
 					typeinfo :{mask : {alias : 'numeric'}}, maxlength: 5},
 			{
 				caption: ["재고합산"],
@@ -260,6 +262,7 @@
 				type:'combo',
 				width:'80px',
 				style:'text-align:center;',
+				filtering: {displayui : false},
 				typeinfo : {
 					ref:'jsonItemInvntrInqAuCd',
 					displayui : false,
