@@ -1871,12 +1871,18 @@
 			FROM TB_GDS_INVNTR
 			WHERE APC_CD = #{apcCd}
 			AND ITEM_CD = #{itemCd}
-			AND VRTY_CD = #{vrtyCd}
-			AND SPCFCT_CD = #{spcfctCd}
-			AND GDS_GRD = #{gdsGrd}
-			AND DEL_YN = 'N'
 			AND (INVNTR_STTS_CD <> 'D1' OR INVNTR_STTS_CD IS NULL)
+			AND DEL_YN = 'N'
 		]]>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+			AND VRTY_CD = #{vrtyCd}
+			</if>
+			<if test='gdsGrd != null and gdsGrd != ""'>
+			AND GDS_GRD = #{gdsGrd}
+			</if>
+			<if test='spcfctCd != null and spcfctCd != ""'>
+			AND SPCFCT_CD = #{spcfctCd}
+			</if>
 	</select>
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.updateReconciliation      -->

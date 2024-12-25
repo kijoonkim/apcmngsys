@@ -476,7 +476,7 @@
                 /** 규격,품종이 없을떄 **/
                 data.resultList.push({
                     [label] : '없음',
-                    [value] : 'empty'
+                    [value] : ''
                 });
             }
             if(data.resultList.length % 10 !== 0 && data.resultList.length > 10 ){
