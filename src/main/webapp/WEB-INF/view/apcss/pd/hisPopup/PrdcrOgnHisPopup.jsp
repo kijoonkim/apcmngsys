@@ -288,6 +288,7 @@
 		let data = opener.fn_getData();
 		let brno = data.brno;
 		let corpNm = data.corpNm;
+		let year = SBUxMethod.get("srch-inp-yr");
 
 		await fn_createGridOgnz(); //출자출하조직을 포함한 리스트
 		await fn_createGridPrdcrOgnz(year); //생산자조직 리스트
@@ -321,8 +322,7 @@
 		}
 		//기본년도 세팅
 		year = Number(year) - 1 ;
-		SBUxMethod.set("srch-input-yr",year);
-		//SBUxMethod.set("dtl-input-yr",year);
+		SBUxMethod.set("srch-inp-yr",year);
 	}
 
 	/* 콤보박스 세팅 */
