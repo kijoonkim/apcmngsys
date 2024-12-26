@@ -339,21 +339,19 @@
 		jsonComWrhsSpmtType = jsonComWrhsSpmtType.filter(item => item.value !== 'TF');
 		SBUxMethod.refresh("srch-rdo-wrhsSpmtType");
 		SBUxMethod.set("srch-rdo-wrhsSpmtType", "RT");
-
-
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 
 		SBUxMethod.set('srch-dtp-wghYmdTo',gfn_dateToYmd(new Date()));
 		SBUxMethod.set('srch-dtp-wghYmdFrom',gfn_dateToYmd(new Date()));
+		fn_createWghPrfmncGrid();
 		fn_init();
 	});
 
 	const fn_init = async function() {
 		fn_reset();
 		fn_getPrdcrs();
-		fn_createWghPrfmncGrid();
 		fn_initSBSelect();
 	}
 
@@ -409,8 +407,8 @@
 	        {caption: ['입고일자'], 	ref: 'wghYmd', 		width: '80px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}, style:'text-align:center'},
         	{caption: ['품목'], 		ref: 'itemCd', 		width: '80px', type:'combo',  	style:'text-align:center',
     			typeinfo : {ref:'jsonApcItem', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
-            {caption: ['품종'], 		ref: 'vrtyCd', 		width: '120px', type:'combo',  	style:'text-align:center',
-    			typeinfo : {ref:'jsonApcVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
+            {caption: ['품종'], 		ref: 'itemVrtyCd', 		width: '120px', type:'combo',  	style:'text-align:center',
+    			typeinfo : {ref:'jsonApcVrty', 		displayui : false,	itemcount: 10, label:'label', value:'itemVrtyCd'}},
    			{caption: ['생산자'], 		ref: 'prdcrCd', 	width: '120px', type:'inputcombo',  	style:'text-align:center',
         		typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['차량번호'], 	ref: 'vhclno', 		width: '100px', type: 'input', style:'text-align:center'},
@@ -528,11 +526,10 @@
  	}
 
 
-	const fn_onChangeWrhsSpmtType = function (type, evant = true) {
-
-		if (evant) {
+	const fn_onChangeWrhsSpmtType = function (type, event = true) {
+		if (event) {
 			jsonWghPrfmnc.length = 0;
-			grdWghPrfmnc.rebuild();
+			grdWghPrfmnc.refresh();
 		}
 
 		fn_customApc(type);
@@ -596,6 +593,9 @@
 						rowData.rowSts = "I";
 						rowData.apcCd = gv_selectedApcCd;
 						rowData.wrhsSpmtType = SBUxMethod.get("srch-rdo-wrhsSpmtType");
+						if (rowData.itemVrtyCd.length == 8) {
+							rowData.vrtyCd = rowData.itemVrtyCd.substring(4,8);
+						}
 						rowData.groupId = i;
 						rowData.wrhsWght = rowData.acptnWght;
 						rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
@@ -611,6 +611,9 @@
 				} else {
 					if (rowSts === 2){
 						rowData.rowSts = "U";
+						if (rowData.itemVrtyCd.length == 8) {
+							rowData.vrtyCd = rowData.itemVrtyCd.substring(4,8);
+						}
 						rowData.groupId = i;
 						rowData.wrhsWght = rowData.acptnWght;
 						rowData.rdcdWght = (parseFloat(rowData.wholWght || 0) - parseFloat(rowData.emptVhclWght || 0)) - parseFloat(rowData.acptnWght);
@@ -777,7 +780,8 @@
   						cnptNm : item.cnptNm,
   						wrhsSpmtType : item.wrhsSpmtType,
   						pltno : item.pltno,
-  						delYn : "N"
+  						delYn : "N",
+  						itemVrtyCd : item.itemCd + item.vrtyCd
   				}
   				jsonWghPrfmnc.push(wghPrfmnc);
   			});
