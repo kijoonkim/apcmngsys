@@ -29,6 +29,8 @@ public class RawMtrWrhsPrnmntVO extends ComVO {
      * 예정일자
      */
     private String prnmntYmd;
+    private String prnmntYmdFrom;
+    private String prnmntYmdTo;
     private String wrhsPrnmntYmdFrom;
     private String wrhsPrnmntYmdTo;
 

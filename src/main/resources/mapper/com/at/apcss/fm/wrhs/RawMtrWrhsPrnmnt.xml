@@ -65,6 +65,12 @@
         <if test='wrhsPrnmntYmdTo != null and wrhsPrnmntYmdTo != ""'>
                    AND WP.PRNMNT_YMD <![CDATA[<=]]> #{wrhsPrnmntYmdTo}
         </if>
+        <if test='prnmntYmdFrom != null and prnmntYmdFrom != ""'>
+                   AND WP.PRNMNT_YMD <![CDATA[>=]]> #{prnmntYmdFrom}
+        </if>
+        <if test='prnmntYmdTo != null and prnmntYmdTo != ""'>
+                   AND WP.PRNMNT_YMD <![CDATA[<=]]> #{prnmntYmdTo}
+        </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
                   AND WP.PRDCR_CD = #{prdcrCd}
         </if>
