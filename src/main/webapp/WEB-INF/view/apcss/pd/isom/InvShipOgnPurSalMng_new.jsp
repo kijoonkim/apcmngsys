@@ -2289,19 +2289,19 @@
 				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
 				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
 			})
-			grdPrdcrOgnCurntMng01.rebuild();
-			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng03.rebuild();
+			grdPrdcrOgnCurntMng02.rebuild();
+			grdPrdcrOgnCurntMng01.rebuild();
 			//grdPrdcrOgnCurntMng04.rebuild(); 매출현황 요약
 
 			//소계 줄 추가
-			grdPrdcrOgnCurntMng01.addRow();
-			grdPrdcrOgnCurntMng02.addRow();
 			grdPrdcrOgnCurntMng03.addRow();
+			grdPrdcrOgnCurntMng02.addRow();
+			grdPrdcrOgnCurntMng01.addRow();
 
-			fn_grdTot01();
-			fn_grdTot02();
 			fn_grdTot03();
+			fn_grdTot02();
+			fn_grdTot01();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
