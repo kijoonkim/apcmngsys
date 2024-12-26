@@ -413,7 +413,7 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '2'}">
+	<c:if test="${loginVO.apoSe eq '2'}">
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -1001,8 +1001,9 @@
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
 			if(comUoBrno.length == 1){
-				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
-				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
+				await SBUxMethod.set('dtl-input-uoBrno',uoBrno);
+				await fn_dtlGridSearch01();
 			}
 			SBUxMethod.closeProgress("loadingOpen");
 		}catch (e) {
