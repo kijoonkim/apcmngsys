@@ -662,7 +662,7 @@
 			{caption: ["구분","구분","구분"], 			ref: 'sttgUpbrItemNm',		type:'output',  width:'55px',    style:'text-align:center'},
 			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',		type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',		type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["품목","품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목","품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center; border-right-color: black !important;'},
 
 			/*수탁*/
 			{caption: ["수탁","공동선별수탁","물량(톤)"], 	ref: 'prchsSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
@@ -680,7 +680,7 @@
 			{caption: ["수탁","수탁소계","물량(톤)"], 		ref: 'prchsTrstTotVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_prchsTrstVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","수탁소계","금액(천원)"], 	ref: 'prchsTrstTotAmt',   type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["수탁","수탁소계","금액(천원)"], 	ref: 'prchsTrstTotAmt',   type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_prchsTrstAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*매취*/
@@ -695,7 +695,7 @@
 			{caption: ["매취","매취 소계","물량(톤)"], 		ref: 'prchsEmspapTotVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_prchsEmspapVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'prchsEmspapTotAmt',   type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'prchsEmspapTotAmt',   type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_prchsEmspapAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*합계*/
@@ -792,6 +792,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -837,6 +838,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -954,7 +956,7 @@
 			{caption: ["구분","구분","구분"], 			ref: 'sttgUpbrItemNm',		type:'output',  width:'55px',    style:'text-align:center'},
 			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',		type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',		type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["품목","품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목","품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center; border-right-color: black !important;'},
 
 			/*수탁*/
 			{caption: ["수탁","공동선별수탁","물량(톤)"], 	ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
@@ -972,7 +974,7 @@
 			{caption: ["수탁","수탁 소계","물량(톤)"], 		ref: 'slsTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_slsTrstVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","수탁 소계","금액(천원)"], 	ref: 'slsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["수탁","수탁 소계","금액(천원)"], 	ref: 'slsTrstAmt',   	type:'input',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_slsTrstAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*매취*/
@@ -987,7 +989,7 @@
 			{caption: ["매취","매취 소계","물량(톤)"], 		ref: 'slsEmspapVlm',   	type:'input',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_slsEmspapVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'slsEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'slsEmspapAmt',   	type:'input',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_slsEmspapAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			//합계
@@ -1000,7 +1002,7 @@
 			{caption: ["합계","합계","금액(천원)"], 	ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_slsAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["합계","합계","차이"], 	ref: 'slsTotAmtDiff',   	type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["합계","합계","차이"], 	ref: 'slsTotAmtDiff',   	type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_slsAmtDiff'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*자체공판장 매출*/
@@ -1099,6 +1101,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -1146,6 +1149,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -1280,13 +1284,13 @@
 			{caption: ["구분","구분"], 			ref: 'sttgUpbrItemNm',		type:'output',  width:'55px',    style:'text-align:center'},
 			{caption: ["부류","부류"], 			ref: 'clsfNm',		type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류"], 	ref: 'ctgryNm',		type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["품목","품목"], 			ref: 'itemNm',		type:'output',  width:'80px',    style:'text-align:center; border-right-color: black !important;'},
 			//합계는 고정에 기타 값을 조정 하는 방향으로 변경
 			//구분 기타의 경우만 합산
 			{caption: ["합계","물량(톤)"], 		ref: 'slsTotVlm',   	type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_slsTotVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'100px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_slsTotAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
@@ -1306,7 +1310,7 @@
 			{caption: ["수출","물량(톤)"], 		ref: 'exprtVlm',   	type:'input',  width:'50px',    style:'text-align:center' 								,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["수출","금액(천원)"], 		ref: 'exprtAmt',   	type:'input',  width:'100px',    style:'text-align:center' 							,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","물량(톤)"], 		ref: 'onlnDlngPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:center' 		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액(천원)"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center' 	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["온라인 거래실적\n(e커머스, TV홈쇼핑 등 포함)","금액(천원)"], 		ref: 'onlnDlngPrfmncAmt',   	type:'input',  width:'100px',    style:'text-align:center; border-right-color: black !important;' 	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			//기타값은 합계 - 기타를 제외 한 값의 합
 			//구분 기타의 경우는 계산하지 않음
 			{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   	type:'input',  width:'50px',    style:'text-align:center'
