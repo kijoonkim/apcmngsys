@@ -362,6 +362,17 @@
 					</div>
 				</c:if>
 				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶요약 - 부류별 합계</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdClsfTot" style="height:300px; width: 100%;"></div>
+				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
@@ -394,6 +405,7 @@
 	</c:if>
 		fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
+		fn_createGridClsfTot();//부류별 합계
 
 		await fn_initSBSelect();
 
@@ -576,21 +588,34 @@
 		SBGridProperties.rowheight = 72;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+			{caption: ["출자출하조직명","출자출하조직명","출자출하조직명"], 					ref: 'corpNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["통합조직\n구분","통합조직\n구분","통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
 				,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
-			{caption: ["품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
+			{caption: ["품목","품목","품목명"], 								ref: 'itemNm',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["품목","품목","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'55px',    style:'text-align:center;', disabled:true
 				,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
-			{caption: ["통합조직 판매위임액","생산자조직\n출하(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+
+			{caption: ["통합조직 판매위임 실적","생산자조직\n출하","물량(톤)"], 	ref: 'uoSpmtVlm',   	type:'output',  width:'50px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["통합조직 판매위임액","생산자조직 외\n출하(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+			{caption: ["통합조직 판매위임 실적","생산자조직\n출하","금액(A)(천원)"], 	ref: 'uoSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["자체판매액","생산자조직\n출하(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+
+			{caption: ["통합조직 판매위임 실적","생산자조직 외\n출하","물량(톤)"], 	ref: 'uoSpmtVlmOther',   	type:'output',  width:'50px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["자체판매액","생산자조직 외\n출하(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+			{caption: ["통합조직 판매위임 실적","생산자조직 외\n출하","금액(B)(천원)"], 	ref: 'uoSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매액\n(E=A+B+C+D)\n(천원)"],typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
+
+			{caption: ["자체판매 실적","생산자조직\n출하","물량(톤)"], 			ref: 'uoOtherSpmtVlm',   	type:'output',  width:'50px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매 실적","생산자조직\n출하","금액(C)(천원)"], 			ref: 'uoOtherSpmtAmt',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["자체판매 실적","생산자조직 외\n출하","물량(톤)"], 		ref: 'uoOtherSpmtVlmOther',   	type:'output',  width:'50px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+			{caption: ["자체판매 실적","생산자조직 외\n출하","금액(D)(천원)"], 		ref: 'uoOtherSpmtAmtOther',   	type:'output',  width:'100px',    style:'text-align:center;'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["출자출하조직\n총 판매 실적\n(E=A+B+C+D)\n(천원)","출자출하조직\n총 판매 실적\n(E=A+B+C+D)\n(천원)"],typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}
 				, ref: 'uoSpmtAmtTot',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["출자출하조직의\n통합조직 판매위임비율","생산자조직출하\n[A/(A+C)]"] ,format: {type: 'string', rule: '@" %"'}
 				, ref: 'uoSpmtAmtRt',   	type:'output',  width:'100px',    style:'text-align:center;'},
@@ -955,6 +980,11 @@
 						,uoOtherSpmtAmt: 		item.uoOtherSpmtAmt
 						,uoOtherSpmtAmtOther: 	item.uoOtherSpmtAmtOther
 
+						,uoSpmtVlm: 			item.uoSpmtVlm
+						,uoSpmtVlmOther: 		item.uoSpmtVlmOther
+						,uoOtherSpmtVlm: 		item.uoOtherSpmtVlm
+						,uoOtherSpmtVlmOther: 	item.uoOtherSpmtVlmOther
+
 						,uoSpmtAmtRt: 			item.uoSpmtAmtRt
 						,uoSpmtAmtTotRt: 		item.uoSpmtAmtTotRt
 						,uoSpmtAmtTot: 			item.uoSpmtAmtTot
@@ -970,7 +1000,8 @@
 			grdPrdcrOgnCurntMng01.rebuild();
 
 			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
-			console.log(rowData);
+
+			fn_dtlSearchClsfTot();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1189,6 +1220,139 @@
 		}
 	}
 
+	/* 매출현황 평가부류별 요약표 */
+	var jsonClsfTot = []; // 그리드의 참조 데이터 주소 선언
+	var grdClsfTot;
+
+	const objMenuList04 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld04,			//콜백함수명
+			}
+		};
+
+	function fn_excelDwnld04() {
+		grdPrdcrOgnCurntMng04.exportLocalExcel("출자출하조직관리(총괄표 - 부류별 합계)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+	/* Grid 화면 그리기 기능*/
+	const fn_createGridClsfTot = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdClsfTot';
+		SBGridProperties.id = 'grdClsfTot';
+		SBGridProperties.jsonref = 'jsonClsfTot';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList04;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["부류","부류"]
+				,ref: 'clsfNm',		type:'output',  width:'100px',    style:'text-align:center'},
+
+			{caption: ["2023년","취급 물량(톤)"]
+				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["2023년","취급액(천원)"]
+				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["2024년","취급 물량(톤)"]
+				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["2024년","취급액(천원)"]
+				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
+		];
+		grdClsfTot = _SBGrid.create(SBGridProperties);
+	}
+
+	//총괄표 조회
+	async function fn_dtlSearchClsfTot() {
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		if(gfn_isEmpty(uoBrno)){
+			alert("통합조직을 선택해 주세요");
+			return;
+		}
+
+		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectIsoClsfTot.do", {
+			uoBrno : uoBrno
+			,brno : brno
+			,yr : yr
+		});
+		let data = await postJsonPromise01;
+		try{
+			jsonClsfTot.length = 0;
+			//console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+						clsfCd: 		item.clsfCd
+						,clsfNm: 		item.clsfNm
+
+						,totVlm: 		item.totVlm
+						,totAmt: 		item.totAmt
+						,prvTotVlm: 	item.prvTotVlm
+						,prvTotAmt: 	item.prvTotAmt
+				};
+
+				jsonClsfTot.push(itemVO);
+			});
+
+			grdClsfTot.rebuild();
+
+			fn_clsfTot();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 부류별 합계 그리드 합계 */
+	function fn_clsfTot(){
+		// 합계를 저장할 변수 초기화
+		let totalSum = {
+			clsfNm: '합계',
+			totVlm: 0,
+			totAmt: 0,
+			prvTotVlm: 0,
+			prvTotAmt: 0
+		};
+
+		let objGrid = grdClsfTot;
+		let gridData01 = objGrid.getGridDataAll();
+		let captionRow = objGrid.getFixedRows();
+		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
+			// 현재 행 데이터 가져오기
+			let rowData01 = objGrid.getRowData(i);
+			totalSum.totVlm 	+= Number(rowData01.totVlm || 0);
+			totalSum.totAmt 	+= Number(rowData01.totAmt || 0);
+			totalSum.prvTotVlm 	+= Number(rowData01.prvTotVlm || 0);
+			totalSum.prvTotAmt 	+= Number(rowData01.prvTotAmt || 0);
+		}
+
+		objGrid.addRow();
+
+		// 합계 데이터를 objGrid에 설정
+		Object.keys(totalSum).forEach((key) => {
+			objGrid.setCellData( gridData01.length + captionRow-1, objGrid.getColRef(key), totalSum[key]);
+		});
+
+		objGrid.rebuild();
+	}
+
 	/* 로우데이터 요청 */
 
 	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
@@ -1220,10 +1384,14 @@
 			{caption: ["분류명"],			ref:'ctgryNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["(A)통합조직 판매위임액 생산자조직 출하(천원)"],	ref:'uoSpmtAmt',			type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["(B)통합조직 판매위임액 생산자조직 외 출하(천원)"],	ref:'uoSpmtAmtOther',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["(C)자체판매액 생산자조직 출하(천원)"],			ref:'uoOtherSpmtAmt',		type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["(D)자체판매액 생산자조직 외 출하(천원)_기타"],	ref:'uoOtherSpmtAmtOther',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 판매위임액 생산자조직 출하 물량(톤)"],	ref:'uoSpmtVlm',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(A)통합조직 판매위임액 생산자조직 출하 금액(천원)"],	ref:'uoSpmtAmt',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 판매위임액 생산자조직 외 출하 물량(톤)"],	ref:'uoSpmtVlmOther',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(B)통합조직 판매위임액 생산자조직 외 출하 금액(천원)"],	ref:'uoSpmtAmtOther',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자체판매액 생산자조직 출하 물량(톤)"],			ref:'uoOtherSpmtVlm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(C)자체판매액 생산자조직 출하 금액(천원)"],			ref:'uoOtherSpmtAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["자체판매액 생산자조직 외 출하 물량(톤)"],	ref:'uoOtherSpmtVlmOther',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(D)자체판매액 생산자조직 외 출하 금액(천원)"],	ref:'uoOtherSpmtAmtOther',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(E=A+B+C+D)출자출하조직 총 판매액(천원)"],	ref:'uoSpmtAmtTot',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["[A/(A+C)]출자출하조직의 통합조직 판매위임비율 생산자조직출하 "],	ref:'uoSpmtAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["[(A+B)/E]출자출하조직의 통합조직 판매위임비율 전체출하 "],		ref:'uoSpmtAmtTotRt',	type:'output',width:'70px',style:'text-align:center'},
@@ -1275,6 +1443,11 @@
 					,uoSpmtAmtOther			:Number(item.uoSpmtAmtOther)
 					,uoOtherSpmtAmt			:Number(item.uoOtherSpmtAmt)
 					,uoOtherSpmtAmtOther	:Number(item.uoOtherSpmtAmtOther)
+
+					,uoSpmtVlm				:Number(item.uoSpmtVlm)
+					,uoSpmtVlmOther			:Number(item.uoSpmtVlmOther)
+					,uoOtherSpmtVlm			:Number(item.uoOtherSpmtVlm)
+					,uoOtherSpmtVlmOther	:Number(item.uoOtherSpmtVlmOther)
 
 					,uoSpmtAmtTot			:Number(item.uoSpmtAmtTot)
 					,uoSpmtAmtRt			:Number(item.uoSpmtAmtRt)

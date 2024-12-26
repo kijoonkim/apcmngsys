@@ -81,4 +81,11 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 		return resultList;
 	}
 
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectIsoClsfTot(InvShipOgnGenalTblMngVO);
+		return resultList;
+	}
+
 }

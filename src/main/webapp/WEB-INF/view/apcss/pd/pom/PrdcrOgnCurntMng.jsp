@@ -863,9 +863,9 @@
 				return "";
 			}},
 			//{caption: ["순번"], 			ref: 'prdcrOgnzSn',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["생산자조직명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'180px',    style:'text-align:center'},
+			{caption: ["<span class='data_required'></span>생산자조직명"], 	ref: 'prdcrOgnzNm',   	type:'input',  width:'180px',    style:'text-align:center'},
 			//{caption: ["생산자조직 코드"], 	ref: 'prdcrOgnzCd',   	type:'output',  width:'150px',    style:'text-align:center'},
-			{caption: ["품목선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+			{caption: ["<span class='data_required'></span>품목선택"], 			ref: 'sel',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				//법인체 마감 추가
 				let prfmncCorpDdlnYn = SBUxMethod.get('dtl-input-prfmncCorpDdlnYn');
 				if (prfmncCorpDdlnYn == 'Y') {
@@ -883,7 +883,7 @@
 			{caption: ["평가부류"], 			ref: 'ctgryCd',   	type:'combo',  width:'60px',    style:'text-align:center', disabled:true , oneclickedit:true
 				,typeinfo : {ref:'jsonComGrdCtgryCd_1', label:'label', value:'value', displayui : false}},
 			{caption: ["품목"], 			ref: 'itemNm',   	type:'output',  width:'150px',    style:'text-align:center'},
-			{caption: ["취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:false , oneclickedit:true
+			{caption: ["<span class='data_required'></span>취급유형"], 		ref: 'trmtType',   	type:'combo',  width:'100px',    style:'text-align:center', disabled:false , oneclickedit:true
 				,typeinfo : {ref:'jsonComGrdTrmtType_1', label:'label', value:'value', displayui : true}},
 
 			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
@@ -892,13 +892,13 @@
 
 			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-			{caption: ["계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
+			{caption: ["<span class='data_required'></span>계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-			{caption: ["출하시작시기"], 		ref: 'spmtBgngDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
+			{caption: ["<span class='data_required'></span>출하시작시기"], 		ref: 'spmtBgngDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
-			{caption: ["출하종료시기"], 		ref: 'spmtEndDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
+			{caption: ["<span class='data_required'></span>출하종료시기"], 		ref: 'spmtEndDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},

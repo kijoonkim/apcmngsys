@@ -1480,64 +1480,6 @@
 		fn_gridCustom();
 	}
 
-	/* 매출현황 요약표 */
-	var jsonPrdcrOgnCurntMng04 = []; // 그리드의 참조 데이터 주소 선언
-	var grdPrdcrOgnCurntMng04;
-
-	const objMenuList04 = {
-			"excelDwnld": {
-				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
-				"accesskey": "e",					//단축키
-				"callback": fn_excelDwnld04,			//콜백함수명
-			}
-		};
-
-	function fn_excelDwnld04() {
-		grdPrdcrOgnCurntMng04.exportLocalExcel("출자출하조직관리(총 매출현황 - 매출현황 요약)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
-
-	/* Grid 화면 그리기 기능*/
-	const fn_fcltMngCreateGrid04 = async function() {
-
-		let SBGridProperties = {};
-		SBGridProperties.parentid = 'sb-area-grdPrdcrOgnCurntMng04';
-		SBGridProperties.id = 'grdPrdcrOgnCurntMng04';
-		SBGridProperties.jsonref = 'jsonPrdcrOgnCurntMng04';
-		SBGridProperties.emptyrecords = '데이터가 없습니다.';
-		SBGridProperties.selectmode = 'byrow';
-		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
-		SBGridProperties.contextmenulist = objMenuList04;	// 우클릭 메뉴 리스트
-		SBGridProperties.frozencols=4;
-		SBGridProperties.frozenbottomrows=1;
-		//SBGridProperties.extendlastcol = 'scroll';
-		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
-		SBGridProperties.oneclickedit = true;
-		SBGridProperties.columns = [
-			{caption: ["","구분"]
-				,ref: 'clsfNm',		type:'output',  width:'55px',    style:'text-align:center'},
-
-			{caption: ["2023년","취급 물량(톤)"]
-				,ref: 'trmtVlm1',	type:'input',	width:'50px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["2023년","취급액(천원)"]
-				,ref: 'trmtAmt1',	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-
-			{caption: ["2024년","취급 물량(톤)"]
-				,ref: 'trmtVlm2',	type:'input',  width:'50px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["2024년","취급액(천원)"]
-				,ref: 'trmtAmt2',	type:'input',  width:'100px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-
-			{caption: ["상세내역"], 	ref: 'yr',			hidden : true},
-			{caption: ["상세내역"], 	ref: 'brno',		hidden : true},
-			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
-		];
-		grdPrdcrOgnCurntMng03 = _SBGrid.create(SBGridProperties);
-	}
-
-
 	/**
      * 목록 조회
      */
@@ -2289,19 +2231,19 @@
 				jsonPrdcrOgnCurntMng02.push(PrdcrOgnCurntMngVO02);
 				jsonPrdcrOgnCurntMng03.push(PrdcrOgnCurntMngVO03);
 			})
-			grdPrdcrOgnCurntMng01.rebuild();
-			grdPrdcrOgnCurntMng02.rebuild();
 			grdPrdcrOgnCurntMng03.rebuild();
+			grdPrdcrOgnCurntMng02.rebuild();
+			grdPrdcrOgnCurntMng01.rebuild();
 			//grdPrdcrOgnCurntMng04.rebuild(); 매출현황 요약
 
 			//소계 줄 추가
-			grdPrdcrOgnCurntMng01.addRow();
-			grdPrdcrOgnCurntMng02.addRow();
 			grdPrdcrOgnCurntMng03.addRow();
+			grdPrdcrOgnCurntMng02.addRow();
+			grdPrdcrOgnCurntMng01.addRow();
 
-			fn_grdTot01();
-			fn_grdTot02();
 			fn_grdTot03();
+			fn_grdTot02();
+			fn_grdTot01();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

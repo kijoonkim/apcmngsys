@@ -73,4 +73,11 @@ public interface InvShipOgnGenalTblMngMapper {
 	 */
 	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
+	/**
+	 * 부류별 합계를 조회 한다
+	 * @param InvShipOgnGenalTblMngVO
+	 * @return List<InvShipOgnGenalTblMngVO>
+	 */
+	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+
 }

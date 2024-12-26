@@ -63,4 +63,19 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 
 	private String corpNm2;
 
+
+	/* 20241224 물량 추가 요청 */
+	private String uoSpmtVlm;
+	private String uoSpmtVlmOther;
+	private String uoOtherSpmtVlm;
+	private String uoOtherSpmtVlmOther;
+	/* 20241226 부류별 물량, 금액 추가 */
+	private String clsfCd;
+	private String clsfNm;
+
+	private String totVlm;
+	private String totAmt;
+	private String prvTotVlm;
+	private String prvTotAmt;
+
 }
