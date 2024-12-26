@@ -451,15 +451,16 @@
         const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-        let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
-        										.map(item => item.itemVrtyCd);
+        //let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
+        //										.map(item => item.itemVrtyCd);
 
-        let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
+        //let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
 		//if (filteredList.length == 0){
 		//	filteredList = useYn;
 		//}
 
-        data.resultList = filteredList;
+        //data.resultList = filteredList;
+        data.resultList = useYn;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
         carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
