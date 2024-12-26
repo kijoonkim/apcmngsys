@@ -40,4 +40,6 @@ public interface InvShipOgnGenalTblMngService {
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 
 	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+
+	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 }
