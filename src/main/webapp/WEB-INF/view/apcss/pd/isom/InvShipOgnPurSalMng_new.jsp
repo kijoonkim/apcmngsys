@@ -726,7 +726,7 @@
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			/*= 수탁 =*/
 			{caption: ["수탁","공동선별수탁","물량(톤)"], ref: 'prchsSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'
@@ -903,6 +903,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -947,6 +948,7 @@
 			return sumVal;
 		}else{
 			sumVal = '';
+			objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 		}
 		return sumVal;
 	}
@@ -1029,14 +1031,14 @@
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["통합조직","통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 			/*총취급실적*/
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
 				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:center'
 				,calc : 'fn_totTrmtPrfmncVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","금액(천원)"]
-				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'90px',    style:'text-align:center'
+				,ref: 'totTrmtPrfmncAmt',   	type:'input',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				,calc : 'fn_totTrmtPrfmncAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			/*취급액 공제 실적*/
@@ -1069,7 +1071,7 @@
 				, calc : 'fn_ddcTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직 취급실적","취급액 공제 실적","공제대상 소계","금액(천원)"]
-				,ref: 'ddcTotAmt',   	type:'output',  width:'90px',    style:'text-align:center'
+				,ref: 'ddcTotAmt',   	type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				, calc : 'fn_ddcTotAmt'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
@@ -1282,7 +1284,7 @@
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
 			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","소속 통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","물량(톤)"]
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:center'
@@ -1328,7 +1330,7 @@
 				,calc: 'fn_slsCprtnTotVlm'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["출자출하조직의 통합조직 출하실적","생산자조직 약정(전속)출하 실적","합계","금액(천원)"]
-				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'90px',    style:'text-align:center'
+				,ref: 'slsCprtnTotAmt',   	type:'output',  width:'90px',    style:'text-align:center;border-right-color: black !important;'
 				,calc: 'fn_slsCprtnTotAmt'
 			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
@@ -1828,6 +1830,8 @@
 		let crno = SBUxMethod.get('dtl-input-crno');
 		let brno = SBUxMethod.get('dtl-input-brno');
 
+		if(gfn_isEmpty(brno)) return;
+
 		//그리드 해더 row수
 		let captionRow = objGrid.getFixedRows();
 		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
@@ -1836,28 +1840,11 @@
 			let delYn = rowData01.delYn;
 
 			if(delYn == 'N'){
-				if(Number(rowData01.prchsTrstAmt) > 0){
-					if(gfn_isEmpty(rowData01.prchsTrstVlm)){
-						alert('공선수탁,공동수탁 금액이 존재하는 경우 물량 작성이 필요합니다');
-						objGrid.selectRow(i);
-						return false;
-					}
-				}
-
-				if(Number(rowData01.prchsEmspapAmt) > 0){
-					if(gfn_isEmpty(rowData01.prchsEmspapVlm)){
-						alert('공선매취 금액이 존재하는 경우 물량 작성이 필요합니다');
-						objGrid.selectRow(i);
-						return false;
-					}
-				}
-
-				if(Number(rowData01.etcAmt) > 0){
-					if(gfn_isEmpty(rowData01.etcVlm)){
-						alert('기타 금액이 존재하는 경우 물량 작성이 필요합니다');
-						objGrid.selectRow(i);
-						return false;
-					}
+				if( Number(rowData01.prchsSortEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSortEmspapVlm) || Number(rowData01.prchsSortEmspapVlm) == 0)){
+					alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
 				}
 
 				rowData01.apoCd = apoCd;
@@ -1899,8 +1886,6 @@
 
 	//매출 다중 세이브
 	const fn_listSave02 = async function(){
-		let objGrid = grdPrdcrOgnCurntMng02;
-		let gridData02 = objGrid.getGridDataAll();
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
@@ -1909,8 +1894,10 @@
 		let brno = SBUxMethod.get('dtl-input-brno');
 		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 
+		let objGrid = grdPrdcrOgnCurntMng02;
 		//그리드 해더 row수
 		let captionRow = objGrid.getFixedRows();
+		let gridData02 = objGrid.getGridDataAll();
 		for(var i = captionRow; i < gridData02.length + captionRow; i++ ){
 			let rowData02 = objGrid.getRowData(i);
 			let rowSts02 = objGrid.getRowStatus(i);
@@ -1918,6 +1905,42 @@
 			let delYn = rowData02.delYn;
 
 			if(delYn == 'N'){
+
+				if( Number(rowData02.totTrmtPrfmncAmt) > 0 && rowData02.sttgUpbrItemSe === '3'
+						&& (gfn_isEmpty(rowData02.totTrmtPrfmncVlm) || Number(rowData02.totTrmtPrfmncVlm) == 0)){
+					alert('총취급실적 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.ddcExprtAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+						&& (gfn_isEmpty(rowData02.ddcExprtVlm) || Number(rowData02.ddcExprtVlm) == 0)){
+					alert('자체수출 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+				if( Number(rowData02.ddcAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+						&& (gfn_isEmpty(rowData02.ddcVlm) || Number(rowData02.ddcVlm) == 0)){
+					alert('자체공판장 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.ddcArmyDlvgdsAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+					&& (gfn_isEmpty(rowData02.ddcArmyDlvgdsVlm) || Number(rowData02.ddcArmyDlvgdsVlm) == 0)){
+					alert('군납 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData02.ddcMlsrAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+					&& (gfn_isEmpty(rowData02.ddcMlsrVlm) || Number(rowData02.ddcMlsrVlm) == 0)){
+					alert('학교급식 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+
 				rowData02.apoCd = apoCd;
 				rowData02.apoSe = apoSe;
 				rowData02.crno = crno;
@@ -2351,7 +2374,7 @@
 				objGrid01.setCellDisabled(i, prchsEmspapVlm, i, prchsEmspapAmt, true);
 				objGrid01.setCellDisabled(i, prchsTotVlm, i, prchsTotAmt, true);
 
-				objGrid01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsTotAmt, 'white');
+				//objGrid01.setCellStyle('background-color', i, prchsSortTrstVlm, i, prchsTotAmt, 'white');
 
 				objGrid01.setCellStyle('background-color', i, prchsTrstVlm, i, prchsTrstAmt, 'lightgray');
 				objGrid01.setCellStyle('background-color', i, prchsEmspapVlm, i, prchsEmspapAmt, 'lightgray');
