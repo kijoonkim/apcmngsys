@@ -1013,7 +1013,6 @@
 		// 실적내역
 		const pckgPrfmncList = [];
 		const allPckgData = grdPckgPrfmnc.getGridDataAll();
-
 		let totPckgInptQntt = 0;
 		let totPckgInptWght = 0;
 
@@ -1047,8 +1046,11 @@
 			if (gfn_isEmpty(vrtyCd)) {
 				gfn_comAlert("W0005", "품종");		//	W0005	{0}이/가 없습니다.
 				return;
-			}else{
-				vrtyCd = vrtyCd.substring(4,8);
+			} else {
+
+				if (vrtyCd.lnegth == 8) {
+					vrtyCd = vrtyCd.substring(4,8);
+				}
 			}
 			if (gfn_isEmpty(spcfctCd) || spcfctCd === "notSelect") {
 				gfn_comAlert("W0005", "규격");		//	W0005	{0}이/가 없습니다.
@@ -1120,7 +1122,6 @@
 
 			totPckgInptQntt += pckgQntt;
 			totPckgInptWght += pckgWght;
-
 			pckgPrfmnc = {
 					pckgYmd: pckgYmd,
 	    			fcltCd: fcltCd,
@@ -1167,6 +1168,8 @@
     		sortInvntrList: sortInvntrList,
     		pckgPrfmncList: pckgPrfmncList
     	}
+
+		console.log("pckgMng", pckgMng)
 
     	const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgPrfmnc.do", pckgMng);
 		const data = await postJsonPromise;
