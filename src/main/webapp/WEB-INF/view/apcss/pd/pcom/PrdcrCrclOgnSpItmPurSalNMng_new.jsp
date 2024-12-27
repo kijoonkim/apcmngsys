@@ -1115,15 +1115,14 @@
 			const typeSeNo = rowData01.typeSeNo;
 			switch (typeSeNo) {
 				case '5': // 생산자조직
-					objGrid.setCellDisabled(i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, true);
-					if (gfn_isEmpty(rowData01.prchsNm)) {
-						objGrid.setCellDisabled(i, columnRefs.slsCnsgnSlsVlm, i, columnRefs.slsCnsgnSlsAmt, true);
-					}
 					//disabled 처리
-					objGrid.setCellDisabled(i, slsCnsgnPrchsVlm, i, slsCnsgnSlsAmt, true);
+					//if (gfn_isEmpty(rowData01.prchsNm)) {
+						//objGrid.setCellDisabled(i, columnRefs.slsCnsgnSlsVlm, i, columnRefs.slsCnsgnSlsAmt, true);
+					//}
+					objGrid.setCellDisabled(i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, true);
 					// 배경 속성 추가
-					objGrid.setCellStyle('background-color', i, slsCnsgnSlsVlm, i, slsCnsgnSlsAmt, 'lightgray');
-					objGrid.setCellStyle('background-color', i, slsCnsgnPrchsVlm, i, slsCnsgnPrchsAmt, 'lightgreen');
+					//objGrid.setCellStyle('background-color', i, columnRefs.slsCnsgnSlsVlm, i, columnRefs.slsCnsgnSlsAmt, 'lightgray');
+					objGrid.setCellStyle('background-color', i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, 'lightgreen');
 
 					objGrid.setCellStyle('background-color', i, columnRefs.slsCnsgnPrchsVlm, i, columnRefs.slsCnsgnPrchsAmt, '#e1e1e1');
 					//objGrid.setCellStyle('background-color', i, columnRefs.uoSpmtVlm, i, columnRefs.uoSpmtAmt, 'lightgreen');
@@ -1174,7 +1173,7 @@
 			let rowSts01 = objGrid.getRowStatus(i);
 
 			//매입 값이 있을경우 매출 값을 입력 필수
-			if(rowData01.typeSeNo == '6' && rowData01.trmtType !== '0'){
+			if(rowData01.typeSeNo == '5' && rowData01.trmtType !== '0'){
 				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
 					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
 						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
