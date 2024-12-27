@@ -2113,9 +2113,9 @@
 			{caption: ["품목명"], 			ref: 'itemNm',   		type:'output',  width:'150px',	style:'text-align:center'},
 
 			{caption: ["품목코드"], 		ref: 'itemCd',   		type:'output',  width:'60px',	style:'text-align:center'},
-			{caption: ["취급액 목표(천원)"], 	ref: 'trgtTrmtAmt',   	type:'input',  width:'150px',	style:'text-align:center'
+			{caption: ["총취급액 목표(천원)"], 	ref: 'trgtTrmtAmt',   	type:'input',  width:'150px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
-			{caption: ["취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
+			{caption: ["전속취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
 				,format: {type: 'number', rule: '#,##0.00'}},
 			{caption: ["비고"], 			ref: 'rmrk',   			type:'input',  width:'150px',	style:'text-align:center'},
 			//{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},

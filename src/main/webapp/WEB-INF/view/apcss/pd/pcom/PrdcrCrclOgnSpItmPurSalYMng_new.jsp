@@ -557,7 +557,7 @@
 				{caption : ['판매위임(매입)현황','구분'],
 					ref : "seNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
 				{caption : ['판매위임(매입)현황','구분'],
-					ref : "seDtlNm",   width : '150px',        style : 'text-align:center',     type : 'output'},
+					ref : "seDtlNm",   width : '180px',        style : 'text-align:center',     type : 'output'},
 				{caption : ['판매위임(매입)현황','취급유형'],
 					ref : "trmtTypeNm",   width : '80px',        style : 'text-align:center',     type : 'output' , merge:false},
 				{caption : ['판매위임(매입)현황','매입처'],

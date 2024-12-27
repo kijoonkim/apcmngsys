@@ -993,6 +993,7 @@
 									  					FROM TB_EV_APO_YR_GPC_CD
 									  					WHERE 1=1
 									  					  AND APO_SE = '2'
+									  					  AND STTG_UPBR_ITEM_SE != '3'
 									  					  AND YR = A.YR
 									  					  AND BRNO = A.BRNO
 									  					  AND UO_BRNO = A.UO_BRNO
@@ -1014,6 +1015,7 @@
 								  					FROM TB_EV_APO_YR_GPC_CD
 								  					WHERE 1=1
 								  					  AND APO_SE = '2'
+								  					  AND STTG_UPBR_ITEM_SE != '3'
 								  					  AND YR = B.YR
 								  					  AND BRNO = B.BRNO
 								  					  AND UO_BRNO = B.UO_BRNO
@@ -1067,6 +1069,7 @@
 													  AND YR = PSTB.YR
 													  AND BRNO = PSTB.BRNO
 													  AND UO_BRNO = PSTB.UO_BRNO
+													  AND STTG_UPBR_ITEM_SE != '3'
 													)
 								  AND YR = #{yr}
 								GROUP BY  BRNO , UO_BRNO , ITEM_CD

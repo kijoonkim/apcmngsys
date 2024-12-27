@@ -1638,7 +1638,7 @@ SELECT
 	'3' AS TYPE_SE_NO
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
 	,'출자출하조직' AS SE_NM
-	, '생산자조직 외' AS SE_DTL_NM
+	, '생산자조직 외(단순사입 포함)' AS SE_DTL_NM
 	, '' AS TRMT_TYPE_NM
 	, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.ISO_BRNO AND APO_SE = '2') AS PRCHS_NM
 
@@ -1686,17 +1686,18 @@ FROM
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		WHERE 1=1
 		  AND APO_SE = '2'
-		  AND TYPE_SE_NO = '7'
+		  AND TYPE_SE_NO in ('5' , '7')
+		  AND OGNZ_STBLT_YN = DECODE(TYPE_SE_NO, '5' , 'N' , '7' , '0' , '')
 		  AND YR= #{yr}
 		  AND UO_BRNO = #{brno}
 		  AND ITEM_CD IN (SELECT ITEM_CD
-										FROM TB_EV_APO_YR_GPC_CD
-										WHERE 1=1
-										  AND APO_SE = '2'
-										  AND YR = PST.YR
-										  AND BRNO = PST.BRNO
-										  AND UO_BRNO = PST.UO_BRNO
-										  AND STTG_UPBR_ITEM_SE != '3'
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE 1=1
+							  AND APO_SE = '2'
+							  AND YR = PST.YR
+							  AND BRNO = PST.BRNO
+							  AND UO_BRNO = PST.UO_BRNO
+							  AND STTG_UPBR_ITEM_SE != '3'
 							)
 		GROUP BY YR , BRNO , UO_BRNO , ITEM_CD , STBLT_YN
 	) ITEM
@@ -1705,8 +1706,8 @@ FROM
 		WHERE 1=1
 		  AND TYPE_SE_NO = '3'
 		  AND APO_SE = '1'
-				  AND YR= #{yr}
-				  AND BRNO = #{brno}
+		  AND YR= #{yr}
+		  AND BRNO = #{brno}
 	) TOT
 WHERE 1=1
   AND ITEM.YR = TOT.YR(+)
@@ -2185,9 +2186,9 @@ ORDER BY
 			WHEN TYPE_SE_NO = '6' THEN '5'
 			ELSE TYPE_SE_NO END
 	, OGNZ_STBLT_YN DESC
-	, CASE	WHEN TRMT_TYPE = 1 THEN 1
-			WHEN TRMT_TYPE = 2 THEN 2
-			WHEN TRMT_TYPE = 3 THEN 3
+	, CASE	WHEN TRMT_TYPE = 1 THEN 3
+			WHEN TRMT_TYPE = 2 THEN 1
+			WHEN TRMT_TYPE = 3 THEN 2
 			ELSE 4 END
 	, TRMT_TYPE
 	, TYPE_SE_NO

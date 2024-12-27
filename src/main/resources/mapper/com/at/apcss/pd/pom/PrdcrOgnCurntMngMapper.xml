@@ -681,7 +681,13 @@
 			<if test='yr != null and yr != ""'>
 				AND CM.YR = #{yr}
 			</if>
-		ORDER BY CM.PRDCR_OGNZ_SN ASC
+		ORDER BY
+			CM.PRDCR_OGNZ_SN ASC
+			, CASE	WHEN TRMT_TYPE = 1 THEN 3
+					WHEN TRMT_TYPE = 2 THEN 1
+					WHEN TRMT_TYPE = 3 THEN 2
+					ELSE 4 END
+			, TRMT_TYPE
 
 		<!-- 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
