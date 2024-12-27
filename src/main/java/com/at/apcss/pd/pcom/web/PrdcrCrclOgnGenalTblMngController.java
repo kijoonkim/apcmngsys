@@ -208,4 +208,20 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 신규 총괄표 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnGenalTblMngListNew(Model model, @RequestBody ItemUoStbltYnVO ItemUoStbltYnVo, HttpServletRequest request) throws Exception{
+		logger.debug("/pd/aom/selectPrdcrCrclOgnGenalTblMngList.do >>> 호출 >>> ");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ItemUoStbltYnVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnGenalTblMngService.selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVo);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

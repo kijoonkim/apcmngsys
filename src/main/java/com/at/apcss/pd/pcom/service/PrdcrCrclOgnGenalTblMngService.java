@@ -89,8 +89,16 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	/**
 	 * 통합조직 부류별 합계
 	 * @param PrdcrCrclOgnGenalTblMngVO
-	 * @return int
+	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 통합조직 신규 총괄표 조회
+	 * @param ItemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 }

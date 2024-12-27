@@ -99,4 +99,12 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 신규 총괄표 조회
+	 * @param ItemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
 }
