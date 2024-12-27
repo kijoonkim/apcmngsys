@@ -464,88 +464,14 @@
 
     // 행 삭제
     const fn_delRow = async function () {
-        if (!SBUxMethod.validateRequired({group_id:'panHeader'}) || !validateRequired("panHeader")) {
-            return false;
-        }
 
-        var nRow 		= gvwInfo.getRow();
-        var rowData 	= gvwInfo.getRowData(nRow);
+        let rowVal = gvwInfo.getRow();
 
-        if (nRow == -1) {
+        if (rowVal == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
-            gvwInfo.deleteRow(nRow);
-        }
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_JOB_YYYYMM : rowData.JOB_YYYYMM,
-            V_P_SOCNO : rowData.EARNER_CODE,
-            V_P_WORK_ST_DAT : "",
-            V_P_EARNER_NAME : "",
-            V_P_SITE_CODE : "",
-            V_P_PAY_DATE : "",
-            V_P_WORK_END_DAT : "",
-            V_P_WORK_DAY : "",
-            V_P_DECLARATION_YYYYMM : "",
-            V_P_BANK_CODE : "",
-            V_P_BANK_ACC : "",
-            V_P_DAILY_PAY_AMT : "",
-            V_P_TOT_PAY_AMT : "",
-            V_P_WORK_PAY_AMT : "",
-            V_P_NON_TXABLE_AMT : "",
-            V_P_INC_AMT : "",
-            V_P_EARNED_INC_AMT : "",
-            V_P_INC_TX_AMT : "",
-            V_P_LOCAL_TX_AMT : "",
-            V_P_HEALTH_INSURE_AMT : "",
-            V_P_LONG_HEALTH_INSURE_AMT : "",
-            V_P_NATIONAL_PENS_AMT : "",
-            V_P_EMPLOY_INSURE_AMT : "",
-            V_P_ETC_DED_AMT : "",
-            V_P_TOT_DEDUCT_AMT : "",
-            V_P_ALLOWANCE_AMT : "",
-            V_P_MEMO : "",
-            V_P_REMARK : "",
-            V_P_FOREI_TYPE : "",
-            V_P_NATION_CODE : "",
-            V_P_TEL : "",
-            V_P_ADDRESS : "",
-            V_P_WORK_REGION : "",
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3610.do", {
-            getType				: 'json',
-            workType			: 'D',
-            cv_count			: '0',
-            params				: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");
-                await fn_search();
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            gvwInfo.deleteRow(rowVal);
         }
     }
 
@@ -565,19 +491,9 @@
         fn_save();
     }
 
-    // 삭제
-    function cfn_del() {
-        fn_delete();
-    }
-
     // 조회
     function cfn_search() {
         fn_search();
-    }
-
-    // 신규
-    function cfn_add() {
-        fn_create();
     }
 
     const fn_onload = async function() {
@@ -587,161 +503,64 @@
     }
 
     const fn_save = async function () {
-        let strStatus = "";
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+        let updatedData = gvwInfo.getUpdateData(true, 'all');
+        let returnData = [];
 
-        if(enableTab == "tpgResident") {
-            if (gfn_nvl(SBUxMethod.get("CHK")) == "")
-                strStatus = "N";
-            else
-                strStatus = "U";
-        } else if(enableTab == "tpgNonresident") {
-            if (gfn_nvl(SBUxMethod.get("EARNER_CODE1")) == "")
-                strStatus = "N";
-            else
-                strStatus = "U";
-        }
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
-            V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
-            V_P_EARNER_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_NAME1")) : gfn_nvl(SBUxMethod.get("EARNER_NAME3")),
-            V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),
-            V_P_BIZ_REGNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BIZ_REGNO1")) : "",
-            V_P_COMP_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("COMP_NAME")) : "",
-            V_P_NATION_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("NATION_CODE")) : gfn_nvl(SBUxMethod.get("NATION_CODE1")),
-            V_P_FOREI_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE1')),
-            V_P_RESIDE_TYPE : enableTab == "tpgResident" ? "1" : "2",
-            V_P_SITE_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ZIP_CODE")) : "",
-            V_P_SITE_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ADDRESS")) : "",
-            V_P_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ZIP_CODE")) : "",
-            V_P_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ADDRESS")) : gfn_nvl(SBUxMethod.get("ADDRESS1")),
-            V_P_INC_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE1')),
-            V_P_INC_SEC : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC1')),
-            V_P_WORK_REGION : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#WORK_REGION')) : gfn_nvl(gfnma_multiSelectGet('#WORK_REGION1')),
-            V_P_BUSINESS_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE1')) : gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE')),
-            V_P_BANK_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_CODE")) : gfn_nvl(SBUxMethod.get("BANK_CODE1")),
-            V_P_BANK_ACC : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_ACCOUNT")) : gfn_nvl(SBUxMethod.get("BANK_ACCOUNT1")),
-            V_P_TEL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TEL")) : gfn_nvl(SBUxMethod.get("TEL1")),
-            V_P_BIRTHDAY : enableTab == "tpgResident" ? "" : gfn_nvl(SBUxMethod.get("BIRTHDAY")),
-            V_P_MOBILE_PHONE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MOBILE_PHONE")) : "",
-            V_P_EMAIL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EMAIL")) : "",
-            V_P_PAY_CYCLE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#PAY_CYCLE')) : "",
-            V_P_MEMO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MEMO")) : gfn_nvl(SBUxMethod.get("MEMO1")),
-            V_P_TAX_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TAX_SITE_CODE1")) : gfn_nvl(SBUxMethod.get("TAX_SITE_CODE2")),
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3610.do", {
-            getType				: 'json',
-            workType			: strStatus,
-            cv_count			: '0',
-            params				: gfnma_objectToString(paramObj)
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_JOB_YYYYMM : item.JOB_YYYYMM,
+                    V_P_SOCNO : item.SOCNO,
+                    V_P_WORK_ST_DAT : item.WORK_ST_DAT,
+                    V_P_EARNER_NAME : item.EARNER_NAME,
+                    V_P_SITE_CODE : item.SITE_CODE,
+                    V_P_PAY_DATE : item.PAY_DATE,
+                    V_P_WORK_END_DAT : item.WORK_END_DAT,
+                    V_P_WORK_DAY : item.WORK_DAY,
+                    V_P_DECLARATION_YYYYMM : item.DECLARATION_YYYYMM,
+                    V_P_BANK_CODE : item.BANK_CODE,
+                    V_P_BANK_ACC : item.BANK_ACC,
+                    V_P_DAILY_PAY_AMT : item.DAILY_PAY_AMT,
+                    V_P_TOT_PAY_AMT : item.TOT_PAY_AMT,
+                    V_P_WORK_PAY_AMT : item.WORK_PAY_AMT,
+                    V_P_NON_TXABLE_AMT : item.NON_TXABLE_AMT,
+                    V_P_INC_AMT : item.INC_AMT,
+                    V_P_EARNED_INC_AMT : item.EARNED_INC_AMT,
+                    V_P_INC_TX_AMT : item.INC_TX_AMT,
+                    V_P_LOCAL_TX_AMT : item.LOCAL_TX_AMT,
+                    V_P_HEALTH_INSURE_AMT : item.HEALTH_INSURE_AMT,
+                    V_P_LONG_HEALTH_INSURE_AMT : item.LONG_HEALTH_INSURE_AMT,
+                    V_P_NATIONAL_PENS_AMT : item.NATIONAL_PENS_AMT,
+                    V_P_EMPLOY_INSURE_AMT : item.EMPLOY_INSURE_AMT,
+                    V_P_ETC_DED_AMT : item.ETC_DED_AMT,
+                    V_P_TOT_DEDUCT_AMT : item.TOT_DEDUCT_AMT,
+                    V_P_ALLOWANCE_AMT : item.ALLOWANCE_AMT,
+                    V_P_MEMO : item.MEMO,
+                    V_P_REMARK : item.REMARK,
+                    V_P_FOREI_TYPE : item.FOREI_TYPE,
+                    V_P_NATION_CODE : item.NATION_CODE,
+                    V_P_TEL : item.TEL,
+                    V_P_ADDRESS : item.ADDRESS,
+                    V_P_WORK_REGION : item.WORK_REGION,
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
         });
 
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if(enableTab == "tpgResident") {
-                    let strFocus = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-                    if(strStatus == "N") {
-                        strFocus = data.v_returnStr;
-                        SBUxMethod.set("EARNER_CODE", data.v_returnStr);
-                    }
-
-                    await fn_search();
-
-                    gvwResident.clickRow(jsonResidentList.findIndex(item => item.EARNER_CODE == strFocus) + 1)
-                } else if(enableTab == "tpgNonresident") {
-                    let strFocus = gfn_nvl(SBUxMethod.get("EARNER_CODE1"));
-                    if(strStatus == "N") {
-                        strFocus = data.v_returnStr;
-                        SBUxMethod.set("EARNER_CODE1", data.v_returnStr);
-                    }
-
-                    await fn_search();
-                    gvwNonresident.clickRow(jsonNonResidentList.findIndex(item => item.EARNER_CODE == strFocus) + 1);
-                }
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_delete = async function () {
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
-        let strMessage = "";
-
-        if(enableTab == "tpgResident") {
-            strMessage = gfn_nvl(SBUxMethod.get("EARNER_CODE1")) + " 정보를 삭제하시겠습니까?";
-        } else if(enableTab == "tpgNonresident") {
-            strMessage = gfn_nvl(SBUxMethod.get("EARNER_CODE3")) + " 정보를 삭제하시겠습니까?";
-        }
-
-        if (gfn_comConfirm("Q0000", strMessage)) {
-            let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
-
-            var paramObj = {
-                V_P_DEBUG_MODE_YN	: '',
-                V_P_LANG_ID		: '',
-                V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-                V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
-                V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
-                V_P_EARNER_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_NAME1")) : gfn_nvl(SBUxMethod.get("EARNER_NAME3")),
-                V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),
-                V_P_BIZ_REGNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BIZ_REGNO1")) : "",
-                V_P_COMP_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("COMP_NAME")) : "",
-                V_P_NATION_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("NATION_CODE")) : gfn_nvl(SBUxMethod.get("NATION_CODE1")),
-                V_P_FOREI_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#FOREIGN_TYPE1')),
-                V_P_RESIDE_TYPE : enableTab == "tpgResident" ? "1" : "2",
-                V_P_SITE_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ZIP_CODE")) : "",
-                V_P_SITE_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_ADDRESS")) : "",
-                V_P_ZIP_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ZIP_CODE")) : "",
-                V_P_ADDRESS : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("ADDRESS")) : gfn_nvl(SBUxMethod.get("ADDRESS1")),
-                V_P_INC_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_TYPE1')),
-                V_P_INC_SEC : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC')) : gfn_nvl(gfnma_multiSelectGet('#INCOME_SEC1')),
-                V_P_WORK_REGION : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#WORK_REGION')) : gfn_nvl(gfnma_multiSelectGet('#WORK_REGION1')),
-                V_P_BUSINESS_TYPE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE1')) : gfn_nvl(gfnma_multiSelectGet('#BUSINESS_TYPE')),
-                V_P_BANK_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_CODE")) : gfn_nvl(SBUxMethod.get("BANK_CODE1")),
-                V_P_BANK_ACC : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BANK_ACCOUNT")) : gfn_nvl(SBUxMethod.get("BANK_ACCOUNT1")),
-                V_P_TEL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TEL")) : gfn_nvl(SBUxMethod.get("TEL1")),
-                V_P_BIRTHDAY : enableTab == "tpgResident" ? "" : gfn_nvl(SBUxMethod.get("BIRTHDAY")),
-                V_P_MOBILE_PHONE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MOBILE_PHONE")) : "",
-                V_P_EMAIL : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EMAIL")) : "",
-                V_P_PAY_CYCLE : enableTab == "tpgResident" ? gfn_nvl(gfnma_multiSelectGet('#PAY_CYCLE')) : "",
-                V_P_MEMO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("MEMO")) : gfn_nvl(SBUxMethod.get("MEMO1")),
-                V_P_TAX_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("TAX_SITE_CODE1")) : gfn_nvl(SBUxMethod.get("TAX_SITE_CODE2")),
-                V_P_FORM_ID		: p_formId,
-                V_P_MENU_ID		: p_menuId,
-                V_P_PROC_ID		: '',
-                V_P_USERID			: '',
-                V_P_PC				: ''
-            };
-
-            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3610.do", {
-                getType				: 'json',
-                workType			: 'D',
-                cv_count			: '0',
-                params				: gfnma_objectToString(paramObj)
-            });
-
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3620List.do", {listData: returnData});
             const data = await postJsonPromise;
 
             try {
@@ -751,7 +570,6 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -759,7 +577,10 @@
                 console.error("failed", e.message);
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
+        } else {
+            await fn_search();
         }
+
     }
 
     const fn_search = async function () {
@@ -859,23 +680,6 @@
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_create = async function () {
-        let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
-
-        if(enableTab == "tpgResident") {
-            gfnma_uxDataClear('#panResidentInfo');
-
-            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SUB_CODE', 'CODE_NAME', "1");
-            SBUxMethod.attr("EARNER_CODE", "readonly", false);
-            $("#SITE_CODE").focus();
-        } else if(enableTab == "tpgNonresident") {
-            gfnma_uxDataClear('#grpNonresidentInfo');
-
-            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SUB_CODE', 'CODE_NAME', "1");
-            $("#SITE_CODE").focus();
         }
     }
 </script>
