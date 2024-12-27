@@ -72,33 +72,25 @@ public class ApcMaHra3620Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/hr/hrp/svc/insertHra3620.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHra3620(
+    @PostMapping(value = "/hr/hrp/svc/insertHra3620List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra3620List(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHra3620=====start========");
+        logger.info("=============insertHra3620List=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRA3620_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA3620_S");
+
+            logger.info("=============insertHra3620List=====end========");
+            return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHra3620=====end========");
-        if(resultMap.get("resultStatus").equals("E")) {
-            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
-            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
-
-            return getErrorResponseEntity(errorCode, errorStr);
-        } else {
-            return getSuccessResponseEntity(resultMap);
         }
     }
 }
