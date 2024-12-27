@@ -889,7 +889,7 @@
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">생산유통통합조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024 신규 자금 신청액(천원)</th>
+							<th colspan="4" scope="row" class="th_bg"><span class="setYr">2024</span> 신규 자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -904,7 +904,7 @@
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">출자출하조직</th>
-							<th colspan="4" scope="row" class="th_bg">2024 신규 자금 신청액(천원)</th>
+							<th colspan="4" scope="row" class="th_bg"><span class="setYr">2024</span> 신규 자금 신청액(천원)</th>
 							<td colspan="7" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -1152,6 +1152,7 @@
 		//기본년도 세팅
 		SBUxMethod.set("srch-input-yr",year);
 		SBUxMethod.set("dtl-input-yr",year);
+		$(".setYr").text(year);
 	}
 
 	//그리드 변수
@@ -1314,6 +1315,8 @@
 		fn_clearForm();
 
 		let yr = SBUxMethod.get("srch-input-yr");//
+		$(".setYr").text(yr);
+
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 

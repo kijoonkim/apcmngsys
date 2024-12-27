@@ -48,4 +48,17 @@ public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+	/* 20241216 물량 추가 */
+	private String totTrmtPrfmncVlm;//통합조직총취급 물량
+	private String totSpmtPrfmncVlm;//생산자조직 전속출하 물량
+
+	/* 20241226 부류별 물량, 금액 추가 */
+	private String clsfCd;
+	private String clsfNm;
+
+	private String totVlm;
+	private String totAmt;
+	private String prvTotVlm;
+	private String prvTotAmt;
+
 }

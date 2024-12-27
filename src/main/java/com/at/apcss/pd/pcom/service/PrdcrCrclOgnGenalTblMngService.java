@@ -85,4 +85,12 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 * @throws Exception
 	 */
 	public int updateAllUoStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 통합조직 부류별 합계
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 }

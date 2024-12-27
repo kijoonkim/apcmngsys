@@ -622,7 +622,7 @@
 							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
 						</tr>
 						<tr>
-							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span>2024 신규 자금 신청액(천원)</th>
+							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span><span class="setYr">2024</span> 신규 자금 신청액(천원)</th>
 							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
@@ -807,6 +807,7 @@
 		//기본년도 세팅
 		SBUxMethod.set("srch-input-yr",year);
 		SBUxMethod.set("dtl-input-yr",year);
+		$(".setYr").text(year);
 	}
 
 	var jsonInvShipOgnReqMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1042,6 +1043,8 @@
 		if(gfn_isEmpty(yr)){
 			yr = SBUxMethod.get("dtl-input-yr");//
 		}
+		$(".setYr").text(yr);
+
 		//console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -2804,6 +2807,11 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_hiddenGrd = async function() {
+		let yr = SBUxMethod.get('srch-input-yr');
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get('dtl-input-yr');
+		}
+
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-hiddenGrd';
 		SBGridProperties.id = 'hiddenGrd';
@@ -2835,7 +2843,7 @@
 			{caption: ["지자체 출자금지분"],			ref: 'locgovInvstAmt',		type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["기타 출자금지분"],			ref: 'etcInvstAmt',			type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["농업인출자지분율"],			ref: 'frmerInvstAmtRt',		type:'output',  width:'120px',    style:'text-align:center'},
-			{caption: ["출자출하조직 2024년 자금신청액"],	ref: 'isoFundAplyAmt',		type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["출자출하조직 "+yr+"년 자금신청액"],	ref: 'isoFundAplyAmt',		type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["작성자 성명"],				ref: 'picFlnm',				type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["작성자 전화번호"],			ref: 'picTelno',			type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["작성자 휴대번호"],			ref: 'picMoblno',			type:'output',  width:'100px',    style:'text-align:center'},

@@ -46,7 +46,7 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	/**
 	 * 총괄표 로우데이터
 	 * @param ItemUoStbltYnVO
-	 * @return
+	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
@@ -71,7 +71,7 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	/**
 	 * 생산자조직 리스트 조회.
 	 * @param PrdcrCrclOgnGenalTblMngVO
-	 * @return
+	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
 	public List<TbEvFrmhsApoVO> selectFrmhsStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
@@ -79,7 +79,7 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	/**
 	 * 출자출하조직 리스트 조회.
 	 * @param PrdcrCrclOgnGenalTblMngVO
-	 * @return
+	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
 	public List<ItemStbltYnVO> selectIsoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
@@ -87,8 +87,16 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	/**
 	 * 통합조직 리스트 조회.
 	 * @param PrdcrCrclOgnGenalTblMngVO
-	 * @return
+	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
 	public List<ItemUoStbltYnVO> selectUoStbltYnList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+
+	/**
+	 * 부류별 합계
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return List<PrdcrCrclOgnGenalTblMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 }

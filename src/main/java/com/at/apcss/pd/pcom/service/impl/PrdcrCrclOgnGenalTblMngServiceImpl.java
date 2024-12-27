@@ -183,4 +183,11 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 		}
 		return updatedCnt;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO);
+		return resultList;
+	}
 }

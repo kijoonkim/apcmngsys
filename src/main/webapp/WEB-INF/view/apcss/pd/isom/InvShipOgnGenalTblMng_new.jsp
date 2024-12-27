@@ -1238,6 +1238,13 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_createGridClsfTot = async function() {
+		let yr = SBUxMethod.get('srch-input-yr');
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get('dtl-input-yr');
+		}
+		let prvYr = Number(yr) - 1;
+		let prvTotStr = prvYr + "년";
+		let totStr = yr + "년";
 
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdClsfTot';
@@ -1254,17 +1261,17 @@
 			{caption: ["부류","부류"]
 				,ref: 'clsfNm',		type:'output',  width:'100px',    style:'text-align:center'},
 
-			{caption: ["2023년","취급 물량(톤)"]
+			{caption: [prvTotStr,"취급 물량(톤)"]
 				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["2023년","취급액(천원)"]
+			{caption: [prvTotStr,"취급액(천원)"]
 				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
-			{caption: ["2024년","취급 물량(톤)"]
+			{caption: [totStr,"취급 물량(톤)"]
 				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["2024년","취급액(천원)"]
+			{caption: [totStr,"취급액(천원)"]
 				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
