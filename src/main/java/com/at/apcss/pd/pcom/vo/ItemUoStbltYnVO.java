@@ -41,6 +41,9 @@ public class ItemUoStbltYnVO extends ComVO{
 	private String slsCnsgnSlsAmtTot;
 	private String slsCnsgnSlsAmtRt;
 
+	private String slsCnsgnSlsVlm;
+	private String slsCnsgnSlsVlmTot;
+
 	/*예외*/
 	private String chkItemA; /*CTGRY_CD 2*/
 	private String chkItemB; /*CTGRY_CD 3*/

@@ -590,7 +590,11 @@
 				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
 					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+				{caption: ["통합조직 총\n취급 물량(톤)"], 		ref: 'slsCnsgnSlsVlmTot',   	type:'output',  width:'100px',	style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',	style:'text-align:center;'
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				{caption: ["생산자조직\n전속출하액 물량(톤)"], 	ref: 'slsCnsgnSlsVlm',   	type:'output',  width:'120px',	style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
@@ -957,7 +961,7 @@
 		let brno = SBUxMethod.get("dtl-input-brno");//
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", {
 			brno : brno
 			, yr : yr
 		});
@@ -979,6 +983,9 @@
 						,slsCnsgnSlsAmt: item.slsCnsgnSlsAmt
 						,slsCnsgnSlsAmtTot: item.slsCnsgnSlsAmtTot
 						,slsCnsgnSlsAmtRt: item.slsCnsgnSlsAmtRt
+
+						,slsCnsgnSlsVlm: item.slsCnsgnSlsVlm
+						,slsCnsgnSlsVlmTot: item.slsCnsgnSlsVlmTot
 
 						,stbltYn: 		item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: 	item.orgStbltYn//적합여부 현재 적용 값

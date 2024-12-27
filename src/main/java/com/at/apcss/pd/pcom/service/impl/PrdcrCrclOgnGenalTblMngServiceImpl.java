@@ -44,22 +44,18 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 
 	@Override
 	public PrdcrCrclOgnGenalTblMngVO selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-
 		PrdcrCrclOgnGenalTblMngVO resultVO = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO);
-
 		return resultVO;
 	}
 
 	@Override
 	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-
 		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO);
 		return resultList;
 	}
 
 	@Override
 	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVo);
 		return resultList;
 	}
@@ -67,20 +63,17 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	@Override
 	public int updateStbltYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
 		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updateStbltYn(PrdcrCrclOgnGenalTblMngVO);
-
 		return updatedCnt;
 	}
 
 	@Override
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
 		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
-
 		return updatedCnt;
 	}
 
 	@Override
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList(ItemUoStbltYnVo);
 		return resultList;
 	}
@@ -88,7 +81,6 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	@Override
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
 		int updatedCnt = PrdcrCrclOgnGenalTblMngMapper.updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO);
-
 		return updatedCnt;
 	}
 
@@ -186,8 +178,13 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 
 	@Override
 	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-
 		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVo);
 		return resultList;
 	}
 }
