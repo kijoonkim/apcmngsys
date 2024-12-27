@@ -1271,6 +1271,7 @@
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 		let brno = SBUxMethod.get("dtl-input-brno");//
+		if(gfn_isEmpty(brno)){return;}
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", {
