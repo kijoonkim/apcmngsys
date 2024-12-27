@@ -1581,7 +1581,7 @@ FROM
 			FROM DUAL
 			UNION ALL
 			SELECT
-				'생산자조직 외' AS SE_DTL_NM
+				'생산자조직 외(단순사입 포함)' AS SE_DTL_NM
 				,'0' AS OGNZ_STBLT_YN
 			FROM DUAL
 		)

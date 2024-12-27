@@ -1137,10 +1137,10 @@
 									FROM TB_EV_APO_YR_GPC_CD
 									WHERE 1=1
 									  AND APO_SE = '2'
-									  AND CLSF_CD IN ('1','2','3','4','5')
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
 									  AND UO_BRNO = PST.UO_BRNO
+									  AND STTG_UPBR_ITEM_SE != '3'
 									)
 				<if test='brno != null and brno != ""'>
 				  AND BRNO = #{brno}

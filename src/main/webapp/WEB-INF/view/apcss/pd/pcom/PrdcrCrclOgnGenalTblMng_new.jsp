@@ -347,6 +347,17 @@
 					</div>
 				</c:if>
 				</div>
+				<div class="ad_section_top">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶요약 - 부류별 합계</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdClsfTot" style="height:300px; width: 100%;"></div>
+				</div>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
@@ -372,12 +383,13 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_setYear()//기본년도 세팅
+		await fn_setYear()//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 	</c:if>
 		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
+		await fn_createGridClsfTot();
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		await fn_search();
@@ -984,6 +996,7 @@
 			});
 			grdPrdcrOgnCurntMng01.rebuild();
 			//fn_gridCustom();
+			fn_dtlSearchClsfTot();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1337,6 +1350,143 @@
 			console.error("failed", e.message);
 		}
 	}
+
+
+	/* 매출현황 평가부류별 요약표 */
+	var jsonClsfTot = []; // 그리드의 참조 데이터 주소 선언
+	var grdClsfTot;
+
+	const objMenuList04 = {
+			"excelDwnld": {
+				"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+				"accesskey": "e",					//단축키
+				"callback": fn_excelDwnld04,			//콜백함수명
+			}
+		};
+
+	function fn_excelDwnld04() {
+		grdPrdcrOgnCurntMng04.exportLocalExcel("출자출하조직관리(총괄표 - 부류별 합계)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
+	/* Grid 화면 그리기 기능*/
+	const fn_createGridClsfTot = async function() {
+		let yr = SBUxMethod.get('srch-input-yr');
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get('dtl-input-yr');
+		}
+		let prvYr = Number(yr) - 1;
+		let prvTotStr = prvYr + "년";
+		let totStr = yr + "년";
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdClsfTot';
+		SBGridProperties.id = 'grdClsfTot';
+		SBGridProperties.jsonref = 'jsonClsfTot';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList04;	// 우클릭 메뉴 리스트
+		//SBGridProperties.extendlastcol = 'scroll';
+		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.columns = [
+			{caption: ["부류","부류"]
+				,ref: 'clsfNm',		type:'output',  width:'100px',    style:'text-align:center'},
+
+			{caption: [prvTotStr,"취급 물량(톤)"]
+				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: [prvTotStr,"취급액(천원)"]
+				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: [totStr,"취급 물량(톤)"]
+				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: [totStr,"취급액(천원)"]
+				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
+		];
+		grdClsfTot = _SBGrid.create(SBGridProperties);
+	}
+
+	//총괄표 조회
+	async function fn_dtlSearchClsfTot() {
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){return;}
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		let postJsonPromise01 = gfn_postJSON("/pd/pcom/selectIsoClsfTot.do", {
+			uoBrno : brno
+			,brno : brno
+			,yr : yr
+		});
+		let data = await postJsonPromise01;
+		try{
+			jsonClsfTot.length = 0;
+			//console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let itemVO = {
+						clsfCd: 		item.clsfCd
+						,clsfNm: 		item.clsfNm
+
+						,totVlm: 		item.totVlm
+						,totAmt: 		item.totAmt
+						,prvTotVlm: 	item.prvTotVlm
+						,prvTotAmt: 	item.prvTotAmt
+				};
+
+				jsonClsfTot.push(itemVO);
+			});
+
+			grdClsfTot.rebuild();
+
+			fn_clsfTot();
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 부류별 합계 그리드 합계 */
+	function fn_clsfTot(){
+		// 합계를 저장할 변수 초기화
+		let totalSum = {
+			clsfNm: '합계',
+			totVlm: 0,
+			totAmt: 0,
+			prvTotVlm: 0,
+			prvTotAmt: 0
+		};
+
+		let objGrid = grdClsfTot;
+		let gridData01 = objGrid.getGridDataAll();
+		let captionRow = objGrid.getFixedRows();
+		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
+			// 현재 행 데이터 가져오기
+			let rowData01 = objGrid.getRowData(i);
+			totalSum.totVlm 	+= Number(rowData01.totVlm || 0);
+			totalSum.totAmt 	+= Number(rowData01.totAmt || 0);
+			totalSum.prvTotVlm 	+= Number(rowData01.prvTotVlm || 0);
+			totalSum.prvTotAmt 	+= Number(rowData01.prvTotAmt || 0);
+		}
+
+		objGrid.addRow();
+
+		// 합계 데이터를 objGrid에 설정
+		Object.keys(totalSum).forEach((key) => {
+			objGrid.setCellData( gridData01.length + captionRow-1, objGrid.getColRef(key), totalSum[key]);
+		});
+
+		objGrid.rebuild();
+	}
+
+
 
 	/* 로우데이터 요청 */
 
