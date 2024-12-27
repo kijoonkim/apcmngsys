@@ -897,10 +897,7 @@ SELECT
 	, ITEM.EC_SPMT_VLM_TOT AS SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
 	, TOT.SLS_CNSGN_SLS_VLM
-	, TOT.UO_SPMT_AMT
-	, TOT.UO_SPMT_VLM
-	, TOT.UO_OTHER_SPMT_AMT
-	, TOT.UO_OTHER_SPMT_VLM
+
 	, TOT.RMRK
 	, ITEM.UO_BRNO
 	, TOT.STBLT_YN
@@ -925,17 +922,15 @@ FROM
 		WHERE 1=1
 		  AND FA.YR = #{yr}
 		  AND FA.BRNO = #{brno}
-		  AND FA.UO_BRNO = #{brno}
 		  AND FA.APO_SE = '1'
 		  AND FA.STBLT_YN = 'Y'
 		  AND NVL(FA.EXCL_YN,'N') != 'Y'
 		  AND ITEM_CD IN (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
+							  AND APO_SE = '1'
 							  AND YR = FA.YR
 							  AND BRNO = FA.BRNO
-							  AND UO_BRNO = FA.UO_BRNO
-							  AND APO_SE = FA.APO_SE
 							  AND STTG_UPBR_ITEM_SE != '3'
 							)
 	) ITEM ,
@@ -944,27 +939,24 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
-		  AND UO_BRNO = #{brno}
 		  AND APO_SE ='1'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'Y'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
+							  AND APO_SE = '1'
 							  AND YR = PST.YR
 							  AND BRNO = PST.BRNO
-							  AND UO_BRNO = PST.UO_BRNO
-							  AND APO_SE = PST.APO_SE
 							  AND STTG_UPBR_ITEM_SE != '3'
 							)
 		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 									FROM TB_EV_FRMHS_APO
 									WHERE 1=1
-									  AND APO_SE= PST.APO_SE
+									  AND APO_SE= '1'
 									  AND STBLT_YN = 'Y'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
-									  AND UO_BRNO = PST.UO_BRNO
 									)
 	) TOT
 WHERE 1=1
@@ -992,10 +984,7 @@ SELECT
 	, ITEM.EC_SPMT_VLM_TOT AS SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
 	, TOT.SLS_CNSGN_SLS_VLM
-	, TOT.UO_SPMT_AMT
-	, TOT.UO_SPMT_VLM
-	, TOT.UO_OTHER_SPMT_AMT
-	, TOT.UO_OTHER_SPMT_VLM
+
 	, TOT.RMRK
 	, ITEM.UO_BRNO
 	, TOT.STBLT_YN
@@ -1020,17 +1009,15 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND FA.BRNO = #{brno}
-		  AND FA.UO_BRNO = #{brno}
 		  AND APO_SE = '1'
 		  AND FA.STBLT_YN != 'Y'
 		  AND NVL(FA.EXCL_YN,'N') != 'Y'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
+							  AND APO_SE = '1'
 							  AND YR = FA.YR
 							  AND BRNO = FA.BRNO
-							  AND UO_BRNO = FA.UO_BRNO
-							  AND APO_SE = FA.APO_SE
 							  AND STTG_UPBR_ITEM_SE != '3'
 							)
 	) ITEM ,
@@ -1039,26 +1026,23 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
-		  AND UO_BRNO = #{uoBrno}
 		  AND APO_SE ='1'
 		  AND TYPE_SE_NO = '5'
+		  AND OGNZ_STBLT_YN = 'N'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
+							  AND APO_SE = '1'
 							  AND YR = PST.YR
 							  AND BRNO = PST.BRNO
-							  AND UO_BRNO = PST.UO_BRNO
-							  AND APO_SE = PST.APO_SE
 							  AND STTG_UPBR_ITEM_SE != '3'
 							)
 		  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 									FROM TB_EV_FRMHS_APO
 									WHERE 1=1
-									  AND APO_SE = PST.APO_SE
-									  AND STBLT_YN != 'Y'
+									  AND APO_SE = '1'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
-									  AND UO_BRNO = PST.UO_BRNO
 									)
 	) TOT
 WHERE 1=1
@@ -1086,10 +1070,7 @@ SELECT
 	, 0 AS SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
 	, TOT.SLS_CNSGN_SLS_VLM
-	, TOT.UO_SPMT_AMT
-	, TOT.UO_SPMT_VLM
-	, TOT.UO_OTHER_SPMT_AMT
-	, TOT.UO_OTHER_SPMT_VLM
+
 	, TOT.RMRK
 	, ITEM.UO_BRNO
 	, TOT.STBLT_YN
@@ -1184,10 +1165,7 @@ SELECT
 	, TOT.SLS_CNSGN_PRCHS_VLM
 	, TOT.SLS_CNSGN_SLS_AMT
 	, TOT.SLS_CNSGN_SLS_VLM
-	, TOT.UO_SPMT_AMT
-	, TOT.UO_SPMT_VLM
-	, TOT.UO_OTHER_SPMT_AMT
-	, TOT.UO_OTHER_SPMT_VLM
+
 	, TOT.RMRK
 	, ITEM.UO_BRNO
 	, TOT.STBLT_YN
@@ -1241,10 +1219,7 @@ SELECT
 	, 0 AS SLS_CNSGN_PRCHS_VLM
 	, 0 AS SLS_CNSGN_SLS_AMT
 	, 0 AS SLS_CNSGN_SLS_VLM
-	, 0 AS UO_SPMT_AMT
-	, 0 AS UO_SPMT_VLM
-	, 0 AS UO_OTHER_SPMT_AMT
-	, 0 AS UO_OTHER_SPMT_VLM
+
 	, TOT.RMRK
 	, ITEM.UO_BRNO
 	, TOT.STBLT_YN
