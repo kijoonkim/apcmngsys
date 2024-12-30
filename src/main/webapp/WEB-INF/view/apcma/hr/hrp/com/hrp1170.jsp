@@ -379,6 +379,56 @@
 
 
     function cfn_save() {
+
+        let allData = grdExceptionList.getGridDataAll();
+
+        let chk = true;
+        for (let i = 0; i < allData.length ; i++){
+            if (gfn_nvl(allData[i].PAY_TYPE) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_TYPE'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 지급구분");
+                chk = false;
+                break;
+
+            }else if (gfn_nvl(allData[i].EMP_CODE ) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('EMP_CODE'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 사번");
+                chk = false;
+                break;
+            }else if (gfn_nvl(allData[i].PAY_ITEM_CODE ) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_ITEM_CODE'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 급여항목");
+                chk = false;
+                break;
+            }else if (gfn_nvl(allData[i].PAY_YYYYMM_FR ) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_YYYYMM_FR'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 귀속년월");
+                chk = false;
+                break;
+            }else if (gfn_nvl(allData[i].PAY_YYYYMM_TO ) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_YYYYMM_TO'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 귀속년월");
+                chk = false;
+                break;
+            }else if (gfn_nvl(allData[i].PAY_APPLY_TYPE ) == ''){
+                grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_APPLY_TYPE'));
+                grdExceptionList.editCell();
+                gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 적용구분");
+                chk = false;
+                break;
+            }
+        }
+
+        if (chk == false){
+            return;
+        }
+
+
         fn_save();
     }
 
@@ -424,14 +474,9 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
-                typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/, isvalidatecheck: true,	validate : 'fnValidate'},
-           /* {caption: ["사원검색 팝업"], 	ref: 'POP_BTN', type:'button', width:'100px', style:'text-align:center', /!*disabled: true,*!/
-                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:30px' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
-                }
-            },*/
             {caption: ["사원검색"], 			ref: 'POP_BTN',    				type:'button',  	width:'150px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
@@ -439,7 +484,7 @@
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
             {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
-                typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}/*, disabled: true*/
+                typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}
             },
             {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
@@ -766,7 +811,7 @@
                 P_HRP1170_S: await getParamForm('u')
             }*/
 
-            if (listData.length > 0) {
+            if (_.isEmpty(listData) == false) {
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
 
@@ -790,7 +835,9 @@
                     console.error("failed", e.message);
                     gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-            }
+            }/*else {
+                gfn_comAlert("Q0000","수정할 데이터가 없습니다.");
+            }*/
         }
 
     }
@@ -813,6 +860,7 @@
         if (!_.isEmpty(updateData)) {
 
             updateData.forEach((item, index) => {
+
                 const param = {
 
                     cv_count: '0',
