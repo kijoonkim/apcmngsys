@@ -479,22 +479,12 @@
         }
     }
 
-    const ensureRowsExist = (sheet, startRow, endRow) => {
-        for (let rowNumber = startRow; rowNumber <= endRow; rowNumber++) {
-            if (!sheet.getRow(rowNumber)) {
-                sheet.addRow(rowNumber);
-            }
-        }
-    };
-
     const applyValidations = (sheet, validations) => {
         validations.forEach(validation => {
             const [startCell, endCell] = validation.ref.split(':');
             const startRow = parseInt(startCell.match(/\d+/)[0]);
             const endRow = parseInt(endCell.match(/\d+/)[0]);
             const column = startCell.replace(/\d+/g, ''); // 열 추출
-
-            //ensureRowsExist(sheet, startRow, endRow);
 
             sheet.getColumn(column).numFmt = validation.numFmt;
             for (let row = startRow; row <= endRow; row++) {
@@ -872,18 +862,6 @@
             a.download = '용역비등록.xlsx';
             a.click();
             URL.revokeObjectURL(url);
-        });
-
-        //gvwInfo.exportData('xlsx', '용역비등록', true, {arrRemoveCols: ['EARNER_BTN'], sheetName: '용역비등록'});
-    }
-
-    const fn_uploadExcel = async function () {
-        const workbook = XLSX.read(arrayBuffer, {
-            type: 'array',
-            //cellText: true, // 셀 데이터를 텍스트로 강제 처리
-            cellDates: true, // 날짜 데이터를 텍스트로 유지
-            raw: false, // 숫자도 텍스트로 변환
-            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
         });
     }
 
