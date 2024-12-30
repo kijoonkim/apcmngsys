@@ -2627,11 +2627,19 @@
 
                 let complateCode = true;
 
+                let payData     = gvwPayGrid.getUpdateData(true, 'all');
+                if (await fn_saveS1Valid(payData) == false){
+                    return;
+                }
+                let bonusData   = gvwBonusGrid.getUpdateData(true, 'all');
+                if (await fn_saveS2Valid(bonusData) == false){
+                    return;
+                }
+                let changeData  = gvwChangeGrid.getUpdateData(true, 'all');
+
+
                 complateCode = await fn_save();
 
-                let payData     = gvwPayGrid.getUpdateData(true, 'all');
-                let bonusData   = gvwBonusGrid.getUpdateData(true, 'all');
-                let changeData  = gvwChangeGrid.getUpdateData(true, 'all');
                 //P_HRA5150_S1
                 if (_.isEmpty(payData) == false && complateCode == true) {
                     complateCode = await fn_saveS1(payData, rowData);
@@ -2654,7 +2662,113 @@
             }
         }
     }
-    // 삭제
+
+    //급여내역 공제 필수값 체크
+    const fn_saveS1Valid = async function (updateData) {
+
+        if (_.isEmpty(updateData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updateData.length ; i++){
+            if (gfnma_nvl2(updateData[i].data.PAY_YYYYMM) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('PAY_YYYYMM'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 귀속년월");
+                chk = false;
+                break;
+
+            }/*else if (gfnma_nvl2(updateData[i].data.BASE_PAY_AMT ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('BASE_PAY_AMT'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 기본급");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.ALLOWANCE_AMT ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('ALLOWANCE_AMT'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 수당");
+                chk = false;
+                break;
+            }*/else if (gfnma_nvl2(updateData[i].data.APPLY_AMT ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('APPLY_AMT'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 적용금액");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.ST_DAT ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('ST_DAT'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 적용시작일");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.END_DAT ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('END_DAT'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 적용종료일");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.APPLY_DAYS ) == ''){
+                gvwPayGrid.clickCell(updateData[i].data.sb_row_index, gvwPayGrid.getColRef('APPLY_DAYS'));
+                gvwPayGrid.editCell();
+                gfn_comAlert("W0002", "'급여내역 리스트' 적용일수");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+
+    }
+    //상여내역 공제 필수값 체크
+    const fn_saveS2Valid = async function (updateData) {
+        if (_.isEmpty(updateData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updateData.length ; i++){
+            if (gfnma_nvl2(updateData[i].data.PAY_YYYYMM) == ''){
+                gvwBonusGrid.clickCell(updateData[i].data.sb_row_index, gvwBonusGrid.getColRef('PAY_YYYYMM'));
+                gvwBonusGrid.editCell();
+                gfn_comAlert("W0002", "'상여내역 리스트' 귀속년월");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updateData[i].data.PAY_DATE ) == ''){
+                gvwBonusGrid.clickCell(updateData[i].data.sb_row_index, gvwBonusGrid.getColRef('PAY_DATE'));
+                gvwBonusGrid.editCell();
+                gfn_comAlert("W0002", "'상여내역 리스트' 지급일");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.PAY_ITEM_CODE ) == ''){
+                gvwBonusGrid.clickCell(updateData[i].data.sb_row_index, gvwBonusGrid.getColRef('PAY_ITEM_CODE'));
+                gvwBonusGrid.editCell();
+                gfn_comAlert("W0002", "'상여내역 리스트' 급여항목");
+                chk = false;
+                break;
+            }/*else if (gfnma_nvl2(updateData[i].data.PAY_AMT ) == ''){
+                gvwBonusGrid.clickCell(updateData[i].data.sb_row_index, gvwBonusGrid.getColRef('PAY_AMT'));
+                gvwBonusGrid.editCell();
+                gfn_comAlert("W0002", "'상여내역 리스트' 상여금액");
+                chk = false;
+                break;
+            }*/else if (gfnma_nvl2(updateData[i].data.APPLY_AMT ) == ''){
+                gvwBonusGrid.clickCell(updateData[i].data.sb_row_index, gvwBonusGrid.getColRef('APPLY_AMT'));
+                gvwBonusGrid.editCell();
+                gfn_comAlert("W0002", "'상여내역 리스트' 적용금액");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+    }
+
+        // 삭제
     /*function cfn_del() {
         fn_delete();
     }*/
@@ -2939,7 +3053,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["거래처"], ref: 'CS_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사원코드"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["사 원 명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            {caption: ["사 원 명"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left', isvalidatecheck: true,	validate : 'fnValidate'},
             {caption: ["적    요"], ref: 'MEMO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["사원번호필수입력"], ref: 'NEED_EMP_CODE_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -6041,11 +6155,8 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
-
-                    } else {
-                        gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-
                         fn_search();
+
                     }
 
                 } else {

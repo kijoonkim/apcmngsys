@@ -1387,9 +1387,9 @@
             return { isValid : false, message : '값을 입력하시오.'};
         }
 
-        if (!(/[0-9]/g).test(strValue)) {
+        /*if (!(/[0-9]/g).test(strValue)) {
             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
-        }
+        }*/
 
         return Number(strValue);
     }
@@ -1408,13 +1408,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true ,
                 typeinfo : {ref : 'jsonPayType', /*displayui : true,*/ label : 'label', value : 'value'}
             },
             {caption : ["수당항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
@@ -1454,11 +1454,11 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode2', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption : ["수정자"], ref : 'USERID', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonUser', /*displayui : true,*/ label : 'label', value : 'value'}
@@ -1495,7 +1495,7 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode3', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
@@ -1537,7 +1537,7 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '120px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode4', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '120px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,  disabled: true,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
@@ -1580,7 +1580,7 @@
             {caption : ["공제항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayItemCode5', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '100px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'PAY_AMT', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['적용시작월'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymm'}, disabled: true},

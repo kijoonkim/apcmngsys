@@ -443,7 +443,7 @@
         document.getElementById('excelFile2').addEventListener('change', function (event) {
             if (!window.FileReader) return;
 
-            let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+            let PAY_ITEM_NAME = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
 
             //급여 변동항목 등록_출산경조금공제 - Excel파일 명
             if (event.target.files[0].name.indexOf("_") < 0) {
@@ -515,7 +515,7 @@
     function fn_compopup1() {
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 
-        var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_ENTRY_DEPT_NAME"));
+        var searchText 		= gfnma_nvl2(SBUxMethod.get("SRCH_ENTRY_DEPT_NAME"));
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -599,6 +599,41 @@
     }*/
     // 저장
     function cfn_save() {
+
+        let allData = gvwDetallGrid.getGridDataAll();
+
+        let chk = true;
+        for (let i = 0; i < allData.length ; i++){
+            if (gfnma_nvl2(allData[i].PAY_AMT) == ''){
+                gvwDetallGrid.clickCell(allData[i].sb_row_index, gvwDetallGrid.getColRef('PAY_AMT'));
+                gvwDetallGrid.editCell();
+                gfn_comAlert("W0002", "'급여 변동 항목 리스트' 금액");
+                chk = false;
+                break;
+
+            }
+            if (gfnma_nvl2(allData[i].EMP_CODE) == ''){
+                /*gvwDetallGrid.clickCell(allData[i].sb_row_index, gvwDetallGrid.getColRef('EMP_CODE'));
+                gvwDetallGrid.editCell();*/
+                gfn_comAlert("W0002", "'급여 변동 항목 리스트' 사원정보");
+                chk = false;
+                break;
+
+            }
+            if (gfnma_nvl2(allData[i].EMP_FULL_NAME) == ''){
+               /* gvwDetallGrid.clickCell(allData[i].sb_row_index, gvwDetallGrid.getColRef('EMP_FULL_NAME'));
+                gvwDetallGrid.editCell();*/
+                gfn_comAlert("W0002", "'급여 변동 항목 리스트' 사원정보");
+                chk = false;
+                break;
+
+            }
+        }
+
+        if (chk == false){
+            return;
+        }
+
         fn_save();
     }
     // 삭제
@@ -656,7 +691,7 @@
     //급여변동항목 등록 리스트
     function fn_createDetallGrid(chMode, rowData) {
         /*jsonDetallList = jsonDetallList.filter(data => {
-            return gfn_nvl(data.EMP_CODE) != '';
+            return gfnma_nvl2(data.EMP_CODE) != '';
         });*/
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-gvwDetall';
@@ -712,7 +747,7 @@
                 }
             },
             {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right'
+            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -733,16 +768,33 @@
     }
 
     /**
+     * 그리드내 필수값 체크
+     */
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
+
+        return Number(strValue);
+    }
+
+    /**
      * 그리드내 팝업 조회
      */
     function fn_gridPopup(event, row, col) {
 
-        let allData = gvwDetallGrid.getGridDataAll();
+        /*******합계가 있을때******/
+        /*let allData = gvwDetallGrid.getGridDataAll();
 
         //마지막 로우( 합계 ) 일때
         if (_.isEqual(allData.length, row)){
             return;
-        }
+        }*/
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup3(row, col);
@@ -753,12 +805,12 @@
      */
     const fn_search = async function (nRow) {
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE"));
-        let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_FULL_NAME"));
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));
+        let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_FULL_NAME"));
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
          if (!PAY_YYYYMM) {
              gfn_comAlert("W0002", "귀속년월");
@@ -809,12 +861,12 @@
                     jsonMasterList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CATEGORY   : gfn_nvl(item.PAY_ITEM_CATEGORY),
-                            PAY_ITEM_CODE       : gfn_nvl(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME       : gfn_nvl(item.PAY_ITEM_NAME),
-                            ENTRY_DEPT_CODE     : gfn_nvl(item.ENTRY_DEPT_CODE),
-                            ENTRY_DEPT_NAME     : gfn_nvl(item.ENTRY_DEPT_NAME),
-                            CHK_YN              : gfn_nvl(item.CHK_YN),
+                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.PAY_ITEM_CATEGORY),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_ITEM_NAME       : gfnma_nvl2(item.PAY_ITEM_NAME),
+                            ENTRY_DEPT_CODE     : gfnma_nvl2(item.ENTRY_DEPT_CODE),
+                            ENTRY_DEPT_NAME     : gfnma_nvl2(item.ENTRY_DEPT_NAME),
+                            CHK_YN              : gfnma_nvl2(item.CHK_YN),
                         }
                         jsonMasterList.push(msg);
                         totalRecordCount++;
@@ -824,7 +876,7 @@
                     document.querySelector('#listCount').innerText = totalRecordCount;
 
                     if(jsonMasterList.length > 0) {
-                        gvwMasterGrid.clickRow(gfn_nvl(nRow) == '' ? 1 : nRow);
+                        gvwMasterGrid.clickRow(gfnma_nvl2(nRow) == '' ? 1 : nRow);
                     }
 
                     //fn_view();
@@ -874,12 +926,12 @@
         SBUxMethod.set("EMP_FULL_NAME", ""); //이름*/
 
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE"));
-        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE"));
-        let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_FULL_NAME"));
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE"));
+        let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));
+        let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_FULL_NAME"));
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
         if(_.isEmpty(rowData) == false) {
 
@@ -1101,13 +1153,13 @@
 
     const fn_btnApply = async function () { /*수당기준 적용*/
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE")); //급여항목코드
-        /*let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE")); //사번 디테일 그리드에도 있음*/
-        let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_FULL_NAME")); //이름 디테일 그리드에도 있음
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM")); //귀속년월
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_CODE")); //급여항목코드
+        /*let EMP_CODE = gfnma_nvl2(SBUxMethod.get("EMP_CODE")); //사번 디테일 그리드에도 있음*/
+        let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_FULL_NAME")); //이름 디테일 그리드에도 있음
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
         /*if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -1171,7 +1223,7 @@
 
         if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
 
-            let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+            let PAY_ITEM_NAME = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
 
             const msg = {
                 arrRemoveCols   : [0,3],
@@ -1193,7 +1245,7 @@
 
         if (!window.FileReader) return;
 
-        let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+        let PAY_ITEM_NAME = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
 
         //급여 변동항목 등록_출산경조금공제 - Excel파일 명
         if (event.target.files[0].name.indexOf("_") < 0) {
@@ -1372,17 +1424,17 @@
 
     const getParamFormS1 = async function(){
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
-        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
-        let PAY_ITEM_NAME   = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
-        let ENTRY_DEPT_CODE = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
-        let ENTRY_DEPT_NAME = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사번
-        let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_CODE"));//이름
+        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
+        let PAY_ITEM_NAME   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
+        let ENTRY_DEPT_CODE = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
+        let ENTRY_DEPT_NAME = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//사번
+        let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//이름
 
         if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
@@ -1441,17 +1493,17 @@
 
     const getParamForm = async function(typeData){
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-        let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE"));
+        let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
-        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
-        let PAY_ITEM_NAME   = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
-        let ENTRY_DEPT_CODE = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
-        let ENTRY_DEPT_NAME = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사번
-        let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_CODE"));//이름
+        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
+        let PAY_ITEM_NAME   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
+        let ENTRY_DEPT_CODE = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
+        let ENTRY_DEPT_NAME = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//사번
+        let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//이름
 
 
         let strtxn_id;
@@ -1521,17 +1573,17 @@
 
         if (gfn_comConfirm("Q0001", "삭제")) {
 
-            let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-            let PAY_YYYYMM      = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM"));
-            let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE"));
-            let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
+            let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+            let PAY_YYYYMM      = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM"));
+            let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE"));
+            let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
-            let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
-            let PAY_ITEM_NAME   = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
-            let ENTRY_DEPT_CODE = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
-            let ENTRY_DEPT_NAME = gfn_nvl(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
-            let EMP_CODE        = gfn_nvl(SBUxMethod.get("EMP_CODE"));//사번
-            let EMP_FULL_NAME   = gfn_nvl(SBUxMethod.get("EMP_CODE"));//이름
+            let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_CODE"));//급여항목코드
+            let PAY_ITEM_NAME   = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME"));//급여항목명
+            let ENTRY_DEPT_CODE = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_CODE"));//입력부서
+            let ENTRY_DEPT_NAME = gfnma_nvl2(SBUxMethod.get("ENTRY_DEPT_NAME"));//입력부서
+            let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//사번
+            let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));//이름
 
             if (!PAY_YYYYMM) {
                 gfn_comAlert("W0002", "귀속년월");

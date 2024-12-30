@@ -312,15 +312,26 @@
         let nRow = gvwMasterGrid.getRow();
         let chk = true;
 
+        //간이세율표 정보 (1000만원이하) 밸리데이션 체크
+        let updatedData = grdDetail.getUpdateData(true, 'all');
+        if (await fn_chkDetailGridVal(updatedData) == false){
+            return;
+        }
+
+
+
+        //간이세율표 정보 (1000만원이상) 밸리데이션 체크
+        let updatedData2 = grdItemList.getUpdateData(true, 'all');
+        if (await fn_chkItemGridVal(updatedData2) == false){
+            return;
+        }
+
         chk = await fn_save();
 
-        let updatedData = grdDetail.getUpdateData(true, 'all');
         if (_.isEmpty(updatedData) == false && chk == true){
 
             chk = await fn_saveS1(updatedData);
         }
-
-        let updatedData2 = grdItemList.getUpdateData(true, 'all');
 
         if (_.isEmpty(updatedData2) == false && chk == true){
 
@@ -328,10 +339,69 @@
         }
 
         if (chk){
-            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
             fn_search(nRow);
         }
     }
+
+    const fn_chkDetailGridVal = async function (updatedData) {
+
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updatedData.length ; i++){
+            if (gfnma_nvl2(updatedData[i].data.PAY_AMT_FR) == ''){
+                grdDetail.clickCell(updatedData[i].data.sb_row_index, grdDetail.getColRef('PAY_AMT_FR'));
+                grdDetail.editCell();
+                gfn_comAlert("W0002", "'간이세율표 정보 리스트' 월급여액이상");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updatedData[i].data.PAY_AMT_TO ) == ''){
+                grdDetail.clickCell(updatedData[i].data.sb_row_index, grdDetail.getColRef('PAY_AMT_TO'));
+                grdDetail.editCell();
+                gfn_comAlert("W0002", "'간이세율표 정보 리스트' 월급여액미만");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+
+    }
+
+    const fn_chkItemGridVal = async function (updatedData) {
+
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updatedData.length ; i++){
+            if (gfnma_nvl2(updatedData[i].data.APPLY_START_DATE) == ''){
+                /*grdItemList.clickCell(updatedData[i].data.sb_row_index, grdItemList.getColRef('APPLY_START_DATE'));
+                grdItemList.editCell();*/
+                gfn_comAlert("W0002", "'1000만원 초과 리스트' 적용시작일");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updatedData[i].data.APPLY_END_DATE ) == ''){
+               /* grdItemList.clickCell(updatedData[i].data.sb_row_index, grdItemList.getColRef('APPLY_END_DATE'));
+                grdItemList.editCell();*/
+                gfn_comAlert("W0002", "'1000만원 초과 리스트' 적용종료일");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+
+    }
+
     // 삭제
     function cfn_del() {
         if(gfn_comConfirm("Q0001", "삭제")) { //{0} 하시겠습니까?
@@ -402,9 +472,9 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:right'
+            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:right'
+            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["공제대상 가족의 수","1"], ref: 'SUPPORTEE1', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -492,9 +562,9 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ["세율2"], ref: 'TAX_RATE2', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}}
 
         ];
@@ -505,6 +575,22 @@
             grdItemList.push(rowData);
         }
 
+    }
+
+    /**
+     * 그리드내 필수값 체크
+     */
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
+
+        return Number(strValue);
     }
 
 
