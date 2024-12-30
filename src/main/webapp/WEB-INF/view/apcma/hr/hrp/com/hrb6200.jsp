@@ -346,6 +346,10 @@
 
     const fn_chkDetailGridVal = async function (updatedData) {
 
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
+
         let chk = true;
 
         for (let i = 0; i < updatedData.length ; i++){
@@ -370,6 +374,10 @@
     }
 
     const fn_chkItemGridVal = async function (updatedData) {
+
+        if (_.isEmpty(updatedData)){
+            return true;
+        }
 
         let chk = true;
 

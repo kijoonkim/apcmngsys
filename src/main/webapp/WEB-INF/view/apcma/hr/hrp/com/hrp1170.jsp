@@ -378,9 +378,23 @@
 
 
 
-    function cfn_save() {
+    async function cfn_save() {
 
         let allData = grdExceptionList.getGridDataAll();
+
+        if (await fn_saveValid(allData) == fasle){
+            return;
+        }
+
+        fn_save();
+    }
+
+    //저장
+    const fn_saveValid = async function (allData) {
+
+        if (_.isEmpty(allData)){
+            return true;
+        }
 
         let chk = true;
         for (let i = 0; i < allData.length ; i++){
@@ -424,12 +438,8 @@
             }
         }
 
-        if (chk == false){
-            return;
-        }
+        return chk;
 
-
-        fn_save();
     }
 
     function cfn_search(){

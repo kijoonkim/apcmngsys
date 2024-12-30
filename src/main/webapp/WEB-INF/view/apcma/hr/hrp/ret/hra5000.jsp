@@ -377,20 +377,37 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "신규 등록")) {
 
+                //근속연수공제 필수값 체크
+                let detailData = gvwDetailGrid.getUpdateData(true, 'all');
+                if (await fn_saveS1Valid(detailData) == false){
+                    return;
+                }
+
+                //누진일수 필수값 체크
+                let dayData = gvwDayGrid.getUpdateData(true, 'all');
+                if (await fn_saveS2Valid(dayData) == false){
+                    return;
+                }
+                //환산급여 저장
+                let convertData = gvwConvertGrid.getUpdateData(true, 'all');
+                if (await fn_saveS3Valid(convertData) == false){
+                    return;
+                }
+
                 complateCode = await fn_save('N');
 
-                //근속연수공제
-                let detailData = gvwDetailGrid.getUpdateData(true, 'all');
+                //근속연수공제 저장
+                if (await fn_saveS1Valid(detailData)){
+                    return;
+                }
                 if (_.isEmpty(detailData) == false && complateCode == true){
                     complateCode = await fn_saveS1(detailData);
                 }
-                //누진일수
-                let dayData = gvwDayGrid.getUpdateData(true, 'all');
+                //누진일수 저장
                 if (_.isEmpty(dayData) == false && complateCode == true){
                     complateCode = await fn_saveS2(dayData);
                 }
-                //환산급여
-                let convertData = gvwConvertGrid.getUpdateData(true, 'all');
+                //환산급여 저장
                 if (_.isEmpty(convertData) == false && complateCode == true){
                     complateCode = await fn_saveS3(convertData);
                 }
@@ -405,20 +422,34 @@
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
 
+                //근속연수공제 필수값 체크
+                let detailData = gvwDetailGrid.getUpdateData(true, 'all');
+                if (await fn_saveS1Valid(detailData) == false){
+                    return;
+                }
+
+                //누진일수 필수값 체크
+                let dayData = gvwDayGrid.getUpdateData(true, 'all');
+                if (await fn_saveS2Valid(dayData) == false){
+                    return;
+                }
+                //환산급여 저장
+                let convertData = gvwConvertGrid.getUpdateData(true, 'all');
+                if (await fn_saveS3Valid(convertData) == false){
+                    return;
+                }
+
                 complateCode = await fn_save('U');
 
-                //근속연수공제
-                let detailData = gvwDetailGrid.getUpdateData(true, 'all');
+                //근속연수공제 저장
                 if (_.isEmpty(detailData) == false && complateCode == true){
                     complateCode = await fn_saveS1(detailData);
                 }
-                //누진일수
-                let dayData = gvwDayGrid.getUpdateData(true, 'all');
+                //누진일수 저장
                 if (_.isEmpty(dayData) == false && complateCode == true){
                     complateCode = await fn_saveS2(dayData);
                 }
-                //환산급여
-                let convertData = gvwConvertGrid.getUpdateData(true, 'all');
+                //환산급여 저장
                 if (_.isEmpty(convertData) == false && complateCode == true){
                     complateCode = await fn_saveS3(convertData);
                 }
@@ -429,10 +460,111 @@
                 }
             }
         }
+    }
 
+    //근속연수 공제 필수값 체크
+    const fn_saveS1Valid = async function (updateData) {
 
+        if (_.isEmpty(updateData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updateData.length ; i++){
+            if (gfnma_nvl2(updateData[i].data.WORK_YEAR_FR) == ''){
+                gvwDetailGrid.clickCell(updateData[i].data.sb_row_index, gvwDetailGrid.getColRef('WORK_YEAR_FR'));
+                gvwDetailGrid.editCell();
+                gfn_comAlert("W0002", "'근속연수공제 리스트' 근속년수하한(초과)");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updateData[i].data.WORK_YEAR_TO ) == ''){
+                gvwDetailGrid.clickCell(updateData[i].data.sb_row_index, gvwDetailGrid.getColRef('WORK_YEAR_TO'));
+                gvwDetailGrid.editCell();
+                gfn_comAlert("W0002", "'근속연수공제 리스트' 근속년수상한(이하)");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.MAX_AMT ) == ''){
+                gvwDetailGrid.clickCell(updateData[i].data.sb_row_index, gvwDetailGrid.getColRef('MAX_AMT'));
+                gvwDetailGrid.editCell();
+                gfn_comAlert("W0002", "'근속연수공제 리스트' 최대치");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
 
     }
+
+    //누진일수 필수값 체크
+    const fn_saveS2Valid = async function (updateData) {
+
+        if (_.isEmpty(updateData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updateData.length ; i++){
+            if (gfnma_nvl2(updateData[i].data.WORK_YEAR_FROM) == ''){
+                gvwDayGrid.clickCell(updateData[i].data.sb_row_index, gvwDayGrid.getColRef('WORK_YEAR_FROM'));
+                gvwDayGrid.editCell();
+                gfn_comAlert("W0002", "'누진일수 리스트' 근속년수하한(초과)");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updateData[i].data.WORK_YEAR_TO ) == ''){
+                gvwDayGrid.clickCell(updateData[i].data.sb_row_index, gvwDayGrid.getColRef('WORK_YEAR_TO'));
+                gvwDayGrid.editCell();
+                gfn_comAlert("W0002", "'누진일수 리스트' 근속년수상한(이하)");
+                chk = false;
+                break;
+            }else if (gfnma_nvl2(updateData[i].data.CUMULATIVE_DAY_CNT ) == ''){
+                gvwDayGrid.clickCell(updateData[i].data.sb_row_index, gvwDayGrid.getColRef('CUMULATIVE_DAY_CNT'));
+                gvwDayGrid.editCell();
+                gfn_comAlert("W0002", "'누진일수 리스트' 누진일수");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+
+    }
+
+    //환산급여 필수값 체크
+    const fn_saveS3Valid = async function (updateData) {
+
+        if (_.isEmpty(updateData)){
+            return true;
+        }
+
+        let chk = true;
+
+        for (let i = 0; i < updateData.length ; i++){
+            if (gfnma_nvl2(updateData[i].data.PAY_AMT_FR) == ''){
+                gvwConvertGrid.clickCell(updateData[i].data.sb_row_index, gvwConvertGrid.getColRef('PAY_AMT_FR'));
+                gvwConvertGrid.editCell();
+                gfn_comAlert("W0002", "'누진일수 리스트' 환산급여 하한(초과)");
+                chk = false;
+                break;
+
+            }else if (gfnma_nvl2(updateData[i].data.PAY_AMT_TO ) == ''){
+                gvwConvertGrid.clickCell(updateData[i].data.sb_row_index, gvwConvertGrid.getColRef('PAY_AMT_TO'));
+                gvwConvertGrid.editCell();
+                gfn_comAlert("W0002", "'누진일수 리스트' 환산급여 상한(이상)");
+                chk = false;
+                break;
+            }
+        }
+
+        return chk;
+
+    }
+
+
     // 삭제
     function cfn_del() {
         fn_del();
@@ -499,13 +631,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근속공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
@@ -529,11 +661,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
@@ -557,9 +689,9 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["공제세율(%)"], ref: 'TX_R', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0' }},
@@ -570,6 +702,22 @@
 
         gvwConvertGrid = _SBGrid.create(SBGridProperties);
 
+    }
+
+    /**
+     * 그리드내 필수값 체크
+     */
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
+
+        return Number(strValue);
     }
 
 
