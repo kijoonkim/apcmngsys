@@ -399,13 +399,13 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_setYear()//기본년도 세팅
+		await fn_setYear()//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
-		fn_fcltMngCreateGrid();
+		await fn_fcltMngCreateGrid();
 	</c:if>
-		fn_fcltMngCreateGrid01();
+		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
-		fn_createGridClsfTot();//부류별 합계
+		await fn_createGridClsfTot();//부류별 합계
 
 		await fn_initSBSelect();
 
@@ -1238,9 +1238,9 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_createGridClsfTot = async function() {
-		let yr = SBUxMethod.get('srch-input-yr');
+		let yr = SBUxMethod.get("srch-input-yr");
 		if(gfn_isEmpty(yr)){
-			yr = SBUxMethod.get('dtl-input-yr');
+			yr = SBUxMethod.get("dtl-input-yr");
 		}
 		let prvYr = Number(yr) - 1;
 		let prvTotStr = prvYr + "년";

@@ -153,11 +153,15 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//출자출하조직 사업자번호
 		String uoBrnoVal = null;//통합조직 사업자번호
+		int delYn = 0;
 		for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
 			yrVal = InvShipOgnSpeczItmPurSalMngVO.getYr();
 			brnoVal = InvShipOgnSpeczItmPurSalMngVO.getBrno();
 			uoBrnoVal = InvShipOgnSpeczItmPurSalMngVO.getUoBrno();
-
+			//저장 전 기존 자료 전체 삭제 처리
+			if(delYn == 0) {
+				delYn = InvShipOgnSpeczItmPurSalMngMapper.updateDelYn(InvShipOgnSpeczItmPurSalMngVO);
+			}
 			savedCnt += insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO);
 		}
 

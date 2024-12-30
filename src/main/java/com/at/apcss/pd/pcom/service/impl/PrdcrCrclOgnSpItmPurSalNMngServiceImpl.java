@@ -137,10 +137,13 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//통합조직 사업자번호
+		int delYn = 0;
 		for (PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO : PrdcrCrclOgnSpItmPurSalNMngVOList) {
 			yrVal = PrdcrCrclOgnSpItmPurSalNMngVO.getYr();
 			brnoVal = PrdcrCrclOgnSpItmPurSalNMngVO.getBrno();
-
+			if(delYn == 0) {
+				delYn = PrdcrCrclOgnSpItmPurSalNMngMapper.updateDelYn(PrdcrCrclOgnSpItmPurSalNMngVO);
+			}
 			savedCnt += insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO);
 		}
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크

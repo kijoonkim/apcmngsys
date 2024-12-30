@@ -725,6 +725,7 @@
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
 								WHERE 1=1
+								  AND DEL_YN = 'N'
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5')
 								  AND OGNZ_STBLT_YN = 'Y'
@@ -745,6 +746,7 @@
 															  AND YR = PSTA.YR
 															  AND BRNO = PSTA.BRNO
 															  AND UO_BRNO = PSTA.UO_BRNO
+															  AND TRMT_TYPE = PSTA.TRMT_TYPE
 														)
 								<if test='uoBrno != null and uoBrno != ""'>
 								  AND UO_BRNO = #{uoBrno}
@@ -766,20 +768,22 @@
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
 								WHERE 1=1
+								  AND DEL_YN = 'N'
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5','7')
 								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
 								  AND (
 								  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-														FROM TB_EV_FRMHS_APO
-														WHERE 1=1
-														  AND STBLT_YN = 'N'
-														  AND NVL(EXCL_YN,'N') != 'Y'
-														  AND APO_SE = '2'
-														  AND YR = PSTB.YR
-														  AND BRNO = PSTB.BRNO
-														  AND UO_BRNO = PSTB.UO_BRNO
-													)
+															FROM TB_EV_FRMHS_APO
+															WHERE 1=1
+															  AND STBLT_YN = 'N'
+															  AND NVL(EXCL_YN,'N') != 'Y'
+															  AND APO_SE = '2'
+															  AND YR = PSTB.YR
+															  AND BRNO = PSTB.BRNO
+															  AND UO_BRNO = PSTB.UO_BRNO
+															  AND TRMT_TYPE = PSTB.TRMT_TYPE
+															)
 										OR
 										PRDCR_OGNZ_SN = '0'
 										)
@@ -1007,29 +1011,31 @@
 									, SUM( NVL( UO_SPMT_AMT , 0 ) ) AS UO_SPMT_AMT
 									, SUM( NVL( UO_OTHER_SPMT_VLM , 0 ) ) AS UO_OTHER_SPMT_VLM
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
-								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT B
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
 								WHERE 1=1
+								  AND DEL_YN = 'N'
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5')
+								  AND YR = #{yr}
 								  AND ITEM_CD = (SELECT ITEM_CD
 								  					FROM TB_EV_APO_YR_GPC_CD
 								  					WHERE 1=1
 								  					  AND APO_SE = '2'
 								  					  AND STTG_UPBR_ITEM_SE != '3'
-								  					  AND YR = B.YR
-								  					  AND BRNO = B.BRNO
-								  					  AND UO_BRNO = B.UO_BRNO
-								  					  AND ITEM_CD = B.ITEM_CD)
-								  AND YR = #{yr}
+								  					  AND YR = PSTA.YR
+								  					  AND BRNO = PSTA.BRNO
+								  					  AND UO_BRNO = PSTA.UO_BRNO
+								  					  AND ITEM_CD = PSTA.ITEM_CD)
 								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
 															  AND STBLT_YN = 'Y'
 															  AND APO_SE = '2'
 															  AND NVL(EXCL_YN,'N') != 'Y'
-															  AND YR = B.YR
-															  AND BRNO = B.BRNO
-															  AND UO_BRNO = B.UO_BRNO
+															  AND YR = PSTA.YR
+															  AND BRNO = PSTA.BRNO
+															  AND UO_BRNO = PSTA.UO_BRNO
+															  AND TRMT_TYPE = PSTA.TRMT_TYPE
 														)
 								GROUP BY BRNO, UO_BRNO , ITEM_CD
 							) TOTA ,
@@ -1043,22 +1049,25 @@
 									, SUM( NVL( UO_OTHER_SPMT_AMT , 0 ) ) AS UO_OTHER_SPMT_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
 								WHERE 1=1
+								  AND DEL_YN = 'N'
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5','7')
 								  AND CTGRY_CD IS NULL
 								  AND CLTVTN_LAND_SN IS NULL
 								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
+								  AND YR = #{yr}
 								  AND (
 								  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-														FROM TB_EV_FRMHS_APO
-														WHERE 1=1
-														  AND STBLT_YN = 'Y'
-														  AND NVL(EXCL_YN,'N') != 'Y'
-														  AND APO_SE = '2'
-														  AND YR = PSTA.YR
-														  AND BRNO = PSTA.BRNO
-														  AND UO_BRNO = PSTA.UO_BRNO
-													)
+															FROM TB_EV_FRMHS_APO
+															WHERE 1=1
+															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
+															  AND APO_SE = '2'
+															  AND YR = PSTA.YR
+															  AND BRNO = PSTA.BRNO
+															  AND UO_BRNO = PSTA.UO_BRNO
+															  AND TRMT_TYPE = PSTA.TRMT_TYPE
+														)
 										OR
 										PRDCR_OGNZ_SN = '0'
 										)
@@ -1071,7 +1080,6 @@
 													  AND UO_BRNO = PSTB.UO_BRNO
 													  AND STTG_UPBR_ITEM_SE != '3'
 													)
-								  AND YR = #{yr}
 								GROUP BY  BRNO , UO_BRNO , ITEM_CD
 							) TOTB
 						WHERE 1=1
@@ -1118,6 +1126,7 @@
 					) AS CLSF_CD
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 				WHERE 1=1
+				  AND DEL_YN = 'N'
 				  AND APO_SE = '2'
 				  AND TYPE_SE_NO IN ('5','7')
 				  AND (
@@ -1129,6 +1138,7 @@
 														  AND YR = PST.YR
 														  AND BRNO = PST.BRNO
 														  AND UO_BRNO = PST.UO_BRNO
+														  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 						OR
 						PRDCR_OGNZ_SN = '0'

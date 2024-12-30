@@ -48,4 +48,6 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 	//20241212 개발서버 테스트 화면용
 	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+	//20241230 저장전 기존 자료 삭제 처리
+	public int updateDelYn(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 }

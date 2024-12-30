@@ -939,6 +939,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE ='1'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'Y'
@@ -957,6 +958,7 @@ FROM
 									  AND STBLT_YN = 'Y'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -1026,6 +1028,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE ='1'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'N'
@@ -1043,6 +1046,7 @@ FROM
 									  AND APO_SE = '1'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -1122,6 +1126,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '6'
 	) TOT
@@ -1193,6 +1198,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '7'
 	) TOT
@@ -1247,6 +1253,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '8'
 	) TOT
@@ -1300,6 +1307,8 @@ ORDER BY
 						, SLS_CNSGN_SLS_VLM		= #{slsCnsgnSlsVlm}
 
 						, RMRK					= #{rmrk}
+
+						, DEL_YN				= 'N'
 
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -1369,4 +1378,16 @@ ORDER BY
 					)
 		]]>
 	</insert>
+
+	<!-- 저장전 기존 자료 삭제 처리 -->
+	<update id="updateDelYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+			UPDATE /* com.at.apcss.pd.pcom.mapper.insertPrdcrCrclOgnSpItmPurSalNMngNew.updateDelYn */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				  DEL_YN	= 'Y'
+			WHERE 1=1
+			  AND APO_SE 	= '1'
+			  AND BRNO 		= #{brno}
+			  AND YR 		= #{yr}
+	</update>
 </mapper>
