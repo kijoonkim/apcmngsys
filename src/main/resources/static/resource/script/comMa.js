@@ -2007,3 +2007,40 @@ const gfnma_gridValidate = async function(objGrid, nRow, nCol, strValue) {
 		return { isValid : false, message : '값을 입력하세요.' };
 	}
 }
+
+/**
+ * @name 		gfnma_gridValidateCheck
+ * @description grid validation check
+ * @function
+ * @param 		{object} objGrid
+ * @returns 	{boolean}
+ */
+const gfnma_gridValidateCheck = function() {
+	var validCheck = true;
+	var gridList = _SBGrid.getGrids();
+
+	gridList.forEach((item, index) => {
+		var grid = _SBGrid.getGrid(item);
+		var updatedData = grid.getUpdateData(true, 'all');
+		var captionList = grid.getCaption('array')[0];
+
+		for (var i = 0; i < grid.getCols(); i++) {
+			if (grid.getColUserAttr(i) != null && grid.getColUserAttr(i)["required"]) {
+				updatedData.every(row => {
+					if ((row.status == 'i' || row.status == 'u') && gfn_nvl(row.data[grid.getRefOfCol(i)]) == "") {
+						gfn_comAlert("W0002", captionList[i]);
+						grid.clickCell(row.rownum, i, true, false);
+						grid.editCell();
+						validCheck = false;
+						return false;
+					} else {
+						validCheck = true;
+						return true;
+					}
+				});
+			}
+		}
+	});
+
+	return validCheck;
+}
