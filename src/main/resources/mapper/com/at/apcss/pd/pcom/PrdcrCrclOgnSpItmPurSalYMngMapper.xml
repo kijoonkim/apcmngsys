@@ -1494,10 +1494,11 @@ FROM
 			,STBLT_YN AS OGNZ_STBLT_YN
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		WHERE 1=1
-		  AND APO_SE = '2'
-		  AND TYPE_SE_NO = '5'
 		  AND YR= #{yr}
 		  AND UO_BRNO = #{brno}
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '2'
+		  AND TYPE_SE_NO = '5'
 		  AND ITEM_CD IN (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
@@ -1516,20 +1517,23 @@ FROM
 									  AND UO_BRNO = PST.UO_BRNO
 									  AND ITEM_CD = PST.ITEM_CD
 									  AND STBLT_YN = PST.STBLT_YN
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 		GROUP BY YR , BRNO , UO_BRNO , ITEM_CD , STBLT_YN
 	) ISO
 	,(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		WHERE 1=1
-		  AND APO_SE = '1'
-		  AND TYPE_SE_NO = '1'
 		  AND YR= #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO = '1'
 		  AND ITEM_CD IN (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
 							  AND APO_SE = '1'
+							  AND DEL_YN = 'N'
 							  AND YR = PST.YR
 							  AND BRNO = PST.BRNO
 							  AND STTG_UPBR_ITEM_SE != '3')
@@ -1606,10 +1610,11 @@ FROM
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		WHERE 1=1
-		  AND APO_SE = '1'
-		  AND TYPE_SE_NO = '2'
 		  AND YR= #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO = '2'
 	) TOT
 WHERE 1=1
   AND ITEM.YR = TOT.YR(+)
@@ -1624,6 +1629,7 @@ WHERE 1=1
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 					WHERE 1=1
 						  AND APO_SE = '2'
+						  AND DEL_YN = 'N'
 						  AND YR = ITEM.YR
 						  AND UO_BRNO = ITEM.BRNO
 						  AND ITEM_CD = ITEM.ITEM_CD
@@ -1705,10 +1711,11 @@ FROM
 	,(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		WHERE 1=1
-		  AND TYPE_SE_NO = '3'
-		  AND APO_SE = '1'
 		  AND YR= #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO = '3'
 	) TOT
 WHERE 1=1
   AND ITEM.YR = TOT.YR(+)
@@ -1763,10 +1770,11 @@ FROM
 	(SELECT *
 		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		WHERE 1=1
-		  AND TYPE_SE_NO = '4'
-		  AND APO_SE = '1'
-		  AND BRNO = #{brno}
 		  AND YR =#{yr}
+		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO = '4'
 	) TOT
 WHERE 1=1
 	AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
@@ -1835,7 +1843,8 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
-		  AND APO_SE ='1'
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'Y'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
@@ -1853,6 +1862,7 @@ FROM
 									  AND STBLT_YN = 'Y'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -1926,6 +1936,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE ='1'
 		  AND TYPE_SE_NO = '5'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
@@ -1943,6 +1954,7 @@ FROM
 									  AND STBLT_YN != 'Y'
 									  AND YR = PST.YR
 									  AND BRNO = PST.BRNO
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -2024,6 +2036,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '6'
 	) TOT
@@ -2096,6 +2109,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '7'
 	) TOT
@@ -2152,6 +2166,7 @@ FROM
 		WHERE 1=1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '1'
 		  AND TYPE_SE_NO = '8'
 	) TOT
@@ -2213,6 +2228,8 @@ ORDER BY
 						, SLS_CNSGN_SLS_VLM		= #{slsCnsgnSlsVlm}
 
 						, RMRK					= #{rmrk}
+
+						, DEL_YN				= 'N'
 
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -2506,6 +2523,7 @@ ORDER BY
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
 								AND APO_SE = '1'
+								AND DEL_YN = 'N'
 								AND (
 										(TYPE_SE_NO = '2' AND OGNZ_STBLT_YN = 'Y')
 										OR
@@ -2526,6 +2544,7 @@ ORDER BY
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
 								AND APO_SE = '1'
+								AND DEL_YN = 'N'
 								AND (
 										TYPE_SE_NO IN ('2','7')
 										OR
@@ -2546,4 +2565,16 @@ ORDER BY
 				)TOT
 		)TOTAL
 	</select>
+
+	<!-- 저장전 기존 자료 삭제 처리 -->
+	<update id="updateDelYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
+			UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.updateDelYn */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				  DEL_YN	= 'Y'
+			WHERE 1=1
+			  AND APO_SE 	= '1'
+			  AND BRNO 		= #{brno}
+			  AND YR 		= #{yr}
+	</update>
 </mapper>

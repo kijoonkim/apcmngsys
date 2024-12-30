@@ -48,4 +48,6 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public List<PrdcrCrclOgnSpItmPurSalNMngVO> selectPrdcrCrclOgnSpItmPurSalNMngListNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 	//20241212 개발서버 신규 화면 등록
 	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+	//저장전 기존 데이터 삭제 처리
+	public int updateDelYn(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 }

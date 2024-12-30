@@ -852,7 +852,7 @@
 			YR, BRNO
 	</select>
 
-		<!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
 	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
@@ -1108,17 +1108,18 @@
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
 								WHERE 1=1
+								AND DEL_YN = 'N'
 								AND APO_SE = '1'
 								AND TYPE_SE_NO IN ('2','6')
 								AND OGNZ_STBLT_YN = 'Y'
 								AND ITEM_CD IN (SELECT ITEM_CD
-									FROM TB_EV_APO_YR_GPC_CD
-									WHERE 1=1
-									  AND APO_SE = '1'
-									  AND YR = PSTA.YR
-									  AND BRNO = PSTA.BRNO
-									  AND STTG_UPBR_ITEM_SE != '3'
-									)
+												FROM TB_EV_APO_YR_GPC_CD
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND YR = PSTA.YR
+												  AND BRNO = PSTA.BRNO
+												  AND STTG_UPBR_ITEM_SE != '3'
+												)
 								AND (
 										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
@@ -1126,8 +1127,9 @@
 															  AND STBLT_YN = 'Y'
 															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '1'
-															  AND BRNO = PSTA.BRNO
 															  AND YR = PSTA.YR
+															  AND BRNO = PSTA.BRNO
+															  AND TRMT_TYPE = PSTA.TRMT_TYPE
 															)
 										)OR
 										(PRDCR_OGNZ_SN = '0')
@@ -1138,7 +1140,7 @@
 								<if test='yr != null and yr != ""'>
 								  AND YR = #{yr}
 								</if>
-								GROUP BY  BRNO , ITEM_CD
+								GROUP BY BRNO, ITEM_CD
 							) TOTA ,
 							(SELECT
 									BRNO
@@ -1147,15 +1149,16 @@
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
 								WHERE 1=1
+								AND DEL_YN = 'N'
 								AND APO_SE = '1'
 								AND ITEM_CD IN (SELECT ITEM_CD
-									FROM TB_EV_APO_YR_GPC_CD
-									WHERE 1=1
-									  AND APO_SE = '1'
-									  AND YR = PSTB.YR
-									  AND BRNO = PSTB.BRNO
-									  AND STTG_UPBR_ITEM_SE != '3'
-									)
+												FROM TB_EV_APO_YR_GPC_CD
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND YR = PSTB.YR
+												  AND BRNO = PSTB.BRNO
+												  AND STTG_UPBR_ITEM_SE != '3'
+												)
 								AND (
 										TYPE_SE_NO IN ('2','7')
 										OR
@@ -1167,8 +1170,9 @@
 															WHERE 1=1
 															  AND APO_SE = '1'
 															  AND NVL(EXCL_YN,'N') != 'Y'
-															  AND BRNO = PSTB.BRNO
 															  AND YR = PSTB.YR
+															  AND BRNO = PSTB.BRNO
+															  AND TRMT_TYPE = PSTB.TRMT_TYPE
 															)
 										)OR
 										(PRDCR_OGNZ_SN = '0')
@@ -1179,7 +1183,7 @@
 								<if test='yr != null and yr != ""'>
 								  AND YR = #{yr}
 								</if>
-								GROUP BY  BRNO , ITEM_CD
+								GROUP BY BRNO, ITEM_CD
 							) TOTB
 						WHERE 1=1
 						  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
@@ -1220,6 +1224,7 @@
 					) AS CLSF_CD
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 				WHERE 1=1
+				  AND DEL_YN = 'N'
 				  AND APO_SE = '1'
 				  AND (
 						TYPE_SE_NO IN ('2','7')
@@ -1235,6 +1240,7 @@
 											  AND YR = PST.YR
 											  AND BRNO = PST.BRNO
 											  AND UO_BRNO = PST.UO_BRNO
+											  AND TRMT_TYPE = PST.TRMT_TYPE
 											)
 						OR
 						PRDCR_OGNZ_SN = '0'

@@ -5,6 +5,7 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
+import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 
 /**
@@ -50,4 +51,6 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 	/* 개발서버 신규 화면 적합여부 */
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
+	//저장전 기존 데이터 삭제 처리
+	public int updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 }

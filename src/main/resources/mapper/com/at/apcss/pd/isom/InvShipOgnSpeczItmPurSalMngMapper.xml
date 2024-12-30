@@ -515,6 +515,8 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 						, RMRK					= #{rmrk}
 
+						, DEL_YN				= 'N'
+
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -1031,6 +1033,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE ='2'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'Y'
@@ -1052,6 +1055,7 @@ FROM
 									  AND BRNO = PST.BRNO
 									  AND UO_BRNO = PST.UO_BRNO
 									  AND ITEM_CD = PST.ITEM_CD
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -1128,6 +1132,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE ='2'
 		  AND TYPE_SE_NO = '5'
 		  AND ITEM_CD IN  (SELECT ITEM_CD
@@ -1148,6 +1153,7 @@ FROM
 									  AND BRNO = PST.BRNO
 									  AND UO_BRNO = PST.UO_BRNO
 									  AND ITEM_CD = PST.ITEM_CD
+									  AND TRMT_TYPE = PST.TRMT_TYPE
 									)
 	) TOT
 WHERE 1=1
@@ -1251,6 +1257,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '2'
 		  AND TYPE_SE_NO = '6'
 		  AND TRMT_TYPE = '0'
@@ -1329,6 +1336,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '2'
 		  AND TYPE_SE_NO = '7'
 	) TOT
@@ -1388,6 +1396,7 @@ FROM
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
 		  AND UO_BRNO = #{uoBrno}
+		  AND DEL_YN = 'N'
 		  AND APO_SE = '2'
 		  AND TYPE_SE_NO = '8'
 	) TOT
@@ -1442,6 +1451,8 @@ ORDER BY
 						, UO_OTHER_SPMT_VLM		= #{uoOtherSpmtVlm}
 
 						, RMRK					= #{rmrk}
+
+						, DEL_YN				= 'N'
 
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -1515,4 +1526,17 @@ ORDER BY
 					)
 		]]>
 	</insert>
+
+	<!-- 저장전 기존 자료 삭제 처리 -->
+	<update id="updateDelYn" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+			UPDATE /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.updateDelYn */
+				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+			SET
+				  DEL_YN	= 'Y'
+			WHERE 1=1
+			  AND APO_SE 	= '2'
+			  AND UO_BRNO 	= #{uoBrno}
+			  AND BRNO 		= #{brno}
+			  AND YR 		= #{yr}
+	</update>
 </mapper>

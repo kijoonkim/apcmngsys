@@ -1061,7 +1061,8 @@
 				) ITEM ,
 				(SELECT *
 						FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
-						WHERE APO_SE = '1'
+						WHERE 1=1
+						  AND APO_SE = '1'
 						  AND PRCHS_SLS_SE = '1'
 						<if test='brno != null and brno != ""'>
 						  AND BRNO = #{brno}
@@ -1075,6 +1076,7 @@
 						, SUM( NVL( SLS_CNSGN_PRCHS_VLM , 0 ) ) AS PRCHS_TOT_VLM
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '1'
 					  AND TYPE_SE_NO IN ('1','3','5','7')
 					  AND (
@@ -1085,6 +1087,7 @@
 												  AND APO_SE = '1'
 												  AND BRNO = PST.BRNO
 												  AND YR = PST.YR
+												  AND TRMT_TYPE = PST.TRMT_TYPE
 												  AND ITEM_CD IN  (SELECT ITEM_CD
 																	FROM TB_EV_APO_YR_GPC_CD
 																	WHERE 1=1
@@ -1102,6 +1105,7 @@
 							(ISO_BRNO IN (SELECT BRNO
 											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT IPST
 											WHERE 1=1
+											  AND DEL_YN = 'N'
 											  AND APO_SE = '2'
 											  AND YR = PST.YR
 											  AND UO_BRNO = PST.BRNO
@@ -1229,6 +1233,7 @@
 				(SELECT *
 					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '1'
 					  AND PRCHS_SLS_SE = '2'
 					<if test='yr != null and yr != ""'>
@@ -1243,6 +1248,7 @@
 						, SUM( NVL( SLS_CNSGN_SLS_VLM , 0 ) ) AS SLS_TOT_VLM
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '1'
 					  AND (
 							TYPE_SE_NO IN ('2','7')
