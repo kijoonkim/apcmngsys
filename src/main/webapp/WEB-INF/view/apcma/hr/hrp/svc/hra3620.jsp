@@ -25,6 +25,7 @@
     <title>title : 용역소득 등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+    <script src="/js/exceljs.min.js"></script>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -130,6 +131,8 @@
                             </li>
                         </ul>
                         <div class="ad_tbl_toplist">
+                            <sbux-button id="btnUploadExcel" name="btnUploadExcel" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-outline-danger" onclick="$('#excelFile').click()" style="float: right; margin-right: 3px;"></sbux-button>
+                            <sbux-button id="btnDownloadExcelForm" name="btnDownloadExcelForm" uitype="normal" text="엑셀 서식 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadExcelForm" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delRow" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right; margin-right: 3px;"></sbux-button>
                         </div>
@@ -141,6 +144,7 @@
             </div>
         </div>
     </div>
+    <input type="file" name="file" id="excelFile" accept=".xls,.xlsx" style="display: none;">
 </section>
 <!-- 팝업 Modal -->
 <div>
@@ -475,10 +479,488 @@
         }
     }
 
+    const ensureRowsExist = (sheet, startRow, endRow) => {
+        for (let rowNumber = startRow; rowNumber <= endRow; rowNumber++) {
+            if (!sheet.getRow(rowNumber)) {
+                sheet.addRow(rowNumber);
+            }
+        }
+    };
+
+    const applyValidations = (sheet, validations) => {
+        validations.forEach(validation => {
+            const [startCell, endCell] = validation.ref.split(':');
+            const startRow = parseInt(startCell.match(/\d+/)[0]);
+            const endRow = parseInt(endCell.match(/\d+/)[0]);
+            const column = startCell.replace(/\d+/g, ''); // 열 추출
+
+            //ensureRowsExist(sheet, startRow, endRow);
+
+            sheet.getColumn(column).numFmt = validation.numFmt;
+            for (let row = startRow; row <= endRow; row++) {
+                const cell = column + row;
+
+                sheet.getCell(cell).dataValidation = {
+                    type: validation.type,
+                    formulae: [validation.formulae.replace(/[A-Z]+\d+/g, cell)] || '',
+                    allowBlank: validation.allowBlank || false,
+                    showInputMessage: validation.promptTitle ? true : false,
+                    promptTitle: validation.promptTitle || '',
+                    prompt: validation.prompt || '',
+                    showErrorMessage: validation.errorTitle ? true : false,
+                    errorTitle: validation.errorTitle || '',
+                    error: validation.error || '',
+                };
+            }
+        });
+    };
+
+    const fn_downloadExcelForm = async function () {
+        // ExcelJS 인스턴스 생성
+        const workbook = new ExcelJS.Workbook();
+        const sheet = workbook.addWorksheet('용역비등록');
+
+        // 데이터 추가
+        sheet.addRow([
+            "귀속연월", "근무시작일", "소득자코드", "소득자", "지급일자", "근무종료일", "근로일수"
+                , "인원수", "작업구분", "작업장소", "작업명", "작업세부명", "작업장소2", "일당"
+                , "총지급액", "근로급여", "비과세소득", "소득공제", "근로소득", "소득세", "주민세"
+                , "건강보험", "장기요양보험", "국민연금", "고용보험", "기타공제", "총공제액"
+                , "차인지급액", "분개장번호", "비고", "내··외국인구분", "거주국", "전화번호"
+                , "주소", "근무지역" // 헤더
+        ]);
+
+        const validations = [{
+            ref: 'A2:A1000', // 검사 범위
+            type: 'custom', // 사용자 지정 수식
+            formulae: '=AND(ISNUMBER(DATEVALUE(A2&"-01")),LEN(A2)=7)', // YYYY-MM 형식 검사
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '날짜는 YYYY-MM 형식으로 입력하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '날짜는 YYYY-MM 형식으로 입력해야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'B2:B1000', // 검사 범위
+            type: 'custom', // 사용자 지정 수식
+            formulae: '=AND(ISNUMBER(DATEVALUE(B2)),LEN(B2)=10)', // 날짜 형식 검사
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '날짜는 YYYY-MM-DD 형식으로 입력해야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'E2:E1000', // 검사 범위
+            type: 'custom', // 사용자 지정 수식
+            formulae: '=AND(ISNUMBER(DATEVALUE(E2)),LEN(E2)=10)', // 날짜 형식 검사
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '날짜는 YYYY-MM-DD 형식으로 입력해야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'F2:F1000', // 검사 범위
+            type: 'custom', // 사용자 지정 수식
+            formulae: '=AND(ISNUMBER(DATEVALUE(F2)),LEN(F2)=10)', // 날짜 형식 검사
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '날짜는 YYYY-MM-DD 형식으로 입력해야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'G2:G1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'H2:H1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'I2:I1000', // 작업구분
+            type: 'list',
+            formulae: '"'+jsonWorkGbn.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'J2:J1000', // 작업장소
+            type: 'list',
+            formulae: '"'+jsonWorkPlace.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'K2:K1000', // 작업명
+            type: 'list',
+            formulae: '"'+jsonWorkName.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'L2:L1000', // 작업세부명
+            type: 'list',
+            formulae: '"'+jsonWorkDtlName.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'M2:M1000', // 작업장소2
+            type: 'list',
+            formulae: '"'+jsonWorkPlace2.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'N2:N1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'O2:O1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'P2:P1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'Q2:Q1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'R2:R1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'S2:S1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'T2:T1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'U2:U1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'V2:V1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'W2:W1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'X2:X1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'Y2:Y1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'Z2:Z1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'AA2:AA1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'AB2:AB1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'AE2:AE1000', // 내·외국인구분
+            type: 'list',
+            formulae: '"'+jsonForeignType.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'AF2:AF1000', // 거주국
+            type: 'list',
+            formulae: '"'+jsonNationCode.map(item => item.NATION_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }, {
+            ref: 'AI2:AI1000', // 근무지역
+            type: 'list',
+            formulae: '"'+jsonWorkRegion.map(item => item.CODE_NAME).join(',')+'"', // 드롭다운 값 설정
+            promptTitle: '입력 안내',
+            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '목록에서 선택하여야 합니다.', // 오류 메시지
+            numFmt: '@'
+        }];
+
+        // 유효성 검사 적용
+        applyValidations(sheet, validations);
+
+        // Excel 파일 생성
+        workbook.xlsx.writeBuffer().then(buffer => {
+            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '용역비등록.xlsx';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        //gvwInfo.exportData('xlsx', '용역비등록', true, {arrRemoveCols: ['EARNER_BTN'], sheetName: '용역비등록'});
+    }
+
+    const fn_uploadExcel = async function () {
+        const workbook = XLSX.read(arrayBuffer, {
+            type: 'array',
+            //cellText: true, // 셀 데이터를 텍스트로 강제 처리
+            cellDates: true, // 날짜 데이터를 텍스트로 유지
+            raw: false, // 숫자도 텍스트로 변환
+            dateNF: 'yyyy-mm-dd' // 날짜 형식을 명시적으로 설정
+        });
+    }
+
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_initSBSelect();
         fn_createGvwInfoGrid();
         await fn_onload();
+
+        document.getElementById('excelFile').addEventListener('change', function(event) {
+            if(!window.FileReader) return;
+
+            var reader = new FileReader();
+
+            reader.addEventListener(
+                "load",
+                () => {
+                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+
+                    workBook.SheetNames.forEach(function (sheetName) {
+                        let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 1, header: [
+                                "JOB_YYYYMM",
+                                "WORK_ST_DAT",
+                                "EARNER_CODE",
+                                "EARNER_NAME",
+                                "PAY_DATE",
+                                "WORK_END_DAT",
+                                "WORK_DAY",
+                                "WORK_CNT",
+                                "WORK_GBN",
+                                "WORK_PLACE",
+                                "WORK_NAME",
+                                "WORK_DTL_NAME",
+                                "WORK_PLACE2",
+                                "DAILY_PAY_AMT",
+                                "TOT_PAY_AMT",
+                                "WORK_PAY_AMT",
+                                "NON_TXABLE_AMT",
+                                "INC_AMT",
+                                "EARNED_INC_AMT",
+                                "INC_TX_AMT",
+                                "LOCAL_TX_AMT",
+                                "HEALTH_INSURE_AMT",
+                                "LONG_HEALTH_INSURE_AMT",
+                                "NATIONAL_PENS_AMT",
+                                "EMPLOY_INSURE_AMT",
+                                "ETC_DED_AMT",
+                                "TOT_DEDUCT_AMT",
+                                "ALLOWANCE_AMT",
+                                "REMARK",
+                                "MEMO",
+                                "FOREI_TYPE",
+                                "NATION_CODE",
+                                "TEL",
+                                "ADDRESS",
+                                "WORK_REGION",
+                            ]});
+
+                        list.forEach((item, index) => {
+                            item.WORK_GBN = jsonWorkGbn.length > 0 ? jsonWorkGbn.filter(data => data["CODE_NAME"] == item.WORK_GBN)[0]["SUB_CODE"] : '';
+                            item.WORK_PLACE = jsonWorkPlace.length > 0 ? jsonWorkPlace.filter(data => data["CODE_NAME"] == item.WORK_PLACE)[0]["SUB_CODE"] : '';
+                            item.WORK_NAME = jsonWorkName.length > 0 ? jsonWorkName.filter(data => data["CODE_NAME"] == item.WORK_NAME)[0]["SUB_CODE"] : '';
+                            item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 ? jsonWorkDtlName.filter(data => data["CODE_NAME"] == item.WORK_DTL_NAME)[0]["SUB_CODE"] : '';
+                            item.WORK_PLACE2 = jsonWorkPlace2.length > 0 ? jsonWorkPlace2.filter(data => data["CODE_NAME"] == item.WORK_PLACE2)[0]["SUB_CODE"] : '';
+                            item.FOREI_TYPE = jsonForeignType.length > 0 ? jsonForeignType.filter(data => data["CODE_NAME"] == item.FOREI_TYPE)[0]["SUB_CODE"] : '';
+                            item.NATION_CODE = jsonNationCode.length > 0 ? jsonNationCode.filter(data => data["NATION_NAME"] == item.NATION_CODE)[0]["NATION_CODE"] : '';
+                            item.WORK_REGION = jsonWorkRegion.length > 0 ? jsonWorkRegion.filter(data => data["CODE_NAME"] == item.WORK_REGION)[0]["SUB_CODE"] : '';
+
+                            gvwInfo.addRow(true, item);
+                        });
+
+                    })
+                },
+                false,
+            );
+
+            reader.readAsBinaryString(event.target.files[0]);
+        });
     });
 
     // 초기화
