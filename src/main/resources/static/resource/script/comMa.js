@@ -2016,31 +2016,32 @@ const gfnma_gridValidate = async function(objGrid, nRow, nCol, strValue) {
  * @returns 	{boolean}
  */
 const gfnma_gridValidateCheck = function() {
-	var validCheck = true;
-	var gridList = _SBGrid.getGrids();
+	const grids = _SBGrid.getGrids();
 
-	outerLoop:
-	for(var item = 0; item < gridList.length; item++) {
-		var grid = _SBGrid.getGrid(gridList[item]);
-		var updatedData = grid.getUpdateData(true, 'all');
-		var captionList = grid.getCaption('array')[0];
-		var refs = grid.getDisplayCaptions('refs');
-		for (var i = 0; i < grid.getCols(); i++) {
-			if (grid.getColUserAttr(i) != null && grid.getColUserAttr(i)["required"]) {
-				for(var j = 0; j < updatedData.length; j++) {
-					if ((updatedData[j].status == 'i' || updatedData[j].status == 'u') && gfn_nvl(updatedData[j].data[grid.getRefOfCol(i)]) == "") {
-						const refIndex = refs.indexOf(grid.getRefOfCol(i))
-						gfn_comAlert("W0002", captionList[refIndex]);
-						grid.clickCell(updatedData[j].rownum, i, true, false);
+	for (const gridId of grids) {
+		const grid = _SBGrid.getGrid(gridId);
+		const updatedData = grid.getUpdateData(true, 'all');
+		const captions = grid.getCaption('array')[0];
+		const rowHeaderLength = typeof grid.getRowHeader() === 'string' ? 1 : grid.getRowHeader().length;
+
+		for (let colIndex = 0; colIndex < grid.getCols(); colIndex++) {
+			const colAttr = grid.getColUserAttr(colIndex);
+
+			if (colAttr?.required) {
+				for (const rowData of updatedData) {
+					const isInsertedOrUpdated = rowData.status === 'i' || rowData.status === 'u';
+					const cellValue = gfn_nvl(rowData.data[grid.getRefOfCol(colIndex)]);
+
+					if (isInsertedOrUpdated && cellValue === "") {
+						gfn_comAlert("W0002", captions[colIndex - rowHeaderLength]);
+						grid.clickCell(rowData.rownum, colIndex, true, false);
 						grid.editCell();
-						validCheck = false;
-						break outerLoop;
-					} else {
-						validCheck = true;
+						return false; // Validation failed
 					}
 				}
 			}
 		}
 	}
-	return validCheck;
+
+	return true; // Validation passed
 }
