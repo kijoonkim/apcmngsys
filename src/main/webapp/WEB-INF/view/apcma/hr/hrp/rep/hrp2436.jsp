@@ -1219,7 +1219,7 @@
      * SMS 발송
      */
     const fn_btnSendSMS = async function () {
-/*
+// /*
         let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
         let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
@@ -1285,29 +1285,21 @@ console.log('checkData ==>', checkData);
 				workType: 'N',
 				rownum: item.rownum,
 				params: gfnma_objectToString({
-					V_P_DEBUG_MODE_YN      : ''
-					,V_P_LANG_ID           : ''
-					,V_P_COMP_CODE         : gv_ma_selectedCorpCd
-					,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-					
-					,V_P_UUID         			: gfnma_generateUUID().replaceAll('-', '')
-					,V_P_GUBUN        			: '1'
-					,V_P_OPEN_DATE          	: '20240125'
-					,V_P_PWD     				: '1234'
-					,V_P_REPORT_NAME        	: SENDTYPE == 'ALL' ? 'ma/RPT_HRP2436_Q_ALL.crf' : (SENDTYPE == 'PAY' ? 'ma/RPT_HRP2436_Q_PAY.crf' : 'ma/RPT_HRP2436_Q_WORK.crf') 
-					,V_P_PROCEDURE_NAME     	: 'P_HRP2436_Q'
-					,V_P_PROCEDURE_URL      	: '/hr/hrp/rep/selectHrp2436Report.do'
-					,V_P_PROCEDURE_WORKTYPE 	: SENDTYPE == 'ALL' ? 'REPORT5' : (SENDTYPE == 'PAY' ? 'REPORT3' : 'REPORT4')
-					,V_P_PROCEDURE_CV_COUNT 	: '15'
-					,V_P_PROCEDURE_PARAMAMETER	: gfnma_objectToString(paramObj)
-// 					,V_P_PROCEDURE_PARAMAMETER	: objToString
-					
-					,V_P_FORM_ID           : p_formId
-					,V_P_MENU_ID           : p_menuId
-					,V_P_PROC_ID           : ''
-					,V_P_USERID            : p_userId
-					,V_P_PC                : ''
-				})
+					V_P_LNKG_UNQ_ID   			: gfnma_generateUUID().replaceAll('-', '')
+					,V_P_TASK_ID	   			: 'MA'
+					,V_P_TASK_SE_CD	   			: '1'
+					,V_P_RPT_DOC_FILE_PATH     	: SENDTYPE == 'ALL' ? 'ma/RPT_HRP2436_Q_ALL.crf' : (SENDTYPE == 'PAY' ? 'ma/RPT_HRP2436_Q_PAY.crf' : 'ma/RPT_HRP2436_Q_WORK.crf') 
+					,V_P_PRGRM_NM     			: 'P_HRP2436_Q'
+					,V_P_PRGRM_URL      		: '/hr/hrp/rep/selectHrp2436Report.do'
+					,V_P_PRGRM_PRCS_TYPE 		: SENDTYPE == 'ALL' ? 'REPORT5' : (SENDTYPE == 'PAY' ? 'REPORT3' : 'REPORT4')
+					,V_P_PRCS_RSLT_NOCS 		: '15'
+					,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj)
+					,V_P_LNKG_CERT_KEY			: '1234'
+					,V_P_LNKG_OPEN_YMD          : '20240125'
+					,V_P_LNKG_EXPRY_YN          : ''
+					,V_P_SYS_FRST_INPT_DT       : ''
+					,V_P_SYS_FRST_INPT_PRGRM_ID : ''
+				}, true)
 			};
 			listData.push(param);
 		});
@@ -1333,22 +1325,19 @@ console.log('checkData ==>', checkData);
 			console.error("failed", e.message);
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
-    	*/
+//     	*/
     }
 
     /**
      * 출력
  	*/
     const fn_btnPrint = async function() {
-        var nRow = gvwInfoGrid.getRow();
      	var conn = '';
+        let checkData = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
      	var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-     	if (nRow < 1) {
+     	if (checkData < 1) {
              return;
         }
-         
-        let checkData = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
-        let rowData = gvwInfoGrid.getRowData(nRow);
          
      	if (SENDTYPE == "ALL") {
             conn = await fn_GetReportData('REPORT5', checkData);

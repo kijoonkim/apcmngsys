@@ -793,7 +793,7 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
    				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
    				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -971,7 +971,7 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
    				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
    				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -1047,7 +1047,7 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
    				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
    				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -1260,7 +1260,7 @@
 	   				,V_P_LANG_ID           : ''
 	   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
 	   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1"))
+	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
 	   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
 	   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
 	   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))

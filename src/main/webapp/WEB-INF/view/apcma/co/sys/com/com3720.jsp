@@ -313,6 +313,7 @@
 	//-----------------------------------------------------------
 	var editType 		= 'N';
 	var mode 			= 'byrows';
+	var copy 			= false;
 	var jsonGroupCode	= [];	// 유형분류
 	
 	const fn_initSBSelect = async function() {
@@ -371,23 +372,39 @@
        jsonSubList = [];
        let fieldData = await fn_fieldCaption(); 
        
-       fn_drawSubGrid(mode,fieldData, gridData, true);
+       fn_drawSubGrid(mode, fieldData, gridData, copy);
     }
     
     /*필드캡션 데이터*/
-    const fn_fieldCaption = async function (){
-    	let field_data = {
-    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
-    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
-    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
-    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
-    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
-    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
-    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
-    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
-    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
-    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"))
-    	};
+    const fn_fieldCaption = async function (data){
+    	let field_data = {}
+    	if(_.isEmpty(data)){
+	    	field_data = {
+	    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
+	    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
+	    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
+	    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
+	    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
+	    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
+	    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
+	    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
+	    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
+	    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"))
+	    	};
+    	}else{
+	    	field_data = {
+	    	    	FIELD_CAPTION1 : gfn_nvl( data.EXTRA_COL1 ),
+	    	    	FIELD_CAPTION2 : gfn_nvl( data.EXTRA_COL2 ),
+	    	    	FIELD_CAPTION3 : gfn_nvl( data.EXTRA_COL3 ),
+	    	    	FIELD_CAPTION4 : gfn_nvl( data.EXTRA_COL4 ),
+	    	    	FIELD_CAPTION5 : gfn_nvl( data.EXTRA_COL5 ),
+	    	    	FIELD_CAPTION6 : gfn_nvl( data.EXTRA_COL6 ),
+	    	    	FIELD_CAPTION7 : gfn_nvl( data.EXTRA_COL7 ),
+	    	    	FIELD_CAPTION8 : gfn_nvl( data.EXTRA_COL8 ),
+	    	    	FIELD_CAPTION9 : gfn_nvl( data.EXTRA_COL9 ),
+	    	    	FIELD_CAPTION10 : gfn_nvl( data.EXTRA_COL10 ),
+	    	};
+    	}
     	return field_data;
     }
     
@@ -440,11 +457,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  		style:'text-align:left'},
-            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  		style:'text-align:left', userattr : {required : true} },
+            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
+            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: ["여유필드1"],			ref: 'EXTRA_FIELD1',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드2"],			ref: 'EXTRA_FIELD2',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드3"],			ref: 'EXTRA_FIELD3',    type:'input',       width:'100px',  	style:'text-align:left'},
@@ -531,7 +548,7 @@
     }
 	
     //세부코드 정보
-    const fn_drawSubGrid = async function(mode, fieldData, gridData, copymod) {
+    const fn_drawSubGrid = async function(mode, fieldData, gridData, copymode) {
 		let FIELD_CAPTION1    	= gfn_nvl(fieldData.FIELD_CAPTION1)  == "" ? "여유필드1"  : fieldData.FIELD_CAPTION1;
 		let FIELD_CAPTION2	    = gfn_nvl(fieldData.FIELD_CAPTION2)  == "" ? "여유필드2"  : fieldData.FIELD_CAPTION2;
 		let FIELD_CAPTION3	    = gfn_nvl(fieldData.FIELD_CAPTION3)  == "" ? "여유필드3"  : fieldData.FIELD_CAPTION3;
@@ -550,18 +567,18 @@
         SBSubGridProperties.jsonref 			= 'jsonSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBSubGridProperties.selectmode 			= mode;
-        SBSubGridProperties.allowcopy 			= copymod;
+        SBSubGridProperties.allowcopy 			= copymode;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
         SBSubGridProperties.rowheadercaption 	= {seq: 'No'};
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'100px',  		style:'text-align:left'},
-            {caption: ["코드명"],					ref: 'CODE_NAME',    	type:'input',  	width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     		ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  	width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],     			ref: 'USE_YN',			type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  		style:'text-align:left', userattr : {required : true} },
+            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ['시스템코드'],     	ref : 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
+            {caption: ['사용여부'],    	 	ref : 'USE_YN',			type :'checkbox' ,	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: [FIELD_CAPTION1],			ref: 'EXTRA_FIELD1',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION2],			ref: 'EXTRA_FIELD2',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION3],			ref: 'EXTRA_FIELD3',    type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -717,7 +734,7 @@
     //그룹코드 내역 저장
     const fn_saveFieldCaption = async function() {
     	
-    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint") || !gfnma_gridValidateCheck()) {
     		return false;
     	}
 
@@ -796,70 +813,70 @@
         		let rowLength = subGrid.getUpdateData(true, 'all').length;
         		let rowVal 	  = subGrid.getUpdateData(true, 'all');
         		if(rowLength >= 1 ){
-        	    		for(var i = 0; rowLength > i; i ++){
-        	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-        		            var P_USE_YN 		= '';
-        		            var P_SYSTEM_YN 	= '';
-        	    			
-        	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
-        	    				P_USE_YN = 'N';
-        	    			}
-        	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
-        	    				P_SYSTEM_YN = 'N';
-        	    			}
-        	    			var paramObj = {
-        	    					
-       	    					   V_P_DEBUG_MODE_YN        : ''
-  	    						   ,V_P_LANG_ID             : ''
-  	    						   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-  	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-  	    						   ,V_P_GROUP_CODE          : GROUP_CODE
-  	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
-  	    						   ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
-  	    						   ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-  	    						   ,V_P_EXTRA_FIELD1        : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
-  	    						   ,V_P_EXTRA_FIELD2        : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
-  	    						   ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
-  	    						   ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
-  	    						   ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
-  	    						   ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
-  	    						   ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
-  	    						   ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
-  	    						   ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
-  	    						   ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
-  	    						   ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
-  	    						   ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
-  	    						   ,V_P_FORM_ID             : p_formId
-  	    						   ,V_P_MENU_ID             : p_menuId
-  	    						   ,V_P_PROC_ID             : ''
-  	    						   ,V_P_USERID              : p_userId
-  	    						   ,V_P_PC                  : ''
-        	    		    };		
-        	    			
-        	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3720_S1.do", {
-        	    	        	getType				: 'json',
-        	    	        	workType			: workType,
-        	    	        	cv_count			: '0',
-        	    	        	params				: gfnma_objectToString(paramObj)
-        	    			});    	 
-        	    	        const subdata = await postJsonPromise;
+       	    		for(var i = 0; rowLength > i; i ++){
+       	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
+       		            var P_USE_YN 		= '';
+       		            var P_SYSTEM_YN 	= '';
+       	    			
+       	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
+       	    				P_USE_YN = 'N';
+       	    			}
+       	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
+       	    				P_SYSTEM_YN = 'N';
+       	    			}
+       	    			var paramObj = {
+       	    					
+      	    					   V_P_DEBUG_MODE_YN        : ''
+ 	    						   ,V_P_LANG_ID             : ''
+ 	    						   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+ 	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+ 	    						   ,V_P_GROUP_CODE          : GROUP_CODE
+ 	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
+ 	    						   ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
+ 	    						   ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+ 	    						   ,V_P_EXTRA_FIELD1        : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
+ 	    						   ,V_P_EXTRA_FIELD2        : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
+ 	    						   ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
+ 	    						   ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
+ 	    						   ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
+ 	    						   ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
+ 	    						   ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
+ 	    						   ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
+ 	    						   ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
+ 	    						   ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
+ 	    						   ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
+ 	    						   ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
+ 	    						   ,V_P_FORM_ID             : p_formId
+ 	    						   ,V_P_MENU_ID             : p_menuId
+ 	    						   ,V_P_PROC_ID             : ''
+ 	    						   ,V_P_USERID              : p_userId
+ 	    						   ,V_P_PC                  : ''
+       	    		    };		
+       	    			
+       	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3720_S1.do", {
+       	    	        	getType				: 'json',
+       	    	        	workType			: workType,
+       	    	        	cv_count			: '0',
+       	    	        	params				: gfnma_objectToString(paramObj)
+       	    			});    	 
+       	    	        const subdata = await postJsonPromise;
 
-        	    	        try {
-        	    	        	if (_.isEqual("S", subdata.resultStatus)) {
-        	    	        		if(subdata.resultMessage){
-        	    		          		alert(subdata.resultMessage);
-        	    	        		}
-        	    	        	} else {
-        	    	          		alert(subdata.resultMessage);
-        	    	        	}
-        	    	        } catch (e) {
-        	    	    		if (!(e instanceof Error)) {
-        	    	    			e = new Error(e);
-        	    	    		}
-        	    	    		console.error("failed", e.message);
-        	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	    	        }
-        	    		}
+       	    	        try {
+       	    	        	if (_.isEqual("S", subdata.resultStatus)) {
+       	    	        		if(subdata.resultMessage){
+       	    		          		alert(subdata.resultMessage);
+       	    	        		}
+       	    	        	} else {
+       	    	          		alert(subdata.resultMessage);
+       	    	        	}
+       	    	        } catch (e) {
+       	    	    		if (!(e instanceof Error)) {
+       	    	    			e = new Error(e);
+       	    	    		}
+       	    	    		console.error("failed", e.message);
+       	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+       	    	        }
+       	    		}
         		}
         		
         		cfn_search();
@@ -875,18 +892,17 @@
         }
     }
 
-     // 행 추가
-     const fn_addRow = function () {
-         let rowVal = subGrid.getRow();
+    // 행 추가
+    const fn_addRow = function () {
+        let rowVal = subGrid.getRow();
 
-    	//데이터가 없고 행선택이 없을경우.
-         if (rowVal == -1){ 
-
-             subGrid.addRow(true);
-         }else{
-             subGrid.insertRow(rowVal);
-         }
-     }
+   	//데이터가 없고 행선택이 없을경우.
+		if(rowVal == -1) {
+			subGrid.addRow(true,{ SYSTEM_YN:"N", USE_YN:"Y" }, true);
+		} else {
+			subGrid.insertRow(rowVal, 'below', { SYSTEM_YN:"Y", USE_YN:"Y" });
+		}    	
+    }
 
      // 행 삭제
      const fn_delRow = async function () {
@@ -911,7 +927,8 @@
          let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
 		 mode = 'byrow'; //행 단위 단일  선택
-         fn_drawSubGrid(mode,fieldData, gridData, true);
+		 copy = true;
+         fn_drawSubGrid(mode,fieldData, gridData, copy);
 
      }
      
@@ -925,12 +942,13 @@
          let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
 		 mode = 'byrows'; //행 단위 다중 선택
-         fn_drawSubGrid(mode,fieldData, gridData, true);
+		 copy = true;
+         fn_drawSubGrid(mode,fieldData, gridData, copy);
 
      }
      
      /*셀 복사 (셀복사모드)*/
-     const fn_gridCopyCell = async function () { 
+     const fn_gridCopyCell = async function () {
          $('#btnCopyClear').show();
          $('#btnCopyLine').hide();
          $('#btnCopyCell').hide();
@@ -939,7 +957,8 @@
          let fieldData = await fn_fieldCaption(); 
      	 jsonSubList = [];
          mode = 'free'; //셀 단위 다중 선택
-         fn_drawSubGrid(mode,fieldData, gridData, true);
+         copy = true;
+         fn_drawSubGrid(mode,fieldData, gridData, copy);
      }
      
     //그룹코드 내역 보기

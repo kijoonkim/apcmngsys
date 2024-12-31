@@ -94,8 +94,8 @@
 									    </button>
 									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:350px;height:150px;padding-top:0px;overflow:auto">
 									    </div>
-									</div>                                
-	                            </td>   
+									</div>
+	                            </td>
 	                            <td></td>
 	                            <th scope="row" class="th_bg_search">기준년도</th>
 	                            <td class="td_input" style="border-right: hidden;">
@@ -271,7 +271,6 @@
 		}else{
 			fn_search();
 			fn_createGrid();
-			fn_createSubGrid();
 		}
 	}
 
@@ -340,25 +339,25 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-            {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
-            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
-            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["특정일명칭"],			ref: 'DAY_TITLE',    		type:'input',  		width:'100px',  style:'text-align:left'},
-            {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
-            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
-            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
-            			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-            {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-            {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-        ];               
+	        {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+	        {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+	        {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
+	        	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+	        {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
+	        		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+	        {caption: ["특정일명칭"],			ref: 'DAY_TITLE',    		type:'input',  		width:'100px',  style:'text-align:left', userattr : {required : true} },
+	        {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
+	        	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+	        {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
+	        		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+	        {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
+	        			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+	        {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
+	        {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+	        {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+	        {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+	        {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+	    ];              
         subGrid	= _SBGrid.create(SBSubGridProperties);
     }
 
@@ -413,7 +412,31 @@
 				masterGrid.rebuild();
 			  	document.querySelector('#listCount').innerText = totalRecordCount;
 			  	//특정일 설정 그리드
-			  	await fn_drawSubGrid(mode, data.cv_2, true)
+			  	
+			  	jsonSubList = [];
+			  	data.cv_2.forEach((item, index) => {
+					const msg = {
+							BUSINESS_DAY_YN			: item.BUSINESS_DAY_YN,
+							CHK_YN					: item.CHK_YN,
+		  					DAY_TITLE				: item.DAY_TITLE,
+		   	  				END_DAY					: gfn_nvl(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+			   	  			END_DAY_SOLAR			: gfn_nvl(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+				   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
+					   	  	HOLIDAY_YN				: item.HOLIDAY_YN,
+					   	 	LEAP_MONTH_YN			: item.LEAP_MONTH_YN,
+						   	SOLAR_YN				: item.SOLAR_YN,
+						   	MEMO					: item.MEMO,
+						   	START_DAY				: gfn_nvl(item.START_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+						   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+						   	START_WEEK_NAME			: item.START_WEEK_NAME,
+						   	TXN_ID					: item.TXN_ID,
+						   	WORKING_DAY_YN			: item.WORKING_DAY_YN	
+					}
+					jsonSubList.push(msg);
+				});
+			  	
+			  	await fn_drawSubGrid(mode, jsonSubList, true)
+			  	
         	} else {
           		alert(data.resultMessage);
         	}
@@ -428,6 +451,7 @@
 	
     //세부코드 정보
     const fn_drawSubGrid = async function(mode, data, copymod) {
+    	jsonSubList = [];
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
         SBSubGridProperties.parentid 			= 'sb-area-subGrdCom2300';
@@ -442,25 +466,25 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-                    {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-                    {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-                    {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
-                    	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-                    {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
-                    		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-                    {caption: ["특정일명칭"],			ref: 'DAY_TITLE',  		type:'input',  		width:'100px',  style:'text-align:left'},
-                    {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
-                    	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-                    {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
-                    		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-                    {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
-                    			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-                    {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-                    {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-                    {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-                    {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-                    {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-                ];  
+            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+            {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
+            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
+            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["특정일명칭"],			ref: 'DAY_TITLE',  		type:'input',  		width:'100px',  style:'text-align:left', userattr : {required : true} },
+            {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
+            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
+            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
+            			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
+            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+        ];  
 		// 이전에 그렸던 그리드 삭제 후 다시 그리기
         _SBGrid.destroy('subGrid');
         subGrid = _SBGrid.create(SBSubGridProperties);
@@ -587,6 +611,11 @@
 
     //그룹코드 내역 저장
     const fn_save = async function() {
+    	
+    	if(!gfnma_gridValidateCheck()){
+    		return;
+    	}
+    	
     	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
 		//그리드 요일별 데이터를 담기위한 리스트
     	let sunData = [];
@@ -722,18 +751,17 @@
         }
     }
 
-     // 행 추가
-     const fn_addRow = function () {
-         let rowVal = subGrid.getRow();
+    // 행 추가
+    const fn_addRow = function () {
+        let rowVal = subGrid.getRow();
 
     	//데이터가 없고 행선택이 없을경우.
-         if (rowVal == -1){ 
-
-             subGrid.addRow(true);
-         }else{
-             subGrid.insertRow(rowVal);
-         }
-     }
+		if(rowVal == -1) {
+			subGrid.addRow(true,{ SOLAR_YN:"N", LEAP_MONTH_YN:"N", HOLIDAY_YN:"N", WORKING_DAY_YN:"N", BUSINESS_DAY_YN:"N"  }, true);
+		} else {
+			subGrid.insertRow(rowVal, 'below', { SOLAR_YN:"N", LEAP_MONTH_YN:"N", HOLIDAY_YN:"N", WORKING_DAY_YN:"N", BUSINESS_DAY_YN:"N"  });
+		}    	
+	}
 
      // 행 삭제
      const fn_delRow = async function () {

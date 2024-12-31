@@ -203,24 +203,29 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [ 
-            {caption: ["통화코드"],			ref: 'CURRENCY_CODE', 		type:'input',  	width:'100px',  style:'text-align:center'},
-            {caption: ["통화명"],				ref: 'CURRENCY_NAME', 		type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["통화명(한글)"],		ref: 'CURRENCY_NAME_CHN', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ['사용여부'],     		ref: 'USE_YN',				type:'checkbox',width:'80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["통화코드"],			ref: 'CURRENCY_CODE', 		type:'input',  	width:'100px',  style:'text-align:center', userattr : {required : true}},
+            {caption: ["통화명"],				ref: 'CURRENCY_NAME', 		type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true}},
+            {caption: ["통화명(한글)"],		ref: 'CURRENCY_NAME_CHN', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true}},
+            {caption: ['사용여부'],     		ref: 'USE_YN',				type:'checkbox',width:'80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true}},
             {caption: ['펌뱅킹 여부'],     	ref: 'FBS_YN',				type:'checkbox',width:'80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
             {caption: ["심볼"],				ref: 'CURR_SYMBOL',    		type:'input',  	width:'100px',  style:'text-align:center'},
             {caption: ['소수점자리'],			ref: 'DECIMAL_LENGTH',      type:'input',   width:'100px',  style:'text-align:right', format : {type:'number', rule:'#,###'}, datatype : 'number'},
             {caption: ['환산기준단위'],		ref: 'EXCHANGE_BASE_SCALE', type:'input',   width:'200px',  style:'text-align:right', format : {type:'number', rule:'#,###.00'}, datatype : 'decimal'},
             {caption: ['정렬순서'],			ref: 'SORT_SEQ',      		type:'input',   width:'100px',  style:'text-align:right', format : {type:'number', rule:'#,###'}, datatype : 'number'},
-            {caption: ["비고"],				ref: 'MEMO',    			type:'input',  	width:'250px',  style:'text-align:left'}
+            {caption: ["비고"],				ref: 'MEMO',    			type:'input',  	width:'250px',  style:'text-align:left', userattr : {required : true}}
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
     }
     
     const fn_save = async function () {
+    	
+    	if(!gfnma_gridValidateCheck()){
+			return;
+ 		}
+    	
         let updatedData = masterGrid.getUpdateData(true, 'all');
         let listData = [];
-
+        
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -262,7 +267,6 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -295,7 +299,7 @@
 	    	   ,V_P_PROC_ID              : ''
 	    	   ,V_P_USERID               : p_userId
 	    	   ,V_P_PC                   : ''
-		};		
+		};
     	
         const postJsonPromise = gfn_postJSON("/co/sys/cur/selectCom3200.do", {
         	getType				: 'json',
@@ -352,10 +356,10 @@
     // 행 추가
     const fn_addRow = function () {
         let rowVal = masterGrid.getRow();
-        if (rowVal == -1){
-        	masterGrid.addRow(true);
-        }else{
-        	masterGrid.insertRow(rowVal);
+        if(rowVal == -1) {
+        	masterGrid.addRow(true,{ USE_YN:"Y" }, true);
+        } else {
+        	masterGrid.insertRow(rowVal, 'below', { USE_YN:"Y" });
         }
     }
 

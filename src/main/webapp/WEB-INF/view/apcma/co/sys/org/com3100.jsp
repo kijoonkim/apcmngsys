@@ -146,6 +146,7 @@
 	//-----------------------------------------------------------
 
 	var mode				= 'byrow';
+	var copyMode 			= true;
 	var jsonRegionCode		= [];	// 지역
 	var jsonCurrencyCode	= [];	// 통화
 	var jsonUserYnCode		= [
@@ -165,34 +166,34 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_initSBSelect();
-    	fn_createGrid();
+    	fn_createGrid(mode, [], copyMode);
     	cfn_search();
     });
 
     //grid 초기화
     var masterGrid; 			// 그리드를 담기위한 객체 선언
     var jsonMasterList = []; 	// 그리드의 참조 데이터 주소 선언
-    function fn_createGrid() {
+    function fn_createGrid(mode, data, copy) {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdCom3100';
 	    SBGridProperties.id 				= 'masterGrid';
 	    SBGridProperties.jsonref 			= 'jsonMasterList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.selectmode 		= 'byrow';
+        SBGridProperties.useinitsorting 	= true;
+        SBGridProperties.selectmode 		= mode;
+        SBGridProperties.allowcopy 			= copy;
 	    SBGridProperties.explorerbar 		= 'sortmove';
-	    SBGridProperties.useinitsorting 	= true;
-	    SBGridProperties.allowcopy 			= true;
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'input',  		width:'5%',  	style:'text-align:center'},
-            {caption: ["국가약어"], 		ref: 'NATION_CODE_ABBR',    	type:'input',  	width:'5%',  	style:'text-align:center'},
-            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center'},
-            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center'},
+            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'input',  		width:'5%',  	style:'text-align:center', userattr : {required : true}},
+            {caption: ["국가약어"], 			ref: 'NATION_CODE_ABBR',    	type:'input',  	width:'5%',  	style:'text-align:center'},
+            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center', userattr : {required : true}},
+            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center', userattr : {required : true}},
             {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'input',  	width:'15%',  	style:'text-align:center'},
-            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'},
+            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center', userattr : {required : true}},
             {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'8%',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonRegionCode',
@@ -207,13 +208,32 @@
 					value		: 'value'
             	}
             },
-            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
+            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center', userattr : {required : true}},
             {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'}
         ];
+        jsonMasterList = [];
+        _SBGrid.destroy('masterGrid');
         masterGrid = _SBGrid.create(SBGridProperties);
+        if(!_.isEmpty(data)){
+	        data.forEach((item, index) => {
+				const msg = {
+						NATION_CODE				: item.NATION_CODE,
+						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
+						NATION_NAME				: item.NATION_NAME,
+						NATION_FULL_NAME		: item.NATION_FULL_NAME,
+						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
+						REGION_CODE				: item.REGION_CODE,
+						CURRENCY_CODE			: item.CURRENCY_CODE,
+						MEMO					: item.MEMO,
+						SORT_SEQ				: item.SORT_SEQ,
+						USE_YN 					: item.USE_YN
+				}
+				jsonMasterList.push(msg);
+			});
+			masterGrid.rebuild();
+        }
     }
-
-	
+    
     /**
      * 초기화
      */
@@ -284,7 +304,7 @@
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
   				});
-  	        	masterGrid.rebuild();
+  	        	fn_createGrid(mode, jsonMasterList, copyMode);
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
         	} else {
           		alert(data.resultMessage);
@@ -322,6 +342,11 @@
         	gfn_comAlert('W0003', '저장'); //W0003 {0}할 대상이 없습니다.
         	return;
         }
+        
+        if(!gfnma_gridValidateCheck()){
+        	return;
+        }
+        
         let listData = [];
         masterGridUpdateData.forEach((item, index) => {
             const param = {
@@ -353,6 +378,11 @@
             }
             listData.push(param);
         });
+        
+        if(_.isEmpty(listData)){
+        	return;
+        }
+        
         const postJsonPromise = gfn_postJSON("/co/sys/org/insertCom3100.do", {listData: listData});
         const data = await postJsonPromise;
         try {
@@ -377,11 +407,11 @@
     const fn_addRow = function () {
         let rowVal = masterGrid.getRow();
 	   	//데이터가 없고 행선택이 없을경우.
-        if (rowVal == -1){ 
-        	masterGrid.addRow(true);
-        }else{
-        	masterGrid.insertRow(rowVal);
-        }
+		if(rowVal == -1) {
+			masterGrid.addRow(true,{ USE_YN:"Y" }, true);
+		} else {
+			masterGrid.insertRow(rowVal, 'below', { USE_YN:"Y" });
+		}
     }
 
     // 행 삭제
@@ -404,7 +434,8 @@
         let data = masterGrid.getGridDataAll();
         jsonMasterList = [];
 		mode = 'byrow'; //행 단위 단일  선택
-        fn_drawMasterGrid(mode, data, false);
+		copyMode = false;
+        fn_createGrid(mode, data, copyMode);
 
     }
     
@@ -418,7 +449,8 @@
         jsonMasterList = [];
 
 		mode = 'byrows'; //행 단위 다중 선택
-		fn_drawMasterGrid(mode, data, true);
+		copyMode = true;
+		fn_createGrid(mode, data, copyMode);
 
     }
     
@@ -432,70 +464,9 @@
         jsonMasterList = [];
 	 
         mode = 'free'; //셀 단위 다중 선택
-        fn_drawMasterGrid(mode, data, true);
+        copyMode = true;
+        fn_createGrid(mode, data, copyMode);
     }
-    
-    function fn_drawMasterGrid(mode, data, copymode) {
-        var SBGridProperties 				= {};
-	    SBGridProperties.parentid 			= 'sb-area-grdCom3100';
-	    SBGridProperties.id 				= 'masterGrid';
-	    SBGridProperties.jsonref 			= 'jsonMasterList';
-        SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.useinitsorting 	= true;
-        SBGridProperties.selectmode 		= mode;
-        SBGridProperties.allowcopy 			= copymode;
-	    SBGridProperties.explorerbar 		= 'sortmove';
-        SBGridProperties.rowheader 			= 'seq';
-		SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '60'};
-	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [
-            {caption: ["국가코드"],			ref: 'NATION_CODE', 			type:'input',  		width:'5%',  	style:'text-align:center'},
-            {caption: ["국가약어"], 			ref: 'NATION_CODE_ABBR',    	type:'input',  	width:'5%',  	style:'text-align:center'},
-            {caption: ["국가약식명"],  		ref: 'NATION_NAME',    			type:'input',  	width:'15%',  	style:'text-align:center'},
-            {caption: ["국가정식명"],      	ref: 'NATION_FULL_NAME', 		type:'input',  	width:'15%',  	style:'text-align:center'},
-            {caption: ["국가정식명(한글)"],	ref: 'NATION_FULL_NAME_CHN',	type:'input',  	width:'15%',  	style:'text-align:center'},
-            {caption: ['사용여부'],    	ref: 'USE_YN', 				type : 'checkbox' , typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" },  width:'5%',		style:'text-align:center'},
-            {caption: ["지역"],				ref: 'REGION_CODE', 			type:'combo',  		width:'8%',  	style:'text-align:center',
-            	typeinfo: {
-					ref			: 'jsonRegionCode',
-					label		: 'label',
-					value		: 'value'
-            	}
-            },
-            {caption: ["통화"],			ref: 'CURRENCY_CODE',   		type:'combo',  		width:'8%',  	style:'text-align:center',
-            	typeinfo: {
-					ref			: 'jsonCurrencyCode',
-					label		: 'label',
-					value		: 'value'
-            	}
-            },
-            {caption: ["정렬순서"], 		ref: 'SORT_SEQ',  			type:'input',  	width:'8%',  	style:'text-align:center'},
-            {caption: ["비고"], 			ref: 'MEMO', 				type:'input',  	width:'16%',  	style:'text-align:center'}
-        ];
-        jsonMasterList = [];
-        _SBGrid.destroy('masterGrid');
-        masterGrid = _SBGrid.create(SBGridProperties);
-        
-        data.forEach((item, index) => {
-			const msg = {
-					NATION_CODE				: item.NATION_CODE,
-					NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-					NATION_NAME				: item.NATION_NAME,
-					NATION_FULL_NAME		: item.NATION_FULL_NAME,
-					NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-					REGION_CODE				: item.REGION_CODE,
-					CURRENCY_CODE			: item.CURRENCY_CODE,
-					MEMO					: item.MEMO,
-					SORT_SEQ				: item.SORT_SEQ,
-					USE_YN 					: item.USE_YN
-			}
-			jsonMasterList.push(msg);
-		});
-		masterGrid.rebuild();
-    }
-    
-    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

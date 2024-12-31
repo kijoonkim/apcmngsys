@@ -396,7 +396,11 @@
     // 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-	        fn_save();
+	    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint") || !gfnma_gridValidateCheck()) {
+	    		return;
+	    	}else{
+		        fn_save();
+	    	}
 		}
     }
 	
@@ -464,8 +468,8 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'20%',  	style:'text-align:left'},
-            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'70%',  	style:'text-align:left'},
+            {caption: ["데이터 코드"],	ref: 'DATA_CODE', 		type:'input',  		width:'20%',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ["데이터명"],		ref: 'DATA_NAME',    	type:'input',  		width:'70%',  	style:'text-align:left', userattr : {required : true} },
             {caption: ['사용'],     		ref : 'USE_YN',		type :'checkbox',		width:'10%', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
             }
@@ -799,17 +803,16 @@
         }
     }
 
-     // 행 추가
-     const fn_addRow = function () {
-         let rowVal = MNGARTCLSubGrid.getRow();
-         let colVal = MNGARTCLSubGrid.getCol();
-         //데이터가 없고 행선택이 없을경우.
-         if (rowVal == -1){
-             MNGARTCLSubGrid.addRow(true);
-         }else{
-             MNGARTCLSubGrid.insertRow(rowVal);
-         }
-     }
+    // 행 추가
+    const fn_addRow = function () {
+        let rowVal = MNGARTCLSubGrid.getRow();
+         
+        if(rowVal == -1) {
+        	MNGARTCLSubGrid.addRow(true,{ USE_YN:"Y" }, true);
+       	} else {
+       		MNGARTCLSubGrid.insertRow(rowVal, 'below', { USE_YN:"Y" });
+       	}
+    }
 
      // 행 삭제
      const fn_delRow = async function () {
