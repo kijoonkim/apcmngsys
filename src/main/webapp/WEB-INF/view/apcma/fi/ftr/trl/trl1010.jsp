@@ -1388,6 +1388,11 @@
 	 */
 	async function cfn_save() {
 
+		//그리드 필수값 체크
+		if (await gfnma_gridValidateCheck() == false){
+			return;
+		}
+
 		// 수정 저장
 		if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -1576,11 +1581,11 @@
             {caption: ["차입금번호"],		ref: 'LOAN_NUM', 			type:'input',  	width:'250px',  	style:'text-align:left'},
             //TODO : 화면상에는 순번 컬럼이지만 C#코드에서는 계획연변으로 되어있는 것으로 추측
 			{caption: ["순번"], 			ref: 'PLAN_SEQ', 		 	type:'output',  	width:'100px',  	style:'text-align:left'},
-			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false , userattr : {required : true},
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'200px', 		style: 'text-align: center', sortable: false , userattr : {required : true},
 				format : {type:'date', rule:'yyyy-mm', origin:'yyyymmdd'}},
-			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'150px',  style:'text-align:right',
+			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'150px',  style:'text-align:right' , userattr : {required : true},
 				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
 			{caption: ["확정여부"], ref: 'CONFIRM_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
 				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}

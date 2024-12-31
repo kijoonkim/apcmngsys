@@ -353,6 +353,11 @@
 	 */
 	async function cfn_save() {
 
+		//그리드 필수값 체크
+		if (await gfnma_gridValidateCheck() == false){
+			return;
+		}
+
 		let strloan_num = "";
 		let strStatus = "";
 
@@ -459,24 +464,24 @@
 		SBGridProperties.useinitsorting 	= true;
 		SBGridProperties.columns = [
 			{caption: ["차입금번호"], 		ref: 'LOAN_NUM', 			  	type:'input',  	width:'230px',  	style:'text-align:left'},
-			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'output',  	width:'200px',  	style:'text-align:left'},
-			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+			{caption: ["계획연번"], 		ref: 'PLAN_SEQ', 			  	type:'input',  	width:'200px',  	style:'text-align:left', userattr : {required : true}},
+			{caption: ['상환예정일'], 	ref: 'REPAY_PLAN_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false, userattr : {required : true},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+			{caption : ["통화"], 		ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo', userattr : {required : true},
 				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}},
-			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+			{caption: ["총상환액"],		ref: 'REPAY_TOTAL_AMT',  	type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
 			{caption: ["차입금대체"],		ref: 'REPAY_TRANSFER_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right',
-				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center',
+			{caption: ["원금상환예정액"],	ref: 'REPAY_PLAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
+			{caption: ["차입금잔액"],		ref: 'REMAIN_LOAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
+			{caption: ["이자상환예정액"],	ref: 'INTEREST_REPAY_PLAN_AMT',  type:'input',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
+			{caption: ["이자율"],        ref: 'INTEREST_RATE',    type:'input',  	width:'200px',  style:'text-align:right', userattr : {required : true},
+				typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}, format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
+			{caption : ["이자일수"], 	ref : 'INTEREST_DAY', 		type:'combo',		width:'200px', 	style : 'text-align:center', userattr : {required : true},
 				typeinfo : {ref : 'jsonRepayDd',  label : 'label', value : 'value'}
 			},
-			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용시작일'], 	ref: 'INTEREST_FROM_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false, userattr : {required : true},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false,
+			{caption: ['적용종료일'], 	ref: 'INTEREST_TO_DATE', 	type:'inputdate',	width:'220px', 		style: 'text-align: center', sortable: false, userattr : {required : true},
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption: ["확정여부"], 	ref: 'CONFIRM_FLAG', type: 'checkbox', width: '100px', style: 'text-align:center',
 				typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'}
