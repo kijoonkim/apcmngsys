@@ -968,6 +968,10 @@
     // 저장
     async function cfn_save() {
 
+        if (await gfnma_gridValidateCheck() == false){
+            return;
+        }
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -1066,7 +1070,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns =[
-            {caption : ["비과세코드"], ref : 'TXFREE_CODE', width : '170px', style : 'text-align:center', type : 'combo',
+            {caption : ["비과세코드"], ref : 'TXFREE_CODE', width : '170px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonTxfreeCode',  label : 'label', value : 'value'}
             },
             {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '170px', style: 'text-align:left'},

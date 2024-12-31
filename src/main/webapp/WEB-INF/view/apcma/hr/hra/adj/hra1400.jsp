@@ -1819,7 +1819,7 @@
                             ></sbux-button>
                         </div>
                         <div>
-                            <div id="sb-area-gvwDonation" style="height:330px; width:100%;"></div>
+                            <div id="sb-area-gvwDonation" style="height:150px; width:100%;"></div>
                         </div>
                         <sbux-tabs id="tabJson1" name="tabJson1" uitype="normal" jsondata-ref="tabJsonData1" is-scrollable="false">
                         </sbux-tabs>
@@ -2140,6 +2140,12 @@
       }*/
     // 저장
     async function cfn_save() {
+
+        //그리드 필수값 체크
+        if (await gfnma_gridValidateCheck() == false){
+            return;
+        }
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -2359,34 +2365,34 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
-            {caption: ["가족성명"], ref: 'FAMILY_NAME', type: 'input', width: '100px', style: 'text-align:left'},
-            {caption: ["가족주민번호"], ref: 'FAMILY_SOCIAL_NO_REAL', type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["가족성명"], ref: 'FAMILY_NAME', type: 'input', width: '100px', style: 'text-align:left' , userattr : {required : true}},
+            {caption: ["가족주민번호"], ref: 'FAMILY_SOCIAL_NO_REAL', type: 'input', width: '100px', style: 'text-align:left' , userattr : {required : true}},
             {caption: ["가족주민번호"], ref: 'FAMILY_BIRTHDAY', type: 'output', width: '100px', style: 'text-align:left', hidden : true},
-            {caption : ["가족 관계코드"], ref : 'FAMILY_YE_TX_REL', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["가족 관계코드"], ref : 'FAMILY_YE_TX_REL', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYeTxRel',  label : 'label', value : 'value'}
             },
-            {caption : ["외국인"], ref : 'FAMILY_FOREI_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["외국인"], ref : 'FAMILY_FOREI_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption : ["기본공제"], ref : 'FAMILY_BASIC_DED_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["기본공제"], ref : 'FAMILY_BASIC_DED_YN', width : '100px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption : ["경로우대"], ref : 'FAMILY_SENIOR_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["경로우대"], ref : 'FAMILY_SENIOR_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption : ["부녀자"], ref : 'FAMILY_WOMAN_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["부녀자"], ref : 'FAMILY_WOMAN_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption : ["한부모"], ref : 'FAMILY_SINGLE_PARENT_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["한부모"], ref : 'FAMILY_SINGLE_PARENT_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption : ["장애인"], ref : 'FAMILY_HDCP_TYPE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonFamilyHdcpType',  label : 'label', value : 'value'}
             },
-            {caption : ["7세이하"], ref : 'FAMILY_BRING_CHILD_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["7세이하"], ref : 'FAMILY_BRING_CHILD_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
-            {caption : ["출생ㆍ입양"], ref : 'FAMILY_CHILDBIRTH_YN', width : '100px', style : 'text-align:center', type : 'combo',
+            {caption : ["출생ㆍ입양"], ref : 'FAMILY_CHILDBIRTH_YN', width : '100px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonFamilyYn',  label : 'label', value : 'value'}
             },
             {caption: ["의료비(국세청)"], ref: 'MED_EXP_AMT_NTS', type: 'input', width: '100px', style: 'text-align:right'
@@ -2397,7 +2403,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["일반보장성보험(기타)"], ref: 'INSURANCE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["장애인전용보장성보험(국세청)"], ref: 'HDCP_INSURANCE_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["장애인전용보장성보험(기타)"], ref: 'HDCP_INSURANCE_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2414,7 +2420,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["교육비(장애인,기타)"], ref: 'EDU_EXP_HDCP_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
+            {caption: ["신용카드(국세청)"], ref: 'CD_USE_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["신용카드(국세청)_3월"], ref: 'CD_USE_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2422,17 +2428,17 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["신용카드(국세청)_그외"], ref: 'CD_USE_AMT_C_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
+            {caption: ["신용카드(기타)"], ref: 'CD_USE_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["직불카드 등(국세청)"], ref: 'CHKCD_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["직불카드 등(기타)"], ref: 'CHKCD_USE_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["현금영수증(국세청)"], ref: 'CASH_USE_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right'
+            {caption: ["전통시장(국세청)"], ref: 'TDMK_AMT_NTS', type: 'input', width: '150px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right'
+            {caption: ["전통시장(기타)"], ref: 'TDMK_AMT_ETC', type: 'input', width: '150px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["전통시장(국세청)(1~3)"], ref: 'TDMK_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2442,21 +2448,21 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["전통시장(기타)(4~12)"], ref: 'TDMK_AMT2_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["대중교통(국세청)"], ref: 'PBTRN_AMT_NTS', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["1~6월대중교통(국세청)"], ref: 'PBTRN_AMT_A_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["7~12월 대중교통(국세청)"], ref: 'PBTRN_AMT_B_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["대중교통(기타)"], ref: 'PBTRN_AMT_ETC', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["1~6월 대중교통(기타)"], ref: 'PBTRN_AMT_A_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["7~12월 대중교통(기타)"], ref: 'PBTRN_AMT_B_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["도서공연비(국세청)"], ref: 'BOOK_PERF_AMT_NTS', type: 'input', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["도서공연비(기타)"], ref: 'BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["1~3월 도서공연비(국세청)"], ref: 'BOOK_PERF_AMT1_NTS', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2470,7 +2476,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT_ETC', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["1~3월 카드도서공연비(국세청)"], ref: 'CD_BOOK_PERF_AMT1_NTS', type: 'input', width: '200px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["1~3월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT1_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2478,7 +2484,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["4~12월 카드도서공연비(기타)"], ref: 'CD_BOOK_PERF_AMT2_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["직불카드도서공연비(국세청)"], ref: 'CHKCD_BOOK_PERF_AMT_NTS', type: 'input', width: '200px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["직불카드도서공연비(기타)"], ref: 'CHKCD_BOOK_PERF_AMT_ETC', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2575,14 +2581,14 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'PENS_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption : ["소득공제구분"], ref : 'PENS_DED_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["소득공제구분"], ref : 'PENS_DED_TYPE', width : '140px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonPensDedType',  label : 'label', value : 'value'}
             },
             {caption: ["금융기관코드"], ref: 'PENS_BANK_CODE', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
-            {caption: ["금융기관"], ref: 'PENSION_BANK_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["계좌번호(또는 증권번호)"], ref: 'PENSION_ACCOUNT_REAL', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["금융기관"], ref: 'PENSION_BANK_NAME', type: 'input', width: '140px', style: 'text-align:left', userattr : {required : true}},
+            {caption: ["계좌번호(또는 증권번호)"], ref: 'PENSION_ACCOUNT_REAL', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  /*format : { type:'number' , rule:'#,###' }*/},
-            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["ISA계좌 만기전환 순납입금액"], ref: 'ISA_DDCT_BS_ASS_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2627,7 +2633,7 @@
             {caption: ["연번"], ref: 'HS_MM_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["월세액 임대인 성명(상호)"], ref: 'HS_MM_LESSOR_NAME', type: 'input', width: '170px', style: 'text-align:left'},
             {caption: ["월세액 임대인 주민등록번호(사업자번호)"], ref: 'HS_MM_LESSOR_SOCNO_REAL', type: 'input', width: '230px', style: 'text-align:left'},
-            {caption : ["월세주택유형"], ref : 'HS_MM_RENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["월세주택유형"], ref : 'HS_MM_RENT_TYPE', width : '140px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonHouseType',  label : 'label', value : 'value'}
             },
             {caption: ["불입금액"], ref: 'PENS_PAY_AMT', type: 'input', width: '140px', style: 'text-align:right'
@@ -2637,7 +2643,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['월세액 임대차 종료일'], ref: 'HS_MM_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["월세액"], ref: 'HS_MM_RENT_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["월세액"], ref: 'HS_MM_RENT_AMT', type: 'input', width: '140px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["주택임차차입금 금전소비대차 대주 성명"], ref: 'HSRENT_RDM_LEN_NAME', type: 'input', width: '250px', style: 'text-align:left'},
             {caption: ["주택임차차입금 금전소비대차 대주 주민등록번호"], ref: 'HSRENT_RDM_LEN_SOCNO_REAL', type: 'input', width: '270px', style: 'text-align:left'},
@@ -2647,9 +2653,9 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ["주택임차차입금 금전소비대차 이자율"], ref: 'HSRENT_RDM_INT_R', type: 'input', width: '230px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 금전소비대차 원금"], ref: 'HSRENT_RDM_PRIN_AMT', type: 'input', width: '230px', style: 'text-align:right'
+            {caption: ["주택임차차입금 금전소비대차 원금"], ref: 'HSRENT_RDM_PRIN_AMT', type: 'input', width: '230px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주택임차차입금 금전소비대차 이자"], ref: 'HSRENT_RDM_INT_AMT', type: 'input', width: '230px', style: 'text-align:right'
+            {caption: ["주택임차차입금 금전소비대차 이자"], ref: 'HSRENT_RDM_INT_AMT', type: 'input', width: '230px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["주택임차차입금 임대차 임대인 성명"], ref: 'HSRENT_RDM_LESSOR_NAME', type: 'input', width: '250px', style: 'text-align:left'},
             {caption: ["주택임차차입금 임대차 임대인 주민등록번호"], ref: 'HSRENT_RDM_LESSOR_SOCNO_REAL', type: 'input', width: '250px', style: 'text-align:left'},
@@ -2663,7 +2669,7 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['주택임차차입금 임대차 계약종료일'], ref: 'HSRENT_RDM_LEASE_END_DAT', width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["주택임차차입금 임대차 전세보증금"], ref: 'HSRENT_RDM_LEASE_DEP_AMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["주택임차차입금 임대차 전세보증금"], ref: 'HSRENT_RDM_LEASE_DEP_AMT', type: 'input', width: '200px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
 
         ];
@@ -2688,17 +2694,17 @@
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'MED_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'MED_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
-            {caption : ["대상자"], ref : 'MED_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["대상자"], ref : 'MED_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption: ["사업자등록번호"], ref: 'MED_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'MED_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["의료증빙코드"], ref : 'MED_CERTIFICATE_CODE', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonMedCertificateCode',  label : 'label', value : 'value'}
             },
-            {caption: ["건수"], ref: 'MED_COUNT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["건수"], ref: 'MED_COUNT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
-            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'MED_EXP_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["난임시술비 해당여부"], ref: 'MED_INFTY_TREATMENT_YN', type: 'checkbox', width: '170px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
@@ -2746,25 +2752,25 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'DON_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
-            {caption : ["기부자"], ref : 'DONATION_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["기부자"], ref : 'DONATION_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption : ["기부금 관계코드"], ref : 'DON_YE_TX_REL', width : '140px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonDonYeTxRel',  label : 'label', value : 'value'}
             },
-            {caption : ["구분"], ref : 'DON_TYPE_NTS_YN', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["구분"], ref : 'DON_TYPE_NTS_YN', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonDonTypeNtsYn',  label : 'label', value : 'value'}
             },
-            {caption : ["기부유형"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["기부유형"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
-            {caption: ["사업자등록번호"], ref: 'DON_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["상호"], ref: 'DON_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["건수"], ref: 'DON_COUNT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["사업자등록번호"], ref: 'DON_COM_NUM', type: 'input', width: '140px', style: 'text-align:left', userattr : {required : true}},
+            {caption: ["상호"], ref: 'DON_NAME', type: 'input', width: '140px', style: 'text-align:left', userattr : {required : true}},
+            {caption: ["건수"], ref: 'DON_COUNT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
-            {caption: ["공제대상기부금액"], ref: 'DED_TGT_DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["공제대상기부금액"], ref: 'DED_TGT_DON_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기부장려금 신청금액"], ref: 'DON_INCENTIVES_APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["기부장려금 신청금액"], ref: 'DON_INCENTIVES_APPLY_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2802,7 +2808,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["해당연도 공제금액"], ref: 'DON_ADJ_CURR_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["소멸금액"], ref: 'DON_ADJ_DESTROY_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["이월금액"], ref: 'DON_ADJ_TRANSFER_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2866,12 +2872,12 @@
         SBGridProperties.rowheader = ['update'];
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['기부연도'], ref: 'DON_YYYY', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , userattr : {required : true},
                 format : {type:'date', rule:'yyyy', origin:'yyyy'}},
-            {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["기부구분코드"], ref : 'DON_TYPE', width : '140px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonDonType',  label : 'label', value : 'value'}
             },
-            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["금액"], ref: 'DON_AMT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["전년까지 공제된 금액"], ref: 'DON_ADJ_LAST_YEAR_DEAMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -2906,16 +2912,16 @@
         SBGridProperties.columns = [
             {caption: ["연번"], ref: 'INSURE_SEQ', type: 'output', width: '140px', style: 'text-align:left', hidden : true},
             {caption: ["주민등록번호"], ref: 'INSURE_SOCNO', type: 'input', width: '140px', style: 'text-align:left', hidden : true},
-            {caption : ["대상자"], ref : 'INSURE_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["대상자"], ref : 'INSURE_SOCIAL_NO_REAL', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonSocialNoReal',  label : 'label', value : 'value'}
             },
             {caption: ["사업자등록번호"], ref: 'INSURE_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["상호"], ref: 'INSURE_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["보험유형"], ref : 'INSURE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["보험유형"], ref : 'INSURE_TYPE', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonInsureType',  label : 'label', value : 'value'}
             },
             {caption: ["보험번호"], ref: 'INSURE_NO', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["건수"], ref: 'INSURE_COUNT', type: 'input', width: '140px', style: 'text-align:right'
+            {caption: ["건수"], ref: 'INSURE_COUNT', type: 'input', width: '140px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' ,  emptyvalue:'0'}},
             {caption: ["보험금액"], ref: 'INSURE_AMT', type: 'input', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},

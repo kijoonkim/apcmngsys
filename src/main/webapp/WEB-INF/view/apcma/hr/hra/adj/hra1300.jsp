@@ -644,6 +644,12 @@
       }*/
     // 저장
     async function cfn_save() {
+
+        //그리드 필수값 체크
+        if (await gfnma_gridValidateCheck() == false){
+            return;
+        }
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -745,37 +751,37 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.frozencols = 4;
         SBGridProperties.columns = [
-            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '140px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonWorkCompanyType',  label : 'label', value : 'value'}
             },
-            {caption: ["납세조합여부"], ref: 'TX_UNION_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
+            {caption: ["납세조합여부"], ref: 'TX_UNION_YN', type: 'checkbox', width: '70px', style: 'text-align:center' , userattr : {required : true},
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["근무처명"], ref: 'PREV_COM_NAME', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption: ['근무시작일'], ref: 'PREV_WORK_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ["근무처명"], ref: 'PREV_COM_NAME', type: 'input', width: '140px', style: 'text-align:left' , userattr : {required : true}},
+            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '140px', style: 'text-align:left' , userattr : {required : true}},
+            {caption: ['근무시작일'], ref: 'PREV_WORK_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , userattr : {required : true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['근무종료일'], ref: 'PREV_WORK_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['근무종료일'], ref: 'PREV_WORK_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , userattr : {required : true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['감면시작일'], ref: 'PREV_REDUCT_ST_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
             {caption: ['감면종료일'], ref: 'PREV_REDUCT_END_DAT', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ["급여"], ref: 'PREV_PAY_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["급여"], ref: 'PREV_PAY_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["상여"], ref: 'PREV_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["상여"], ref: 'PREV_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["인정상여"], ref: 'PREV_ADD_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["인정상여"], ref: 'PREV_ADD_BONUS_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["주식매수선택권 행사이익"], ref: 'PREV_STOCK_PROFIT_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["주식매수선택권 행사이익"], ref: 'PREV_STOCK_PROFIT_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["우리사주조합인출금"], ref: 'PREV_EMP_STOCK_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["우리사주조합인출금"], ref: 'PREV_EMP_STOCK_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'PREV_EXEC_RET_LIM_OVER', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["임원 퇴직소득금액 한도초과액"], ref: 'PREV_EXEC_RET_LIM_OVER', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["국민연금보험료"], ref: 'PREV_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["국민연금보험료"], ref: 'PREV_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["공무원연금"], ref: 'PREV_OFFICIAL_PENS_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
@@ -791,15 +797,15 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["연금저축계좌"], ref: 'PREV_PENS_SV_AMT', type: 'input', width: '170px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["국민건강보험(노양장기요양보험 포함)"], ref: 'PREV_HEALTH_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["국민건강보험(노양장기요양보험 포함)"], ref: 'PREV_HEALTH_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:left' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["고용보험"], ref: 'PREV_EMP_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["고용보험"], ref: 'PREV_EMP_INSURE_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["소득세"], ref: 'PREV_INC_TX_AMT', type: 'input', width: '170px', style: 'text-align:left'
+            {caption: ["소득세"], ref: 'PREV_INC_TX_AMT', type: 'input', width: '170px', style: 'text-align:left' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["지방소득세"], ref: 'PREV_LOCAL_TX_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["지방소득세"], ref: 'PREV_LOCAL_TX_AMT', type: 'input', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["농어촌특별세"], ref: 'PREV_SPEC_TX_AMT', type: 'input', width: '170px', style: 'text-align:right'
+            {caption: ["농어촌특별세"], ref: 'PREV_SPEC_TX_AMT', type: 'input', width: '170px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
         ];
 
@@ -820,23 +826,23 @@
         SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.columns = [
-            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '200px', style : 'text-align:center', type : 'combo',
+            {caption : ["종전근무지구분"], ref : 'WORK_COMPANY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , userattr : {required : true},
                 typeinfo : {ref : 'jsonWorkCompanyType',  label : 'label', value : 'value'}
             },
-            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '200px', style: 'text-align:left'},
-            {caption: ["비과세코드"], ref: 'TXFREE_CODE', type: 'input', width: '200px', style: 'text-align:left'},
+            {caption: ["사업자번호"], ref: 'PREV_COM_NUM', type: 'input', width: '200px', style: 'text-align:left' , userattr : {required : true}},
+            {caption: ["비과세코드"], ref: 'TXFREE_CODE', type: 'input', width: '200px', style: 'text-align:left' , userattr : {required : true}},
             {caption: ["세액감면여부"], ref: 'TX_RED_INC_YN', type: 'checkbox', width: '130px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 0, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'
                 }
             },
-            {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["비과세약칭"], ref: 'TAX_FREE_NAME', type: 'output', width: '200px', style: 'text-align:left' , userattr : {required : true}},
             {caption: ["비과세약칭 팝업"], 	ref: 'POP_BTN', type:'button', width:'150px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
-            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["비과세금액"], ref: 'TXFREE_AMT', type: 'input', width: '200px', style: 'text-align:right' , userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
@@ -1124,7 +1130,7 @@
 
         const msg = {
             WORK_COMPANY_TYPE             : '',
-            TX_UNION_YN                   : '',
+            TX_UNION_YN                   : 'N',
             PREV_COM_NAME                 : '',
             PREV_COM_NUM                  : '',
             PREV_WORK_ST_DAT              : '',

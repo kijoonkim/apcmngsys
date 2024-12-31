@@ -1981,6 +1981,10 @@
     // 저장
     async function cfn_save() {
 
+        if (await gfnma_gridValidateCheck() == false){
+            return;
+        }
+
         if (_.isEqual(editType, 'N')){
 
             if (gfn_comConfirm("Q0001", "신규 등록")) {
@@ -2067,21 +2071,37 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["총 급여액 초과"], ref: 'INC_FROM_AMT', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["총 급여액 이하"], ref: 'INC_TO_AMT', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["기본공제금액"], ref: 'BASE_DEAMT', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
-            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '200px', style: 'text-align:right'
-                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###.00', emptyvalue:'0.0' }},
-            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '200px', style: 'text-align:right'
+            {caption: ["추가공제비율"], ref: 'DER', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate', userattr : {required : true}
+                , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0.0' }},
+            {caption: ["공제한도"], ref: 'DEDUCTION_LIMIT_EAMT', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '500px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'},//스타일상 빈값
         ];
 
         gvwDeductionGrid = _SBGrid.create(SBGridProperties);
+    }
+
+    /**
+     * 그리드내 필수값 체크
+     */
+    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
+
+        if (strValue === '') {
+            return { isValid : false, message : '값을 입력하시오.'};
+        }
+
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
+
+        return Number(strValue);
     }
 
     //신규 작성
