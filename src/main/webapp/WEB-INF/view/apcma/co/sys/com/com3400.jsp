@@ -2048,6 +2048,11 @@
 			}
 		}
 		
+		if(!gfnma_gridValidateCheck()){
+			return;
+		}
+		
+		//전체 그리드 대상 필수값 체크
 		if(await fn_save() == true){
 			if(await fn_save_S3() == true){
 				if(await fn_save_S4() == true){
@@ -2067,6 +2072,7 @@
 				}
 			}
 		}
+		
     }
     
     //마스터 그리드 삭제
@@ -2214,16 +2220,16 @@
             		uncheckedvalue : "N" }, 
             		style : 'text-align:center'
             },
-            {caption : ["행번"],					ref: 'SEQ', 	type:'output',  	width:'50px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ["행번"],					ref: 'SEQ', 	type:'output',  	width:'50px',  	style:'text-align:left', userattr : {required : true} },
             {caption: ["은행검색 팝업"], 			ref: 'POP_BTN_BANK', type:'button', width:'80px', style:'text-align:center', /*disabled: true,*/
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopupBank(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
-            {caption : ["은행"],					ref: 'BANK_CODE', 	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ["은행명"],				ref: 'BANK_NAME',		type:'input',  	width:'200px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ["계좌번호"],				ref: 'BANK_ACCOUNT_NO',		type:'input',  	width:'100px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ["계좌주"],				ref: 'BANK_ACCOUNT_OWNER',		type:'input',  	width:'100px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ["은행"],					ref: 'BANK_CODE', 	type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true} },
+            {caption : ["은행명"],				ref: 'BANK_NAME',		type:'input',  	width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption : ["계좌번호"],				ref: 'BANK_ACCOUNT_NO',		type:'input',  	width:'100px',  	style:'text-align:left', userattr : {required : true} },
+            {caption : ["계좌주"],				ref: 'BANK_ACCOUNT_OWNER',		type:'input',  	width:'100px',  	style:'text-align:left', userattr : {required : true} },
             {caption : ["어음상품종류"], 			ref: 'NOTE_TYPE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonNoteType',
@@ -2264,7 +2270,7 @@
                     value : 'value'
                 }
             },
-            {caption : ["통화"], 				ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;' ,
+            {caption : ["통화"], 				ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true} ,
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     displayui : true,
@@ -2273,8 +2279,8 @@
                     value : 'value'
                 }
             },
-            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
-            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;' },
+            {caption : ['적용시작일'],			ref : 'EFFECT_START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, userattr : {required : true} },
+            {caption : ['적용종료일'],			ref : 'EFFECT_END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, userattr : {required : true} },
             {caption : ["부가세전용계좌여부"], 		ref : 'VAT_ACCOUNT_YN', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonVatAccountYN',
@@ -2309,7 +2315,7 @@
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["용도"], 		ref : 'PUR_CONTACT_TYPE', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;',
+            {caption : ["용도"], 		ref : 'PUR_CONTACT_TYPE', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {
                     ref : 'jsonPurContactType',
                     displayui : true,
@@ -2346,7 +2352,7 @@
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["용도"], 		ref : 'SALE_CONTACT_TYPE', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;',
+            {caption : ["용도"], 		ref : 'SALE_CONTACT_TYPE', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {
                     ref : 'jsonSaleContactType',
                     displayui : true,
@@ -2355,11 +2361,11 @@
                     value : 'value'
                 }
             },
-            {caption : ["판매부서"],		ref: 'SALE_DEPT_NAME', 		type:'input',  	width:'80px',  		style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["담당자"],		ref: 'SALE_CONTACT_NAME', 	type:'input',  	width:'100px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ["판매부서"],		ref: 'SALE_DEPT_NAME', 		type:'input',  	width:'80px',  		style:'text-align:left', userattr : {required : true}},
+            {caption : ["담당자"],		ref: 'SALE_CONTACT_NAME', 	type:'input',  	width:'100px',  	style:'text-align:left', userattr : {required : true}},
             {caption : ["전화(회사)"],	ref: 'SALE_CONTACT_TEL',	type:'input',  	width:'150px',  	style:'text-align:left'},
             {caption : ["전화(휴대폰)"],	ref: 'SALE_CONTACT_MOBILE',	type:'input',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["이메일"],		ref: 'SALE_CONTACT_EMAIL',	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
+            {caption : ["이메일"],		ref: 'SALE_CONTACT_EMAIL',	type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true}},
             {caption : ["팩스"],			ref: 'SALE_CONTACT_FAX',	type:'input',  	width:'150px',  	style:'text-align:left'},
             {caption : ["주소"],			ref: 'SALE_ADDRESS',		type:'input',  	width:'150px',  	style:'text-align:left'}
         ];
@@ -2412,7 +2418,7 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["여신관리영역"], 	ref: 'CREDIT_AREA', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;',
+            {caption : ["여신관리영역"], 	ref: 'CREDIT_AREA', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {
                     ref : 'jsonCreditArea',
                     displayui : true,
@@ -2533,12 +2539,12 @@
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["사업자번호"],	ref : 'BIZ_REGNO', 		type:'input',  	width:'150px', 		style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["업    태"],		ref : 'BIZ_CATEGORY', 	type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["종    목"],		ref : 'BIZ_ITEMS',		type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["대 표 자"],		ref : 'CHIEF_NAME',		type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'}
+            {caption : ['적용시작일'],	ref : 'START_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, userattr : {required : true}},
+            {caption : ['적용종료일'],	ref : 'END_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd',  displayui:true}, userattr : {required : true}},
+            {caption : ["사업자번호"],	ref : 'BIZ_REGNO', 		type:'input',  	width:'150px', 		style:'text-align:left', userattr : {required : true}},
+            {caption : ["업    태"],		ref : 'BIZ_CATEGORY', 	type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true}},
+            {caption : ["종    목"],		ref : 'BIZ_ITEMS',		type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true}},
+            {caption : ["대 표 자"],		ref : 'CHIEF_NAME',		type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true}}
         ];
         historyGrid = _SBGrid.create(SBGridProperties);
     }
@@ -2559,16 +2565,15 @@
      	SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["매칭유형"], 			ref: 'MAP_TYPE', width : '150px', style : 'text-align:center', type : 'combo', fixedstyle : 'background-color:#f1ffd9;',
+            {caption : ["매칭유형"], 			ref: 'MAP_TYPE', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {
                     ref : 'jsonMapType',
-                    
                     label : 'label',
                     value : 'value'
                 }
-            },    
-            {caption : ["SAP거래처코드"],			ref : 'ASIS_CS_CODE', 	type:'input',  	width:'200px', 		style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
-            {caption : ["통합IT거래처코드"],		ref : 'CS_CODE', 		type:'input',  	width:'150px',  	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'},
+            },
+            {caption : ["SAP거래처코드"],			ref : 'ASIS_CS_CODE', 	type:'input',  	width:'200px', 		style:'text-align:left', userattr : {required : true}},
+            {caption : ["통합IT거래처코드"],		ref : 'CS_CODE', 		type:'input',  	width:'150px',  	style:'text-align:left', userattr : {required : true}},
             {caption : ["통합IT거래처명"],			ref : 'CS_NAME',		type:'input',  	width:'150px',  	style:'text-align:left'},
             {caption : ["통합IT거래처사업자번호"],	ref : 'BIZ_REGNO',		type:'input',  	width:'150px',  	style:'text-align:left'}
         ];

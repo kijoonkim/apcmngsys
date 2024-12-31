@@ -467,7 +467,7 @@
 	
 	// 그룹코드 내역, 세부코드 정보 저장
     async function cfn_save() {
-        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
+        if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint") || !gfnma_gridValidateCheck()){
 	            return false;
 	    }else{
 			if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
@@ -554,11 +554,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left'},
-            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     	ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],    	 	ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ['시스템코드'],     	ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
+            {caption: ['사용여부'],    	 	ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: ["여유필드1"],			ref: 'EXTRA_FIELD1',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드2"],			ref: 'EXTRA_FIELD2',    type:'input',       width:'100px',  	style:'text-align:left'},
             {caption: ["여유필드3"],			ref: 'EXTRA_FIELD3',    type:'input',       width:'100px',  	style:'text-align:left'},
@@ -777,11 +777,11 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["코드명"],					ref: 'CODE_NAME',    	type:'input',  	width:'200px',  	style:'text-align:left'},
-            {caption: ['시스템코드'],     		ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-            {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  	width:'100px',  	style:'text-align:right'},
-            {caption: ['사용여부'],     			ref: 'USE_YN',			type :'checkbox',	width : '80px', typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ['시스템코드'],     	ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
+            {caption: ['사용여부'],    	 	ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: [FIELD_CAPTION1],			ref: 'EXTRA_FIELD1',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION2],			ref: 'EXTRA_FIELD2',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION3],			ref: 'EXTRA_FIELD3',    type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -1071,6 +1071,10 @@
     }
     const fn_saveSubGrid = async function(){
     	
+    	if(!gfnma_gridValidateCheck()){
+    		return;
+    	}
+
 		//세부코드 정보  저장
 		let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
 		let CMNSCDSubGridLength	= CMNSCDSubGrid.getUpdateData(true, 'all').length;
@@ -1153,7 +1157,7 @@
 
     // 행 추가
     const fn_addRow = function () {
-   		CMNSCDSubGrid.addRows([{USE_YN:"Y"}]);
+    	CMNSCDSubGrid.addRow(true, {SYSTEM_YN : "N", USE_YN:"Y"}, true);
     }
 
     // 행 삭제

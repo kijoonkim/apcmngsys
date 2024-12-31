@@ -290,18 +290,17 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [ 
-            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:center', typeinfo : {oneclickedit : true} },
-            {caption: ['시작일'],       ref: 'START_DATE',      type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true, oneclickedit : true},      width : '150px', style : 'text-align:center'},
-            {caption: ['종료일'],       ref: 'END_DATE',        type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd", displayui:true, oneclickedit : true},      width : '150px', style : 'text-align:center'},
+            {caption: ["회기"],			ref: 'FISCAL_NO', 		type:'input',  	width:'100px',  	style:'text-align:center', userattr : {required : true}  },
+            {caption: ['시작일'],       ref: 'START_DATE',      type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '150px', style : 'text-align:center', userattr : {required : true} },
+            {caption: ['종료일'],       ref: 'END_DATE',        type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '150px', style : 'text-align:center', userattr : {required : true} },
             {caption: ["회기진행상태"],	ref: 'FISCAL_STATUS', 	type:'combo',  	width:'150px',  	style:'text-align:center',
             	typeinfo: {
 					ref			: 'jsonFiscalStatus',
 					label		: 'label',
-					value		: 'value',
-					oneclickedit: true
-            	}
+					value		: 'value'
+            	}, userattr : {required : true} 
             },
-            {caption: ["적요"],			ref: 'DESCR',    		type:'input',  	width:'350px',  	style:'text-align:left', typeinfo : {oneclickedit : true}}
+            {caption: ["적요"],			ref: 'DESCR',    		type:'input',  	width:'350px',  	style:'text-align:left' }
         ];
         masterGrid	= _SBGrid.create(SBGridProperties);
     }
@@ -355,7 +354,12 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+    
     const fn_save = async function() {
+    	
+    	if(!gfnma_gridValidateCheck()){
+    		return;
+    	}
  		//세부코드 정보  저장
  		let updatedData		= masterGrid.getUpdateData(true, 'all');
  		let listData		= [];
@@ -445,8 +449,8 @@
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
-  							START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-  							END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+  							START_DATE		: gfn_nvl(item.START_DATE).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+  							END_DATE		: gfn_nvl(item.END_DATE).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
   							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
   							DESCR			: gfn_nvl(item.DESCR),
   							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
@@ -517,12 +521,11 @@
 	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-     // 행 추가
-     const fn_addRow = function () {
-        const rowVal = masterGrid.getGridDataAll();
-         
+    // 행 추가
+    const fn_addRow = function () {
+    	const rowVal = masterGrid.getGridDataAll();
 		if(rowVal[rowVal.length - 1].FISCAL_NO != ''){
-	    	let fiscalNo 		= rowVal[rowVal.length - 1].FISCAL_NO+1;
+	    	let fiscalNo 		= rowVal[rowVal.length - 1].FISCAL_NO + 1;
 	    	let startDate 		= rowVal[rowVal.length - 1].START_DATE;
 	    	let endDate 		= rowVal[rowVal.length - 1].END_DATE;
 	    	let fiscalStatus 	= rowVal[rowVal.length - 1].FISCAL_STATUS;
@@ -530,16 +533,16 @@
 			endDate		= (Number(endDate.slice(0, 4)) + 1) + '1231';
 			
 			masterGrid.addRows([{
-				FISCAL_NO				: fiscalNo, 
-				START_DATE				: startDate, 
-				END_DATE				: endDate,
-				FISCAL_STATUS			: fiscalStatus, 
-				DESCR					: ''
+				FISCAL_NO		: fiscalNo, 
+				START_DATE		: startDate, 
+				END_DATE		: endDate,
+				FISCAL_STATUS	: fiscalStatus, 
+				DESCR			: ''
 			}]);	
-		}else{
+		} else {
 			masterGrid.addRow(true);
 		}
-     }
+    }
 
      // 행 삭제
      const fn_delRow = async function () {

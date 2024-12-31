@@ -190,9 +190,10 @@
                     label : 'label',
                     value : 'value'
                 }
+            , userattr : {required : true} 
             },
-            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left'},
-            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left'},
+            {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true} },
+            {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true} },
             {caption: ["메모"],			ref: 'DESCR',    	type:'input',  	width:'800px',  style:'text-align:left'},
             {caption: ['사용여부'],     	ref: 'USE_YN',		type:'checkbox',width:'100px',
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
@@ -202,6 +203,9 @@
     }
     
     const fn_save = async function () {
+    	if(!gfnma_gridValidateCheck()){
+    		return;
+    	}
         let updatedData = masterGrid.getUpdateData(true, 'all');
         let listData = [];
         updatedData.forEach((item, index) => {
@@ -328,10 +332,10 @@
     // 행 추가
     const fn_addRow = function () {
         let rowVal = masterGrid.getRow();
-        if (rowVal == -1){
-        	masterGrid.addRow(true);
-        }else{
-        	masterGrid.insertRow(rowVal);
+        if(rowVal == -1) {
+        	masterGrid.addRow(true,{ USE_YN:"N" }, true);
+        } else {
+        	masterGrid.insertRow(rowVal, 'below', { USE_YN:"N" });
         }
     }
 

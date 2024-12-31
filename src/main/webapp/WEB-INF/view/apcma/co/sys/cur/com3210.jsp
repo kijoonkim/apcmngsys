@@ -495,12 +495,6 @@
     const fn_saveTabDaily = async function () {
         let updatedDayData = dailyDayGrid.getUpdateData(true, 'all');
         let listData = [];
-		for(var i=0; updatedDayData.length > i; i++){
-			if(updatedDayData[i].data.EXCHANGE_SEQ == '' && updatedDayData[i].status != 'd'){
-				gfn_comAlert("W0002", "추가한 행의 고시회차"); 
-				return;
-			}
-		}
 		updatedDayData.forEach((item, index) => {
             const param = {
                 cv_count: '0',
@@ -1076,16 +1070,16 @@
                     ref : 'jsonBaseCurrency',
                     label : 'label',
                     value : 'value'
-                }
+                }, userattr : {required : true} 
             },
-            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}},
-            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: 'input', width: '100px', style: 'text-align:right'},
+            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}, userattr : {required : true} },
+            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: 'input', width: '100px', style: 'text-align:right', userattr : {required : true} },
             {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
                     label : 'label',
                     value : 'value'
-                }
+                }, userattr : {required : true} 
             },
             {caption: ["비고"], 				ref: 'REMARK', 				type: 'input', width: '120px', style: 'text-align:left'},
             {caption: ["환산기준"], 			ref: 'EXCHANGE_BASE_SCALE', type: 'input', width: '100px', style: 'text-align:right',
@@ -1273,10 +1267,10 @@
         SBGridPropertiesMonthMonth.extendlastcol 	= 'scroll';
         SBGridPropertiesMonthMonth.columns = [
             {caption: ["기준통화"], 		ref: 'BASE_CURRENCY', 	type: 'output', width: '80px', style: 'text-align:left'},
-            {caption: ["기준월"], 		ref: 'BASE_MONTH', 		type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["통화"], 			ref: 'CURRENCY_CODE', 	type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["환율구분"], 		ref: 'EX_RATE_DIV', 	type: 'output', width: '100px', style: 'text-align:left'},
-            {caption: ["환율"], 			ref: 'EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right'},
+            {caption: ["기준월"], 		ref: 'BASE_MONTH', 		type: 'output', width: '100px', style: 'text-align:left', userattr : {required : true} },
+            {caption: ["통화"], 			ref: 'CURRENCY_CODE', 	type: 'output', width: '100px', style: 'text-align:left', userattr : {required : true} },
+            {caption: ["환율구분"], 		ref: 'EX_RATE_DIV', 	type: 'output', width: '100px', style: 'text-align:left', userattr : {required : true} },
+            {caption: ["환율"], 			ref: 'EX_RATE', 		type: 'output', width: '100px', style: 'text-align:right', userattr : {required : true} },
             {caption: ["비고"], 			ref: 'REMARK', 			type: 'output', width: '100px', style: 'text-align:left'},
         ];
         monthMonthGrid = _SBGrid.create(SBGridPropertiesMonthMonth);
