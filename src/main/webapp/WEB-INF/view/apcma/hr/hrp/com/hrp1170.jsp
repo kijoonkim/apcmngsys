@@ -483,7 +483,7 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' ,/* isvalidatecheck: true,	validate : 'fnValidate',*/
                 typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/, isvalidatecheck: true,	validate : 'fnValidate'},
@@ -493,14 +493,14 @@
                 }
             },
             {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
                 typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}
             },
             {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
             {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
                 typeinfo : {ref : 'jsonApplyType',  displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',

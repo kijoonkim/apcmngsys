@@ -2958,7 +2958,7 @@
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, typeinfo : {alias : "yyyy-mm",calendartype : "yearmonth", dateformat: 'yymm'}},
             {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo' , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
                 typeinfo : {ref : 'jsonPayItemCode',  label : 'label', value : 'value'}
             },
             {caption: ["상여금액"], ref: 'PAY_AMT', type: 'output', width: '140px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
