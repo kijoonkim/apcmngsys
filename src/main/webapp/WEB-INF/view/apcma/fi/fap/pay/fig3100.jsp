@@ -1501,6 +1501,12 @@
       }*/
     // 저장
     async function cfn_save() {
+
+        //그리드 필수값 체크
+        if (await gfnma_gridValidateCheck() == false){
+            return;
+        }
+
         // 수정 저장
         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
@@ -1609,16 +1615,16 @@
             {caption: ["전표작성"],			    ref: 'INTERFACED_FLAG', 			        type:'checkbox',  	width:'75px',  	style:'text-align:center',
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type: 'inputdate',  	width:'90px',  	style:'text-align:left',
+            {caption: ["작성일자"],       ref: 'WRITE_DATE', 		type: 'inputdate',  	width:'90px',  	style:'text-align:left' , userattr : {required : true},
                 typeinfo: {dateformat: 'yyyy-mm-dd', oneclickedit: true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'input', width: '170px', style: 'text-align:left'},
-            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'input', width: '170px', style: 'text-align:left', userattr : {required : true}},
+            {caption: ['발급일자'], ref: 'ISSUE_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false, userattr : {required : true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
-            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['전송일자'], ref: 'SEND_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false, userattr : {required : true},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {dateformat :'yymmdd', oneclickedit: true}},
-            {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type:'input',  width:'140px',  style:'text-align:left',
+            {caption: ["공급자사업자번호"], ref: 'SELLER_REG_NO', type:'input',  width:'140px',  style:'text-align:left', userattr : {required : true},
                 typeinfo : {mask : {alias : '###-##-#####'}, maxlength : 12}
                 , format : {type:'string', rule:'###-##-#####', emptyvalue:'0'}
             },
@@ -1678,7 +1684,7 @@
                 typeinfo : {ref : 'jsonExceptCode', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["제외사유"], ref: 'EXCEPT_REASON', type: 'input', width: '140px', style: 'text-align:left'},
-            {caption : ["전자세금계산서분류"], ref : 'EINVOICE_CATEGORY', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["전자세금계산서분류"], ref : 'EINVOICE_CATEGORY', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonEinvoiceCategory', displayui : true, label : 'label', value : 'value'}
             },
             {caption : ["전자세금계산서종류"], ref : 'EINVOICE_TYPE', width : '140px', style : 'text-align:center', type : 'combo',
@@ -1690,7 +1696,7 @@
             {caption: ["발급유형"], ref: 'ISSUE_TYPE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["비고"], ref: 'NOTE1', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["other_desc"], ref: 'NOTE2', type: 'input', width: '140px', style: 'text-align:left', hidden: true},
-            {caption : ["영수/청구 구분"], ref : 'RECEIPT_OR_BILL', width : '140px', style : 'text-align:center', type : 'combo',
+            {caption : ["영수/청구 구분"], ref : 'RECEIPT_OR_BILL', width : '140px', style : 'text-align:center', type : 'combo', userattr : {required : true},
                 typeinfo : {ref : 'jsonReceiptOrBill', displayui : true, label : 'label', value : 'value'}
             },
             {caption: ["공급자이메일"], ref: 'SELLER_EMAIL', type: 'input', width: '140px', style: 'text-align:left'},
@@ -1781,8 +1787,8 @@
             usedecimal : false,
         };*/
         SBGridProperties.columns = [
-            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '170px', style: 'text-align:left'},
-            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '170px', style: 'text-align:right'
+            {caption: ["승인번호"], ref: 'APPROVAL_NO', type: 'output', width: '170px', style: 'text-align:left', userattr : {required : true}},
+            {caption: ["품목순번"], ref: 'SEQ', type: 'output', width: '170px', style: 'text-align:right', userattr : {required : true}
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#' }},
             {caption: ["품목명"], ref: 'ITEM_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["규격"], ref: 'ITEM_SPEC', type: 'output', width: '170px', style: 'text-align:left'},
