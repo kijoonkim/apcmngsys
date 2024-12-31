@@ -327,7 +327,7 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
 
-        var searchText = gfn_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText = gfnma_nvl2(SBUxMethod.get("srch-dept_name"));
         var replaceText0 = "_EMP_CODE_";
         var replaceText1 = "_EMP_NAME_";
         var replaceText2 = "_DEPT_CODE_";
@@ -398,38 +398,38 @@
 
         let chk = true;
         for (let i = 0; i < allData.length ; i++){
-            if (gfn_nvl(allData[i].PAY_TYPE) == ''){
+            if (gfnma_nvl2(allData[i].PAY_TYPE) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_TYPE'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 지급구분");
                 chk = false;
                 break;
 
-            }else if (gfn_nvl(allData[i].EMP_CODE ) == ''){
+            }else if (gfnma_nvl2(allData[i].EMP_CODE ) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('EMP_CODE'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 사번");
                 chk = false;
                 break;
-            }else if (gfn_nvl(allData[i].PAY_ITEM_CODE ) == ''){
+            }else if (gfnma_nvl2(allData[i].PAY_ITEM_CODE ) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_ITEM_CODE'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 급여항목");
                 chk = false;
                 break;
-            }else if (gfn_nvl(allData[i].PAY_YYYYMM_FR ) == ''){
+            }else if (gfnma_nvl2(allData[i].PAY_YYYYMM_FR ) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_YYYYMM_FR'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 귀속년월");
                 chk = false;
                 break;
-            }else if (gfn_nvl(allData[i].PAY_YYYYMM_TO ) == ''){
+            }else if (gfnma_nvl2(allData[i].PAY_YYYYMM_TO ) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_YYYYMM_TO'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 귀속년월");
                 chk = false;
                 break;
-            }else if (gfn_nvl(allData[i].PAY_APPLY_TYPE ) == ''){
+            }else if (gfnma_nvl2(allData[i].PAY_APPLY_TYPE ) == ''){
                 grdExceptionList.clickCell(allData[i].sb_row_index, grdExceptionList.getColRef('PAY_APPLY_TYPE'));
                 grdExceptionList.editCell();
                 gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 적용구분");
@@ -718,12 +718,12 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let SITE_CODE       = gfn_nvl(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
-        let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
-        let PAY_YYYYMM_FR   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); // 귀속년월 시작
-        let PAY_YYYYMM_TO   = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_TO")); // 귀속년월 종료
-        let PAY_ITEM_CODE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
-        let EMP_CODE        = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원코드
+        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_YYYYMM_FR   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); // 귀속년월 시작
+        let PAY_YYYYMM_TO   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM_TO")); // 귀속년월 종료
+        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원코드
 
         if (!PAY_YYYYMM_FR) {
             gfn_comAlert("W0002", "귀속년월");
@@ -771,16 +771,16 @@
                 jsonExceptionList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_TYPE		: gfn_nvl(item.PAY_TYPE),
-                        EMP_CODE		: gfn_nvl(item.EMP_CODE),
-                        EMP_NAME		: gfn_nvl(item.EMP_NAME),
-                        PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
-                        PAY_YYYYMM_FR	: gfn_nvl(item.PAY_YYYYMM_FR),
-                        PAY_YYYYMM_TO	: gfn_nvl(item.PAY_YYYYMM_TO),
-                        PAY_APPLY_TYPE	: gfn_nvl(item.PAY_APPLY_TYPE),
-                        PAY_APPLY_RATE	: gfn_nvl(item.PAY_APPLY_RATE),
-                        PAY_APPLY_AMT	: gfn_nvl(item.PAY_APPLY_AMT),
-                        MEMO 			: gfn_nvl(item.MEMO)
+                        PAY_TYPE		: gfnma_nvl2(item.PAY_TYPE),
+                        EMP_CODE		: gfnma_nvl2(item.EMP_CODE),
+                        EMP_NAME		: gfnma_nvl2(item.EMP_NAME),
+                        PAY_ITEM_CODE   : gfnma_nvl2(item.PAY_ITEM_CODE),
+                        PAY_YYYYMM_FR	: gfnma_nvl2(item.PAY_YYYYMM_FR),
+                        PAY_YYYYMM_TO	: gfnma_nvl2(item.PAY_YYYYMM_TO),
+                        PAY_APPLY_TYPE	: gfnma_nvl2(item.PAY_APPLY_TYPE),
+                        PAY_APPLY_RATE	: gfnma_nvl2(item.PAY_APPLY_RATE),
+                        PAY_APPLY_AMT	: gfnma_nvl2(item.PAY_APPLY_AMT),
+                        MEMO 			: gfnma_nvl2(item.MEMO)
                     }
                     jsonExceptionList.push(msg);
                     totalRecordCount ++;
@@ -883,15 +883,15 @@
                         , V_P_COMP_CODE: gv_ma_selectedCorpCd
                         , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                        , V_P_PAY_TYPE          : gfn_nvl(item.data.PAY_TYPE)
-                        , V_P_EMP_CODE          : gfn_nvl(item.data.EMP_CODE)
-                        , V_P_PAY_ITEM_CODE     : gfn_nvl(item.data.PAY_ITEM_CODE)
-                        , V_P_PAY_YYYYMM_FR     : gfn_nvl(item.data.PAY_YYYYMM_FR)
-                        , V_P_PAY_YYYYMM_TO     : gfn_nvl(item.data.PAY_YYYYMM_TO)
-                        , V_P_PAY_APPLY_TYPE    : gfn_nvl(item.data.PAY_APPLY_TYPE)
-                        , V_P_PAY_APPLY_RATE    : gfn_nvl(item.data.PAY_APPLY_RATE) == '' ? 0 : item.data.PAY_APPLY_RATE
-                        , V_P_PAY_APPLY_AMT     : gfn_nvl(item.data.PAY_APPLY_AMT) == '' ? 0 : item.data.PAY_APPLY_AMT
-                        , V_P_MEMO              : gfn_nvl(item.data.MEMO)
+                        , V_P_PAY_TYPE          : gfnma_nvl2(item.data.PAY_TYPE)
+                        , V_P_EMP_CODE          : gfnma_nvl2(item.data.EMP_CODE)
+                        , V_P_PAY_ITEM_CODE     : gfnma_nvl2(item.data.PAY_ITEM_CODE)
+                        , V_P_PAY_YYYYMM_FR     : gfnma_nvl2(item.data.PAY_YYYYMM_FR)
+                        , V_P_PAY_YYYYMM_TO     : gfnma_nvl2(item.data.PAY_YYYYMM_TO)
+                        , V_P_PAY_APPLY_TYPE    : gfnma_nvl2(item.data.PAY_APPLY_TYPE)
+                        , V_P_PAY_APPLY_RATE    : gfnma_nvl2(item.data.PAY_APPLY_RATE) == '' ? 0 : item.data.PAY_APPLY_RATE
+                        , V_P_PAY_APPLY_AMT     : gfnma_nvl2(item.data.PAY_APPLY_AMT) == '' ? 0 : item.data.PAY_APPLY_AMT
+                        , V_P_MEMO              : gfnma_nvl2(item.data.MEMO)
 
                         , V_P_FORM_ID: p_formId
                         , V_P_MENU_ID: p_menuId
@@ -1077,7 +1077,7 @@
 
         if(gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?")){
 
-            let PAY_ITEM_NAME = gfn_nvl(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
+            let PAY_ITEM_NAME = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
 
             const msg = {
                 arrRemoveCols   : [2],
