@@ -250,7 +250,7 @@
 
             <th scope="row" class="th_bg">시간단위</th>
             <td colspan="3" class="td_input" >
-                <sbux-input uitype="text" id="QTY_UNIT" class="form-control input-sm" cols="50" style="width:25%;"></sbux-input>
+                <sbux-input uitype="text" id="QTY_UNIT" class="form-control input-sm" cols="50" style="width:80%;"></sbux-input>
             <%--<td style="border-right: hidden;">&nbsp;</td>--%>
             <%--<td style="border-right: hidden;">&nbsp;</td>--%>
             </td>
