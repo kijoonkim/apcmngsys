@@ -1377,8 +1377,6 @@
             let listData = [];
             listData =  await getParamFormS1();
 
-            console.log('listDatalistDatalistData', listData);
-
             if (_.isEmpty(listData) == false) {
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp2200S1.do", {listData: listData});
@@ -1429,7 +1427,7 @@
             gfn_comAlert("W0002", "지급구분");
             return;
         }
-console.log('PAY_ITEM_CODEPAY_ITEM_CODEPAY_ITEM_CODE', PAY_ITEM_CODE);
+
         if (!PAY_ITEM_CODE) {
             gfn_comAlert("W0002", "급여항목코드");
             return;

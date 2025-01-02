@@ -1392,6 +1392,19 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
+
+                    editType = "E";
+                    let tabId = SBUxMethod.get('tabJson');
+
+                    if (_.isEqual(tabId, 'tabInfo1')){ //국민연금 내역 등록 tab 리스트 조회시 (WORK_TYPE IN LIST)
+
+                        fn_search('LIST');
+
+                    }else if (_.isEqual(tabId, 'tabInfo2')){ //국민연금 내역 조회 tab 피벗 리스트 조회시(WORK_TYPE IN SUMMARY)
+
+                        fn_search('SUMMARY');
+
+                    }
                 }
 
             } else {

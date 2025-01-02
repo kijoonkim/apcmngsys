@@ -946,7 +946,7 @@
             gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NM', 'Y', ''),
+            //gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
 
 
             //사업장
@@ -1276,9 +1276,10 @@
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPositionCode', /*displayui : true,*/ label : 'label', value : 'value'}
             },
-            {caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonDeptName', /*displayui : true,*/ label : 'label', value : 'value'}
-            },
+            {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
+            /*{caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonDeptName', /!*displayui : true,*!/ label : 'label', value : 'value'}
+            },*/
             {caption: ['입사일'], ref: 'ENTER_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ['퇴사일'], ref: 'RETIRE_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
