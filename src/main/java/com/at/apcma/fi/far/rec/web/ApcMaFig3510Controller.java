@@ -52,7 +52,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3510_Q");
+            param.put("procedure", 		"SP_FIG3510_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3510_Q1");
+            param.put("procedure", 		"SP_FIG3510_Q1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class ApcMaFig3510Controller extends BaseController {
 
         try {
             // TODO 프로시저
-            param.put("procedure", 		"P_EXCHANGE_RATE_Q");
+            param.put("procedure", 		"SP_EXCHANGE_RATE_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5150_Q2");
+            param.put("procedure", 		"SP_FIM5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3510_S");
+            param.put("procedure", 		"SP_FIG3510_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,7 +203,7 @@ public class ApcMaFig3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3510_S2");
+            param.put("procedure", 		"SP_FIG3510_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

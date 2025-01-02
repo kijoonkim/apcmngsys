@@ -54,7 +54,7 @@ public class ApcMaHra1710Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA1710_Q");
+            param.put("procedure", "SP_HRA1710_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ApcMaHra1710Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA1710_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA1710_S");
 
             logger.info("=============insertHra1710=====end========");
             return getSuccessResponseEntityMa(resultMap);

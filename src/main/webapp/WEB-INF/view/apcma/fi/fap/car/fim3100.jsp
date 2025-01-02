@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -117,7 +117,7 @@
                             <div id="sb-area-grdComMsg" style="height:925px; width:100%;"></div>
                         </div>
                     </div>
-
+ 
                     <div id="dataArea1"  class="col-sm-6">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -618,10 +618,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -629,7 +629,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var editType	= "N";
 	
     var Fim3100Grid; 			// 그리드를 담기위한 객체 선언
@@ -641,9 +641,9 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//상태(카드사기준)
-			gfnma_setComSelect(['srch-cbocard-status2-p'], 	jsonCbocardStatus2, 'L_FIM008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbocard-status2-p'], 	jsonCbocardStatus2, 'L_FIM008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//카드상태
-			gfnma_setComSelect(['srch-cbocard-status1'], 	jsonCbocardStatus1, 'L_FIM009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbocard-status1'], 	jsonCbocardStatus1, 'L_FIM009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//APC
 			gfnma_multiSelectInit({
 				target			: ['#FI_ORG_CODE']
@@ -656,11 +656,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'FI_ORG_CODE'
-				,colLabel		: 'FI_ORG_NAME'
+				,colValue		: 'ACNTG_OGNZ_CD'
+				,colLabel		: 'ACNTG_OGNZ_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'FI_ORG_CODE', 		width:'80px',  		style:'text-align:left'},
-		            {caption: "명칭", 		ref: 'FI_ORG_NAME',    		width:'220px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'ACNTG_OGNZ_CD', 		width:'80px',  		style:'text-align:left'},
+		            {caption: "명칭", 		ref: 'ACNTG_OGNZ_NM',    		width:'220px',  	style:'text-align:left'}
 				]
 			}),
 			//법인개인구분
@@ -675,11 +675,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "카드소유구분", 	ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "카드소유구분", 	ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 			//카드용도구분
@@ -694,11 +694,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "코드명", 		ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "코드명", 		ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 			//카드상태
@@ -713,11 +713,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "카드상태", 		ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "카드상태", 		ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 			//상태(카드사기준)
@@ -732,11 +732,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "카드상태", 		ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "카드상태", 		ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 			//결제일
@@ -751,11 +751,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "결재일", 		ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "결재일", 		ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 			//지급기일코드
@@ -770,11 +770,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'PAY_TERM_CODE'
-				,colLabel		: 'PAY_TERM_NAME'
+				,colValue		: 'PAY_TERM_CD'
+				,colLabel		: 'PAY_TERM_NM'
 				,columns		:[
-		            {caption: "지급기일코드",		ref: 'PAY_TERM_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "지급기일명", 		ref: 'PAY_TERM_NAME',    	width:'250px',  	style:'text-align:left'}
+		            {caption: "지급기일코드",		ref: 'PAY_TERM_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "지급기일명", 		ref: 'PAY_TERM_NM',    	width:'250px',  	style:'text-align:left'}
 				]
 			}),
 			//사업장
@@ -789,11 +789,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SITE_CODE'
-				,colLabel		: 'SITE_NAME'
+				,colValue		: 'SITE_CD'
+				,colLabel		: 'SITE_NM'
 				,columns		:[
-		            {caption: "사업장코드",		ref: 'SITE_CODE', 		width:'80px',  		style:'text-align:left'},
-		            {caption: "사업장명", 		ref: 'SITE_NAME',    	width:'120px',  	style:'text-align:left'}
+		            {caption: "사업장코드",		ref: 'SITE_CD', 		width:'80px',  		style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NM',    	width:'120px',  	style:'text-align:left'}
 				]
 			}),
 			//조회수준
@@ -808,16 +808,16 @@
 				,selectValue	: ''
 				,dropType		: 'up' 		// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 		width:'60px',  		style:'text-align:left'},
-		            {caption: "조회수준", 		ref: 'CODE_NAME',    	width:'140px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'60px',  		style:'text-align:left'},
+		            {caption: "조회수준", 		ref: 'CD_NM',    	width:'140px',  	style:'text-align:left'}
 				]
 			}),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
@@ -828,7 +828,7 @@
   		fn_createGrid();
   		
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
 			function(list){
 				$('#SRCH_EMP_BTN').click(function(){
 					fn_compopup6(list);
@@ -858,7 +858,7 @@
 		
     	fn_init();
     });
-
+ 
     /**
      * 초기화
      */
@@ -878,27 +878,6 @@
 			$('#main-btn-add', parent.document).attr('disabled', false);
 			$('#main-btn-save', parent.document).attr('disabled', true);
     		
-// 	        SBUxMethod.set("SCH_TRANSFER_DATE_FROM",	gfnma_date9(-1));
-// 	        SBUxMethod.set("SCH_ACQUIRE_DATE_TO",		gfnma_date4());
-	    
-// 	 		SBUxMethod.set('SCH_FI_ORG_CODE1', 			p_ss_fiOrgCode);
-// 	 		SBUxMethod.set('SCH_SITE_CODE1', 			p_ss_siteCode);
-// 	 		SBUxMethod.set('SCH_FI_ORG_CODE2', 			p_ss_fiOrgCode);
-// 	 		SBUxMethod.set('SCH_SITE_CODE2', 			p_ss_siteCode);
-	 		
-// 	    	gfnma_uxDataClear('#dataArea1');
-	    	
-// 	    	SBUxMethod.attr('FM_ASSET_TRANSFER_NO', 	'disabled', true);
-// 	    	SBUxMethod.attr('FM_SITE_CODE_FROM', 		'disabled', true);
-	    	
-// 	    	SBUxMethod.attr('FM_DEPT_CODE_FROM', 		'disabled', true);
-// 	    	SBUxMethod.attr('BTN_FM_DEPT_CODE_FROM', 	'disabled', true);
-// 	    	SBUxMethod.attr('FM_DEPT_NAME_FROM', 		'disabled', true);
-	    	
-// 	    	SBUxMethod.attr('FM_COST_CENTER_CODE_FROM', 		'disabled', true);
-// 	    	SBUxMethod.attr('BTN_FM_COST_CENTER_CODE_FROM', 	'disabled', true);
-// 	    	SBUxMethod.attr('FM_COST_CENTER_NAME_FROM', 		'disabled', true);
-	    	
     	} else if('B'){
     		
 			$('#main-btn-add', parent.document).attr('disabled', false);
@@ -933,14 +912,14 @@
             {caption: ["조회수준"],				ref: 'VIEW_LEVEL_NAME',  		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["조회담당자"], 			ref: 'VIEW_EMP_CODE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fim3100Grid = _SBGrid.create(SBGridProperties);
         Fim3100Grid.bind('click', 'fn_view');
     }
 	
     //상세정보 보기
     function fn_view() {
-
+ 
     	editType = "U";    	
     	
     	var nCol = Fim3100Grid.getCol();
@@ -952,21 +931,21 @@
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim3100Grid.getRowData(nRow);
 		console.log(rowData);        
         //SBUxMethod.attr('NATION_CODE',	'readonly', true);
         
         gfnma_uxDataSet('#dataArea1', rowData);
-        gfnma_multiSelectSet('#FI_ORG_CODE', 		'FI_ORG_CODE', 		'FI_ORG_NAME', 		rowData.FI_ORG_CODE);
-        gfnma_multiSelectSet('#BIZ_TYPE', 			'SUB_CODE', 		'CODE_NAME', 		rowData.BIZ_TYPE);
-        gfnma_multiSelectSet('#CARD_USE_TYPE',		'SUB_CODE', 		'CODE_NAME', 		rowData.CARD_USE_TYPE);
-        gfnma_multiSelectSet('#CARD_STATUS',		'SUB_CODE', 		'CODE_NAME', 		rowData.CARD_STATUS);
-        gfnma_multiSelectSet('#CARD_STATUS2',		'SUB_CODE', 		'CODE_NAME', 		rowData.CARD_STATUS2);
-        gfnma_multiSelectSet('#SETTLE_DD',			'SUB_CODE', 		'CODE_NAME', 		rowData.SETTLE_DD);
-        gfnma_multiSelectSet('#PAY_TERM_CODE',		'PAY_TERM_CODE', 	'PAY_TERM_NAME', 	rowData.PAY_TERM_CODE);
-        gfnma_multiSelectSet('#SITE_CODE',			'SITE_CODE', 		'SITE_NAME', 		rowData.SITE_CODE);
-        gfnma_multiSelectSet('#VIEW_LEVEL',			'SUB_CODE', 		'CODE_NAME', 		rowData.VIEW_LEVEL);
+        gfnma_multiSelectSet('#FI_ORG_CODE', 		'ACNTG_OGNZ_CD', 	'ACNTG_OGNZ_NM', 	rowData.FI_ORG_CODE);
+        gfnma_multiSelectSet('#BIZ_TYPE', 			'SBSD_CD', 			'CD_NM', 			rowData.BIZ_TYPE);
+        gfnma_multiSelectSet('#CARD_USE_TYPE',		'SBSD_CD', 			'CD_NM', 			rowData.CARD_USE_TYPE);
+        gfnma_multiSelectSet('#CARD_STATUS',		'SBSD_CD', 			'CD_NM', 			rowData.CARD_STATUS);
+        gfnma_multiSelectSet('#CARD_STATUS2',		'SBSD_CD', 			'CD_NM', 			rowData.CARD_STATUS2);
+        gfnma_multiSelectSet('#SETTLE_DD',			'SBSD_CD', 			'CD_NM', 			rowData.SETTLE_DD);
+        gfnma_multiSelectSet('#PAY_TERM_CODE',		'PAY_TERM_CD', 		'PAY_TERM_NM', 		rowData.PAY_TERM_CODE);
+        gfnma_multiSelectSet('#SITE_CODE',			'SITE_CD', 			'SITE_NM', 			rowData.SITE_CODE);
+        gfnma_multiSelectSet('#VIEW_LEVEL',			'SBSD_CD', 			'CD_NM', 			rowData.VIEW_LEVEL);
         
         //gfnma_uxDisabled('#dataArea1', true);
         fn_tab2RowClear();        
@@ -987,9 +966,9 @@
      * 목록 가져오기
      */
     const fn_setFim3100Grid = async function(wtype) {
-
+ 
 		Fim3100Grid.clearStatus();
-
+ 
 		//let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		let p_txtcard_no 		= gfnma_nvl(SBUxMethod.get("srch-txtcard-no-p"));
 		let p_txtcard_name 		= gfnma_nvl(SBUxMethod.get("srch-txtcard-name"));
@@ -1013,87 +992,87 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFim3100List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim3100List.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),				//APC				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
-  						FI_ORG_NAME				: gfnma_nvl(item.FI_ORG_NAME),				//APC명			
+  						FI_ORG_CODE				: gfnma_nvl(item.ACNTG_OGNZ_CD),				//APC				--> FI_ORG_CODE_NAME (필요)		<-- L_FIM022 공통코드 조인
+  						FI_ORG_NAME				: gfnma_nvl(item.ACNTG_OGNZ_NM),				//APC명			
   						CARD_NO					: gfnma_nvl(item.CARD_NO),					//카드번호
-  						CARD_NAME				: gfnma_nvl(item.CARD_NAME),				//카드명
-  						BIZ_TYPE				: gfnma_nvl(item.BIZ_TYPE),					//법인개인구분			--> BIZ_TYPE_NAME (필요)		<-- L_FIM003 공통코드 조인
+  						CARD_NAME				: gfnma_nvl(item.CARD_NM),				//카드명
+  						BIZ_TYPE				: gfnma_nvl(item.CORP_TYPE),					//법인개인구분			--> BIZ_TYPE_NAME (필요)		<-- L_FIM003 공통코드 조인
   						BIZ_TYPE_NAME			: gfnma_nvl(item.BIZ_TYPE_NAME),			//법인개인구분명		
-  						CARD_USE_TYPE			: gfnma_nvl(item.CARD_USE_TYPE),			//카드용도구분			--> CARD_USE_TYPE_NAME (필요)	<-- L_FIM216 공통코드 조인
+  						CARD_USE_TYPE			: gfnma_nvl(item.CARD_USG_TYPE),			//카드용도구분			--> CARD_USE_TYPE_NAME (필요)	<-- L_FIM216 공통코드 조인
   						CARD_USE_TYPE_NAME		: gfnma_nvl(item.CARD_USE_TYPE_NAME),		//카드용도구분명		
-  						CARD_STATUS				: gfnma_nvl(item.CARD_STATUS),				//카드상태				--> CARD_STATUS_NAME (필요)		<-- L_FIM009 공통코드 조인
+  						CARD_STATUS				: gfnma_nvl(item.CARD_STTS),				//카드상태				--> CARD_STATUS_NAME (필요)		<-- L_FIM009 공통코드 조인
   						CARD_STATUS_NAME		: gfnma_nvl(item.CARD_STATUS_NAME),			//카드상태명		
-  						EMP_CODE				: gfnma_nvl(item.EMP_CODE),					//사원코드
-  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),					//사원명
-  						CARD_STATUS2			: gfnma_nvl(item.CARD_STATUS2),				//카드상태(현대카드)	--> CARD_STATUS2_NAME (필요)	<-- L_FIM008 공통코드 조인
+  						EMP_CODE				: gfnma_nvl(item.EMP_CD),					//사원코드
+  						EMP_NAME				: gfnma_nvl(item.EMP_NM),					//사원명
+  						CARD_STATUS2			: gfnma_nvl(item.CARD_STTS2),				//카드상태(현대카드)	--> CARD_STATUS2_NAME (필요)	<-- L_FIM008 공통코드 조인
   						CARD_STATUS2_NAME		: gfnma_nvl(item.CARD_STATUS2_NAME),		//카드상태(현대카드)명
-  						VIEW_LEVEL				: gfnma_nvl(item.VIEW_LEVEL),				//조회수준				--> VIEW_LEVEL_NAME (필요)  	<-- L_FIM007 공통코드 조인
+  						VIEW_LEVEL				: gfnma_nvl(item.INQ_LVL),				//조회수준				--> VIEW_LEVEL_NAME (필요)  	<-- L_FIM007 공통코드 조인
   						VIEW_LEVEL_NAME			: gfnma_nvl(item.VIEW_LEVEL_NAME),			//조회수준명
-  						VIEW_EMP_CODE			: gfnma_nvl(item.VIEW_EMP_CODE),
+  						VIEW_EMP_CODE			: gfnma_nvl(item.INQ_PIC_CD),
   						
-  						ACCOUNT_NO				: gfnma_nvl(item.ACCOUNT_NO),
-  						AP_ACCOUNT_CODE			: gfnma_nvl(item.AP_ACCOUNT_CODE),
+  						ACCOUNT_NO				: gfnma_nvl(item.ACTNO),
+  						AP_ACCOUNT_CODE			: gfnma_nvl(item.APS_ACNT_CD),
   						AP_ACCOUNT_NAME			: gfnma_nvl(item.AP_ACCOUNT_NAME),
-  						BANK_CODE				: gfnma_nvl(item.BANK_CODE),
-  						BANK_NAME				: gfnma_nvl(item.BANK_NAME),
-  						CARD_CS_CODE			: gfnma_nvl(item.CARD_CS_CODE),
+  						BANK_CODE				: gfnma_nvl(item.BANK_CD),
+  						BANK_NAME				: gfnma_nvl(item.BANK_NM),
+  						CARD_CS_CODE			: gfnma_nvl(item.CARD_CNPT_CD),
   						CARD_CS_NAME			: gfnma_nvl(item.CARD_CS_NAME),
   						CARD_ID					: gfnma_nvl(item.CARD_ID),
-  						CARD_NAME				: gfnma_nvl(item.CARD_NAME),
-  						DEPOSIT_CODE			: gfnma_nvl(item.DEPOSIT_CODE),
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-  						DESCR					: gfnma_nvl(item.DESCR),
-  						EXPIRE_YYYYMM			: gfnma_nvl(item.EXPIRE_YYYYMM),
-  						INSERT_TIME				: gfnma_nvl(item.INSERT_TIME),
-  						ISSUE_DATE				: gfnma_nvl(item.ISSUE_DATE),
-  						LIMIT_AMT				: gfnma_nvl(item.LIMIT_AMT),
-  						PAY_CS_CODE				: gfnma_nvl(item.PAY_CS_CODE),
+  						CARD_NAME				: gfnma_nvl(item.CARD_NM),
+  						DEPOSIT_CODE			: gfnma_nvl(item.DPMNY_CD),
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),
+  						DESCR					: gfnma_nvl(item.DSCTN),
+  						EXPIRE_YYYYMM			: gfnma_nvl(item.VLD_YM),
+  						INSERT_TIME				: gfnma_nvl(item.WRT_DT),
+  						ISSUE_DATE				: gfnma_nvl(item.ISSU_YMD),
+  						LIMIT_AMT				: gfnma_nvl(item.LMT_AMT),
+  						PAY_CS_CODE				: gfnma_nvl(item.PAY_CNPT_CD),
   						PAY_CS_NAME				: gfnma_nvl(item.PAY_CS_NAME),
-  						PAY_DATE				: gfnma_nvl(item.PAY_DATE),
-  						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CODE),
-  						PERSONAL_CARD_ACCT_YN	: gfnma_nvl(item.PERSONAL_CARD_ACCT_YN),
-  						RECEIVE_DATE			: gfnma_nvl(item.RECEIVE_DATE),
-  						SETTLE_DD				: gfnma_nvl(item.SETTLE_DD),
-  						SITE_CODE				: gfnma_nvl(item.SITE_CODE),
-  						CANCEL_DATE				: gfnma_nvl(item.CANCEL_DATE),
-  						PAY_BANK_ACCOUNT_NO		: gfnma_nvl(item.PAY_BANK_ACCOUNT_NO),
-  						PAY_BANK_CODE			: gfnma_nvl(item.PAY_BANK_CODE),
-  						PAY_BANK_NAME			: gfnma_nvl(item.PAY_BANK_NAME),
-  						ACCOUNT_EMP_CODE		: gfnma_nvl(item.ACCOUNT_EMP_CODE),
+  						PAY_DATE				: gfnma_nvl(item.PAY_YMD),
+  						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CD),
+  						PERSONAL_CARD_ACCT_YN	: gfnma_nvl(item.PRSNA_CARD_ACNTG_YN),
+  						RECEIVE_DATE			: gfnma_nvl(item.RCV_YMD),
+  						SETTLE_DD				: gfnma_nvl(item.STLM_YMD),
+  						SITE_CODE				: gfnma_nvl(item.SITE_CD),
+  						CANCEL_DATE				: gfnma_nvl(item.CNCL_YMD),
+  						PAY_BANK_ACCOUNT_NO		: gfnma_nvl(item.PAY_ACTNO),
+  						PAY_BANK_CODE			: gfnma_nvl(item.PAY_BANK_CD),
+  						PAY_BANK_NAME			: gfnma_nvl(item.PAY_BANK_NM),
+  						ACCOUNT_EMP_CODE		: gfnma_nvl(item.SLIP_EMP_NO),
   						ACCOUNT_EMP_NAME		: gfnma_nvl(item.ACCOUNT_EMP_NAME)
   					}
   					jsonFim3100List.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fim3100Grid.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1198,14 +1177,14 @@
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFim3100Mast.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -1280,10 +1259,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFim3100Detail.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -1292,7 +1271,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -1362,14 +1341,14 @@
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFim3100Mast.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -1396,9 +1375,9 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("CARD_CS_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("CARD_CS_NAME"));
-        var replaceText0 	= "_SUB_CODE_";
-        var replaceText1 	= "_CODE_NAME_";
-        var strWhereClause 	= "AND EXTRA_FIELD1 LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND EXTRA_COL1 LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '카드사');
     	compopup1({
@@ -1408,17 +1387,17 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 		"명칭"]
-   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
    			,searchInputValues		: [searchText1, searchText2]
     		,width					: '500px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 		"카드사"]
-   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnNames		: ["SBSD_CD", 	"CD_NM"]
 			,tableColumnWidths		: ["150px", 	"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('CARD_CS_CODE', 	data.SUB_CODE);
-				SBUxMethod.set('CARD_CS_NAME', 	data.CODE_NAME);
+				SBUxMethod.set('CARD_CS_CODE', 	data.SBSD_CD);
+				SBUxMethod.set('CARD_CS_NAME', 	data.CD_NM);
 			},
     	});
   	}    
@@ -1430,9 +1409,9 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("AP_ACCOUNT_NAME"));
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_";
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_";
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '채무계정');
     	compopup1({
@@ -1442,17 +1421,17 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 		"계정명"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [searchText1, 	searchText2]
     		,width					: '500px'
     		,height					: '300px'
    			,tableHeader			: ["계정코드", 		"계정명"]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('AP_ACCOUNT_CODE', 	data.ACCOUNT_CODE);
-				SBUxMethod.set('AP_ACCOUNT_NAME', 	data.ACCOUNT_NAME);
+				SBUxMethod.set('AP_ACCOUNT_CODE', 	data.APLY_ACNTL_CD);
+				SBUxMethod.set('AP_ACCOUNT_NAME', 	data.ACNT_NM);
 			},
     	});
   	}    
@@ -1464,9 +1443,9 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("PAY_CS_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("PAY_CS_NAME"));
-        var replaceText0 	= "_SUB_CODE_";
-        var replaceText1 	= "_CODE_NAME_";
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급거래처');
     	compopup1({
@@ -1476,17 +1455,17 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["지급처코드", 		"지급처명"]
-   			,searchInputFields		: ["SUB_CODE", 			"CODE_NAME"]
+   			,searchInputFields		: ["SBSD_CD", 			"CD_NM"]
    			,searchInputValues		: [searchText1, 		searchText2]
     		,width					: '500px'
     		,height					: '300px'
    			,tableHeader			: ["지급처코드", 		"지급처명"]
-   			,tableColumnNames		: ["SUB_CODE", 			"CODE_NAME"]
+   			,tableColumnNames		: ["SBSD_CD", 			"CD_NM"]
    			,tableColumnWidths		: ["150px", 			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('PAY_CS_CODE', 	data.SUB_CODE);
-				SBUxMethod.set('PAY_CS_NAME', 	data.CODE_NAME);
+				SBUxMethod.set('PAY_CS_CODE', 	data.SBSD_CD);
+				SBUxMethod.set('PAY_CS_NAME', 	data.CD_NM);
 			},
     	});
   	}    
@@ -1499,8 +1478,8 @@
         var searchText1 	= gfnma_nvl(SBUxMethod.get("PAY_BANK_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("PAY_BANK_NAME"));
         var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText1 	= "_FAM_NM_";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND FAM_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '결제은행(지급)');
     	compopup1({
@@ -1510,17 +1489,17 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["CODE", 			"NAME"]
+   			,searchInputFields		: ["CODE", 			"FAM_NM"]
    			,searchInputValues		: [searchText1, 	searchText2]
     		,width					: '500px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 			"명칭"]
-   			,tableColumnNames		: ["CODE", 			"NAME"]
+   			,tableColumnNames		: ["CODE", 			"FAM_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				SBUxMethod.set('PAY_BANK_CODE', 	data.CODE);
-				SBUxMethod.set('PAY_BANK_NAME', 	data.NAME);
+				SBUxMethod.set('PAY_BANK_NAME', 	data.FAM_NM);
 			},
     	});
   	}    
@@ -1542,18 +1521,18 @@
        		,popupType				: 'B'
     		,whereClause			: ''
        		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["부서코드", 		"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CODE);
-				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NAME);
+				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CD);
+				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NM);
 			},
     	});
   	}    
@@ -1565,10 +1544,10 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("EMP_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND EMP_CD LIKE '%" + replaceText0 + "%' AND EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
@@ -1578,19 +1557,19 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+   			,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
    			,searchInputValues		: ["",				searchText1, 	searchText2,	""]
 			,searchInputTypes		: ["input", 		"input",		"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 				"",				"",				list]				//select 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["사번", 			"이름",		"부서",			"사업장"]
-   			,tableColumnNames		: ["EMP_CODE", 		"EMP_NAME",	"DEPT_NAME",	"SITE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", 		"EMP_NM",	"DEPT_NM",	"SITE_NM"]
    			,tableColumnWidths		: ["150px", 		"150px",	"200px",		"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('EMP_CODE', 	data.EMP_CODE);
-				SBUxMethod.set('EMP_NAME', 	data.EMP_NAME);
+				SBUxMethod.set('EMP_CODE', 	data.EMP_CD);
+				SBUxMethod.set('EMP_NAME', 	data.EMP_NM);
 			},
     	});
   	}    
@@ -1602,10 +1581,10 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("ACCOUNT_EMP_CODE"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("ACCOUNT_EMP_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND EMP_CD LIKE '%" + replaceText0 + "%' AND DEPT_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
@@ -1615,19 +1594,19 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+   			,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
    			,searchInputValues		: ["",				searchText1, 	searchText2,	""]
 			,searchInputTypes		: ["input", 		"input",		"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 				"",				"",				list]				//select 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["사번", 			"이름",		"부서",			"사업장"]
-   			,tableColumnNames		: ["EMP_CODE", 		"EMP_NAME",	"DEPT_NAME",	"SITE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", 		"EMP_NM",	"DEPT_NM",	"SITE_NM"]
    			,tableColumnWidths		: ["150px", 		"150px",	"200px",		"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('ACCOUNT_EMP_CODE', 	data.EMP_CODE);
-				SBUxMethod.set('ACCOUNT_EMP_NAME', 	data.EMP_NAME);
+				SBUxMethod.set('ACCOUNT_EMP_CODE', 	data.EMP_CD);
+				SBUxMethod.set('ACCOUNT_EMP_NAME', 	data.EMP_NM);
 			},
     	});
   	}    
@@ -1648,14 +1627,14 @@
 			,V_P_USERID				: ''
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFim3100CardInfo.do", {
         	getType				: 'json',
         	workType			: 'Interface',
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -1712,9 +1691,9 @@
 			e.stopPropagation();
 			var tarTr = $(this).closest('tr');
 	        var searchText 		= "";
-	        var replaceText0 	= "_EMP_CODE_";
-	        var replaceText1 	= "_EMP_NAME_"; 
-	        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
+	        var replaceText0 	= "_EMP_CD_";
+	        var replaceText1 	= "_EMP_NM_"; 
+	        var strWhereClause 	= "AND X.EMP_CD LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS = 'WORK'";
 	    	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
 			SBUxMethod.openModal('modal-compopup1');
 	    	compopup1({
@@ -1724,19 +1703,19 @@
 	           	,popupType				: 'A'
 	    		,whereClause			: strWhereClause
 	   			,searchCaptions			: ["사번", 		"사원명"]
-	   			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+	   			,searchInputFields		: ["EMP_CD", 	"EMP_NM"]
 	   			,searchInputValues		: ["", 			searchText]
 	    		,height					: '400px'
 	   			,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-	   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
+	   			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_CD", "DEPT_NM","SITE_NM","JBPS_NM"]
 	   			,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
 				,itemSelectEvent		: function (data){
 					console.log('callback data:', data);
 					console.log(tarTr);
-					tarTr.find('td').eq(0).html(data.SITE_NAME);
-					tarTr.find('td').eq(1).html(data.DEPT_NAME);
-					tarTr.find('td').eq(2).html(data.EMP_NAME);
-					tarTr.find('[name=EMP_CODE]').val(data.EMP_CODE);
+					tarTr.find('td').eq(0).html(data.SITE_NM);
+					tarTr.find('td').eq(1).html(data.DEPT_NM);
+					tarTr.find('td').eq(2).html(data.EMP_NM);
+					tarTr.find('[name=EMP_CODE]').val(data.EMP_CD);
 				}
 	    	});
 		});			

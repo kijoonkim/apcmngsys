@@ -35,19 +35,19 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                 </h3><!-- 급여 변동항목 등록 -->
             </div>
-           <%-- <div style="margin-left: auto;">
-                &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
+            <%-- <div style="margin-left: auto;">
+                 &lt;%&ndash; <sbux-button id="btnCreate" name="btnCreate" uitype="normal" text="신규"
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="fn_create"></sbux-button>&ndash;%&gt;
+                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
+                              onclick="fn_save"></sbux-button>
+                 <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
                               class="btn btn-sm btn-outline-danger"
-                              onclick="fn_create"></sbux-button>&ndash;%&gt;
-                <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger"
-                             onclick="fn_save"></sbux-button>
-                <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_delete"></sbux-button>
-                <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
-                             class="btn btn-sm btn-outline-danger"
-                             onclick="fn_search"></sbux-button>
-            </div>--%>
+                              onclick="fn_delete"></sbux-button>
+                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회"
+                              class="btn btn-sm btn-outline-danger"
+                              onclick="fn_search"></sbux-button>
+             </div>--%>
         </div>
 
         <div class="box-search-ma">
@@ -250,7 +250,7 @@
                                 <sbux-input id="PAY_ITEM_NAME" uitype="text" style="width:95%" placeholder=""
                                             class="form-control input-sm" readonly></sbux-input>
                             </td>
-                           <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
+                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
 
                             <td style="border-right: hidden;">&nbsp;</td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -301,15 +301,15 @@
                         <sbux-button id="btnUpload2" name="btnUpload2" uitype="normal"
                                      class="btn btn-sm btn-outline-danger" text="Excel 업로드"
                                      onclick="fn_uld"></sbux-button>
-                       <%-- <sbux-button
-                                id="btnUpload"
-                                name="btnUpload"
-                                uitype="normal"
-                                text="Excel 업로드"
-                                class="btn btn-sm btn-outline-danger"
-                                onclick="fn_uld"
-                                style="float: right;"
-                        ></sbux-button>--%>
+                        <%-- <sbux-button
+                                 id="btnUpload"
+                                 name="btnUpload"
+                                 uitype="normal"
+                                 text="Excel 업로드"
+                                 class="btn btn-sm btn-outline-danger"
+                                 onclick="fn_uld"
+                                 style="float: right;"
+                         ></sbux-button>--%>
                         <%--<sbux-button
                                 id="btnSearchItem"
                                 name="btnSearchItem"
@@ -373,32 +373,32 @@
                     <div id="sb-area-gvwDetall" style="height:410px; width:100%;" ></div>
                 </div>
 
-               <%-- <div>
-                    <table class="table table-bordered tbl_fixed">
-                        <colgroup>
-                            <col style="width:3%">
-                            <col style="width:2%">
+                <%-- <div>
+                     <table class="table table-bordered tbl_fixed">
+                         <colgroup>
+                             <col style="width:3%">
+                             <col style="width:2%">
 
-                            <col style="width:3%">
-                            <col style="width:5%">
+                             <col style="width:3%">
+                             <col style="width:5%">
 
-                            <col style="width:5%">
-                            <col style="width:4%">
-                            <col style="width:3%">
-                        </colgroup>
-                        <tr>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="ROW_COUNT" uitype="text" style="width:100%" placeholder="" disabled="true"
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric'}"></sbux-input>
-                            </td>
-                            <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="PAY_AMT_TOTAL" uitype="text" style="width:100%" placeholder="" disabled="true"
-                                            class="form-control input-sm" mask = "{ 'alias': 'numeric'}"></sbux-input>
-                            </td>
-                            <td colspan="3" style="border-right: hidden;">&nbsp;</td>
-                        </tr>
-                    </table>
-                </div>--%>
+                             <col style="width:5%">
+                             <col style="width:4%">
+                             <col style="width:3%">
+                         </colgroup>
+                         <tr>
+                             <td colspan="2" class="td_input" style="border-right:hidden;">
+                                 <sbux-input id="ROW_COUNT" uitype="text" style="width:100%" placeholder="" disabled="true"
+                                             class="form-control input-sm" mask = "{ 'alias': 'numeric'}"></sbux-input>
+                             </td>
+                             <td colspan="2" class="td_input" style="border-right:hidden;">
+                                 <sbux-input id="PAY_AMT_TOTAL" uitype="text" style="width:100%" placeholder="" disabled="true"
+                                             class="form-control input-sm" mask = "{ 'alias': 'numeric'}"></sbux-input>
+                             </td>
+                             <td colspan="3" style="border-right: hidden;">&nbsp;</td>
+                         </tr>
+                     </table>
+                 </div>--%>
 
             </div>
         </div>
@@ -504,18 +504,20 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             //지역
-            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
         ]);
     }
 
     function fn_compopup1() {
-        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+
 
         var searchText 		= gfnma_nvl2(SBUxMethod.get("SRCH_ENTRY_DEPT_NAME"));
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -524,18 +526,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '500px'
             ,height					: '400px'
             ,tableHeader			: ["기준일"      ,		"사업장", 		"부서명", 	"사업장코드"]
-            ,tableColumnNames		: ["START_DATE" ,	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD" ,	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px"      , 		"150px", 		"100px",    "100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_ENTRY_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_ENTRY_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_ENTRY_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_ENTRY_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -550,13 +552,13 @@
         SBUxMethod.openModal('modal-compopup1');
 
         var searchText 		= "";
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = "_EMP_NM_";
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.DEPT_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -565,17 +567,17 @@
             ,popupType				: 'A'
             , whereClause           : strWhereClause
             , searchCaptions        :   ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields     :   ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields     :   ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues     :   [""           , ""         ,""             ,searchText         ,""]
             , height                : '400px'
             , tableHeader           :   ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames      :   ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames      :   ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths     :   ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             ,itemSelectEvent		: function (data){
                 //그리드내 원하는 위치에 값 셋팅하기
-                gvwDetallGrid.setCellData(row, (col-2), data['DEPT_NAME']);
-                gvwDetallGrid.setCellData(row, (col-1), data['EMP_CODE']);
-                gvwDetallGrid.setCellData(row, (col+1), data['EMP_NAME']);
+                gvwDetallGrid.setCellData(row, (col-2), data['DEPT_NM']);
+                gvwDetallGrid.setCellData(row, (col-1), data['EMP_CD']);
+                gvwDetallGrid.setCellData(row, (col+1), data['EMP_NM']);
             }
         });
     }
@@ -594,9 +596,9 @@
     }
 
     // 신규
-   /* function cfn_add() {
-        fn_create();
-    }*/
+    /* function cfn_add() {
+         fn_create();
+     }*/
     // 저장
     function cfn_save() {
 
@@ -621,8 +623,8 @@
 
             }
             if (gfnma_nvl2(allData[i].EMP_FULL_NAME) == ''){
-               /* gvwDetallGrid.clickCell(allData[i].sb_row_index, gvwDetallGrid.getColRef('EMP_FULL_NAME'));
-                gvwDetallGrid.editCell();*/
+                /* gvwDetallGrid.clickCell(allData[i].sb_row_index, gvwDetallGrid.getColRef('EMP_FULL_NAME'));
+                 gvwDetallGrid.editCell();*/
                 gfn_comAlert("W0002", "'급여 변동 항목 리스트' 사원정보");
                 chk = false;
                 break;
@@ -747,7 +749,7 @@
                 }
             },
             {caption: ["이름"], ref: 'EMP_FULL_NAME', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["통화금액"], ref: 'PAY_AMT', type: 'input', width: '250px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ['지급일(세무)'], 		ref: 'TAX_PAY_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -768,27 +770,10 @@
     }
 
     /**
-     * 그리드내 필수값 체크
-     */
-    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
-
-        if (strValue === '') {
-            return { isValid : false, message : '값을 입력하시오.'};
-        }
-
-        /* if (!(/[0-9]/g).test(strValue)) {
-             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
-         }*/
-
-        return Number(strValue);
-    }
-
-    /**
      * 그리드내 팝업 조회
      */
     function fn_gridPopup(event, row, col) {
 
-        /*******합계가 있을때******/
         /*let allData = gvwDetallGrid.getGridDataAll();
 
         //마지막 로우( 합계 ) 일때
@@ -812,84 +797,84 @@
         let EMP_FULL_NAME   = gfnma_nvl2(SBUxMethod.get("EMP_FULL_NAME"));
         let PAY_AREA_TYPE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_AREA_TYPE"));
 
-         if (!PAY_YYYYMM) {
-             gfn_comAlert("W0002", "귀속년월");
-             return;
-         }
+        if (!PAY_YYYYMM) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
 
-         if (!PAY_TYPE) {
-             gfn_comAlert("W0002", "지급구분");
-             return;
-         }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
 
-            var paramObj = {
-                V_P_DEBUG_MODE_YN: 'N'
-                , V_P_LANG_ID: 'KOR'
-                , V_P_COMP_CODE: gv_ma_selectedCorpCd
-                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: 'N'
+            , V_P_LANG_ID: 'KOR'
+            , V_P_COMP_CODE: gv_ma_selectedCorpCd
+            , V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-                ,V_P_SITE_CODE          : SITE_CODE
-                ,V_P_PAY_YYYYMM         : PAY_YYYYMM
-                ,V_P_PAY_TYPE           : PAY_TYPE
-                ,V_P_ENTRY_DEPT_CODE    : ''
-                ,V_P_PAY_ITEM_CODE      : ''
-                ,V_P_EMP_CODE           : EMP_CODE
-                ,V_P_EMP_FULL_NAME      : EMP_FULL_NAME
-                ,V_P_PAY_AREA_TYPE      : PAY_AREA_TYPE
+            ,V_P_SITE_CODE          : SITE_CODE
+            ,V_P_PAY_YYYYMM         : PAY_YYYYMM
+            ,V_P_PAY_TYPE           : PAY_TYPE
+            ,V_P_ENTRY_DEPT_CODE    : ''
+            ,V_P_PAY_ITEM_CODE      : ''
+            ,V_P_EMP_CODE           : EMP_CODE
+            ,V_P_EMP_FULL_NAME      : EMP_FULL_NAME
+            ,V_P_PAY_AREA_TYPE      : PAY_AREA_TYPE
 
-                , V_P_FORM_ID: p_formId
-                , V_P_MENU_ID: p_menuId
-                , V_P_PROC_ID: ''
-                , V_P_USERID: p_userId
-                , V_P_PC: ''
-            };
-            const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp2200List.do", {
-                getType: 'json',
-                workType: 'MASTER',
-                cv_count: '1',
-                params: gfnma_objectToString(paramObj)
-            });
+            , V_P_FORM_ID: p_formId
+            , V_P_MENU_ID: p_menuId
+            , V_P_PROC_ID: ''
+            , V_P_USERID: p_userId
+            , V_P_PC: ''
+        };
+        const postJsonPromise = gfn_postJSON("/hr/hrp/com/selectHrp2200List.do", {
+            getType: 'json',
+            workType: 'MASTER',
+            cv_count: '1',
+            params: gfnma_objectToString(paramObj)
+        });
 
-            const data = await postJsonPromise;
+        const data = await postJsonPromise;
 
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
 
-                    /** @type {number} **/
-                    let totalRecordCount = 0;
+                /** @type {number} **/
+                let totalRecordCount = 0;
 
-                    jsonMasterList.length = 0;
-                    data.cv_1.forEach((item, index) => {
-                        const msg = {
-                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.PAY_ITEM_CATEGORY),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME       : gfnma_nvl2(item.PAY_ITEM_NAME),
-                            ENTRY_DEPT_CODE     : gfnma_nvl2(item.ENTRY_DEPT_CODE),
-                            ENTRY_DEPT_NAME     : gfnma_nvl2(item.ENTRY_DEPT_NAME),
-                            CHK_YN              : gfnma_nvl2(item.CHK_YN),
-                        }
-                        jsonMasterList.push(msg);
-                        totalRecordCount++;
-                    });
-
-                    gvwMasterGrid.rebuild();
-                    document.querySelector('#listCount').innerText = totalRecordCount;
-
-                    if(jsonMasterList.length > 0) {
-                        gvwMasterGrid.clickRow(gfnma_nvl2(nRow) == '' ? 1 : nRow);
+                jsonMasterList.length = 0;
+                data.cv_1.forEach((item, index) => {
+                    const msg = {
+                        PAY_ITEM_CATEGORY   : gfnma_nvl2(item.SLRY_ITEM_CTGRY),
+                        PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
+                        PAY_ITEM_NAME       : gfnma_nvl2(item.SLRY_ITEM_NM),
+                        ENTRY_DEPT_CODE     : gfnma_nvl2(item.INPT_DEPT_CD),
+                        ENTRY_DEPT_NAME     : gfnma_nvl2(item.ENTRY_DEPT_NAME),
+                        CHK_YN              : gfnma_nvl2(item.CHK_YN),
                     }
+                    jsonMasterList.push(msg);
+                    totalRecordCount++;
+                });
 
-                    //fn_view();
-                } else {
-                    alert(data.resultMessage);
+                gvwMasterGrid.rebuild();
+                document.querySelector('#listCount').innerText = totalRecordCount;
+
+                if(jsonMasterList.length > 0) {
+                    gvwMasterGrid.clickRow(gfnma_nvl2(nRow) == '' ? 1 : nRow);
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+
+                //fn_view();
+            } else {
+                alert(data.resultMessage);
             }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
 
     }
 
@@ -922,8 +907,8 @@
             nRow = 1; //그리드 로우 첫번째값 셋팅;
         }*/
 
-       /* SBUxMethod.set("EMP_CODE", ""); //사번
-        SBUxMethod.set("EMP_FULL_NAME", ""); //이름*/
+        /* SBUxMethod.set("EMP_CODE", ""); //사번
+         SBUxMethod.set("EMP_FULL_NAME", ""); //이름*/
 
 
         let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE"));
@@ -975,16 +960,16 @@
                     jsonDetallList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            CHK_YN          : item.CHK_YN,
-                            DEPT_NAME       : item.DEPT_NAME,
-                            EMP_CODE        : item.EMP_CODE,
-                            EMP_FULL_NAME   : item.EMP_FULL_NAME,
-                            PAY_AMT         : item.PAY_AMT,
-                            MEMO            : item.MEMO,
-                            TAX_PAY_DATE    : item.TAX_PAY_DATE,
-                            UPDATE_TIME     : item.UPDATE_TIME,
-                            UPDATE_USERID   : item.UPDATE_USERID,
-                            TXN_ID          : item.TXN_ID
+                            CHK_YN          : gfnma_nvl2(item.CHK_YN),
+                            DEPT_NAME       : gfnma_nvl2(item.DEPT_NM),
+                            EMP_CODE        : gfnma_nvl2(item.EMP_CD),
+                            EMP_FULL_NAME   : gfnma_nvl2(item.EMP_FLNM),
+                            PAY_AMT         : gfnma_nvl2(item.PAY_AMT),
+                            MEMO            : gfnma_nvl2(item.MEMO),
+                            TAX_PAY_DATE    : gfnma_nvl2(item.TX_PAY_YMD),
+                            UPDATE_TIME     : gfnma_nvl2(item.UPDT_DT),
+                            UPDATE_USERID   : gfnma_nvl2(item.UPDT_USER_ID),
+                            TXN_ID          : gfnma_nvl2(item.TRSC_ID)
 
                         }
                         jsonDetallList.push(msg);
@@ -1000,10 +985,10 @@
                     gfnma_uxDataClear('#dataArea2');
                     gfnma_uxDataClear('#dataArea3');
 
-                    SBUxMethod.set("PAY_ITEM_CODE"  , rowData.PAY_ITEM_CODE); //급여항목코드
-                    SBUxMethod.set("PAY_ITEM_NAME"  , rowData.PAY_ITEM_NAME); //급여항목명
-                    SBUxMethod.set("ENTRY_DEPT_CODE", rowData.ENTRY_DEPT_CODE); //입력부서
-                    SBUxMethod.set("ENTRY_DEPT_NAME", rowData.ENTRY_DEPT_NAME); //입력부서 코드
+                    SBUxMethod.set("PAY_ITEM_CODE"  , gfnma_nvl2(rowData.PAY_ITEM_CODE)); //급여항목코드
+                    SBUxMethod.set("PAY_ITEM_NAME"  , gfnma_nvl2(rowData.PAY_ITEM_NAME)); //급여항목명
+                    SBUxMethod.set("ENTRY_DEPT_CODE", gfnma_nvl2(rowData.ENTRY_DEPT_CODE)); //입력부서
+                    SBUxMethod.set("ENTRY_DEPT_NAME", gfnma_nvl2(rowData.ENTRY_DEPT_NAME)); //입력부서 코드
 
                     let chk_yn = rowData.CHK_YN;
                     if (chk_yn == 'Y') {
@@ -1293,38 +1278,35 @@
         let chkCount = 0;
         for (const item of headers) {
 
-            if (gfnma_nvl2(item) == ''){
-                chkCount = 1;
-                break;
-            }else{
+            if (gfnma_nvl2(item) != '') {
                 item.trim();
             }
 
-            if (_.isEqual('부서', item)){
+            if (item.indexOf('부서') != -1){
                 jsonHeaders.push('DEPT_NAME');
-            }else if (_.isEqual('사번', item)){
+            }else if (item.indexOf('사번') != -1 ){
                 jsonHeaders.push('EMP_CODE');
-            }else if (_.isEqual('이름', item)){
+            }else if ( item.indexOf('이름') != -1){
                 jsonHeaders.push('EMP_FULL_NAME');
-            } else if (_.isEqual('통화금액', item)){
+            } else if (item.indexOf('통화금액') != -1){
                 jsonHeaders.push('PAY_AMT');
-            }else if (_.isEqual('지급일(세무)', item)){
+            }else if (item.indexOf('지급일(세무)') != -1 /*_.isEqual('지급일(세무)', item)*/){
                 jsonHeaders.push('TAX_PAY_DATE');
-            }else if (_.isEqual('비고', item)){
+            }else if (item.indexOf('비고') != -1){
                 jsonHeaders.push('MEMO');
-            }else if (_.isEqual('수정일', item)){
+            }else if (item.indexOf('수정일') != -1){
                 jsonHeaders.push('UPDATE_TIME');
-            }else if (_.isEqual('수정자', item)){
+            }else if (item.indexOf('수정자') != -1){
                 jsonHeaders.push('UPDATE_USERID');
-            }else{
+            }/*else{
                 chkCount = 1;
-            }
+            }*/
         }
 
-        if (chkCount == 1){
+        /*if (chkCount == 1){
             gfn_comAlert("Q0000","엑셀 시트 양식을 확인해 주세요. [헤더명이 일지 하지 않습니다.]");
             return false;
-        }
+        }*/
 
         const results = []; // 실제 데이터값
         for (const jsonData of jsonDatas) {
@@ -1375,8 +1357,8 @@
             return;
         }
 */
-       /* document.querySelector("#btnFileUpload").value = "";
-        $("#btnFileUpload").click();*/
+        /* document.querySelector("#btnFileUpload").value = "";
+         $("#btnFileUpload").click();*/
 
         document.querySelector("#btnFileUpload").value = "";
         $('#btnFileUpload').click();
@@ -1443,6 +1425,11 @@
 
         if (!PAY_TYPE) {
             gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+
+        if (!PAY_ITEM_CODE) {
+            gfn_comAlert("W0002", "급여항목코드");
             return;
         }
 

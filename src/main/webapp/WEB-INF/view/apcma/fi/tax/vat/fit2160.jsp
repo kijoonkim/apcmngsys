@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -134,19 +134,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -491,7 +491,7 @@
     var jsonGrdDivision = [];
     var jsonGrdCalc = [];
     var jsonGrdReCalc = [];
-
+ 
     var grdListGrid;
     var grdDivision;
     var grdCalc;
@@ -500,7 +500,7 @@
     let cols = ['1fr','5px','3fr'];
     let colns = ['leftcol','','rightBottom'];
     let Tcols = [];
-
+ 
     let rows = ['1.5fr','5px','1.5fr'];
     let rowns = ['rightTop','','rightBottom'];
     let Trows = [];
@@ -508,27 +508,27 @@
     let CRfactor;
     let gWcol = -1;
     let gWrow = -1;
-
+ 
     window.addEventListener("DOMContentLoaded",function(){
         fn_createGrid();
         fn_createGridDivision();
         fn_createGridCalc();
         fn_createGridReCalc();
         fn_init();
-
+ 
         /** 공통버튼중 진입시 막아야하는것 **/
         window.parent.fn_toggleButtonDisable('save',true);
     });
-
+ 
     const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'COMP_CODE', "COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'CO_CD', "CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy', yyyy);
-
+ 
         /** 신고구분명 select **/
         await fn_setMultSelect(yyyy);
     }
@@ -541,44 +541,44 @@
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_FIT030'
-            , whereClause: 'AND A.YYYY = ' + "'" + yyyy + "'"
+            , whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
             , formId: p_formId
             , menuId: p_menuId
             , selectValue: ''
             , dropType: 'down' 	// up, down
             , dropAlign: '' 	// left, right
             , colValue: 'SEQ'
-            , colLabel: 'VAT_TYPE_NAME'
+            , colLabel: 'VAT_TMPLT_NM'
             , columns: [
-                {caption: "부가세유형", ref: 'VAT_TYPE_NAME', width: '120px', style: 'text-align:left'},
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
                 {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
                 {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
                 {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
-                {caption: "단위과세번호", ref: 'WHOLE_PAY_SITE_NO', width: '150px', style: 'text-align:left'},
-                {caption: "확정여부", ref: 'CONFIRM_YN', width: '150px', style: 'text-align:left'},
+                {caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+                {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
                 {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
             , callback: fn_choice
         });
     }
-
+ 
     async function fn_choice(_value){
        /** reset **/
         jsonGrdList.length = 0;
         jsonGrdDivision.length = 0;
         jsonGrdCalc.length = 0;
         jsonGrdReCalc.length = 0;
-
+ 
         grdListGrid.rebuild();
         grdDivision.rebuild();
         grdCalc.rebuild();
         grdReCalc.rebuild();
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -586,7 +586,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -608,17 +608,17 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2160.do", {
             getType				: 'json',
             cv_count			: '13',
             workType            : 'LIST',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
         if(data.resultStatus === 'S'){
             jsonGrdList = data.cv_1;
@@ -634,7 +634,7 @@
                     params				: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-
+ 
                 if(data.resultStatus === 'S'){
                     let resultObj = data.cv_1[0];
                     for(let key in resultObj){
@@ -645,7 +645,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -653,8 +653,8 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
@@ -666,11 +666,11 @@
         SBGridProperties.jsonref = 'jsonGrdDivision';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['과세,면세사업등 공통매입','공급가액'],               ref : 'DIV_COM_IN_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['과세,면세사업등 공통매입','세액'],               ref : 'DIV_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['총공급가액','총공급가액'],          ref : 'DIV_TOTAL_SUPPLY_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세공급가액등','면세공급가액등'],          ref : 'DIV_EXEM_SUPPLY_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['불공제매입액','불공제매입액'],          ref : 'DIV_NOND_TAX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['과세,면세사업등 공통매입','공급가액'],               ref : 'PRDV_COM_INPTVAT_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['과세,면세사업등 공통매입','세액'],               ref : 'PRDV_COM_INPTVAT_TX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['총공급가액','총공급가액'],          ref : 'PRDV_INPTVAT_TOT_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['면세공급가액등','면세공급가액등'],          ref : 'PRDV_EXMPTN_INPTVAT_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['불공제매입액','불공제매입액'],          ref : 'PRDV_NDDC_IINPTVAT_TX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
         ];
         grdDivision = _SBGrid.create(SBGridProperties);
     }
@@ -682,13 +682,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['총공통매입세액','총공통매입세액'], ref : 'CALC_TOTAL_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXEMPTION_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOTAL_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXEMPTION_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'CALC_TOTAL_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPUT_TAX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['총공통매입세액','총공통매입세액'], ref : 'TOT_COM_INPTVAT_TXAMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXMPTN_SPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOT_SPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXMPTN_RT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'TOT_NDDC_INPTVAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NDDC_INPTVAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPTVAT_TXAMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
         ];
         grdCalc = _SBGrid.create(SBGridProperties);
     }
@@ -700,12 +700,12 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['해당재화의매입세액','해당재화의매입세액'], ref : 'RECALC_GOODS_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['경감률','비율(%)'], ref : 'RECALC_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['경감률','경과된 과세기간수'], ref : 'RECALC_ELAPSE_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['경감률','경감률(%)'], ref : 'RECALC_REDUCTION_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['증가 또는 감소된 면세공급가액(사용면적)비율(%)','증가 또는 감소된 면세공급가액(사용면적)비율(%)'], ref : 'RECALC_EXEM_RATE',      width : '35%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'RECALC_INPUT_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['해당재화의매입세액','해당재화의매입세액'], ref : 'RCAL_GDS_INPTVAT_TXAMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['경감률','비율(%)'], ref : 'RCAL_RT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['경감률','경과된 과세기간수'], ref : 'RCAL_ELPS_CNT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['경감률','경감률(%)'], ref : 'RCAL_RDCTN_RT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['증가 또는 감소된 면세공급가액(사용면적)비율(%)','증가 또는 감소된 면세공급가액(사용면적)비율(%)'], ref : 'RCAL_EXMPTN_RT',      width : '35%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'RCAL_ADTN_INPTVAT_TXAMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
         ];
         grdReCalc = _SBGrid.create(SBGridProperties);
     }
@@ -736,11 +736,11 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2160.do", {
             getType				: 'json',
             cv_count			: '13',
@@ -748,7 +748,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         if(data.resultStatus === 'S'){
             let resultObj = data.cv_1[0];
             for(let key in resultObj){
@@ -766,21 +766,21 @@
         jsonGrdDivision.length = 0;
         jsonGrdCalc.length = 0;
         jsonGrdReCalc.length = 0;
-
+ 
         grdListGrid.rebuild();
         grdDivision.rebuild();
         grdCalc.rebuild();
         grdReCalc.rebuild();
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         gfnma_multiSelectSet('#src-btn-currencyCode','','','');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
     }
     /** 공통버튼 조회 **/
     function cfn_search() {
@@ -802,7 +802,7 @@
         Tcols = cols.map(parseFloat);
         gWcol = pWcol;
     }
-
+ 
     function StartVDrag(pRow) {
         isVDragging = true;
         CLfactor = parseFloat(rows[pRow - 1]) / document.getElementById(rowns[pRow - 1]).clientHeight;
@@ -810,7 +810,7 @@
         Trows = rows.map(parseFloat);
         gWrow = pRow;
     }
-
+ 
     function EndDrag() {
         isHDragging = false;
         isVDragging = false;
@@ -819,21 +819,21 @@
         grdCalc.rebuild();
         grdReCalc.rebuild();
     }
-
+ 
     function OnDrag(event) {
         if (isHDragging) {
             Tcols[gWcol - 1] += (CLfactor * event.movementX);
             Tcols[gWcol + 1] -= (CLfactor * event.movementX);
-
+ 
             cols[gWcol - 1] = Math.max(Tcols[gWcol - 1], 0.01) + "fr";
             cols[gWcol + 1] = Math.max(Tcols[gWcol + 1], 0.01) + "fr";
             let newColDefn = cols.join(" ");
             page.style.gridTemplateColumns = newColDefn;
-
+ 
         } else if (isVDragging) {
             Trows[gWrow - 1] += (CLfactor * event.movementY);
             Trows[gWrow + 1] -= (CLfactor * event.movementY);
-
+ 
             rows[gWrow - 1] = Math.max(Trows[gWrow - 1], 0.01) + "fr";
             rows[gWrow + 1] = Math.max(Trows[gWrow + 1], 0.01) + "fr";
             let newRowDefn = rows.join(" ");

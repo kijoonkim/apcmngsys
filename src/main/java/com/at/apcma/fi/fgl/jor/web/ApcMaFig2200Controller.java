@@ -56,7 +56,7 @@ public class ApcMaFig2200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIG2200_Q");
+            param.put("procedure", 		"SP_FIG2200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaFig2200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIG2250_Q");
+            param.put("procedure", 		"SP_FIG2250_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class ApcMaFig2200Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIM3420_Q");
+    		param.put("procedure", 		"SP_FIM3420_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -131,7 +131,7 @@ public class ApcMaFig2200Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG2200_S1");
+    		param.put("procedure", 		"SP_FIG2200_S1");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -156,7 +156,7 @@ public class ApcMaFig2200Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG2200_S2");
+    		param.put("procedure", 		"SP_FIG2200_S2");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {

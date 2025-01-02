@@ -49,7 +49,7 @@ public class ApcMaHri5100Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRI5100_Q");
+            param.put("procedure", 		"SP_HRI5100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

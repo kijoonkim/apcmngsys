@@ -381,7 +381,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -393,23 +393,23 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 근무패턴
-            gfnma_setComSelect(['WORK_PATTERN_CODE', 'gvwPattern', 'gvwEmp'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['WORK_PATTERN_CODE', 'gvwPattern', 'gvwEmp'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['gvwEmp'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwEmp'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['gvwEmp'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwEmp'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['gvwEmp'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwEmp'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['gvwEmp'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwEmp'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -424,17 +424,17 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "재직구분"]
-            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "EMP_STATE"]
+            ,searchInputFields		: ["DEPT_CD", "DEPT_NM", "EMP_CD", "EMP_NM", "EMP_STTS"]
             ,searchInputValues		: ["", "", "", searchText, ""]
             ,searchInputTypes		: ["input", "input", "input", "input", "select"]		//input, datepicker가 있는 경우
             ,searchInputTypeValues	: ["", "", "", "", jsonEmpState]
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서명", "사업장명", "재직구분", "직위", "직책", "직급"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_FULL_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME", "POSITION_CODE", "DUTY_CODE", "JOB_RANK"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_FLNM", "DEPT_NM", "SITE_NM", "EMP_STATE_NAME", "JBPS_CD", "JBTTL_CD", "JBGD_CD"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('EMP_CODE', data.EMP_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -442,11 +442,11 @@
 
     const fn_findDeptLeaderEmpCode = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -455,25 +455,25 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
             ,searchInputValues		: ["", 			searchText,		""]
             ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('DEPT_LEADER_NAME', data.EMP_NAME);
-                SBUxMethod.set('DEPT_LEADER', data.EMP_CODE);
+                SBUxMethod.set('DEPT_LEADER_NAME', data.EMP_NM);
+                SBUxMethod.set('DEPT_LEADER', data.EMP_CD);
             },
         });
     }
 
     const fn_findParentDeptCode = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("PARENT_DEPT_NAME"));
-        var replaceText0 	= "_CC_CODE_";
-        var replaceText1 	= "_CC_NAME_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
@@ -484,15 +484,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["원가조직코드", 		"원가조직명"]
-            ,searchInputFields		: ["CC_CODE", 		"CC_NAME"]
+            ,searchInputFields		: ["CSTCT_CD", 		"CSTCT_NM"]
             ,searchInputValues		: ["", 			searchText]
             ,height					: '400px'
             ,tableHeader			: ["원가조직코드", "원가조직명"]
-            ,tableColumnNames		: ["CC_CODE", "CC_NAME"]
+            ,tableColumnNames		: ["CSTCT_CD", "CSTCT_NM"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('PARENT_DEPT_NAME', data.CC_NAME);
-                SBUxMethod.set('PARENT_DEPT', data.CC_CODE);
+                SBUxMethod.set('PARENT_DEPT_NAME', data.CSTCT_NM);
+                SBUxMethod.set('PARENT_DEPT', data.CSTCT_CD);
             },
         });
     }
@@ -502,13 +502,13 @@
         SBUxMethod.openModal('modal-compopup1');
 
         var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
-        var replaceText0 	= "_DEPT_CODE_";
-        var replaceText1 	= "_DEPT_NAME_";
-        var replaceText2 	= "_EMP_CODE_";
-        var replaceText3 	= "_EMP_NAME_";
-        var replaceText4 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_CODE LIKE '%" + replaceText0 + "%' AND X.DEPT_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_CODE LIKE '%" + replaceText2 + "%' AND X.EMP_NAME LIKE '%" + replaceText3 + "%' AND X.EMP_STATE LIKE '%" + replaceText4 + "%'";
-
+        var replaceText0 	= "_DEPT_CD_";
+        var replaceText1 	= "_DEPT_NM_";
+        var replaceText2 	= "_EMP_CD_";
+        var replaceText3 	= "_EMP_NM_";
+        var replaceText4 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_CD LIKE '%" + replaceText0 + "%' AND X.DEPT_NM LIKE '%" + replaceText1 + "%' AND X.EMP_CD LIKE '%" + replaceText2 + "%' AND X.EMP_NM LIKE '%" + replaceText3 + "%' AND X.EMP_STTS LIKE '%" + replaceText4 + "%'";
+ 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
@@ -516,25 +516,25 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서코드", "부서명", "사원코드", "사원명", "재직구분"]
-            ,searchInputFields		: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "EMP_STATE"]
+            ,searchInputFields		: ["DEPT_CD", "DEPT_NM", "EMP_CD", "EMP_NM", "EMP_STTS"]
             ,searchInputValues		: ["", "", "", "", ""]
             ,searchInputTypes		: ["input", "input", "input", "input", "select"]		//input, datepicker가 있는 경우
             ,searchInputTypeValues	: ["", "", "", "", jsonEmpState]
             ,height					: '400px'
             ,tableHeader			: ["사원코드", "사원명", "부서코드", "부서명", "직위", "직급", "입사일",  "직종", "직원하위그룹"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "POSITION_CODE", "JOB_RANK", "ENTER_DATE", "JOB_GROUP", "JOB_FAMILY"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM", "DEPT_CD", "DEPT_NM", "JBPS_CD", "JBGD_CD", "JNCMP_YMD", "JOB_GROUP", "JOB_LWRNK_GROUP"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "80px", "80px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
                 gvwEmp.setRowData(nRow, {
-                    DEPT_CODE: data['DEPT_CODE'],
-                    DEPT_NAME: data['DEPT_NAME'],
-                    DUTY_CODE: data['DUTY_CODE'],
-                    JOB_RANK: data['JOB_RANK'],
-                    EMP_CODE: data['EMP_CODE'],
-                    EMP_NAME: data['EMP_NAME'],
-                    EMP_STATE: data['EMP_STATE'],
-                    ENTER_DATE: data['ENTER_DATE'],
-                    POSITION_CODE: data['POSITION_CODE']
+                    DEPT_CODE: data['DEPT_CD'],
+                    DEPT_NAME: data['DEPT_NM'],
+                    DUTY_CODE: data['JBTTL_CD'],
+                    JOB_RANK: data['JBGD_CD'],
+                    EMP_CODE: data['EMP_CD'],
+                    EMP_NAME: data['EMP_NM'],
+                    EMP_STATE: data['EMP_STTS'],
+                    ENTER_DATE: data['JNCMP_YMD'],
+                    POSITION_CODE: data['JBPS_CD']
                 });
             },
         });
@@ -845,22 +845,22 @@
                 empData.cv_2.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        POSITION_CODE : item.POSITION_CODE,
-                        DUTY_CODE : item.DUTY_CODE,
-                        JOB_RANK : item.JOB_RANK,
-                        ENTER_DATE : item.ENTER_DATE,
-                        RETIRE_DATE : item.RETIRE_DATE,
-                        EMP_STATE : item.EMP_STATE,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        POSITION_CODE : item.JBPS_CD,
+                        DUTY_CODE : item.JBTTL_CD,
+                        JOB_RANK : item.JBGD_CD,
+                        ENTER_DATE : item.JNCMP_YMD,
+                        RETIRE_DATE : item.RTRM_YMD,
+                        EMP_STATE : item.EMP_STTS,
                         MEMO : item.MEMO,
-                        START_DATE : item.START_DATE,
-                        END_DATE : item.END_DATE,
-                        TXN_ID : item.TXN_ID,
+                        START_DATE : item.BGNG_YMD,
+                        END_DATE : item.END_DT,
+                        TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);
@@ -983,24 +983,24 @@
                 jsonDeptList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        COMP_CODE : item.COMP_CODE,
-                        SITE_CODE : item.SITE_CODE,
-                        DEPT_LEADER : item.DEPT_LEADER,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        COMP_CODE : item.CO_CD,
+                        SITE_CODE : item.SITE_CD,
+                        DEPT_LEADER : item.DEPT_TMLDR,
                         DEPT_LEADER_NAME : item.DEPT_LEADER_NAME,
                         MEMO : item.MEMO,
-                        PARENTKEYID : item.PARENTKEYID,
-                        KEYID : item.KEYID,
-                        PARENT_DEPT : item.PARENT_DEPT,
+                        PARENTKEYID : item.UP_KEY_ID,
+                        KEYID : item.KEY_ID,
+                        PARENT_DEPT : item.PRNT_DEPT,
                         PARENT_DEPT_NAME : item.PARENT_DEPT_NAME,
                         SORT_SEQ : item.SORT_SEQ,
-                        WORK_TIME_YN : item.WORK_TIME_YN,
-                        START_DATE : item.START_DATE,
-                        END_DATE : item.END_DATE,
-                        PRODUCTION_DEPT_YN : item.PRODUCTION_DEPT_YN,
-                        WORK_TIME_YN : item.WORK_TIME_YN,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        WORK_TIME_YN : item.WORK_TM_CHCK_YN,
+                        START_DATE : item.BGNG_YMD,
+                        END_DATE : item.END_DT,
+                        PRODUCTION_DEPT_YN : item.PRDCTN_DEPT_YN,
+                        WORK_TIME_YN : item.WORK_TM_CHCK_YN,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         LEVEL: item.LEVEL
                     }
                     jsonDeptList.push(msg);
@@ -1100,10 +1100,10 @@
                     const msg = {
                         CHK_YN : item.CHK_YN,
                         SEQ : item.SEQ,
-                        DEPT_CODE : item.DEPT_CODE,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
-                        APPLY_START_DATE : item.APPLY_START_DATE,
-                        APPLY_END_DATE : item.APPLY_END_DATE,
+                        DEPT_CODE : item.DEPT_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        APPLY_START_DATE : item.APLY_STRT_YMD,
+                        APPLY_END_DATE : item.APLY_END_YMD,
                         MEMO : item.MEMO
                     }
                     jsonPatternList.push(msg);
@@ -1131,22 +1131,22 @@
                 empData.cv_2.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        POSITION_CODE : item.POSITION_CODE,
-                        DUTY_CODE : item.DUTY_CODE,
-                        JOB_RANK : item.JOB_RANK,
-                        ENTER_DATE : item.ENTER_DATE,
-                        RETIRE_DATE : item.RETIRE_DATE,
-                        EMP_STATE : item.EMP_STATE,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        POSITION_CODE : item.JBPS_CD,
+                        DUTY_CODE : item.JBTTL_CD,
+                        JOB_RANK : item.JBGD_CD,
+                        ENTER_DATE : item.JNCMP_YMD,
+                        RETIRE_DATE : item.RTRM_YMD,
+                        EMP_STATE : item.EMP_STTS,
                         MEMO : item.MEMO,
-                        START_DATE : item.START_DATE,
-                        END_DATE : item.END_DATE,
-                        TXN_ID : item.TXN_ID,
+                        START_DATE : item.BGNG_YMD,
+                        END_DATE : item.END_DT,
+                        TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);

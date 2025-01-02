@@ -291,8 +291,8 @@ public class ApcMaComUtil {
 		sortedDepartments.add(node);
 
 		List<Map<String, Object>> children = deptMap.values().stream()
-				.filter(dept -> node.get("DEPT_CODE").equals(dept.get("PARENTKEYID")))
-				.sorted(Comparator.comparing(dept -> (String) dept.get("DEPT_CODE")))
+				.filter(dept -> node.get("DEPT_CD").equals(dept.get("UP_KEY_ID")))
+				.sorted(Comparator.comparing(dept -> (String) dept.get("DEPT_CD")))
 				.collect(Collectors.toList());
 
 		for (Map<String, Object> child : children) {

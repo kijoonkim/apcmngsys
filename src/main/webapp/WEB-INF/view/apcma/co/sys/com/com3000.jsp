@@ -353,6 +353,7 @@
 	//-----------------------------------------------------------
 	var editType 		= 'N';
 	var mode 			= 'byrows';
+	var copy			= true;
 	var jsonGroupCode	= [];	// 유형분류
 	
     /**
@@ -363,9 +364,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_NAME"));
-        var replaceText0 	= "_BUDGET_ACC_CODE_";
+        var replaceText0 	= "_BGT_ACNTL_CD_";
         var replaceText1 	= "_BUDGET_ACC_NAME_";
-        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var strWhereClause 	= "AND CLNT_CD = '" + gv_ma_selectedClntCd + "' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
     	compopup1({
@@ -375,15 +376,15 @@
     		,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코드",			"명칭", 				"구분", 				"원가구분"]
-   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"EXTRA_FIELD1",  	"COST_CLASS"]
+   			,tableColumnNames		: ["ACNTL_CD",	"ACNT_NM", 				"EXTRA_COL1",  		"CST_CLSF"]
    			,tableColumnWidths		: ["100px", 		"100px", 			"100px", 			"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('BUDGET_ACC_CODE', data.ACCOUNT_CODE);
-				SBUxMethod.set('BUDGET_ACC_NAME', data.ACCOUNT_NAME);
+				SBUxMethod.set('BUDGET_ACC_CODE', data.ACNTL_CD);
+				SBUxMethod.set('BUDGET_ACC_NAME', data.ACNT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -405,16 +406,16 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			
 			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 		]);
 	}
@@ -455,7 +456,7 @@
     	let gridData = CMNSCDSubGrid.getGridDataAll();
     	jsonCMNSCDSubList = [];
     	let fieldData = await fn_fieldCaption(); 
-    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
+    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData, copy);
     }
     
 	// 신규
@@ -548,6 +549,7 @@
         SBSubGridProperties.jsonref 			= 'jsonCMNSCDSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBSubGridProperties.selectmode 			= 'byrow';
+        SBSubGridProperties.allowcopy 			= copy;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
         SBSubGridProperties.rowheadercaption 	= {seq: 'No'};
@@ -630,8 +632,8 @@
   	    		CMNSCDGrid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							GROUP_NAME		: item.GROUP_NAME,
-  							GROUP_CODE		: item.GROUP_CODE
+  							GROUP_NAME		: item.GRP_NM,
+  							GROUP_CODE		: item.GRP_CD
   					}
   					jsonCMNSCDList.push(msg);
   					totalRecordCount ++;
@@ -699,34 +701,70 @@
 
   	        	let obj = data.cv_3[0];
   	        	let cv_4 = data.cv_4;
-  	      		SBUxMethod.set("GROUP_CODE", 			obj.GROUP_CODE);
-  	      		SBUxMethod.set("GROUP_NAME", 			obj.GROUP_NAME);
-  	      		SBUxMethod.set("CODE_LENGTH", 			obj.CODE_LENGTH);
-  	      		SBUxMethod.set("GROUP_CATEGORY", 		obj.GROUP_CATEGORY);
-  	      		SBUxMethod.set("FIELD_CAPTION1", 		obj.FIELD_CAPTION1);
-  	      		SBUxMethod.set("FIELD_CAPTION2", 		obj.FIELD_CAPTION2);
-  	      		SBUxMethod.set("FIELD_CAPTION3", 		obj.FIELD_CAPTION3);
-  	      		SBUxMethod.set("FIELD_CAPTION4", 		obj.FIELD_CAPTION4);
-  	      		SBUxMethod.set("FIELD_CAPTION5", 		obj.FIELD_CAPTION5);
-  	      		SBUxMethod.set("FIELD_CAPTION6", 		obj.FIELD_CAPTION6);
-  	      		SBUxMethod.set("FIELD_CAPTION7", 		obj.FIELD_CAPTION7);
-  	      		SBUxMethod.set("FIELD_CAPTION8", 		obj.FIELD_CAPTION8);
-  	      		SBUxMethod.set("FIELD_CAPTION9", 		obj.FIELD_CAPTION9);
-  	      		SBUxMethod.set("FIELD_CAPTION10", 		obj.FIELD_CAPTION10);
-  	      		SBUxMethod.set("FIELD_CAPTION11", 		obj.FIELD_CAPTION11);
-  	      		SBUxMethod.set("FIELD_CAPTION12", 		obj.FIELD_CAPTION12);
-  	      		SBUxMethod.set("FIELD_CAPTION13", 		obj.FIELD_CAPTION13);
-  	      		SBUxMethod.set("FIELD_CAPTION14", 		obj.FIELD_CAPTION14);
-  	      		SBUxMethod.set("FIELD_CAPTION15", 		obj.FIELD_CAPTION15);
-  	      		SBUxMethod.set("FIELD_CAPTION16", 		obj.FIELD_CAPTION16);
-  	      		SBUxMethod.set("FIELD_CAPTION17", 		obj.FIELD_CAPTION17);
-  	      		SBUxMethod.set("FIELD_CAPTION18", 		obj.FIELD_CAPTION18);
-  	      		SBUxMethod.set("FIELD_CAPTION19", 		obj.FIELD_CAPTION19);
-  	      		SBUxMethod.set("FIELD_CAPTION20", 		obj.FIELD_CAPTION20);
-  	      		SBUxMethod.set("DESCR", 				obj.DESCR);
-  	      		SBUxMethod.set("USE_YN", 				obj.USE_YN);
-  	      		
-  	      		fn_drawCMNSCDSubGrid(mode, obj, cv_4);
+  	      		SBUxMethod.set("GROUP_CODE", 			gfn_nvl(obj.GRP_CD));
+  	      		SBUxMethod.set("GROUP_NAME", 			gfn_nvl(obj.GRP_NM));
+  	      		SBUxMethod.set("CODE_LENGTH", 			gfn_nvl(obj.CD_LNGTH));
+  	      		SBUxMethod.set("GROUP_CATEGORY", 		gfn_nvl(obj.GRP_CTRGY));
+  	      		SBUxMethod.set("FIELD_CAPTION1", 		gfn_nvl(obj.COL_CPTN1));
+  	      		SBUxMethod.set("FIELD_CAPTION2", 		gfn_nvl(obj.COL_CPTN2));
+  	      		SBUxMethod.set("FIELD_CAPTION3", 		gfn_nvl(obj.COL_CPTN3));
+  	      		SBUxMethod.set("FIELD_CAPTION4", 		gfn_nvl(obj.COL_CPTN4));
+  	      		SBUxMethod.set("FIELD_CAPTION5", 		gfn_nvl(obj.COL_CPTN5));
+  	      		SBUxMethod.set("FIELD_CAPTION6", 		gfn_nvl(obj.COL_CPTN6));
+  	      		SBUxMethod.set("FIELD_CAPTION7", 		gfn_nvl(obj.COL_CPTN7));
+  	      		SBUxMethod.set("FIELD_CAPTION8", 		gfn_nvl(obj.COL_CPTN8));
+  	      		SBUxMethod.set("FIELD_CAPTION9", 		gfn_nvl(obj.COL_CPTN9));
+  	      		SBUxMethod.set("FIELD_CAPTION10", 		gfn_nvl(obj.COL_CPTN10))
+  	      		SBUxMethod.set("FIELD_CAPTION11", 		gfn_nvl(obj.COL_CPTN11))
+  	      		SBUxMethod.set("FIELD_CAPTION12", 		gfn_nvl(obj.COL_CPTN12))
+  	      		SBUxMethod.set("FIELD_CAPTION13", 		gfn_nvl(obj.COL_CPTN13))
+  	      		SBUxMethod.set("FIELD_CAPTION14", 		gfn_nvl(obj.COL_CPTN14))
+  	      		SBUxMethod.set("FIELD_CAPTION15", 		gfn_nvl(obj.COL_CPTN15))
+  	      		SBUxMethod.set("FIELD_CAPTION16", 		gfn_nvl(obj.COL_CPTN16))
+  	      		SBUxMethod.set("FIELD_CAPTION17", 		gfn_nvl(obj.COL_CPTN17))
+  	      		SBUxMethod.set("FIELD_CAPTION18", 		gfn_nvl(obj.COL_CPTN18))
+  	      		SBUxMethod.set("FIELD_CAPTION19", 		gfn_nvl(obj.COL_CPTN19))
+  	      		SBUxMethod.set("FIELD_CAPTION20", 		gfn_nvl(obj.COL_CPTN20))
+  	      		SBUxMethod.set("DESCR", 				gfn_nvl(obj.DSCTN));
+  	      		SBUxMethod.set("USE_YN", 				gfn_nvl(obj.USE_YN));
+
+				let field_data = await fn_fieldCaption(obj);				
+				jsonCMNSCDSubList = [];
+				cv_4.forEach((item, index) => {
+					const msg = {
+						SUB_CODE		: item.SBSD_CD,
+						CODE_NAME		: item.CD_NM,
+						SYSTEM_YN		: item.SYS_YN,
+						DESCR			: item.DSCTN,
+						EXTRA_FIELD1	: item.EXTRA_COL1,
+						EXTRA_FIELD2	: item.EXTRA_COL2,
+						EXTRA_FIELD3	: item.EXTRA_COL3,
+						EXTRA_FIELD4	: item.EXTRA_COL4,
+						EXTRA_FIELD5	: item.EXTRA_COL5,
+						EXTRA_FIELD6	: item.EXTRA_COL6,
+						EXTRA_FIELD7	: item.EXTRA_COL7,
+						EXTRA_FIELD8	: item.EXTRA_COL8,
+						EXTRA_FIELD9	: item.EXTRA_COL9,
+						EXTRA_FIELD10	: item.EXTRA_COL10,
+						EXTRA_FIELD11	: item.EXTRA_COL11,
+						EXTRA_FIELD12	: item.EXTRA_COL12,
+						EXTRA_FIELD13	: item.EXTRA_COL13,
+						EXTRA_FIELD14	: item.EXTRA_COL14,
+						EXTRA_FIELD15	: item.EXTRA_COL15,
+						EXTRA_FIELD16	: item.EXTRA_COL16,
+						EXTRA_FIELD17	: item.EXTRA_COL17,
+						EXTRA_FIELD18	: item.EXTRA_COL18,
+						EXTRA_FIELD19	: item.EXTRA_COL19,
+						EXTRA_FIELD20	: item.EXTRA_COL20,
+						SORT_SEQ		: item.SORT_SEQ,
+						USE_YN			: item.USE_YN,
+						GROUP_CODE		: item.GRP_CD,
+						CLIENT_CODE		: item.CLNT_CD,
+						COMP_CODE		: item.CO_CD
+					}
+					jsonCMNSCDSubList.push(msg);
+				});
+				fn_drawCMNSCDSubGrid(mode, field_data, jsonCMNSCDSubList, copy);
   	      		
         	} else {
           		alert(data.resultMessage);
@@ -742,27 +780,27 @@
     }
 	
     //세부코드 정보
-    const fn_drawCMNSCDSubGrid = async function(mode, cv_3, cv_4) {
-		let FIELD_CAPTION1    	= gfn_nvl(cv_3.FIELD_CAPTION1)  == "" ? "여유필드1"  : cv_3.FIELD_CAPTION1;
-		let FIELD_CAPTION2	    = gfn_nvl(cv_3.FIELD_CAPTION2)  == "" ? "여유필드2"  : cv_3.FIELD_CAPTION2;
-		let FIELD_CAPTION3	    = gfn_nvl(cv_3.FIELD_CAPTION3)  == "" ? "여유필드3"  : cv_3.FIELD_CAPTION3;
-		let FIELD_CAPTION4	    = gfn_nvl(cv_3.FIELD_CAPTION4)  == "" ? "여유필드4"  : cv_3.FIELD_CAPTION4;
-		let FIELD_CAPTION5	    = gfn_nvl(cv_3.FIELD_CAPTION5)  == "" ? "여유필드5"  : cv_3.FIELD_CAPTION5;
-		let FIELD_CAPTION6	    = gfn_nvl(cv_3.FIELD_CAPTION6)  == "" ? "여유필드6"  : cv_3.FIELD_CAPTION6;
-		let FIELD_CAPTION7	    = gfn_nvl(cv_3.FIELD_CAPTION7)  == "" ? "여유필드7"  : cv_3.FIELD_CAPTION7;
-		let FIELD_CAPTION8	    = gfn_nvl(cv_3.FIELD_CAPTION8)  == "" ? "여유필드8"  : cv_3.FIELD_CAPTION8;
-		let FIELD_CAPTION9	    = gfn_nvl(cv_3.FIELD_CAPTION9)  == "" ? "여유필드9"  : cv_3.FIELD_CAPTION9;
-		let FIELD_CAPTION10	    = gfn_nvl(cv_3.FIELD_CAPTION10) == "" ? "여유필드10" : cv_3.FIELD_CAPTION10;
-		let FIELD_CAPTION11		= gfn_nvl(cv_3.FIELD_CAPTION11) == "" ? "여유필드11" : cv_3.FIELD_CAPTION11;
-		let FIELD_CAPTION12   	= gfn_nvl(cv_3.FIELD_CAPTION12) == "" ? "여유필드12" : cv_3.FIELD_CAPTION12;
-		let FIELD_CAPTION13   	= gfn_nvl(cv_3.FIELD_CAPTION13) == "" ? "여유필드13" : cv_3.FIELD_CAPTION13;
-		let FIELD_CAPTION14   	= gfn_nvl(cv_3.FIELD_CAPTION14) == "" ? "여유필드14" : cv_3.FIELD_CAPTION14;
-		let FIELD_CAPTION15   	= gfn_nvl(cv_3.FIELD_CAPTION15) == "" ? "여유필드15" : cv_3.FIELD_CAPTION15;
-		let FIELD_CAPTION16   	= gfn_nvl(cv_3.FIELD_CAPTION16) == "" ? "여유필드16" : cv_3.FIELD_CAPTION16;
-		let FIELD_CAPTION17   	= gfn_nvl(cv_3.FIELD_CAPTION17) == "" ? "여유필드17" : cv_3.FIELD_CAPTION17;
-		let FIELD_CAPTION18   	= gfn_nvl(cv_3.FIELD_CAPTION18) == "" ? "여유필드18" : cv_3.FIELD_CAPTION18;
-		let FIELD_CAPTION19   	= gfn_nvl(cv_3.FIELD_CAPTION19) == "" ? "여유필드19" : cv_3.FIELD_CAPTION19;
-		let FIELD_CAPTION20   	= gfn_nvl(cv_3.FIELD_CAPTION20) == "" ? "여유필드20" : cv_3.FIELD_CAPTION20;
+    const fn_drawCMNSCDSubGrid = async function(mode, fieldData, gridData, copy) {
+		let FIELD_CAPTION1    	= gfn_nvl(fieldData.FIELD_CAPTION1)  == "" ? "여유필드1"  : fieldData.FIELD_CAPTION1;
+		let FIELD_CAPTION2	    = gfn_nvl(fieldData.FIELD_CAPTION2)  == "" ? "여유필드2"  : fieldData.FIELD_CAPTION2;
+		let FIELD_CAPTION3	    = gfn_nvl(fieldData.FIELD_CAPTION3)  == "" ? "여유필드3"  : fieldData.FIELD_CAPTION3;
+		let FIELD_CAPTION4	    = gfn_nvl(fieldData.FIELD_CAPTION4)  == "" ? "여유필드4"  : fieldData.FIELD_CAPTION4;
+		let FIELD_CAPTION5	    = gfn_nvl(fieldData.FIELD_CAPTION5)  == "" ? "여유필드5"  : fieldData.FIELD_CAPTION5;
+		let FIELD_CAPTION6	    = gfn_nvl(fieldData.FIELD_CAPTION6)  == "" ? "여유필드6"  : fieldData.FIELD_CAPTION6;
+		let FIELD_CAPTION7	    = gfn_nvl(fieldData.FIELD_CAPTION7)  == "" ? "여유필드7"  : fieldData.FIELD_CAPTION7;
+		let FIELD_CAPTION8	    = gfn_nvl(fieldData.FIELD_CAPTION8)  == "" ? "여유필드8"  : fieldData.FIELD_CAPTION8;
+		let FIELD_CAPTION9	    = gfn_nvl(fieldData.FIELD_CAPTION9)  == "" ? "여유필드9"  : fieldData.FIELD_CAPTION9;
+		let FIELD_CAPTION10	    = gfn_nvl(fieldData.FIELD_CAPTION10) == "" ? "여유필드10" : fieldData.FIELD_CAPTION10;
+		let FIELD_CAPTION11		= gfn_nvl(fieldData.FIELD_CAPTION11) == "" ? "여유필드11" : fieldData.FIELD_CAPTION11;
+		let FIELD_CAPTION12   	= gfn_nvl(fieldData.FIELD_CAPTION12) == "" ? "여유필드12" : fieldData.FIELD_CAPTION12;
+		let FIELD_CAPTION13   	= gfn_nvl(fieldData.FIELD_CAPTION13) == "" ? "여유필드13" : fieldData.FIELD_CAPTION13;
+		let FIELD_CAPTION14   	= gfn_nvl(fieldData.FIELD_CAPTION14) == "" ? "여유필드14" : fieldData.FIELD_CAPTION14;
+		let FIELD_CAPTION15   	= gfn_nvl(fieldData.FIELD_CAPTION15) == "" ? "여유필드15" : fieldData.FIELD_CAPTION15;
+		let FIELD_CAPTION16   	= gfn_nvl(fieldData.FIELD_CAPTION16) == "" ? "여유필드16" : fieldData.FIELD_CAPTION16;
+		let FIELD_CAPTION17   	= gfn_nvl(fieldData.FIELD_CAPTION17) == "" ? "여유필드17" : fieldData.FIELD_CAPTION17;
+		let FIELD_CAPTION18   	= gfn_nvl(fieldData.FIELD_CAPTION18) == "" ? "여유필드18" : fieldData.FIELD_CAPTION18;
+		let FIELD_CAPTION19   	= gfn_nvl(fieldData.FIELD_CAPTION19) == "" ? "여유필드19" : fieldData.FIELD_CAPTION19;
+		let FIELD_CAPTION20   	= gfn_nvl(fieldData.FIELD_CAPTION20) == "" ? "여유필드20" : fieldData.FIELD_CAPTION20;
 		
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
@@ -771,17 +809,18 @@
         SBSubGridProperties.jsonref 			= 'jsonCMNSCDSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBSubGridProperties.selectmode 			= mode;
+		SBSubGridProperties.allowcopy 			= copy;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
         SBSubGridProperties.rowheadercaption 	= {seq: 'No'};
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],			ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true} },
-            {caption: ["코드명"],				ref: 'CODE_NAME',    	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
-            {caption: ['시스템코드'],     	ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
-            {caption: ["정렬순서"],			ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
-            {caption: ['사용여부'],    	 	ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ["코드명"],					ref: 'CODE_NAME',   	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ['시스템코드'],     		ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
+            {caption: ['사용여부'],    	 		ref: 'USE_YN',			type :'checkbox' ,	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: [FIELD_CAPTION1],			ref: 'EXTRA_FIELD1',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION2],			ref: 'EXTRA_FIELD2',    type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: [FIELD_CAPTION3],			ref: 'EXTRA_FIELD3',    type:'input',  	width:'100px',  	style:'text-align:left'},
@@ -808,7 +847,7 @@
         jsonCMNSCDSubList = [];
         CMNSCDSubGrid = _SBGrid.create(SBSubGridProperties);
         
-      	cv_4.forEach((item, index) => {
+		gridData.forEach((item, index) => {
 			const msg = {
 					SUB_CODE		: item.SUB_CODE,
 					CODE_NAME		: item.CODE_NAME,
@@ -1070,10 +1109,6 @@
         }
     }
     const fn_saveSubGrid = async function(){
-    	
-    	if(!gfnma_gridValidateCheck()){
-    		return;
-    	}
 
 		//세부코드 정보  저장
 		let GROUP_CODE 			= gfn_nvl(SBUxMethod.get("GROUP_CODE"));
@@ -1157,7 +1192,7 @@
 
     // 행 추가
     const fn_addRow = function () {
-    	CMNSCDSubGrid.addRow(true, {SYSTEM_YN : "N", USE_YN:"Y"}, true);
+   		CMNSCDSubGrid.addRow(true, {SYSTEM_YN : "N", USE_YN:"Y"}, true);
     }
 
     // 행 삭제
@@ -1231,7 +1266,7 @@
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		// 행삭제
-            CMNSCDSubGrid.deleteRow(rowVal);
+            	CMNSCDSubGrid.deleteRow(rowVal);
         		gfn_comAlert('I0001');
         	} else {
           		alert(data.resultMessage);
@@ -1248,29 +1283,55 @@
     
     
      /*필드캡션 데이터*/
-    const fn_fieldCaption = async function (){
-    	let field_data = {
-    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
-    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
-    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
-    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
-    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
-    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
-    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
-    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
-    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
-    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10")),
-    	    	FIELD_CAPTION11 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION11")),
-    	    	FIELD_CAPTION12 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION12")),
-    	    	FIELD_CAPTION13 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION13")),
-    	    	FIELD_CAPTION14 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION14")),
-    	    	FIELD_CAPTION15 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION15")),
-    	    	FIELD_CAPTION16 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION16")),
-    	    	FIELD_CAPTION17 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION17")),
-    	    	FIELD_CAPTION18 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION18")),
-    	    	FIELD_CAPTION19 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION19")),
-    	    	FIELD_CAPTION20 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION20"))
-    	};
+    const fn_fieldCaption = async function (data){
+    	let field_data  = {};
+    	if(_.isEmpty(data)){
+	    	field_data = {
+	    	    	FIELD_CAPTION1 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION1")),
+	    	    	FIELD_CAPTION2 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION2")),
+	    	    	FIELD_CAPTION3 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION3")),
+	    	    	FIELD_CAPTION4 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION4")),
+	    	    	FIELD_CAPTION5 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION5")),
+	    	    	FIELD_CAPTION6 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION6")),
+	    	    	FIELD_CAPTION7 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION7")),
+	    	    	FIELD_CAPTION8 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION8")),
+	    	    	FIELD_CAPTION9 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION9")),
+	    	    	FIELD_CAPTION10 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION10")),
+	    	    	FIELD_CAPTION11 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION11")),
+	    	    	FIELD_CAPTION12 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION12")),
+	    	    	FIELD_CAPTION13 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION13")),
+	    	    	FIELD_CAPTION14 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION14")),
+	    	    	FIELD_CAPTION15 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION15")),
+	    	    	FIELD_CAPTION16 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION16")),
+	    	    	FIELD_CAPTION17 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION17")),
+	    	    	FIELD_CAPTION18 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION18")),
+	    	    	FIELD_CAPTION19 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION19")),
+	    	    	FIELD_CAPTION20 : gfn_nvl(SBUxMethod.get("FIELD_CAPTION20"))
+	    	};
+    	}else{
+    		field_data = {
+					FIELD_CAPTION1 :  gfn_nvl(data.COL_CPTN1),
+					FIELD_CAPTION2 :  gfn_nvl(data.COL_CPTN2),
+					FIELD_CAPTION3 :  gfn_nvl(data.COL_CPTN3),
+					FIELD_CAPTION4 :  gfn_nvl(data.COL_CPTN4),
+					FIELD_CAPTION5 :  gfn_nvl(data.COL_CPTN5),
+					FIELD_CAPTION6 :  gfn_nvl(data.COL_CPTN6),
+					FIELD_CAPTION7 :  gfn_nvl(data.COL_CPTN7),
+					FIELD_CAPTION8 :  gfn_nvl(data.COL_CPTN8),
+					FIELD_CAPTION9 :  gfn_nvl(data.COL_CPTN9),
+					FIELD_CAPTION10 : gfn_nvl(data.COL_CPTN10),
+					FIELD_CAPTION11 : gfn_nvl(data.COL_CPTN11),
+					FIELD_CAPTION12 : gfn_nvl(data.COL_CPTN12),
+					FIELD_CAPTION13 : gfn_nvl(data.COL_CPTN13),
+					FIELD_CAPTION14 : gfn_nvl(data.COL_CPTN14),
+					FIELD_CAPTION15 : gfn_nvl(data.COL_CPTN15),
+					FIELD_CAPTION16 : gfn_nvl(data.COL_CPTN16),
+					FIELD_CAPTION17 : gfn_nvl(data.COL_CPTN17),
+					FIELD_CAPTION18 : gfn_nvl(data.COL_CPTN18),
+					FIELD_CAPTION19 : gfn_nvl(data.COL_CPTN19),
+					FIELD_CAPTION20 : gfn_nvl(data.COL_CPTN20)
+				};
+    	}
     	return field_data;
     }
      
@@ -1283,8 +1344,9 @@
         let gridData = CMNSCDSubGrid.getGridDataAll();
 		jsonCMNSCDSubList = [];
         mode = 'byrow'; //그리드 프로퍼티스 라인모드
+		copy = false;
          let fieldData = await fn_fieldCaption(); 
-         fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
+         fn_drawCMNSCDSubGrid(mode, fieldData, gridData, copy);
     }
     /*행 복사 (행복사모드)*/
     const fn_gridCopyLine = async function () { 
@@ -1296,8 +1358,8 @@
         let fieldData = await fn_fieldCaption(); 
 		
         mode = 'byrows'; //그리드 프로퍼티스 셀모드
-		
-        fn_drawCMNSCDSubGrid(mode, fieldData, gridData);
+		copy = true;
+        fn_drawCMNSCDSubGrid(mode, fieldData, gridData, copy);
     }
     /*셀 복사 (셀복사모드)*/
     const fn_gridCopyCell = async function () { 
@@ -1310,8 +1372,8 @@
         let fieldData = await fn_fieldCaption(); 
 		
         mode = 'free'; //그리드 프로퍼티스 클리어모드
-		
-    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData);
+		copy = true;
+    	fn_drawCMNSCDSubGrid(mode,fieldData, gridData, copy);
     }
      
     //그룹코드 내역 보기

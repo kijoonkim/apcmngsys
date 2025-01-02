@@ -54,7 +54,7 @@ public class ApcMaHra5200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5200_2022_Q");
+            param.put("procedure", "SP_HRA5200_2022_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			//self url 편집

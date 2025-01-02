@@ -826,7 +826,7 @@
 	       	getType				: 'json',
 	       	workType			: workType,
 	       	cv_count			: '0',
-	       	params				: gfnma_objectToString(saveParamObj)
+	       	params				: gfnma_objectToString(saveParamObj, true)
  		});    	 
          const saveData = await postJsonPromise;
          try {
@@ -971,7 +971,7 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll("-", "")
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
    				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
    				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -1004,7 +1004,7 @@
 	       	getType				: 'json',
 	       	workType			: workType,
 	       	cv_count			: '0',
-	       	params				: gfnma_objectToString(saveParamObj)
+	       	params				: gfnma_objectToString(saveParamObj, true)
  		});    	 
          const saveData = await postJsonPromise;
          try {
@@ -1047,7 +1047,7 @@
    				,V_P_LANG_ID           : ''
    				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
    				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
+   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll("-", "")
    				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
    				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
    				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -1080,7 +1080,7 @@
 	       	getType				: 'json',
 	       	workType			: workType,
 	       	cv_count			: '0',
-	       	params				: gfnma_objectToString(saveParamObj)
+	       	params				: gfnma_objectToString(saveParamObj, true)
  		});    	 
          const saveData = await postJsonPromise;
          try {
@@ -1150,17 +1150,17 @@
 	    		masterGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				PERIOD_CODE					: item.PERIOD_CODE.replace(/(\d{4})(\d{2})/, "$1-$2"),
-		    				PERIOD_NAME					: item.PERIOD_NAME,
-		    				FISCAL_NO					: item.FISCAL_NO,
-		    				PERIOD_STATUS				: item.PERIOD_STATUS,
-		    				DESCRIPTION					: item.DESCRIPTION,
-		    				PERIOD_YYYY					: item.PERIOD_YYYY,
-		    				PERIOD_QUARTER				: item.PERIOD_QUARTER,
+		    				PERIOD_CODE					: item.PRD_CD.replace(/(\d{4})(\d{2})/, "$1-$2"),
+		    				PERIOD_NAME					: item.PRD_NM,
+		    				FISCAL_NO					: item.FYR_NO,
+		    				PERIOD_STATUS				: item.PRD_STTS,
+		    				DESCRIPTION					: item.DSCTN,
+		    				PERIOD_YYYY					: item.PRD_YR,
+		    				PERIOD_QUARTER				: item.PRD_QY,
 		    				SORT_SEQ					: item.SORT_SEQ,
-		    				START_DATE					: item.START_DATE,
-		    				END_DATE					: item.END_DATE,
-		    				PERIOD_NAME_CHN				: item.PERIOD_NAME_CHN,
+		    				START_DATE					: item.BGNG_YMD,
+		    				END_DATE					: item.END_DT,
+		    				PERIOD_NAME_CHN				: item.PRD_NM_CHN,
 		    				WORK_CLOSE_CNT				: item.WORK_CLOSE_CNT,
 		    				WORK_CLOSE_STATUS			: item.WORK_CLOSE_STATUS,
 		    				CONTRACT_CLOSE_CNT			: item.CONTRACT_CLOSE_CNT,
@@ -1178,15 +1178,15 @@
                		masterGrid.clickRow(2);
                 }
                 
-	    		} else {
-	    	  		alert(data.resultMessage);
-	    		}
+    		} else {
+    	  		alert(data.resultMessage);
+    		}
 
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     	        
@@ -1207,19 +1207,19 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'FISCAL_NO'
+				,colValue		: 'FYR_NO'
 				,colLabel		: 'FISCAL_PERIOD'
 				,columns		:[
-		            {caption: "회기",		ref: 'FISCAL_NO', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "회기",		ref: 'FYR_NO', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "회기기간", 	ref: 'FISCAL_PERIOD',  	width:'250px',  	style:'text-align:left'},
 		            {caption: "종료년월",		ref: 'YYYYMM_TO',    	width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			
 			//기초정보 - 회기
-            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', ''),
+            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FYR_NO', 'FISCAL_PERIOD', 'Y', ''),
 			//기초정보 - 분기
-            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	
 		]);
 	}
@@ -1260,7 +1260,7 @@
 	   				,V_P_LANG_ID           : ''
 	   				,V_P_COMP_CODE         : gv_ma_selectedCorpCd
 	   				,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
-	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll('-', '')
+	   				,V_P_PERIOD_CODE       : gfn_nvl(SBUxMethod.get("PERIOD_CODE1")).replaceAll("-", "")
 	   				,V_P_PERIOD_NAME       : gfn_nvl(SBUxMethod.get("PERIOD_NAME1"))
 	   				,V_P_PERIOD_NAME_CHN   : gfn_nvl(SBUxMethod.get("PERIOD_NAME_CHN"))
 	   				,V_P_FISCAL_NO         : gfn_nvl(SBUxMethod.get("FISCAL_NO1"))
@@ -1376,36 +1376,33 @@
 				SBUxMethod.set("START_DATE", 		rowData.START_DATE);
 				SBUxMethod.set("END_DATE", 			rowData.END_DATE);
 				SBUxMethod.set("DESCRIPTION", 		rowData.DESCRIPTION);
-	            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FISCAL_NO', 'FISCAL_PERIOD', 'Y', rowData.FISCAL_NO);
-	            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', rowData.PERIOD_QUARTER);
+	            gfnma_setComSelect(['FISCAL_NO1'], jsonFiscalNo1, 'L_FIG007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FYR_NO', 'FISCAL_PERIOD', 'Y', rowData.FISCAL_NO);
+	            gfnma_setComSelect(['PERIOD_QUARTER'], jsonPeriodQuarter, 'L_COM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', rowData.PERIOD_QUARTER);
 
 				for(var i = 0; subData.cv_2.length > i; i++){
 					
 					var strbtntxt 	= '';
 					var strbtntxt1 	= '';
-					var strsubmodule = subData.cv_2[i].SUB_MODULE;
+					var strsubmodule = subData.cv_2[i].SBSD_MDUL;
 					
 					strbtntxt = subData.cv_2[i].SUB_MODULE_NAME;
 					strbtntxt += "\n";
 					
 					if(subData.cv_2[i].SCM_YN =='Y'){
-						
 						strbtntxt += "FCM : " + gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS);
 						strbtntxt += "\n";
-						strbtntxt += "SCM : " + gfn_nvl(subData.cv_2[i].PERIOD_STATUS);
+						strbtntxt += "SCM : " + gfn_nvl(subData.cv_2[i].PRD_STTS);
 					}else{
 						strbtntxt1 += strbtntxt;
-						strbtntxt1 += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_CLOSE_DATE_FIELD);;
+						strbtntxt1 += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_DDLN_DT_DEPT);;
 						strbtntxt1 += "\n";
-						strbtntxt1 += gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD);;
-						strbtntxt += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_CLOSE_DATE);
+						strbtntxt1 += gfn_nvl(subData.cv_2[i].PRD_STTS_DEPT);;
+						strbtntxt += "Due : " + gfn_nvl(subData.cv_2[i].PLAN_DDLN_DT);
 						strbtntxt += "\n";
-						strbtntxt += gfn_nvl(subData.cv_2[i].PERIOD_STATUS);
-						
+						strbtntxt += gfn_nvl(subData.cv_2[i].PRD_STTS);
 					}
 					
 					if(subData.cv_2[i].SCM_YN =='Y'){
-						
 						if(gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'CLOSE'){
 							$('#' + strsubmodule).css('color','red')
 						}else if(gfn_nvl(subData.cv_2[i].F_PERIOD_STATUS) == 'FUTURE'){
@@ -1413,32 +1410,31 @@
 						}else{
 							$('#' + strsubmodule).css('color','blue')
 						}
-						
 					}else{
-						if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS) == 'CLOSE'){
+						if(gfn_nvl(subData.cv_2[i].PRD_STTS) == 'CLOSE'){
 							$('#' + strsubmodule).css('color','red')
-						}else if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS) == 'FUTURE'){
+						}else if(gfn_nvl(subData.cv_2[i].PRD_STTS) == 'FUTURE'){
 							$('#' + strsubmodule).css('color','green')
 						}else{
 							$('#' + strsubmodule).css('color','blue')
 						}
                         if (strsubmodule == "AR" || 
-                        		strsubmodule == "AP" || 
-                        		strsubmodule == "TR" || 
-                        		strsubmodule == "FA" || 
-                        		strsubmodule == "BG" || 
+                        		strsubmodule == "AP" ||
+                        		strsubmodule == "TR" ||
+                        		strsubmodule == "FA" ||
+                        		strsubmodule == "BG" ||
                         		strsubmodule == "GL"
                         	){
-    						if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'CLOSE'){
+    						if(gfn_nvl(subData.cv_2[i].PRD_STTS_DEPT) == 'CLOSE'){
     							$('#WORK' + strsubmodule).css('color','red')
-    						}else if(gfn_nvl(subData.cv_2[i].PERIOD_STATUS_FIELD) == 'FUTURE'){
+    						}else if(gfn_nvl(subData.cv_2[i].PRD_STTS_DEPT) == 'FUTURE'){
     							$('#WORK' + strsubmodule).css('color','green')
     						}else{
     							$('#WORK' + strsubmodule).css('color','blue')
     						}
-    						if(gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD) != ''){
+    						if(gfn_nvl(subData.cv_2[i].DDLN_YMD2) != ''){
                                 strbtntxt1 += "\n";
-                                strbtntxt1 += gfn_nvl(subData.cv_2[i].CLOSE_DATE_FIELD);
+                                strbtntxt1 += gfn_nvl(subData.cv_2[i].DDLN_YMD2);
     						}
     						//초기화
     						$('#WORK' + strsubmodule).html("");
@@ -1448,9 +1444,9 @@
     						$('#WORK' + strsubmodule).html(strbtntxt1);
                         }
 					}
-					if(gfn_nvl(subData.cv_2[i].CLOSE_DATE) != ''){
+					if(gfn_nvl(subData.cv_2[i].DDLN_YMD) != ''){
 						strbtntxt += "\n";
-						strbtntxt += gfn_nvl(subData.cv_2[i].CLOSE_DATE);
+						strbtntxt += gfn_nvl(subData.cv_2[i].DDLN_YMD);
 					}
 					//초기화
 					$('#' + strsubmodule).html("");

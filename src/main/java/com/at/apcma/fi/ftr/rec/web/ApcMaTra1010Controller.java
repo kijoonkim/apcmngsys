@@ -55,7 +55,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRA1010_Q");
+            param.put("procedure", 		"SP_TRA1010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRA1010_S");
+            param.put("procedure", 		"SP_TRA1010_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRA1010_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_TRA1010_S");
 
             logger.info("=============insertTra1010SList=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -136,7 +136,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRA1010_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_TRA1010_S1");
 
             logger.info("=============insertTra1010S1List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -157,7 +157,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRA1010_S2");
+            param.put("procedure", 		"SP_TRA1010_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +191,7 @@ public class ApcMaTra1010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRA1010_S3");
+            param.put("procedure", 		"SP_TRA1010_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

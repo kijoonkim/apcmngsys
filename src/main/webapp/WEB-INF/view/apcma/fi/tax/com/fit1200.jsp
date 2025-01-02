@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -50,19 +50,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -126,7 +126,7 @@
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-select id="reg-slt-taxSiteType" uitype="single" jsondata-ref="jsonTaxSiteType"
                                              unselected-text="선택" class="form-control input-sm"
-                                             jsondata-text="CODE_NAME" jsondata-value="SUB_CODE"></sbux-select>
+                                             jsondata-text="CD_NM" jsondata-value="SBSD_CD"></sbux-select>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">사업장 코드</th>
@@ -191,7 +191,7 @@
                 </div>
             </div>
             <!-- content_body end -->
-
+ 
         </div>
     </div>
 </section>
@@ -212,18 +212,18 @@
     //----------------------------------------------------------
     var jsonCorpNm;
     var jsonTaxSiteType;
-
+ 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
     });
     const fn_init = async function(){
         /** 사업장 구분 **/
-        let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+        let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         jsonTaxSiteType = data.cv_1;
         SBUxMethod.refresh('reg-slt-taxSiteType');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
-
+ 
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy',yyyy);
@@ -236,21 +236,21 @@
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
+            ,whereClause	: 'AND A.YR = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
@@ -264,7 +264,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -275,12 +275,12 @@
     function cfn_search(){
         fn_search();
     }
-
+ 
     /** 공통버튼 저장 **/
     function cfn_save(){
         fn_save();
     }
-
+ 
     /** 공통버튼 초기화 **/
     function cfn_init(){
         fn_reset();
@@ -293,10 +293,10 @@
         for (const item of elements) {
             await SBUxMethod.set(item.id,'');
         }
-
+ 
        let V_P_YYYY = gfnma_nvl(SBUxMethod.get("srch-dtp-yyyy"));
        let V_P_SEQ = gfnma_multiSelectGet("#src-btn-currencyCode");
-
+ 
        if(gfn_isEmpty(V_P_YYYY)){
            gfn_comAlert("W0005","기준연도");
            return;
@@ -318,7 +318,7 @@
            ,V_P_USERID              :   ""
            ,V_P_PC                  :   ""
        }
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/selectFit1200.do", {
             getType				: 'json',
             workType			: 'DETAIL',
@@ -326,7 +326,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 let table = document.getElementById('regTable');
@@ -355,7 +355,7 @@
        if(!gfn_comConfirm("Q0001","저장")){
            return;
        }
-
+ 
        var paramObj = {
             V_P_DEBUG_MODE_YN              : ''
            ,V_P_LANG_ID                    : ''
@@ -379,7 +379,7 @@
            ,V_P_PC				           : ''
        }
        let postFlag = gfnma_getTableElement("regTable","reg-",paramObj,"V_P_",[]);
-
+ 
        if(!postFlag){
            return;
        }
@@ -388,7 +388,7 @@
        paramObj.V_P_SEQ = seq;
        let yyyy = SBUxMethod.get("srch-dtp-yyyy");
        paramObj.V_P_YYYY = yyyy;
-
+ 
        const postJsonPromise = gfn_postJSON("/fi/tax/insertFit1200.do",{
            getType				: 'json',
            cv_count			    : '0',
@@ -400,8 +400,8 @@
            gfn_comAlert("Q0000",data.resultMessage);
            await fn_search();
        }
-
-
+ 
+ 
     }
     const fn_openPopup = function(){
         SBUxMethod.openModal('wholePaySitePopup');
@@ -412,10 +412,10 @@
         let rowData = grdTaxSite.getRowData(gridIdx);
         let _siteCode = rowData.TAX_SITE_CODE;
         let _orgsiteName = rowData.TAX_SITE_NAME;
-
+ 
         SBUxMethod.set("reg-slt-wholePaySiteCode",_siteCode);
         SBUxMethod.set("reg-slt-taxSiteName",_orgsiteName);
-
+ 
         SBUxMethod.closeModal('wholePaySitePopup');
     }
     const fn_reset = async function(){

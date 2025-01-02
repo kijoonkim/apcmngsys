@@ -56,7 +56,7 @@ public class ApcMaFim3100Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIM3100_Q");
+            param.put("procedure", 		"SP_FIM3100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaFim3100Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIM3100_S2");
+    		param.put("procedure", 		"SP_FIM3100_S2");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -106,7 +106,7 @@ public class ApcMaFim3100Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIM3100_S");
+    		param.put("procedure", 		"SP_FIM3100_S");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -131,7 +131,7 @@ public class ApcMaFim3100Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIM3100_S");
+    		param.put("procedure", 		"SP_FIM3100_S");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {

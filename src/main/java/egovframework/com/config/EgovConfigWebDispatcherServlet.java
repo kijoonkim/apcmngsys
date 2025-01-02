@@ -85,6 +85,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/actionSSOLoginApcInsReq.do",
 				"/actionLogout.do",
 				"/login.do",
+				"/viewReport.do/**",
 				"/saveExcel.do",
 				"/am/spmt/getSpmtDoc.do",
 				"/fm/popup/jusoPopup.do",

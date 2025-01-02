@@ -78,7 +78,7 @@
 					</table>
 				</div>
 			</div>
-
+ 
 			<div class="box-body" style="padding-top: 0px">
 				<div class="card" style="display:flex;">
 				
@@ -193,13 +193,13 @@
 	</section>
 </body>
 <script>
-
+ 
 var _compopappvmng_treeGrid; 					// 트리그리드를 담기위한 객체 선언
 var _compopappvmng_jsonTreeList		= []; 		// 트리그리드의 참조 데이터 주소 선언
 var _compopappvmng_treeGridSelRow	= null;		// 트리그리드를 선택한 행
-
+ 
 var _compopappvmng_jsonApprCategory	= [];		// 결재구분
-
+ 
 var _compopappvmng_fnTreeView = function(){
 	var nCol = _compopappvmng_treeGrid.getCol();
     //특정 열 부터 이벤트 적용
@@ -210,11 +210,11 @@ var _compopappvmng_fnTreeView = function(){
 	if (nRow < 1) {
         return;
 	}
-
+ 
 	_compopappvmng_treeGridSelRow = _compopappvmng_treeGrid.getRowData(nRow);	
 	console.log('treeGrid rowData:', _compopappvmng_treeGridSelRow);
 }
-
+ 
 function compopappvmng(options) {
 	
 	//id 선언
@@ -254,7 +254,7 @@ function compopappvmng(options) {
 	const fn_initPopAppvMng = async function() {
 		let rst = await Promise.all([
             // 결재구분
-            gfnma_setComSelect([''], _compopappvmng_jsonApprCategory, 'L_FIM065', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], _compopappvmng_jsonApprCategory, 'L_FIM065', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}
 	
@@ -360,7 +360,7 @@ function compopappvmng(options) {
     //fn_createTreeGrid();
     
     var fn_treeSearch = async function() {
-
+ 
     	var paramObj = {
 			 V_P_DEBUG_MODE_YN       : ''
 			,V_P_LANG_ID             : ''
@@ -399,7 +399,7 @@ function compopappvmng(options) {
 		});
     	const data = await postJsonPromise;
     	console.log('popup appr tree data:', data);
-
+ 
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	
@@ -410,13 +410,13 @@ function compopappvmng(options) {
 		    		const msg = {
 		    				LEVEL				: item.LV,
 		    				TYPE				: item.TYPE,
-		    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
-		    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
-		    				DEPT_NAME1			: gfnma_nvl(item.DEPT_NAME1),
-		    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
-		    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
-		    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
-		    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
+		    				DEPT_NAME			: gfnma_nvl(item.DEPT_NM),
+		    				DEPT_CODE			: gfnma_nvl(item.DEPT_CD),
+		    				DEPT_NAME1			: gfnma_nvl(item.DEPT_NM1),
+		    				DUTY_CODE			: gfnma_nvl(item.JBTTL_CD),
+		    				DUTY_NAME			: gfnma_nvl(item.JBTTL_NM),
+		    				EMP_CODE			: gfnma_nvl(item.EMP_CD),
+		    				EMP_NAME			: gfnma_nvl(item.EMP_NM),
 		    		}
 		    		_compopappvmng_jsonTreeList.push(msg);
 		    		totalRecordCount ++;
@@ -427,7 +427,7 @@ function compopappvmng(options) {
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
-
+ 
     	} catch (e) {
     	if (!(e instanceof Error)) {
     		e = new Error(e);
@@ -601,7 +601,7 @@ function compopappvmng(options) {
 	
 	//결재경로 가져오기
     var fn_basicSearch = async function(callbackFn) {
-
+ 
 		var wType = '';
 		if(settings.apprId == '' || settings.apprId == '0'){
 			wType = 'TEMPLATE';
@@ -649,7 +649,7 @@ function compopappvmng(options) {
     	const data = await postJsonPromise;
     	console.log('popup appr basic data:', data);
     	console.log('settings.workType:', settings.workType);
-
+ 
     	var dlist = [];
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
@@ -660,33 +660,33 @@ function compopappvmng(options) {
 	    		if(settings.workType=='TEMPLATE'){
 		    	   	data.cv_3.forEach((item, index) => {
 			    		const msg = {
-			    				APPR_CATEGORY		: gfnma_nvl(item.APPR_CATEGORY),
+			    				APPR_CATEGORY		: gfnma_nvl(item.APRV_CTGRY),
 			    				APPR_CATEGORY_NAME	: gfnma_nvl(item.APPR_CATEGORY_NAME),
-			    				APPR_TYPE			: gfnma_nvl(item.APPR_TYPE),
+			    				APPR_TYPE			: gfnma_nvl(item.APRV_TYPE),
 			    				APPR_TYPE_NAME		: gfnma_nvl(item.APPR_TYPE_NAME),
-			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
-			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
-			    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
-			    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
-			    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
-			    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
-			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
-			    				PROXY_EMP_CODE		: gfnma_nvl(item.PROXY_EMP_CODE),
+			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CD),
+			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NM),
+			    				DUTY_CODE			: gfnma_nvl(item.JBTTL_CD),
+			    				DUTY_NAME			: gfnma_nvl(item.JBTTL_NM),
+			    				EMP_CODE			: gfnma_nvl(item.EMP_CD),
+			    				EMP_NAME			: gfnma_nvl(item.EMP_NM),
+			    				STEP_SEQ			: gfnma_nvl(item.STP_SEQ),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLCT_EMP_CD),
 			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
-			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
+			    				APPR_STATUS			: gfnma_nvl(item.APRV_STTS),
 			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
-			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
-			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
-			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
-			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
-			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
-			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
-			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
-			    				UPDATE_TIME			: gfnma_nvl(item.UPDATE_TIME),
-			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC)
+			    				APPR_DATE			: gfnma_nvl(item.APRV_YMD),
+			    				APPR_OPINION		: gfnma_nvl(item.APRV_OPNN),
+			    				DESCRIPTION			: gfnma_nvl(item.DSCTN),
+			    				INSERT_USERID		: gfnma_nvl(item.WRT_USER_ID),
+			    				INSERT_TIME			: gfnma_nvl(item.WRT_DT),
+			    				INSERT_PC			: gfnma_nvl(item.WRT_PC),
+			    				UPDATE_USERID		: gfnma_nvl(item.UPDT_USER_ID),
+			    				UPDATE_TIME			: gfnma_nvl(item.UPDT_DT),
+			    				UPDATE_PC			: gfnma_nvl(item.UPDT_PC)
 			    		}
 			    		dlist.push(msg);
-			    		if(item.EMP_CODE == settings.empCode || item.PROXY_EMP_CODE == settings.empCode ){
+			    		if(item.EMP_CD == settings.empCode || item.DLCT_EMP_CD == settings.empCode ){
 			    			pp_sel_index = index;
 			    		}
 			    		totalRecordCount ++;
@@ -694,37 +694,37 @@ function compopappvmng(options) {
 	    		} else {
 		    	   	data.cv_2.forEach((item, index) => {
 			    		const msg = {
-			    				APPR_CATEGORY		: gfnma_nvl(item.APPR_CATEGORY),
+			    				APPR_CATEGORY		: gfnma_nvl(item.APRV_CTGRY),
 			    				APPR_CATEGORY_NAME	: gfnma_nvl(item.APPR_CATEGORY_NAME),
-			    				APPR_DATE			: gfnma_nvl(item.APPR_DATE),
-			    				APPR_ID				: gfnma_nvl(item.APPR_ID),
-			    				APPR_OPINION		: gfnma_nvl(item.APPR_OPINION),
-			    				APPR_PROCESS		: gfnma_nvl(item.APPR_PROCESS),
-			    				APPR_STATUS			: gfnma_nvl(item.APPR_STATUS),
+			    				APPR_DATE			: gfnma_nvl(item.APRV_YMD),
+			    				APPR_ID				: gfnma_nvl(item.APRV_ID),
+			    				APPR_OPINION		: gfnma_nvl(item.APRV_OPNN),
+			    				APPR_PROCESS		: gfnma_nvl(item.APRV_PRCS),
+			    				APPR_STATUS			: gfnma_nvl(item.APRV_STTS),
 			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
-			    				APPR_TYPE			: gfnma_nvl(item.APPR_TYPE),
+			    				APPR_TYPE			: gfnma_nvl(item.APRV_TYPE),
 			    				APPR_TYPE_NAME		: gfnma_nvl(item.APPR_TYPE_NAME),
-			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CODE),
-			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NAME),
-			    				DESCRIPTION			: gfnma_nvl(item.DESCRIPTION),
-			    				DUTY_CODE			: gfnma_nvl(item.DUTY_CODE),
-			    				DUTY_NAME			: gfnma_nvl(item.DUTY_NAME),
-			    				EMP_CODE			: gfnma_nvl(item.EMP_CODE),
-			    				EMP_NAME			: gfnma_nvl(item.EMP_NAME),
-			    				INSERT_PC			: gfnma_nvl(item.INSERT_PC),
-			    				INSERT_TIME			: gfnma_nvl(item.INSERT_TIME),
-			    				INSERT_USERID		: gfnma_nvl(item.INSERT_USERID),
-			    				PROXY_EMP_CODE		: gfnma_nvl(item.PROXY_EMP_CODE),
+			    				DEPT_CODE			: gfnma_nvl(item.DEPT_CD),
+			    				DEPT_NAME			: gfnma_nvl(item.DEPT_NM),
+			    				DESCRIPTION			: gfnma_nvl(item.DSCTN),
+			    				DUTY_CODE			: gfnma_nvl(item.JBTTL_CD),
+			    				DUTY_NAME			: gfnma_nvl(item.JBTTL_NM),
+			    				EMP_CODE			: gfnma_nvl(item.EMP_CD),
+			    				EMP_NAME			: gfnma_nvl(item.EMP_NM),
+			    				INSERT_PC			: gfnma_nvl(item.WRT_PC),
+			    				INSERT_TIME			: gfnma_nvl(item.WRT_DT),
+			    				INSERT_USERID		: gfnma_nvl(item.WRT_USER_ID),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLCT_EMP_CD),
 			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
-			    				SOURCE_NO			: gfnma_nvl(item.SOURCE_NO),
-			    				SOURCE_TYPE			: gfnma_nvl(item.SOURCE_TYPE),
-			    				STEP_SEQ			: gfnma_nvl(item.STEP_SEQ),
-			    				UPDATE_PC			: gfnma_nvl(item.UPDATE_PC),
-			    				UPDATE_TIME			: gfnma_nvl(item.UPDATE_TIME),
-			    				UPDATE_USERID		: gfnma_nvl(item.UPDATE_USERID),
+			    				SOURCE_NO			: gfnma_nvl(item.SRC_NO),
+			    				SOURCE_TYPE			: gfnma_nvl(item.SRC_TYPE),
+			    				STEP_SEQ			: gfnma_nvl(item.STP_SEQ),
+			    				UPDATE_PC			: gfnma_nvl(item.UPDT_PC),
+			    				UPDATE_TIME			: gfnma_nvl(item.UPDT_DT),
+			    				UPDATE_USERID		: gfnma_nvl(item.UPDT_USER_ID),
 			    		}
 			    		dlist.push(msg);
-			    		if(item.EMP_CODE == settings.empCode || item.PROXY_EMP_CODE == settings.empCode ){
+			    		if(item.EMP_CD == settings.empCode || item.DLCT_EMP_CD == settings.empCode ){
 			    			pp_sel_index = index;
 			    		}
 			    		totalRecordCount ++;
@@ -842,7 +842,7 @@ function compopappvmng(options) {
 		}else{
 			return false;
 		}		
-
+ 
 		var gubun				= "^";
 		var tmp_workType		= "";
 		
@@ -1015,7 +1015,7 @@ function compopappvmng(options) {
 		}else{
 			return false;
 		}		
-
+ 
 		var gubun				= "^";
 		var tmp_workType		= "";
 		
@@ -1190,7 +1190,7 @@ function compopappvmng(options) {
 		}else{
 			return false;
 		}			
-
+ 
 		var tmp_workType	= 'RETURN';
     	var paramObj = {
    			 V_P_DEBUG_MODE_YN       : ''
@@ -1267,7 +1267,7 @@ function compopappvmng(options) {
 		}else{
 			return false;
 		}			
-
+ 
 		var tmp_workType	= 'DELETE';
     	var paramObj = {
    			 V_P_DEBUG_MODE_YN       : ''
@@ -1387,7 +1387,7 @@ function compopappvmng(options) {
 	});		
 	
 }
-
+ 
  
 </script>
 </html>

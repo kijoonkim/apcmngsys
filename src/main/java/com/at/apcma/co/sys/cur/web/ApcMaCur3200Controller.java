@@ -53,7 +53,7 @@ public class ApcMaCur3200Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3200_Q");
+			param.put("procedure", 		"SP_COM3200_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -77,7 +77,7 @@ public class ApcMaCur3200Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3200_S");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3200_S");
 					
 			logger.info("=============insertCom3200=====end========");
 			return getSuccessResponseEntityMa(resultMap);

@@ -52,7 +52,7 @@ public class ApcMaFit3000Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT3000_Q");
+            param.put("procedure", 		"SP_FIT3000_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class ApcMaFit3000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIT3000_S");
+            param.put("procedure", 		"SP_FIT3000_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

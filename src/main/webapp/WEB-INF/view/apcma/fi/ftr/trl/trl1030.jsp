@@ -1,18 +1,18 @@
 <%
-/**
- * @Class Name 		: trl1010.jsp
- * @Description 	: 차입금상환스케줄 화면
- * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.10.17
- * @version 		: 1.0
- * @Modification Information
- * @
- * @ 수정일       	수정자      수정내용
- * @ ----------		----------	---------------------------
- * @ 2024.10.17   	장성주		최초 생성
- * @see
- *
- */
+	/**
+	 * @Class Name 		: trl1010.jsp
+	 * @Description 	: 차입금상환스케줄 화면
+	 * @author 			: 인텔릭아이앤에스
+	 * @since 			: 2024.10.17
+	 * @version 		: 1.0
+	 * @Modification Information
+	 * @
+	 * @ 수정일       	수정자      수정내용
+	 * @ ----------		----------	---------------------------
+	 * @ 2024.10.17   	장성주		최초 생성
+	 * @see
+	 *
+	 */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,231 +28,231 @@
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
-    <section>
-        <div class="box box-solid" style="border-radius:0px">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
-                <div>
-                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
-                    </h3><!-- 차입금상환스케줄 -->
-                </div>
-            </div>
-            <div class="box-body">
+<section>
+	<div class="box box-solid" style="border-radius:0px">
+		<div class="box-header" style="display:flex; justify-content: flex-start;">
+			<div>
+				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
+				</h3><!-- 차입금상환스케줄 -->
+			</div>
+		</div>
+		<div class="box-body">
 
-				<div class="box-search-ma">
-					<!--[pp] 검색 -->
-					<!--[APC] START -->
-					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-					<!--[APC] END -->
-					<table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
-						<caption>검색 조건 설정</caption>
-						<colgroup>
-							<col style="width: 8%">
-							<col style="width: 7%">
-							<col style="width: 1%">
-							<col style="width: 7%">
-							<col style="width: 2%">
+			<div class="box-search-ma">
+				<!--[pp] 검색 -->
+				<!--[APC] START -->
+				<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+				<!--[APC] END -->
+				<table id="srchArea1" class="table table-bordered tbl_fixed table-search-ma">
+					<caption>검색 조건 설정</caption>
+					<colgroup>
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-							<col style="width: 8%">
-							<col style="width: 7%">
-							<col style="width: 1%">
-							<col style="width: 7%">
-							<col style="width: 2%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-							<col style="width: 8%">
-							<col style="width: 7%">
-							<col style="width: 1%">
-							<col style="width: 7%">
-							<col style="width: 2%">
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
 
-							<col style="width: 8%">
-							<col style="width: 7%">
-							<col style="width: 1%">
-							<col style="width: 7%">
-							<col style="width: 2%">
-						</colgroup>
-						<tbody>
-						<tr>
-							<th scope="row" class="th_bg_search">조회기준일자</th>
-							<td class="td_input">
-								<sbux-datepicker
-										id="SCH_BASE_DATE"
-										uitype="popup"
-										date-format="yyyy-mm-dd"
-										class="table-datepicker-ma inpt_data_reqed">
-								</sbux-datepicker>
-							</td>
-							<td colspan="3" style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg_search">만기차입금포함여부</th>
-							<td colspan="3" class="td_input">
-								<sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn"
-											 unselected-text="선택" class="form-control input-sm"></sbux-select>
-							</td>
-							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg_search">차입금유형</th>
-							<td colspan="3" class="td_input">
-								<sbux-select id="SCH_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType"
-											 unselected-text="선택" class="form-control input-sm"></sbux-select>
-							</td>
-							<td style="border-right: hidden;"></td>
-							<th scope="row" class="th_bg_search">차입기관</th>
-							<td class="td_input" data-group="BANK_CS">
-								<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text"
-											class="form-control input-sm"></sbux-input>
-							</td>
-							<td colspan="2" class="td_input" data-group="BANK_CS">
-								<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text"
-											class="form-control input-sm"></sbux-input>
-							</td>
-							<td class="td_input" data-group="BANK_CS">
-								<sbux-button
-										class="btn btn-xs btn-outline-dark"
-										text="…"
-										uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_compopup1('1')"
-								></sbux-button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg_search">거래일자</th>
-							<td class="td_input">
-								<sbux-datepicker
-										id="SCH_BASE_DATE_FR"
-										uitype="popup"
-										date-format="yyyy-mm-dd"
-										class="table-datepicker-ma">
-								</sbux-datepicker>
-							</td>
-							<td class="td_input">
-								<span>-</span>
-							</td>
-							<td class="td_input">
-								<sbux-datepicker
-										id="SCH_BASE_DATE_TO"
-										uitype="popup"
-										date-format="yyyy-mm-dd"
-										class="table-datepicker-ma">
-								</sbux-datepicker>
-							</td>
-							<td colspan="16" style="border-right: hidden;"></td>
-						</tr>
-						</tbody>
-					</table>
+						<col style="width: 8%">
+						<col style="width: 7%">
+						<col style="width: 1%">
+						<col style="width: 7%">
+						<col style="width: 2%">
+					</colgroup>
+					<tbody>
+					<tr>
+						<th scope="row" class="th_bg_search">조회기준일자</th>
+						<td class="td_input">
+							<sbux-datepicker
+									id="SCH_BASE_DATE"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="table-datepicker-ma inpt_data_reqed">
+							</sbux-datepicker>
+						</td>
+						<td colspan="3" style="border-right: hidden;"></td>
+						<th scope="row" class="th_bg_search">만기차입금포함여부</th>
+						<td colspan="3" class="td_input">
+							<sbux-select id="SCH_ALL_YN" uitype="single" jsondata-ref="jsonAllYn"
+										 unselected-text="선택" class="form-control input-sm"></sbux-select>
+						</td>
+						<td style="border-right: hidden;"></td>
+						<th scope="row" class="th_bg_search">차입금유형</th>
+						<td colspan="3" class="td_input">
+							<sbux-select id="SCH_LOAN_TYPE" uitype="single" jsondata-ref="jsonLoanType"
+										 unselected-text="선택" class="form-control input-sm"></sbux-select>
+						</td>
+						<td style="border-right: hidden;"></td>
+						<th scope="row" class="th_bg_search">차입기관</th>
+						<td class="td_input" data-group="BANK_CS">
+							<sbux-input style="width:100%" id="SCH_BANK_CS_CODE" uitype="text"
+										class="form-control input-sm"></sbux-input>
+						</td>
+						<td colspan="2" class="td_input" data-group="BANK_CS">
+							<sbux-input style="width:100%" id="SCH_BANK_CS_NAME" uitype="text"
+										class="form-control input-sm"></sbux-input>
+						</td>
+						<td class="td_input" data-group="BANK_CS">
+							<sbux-button
+									class="btn btn-xs btn-outline-dark"
+									text="…"
+									uitype="modal"
+									target-id="modal-compopup1"
+									onclick="fn_compopup1('1')"
+							></sbux-button>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="th_bg_search">거래일자</th>
+						<td class="td_input">
+							<sbux-datepicker
+									id="SCH_BASE_DATE_FR"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="table-datepicker-ma">
+							</sbux-datepicker>
+						</td>
+						<td class="td_input">
+							<span>-</span>
+						</td>
+						<td class="td_input">
+							<sbux-datepicker
+									id="SCH_BASE_DATE_TO"
+									uitype="popup"
+									date-format="yyyy-mm-dd"
+									class="table-datepicker-ma">
+							</sbux-datepicker>
+						</td>
+						<td colspan="16" style="border-right: hidden;"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="row">
+				<div class="col-sm-6" style="width:100%">
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>차입금</span>
+								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<div id="sb_area_grid_top" style="height:200px; width:100%;"></div>
+					</div>
 				</div>
-                <div class="row">
-                    <div class="col-sm-6" style="width:100%">
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>차입금</span>
-									<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <div id="sb_area_grid_top" style="height:200px; width:100%;"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6" style="width:100%;padding-top:10px">
-					    <sbux-tabs id="idxTab_norm1" name="idxTab_norm1" uitype="normal"
-						   title-target-id-array = "SB_TOP_TAB5"
-						   title-text-array = "상환계획"
-						   title-target-value-array="5"
-		                   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>					
-						<div class="tab-content" style="height:300px;width:100%;padding-top:0px" >
-							<div id="SB_TOP_TAB5" >
-		                        <div class="ad_tbl_top">
-		                            <ul class="ad_tbl_count">
-		                                <li>
-		                                    <span>상환계획</span>
-		                                </li>
-		                            </ul>
-				                    <div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
-					                    <sbux-button uitype="normal" text="최초상환계획"  	class="btn btn-sm btn-outline-danger" onclick="fn_btnPlan"></sbux-button>
-					                    <font style="padding-right:5px"></font>
-					                    <sbux-button uitype="normal" text="재계산"  		class="btn btn-sm btn-outline-danger" onclick="fn_btnReCalc"></sbux-button>
-					                    <font style="padding-right:10px"></font>
-										<sbux-button
-												id="btnDel"
-												name="btnDel"
-												uitype="normal"
-												text="행삭제"
-												class="btn btn-sm btn-outline-danger"
-												onclick="fn_btnDel"
-												style="float: right;"
-										></sbux-button>
-										<sbux-button
-												id="btnAdd"
-												name="btnAdd"
-												uitype="normal"
-												text="행추가"
-												class="btn btn-sm btn-outline-danger"
-												onclick="fn_btnAdd"
-												style="float: right;"
-										></sbux-button>
-									</div>
-		                        </div>
-		                        <div style="width:100%;">
-		                            <div id="sb_area_grid_tap5" style="height:240px; width:100%;"></div>
-		                        </div>							
+				<div class="col-sm-6" style="width:100%;padding-top:10px">
+					<sbux-tabs id="idxTab_norm1" name="idxTab_norm1" uitype="normal"
+							   title-target-id-array = "SB_TOP_TAB5"
+							   title-text-array = "상환계획"
+							   title-target-value-array="5"
+							   onclick="fn_tabClick(idxTab_norm1)"></sbux-tabs>
+					<div class="tab-content" style="height:300px;width:100%;padding-top:0px" >
+						<div id="SB_TOP_TAB5" >
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li>
+										<span>상환계획</span>
+									</li>
+								</ul>
+								<div style="display:flex;vertical-align:middle;float:right;padding-top:10px;margin-right:auto">
+									<sbux-button uitype="normal" text="최초상환계획"  	class="btn btn-sm btn-outline-danger" onclick="fn_btnPlan"></sbux-button>
+									<font style="padding-right:5px"></font>
+									<sbux-button uitype="normal" text="재계산"  		class="btn btn-sm btn-outline-danger" onclick="fn_btnReCalc"></sbux-button>
+									<font style="padding-right:10px"></font>
+									<sbux-button
+											id="btnDel"
+											name="btnDel"
+											uitype="normal"
+											text="행삭제"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_btnDel"
+											style="float: right;"
+									></sbux-button>
+									<sbux-button
+											id="btnAdd"
+											name="btnAdd"
+											uitype="normal"
+											text="행추가"
+											class="btn btn-sm btn-outline-danger"
+											onclick="fn_btnAdd"
+											style="float: right;"
+									></sbux-button>
+								</div>
+							</div>
+							<div style="width:100%;">
+								<div id="sb_area_grid_tap5" style="height:240px; width:100%;"></div>
 							</div>
 						</div>
 					</div>
-        		</div>
-        	</div>	
-        </div>
-    </section>
-	<!-- 팝업 Modal -->
-	<div>
-		<sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div id="body-modal-compopup1">
-		<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-	</div>
-    
-	<!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
-    </div>
-    <div id="body-modal-compopup3">
-    	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
-    </div>
-    
+</section>
+<!-- 팝업 Modal -->
+<div>
+	<sbux-modal style="width:700px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
+
+<!-- 팝업 Modal -->
+<div>
+	<sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup3">
+	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
+</div>
+
 </body>
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
 	// ${comMenuVO.menuId}
-	
+
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
-	
+
 	var p_ss_languageID	= '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
 
 	var p_sel_rowData =  null;
-	
-    //grid 초기화
-    var Trl1030GridTop; 			// 그리드를 담기위한 객체 선언
-    var jsonTrl1030Top 	= []; 		// 그리드의 참조 데이터 주소 선언
-    
-    /*var Trl1030GridTab4; 			// 그리드를 담기위한 객체 선언
+
+	//grid 초기화
+	var Trl1030GridTop; 			// 그리드를 담기위한 객체 선언
+	var jsonTrl1030Top 	= []; 		// 그리드의 참조 데이터 주소 선언
+
+	/*var Trl1030GridTab4; 			// 그리드를 담기위한 객체 선언
     var jsonTrl1030Tab4	= []; 		// 그리드의 참조 데이터 주소 선언*/
-    
-    var Trl1030GridTab5; 			// 그리드를 담기위한 객체 선언
-    var jsonTrl1030Tab5	= []; 		// 그리드의 참조 데이터 주소 선언
-    
-  /*  var Trl1030GridTab6; 			// 그리드를 담기위한 객체 선언
-    var jsonTrl1030Tab6	= []; 		// 그리드의 참조 데이터 주소 선언*/
-    
+
+	var Trl1030GridTab5; 			// 그리드를 담기위한 객체 선언
+	var jsonTrl1030Tab5	= []; 		// 그리드의 참조 데이터 주소 선언
+
+	/*  var Trl1030GridTab6; 			// 그리드를 담기위한 객체 선언
+      var jsonTrl1030Tab6	= []; 		// 그리드의 참조 데이터 주소 선언*/
+
 	var jsonFiOrgCode		= [];	// APC명
 	var jsonAllYn			= [];	// 만기차입금포함여부
 	var jsonLoanType		= [];	// 차입금유형
-	
+
 	var jsonSiteCode		= [];	// 사업장
 	var jsonLoanType		= [];	// 차입금유형
 	var jsonCurrencyCode	= [];	// 통화
@@ -268,33 +268,33 @@
 	var jsonInterestCalcDaysType	= [];	// 이자일수계산기준
 	var jsonInterestCalcYearType	= [];	// 년간이자일수
 	var jsonInterestCalcBaseDay		= [];	// 이자기산일기준
-	
+
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            // APC명
-            gfnma_setComSelect(['SCH_FI_ORG_CODE','FM_FI_ORG_CODE'],		jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            // 만기차입금포함여부
-            gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 차입금유형
-            gfnma_setComSelect(['SCH_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            // 사업장
-            gfnma_setComSelect(['Trl1030GridTop'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+			// APC명
+			gfnma_setComSelect(['SCH_FI_ORG_CODE','FM_FI_ORG_CODE'],		jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
+			// 만기차입금포함여부
+			gfnma_setComSelect(['SCH_ALL_YN'],			jsonAllYn, 			'L_FIF016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			// 차입금유형
+			gfnma_setComSelect(['SCH_LOAN_TYPE'],		jsonLoanType, 		'L_FIF003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			// 사업장
+			gfnma_setComSelect(['Trl1030GridTop'],		jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
 			// 상환거래처계좌
-			gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonBankCsCode,	'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
-            // 통화
-            gfnma_setComSelect(['Trl1030GridTop','Trl1030GridTab5'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['FM_REPAY_BANK_CODE'],	jsonBankCsCode,	'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
+			// 통화
+			gfnma_setComSelect(['Trl1030GridTop','Trl1030GridTab5'],	jsonCurrencyCode,	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 			// 이자일수
-            gfnma_setComSelect([/*'FM_REPAY_DD',*/ 'Trl1030GridTab5'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([/*'FM_REPAY_DD',*/ 'Trl1030GridTab5'],			jsonRepayDd,		'L_COM010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 		]);
 	}
 
 	async function fn_init() {
-		
-  		await fn_initSBSelect()
-  		
+
+		await fn_initSBSelect()
+
 		//화면셋팅
-    	fn_state('L');
+		fn_state('L');
 
 		fn_createTrl1030GridTop();
 		//fn_createTrl1030GridTab4();
@@ -304,28 +304,28 @@
 		let openDate = gfn_dateToYmd(new Date());
 
 		SBUxMethod.set('SCH_BASE_DATE', openDate);
-	} 
-	
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-		
-    	fn_init();
-    });
+	}
 
-    /**
-     * 초기화
-     */
-    var cfn_init = function() {
-    	gfnma_uxDataClear('#srchArea1');
-    }
-    
-    /**
-     * 화면 state 변경
-     */
-    function fn_state(type) {
-    
+	// only document
+	window.addEventListener('DOMContentLoaded', function(e) {
+
+		fn_init();
+	});
+
+	/**
+	 * 초기화
+	 */
+	var cfn_init = function() {
+		gfnma_uxDataClear('#srchArea1');
+	}
+
+	/**
+	 * 화면 state 변경
+	 */
+	function fn_state(type) {
+
 // 		SBUxMethod.attr('FM_VAT_TYPE_CODE', 	'readonly', true);
-    	
+
 //     	if(type=='L'){
 // 			$('#main-btn-new', parent.document).attr('disabled', true);
 // 			$('#main-btn-save', parent.document).attr('disabled', true);
@@ -337,16 +337,16 @@
 //     		$('#main-btn-del', 	parent.document).attr('disabled', false);
 // 			//fn_fmDisabled(false);
 //     	}
-    }    
-    
-    /**
-     * 목록 조회
-     */
- 	function cfn_search() {
- 		fn_state('L');
+	}
+
+	/**
+	 * 목록 조회
+	 */
+	function cfn_search() {
+		fn_state('L');
 		fn_P_TRL1010_Q_LIST('LIST', 1);
-    	//fn_setTrl1030GridTop('LIST');
-    }
+		//fn_setTrl1030GridTop('LIST');
+	}
 
 	/**
 	 * 저장
@@ -499,52 +499,52 @@
 		Trl1030GridTab5 = _SBGrid.create(SBGridProperties);
 		//Trl1030GridTab5.bind('click', 			'fn_viewTrl1030GridTab5Event');
 	}
-    
-    /**
-     * 차입기관 
-     */
-    function fn_compopup1(type) {
-    	
-        var searchText1 	= '';
-        var searchText2 	= '';
-        if(type=='1'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_NAME"));
-        } else if(type=='2'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_CODE"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_NAME"));
-        }        
-        
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var strWhereClause 	= "AND A.CS_CODE LIKE '%" + replaceText0 + "%' AND A.CS_NAME LIKE '%" + replaceText1 + "%' ";
-    	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
-    	compopup1({
-    		compCode				: gv_ma_selectedCorpCd
-    		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: 'P_CS_BANK'
-        	,popupType				: 'A'
-    		,whereClause			: strWhereClause
-  			,searchCaptions			: ["거래처코드", 	"거래처명칭"]
-  			,searchInputFields		: ["CS_CODE", 		"CS_NAME"]
-  			,searchInputValues		: [searchText1, 	searchText2]
-    		,width					: '700px'
-    		,height					: '400px'
-  			,tableHeader			: ["거래처코드",	"거래처명",		"은행코드",		"은행명",		"사업자번호",		"주소"]
-  			,tableColumnNames		: ["CS_CODE", 	 	"CS_NAME",		"BANK_CODE",	"BANK_NAME",	"BIZ_REGNO",		"ADDRESS"]
-  			,tableColumnWidths		: ["100px", 		 "250px",		"100px",		"100px",		"150px",			"300px"]
+
+	/**
+	 * 차입기관
+	 */
+	function fn_compopup1(type) {
+
+		var searchText1 	= '';
+		var searchText2 	= '';
+		if(type=='1'){
+			searchText1 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_CODE"));
+			searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_BANK_CS_NAME"));
+		} else if(type=='2'){
+			searchText1 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_CODE"));
+			searchText2 	= gfnma_nvl(SBUxMethod.get("FM_BANK_CS_NAME"));
+		}
+
+		var replaceText0 	= "_CNPT_CD_";
+		var replaceText1 	= "_CNPT_NM_";
+		var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' ";
+
+		SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
+		compopup1({
+			compCode				: gv_ma_selectedCorpCd
+			,clientCode				: gv_ma_selectedClntCd
+			,bizcompId				: 'P_CS_BANK'
+			,popupType				: 'A'
+			,whereClause			: strWhereClause
+			,searchCaptions			: ["거래처코드", 	"거래처명칭"]
+			,searchInputFields		: ["CNPT_CD", 		"CNPT_NM"]
+			,searchInputValues		: [searchText1, 	searchText2]
+			,width					: '700px'
+			,height					: '400px'
+			,tableHeader			: ["거래처코드",	"거래처명",		"은행코드",		"은행명",		"사업자번호",		"주소"]
+			,tableColumnNames		: ["CNPT_CD", 	 	"CNPT_NM",		"BANK_CD",	"BANK_NM",	"BRNO",		"ADDR"]
+			,tableColumnWidths		: ["100px", 		 "250px",		"100px",		"100px",		"150px",			"300px"]
 			,itemSelectEvent		: function (data){
-		        if(type=='1'){
-					SBUxMethod.set('SCH_BANK_CS_CODE', 	data.CS_CODE);
-					SBUxMethod.set('SCH_BANK_CS_NAME', 	data.CS_NAME);
-		        } else if(type=='2'){
-					SBUxMethod.set('FM_BANK_CS_CODE', 	data.CS_CODE);
-					SBUxMethod.set('FM_BANK_CS_NAME', 	data.CS_NAME);
-		        }
+				if(type=='1'){
+					SBUxMethod.set('SCH_BANK_CS_CODE', data.CNPT_CD);
+					SBUxMethod.set('SCH_BANK_CS_NAME', data.CNPT_NM);
+				} else if(type=='2'){
+					SBUxMethod.set('FM_BANK_CS_CODE', 	data.CNPT_CD);
+					SBUxMethod.set('FM_BANK_CS_NAME', 	data.CNPT_NM);
+				}
 			},
-    	});
-    }
+		});
+	}
 
 	/**
 	 * 목록 조회
@@ -560,9 +560,9 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			/*if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "APC명");
-				return;
-			}*/
+                gfn_comAlert("W0002", "APC명");
+                return;
+            }*/
 			if (!BASE_DATE) {
 				gfn_comAlert("W0002", "조회기준일자");
 				return;
@@ -607,36 +607,36 @@
 			if (_.isEqual("S", data.resultStatus)) {
 
 				/** @type {number} **/
-                let totalRecordCount = 0;
+				let totalRecordCount = 0;
 
 				jsonTrl1030Top.length = 0;
 				data.cv_1.forEach((item, index) => {
 					const msg = {
-						LOAN_NUM        	: gfn_nvl(item.LOAN_NUM),
-						FI_ORG_CODE        	: gfn_nvl(item.FI_ORG_CODE),
-						SITE_CODE        	: gfn_nvl(item.SITE_CODE),
-						BANK_CODE        	: gfn_nvl(item.BANK_CODE),
-						BANK_CS_CODE        : gfn_nvl(item.BANK_CS_CODE),
-						LOAN_CATEGORY1      : gfn_nvl(item.LOAN_CATEGORY1),
-						LOAN_CATEGORY2      : gfn_nvl(item.LOAN_CATEGORY2),
-						LOAN_CATEGORY3      : gfn_nvl(item.LOAN_CATEGORY3),
-						LOAN_NAME        	: gfn_nvl(item.LOAN_NAME),
-						LOAN_DATE        	: gfn_nvl(item.LOAN_DATE),
+						LOAN_NUM        	: gfn_nvl(item.BRW_NO),
+						FI_ORG_CODE        	: gfn_nvl(item.ACNTG_OGNZ_CD),
+						SITE_CODE        	: gfn_nvl(item.SITE_CD),
+						BANK_CODE        	: gfn_nvl(item.BANK_CD),
+						BANK_CS_CODE        : gfn_nvl(item.BANK_CNPT_CD),
+						LOAN_CATEGORY1      : gfn_nvl(item.LOAN_CTGRY1),
+						LOAN_CATEGORY2      : gfn_nvl(item.LOAN_CTGRY2),
+						LOAN_CATEGORY3      : gfn_nvl(item.LOAN_CTGRY3),
+						LOAN_NAME        	: gfn_nvl(item.BRW_NM),
+						LOAN_DATE        	: gfn_nvl(item.BRW_YMD),
 						LOAN_AMT        	: gfn_nvl(item.LOAN_AMT),
-						REPAY_AMT        	: gfn_nvl(item.REPAY_AMT),
+						REPAY_AMT        	: gfn_nvl(item.RPMT_AMT),
 						REMAIN_AMT        	: gfn_nvl(item.REMAIN_AMT),
-						EXPIRE_DATE        	: gfn_nvl(item.EXPIRE_DATE),
-						CURRENCY_CODE       : gfn_nvl(item.CURRENCY_CODE),
-						INTEREST_RATE       : gfn_nvl(item.INTEREST_RATE),
-						LOAN_TYPE        	: gfn_nvl(item.LOAN_TYPE),
-						REPAY_BANK_CS_CODE  : gfn_nvl(item.REPAY_BANK_CS_CODE),
-						REPAY_SEQ        	: gfn_nvl(item.REPAY_SEQ),
-						HDG_FLAG        	: gfn_nvl(item.HDG_FLAG),
+						EXPIRE_DATE        	: gfn_nvl(item.MTRY_YMD),
+						CURRENCY_CODE       : gfn_nvl(item.CRN_CD),
+						INTEREST_RATE       : gfn_nvl(item.INT_RT),
+						LOAN_TYPE        	: gfn_nvl(item.BRW_TYPE),
+						REPAY_BANK_CS_CODE  : gfn_nvl(item.RPMT_BANK_CNPT_CD),
+						REPAY_SEQ        	: gfn_nvl(item.RPMT_SEQ),
+						HDG_FLAG        	: gfn_nvl(item.DRSEC_FLAG),
 
 
 					}
 					jsonTrl1030Top.push(msg);
-					 totalRecordCount++;
+					totalRecordCount++;
 				});
 
 				Trl1030GridTop.rebuild();
@@ -674,9 +674,9 @@
 		if (_.isEqual(strWorkType, 'LIST')){
 
 			/*if (!FI_ORG_CODE) {
-				gfn_comAlert("W0002", "APC명");
-				return;
-			}*/
+                gfn_comAlert("W0002", "APC명");
+                return;
+            }*/
 			if (!BASE_DATE) {
 				gfn_comAlert("W0002", "조회기준일자");
 				return;
@@ -721,30 +721,30 @@
 			if (_.isEqual("S", data.resultStatus)) {
 
 				/** @type {number} **/
-                //let totalRecordCount = 0;
+				//let totalRecordCount = 0;
 
 				/**************************** 상환계획 **********************************/
 				jsonTrl1030Tab5.length = 0;
 				data.cv_4.forEach((item, index) => {
 					const msg = {
-						TXN_ID        				: gfn_nvl(item.TXN_ID),
-						LOAN_NUM        			: gfn_nvl(item.LOAN_NUM),
+						TXN_ID        				: gfn_nvl(item.TRSC_ID),
+						LOAN_NUM        			: gfn_nvl(item.BRW_NO),
 						PLAN_SEQ        			: gfn_nvl(item.PLAN_SEQ),
-						CURRENCY_CODE        		: gfn_nvl(item.CURRENCY_CODE),
-						REPAY_PLAN_DATE        		: gfn_nvl(item.REPAY_PLAN_DATE),
-						REPAY_TRANSFER_AMT        	: gfn_nvl(item.REPAY_TRANSFER_AMT),
-						REMAIN_LOAN_AMT        		: gfn_nvl(item.REMAIN_LOAN_AMT),
-						INTEREST_DAY        		: gfn_nvl(item.INTEREST_DAY),
-						INTEREST_REPAY_PLAN_AMT     : gfn_nvl(item.INTEREST_REPAY_PLAN_AMT),
+						CURRENCY_CODE        		: gfn_nvl(item.CRN_CD),
+						REPAY_PLAN_DATE        		: gfn_nvl(item.RPMT_PLAN_YMD),
+						REPAY_TRANSFER_AMT        	: gfn_nvl(item.BRW_RPLCMT_AMT),
+						REMAIN_LOAN_AMT        		: gfn_nvl(item.NRPY_AMT),
+						INTEREST_DAY        		: gfn_nvl(item.INT_DCNT),
+						INTEREST_REPAY_PLAN_AMT     : gfn_nvl(item.INT_PRNMNT_AMT),
 						REPAY_TOTAL_AMT        		: gfn_nvl(item.REPAY_TOTAL_AMT),
-						INTEREST_FROM_DATE        	: gfn_nvl(item.INTEREST_FROM_DATE),
-						INTEREST_TO_DATE        	: gfn_nvl(item.INTEREST_TO_DATE),
-						INTEREST_RATE        		: gfn_nvl(item.INTEREST_RATE),	//--종료일자
-						INTERFACE_FLAG        		: gfn_nvl(item.INTERFACE_FLAG),
-						CONFIRM_FLAG        		: gfn_nvl(item.CONFIRM_FLAG),
-						COMPLETE_FLAG        		: gfn_nvl(item.COMPLETE_FLAG),
-						UPDATE_TIME        			: gfn_nvl(item.UPDATE_TIME),
-						HDG_TRANS_AMT        		: gfn_nvl(item.HDG_TRANS_AMT),
+						INTEREST_FROM_DATE        	: gfn_nvl(item.INT_BGNG_YMD),
+						INTEREST_TO_DATE        	: gfn_nvl(item.INT_END_YMD),
+						INTEREST_RATE        		: gfn_nvl(item.INT_RT),	//--종료일자
+						INTERFACE_FLAG        		: gfn_nvl(item.IF_FLAG),
+						CONFIRM_FLAG        		: gfn_nvl(item.CFMTN_FLAG),
+						COMPLETE_FLAG        		: gfn_nvl(item.CFMTN_FLAG),
+						UPDATE_TIME        			: gfn_nvl(item.UPDT_DT),
+						HDG_TRANS_AMT        		: gfn_nvl(item.DRSEC_DLNG_AMT),
 
 					}
 					jsonTrl1030Tab5.push(msg);

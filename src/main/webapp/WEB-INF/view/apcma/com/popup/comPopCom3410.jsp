@@ -19,12 +19,12 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var com3410Grid; 			// 그리드를 담기위한 객체 선언
 var jsonCom3410 = []; 		// 그리드의 참조 데이터 주소 선언
 var jsonCsGroup = [];		//
-
+ 
 /**
  * @description 복수코드
  */
@@ -41,7 +41,7 @@ function compopcom3410(options) {
 	};
 	$.extend(settings, options);	
 	console.log('settings:', settings);
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -81,7 +81,7 @@ function compopcom3410(options) {
         console.log('fn_createGrid end');
     }	
     fn_createGrid();	
-    gfnma_setComSelect(['com3410Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3410Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 	console.log('jsonCsGroup =>', jsonCsGroup);
 	
 	function fn_clearCom3410() {
@@ -89,7 +89,7 @@ function compopcom3410(options) {
 		com3410Grid.rebuild();
 	}
     const fn_setCom3410Grid = async function() {
-
+ 
     	fn_clearCom3410();
     	
 	    var paramObj = { 
@@ -103,31 +103,31 @@ function compopcom3410(options) {
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/com/com3410List.do", {
         	getType				: 'json',
         	workType			: 'Q',
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('fn_setCom3410Grid data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonCom3410.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							ERROR_CODE			: gfnma_nvl(item.ERROR_CODE),			
-  							CS_CODE				: gfnma_nvl(item.CS_CODE),
-  							CS_NAME				: gfnma_nvl(item.CS_NAME),
-  							CS_GROUP			: gfnma_nvl(item.CS_GROUP),			
-  							BIZ_REGNO			: gfnma_nvl(item.BIZ_REGNO),		
+  							ERROR_CODE			: gfnma_nvl(item.ERR_CD),			
+  							CS_CODE				: gfnma_nvl(item.CNPT_CD),
+  							CS_NAME				: gfnma_nvl(item.CNPT_NM),
+  							CS_GROUP			: gfnma_nvl(item.CNPT_GROUP),			
+  							BIZ_REGNO			: gfnma_nvl(item.BRNO),		
   							ERROR_DESCRIPTION	: gfnma_nvl(item.ERROR_DESCRIPTION)
   					}
   					jsonCom3410.push(msg);
@@ -137,7 +137,7 @@ function compopcom3410(options) {
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

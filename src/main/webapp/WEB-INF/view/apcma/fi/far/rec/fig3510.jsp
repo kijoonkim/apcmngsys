@@ -1,124 +1,595 @@
 <%
     /**
-    * @Class Name 		: fig3510.jsp
-    * @Description 	: 매출/매입송장등록 공통화면
-    * @author 			: 인텔릭아이앤에스
-    * @since 			: 2024.06.03
-    * @version 		: 1.0
-    * @Modification Information
-    * @
-    * @ 수정일       	수정자      수정내용
-    * @ ----------		----------	---------------------------
-    * @ 2024.06.03   	이경한		최초 생성
-    * @see
-    *
-    */
+     * @Class Name 		: fig3510.jsp
+     * @Description 	: 매출/매입송장등록 공통화면
+     * @author 			: 인텔릭아이앤에스
+     * @since 			: 2024.06.03
+     * @version 		: 1.0
+     * @Modification Information
+     * @
+     * @ 수정일       	수정자      수정내용
+     * @ ----------		----------	---------------------------
+     * @ 2024.06.03   	이경한		최초 생성
+     * @see
+     *
+     */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body oncontextmenu="return false">
-    <section>
-        <div class="box box-solid">
-                <div class="box-body">
-                    <div class="box-search-ma">
-                        <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-                        <table class="table table-bordered tbl_fixed table-search-ma" style="display: none;">
-                        <caption>검색 조건 설정</caption>
+<section>
+    <div class="box box-solid">
+        <div class="box-body">
+            <div class="box-search-ma">
+                <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+                <table class="table table-bordered tbl_fixed table-search-ma" style="display: none;">
+                    <caption>검색 조건 설정</caption>
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="th_bg">APC</th>
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
+                            <sbux-input id="SRCH_DOC_H_FI_ORG_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                        </td>
+                        <td></td>
+                        <th scope="row" class="th_bg">사업장</th>
+                        <td colspan="3" class="td_input" style="border-right:hidden;">
+                            <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
+                            <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                            <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                            <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                            <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div id="srchArea" class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>전표</span>
+                        </li>
+                    </ul>
+                    <div class="ad_tbl_toplist" style="display: flex; align-items: center; justify-content: flex-end;">
+                        <div style="display: flex; align-items: center; justify-content: start; width: 30%;">
+                            <span style="margin-right: 10px;">전표템플릿</span>
+                            <div class="dropdown" style="width: 40%; margin-right: 10px;">
+                                <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RULE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <font>선택</font>
+                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="RULE_CODE" style="width:700px;height:150px;padding-top:0px;overflow:auto">
+                                </div>
+                            </div>
+                            <sbux-checkbox uitype="normal" id="CLOSE_YN" name="CLOSE_YN" uitype="normal" class="form-control input-sm check" text="역분개라인생성" true-value="Y" false-value="N"/>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
+                            <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
+                            <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-button class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
+                        </div>
+                        <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
+
+                        <sbux-button id="btnCreateInvoice" name="btnCreateInvoice" uitype="normal" text="세금계산서발행" class="btn btn-sm btn-outline-danger" onclick="fn_createInvoice" style="float: right;"></sbux-button>
+                        <sbux-button id="btnCancelInvoice" name="btnCancelInvoice" uitype="normal" text="발행취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancelInvoice" style="float: right;"></sbux-button>
+                        <%--<sbux-button id="btnScmInfo" name="btnScmInfo" uitype="normal" text="SCM정보" class="btn btn-sm btn-outline-danger" onclick="fn_scmInfo" style="float: right;"></sbux-button>--%>
+                        <sbux-button id="btnDocCopy" name="btnDocCopy" uitype="normal" text="전표복사" class="btn btn-sm btn-outline-danger" onclick="fn_docCopy" style="float: right;"></sbux-button>
+                        <sbux-button id="btnConfirmHist" name="btnConfirmHist" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confimHist"></sbux-button>
+                    </div>
+                </div>
+                <div>
+                    <table id="panWFTop" class="table table-bordered tbl_fixed">
+                        <caption>전표</caption>
                         <colgroup>
-                            <col style="width: 8%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 3%">
                             <col style="width: 7%">
-                            <col style="width: 1%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 3%">
                             <col style="width: 7%">
-                            <col style="width: 2%">
-
-                            <col style="width: 8%">
-                            <col style="width: 7%">
-                            <col style="width: 1%">
-                            <col style="width: 7%">
-                            <col style="width: 2%">
-
-                            <col style="width: 8%">
-                            <col style="width: 7%">
-                            <col style="width: 1%">
-                            <col style="width: 7%">
-                            <col style="width: 2%">
-
-                            <col style="width: 8%">
-                            <col style="width: 7%">
-                            <col style="width: 1%">
-                            <col style="width: 7%">
-                            <col style="width: 2%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
                         </colgroup>
                         <tbody>
-                            <tr>
-                                <th scope="row" class="th_bg">APC</th>
-                                <td colspan="3" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SRCH_DOC_H_FI_ORG_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                </td>
-                                <td></td>
-                                <th scope="row" class="th_bg">사업장</th>
-                                <td colspan="3" class="td_input" style="border-right:hidden;">
-                                    <sbux-input id="SRCH_SITE_CODE" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
-                                    <sbux-input id="SRCH_CARD_YN" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                    <sbux-input id="SRCH_FROM_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                    <sbux-input id="SRCH_TO_DATE" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                    <sbux-input id="SRCH_INVOCE_BATCH_NO" class="form-control input-sm" uitype="hidden" style="width:100%"></sbux-input>
-                                </td>
-                                <td></td>
-                            </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">신고사업장</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="TAX_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <th scope="row" class="th_bg">종사업장</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="SUB_TAX_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2"></td>
+                            <th scope="row" class="th_bg">배치번호</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td colspan="2"></td>
+                            <th scope="row" class="th_bg">결의부서</th>
+                            <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                                <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                                <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="DEPT">
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="..." uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_findDeptCode"
+                                        disabled="true"
+                                ></sbux-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">전표유형</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-select>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="DOC_STATUS" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="3"></td>
+                            <th scope="row" class="th_bg">전표번호</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">전표ID</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">실사용자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                                <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">거래처</th>
+                            <td class="td_input" style="border-right:hidden;" data-group="CS">
+                                <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="CS">
+                                <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="CS">
+                                <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="CS">
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="..." uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_findCsCode"
+                                ></sbux-button>
+                            </td>
+                            <td></td>
+                            <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
+                            <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
+                                <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
+                                <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="..." uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_findPayTermCode"
+                                ></sbux-button>
+                            </td>
+                            <td></td>
+                            <th scope="row" class="th_bg">증빙번호</th>
+                            <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
+                                <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
+                                <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
+                                <sbux-button
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="확인" uitype="modal"
+                                        target-id="modal-compopup1"
+                                        onclick="fn_taxView"
+                                ></sbux-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">전기일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="DOC_DATE"
+                                        name="DOC_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
+                                        onchange="fn_changeDocDate(DOC_DATE)"
+                                        group-id="panWFTop"
+                                        required
+                                />
+                            </td>
+                            <th scope="row" class="th_bg">신고일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="STANDARD_DATE"
+                                        name="STANDARD_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
+                                        onchange="fn_changeStandardDate(STANDARD_DATE)"
+                                        group-id="panWFTop"
+                                        required
+                                />
+                            </td>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="PAY_METHOD" style="width:450px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2"></td>
+                            <th scope="row" class="th_bg">매입송장번호</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">증빙일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="VOUCHER_RECEIPT_DATE"
+                                        name="VOUCHER_RECEIPT_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
+                                        group-id="panWFTop"
+                                        required
+                                />
+                            </td>
+                            <th scope="row" class="th_bg">통화</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="CURRENCY_CODE" style="width:250px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="PAY_BASE_DATE"
+                                        name="PAY_BASE_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                />
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" readonly></sbux-input>
+                                <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden"></sbux-input>
+                            </td>
+                            <td colspan="2"></td>
+                            <th scope="row" class="th_bg">현업결재일</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="APPROVE_DATE"
+                                        name="APPROVE_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                        readonly
+                                />
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">총액</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">세금코드</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:400px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <th scope="row" class="th_bg" id="LBL_EXPECTED_PAY_DATE">지급만기일자</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="EXPECTED_PAY_DATE"
+                                        name="EXPECTED_PAY_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+                                        style="width:100%;"
+                                        onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
+                                        group-id="panWFTop"
+                                        required
+                                />
+                            </td>
+                            <th scope="row" class="th_bg">어음만기일자</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="BILL_DUE_DATE"
+                                        name="BILL_DUE_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                />
+                            </td>
+                            <th scope="row" class="th_bg">회계승인일</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="POSTING_DATE"
+                                        name="POSTING_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                        readonly
+                                />
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">부가세</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">공급가액</th>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeSupplyAmt(SUPPLY_AMT)"></sbux-input>
+                            </td>
+                            <td></td>
+                            <th scope="row" class="th_bg">계좌정보</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <div class="dropdown">
+                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="BANK_ACCOUNT_SEQ" style="width:1010px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                            </td>
+                            <td colspan="2" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">승인취소일</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-datepicker
+                                        uitype="popup"
+                                        id="UNPOSTING_DATE"
+                                        name="UNPOSTING_DATE"
+                                        date-format="yyyy-mm-dd"
+                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                        style="width:100%;"
+                                        readonly
+                                />
+                            </td>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">제목</th>
+                            <td colspan="5" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeDescription(DESCRIPTION)" group-id="panWFTop" required></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">계좌비고</th>
+                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">역분개전표</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                            </td>
+                            <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" onchange="fn_changeWriteDate(WRITE_DATE)"></sbux-input>
+                            <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <%--<sbux-input id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
+                            <sbux-checkbox id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
+                            <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <%--<sbux-input id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
+                            <sbux-checkbox id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
+                            <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                            <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                        </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="ad_tbl_top2">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>전표라인</span>
+                        </li>
+                    </ul>
+                    <div class="ad_tbl_toplist">
+                        <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
+                        <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
+                        <sbux-button id="btnCreateLine" name="btnCreateLine" uitype="normal" text="전표라인생성" class="btn btn-sm btn-outline-danger" onclick="fn_createLine" style="float: right;"></sbux-button>
+                        <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
+                        <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
+                        <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
+
                     </div>
-                    <div class="row">
-                        <div id="srchArea" class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>전표</span>
-                                </li>
-                            </ul>
-                            <div class="ad_tbl_toplist" style="display: flex; align-items: center; justify-content: flex-end;">
-                                <div style="display: flex; align-items: center; justify-content: start; width: 30%;">
-                                    <span style="margin-right: 10px;">전표템플릿</span>
-                                    <div class="dropdown" style="width: 40%; margin-right: 10px;">
-                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="RULE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <font>선택</font>
-                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="RULE_CODE" style="width:700px;height:150px;padding-top:0px;overflow:auto">
-                                        </div>
-                                    </div>
-                                    <sbux-checkbox uitype="normal" id="CLOSE_YN" name="CLOSE_YN" uitype="normal" class="form-control input-sm check" text="역분개라인생성" true-value="Y" false-value="N"/>
-                                </div>
-                                <div style="display: flex; align-items: center; justify-content: left; width: 30%; margin-right: 5%">
-                                    <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
-                                    <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-button class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
-                                </div>
-                				<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
-                                
-                                <sbux-button id="btnCreateInvoice" name="btnCreateInvoice" uitype="normal" text="세금계산서발행" class="btn btn-sm btn-outline-danger" onclick="fn_createInvoice" style="float: right;"></sbux-button>
-                                <sbux-button id="btnCancelInvoice" name="btnCancelInvoice" uitype="normal" text="발행취소" class="btn btn-sm btn-outline-danger" onclick="fn_cancelInvoice" style="float: right;"></sbux-button>
-                                <%--<sbux-button id="btnScmInfo" name="btnScmInfo" uitype="normal" text="SCM정보" class="btn btn-sm btn-outline-danger" onclick="fn_scmInfo" style="float: right;"></sbux-button>--%>
-                                <sbux-button id="btnDocCopy" name="btnDocCopy" uitype="normal" text="전표복사" class="btn btn-sm btn-outline-danger" onclick="fn_docCopy" style="float: right;"></sbux-button>
-                                <sbux-button id="btnConfirmHist" name="btnConfirmHist" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" style="float: right;" onclick="fn_confimHist"></sbux-button>
-                            </div>
-                        </div>
-                        <div>
-                            <table id="panWFTop" class="table table-bordered tbl_fixed">
-                                <caption>전표</caption>
+                </div>
+                <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
+                    <div id="sb-area-gvwWFItem" style="height:300px;"></div>
+                </div>
+                <div>
+                    <table id="panWFMiddleBottom" class="table table-bordered tbl_fixed">
+                        <caption>합계</caption>
+                        <colgroup>
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                            <col style="width: 10%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th scope="row" class="th_bg">차변합계</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">대변합계</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">차이(통화)</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">차이(전표)</th>
+                            <td class="td_input" style="border-right:hidden;">
+                                <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <sbux-tabs id="idxTab" name="idxTab" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
+                    </sbux-tabs>
+                    <div class="tab-content">
+                        <div id="tabPage2">
+                            <table id="panWFVat" class="table table-bordered tbl_fixed">
+                                <caption>부가세</caption>
                                 <colgroup>
                                     <col style="width: 10%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
-                                    <col style="width: 3%">
-                                    <col style="width: 7%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
-                                    <col style="width: 10%">
-                                    <col style="width: 3%">
-                                    <col style="width: 7%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
@@ -126,922 +597,451 @@
                                 </colgroup>
                                 <tbody>
                                 <tr>
-                                    <th scope="row" class="th_bg">신고사업장</th>
+                                    <th scope="row" class="th_bg">전자발행</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ETAX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
                                                 <font>선택</font>
                                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="TAX_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                            <div class="dropdown-menu" aria-labelledby="ETAX_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                                             </div>
                                         </div>
-                                    </td>
-                                    <th scope="row" class="th_bg">종사업장</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SUB_TAX_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="SUB_TAX_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <th scope="row" class="th_bg">배치번호</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DOC_BATCH_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <th scope="row" class="th_bg">결의부서</th>
-                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                        <sbux-input id="DEPT_CODE" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                        <sbux-input id="DEPT_NAME" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="DEPT">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findDeptCode"
-                                                disabled="true"
-                                        ></sbux-button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">전표유형</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-select id="DOC_TYPE" uitype="single" jsondata-ref="jsonDocType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-select>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="DOC_STATUS" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td colspan="3"></td>
-                                    <th scope="row" class="th_bg">전표번호</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">전표ID</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">실사용자</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAYEE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="PAYEE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                        <sbux-input id="BILL_DUE_DAY" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                        <sbux-input id="BASE_SCALE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">거래처</th>
-                                    <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                        <sbux-input id="CS_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                        <sbux-input id="CS_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                        <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="CS">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findCsCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <td></td>
-                                    <th scope="row" class="th_bg" id="LBL_PAY_TERM_CODE">지급기준</th>
-                                    <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                        <sbux-input id="PAY_TERM_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                        <sbux-input id="PAY_TERM_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panWFTop" required></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_findPayTermCode"
-                                        ></sbux-button>
-                                    </td>
-                                    <td></td>
-                                    <th scope="row" class="th_bg">증빙번호</th>
-                                    <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
-                                        <sbux-select id="VOUCHER_TYPE" uitype="single" jsondata-ref="jsonVoucherType" unselected-text="선택" class="form-control input-sm"></sbux-select>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
-                                        <sbux-input id="VOUCHER_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;" data-group="VOUCHER">
-                                        <sbux-button
-                                                class="btn btn-xs btn-outline-dark"
-                                                text="확인" uitype="modal"
-                                                target-id="modal-compopup1"
-                                                onclick="fn_taxView"
-                                        ></sbux-button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">전기일자</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="DOC_DATE"
-                                                name="DOC_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
-                                                style="width:100%;"
-                                                onchange="fn_changeDocDate(DOC_DATE)"
-                                                group-id="panWFTop"
-                                                required
-                                        />
                                     </td>
                                     <th scope="row" class="th_bg">신고일자</th>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-datepicker
                                                 uitype="popup"
-                                                id="STANDARD_DATE"
-                                                name="STANDARD_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
-                                                style="width:100%;"
-                                                onchange="fn_changeStandardDate(STANDARD_DATE)"
-                                                group-id="panWFTop"
-                                                required
-                                        />
-                                    </td>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="EXCHANGE_TYPE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg" id="LBL_PAY_METHOD">지급방법</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_METHOD" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="PAY_METHOD" style="width:450px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <th scope="row" class="th_bg">매입송장번호</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="BILL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">증빙일자</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="VOUCHER_RECEIPT_DATE"
-                                                name="VOUCHER_RECEIPT_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
-                                                style="width:100%;"
-                                                group-id="panWFTop"
-                                                required
-                                        />
-                                    </td>
-                                    <th scope="row" class="th_bg">통화</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="CURRENCY_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="CURRENCY_CODE" style="width:250px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="EXCHANGE_RATE" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoFillDigits': true}" readonly></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg" id="LBL_PAY_BASE_DATE">지급기산일자</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="PAY_BASE_DATE"
-                                                name="PAY_BASE_DATE"
+                                                id="STANDARD_DATE1"
+                                                name="STANDARD_DATE1"
                                                 date-format="yyyy-mm-dd"
                                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                 style="width:100%;"
+                                                group-id="panWFVat"
+                                                onchange="fn_changeRowData('STANDARD_DATE', STANDARD_DATE1)"
                                         />
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DIFF_DAY" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}" readonly></sbux-input>
-                                        <sbux-input id="BASIS_TYPE" name="BASIS_TYPE" uitype="hidden"></sbux-input>
-                                    </td>
-                                    <td colspan="2"></td>
-                                    <th scope="row" class="th_bg">현업결재일</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="APPROVE_DATE"
-                                                name="APPROVE_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                style="width:100%;"
-                                                readonly
-                                        />
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="FINAL_APPROVER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">총액</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DOC_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeDocAmt(DOC_AMT)"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">세금코드</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="VAT_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFTop" required>
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="VAT_CODE" style="width:600px;height:400px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td></td>
-                                    <th scope="row" class="th_bg" id="LBL_EXPECTED_PAY_DATE">지급만기일자</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="EXPECTED_PAY_DATE"
-                                                name="EXPECTED_PAY_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
-                                                style="width:100%;"
-                                                onchange="fn_changeExpectedPayDate(EXPECTED_PAY_DATE)"
-                                                group-id="panWFTop"
-                                                required
-                                        />
-                                    </td>
-                                    <th scope="row" class="th_bg">어음만기일자</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="BILL_DUE_DATE"
-                                                name="BILL_DUE_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                style="width:100%;"
-                                        />
-                                    </td>
-                                    <th scope="row" class="th_bg">회계승인일</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="POSTING_DATE"
-                                                name="POSTING_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                style="width:100%;"
-                                                readonly
-                                        />
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="POSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="th_bg">부가세</th>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="VAT_AMOUNT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeVatAmount(VAT_AMOUNT)"></sbux-input>
                                     </td>
                                     <th scope="row" class="th_bg">공급가액</th>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="SUPPLY_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" onchange="fn_changeSupplyAmt(SUPPLY_AMT)"></sbux-input>
-                                    </td>
-                                    <td></td>
-                                    <th scope="row" class="th_bg">계좌정보</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <div class="dropdown">
-                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BANK_ACCOUNT_SEQ" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <font>선택</font>
-                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="BANK_ACCOUNT_SEQ" style="width:1010px;height:150px;padding-top:0px;overflow:auto">
-                                            </div>
-                                        </div>
+                                        <sbux-input id="SUPPLY_AMT1" name="SUPPLY_AMT1" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('SUPPLY_AMT', SUPPLY_AMT1)"></sbux-input>
                                     </td>
+                                    <th scope="row" class="th_bg">수출신고번호</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-select id="BANK_CODE" uitype="single" jsondata-ref="jsonBankCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                        <sbux-input id="EXPORT_LICENSE_NO" name="EXPORT_LICENSE_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_LICENSE_NO', EXPORT_LICENSE_NO)"></sbux-input>
                                     </td>
-                                    <td colspan="2" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="BANK_ACCOUNT_NO" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric'}"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">승인취소일</th>
+                                    <th scope="row" class="th_bg">당기제출금_외화</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-datepicker
-                                                uitype="popup"
-                                                id="UNPOSTING_DATE"
-                                                name="UNPOSTING_DATE"
-                                                date-format="yyyy-mm-dd"
-                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                style="width:100%;"
-                                                readonly
-                                        />
-                                    </td>
-                                    <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="UNPOSTING_USER" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                        <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"  group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="th_bg">제목</th>
-                                    <td colspan="5" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" onchange="fn_changeDescription(DESCRIPTION)" group-id="panWFTop" required></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">계좌비고</th>
-                                    <td colspan="4" class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="BANK_ACCOUNT_DESCRIPTION" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                                    </td>
-                                    <th scope="row" class="th_bg">역분개전표</th>
+                                    <th scope="row" class="th_bg">카드용도</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="REVERSE_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CARD_USE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="CARD_USE_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
                                     </td>
-                                    <sbux-input id="WRITE_DATE" uitype="hidden" placeholder="" class="form-control input-sm" onchange="fn_changeWriteDate(WRITE_DATE)"></sbux-input>
-                                    <sbux-input id="APPR_COUNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="KEY_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="TXN_STOP_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="APPR_ID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="DOC_NUM" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="INSERT_USERID" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="HEADER_COST_CENTER" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <%--<sbux-input id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
-                                    <sbux-checkbox id="OPEN_TO_ALL_YN" name="OPEN_TO_ALL_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
-                                    <sbux-input id="TXN_STOP_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="CONFIRM_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="REGISTER_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="BNKCNT" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="WITHHOLD_TAX_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <%--<sbux-input id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>--%>
-                                    <sbux-checkbox id="OPEN_TO_FCM_YN" name="OPEN_TO_FCM_YN" uitype="normal" style="display: none;" class="form-control input-sm check" text="" true-value="Y" false-value="N"/>
-                                    <sbux-input id="PROXY_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="SOURCE_DOC" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="TEMP_AREA" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="textEditEx1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="RELEASE_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="textEditEx2" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="BILL_DUE_PAY_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="ACCT_RULE_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="ACCT_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="HOLD_DATE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="TR_OPINION" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="HOLD_FLAG" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="REQUEST_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="BEFORE_APPR_EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="EMP_CODE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="STEEL_SCRAP_PAY_YN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                    <sbux-input id="HOLD_REASON" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                    <th scope="row" class="th_bg">카드번호</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="CARD_NUM" name="CARD_NUM" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">내국신용장구분</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LOCAL_CREDIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="LOCAL_CREDIT_TYPE" style="width:200px;height:100px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">선적일자</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="SHIPPING_DATE"
+                                                name="SHIPPING_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                                style="width:100%;"
+                                                group-id="panWFVat"
+                                                onchange="fn_changeRowData('SHIPPING_DATE', SHIPPING_DATE)"
+                                        />
+                                    </td>
+                                    <th scope="row" class="th_bg">당기제출금_원화</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="EXPORT_AMT_KRW" name="EXPORT_AMT_KRW" uitype="text" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT_KRW', EXPORT_AMT_KRW)"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">불공제유형</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_NOT_DEDUCTION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="VAT_NOT_DEDUCTION_TYPE" style="width:280px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">예정신고누락</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="REPORT_OMIT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="REPORT_OMIT_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">서류명</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DOCUMENT_NAME" name="DOCUMENT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NAME', DOCUMENT_NAME)"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수출외화금액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="FOREIGN_AMT" name="FOREIGN_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('FOREIGN_AMT', FOREIGN_AMT)"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">당기신고해당분_외화</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="VAT_EXPORT_AMT" name="VAT_EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT', VAT_EXPORT_AMT)"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">중복발행</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUP_ISSUE_BILL_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="DUP_ISSUE_BILL_TYPE" style="width:100px;height:100px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">감가상각자산유형</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_ASSET_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="VAT_ASSET_TYPE" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">발급자</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ISSUE_NAME" name="ISSUE_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('ISSUE_NAME', ISSUE_NAME)"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">수출원화금액</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="WON_AMT" name="WON_AMT"uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('WON_AMT', WON_AMT)"></sbux-input>
+                                    </td>
+                                    <th scope="row" class="th_bg">당기신고해당분_원화</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="VAT_EXPORT_AMT_KRW" name="VAT_EXPORT_AMT_KRW" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT_KRW', VAT_EXPORT_AMT_KRW)"></sbux-input>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">11일외전송</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="AFTER_DUE_DATE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="AFTER_DUE_DATE_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">영세율첨부서류여부</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_REPORT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="ZERO_REPORT_YN" style="width:150px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">발급일자</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-datepicker
+                                                uitype="popup"
+                                                id="DOCUMENT_ISSUE_DATE"
+                                                name="DOCUMENT_ISSUE_DATE"
+                                                date-format="yyyy-mm-dd"
+                                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                                style="width:100%;"
+                                                group-id="panWFVat"
+                                                onchange="fn_changeRowData('DOCUMENT_ISSUE_DATE', DOCUMENT_ISSUE_DATE)"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg">수입금액제외</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCLUDE_REVENUE_AMT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="EXCLUDE_REVENUE_AMT_YN" style="width:150px;height:80px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">영세율구분</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <div class="dropdown">
+                                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
+                                                <font>선택</font>
+                                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="ZERO_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <th scope="row" class="th_bg">내국신용장서류번호</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="DOCUMENT_NO" name="DOCUMENT_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NO', DOCUMENT_NO)"></sbux-input>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="ad_tbl_top2">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>전표라인</span>
-                                </li>
-                            </ul>
-                            <div class="ad_tbl_toplist">
-                                <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
-                                <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-                                <sbux-button id="btnCreateLine" name="btnCreateLine" uitype="normal" text="전표라인생성" class="btn btn-sm btn-outline-danger" onclick="fn_createLine" style="float: right;"></sbux-button>
-                                <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
-                                <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
-                                <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
-
-                            </div>
-                        </div>
-                        <div class="table-responsive tbl_scroll_sm" style="margin-top: 10px;">
-                            <div id="sb-area-gvwWFItem" style="height:300px;"></div>
-                        </div>
-                        <div>
-                            <table id="panWFMiddleBottom" class="table table-bordered tbl_fixed">
-                                <caption>합계</caption>
+                        <div id="tabPage1">
+                            <table id="panWFBottom" class="table table-bordered tbl_fixed">
+                                <caption>관리항목</caption>
                                 <colgroup>
                                     <col style="width: 10%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
+                                    <col style="width: 3%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
+                                    <col style="width: 3%">
                                     <col style="width: 10%">
                                     <col style="width: 10%">
+                                    <col style="width: 10%">
+                                    <col style="width: 3%">
                                 </colgroup>
                                 <tbody>
                                 <tr>
-                                    <th scope="row" class="th_bg">차변합계</th>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                                        <sbux-input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE1', ACC_ITEM_VALUE1)"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">대변합계</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="CR_SUM" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                                        <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
                                     </td>
-                                    <th scope="row" class="th_bg">차이(통화)</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DIFF_ORIGIN" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME1"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(1)"
+                                        ></sbux-button>
                                     </td>
-                                    <th scope="row" class="th_bg">차이(전표)</th>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
                                     <td class="td_input" style="border-right:hidden;">
-                                        <sbux-input id="DIFF_FUNTION" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 0, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" readonly></sbux-input>
+                                        <sbux-input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
                                     </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME5"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(5)"
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE9', ACC_ITEM_VALUE9)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME9', ACC_VALUE_NAME9)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME9"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(9)"
+                                        ></sbux-button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE2', ACC_ITEM_VALUE2)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME2', ACC_VALUE_NAME2)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME2"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(2)"
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE6', ACC_ITEM_VALUE6)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME6', ACC_VALUE_NAME6)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME6"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(6)"
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE10', ACC_ITEM_VALUE10)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME10', ACC_VALUE_NAME10)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME10"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(10)"
+                                        ></sbux-button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE3', ACC_ITEM_VALUE3)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME3', ACC_VALUE_NAME3)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME3"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(3)"
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE7', ACC_ITEM_VALUE7)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME7', ACC_VALUE_NAME7)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME7"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(7)"
+                                        ></sbux-button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE4', ACC_ITEM_VALUE4)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME4', ACC_VALUE_NAME4)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME4"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(4)"
+                                        ></sbux-button>
+                                    </td>
+                                    <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE8', ACC_ITEM_VALUE8)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME8', ACC_VALUE_NAME8)"></sbux-input>
+                                    </td>
+                                    <td class="td_input" style="border-right:hidden;">
+                                        <sbux-button
+                                                id="BTN_ACC_VALUE_NAME8"
+                                                class="btn btn-xs btn-outline-dark"
+                                                text="..." uitype="modal"
+                                                target-id="modal-compopup1"
+                                                onclick="fn_findAccItem(8)"
+                                        ></sbux-button>
+                                    </td>
+                                    <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                    <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
+                                    <sbux-input id="DESCRIPTION" name="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('DESCRIPTION', DESCRIPTION)"></sbux-input>
+                                    <sbux-input id="PROJECT_CODE" name="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_CODE', PROJECT_CODE)"></sbux-input>
+                                    <sbux-input id="PROJECT_NAME" name="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_NAME', PROJECT_NAME)"></sbux-input>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div>
-                            <sbux-tabs id="idxTab" name="idxTab" uitype="normal" is-scrollable="false" jsondata-ref="jsonTabData">
-                            </sbux-tabs>
-                            <div class="tab-content">
-                                <div id="tabPage2">
-                                    <table id="panWFVat" class="table table-bordered tbl_fixed">
-                                        <caption>부가세</caption>
-                                        <colgroup>
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                        </colgroup>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" class="th_bg">전자발행</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ETAX_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="ETAX_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">신고일자</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-datepicker
-                                                            uitype="popup"
-                                                            id="STANDARD_DATE1"
-                                                            name="STANDARD_DATE1"
-                                                            date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                            style="width:100%;"
-                                                            group-id="panWFVat"
-                                                            onchange="fn_changeRowData('STANDARD_DATE', STANDARD_DATE1)"
-                                                    />
-                                                </td>
-                                                <th scope="row" class="th_bg">공급가액</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="SUPPLY_AMT1" name="SUPPLY_AMT1" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('SUPPLY_AMT', SUPPLY_AMT1)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">수출신고번호</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_LICENSE_NO" name="EXPORT_LICENSE_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_LICENSE_NO', EXPORT_LICENSE_NO)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">당기제출금_외화</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}"  group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg">카드용도</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="CARD_USE_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="CARD_USE_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">카드번호</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="CARD_NUM" name="CARD_NUM" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT', EXPORT_AMT)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">내국신용장구분</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="LOCAL_CREDIT_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="LOCAL_CREDIT_TYPE" style="width:200px;height:100px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">선적일자</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-datepicker
-                                                            uitype="popup"
-                                                            id="SHIPPING_DATE"
-                                                            name="SHIPPING_DATE"
-                                                            date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                            style="width:100%;"
-                                                            group-id="panWFVat"
-                                                            onchange="fn_changeRowData('SHIPPING_DATE', SHIPPING_DATE)"
-                                                    />
-                                                </td>
-                                                <th scope="row" class="th_bg">당기제출금_원화</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="EXPORT_AMT_KRW" name="EXPORT_AMT_KRW" uitype="text" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('EXPORT_AMT_KRW', EXPORT_AMT_KRW)"></sbux-input>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg">불공제유형</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_NOT_DEDUCTION_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="VAT_NOT_DEDUCTION_TYPE" style="width:280px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">예정신고누락</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="REPORT_OMIT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="REPORT_OMIT_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">서류명</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="DOCUMENT_NAME" name="DOCUMENT_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NAME', DOCUMENT_NAME)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">수출외화금액</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="FOREIGN_AMT" name="FOREIGN_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('FOREIGN_AMT', FOREIGN_AMT)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">당기신고해당분_외화</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="VAT_EXPORT_AMT" name="VAT_EXPORT_AMT" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'digits': 2, 'radixPoint': '.', 'autoGroup': 3, 'groupSeparator': ',', 'autoFillDigits': true}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT', VAT_EXPORT_AMT)"></sbux-input>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg">중복발행</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="DUP_ISSUE_BILL_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="DUP_ISSUE_BILL_TYPE" style="width:100px;height:100px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">감가상각자산유형</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="VAT_ASSET_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="VAT_ASSET_TYPE" style="width:150px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">발급자</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ISSUE_NAME" name="ISSUE_NAME" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('ISSUE_NAME', ISSUE_NAME)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">수출원화금액</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="WON_AMT" name="WON_AMT"uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('WON_AMT', WON_AMT)"></sbux-input>
-                                                </td>
-                                                <th scope="row" class="th_bg">당기신고해당분_원화</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="VAT_EXPORT_AMT_KRW" name="VAT_EXPORT_AMT_KRW" uitype="text" placeholder="" class="form-control input-sm" mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',',}" group-id="panWFVat" onchange="fn_changeRowData('VAT_EXPORT_AMT_KRW', VAT_EXPORT_AMT_KRW)"></sbux-input>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg">11일외전송</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="AFTER_DUE_DATE_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="AFTER_DUE_DATE_YN" style="width:130px;height:80px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">영세율첨부서류여부</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_REPORT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="ZERO_REPORT_YN" style="width:150px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">발급일자</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-datepicker
-                                                            uitype="popup"
-                                                            id="DOCUMENT_ISSUE_DATE"
-                                                            name="DOCUMENT_ISSUE_DATE"
-                                                            date-format="yyyy-mm-dd"
-                                                            class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                                            style="width:100%;"
-                                                            group-id="panWFVat"
-                                                            onchange="fn_changeRowData('DOCUMENT_ISSUE_DATE', DOCUMENT_ISSUE_DATE)"
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg">수입금액제외</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="EXCLUDE_REVENUE_AMT_YN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="EXCLUDE_REVENUE_AMT_YN" style="width:150px;height:80px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">영세율구분</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <div class="dropdown">
-                                                        <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="ZERO_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panWFVat">
-                                                            <font>선택</font>
-                                                            <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="ZERO_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <th scope="row" class="th_bg">내국신용장서류번호</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="DOCUMENT_NO" name="DOCUMENT_NO" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFVat" onchange="fn_changeRowData('DOCUMENT_NO', DOCUMENT_NO)"></sbux-input>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div id="tabPage1">
-                                    <table id="panWFBottom" class="table table-bordered tbl_fixed">
-                                        <caption>관리항목</caption>
-                                        <colgroup>
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 3%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 3%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 10%">
-                                            <col style="width: 3%">
-                                        </colgroup>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE1">관리항목1</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE1" name="ACC_ITEM_VALUE1" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE1', ACC_ITEM_VALUE1)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME1" name="ACC_VALUE_NAME1" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME1"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(1)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE5">관리항목5</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE5" name="ACC_ITEM_VALUE5" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME5" name="ACC_VALUE_NAME5" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME1', ACC_VALUE_NAME1)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME5"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(5)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE9">관리항목9</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE9" name="ACC_ITEM_VALUE9" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE9', ACC_ITEM_VALUE9)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME9" name="ACC_VALUE_NAME9" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME9', ACC_VALUE_NAME9)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME9"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(9)"
-                                                    ></sbux-button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE2">관리항목2</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE2" name="ACC_ITEM_VALUE2" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE2', ACC_ITEM_VALUE2)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME2" name="ACC_VALUE_NAME2" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME2', ACC_VALUE_NAME2)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME2"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(2)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE6">관리항목6</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE6" name="ACC_ITEM_VALUE6" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE6', ACC_ITEM_VALUE6)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME6" name="ACC_VALUE_NAME6" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME6', ACC_VALUE_NAME6)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME6"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(6)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE10">관리항목10</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE10" name="ACC_ITEM_VALUE10" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE10', ACC_ITEM_VALUE10)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME10" name="ACC_VALUE_NAME10" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME10', ACC_VALUE_NAME10)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME10"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(10)"
-                                                    ></sbux-button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE3">관리항목3</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE3" name="ACC_ITEM_VALUE3" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE3', ACC_ITEM_VALUE3)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME3" name="ACC_VALUE_NAME3" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME3', ACC_VALUE_NAME3)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME3"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(3)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE7">관리항목7</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE7" name="ACC_ITEM_VALUE7" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE7', ACC_ITEM_VALUE7)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME7" name="ACC_VALUE_NAME7" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME7', ACC_VALUE_NAME7)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME7"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(7)"
-                                                    ></sbux-button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE4">관리항목4</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE4" name="ACC_ITEM_VALUE4" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE4', ACC_ITEM_VALUE4)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME4" name="ACC_VALUE_NAME4" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME4', ACC_VALUE_NAME4)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME4"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(4)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <th scope="row" class="th_bg" id="LBL_ACC_ITEM_VALUE8">관리항목8</th>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_ITEM_VALUE8" name="ACC_ITEM_VALUE8" type="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_ITEM_VALUE8', ACC_ITEM_VALUE8)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-input id="ACC_VALUE_NAME8" name="ACC_VALUE_NAME8" uitype="text" placeholder="" class="form-control input-sm" group-id="panWFBottom" onchange="fn_changeRowData('ACC_VALUE_NAME8', ACC_VALUE_NAME8)"></sbux-input>
-                                                </td>
-                                                <td class="td_input" style="border-right:hidden;">
-                                                    <sbux-button
-                                                            id="BTN_ACC_VALUE_NAME8"
-                                                            class="btn btn-xs btn-outline-dark"
-                                                            text="..." uitype="modal"
-                                                            target-id="modal-compopup1"
-                                                            onclick="fn_findAccItem(8)"
-                                                    ></sbux-button>
-                                                </td>
-                                                <sbux-input id="DEBIT_CREDIT" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
-                                                <sbux-input id="ACC_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom"></sbux-input>
-                                                <sbux-input id="DESCRIPTION" name="DESCRIPTION" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('DESCRIPTION', DESCRIPTION)"></sbux-input>
-                                                <sbux-input id="PROJECT_CODE" name="PROJECT_CODE" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_CODE', PROJECT_CODE)"></sbux-input>
-                                                <sbux-input id="PROJECT_NAME" name="PROJECT_NAME" class="form-control input-sm" uitype="hidden" style="width:100%" group-id="panWFBottom" onchange="fn_changeRowData('PROJECT_NAME', PROJECT_NAME)"></sbux-input>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
                     </div>
                 </div>
-    </section>
-    <!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+            </div>
+        </div>
     </div>
-    <div id="body-modal-compopup1">
-        <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
-    </div>
+</section>
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopup1">
+    <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
 
-    <!-- 팝업 Modal -->
-    <div>
-        <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" callback-after-close="fn_search"></sbux-modal>
-    </div>
-    <div id="body-modal-compopfim3420">
-        <jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
-    </div>
-	    
-	<!-- 리포트 출력 팝업 -->
-	<div>
-		<sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-	</div>
-	<div id="body-modal-comPopFig1000Report">
-		<jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
-	</div>	    
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal style="width:1400px" id="modal-compopfim3420" name="modal-compopfim3420" uitype="middle" header-title="" body-html-id="body-modal-compopfim3420" header-is-close-button="true" footer-is-close-button="false" callback-after-close="fn_search"></sbux-modal>
+</div>
+<div id="body-modal-compopfim3420">
+    <jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
+</div>
+
+<!-- 리포트 출력 팝업 -->
+<div>
+    <sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-comPopFig1000Report">
+    <jsp:include page="../../../com/popup/comPopFig1000Report.jsp"></jsp:include>
+</div>
 </body>
 
 <!-- inline scripts related to this page -->
@@ -1149,7 +1149,7 @@
                 ]
             }),
             // 전표구분
-            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '' + (strsourceType == "AP" ? "AND AP_DOC_WRITE_YN = 'Y'" : (strsourceType == "BAD" ? "AND DOC_TYPE like '91%'" : "AND AR_DOC_WRITE_YN = 'Y'")), gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '' + (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE like '91%'" : "AND AR_SLIP_WRT_YN = 'Y'")), gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표상태
             gfnma_multiSelectInit({
                 target: ['#DOC_STATUS']
@@ -1162,11 +1162,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'right' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '150px', style: 'text-align:left'},
-                    {caption: "전표상태", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '150px', style: 'text-align:left'},
+                    {caption: "전표상태", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
             }),
             // 사용자
@@ -1175,21 +1175,21 @@
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_USER'
-                , whereClause: "AND a.USER_ID IN (SELECT CASE WHEN b.ACCOUNT_MANAGER_YN = 'Y' THEN a.USER_ID ELSE b.USER_ID END FROM sysusermaster b WHERE b.USER_ID = '" + p_userId + "')"
+                , whereClause: "AND a.USER_ID IN (SELECT CASE WHEN b.ACCOUNT_MANAGER_YN = 'Y' THEN a.USER_ID ELSE b.USER_ID END FROM TB_SYS_USERMASTERCOMP b WHERE b.USER_ID = '" + p_userId + "')"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'right' 	// left, right
                 , colValue: 'USER_ID'
-                , colLabel: 'USER_NAME'
+                , colLabel: 'USER_NM'
                 , columns: [
                     {caption: "사용자ID", ref: 'USER_ID', width: '150px', style: 'text-align:left'},
-                    {caption: "사용자명", ref: 'USER_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "사용자명", ref: 'USER_NM', width: '150px', style: 'text-align:left'}
                 ]
             }),
             // 증빙유형
-            gfnma_setComSelect(['VOUCHER_TYPE'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['VOUCHER_TYPE'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 지급방법
             gfnma_multiSelectInit({
                 target: ['#PAY_METHOD']
@@ -1202,11 +1202,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "코드명", ref: 'CODE_NAME', width: '140px', style: 'text-align:left'},
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "코드명", ref: 'CD_NM', width: '140px', style: 'text-align:left'},
                     {caption: "은행", ref: 'BANK_CODE', width: '30px', style: 'text-align:left'},
                     {caption: "계좌번호", ref: 'ACCOUNT_NUM', width: '120px', style: 'text-align:left'},
                     {caption: "계좌코드", ref: 'DEPOSIT_CODE', width: '100px', style: 'text-align:left'}
@@ -1245,7 +1245,7 @@
                 }
             }),
             // 세금코드
-            gfnma_setComSelect([''], jsonVatCode, 'L_VAT_INFO', "AND a.USE_YN = 'Y' AND b.AR_AP_TYPE = '" + strsourceType + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonVatCode, 'L_VAT_INFO', "AND A.USE_YN = 'Y' AND B.AR_AP_TYPE = '" + strsourceType + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#VAT_CODE']
                 , compCode: gv_ma_selectedCorpCd
@@ -1288,20 +1288,20 @@
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_RULE'
-                , whereClause: (strsourceType == "AP" ? "AND AP_DOC_WRITE_YN = 'Y'" : (strsourceType == "BAD" ? "AND DOC_TYPE LIKE '91%'" : "AND AR_DOC_WRITE_YN = 'Y'"))
+                , whereClause: (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE LIKE '91%'" : "AND AR_SLIP_WRT_YN = 'Y'"))
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'RULE_CODE'
-                , colLabel: 'RULE_NAME'
+                , colValue: 'RULE_CD'
+                , colLabel: 'RULE_NM'
                 , columns: [
-                    {caption: "rule코드", ref: 'RULE_CODE', width: '100px', style: 'text-align:left'},
-                    {caption: "rule코드명", ref: 'RULE_NAME', width: '300px', style: 'text-align:left'},
-                    {caption: "전표유형", ref: 'DOC_TYPE', width: '100px', style: 'text-align:left'},
-                    {caption: "AP_DOC_YN", ref: 'AP_DOC_YN', width: '100px', style: 'text-align:left'},
-                    {caption: "AR_DOC_YN", ref: 'AR_DOC_YN', width: '100px', style: 'text-align:left'},
+                    {caption: "rule코드", ref: 'RULE_CD', width: '100px', style: 'text-align:left'},
+                    {caption: "rule코드명", ref: 'RULE_NM', width: '300px', style: 'text-align:left'},
+                    {caption: "전표유형", ref: 'SLIP_TYPE', width: '100px', style: 'text-align:left'},
+                    {caption: "AP_DOC_YN", ref: 'APS_SLIP_YN', width: '100px', style: 'text-align:left'},
+                    {caption: "AR_DOC_YN", ref: 'AR_SLIP_YN', width: '100px', style: 'text-align:left'},
                 ]
                 , callback : async function (value) {
                     if (gfn_nvl(value) == "" || gfn_nvl(SBUxMethod.get('DOC_BATCH_NO')) != "") {
@@ -1330,11 +1330,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "발행구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "발행구분", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1354,11 +1354,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "카드구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "카드구분", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1378,11 +1378,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'right' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "구분", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "구분", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1402,11 +1402,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "불공제 사유 유형", ref: 'CODE_NAME', width: '230px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "불공제 사유 유형", ref: 'CD_NM', width: '230px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1426,11 +1426,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "해당여부", ref: 'CODE_NAME', width: '80px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "해당여부", ref: 'CD_NM', width: '80px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1450,11 +1450,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "구분", ref: 'CODE_NAME', width: '50px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "구분", ref: 'CD_NM', width: '50px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1474,11 +1474,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "자산구분", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "자산구분", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1498,11 +1498,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "해당여부", ref: 'CODE_NAME', width: '80px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "해당여부", ref: 'CD_NM', width: '80px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1522,11 +1522,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "해당여부", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "해당여부", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1546,11 +1546,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "해당여부", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "해당여부", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1559,7 +1559,7 @@
                 }
             }),
             // 수입금액제외
-            gfnma_setComSelect(['gvwWFItem'], jsonZeroType, 'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonZeroType, 'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#ZERO_TYPE']
                 , compCode: gv_ma_selectedCorpCd
@@ -1571,11 +1571,11 @@
                 , selectValue: ''
                 , dropType: 'up' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'SUB_CODE'
-                , colLabel: 'CODE_NAME'
+                , colValue: 'SBSD_CD'
+                , colLabel: 'CD_NM'
                 , columns: [
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "명칭", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "명칭", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     var nRow = gvwWFItem.getRow();
@@ -1584,13 +1584,13 @@
                 }
             }),
             // 계좌정보
-            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#BANK_ACCOUNT_SEQ']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE"
+                , whereClause: "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
@@ -1621,15 +1621,15 @@
                 }
             }),
             // 유형
-            gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 차/대
-            gfnma_setComSelect(['gvwWFItem'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 관리항목코드
             gfnma_setComSelect(['gvwWFItem'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
             // 통화코드
-            gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             // 여신영역
-            gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['gvwWFItem'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
         ]);
@@ -1637,42 +1637,42 @@
 
     var fn_getBankAccountSeq = async function () {
         // 계좌정보
-        await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
-        await gfnma_multiSelectInit({
-            target: ['#BANK_ACCOUNT_SEQ']
-            , compCode: gv_ma_selectedCorpCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'L_CS_ACCOUNT'
-            , whereClause: "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE"
-            , formId: p_formId
-            , menuId: p_menuId
-            , selectValue: ''
-            , dropType: 'down' 	// up, down
-            , dropAlign: 'left' 	// left, right
-            , colValue: 'BANK_ACCOUNT_SEQ'
-            , colLabel: 'SEQ_NAME'
-            , columns: [
-                {caption: "행번", ref: 'BANK_ACCOUNT_SEQ', width: '50px', style: 'text-align:left'},
-                {caption: "행번명", ref: 'SEQ_NAME', width: '60px', style: 'text-align:left'},
-                {caption: "은행코드", ref: 'BANK_CODE', width: '50px', style: 'text-align:left'},
-                {caption: "은행명", ref: 'BANK_NAME', width: '100px', style: 'text-align:left'},
-                {caption: "계좌번호", ref: 'BANK_ACCOUNT_NO', width: '130px', style: 'text-align:left'},
-                {caption: "비고", ref: 'DESCRIPTION', width: '120px', style: 'text-align:left'},
-                {caption: "계좌주", ref: 'BANK_ACCOUNT_OWNER', width: '100px', style: 'text-align:left'},
-                {caption: "거래처", ref: 'CS_CODE', width: '100px', style: 'text-align:left'},
-                {caption: "시작일", ref: 'EFFECT_START_DATE', width: '100px', style: 'text-align:left'},
-                {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
-                {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
-            ]
-            , callback : function(value) {
-                if (!bnew) return;
+        await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
+            await gfnma_multiSelectInit({
+                target: ['#BANK_ACCOUNT_SEQ']
+                , compCode: gv_ma_selectedCorpCd
+                , clientCode: gv_ma_selectedClntCd
+                , bizcompId: 'L_CS_ACCOUNT'
+                , whereClause: "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
+                , formId: p_formId
+                , menuId: p_menuId
+                , selectValue: ''
+                , dropType: 'down' 	// up, down
+                , dropAlign: 'left' 	// left, right
+                , colValue: 'BANK_ACCOUNT_SEQ'
+                , colLabel: 'SEQ_NAME'
+                , columns: [
+                    {caption: "행번", ref: 'BANK_ACCOUNT_SEQ', width: '50px', style: 'text-align:left'},
+                    {caption: "행번명", ref: 'SEQ_NAME', width: '60px', style: 'text-align:left'},
+                    {caption: "은행코드", ref: 'BANK_CODE', width: '50px', style: 'text-align:left'},
+                    {caption: "은행명", ref: 'BANK_NAME', width: '100px', style: 'text-align:left'},
+                    {caption: "계좌번호", ref: 'BANK_ACCOUNT_NO', width: '130px', style: 'text-align:left'},
+                    {caption: "비고", ref: 'DESCRIPTION', width: '120px', style: 'text-align:left'},
+                    {caption: "계좌주", ref: 'BANK_ACCOUNT_OWNER', width: '100px', style: 'text-align:left'},
+                    {caption: "거래처", ref: 'CS_CODE', width: '100px', style: 'text-align:left'},
+                    {caption: "시작일", ref: 'EFFECT_START_DATE', width: '100px', style: 'text-align:left'},
+                    {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
+                    {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
+                ]
+                , callback : function(value) {
+                    if (!bnew) return;
 
-                SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
-                SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
-                SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
-                SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
-            }
-        });
+                    SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
+                    SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
+                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
+                    SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
+                }
+            });
     }
 
     var fn_changeExpectedPayDate = async function (value) {
@@ -1706,16 +1706,16 @@
             , popupType: 'B'
             , whereClause: ''
             , searchCaptions: ["부서코드", "부서명", "기준일"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "BASE_DATE"]
+            , searchInputFields: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             , searchInputValues: [searchCode, searchName, gfn_dateToYmd(new Date())]
             , searchInputTypes: ["input", "input", "datepicker"]		//input, datepicker가 있는 경우
             , height: '400px'
             , tableHeader: ["기준일", "사업장", "부서명", "사업장코드"]
-            , tableColumnNames: ["START_DATE", "SITE_NAME", "DEPT_NAME", "SITE_CODE"]
+            , tableColumnNames: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             , tableColumnWidths: ["100px", "150px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
@@ -1740,30 +1740,30 @@
             , height: '400px'
             , tableHeader: ["승인번호", "발급일자", "전송일자", "사업자번호", "상호", "대표자명", "합계금액", "공급가액", "부가세액"
                 , "전자세금계산서분류", "전자세금계산서분류명", "전표담당자명", "증빙유형", "거래처코드", "거래처명"]
-            , tableColumnNames: ["WRITE_DATE", "APPROVAL_NO", "ISSUE_DATE", "SEND_DATE", "SELLER_REG_NO", "SELLER_NAME", "SELLER_OWNER"
-                , "TOTAL_AMT", "TOTAL_TAXABLE_AMT", "TOTAL_VAT_AMT", "EINVOICE_CATEGORY", "EINVOICE_CATEGORY_NAME", "ACCOUNT_EMP_NAME", "VOUCHER_TYPE", "CS_CODE", "CS_NAME"]
+            , tableColumnNames: ["WRT_YMD", "APRV_NO", "ISSU_YMD", "SPLY_YMD", "SPLR_BRNO", "SPLR_NM", "SPLR_RPRSV"
+                , "TOT_AMT", "TOT_SPLY_AMT", "TOT_VAT_AMT", "ETXIV_CTGRY", "EINVOICE_CATEGORY_NAME", "ACCOUNT_EMP_NAME", "EVDNC_TYPE", "CNPT_CD", "CNPT_NM"]
             , tableColumnWidths: ["100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('WRITE_DATE', gfn_nvl(data.WRITE_DATE));
-                SBUxMethod.set('APPROVAL_NO', gfn_nvl(data.APPROVAL_NO));
-                SBUxMethod.set('BIZ_REGNO', gfn_nvl(data.BUYER_REG_NO));
-                SBUxMethod.set('DOC_AMT', gfn_nvl(data.TOTAL_AMT));
-                SBUxMethod.set('SUPPLY_AMT', gfn_nvl(data.TOTAL_TAXABLE_AMT, 0));
-                SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOTAL_VAT_AMT, 0));
-                SBUxMethod.set('VOUCHER_TYPE', gfn_nvl(data.VOUCHER_TYPE));
-                SBUxMethod.set('CS_CODE', gfn_nvl(data.CS_CODE));
-                SBUxMethod.set('CS_NAME', gfn_nvl(data.CS_NAME));
-                SBUxMethod.set('TXN_STOP_YN', gfn_nvl(data.TXN_STOP_YN));
-                SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CODE));
-                SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NAME));
-                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
-                SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CURRENCY_CODE));
+                SBUxMethod.set('WRITE_DATE', gfn_nvl(data.WRT_YMD));
+                SBUxMethod.set('APPROVAL_NO', gfn_nvl(data.APRV_NO));
+                SBUxMethod.set('BIZ_REGNO', gfn_nvl(data.BYR_BRNO));
+                SBUxMethod.set('DOC_AMT', gfn_nvl(data.TOT_AMT));
+                SBUxMethod.set('SUPPLY_AMT', gfn_nvl(data.TOT_SPLY_AMT, 0));
+                SBUxMethod.set('VAT_AMOUNT', gfn_nvl(data.TOT_VAT_AMT, 0));
+                SBUxMethod.set('VOUCHER_TYPE', gfn_nvl(data.EVDNC_TYPE));
+                SBUxMethod.set('CS_CODE', gfn_nvl(data.CNPT_CD));
+                SBUxMethod.set('CS_NAME', gfn_nvl(data.CNPT_NM));
+                SBUxMethod.set('TXN_STOP_YN', gfn_nvl(data.TRSC_HLT_YN));
+                SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CD));
+                SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NM));
+                gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
+                SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CRN_CD));
 
                 SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
-                SBUxMethod.set('WITHHOLD_TAX_YN', gfn_nvl(data.WITHHOLD_TAX_YN));
-                SBUxMethod.set('STEEL_SCRAP_PAY_YN', gfn_nvl(data.STEEL_SCRAP_PAY_YN));
-                SBUxMethod.set('TXN_STOP_REASON', gfn_nvl(data.TXN_STOP_REASON));
-                fn_changeApprovalNo(gfn_nvl(data.APPROVAL_NO));
+                SBUxMethod.set('WITHHOLD_TAX_YN', gfn_nvl(data.WTHD_TX_YN));
+                SBUxMethod.set('STEEL_SCRAP_PAY_YN', gfn_nvl(data.SCRAP_DLNG_YN));
+                SBUxMethod.set('TXN_STOP_REASON', gfn_nvl(data.TRSC_HLT_RSN));
+                fn_changeApprovalNo(gfn_nvl(data.APRV_NO));
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
@@ -1772,11 +1772,11 @@
     var fn_findCsCode = function () {
         var CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
         var CS_NAME = gfn_nvl(SBUxMethod.get("CS_NAME"));
-        var replaceText0 = "_CS_CODE_";
-        var replaceText1 = "_CS_NAME_";
-        var replaceText2 = "_BIZ_REGNO_";
-        var strWhereClause = "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%" + replaceText2 + "%'"
-            + (strsourceType == "AP" ? "AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN EFFECT_START_DATE AND EFFECT_END_DATE " : "");
+        var replaceText0 = "_CNPT_CD_";
+        var replaceText1 = "_CNPT_NM_";
+        var replaceText2 = "_BRNO_";
+        var strWhereClause = "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%" + replaceText2 + "%'"
+            + (strsourceType == "AP" ? "AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD " : "");
 
         SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
         compopup1({
@@ -1786,34 +1786,34 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["거래처코드", "거래처명", "사업자번호"]
-            , searchInputFields: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
+            , searchInputFields: ["CNPT_CD", "CNPT_NM", "BRNO"]
             , searchInputValues: [CS_CODE, CS_NAME, ""]
             , height: '400px'
             , tableHeader: ["거래처코드", "거래처명", "사업자번호", "거래중지여부", "대표자", "업태", "종목", "주소", "전화", "팩스"
                 , "채무계정", "채무계정명", "지급기준", "지급기준명", "지급방법", "통화", "TXN_STOP_REASON"]
-            , tableColumnNames: ["CS_CODE", "CS_NAME", "BIZ_REGNO", "TXN_STOP_YN", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS"
-                , "ADDRESS", "TEL", "FAX", "AP_ACC_CODE", "AP_ACC_NAME", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE", "TXN_STOP_REASON"]
+            , tableColumnNames: ["CNPT_CD", "CNPT_NM", "BRNO", "TRSC_HLT_YN", "CEO_NM", "BZSTAT", "TPBIZ"
+                , "ADDR", "TELNO", "FX_NO", "APS_ACNT_CD", "AP_ACC_NAME", "PAY_TERM_CD", "PAY_TERM_NM", "PAY_MTHD", "CRN_CD", "TRSC_HLT_RSN"]
             , tableColumnWidths: ["90px", "150px", "130px", "70px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px"
                 , "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('CS_CODE', data.CS_CODE);
-                SBUxMethod.set('CS_NAME', data.CS_NAME);
-                SBUxMethod.set('BIZ_REGNO', data.BIZ_REGNO);
+                SBUxMethod.set('CS_CODE', data.CNPT_CD);
+                SBUxMethod.set('CS_NAME', data.CNPT_NM);
+                SBUxMethod.set('BIZ_REGNO', data.BRNO);
 
-                if(gfn_nvl(data.PAY_TERM_CODE) != "") {
-                    SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
-                    SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
+                if(gfn_nvl(data.PAY_TERM_CD) != "") {
+                    SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CD);
+                    SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NM);
                 }
 
-                if(gfn_nvl(data.PAY_TERM_CODE) != "") {
-                    gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
+                if(gfn_nvl(data.PAY_TERM_CD) != "") {
+                    gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
                 }
 
-                if(gfn_nvl(data.CURRENCY_CODE) != "") {
-                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', data.CURRENCY_CODE);
+                if(gfn_nvl(data.CRN_CD) != "") {
+                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', data.CRN_CD);
                 }
-                
-                if (gfn_nvl(data.CS_CODE) != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
+
+                if (gfn_nvl(data.CNPT_CD) != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
                     SBUxMethod.attr("DOC_TYPE", "readonly", "true");
 
                     $("#btnAddRow").removeAttr('disabled');
@@ -1835,9 +1835,9 @@
     var fn_findPayTermCode = function () {
         var searchCode = gfn_nvl(SBUxMethod.get("PAY_TERM_CODE"));
         var searchName = gfn_nvl(SBUxMethod.get("PAY_TERM_NAME"));
-        var replaceText0 = "_PAY_TERM_CODE_";
-        var replaceText1 = "_PAY_TERM_NAME_";
-        var strWhereClause = "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 = "_PAY_TERM_CD_";
+        var replaceText1 = "_PAY_TERM_NM_";
+        var strWhereClause = "AND A.PAY_TERM_CD LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
         compopup1({
@@ -1847,19 +1847,19 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
-            , searchInputFields: ["PAY_TERM_CODE", "PAY_TERM_NAME"]
+            , searchInputFields: ["PAY_TERM_CD", "PAY_TERM_NM"]
             , searchInputValues: [searchCode, searchName]
             , height: '400px'
             , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
-            , tableColumnNames: ["PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD_NAME"]
+            , tableColumnNames: ["PAY_TERM_CD", "PAY_TERM_NM", "PAY_METHOD_NAME"]
             , tableColumnWidths: ["80px", "250px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NAME);
-                SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CODE);
-                gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(data.PAY_METHOD));
-                SBUxMethod.set('BASIS_TYPE', data.BASIS_TYPE);
+                SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NM);
+                SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CD);
+                gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
+                SBUxMethod.set('BASIS_TYPE', data.BASE_CRN_CD);
 
-                fn_payTermCodeOnchange(gfn_nvl(data.PAY_TERM_CODE));
+                fn_payTermCodeOnchange(gfn_nvl(data.PAY_TERM_CD));
             },
         });
     }
@@ -1885,7 +1885,7 @@
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["관리항목", "관리항목명", "데이터유형", "컨트롤유형"]
-            ,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CONTROL_TYPE"]
+            ,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", "DATA_TYPE", "CNTRL_TYPE"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set('ACC_VALUE_NAME' + num, data.ACC_VALUE_NAME);
@@ -1906,16 +1906,16 @@
             , popupType: 'B'
             , whereClause: addParam
             , searchCaptions: ["코드", "코드명"]
-            , searchInputFields: ["VAT_CODE", "VAT_NAME"]
+            , searchInputFields: ["VAT_CD", "VAT_NM"]
             , searchInputValues: ["", ""]
             , searchInputTypes: ["input", "input"]		//input, datepicker가 있는 경우
             , height: '400px'
             , tableHeader: ["부가세코드", "부가세명", "부가세유형"]
-            , tableColumnNames: ["VAT_CODE", "VAT_NAME", "VAT_TYPE_CODE"]
+            , tableColumnNames: ["VAT_CD", "VAT_NM", "VAT_TYPE_CD"]
             , tableColumnWidths: ["100px", "200px", "100px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_CODE"), data.VAT_CODE, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_NAME"), data.VAT_NAME, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_CODE"), data.VAT_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("VAT_NAME"), data.VAT_NM, true, true);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '600px'})
@@ -1936,27 +1936,27 @@
             , popupType: 'B'
             , whereClause: addParam
             , searchCaptions: ["코드", "코드명"]
-            , searchInputFields: ["ACCOUNT_CODE", "ACCOUNT_NAME"]
+            , searchInputFields: ["ACNTL_CD", "ACNT_NM"]
             , searchInputValues: ["", ""]
             , searchInputTypes: ["input", "input"]		//input, datepicker가 있는 경우
             , height: '400px'
             , tableHeader: ["계정코드", "계정명", "계정명(한글)"]
-            , tableColumnNames: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
+            , tableColumnNames: ["ACNTL_CD", "ACNT_NM", "ACNT_NM_CHN"]
             , tableColumnWidths: ["100px", "200px", "200px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_CODE"), data.ACNTL_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACCOUNT_NAME"), data.ACNT_NM, true, true);
                 for(var i = 1; i < 11; i++) {
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_CODE"+i), data["ACC_ITEM_CODE"+i], true, true);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_NAME"+i), data["ACC_ITEM_NAME"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_CODE"+i), data["ACNT_MNG_ARTCL_CD"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_NAME"+i), data["ACNT_MNG_ARTCL_NM"+i], true, true);
                     gvwWFItem.setCellData(row, gvwWFItem.getColRef("DATA_TYPE"+i), data["DATA_TYPE"+i], true, true);
                     gvwWFItem.setCellData(row, gvwWFItem.getColRef("POPUP_ID"+i), data["POPUP_ID"+i], true, true);
-                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_YN"+i), data["ACC_ITEM_YN"+i], true, true);
+                    gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_ITEM_YN"+i), data["ACNT_MNG_ARTCL_YN"+i], true, true);
                 }
 
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_CHARACTER"), data.ACC_CHARACTER, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_YN"), data.PROJECT_YN, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("ACC_CHARACTER"), data.INCPL_TYPE, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_YN"), data.PJT_YN, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.CST_CLSF, true, true);
             },/*
             returnDataFilter: function (data) {
                 if (gvwWFItem.getCellData(row, gvwWFItem.getColRef("LINE_TYPE")) == "2") {
@@ -1972,9 +1972,9 @@
     }
 
     var fn_findCostCenterCodeForGvwWFItem = function (row) {
-        var replaceText0 = "_COST_CENTER_CODE_";
-        var replaceText1 = "_COST_CENTER_NAME_";
-        var strWhereClause = "AND A.COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 = "_CSTCD_CD_";
+        var replaceText1 = "_CSTCD_NM_";
+        var strWhereClause = "AND A.CSTCD_CD LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         SBUxMethod.openModal('modal-compopup1');
@@ -1985,16 +1985,16 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
-            , searchInputFields: ["COST_CENTER_CODE", "COST_CENTER_NAME"]
+            , searchInputFields: ["CSTCD_CD", "CSTCD_NM"]
             , searchInputValues: ["", ""]
             , height: '400px'
             , tableHeader: ["코드", "명칭", "부서코드", "부서명", "사업장", "여신영역"]
-            , tableColumnNames: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "DEPT_NAME", "SITE_CODE", "CREDIT_AREA"]
+            , tableColumnNames: ["CSTCD_CD", "CSTCD_NM", "DEPT_CD", "DEPT_NM", "SITE_CD", "CRDT_SECT"]
             , tableColumnWidths: ["100px", "150px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.COST_CLASS, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.COST_CENTER_CODE, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.COST_CENTER_NAME, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.CST_CLSF, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.CSTCD_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.CSTCD_NM, true, true);
             },
         });
     }
@@ -2008,26 +2008,26 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 	"",	gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '700px'
             ,height					: '300px'
             ,tableHeader			: ["부서코드", 		"부서명"]
-            ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
             ,tableColumnWidths		: ["150px", 		"250px"]
             ,itemSelectEvent		: function (data){
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CODE, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NAME, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_CODE"), data.DEPT_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("DEPT_NAME"), data.DEPT_NM, true, true);
             },
         });
         SBUxMethod.openModal('modal-compopup1');
     }
 
     var fn_findProjectCodeForGvwWFItem = function (row) {
-        var replaceText0 = "_PROJECT_CODE_";
-        var replaceText1 = "_PROJECT_NAME_";
-        var strWhereClause = "AND I.PROJECT_CODE LIKE '%" + replaceText0 + "%' AND I.PROJECT_NAME LIKE '%" + replaceText1 + "%' AND I.FI_ORG_CODE ='"+p_fiOrgCode+"'";
+        var replaceText0 = "_PJT_CD_";
+        var replaceText1 = "_PJT_NM_";
+        var strWhereClause = "AND I.PJT_CD LIKE '%" + replaceText0 + "%' AND I.PJT_NM LIKE '%" + replaceText1 + "%' AND I.ACNTG_OGNZ_CD ='"+p_fiOrgCode+"'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', "프로젝트 정보");
 
@@ -2038,15 +2038,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["프로젝트코드", "프로젝트명"]
-            , searchInputFields: ["PROJECT_CODE", "PROJECT_NAME"]
+            , searchInputFields: ["PJT_CD", "PJT_NM"]
             , searchInputValues: ["", ""]
             , height: '400px'
             , tableHeader: ["프로젝트코드", "프로젝트명", "코스트센터코드", "코스트센터"]
-            , tableColumnNames: ["PROJECT_CODE", "PROJECT_NAME", "COST_CENTER_CODE", "COST_CENTER_NAME"]
+            , tableColumnNames: ["PJT_CD", "PJT_NM", "CSTCD_CD", "CSTCD_NM"]
             , tableColumnWidths: ["150px", "250px", "100px", "250px"]
             , itemSelectEvent: function (data) {
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PJT_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_NAME"), data.PJT_NM, true, true);
             },
         });
 
@@ -3377,17 +3377,17 @@
             SBUxMethod.setTab('idxTab','tabPage2');
             $("#btnDeleteRow").attr('disabled', 'true');
 
-            gfnma_multiSelectSet('#ETAX_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.ETAX_TYPE);
-            gfnma_multiSelectSet('#CARD_USE_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.CARD_USE_TYPE);
-            gfnma_multiSelectSet('#LOCAL_CREDIT_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.LOCAL_CREDIT_TYPE);
-            gfnma_multiSelectSet('#VAT_NOT_DEDUCTION_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.VAT_NOT_DEDUCTION_TYPE);
-            gfnma_multiSelectSet('#REPORT_OMIT_YN', 'SUB_CODE', 'CODE_NAME', rowData.REPORT_OMIT_YN);
-            gfnma_multiSelectSet('#DUP_ISSUE_BILL_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.DUP_ISSUE_BILL_TYPE);
-            gfnma_multiSelectSet('#VAT_ASSET_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.VAT_ASSET_TYPE);
-            gfnma_multiSelectSet('#AFTER_DUE_DATE_YN', 'SUB_CODE', 'CODE_NAME', rowData.AFTER_DUE_DATE_YN);
-            gfnma_multiSelectSet('#ZERO_REPORT_YN', 'SUB_CODE', 'CODE_NAME', rowData.ZERO_REPORT_YN);
-            gfnma_multiSelectSet('#EXCLUDE_REVENUE_AMT_YN', 'SUB_CODE', 'CODE_NAME', rowData.EXCLUDE_REVENUE_AMT_YN);
-            gfnma_multiSelectSet('#ZERO_TYPE', 'SUB_CODE', 'CODE_NAME', rowData.ZERO_TYPE);
+            gfnma_multiSelectSet('#ETAX_TYPE', 'SBSD_CD', 'CD_NM', rowData.ETAX_TYPE);
+            gfnma_multiSelectSet('#CARD_USE_TYPE', 'SBSD_CD', 'CD_NM', rowData.CARD_USE_TYPE);
+            gfnma_multiSelectSet('#LOCAL_CREDIT_TYPE', 'SBSD_CD', 'CD_NM', rowData.LOCAL_CREDIT_TYPE);
+            gfnma_multiSelectSet('#VAT_NOT_DEDUCTION_TYPE', 'SBSD_CD', 'CD_NM', rowData.VAT_NOT_DEDUCTION_TYPE);
+            gfnma_multiSelectSet('#REPORT_OMIT_YN', 'SBSD_CD', 'CD_NM', rowData.REPORT_OMIT_YN);
+            gfnma_multiSelectSet('#DUP_ISSUE_BILL_TYPE', 'SBSD_CD', 'CD_NM', rowData.DUP_ISSUE_BILL_TYPE);
+            gfnma_multiSelectSet('#VAT_ASSET_TYPE', 'SBSD_CD', 'CD_NM', rowData.VAT_ASSET_TYPE);
+            gfnma_multiSelectSet('#AFTER_DUE_DATE_YN', 'SBSD_CD', 'CD_NM', rowData.AFTER_DUE_DATE_YN);
+            gfnma_multiSelectSet('#ZERO_REPORT_YN', 'SBSD_CD', 'CD_NM', rowData.ZERO_REPORT_YN);
+            gfnma_multiSelectSet('#EXCLUDE_REVENUE_AMT_YN', 'SBSD_CD', 'CD_NM', rowData.EXCLUDE_REVENUE_AMT_YN);
+            gfnma_multiSelectSet('#ZERO_TYPE', 'SBSD_CD', 'CD_NM', rowData.ZERO_TYPE);
 
             SBUxMethod.set("STANDARD_DATE1", rowData.STANDARD_DATE);
             SBUxMethod.set("SUPPLY_AMT1", rowData.SUPPLY_AMT);
@@ -4241,7 +4241,7 @@
 
         SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
         gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_currCode);
-        SBUxMethod.set("BASE_SCALE", parseInt(jsonCurrencyCode.filter(data => data["CURRENCY_CODE"] == p_currCode)[0]["BASE_SCALE"]));
+        SBUxMethod.set("BASE_SCALE", parseInt(jsonCurrencyCode.filter(data => data["CRN_CD"] == p_currCode)[0]["BASE_SCALE"]));
 
         // TODO: btnAttach.Enabled = false;
         SBUxMethod.attr('VAT_TYPE', 'readonly', 'false');
@@ -4320,7 +4320,7 @@
         SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
         SBUxMethod.set("ACCT_RULE_CODE", p_defaultAcctRule);
 
-        gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
+        gfnma_multiSelectSet('#DOC_STATUS', 'SBSD_CD', 'CD_NM', "1");
 
         SBUxMethod.set("DOC_DATE", strcurrent_date);
         SBUxMethod.set("STANDARD_DATE", strcurrent_date);
@@ -4328,7 +4328,7 @@
         SBUxMethod.set("VOUCHER_RECEIPT_DATE", strcurrent_date);
         SBUxMethod.set("EXPECTED_PAY_DATE", strcurrent_date);
 
-        gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', p_userId);
+        gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NM', p_userId);
         SBUxMethod.set("INSERT_USERID", p_userId);
 
         SBUxMethod.set("DOC_NUM", "1");
@@ -4362,18 +4362,18 @@
 
     const StringToRemoveMask = async function(dr) {
         var removeMask =
-        [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        ];
+            [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ];
 
         for (var index = 1; index <= 10; ++index) {
             if (gfn_nvl(dr["DATA_TYPE" + index]) != "" && gfn_nvl(dr["ACC_ITEM_VALUE" + index]) != "") {
@@ -5359,7 +5359,7 @@
                     SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
                     gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CODE));
                     SBUxMethod.set('DOC_AMT', formData.DOC_AMT);
-                    gfnma_multiSelectSet('#PAY_METHOD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.PAY_METHOD));
+                    gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(formData.PAY_METHOD));
                     SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CODE);
                     SBUxMethod.set('PAY_TERM_NAME', formData.PAY_TERM_NAME);
                     SBUxMethod.set('VAT_AMOUNT', formData.VAT_AMOUNT);
@@ -5377,11 +5377,11 @@
                     SBUxMethod.set('VOUCHER_RECEIPT_DATE', formData.VOUCHER_RECEIPT_DATE);
                     SBUxMethod.set('VOUCHER_TYPE', formData.VOUCHER_TYPE);
                     SBUxMethod.set('VOUCHER_NO', formData.VOUCHER_NO);
-                    gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', gfn_nvl(formData.PAYEE_CODE));
+                    gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NM', gfn_nvl(formData.PAYEE_CODE));
                     SBUxMethod.set('PAYEE_NAME', formData.PAYEE_NAME);
                     SBUxMethod.set('APPROVE_DATE', formData.APPROVE_DATE);
                     SBUxMethod.set('FINAL_APPROVER', formData.FINAL_APPROVER);
-                    gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', gfn_nvl(formData.DOC_STATUS));
+                    gfnma_multiSelectSet('#DOC_STATUS', 'SBSD_CD', 'CD_NM', gfn_nvl(formData.DOC_STATUS));
                     SBUxMethod.set('ACCT_OPINION', formData.ACCT_OPINION);
                     SBUxMethod.set('TR_OPINION', formData.TR_OPINION);
                     SBUxMethod.set('POSTING_DATE', formData.POSTING_DATE);
@@ -5826,7 +5826,7 @@
         strCurrntDate = gfn_dateToYmd(new Date());
 
         SBUxMethod.set('DOC_ID', 0);
-        gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
+        gfnma_multiSelectSet('#DOC_STATUS', 'SBSD_CD', 'CD_NM', "1");
         SBUxMethod.set('DOC_BATCH_NO', "");
         SBUxMethod.set('DOC_NAME', "");
         SBUxMethod.set('DOC_NUM', "1");
@@ -5959,10 +5959,10 @@
             SBUxMethod.set("KEY_ID", ms[0]["KEY_ID"]);
             SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
             SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
-            gfnma_multiSelectSet('#DOC_STATUS', 'SUB_CODE', 'CODE_NAME', "1");
+            gfnma_multiSelectSet('#DOC_STATUS', 'SBSD_CD', 'CD_NM', "1");
             SBUxMethod.set("DOC_DATE", strcurrent_date);
             SBUxMethod.set('DOC_NUM', "1");
-            gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NAME', p_userId);
+            gfnma_multiSelectSet('#PAYEE_CODE', 'USER_ID', 'USER_NM', p_userId);
             SBUxMethod.set('EXPECTED_PAY_DATE', strcurrent_date);
             SBUxMethod.set('INSERT_USERID', p_userId);
             SBUxMethod.set('DESCRIPTION', gfn_nvl(ms[0]["MEMO"]));
@@ -6581,23 +6581,23 @@
             });
         }
     }
-    
+
     const fn_btnPrint = async function () {
         let DOC_BATCH_NO = gfn_nvl(SBUxMethod.get("DOC_BATCH_NO"));
         if(DOC_BATCH_NO == ''){
-        	return;
+            return;
         }
-   		SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
-   		SBUxMethod.openModal('modal-comPopFig1000Report');
-   		comPopFig1000Report({
-   			height			: '200px'
-   			,width			: '400px'
-   			,param			: {
-   				P_WORK_TYPE		: "INVOICE"
-   				,P_DOC_BATCH_NO	: DOC_BATCH_NO
-   				,P_COMP_CODE	: gv_ma_selectedCorpCd
-   				,P_CLIENT_CODE	: gv_ma_selectedClntCd
-   			}
-   		});
+        SBUxMethod.attr('modal-comPopFig1000Report', 'header-title', '전표 출력');
+        SBUxMethod.openModal('modal-comPopFig1000Report');
+        comPopFig1000Report({
+            height			: '200px'
+            ,width			: '400px'
+            ,param			: {
+                P_WORK_TYPE		: "INVOICE"
+                ,P_DOC_BATCH_NO	: DOC_BATCH_NO
+                ,P_COMP_CODE	: gv_ma_selectedCorpCd
+                ,P_CLIENT_CODE	: gv_ma_selectedClntCd
+            }
+        });
     }
 </script>

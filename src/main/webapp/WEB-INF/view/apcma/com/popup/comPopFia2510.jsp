@@ -112,16 +112,16 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var PopFia2510Grid; 			// 그리드를 담기위한 객체 선언
 var jsonPopFia2510 = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
 var pop_jsonFiOrgCode		= [];	// 사업단위
 var pop_jsonSiteCode		= [];	// 사업장
 var pop_jsonAcctRuleCode	= [];	// 회계기준
 var pop_jsonActualFlagP		= [];	// 실적구분
-
+ 
 /**
  * @description 복수코드
  */
@@ -138,7 +138,7 @@ function compopfia2510(options) {
 		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -147,17 +147,17 @@ function compopfia2510(options) {
 	if(settings.height){
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}	
-
+ 
 	const fn_initPopFia2510 = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 		
 	}
@@ -228,16 +228,16 @@ function compopfia2510(options) {
             {caption: ["부가세"],				ref: 'VAT_AMOUNT',		 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["비고"],					ref: 'MEMO',			 		type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         PopFia2510Grid = _SBGrid.create(SBGridProperties);
         //PopFia2510Grid.bind('click', 'fn_viewGrid');
     }	
     fn_createGrid();	
 	
     const fn_setPopFia2510Grid = async function(wtype) {
-
+ 
 		PopFia2510Grid.clearStatus();
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -250,63 +250,63 @@ function compopfia2510(options) {
 			,V_P_SITE_CODE 	    	: gfnma_nvl(SBUxMethod.get('POP_SCH_SITE_CODE'))
 			,V_P_ACQUIRE_DATE_FR 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_FR'))
 			,V_P_ACQUIRE_DATE_TO 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_TO'))
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia2510.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonPopFia2510.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						DOC_ID					: gfn_nvl(item.DOC_ID),
-  						DOC_NAME				: gfn_nvl(item.DOC_NAME),
+  						DOC_ID					: gfn_nvl(item.SLIP_ID),
+  						DOC_NAME				: gfn_nvl(item.SLIP_NM),
   						ITEM_ID					: gfn_nvl(item.ITEM_ID),
   						ITEM_SEQ				: gfn_nvl(item.ITEM_SEQ),
-  						INSERT_USERID			: gfn_nvl(item.INSERT_USERID),
-  						USER_NAME				: gfn_nvl(item.USER_NAME),
-  						INSERT_TIME				: gfn_nvl(item.INSERT_TIME),
-  						PAY_BASE_DATE			: gfn_nvl(item.PAY_BASE_DATE),
-  						EXPECTED_PAY_DATE		: gfnma_date5(gfn_nvl(item.EXPECTED_PAY_DATE)),
-  						PAY_TERM_CODE			: gfn_nvl(item.PAY_TERM_CODE),
-  						PAY_TERM_NAME			: gfn_nvl(item.PAY_TERM_NAME),
-  						AMOUNT					: gfn_nvl(item.AMOUNT),
-  						DESCRIPTION				: gfn_nvl(item.DESCRIPTION),
-  						BILL_DUE_DATE			: gfnma_date5(gfn_nvl(item.BILL_DUE_DATE)),
-  						BILL_DUE_DAY			: gfn_nvl(item.BILL_DUE_DAY),
-  						BILL_DUE_PAY_DATE		: gfnma_date5(gfn_nvl(item.BILL_DUE_PAY_DATE)),
-  						BANK_ACCOUNT_SEQ		: gfn_nvl(item.BANK_ACCOUNT_SEQ),
-  						PGM_ID					: gfn_nvl(item.PGM_ID),
+  						INSERT_USERID			: gfn_nvl(item.WRT_USER_ID),
+  						USER_NAME				: gfn_nvl(item.USER_NM),
+  						INSERT_TIME				: gfn_nvl(item.WRT_DT),
+  						PAY_BASE_DATE			: gfn_nvl(item.PAY_RCK_YMD),
+  						EXPECTED_PAY_DATE		: gfnma_date5(gfn_nvl(item.PAY_PRNMNT_YMD)),
+  						PAY_TERM_CODE			: gfn_nvl(item.PAY_TERM_CD),
+  						PAY_TERM_NAME			: gfn_nvl(item.PAY_TERM_NM),
+  						AMOUNT					: gfn_nvl(item.AMT),
+  						DESCRIPTION				: gfn_nvl(item.DSCTN),
+  						BILL_DUE_DATE			: gfnma_date5(gfn_nvl(item.PRMNT_MTRY_YMD)),
+  						BILL_DUE_DAY			: gfn_nvl(item.PRMNT_DCNT),
+  						BILL_DUE_PAY_DATE		: gfnma_date5(gfn_nvl(item.PRMNT_MTRY_PAY_YMD)),
+  						BANK_ACCOUNT_SEQ		: gfn_nvl(item.BACNT_SEQ),
+  						PGM_ID					: gfn_nvl(item.PRGRM_ID),
   					}
   					jsonPopFia2510.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		PopFia2510Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

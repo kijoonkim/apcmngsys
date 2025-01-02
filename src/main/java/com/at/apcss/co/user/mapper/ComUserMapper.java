@@ -248,6 +248,24 @@ public interface ComUserMapper {
      */
     public int updateUserApcAprvCncl(ComUserApcVO comUserApcVO) throws Exception;
 
+	/**
+	 * APC생산관리자 등록
+	 * @param comUserApcVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateUserApcMngrAprv(ComUserApcVO comUserApcVO) throws Exception;
+
+
+
+	/**
+	 * APC 사용자별  SYS AUTH 설정
+	 * @param comUserApcVO
+	 * @throws Exception
+	 */
+	public void insertSpUserApcSysAuth(ComUserApcVO comUserApcVO) throws Exception;
+
+
     /**
      * 사용자별 APC 변경이력 등록
      * @param comUserVO

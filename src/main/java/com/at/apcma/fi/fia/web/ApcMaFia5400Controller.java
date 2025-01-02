@@ -55,7 +55,7 @@ public class ApcMaFia5400Controller extends BaseController {
 
 		try {
 
-			param.put("procedure", 		"P_FIA5400_S");
+			param.put("procedure", 		"SP_FIA5400_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaFia5400Controller extends BaseController {
 
 		try {
 
-			param.put("procedure", 		"P_FIA5400_Q");
+			param.put("procedure", 		"SP_FIA5400_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {

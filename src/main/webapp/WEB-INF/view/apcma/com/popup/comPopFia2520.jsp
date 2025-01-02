@@ -112,17 +112,17 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var PopFia2520Grid; 			// 그리드를 담기위한 객체 선언
 var jsonPopFia2520 = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
 var pop_jsonFiOrgCode		= [];	// 사업단위
 var pop_jsonSiteCode		= [];	// 사업장
 var pop_jsonAcctRuleCode	= [];	// 회계기준
 var pop_jsonActualFlagP		= [];	// 실적구분
 var pop_jsonAcquireType		= [];	// 취득구분
-
+ 
 /**
  * @description 복수코드
  */
@@ -139,7 +139,7 @@ function compopfia2520(options) {
 		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -148,19 +148,19 @@ function compopfia2520(options) {
 	if(settings.height){
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}	
-
+ 
 	const fn_initPopFia2520 = async function() {
 		let rst = await Promise.all([
             // 사업단위
-            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_FI_ORG_CODE'],		pop_jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 실적구분
-            gfnma_setComSelect([''],						pop_jsonAcquireType,	'L_FIA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''],						pop_jsonAcquireType,	'L_FIA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 		
 	}
@@ -173,7 +173,7 @@ function compopfia2520(options) {
   		
   		SBUxMethod.set('POP_SCH_FI_ORG_CODE',	p_ss_fiOrgCode);
   		SBUxMethod.set('POP_SCH_SITE_CODE',		p_ss_siteCode);
-
+ 
   		if(settings.param){
   			if(settings.param.p_sch_acquire_date_fr){
   		  		SBUxMethod.set('POP_SCH_ACQUIRE_DATE_FR',	settings.param.p_sch_acquire_date_fr);
@@ -352,9 +352,9 @@ function compopfia2520(options) {
     }	
     
     const fn_setPopFia2520Grid = async function(wtype) {
-
+ 
 		PopFia2520Grid.clearStatus();
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -367,129 +367,129 @@ function compopfia2520(options) {
 			,V_P_ACTUAL_FLAG 	    : gfnma_nvl(SBUxMethod.get('POP_SCH_ACTUAL_FLAG_P'))
 			,V_P_ACQUIRE_DATE_FR 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_FR'))
 			,V_P_ACQUIRE_DATE_TO 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_TO'))
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia2520List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonPopFia2520.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						CHECK_YN						: 'N',
-  						ACCOUNT_CODE					: gfn_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_NAME					: gfn_nvl(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE					: gfn_nvl(item.ACCT_RULE_CODE),
-  						ACCUM_DEPR_ACC					: gfn_nvl(item.ACCUM_DEPR_ACC),
+  						ACCOUNT_CODE					: gfn_nvl(item.ACNTL_CD),
+  						ACCOUNT_NAME					: gfn_nvl(item.ACNT_NM),
+  						ACCT_RULE_CODE					: gfn_nvl(item.GAAP_CD),
+  						ACCUM_DEPR_ACC					: gfn_nvl(item.ACML_DPRC_ACNT),
   						ACCUM_DEPR_ACC_NAME				: gfn_nvl(item.ACCUM_DEPR_ACC_NAME),
-  						ACQUIRE_DATE					: gfn_nvl(item.ACQUIRE_DATE),
-  						ACQUIRE_TYPE					: gfn_nvl(item.ACQUIRE_TYPE),
-  						ACTUAL_FLAG						: gfn_nvl(item.ACTUAL_FLAG),
-  						ASSET_ACCOUNT					: gfn_nvl(item.ASSET_ACCOUNT),
+  						ACQUIRE_DATE					: gfn_nvl(item.ACQS_FRST_YMD),
+  						ACQUIRE_TYPE					: gfn_nvl(item.ACQS_TYPE),
+  						ACTUAL_FLAG						: gfn_nvl(item.ACTL_FLAG),
+  						ASSET_ACCOUNT					: gfn_nvl(item.ASST_ACNT_CD),
   						ASSET_ACCOUNT_NAME				: gfn_nvl(item.ASSET_ACCOUNT_NAME),
-  						ASSET_CATEGORY					: gfn_nvl(item.ASSET_CATEGORY),
+  						ASSET_CATEGORY					: gfn_nvl(item.ASST_CTGRY),
   						ASSET_CATEGORY_NAME				: gfn_nvl(item.ASSET_CATEGORY_NAME),
-  						ASSET_LEVEL2					: gfn_nvl(item.ASSET_LEVEL2),
+  						ASSET_LEVEL2					: gfn_nvl(item.ASST_MCLSF),
   						ASSET_LEVEL2_NAME				: gfn_nvl(item.ASSET_LEVEL2_NAME),
-  						ASSET_LEVEL3					: gfn_nvl(item.ASSET_LEVEL3),
+  						ASSET_LEVEL3					: gfn_nvl(item.ASST_SCLSF),
   						ASSET_LEVEL3_NAME				: gfn_nvl(item.ASSET_LEVEL3_NAME),
-  						ASSET_NAME						: gfn_nvl(item.ASSET_NAME),
-  						ASSET_NO						: gfn_nvl(item.ASSET_NO),
-  						ASSET_PRICE						: gfn_nvl(item.ASSET_PRICE),
-  						ASSET_QTY						: gfn_nvl(item.ASSET_QTY),
-  						ASSET_SPEC						: gfn_nvl(item.ASSET_SPEC),
+  						ASSET_NAME						: gfn_nvl(item.ASST_NM),
+  						ASSET_NO						: gfn_nvl(item.ASST_NO),
+  						ASSET_PRICE						: gfn_nvl(item.AST_UNTPRC),
+  						ASSET_QTY						: gfn_nvl(item.AST_DSPSL_QTY),
+  						ASSET_SPEC						: gfn_nvl(item.AST_SPCFCT),
   						CHK_YN							: gfn_nvl(item.CHK_YN),
-  						COMP_CODE						: gfn_nvl(item.COMP_CODE),
-  						COST_CENTER_CODE				: gfn_nvl(item.COST_CENTER_CODE),
-  						COST_CENTER_NAME				: gfn_nvl(item.COST_CENTER_NAME),
-  						CS_CODE							: gfn_nvl(item.CS_CODE),
-  						CS_NAME							: gfn_nvl(item.CS_NAME),
-  						CURRENCY_CODE					: gfn_nvl(item.CURRENCY_CODE),
-  						DEPRECIATE_START_YYYYMM			: gfn_nvl(item.DEPRECIATE_START_YYYYMM),
-  						DEPRECIATE_START_YYYYMM_IFRS	: gfn_nvl(item.DEPRECIATE_START_YYYYMM_IFRS),
+  						COMP_CODE						: gfn_nvl(item.CO_CD),
+  						COST_CENTER_CODE				: gfn_nvl(item.CSTCD_CD),
+  						COST_CENTER_NAME				: gfn_nvl(item.CSTCD_NM),
+  						CS_CODE							: gfn_nvl(item.CNPT_CD),
+  						CS_NAME							: gfn_nvl(item.CNPT_NM),
+  						CURRENCY_CODE					: gfn_nvl(item.CRN_CD),
+  						DEPRECIATE_START_YYYYMM			: gfn_nvl(item.DPRC_BGNG_YM),
+  						DEPRECIATE_START_YYYYMM_IFRS	: gfn_nvl(item.DPRC_BGNG_YM_IFRS),
   						
-  						DEPRECIATE_YN					: gfn_nvl(item.DEPRECIATE_YN),
-  						DEPRECIATION_METHOD_GAAP		: gfn_nvl(item.DEPRECIATION_METHOD_GAAP),
-  						DEPRECIATION_METHOD_IFRS		: gfn_nvl(item.DEPRECIATION_METHOD_IFRS),
-  						DEPRECIATION_METHOD_TAX			: gfn_nvl(item.DEPRECIATION_METHOD_TAX),
-  						DEPRECIATION_PERIOD_GAAP		: gfn_nvl(item.DEPRECIATION_PERIOD_GAAP),
-  						DEPRECIATION_PERIOD_IFRS		: gfn_nvl(item.DEPRECIATION_PERIOD_IFRS),
-  						DEPRECIATION_PERIOD_TAX			: gfn_nvl(item.DEPRECIATION_PERIOD_TAX),
+  						DEPRECIATE_YN					: gfn_nvl(item.DPRC_YN),
+  						DEPRECIATION_METHOD_GAAP		: gfn_nvl(item.DPRC_MTHD_GAAP),
+  						DEPRECIATION_METHOD_IFRS		: gfn_nvl(item.DPRC_MTHD_IFRS),
+  						DEPRECIATION_METHOD_TAX			: gfn_nvl(item.DPRC_MTHD_TAX),
+  						DEPRECIATION_PERIOD_GAAP		: gfn_nvl(item.DPRC_PRD_GAAP),
+  						DEPRECIATION_PERIOD_IFRS		: gfn_nvl(item.DPRC_PRD_IFRS),
+  						DEPRECIATION_PERIOD_TAX			: gfn_nvl(item.DPRC_PRD_TAX),
   						
-  						DEPR_EXP_ACC					: gfn_nvl(item.DEPR_EXP_ACC),
+  						DEPR_EXP_ACC					: gfn_nvl(item.DPCO_ACNT),
   						DEPR_EXP_ACC_NAME				: gfn_nvl(item.DEPR_EXP_ACC_NAME),
-  						DEPT_CODE						: gfn_nvl(item.DEPT_CODE),
-  						DEPT_NAME						: gfn_nvl(item.DEPT_NAME),
-  						DOC_ID							: gfn_nvl(item.DOC_ID),
-  						DOC_NAME						: gfn_nvl(item.DOC_NAME),
-  						EMP_CODE						: gfn_nvl(item.EMP_CODE),
-  						EMP_NAME						: gfn_nvl(item.EMP_NAME),
-  						EQUIPMENT_NO					: gfn_nvl(item.EQUIPMENT_NO),
-  						EXCHANGE_RATE					: gfn_nvl(item.EXCHANGE_RATE),
-  						FI_ORG_CODE						: gfn_nvl(item.FI_ORG_CODE),
-  						FUNCTIONAL_AMOUNT				: gfn_nvl(item.FUNCTIONAL_AMOUNT),
-  						INVOICE_ID						: gfn_nvl(item.INVOICE_ID),
-  						INVOICE_SEQ						: gfn_nvl(item.INVOICE_SEQ),
+  						DEPT_CODE						: gfn_nvl(item.DEPT_CD),
+  						DEPT_NAME						: gfn_nvl(item.DEPT_NM),
+  						DOC_ID							: gfn_nvl(item.SLIP_ID),
+  						DOC_NAME						: gfn_nvl(item.SLIP_NM),
+  						EMP_CODE						: gfn_nvl(item.EMP_CD),
+  						EMP_NAME						: gfn_nvl(item.EMP_NM),
+  						EQUIPMENT_NO					: gfn_nvl(item.EQPMNT_NO),
+  						EXCHANGE_RATE					: gfn_nvl(item.EXCHRT),
+  						FI_ORG_CODE						: gfn_nvl(item.ACNTG_OGNZ_CD),
+  						FUNCTIONAL_AMOUNT				: gfn_nvl(item.CNVS_AMT),
+  						INVOICE_ID						: gfn_nvl(item.SLIP_ID),
+  						INVOICE_SEQ						: gfn_nvl(item.SLIP_SEQ),
   						ITEM_ID							: gfn_nvl(item.ITEM_ID),
-  						LOCATION_CODE					: gfn_nvl(item.LOCATION_CODE),
-  						LOCATION_NAME					: gfn_nvl(item.LOCATION_NAME),
+  						LOCATION_CODE					: gfn_nvl(item.LOCTN_CD),
+  						LOCATION_NAME					: gfn_nvl(item.LOCTN_NM),
   						MEMO							: gfn_nvl(item.MEMO),
   						MEMO							: gfn_nvl(item.MEMO),
-  						ORIGINAL_AMOUNT					: gfn_nvl(item.ORIGINAL_AMOUNT),
-  						PROJECT_CODE					: gfn_nvl(item.PROJECT_CODE),
-  						PROJECT_NAME					: gfn_nvl(item.PROJECT_NAME),
+  						ORIGINAL_AMOUNT					: gfn_nvl(item.ORGNL_AMT),
+  						PROJECT_CODE					: gfn_nvl(item.PJT_CD),
+  						PROJECT_NAME					: gfn_nvl(item.PJT_NM),
   						QTY								: gfn_nvl(item.QTY),
-  						SALVAGE_RATE_GAAP				: gfn_nvl(item.SALVAGE_RATE_GAAP),
-  						SALVAGE_RATE_IFRS				: gfn_nvl(item.SALVAGE_RATE_IFRS),
-  						SALVAGE_RATE_TAX				: gfn_nvl(item.SALVAGE_RATE_TAX),
-  						SALVAGE_VALUE_GAAP				: gfn_nvl(item.SALVAGE_VALUE_GAAP),
-  						SALVAGE_VALUE_IFRS				: gfn_nvl(item.SALVAGE_VALUE_IFRS),
-  						SALVAGE_VALUE_TAX				: gfn_nvl(item.SALVAGE_VALUE_TAX),
-  						SITE_CODE						: gfn_nvl(item.SITE_CODE),
-  						SOURCE_NAME						: gfn_nvl(item.SOURCE_NAME),
-  						SOURCE_TYPE						: gfn_nvl(item.SOURCE_TYPE),
-  						SUBSIDIES_ACCOUNT				: gfn_nvl(item.SUBSIDIES_ACCOUNT),
-  						SUBSIDIES_ACCUM_DEPR_ACC		: gfn_nvl(item.SUBSIDIES_ACCUM_DEPR_ACC),
+  						SALVAGE_RATE_GAAP				: gfn_nvl(item.RMN_RT_GAAP),
+  						SALVAGE_RATE_IFRS				: gfn_nvl(item.RMN_RT_IFRS),
+  						SALVAGE_RATE_TAX				: gfn_nvl(item.RMN_RT_TAX),
+  						SALVAGE_VALUE_GAAP				: gfn_nvl(item.RMN_AMT_GAAP),
+  						SALVAGE_VALUE_IFRS				: gfn_nvl(item.RMN_AMT_IFRS),
+  						SALVAGE_VALUE_TAX				: gfn_nvl(item.RMN_AMT_TAX),
+  						SITE_CODE						: gfn_nvl(item.SITE_CD),
+  						SOURCE_NAME						: gfn_nvl(item.SRC_NM),
+  						SOURCE_TYPE						: gfn_nvl(item.SRC_TYPE),
+  						SUBSIDIES_ACCOUNT				: gfn_nvl(item.GVSBS_ACNT),
+  						SUBSIDIES_ACCUM_DEPR_ACC		: gfn_nvl(item.GVSBS_DPRC_AT_ACNT),
   						SUBSIDIES_ACCUM_DEPR_ACC_NAME	: gfn_nvl(item.SUBSIDIES_ACCUM_DEPR_ACC_NAME),
   						SUBSIDIES_ACC_NAME				: gfn_nvl(item.SUBSIDIES_ACC_NAME),
-  						SUBSIDIES_DEPR_ACC				: gfn_nvl(item.SUBSIDIES_DEPR_ACC),
+  						SUBSIDIES_DEPR_ACC				: gfn_nvl(item.GVSBS_DPCO_ACNT),
   						SUBSIDIES_DEPR_ACC_NAME			: gfn_nvl(item.SUBSIDIES_DEPR_ACC_NAME),
-  						UNIT_CODE						: gfn_nvl(item.UNIT_CODE),
-  						USEFUL_LIFE_GAAP				: gfn_nvl(item.USEFUL_LIFE_GAAP),
-  						USEFUL_LIFE_IFRS				: gfn_nvl(item.USEFUL_LIFE_IFRS),
-  						USEFUL_LIFE_TAX					: gfn_nvl(item.USEFUL_LIFE_TAX),
-  						VAT_AMOUNT						: gfn_nvl(item.VAT_AMOUNT),
+  						UNIT_CODE						: gfn_nvl(item.UNIT_CD),
+  						USEFUL_LIFE_GAAP				: gfn_nvl(item.SVLF_GAAP),
+  						USEFUL_LIFE_IFRS				: gfn_nvl(item.SVLF_IFRS),
+  						USEFUL_LIFE_TAX					: gfn_nvl(item.SVLF_TAX),
+  						VAT_AMOUNT						: gfn_nvl(item.VAT_AMT),
   						VAT_TYPE						: gfn_nvl(item.VAT_TYPE),
   					}
   					jsonPopFia2520.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		PopFia2520Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -656,10 +656,10 @@ function compopfia2520(options) {
     	 		}			
     	 	listData.push(param);
     	 }	
-
+ 
     	 if(listData.length > 0) {
     	 	const postJsonPromise = gfn_postJSON("/fi/ffa/alm/batchFia2520S.do", {listData: listData});
-
+ 
     	 	const data = await postJsonPromise;
     	 	console.log('data:', data);
     	 	try {
@@ -704,7 +704,7 @@ function compopfia2520(options) {
 	});	
 	
 }
-
+ 
 /**
  * 그리드내 팝업(거래처) 조회
  */
@@ -714,17 +714,17 @@ function fn_popFia2520_gridPopup1(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 9) 
 	fn_popFia2520_compopup1(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(거래처) 오픈
  */
 var fn_popFia2520_compopup1 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_CS_CODE_";
-    var replaceText1 	= "_CS_NAME_";
-    var replaceText2 	= "_BIZ_REGNO_";
-    var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
-
+    var replaceText0 	= "_CNPT_CD_";
+    var replaceText1 	= "_CNPT_NM_";
+    var replaceText2 	= "_BRNO_";
+    var strWhereClause 	= "AND a.CNPT_CD LIKE '%" + replaceText0 + "%' AND a.CNPT_NM LIKE '%" + replaceText1 + "%' AND a.BRNO LIKE '%"+ replaceText2 + "%'";
+ 
 	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
 	compopup1({
         compCode				: gv_ma_selectedCorpCd
@@ -733,23 +733,23 @@ var fn_popFia2520_compopup1 = function(row, col, cellData1, cellData2) {
         ,popupType				: 'A'
         ,whereClause			: strWhereClause
         ,searchCaptions			: ["거래처코드", 	"거래처명",  	"사업자번호" ]
-        ,searchInputFields		: ["CS_CODE", 		"CS_NAME",  	"BIZ_REGNO"]
+        ,searchInputFields		: ["CNPT_CD", 		"CNPT_NM",  	"BRNO"]
         ,searchInputValues		: [cellData1, 		cellData2, 	""         ]
         ,height					: '400px'
         ,width					: '1000px'
         ,tableHeader			: ["거래처코드",	"거래처명", 	"사업자번호" , 	"대표자",		"업태",			"종목",			"주소",		"전화",		"팩스"]
-        ,tableColumnNames		: ["CS_CODE", 		"CS_NAME", 		"BIZ_REGNO", 	"CHIEF_NAME",	"BIZ_CATEGORY",	"BIZ_ITEMS",	"ADDRESS",	"TEL",		"FAX"]
+        ,tableColumnNames		: ["CNPT_CD", 		"CNPT_NM", 		"BRNO", 	"CEO_NM",	"BZSTAT",	"TPBIZ",	"ADDR",	"TELNO",		"FX_NO"]
         ,tableColumnWidths		: ["100px", 		"200px", 		"100px", 		"100px",		"100px",		"150px",		"400px",	"120px",	"120px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 7, data['CS_CODE'], true, true);
-			PopFia2520Grid.setCellData(row, 9, data['CS_NAME'], true, true);
+			PopFia2520Grid.setCellData(row, 7, data['CNPT_CD'], true, true);
+			PopFia2520Grid.setCellData(row, 9, data['CNPT_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(부서) 조회
  */
@@ -759,7 +759,7 @@ function fn_popFia2520_gridPopup2(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 12) 
 	fn_popFia2520_compopup2(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(부서) 오픈
  */
@@ -775,24 +775,24 @@ var fn_popFia2520_compopup2 = function(row, col, cellData1, cellData2) {
         ,popupType				: 'B'
    		,whereClause			: param
         ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-        ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+        ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
         ,searchInputValues		: [cellData1, 		cellData2,	""]
         ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
         ,width					: '500px'
         ,height					: '400px'
         ,tableHeader			: ["부서코드",		"부서명" 		]
-        ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
+        ,tableColumnNames		: ["DEPT_CD",		"DEPT_NM"  	]
         ,tableColumnWidths		: ["100px", 		"200px" 		]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 10,	data['DEPT_CODE'], true, true);
-			PopFia2520Grid.setCellData(row, 12,	data['DEPT_NAME'], true, true);
+			PopFia2520Grid.setCellData(row, 10,	data['DEPT_CD'], true, true);
+			PopFia2520Grid.setCellData(row, 12,	data['DEPT_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(원가중심코드) 조회
  */
@@ -802,15 +802,15 @@ function fn_popFia2520_gridPopup3(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 15) 
 	fn_popFia2520_compopup3(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(원가중심코드) 오픈
  */
 var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_COST_CENTER_CODE_";
-    var replaceText1 	= "_COST_CENTER_NAME_";
-    var strWhereClause 	= "AND X.COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND X.COST_CENTER_NAME LIKE '%" + replaceText1 + "%'";
+    var replaceText0 	= "_CSTCD_CD_";
+    var replaceText1 	= "_CSTCD_NM_";
+    var strWhereClause 	= "AND X.CSTCD_CD LIKE '%" + replaceText0 + "%' AND X.CSTCD_NM LIKE '%" + replaceText1 + "%'";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 	compopup1({
@@ -820,22 +820,22 @@ var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
     	,popupType				: 'A'
 		,whereClause			: strWhereClause
 		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+		,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,height					: '400px'
 		,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-		,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+		,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
 		,tableColumnWidths		: ["80px", 	"80px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 13,	data['COST_CENTER_CODE'], true, true);
-			PopFia2520Grid.setCellData(row, 15,	data['COST_CENTER_NAME'], true, true);
+			PopFia2520Grid.setCellData(row, 13,	data['CSTCD_CD'], true, true);
+			PopFia2520Grid.setCellData(row, 15,	data['CSTCD_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(자산번호) 조회
  */
@@ -845,15 +845,15 @@ function fn_popFia2520_gridPopup4(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 19) 
 	fn_popFia2520_compopup4(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(자산번호) 오픈
  */
 var fn_popFia2520_compopup4 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_ASSET_NO_";
-    var replaceText1 	= "_ASSET_NAME_";
-    var strWhereClause 	= "AND A.ASSET_NO LIKE '%" + replaceText0 + "%' AND A.ASSET_NAME LIKE '%" + replaceText1 + "%'";
+    var replaceText0 	= "_ASST_NO_";
+    var replaceText1 	= "_ASST_NM_";
+    var strWhereClause 	= "AND A.ASST_NO LIKE '%" + replaceText0 + "%' AND A.ASST_NM LIKE '%" + replaceText1 + "%'";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
 	compopup1({
@@ -863,22 +863,22 @@ var fn_popFia2520_compopup4 = function(row, col, cellData1, cellData2) {
     	,popupType				: 'A'
 		,whereClause			: strWhereClause
 		,searchCaptions			: ["번호", 			"명칭"]
-		,searchInputFields		: ["ASSET_NO", 		"ASSET_NAME"]
+		,searchInputFields		: ["ASST_NO", 		"ASST_NM"]
 		,searchInputValues		: [cellData1, 		cellData2]
 		,height					: '400px'
 		,tableHeader			: ["자산번호", 		"자산명"]
-		,tableColumnNames		: ["ASSET_NO",		"ASSET_NAME"]
+		,tableColumnNames		: ["ASST_NO",		"ASST_NM"]
 		,tableColumnWidths		: ["80px", 			"80px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 17,	data['ASSET_NO'], true, true);
-			PopFia2520Grid.setCellData(row, 19,	data['ASSET_NAME'], true, true);
+			PopFia2520Grid.setCellData(row, 17,	data['ASST_NO'], true, true);
+			PopFia2520Grid.setCellData(row, 19,	data['ASST_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(자산구분) 조회
  */
@@ -888,15 +888,15 @@ function fn_popFia2520_gridPopup5(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 25) 
 	fn_popFia2520_compopup5(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(자산구분) 오픈
  */
 var fn_popFia2520_compopup5 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_ASSET_CATEGORY_";
+    var replaceText0 	= "_ASST_CTGRY_";
     var replaceText1 	= "_ASSET_CATEGORY_NAME_"; 
-    var strWhereClause 	= "AND A.ASSET_CATEGORY LIKE '%" + replaceText0 + "%' AND A.ASSET_CATEGORY_NAME LIKE '%" + replaceText1 + "%' ";
+    var strWhereClause 	= "AND A.ASST_CTGRY LIKE '%" + replaceText0 + "%' AND A.ASSET_CATEGORY_NAME LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
 	compopup1({
@@ -906,24 +906,24 @@ var fn_popFia2520_compopup5 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
    		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASSET_CATEGORY", 	"ASSET_CATEGORY_NAME"]
+		,searchInputFields		: ["ASST_CTGRY", 	"ASSET_CATEGORY_NAME"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
    		,width					: '500px'
    		,height					: '400px'
 		,tableHeader			: ["분류코드", 			"분류명"]
-		,tableColumnNames		: ["ASSET_CATEGORY", 	"ASSET_CATEGORY_NAME"]	
+		,tableColumnNames		: ["ASST_CTGRY", 	"ASSET_CATEGORY_NAME"]	
 		,tableColumnWidths		: ["100px", 			"250px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 23,	data['ASSET_CATEGORY'], 	true, true);
+			PopFia2520Grid.setCellData(row, 23,	data['ASST_CTGRY'], 	true, true);
 			PopFia2520Grid.setCellData(row, 25,	data['ASSET_CATEGORY_NAME'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(중분류) 조회
  */
@@ -933,15 +933,15 @@ function fn_popFia2520_gridPopup6(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 28) 
 	fn_popFia2520_compopup6(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(중분류) 오픈
  */
 var fn_popFia2520_compopup6 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_ASSET_LEVEL2_";
+    var replaceText0 	= "_ASST_MCLSF_";
     var replaceText1 	= "_ASSET_LEVEL2_NAME_"; 
-    var strWhereClause 	= "AND AA.ASSET_LEVEL2 LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL2_NAME LIKE '%" + replaceText1 + "%' ";
+    var strWhereClause 	= "AND AA.ASST_MCLSF LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL2_NAME LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산중분류');
 	compopup1({
@@ -951,24 +951,24 @@ var fn_popFia2520_compopup6 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
 		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASSET_LEVEL2", 		"ASSET_LEVEL2_NAME"]
+		,searchInputFields		: ["ASST_MCLSF", 		"ASSET_LEVEL2_NAME"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 		,width					: '700px'
 		,height					: '400px'
 		,tableHeader			: ["중분류", 			"중분류명",				"자산구분",			"자산구분명",			"comp_code"]
-		,tableColumnNames		: ["ASSET_LEVEL2", 		"ASSET_LEVEL2_NAME",	"ASSET_CATEGORY",	"ASSET_CATEGORY_NAME",	"COMP_CODE"]	
+		,tableColumnNames		: ["ASST_MCLSF", 		"ASSET_LEVEL2_NAME",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"CO_CD"]	
 		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",				"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 26,	data['ASSET_LEVEL2'], 		true, true);
+			PopFia2520Grid.setCellData(row, 26,	data['ASST_MCLSF'], 		true, true);
 			PopFia2520Grid.setCellData(row, 28,	data['ASSET_LEVEL2_NAME'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(소분류) 조회
  */
@@ -978,15 +978,15 @@ function fn_popFia2520_gridPopup7(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 31) 
 	fn_popFia2520_compopup7(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(소분류) 오픈
  */
 var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_ASSET_LEVEL3_";
+    var replaceText0 	= "_ASST_SCLSF_";
     var replaceText1 	= "_ASSET_LEVEL3_NAME_"; 
-    var strWhereClause 	= "AND AA.ASSET_LEVEL3 LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL3_NAME LIKE '%" + replaceText1 + "%' ";
+    var strWhereClause 	= "AND AA.ASST_SCLSF LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL3_NAME LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산소분류');
 	compopup1({
@@ -996,24 +996,24 @@ var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
 		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASSET_LEVEL3", 		"ASSET_LEVEL3_NAME"]
+		,searchInputFields		: ["ASST_SCLSF", 		"ASSET_LEVEL3_NAME"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 		,width					: '700px'
 		,height					: '400px'
 		,tableHeader			: ["소분류",			"소분류명",				"중분류", 			"중분류명",				"자산구분",			"자산구분명",			"comp_code"]
-		,tableColumnNames		: ["ASSET_LEVE3",		"ASSET_LEVEL3_NAME",	"ASSET_LEVE2", 		"ASSET_LEVEL2_NAME",	"ASSET_CATEGORY",	"ASSET_CATEGORY_NAME",	"COMP_CODE"]	
+		,tableColumnNames		: ["ASSET_LEVE3",		"ASSET_LEVEL3_NAME",	"ASSET_LEVE2", 		"ASSET_LEVEL2_NAME",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"CO_CD"]	
 		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",				"100px",			"100px",				"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 29,	data['ASSET_LEVEL3'], 		true, true);
+			PopFia2520Grid.setCellData(row, 29,	data['ASST_SCLSF'], 		true, true);
 			PopFia2520Grid.setCellData(row, 31,	data['ASSET_LEVEL3_NAME'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(위치코드) 조회
  */
@@ -1023,14 +1023,14 @@ function fn_popFia2520_gridPopup8(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 35) 
 	fn_popFia2520_compopup8(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(위치코드) 오픈
  */
 var fn_popFia2520_compopup8 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_LOCATION_CODE_";
-    var replaceText1 	= "_LOCATION_NAME_"; 
+    var replaceText0 	= "_LOCTN_CD_";
+    var replaceText1 	= "_LOCTN_NM_"; 
     var strWhereClause 	= "AND LOCATION_CODE LIKE '%" + replaceText0 + "%' AND LOCATION_NAME LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
@@ -1041,24 +1041,24 @@ var fn_popFia2520_compopup8 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
 		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["LOCATION_CODE", 	"LOCATION_NAME"]
+		,searchInputFields		: ["LOCTN_CD", 	"LOCTN_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 		,width					: '700px'
 		,height					: '400px'
 		,tableHeader			: ["위치코드", 			"위치명",			"비고",			"법인"]
-		,tableColumnNames		: ["LOCATION_CODE", 	"LOCATION_NAME",	"DESCIPTION",	"COMP_CODE"]	
+		,tableColumnNames		: ["LOCTN_CD", 	"LOCTN_NM",	"DESCIPTION",	"CO_CD"]	
 		,tableColumnWidths		: ["100px", 			"200px",			"100px",		"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 33,	data['LOCATION_CODE'], 	true, true);
-			PopFia2520Grid.setCellData(row, 35,	data['LOCATION_NAME'], 	true, true);
+			PopFia2520Grid.setCellData(row, 33,	data['LOCTN_CD'], 	true, true);
+			PopFia2520Grid.setCellData(row, 35,	data['LOCTN_NM'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(프로젝트코드) 조회
  */
@@ -1068,15 +1068,15 @@ function fn_popFia2520_gridPopup9(event, row, col) {
     let cellData2 = PopFia2520Grid.getCellData(row, 40) 
 	fn_popFia2520_compopup9(row, col, cellData1, cellData2);
 }
-
+ 
 /**
  * 그리드내 공통팝업(프로젝트코드) 오픈
  */
 var fn_popFia2520_compopup9 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_PROJECT_CODE_";
-    var replaceText1 	= "_PROJECT_NAME_"; 
-    var strWhereClause 	= "AND A.PROJECT_CODE LIKE '%" + replaceText0 + "%' AND A.PROJECT_NAME LIKE '%" + replaceText1 + "%' ";
+    var replaceText0 	= "_PJT_CD_";
+    var replaceText1 	= "_PJT_NM_"; 
+    var strWhereClause 	= "AND A.PJT_CD LIKE '%" + replaceText0 + "%' AND A.PJT_NM LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산위치');
 	compopup1({
@@ -1086,24 +1086,24 @@ var fn_popFia2520_compopup9 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
    		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["PROJECT_CODE", 		"PROJECT_NAME"]
+		,searchInputFields		: ["PJT_CD", 		"PJT_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
    		,width					: '700px'
    		,height					: '400px'
 		,tableHeader			: ["코드", 				"명칭",				"년도",			"부서",			"호기",			"부서"]
-		,tableColumnNames		: ["PROJECT_CODE", 		"PROJECT_NAME",		"CODE_SEG01",	"CODE_SEG02",	"CODE_SEG03",	"CODE_SEG04"]	
+		,tableColumnNames		: ["PJT_CD", 		"PJT_NM",		"CD_SGMT01",	"CD_SGMT02",	"CD_SGMT03",	"CD_SGMT04"]	
 		,tableColumnWidths		: ["80px", 				"300px",			"100px",		"100px",		"100px",		"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 38,	data['PROJECT_CODE'], 	true, true);
-			PopFia2520Grid.setCellData(row, 40,	data['PROJECT_NAME'], 	true, true);
+			PopFia2520Grid.setCellData(row, 38,	data['PJT_CD'], 	true, true);
+			PopFia2520Grid.setCellData(row, 40,	data['PJT_NM'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 /**
  * 그리드내 팝업(부가세유형) 조회
  */
@@ -1112,14 +1112,14 @@ function fn_popFia2520_gridPopup10(event, row, col) {
     let cellData1 = PopFia2520Grid.getCellData(row, 46) 
 	fn_popFia2520_compopup10(row, col, cellData1);
 }
-
+ 
 /**
  * 그리드내 공통팝업(부가세유형) 오픈
  */
 var fn_popFia2520_compopup10 = function(row, col, cellData1) {
 	
-    var replaceText0 	= "_VAT_NAME_";
-    var strWhereClause 	= "AND A.VAT_NAME LIKE '%" + replaceText0 + "%' ";
+    var replaceText0 	= "_VAT_NM_";
+    var strWhereClause 	= "AND A.VAT_NM LIKE '%" + replaceText0 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부가세유형');
 	compopup1({
@@ -1129,21 +1129,21 @@ var fn_popFia2520_compopup10 = function(row, col, cellData1) {
    		,popupType				: 'A'
    		,whereClause			: strWhereClause
 		,searchCaptions			: ["코드명"]
-		,searchInputFields		: ["VAT_NAME"]
+		,searchInputFields		: ["VAT_NM"]
 		,searchInputValues		: [cellData1]
 		,width					: '780px'
 		,height					: '400px'
 		,tableHeader			: ["코드명",		"유형코드",			"유형명",			"세율",			"상한",				"하한"]
-		,tableColumnNames		: ["VAT_NAME", 	 	"VAT_TYPE_CODE",	"VAT_TYPE_NAME",	"VAT_RATE",		"LIMIT_PLUS_RATE",	"LIMIT_MINUS_RATE"]
+		,tableColumnNames		: ["VAT_NM", 	 	"VAT_TYPE_CD",	"VAT_TMPLT_NM",	"VAT_RT",		"HGHST_RT",	"LOWST_RT"]
 		,tableColumnWidths		: ["250px", 		 "80px",			"200px",			"50px",			"50px",				"50px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 46,	data['VAT_NAME'], 		true, true);
+			PopFia2520Grid.setCellData(row, 46,	data['VAT_NM'], 		true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
-
+ 
 </script>
 </html>

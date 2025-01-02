@@ -350,9 +350,9 @@
     const fn_initSBSelect = async function () {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid', 'SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
+            gfnma_setComSelect(['gvwListGrid', 'SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '')
 
         ]);
     }
@@ -368,18 +368,18 @@
             , popupType: 'B'
             , whereClause: ''
             , searchCaptions: ["부서코드", "부서명", "기준일"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "BASE_DATE"]
+            , searchInputFields: ["DEPT_CD", "DEPT_NM", "CRTR_YMD"]
             , searchInputValues: ["", searchText, ""]
 
             , searchInputTypes: ["input", "input", "datepicker"]		//input, datepicker가 있는 경우
 
             , height: '400px'
             , tableHeader: ["기준일", "사업장", "부서명", "사업장코드"]
-            , tableColumnNames: ["START_DATE", "SITE_NAME", "DEPT_NAME", "SITE_CODE"]
+            , tableColumnNames: ["BGNG_YMD", "SITE_NM", "DEPT_NM", "SITE_CD"]
             , tableColumnWidths: ["100px", "150px", "100px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME',  data.DEPT_NM);
+                SBUxMethod.set('DEPT_CODE',  data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
@@ -388,13 +388,13 @@
     const fn_compopup2 = function () {
 
         var searchText = gfn_nvl(SBUxMethod.get("EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%" + replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 + "%' AND x.EMP_STATE LIKE '%" + replaceText4 + "%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%" + replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 + "%' AND x.EMP_STTS LIKE '%" + replaceText4 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -404,15 +404,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["부서코드", "부서명", "사원코드", "사원명", "재직상태"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE", "EMP_NAME", "EMP_STATE"]
+            , searchInputFields: ["DEPT_CD", "DEPT_NM", "EMP_CD", "EMP_NM", "EMP_STTS"]
             , searchInputValues: ["", "", "", searchText, ""]
             , height: '400px'
             , tableHeader: ["사번", "이름", "부서", "사업장", "재직구분"]
-            , tableColumnNames: ["EMP_CODE", "EMP_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            , tableColumnNames: ["EMP_CD", "EMP_NM", "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             , tableColumnWidths: ["80px", "80px", "100px", "100px", "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -440,8 +440,8 @@
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_HRB008'
-            , code: "SUB_CODE"
-            , name: "CODE_NAME"
+            , code: "SBSD_CD"
+            , name: "CD_NM"
             , itemSelectEvent: function (data) {
                 fn_btnApply(data, type);
             },
@@ -550,7 +550,7 @@
         }*/
 
         if (gfn_comConfirm("Q0001", "삭제")) {
-           await fn_del();
+            await fn_del();
             fn_search('LIST');
         }
     }
@@ -744,7 +744,7 @@
         });
 
         gvwPivotListGrid = _SBGrid.create(SBGridProperties);
-       /* gvwPivotListGrid.bind('click', 'fn_view');*/
+        /* gvwPivotListGrid.bind('click', 'fn_view');*/
     }
 
     //피벗 그리드 상세정보 보기
@@ -861,8 +861,8 @@
         jsonPivotList.length = 0
         pivotData.forEach((item, index) => {
 
-            let EMP_CODE = gfn_nvl(item.EMP_CODE);            //사번
-            let EMP_NAME = gfn_nvl(item.EMP_NAME);            //성명
+            let EMP_CODE = gfn_nvl(item.EMP_CD);            //사번
+            let EMP_NAME = gfn_nvl(item.EMP_NM);            //성명
 
             if (EMP_CODE_ARR.includes(EMP_CODE) == false || EMP_NAME_ARR.includes(EMP_NAME) == false) {
                 EMP_CODE_ARR.push(EMP_CODE);
@@ -911,7 +911,7 @@
 
                     pivotData.forEach((dataItem, dataIndex) => { //데이터
 
-                        if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CODE) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NAME)) {
+                        if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CD) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NM)) {
 
                             let DATE_QUARTER         = gfn_nvl(dataItem.DATE_QUARTER);        //분기
                             DATE_QUARTER             = DATE_QUARTER.trim();
@@ -1088,29 +1088,29 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CHECK_YN            : gfn_nvl(item.CHECK_YN),
-                        INSURE_YYYYMM       : gfn_nvl(item.INSURE_YYYYMM),
-                        DEPT_CODE           : gfn_nvl(item.DEPT_CODE),
-                        DEPT_NAME           : gfn_nvl(item.DEPT_NAME),
-                        POSITION_CODE       : gfn_nvl(item.POSITION_CODE),
-                        PAY_AREA_TYPE       : gfn_nvl(item.PAY_AREA_TYPE),
-                        EMP_CODE            : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME            : gfn_nvl(item.EMP_NAME),
-                        SOCIAL_NO           : gfn_nvl(item.SOCIAL_NO),
-                        BASE_INCOME_AMT     : gfn_nvl(item.BASE_INCOME_AMT),
-                        TOTAL_INSURE_AMT    : gfn_nvl(item.TOTAL_INSURE_AMT),
-                        EMP_INSURE_AMT      : gfn_nvl(item.EMP_INSURE_AMT),
-                        COMP_INSURE_AMT     : gfn_nvl(item.COMP_INSURE_AMT),
-                        MEMO                : gfn_nvl(item.MEMO),
-                        PAY_YN              : gfn_nvl(item.PAY_YN),
-                        PAY_YYYYMM          : gfn_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE            : gfn_nvl(item.PAY_TYPE),
-                        PAY_DATE            : gfn_nvl(item.PAY_DATE),
-                        EMP_PAY_ITEM        : gfn_nvl(item.EMP_PAY_ITEM),
-                        EMP_PAY_AMT         : gfn_nvl(item.EMP_PAY_AMT),
-                        COMP_PAY_ITEM       : gfn_nvl(item.COMP_PAY_ITEM),
-                        COMP_PAY_AMT        : gfn_nvl(item.COMP_PAY_AMT),
-                        DATA_YN             : gfn_nvl(item.DATA_YN)
+                        CHECK_YN           : gfn_nvl(item.CHECK_YN),
+                        INSURE_YYYYMM      : gfn_nvl(item.INSRNC_YM),
+                        DEPT_CODE          : gfn_nvl(item.DEPT_CD),
+                        DEPT_NAME          : gfn_nvl(item.DEPT_NM),
+                        POSITION_CODE      : gfn_nvl(item.JBPS_CD),
+                        PAY_AREA_TYPE      : gfn_nvl(item.SLRY_AREA_TYPE),
+                        EMP_CODE           : gfn_nvl(item.EMP_CD),
+                        EMP_NAME           : gfn_nvl(item.EMP_NM),
+                        SOCIAL_NO          : gfn_nvl(item.RGDT_NO),
+                        BASE_INCOME_AMT    : gfn_nvl(item.BASE_INCM_AMT),
+                        TOTAL_INSURE_AMT   : gfn_nvl(item.TOT_ISPM_AMT),
+                        EMP_INSURE_AMT     : gfn_nvl(item.UNEMPSLRY_AMT),
+                        COMP_INSURE_AMT    : gfn_nvl(item.CO_INSRNC_AMT),
+                        MEMO               : gfn_nvl(item.MEMO),
+                        PAY_YN             : gfn_nvl(item.SLRY_YN),
+                        PAY_YYYYMM         : gfn_nvl(item.SLRY_YM),
+                        PAY_TYPE           : gfn_nvl(item.SLRY_TYPE),
+                        PAY_DATE           : gfn_nvl(item.PAY_YMD),
+                        EMP_PAY_ITEM       : gfn_nvl(item.EMP_SLRY_ITEM),
+                        EMP_PAY_AMT        : gfn_nvl(item.EMP_SLRY_AMT),
+                        COMP_PAY_ITEM      : gfn_nvl(item.CO_SLRY_ITEM),
+                        COMP_PAY_AMT       : gfn_nvl(item.CO_SLRY_AMT),
+                        DATA_YN            : gfn_nvl(item.DATA_YN)
 
                     }
                     jsonGvwList.push(msg);
@@ -1283,6 +1283,19 @@
 
                 if (data.resultMessage) {
                     alert(data.resultMessage);
+
+                    editType = "E";
+                    let tabId = SBUxMethod.get('tabJson');
+                    if (_.isEqual(tabId, 'tabInfo1')) { //국민연금 내역 등록 tab 리스트 조회시 (WORK_TYPE IN LIST)
+
+                        fn_search('LIST');
+
+                    } else if (_.isEqual(tabId, 'tabInfo2')) { //국민연금 내역 조회 tab 피벗 리스트 조회시(WORK_TYPE IN SUMMARY)
+
+                        fn_search('SUMMARY');
+
+                    }
+
                 }
 
             } else {
@@ -1377,9 +1390,9 @@
 
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE    : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME    : gfn_nvl(item.EMP_NAME),
-                        SOCIAL_NO   : gfn_nvl(item.SOCIAL_NO)
+                        EMP_CODE    :  gfn_nvl(item.EMP_CD),
+                        EMP_NAME    :  gfn_nvl(item.EMP_NM),
+                        SOCIAL_NO   :  gfn_nvl(item.RGDT_NO)
 
                     }
                 });

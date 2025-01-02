@@ -267,29 +267,29 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 작업구분
-            gfnma_setComSelect(['gvwDetail'], jsonWorkGbn, 'L_HRA081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkGbn, 'L_HRA081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 작업장소
-            gfnma_setComSelect(['gvwDetail'], jsonWorkPlace, 'L_HRA083', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkPlace, 'L_HRA083', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 작업명
-            gfnma_setComSelect(['gvwDetail'], jsonWorkName, 'L_HRA082', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkName, 'L_HRA082', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 작업세부명
-            gfnma_setComSelect(['gvwDetail'], jsonWorkDtlName, 'L_HRA084', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkDtlName, 'L_HRA084', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 작업장소
-            gfnma_setComSelect(['gvwDetail'], jsonWorkPlace2, 'L_HRA085', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonWorkPlace2, 'L_HRA085', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 내외국민구분
-            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 거주지국
-            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NTN_CD', 'NTN_NM', 'Y', ''),
             // 근무지역
-            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -601,49 +601,49 @@
                 jsonServiceFeeList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        TXN_ID : item.TXN_ID,
-                        JOB_YYYYMM : item.JOB_YYYYMM,
+                        TXN_ID : item.TRSC_ID,
+                        JOB_YYYYMM : item.BLN_YM,
                         SOCNO : item.SOCNO,
                         WORK_ST_DAT : item.WORK_ST_DAT,
-                        EARNER_CODE : item.EARNER_CODE,
+                        EARNER_CODE : item.EARNR_CD,
                         EARNER_NAME : item.EARNER_NAME,
-                        SITE_CODE : item.SITE_CODE,
-                        PAY_DATE : item.PAY_DATE,
+                        SITE_CODE : item.SITE_CD,
+                        PAY_DATE : item.PAY_YMD,
                         WORK_END_DAT : item.WORK_END_DAT,
-                        WORK_DAY : item.WORK_DAY,
+                        WORK_DAY : item.WORK_DCNT,
                         WORK_CNT : item.WORK_CNT,
                         WORK_GBN : item.WORK_GBN,
                         WORK_NAME : item.WORK_NAME,
                         WORK_PLACE : item.WORK_PLACE,
                         WORK_DTL_NAME : item.WORK_DTL_NAME,
                         WORK_PLACE2 : item.WORK_PLACE2,
-                        BANK_CODE : item.BANK_CODE,
-                        BANK_NAME : item.BANK_NAME,
-                        BANK_ACC : item.BANK_ACC,
+                        BANK_CODE : item.BANK_CD,
+                        BANK_NAME : item.BANK_NM,
+                        BANK_ACC : item.BACNT_NO,
                         DAILY_PAY_AMT : item.DAILY_PAY_AMT,
                         TOT_PAY_AMT : item.TOT_PAY_AMT,
                         WORK_PAY_AMT : item.WORK_PAY_AMT,
                         NON_TXABLE_AMT : item.NON_TXABLE_AMT,
-                        INC_AMT : item.INC_AMT,
+                        INC_AMT : item.ERICM_AMT,
                         EARNED_INC_AMT : item.EARNED_INC_AMT,
-                        INC_TX_AMT : item.INC_TX_AMT,
-                        LOCAL_TX_AMT : item.LOCAL_TX_AMT,
-                        HEALTH_INSURE_AMT : item.HEALTH_INSURE_AMT,
+                        INC_TX_AMT : item.INCM_TX_AMT,
+                        LOCAL_TX_AMT : item.LCL_ICNTX_AMT,
+                        HEALTH_INSURE_AMT : item.HLTH_INSRNC_AMT,
                         LONG_HEALTH_INSURE_AMT : item.LONG_HEALTH_INSURE_AMT,
                         NATIONAL_PENS_AMT : item.NATIONAL_PENS_AMT,
                         EMPLOY_INSURE_AMT : item.EMPLOY_INSURE_AMT,
                         ETC_DED_AMT : item.ETC_DED_AMT,
                         TOT_DEDUCT_AMT : item.TOT_DEDUCT_AMT,
-                        ALLOWANCE_AMT : item.ALLOWANCE_AMT,
+                        ALLOWANCE_AMT : item.ALWNC_AMT,
                         MEMO : item.MEMO,
-                        REMARK : item.REMARK,
+                        REMARK : item.RMRK,
                         FOREI_TYPE : item.FOREI_TYPE,
-                        NATION_CODE : item.NATION_CODE,
-                        TEL : item.TEL,
+                        NATION_CODE : item.NTN_CD,
+                        TEL : item.TELNO,
                         MOBILE_PHONE : item.MOBILE_PHONE,
-                        EMAIL : item.EMAIL,
-                        ADDRESS : item.ADDRESS,
-                        WORK_REGION : item.WORK_REGION,
+                        EMAIL : item.EML,
+                        ADDRESS : item.ADDR,
+                        WORK_REGION : item.WORK_RGN_CD,
                     }
                     jsonServiceFeeList.push(msg);
                 });
@@ -903,19 +903,19 @@
                 jsonServiceFeePayList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_DATE : item.PAY_DATE,
+                        PAY_DATE : item.PAY_YMD,
                         WORK_DATE : item.WORK_DATE,
-                        EARNER_CODE : item.EARNER_CODE,
+                        EARNER_CODE : item.EARNR_CD,
                         EARNER_NAME : item.EARNER_NAME,
-                        SITE_CODE : item.SITE_CODE,
+                        SITE_CODE : item.SITE_CD,
                         TOT_PAY_AMT : item.TOT_PAY_AMT,
                         FOREI_TYPE : item.FOREI_TYPE,
-                        NATION_CODE : item.NATION_CODE,
-                        TEL : item.TEL,
+                        NATION_CODE : item.NTN_CD,
+                        TEL : item.TELNO,
                         MOBILE_PHONE : item.MOBILE_PHONE,
-                        EMAIL : item.EMAIL,
-                        ADDRESS : item.ADDRESS,
-                        WORK_REGION : item.WORK_REGION,
+                        EMAIL : item.EML,
+                        ADDRESS : item.ADDR,
+                        WORK_REGION : item.WORK_RGN_CD,
                     }
                     jsonServiceFeePayList.push(msg);
                 });

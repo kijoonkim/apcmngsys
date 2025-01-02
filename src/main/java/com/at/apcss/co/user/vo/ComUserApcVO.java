@@ -39,5 +39,17 @@ public class ComUserApcVO  extends ComVO {
 	private String aprvPrgrsCd;
 	
 	private String chkOgnzYn;
-	
+
+	private String sysIdAmYn;
+	private String sysIdFmYn;
+	private String sysIdMaYn;
+	private String prdctnMngUseYn;
+	private String admstMngUseYn;
+	private String frmhsMngUseYn;
+
+	private String apcMngrYn;
+
+	private String rtnCd;
+	private String rtnMsg;
+
 }

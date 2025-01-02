@@ -181,9 +181,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 급여일
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptCode, 'L_HRB006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptCode, 'L_HRB006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 비과세한도기준
-            gfnma_setComSelect(['gvwDetail'], jsonTaxFreeLimitPeriod, 'L_HRB007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTaxFreeLimitPeriod, 'L_HRB007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -304,13 +304,13 @@
                 jsonTaxFreeList.length = 0;
                 data.cv_2.forEach((item, index) => {
                     const msg = {
-                        TAX_FREE_CODE : item.TAX_FREE_CODE,
-                        TAX_FREE_NAME : item.TAX_FREE_NAME,
-                        RECEIPT_CODE : item.RECEIPT_CODE,
-                        TAX_FREE_DESCR : item.TAX_FREE_DESCR,
-                        RECEIPT_YN : item.RECEIPT_YN,
-                        TAX_FREE_LIMIT_PERIOD : item.TAX_FREE_LIMIT_PERIOD,
-                        TAX_FREE_LIMIT_AMT : item.TAX_FREE_LIMIT_AMT,
+                        TAX_FREE_CODE : item.TX_TXFR_CD,
+                        TAX_FREE_NAME : item.TX_TXFR_NM,
+                        RECEIPT_CODE : item.RCPT_CD,
+                        TAX_FREE_DESCR : item.TX_TXFR_DSCTN,
+                        RECEIPT_YN : item.RCPT_YN,
+                        TAX_FREE_LIMIT_PERIOD : item.TX_TXFR_LIM_CRTR,
+                        TAX_FREE_LIMIT_AMT : item.TX_TXFR_LIM_AMT,
                     }
                     jsonTaxFreeList.push(msg);
                 });
@@ -567,9 +567,9 @@
                 jsonBaseYearList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY : item.YYYY,
-                        APPLY_START_DATE : item.APPLY_START_DATE,
-                        APPLY_END_DATE : item.APPLY_END_DATE,
+                        YYYY : item.YR,
+                        APPLY_START_DATE : item.APLY_STRT_YMD,
+                        APPLY_END_DATE : item.APLY_END_YMD,
                         MEMO : item.MEMO
                     }
                     jsonBaseYearList.push(msg);

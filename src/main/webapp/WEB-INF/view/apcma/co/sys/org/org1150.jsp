@@ -128,7 +128,7 @@
 	let jsonCompCode = []; //그리드 - 법인 	 [ L_ORG000 ]
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','COMP_CODE'], jsonCompCode, 'L_ORG000', "AND CO_CD = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CO_CD', 'CORP_NM', 'Y', ''),
 		]);
 	}	
 
@@ -190,7 +190,7 @@
                     label : 'label',
                     value : 'value'
                 }
-            , userattr : {required : true} 
+            	, userattr : {required : true} 
             },
             {caption: ["사업장코드"],		ref: 'SITE_CODE', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true} },
             {caption: ["사업장명"],		ref: 'SITE_NAME', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true} },
@@ -298,14 +298,14 @@
   	    		masterGrid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							SITE_CODE		: item.SITE_CODE,
-  							SITE_NAME		: item.SITE_NAME,
-  							DESCR			: item.DESCR,
-  							COMP_CODE		: item.COMP_CODE,
-  							HR_SITE_CODE	: item.HR_SITE_CODE,
+  							SITE_CODE		: item.SITE_CD,
+  							SITE_NAME		: item.SITE_NM,
+  							DESCR			: item.DSCTN,
+  							COMP_CODE		: item.CO_CD,
+  							HR_SITE_CODE	: item.HRMN_SITE_CD,
   							USE_YN			: item.USE_YN,
-  							SITE_NAME_CHN	: item.SITE_NAME_CHN,
-  							CLIENT_CODE		: item.CLIENT_CODE
+  							SITE_NAME_CHN	: item.SITE_NM_CHN,
+  							CLIENT_CODE		: item.CLNT_CD
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;

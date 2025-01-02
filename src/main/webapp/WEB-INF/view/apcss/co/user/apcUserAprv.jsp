@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html `lang="ko">
 <head>
-	<title>title : 법인사용자 APC 사용승인</title>
+	<title>title : 사용자 APC 사용승인</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<style>
@@ -56,6 +56,14 @@
 						text="APC승인취소"
 						class="btn btn-sm btn-outline-dark"
 						onclick="fn_delete"
+					></sbux-button>
+					<sbux-button
+							id="btnMngrAprv"
+							name="btnMngrAprv"
+							uitype="normal"
+							text="생산관리자승인"
+							class="btn btn-sm btn-outline-dark"
+							onclick="fn_mngrAprv"
 					></sbux-button>
 					<sbux-button
 						id="btnSearch"
@@ -285,6 +293,18 @@
         		width:'200px', 
         		style:'text-align:center',
         	},
+			{
+				caption: ["생산관리자"],
+				ref: 'apcMngrYn',
+				type: 'checkbox',
+				width:'80px',
+				style:'text-align: center',
+				typeinfo: {
+					checkedvalue : 'Y',
+					uncheckedvalue : 'N'
+				},
+				disabled: true
+			},
 	        {
         		caption: ["승인"], 		
         		ref: 'aprvYn',	
@@ -299,6 +319,40 @@
         		width:'110px', 
         		style:'text-align:center',
         	},
+
+			{
+				caption: ["생산관리"],
+				ref: 'prdctnMngUseYn',
+				type: 'checkbox',
+				width:'80px',
+				style:'text-align: center',
+				typeinfo: {
+					checkedvalue : 'Y',
+					uncheckedvalue : 'N'
+				}
+			},
+			{
+				caption: ["농가관리"],
+				ref: 'frmhsMngUseYn',
+				type: 'checkbox',
+				width:'80px',
+				style:'text-align: center',
+				typeinfo: {
+					checkedvalue : 'Y',
+					uncheckedvalue : 'N'
+				}
+			},
+			{
+				caption: ["경영관리"],
+				ref: 'admstMngUseYn',
+				type: 'checkbox',
+				width:'80px',
+				style:'text-align: center',
+				typeinfo: {
+					checkedvalue : 'Y',
+					uncheckedvalue : 'N'
+				}
+			},
         	{
         		caption: ["승인 비고"], 		
         		ref: 'aprvRmrk',	
@@ -336,12 +390,16 @@
 					gfn_comAlert("W0010", "승인", "APC");	//	W0010	이미 {0}된 {1} 입니다.
 					return;
 				}
-				
+
+
 				aplyList.push({
 					userId: item.userId,
 					apcCd: item.apcCd,
-					aprvRmrk: item.aprvRmrk
-    			});	
+					aprvRmrk: item.aprvRmrk,
+					prdctnMngUseYn: item.prdctnMngUseYn,
+					admstMngUseYn: item.admstMngUseYn,
+					frmhsMngUseYn: item.frmhsMngUseYn,
+    			});
     		}
 		}
 
@@ -436,7 +494,62 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-    
+
+	/**
+	 * @name fn_mngrAprv
+	 * @description 생산관리자 승인
+	 * @function
+	 */
+	const fn_mngrAprv = async function() {
+
+		const aprvList = [];
+		const allData = grdUserApc.getGridDataAll();
+
+		for ( let i=0; i<allData.length; i++) {
+
+			const item = allData[i];
+
+			if (_.isEqual("Y", item.checkedYn)) {
+
+				if (!_.isEqual("Y", item.aprvYn)) {
+					gfn_comAlert("W0020", "미승인", "사용자");	//	W0020	{0} 상태의 {1} 입니다.
+					return;
+				}
+
+				aprvList.push({
+					userId: item.userId,
+					apcCd: item.apcCd
+				});
+			}
+		}
+
+		if (aprvList.length == 0) {
+			gfn_comAlert("W0003", "취소");	//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		const param = {
+			userApcList: aprvList
+		}
+
+		const postJsonPromise = gfn_postJSON("/co/user/insertUserApcMngrAprv.do", param);
+		const data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				fn_search();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
     /**
      * @name fn_search
      * @description 조회

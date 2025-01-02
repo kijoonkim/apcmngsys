@@ -3876,7 +3876,7 @@
                     V_P_PROC_ID : '',
                     V_P_USERID : '',
                     V_P_PC : ''
-                    })
+                })
             }
             returnData.push(param);
         });
@@ -4670,150 +4670,150 @@
     const fn_setTpgMasterSub = async function(data) {
         // 기본인적
         if(data) {
-            SBUxMethod.set("NATION_CODE", data.NATION_CODE);
-            SBUxMethod.set("FOREIGNER_YN", data.FOREIGNER_YN);
-            SBUxMethod.set("FAMILY_OWNER_YN", data.FAMILY_OWNER_YN);
-            SBUxMethod.set("FAMILY_CLAN", data.FAMILY_CLAN);
-            SBUxMethod.set("BONUS_APPLY_START_DATE", data.BONUS_APPLY_START_DATE);
-            SBUxMethod.set("FAMILY_REGISTER_ZIP_CODE", data.FAMILY_REGISTER_ZIP_CODE);
+            SBUxMethod.set("NATION_CODE", data.NTN_CD);
+            SBUxMethod.set("FOREIGNER_YN", data.FRGNR_YN);
+            SBUxMethod.set("FAMILY_OWNER_YN", data.HSHLDR_YN);
+            SBUxMethod.set("FAMILY_CLAN", data.FAMORG);
+            SBUxMethod.set("BONUS_APPLY_START_DATE", data.BONUS_APLY_BGNG_YMD);
+            SBUxMethod.set("FAMILY_REGISTER_ZIP_CODE", data.FAM_REG_ZIP);
             SBUxMethod.set("btnZip1", data.btnZip1);
-            SBUxMethod.set("FAMILY_REGISTER_ADDRESS", data.FAMILY_REGISTER_ADDRESS);
-            SBUxMethod.set("UNION_JOIN_START_DATE", data.UNION_JOIN_START_DATE);
-            SBUxMethod.set("REGISTER_ZIP_CODE", data.REGISTER_ZIP_CODE);
+            SBUxMethod.set("FAMILY_REGISTER_ADDRESS", data.FAM_REG_ADDR);
+            SBUxMethod.set("UNION_JOIN_START_DATE", data.ASCTN_JOIN_BGNG_YMD);
+            SBUxMethod.set("REGISTER_ZIP_CODE", data.RGDT_ZIP_CD);
             SBUxMethod.set("btnZip2", data.btnZip2);
-            SBUxMethod.set("REGISTER_ADDRESS", data.REGISTER_ADDRESS);
-            SBUxMethod.set("CELLPHONE_NUM", data.CELLPHONE_NUM);
-            SBUxMethod.set("UNION_JOIN_END_DATE", data.UNION_JOIN_END_DATE);
-            SBUxMethod.set("EMERGENCY_ZIP_CODE", data.EMERGENCY_ZIP_CODE);
+            SBUxMethod.set("REGISTER_ADDRESS", data.RGDT_ADDR);
+            SBUxMethod.set("CELLPHONE_NUM", data.MOBL_NO);
+            SBUxMethod.set("UNION_JOIN_END_DATE", data.ASCTN_JOIN_END_YMD);
+            SBUxMethod.set("EMERGENCY_ZIP_CODE", data.EMRG_ZIP_CD);
             SBUxMethod.set("btnZip3", data.btnZip3);
-            SBUxMethod.set("EMERGENCY_ADDRESS", data.EMERGENCY_ADDRESS);
-            SBUxMethod.set("EMERGENCY_TEL_NUM", data.EMERGENCY_TEL_NUM);
-            SBUxMethod.set("RESIDENCE_ZIP_CODE", data.RESIDENCE_ZIP_CODE);
+            SBUxMethod.set("EMERGENCY_ADDRESS", data.EMRG_ADDR);
+            SBUxMethod.set("EMERGENCY_TEL_NUM", data.EMRG_TELNO);
+            SBUxMethod.set("RESIDENCE_ZIP_CODE", data.RSDC_ZIP);
             SBUxMethod.set("btnZip4", data.btnZip4);
-            SBUxMethod.set("RESIDENCE_ADDRESS", data.RESIDENCE_ADDRESS);
-            SBUxMethod.set("HOME_TEL_NUM", data.HOME_TEL_NUM);
-            SBUxMethod.set("OFFICE_TEL_NUM", data.OFFICE_TEL_NUM);
-            SBUxMethod.set("FAX_NUM", data.FAX_NUM);
-            SBUxMethod.set("INTER_PHONE", data.INTER_PHONE);
-            SBUxMethod.set("UNION_JOIN_YN", data.UNION_JOIN_YN);
-            SBUxMethod.set("IN_EMAIL", data.IN_EMAIL);
-            SBUxMethod.set("OUT_EMAIL", data.OUT_EMAIL);
-            SBUxMethod.set("TEMP_END_DATE", data.TEMP_END_DATE);
-            SBUxMethod.set("GROUP_ENTER_DATE", data.GROUP_ENTER_DATE);
-            SBUxMethod.set("COMP_ENTER_DATE", data.COMP_ENTER_DATE);
-            SBUxMethod.set("PROMOTION_BASE_DATE", data.PROMOTION_BASE_DATE);
-            SBUxMethod.set("RETIRE_DATE", data.RETIRE_DATE);
-            gfnma_multiSelectSet('#RETIRE_REASON', 'SUB_CODE', 'CODE_NAME', data.RETIRE_REASON);
-            gfnma_multiSelectSet('#RETIRE_IN_REASON', 'SUB_CODE', 'CODE_NAME', data.RETIRE_IN_REASON);
-            SBUxMethod.set("RETIRE_BASE_DATE", data.RETIRE_BASE_DATE);
-            SBUxMethod.set("PREMATURE_DATE", data.PREMATURE_DATE);
-            SBUxMethod.set("RETIRE_PENSION_JOIN_YN", data.RETIRE_PENSION_JOIN_YN);
-            SBUxMethod.set("RETIRE_INITIAL_DATE", data.RETIRE_INITIAL_DATE);
-            SBUxMethod.set("RET_RENS_ST_DAT", data.RET_RENS_ST_DAT);
-            SBUxMethod.set("TELEWORKING_YN", data.TELEWORKING_YN);
-            SBUxMethod.set("TELEWORKING_ADDRESS", data.TELEWORKING_ADDRESS);
+            SBUxMethod.set("RESIDENCE_ADDRESS", data.RSDC_ADDR);
+            SBUxMethod.set("HOME_TEL_NUM", data.HOME_TELNO);
+            SBUxMethod.set("OFFICE_TEL_NUM", data.OFC_TELNO);
+            SBUxMethod.set("FAX_NUM", data.FX_NO);
+            SBUxMethod.set("INTER_PHONE", data.INSD_TELNO);
+            SBUxMethod.set("UNION_JOIN_YN", data.ASCTN_JOIN_YN);
+            SBUxMethod.set("IN_EMAIL", data.CO_EML);
+            SBUxMethod.set("OUT_EMAIL", data.OTSD_EML);
+            SBUxMethod.set("TEMP_END_DATE", data.TMPR_END_YMD);
+            SBUxMethod.set("GROUP_ENTER_DATE", data.GRP_JNCMP_YMD);
+            SBUxMethod.set("COMP_ENTER_DATE", data.CO_JNCMP_YMD);
+            SBUxMethod.set("PROMOTION_BASE_DATE", data.APNT_BFR_PRMT_CRTR_YMD);
+            SBUxMethod.set("RETIRE_DATE", data.RTRM_YMD);
+            gfnma_multiSelectSet('#RETIRE_REASON', 'SBSD_CD', 'CD_NM', data.RTRM_RSN);
+            gfnma_multiSelectSet('#RETIRE_IN_REASON', 'SBSD_CD', 'CD_NM', data.RTRM_INR_RSN);
+            SBUxMethod.set("RETIRE_BASE_DATE", data.RTRM_RCK_YMD);
+            SBUxMethod.set("PREMATURE_DATE", data.HLWY_CLCLN_YMD);
+            SBUxMethod.set("RETIRE_PENSION_JOIN_YN", data.RTRM_PN_JOIN_YN);
+            SBUxMethod.set("RETIRE_INITIAL_DATE", data.RTRM_PN_LAST_PAY_YMD);
+            SBUxMethod.set("RET_RENS_ST_DAT", data.DBN_JOIN_YMD);
+            SBUxMethod.set("TELEWORKING_YN", data.TLWRK_YN);
+            SBUxMethod.set("TELEWORKING_ADDRESS", data.TLWRK_ADDR);
             SBUxMethod.set("PROMOTION_DATA", data.PROMOTION_DATA);
             SBUxMethod.set("EMP_MEMO", data.EMP_MEMO);
-            SBUxMethod.set("AGREE_DATE", data.AGREE_DATE);
-            SBUxMethod.set("AGREE_YN", data.AGREE_YN);
+            SBUxMethod.set("AGREE_DATE", data.AGRE_YMD);
+            SBUxMethod.set("AGREE_YN", data.AGRE_YN);
         }
     }
 
     const fn_setTpgMasterSubDetail = async function(data) {
         // 주거/생활/신체
         if(data) {
-            gfnma_multiSelectSet('#BLOOD_TYPE_RH', 'SUB_CODE', 'CODE_NAME', data.BLOOD_TYPE_RH);
-            gfnma_multiSelectSet('#BLOOD_TYPE_ABO', 'SUB_CODE', 'CODE_NAME', data.BLOOD_TYPE_ABO);
-            SBUxMethod.set("WEIGHT", data.WEIGHT);
-            SBUxMethod.set("HEIGHT", data.HEIGHT);
+            gfnma_multiSelectSet('#BLOOD_TYPE_RH', 'SBSD_CD', 'CD_NM', data.RH_TYPE);
+            gfnma_multiSelectSet('#BLOOD_TYPE_ABO', 'SBSD_CD', 'CD_NM', data.BLDTY_TYPE_ABO);
+            SBUxMethod.set("WEIGHT", data.WGHT);
+            SBUxMethod.set("HEIGHT", data.HGT);
             SBUxMethod.set("LEFT_EYE", data.LEFT_EYE);
-            SBUxMethod.set("RIGHT_EYE", data.RIGHT_EYE);
-            SBUxMethod.set("COLOR_BLIND_YN", data.COLOR_BLIND_YN);
-            SBUxMethod.set("JACKET_SIZE", data.JACKET_SIZE);
-            SBUxMethod.set("PANTS_SIZE", data.PANTS_SIZE);
-            SBUxMethod.set("SHOE_SIZE", data.SHOE_SIZE);
-            SBUxMethod.set("HOBBY", data.HOBBY);
-            SBUxMethod.set("SPECIAL_ABILITY", data.SPECIAL_ABILITY);
-            gfnma_multiSelectSet('#RELIGION_CODE', 'SUB_CODE', 'CODE_NAME', data.RELIGION_CODE);
-            SBUxMethod.set("HOUSE_OWN_YN", data.HOUSE_OWN_YN);
-            gfnma_multiSelectSet('#HOUSE_TYPE', 'SUB_CODE', 'CODE_NAME', data.HOUSE_TYPE);
-            gfnma_multiSelectSet('#HOUSE_KIND', 'SUB_CODE', 'CODE_NAME', data.HOUSE_KIND);
-            gfnma_multiSelectSet('#MARRIAGE_YN', 'SUB_CODE', 'CODE_NAME', data.MARRIAGE_YN);
-            SBUxMethod.set("MARRIAGE_DATE", data.MARRIAGE_DATE);
-            SBUxMethod.set("CAR_OWN_YN", data.CAR_OWN_YN);
-            SBUxMethod.set("CAR_NUM", data.CAR_NUM);
-            SBUxMethod.set("CAR_KIND", data.CAR_KIND);
+            SBUxMethod.set("RIGHT_EYE", data.RGHT_EYE);
+            SBUxMethod.set("COLOR_BLIND_YN", data.CLBND_YN);
+            SBUxMethod.set("JACKET_SIZE", data.JACKET_SZ);
+            SBUxMethod.set("PANTS_SIZE", data.PANTS_SZ);
+            SBUxMethod.set("SHOE_SIZE", data.SHOE_SZ);
+            SBUxMethod.set("HOBBY", data.HBY);
+            SBUxMethod.set("SPECIAL_ABILITY", data.SPCA_DSCTN);
+            gfnma_multiSelectSet('#RELIGION_CODE', 'SBSD_CD', 'CD_NM', data.RLGN_CD);
+            SBUxMethod.set("HOUSE_OWN_YN", data.HS_PSN_YN);
+            gfnma_multiSelectSet('#HOUSE_TYPE', 'SBSD_CD', 'CD_NM', data.HS_TYPE);
+            gfnma_multiSelectSet('#HOUSE_KIND', 'SBSD_CD', 'CD_NM', data.HS_KND);
+            gfnma_multiSelectSet('#MARRIAGE_YN', 'SBSD_CD', 'CD_NM', data.MRG_YN);
+            SBUxMethod.set("MARRIAGE_DATE", data.MRG_YMD);
+            SBUxMethod.set("CAR_OWN_YN", data.CAR_PSN_YN);
+            SBUxMethod.set("CAR_NUM", data.CAR_NO);
+            SBUxMethod.set("CAR_KIND", data.CARMDL);
         }
     }
 
     const fn_setTpgMasterSubDetail2 = async function(data) {
         // 병역사항
         if(data) {
-            gfnma_multiSelectSet('#ARMY_TYPE', 'SUB_CODE', 'CODE_NAME', data.ARMY_TYPE);
-            SBUxMethod.set("ARMY_INDUSTRY_YN", data.ARMY_INDUSTRY_YN);
-            gfnma_multiSelectSet('#ARMY_PART', 'SUB_CODE', 'CODE_NAME', data.ARMY_PART);
-            gfnma_multiSelectSet('#ARMY_KIND', 'SUB_CODE', 'CODE_NAME', data.ARMY_KIND);
-            gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', 'SUB_CODE', 'CODE_NAME', data.ARMY_DISCHARGE_TYPE);
-            gfnma_multiSelectSet('#ARMY_GRADE', 'SUB_CODE', 'CODE_NAME', data.ARMY_GRADE);
-            SBUxMethod.set("ARMY_START_DATE", data.ARMY_START_DATE);
-            SBUxMethod.set("ARMY_END_DATE", data.ARMY_END_DATE);
-            SBUxMethod.set("ARMY_EXEMPTION_DESCR", data.ARMY_EXEMPTION_DESCR);
-            SBUxMethod.set("ARMY_DESCR", data.ARMY_DESCR);
+            gfnma_multiSelectSet('#ARMY_TYPE', 'SBSD_CD', 'CD_NM', data.MLTS_TYPE);
+            SBUxMethod.set("ARMY_INDUSTRY_YN", data.MLTS_SPCS_DSCTN);
+            gfnma_multiSelectSet('#ARMY_PART', 'SBSD_CD', 'CD_NM', data.MLTS_PRT);
+            gfnma_multiSelectSet('#ARMY_KIND', 'SBSD_CD', 'CD_NM', data.MLTS_KIND);
+            gfnma_multiSelectSet('#ARMY_DISCHARGE_TYPE', 'SBSD_CD', 'CD_NM', data.DCRG_TYPE);
+            gfnma_multiSelectSet('#ARMY_GRADE', 'SBSD_CD', 'CD_NM', data.MLTS_ECHLN);
+            SBUxMethod.set("ARMY_START_DATE", data.MLTS_BGNG_YMD);
+            SBUxMethod.set("ARMY_END_DATE", data.MLTS_END_YMD);
+            SBUxMethod.set("ARMY_EXEMPTION_DESCR", data.MLTS_EXMPTN_DSCTN);
+            SBUxMethod.set("ARMY_DESCR", data.MLTS_DSCTN);
         }
     }
 
     const fn_setTpgMasterSubDetail3 = async function(data) {
         // 보훈/장애/여권/비자
         if(data) {
-            SBUxMethod.set("VETERANS_YN", data.VETERANS_YN);
-            gfnma_multiSelectSet('#VETERANS_GRADE', 'SUB_CODE', 'CODE_NAME', data.VETERANS_GRADE);
-            SBUxMethod.set("VETERANS_MEMO", data.VETERANS_MEMO);
-            gfnma_multiSelectSet('#VETERANS_RELATION', 'SUB_CODE', 'CODE_NAME', data.VETERANS_RELATION);
-            SBUxMethod.set("VETERANS_NUM", data.VETERANS_NUM);
-            SBUxMethod.set("VETERANS_ORDER_YN", data.VETERANS_ORDER_YN);
-            SBUxMethod.set("VETERANS_ORDER_DATE", data.VETERANS_ORDER_DATE);
-            gfnma_multiSelectSet('#HANDICAP_GRADE', 'SUB_CODE', 'CODE_NAME', data.HANDICAP_GRADE);
-            SBUxMethod.set("HANDICAP_TYPE", data.HANDICAP_TYPE);
-            SBUxMethod.set("HANDICAP_REASON", data.HANDICAP_REASON);
-            SBUxMethod.set("HANDICAP_ISSUE_DATE", data.HANDICAP_ISSUE_DATE);
-            SBUxMethod.set("PASSPORT_NUM", data.PASSPORT_NUM);
-            SBUxMethod.set("PASSPORT_ISSUE_DATE", data.PASSPORT_ISSUE_DATE);
-            SBUxMethod.set("PASSPORT_EXPIRE_DATE", data.PASSPORT_EXPIRE_DATE);
-            SBUxMethod.set("VISA_NUM", data.VISA_NUM);
-            SBUxMethod.set("VISA_ISSUE_DATE", data.VISA_ISSUE_DATE);
-            SBUxMethod.set("VISA_EXPIRE_DATE", data.VISA_EXPIRE_DATE);
+            SBUxMethod.set("VETERANS_YN", data.MNATONLM_YN);
+            gfnma_multiSelectSet('#VETERANS_GRADE', 'SBSD_CD', 'CD_NM', data.MNATONLM_GRD);
+            SBUxMethod.set("VETERANS_MEMO", data.MNATONLM_MEMO);
+            gfnma_multiSelectSet('#VETERANS_RELATION', 'SBSD_CD', 'CD_NM', data.MNATONLM_REL);
+            SBUxMethod.set("VETERANS_NUM", data.MNATONLM_NO);
+            SBUxMethod.set("VETERANS_ORDER_YN", data.MNATONLM_HIRE_CMD_YN);
+            SBUxMethod.set("VETERANS_ORDER_DATE", data.MNATONLM_HIRE_CMD_YMD);
+            gfnma_multiSelectSet('#HANDICAP_GRADE', 'SBSD_CD', 'CD_NM', data.DSBLTY_GRD);
+            SBUxMethod.set("HANDICAP_TYPE", data.DSBLTY_TYPE);
+            SBUxMethod.set("HANDICAP_REASON", data.DSBLTY_RSN);
+            SBUxMethod.set("HANDICAP_ISSUE_DATE", data.DSBLTY_ISSU_YMD);
+            SBUxMethod.set("PASSPORT_NUM", data.PSPT_NO);
+            SBUxMethod.set("PASSPORT_ISSUE_DATE", data.PSPT_ISSU_YMD);
+            SBUxMethod.set("PASSPORT_EXPIRE_DATE", data.PSPT_MTRY_YMD);
+            SBUxMethod.set("VISA_NUM", data.VISA_NO);
+            SBUxMethod.set("VISA_ISSUE_DATE", data.VISA_ISSU_YMD);
+            SBUxMethod.set("VISA_EXPIRE_DATE", data.VISA_EXPRY_YMD);
         }
     }
 
     const fn_setTpgMasterSubDetail4 = async function(data) {
         // 보증보험
         if(data) {
-            SBUxMethod.set("GUARANTEE_TYPE", data.GUARANTEE_TYPE);
-            SBUxMethod.set("INSURE_COMP_NAME", data.INSURE_COMP_NAME);
-            SBUxMethod.set("INSURE_NAME", data.INSURE_NAME);
-            SBUxMethod.set("INSURE_NUM", data.INSURE_NUM);
-            SBUxMethod.set("INSURE_AMOUNT", data.INSURE_AMOUNT);
-            SBUxMethod.set("INSURE_VALUE", data.INSURE_VALUE);
-            SBUxMethod.set("INSURE_START_DATE", data.INSURE_START_DATE);
-            SBUxMethod.set("INSURE_END_DATE", data.INSURE_END_DATE);
-            SBUxMethod.set("GUARANTOR1_NAME", data.GUARANTOR1_NAME);
-            SBUxMethod.set("GUARANTOR1_SOCIAL_NO", data.GUARANTOR1_SOCIAL_NO);
-            gfnma_multiSelectSet('#GUARANTOR1_RELATION', 'SUB_CODE', 'CODE_NAME', data.GUARANTOR1_RELATION);
-            SBUxMethod.set("GUARANTOR1_COMP_NAME", data.GUARANTOR1_COMP_NAME);
-            SBUxMethod.set("GUARANTOR1_POSITION", data.GUARANTOR1_POSITION);
-            SBUxMethod.set("GUARANTOR1_START_DATE", data.GUARANTOR1_START_DATE);
-            SBUxMethod.set("GUARANTOR1_END_DATE", data.GUARANTOR1_END_DATE);
-            SBUxMethod.set("GUARANTOR1_ZIP_CODE", data.GUARANTOR1_ZIP_CODE);
-            SBUxMethod.set("GUARANTOR1_ADDRESS", data.GUARANTOR1_ADDRESS);
-            SBUxMethod.set("GUARANTOR2_NAME", data.GUARANTOR2_NAME);
-            SBUxMethod.set("GUARANTOR2_SOCIAL_NO", data.GUARANTOR2_SOCIAL_NO);
-            gfnma_multiSelectSet('#GUARANTOR2_RELATION', 'SUB_CODE', 'CODE_NAME', data.GUARANTOR2_RELATION);
-            SBUxMethod.set("GUARANTOR2_COMP_NAME", data.GUARANTOR2_COMP_NAME);
-            SBUxMethod.set("GUARANTOR2_POSITION", data.GUARANTOR2_POSITION);
-            SBUxMethod.set("GUARANTOR2_START_DATE", data.GUARANTOR2_START_DATE);
-            SBUxMethod.set("GUARANTOR2_END_DATE", data.GUARANTOR2_END_DATE);
-            SBUxMethod.set("GUARANTOR2_ZIP_CODE", data.GUARANTOR2_ZIP_CODE);
-            SBUxMethod.set("GUARANTOR2_ADDRESS", data.GUARANTOR2_ADDRESS);
+            SBUxMethod.set("GUARANTEE_TYPE", data.GRNTE_TYPE);
+            SBUxMethod.set("INSURE_COMP_NAME", data.INSRNC_CO_NM);
+            SBUxMethod.set("INSURE_NAME", data.INSRNC_NM);
+            SBUxMethod.set("INSURE_NUM", data.INSRNC_NM);
+            SBUxMethod.set("INSURE_AMOUNT", data.INSRNC_AMT);
+            SBUxMethod.set("INSURE_VALUE", data.INSRNC_EQVL);
+            SBUxMethod.set("INSURE_START_DATE", data.INSRNC_JOIN_YMD);
+            SBUxMethod.set("INSURE_END_DATE", data.INSRNC_CNCLTN_YMD);
+            SBUxMethod.set("GUARANTOR1_NAME", data.GRNR1_NM);
+            SBUxMethod.set("GUARANTOR1_SOCIAL_NO", data.GRNR1_RRNO);
+            gfnma_multiSelectSet('#GUARANTOR1_RELATION', 'SBSD_CD', 'CD_NM', data.GRNR1_REL);
+            SBUxMethod.set("GUARANTOR1_COMP_NAME", data.GRNR1_CO_NM);
+            SBUxMethod.set("GUARANTOR1_POSITION", data.GRNR1_JBPS);
+            SBUxMethod.set("GUARANTOR1_START_DATE", data.GRNR1_BENG_YMD);
+            SBUxMethod.set("GUARANTOR1_END_DATE", data.GRNR1_END_YMD);
+            SBUxMethod.set("GUARANTOR1_ZIP_CODE", data.GRNR1_ZIP);
+            SBUxMethod.set("GUARANTOR1_ADDRESS", data.GRNR1_ADDR);
+            SBUxMethod.set("GUARANTOR2_NAME", data.GRNR2_NM);
+            SBUxMethod.set("GUARANTOR2_SOCIAL_NO", data.GRNR2_RRNO);
+            gfnma_multiSelectSet('#GUARANTOR2_RELATION', 'SBSD_CD', 'CD_NM', data.GRNR2_REL);
+            SBUxMethod.set("GUARANTOR2_COMP_NAME", data.GRNR2_CO_NM);
+            SBUxMethod.set("GUARANTOR2_POSITION", data.GRNR2_JBPS);
+            SBUxMethod.set("GUARANTOR2_START_DATE", data.GRNR2_BENG_YMD);
+            SBUxMethod.set("GUARANTOR2_END_DATE", data.GRNR2_END_YMD);
+            SBUxMethod.set("GUARANTOR2_ZIP_CODE", data.GRNR2_ZIP);
+            SBUxMethod.set("GUARANTOR2_ADDRESS", data.GRNR2_ADDR);
         }
     }
 
@@ -4854,9 +4854,9 @@
     const fn_changeArmyEndDate = async function(data){
         let armyStartDate = gfn_nvl(SBUxMethod.get("ARMY_START_DATE"), 0);
         if(data < armyStartDate){
-        	gfn_comAlert("W0015", "복무종료일", "복무시작일");
+            gfn_comAlert("W0015", "복무종료일", "복무시작일");
             SBUxMethod.set("ARMY_END_DATE", armyStartDate);
-        	return;
+            return;
         }
     }
 

@@ -414,7 +414,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_createGrid();
         fn_init();
-        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SUB_CODE', 'CODE_NAME', 'Y');
+        gfnma_multiSelectSet('#SRCH_FBS_YN', 'SBSD_CD', 'CD_NM', 'Y');
         fn_search('TAB_DAILY');
     });
 	// 신규
@@ -433,6 +433,11 @@
 	
 	// 그룹코드 내역, 세부코드 정보 저장
 	function cfn_save() {
+		
+		if(!gfnma_gridValidateCheck()){
+			return;
+		}
+		
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
 		if(tabId == 'TAB_DAILY'){
 			fn_saveTabDaily();
@@ -657,7 +662,7 @@
 	    	   	
 	    	   	if(workType == 'DAY'){
 		    	   	/** @type {string} **/
-		    		let IMG 				= '';
+		    		let IMG = '';
 		    	   	data.cv_1.forEach((item, index) => {
 		    	   		if(item.DATA_TYPE2 == 'Y'){
 		    	        	IMG = '/static/images/ma/check.png';
@@ -667,37 +672,37 @@
 		    	   		
 			    		const msg = {
 			    				IMG						: IMG,
-			    				BASE_DATE				: item.BASE_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-			    				CURRENCY_CODE			: item.CURRENCY_CODE,
-			    				BASE_CURRENCY			: item.BASE_CURRENCY,
-			    				EXCHANGE_BASE_SCALE		: item.EXCHANGE_BASE_SCALE,
-			    				RCV_EX_RATE				: item.RCV_EX_RATE,
-			    				SND_EX_RATE				: item.SND_EX_RATE,
-			    				SLE_EX_RATE				: item.SLE_EX_RATE,
-			    				BUY_EX_RATE				: item.BUY_EX_RATE,
-			    				TC_SLE_EX_RATE			: item.TC_SLE_EX_RATE,
-			    				SLE_BSE_EX_RATE			: item.SLE_BSE_EX_RATE,
-			    				USA_EX_RATE				: item.USA_EX_RATE,
-			    				AVG_EX_RATE				: item.AVG_EX_RATE,
-			    				USER_EXCHANGE_RATE1		: item.USER_EXCHANGE_RATE1,
-			    				USER_EXCHANGE_RATE2		: item.USER_EXCHANGE_RATE2,
-			    				USER_EXCHANGE_RATE3		: item.USER_EXCHANGE_RATE3,
-			    				TT_BUY_EX_RATE			: item.TT_BUY_EX_RATE,
-			    				TT_SLE_EX_RATE			: item.TT_SLE_EX_RATE,
-			    				TT_BUY_PRM_EX_RATE		: item.TT_BUY_PRM_EX_RATE,
-			    				TT_SLE_PRM_EX_RATE		: item.TT_SLE_PRM_EX_RATE,
-			    				LIBOR_M1_EX_RATE		: item.LIBOR_M1_EX_RATE,
-			    				LIBOR_M3_EX_RATE		: item.LIBOR_M3_EX_RATE,
-			    				LIBOR_Y1_EX_RATE		: item.LIBOR_Y1_EX_RATE,
-			    				EX_COM_Y1_EX_RATE		: item.EX_COM_Y1_EX_RATE,
-			    				EX_COM_M1_EX_RATE		: item.EX_COM_M1_EX_RATE,
-			    				EX_COM_M3_EX_RATE		: item.EX_COM_M3_EX_RATE,
+			    				BASE_DATE				: item.CRTR_YMD.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+			    				CURRENCY_CODE			: item.CRN_CD,
+			    				BASE_CURRENCY			: item.BASE_CRN,
+			    				EXCHANGE_BASE_SCALE		: item.EXCHRT_BSS_UNIT,
+			    				RCV_EX_RATE				: item.RMT_EXCHRT,
+			    				SND_EX_RATE				: item.RMT_SEND_EXCHRT,
+			    				SLE_EX_RATE				: item.SLL_EXCHRT,
+			    				BUY_EX_RATE				: item.BYNG_EXCHRT,
+			    				TC_SLE_EX_RATE			: item.ELCTRN_SALE_EXCHRT,
+			    				SLE_BSE_EX_RATE			: item.TRD_BASE_EXCHRT,
+			    				USA_EX_RATE				: item.USD_CNVRS_RT,
+			    				AVG_EX_RATE				: item.AVG_EXCHRT,
+			    				USER_EXCHANGE_RATE1		: item.USER_EXCHRT1,
+			    				USER_EXCHANGE_RATE2		: item.USER_EXCHRT2,
+			    				USER_EXCHANGE_RATE3		: item.USER_EXCHRT3,
+			    				TT_BUY_EX_RATE			: item.TRSM_BYNG_EXCHRT,
+			    				TT_SLE_EX_RATE			: item.TRSM_SLL_EXCHRT,
+			    				TT_BUY_PRM_EX_RATE		: item.TRSM_PRR_BYNG_EXCHRT,
+			    				TT_SLE_PRM_EX_RATE		: item.TRSM_PRR_SLL_EXCHRT,
+			    				LIBOR_M1_EX_RATE		: item.LIBOR_1MNTH_EXCHRT,
+			    				LIBOR_M3_EX_RATE		: item.LIBOR_3MNTH_EXCHRT,
+			    				LIBOR_Y1_EX_RATE		: item.LIBOR_1YR_EXCHRT,
+			    				EX_COM_Y1_EX_RATE		: item.EXCHRT_FEE_1YR,
+			    				EX_COM_M1_EX_RATE		: item.EXCHRT_FEE_1MM,
+			    				EX_COM_M3_EX_RATE		: item.EXCHRT_FEE_3MM,
 			    				DATA_TYPE				: item.DATA_TYPE,
 			    				DATA_TYPE2				: item.DATA_TYPE2,
 			    				FBS_YN					: item.FBS_YN,
-			    				FBS_SERVICE				: item.FBS_SERVICE,
-			    				EXCHANGE_SEQ			: item.EXCHANGE_SEQ,
-			    				REMARK					: item.REMARK
+			    				FBS_SERVICE				: item.FBS_SRVC,
+			    				EXCHANGE_SEQ			: item.EXCHRT_SEQ,
+			    				REMARK					: item.RMRK
 			    		}
 			    		jsonDailyDayList.push(msg);
 			    		totalRecordCount ++;
@@ -708,11 +713,11 @@
 	    	   	}else if(workType == "AVERAGE"){   
 		    	   	data.cv_1.forEach((item, index) => {
 			    		const msg = {
-			    				CURRENCY_CODE			: item.CURRENCY_CODE,
-			    				CURRENCY_NAME			: item.CURRENCY_NAME,
+			    				CURRENCY_CODE			: item.CRN_CD,
+			    				CURRENCY_NAME			: item.CRN_NM,
 			    				BASE_SCALE				: item.BASE_SCALE,
-			    				ACCOUNT_CODE			: item.ACCOUNT_CODE,
-			    				ACCOUNT_NAME			: item.ACCOUNT_NAME,
+			    				ACCOUNT_CODE			: item.ACNTL_CD,
+			    				ACCOUNT_NAME			: item.ACNT_NM,
 			    		}
 			    		jsonAverageInfoList.push(msg);
 			    	});
@@ -721,8 +726,8 @@
 	    	   	}else if(workType == "CURRENCY"){
 		    	   	data.cv_2.forEach((item, index) => {
 			    		const msg = {
-			    				CODE_NAME			: item.CODE_NAME,
-			    				SUB_CODE			: item.SUB_CODE,
+			    				CODE_NAME			: item.CD_NM,
+			    				SUB_CODE			: item.SBSD_CD,
 			    				EXTRA_FIELD			: item.EXTRA_FIELD
 			    		}
 			    		jsonMonthTypeList.push(msg);
@@ -855,12 +860,12 @@
    			if (_.isEqual("S", monthData.resultStatus)) {
    				monthData.cv_3.forEach((item, index) => {
 		    		const msg = {
-		    				BASE_CURRENCY	: item.BASE_CURRENCY,
+		    				BASE_CURRENCY	: item.BASE_CRN,
 		    				BASE_MONTH		: item.BASE_MONTH,
-		    				CURRENCY_CODE	: item.CURRENCY_CODE,
-		    				EX_RATE_DIV		: item.EX_RATE_DIV,
-		    				EX_RATE			: item.EX_RATE,
-		    				REMARK			: item.REMARK
+		    				CURRENCY_CODE	: item.CRN_CD,
+		    				EX_RATE_DIV		: item.EXCHRT_SE,
+		    				EX_RATE			: item.EXCHRT,
+		    				REMARK			: item.RMRK
 		    		}
 		    		jsonMonthMonthList.push(msg);
 		    	});
@@ -896,13 +901,13 @@
             SBUxMethod.set("SRCH_BASE_DATE_TO1", 	gfn_dateToYm(new Date())),
             
             //기준통화
-            gfnma_setComSelect(['dailyDayGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['dailyDayGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             //통화
-            gfnma_setComSelect(['dailyDayGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['dailyDayGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             //통화
-            gfnma_setComSelect(['monthMonthGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['monthMonthGrid','BASE_CURRENCY'], jsonBaseCurrency, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             //통화
-            gfnma_setComSelect(['monthMonthGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['monthMonthGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             //일별 환율탭 -  통화
             gfnma_multiSelectInit({
                 target: ['#SRCH_CURRENCY_CODE'],
@@ -915,11 +920,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'CURRENCY_CODE',
-                colLabel: 'CURRENCY_NAME',
+                colValue: 'CRN_CD',
+                colLabel: 'CRN_NM',
                 columns: [
-                	{caption: "통화코드",	ref: 'CURRENCY_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "통화명",	ref: 'CURRENCY_NAME', width: '100px',style: 'text-align:left' },
+                	{caption: "통화코드",	ref: 'CRN_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "통화명",	ref: 'CRN_NM', width: '100px',style: 'text-align:left' },
                     {caption: "비고",	ref: 'DESCIPTION',    width: '100px',style: 'text-align:left' },
                 ]
             }),
@@ -929,17 +934,17 @@
                 compCode: gv_ma_selectedCorpCd,
                 clientCode: gv_ma_selectedClntCd,
                 bizcompId: 'L_FBS019',
-                whereClause: "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'",
+                whereClause: "AND CO_CD = '" + gv_ma_selectedCorpCd + "'",
                 formId: p_formId,
                 menuId: p_menuId,
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'SUB_CODE',
-                colLabel: 'CODE_NAME',
+                colValue: 'SBSD_CD',
+                colLabel: 'CD_NM',
                 columns: [
-                	{caption: "코드",	ref: 'SUB_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "명",		ref: 'CODE_NAME', width: '100px',style: 'text-align:left' },
+                	{caption: "코드",	ref: 'SBSD_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "명",		ref: 'CD_NM', width: '100px',style: 'text-align:left' },
                 ]
             }),            
             //평균환율탭 -  FBS대상
@@ -954,11 +959,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'SUB_CODE',
-                colLabel: 'CODE_NAME',
+                colValue: 'SBSD_CD',
+                colLabel: 'CD_NM',
                 columns: [
-                	{caption: "코드",	ref: 'SUB_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "명칭",	ref: 'CODE_NAME', width: '100px',style: 'text-align:left' },                	
+                	{caption: "코드",	ref: 'SBSD_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "명칭",	ref: 'CD_NM', width: '100px',style: 'text-align:left' },                	
                 ]
             }),          
             //평균환율탭 -  사용여부
@@ -973,11 +978,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'SUB_CODE',
-                colLabel: 'CODE_NAME',
+                colValue: 'SBSD_CD',
+                colLabel: 'CD_NM',
                 columns: [
-                	{caption: "코드",	ref: 'SUB_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "명칭",	ref: 'CODE_NAME', width: '100px',style: 'text-align:left' },
+                	{caption: "코드",	ref: 'SBSD_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "명칭",	ref: 'CD_NM', width: '100px',style: 'text-align:left' },
                 ]
             }),            
             //평균환율탭 -  통화
@@ -992,11 +997,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'CURRENCY_CODE',
-                colLabel: 'CURRENCY_NAME',
+                colValue: 'CRN_CD',
+                colLabel: 'CRN_NM',
                 columns: [
-                	{caption: "통화코드",	ref: 'CURRENCY_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "통화명",	ref: 'CURRENCY_NAME', width: '100px',style: 'text-align:left' },
+                	{caption: "통화코드",	ref: 'CRN_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "통화명",	ref: 'CRN_NM', width: '100px',style: 'text-align:left' },
                     {caption: "비고",	ref: 'DESCIPTION',    width: '100px',style: 'text-align:left' },
                 ]
             }),
@@ -1012,11 +1017,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'CURRENCY_CODE',
-                colLabel: 'CURRENCY_NAME',
+                colValue: 'CRN_CD',
+                colLabel: 'CRN_NM',
                 columns: [
-                	{caption: "통화코드",	ref: 'CURRENCY_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "통화명",	ref: 'CURRENCY_NAME', width: '100px',style: 'text-align:left' },
+                	{caption: "통화코드",	ref: 'CRN_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "통화명",	ref: 'CRN_NM', width: '100px',style: 'text-align:left' },
                     {caption: "비고",	ref: 'DESCIPTION',    width: '100px',style: 'text-align:left' },
                 ]
             }),
@@ -1052,7 +1057,7 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
         SBGridProperties.oneclickedit  		= true;
-        SBGridProperties.allowcopy 			= true; //복사
+        SBGridProperties.allowcopy 			= false; //복사
         SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
@@ -1433,7 +1438,7 @@
         }
     }
     
-    function fn_drawdailyDayGrid(mod, data, copymod, editType){
+    function fn_drawdailyDayGrid(mod, data, copymode, editType){
     	if (gfn_nvl(editType) == ''){
     		editType = 'output'
     	}
@@ -1444,7 +1449,7 @@
         SBGridProperties.jsonref 			= 'jsonDailyDayList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= mod;
-        SBGridProperties.allowcopy 			= copymod; //복사
+        SBGridProperties.allowcopy 			= copymode; //복사
         SBGridProperties.allowpaste 		= true; //붙여넣기( true : 가능 , false : 불가능 )
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
@@ -1460,22 +1465,24 @@
             {caption : ["기준통화"], ref : 'BASE_CURRENCY', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    displayui : copymod,
-                    oneclickedit : copymod,
+                    displayui : copymode,
+                    oneclickedit : copymode,
                     label : 'label',
                     value : 'value'
                 }
+            	, userattr : {required : true} 
             },
-            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}},
-            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: editType, width: '100px', style: 'text-align:right'},
+            {caption : ['기준일자'],	ref : 'BASE_DATE',	width : '120px',	style : 'text-align:center',	type : 'inputdate',	typeinfo : {dateformat :'yyyy-mm-dd'}, userattr : {required : true} },
+            {caption: ["고시회차"], 	ref: 'EXCHANGE_SEQ', type: editType, width: '100px', style: 'text-align:right', userattr : {required : true} },
             {caption : ["통화"], 	ref : 'CURRENCY_CODE', width : '150px', style : 'text-align:center', type : 'combo',
                 typeinfo : {
                     ref : 'jsonBaseCurrency',
-                    displayui : copymod,
-                    oneclickedit : copymod,
+                    displayui : copymode,
+                    oneclickedit : copymode,
                     label : 'label',
                     value : 'value'
                 }
+            	, userattr : {required : true} 
             },
             {caption: ["비고"], 				ref: 'REMARK', 				type: editType, width: '120px', style: 'text-align:left'},
             {caption: ["환산기준"], 			ref: 'EXCHANGE_BASE_SCALE', type: editType, width: '100px', style: 'text-align:right',

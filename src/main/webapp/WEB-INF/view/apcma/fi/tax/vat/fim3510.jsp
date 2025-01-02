@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -132,7 +132,7 @@
         </div>
     </div>
 </section>
-
+ 
 <div>
     <sbux-modal
     	style="width:600px" 
@@ -148,11 +148,11 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
-
+ 
 </body>
 <script type="application/javascript">
-
-
+ 
+ 
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
@@ -160,14 +160,14 @@
 	var p_fiOrgCode = "${loginVO.maFIOrgCode}";
 	var p_defaultAcctRule = "${loginVO.maDefaultAcctRule}";
 	//-----------------------------------------------------------
-
+ 
 	//초기화
 	function cfn_init() {
-
+ 
 		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
 			return;
 		}
-
+ 
 		fn_init();
 	}
 	
@@ -199,13 +199,13 @@
 	// 그리드
     var grdVat;
     var jsonVat = [];
-
+ 
     /** grid combo json **/
-
+ 
     window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
     });
-
+ 
     lv_mode = "none";
     lv_modeNext = "rowcopy";
     
@@ -264,11 +264,11 @@
      * @function
      */
     const fn_init = async function() {
-
+ 
 		SBUxMethod.set("srch-inp-vatCode", "");
-
+ 
     	await fn_initSBSelect();
-
+ 
 		jsonVat.length = 0;
     	fn_createGrid();
     	
@@ -284,7 +284,7 @@
 		// 코드정보 설정
 		let result = await Promise.all([
 				// 부가세유형
-            	gfnma_setComSelect(['grdVat'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),
+            	gfnma_setComSelect(['grdVat'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CD', 'VAT_TMPLT_NM', 'Y', ''),
 			]);	
 	}
     
@@ -322,34 +322,34 @@
         SBGridProperties.columns = [
             {
             	caption : ['부가세코드'], 
-            	ref : 'VAT_CODE',
+            	ref : 'VAT_CD',
             	width : '100px', 
             	style : 'text-align:left',    
             	type : 'input',
             },
             {
             	caption : ['부가세코드명'], 
-            	ref : 'VAT_NAME', 
+            	ref : 'VAT_NM', 
             	width : '120px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['부가세유형'], 
-            	ref : 'VAT_TYPE_CODE', 
+            	ref : 'VAT_TYPE_CD', 
             	width : '120px',
             	style : 'text-align:left', 
             	type : 'combo', 
             	typeinfo : {
             		ref:'jsonVatType', 
-            		label:'VAT_TYPE_NAME', 
-            		value:'VAT_TYPE_CODE', 
+            		label:'VAT_TMPLT_NM', 
+            		value:'VAT_TYPE_CD', 
             		oneclickedit: true
             	}
            	},
             {
            		caption : ['부가세율(%)'], 
-           		ref : 'VAT_RATE', 
+           		ref : 'VAT_RT', 
             	datatype: 'number',
            		width : '100px',
            		style : 'text-align:right',    
@@ -358,7 +358,7 @@
            	},
             {
            		caption : ['상한비율(%)'], 
-           		ref : 'LIMIT_PLUS_RATE', 
+           		ref : 'HGHST_RT', 
             	datatype: 'number', 
            		width : '100px',
            		style : 'text-align:right',    
@@ -367,7 +367,7 @@
            	},
             {
            		caption : ['하한비율(%)'], 
-           		ref : 'LIMIT_MINUS_RATE',  
+           		ref : 'LOWST_RT',  
             	datatype: 'number', 
            		width : '100px',
            		style : 'text-align:right',    
@@ -376,7 +376,7 @@
            	},
             {
            		caption : ['불공제 여부'], 
-           		ref : 'NONDED_YN', 
+           		ref : 'NDDC_YN', 
            		width : '100px',
            		style : 'text-align:center',    
            		type : 'checkbox',
@@ -387,7 +387,7 @@
            	},
             {
            		caption : ['계정코드'], 
-           		ref : 'ACCOUNT_CODE', 
+           		ref : 'ACNTL_CD', 
            		width : '100px',
            		style : 'text-align:left',    
            		type : 'input',
@@ -395,7 +395,7 @@
            	},
             {
            		caption : ['계정과목명'], 
-           		ref : 'ACCOUNT_NAME', 
+           		ref : 'ACNT_NM', 
            		width : '180px',
            		style : 'text-align:left',    
            		type : 'input',
@@ -403,7 +403,7 @@
            	},
            	{
            		caption : ['계정과목명'], 
-           		ref : 'ACCOUNT_CODE', 
+           		ref : 'ACNTL_CD', 
            		type:'button',
            		width:'40px',
            		style: 'text-align:center',
@@ -424,7 +424,7 @@
            	},
             {
            		caption : ['적용기간(시작일)'], 
-           		ref : 'START_DATE', 
+           		ref : 'BGNG_YMD', 
            		width : '100px',
            		style : 'text-align:center', 
            		type : 'inputdate', 
@@ -436,7 +436,7 @@
             },
             {
             	caption : ['적용기간(종료일)'], 
-            	ref : 'END_DATE', 
+            	ref : 'END_DT', 
             	width : '100px',
             	style : 'text-align:center', 
             	type : 'inputdate', 
@@ -472,24 +472,24 @@
         
         
     }
-
+ 
     const fn_grdVatValueChanged = function() {
     	
     	var nRow = grdVat.getRow();
     	var nCol = grdVat.getCol();
     	
-    	const codeCol = grdVat.getColRef('VAT_CODE');
+    	const codeCol = grdVat.getColRef('VAT_CD');
     	
     	if (_.isEqual(codeCol, nCol)) {
     		
     		const rowData = grdVat.getRowData(nRow, false);	// deep copy
     		
-    		const vatCode = rowData['VAT_CODE'];
+    		const vatCode = rowData['VAT_CD'];
     		if (!gfn_isEmpty(vatCode)) {
     			const firstChr = vatCode.substr(0, 1);
     			if (firstChr != "A" &&  firstChr != "V") {
     				gfn_comAlert("W0021", "부가세코드 첫글자", "A, V");
-    				rowData['VAT_CODE'] = "";
+    				rowData['VAT_CD'] = "";
     				grdVat.refresh();
     				return;
     			}
@@ -506,7 +506,7 @@
      * @description 조회 버튼
      */
     const fn_search = async function(){
-
+ 
     	const vatCode = gfn_nvl(SBUxMethod.get("srch-inp-vatCode"));
     	
         var paramObj = {
@@ -521,51 +521,55 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFim3510.do", {
             getType				: 'json',
             cv_count			: '1',
             workType            : 'LIST',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromise;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
             	console.log("listData.cv_1", listData.cv_1);
             	
             	jsonVat.length = 0;
-
+ 
                 listData.cv_1.forEach((item, index) => {
+					/*
                     const obj = {
-                    		VAT_CODE: item.VAT_CODE,
-                            VAT_NAME: item.VAT_NAME,
-                            COMP_CODE: item.COMP_CODE,
-                            COMP_NAME: item.COMP_NAME,
-                            VAT_TYPE_CODE: item.VAT_TYPE_CODE,
-                            VAT_RATE: item.VAT_RATE,
-                            NONDED_YN: item.NONDED_YN,
-                            ACCOUNT_CODE: item.ACCOUNT_CODE,
-                            ACCOUNT_NAME: item.ACCOUNT_NAME,
+                    		VAT_CODE: item.VAT_CD,
+                            VAT_NAME: item.VAT_NM,
+                            COMP_CODE: item.CO_CD,
+                            COMP_NAME: item.CORP_NM,
+                            VAT_TYPE_CODE: item.VAT_TYPE_CD,
+                            VAT_RATE: item.VAT_RT,
+                            NONDED_YN: item.NDDC_YN,
+                            ACCOUNT_CODE: item.ACNTL_CD,
+                            ACCOUNT_NAME: item.ACNT_NM,
                             USE_YN: item.USE_YN,
-                            START_DATE: item.START_DATE,
-                            END_DATE: item.END_DATE,
+                            START_DATE: item.BGNG_YMD,
+                            END_DATE: item.END_DT,
                             MEMO: item.MEMO,
                             SORT_SEQ: item.SORT_SEQ,
-                            INSERT_USERID: item.INSERT_USERID,
-                            INSERT_TIME: item.INSERT_TIME,
-                            INSERT_PC: item.INSERT_PC,
-                            UPDATE_USERID: item.UPDATE_USERID,
-                            UPDATE_TIME: item.UPDATE_TIME,
-                            UPDATE_PC: item.UPDATE_PC,
-                            LIMIT_PLUS_RATE: item.LIMIT_PLUS_RATE,
-                            LIMIT_MINUS_RATE: item.LIMIT_MINUS_RATE,
+                            INSERT_USERID: item.WRT_USER_ID,
+                            INSERT_TIME: item.WRT_DT,
+                            INSERT_PC: item.WRT_PC,
+                            UPDATE_USERID: item.UPDT_USER_ID,
+                            UPDATE_TIME: item.UPDT_DT,
+                            UPDATE_PC: item.UPDT_PC,
+                            LIMIT_PLUS_RATE: item.HGHST_RT,
+                            LIMIT_MINUS_RATE: item.LOWST_RT,
                     }
                     
                     jsonVat.push(obj);
-                    
+
+					 */
+                    jsonVat.push(item);
+
                 });
                 
                 grdVat.rebuild();
@@ -591,33 +595,33 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
     /**
      * @name fn_save
      * @description 저장 버튼
      */
 	const fn_save = async function() {
-
+ 
  		const updatedData = grdVat.getUpdateData(true, 'all');
         const listData = [];
-
+ 
         for(const item of updatedData) {
         	
-        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedCorpCd);
-        	const clientCode 	= gfn_nvl(item.data.CLIENT_CODE, gv_ma_selectedClntCd);
+        	const compCode 		= gfn_nvl(item.data.CO_CD, gv_ma_selectedCorpCd);
+        	const clientCode 	= gfn_nvl(item.data.CLNT_CD, gv_ma_selectedClntCd);
         	const vatCode = item.data.VAT_CODE;
         	const vatName = item.data.VAT_NAME;
         	const vatTypeCode = item.data.VAT_TYPE_CODE;
-        	const vatRate = parseFloat(item.data.VAT_RATE) || 0;
-        	const nondedYn = gfn_nvl(item.data.NONDED_YN);
-        	const accountCode = gfn_nvl(item.data.ACCOUNT_CODE);
+        	const vatRate = parseFloat(item.data.VAT_RT) || 0;
+        	const nondedYn = gfn_nvl(item.data.NDDC_YN);
+        	const accountCode = gfn_nvl(item.data.ACNTL_CD);
         	const useYn = gfn_nvl(item.data.USE_YN, 'N');
-        	const startDate = gfn_nvl(item.data.START_DATE);
-        	const endDate = gfn_nvl(item.data.END_DATE);
+        	const startDate = gfn_nvl(item.data.BGNG_YMD);
+        	const endDate = gfn_nvl(item.data.END_DT);
         	const memo = gfn_nvl(item.data.MEMO);
         	const sortSeq = parseInt(item.data.SORT_SEQ) || 0;
-        	const limitPlusRate = gfn_nvl(item.data.LIMIT_PLUS_RATE);
-        	const limitMinusRate = gfn_nvl(item.data.LIMIT_MINUS_RATE);
+        	const limitPlusRate = gfn_nvl(item.data.HGHST_RT);
+        	const limitMinusRate = gfn_nvl(item.data.LOWST_RT);
         	
         	if (gfn_isEmpty(vatCode)) {
 				gfn_comAlert("W0005", "부가세코드");		//	W0005	{0}이/가 없습니다.
@@ -704,8 +708,8 @@
     	_name = gfn_nvl(_name);
     	
     	const _rowData = grdVat.getRowData(_nRow, false);
-    	_rowData.ACCOUNT_CODE = _code;
-    	_rowData.ACCOUNT_NAME = _name;
+    	_rowData.ACNTL_CD = _code;
+    	_rowData.ACNT_NM = _name;
     	
     	console.log("_code", _code);
     	console.log("_name", _name);
@@ -723,13 +727,13 @@
 	 */	 
     const fn_compopupAccountCode = function(_callbackFnc, _nRow, _code, _name) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
         var searchText0		= gfn_nvl(_code);
         var searchText1		= gfn_nvl(_name);
         var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
-		//var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME  LIKE '%" + replaceText1 + "%' AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "' AND A.CLIENT_CODE = '" + gv_ma_selectedClntCd +  "'";
-
+		//var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM  LIKE '%" + replaceText1 + "%' AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' AND A.CLNT_CD = '" + gv_ma_selectedClntCd +  "'";
+ 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -738,39 +742,39 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [searchText0, 	searchText1]
 			,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["200px", 		"400px"]
 			,itemSelectEvent		: function (data) {
 				if (typeof _callbackFnc === 'function') {
-					_callbackFnc(_nRow, data.ACCOUNT_CODE, data.ACCOUNT_NAME);
+					_callbackFnc(_nRow, data.ACNTL_CD, data.ACNT_NM);
 				}
 			}
     	});
     	
 		SBUxMethod.openModal('modal-compopup1');
     }
-
+ 
 	
     // 행 추가
     const fn_addRow = function() {
     	
         const rowIndex = grdVat.getRow();
-
+ 
         if (rowIndex < 0){ //데이터가 없고 행선택이 없을경우.
         	grdVat.addRow(true);
         } else {
         	grdVat.insertRow(rowIndex);
         }
     }
-
+ 
     // 행삭제
     const fn_delRow = async function() {
-
+ 
     	const rowIndex = grdVat.getRow();
     	
     	if (rowIndex < 1) {
@@ -789,7 +793,7 @@
     	} else {
     		grdVat.deleteRow(rowIndex);
     	}
-
+ 
     }
 	
 	

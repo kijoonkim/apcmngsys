@@ -51,7 +51,7 @@ public class ApcMaFit1200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT1200_Q");
+            param.put("procedure", 		"SP_FIT1200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class ApcMaFit1200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT1200_S");
+            param.put("procedure", 		"SP_FIT1200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

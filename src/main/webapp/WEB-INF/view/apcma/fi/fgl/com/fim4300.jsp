@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -163,10 +163,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -174,7 +174,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var editType	= "N";
 	
 	//grid mast
@@ -192,19 +192,19 @@
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-            gfnma_setComSelect([], jsonGridApprTemplate, 		'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprSourceType, 		'L_FIM062_SOURCE', 	'AND EXTRA_FIELD12 IS NULL', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprRule, 			'L_FIM063', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridSourceType, 			'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridDocType, 			'L_FIM051', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprCategory,		'L_FIM065', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridAmtRule,				'L_FIM066', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridApprRelation,		'L_FIM064', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprTemplate, 		'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprSourceType, 		'L_FIM062_SOURCE', 	'AND EXTRA_COL12 IS NULL', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprRule, 			'L_FIM063', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridSourceType, 			'L_FIM062', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridDocType, 			'L_FIM051', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprCategory,		'L_FIM065', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridAmtRule,				'L_FIM066', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridApprRelation,		'L_FIM064', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             
-            gfnma_setComSelect([], jsonGridEmpState,			'L_HRI009', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridEmpState,			'L_HRI009', 		'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
@@ -231,7 +231,7 @@
 			fn_gridDetailRowDel();
 		});
     });
-
+ 
     /**
      * 초기화
      */
@@ -242,7 +242,7 @@
     //grid Mast 초기화
     var Fim4300GridMast; 			// 그리드를 담기위한 객체 선언
     var jsonFim4300Mast = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGridMast() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTop';
@@ -330,7 +330,7 @@
         	
             {caption: ["자동보류해제"], 			ref: 'DOC_RELEASE_YN',			type:'checkbox', 	width:'100px', 		style:'text-align:center',	typeinfo: { checkedvalue: 'Y', uncheckedvalue: 'N'}},
         ];
-
+ 
         Fim4300GridMast = _SBGrid.create(SBGridProperties);
         Fim4300GridMast.bind('click', 'fn_viewMast');
     }
@@ -352,9 +352,9 @@
      */
     var fn_compopup1 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -364,18 +364,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridMast.setCellData(row, 6, data['ACCOUNT_CODE'], true, true);
-				Fim4300GridMast.setCellData(row, 8, data['ACCOUNT_NAME'], true, true);
+				Fim4300GridMast.setCellData(row, 6, data['ACNTL_CD'], true, true);
+				Fim4300GridMast.setCellData(row, 8, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -398,9 +398,9 @@
      */
     var fn_compopup2 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -410,18 +410,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridMast.setCellData(row, 9, data['ACCOUNT_CODE'], true, true);
-				Fim4300GridMast.setCellData(row, 11, data['ACCOUNT_NAME'], true, true);
+				Fim4300GridMast.setCellData(row, 9, data['ACNTL_CD'], true, true);
+				Fim4300GridMast.setCellData(row, 11, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -444,9 +444,9 @@
      */
     var fn_compopup3 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -456,18 +456,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridMast.setCellData(row, 12, data['ACCOUNT_CODE'], true, true);
-				Fim4300GridMast.setCellData(row, 14, data['ACCOUNT_NAME'], true, true);
+				Fim4300GridMast.setCellData(row, 12, data['ACNTL_CD'], true, true);
+				Fim4300GridMast.setCellData(row, 14, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -490,9 +490,9 @@
      */
     var fn_compopup4 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -502,18 +502,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridMast.setCellData(row, 15, data['ACCOUNT_CODE'], true, true);
-				Fim4300GridMast.setCellData(row, 17, data['ACCOUNT_NAME'], true, true);
+				Fim4300GridMast.setCellData(row, 15, data['ACNTL_CD'], true, true);
+				Fim4300GridMast.setCellData(row, 17, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -523,12 +523,12 @@
     function fn_viewMast() {
     	
     	editType = "E";    	
-
+ 
         var nRow = Fim4300GridMast.getRow();
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim4300GridMast.getRowData(nRow);
 		//console.log(rowData);        
 		
@@ -543,7 +543,7 @@
     //grid Detail 초기화
     var Fim4300GridDetail; 			// 그리드를 담기위한 객체 선언
     var jsonFim4300Detail = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGridDetail() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdBot';
@@ -617,7 +617,7 @@
             {caption: ["참조9"], 					ref: 'ATTR9', 					type:'input',  		width:'100px',  	style:'text-align:left'},
             {caption: ["참조10"], 					ref: 'ATTR10', 					type:'input',  		width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fim4300GridDetail = _SBGrid.create(SBGridProperties);
         Fim4300GridDetail.bind('click', 'fn_viewDetail');
     }
@@ -639,9 +639,9 @@
      */
     var fn_compopup10 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_DEPT_CODE_";
-        var replaceText1 	= "_DEPT_NAME_"; 
-        var strWhereClause 	= "AND DEPT_CODE LIKE '%" + replaceText0 + "%' AND DEPT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_DEPT_CD_";
+        var replaceText1 	= "_DEPT_NM_"; 
+        var strWhereClause 	= "AND A.DEPT_CD LIKE '%" + replaceText0 + "%' AND A.DEPT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서(조직)정보');
     	compopup1({
@@ -651,19 +651,19 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["부서코드", 		"부서명"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,searchInputTypes		: ["input", 		"input"]		//input, select가 있는 경우
 			,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["부서코드",		"부서명",		"사업장명"]
-   			,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME",	"SITE_NAME"]
+   			,tableColumnNames		: ["DEPT_CD",		"DEPT_NM",	"SITE_NM"]
 			,tableColumnWidths		: ["100px", 		"200px",		"220px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridDetail.setCellData(row, 14, data['DEPT_CODE'], true, true);
-				Fim4300GridDetail.setCellData(row, 16, data['DEPT_NAME'], true, true);
+				Fim4300GridDetail.setCellData(row, 14, data['DEPT_CD'], true, true);
+				Fim4300GridDetail.setCellData(row, 16, data['DEPT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -686,9 +686,9 @@
      */
     var fn_compopup11 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= "_EMP_NM_";
+        var strWhereClause 	= "AND X.EMP_CD LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서(조직)정보');
     	compopup1({
@@ -698,20 +698,20 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		]
-   			,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME"		]
+   			,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM"		]
    			,searchInputValues		: ["", 				cellData1,		cellData2		]
 			,searchInputTypes		: ["input", 		"input",		"input"			]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 				"",				""				]	//select 경우
 			,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["사원코드",		"사원명",		"부서명"]
-   			,tableColumnNames		: ["EMP_CODE", 		"EMP_NAME",		"DEPT_NAME"]
+   			,tableColumnNames		: ["EMP_CD", 		"EMP_NM",		"DEPT_NM"]
    			,tableColumnWidths		: ["100px", 		"200px",		"220px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4300GridDetail.setCellData(row, 17, data['EMP_CODE'], true, true);
-				Fim4300GridDetail.setCellData(row, 19, data['EMP_NAME'], true, true);
+				Fim4300GridDetail.setCellData(row, 17, data['EMP_CD'], true, true);
+				Fim4300GridDetail.setCellData(row, 19, data['EMP_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -719,7 +719,7 @@
     
     //상세정보 보기
     function fn_viewDetail() {
-
+ 
     	var nCol = Fim4300GridDetail.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -729,7 +729,7 @@
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim4300GridDetail.getRowData(nRow);
 		console.log(rowData);        
     }
@@ -745,9 +745,9 @@
      * mast 목록 가져오기
      */
     const fn_setFim4300GridMast = async function(wtype) {
-
+ 
 		Fim4300GridMast.clearStatus();
-
+ 
 		let p_txtdoc_type		= gfnma_nvl(SBUxMethod.get("srch-txtdoc-type"));
 		let p_txtdoc_name		= gfnma_nvl(SBUxMethod.get("srch-txtdoc-name"));
 		
@@ -765,71 +765,71 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/selectFim4300List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim4300Mast.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),			
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),			
-  						DOC_NAME_CHN			: gfnma_nvl(item.DOC_NAME_CHN),			
-  						PREFIX_CODE				: gfnma_nvl(item.PREFIX_CODE),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-  						EXCHAGE_GAIN_ACC		: gfnma_nvl(item.EXCHAGE_GAIN_ACC),
+  						DOC_TYPE				: gfnma_nvl(item.SLIP_TYPE),			
+  						DOC_NAME				: gfnma_nvl(item.SLIP_NM),			
+  						DOC_NAME_CHN			: gfnma_nvl(item.SLIP_NM_CHN),			
+  						PREFIX_CODE				: gfnma_nvl(item.PRFX_CD),
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),
+  						EXCHAGE_GAIN_ACC		: gfnma_nvl(item.EXCHRT_PRF_ACNT),
   						EXCHAGE_GAIN_ACC_NAME	: gfnma_nvl(item.EXCHAGE_GAIN_ACC_NAME),
-  						EXCHAGE_LOSS_ACC		: gfnma_nvl(item.EXCHAGE_LOSS_ACC),
+  						EXCHAGE_LOSS_ACC		: gfnma_nvl(item.EXCHRT_LOSS_ACNT),
   						EXCHAGE_LOSS_ACC_NAME	: gfnma_nvl(item.EXCHAGE_LOSS_ACC_NAME),
-  						VAL_GAIN_ACC			: gfnma_nvl(item.VAL_GAIN_ACC),
+  						VAL_GAIN_ACC			: gfnma_nvl(item.CNVRT_PRF_ACNT_CD),
   						VAL_GAIN_ACC_NAME		: gfnma_nvl(item.VAL_GAIN_ACC_NAME),
-  						VAL_LOSS_ACC			: gfnma_nvl(item.VAL_LOSS_ACC),
+  						VAL_LOSS_ACC			: gfnma_nvl(item.CNVRT_LOSS_ACNT_CD),
   						VAL_LOSS_ACC_NAME		: gfnma_nvl(item.VAL_LOSS_ACC_NAME),
-  						SYSTEM_YN				: gfnma_nvl(item.SYSTEM_YN),
+  						SYSTEM_YN				: gfnma_nvl(item.SYS_YN),
   						USE_YN					: gfnma_nvl(item.USE_YN),
-  						ORDER_SEQ				: gfnma_nvl(item.ORDER_SEQ),
-  						ATTR1					: gfnma_nvl(item.ATTR1),
-  						ATTR2					: gfnma_nvl(item.ATTR2),
-  						ATTR3					: gfnma_nvl(item.ATTR3),
-  						ATTR4					: gfnma_nvl(item.ATTR4),
-  						ATTR5					: gfnma_nvl(item.ATTR5),
-  						ATTR6					: gfnma_nvl(item.ATTR6),
-  						ATTR7					: gfnma_nvl(item.ATTR7),
-  						ATTR8					: gfnma_nvl(item.ATTR8),
-  						ATTR9					: gfnma_nvl(item.ATTR9),
-  						ATTR10					: gfnma_nvl(item.ATTR10),
-  						AP_DOC_YN				: gfnma_nvl(item.AP_DOC_YN),
-  						AR_DOC_YN				: gfnma_nvl(item.AR_DOC_YN),
-  						ESS_DOC_YN				: gfnma_nvl(item.ESS_DOC_YN),
-  						AP_DOC_VIEW_YN			: gfnma_nvl(item.AP_DOC_VIEW_YN),
-  						AP_DOC_VIEW_EXCLUDE_YN	: gfnma_nvl(item.AP_DOC_VIEW_EXCLUDE_YN),
+  						ORDER_SEQ				: gfnma_nvl(item.SORT_SEQ),
+  						ATTR1					: gfnma_nvl(item.ATRB1),
+  						ATTR2					: gfnma_nvl(item.ATRB2),
+  						ATTR3					: gfnma_nvl(item.ATRB3),
+  						ATTR4					: gfnma_nvl(item.ATRB4),
+  						ATTR5					: gfnma_nvl(item.ATRB5),
+  						ATTR6					: gfnma_nvl(item.ATRB6),
+  						ATTR7					: gfnma_nvl(item.ATRB7),
+  						ATTR8					: gfnma_nvl(item.ATRB8),
+  						ATTR9					: gfnma_nvl(item.ATRB9),
+  						ATTR10					: gfnma_nvl(item.ATRB10),
+  						AP_DOC_YN				: gfnma_nvl(item.APS_SLIP_YN),
+  						AR_DOC_YN				: gfnma_nvl(item.AR_SLIP_YN),
+  						ESS_DOC_YN				: gfnma_nvl(item.ESS_SLIP_YN),
+  						AP_DOC_VIEW_YN			: gfnma_nvl(item.APS_SLIP_INQ_YN),
+  						AP_DOC_VIEW_EXCLUDE_YN	: gfnma_nvl(item.APS_SLIP_INQ_EXCL_YN),
   						AP_DOC_VIEW_YN1			: gfnma_nvl(item.AP_DOC_VIEW_YN1),
-  						AP_DOC_WRITE_YN			: gfnma_nvl(item.AP_DOC_WRITE_YN),
-  						AR_DOC_WRITE_YN			: gfnma_nvl(item.AR_DOC_WRITE_YN),
-  						MANUAL_DOC_WRITE_YN		: gfnma_nvl(item.MANUAL_DOC_WRITE_YN),
-  						MULTI_AP_WRITE_YN		: gfnma_nvl(item.MULTI_AP_WRITE_YN),
-  						APPR_TEMPLATE			: gfnma_nvl(item.APPR_TEMPLATE),
-  						APPR_SOURCE_TYPE		: gfnma_nvl(item.APPR_SOURCE_TYPE),
-  						DOC_END_YN				: gfnma_nvl(item.DOC_END_YN),
-  						DOC_RELEASE_YN			: gfnma_nvl(item.DOC_RELEASE_YN)
+  						AP_DOC_WRITE_YN			: gfnma_nvl(item.APS_SLIP_WRT_YN),
+  						AR_DOC_WRITE_YN			: gfnma_nvl(item.AR_SLIP_WRT_YN),
+  						MANUAL_DOC_WRITE_YN		: gfnma_nvl(item.HWRT_SLIP_YN),
+  						MULTI_AP_WRITE_YN		: gfnma_nvl(item.MLT_APS_SLIP_YN),
+  						APPR_TEMPLATE			: gfnma_nvl(item.APLN_TYPE),
+  						APPR_SOURCE_TYPE		: gfnma_nvl(item.APRV_SRC_TYPE),
+  						DOC_END_YN				: gfnma_nvl(item.SLIP_END_YN),
+  						DOC_RELEASE_YN			: gfnma_nvl(item.SLIP_RLS_YN)
   					}
   					jsonFim4300Mast.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fim4300GridMast.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
@@ -842,7 +842,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -856,7 +856,7 @@
      * detail 목록 가져오기
      */
     const fn_setFim4300GridDetail = async function(wtype, doc_type) {
-
+ 
 		Fim4300GridDetail.clearStatus();
 		
 	    var paramObj = { 
@@ -873,69 +873,69 @@
 				,V_P_USERID			: ''
 				,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/selectFim4300List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim4300Detail.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),
+  						DOC_TYPE				: gfnma_nvl(item.SLIP_TYPE),
   						SEQ						: gfnma_nvl(item.SEQ),
-  						APPR_RULE				: gfnma_nvl(item.APPR_RULE),		
-  						SOURCE_TYPE				: gfnma_nvl(item.SOURCE_TYPE),		
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
-  						APPR_EMP_CODE			: gfnma_nvl(item.APPR_EMP_CODE),			
+  						APPR_RULE				: gfnma_nvl(item.APRV_RULE),		
+  						SOURCE_TYPE				: gfnma_nvl(item.SRC_TYPE),		
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
+  						APPR_EMP_CODE			: gfnma_nvl(item.APRV_EMP_CD),			
   						APPR_EMP_NAME			: gfnma_nvl(item.APPR_EMP_NAME),			
-  						APPR_RELATION			: gfnma_nvl(item.APPR_RELATION),			
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),			
+  						APPR_RELATION			: gfnma_nvl(item.APRV_REL),			
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),			
   						USE_YN					: gfnma_nvl(item.USE_YN),			
-  						ORDER_SEQ				: gfnma_nvl(item.ORDER_SEQ),			
-  						ATTR1					: gfnma_nvl(item.ATTR1),			
-  						ATTR2					: gfnma_nvl(item.ATTR2),			
-  						ATTR3					: gfnma_nvl(item.ATTR3),			
-  						ATTR4					: gfnma_nvl(item.ATTR4),			
-  						ATTR5					: gfnma_nvl(item.ATTR5),			
-  						ATTR6					: gfnma_nvl(item.ATTR6),			
-  						ATTR7					: gfnma_nvl(item.ATTR7),			
-  						ATTR8					: gfnma_nvl(item.ATTR8),			
-  						ATTR9					: gfnma_nvl(item.ATTR9),			
-  						ATTR10					: gfnma_nvl(item.ATTR10),			
-  						APPR_CATEGORY			: gfnma_nvl(item.APPR_CATEGORY),			
-  						AMT_RULE				: gfnma_nvl(item.AMT_RULE),			
-  						AMT_FR					: gfnma_nvl(item.AMT_FR),			
-  						AMT_TO					: gfnma_nvl(item.AMT_TO),			
-  						SUB_CODE1				: gfnma_nvl(item.SUB_CODE1),			
-  						SUB_CODE2				: gfnma_nvl(item.SUB_CODE2),			
-  						SUB_CODE3				: gfnma_nvl(item.SUB_CODE3),			
-  						SUB_CODE4				: gfnma_nvl(item.SUB_CODE4),			
-  						SUB_CODE5				: gfnma_nvl(item.SUB_CODE5)			
+  						ORDER_SEQ				: gfnma_nvl(item.SORT_SEQ),			
+  						ATTR1					: gfnma_nvl(item.ATRB1),			
+  						ATTR2					: gfnma_nvl(item.ATRB2),			
+  						ATTR3					: gfnma_nvl(item.ATRB3),			
+  						ATTR4					: gfnma_nvl(item.ATRB4),			
+  						ATTR5					: gfnma_nvl(item.ATRB5),			
+  						ATTR6					: gfnma_nvl(item.ATRB6),			
+  						ATTR7					: gfnma_nvl(item.ATRB7),			
+  						ATTR8					: gfnma_nvl(item.ATRB8),			
+  						ATTR9					: gfnma_nvl(item.ATRB9),			
+  						ATTR10					: gfnma_nvl(item.ATRB10),			
+  						APPR_CATEGORY			: gfnma_nvl(item.APRV_CTGRY),			
+  						AMT_RULE				: gfnma_nvl(item.AMT_CRTR),			
+  						AMT_FR					: gfnma_nvl(item.AMT_MIN),			
+  						AMT_TO					: gfnma_nvl(item.AMT_MAX),			
+  						SUB_CODE1				: gfnma_nvl(item.SBSD_CD1),			
+  						SUB_CODE2				: gfnma_nvl(item.SBSD_CD2),			
+  						SUB_CODE3				: gfnma_nvl(item.SBSD_CD3),			
+  						SUB_CODE4				: gfnma_nvl(item.SBSD_CD4),			
+  						SUB_CODE5				: gfnma_nvl(item.SBSD_CD5)			
   					}
   					jsonFim4300Detail.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	Fim4300GridDetail.rebuild();
   	        	document.querySelector('#listCount2').innerText = totalRecordCount;
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -998,7 +998,7 @@
      * 저장
      */
     function cfn_save() {
-
+ 
     	//A: 마스타만 저장하는 경우
     	//B: 디테일만 저장하는 경우  
     	//C: 마스타, 디테일 그리드 모두 저장하는 경우
@@ -1062,7 +1062,7 @@
      * mast 저장
      */
     const fn_subSaveMast = async function (saveType){
-
+ 
    	 var chkList = Fim4300GridMast.getUpdateData(true)
 	 console.log('---->> grid all');
 	 console.log(chkList);
@@ -1135,10 +1135,10 @@
 	 		}			
 	 	listData.push(param);
 	 }	
-
+ 
 	 if(listData.length > 0) {
 	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300mast.do", {listData: listData});
-
+ 
 	 	const data = await postJsonPromise;
 	 	console.log('data:', data);
 	 	try {
@@ -1234,10 +1234,10 @@
     	 		}			
     	 	listData.push(param);
     	 }	
-
+ 
     	 if(listData.length > 0) {
     	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4300detail.do", {listData: listData});
-
+ 
     	 	const data = await postJsonPromise;
     	 	console.log('data:', data);
     	 	try {
@@ -1247,7 +1247,7 @@
     	 			alert(data.resultMessage);
     	 		}
    	 			cfn_search();
-
+ 
     	 	} catch (e) {
     	 		if (!(e instanceof Error)) {
     	 			e = new Error(e);

@@ -233,7 +233,7 @@
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
                                         class="table-datepicker-ma"
-                                        >
+                                >
                                 </sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -245,7 +245,7 @@
                                         uitype="popup"
                                         date-format="yyyy-mm-dd"
                                         class="table-datepicker-ma"
-                                        >
+                                >
                                 </sbux-datepicker>
                             </td>
                             <td style="border-right: hidden;">&nbsp;</td>
@@ -287,7 +287,7 @@
                             </td>
                             <td colspan="2" class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
-                                       <%-- uitype="hidden"--%>
+                                <%-- uitype="hidden"--%>
                                         uitype="text"
                                         id="CS_NAME"
                                         class="form-control input-sm"
@@ -424,11 +424,11 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 
 
 
@@ -436,10 +436,10 @@
     }
     const fn_compopup1 = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("CS_NAME"));
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= searchText;
+        var replaceText2 	= "_BRNO_";
+        var strWhereClause 	= "AND a.CNPT_CD LIKE '%" + replaceText0 + "%' AND a.CNPT_NM LIKE '%" + replaceText1 + "%' AND a.BRNO LIKE '%"+ replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -449,29 +449,29 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
-            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputFields		: ["CNPT_CD"   , 	"CNPT_NM",  "BRNO"]
             ,searchInputValues		: [""          , 	searchText, ""         ]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BRNO", "CEO_NM","BZSTAT" ,"TPBIZ","ADDR","TELNO"   ,"FX_NO"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('CS_NAME', data.CS_NAME);
-                SBUxMethod.set('CS_CODE', data.CS_CODE);
+                SBUxMethod.set('CS_NAME', data.CNPT_NM);
+                SBUxMethod.set('CS_CODE', data.CNPT_CD);
             },
         });
     }
 
     const fn_compopup2 = function() {
 
-        var searchText = gfn_nvl(SBUxMethod.get("srch-dept_name"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var searchText = gfn_nvl(SBUxMethod.get("EMP_NAME"));
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -481,15 +481,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
+            , searchInputValues: [""           , "" ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -505,15 +505,15 @@
     });
 
     // only message
-   /* window.addEventListener('message', async function(event){
-        let obj = event.data;
+    /* window.addEventListener('message', async function(event){
+         let obj = event.data;
 
-        if(!gfn_isEmpty(obj)){
-            await fn_onload(obj);
-        } else {
-            await fn_onload();
-        }
-    });*/
+         if(!gfn_isEmpty(obj)){
+             await fn_onload(obj);
+         } else {
+             await fn_onload();
+         }
+     });*/
 
     const fn_init = async function () {
 
@@ -589,13 +589,13 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["비고"], ref: 'MEMO', type: 'output', width: '200px', style: 'text-align:left'},
 
-         /*   {caption: ['급여영역'], ref: 'PAY_YYYYMM', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden: true},
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType',  label : 'label', value : 'value'},
-            },
-            {caption: ['기준일(퇴직일)'], ref: 'PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},*/
+            /*   {caption: ['급여영역'], ref: 'PAY_YYYYMM', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                   format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true, hidden: true},
+               {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
+                   typeinfo : {ref : 'jsonPayType',  label : 'label', value : 'value'},
+               },
+               {caption: ['기준일(퇴직일)'], ref: 'PAY_DATE', 	width:'120px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+                   format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},*/
             /*{caption : ["지급구분"], ref : 'POSTING_STATUS', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPostingStatus',  label : 'label', value : 'value'},
             },*/
@@ -756,49 +756,49 @@
 
                     data.cv_1.forEach((item, index) => {
 
-                        SBUxMethod.set("EXPECTED_PAY_DATE"  , item.EXPECTED_PAY_DATE);
-                        SBUxMethod.set("POSTING_DATE"       , item.POSTING_DATE);
-                        SBUxMethod.set("DOC_NAME"           , item.DOC_NAME);
-                        SBUxMethod.set("POSTING_STATUS"     , item.POSTING_STATUS);
-                        SBUxMethod.set("CS_CODE"            , item.CS_CODE);
-                        SBUxMethod.set("CS_NAME"            , item.CS_NAME);
-                        SBUxMethod.set("EMP_CODE"           , item.EMP_CODE);
-                        SBUxMethod.set("EMP_NAME"           , item.EMP_NAME);
-                        SBUxMethod.set("MEMO"               , item.MEMO);
-                        SBUxMethod.set("SOURCE_DOC"         , item.SOURCE_DOC);
-                        SBUxMethod.set("DOC_ID"             , item.DOC_ID);
+                        SBUxMethod.set("EXPECTED_PAY_DATE"  , gfn_nvl(item.PAY_PRNMNT_YMD));
+                        SBUxMethod.set("POSTING_DATE"       , gfn_nvl(item.PSTG_YMD));
+                        SBUxMethod.set("DOC_NAME"           , gfn_nvl(item.SLIP_NM));
+                        SBUxMethod.set("POSTING_STATUS"     , gfn_nvl(item.TOT_STTS));
+                        SBUxMethod.set("CS_CODE"            , gfn_nvl(item.CNPT_CD));
+                        SBUxMethod.set("CS_NAME"            , gfn_nvl(item.CNPT_NM));
+                        SBUxMethod.set("EMP_CODE"           , gfn_nvl(item.EMP_CD));
+                        SBUxMethod.set("EMP_NAME"           , gfn_nvl(item.EMP_NM));
+                        SBUxMethod.set("MEMO"               , gfn_nvl(item.MEMO));
+                        SBUxMethod.set("SOURCE_DOC"         , gfn_nvl(item.SRC_DOC));
+                        SBUxMethod.set("DOC_ID"             , gfn_nvl(item.SLIP_ID));
 
                     });
 
                     jsonInfoList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_YYYYMM                : gfn_nvl(item.PAY_YYYYMM),
-                            PAY_TYPE                  : gfn_nvl(item.PAY_TYPE),
-                            PAY_DATE                  : gfn_nvl(item.PAY_DATE),
-                            POSTING_SEQ               : gfn_nvl(item.POSTING_SEQ),
-                            FI_ORG_CODE               : gfn_nvl(item.FI_ORG_CODE),
-                            FI_ORG_NAME               : gfn_nvl(item.FI_ORG_NAME),
-                            SITE_CODE                 : gfn_nvl(item.SITE_CODE),
-                            SITE_NAME                 : gfn_nvl(item.SITE_NAME),
-                            DEPT_CODE                 : gfn_nvl(item.DEPT_CODE),
-                            DEPT_NAME                 : gfn_nvl(item.DEPT_NAME),
-                            CC_CODE                   : gfn_nvl(item.CC_CODE),
-                            CC_NAME                   : gfn_nvl(item.CC_NAME),
-                            DEBIT_CREDIT              : gfn_nvl(item.DEBIT_CREDIT),
-                            ACC_CODE                  : gfn_nvl(item.ACC_CODE),
-                            ACC_NAME                  : gfn_nvl(item.ACC_NAME),
-                            CURRENCY_CODE             : gfn_nvl(item.CURRENCY_CODE),
-                            EMP_CODE                  : gfn_nvl(item.EMP_CODE),
-                            EMP_NAME                  : gfn_nvl(item.EMP_NAME),
+                            PAY_YYYYMM                : gfn_nvl(item.SLRY_YM),
+                            PAY_TYPE                  : gfn_nvl(item.SLRY_TYPE),
+                            PAY_DATE                  : gfn_nvl(item.PAY_YMD),
+                            POSTING_SEQ               : gfn_nvl(item.PSTG_SEQ),
+                            FI_ORG_CODE               : gfn_nvl(item.ACNTG_OGNZ_CD),
+                            FI_ORG_NAME               : gfn_nvl(item.ACNTG_OGNZ_NM),
+                            SITE_CODE                 : gfn_nvl(item.SITE_CD),
+                            SITE_NAME                 : gfn_nvl(item.SITE_NM),
+                            DEPT_CODE                 : gfn_nvl(item.DEPT_CD),
+                            DEPT_NAME                 : gfn_nvl(item.DEPT_NM),
+                            CC_CODE                   : gfn_nvl(item.CSTCT_CD),
+                            CC_NAME                   : gfn_nvl(item.CSTCT_NM),
+                            DEBIT_CREDIT              : gfn_nvl(item.DBSD_CRSD),
+                            ACC_CODE                  : gfn_nvl(item.ACNTL_CD),
+                            ACC_NAME                  : gfn_nvl(item.ACNTL_NM),
+                            CURRENCY_CODE             : gfn_nvl(item.CRN_CD),
+                            EMP_CODE                  : gfn_nvl(item.EMP_CD),
+                            EMP_NAME                  : gfn_nvl(item.EMP_NM),
                             DEBIT_AMT                 : gfn_nvl(item.DEBIT_AMT),
                             CREDIT_AMT                : gfn_nvl(item.CREDIT_AMT),
-                            CS_CODE                   : gfn_nvl(item.CS_CODE),
-                            CS_NAME                   : gfn_nvl(item.CS_NAME),
+                            CS_CODE                   : gfn_nvl(item.CNPT_CD),
+                            CS_NAME                   : gfn_nvl(item.CNPT_NM),
                             MEMO                      : gfn_nvl(item.MEMO),
-                            NEED_EMP_CODE_YN          : gfn_nvl(item.NEED_EMP_CODE_YN),
-                            POSTING_RESULT_ADJUST_YN  : gfn_nvl(item.POSTING_RESULT_ADJUST_YN),
-                            SOURCE_DOC                : gfn_nvl(item.SOURCE_DOC)
+                            NEED_EMP_CODE_YN          : gfn_nvl(item.ND_EMP_CD_YN),
+                            POSTING_RESULT_ADJUST_YN  : gfn_nvl(item.TOT_RSLT_AJMT_YN),
+                            SOURCE_DOC                : gfn_nvl(item.SRC_DOC)
 
                         }
                         jsonInfoList.push(msg);
@@ -830,10 +830,12 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
-            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
+        /*let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
+           + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";*/
+        let V_P_WHERE_CLAUSE = "AND SITE_CD IN (SELECT SITE_CD FROM TB_ORG_SITE WHERE CO_CD ='"+gv_ma_selectedCorpCd+ "') AND SLRY_YM = '"
+            + PAY_YYYYMM + "' AND SLRY_TYPE = '" + PAY_TYPE + "'AND SLRY_AREA_TYPE ='" + PAY_AREA_TYPE + "'";
 
-        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_YMD', 'SLRY_YMD2', 'Y', '');
 
     }
 
@@ -910,16 +912,16 @@
                 jsonDocListList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_YYYYMM          : gfn_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE            : gfn_nvl(item.PAY_TYPE),
-                        PAY_DATE            : gfn_nvl(item.PAY_DATE),
-                        EXPECTED_PAY_DATE   : gfn_nvl(item.EXPECTED_PAY_DATE),
-                        SOURCE_DOC          : gfn_nvl(item.SOURCE_DOC),
-                        POSTING_DATE        : gfn_nvl(item.POSTING_DATE),
-                        POSTING_STATUS      : gfn_nvl(item.POSTING_STATUS),
-                        INVOICE_BATCH_NO    : gfn_nvl(item.INVOICE_BATCH_NO),
-                        DOC_ID              : gfn_nvl(item.DOC_ID),
-                        DOC_NAME            : gfn_nvl(item.DOC_NAME),
+                        PAY_YYYYMM          : gfn_nvl(item.SLRY_YM),
+                        PAY_TYPE            : gfn_nvl(item.SLRY_TYPE),
+                        PAY_DATE            : gfn_nvl(item.PAY_YMD),
+                        EXPECTED_PAY_DATE   : gfn_nvl(item.PAY_PRNMNT_YMD),
+                        SOURCE_DOC          : gfn_nvl(item.SRC_DOC),
+                        POSTING_DATE        : gfn_nvl(item.PSTG_YMD),
+                        POSTING_STATUS      : gfn_nvl(item.TOT_STTS),
+                        INVOICE_BATCH_NO    : gfn_nvl(item.SLIP_BTCH_NO),
+                        DOC_ID              : gfn_nvl(item.SLIP_ID),
+                        DOC_NAME            : gfn_nvl(item.SLIP_NM),
                         MEMO                : gfn_nvl(item.MEMO)
 
                     }
@@ -1057,10 +1059,10 @@
         let SOURCE_DOC          = gfn_nvl(SBUxMethod.get("SOURCE_DOC"));
 
 
-       /* if (!PAY_AREA_TYPE) {
-            gfn_comAlert("W0002", "급여영역");
-            return;
-        }*/
+        /* if (!PAY_AREA_TYPE) {
+             gfn_comAlert("W0002", "급여영역");
+             return;
+         }*/
         if (!PAY_YYYYMM) {
             gfn_comAlert("W0002", "귀속년월");
             return;

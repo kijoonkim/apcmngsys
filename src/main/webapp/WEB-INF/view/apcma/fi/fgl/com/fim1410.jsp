@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -133,10 +133,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -144,14 +144,14 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var editType	= "N";
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 		]);
 	}	
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
@@ -168,7 +168,7 @@
 			fn_gridRowDel();
 		});
     });
-
+ 
     /**
      * 초기화
      */
@@ -179,7 +179,7 @@
     //grid Mast 초기화
     var Fim1410Grid; 			// 그리드를 담기위한 객체 선언
     var jsonFim1410 = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTop';
@@ -211,7 +211,7 @@
             {caption: ["정렬순서"],					ref: 'SORT_SEQ',				type:'input',  		width:'80px', 		style:'text-align:center'},
             {caption: [""],							ref: 'ETC',						type:'output',  	width:'80px', 		style:'text-align:left'},
         ];
-
+ 
         Fim1410Grid = _SBGrid.create(SBGridProperties);
         Fim1410Grid.bind('click', 'fn_viewGrid');
     }
@@ -245,22 +245,22 @@
        		,popupType				: 'B'
     		,whereClause			: ''
        		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["부서코드", 		"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fim1410Grid.setCellData(row, 2, 	data['DEPT_CODE'], true, true);
-				Fim1410Grid.setCellData(row, 4, 	data['DEPT_NAME'], true, true);
+				Fim1410Grid.setCellData(row, 2, 	data['DEPT_CD'], true, true);
+				Fim1410Grid.setCellData(row, 4, 	data['DEPT_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
-
+ 
     }  
     
     /**
@@ -280,9 +280,9 @@
      */
     var fn_compopup2 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -292,18 +292,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
-   			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
-   			,tableColumnWidths		: ["100px", 	"400px"]
+   			,tableHeader			: ["계정코드",		"계정명"]
+   			,tableColumnNames		: ["ACNTL_CD", 		"ACNT_NM"]
+   			,tableColumnWidths		: ["100px", 		"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim1410Grid.setCellData(row, 5, data['ACCOUNT_CODE'], true, true);
-				Fim1410Grid.setCellData(row, 7, data['ACCOUNT_NAME'], true, true);
+				Fim1410Grid.setCellData(row, 5, data['ACNTL_CD'], true, true);
+				Fim1410Grid.setCellData(row, 7, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -313,12 +313,12 @@
     function fn_viewGrid() {
     	
     	editType = "E";    	
-
+ 
         var nRow = Fim1410Grid.getRow();
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim1410Grid.getRowData(nRow);
 		//console.log(rowData);        
     }
@@ -334,9 +334,9 @@
      * 목록 가져오기
      */
     const fn_setFim1410Grid = async function(wtype) {
-
+ 
 		Fim1410Grid.clearStatus();
-
+ 
 		let p_txtdept_code1		= gfnma_nvl(SBUxMethod.get("srch-txtdept-code1"));
 		let p_txtsite_name1		= gfnma_nvl(SBUxMethod.get("srch-txtsite-name1"));
 		
@@ -355,42 +355,42 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/selectFim1410List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim1410.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						CHK_YN					: gfnma_nvl(item.CHK_YN),			
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACNTL_CD),
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACNT_NM),
   						SORT_SEQ				: gfnma_nvl(item.SORT_SEQ),
-  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
-  						INSERT_USERID			: gfnma_nvl(item.INSERT_USERID),
-  						INSERT_TIME				: gfnma_nvl(item.INSERT_TIME),
-  						UPDATE_USERID			: gfnma_nvl(item.UPDATE_USERID),
-  						UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
+  						COMP_CODE				: gfnma_nvl(item.CO_CD),
+  						INSERT_USERID			: gfnma_nvl(item.WRT_USER_ID),
+  						INSERT_TIME				: gfnma_nvl(item.WRT_DT),
+  						UPDATE_USERID			: gfnma_nvl(item.UPDT_USER_ID),
+  						UPDATE_TIME				: gfnma_nvl(item.UPDT_DT),
   					}
   					jsonFim1410.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fim1410Grid.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
@@ -403,7 +403,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -435,13 +435,13 @@
      * 저장
      */
     function cfn_save() {
-
+ 
      	var chkList = Fim1410Grid.getUpdateData(true)
      	if(chkList.length==0){
             gfn_comAlert("E0000", "저장할 데이터가 없습니다.");
      		return;
      	}
-
+ 
 		// 신규 등록
 		if(gfn_comConfirm("Q0001", "저장")){
 			fn_subInsert();
@@ -452,7 +452,7 @@
      * 저장
      */
     const fn_subInsert = async function (){
-
+ 
    	 var chkList = Fim1410Grid.getUpdateData(true)
 	 console.log('---->> grid all');
 	 console.log(chkList);
@@ -493,10 +493,10 @@
 	 		}			
 	 	listData.push(param);
 	 }	
-
+ 
 	 if(listData.length > 0) {
 	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim1410.do", {listData: listData});
-
+ 
 	 	const data = await postJsonPromise;
 	 	console.log('data:', data);
 	 	try {

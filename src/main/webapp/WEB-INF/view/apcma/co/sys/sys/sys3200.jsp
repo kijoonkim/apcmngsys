@@ -250,14 +250,14 @@
                         <tr>
                             <th scope="row" class="th_bg">채번요소2</th>
                             <td class="td_input">
-                               <%-- <sbux-select
-                                        id="NUMBER_ELEMENT2"
-                                        name="NUMBER_ELEMENT2"
-                                        uitype="single"
-                                        jsondata-ref="jsonNumberElement2"
-                                        unselected-text="전체"
-                                        class="form-control input-sm"
-                                ></sbux-select>--%>
+                                <%-- <sbux-select
+                                         id="NUMBER_ELEMENT2"
+                                         name="NUMBER_ELEMENT2"
+                                         uitype="single"
+                                         jsondata-ref="jsonNumberElement2"
+                                         unselected-text="전체"
+                                         class="form-control input-sm"
+                                 ></sbux-select>--%>
                                 <div class="dropdown">
                                     <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBER_ELEMENT2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -354,8 +354,8 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소4</th>
                             <td class="td_input">
-                               <%-- <sbux-input id="SURFIX_ELEMENT4" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>--%>
+                                <%-- <sbux-input id="SURFIX_ELEMENT4" class="form-control input-sm" uitype="text" required
+                                             style="width:100%"></sbux-input>--%>
                                 <div class="dropdown">
                                     <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -374,14 +374,14 @@
                         <tr>
                             <th scope="row" class="th_bg">채번요소5</th>
                             <td class="td_input">
-                               <%-- <sbux-select
-                                        id="NUMBER_ELEMENT5"
-                                        name="NUMBER_ELEMENT5"
-                                        uitype="single"
-                                        jsondata-ref="jsonNumberElement5"
-                                        unselected-text="전체"
-                                        class="form-control input-sm"
-                                ></sbux-select>--%>
+                                <%-- <sbux-select
+                                         id="NUMBER_ELEMENT5"
+                                         name="NUMBER_ELEMENT5"
+                                         uitype="single"
+                                         jsondata-ref="jsonNumberElement5"
+                                         unselected-text="전체"
+                                         class="form-control input-sm"
+                                 ></sbux-select>--%>
                                 <div class="dropdown">
                                     <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="NUMBER_ELEMENT5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -398,8 +398,8 @@
                             </td>
                             <th scope="row" class="th_bg">접미요소5</th>
                             <td class="td_input">
-                               <%-- <sbux-input id="SURFIX_ELEMENT5" class="form-control input-sm" uitype="text" required
-                                            style="width:100%"></sbux-input>--%>
+                                <%-- <sbux-input id="SURFIX_ELEMENT5" class="form-control input-sm" uitype="text" required
+                                             style="width:100%"></sbux-input>--%>
                                 <div class="dropdown">
                                     <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SURFIX_ELEMENT5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <font>선택</font>
@@ -519,7 +519,7 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-           /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
+            /* gfnma_setComSelect(['NUMBER_ELEMENT3'], jsonNumberElement1, 'L_SYS002', '', '', 'sub_code', 'code_name', 'Y', ''),*/
             //gfnma_setComSelect(['SRCH_NUMBERING_GROUP'], jsonNumberingGroup, 'L_SYS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonNumberElement1, 'L_SYS002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 
@@ -535,11 +535,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -555,11 +555,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'}
                 ]
             })
         ]);
@@ -742,34 +742,34 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        NUMBERING_ID        : gfn_nvl(item.NUMBERING_ID),
-                        NUMBERING_GROUP     : gfn_nvl(item.NUMBERING_GROUP),
+                        NUMBERING_ID        : gfn_nvl(item.SN_ID),
+                        NUMBERING_GROUP     : gfn_nvl(item.SN_GROUP),
                         USE_YN              : gfn_nvl(item.USE_YN),
-                        NUMBERING_NAME      : gfn_nvl(item.NUMBERING_NAME),
-                        NUMBER_LENGTH       : gfn_nvl(item.NUMBER_LENGTH),
-                        DESCR               : gfn_nvl(item.DESCR),
-                        AUTO_NUM_YN         : gfn_nvl(item.AUTO_NUM_YN),
-                        NUMBER_ELEMENT1     : gfn_nvl(item.NUMBER_ELEMENT1),
-                        NUMBER_VALUE1       : gfn_nvl(item.NUMBER_VALUE1),
-                        SURFIX_ELEMENT1     : gfn_nvl(item.SURFIX_ELEMENT1),
-                        SURFIX_VALUE1       : gfn_nvl(item.SURFIX_VALUE1),
-                        NUMBER_ELEMENT2     : gfn_nvl(item.NUMBER_ELEMENT2),
-                        NUMBER_VALUE2       : gfn_nvl(item.NUMBER_VALUE2),
-                        SURFIX_ELEMENT2     : gfn_nvl(item.SURFIX_ELEMENT2),
-                        SURFIX_VALUE2       : gfn_nvl(item.SURFIX_VALUE2),
-                        NUMBER_ELEMENT3     : gfn_nvl(item.NUMBER_ELEMENT3),
-                        NUMBER_VALUE3       : gfn_nvl(item.NUMBER_VALUE3),
-                        SURFIX_ELEMENT3     : gfn_nvl(item.SURFIX_ELEMENT3),
-                        SURFIX_VALUE3       : gfn_nvl(item.SURFIX_VALUE3),
-                        NUMBER_ELEMENT4     : gfn_nvl(item.NUMBER_ELEMENT4),
-                        NUMBER_VALUE4       : gfn_nvl(item.NUMBER_VALUE4),
-                        SURFIX_ELEMENT4     : gfn_nvl(item.SURFIX_ELEMENT4),
-                        SURFIX_VALUE4       : gfn_nvl(item.SURFIX_VALUE4),
-                        NUMBER_ELEMENT5     : gfn_nvl(item.NUMBER_ELEMENT5),
-                        NUMBER_VALUE5       : gfn_nvl(item.NUMBER_VALUE5),
-                        SURFIX_ELEMENT5     : gfn_nvl(item.SURFIX_ELEMENT5),
-                        START_SERNO         : gfn_nvl(item.START_SERNO),
-                        UNIQUE_YN           : gfn_nvl(item.UNIQUE_YN),
+                        NUMBERING_NAME      : gfn_nvl(item.SN_NM),
+                        NUMBER_LENGTH       : gfn_nvl(item.NO_LNGTH),
+                        DESCR               : gfn_nvl(item.DSCTN),
+                        AUTO_NUM_YN         : gfn_nvl(item.ATMTC_NO_YN),
+                        NUMBER_ELEMENT1     : gfn_nvl(item.NO_ELMT1),
+                        NUMBER_VALUE1       : gfn_nvl(item.NO_VL1),
+                        SURFIX_ELEMENT1     : gfn_nvl(item.SUFX_ELMT1),
+                        SURFIX_VALUE1       : gfn_nvl(item.SUFX_VL1),
+                        NUMBER_ELEMENT2     : gfn_nvl(item.NO_ELMT2),
+                        NUMBER_VALUE2       : gfn_nvl(item.NO_VL2),
+                        SURFIX_ELEMENT2     : gfn_nvl(item.SUFX_ELMT2),
+                        SURFIX_VALUE2       : gfn_nvl(item.SUFX_VL2),
+                        NUMBER_ELEMENT3     : gfn_nvl(item.NO_ELMT3),
+                        NUMBER_VALUE3       : gfn_nvl(item.NO_VL3),
+                        SURFIX_ELEMENT3     : gfn_nvl(item.SUFX_ELMT3),
+                        SURFIX_VALUE3       : gfn_nvl(item.SUFX_VL3),
+                        NUMBER_ELEMENT4     : gfn_nvl(item.NO_ELMT4),
+                        NUMBER_VALUE4       : gfn_nvl(item.NO_VL4),
+                        SURFIX_ELEMENT4     : gfn_nvl(item.SUFX_ELMT4),
+                        SURFIX_VALUE4       : gfn_nvl(item.SUFX_VL4),
+                        NUMBER_ELEMENT5     : gfn_nvl(item.NO_ELMT5),
+                        NUMBER_VALUE5       : gfn_nvl(item.NO_VL5),
+                        SURFIX_ELEMENT5     : gfn_nvl(item.SUFX_ELMT5),
+                        START_SERNO         : gfn_nvl(item.BGNG_SN),
+                        UNIQUE_YN           : gfn_nvl(item.UNQ_YN),
                         /* NUMBER_SAMPLE: item.NUMBER_SAMPLE*/
                     }
                     jsonGvwInfoList.push(msg);
@@ -819,43 +819,43 @@
 
         if (_.isEmpty(rowData) == false) {
 
-            SBUxMethod.set("NUMBERING_ID"   , rowData.NUMBERING_ID);
-            SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
+            SBUxMethod.set("NUMBERING_ID"   , rowData.SN_ID);
+            SBUxMethod.set("NUMBERING_GROUP", rowData.SN_GROUP);
             SBUxMethod.set("USE_YN"         , rowData.USE_YN);
-            SBUxMethod.set("NUMBERING_NAME" , rowData.NUMBERING_NAME);
-            SBUxMethod.set("NUMBER_LENGTH"  , rowData.NUMBER_LENGTH);
-            SBUxMethod.set("DESCR"          , rowData.DESCR);
-            SBUxMethod.set("AUTO_NUM_YN"    , rowData.AUTO_NUM_YN);
+            SBUxMethod.set("NUMBERING_NAME" , rowData.SN_NM);
+            SBUxMethod.set("NUMBER_LENGTH"  , rowData.NO_LNGTH);
+            SBUxMethod.set("DESCR"          , rowData.DSCTN);
+            SBUxMethod.set("AUTO_NUM_YN"    , rowData.ATMTC_NO_YN);
 
 
             /*SBUxMethod.set("NUMBER_ELEMENT1", rowData.NUMBER_ELEMENT1);*/
-            gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
-            SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
-            gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
-            SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SBSD_CD', 'CD_NM', rowData.NO_ELMT1);
+            SBUxMethod.set("NUMBER_VALUE1", rowData.NO_VL1);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SBSD_CD', 'CD_NM', rowData.SUFX_ELMT1);
+            SBUxMethod.set("SURFIX_VALUE1", rowData.SUFX_VL1);
 
-            gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
-            SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
-            gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
-            SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SBSD_CD', 'CD_NM', rowData.NO_ELMT2);
+            SBUxMethod.set("NUMBER_VALUE2", rowData.NO_VL2);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SBSD_CD', 'CD_NM', rowData.SUFX_ELMT2);
+            SBUxMethod.set("SURFIX_VALUE2", rowData.SUFX_VL2);
 
-            gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
-            SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
-            gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
-            SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SBSD_CD', 'CD_NM', rowData.NO_ELMT3);
+            SBUxMethod.set("NUMBER_VALUE3", rowData.NO_VL3);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SBSD_CD', 'CD_NM', rowData.SUFX_ELMT3);
+            SBUxMethod.set("SURFIX_VALUE3", rowData.SUFX_VL3);
 
-            gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
-            SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
-            gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
-            SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SBSD_CD', 'CD_NM', rowData.NO_ELMT4);
+            SBUxMethod.set("NUMBER_VALUE4", rowData.NO_VL4);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SBSD_CD', 'CD_NM', rowData.SUFX_ELMT4);
+            SBUxMethod.set("SURFIX_VALUE4", rowData.SUFX_VL4);
 
-            gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
-            SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
-            gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
-            SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
+            gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SBSD_CD', 'CD_NM', rowData.NO_ELMT5);
+            SBUxMethod.set("NUMBER_VALUE5", rowData.NO_VL5);
+            gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SBSD_CD', 'CD_NM', rowData.SUFX_ELMT5);
+            SBUxMethod.set("SURFIX_VALUE5", rowData.SUFX_VL5);
 
-            SBUxMethod.set("START_SERNO", rowData.START_SERNO);
-            SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
+            SBUxMethod.set("START_SERNO", rowData.BGNG_SN);
+            SBUxMethod.set("UNIQUE_YN", rowData.UNQ_YN);
 
             SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE);
 
@@ -874,29 +874,29 @@
         SBUxMethod.set("AUTO_NUM_YN"    , "");
 
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("NUMBER_VALUE1", "");
-        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("SURFIX_VALUE1", "");
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("NUMBER_VALUE2", "");
-        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("SURFIX_VALUE2", "");
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("NUMBER_VALUE3", "");
-        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("SURFIX_VALUE3", "");
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("NUMBER_VALUE4", "");
-        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("SURFIX_VALUE4", "");
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("NUMBER_VALUE5", "");
-        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', '');
+        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SBSD_CD', 'CD_NM', '');
         SBUxMethod.set("SURFIX_VALUE5", "");
 
         SBUxMethod.set("START_SERNO", 1);
@@ -917,7 +917,7 @@
 
             gvwHistoryGrid.clearStatus();
 
-           /* let V_P_NUMBERING_ID = rowData;*/
+            /* let V_P_NUMBERING_ID = rowData;*/
 
             var paramHisObj = {
                 V_P_DEBUG_MODE_YN: ''
@@ -954,8 +954,8 @@
                     jsonGvwHistoryList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const hisMsg = {
-                            NUMBER_PREFIX   : item.NUMBER_PREFIX,
-                            LAST_SERNO      : item.LAST_SERNO
+                            NUMBER_PREFIX   : item.NO_PRFX,
+                            LAST_SERNO      : item.LAST_SEQ
                         }
                         jsonGvwHistoryList.push(hisMsg);
                         totalRecordCount++;
@@ -1022,42 +1022,42 @@
 
         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        SBUxMethod.set("NUMBERING_ID"   , rowData.NUMBERING_ID);
-        SBUxMethod.set("NUMBERING_GROUP", rowData.NUMBERING_GROUP);
+        SBUxMethod.set("NUMBERING_ID"   , rowData.SN_ID);
+        SBUxMethod.set("NUMBERING_GROUP", rowData.SN_GROUP);
         SBUxMethod.set("USE_YN"         , rowData.USE_YN);
-        SBUxMethod.set("NUMBERING_NAME" , rowData.NUMBERING_NAME);
-        SBUxMethod.set("NUMBER_LENGTH"  , rowData.NUMBER_LENGTH);
-        SBUxMethod.set("DESCR"          , rowData.DESCR);
-        SBUxMethod.set("AUTO_NUM_YN"    , rowData.AUTO_NUM_YN);
+        SBUxMethod.set("NUMBERING_NAME" , rowData.SN_NM);
+        SBUxMethod.set("NUMBER_LENGTH"  , rowData.NO_LNGTH);
+        SBUxMethod.set("DESCR"          , rowData.DSCTN);
+        SBUxMethod.set("AUTO_NUM_YN"    , rowData.ATMTC_NO_YN);
 
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT1);
-        SBUxMethod.set("NUMBER_VALUE1", rowData.NUMBER_VALUE1);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT1);
-        SBUxMethod.set("SURFIX_VALUE1", rowData.SURFIX_VALUE1);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.NO_ELMT1);
+        SBUxMethod.set("NUMBER_VALUE1", rowData.NO_VL1);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT1', 'SUB_CODE', 'CODE_NAME', rowData.SUFX_ELMT1);
+        SBUxMethod.set("SURFIX_VALUE1", rowData.SUFX_VL1);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT2);
-        SBUxMethod.set("NUMBER_VALUE2", rowData.NUMBER_VALUE2);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT2);
-        SBUxMethod.set("SURFIX_VALUE2", rowData.SURFIX_VALUE2);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.NO_ELMT2);
+        SBUxMethod.set("NUMBER_VALUE2", rowData.NO_VL2);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT2', 'SUB_CODE', 'CODE_NAME', rowData.SUFX_ELMT2);
+        SBUxMethod.set("SURFIX_VALUE2", rowData.SUFX_VL2);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT3);
-        SBUxMethod.set("NUMBER_VALUE3", rowData.NUMBER_VALUE3);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT3);
-        SBUxMethod.set("SURFIX_VALUE3", rowData.SURFIX_VALUE3);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.NO_ELMT3);
+        SBUxMethod.set("NUMBER_VALUE3", rowData.NO_VL3);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT3', 'SUB_CODE', 'CODE_NAME', rowData.SUFX_ELMT3);
+        SBUxMethod.set("SURFIX_VALUE3", rowData.SUFX_VL3);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT4);
-        SBUxMethod.set("NUMBER_VALUE4", rowData.NUMBER_VALUE4);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT4);
-        SBUxMethod.set("SURFIX_VALUE4", rowData.SURFIX_VALUE4);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.NO_ELMT4);
+        SBUxMethod.set("NUMBER_VALUE4", rowData.NO_VL4);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT4', 'SUB_CODE', 'CODE_NAME', rowData.SUFX_ELMT4);
+        SBUxMethod.set("SURFIX_VALUE4", rowData.SUFX_VL4);
 
-        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NUMBER_ELEMENT5);
-        SBUxMethod.set("NUMBER_VALUE5", rowData.NUMBER_VALUE5);
-        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SURFIX_ELEMENT5);
-        SBUxMethod.set("SURFIX_VALUE5", rowData.SURFIX_VALUE5);
+        gfnma_multiSelectSet('#NUMBER_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.NO_ELMT5);
+        SBUxMethod.set("NUMBER_VALUE5", rowData.NO_VL5);
+        gfnma_multiSelectSet('#SURFIX_ELEMENT5', 'SUB_CODE', 'CODE_NAME', rowData.SUFX_ELMT5);
+        SBUxMethod.set("SURFIX_VALUE5", rowData.SUFX_VL5);
 
-        SBUxMethod.set("START_SERNO", rowData.START_SERNO);
-        SBUxMethod.set("UNIQUE_YN", rowData.UNIQUE_YN);
+        SBUxMethod.set("START_SERNO", rowData.BGNG_SN);
+        SBUxMethod.set("UNIQUE_YN", rowData.UNQ_YN);
 
         /* SBUxMethod.set("NUMBER_SAMPLE", rowData.NUMBER_SAMPLE );*/
 

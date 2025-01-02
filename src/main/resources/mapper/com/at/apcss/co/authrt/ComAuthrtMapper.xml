@@ -1369,7 +1369,18 @@
 			   	)
     	]]>
 		<if test='apcCd != null and apcCd != ""'>
-			   AND CU.APC_CD = #{apcCd}
+			   AND (
+			        CU.APC_CD = #{apcCd}
+			        OR
+			        EXISTS (
+			        	SELECT 1
+			        	  FROM TB_COM_USER_APC X
+			        	 WHERE X.USER_ID = CU.USER_ID
+			        	   AND X.APC_CD = #{apcCd}
+			        	   AND X.APRV_YN = 'Y'
+			        	   AND X.DEL_YN = 'N'
+			        )
+			)
 		</if>
 		<if test='userNm != null and userNm != ""'>
 			   AND CU.USER_NM LIKE '%' || #{userNm} || '%'

@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -45,7 +45,7 @@
             text-align: center;
             padding: 12px;
         }
-
+ 
         .resizer[data-direction="horizontal"] {
             background-color: #cbd5e0;
             cursor: ew-resize;
@@ -90,19 +90,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -198,7 +198,7 @@
                                 <tr>
                                     <th scope="row" class="th_bg">수정신고사유</th>
                                     <td colspan="4">
-                                        <sbux-input id="REASON_AMENDED_TAX" name="REASON_AMENDED_TAX" uitype="text" class="form-control input-sm" style="width: 100%;height: 100%"></sbux-input>
+                                        <sbux-input id="MDFCN_DCLR_RSN" name="MDFCN_DCLR_RSN" uitype="text" class="form-control input-sm" style="width: 100%;height: 100%"></sbux-input>
                                     </td>
                                 </tr>
                             </tbody>
@@ -218,13 +218,13 @@
                             <tr>
                                 <th scope="row" class="th_bg">과&emsp;세&emsp;표&emsp;준</th>
                                 <td>
-                                    <sbux-input id="AR_SUM_VAT_AMT" name="AR_SUM_VAT_AMT" uitype="text"
+                                    <sbux-input id="AR_SUM_TXAMT" name="AR_SUM_TXAMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="TAX_BASE_AMD_TAX_AMT" name="TAX_BASE_AMD_TAX_AMT" uitype="text"
+                                    <sbux-input id="TXBS_AMT_MDFCN" name="TXBS_AMT_MDFCN" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -233,13 +233,13 @@
                             <tr>
                                 <th scope="row" class="th_bg">산&emsp;출&emsp;세&emsp;액</th>
                                 <td>
-                                    <sbux-input id="PAY_VAT_SUB_AMT" name="PAY_VAT_SUB_AMT" uitype="text"
+                                    <sbux-input id="PAY_VAT_SBSD_TXAMT" name="PAY_VAT_SBSD_TXAMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="VAT_AMENDED_TAX_AMT" name="VAT_AMENDED_TAX_AMT" uitype="text"
+                                    <sbux-input id="VAT_MDFCN_TXAMT" name="VAT_MDFCN_TXAMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -248,13 +248,13 @@
                             <tr>
                                 <th scope="row" class="th_bg">가&emsp;산&emsp;세&emsp;액</th>
                                 <td>
-                                    <sbux-input id="ADD_TAX_VAT_AMT2" name="ADD_TAX_VAT_AMT2" uitype="text"
+                                    <sbux-input id="ADTN_VAT_AMT2" name="ADTN_VAT_AMT2" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="ADD_AMD_VAT_AMT" name="ADD_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="ADDTX_AMT_MDFCN" name="ADDTX_AMT_MDFCN" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -263,13 +263,13 @@
                             <tr>
                                 <th scope="row" class="th_bg">공제&emsp;및&emsp;감면세액</th>
                                 <td>
-                                    <sbux-input id="REDUCTION_SUM_VAT_AMT" name="REDUCTION_SUM_VAT_AMT" uitype="text"
+                                    <sbux-input id="RDCTN_SUM_DDC_TXAMT" name="RDCTN_SUM_DDC_TXAMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="DED_AMD_VAT_AMT" name="DED_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="DDC_RDCTN_VAT_AMT" name="DDC_RDCTN_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -278,13 +278,13 @@
                             <tr>
                                 <th scope="row" class="th_bg">납부할&emsp;세액</th>
                                 <td>
-                                    <sbux-input id="SUM_TOTAL" name="SUM_TOTAL" uitype="text"
+                                    <sbux-input id="SUM_TXAMT" name="SUM_TXAMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="PAY_AMD_VAT_AMT" name="PAY_AMD_VAT_AMT" uitype="text"
+                                    <sbux-input id="PAY_VAT_AMT" name="PAY_VAT_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -351,24 +351,24 @@
     //-----------------------------------------------------------
     var jsonCorpNm = [];
     var jsonGrdList = [];
-
+ 
     var grdListGrid;
-
+ 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
         fn_init();
     });
-
+ 
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
-
+ 
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
-
+ 
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
@@ -382,14 +382,14 @@
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: 'right' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
@@ -399,12 +399,12 @@
         /** reset **/
         jsonGrdList.length = 0;
         grdListGrid.rebuild();
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -412,7 +412,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy', termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -434,10 +434,10 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2400.do", {
             getType				: 'json',
             cv_count			: '5',
@@ -448,7 +448,7 @@
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
-
+ 
             if (grdListGrid.getRows() === 3) {
                 grdListGrid.setRow(1);
                 paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
@@ -459,7 +459,7 @@
                     params: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-
+ 
                 if (data.resultStatus === 'S') {
                     let header = data.cv_2[0];
                     jsonGrdDetail = data.cv_3;
@@ -471,7 +471,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -479,60 +479,60 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
     }
-
+ 
     /** resizer set **/
     const resizer = document.getElementById('resizer');
     const leftSide = resizer.previousElementSibling;
     const rightSide = resizer.nextElementSibling;
-
+ 
     let x = 0;
     let y = 0;
-
+ 
     let leftWidth = 0;
-
+ 
     const mouseDownHandler = function (e) {
         x = e.clientX;
         y = e.clientY;
         leftWidth = leftSide.getBoundingClientRect().width;
-
+ 
         document.addEventListener('mousemove', mouseMoveHandler);
         document.addEventListener('mouseup', mouseUpHandler);
     };
-
+ 
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
         const dy = e.clientY - y;
-
+ 
         document.body.style.cursor = 'col-resize';
-
+ 
         leftSide.style.userSelect = 'none';
         leftSide.style.pointerEvents = 'none';
-
+ 
         rightSide.style.userSelect = 'none';
         rightSide.style.pointerEvents = 'none';
-
+ 
         const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
         leftSide.style.width = `${'${newLeftWidth}'}%`;
         grdListGrid.resize();
         grdDetailGrid.resize();
     };
-
+ 
     const mouseUpHandler = function () {
         resizer.style.removeProperty('cursor');
         document.body.style.removeProperty('cursor');
-
+ 
         leftSide.style.removeProperty('user-select');
         leftSide.style.removeProperty('pointer-events');
-
+ 
         rightSide.style.removeProperty('user-select');
         rightSide.style.removeProperty('pointer-events');
-
+ 
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
     };
@@ -544,11 +544,11 @@
     function fn_reset(){
         jsonGrdList.length = 0;
         grdListGrid.rebuild();
-
+ 
         gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
@@ -566,17 +566,17 @@
         await fn_choice(_value);
     }
     function cfn_add(){
-
+ 
     }
     function cfn_save(){
-
+ 
     }
     function cfn_del(){
-
+ 
     }
-
-
-
+ 
+ 
+ 
     async function fn_setSiteCode(){
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
@@ -604,7 +604,7 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         if (data.resultStatus === 'S') {
             let header = data.cv_2[0];
             jsonGrdDetail = data.cv_3;

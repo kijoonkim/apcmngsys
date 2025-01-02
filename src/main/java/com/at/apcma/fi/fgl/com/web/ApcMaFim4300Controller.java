@@ -56,7 +56,7 @@ public class ApcMaFim4300Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIM4300_Q");
+            param.put("procedure", 		"SP_FIM4300_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaFim4300Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM4300_S");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIM4300_S");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
@@ -105,7 +105,7 @@ public class ApcMaFim4300Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM4300_S1");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIM4300_S1");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());

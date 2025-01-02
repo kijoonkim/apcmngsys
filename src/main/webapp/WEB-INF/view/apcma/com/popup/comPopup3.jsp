@@ -47,7 +47,7 @@
 					</table>
 				</div>
 			</div>
-
+ 
 			<div class="box-body">
 				
 				<div class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
@@ -71,7 +71,7 @@
 	</section>
 </body>
 <script >
-
+ 
 /**
  * @description 복수코드
  */
@@ -89,7 +89,7 @@ function compopup3(options) {
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
-
+ 
 	//css
  	$(modalId).find('.cu-table-div').css('height', settings.height);
  	$(modalId).find('.cu-table-div').find('tbody').html('')
@@ -141,7 +141,7 @@ function compopup3(options) {
 		e.preventDefault()
 		addTr();
 	});	
-
+ 
 	//행삭제
 	$(modalId).find('.cu-btn-minus').off('click');
 	$(modalId).find('.cu-btn-minus').click(function(e){
@@ -156,7 +156,7 @@ function compopup3(options) {
 		}
 		$(modalId).find('.cu-table-div').find('tbody').find('tr').eq(idx).addClass('cu-table-selected').siblings().removeClass('cu-table-selected');
 	});	
-
+ 
 	//클리어
 	$(modalId).find('.cu-btn-clear').off('click');
 	$(modalId).find('.cu-btn-clear').click(function(e){

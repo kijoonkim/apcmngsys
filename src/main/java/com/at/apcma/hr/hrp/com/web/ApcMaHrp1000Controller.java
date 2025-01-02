@@ -57,7 +57,7 @@ public class ApcMaHrp1000Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP1000_Q");
+            param.put("procedure", "SP_HRP1000_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class ApcMaHrp1000Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP1000_S");
+            param.put("procedure", "SP_HRP1000_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class ApcMaHrp1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP1000_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP1000_S1");
 
             logger.info("=============insertHrp1000S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -129,7 +129,7 @@ public class ApcMaHrp1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP1000_S2");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP1000_S2");
 
             logger.info("=============insertHrp1000S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -151,7 +151,7 @@ public class ApcMaHrp1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP5600_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP5600_S");
 
             logger.info("=============insertHrp1000S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -173,7 +173,7 @@ public class ApcMaHrp1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP5700_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP5700_S");
 
             logger.info("=============insertHrp1000S4=====end========");
             return getSuccessResponseEntityMa(resultMap);

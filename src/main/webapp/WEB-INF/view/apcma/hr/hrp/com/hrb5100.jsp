@@ -185,9 +185,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 호봉유형
-            gfnma_setComSelect(['HOBONG_TYPE'], jsonHobongType, 'L_HRB028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['HOBONG_TYPE'], jsonHobongType, 'L_HRB028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여영역
-            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직군(급여총괄표)
             gfnma_multiSelectInit({
                 target			: ['#PAY_TOTAL_TBALE_TYPE']
@@ -200,21 +200,21 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "EXTRA_FIELD1", 		ref: 'EXTRA_FIELD1',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "EXTRA_COL1", 		ref: 'EXTRA_COL1',    		width:'100px',  	style:'text-align:left'},
                 ]
             }),
             // 급여영역
-            gfnma_setComSelect(['bandgvwDetail'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여월구분
-            gfnma_setComSelect(['bandgvwDetail'], jsonPayDayMonthType, 'L_HRB016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonPayDayMonthType, 'L_HRB016', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여일
-            gfnma_setComSelect(['bandgvwDetail'], jsonPayDayDd, 'L_HRB005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
+            gfnma_setComSelect(['bandgvwDetail'], jsonPayDayDd, 'L_HRB005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+ 
         ]);
     }
 
@@ -399,32 +399,32 @@
 
                 var infoData = data.cv_2[0];
 
-                SBUxMethod.set("PAY_GROUP_CODE", gfn_nvl(infoData.PAY_GROUP_CODE));
-                SBUxMethod.set("PAY_GROUP_NAME", gfn_nvl(infoData.PAY_GROUP_NAME));
-                SBUxMethod.set("DESCR", gfn_nvl(infoData.DESCR));
+                SBUxMethod.set("PAY_GROUP_CODE", gfn_nvl(infoData.SLRY_GRD_CD));
+                SBUxMethod.set("PAY_GROUP_NAME", gfn_nvl(infoData.SLRY_GRD_NM));
+                SBUxMethod.set("DESCR", gfn_nvl(infoData.DSCTN));
                 SBUxMethod.set("SORT_SEQ", gfn_nvl(infoData.SORT_SEQ));
                 SBUxMethod.set("USE_YN", gfn_nvl(infoData.USE_YN));
-                SBUxMethod.set("HOBONG_TYPE", gfn_nvl(infoData.HOBONG_TYPE));
-                SBUxMethod.set("PAY_YN", gfn_nvl(infoData.PAY_YN));
-                SBUxMethod.set("PAY_AREA_TYPE", gfn_nvl(infoData.PAY_AREA_TYPE));
-                gfnma_multiSelectSet('#PAY_TOTAL_TBALE_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.PAY_TOTAL_TBALE_TYPE));
+                SBUxMethod.set("HOBONG_TYPE", gfn_nvl(infoData.SLRCL_TYPE));
+                SBUxMethod.set("PAY_YN", gfn_nvl(infoData.SLRY_YN));
+                SBUxMethod.set("PAY_AREA_TYPE", gfn_nvl(infoData.SLRY_AREA_TYPE));
+                gfnma_multiSelectSet('#PAY_TOTAL_TBALE_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.SLRY_TOT_TABLE_TYPE));
 
                 jsonPayBySiteList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        PAY_TYPE : item.PAY_TYPE,
-                        PAY_DAY_MONTH_TYPE : item.PAY_DAY_MONTH_TYPE,
-                        PAY_DAY_DD : item.PAY_DAY_DD,
-                        PAY_START_MONTH_TYPE : item.PAY_START_MONTH_TYPE,
-                        PAY_START_DAY_DD : item.PAY_START_DAY_DD,
-                        PAY_END_MONTH_TYPE : item.PAY_END_MONTH_TYPE,
-                        PAY_END_DAY_DD : item.PAY_END_DAY_DD,
-                        WORK_START_MONTH_TYPE : item.WORK_START_MONTH_TYPE,
-                        WORK_START_DAY_DD : item.WORK_START_DAY_DD,
-                        WORK_END_MONTH_TYPE : item.WORK_END_MONTH_TYPE,
-                        WORK_END_DAY_DD : item.WORK_END_DAY_DD,
+                        PAY_TYPE : item.SLRY_TYPE,
+                        PAY_DAY_MONTH_TYPE : item.SLRY_MM_TYPE,
+                        PAY_DAY_DD : item.SLRY_DCNT,
+                        PAY_START_MONTH_TYPE : item.SLRY_BGNG_MM_TYPE,
+                        PAY_START_DAY_DD : item.SLRY_BGNG_DAY,
+                        PAY_END_MONTH_TYPE : item.SLRY_END_MM_TYPE,
+                        PAY_END_DAY_DD : item.SLRY_END_YMD,
+                        WORK_START_MONTH_TYPE : item.WORK_BGNG_MM_TYPE,
+                        WORK_START_DAY_DD : item.WORK_BGNG_YMD,
+                        WORK_END_MONTH_TYPE : item.WORK_END_MM_TYPE,
+                        WORK_END_DAY_DD : item.WORK_END_YMD,
                         MEMO : item.MEMO,
-                        PAY_PROPORTION_COEF : item.PAY_PROPORTION_COEF,
+                        PAY_PROPORTION_COEF : item.PRDV_CFVCNT,
                         USE_YN : item.USE_YN,
 
                     }
@@ -708,11 +708,11 @@
                 jsonPayGroupList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_GROUP_CODE : item.PAY_GROUP_CODE,
-                        PAY_GROUP_NAME : item.PAY_GROUP_NAME,
+                        PAY_GROUP_CODE : item.SLRY_GRD_CD,
+                        PAY_GROUP_NAME : item.SLRY_GRD_NM,
                         USE_YN : item.USE_YN,
-                        PAY_AREA_TYPE : item.PAY_AREA_TYPE,
-                        PAY_TOTAL_TBALE_TYPE : item.PAY_TOTAL_TBALE_TYPE,
+                        PAY_AREA_TYPE : item.SLRY_AREA_TYPE,
+                        PAY_TOTAL_TBALE_TYPE : item.SLRY_TOT_TABLE_TYPE,
                     }
                     jsonPayGroupList.push(msg);
                 });

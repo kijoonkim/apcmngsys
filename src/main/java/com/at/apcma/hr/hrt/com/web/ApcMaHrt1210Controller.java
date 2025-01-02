@@ -50,7 +50,7 @@ public class ApcMaHrt1210Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRT1210_Q");
+            param.put("procedure", 		"SP_HRT1210_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ApcMaHrt1210Controller extends BaseController {
         logger.info("=============insertHrt1210=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
-        try { param.put("procedure", 		"P_HRT1210_S");
+        try { param.put("procedure", 		"SP_HRT1210_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());

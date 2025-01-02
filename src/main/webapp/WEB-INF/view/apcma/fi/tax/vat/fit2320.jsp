@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -59,7 +59,7 @@
       height: 2px;
       width: 100%;
     }
-
+ 
   </style>
 </head>
 <body oncontextmenu="return false">
@@ -85,19 +85,19 @@
           <col style="width: 1%">
           <col style="width: 7%">
           <col style="width: 2%">
-
+ 
           <col style="width: 8%">
           <col style="width: 7%">
           <col style="width: 1%">
           <col style="width: 7%">
           <col style="width: 2%">
-
+ 
           <col style="width: 8%">
           <col style="width: 7%">
           <col style="width: 1%">
           <col style="width: 7%">
           <col style="width: 2%">
-
+ 
           <col style="width: 8%">
           <col style="width: 7%">
           <col style="width: 1%">
@@ -174,8 +174,8 @@
                 <tr>
                   <th scope="row" class="th_bg">제출사유코드</th>
                   <td class="td_input" style="border-right: hidden;">
-                    <sbux-select id="SUBMIS_REASON_CODE" name="SUBMIS_REASON_CODE" style="width: 100%;padding: 3px 5px !important;"
-                                 jsondata-text="CODE_NAME" jsondata-value="SUB_CODE" unselected-text="선택"
+                    <sbux-select id="SBMSN_RSN_CD" name="SBMSN_RSN_CD" style="width: 100%;padding: 3px 5px !important;"
+                                 jsondata-text="CD_NM" jsondata-value="SBSD_CD" unselected-text="선택"
                                  uitype="single" jsondata-ref="jsonReasonCode">
                     </sbux-select>
                   </td>
@@ -201,30 +201,30 @@
   var jsonReasonCode = [];
   var jsonGrdList = [];
   var jsonGrdDetail = [];
-
+ 
   var grdDetailGrid;
   var grdListGrid;
-
+ 
   /** DOM load **/
   window.addEventListener('DOMContentLoaded', function(e) {
     fn_createGrid();
     fn_createGridDetail();
     fn_init();
   });
-
+ 
   const fn_init = async function(){
     /** 법인 select **/
-    jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
-    jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+    jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
+    jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
     jsonReasonCode = jsonReasonCodeData.cv_1;
     SBUxMethod.refresh('srch-slt-corpNm');
     SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
     /** 제출사유 **/
-    SBUxMethod.refresh('SUBMIS_REASON_CODE');
+    SBUxMethod.refresh('SBMSN_RSN_CD');
     /** 기준연도 **/
     let yyyy = gfn_dateToYear(new Date());
     SBUxMethod.set('srch-dtp-yyyy',yyyy);
-
+ 
     /** 신고구분명 select **/
     await fn_setMultSelect(yyyy);
   }
@@ -235,21 +235,21 @@
       ,compCode		: gv_ma_selectedCorpCd
       ,clientCode		: gv_ma_selectedClntCd
       ,bizcompId		: 'L_FIT030'
-      ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
+      ,whereClause	: 'AND A.YR = ' + "'" + yyyy + "'"
       ,formId			: p_formId
       ,menuId			: p_menuId
       ,selectValue	: ''
       ,dropType		: 'down' 	// up, down
       ,dropAlign		: '' 	// left, right
       ,colValue		: 'SEQ'
-      ,colLabel		: 'VAT_TYPE_NAME'
+      ,colLabel		: 'VAT_TMPLT_NM'
       ,columns		:[
-        {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+        {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
         {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
         {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
         {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-        {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-        {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+        {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+        {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
         {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
       ]
       ,callback       : fn_choice
@@ -261,16 +261,16 @@
     grdListGrid.rebuild();
     jsonGrdDetail.length = 0;
     grdDetailGrid.rebuild();
-
+ 
     gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
     SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
     SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
     const inputs = document.querySelectorAll('#panRightHeader input');
     inputs.forEach(input => {
       input.value = 0;
     });
-
+ 
     let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
     if (tr.length) {
       let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -278,7 +278,7 @@
         SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
         SBUxMethod.set('srch-dtp-yyyy', termFr.text().split('-')[0]);
       }
-
+ 
       let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
       if (termTo.length) {
         SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -300,10 +300,10 @@
       ,V_P_USERID             : ''
       ,V_P_PC                 : ''
     }
-
+ 
     let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
     paramObj.V_P_SEQ = _value;
-
+ 
     const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2320.do", {
       getType				: 'json',
       cv_count		    	: '7',
@@ -314,7 +314,7 @@
     if(data.resultStatus === 'S') {
       jsonGrdList = data.cv_1;
       grdListGrid.rebuild();
-
+ 
       if (grdListGrid.getRows() === 2) {
         grdListGrid.setRow(1);
         paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
@@ -325,18 +325,18 @@
           params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         if (data.resultStatus === 'S') {
           let SUBMIS_REASON_CODE = data.cv_2[0];
-         SBUxMethod.set("SUBMIS_REASON_CODE",SUBMIS_REASON_CODE);
-
+         SBUxMethod.set("SBMSN_RSN_CD",SUBMIS_REASON_CODE);
+ 
           jsonGrdDetail = data.cv_3;
           grdDetailGrid.rebuild();
         }
       }
     }
   }
-
+ 
   const fn_createGrid = function(){
     var SBGridProperties = {};
     SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -344,13 +344,13 @@
     SBGridProperties.jsonref = 'jsonGrdList';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.columns = [
-      {caption : ['신고사업장명'], ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-      {caption : ['사업자번호'], ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center', format : {type:'string', rule:'000-00-00000'}},
+      {caption : ['신고사업장명'], ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+      {caption : ['사업자번호'], ref : 'BRNO',      width : '50%',   style : 'text-align:center', format : {type:'string', rule:'000-00-00000'}},
     ];
     grdListGrid = _SBGrid.create(SBGridProperties);
     grdListGrid.bind("click","fn_setSiteCode");
   }
-
+ 
   const fn_createGridDetail = function() {
     var SBGridProperties = {};
     SBGridProperties.parentid = 'sb-area-grdDetailGrid';
@@ -367,28 +367,28 @@
       },
       {
         caption: ['서류명'],
-        ref: 'DOCUMENT_NAME',
+        ref: 'DCNMT_NM',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['발급자'],
-        ref: 'ISSUE_NAME',
+        ref: 'ISSU_NM',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['발급일자'],
-        ref: 'DOCUMENT_ISSUE_DATE',
+        ref: 'DCNMT_ISSU_YMD',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['신고기준일자'],
-        ref: 'STANDARD_DATE',
+        ref: 'DCLR_YMD',
         width: '100px',
         format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},
         style: 'text-align:center',
@@ -396,28 +396,28 @@
       },
       {
         caption: ['선적일자'],
-        ref: 'SHIPPING_DATE',
+        ref: 'SHPG_YMD',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['통화코드'],
-        ref: 'CURR_CODE',
+        ref: 'CRN_CD',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['환율'],
-        ref: 'EXCHANGE_RATE',
+        ref: 'EXCHRT',
         width: '100px',
         style: 'text-align:center',
         type: 'output'
       },
       {
         caption: ['당기제출 외화'],
-        ref: 'EXPORT_AMT',
+        ref: 'EXPRT_AMT',
         width: '100px',
         style: 'text-align:right',
         type: 'output',
@@ -425,7 +425,7 @@
       },
       {
         caption: ['당기제출 원화'],
-        ref: 'EXPORT_AMT_KRW',
+        ref: 'EXPRT_AMT_KRW',
         width: '100px',
         style: 'text-align:right',
         type: 'output',
@@ -433,7 +433,7 @@
       },
       {
         caption: ['당기신고 외화'],
-        ref: 'VAT_EXPORT_AMT',
+        ref: 'VAT_THTM_EXPRT_AMT',
         width: '100px',
         style: 'text-align:right',
         type: 'output',
@@ -441,7 +441,7 @@
       },
       {
         caption: ['당기신고 원화'],
-        ref: 'VAT_EXPORT_AMT_KRW',
+        ref: 'VAT_THTM_EXPRT_AMT_KRW',
         width: '100px',
         style: 'text-align:right',
         type: 'output',
@@ -450,54 +450,54 @@
     ];
     grdDetailGrid = _SBGrid.create(SBGridProperties);
   }
-
+ 
   /** resizer set **/
   const resizer = document.getElementById('resizer');
   const leftSide = resizer.previousElementSibling;
   const rightSide = resizer.nextElementSibling;
-
+ 
   let x = 0;
   let y = 0;
-
+ 
   let leftWidth = 0;
-
+ 
   const mouseDownHandler = function (e) {
     x = e.clientX;
     y = e.clientY;
     leftWidth = leftSide.getBoundingClientRect().width;
-
+ 
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
   };
-
+ 
   const mouseMoveHandler = function (e) {
     const dx = e.clientX - x;
     const dy = e.clientY - y;
-
+ 
     document.body.style.cursor = 'col-resize';
-
+ 
     leftSide.style.userSelect = 'none';
     leftSide.style.pointerEvents = 'none';
-
+ 
     rightSide.style.userSelect = 'none';
     rightSide.style.pointerEvents = 'none';
-
+ 
     const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
     leftSide.style.width = `${'${newLeftWidth}'}%`;
     grdListGrid.resize();
     grdDetailGrid.resize();
   };
-
+ 
   const mouseUpHandler = function () {
     resizer.style.removeProperty('cursor');
     document.body.style.removeProperty('cursor');
-
+ 
     leftSide.style.removeProperty('user-select');
     leftSide.style.removeProperty('pointer-events');
-
+ 
     rightSide.style.removeProperty('user-select');
     rightSide.style.removeProperty('pointer-events');
-
+ 
     document.removeEventListener('mousemove', mouseMoveHandler);
     document.removeEventListener('mouseup', mouseUpHandler);
   };
@@ -511,7 +511,7 @@
     grdListGrid.rebuild();
     jsonGrdDetail.length = 0;
     grdDetailGrid.rebuild();
-
+ 
     const inputs = document.querySelectorAll('#panRightHeader input');
     inputs.forEach(input => {
       input.value = 0;
@@ -548,7 +548,7 @@
     let postFlag = gfnma_getTableElement("srchTable", "srch-", paramObj, "V_P_", ['taxSiteName', 'bizRegno']);
     paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
     paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TAX_SITE_CODE;
-
+ 
     const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2320.do", {
       getType: 'json',
       cv_count: '8',

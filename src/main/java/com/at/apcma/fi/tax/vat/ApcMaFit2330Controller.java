@@ -50,7 +50,7 @@ public class ApcMaFit2330Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIT2330_Q");
+            param.put("procedure", 		"SP_FIT2330_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

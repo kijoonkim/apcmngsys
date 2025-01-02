@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Org1200.jsp
+ * @Class Name 		: org1200.jsp
  * @Description 	: APC 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.08.06
@@ -227,7 +227,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//사업장코드
 			gfnma_multiSelectInit({
 				target			: ['#SITE_CODE']
@@ -240,11 +240,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SITE_CODE'
-				,colLabel		: 'SITE_NAME'
+				,colValue		: 'SITE_CD'
+				,colLabel		: 'SITE_NM'
 				,columns		:[
-		            {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "사업장코드",		ref: 'SITE_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//APC구분
@@ -259,11 +259,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "APC구분", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "APC구분", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//인건비분류
@@ -278,11 +278,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "인건비분류코드",	ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "인건비분류", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "인건비분류코드",	ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "인건비분류", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//근무패턴
@@ -297,11 +297,11 @@
 				,selectValue	: ''
 				,dropType		: 'up' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "근무패턴",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "근무패턴",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//APC구분
@@ -316,11 +316,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "APC구분",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "APC구분",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -562,13 +562,13 @@
 	    		masterGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				COMP_CODE			: gfn_nvl(item.COMP_CODE),
-		    				COMP_NAME			: gfn_nvl(item.COMP_NAME),
-		    				FI_ORG_CODE			: gfn_nvl(item.FI_ORG_CODE),
-		    				FI_ORG_NAME			: gfn_nvl(item.FI_ORG_NAME),
-		    				FI_ORG_NAME_CHN		: gfn_nvl(item.FI_ORG_NAME_CHN),
-		    				GROUP_MASTER		: gfn_nvl(item.GROUP_MASTER),
-		    				SITE_ACC_CODE		: gfn_nvl(item.SITE_ACC_CODE),
+		    				COMP_CODE			: gfn_nvl(item.CO_CD),
+		    				COMP_NAME			: gfn_nvl(item.CORP_NM),
+		    				FI_ORG_CODE			: gfn_nvl(item.ACNTG_OGNZ_CD),
+		    				FI_ORG_NAME			: gfn_nvl(item.ACNTG_OGNZ_NM),
+		    				FI_ORG_NAME_CHN		: gfn_nvl(item.ACNTG_OGNZ_NM_CHN),
+		    				GROUP_MASTER		: gfn_nvl(item.GRP_MSTR),
+		    				SITE_ACC_CODE		: gfn_nvl(item.HDOFC_BROF_ACNT_CD),
 		    				SITE_ACC_NAME		: gfn_nvl(item.SITE_ACC_NAME),
 		    				USE_YN				: gfn_nvl(item.USE_YN)
 		    		}
@@ -787,23 +787,23 @@
 	    	   	data.cv_2.forEach((item, index) => {
 		    		const msg = {
 		    				CHECK_YN			: gfn_nvl(item.CHECK_YN),
-		    				SITE_CODE			: gfn_nvl(item.SITE_CODE),
-		    				SITE_NAME			: gfn_nvl(item.SITE_NAME),
-		    				CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE),
-		    				FI_ORG_NAME_CHN		: gfn_nvl(item.FI_ORG_NAME_CHN),
-		    				COMP_CODE			: gfn_nvl(item.COMP_CODE)
+		    				SITE_CODE			: gfn_nvl(item.SITE_CD),
+		    				SITE_NAME			: gfn_nvl(item.SITE_NM),
+		    				CLIENT_CODE			: gfn_nvl(item.CLNT_CD),
+		    				FI_ORG_NAME_CHN		: gfn_nvl(item.ACNTG_OGNZ_NM_CHN),
+		    				COMP_CODE			: gfn_nvl(item.CO_CD)
 		    		}
 		    		jsonDetailList.push(msg);
 		    	});
 	    	   	data.cv_3.forEach((item, index) => {
 		    		const msg = {
-		    				FI_ORG_CODE		: gfn_nvl(item.FI_ORG_CODE),
+		    				FI_ORG_CODE		: gfn_nvl(item.ACNTG_OGNZ_CD),
 		    				USER_ID			: gfn_nvl(item.USER_ID),
-		    				USER_NAME		: gfn_nvl(item.USER_NAME),
-		    				START_DATE		: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-		    				END_DATE		: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-		    				CLIENT_CODE		: gfn_nvl(item.CLIENT_CODE),
-		    				COMP_CODE		: gfn_nvl(item.COMP_CODE)
+		    				USER_NAME		: gfn_nvl(item.USER_NM),
+		    				START_DATE		: gfn_nvl(item.BGNG_YMD.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				END_DATE		: gfn_nvl(item.END_DT.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				CLIENT_CODE		: gfn_nvl(item.CLNT_CD),
+		    				COMP_CODE		: gfn_nvl(item.CO_CD)
 		    		}
 		    		jsonAuthorityList.push(msg);
 		    	});
@@ -828,9 +828,9 @@
     var fn_compopupAcc = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get('SITE_ACC_CODE'));
         var searchName 		= gfn_nvl(SBUxMethod.get("SITE_ACC_NAME"));
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_";
-        var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME  LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_";
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM  LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({
@@ -840,15 +840,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["계정코드", 	"계정명"]
-  			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+  			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
   			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
   			,tableHeader			: ["계정코드", 		 "계정명", 			"계정(한국어)"]
-  			,tableColumnNames		: ["ACCOUNT_CODE", 	 "ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+  			,tableColumnNames		: ["APLY_ACNTL_CD", 	 "ACNT_NM", 	"ACNT_NM_CHN"]
   			,tableColumnWidths		: ["80px", 			 "80px", 			"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('SITE_ACC_CODE',	data.ACCOUNT_CODE);
-				SBUxMethod.set('SITE_ACC_NAME', data.ACCOUNT_NAME);
+				SBUxMethod.set('SITE_ACC_CODE',	data.APLY_ACNTL_CD);
+				SBUxMethod.set('SITE_ACC_NAME', data.ACNT_NM);
 			},
     	});
   	}
@@ -861,9 +861,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get('COMP_CODE'));
         var searchName 		= gfn_nvl(SBUxMethod.get("COMP_NAME"));
-        var replaceText0 	= "_COMP_CODE_";
-        var replaceText1 	= "_COMP_NAME_";
-        var strWhereClause 	= "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'";
+        var replaceText0 	= "_CO_CD_";
+        var replaceText1 	= "_CORP_NM_";
+        var strWhereClause 	= "AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '법인코드 조회');
     	compopup1({
@@ -873,16 +873,16 @@
     		,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["법인코드", 		"법인명"]
-   			,searchInputFields		: ["COMP_CODE", 	"COMP_NAME"]
+   			,searchInputFields		: ["CO_CD", 	"CORP_NM"]
    			,searchInputValues		: [searchCode, 		searchName]
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["법인코드",		"법인명"]
-   			,tableColumnNames		: ["COMP_CODE",		"COMP_NAME"]
+   			,tableColumnNames		: ["CO_CD",		"CORP_NM"]
    			,tableColumnWidths		: ["100px", 		"150px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('COMP_CODE', 		data.COMP_CODE);
-				SBUxMethod.set('COMP_NAME',			data.COMP_NAME);
+				SBUxMethod.set('COMP_CODE', 		data.CO_CD);
+				SBUxMethod.set('COMP_NAME',			data.CORP_NM);
 			},
     	});
   	}
@@ -948,9 +948,9 @@
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대상사업장 정보');
 		SBUxMethod.openModal('modal-compopup1');
     	
-        var replaceText0 	= "_SITE_CODE_";
-        var replaceText1 	= "_SITE_NAME_"; 
-        var strWhereClause 	= "AND COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%' AND SITE_CODE LIKE '%" + replaceText0 + "%' AND SITE_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_SITE_CD_";
+        var replaceText1 	= "_SITE_NM_"; 
+        var strWhereClause 	= "AND CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%' AND SITE_CD LIKE '%" + replaceText0 + "%' AND SITE_NM LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -959,17 +959,17 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사업장코드", 		"사업장명"]
-   			,searchInputFields		: ["SITE_CODE", 	"SITE_NAME"]
+   			,searchInputFields		: ["SITE_CD", 	"SITE_NM"]
    			,searchInputValues		: [cellData1, 	cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["사업장코드",	"사업장명"]
-   			,tableColumnNames		: ["SITE_CODE", "SITE_NAME"]
+   			,tableColumnNames		: ["SITE_CD", "SITE_NM"]
    			,tableColumnWidths		: ["100px", 	"100px"]
 			,itemSelectEvent		: function (data){
 				//그리드내 원하는 위치에 값 셋팅하기
-				detailGrid.setCellData(row, 3, data['SITE_CODE'], true, true);
-				detailGrid.setCellData(row, 4, data['SITE_NAME'], true, true);
+				detailGrid.setCellData(row, 3, data['SITE_CD'], true, true);
+				detailGrid.setCellData(row, 4, data['SITE_NM'], true, true);
 			}
     	});
     }
@@ -988,8 +988,8 @@
 		SBUxMethod.openModal('modal-compopup1');
     	
         var replaceText0 	= "_USER_ID_";
-        var replaceText1 	= "_USER_NAME_"; 
-        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' AND D.COMP_CODE LIKE '" + gv_ma_selectedCorpCd + "'";
+        var replaceText1 	= "_USER_NM_"; 
+        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NM LIKE '%" + replaceText1 + "%' AND D.CO_CD LIKE '" + gv_ma_selectedCorpCd + "'";
     	
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -998,17 +998,17 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사용자ID", 	"사용자명"]
-   			,searchInputFields		: ["USER_ID", 	"USER_NAME"]
+   			,searchInputFields		: ["USER_ID", 	"USER_NM"]
    			,searchInputValues		: [cellData1, 	cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["사용자ID",	"사용자명"]
-   			,tableColumnNames		: ["USER_ID", 	"USER_NAME"]
+   			,tableColumnNames		: ["USER_ID", 	"USER_NM"]
    			,tableColumnWidths		: ["100px", 	"100px"]
 			,itemSelectEvent		: function (data){
 				//그리드내 원하는 위치에 값 셋팅하기
 				authorityGrid.setCellData(row, 2, data['USER_ID'], true, true);
-				authorityGrid.setCellData(row, 3, data['USER_NAME'], true, true);
+				authorityGrid.setCellData(row, 3, data['USER_NM'], true, true);
 			}
     	});
     }

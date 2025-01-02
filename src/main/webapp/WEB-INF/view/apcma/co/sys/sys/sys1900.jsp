@@ -177,11 +177,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
         ]);
@@ -206,19 +206,19 @@
         fn_createGrid();
     }
 
-   /* // 신규
-    function cfn_add() {
-        fn_create();
-    }
-    // 저장
-    function cfn_save() {
+    /* // 신규
+     function cfn_add() {
+         fn_create();
+     }
+     // 저장
+     function cfn_save() {
 
-        fn_save();
-    }
-    // 삭제
-    function cfn_del() {
-        fn_delete();
-    }*/
+         fn_save();
+     }
+     // 삭제
+     function cfn_del() {
+         fn_delete();
+     }*/
 
     // 조회
     function cfn_search() {
@@ -309,18 +309,18 @@
                             KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
                             PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
                             USER_ID             : gfn_nvl(item.USER_ID),
-                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            USER_NAME           : gfn_nvl(item.USER_NM),
                             LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
                             MEMO                : gfn_nvl(item.MEMO),
-                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
-                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            LOGIN_TIME          : gfn_nvl(item.LGN_DT),
+                            LOGOUT_TIME         : gfn_nvl(item.LGT_DT),
                             FORM_ID             : gfn_nvl(item.FORM_ID),
-                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
-                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            FORM_NAME           : gfn_nvl(item.FORM_NM),
+                            LOG_DATE            : gfn_nvl(item.LOG_DT),
                             LOG_IP              : gfn_nvl(item.LOG_IP),
                             LOG_PC              : gfn_nvl(item.LOG_PC),
-                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
-                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                            COMP_CODE           : gfn_nvl(item.CO_CD),
+                            CLIENT_CODE         : gfn_nvl(item.CLNT_CD),
                         }
                         jsonGvwInfoList.push(msg);
                         totalRecordCount++;
@@ -337,18 +337,18 @@
                             KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
                             PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
                             USER_ID             : gfn_nvl(item.USER_ID),
-                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            USER_NAME           : gfn_nvl(item.USER_NM),
                             LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
                             MEMO                : gfn_nvl(item.MEMO),
-                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
-                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            LOGIN_TIME          : gfn_nvl(item.LGN_DT),
+                            LOGOUT_TIME         : gfn_nvl(item.LGT_DT),
                             FORM_ID             : gfn_nvl(item.FORM_ID),
-                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
-                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            FORM_NAME           : gfn_nvl(item.FORM_NM),
+                            LOG_DATE            : gfn_nvl(item.LOG_DT),
                             LOG_IP              : gfn_nvl(item.LOG_IP),
                             LOG_PC              : gfn_nvl(item.LOG_PC),
-                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
-                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                            COMP_CODE           : gfn_nvl(item.CO_CD),
+                            CLIENT_CODE         : gfn_nvl(item.CLNT_CD),
                         }
                         jsonGvwInfoList.push(msg);
                         totalRecordCount++;

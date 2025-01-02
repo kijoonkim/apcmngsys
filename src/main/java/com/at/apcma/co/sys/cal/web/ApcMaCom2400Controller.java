@@ -53,7 +53,7 @@ public class ApcMaCom2400Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM2400_Q");
+			param.put("procedure", 		"SP_COM2400_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaCom2400Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM2400_S");
+			param.put("procedure", 		"SP_COM2400_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {

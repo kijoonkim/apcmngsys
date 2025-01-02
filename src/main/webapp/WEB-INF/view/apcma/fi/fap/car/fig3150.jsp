@@ -342,10 +342,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -353,7 +353,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var editType	= "N";
 	
 	var jsonCbofiOrgCode		= [];	// 회계단위
@@ -366,11 +366,11 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//회계단위
-			gfnma_setComSelect(['srch-cbofi-org-code'], jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-cbofi-org-code'], jsonCbofiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', '1100'),
 			//전표상태
-			gfnma_setComSelect(['srch-cbodoc-status'], jsonCbodocStatusCode, 'L_FIG002_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbodoc-status'], jsonCbodocStatusCode, 'L_FIG002_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//업종코드
-			gfnma_setComSelect(['srch-cbomcc-code'], jsonCbomccCode, 'L_EFI0006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ZMCC_CODE', 'ZMCC_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-cbomcc-code'], jsonCbomccCode, 'L_EFI0006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TPBIZ_CD', 'TPBIZ_NM', 'Y', ''),
 			//제외사유
 			gfnma_multiSelectInit({
 				target			: ['#srch-cboexcept-code']
@@ -384,15 +384,15 @@
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
 				,colValue		: 'CODE'
-				,colLabel		: 'NAME'
+				,colLabel		: 'FAM_NM'
 				,columns		:[
 		            {caption: "제외사유",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
-		            {caption: "제외내용", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "제외내용", 		ref: 'FAM_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			})
 		]);
 	}	
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
@@ -403,11 +403,11 @@
     	fn_initSBSelect();
     	fn_createGrid();		
     });
-
+ 
     //grid 초기화
     var Fig3150Grid; 			// 그리드를 담기위한 객체 선언
     var jsonFig3150List = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdComMsg';
@@ -430,11 +430,11 @@
         	},        	
             {caption: ["전표상태"],				ref: 'DOC_STATUS_NAME', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             
-            //{caption: ["전표번호"], 			ref: 'DOC_NAME',    			type:'output',  	width:'100px',  	style:'text-align:left'},
+            //{caption: ["전표번호"], 			ref: 'SLIP_NM',    			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ['전표번호'], 			ref: 'link',    				type:'button',  	width:'100px', 		style:'text-align:left', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-            		if(objRowData['DOC_ID']){
-		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['DOC_ID'] + ")'>" + objRowData['DOC_NAME'] + "</a>";
+            		if(objRowData['SLIP_ID']){
+		        		return "<a style='text-decoration: underline;cursor:pointer;color:#149fff' href='#' onClick='fn_gridPopup1(event, " + objRowData['SLIP_ID'] + ")'>" + objRowData['SLIP_NM'] + "</a>";
             		} else {
             			return "";
             		}
@@ -487,14 +487,14 @@
             {caption: ["남은결재자"], 			ref: 'APPR_STATUS_COUNT',  		type:'output',  	width:'120px',  	style:'text-align:left'},
             {caption: ["매입일자"], 			ref: 'TRANS_DATE',  			type:'output',  	width:'120px',  	style:'text-align:left'}
         ];
-
+ 
         Fig3150Grid = _SBGrid.create(SBGridProperties);
         Fig3150Grid.bind('click', 'fn_view');
     }
 	
     //상세정보 보기
     function fn_view() {
-
+ 
     	editType = "E";    	
     	
     	var nCol = Fig3150Grid.getCol();
@@ -506,7 +506,7 @@
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fig3150Grid.getRowData(nRow);
     }
     
@@ -524,9 +524,9 @@
      * 목록 가져오기
      */
     const fn_setFig3150Grid = async function(wtype) {
-
+ 
 		Fig3150Grid.clearStatus();
-
+ 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("srch-cbofi-org-code"));
 		
 		let p_ymddoc_date_fr	= gfnma_nvl(SBUxMethod.get("srch-ymddoc-date-fr"));
@@ -542,7 +542,7 @@
 		} else {
 			p_doc_name = gfnma_nvl(SBUxMethod.get("srch-txtdoc-name"))
 		}
-
+ 
 		let p_cbomcc_code 		= gfnma_nvl(SBUxMethod.get("srch-cbomcc-code"));
 		let p_txtcard_no 		= gfnma_nvl(SBUxMethod.get("srch-txtcard-no"));
 		let p_txtemp_code 		= gfnma_nvl(SBUxMethod.get("srch-txtemp-code"));
@@ -584,89 +584,89 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFig3150List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig3150List.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
   						CHK_YN					: "",										//checkbox
-  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),				//전표상태			--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
+  						DOC_STATUS				: gfnma_nvl2(item.SLIP_STTS),				//전표상태			--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
   						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),			//전표상태명		--> DOC_STATUS_NAME (필요)		<-- L_FIG002_2 공통코드 조인
-  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),					//전표번호
+  						DOC_NAME				: gfnma_nvl2(item.SLIP_NM),					//전표번호
   						FINAL_STEP_SEQ			: gfnma_nvl2(item.FINAL_STEP_SEQ),			//결재자			--> ?
-  						APPR_CANCEL_TYPE		: gfnma_nvl2(item.APPR_CANCEL_TYPE),			//거래구분			--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
+  						APPR_CANCEL_TYPE		: gfnma_nvl2(item.APRV_CNCL_TYPE),			//거래구분			--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
   						APPR_CANCEL_TYPE_NAME	: gfnma_nvl2(item.APPR_CANCEL_TYPE_NAME),	//거래구분명		--> APPR_CANCEL_TYPE_NAME (필요)  <-- L_FIG021 공통코드 조인
-  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),				//부서명			
-  						EMP_NAME				: gfnma_nvl2(item.EMP_NAME),					//사용자명
+  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NM),				//부서명			
+  						EMP_NAME				: gfnma_nvl2(item.EMP_NM),					//사용자명
   						CARD_NO					: gfnma_nvl2(item.CARD_NO),					//카드번호
-  						APPR_NO					: gfnma_nvl2(item.APPR_NO),					//승인번호
-  						COST_CENTER_CODE		: gfnma_nvl2(item.COST_CENTER_CODE),			//코스트센터(전표)
-  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
-  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
-  						DOC_DATE				: gfnma_nvl2(item.DOC_DATE),					//전기일자
-  						TXN_DATE				: gfnma_nvl2(item.TXN_DATE),					//거래일자
-  						CS_NAME					: gfnma_nvl2(item.CS_NAME),					//거래처명
-  						CS_BIZ_REGNO			: gfnma_nvl2(item.CS_BIZ_REGNO),				//가맹점 사업자번호
+  						APPR_NO					: gfnma_nvl2(item.APRV_NO),					//승인번호
+  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),			//코스트센터(전표)
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
+  						DOC_DATE				: gfnma_nvl2(item.SLIP_YMD),					//전기일자
+  						TXN_DATE				: gfnma_nvl2(item.TRSC_DT),					//거래일자
+  						CS_NAME					: gfnma_nvl2(item.CNPT_NM),					//거래처명
+  						CS_BIZ_REGNO			: gfnma_nvl2(item.CNPT_BRNO),				//가맹점 사업자번호
   						BIZ_CS_NAME				: gfnma_nvl2(item.BIZ_CS_NAME),				//가맹점명
-  						BIZ_CODE				: gfnma_nvl2(item.BIZ_CODE),					//업종코드
-  						BIZ_ITEMS				: gfnma_nvl2(item.BIZ_ITEMS),				//업종명
-  						ZCARD_KIND				: gfnma_nvl2(item.ZCARD_KIND),				//카드유형			--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
+  						BIZ_CODE				: gfnma_nvl2(item.TPBIZ_CD),					//업종코드
+  						BIZ_ITEMS				: gfnma_nvl2(item.TPBIZ),				//업종명
+  						ZCARD_KIND				: gfnma_nvl2(item.CARD_KND),				//카드유형			--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
   						ZCARD_KIND_NAME			: gfnma_nvl2(item.ZCARD_KIND_NAME),			//카드유형명		--> ZCARD_KIND_NAME (필요) 	<-- L_FIM216  공통코드 조인
   						CARD_AMT				: gfnma_nvl2(item.CARD_AMT),					//매입금액
   						CARD_VAT_AMT			: gfnma_nvl2(item.CARD_VAT_AMT),				//매입부가세
-  						SUM_AMOUNT				: gfnma_nvl2(item.SUM_AMOUNT),				//총액
-  						ACCOUNT_EMP_CODE		: gfnma_nvl2(item.ACCOUNT_EMP_CODE),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
+  						SUM_AMOUNT				: gfnma_nvl2(item.SUM_AMT),				//총액
+  						ACCOUNT_EMP_CODE		: gfnma_nvl2(item.SLIP_EMP_NO),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
   						ACCOUNT_EMP_NAME		: gfnma_nvl2(item.ACCOUNT_EMP_NAME),			//전표담당자명 		--> ACCOUNT_EMP_NAME(필요)  <-- P_HRI001 공통코드 조인
-  						SETTLE_DATE				: gfnma_nvl2(item.SETTLE_DATE),				//결재예정일자
-  						EXCEPT_CODE				: gfnma_nvl2(item.EXCEPT_CODE),				//제외사유코드 		--> ?
-  						EXCEPT_REASON			: gfnma_nvl2(item.EXCEPT_REASON),			//제외사유	 		--> ?
-  						EXCEPT_AMOUNT			: gfnma_nvl2(item.EXCEPT_AMOUNT),			//제외금액	 		--> ?
-  						TAX_TYPE				: gfnma_nvl2(item.TAX_TYPE),					//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
-  						TAX_TYPE_NAME			: gfnma_nvl2(item.TAX_TYPE_NAME),			//가맹점과세구분명	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
-  						TAX_GUBUN_NAME			: gfnma_nvl2(item.TAX_GUBUN_NAME),			//과세유형			--> ?
-  						ZTRAN_DATE2				: gfnma_nvl2(item.ZTRAN_DATE2),				//전기일/증빙일	
-  						DOC_ID					: gfnma_nvl2(item.DOC_ID),					//전표ID	
-  						HEADER_INVOICE_AMOUNT	: gfnma_nvl2(item.HEADER_INVOICE_AMOUNT),	//전표금액	
+  						SETTLE_DATE				: gfnma_nvl2(item.STLM_YMD),				//결재예정일자
+  						EXCEPT_CODE				: gfnma_nvl2(item.EXCPT_CD),				//제외사유코드 		--> ?
+  						EXCEPT_REASON			: gfnma_nvl2(item.EXCPT_RSN),			//제외사유	 		--> ?
+  						EXCEPT_AMOUNT			: gfnma_nvl2(item.EXCPT_AMT),			//제외금액	 		--> ?
+  						TAX_TYPE				: gfnma_nvl2(item.TX_TYPE),					//가맹점과세구분	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_TYPE_NAME			: gfnma_nvl2(item.TX_TYPE_NM),			//가맹점과세구분명	--> TAX_TYPE_NAME (필요) <-- L_FIG014  공통코드 조인
+  						TAX_GUBUN_NAME			: gfnma_nvl2(item.TX_TXTN_NM),			//과세유형			--> ?
+  						ZTRAN_DATE2				: gfnma_nvl2(item.PSTG_YMD2),				//전기일/증빙일	
+  						DOC_ID					: gfnma_nvl2(item.SLIP_ID),					//전표ID	
+  						HEADER_INVOICE_AMOUNT	: gfnma_nvl2(item.HEADER_SLIP_AMT),	//전표금액	
   						HEADER_CARD_AMT			: gfnma_nvl2(item.HEADER_CARD_AMT),			//전표공급가액
-  						HEADER_VAT_AMOUNT		: gfnma_nvl2(item.HEADER_VAT_AMOUNT),		//전표부가세금액
-  						HEADER_DESC				: gfnma_nvl2(item.HEADER_DESC),				//적요				--> ?
-  						BIZ_CLOSE_DATE			: gfnma_nvl2(item.BIZ_CLOSE_DATE),			//폐업일자			--> ?
-  						TAX_DATE				: gfnma_nvl2(item.TAX_DATE),					//세무일자			--> ?
-  						ZVENDOR_CLOSE_IN		: gfnma_nvl2(item.ZVENDOR_CLOSE_IN),			//가맹점휴폐업정보	--> ?
-  						ZUPDATE_DATE			: gfnma_nvl2(item.ZUPDATE_DATE),				//수정일자			--> ?
-  						APPR_DATE				: gfnma_nvl2(item.APPR_DATE),				//승인일자			
-  						APPR_TIME				: gfnma_nvl2(item.APPR_TIME),				//승인시각			
+  						HEADER_VAT_AMOUNT		: gfnma_nvl2(item.HEADER_VAT_AMT),		//전표부가세금액
+  						HEADER_DESC				: gfnma_nvl2(item.HEADER_DSCTN),				//적요				--> ?
+  						BIZ_CLOSE_DATE			: gfnma_nvl2(item.SCBIZ_YMD),			//폐업일자			--> ?
+  						TAX_DATE				: gfnma_nvl2(item.TX_YMD),					//세무일자			--> ?
+  						ZVENDOR_CLOSE_IN		: gfnma_nvl2(item.FRCS_SCBIZ_IFNO),			//가맹점휴폐업정보	--> ?
+  						ZUPDATE_DATE			: gfnma_nvl2(item.UPDT_YMD),				//수정일자			--> ?
+  						APPR_DATE				: gfnma_nvl2(item.APRV_YMD),				//승인일자			
+  						APPR_TIME				: gfnma_nvl2(item.APRV_TM),				//승인시각			
   						ZCHARGE_DATE			: gfnma_nvl2(item.ZCHARGE_DATE),				//지급일자			--> ?
   						APPR_STATUS_COUNT		: gfnma_nvl2(item.APPR_STATUS_COUNT),		//남은결재자		
-  						TRANS_DATE				: gfnma_nvl2(item.TRANS_DATE),				//매입일자
+  						TRANS_DATE				: gfnma_nvl2(item.TRNSCO_YMD),				//매입일자
   						CARD_ID					: gfnma_nvl2(item.CARD_ID)				
   					}
   					jsonFig3150List.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fig3150Grid.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -710,14 +710,14 @@
 			,V_P_USERID				: ''
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectFig3150Save.do", {
         	getType				: 'json',
         	workType			: 'S',
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -743,8 +743,8 @@
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("srch-txtemp-name"));
         //var replaceText0 	= "_USER_ID_";
-        //var replaceText1 	= "_USER_NAME_";
-        //var strWhereClause 	= "AND X.USER_ID LIKE '%" + replaceText0 + "%' AND X.USER_NAME LIKE '%" + replaceText1 + "%' ";
+        //var replaceText1 	= "_USER_NM_";
+        //var strWhereClause 	= "AND X.USER_ID LIKE '%" + replaceText0 + "%' AND X.USER_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
     	compopup1({
@@ -754,15 +754,15 @@
         	,popupType				: 'A'
     		,whereClause			: '' //strWhereClause
    			,searchCaptions			: ["사번", 		"사원명"]
-   			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+   			,searchInputFields		: ["EMP_CD", 	"EMP_NM"]
    			,searchInputValues		: ["", 			searchText]
     		,height					: '400px'
    			,tableHeader			: ["사번", 		"직원명", 		"부서코드", 	"부서명"]
-   			,tableColumnNames		: ["USER_ID", 	"USER_NAME",  	"DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["USER_ID", 	"USER_NM",  	"DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["80px", 		"80px", 		"80px", 		"120px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('srch-txtemp-name', 	data.USER_NAME);
+				SBUxMethod.set('srch-txtemp-name', 	data.USER_NM);
 				SBUxMethod.set('srch-txtemp-code', 	data.USER_ID);
 			},
     	});
@@ -783,17 +783,17 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"부서코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"DEPT_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"DEPT_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px",		"200px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                SBUxMethod.set('srch-txtdept-name', 	data.DEPT_NAME);
-                SBUxMethod.set('srch-txtdept-code', 	data.DEPT_CODE);
+                SBUxMethod.set('srch-txtdept-name', 	data.DEPT_NM);
+                SBUxMethod.set('srch-txtdept-code', 	data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -858,7 +858,7 @@
 		}
     	return rstr.slice(0, -1);
     }
-
+ 
     //년월
     var fn_payDate = function() {
         var yyyymm	= gfnma_nvl(SBUxMethod.get("srch-ymdperiod-yyyymm-p"));
@@ -869,7 +869,7 @@
 		SBUxMethod.set('srch-ymdtxn-date-fr', sdate);
 		SBUxMethod.set('srch-ymdtxn-date-to', edate);
     }
-
+ 
     //사용자 변경 evnet
     var fn_chgUser = function() {
     	var str = SBUxMethod.get('srch-txtemp-name');
@@ -877,7 +877,7 @@
     		SBUxMethod.set('srch-txtemp-code', '');
     	}
     }
-
+ 
     //사용자부서 변경 evnet
     var fn_chgDept = function() {
     	var str = SBUxMethod.get('srch-txtdept-name');
@@ -885,7 +885,7 @@
     		SBUxMethod.set('srch-txtdept-code', '');
     	}
     }
-
+ 
     //거래처생성
     var fn_btnCustomer = async function() {
     	
@@ -942,10 +942,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150Customer.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -955,7 +955,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -965,7 +965,7 @@
             }
         }    	
     }
-
+ 
     //전표번호갱신
     var fn_btnDocRefresh = async function() {
     	
@@ -975,7 +975,7 @@
             gfn_comAlert("E0000", "갱신할 행을 선택하세요");
             return;
 		}
-
+ 
 		if(confirm("전표번호를 갱신 하시겠습니까?")){
 		}else{
 			return;
@@ -999,14 +999,14 @@
 				,V_P_USERID				: ''
 				,V_P_PC					: '' 
 		};		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocRefresh.do", {
         	getType				: 'json',
         	workType			: 'U',
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -1099,10 +1099,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocDateAllChange.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -1112,7 +1112,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -1183,10 +1183,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocExclusion.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -1196,7 +1196,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -1267,10 +1267,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveFig3150DocExclusionCancel.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -1280,7 +1280,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);

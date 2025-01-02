@@ -180,7 +180,7 @@
 	                                    <th scope="row" class="th_bg">조회기준일</th>
 	                                    <td colspan="2" class="td_input">
 										    <sbux-datepicker
-										            id="FM_BASE_DATE"
+										            id="FM_CRTR_YMD"
 										            uitype="popup"
 										            date-format="yyyy-mm-dd"
 										            class="form-control input-sm input-sm-ast table-datepicker-ma">
@@ -216,10 +216,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -232,7 +232,7 @@
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
-
+ 
 	var p_sel_rowData =  null;
 	
     var p_sel_tab			= 1;	// 현재탭
@@ -258,26 +258,26 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],				jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],			jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 자산구분
-            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],			jsonAssetCategory,	'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_CATEGORY'],			jsonAssetCategory,	'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 상각여부
-            gfnma_setComSelect(['SCH_DEPRECIATE_YN'],			jsonDepreciateYn,	'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_DEPRECIATE_YN'],			jsonDepreciateYn,	'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 중분류
-            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
   		
 		//재직상태
-		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
 			function(list){
 				$('#BTN_POP1').click(function(){
 					fn_compopup10(list);
@@ -298,7 +298,7 @@
 		
     	fn_init();
     });
-
+ 
     /**
      * 초기화
      */
@@ -313,7 +313,7 @@
     
  		SBUxMethod.set('SCH_FI_ORG_CODE', 		p_ss_fiOrgCode);
  		SBUxMethod.set('SCH_SITE_CODE', 		p_ss_siteCode);
- 		SBUxMethod.set('FM_BASE_DATE', 			gfnma_date4());
+ 		SBUxMethod.set('FM_CRTR_YMD', 			gfnma_date4());
  		SBUxMethod.set('SCH_ACCT_RULE_CODE', 	p_ss_defaultAcctRule);
     	
     }    
@@ -398,7 +398,7 @@
             {caption: ["프로젝트번호"],				ref: 'PROJECT_CODE',  			type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["취득일자"],					ref: 'ACQUIRE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fia3200Grid01 = _SBGrid.create(SBGridProperties);
         //Fia3200Grid01.bind('click', 			'fn_viewFia3200Grid01Event');
     }
@@ -448,7 +448,7 @@
             
             {caption: ["비고"],				ref: 'MEMO',    				type:'output',  	width:'200px',  	style:'text-align:left'},
         ];
-
+ 
         Fia3200Grid02 = _SBGrid.create(SBGridProperties);
         //Fia3200Grid02.bind('click', 			'fn_viewFia3200Grid02Event');
     }
@@ -459,14 +459,14 @@
     const fn_setFia3200Grid01 = async function(wtype) {
     	
     	Fia3200Grid01.clearStatus();
-
+ 
 		let p_sch_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_sch_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_sch_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
 		let p_sch_asset_category	= gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
 		let p_sch_asset_level2		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
 		let p_sch_asset_level3		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL3"));
-		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_BASE_DATE"));
+		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_CRTR_YMD"));
 		
 		let p_sch_depreciate_yn		= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATE_YN"));
 		p_sch_depreciate_yn			= (p_sch_depreciate_yn) ? p_sch_depreciate_yn['SCH_DEPRECIATE_YN'] : '';
@@ -492,68 +492,68 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia3200List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFia3200Grid01.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						ACQUIRE_DATE				: gfnma_nvl2(item.ACQUIRE_DATE),			
-						ASSET_CATEGORY				: gfnma_nvl2(item.ASSET_CATEGORY),			
+						ACQUIRE_DATE				: gfnma_nvl2(item.ACQS_FRST_YMD),			
+						ASSET_CATEGORY				: gfnma_nvl2(item.ASST_CTGRY),			
 						ASSET_CATEGORY_NAME			: gfnma_nvl2(item.ASSET_CATEGORY_NAME),			
-						ASSET_LEVEL2				: gfnma_nvl2(item.ASSET_LEVEL2),			
+						ASSET_LEVEL2				: gfnma_nvl2(item.ASST_MCLSF),			
 						ASSET_LEVEL2_NAME			: gfnma_nvl2(item.ASSET_LEVEL2_NAME),			
-						ASSET_LEVEL3				: gfnma_nvl2(item.ASSET_LEVEL3),			
+						ASSET_LEVEL3				: gfnma_nvl2(item.ASST_SCLSF),			
 						ASSET_LEVEL3_NAME			: gfnma_nvl2(item.ASSET_LEVEL3_NAME),			
-						ASSET_NO					: gfnma_nvl2(item.ASSET_NO),			
-						ASSET_QTY					: gfnma_nvl2(item.ASSET_QTY),			
-						BOOK_VALUE					: gfnma_nvl2(item.BOOK_VALUE),			
-						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CAPITAL_EXPENDITURE),			
-						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),			
-						COST_CENTER_CODE			: gfnma_nvl2(item.COST_CENTER_CODE),			
-						COST_CENTER_NAME			: gfnma_nvl2(item.COST_CENTER_NAME),			
-						DEPRECIATE_YN				: gfnma_nvl2(item.DEPRECIATE_YN),			
-						DISPOSAL_DATE				: gfnma_nvl2(item.DISPOSAL_DATE),			
-						DISPOSAL_TYPE				: gfnma_nvl2(item.DISPOSAL_TYPE),			
-						END_ACCUM_DEPR				: gfnma_nvl2(item.END_ACCUM_DEPR),			
-						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.END_SUBSIDES_ACCUM_DEPR),			
-						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),			
-						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),			
-						OUT_ACCUM_DEPR				: gfnma_nvl2(item.OUT_ACCUM_DEPR),			
-						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.OUT_ACQUISITION_AMOUNT),			
-						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.OUT_SUBSIDIES_ACC_DEPR),			
-						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.OUT_SUBSIDIES_AMOUNT),			
-						PROJECT_CODE				: gfnma_nvl2(item.PROJECT_CODE),			
-						SITE_CODE					: gfnma_nvl2(item.SITE_CODE),			
-						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.SUBSIDIES_AMOUNT),			
+						ASSET_NO					: gfnma_nvl2(item.ASST_NO),			
+						ASSET_QTY					: gfnma_nvl2(item.AST_DSPSL_QTY),			
+						BOOK_VALUE					: gfnma_nvl2(item.BKVL),			
+						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CPEXPND_ACML_AMT),			
+						COMP_CODE					: gfnma_nvl2(item.CO_CD),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),			
+						DEPRECIATE_YN				: gfnma_nvl2(item.DPRC_YN),			
+						DISPOSAL_DATE				: gfnma_nvl2(item.DSPSL_YMD),			
+						DISPOSAL_TYPE				: gfnma_nvl2(item.DSPSL_TYPE),			
+						END_ACCUM_DEPR				: gfnma_nvl2(item.ACML_DPRC_EBLNC),			
+						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.GVSBS_DPRC_ACML_EBLNC),			
+						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),			
+						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.CNVS_AMT),			
+						OUT_ACCUM_DEPR				: gfnma_nvl2(item.DSPSL_ACML_DPRC),			
+						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.DSPSL_ACQS_AMT),			
+						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.DSPSL_GVSBS_ACML_DPRC_AMT),			
+						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.DSPSL_GVSBS_AMT),			
+						PROJECT_CODE				: gfnma_nvl2(item.PJT_CD),			
+						SITE_CODE					: gfnma_nvl2(item.SITE_CD),			
+						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.GVSBS_AMT),			
 						TRANSFER_IN_AMOUNT			: gfnma_nvl2(item.TRANSFER_IN_AMOUNT),			
 						TRANSFER_OUT_AMOUNT			: gfnma_nvl2(item.TRANSFER_OUT_AMOUNT),			
   					}
   					jsonFia3200Grid01.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	Fia3200Grid01.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -569,14 +569,14 @@
     const fn_setFia3200Grid02 = async function(wtype) {
     	
     	Fia3200Grid02.clearStatus();
-
+ 
 		let p_sch_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_sch_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_sch_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
 		let p_sch_asset_category	= gfnma_nvl(SBUxMethod.get("SCH_ASSET_CATEGORY"));
 		let p_sch_asset_level2		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL2"));
 		let p_sch_asset_level3		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_LEVEL3"));
-		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_BASE_DATE"));
+		let p_fm_base_date			= gfnma_nvl(SBUxMethod.get("FM_CRTR_YMD"));
 		
 		let p_sch_depreciate_yn		= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATE_YN"));
 		p_sch_depreciate_yn			= (p_sch_depreciate_yn) ? p_sch_depreciate_yn['SCH_DEPRECIATE_YN'] : '';
@@ -602,39 +602,39 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia3200List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFia3200Grid02.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						ACQUIRE_DATE				: gfnma_nvl2(item.ACQUIRE_DATE),			
-						ASSET_CATEGORY				: gfnma_nvl2(item.ASSET_CATEGORY),			
-						ASSET_QTY					: gfnma_nvl2(item.ASSET_QTY),			
-						BOOK_VALUE					: gfnma_nvl2(item.BOOK_VALUE),			
-						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CAPITAL_EXPENDITURE),			
-						END_ACCUM_DEPR				: gfnma_nvl2(item.END_ACCUM_DEPR),			
-						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.END_SUBSIDES_ACCUM_DEPR),			
-						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),			
-						OUT_ACCUM_DEPR				: gfnma_nvl2(item.OUT_ACCUM_DEPR),			
-						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.OUT_ACQUISITION_AMOUNT),			
-						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.OUT_SUBSIDIES_ACC_DEPR),			
-						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.OUT_SUBSIDIES_AMOUNT),			
-						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.SUBSIDIES_AMOUNT),			
+						ACQUIRE_DATE				: gfnma_nvl2(item.ACQS_FRST_YMD),			
+						ASSET_CATEGORY				: gfnma_nvl2(item.ASST_CTGRY),			
+						ASSET_QTY					: gfnma_nvl2(item.AST_DSPSL_QTY),			
+						BOOK_VALUE					: gfnma_nvl2(item.BKVL),			
+						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CPEXPND_ACML_AMT),			
+						END_ACCUM_DEPR				: gfnma_nvl2(item.ACML_DPRC_EBLNC),			
+						END_SUBSIDES_ACCUM_DEPR		: gfnma_nvl2(item.GVSBS_DPRC_ACML_EBLNC),			
+						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.CNVS_AMT),			
+						OUT_ACCUM_DEPR				: gfnma_nvl2(item.DSPSL_ACML_DPRC),			
+						OUT_ACQUISITION_AMOUNT		: gfnma_nvl2(item.DSPSL_ACQS_AMT),			
+						OUT_SUBSIDIES_ACC_DEPR		: gfnma_nvl2(item.DSPSL_GVSBS_ACML_DPRC_AMT),			
+						OUT_SUBSIDIES_AMOUNT		: gfnma_nvl2(item.DSPSL_GVSBS_AMT),			
+						SUBSIDIES_AMOUNT			: gfnma_nvl2(item.GVSBS_AMT),			
 						TRANSFER_IN_AMOUNT			: gfnma_nvl2(item.TRANSFER_IN_AMOUNT),			
 						TRANSFER_OUT_AMOUNT			: gfnma_nvl2(item.TRANSFER_OUT_AMOUNT),			
   					}
@@ -642,14 +642,14 @@
   					totalRecordCount ++;
   				});
 	  	  		console.log('jsonFia3200Grid02:', jsonFia3200Grid02);
-
+ 
   	        	Fia3200Grid02.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -675,9 +675,9 @@
     	where2 += (where22) ? " AND PARENT_ASSET_GROUP = '" + where22 + "' " : '';
     	
         // 중분류
-        gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', where1, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+        gfnma_setComSelect(['SCH_ASSET_LEVEL2'],			jsonAssetLevel2,	'L_FIA005', where1, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', '');
         // 소분류
-        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', '');
     }
     
     /**
@@ -693,7 +693,7 @@
     	where2 += (where22) ? " AND PARENT_ASSET_GROUP = '" + where22 + "'" : '';
     	
         // 소분류
-        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', '');
+        gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', '');
     }
     
     

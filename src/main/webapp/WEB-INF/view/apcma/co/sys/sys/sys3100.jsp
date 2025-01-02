@@ -139,7 +139,7 @@
                                         maxlength="10"
                                         style="width:30%"
                                         required
-                                        <%--onkeyup="fn_calculate"--%>
+                                <%--onkeyup="fn_calculate"--%>
                                 ></sbux-input>
                             </td>
                         </tr>
@@ -231,7 +231,7 @@
         let DECIMAL_NAME    = gfn_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
 
         var paramObj = {
-             V_P_DEBUG_MODE_YN  : 'N'
+            V_P_DEBUG_MODE_YN  : 'N'
             , V_P_LANG_ID       : 'KOR'
             , V_P_COMP_CODE     : '1000'
             , V_P_CLIENT_CODE   : '100'
@@ -265,10 +265,10 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        DECIMAL_ID      : item.DECIMAL_ID,
-                        DECIMAL_NAME    : item.DECIMAL_NAME,
-                        DECIMAL_LENGTH  : item.DECIMAL_LENGTH,
-                        DESCR           : item.DESCR,
+                        DECIMAL_ID      : item.DCPT_ID,
+                        DECIMAL_NAME    : item.DCPT_NM,
+                        DECIMAL_LENGTH  : item.DCPT_LNGTH,
+                        DESCR           : item.DSCTN,
                         USE_YN          : item.USE_YN
                     }
                     jsonGvwInfoList.push(msg);
@@ -361,11 +361,11 @@
 
         editType = "E";
 
-       /* var nCol = gvwInfoGrid.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }*/
+        /* var nCol = gvwInfoGrid.getCol();
+         //특정 열 부터 이벤트 적용
+         if (nCol < 1) {
+             return;
+         }*/
         var nRow = gvwInfoGrid.getRow();
         var nCol = gvwInfoGrid.getCol();
 
@@ -380,12 +380,12 @@
         let rowData = gvwInfoGrid.getRowData(nRow);
 
         if (_.isEmpty(rowData) == false) {
-            SBUxMethod.attr('DECIMAL_ID' ,'readonly',true);
-            SBUxMethod.set("DECIMAL_ID"     , rowData.DECIMAL_ID);
-            SBUxMethod.set("DECIMAL_NAME"   , rowData.DECIMAL_NAME);
-            SBUxMethod.set("DECIMAL_LENGTH" , rowData.DECIMAL_LENGTH);
-            SBUxMethod.set("DESCR"          , rowData.DESCR);
-            SBUxMethod.set("USE_YN"         , rowData.USE_YN);
+            SBUxMethod.attr('DECIMAL_ID'     ,'readonly',true);
+            SBUxMethod.set("DECIMAL_ID"      , rowData.DECIMAL_ID);
+            SBUxMethod.set("DECIMAL_NAME"    , rowData.DECIMAL_NAME);
+            SBUxMethod.set("DECIMAL_LENGTH"  , rowData.DECIMAL_LENGTH);
+            SBUxMethod.set("DESCR"           , rowData.DESCR);
+            SBUxMethod.set("USE_YN"          , rowData.USE_YN);
         }
     }
 

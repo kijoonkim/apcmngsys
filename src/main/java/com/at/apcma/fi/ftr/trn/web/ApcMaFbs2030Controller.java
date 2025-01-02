@@ -52,7 +52,7 @@ public class ApcMaFbs2030Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2030_Q");
+            param.put("procedure", 		"SP_FBS2030_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

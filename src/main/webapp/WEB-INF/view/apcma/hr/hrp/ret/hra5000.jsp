@@ -364,10 +364,12 @@
     }
 
     // 신규
-      function cfn_add() {
-          fn_add();
-      }
-     // 저장
+    function cfn_add() {
+        fn_add();
+    }
+
+
+    // 저장
     async function cfn_save() {
 
         //저장 성고 : 실패 구분
@@ -631,13 +633,13 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["근속공제액"], ref: 'CUMULATIVE_TAX_DED_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["최대치"], ref: 'MAX_AMT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
 
@@ -661,11 +663,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["근속년수하한(초과)"], ref: 'WORK_YEAR_FROM', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["근속년수상한(이하)"], ref: 'WORK_YEAR_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["누진일수"], ref: 'CUMULATIVE_DAY_CNT', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
@@ -689,9 +691,9 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["환산급여 하한(초과)"], ref: 'PAY_AMT_FR', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
-            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right' , isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["환산급여 상한(이상)"], ref: 'PAY_AMT_TO', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["공제세율(%)"], ref: 'TX_R', type: 'input', width: '200px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,##0.00', emptyvalue:'0' }},
@@ -702,22 +704,6 @@
 
         gvwConvertGrid = _SBGrid.create(SBGridProperties);
 
-    }
-
-    /**
-     * 그리드내 필수값 체크
-     */
-    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
-
-        if (strValue === '') {
-            return { isValid : false, message : '값을 입력하시오.'};
-        }
-
-        /* if (!(/[0-9]/g).test(strValue)) {
-             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
-         }*/
-
-        return Number(strValue);
     }
 
 
@@ -877,11 +863,11 @@
                 jsonMasterList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY 			        : gfn_nvl(item.YYYY),
-                        APPLY_START_DATE 	    : gfn_nvl(item.APPLY_START_DATE),
-                        APPLY_END_DATE 			: gfn_nvl(item.APPLY_END_DATE),
-                        RETIRE_INCOME_DED_RATE 	: gfn_nvl(item.RETIRE_INCOME_DED_RATE),
-                        EXECUTIVE_PAY_MULTIPLE 	: gfn_nvl(item.EXECUTIVE_PAY_MULTIPLE),
+                        YYYY 			        : gfn_nvl(item.YR),
+                        APPLY_START_DATE 	    : gfn_nvl(item.APLY_STRT_YMD),
+                        APPLY_END_DATE 			: gfn_nvl(item.APLY_END_YMD),
+                        RETIRE_INCOME_DED_RATE 	: gfn_nvl(item.RTRM_INCM_DDC_RT),
+                        EXECUTIVE_PAY_MULTIPLE 	: gfn_nvl(item.EXC_PAY_WGVL),
                         MEMO 			        : gfn_nvl(item.MEMO),
                     }
                     jsonMasterList.push(msg);
@@ -982,9 +968,9 @@
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            WORK_YEAR_FR		    : gfn_nvl(item.WORK_YEAR_FR),
-                            WORK_YEAR_TO		    : gfn_nvl(item.WORK_YEAR_TO),
-                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.CUMULATIVE_TAX_DED_AMT),
+                            WORK_YEAR_FR		    : gfn_nvl(item.CNSVC_YYCNT_LL),
+                            WORK_YEAR_TO		    : gfn_nvl(item.CNSVC_YYCNT_UL),
+                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.ACML_TX_DDC_AMT),
                             MAX_AMT		            : gfn_nvl(item.MAX_AMT),
 
                         }
@@ -1007,10 +993,10 @@
                     jsonDayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            YYYY		        : gfn_nvl(item.YYYY),
-                            WORK_YEAR_FROM		: gfn_nvl(item.WORK_YEAR_FROM),
-                            WORK_YEAR_TO		: gfn_nvl(item.WORK_YEAR_TO),
-                            CUMULATIVE_DAY_CNT	: gfn_nvl(item.CUMULATIVE_DAY_CNT),
+                            YYYY		        : gfn_nvl(item.YR),
+                            WORK_YEAR_FROM		: gfn_nvl(item.CNSVC_YYCNT_LL),
+                            WORK_YEAR_TO		: gfn_nvl(item.CNSVC_YYCNT_UL),
+                            CUMULATIVE_DAY_CNT	: gfn_nvl(item.ACML_DCNT),
 
                         }
                         jsonDayList.push(msg);
@@ -1026,11 +1012,11 @@
                     jsonConvertList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            YYYY		            : gfn_nvl(item.YYYY),
-                            PAY_AMT_FR		        : gfn_nvl(item.PAY_AMT_FR),
-                            PAY_AMT_TO		        : gfn_nvl(item.PAY_AMT_TO),
+                            YYYY		            : gfn_nvl(item.YR),
+                            PAY_AMT_FR		        : gfn_nvl(item.PAY_AMT_LL),
+                            PAY_AMT_TO		        : gfn_nvl(item.PAY_AMT_UL),
                             TX_R		            : gfn_nvl(item.TX_R),
-                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.CUMULATIVE_TAX_DED_AMT),
+                            CUMULATIVE_TAX_DED_AMT	: gfn_nvl(item.ACML_TX_DDC_AMT),
 
                         }
                         jsonConvertList.push(msg);
@@ -1443,7 +1429,6 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }else{
                         fn_search();
                     }
 
@@ -1477,22 +1462,22 @@
                 gfn_comAlert("W0002", "기준년도");
                 return;
             }
-           /* if (!APPLY_START_DATE) {
-                gfn_comAlert("W0002", "적용기간");
-                return;
-            }
-            if (!APPLY_END_DATE) {
-                gfn_comAlert("W0002", "적용기간");
-                return;
-            }
-            if (!RETIRE_INCOME_DED_RATE) {
-                gfn_comAlert("W0002", "기본공제");
-                return;
-            }
-            if (!EXECUTIVE_PAY_MULTIPLE) {
-                gfn_comAlert("W0002", "임원지급배수");
-                return;
-            }*/
+            /* if (!APPLY_START_DATE) {
+                 gfn_comAlert("W0002", "적용기간");
+                 return;
+             }
+             if (!APPLY_END_DATE) {
+                 gfn_comAlert("W0002", "적용기간");
+                 return;
+             }
+             if (!RETIRE_INCOME_DED_RATE) {
+                 gfn_comAlert("W0002", "기본공제");
+                 return;
+             }
+             if (!EXECUTIVE_PAY_MULTIPLE) {
+                 gfn_comAlert("W0002", "임원지급배수");
+                 return;
+             }*/
 
             var paramObj = {
                 V_P_DEBUG_MODE_YN			: ''
@@ -1535,7 +1520,6 @@
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search();
                     }
-
                 } else {
                     alert(data.resultMessage);
                 }

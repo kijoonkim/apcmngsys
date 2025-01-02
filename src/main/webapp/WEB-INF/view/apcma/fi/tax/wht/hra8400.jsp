@@ -55,19 +55,19 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -76,7 +76,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-
+ 
 							<th scope="row" class="th_bg_search">급여영역</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-payAreaType"
@@ -94,7 +94,7 @@
 									onchange="fn_dtpChange(srch-dtp-jobYyyy)"></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
-
+ 
 							<th scope="row" class="th_bg_search">근무시기</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-harfyearlyType"
@@ -122,7 +122,7 @@
 					</tbody>
 				</table>
 				</div>
-
+ 
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="ad_tbl_top">
@@ -132,14 +132,14 @@
 						</div>
 						<div id="sb-area-grdDclrList" style="height: 498px; width: 100%"></div>
 					</div>
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 					<div class="col-sm-9" style="height: 100%">
-
+ 
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>파일생성정보</span></li>
@@ -154,19 +154,19 @@
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
@@ -215,7 +215,7 @@
 										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_showDirPicker" wrap-style="width:100%"></sbux-input>
 		                            </td>
 		                        </tr>
-
+ 
 								<tr>
 									<th scope="row" class="th_bg_search">비고</th>
 									<td colspan="9" style="border-right: hidden;"><sbux-input
@@ -223,14 +223,14 @@
 											class="form-control input-sm">
 										</sbux-textarea></td>
 								</tr>
-
-
+ 
+ 
 							</tbody>
 						</table>
 						</div>
-
-
-
+ 
+ 
+ 
 						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc"
 							is-scrollable="false" jsondata-ref="tabJsonData"> </sbux-tabs>
 						<div id="simpleTab">
@@ -241,26 +241,26 @@
 							<div id="sb-area-grdEricmGiveSpcfct"
 								style="height: 298px; width: 100%"></div>
 						</div>
-
-
+ 
+ 
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
+ 
+ 
+ 
 	</section>
-
+ 
 	<!-- 팝업 Modal -->
-
-
+ 
+ 
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
-
+ 
+ 
 	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 	//var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
@@ -270,22 +270,22 @@
 	var empCode = "${loginVO.maEmpCode}";
 	var languageID = '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
-
+ 
 	var editType			= "N";
 	let dirHandle = undefined;
 	let files = [];
-
+ 
 	var jsonRegionCode		= [];	// 지역
 	var tabJsonData = [
 		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "간이지급명세서", "targetid" : "simpleTab", "targetvalue" : "간이지급명세서" },
 		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "근로소득지급명세서", "targetid" : "lbrTab", "targetvalue" : "근로소득지급명세서" }
 	];
-
+ 
 	// 신규
 	function cfn_add() {
-
+ 
 	}
-
+ 
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
@@ -295,81 +295,81 @@
             }
 		}
     }
-
-
+ 
+ 
 	// 마스터 그리드 삭제
 	function cfn_del() {
-
+ 
 	}
-
+ 
 	// 조회
 	function cfn_search() {
 		fn_queryClick();
 	}
-
+ 
 	// 초기화
 	function cfn_init() {
 		SBUxMethod.refreshAll()
 	}
-
-
-
-
+ 
+ 
+ 
+ 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 급여영역
-            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
+            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+ 
          // 급여영역
-            gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             //사업장
-            gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
-
+            gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'jsonTaxSite', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+ 
+ 
 		]);
-
+ 
 		//SBUxMethod.set("srch-dtp-clclnYmdFrom", gfn_dateFirstYmd(new Date()));
 		//SBUxMethod.set("srch-dtp-clclnYmdTo", gfn_dateLastYmd(new Date()));
-
-
+ 
+ 
 		let yyyy = gfn_dateToYear(new Date()).toString();
 		SBUxMethod.set("srch-dtp-jobYyyy",yyyy);
 		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
     	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
     	SBUxMethod.set("srch-inp-submitDate",gfnma_date2());
     	await fnQRY_P_HRA8400_Q("INFO");
-
+ 
     	grdSimpleGiveSpcfct.rebuild();
     	grdEricmGiveSpcfct.rebuild();
-
+ 
 	}
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
-
+ 
+ 
     	fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
-
+ 
     	fn_initSBSelect();
-
+ 
     });
-
+ 
     //grid 초기화
     var grdDclrList;
     var jsonDclrList = [];
-
+ 
     var grdSimpleGiveSpcfct; 			// 그리드를 담기위한 객체 선언
     var jsonSimpleGiveSpcfct = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     var grdEricmGiveSpcfct;
     var jsonEricmGiveSpcfct= [];
-
-
-
+ 
+ 
+ 
     //json
     var jsonCorp = []; //법인
     var jsonBizUnit = []; //사업단위
@@ -379,12 +379,12 @@
 	var jsonPayAreaType = []; //급여영역
 	var jsonWorkEr = []; //근무시기
 	var jsonTaxSite = []; //사업장
-
-
+ 
+ 
 	//fnQRY_P_HRA8400_Q2 결과값 저장 공간
 	let dt = [];
 	let ds = [];
-
+ 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDclrList';
@@ -400,13 +400,13 @@
         	{caption: ["제출연월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["일반직 확정"], ref: 'defYn_1', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["기술직 확정"], ref: 'defYn_2', 				type:'output',		width:'80px',		style:'text-align:center'}
-
+ 
         ];
-
+ 
         grdDclrList = _SBGrid.create(SBGridProperties);
         grdDclrList.bind('click', 'grdDclrListClick');
     }
-
+ 
     function fn_createGrid2() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdSimpleGiveSpcfct';
@@ -457,7 +457,7 @@
 				33 : '#,###',
 			}
 		};
-
+ 
         SBGridProperties.columns = [
         	{caption: ["귀속년도"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["근무시기"], ref: 'halfyearlyType', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -493,13 +493,13 @@
         	{caption: ["주민세 조정액"], ref: 'whLocalTax3', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["주민세 납부액"], ref: 'whLocalTax4', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["총납부액"], ref: 'totTax', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
-
+ 
         ];
-
+ 
         grdSimpleGiveSpcfct = _SBGrid.create(SBGridProperties);
         //NationInGrid.bind('click', 'fn_view');
     }
-
+ 
     function fn_createGrid3() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdEricmGiveSpcfct';
@@ -592,39 +592,39 @@
         	{caption: ["주민세 납부액"], ref: 'whLocalTax4', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["총납부액"], ref: 'totTax', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
-
+ 
         ];
-
+ 
         grdEricmGiveSpcfct = _SBGrid.create(SBGridProperties);
     }
-
+ 
     const fn_queryClick = function(){
         //InitControls(grdList);
         //InitControls(grdDetail);
-
+ 
         //let iBefore = gvwList.FocusedRowHandle;
-
+ 
         fnQRY_P_HRA8400_Q("LIST");
-
-
+ 
+ 
         //if (iBefore == 0 && gvwList.FocusedRowHandle == 0)
         //    FocusedRowChanged();
-
+ 
         //if (gvwList.RowCount < 1)
         //    NewClick();
     }
-
-
-
-
+ 
+ 
+ 
+ 
     /**
      * 목록 가져오기
      */
     const fnQRY_P_HRA8400_Q = async function(workType) {
-
+ 
     	let rowId = grdDclrList.getRow();
     	let dclrRow = grdDclrList.getRowData(rowId);
-
+ 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
@@ -645,57 +645,57 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: ''
 	    };
-
+ 
 	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
-
+ 
         const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q.do", {
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		//console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
   				console.log(data);
-
+ 
   				// 파일생성 정보 바인딩
   				if(workType === "INFO"){
   				 	let fileData = data.cv_1;
   				 	if(fileData.length === 0){
   				 		return;
   				 	}
-  				 	SBUxMethod.set("srch-inp-homeTaxId",fileData[0]["HOME_TAX_ID"]);
-  				 	SBUxMethod.set("srch-inp-memomemo",fileData[0]["SUBMIT_DATE"]);
-  				 	SBUxMethod.set("srch-inp-deptName",fileData[0]["DEPT_NAME"]);
-  				 	SBUxMethod.set("srch-inp-empName",fileData[0]["EMP_NAME"]);
-  				 	SBUxMethod.set("srch-inp-tel",fileData[0]["TEL"]);
-
-
+  				 	SBUxMethod.set("srch-inp-homeTaxId",fileData[0]["HOME_TX_ID"]);
+  				 	SBUxMethod.set("srch-inp-memomemo",fileData[0]["SBMSN_YMD"]);
+  				 	SBUxMethod.set("srch-inp-deptName",fileData[0]["DEPT_NM"]);
+  				 	SBUxMethod.set("srch-inp-empName",fileData[0]["EMP_NM"]);
+  				 	SBUxMethod.set("srch-inp-tel",fileData[0]["TELNO"]);
+ 
+ 
   				}else if(workType === "LIST"){
   					jsonDclrList.length = 0;
   					jsonDclrList = convertArrayToCamelCase(data.cv_1);
   					grdDclrList.rebuild();
-
+ 
   				}else if(workType === "DETAIL"){
   					let detailData = convertArrayToCamelCase(data.cv_2);
 					jsonSimpleGiveSpcfct = detailData;
 					jsonEricmGiveSpcfct = detailData;
-
+ 
 	        		grdSimpleGiveSpcfct.rebuild();
 	        		grdEricmGiveSpcfct.rebuild();
   				}
-
-
+ 
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -704,15 +704,15 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
     /**
      * 목록 가져오기
      */
     const fnQRY_P_HRA8400_Q2 = async function(workType) {
-
+ 
     	let rowId = grdDclrList.getRow();
     	let dclrRow = grdDclrList.getRowData(rowId);
-
+ 
     	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
 		let submitDate = SBUxMethod.get("srch-inp-submitDate");
 		let deptName = SBUxMethod.get("srch-inp-deptName");
@@ -725,7 +725,7 @@
 		let payAreaType = SBUxMethod.get("srch-slt-payAreaType")
 		let jobYyyymmFr = SBUxMethod.get("srch-dtp-jobYyyymmFr")
 		let jobYyyymmTo = SBUxMethod.get("srch-dtp-jobYyyymmTo")
-
+ 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
@@ -752,21 +752,21 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: ''
 	    };
-
-
-
+ 
+ 
+ 
 	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
-
+ 
         const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400Q2.do", {
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '6',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		//console.log('data:', data);
         try {
@@ -777,11 +777,11 @@
   				}else if(workType === "FILE"){
 					ds = data.cv_4;
   				}
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -790,7 +790,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
 	const fnQRY_P_HRA8400_S1_TEST = async function(sendWorkType, empCodeList, socialNumList){
 		await fnQRY_P_HRA8400_S1(sendWorkType, empCodeList, socialNumList)
 	}
@@ -798,7 +798,7 @@
      * 목록 가져오기
      */
     const fnQRY_P_HRA8400_S1 = async function(workType,empCodeList,socialNumList) {
-
+ 
     	let rowId = grdDclrList.getRow();
     	let dclrRow = grdDclrList.getRowData(rowId);
     	let memo = gfnma_nvl(SBUxMethod.get("srch-inp-memomemo"));
@@ -808,21 +808,21 @@
     	let deptName = gfnma_nvl(SBUxMethod.get("srch-inp-deptName"));
     	let submitDate = gfnma_nvl(SBUxMethod.get("srch-inp-submitDate"));
     	let filePath = gfnma_nvl(SBUxMethod.get("srch-inp-filePath"));
-
+ 
 	    var paramObj = {
 			V_P_DEBUG_MODE_YN	: ''
 			,V_P_LANG_ID		: languageID
 			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
 			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
+ 
 			,V_P_JOB_YYYY          : ''
 			,V_P_DATA_HANDOUT_DATE : ''
 			,V_P_HALFYEARLY_TYPE   : ''
 			,V_P_PAY_AREA_TYPE     : ''
-
+ 
 			,V_P_JOB_YYYYMM_FR     : ''
 			,V_P_JOB_YYYYMM_TO     : ''
-
+ 
 			,V_P_FILE_PATH         : ''
 			,V_P_MEMO              : memo
 			,V_P_HOMETAXID         : homeTaxId
@@ -832,42 +832,42 @@
 			,V_P_INC_TYPE          : ''  //DEFAULT '77'   --소득종류
 			,V_P_EMP_CODE_LIST     : gfnma_nvl(empCodeList)
 			,V_P_SOCIAL_NUM_LIST   : gfnma_nvl(socialNumList)
-
-
+ 
+ 
 			,V_P_FORM_ID		: p_formId
 			,V_P_MENU_ID		: p_menuId
 			,V_P_PROC_ID		: ''
 			,V_P_USERID			: ''
 			,V_P_PC				: ''
 	    };
-
+ 
 	    let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
 	 	 paramObj["V_P_DATA_HANDOUT_DATE"] = submitDate;
 	 	paramObj["V_P_FILE_PATH"] = filePath;
-
+ 
         const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8400S1.do", {
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
   				console.log(data);
 				//data를 ds에 저장한 다음에 해당내용으로 파일의 content를 채움
-
-
-
+ 
+ 
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -876,18 +876,18 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
-
+ 
+ 
     const grdDclrListClick = function(){
     	let rowId = grdDclrList.getRow();
 		if(rowId <0){
 			return;
 		}
 		fnQRY_P_HRA8400_Q("DETAIL");
-
+ 
     }
-
-
+ 
+ 
     const fnSET_P_HRA8400_S = async function(){
     	let ericmGiveSpcfctData = grdEricmGiveSpcfct.getGridDataAll();
     	ericmGiveSpcfctData.forEach(row => {
@@ -921,24 +921,24 @@
          	    };
     	})
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
-
+ 
          const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8400.do", {
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
           	params				: gfnma_objectToString(paramObj)
   			});
-
+ 
        	const data = await postJsonPromise;
        	console.log('data:', data);
          // 비즈니스 로직 정보
           try {
 	          if (_.isEqual("S", data.resultStatus)) {
-
+ 
 	          } else {
 	              alert(data.resultMessage);
 	          }
-
+ 
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -947,10 +947,10 @@
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
     }
-
-
+ 
+ 
     const btnFileCreateClick = async function(){
-
+ 
     	let homeTaxId = SBUxMethod.get("srch-inp-homeTaxId");
 		let submitDate = SBUxMethod.get("srch-inp-submitDate");
 		let deptName = SBUxMethod.get("srch-inp-deptName");
@@ -958,20 +958,20 @@
 		let tel = SBUxMethod.get("srch-inp-tel");
 		let memomemo = SBUxMethod.get("srch-inp-memomemo");
 		let filePath = SBUxMethod.get("srch-inp-filePath");
-
+ 
     	let strcreate_cond = "홈택스ID:" + homeTaxId + "/제출일:" + submitDate +
         "/담당자 부서:" + deptName + "/담당자 성명:" + empName + "/담당자 전화번호:" + tel;
-
+ 
     	let strFileName = "";
     	let empCodeList = "";
         let socialNumList = "";
         let sendWorkType = "N";
         let intChkCount = 0;
-
+ 
     	let grd2 = grdSimpleGiveSpcfct.getGridDataAll();
     	let test = grd2.pop();
     	grd2.forEach(row => {
-
+ 
     		//socialNumReal Setting 해주는 부분 확인 필요
     		empCodeList += row.empCode + "|"
     		//socialNumList += row.socialNumReal.replace("-","") + "|";
@@ -988,26 +988,26 @@
                 socialNumList = "";
     		}
     	})
-
+ 
     	if(empCodeList.length > 0){
     		empCodeList = empCodeList.substring(0,empCodeList.length-1);
 			socialNumList = socialNumList.substring(0,socialNumList.length-1);
     	}
-
-
+ 
+ 
 		let content = await fnQRY_P_HRA8400_Q2("FILE")
-
+ 
     	await fn_fileCreate(content);
     }
-
+ 
 	const fn_compopup1 = function(list) {
-
+ 
 		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
+ 
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
      	compopup1({
      		compCode				: gv_ma_selectedCorpCd
@@ -1016,48 +1016,48 @@
            	,popupType				: 'A'
      		,whereClause			: strWhereClause
    			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+   			,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
    			,searchInputValues		: ["", 			searchText,		""]
    			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
      		,height					: '400px'
    			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
    			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
  			,itemSelectEvent		: function (data){
  				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
+ 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NM);
+ 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CD);
  			},
      	});
    	}
-
+ 
     //선택 삭제
     function fn_delete() {
-
+ 
         //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
     }
-
+ 
 	/**
      * @param {boolean} isConfirmed
      * @param {any[]} list
      */
     const fn_subDelete = async function (isConfirmed, list){
-
+ 
     }
-
+ 
     const fn_dtpChange = async function(yyyy){
     	SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
     	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
      }
-
-
-
+ 
+ 
+ 
     /** camelCase FN **/
     function toCamelCase(snakeStr) {
         return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
     }
-
+ 
     function convertArrayToCamelCase(array) {
         return array.map(obj => {
             return Object.keys(obj).reduce((acc, key) => {
@@ -1067,80 +1067,80 @@
             }, {});
         });
     }
-
-
-
+ 
+ 
+ 
 	const fn_pickFilePath = async function() {
 		fn_showDirPicker();
 	}
-
+ 
     const fn_getFiles = async (dirHandle, path = dirHandle.name) => {
-
+ 
     	files.length = 0;
         for await (const entry of dirHandle.values()) {
-
+ 
           	if (entry.kind === "file") {
           		files.push({
           			name: entry.name
           		});
           	}
 		}
-
+ 
         console.log("files", files);
-
+ 
 	};
-
+ 
 	/**
      * @name fn_fileCreate
      * @description 명세서 파일 생성
      */
 	const fn_fileCreate = async function(contents) {
-
+ 
 		// 파일경로 선택 확인
 		if (!dirHandle) {
 			gfn_comAlert("W0005", "파일저장경로");		//	W0005	{0}이/가 없습니다.
  			return;
 		}
-
+ 
 		// contents 확인
 		if (gfnma_nvl(contents) === "") {
 			//gfn_comAlert("W0005", "내용");		//	W0005	{0}이/가 없습니다.
  			contents = "내용이 없습니다.";
 		}
-
-
+ 
+ 
 		if (!gfn_comConfirm("Q0001", "파일생성")) {	//	Q0001 {1} 하시겠습니까?
      		return;
      	}
-
+ 
     	const nowDate = new Date();
 		const nowYmd = gfn_dateToYmd(nowDate);
-
+ 
 		let isSuccess = true;
-
-
-
+ 
+ 
+ 
 		let filename = "test" + "." + "per";;
-
+ 
 		try {
-
-
-
+ 
+ 
+ 
 			if (isSuccess) {
-
-
+ 
+ 
 				/* jsonVatContents.forEach((item) => {
-
+ 
 					if (!gfn_isEmpty(contents)) {
                 		contents += "\n";
                 	}
-
+ 
 					contents += item.VAT_CONTENTS;
-
+ 
 				}); */
 				console.log("contents", contents);
 				const checkFile = _.find(files, {name: filename});
-
+ 
 				let needPushFile = false;
 				if (!gfn_isEmpty(checkFile)) {
 					if (!gfn_comConfirm("Q0002", "동일파일", "덮어쓰기")) {	//	Q0002 {0}이/가 있습니다. {1} 하시겠습니까?
@@ -1148,18 +1148,18 @@
 			     	}
 					needPushFile = true;
 				}
-
+ 
 				const fileHandle = await dirHandle.getFileHandle(filename, {create: true});
 				console.log("fileHandle", fileHandle);
 				const writable = await fileHandle.createWritable();
 				await writable.write(contents);
 				await writable.close();
-
+ 
 				if (needPushFile) {
 					files.push({name: filename});
 				}
 			}
-
+ 
 		} catch (e) {
 			isSuccess = false;
 		} finally {
@@ -1169,55 +1169,55 @@
 				return;
 			} */
 		}
-
-
+ 
+ 
 		if (isSuccess) {
 			gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 		}
-
+ 
 		// 로그조회
 		//fn_setGrdFileLog();
-
+ 
 	}
-
+ 
 	const fn_showDirPicker = async () => {
-
+ 
         try {
-
+ 
             dirHandle = await showDirectoryPicker({
             	  mode: 'readwrite',
             	  //startIn: 'pictures'
             	});
-
-
+ 
+ 
             console.log("name", dirHandle.name);
-
+ 
             if (!dirHandle) {
             	SBUxMethod.set("srch-inp-filePath", "");
             	return;
             }
-
+ 
             SBUxMethod.set("srch-inp-filePath", dirHandle.name);
-
+ 
             fn_getFiles(dirHandle, undefined);
-
+ 
         } catch (e) {
             console.log(e);
         }
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp"%>
 </html>

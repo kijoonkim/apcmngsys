@@ -99,7 +99,7 @@
                 </table>
             </div>
         </div>
-
+ 
         <div class="box-body">
             <div class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
                 <div id="sb-area-fbs2024Grid" style="width:930px;height:500px;"></div>
@@ -110,14 +110,14 @@
             </div>
         </div>
         <!--[pp] //검색결과 -->
-
+ 
     </div>
 </section>
 </body>
 <script>
     var fbs2024Grid;
     var fbs2024GridList = [];
-
+ 
     var settings = {
         FROM_DATE : null,
         TO_DATE : null,
@@ -125,20 +125,20 @@
         TRANSFER_TYPE : null,
         callback : null
     };
-
+ 
     const fn_fbs2024GridDblClick = async function() {
         if(typeof options.callback === 'function') {
             options.callback(fbs2024Grid.getRowData(fbs2024Grid.getRow()));
         }
     };
-
+ 
     async function fbs2040Popup(options) {
-
+ 
         // id 선언
         var modalId = '#fbs2040Popup';
         var modalDivId = 'modal-fbs2040Popup';
         $.extend(settings, options);
-
+ 
         const onload = async function () {
             let rst = await Promise.all([
                 // 입출유형
@@ -153,11 +153,11 @@
                     , selectValue: ''
                     , dropType: 'down' 	// up, down
                     , dropAlign: 'right' 	// left, right
-                    , colValue: 'SUB_CODE'
-                    , colLabel: 'CODE_NAME'
+                    , colValue: 'SBSD_CD'
+                    , colLabel: 'CD_NM'
                     , columns: [
-                        {caption: "코드", ref: 'SUB_CODE', width: '150px', style: 'text-align:left'},
-                        {caption: "명칭", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                        {caption: "코드", ref: 'SBSD_CD', width: '150px', style: 'text-align:left'},
+                        {caption: "명칭", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                     ]
                 }),
                 // FBS서비스
@@ -172,16 +172,16 @@
                     , selectValue: ''
                     , dropType: 'down' 	// up, down
                     , dropAlign: 'right' 	// left, right
-                    , colValue: 'SUB_CODE'
-                    , colLabel: 'CODE_NAME'
+                    , colValue: 'SBSD_CD'
+                    , colLabel: 'CD_NM'
                     , columns: [
-                        {caption: "코드", ref: 'SUB_CODE', width: '150px', style: 'text-align:left'},
-                        {caption: "명", ref: 'CODE_NAME', width: '150px', style: 'text-align:left'}
+                        {caption: "코드", ref: 'SBSD_CD', width: '150px', style: 'text-align:left'},
+                        {caption: "명", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                     ]
                 }),
             ]);
         }
-
+ 
         //setGrid
         const setGrid = async function () {
             //기간별환율 탭 - 기간별환율등록
@@ -264,7 +264,7 @@
             fbs2024Grid = _SBGrid.create(SBGridProperties);
             fbs2024Grid.bind('dblclick', 'fn_fbs2024GridDblClick');
         }
-
+ 
         // get data
         const getData = async function () {
             let FBS_SERVICE = gfn_nvl(gfnma_multiSelectGet('#SRCH_FBS_SERVICE_POP'));
@@ -272,7 +272,7 @@
             let TXN_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE_TO_POP"));
             let DEPOSIT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_CODE_POP"));
             let TRANSFER_TYPE = gfn_nvl(gfnma_multiSelectGet('#SRCH_TRANSFER_TYPE_POP'));
-
+ 
             var paramObj = {
                 V_P_DEBUG_MODE_YN: '',
                 V_P_LANG_ID: '',
@@ -295,55 +295,55 @@
                 cv_count: '1',
                 params: gfnma_objectToString(paramObj)
             });
-
+ 
             const data = await postJsonPromise;
-
+ 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-
+ 
                     data.cv_1.forEach((item, index) => {
                         fbs2024GridList.legnth = 0;
                         const msg = {
                             CHECK_YN: item.CHECK_YN,
                             SEQ: item.SEQ,
-                            SITE_CODE: item.SITE_CODE,
-                            TXN_DATE: item.TXN_DATE,
-                            TXN_TIME: item.TXN_TIME,
-                            TXN_SEQ: item.TXN_SEQ,
-                            TRANSFER_TYPE: item.TRANSFER_TYPE,
-                            RESERVE_YN: item.RESERVE_YN,
-                            DEPOSIT_CODE: item.DEPOSIT_CODE,
-                            BANK_CODE: item.BANK_CODE,
-                            BANK_NAME: item.BANK_NAME,
-                            BANK_ACCOUNT_NO: item.BANK_ACCOUNT_NO,
-                            PAYER_ID: item.PAYER_ID,
+                            SITE_CODE: item.SITE_CD,
+                            TXN_DATE: item.TRSC_DT,
+                            TXN_TIME: item.TRSC_TM,
+                            TXN_SEQ: item.TRSC_SEQ,
+                            TRANSFER_TYPE: item.FNDTR_TYPE,
+                            RESERVE_YN: item.RSVT_YN,
+                            DEPOSIT_CODE: item.DPMNY_CD,
+                            BANK_CODE: item.BANK_CD,
+                            BANK_NAME: item.BANK_NM,
+                            BANK_ACCOUNT_NO: item.BACNT_NO,
+                            PAYER_ID: item.PMPL_ID,
                             PAYER_NAME: item.PAYER_NAME,
-                            PAYER_BANK_CODE: item.PAYER_BANK_CODE,
+                            PAYER_BANK_CODE: item.PMPL_BANK_CD,
                             PAYER_BANK_NAME: item.PAYER_BANK_NAME,
-                            PAYER_BANK_ACCOUNT: item.PAYER_BANK_ACCOUNT,
-                            PAYER_BANK_ACCOUNT_OWNER: item.PAYER_BANK_ACCOUNT_OWNER,
-                            CMS_CODE: item.CMS_CODE,
-                            TXN_AMT: item.TXN_AMT,
-                            PAYROLL_FLAG: item.PAYROLL_FLAG,
-                            IN_PRINT: item.IN_PRINT,
-                            OUT_PRINT: item.OUT_PRINT,
-                            INSERT_TIME: item.INSERT_TIME,
-                            TREASURY_ID: item.TREASURY_ID,
-                            DOC_ID: item.DOC_ID,
-                            DOC_NAME: item.DOC_NAME,
+                            PAYER_BANK_ACCOUNT: item.PMPL_ACTNO,
+                            PAYER_BANK_ACCOUNT_OWNER: item.PMPL_DPSTR,
+                            CMS_CODE: item.CMS_CD,
+                            TXN_AMT: item.TRSC_AMT,
+                            PAYROLL_FLAG: item.SLRY_FLAG,
+                            IN_PRINT: item.DPST_ABSTR,
+                            OUT_PRINT: item.TKMNY_ABSTR,
+                            INSERT_TIME: item.WRT_DT,
+                            TREASURY_ID: item.FUND_ID,
+                            DOC_ID: item.SLIP_ID,
+                            DOC_NAME: item.SLIP_NM,
                             ITEM_ID: item.ITEM_ID,
-                            DEFER_YN: item.DEFER_YN,
-                            PLANNED_PAY_DATE: item.PLANNED_PAY_DATE,
-                            CURRENCY_CODE: item.CURRENCY_CODE
+                            DEFER_YN: item.PAY_HLDOF_YN,
+                            PLANNED_PAY_DATE: item.PLAN_PAY_YMD,
+                            CURRENCY_CODE: item.CRN_CD
                         }
                         fbs2024GridList.push(msg);
                     });
                     fbs2024Grid.rebuild();
-
+ 
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -352,14 +352,14 @@
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         };
-
+ 
         const fn_findDepositCode = function() {
             var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_NAME_POP"));
-            var replaceText0 	= "_DEPOSIT_CODE_";
-            var replaceText1 	= "_DEPOSIT_NAME_";
-            var replaceText2 	= "_CURRENCY_CODE_";
-            var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%' AND CURRENCY_CODE LIKE '%"+ replaceText2 + "%'";
-
+            var replaceText0 	= "_DPMNY_CD_";
+            var replaceText1 	= "_DPMNY_NM_";
+            var replaceText2 	= "_CRN_CD_";
+            var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%' AND CRN_CD LIKE '%"+ replaceText2 + "%'";
+ 
             SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
             compopup1({
                 compCode				: gv_ma_selectedCorpCd
@@ -368,42 +368,42 @@
                 ,popupType				: 'A'
                 ,whereClause			: strWhereClause
                 ,searchCaptions			: ["예적금코드", "예적금명", "통화코드" ]
-                ,searchInputFields		: ["DEPOSIT_CODE", "DEPOSIT_NAME", "CURRENCY_CODE"]
+                ,searchInputFields		: ["DPMNY_CD", "DPMNY_NM", "CRN_CD"]
                 ,searchInputValues		: ["", searchText, ""]
                 ,height					: '400px'
                 ,tableHeader			: ["예적금코드", "예적금명", "계좌번호", "계좌유형", "금융기관코드", "금융기관명", "수금자금수지", "수금계정", "수금계정명", "수수료계정", "수수료계정명", "통화코드", "은행코드"]
-                ,tableColumnNames		: ["DEPOSIT_CODE" , "DEPOSIT_NAME", "ACCOUNT_NUM", "DEPOSIT_TYPE", "BANK_CS_CODE", "BANK_CS_NAME", "RECEIPT_TR_TYPE", "RECEIPT_ACCOUNT", "RECEIPT_ACCOUNT_NAME", "FEE_ACCOUNT", "FEE_ACCOUNT_NAME", "CURRENCY_CODE", "BANK_CODE"]
+                ,tableColumnNames		: ["DPMNY_CD" , "DPMNY_NM", "ACTNO", "DPMNY_TYPE", "BANK_CNPT_CD", "BANK_CS_NAME", "RCPT_FUND_TYPE", "RCPT_ACNT_CD", "RECEIPT_ACCOUNT_NAME", "FEE_AMT", "FEE_ACCOUNT_NAME", "CRN_CD", "BANK_CD"]
                 ,tableColumnWidths		: ["100px", "200px", "140px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
                 ,itemSelectEvent		: function (data){
-                    SBUxMethod.set('SRCH_DEPOSIT_NAME_POP', data.DEPOSIT_NAME);
-                    SBUxMethod.set('SRCH_DEPOSIT_CODE_POP', data.DEPOSIT_CODE);
+                    SBUxMethod.set('SRCH_DEPOSIT_NAME_POP', data.DPMNY_NM);
+                    SBUxMethod.set('SRCH_DEPOSIT_CODE_POP', data.DPMNY_CD);
                 },
             });
         }
-
+ 
         const fn_confirm = async function () {
             let gvwListCheckedList = fbs2024Grid.getCheckedRows(fbs2024Grid.getColRef("CHECK_YN"), true);
-
+ 
             var checkedDataList = [];
-
+ 
             gvwListCheckedList.forEach((item, index) => {
                 checkedDataList.push(fbs2024Grid.getRowData(item));
             });
-
+ 
             if(typeof options.callback === 'function') {
                 options.callback(checkedDataList);
             }
         }
-
+ 
         const fn_cancel = async function () {
             if(typeof options.callback === 'function') {
                 options.callback(null);
             }
         }
-
+ 
         await onload();
         await setGrid();
-
+ 
         //start
         if (!gfn_isEmpty(settings.DEPOSIT_CODE)) {
             if (gfn_nvl(settings.DEPOSIT_CODE) != "") {
@@ -417,44 +417,44 @@
                 gfnma_multiSelectSet('#SRCH_TRANSFER_TYPE_POP', 'SUB_CODE', 'CODE_NAME', gfn_nvl(settings.TRANSFER_TYPE));
             }
         }
-
+ 
         if (!gfn_isEmpty(settings.FROM_DATE)) {
             SBUxMethod.set("SRCH_TXN_DATE_FR_POP", settings.FROM_DATE);
         } else {
             SBUxMethod.set("SRCH_TXN_DATE_FR_POP", gfn_dateToYmd(new Date(new Date().getFullYear(), 1, 1)));
         }
-
+ 
         if (!gfn_isEmpty(settings.TO_DATE)) {
             SBUxMethod.set("SRCH_TXN_DATE_TO_POP", settings.TO_DATE);
         } else {
             SBUxMethod.set("SRCH_TXN_DATE_TO_POP", gfn_dateToYmd(new Date()));
         }
-
-        gfnma_multiSelectSet('#SRCH_FBS_SERVICE_POP', 'SUB_CODE', 'CODE_NAME', "ECBANK");
-
+ 
+        gfnma_multiSelectSet('#SRCH_FBS_SERVICE_POP', 'SBSD_CD', 'CD_NM', "ECBANK");
+ 
         await getData();
-
+ 
         $(modalId).find('.cu-btn-sch-fbs2040Popup').off('click');
         $(modalId).find('.cu-btn-sch-fbs2040Popup').click(function(){
             getData();
         });
-
+ 
         $(modalId).find('.cu-btn-findDepositCode-fbs2040Popup').off('click');
         $(modalId).find('.cu-btn-findDepositCode-fbs2040Popup').click(function(){
             fn_findDepositCode();
         });
-
+ 
         $(modalId).find('.cu-btn-confirm-fbs2040Popup').off('click');
         $(modalId).find('.cu-btn-confirm-fbs2040Popup').click(function(){
             fn_confirm();
         });
-
+ 
         $(modalId).find('.cu-btn-cancel-fbs2040Popup').off('click');
         $(modalId).find('.cu-btn-cancel-fbs2040Popup').click(function(){
             fn_cancel();
         });
-
-
+ 
+ 
     }
 </script>
 </html>

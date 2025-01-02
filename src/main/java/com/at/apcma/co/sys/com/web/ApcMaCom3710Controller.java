@@ -53,7 +53,7 @@ public class ApcMaCom3710Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3710_Q");
+			param.put("procedure", 		"SP_COM3710_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaCom3710Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3710_S");
+			param.put("procedure", 		"SP_COM3710_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -103,7 +103,7 @@ public class ApcMaCom3710Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3710_S");
+			param.put("procedure", 		"SP_COM3710_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class ApcMaCom3710Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3710_S");
+			param.put("procedure", 		"SP_COM3710_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {

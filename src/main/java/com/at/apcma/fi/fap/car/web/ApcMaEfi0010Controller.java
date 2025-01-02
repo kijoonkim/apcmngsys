@@ -56,7 +56,7 @@ public class ApcMaEfi0010Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_EFI0010_Q");
+            param.put("procedure", 		"SP_EFI0010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaEfi0010Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_EFI0010_S");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_EFI0010_S");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());

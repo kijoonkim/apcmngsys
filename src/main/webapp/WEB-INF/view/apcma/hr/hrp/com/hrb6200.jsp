@@ -43,217 +43,217 @@
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
         </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="ad_tbl_top">
-                <ul class="ad_tbl_count">
-                    <li>
-                        <span>기준년도</span>
-                        <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <div id="sb-area-gvwMaster" style="height:530px; width:100%;"></div>
-            </div>
-        </div>
-
-        <div class="col-sm-8">
-            <div class="ad_tbl_top">
-                <ul class="ad_tbl_count">
-                    <li>
-                        <span>간이세율표 정보</span>
-                    </li>
-                </ul>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>기준년도</span>
+                            <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <div id="sb-area-gvwMaster" style="height:530px; width:100%;"></div>
+                </div>
             </div>
 
-            <div>
-                <table class="table table-bordered tbl_fixed">
-                    <colgroup>
-                        <col style="width:5%">
-                        <col style="width:5%">
-                        <col style="width:1%">
-                        <col style="width:5%">
+            <div class="col-sm-8">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>간이세율표 정보</span>
+                        </li>
+                    </ul>
+                </div>
 
-                        <col style="width:5%">
-                        <col style="width:4%">
-                        <col style="width:2%">
-                        <col style="width:2%">
+                <div>
+                    <table class="table table-bordered tbl_fixed">
+                        <colgroup>
+                            <col style="width:5%">
+                            <col style="width:5%">
+                            <col style="width:1%">
+                            <col style="width:5%">
 
-                        <col style="width:5%">
-                        <col style="width:4%">
-                        <col style="width:3%">
-                    </colgroup>
-                    <tr>
-                        <th scope="row" class="th_bg">기준년도</th>
-                        <td class="td_input" style="border-right: hidden;">
-                            <sbux-datepicker
-                                    id="YYYY"
-                                    name="YYYY"
-                                    uitype="popup"
-                                    datepicker-mode="year"
-                                    date-format="yyyy"
-                                    class="table-datepicker-ma"
-                                    readonly>
-                            </sbux-datepicker>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg">적용기간</th>
-                        <td class="td_input" style="border-right: hidden;">
-                            <sbux-datepicker
-                                    id="APPLY_START_DATE"
-                                    name="APPLY_START_DATE"
-                                    uitype="popup"
-                                    date-format="yyyy-mm-dd"
-                                    class="table-datepicker-ma">
-                            </sbux-datepicker>
-                        </td>
-                        <th>~</th>
-                        <td class="td_input" style="border-right: hidden;">
-                            <sbux-datepicker
-                                    id="APPLY_END_DATE"
-                                    name="APPLY_END_DATE"
-                                    uitype="popup"
-                                    date-format="yyyy-mm-dd"
-                                    class="table-datepicker-ma">
-                            </sbux-datepicker>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg">비고</th>
-                        <td colspan="6" class="td_input" >
-                            <sbux-textarea id="MEMO" name="MEMO" uitype="normal" cols="100"></sbux-textarea>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
-                </sbux-tabs>
-                <div class="tab-content">
-                    <div id="bandgvwDetailTab" >
-                        <div class="ad_tbl_toplist">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>간이세율표 정보</span>
-                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
-                                </li>
-                            </ul>
-                            <sbux-button
-                                    id="btnDel"
-                                    name="btnDel"
-                                    uitype="normal"
-                                    text="행삭제"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_delRow"
-                                    style="float: right;"
-                            >
-                            </sbux-button>
-                            <sbux-button
-                                    id="btnAdd"
-                                    name="btnAdd"
-                                    uitype="normal"
-                                    text="행추가"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_addRow"
-                                    style="float: right;"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyClear"
-                                    name="btnCopyClear"
-                                    uitype="normal"
-                                    text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyClear"
-                                    style="float: right; display: block"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyLine"
-                                    name="btnCopyLine"
-                                    uitype="normal"
-                                    text="행복사모드" <%--행단위로 복사--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyLine"
-                                    style="float: right; display: none;"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyCell"
-                                    name="btnCopyCell"
-                                    uitype="normal"
-                                    text="셀복사모드" <%--셀단위로 복사--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyCell"
-                                    style="float: right; display: none;"
-                            ></sbux-button>
+                            <col style="width:5%">
+                            <col style="width:4%">
+                            <col style="width:2%">
+                            <col style="width:2%">
+
+                            <col style="width:5%">
+                            <col style="width:4%">
+                            <col style="width:3%">
+                        </colgroup>
+                        <tr>
+                            <th scope="row" class="th_bg">기준년도</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+                                        id="YYYY"
+                                        name="YYYY"
+                                        uitype="popup"
+                                        datepicker-mode="year"
+                                        date-format="yyyy"
+                                        class="table-datepicker-ma"
+                                        readonly>
+                                </sbux-datepicker>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">적용기간</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+                                        id="APPLY_START_DATE"
+                                        name="APPLY_START_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma">
+                                </sbux-datepicker>
+                            </td>
+                            <th>~</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-datepicker
+                                        id="APPLY_END_DATE"
+                                        name="APPLY_END_DATE"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma">
+                                </sbux-datepicker>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">비고</th>
+                            <td colspan="6" class="td_input" >
+                                <sbux-textarea id="MEMO" name="MEMO" uitype="normal" cols="100"></sbux-textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
+                    </sbux-tabs>
+                    <div class="tab-content">
+                        <div id="bandgvwDetailTab" >
+                            <div class="ad_tbl_toplist">
+                                <ul class="ad_tbl_count">
+                                    <li>
+                                        <span>간이세율표 정보</span>
+                                        <%--<span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>--%>
+                                    </li>
+                                </ul>
+                                <sbux-button
+                                        id="btnDel"
+                                        name="btnDel"
+                                        uitype="normal"
+                                        text="행삭제"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_delRow"
+                                        style="float: right;"
+                                >
+                                </sbux-button>
+                                <sbux-button
+                                        id="btnAdd"
+                                        name="btnAdd"
+                                        uitype="normal"
+                                        text="행추가"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_addRow"
+                                        style="float: right;"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyClear"
+                                        name="btnCopyClear"
+                                        uitype="normal"
+                                        text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyClear"
+                                        style="float: right; display: block"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyLine"
+                                        name="btnCopyLine"
+                                        uitype="normal"
+                                        text="행복사모드" <%--행단위로 복사--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyLine"
+                                        style="float: right; display: none;"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyCell"
+                                        name="btnCopyCell"
+                                        uitype="normal"
+                                        text="셀복사모드" <%--셀단위로 복사--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyCell"
+                                        style="float: right; display: none;"
+                                ></sbux-button>
+                            </div>
+                            <div>
+                                <div id="sb-area-bandgvwDetail" style="height:390px; width:100%;"></div>
+                            </div>
                         </div>
-                        <div>
-                            <div id="sb-area-bandgvwDetail" style="height:390px; width:100%;"></div>
-                        </div>
-                    </div>
-                    <div id="gvwItemTab" >
-                        <div class="ad_tbl_toplist">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>1000만원 초과</span>
-                                    <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
-                                </li>
-                            </ul>
-                            <sbux-button
-                                    id="btnDelItem"
-                                    name="btnDelItem"
-                                    uitype="normal"
-                                    text="행삭제"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_delRowItem"
-                                    style="float: right;"
-                            >
-                            </sbux-button>
-                            <sbux-button
-                                    id="btnAddItem"
-                                    name="btnAddItem"
-                                    uitype="normal"
-                                    text="행추가"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_addRowItem"
-                                    style="float: right;"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyClearItem"
-                                    name="btnCopyClearItem"
-                                    uitype="normal"
-                                    text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyClearItem"
-                                    style="float: right; display: block"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyLineItem"
-                                    name="btnCopyLineItem"
-                                    uitype="normal"
-                                    text="행복사모드" <%--행단위로 복사--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyLineItem"
-                                    style="float: right; display: none;"
-                            ></sbux-button>
-                            <sbux-button
-                                    id="btnCopyCellItem"
-                                    name="btnCopyCellItem"
-                                    uitype="normal"
-                                    text="셀복사모드" <%--셀단위로 복사--%>
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="fn_gridCopyCellItem"
-                                    style="float: right; display: none;"
-                            ></sbux-button>
-                        </div>
-                        <div>
-                            <div id="sb-area-gvwItem" style="height:390px; width:100%;"></div>
+                        <div id="gvwItemTab" >
+                            <div class="ad_tbl_toplist">
+                                <ul class="ad_tbl_count">
+                                    <li>
+                                        <span>1000만원 초과</span>
+                                        <%--<span style="font-size:12px">(조회건수 <span id="listCount3">0</span>건)</span>--%>
+                                    </li>
+                                </ul>
+                                <sbux-button
+                                        id="btnDelItem"
+                                        name="btnDelItem"
+                                        uitype="normal"
+                                        text="행삭제"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_delRowItem"
+                                        style="float: right;"
+                                >
+                                </sbux-button>
+                                <sbux-button
+                                        id="btnAddItem"
+                                        name="btnAddItem"
+                                        uitype="normal"
+                                        text="행추가"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_addRowItem"
+                                        style="float: right;"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyClearItem"
+                                        name="btnCopyClearItem"
+                                        uitype="normal"
+                                        text="복사모드해제" <%--그리드 복사 불가. 붙여넣기 불가.--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyClearItem"
+                                        style="float: right; display: block"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyLineItem"
+                                        name="btnCopyLineItem"
+                                        uitype="normal"
+                                        text="행복사모드" <%--행단위로 복사--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyLineItem"
+                                        style="float: right; display: none;"
+                                ></sbux-button>
+                                <sbux-button
+                                        id="btnCopyCellItem"
+                                        name="btnCopyCellItem"
+                                        uitype="normal"
+                                        text="셀복사모드" <%--셀단위로 복사--%>
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="fn_gridCopyCellItem"
+                                        style="float: right; display: none;"
+                                ></sbux-button>
+                            </div>
+                            <div>
+                                <div id="sb-area-gvwItem" style="height:390px; width:100%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 </body>
@@ -307,6 +307,7 @@
     function cfn_add() {
         fn_add();
     }
+
     // 저장
     async function cfn_save() {
         let nRow = gvwMasterGrid.getRow();
@@ -390,8 +391,8 @@
                 break;
 
             }else if (gfnma_nvl2(updatedData[i].data.APPLY_END_DATE ) == ''){
-               /* grdItemList.clickCell(updatedData[i].data.sb_row_index, grdItemList.getColRef('APPLY_END_DATE'));
-                grdItemList.editCell();*/
+                /* grdItemList.clickCell(updatedData[i].data.sb_row_index, grdItemList.getColRef('APPLY_END_DATE'));
+                 grdItemList.editCell();*/
                 gfn_comAlert("W0002", "'1000만원 초과 리스트' 적용종료일");
                 chk = false;
                 break;
@@ -472,9 +473,9 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["월급여액","월급여액이상"], ref: 'PAY_AMT_FR', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:right', isvalidatecheck: true,	validate : 'fnValidate'
+            {caption: ["월급여액","월급여액미만"], ref: 'PAY_AMT_TO', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["공제대상 가족의 수","1"], ref: 'SUPPORTEE1', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -562,9 +563,9 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {caption: ["세율2"], ref: 'TAX_RATE2', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}},  format : {type:'number', rule:'#', emptyvalue:'0'}},
-            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
-            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
+            {caption: ['적용종료일'], ref: 'APPLY_END_DATE', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}}
 
         ];
@@ -575,22 +576,6 @@
             grdItemList.push(rowData);
         }
 
-    }
-
-    /**
-     * 그리드내 필수값 체크
-     */
-    window.fnValidate = function(objGrid, nRow, nCol, strValue) {
-
-        if (strValue === '') {
-            return { isValid : false, message : '값을 입력하시오.'};
-        }
-
-        /* if (!(/[0-9]/g).test(strValue)) {
-             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
-         }*/
-
-        return Number(strValue);
     }
 
 
@@ -832,9 +817,9 @@
                 jsonMasterList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY                : gfnma_nvl2(item.YYYY),
-                        APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                        APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                        YYYY                : gfnma_nvl2(item.YR),
+                        APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                        APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                         MEMO                : gfnma_nvl2(item.MEMO)
                     }
                     jsonMasterList.push(msg);
@@ -929,30 +914,30 @@
                     jsonDetailList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_AMT_FR          : gfnma_nvl2(item.PAY_AMT_FR),
-                            PAY_AMT_TO          : gfnma_nvl2(item.PAY_AMT_TO),
-                            SUPPORTEE1          : gfnma_nvl2(item.SUPPORTEE1),
-                            SUPPORTEE2          : gfnma_nvl2(item.SUPPORTEE2),
-                            SUPPORTEE3          : gfnma_nvl2(item.SUPPORTEE3),
-                            SUPPORTEE3_CHILDREN : gfnma_nvl2(item.SUPPORTEE3_CHILDREN),
-                            SUPPORTEE4          : gfnma_nvl2(item.SUPPORTEE4),
-                            SUPPORTEE4_CHILDREN : gfnma_nvl2(item.SUPPORTEE4_CHILDREN),
-                            SUPPORTEE5          : gfnma_nvl2(item.SUPPORTEE5),
-                            SUPPORTEE5_CHILDREN : gfnma_nvl2(item.SUPPORTEE5_CHILDREN),
-                            SUPPORTEE6          : gfnma_nvl2(item.SUPPORTEE6),
-                            SUPPORTEE6_CHILDREN : gfnma_nvl2(item.SUPPORTEE6_CHILDREN),
-                            SUPPORTEE7          : gfnma_nvl2(item.SUPPORTEE7),
-                            SUPPORTEE7_CHILDREN : gfnma_nvl2(item.SUPPORTEE7_CHILDREN),
-                            SUPPORTEE8          : gfnma_nvl2(item.SUPPORTEE8),
-                            SUPPORTEE8_CHILDREN : gfnma_nvl2(item.SUPPORTEE8_CHILDREN),
-                            SUPPORTEE9          : gfnma_nvl2(item.SUPPORTEE9),
-                            SUPPORTEE9_CHILDREN : gfnma_nvl2(item.SUPPORTEE9_CHILDREN),
-                            SUPPORTEE10         : gfnma_nvl2(item.SUPPORTEE10),
-                            SUPPORTEE10_CHILDREN: gfnma_nvl2(item.SUPPORTEE10_CHILDREN),
-                            SUPPORTEE11         : gfnma_nvl2(item.SUPPORTEE11),
-                            SUPPORTEE11_CHILDREN: gfnma_nvl2(item.SUPPORTEE11_CHILDREN),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE)
+                            PAY_AMT_FR          : gfnma_nvl2(item.PAY_AMT_LL),
+                            PAY_AMT_TO          : gfnma_nvl2(item.PAY_AMT_UL),
+                            SUPPORTEE1          : gfnma_nvl2(item.SPT_FAM1),
+                            SUPPORTEE2          : gfnma_nvl2(item.SPT_FAM2),
+                            SUPPORTEE3          : gfnma_nvl2(item.SPT_FAM3),
+                            SUPPORTEE3_CHILDREN : gfnma_nvl2(item.SPT_FAM3_CHLDRN),
+                            SUPPORTEE4          : gfnma_nvl2(item.SPT_FAM4),
+                            SUPPORTEE4_CHILDREN : gfnma_nvl2(item.SPT_FAM4_CHLDRN),
+                            SUPPORTEE5          : gfnma_nvl2(item.SPT_FAM5),
+                            SUPPORTEE5_CHILDREN : gfnma_nvl2(item.SPT_FAM5_CHLDRN),
+                            SUPPORTEE6          : gfnma_nvl2(item.SPT_FAM6),
+                            SUPPORTEE6_CHILDREN : gfnma_nvl2(item.SPT_FAM6_CHLDRN),
+                            SUPPORTEE7          : gfnma_nvl2(item.SPT_FAM7),
+                            SUPPORTEE7_CHILDREN : gfnma_nvl2(item.SPT_FAM7_CHLDRN),
+                            SUPPORTEE8          : gfnma_nvl2(item.SPT_FAM8),
+                            SUPPORTEE8_CHILDREN : gfnma_nvl2(item.SPT_FAM8_CHLDRN),
+                            SUPPORTEE9          : gfnma_nvl2(item.SPT_FAM9),
+                            SUPPORTEE9_CHILDREN : gfnma_nvl2(item.SPT_FAM9_CHLDRN),
+                            SUPPORTEE10         : gfnma_nvl2(item.SPT_FAM10),
+                            SUPPORTEE10_CHILDREN: gfnma_nvl2(item.SPT_FAM10_CHLDRN),
+                            SUPPORTEE11         : gfnma_nvl2(item.SPT_FAM11),
+                            SUPPORTEE11_CHILDREN: gfnma_nvl2(item.SPT_FAM11_CHLDRN),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD)
                         }
                         jsonDetailList.push(msg);
                         //totalRecordCount2++;
@@ -969,13 +954,13 @@
                     jsonItemList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_AMT_FR              : gfnma_nvl2(item.PAY_AMT_FR),
-                            PAY_AMT_TO              : gfnma_nvl2(item.PAY_AMT_TO),
-                            TAX_RATE                : gfnma_nvl2(item.TAX_RATE),
-                            TAX_RATE2               : gfnma_nvl2(item.TAX_RATE2),
-                            CUMULATIVE_TAX_DED_AMT  : gfnma_nvl2(item.CUMULATIVE_TAX_DED_AMT),
-                            APPLY_START_DATE        : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE          : gfnma_nvl2(item.APPLY_END_DATE)
+                            PAY_AMT_FR              : gfnma_nvl2(item.PAY_AMT_LL),
+                            PAY_AMT_TO              : gfnma_nvl2(item.PAY_AMT_UL),
+                            TAX_RATE                : gfnma_nvl2(item.TX_RT),
+                            TAX_RATE2               : gfnma_nvl2(item.TX_RT2),
+                            CUMULATIVE_TAX_DED_AMT  : gfnma_nvl2(item.ACML_TX_DDC_AMT),
+                            APPLY_START_DATE        : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE          : gfnma_nvl2(item.APLY_END_YMD)
                         }
                         jsonItemList.push(msg);
                         //totalRecordCount3++;
@@ -1136,10 +1121,10 @@
 
     const fn_saveS1 = async function (updatedData) {
 
-       /* if (_.isEmpty(updatedData)){
-            fn_saveS2();
-            return;
-        }*/
+        /* if (_.isEmpty(updatedData)){
+             fn_saveS2();
+             return;
+         }*/
 
         let listData = [];
         listData =  await getParamFormS1(updatedData);

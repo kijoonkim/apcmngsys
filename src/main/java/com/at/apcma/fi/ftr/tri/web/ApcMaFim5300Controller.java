@@ -36,7 +36,7 @@ public class ApcMaFim5300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5300_Q");
+            param.put("procedure", 		"SP_FIM5300_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class ApcMaFim5300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5300_S");
+            param.put("procedure", 		"SP_FIM5300_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

@@ -38,7 +38,7 @@
 					</table>
 				</div>
 			</div>
-
+ 
 			<div class="box-body">
 				
 				<div class="card"  style="border:1px solid #f4f4f4;">
@@ -83,9 +83,9 @@
 	</section>
 </body>
 <script >
-
+ 
 //var jsonComPopup4Ctype 		= []; // 취소유형
-
+ 
 /**
  * @description 전기취소
  */
@@ -103,7 +103,7 @@ function compopup4(options) {
 	};
 	$.extend(settings, options);	
 	console.log('settings:', settings);
-
+ 
 	//컴포넌트를 다시 그린다.
 	SBUxMethod.refresh('srch-compopup4-cdate');
 	
@@ -125,15 +125,15 @@ function compopup4(options) {
 		,selectValue	: ''
 		,dropType		: 'down' 	// up, down
 		,dropAlign		: 'left' 	// left, right
-		,colValue		: 'SUB_CODE'
-		,colLabel		: 'CODE_NAME'
+		,colValue		: 'SBSD_CD'
+		,colLabel		: 'CD_NM'
 		,columns		:[
-            {caption: "코드",		ref: 'SUB_CODE', 				width:'50px',  		style:'text-align:left'},
-            {caption: "명칭", 		ref: 'CODE_NAME',    			width:'150px',  	style:'text-align:left'},
+            {caption: "코드",		ref: 'SBSD_CD', 				width:'50px',  		style:'text-align:left'},
+            {caption: "명칭", 		ref: 'CD_NM',    			width:'150px',  	style:'text-align:left'},
             {caption: "WT", 		ref: 'WORK_TYPE',    			width:'100px',  	style:'text-align:left'},
 		]
 	});
-
+ 
 	//ok
 	$(modalId).find('.cu-btn-ok').off('click');
 	$(modalId).find('.cu-btn-ok').click(function(){
@@ -149,8 +149,8 @@ function compopup4(options) {
  	      		return false;
  			}
  			var robj = {
- 				code 		: cobj['SUB_CODE']
- 				,name 		: cobj['CODE_NAME']
+ 				code 		: cobj['SBSD_CD']
+ 				,name 		: cobj['CD_NM']
  				,workType 	: cobj['WORK_TYPE']
  				,date		: cdate
  			};

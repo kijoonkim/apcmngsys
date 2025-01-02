@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			 -->
-
+ 
 			<div class="box-body">
 				
 				<div id="compopfim3420Grid" class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
@@ -52,11 +52,11 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var Fim3420Grid; 			// 그리드를 담기위한 객체 선언
 var jsonFim3420 = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
 /**
  * @description 복수코드
  */
@@ -74,7 +74,7 @@ function compopfim3420(options) {
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -83,7 +83,7 @@ function compopfim3420(options) {
 	if(settings.height){
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}	
-
+ 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'compopfim3420Grid';
@@ -110,16 +110,16 @@ function compopfim3420(options) {
             {caption: ["결재의견"],	 				ref: 'APPR_OPINION', 			type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["비고"],	 					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fim3420Grid = _SBGrid.create(SBGridProperties);
         //Fim3420Grid.bind('click', 'fn_viewGrid');
     }	
     fn_createGrid();	
 	
     const fn_setFim3420Grid = async function(wtype) {
-
+ 
 		Fim3420Grid.clearStatus();
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -129,69 +129,69 @@ function compopfim3420(options) {
 		    ,V_P_APPR_ID      		: settings.param['p_appr_id']
 		    ,V_P_SOURCE_NO    		: settings.param['p_doc_id']
 		    ,V_P_SOURCE_TYPE  		: settings.param['p_doc_type']
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/com/fim3420List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim3420.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						APPR_CATEGORY			: gfnma_nvl(item.APPR_CATEGORY),			
+  						APPR_CATEGORY			: gfnma_nvl(item.APRV_CTGRY),			
 						APPR_CATEGORY_NAME		: gfnma_nvl(item.APPR_CATEGORY_NAME),
-  						APPR_DATE				: gfnma_nvl(item.APPR_DATE),
-  						APPR_ID					: gfnma_nvl(item.APPR_ID),			
-  						APPR_OPINION			: gfnma_nvl(item.APPR_OPINION),		
-  						APPR_STATUS				: gfnma_nvl(item.APPR_STATUS),
+  						APPR_DATE				: gfnma_nvl(item.APRV_YMD),
+  						APPR_ID					: gfnma_nvl(item.APRV_ID),			
+  						APPR_OPINION			: gfnma_nvl(item.APRV_OPNN),		
+  						APPR_STATUS				: gfnma_nvl(item.APRV_STTS),
 						APPR_STATUS_NAME		: gfnma_nvl(item.APPR_STATUS_NAME),
-  						APPR_TYPE				: gfnma_nvl(item.APPR_TYPE),
+  						APPR_TYPE				: gfnma_nvl(item.APRV_TYPE),
 						APPR_TYPE_NAME			: gfnma_nvl(item.APPR_TYPE_NAME),
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-  						DUTY_CODE				: gfnma_nvl(item.DUTY_CODE),
-						DUTY_NAME				: gfnma_nvl(item.DUTY_NAME),
-  						EMP_CODE				: gfnma_nvl(item.EMP_CODE),
-  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),
-  						PROXY_EMP_CODE			: gfnma_nvl(item.PROXY_EMP_CODE),
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),
+  						DUTY_CODE				: gfnma_nvl(item.JBTTL_CD),
+						DUTY_NAME				: gfnma_nvl(item.JBTTL_NM),
+  						EMP_CODE				: gfnma_nvl(item.EMP_CD),
+  						EMP_NAME				: gfnma_nvl(item.EMP_NM),
+  						PROXY_EMP_CODE			: gfnma_nvl(item.DLCT_EMP_CD),
   						PROXY_EMP_NAME			: gfnma_nvl(item.PROXY_EMP_NAME),
-  						STEP_SEQ				: gfnma_nvl(item.STEP_SEQ),
+  						STEP_SEQ				: gfnma_nvl(item.STP_SEQ),
   						UPDATE_EMP_NAME			: gfnma_nvl(item.UPDATE_EMP_NAME),
-  						UPDATE_PC				: gfnma_nvl(item.UPDATE_PC),
-  						UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
-  						UPDATE_USERID			: gfnma_nvl(item.UPDATE_USERID),
+  						UPDATE_PC				: gfnma_nvl(item.UPDT_PC),
+  						UPDATE_TIME				: gfnma_nvl(item.UPDT_DT),
+  						UPDATE_USERID			: gfnma_nvl(item.UPDT_USER_ID),
   						ETC						: '',
   					}
   					jsonFim3420.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fim3420Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

@@ -56,9 +56,14 @@ public class ApcMaCom3100Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3100_Q");
+			param.put("procedure", 		"SP_COM3100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
+			
+			logger.debug("param" + param);
+			logger.debug("session" + session);
+			logger.debug("request" + request);
+			logger.debug("resultMap" + resultMap);
+			
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -82,7 +87,7 @@ public class ApcMaCom3100Controller extends BaseController {
 		
 		try {
 			
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3100_S");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3100_S");
 			logger.info("=============insertCom3100=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 			

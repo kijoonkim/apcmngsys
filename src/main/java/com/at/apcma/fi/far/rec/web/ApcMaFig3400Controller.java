@@ -52,7 +52,7 @@ public class ApcMaFig3400Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3400_Q");
+            param.put("procedure", 		"SP_FIG3400_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaFig3400Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3400_S1");
+            param.put("procedure", 		"SP_FIG3400_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class ApcMaFig3400Controller extends BaseController {
 
         try {
             // TODO 해당 프로시저 개발 완료시 전환 필요
-            param.put("procedure", 		"P_FIG3500_S1");
+            param.put("procedure", 		"SP_FIG3500_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

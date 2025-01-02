@@ -573,11 +573,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 급여항목구분코드
-            gfnma_setComSelect(['SRCH_PAY_ITEM_CATEGORY', 'PAY_ITEM_CATEGORY', 'gvwMaster'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_ITEM_CATEGORY', 'PAY_ITEM_CATEGORY', 'gvwMaster'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여항목특성코드
-            gfnma_setComSelect(['PAY_ITEM_PROPERTY', 'gvwMaster'], jsonPayItemProperty, 'L_HRB010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_ITEM_PROPERTY', 'gvwMaster'], jsonPayItemProperty, 'L_HRB010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 원천징수항목구분
-            gfnma_setComSelect(['gvwMaster'], jsonTaxReportItemCode, 'L_HRB017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonTaxReportItemCode, 'L_HRB017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#TAX_REPORT_ITEM_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -589,15 +589,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 집계방법구분
-            gfnma_setComSelect(['gvwMaster'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SUMMARY_TYPE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -609,11 +609,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
                 ,callback : function (data) {
                     gfnma_multiSelectInit({
@@ -621,47 +621,47 @@
                         ,compCode		: gv_ma_selectedCorpCd
                         ,clientCode		: gv_ma_selectedClntCd
                         ,bizcompId		: 'L_HRB012'
-                        ,whereClause	: "AND a.EXTRA_FIELD1 = '" + data + "' OR a.EXTRA_FIELD2 = '" + data + "'"
+                        ,whereClause	: "AND a.EXTRA_COL1 = '" + data + "' OR a.EXTRA_COL2 = '" + data + "'"
                         ,formId			: p_formId
                         ,menuId			: p_menuId
                         ,selectValue	: ''
                         ,dropType		: 'down' 	// up, down
                         ,dropAlign		: 'right' 	// left, right
-                        ,colValue		: 'SUB_CODE'
-                        ,colLabel		: 'CODE_NAME'
+                        ,colValue		: 'SBSD_CD'
+                        ,colLabel		: 'CD_NM'
                         ,columns		:[
-                            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                            {caption: "명칭",		ref: 'CODE_NAME', 			width:'100px',  	style:'text-align:left'},
+                            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                            {caption: "명칭",		ref: 'CD_NM', 			width:'100px',  	style:'text-align:left'},
                             {caption: "필드명", 		ref: 'FIELD_NAME',    		width:'100px',  	style:'text-align:left'}
                         ]
                     })
                 },
             }),
             // 관련항목
-            gfnma_setComSelect(['gvwMaster'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SUMMARY_RELATED_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_HRB012'
-                ,whereClause	: "AND  a.EXTRA_FIELD1 = 'ALLOWANCE' OR  a.EXTRA_FIELD2 = 'ALLOWANCE'"
+                ,whereClause	: "AND  a.EXTRA_COL1 = 'ALLOWANCE' OR  a.EXTRA_COL2 = 'ALLOWANCE'"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭",		ref: 'CODE_NAME', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭",		ref: 'CD_NM', 			width:'100px',  	style:'text-align:left'},
                     {caption: "필드명", 		ref: 'FIELD_NAME',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
             // 적용기준
-            gfnma_setComSelect(['PAY_ITEM_RANGE_TYPE', 'gvwMaster'], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_ITEM_RANGE_TYPE', 'gvwMaster'], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 끝전처리방법
-            gfnma_setComSelect(['gvwMaster'], jsonRoundType, 'L_HRB013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonRoundType, 'L_HRB013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#ROUND_TYPE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -673,15 +673,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 끝전처리기준액
-            gfnma_setComSelect(['gvwMaster'], jsonRoundTypeBaseAmt, 'L_HRB014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonRoundTypeBaseAmt, 'L_HRB014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#ROUND_TYPE_BASE_AMT']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -693,15 +693,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 계산기준일
-            gfnma_setComSelect(['gvwMaster'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMaster'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SUMMARY_RULE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -713,24 +713,24 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 미적용대상구분
-            gfnma_setComSelect(['gvwExcept'], jsonPayItemExceptGroupType, 'L_HRB027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwExcept'], jsonPayItemExceptGroupType, 'L_HRB027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
     const fn_findTaxFreeCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("TAX_FREE_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("TAX_FREE_NAME"));
-        var replaceText0 	= "_TAX_FREE_CODE_";
-        var replaceText1 	= "_TAX_FREE_NAME_";
-        var strWhereClause 	= "AND TAX_FREE_CODE LIKE '%" + replaceText0 + "%' AND TAX_FREE_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_TX_TXFR_CD_";
+        var replaceText1 	= "_TX_TXFR_NM_";
+        var strWhereClause 	= "AND TX_TXFR_CD LIKE '%" + replaceText0 + "%' AND TX_TXFR_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '비과세항목정보');
         compopup1({
@@ -740,17 +740,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["비과세코드",		"비과세약칭"]
-            ,searchInputFields		: ["TAX_FREE_CODE",	"TAX_FREE_NAME"]
+            ,searchInputFields		: ["TX_TXFR_CD",	"TX_TXFR_NM"]
             ,searchInputValues		: [searchCode, 			searchName]
             ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", "",	""]				//select 경우
             ,height					: '500px'
             ,tableHeader			: ["비과세코드", "비과세약칭", "비과세설명"]
-            ,tableColumnNames		: ["TAX_FREE_CODE", "TAX_FREE_NAME",  "TAX_FREE_DESCR"]
+            ,tableColumnNames		: ["TX_TXFR_CD", "TX_TXFR_NM",  "TX_TXFR_DSCTN"]
             ,tableColumnWidths		: ["80px", "120px", "300px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('TAX_FREE_CODE', data.TAX_FREE_CODE);
-                SBUxMethod.set('TAX_FREE_NAME', data.TAX_FREE_NAME);
+                SBUxMethod.set('TX_TXFR_CD', data.TX_TXFR_CD);
+                SBUxMethod.set('TX_TXFR_NM', data.TX_TXFR_NM);
             },
         });
     }
@@ -767,18 +767,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('ENTRY_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('ENTRY_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('ENTRY_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('ENTRY_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -1011,10 +1011,10 @@
     const fn_findPayItemExceptGroupCodeForGvwExcept = function(nRow) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '미적용대상 정보');
         SBUxMethod.openModal('modal-compopup1');
-
-        var replaceText0 	= "_PAY_ITEM_EXCEPT_GROUP_CODE_";
-        var replaceText1 	= "_PAY_ITEM_EXCEPT_GROUP_NAME_";
-        var strWhereClause 	= "AND PAY_ITEM_EXCEPT_GROUP_CODE LIKE '%" + replaceText0 + "%' AND PAY_ITEM_EXCEPT_GROUP_NAME LIKE '%" + replaceText1 + "%'";
+ 
+        var replaceText0 	= "_SLRY_ITEM_EXCPT_GRP_CD_";
+        var replaceText1 	= "_PAY_ITEM_EXCEPT_GRP_NM_";
+        var strWhereClause 	= "AND SLRY_ITEM_EXCPT_GRP_CD LIKE '%" + replaceText0 + "%' AND PAY_ITEM_EXCEPT_GRP_NM LIKE '%" + replaceText1 + "%'";
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -1023,17 +1023,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["미적용대상코드",		"미적용대상명"]
-            ,searchInputFields		: ["PAY_ITEM_EXCEPT_GROUP_CODE",	"PAY_ITEM_EXCEPT_GROUP_NAME"]
+            ,searchInputFields		: ["SLRY_ITEM_EXCPT_GRP_CD",	"PAY_ITEM_EXCEPT_GRP_NM"]
             ,searchInputValues		: ["", 			""]
             ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '500px'
             ,tableHeader			: ["미적용대상코드", "미적용대상명"]
-            ,tableColumnNames		: ["PAY_ITEM_EXCEPT_GROUP_CODE", "PAY_ITEM_EXCEPT_GROUP_NAME"]
+            ,tableColumnNames		: ["SLRY_ITEM_EXCPT_GRP_CD", "PAY_ITEM_EXCEPT_GRP_NM"]
             ,tableColumnWidths		: ["100px", "150px"]
             ,itemSelectEvent		: function (data){
-                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_CODE"), data['PAY_ITEM_EXCEPT_GROUP_CODE']);
-                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_NAME"), data['PAY_ITEM_EXCEPT_GROUP_NAME']);
+                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_CODE"), data['SLRY_ITEM_EXCPT_GRP_CD']);
+                gvwExcept.setCellData(nRow, gvwExcept.getColRef("PAY_ITEM_EXCEPT_GROUP_NAME"), data['PAY_ITEM_EXCEPT_GRP_NM']);
             },
         });
     }
@@ -1086,51 +1086,51 @@
 
                 var infoData = data.cv_2[0];
 
-                SBUxMethod.set("PAY_ITEM_CODE", gfn_nvl(infoData.PAY_ITEM_CODE));
-                SBUxMethod.set("PAY_ITEM_NAME", gfn_nvl(infoData.PAY_ITEM_NAME));
-                SBUxMethod.set("PAY_ITEM_CATEGORY", gfn_nvl(infoData.PAY_ITEM_CATEGORY));
-                gfnma_multiSelectSet('#SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.SUMMARY_TYPE));
-                gfnma_multiSelectSet('#SUMMARY_RELATED_CODE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.SUMMARY_RELATED_CODE));
-                gfnma_multiSelectSet('#TAX_REPORT_ITEM_CODE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.TAX_REPORT_ITEM_CODE));
-                SBUxMethod.set("ENTRY_DEPT_CODE", gfn_nvl(infoData.ENTRY_DEPT_CODE));
+                SBUxMethod.set("PAY_ITEM_CODE", gfn_nvl(infoData.SLRY_ITEM_CD));
+                SBUxMethod.set("PAY_ITEM_NAME", gfn_nvl(infoData.SLRY_ITEM_NM));
+                SBUxMethod.set("PAY_ITEM_CATEGORY", gfn_nvl(infoData.SLRY_ITEM_CTGRY));
+                gfnma_multiSelectSet('#SUMMARY_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.SMMRY_TYPE));
+                gfnma_multiSelectSet('#SUMMARY_RELATED_CODE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.SMMRY_REL_CD));
+                gfnma_multiSelectSet('#TAX_REPORT_ITEM_CODE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.TX_RPT_ITEM_CD));
+                SBUxMethod.set("ENTRY_DEPT_CODE", gfn_nvl(infoData.INPT_DEPT_CD));
                 SBUxMethod.set("ENTRY_DEPT_NAME", gfn_nvl(infoData.ENTRY_DEPT_NAME));
-                SBUxMethod.set("TAX_FREE_YN", gfn_nvl(infoData.TAX_FREE_YN));
-                SBUxMethod.set("TAX_FREE_CODE", gfn_nvl(infoData.TAX_FREE_CODE));
-                SBUxMethod.set("TAX_FREE_NAME", gfn_nvl(infoData.TAX_FREE_NAME));
-                gfnma_multiSelectSet('#ROUND_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.ROUND_TYPE));
-                gfnma_multiSelectSet('#ROUND_TYPE_BASE_AMT', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.ROUND_TYPE_BASE_AMT));
-                SBUxMethod.set("PAY_YN", gfn_nvl(infoData.PAY_YN));
+                SBUxMethod.set("TAX_FREE_YN", gfn_nvl(infoData.TX_TXFR_YN));
+                SBUxMethod.set("TAX_FREE_CODE", gfn_nvl(infoData.TX_TXFR_CD));
+                SBUxMethod.set("TAX_FREE_NAME", gfn_nvl(infoData.TX_TXFR_NM));
+                gfnma_multiSelectSet('#ROUND_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.DCPT_PRCS_TYPE));
+                gfnma_multiSelectSet('#ROUND_TYPE_BASE_AMT', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.DCPT_PRCS_BASE_AMT));
+                SBUxMethod.set("PAY_YN", gfn_nvl(infoData.SLRY_YN));
                 SBUxMethod.set("BONUS_YN", gfn_nvl(infoData.BONUS_YN));
-                SBUxMethod.set("INTERN_EMP_PAY_RATE", gfn_nvl(infoData.INTERN_EMP_PAY_RATE));
-                SBUxMethod.set("AVERAGE_INCLUDE_YN", gfn_nvl(infoData.AVERAGE_INCLUDE_YN));
-                SBUxMethod.set("ORDINARY_INCLUDE_YN", gfn_nvl(infoData.ORDINARY_INCLUDE_YN));
-                SBUxMethod.set("RETIRE_INCLUDE_YN", gfn_nvl(infoData.RETIRE_INCLUDE_YN));
-                SBUxMethod.set("DAY_DISCOUNT_YN", gfn_nvl(infoData.DAY_DISCOUNT_YN));
+                SBUxMethod.set("INTERN_EMP_PAY_RATE", gfn_nvl(infoData.INTRN_EMP_PAY_RT));
+                SBUxMethod.set("AVERAGE_INCLUDE_YN", gfn_nvl(infoData.AVG_WG_YN));
+                SBUxMethod.set("ORDINARY_INCLUDE_YN", gfn_nvl(infoData.ODTM_WG_INCL_YN));
+                SBUxMethod.set("RETIRE_INCLUDE_YN", gfn_nvl(infoData.RTRM_BONUS_INCL_YN));
+                SBUxMethod.set("DAY_DISCOUNT_YN", gfn_nvl(infoData.DBAS_YN));
                 SBUxMethod.set("PRINT_YN", gfn_nvl(infoData.PRINT_YN));
                 SBUxMethod.set("SORT_SEQ", gfn_nvl(infoData.SORT_SEQ));
                 SBUxMethod.set("USE_YN", gfn_nvl(infoData.USE_YN));
                 SBUxMethod.set("MEMO", gfn_nvl(infoData.MEMO));
-                SBUxMethod.set("PAY_ITEM_PROPERTY", gfn_nvl(infoData.PAY_ITEM_PROPERTY));
-                SBUxMethod.set("PAY_ITEM_RANGE_TYPE", gfn_nvl(infoData.PAY_ITEM_RANGE_TYPE));
-                SBUxMethod.set("TAX_CALCULATE_YN", gfn_nvl(infoData.TAX_CALCULATE_YN));
-                SBUxMethod.set("BASE_ACCOUNTING_YN", gfn_nvl(infoData.BASE_ACCOUNTING_YN));
-                SBUxMethod.set("INSURE_ACCOUNTING_YN", gfn_nvl(infoData.INSURE_ACCOUNTING_YN));
-                SBUxMethod.set("ITEM_INCLUDE_YN", gfn_nvl(infoData.ITEM_INCLUDE_YN));
-                SBUxMethod.set("DAILY_CALC_YN", gfn_nvl(infoData.DAILY_CALC_YN));
-                SBUxMethod.set("DAILY_SUM_YN", gfn_nvl(infoData.DAILY_SUM_YN));
-                SBUxMethod.set("DAILY_AVG_YN", gfn_nvl(infoData.DAILY_AVG_YN));
-                SBUxMethod.set("MINUS_APPLY_YN", gfn_nvl(infoData.MINUS_APPLY_YN));
-                SBUxMethod.set("SHUTDOWN_AVG_YN", gfn_nvl(infoData.SHUTDOWN_AVG_YN));
-                SBUxMethod.set("SHUTDOWN_ORD_YN", gfn_nvl(infoData.SHUTDOWN_ORD_YN));
-                SBUxMethod.set("WORKSHOP_TAX_YN", gfn_nvl(infoData.WORKSHOP_TAX_YN));
-                gfnma_multiSelectSet('#SUMMARY_RULE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(infoData.SUMMARY_RULE));
-                SBUxMethod.set("RETIRE_DISCOUNT_YN", gfn_nvl(infoData.RETIRE_DISCOUNT_YN));
+                SBUxMethod.set("PAY_ITEM_PROPERTY", gfn_nvl(infoData.SLRY_ITEM_ATRB));
+                SBUxMethod.set("PAY_ITEM_RANGE_TYPE", gfn_nvl(infoData.SLRY_ITEM_SCP_TYPE));
+                SBUxMethod.set("TAX_CALCULATE_YN", gfn_nvl(infoData.TX_CAL_YN));
+                SBUxMethod.set("BASE_ACCOUNTING_YN", gfn_nvl(infoData.BSS_ACNTG_YN));
+                SBUxMethod.set("INSURE_ACCOUNTING_YN", gfn_nvl(infoData.INSRNC_ACNTG_YN));
+                SBUxMethod.set("ITEM_INCLUDE_YN", gfn_nvl(infoData.ITEM_INCL_YN));
+                SBUxMethod.set("DAILY_CALC_YN", gfn_nvl(infoData.DL_CALC_YN));
+                SBUxMethod.set("DAILY_SUM_YN", gfn_nvl(infoData.DL_SUM_YN));
+                SBUxMethod.set("DAILY_AVG_YN", gfn_nvl(infoData.DL_AMT));
+                SBUxMethod.set("MINUS_APPLY_YN", gfn_nvl(infoData.SBTR_APLY_YN));
+                SBUxMethod.set("SHUTDOWN_AVG_YN", gfn_nvl(infoData.TCBIZ_AVG_WG_YN));
+                SBUxMethod.set("SHUTDOWN_ORD_YN", gfn_nvl(infoData.TCBIZ_ODTM_WG_YN));
+                SBUxMethod.set("WORKSHOP_TAX_YN", gfn_nvl(infoData.BPLC_TX_YN));
+                gfnma_multiSelectSet('#SUMMARY_RULE', 'SBSD_CD', 'CD_NM', gfn_nvl(infoData.SMMRY_RULE));
+                SBUxMethod.set("RETIRE_DISCOUNT_YN", gfn_nvl(infoData.RTRM_DBAS_YN));
 
                 jsonExceptList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_EXCEPT_GROUP_TYPE : item.PAY_ITEM_EXCEPT_GROUP_TYPE,
-                        PAY_ITEM_EXCEPT_GROUP_CODE : item.PAY_ITEM_EXCEPT_GROUP_CODE,
+                        PAY_ITEM_EXCEPT_GROUP_TYPE : item.SLRY_ITEM_EXCPT_GRP_TYPE,
+                        PAY_ITEM_EXCEPT_GROUP_CODE : item.SLRY_ITEM_EXCPT_GRP_CD,
                         PAY_ITEM_EXCEPT_GROUP_NAME : item.PAY_ITEM_EXCEPT_GROUP_NAME,
                         MEMO : item.MEMO
                     }
@@ -1541,45 +1541,45 @@
                 jsonPayItemList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CODE : item.PAY_ITEM_CODE,
-                        PAY_ITEM_NAME : item.PAY_ITEM_NAME,
-                        PAY_ITEM_CATEGORY : item.PAY_ITEM_CATEGORY,
-                        SUMMARY_TYPE : item.SUMMARY_TYPE,
-                        SUMMARY_RELATED_CODE : item.SUMMARY_RELATED_CODE,
-                        TAX_REPORT_ITEM_CODE : item.TAX_REPORT_ITEM_CODE,
-                        ENTRY_DEPT_CODE : item.ENTRY_DEPT_CODE,
+                        PAY_ITEM_CODE : item.SLRY_ITEM_CD,
+                        PAY_ITEM_NAME : item.SLRY_ITEM_NM,
+                        PAY_ITEM_CATEGORY : item.SLRY_ITEM_CTGRY,
+                        SUMMARY_TYPE : item.SMMRY_TYPE,
+                        SUMMARY_RELATED_CODE : item.SMMRY_REL_CD,
+                        TAX_REPORT_ITEM_CODE : item.TX_RPT_ITEM_CD,
+                        ENTRY_DEPT_CODE : item.INPT_DEPT_CD,
                         ENTRY_DEPT_NAME : item.ENTRY_DEPT_NAME,
-                        TAX_FREE_YN : item.TAX_FREE_YN,
-                        TAX_FREE_CODE : item.TAX_FREE_CODE,
-                        TAX_FREE_NAME : item.TAX_FREE_NAME,
-                        ROUND_TYPE : item.ROUND_TYPE,
-                        ROUND_TYPE_BASE_AMT : item.ROUND_TYPE_BASE_AMT,
-                        PAY_YN : item.PAY_YN,
+                        TAX_FREE_YN : item.TX_TXFR_YN,
+                        TAX_FREE_CODE : item.TX_TXFR_CD,
+                        TAX_FREE_NAME : item.TX_TXFR_NM,
+                        ROUND_TYPE : item.DCPT_PRCS_TYPE,
+                        ROUND_TYPE_BASE_AMT : item.DCPT_PRCS_BASE_AMT,
+                        PAY_YN : item.SLRY_YN,
                         BONUS_YN : item.BONUS_YN,
-                        INTERN_EMP_PAY_RATE : item.INTERN_EMP_PAY_RATE,
-                        AVERAGE_INCLUDE_YN : item.AVERAGE_INCLUDE_YN,
-                        ORDINARY_INCLUDE_YN : item.ORDINARY_INCLUDE_YN,
-                        RETIRE_INCLUDE_YN : item.RETIRE_INCLUDE_YN,
-                        DAY_DISCOUNT_YN : item.DAY_DISCOUNT_YN,
+                        INTERN_EMP_PAY_RATE : item.INTRN_EMP_PAY_RT,
+                        AVERAGE_INCLUDE_YN : item.AVG_WG_YN,
+                        ORDINARY_INCLUDE_YN : item.ODTM_WG_INCL_YN,
+                        RETIRE_INCLUDE_YN : item.RTRM_BONUS_INCL_YN,
+                        DAY_DISCOUNT_YN : item.DBAS_YN,
                         PRINT_YN : item.PRINT_YN,
                         SORT_SEQ : item.SORT_SEQ,
                         USE_YN : item.USE_YN,
                         MEMO : item.MEMO,
-                        PAY_ITEM_PROPERTY : item.PAY_ITEM_PROPERTY,
-                        PAY_ITEM_RANGE_TYPE : item.PAY_ITEM_RANGE_TYPE,
-                        TAX_CALCULATE_YN : item.TAX_CALCULATE_YN,
-                        BASE_ACCOUNTING_YN : item.BASE_ACCOUNTING_YN,
-                        INSURE_ACCOUNTING_YN : item.INSURE_ACCOUNTING_YN,
-                        ITEM_INCLUDE_YN : item.ITEM_INCLUDE_YN,
-                        DAILY_CALC_YN : item.DAILY_CALC_YN,
-                        DAILY_SUM_YN : item.DAILY_SUM_YN,
-                        DAILY_AVG_YN : item.DAILY_AVG_YN,
-                        MINUS_APPLY_YN : item.MINUS_APPLY_YN,
-                        SHUTDOWN_AVG_YN : item.SHUTDOWN_AVG_YN,
-                        SHUTDOWN_ORD_YN : item.SHUTDOWN_ORD_YN,
-                        WORKSHOP_TAX_YN : item.WORKSHOP_TAX_YN,
-                        RETIRE_DISCOUNT_YN : item.RETIRE_DISCOUNT_YN,
-                        SUMMARY_RULE : item.SUMMARY_RULE
+                        PAY_ITEM_PROPERTY : item.SLRY_ITEM_ATRB,
+                        PAY_ITEM_RANGE_TYPE : item.SLRY_ITEM_SCP_TYPE,
+                        TAX_CALCULATE_YN : item.TX_CAL_YN,
+                        BASE_ACCOUNTING_YN : item.BSS_ACNTG_YN,
+                        INSURE_ACCOUNTING_YN : item.INSRNC_ACNTG_YN,
+                        ITEM_INCLUDE_YN : item.ITEM_INCL_YN,
+                        DAILY_CALC_YN : item.DL_CALC_YN,
+                        DAILY_SUM_YN : item.DL_SUM_YN,
+                        DAILY_AVG_YN : item.DL_AMT,
+                        MINUS_APPLY_YN : item.SBTR_APLY_YN,
+                        SHUTDOWN_AVG_YN : item.TCBIZ_AVG_WG_YN,
+                        SHUTDOWN_ORD_YN : item.TCBIZ_ODTM_WG_YN,
+                        WORKSHOP_TAX_YN : item.BPLC_TX_YN,
+                        RETIRE_DISCOUNT_YN : item.RTRM_DBAS_YN,
+                        SUMMARY_RULE : item.SMMRY_RULE
 
                     }
                     jsonPayItemList.push(msg);
@@ -1621,8 +1621,8 @@
         SBUxMethod.set("TAX_FREE_YN", "N");
         SBUxMethod.set("TAX_FREE_CODE", "");
         SBUxMethod.set("TAX_FREE_NAME", "");
-        gfnma_multiSelectSet('#ROUND_TYPE', 'SUB_CODE', 'CODE_NAME', 'ABS_DOWN');
-        gfnma_multiSelectSet('#ROUND_TYPE_BASE_AMT', 'SUB_CODE', 'CODE_NAME', '1');
+        gfnma_multiSelectSet('#ROUND_TYPE', 'SBSD_CD', 'CD_NM', 'ABS_DOWN');
+        gfnma_multiSelectSet('#ROUND_TYPE_BASE_AMT', 'SBSD_CD', 'CD_NM', '1');
         SBUxMethod.set("PAY_YN", "N");
         SBUxMethod.set("BONUS_YN", "N");
         SBUxMethod.set("INTERN_EMP_PAY_RATE", "100");

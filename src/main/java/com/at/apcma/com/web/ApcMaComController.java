@@ -107,7 +107,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM5100_Q");
+			param.put("procedure", 		"SP_COM5100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -262,7 +262,7 @@ public class ApcMaComController extends BaseController {
 			
 			//get key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
-			gmap4.put("procedure", 			"P_COM5100_Q");
+			gmap4.put("procedure", 			"SP_COM5100_Q");
 			gmap4.put("workType", 			"Q1");
 			gmap4.put("getType", 			"json");
 			gmap4.put("cv_count", 			"1");
@@ -278,7 +278,7 @@ public class ApcMaComController extends BaseController {
 					{"V_P_USER",				""},
 					{"V_P_FORM_ID",				""},
 					{"V_P_MENU_ID",				""},
-					{"V_P_PROC_ID",				"P_COM5100_Q"},
+					{"V_P_PROC_ID",				"SP_COM5100_Q"},
 					{"V_P_USERID",				""},
 					{"V_P_PC",					ipAddress}
 			};			
@@ -336,7 +336,7 @@ public class ApcMaComController extends BaseController {
     		
     		//get delete key ---------------------------------------------------------
     		Map<String, Object> gmap4 = new HashMap<String, Object>();
-    		gmap4.put("procedure", 			"P_COM5100_Q");
+    		gmap4.put("procedure", 			"SP_COM5100_Q");
     		gmap4.put("workType", 			"Q1");
     		gmap4.put("getType", 			"json");
     		gmap4.put("cv_count", 			"1");
@@ -352,7 +352,7 @@ public class ApcMaComController extends BaseController {
     				{"V_P_USER",				""},
     				{"V_P_FORM_ID",				""},
     				{"V_P_MENU_ID",				""},
-    				{"V_P_PROC_ID",				"P_COM5100_Q"},
+    				{"V_P_PROC_ID",				"SP_COM5100_Q"},
     				{"V_P_USERID",				ssmap.get("USERID").toString()},
     				{"V_P_PC",					ipAddress}
     		};			
@@ -407,7 +407,7 @@ public class ApcMaComController extends BaseController {
     		
     		//get delete key ---------------------------------------------------------
     		Map<String, Object> gmap4 = new HashMap<String, Object>();
-    		gmap4.put("procedure", 			"P_COM5100_Q");
+    		gmap4.put("procedure", 			"SP_COM5100_Q");
     		gmap4.put("workType", 			"Q1");
     		gmap4.put("getType", 			"json");
     		gmap4.put("cv_count", 			"1");
@@ -423,7 +423,7 @@ public class ApcMaComController extends BaseController {
     				{"V_P_USER",				""},
     				{"V_P_FORM_ID",				""},
     				{"V_P_MENU_ID",				""},
-    				{"V_P_PROC_ID",				"P_COM5100_Q"},
+    				{"V_P_PROC_ID",				"SP_COM5100_Q"},
     				{"V_P_USERID",				ssmap.get("USERID").toString()},
     				{"V_P_PC",					ipAddress}
     		};			
@@ -499,7 +499,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIM3400_Q");
+			param.put("procedure", 		"SP_FIM3400_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -525,7 +525,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIM3400_S");
+			param.put("procedure", 		"SP_FIM3400_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -551,7 +551,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIM3400_S3");
+			param.put("procedure", 		"SP_FIM3400_S3");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -578,7 +578,7 @@ public class ApcMaComController extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM5500_Q");
+			param.put("procedure", 		"SP_COM5500_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -604,7 +604,7 @@ public class ApcMaComController extends BaseController {
 
 		try {
 
-			param.put("procedure", 		"P_FBS2040_Q");
+			param.put("procedure", 		"SP_FBS2040_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -652,7 +652,7 @@ public class ApcMaComController extends BaseController {
 
 		try {
 
-			param.put("procedure", 		"P_EXCHANGE_AVG_RATE_Q");
+			param.put("procedure", 		"SP_EXCHANGE_AVG_RATE_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -678,7 +678,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIM3420_Q");
+			param.put("procedure", 		"SP_FIM3420_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -701,7 +701,7 @@ public class ApcMaComController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			param.put("procedure", 		"P_FBSOPEN_Q");
+			param.put("procedure", 		"SP_FBSOPEN_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -731,7 +731,7 @@ public class ApcMaComController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			param.put("procedure", 		"P_FBSNAME_Q");
+			param.put("procedure", 		"SP_FBSNAME_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -761,7 +761,7 @@ public class ApcMaComController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			param.put("procedure", 		"P_FIG_ACCOUNT_RANGE_Q");
+			param.put("procedure", 		"SP_FIG_ACCOUNT_RANGE_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -794,7 +794,7 @@ public class ApcMaComController extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3410_Q");
+			param.put("procedure", 		"SP_COM3410_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -820,7 +820,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3420_Q");
+			param.put("procedure", 		"SP_COM3420_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -846,7 +846,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3430_Q");
+			param.put("procedure", 		"SP_COM3430_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -870,7 +870,7 @@ public class ApcMaComController extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			param.put("procedure", 		"P_REPORTDLL_Q");
+			param.put("procedure", 		"SP_REPORTDLL_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -895,7 +895,7 @@ public class ApcMaComController extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIG1000_Q");
+			param.put("procedure", 		"SP_FIG1000_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
     		//self url 편집

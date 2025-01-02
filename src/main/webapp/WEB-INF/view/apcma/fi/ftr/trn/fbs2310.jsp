@@ -256,11 +256,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'FI_ORG_CODE'
-                ,colLabel		: 'FI_ORG_NAME'
+                ,colValue		: 'ACNTG_OGNZ_CD'
+                ,colLabel		: 'ACNTG_OGNZ_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'ACNTG_OGNZ_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명", 		ref: 'ACNTG_OGNZ_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 통화
@@ -275,11 +275,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'CURRENCY_CODE',
-                colLabel: 'CURRENCY_NAME',
+                colValue: 'CRN_CD',
+                colLabel: 'CRN_NM',
                 columns: [
-                    {caption: "통화코드",	ref: 'CURRENCY_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "통화명",	ref: 'CURRENCY_NAME', width: '100px',style: 'text-align:left' },
+                    {caption: "통화코드",	ref: 'CRN_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "통화명",	ref: 'CRN_NM', width: '100px',style: 'text-align:left' },
                     {caption: "비고",	ref: 'DESCIPTION',    width: '100px',style: 'text-align:left' },
                 ]
             }),
@@ -295,29 +295,29 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'SUB_CODE',
-                colLabel: 'CODE_NAME',
+                colValue: 'SBSD_CD',
+                colLabel: 'CD_NM',
                 columns: [
-                    {caption: "코드",	ref: 'SUB_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "명",		ref: 'CODE_NAME', width: '100px',style: 'text-align:left' },
+                    {caption: "코드",	ref: 'SBSD_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "명",		ref: 'CD_NM', width: '100px',style: 'text-align:left' },
                 ]
             }),
             // 은행코드
-            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
             // 수금유형
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 제외사유
-            gfnma_setComSelect(['gvwDetail'], jsonReceiptExceptReason, 'L_FBS027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonReceiptExceptReason, 'L_FBS027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 거래구분
-            gfnma_setComSelect(['gvwDetail'], jsonTranType, 'L_FIF021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-
+            gfnma_setComSelect(['gvwDetail'], jsonTranType, 'L_FIF021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+ 
         ]);
     }
 
     const fn_findBankCode = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
         var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
+        var replaceText1 	= "_FAM_NM_";
         var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
@@ -328,14 +328,14 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명"]
-            ,searchInputFields		: ["CODE", "NAME"]
+            ,searchInputFields		: ["CODE", "FAM_NM"]
             ,searchInputValues		: ["", searchText]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭"]
-            ,tableColumnNames		: ["CODE" , "NAME"]
+            ,tableColumnNames		: ["CODE" , "FAM_NM"]
             ,tableColumnWidths		: ["90px", "150px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_BANK_NAME', data.NAME);
+                SBUxMethod.set('SRCH_BANK_NAME', data.FAM_NM);
                 SBUxMethod.set('SRCH_BANK_CODE', data.CODE);
             },
         });
@@ -343,10 +343,10 @@
 
     const fn_findBankAccount = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
-        var replaceText0 	= "_BANK_CODE_";
-        var replaceText1 	= "_BANK_NAME_";
+        var replaceText0 	= "_BANK_CD_";
+        var replaceText1 	= "_BANK_NM_";
         var strWhereClause 	= "AND BANK_CODE LIKE '%" + replaceText0 + "%' AND BANK_NAME LIKE '%" + replaceText1 + "%'";
-
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -355,14 +355,14 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
-            ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
+            ,searchInputFields		: ["BANK_CD", "BANK_NM"]
             ,searchInputValues		: ["", searchText]
             ,height					: '400px'
             ,tableHeader			: ["계좌번호", "명칭", "은행명", "통화"]
-            ,tableColumnNames		: ["CODE" , "NAME", "BANK_NAME", "CURRENCY_CODE"]
+            ,tableColumnNames		: ["CODE" , "FAM_NM", "BANK_NM", "CRN_CD"]
             ,tableColumnWidths		: ["110px", "210px", "130px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_BANK_ACCOUNT_NAME', data.NAME);
+                SBUxMethod.set('SRCH_BANK_ACCOUNT_NAME', data.FAM_NM);
                 SBUxMethod.set('SRCH_BANK_ACCOUNT_NO', data.CODE);
             },
         });
@@ -613,8 +613,8 @@
 
         SBUxMethod.set("SRCH_FROM_DATE", gfn_dateToYmd(new Date()));
         SBUxMethod.set("SRCH_TO_DATE", gfn_dateToYmd(new Date()));
-
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+ 
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
     }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
@@ -949,21 +949,21 @@
                     data.cv_1.forEach((item, index) => {
                         const msg = {
                             CHECK_YN : item.CHECK_YN,
-                            BANK_CODE : item.BANK_CODE,
-                            DEPOSIT_CODE : item.DEPOSIT_CODE,
-                            DEPOSIT_NAME : item.DEPOSIT_NAME,
-                            ACCOUNT_NUM : item.ACCOUNT_NUM,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
-                            BEGIN_AMT : item.BEGIN_AMT,
-                            IN_AMT : item.IN_AMT,
-                            OUT_AMT : item.OUT_AMT,
-                            BALANCE_AMT : item.BALANCE_AMT,
-                            DATA_SOURCE : item.DATA_SOURCE,
-                            FI_ORG_CODE : item.FI_ORG_CODE,
-                            BALANCE_AMT_NOW : item.BALANCE_AMT_NOW,
-                            USABLE_BALANCE_AMT_NOW : item.USABLE_BALANCE_AMT_NOW,
-                            FBS_STATUS : item.FBS_STATUS,
-                            QUERY_TIME : item.QUERY_TIME,
+                            BANK_CODE : item.BANK_CD,
+                            DEPOSIT_CODE : item.DPMNY_CD,
+                            DEPOSIT_NAME : item.DPMNY_NM,
+                            ACCOUNT_NUM : item.ACTNO,
+                            CURRENCY_CODE : item.CRN_CD,
+                            BEGIN_AMT : item.BSC_AMT,
+                            IN_AMT : item.INCRS_AMT,
+                            OUT_AMT : item.DCRS_AMT,
+                            BALANCE_AMT : item.BLNC_AMT,
+                            DATA_SOURCE : item.DATA_SRC,
+                            FI_ORG_CODE : item.ACNTG_OGNZ_CD,
+                            BALANCE_AMT_NOW : item.BLNC_AMT_NOW,
+                            USABLE_BALANCE_AMT_NOW : item.USE_PSBLTY_BLNC,
+                            FBS_STATUS : item.FBS_STTS,
+                            QUERY_TIME : item.INQ_TM,
                             DIFF_BALANCE_AMT : item.DIFF_BALANCE_AMT,
                         }
                         jsonBalanceStatusList.push(msg);
@@ -984,33 +984,33 @@
                             CHECK_YN : item.CHECK_YN,
                             SEQ : item.SEQ,
                             TRAN_DATE : item.TRAN_DATE,
-                            TRAN_TIME : item.TRAN_TIME,
+                            TRAN_TIME : item.DLNG_HR,
                             IN_OUT_TYPE : item.IN_OUT_TYPE,
-                            BANK_CODE : item.BANK_CODE,
-                            DEPOSIT_CODE : item.DEPOSIT_CODE,
-                            DEPOSIT_NAME : item.DEPOSIT_NAME,
-                            ACCOUNT_NUM : item.ACCOUNT_NUM,
+                            BANK_CODE : item.BANK_CD,
+                            DEPOSIT_CODE : item.DPMNY_CD,
+                            DEPOSIT_NAME : item.DPMNY_NM,
+                            ACCOUNT_NUM : item.ACTNO,
                             TRAN_TYPE : item.TRAN_TYPE,
                             TRAN_GUBUN : item.TRAN_GUBUN,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
+                            CURRENCY_CODE : item.CRN_CD,
                             TRAN_AMT : item.TRAN_AMT,
-                            IN_AMOUNT : item.IN_AMOUNT,
-                            OUT_AMOUNT : item.OUT_AMOUNT,
-                            BALANCE_AMT : item.BALANCE_AMT,
-                            NOTICE_TRF_NO : item.NOTICE_TRF_NO,
-                            IN_BRANCH_CODE : item.IN_BRANCH_CODE,
+                            IN_AMOUNT : item.INCRS_AMT,
+                            OUT_AMOUNT : item.DCRS_AMT,
+                            BALANCE_AMT : item.BLNC_AMT,
+                            NOTICE_TRF_NO : item.NTC_TELGM_NO,
+                            IN_BRANCH_CODE : item.DPST_BRNCH_CD,
                             TRAN_NAME : item.TRAN_NAME,
-                            NOTE_DUE_RECEIPT_FLAG : item.NOTE_DUE_RECEIPT_FLAG,
-                            RECEIPT_TRANSFER_YN : item.RECEIPT_TRANSFER_YN,
-                            RECEIPT_EXCEPT_YN : item.RECEIPT_EXCEPT_YN,
-                            RECEIPT_EXCEPT_REASON : item.RECEIPT_EXCEPT_REASON,
-                            RECEIPT_TYPE : item.RECEIPT_TYPE,
-                            CHECK_NUM : item.CHECK_NUM,
+                            NOTE_DUE_RECEIPT_FLAG : item.PRMNT_MTRY_DPST_FLAG,
+                            RECEIPT_TRANSFER_YN : item.RCPT_PRCS_YN,
+                            RECEIPT_EXCEPT_YN : item.RCPT_EXCL_YN,
+                            RECEIPT_EXCEPT_REASON : item.RCPT_EXCL_RSN,
+                            RECEIPT_TYPE : item.RCPT_TYPE,
+                            CHECK_NUM : item.CHECK_NO,
                             EXTRA1 : item.EXTRA1,
                             EXTRA2 : item.EXTRA2,
                             EXTRA3 : item.EXTRA3,
-                            EXCHANGE_RATE : item.EXCHANGE_RATE,
-                            FUNCTIONAL_AMT : item.FUNCTIONAL_AMT,
+                            EXCHANGE_RATE : item.EXCHRT,
+                            FUNCTIONAL_AMT : item.CNVS_AMT,
                         }
                         jsonDepositAndWithdrawalStatusList.push(msg);
                     });

@@ -55,7 +55,7 @@ public class ApcMaFig3500Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_FIG3500_Q");
+            param.put("procedure", "SP_FIG3500_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaFig3500Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3500_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3500_S");
 
             logger.info("=============insertFig3500=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -103,7 +103,7 @@ public class ApcMaFig3500Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_FIG3500_S1");
+            param.put("procedure", "SP_FIG3500_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
