@@ -6,6 +6,7 @@ public class ComConstants {
 	public final static String SERVER_TYPE_DEV = "dev";
 	public final static String SERVER_TYPE_LOCAL = "local";
 
+	public final static String PART_BOUNDARY = "------=_Part_123456_789012345.1710102030";
 
 	public final static String DEFAULT_ERR_USER = "SYSTEM";
 	public final static String DEFAULT_ERR_PRGRM = "SYSTEM_APP";

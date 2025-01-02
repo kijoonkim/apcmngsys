@@ -118,7 +118,13 @@ public class ComUserVO extends ComVO {
 	
 	private String brcAtchflSn;
 	private String brcAtchflNm;
-	
+
+	private String prdctnMngUseYn;
+	private String admstMngUseYn;
+	private String frmhsMngUseYn;
+
+	private String apcMngrYn;
+
 	private String rtnCd;
 	private String rtnMsg;
 	

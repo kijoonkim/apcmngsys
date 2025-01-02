@@ -1061,8 +1061,53 @@ public class ComUserController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+	@PostMapping(value = "/co/user/insertUserApcMngrAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertUserApcMngrAprv(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+
+			List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+
+			if (userApcList == null || userApcList.isEmpty()) {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "취소대상"));
+			}
+
+			String untyAuthrtType = getUntyAuthrtType();
+
+			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+				comUserVO.setSuperUserYn(ComConstants.CON_YES);
+			} else {
+				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+			}
+
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = comUserService.insertUserApcMngrAprv(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/co/user/downloadUserFile.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public void downloadUserFile(@RequestBody ComUserVO comUserVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 

@@ -121,7 +121,7 @@
 		    SBGridProperties.columns = [
 	        	{caption: ["체크박스"], 	ref: 'checked', 	width: '40px', 	type: 'checkbox',	style:'text-align: center',
 					typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}},
-		        {caption: ['순번'], 		ref: 'rowSeq', 		width: '50px', 	type: 'output', 	style: 'text-align:right'},
+		        {caption: ['순번'], 		ref: 'rowSeq', 		width: '50px', 	type: 'output', 	style: 'text-align:right', hidden: true},
 		        {caption: ['사용자ID'], 	ref: 'userId', 		width: '100px', type: 'output'},
 		        {caption: ['사용자명'], 	ref: 'userNm', 		width: '100px', type: 'output'},
 		        {caption: ['사용자유형'], 	ref: 'userTypeNm',	width: '100px', type: 'output'},
