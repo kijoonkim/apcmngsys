@@ -271,6 +271,8 @@
              TB_OPRTNG_APC_FCLT
          WHERE
              APC_CD = #{apcCd}
+         AND
+             FCLT_TYPE = 'WGH_FCLT_CD'
         ]]>
         <if test=' fcltCd != null and fcltCd !=""'>
         AND  FCLT_CD = #{fcltCd}

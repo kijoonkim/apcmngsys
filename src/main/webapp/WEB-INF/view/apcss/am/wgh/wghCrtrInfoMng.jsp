@@ -65,21 +65,21 @@
                         <col style="width: 6%">
                     </colgroup>
                     <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">계량대</th>
-                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">
-                                <sbux-select
-                                        unselected-text="전체"
-                                        uitype="single"
-                                        id="srch-slt-sortFcltCd"
-                                        name="srch-slt-sortFcltCd"
-                                        class="form-control input-sm"
-                                        style="width: 80%"
-                                        jsondata-ref="jsonSortFclt">
-                                </sbux-select>
-                            </td>
-                            <td colspan="9" style="border-top: hidden"></td>
-                        </tr>
+<%--                        <tr>--%>
+<%--                            <th scope="row" class="th_bg">계량대</th>--%>
+<%--                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">--%>
+<%--                                <sbux-select--%>
+<%--                                        unselected-text="전체"--%>
+<%--                                        uitype="single"--%>
+<%--                                        id="srch-slt-sortFcltCd"--%>
+<%--                                        name="srch-slt-sortFcltCd"--%>
+<%--                                        class="form-control input-sm"--%>
+<%--                                        style="width: 80%"--%>
+<%--                                        jsondata-ref="jsonSortFclt">--%>
+<%--                                </sbux-select>--%>
+<%--                            </td>--%>
+<%--                            <td colspan="9" style="border-top: hidden"></td>--%>
+<%--                        </tr>--%>
                     </tbody>
                 </table>
                 <div>
@@ -345,15 +345,14 @@
         try{
             let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",{apcCd:gv_apcCd});
             let data = await postJsonPromise;
-            console.log(data);
 
             if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
             }
-            if(data.resultList.length > 0){
+            if(data.resultJson.length > 0){
                 jsonWghList.length = 0;
-                data.resultList.forEach((item) => {
+                data.resultJson.forEach((item) => {
                     jsonWghList.push(item);
                 });
                 grdWghList.rebuild();
@@ -392,6 +391,9 @@
             wghInfo.bgngYmd = SBUxMethod.get("dtl-dtp-bgngYmd");
             wghInfo.endYmd = SBUxMethod.get("dtl-dtp-endYmd");
 
+            let saveParam = gfn_getTableElement("wghDtlTable","dtl-",["fcltCd","fcltExpln","wghtMin","wghtMax","prcsNmtm","warehouseSeCd","cpctUnit","bgngYmd","endYmd","fcltRmrk"]);
+            saveParam.apcCd = gv_apcCd;
+
             let grdWghDtl = grdWghDtlList.getGridDataAll().filter((item,idx) => {
                 delete item.itemCd;
                 item.apcCd = gv_apcCd;
@@ -401,9 +403,9 @@
             let postJsonPromise;
 
             if(createMode && !editMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/insertWghInfo.do",[wghInfo,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/cmns/insertWghInfo.do",[saveParam,grdWghDtl]);
             }else if(editMode && !createMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/updateWghInfo.do",[wghInfo,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/cmns/updateWghInfo.do",[saveParam,grdWghDtl]);
             }else{
                 gfn_comAlert("I0002","모드가 잘못됨",editMode,createMode);
             }
@@ -608,11 +610,16 @@
             let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",wghDtlVO);
             let data = await postJsonPromise;
 
+            // let resultJson = data.resultJson[0];
+            // for(let key in resultJson){
+            //     SBUxMethod.set("dtl-inp-" + key,data.resultJson[0][key]);
+            // }
+
         try{
-            if(data.resultStatus == "S"){
+            if(data.resultStatus === "S"){
+                gfn_setTableElement("wghDtlTable","dtl-",data.resultJson[0],true);
                 if(data.resultList.length >= 0){
                     /** 우측 GRID **/
-                    let fcltVO = JSON.parse(data.resultJson);
                     jsonWghDtlList.length = 0;
                     jsonWghDtlList = data.resultList;
                     grdWghDtlList.rebuild();
@@ -621,15 +628,15 @@
                     grdWghDtlList.addRow(true);
                     grdWghDtlList.setCellDisabled(nRow, 0, nRow, grdWghDtlList.getCols() - 1, true);
 
-                    /** 좌측 TABLE **/
-                    const inputs = document.querySelectorAll('*[id^="dtl"]');
-                    inputs.forEach((item) => {
-                        let lastIndex = item.id.lastIndexOf("-");
-                        let extractedPart = item.id.substring(lastIndex + 1);
-                        item.value = fcltVO[extractedPart];
-                    });
-                    SBUxMethod.set("dtl-dtp-bgngYmd",fcltVO.bgngYmd);
-                    SBUxMethod.set("dtl-dtp-endYmd",fcltVO.endYmd);
+                    // /** 좌측 TABLE **/
+                    // const inputs = document.querySelectorAll('*[id^="dtl"]');
+                    // inputs.forEach((item) => {
+                    //     let lastIndex = item.id.lastIndexOf("-");
+                    //     let extractedPart = item.id.substring(lastIndex + 1);
+                    //     item.value = fcltVO[extractedPart];
+                    // });
+                    // SBUxMethod.set("dtl-dtp-bgngYmd",fcltVO.bgngYmd);
+                    // SBUxMethod.set("dtl-dtp-endYmd",fcltVO.endYmd);
 
                     /** 삭제 버튼 **/
                     SBUxMethod.attr("btnDelete","disabled","false");

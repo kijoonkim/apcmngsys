@@ -1673,8 +1673,8 @@ const gfn_comboValidation = function(_jsondataRef, _code){
  * @function
  * @param {String} _tableId
  * @param {String} _pattern
- * @param {String} _preFix
- * @returns
+ * @param {String[]} _ignore
+ * @returns false || Object
  */
 const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 	let param = {};
@@ -1714,6 +1714,32 @@ const gfn_getTableElement = function(_tableId, _pattern, _ignore = []) {
 		}
 	}
 	return param;
+}
+/**
+ * @name gfn_getTableElement
+ * @description Table 내부 sb요소 일괄 GET
+ * 필수 : table Id 필수, table 내부 td 요소들 id값 개발표준 준수
+ * ex) reg[등록] srch[검색조건] dtl[상세]
+ * @function
+ * @param {String} _tableId
+ * @param {String} _pattern
+ * @param {Object} _obj
+ * @param {Boolean} _sbFlag
+ * @param {String[]} _ignore
+ * @returns
+ */
+const gfn_setTableElement = function(_tableId, _pattern, _obj , _sbFlag = false) {
+	let param = {};
+	let table = document.getElementById(_tableId);
+	let elements = table.querySelectorAll(`[id^=${_pattern}]`);
+	elements = Array.from(elements);
+
+	for (let element of elements) {
+		let key = element.id.split('-').pop();
+		if(_obj.hasOwnProperty(key) && _sbFlag){
+			SBUxMethod.set(element.id,_obj[key]);
+		}
+	}
 }
 const gfn_camelToSnakeUpper = function(str) {
 	return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase().toUpperCase();

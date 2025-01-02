@@ -72,7 +72,7 @@ public interface WghInfoMapper {
      * @throws Exception
      * @table TB_OPRTNG_APC_FCLT
      */
-    CmnsFcltVO selectWghFcltInfo(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception;
+    List<CmnsFcltVO> selectWghFcltInfo(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception;
 
     /**
      * 계량대 하단 grid 상세속성정보 조회
