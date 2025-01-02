@@ -736,12 +736,13 @@
         }
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보 팝업');
+        var addParams = ['NULL'];
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_FIM045'
             ,popupType				: 'B'
-            ,whereClause			: ''
+            ,whereClause			: addParams
             ,searchCaptions			: ["코드"         , 	"코드명"           /*,"오픈"*/]
             ,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"    /*,"V_P_OPEN_TO_ALL"*/]
             ,searchInputValues		: [""            , 	searchText		  /*,""*/]
@@ -750,35 +751,35 @@
 
             ,height					: '400px'
             ,tableHeader			: ["계정코드",		"계정명"   , 		"계정명(한글)" ]
-            ,tableColumnNames		: ["APLY_ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"        ]
-            ,tableColumnWidths		: ["100px", 		"250px", 		"250px"          ]
+            ,tableColumnNames		: ["ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"        ]
+            ,tableColumnWidths		: ["100px", 		"100px", 		"250px"          ]
             ,itemSelectEvent		: function (data){
                 if (_.isEqual(type, '1')){
-                    SBUxMethod.set('SALES_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('SALES_COST_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('SALES_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '2')){
-                    SBUxMethod.set('SALES_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('SALES_COST_TEMP_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('SALES_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '3')){
-                    SBUxMethod.set('ADMIN_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('ADMIN_COST_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('ADMIN_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '4')){
-                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('ADMIN_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '5')){
-                    SBUxMethod.set('MFG_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('MFG_COST_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('MFG_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '6')){
-                    SBUxMethod.set('MFG_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('MFG_COST_TEMP_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('MFG_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '7')){
-                    SBUxMethod.set('RESEARCH_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('RESEARCH_COST_ACC_CODE', data.ACNTL_CD);
                     SBUxMethod.set('RESEARCH_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '8')){
-                    SBUxMethod.set('AP_ACCOUNT_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('AP_ACCOUNT_CODE', data.ACNTL_CD);
                     SBUxMethod.set('AP_ACCOUNT_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '9')){
-                    SBUxMethod.set('AR_ACCOUNT_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('AR_ACCOUNT_CODE', data.ACNTL_CD);
                     SBUxMethod.set('AR_ACCOUNT_NAME', data.ACNT_NM);
                 }
             },
