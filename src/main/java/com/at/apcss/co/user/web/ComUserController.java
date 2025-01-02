@@ -910,7 +910,7 @@ public class ComUserController extends BaseController {
 		} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
 			comUserVO.setUntyOgnzId(untyOgnzCd);
 		} else {
-			return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
+			comUserVO.setSearchUserId(getUserId());
 		}
 		
 		try {
@@ -984,7 +984,8 @@ public class ComUserController extends BaseController {
 			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_ADMIN.equals(untyAuthrtType)) {
 				comUserVO.setUntyOgnzId(untyOgnzId);
 			} else {
-				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
+				comUserVO.setSearchUserId(getUserId());
+				//return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "권한"));
 			}
 			
 			comUserVO.setSysFrstInptUserId(getUserId());
