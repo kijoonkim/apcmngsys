@@ -36,7 +36,7 @@
                 </h3><!-- 소수점 설정 -->
             </div>
         </div>
- 
+
         <div class="box-search-ma">
             <!--[pp] 검색 -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -48,19 +48,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
- 
+
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
- 
+
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
- 
+
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -81,7 +81,7 @@
                                     class="form-control input-sm"></sbux-input>
                     </td>
                     <td colspan="11" style="border-right: hidden;">&nbsp;</td>
- 
+
                 </tr>
                 </tbody>
             </table>
@@ -100,7 +100,7 @@
                     <div id="sb-area-grdSys3100" style="height:600px; width:100%;"></div>
                 </div>
             </div>
- 
+
             <div class="col-sm-8">
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
@@ -116,14 +116,14 @@
                         <tr>
                             <th scope="row" class="th_bg">소수유형ID</th>
                             <td colspan="3" class="td_input">
-                                <sbux-input id="DCPT_ID" class="form-control input-sm inpt_data_reqed" uitype="text" required
+                                <sbux-input id="DECIMAL_ID" class="form-control input-sm inpt_data_reqed" uitype="text" required
                                             style="width:30%" required></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">소수유형명</th>
                             <td colspan="3" class="td_input">
-                                <sbux-input id="DCPT_NM" class="form-control input-sm inpt_data_reqed" uitype="text" required
+                                <sbux-input id="DECIMAL_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" required
                                             style="width:30%" required></sbux-input>
                             </td>
                         </tr>
@@ -131,22 +131,22 @@
                             <th scope="row" class="th_bg">소수자리수</th>
                             <td colspan="3" class="td_input">
                                 <sbux-input
-                                        id="DCPT_LNGTH"
-                                        name="DCPT_LNGTH"
+                                        id="DECIMAL_LENGTH"
+                                        name="DECIMAL_LENGTH"
                                         uitype="text"
                                         class="form-control input-sm inpt_data_reqed"
                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true }"
                                         maxlength="10"
                                         style="width:30%"
                                         required
-                                        <%--onkeyup="fn_calculate"--%>
+                                <%--onkeyup="fn_calculate"--%>
                                 ></sbux-input>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">비고</th>
                             <td colspan="3" class="td_input">
-                                <sbux-input id="DSCTN" class="form-control input-sm" uitype="text" required
+                                <sbux-input id="DESCR" class="form-control input-sm" uitype="text" required
                                             style="width:30%"></sbux-input>
                             </td>
                         </tr>
@@ -164,35 +164,35 @@
     </div>
 </section>
 </body>
- 
+
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
- 
+
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     //-----------------------------------------------------------
- 
+
     var editType			= "N"; //신규, 수정 구분 ( N : 신규 , E : 수정 )
- 
+
     //grid 초기화
     var gvwInfoGrid; 			// 그리드를 담기위한 객체 선언
     var jsonGvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
- 
- 
+
+
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
- 
+
         fn_init();
- 
+
     });
- 
+
     const fn_init = async function () {
- 
+
         fn_createGrid();
         fn_search();
     }
- 
+
     // 신규
     function cfn_add() {
         fn_create();
@@ -205,63 +205,63 @@
     function cfn_del() {
         fn_delete();
     }
- 
+
     // 조회
     function cfn_search() {
         fn_search();
     }
- 
+
     /**
      * 초기화
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
     }
- 
+
     /**
      * 목록 조회
      */
     const fn_search = async function () {
- 
+
         // form clear
         fn_clearForm();
         gvwInfoGrid.clearStatus();
- 
+
         let DECIMAL_ID      = gfn_nvl(SBUxMethod.get("SRCH_DECIMAL_ID"));
         let DECIMAL_NAME    = gfn_nvl(SBUxMethod.get("SRCH_DECIMAL_NAME"));
- 
+
         var paramObj = {
-             V_P_DEBUG_MODE_YN  : 'N'
+            V_P_DEBUG_MODE_YN  : 'N'
             , V_P_LANG_ID       : 'KOR'
             , V_P_COMP_CODE     : '1000'
             , V_P_CLIENT_CODE   : '100'
- 
+
             , V_P_DECIMAL_ID    : DECIMAL_ID
             , V_P_DECIMAL_NAME  : DECIMAL_NAME
- 
+
             , V_P_FORM_ID       : p_formId
             , V_P_MENU_ID       : p_menuId
             , V_P_PROC_ID       : ''
             , V_P_USERID        : ''
             , V_P_PC            : ''
         };
- 
- 
+
+
         const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys3100List.do", {
             getType: 'json',
             workType: 'Q',
             cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
- 
+
         const data = await postJsonPromise;
- 
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
- 
+
                 /** @type {number} **/
                 let totalRecordCount = 0;
- 
+
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
@@ -274,38 +274,38 @@
                     jsonGvwInfoList.push(msg);
                     totalRecordCount++;
                 });
- 
+
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
- 
+
                 if(jsonGvwInfoList.length > 0) {
                     gvwInfoGrid.clickRow(1);
                 }
                 //fn_view();
- 
+
             } else {
                 alert(data.resultMessage);
             }
- 
+
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
- 
- 
+
+
     }
- 
+
     const fn_clearForm = function () {
-        SBUxMethod.set("DCPT_ID", "");
-        SBUxMethod.set("DCPT_NM", "");
-        SBUxMethod.set("DCPT_LNGTH", "");
-        SBUxMethod.set("DSCTN", "");
+        SBUxMethod.set("DECIMAL_ID", "");
+        SBUxMethod.set("DECIMAL_NAME", "");
+        SBUxMethod.set("DECIMAL_LENGTH", "");
+        SBUxMethod.set("DESCR", "");
         SBUxMethod.set("USE_YN", "");
     }
- 
- 
+
+
     function fn_createGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdSys3100';
@@ -323,10 +323,10 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption: ["소수유형ID"], ref: 'DCPT_ID', type: 'output', width: '35%', style: 'text-align:left'},
-            {caption: ["소수유형명"], ref: 'DCPT_NM', type: 'output', width: '35%', style: 'text-align:left'},
-            //{caption: ["소수자리수"], ref: 'DCPT_LNGTH', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["소수자리수"], ref: 'DCPT_LNGTH', type: 'input', width: '20%', style: 'text-align:right'
+            {caption: ["소수유형ID"], ref: 'DECIMAL_ID', type: 'output', width: '35%', style: 'text-align:left'},
+            {caption: ["소수유형명"], ref: 'DECIMAL_NAME', type: 'output', width: '35%', style: 'text-align:left'},
+            //{caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["소수자리수"], ref: 'DECIMAL_LENGTH', type: 'input', width: '20%', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}, /*maxlength : 10*/},  format : {type:'number', rule:'#', emptyvalue:'0'}},
             {
                 caption: ["사용여부"], ref: 'USE_YN', type: 'checkbox', width: '10%', style: 'text-align:center',
@@ -343,74 +343,74 @@
             },
             {caption: [""], ref: 'empty', type: 'output', width: '0%', style: 'text-align:left', disabled: true}//스타일상 빈값
         ];
- 
+
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
         gvwInfoGrid.bind('click', 'fn_view');
         gvwInfoGrid.bind('keyup', 'fn_keyup');
- 
+
     }
- 
+
     const fn_keyup = async function(event) {
         if(event.keyCode == 38 || event.keyCode == 40) {
             fn_view();
         }
     }
- 
+
     //상세정보 보기
     function fn_view() {
- 
+
         editType = "E";
- 
-       /* var nCol = gvwInfoGrid.getCol();
-        //특정 열 부터 이벤트 적용
-        if (nCol < 1) {
-            return;
-        }*/
+
+        /* var nCol = gvwInfoGrid.getCol();
+         //특정 열 부터 이벤트 적용
+         if (nCol < 1) {
+             return;
+         }*/
         var nRow = gvwInfoGrid.getRow();
         var nCol = gvwInfoGrid.getCol();
- 
+
         if (nCol == -1) {
             return;
         }
         if (nRow < 1) {
             return;
         }
- 
- 
+
+
         let rowData = gvwInfoGrid.getRowData(nRow);
- 
+
         if (_.isEmpty(rowData) == false) {
-            SBUxMethod.attr('DCPT_ID' ,'readonly',true);
-            SBUxMethod.set("DCPT_ID"     , rowData.DCPT_ID);
-            SBUxMethod.set("DCPT_NM"   , rowData.DCPT_NM);
-            SBUxMethod.set("DCPT_LNGTH" , rowData.DCPT_LNGTH);
-            SBUxMethod.set("DSCTN"          , rowData.DSCTN);
-            SBUxMethod.set("USE_YN"         , rowData.USE_YN);
+            SBUxMethod.attr('DECIMAL_ID'     ,'readonly',true);
+            SBUxMethod.set("DECIMAL_ID"      , rowData.DCPT_ID);
+            SBUxMethod.set("DECIMAL_NAME"    , rowData.DCPT_NM);
+            SBUxMethod.set("DECIMAL_LENGTH"  , rowData.DCPT_LNGTH);
+            SBUxMethod.set("DESCR"           , rowData.DSCTN);
+            SBUxMethod.set("USE_YN"          , rowData.USE_YN);
         }
     }
- 
+
     //신규 작성
     function fn_create() {
- 
+
         editType = "N";
-        SBUxMethod.attr('DCPT_ID' ,'readonly',false);
-        SBUxMethod.set("DCPT_ID"     , "");
-        SBUxMethod.set("DCPT_NM"   , "");
-        SBUxMethod.set("DCPT_LNGTH" , "");
-        SBUxMethod.set("DSCTN"          , "");
+        SBUxMethod.attr('DECIMAL_ID' ,'readonly',false);
+        SBUxMethod.set("DECIMAL_ID"     , "");
+        SBUxMethod.set("DECIMAL_NAME"   , "");
+        SBUxMethod.set("DECIMAL_LENGTH" , "");
+        SBUxMethod.set("DESCR"          , "");
         SBUxMethod.set("USE_YN"         , "");
     }
- 
+
     //저장
     const fn_save = async function() {
- 
-        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DCPT_ID"));
-        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DCPT_NM"));
-        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DCPT_LNGTH"));
-        let DESCR		        = gfn_nvl(SBUxMethod.get("DSCTN"));
+
+        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DECIMAL_ID"));
+        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DECIMAL_NAME"));
+        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
+        let DESCR		        = gfn_nvl(SBUxMethod.get("DESCR"));
         let USE_YN	            = gfn_nvl(SBUxMethod.get("USE_YN"));
- 
- 
+
+
         if (!DECIMAL_ID) {
             gfn_comAlert("W0002", "소수유형ID");
             return;
@@ -423,8 +423,8 @@
             gfn_comAlert("W0002", "소수자리수");
             return;
         }
- 
- 
+
+
         if (editType=="N") {
             // 신규 등록
             if(gfn_comConfirm("Q0001", "신규 등록")){
@@ -435,7 +435,7 @@
                     ,DESCR	            : DESCR
                     ,USE_YN 		    : USE_YN.USE_YN
                 }
- 
+
                 fn_subInsert(obj);
             }
         } else if(editType=="E") {
@@ -452,21 +452,21 @@
             }
         }
     }
- 
+
     /**
      * @param {boolean} isConfirmed
      */
     const fn_subInsert = async function (obj){
- 
+
         var paramObj = {
             V_P_DEBUG_MODE_YN   : ''
             ,V_P_LANG_ID         : 'KOR'
             ,V_P_COMP_CODE       : ''
             ,V_P_CLIENT_CODE     : '100'
-            ,V_P_DECIMAL_ID      : obj.DCPT_ID
-            ,V_P_DECIMAL_NAME    : obj.DCPT_NM
-            ,V_P_DECIMAL_LENGTH  : obj.DCPT_LNGTH
-            ,V_P_DESCR           : obj.DSCTN
+            ,V_P_DECIMAL_ID      : obj.DECIMAL_ID
+            ,V_P_DECIMAL_NAME    : obj.DECIMAL_NAME
+            ,V_P_DECIMAL_LENGTH  : obj.DECIMAL_LENGTH
+            ,V_P_DESCR           : obj.DESCR
             ,V_P_USE_YN          : obj.USE_YN
             ,V_P_FORM_ID         : p_formId
             ,V_P_MENU_ID         : p_menuId
@@ -474,7 +474,7 @@
             ,V_P_USERID          : ''
             ,V_P_PC              : ''
         };
- 
+
         const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3100.do", {
             getType				: 'json',
             workType			: 'N',
@@ -482,7 +482,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
- 
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.resultMessage){
@@ -499,22 +499,22 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
- 
- 
+
+
     /**
      * @param {boolean} isConfirmed
      */
     const fn_subUpdate = async function (obj){
- 
+
         var paramObj = {
             V_P_DEBUG_MODE_YN   : ''
             ,V_P_LANG_ID         : 'KOR'
             ,V_P_COMP_CODE       : ''
             ,V_P_CLIENT_CODE     : '100'
-            ,V_P_DECIMAL_ID      : obj.DCPT_ID
-            ,V_P_DECIMAL_NAME    : obj.DCPT_NM
-            ,V_P_DECIMAL_LENGTH  : obj.DCPT_LNGTH
-            ,V_P_DESCR           : obj.DSCTN
+            ,V_P_DECIMAL_ID      : obj.DECIMAL_ID
+            ,V_P_DECIMAL_NAME    : obj.DECIMAL_NAME
+            ,V_P_DECIMAL_LENGTH  : obj.DECIMAL_LENGTH
+            ,V_P_DESCR           : obj.DESCR
             ,V_P_USE_YN          : obj.USE_YN
             ,V_P_FORM_ID         : p_formId
             ,V_P_MENU_ID         : p_menuId
@@ -522,7 +522,7 @@
             ,V_P_USERID          : ''
             ,V_P_PC              : ''
         };
- 
+
         const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3100.do", {
             getType				: 'json',
             workType			: 'U',
@@ -530,7 +530,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
- 
+
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.resultMessage){
@@ -547,37 +547,37 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
- 
- 
+
+
     //삭제
     const fn_delete = async function() {
- 
-        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DCPT_ID"));
-        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DCPT_NM"));
-        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DCPT_LNGTH"));
-        let DESCR		        = gfn_nvl(SBUxMethod.get("DSCTN"));
+
+        let DECIMAL_ID 			= gfn_nvl(SBUxMethod.get("DECIMAL_ID"));
+        let DECIMAL_NAME		= gfn_nvl(SBUxMethod.get("DECIMAL_NAME"));
+        let DECIMAL_LENGTH 		= gfn_nvl(SBUxMethod.get("DECIMAL_LENGTH"));
+        let DESCR		        = gfn_nvl(SBUxMethod.get("DESCR"));
         let USE_YN	            = gfn_nvl(SBUxMethod.get("USE_YN").USE_YN);
- 
+
         if(gfn_comConfirm("Q0001", "삭제")) {
             var paramObj = {
                 V_P_DEBUG_MODE_YN   : ''
                 ,V_P_LANG_ID         : 'KOR'
                 ,V_P_COMP_CODE       : ''
                 ,V_P_CLIENT_CODE     : '100'
- 
+
                 ,V_P_DECIMAL_ID      : DECIMAL_ID
                 ,V_P_DECIMAL_NAME    : DECIMAL_NAME
                 ,V_P_DECIMAL_LENGTH  : DECIMAL_LENGTH
                 ,V_P_DESCR           : DESCR
                 ,V_P_USE_YN          : USE_YN
- 
+
                 ,V_P_FORM_ID         : p_formId
                 ,V_P_MENU_ID         : p_menuId
                 ,V_P_PROC_ID         : ''
                 ,V_P_USERID          : ''
                 ,V_P_PC              : ''
             };
- 
+
             const postJsonPromise = gfn_postJSON("/co/sys/sys/insertSys3100.do", {
                 getType				: 'json',
                 workType			: 'D',
@@ -585,7 +585,7 @@
                 params				: gfnma_objectToString(paramObj)
             });
             const data = await postJsonPromise;
- 
+
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     if(data.resultMessage){
@@ -602,10 +602,10 @@
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
         }
- 
+
     }
- 
- 
+
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
