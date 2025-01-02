@@ -577,7 +577,7 @@
             // 재직구분
             gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             //부서코드
-            gfnma_setComSelect(['gvwItemGrid'], jsonDeptCode, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
+            //gfnma_setComSelect(['gvwItemGrid'], jsonDeptCode, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
             //프로젝트코드
             gfnma_setComSelect(['gvwItemGrid'], jsonProjectCode, 'P_COM028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PJT_CD', 'PJT_NM', 'Y', ''),
             //계정과목

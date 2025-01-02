@@ -671,7 +671,7 @@
             gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
             gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
+            //gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
@@ -831,9 +831,8 @@
             },
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
-            {caption : ["부    서"], ref : 'DEPT_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonDeptCode',  label : 'label', value : 'value'}, hidden: true
-            },
+            {caption: ["부    서"], ref: 'DEPT_CODE', type: 'output', width: '100px', style: 'text-align:left', hidden: true},
+
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             /*{caption : ["부서"], ref : 'DEPT_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonDeptName',  label : 'label', value : 'value'}
@@ -1701,7 +1700,7 @@
 
                 dtSource1.forEach((item, index1) => {
 
-                    STRNUD_TYPE          += index + '|';
+                    STRNUD_TYPE          += index1 + '|';
                     STRPAY_ITEM_CODE     += item.PAY_ITEM_CODE + '|';
                     STRPAY_AMT           += item.PAY_AMT + '|';
                     STRTAX_FREE_AMT      += item.TAX_FREE_AMT + '|';

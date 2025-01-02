@@ -877,7 +877,7 @@
 
         fn_createGrid();
 
-        gfnma_multiSelectSet('#SRCH_HR_POSTING_TYPE', 'SUB_CODE', 'CODE_NAME', jsonHrPostingType[0].SUB_CODE);
+        gfnma_multiSelectSet('#SRCH_HR_POSTING_TYPE', 'SBSD_CD', 'CD_NM', jsonHrPostingType[0].SUB_CODE);
 
         //let HR_POSTING_TYPE			    = gfnma_multiSelectGet('#SRCH_HR_POSTING_TYPE');//전표구분
 
@@ -1147,8 +1147,8 @@
 
             gfnma_uxDataSet('#dataArea2', rowData);
 
-            gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SUB_CODE', 'CODE_NAME'   , gfn_nvl(rowData.POSTING_SUMMARY_TYPE));
-            gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM'    , 'SUB_CODE', 'CODE_NAME'    , gfn_nvl(rowData.ACCOUNT_PAY_ITEM));
+            gfnma_multiSelectSet('#POSTING_SUMMARY_TYPE', 'SBSD_CD', 'CD_NM'   , gfn_nvl(rowData.POSTING_SUMMARY_TYPE));
+            gfnma_multiSelectSet('#ACCOUNT_PAY_ITEM'    , 'SBSD_CD', 'CD_NM'    , gfn_nvl(rowData.ACCOUNT_PAY_ITEM));
         }
 
 

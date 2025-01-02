@@ -381,10 +381,10 @@
 
         if (_.isEmpty(rowData) == false) {
             SBUxMethod.attr('DECIMAL_ID'     ,'readonly',true);
-            SBUxMethod.set("DECIMAL_ID"      , rowData.DCPT_ID);
-            SBUxMethod.set("DECIMAL_NAME"    , rowData.DCPT_NM);
-            SBUxMethod.set("DECIMAL_LENGTH"  , rowData.DCPT_LNGTH);
-            SBUxMethod.set("DESCR"           , rowData.DSCTN);
+            SBUxMethod.set("DECIMAL_ID"      , rowData.DECIMAL_ID);
+            SBUxMethod.set("DECIMAL_NAME"    , rowData.DECIMAL_NAME);
+            SBUxMethod.set("DECIMAL_LENGTH"  , rowData.DECIMAL_LENGTH);
+            SBUxMethod.set("DESCR"           , rowData.DESCR);
             SBUxMethod.set("USE_YN"          , rowData.USE_YN);
         }
     }
