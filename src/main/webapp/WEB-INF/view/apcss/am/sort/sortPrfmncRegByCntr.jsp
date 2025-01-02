@@ -2258,7 +2258,7 @@
 	        	style: 'text-align:center', 
 	        	userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'},
-				disabled : true,
+				//disabled : true,
 			},
             {
             	caption: ["상품명 (포장시 필수)"],

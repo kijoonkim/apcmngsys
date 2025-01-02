@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -65,9 +66,10 @@ public class EgovConfigAppDatasource {
 	private String userName;
 
 	private String password;
-
+	
 	@PostConstruct
 	void init() {
+		
 		dbType = env.getProperty("Globals.DbType");
 		//Exception 처리 필요
 		className = env.getProperty("Globals." + dbType + ".DriverClassName");
@@ -78,9 +80,9 @@ public class EgovConfigAppDatasource {
 		//System.out.println(String.format("userName: %s", userName));
 		//System.out.println(String.format("password: %s", password));
 		
-
-		System.out.println(String.format("@@profile 값 :: %s", env.getProperty("spring.profiles.active")));
-		System.out.println(String.format("@@USERNAME 값 :: %s", env.getProperty("spring.test.username")));
+		//System.out.println(String.format("@@profile 값 :: %s", env.getProperty("spring.profiles.active")));
+		//System.out.println(String.format("@@USERNAME 값 :: %s", env.getProperty("spring.test.username")));
+		//System.out.println(String.format("@@SCHEDULE 값 :: %s", env.getProperty("spring.server.schedule")));
 		
 	}
 

@@ -339,7 +339,15 @@ public interface ComUserService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> deleteUserApcAprv(ComUserVO comUserVO) throws Exception;
-	
+
+	/**
+	 * 사용자APC 생산관리자등록
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String,Object> insertUserApcMngrAprv(ComUserVO comUserVO) throws Exception;
+
 	/**
 	 * 사용자APC 변경이력 등록
 	 * @param comUserApcVO

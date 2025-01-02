@@ -570,12 +570,14 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			// 해당 조직에 등록된 APC인지 확인
 			//selectComOgnzApcList
 			ComUserApcVO chkOgnzInfo = comUserMapper.selectCorpApc(userApc);
-			if (
-				chkOgnzInfo != null 
-				&& StringUtils.hasText(chkOgnzInfo.getApcCd())
-				&& ComConstants.CON_YES.equals(chkOgnzInfo.getAprvYn())) {
-			} else {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+			if (!ComConstants.CON_YES.equals(comUserVO.getSuperUserYn())) {
+				if (
+						chkOgnzInfo != null
+								&& StringUtils.hasText(chkOgnzInfo.getApcCd())
+								&& ComConstants.CON_YES.equals(chkOgnzInfo.getAprvYn())) {
+				} else {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+				}
 			}
 		}
 		
@@ -675,13 +677,17 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			// 해당 조직에 등록된 APC인지 확인
 			//selectComOgnzApcList
 			ComUserApcVO chkOgnzInfo = comUserMapper.selectCorpApc(userApc);
-			if (
-				chkOgnzInfo != null 
-				&& StringUtils.hasText(chkOgnzInfo.getApcCd())
-				&& ComConstants.CON_YES.equals(chkOgnzInfo.getAprvYn())) {
-			} else {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+
+			if (!ComConstants.CON_YES.equals(comUserVO.getSuperUserYn())) {
+				if (
+						chkOgnzInfo != null
+								&& StringUtils.hasText(chkOgnzInfo.getApcCd())
+								&& ComConstants.CON_YES.equals(chkOgnzInfo.getAprvYn())) {
+				} else {
+					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+				}
 			}
+
 		}
 		
 		for ( ComUserApcVO userApc : userApcList ) {
@@ -690,7 +696,14 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			userApc.setAprvPrgrsCd(ComConstants.CON_APRV_PRGRS_CD_APRV);
 			insertUserApcHstry(userApc);
 			
-			comUserMapper.updateUserApcAprv(userApc);			
+			comUserMapper.updateUserApcAprv(userApc);
+
+			// sys auth 호출
+			comUserMapper.insertSpUserApcSysAuth(userApc);
+			if (StringUtils.hasText(userApc.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(userApc.getRtnCd(), userApc.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
 		
 		return null;
@@ -740,8 +753,93 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 			insertUserApcHstry(userApc);
 			// 승인취소 처리
 			comUserMapper.updateUserApcAprvCncl(userApc);
+
+			// sys auth 호출
+			comUserMapper.insertSpUserApcSysAuth(userApc);
+			if (StringUtils.hasText(userApc.getRtnCd())) {
+				HashMap<String, Object> rtnObj = ComUtil.getResultMap(userApc.getRtnCd(), userApc.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
 		
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertUserApcMngrAprv(ComUserVO comUserVO) throws Exception {
+
+		List<ComUserApcVO> userApcList = comUserVO.getUserApcList();
+
+		if (userApcList == null || userApcList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "등록");
+		}
+
+		String sysUserId = comUserVO.getSysLastChgUserId();
+		String sysPrgrmId = comUserVO.getSysLastChgPrgrmId();
+
+		for ( ComUserApcVO userApc : userApcList ) {
+
+			userApc.setSysFrstInptUserId(sysUserId);
+			userApc.setSysFrstInptPrgrmId(sysPrgrmId);
+			userApc.setSysLastChgUserId(sysUserId);
+			userApc.setSysLastChgPrgrmId(sysPrgrmId);
+
+			if (!StringUtils.hasText(userApc.getApcCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC정보");
+			}
+
+			// 기등록 APC 인지 확인
+			ComUserApcVO chkVO = comUserMapper.selectUserApc(userApc);
+			if (chkVO != null && StringUtils.hasText(chkVO.getApcCd()) && ComConstants.CON_YES.equals(chkVO.getAprvYn())) {
+				userApc.setApcMngrYn(ComConstants.CON_YES);
+			} else {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "신청정보");
+			}
+		}
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+
+		for ( ComUserApcVO userApc : userApcList ) {
+
+			// 이력 등록
+			userApc.setAprvPrgrsCd(ComConstants.CON_APRV_PRGRS_CD_APRV);
+			insertUserApcHstry(userApc);
+
+			comUserMapper.updateUserApcMngrAprv(userApc);
+
+
+			// 승인 후 권한id 등록.
+			ComAuthrtVO comAuthrtVO = new ComAuthrtVO();
+			comAuthrtVO.setSysFrstInptUserId(sysUserId);
+			comAuthrtVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			comAuthrtVO.setSysLastChgUserId(sysUserId);
+			comAuthrtVO.setSysLastChgPrgrmId(sysPrgrmId);
+			comAuthrtVO.setApcCd(userApc.getApcCd());
+			comAuthrtVO.setUserId(userApc.getUserId());
+
+			rtnObj = comAuthrtService.insertApcAuthrtId(comAuthrtVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			ApcEvrmntStngVO stngVO = new ApcEvrmntStngVO();
+			stngVO.setSysFrstInptUserId(sysUserId);
+			stngVO.setSysFrstInptPrgrmId(sysPrgrmId);
+			stngVO.setSysLastChgUserId(sysUserId);
+			stngVO.setSysLastChgPrgrmId(sysPrgrmId);
+			stngVO.setApcCd(userApc.getApcCd());
+
+			// APC 초기정보가 없으면 APC 환경설정 초기정보 설정
+			ApcEvrmntStngVO apcStngInfo = apcEvrmntStngService.selectApcEvrmntStng(stngVO);
+			if (apcStngInfo == null || !StringUtils.hasText(apcStngInfo.getApcCd())) {
+				rtnObj = apcEvrmntStngService.insertApcInitInfo(stngVO);
+				if (rtnObj != null) {
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+
+		}
+
 		return null;
 	}
 
