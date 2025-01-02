@@ -296,7 +296,7 @@ function compopup1(options) {
 	        getType				: 'json',
 	        workType			: 'Q',
 	        cv_count			: '1',
-	        params				: gfnma_objectToString(paramObj, true)
+	        params				: gfnma_objectToString(paramObj)
   		});
   	    const data = await postJsonPromise;
     	console.log('popup get data:', data);

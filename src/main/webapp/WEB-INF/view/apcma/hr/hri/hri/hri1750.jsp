@@ -1430,7 +1430,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_1.length > 0){
-	                data.cv_1[0].CORP_SIGN = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
+	                data.cv_1[0].COMP_STAMP = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_1[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
                 }
             } else {
                 alert(data.resultMessage);
