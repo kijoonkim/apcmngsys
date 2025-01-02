@@ -287,7 +287,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['bandgvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -299,35 +299,35 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 직군
-            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'bandgvwInfo'], jsonTimeCategory, 'L_HRT024_04', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'bandgvwInfo'], jsonTimeCategory, 'L_HRT024_04', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 상태
-            gfnma_setComSelect(['SRCH_REQUEST_STATUS_CODE', 'SRCH_RESULT_STATUS_CODE', 'bandgvwInfo'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_REQUEST_STATUS_CODE', 'SRCH_RESULT_STATUS_CODE', 'bandgvwInfo'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['bandgvwInfo'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['bandgvwInfo'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 교대조
-            gfnma_setComSelect(['bandgvwInfo'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonShiftCode, 'L_HRT_SHIFTCODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHWORK_CD', 'SHWORK_TEAM_NM', 'Y', ''),
             // 휴일여부
-            gfnma_setComSelect(['bandgvwInfo'], jsonHolidayYn, 'L_HRT015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonHolidayYn, 'L_HRT015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 근무일
-            gfnma_setComSelect(['bandgvwInfo'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 시작/종료일자유형
-            gfnma_setComSelect(['bandgvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['bandgvwInfo'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -724,35 +724,35 @@
                             } else {
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TXN_ID"), parseInt(rs_emp["TXN_ID"]));
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HISTORY_SEQ"), parseInt(rs_emp["HISTORY_SEQ"]));
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SITE_CODE"), rs_emp["SITE_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), rs_emp["DEPT_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), rs_emp["DEPT_NAME"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"), rs_emp["WORK_PATTERN_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_CODE"), rs_emp["SHIFT_CODE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SITE_CODE"), rs_emp["SITE_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), rs_emp["DEPT_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), rs_emp["DEPT_NM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"), rs_emp["WRK_PTTRN_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_CODE"), rs_emp["SHWORK_CD"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_DAY_TYPE"), rs_emp["WORK_DAY_TYPE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HOLIDAY_YN"), rs_emp["HOLIDAY_YN"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), rs_emp["POSITION_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CATEGORY"), rs_emp["TIME_CATEGORY"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), rs_emp["TIME_ITEM_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), rs_emp["TIME_ITEM_NAME"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), rs_emp["TIME_START_DAY_TYPE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), rs_emp["TIME_START_HHMM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HOLIDAY_YN"), rs_emp["HLDY_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), rs_emp["JBPS_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CATEGORY"), rs_emp["ATDNC_CTGRY"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), rs_emp["ATDNC_ITEM_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), rs_emp["ATDNC_ITEM_NM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), rs_emp["WRKDY_BGNG_DAY_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), rs_emp["WRKDY_BGNG_HM"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DATE"), bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")).replace("-",""));
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), rs_emp["TIME_END_DAY_TYPE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), rs_emp["TIME_END_HHMM"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CONFIRM_DATE"), rs_emp["TIME_CONFIRM_DATE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CONFIRM_YN"), rs_emp["CONFIRM_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), rs_emp["ATDNC_END_YMD_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), rs_emp["END_TM"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_CONFIRM_DATE"), rs_emp["TM_CFMTN_DT"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CONFIRM_YN"), rs_emp["CFMTN_YN"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("MEMO"), rs_emp["MEMO"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DESTINATION"), rs_emp["DESTINATION"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DESTINATION"), rs_emp["DEST"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SEQ"), rs_emp["SEQ"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_STATUS_CODE"), rs_emp["REQUEST_STATUS_CODE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_APPROVE_DATE"), rs_emp["REQUEST_APPROVE_DATE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_DATE"), rs_emp["REQUEST_DATE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CREATE_TYPE"), rs_emp["CREATE_TYPE"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("BREAK_APPLY_YN"), rs_emp["BREAK_APPLY_YN"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), rs_emp["ALTER_WORK_YN"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), rs_emp["ALTER_REQ_YN"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), rs_emp["SHIFT_WORK_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_STATUS_CODE"), rs_emp["RQST_STTS_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_APPROVE_DATE"), rs_emp["RQST_APRV_YMD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("REQUEST_DATE"), rs_emp["RQST_YMD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("CREATE_TYPE"), rs_emp["WRT_TYPE"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("BREAK_APPLY_YN"), rs_emp["BRTM_APLY_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), rs_emp["RPLCMT_WORK_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), rs_emp["RPLCMT_WORK_RQST_YN"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), rs_emp["SHWORK_YN"]);
                             }
                         } else {
                             alert(listData.resultMessage);
@@ -818,23 +818,23 @@
                         try {
                             if (_.isEqual("S", listData.resultStatus)) {
                                 var dtday = listData.cv_2[0];
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), gfn_nvl(dtday["ALTER_WORK_YN"]));
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), gfn_nvl(dtday["ALTER_REQ_YN"]));
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), gfn_nvl(dtday["SHIFT_WORK_YN"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_WORK_YN"), gfn_nvl(dtday["RPLCMT_WORK_YN"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("ALTER_REQ_YN"), gfn_nvl(dtday["RPLCMT_WORK_RQST_YN"]));
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_WORK_YN"), gfn_nvl(dtday["SHWORK_YN"]));
 
-                                if (gfn_nvl(dtday["TIME_CATEGORY"]) == "5000") {
+                                if (gfn_nvl(dtday["ATDNC_CTGRY"]) == "5000") {
                                     let timeStartDate = bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE"));
                                     let dt_start = new Date(timeStartDate.substring(0, 4), timeStartDate.substring(4, 6), timeStartDate.substring(6, 8));
-                                    let dt_end = new Date(dt_start.getFullYear(), dt_start.getMonth(), (dt_start.getDay() + parseInt(dtday["VACATION_DAY"]) - 1));
+                                    let dt_end = new Date(dt_start.getFullYear(), dt_start.getMonth(), (dt_start.getDay() + parseInt(dtday["VCT_DCNT"]) - 1));
 
                                     bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DATE"), gfn_dateToYmd(dt_end));
-                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_DAYS"), gfn_nvl(dtday["VACATION_DAY"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_DAYS"), gfn_nvl(dtday["VCT_DCNT"]));
                                     bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_NET_DAYS"), "0");
-                                } else if (dtday["TIME_START_DAY_TYPE"] != "") {
-                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), gfn_nvl(dtday["TIME_START_DAY_TYPE"]));
-                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), gfn_nvl(dtday["TIME_START_HHMM"]));
-                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), gfn_nvl(dtday["TIME_END_DAY_TYPE"]));
-                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), gfn_nvl(dtday["TIME_END_HHMM"]));
+                                } else if (dtday["WRKDY_BGNG_DAY_TYPE"] != "") {
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_DAY_TYPE"), gfn_nvl(dtday["WRKDY_BGNG_DAY_TYPE"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_START_HHMM"), gfn_nvl(dtday["WRKDY_BGNG_HM"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_DAY_TYPE"), gfn_nvl(dtday["ATDNC_END_YMD_TYPE"]));
+                                    bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_END_HHMM"), gfn_nvl(dtday["END_TM"]));
                                 } else {
                                     if (nCol == bandgvwInfo.getColRef("TIME_END_DATE") && bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")) != "") {
                                         if (parseInt(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_START_DATE")).replace(":", "")) > parseInt(bandgvwInfo.getCellData(nRow,bandgvwInfo.getColRef("TIME_END_DATE")).replace(":", ""))) {
@@ -885,18 +885,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -919,22 +919,22 @@
             ,popupType				: 'B'
             ,whereClause			: addParams
             , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE"]
+            , searchInputFields: ["DEPT_CD", "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"CRTR_YMD"]
             ,searchInputValues		: ["", "", searchCode, searchName, gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
-            , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
+            , tableColumnNames:  ["EMP_CD", "EMP_NM", "DEPT_CD", "DEPT_NM", "JNCMP_YMD", "RTRM_YMD", "JBPS_CD", "JBPS_NM", "CSTCT_NM", "JBGD_CD"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
-                SBUxMethod.set('SITE_CODE2', data.SITE_CODE);
-                SBUxMethod.set('DEPT_CODE2', data.DEPT_CODE);
-                SBUxMethod.set('DEPT_NAME2', data.DEPT_NAME);
-                SBUxMethod.set('POSITION_CODE2', data.POSITION_CODE);
-                SBUxMethod.set('DUTY_CODE2', data.DUTY_CODE);
-                SBUxMethod.set('JOB_RANK2', data.JOB_RANK);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
+                SBUxMethod.set('SITE_CODE2', data.SITE_CD);
+                SBUxMethod.set('DEPT_CODE2', data.DEPT_CD);
+                SBUxMethod.set('DEPT_NAME2', data.DEPT_NM);
+                SBUxMethod.set('POSITION_CODE2', data.JBPS_CD);
+                SBUxMethod.set('DUTY_CODE2', data.JBTTL_CD);
+                SBUxMethod.set('JOB_RANK2', data.JBGD_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
@@ -943,9 +943,9 @@
     const fn_findTimeItemCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
-        var replaceText0 	= "_TIME_ITEM_CODE_";
-        var replaceText1 	= "_TIME_ITEM_NAME_";
-        var strWhereClause 	= "AND TIME_ITEM_CODE LIKE '%" + replaceText0 + "%' AND TIME_ITEM_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_ATDNC_ITEM_CD_";
+        var replaceText1 	= "_ATDNC_ITEM_NM_";
+        var strWhereClause 	= "AND ATDNC_ITEM_CD LIKE '%" + replaceText0 + "%' AND ATDNC_ITEM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '일근태항목');
         compopup1({
@@ -955,15 +955,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", 		"명칭"]
-            ,searchInputFields		: ["TIME_ITEM_CODE", 	"TIME_ITEM_NAME"]
+            ,searchInputFields		: ["ATDNC_ITEM_CD", 	"ATDNC_ITEM_NM"]
             ,searchInputValues		: [searchCode, 			searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "비고", "분류"]
-            ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
+            ,tableColumnNames		: ["ATDNC_ITEM_CD", "ATDNC_ITEM_NM",  "MEMO", "ATDNC_CTGRY"]
             ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_TIME_ITEM_CODE', data.TIME_ITEM_CODE);
-                SBUxMethod.set('SRCH_TIME_ITEM_NAME', data.TIME_ITEM_NAME);
+                SBUxMethod.set('SRCH_TIME_ITEM_CODE', data.ATDNC_ITEM_CD);
+                SBUxMethod.set('SRCH_TIME_ITEM_NAME', data.ATDNC_ITEM_NM);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'650px'});
@@ -980,21 +980,21 @@
             ,popupType				: 'B'
             ,whereClause			: addParams
             , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
-            , searchInputFields: ["DEPT_CODE", "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"BASE_DATE"]
+            , searchInputFields: ["DEPT_CD", "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"CRTR_YMD"]
             ,searchInputValues		: ["", "", "", "", gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
             ,height: '400px'
             , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
-            , tableColumnNames:  ["EMP_CODE", "EMP_NAME", "DEPT_CODE", "DEPT_NAME", "ENTER_DATE", "RETIRE_DATE", "POSITION_CODE", "POSITION_NAME", "COST_DEPT_NAME", "JOB_RANK"]
+            , tableColumnNames:  ["EMP_CD", "EMP_NM", "DEPT_CD", "DEPT_NM", "JNCMP_YMD", "RTRM_YMD", "JBPS_CD", "JBPS_NM", "CSTCT_NM", "JBGD_CD"]
             ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), data['DEPT_NAME']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DUTY_CODE"), data['DUTY_CODE']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("JOB_RANK"), data['JOB_RANK']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_CODE"), data['EMP_CODE']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_NAME"), data['EMP_NAME']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), data['POSITION_CODE']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), data['DEPT_CODE']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), data['DEPT_NM']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DUTY_CODE"), data['JBTTL_CD']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("JOB_RANK"), data['JBGD_CD']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_CODE"), data['EMP_CD']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("EMP_NAME"), data['EMP_NM']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("POSITION_CODE"), data['JBPS_CD']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), data['DEPT_CD']);
             },
         });
         SBUxMethod.openModal('modal-compopup1');
@@ -1011,15 +1011,15 @@
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["코드", 		"명칭"]
-            ,searchInputFields		: ["TIME_ITEM_CODE", 	"TIME_ITEM_NAME"]
+            ,searchInputFields		: ["ATDNC_ITEM_CD", 	"ATDNC_ITEM_NM"]
             ,searchInputValues		: ["", 			""]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "비고", "분류"]
-            ,tableColumnNames		: ["TIME_ITEM_CODE", "TIME_ITEM_NAME",  "MEMO", "TIME_CATEGORY"]
+            ,tableColumnNames		: ["ATDNC_ITEM_CD", "ATDNC_ITEM_NM",  "MEMO", "ATDNC_CTGRY"]
             ,tableColumnWidths		: ["80px", "150px", "200px", "100px"]
             ,itemSelectEvent		: function (data){
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), data['TIME_ITEM_CODE']);
-                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), data['TIME_ITEM_NAME']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_CODE"), data['ATDNC_ITEM_CD']);
+                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("TIME_ITEM_NAME"), data['ATDNC_ITEM_NM']);
             },
         });
 
@@ -1460,61 +1460,61 @@
                 listData.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        TXN_ID : item.TXN_ID,
-                        HISTORY_SEQ : item.HISTORY_SEQ,
+                        TXN_ID : item.TRSC_ID,
+                        HISTORY_SEQ : item.HSTRY_SEQ,
                         SEQ : item.SEQ,
-                        REQUEST_DATE : item.REQUEST_DATE,
-                        SITE_CODE : item.SITE_CODE,
+                        REQUEST_DATE : item.RQST_YMD,
+                        SITE_CODE : item.SITE_CD,
                         PARENT_DEPT_CODE : item.PARENT_DEPT_CODE,
-                        DEPT_CODE : item.DEPT_CODE,
+                        DEPT_CODE : item.DEPT_CD,
                         PARENT_DEPT_NAME : item.PARENT_DEPT_NAME,
-                        DEPT_NAME : item.DEPT_NAME,
-                        DEPT_CATEGORY : item.DEPT_CATEGORY,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        POSITION_CODE : item.POSITION_CODE,
-                        DUTY_CODE : item.DUTY_CODE,
-                        JOB_RANK : item.JOB_RANK,
+                        DEPT_NAME : item.DEPT_NM,
+                        DEPT_CATEGORY : item.DEPT_CTRGY,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        POSITION_CODE : item.JBPS_CD,
+                        DUTY_CODE : item.JBTTL_CD,
+                        JOB_RANK : item.JBGD_CD,
                         JOB_GROUP : item.JOB_GROUP,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        SHIFT_CODE_ORIG : item.SHIFT_CODE_ORIG,
-                        HOLIDAY_YN : item.HOLIDAY_YN,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        SHIFT_CODE : item.SHWORK_CD,
+                        SHIFT_CODE_ORIG : item.SHWORK_CD_ORGNL,
+                        HOLIDAY_YN : item.HLDY_YN,
                         WORK_DAY_TYPE : item.WORK_DAY_TYPE,
-                        TIME_ITEM_CODE : item.TIME_ITEM_CODE,
-                        TIME_ITEM_NAME : item.TIME_ITEM_NAME,
-                        TIME_CATEGORY : item.TIME_CATEGORY,
-                        TIME_START_DATE : item.TIME_START_DATE,
-                        TIME_START_DAY_TYPE : item.TIME_START_DAY_TYPE,
-                        TIME_START_HHMM : item.TIME_START_HHMM,
-                        TIME_END_DATE : item.TIME_END_DATE,
-                        TIME_END_DAY_TYPE : item.TIME_END_DAY_TYPE,
-                        TIME_END_HHMM : item.TIME_END_HHMM,
+                        TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
+                        TIME_ITEM_NAME : item.ATDNC_ITEM_NM,
+                        TIME_CATEGORY : item.ATDNC_CTGRY,
+                        TIME_START_DATE : item.WRKDY_BGNG_YMD,
+                        TIME_START_DAY_TYPE : item.WRKDY_BGNG_DAY_TYPE,
+                        TIME_START_HHMM : item.WRKDY_BGNG_HM,
+                        TIME_END_DATE : item.TM_END_YMD,
+                        TIME_END_DAY_TYPE : item.ATDNC_END_YMD_TYPE,
+                        TIME_END_HHMM : item.END_TM,
                         TIME_DAYS : item.TIME_DAYS,
                         TIME_NET_DAYS : item.TIME_NET_DAYS,
                         TIME_HOURS : item.TIME_HOURS,
-                        TIME_CONFIRM_DATE : item.TIME_CONFIRM_DATE,
-                        CONFIRM_YN : item.CONFIRM_YN,
+                        TIME_CONFIRM_DATE : item.TM_CFMTN_DT,
+                        CONFIRM_YN : item.CFMTN_YN,
                         MEMO : item.MEMO,
-                        DESTINATION : item.DESTINATION,
-                        CAUSE : item.CAUSE,
-                        CREATE_TYPE : item.CREATE_TYPE,
-                        INSERT_GROUP : item.INSERT_GROUP,
+                        DESTINATION : item.DEST,
+                        CAUSE : item.RSN,
+                        CREATE_TYPE : item.WRT_TYPE,
+                        INSERT_GROUP : item.WRT_GRP,
                         INSERT_GROUP2 : item.INSERT_GROUP2,
-                        APPROVE_GROUP : item.APPROVE_GROUP,
+                        APPROVE_GROUP : item.APRV_GRP,
                         CURRENT_DUTY_CODE : item.CURRENT_DUTY_CODE,
-                        REQUEST_STATUS_CODE : item.REQUEST_STATUS_CODE,
-                        REQUEST_APPROVE_DATE : item.REQUEST_APPROVE_DATE,
-                        REQUEST_APPROVE_YN : item.REQUEST_APPROVE_YN,
-                        REQUEST_REJECT_YN : item.REQUEST_REJECT_YN,
-                        REQUEST_REJECT_DATE : item.REQUEST_REJECT_DATE,
-                        REQUEST_REJECT_REASON : item.REQUEST_REJECT_REASON,
-                        RESULT_STATUS_CODE : item.RESULT_STATUS_CODE,
-                        RESULT_APPROVE_DATE : item.RESULT_APPROVE_DATE,
-                        RESULT_APPROVE_YN : item.RESULT_APPROVE_YN,
-                        RESULT_REJECT_YN : item.RESULT_REJECT_YN,
-                        RESULT_REJECT_DATE : item.RESULT_REJECT_DATE,
-                        RESULT_REJECT_REASON : item.RESULT_REJECT_REASON,
+                        REQUEST_STATUS_CODE : item.RQST_STTS_CD,
+                        REQUEST_APPROVE_DATE : item.RQST_APRV_YMD,
+                        REQUEST_APPROVE_YN : item.RQST_APRV_STTS,
+                        REQUEST_REJECT_YN : item.RQST_RJCT_YN,
+                        REQUEST_REJECT_DATE : item.RQST_RJCT_YMD,
+                        REQUEST_REJECT_REASON : item.RQST_RJCT_RSN,
+                        RESULT_STATUS_CODE : item.RSLT_STTS_CD,
+                        RESULT_APPROVE_DATE : item.RSLT_APRV_YMD,
+                        RESULT_APPROVE_YN : item.RSLT_APRV_YN,
+                        RESULT_REJECT_YN : item.RSLT_RJCT_YN,
+                        RESULT_REJECT_DATE : item.RSLT_RJCT_YMD,
+                        RESULT_REJECT_REASON : item.RSLT_RJCT_RSN,
                         REQUEST_SOURCE_TYPE : item.REQUEST_SOURCE_TYPE,
                         RESULT_SOURCE_TYPE : item.RESULT_SOURCE_TYPE,
                         APPR_COUNT1 : item.APPR_COUNT1,
@@ -1523,7 +1523,7 @@
                         APPR_ID2 : item.APPR_ID2,
                         FINAL_APPROVER1 : item.FINAL_APPROVER1,
                         FINAL_APPROVER2 : item.FINAL_APPROVER2,
-                        INSERT_USERID : item.INSERT_USERID,
+                        INSERT_USERID : item.WRT_USER_ID,
                         INSERT_EMP_CODE : item.INSERT_EMP_CODE,
                         CURRENT_APPROVE_EMP_CODE1 : item.CURRENT_APPROVE_EMP_CODE1,
                         CURRENT_APPROVE_EMP_NAME1 : item.CURRENT_APPROVE_EMP_NAME1,
@@ -1533,27 +1533,27 @@
                         CURRENT_APPROVE_EMP_NAME2 : item.CURRENT_APPROVE_EMP_NAME2,
                         PROXY_EMP_CODE2 : item.PROXY_EMP_CODE2,
                         PROXY_EMP_NAME2 : item.PROXY_EMP_NAME2,
-                        SUBSTITUTE_VACATION_YN : item.SUBSTITUTE_VACATION_YN,
-                        REFERENCE_TXN_ID : item.REFERENCE_TXN_ID,
+                        SUBSTITUTE_VACATION_YN : item.RPLCMT_VCT_YN,
+                        REFERENCE_TXN_ID : item.RFRNC_TRSC_ID,
                         HOLIDAY_WORK_DATE : item.HOLIDAY_WORK_DATE,
                         WORK_TIME : item.WORK_TIME,
                         WORK_TIME_NET : item.WORK_TIME_NET,
-                        VACCINE_WORK_YN : item.VACCINE_WORK_YN,
-                        BREAK_APPLY_YN : item.BREAK_APPLY_YN,
+                        VACCINE_WORK_YN : item.VCNE_WORK_YN,
+                        BREAK_APPLY_YN : item.BRTM_APLY_YN,
                         INSERT_USER_NAME : item.INSERT_USER_NAME,
                         LAST_UPDATE_USER_NAME : item.LAST_UPDATE_USER_NAME,
                         CONFIRM_USER_NAME : item.CONFIRM_USER_NAME,
                         LAST_UPDATE_DATE : item.LAST_UPDATE_DATE,
-                        ALTER_EMP_CODE : item.ALTER_EMP_CODE,
-                        ALTER_TIME_ITEM_CODE : item.ALTER_TIME_ITEM_CODE,
-                        ALTER_WORK_YN : item.ALTER_WORK_YN,
-                        ALTER_REQ_YN : item.ALTER_REQ_YN,
-                        SHIFT_WORK_YN : item.SHIFT_WORK_YN,
-                        BREAK_START_DAY_TYPE1 : item.BREAK_START_DAY_TYPE1,
-                        BREAK_START_HHMM1 : item.BREAK_START_HHMM1,
-                        BREAK_END_DAY_TYPE1 : item.BREAK_END_DAY_TYPE1,
-                        BREAK_END_HHMM1 : item.BREAK_END_HHMM1,
-                        DINNER_YN : item.DINNER_YN
+                        ALTER_EMP_CODE : item.RPLCMT_WORK_EMP_CD,
+                        ALTER_TIME_ITEM_CODE : item.RPLCMT_WORK_ITEM_CD,
+                        ALTER_WORK_YN : item.RPLCMT_WORK_YN,
+                        ALTER_REQ_YN : item.RPLCMT_WORK_RQST_YN,
+                        SHIFT_WORK_YN : item.SHWORK_YN,
+                        BREAK_START_DAY_TYPE1 : item.BRTM_BGNG_DAY_TYPE1,
+                        BREAK_START_HHMM1 : item.BRTM_BGNG_TM1,
+                        BREAK_END_DAY_TYPE1 : item.BRTM_END_DAY_TYPE1,
+                        BREAK_END_HHMM1 : item.BRTM_END_TM1,
+                        DINNER_YN : item.DINR_YN
                     }
                     jsonTimeShiftApplyList.push(msg);
                 });
@@ -1684,51 +1684,51 @@
                 listData.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        TXN_ID : item.TXN_ID,
-                        HISTORY_SEQ : item.HISTORY_SEQ,
+                        TXN_ID : item.TRSC_ID,
+                        HISTORY_SEQ : item.HSTRY_SEQ,
                         SEQ : item.SEQ,
-                        REQUEST_STATUS_CODE : item.REQUEST_STATUS_CODE,
-                        REQUEST_APPROVE_DATE : item.REQUEST_APPROVE_DATE,
-                        REQUEST_DATE : item.REQUEST_DATE,
-                        SITE_CODE : item.SITE_CODE,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        POSITION_CODE : item.POSITION_CODE,
-                        DUTY_CODE : item.DUTY_CODE,
-                        JOB_RANK : item.JOB_RANK,
+                        REQUEST_STATUS_CODE : item.RQST_STTS_CD,
+                        REQUEST_APPROVE_DATE : item.RQST_APRV_YMD,
+                        REQUEST_DATE : item.RQST_YMD,
+                        SITE_CODE : item.SITE_CD,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        POSITION_CODE : item.JBPS_CD,
+                        DUTY_CODE : item.JBTTL_CD,
+                        JOB_RANK : item.JBGD_CD,
                         JOB_GROUP : item.JOB_GROUP,
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        SHIFT_CODE_ORIG : item.SHIFT_CODE_ORIG,
-                        HOLIDAY_YN : item.HOLIDAY_YN,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        SHIFT_CODE : item.SHWORK_CD,
+                        SHIFT_CODE_ORIG : item.SHWORK_CD_ORGNL,
+                        HOLIDAY_YN : item.HLDY_YN,
                         WORK_DAY_TYPE : item.WORK_DAY_TYPE,
-                        TIME_CATEGORY : item.TIME_CATEGORY,
-                        TIME_ITEM_CODE : item.TIME_ITEM_CODE,
-                        TIME_ITEM_NAME : item.TIME_ITEM_NAME,
-                        TIME_START_DATE : item.TIME_START_DATE,
-                        TIME_START_DAY_TYPE : item.TIME_START_DAY_TYPE,
-                        TIME_START_HHMM : item.TIME_START_HHMM,
-                        TIME_END_DATE : item.TIME_END_DATE,
-                        TIME_END_DAY_TYPE : item.TIME_END_DAY_TYPE,
-                        TIME_END_HHMM : item.TIME_END_HHMM,
-                        TIME_CONFIRM_DATE : item.TIME_CONFIRM_DATE,
-                        CONFIRM_YN : item.CONFIRM_YN,
+                        TIME_CATEGORY : item.ATDNC_CTGRY,
+                        TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
+                        TIME_ITEM_NAME : item.ATDNC_ITEM_NM,
+                        TIME_START_DATE : item.WRKDY_BGNG_YMD,
+                        TIME_START_DAY_TYPE : item.WRKDY_BGNG_DAY_TYPE,
+                        TIME_START_HHMM : item.WRKDY_BGNG_HM,
+                        TIME_END_DATE : item.TM_END_YMD,
+                        TIME_END_DAY_TYPE : item.ATDNC_END_YMD_TYPE,
+                        TIME_END_HHMM : item.END_TM,
+                        TIME_CONFIRM_DATE : item.TM_CFMTN_DT,
+                        CONFIRM_YN : item.CFMTN_YN,
                         MEMO : item.MEMO,
-                        DESTINATION : item.DESTINATION,
-                        CAUSE : item.CAUSE,
-                        CREATE_TYPE : item.CREATE_TYPE,
-                        VACCINE_WORK_YN : item.VACCINE_WORK_YN,
-                        BREAK_APPLY_YN : item.BREAK_APPLY_YN,
-                        ALTER_WORK_YN : item.ALTER_WORK_YN,
-                        ALTER_REQ_YN : item.ALTER_REQ_YN,
-                        SHIFT_WORK_YN : item.SHIFT_WORK_YN,
-                        BREAK_START_DAY_TYPE1 : item.BREAK_START_DAY_TYPE1,
-                        BREAK_START_HHMM1 : item.BREAK_START_HHMM1,
-                        BREAK_END_DAY_TYPE1 : item.BREAK_END_DAY_TYPE1,
-                        BREAK_END_HHMM1 : item.BREAK_END_HHMM1,
-                        DINNER_YN : item.DINNER_YN
+                        DESTINATION : item.DEST,
+                        CAUSE : item.RSN,
+                        CREATE_TYPE : item.WRT_TYPE,
+                        VACCINE_WORK_YN : item.VCNE_WORK_YN,
+                        BREAK_APPLY_YN : item.BRTM_APLY_YN,
+                        ALTER_WORK_YN : item.RPLCMT_WORK_YN,
+                        ALTER_REQ_YN : item.RPLCMT_WORK_RQST_YN,
+                        SHIFT_WORK_YN : item.SHWORK_YN,
+                        BREAK_START_DAY_TYPE1 : item.BRTM_BGNG_DAY_TYPE1,
+                        BREAK_START_HHMM1 : item.BRTM_BGNG_TM1,
+                        BREAK_END_DAY_TYPE1 : item.BRTM_END_DAY_TYPE1,
+                        BREAK_END_HHMM1 : item.BRTM_END_TM1,
+                        DINNER_YN : item.DINR_YN
                     }
                     jsonTimeShiftApplyList.push(msg);
                 });

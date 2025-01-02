@@ -57,7 +57,7 @@ public class ApcMaFia2500Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_FIA2500_Q");
+			param.put("procedure", 		"SP_FIA2500_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class ApcMaFia2500Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIA1100_POPUP_Q");
+			param.put("procedure", 		"SP_FIA1100_POPUP_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -107,7 +107,7 @@ public class ApcMaFia2500Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIA2500_S");
+			param.put("procedure", 		"SP_FIA2500_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -132,7 +132,7 @@ public class ApcMaFia2500Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIA2500_S1");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIA2500_S1");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
@@ -156,7 +156,7 @@ public class ApcMaFia2500Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIA2510_Q");
+			param.put("procedure", 		"SP_FIA2510_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {

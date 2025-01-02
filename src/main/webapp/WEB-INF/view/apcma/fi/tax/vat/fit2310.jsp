@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -119,19 +119,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -245,7 +245,7 @@
                                 </sbux-input>
                             </td>
                             <td>
-                                <sbux-input id="EXPORT_AMT" name="EXPORT_AMT" uitype="text"
+                                <sbux-input id="EXPRT_AMT" name="EXPRT_AMT" uitype="text"
                                             class="tpgTd" init="0" readonly
                                             mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                 </sbux-input>
@@ -305,14 +305,14 @@
     var jsonCorpNm = [];
     var jsonGrdList = [];
     var jsonGrdDetail = [];
-
+ 
     var grdDetailGrid;
     var grdListGrid;
     /** resizer **/
     let cols = ['1fr','5px','3fr'];
     let colns = ['leftcol','','rightBottom'];
     let Tcols = [];
-
+ 
     let rows = ['1fr','5px','2fr'];
     let rowns = ['rightTop','','rightBottom'];
     let Trows = [];
@@ -320,25 +320,25 @@
     let CRfactor;
     let gWcol = -1;
     let gWrow = -1;
-
-
+ 
+ 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
         fn_createGridDetail();
         fn_init();
     });
-
+ 
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
-
+ 
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy',yyyy);
-
+ 
         /** 신고구분명 select **/
         await fn_setMultSelect(yyyy);
     }
@@ -351,21 +351,21 @@
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
+            ,whereClause	: 'AND A.YR = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
@@ -377,12 +377,12 @@
         grdListGrid.rebuild();
         jsonGrdDetail.length = 0;
         grdDetailGrid.rebuild();
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -390,7 +390,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy', termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -412,10 +412,10 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2310.do", {
             getType				: 'json',
             cv_count			: '8',
@@ -427,7 +427,7 @@
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
-
+ 
             if (grdListGrid.getRows() === 2) {
                 grdListGrid.setRow(1);
                 paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
@@ -438,7 +438,7 @@
                     params: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-
+ 
                 if (data.resultStatus === 'S') {
                     let header = data.cv_2[0];
                     jsonGrdDetail = data.cv_3;
@@ -450,7 +450,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -458,13 +458,13 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
     }
-
+ 
     const fn_createGridDetail = function() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdDetailGrid';
@@ -481,28 +481,28 @@
             },
             {
                 caption: ['⑬ 수출신고번호', '⑬ 수출신고번호'],
-                ref: 'EXPORT_LICENSE_NO',
+                ref: 'EXPRT_LCNS_NO',
                 width: '15%',
                 style: 'text-align:center',
                 type: 'output'
             },
             {
                 caption: ['⑭ 선(기)적일자', '⑭ 선(기)적일자'],
-                ref: 'SHIPPING_DATE',
+                ref: 'SHPG_YMD',
                 width: '20%',
                 style: 'text-align:center',
                 type: 'output'
             },
             {
                 caption: ['⑮ 통화코드', '⑮ 통화코드'],
-                ref: 'CURR_CODE',
+                ref: 'CRN_CD',
                 width: '10%',
                 style: 'text-align:center',
                 type: 'output'
             },
-            {caption: ['환율', '환율'], ref: 'EXCHANGE_RATE', width: '15%', style: 'text-align:center', type: 'output'},
-            {caption: ['금액', '외화'], ref: 'FOREIGN_AMT', width: '15%', style: 'text-align:center', type: 'output'},
-            {caption: ['금액', '원화'], ref: 'WON_AMT', width: '15%', style: 'text-align:center', type: 'output'},
+            {caption: ['환율', '환율'], ref: 'EXCHRT', width: '15%', style: 'text-align:center', type: 'output'},
+            {caption: ['금액', '외화'], ref: 'EXPRT_FRCNCY_AMT', width: '15%', style: 'text-align:center', type: 'output'},
+            {caption: ['금액', '원화'], ref: 'KRW_AMT', width: '15%', style: 'text-align:center', type: 'output'},
         ];
         grdDetailGrid = _SBGrid.create(SBGridProperties);
     }
@@ -515,11 +515,11 @@
         grdListGrid.rebuild();
         jsonGrdDetail.length = 0;
         grdDetailGrid.rebuild();
-
+ 
         gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
@@ -556,7 +556,7 @@
         let postFlag = gfnma_getTableElement("srchTable", "srch-", paramObj, "V_P_", ['taxSiteName', 'bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2310.do", {
             getType: 'json',
             cv_count: '8',
@@ -565,7 +565,7 @@
         });
         const data = await postJsonPromise;
     }
-
+ 
     /** resizer fn **/
     function StartHDrag(pWcol) {
         isHDragging = true;
@@ -574,7 +574,7 @@
         Tcols = cols.map(parseFloat);
         gWcol = pWcol;
     }
-
+ 
     function StartVDrag(pRow) {
         isVDragging = true;
         CLfactor = parseFloat(rows[pRow - 1]) / document.getElementById(rowns[pRow - 1]).clientHeight;
@@ -582,28 +582,28 @@
         Trows = rows.map(parseFloat);
         gWrow = pRow;
     }
-
+ 
     function EndDrag() {
         isHDragging = false;
         isVDragging = false;
         grdListGrid.rebuild();
         grdDetailGrid.rebuild();
     }
-
+ 
     function OnDrag(event) {
         if (isHDragging) {
             Tcols[gWcol - 1] += (CLfactor * event.movementX);
             Tcols[gWcol + 1] -= (CLfactor * event.movementX);
-
+ 
             cols[gWcol - 1] = Math.max(Tcols[gWcol - 1], 0.01) + "fr";
             cols[gWcol + 1] = Math.max(Tcols[gWcol + 1], 0.01) + "fr";
             let newColDefn = cols.join(" ");
             page.style.gridTemplateColumns = newColDefn;
-
+ 
         } else if (isVDragging) {
             Trows[gWrow - 1] += (CLfactor * event.movementY);
             Trows[gWrow + 1] -= (CLfactor * event.movementY);
-
+ 
             rows[gWrow - 1] = Math.max(Trows[gWrow - 1], 0.01) + "fr";
             rows[gWrow + 1] = Math.max(Trows[gWrow + 1], 0.01) + "fr";
             let newRowDefn = rows.join(" ");

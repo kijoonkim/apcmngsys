@@ -234,27 +234,27 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE', 'gvwList'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직책
-            /*gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),*/
             // 직종
-            gfnma_setComSelect(['SRCH_JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_FAMILY'], jsonJobFamily, 'L_HRI004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 성별
-            gfnma_setComSelect(['SRCH_GENDER'], jsonGender, 'L_HRM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_GENDER'], jsonGender, 'L_HRM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['SRCH_JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직무
-            /*gfnma_setComSelect(['SRCH_JOB_CODE'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),*/
+            /*gfnma_setComSelect(['SRCH_JOB_CODE'], jsonJobCode, 'L_HRI006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),*/
             // 입사구분
-            gfnma_setComSelect(['gvwList'], jsonEnterType, 'L_HRI041_01', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonEnterType, 'L_HRI041_01', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 병역구분
-            gfnma_setComSelect(['gvwList'], jsonArmyType, 'L_HRI019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonArmyType, 'L_HRI019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직책
             gfnma_multiSelectInit({
                 target			: ['#SRCH_DUTY_CODE']
@@ -267,11 +267,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -287,11 +287,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "직무",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "담당자명", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "직무",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "담당자명", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
         ]);
@@ -309,18 +309,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -548,48 +548,48 @@
                 /** @type {number} **/
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                         DEPT_CODE1                     : item.DEPT_CODE1
-                        ,DEPT_NAME1                     : item.DEPT_NAME1
-                        ,DEPT_CODE2                     : item.DEPT_CODE2
-                        ,DEPT_NAME2                     : item.DEPT_NAME2
-                        ,DEPT_CODE                      : item.DEPT_CODE
-                        ,DEPT_NAME                      : item.DEPT_NAME
-                        ,COST_DEPT_CODE                 : item.COST_DEPT_CODE
-                        ,COST_DEPT_NAME                 : item.COST_DEPT_NAME
-                        ,EMP_CODE                       : item.EMP_CODE
-                        ,EMP_NAME                       : item.EMP_NAME
-                        ,EMP_NAME_CHN                   : item.EMP_NAME_CHN
-                        ,EMP_NAME_ENG                   : item.EMP_NAME_ENG
+                         DEPT_CODE1                     : item.DEPT_CD1
+                        ,DEPT_NAME1                     : item.DEPT_NM1
+                        ,DEPT_CODE2                     : item.DEPT_CD2
+                        ,DEPT_NAME2                     : item.DEPT_NM2
+                        ,DEPT_CODE                      : item.DEPT_CD
+                        ,DEPT_NAME                      : item.DEPT_NM
+                        ,COST_DEPT_CODE                 : item.CSTCT_CD
+                        ,COST_DEPT_NAME                 : item.CSTCT_NM
+                        ,EMP_CODE                       : item.EMP_CD
+                        ,EMP_NAME                       : item.EMP_NM
+                        ,EMP_NAME_CHN                   : item.EMP_NM_CHN
+                        ,EMP_NAME_ENG                   : item.EMP_NM_ENG
                         ,EMP_TYPE_NAME                  : item.EMP_TYPE_NAME
-                        ,JOB_CODE                       : item.JOB_CODE
+                        ,JOB_CODE                       : item.JOB_CD
                         ,JOB_CODE_NAME                  : item.JOB_CODE_NAME
                         ,JOB_RANK_NAME                  : item.JOB_RANK_NAME
                         ,SALARY_CLASS_NAME              : item.SALARY_CLASS_NAME
-                        ,HOURLY_BASE_AMT                : item.HOURLY_BASE_AMT
+                        ,HOURLY_BASE_AMT                : item.HR_BASE_AMT
                         ,POSITION_CODE_NAME             : item.POSITION_CODE_NAME
                         ,DUTY_CODE_NAME                 : item.DUTY_CODE_NAME
-                        ,SITE_NAME                      : item.SITE_NAME
-                        ,WORK_REGION                    : item.WORK_REGION
+                        ,SITE_NAME                      : item.SITE_NM
+                        ,WORK_REGION                    : item.WORK_RGN_CD
                         ,JOB_GROUP_GOBUN                : item.JOB_GROUP_GOBUN
                         ,JOB_FAMILY_NAME                : item.JOB_FAMILY_NAME
-                        ,WORK_PATTERN_CODE              : item.WORK_PATTERN_CODE
+                        ,WORK_PATTERN_CODE              : item.WRK_PTTRN_CD
                         ,WORK_PATTERN_NAME              : item.WORK_PATTERN_NAME
                         ,AGE                            : item.AGE
                         ,AGE_YY                         : item.AGE_YY
                         ,AGE_EE                         : item.AGE_EE
-                        ,GENDER                         : item.GENDER
+                        ,GENDER                         : item.GNDR
                         ,SOCIAL_NUM_REAL                : item.SOCIAL_NUM_REAL
-                        ,BIRTHDAY                       : item.BIRTHDAY
+                        ,BIRTHDAY                       : item.BRDT
                         ,ENTER_MONTH                    : item.ENTER_MONTH
-                        ,CAREER_TRACK                   : item.CAREER_TRACK
+                        ,CAREER_TRACK                   : item.CRR_RCG
                         ,TOT_CAREER_TRACK               : item.TOT_CAREER_TRACK
                         ,POSITION_YEAR                  : item.POSITION_YEAR
                         ,DUTY_YEAR                      : item.DUTY_YEAR
-                        ,CELLPHONE_NUM                  : item.CELLPHONE_NUM
-                        ,IN_EMAIL                       : item.IN_EMAIL
-                        ,OUT_EMAIL                      : item.OUT_EMAIL
-                        ,OFFICE_TEL_NUM                 : item.OFFICE_TEL_NUM
-                        ,EMERGENCY_TEL_NUM              : item.EMERGENCY_TEL_NUM
+                        ,CELLPHONE_NUM                  : item.MOBL_NO
+                        ,IN_EMAIL                       : item.CO_EML
+                        ,OUT_EMAIL                      : item.OTSD_EML
+                        ,OFFICE_TEL_NUM                 : item.OFC_TELNO
+                        ,EMERGENCY_TEL_NUM              : item.EMRG_TELNO
                         ,HIGHSCHOOL_NAME                : item.HIGHSCHOOL_NAME
                         ,HIGHSCHOOL_GRADUATE_DATE       : item.HIGHSCHOOL_GRADUATE_DATE
                         ,BACHELOR_SCHOOL_NAME           : item.BACHELOR_SCHOOL_NAME
@@ -605,16 +605,16 @@
                         ,LAST_MAJOR                     : item.LAST_MAJOR
                         ,LAST_GRADUATE_DATE             : item.LAST_GRADUATE_DATE
                         ,CAREER                         : item.CAREER
-                        ,RESIDENCE_ZIP_CODE             : item.RESIDENCE_ZIP_CODE
-                        ,RESIDENCE_ADDRESS              : item.RESIDENCE_ADDRESS
-                        ,MARRIAGE_YN                    : item.MARRIAGE_YN
-                        ,VETERANS_YN                    : item.VETERANS_YN
+                        ,RESIDENCE_ZIP_CODE             : item.RSDC_ZIP
+                        ,RESIDENCE_ADDRESS              : item.RSDC_ADDR
+                        ,MARRIAGE_YN                    : item.MRG_YN
+                        ,VETERANS_YN                    : item.MNATONLM_YN
                         ,HANDICAP                       : item.HANDICAP
-                        ,HANDICAP_GRADE                 : item.HANDICAP_GRADE
-                        ,HANDICAP_TYPE                  : item.HANDICAP_TYPE
-                        ,HANDICAP_ISSUE_DATE            : item.HANDICAP_ISSUE_DATE
-                        ,HANDICAP_REASON                : item.HANDICAP_REASON
-                        ,UNION_JOIN_YN                  : item.UNION_JOIN_YN
+                        ,HANDICAP_GRADE                 : item.DSBLTY_GRD
+                        ,HANDICAP_TYPE                  : item.DSBLTY_TYPE
+                        ,HANDICAP_ISSUE_DATE            : item.DSBLTY_ISSU_YMD
+                        ,HANDICAP_REASON                : item.DSBLTY_RSN
+                        ,UNION_JOIN_YN                  : item.ASCTN_JOIN_YN
                         ,D1_CODE                        : item.D1_CODE
                         ,D1_NAME                        : item.D1_NAME
                         ,D2_CODE                        : item.D2_CODE
@@ -629,24 +629,24 @@
                         ,D6_NAME                        : item.D6_NAME
                         ,D7_NAME                        : item.D7_NAME
                         ,D7_NAME                        : item.D7_NAME
-                        ,ENTER_DATE                     : item.ENTER_DATE
-                        ,CAREER_DATE                    : item.CAREER_DATE
-                        ,COMP_ENTER_DATE                : item.COMP_ENTER_DATE
-                        ,GROUP_ENTER_DATE               : item.GROUP_ENTER_DATE
-                        ,ANNUAL_INITIAL_DATE            : item.ANNUAL_INITIAL_DATE
-                        ,ANNUAL_BASE_DATE               : item.ANNUAL_BASE_DATE
-                        ,RETIRE_BASE_DATE               : item.RETIRE_BASE_DATE
-                        ,POSITION_DATE                  : item.POSITION_DATE
+                        ,ENTER_DATE                     : item.JNCMP_YMD
+                        ,CAREER_DATE                    : item.CRR_YMD
+                        ,COMP_ENTER_DATE                : item.CO_JNCMP_YMD
+                        ,GROUP_ENTER_DATE               : item.GRP_JNCMP_YMD
+                        ,ANNUAL_INITIAL_DATE            : item.ANNLV_RCK_YMD
+                        ,ANNUAL_BASE_DATE               : item.ANNLV_BASE_YMD
+                        ,RETIRE_BASE_DATE               : item.RTRM_RCK_YMD
+                        ,POSITION_DATE                  : item.JBPS_APNT_YMD
                         ,POSITION_DATE1                 : item.POSITION_DATE1
-                        ,DUTY_DATE                      : item.DUTY_DATE
+                        ,DUTY_DATE                      : item.JBTTL_YMD
                         ,LAST_SALARYCLASS_START_DATE    : item.LAST_SALARYCLASS_START_DATE
-                        ,RETIRE_DATE                    : item.RETIRE_DATE
-                        ,RETIRE_REASON                  : item.RETIRE_REASON
+                        ,RETIRE_DATE                    : item.RTRM_YMD
+                        ,RETIRE_REASON                  : item.RTRM_RSN
                         ,COLSOCIAL_NUM                  : item.COLSOCIAL_NUM
                         ,HOLI_YN                        : item.HOLI_YN
-                        ,EMP_STATE                      : item.EMP_STATE
-                        ,ENTER_TYPE                     : item.ENTER_TYPE
-                        ,ARMY_TYPE                      : item.ARMY_TYPE
+                        ,EMP_STATE                      : item.EMP_STTS
+                        ,ENTER_TYPE                     : item.JNCMP_TYPE
+                        ,ARMY_TYPE                      : item.MLTS_TYPE
                         ,PREV_ENTER_DATE                : item.PREV_ENTER_DATE
                     }
                     jsonHriList.push(msg);

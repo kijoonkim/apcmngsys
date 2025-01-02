@@ -53,7 +53,7 @@ public class ApcMaSys3100Controller extends BaseController{
 
         try {
 
-            param.put("procedure", 		"P_SYS3100_Q");
+            param.put("procedure", 		"SP_SYS3100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaSys3100Controller extends BaseController{
 
         try {
 
-            param.put("procedure", 		"P_SYS3100_S");
+            param.put("procedure", 		"SP_SYS3100_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

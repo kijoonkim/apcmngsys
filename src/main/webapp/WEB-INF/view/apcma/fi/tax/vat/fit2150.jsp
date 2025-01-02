@@ -19,14 +19,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>Title</title><title>title : 건물등감가상각자산취득명세서</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-
+ 
     <style>
         #Sales > table > tbody > tr > td{
             text-align: center;
@@ -95,19 +95,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -195,11 +195,11 @@
                                 <tr>
                                     <td class="td_head">업태</td>
                                     <td style="border: 1px solid grey">
-                                        <input id="BIZ_CATEGORY" name="BIZ_CATEGORY" class="output" type="text" style="padding-left: 5px;background-color: white;border: 0" readonly />
+                                        <input id="BZSTAT" name="BZSTAT" class="output" type="text" style="padding-left: 5px;background-color: white;border: 0" readonly />
                                     </td>
                                     <td class="td_head">종목</td>
                                     <td style="border: 1px solid grey">
-                                        <input id="BIZ_ITEMS" name="BIZ_ITEMS" class="output" type="text" style="padding-left: 5px;background-color: white;border: 0" readonly />
+                                        <input id="TPBIZ" name="TPBIZ" class="output" type="text" style="padding-left: 5px;background-color: white;border: 0" readonly />
                                     </td>
                                 </tr>
                             </tbody>
@@ -385,7 +385,7 @@
                                     </sbux-input>
                                 </td>
                                 <td>
-                                    <sbux-input id="TAX_AMT" name="TAX_AMT" uitype="text"
+                                    <sbux-input id="TX_AMT" name="TX_AMT" uitype="text"
                                                 class="tpgTd" init="0" readonly
                                                 mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                     </sbux-input>
@@ -439,7 +439,7 @@
     var jsonCboRfType = [];
     var jsonGrdList = [];
     var grdListGrid;
-
+ 
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
@@ -447,12 +447,12 @@
     });
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
-
+ 
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
@@ -466,14 +466,14 @@
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: 'right' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
@@ -489,7 +489,7 @@
         numInputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -497,7 +497,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy', termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -521,30 +521,30 @@
         }
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
             getType				: 'json',
             cv_count			: '4',
             workType            : 'LIST',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
-
+ 
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
             if (grdListGrid.getRows() === 2) {
                 /** panRightHeader SET **/
                 let resultData = data.cv_1[0];
-                $("#TAX_SITE_NAME1").val(resultData.TAX_SITE_NAME);
-                $("#BIZ_REGNO1").val(resultData.BIZ_REGNO);
-                $("#BIZ_CATEGORY").val(resultData.BIZ_CATEGORY);
-                $("#BIZ_ITEMS").val(resultData.BIZ_ITEMS);
-
+                $("#TAX_SITE_NAME1").val(resultData.TX_SITE_NM);
+                $("#BIZ_REGNO1").val(resultData.BRNO);
+                $("#BZSTAT").val(resultData.BZSTAT);
+                $("#TPBIZ").val(resultData.TPBIZ);
+ 
                 grdListGrid.setRow(1);
                 paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
-
+ 
                 const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
                     getType: 'json',
                     cv_count: '4',
@@ -552,11 +552,11 @@
                     params: gfnma_objectToString(paramObj)
                 });
                 const data1 = await postJsonPromise;
-
+ 
                 if(data1.resultStatus === 'S'){
                     let middleData = data1.cv_2[0];
                     let bottomData = data1.cv_3[0];
-
+ 
                     for(let key in middleData){
                         $(`#${'${key}'}`).val(middleData[key]);
                     }
@@ -567,7 +567,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -575,8 +575,8 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
@@ -585,50 +585,50 @@
     const resizer = document.getElementById('resizer');
     const leftSide = resizer.previousElementSibling;
     const rightSide = resizer.nextElementSibling;
-
+ 
     let x = 0;
     let y = 0;
-
+ 
     let leftWidth = 0;
-
+ 
     const mouseDownHandler = function (e) {
         x = e.clientX;
         y = e.clientY;
         leftWidth = leftSide.getBoundingClientRect().width;
-
+ 
         document.addEventListener('mousemove', mouseMoveHandler);
         document.addEventListener('mouseup', mouseUpHandler);
     };
-
+ 
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
         const dy = e.clientY - y;
-
+ 
         document.body.style.cursor = 'col-resize';
-
+ 
         leftSide.style.userSelect = 'none';
         leftSide.style.pointerEvents = 'none';
-
+ 
         rightSide.style.userSelect = 'none';
         rightSide.style.pointerEvents = 'none';
-
+ 
         const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
         leftSide.style.width = `${'${newLeftWidth}'}%`;
         grdListGrid.resize();
         grdAr.resize();
         grdAp.resize();
     };
-
+ 
     const mouseUpHandler = function () {
         resizer.style.removeProperty('cursor');
         document.body.style.removeProperty('cursor');
-
+ 
         leftSide.style.removeProperty('user-select');
         leftSide.style.removeProperty('pointer-events');
-
+ 
         rightSide.style.removeProperty('user-select');
         rightSide.style.removeProperty('pointer-events');
-
+ 
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
     };
@@ -640,7 +640,7 @@
     function fn_reset(){
         jsonGrdList.length = 0;
         grdListGrid.rebuild();
-
+ 
         const inputs = document.querySelectorAll('#panRightHeader input');
         const numInputs = document.querySelectorAll('#panRightMiddle input, #panRightBottom input');
         inputs.forEach(input => {
@@ -681,7 +681,7 @@
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
             getType: 'json',
             cv_count: '4',
@@ -689,11 +689,11 @@
             params: gfnma_objectToString(paramObj)
         });
         const data1 = await postJsonPromise;
-
+ 
         if(data1.resultStatus === 'S'){
             let middleData = data1.cv_2[0];
             let bottomData = data1.cv_3[0];
-
+ 
             for(let key in middleData){
                 $(`#${'${key}'}`).val(middleData[key]);
             }

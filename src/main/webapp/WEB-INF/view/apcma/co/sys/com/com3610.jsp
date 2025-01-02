@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3610.jsp
+ * @Class Name 		: com3610.jsp
  * @Description 	: 관리항목
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.06.03
@@ -312,11 +312,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "데이터유형", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "데이터유형", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//컨트롤 유형
@@ -331,11 +331,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "컨트롤유형", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "컨트롤유형", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//생성구분
@@ -350,11 +350,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "데이터생성구분", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "데이터생성구분", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//팝업데이터
@@ -369,11 +369,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "팝업데이터유형", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "팝업데이터유형", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -520,13 +520,13 @@
 	    		MNGARTCLGrid.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				ACC_ITEM_CODE		: item.ACC_ITEM_CODE,
-		    				ACC_ITEM_NAME		: item.ACC_ITEM_NAME,
+		    				ACC_ITEM_CODE		: item.ACNT_MNG_ARTCL_CD,
+		    				ACC_ITEM_NAME		: item.ACNT_MNG_ARTCL_NM,
 		    				DATA_TYPE			: item.DATA_TYPE,
-		    				CONTROL_TYPE		: item.CONTROL_TYPE,
-		    				DATA_LENGTH			: item.DATA_LENGTH,
-		    				DECIMAL_POINT		: item.DECIMAL_POINT,
-		    				CREATE_TYPE			: item.CREATE_TYPE,
+		    				CONTROL_TYPE		: item.CNTRL_TYPE,
+		    				DATA_LENGTH			: item.DATA_LNGTH,
+		    				DECIMAL_POINT		: item.DCPT_LNGTH,
+		    				CREATE_TYPE			: item.WRT_TYPE,
 		    				POPUP_DATA			: item.POPUP_DATA
 		    		}
 		    		jsonMNGARTCLList.push(msg);
@@ -592,8 +592,8 @@
   			if (_.isEqual("S", subData.resultStatus)) {
   		      	subData.cv_2.forEach((item, index) => {
   					const msg = {
-  							DATA_CODE		: item.DATA_CODE,
-  							DATA_NAME		: item.DATA_NAME,
+  							DATA_CODE		: item.DATA_CD,
+  							DATA_NAME		: item.DATA_NM,
   							USE_YN			: item.USE_YN
   					}
   					jsonMNGARTCLSubList.push(msg);
@@ -693,9 +693,6 @@
     //그룹코드 내역 저장
     const fn_save = async function() {
 
-    	if (!SBUxMethod.validateRequired({group_id:'panAppoint'}) || !validateRequired("panAppoint")) {
-    		return false;
-    	}
     	let ACC_ITEM_CODE 	= gfn_nvl(SBUxMethod.get("ACC_ITEM_CODE"));
     	let ACC_ITEM_NAME	= gfn_nvl(SBUxMethod.get("ACC_ITEM_NAME"));
     	let DATA_LENGTH		= gfn_nvl(SBUxMethod.get("DATA_LENGTH"));
@@ -848,13 +845,13 @@
    		SBUxMethod.set("ACC_ITEM_NAME", 	rowData.ACC_ITEM_NAME);
    		SBUxMethod.set("DATA_LENGTH", 		String(rowData.DATA_LENGTH));
    		SBUxMethod.set("DECIMAL_POINT", 	String(rowData.DECIMAL_POINT));
-        gfnma_multiSelectSet('#DATA_TYPE', 		'SUB_CODE', 'CODE_NAME', rowData.DATA_TYPE);
-        gfnma_multiSelectSet('#CONTROL_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CONTROL_TYPE);
-        gfnma_multiSelectSet('#CREATE_TYPE', 	'SUB_CODE', 'CODE_NAME', rowData.CREATE_TYPE);
+        gfnma_multiSelectSet('#DATA_TYPE', 		'SBSD_CD', 'CD_NM', rowData.DATA_TYPE);
+        gfnma_multiSelectSet('#CONTROL_TYPE', 	'SBSD_CD', 'CD_NM', rowData.CONTROL_TYPE);
+        gfnma_multiSelectSet('#CREATE_TYPE', 	'SBSD_CD', 'CD_NM', rowData.CREATE_TYPE);
         if(gfn_nvl(rowData.POPUP_DATA) != '') {
         	$('#popupTh').show();
         	$('#popupTd').show();
-	        gfnma_multiSelectSet('#POPUP_DATA', 	'SUB_CODE', 'CODE_NAME', rowData.POPUP_DATA);
+	        gfnma_multiSelectSet('#POPUP_DATA', 	'SBSD_CD', 'CD_NM', rowData.POPUP_DATA);
         }else{
         	$('#popupTh').hide();
         	$('#popupTd').hide();

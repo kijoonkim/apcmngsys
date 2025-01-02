@@ -36,7 +36,7 @@
                 </h3><!-- 접속이력 조회 -->
             </div>
         </div>
-
+ 
         <div class="box-search-ma">
             <!--[pp] 검색 -->
             <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
@@ -48,19 +48,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -148,23 +148,23 @@
     </div>
 </section>
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
     //-----------------------------------------------------------
-
+ 
     //grid 초기화
     var gvwInfoGrid; 			    // 그리드를 담기위한 객체 선언      ( 접속이력 리스트 )
     var jsonGvwInfoList = []; 	    // 그리드의 참조 데이터 주소 선언   ( 접속이력 리스트 )
-
+ 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-
+ 
             //로그유형
             gfnma_multiSelectInit({
                 target			: ['#SRCH_LOG_TYPE']
@@ -177,61 +177,61 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
         ]);
     }
-
-
+ 
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
-
+ 
         fn_initSBSelect();
-
+ 
         fn_init();
     });
-
+ 
     const fn_init = async function () {
-
+ 
         let openDate = gfn_dateToYmd(new Date());
-
+ 
         SBUxMethod.set('SRCH_LOG_DATE_FR', openDate);
         SBUxMethod.set('SRCH_LOG_DATE_TO', openDate);
-
+ 
         fn_createGrid();
     }
-
+ 
    /* // 신규
     function cfn_add() {
         fn_create();
     }
     // 저장
     function cfn_save() {
-
+ 
         fn_save();
     }
     // 삭제
     function cfn_del() {
         fn_delete();
     }*/
-
+ 
     // 조회
     function cfn_search() {
         fn_search();
     }
-
+ 
     /**
      * 초기화
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
     }
-
+ 
     function fn_createGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwInfo';
@@ -244,64 +244,64 @@
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
             {caption: ["사용자ID"], ref: 'USER_ID', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["사용자명"], ref: 'USER_NAME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["사용자명"], ref: 'USER_NM', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["화면ID"], ref: 'FORM_ID', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["화면명"], ref: 'FORM_NAME', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["로그인시각"], ref: 'LOGIN_TIME', type: 'output', width: '200px', style: 'text-align:left'},
-            {caption: ["로그아웃시각"], ref: 'LOGOUT_TIME', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["화면명"], ref: 'FORM_NM', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["로그인시각"], ref: 'LGN_DT', type: 'output', width: '200px', style: 'text-align:left'},
+            {caption: ["로그아웃시각"], ref: 'LGT_DT', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["접속IP"], ref: 'LOG_IP', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: ["접속PC"], ref: 'LOG_PC', type: 'output', width: '200px', style: 'text-align:left'},
             {caption: [""], ref: 'empty', type: 'output', width: '100px', style: 'text-align:left'}//스타일상 빈값
         ];
-
+ 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-
+ 
     }
-
+ 
     /**
      * 목록 조회
      */
     const fn_search = async function () {
-
+ 
         let QUERY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_QUERY_TYPE")); //조회구분
         let LOG_DATE_FR     = gfn_nvl(SBUxMethod.get("SRCH_LOG_DATE_FR")); //접속일자 (시작)
         let LOG_DATE_TO     = gfn_nvl(SBUxMethod.get("SRCH_LOG_DATE_TO")); //접속일자 (종료)
         let LOG_TYPE        = gfnma_multiSelectGet('#SRCH_LOG_TYPE'); //로그유형
         let USER_ID         = gfn_nvl(SBUxMethod.get("SRCH_USER_ID")); //사용자ID
-
+ 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
             , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
+ 
             ,V_P_LOG_DATE_FR     : LOG_DATE_FR
             ,V_P_LOG_DATE_TO     : LOG_DATE_TO
             ,V_P_LOG_TYPE        : LOG_TYPE
             ,V_P_USERID_P        : USER_ID
-
+ 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
             , V_P_PROC_ID: ''
             , V_P_USERID: ''
             , V_P_PC: ''
         };
-
+ 
         const postJsonPromise = gfn_postJSON("/co/sys/sys/selectSys1900List.do", {
             getType: 'json',
             workType: QUERY_TYPE,
             cv_count: '2',
             params: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
-
+ 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-
+ 
                 /** @type {number} **/
                 let totalRecordCount = 0;
-
+ 
                 if (_.isEmpty(data.cv_1) == false){
                     jsonGvwInfoList.length = 0;
                     data.cv_1.forEach((item, index) => {
@@ -309,27 +309,27 @@
                             KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
                             PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
                             USER_ID             : gfn_nvl(item.USER_ID),
-                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            USER_NAME           : gfn_nvl(item.USER_NM),
                             LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
                             MEMO                : gfn_nvl(item.MEMO),
-                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
-                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            LOGIN_TIME          : gfn_nvl(item.LGN_DT),
+                            LOGOUT_TIME         : gfn_nvl(item.LGT_DT),
                             FORM_ID             : gfn_nvl(item.FORM_ID),
-                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
-                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            FORM_NAME           : gfn_nvl(item.FORM_NM),
+                            LOG_DATE            : gfn_nvl(item.LOG_DT),
                             LOG_IP              : gfn_nvl(item.LOG_IP),
                             LOG_PC              : gfn_nvl(item.LOG_PC),
-                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
-                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                            COMP_CODE           : gfn_nvl(item.CO_CD),
+                            CLIENT_CODE         : gfn_nvl(item.CLNT_CD),
                         }
                         jsonGvwInfoList.push(msg);
                         totalRecordCount++;
                     });
-
+ 
                     gvwInfoGrid.rebuild();
                     document.querySelector('#listCount').innerText = totalRecordCount;
                 }
-
+ 
                 if (_.isEmpty(data.cv_2) == false){
                     jsonGvwInfoList.length = 0;
                     data.cv_2.forEach((item, index) => {
@@ -337,31 +337,31 @@
                             KEY_FIELD           : gfn_nvl(item.KEY_FIELD),
                             PARENT_KEY_FIELD    : gfn_nvl(item.PARENT_KEY_FIELD),
                             USER_ID             : gfn_nvl(item.USER_ID),
-                            USER_NAME           : gfn_nvl(item.USER_NAME),
+                            USER_NAME           : gfn_nvl(item.USER_NM),
                             LOG_TYPE            : gfn_nvl(item.LOG_TYPE),
                             MEMO                : gfn_nvl(item.MEMO),
-                            LOGIN_TIME          : gfn_nvl(item.LOGIN_TIME),
-                            LOGOUT_TIME         : gfn_nvl(item.LOGOUT_TIME),
+                            LOGIN_TIME          : gfn_nvl(item.LGN_DT),
+                            LOGOUT_TIME         : gfn_nvl(item.LGT_DT),
                             FORM_ID             : gfn_nvl(item.FORM_ID),
-                            FORM_NAME           : gfn_nvl(item.FORM_NAME),
-                            LOG_DATE            : gfn_nvl(item.LOG_DATE),
+                            FORM_NAME           : gfn_nvl(item.FORM_NM),
+                            LOG_DATE            : gfn_nvl(item.LOG_DT),
                             LOG_IP              : gfn_nvl(item.LOG_IP),
                             LOG_PC              : gfn_nvl(item.LOG_PC),
-                            COMP_CODE           : gfn_nvl(item.COMP_CODE),
-                            CLIENT_CODE         : gfn_nvl(item.CLIENT_CODE),
+                            COMP_CODE           : gfn_nvl(item.CO_CD),
+                            CLIENT_CODE         : gfn_nvl(item.CLNT_CD),
                         }
                         jsonGvwInfoList.push(msg);
                         totalRecordCount++;
                     });
-
+ 
                     gvwInfoGrid.rebuild();
                     document.querySelector('#listCount').innerText = totalRecordCount;
                 }
-
+ 
             } else {
                 alert(data.resultMessage);
             }
-
+ 
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
@@ -370,7 +370,7 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -47,7 +47,7 @@
 				<div class="box-search-ma">
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
-						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
 	                <table class="table table-bordered tbl_fixed table-search-ma">
 	                    <caption>검색 조건 설정</caption>
@@ -94,8 +94,8 @@
 									    </button>
 									    <div class="dropdown-menu" aria-labelledby=SRCH_COMP_CODE style="width:350px;height:150px;padding-top:0px;overflow:auto">
 									    </div>
-									</div>
-	                            </td>
+									</div>                                
+	                            </td>   
 	                            <td></td>
 	                            <th scope="row" class="th_bg_search">기준년도</th>
 	                            <td class="td_input" style="border-right: hidden;">
@@ -217,7 +217,7 @@
 		SBUxMethod.set("SRCH_YYYY", gfn_dateToYmd(new Date()));
 		let rst = await Promise.all([
 			//그리드 - 요일
-			gfnma_setComSelect(['masterGrid','DAY_NAME'], jsonDayName, 'L_COM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','DAY_NAME'], jsonDayName, 'L_COM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 			//법인
 			gfnma_multiSelectInit({
@@ -231,11 +231,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
+				,colValue		: 'CO_CD'
+				,colLabel		: 'CORP_NM'
 				,columns		:[
-		            {caption: "법인코드",		ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'250px',  	style:'text-align:left'},
+		            {caption: "법인코드",		ref: 'CO_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'CORP_NM',    	width:'250px',  	style:'text-align:left'},
 				]
 			}),
 		]);
@@ -339,25 +339,25 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-	        {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
-	        {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
-	        {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
-	        	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-	        {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
-	        		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-	        {caption: ["특정일명칭"],			ref: 'DAY_TITLE',    		type:'input',  		width:'100px',  style:'text-align:left', userattr : {required : true} },
-	        {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
-	        	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
-	        {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
-	        		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-	        {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
-	        			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
-	        {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
-	        {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-	        {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-	        {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
-	        {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
-	    ];              
+            {caption: ['시작일'], 			ref: 'START_DAY',  		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+            {caption: ['종료일'], 			ref: 'END_DAY',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center', userattr : {required : true} },
+            {caption: ['양력여부'],     		ref: 'SOLAR_YN',		type:'checkbox',	width: '80px', 
+            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['윤달여부'],     		ref: 'LEAP_MONTH_YN',	type:'checkbox',	width: '80px', 
+            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ["특정일명칭"],			ref: 'DAY_TITLE',    		type:'input',  		width:'100px',  style:'text-align:left', userattr : {required : true} },
+            {caption: ['휴일여부'],     		ref: 'HOLIDAY_YN',		type:'checkbox',	width: '80px', 
+            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
+            {caption: ['근무일여부'],     	ref: 'WORKING_DAY_YN',	type:'checkbox',	width: '80px', 
+            		typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['영업일여부'],     	ref: 'BUSINESS_DAY_YN',	type:'checkbox',	width: '80px', 
+            			typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'},
+            {caption: ['비고'],     			ref: 'MEMO',			type:'input',		width: '80px', style : 'text-align:center'},
+            {caption: ['시작일(양)'], ref: 'START_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+            {caption: ['시작(요일)'],     	ref: 'START_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+            {caption: ['종료일(양)'], ref: 'END_DAY_SOLAR',    		type:'inputdate' ,   typeinfo : {dateformat :"yyyy-mm-dd"},      width : '100px', style : 'text-align:center'},
+            {caption: ['종료(요일)'],     	ref: 'END_WEEK_NAME',	type:'input',		width: '80px', style : 'text-align:center'},
+        ];               
         subGrid	= _SBGrid.create(SBSubGridProperties);
     }
 
@@ -400,11 +400,11 @@
   	    		//메인 그리드
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						BUSINESS_DAY_YN		: item.BUSINESS_DAY_YN,
+  						BUSINESS_DAY_YN		: item.BIZ_DAY_YN,
 	  					DAY_NAME			: item.DAY_NAME,
- 	  					HOLIDAY_YN			: item.HOLIDAY_YN,
+ 	  					HOLIDAY_YN			: item.HLDY_YN,
   	  					SEQ					: item.SEQ,
-   	  					WORKING_DAY_YN		: item.WORKING_DAY_YN
+   	  					WORKING_DAY_YN		: item.WORK_DAY_YN
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
@@ -416,21 +416,21 @@
 			  	jsonSubList = [];
 			  	data.cv_2.forEach((item, index) => {
 					const msg = {
-							BUSINESS_DAY_YN			: item.BUSINESS_DAY_YN,
+							BUSINESS_DAY_YN			: item.BIZ_DAY_YN,
 							CHK_YN					: item.CHK_YN,
-		  					DAY_TITLE				: item.DAY_TITLE,
+		  					DAY_TITLE				: item.DAY_TTL,
 		   	  				END_DAY					: gfn_nvl(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 			   	  			END_DAY_SOLAR			: gfn_nvl(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 				   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
-					   	  	HOLIDAY_YN				: item.HOLIDAY_YN,
-					   	 	LEAP_MONTH_YN			: item.LEAP_MONTH_YN,
-						   	SOLAR_YN				: item.SOLAR_YN,
+					   	  	HOLIDAY_YN				: item.HLDY_YN,
+					   	 	LEAP_MONTH_YN			: item.LPMM_YN,
+						   	SOLAR_YN				: item.SLCL_YN,
 						   	MEMO					: item.MEMO,
-						   	START_DAY				: gfn_nvl(item.START_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+						   	START_DAY				: gfn_nvl(item.BGNG_YMD).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 						   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 						   	START_WEEK_NAME			: item.START_WEEK_NAME,
-						   	TXN_ID					: item.TXN_ID,
-						   	WORKING_DAY_YN			: item.WORKING_DAY_YN	
+						   	TXN_ID					: item.TRSC_ID,
+						   	WORKING_DAY_YN			: item.WORK_DAY_YN	
 					}
 					jsonSubList.push(msg);
 				});

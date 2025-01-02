@@ -380,9 +380,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PRINT_TYPE'], jsonPrintType, 'L_HRA040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PRINT_TYPE'], jsonPrintType, 'L_HRA040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 
             //사업장
@@ -397,11 +397,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -417,11 +417,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
         ]);
@@ -443,18 +443,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -463,13 +463,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -479,15 +479,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -569,6 +569,9 @@
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
+        //출력구분 = 원천징수영수증 값으로 고정
+        SBUxMethod.set("SRCH_PRINT_TYPE", '10');
+        SBUxMethod.attr('SRCH_PRINT_TYPE',	'readonly', true);
     }
 
     //원천징수영수증 리스트
@@ -637,7 +640,7 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-       /* gvwInfoGrid.bind('click', 'fn_view');*/
+        /* gvwInfoGrid.bind('click', 'fn_view');*/
     }
 
 
@@ -737,21 +740,21 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN 			                : gfn_nvl(item.CHK_YN)
-                        , MAIL_SEND_YN 			        : gfn_nvl(item.MAIL_SEND_YN)
-                        , MAIL_SEND_TIME 			    : gfn_nvl(item.MAIL_SEND_TIME)
-                        , MAIL_SEND_MSG 			    : gfn_nvl(item.MAIL_SEND_MSG)
-                        , IN_EMAIL 			            : gfn_nvl(item.IN_EMAIL)
+                        , MAIL_SEND_YN 			        : gfn_nvl(item.EML_SEND_YN)
+                        , MAIL_SEND_TIME 			    : gfn_nvl(item.EML_SEND_DT)
+                        , MAIL_SEND_MSG 			    : gfn_nvl(item.EML_SEND_MSG)
+                        , IN_EMAIL 			            : gfn_nvl(item.CO_EML)
                         , YE_TX_TYPE 			        : gfn_nvl(item.YE_TX_TYPE)
-                        , DEPT_CODE 			        : gfn_nvl(item.DEPT_CODE)
-                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NAME)
-                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NAME)
+                        , DEPT_CODE 			        : gfn_nvl(item.DEPT_CD)
+                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NM)
+                        , DEPT_NAME 			        : gfn_nvl(item.DEPT_NM)
                         , c 			                : gfn_nvl(item.c)//PARENT_DEPT??
                         , PARENT_DEPT_NAME 			    : gfn_nvl(item.PARENT_DEPT_NAME)
-                        , EMP_CODE 			            : gfn_nvl(item.EMP_CODE)
-                        , EMP_NAME 			            : gfn_nvl(item.EMP_NAME)
-                        , ENTER_DATE 			        : gfn_nvl(item.ENTER_DATE)
-                        , RETIRE_DATE 			        : gfn_nvl(item.RETIRE_DATE)
-                        , CALC_DAT 			            : gfn_nvl(item.CALC_DAT)
+                        , EMP_CODE 			            : gfn_nvl(item.EMP_CD)
+                        , EMP_NAME 			            : gfn_nvl(item.EMP_NM)
+                        , ENTER_DATE 			        : gfn_nvl(item.JNCMP_YMD)
+                        , RETIRE_DATE 			        : gfn_nvl(item.RTRM_YMD)
+                        , CALC_DAT 			            : gfn_nvl(item.CALC_YMD)
                         , WORK_ST_DAT 			        : gfn_nvl(item.WORK_ST_DAT)
                         , WORK_END_DAT 			        : gfn_nvl(item.WORK_END_DAT)
 
@@ -774,13 +777,13 @@
                 gfnma_uxDataClear('#dataArea2');
                 /*********  -- 3. 메일 정보**********/
                 data.cv_3.forEach((item, index) => {
-                    SBUxMethod.set("EMAIL_SUBJECT"  , 			item.EMAIL_SUBJECT);
-                    SBUxMethod.set("EMAIL_BODY"     , 			item.EMAIL_BODY);
-                    SBUxMethod.set("NOTICE_MEMO"    , 			item.NOTICE_MEMO);
+                    SBUxMethod.set("EMAIL_SUBJECT"  , 			item.EML_SBJT);
+                    SBUxMethod.set("EMAIL_BODY"     , 			item.EML_MTXT);
+                    SBUxMethod.set("NOTICE_MEMO"    , 			item.NTC_MEMO);
 
                 });
 
-               /* fn_view();*/
+                /* fn_view();*/
 
             } else {
                 alert(data.resultMessage);
@@ -796,116 +799,116 @@
     }
 
     //상세정보 보기
-   /* async function fn_view() {
+    /* async function fn_view() {
 
-        let nRow = gvwInfoGrid.getRow();
+         let nRow = gvwInfoGrid.getRow();
 
-        if (nRow == -1) {
-            nRow = 1;
-        }
+         if (nRow == -1) {
+             nRow = 1;
+         }
 
-        let rowData = gvwInfoGrid.getRowData(nRow);
+         let rowData = gvwInfoGrid.getRowData(nRow);
 
-        if (_.isEmpty(rowData) == false) {
-
-
-            let SITE_CODE = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
-            let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
-            let CHKENCRYPTION_YN = gfn_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
-            let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
-            let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
-            let PRINT_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
-            let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
-            let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
-            let MULTI_YN = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
-            let RETIRE_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
-            let RETIRE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
-
-            if (!YE_TX_YYYY) {
-                gfn_comAlert("W0002", "정산연도");
-                return;
-            }
-            if (!YE_TX_TYPE) {
-                gfn_comAlert("W0002", "정산구분");
-                return;
-            }
-            if (!PRINT_TYPE) {
-                gfn_comAlert("W0002", "출력구분");
-                return;
-            }
-
-            var paramObj = {
-                V_P_DEBUG_MODE_YN: ''
-                , V_P_LANG_ID: ''
-                , V_P_COMP_CODE: gv_ma_selectedCorpCd
-                , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-                , V_P_YE_TX_YYYY: YE_TX_YYYY
-                , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
-                , V_P_SITE_CODE: SITE_CODE
-                , V_P_DEPT_CODE: DEPT_CODE
-                , V_P_EMP_CODE: rowData.EMP_CODE
-                , V_P_PRINT_TYPE: PRINT_TYPE
-                , V_P_PRINT_TYPE1: ''
-                , V_P_WORK_END_DAT_FR: RETIRE_DATE_FR
-                , V_P_WORK_END_DAT_TO: RETIRE_DATE_TO
-                , V_P_EMP_CODE_LIST: rowData.EMP_CODE
-                , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
-                , V_P_CONFIRM_PRINT_YN: ''
+         if (_.isEmpty(rowData) == false) {
 
 
-                , V_P_FORM_ID: p_formId
-                , V_P_MENU_ID: p_menuId
-                , V_P_PROC_ID: ''
-                , V_P_USERID: ''
-                , V_P_PC: ''
-            };
+             let SITE_CODE = gfnma_multiSelectGet('#SRCH_SITE_CODE'); //사업장
+             let PAY_AREA_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
+             let CHKENCRYPTION_YN = gfn_nvl(SBUxMethod.get("SRCH_CHKENCRYPTION_YN").SRCH_CHKENCRYPTION_YN); //암호화여부
+             let YE_TX_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산연도
+             let YE_TX_TYPE = gfnma_multiSelectGet('#SRCH_YE_TX_TYPE'); //정산구분
+             let PRINT_TYPE = gfn_nvl(SBUxMethod.get("SRCH_PRINT_TYPE")); //출력구분
+             let DEPT_CODE = gfn_nvl(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
+             let EMP_CODE = gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE")); //사원
+             let MULTI_YN = gfn_nvl(SBUxMethod.get("SRCH_MULTI_YN").SRCH_MULTI_YN); //복수선택
+             let RETIRE_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_FR")); //근무종료일
+             let RETIRE_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_RETIRE_DATE_TO")); //근무종료일
+
+             if (!YE_TX_YYYY) {
+                 gfn_comAlert("W0002", "정산연도");
+                 return;
+             }
+             if (!YE_TX_TYPE) {
+                 gfn_comAlert("W0002", "정산구분");
+                 return;
+             }
+             if (!PRINT_TYPE) {
+                 gfn_comAlert("W0002", "출력구분");
+                 return;
+             }
+
+             var paramObj = {
+                 V_P_DEBUG_MODE_YN: ''
+                 , V_P_LANG_ID: ''
+                 , V_P_COMP_CODE: gv_ma_selectedCorpCd
+                 , V_P_CLIENT_CODE: gv_ma_selectedClntCd
+
+                 , V_P_YE_TX_YYYY: YE_TX_YYYY
+                 , V_P_YEAR_END_TX_TYPE: YE_TX_TYPE
+                 , V_P_SITE_CODE: SITE_CODE
+                 , V_P_DEPT_CODE: DEPT_CODE
+                 , V_P_EMP_CODE: rowData.EMP_CODE
+                 , V_P_PRINT_TYPE: PRINT_TYPE
+                 , V_P_PRINT_TYPE1: ''
+                 , V_P_WORK_END_DAT_FR: RETIRE_DATE_FR
+                 , V_P_WORK_END_DAT_TO: RETIRE_DATE_TO
+                 , V_P_EMP_CODE_LIST: rowData.EMP_CODE
+                 , V_P_PAY_AREA_TYPE: PAY_AREA_TYPE
+                 , V_P_CONFIRM_PRINT_YN: ''
 
 
-            const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1600List.do", {
-                getType: 'json',
-                workType: 'LIST',
-                cv_count: '8',
-                params: gfnma_objectToString(paramObj)
-            });
-
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-
-                    /!*****-- 2. 환결설정의 명세서전송EMAIL*****!/
-                    /!* data.cv_2.forEach((item, index) => {
-                         SBUxMethod.set("PAY_SEND_EMAIL", 			item.PAY_SEND_EMAIL);//몬지 모르겠음
-
-                     });*!/
-
-                    //메일정보 테이블 초기화
-                    gfnma_uxDataClear('#dataArea2');
-                    /!*********  -- 3. 메일 정보**********!/
-                    data.cv_3.forEach((item, index) => {
-                        SBUxMethod.set("EMAIL_SUBJECT", item.EMAIL_SUBJECT);
-                        SBUxMethod.set("EMAIL_BODY", item.EMAIL_BODY);
-                        SBUxMethod.set("NOTICE_MEMO", item.NOTICE_MEMO);
-
-                    });
-
-                } else {
-                    alert(data.resultMessage);
-                }
-
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-            }
+                 , V_P_FORM_ID: p_formId
+                 , V_P_MENU_ID: p_menuId
+                 , V_P_PROC_ID: ''
+                 , V_P_USERID: ''
+                 , V_P_PC: ''
+             };
 
 
-        }
+             const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1600List.do", {
+                 getType: 'json',
+                 workType: 'LIST',
+                 cv_count: '8',
+                 params: gfnma_objectToString(paramObj)
+             });
 
-    }*/
+             const data = await postJsonPromise;
+
+             try {
+                 if (_.isEqual("S", data.resultStatus)) {
+
+                     /!*****-- 2. 환결설정의 명세서전송EMAIL*****!/
+                     /!* data.cv_2.forEach((item, index) => {
+                          SBUxMethod.set("PAY_SEND_EMAIL", 			item.PAY_SEND_EMAIL);//몬지 모르겠음
+
+                      });*!/
+
+                     //메일정보 테이블 초기화
+                     gfnma_uxDataClear('#dataArea2');
+                     /!*********  -- 3. 메일 정보**********!/
+                     data.cv_3.forEach((item, index) => {
+                         SBUxMethod.set("EMAIL_SUBJECT", item.EMAIL_SUBJECT);
+                         SBUxMethod.set("EMAIL_BODY", item.EMAIL_BODY);
+                         SBUxMethod.set("NOTICE_MEMO", item.NOTICE_MEMO);
+
+                     });
+
+                 } else {
+                     alert(data.resultMessage);
+                 }
+
+             } catch (e) {
+                 if (!(e instanceof Error)) {
+                     e = new Error(e);
+                 }
+                 console.error("failed", e.message);
+                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+             }
+
+
+         }
+
+     }*/
 
 
     //저장
@@ -1055,11 +1058,11 @@
         let INCOME_RECEIVE_END_DATE = gfn_nvl(obj.WORK_END_DAT);
         let RETIRE_YYYY = gfn_nvl(obj.RETIRE_DATE) == '' ? '' : obj.RETIRE_DATE.substring(0, 4);
 
-      /*  if(INCOME_YEAR == RETIRE_YYYY){
-            YEAR_END_TX_TYPE = 'RETIRE';
-        }else{
-            YEAR_END_TX_TYPE = 'YEAREND';
-        }*/
+        /*  if(INCOME_YEAR == RETIRE_YYYY){
+              YEAR_END_TX_TYPE = 'RETIRE';
+          }else{
+              YEAR_END_TX_TYPE = 'YEAREND';
+          }*/
         var paramObj = {
             V_P_DEBUG_MODE_YN       : '',
             V_P_LANG_ID             : '',

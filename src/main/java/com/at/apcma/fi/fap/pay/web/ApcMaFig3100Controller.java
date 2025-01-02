@@ -55,7 +55,7 @@ public class ApcMaFig3100Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_FIG3100_Q");
+            param.put("procedure", "SP_FIG3100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaFig3100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3100_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3100_S");
 
             logger.info("=============insertFig3100=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -102,7 +102,7 @@ public class ApcMaFig3100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3100_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3100_S1");
 
             logger.info("=============insertFig3100S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -125,7 +125,7 @@ public class ApcMaFig3100Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_COMMON_JOB_RUN");
+            param.put("procedure", "SP_COMMON_JOB_RUN");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public class ApcMaFig3100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3100_S2");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3100_S2");
 
             logger.info("=============insertFig3100S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -173,7 +173,7 @@ public class ApcMaFig3100Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_ORG1100_Q");
+            param.put("procedure", "SP_ORG1100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -202,7 +202,7 @@ public class ApcMaFig3100Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRB5600_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRB5600_S1");
 
             logger.info("=============insertHrp1170=====end========");
             return getSuccessResponseEntityMa(resultMap);

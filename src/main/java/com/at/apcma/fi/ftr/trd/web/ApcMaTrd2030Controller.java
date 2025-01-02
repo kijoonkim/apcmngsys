@@ -52,7 +52,7 @@ public class ApcMaTrd2030Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRD2030_Q");
+            param.put("procedure", 		"SP_TRD2030_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaTrd2030Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRD2030_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_TRD2030_S");
 
             logger.info("=============insertTrd2030=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -103,7 +103,7 @@ public class ApcMaTrd2030Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRD2030_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_TRD2030_S1");
 
             logger.info("=============insertTrd2030Confirm=====end========");
             return getSuccessResponseEntityMa(resultMap);

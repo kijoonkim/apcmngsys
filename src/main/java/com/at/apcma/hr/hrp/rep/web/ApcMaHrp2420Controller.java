@@ -51,7 +51,7 @@ public class ApcMaHrp2420Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2425_Q");
+            param.put("procedure", "SP_HRP2425_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class ApcMaHrp2420Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", "P_HRP2425_Q");
+    		param.put("procedure", "SP_HRP2425_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
 			//self url 편집

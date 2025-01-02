@@ -176,17 +176,17 @@
                     <tbody>
                     <tr>
                         <th scope="row" class="th_bg">법인</th>
-                       <%-- <td class="td_input" style="border-right: hidden;">
-                            <sbux-select
-                                    unselected-text=""
-                                    uitype="single"
-                                    id="COMP_CODE"
-                                    name="COMP_CODE"
-                                    unselected-text=""
-                                    class="form-control input-sm"
-                                    jsondata-ref="jsonCompCode"
-                            />
-                        </td>--%>
+                        <%-- <td class="td_input" style="border-right: hidden;">
+                             <sbux-select
+                                     unselected-text=""
+                                     uitype="single"
+                                     id="COMP_CODE"
+                                     name="COMP_CODE"
+                                     unselected-text=""
+                                     class="form-control input-sm"
+                                     jsondata-ref="jsonCompCode"
+                             />
+                         </td>--%>
                         <td class="td_input">
                             <sbux-select
                                     id="COMP_CODE"
@@ -312,7 +312,7 @@
                         <th scope="row" class="th_bg">부서</th>
                         <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                             <sbux-input
-                                    <%--uitype="hidden"--%>
+                            <%--uitype="hidden"--%>
                                     uitype="text"
                                     id="DEPT_CODE"
                                     class="form-control input-sm"
@@ -339,7 +339,7 @@
                         <th scope="row" class="th_bg">사원</th>
                         <td <%--colspan="2"--%>  class="td_input" style="border-right: hidden; " data-group="EMP">
                             <sbux-input
-                                    <%--uitype="hidden"--%>
+                            <%--uitype="hidden"--%>
                                     uitype="text"
                                     id="EMP_CODE"
                                     class="form-control input-sm"
@@ -414,7 +414,7 @@
                                     datepicker-mode="month"
                                     date-format="yyyy-mm"
                                     class="table-datepicker-ma"
-                                    >
+                            >
                             </sbux-datepicker>
                         </td>
                         <td colspan="9" class="td_input" style="border-right: hidden;">
@@ -456,14 +456,14 @@
                     <tr>
                         <td style="border-right: hidden;">&nbsp;</td>
                         <td class="td_input" style="border-right: hidden;">
-                        <sbux-button
-                                id="btnCalculate"
-                                name="btnCalculate"
-                                uitype="normal"
-                                text="급여계산"
-                                class="btn btn-sm btn-outline-danger"
-                                onclick="fn_btnCalculate">
-                        </sbux-button>
+                            <sbux-button
+                                    id="btnCalculate"
+                                    name="btnCalculate"
+                                    uitype="normal"
+                                    text="급여계산"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="fn_btnCalculate">
+                            </sbux-button>
                         </td>
                         <td class="td_input" style="border-right: hidden;">
                             <sbux-button
@@ -637,22 +637,22 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_CALCULATE_TYPE'], jsonPayCalculateType, 'L_HRP005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwLogGrid'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwWorkGrid'], jsonWorkMonthsType, 'L_HRP010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwWorkGrid'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['BONUS_PAY_ITEM_CODE'], jsonBonusPayType, 'L_HRP014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwExceptionGrid'], jsonPayItemCodeType, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['BONUS_CALCULATE_TYPE'], jsonBonusCalculateType, 'L_HRP007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_CALCULATE_TYPE'], jsonPayCalculateType, 'L_HRP005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['COMP_CODE'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CO_CD', 'CORP_NM', 'Y', ''),
+            gfnma_setComSelect(['PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwLogGrid'], jsonCalculateWorkType, 'L_HRP008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonWorkMonthsType, 'L_HRP010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwWorkGrid'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['BONUS_PAY_ITEM_CODE'], jsonBonusPayType, 'L_HRP014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwExceptionGrid'], jsonPayItemCodeType, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['BONUS_CALCULATE_TYPE'], jsonBonusCalculateType, 'L_HRP007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '')
 
         ]);
 
-       fn_onLoad();
+        fn_onLoad();
     }
 
     /**
@@ -670,18 +670,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -690,13 +690,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("EMP_FULL_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -706,15 +706,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('EMP_FULL_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_FULL_NAME', data.EMP_NM);
+                SBUxMethod.set('EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -772,9 +772,9 @@
           fn_create();
       }*/
     // 저장
-   /* function cfn_save() {
-        fn_save();
-    }*/
+    /* function cfn_save() {
+         fn_save();
+     }*/
     // 삭제
     /*function cfn_del() {
         fn_delete();
@@ -954,9 +954,9 @@
                     jsonExceptionList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE		     : gfn_nvl(item.PAY_ITEM_CODE),
-                            PAY_APPLY_YYYYMM_FR		 : gfn_nvl(item.PAY_APPLY_YYYYMM_FR),
-                            PAY_APPLY_YYYYMM_TO		 : gfn_nvl(item.PAY_APPLY_YYYYMM_TO),
+                            PAY_ITEM_CODE		     : gfn_nvl(item.SLRY_ITEM_CD),
+                            PAY_APPLY_YYYYMM_FR		 : gfn_nvl(item.SLRY_APLY_BGNG_YM),
+                            PAY_APPLY_YYYYMM_TO		 : gfn_nvl(item.SLRY_APLY_END_YM),
                         }
                         jsonExceptionList.push(msg);
                         //totalRecordCount ++;
@@ -967,9 +967,9 @@
                     jsonBonusList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            PAY_WORK_MONTHS		 : gfn_nvl(item.PAY_WORK_MONTHS),
-                            BONUS_APPLY_TYPE	 : gfn_nvl(item.BONUS_APPLY_TYPE),
-                            BONUS_RATE		     : gfn_nvl(item.BONUS_RATE),
+                            PAY_WORK_MONTHS		 : gfn_nvl(item.CNSVC_MNTH),
+                            BONUS_APPLY_TYPE	 : gfn_nvl(item.BONUS_APLY_TYPE),
+                            BONUS_RATE		     : gfn_nvl(item.BONUS_RT),
                             BONUS_AMT		     : gfn_nvl(item.BONUS_AMT),
                         }
                         jsonBonusList.push(msg);
@@ -981,21 +981,21 @@
                     jsonGvwLogList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            PAY_CALCULATE_SEQ		 : gfn_nvl(item.PAY_CALCULATE_SEQ),
-                            CALCULATE_WORK_TYPE		 : gfn_nvl(item.CALCULATE_WORK_TYPE),
-                            TAX_CALCULATE_TYPE		 : gfn_nvl(item.TAX_CALCULATE_TYPE),
-                            TAX_RATE		         : gfn_nvl(item.TAX_RATE),
+                            PAY_CALCULATE_SEQ		 : gfn_nvl(item.SLRY_CAL_SEQ),
+                            CALCULATE_WORK_TYPE		 : gfn_nvl(item.CALC_JOB_TYPE),
+                            TAX_CALCULATE_TYPE		 : gfn_nvl(item.TX_CAL_TYPE),
+                            TAX_RATE		         : gfn_nvl(item.TX_RT),
                             BONUS_CALCULATE_TYP      : gfn_nvl(item.BONUS_CALCULATE_TYP),
-                            BONUS_RATE		         : gfn_nvl(item.BONUS_RATE),
-                            BONUS_APPLY_TYPE		 : gfn_nvl(item.BONUS_APPLY_TYPE),
+                            BONUS_RATE		         : gfn_nvl(item.BONUS_RT),
+                            BONUS_APPLY_TYPE		 : gfn_nvl(item.BONUS_APLY_TYPE),
                             CALCULATE_CONDITION		 : gfn_nvl(item.CALCULATE_CONDITION),
                             MEMO		             : gfn_nvl(item.MEMO),
-                            ACTION_START_TIME		 : gfn_nvl(item.ACTION_START_TIME),
-                            ACTION_END_TIME		     : gfn_nvl(item.ACTION_END_TIME),
-                            INSERT_USERID		     : gfn_nvl(item.INSERT_USERID),
-                            INSERT_TIME		         : gfn_nvl(item.INSERT_TIME),
-                            INSERT_PC		         : gfn_nvl(item.INSERT_PC),
-                            PAY_AREA_TYPE		     : gfn_nvl(item.PAY_AREA_TYPE),
+                            ACTION_START_TIME		 : gfn_nvl(item.EXCN_BGNG_TM),
+                            ACTION_END_TIME		     : gfn_nvl(item.EXCN_END_TM),
+                            INSERT_USERID		     : gfn_nvl(item.WRT_USER_ID),
+                            INSERT_TIME		         : gfn_nvl(item.WRT_DT),
+                            INSERT_PC		         : gfn_nvl(item.WRT_PC),
+                            PAY_AREA_TYPE		     : gfn_nvl(item.SLRY_AREA_TYPE),
                         }
                         jsonGvwLogList.push(msg);
                         //totalRecordCount ++;
@@ -1007,8 +1007,8 @@
 
                     data.cv_1.forEach((item, index) => {
 
-                        SBUxMethod.set("SRCH_PAY_DATE"          , gfn_nvl(item.PAY_DATE));
-                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , gfn_nvl(item.EXPECTED_PAY_DATE));
+                        SBUxMethod.set("SRCH_PAY_DATE"          , gfn_nvl(item.PAY_YMD));
+                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , gfn_nvl(item.PAY_PRNMNT_YMD));
 
                     });
 
@@ -1016,22 +1016,22 @@
                     jsonGvwLogList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_CALCULATE_SEQ		 : gfn_nvl(item.PAY_CALCULATE_SEQ),
-                            CALCULATE_WORK_TYPE		 : gfn_nvl(item.CALCULATE_WORK_TYPE),
+                            PAY_CALCULATE_SEQ		 : gfn_nvl(item.SLRY_CAL_SEQ),
+                            CALCULATE_WORK_TYPE		 : gfn_nvl(item.CALC_JOB_TYPE),
                             // -- 처리구분
-                            TAX_CALCULATE_TYPE		 : gfn_nvl(item.TAX_CALCULATE_TYPE),
-                            TAX_RATE		         : gfn_nvl(item.TAX_RATE),
-                            BONUS_CALCULATE_TYPE     : gfn_nvl(item.BONUS_CALCULATE_TYPE),
-                            BONUS_RATE		         : gfn_nvl(item.BONUS_RATE),
-                            BONUS_APPLY_TYPE		 : gfn_nvl(item.BONUS_APPLY_TYPE),
+                            TAX_CALCULATE_TYPE		 : gfn_nvl(item.TX_CAL_TYPE),
+                            TAX_RATE		         : gfn_nvl(item.TX_RT),
+                            BONUS_CALCULATE_TYPE     : gfn_nvl(item.BONUS_CAL_TYPE),
+                            BONUS_RATE		         : gfn_nvl(item.BONUS_RT),
+                            BONUS_APPLY_TYPE		 : gfn_nvl(item.BONUS_APLY_TYPE),
                             CALCULATE_CONDITION		 : gfn_nvl(item.CALCULATE_CONDITION),
                             MEMO		             : gfn_nvl(item.MEMO),
-                            INSERT_USERID		     : gfn_nvl(item.INSERT_USERID),
-                            ACTION_START_TIME		 : gfn_nvl(item.ACTION_START_TIME),
-                            ACTION_END_TIME		     : gfn_nvl(item.ACTION_END_TIME),
-                            INSERT_TIME		         : gfn_nvl(item.INSERT_TIME),
-                            INSERT_PC		         : gfn_nvl(item.INSERT_PC),
-                            PAY_AREA_TYPE		     : gfn_nvl(item.PAY_AREA_TYPE)
+                            INSERT_USERID		     : gfn_nvl(item.WRT_USER_ID),
+                            ACTION_START_TIME		 : gfn_nvl(item.EXCN_BGNG_TM),
+                            ACTION_END_TIME		     : gfn_nvl(item.EXCN_END_TM),
+                            INSERT_TIME		         : gfn_nvl(item.WRT_DT),
+                            INSERT_PC		         : gfn_nvl(item.WRT_PC),
+                            PAY_AREA_TYPE		     : gfn_nvl(item.SLRY_AREA_TYPE)
                         }
                         jsonGvwLogList.push(msg);
                         //totalRecordCount ++;
@@ -1044,7 +1044,7 @@
 
                     data.cv_1.forEach((item, index) => {
 
-                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE", item.EXPECTED_PAY_DATE); //퇴사일
+                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE", item.PAY_PRNMNT_YMD); //퇴사일
 
                     });
 
@@ -1052,22 +1052,22 @@
                     jsonGvwLogList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_CALCULATE_SEQ       : gfn_nvl(item.PAY_CALCULATE_SEQ),
-                            CALCULATE_WORK_TYPE     : gfn_nvl(item.CALCULATE_WORK_TYPE),
+                            PAY_CALCULATE_SEQ       : gfn_nvl(item.SLRY_CAL_SEQ),
+                            CALCULATE_WORK_TYPE     : gfn_nvl(item.CALC_JOB_TYPE),
                             // -- 처리구분
-                            TAX_CALCULATE_TYPE      : gfn_nvl(item.TAX_CALCULATE_TYPE),
-                            TAX_RATE                : gfn_nvl(item.TAX_RATE),
-                            BONUS_CALCULATE_TYPE    : gfn_nvl(item.BONUS_CALCULATE_TYPE),
-                            BONUS_RATE              : gfn_nvl(item.BONUS_RATE),
-                            BONUS_APPLY_TYPE        : gfn_nvl(item.BONUS_APPLY_TYPE),
+                            TAX_CALCULATE_TYPE      : gfn_nvl(item.TX_CAL_TYPE),
+                            TAX_RATE                : gfn_nvl(item.TX_RT),
+                            BONUS_CALCULATE_TYPE    : gfn_nvl(item.BONUS_CAL_TYPE),
+                            BONUS_RATE              : gfn_nvl(item.BONUS_RT),
+                            BONUS_APPLY_TYPE        : gfn_nvl(item.BONUS_APLY_TYPE),
                             CALCULATE_CONDITION     : gfn_nvl(item.CALCULATE_CONDITION),
                             MEMO                    : gfn_nvl(item.MEMO),
-                            INSERT_USERID           : gfn_nvl(item.INSERT_USERID),
-                            ACTION_START_TIME       : gfn_nvl(item.ACTION_START_TIME),
-                            ACTION_END_TIME         : gfn_nvl(item.ACTION_END_TIME),
-                            INSERT_TIME             : gfn_nvl(item.INSERT_TIME),
-                            INSERT_PC               : gfn_nvl(item.INSERT_PC),
-                            PAY_AREA_TYPE           : gfn_nvl(item.PAY_AREA_TYPE)
+                            INSERT_USERID           : gfn_nvl(item.WRT_USER_ID),
+                            ACTION_START_TIME       : gfn_nvl(item.EXCN_BGNG_TM),
+                            ACTION_END_TIME         : gfn_nvl(item.EXCN_END_TM),
+                            INSERT_TIME             : gfn_nvl(item.WRT_DT),
+                            INSERT_PC               : gfn_nvl(item.WRT_PC),
+                            PAY_AREA_TYPE           : gfn_nvl(item.SLRY_AREA_TYPE)
                         }
                         jsonGvwLogList.push(msg);
                         //totalRecordCount ++;
@@ -1080,8 +1080,8 @@
 
                     data.cv6.forEach((item, index) => {
 
-                        SBUxMethod.set("BONUS_RATE"         , item.BONUS_RATE);
-                        SBUxMethod.set("BONUS_PAY_ITEM_CODE", item.PAY_ITEM_CODE);
+                        SBUxMethod.set("BONUS_RATE"         , gfn_nvl(item.BONUS_RATE));
+                        SBUxMethod.set("BONUS_PAY_ITEM_CODE", gfn_nvl(item.PAY_ITEM_CODE));
 
                     });
 
@@ -1089,22 +1089,22 @@
                     jsonGvwLogList.length = 0;
                     data.cv_7.forEach((item, index) => {
                         const msg = {
-                            PAY_CALCULATE_SEQ       : gfn_nvl(item.PAY_CALCULATE_SEQ),
-                            CALCULATE_WORK_TYPE     : gfn_nvl(item.CALCULATE_WORK_TYPE),
+                            PAY_CALCULATE_SEQ       : gfn_nvl(item.SLRY_CAL_SEQ),
+                            CALCULATE_WORK_TYPE     : gfn_nvl(item.CALC_JOB_TYPE),
                             // -- 처리구분
-                            TAX_CALCULATE_TYPE      : gfn_nvl(item.TAX_CALCULATE_TYPE),
-                            TAX_RATE                : gfn_nvl(item.TAX_RATE),
-                            BONUS_CALCULATE_TYPE    : gfn_nvl(item.BONUS_CALCULATE_TYPE),
-                            BONUS_RATE              : gfn_nvl(item.BONUS_RATE),
-                            BONUS_APPLY_TYPE        : gfn_nvl(item.BONUS_APPLY_TYPE),
+                            TAX_CALCULATE_TYPE      : gfn_nvl(item.TX_CAL_TYPE),
+                            TAX_RATE                : gfn_nvl(item.TX_RT),
+                            BONUS_CALCULATE_TYPE    : gfn_nvl(item.BONUS_CAL_TYPE),
+                            BONUS_RATE              : gfn_nvl(item.BONUS_RT),
+                            BONUS_APPLY_TYPE        : gfn_nvl(item.BONUS_APLY_TYPE),
                             CALCULATE_CONDITION     : gfn_nvl(item.CALCULATE_CONDITION),
                             MEMO                    : gfn_nvl(item.MEMO),
-                            INSERT_USERID           : gfn_nvl(item.INSERT_USERID),
-                            ACTION_START_TIME       : gfn_nvl(item.ACTION_START_TIME),
-                            ACTION_END_TIME         : gfn_nvl(item.ACTION_END_TIME),
-                            INSERT_TIME             : gfn_nvl(item.INSERT_TIME),
-                            INSERT_PC               : gfn_nvl(item.INSERT_PC),
-                            PAY_AREA_TYPE           : gfn_nvl(item.PAY_AREA_TYPE)
+                            INSERT_USERID           : gfn_nvl(item.WRT_USER_ID),
+                            ACTION_START_TIME       : gfn_nvl(item.EXCN_BGNG_TM),
+                            ACTION_END_TIME         : gfn_nvl(item.EXCN_END_TM),
+                            INSERT_TIME             : gfn_nvl(item.WRT_DT),
+                            INSERT_PC               : gfn_nvl(item.WRT_PC),
+                            PAY_AREA_TYPE           : gfn_nvl(item.SLRY_AREA_TYPE)
                         }
                         jsonGvwLogList.push(msg);
                         //totalRecordCount ++;
@@ -1117,8 +1117,8 @@
                     jsonBonusList.length = 0;
                     data.cv_8.forEach((item, index) => {
                         const msg = {
-                            PAY_WORK_MONTHS     : gfn_nvl(item.PAY_WORK_MONTHS),
-                            BONUS_RATE          : gfn_nvl(item.BONUS_RATE),
+                            PAY_WORK_MONTHS     : gfn_nvl(item.CNSVC_MNTH),
+                            BONUS_RATE          : gfn_nvl(item.BONUS_RT),
                             BONUS_AMT           : gfn_nvl(item.BONUS_AMT)
 
                         }
@@ -1137,27 +1137,27 @@
 
                 if (strWorkType == "PAYDATE") {
 
-                        SBUxMethod.set("SRCH_PAY_DATE"          , "");
-                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , "");
-                        SBUxMethod.set("BONUS_RATE"             , '0');
-                        SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
-                        return false;
+                    SBUxMethod.set("SRCH_PAY_DATE"          , "");
+                    SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , "");
+                    SBUxMethod.set("BONUS_RATE"             , '0');
+                    SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
+                    return false;
 
 
                 }else if (strWorkType == "PAYDATE2") {
 
-                        SBUxMethod.set("SRCH_PAY_DATE"          , "");
-                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , "");
-                        SBUxMethod.set("BONUS_RATE"             , '0');
-                        SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
-                        return false;
+                    SBUxMethod.set("SRCH_PAY_DATE"          , "");
+                    SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , "");
+                    SBUxMethod.set("BONUS_RATE"             , '0');
+                    SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
+                    return false;
 
 
                 }else if (strWorkType == "BONUS") {
 
-                        SBUxMethod.set("BONUS_RATE"             , '0');
-                        SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
-                        return false;
+                    SBUxMethod.set("BONUS_RATE"             , '0');
+                    SBUxMethod.set("BONUS_PAY_ITEM_CODE"    , "");
+                    return false;
 
                 }else if (strWorkType == "COPY") {
 
@@ -1453,18 +1453,18 @@
             ,V_P_BONUS_RATE            : BONUS_RATE
             ,V_P_BONUS_PAY_ITEM_CODE   : BONUS_PAY_ITEM_CODE      //-- 상여급여 항목
 
-        //-- 귀속년월 예외 정보
+            //-- 귀속년월 예외 정보
             ,V_P_PAY_ITEM_CODE         : strpay_item_code
             ,V_P_PAY_APPLY_YYYYMM_FR   : strpay_apply_yyyymm_fr
             ,V_P_PAY_APPLY_YYYYMM_TO   : strpay_apply_yyyymm_to
 
-        //-- 상여 1년 미만자 정보
+            //-- 상여 1년 미만자 정보
             ,V_P_PAY_WORK_MONTHS       : strpay_work_months
             ,V_P_BONUS_APPLY_TYPE      : strbonus_apply_type
             ,V_P_BONUS_RATE_DETAIL     : strbonus_rate_detail
             ,V_P_BONUS_AMT_DETAIL      : strbonus_amt_detail
 
-        //-- 계산 대상 정보
+            //-- 계산 대상 정보
             ,V_P_APPLY_PAY_AREA_TYPE   : PAY_AREA_TYPE          //-- 추가 급여영역 170915
             ,V_P_APPLY_PAY_GROUP_CODE  : PAY_GROUP_CODE
             ,V_P_APPLY_DEPT_CODE       : strEmpCodeList == '' ? DEPT_CODE : ''
@@ -1584,7 +1584,7 @@
     //소급취소
     const fn_btnCancelUpdate =  async function () {
 
-         gfn_comAlert("E0000", "급여계산취소버튼을 실행하였습니다.");
+        gfn_comAlert("E0000", "급여계산취소버튼을 실행하였습니다.");
         if (fn_P_HRP2320_CHANGE_CREATE('CANCEL')){
             fn_search('Q');
         }
@@ -1853,16 +1853,16 @@
             ,V_P_BONUS_CALCULATE_TYPE       : BONUS_CALCULATE_TYPE
             ,V_P_BONUS_RATE                 : BONUS_RATE
             ,V_P_BONUS_PAY_ITEM_CODE        : BONUS_PAY_ITEM_CODE         //-- 상여급여 항목
-        //-- 귀속년월 예외 정보
+            //-- 귀속년월 예외 정보
             ,V_P_PAY_ITEM_CODE              : strpay_item_code
             ,V_P_PAY_APPLY_YYYYMM_FR        : strpay_apply_yyyymm_fr
             ,V_P_PAY_APPLY_YYYYMM_TO        : strpay_apply_yyyymm_to
-        //-- 상여 1년 미만자 정보
+            //-- 상여 1년 미만자 정보
             ,V_P_PAY_WORK_MONTHS            : strpay_work_months
             ,V_P_BONUS_APPLY_TYPE           : strbonus_apply_type
             ,V_P_BONUS_RATE_DETAIL          : strbonus_rate_detail
             ,V_P_BONUS_AMT_DETAIL           : strbonus_amt_detail
-        //-- 계산 대상 정보
+            //-- 계산 대상 정보
             ,V_P_APPLY_PAY_AREA_TYPE        : PAY_AREA_TYPE         //-- 추가 급여영역 170915
             ,V_P_APPLY_PAY_GROUP_CODE       : PAY_GROUP_CODE
             ,V_P_APPLY_DEPT_CODE            : strEmpCodeList == '' ? DEPT_CODE : ''

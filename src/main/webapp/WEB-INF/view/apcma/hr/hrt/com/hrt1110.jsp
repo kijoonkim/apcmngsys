@@ -140,7 +140,7 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryRule, 'L_HRT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -263,23 +263,23 @@
                 jsonNeglectOfDutyInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        TIME_SUMMARY_CODE : item.TIME_SUMMARY_CODE,
-                        TIME_SUMMARY_NAME : item.TIME_SUMMARY_NAME,
-                        TIME_FIELD_NAME : item.TIME_FIELD_NAME,
-                        SUMMARY_TIME_YN : item.SUMMARY_TIME_YN,
-                        SUMMARY_COUNT_YN : item.SUMMARY_COUNT_YN,
+                        TIME_SUMMARY_CODE : item.ATDNC_TOT_CD,
+                        TIME_SUMMARY_NAME : item.ATDNC_TOT_NM,
+                        TIME_FIELD_NAME : item.ATDNC_ARTCL_NM,
+                        SUMMARY_TIME_YN : item.SMMRY_TM_YN,
+                        SUMMARY_COUNT_YN : item.SMMRY_CNT_YN,
                         PRINT_YN : item.PRINT_YN,
                         SORT_SEQ : item.SORT_SEQ,
                         MEMO : item.MEMO,
                         USE_YN : item.USE_YN,
-                        DAILY_TXN_YN : item.DAILY_TXN_YN,
-                        TIME_SUMMARY_APPLY_NAME : item.TIME_SUMMARY_APPLY_NAME,
-                        SUMMARY_RULE : item.SUMMARY_RULE,
-                        VIEW_YN : item.VIEW_YN,
-                        DAILY_SORT_SEQ : item.DAILY_SORT_SEQ,
-                        DAILY_VIEW_YN : item.DAILY_VIEW_YN,
-                        CLIENT_CODE : item.CLIENT_CODE,
-                        COMP_CODE : item.COMP_CODE
+                        DAILY_TXN_YN : item.DL_WORK_APLY_YN,
+                        TIME_SUMMARY_APPLY_NAME : item.ATDNC_TOT_APLY_NM,
+                        SUMMARY_RULE : item.SMMRY_RULE,
+                        VIEW_YN : item.INQ_YN,
+                        DAILY_SORT_SEQ : item.DL_SORT_SEQ,
+                        DAILY_VIEW_YN : item.DL_VIEW_YN,
+                        CLIENT_CODE : item.CLNT_CD,
+                        COMP_CODE : item.CO_CD
                     }
                     jsonNeglectOfDutyInfoList.push(msg);
                 });

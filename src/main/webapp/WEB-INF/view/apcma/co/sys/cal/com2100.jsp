@@ -186,7 +186,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
-			gfnma_setComSelect(['masterGrid','FISCAL_STATUS'], jsonFiscalStatus, 'L_FIM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','FISCAL_STATUS'], jsonFiscalStatus, 'L_FIM021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//법인
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_COMP_CODE']
@@ -199,11 +199,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'COMP_CODE'
-				,colLabel		: 'COMP_NAME'
+				,colValue		: 'CO_CD'
+				,colLabel		: 'CORP_NM'
 				,columns		:[
-		            {caption: "법인코드",		ref: 'COMP_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "법인명", 		ref: 'COMP_NAME',    	width:'200px',  	style:'text-align:left'},
+		            {caption: "법인코드",		ref: 'CO_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "법인명", 		ref: 'CORP_NM',    	width:'200px',  	style:'text-align:left'},
 				]
 			}),
 			//회기
@@ -218,10 +218,10 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'FISCAL_NO'
+				,colValue		: 'FYR_NO'
 				,colLabel		: 'FISCAL_PERIOD'
 				,columns		:[
-		            {caption: "회기",		ref: 'FISCAL_NO', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "회기",		ref: 'FYR_NO', 			width:'100px',  	style:'text-align:left'},
 		            {caption: "회기기간", 	ref: 'FISCAL_PERIOD',    	width:'300px',  	style:'text-align:left'},
 		            {caption: "종료년월", 	ref: 'YYYYMM_TO',    		width:'100px',  	style:'text-align:left'}
 				]
@@ -354,7 +354,6 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-    
     const fn_save = async function() {
     	
     	if(!gfnma_gridValidateCheck()){
@@ -448,12 +447,12 @@
   	    		masterGrid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							FISCAL_NO		: gfn_nvl(item.FISCAL_NO),
-  							START_DATE		: gfn_nvl(item.START_DATE).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-  							END_DATE		: gfn_nvl(item.END_DATE).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-  							FISCAL_STATUS	: gfn_nvl(item.FISCAL_STATUS),
-  							DESCR			: gfn_nvl(item.DESCR),
-  							DESCR_CHN		: gfn_nvl(item.DESCR_CHN)
+  							FISCAL_NO		: gfn_nvl(item.FYR_NO),
+  							START_DATE		: gfn_nvl(item.BGNG_YMD).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+  							END_DATE		: gfn_nvl(item.END_YMD).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+  							FISCAL_STATUS	: gfn_nvl(item.FYR_STTS),
+  							DESCR			: gfn_nvl(item.DSCTN),
+  							DESCR_CHN		: gfn_nvl(item.DSCTN_CHN)
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
@@ -544,20 +543,20 @@
 		}
     }
 
-     // 행 삭제
-     const fn_delRow = async function () {
+    // 행 삭제
+    const fn_delRow = async function () {
 
-         let rowVal = masterGrid.getRow();
+        let rowVal = masterGrid.getRow();
 
-         if (rowVal == -1) {
-             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
-             return;
-         } else {
+        if (rowVal == -1) {
+            gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
+            return;
+        } else {
      		if(gfn_comConfirm("Q0001", "삭제")){ //{0} 하시겠습니까?
     			fn_delete();
     		}
-         }
-     }
+        }
+    }
      
     //그룹코드 내역 보기
 </script>

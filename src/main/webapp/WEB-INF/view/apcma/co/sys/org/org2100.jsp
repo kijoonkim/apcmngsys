@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: ORG2100.jsp
+ * @Class Name 		: org2100.jsp
  * @Description 	: 조직개편등록
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.22
@@ -405,7 +405,7 @@
 	    let rst = await Promise.all([
 		    SBUxMethod.set("SRCH_TODAY_DATE", gfn_dateToYmd(new Date())),
 		    //재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	        //사업장
 	        gfnma_multiSelectInit({
 	            target: ['#SITE_CODE1'],
@@ -418,11 +418,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'left', // left, right
-	            colValue: 'SITE_CODE',
-	            colLabel: 'SITE_NAME',
+	            colValue: 'SITE_CD',
+	            colLabel: 'SITE_NM',
 	            columns: [
-	            	{ caption: "사업장코드", 	ref: 'SITE_CODE', width: '100px', style: 'text-align:left' },
-	                { caption: "사업장명",	ref: 'SITE_NAME', width: '150px', style: 'text-align:left' }
+	            	{ caption: "사업장코드", 	ref: 'SITE_CD', width: '100px', style: 'text-align:left' },
+	                { caption: "사업장명",	ref: 'SITE_NM', width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 		    
@@ -438,11 +438,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'left', // left, right
-	            colValue: 'SUB_CODE',
-	            colLabel: 'CODE_NAME',
+	            colValue: 'SBSD_CD',
+	            colLabel: 'CD_NM',
 	            columns: [
-	            	{ caption: "코드", 	ref: 'SUB_CODE', width: '100px', style: 'text-align:left' },
-	                { caption: "부서구분",	ref: 'CODE_NAME', width: '150px', style: 'text-align:left' }
+	            	{ caption: "코드", 	ref: 'SBSD_CD', width: '100px', style: 'text-align:left' },
+	                { caption: "부서구분",	ref: 'CD_NM', width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 		    
@@ -458,11 +458,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'right', // left, right
-	            colValue: 'SUB_CODE',
-	            colLabel: 'CODE_NAME',
+	            colValue: 'SBSD_CD',
+	            colLabel: 'CD_NM',
 	            columns: [
-	            	{ caption: "코드", 	ref: 'SUB_CODE', width: '100px', style: 'text-align:left' },
-	                { caption: "부서구분",	ref: 'CODE_NAME', width: '150px', style: 'text-align:left' }
+	            	{ caption: "코드", 	ref: 'SBSD_CD', width: '100px', style: 'text-align:left' },
+	                { caption: "부서구분",	ref: 'CD_NM', width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 		    
@@ -478,11 +478,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'right', // left, right
-	            colValue: 'SUB_CODE',
-	            colLabel: 'CODE_NAME',
+	            colValue: 'SBSD_CD',
+	            colLabel: 'CD_NM',
 	            columns: [
-	            	{ caption: "인건비분류코드", 	ref: 'SUB_CODE', width: '100px', style: 'text-align:left' },
-	                { caption: "인건비분류",	ref: 'CODE_NAME', width: '150px', style: 'text-align:left' }
+	            	{ caption: "인건비분류코드", 	ref: 'SBSD_CD', width: '100px', style: 'text-align:left' },
+	                { caption: "인건비분류",	ref: 'CD_NM', width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 	    ]);
@@ -668,27 +668,27 @@
 						const msg = {
 							LVL					: gfn_nvl(item.LVL),
 							NODESTATUS			: gfn_nvl(item.NODESTATUS),
-							DEPT_CODE			: gfn_nvl(item.DEPT_CODE),
-							DEPT_NAME			: gfn_nvl(item.DEPT_NAME),
-							DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NAME_ENG),
-							DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NAME_FOR),
-							DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NAME),
-							SITE_CODE			: gfn_nvl(item.SITE_CODE),
-							SITE_NAME			: gfn_nvl(item.SITE_NAME),
-							PARENT_DEPT			: gfn_nvl(item.PARENT_DEPT),
+							DEPT_CODE			: gfn_nvl(item.DEPT_CD),
+							DEPT_NAME			: gfn_nvl(item.DEPT_NM),
+							DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NM_ENG),
+							DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NM_KOR),
+							DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NM),
+							SITE_CODE			: gfn_nvl(item.SITE_CD),
+							SITE_NAME			: gfn_nvl(item.SITE_NM),
+							PARENT_DEPT			: gfn_nvl(item.PRNT_DEPT),
 							PARENT_DEPT_NAME	: gfn_nvl(item.PARENT_DEPT_NAME),
-							DEPT_LEADER			: gfn_nvl(item.DEPT_LEADER),
+							DEPT_LEADER			: gfn_nvl(item.DEPT_TMLDR),
 							DEPT_LEADER_NAME	: gfn_nvl(item.DEPT_LEADER_NAME),
-							SALES_DEPT_YN		: gfn_nvl(item.SALES_DEPT_YN),
-							MARKETING_DEPT_YN	: gfn_nvl(item.MARKETING_DEPT_YN),
-							PRODUCTION_DEPT_YN	: gfn_nvl(item.PRODUCTION_DEPT_YN),
-							FINANCE_DEPT_YN		: gfn_nvl(item.FINANCE_DEPT_YN),
+							SALES_DEPT_YN		: gfn_nvl(item.SALS_DEPT_YN),
+							MARKETING_DEPT_YN	: gfn_nvl(item.MRKTNG_DEPT_YN),
+							PRODUCTION_DEPT_YN	: gfn_nvl(item.PRDCTN_DEPT_YN),
+							FINANCE_DEPT_YN		: gfn_nvl(item.FA_DEPT_YN),
 							MEMO				: gfn_nvl(item.MEMO),
 							HEADER_DESCR		: gfn_nvl(item.HEADER_DESCR),
-							KEYID				: gfn_nvl(item.KEYID),
-							PARENTKEYID			: gfn_nvl(item.PARENTKEYID),
-							CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE),
-							COMP_CODE			: gfn_nvl(item.COMP_CODE)
+							KEYID				: gfn_nvl(item.KEY_ID),
+							PARENTKEYID			: gfn_nvl(item.UP_KEY_ID),
+							CLIENT_CODE			: gfn_nvl(item.CLNT_CD),
+							COMP_CODE			: gfn_nvl(item.CO_CD)
 					 	}
 						jsonMasterTreeList.push(msg);
 						totalRecordCount++;
@@ -709,37 +709,37 @@
 		    			   const msg = {
 		    				   TEMP					: gfn_nvl(item.TEMP),
 		    				   LVL					: gfn_nvl(item.LVL),
-		    				   DEPT_CODE			: gfn_nvl(item.DEPT_CODE),
-		    				   DEPT_NAME			: gfn_nvl(item.DEPT_NAME),
-		    				   DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NAME_ENG),
-		    				   DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NAME_FOR),
-		    				   DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NAME),
-		    				   SITE_CODE			: gfn_nvl(item.SITE_CODE),
-		    				   SITE_NAME			: gfn_nvl(item.SITE_NAME),
-		    				   PARENT_DEPT			: gfn_nvl(item.PARENT_DEPT),
+		    				   DEPT_CODE			: gfn_nvl(item.DEPT_CD),
+		    				   DEPT_NAME			: gfn_nvl(item.DEPT_NM),
+		    				   DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NM_ENG),
+		    				   DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NM_KOR),
+		    				   DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NM),
+		    				   SITE_CODE			: gfn_nvl(item.SITE_CD),
+		    				   SITE_NAME			: gfn_nvl(item.SITE_NM),
+		    				   PARENT_DEPT			: gfn_nvl(item.PRNT_DEPT),
 		    				   PARENT_DEPT_NAME		: gfn_nvl(item.PARENT_DEPT_NAME),
-		    				   DEPT_LEADER			: gfn_nvl(item.DEPT_LEADER),
+		    				   DEPT_LEADER			: gfn_nvl(item.DEPT_TMLDR),
 		    				   DEPT_LEADER_NAME		: gfn_nvl(item.DEPT_LEADER_NAME),
-		    				   DEPT_CATEGORY		: gfn_nvl(item.DEPT_CATEGORY),
+		    				   DEPT_CATEGORY		: gfn_nvl(item.DEPT_CTRGY),
 		    				   DEPT_GUBUN			: gfn_nvl(item.DEPT_GUBUN),
-		    				   LABOR_COST_GROUP		: gfn_nvl(item.LABOR_COST_GROUP),
-		    				   SALES_DEPT_YN		: gfn_nvl(item.SALES_DEPT_YN),
-		    				   MARKETING_DEPT_YN	: gfn_nvl(item.MARKETING_DEPT_YN),
-		    				   PRODUCTION_DEPT_YN	: gfn_nvl(item.PRODUCTION_DEPT_YN),
-		    				   FINANCE_DEPT_YN		: gfn_nvl(item.FINANCE_DEPT_YN),
-		    				   CC_CODE				: gfn_nvl(item.CC_CODE),
-		    				   CC_NAME				: gfn_nvl(item.CC_NAME),
-		    				   ZIP_CODE				: gfn_nvl(item.ZIP_CODE),
-		    				   ADDRESS				: gfn_nvl(item.ADDRESS),
-		    				   FIXED_NUMBER			: gfn_nvl(item.FIXED_NUMBER),
+		    				   LABOR_COST_GROUP		: gfn_nvl(item.LBRCO_GROUP),
+		    				   SALES_DEPT_YN		: gfn_nvl(item.SALS_DEPT_YN),
+		    				   MARKETING_DEPT_YN	: gfn_nvl(item.MRKTNG_DEPT_YN),
+		    				   PRODUCTION_DEPT_YN	: gfn_nvl(item.PRDCTN_DEPT_YN),
+		    				   FINANCE_DEPT_YN		: gfn_nvl(item.FA_DEPT_YN),
+		    				   CC_CODE				: gfn_nvl(item.CSTCT_CD),
+		    				   CC_NAME				: gfn_nvl(item.CSTCT_NM),
+		    				   ZIP_CODE				: gfn_nvl(item.ZIP_CD),
+		    				   ADDRESS				: gfn_nvl(item.ADDR),
+		    				   FIXED_NUMBER			: gfn_nvl(item.PSCP_NO),
 		    				   MEMO					: gfn_nvl(item.MEMO),
 		    				   SORT_SEQ				: gfn_nvl(item.SORT_SEQ),
 		    				   USE_YN				: gfn_nvl(item.USE_YN),
 		    				   HEADER_DESCR			: gfn_nvl(item.HEADER_DESCR),
-		    				   KEYID				: gfn_nvl(item.KEYID),
-		    				   PARENTKEYID			: gfn_nvl(item.PARENTKEYID),
-		    				   CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE),
-		    				   COMP_CODE			: gfn_nvl(item.COMP_CODE)
+		    				   KEYID				: gfn_nvl(item.KEY_ID),
+		    				   PARENTKEYID			: gfn_nvl(item.UP_KEY_ID),
+		    				   CLIENT_CODE			: gfn_nvl(item.CLNT_CD),
+		    				   COMP_CODE			: gfn_nvl(item.CO_CD)
 		    			   }
 		    			   jsonSubTreeList.push(msg);
 		    		   });
@@ -791,10 +791,10 @@
     	SBUxMethod.set('PRODUCTION_DEPT_YN',  gfn_nvl(rowData.PRODUCTION_DEPT_YN));
     	SBUxMethod.set('FINANCE_DEPT_YN', 	  gfn_nvl(rowData.FINANCE_DEPT_YN));	
     	SBUxMethod.attr('DEPT_CODE', 'readonly', 'true');
-    	gfnma_multiSelectSet('#SITE_CODE1', 		'SITE_CODE', 'SITE_NAME', gfn_nvl(rowData.SITE_CODE));
-    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE', 'CODE_NAME',  gfn_nvl(rowData.DEPT_CATEGORY));
-    	gfnma_multiSelectSet('#DEPT_GUBUN', 		'SUB_CODE', 'CODE_NAME',  gfn_nvl(rowData.DEPT_GUBUN));
-    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE', 'CODE_NAME',  gfn_nvl(rowData.LABOR_COST_GROUP));
+    	gfnma_multiSelectSet('#SITE_CODE1', 		'SITE_CD', 'SITE_NM', gfn_nvl(rowData.SITE_CODE));
+    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SBSD_CD', 'CD_NM',  gfn_nvl(rowData.DEPT_CATEGORY));
+    	gfnma_multiSelectSet('#DEPT_GUBUN', 		'SBSD_CD', 'CD_NM',  gfn_nvl(rowData.DEPT_GUBUN));
+    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SBSD_CD', 'CD_NM',  gfn_nvl(rowData.LABOR_COST_GROUP));
     }
     
     const fn_clearSubTable = async function() {
@@ -820,10 +820,10 @@
     	SBUxMethod.set('MARKETING_DEPT_YN', "N");
     	SBUxMethod.set('PRODUCTION_DEPT_YN',"N");
     	SBUxMethod.set('FINANCE_DEPT_YN', 	"N");
-    	gfnma_multiSelectSet('#SITE_CODE1', 		'SITE_CODE', 'SITE_NAME', "");
-    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE',  'CODE_NAME', "");
-    	gfnma_multiSelectSet('#DEPT_GUBUN', 		'SUB_CODE',  'CODE_NAME', "");
-    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE',  'CODE_NAME', "");
+    	gfnma_multiSelectSet('#SITE_CODE1', 		'', '', "");
+    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'', '', "");
+    	gfnma_multiSelectSet('#DEPT_GUBUN', 		'', '', "");
+    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'', '', "");
     }
     
     /**
@@ -1066,9 +1066,10 @@
 	    SBUxMethod.attr('btnAddRow', 'disabled', 'false');
 	    SBUxMethod.attr('btnDelRow', 'disabled', 'false');
     }
+    
     const fn_changeDateKey = async function() {
     	//변경번호 법인별로 구분되게 where 추가
-    	let strwhereClause = "AND COMP_CODE LIKE '%" +gv_ma_selectedCorpCd + "%'"
+    	let strwhereClause = "AND CO_CD LIKE '%" +gv_ma_selectedCorpCd + "%'"
     	SBUxMethod.attr('modal-compopup1', 'header-title', '조직도변경번호 팝업');
     	await compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -1077,15 +1078,15 @@
         	,popupType				: 'A'
     		,whereClause			: strwhereClause
    			,searchCaptions			: ["변경번호", 		"비고"]
-   			,searchInputFields		: ["CHANGE_DATE", 	"MEMO"]
+   			,searchInputFields		: ["CHG_YMD", 	"MEMO"]
    			,searchInputValues		: ['', 				'']
     		,height					: '400px'
    			,tableHeader			: ["변경번호", 		"적용여부",	"비고"]
-   			,tableColumnNames		: ["CHANGE_DATE",	"APPLY_YN", "MEMO"]
+   			,tableColumnNames		: ["CHG_YMD",	"APLY_YN", "MEMO"]
    			,tableColumnWidths		: ["80px", 			"80px", 	"200px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('CHANGE_DATE_KEY', 	data.CHANGE_DATE);
-				SBUxMethod.set('CHANGE_DATE', 		data.CHANGE_DATE);
+				SBUxMethod.set('CHANGE_DATE_KEY', 	data.CHG_YMD);
+				SBUxMethod.set('CHANGE_DATE', 		data.CHG_YMD);
 				SBUxMethod.set('MEMO1',				data.MEMO);
 				if(gfn_nvl(data.CHANGE_DATE) != ""){
 					fn_search('CHANGE');
@@ -1111,16 +1112,16 @@
             ,popupType				: 'B'
             ,whereClause			: addParams
             ,searchCaptions			: ["부서코드", 		"부서명"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM"]
             ,searchInputValues		: [searchDeptCode, 	searchDeptName]
             ,searchInputTypes		: ["input", 		"input"]	//input, datepicker가 있는 경우
             ,height					: '400px'
    			,tableHeader			: ["부서코드", "부서명", "사업장코드", "사업장명"]
-   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME", "SITE_CODE", "SITE_NAME"]
+   			,tableColumnNames		: ["DEPT_CD",	"DEPT_NM", "SITE_CD", "SITE_NM"]
    			,tableColumnWidths		: ["120px", "120px", "120px", "120px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('PARENT_DEPT',		data.DEPT_CODE);
-                SBUxMethod.set('PARENT_DEPT_NAME', 	data.DEPT_NAME);
+                SBUxMethod.set('PARENT_DEPT',		data.DEPT_CD);
+                SBUxMethod.set('PARENT_DEPT_NAME', 	data.DEPT_NM);
             },
         });
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -1137,17 +1138,17 @@
         	,popupType				: 'A'
     		,whereClause			: ""
    			,searchCaptions			: ["부서코드", "부서명", "사업장코드", "사업장명", "재직상태"]
-   			,searchInputFields		: ["DEPT_CODE",	"DEPT_NAME", "SITE_CODE", "SITE_NAME", "EMP_STATE"]
+   			,searchInputFields		: ["DEPT_CD",	"DEPT_NM", "SITE_CD", "SITE_NM", "EMP_STTS"]
    			,searchInputValues		: ['', '', '', '', '']
 			,searchInputTypes		: ["input", "input","input","input", "select"]			//input, select가 있는 경우
 			,searchInputTypeValues	: ["", "", "", "", jsonEmpState]				//select 경우
     		,height					: '400px'
    			,tableHeader			: ["사번", "이름", "부서", "사업장", "재직구분"]
-   			,tableColumnNames		: ["EMP_CODE", 	"EMP_NAME", "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", 	"EMP_NM", "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
    			,tableColumnWidths		: ["120px", "120px", 	"120px", "120px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('DEPT_LEADER', 		data.EMP_CODE);
-				SBUxMethod.set('DEPT_LEADER_NAME', 	data.EMP_NAME);
+				SBUxMethod.set('DEPT_LEADER', 		data.EMP_CD);
+				SBUxMethod.set('DEPT_LEADER_NAME', 	data.EMP_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -1162,15 +1163,15 @@
         	,popupType				: 'A'
     		,whereClause			: ""
    			,searchCaptions			: ["원가조직코드","원가조직명"]
-   			,searchInputFields		: ["CC_CODE",	"CC_NAME"]
+   			,searchInputFields		: ["CSTCT_CD",	"CSTCT_NM"]
    			,searchInputValues		: ['', 			'']
     		,height					: '400px'
    			,tableHeader			: ["원가조직코드",	"원가조직명"]
-   			,tableColumnNames		: ["CC_CODE",	"CC_NAME"]
+   			,tableColumnNames		: ["CSTCT_CD",	"CSTCT_NM"]
    			,tableColumnWidths		: ["100px",		"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('CC_CODE', 	data.CC_CODE);
-				SBUxMethod.set('CC_NAME', 	data.CC_NAME);
+				SBUxMethod.set('CC_CODE', 	data.CSTCT_CD);
+				SBUxMethod.set('CC_NAME', 	data.CSTCT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})

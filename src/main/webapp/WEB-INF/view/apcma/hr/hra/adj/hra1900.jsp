@@ -166,7 +166,7 @@
                                 class="table-datepicker-ma inpt_data_reqed">
                         </sbux-datepicker>
                     </td>
-                   <%-- <td style="border-right: hidden;"></td>--%>
+                    <%-- <td style="border-right: hidden;"></td>--%>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg">담당자 부서</th>
@@ -312,11 +312,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['TX_SITE_CODE'], jsonTxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['TX_SITE_CODE'], jsonTxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_SITE_CD', 'TX_SITE_NM', 'Y', ''),
             gfnma_setComSelect(['gvwCGrid','gvwCAGrid','gvwHGrid'], jsonYeTxType, 'L_HRA029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwCAGrid'], jsonMedSocialNoReal, 'L_HRA042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwCAGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedSocialNoReal, 'L_HRA042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwCAGrid'], jsonMedCertificateCode, 'L_HRA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 
             //사업장
@@ -351,11 +351,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -380,18 +380,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -400,13 +400,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -416,15 +416,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -710,15 +710,15 @@
                 data.cv_2.forEach((item, index) => {
                     const msg = {
                         YE_TX_TYPE 			: gfn_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
-                        ,INC_TOT_AMT 		: gfn_nvl(item.INC_TOT_AMT)
-                        ,CALC_INC_TX_AMT 	: gfn_nvl(item.CALC_INC_TX_AMT)
+                        ,SITE_CODE 			: gfn_nvl(item.SITE_CD)
+                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CD)
+                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NM)
+                        ,EMP_CODE 			: gfn_nvl(item.EMP_CD)
+                        ,EMP_NAME 			: gfn_nvl(item.EMP_NM)
+                        ,INC_TOT_AMT 		: gfn_nvl(item.ERICM_TOT_AMT)
+                        ,CALC_INC_TX_AMT 	: gfn_nvl(item.CALC_INCTX_AMT)
                         ,NOW_INC_TX_AMT 	: gfn_nvl(item.NOW_INC_TX_AMT)
-                        ,INC_TX_AMT 		: gfn_nvl(item.INC_TX_AMT)
+                        ,INC_TX_AMT 		: gfn_nvl(item.INCM_TX_AMT)
 
                     }
                     jsonCList.push(msg);
@@ -731,18 +731,18 @@
                 data.cv_3.forEach((item, index) => {
                     const msg = {
                         YE_TX_TYPE 			    : gfn_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			    : gfn_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			    : gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			    : gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			    : gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			    : gfn_nvl(item.EMP_NAME)
-                        ,MED_SOCNO 			    : gfn_nvl(item.MED_SOCNO)
+                        ,SITE_CODE 			    : gfn_nvl(item.SITE_CD)
+                        ,DEPT_CODE 			    : gfn_nvl(item.DEPT_CD)
+                        ,DEPT_NAME 			    : gfn_nvl(item.DEPT_NM)
+                        ,EMP_CODE 			    : gfn_nvl(item.EMP_CD)
+                        ,EMP_NAME 			    : gfn_nvl(item.EMP_NM)
+                        ,MED_SOCNO 			    : gfn_nvl(item.MDLCR_TRPR_RRNO)
                         ,MED_SOCIAL_NO_REAL 	: gfn_nvl(item.MED_SOCIAL_NO_REAL)
-                        ,MED_COM_NUM 			: gfn_nvl(item.MED_COM_NUM)
-                        ,MED_NAME 			    : gfn_nvl(item.MED_NAME)
-                        ,MED_CERTIFICATE_CODE 	: gfn_nvl(item.MED_CERTIFICATE_CODE)
-                        ,MED_COUNT 			    : gfn_nvl(item.MED_COUNT)
-                        ,MED_EXP_AMT 			: gfn_nvl(item.MED_EXP_AMT)
+                        ,MED_COM_NUM 			: gfn_nvl(item.MDLCR_BRNO)
+                        ,MED_NAME 			    : gfn_nvl(item.MDLCR_CST_NM)
+                        ,MED_CERTIFICATE_CODE 	: gfn_nvl(item.MDLCR_EVDNC_CD)
+                        ,MED_COUNT 			    : gfn_nvl(item.MDLCR_CNT)
+                        ,MED_EXP_AMT 			: gfn_nvl(item.MDLCR_CST_AMT)
 
                     }
                     jsonCAList.push(msg);
@@ -754,11 +754,11 @@
                 data.cv_4.forEach((item, index) => {
                     const msg = {
                         YE_TX_TYPE 			: gfn_nvl(item.YE_TX_TYPE)
-                        ,SITE_CODE 			: gfn_nvl(item.SITE_CODE)
-                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			: gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			: gfn_nvl(item.EMP_NAME)
+                        ,SITE_CODE 			: gfn_nvl(item.SITE_CD)
+                        ,DEPT_CODE 			: gfn_nvl(item.DEPT_CD)
+                        ,DEPT_NAME 			: gfn_nvl(item.DEPT_NM)
+                        ,EMP_CODE 			: gfn_nvl(item.EMP_CD)
+                        ,EMP_NAME 			: gfn_nvl(item.EMP_NM)
                         ,DON_COUNT 			: gfn_nvl(item.DON_COUNT)
                         ,DON_AMT 			: gfn_nvl(item.DON_AMT)
 

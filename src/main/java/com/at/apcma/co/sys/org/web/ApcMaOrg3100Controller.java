@@ -53,7 +53,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_ORG3100_Q");
+			param.put("procedure", 		"SP_ORG3100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 				
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_ORG3100_S");
+			param.put("procedure", 		"SP_ORG3100_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============updateOrg3100=====end========");
@@ -102,7 +102,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_ORG3100_S");
+			param.put("procedure", 		"SP_ORG3100_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============deleteOrg3100=====end========");

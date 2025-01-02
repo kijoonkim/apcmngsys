@@ -52,7 +52,7 @@ public class ApcMaFbs1020Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS1020_Q");
+            param.put("procedure", 		"SP_FBS1020_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaFbs1020Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FBS1020_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FBS1020_S");
 
             logger.info("=============insertFbs1020List=====end========");
             return getSuccessResponseEntityMa(resultMap);

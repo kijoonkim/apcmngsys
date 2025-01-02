@@ -51,7 +51,7 @@ public class ApcMaHrt1120Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRT1120_Q");
+            param.put("procedure", 		"SP_HRT1120_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaHrt1120Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT1120_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT1120_S");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);

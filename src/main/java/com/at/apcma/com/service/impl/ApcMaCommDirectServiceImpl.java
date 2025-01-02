@@ -243,25 +243,16 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			emap2.put("ERR0011", 	"거래처의 계정과목이 누락되었습니다.(Error : ERR0011)");
 			
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"USRMAT.P_SERVICEMESSAGE");
+			gmap1.put("procedure", 			"ZUSRMAT.SP_SERVICEMESSAGE");
 			gmap1.put("workType", 			"QESS");
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"1");
 			
     		String gmap2[][] = {
-				{"V_P_DEBUG_MODE_YN",		""},
-				{"V_P_LANG_ID",				""},
-				{"V_P_COMP_CODE",			""},
-				{"V_P_CLIENT_CODE",			""},
 				{"V_S_LANGCODE",			"KOR"},
 				{"V_S_ERROR_CODE",			""},
 				{"V_S_ERROR_STR",			""},
-				{"V_S_ERROR_TYPE",			""},
-				{"V_P_FORM_ID",				""},
-				{"V_P_MENU_ID",				""},
-				{"V_P_PROC_ID",				""},
-				{"V_P_USERID",				""},
-				{"V_P_PC",					""}
+				{"V_S_ERROR_TYPE",			""}
         	};
     		
 			Map<String, Object> gmap3 = this.InnerCallProc2(gmap1, gmap2);    

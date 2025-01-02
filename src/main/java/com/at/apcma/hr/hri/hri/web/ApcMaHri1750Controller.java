@@ -50,7 +50,7 @@ public class ApcMaHri1750Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRI1750_Q");
+            param.put("procedure", 		"SP_HRI1750_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ApcMaHri1750Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRI1750_S");
+            param.put("procedure", 		"SP_HRI1750_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -104,7 +104,7 @@ public class ApcMaHri1750Controller extends BaseController {
 
       try {
 
-	        param.put("procedure", 		"P_HRI1700_Q");
+	        param.put("procedure", 		"SP_HRI1700_Q");
 	        resultMap = apcMaCommDirectService.callProc(param, session, request, "");
           
 			//self url 편집
@@ -135,7 +135,7 @@ public class ApcMaHri1750Controller extends BaseController {
 	
 	try {
 		
-		param.put("procedure", 		"P_HRA1600_2023_Q");
+		param.put("procedure", 		"SP_HRA1600_2023_Q");
 		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		
 		//self url 편집
@@ -165,7 +165,7 @@ public class ApcMaHri1750Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_HRA5200_2022_Q");
+			param.put("procedure", 		"SP_HRA5200_2022_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			//self url 편집

@@ -1,4 +1,4 @@
-
+ 
 <%
 /**
  * @Class Name 		: fia5300.jsp
@@ -60,7 +60,7 @@
 				<!--[APC] START -->
 						<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 					<!--[APC] END -->
-
+ 
 				<table id="searchTable" class="table table-bordered tbl_fixed table-search-ma">
 					<caption>검색 조건 설정</caption>
 					<colgroup>
@@ -69,19 +69,19 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -90,8 +90,8 @@
 					</colgroup>
 					<tbody>
 						<tr>
-
-
+ 
+ 
 							<th scope="row" class="th_bg_search">APC</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-fiOrgCode" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -99,7 +99,7 @@
 							<td></td>
 							<th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
-
+ 
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
@@ -117,8 +117,8 @@
 										</div>
                             </td>
                             <td></td>
-
-
+ 
+ 
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg_search">감가상각년월</th>
@@ -133,7 +133,7 @@
 								</sbux-datepicker>
 							</td>
 							<td></td>
-
+ 
 							<th scope="row" class="th_bg_search">감가상각기준</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select id="srch-slt-depreciationType" name="srch-slt-depreciationType"
@@ -199,39 +199,39 @@
 									<sbux-input style="width:100%" id="srch-inp-costCenterName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
 								</div>
 							</td>
-
+ 
 						</tr>
 					</tbody>
 				</table>
 				</div>
-
+ 
 				<div class="row">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>감가상각계산</span></li>
-
+ 
 						</ul>
-
+ 
 					</div>
-
-
+ 
+ 
 					<div id="sb-area-grdDprcRkng" style="height: 258px; width: 100%"></div>
-
+ 
 				</div>
 				<div class="row">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li><span>감가상각리스트</span></li>
-
+ 
 						</ul>
-
+ 
 					</div>
-
-
+ 
+ 
 					<div id="sb-area-grdDprcList" style="height: 258px; width: 100%"></div>
-
+ 
 				</div>
-
+ 
 				<div class="row">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -240,14 +240,14 @@
 					</div>
 					<div id="sb-area-grdAcqsAmtList" style="height: 258px; width: 100%"></div>
 				</div>
-
-
-
+ 
+ 
+ 
 			</div>
-
+ 
 		</div>
-
-
+ 
+ 
 	</section>
 	<!-- 팝업 Modal -->
     <div>
@@ -256,64 +256,64 @@
     <div id="body-modal-compopup1">
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
     </div>
-
-
+ 
+ 
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	//var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 	//var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId = '${loginVO.id}';
-
+ 
 	var p_ss_languageID			= '${loginVO.maLanguageID}';
 	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
-
+ 
 	var jsonRegionCode		= [];	// 지역
-
+ 
 	// 신규
 	function cfn_add() {
-
+ 
 	}
-
+ 
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
 			fn_saveClick();
 		}
     }
-
-
+ 
+ 
 	// 마스터 그리드 삭제
 	function cfn_del() {
-
+ 
 	}
-
+ 
 	// 초기화
 	function cfn_init() {
 		SBUxMethod.refreshAll()
 	}
-
+ 
 	// 조회
 	function cfn_search() {
 		fn_queryClick();
 	}
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-siteCode']
@@ -326,61 +326,61 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SITE_CODE'
-				,colLabel		: 'SITE_NAME'
+				,colValue		: 'SITE_CD'
+				,colLabel		: 'SITE_NM'
 				,columns		:[
-		            {caption: "사업장코드",	ref: 'SITE_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "사업장코드",	ref: 'SITE_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-fiOrgCode'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', '1100'),
 			//감가상각기준
-			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-depreciationType'], jsonDprcCrtr, 'L_FIA018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//사업장
-			gfnma_setComSelect(['srch-slt-siteCode'], jsonSite, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-siteCode'], jsonSite, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//중분류
-			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 			//소분류
-			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASSET_GROUP_CODE', 'ASSET_GROUP_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 			//자산구분
-			gfnma_setComSelect(['srch-slt-assetCategoryName'], jsonAssetCategory, 'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetCategoryName'], jsonAssetCategory, 'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각방법
-			gfnma_setComSelect(['grdDprcList'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//코스트센터
-			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
-
+			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+ 
 					]);
-
+ 
 		let yyyymm = gfnma_date6().substring(0,6);
 		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
 		SBUxMethod.set("srch-slt-depreciationType",p_ss_defaultAcctRule);
 		SBUxMethod.set("srch-slt-fiOrgCode",p_ss_fiOrgCode);
 	}
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
+ 
     	fn_initSBSelect();
     	fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
-
+ 
     });
-
+ 
     //grid 초기화
     var grdDprcList; 			// 그리드를 담기위한 객체 선언
     var jsonDprcList = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     var grdDprcRkng;
     var jsonDprcRkng = [];
-
+ 
     var grdAcqsAmtList;
     var jsonAcqsAmtList = [];
-
-
+ 
+ 
     //json
     var jsonCorp = []; //법인
     var jsonBizUnit = []; //사업단위
@@ -395,7 +395,7 @@
 	var jsonDepreciationMethod = [];//감가상각방법
 	var jsonDepreciationPeriod = [];//감각상각주기
 	var jsonCostCenter = [];//원가중심점
-
+ 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDprcRkng';
@@ -421,7 +421,7 @@
         	},
             {caption: ["연번"],		ref: 'seq', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["사업단위"], 	ref: 'fiOrgCode',    	type : 'combo', typeinfo : {ref:'jsonBizUnit', label:'label', value:'value'},disabled:true,  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NAME', value:'SITE_CODE'},disabled:true,  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NM', value:'SITE_CD'},disabled:true,  	width:'100px',  	style:'text-align:left'},
             {caption: ["확정여부"],    	ref: 'confirmFlag', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["소스ID"],		ref: 'sourceId',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["전표ID"], 		ref: 'docName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -430,13 +430,13 @@
         	{caption: ["처리자"], 	ref: 'insertUserid', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["처리PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'description', 				type:'output',		width:'80px',		style:'text-align:center'},
-
+ 
         ];
-
+ 
         grdDprcRkng = _SBGrid.create(SBGridProperties);
         //grdDprcRkng.bind('click', 'focusedRowChanged2');
     }
-
+ 
     function fn_createGrid2() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDprcList';
@@ -474,8 +474,8 @@
         		}, width:'50px'
         		},
             {caption: ["사업단위"],  		ref: 'fiOrgCode',    			type : 'combo', typeinfo : {ref:'jsonBizUnit', label:'label', value:'value'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
-
-            {caption: ["사업장"],      		ref: 'siteCode', 		type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NAME', value:'SITE_CODE'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
+ 
+            {caption: ["사업장"],      		ref: 'siteCode', 		type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NM', value:'SITE_CD'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
             {caption: ["자산구분"],			ref: 'assetCategory',	type : 'combo', typeinfo : {ref:'jsonAssetCategory', label:'label', value:'value'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
             {caption: ["중분류"], 			ref: 'assetLevel2', 			type : 'combo', typeinfo : {ref:'jsonAssetLevel2', label:'label', value:'value'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
             {caption: ["소분류"], 			ref: 'assetLevel3',  			type : 'combo', typeinfo : {ref:'jsonAssetLevel3', label:'label', value:'value'}, disabled:true,  	width:'100px',  	style:'text-align:left'},
@@ -488,7 +488,7 @@
             {caption: ["상각방법"], 		ref: 'depreciationMethod', 				type : 'combo', typeinfo : {ref:'jsonDepreciationMethod', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
             {caption: ["상각주기"], 		ref: 'depreciationPeriod', 				type : 'combo', typeinfo : {ref:'jsonDepreciationPeriod', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
             {caption: ["확정여부"], 		ref: 'confirmFlag', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["사업장"], 			ref: 'siteCode', 				type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NAME', value:'SITE_CODE'},disabled:true,		width:'80px',		style:'text-align:center'},
+            {caption: ["사업장"], 			ref: 'siteCode', 				type : 'combo', typeinfo : {ref:'jsonSite', label:'SITE_NM', value:'SITE_CD'},disabled:true,		width:'80px',		style:'text-align:center'},
             {caption: ["자산구분"], 		ref: 'assetCategory', 				type : 'combo', typeinfo : {ref:'jsonAssetCategory', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
             {caption: ["자산번호"], 		ref: 'assetNo', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["자산명"], 			ref: 'assetName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -514,13 +514,13 @@
             {caption: ["비고"], 			ref: 'memomemo', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["부서"], 			ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["원가중심점"], 		ref: 'costCenterCode', 				type : 'combo', typeinfo : {ref:'jsonCostCenter', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
-
+ 
         ];
-
+ 
         grdDprcList = _SBGrid.create(SBGridProperties);
         grdDprcList.bind('click', 'focusedRowChanged');
     }
-
+ 
     function fn_createGrid3() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdAcqsAmtList';
@@ -531,7 +531,7 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-
+ 
         	{caption: ['구분'], ref: 'txnGroup', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['거래유형'], ref: 'txnType', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['최초취득일'], ref: 'firstAcquireDate', width: '8%', type: 'output', style:'text-align:center'},
@@ -541,12 +541,12 @@
         	{caption: ['증가금액'], ref: 'inAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'},
         	{caption: ['감소금액'], ref: 'outAmount', width: '8%',format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'},
         	{caption: ['중지금액'], ref: 'holdingAmount', width: '8%', format : {type:'number', rule:'#,###'}, type: 'output', style:'text-align:right'}
-
+ 
         ];
-
+ 
         grdAcqsAmtList = _SBGrid.create(SBGridProperties);
     }
-
+ 
     const fn_queryClick = async function() {
     	fnQRY_P_FIA5300_Q("LIST","");
     	//감가상각 리스트 로우 없을때 초기화
@@ -567,23 +567,23 @@
     		focusedRowChanged2()
     	}
 	}
-
+ 
     const fn_saveClick = function(){
         if (fnSET_P_FIA5300_S("")){
             queryClick();
         }
     }
-
+ 
     const fn_confirmClick = async function(workType){
     	if (grdDprcList.getRow() < 0)
             return;
-
+ 
         if (grdDprcRkng.getRow() < 0)
             return;
-
-
+ 
+ 
         let bresult = false;
-
+ 
         let intmax_seq = 0;
         let strcomp_code = "";
         let strfi_org_code = "";
@@ -591,7 +591,7 @@
         let intsource_id = 0;
         let strdescription = "";
         let intprogram_seq = 1;
-
+ 
         let dprcRkngData  = grdDprcRkng.getGridDataAll();
         let compCode = gfnma_multiSelectGet("#srch-slt-compCode");
         dprcRkngData.forEach(row => {
@@ -607,15 +607,15 @@
                 intprogram_seq = intprogram_seq + 1;
         	}
         })
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
         /* for (int i = 0; i < gvwInfo.RowCount; i++)
         {
             if (gvwInfo.GetValue(i, "check_yn").ToString() == "Y"){
-
+ 
                 if (!bresult)
                     break;
             }
@@ -624,10 +624,10 @@
             fn_queryClick();
         }
     }
-
-
-
-
+ 
+ 
+ 
+ 
 	//strWorkType : INFO, LOG
     const fnQRY_P_FIA5300_Q = async function(strWorkType,asstNo){
 		let rowId = 0;
@@ -639,7 +639,7 @@
 			}else{
 				rowId = grdDprcList.getRow();
 			};
-
+ 
 		}
 		 let rowData = grdDprcList.getRowData(rowId);
 		 let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
@@ -664,19 +664,19 @@
       			,V_P_USERID			: ''
       			,V_P_PC				: ''
       	    };
-
+ 
     	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["compCode1","assetLevel2","assetLevel3","deptName","costCenterCode","costCenterName","deptCode","deptName","assetCategoryName"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
-
+ 
           const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5300.do", {
            	getType				: 'json',
            	workType			:  strWorkType ,
            	cv_count			: '3',
            	params				: gfnma_objectToString(paramObj)
    			});
-
+ 
         	const data = await postJsonPromise;
         	console.log('data:', data);
           // 비즈니스 로직 정보
@@ -693,21 +693,21 @@
 	        		   var msg = convertArrayToCamelCase(data.cv_3)
               		   jsonAcqsAmtList = msg;
 	        		   grdAcqsAmtList.rebuild()
-
+ 
 	               }else if (strWorkType === "INFO"){
-
+ 
 					   var msg = convertArrayToCamelCase(data.cv_1)
               		   jsonDprcRkng = msg;
 	        		   grdDprcRkng.rebuild()
 	        		   if(msg.length > 0){
 	        			   //fnQRY_P_FIA5300_Q("DETAIL")
 	        		   }
-
+ 
 	               }
 	          } else {
 	              alert(data.resultMessage);
 	          }
-
+ 
  	        } catch (e) {
  	            if (!(e instanceof Error)) {
  	                e = new Error(e);
@@ -716,16 +716,16 @@
  	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
  	        }
     }
-
-
+ 
+ 
     const focusedRowChanged = async function(){
          await fnQRY_P_FIA5300_Q("DETAIL");
     }
-
+ 
     const focusedRowChanged2 = function(){
     	let rowData = grdDprcRkng.getRowData(grdDprcRkng.getRow());
     	let rowData2 = grdDprcList.getRowData(grdDprcList.getRow());
-
+ 
     	if (rowData2.confirmFlag === "Y"){  //확정시
             if (rowData.docName === ""){
             	/*  btnConfirm.Enabled = true;
@@ -739,7 +739,7 @@
                 btnApply.Enabled = false;
                 btnCancel.Enabled = false;*/
             }
-
+ 
         }
         else{
             /*  btnConfirm.Enabled = true;
@@ -749,7 +749,7 @@
         }
         fnQRY_P_FIA5300_Q("DETAIL");
     }
-
+ 
     const fnSET_P_FIA5300_S = async function(){
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
     	let dprcData = grdDprcList.getGridDataAll();
@@ -783,24 +783,24 @@
          	    };
     	})
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
-
+ 
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5300.do", {
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
           	params				: gfnma_objectToString(paramObj)
   			});
-
+ 
        	const data = await postJsonPromise;
        	console.log('data:', data);
          // 비즈니스 로직 정보
           try {
 	          if (_.isEqual("S", data.resultStatus)) {
-
+ 
 	          } else {
 	              alert(data.resultMessage);
 	          }
-
+ 
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -808,7 +808,7 @@
 	            console.error("failed", e.message);
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-
+ 
     }
 	const fnSET_P_FIA5300_S1_TEST = async function(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription){
 		await fnSET_P_FIA5300_S1(workType, strcomp_code, strfi_org_code, strsite_code, intsource_id, strdescription);
@@ -839,24 +839,24 @@
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
-
+ 
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5300S1.do", {
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
           	params				: gfnma_objectToString(paramObj)
   			});
-
+ 
        	const data = await postJsonPromise;
        	console.log('data:', data);
          // 비즈니스 로직 정보
           try {
 	          if (_.isEqual("S", data.resultStatus)) {
-
+ 
 	          } else {
 	              alert(data.resultMessage);
 	          }
-
+ 
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -864,22 +864,22 @@
 	            console.error("failed", e.message);
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
-
+ 
     }
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 	const fn_compopup1 = function(list) {
-
+ 
 		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
+ 
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
      	compopup1({
      		compCode				: gv_ma_selectedCorpCd
@@ -888,45 +888,45 @@
            	,popupType				: 'A'
      		,whereClause			: strWhereClause
    			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+   			,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
    			,searchInputValues		: ["", 			searchText,		""]
    			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
      		,height					: '400px'
    			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
    			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
  			,itemSelectEvent		: function (data){
  				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NAME);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CODE);
+ 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NM);
+ 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CD);
  			},
      	});
    	}
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     /**
      * 공통팝업
      * 관리부서
      */
-
+ 
     var fn_mngDeptPopup = function() {
-
+ 
     	var cdId 		= "srch-inp-deptCode";
         var nmId 		= "srch-inp-deptName";
-
+ 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
-        var replaceText0 	= "_DEPT_CODE_";
-        var replaceText1 	= "_DEPT_NAME_";
-
-
+        var replaceText0 	= "_DEPT_CD_";
+        var replaceText1 	= "_DEPT_NM_";
+ 
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	var addParams = [searchCode|searchName|null];
     	compopup1({
@@ -936,36 +936,36 @@
         	,popupType				: 'B'
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 				"부서명"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,searchInputTypes		: ["input", 			"input"]
     		,height					: '400px'
    			,tableHeader			: ["부서코드", 	"부서명","부서장","부서장명"]
-   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME","DEPT_LEADER","DEPT_LEADER_NAME"]
+   			,tableColumnNames		: ["DEPT_CD",	"DEPT_NM","DEPT_TMLDR","DEPT_LEADER_NAME"]
    			,tableColumnWidths		: ["120px", 	"120px","120px","120px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(cdId, 		data.DEPT_CODE);
-				SBUxMethod.set(nmId,		data.DEPT_NAME);
+				SBUxMethod.set(cdId, 		data.DEPT_CD);
+				SBUxMethod.set(nmId,		data.DEPT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
-
-
+ 
+ 
     /**
      * 공통팝업
      * 코스트센터 (원가중심점)
      */
      //
     var fn_costCenterPopup= function() {
-
+ 
         var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterName"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
+        var replaceText0 	= "_CSTCD_CD_";
+        var replaceText1 	= "_CSTCD_NM_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -974,31 +974,31 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-   			,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-costCenterCode', 		data.COST_CENTER_CODE);
-				SBUxMethod.set('srch-inp-costCenterName',		data.COST_CENTER_NAME);
+				SBUxMethod.set('srch-inp-costCenterCode', 		data.CSTCD_CD);
+				SBUxMethod.set('srch-inp-costCenterName',		data.CSTCD_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
-
-
+ 
+ 
     // P_ASSET_CATEGORY
     const fn_astSePopup = function(){
     	var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryName"));
-        var replaceText0 	= "_SUB_CODE_";
-        var replaceText1 	= "_CODE_NAME_";
-
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_";
+ 
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -1007,29 +1007,29 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["SUB_CODE", 	"CODE_NAME"]
+   			,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["자산구분코드", 	"자산구분명"]
-   			,tableColumnNames		: ["SUB_CODE", 	"CODE_NAME"]
+   			,tableColumnNames		: ["SBSD_CD", 	"CD_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set("srch-inp-assetCategoryCode",        data.SUB_CODE)
-				SBUxMethod.set('srch-inp-assetCategoryName',		data.CODE_NAME);
+				SBUxMethod.set("srch-inp-assetCategoryCode",        data.SBSD_CD)
+				SBUxMethod.set('srch-inp-assetCategoryName',		data.CD_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
     }
-
+ 
     //P_ASSET_LEVEL2
     const fn_assetLevel2 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
-        var replaceText0 	= "_ASSET_GROUP_CODE_";
-        var replaceText1 	= "_ASSET_GROUP_NAME_";
+        var replaceText0 	= "_ASST_GROUP_CD_";
+        var replaceText1 	= "_ASST_GROUP_NM_";
         var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -1038,28 +1038,28 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,searchInputFields		: ["ASST_GROUP_CD", 	"ASST_GROUP_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["중분류코드", 	"중분류명"]
-   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,tableColumnNames		: ["ASST_GROUP_CD", 	"ASST_GROUP_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel2',		data.ASSET_GROUP_NAME);
+				SBUxMethod.set('srch-inp-assetLevel2',		data.ASST_GROUP_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
     }
-
+ 
   	//P_ASSET_LEVEL3
     const fn_assetLevel3 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
-        var replaceText0 	= "_ASSET_GROUP_CODE_";
-        var replaceText1 	= "_ASSET_GROUP_NAME_";
+        var replaceText0 	= "_ASST_GROUP_CD_";
+        var replaceText1 	= "_ASST_GROUP_NM_";
         var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -1068,21 +1068,21 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,searchInputFields		: ["ASST_GROUP_CD", 	"ASST_GROUP_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["소분류코드", 	"소분류명"]
-   			,tableColumnNames		: ["ASSET_GROUP_CODE", 	"ASSET_GROUP_NAME"]
+   			,tableColumnNames		: ["ASST_GROUP_CD", 	"ASST_GROUP_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-assetLevel3',		data.ASSET_GROUP_NAME);
+				SBUxMethod.set('srch-inp-assetLevel3',		data.ASST_GROUP_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
     }
-
-
+ 
+ 
     /**
      * @name fn_checkAll
      * @description 자산분류리스트 전체 체크/체크해제
@@ -1095,8 +1095,8 @@
         	grdDprcRkng.setCellData(i+1, 0, checkedYn, true, false);
         }
     }
-
-
+ 
+ 
      /**
       * @name fn_checkAll
       * @description 자산분류리스트 전체 체크/체크해제
@@ -1109,12 +1109,12 @@
         	 grdDprcList.setCellData(i+1, 0, checkedYn, true, false);
          }
      }
-
+ 
       /** camelCase FN **/
       function toCamelCase(snakeStr) {
           return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
       }
-
+ 
       function convertArrayToCamelCase(array) {
           return array.map(obj => {
               return Object.keys(obj).reduce((acc, key) => {
@@ -1124,9 +1124,9 @@
               }, {});
           });
       }
-
-
-
+ 
+ 
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp"%>
 </html>

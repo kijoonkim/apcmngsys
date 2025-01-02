@@ -220,7 +220,7 @@
             </div>
         </div>
     </section>
-    
+
 	<!-- 팝업 Modal -->
     <div>
         <sbux-modal style="width:800px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
@@ -274,15 +274,15 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'FI_ORG_CODE'
-				,colLabel		: 'FI_ORG_NAME'
+				,colValue		: 'ACNTG_OGNZ_CD'
+				,colLabel		: 'ACNTG_OGNZ_NM'
 				,columns		:[
-					{caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
-					{caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+					{caption: "코드",		ref: 'ACNTG_OGNZ_CD', 			width:'150px',  	style:'text-align:left'},
+					{caption: "명", 		ref: 'ACNTG_OGNZ_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			// 제외사유
-			gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CODE', 'NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwList'], jsonExceptCode, 'L_FIM251', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CODE', 'FAM_NM', 'Y', ''),
 			gfnma_multiSelectInit({
 				target			: ['#EXCEPT_CODE']
 				,compCode		: gv_ma_selectedCorpCd
@@ -295,24 +295,24 @@
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
 				,colValue		: 'CODE'
-				,colLabel		: 'NAME'
+				,colLabel		: 'FAM_NM'
 				,columns		:[
 					{caption: "제외사유",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
-					{caption: "제외내용", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
+					{caption: "제외내용", 		ref: 'FAM_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			// 전자세금계산서분류
-			gfnma_setComSelect(['gvwList'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwList'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 전자세금계산서종류
-			gfnma_setComSelect(['gvwList'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwList'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 정발행/역발행
-			gfnma_setComSelect(['gvwList'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwList'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 영수/청구 구분
-			gfnma_setComSelect(['gvwList'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwList'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 원가중심점코드
-			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
 			// 재직구분
-			gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}
 
@@ -637,17 +637,17 @@
 			,popupType				: 'A'
 			,whereClause			: ''
 			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-			,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+			,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
 			,searchInputValues		: ["", 			searchText,		""]
 			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
 			,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
 			,height					: '400px'
 			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
 			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
 			,itemSelectEvent		: function (data){
-				gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_EMP_CODE"), data.EMP_CODE);
-				gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_EMP_NAME"), data.EMP_NAME);
+				gvwList.setCellData(row, gvwList.getColRef("SLIP_EMP_NO"), data.EMP_CD);
+				gvwList.setCellData(row, gvwList.getColRef("ACCOUNT_EMP_NAME"), data.EMP_NM);
 			},
 		});
 	}
@@ -664,18 +664,18 @@
 			,popupType				: 'B'
 			,whereClause			: ''
 			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
 			,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
 
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
 			,height					: '400px'
 			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+			,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
 			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_CODE"), data.DEPT_CODE);
-				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_NAME"), data.DEPT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_CD"), data.DEPT_CD);
+				gvwItem.setCellData(row, gvwItem.getColRef("DEPT_NM"), data.DEPT_NM);
 			},
 		});
 	}
@@ -694,17 +694,17 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
-			,searchInputFields		: ["PROJECT_CODE",	"PROJECT_NAME"]
+			,searchInputFields		: ["PJT_CD",	"PJT_NM"]
 			,searchInputValues		: ["", 			searchText]
 			,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
 			,searchInputTypeValues	: ["", 			""]				//select 경우
 			,height					: '400px'
 			,tableHeader			: ["프로젝트코드", "프로젝트명"]
-			,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
+			,tableColumnNames		: ["PJT_CD", "PJT_NM"]
 			,tableColumnWidths		: ["150px", "250px"]
 			,itemSelectEvent		: function (data){
-				gvwItem.setCellData(row, gvwItem.getColRef("PROJECT_CODE"), data.PROJECT_CODE);
-				gvwItem.setCellData(row, gvwItem.getColRef("PROJECT_NAME"), data.PROJECT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("PJT_CD"), data.PJT_CD);
+				gvwItem.setCellData(row, gvwItem.getColRef("PJT_NM"), data.PJT_NM);
 			},
 		});
 	}
@@ -727,11 +727,11 @@
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
 			,height					: '400px'
 			,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
-			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+			,tableColumnNames		: ["APLY_ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"]
 			,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
 			,itemSelectEvent		: function (data){
-				gvwItem.setCellData(row, gvwItem.getColRef("ACCOUNT_CODE"), data.ACCOUNT_CODE);
-				gvwItem.setCellData(row, gvwItem.getColRef("ACCOUNT_NAME"), data.ACCOUNT_NAME);
+				gvwItem.setCellData(row, gvwItem.getColRef("ACNTL_CD"), data.ACNTL_CD);
+				gvwItem.setCellData(row, gvwItem.getColRef("ACNT_NM"), data.ACNT_NM);
 			},
 		});
 	}
@@ -815,23 +815,23 @@
 					jsonItemList.length = 0;
 					listData.cv_3.forEach((item, index) => {
 						const msg = {
-							ROW_STATUS: item.ROW_STATUS,
-							APPROVAL_NO: item.APPROVAL_NO,
+							ROW_STATUS: item.ROW_STTS,
+							APPROVAL_NO: item.APRV_NO,
 							SEQ: item.SEQ,
-							ITEM_NAME: item.ITEM_NAME,
-							ITEM_SPEC: item.ITEM_SPEC,
+							ITEM_NAME: item.ITEM_NM,
+							ITEM_SPEC: item.ITEM_SPCFCT,
 							ITEM_QTY: item.ITEM_QTY,
-							ITEM_UNIT_PRICE: item.ITEM_UNIT_PRICE,
-							ITEM_TAXABLE_AMT: item.ITEM_TAXABLE_AMT,
+							ITEM_UNIT_PRICE: item.ITEM_UNTPRC,
+							ITEM_TAXABLE_AMT: item.ITEM_TX_AMT,
 							ITEM_VAT_AMT: item.ITEM_VAT_AMT,
-							ITEM_DESC: item.ITEM_DESC,
-							COST_CENTER_CODE: item.COST_CENTER_CODE,
-							DEPT_CODE: item.DEPT_CODE,
-							DEPT_NAME: item.DEPT_NAME,
-							PROJECT_CODE: item.PROJECT_CODE,
-							PROJECT_NAME: item.PROJECT_NAME,
-							ACCOUNT_CODE: item.ACCOUNT_CODE,
-							ACCOUNT_NAME: item.ACCOUNT_NAME,
+							ITEM_DESC: item.ITEM_DSCTN,
+							COST_CENTER_CODE: item.CSTCD_CD,
+							DEPT_CODE: item.DEPT_CD,
+							DEPT_NAME: item.DEPT_NM,
+							PROJECT_CODE: item.PJT_CD,
+							PROJECT_NAME: item.PJT_NM,
+							ACCOUNT_CODE: item.ACNTL_CD,
+							ACCOUNT_NAME: item.ACNT_NM,
 						}
 						jsonItemList.push(msg);
 					});
@@ -853,12 +853,12 @@
 	const fn_findEmpCode = function() {
 		var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
 		var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-		var replaceText0 	= "_DEPT_NAME_";
-		var replaceText1 	= "_EMP_CODE_";
-		var replaceText2 	= "_EMP_NAME_";
-		var replaceText3 	= "_EMP_STATE_";
-		var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
-
+		var replaceText0 	= "_DEPT_NM_";
+		var replaceText1 	= "_EMP_CD_";
+		var replaceText2 	= "_EMP_NM_";
+		var replaceText3 	= "_EMP_STTS_";
+		var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_CD LIKE '%" + replaceText1 + "%' AND X.EMP_NM LIKE '%" + replaceText2 + "%' AND X.EMP_STTS LIKE '%" + replaceText3 + "%'";
+ 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
 		compopup1({
 			compCode				: gv_ma_selectedCorpCd
@@ -867,17 +867,17 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-			,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+			,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
 			,searchInputValues		: ["", 			searchCode, searchName,		""]
 			,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
 			,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
 			,height					: '400px'
 			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-			,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
 			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-				SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+				SBUxMethod.set('EMP_NM', data.EMP_NM);
+				SBUxMethod.set('EMP_CD', data.EMP_CD);
 			},
 		});
 	}
@@ -1438,7 +1438,7 @@
 		SBUxMethod.set("SRCH_DATE_FR",gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("SRCH_DATE_TO", gfn_dateLastYmd(new Date()));
 		SBUxMethod.set("SRCH_RIDGUBUN", "99");
-		gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+		gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
 	}
 
 	const fn_search = async function () {
@@ -1509,66 +1509,66 @@
 
 				listData.cv_1.forEach((item, index) => {
 					const msg = {
-						ROW_STATUS : item.ROW_STATUS,
+						ROW_STATUS : item.ROW_STTS,
 						CHECK_YN : item.CHECK_YN,
-						WRITE_DATE : item.WRITE_DATE,
-						APPROVAL_NO : item.APPROVAL_NO,
-						ISSUE_DATE : item.ISSUE_DATE,
-						SEND_DATE : item.SEND_DATE,
-						SELLER_REG_NO : item.SELLER_REG_NO,
-						SELLER_SUB_REG_NO : item.SELLER_SUB_REG_NO,
-						CS_CODE : item.CS_CODE,
+						WRITE_DATE : item.WRT_YMD,
+						APPROVAL_NO : item.APRV_NO,
+						ISSUE_DATE : item.ISSU_YMD,
+						SEND_DATE : item.SPLY_YMD,
+						SELLER_REG_NO : item.SPLR_BRNO,
+						SELLER_SUB_REG_NO : item.SPLR_SBSD_BPLC_NO,
+						CS_CODE : item.CNPT_CD,
 						CS_CODE_ORG : item.CS_CODE_ORG,
-						SELLER_NAME : item.SELLER_NAME,
-						SELLER_OWNER : item.SELLER_OWNER,
-						SELLER_BIZ_CATEGORY : item.SELLER_BIZ_CATEGORY,
-						SELLER_BIZ_ITEM : item.SELLER_BIZ_ITEM,
-						SELLER_BIZ_TYPE : item.SELLER_BIZ_TYPE,
-						BUYER_REG_NO : item.BUYER_REG_NO,
-						BUYER_SUB_REG_NO : item.BUYER_SUB_REG_NO,
-						BUYER_NAME : item.BUYER_NAME,
-						BUYER_OWNER : item.BUYER_OWNER,
-						BUYER_BIZ_CATEGORY : item.BUYER_BIZ_CATEGORY,
-						BUYER_BIZ_ITEM : item.BUYER_BIZ_ITEM,
-						BUYER_BIZ_TYPE : item.BUYER_BIZ_TYPE,
-						TOTAL_AMT : item.TOTAL_AMT,
-						TOTAL_TAXABLE_AMT : item.TOTAL_TAXABLE_AMT,
-						TOTAL_VAT_AMT : item.TOTAL_VAT_AMT,
+						SELLER_NAME : item.SPLR_NM,
+						SELLER_OWNER : item.SPLR_RPRSV,
+						SELLER_BIZ_CATEGORY : item.SPLR_TPBIZ,
+						SELLER_BIZ_ITEM : item.SPLR_BZSTAT,
+						SELLER_BIZ_TYPE : item.SPLR_TYPE,
+						BUYER_REG_NO : item.BYR_BRNO,
+						BUYER_SUB_REG_NO : item.BYR_SBSD_BPLC_REGNO,
+						BUYER_NAME : item.BYR_NM,
+						BUYER_OWNER : item.BYR_RPRSV_NM,
+						BUYER_BIZ_CATEGORY : item.BYR_TPBIZ,
+						BUYER_BIZ_ITEM : item.BYR_BZSTAT,
+						BUYER_BIZ_TYPE : item.BYR_BIZ_TYPE,
+						TOTAL_AMT : item.TOT_AMT,
+						TOTAL_TAXABLE_AMT : item.TOT_SPLY_AMT,
+						TOTAL_VAT_AMT : item.TOT_VAT_AMT,
 						DOC_TOTAL_AMT : item.DOC_TOTAL_AMT,
 						DOC_SUPPLY_AMT : item.DOC_SUPPLY_AMT,
 						DOC_VAT_AMT : item.DOC_VAT_AMT,
 						DIFF_FLAG : item.DIFF_FLAG,
-						EINVOICE_CATEGORY : item.EINVOICE_CATEGORY,
-						EINVOICE_TYPE : item.EINVOICE_TYPE,
-						MATCH_METHOD : item.MATCH_METHOD,
-						ISSUE_TYPE : item.ISSUE_TYPE,
+						EINVOICE_CATEGORY : item.ETXIV_CTGRY,
+						EINVOICE_TYPE : item.ETXIV_TYPE,
+						MATCH_METHOD : item.MTCHNG_MTHD,
+						ISSUE_TYPE : item.ISSU_TYPE,
 						NOTE1 : item.NOTE1,
 						NOTE2 : item.NOTE2,
 						NOTE3 : item.NOTE3,
-						RECEIPT_OR_BILL : item.RECEIPT_OR_BILL,
-						SELLER_EMAIL : item.SELLER_EMAIL,
-						BUYER_EMAIL1 : item.BUYER_EMAIL1,
-						BUYER_EMAIL2 : item.BUYER_EMAIL2,
-						ACCOUNT_EMP_CODE : item.ACCOUNT_EMP_CODE,
+						RECEIPT_OR_BILL : item.RCPT_CLM_SE,
+						SELLER_EMAIL : item.SPLR_EML,
+						BUYER_EMAIL1 : item.BYR_EML1,
+						BUYER_EMAIL2 : item.BYR_EML12,
+						ACCOUNT_EMP_CODE : item.SLIP_EMP_NO,
 						ACCOUNT_EMP_NAME : item.ACCOUNT_EMP_NAME,
-						TXN_DATE : item.TXN_DATE,
+						TXN_DATE : item.TRSC_DT,
 						INTERFACED_FLAG : item.INTERFACED_FLAG,
-						FI_ORG_CODE : item.FI_ORG_CODE,
-						SELLER_ADDRESS : item.SELLER_ADDRESS,
-						BUYER_ADDRESS : item.BUYER_ADDRESS,
-						DOC_ID : item.DOC_ID,
-						DOC_NAME : item.DOC_NAME,
-						DOC_BATCH_NO : item.DOC_BATCH_NO,
+						FI_ORG_CODE : item.ACNTG_OGNZ_CD,
+						SELLER_ADDRESS : item.SPLR_ADDR,
+						BUYER_ADDRESS : item.BYR_ADDR,
+						DOC_ID : item.SLIP_ID,
+						DOC_NAME : item.SLIP_NM,
+						DOC_BATCH_NO : item.SLIP_BTCH_NO,
 						RID_GUBUN : item.RID_GUBUN,
-						EXCEPT_CODE : item.EXCEPT_CODE,
-						EXCEPT_REASON : item.EXCEPT_REASON,
-						ITEM_NAME : item.ITEM_NAME,
-						ITEM_SPEC : item.ITEM_SPEC,
+						EXCEPT_CODE : item.EXCPT_CD,
+						EXCEPT_REASON : item.EXCPT_RSN,
+						ITEM_NAME : item.ITEM_NM,
+						ITEM_SPEC : item.ITEM_SPCFCT,
 						ITEM_QTY : item.ITEM_QTY,
-						ITEM_UNIT_PRICE : item.ITEM_UNIT_PRICE,
-						ITEM_TAXABLE_AMT : item.ITEM_TAXABLE_AMT,
+						ITEM_UNIT_PRICE : item.ITEM_UNTPRC,
+						ITEM_TAXABLE_AMT : item.ITEM_TX_AMT,
 						ITEM_VAT_AMT : item.ITEM_VAT_AMT,
-						ITEM_DESC : item.ITEM_DESC
+						ITEM_DESC : item.ITEM_DSCTN
 
 					}
 					jsonSearchResultList.push(msg);
@@ -2301,8 +2301,8 @@
 						SEND_DATE : gfn_dateToYmd(new Date()),
 						RECEIPT_OR_BILL : '01',
 						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
-						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
-						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
+						SELLER_OWNER : data.cv_1[0].CEO_NM,
+						SELLER_NAME : data.cv_1[0].TX_SITE_NM,
 						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
 					});
 				}else{
@@ -2314,8 +2314,8 @@
 						SEND_DATE : gfn_dateToYmd(new Date()),
 						RECEIPT_OR_BILL : '01',
 						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
-						SELLER_OWNER : data.cv_1[0].CHIEF_NAME,
-						SELLER_NAME : data.cv_1[0].TAX_SITE_NAME,
+						SELLER_OWNER : data.cv_1[0].CEO_NM,
+						SELLER_NAME : data.cv_1[0].TX_SITE_NM,
 						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
 					});
 				}

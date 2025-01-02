@@ -52,7 +52,7 @@ public class ApcMaHrp2320Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2320_Q");
+            param.put("procedure", "SP_HRP2320_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaHrp2320Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2320_BAT");
+            param.put("procedure", "SP_HRP2320_BAT");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -104,7 +104,7 @@ public class ApcMaHrp2320Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2320_CHECK");
+            param.put("procedure", "SP_HRP2320_CHECK");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -130,7 +130,7 @@ public class ApcMaHrp2320Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2320_RETI_BAT");
+            param.put("procedure", "SP_HRP2320_RETI_BAT");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -156,7 +156,7 @@ public class ApcMaHrp2320Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2320_CHANGE_CREATE");
+            param.put("procedure", "SP_HRP2320_CHANGE_CREATE");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

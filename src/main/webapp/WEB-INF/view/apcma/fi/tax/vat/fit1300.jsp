@@ -19,14 +19,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>title : 부가세요약</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-
+ 
 	<style>
 		#dtlTable th {
 			text-align: center;
@@ -36,7 +36,7 @@
 			border-style: solid;
 			border-color: #e8f1f9
 		}
-
+ 
 	</style>
 </head>
 <body oncontextmenu="return false">
@@ -61,7 +61,7 @@
 						<col style="width: 1%">
 						<col style="width: 7%">
 						<col style="width: 2%">
-
+ 
 						<col style="width: 8%">
 						<col style="width: 7%">
 						<col style="width: 1%">
@@ -216,9 +216,9 @@
 	</div>
 </section>
 </body>
-
+ 
 <script type="text/javascript">
-
+ 
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
@@ -251,7 +251,7 @@
 	function cfn_search() {
 	    fn_search();
 	}
-
+ 
 	var jsonVatDclr = [];
 	var jsonSmmry = [];
 	
@@ -259,19 +259,19 @@
     var jsonGrdDivision = [];
     var jsonGrdCalc = [];
     var jsonGrdReCalc = [];
-
+ 
     var grdListGrid;
     var grdDivision;
     var grdCalc;
     var grdReCalc;
-
+ 
     window.addEventListener("DOMContentLoaded",function(){
         
     	fn_init();
-
+ 
         window.parent.document.getElementById("main-btn-save").style.display = "none";
     });
-
+ 
     /**
      * @name fn_init
      * @description 화면 초기 호출
@@ -283,10 +283,10 @@
         SBUxMethod.set('srch-dtp-yyyy', gfn_dateToYear(new Date()));
         
         await fn_initSBSelect();
-
+ 
 		jsonSmmry.length = 0;
 		fn_setVatTable();
-
+ 
     }
     
 	/**
@@ -298,9 +298,9 @@
 		
 		// 코드정보 설정
 		let result = await Promise.all([
-
-	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
-
+ 
+	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TMPLT_NM', 'Y', ''),
+ 
 			/** 신고구분명 select **/
 			gfnma_multiSelectInit({
 		            target			: ['#srch-ddm-seq']
@@ -314,14 +314,14 @@
 		            ,dropType		: 'down' 	// up, down
 		            ,dropAlign		: 'right' 	// left, right
 		            ,colValue		: 'SEQ'
-		            ,colLabel		: 'VAT_TYPE_NAME'
+		            ,colLabel		: 'VAT_TMPLT_NM'
 		            ,columns		:[
-		                {caption: "부가세유형",			ref: 'VAT_TYPE_NAME', 		width:'180px',  	style:'text-align:left'},
+		                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
 		                {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
 		                {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
 		                {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
-		                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',   width:'150px',  	style:'text-align:left'},
-		                {caption: "확정여부", 			ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+		                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
+		                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
 		                {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
 		            ]
 		            ,callback       : function(_seq) {
@@ -330,7 +330,7 @@
 		        })			
 			
 			]);
-
+ 
 	}
     
 	
@@ -345,7 +345,7 @@
 			if (!gfn_isEmpty(vatType)) {
 				SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
-
+ 
 				let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
 				SBUxMethod.set('srch-dtp-yyyy', year);
 			}
@@ -396,7 +396,7 @@
         });
         
         const listData = await postJsonPromiseForList;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
@@ -404,14 +404,14 @@
             	
             	jsonSmmry.length = 0;
                 listData.cv_1.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
-               			TAX_SITE_CODE: item.TAX_SITE_CODE,
-               			TAX_SITE_NAME: item.TAX_SITE_NAME,
-               			BIZ_REGNO: item.BIZ_REGNO,
+               			TAX_SITE_CODE: item.TX_SITE_CD,
+               			TAX_SITE_NAME: item.TX_SITE_NM,
+               			BIZ_REGNO: item.BRNO,
                			TOTAL_CNT: item.TOTAL_CNT,
-               			TOTAL_SUPPLY_AMT: item.TOTAL_SUPPLY_AMT,
-               			TOTAL_VAT_AMT: item.TOTAL_VAT_AMT,
+               			TOTAL_SUPPLY_AMT: item.TOT_SPLY_AMT,
+               			TOTAL_VAT_AMT: item.TOT_VAT_AMT,
                			AR_SUM_AMT: item.AR_SUM_AMT,
                			PAY_VAT_AMT: item.PAY_VAT_AMT,
                			REPORT_CONFIRM_YN: item.REPORT_CONFIRM_YN,
@@ -436,6 +436,9 @@
                     }
                 	
                 	jsonSmmry.push(obj);
+
+                     */
+                	jsonSmmry.push(item);
                 });
                 
                 fn_setVatTable();
@@ -456,9 +459,9 @@
 	const fn_setVatTable = function() {
 		
 		let tbody = document.querySelector("#dtlTable tbody");
-
+ 
 		tbody.remove();
-
+ 
 		/*
 		while (tbody.firstChild) {
 			console.log("tbody.firstChild", tbody.firstChild);
@@ -512,7 +515,7 @@
 			
 			let td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.TAX_SITE_NAME;
+			td.innerText = item.TX_SITE_NM;
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
@@ -522,12 +525,12 @@
 			
 			td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.TOTAL_SUPPLY_AMT.toLocaleString();
+			td.innerText = item.TOT_SPLY_AMT.toLocaleString();
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.TOTAL_VAT_AMT.toLocaleString();
+			td.innerText = item.TOT_VAT_AMT.toLocaleString();
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
@@ -560,7 +563,7 @@
 			tr.appendChild(td);
 			
 			tbody.appendChild(tr);
-
+ 
 			tr = document.createElement("tr");
 			tr.style.textAlign = "center";
 			td = document.createElement("td");
@@ -604,7 +607,7 @@
 			td = document.createElement("td");
 			td.innerText = item.AMENDED_YN;
 			tr.appendChild(td);
-
+ 
 			tbody.appendChild(tr);
 			
 			/*
@@ -612,8 +615,8 @@
           	<tr style="text-align:center">
 	            <td rowspan="3">${'${item.TAX_SITE_NAME}'}</td>
 	            <td rowspan="3">${'${item.TOTAL_CNT}'}</td>
-	            <td rowspan="3">${'${item.TOTAL_SUPPLY_AMT.toLocaleString()}'}</td>
-	            <td rowspan="3">${'${item.TOTAL_VAT_AMT.toLocaleString()}'}</td>
+	            <td rowspan="3">${'${item.TOT_SPLY_AMT.toLocaleString()}'}</td>
+	            <td rowspan="3">${'${item.TOT_VAT_AMT.toLocaleString()}'}</td>
 	            <td rowspan="3">${'${item.PAY_VAT_AMT.toLocaleString()}'}</td>
 	            <td rowspan="3">${'${item.REPORT_CONFIRM_YN}'}</td>
 	            <td>${'${item.AR_TAX_BILL_YN}'}</td>
@@ -657,7 +660,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -676,17 +679,17 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit1300.do", {
             getType				: 'json',
             cv_count			: '1',
             workType            : 'DETAIL',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
         console.log(data,"디테일");
         if(data.resultStatus === 'S'){
@@ -695,8 +698,8 @@
               <tr style="text-align:center">
                 <td rowspan="3">${'${item.TAX_SITE_NAME}'}</td>
                 <td rowspan="3">${'${item.TOTAL_CNT}'}</td>
-                <td rowspan="3">${'${item.TOTAL_SUPPLY_AMT.toLocaleString()}'}</td>
-                <td rowspan="3">${'${item.TOTAL_VAT_AMT.toLocaleString()}'}</td>
+                <td rowspan="3">${'${item.TOT_SPLY_AMT.toLocaleString()}'}</td>
+                <td rowspan="3">${'${item.TOT_VAT_AMT.toLocaleString()}'}</td>
                 <td rowspan="3">${'${item.PAY_VAT_AMT.toLocaleString()}'}</td>
                 <td rowspan="3">${'${item.REPORT_CONFIRM_YN}'}</td>
                 <td>${'${item.AR_TAX_BILL_YN}'}</td>
@@ -754,11 +757,11 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt1300.do", {
             getType				: 'json',
             cv_count			: '13',
@@ -766,7 +769,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         if(data.resultStatus === 'S'){
             let resultObj = data.cv_1[0];
             for(let key in resultObj){
@@ -775,7 +778,7 @@
             }
         }
     }
-
+ 
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

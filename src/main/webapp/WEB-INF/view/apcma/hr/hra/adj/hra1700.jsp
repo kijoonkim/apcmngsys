@@ -2114,9 +2114,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwInfoGrid','SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_APPLY_YN','gvwInfoGrid'], jsonPayApplyYn, 'L_HRM003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid','SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['PAY_APPLY_YN','gvwInfoGrid'], jsonPayApplyYn, 'L_HRM003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 
             //사업장
@@ -2131,11 +2131,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2151,11 +2151,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2174,18 +2174,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -2194,13 +2194,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -2210,15 +2210,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -2250,15 +2250,15 @@
 
 
 
-   /* function cfn_save() {
+    /* function cfn_save() {
 
-        // 수정 저장
-        if (gfn_comConfirm("Q0001", "수정 저장")) {
+         // 수정 저장
+         if (gfn_comConfirm("Q0001", "수정 저장")) {
 
-            fn_save();
+             fn_save();
 
-        }
-    }*/
+         }
+     }*/
 
     function cfn_search() {
 
@@ -2393,14 +2393,14 @@
             ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
 
-          /*  ,V_P_YE_TX_YYYY     : YE_TX_YYYY
-            ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
-            ,V_P_SITE_CODE      : SITE_CODE
-            ,V_P_DEPT_CODE      : DEPT_CODE
-            ,V_P_EMP_CODE       : EMP_CODE
-            ,V_P_EMP_STATE      : EMP_STATE
-            ,V_P_EMP_CODE_LIST  : stremp_code
-            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE*/
+            /*  ,V_P_YE_TX_YYYY     : YE_TX_YYYY
+              ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
+              ,V_P_SITE_CODE      : SITE_CODE
+              ,V_P_DEPT_CODE      : DEPT_CODE
+              ,V_P_EMP_CODE       : EMP_CODE
+              ,V_P_EMP_STATE      : EMP_STATE
+              ,V_P_EMP_CODE_LIST  : stremp_code
+              ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE*/
 
             ,V_P_YE_TX_YYYY       : YE_TX_YYYY
             ,V_P_YEAR_END_TX_TYPE : YE_TX_TYPE
@@ -2436,11 +2436,11 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE 			 : gfnma_nvl2(item.EMP_CODE)
-                        ,EMP_NAME 			 : gfnma_nvl2(item.EMP_NAME)
-                        ,SITE_CODE 			 : gfnma_nvl2(item.SITE_CODE)
-                        ,DEPT_CODE 			 : gfnma_nvl2(item.DEPT_CODE)
-                        ,DEPT_NAME 			 : gfnma_nvl2(item.DEPT_NAME)
+                        EMP_CODE 			 : gfnma_nvl2(item.EMP_CD)
+                        ,EMP_NAME 			 : gfnma_nvl2(item.EMP_NM)
+                        ,SITE_CODE 			 : gfnma_nvl2(item.SITE_CD)
+                        ,DEPT_CODE 			 : gfnma_nvl2(item.DEPT_CD)
+                        ,DEPT_NAME 			 : gfnma_nvl2(item.DEPT_NM)
                         ,PAY_APPLY_YN        : gfnma_nvl2(item.PAY_APPLY_YN)
                         ,PAY_APPLY_MM        : gfnma_nvl2(item.PAY_APPLY_MM)
 
@@ -2456,7 +2456,7 @@
                     gvwInfoGrid.clickRow(1);
                 }
 
-               // fn_view();
+                // fn_view();
 
             } else {
                 alert(data.resultMessage);
@@ -2548,14 +2548,14 @@
                     jsonIncomeList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            COMP_NAME 			                : gfnma_nvl2(item.COMP_NAME)
+                            COMP_NAME 			                : gfnma_nvl2(item.CORP_NM)
                             ,PAY_AMT 			                : gfnma_nvl2(item.PAY_AMT)
                             ,BONUS_AMT 			                : gfnma_nvl2(item.BONUS_AMT)
-                            ,ADD_BONUS_AMT 			            : gfnma_nvl2(item.ADD_BONUS_AMT)
+                            ,ADD_BONUS_AMT 			            : gfnma_nvl2(item.RCG_BONUS_AMT)
                             ,STOCK_PROFIT_AMT 			        : gfnma_nvl2(item.STOCK_PROFIT_AMT)
                             ,EMP_STOCK_AMT 			            : gfnma_nvl2(item.EMP_STOCK_AMT)
-                            ,EXEC_RET_LIM_OVER 			        : gfnma_nvl2(item.EXEC_RET_LIM_OVER)
-                            ,TOTAL_AMT 			                : gfnma_nvl2(item.TOTAL_AMT)
+                            ,EXEC_RET_LIM_OVER 			        : gfnma_nvl2(item.EXC_RTRM_LIM_EXCS)
+                            ,TOTAL_AMT 			                : gfnma_nvl2(item.TOT_AMT)
 
                         }
                         jsonIncomeList.push(msg);
@@ -2566,11 +2566,11 @@
 
                     // -- 정산명세
                     data.cv_3.forEach((item, index) => {
-                        SBUxMethod.set("PAY_TOT_AMT", 		gfnma_nvl2(item.PAY_TOT_AMT));
+                        SBUxMethod.set("PAY_TOT_AMT", 		gfnma_nvl2(item.EARN_TOT_AMT));
                         SBUxMethod.set("TXFREE_TOT_AMT",    gfnma_nvl2(item.TXFREE_TOT_AMT));
-                        SBUxMethod.set("INC_TOT_AMT", 		gfnma_nvl2(item.INC_TOT_AMT));
-                        SBUxMethod.set("INC_DEAMT", 		gfnma_nvl2(item.INC_DEAMT));
-                        SBUxMethod.set("INC_AMT", 		    gfnma_nvl2(item.INC_AMT));
+                        SBUxMethod.set("INC_TOT_AMT", 		gfnma_nvl2(item.ERICM_TOT_AMT));
+                        SBUxMethod.set("INC_DEAMT", 		gfnma_nvl2(item.ERICM_DDC_AMT));
+                        SBUxMethod.set("INC_AMT", 		    gfnma_nvl2(item.ERICM_AMT));
 
                         //-- 기본공제
                         SBUxMethod.set("PERSONAL_DEAMT", 		gfnma_nvl2(item.PERSONAL_DEAMT));
@@ -2595,7 +2595,7 @@
                         SBUxMethod.set("MANY_CHILD_DEAMT", 		gfnma_nvl2(item.MANY_CHILD_DEAMT));
 
                         //-- 연금보험료공제
-                        SBUxMethod.set("PENS_DEAMT", 		    gfnma_nvl2(item.PENS_DEAMT));
+                        SBUxMethod.set("PENS_DEAMT", 		    gfnma_nvl2(item.PN_DDC_AMT));
                         SBUxMethod.set("OFFICIAL_PENS_DEAMT", 	gfnma_nvl2(item.OFFICIAL_PENS_DEAMT));
                         SBUxMethod.set("MILITARY_PENS_DEAMT", 	gfnma_nvl2(item.MILITARY_PENS_DEAMT));
                         SBUxMethod.set("SCHOOL_PENS_DEAMT", 	gfnma_nvl2(item.SCHOOL_PENS_DEAMT));
@@ -2607,7 +2607,7 @@
                         //-- 특별공제
                         //-- 보험료
                         SBUxMethod.set("HEALTH_INSURE_DEAMT", 		gfnma_nvl2(item.HEALTH_INSURE_DEAMT));
-                        SBUxMethod.set("EMP_INSURE_DEAMT", 		    gfnma_nvl2(item.EMP_INSURE_DEAMT));
+                        SBUxMethod.set("EMP_INSURE_DEAMT", 		    gfnma_nvl2(item.UNEMPSLRY_DDC_AMT));
                         SBUxMethod.set("GENERAL_INSURE_DEAMT", 		gfnma_nvl2(item.GENERAL_INSURE_DEAMT));
                         SBUxMethod.set("HDCP_INSURE_DEAMT", 		gfnma_nvl2(item.HDCP_INSURE_DEAMT));
                         SBUxMethod.set("TOTAL_INSURE_DED_AMT", 		gfnma_nvl2(item.TOTAL_INSURE_DED_AMT));
@@ -2651,7 +2651,7 @@
                         SBUxMethod.set("STD_DEAMT", 		        gfnma_nvl2(item.STD_DEAMT));
 
                         //-- 차감소득금액
-                        SBUxMethod.set("DED_INC_AMT", 		        gfnma_nvl2(item.DED_INC_AMT));
+                        SBUxMethod.set("DED_INC_AMT", 		        gfnma_nvl2(item.DDC_INCM_AMT));
 
                         //-- 그밖의 소득공제
                         SBUxMethod.set("PRIV_PENS_SV_DEAMT", 		        gfnma_nvl2(item.PRIV_PENS_SV_DEAMT));
@@ -2659,15 +2659,15 @@
                         SBUxMethod.set("HS_EMP_SV_DEAMT", 		            gfnma_nvl2(item.HS_EMP_SV_DEAMT));
                         SBUxMethod.set("HS_TOT_SV_DEAMT", 		            gfnma_nvl2(item.HS_TOT_SV_DEAMT));
                         SBUxMethod.set("TOTAL_HOUSE_SAVING_DED_AMT", 	    gfnma_nvl2(item.TOTAL_HOUSE_SAVING_DED_AMT));
-                        SBUxMethod.set("CD_USE_DEAMT", 		                gfnma_nvl2(item.CD_USE_DEAMT));
+                        SBUxMethod.set("CD_USE_DEAMT", 		                gfnma_nvl2(item.CRCD_USE_DDC_AMT));
                         SBUxMethod.set("SM_COM_DEAMT", 		                gfnma_nvl2(item.SM_COM_DEAMT));
                         SBUxMethod.set("INVEST_DEAMT", 		                gfnma_nvl2(item.INVEST_DEAMT));
-                        SBUxMethod.set("EMP_STOCK_GIVE_DEAMT", 		        gfnma_nvl2(item.EMP_STOCK_GIVE_DEAMT));
+                        SBUxMethod.set("EMP_STOCK_GIVE_DEAMT", 		        gfnma_nvl2(item.EMP_STCK_PAY_DDC_AMT));
                         SBUxMethod.set("SALARY_DECREASE_DEAMT", 		    gfnma_nvl2(item.SALARY_DECREASE_DEAMT));
-                        SBUxMethod.set("LEASE_INT_RDM_DEAMT", 		        gfnma_nvl2(item.LEASE_INT_RDM_DEAMT));
+                        SBUxMethod.set("LEASE_INT_RDM_DEAMT", 		        gfnma_nvl2(item.LEASE_INT_RPMT_DDC_AMT));
                         SBUxMethod.set("LONG_INVEST_STOCK_SAVE_DED_AMT", 	gfnma_nvl2(item.LONG_INVEST_STOCK_SAVE_DED_AMT));
                         SBUxMethod.set("LT_COL_INV_SV_DEAMT", 		        gfnma_nvl2(item.LT_COL_INV_SV_DEAMT));
-                        SBUxMethod.set("ETC_DED_TOT_AMT", 		            gfnma_nvl2(item.ETC_DED_TOT_AMT));
+                        SBUxMethod.set("ETC_DED_TOT_AMT", 		            gfnma_nvl2(item.ETC_DDC_TOT_AMT));
 
                         //-- 특별공제 종합한도 초과액
                         SBUxMethod.set("SPEC_DED_TOT_OVER_AMT", 	gfnma_nvl2(item.SPEC_DED_TOT_OVER_AMT));
@@ -2676,21 +2676,21 @@
                         SBUxMethod.set("TOT_INC_TX_STD_AMT", 		gfnma_nvl2(item.TOT_INC_TX_STD_AMT));
 
                         //-- 산출세액
-                        SBUxMethod.set("CALCULATE_TX_AMT", 		    gfnma_nvl2(item.CALCULATE_TX_AMT));
+                        SBUxMethod.set("CALCULATE_TX_AMT", 		    gfnma_nvl2(item.CALC_TX_AMT));
 
                         //-- 세액감면 및 세액공제
-                        SBUxMethod.set("INC_TX_LAW_DEAMT", 		    gfnma_nvl2(item.INC_TX_LAW_DEAMT));
+                        SBUxMethod.set("INC_TX_LAW_DEAMT", 		    gfnma_nvl2(item.INCM_TX_LAW_DDC_AMT));
                         SBUxMethod.set("TX_SPEC_LAW_DEAMT", 		gfnma_nvl2(item.TX_SPEC_LAW_DEAMT));
                         SBUxMethod.set("TX_SPEC_LAW_30_DEAMT", 		gfnma_nvl2(item.TX_SPEC_LAW_30_DEAMT));
                         SBUxMethod.set("TX_TREATY_DEAMT", 		    gfnma_nvl2(item.TX_TREATY_DEAMT));
                         SBUxMethod.set("TX_RED_TOT_AMT", 		    gfnma_nvl2(item.TX_RED_TOT_AMT));
-                        SBUxMethod.set("INC_TX_DEAMT", 		        gfnma_nvl2(item.INC_TX_DEAMT));
-                        SBUxMethod.set("CHILD_TX_DED_COUNT", 		gfnma_nvl2(item.CHILD_TX_DED_COUNT));
-                        SBUxMethod.set("CHILD_TX_DEAMT", 		    gfnma_nvl2(item.CHILD_TX_DEAMT));
-                        SBUxMethod.set("BRING_CHILD_TX_DED_COUNT", 	gfnma_nvl2(item.BRING_CHILD_TX_DED_COUNT));
-                        SBUxMethod.set("BRING_CHILD_TX_DEAMT", 		gfnma_nvl2(item.BRING_CHILD_TX_DEAMT));
-                        SBUxMethod.set("CHILDBIRTH_TX_DED_COUNT", 	gfnma_nvl2(item.CHILDBIRTH_TX_DED_COUNT));
-                        SBUxMethod.set("CHILDBIRTH_TX_DEAMT", 		gfnma_nvl2(item.CHILDBIRTH_TX_DEAMT));
+                        SBUxMethod.set("INC_TX_DEAMT", 		        gfnma_nvl2(item.INCM_TX_DDC_AMT));
+                        SBUxMethod.set("CHILD_TX_DED_COUNT", 		gfnma_nvl2(item.CHLDRN_TX_DDC_CNT));
+                        SBUxMethod.set("CHILD_TX_DEAMT", 		    gfnma_nvl2(item.CHLDRN_TX_DDC_AMT));
+                        SBUxMethod.set("BRING_CHILD_TX_DED_COUNT", 	gfnma_nvl2(item.UPBR_CHLD_DDC_TAX_CNT));
+                        SBUxMethod.set("BRING_CHILD_TX_DEAMT", 		gfnma_nvl2(item.UPBR_CHLD_DDC_TAX_AMT));
+                        SBUxMethod.set("CHILDBIRTH_TX_DED_COUNT", 	gfnma_nvl2(item.CHLDB_TX_DDC_CNT));
+                        SBUxMethod.set("CHILDBIRTH_TX_DEAMT", 		gfnma_nvl2(item.CHLDB_TX_DDC_AMT));
                         SBUxMethod.set("SCNT_PENS_DED_TGT_AMT", 	gfnma_nvl2(item.SCNT_PENS_DED_TGT_AMT));
                         SBUxMethod.set("SCNT_PENS_TX_DEAMT", 		gfnma_nvl2(item.SCNT_PENS_TX_DEAMT));
                         SBUxMethod.set("RET_PENS_DED_TGT_AMT", 		gfnma_nvl2(item.RET_PENS_DED_TGT_AMT));
@@ -2699,33 +2699,33 @@
                         SBUxMethod.set("PENS_SV_TX_DEAMT", 		    gfnma_nvl2(item.PENS_SV_TX_DEAMT));
                         SBUxMethod.set("PENS_ISA_TX_DEAMT", 		gfnma_nvl2(item.PENS_ISA_TX_DEAMT));
                         SBUxMethod.set("PENS_ISA_DED_TGT_AMT", 		gfnma_nvl2(item.PENS_ISA_DED_TGT_AMT));
-                        SBUxMethod.set("INSURE_DED_TGT_AMT", 		gfnma_nvl2(item.INSURE_DED_TGT_AMT));
-                        SBUxMethod.set("INSURE_TX_DEAMT", 		    gfnma_nvl2(item.INSURE_TX_DEAMT));
+                        SBUxMethod.set("INSURE_DED_TGT_AMT", 		gfnma_nvl2(item.INSRNC_DDC_TRGT_AMT));
+                        SBUxMethod.set("INSURE_TX_DEAMT", 		    gfnma_nvl2(item.INSRNC_TX_DDC_AMT));
                         SBUxMethod.set("HDCP_INSURE_DED_TGT_AMT", 	gfnma_nvl2(item.HDCP_INSURE_DED_TGT_AMT));
                         SBUxMethod.set("HDCP_INSURE_TX_DEAMT", 		gfnma_nvl2(item.HDCP_INSURE_TX_DEAMT));
                         SBUxMethod.set("MED_DED_TGT_AMT", 		    gfnma_nvl2(item.MED_DED_TGT_AMT));
                         SBUxMethod.set("MED_TX_DEAMT", 		        gfnma_nvl2(item.MED_TX_DEAMT));
-                        SBUxMethod.set("EDU_DED_TGT_AMT", 		    gfnma_nvl2(item.EDU_DED_TGT_AMT));
-                        SBUxMethod.set("EDU_TX_DEAMT", 		        gfnma_nvl2(item.EDU_TX_DEAMT));
-                        SBUxMethod.set("DON_POL_DED_TGT_AMT", 		gfnma_nvl2(item.DON_POL_DED_TGT_AMT));
-                        SBUxMethod.set("DON_POL_TX_DEAMT", 		    gfnma_nvl2(item.DON_POL_TX_DEAMT));
-                        SBUxMethod.set("DON_POL_EXCS_DED_TGT_AMT", 	gfnma_nvl2(item.DON_POL_EXCS_DED_TGT_AMT));
-                        SBUxMethod.set("DON_POL_EXCS_TX_DEAMT", 	gfnma_nvl2(item.DON_POL_EXCS_TX_DEAMT));
+                        SBUxMethod.set("EDU_DED_TGT_AMT", 		    gfnma_nvl2(item.EDU_DDC_TRGT_AMT));
+                        SBUxMethod.set("EDU_TX_DEAMT", 		        gfnma_nvl2(item.EDUCO_TX_DDC_AMT));
+                        SBUxMethod.set("DON_POL_DED_TGT_AMT", 		gfnma_nvl2(item.DTTN_PLCY_DDC_TOT_AMT));
+                        SBUxMethod.set("DON_POL_TX_DEAMT", 		    gfnma_nvl2(item.DTTN_PLCY_TX_DDC_AMT));
+                        SBUxMethod.set("DON_POL_EXCS_DED_TGT_AMT", 	gfnma_nvl2(item.DTTN_PLCY_DDC_TOT_TRGT_AMT));
+                        SBUxMethod.set("DON_POL_EXCS_TX_DEAMT", 	gfnma_nvl2(item.DTTN_PLCY_DDC_TX_TRGT_AMT));
 
                         //--2023년 귀속
-                        SBUxMethod.set("DON_HLE_DED_TGT_AMT", 		gfnma_nvl2(item.DON_HLE_DED_TGT_AMT));
-                        SBUxMethod.set("DON_HLE_TX_DEAMT", 		    gfnma_nvl2(item.DON_HLE_TX_DEAMT));
-                        SBUxMethod.set("DON_HLE_EXCS_DED_TGT_AMT", 	gfnma_nvl2(item.DON_HLE_EXCS_DED_TGT_AMT));
-                        SBUxMethod.set("DON_HLE_EXCS_TX_DEAMT", 	gfnma_nvl2(item.DON_HLE_EXCS_TX_DEAMT));
+                        SBUxMethod.set("DON_HLE_DED_TGT_AMT", 		gfnma_nvl2(item.DTTN_HMTN_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_HLE_TX_DEAMT", 		    gfnma_nvl2(item.DTTN_HMTN_TX_DDC_AMT));
+                        SBUxMethod.set("DON_HLE_EXCS_DED_TGT_AMT", 	gfnma_nvl2(item.DTTN_HMTN_EXCS_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_HLE_EXCS_TX_DEAMT", 	gfnma_nvl2(item.DTTN_HMTN_EXCS_TX_DDC_AMT));
 
-                        SBUxMethod.set("DON_LGL_DED_TGT_AMT", 		gfnma_nvl2(item.DON_LGL_DED_TGT_AMT));
-                        SBUxMethod.set("DON_LGL_TX_DEAMT", 		    gfnma_nvl2(item.DON_LGL_TX_DEAMT));
-                        SBUxMethod.set("DON_EMP_STOCK_DED_TGT_AMT", gfnma_nvl2(item.DON_EMP_STOCK_DED_TGT_AMT));
-                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	gfnma_nvl2(item.DON_EMP_STOCK_TX_DEAMT));
-                        SBUxMethod.set("DON_DSIN_DED_TGT_AMT", 		gfnma_nvl2(item.DON_DSIN_DED_TGT_AMT));
-                        SBUxMethod.set("DON_DSIN_TX_DEAMT", 		gfnma_nvl2(item.DON_DSIN_TX_DEAMT));
-                        SBUxMethod.set("DON_DSIN_REL_DED_TGT_AMT", 	gfnma_nvl2(item.DON_DSIN_REL_DED_TGT_AMT));
-                        SBUxMethod.set("DON_DSIN_REL_TX_DEAMT", 	gfnma_nvl2(item.DON_DSIN_REL_TX_DEAMT));
+                        SBUxMethod.set("DON_LGL_DED_TGT_AMT", 		gfnma_nvl2(item.DNTN_STTY_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_LGL_TX_DEAMT", 		    gfnma_nvl2(item.DNTN_STTY_TX_DDC_AMT));
+                        SBUxMethod.set("DON_EMP_STOCK_DED_TGT_AMT", gfnma_nvl2(item.DNTN_EMP_STCK_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_EMP_STOCK_TX_DEAMT", 	gfnma_nvl2(item.DNTN_EMP_STCK_TX_DDC_AMT));
+                        SBUxMethod.set("DON_DSIN_DED_TGT_AMT", 		gfnma_nvl2(item.DSGN_AOD_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_DSIN_TX_DEAMT", 		gfnma_nvl2(item.DSGN_AOD_TX_DDC_AMT));
+                        SBUxMethod.set("DON_DSIN_REL_DED_TGT_AMT", 	gfnma_nvl2(item.DSGN_AOD_REL_DDC_TRGT_AMT));
+                        SBUxMethod.set("DON_DSIN_REL_TX_DEAMT", 	gfnma_nvl2(item.DSGN_AOD_REL_TX_DDC_AMT));
                         SBUxMethod.set("SPEC_TX_DED_TOT_AMT", 		gfnma_nvl2(item.SPEC_TX_DED_TOT_AMT));
                         SBUxMethod.set("STD_TX_DEAMT", 		        gfnma_nvl2(item.STD_TX_DEAMT));
                         SBUxMethod.set("TX_UNION_DEAMT", 		    gfnma_nvl2(item.TX_UNION_DEAMT));
@@ -2735,9 +2735,9 @@
                         SBUxMethod.set("HS_MM_RENT_DED_TGT_AMT", 	gfnma_nvl2(item.HS_MM_RENT_DED_TGT_AMT));
                         SBUxMethod.set("HS_MM_RENT_TX_DEAMT", 		gfnma_nvl2(item.HS_MM_RENT_TX_DEAMT));
                         SBUxMethod.set("TX_DED_TOT_AMT", 		    gfnma_nvl2(item.TX_DED_TOT_AMT));
-                        SBUxMethod.set("CALC_INC_TX_AMT", 		    gfnma_nvl2(item.CALC_INC_TX_AMT));
-                        SBUxMethod.set("CALC_LOCAL_TX_AMT", 		gfnma_nvl2(item.CALC_LOCAL_TX_AMT));
-                        SBUxMethod.set("CALC_SPEC_TX_AMT", 		    gfnma_nvl2(item.CALC_SPEC_TX_AMT));
+                        SBUxMethod.set("CALC_INC_TX_AMT", 		    gfnma_nvl2(item.CALC_INCTX_AMT));
+                        SBUxMethod.set("CALC_LOCAL_TX_AMT", 		gfnma_nvl2(item.CALC_LCL_TX_AMT));
+                        SBUxMethod.set("CALC_SPEC_TX_AMT", 		    gfnma_nvl2(item.CALC_SPTX_AMT));
                         SBUxMethod.set("CALC_TX_TOT_AMT", 		    gfnma_nvl2(item.CALC_TX_TOT_AMT));
                         SBUxMethod.set("NOW_INC_TX_AMT", 		    gfnma_nvl2(item.NOW_INC_TX_AMT));
                         SBUxMethod.set("NOW_LOCAL_TX_AMT", 		    gfnma_nvl2(item.NOW_LOCAL_TX_AMT));
@@ -2745,8 +2745,8 @@
                         SBUxMethod.set("NOW_TX_TOT_AMT", 		    gfnma_nvl2(item.NOW_TX_TOT_AMT));
 
                         //-- 전 근무지 값이 감안된 값임
-                        SBUxMethod.set("INC_TX_AMT", 		gfnma_nvl2(item.INC_TX_AMT));
-                        SBUxMethod.set("LOCAL_TX_AMT", 		gfnma_nvl2(item.LOCAL_TX_AMT));
+                        SBUxMethod.set("INC_TX_AMT", 		gfnma_nvl2(item.INCM_TX_AMT));
+                        SBUxMethod.set("LOCAL_TX_AMT", 		gfnma_nvl2(item.LCL_ICNTX_AMT));
                         SBUxMethod.set("SPEC_TX_AMT", 		gfnma_nvl2(item.SPEC_TX_AMT));
                         SBUxMethod.set("TX_TOT_AMT", 		gfnma_nvl2(item.TX_TOT_AMT));
 

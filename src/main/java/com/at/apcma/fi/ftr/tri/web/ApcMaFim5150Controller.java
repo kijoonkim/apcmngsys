@@ -37,7 +37,7 @@ public class ApcMaFim5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5150_Q");
+            param.put("procedure", 		"SP_FIM5150_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class ApcMaFim5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5150_Q2");
+            param.put("procedure", 		"SP_FIM5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class ApcMaFim5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM5150_S");
+            param.put("procedure", 		"SP_FIM5150_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,7 +127,7 @@ public class ApcMaFim5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM5150_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIM5150_S");
 
             logger.info("=============insertFim5150SList=====end========");
             return getSuccessResponseEntityMa(resultMap);

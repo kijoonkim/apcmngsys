@@ -91,7 +91,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2010_Q");
+            param.put("procedure", 		"SP_FBS2010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +121,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS5010_Q");
+            param.put("procedure", 		"SP_FBS5010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2040_Q");
+            param.put("procedure", 		"SP_FBS2040_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBSBANKTXN_Q");
+            param.put("procedure", 		"SP_FBSBANKTXN_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,7 +211,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBSBANKRESULT_Q");
+            param.put("procedure", 		"SP_FBSBANKRESULT_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -241,7 +241,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FBS2010_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FBS2010_S");
 
             logger.info("=============insertFbs2010List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -262,7 +262,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2010_S1");
+            param.put("procedure", 		"SP_FBS2010_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -292,7 +292,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2010_S_FIRM");
+            param.put("procedure", 		"SP_FBS2010_S_FIRM");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

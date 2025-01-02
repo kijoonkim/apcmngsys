@@ -202,7 +202,7 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.columns = [ 
+        SBGridProperties.columns = [
             {caption: ["통화코드"],			ref: 'CURRENCY_CODE', 		type:'input',  	width:'100px',  style:'text-align:center', userattr : {required : true}},
             {caption: ["통화명"],				ref: 'CURRENCY_NAME', 		type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true}},
             {caption: ["통화명(한글)"],		ref: 'CURRENCY_NAME_CHN', 	type:'input',  	width:'200px',  style:'text-align:left', userattr : {required : true}},
@@ -218,12 +218,12 @@
     }
     
     const fn_save = async function () {
-    	
+ 		
     	if(!gfnma_gridValidateCheck()){
 			return;
  		}
-    	
-        let updatedData = masterGrid.getUpdateData(true, 'all');
+
+ 		let updatedData = masterGrid.getUpdateData(true, 'all');
         let listData = [];
         
         updatedData.forEach((item, index) => {
@@ -267,6 +267,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);
@@ -318,16 +319,16 @@
   	    		masterGrid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							CURRENCY_CODE			: item.CURRENCY_CODE,
-  							CURRENCY_NAME			: item.CURRENCY_NAME,
-  							CURR_SYMBOL				: item.CURR_SYMBOL,
-  							EXCHANGE_BASE_SCALE		: item.EXCHANGE_BASE_SCALE,
+  							CURRENCY_CODE			: item.CRN_CD,
+  							CURRENCY_NAME			: item.CRN_NM,
+  							CURR_SYMBOL				: item.CRN_SMBL,
+  							EXCHANGE_BASE_SCALE		: item.EXCHRT_BSS_UNIT,
   							SORT_SEQ				: item.SORT_SEQ,
   							MEMO					: item.MEMO,
   							USE_YN					: item.USE_YN,
   							FBS_YN					: item.FBS_YN,
-  							CURRENCY_NAME_CHN		: item.CURRENCY_NAME_CHN,
-  							DECIMAL_LENGTH			: item.DECIMAL_LENGTH
+  							CURRENCY_NAME_CHN		: item.CRN_NM_CHN,
+  							DECIMAL_LENGTH			: item.DCPT_LNGTH
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
@@ -347,7 +348,6 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-    	        
     }
     const fn_clearForm = function() {
     	//코드목록

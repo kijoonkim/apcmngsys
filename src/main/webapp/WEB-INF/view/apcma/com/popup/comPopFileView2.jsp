@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-
+ 
 			<div class="box-body" style="padding-top: 0px">
 				<div id="preview-div" class="card" style="height:550px;border:1px solid #f4f4f4;overflow:auto;">
 				</div>
@@ -31,7 +31,7 @@
 	</section>
 </body>
 <script>
-
+ 
 function compopfileview2(fkey, comp_code, client_code) {
 	
 	//id 선언
@@ -57,7 +57,7 @@ function compopfileview2(fkey, comp_code, client_code) {
 	url		+= '&client_code=' + client_code;
    	$('#file_preview_img').attr("src", url);	    
 }
-
+ 
  
 </script>
 </html>

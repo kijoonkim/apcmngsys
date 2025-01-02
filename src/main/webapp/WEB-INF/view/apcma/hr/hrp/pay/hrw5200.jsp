@@ -334,9 +334,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid','SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '')
+            gfnma_setComSelect(['gvwListGrid','SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItem, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '')
 
         ]);
     }
@@ -352,18 +352,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -372,13 +372,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -388,15 +388,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""            ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('EMP_NAME',  data.EMP_NM);
+                SBUxMethod.set('EMP_CODE',  data.EMP_CD);
             },
         });
 
@@ -424,8 +424,8 @@
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_HRB008'
-            , code: "SUB_CODE"
-            , name: "CODE_NAME"
+            , code: "SBSD_CD"
+            , name: "CD_NM"
             , itemSelectEvent: function (data){
                 fn_btnApply(data, type);
             },
@@ -513,7 +513,7 @@
             await fn_check();
 
             if(gfn_comConfirm("Q0001", "신규 등록")){
-               await fn_save();
+                await fn_save();
             }
 
         }else if (_.isEqual(editType, 'E')){
@@ -798,7 +798,7 @@
         });
 
         gvwPivotListGrid = _SBGrid.create(SBGridProperties);
-       // gvwPivotListGrid.bind('click', 'fn_view');
+        // gvwPivotListGrid.bind('click', 'fn_view');
     }
 
     //피벗 그리드 상세정보 보기
@@ -916,8 +916,8 @@
         jsonPivotList.length = 0
         pivotData.forEach((item, index) => {
 
-            let EMP_CODE = gfn_nvl(item.EMP_CODE);            //사번
-            let EMP_NAME = gfn_nvl(item.EMP_NAME);            //성명
+            let EMP_CODE = gfn_nvl(item.EMP_CD);            //사번
+            let EMP_NAME = gfn_nvl(item.EMP_NM);            //성명
 
             if (EMP_CODE_ARR.includes(EMP_CODE) == false || EMP_NAME_ARR.includes(EMP_NAME) == false) {
                 EMP_CODE_ARR.push(EMP_CODE);
@@ -935,7 +935,7 @@
          msg.ITEM = incomeItem == 'BASE_INCOME_AMT' ? '기준소득월액' : (incomeItem == 'TOTAL_INSURE_AMT' ? '월보험료(계)' :
              (incomeItem == 'COMP_INSURE_AMT' ? '사용자부담금' : (incomeItem == 'EMP_INSURE_AMT' ? '본인기여금' : '')));*/
         let INCOME_NM = ['BASE_INCOME_AMT', 'HEALTH_INSURE_AMT', 'HEALTH_ADJUST_AMT', 'HEALTH_YE_ADJ_AMT','LONG_INSURE_AMT','LONG_ADJUST_AMT','LONG_YE_ADJ_AMT',
-        'HEALTH_REFUND_INTEREST','LONG_REFUND_INTEREST']
+            'HEALTH_REFUND_INTEREST','LONG_REFUND_INTEREST']
 
 
         jsonPivotList.length = 0;
@@ -979,7 +979,7 @@
 
                     pivotData.forEach((dataItem, dataIndex) => { //데이터
 
-                        if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CODE) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NAME)) {
+                        if (_.isEqual(empItem.EMP_CODE, dataItem.EMP_CD) && _.isEqual(empItem.EMP_NAME, dataItem.EMP_NM)) {
 
                             let DATE_QUARTER        = gfn_nvl(dataItem.DATE_QUARTER);        //분기
                             DATE_QUARTER            = DATE_QUARTER.trim();
@@ -1156,53 +1156,53 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHECK_YN                    : gfn_nvl(item.CHECK_YN),
-                        COMP_CODE                   : gfn_nvl(item.COMP_CODE),
-                        INSURE_YYYYMM               : gfn_nvl(item.INSURE_YYYYMM),
-                        DEPT_CODE                   : gfn_nvl(item.DEPT_CODE),
-                        DEPT_NAME                   : gfn_nvl(item.DEPT_NAME),
-                        POSITION_CODE               : gfn_nvl(item.POSITION_CODE),
-                        PAY_AREA_TYPE               : gfn_nvl(item.PAY_AREA_TYPE),
-                        EMP_CODE                    : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME                    : gfn_nvl(item.EMP_NAME),
-                        SOCIAL_NO                   : gfn_nvl(item.SOCIAL_NO),
-                        BASE_INCOME_AMT             : gfn_nvl(item.BASE_INCOME_AMT),
-                        HEALTH_INSURE_AMT           : gfn_nvl(item.HEALTH_INSURE_AMT),
-                        HEALTH_ADJUST_AMT           : gfn_nvl(item.HEALTH_ADJUST_AMT),
-                        HEALTH_YE_ADJ_AMT           : gfn_nvl(item.HEALTH_YE_ADJ_AMT),
-                        LONG_INSURE_AMT             : gfn_nvl(item.LONG_INSURE_AMT),
-                        LONG_ADJUST_AMT             : gfn_nvl(item.LONG_ADJUST_AMT),
-                        LONG_YE_ADJ_AMT             : gfn_nvl(item.LONG_YE_ADJ_AMT),
-                        HEALTH_REFUND_INTEREST      : gfn_nvl(item.HEALTH_REFUND_INTEREST),
-                        LONG_REFUND_INTEREST        : gfn_nvl(item.LONG_REFUND_INTEREST),
+                        COMP_CODE                   : gfn_nvl(item.CO_CD),
+                        INSURE_YYYYMM               : gfn_nvl(item.INSRNC_YM),
+                        DEPT_CODE                   : gfn_nvl(item.DEPT_CD),
+                        DEPT_NAME                   : gfn_nvl(item.DEPT_NM),
+                        POSITION_CODE               : gfn_nvl(item.JBPS_CD),
+                        PAY_AREA_TYPE               : gfn_nvl(item.SLRY_AREA_TYPE),
+                        EMP_CODE                    : gfn_nvl(item.EMP_CD),
+                        EMP_NAME                    : gfn_nvl(item.EMP_NM),
+                        SOCIAL_NO                   : gfn_nvl(item.RGDT_NO),
+                        BASE_INCOME_AMT             : gfn_nvl(item.BASE_INCM_AMT),
+                        HEALTH_INSURE_AMT           : gfn_nvl(item.HLTH_INSRNC_AMT),
+                        HEALTH_ADJUST_AMT           : gfn_nvl(item.HLTH_AJMT_AMT),
+                        HEALTH_YE_ADJ_AMT           : gfn_nvl(item.HLTH_YRTXCAL_AJMT_AMT),
+                        LONG_INSURE_AMT             : gfn_nvl(item.LTRM_RCPR_INSRNC_AMT),
+                        LONG_ADJUST_AMT             : gfn_nvl(item.LTRM_AJMT_AMT),
+                        LONG_YE_ADJ_AMT             : gfn_nvl(item.LTRM_RCPR_YRYTXCAL),
+                        HEALTH_REFUND_INTEREST      : gfn_nvl(item.HLTH_RFND_INT),
+                        LONG_REFUND_INTEREST        : gfn_nvl(item.LTRM_RFND_INT),
                         MEMO                        : gfn_nvl(item.MEMO),
                         DATA_YN                     : gfn_nvl(item.DATA_YN),
-                        PAY_YN                      : gfn_nvl(item.PAY_YN),
-                        PAY_YYYYMM                  : gfn_nvl(item.PAY_YYYYMM),
-                        PAY_TYPE                    : gfn_nvl(item.PAY_TYPE),
-                        PAY_DATE                    : gfn_nvl(item.PAY_DATE),
-                        EMP_HEALTH_PAY_ITEM         : gfn_nvl(item.EMP_HEALTH_PAY_ITEM),
+                        PAY_YN                      : gfn_nvl(item.SLRY_YN),
+                        PAY_YYYYMM                  : gfn_nvl(item.SLRY_YM),
+                        PAY_TYPE                    : gfn_nvl(item.SLRY_TYPE),
+                        PAY_DATE                    : gfn_nvl(item.PAY_YMD),
+                        EMP_HEALTH_PAY_ITEM         : gfn_nvl(item.EMP_HLTH_PAY_ITEM),
                         EMP_HEALTH_PAY_AMT          : gfn_nvl(item.EMP_HEALTH_PAY_AMT),
-                        COMP_HEALTH_PAY_ITEM        : gfn_nvl(item.COMP_HEALTH_PAY_ITEM),
+                        COMP_HEALTH_PAY_ITEM        : gfn_nvl(item.CO_HLTH_SLRY_ITEM),
                         COMP_HEATH_PAY_AMT          : gfn_nvl(item.COMP_HEATH_PAY_AMT),
-                        EMP_LONG_PAY_ITEM           : gfn_nvl(item.EMP_LONG_PAY_ITEM),
+                        EMP_LONG_PAY_ITEM           : gfn_nvl(item.EMP_LT_RCPR_PAY_ITEM),
                         EMP_LONG_PAY_AMT            : gfn_nvl(item.EMP_LONG_PAY_AMT),
-                        COMP_LONG_PAY_ITEM          : gfn_nvl(item.COMP_LONG_PAY_ITEM),
+                        COMP_LONG_PAY_ITEM          : gfn_nvl(item.CO_SLRY_ITEM),
                         COMP_LONG_PAY_AMT           : gfn_nvl(item.COMP_LONG_PAY_AMT),
-                        EMP_HEALTH_ADJ_PAY_ITEM     : gfn_nvl(item.EMP_HEALTH_ADJ_PAY_ITEM),
+                        EMP_HEALTH_ADJ_PAY_ITEM     : gfn_nvl(item.EMP_HLTH_AJMT_PAY_ITEM),
                         EMP_HEALTH_ADJ_PAY_AMT      : gfn_nvl(item.EMP_HEALTH_ADJ_PAY_AMT),
-                        EMP_LONG_ADJ_PAY_ITEM       : gfn_nvl(item.EMP_LONG_ADJ_PAY_ITEM),
+                        EMP_LONG_ADJ_PAY_ITEM       : gfn_nvl(item.EMP_LT_RCPR_AJMT_PAY_ITEM),
                         EMP_LONG_ADJ_PAY_AMT        : gfn_nvl(item.EMP_LONG_ADJ_PAY_AMT),
-                        EMP_HEALTH_YE_PAY_ITEM      : gfn_nvl(item.EMP_HEALTH_YE_PAY_ITEM),
+                        EMP_HEALTH_YE_PAY_ITEM      : gfn_nvl(item.EMP_HLTH_YE_PAY_ITEM),
                         EMP_HEALTH_YE_PAY_AMT       : gfn_nvl(item.EMP_HEALTH_YE_PAY_AMT),
-                        EMP_LONG_YE_PAY_ITEM        : gfn_nvl(item.EMP_LONG_YE_PAY_ITEM),
+                        EMP_LONG_YE_PAY_ITEM        : gfn_nvl(item.EMP_LT_RCPR_YR_PAY_ITEM),
                         EMP_LONG_YE_PAY_AMT         : gfn_nvl(item.EMP_LONG_YE_PAY_AMT),
-                        COMP_HEALTH_ADJ_PAY_ITEM    : gfn_nvl(item.COMP_HEALTH_ADJ_PAY_ITEM),
+                        COMP_HEALTH_ADJ_PAY_ITEM    : gfn_nvl(item.CO_HLTH_AJMT_SLRY_ITEM),
                         COMP_HEALTH_ADJ_PAY_AMT     : gfn_nvl(item.COMP_HEALTH_ADJ_PAY_AMT),
-                        COMP_LONG_ADJ_PAY_ITEM      : gfn_nvl(item.COMP_LONG_ADJ_PAY_ITEM),
+                        COMP_LONG_ADJ_PAY_ITEM      : gfn_nvl(item.CO_LTRM_RCPR_AJMT_SLRY_ITEM),
                         COMP_LONG_ADJ_PAY_AMT       : gfn_nvl(item.COMP_LONG_ADJ_PAY_AMT),
-                        COMP_HEALTH_YE_PAY_ITEM     : gfn_nvl(item.COMP_HEALTH_YE_PAY_ITEM),
+                        COMP_HEALTH_YE_PAY_ITEM     : gfn_nvl(item.CO_HLTH_YRTCAL_SLRY_ITEM),
                         COMP_HEALTH_YE_PAY_AMT      : gfn_nvl(item.COMP_HEALTH_YE_PAY_AMT),
-                        COMP_LONG_YE_PAY_ITEM       : gfn_nvl(item.COMP_LONG_YE_PAY_ITEM),
+                        COMP_LONG_YE_PAY_ITEM       : gfn_nvl(item.CO_LTRM_RCPR_YRTXCAL_SLRY_ITEM),
                         COMP_LONG_YE_PAY_AMT        : gfn_nvl(item.COMP_LONG_YE_PAY_AMT)
 
                     }
@@ -1483,9 +1483,9 @@
 
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE    : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME    : gfn_nvl(item.EMP_NAME),
-                        SOCIAL_NO   : gfn_nvl(item.SOCIAL_NO)
+                        EMP_CODE    : gfn_nvl(item.EMP_CD),
+                        EMP_NAME    : gfn_nvl(item.EMP_NM),
+                        SOCIAL_NO   : gfn_nvl(item.RGDT_NO)
 
                     }
                 });

@@ -35,7 +35,7 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3><!-- 감가상각 일시중지등록-->
                 </div>
-
+ 
             </div>
             <div class="box-body">
             	<div class="box-search-ma">
@@ -45,7 +45,7 @@
 					<%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
 				</div>
 				<!--[APC] END -->
-
+ 
                 <table class="table table-bordered tbl_fixed table-search-ma">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
@@ -54,19 +54,19 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
-
+ 
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -75,7 +75,7 @@
                     </colgroup>
                     <tbody>
                         <tr>
-
+ 
                             <th scope="row" class="th_bg_search">APC</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 								<sbux-select id="srch-slt-bizUnit" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
@@ -100,8 +100,8 @@
 										</div>
                             </td>
                             <td></td>
-
-
+ 
+ 
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg_search">중지시작년월</th>
@@ -162,8 +162,8 @@
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 									<sbux-select id="srch-slt-acntgCrtr1" name="srch-slt-acntgCrtr1" class="form-control input-sm"  uitype="single" jsondata-ref="jsonAcntgCrtr" group-id="group1"></sbux-select>
                             </td>
-
-
+ 
+ 
                         </tr>
                         <tr>
                         	<th scope="row" class="th_bg_search">담당부서</th>
@@ -205,8 +205,8 @@
                     </tbody>
                 </table>
                 </div>
-
-
+ 
+ 
 				<div class="row">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -215,10 +215,10 @@
 							</li>
 						</ul>
 					</div>
-
-
+ 
+ 
 					<div id="sb-area-grdDprcDtStopList" style="height:258px;width:100%"></div>
-
+ 
 				</div>
 				<div class="row">
 					<div class="ad_tbl_top">
@@ -242,19 +242,19 @@
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
 								<col style="width: 7%">
 								<col style="width: 2%">
-
+ 
 								<col style="width: 8%">
 								<col style="width: 7%">
 								<col style="width: 1%">
@@ -294,7 +294,7 @@
 										    </div>
 										</div>
                             		</td>
-
+ 
 		                        </tr>
 		                        <tr>
 		                            <th scope="row" class="th_bg">자산번호</th>
@@ -326,7 +326,7 @@
 		                            <td colspan="3" class="td_input" style="border-right:hidden;">
 											<sbux-input id="srch-inp-acqsAmt" name="srch-inp-acqsAmt" class="form-control input-sm" uitype="text" wrap-style="width:100%" permit-keycodes-set="num" exclude-kr="kr" group-id="group2"></sbux-input>
 		                            </td>
-
+ 
 		                        </tr>
                     		     <tr>
                     		     	<th scope="row" class="th_bg">중지시작년월</th>
@@ -343,7 +343,7 @@
 										></sbux-datepicker>
 		                            </td>
 		                            <td style="border-right:hidden;"></td>
-
+ 
 		                            <th scope="row" class="th_bg">중지종료년월</th>
 		                            <td colspan="3" class="td_input" style="border-right:hidden;">
 		                            	<sbux-datepicker
@@ -356,16 +356,16 @@
 											onchange="fn_dtpChange(srch-dtp-stopEndYmd)"
 											group-id="group2"
 										></sbux-datepicker>
-
+ 
 		                            </td>
 		                            <td style="border-right:hidden;"></td>
-
+ 
 		                            <th scope="row" class="th_bg">보조금금액</th>
 		                            <td colspan="3" class="td_input" style="border-right:hidden;">
 										<sbux-input id="srch-inp-asstncAmt" name="srch-inp-asstncAmt" class="form-control input-sm" uitype="text" wrap-style="width:100%" permit-keycodes-set="num" exclude-kr="kr" group-id="group2"></sbux-input>
 		                            </td>
                                  </tr>
-
+ 
 		                        <tr>
 		                            <th scope="row" class="th_bg">담당부서</th>
 		                            <td colspan="3" class="td_input" style="border-right: hidden;">
@@ -385,8 +385,8 @@
 										</div>
 									</td>
 									<td></td>
-
-
+ 
+ 
 		                            <th scope="row" class="th_bg">담당자</th>
 		                            <td colspan="3" class="td_input" style="border-right: hidden;">
 			                            <div style="display:flex;float:left;vertical-align:middle;width:100%">
@@ -411,20 +411,20 @@
 		                            <td colspan="9" style="border-right:hidden;">
 											<sbux-textarea id="srch-inp-rmrk" name="srch-inp-rmrk" class="form-control input-sm" uitype="normal" rows="3" group-id="group2"></sbux-textarea>
 		                            </td>
-
+ 
 		                        </tr>
 		                    </tbody>
 		                </table>
-
+ 
 				</div>
-
-
-
+ 
+ 
+ 
 				</div>
-
+ 
 			</div>
-
-
+ 
+ 
     </section>
     <!-- 팝업 Modal -->
     <div>
@@ -434,29 +434,29 @@
     	<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
     </div>
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
-
+ 
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
-
+ 
 	var p_ss_languageID			= '${loginVO.maLanguageID}';
 	var p_ss_defaultAcctRule 	= '${loginVO.maDefaultAcctRule}';
 	var p_ss_fiOrgCode			= '${loginVO.maFIOrgCode}';
 	var p_ss_siteCode			= '${loginVO.maSiteCode}';
 	//-----------------------------------------------------------
-
+ 
 	var editType			= "N";
-
+ 
 	var jsonRegionCode		= [];	// 지역
 	var stopPrcsYmdChk = true;
 	var deleteButton = true;
 	var saveButton = true;
-
+ 
 	//조회
 	function cfn_search(){
 		fnQRY_P_FIA5100_Q("LIST");
@@ -479,11 +479,11 @@
 		SBUxMethod.clearGroupData('group2');
 		//SBUxMethod.refreshAll();
 	}
-
+ 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
-			gfnma_setComSelect(['srch-slt-comp'], jsonCorp, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-comp'], jsonCorp, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//사업장
 			gfnma_multiSelectInit({
 				target			: ['#srch-slt-bplc1','#srch-slt-bplc2']
@@ -496,43 +496,43 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SITE_CODE'
-				,colLabel		: 'SITE_NAME'
+				,colValue		: 'SITE_CD'
+				,colLabel		: 'SITE_NM'
 				,columns		:[
-		            {caption: "사업장코드",	ref: 'SITE_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "사업장코드",	ref: 'SITE_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//회계기준
-			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', '1100'),
-
-			gfnma_setComSelect(['grdDprcDtStopList'], jsonSiteCd, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-
-
-
-
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', '1100'),
+ 
+			gfnma_setComSelect(['grdDprcDtStopList'], jsonSiteCd, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+ 
+ 
+ 
+ 
 		]);
 		//초기값 IFRS
 		SBUxMethod.set("srch-slt-acntgCrtr1",p_ss_defaultAcctRule);
 		SBUxMethod.set("srch-slt-acntgCrtr2",p_ss_defaultAcctRule);
 		SBUxMethod.set("srch-slt-bizUnit",p_ss_fiOrgCode);
-
-
-
+ 
+ 
+ 
 	}
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
+ 
     	fn_initSBSelect();
     	fn_createGrid1();
-
+ 
     	//fn_search();
-
+ 
 		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME',
+		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
 		//	function(list){
 		//		$('#SRCH_EMP_BTN').click(function(){
 		//			fn_compopup1(list);
@@ -540,13 +540,13 @@
 		//	}
 		//)
     });
-
+ 
     //grid 초기화
     var grdDprcDtStopList; 			// 그리드를 담기위한 객체 선언
     var jsonDprcDtStopList= []; 	// 그리드의 참조 데이터 주소 선언
-
-
-
+ 
+ 
+ 
     //json
     var jsonCorp = []; //법인
     var jsonBizUnit = []; //사업단위
@@ -554,8 +554,8 @@
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
 	var jsonSiteCd = []; //사업장
-
-
+ 
+ 
     function fn_createGrid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDprcDtStopList';
@@ -577,18 +577,18 @@
             {caption: ["중지종료년월"], 		ref: 'holdingEndYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["취득금액"], 		ref: 'acquireAmount', 				type:'output',		width:'80px',		style:'text-align:center'}
         ];
-
+ 
         grdDprcDtStopList = _SBGrid.create(SBGridProperties);
         //NationInGrid.bind('click', 'fn_view');
     }
-
+ 
     const queryClick = function()
 	{
     	let saveButton = true;
     	//saveButton 확인 필요
         if (saveButton){
             //let dr = SetYesNoMessageBox(GetFormMessage("FIA5100_002")); // 작업중 저장하지 않은 데이터가 존재합니다. 저장하시겠습니까?
-
+ 
             if (!gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장")) {	//	Q0001	{0} 하시겠습니까?
             	if (fnDataValidation("group2")){
             		saveClick();
@@ -597,23 +597,23 @@
                 }
             }
         }
-
+ 
         //let iBeforeFocus = gvwMaster.FocusedRowHandle; gvwMaster의 이전 focusedRow 정보를 저장해두는듯
-
+ 
 		fnQRY_P_FIA5100_Q("LIST");
-
+ 
         //if (iBeforeFocus == 0 && gvwMaster.FocusedRowHandle == 0)
         //    fnFocusedRowChanged();
-
+ 
         //if ()
         //    newClick();
         //else
         //    deleteButton = true;
 	}
-
-
-
-
+ 
+ 
+ 
+ 
     //paramObj 수정해야함 20240919
     //감가상각 일시중지등록 로직인듯
     //strStauts : N, U
@@ -630,13 +630,13 @@
         let rmrk = SBUxMethod.get("srch-inp-rmrk");//비고
         let acqsAmt = SBUxMethod.get("srch-inp-acqsAmt");// 취득금액
         let asstncAmt = SBUxMethod.get("srch-inp-asstncAmt");//보조금금액
-
+ 
     	 var paramObj = {
      			V_P_DEBUG_MODE_YN	: ''
      			,V_P_LANG_ID		: ''
      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
+ 
      		    ,V_P_SITE_CODE      : gfnma_nvl(bplc)
      		    ,V_P_ACCT_RULE_CODE : gfnma_nvl(acntgCrtr)
      		    ,V_P_ASSET_NO       : gfnma_nvl(astNo)
@@ -648,21 +648,21 @@
      		    ,V_P_EMP_CODE       : gfnma_nvl(pic)
      		    ,V_P_ACQUIRE_AMOUNT : gfnma_nvl(acqsAmt)
      		    ,V_P_SUBSIDIES_AMOUNT : gfnma_nvl(asstncAmt)
-
+ 
      			,V_P_FORM_ID		: p_formId
      			,V_P_MENU_ID		: p_menuId
      			,V_P_PROC_ID		: ''
      			,V_P_USERID			: ''
      			,V_P_PC				: ''
      	    };
-
+ 
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
           	getType				: 'json',
           	workType			:  strStauts,
           	cv_count			: '0',
           	params				: gfnma_objectToString(paramObj)
   			});
-
+ 
        	const data = await postJsonPromise;
          // 비즈니스 로직 정보
           try {
@@ -672,7 +672,7 @@
          } else {
              alert(data.resultMessage);
          }
-
+ 
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -681,12 +681,12 @@
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
     }
-
+ 
   	//paramObj 수정해야함 20240919
     //감가상각 일시중지등록 조회
     //strWorkType : LIST
     const fnQRY_P_FIA5100_Q = async function(strWorkType) {
-
+ 
          let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
          let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
          let bplc = gfnma_multiSelectGet("#srch-slt-bplc1")//사업장,site_code
@@ -704,7 +704,7 @@
      			,V_P_LANG_ID		: ''
      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-
+ 
      			,V_P_FI_ORG_CODE    : gfnma_nvl(bizUnit)
 			    ,V_P_SITE_CODE      : gfnma_nvl(bplc)
 			    ,V_P_ACCT_RULE_CODE : gfnma_nvl(acntgCrtr)
@@ -716,14 +716,14 @@
 			    ,V_P_EMP_CODE            : gfnma_nvl(pic)
 			    ,V_P_HOLDING_DATE        : gfnma_nvl(stopPrcsymd)
 			    ,V_P_ASSET_NO            : gfnma_nvl(astNo)
-
+ 
      			,V_P_FORM_ID		: p_formId
      			,V_P_MENU_ID		: p_menuId
      			,V_P_PROC_ID		: ''
      			,V_P_USERID			: ''
      			,V_P_PC				: ''
      	    };
-
+ 
 		 // 결과값 grdMaster에 바인딩해야함 -> 감가상각 일시정지 리스트 그리드
          const postJsonPromise = gfn_postJSON("/fi/fia/selectFia5100.do", {
           	getType				: 'json',
@@ -731,7 +731,7 @@
           	cv_count			: '1',
           	params				: gfnma_objectToString(paramObj)
   			});
-
+ 
        	const data = await postJsonPromise;
          // 비즈니스 로직 정보
           try {
@@ -739,12 +739,12 @@
              gfn_comAlert("I0001");
              jsonDprcDtStopList.length = 0;
              jsonDprcDtStopList = convertArrayToCamelCase(data.cv_1);
-
+ 
         	grdDprcDtStopList.rebuild();
          } else {
              alert(data.resultMessage);
          }
-
+ 
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -753,15 +753,15 @@
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
     }
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
     const fn_dtpChange = async function(){
     	//let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
     	//let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
-
+ 
     	//if(inptYmdFrom > inptYmdTo){
     	//	gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
     	//	SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -769,17 +769,17 @@
     	//	return;
     	//}
      }
-
+ 
     /**
      * 공통팝업
      * 담당부서
      */
      //
     var fn_tckgDeptPopup = function(id) {
-
+ 
     	var cdId = "";
     	var nmId = "";
-
+ 
     	if(id === "srch-inp-tckgDept2"){
     		cdId = "srch-inp-tckgDept1";
     		nmId = "srch-inp-tckgDept2";
@@ -787,13 +787,13 @@
     		cdId = "srch-inp-tckgDept3";
     		nmId = "srch-inp-tckgDept4";
     	}
-
+ 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
-        var replaceText0 	= "_DEPT_CODE_";
-        var replaceText1 	= "_DEPT_NAME_";
-
-
+        var replaceText0 	= "_DEPT_CD_";
+        var replaceText1 	= "_DEPT_NM_";
+ 
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	var addParams = [searchCode|searchName|null];
     	compopup1({
@@ -803,32 +803,32 @@
         	,popupType				: 'B'
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 				"부서명"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		//,searchInputTypes		: ["input", 			"input"]
     		,height					: '400px'
    			,tableHeader			: ["부서코드", 	"부서명","부서장","부서장명"]
-   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME","DEPT_LEADER","DEPT_LEADER_NAME"]
+   			,tableColumnNames		: ["DEPT_CD",	"DEPT_NM","DEPT_TMLDR","DEPT_LEADER_NAME"]
    			,tableColumnWidths		: ["120px", 	"120px","120px","120px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(cdId, 		data.DEPT_CODE);
-				SBUxMethod.set(nmId,		data.DEPT_NAME);
+				SBUxMethod.set(cdId, 		data.DEPT_CD);
+				SBUxMethod.set(nmId,		data.DEPT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
-
+ 
     /**
      * 공통팝업
      * 담당자
      */
      //
     var fn_picPopup= function(id) {
-
+ 
     	var cdId = "";
     	var nmId = "";
-
+ 
     	if(id === "srch-inp-pic2"){
     		cdId = "srch-inp-pic1";
     		nmId = "srch-inp-pic2";
@@ -836,13 +836,13 @@
     		cdId = "srch-inp-dspsTab-pic1";
     		nmId = "srch-inp-dspsTab-pic2";
     	}
-
+ 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= "_EMP_NM_";
         var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -851,34 +851,34 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
+   			,searchInputFields		: ["EMP_CD", 	"EMP_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["담당자코드", 	"담당자명"]
-   			,tableColumnNames		: ["EMP_CODE",	"EMP_NAME"]
+   			,tableColumnNames		: ["EMP_CD",	"EMP_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(cdId, 		data.EMP_CODE);
-				SBUxMethod.set(nmId,		data.EMP_NAME);
+				SBUxMethod.set(cdId, 		data.EMP_CD);
+				SBUxMethod.set(nmId,		data.EMP_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
-
+ 
     /**
      * 공통팝업
      * 자산
      */
      //
     var fn_astPopup= function() {
-
+ 
         var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-astNo1"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-astNo2"));
-        var replaceText0 	= "_ASSET_NO_";
-        var replaceText1 	= "_ASSET_NAME_";
+        var replaceText0 	= "_ASST_NO_";
+        var replaceText1 	= "_ASST_NM_";
         var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
-
+ 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -887,27 +887,27 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["번호", 				"명칭"]
-   			,searchInputFields		: ["ASSET_NO", 	"ASSET_NAME"]
+   			,searchInputFields		: ["ASST_NO", 	"ASST_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["자산번호", 	"자산명"]
-   			,tableColumnNames		: ["ASSET_NO",	"ASSET_NAME"]
+   			,tableColumnNames		: ["ASST_NO",	"ASST_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-astNo1', 		data.ASSET_NO);
-				SBUxMethod.set('srch-inp-astNo2',		data.ASSET_NAME);
+				SBUxMethod.set('srch-inp-astNo1', 		data.ASST_NO);
+				SBUxMethod.set('srch-inp-astNo2',		data.ASST_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
   	}
-
+ 
     const fnFocusedRowChanged = function(){
     	// 뭔가 그리드 패널 설정하는거?
     	// grdMaster -> 감가상각일시정지 그리드
     	// panDetail -> 감가상각일시정지 내역 편집
         //SetPanelFromGrid(grdMaster, panDetail);
-
+ 
         //중지처리일 readonly 처리ymdholding_date.Properties.ReadOnly = true;
         SBUxMethod.attr("srch-dtp-stopPrcsYmd","readonly","true");
         stopPrcsYmdChk = true;
@@ -919,67 +919,67 @@
         //txtasset_name.Properties.ReadOnly = true;
         //txtasset_name.Properties.Popup.BizComponentID = "";
     }
-
+ 
 	 const newClick = function(){
-
+ 
         //InitControls(panDetail);
 		SBUxMethod.refreshGroup("group1");
         //ymdholding_date.Text = CurrentDate("yyyyMMdd"); 중지처리일 오늘날짜로 변경
         let nowDate = new Date();
 		let nowYmd = gfn_dateToYmd(nowDate);
 		SBUxMethod.set("srch-dtp-stopPrcsYmd",nowYmd);
-
+ 
         //txtasset_no.Focus(); 자산번호 포커스
         SBUxMethod.focus("srch-inp-astNo1");
-
+ 
         //ymdholding_date.Properties.ReadOnly = false;
         SBUxMethod.attr("srch-dtp-stopPrcsYmd","readonly","false");
         stopPrcsYmdChk = false;
-
+ 
         SBUxMethod.attr("srch-inp-astNo1","readonly","false");
         SBUxMethod.attr("srch-inp-astNo2","readonly","false"); // 자산명 readonly
         //txtasset_no.Properties.ReadOnly = false;
         //txtasset_no.Properties.Popup.BizComponentID = "P_FIA001";
         //txtasset_name.Properties.ReadOnly = false;
         //txtasset_name.Properties.Popup.BizComponentID = "P_FIA001";
-
+ 
 		//저장, 삭제 버튼 false 처리
         saveButton = false;
         deleteButton = false;
      }
-
+ 
      const saveClick = function(){
      		//panDetail -> 하단 검색조건 validationg check
             if (!fnDataValidation("group2")){
-
+ 
             }
             //    return;
-
+ 
             let strStatus = "";
-
+ 
 			//중지처리일 readonly 속성값 따로 저장해두기 stopPrcsYmdChk
             if (!stopPrcsYmdChk)
                 strStatus = "N";
             else
                 strStatus = "U";
-
+ 
             if (fnSET_P_FIA5100_S(strStatus))
             {
                 // 자산번호, 중지처리일 |로 나눠서 strFocus index 찾은 뒤에 포커스
                 let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
                 let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");
-
+ 
                 let strFocus = astNo + "|" + stopPrcsymd;
-
+ 
                 queryClick();
-
+ 
                 //gvwMaster.FocusedRowHandle = GetGridRowIndex(grdMaster, "focus", strFocus);
             }
  		}
-
+ 
  	const deleteClick = function(){
             //DialogResult dr = SetYesNoMessageBox("[" + txtasset_name.Text + "-" + ymdholding_date.yyyymmdd + "]" + GetFormMessage("FIA5100_001")); // 감가상각 일시중지 내역을 삭제하시겠습니까?
-
+ 
 			//Q0001 {0} 하시겠습니까?
             if (gfn_comConfirm("Q0001", "삭제")){
                 if (fnSET_P_FIA5100_S("D")){
@@ -987,7 +987,7 @@
                 }
             }
 		}
-
+ 
  	const fnDataValidation = function(group){
  		//component_value 값이 undefined or null or "" 인경우 return 되도록
 		let data = SBUxMethod.getGroupData(group);
@@ -1001,12 +1001,12 @@
 		})
 		return chkValidation;
  	}
-
+ 
  	/** camelCase FN **/
     function toCamelCase(snakeStr) {
         return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
     }
-
+ 
     function convertArrayToCamelCase(array) {
         return array.map(obj => {
             return Object.keys(obj).reduce((acc, key) => {
@@ -1016,15 +1016,15 @@
             }, {});
         });
     }
-
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

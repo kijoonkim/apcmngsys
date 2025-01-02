@@ -56,7 +56,7 @@ public class ApcMaFig4180Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG4180_Q");
+    		param.put("procedure", 		"SP_FIG4180_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaFig4180Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG4180_Q2");
+    		param.put("procedure", 		"SP_FIG4180_Q2");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {

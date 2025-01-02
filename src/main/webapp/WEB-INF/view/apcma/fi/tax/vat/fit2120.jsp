@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -86,19 +86,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -208,7 +208,7 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="TOTAL_SUPPLY_AMT" name="TOTAL_SUPPLY_AMT" uitype="text"
+                                            <sbux-input id="TOT_SPLY_AMT" name="TOT_SPLY_AMT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -456,32 +456,32 @@
     var jsonCbotaxRepDtlType = [];
     /** 환급 구분 **/
     var jsonCboRfType = [];
-
+ 
     var jsonCorpNm = [];
     var jsonGrdList = [];
     var jsonGrdAr = [];
     var jsonGrdAp = [];
-
+ 
     var grdListGrid;
     var grdAr;
     var grdAp;
-
+ 
     window.addEventListener("DOMContentLoaded",function(e){
         fn_createGrid();
         fn_createGridAr();
         fn_createGridAp();
         fn_init();
     });
-
+ 
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy',yyyy);
-
+ 
         /** 신고구분명 select **/
         await fn_setMultSelect(yyyy);
     }
@@ -494,27 +494,27 @@
             , compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , bizcompId: 'L_FIT030'
-            , whereClause: 'AND A.YYYY = ' + "'" + yyyy + "'"
+            , whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
             , formId: p_formId
             , menuId: p_menuId
             , selectValue: ''
             , dropType: 'down' 	// up, down
             , dropAlign: '' 	// left, right
             , colValue: 'SEQ'
-            , colLabel: 'VAT_TYPE_NAME'
+            , colLabel: 'VAT_TMPLT_NM'
             , columns: [
-                {caption: "부가세유형", ref: 'VAT_TYPE_NAME', width: '120px', style: 'text-align:left'},
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
                 {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
                 {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
                 {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
-                {caption: "단위과세번호", ref: 'WHOLE_PAY_SITE_NO', width: '150px', style: 'text-align:left'},
-                {caption: "확정여부", ref: 'CONFIRM_YN', width: '150px', style: 'text-align:left'},
+                {caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+                {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
                 {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
             , callback: fn_choice
         });
     }
-
+ 
         async function fn_choice(_value){
         /** reset **/
         let tabType = SBUxMethod.get('tabVATtax');
@@ -531,7 +531,7 @@
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -539,7 +539,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -562,12 +562,12 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
         let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
         paramObj.V_P_AR_AP_TYPE = arapType;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2120.do", {
             getType				: 'json',
             cv_count			: '13',
@@ -582,7 +582,7 @@
                 grdListGrid.setRow(1);
                 let workType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'Q':'Q1';
                 paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
-
+ 
                 const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2120.do", {
                     getType				: 'json',
                     cv_count			: '13',
@@ -606,7 +606,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -614,8 +614,8 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
@@ -628,10 +628,10 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
             {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['상호(법인명)'],          ref : 'CNPT_NM',      width : '30%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매수'],          ref : 'TXIV_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['공급가액'],          ref : 'SPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
             {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
         ];
         grdAr = _SBGrid.create(SBGridProperties);
@@ -644,10 +644,10 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
             {caption : ['순번'],               ref : 'TAX_BILL_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['상호(법인명)'],          ref : 'CS_NAME',      width : '30%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매수'],          ref : 'BILL_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['공급가액'],          ref : 'SUPPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '20%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['상호(법인명)'],          ref : 'CNPT_NM',      width : '30%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매수'],          ref : 'TXIV_CNT',      width : '10%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['공급가액'],          ref : 'SPLY_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
             {caption : ['세액'],          ref : 'VAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'output'},
         ];
         grdAp = _SBGrid.create(SBGridProperties);
@@ -655,55 +655,55 @@
     const resizer = document.getElementById('resizer');
     const leftSide = resizer.previousElementSibling;
     const rightSide = resizer.nextElementSibling;
-
+ 
     let x = 0;
     let y = 0;
-
+ 
     let leftWidth = 0;
-
+ 
     const mouseDownHandler = function (e) {
         x = e.clientX;
         y = e.clientY;
         leftWidth = leftSide.getBoundingClientRect().width;
-
+ 
         document.addEventListener('mousemove', mouseMoveHandler);
         document.addEventListener('mouseup', mouseUpHandler);
     };
-
+ 
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
         const dy = e.clientY - y;
-
+ 
         document.body.style.cursor = 'col-resize';
-
+ 
         leftSide.style.userSelect = 'none';
         leftSide.style.pointerEvents = 'none';
-
+ 
         rightSide.style.userSelect = 'none';
         rightSide.style.pointerEvents = 'none';
-
+ 
         const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
         leftSide.style.width = `${'${newLeftWidth}'}%`;
         grdListGrid.resize();
         grdAr.resize();
         grdAp.resize();
     };
-
+ 
     const mouseUpHandler = function () {
         resizer.style.removeProperty('cursor');
         document.body.style.removeProperty('cursor');
-
+ 
         leftSide.style.removeProperty('user-select');
         leftSide.style.removeProperty('pointer-events');
-
+ 
         rightSide.style.removeProperty('user-select');
         rightSide.style.removeProperty('pointer-events');
-
+ 
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
     };
     resizer.addEventListener('mousedown', mouseDownHandler);
-
+ 
     function cfn_save() {
         fn_save();
     }
@@ -727,7 +727,7 @@
         }
         await fn_choice(_value);
     }
-
+ 
     async function fn_afterSelectTab(_id){
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
@@ -750,18 +750,18 @@
         let arapType = _id === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
         let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
         let workType = _id === 'tpgAR'? 'Q':'Q1';
-
+ 
         paramObj.V_P_AR_AP_TYPE = arapType;
         paramObj.V_P_SEQ = seq;
-
+ 
         /** 사업장 리스트 chk **/
         let gridIdx = grdListGrid.getRow();
         if(gridIdx < 0){
             return;
         }
-
+ 
         paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(gridIdx).TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2120.do", {
             getType				: 'json',
             cv_count			: '13',
@@ -805,7 +805,7 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
@@ -839,17 +839,17 @@
         grdAr.rebuild();
         jsonGrdAr.length = 0;
         grdAp.rebuild();
-
+ 
         gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
         let inputs = document.querySelectorAll("div.tab-content table input");
         inputs.forEach(function(item){
             $(item).val(0);
         });
     }
-
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

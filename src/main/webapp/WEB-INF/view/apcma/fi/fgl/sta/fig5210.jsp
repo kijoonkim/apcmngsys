@@ -40,7 +40,7 @@
 					<sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="리포트 출력" onclick="fn_btnPrint"></sbux-button>
                 </div>
             </div>
-
+ 
  			<div class="box-body">
             
 	            <div class="box-search-ma">
@@ -213,10 +213,10 @@
         </div>
     </section>
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -224,7 +224,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var p_ss_issAccountChief	= '${loginVO.maIsAccountChief}';
 	var p_ss_isAccountManager	= '${loginVO.maIsAccountManager}';
 	var p_ss_defaultAcctRule	= '${loginVO.maDefaultAcctRule}';
@@ -254,18 +254,18 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CURRENCY_CODE'],		jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCOUNT_GROUP'],		jsonAccountGroup, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
@@ -281,7 +281,7 @@
     	
     	fn_init();
     });
-
+ 
     /**
      * 화면 state 변경
      */
@@ -356,7 +356,7 @@
             {caption: ["대변",			"대변기초잔액"],	ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fig5210Grid = _SBGrid.create(SBGridProperties);
         //Fig5210Grid.bind('click', 'fn_viewFig5210GridEvent');
     }
@@ -418,11 +418,11 @@
             {caption: ["대변기초잔액"],		ref: 'CREDIT_BAL_AMT_F_BEGIN', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fig5210Tree = _SBGrid.create(SBGridProperties);
         //Fig5210Grid.bind('click', 'fn_viewFig5210GridEvent');
     }
-
+ 
     /**
      * 목록 조회
      */
@@ -436,7 +436,7 @@
 	    	fn_setFig5210Tree('Q2');
     	}
     }
-
+ 
     /**
      * 시산표(밴드) 목록조회
      */
@@ -448,7 +448,7 @@
     	//--------------------------
     	
 		Fig5210Grid.clearStatus();
-
+ 
 		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
@@ -496,31 +496,31 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig5210Grid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW		: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
-  						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),
+  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.GAAP_CD),
+  						COMP_CODE				: gfnma_nvl2(item.CO_CD),
   						CREDIT_BALANCE_AMT_F	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_F),
   						CREDIT_BALANCE_AMT_O	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_O),
   						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_F_BEGIN),
@@ -533,23 +533,23 @@
   						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_O_BEGIN),
   						DEBIT_SUM_AMT_F			: gfnma_nvl2(item.DEBIT_SUM_AMT_F),
   						DEBIT_SUM_AMT_O			: gfnma_nvl2(item.DEBIT_SUM_AMT_O),
-  						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
+  						FI_ORG_CODE				: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 				: gfnma_nvl2(item.FONT_SIZE),
-  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACNT_CD),
+  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACNT_NM),
   						SORT_SEQ 				: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5210Grid.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fig5210Grid.rebuild();
         		fn_setStyleGrid();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -558,7 +558,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
     /**
      * 시산표(트리) 목록조회
      */
@@ -570,7 +570,7 @@
     	//--------------------------
     	
 		Fig5210Tree.clearStatus();
-
+ 
 		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_site_code			= gfnma_nvl(SBUxMethod.get("SCH_SITE_CODE"));
@@ -618,31 +618,31 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig5210Tree.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW		: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
-  						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),
+  						ACCOUNT_GROUP			: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.GAAP_CD),
+  						COMP_CODE				: gfnma_nvl2(item.CO_CD),
   						CREDIT_BALANCE_AMT_F	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_F),
   						CREDIT_BALANCE_AMT_O	: gfnma_nvl2(item.CREDIT_BALANCE_AMT_O),
   						CREDIT_BAL_AMT_F_BEGIN	: gfnma_nvl2(item.CREDIT_BAL_AMT_F_BEGIN),
@@ -655,28 +655,28 @@
   						DEBIT_BAL_AMT_O_BEGIN	: gfnma_nvl2(item.DEBIT_BAL_AMT_O_BEGIN),
   						DEBIT_SUM_AMT_F			: gfnma_nvl2(item.DEBIT_SUM_AMT_F),
   						DEBIT_SUM_AMT_O			: gfnma_nvl2(item.DEBIT_SUM_AMT_O),
-  						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
+  						FI_ORG_CODE				: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 				: gfnma_nvl2(item.FONT_SIZE),
-  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
-  						KEYID 					: gfnma_nvl2(item.KEYID),
+  						HQ_ACCOUNT_CODE 		: gfnma_nvl2(item.HQ_ACNT_CD),
+  						HQ_ACCOUNT_NAME 		: gfnma_nvl2(item.HQ_ACNT_NM),
+  						KEYID 					: gfnma_nvl2(item.KEY_ID),
   						LEVEL 					: gfnma_nvl2(item.LEVEL),
-  						PARENTKEYID 			: gfnma_nvl2(item.PARENTKEYID),
-  						REPORT_ACCOUNT_CODE 	: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 	: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
+  						PARENTKEYID 			: gfnma_nvl2(item.UP_KEY_ID),
+  						REPORT_ACCOUNT_CODE 	: gfnma_nvl2(item.RPT_ACNT_CD),
+  						REPORT_ACCOUNT_NAME 	: gfnma_nvl2(item.RPT_ACNT_NM),
   						SORT_SEQ 				: gfnma_nvl2(item.SORT_SEQ),
   					}
   					jsonFig5210Tree.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fig5210Tree.rebuild();
         		fn_setStyleTree();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -692,7 +692,7 @@
     const fn_tabClick = function(val) {
     	p_sel_tab = val;
     }
-
+ 
     /**
      * 그리드 타이틀
      */
@@ -718,7 +718,7 @@
 			gd2_title_dae	= '대변합계';
 		}
     }
-
+ 
     /**
      * 당월 check
      */
@@ -730,7 +730,7 @@
     		SBUxMethod.set('SCH_YMDPERIOD_TO', 		edate);
     	}
     }
-
+ 
     /**
      * 시산표(밴드) 합계 색상
      */
@@ -748,7 +748,7 @@
 	      	Fig5210Grid.clearSelection();
       	}
   	}     
-
+ 
     /**
      * 시산표(트리) 합계 색상
      */
@@ -766,14 +766,14 @@
       		Fig5210Tree.clearSelection();
       	}
   	}    
-
+ 
     /**
      * 트리펼치기
      */
     var fn_treeOpen = function() {
     	Fig5210Tree.openTreeNodeAll();
   	}    
-
+ 
     /**
      * 트리접기
      */

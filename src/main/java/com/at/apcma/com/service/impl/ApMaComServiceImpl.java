@@ -85,7 +85,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		try {
 			
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -106,7 +106,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				{"V_P_SERVER_FILE_NAME",	""},
 				{"V_P_FORM_ID",				param.get("formID").toString()},
 				{"V_P_MENU_ID",				param.get("menuId").toString()},
-				{"V_P_PROC_ID",				"P_COM5100_S"},
+				{"V_P_PROC_ID",				"SP_COM5100_S"},
 				{"V_P_USERID",				ssmap.get("USERID").toString()},
 				{"V_P_PC",					param.get("ipAddress").toString()}
         	};			
@@ -134,7 +134,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			}
 			
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -155,7 +155,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				{"V_P_SERVER_FILE_NAME",	""},
 				{"V_P_FORM_ID",				param.get("formID").toString()},
 				{"V_P_MENU_ID",				param.get("menuId").toString()},
-				{"V_P_PROC_ID",				"P_COM5100_S"},
+				{"V_P_PROC_ID",				"SP_COM5100_S"},
 				{"V_P_USERID",				ssmap.get("USERID").toString()},
 				{"V_P_PC",					param.get("ipAddress").toString()}
         	};			
@@ -176,7 +176,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		try {
 			
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -197,7 +197,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_SERVER_FILE_NAME",	""},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_S"},
+					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			
@@ -221,7 +221,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			
 			//get delete key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
-			gmap4.put("procedure", 			"P_COM5100_Q");
+			gmap4.put("procedure", 			"SP_COM5100_Q");
 			gmap4.put("workType", 			"Q2");
 			gmap4.put("getType", 			"json");
 			gmap4.put("cv_count", 			"1");
@@ -237,7 +237,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_USER",				""},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_Q"},
+					{"V_P_PROC_ID",				"SP_COM5100_Q"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			
@@ -252,7 +252,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			
 			//delete data --------------------------------------------------------
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -273,7 +273,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_SERVER_FILE_NAME",	""},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_S"},
+					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			
@@ -315,7 +315,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			
 			//save 프로시저
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -336,7 +336,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_SERVER_FILE_NAME",	map1.get("saveFileName").toString()},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_S"},
+					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			
@@ -412,7 +412,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			
 			//save 프로시저
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
-			gmap1.put("procedure", 			"P_COM5100_S");
+			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			"N");
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
@@ -433,7 +433,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_SERVER_FILE_NAME",	map1.get("saveFileName").toString()},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_S"},
+					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			
@@ -446,7 +446,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 
 			//save 프로시저
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
-			gmap4.put("procedure", 			"P_COM5100_S");
+			gmap4.put("procedure", 			"SP_COM5100_S");
 			gmap4.put("workType", 			"N");
 			gmap4.put("getType", 			"json");
 			gmap4.put("cv_count", 			"0");
@@ -467,7 +467,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_SERVER_FILE_NAME",	map2.get("saveFileName").toString()},
 					{"V_P_FORM_ID",				param.get("formID").toString()},
 					{"V_P_MENU_ID",				param.get("menuId").toString()},
-					{"V_P_PROC_ID",				"P_COM5100_S"},
+					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
 			};			

@@ -35,23 +35,23 @@
 					</tbody>
 				</table>
 			</div>
-
+ 
 		</div>
 		<!--[pp] //검색결과 -->
 	</div>
 </section>
 </body>
 <script>
-
+ 
 	/**
 	 * @description 전기취소
 	 */
 	function compopfbspassword(options) {
-
+ 
 		// id 선언
 		var modalId  	= '#compopfbspassword';
 		var modalDivId 	= 'modal-compopfbspassword';
-
+ 
 		var settings = {
 			callbackEvent			: null
 		};

@@ -522,7 +522,7 @@
     var jsonAccount = []; // 계정과목= ACCOUNT_CODE
 
     const fn_initSBSelect = async function() {
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
 
         let rst = await Promise.all([
             // APC명
@@ -537,11 +537,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'FI_ORG_CODE'
-                ,colLabel		: 'FI_ORG_NAME'
+                ,colValue		: 'ACNTG_OGNZ_CD'
+                ,colLabel		: 'ACNTG_OGNZ_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'FI_ORG_CODE', 		width:'300px',  	style:'text-align:left'},
-                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'300px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'ACNTG_OGNZ_CD', 		width:'300px',  	style:'text-align:left'},
+                    {caption: "명", 		ref: 'ACNTG_OGNZ_NM',    		width:'300px',  	style:'text-align:left'}
                 ]
             }),
             // 제외사유
@@ -558,30 +558,30 @@
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
                 ,colValue		: 'CODE'
-                ,colLabel		: 'NAME'
+                ,colLabel		: 'FAM_NM'
                 ,columns		:[
                     {caption: "제외사유",		ref: 'CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "제외내용", 		ref: 'NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "제외내용", 		ref: 'FAM_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 전자세금계산서분류
-            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceCategory, 'L_FIG3100', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전자세금계산서종류
-            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEinvoiceType, 'L_FIG3100_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 정발행/역발행
-            gfnma_setComSelect(['gvwListGrid'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonMatchMethod, 'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 영수/청구 구분
-            gfnma_setComSelect(['gvwListGrid'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 원가중심점코드
-            gfnma_setComSelect(['gvwItemGrid'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COST_CENTER_CODE', 'COST_CENTER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwItemGrid'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             //부서코드
-            gfnma_setComSelect(['gvwItemGrid'], jsonDeptCode, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwItemGrid'], jsonDeptCode, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
             //프로젝트코드
-            gfnma_setComSelect(['gvwItemGrid'], jsonProjectCode, 'P_COM028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PROJECT_CODE', 'PROJECT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwItemGrid'], jsonProjectCode, 'P_COM028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PJT_CD', 'PJT_NM', 'Y', ''),
             //계정과목
-            gfnma_setComSelect(['gvwItemGrid'], jsonAccount, 'P_FIM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACCOUNT_CODE', 'ACCOUNT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwItemGrid'], jsonAccount, 'P_FIM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTL_CD', 'ACNT_NM', 'Y', ''),
         ]);
     }
 
@@ -596,18 +596,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -616,13 +616,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -632,15 +632,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -654,12 +654,11 @@
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         SBUxMethod.openModal('modal-compopup1');
 
-
         var searchText 		= "";
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= "_CNPT_NM_";
+        var replaceText2 	= "_BRNO_";
+        var strWhereClause 	= "AND a.CNPT_CD LIKE '%" + replaceText0 + "%' AND a.CNPT_NM LIKE '%" + replaceText1 + "%' AND a.BRNO LIKE '%"+ replaceText2 + "%'";
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -668,17 +667,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사업자번호" ]
-            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputFields		: ["CNPT_CD"   , 	"CNPT_NM",  "BRNO"]
             ,searchInputValues		: [""          , 	searchText, ""         ]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BRNO", "CEO_NM","BZSTAT" ,"TPBIZ","ADDR","TELNO"   ,"FX_NO"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('PO_DOC_NO'), data['CS_CODE']);
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CS_NAME']);
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CHIEF_NAME']);
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_ADDRESS'), data['ADDRESS']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('PO_DOC_NO'), data['CNPT_CD']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_NAME'), data['CNPT_NM']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_OWNER'), data['CEO_NM']);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('SELLER_ADDRESS'), data['ADDR']);
             }
         });
     }
@@ -695,17 +694,17 @@
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
             ,searchInputValues		: ["", 			searchText,		""]
             ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, col, data.EMP_CODE);
-                gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
+                gvwListGrid.setCellData(row, col, data.EMP_CD);
+                gvwListGrid.setCellData(row, (col+1), data.EMP_NM);
             },
         });
     }
@@ -723,18 +722,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_NAME'), data['DEPT_NAME']);
-                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CODE']);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_NAME'), data['DEPT_NM']);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('DEPT_CODE'), data['DEPT_CD']);
             },
         });
     }
@@ -751,17 +750,17 @@
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
             ,searchInputValues		: ["", 			searchText,		""]
             ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, col, data.EMP_CODE);
-                gvwListGrid.setCellData(row, (col+1), data.EMP_NAME);
+                gvwListGrid.setCellData(row, col,     data.EMP_CD);
+                gvwListGrid.setCellData(row, (col+1), data.EMP_NM);
             },
         });
     }
@@ -809,17 +808,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
-            ,searchInputFields		: ["PROJECT_CODE",	"PROJECT_NAME"]
+            ,searchInputFields		: ["PJT_CD",	"PJT_NM"]
             ,searchInputValues		: ["", 			searchText]
             ,searchInputTypes		: ["input", 	"input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			""]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["프로젝트코드", "프로젝트명"]
-            ,tableColumnNames		: ["PROJECT_CODE", "PROJECT_NAME"]
+            ,tableColumnNames		: ["PJT_CD", "PJT_NM"]
             ,tableColumnWidths		: ["150px", "250px"]
             ,itemSelectEvent		: function (data){
-                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_CODE'), data.PROJECT_CODE);
-                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_NAME'), data.PROJECT_NAME);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_CODE'), data.PJT_CD);
+                gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('PROJECT_NAME'), data.PJT_NM);
             },
         });
     }
@@ -842,7 +841,7 @@
             ,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
             ,height					: '400px'
             ,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
-            ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
+            ,tableColumnNames		: ["APLY_ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"]
             ,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
             ,itemSelectEvent		: function (data){
                 gvwItemGrid.setCellData(row, gvwItemGrid.getColRef('ACCOUNT_CODE'), data.ACCOUNT_CODE);
@@ -863,17 +862,17 @@
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME",	"EMP_NAME", 	"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
             ,searchInputValues		: ["", 			searchText,		""]
             ,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px"    , "80px"    , "120px"     , "120px"    , "80px"]
             ,itemSelectEvent		: function (data){
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CODE);
-                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NAME);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_CODE'), data.EMP_CD);
+                gvwListGrid.setCellData(row, gvwListGrid.getColRef('ACCOUNT_EMP_NAME'), data.EMP_NM);
             },
         });
     }
@@ -1702,13 +1701,13 @@
             {caption: ["공급자이메일"], ref: 'SELLER_EMAIL', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일1"], ref: 'BUYER_EMAIL1', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["구매자이메일2"], ref: 'BUYER_EMAIL2', type: 'input', width: '140px', style: 'text-align:left'},
-           /* {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
-            },
-            //고정
-            {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
-            },*/
+            /* {caption : ["전표담당자코드"], ref : 'ACCOUNT_EMP_CODE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
+             },
+             //고정
+             {caption : ["전표담당자"], ref : 'ACCOUNT_EMP_NAME', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+                 typeinfo : {ref : 'jsonEmpState', displayui : true, label : 'label', value : 'value'}
+             },*/
             {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["전표담당자 조회"], 			ref: 'ACCOUNT_EMP_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
@@ -1744,6 +1743,7 @@
         gvwListGrid.bind('click', 'fn_view');
         gvwListGrid.bind('keyup', 'fn_keyup');
     }
+
 
 
     //조회 리스트
@@ -1896,7 +1896,7 @@
      */
     const fn_search = async function () {
 
-       /* let YMDPERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
+        /* let YMDPERIOD_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_YMDPERIOD_YYYYMM")); //년월*/
         //let FI_ORG_CODE = gfn_nvl(SBUxMethod.get("srch-fi_org_code")); //회계단위
         let FI_ORG_CODE     = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');//APC명
         let RIDGUBUN        = gfn_nvl(SBUxMethod.get("SRCH_RIDGUBUN")); //조회구분
@@ -1970,69 +1970,69 @@
                 jsonList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        ROW_STATUS		        : gfn_nvl(item.ROW_STATUS),
+                        ROW_STATUS		        : gfn_nvl(item.ROW_STTS),
                         CHECK_YN		        : gfn_nvl(item.CHECK_YN),
-                        WRITE_DATE		        : gfn_nvl(item.WRITE_DATE),
-                        APPROVAL_NO		        : gfn_nvl(item.APPROVAL_NO),
-                        ISSUE_DATE		        : gfn_nvl(item.ISSUE_DATE),
-                        SEND_DATE		        : gfn_nvl(item.SEND_DATE),
-                        SELLER_REG_NO		    : gfn_nvl(item.SELLER_REG_NO),
-                        SELLER_SUB_REG_NO		: gfn_nvl(item.SELLER_SUB_REG_NO),
-                        CS_CODE		            : gfn_nvl(item.CS_CODE),
+                        WRITE_DATE		        : gfn_nvl(item.WRT_YMD),
+                        APPROVAL_NO		        : gfn_nvl(item.APRV_NO),
+                        ISSUE_DATE		        : gfn_nvl(item.ISSU_YMD),
+                        SEND_DATE		        : gfn_nvl(item.SPLY_YMD),
+                        SELLER_REG_NO		    : gfn_nvl(item.SPLR_BRNO),
+                        SELLER_SUB_REG_NO		: gfn_nvl(item.SPLR_SBSD_BPLC_NO),
+                        CS_CODE		            : gfn_nvl(item.CNPT_CD),
                         CS_CODE_ORG		        : gfn_nvl(item.CS_CODE_ORG),
-                        SELLER_NAME		        : gfn_nvl(item.SELLER_NAME),
-                        SELLER_OWNER		    : gfn_nvl(item.SELLER_OWNER),
-                        SELLER_BIZ_CATEGORY		: gfn_nvl(item.SELLER_BIZ_CATEGORY),
-                        SELLER_BIZ_ITEM		    : gfn_nvl(item.SELLER_BIZ_ITEM),
-                        SELLER_BIZ_TYPE		    : gfn_nvl(item.SELLER_BIZ_TYPE),
-                        BUYER_REG_NO		    : gfn_nvl(item.BUYER_REG_NO),
-                        BUYER_SUB_REG_NO		: gfn_nvl(item.BUYER_SUB_REG_NO),
-                        BUYER_NAME		        : gfn_nvl(item.BUYER_NAME),
-                        BUYER_OWNER		        : gfn_nvl(item.BUYER_OWNER),
-                        BUYER_BIZ_CATEGORY		: gfn_nvl(item.BUYER_BIZ_CATEGORY),
-                        BUYER_BIZ_ITEM		    : gfn_nvl(item.BUYER_BIZ_ITEM),
-                        BUYER_BIZ_TYPE		    : gfn_nvl(item.BUYER_BIZ_TYPE),
-                        TOTAL_AMT		        : gfn_nvl(item.TOTAL_AMT),
-                        TOTAL_TAXABLE_AMT		: gfn_nvl(item.TOTAL_TAXABLE_AMT),
-                        TOTAL_VAT_AMT		    : gfn_nvl(item.TOTAL_VAT_AMT),
+                        SELLER_NAME		        : gfn_nvl(item.SPLR_NM),
+                        SELLER_OWNER		    : gfn_nvl(item.SPLR_RPRSV),
+                        SELLER_BIZ_CATEGORY		: gfn_nvl(item.SPLR_TPBIZ),
+                        SELLER_BIZ_ITEM		    : gfn_nvl(item.SPLR_BZSTAT),
+                        SELLER_BIZ_TYPE		    : gfn_nvl(item.SPLR_TYPE),
+                        BUYER_REG_NO		    : gfn_nvl(item.BYR_BRNO),
+                        BUYER_SUB_REG_NO		: gfn_nvl(item.BYR_SBSD_BPLC_REGNO),
+                        BUYER_NAME		        : gfn_nvl(item.BYR_NM),
+                        BUYER_OWNER		        : gfn_nvl(item.BYR_RPRSV_NM),
+                        BUYER_BIZ_CATEGORY		: gfn_nvl(item.BYR_TPBIZ),
+                        BUYER_BIZ_ITEM		    : gfn_nvl(item.BYR_BZSTAT),
+                        BUYER_BIZ_TYPE		    : gfn_nvl(item.BYR_BIZ_TYPE),
+                        TOTAL_AMT		        : gfn_nvl(item.TOT_AMT),
+                        TOTAL_TAXABLE_AMT		: gfn_nvl(item.TOT_SPLY_AMT),
+                        TOTAL_VAT_AMT		    : gfn_nvl(item.TOT_VAT_AMT),
                         DOC_TOTAL_AMT		    : gfn_nvl(item.DOC_TOTAL_AMT),
                         DOC_SUPPLY_AMT		    : gfn_nvl(item.DOC_SUPPLY_AMT),
                         DOC_VAT_AMT		        : gfn_nvl(item.DOC_VAT_AMT),
                         DIFF_FLAG		        : gfn_nvl(item.DIFF_FLAG),
-                        EINVOICE_CATEGORY		: gfn_nvl(item.EINVOICE_CATEGORY),
-                        EINVOICE_TYPE		    : gfn_nvl(item.EINVOICE_TYPE),
-                        MATCH_METHOD		    : gfn_nvl(item.MATCH_METHOD),
-                        ISSUE_TYPE		        : gfn_nvl(item.ISSUE_TYPE),
+                        EINVOICE_CATEGORY		: gfn_nvl(item.ETXIV_CTGRY),
+                        EINVOICE_TYPE		    : gfn_nvl(item.ETXIV_TYPE),
+                        MATCH_METHOD		    : gfn_nvl(item.MTCHNG_MTHD),
+                        ISSUE_TYPE		        : gfn_nvl(item.ISSU_TYPE),
                         NOTE1		            : gfn_nvl(item.NOTE1),
                         NOTE2		            : gfn_nvl(item.NOTE2),
                         NOTE3		            : gfn_nvl(item.NOTE3),
-                        RECEIPT_OR_BILL		    : gfn_nvl(item.RECEIPT_OR_BILL),
-                        SELLER_EMAIL		    : gfn_nvl(item.SELLER_EMAIL),
-                        BUYER_EMAIL1		    : gfn_nvl(item.BUYER_EMAIL1),
-                        BUYER_EMAIL2		    : gfn_nvl(item.BUYER_EMAIL2),
-                        ACCOUNT_EMP_CODE		: gfn_nvl(item.ACCOUNT_EMP_CODE),
+                        RECEIPT_OR_BILL		    : gfn_nvl(item.RCPT_CLM_SE),
+                        SELLER_EMAIL		    : gfn_nvl(item.SPLR_EML),
+                        BUYER_EMAIL1		    : gfn_nvl(item.BYR_EML1),
+                        BUYER_EMAIL2		    : gfn_nvl(item.BYR_EML12),
+                        ACCOUNT_EMP_CODE		: gfn_nvl(item.SLIP_EMP_NO),
                         ACCOUNT_EMP_NAME		: gfn_nvl(item.ACCOUNT_EMP_NAME),
-                        TXN_DATE		        : gfn_nvl(item.TXN_DATE),
-                        ITEM_NAME		        : gfn_nvl(item.ITEM_NAME),
-                        ITEM_SPEC		        : gfn_nvl(item.ITEM_SPEC),
+                        TXN_DATE		        : gfn_nvl(item.TRSC_DT),
+                        ITEM_NAME		        : gfn_nvl(item.ITEM_NM),
+                        ITEM_SPEC		        : gfn_nvl(item.ITEM_SPCFCT),
                         ITEM_QTY		        : gfn_nvl(item.ITEM_QTY),
-                        ITEM_UNIT_PRICE		    : gfn_nvl(item.ITEM_UNIT_PRICE),
-                        ITEM_TAXABLE_AMT		: gfn_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_UNIT_PRICE		    : gfn_nvl(item.ITEM_UNTPRC),
+                        ITEM_TAXABLE_AMT		: gfn_nvl(item.ITEM_TX_AMT),
                         ITEM_VAT_AMT		    : gfn_nvl(item.ITEM_VAT_AMT),
-                        ITEM_DESC		        : gfn_nvl(item.ITEM_DESC),
+                        ITEM_DESC		        : gfn_nvl(item.ITEM_DSCTN),
                         INTERFACED_FLAG		    : gfn_nvl(item.INTERFACED_FLAG),
-                        FI_ORG_CODE		        : gfn_nvl(item.FI_ORG_CODE),
-                        SELLER_ADDRESS		    : gfn_nvl(item.SELLER_ADDRESS),
-                        BUYER_ADDRESS		    : gfn_nvl(item.BUYER_ADDRESS),
-                        DOC_ID		            : gfn_nvl(item.DOC_ID),
-                        DOC_NAME		        : gfn_nvl(item.DOC_NAME),
-                        DOC_BATCH_NO		    : gfn_nvl(item.DOC_BATCH_NO),
-                        DOC_STATUS		        : gfn_nvl(item.DOC_STATUS),
+                        FI_ORG_CODE		        : gfn_nvl(item.ACNTG_OGNZ_CD),
+                        SELLER_ADDRESS		    : gfn_nvl(item.SPLR_ADDR),
+                        BUYER_ADDRESS		    : gfn_nvl(item.BYR_ADDR),
+                        DOC_ID		            : gfn_nvl(item.SLIP_ID),
+                        DOC_NAME		        : gfn_nvl(item.SLIP_NM),
+                        DOC_BATCH_NO		    : gfn_nvl(item.SLIP_BTCH_NO),
+                        DOC_STATUS		        : gfn_nvl(item.SLIP_STTS),
                         RID_GUBUN		        : gfn_nvl(item.RID_GUBUN),
-                        EXCEPT_CODE		        : gfn_nvl(item.EXCEPT_CODE),
-                        EXCEPT_REASON		    : gfn_nvl(item.EXCEPT_REASON),
-                        EXCEPT_AMOUNT		    : gfn_nvl(item.EXCEPT_AMOUNT),
-                        PO_DOC_NO		        : gfn_nvl(item.PO_DOC_NO),
+                        EXCEPT_CODE		        : gfn_nvl(item.EXCPT_CD),
+                        EXCEPT_REASON		    : gfn_nvl(item.EXCPT_RSN),
+                        EXCEPT_AMOUNT		    : gfn_nvl(item.EXCPT_AMT),
+                        PO_DOC_NO		        : gfn_nvl(item.PRCHS_SLIP_NO),
                     }
                     jsonList.push(msg);
                     totalRecordCount ++;
@@ -2183,23 +2183,23 @@
                 jsonItemList.length = 0;
                 data.cv_3.forEach((item, index) => {
                     const msg = {
-                        ROW_STATUS      : gfn_nvl(item.ROW_STATUS),
-                        APPROVAL_NO     : gfn_nvl(item.APPROVAL_NO),
+                        ROW_STATUS      : gfn_nvl(item.ROW_STTS),
+                        APPROVAL_NO     : gfn_nvl(item.APRV_NO),
                         SEQ             : gfn_nvl(item.SEQ),
-                        ITEM_NAME       : gfn_nvl(item.ITEM_NAME),
-                        ITEM_SPEC       : gfn_nvl(item.ITEM_SPEC),
+                        ITEM_NAME       : gfn_nvl(item.ITEM_NM),
+                        ITEM_SPEC       : gfn_nvl(item.ITEM_SPCFCT),
                         ITEM_QTY        : gfn_nvl(item.ITEM_QTY),
-                        ITEM_UNIT_PRICE : gfn_nvl(item.ITEM_UNIT_PRICE),
-                        ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TAXABLE_AMT),
+                        ITEM_UNIT_PRICE : gfn_nvl(item.ITEM_UNTPRC),
+                        ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TX_AMT),
                         ITEM_VAT_AMT    : gfn_nvl(item.ITEM_VAT_AMT),
-                        ITEM_DESC       : gfn_nvl(item.ITEM_DESC),
-                        COST_CENTER_CODE: gfn_nvl(item.COST_CENTER_CODE),
-                        DEPT_CODE       : gfn_nvl(item.DEPT_CODE),
-                        DEPT_NAME       : gfn_nvl(item.DEPT_NAME),
-                        PROJECT_CODE    : gfn_nvl(item.PROJECT_CODE),
-                        PROJECT_NAME    : gfn_nvl(item.PROJECT_NAME),
-                        ACCOUNT_CODE    : gfn_nvl(item.ACCOUNT_CODE),
-                        ACCOUNT_NAME    : gfn_nvl(item.ACCOUNT_NAME),
+                        ITEM_DESC       : gfn_nvl(item.ITEM_DSCTN),
+                        COST_CENTER_CODE: gfn_nvl(item.CSTCD_CD),
+                        DEPT_CODE       : gfn_nvl(item.DEPT_CD),
+                        DEPT_NAME       : gfn_nvl(item.DEPT_NM),
+                        PROJECT_CODE    : gfn_nvl(item.PJT_CD),
+                        PROJECT_NAME    : gfn_nvl(item.PJT_NM),
+                        ACCOUNT_CODE    : gfn_nvl(item.ACNTL_CD),
+                        ACCOUNT_NAME    : gfn_nvl(item.ACNT_NM),
 
                     }
                     jsonItemList.push(msg);
@@ -2249,7 +2249,7 @@
 
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         /*alert(data.resultMessage);*/
-                       return false;
+                        return false;
                     }
 
 
@@ -2977,10 +2977,10 @@
                 let CBOEXCEPT_CODE = gfnma_multiSelectGet('#SRCH_FI_ORG_CODE');
 
                 data.cv_1.forEach((item, index) => {
-                    buyer_reg_no    = item.BIZ_REGNO;
-                    buyer_owner     = item.CHIEF_NAME;
-                    buyer_name      = item.TAX_SITE_NAME;
-                    buyer_address   = item.ADDRESS;
+                    buyer_reg_no    = item.BRNO;
+                    buyer_owner     = item.CEO_NM;
+                    buyer_name      = item.TX_SITE_NM;
+                    buyer_address   = item.ADDR;
                 });
 
                 let date = new Date();

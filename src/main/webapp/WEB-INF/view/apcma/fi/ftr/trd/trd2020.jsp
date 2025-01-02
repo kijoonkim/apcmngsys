@@ -1267,7 +1267,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonFiOrgCode, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_FI_ORG_CODE', '#FI_ORG_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -1279,11 +1279,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'FI_ORG_CODE'
-                ,colLabel		: 'FI_ORG_NAME'
+                ,colValue		: 'ACNTG_OGNZ_CD'
+                ,colLabel		: 'ACNTG_OGNZ_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'FI_ORG_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'ACNTG_OGNZ_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명", 		ref: 'ACNTG_OGNZ_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 만기예적금포함여부
@@ -1298,15 +1298,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'50px',  	style:'text-align:left'},
-                    {caption: "출금방법", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'50px',  	style:'text-align:left'},
+                    {caption: "출금방법", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 예적금유형
-            gfnma_setComSelect(['gvwInfo'], jsonDepositType, 'L_FIF040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonDepositType, 'L_FIF040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_DEPOSIT_TYPE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -1318,11 +1318,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
             gfnma_multiSelectInit({
@@ -1336,81 +1336,80 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
                 , callback : function(value) {
                     if (gfn_nvl(value) == "")
                         return;
 
-                    SBUxMethod.set('DEPOSIT_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1"]);
-                    SBUxMethod.set('DEPOSIT_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1_NM"]);
+                    SBUxMethod.set('DEPOSIT_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL1"]);
+                    SBUxMethod.set('DEPOSIT_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD1_NM"]);
 
-                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2"]);
-                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD2_NM"]);
+                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL2"]);
+                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD2_NM"]);
 
-                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3"]);
-                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD3_NM"]);
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL3"]);
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD3_NM"]);
 
-                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD4"]);
-                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD4_NM"]);
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL4"]);
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD4_NM"]);
 
-                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD5"]);
-                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD5_NM"]);
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL5"]);
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD5_NM"]);
 
-                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD6"]);
-                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD6_NM"]);
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL6"]);
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD6_NM"]);
 
-                    SBUxMethod.set('EXCHANGE_GAIN_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD7"]);
-                    SBUxMethod.set('EXCHANGE_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD7_NM"]);
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL7"]);
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD7_NM"]);
 
-                    SBUxMethod.set('EXCHANGE_LOSS_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD8"]);
-                    SBUxMethod.set('EXCHANGE_LOSS_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD8_NM"]);
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL8"]);
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD8_NM"]);
 
-                    SBUxMethod.set('VAL_GAIN_ACC', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD9"]);
-                    SBUxMethod.set('VAL_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD9_NM"]);
+                    SBUxMethod.set('VAL_GAIN_ACC', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL9"]);
+                    SBUxMethod.set('VAL_GAIN_ACC_NAME', jsonDepositType.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_FIELD9_NM"]);
                 }
             }),
             // 계좌행번
-            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BACNT_SEQ', 'SEQ_NAME', 'Y', ''),
             gfnma_multiSelectInit({
                 target: ['#PAY_SEQ']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.CS_CODE = '" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DEPOSIT_DATE")) + "' BETWEEN a.EFFECT_START_DATE AND a.EFFECT_END_DATE"
+                , whereClause: "AND a.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("BANK_CD")) + "' AND '" + gfn_nvl(SBUxMethod.get("DPMNY_YMD")) + "' BETWEEN a.EFCT_BGNG_YMD AND a.EFFECT_END_DATE"
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'BANK_ACCOUNT_SEQ'
+                , colValue: 'BACNT_SEQ'
                 , colLabel: 'SEQ_NAME'
                 , columns: [
-                    {caption: "행번", ref: 'BANK_ACCOUNT_SEQ', width: '50px', style: 'text-align:left'},
+                    {caption: "행번", ref: 'BACNT_SEQ', width: '50px', style: 'text-align:left'},
                     {caption: "행번명", ref: 'SEQ_NAME', width: '60px', style: 'text-align:left'},
-                    {caption: "은행코드", ref: 'BANK_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "은행명", ref: 'BANK_NAME', width: '100px', style: 'text-align:left'},
-                    {caption: "계좌번호", ref: 'BANK_ACCOUNT_NO', width: '130px', style: 'text-align:left'},
-                    {caption: "비고", ref: 'DESCRIPTION', width: '120px', style: 'text-align:left'},
-                    {caption: "계좌주", ref: 'BANK_ACCOUNT_OWNER', width: '100px', style: 'text-align:left'},
-                    {caption: "거래처", ref: 'CS_CODE', width: '100px', style: 'text-align:left'},
-                    {caption: "시작일", ref: 'EFFECT_START_DATE', width: '100px', style: 'text-align:left'},
-                    {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
+                    {caption: "은행코드", ref: 'BANK_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "은행명", ref: 'BANK_NM', width: '100px', style: 'text-align:left'},
+                    {caption: "계좌번호", ref: 'BACNT_NO', width: '130px', style: 'text-align:left'},
+                    {caption: "비고", ref: 'DSCTN', width: '120px', style: 'text-align:left'},
+                    {caption: "계좌주", ref: 'BACNT_OWNR', width: '100px', style: 'text-align:left'},
+                    {caption: "거래처", ref: 'CNPT_CD', width: '100px', style: 'text-align:left'},
+                    {caption: "시작일", ref: 'EFCT_BGNG_YMD', width: '100px', style: 'text-align:left'},
+                    {caption: "종료일", ref: 'EFCT_END_YMD', width: '100px', style: 'text-align:left'},
                     {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
                 ]
                 , callback : function(value) {
-                    SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
-                    SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
-                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
+                    SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BANK_CD"]);
+                    SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BACNT_NO"]);
+                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["DSCTN"]);
                 }
             }),
             // 은행코드
-            gfnma_setComSelect(['BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
             // 통화
             gfnma_multiSelectInit({
                 target: ['#CURRENCY_CODE']
@@ -1423,11 +1422,11 @@
                 , selectValue: ''
                 , dropType: 'down' 	// up, down
                 , dropAlign: 'left' 	// left, right
-                , colValue: 'CURRENCY_CODE'
-                , colLabel: 'CURRENCY_NAME'
+                , colValue: 'CRN_CD'
+                , colLabel: 'CRN_NM'
                 , columns: [
-                    {caption: "통화", ref: 'CURRENCY_CODE', width: '100px', style: 'text-align:left'},
-                    {caption: "통화명", ref: 'CURRENCY_NAME', width: '100px', style: 'text-align:left'},
+                    {caption: "통화", ref: 'CRN_CD', width: '100px', style: 'text-align:left'},
+                    {caption: "통화명", ref: 'CRN_NM', width: '100px', style: 'text-align:left'},
                     {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
@@ -1482,11 +1481,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "예적금상태", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "예적금상태", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 예적금유형
@@ -1501,11 +1500,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "명칭", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 불입일
@@ -1520,11 +1519,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "결제일", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "결제일", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 불입기준
@@ -1539,11 +1538,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "상환기준일", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "상환기준일", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 단복리 구분
@@ -1558,11 +1557,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "단복리구분", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "단복리구분", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 이자율 구분
@@ -1577,11 +1576,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "이자율구분", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "이자율구분", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 이자율 구분
@@ -1596,11 +1595,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "이자지급기준", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "이자지급기준", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 이자율 구분
@@ -1615,11 +1614,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "이자계산일수기준", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "이자계산일수기준", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 이자율 구분
@@ -1634,15 +1633,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "명칭", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 법인세율
-            gfnma_setComSelect([''], jsonCtaxRate, 'L_FIF050', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonCtaxRate, 'L_FIF050', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#CTAX_RATE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -1654,19 +1653,19 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "명칭", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     if (gfn_nvl(value) == "") {
-                        gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', "");
+                        gfnma_multiSelectSet('#PTAX_RATE', 'SBSD_CD', 'CD_NM', "");
                         return;
                     }
 
-                    gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', jsonCtaxRate.filter(data => data["SUB_CODE"] == value)[0]["EXTRA_FIELD1"]);
+                    gfnma_multiSelectSet('#PTAX_RATE', 'SBSD_CD', 'CD_NM', jsonCtaxRate.filter(data => data["SBSD_CD"] == value)[0]["EXTRA_COL1"]);
                 }
             }),
             // 지방세율
@@ -1681,17 +1680,17 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드", ref: 'SUB_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "명칭", ref: 'CODE_NAME', width: '100px', style: 'text-align:left'}
+                    {caption: "코드", ref: 'SBSD_CD', width: '50px', style: 'text-align:left'},
+                    {caption: "명칭", ref: 'CD_NM', width: '100px', style: 'text-align:left'}
                 ]
             }),
             // 통화코드
-            gfnma_setComSelect(['gvwInfo', 'gvwPlan', 'gvwAmortize'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo', 'gvwPlan', 'gvwAmortize'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             // 금융기관코드
-            gfnma_setComSelect(['gvwInfo'], jsonBankCsCode, 'L_CS_BANK', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CS_CODE', 'BANK_CS_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonBankCsCode, 'L_CS_BANK', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CNPT_CD', 'BANK_CS_NAME', 'Y', ''),
         ]);
     }
 
@@ -2043,8 +2042,8 @@
     const fn_findBankCsCode = function(elementId) {
         var searchCode 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= "_CNPT_NM_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
@@ -2055,15 +2054,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명"]
-            ,searchInputFields		: ["CS_CODE", "CS_NAME"]
+            ,searchInputFields		: ["CNPT_CD", "CNPT_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "은행코드", "은행명", "사업자번호", "주소"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BANK_CODE", "BANK_NAME", "BIZ_REGNO", "ADDRESS"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BANK_CD", "BANK_NM", "BRNO", "ADDR"]
             ,tableColumnWidths		: ["100px", "200px", "100px", "100px", "120px", "300px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set(elementId + 'BANK_CS_NAME', data.CS_NAME);
-                SBUxMethod.set(elementId + 'BANK_CS_CODE', data.CS_CODE);
+                SBUxMethod.set(elementId + 'BANK_CS_NAME', data.CNPT_NM);
+                SBUxMethod.set(elementId + 'BANK_CS_CODE', data.CNPT_CD);
             },
         });
     }
@@ -2071,10 +2070,10 @@
     const fn_findBankCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME"));
-        var replaceText0 	= "_BANK_CODE_";
-        var replaceText1 	= "_BANK_NAME_";
-        var strWhereClause 	= "AND a.BANK_CODE LIKE '%" + replaceText0 + "%' AND a.BANK_NAME LIKE '%" + replaceText1 + "%'";
-
+        var replaceText0 	= "_BANK_CD_";
+        var replaceText1 	= "_BANK_NM_";
+        var strWhereClause 	= "AND a.BANK_CD LIKE '%" + replaceText0 + "%' AND a.BANK_NM LIKE '%" + replaceText1 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -2083,15 +2082,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
-            ,searchInputFields		: ["BANK_CODE", "BANK_NAME"]
+            ,searchInputFields		: ["BANK_CD", "BANK_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명"]
-            ,tableColumnNames		: ["BANK_CODE" , "BANK_NAME"]
+            ,tableColumnNames		: ["BANK_CD" , "BANK_NM"]
             ,tableColumnWidths		: ["80px", "150px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('BANK_NAME', data.BANK_NAME);
-                SBUxMethod.set('BANK_CODE', data.BANK_CODE);
+                SBUxMethod.set('BANK_NAME', data.BANK_NM);
+                SBUxMethod.set('BANK_CODE', data.BANK_CD);
             },
         });
     }
@@ -2099,8 +2098,8 @@
     const fn_findDepositCode = function(inOrOut) {
         var searchCode 		= gfn_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
-        var replaceText0 	= "_DEPOSIT_CODE_";
-        var replaceText1 	= "_DEPOSIT_NAME_";
+        var replaceText0 	= "_DPMNY_CD_";
+        var replaceText1 	= "_DPMNY_NM_";
         var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '예적금 정보');
@@ -2111,17 +2110,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "코드명"]
-            ,searchInputFields		: ["DEPOSIT_CODE", "DEPOSIT_NAME"]
+            ,searchInputFields		: ["DPMNY_CD", "DPMNY_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계좌코드", "계좌명", "계좌유형명", "계좌번호", "은행코드", "은행명", "개설일", "만기일"]
-            ,tableColumnNames		: ["DEPOSIT_CODE", "DEPOSIT_NAME", "DEPOSIT_TYPE_NAME", "ACCOUNT_NUM", "BANK_CODE", "BANK_NAME", "OPEN_DATE", "EXPIRE_DATE"]
+            ,tableColumnNames		: ["DPMNY_CD", "DPMNY_NM", "DEPOSIT_TYPE_NAME", "ACTNO", "BANK_CD", "BANK_NM", "OPN_YMD", "MTRY_YMD"]
             ,tableColumnWidths		: ["120px", "160px", "100px", "120px", "100px", "140px", "80px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set(inOrOut + '_DEPOSIT_NAME', data.DEPOSIT_NAME);
-                SBUxMethod.set(inOrOut + '_DEPOSIT_CODE', data.DEPOSIT_CODE);
-                SBUxMethod.set(inOrOut + '_ACCOUNT_NUM', data.ACCOUNT_NUM);
-
+                SBUxMethod.set(inOrOut + '_DEPOSIT_NAME', data.DPMNY_NM);
+                SBUxMethod.set(inOrOut + '_DEPOSIT_CODE', data.DPMNY_CD);
+                SBUxMethod.set(inOrOut + '_ACCOUNT_NUM', data.ACTNO);
+ 
             },
         });
     }
@@ -2129,10 +2128,10 @@
     const fn_findAccountCode = function(section) {
         var searchCode 		= gfn_nvl(SBUxMethod.get(section));
         var searchName 		= gfn_nvl(SBUxMethod.get(section + "_NAME"));
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_";
-        var strWhereClause 	= "AND a.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND a.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'";
-
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_";
+        var strWhereClause 	= "AND a.ACNTL_CD LIKE '%" + replaceText0 + "%' AND a.ACNT_NM LIKE '%" + replaceText1 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -2141,15 +2140,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
-            ,searchInputFields		: ["ACCOUNT_CODE", "ACCOUNT_NAME"]
+            ,searchInputFields		: ["ACNTL_CD", "ACNT_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계정코드", "계정명", "계정(한국어)"]
-            ,tableColumnNames		: ["ACCOUNT_CODE", "ACCOUNT_NAME", "ACCOUNT_NAME_CHN"]
+            ,tableColumnNames		: ["APLY_ACNTL_CD", "ACNT_NM", "ACNT_NM_CHN"]
             ,tableColumnWidths		: ["100px", "200px", "200px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set(section + '_NAME', data.ACCOUNT_NAME);
-                SBUxMethod.set(section, data.ACCOUNT_CODE);
+                SBUxMethod.set(section + '_NAME', data.ACNT_NM);
+                SBUxMethod.set(section, data.ACNTL_CD);
             },
         });
     }
@@ -2158,9 +2157,9 @@
         var searchCode 		= gfn_nvl(SBUxMethod.get(section));
         var searchName 		= gfn_nvl(SBUxMethod.get(section + "_NAME"));
         var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_NAME_";
-        var strWhereClause 	= "AND a.CODE LIKE '%" + replaceText0 + "%' AND a.NAME LIKE '%" + replaceText1 + "%'";
-
+        var replaceText1 	= "_FAM_NM_";
+        var strWhereClause 	= "AND a.CODE LIKE '%" + replaceText0 + "%' AND a.FAM_NM LIKE '%" + replaceText1 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -2169,14 +2168,14 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "명칭"]
-            ,searchInputFields		: ["CODE", "NAME"]
+            ,searchInputFields		: ["CODE", "FAM_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
-            ,tableColumnNames		: ["CODE", "NAME", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+            ,tableColumnNames		: ["CODE", "FAM_NM", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
             ,tableColumnWidths		: ["100px", "200px", "100px", "150px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set(section + '_NAME', data.NAME);
+                SBUxMethod.set(section + '_NAME', data.FAM_NM);
                 SBUxMethod.set(section + '_TYPE', data.CODE);
             },
         });
@@ -2194,17 +2193,17 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 	searchName,	gfn_dateToYmd(new Date())]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '700px'
             ,height					: '300px'
             ,tableHeader			: ["부서코드", 		"부서명"]
-            ,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+            ,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
             ,tableColumnWidths		: ["150px", 		"250px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('DEPT_CODE', 	data.DEPT_CODE);
-                SBUxMethod.set('DEPT_NAME', 	data.DEPT_NAME);
+                SBUxMethod.set('DEPT_CODE', 	data.DEPT_CD);
+                SBUxMethod.set('DEPT_NAME', 	data.DEPT_NM);
             },
         });
     }
@@ -2212,10 +2211,10 @@
     const fn_findCostCenterCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'";
-
+        var replaceText0 	= "_CSTCD_CD_";
+        var replaceText1 	= "_CSTCD_NM_";
+        var strWhereClause 	= "AND A.CSTCD_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM  LIKE '%" + replaceText1 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -2224,15 +2223,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["계정코드", "계정명"]
-            ,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+            ,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
-            ,tableColumnNames		: ["COST_CENTER_CODE", "COST_CENTER_NAME", "DEPT_CODE", "COST_CENTER_NAME", "COST_CLASS", "SITE_CODE", "CREDIT_AREA"]
+            ,tableColumnNames		: ["CSTCD_CD", "CSTCD_NM", "DEPT_CD", "CSTCD_NM", "CST_CLSF", "SITE_CD", "CRDT_SECT"]
             ,tableColumnWidths		: ["80px", "80px", "80px", "80px", "80px", "80px","80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
-                SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
+                SBUxMethod.set('COST_CENTER_CODE', data.CSTCD_CD);
+                SBUxMethod.set('COST_CENTER_NAME', data.CSTCD_NM);
             },
         });
     }
@@ -2291,25 +2290,25 @@
                     jsonDepositList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            DEPOSIT_NUM : item.DEPOSIT_NUM,
-                            FI_ORG_CODE : item.FI_ORG_CODE,
-                            BANK_CODE : item.BANK_CODE,
-                            BANK_CS_CODE : item.BANK_CS_CODE,
-                            DEPOSIT_CATEGORY1 : item.DEPOSIT_CATEGORY1,
-                            DEPOSIT_CATEGORY2 : item.DEPOSIT_CATEGORY2,
-                            DEPOSIT_CATEGORY3 : item.DEPOSIT_CATEGORY3,
-                            DEPOSIT_NAME : item.DEPOSIT_NAME,
-                            ACCOUNT_NUM : item.ACCOUNT_NUM,
-                            ACCOUNT_OWNER : item.ACCOUNT_OWNER,
-                            DEPOSIT_DATE : item.DEPOSIT_DATE,
-                            DEPOSIT_AMT : item.DEPOSIT_AMT,
-                            IN_AMT : item.IN_AMT,
+                            DEPOSIT_NUM : item.DPMNY_NO,
+                            FI_ORG_CODE : item.ACNTG_OGNZ_CD,
+                            BANK_CODE : item.BANK_CD,
+                            BANK_CS_CODE : item.BANK_CNPT_CD,
+                            DEPOSIT_CATEGORY1 : item.DPMNY_CTGRY1,
+                            DEPOSIT_CATEGORY2 : item.DPMNY_CTGRY2,
+                            DEPOSIT_CATEGORY3 : item.DPMNY_CTGRY3,
+                            DEPOSIT_NAME : item.DPMNY_NM,
+                            ACCOUNT_NUM : item.ACTNO,
+                            ACCOUNT_OWNER : item.DPSTR_NM,
+                            DEPOSIT_DATE : item.DPMNY_YMD,
+                            DEPOSIT_AMT : item.DPMNY_AMT,
+                            IN_AMT : item.INCRS_AMT,
                             REMAIN_AMT : item.REMAIN_AMT,
-                            DUE_DATE : item.DUE_DATE,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
-                            INTEREST_RATE : item.INTEREST_RATE,
-                            DEPOSIT_TYPE : item.DEPOSIT_TYPE,
-                            INTEREST_CALC_METHOD : item.INTEREST_CALC_METHOD,
+                            DUE_DATE : item.MTRY_YMD,
+                            CURRENCY_CODE : item.CRN_CD,
+                            INTEREST_RATE : item.INT_RT,
+                            DEPOSIT_TYPE : item.DPMNY_TYPE,
+                            INTEREST_CALC_METHOD : item.INT_CAL_MTHD,
                         }
                         jsonDepositList.push(msg);
                     });
@@ -2336,75 +2335,75 @@
                     gfnma_uxDataSet("#tabTR", rs);
                     gfnma_uxDataSet("#tabTreasury", rs);
                     gfnma_uxDataSet("#tabDept", rs);
-                    gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', rs.FI_ORG_CODE);
-                    gfnma_multiSelectSet('#DEPOSIT_TYPE', 'SUB_CODE', 'CODE_NAME', rs.DEPOSIT_TYPE);
-                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', rs.CURRENCY_CODE);
-                    gfnma_multiSelectSet('#DEPOSIT_STATUS', 'SUB_CODE', 'CODE_NAME', rs.DEPOSIT_STATUS);
-                    gfnma_multiSelectSet('#PAY_SEQ', 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', rs.DEPOSIT_STATUS);
-                    gfnma_multiSelectSet('#IN_TERM', 'SUB_CODE', 'CODE_NAME', rs.IN_TERM);
-                    gfnma_multiSelectSet('#IN_DD', 'SUB_CODE', 'CODE_NAME', rs.IN_DD);
-                    gfnma_multiSelectSet('#IN_BASE', 'SUB_CODE', 'CODE_NAME', rs.IN_BASE);
-                    gfnma_multiSelectSet('#INTEREST_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_TYPE);
-                    gfnma_multiSelectSet('#INTEREST_IN_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_IN_TYPE);
-                    gfnma_multiSelectSet('#INTEREST_CALC_DAYS_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_DAYS_TYPE);
-                    gfnma_multiSelectSet('#INTEREST_IN_DD', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_IN_DD);
-                    gfnma_multiSelectSet('#INTEREST_CALC_METHOD', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_METHOD);
-                    gfnma_multiSelectSet('#INTEREST_CALC_YEAR_TYPE', 'SUB_CODE', 'CODE_NAME', rs.INTEREST_CALC_YEAR_TYPE);
-                    gfnma_multiSelectSet('#CTAX_RATE', 'SUB_CODE', 'CODE_NAME', rs.CTAX_RATE);
-                    gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', rs.PTAX_RATE);
+                    gfnma_multiSelectSet('#FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', rs.ACNTG_OGNZ_CD);
+                    gfnma_multiSelectSet('#DEPOSIT_TYPE', 'SBSD_CD', 'CD_NM', rs.DPMNY_TYPE);
+                    gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', rs.CRN_CD);
+                    gfnma_multiSelectSet('#DEPOSIT_STATUS', 'SBSD_CD', 'CD_NM', rs.DPMNY_STTS);
+                    gfnma_multiSelectSet('#PAY_SEQ', 'BACNT_SEQ', 'SEQ_NAME', rs.DPMNY_STTS);
+                    gfnma_multiSelectSet('#IN_TERM', 'SBSD_CD', 'CD_NM', rs.PRN_RPMT_CND);
+                    gfnma_multiSelectSet('#IN_DD', 'SBSD_CD', 'CD_NM', rs.PRNCPL_RPMT_YMD);
+                    gfnma_multiSelectSet('#IN_BASE', 'SBSD_CD', 'CD_NM', rs.DPST_BASE);
+                    gfnma_multiSelectSet('#INTEREST_TYPE', 'SBSD_CD', 'CD_NM', rs.INT_RT_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_IN_TYPE', 'SBSD_CD', 'CD_NM', rs.INT_OCRN_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_CALC_DAYS_TYPE', 'SBSD_CD', 'CD_NM', rs.INT_CAL_DCNT_TYPE);
+                    gfnma_multiSelectSet('#INTEREST_IN_DD', 'SBSD_CD', 'CD_NM', rs.INT_OCRN_YMD);
+                    gfnma_multiSelectSet('#INTEREST_CALC_METHOD', 'SBSD_CD', 'CD_NM', rs.INT_CAL_MTHD);
+                    gfnma_multiSelectSet('#INTEREST_CALC_YEAR_TYPE', 'SBSD_CD', 'CD_NM', rs.INT_CAL_YR_TYPE);
+                    gfnma_multiSelectSet('#CTAX_RATE', 'SBSD_CD', 'CD_NM', rs.COTX_RT);
+                    gfnma_multiSelectSet('#PTAX_RATE', 'SBSD_CD', 'CD_NM', rs.LCLTX_RT);
 
-                    /*SBUxMethod.set("IN_BANK_CODE", gfn_nvl(rs.IN_BANK_CODE));
+                    /*SBUxMethod.set("IN_BANK_CODE", gfn_nvl(rs.DPST_BANK_CD));
                     SBUxMethod.set("IN_BANK_NAME", gfn_nvl(rs.IN_BANK_NAME));
                     SBUxMethod.set("PAY_ACCOUNT_OWNER", gfn_nvl(rs.PAY_ACCOUNT_OWNER));
-                    SBUxMethod.set("IN_AMT", gfn_nvl(rs.IN_AMT));
-                    SBUxMethod.set("REMAIN_DEPOSIT_AMT", gfn_nvl(rs.REMAIN_DEPOSIT_AMT));
-                    SBUxMethod.set("DEFERRED_MM", gfn_nvl(rs.DEFERRED_MM));
-                    SBUxMethod.set("INTEREST_DEFERRED_MM", gfn_nvl(rs.INTEREST_DEFERRED_MM));
-                    SBUxMethod.set("DOC_DATE", gfn_nvl(rs.DOC_DATE));
-                    SBUxMethod.set("DOC_NUM", gfn_nvl(rs.DOC_NUM));
-                    SBUxMethod.set("DOC_SEQ", gfn_nvl(rs.DOC_SEQ));
-                    SBUxMethod.set("INSERT_USERID", gfn_nvl(rs.INSERT_USERID));*/
+                    SBUxMethod.set("IN_AMT", gfn_nvl(rs.INCRS_AMT));
+                    SBUxMethod.set("REMAIN_DEPOSIT_AMT", gfn_nvl(rs.DPMNY_BLNC));
+                    SBUxMethod.set("DEFERRED_MM", gfn_nvl(rs.DFRMNT_MM));
+                    SBUxMethod.set("INTEREST_DEFERRED_MM", gfn_nvl(rs.INT_DFMT_MM));
+                    SBUxMethod.set("DOC_DATE", gfn_nvl(rs.SLIP_YMD));
+                    SBUxMethod.set("DOC_NUM", gfn_nvl(rs.SLIP_NO));
+                    SBUxMethod.set("DOC_SEQ", gfn_nvl(rs.SLIP_SEQ));
+                    SBUxMethod.set("INSERT_USERID", gfn_nvl(rs.WRT_USER_ID));*/
 
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            TXN_ID : item.TXN_ID,
+                            TXN_ID : item.TRSC_ID,
                             SEQ : item.SEQ,
-                            DEPOSIT_NUM : item.DEPOSIT_NUM,
-                            APPLY_START_DATE : item.APPLY_START_DATE,
-                            APPLY_END_DATE : item.APPLY_END_DATE,
-                            INTEREST_RATE : item.INTEREST_RATE,
-                            DESCR : item.DESCR,
-                            CONFIRM_FLAG : item.CONFIRM_FLAG,
+                            DEPOSIT_NUM : item.DPMNY_NO,
+                            APPLY_START_DATE : item.APLY_STRT_YMD,
+                            APPLY_END_DATE : item.APLY_END_YMD,
+                            INTEREST_RATE : item.INT_RT,
+                            DESCR : item.DSCTN,
+                            CONFIRM_FLAG : item.CFMTN_FLAG,
                         }
                         jsonInterestRateHistoryList.push(msg);
                     });
 
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            TXN_ID : item.TXN_ID,
-                            DEPOSIT_NUM : item.DEPOSIT_NUM,
+                            TXN_ID : item.TRSC_ID,
+                            DEPOSIT_NUM : item.DPMNY_NO,
                             PLAN_SEQ : item.PLAN_SEQ,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
-                            IN_PLAN_DATE : item.IN_PLAN_DATE,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
-                            IN_PLAN_AMT : item.IN_PLAN_AMT,
-                            IN_TRANSFER_AMT : item.IN_TRANSFER_AMT,
-                            REMAIN_DEPOSIT_AMT : item.REMAIN_DEPOSIT_AMT,
-                            INTEREST_DAY : item.INTEREST_DAY,
-                            INTEREST_IN_PLAN_AMT : item.INTEREST_IN_PLAN_AMT,
+                            CURRENCY_CODE : item.CRN_CD,
+                            IN_PLAN_DATE : item.PRN_RPMT_PRNMNT_YMD,
+                            CURRENCY_CODE : item.CRN_CD,
+                            IN_PLAN_AMT : item.PRN_RPMT_PRNMNT_AMT,
+                            IN_TRANSFER_AMT : item.BRW_RPLCMT_AMT,
+                            REMAIN_DEPOSIT_AMT : item.DPMNY_BLNC,
+                            INTEREST_DAY : item.INT_DCNT,
+                            INTEREST_IN_PLAN_AMT : item.INT_RPMT_PRNMNT_AMT,
                             IN_TOTAL_AMT : item.IN_TOTAL_AMT,
-                            INTEREST_FROM_DATE : item.INTEREST_FROM_DATE,
-                            INTEREST_TO_DATE : item.INTEREST_TO_DATE,
-                            INTEREST_RATE : item.INTEREST_RATE,
-                            INTERFACE_FLAG : item.INTERFACE_FLAG,
-                            CONFIRM_FLAG : item.CONFIRM_FLAG,
-                            COMPLETE_FLAG : item.COMPLETE_FLAG,
-                            DUE_WITHDRAW_AMT : item.DUE_WITHDRAW_AMT,
-                            CTAX_RATE : item.CTAX_RATE,
-                            PTAX_RATE : item.PTAX_RATE,
-                            CTAX_WITHHOLD_AMOUNT : item.CTAX_WITHHOLD_AMOUNT,
-                            PTAX_WITHHOLD_AMOUNT : item.PTAX_WITHHOLD_AMOUNT,
-                            PRETAX_INTEREST_AMOUNT : item.PRETAX_INTEREST_AMOUNT,
+                            INTEREST_FROM_DATE : item.INT_BGNG_YMD,
+                            INTEREST_TO_DATE : item.INT_END_YMD,
+                            INTEREST_RATE : item.INT_RT,
+                            INTERFACE_FLAG : item.IF_FLAG,
+                            CONFIRM_FLAG : item.CFMTN_FLAG,
+                            COMPLETE_FLAG : item.CFMTN_FLAG,
+                            DUE_WITHDRAW_AMT : item.MTRY_CLCTN_AMT,
+                            CTAX_RATE : item.COTX_RT,
+                            PTAX_RATE : item.LCLTX_RT,
+                            CTAX_WITHHOLD_AMOUNT : item.COTX_WTHD_AMT,
+                            PTAX_WITHHOLD_AMOUNT : item.LCLTX_WTHD_AMT,
+                            PRETAX_INTEREST_AMOUNT : item.PRTX_INT_AMT,
                         }
                         jsonPaymentPlanList.push(msg);
                     });
@@ -2416,24 +2415,24 @@
                     data.cv_5.forEach((item, index) => {
                         const msg = {
                             PLAN_SEQ : item.PLAN_SEQ,
-                            CURRENCY_CODE : item.CURRENCY_CODE,
-                            DEPOSIT_NUM : item.DEPOSIT_NUM,
-                            DEPOSIT_AMOUNT : item.DEPOSIT_AMOUNT,
-                            IN_PLAN_AMT : item.IN_PLAN_AMT,
-                            IN_TRANSFER_AMT : item.IN_TRANSFER_AMT,
-                            REMAIN_DEPOSIT_AMT : item.REMAIN_DEPOSIT_AMT,
+                            CURRENCY_CODE : item.CRN_CD,
+                            DEPOSIT_NUM : item.DPMNY_NO,
+                            DEPOSIT_AMOUNT : item.DPMNY_AMT,
+                            IN_PLAN_AMT : item.PRN_RPMT_PRNMNT_AMT,
+                            IN_TRANSFER_AMT : item.BRW_RPLCMT_AMT,
+                            REMAIN_DEPOSIT_AMT : item.DPMNY_BLNC,
                             IN_TOTAL_AMT : item.IN_TOTAL_AMT,
-                            INTEREST_RATE : item.INTEREST_RATE,
-                            INTEREST_FROM_DATE : item.INTEREST_FROM_DATE,
-                            INTEREST_TO_DATE : item.INTEREST_TO_DATE,
-                            IN_PLAN_DATE : item.IN_PLAN_DATE,
-                            INTEREST_DAY : item.INTEREST_DAY,
-                            TOTAL_DAY : item.TOTAL_DAY,
-                            INTEREST_IN_PLAN_AMT : item.INTEREST_IN_PLAN_AMT,
-                            TOTAL_IN_AMOUNT : item.TOTAL_IN_AMOUNT,
-                            CONFIRM_FLAG : item.CONFIRM_FLAG,
-                            INTERFACE_FLAG : item.INTERFACE_FLAG,
-                            COMPLETE_FLAG : item.COMPLETE_FLAG,
+                            INTEREST_RATE : item.INT_RT,
+                            INTEREST_FROM_DATE : item.INT_BGNG_YMD,
+                            INTEREST_TO_DATE : item.INT_END_YMD,
+                            IN_PLAN_DATE : item.PRN_RPMT_PRNMNT_YMD,
+                            INTEREST_DAY : item.INT_DCNT,
+                            TOTAL_DAY : item.TOT_DCNT,
+                            INTEREST_IN_PLAN_AMT : item.INT_RPMT_PRNMNT_AMT,
+                            TOTAL_IN_AMOUNT : item.TOT_INCRS_AMT,
+                            CONFIRM_FLAG : item.CFMTN_FLAG,
+                            INTERFACE_FLAG : item.IF_FLAG,
+                            COMPLETE_FLAG : item.CFMTN_FLAG,
                         }
                         jsonPaymentPlanList.push(msg);
                     });
@@ -2768,7 +2767,7 @@
         if (gfn_nvl(gfnma_multiSelectGet("#INTEREST_IN_DD")) != "")
             return;
 
-        gfnma_multiSelectSet('#INTEREST_IN_DD', 'SUB_CODE', 'CODE_NAME', gfn_nvl(val).substring(6,8));
+        gfnma_multiSelectSet('#INTEREST_IN_DD', 'SBSD_CD', 'CD_NM', gfn_nvl(val).substring(6,8));
     }
 
     // 초기화
@@ -2807,8 +2806,8 @@
         SBUxMethod.hideTab('tabTreasuryF');
         SBUxMethod.hideTab('tabDept');
 
-        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-        gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
+        gfnma_multiSelectSet('#SRCH_FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
+        gfnma_multiSelectSet('#FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
 
         if (parentParameter == null) {
             SBUxMethod.set("SRCH_BASE_DATE", gfn_dateToYmd(new Date()));
@@ -2869,10 +2868,10 @@
         SBUxMethod.set("DEPOSIT_NUM", "");
         strDepositNoTmp = "";
 
-        gfnma_multiSelectSet('#FI_ORG_CODE', 'FI_ORG_CODE', 'FI_ORG_NAME', p_fiOrgCode);
-        gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', p_baseCurrCode);
+        gfnma_multiSelectSet('#FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', p_fiOrgCode);
+        gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', p_baseCurrCode);
         SBUxMethod.set("EXCHANGE_RATE", "1");
-        gfnma_multiSelectSet('#PTAX_RATE', 'SUB_CODE', 'CODE_NAME', "14");
+        gfnma_multiSelectSet('#PTAX_RATE', 'SBSD_CD', 'CD_NM', "14");
     }
 
     const fn_save = async function () {

@@ -58,7 +58,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		try {
 			
 			Map<String, Object> gmap3 = (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-			param.put("procedure", 		"P_COM2100_Q");
+			param.put("procedure", 		"SP_COM2100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM2100_S");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM2100_S");
 			
             logger.info("=============updateCom2100=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -105,7 +105,7 @@ public class ApcMaCom2100Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM2100_S");
+			param.put("procedure", 		"SP_COM2100_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {

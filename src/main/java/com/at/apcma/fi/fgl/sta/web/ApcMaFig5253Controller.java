@@ -52,7 +52,7 @@ public class ApcMaFig5253Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_FIG5253_Q");
+			param.put("procedure", 		"SP_FIG5253_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -77,7 +77,7 @@ public class ApcMaFig5253Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FIG5253_Q");
+			param.put("procedure", 		"SP_FIG5253_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
     		//self url 편집

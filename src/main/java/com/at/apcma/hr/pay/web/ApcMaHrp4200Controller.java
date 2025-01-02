@@ -56,7 +56,7 @@ public class ApcMaHrp4200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP4200_Q");
+            param.put("procedure", "SP_HRP4200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class ApcMaHrp4200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP4200_S2");
+            param.put("procedure", "SP_HRP4200_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class ApcMaHrp4200Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP4200_S3");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP4200_S3");
 
             logger.info("=============insertHrp4200S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -130,7 +130,7 @@ public class ApcMaHrp4200Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRP4200_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP4200_S");
 
             logger.info("=============insertHrp4200S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -153,7 +153,7 @@ public class ApcMaHrp4200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP4200_S1");
+            param.put("procedure", "SP_HRP4200_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

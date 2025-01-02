@@ -54,7 +54,7 @@ public class ApcMaHra1500Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA1500_Q");
+            param.put("procedure", "SP_HRA1500_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ApcMaHra1500Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", /*"P_HRA1500_2023_S"*/"P_HRA1500_S_CLOB");
+            resultMap = apcMaComService.processForListData(param, session, request, "", /*"SP_HRA1500_2023_S"*/"SP_HRA1500_S_CLOB");
 
             logger.info("=============insertHra1500=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -102,7 +102,7 @@ public class ApcMaHra1500Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA1500_S1");
+            param.put("procedure", "SP_HRA1500_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

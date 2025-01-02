@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -421,7 +421,7 @@
     <div id="body-modal-compopup3">
     	<jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
     </div>
-
+ 
  	<!-- 팝업 Modal -->
     <div>
         <sbux-modal style="width:500px" id="modal-compopup4" name="modal-compopup4" uitype="middle" header-title="" body-html-id="body-modal-compopup4" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
@@ -432,10 +432,10 @@
     
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -484,21 +484,21 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],		jsonfiOrgCode, 		'L_FIM022', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],		jsonfiOrgCode, 		'L_FIM022', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'], 		jsonSiteCode, 		'L_ORG001', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'], 		jsonSiteCode, 		'L_ORG001', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 보류여부
-            gfnma_setComSelect(['SCH_HOLD_FLAG'], 		jsonHoldFlag, 		'L_COM036', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_HOLD_FLAG'], 		jsonHoldFlag, 		'L_COM036', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표상태
-            gfnma_setComSelect(['SCH_DOC_STATUS'],		jsonDocStatus, 		'L_FIG002_1', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_DOC_STATUS'],		jsonDocStatus, 		'L_FIG002_1', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표구분
-            gfnma_setComSelect(['SCH_DOC_TYPE'],		jsonDocType, 		'L_FIM051_CLR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_DOC_TYPE'],		jsonDocType, 		'L_FIM051_CLR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],	jsonAcctRuleCode, 	'L_FIM054', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '2'),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],	jsonAcctRuleCode, 	'L_FIM054', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '2'),
 			
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
 		//this param setting
@@ -520,14 +520,14 @@
      	fn_createTab3Grid();	
     	
     });
-
+ 
     /**
      * 화면 state 변경
      */
     const fn_state = async function() {
 		
     	//컴포넌트 기본속성
-
+ 
 		SBUxMethod.set("SCH_FI_ORG_CODE", 		p_ss_fiOrgCode);
 		SBUxMethod.set("SCH_SITE_CODE", 		p_ss_siteCode);
 		SBUxMethod.set("SCH_ACCT_RULE_CODE", 	p_ss_defaultAcctRule);
@@ -687,7 +687,7 @@
             {caption: ["소스타입"], 				ref: 'SOURCE_TYPE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             
         ];
-
+ 
         Fig2300Grid = _SBGrid.create(SBGridProperties);
         Fig2300Grid.bind('click', 'fn_viewFig2300GridEvent');
     }    
@@ -798,7 +798,7 @@
             
             {caption: ["적요"],    					ref: 'DESCRIPTION', 			type:'output',  	width:'250px',  	style:'text-align:left'},
         ];
-
+ 
         tab1Fig2210Grid = _SBGrid.create(SBGridProperties);
     }    
     
@@ -845,7 +845,7 @@
             {caption: ["전표금액"],  				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["비고"],  					ref: 'ETC', 					type:'output',  	width:'250px',  	style:'text-align:left'},
         ];
-
+ 
         tab2Fig2300Grid = _SBGrid.create(SBGridProperties);
     }    
     
@@ -880,7 +880,7 @@
             
             {caption: ["비고"],  					ref: 'ETC', 					type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###'}},
         ];
-
+ 
         tab3Fim3420Grid = _SBGrid.create(SBGridProperties);
     }    
     
@@ -900,7 +900,7 @@
     const fn_setFig2300Grid = async function(wtype) {
     	
 		Fig2300Grid.clearStatus();
-
+ 
 		let p_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_entry_date_fr			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_FR"));
@@ -984,78 +984,78 @@
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig2300.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						ACCT_RULE_CODE			: gfnma_nvl2(item.ACCT_RULE_CODE),
-  						APPROVE_DATE			: gfnma_date5(gfnma_nvl2(item.APPROVE_DATE)),
-  						APPR_ID					: gfnma_nvl2(item.APPR_ID),
-  						APPR_SOURCE_TYPE		: gfnma_nvl2(item.APPR_SOURCE_TYPE),
-  						AP_DOC_VIEW_YN			: gfnma_nvl2(item.AP_DOC_VIEW_YN),
-  						AP_DOC_WRITE_YN			: gfnma_nvl2(item.AP_DOC_WRITE_YN),
-  						AP_DOC_YN				: gfnma_nvl2(item.AP_DOC_YN),
-  						AR_DOC_WRITE_YN			: gfnma_nvl2(item.AR_DOC_WRITE_YN),
-  						AR_DOC_YN				: gfnma_nvl2(item.AR_DOC_YN),
+  						ACCT_RULE_CODE			: gfnma_nvl2(item.GAAP_CD),
+  						APPROVE_DATE			: gfnma_date5(gfnma_nvl2(item.APRV_YMD)),
+  						APPR_ID					: gfnma_nvl2(item.APRV_ID),
+  						APPR_SOURCE_TYPE		: gfnma_nvl2(item.APRV_SRC_TYPE),
+  						AP_DOC_VIEW_YN			: gfnma_nvl2(item.APS_SLIP_INQ_YN),
+  						AP_DOC_WRITE_YN			: gfnma_nvl2(item.APS_SLIP_WRT_YN),
+  						AP_DOC_YN				: gfnma_nvl2(item.APS_SLIP_YN),
+  						AR_DOC_WRITE_YN			: gfnma_nvl2(item.AR_SLIP_WRT_YN),
+  						AR_DOC_YN				: gfnma_nvl2(item.AR_SLIP_YN),
   						BEFORE_APPR_EMP			: gfnma_nvl2(item.BEFORE_APPR_EMP),
   						BEFORE_PROXY_EMP		: gfnma_nvl2(item.BEFORE_PROXY_EMP),
 						CHECK_YN				: gfnma_nvl2(item.CHECK_YN),			
-						COMP_CODE				: gfnma_nvl2(item.COMP_CODE),			
+						COMP_CODE				: gfnma_nvl2(item.CO_CD),			
   						CONFIRM_EMP_CODE		: gfnma_nvl2(item.CONFIRM_EMP_CODE),
-  						CS_NAME					: gfnma_nvl2(item.CS_NAME),
-  						CURRENCY_CODE			: gfnma_nvl2(item.CURRENCY_CODE),
-						DEPT_CODE				: gfnma_nvl2(item.DEPT_CODE),			
-  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),
-  						DESCRIPTION				: gfnma_nvl2(item.DESCRIPTION),
-  						DOC_AMT					: gfnma_nvl2(item.DOC_AMT),
-  						DOC_BATCH_NO			: gfnma_nvl2(item.DOC_BATCH_NO),
-  						DOC_DATE				: gfnma_date5(gfnma_nvl2(item.DOC_DATE)),
-						DOC_ID					: gfnma_nvl2(item.DOC_ID),			
-  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
-  						DOC_NUM					: gfnma_nvl2(item.DOC_NUM),
+  						CS_NAME					: gfnma_nvl2(item.CNPT_NM),
+  						CURRENCY_CODE			: gfnma_nvl2(item.CRN_CD),
+						DEPT_CODE				: gfnma_nvl2(item.DEPT_CD),			
+  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NM),
+  						DESCRIPTION				: gfnma_nvl2(item.DSCTN),
+  						DOC_AMT					: gfnma_nvl2(item.SLIP_AMT),
+  						DOC_BATCH_NO			: gfnma_nvl2(item.SLIP_BTCH_NO),
+  						DOC_DATE				: gfnma_date5(gfnma_nvl2(item.SLIP_YMD)),
+						DOC_ID					: gfnma_nvl2(item.SLIP_ID),			
+  						DOC_NAME				: gfnma_nvl2(item.SLIP_NM),
+  						DOC_NUM					: gfnma_nvl2(item.SLIP_NO),
   						DOC_NUM_TOTAL			: gfnma_nvl2(item.DOC_NUM_TOTAL),
-  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+  						DOC_STATUS				: gfnma_nvl2(item.SLIP_STTS),
   						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
-  						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+  						DOC_TYPE				: gfnma_nvl2(item.SLIP_TYPE),
   						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
-  						ESS_DOC_YN				: gfnma_nvl2(item.ESS_DOC_YN),
-						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),			
-						FI_ORG_NAME				: gfnma_nvl2(item.FI_ORG_NAME),			
-  						HOLD_FLAG				: gfnma_nvl2(item.HOLD_FLAG),
-  						HOLD_USER				: gfnma_nvl2(item.HOLD_USER),
-  						INSERT_PC				: gfnma_nvl2(item.INSERT_PC),
-  						INSERT_TIME				: gfnma_nvl2(item.INSERT_TIME),
-  						INSERT_USERID			: gfnma_nvl2(item.INSERT_USERID),
+  						ESS_DOC_YN				: gfnma_nvl2(item.ESS_SLIP_YN),
+						FI_ORG_CODE				: gfnma_nvl2(item.ACNTG_OGNZ_CD),			
+						FI_ORG_NAME				: gfnma_nvl2(item.ACNTG_OGNZ_NM),			
+  						HOLD_FLAG				: gfnma_nvl2(item.HLDOF_FLAG),
+  						HOLD_USER				: gfnma_nvl2(item.HLDOF_USER),
+  						INSERT_PC				: gfnma_nvl2(item.WRT_PC),
+  						INSERT_TIME				: gfnma_nvl2(item.WRT_DT),
+  						INSERT_USERID			: gfnma_nvl2(item.WRT_USER_ID),
   						INSERT_USER_NAME		: gfnma_nvl2(item.INSERT_USER_NAME),
-  						MANUAL_DOC_WRITE_YN		: gfnma_nvl2(item.MANUAL_DOC_WRITE_YN),
+  						MANUAL_DOC_WRITE_YN		: gfnma_nvl2(item.HWRT_SLIP_YN),
   						NULTI_AP_WRITE_YN		: gfnma_nvl2(item.NULTI_AP_WRITE_YN),
   						NEXT_APPR_EMP			: gfnma_nvl2(item.NEXT_APPR_EMP),
   						NEXTE_PROXY_EMP			: gfnma_nvl2(item.NEXT_PROXY_EMP),
-  						POSTING_DATE			: gfnma_date5(gfnma_nvl2(item.POSTING_DATE)),
-  						POSTING_USER			: gfnma_nvl2(item.POSTING_USER),
-  						PROXY_EMP_CODE			: gfnma_nvl2(item.PROXY_EMP_CODE),
-  						RELEASE_USER			: gfnma_nvl2(item.RELEASE_USER),
+  						POSTING_DATE			: gfnma_date5(gfnma_nvl2(item.PSTG_YMD)),
+  						POSTING_USER			: gfnma_nvl2(item.PSTG_PIC),
+  						PROXY_EMP_CODE			: gfnma_nvl2(item.DLCT_EMP_CD),
+  						RELEASE_USER			: gfnma_nvl2(item.RMV_USER),
   						REQUEST_EMP				: gfnma_nvl2(item.REQUEST_EMP),
-  						REVERSE_FLAG			: gfnma_nvl2(item.REVERSE_FLAG),
-						SITE_CODE				: gfnma_nvl2(item.SITE_CODE),			
-						SITE_NAME				: gfnma_nvl2(item.SITE_NAME),			
-  						SOURCE_ID				: gfnma_nvl2(item.SOURCE_ID),
-  						SOURCE_TYPE				: gfnma_nvl2(item.SOURCE_TYPE),
-  						SUPPLY_AMT				: gfnma_nvl2(item.SUPPLY_AMT),
-  						UNPOSTING_DATE			: gfnma_nvl2(item.UNPOSTING_DATE),
-  						UNPOSTING_USER			: gfnma_nvl2(item.UNPOSTING_USER),
-  						UPDATE_PC				: gfnma_nvl2(item.UPDATE_PC),
-  						UPDATE_TIME				: gfnma_nvl2(item.UPDATE_TIME),
-  						UPDATE_USERID			: gfnma_nvl2(item.UPDATE_USERID),
+  						REVERSE_FLAG			: gfnma_nvl2(item.REVE_FLAG),
+						SITE_CODE				: gfnma_nvl2(item.SITE_CD),			
+						SITE_NAME				: gfnma_nvl2(item.SITE_NM),			
+  						SOURCE_ID				: gfnma_nvl2(item.SRC_ID),
+  						SOURCE_TYPE				: gfnma_nvl2(item.SRC_TYPE),
+  						SUPPLY_AMT				: gfnma_nvl2(item.SPLY_AMT),
+  						UNPOSTING_DATE			: gfnma_nvl2(item.PSTG_CNCL_YMD),
+  						UNPOSTING_USER			: gfnma_nvl2(item.PSTG_CNCL_USER),
+  						UPDATE_PC				: gfnma_nvl2(item.UPDT_PC),
+  						UPDATE_TIME				: gfnma_nvl2(item.UPDT_DT),
+  						UPDATE_USERID			: gfnma_nvl2(item.UPDT_USER_ID),
   						VAT_AMT					: gfnma_nvl2(item.VAT_AMT),
 						
   						DOC_ID1					: gfnma_nvl2(item.DOC_ID1),
@@ -1065,7 +1065,7 @@
   					jsonFig2300.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fig2300Grid.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
@@ -1077,7 +1077,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1098,7 +1098,7 @@
 		SBUxMethod.set('SCH_ENTRY_DATE_FR', 		sdate);
 		SBUxMethod.set('SCH_ENTRY_DATE_TO', 		edate);    	
     }
-
+ 
     /**
      * 작성부서 팝업
      */
@@ -1117,21 +1117,21 @@
     		,popupType				: 'B'
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: ["", 				p_find1,		p_day]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
    			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('SCH_TXTCREATED_DEPT_NAME', data.DEPT_NAME);
-				SBUxMethod.set('SCH_TXTCREATED_DEPT_CODE', data.DEPT_CODE);
+				SBUxMethod.set('SCH_TXTCREATED_DEPT_NAME', data.DEPT_NM);
+				SBUxMethod.set('SCH_TXTCREATED_DEPT_CODE', data.DEPT_CD);
 			},
     	});
   	}         
-
+ 
     /**
      * 청구부서 팝업
      */
@@ -1150,17 +1150,17 @@
     		,popupType				: 'B'
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: ["", 				p_find1,		p_day]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
    			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('SCH_TXTPAYEE_DEPT_NAME', data.DEPT_NAME);
-				SBUxMethod.set('SCH_TXTPAYEE_DEPT_CODE', data.DEPT_CODE);
+				SBUxMethod.set('SCH_TXTPAYEE_DEPT_NAME', data.DEPT_NM);
+				SBUxMethod.set('SCH_TXTPAYEE_DEPT_CODE', data.DEPT_CD);
 			},
     	});
   	}         
@@ -1174,8 +1174,8 @@
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SCH_TXTCREATED_BY_NAME"));
         var replaceText0 	= "_USER_ID_";
-        var replaceText1 	= "_USER_NAME_";
-        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText1 	= "_USER_NM_";
+        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
     	compopup1({
@@ -1185,16 +1185,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사용자ID", 	"사용자명"]
-   			,searchInputFields		: ["USER_ID", 	"USER_NAME"]
+   			,searchInputFields		: ["USER_ID", 	"USER_NM"]
    			,searchInputValues		: ["", 			searchText]
     		,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["사용자", 	"사용자명",]
-   			,tableColumnNames		: ["USER_ID", 	"USER_NAME"]
+   			,tableColumnNames		: ["USER_ID", 	"USER_NM"]
 			,tableColumnWidths		: ["100px", 	"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('SCH_TXTCREATED_BY_NAME', data.USER_NAME);
+				SBUxMethod.set('SCH_TXTCREATED_BY_NAME', data.USER_NM);
 				SBUxMethod.set('SCH_TXTCREATED_BY_CODE', data.USER_ID);
 			},
     	});
@@ -1209,8 +1209,8 @@
     	
         var searchText 		= gfnma_nvl(SBUxMethod.get("SCH_TXTPAYEE_NAME"));
         var replaceText0 	= "_USER_ID_";
-        var replaceText1 	= "_USER_NAME_";
-        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText1 	= "_USER_NM_";
+        var strWhereClause 	= "AND USER_ID LIKE '%" + replaceText0 + "%' AND USER_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사용자 조회');
     	compopup1({
@@ -1220,16 +1220,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["사용자ID", 	"사용자명"]
-   			,searchInputFields		: ["USER_ID", 	"USER_NAME"]
+   			,searchInputFields		: ["USER_ID", 	"USER_NM"]
    			,searchInputValues		: ["", 			searchText]
 			,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["사용자", 	"사용자명", 	"부서코드", 	"부서명"]
-   			,tableColumnNames		: ["USER_ID", 	"USER_NAME",  	"DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["USER_ID", 	"USER_NM",  	"DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["100px", 	"100px", 		"100px", 		"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('SCH_TXTPAYEE_NAME', data.USER_NAME);
+				SBUxMethod.set('SCH_TXTPAYEE_NAME', data.USER_NM);
 				SBUxMethod.set('SCH_TXTPAYEE_CODE', data.USER_ID);
 			},
     	});
@@ -1268,7 +1268,7 @@
     const fn_setTab1Grid = async function(wtype, doc_id) {
     	
     	tab1Fig2210Grid.clearStatus();
-
+ 
 		let p_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		
 	    var paramObj = { 
@@ -1294,66 +1294,66 @@
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonTab1Fig2210.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						ACCOUNT_CODE			: gfnma_nvl2(item.ACCOUNT_CODE),
-						ACCOUNT_NAME			: gfnma_nvl2(item.ACCOUNT_NAME),
-						ACC_CHARACTER			: gfnma_nvl2(item.ACC_CHARACTER),
+						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),
+						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),
+						ACC_CHARACTER			: gfnma_nvl2(item.INCPL_TYPE),
 						
-						ACC_ITEM_CODE1			: gfnma_nvl2(item.ACC_ITEM_CODE1),
-						ACC_ITEM_CODE2			: gfnma_nvl2(item.ACC_ITEM_CODE2),
-						ACC_ITEM_CODE3			: gfnma_nvl2(item.ACC_ITEM_CODE3),
-						ACC_ITEM_CODE4			: gfnma_nvl2(item.ACC_ITEM_CODE4),
-						ACC_ITEM_CODE5			: gfnma_nvl2(item.ACC_ITEM_CODE5),
-						ACC_ITEM_CODE6			: gfnma_nvl2(item.ACC_ITEM_CODE6),
-						ACC_ITEM_CODE7			: gfnma_nvl2(item.ACC_ITEM_CODE7),
-						ACC_ITEM_CODE8			: gfnma_nvl2(item.ACC_ITEM_CODE8),
-						ACC_ITEM_CODE9			: gfnma_nvl2(item.ACC_ITEM_CODE9),
-						ACC_ITEM_CODE10			: gfnma_nvl2(item.ACC_ITEM_CODE10),
-
-						ACC_ITEM_NAME1			: gfnma_nvl2(item.ACC_ITEM_NAME1),
-						ACC_ITEM_NAME2			: gfnma_nvl2(item.ACC_ITEM_NAME2),
-						ACC_ITEM_NAME3			: gfnma_nvl2(item.ACC_ITEM_NAME3),
-						ACC_ITEM_NAME4			: gfnma_nvl2(item.ACC_ITEM_NAME4),
-						ACC_ITEM_NAME5			: gfnma_nvl2(item.ACC_ITEM_NAME5),
-						ACC_ITEM_NAME6			: gfnma_nvl2(item.ACC_ITEM_NAME6),
-						ACC_ITEM_NAME7			: gfnma_nvl2(item.ACC_ITEM_NAME7),
-						ACC_ITEM_NAME8			: gfnma_nvl2(item.ACC_ITEM_NAME8),
-						ACC_ITEM_NAME9			: gfnma_nvl2(item.ACC_ITEM_NAME9),
-						ACC_ITEM_NAME10			: gfnma_nvl2(item.ACC_ITEM_NAME10),
-
-						ACC_ITEM_VALUE1			: gfnma_nvl2(item.ACC_ITEM_VALUE1),
-						ACC_ITEM_VALUE2			: gfnma_nvl2(item.ACC_ITEM_VALUE2),
-						ACC_ITEM_VALUE3			: gfnma_nvl2(item.ACC_ITEM_VALUE3),
-						ACC_ITEM_VALUE4			: gfnma_nvl2(item.ACC_ITEM_VALUE4),
-						ACC_ITEM_VALUE5			: gfnma_nvl2(item.ACC_ITEM_VALUE5),
-						ACC_ITEM_VALUE6			: gfnma_nvl2(item.ACC_ITEM_VALUE6),
-						ACC_ITEM_VALUE7			: gfnma_nvl2(item.ACC_ITEM_VALUE7),
-						ACC_ITEM_VALUE8			: gfnma_nvl2(item.ACC_ITEM_VALUE8),
-						ACC_ITEM_VALUE9			: gfnma_nvl2(item.ACC_ITEM_VALUE9),
-						ACC_ITEM_VALUE10		: gfnma_nvl2(item.ACC_ITEM_VALUE10),
+						ACC_ITEM_CODE1			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD1),
+						ACC_ITEM_CODE2			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD2),
+						ACC_ITEM_CODE3			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD3),
+						ACC_ITEM_CODE4			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD4),
+						ACC_ITEM_CODE5			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD5),
+						ACC_ITEM_CODE6			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD6),
+						ACC_ITEM_CODE7			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD7),
+						ACC_ITEM_CODE8			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD8),
+						ACC_ITEM_CODE9			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD9),
+						ACC_ITEM_CODE10			: gfnma_nvl2(item.ACNT_MNG_ARTCL_CD10),
+ 
+						ACC_ITEM_NAME1			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM1),
+						ACC_ITEM_NAME2			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM2),
+						ACC_ITEM_NAME3			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM3),
+						ACC_ITEM_NAME4			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM4),
+						ACC_ITEM_NAME5			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM5),
+						ACC_ITEM_NAME6			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM6),
+						ACC_ITEM_NAME7			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM7),
+						ACC_ITEM_NAME8			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM8),
+						ACC_ITEM_NAME9			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM9),
+						ACC_ITEM_NAME10			: gfnma_nvl2(item.ACNT_MNG_ARTCL_NM10),
+ 
+						ACC_ITEM_VALUE1			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL1),
+						ACC_ITEM_VALUE2			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL2),
+						ACC_ITEM_VALUE3			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL3),
+						ACC_ITEM_VALUE4			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL4),
+						ACC_ITEM_VALUE5			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL5),
+						ACC_ITEM_VALUE6			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL6),
+						ACC_ITEM_VALUE7			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL7),
+						ACC_ITEM_VALUE8			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL8),
+						ACC_ITEM_VALUE9			: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL9),
+						ACC_ITEM_VALUE10		: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL10),
 						
-						ACC_ITEM_YN1			: gfnma_nvl2(item.ACC_ITEM_YN1),
-						ACC_ITEM_YN2			: gfnma_nvl2(item.ACC_ITEM_YN2),
-						ACC_ITEM_YN3			: gfnma_nvl2(item.ACC_ITEM_YN3),
-						ACC_ITEM_YN4			: gfnma_nvl2(item.ACC_ITEM_YN4),
-						ACC_ITEM_YN5			: gfnma_nvl2(item.ACC_ITEM_YN5),
-						ACC_ITEM_YN6			: gfnma_nvl2(item.ACC_ITEM_YN6),
-						ACC_ITEM_YN7			: gfnma_nvl2(item.ACC_ITEM_YN7),
-						ACC_ITEM_YN8			: gfnma_nvl2(item.ACC_ITEM_YN8),
-						ACC_ITEM_YN9			: gfnma_nvl2(item.ACC_ITEM_YN9),
-						ACC_ITEM_YN10			: gfnma_nvl2(item.ACC_ITEM_YN10),
+						ACC_ITEM_YN1			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN1),
+						ACC_ITEM_YN2			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN2),
+						ACC_ITEM_YN3			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN3),
+						ACC_ITEM_YN4			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN4),
+						ACC_ITEM_YN5			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN5),
+						ACC_ITEM_YN6			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN6),
+						ACC_ITEM_YN7			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN7),
+						ACC_ITEM_YN8			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN8),
+						ACC_ITEM_YN9			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN9),
+						ACC_ITEM_YN10			: gfnma_nvl2(item.ACNT_MNG_ARTCL_YN10),
 						
 						ACC_VALUE_NAME1			: gfnma_nvl2(item.ACC_VALUE_NAME1),
 						ACC_VALUE_NAME2			: gfnma_nvl2(item.ACC_VALUE_NAME2),
@@ -1366,8 +1366,8 @@
 						ACC_VALUE_NAME9			: gfnma_nvl2(item.ACC_VALUE_NAME9),
 						ACC_VALUE_NAME10		: gfnma_nvl2(item.ACC_VALUE_NAME10),
 						
-						COST_CENTER_CODE		: gfnma_nvl2(item.COST_CENTER_CODE),
-						COST_CENTER_NAME		: gfnma_nvl2(item.COST_CENTER_NAME),
+						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),
+						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCD_NM),
 						
 						DATA_TYPE1				: gfnma_nvl2(item.DATA_TYPE1),
 						DATA_TYPE2				: gfnma_nvl2(item.DATA_TYPE2),
@@ -1380,29 +1380,29 @@
 						DATA_TYPE9				: gfnma_nvl2(item.DATA_TYPE9),
 						DATA_TYPE10				: gfnma_nvl2(item.DATA_TYPE10),
 						
-						DEBIT_CREDIT			: gfnma_nvl2(item.DEBIT_CREDIT),
+						DEBIT_CREDIT			: gfnma_nvl2(item.DBSD_CRSD),
 						DEBIT_CREDIT_NAME		: gfnma_nvl2(item.DEBIT_CREDIT_NAME),
-						DEPT_CODE				: gfnma_nvl2(item.DEPT_CODE),
-						DEPT_NAME				: gfnma_nvl2(item.DEPT_NAME),
-						DESCRIPTION				: gfnma_nvl2(item.DESCRIPTION),
-						DOC_ID					: gfnma_nvl2(item.DOC_ID),
-						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
-						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+						DEPT_CODE				: gfnma_nvl2(item.DEPT_CD),
+						DEPT_NAME				: gfnma_nvl2(item.DEPT_NM),
+						DESCRIPTION				: gfnma_nvl2(item.DSCTN),
+						DOC_ID					: gfnma_nvl2(item.SLIP_ID),
+						DOC_NAME				: gfnma_nvl2(item.SLIP_NM),
+						DOC_STATUS				: gfnma_nvl2(item.SLIP_STTS),
 						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
 						
-						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+						DOC_TYPE				: gfnma_nvl2(item.SLIP_TYPE),
 						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
-						FI_ORG_CODE				: gfnma_nvl2(item.FI_ORG_CODE),
-						FUNCTIONAL_CR_AMT		: gfnma_nvl2(item.FUNCTIONAL_CR_AMT),
-						FUNCTIONAL_DR_AMT		: gfnma_nvl2(item.FUNCTIONAL_DR_AMT),
-						ITEM_CODE				: gfnma_nvl2(item.ITEM_CODE),
+						FI_ORG_CODE				: gfnma_nvl2(item.ACNTG_OGNZ_CD),
+						FUNCTIONAL_CR_AMT		: gfnma_nvl2(item.CNVS_CRSD_AMT),
+						FUNCTIONAL_DR_AMT		: gfnma_nvl2(item.CNVS_DRSD_AMT),
+						ITEM_CODE				: gfnma_nvl2(item.ITEM_CD),
 						ITEM_ID					: gfnma_nvl2(item.ITEM_ID),
 						ITEM_SEQ				: gfnma_nvl2(item.ITEM_SEQ),
 						KEY_ID					: gfnma_nvl2(item.KEY_ID),
 						LINE_TYPE				: gfnma_nvl2(item.LINE_TYPE),
 						LINE_TYPE_NAME			: gfnma_nvl2(item.LINE_TYPE_NAME),
-						ORIGINAL_CR_AMT			: gfnma_nvl2(item.ORIGINAL_CR_AMT),
-						ORIGINAL_DR_AMT			: gfnma_nvl2(item.ORIGINAL_DR_AMT),
+						ORIGINAL_CR_AMT			: gfnma_nvl2(item.ORGNL_CRSD_AMT),
+						ORIGINAL_DR_AMT			: gfnma_nvl2(item.ORGNL_DRSD_AMT),
 						
 						POPUP_ID1				: gfnma_nvl2(item.POPUP_ID1),
 						POPUP_ID2				: gfnma_nvl2(item.POPUP_ID2),
@@ -1415,23 +1415,23 @@
 						POPUP_ID9				: gfnma_nvl2(item.POPUP_ID9),
 						POPUP_ID10				: gfnma_nvl2(item.POPUP_ID10),
 						
-						PROJECT_CODE			: gfnma_nvl2(item.PROJECT_CODE),
-						TXN_QTY					: gfnma_nvl2(item.TXN_QTY),
-						UOM						: gfnma_nvl2(item.UOM),
-						VAT_NAME				: gfnma_nvl2(item.VAT_NAME),
+						PROJECT_CODE			: gfnma_nvl2(item.PJT_CD),
+						TXN_QTY					: gfnma_nvl2(item.TRSC_QTY),
+						UOM						: gfnma_nvl2(item.UNIT),
+						VAT_NAME				: gfnma_nvl2(item.VAT_NM),
 						VAT_TYPE				: gfnma_nvl2(item.VAT_TYPE),
   					}
   					jsonTab1Fig2210.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	tab1Fig2210Grid.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1447,7 +1447,7 @@
     const fn_setTab2Grid = async function(wtype, doc_id) {
     	
     	tab2Fig2300Grid.clearStatus();
-
+ 
 		let p_fi_org_code			= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		let p_acct_rule_code		= gfnma_nvl(SBUxMethod.get("SCH_ACCT_RULE_CODE"));
 		let p_entry_date_fr			= gfnma_nvl(SBUxMethod.get("SCH_ENTRY_DATE_FR"));
@@ -1513,44 +1513,44 @@
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonTab2Fig2300.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						CURRENCY_CODE			: gfnma_nvl2(item.CURRENCY_CODE),
-  						DOC_BATCH_NO			: gfnma_nvl2(item.DOC_BATCH_NO),
-						DOC_ID					: gfnma_nvl2(item.DOC_ID),			
-  						DOC_NAME				: gfnma_nvl2(item.DOC_NAME),
-  						DOC_STATUS				: gfnma_nvl2(item.DOC_STATUS),
+  						CURRENCY_CODE			: gfnma_nvl2(item.CRN_CD),
+  						DOC_BATCH_NO			: gfnma_nvl2(item.SLIP_BTCH_NO),
+						DOC_ID					: gfnma_nvl2(item.SLIP_ID),			
+  						DOC_NAME				: gfnma_nvl2(item.SLIP_NM),
+  						DOC_STATUS				: gfnma_nvl2(item.SLIP_STTS),
   						DOC_STATUS_NAME			: gfnma_nvl2(item.DOC_STATUS_NAME),
-  						DOC_TYPE				: gfnma_nvl2(item.DOC_TYPE),
+  						DOC_TYPE				: gfnma_nvl2(item.SLIP_TYPE),
   						DOC_TYPE_NAME			: gfnma_nvl2(item.DOC_TYPE_NAME),
-  						FUNCTIONAL_AMOUNT		: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),
-  						ORIGINAL_AMOUNT			: gfnma_nvl2(item.ORIGINAL_AMOUNT),
-  						PAY_DATE				: gfnma_date5(gfnma_nvl2(item.PAY_DATE)),
-
+  						FUNCTIONAL_AMOUNT		: gfnma_nvl2(item.CNVS_AMT),
+  						ORIGINAL_AMOUNT			: gfnma_nvl2(item.ORGNL_AMT),
+  						PAY_DATE				: gfnma_date5(gfnma_nvl2(item.PAY_YMD)),
+ 
   						ETC						: ''
   					}
   					jsonTab2Fig2300.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	tab2Fig2300Grid.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1592,54 +1592,54 @@
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonTab3Fim3420.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						APPR_CATEGORY			: gfnma_nvl(item.APPR_CATEGORY),
+  						APPR_CATEGORY			: gfnma_nvl(item.APRV_CTGRY),
   						APPR_CATEGORY_NAME		: gfnma_nvl(item.APPR_CATEGORY_NAME),
-  						APPR_DATE				: gfnma_nvl(item.APPR_DATE),
-  						APPR_ID					: gfnma_nvl(item.APPR_ID),
-  						APPR_OPINION			: gfnma_nvl(item.APPR_OPINION),
-  						APPR_STATUS				: gfnma_nvl(item.APPR_STATUS),
+  						APPR_DATE				: gfnma_nvl(item.APRV_YMD),
+  						APPR_ID					: gfnma_nvl(item.APRV_ID),
+  						APPR_OPINION			: gfnma_nvl(item.APRV_OPNN),
+  						APPR_STATUS				: gfnma_nvl(item.APRV_STTS),
   						APPR_STATUS_NAME		: gfnma_nvl(item.APPR_STATUS_NAME),
-  						APPR_TYPE				: gfnma_nvl(item.APPR_TYPE),
+  						APPR_TYPE				: gfnma_nvl(item.APRV_TYPE),
   						APPR_TYPE_NAME			: gfnma_nvl(item.APPR_TYPE_NAME),
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
-  						DUTY_CODE				: gfnma_nvl(item.DUTY_CODE),
-  						DUTY_NAME				: gfnma_nvl(item.DUTY_NAME),
-  						EMP_CODE				: gfnma_nvl(item.EMP_CODE),
-  						EMP_NAME				: gfnma_nvl(item.EMP_NAME),
-  						PROXY_EMP_CODE			: gfnma_nvl(item.PROXY_EMP_CODE),
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),
+  						DUTY_CODE				: gfnma_nvl(item.JBTTL_CD),
+  						DUTY_NAME				: gfnma_nvl(item.JBTTL_NM),
+  						EMP_CODE				: gfnma_nvl(item.EMP_CD),
+  						EMP_NAME				: gfnma_nvl(item.EMP_NM),
+  						PROXY_EMP_CODE			: gfnma_nvl(item.DLCT_EMP_CD),
   						PROXY_EMP_NAME			: gfnma_nvl(item.PROXY_EMP_NAME),
-  						STEP_SEQ				: gfnma_nvl(item.STEP_SEQ),
+  						STEP_SEQ				: gfnma_nvl(item.STP_SEQ),
   						UPDATE_EMP_NAME			: gfnma_nvl(item.UPDATE_EMP_NAME),
-  						UPDATE_PC				: gfnma_nvl(item.UPDATE_PC),
-  						UPDATE_TIME				: gfnma_nvl(item.UPDATE_TIME),
-  						UPDATE_USERID			: gfnma_nvl(item.UPDATE_USERID),
+  						UPDATE_PC				: gfnma_nvl(item.UPDT_PC),
+  						UPDATE_TIME				: gfnma_nvl(item.UPDT_DT),
+  						UPDATE_USERID			: gfnma_nvl(item.UPDT_USER_ID),
   					}
   					jsonTab3Fim3420.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	tab3Fim3420Grid.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1682,7 +1682,7 @@
      * 전기처리, 전기취소, 전기+해제, 보류해제, 보류지정, 일괄삭제
      */
     const fn_subDocProExit = async function (wtype, p_strdoc_id, type, callbackFn){
-
+ 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
  			gfn_comAlert("E0000","APC를 선택하세요");
@@ -1708,7 +1708,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2300S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -1716,7 +1716,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(type=='1'){
@@ -1763,7 +1763,7 @@
 			fn_subDocProExit('RELEASE', p_strdoc_id, '2');
 		}       	
   	}           
-
+ 
     /**
      * 보류지정
      */
@@ -1836,7 +1836,7 @@
 			return;      		 
       	}
       	p_strdoc_id = p_strdoc_id.slice(0, -1);
-
+ 
 		if(gfn_comConfirm("Q0001", "전기처리")){
 	      	fn_subDocProcess('END', p_strdoc_id);
 		}       	
@@ -1847,7 +1847,7 @@
      * 전기처리 - 실행
      */
     const fn_subDocProcess = async function (wtype, p_strdoc_id){
-
+ 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
  			gfn_comAlert("E0000","APC를 선택하세요");
@@ -1873,7 +1873,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2300S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -1881,7 +1881,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -1924,7 +1924,7 @@
       		gfn_comAlert("E0000","전기취소는 승인완료된 것만 선택하세요");
 			return;      		 
 		}
-
+ 
       	if(!p_strdoc_id){
       		gfn_comAlert("E0000","전기취소 할 대상을 선택하세요");
 			return;      		 
@@ -1960,7 +1960,7 @@
      * 전기취소 - 실행
      */
     const fn_subDocCancel = async function (wtype, p_strdoc_id, p_type, p_date){
-
+ 
 		let p_cbofi_org_code	= gfnma_nvl(SBUxMethod.get("SCH_FI_ORG_CODE"));
 		if(!p_cbofi_org_code){
  			gfn_comAlert("E0000","APC를 선택하세요");
@@ -1986,7 +1986,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2300S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -1994,7 +1994,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -2091,7 +2091,7 @@
      * 일괄결재 - 실행
      */
     const fn_subAllAppr = async function (wtype, p_strappr_id, p_txtappr_opinion){
-
+ 
   	    var paramObj = { 
  			V_P_DEBUG_MODE_YN			: ''
  			,V_P_LANG_ID				: ''
@@ -2107,7 +2107,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S2.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -2115,7 +2115,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){

@@ -99,7 +99,7 @@
                             <div id="sb_area_grid1" style="height:580px; width:100%;"></div>
                         </div>
                     </div>
-
+ 
                     <div class="col-sm-6" style="width:80%">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -134,16 +134,16 @@
 	                                
 	                                    <th scope="row" class="th_bg">생성주기</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_CNT" class="form-control input-sm" uitype="text" ></sbux-input>
+	                                        <sbux-input id="FM_SVLF_CNT" class="form-control input-sm" uitype="text" ></sbux-input>
 	                                    </td>
 	                                
 	                                    <th scope="row" class="th_bg">
-	                                    	<font id="FM_SALVAGE_RATE">
+	                                    	<font id="FM_RMN_RT">
 		                                    	잔존비율
 	                                    	</font>
 	                                    </th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE" class="form-control input-sm" uitype="text" ></sbux-input>
+	                                        <sbux-input id="FM_RMN_RT" class="form-control input-sm" uitype="text" ></sbux-input>
 	                                    </td>
 	                                    
 	                                    <td colspan="3" class="td_input">
@@ -159,7 +159,7 @@
 	                        </div>
                         </div>
                     </div>
-
+ 
                 </div>
             </div>
         </div>
@@ -182,10 +182,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -195,7 +195,7 @@
 	
 	var p_ss_languageID	= '${loginVO.maLanguageID}';
 	//-----------------------------------------------------------
-
+ 
 	var p_sel_rowData =  null;
 	
     //grid 초기화
@@ -204,16 +204,16 @@
     
     var Fia1200GridDetail; 			// 그리드를 담기위한 객체 선언
     var jsonFia1200Detail = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
 	var jsonDepreciationMethod		= [];	// 감가상각방법
 	
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//감가상각방법
-			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD','FM_DEPRECIATION_METHOD2'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
@@ -231,7 +231,7 @@
 		
     	fn_init();
     });
-
+ 
     /**
      * 초기화
      */
@@ -306,12 +306,12 @@
         	SBUxMethod.show('#FM_SALVAGE_RATE');
         } else {
         	$('#FM_SALVAGE_RATE').hide();
-        	SBUxMethod.hide('FM_SALVAGE_RATE');
+        	SBUxMethod.hide('FM_RMN_RT');
         }
         
         //detail
         SBUxMethod.set('FM_DEPRECIATION_METHOD2', 	rowData['DEPRECIATION_METHOD']);
-        SBUxMethod.set('FM_USEFUL_LIFE_CNT', 		rowData['USEFUL_LIFE_CNT']);
+        SBUxMethod.set('FM_SVLF_CNT', 		rowData['USEFUL_LIFE_CNT']);
         fn_setFia1200Detail('DETAIL', rowData);
     }  
     
@@ -333,11 +333,11 @@
             
             {caption: ["비고"], 				ref: 'ETC', 				 		type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fia1200GridDetail = _SBGrid.create(SBGridProperties);
         Fia1200GridDetail.bind('click', 		'fn_viewFia1200GridDetailEvent');
     }
-
+ 
     //상세정보 보기
     function fn_viewFia1200GridDetailEvent() {
     	
@@ -357,8 +357,8 @@
      */
     function fn_fmDisabled(type) {
 		SBUxMethod.attr('FM_DEPRECIATION_METHOD2', 		'readonly', type);
-		SBUxMethod.attr('FM_USEFUL_LIFE_CNT', 			'readonly', type);
-		SBUxMethod.attr('FM_SALVAGE_RATE', 				'readonly', type);
+		SBUxMethod.attr('FM_SVLF_CNT', 			'readonly', type);
+		SBUxMethod.attr('FM_RMN_RT', 				'readonly', type);
 		
 		SBUxMethod.attr('BTN_STANDARDAPPLY', 			'disabled', type);
     }
@@ -403,28 +403,28 @@
         	cv_count			: '3',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFia1200Mast.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-						DEPRECIATION_METHOD			: gfnma_nvl(item.DEPRECIATION_METHOD),
+						DEPRECIATION_METHOD			: gfnma_nvl(item.DPRC_MTHD),
 						DEPRECIATION_NAME			: gfnma_nvl(item.DEPRECIATION_NAME),
 						FOCUS						: gfnma_nvl(item.FOCUS),
-						SALVAGE_RATE				: gfnma_nvl(item.SALVAGE_RATE),
-						USEFUL_LIFE_CNT				: gfnma_nvl(item.USEFUL_LIFE_CNT),
+						SALVAGE_RATE				: gfnma_nvl(item.RMN_RT),
+						USEFUL_LIFE_CNT				: gfnma_nvl(item.SVLF_CNT),
   					}
   					jsonFia1200Mast.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fia1200GridMast.rebuild();
         		
         		if(jsonFia1200Mast.length>0){
@@ -436,7 +436,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -477,7 +477,7 @@
         	cv_count			: '3',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
@@ -485,24 +485,24 @@
   				
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFia1200Detail.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DEPRECIATION_RATE1000),
-  						SALVAGE_RATE			: gfnma_nvl(item.SALVAGE_RATE),
-  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.USEFUL_LIFE_SEQ),
+  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DPRT1000),
+  						SALVAGE_RATE			: gfnma_nvl(item.RMN_RT),
+  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.SVLF_SEQ),
   					}
   					jsonFia1200Detail.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fia1200GridDetail.rebuild();
   	          
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -518,8 +518,8 @@
     const fn_setFia1200Apply = async function(wtype, obj) {
 		
 		let p_depreciation_method2	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD2"));
-		let p_salvage_rage			= gfnma_nvl(SBUxMethod.get("FM_SALVAGE_RATE"));
-		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_USEFUL_LIFE_CNT"));
+		let p_salvage_rage			= gfnma_nvl(SBUxMethod.get("FM_RMN_RT"));
+		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_SVLF_CNT"));
 		
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
@@ -543,7 +543,7 @@
         	cv_count			: '3',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
@@ -551,24 +551,24 @@
   				
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFia1200Detail.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
-  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DEPRECIATION_RATE1000),
-  						SALVAGE_RATE			: gfnma_nvl(item.SALVAGE_RATE),
-  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.USEFUL_LIFE_SEQ),
+  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DPRT1000),
+  						SALVAGE_RATE			: gfnma_nvl(item.RMN_RT),
+  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.SVLF_SEQ),
   					}
   					jsonFia1200Detail.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fia1200GridDetail.rebuild();
   	          
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -585,8 +585,8 @@
     const fn_deleteFia1200 = async function(wtype, obj) {
 		
 		let p_depreciation_method2	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD2"));
-		let p_salvage_rage			= gfnma_nvl(SBUxMethod.get("FM_USEFUL_LIFE_CNT"));
-		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_SALVAGE_RATE"));
+		let p_salvage_rage			= gfnma_nvl(SBUxMethod.get("FM_SVLF_CNT"));
+		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_RMN_RT"));
 		
     	if(p_depreciation_method2){
 			if(gfn_comConfirm("Q0001", "감가상각률 정보를 삭제")){
@@ -619,7 +619,7 @@
         	cv_count			: '3',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
@@ -627,24 +627,24 @@
   				
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFia1200Detail.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DEPRECIATION_RATE1000),
-  						SALVAGE_RATE			: gfnma_nvl(item.SALVAGE_RATE),
-  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.USEFUL_LIFE_SEQ),
+  						DEPRECIATION_RATE1000	: gfnma_nvl(item.DPRT1000),
+  						SALVAGE_RATE			: gfnma_nvl(item.RMN_RT),
+  						USEFUL_LIFE_SEQ			: gfnma_nvl(item.SVLF_SEQ),
   					}
   					jsonFia1200Detail.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fia1200GridDetail.rebuild();
   	          
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -677,8 +677,8 @@
     const fn_saveFia1200 = async function(status, callbackFn) {
 		
 		let p_depreciation_method2	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD2"));
-		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_USEFUL_LIFE_CNT"));
-		let p_salvage_rate			= gfnma_nvl(SBUxMethod.get("FM_SALVAGE_RATE"));
+		let p_useful_life_cnt		= gfnma_nvl(SBUxMethod.get("FM_SVLF_CNT"));
+		let p_salvage_rate			= gfnma_nvl(SBUxMethod.get("FM_RMN_RT"));
 		
     	if(status=='N' || status=='U'){
     		if(Number(p_useful_life_cnt) != jsonFia1200Detail.length){
@@ -747,7 +747,7 @@
 	  	 
     	if(listData.length > 0) {
      	 	const postJsonPromise = gfn_postJSON("/fi/ffa/com/saveFia1200List.do", {listData: listData});
-
+ 
      	 	const data = await postJsonPromise;
      	 	console.log('data:', data);
      	 	try {
@@ -774,7 +774,7 @@
      * 삭제 
      */
     function cfn_del() {
-
+ 
     	let nRow = Fia1200GridDetail.getRow();
     	let nCol = Fia1200GridDetail.getCol();
 		if (nRow < 1) {

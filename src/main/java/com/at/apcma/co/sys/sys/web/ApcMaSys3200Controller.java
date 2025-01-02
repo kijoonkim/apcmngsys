@@ -55,7 +55,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_SYS3200_Q");
+            param.put("procedure", "SP_SYS3200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_SYS3200_Q");
+            param.put("procedure", "SP_SYS3200_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class ApcMaSys3200Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_SYS3200_S");
+            param.put("procedure", "SP_SYS3200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -129,7 +129,7 @@ public class ApcMaSys3200Controller extends BaseController {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_SYS3200_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_SYS3200_S1");
 
             logger.info("=============insertSys3200His=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -153,7 +153,7 @@ public class ApcMaSys3200Controller extends BaseController {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
-            param.put("procedure", "P_SYS3200_S");
+            param.put("procedure", "SP_SYS3200_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

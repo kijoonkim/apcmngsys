@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -74,7 +74,7 @@
 						<col style="width: 1%">
 						<col style="width: 7%">
 						<col style="width: 2%">
-
+ 
 						<col style="width: 8%">
 						<col style="width: 7%">
 						<col style="width: 1%">
@@ -208,7 +208,7 @@
                                         <td colspan="3">
                                             <sbux-input 
                                             	id="dtl-inp-realEstateAddr REAL_ESTATE_ADDR" 
-                                            	name="REAL_ESTATE_ADDR" 
+                                            	name="REST_LCTN" 
                                             	uitype="text" 
                                             	class="form-control input-sm tpgTd"
                                             ></sbux-input>
@@ -219,13 +219,13 @@
                                             대인 사업자등록번호
                                         </td>
                                         <td>
-                                            <sbux-input readonly id="LESSOR_BIZ_REGNO" name="LESSOR_BIZ_REGNO"  style="background-color: white!important;" uitype="text" class="form-control input-sm tpgTd"></sbux-input>
+                                            <sbux-input readonly id="LSR_BRNO" name="LSR_BRNO"  style="background-color: white!important;" uitype="text" class="form-control input-sm tpgTd"></sbux-input>
                                         </td>
                                         <td>
                                             종사업자 일련번호
                                         </td>
                                         <td>
-                                            <sbux-input id="BIZ_SUBNO" name="BIZ_SUBNO" uitype="text" class="form-control input-sm tpgTd"></sbux-input>
+                                            <sbux-input id="SBSD_BPLC_NO" name="SBSD_BPLC_NO" uitype="text" class="form-control input-sm tpgTd"></sbux-input>
                                         </td>
                                     </tr>
                                     <tr>
@@ -242,7 +242,7 @@
                                            임대건수
                                         </td>
                                         <td>
-                                            <sbux-input id="RENT_CNT" name="RENT_CNT" uitype="text"
+                                            <sbux-input id="RNT_NOCS" name="RNT_NOCS" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -273,7 +273,7 @@
                                            임대수입 총계
                                         </td>
                                         <td>
-                                            <sbux-input id="INCOME_TOTAL" name="INCOME_TOTAL" uitype="text"
+                                            <sbux-input id="INCM_TOT" name="INCM_TOT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -282,7 +282,7 @@
                                             경과일수
                                         </td>
                                         <td>
-                                            <sbux-input id="DAYS" name="DAYS" uitype="text"
+                                            <sbux-input id="ELPS_DCNT" name="ELPS_DCNT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -302,7 +302,7 @@
                                             이자율
                                         </td>
                                         <td>
-                                            <sbux-input id="INTEREST_RATE" name="INTEREST_RATE" uitype="text"
+                                            <sbux-input id="INT_RT" name="INT_RT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -319,9 +319,9 @@
                                             </sbux-input>
                                         </td>
                                         <td colspan="2" style="display: none">
-                                            <sbux-input id="REAL_ESTATE_ADDR" name="REAL_ESTATE_ADDR" uitype="text" class="form-control input-sm"></sbux-input>
+                                            <sbux-input id="REST_LCTN" name="REST_LCTN" uitype="text" class="form-control input-sm"></sbux-input>
                                         </td>
-
+ 
                                     </tr>
                                     </tbody>
                                 </table>
@@ -363,31 +363,31 @@
     var jsonGrdDivision = [];
     var jsonGrdCalc = [];
     var jsonGrdReCalc = [];
-
+ 
     var grdListGrid;
     var grdDivision;
     var grdCalc;
     var grdReCalc;
-
+ 
     window.addEventListener("DOMContentLoaded",function(){
         fn_createGrid();
         fn_createGridDivision();
         fn_createGridCalc();
         fn_createGridReCalc();
         fn_init();
-
+ 
         window.parent.document.getElementById("main-btn-save").style.display = "none";
     });
-
+ 
     const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'COMP_CODE', "COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'CO_CD', "CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy', yyyy);
-
+ 
         /** 신고구분명 select **/
         await fn_setMultSelect(yyyy);
     }
@@ -400,33 +400,33 @@
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: 'AND A.YYYY = ' + "'" + yyyy + "'"
+            ,whereClause	: 'AND A.YR = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
         });
     }
-
+ 
     async function fn_choice(_value){
         const inputs = document.querySelectorAll('#panRightHeader input');
         inputs.forEach(input => {
             input.value = 0;
         });
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -434,7 +434,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -456,17 +456,17 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFIt5180.do", {
             getType				: 'json',
             cv_count			: '13',
             workType            : 'LIST',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
         if(data.resultStatus === 'S'){
             jsonGrdList = data.cv_1;
@@ -482,7 +482,7 @@
                     params				: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-
+ 
                 if(data.resultStatus === 'S'){
                     let resultObj = data.cv_1[0];
                     for(let key in resultObj){
@@ -493,7 +493,7 @@
             }
         }
     }
-
+ 
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -501,8 +501,8 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         // grdListGrid.bind("click","fn_setSiteCode");
@@ -514,11 +514,11 @@
         SBGridProperties.jsonref = 'jsonGrdDivision';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['부동산 소재지'],ref : 'REAL_ESTATE_ADDR',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['임대인사업자등록번호'],ref : 'LESSOR_BIZ_REGNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['종사업자일련번호'],ref : 'BIZ_SUBNO',width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['이자율'],ref : 'INTEREST_RATE', width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['총일수'],ref : 'LEAP_YEAR_TYPE', width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['부동산 소재지'],ref : 'REST_LCTN',width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['임대인사업자등록번호'],ref : 'LSR_BRNO',width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['종사업자일련번호'],ref : 'SBSD_BPLC_NO',width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['이자율'],ref : 'INT_RT', width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['총일수'],ref : 'LPMM_TYPE', width : '20%',    style : 'text-align:center',    type : 'input'},
         ];
         grdDivision = _SBGrid.create(SBGridProperties);
     }
@@ -530,13 +530,13 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['총공통매입세액','총공통매입세액'], ref : 'CALC_TOTAL_COM_IN_TAX_AMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXEMPTION_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOTAL_SUPPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXEMPTION_RATE',      width : '10%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'CALC_TOTAL_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NOND_IN_TAX_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
-            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPUT_TAX_AMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['총공통매입세액','총공통매입세액'], ref : 'TOT_COM_INPTVAT_TXAMT',        width : '20%',    style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','면세공급가액'], ref : 'EXMPTN_SPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','총공급가액'], ref : 'TOT_SPLY_AMT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['면세사업등확정비율','확정비율(%)'], ref : 'CALC_EXMPTN_RT',      width : '10%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['불공제 매입세액총액','불공제 매입세액총액'], ref : 'TOT_NDDC_INPTVAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['기 불공제 매입세액','기 불공제 매입세액'], ref : 'CALC_BEF_NDDC_INPTVAT_AMT',      width : '15%',   style : 'text-align:center',    type : 'input'},
+            {caption : ['가산 또는 공제되는 매입세액','가산 또는 공제되는 매입세액'], ref : 'CALC_INPTVAT_TXAMT',      width : '20%',   style : 'text-align:center',    type : 'input'},
         ];
         grdCalc = _SBGrid.create(SBGridProperties);
     }
@@ -548,23 +548,23 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.rowheight = '25';
         SBGridProperties.columns = [
-            {caption : ['동'], ref : 'BUILDING_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['지상여부'], ref : 'GROUND_TYPE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['층'], ref : 'FLOOR_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['호'], ref : 'NUMBER_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대면적(㎡)'], ref : 'BUILDING_AREA', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['거래처코드'], ref : 'CS_CODE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['상호(성명)'], ref : 'TENANT_NAME', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['사업자(주민)등록번호'], ref : 'TENANT_BIZ_REGNO', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['갱신일'], ref : 'CHANGE_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['입주일'], ref : 'MOVE_IN_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['퇴거일'], ref : 'MOVE_OUT_DATE', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['경과일자'], ref : 'DAYS', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금'], ref : 'DEPOSIT_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료'], ref : 'CONTRACT_MONTH_AMT', width : '80px', style : 'text-align:center', type : 'input'},
-            {caption : ['임대수입합계(과세표준)'], ref : 'INCOME_SUM', width : '150px', style : 'text-align:center', type : 'input'},
-            {caption : ['보증금이자(계)'], ref : 'INTEREST_AMT', width : '100px', style : 'text-align:center', type : 'input'},
-            {caption : ['월 임대료(계)'], ref : 'MONTH_AMT', width : '100px', style : 'text-align:center', type : 'input'}
+            {caption : ['동'], ref : 'BLDG_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['지상여부'], ref : 'GRND_TYPE', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['층'], ref : 'FLR_ADDR', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['호'], ref : 'DADDR', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['임대면적(㎡)'], ref : 'BLDG_RNTAR', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['거래처코드'], ref : 'CNPT_CD', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['상호(성명)'], ref : 'CONM_NM', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['사업자(주민)등록번호'], ref : 'BIZNM_BRNO', width : '150px', style : 'text-align:center', type : 'input'},
+            {caption : ['갱신일'], ref : 'CHG_DT', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['입주일'], ref : 'MVN_YMD', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['퇴거일'], ref : 'EVCT_YMD', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['경과일자'], ref : 'ELPS_DCNT', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['보증금'], ref : 'DPMNY_AMT', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['월 임대료'], ref : 'CTRT_MM_RTFE_AMT', width : '80px', style : 'text-align:center', type : 'input'},
+            {caption : ['임대수입합계(과세표준)'], ref : 'RNT_INCM_SUM', width : '150px', style : 'text-align:center', type : 'input'},
+            {caption : ['보증금이자(계)'], ref : 'INT_AMT', width : '100px', style : 'text-align:center', type : 'input'},
+            {caption : ['월 임대료(계)'], ref : 'MM_RTFE_AMT', width : '100px', style : 'text-align:center', type : 'input'}
         ];
         grdReCalc = _SBGrid.create(SBGridProperties);
     }
@@ -595,11 +595,11 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit5180.do", {
             getType				: 'json',
             cv_count			: '13',
@@ -607,7 +607,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         if(data.resultStatus === 'S'){
             let resultObj = data.cv_1[0];
             for(let key in resultObj){

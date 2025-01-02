@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Org2000.jsp
+ * @Class Name 		: org2000.jsp
  * @Description 	: 부서 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.08.05
@@ -438,7 +438,7 @@
 			
 			SBUxMethod.attr('BTN_PARENT', 'disabled', 'true'),
 			//재직구분
-		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		    gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		    
 			//사업장코드
 			gfnma_multiSelectInit({
@@ -452,11 +452,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SITE_CODE'
-				,colLabel		: 'SITE_NAME'
+				,colValue		: 'SITE_CD'
+				,colLabel		: 'SITE_NM'
 				,columns		:[
-		            {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "사업장코드",		ref: 'SITE_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//부서구분
@@ -471,11 +471,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "부서구분", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "부서구분", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//인건비분류
@@ -490,11 +490,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "인건비분류코드",	ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "인건비분류", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "인건비분류코드",	ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "인건비분류", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//근무패턴
@@ -509,11 +509,11 @@
 				,selectValue	: ''
 				,dropType		: 'up' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "근무패턴",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "근무패턴",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//부서구분
@@ -528,11 +528,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "부서구분",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "부서구분",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -663,46 +663,46 @@
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
 		    				LEVEL				: gfn_nvl(item.LVL),
-		    				KEYID				: gfn_nvl(item.KEYID),
-		    				PARENTKEYID			: gfn_nvl(item.PARENTKEYID),
-		    				DEPT_CODE			: gfn_nvl(item.DEPT_CODE),
-		    				DEPT_NAME			: gfn_nvl(item.DEPT_NAME),
-		    				DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NAME),
-		    				SITE_CODE			: gfn_nvl(item.SITE_CODE),
-		    				SITE_NAME			: gfn_nvl(item.SITE_NAME),
-		    				DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NAME_ENG),
-		    				DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NAME_FOR),
-		    				PARENT_DEPT			: gfn_nvl(item.PARENT_DEPT),
+		    				KEYID				: gfn_nvl(item.KEY_ID),
+		    				PARENTKEYID			: gfn_nvl(item.UP_KEY_ID),
+		    				DEPT_CODE			: gfn_nvl(item.DEPT_CD),
+		    				DEPT_NAME			: gfn_nvl(item.DEPT_NM),
+		    				DEPT_ABBR_NAME		: gfn_nvl(item.DEPT_ABBR_NM),
+		    				SITE_CODE			: gfn_nvl(item.SITE_CD),
+		    				SITE_NAME			: gfn_nvl(item.SITE_NM),
+		    				DEPT_NAME_ENG		: gfn_nvl(item.DEPT_NM_ENG),
+		    				DEPT_NAME_FOR		: gfn_nvl(item.DEPT_NM_KOR),
+		    				PARENT_DEPT			: gfn_nvl(item.PRNT_DEPT),
 		    				PARENT_DEPT_NAME	: gfn_nvl(item.PARENT_DEPT_NAME),
-		    				DEPT_LEADER			: gfn_nvl(item.DEPT_LEADER),
+		    				DEPT_LEADER			: gfn_nvl(item.DEPT_TMLDR),
 		    				DEPT_LEADER_NAME	: gfn_nvl(item.DEPT_LEADER_NAME),
-		    				DEPT_CATEGORY		: gfn_nvl(item.DEPT_CATEGORY),
-		    				LABOR_COST_GROUP	: gfn_nvl(item.LABOR_COST_GROUP),
-		    				FINANCE_DEPT_YN		: gfn_nvl(item.FINANCE_DEPT_YN),
-		    				SALES_DEPT_YN		: gfn_nvl(item.SALES_DEPT_YN),
-		    				MARKETING_DEPT_YN	: gfn_nvl(item.MARKETING_DEPT_YN),
-		    				PRODUCTION_DEPT_YN	: gfn_nvl(item.PRODUCTION_DEPT_YN),
-		    				CC_CODE				: gfn_nvl(item.CC_CODE),
-		    				CC_NAME				: gfn_nvl(item.CC_NAME),
-		    				START_DATE			: gfn_nvl(item.START_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-		    				END_DATE			: gfn_nvl(item.END_DATE.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
-		    				ZIP_CODE			: gfn_nvl(item.ZIP_CODE),
-		    				ADDRESS				: gfn_nvl(item.ADDRESS),
-		    				FIXED_NUMBER		: gfn_nvl(item.FIXED_NUMBER),
+		    				DEPT_CATEGORY		: gfn_nvl(item.DEPT_CTRGY),
+		    				LABOR_COST_GROUP	: gfn_nvl(item.LBRCO_GROUP),
+		    				FINANCE_DEPT_YN		: gfn_nvl(item.FA_DEPT_YN),
+		    				SALES_DEPT_YN		: gfn_nvl(item.SALS_DEPT_YN),
+		    				MARKETING_DEPT_YN	: gfn_nvl(item.MRKTNG_DEPT_YN),
+		    				PRODUCTION_DEPT_YN	: gfn_nvl(item.PRDCTN_DEPT_YN),
+		    				CC_CODE				: gfn_nvl(item.CSTCT_CD),
+		    				CC_NAME				: gfn_nvl(item.CSTCT_NM),
+		    				START_DATE			: gfn_nvl(item.BGNG_YMD.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				END_DATE			: gfn_nvl(item.END_YMD.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")),
+		    				ZIP_CODE			: gfn_nvl(item.ZIP_CD),
+		    				ADDRESS				: gfn_nvl(item.ADDR),
+		    				FIXED_NUMBER		: gfn_nvl(item.PSCP_NO),
 		    				MEMO				: gfn_nvl(item.MEMO),
 		    				SORT_SEQ			: gfn_nvl(item.SORT_SEQ),
-		    				WORK_TIME_YN		: gfn_nvl(item.WORK_TIME_YN),
-		    				WORK_PATTERN_CODE	: gfn_nvl(item.WORK_PATTERN_CODE),
-		    				ATTR1				: gfn_nvl(item.ATTR1),
-		    				ATTR2				: gfn_nvl(item.ATTR2),
-		    				ATTR3				: gfn_nvl(item.ATTR3),
-		    				ATTR4				: gfn_nvl(item.ATTR4),
-		    				ATTR5				: gfn_nvl(item.ATTR5),
-		    				ATTR6				: gfn_nvl(item.ATTR6),
-		    				ATTR7				: gfn_nvl(item.ATTR7),
-		    				ATTR8				: gfn_nvl(item.ATTR8),
-		    				ATTR9				: gfn_nvl(item.ATTR9),
-		    				ATTR10				: gfn_nvl(item.ATTR10)
+		    				WORK_TIME_YN		: gfn_nvl(item.WORK_TM_CHCK_YN),
+		    				WORK_PATTERN_CODE	: gfn_nvl(item.WRK_PTTRN_CD),
+		    				ATTR1				: gfn_nvl(item.ATRB1),
+		    				ATTR2				: gfn_nvl(item.ATRB2),
+		    				ATTR3				: gfn_nvl(item.ATRB3),
+		    				ATTR4				: gfn_nvl(item.ATRB4),
+		    				ATTR5				: gfn_nvl(item.ATRB5),
+		    				ATTR6				: gfn_nvl(item.ATRB6),
+		    				ATTR7				: gfn_nvl(item.ATRB7),
+		    				ATTR8				: gfn_nvl(item.ATRB8),
+		    				ATTR9				: gfn_nvl(item.ATRB9),
+		    				ATTR10				: gfn_nvl(item.ATRB10)
 		    		}
 		    		jsonMasterTreeList.push(msg);
 		    		totalRecordCount ++;
@@ -774,11 +774,11 @@
 		SBUxMethod.set("ATTR8"				, "");
 		SBUxMethod.set("ATTR9"				, "");
 		SBUxMethod.set("ATTR10"				, "");
-    	gfnma_multiSelectSet('#SITE_CODE', 			'SITE_CODE', 	'SITE_NAME', '');
-    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE', 	'CODE_NAME', '');
-    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE', 	'CODE_NAME', '');
-    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'SUB_CODE', 	'CODE_NAME', '');
-    	gfnma_multiSelectSet('#ATTR1', 				'SUB_CODE', 	'CODE_NAME', '');
+    	gfnma_multiSelectSet('#SITE_CODE', 			'', 	'', '');
+    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'', 	'', '');
+    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'', 	'', '');
+    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'', 	'', '');
+    	gfnma_multiSelectSet('#ATTR1', 				'', 	'', '');
     }
     
     // 그리드 삭제
@@ -839,7 +839,7 @@
         	getType				: 'json',
         	workType			: 'U',
         	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
+        	params				: gfnma_objectToString(paramObj, true)
 		});    	 
         const data = await postJsonPromise;
         
@@ -871,7 +871,6 @@
 	        return;
 	    }
 	    const selectRowVal = masterTreeGrid.getRowData(nRow);
-
     	SBUxMethod.set("DEPT_CODE"			, gfn_nvl(selectRowVal.DEPT_CODE) );
     	SBUxMethod.set("DEPT_NAME"			, gfn_nvl(selectRowVal.DEPT_NAME) );
     	SBUxMethod.set("DEPT_ABBR_NAME"		, gfn_nvl(selectRowVal.DEPT_ABBR_NAME) );
@@ -907,11 +906,11 @@
     	SBUxMethod.set("ATTR9"				, gfn_nvl(selectRowVal.ATTR9) );
     	SBUxMethod.set("ATTR10"				, gfn_nvl(selectRowVal.ATTR10) );
     	
-    	gfnma_multiSelectSet('#SITE_CODE', 			'SITE_CODE', 	'SITE_NAME', gfn_nvl(selectRowVal.SITE_CODE) );
-    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.DEPT_CATEGORY) );
-    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.LABOR_COST_GROUP) );
-    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.WORK_PATTERN_CODE) );
-    	gfnma_multiSelectSet('#ATTR1', 				'SUB_CODE', 	'CODE_NAME', gfn_nvl(selectRowVal.ATTR1) );
+    	gfnma_multiSelectSet('#SITE_CODE', 			'SITE_CD', 	'SITE_NM', gfn_nvl(selectRowVal.SITE_CODE) );
+    	gfnma_multiSelectSet('#DEPT_CATEGORY', 		'SBSD_CD', 	'CD_NM', gfn_nvl(selectRowVal.DEPT_CATEGORY) );
+    	gfnma_multiSelectSet('#LABOR_COST_GROUP', 	'SBSD_CD', 	'CD_NM', gfn_nvl(selectRowVal.LABOR_COST_GROUP) );
+    	gfnma_multiSelectSet('#WORK_PATTERN_CODE', 	'SBSD_CD', 	'CD_NM', gfn_nvl(selectRowVal.WORK_PATTERN_CODE) );
+    	gfnma_multiSelectSet('#ATTR1', 				'SBSD_CD', 	'CD_NM', gfn_nvl(selectRowVal.ATTR1) );
     	
     }
     
@@ -929,16 +928,16 @@
     		,popupType				: 'B'
     		,whereClause			: ''
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: ["", 				"",				"2024-07-10"]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["기준일",			"사업장", 		"부서명", 		"사업장코드"]
-   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
    			,tableColumnWidths		: ["100px", 		"150px", 		"100px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('PARENT_DEPT', 		data.DEPT_CODE);
-				SBUxMethod.set('PARENT_DEPT_NAME',	data.DEPT_NAME);
+				SBUxMethod.set('PRNT_DEPT', 		data.DEPT_CD);
+				SBUxMethod.set('PARENT_DEPT_NAME',	data.DEPT_NM);
 			},
     	});
   	}
@@ -950,10 +949,10 @@
     var fn_compopupDeptLeader = function() {
         var searchText1 	= gfn_nvl(SBUxMethod.get("DEPT_LEADER"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("DEPT_LEADER_NAME"));
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var replaceText2 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE LIKE '%" + replaceText2 + "%'" + " AND X.CLIENT_CODE = '" + gv_ma_selectedClntCd +"' AND X.COMP_CODE = '" + gv_ma_selectedCorpCd + "'";
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= "_EMP_NM_";
+        var replaceText2 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND EMP_CD LIKE '%" + replaceText0 + "%' AND EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'" + " AND X.CLNT_CD = '" + gv_ma_selectedClntCd +"' AND X.CO_CD = '" + gv_ma_selectedCorpCd + "'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
     	compopup1({
@@ -963,18 +962,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["부서명", 		"사원코드",			"사원명",			"재직상태"]
-   			,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+   			,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
    			,searchInputValues		: ["",				searchText1, 	searchText2,	""]
 			,searchInputTypes		: ["input", 		"input",		"input",		"select"]			//input, select가 있는 경우
    			,searchInputTypeValues	: ["", 				"",				"",				jsonEmpState]				//select 경우
     		,width					: '700px'
     		,height					: '500px'
    			,tableHeader			: ["사번", 			"이름",		"부서",			"사업장"]
-   			,tableColumnNames		: ["EMP_CODE", 		"EMP_NAME",	"DEPT_NAME",	"SITE_NAME"]
+   			,tableColumnNames		: ["EMP_CD", 		"EMP_NM",	"DEPT_NM",	"SITE_NM"]
    			,tableColumnWidths		: ["150px", 		"150px",	"200px",		"200px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('DEPT_LEADER', 		data.EMP_CODE);
-				SBUxMethod.set('DEPT_LEADER_NAME', 	data.EMP_NAME);
+				SBUxMethod.set('DEPT_LEADER', 		data.EMP_CD);
+				SBUxMethod.set('DEPT_LEADER_NAME', 	data.EMP_NM);
 			},
     	});
   	}
@@ -985,9 +984,9 @@
     var fn_compopupCcCode = function() {
         var searchText1 	= gfn_nvl(SBUxMethod.get("CC_CODE"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("CC_NAME"));
-        var replaceText0 	= "_CC_CODE_";
-        var replaceText1 	= "_CC_NAME_";
-        var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 +  "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 +  "%'";
  
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	compopup1({
@@ -997,16 +996,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["원가조직코드", 	"원가조직명"]
-   			,searchInputFields		: ["CC_CODE", 		"CC_NAME"]
+   			,searchInputFields		: ["CSTCT_CD", 		"CSTCT_NM"]
    			,searchInputValues		: [searchText1, 	searchText2]
     		,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["원가조직코드","원가조직명"]
-   			,tableColumnNames		: ["CC_CODE", "CC_NAME"]
+   			,tableColumnNames		: ["CSTCT_CD", "CSTCT_NM"]
    			,tableColumnWidths		: ["100px", "100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('CC_CODE', 	data.CC_CODE);
-				SBUxMethod.set('CC_NAME', 	data.CC_NAME);
+				SBUxMethod.set('CC_CODE', 	data.CSTCT_CD);
+				SBUxMethod.set('CC_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}

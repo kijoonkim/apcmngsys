@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Org1000.jsp
+ * @Class Name 		: org1000.jsp
  * @Description 	: 법인정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.07.23
@@ -374,11 +374,11 @@
 	            selectValue		: '',
 	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
-	            colValue		: 'CURRENCY_CODE',
-	            colLabel		: 'CURRENCY_NAME',
+	            colValue		: 'CRN_CD',
+	            colLabel		: 'CRN_NM',
 	            columns: [
-	            	{ caption: "통화코드", 	ref: 'CURRENCY_CODE', 	width: '100px', style: 'text-align:left' },
-	            	{ caption: "통화명", 		ref: 'CURRENCY_NAME', 	width: '150px', style: 'text-align:left' },
+	            	{ caption: "통화코드", 	ref: 'CRN_CD', 	width: '100px', style: 'text-align:left' },
+	            	{ caption: "통화명", 		ref: 'CRN_NM', 	width: '150px', style: 'text-align:left' },
 	                { caption: "비고",		ref: 'DESCIPTION',	 	width: '200px', style: 'text-align:left' }
 	            ]
 	        }),
@@ -394,11 +394,11 @@
 	            selectValue		: '',
 	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
-	            colValue		: 'NATION_CODE',
-	            colLabel		: 'NATION_NAME',
+	            colValue		: 'NTN_CD',
+	            colLabel		: 'NTN_NM',
 	            columns: [
-	            	{ caption: "국가코드", 	ref: 'NATION_CODE', 	width: '100px', style: 'text-align:left' },
-	                { caption: "국가명",		ref: 'NATION_NAME',	 	width: '150px', style: 'text-align:left' }
+	            	{ caption: "국가코드", 	ref: 'NTN_CD', 	width: '100px', style: 'text-align:left' },
+	                { caption: "국가명",		ref: 'NTN_NM',	 	width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 	        //회계기준
@@ -413,11 +413,11 @@
 	            selectValue		: '',
 	            dropType		: 'up', // up, down
 	            dropAlign		: 'left', // left, right
-	            colValue		: 'SUB_CODE',
-	            colLabel		: 'CODE_NAME',
+	            colValue		: 'SBSD_CD',
+	            colLabel		: 'CD_NM',
 	            columns: [
-	            	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
-	                { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
+	            	{ caption: "코드", 		ref: 'SBSD_CD', 	width: '100px', style: 'text-align:left' },
+	                { caption: "회계기준",	ref: 'CD_NM',	width: '150px', style: 'text-align:left' }
 	            ]
 	        }),
 	    ]);
@@ -615,9 +615,9 @@
 				if(gv_selectedUserType == '00'){
 					data.cv_1.forEach((item, index) => {
 						const msg = {
-								COMP_CODE			: gfn_nvl(item.COMP_CODE),
-								COMP_NAME			: gfn_nvl(item.COMP_NAME),
-								CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
+								COMP_CODE			: gfn_nvl(item.CO_CD),
+								COMP_NAME			: gfn_nvl(item.CORP_NM),
+								CLIENT_CODE			: gfn_nvl(item.CLNT_CD)
 					 	}
 						jsonMasterList.push(msg);
 						totalRecordCount++;
@@ -625,11 +625,11 @@
 				//전체 관리지가 아니라면 본인이 속한 법인정보만 보이게
 				}else{
 					data.cv_1.forEach((item, index) => {
-						if(gv_ma_selectedCorpCd == item.COMP_CODE){
+						if(gv_ma_selectedCorpCd == item.CO_CD){
 							const msg = {
-									COMP_CODE			: gfn_nvl(item.COMP_CODE),
-									COMP_NAME			: gfn_nvl(item.COMP_NAME),
-									CLIENT_CODE			: gfn_nvl(item.CLIENT_CODE)
+									COMP_CODE			: gfn_nvl(item.CO_CD),
+									COMP_NAME			: gfn_nvl(item.CORP_NM),
+									CLIENT_CODE			: gfn_nvl(item.CLNT_CD)
 						 	}
 							jsonMasterList.push(msg);
 							totalRecordCount++;
@@ -727,11 +727,11 @@
 //             selectValue		: '',
 //             dropType		: 'up', // up, down
 //             dropAlign		: 'left', // left, right
-//             colValue		: 'SUB_CODE',
-//             colLabel		: 'CODE_NAME',
+//             colValue		: 'SBSD_CD',
+//             colLabel		: 'CD_NM',
 //             columns: [
-//             	{ caption: "코드", 		ref: 'SUB_CODE', 	width: '100px', style: 'text-align:left' },
-//                 { caption: "회계기준",	ref: 'CODE_NAME',	width: '150px', style: 'text-align:left' }
+//             	{ caption: "코드", 		ref: 'SBSD_CD', 	width: '100px', style: 'text-align:left' },
+//                 { caption: "회계기준",	ref: 'CD_NM',	width: '150px', style: 'text-align:left' }
 //             ]
 //         })
 //     }
@@ -740,36 +740,36 @@
     	if(!obj){
     		return;
     	}
-    	SBUxMethod.set('COMP_CODE', 		gfn_nvl(obj.COMP_CODE) );
-    	SBUxMethod.set('COMP_NAME', 		gfn_nvl(obj.COMP_NAME) );
-    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
-    	SBUxMethod.set('COMP_NAME_ENG', 	gfn_nvl(obj.COMP_NAME_ENG) );
-    	SBUxMethod.set('COMP_REGNO', 		gfn_nvl(obj.COMP_REGNO) );
-    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.ESTABLISH_DATE) );
-    	SBUxMethod.set('CEO_NAME', 			gfn_nvl(obj.CEO_NAME) );
-    	SBUxMethod.set('ZIP_CODE', 			gfn_nvl(obj.ZIP_CODE) );
-    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.ESTABLISH_DATE) );
-    	SBUxMethod.set('ADDRESS', 			gfn_nvl(obj.ADDRESS) );
-    	SBUxMethod.set('ADDRESS_ENG', 		gfn_nvl(obj.ADDRESS_ENG) );
-    	SBUxMethod.set('TEL', 				gfn_nvl(obj.TEL) );
-    	SBUxMethod.set('FAX', 				gfn_nvl(obj.FAX) );
-    	SBUxMethod.set('WEB_URL', 			gfn_nvl(obj.WEB_URL) );
-    	SBUxMethod.set('STOCK_COUNT', 		gfn_nvl(addComma(obj.STOCK_COUNT)));
-    	SBUxMethod.set('STOCK_AMOUNT', 		gfn_nvl(addComma(obj.STOCK_AMOUNT)));
-    	SBUxMethod.set('PRE_STOCK_COUNT1', 	gfn_nvl(addComma(obj.PRE_STOCK_COUNT1)));
-    	SBUxMethod.set('PRE_STOCK_AMOUNT1', gfn_nvl(addComma(obj.PRE_STOCK_AMOUNT1)));
-    	SBUxMethod.set('PRE_STOCK_COUNT2', 	gfn_nvl(addComma(obj.PRE_STOCK_COUNT2)));
-    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	gfn_nvl(addComma(obj.PRE_STOCK_AMOUNT2)));
-    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.COMP_NAME_CHN) );
-    	SBUxMethod.set('COMP_CODE_ABBR', 	gfn_nvl(obj.COMP_CODE_ABBR) );
-    	SBUxMethod.set('CLIENT_CODE', 		gfn_nvl(obj.CLIENT_CODE) );
-    	SBUxMethod.set('FISCAL_START_MMDD', gfn_nvl(obj.FISCAL_START_MMDD) );
-    	SBUxMethod.set('FISCAL_END_MMDD',   gfn_nvl(obj.FISCAL_END_MMDD) );
+    	SBUxMethod.set('COMP_CODE', 		gfn_nvl(obj.CO_CD) );
+    	SBUxMethod.set('COMP_NAME', 		gfn_nvl(obj.CORP_NM) );
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.CO_NM_CHN) );
+    	SBUxMethod.set('COMP_NAME_ENG', 	gfn_nvl(obj.CO_NM_ENG) );
+    	SBUxMethod.set('COMP_REGNO', 		gfn_nvl(obj.CORP_REGNO) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.CORP_FNDN_YMD) );
+    	SBUxMethod.set('CEO_NAME', 			gfn_nvl(obj.CEO_NM) );
+    	SBUxMethod.set('ZIP_CODE', 			gfn_nvl(obj.ZIP_CD) );
+    	SBUxMethod.set('ESTABLISH_DATE', 	gfn_nvl(obj.CORP_FNDN_YMD) );
+    	SBUxMethod.set('ADDRESS', 			gfn_nvl(obj.ADDR) );
+    	SBUxMethod.set('ADDRESS_ENG', 		gfn_nvl(obj.ADDR_ENG) );
+    	SBUxMethod.set('TEL', 				gfn_nvl(obj.TELNO) );
+    	SBUxMethod.set('FAX', 				gfn_nvl(obj.FX_NO) );
+    	SBUxMethod.set('WEB_URL', 			gfn_nvl(obj.HMPG_URL) );
+    	SBUxMethod.set('STOCK_COUNT', 		gfn_nvl(addComma(obj.STCK_CNT)));
+    	SBUxMethod.set('STOCK_AMOUNT', 		gfn_nvl(addComma(obj.STCK_AMT)));
+    	SBUxMethod.set('PRE_STOCK_COUNT1', 	gfn_nvl(addComma(obj.PRR_STCK_QTY1)));
+    	SBUxMethod.set('PRE_STOCK_AMOUNT1', gfn_nvl(addComma(obj.PRR_STCK_AMT1)));
+    	SBUxMethod.set('PRE_STOCK_COUNT2', 	gfn_nvl(addComma(obj.PRR_STCK_QTY2)));
+    	SBUxMethod.set('PRE_STOCK_AMOUNT2',	gfn_nvl(addComma(obj.PRR_STCK_AMT2)));
+    	SBUxMethod.set('COMP_NAME_CHN', 	gfn_nvl(obj.CO_NM_CHN) );
+    	SBUxMethod.set('COMP_CODE_ABBR', 	gfn_nvl(obj.CO_CD_ABBR) );
+    	SBUxMethod.set('CLIENT_CODE', 		gfn_nvl(obj.CLNT_CD) );
+    	SBUxMethod.set('FISCAL_START_MMDD', gfn_nvl(obj.FYR_BGNG_YMD) );
+    	SBUxMethod.set('FISCAL_END_MMDD',   gfn_nvl(obj.FYR_END_YMD) );
     	
-    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CURRENCY_CODE', 'CURRENCY_NAME', 	gfn_nvl(obj.CURRENCY_CODE));
-    	gfnma_multiSelectSet('#NATION_CODE', 		'NATION_CODE', 'NATION_NAME', 		gfn_nvl(obj.NATION_CODE));
+    	gfnma_multiSelectSet('#CURRENCY_CODE', 		'CRN_CD', 'CRN_NM', 	gfn_nvl(obj.CRN_CD));
+    	gfnma_multiSelectSet('#NATION_CODE', 		'NTN_CD', 'NTN_NM', 		gfn_nvl(obj.NTN_CD));
         setTimeout(function () {
-	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SUB_CODE', 'CODE_NAME', 			gfn_nvl(obj.ACCT_RULE_CODE));
+	    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 	'SBSD_CD', 'CD_NM', 			gfn_nvl(obj.GAAP_CD));
         }, 200); 	
     	
     	if(gfn_nvl(obj.LOGO_FILE_NAME) != ''){
@@ -813,9 +813,9 @@
     	SBUxMethod.set('CLIENT_CODE', 		"");
     	SBUxMethod.set('ACCT_RULE_CODE', 	"");
  
-    	gfnma_multiSelectSet('#CURRENCY_CODE', 	'CURRENCY_CODE', 'CURRENCY_NAME', 	"");
-    	gfnma_multiSelectSet('#NATION_CODE', 	'NATION_CODE', 'NATION_NAME', 		"");
-    	gfnma_multiSelectSet('#ACCT_RULE_CODE', 'SUB_CODE', 'CODE_NAME', 			"");
+    	gfnma_multiSelectSet('#CURRENCY_CODE', 	'', '', "");
+    	gfnma_multiSelectSet('#NATION_CODE', 	'', '', "");
+    	gfnma_multiSelectSet('#ACCT_RULE_CODE', '', '', "");
         $("#COMP_LOGO").attr("src", "" );
         $("#COMP_STAMP").attr("src", "" );
     }

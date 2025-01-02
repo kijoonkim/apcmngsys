@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -137,7 +137,7 @@
                 </div>
                 
                	<div style="display:flex;float:left;vertical-align:middle;width:100%;padding-top:10px">
-
+ 
  					<font style="width:300px"></font>
                	
                		<span style="padding-top:5px">
@@ -187,17 +187,17 @@
     
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
 	var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
-
+ 
 	var p_ss_issAccountChief	= '${loginVO.maIsAccountChief}';
 	var p_ss_isAccountManager	= '${loginVO.maIsAccountManager}';
 	var p_ss_defaultAcctRule	= '${loginVO.maDefaultAcctRule}';
@@ -208,7 +208,7 @@
 	//grid 초기화
 	var Fig2410Grid; 				// 그리드를 담기위한 객체 선언
 	var jsonFig2410 		= []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
 	var jsonFiOrgCode 		= []; 	// APC
 	
     var p_menu_param		= null;
@@ -218,10 +218,10 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
@@ -243,7 +243,7 @@
     	fn_init();
     	
     });
-
+ 
     /**
      * 화면 state 변경
      */
@@ -345,7 +345,7 @@
             {caption: ["프로젝트"], 				ref: 'PROJECT_CODE', 			type:'output',  	width:'300px', 		style:'text-align:left'},
 
         ];
-
+ 
         Fig2410Grid = _SBGrid.create(SBGridProperties);
         Fig2410Grid.bind('click', 'fn_viewFig2410GridEvent');
     }        
@@ -403,68 +403,68 @@
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig2410.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
 						CHK_YN						: gfnma_nvl2(item.CHK_YN),		
-						DOC_DATE					: gfnma_nvl2(item.DOC_DATE),
+						DOC_DATE					: gfnma_nvl2(item.SLIP_YMD),
 						ORIGINAL_DOC_DATE			: gfnma_nvl2(item.ORIGINAL_DOC_DATE),
-						DOC_ID						: gfnma_nvl2(item.DOC_ID),
-						DOC_NAME					: gfnma_nvl2(item.DOC_NAME),
+						DOC_ID						: gfnma_nvl2(item.SLIP_ID),
+						DOC_NAME					: gfnma_nvl2(item.SLIP_NM),
 						ORIGINAL_DOC_ID				: gfnma_nvl2(item.ORIGINAL_DOC_ID),
 						ORIGINAL_DOC_NAME			: gfnma_nvl2(item.ORIGINAL_DOC_NAME),
 						ORIGINAL_DOC_DESC			: gfnma_nvl2(item.ORIGINAL_DOC_DESC),
 						ITEM_SEQ					: gfnma_nvl2(item.ITEM_SEQ),
-						DEBIT_CREDIT				: gfnma_nvl2(item.DEBIT_CREDIT),
+						DEBIT_CREDIT				: gfnma_nvl2(item.DBSD_CRSD),
 						DEBIT_CREDIT_NAME			: gfnma_nvl2(item.DEBIT_CREDIT_NAME),
-						SITE_CODE					: gfnma_nvl2(item.SITE_CODE),
-						SITE_NAME					: gfnma_nvl2(item.SITE_NAME),
+						SITE_CODE					: gfnma_nvl2(item.SITE_CD),
+						SITE_NAME					: gfnma_nvl2(item.SITE_NM),
 						LINE_TYPE					: gfnma_nvl2(item.LINE_TYPE),
 						LINE_TYPE_NAME				: gfnma_nvl2(item.LINE_TYPE_NAME),
-						ITEM_SOURCE_ID				: gfnma_nvl2(item.ITEM_SOURCE_ID),
-						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
-						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+						ITEM_SOURCE_ID				: gfnma_nvl2(item.ITEM_SRC_ID),
+						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
+						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
 						DEBIT_CODE					: gfnma_nvl2(item.DEBIT_CODE),
 						DEBIT_NAME					: gfnma_nvl2(item.DEBIT_NAME),
 						
-						COST_CENTER_CODE			: gfnma_nvl2(item.COST_CENTER_CODE),			
-						COST_CENTER_NAME			: gfnma_nvl2(item.COST_CENTER_NAME),			
-						PROJECT_CODE				: gfnma_nvl2(item.PROJECT_CODE),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),			
+						PROJECT_CODE				: gfnma_nvl2(item.PJT_CD),			
 						
-						CURRENCY_CODE				: gfnma_nvl2(item.CURRENCY_CODE),
-						EXCHANGE_RATE				: gfnma_nvl2(item.EXCHANGE_RATE),
-						ORIGINAL_AMOUNT				: gfnma_nvl2(item.ORIGINAL_AMOUNT),
-						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.FUNCTIONAL_AMOUNT),
+						CURRENCY_CODE				: gfnma_nvl2(item.CRN_CD),
+						EXCHANGE_RATE				: gfnma_nvl2(item.EXCHRT),
+						ORIGINAL_AMOUNT				: gfnma_nvl2(item.ORGNL_AMT),
+						FUNCTIONAL_AMOUNT			: gfnma_nvl2(item.CNVS_AMT),
 						
-						PERIOD_START_DATE			: gfnma_nvl2(item.PERIOD_START_DATE),
-						PERIOD_END_DATE				: gfnma_nvl2(item.PERIOD_END_DATE),
+						PERIOD_START_DATE			: gfnma_nvl2(item.PRD_BGNG_YMD),
+						PERIOD_END_DATE				: gfnma_nvl2(item.PRD_END_YMD),
 						PERIOD_DAY					: gfnma_nvl2(item.PERIOD_DAY),
 						TOTAL_START_DATE			: gfnma_nvl2(item.TOTAL_START_DATE),
 						TOTAL_END_DATE				: gfnma_nvl2(item.TOTAL_END_DATE),
-						TOTAL_DAY					: gfnma_nvl2(item.TOTAL_DAY),
-						CONFIRM_FLAG				: gfnma_nvl2(item.CONFIRM_FLAG),
+						TOTAL_DAY					: gfnma_nvl2(item.TOT_DCNT),
+						CONFIRM_FLAG				: gfnma_nvl2(item.CFMTN_FLAG),
 						
-						ORIGINAL_DR_AMT				: gfnma_nvl2(item.ORIGINAL_DR_AMT),
-						ORIGINAL_CR_AMT				: gfnma_nvl2(item.ORIGINAL_CR_AMT),
-						FUNCTIONAL_DR_AMT			: gfnma_nvl2(item.FUNCTIONAL_DR_AMT),
-						FUNCTIONAL_CR_AMT			: gfnma_nvl2(item.FUNCTIONAL_CR_AMT),
+						ORIGINAL_DR_AMT				: gfnma_nvl2(item.ORGNL_DRSD_AMT),
+						ORIGINAL_CR_AMT				: gfnma_nvl2(item.ORGNL_CRSD_AMT),
+						FUNCTIONAL_DR_AMT			: gfnma_nvl2(item.CNVS_DRSD_AMT),
+						FUNCTIONAL_CR_AMT			: gfnma_nvl2(item.CNVS_CRSD_AMT),
 						NET_AMTOUNT					: gfnma_nvl2(item.NET_AMTOUNT),
 						
-						ACC_ITEM_VALUE1				: gfnma_nvl2(item.ACC_ITEM_VALUE1),		
-						ACC_ITEM_VALUE2				: gfnma_nvl2(item.ACC_ITEM_VALUE2),		
-						ACC_ITEM_VALUE3				: gfnma_nvl2(item.ACC_ITEM_VALUE3),		
-						ACC_ITEM_VALUE4				: gfnma_nvl2(item.ACC_ITEM_VALUE4),		
+						ACC_ITEM_VALUE1				: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL1),		
+						ACC_ITEM_VALUE2				: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL2),		
+						ACC_ITEM_VALUE3				: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL3),		
+						ACC_ITEM_VALUE4				: gfnma_nvl2(item.ACNT_MNG_ARTCL_VL4),		
   					}
   					Fig2410Grid.push(msg);
   					totalRecordCount ++;
@@ -476,7 +476,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -526,13 +526,13 @@
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
 				
@@ -547,7 +547,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -749,7 +749,7 @@
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
@@ -764,7 +764,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

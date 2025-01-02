@@ -48,7 +48,7 @@ public class ApcMaHrt2320Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRT2320_Q");
+            param.put("procedure", 		"SP_HRT2320_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

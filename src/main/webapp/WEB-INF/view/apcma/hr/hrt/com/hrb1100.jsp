@@ -157,11 +157,11 @@
 
         let rst = await Promise.all([
             // 근무유형
-            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WRK_PTTRN_CD', 'WORK_TYPE_NM', 'Y', ''),
             // 휴일유형
-            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHWORK_CD', 'SHWORK_TEAM_NM', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -368,9 +368,9 @@
                     const msg = {
                         SEQ : item.SEQ,
                         DAY_NAME : item.DAY_NAME,
-                        WORK_TYPE_CODE : item.WORK_TYPE_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        HOLIDAY_YN : item.HOLIDAY_YN
+                        WORK_TYPE_CODE : item.WRK_PTTRN_CD,
+                        SHIFT_CODE : item.SHWORK_CD,
+                        HOLIDAY_YN : item.HLDY_YN
                     }
                     jsonDayList.push(msg);
                 });
@@ -380,21 +380,21 @@
                 jsonHolidayList.length = 0;
                 data.cv_2.forEach((item, index) => {
                     const msg = {
-                        START_DAY : item.START_DAY,
+                        START_DAY : item.BGNG_YMD,
                         END_DAY : item.END_DAY,
-                        DAY_TITLE : item.DAY_TITLE,
-                        HOLIDAY_YN : item.HOLIDAY_YN,
-                        HOLIDAY2_YN : item.HOLIDAY2_YN,
-                        WORK_TYPE_CODE : item.WORK_TYPE_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        SOLAR_YN : item.SOLAR_YN,
-                        LEAP_MONTH_YN : item.LEAP_MONTH_YN,
+                        DAY_TITLE : item.DAY_TTL,
+                        HOLIDAY_YN : item.HLDY_YN,
+                        HOLIDAY2_YN : item.HLDY2_YN,
+                        WORK_TYPE_CODE : item.WRK_PTTRN_CD,
+                        SHIFT_CODE : item.SHWORK_CD,
+                        SOLAR_YN : item.SLCL_YN,
+                        LEAP_MONTH_YN : item.LPMM_YN,
                         MEMO : item.MEMO,
-                        LEAP_MONTH_YN : item.LEAP_MONTH_YN,
-                        HOLIDAY_TYPE1_YN : item.HOLIDAY_TYPE1_YN,
-                        HOLIDAY_TYPE2_YN : item.HOLIDAY_TYPE2_YN,
-                        COMP_CODE : item.COMP_CODE,
-                        TXN_ID : item.TXN_ID,
+                        LEAP_MONTH_YN : item.LPMM_YN,
+                        HOLIDAY_TYPE1_YN : item.HLDY_TYPE1_YN,
+                        HOLIDAY_TYPE2_YN : item.HLDY_TYPE2_YN,
+                        COMP_CODE : item.CO_CD,
+                        TXN_ID : item.TRSC_ID,
                         START_DAY_SOLAR : item.START_DAY_SOLAR,
                         END_DAY_SOLAR : item.END_DAY_SOLAR,
                         START_WEEK_NAME : item.START_WEEK_NAME,

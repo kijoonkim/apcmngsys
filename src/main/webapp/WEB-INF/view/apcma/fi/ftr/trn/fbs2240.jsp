@@ -267,11 +267,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 		width:'80px',  		style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    	width:'120px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 		width:'80px',  		style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    	width:'120px',  	style:'text-align:left'}
                 ]
             }),
             // 예적금원장
@@ -286,14 +286,14 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'DEPOSIT_CODE',
-                colLabel: 'DEPOSIT_NAME',
+                colValue: 'DPMNY_CD',
+                colLabel: 'DPMNY_NM',
                 columns: [
-                    {caption: "예적금코드",	ref: 'DEPOSIT_CODE', width: '80px', style: 'text-align:left' },
-                    {caption: "예적금명",		ref: 'DEPOSIT_NAME', width: '200px',style: 'text-align:left' },
+                    {caption: "예적금코드",	ref: 'DPMNY_CD', width: '80px', style: 'text-align:left' },
+                    {caption: "예적금명",		ref: 'DPMNY_NM', width: '200px',style: 'text-align:left' },
                 ],
                 callback: function (value) {
-                    gfnma_multiSelectSet('#SRCH_BANK_CODE', 'DEPOSIT_CODE', 'BANK_CODE', value);
+                    gfnma_multiSelectSet('#SRCH_BANK_CODE', 'DPMNY_CD', 'BANK_CD', value);
                 }
             }),
             // 예적금원장_은행코드
@@ -308,11 +308,11 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'DEPOSIT_CODE',
-                colLabel: 'BANK_CODE',
+                colValue: 'DPMNY_CD',
+                colLabel: 'BANK_CD',
                 columns: [
-                    {caption: "예적금코드",	ref: 'DEPOSIT_CODE', width: '80px', style: 'text-align:left' },
-                    {caption: "은행코드",		ref: 'BANK_CODE', width: '200px',style: 'text-align:left' },
+                    {caption: "예적금코드",	ref: 'DPMNY_CD', width: '80px', style: 'text-align:left' },
+                    {caption: "은행코드",		ref: 'BANK_CD', width: '200px',style: 'text-align:left' },
                 ]
             }),
             // FBS서비스
@@ -327,23 +327,23 @@
                 selectValue: '',
                 dropType: 'down', // up, down
                 dropAlign: 'left', // left, right
-                colValue: 'SUB_CODE',
-                colLabel: 'CODE_NAME',
+                colValue: 'SBSD_CD',
+                colLabel: 'CD_NM',
                 columns: [
-                    {caption: "코드",	ref: 'SUB_CODE', width: '70px', style: 'text-align:left' },
-                    {caption: "명",		ref: 'CODE_NAME', width: '100px',style: 'text-align:left' },
+                    {caption: "코드",	ref: 'SBSD_CD', width: '70px', style: 'text-align:left' },
+                    {caption: "명",		ref: 'CD_NM', width: '100px',style: 'text-align:left' },
                 ]
             }),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwInfo'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE', 'gvwInfo'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 귀속일자
-            gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_YMD', 'SLRY_YMD2', 'Y', ''),
             // 지급구분
-            gfnma_setComSelect(['gvwInfo'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonPayGubun, 'L_HRP054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 계좌조회결과
-            gfnma_setComSelect(['gvwInfo'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonFirmbankNameCode, 'L_FIF019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 사용자
-            gfnma_setComSelect(['gvwInfo'], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NM', 'Y', ''),
         ]);
     }
 
@@ -541,9 +541,9 @@
         SBUxMethod.set("SRCH_PAY_YYYYMM", gfn_dateToYm(new Date()));
 
         if (p_fbsServerType == "DEV") {
-            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DEPOSIT_CODE', 'DEPOSIT_NAME', "0201825KRW12");
+            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DPMNY_CD', 'DPMNY_NM', "0201825KRW12");
         } else {
-            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DEPOSIT_CODE', 'DEPOSIT_NAME', "0110000KRW01");
+            gfnma_multiSelectSet('#SRCH_DEPOSIT_CODE', 'DPMNY_CD', 'DPMNY_NM', "0110000KRW01");
         }
 
         if (parentParameter){
@@ -562,7 +562,7 @@
                     }
 
                     if (gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")) != "" && gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")) != "" && gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")) != "") {
-                        gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SUB_CODE', 'CODE_NAME', "ECBANK");
+                        gfnma_multiSelectSet('#SRCH_FBS_SERVICE', 'SBSD_CD', 'CD_NM', "ECBANK");
                         fn_search();
                     }
                 }
@@ -946,48 +946,48 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHECK_YN : item.CHECK_YN,
-                        TXN_ID : item.TXN_ID,
-                        PAY_TYPE : item.PAY_TYPE,
-                        SITE_CODE : item.SITE_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_FULL_NAME : item.EMP_FULL_NAME,
-                        BANK_CODE : item.BANK_CODE,
-                        BANK_NAME : item.BANK_NAME,
-                        BANK_ACCOUNT : item.BANK_ACCOUNT,
+                        TXN_ID : item.TRSC_ID,
+                        PAY_TYPE : item.SLRY_TYPE,
+                        SITE_CODE : item.SITE_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_FULL_NAME : item.EMP_FLNM,
+                        BANK_CODE : item.BANK_CD,
+                        BANK_NAME : item.BANK_NM,
+                        BANK_ACCOUNT : item.BACNT_NO,
                         BANK_ACCOUNT_REAL : item.BANK_ACCOUNT_REAL,
                         BANK_DEPOSITOR : item.BANK_DEPOSITOR,
-                        SOCIAL_NUM : item.SOCIAL_NUM,
+                        SOCIAL_NUM : item.RRNO_ENCPT,
                         SOCIAL_NUM_REAL : item.SOCIAL_NUM_REAL,
-                        PAY_NET_AMT : item.PAY_NET_AMT,
-                        FIRMBANK_CODE : item.FIRMBANK_CODE,
-                        FIRMBANK_NAME_CODE : item.FIRMBANK_NAME_CODE,
-                        FIRMBANK_NAME : item.FIRMBANK_NAME,
-                        FIRMBANK_ERROR_CODE : item.FIRMBANK_ERROR_CODE,
+                        PAY_NET_AMT : item.PAY_ACTL_AMT,
+                        FIRMBANK_CODE : item.FBS_CD,
+                        FIRMBANK_NAME_CODE : item.FBS_BANK_CD,
+                        FIRMBANK_NAME : item.FBS_NM,
+                        FIRMBANK_ERROR_CODE : item.FBS_ERR_CD,
                         FIRMBANK_ERROR_MESSAGE : item.FIRMBANK_ERROR_MESSAGE,
-                        FIRMBANK_NO : item.FIRMBANK_NO,
-                        FIRMBANK_FEE_AMT : item.FIRMBANK_FEE_AMT,
-                        FIRMBANK_CONFIRM_STATUS : item.FIRMBANK_CONFIRM_STATUS,
-                        FIRMBANK_DATE : item.FIRMBANK_DATE,
+                        FIRMBANK_NO : item.FBS_NO,
+                        FIRMBANK_FEE_AMT : item.FBS_FEE_AMT,
+                        FIRMBANK_CONFIRM_STATUS : item.FBS_CFMTN_STTS,
+                        FIRMBANK_DATE : item.FBS_YMD,
                         TRAN_YN : item.TRAN_YN,
-                        PAY_GUBUN : item.PAY_GUBUN,
-                        FIRMBANK_SEND_YN : item.FIRMBANK_SEND_YN,
-                        FIRMBANK_SEND_DATE : item.FIRMBANK_SEND_DATE,
-                        FIRMBANK_RECEIVE_DATE : item.FIRMBANK_RECEIVE_DATE,
-                        FIRMBANK_SEND_USERID : item.FIRMBANK_SEND_USERID,
+                        PAY_GUBUN : item.PAY_SE,
+                        FIRMBANK_SEND_YN : item.FBS_SEND_YN,
+                        FIRMBANK_SEND_DATE : item.FBS_SEND_YMD,
+                        FIRMBANK_RECEIVE_DATE : item.FBS_RCPTN_YMD,
+                        FIRMBANK_SEND_USERID : item.FBS_SEND_USER_ID,
                         BANK_ACCOUNT_HRP : item.BANK_ACCOUNT_HRP,
                         BANK_ACCOUNT_REAL_HRP : item.BANK_ACCOUNT_REAL_HRP,
                         PAY_NET_AMT_HRP : item.PAY_NET_AMT_HRP,
-                        PAY_MEMO : item.PAY_MEMO,
-                        PAY_SEQ : item.PAY_SEQ,
-                        APPR_ID : item.APPR_ID,
+                        PAY_MEMO : item.SLRY_MEMO,
+                        PAY_SEQ : item.SLRY_SEQ,
+                        APPR_ID : item.APRV_ID,
                         REQUEST_EMP : item.REQUEST_EMP,
                         BEFORE_APPR_EMP : item.BEFORE_APPR_EMP,
                         NEXT_APPR_EMP : item.NEXT_APPR_EMP,
                         BEFORE_PROXY_EMP : item.BEFORE_PROXY_EMP,
                         NEXT_PROXY_EMP : item.NEXT_PROXY_EMP,
                         CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
-                        PROXY_EMP_CODE : item.PROXY_EMP_CODE,
+                        PROXY_EMP_CODE : item.DLCT_EMP_CD,
                     }
                     jsonTransferDetailList.push(msg);
                 });

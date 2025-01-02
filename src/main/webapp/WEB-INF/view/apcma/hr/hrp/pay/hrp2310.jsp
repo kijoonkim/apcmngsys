@@ -209,18 +209,18 @@
                         </colgroup>
                         <tr>
                             <th scope="row" class="th_bg">급여체계</th>
-                          <%--  <td class="td_input" style="border-right: hidden;">
-                                <sbux-select
-                                        unselected-text=""
-                                        uitype="single"
-                                        id="PAY_GROUP_CODE"
-                                        name="PAY_GROUP_CODE"
-                                        unselected-text="전체"
-                                        class="form-control input-sm"
-                                        jsondata-ref="jsonPayGroupCode"
-                                        readonly
-                                />
-                            </td>--%>
+                            <%--  <td class="td_input" style="border-right: hidden;">
+                                  <sbux-select
+                                          unselected-text=""
+                                          uitype="single"
+                                          id="PAY_GROUP_CODE"
+                                          name="PAY_GROUP_CODE"
+                                          unselected-text="전체"
+                                          class="form-control input-sm"
+                                          jsondata-ref="jsonPayGroupCode"
+                                          readonly
+                                  />
+                              </td>--%>
                             <td colspan="2" class="td_input">
                                 <sbux-select
                                         id="PAY_GROUP_CODE"
@@ -235,7 +235,7 @@
                             <th scope="row" class="th_bg">부서</th>
                             <td class="td_input" style="border-right: hidden;" data-group="DEPT">
                                 <sbux-input
-                                        <%--uitype="hidden"--%>
+                                <%--uitype="hidden"--%>
                                         uitype="text"
                                         id="DEPT_CODE"
                                         class="form-control input-sm"
@@ -299,20 +299,20 @@
                                         readonly>
                                 </sbux-select>
                             </td>
-                           <%-- <td style="border-right: hidden;"></td>--%>
+                            <%-- <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">직책</th>
-                           <%-- <td class="td_input" style="border-right: hidden;">
-                                <sbux-select
-                                        unselected-text=""
-                                        uitype="single"
-                                        id="DUTY_CODE"
-                                        name="DUTY_CODE"
-                                        unselected-text="전체"
-                                        class="form-control input-sm"
-                                        jsondata-ref="jsonDutyCode"
-                                        readonly
-                                />
-                            </td>--%>
+                            <%-- <td class="td_input" style="border-right: hidden;">
+                                 <sbux-select
+                                         unselected-text=""
+                                         uitype="single"
+                                         id="DUTY_CODE"
+                                         name="DUTY_CODE"
+                                         unselected-text="전체"
+                                         class="form-control input-sm"
+                                         jsondata-ref="jsonDutyCode"
+                                         readonly
+                                 />
+                             </td>--%>
                             <td class="td_input">
                                 <sbux-select
                                         id="DUTY_CODE"
@@ -337,7 +337,7 @@
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                           <%-- <td style="border-right: hidden;"></td>--%>
+                            <%-- <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">퇴사일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
@@ -388,7 +388,7 @@
                                         readonly>
                                 </sbux-datepicker>
                             </td>
-                          <%--  <td style="border-right: hidden;"></td>--%>
+                            <%--  <td style="border-right: hidden;"></td>--%>
                             <th scope="row" class="th_bg">상여수습종료일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
@@ -661,25 +661,25 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwListGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             /*gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', ''),
 */
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['JOB_RANK'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid','DUTY_CODE'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
-            gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonDeptCode, 'P_ORG004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
-            gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode1, 'L_HRP011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwPayGrid'], jsonPayItemCode1, 'L_HRP011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
 
-            gfnma_setComSelect(['gvwDeductGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDeductGrid'], jsonPayItemCode2, 'L_HRP012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
 
-            gfnma_setComSelect(['gvwBasicGrid'], jsonPayItemCode3, 'L_HRP015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwBasicGrid'], jsonPayItemCode3, 'L_HRP015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
 
 
 
@@ -695,11 +695,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
 
@@ -712,7 +712,7 @@
      */
     var fn_compopup1 = function() {
 
-        var searchText 		= gfn_nvl(SBUxMethod.get("srch-dept_name"));
+        var searchText 		= gfn_nvl(SBUxMethod.get("DEPT_NAME"));
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
         compopup1({
@@ -722,18 +722,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('srch-dept_name', data.DEPT_NAME);
-                SBUxMethod.set('srch-dept_code', data.DEPT_CODE);
+                SBUxMethod.set('DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -748,10 +748,12 @@
         let PAY_TYPE        = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_AREA_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_AREA_TYPE")); //급여영역
 
-        let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
-            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";
+        /*let V_P_WHERE_CLAUSE = "AND site_code IN (select site_code from orgsite where comp_code ='"+gv_ma_selectedCorpCd+ "') AND pay_yyyymm = '"
+            + PAY_YYYYMM + "' AND pay_type = '" + PAY_TYPE + "'AND pay_area_type ='" + PAY_AREA_TYPE + "'";*/
+        let V_P_WHERE_CLAUSE = "AND SITE_CD IN (SELECT SITE_CD FROM TB_ORG_SITE WHERE CO_CD ='"+gv_ma_selectedCorpCd+ "') AND SLRY_YM = '"
+            + PAY_YYYYMM + "' AND SLRY_TYPE = '" + PAY_TYPE + "'AND SLRY_AREA_TYPE ='" + PAY_AREA_TYPE + "'";
 
-        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_DATE', 'PAY_DATE2', 'Y', '');
+        gfnma_setComSelect(['SRCH_PAY_DATE'], jsonPayDate, 'L_HRP027', V_P_WHERE_CLAUSE, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_YMD', 'SLRY_YMD2', 'Y', '');
 
 
     }
@@ -1085,15 +1087,15 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN          : gfn_nvl(item.CHK_YN),
-                        SITE_CODE       : gfn_nvl(item.SITE_CODE),
-                        EMP_CODE        : gfn_nvl(item.EMP_CODE),
-                        EMP_NAME        : gfn_nvl(item.EMP_NAME),
-                        DEPT_CODE       : gfn_nvl(item.DEPT_CODE),
-                        DEPT_NAME       : gfn_nvl(item.DEPT_NAME),
-                        PAY_CONFIRM_YN  : gfn_nvl(item.PAY_CONFIRM_YN),
-                        POSITION_CODE   : gfn_nvl(item.POSITION_CODE),
-                        DUTY_CODE       : gfn_nvl(item.DUTY_CODE),
-                        EMP_STATE       : gfn_nvl(item.EMP_STATE),
+                        SITE_CODE       : gfn_nvl(item.SITE_CD),
+                        EMP_CODE        : gfn_nvl(item.EMP_CD),
+                        EMP_NAME        : gfn_nvl(item.EMP_NM),
+                        DEPT_CODE       : gfn_nvl(item.DEPT_CD),
+                        DEPT_NAME       : gfn_nvl(item.DEPT_NM),
+                        PAY_CONFIRM_YN  : gfn_nvl(item.SLRY_CFMTN_YN),
+                        POSITION_CODE   : gfn_nvl(item.JBPS_CD),
+                        DUTY_CODE       : gfn_nvl(item.JBTTL_CD),
+                        EMP_STATE       : gfn_nvl(item.EMP_STTS),
                         PAY_APPLY_YN    : gfn_nvl(item.PAY_APPLY_YN),
                         PAY_APPLY_MONTH : gfn_nvl(item.PAY_APPLY_MONTH)
 
@@ -1193,31 +1195,31 @@
 
                     data.cv_2.forEach((item, index) => {
 
-                        SBUxMethod.set("PAY_GROUP_CODE"         , gfn_nvl(item.PAY_GROUP_CODE));
-                        SBUxMethod.set("DEPT_CODE"              , gfn_nvl(item.DEPT_CODE));
-                        SBUxMethod.set("DEPT_NAME"              , gfn_nvl(item.DEPT_NAME));
-                        SBUxMethod.set("EMP_CODE"               , gfn_nvl(item.EMP_CODE));
-                        SBUxMethod.set("EMP_NAME"               , gfn_nvl(item.EMP_NAME));
-                        SBUxMethod.set("JOB_RANK"               , gfn_nvl(item.JOB_RANK));
-                        SBUxMethod.set("POSITION_CODE"          , gfn_nvl(item.POSITION_CODE));
-                        SBUxMethod.set("DUTY_CODE"              , gfn_nvl(item.DUTY_CODE));
-                        SBUxMethod.set("ENTER_DATE"             , gfn_nvl(item.ENTER_DATE));
-                        SBUxMethod.set("RETIRE_DATE"            , gfn_nvl(item.RETIRE_DATE));
-                        SBUxMethod.set("TEMP_END_DATE"          , gfn_nvl(item.TEMP_END_DATE));
-                        SBUxMethod.set("BONUS_APPLY_START_DATE" , gfn_nvl(item.BONUS_APPLY_START_DATE));
-                        SBUxMethod.set("PAY_DATE"               , gfn_nvl(item.PAY_DATE));
+                        SBUxMethod.set("PAY_GROUP_CODE"         , gfn_nvl(item.SLRY_GRD_CD));
+                        SBUxMethod.set("DEPT_CODE"              , gfn_nvl(item.DEPT_CD));
+                        SBUxMethod.set("DEPT_NAME"              , gfn_nvl(item.DEPT_NM));
+                        SBUxMethod.set("EMP_CODE"               , gfn_nvl(item.EMP_CD));
+                        SBUxMethod.set("EMP_NAME"               , gfn_nvl(item.EMP_NM));
+                        SBUxMethod.set("JOB_RANK"               , gfn_nvl(item.JBGD_CD));
+                        SBUxMethod.set("POSITION_CODE"          , gfn_nvl(item.JBPS_CD));
+                        SBUxMethod.set("DUTY_CODE"              , gfn_nvl(item.JBTTL_CD));
+                        SBUxMethod.set("ENTER_DATE"             , gfn_nvl(item.JNCMP_YMD));
+                        SBUxMethod.set("RETIRE_DATE"            , gfn_nvl(item.RTRM_YMD));
+                        SBUxMethod.set("TEMP_END_DATE"          , gfn_nvl(item.TMPR_END_YMD));
+                        SBUxMethod.set("BONUS_APPLY_START_DATE" , gfn_nvl(item.BONUS_APLY_BGNG_YMD));
+                        SBUxMethod.set("PAY_DATE"               , gfn_nvl(item.PAY_YMD));
                         SBUxMethod.set("PAY_AMT"                , gfn_nvl(item.PAY_AMT) == '' ? 0 : gfn_nvl(item.PAY_AMT));
                         SBUxMethod.set("BONUS_AMT"              , gfn_nvl(item.BONUS_AMT) == '' ? 0 : gfn_nvl(item.BONUS_AMT));
-                        SBUxMethod.set("TAX_FREE_AMT"           , gfn_nvl(item.TAX_FREE_AMT) == '' ? 0 : gfn_nvl(item.TAX_FREE_AMT));
-                        SBUxMethod.set("PAY_TOTAL_AMT"          , gfn_nvl(item.PAY_TOTAL_AMT) == '' ? 0 : gfn_nvl(item.PAY_TOTAL_AMT));
-                        SBUxMethod.set("PAY_DEDUCTION_AMT"      , gfn_nvl(item.PAY_DEDUCTION_AMT) == '' ? 0 : gfn_nvl(item.PAY_DEDUCTION_AMT));
-                        SBUxMethod.set("PAY_NET_AMT"            , gfn_nvl(item.PAY_NET_AMT) == '' ? 0 : gfn_nvl(item.PAY_NET_AMT));
+                        SBUxMethod.set("TAX_FREE_AMT"           , gfn_nvl(item.TX_TXFR_AMT) == '' ? 0 : gfn_nvl(item.TX_TXFR_AMT));
+                        SBUxMethod.set("PAY_TOTAL_AMT"          , gfn_nvl(item.SLRY_TOT_AMT) == '' ? 0 : gfn_nvl(item.SLRY_TOT_AMT));
+                        SBUxMethod.set("PAY_DEDUCTION_AMT"      , gfn_nvl(item.SLRY_DDC_AMT) == '' ? 0 : gfn_nvl(item.SLRY_DDC_AMT));
+                        SBUxMethod.set("PAY_NET_AMT"            , gfn_nvl(item.PAY_ACTL_AMT) == '' ? 0 : gfn_nvl(item.PAY_ACTL_AMT));
                         SBUxMethod.set("PAY_CASH_AMT"           , gfn_nvl(item.PAY_CASH_AMT) == '' ? 0 : gfn_nvl(item.PAY_CASH_AMT));
                         SBUxMethod.set("TRANSFER_AMT"           , gfn_nvl(item.TRANSFER_AMT) == '' ? 0 : gfn_nvl(item.TRANSFER_AMT));
-                        SBUxMethod.set("SALARY_BASE_AMT"        , gfn_nvl(item.SALARY_BASE_AMT) == '' ? 0 : gfn_nvl(item.SALARY_BASE_AMT));
+                        SBUxMethod.set("SALARY_BASE_AMT"        , gfn_nvl(item.SLRY_BASE_AMT) == '' ? 0 : gfn_nvl(item.SLRY_BASE_AMT));
                         SBUxMethod.set("BONUS_BASE_AMT"         , gfn_nvl(item.BONUS_BASE_AMT) == '' ? 0 : gfn_nvl(item.BONUS_BASE_AMT));
-                       /* SBUxMethod.set("INCENTIVE_BASE_AMT", gfn_nvl(item.INCENTIVE_BASE_AMT));
-                        SBUxMethod.set("COMPETENCE_BASE_AMT", gfn_nvl(item.COMPETENCE_BASE_AMT));*/
+                        /* SBUxMethod.set("INCENTIVE_BASE_AMT", gfn_nvl(item.INCENTIVE_BASE_AMT));
+                         SBUxMethod.set("COMPETENCE_BASE_AMT", gfn_nvl(item.COMPETENCE_BASE_AMT));*/
 
                     });
 
@@ -1227,14 +1229,14 @@
                     jsonPayList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_CODE   : gfn_nvl(item.SLRY_ITEM_CD),
                             PAY_AMT         : gfn_nvl(item.PAY_AMT),
-                            TAX_FREE_AMT    : gfn_nvl(item.TAX_FREE_AMT),
-                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
-                            RE_PAY_YYYYMM   : gfn_nvl(item.RE_PAY_YYYYMM),
+                            TAX_FREE_AMT    : gfn_nvl(item.TX_TXFR_AMT),
+                            PAY_QTY         : gfn_nvl(item.SLRY_QTY),
+                            RE_PAY_YYYYMM   : gfn_nvl(item.RETRA_SLRY_YM),
                             RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
                             RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE),
+                            TAX_PAY_DATE    : gfn_nvl(item.TX_PAY_YMD),
 
 
                         }
@@ -1251,13 +1253,13 @@
                     jsonDeductList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_CODE   : gfn_nvl(item.SLRY_ITEM_CD),
                             PAY_AMT         : gfn_nvl(item.PAY_AMT),
-                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
+                            PAY_QTY         : gfn_nvl(item.SLRY_QTY),
                             RE_PAY_YYYYMM1  : gfn_nvl(item.RE_PAY_YYYYMM1),
                             RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
                             RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
+                            TAX_PAY_DATE    : gfn_nvl(item.TX_PAY_YMD)
                         }
                         jsonDeductList.push(msg);
                         totalRecordCount2++;
@@ -1273,13 +1275,13 @@
                     jsonBasicList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfn_nvl(item.PAY_ITEM_CODE),
+                            PAY_ITEM_CODE   : gfn_nvl(item.SLRY_ITEM_CD),
                             PAY_AMT         : gfn_nvl(item.PAY_AMT),
-                            PAY_QTY         : gfn_nvl(item.PAY_QTY),
+                            PAY_QTY         : gfn_nvl(item.SLRY_QTY),
                             RE_PAY_YYYYMM1  : gfn_nvl(item.RE_PAY_YYYYMM1),
                             RE_PAY_YYYYMM_P : gfn_nvl(item.RE_PAY_YYYYMM_P),
                             RE_PAY_DATE_P   : gfn_nvl(item.RE_PAY_DATE_P),
-                            TAX_PAY_DATE    : gfn_nvl(item.TAX_PAY_DATE)
+                            TAX_PAY_DATE    : gfn_nvl(item.TX_PAY_YMD)
                         }
                         jsonBasicList.push(msg);
                         totalRecordCount3++;
