@@ -526,15 +526,15 @@
 			gfnma_setComSelect(['SCH_DEPRECIATION_PERIOD'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//분류구분
-			gfnma_setComSelect(['FM_ASST_LVL_TYPE'], 	jsonAssetLevelType, 	'L_FIA002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_ASSET_LEVEL_TYPE'], 	jsonAssetLevelType, 	'L_FIA002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//비용유형
-			gfnma_setComSelect(['FM_EPS_TYPE'], 		jsonExpenseType, 		'L_FIA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_EXPENSE_TYPE'], 		jsonExpenseType, 		'L_FIA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자산구분
-			gfnma_setComSelect(['FM_ASST_CTGRY'], 		jsonAssetCategory, 		'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_ASSET_CATEGORY'], 		jsonAssetCategory, 		'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각방법
-			gfnma_setComSelect(['FM_DPRC_MTHD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DPRC_PRD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//감가상각방법
 			gfnma_setComSelect(['FM_DPRC_MTHD_TAX'], 			jsonDepreciationMethodTax,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
@@ -651,17 +651,17 @@
      * 화면 입력 상태
      */
     function fn_fmDisabled(type) {
-		SBUxMethod.attr('FM_ASST_LVL_TYPE', 		'readonly', type);
+		SBUxMethod.attr('FM_ASSET_LEVEL_TYPE', 		'readonly', type);
 		SBUxMethod.attr('FM_ASST_GROUP_CD', 		'readonly', type);
-		SBUxMethod.attr('FM_EPS_TYPE', 			'readonly', type);
+		SBUxMethod.attr('FM_EXPENSE_TYPE', 			'readonly', type);
 		SBUxMethod.attr('FM_ASST_GROUP_NM', 		'readonly', type);
-		SBUxMethod.attr('FM_ASST_CTGRY', 		'readonly', type);
+		SBUxMethod.attr('FM_ASSET_CATEGORY', 		'readonly', type);
 		
 		SBUxMethod.attr('FM_AST_YN', 			'readonly', type);
 		SBUxMethod.attr('FM_DPRC_YN', 		'readonly', type);
 		SBUxMethod.attr('FM_USE_YN', 				'readonly', type);
 		
-		SBUxMethod.attr('FM_PRNT_ACNT_GRP', 		'readonly', type);
+		SBUxMethod.attr('FM_PARENT_ASSET_GROUP', 		'readonly', type);
 		SBUxMethod.attr('BTN_POP1', 					'readonly', type);
 		SBUxMethod.attr('FM_PARENT_ASSET_GROUP_NAME',	'readonly', type);
 		
@@ -669,13 +669,13 @@
 		SBUxMethod.attr('FM_HLD_YN',					'readonly', type);
 		SBUxMethod.attr('FM_LEASE_YN',					'readonly', type);
 		
-		SBUxMethod.attr('FM_DPRC_MTHD_GAAP',	'readonly', type);
+		SBUxMethod.attr('FM_DEPRECIATION_METHOD_GAAP',	'readonly', type);
 		SBUxMethod.attr('FM_SVLF_GAAP',			'readonly', type);
-		SBUxMethod.attr('FM_ASST_ACNT_CD', 			'readonly', type);
+		SBUxMethod.attr('FM_ASSET_ACCOUNT', 			'readonly', type);
 		SBUxMethod.attr('BTN_POP2', 					'readonly', type);
 		SBUxMethod.attr('FM_ASSET_ACC_NAME',			'readonly', type);
 		
-		SBUxMethod.attr('FM_DPRC_PRD_GAAP',	'readonly', type);
+		SBUxMethod.attr('FM_DEPRECIATION_PERIOD_GAAP',	'readonly', type);
 		SBUxMethod.attr('FM_RMN_AMT_GAAP',		'readonly', type);
 		SBUxMethod.attr('FM_DPCO_ACNT', 				'readonly', type);
 		SBUxMethod.attr('BTN_POP3', 					'readonly', type);
@@ -885,8 +885,8 @@
     	//type C 형 팝업
     	var p_find1	= p_ss_languageID;
     	var p_find2	= gv_ma_selectedCorpCd;
-    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
-   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
+    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_CATEGORY"));
+   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP"));
 		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
 		
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
@@ -911,7 +911,7 @@
    			,tableColumnWidths		: ["100px", 		"100px",				"100px",			"200px",				"100px",			"150px",				"100px",						"200px",								"100px",							"100px",									"200px",						"150px",					"150px",				"150px",					"200px",						"150px",							"150px",					"150px",					"150px",					"150px",					"150px",					"150px",					"150px",				"150px",					"150px",				"150px",				"150px",					"150px",				"150px",				"150px",			"100px",			"100px",			"100px",			"100px",	"100px",		"100px",	"100px"	]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_PRNT_ACNT_GRP', 		data.ASST_MCLSF);
+				SBUxMethod.set('FM_PARENT_ASSET_GROUP', 		data.ASST_MCLSF);
 				SBUxMethod.set('FM_PARENT_ASSET_GROUP_NAME', 	data.ASSET_LEVEL2_NAME);
 			},
     	});
@@ -927,7 +927,7 @@
         var searchText1		= null;
         var searchText2		= null;
         if(type=='1'){
-            searchText1		= gfnma_nvl(SBUxMethod.get("FM_ASST_ACNT_CD"));
+            searchText1		= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACCOUNT"));
             searchText2		= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACC_NAME"));
         } else if(type=='2'){
             searchText1		= gfnma_nvl(SBUxMethod.get("FM_DPCO_ACNT"));
@@ -977,31 +977,31 @@
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				if(type=='1'){
-					SBUxMethod.set('FM_ASST_ACNT_CD', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_ASSET_ACCOUNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_ASSET_ACC_NAME', data.ACNT_NM);
 				} else if(type=='2'){
 					SBUxMethod.set('FM_DPCO_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_DEPR_EXP_ACC_NAME', data.ACNT_NM);
 				} else if(type=='3'){
-					SBUxMethod.set('FM_ACML_DPRC_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_ACML_DPRC_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_ACCUM_DEPR_ACC_NAME', data.ACNT_NM);
 				} else if(type=='4'){
-					SBUxMethod.set('FM_GVSBS_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_GVSBS_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_SUBSIDIES_ACC_NAME', data.ACNT_NM);
 				} else if(type=='5'){
-					SBUxMethod.set('FM_GVSBS_DPCO_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_GVSBS_DPCO_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_SUBSIDIES_DEPR_ACC_NAME', data.ACNT_NM);
 				} else if(type=='6'){
-					SBUxMethod.set('FM_GVSBS_DPRC_AT_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_GVSBS_DPRC_AT_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME', data.ACNT_NM);
 				} else if(type=='7'){
-					SBUxMethod.set('FM_DSPSL_PRFT_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_DSPSL_PRFT_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_DISPOSAL_PROFIT_ACC_NAME', data.ACNT_NM);
 				} else if(type=='8'){
-					SBUxMethod.set('FM_DSPSL_GNLS_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_DSPSL_GNLS_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_DISPOSAL_LOSS_ACC_NAME', data.ACNT_NM);
 				} else if(type=='9'){
-					SBUxMethod.set('FM_DSCD_LOSS_ACNT', data.APLY_ACNTL_CD);
+					SBUxMethod.set('FM_DSCD_LOSS_ACNT', data.ACNTL_CD);
 					SBUxMethod.set('FM_DISUSE_LOSS_ACC_NAME', data.ACNT_NM);
 				}
 			},
@@ -1016,7 +1016,7 @@
 		SBUxMethod.set('"FM_USE_YN"', 'Y');
     	
 		$('#LA_PARENT_ASSET_LABEL').hide();
-		SBUxMethod.hide('FM_PRNT_ACNT_GRP');
+		SBUxMethod.hide('FM_PARENT_ASSET_GROUP');
 		SBUxMethod.hide('BTN_POP1');
 		SBUxMethod.hide('FM_PARENT_ASSET_GROUP_NAME');
 		
@@ -1063,10 +1063,10 @@
     	
 		let p_asset_group_code		= gfnma_nvl(SBUxMethod.get("FM_ASST_GROUP_CD"));
 		let p_asset_group_name1		= gfnma_nvl(SBUxMethod.get("FM_ASST_GROUP_NM"));
-		let p_asset_category		= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
-		let p_asset_level_type		= gfnma_nvl(SBUxMethod.get("FM_ASST_LVL_TYPE"));
-		let p_parent_asset_group	= gfnma_nvl(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
-		let p_expanse_type			= gfnma_nvl(SBUxMethod.get("FM_EPS_TYPE"));
+		let p_asset_category		= gfnma_nvl(SBUxMethod.get("FM_ASSET_CATEGORY"));
+		let p_asset_level_type		= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL_TYPE"));
+		let p_parent_asset_group	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP"));
+		let p_expanse_type			= gfnma_nvl(SBUxMethod.get("FM_EXPENSE_TYPE"));
 		
 		let p_useful_life_gaap		= gfnma_nvl(SBUxMethod.get("FM_SVLF_GAAP"));
 		let p_useful_life_ifrs		= gfnma_nvl(SBUxMethod.get("FM_SVLF_IFRS"));
@@ -1080,14 +1080,14 @@
 		let p_salvage_value_ifrs	= gfnma_nvl(SBUxMethod.get("FM_RMN_AMT_IFRS"));
 		let p_salvage_value_tax		= gfnma_nvl(SBUxMethod.get("FM_RMN_AMT_TAX"));
 		
-		let p_depreciation_method_gaap	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_GAAP"));
+		let p_depreciation_method_gaap	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD_GAAP"));
 		let p_depreciation_method_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_IFRS"));
 		let p_depreciation_method_tax	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_TAX"));
-		let p_depreciation_period_gaap	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_GAAP"));
+		let p_depreciation_period_gaap	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_PERIOD_GAAP"));
 		let p_depreciation_period_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_IFRS"));
 		let p_depreciation_period_tax	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_TAX"));
 		
-		let p_asset_account				= gfnma_nvl(SBUxMethod.get("FM_ASST_ACNT_CD"));
+		let p_asset_account				= gfnma_nvl(SBUxMethod.get("FM_ASSET_ACCOUNT"));
 		let p_depr_exp_acc				= gfnma_nvl(SBUxMethod.get("FM_DPCO_ACNT"));
 		let p_accum_depr_acc			= gfnma_nvl(SBUxMethod.get("FM_ACML_DPRC_ACNT"));
 		let p_subsidies_account			= gfnma_nvl(SBUxMethod.get("FM_GVSBS_ACNT"));
