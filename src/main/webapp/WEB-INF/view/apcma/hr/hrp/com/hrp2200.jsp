@@ -1293,38 +1293,36 @@
         let chkCount = 0;
         for (const item of headers) {
 
-            if (gfnma_nvl2(item) == ''){
-                chkCount = 1;
-                break;
-            }else{
+            if (gfnma_nvl2(item) != '') {
                 item.trim();
             }
 
-            if (_.isEqual('부서', item)){
+
+            if (item.indexOf('부서') != -1){
                 jsonHeaders.push('DEPT_NAME');
-            }else if (_.isEqual('사번', item)){
+            }else if (item.indexOf('사번') != -1 ){
                 jsonHeaders.push('EMP_CODE');
-            }else if (_.isEqual('이름', item)){
+            }else if ( item.indexOf('이름') != -1){
                 jsonHeaders.push('EMP_FULL_NAME');
-            } else if (_.isEqual('통화금액', item)){
+            } else if (item.indexOf('통화금액') != -1){
                 jsonHeaders.push('PAY_AMT');
-            }else if (_.isEqual('지급일(세무)', item)){
+            }else if (item.indexOf('지급일(세무)') != -1 /*_.isEqual('지급일(세무)', item)*/){
                 jsonHeaders.push('TAX_PAY_DATE');
-            }else if (_.isEqual('비고', item)){
+            }else if (item.indexOf('비고') != -1){
                 jsonHeaders.push('MEMO');
-            }else if (_.isEqual('수정일', item)){
+            }else if (item.indexOf('수정일') != -1){
                 jsonHeaders.push('UPDATE_TIME');
-            }else if (_.isEqual('수정자', item)){
+            }else if (item.indexOf('수정자') != -1){
                 jsonHeaders.push('UPDATE_USERID');
-            }else{
+            }/*else{
                 chkCount = 1;
-            }
+            }*/
         }
 
-        if (chkCount == 1){
+        /*if (chkCount == 1){
             gfn_comAlert("Q0000","엑셀 시트 양식을 확인해 주세요. [헤더명이 일지 하지 않습니다.]");
             return false;
-        }
+        }*/
 
         const results = []; // 실제 데이터값
         for (const jsonData of jsonDatas) {
