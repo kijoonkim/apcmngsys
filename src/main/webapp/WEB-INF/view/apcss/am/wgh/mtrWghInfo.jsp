@@ -108,21 +108,17 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'2%', style: 'text-align:center;'},
-            {caption: ["계량대"],	ref: 'fcltNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["코드"],	ref: 'status',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["별칭"],	ref: 'sysLastChgDt',	type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["계량유형"],	ref: 'sysLastChgDt',	type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["입고유형"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["설명"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["최소중량"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["계량횟수"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["최대중량"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["기본창고"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["중량단위"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["시작일자"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["종료일자"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
-            {caption: ["비고"],	ref: 'spcfctNm',		type:'output',  width:'7%', style: 'text-align:center;'},
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'3%', style: 'text-align:center;'},
+            {caption: ["계량대"],	ref: 'fcltType',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["코드"],	ref: 'fcltCd',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["별칭"],	ref: 'fcltNm',	type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["설명"],	ref: 'fcltExpln',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["최소중량"],	ref: 'wghtMin',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["최대중량"],	ref: 'wghtMax',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["중량단위"],	ref: 'wghtUnit',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["시작일자"],	ref: 'bgngYmd',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["종료일자"],	ref: 'endYmd',		type:'output',  width:'11%', style: 'text-align:center;'},
+            {caption: ["비고"],	ref: 'fcltRmrk',		type:'output',  width:'11%', style: 'text-align:center;'},
         ]
         gridWghCurInq = _SBGrid.create(SBGridProperties);
     }
