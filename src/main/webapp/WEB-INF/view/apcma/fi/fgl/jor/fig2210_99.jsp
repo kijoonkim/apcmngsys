@@ -3059,7 +3059,7 @@
     	
         var replaceText0 	= "_PJT_CD_";
         var replaceText1 	= "_PJT_NM_"; 
-        var strWhereClause 	= "AND PROJECT_CODE LIKE '%" + replaceText0 + "%' AND PJT_NM LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND PJT_CD LIKE '%" + replaceText0 + "%' AND PJT_NM LIKE '%" + replaceText1 + "%' ";
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
 		compopup1({
