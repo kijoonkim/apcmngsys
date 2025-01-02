@@ -581,7 +581,7 @@
             //프로젝트코드
             gfnma_setComSelect(['gvwItemGrid'], jsonProjectCode, 'P_COM028', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PJT_CD', 'PJT_NM', 'Y', ''),
             //계정과목
-            gfnma_setComSelect(['gvwItemGrid'], jsonAccount, 'P_FIM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTL_CD', 'ACNT_NM', 'Y', ''),
+            //gfnma_setComSelect(['gvwItemGrid'], jsonAccount, 'P_FIM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTL_CD', 'ACNT_NM', 'Y', ''),
         ]);
     }
 

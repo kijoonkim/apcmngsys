@@ -1853,7 +1853,7 @@
 
 		var replaceText0 		= "_CODE_";
 		var replaceText1 		= "_FAM_NM_";
-		var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A._FAM_NM_ LIKE '%" + replaceText1 + "%'";
+		var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.FAM_NM LIKE '%" + replaceText1 + "%'";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 팝업');
 		compopup1({
@@ -1863,22 +1863,22 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["코드", 		"명칭"]
-			,searchInputFields		: ["CODE", 		"_FAM_NM_"]
+			,searchInputFields		: ["CODE", 		"FAM_NM"]
 			,searchInputValues		: [searchCode, 	searchName]
 			,height					: '400px'
 			,tableHeader			: ["코드", 	"명칭", 	"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
-			,tableColumnNames		: ["CODE",	"_FAM_NM_", 	"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+			,tableColumnNames		: ["CODE",	"FAM_NM", 	"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
 			,tableColumnWidths		: ["80px", 	"200px", 	"80px",   "80px",   "80px",   "80px"]
 			,itemSelectEvent		: function (data){
 				if(type=='1'){
 					SBUxMethod.set('FM_LOAN_START_TR_CODE', data.CODE);
-					SBUxMethod.set('FM_LOAN_START_TR_NAME',	data._FAM_NM_);
+					SBUxMethod.set('FM_LOAN_START_TR_NAME',	data.FAM_NM);
 				} else if(type=='2'){
 					SBUxMethod.set('FM_LOAN_REPAY_TR_CODE', data.CODE);
-					SBUxMethod.set('FM_LOAN_REPAY_TR_NAME',	data._FAM_NM_);
+					SBUxMethod.set('FM_LOAN_REPAY_TR_NAME',	data.FAM_NM);
 				} else if(type=='3'){
 					SBUxMethod.set('FM_INTEREST_REPAY_TR_CODE', data.CODE);
-					SBUxMethod.set('FM_INTEREST_REPAY_TR_NAME',	data._FAM_NM_);
+					SBUxMethod.set('FM_INTEREST_REPAY_TR_NAME',	data.FAM_NM);
 				}
 			},
 		});
@@ -2011,8 +2011,8 @@
 			,tableColumnNames		: ["CNPT_CD" , 		"CNPT_NM", "BANK_CD", "BANK_NM", "BRNO", "ADDR"]
 			,tableColumnWidths		: ["100px", 		"200px", "100px", "100px", "120px", "300px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('FM_REPAY_BANK_CS_CODE', data.CNPT_NM);
-				SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CNPT_CD);
+				SBUxMethod.set('FM_REPAY_BANK_CS_CODE', data.CNPT_CD);
+				SBUxMethod.set('FM_REPAY_BANK_CS_NAME', data.CNPT_NM);
 			},
 		});
 	}
