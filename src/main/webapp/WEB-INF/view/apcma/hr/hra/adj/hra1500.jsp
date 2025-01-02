@@ -147,13 +147,23 @@
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg_search">계산일</th>
-                    <td colspan="4" class="td_input inpt_data_reqed">
+                    <td colspan="2" class="td_input inpt_data_reqed">
                         <sbux-radio id="RETIRE" name="CALC_DATE_TYPE" uitype="normal"
                                     text="퇴사일" value="RETIRE" onchange="fn_changeDate()" checked>
                         </sbux-radio>
                         <sbux-radio id="BASE" name="CALC_DATE_TYPE" uitype="normal"
                                     text="기준일" value="BASE" onchange="fn_changeDate()">
                         </sbux-radio>
+                    </td>
+                    <td colspan="2" class="td_input" style="border-right: hidden;">
+                        <sbux-datepicker
+                                id="SRCH_CALC_DAT"
+                                name="SRCH_CALC_DAT"
+                                uitype="popup"
+                                date-format="yyyy-mm-dd"
+                                class="table-datepicker-ma"
+                                style="background-color: #FFC0CB; color: #0a0a0a;"
+                        ></sbux-datepicker>
                     </td>
                     <th scope="row" class="th_bg_search">부서</th>
                     <td class="td_input" style="border-right: hidden;" data-group="DEPT">
@@ -224,7 +234,7 @@
                         ></sbux-datepicker>
                     </td>
                 </tr>
-                <tr>
+                <%--<tr>
                     <td class="td_input" style="border-right: hidden;">
                         <sbux-datepicker
                                 id="SRCH_CALC_DAT"
@@ -236,7 +246,7 @@
                         ></sbux-datepicker>
                     </td>
                     <td colspan="19" style="border-right: hidden;">&nbsp;</td>
-                </tr>
+                </tr>--%>
                 </tbody>
             </table>
         </div>
@@ -285,8 +295,8 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCalcStatus, 'L_HRA033', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCalcStatus, 'L_HRA033', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 
             //사업장
@@ -301,11 +311,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -321,11 +331,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -343,18 +353,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -363,13 +373,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -379,15 +389,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -615,14 +625,14 @@
                     const msg = {
                         CHK_YN 			                : gfn_nvl(item.CHK_YN)
                         ,CALC_STATUS 			        : gfn_nvl(item.CALC_STATUS)
-                        ,DEPT_CODE 			            : gfn_nvl(item.DEPT_CODE)
-                        ,DEPT_NAME 			            : gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			            : gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			            : gfn_nvl(item.EMP_NAME)
-                        ,EMP_FULL_NAME 			        : gfn_nvl(item.EMP_FULL_NAME)
-                        ,ENTER_DATE 			        : gfn_nvl(item.ENTER_DATE)
-                        ,RETIRE_DATE 			        : gfn_nvl(item.RETIRE_DATE)
-                        ,CALC_DAT 			            : gfn_nvl(item.CALC_DAT)
+                        ,DEPT_CODE 			            : gfn_nvl(item.DEPT_CD)
+                        ,DEPT_NAME 			            : gfn_nvl(item.DEPT_NM)
+                        ,EMP_CODE 			            : gfn_nvl(item.EMP_CD)
+                        ,EMP_NAME 			            : gfn_nvl(item.EMP_NM)
+                        ,EMP_FULL_NAME 			        : gfn_nvl(item.EMP_FLNM)
+                        ,ENTER_DATE 			        : gfn_nvl(item.JNCMP_YMD)
+                        ,RETIRE_DATE 			        : gfn_nvl(item.RTRM_YMD)
+                        ,CALC_DAT 			            : gfn_nvl(item.CALC_YMD)
                         ,STD_TX_DED_YN 			        : gfn_nvl(item.STD_TX_DED_YN)
                         ,CALC_INC_TX_AMT_STD_APPLY 		: gfn_nvl(item.CALC_INC_TX_AMT_STD_APPLY)
                         ,CALC_INC_TX_AMT_STD_NOAPY 		: gfn_nvl(item.CALC_INC_TX_AMT_STD_NOAPY)
@@ -653,41 +663,41 @@
     const fn_save = async function (type) {
 
 
-            let listData = [];
-            listData =  await getParamForm(type);
-            /* var paramObj = {
-                 P_HRP1170_S: await getParamForm('u')
-             }*/
+        let listData = [];
+        listData =  await getParamForm(type);
+        /* var paramObj = {
+             P_HRP1170_S: await getParamForm('u')
+         }*/
 
-            if (listData.length > 0) {
+        if (listData.length > 0) {
 
-                const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500.do", {listData: listData});
+            const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1500.do", {listData: listData});
 
-                const data = await postJsonPromise;
+            const data = await postJsonPromise;
 
-                try {
-                    if (_.isEqual("S", data.resultStatus)) {
-                        if (data.resultMessage) {
-                            alert(data.resultMessage);
-                        }
-
-                        return true;
-
-                    } else {
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    if (data.resultMessage) {
                         alert(data.resultMessage);
+                    }
 
-                        return false;
-                    }
-                } catch (e) {
-                    if (!(e instanceof Error)) {
-                        e = new Error(e);
-                    }
-                    console.error("failed", e.message);
-                    gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+                    return true;
+
+                } else {
+                    alert(data.resultMessage);
+
+                    return false;
                 }
-            }else{
-                return false;
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
+        }else{
+            return false;
+        }
 
     }
 
@@ -801,8 +811,8 @@
             } else {
                 gfn_comAlert("E0000", "선택한 데이터가 없습니다.");
                 return false;
-             /*   SetMessageBox("선택한 데이터가 없습니다.");
-                return false;*/
+                /*   SetMessageBox("선택한 데이터가 없습니다.");
+                   return false;*/
             }
 
         } else {

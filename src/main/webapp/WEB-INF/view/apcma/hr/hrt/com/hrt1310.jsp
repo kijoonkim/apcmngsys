@@ -192,7 +192,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무패턴
-            gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo'], jsonWorkPatternCode, 'L_HRT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_WORK_PATTERN_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -204,11 +204,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "근무패턴", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "근무패턴", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
         ]);
@@ -572,8 +572,8 @@
                 listData.cv_4.forEach((item, index) => {
                     const msg = {
                         COLOR_CODE : item.COLOR_CODE,
-                        SHIFT_CODE : item.SHIFT_CODE,
-                        SHIFT_NAME : item.SHIFT_NAME
+                        SHIFT_CODE : item.SHWORK_CD,
+                        SHIFT_NAME : item.SHWORK_TEAM_NM
                     }
 
                     colorList[item.SHIFT_CODE] = item.COLOR_CODE;
@@ -603,12 +603,12 @@
                 jsonCheckList.length = 0;
                 checkData.cv_5.forEach((item, index) => {
                     const msg = {
-                        WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         WORK_PATTERN_NAME : item.WORK_PATTERN_NAME,
-                        YYYYMMDD : item.YYYYMMDD,
-                        HOLIDAY_YN : item.HOLIDAY_YN,
-                        COMP_CODE : item.COMP_CODE,
-                        CHECK_TYPE : item.CHECK_TYPE,
+                        YYYYMMDD : item.YMD,
+                        HOLIDAY_YN : item.HLDY_YN,
+                        COMP_CODE : item.CO_CD,
+                        CHECK_TYPE : item.HLTH_CKUP_TYPE,
                         SETUP_GUIDE : item.SETUP_GUIDE
                     }
                     jsonCheckList.push(msg);

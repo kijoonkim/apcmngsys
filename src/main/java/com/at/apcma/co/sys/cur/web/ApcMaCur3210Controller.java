@@ -53,7 +53,7 @@ public class ApcMaCur3210Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3210_Q");
+			param.put("procedure", 		"SP_COM3210_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -77,7 +77,7 @@ public class ApcMaCur3210Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3210_S1");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3210_S1");
 					
 			logger.info("=============insertCom3210_S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -99,7 +99,7 @@ public class ApcMaCur3210Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3210_S2");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3210_S2");
 			
 			logger.info("=============insertCom3210_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);

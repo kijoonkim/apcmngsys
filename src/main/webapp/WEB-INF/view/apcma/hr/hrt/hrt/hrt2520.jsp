@@ -218,7 +218,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -230,19 +230,19 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 직군
-            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047_03', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047_03', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['gvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -685,18 +685,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -705,12 +705,12 @@
     const fn_findEmpCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_CODE_";
-        var replaceText2 	= "_EMP_NAME_";
-        var replaceText3 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_CD_";
+        var replaceText2 	= "_EMP_NM_";
+        var replaceText3 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_CD LIKE '%" + replaceText1 + "%' AND X.EMP_NM LIKE '%" + replaceText2 + "%' AND X.EMP_STTS LIKE '%" + replaceText3 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -719,17 +719,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
             ,searchInputValues		: ["", 			searchCode, searchName,		""]
             ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
     }
@@ -1101,124 +1101,124 @@
                 listData.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        YYYYMM : item.YYYYMM,
-                        ACCT_YYYYMM : item.ACCT_YYYYMM,
-                        SITE_CODE : item.SITE_CODE,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        POSITION_CODE : item.POSITION_CODE,
-                        WORK_SUMMARY_CONFIRM_YN : item.WORK_SUMMARY_CONFIRM_YN,
-                        CONFIRM_DATE : item.CONFIRM_DATE,
+                        YYYYMM : item.YM,
+                        ACCT_YYYYMM : item.RETRA_YM,
+                        SITE_CODE : item.SITE_CD,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        POSITION_CODE : item.JBPS_CD,
+                        WORK_SUMMARY_CONFIRM_YN : item.WORK_TOT_CFMTN_YN,
+                        CONFIRM_DATE : item.CFMTN_YMD,
                         BASE_WORK_TIME : item.BASE_WORK_TIME,
-                        TOT_DAY : item.TOT_DAY,
-                        WORK_DAY : item.WORK_DAY,
-                        PAID_HOLIDAY : item.PAID_HOLIDAY,
-                        NONPAID_HOLIDAY : item.NONPAID_HOLIDAY,
-                        REAL_WORK_DAY : item.REAL_WORK_DAY,
-                        WORK_YEARS : item.WORK_YEARS,
-                        ANNUAL_DAY : item.ANNUAL_DAY,
-                        ANNUAL_USE_DAY : item.ANNUAL_USE_DAY,
-                        ANNUAL_REMAIN_DAY : item.ANNUAL_REMAIN_DAY,
-                        CELEBRATE_DAY : item.CELEBRATE_DAY,
-                        REPLACE_VACATION_DAY : item.REPLACE_VACATION_DAY,
-                        EDU_DAY : item.EDU_DAY,
-                        HOLIDAY_WORK_DAY : item.HOLIDAY_WORK_DAY,
-                        ABSENCE_DAY : item.ABSENCE_DAY,
-                        ADD_DAY : item.ADD_DAY,
-                        TOTAL_WORK_TIME : item.TOTAL_WORK_TIME,
-                        AFTER_HOURS_TIME1 : item.AFTER_HOURS_TIME1,
-                        AFTER_HOURS_TIME2 : item.AFTER_HOURS_TIME2,
-                        OVER_TIME : item.OVER_TIME,
-                        NIGHT_TIME : item.NIGHT_TIME,
-                        HOLIDAY_TIME : item.HOLIDAY_TIME,
-                        HOLIDAY_OVER_TIME : item.HOLIDAY_OVER_TIME,
+                        TOT_DAY : item.TOT_DCNT,
+                        WORK_DAY : item.WORK_DCNT,
+                        PAID_HOLIDAY : item.PAY_HLDY,
+                        NONPAID_HOLIDAY : item.UNHLDY,
+                        REAL_WORK_DAY : item.ACTL_WORK_DCNT,
+                        WORK_YEARS : item.CNSVC_YYCNT,
+                        ANNUAL_DAY : item.ANNLV_OCRN_DAY_CNT,
+                        ANNUAL_USE_DAY : item.ANNLV_USE_DAY_CNT,
+                        ANNUAL_REMAIN_DAY : item.ANNLV_RMND_DAY_CNT,
+                        CELEBRATE_DAY : item.CLBN_PPADLV_DCNT,
+                        REPLACE_VACATION_DAY : item.RPLCMT_VCT_DCNT,
+                        EDU_DAY : item.EDU_DCNT,
+                        HOLIDAY_WORK_DAY : item.HLDY_WORK_DCNT,
+                        ABSENCE_DAY : item.ABSN_DAY_CNT,
+                        ADD_DAY : item.ADD_DAY_CNT,
+                        TOTAL_WORK_TIME : item.TOT_WORK_HR,
+                        AFTER_HOURS_TIME1 : item.OVTM_WORK_HR1,
+                        AFTER_HOURS_TIME2 : item.OVTM_WORK_HR2,
+                        OVER_TIME : item.PRLG_WORK_HR,
+                        NIGHT_TIME : item.NGHT_WORK_HR,
+                        HOLIDAY_TIME : item.HLDY_HR,
+                        HOLIDAY_OVER_TIME : item.HLDY_OVTM_HR,
                         TIME_SUM : item.TIME_SUM,
-                        LATE_CNT : item.LATE_CNT,
-                        LATE_TIME : item.LATE_TIME,
-                        EARLY_LEAVE_CNT : item.EARLY_LEAVE_CNT,
-                        EARLY_LEAVE_TIME : item.EARLY_LEAVE_TIME,
-                        GO_OUT_CNT : item.GO_OUT_CNT,
-                        GO_OUT_TIME : item.GO_OUT_TIME,
-                        OUTSIDE_CNT : item.OUTSIDE_CNT,
-                        OUTSIDE_TIME : item.OUTSIDE_TIME,
-                        MONTHLY_DAY : item.MONTHLY_DAY,
-                        MONTHLY_USE_DAY : item.MONTHLY_USE_DAY,
-                        MENSTRUEL_DAY : item.MENSTRUEL_DAY,
-                        MENSTRUEL_USE_DAY : item.MENSTRUEL_USE_DAY,
-                        NIGHT_DUTY_DAY : item.NIGHT_DUTY_DAY,
-                        SUNDAY_TIME : item.SUNDAY_TIME,
-                        SUNDAY_OVER_TIME : item.SUNDAY_OVER_TIME,
-                        OFFICIAL_INJURY_DAY : item.OFFICIAL_INJURY_DAY,
-                        WEEKLY_HOLIDAY_DAY : item.WEEKLY_HOLIDAY_DAY,
-                        EXTRA_FIELD1 : item.EXTRA_FIELD1,
-                        EXTRA_FIELD2 : item.EXTRA_FIELD2,
-                        EXTRA_FIELD3 : item.EXTRA_FIELD3,
-                        EXTRA_FIELD4 : item.EXTRA_FIELD4,
-                        EXTRA_FIELD5 : item.EXTRA_FIELD5,
-                        EXTRA_FIELD6 : item.EXTRA_FIELD6,
-                        EXTRA_FIELD7 : item.EXTRA_FIELD7,
-                        EXTRA_FIELD8 : item.EXTRA_FIELD8,
-                        EXTRA_FIELD9 : item.EXTRA_FIELD9,
-                        EXTRA_FIELD10 : item.EXTRA_FIELD10,
-                        ATTR1_DAY : item.ATTR1_DAY,
-                        ATTR2_DAY : item.ATTR2_DAY,
-                        ATTR3_DAY : item.ATTR3_DAY,
-                        ATTR4_DAY : item.ATTR4_DAY,
-                        ATTR5_DAY : item.ATTR5_DAY,
-                        ATTR6_DAY : item.ATTR6_DAY,
-                        ATTR7_DAY : item.ATTR7_DAY,
-                        ATTR8_DAY : item.ATTR8_DAY,
-                        ATTR9_DAY : item.ATTR9_DAY,
-                        ATTR10_DAY : item.ATTR10_DAY,
-                        ATTR1_TIME : item.ATTR1_TIME,
-                        ATTR2_TIME : item.ATTR2_TIME,
-                        ATTR3_TIME : item.ATTR3_TIME,
-                        ATTR4_TIME : item.ATTR4_TIME,
-                        ATTR5_TIME : item.ATTR5_TIME,
-                        ATTR6_TIME : item.ATTR6_TIME,
-                        ATTR7_TIME : item.ATTR7_TIME,
-                        ATTR8_TIME : item.ATTR8_TIME,
-                        ATTR9_TIME : item.ATTR9_TIME,
-                        ATTR10_TIME : item.ATTR10_TIME,
-                        EXTRA_FIELD11 : item.EXTRA_FIELD11,
-                        EXTRA_FIELD12 : item.EXTRA_FIELD12,
-                        EXTRA_FIELD13 : item.EXTRA_FIELD13,
-                        EXTRA_FIELD14 : item.EXTRA_FIELD14,
-                        EXTRA_FIELD15 : item.EXTRA_FIELD15,
-                        EXTRA_FIELD16 : item.EXTRA_FIELD16,
-                        EXTRA_FIELD17 : item.EXTRA_FIELD17,
-                        EXTRA_FIELD18 : item.EXTRA_FIELD18,
-                        EXTRA_FIELD19 : item.EXTRA_FIELD19,
-                        EXTRA_FIELD20 : item.EXTRA_FIELD20,
-                        ATTR11_DAY : item.ATTR11_DAY,
-                        ATTR12_DAY : item.ATTR12_DAY,
-                        ATTR13_DAY : item.ATTR13_DAY,
-                        ATTR14_DAY : item.ATTR14_DAY,
-                        ATTR15_DAY : item.ATTR15_DAY,
-                        ATTR16_DAY : item.ATTR16_DAY,
-                        ATTR17_DAY : item.ATTR17_DAY,
-                        ATTR18_DAY : item.ATTR18_DAY,
-                        ATTR19_DAY : item.ATTR19_DAY,
-                        ATTR20_DAY : item.ATTR20_DAY,
-                        ATTR11_TIME : item.ATTR11_TIME,
-                        ATTR12_TIME : item.ATTR12_TIME,
-                        ATTR13_TIME : item.ATTR13_TIME,
-                        ATTR14_TIME : item.ATTR14_TIME,
-                        ATTR15_TIME : item.ATTR15_TIME,
-                        ATTR16_TIME : item.ATTR16_TIME,
-                        ATTR17_TIME : item.ATTR17_TIME,
-                        ATTR18_TIME : item.ATTR18_TIME,
-                        ATTR19_TIME : item.ATTR19_TIME,
-                        ATTR20_TIME : item.ATTR20_TIME,
-                        WORK_SUMMARY_START_DATE : item.WORK_SUMMARY_START_DATE,
-                        WORK_SUMMARY_END_DATE : item.WORK_SUMMARY_END_DATE,
-                        PAY_SUMMARY_START_DATE : item.PAY_SUMMARY_START_DATE,
-                        PAY_SUMMARY_END_DATE : item.PAY_SUMMARY_END_DATE,
-                        DEPT_CATEGORY : item.DEPT_CATEGORY,
+                        LATE_CNT : item.LTNS_CNT,
+                        LATE_TIME : item.LTNS_HR,
+                        EARLY_LEAVE_CNT : item.ERLV_CNT,
+                        EARLY_LEAVE_TIME : item.ERLV_HR,
+                        GO_OUT_CNT : item.GOUT_CNT,
+                        GO_OUT_TIME : item.GOUT_HR,
+                        OUTSIDE_CNT : item.OTSD_WORK_CNT,
+                        OUTSIDE_TIME : item.OTSD_WORK_HR,
+                        MONTHLY_DAY : item.ANNLV_OCRN_DCNT,
+                        MONTHLY_USE_DAY : item.ANNLV_USE_DCNT,
+                        MENSTRUEL_DAY : item.MNSLV_DCNT,
+                        MENSTRUEL_USE_DAY : item.MNSLV_USE_DCNT,
+                        NIGHT_DUTY_DAY : item.ONDT_DCNT,
+                        SUNDAY_TIME : item.SUN_HR,
+                        SUNDAY_OVER_TIME : item.SUN_OVTM_HR,
+                        OFFICIAL_INJURY_DAY : item.RCG_INJR_DCNT,
+                        WEEKLY_HOLIDAY_DAY : item.WK_HLDY_DCNT,
+                        EXTRA_FIELD1 : item.EXTRA_COL1,
+                        EXTRA_FIELD2 : item.EXTRA_COL2,
+                        EXTRA_FIELD3 : item.EXTRA_COL3,
+                        EXTRA_FIELD4 : item.EXTRA_COL4,
+                        EXTRA_FIELD5 : item.EXTRA_COL5,
+                        EXTRA_FIELD6 : item.EXTRA_COL6,
+                        EXTRA_FIELD7 : item.EXTRA_COL7,
+                        EXTRA_FIELD8 : item.EXTRA_COL8,
+                        EXTRA_FIELD9 : item.EXTRA_COL9,
+                        EXTRA_FIELD10 : item.EXTRA_COL10,
+                        ATTR1_DAY : item.ATRB1_DAY_CNT,
+                        ATTR2_DAY : item.ATRB2_DAY_CNT,
+                        ATTR3_DAY : item.ATRB3_DAY_CNT,
+                        ATTR4_DAY : item.ATRB4_DAY_CNT,
+                        ATTR5_DAY : item.ATRB5_DAY_CNT,
+                        ATTR6_DAY : item.ATRB6_DAY_CNT,
+                        ATTR7_DAY : item.ATRB7_DAY_CNT,
+                        ATTR8_DAY : item.ATRB8_DAY_CNT,
+                        ATTR9_DAY : item.ATRB9_DAY_CNT,
+                        ATTR10_DAY : item.ATRB10_DAY_CNT,
+                        ATTR1_TIME : item.ATRB1_HR,
+                        ATTR2_TIME : item.ATRB2_HR,
+                        ATTR3_TIME : item.ATRB3_HR,
+                        ATTR4_TIME : item.ATRB4_HR,
+                        ATTR5_TIME : item.ATRB5_HR,
+                        ATTR6_TIME : item.ATRB6_HR,
+                        ATTR7_TIME : item.ATRB7_HR,
+                        ATTR8_TIME : item.ATRB8_HR,
+                        ATTR9_TIME : item.ATRB9_HR,
+                        ATTR10_TIME : item.ATRB10_HR,
+                        EXTRA_FIELD11 : item.EXTRA_COL11,
+                        EXTRA_FIELD12 : item.EXTRA_COL12,
+                        EXTRA_FIELD13 : item.EXTRA_COL13,
+                        EXTRA_FIELD14 : item.EXTRA_COL14,
+                        EXTRA_FIELD15 : item.EXTRA_COL15,
+                        EXTRA_FIELD16 : item.EXTRA_COL16,
+                        EXTRA_FIELD17 : item.EXTRA_COL17,
+                        EXTRA_FIELD18 : item.EXTRA_COL18,
+                        EXTRA_FIELD19 : item.EXTRA_COL19,
+                        EXTRA_FIELD20 : item.EXTRA_COL20,
+                        ATTR11_DAY : item.ATRB11_DAY_CNT,
+                        ATTR12_DAY : item.ATRB12_DAY_CNT,
+                        ATTR13_DAY : item.ATRB13_DAY_CNT,
+                        ATTR14_DAY : item.ATRB14_DAY_CNT,
+                        ATTR15_DAY : item.ATRB15_DAY_CNT,
+                        ATTR16_DAY : item.ATRB16_DAY_CNT,
+                        ATTR17_DAY : item.ATRB17_DAY_CNT,
+                        ATTR18_DAY : item.ATRB18_DAY_CNT,
+                        ATTR19_DAY : item.ATRB19_DAY_CNT,
+                        ATTR20_DAY : item.ATRB20_DAY_CNT,
+                        ATTR11_TIME : item.ATRB11_HR,
+                        ATTR12_TIME : item.ATRB12_HR,
+                        ATTR13_TIME : item.ATRB13_HR,
+                        ATTR14_TIME : item.ATRB14_HR,
+                        ATTR15_TIME : item.ATRB15_HR,
+                        ATTR16_TIME : item.ATRB16_HR,
+                        ATTR17_TIME : item.ATRB17_HR,
+                        ATTR18_TIME : item.ATRB18_HR,
+                        ATTR19_TIME : item.ATRB19_HR,
+                        ATTR20_TIME : item.ATRB20_HR,
+                        WORK_SUMMARY_START_DATE : item.WORK_TOT_BGFNG_YMD,
+                        WORK_SUMMARY_END_DATE : item.WORK_TOT_END_YMD,
+                        PAY_SUMMARY_START_DATE : item.SLRY_TOT_BGNG_YMD,
+                        PAY_SUMMARY_END_DATE : item.SLRY_TOT_END_YMD,
+                        DEPT_CATEGORY : item.DEPT_CTRGY,
                         SORT_SEQ : item.SORT_SEQ,
-                        PARENT_DEPT : item.PARENT_DEPT,
+                        PARENT_DEPT : item.PRNT_DEPT,
                         POSITION_CODE_SEQ : item.POSITION_CODE_SEQ
                     }
                     jsonSummaryHistoryList.push(msg);
@@ -1228,11 +1228,11 @@
                     let gvwInfoCaptionList = gvwInfo.getCaption('array');
 
                     listData.cv_2.forEach((item, index) => {
-                        let nCol = gvwInfo.getColRef(item.TIME_FIELD_NAME.toUpperCase());
-
+                        let nCol = gvwInfo.getColRef(item.ATDNC_ARTCL_NM.toUpperCase());
+ 
                         if (item.USE_YN == "Y") {
                             gvwInfo.setColHidden(nCol, false, false);
-                            gvwInfoCaptionList[nCol] = item.TIME_SUMMARY_NAME;
+                            gvwInfoCaptionList[nCol] = item.ATDNC_TOT_NM;
                         } else {
                             gvwInfo.setColHidden(nCol, true, false);
                         }
@@ -1246,8 +1246,8 @@
                     gvwInfo.setCaption(stringGvwInfoCaptionList.substring(0, stringGvwInfoCaptionList.length-1));
 
                     listData.cv_2.forEach((item, index) => {
-                        let nCol = gvwInfo.getColRef(item.TIME_FIELD_NAME.toUpperCase());
-
+                        let nCol = gvwInfo.getColRef(item.ATDNC_ARTCL_NM.toUpperCase());
+ 
                         if (item.USE_YN == "Y") {
                             gvwInfo.moveColumn(nCol, (item.SORT_SEQ + 6));
                         }
@@ -1336,125 +1336,125 @@
                 listData.cv_4.forEach((item, index) => {
                     const msg = {
                         CHK_YN : item.CHK_YN,
-                        YYYYMM : item.YYYYMM,
-                        ACCT_YYYYMM : item.ACCT_YYYYMM,
-                        START_DATE : item.START_DATE,
-                        END_DATE : item.END_DATE,
-                        SITE_CODE : item.SITE_CODE,
-                        EMP_CODE : item.EMP_CODE,
-                        EMP_NAME : item.EMP_NAME,
-                        DEPT_CODE : item.DEPT_CODE,
-                        DEPT_NAME : item.DEPT_NAME,
-                        GRADE_HOBONG_CODE : item.GRADE_HOBONG_CODE,
-                        POSITION_CODE : item.POSITION_CODE,
-                        MONTH_TYPE : item.MONTH_TYPE,
-                        WORK_SUMMARY_CONFIRM_YN : item.WORK_SUMMARY_CONFIRM_YN,
-                        CONFIRM_DATE : item.CONFIRM_DATE,
-                        TOT_DAY : item.TOT_DAY,
-                        WORK_DAY : item.WORK_DAY,
-                        PAID_HOLIDAY : item.PAID_HOLIDAY,
-                        NONPAID_HOLIDAY : item.NONPAID_HOLIDAY,
-                        REAL_WORK_DAY : item.REAL_WORK_DAY,
-                        WORK_YEARS : item.WORK_YEARS,
-                        ANNUAL_DAY : item.ANNUAL_DAY,
-                        ANNUAL_USE_DAY : item.ANNUAL_USE_DAY,
-                        ANNUAL_REMAIN_DAY : item.ANNUAL_REMAIN_DAY,
-                        CELEBRATE_DAY : item.CELEBRATE_DAY,
-                        REPLACE_VACATION_DAY : item.REPLACE_VACATION_DAY,
-                        EDU_DAY : item.EDU_DAY,
-                        HOLIDAY_WORK_DAY : item.HOLIDAY_WORK_DAY,
-                        ABSENCE_DAY : item.ABSENCE_DAY,
-                        ADD_DAY : item.ADD_DAY,
-                        TOTAL_WORK_TIME : item.TOTAL_WORK_TIME,
-                        AFTER_HOURS_TIME1 : item.AFTER_HOURS_TIME1,
-                        AFTER_HOURS_TIME2 : item.AFTER_HOURS_TIME2,
-                        OVER_TIME : item.OVER_TIME,
-                        NIGHT_TIME : item.NIGHT_TIME,
-                        HOLIDAY_TIME : item.HOLIDAY_TIME,
-                        HOLIDAY_OVER_TIME : item.HOLIDAY_OVER_TIME,
+                        YYYYMM : item.YM,
+                        ACCT_YYYYMM : item.RETRA_YM,
+                        START_DATE : item.BGNG_YMD,
+                        END_DATE : item.END_DT,
+                        SITE_CODE : item.SITE_CD,
+                        EMP_CODE : item.EMP_CD,
+                        EMP_NAME : item.EMP_NM,
+                        DEPT_CODE : item.DEPT_CD,
+                        DEPT_NAME : item.DEPT_NM,
+                        GRADE_HOBONG_CODE : item.JBCD_SLRCL_CD,
+                        POSITION_CODE : item.JBPS_CD,
+                        MONTH_TYPE : item.MM_TYPE,
+                        WORK_SUMMARY_CONFIRM_YN : item.WORK_TOT_CFMTN_YN,
+                        CONFIRM_DATE : item.CFMTN_YMD,
+                        TOT_DAY : item.TOT_DCNT,
+                        WORK_DAY : item.WORK_DCNT,
+                        PAID_HOLIDAY : item.PAY_HLDY,
+                        NONPAID_HOLIDAY : item.UNHLDY,
+                        REAL_WORK_DAY : item.ACTL_WORK_DCNT,
+                        WORK_YEARS : item.CNSVC_YYCNT,
+                        ANNUAL_DAY : item.ANNLV_OCRN_DAY_CNT,
+                        ANNUAL_USE_DAY : item.ANNLV_USE_DAY_CNT,
+                        ANNUAL_REMAIN_DAY : item.ANNLV_RMND_DAY_CNT,
+                        CELEBRATE_DAY : item.CLBN_PPADLV_DCNT,
+                        REPLACE_VACATION_DAY : item.RPLCMT_VCT_DCNT,
+                        EDU_DAY : item.EDU_DCNT,
+                        HOLIDAY_WORK_DAY : item.HLDY_WORK_DCNT,
+                        ABSENCE_DAY : item.ABSN_DAY_CNT,
+                        ADD_DAY : item.ADD_DAY_CNT,
+                        TOTAL_WORK_TIME : item.TOT_WORK_HR,
+                        AFTER_HOURS_TIME1 : item.OVTM_WORK_HR1,
+                        AFTER_HOURS_TIME2 : item.OVTM_WORK_HR2,
+                        OVER_TIME : item.PRLG_WORK_HR,
+                        NIGHT_TIME : item.NGHT_WORK_HR,
+                        HOLIDAY_TIME : item.HLDY_HR,
+                        HOLIDAY_OVER_TIME : item.HLDY_OVTM_HR,
                         TIME_SUM : item.TIME_SUM,
-                        LATE_CNT : item.LATE_CNT,
-                        LATE_TIME : item.LATE_TIME,
-                        EARLY_LEAVE_CNT : item.EARLY_LEAVE_CNT,
-                        EARLY_LEAVE_TIME : item.EARLY_LEAVE_TIME,
-                        GO_OUT_CNT : item.GO_OUT_CNT,
-                        GO_OUT_TIME : item.GO_OUT_TIME,
-                        OUTSIDE_CNT : item.OUTSIDE_CNT,
-                        OUTSIDE_TIME : item.OUTSIDE_TIME,
-                        MONTHLY_DAY : item.MONTHLY_DAY,
-                        MONTHLY_USE_DAY : item.MONTHLY_USE_DAY,
-                        MENSTRUEL_DAY : item.MENSTRUEL_DAY,
-                        MENSTRUEL_USE_DAY : item.MENSTRUEL_USE_DAY,
-                        NIGHT_DUTY_DAY : item.NIGHT_DUTY_DAY,
-                        SUNDAY_TIME : item.SUNDAY_TIME,
-                        SUNDAY_OVER_TIME : item.SUNDAY_OVER_TIME,
-                        OFFICIAL_INJURY_DAY : item.OFFICIAL_INJURY_DAY,
-                        WEEKLY_HOLIDAY_DAY : item.WEEKLY_HOLIDAY_DAY,
-                        EXTRA_FIELD1 : item.EXTRA_FIELD1,
-                        EXTRA_FIELD2 : item.EXTRA_FIELD2,
-                        EXTRA_FIELD3 : item.EXTRA_FIELD3,
-                        EXTRA_FIELD4 : item.EXTRA_FIELD4,
-                        EXTRA_FIELD5 : item.EXTRA_FIELD5,
-                        EXTRA_FIELD6 : item.EXTRA_FIELD6,
-                        EXTRA_FIELD7 : item.EXTRA_FIELD7,
-                        EXTRA_FIELD8 : item.EXTRA_FIELD8,
-                        EXTRA_FIELD9 : item.EXTRA_FIELD9,
-                        EXTRA_FIELD10 : item.EXTRA_FIELD10,
-                        ATTR1_DAY : item.ATTR1_DAY,
-                        ATTR2_DAY : item.ATTR2_DAY,
-                        ATTR3_DAY : item.ATTR3_DAY,
-                        ATTR4_DAY : item.ATTR4_DAY,
-                        ATTR5_DAY : item.ATTR5_DAY,
-                        ATTR6_DAY : item.ATTR6_DAY,
-                        ATTR7_DAY : item.ATTR7_DAY,
-                        ATTR8_DAY : item.ATTR8_DAY,
-                        ATTR9_DAY : item.ATTR9_DAY,
-                        ATTR10_DAY : item.ATTR10_DAY,
-                        ATTR1_TIME : item.ATTR1_TIME,
-                        ATTR2_TIME : item.ATTR2_TIME,
-                        ATTR3_TIME : item.ATTR3_TIME,
-                        ATTR4_TIME : item.ATTR4_TIME,
-                        ATTR5_TIME : item.ATTR5_TIME,
-                        ATTR6_TIME : item.ATTR6_TIME,
-                        ATTR7_TIME : item.ATTR7_TIME,
-                        ATTR8_TIME : item.ATTR8_TIME,
-                        ATTR9_TIME : item.ATTR9_TIME,
-                        ATTR10_TIME : item.ATTR10_TIME,
-                        EXTRA_FIELD11 : item.EXTRA_FIELD11,
-                        EXTRA_FIELD12 : item.EXTRA_FIELD12,
-                        EXTRA_FIELD13 : item.EXTRA_FIELD13,
-                        EXTRA_FIELD14 : item.EXTRA_FIELD14,
-                        EXTRA_FIELD15 : item.EXTRA_FIELD15,
-                        EXTRA_FIELD16 : item.EXTRA_FIELD16,
-                        EXTRA_FIELD17 : item.EXTRA_FIELD17,
-                        EXTRA_FIELD18 : item.EXTRA_FIELD18,
-                        EXTRA_FIELD19 : item.EXTRA_FIELD19,
-                        EXTRA_FIELD20 : item.EXTRA_FIELD20,
-                        ATTR11_DAY : item.ATTR11_DAY,
-                        ATTR12_DAY : item.ATTR12_DAY,
-                        ATTR13_DAY : item.ATTR13_DAY,
-                        ATTR14_DAY : item.ATTR14_DAY,
-                        ATTR15_DAY : item.ATTR15_DAY,
-                        ATTR16_DAY : item.ATTR16_DAY,
-                        ATTR17_DAY : item.ATTR17_DAY,
-                        ATTR18_DAY : item.ATTR18_DAY,
-                        ATTR19_DAY : item.ATTR19_DAY,
-                        ATTR20_DAY : item.ATTR20_DAY,
-                        ATTR11_TIME : item.ATTR11_TIME,
-                        ATTR12_TIME : item.ATTR12_TIME,
-                        ATTR13_TIME : item.ATTR13_TIME,
-                        ATTR14_TIME : item.ATTR14_TIME,
-                        ATTR15_TIME : item.ATTR15_TIME,
-                        ATTR16_TIME : item.ATTR16_TIME,
-                        ATTR17_TIME : item.ATTR17_TIME,
-                        ATTR18_TIME : item.ATTR18_TIME,
-                        ATTR19_TIME : item.ATTR19_TIME,
-                        ATTR20_TIME : item.ATTR20_TIME,
-                        WORK_SUMMARY_START_DATE : item.WORK_SUMMARY_START_DATE,
-                        WORK_SUMMARY_END_DATE : item.WORK_SUMMARY_END_DATE,
-                        DEPT_CATEGORY : item.DEPT_CATEGORY,
+                        LATE_CNT : item.LTNS_CNT,
+                        LATE_TIME : item.LTNS_HR,
+                        EARLY_LEAVE_CNT : item.ERLV_CNT,
+                        EARLY_LEAVE_TIME : item.ERLV_HR,
+                        GO_OUT_CNT : item.GOUT_CNT,
+                        GO_OUT_TIME : item.GOUT_HR,
+                        OUTSIDE_CNT : item.OTSD_WORK_CNT,
+                        OUTSIDE_TIME : item.OTSD_WORK_HR,
+                        MONTHLY_DAY : item.ANNLV_OCRN_DCNT,
+                        MONTHLY_USE_DAY : item.ANNLV_USE_DCNT,
+                        MENSTRUEL_DAY : item.MNSLV_DCNT,
+                        MENSTRUEL_USE_DAY : item.MNSLV_USE_DCNT,
+                        NIGHT_DUTY_DAY : item.ONDT_DCNT,
+                        SUNDAY_TIME : item.SUN_HR,
+                        SUNDAY_OVER_TIME : item.SUN_OVTM_HR,
+                        OFFICIAL_INJURY_DAY : item.RCG_INJR_DCNT,
+                        WEEKLY_HOLIDAY_DAY : item.WK_HLDY_DCNT,
+                        EXTRA_FIELD1 : item.EXTRA_COL1,
+                        EXTRA_FIELD2 : item.EXTRA_COL2,
+                        EXTRA_FIELD3 : item.EXTRA_COL3,
+                        EXTRA_FIELD4 : item.EXTRA_COL4,
+                        EXTRA_FIELD5 : item.EXTRA_COL5,
+                        EXTRA_FIELD6 : item.EXTRA_COL6,
+                        EXTRA_FIELD7 : item.EXTRA_COL7,
+                        EXTRA_FIELD8 : item.EXTRA_COL8,
+                        EXTRA_FIELD9 : item.EXTRA_COL9,
+                        EXTRA_FIELD10 : item.EXTRA_COL10,
+                        ATTR1_DAY : item.ATRB1_DAY_CNT,
+                        ATTR2_DAY : item.ATRB2_DAY_CNT,
+                        ATTR3_DAY : item.ATRB3_DAY_CNT,
+                        ATTR4_DAY : item.ATRB4_DAY_CNT,
+                        ATTR5_DAY : item.ATRB5_DAY_CNT,
+                        ATTR6_DAY : item.ATRB6_DAY_CNT,
+                        ATTR7_DAY : item.ATRB7_DAY_CNT,
+                        ATTR8_DAY : item.ATRB8_DAY_CNT,
+                        ATTR9_DAY : item.ATRB9_DAY_CNT,
+                        ATTR10_DAY : item.ATRB10_DAY_CNT,
+                        ATTR1_TIME : item.ATRB1_HR,
+                        ATTR2_TIME : item.ATRB2_HR,
+                        ATTR3_TIME : item.ATRB3_HR,
+                        ATTR4_TIME : item.ATRB4_HR,
+                        ATTR5_TIME : item.ATRB5_HR,
+                        ATTR6_TIME : item.ATRB6_HR,
+                        ATTR7_TIME : item.ATRB7_HR,
+                        ATTR8_TIME : item.ATRB8_HR,
+                        ATTR9_TIME : item.ATRB9_HR,
+                        ATTR10_TIME : item.ATRB10_HR,
+                        EXTRA_FIELD11 : item.EXTRA_COL11,
+                        EXTRA_FIELD12 : item.EXTRA_COL12,
+                        EXTRA_FIELD13 : item.EXTRA_COL13,
+                        EXTRA_FIELD14 : item.EXTRA_COL14,
+                        EXTRA_FIELD15 : item.EXTRA_COL15,
+                        EXTRA_FIELD16 : item.EXTRA_COL16,
+                        EXTRA_FIELD17 : item.EXTRA_COL17,
+                        EXTRA_FIELD18 : item.EXTRA_COL18,
+                        EXTRA_FIELD19 : item.EXTRA_COL19,
+                        EXTRA_FIELD20 : item.EXTRA_COL20,
+                        ATTR11_DAY : item.ATRB11_DAY_CNT,
+                        ATTR12_DAY : item.ATRB12_DAY_CNT,
+                        ATTR13_DAY : item.ATRB13_DAY_CNT,
+                        ATTR14_DAY : item.ATRB14_DAY_CNT,
+                        ATTR15_DAY : item.ATRB15_DAY_CNT,
+                        ATTR16_DAY : item.ATRB16_DAY_CNT,
+                        ATTR17_DAY : item.ATRB17_DAY_CNT,
+                        ATTR18_DAY : item.ATRB18_DAY_CNT,
+                        ATTR19_DAY : item.ATRB19_DAY_CNT,
+                        ATTR20_DAY : item.ATRB20_DAY_CNT,
+                        ATTR11_TIME : item.ATRB11_HR,
+                        ATTR12_TIME : item.ATRB12_HR,
+                        ATTR13_TIME : item.ATRB13_HR,
+                        ATTR14_TIME : item.ATRB14_HR,
+                        ATTR15_TIME : item.ATRB15_HR,
+                        ATTR16_TIME : item.ATRB16_HR,
+                        ATTR17_TIME : item.ATRB17_HR,
+                        ATTR18_TIME : item.ATRB18_HR,
+                        ATTR19_TIME : item.ATRB19_HR,
+                        ATTR20_TIME : item.ATRB20_HR,
+                        WORK_SUMMARY_START_DATE : item.WORK_TOT_BGFNG_YMD,
+                        WORK_SUMMARY_END_DATE : item.WORK_TOT_END_YMD,
+                        DEPT_CATEGORY : item.DEPT_CTRGY,
                         SORT_SEQ : item.SORT_SEQ,
-                        PARENT_DEPT : item.PARENT_DEPT,
+                        PARENT_DEPT : item.PRNT_DEPT,
                         POSITION_CODE_SEQ : item.POSITION_CODE_SEQ
 
                     }
@@ -1465,11 +1465,11 @@
                     let grdDetailCaptionList = grdDetail.getCaption('array');
 
                     listData.cv_5.forEach((item, index) => {
-                        let nCol = grdDetail.getColRef(item.TIME_FIELD_NAME.toUpperCase());
-
+                        let nCol = grdDetail.getColRef(item.ATDNC_ARTCL_NM.toUpperCase());
+ 
                         if (item.USE_YN == "Y") {
                             grdDetail.setColHidden(nCol, false, false);
-                            grdDetailCaptionList[nCol] = item.TIME_SUMMARY_NAME;
+                            grdDetailCaptionList[nCol] = item.ATDNC_TOT_NM;
                         } else {
                             grdDetail.setColHidden(nCol, true, false);
                         }
@@ -1498,47 +1498,47 @@
     }
 
     const fnColumnsEditSet = async function (bState) {
-        gvwInfo.setColDisabled(gvwInfo.getColRef("TOT_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("WORK_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("PAID_HOLIDAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("NONPAID_HOLIDAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("REAL_WORK_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("BASE_WORK_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("WORK_YEARS"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("CELEBRATE_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("REPLACE_VACATION_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EDU_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_WORK_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("ABSENCE_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("ADD_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("TOTAL_WORK_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("AFTER_HOURS_TIME1"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("AFTER_HOURS_TIME2"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("OVER_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("NIGHT_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_OVER_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("LATE_CNT"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("LATE_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EARLY_LEAVE_CNT"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EARLY_LEAVE_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("GO_OUT_CNT"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("GO_OUT_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("OUTSIDE_CNT"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("OUTSIDE_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("MONTHLY_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("MENSTRUEL_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("MENSTRUEL_USE_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("NIGHT_DUTY_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("SUNDAY_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("SUNDAY_OVER_TIME"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("OFFICIAL_INJURY_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("WEEKLY_HOLIDAY_DAY"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD1"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD2"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD3"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD4"), bState);;
-        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD5"), bState);;
+        gvwInfo.setColDisabled(gvwInfo.getColRef("TOT_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("WORK_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("PAID_HOLIDAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("NONPAID_HOLIDAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("REAL_WORK_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("BASE_WORK_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("WORK_YEARS"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("CELEBRATE_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("REPLACE_VACATION_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EDU_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_WORK_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("ABSENCE_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("ADD_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("TOTAL_WORK_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("AFTER_HOURS_TIME1"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("AFTER_HOURS_TIME2"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("OVER_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("NIGHT_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("HOLIDAY_OVER_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("LATE_CNT"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("LATE_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EARLY_LEAVE_CNT"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EARLY_LEAVE_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("GO_OUT_CNT"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("GO_OUT_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("OUTSIDE_CNT"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("OUTSIDE_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("MONTHLY_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("MENSTRUEL_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("MENSTRUEL_USE_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("NIGHT_DUTY_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("SUNDAY_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("SUNDAY_OVER_TIME"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("OFFICIAL_INJURY_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("WEEKLY_HOLIDAY_DAY"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD1"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD2"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD3"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD4"), bState);
+        gvwInfo.setColDisabled(gvwInfo.getColRef("EXTRA_FIELD5"), bState);
     }
 
     const fn_confirm = async function () {

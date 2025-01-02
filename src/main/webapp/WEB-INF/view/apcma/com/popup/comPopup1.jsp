@@ -42,7 +42,7 @@
 					</table>
 				</div>
 			</div>
-
+ 
 			<div class="box-body">
 				
 				<div class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
@@ -62,7 +62,7 @@
 	</section>
 </body>
 <script >
-
+ 
 /**
  * @description 공통 팝업
  */
@@ -98,7 +98,7 @@ function compopup1(options) {
 	};
 	$.extend(settings, options);	
 	//console.log('settings:', settings);
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -107,7 +107,7 @@ function compopup1(options) {
 	if(settings.height){
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}
-
+ 
 	// get data
     var createTable = function() {
 		
@@ -173,7 +173,7 @@ function compopup1(options) {
 		}	
 		$(modalId).find('.cu-data-table').find('colgroup').html(htmd);			
    	 	$(modalId).find('.cu-data-table').css('min-width', ctot + 'px');
-
+ 
 		//table header column
 		var clen = settings.tableHeader.length;
 		var htme = '<tr>';
@@ -296,7 +296,7 @@ function compopup1(options) {
 	        getType				: 'json',
 	        workType			: 'Q',
 	        cv_count			: '1',
-	        params				: gfnma_objectToString(paramObj)
+	        params				: gfnma_objectToString(paramObj, true)
   		});
   	    const data = await postJsonPromise;
     	console.log('popup get data:', data);
@@ -304,11 +304,11 @@ function compopup1(options) {
     	//create td
 		var tmp = "";
 		var list = data.cv_1;
-
+ 
 		if(settings.returnDataFilter){
 			list = settings.returnDataFilter(list);
 		}
-
+ 
    	 	for (var i= 0; i < list.length; i++) {
 			tmp += '<tr>'
 			//표시되는 컬럼
@@ -358,7 +358,7 @@ function compopup1(options) {
 	 	//SBUxMethod.closeModal(modalDivId);
 		gfnma_uxDataClear('.cu-search-area');
 	});
-
+ 
 	$(modalId).find('input').off('keydown');
 	$(modalId).find('input').keydown(function(e){
 		console.log(e);
@@ -368,7 +368,7 @@ function compopup1(options) {
 			$(modalId).find('input').val("");
 		}
 	});
-
+ 
 	//start
 	getData();
 	

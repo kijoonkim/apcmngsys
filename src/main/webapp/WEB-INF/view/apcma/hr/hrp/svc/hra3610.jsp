@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 용역소득마스터</title>
+    <title>title : 용역소득 마스터</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
@@ -532,9 +532,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SITE_CODE', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 내외국민구분
-            gfnma_setComSelect(['gvwResident'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#FOREIGN_TYPE', '#FOREIGN_TYPE1']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -546,17 +546,17 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
             }),
             // 거주지국
-            gfnma_setComSelect(['NATION_CODE', 'NATION_CODE1', 'gvwResident'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
+            gfnma_setComSelect(['NATION_CODE', 'NATION_CODE1', 'gvwResident'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NTN_CD', 'NTN_NM', 'Y', ''),
             // 근무지역
-            gfnma_setComSelect(['gvwResident'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#WORK_REGION', '#WORK_REGION1']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -568,15 +568,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
             }),
             // 개인/법인 구분
-            gfnma_setComSelect(['gvwResident'], jsonBusinessType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonBusinessType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#BUSINESS_TYPE', '#BUSINESS_TYPE1']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -588,15 +588,15 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
             }),
             // 소득종류
-            gfnma_setComSelect(['gvwResident'], jsonIncomeType, 'L_HRA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwResident'], jsonIncomeType, 'L_HRA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#INCOME_TYPE', '#INCOME_TYPE1']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -608,11 +608,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
                 ,callback : function(data) {
                     if (gfn_nvl(data) == "") {
@@ -669,12 +669,12 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "세율(%)", 		ref: 'TAX_RATE',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "세율(%)", 		ref: 'TX_RT',    		width:'100px',  	style:'text-align:left'},
                     {caption: "경비율(%)", 		ref: 'EXPENSE_RATE',    		width:'100px',  	style:'text-align:left'},
                 ]
                 ,callback : function(data) {
@@ -682,7 +682,7 @@
                 }
             }),
             // 신고사업장
-            gfnma_setComSelect(['TAX_SITE_CODE1', 'TAX_SITE_CODE2', 'gvwResident'], jsonTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['TAX_SITE_CODE1', 'TAX_SITE_CODE2', 'gvwResident'], jsonTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_SITE_CD', 'TX_SITE_NM', 'Y', ''),
             // 정산주기
             gfnma_multiSelectInit({
                 target			: ['#PAY_CYCLE']
@@ -695,11 +695,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                 ]
             })
         ]);
@@ -916,22 +916,22 @@
             SBUxMethod.set("BIZ_REGNO1", gfn_nvl(rowData.BIZ_REGNO));
             SBUxMethod.set("COMP_NAME", gfn_nvl(rowData.COMP_NAME));
             SBUxMethod.set("NATION_CODE", gfn_nvl(rowData.NATION_CODE));
-            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.FOREI_TYPE));
-            gfnma_multiSelectSet('#WORK_REGION', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.WORK_REGION));
-            gfnma_multiSelectSet('#INCOME_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.INC_TYPE));
-            gfnma_multiSelectSet('#INCOME_SEC', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.INC_SEC));
+            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.FOREI_TYPE));
+            gfnma_multiSelectSet('#WORK_REGION', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.WORK_REGION));
+            gfnma_multiSelectSet('#INCOME_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.INC_TYPE));
+            gfnma_multiSelectSet('#INCOME_SEC', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.INC_SEC));
             SBUxMethod.set("SITE_ZIP_CODE", gfn_nvl(rowData.SITE_ZIP_CODE));
             SBUxMethod.set("SITE_ADDRESS", gfn_nvl(rowData.SITE_ADDRESS));
             SBUxMethod.set("ZIP_CODE", gfn_nvl(rowData.ZIP_CODE));
             SBUxMethod.set("ADDRESS", gfn_nvl(rowData.ADDRESS));
-            gfnma_multiSelectSet('#BUSINESS_TYPE1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.BUSINESS_TYPE));
+            gfnma_multiSelectSet('#BUSINESS_TYPE1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.BUSINESS_TYPE));
             SBUxMethod.set("BANK_CODE", gfn_nvl(rowData.BANK_CODE));
             SBUxMethod.set("BANK_NAME", gfn_nvl(rowData.BANK_NAME));
             SBUxMethod.set("BANK_ACCOUNT", gfn_nvl(rowData.BANK_ACC_REAL));
             SBUxMethod.set("TEL", gfn_nvl(rowData.TEL));
             SBUxMethod.set("MOBILE_PHONE", gfn_nvl(rowData.MOBILE_PHONE));
             SBUxMethod.set("EMAIL", gfn_nvl(rowData.EMAIL));
-            gfnma_multiSelectSet('#PAY_CYCLE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.PAY_CYCLE));
+            gfnma_multiSelectSet('#PAY_CYCLE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.PAY_CYCLE));
             SBUxMethod.set("MEMO", gfn_nvl(rowData.MEMO));
 
             SBUxMethod.set("SOCIAL_NO1", gvwResident.getCellData(nRow, gvwResident.getColRef("SOCNO_REAL")));
@@ -947,12 +947,12 @@
             SBUxMethod.set("EARNER_NAME3", gfn_nvl(rowData.EARNER_NAME));
             SBUxMethod.set("SOCIAL_NO3", gfn_nvl(rowData.SOCNO_REAL));
             SBUxMethod.set("NATION_CODE1", gfn_nvl(rowData.NATION_CODE));
-            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.FOREI_TYPE));
-            gfnma_multiSelectSet('#WORK_REGION1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.WORK_REGION));
-            gfnma_multiSelectSet('#INCOME_TYPE1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.INC_TYPE));
-            gfnma_multiSelectSet('#INCOME_SEC1', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.INC_SEC));
+            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.FOREI_TYPE));
+            gfnma_multiSelectSet('#WORK_REGION1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.WORK_REGION));
+            gfnma_multiSelectSet('#INCOME_TYPE1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.INC_TYPE));
+            gfnma_multiSelectSet('#INCOME_SEC1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.INC_SEC));
             SBUxMethod.set("ADDRESS1", gfn_nvl(rowData.ADDRESS));
-            gfnma_multiSelectSet('#BUSINESS_TYPE', 'SUB_CODE', 'CODE_NAME', gfn_nvl(rowData.BUSINESS_TYPE));
+            gfnma_multiSelectSet('#BUSINESS_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.BUSINESS_TYPE));
             SBUxMethod.set("BANK_CODE1", gfn_nvl(rowData.BANK_CODE));
             SBUxMethod.set("BANK_NAME", gfn_nvl(rowData.BANK_NAME));
             SBUxMethod.set("BANK_ACCOUNT1", gfn_nvl(rowData.BANK_ACC_REAL));
@@ -982,9 +982,9 @@
 
     const fn_findEarnerCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-        var replaceText0 	= "_EARNER_CODE_";
-        var strWhereClause 	= "AND A.CS_CODE LIKE '%" + replaceText0 + "%'";
-
+        var replaceText0 	= "_CNPT_CD_";
+        var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -993,26 +993,26 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "코드명"]
-            ,searchInputFields		: ["CS_CODE", "CS_NAME"]
+            ,searchInputFields		: ["CNPT_CD", "CNPT_NM"]
             ,searchInputValues		: [searchCode, ""]
             ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명"]
-            ,tableColumnNames		: ["CS_CODE", "CS_NAME"]
+            ,tableColumnNames		: ["CNPT_CD", "CNPT_NM"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('EARNER_CODE', data.CS_CODE);
+                SBUxMethod.set('EARNER_CODE', data.CNPT_CD);
             },
         });
     }
 
     const fn_findBankCode = function() {
-        var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CODE"));
-        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME"));
-        var replaceText0 	= "_BANK_CODE_";
-        var replaceText1 	= "_BANK_NAME_";
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+        var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CD"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NM"));
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
@@ -1022,15 +1022,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "은행명"]
-            ,searchInputFields		: ["SUB_CODE", "CODE_NAME"]
+            ,searchInputFields		: ["SBSD_CD", "CD_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭"]
-            ,tableColumnNames		: ["SUB_CODE" , "CODE_NAME"]
+            ,tableColumnNames		: ["SBSD_CD" , "CD_NM"]
             ,tableColumnWidths		: ["50px", "200px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('BANK_NAME', data.CODE_NAME);
-                SBUxMethod.set('BANK_CODE', data.SUB_CODE);
+                SBUxMethod.set('BANK_NM', data.CD_NM);
+                SBUxMethod.set('BANK_CD', data.SBSD_CD);
             },
         });
     }
@@ -1038,9 +1038,9 @@
     const fn_findBankCode1 = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CODE1"));
         var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME1"));
-        var replaceText0 	= "_BANK_CODE_";
-        var replaceText1 	= "_BANK_NAME_";
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
@@ -1050,15 +1050,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", "은행명"]
-            ,searchInputFields		: ["SUB_CODE", "CODE_NAME"]
+            ,searchInputFields		: ["SBSD_CD", "CD_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["코드", "명칭"]
-            ,tableColumnNames		: ["SUB_CODE" , "CODE_NAME"]
+            ,tableColumnNames		: ["SBSD_CD" , "CD_NM"]
             ,tableColumnWidths		: ["50px", "200px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('BANK_NAME1', data.CODE_NAME);
-                SBUxMethod.set('BANK_CODE1', data.SUB_CODE);
+                SBUxMethod.set('BANK_NAME1', data.CD_NM);
+                SBUxMethod.set('BANK_CODE1', data.SBSD_CD);
             },
         });
     }
@@ -1115,12 +1115,12 @@
                   ,selectValue	: ''
                   ,dropType		: 'down' 	// up, down
                   ,dropAlign		: 'right' 	// left, right
-                  ,colValue		: 'SUB_CODE'
-                  ,colLabel		: 'CODE_NAME'
+                  ,colValue		: 'SBSD_CD'
+                  ,colLabel		: 'CD_NM'
                   ,columns		:[
-                      {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                      {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                      {caption: "세율(%)", 		ref: 'TAX_RATE',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                      {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "세율(%)", 		ref: 'TX_RT',    		width:'100px',  	style:'text-align:left'},
                       {caption: "경비율(%)", 		ref: 'EXPENSE_RATE',    		width:'100px',  	style:'text-align:left'},
                   ]
                   ,callback : function(data) {
@@ -1140,12 +1140,12 @@
                   ,selectValue	: ''
                   ,dropType		: 'down' 	// up, down
                   ,dropAlign		: 'right' 	// left, right
-                  ,colValue		: 'SUB_CODE'
-                  ,colLabel		: 'CODE_NAME'
+                  ,colValue		: 'SBSD_CD'
+                  ,colLabel		: 'CD_NM'
                   ,columns		:[
-                      {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                      {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                      {caption: "세율(%)", 		ref: 'TAX_RATE',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                      {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "세율(%)", 		ref: 'TX_RT',    		width:'100px',  	style:'text-align:left'},
                       {caption: "경비율(%)", 		ref: 'EXPENSE_RATE',    		width:'100px',  	style:'text-align:left'},
                   ]
                   ,callback : function(data) {
@@ -1165,11 +1165,11 @@
                   ,selectValue	: ''
                   ,dropType		: 'down' 	// up, down
                   ,dropAlign		: 'right' 	// left, right
-                  ,colValue		: 'SUB_CODE'
-                  ,colLabel		: 'CODE_NAME'
+                  ,colValue		: 'SBSD_CD'
+                  ,colLabel		: 'CD_NM'
                   ,columns		:[
-                      {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                      {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                      {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
                   ]
                   ,callback : function(data) {
                       fn_callbckIncomeSec(data);
@@ -1188,12 +1188,12 @@
                   ,selectValue	: ''
                   ,dropType		: 'down' 	// up, down
                   ,dropAlign		: 'right' 	// left, right
-                  ,colValue		: 'SUB_CODE'
-                  ,colLabel		: 'CODE_NAME'
+                  ,colValue		: 'SBSD_CD'
+                  ,colLabel		: 'CD_NM'
                   ,columns		:[
-                      {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                      {caption: "명칭", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                      {caption: "세율(%)", 		ref: 'TAX_RATE',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                      {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                      {caption: "세율(%)", 		ref: 'TX_RT',    		width:'100px',  	style:'text-align:left'},
                       {caption: "경비율(%)", 		ref: 'EXPENSE_RATE',    		width:'100px',  	style:'text-align:left'},
                   ]
                   ,callback : function(data) {
@@ -1448,34 +1448,34 @@
                     jsonResidentList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            CLIENT_CODE: item.CLIENT_CODE,
-                            COMP_CODE: item.COMP_CODE,
-                            EARNER_CODE: item.EARNER_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            TAX_SITE_CODE: item.TAX_SITE_CODE,
+                            CLIENT_CODE: item.CLNT_CD,
+                            COMP_CODE: item.CO_CD,
+                            EARNER_CODE: item.EARNR_CD,
+                            SITE_CODE: item.SITE_CD,
+                            TAX_SITE_CODE: item.TX_SITE_CD,
                             EARNER_NAME: item.EARNER_NAME,
                             SOCNO: item.SOCNO,
                             SOCNO_REAL: item.SOCNO_REAL,
-                            BIZ_REGNO: item.BIZ_REGNO,
-                            COMP_NAME: item.COMP_NAME,
-                            NATION_CODE: item.NATION_CODE,
+                            BIZ_REGNO: item.BRNO,
+                            COMP_NAME: item.CORP_NM,
+                            NATION_CODE: item.NTN_CD,
                             FOREI_TYPE: item.FOREI_TYPE,
-                            WORK_REGION: item.WORK_REGION,
+                            WORK_REGION: item.WORK_RGN_CD,
                             INC_TYPE: item.INC_TYPE,
                             INC_SEC: item.INC_SEC,
                             SITE_ZIP_CODE: item.SITE_ZIP_CODE,
                             SITE_ADDRESS: item.SITE_ADDRESS,
-                            ZIP_CODE: item.ZIP_CODE,
-                            ADDRESS: item.ADDRESS,
+                            ZIP_CODE: item.ZIP_CD,
+                            ADDRESS: item.ADDR,
                             BUSINESS_TYPE: item.BUSINESS_TYPE,
-                            BANK_CODE: item.BANK_CODE,
-                            BANK_NAME: item.BANK_NAME,
-                            BANK_ACC: item.BANK_ACC,
+                            BANK_CODE: item.BANK_CD,
+                            BANK_NAME: item.BANK_NM,
+                            BANK_ACC: item.BACNT_NO,
                             BANK_ACC_REAL: item.BANK_ACC_REAL,
-                            TEL: item.TEL,
-                            BIRTHDAY: item.BIRTHDAY,
+                            TEL: item.TELNO,
+                            BIRTHDAY: item.BRDT,
                             MOBILE_PHONE: item.MOBILE_PHONE,
-                            EMAIL: item.EMAIL,
+                            EMAIL: item.EML,
                             PAY_CYCLE: item.PAY_CYCLE,
                             MEMO: item.MEMO,
                         }
@@ -1495,34 +1495,34 @@
                     jsonNonResidentList.length = 0;
                     data.cv_1.forEach((item, index) => {
                         const msg = {
-                            CLIENT_CODE: item.CLIENT_CODE,
-                            COMP_CODE: item.COMP_CODE,
-                            EARNER_CODE: item.EARNER_CODE,
-                            SITE_CODE: item.SITE_CODE,
-                            TAX_SITE_CODE: item.TAX_SITE_CODE,
+                            CLIENT_CODE: item.CLNT_CD,
+                            COMP_CODE: item.CO_CD,
+                            EARNER_CODE: item.EARNR_CD,
+                            SITE_CODE: item.SITE_CD,
+                            TAX_SITE_CODE: item.TX_SITE_CD,
                             EARNER_NAME: item.EARNER_NAME,
                             SOCNO: item.SOCNO,
                             SOCNO_REAL: item.SOCNO_REAL,
-                            BIZ_REGNO: item.BIZ_REGNO,
-                            COMP_NAME: item.COMP_NAME,
-                            NATION_CODE: item.NATION_CODE,
+                            BIZ_REGNO: item.BRNO,
+                            COMP_NAME: item.CORP_NM,
+                            NATION_CODE: item.NTN_CD,
                             FOREI_TYPE: item.FOREI_TYPE,
-                            WORK_REGION: item.WORK_REGION,
+                            WORK_REGION: item.WORK_RGN_CD,
                             INC_TYPE: item.INC_TYPE,
                             INC_SEC: item.INC_SEC,
                             SITE_ZIP_CODE: item.SITE_ZIP_CODE,
                             SITE_ADDRESS: item.SITE_ADDRESS,
-                            ZIP_CODE: item.ZIP_CODE,
-                            ADDRESS: item.ADDRESS,
+                            ZIP_CODE: item.ZIP_CD,
+                            ADDRESS: item.ADDR,
                             BUSINESS_TYPE: item.BUSINESS_TYPE,
-                            BANK_CODE: item.BANK_CODE,
-                            BANK_NAME: item.BANK_NAME,
-                            BANK_ACC: item.BANK_ACC,
+                            BANK_CODE: item.BANK_CD,
+                            BANK_NAME: item.BANK_NM,
+                            BANK_ACC: item.BACNT_NO,
                             BANK_ACC_REAL: item.BANK_ACC_REAL,
-                            TEL: item.TEL,
-                            BIRTHDAY: item.BIRTHDAY,
+                            TEL: item.TELNO,
+                            BIRTHDAY: item.BRDT,
                             MOBILE_PHONE: item.MOBILE_PHONE,
-                            EMAIL: item.EMAIL,
+                            EMAIL: item.EML,
                             PAY_CYCLE: item.PAY_CYCLE,
                             MEMO: item.MEMO,
                         }
@@ -1555,13 +1555,13 @@
         if(enableTab == "tpgResident") {
             gfnma_uxDataClear('#panResidentInfo');
 
-            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SUB_CODE', 'CODE_NAME', "1");
+            gfnma_multiSelectSet('#FOREIGN_TYPE', 'SBSD_CD', 'CD_NM', "1");
             SBUxMethod.attr("EARNER_CODE", "readonly", false);
             $("#SITE_CODE").focus();
         } else if(enableTab == "tpgNonresident") {
             gfnma_uxDataClear('#grpNonresidentInfo');
 
-            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SUB_CODE', 'CODE_NAME', "1");
+            gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SBSD_CD', 'CD_NM', "1");
             $("#SITE_CODE").focus();
         }
     }

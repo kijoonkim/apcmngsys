@@ -74,18 +74,18 @@
 </section>
 </body>
 <script>
-
+ 
     jsonPayType = [];
-
+ 
     /**
      * @description 공통 팝업
      */
     function compopup2(options) {
-
+ 
         // id 선언
         var modalId = '#compopup2';
         var modalDivId = 'modal-compopup2';
-
+ 
         var settings = {
             yyyymm: null
             , payAreaType: null
@@ -97,29 +97,29 @@
             , itemSelectEvent: null
         };
         $.extend(settings, options);
-
-
+ 
+ 
         var settingTable = function() {
             SBUxMethod.set("pay_yyyymm", settings.yyyymm);
         }
-
+ 
         settingTable();
-
+ 
         const fn_initSBSelect = async function () {
             let rst = await Promise.all([
                 gfnma_setComSelect(['pay_type'], jsonPayType, settings.bizcompId, '', settings.compCode, settings.clientCode, settings.code, settings.name, 'Y', '')
             ]);
         }
-
+ 
         fn_initSBSelect();
-
+ 
         // get data
         const getData = async function() {
-
+ 
             let pay_yyyymm = gfnma_nvl(SBUxMethod.get("pay_yyyymm")); //급여년월
             let pay_type = gfnma_nvl(SBUxMethod.get("pay_type")); //지급구분
             let pay_date = gfnma_nvl(SBUxMethod.get("pay_date")); //지급일
-
+ 
             if (!pay_yyyymm) {
                 gfn_comAlert("W0002", "급여년월");
                 return;
@@ -132,31 +132,31 @@
                 gfn_comAlert("W0002", "지급일");
                 return;
             }
-
+ 
             var obj = {
                 pay_yyyymm : pay_yyyymm
                 ,pay_type : pay_type
                 ,pay_date : pay_date
             };
-
+ 
             if(settings.itemSelectEvent){
                 settings.itemSelectEvent(obj);
             }
-
+ 
             SBUxMethod.closeModal(modalDivId);
-
+ 
         }
-
+ 
         //search button event
         $(modalId).find('.cu-btn-sch-compopup2').click(function(){
             getData();
         });
-
+ 
         //close event
         $(modalId).find('.cu-btn-close-compopup2').click(function(){
             SBUxMethod.closeModal(modalDivId);
         });
-
+ 
     }
 </script>
 </html>

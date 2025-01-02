@@ -50,7 +50,7 @@ public class ApcMaHrp2436Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2436_Q");
+            param.put("procedure", "SP_HRP2436_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class ApcMaHrp2436Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRP2436_S");
+            param.put("procedure", "SP_HRP2436_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class ApcMaHrp2436Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", "P_HRP2436_Q");
+    		param.put("procedure", "SP_HRP2436_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     		//self url 편집

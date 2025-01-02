@@ -54,7 +54,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_Q");
+            param.put("procedure", "SP_HRA5150_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_Q2");
+            param.put("procedure", "SP_HRA5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_S");
+            param.put("procedure", "SP_HRA5150_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -131,7 +131,7 @@ public class ApcMaHra5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5150_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA5150_S1");
 
             logger.info("=============insertHra5150S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -153,7 +153,7 @@ public class ApcMaHra5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5150_S2");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA5150_S2");
 
             logger.info("=============insertHra5150S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -175,7 +175,7 @@ public class ApcMaHra5150Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRA5150_S5");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA5150_S5");
 
             logger.info("=============insertHra5150S5=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -198,7 +198,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_BAT");
+            param.put("procedure", "SP_HRA5150_BAT");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -224,7 +224,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_S3");
+            param.put("procedure", "SP_HRA5150_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -250,7 +250,7 @@ public class ApcMaHra5150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA5150_S4");
+            param.put("procedure", "SP_HRA5150_S4");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

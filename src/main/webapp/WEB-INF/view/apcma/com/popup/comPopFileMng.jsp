@@ -66,7 +66,7 @@
 					</table>
 				</div>
 			</div>
-
+ 
 			<div class="box-body" style="padding-top: 0px">
 				
 				<div class="card" style="height:400px;border:1px solid #f4f4f4;overflow:auto;">
@@ -106,7 +106,7 @@
 	</section>
 </body>
 <script>
-
+ 
 function compopfilemng(options) {
 	
 	//id 선언
@@ -314,7 +314,7 @@ function compopfilemng(options) {
    	 		
    	 		ftype 		= list[i]['FILE_TYPE'];
    	 		ftypeName	= (ftype=='1') ? '파일' : '링크';
-   	 		pvchk		= isPreview(list[i]['FILE_NAME']) ? 'Y' : 'N';	
+   	 		pvchk		= isPreview(list[i]['FILE_NM']) ? 'Y' : 'N';	
    	 		
 			tmp += '<tr class="cu-link-over">';
 			tmp += '<input type="hidden" class="cu-col-org-stat" 	value="A">';
@@ -323,7 +323,7 @@ function compopfilemng(options) {
 			tmp += '<input type="hidden" class="cu-col-seq" 		value="' + list[i]['SEQ'] + '">';
 			tmp += '<input type="hidden" class="cu-col-chk-yn" 		value="' + list[i]['CHK_YN'] + '">';
 			tmp += '<input type="hidden" class="cu-col-file-type" 	value="' + ftype + '">';
-			tmp += '<input type="hidden" class="cu-col-server-file-name" 	value="' + list[i]['SERVER_FILE_NAME'] + '">';
+			tmp += '<input type="hidden" class="cu-col-server-file-name" 	value="' + list[i]['SRVR_FILE_NM'] + '">';
 			
 			tmp += '<td style="text-align:center">';
 			tmp += '<i title="삭제" class="far fa-close cu-filedelchk" style="cursor:pointer;font-size:14px;color:red;margin-right:5px"></i>';
@@ -334,11 +334,11 @@ function compopfilemng(options) {
 			
 			if(ftype=='1'){
 				tmp += '<td>';
-				tmp += '<a download class="cu-delchk-alink cu-filedn-link" style="font-weight:bold;color:blue;" href="#">' + list[i]['FILE_NAME'] + '</a>';
+				tmp += '<a download class="cu-delchk-alink cu-filedn-link" style="font-weight:bold;color:blue;" href="#">' + list[i]['FILE_NM'] + '</a>';
 				tmp += '<input type="hidden" class="cu-link-input" 	value="">';
 				tmp += '</td>';
 			} else {
-				tmp += '<td><input class="cu-delchk-input cu-link-input" style="width:100%" type="text" value="' + list[i]['FILE_NAME'] + '"></td>';
+				tmp += '<td><input class="cu-delchk-input cu-link-input" style="width:100%" type="text" value="' + list[i]['FILE_NM'] + '"></td>';
 			}
 			
 			if(pvchk=='Y'){
@@ -348,9 +348,9 @@ function compopfilemng(options) {
 			} else {
 				tmp += '<td>N</td>';
 			}
-			tmp += '<td><input class="cu-order-input" style="width:100%" type="text" value="' + list[i]['ORDER_SEQ'] + '"></td>';
-			tmp += '<td>' + list[i]['CREATE_TIME'] + '</td>';
-			tmp += '<td>' + list[i]['CREATE_USER'] + '</td>';
+			tmp += '<td><input class="cu-order-input" style="width:100%" type="text" value="' + list[i]['SORT_SEQ'] + '"></td>';
+			tmp += '<td>' + list[i]['WRT_DT'] + '</td>';
+			tmp += '<td>' + list[i]['WRT_USER'] + '</td>';
 			tmp += '</tr>';
 		}
    	 	$(modalId).find('.cu-data-table').find('tbody').html(tmp);
@@ -525,7 +525,7 @@ function compopfilemng(options) {
 	});		
 	
 }
-
+ 
  
 </script>
 </html>

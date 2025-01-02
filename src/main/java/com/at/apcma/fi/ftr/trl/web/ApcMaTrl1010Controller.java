@@ -57,7 +57,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_TRL1010_Q");
+			param.put("procedure", 		"SP_TRL1010_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 
 		try {
 
-			param.put("procedure", 		"P_TRL1010_S");
+			param.put("procedure", 		"SP_TRL1010_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -107,7 +107,7 @@ public class ApcMaTrl1010Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_TRL1010_S1");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_TRL1010_S1");
 
 			logger.info("=============insertTrl1010S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);

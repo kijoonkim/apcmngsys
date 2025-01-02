@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -100,19 +100,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -225,11 +225,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_RATE_SUM" name="DEDUCTION_RATE_SUM" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_RT_SUM" name="DDC_RT_SUM" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEMED_INPUT_TAX_SUM" name="DEEMED_INPUT_TAX_SUM" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_SUM" name="DMINPT_TAX_AMT_SUM" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -245,23 +245,23 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="BILL_CNT" name="BILL_CNT" uitype="text"
+                                            <sbux-input id="TXIV_CNT" name="TXIV_CNT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="BILL_AMT" name="BILL_AMT" uitype="text"
+                                            <sbux-input id="TXIV_AMT" name="TXIV_AMT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_BILL_RATE" name="DEDUCTION_BILL_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_BLL_RT" name="DDC_BLL_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEMED_BILL_AMT" name="DEEMED_BILL_AMT" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_BLL" name="DMINPT_TAX_AMT_BLL" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -288,11 +288,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_CARD_RATE" name="DEDUCTION_CARD_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_CARD_RT" name="DDC_CARD_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEM_IN_CARD_AMT" name="DEEM_IN_CARD_AMT" uitype="text"
+                                            <sbux-input id="CARD_DMINPT_TAX_AMT" name="CARD_DMINPT_TAX_AMT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -319,11 +319,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DED_FARMER_RATE" name="DED_FARMER_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_FRMER_RT" name="DDC_FRMER_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEM_IN_FARMER_AMT" name="DEEM_IN_FARMER_AMT" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_FARMER" name="DMINPT_TAX_AMT_FARMER" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -384,11 +384,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_RATE_SUM" name="DEDUCTION_RATE_SUM" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_RT_SUM" name="DDC_RT_SUM" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEMED_INPUT_TAX_SUM" name="DEEMED_INPUT_TAX_SUM" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_SUM" name="DMINPT_TAX_AMT_SUM" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -404,23 +404,23 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="BILL_CNT" name="BILL_CNT" uitype="text"
+                                            <sbux-input id="TXIV_CNT" name="TXIV_CNT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="BILL_AMT" name="BILL_AMT" uitype="text"
+                                            <sbux-input id="TXIV_AMT" name="TXIV_AMT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_BILL_RATE" name="DEDUCTION_BILL_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_BLL_RT" name="DDC_BLL_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEMED_BILL_AMT" name="DEEMED_BILL_AMT" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_BLL" name="DMINPT_TAX_AMT_BLL" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -447,11 +447,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DEDUCTION_CARD_RATE" name="DEDUCTION_CARD_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_CARD_RT" name="DDC_CARD_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEM_IN_CARD_AMT" name="DEEM_IN_CARD_AMT" uitype="text"
+                                            <sbux-input id="CARD_DMINPT_TAX_AMT" name="CARD_DMINPT_TAX_AMT" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -478,11 +478,11 @@
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-select id="DED_FARMER_RATE" name="DED_FARMER_RATE" uitype="single" jsondata-ref="selectJsonData">
+                                            <sbux-select id="DDC_FRMER_RT" name="DDC_FRMER_RT" uitype="single" jsondata-ref="selectJsonData">
                                             </sbux-select>
                                         </td>
                                         <td>
-                                            <sbux-input id="DEEM_IN_FARMER_AMT" name="DEEM_IN_FARMER_AMT" uitype="text"
+                                            <sbux-input id="DMINPT_TAX_AMT_FARMER" name="DMINPT_TAX_AMT_FARMER" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -558,8 +558,8 @@
                                                     </sbux-input>
                                                 </td>
                                                 <td>
-                                                    <sbux-select id="LIMIT_RATE" name="LIMIT_RATE" uitype="single" jsondata-ref="jsonLimitRate"
-                                                                 jsondata-text="CODE_NAME" jsondata-value="SUB_CODE" readonly>
+                                                    <sbux-select id="LMT_RT" name="LMT_RT" uitype="single" jsondata-ref="jsonLimitRate"
+                                                                 jsondata-text="CD_NM" jsondata-value="SBSD_CD" readonly>
                                                     </sbux-select>
                                                 </td>
                                                 <td>
@@ -610,7 +610,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <sbux-select id="DEDUCTION_RATE_SUM" name="DEDUCTION_RATE_SUM" uitype="single" jsondata-ref="selectJsonData">
+                                                    <sbux-select id="DDC_RT_SUM" name="DDC_RT_SUM" uitype="single" jsondata-ref="selectJsonData">
                                                     </sbux-select>
                                                 </td>
                                                 <td>
@@ -715,8 +715,8 @@
                                                     </sbux-input>
                                                 </td>
                                                 <td>
-                                                    <sbux-select id="MANU_LIMIT_RATE" name="MANU_LIMIT_RATE" uitype="single" jsondata-ref="jsonLimitRate"
-                                                        jsondata-text="CODE_NAME" jsondata-value="SUB_CODE" readonly>
+                                                    <sbux-select id="DMINPT_TRGT_LIM_RT" name="DMINPT_TRGT_LIM_RT" uitype="single" jsondata-ref="jsonLimitRate"
+                                                        jsondata-text="CD_NM" jsondata-value="SBSD_CD" readonly>
                                                     </sbux-select>
                                                 </td>
                                                 <td>
@@ -786,7 +786,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <sbux-select id="DEDUCTION_RATE_SUM" name="DEDUCTION_RATE_SUM" uitype="single" jsondata-ref="selectJsonData">
+                                                    <sbux-select id="DDC_RT_SUM" name="DDC_RT_SUM" uitype="single" jsondata-ref="selectJsonData">
                                                     </sbux-select>
                                                 </td>
                                                 <td>
@@ -858,36 +858,36 @@
     var jsonCboRfType = [];
     /** 한도율 **/
     var jsonLimitRate = [];
-
+ 
     var jsonCorpNm = [];
-
+ 
     var jsonGrdList = [];
     var grdListGrid;
-
+ 
     var jsonGrdFarmer = [];
     var grdFarmer;
-
+ 
     window.addEventListener("DOMContentLoaded",function(e){
         fn_createGrid();
         fn_createFarmerGrid();
         fn_init();
     });
-
+ 
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','COMP_CODE',"COMP_NAME");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
         /** 한도율 **/
-        jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'COMP_CODE',"COMP_NAME");
+        jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         jsonLimitRate = jsonLimitRateData.cv_1;
-        SBUxMethod.refresh('MANU_LIMIT_RATE');
-        SBUxMethod.set('MANU_LIMIT_RATE','3');
-        SBUxMethod.refresh('LIMIT_RATE');
-        SBUxMethod.set('LIMIT_RATE','3');
-
+        SBUxMethod.refresh('DMINPT_TRGT_LIM_RT');
+        SBUxMethod.set('DMINPT_TRGT_LIM_RT','3');
+        SBUxMethod.refresh('LMT_RT');
+        SBUxMethod.set('LMT_RT','3');
+ 
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
@@ -901,14 +901,14 @@
             ,dropType		: 'down' 	// up, down
             ,dropAlign		: 'right' 	// left, right
             ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TYPE_NAME'
+            ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TYPE_NAME', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
@@ -917,7 +917,7 @@
     async function fn_choice(_value){
         /** reset **/
       /** 여기는 좀 다름**/
-
+ 
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
             let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -925,7 +925,7 @@
                 SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
                 SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
             }
-
+ 
             let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
             if (termTo.length) {
                 SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -947,10 +947,10 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2200.do", {
             getType				: 'json',
             cv_count			: '11',
@@ -972,7 +972,7 @@
                 });
                 const data = await postJsonPromise;
                 console.log(data,"두번쨰");
-
+ 
                 if(data.resultStatus === 'S'){
                     if(workType === 'Q'){
                         let resultObj = data.cv_2[0];
@@ -998,13 +998,13 @@
         SBGridProperties.jsonref = 'jsonGrdList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
-            {caption : ['신고사업장명'],               ref : 'TAX_SITE_NAME',        width : '50%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업자번호'],          ref : 'BIZ_REGNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['신고사업장명'],               ref : 'TX_SITE_NM',        width : '50%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
         grdListGrid.bind("click","fn_setSiteCode");
     }
-
+ 
     const fn_createFarmerGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdFarmer';
@@ -1013,68 +1013,68 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
             {caption : ['일련번호','일련번호'],               ref : 'DEEMED_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['면세농산물등을 공급한 농어민 등','성명'],          ref : 'FARMER_NAME',      width : '15%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['면세농산물등을 공급한 농어민 등','주민등록번호'],          ref : 'FARMER_SOCIAL_NO',      width : '15%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['건수','건수'],               ref : 'FARMER_CNT',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['품명','품명'],               ref : 'FAMMER_GOODS_NAME',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['수량','수량'],               ref : 'FARMER_CNT1',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['매입가액','매입가액'],               ref : 'FARMER_AMT',        width : '15%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['면세농산물등을 공급한 농어민 등','성명'],          ref : 'DMINPT_NM',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['면세농산물등을 공급한 농어민 등','주민등록번호'],          ref : 'DMINPT_RRNO',      width : '15%',   style : 'text-align:center',    type : 'output'},
+            {caption : ['건수','건수'],               ref : 'DMINPT_CNT',        width : '15%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['품명','품명'],               ref : 'DMINPT_GDS_NM',        width : '15%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['수량','수량'],               ref : 'DMINPT_QNTT',        width : '15%',    style : 'text-align:center',    type : 'output'},
+            {caption : ['매입가액','매입가액'],               ref : 'DMINPT_AMT',        width : '15%',    style : 'text-align:center',    type : 'output'},
         ];
         grdFarmer = _SBGrid.create(SBGridProperties);
     }
-
+ 
     const resizer = document.getElementById('resizer');
     const leftSide = resizer.previousElementSibling;
     const rightSide = resizer.nextElementSibling;
-
+ 
     let x = 0;
     let y = 0;
-
+ 
     let leftWidth = 0;
-
+ 
     const mouseDownHandler = function (e) {
         x = e.clientX;
         y = e.clientY;
         leftWidth = leftSide.getBoundingClientRect().width;
-
+ 
         document.addEventListener('mousemove', mouseMoveHandler);
         document.addEventListener('mouseup', mouseUpHandler);
     };
-
+ 
     const mouseMoveHandler = function (e) {
         const dx = e.clientX - x;
         const dy = e.clientY - y;
-
+ 
         document.body.style.cursor = 'col-resize';
-
+ 
         leftSide.style.userSelect = 'none';
         leftSide.style.pointerEvents = 'none';
-
+ 
         rightSide.style.userSelect = 'none';
         rightSide.style.pointerEvents = 'none';
-
+ 
         const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
         leftSide.style.width = `${'${newLeftWidth}'}%`;
         grdListGrid.resize();
         grdAr.resize();
         grdAp.resize();
     };
-
+ 
     const mouseUpHandler = function () {
         resizer.style.removeProperty('cursor');
         document.body.style.removeProperty('cursor');
-
+ 
         leftSide.style.removeProperty('user-select');
         leftSide.style.removeProperty('pointer-events');
-
+ 
         rightSide.style.removeProperty('user-select');
         rightSide.style.removeProperty('pointer-events');
-
+ 
         document.removeEventListener('mousemove', mouseMoveHandler);
         document.removeEventListener('mouseup', mouseUpHandler);
     };
     resizer.addEventListener('mousedown', mouseDownHandler);
-
+ 
     function cfn_save() {
         fn_save();
     }
@@ -1090,14 +1090,14 @@
     function fn_reset(){
         jsonGrdList.length = 0;
         grdListGrid.rebuild();
-
+ 
         jsonGrdFarmer.length = 0;
         grdFarmer.rebuild();
-
+ 
         gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-
+ 
         let inputs = document.querySelectorAll("div.tab-content table input");
         inputs.forEach(function(item){
            $(item).val(0);
@@ -1114,7 +1114,7 @@
         }
         await fn_choice(_value);
     }
-
+ 
     async function fn_afterSelectTab(_id){
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
@@ -1136,17 +1136,17 @@
         gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno','ymdstandardTermFr','ymdstandardTermTo']);
         let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
         let workType = _id === 'tpgAR'? 'Q':'Q1';
-
+ 
         paramObj.V_P_SEQ = seq;
-
+ 
         /** 사업장 리스트 chk **/
         let gridIdx = grdListGrid.getRow();
         if(gridIdx < 0){
             return;
         }
-
+ 
         paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(gridIdx).TAX_SITE_CODE;
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2200.do", {
             getType				: 'json',
             cv_count			: '11',
@@ -1192,7 +1192,7 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
-
+ 
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
         let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';

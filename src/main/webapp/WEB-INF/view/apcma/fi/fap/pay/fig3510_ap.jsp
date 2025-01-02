@@ -26,7 +26,7 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
-
+ 
 <jsp:include page="../../far/rec/fig3510.jsp">
     <jsp:param name="sourceType" value="AP"></jsp:param>
 </jsp:include>

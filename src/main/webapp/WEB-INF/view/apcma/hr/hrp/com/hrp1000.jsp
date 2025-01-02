@@ -228,10 +228,8 @@
                                 <sbux-button
                                         id="empBtn"
                                         class="btn btn-xs btn-outline-dark"
-                                        uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
-                                        image-src="../../../resource/images/find2.png"
-                                        image-style="width:25px;height:15px;"
                                         onclick="fn_compopup2"
                                 ></sbux-button>
                             </td>
@@ -891,8 +889,8 @@
     var jsonWithholdList = [];
     /*var gvwHrpMasterGrid;
     var jsonHrpMasterList = [];*/
-   /* var gvwHrimasterGrid;
-    var jsonHrimasterList = [];*/
+    /* var gvwHrimasterGrid;
+     var jsonHrimasterList = [];*/
 
     var jsonCompCode = []; //법인 ( L_ORG000 )comp_code
     var jsonSiteCode = []; //사업장 ( L_ORG001 )site_code
@@ -923,32 +921,32 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['srch-comp_code'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COMP_CODE', 'COMP_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_EMP_STATE','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-comp_code'], jsonCompCode, 'L_ORG000', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CO_CD', 'CORP_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE','EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE','PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'GRADE_HOBONG_CODE', 'GRADE_HOBONG_NAME', 'Y', ''),
-            gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['BANK_CODE','BANK_CODE2','RET_PENS_BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['EMP_TYPE'], jsonEmpType, 'L_HRI008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['BANK_CODE','BANK_CODE2','RET_PENS_BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
             gfnma_setComSelect(['BANK2_PAY_ITEM'], jsonBank2PayItem, 'L_HRP063', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode, 'L_HRP001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode2, 'L_HRP002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode3, 'L_HRP009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode4, 'L_HRP037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayItemCode5, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonPayApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuType, 'L_HRW018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuReasonType, 'L_HRW019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuStateType, 'L_HRW021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonInsuRegType, 'L_HRW020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode, 'L_HRP001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode2, 'L_HRP002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode3, 'L_HRP009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode4, 'L_HRP037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayItemCode5, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonPayApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuType, 'L_HRW018', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuReasonType, 'L_HRW019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuStateType, 'L_HRW021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonInsuRegType, 'L_HRW020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonApplyType, 'L_HRW023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonLongApplyType, 'L_HRW022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonUser, 'L_USER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'USER_ID', 'USER_NM', 'Y', ''),
 
 
             //사업장
@@ -963,11 +961,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
         ]);
@@ -992,22 +990,22 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"     ,   "100"]
             ,itemSelectEvent		: function (data){
                 if (_.isEqual(type, 'srch')){
-                    SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                    SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                    SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                    SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
                 }else{
-                    SBUxMethod.set('DEPT_NAME', data.DEPT_NAME);
-                    SBUxMethod.set('DEPT_CODE', data.DEPT_CODE);
+                    SBUxMethod.set('DEPT_NAME', data.DEPT_NM);
+                    SBUxMethod.set('DEPT_CODE', data.DEPT_CD);
                 }
 
             },
@@ -1024,13 +1022,13 @@
             searchText = gfnma_nvl2(SBUxMethod.get("EMP_FULL_NAME"));
         }
 
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -1040,19 +1038,19 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
+            , searchInputValues: [""           , ""     ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
                 if (_.isEqual(type, 'srch')){
-                    SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NAME);
-                    SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                    SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NM);
+                    SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
                 }else{
-                    SBUxMethod.set('EMP_NAME', data.EMP_NAME);
-                    SBUxMethod.set('EMP_CODE', data.EMP_CODE);
+                    SBUxMethod.set('EMP_FULL_NAME', data.EMP_NM);
+                    SBUxMethod.set('EMP_CODE', data.EMP_CD);
                 }
             },
         });
@@ -1103,9 +1101,9 @@
     }
 
     // 신규
-  /*  function cfn_add() {
-        fn_create();
-    }*/
+    /*  function cfn_add() {
+          fn_create();
+      }*/
     // 저장
     async function cfn_save() {
         // 수정 저장
@@ -1163,7 +1161,7 @@
 
             });
 
-           /* ret = fnSET_P_HRP5600_S("");*/
+            /* ret = fnSET_P_HRP5600_S("");*/
             let updatedData3 = gvwDetailGrid.getUpdateData(true, 'all');
             if (_.isEmpty(updatedData3) == false && ret == true){
                 ret = await fn_saveS3(updatedData3);
@@ -1212,16 +1210,16 @@
                 fn_search();
             }
 
-           /* ret = fnSET_P_HRP5700_S("");
+            /* ret = fnSET_P_HRP5700_S("");
 
-            if (ret)
-            {
-                string strfocus = txtemp_code1.Text;
+             if (ret)
+             {
+                 string strfocus = txtemp_code1.Text;
 
-                QueryClick();
+                 QueryClick();
 
-                gvwList.FocusedRowHandle = GetGridRowIndex(gvwList, "emp_code", strfocus);
-            }*/
+                 gvwList.FocusedRowHandle = GetGridRowIndex(gvwList, "emp_code", strfocus);
+             }*/
 
         }
     }
@@ -1843,17 +1841,17 @@
 
                     /*****************인사정보********************/
                     data.cv_2.forEach((item, index) => {
-                        SBUxMethod.set("EMP_CODE"               , gfnma_nvl2(item.EMP_CODE));
-                        SBUxMethod.set("EMP_FULL_NAME"          , gfnma_nvl2(item.EMP_FULL_NAME));
-                        SBUxMethod.set("SITE_CODE"              , gfnma_nvl2(item.SITE_CODE));
-                        SBUxMethod.set("DEPT_CODE"              , gfnma_nvl2(item.DEPT_CODE));
-                        SBUxMethod.set("DEPT_NAME"              , gfnma_nvl2(item.DEPT_NAME));
+                        SBUxMethod.set("EMP_CODE"               , gfnma_nvl2(item.EMP_CD));
+                        SBUxMethod.set("EMP_FULL_NAME"          , gfnma_nvl2(item.EMP_FLNM));
+                        SBUxMethod.set("SITE_CODE"              , gfnma_nvl2(item.SITE_CD));
+                        SBUxMethod.set("DEPT_CODE"              , gfnma_nvl2(item.DEPT_CD));
+                        SBUxMethod.set("DEPT_NAME"              , gfnma_nvl2(item.DEPT_NM));
                         SBUxMethod.set("EMP_TYPE"               , gfnma_nvl2(item.EMP_TYPE));
-                        SBUxMethod.set("POSITION_CODE"          , gfnma_nvl2(item.POSITION_CODE));
-                        SBUxMethod.set("ENTER_DATE"             , gfnma_nvl2(item.ENTER_DATE));
-                        SBUxMethod.set("RETIRE_DATE"            , gfnma_nvl2(item.RETIRE_DATE));
-                        SBUxMethod.set("TEMP_END_DATE"          , gfnma_nvl2(item.TEMP_END_DATE));
-                        SBUxMethod.set("BONUS_APPLY_START_DATE" , gfnma_nvl2(item.BONUS_APPLY_START_DATE));
+                        SBUxMethod.set("POSITION_CODE"          , gfnma_nvl2(item.JBPS_CD));
+                        SBUxMethod.set("ENTER_DATE"             , gfnma_nvl2(item.JNCMP_YMD));
+                        SBUxMethod.set("RETIRE_DATE"            , gfnma_nvl2(item.RTRM_YMD));
+                        SBUxMethod.set("TEMP_END_DATE"          , gfnma_nvl2(item.TMPR_END_YMD));
+                        SBUxMethod.set("BONUS_APPLY_START_DATE" , gfnma_nvl2(item.BONUS_APLY_BGNG_YMD));
                     });
 
                     /*****************급여 기본 사항, 사회보험********************/
@@ -1882,44 +1880,44 @@
                         }
                         jsonHrpMasterList.push(msg);*/
 
-                        SBUxMethod.set("BANK_ACCOUNT"               , gfnma_nvl2(item.BANK_ACCOUNT));
-                        SBUxMethod.set("BANK_CODE"                  , gfnma_nvl2(item.BANK_CODE));
+                        SBUxMethod.set("BANK_ACCOUNT"               , gfnma_nvl2(item.BACNT_NO));
+                        SBUxMethod.set("BANK_CODE"                  , gfnma_nvl2(item.BANK_CD));
                         SBUxMethod.set("BANK_ACCOUNT_REAL"          , gfnma_nvl2(item.BANK_ACCOUNT_REAL));
-                        SBUxMethod.set("BANK_ACCOUNT2"              , gfnma_nvl2(item.BANK_ACCOUNT2));
+                        SBUxMethod.set("BANK_ACCOUNT2"              , gfnma_nvl2(item.ACTNO2));
 
-                        SBUxMethod.set("PAY_YN"                     , gfnma_nvl2(item.PAY_YN));
+                        SBUxMethod.set("PAY_YN"                     , gfnma_nvl2(item.SLRY_YN));
                         SBUxMethod.set("BONUS_PAY_YN"               , gfnma_nvl2(item.BONUS_PAY_YN));
-                        SBUxMethod.set("RETIRE_PAY_YN"              , gfnma_nvl2(item.RETIRE_PAY_YN));
-                        SBUxMethod.set("BANK_CODE2"                 , gfnma_nvl2(item.BANK_CODE2));
+                        SBUxMethod.set("RETIRE_PAY_YN"              , gfnma_nvl2(item.RTRM_AMT_PAY_YN));
+                        SBUxMethod.set("BANK_CODE2"                 , gfnma_nvl2(item.BANK_CD2));
                         SBUxMethod.set("BANK_ACCOUNT2_REAL"         , gfnma_nvl2(item.BANK_ACCOUNT2_REAL));
                         SBUxMethod.set("BANK2_PAY_ITEM"             , gfnma_nvl2(item.BANK2_PAY_ITEM));
-                        SBUxMethod.set("LUNCH_PAY_YN"               , gfnma_nvl2(item.LUNCH_PAY_YN));
-                        SBUxMethod.set("OVER_TIME_PAY_YN"           , gfnma_nvl2(item.OVER_TIME_PAY_YN));
-                        SBUxMethod.set("OT_TAX_FREE_YN"             , gfnma_nvl2(item.OT_TAX_FREE_YN));
-                        SBUxMethod.set("RET_PENS_BANK_CODE"         , gfnma_nvl2(item.RET_PENS_BANK_CODE));
+                        SBUxMethod.set("LUNCH_PAY_YN"               , gfnma_nvl2(item.LNCH_PVSN_YN));
+                        SBUxMethod.set("OVER_TIME_PAY_YN"           , gfnma_nvl2(item.PRLG_WORK_PAY_YN));
+                        SBUxMethod.set("OT_TAX_FREE_YN"             , gfnma_nvl2(item.OVTM_TXFR_YN));
+                        SBUxMethod.set("RET_PENS_BANK_CODE"         , gfnma_nvl2(item.RTRM_PN_BANK_CD));
                         SBUxMethod.set("RET_PENS_BANK_ACC_REAL"     , gfnma_nvl2(item.RET_PENS_BANK_ACC_REAL));
-                        SBUxMethod.set("MUTUAL_AID_MEMBER_YN"       , gfnma_nvl2(item.MUTUAL_AID_MEMBER_YN));
-                        SBUxMethod.set("MONTHLY_DONATION_YN"        , gfnma_nvl2(item.MONTHLY_DONATION_YN));
-                        SBUxMethod.set("INCOME_TAX_YN"              , gfnma_nvl2(item.INCOME_TAX_YN));
-                        SBUxMethod.set("MAIN_ACC_TYPE"              , gfnma_nvl2(item.MAIN_ACC_TYPE));
-                        SBUxMethod.set("SUPPORTEE_QTY"              , gfnma_nvl2(item.SUPPORTEE_QTY));
-                        SBUxMethod.set("CHILDREN_QTY"               , gfnma_nvl2(item.CHILDREN_QTY));
+                        SBUxMethod.set("MUTUAL_AID_MEMBER_YN"       , gfnma_nvl2(item.MTALAID_DDC_YN));
+                        SBUxMethod.set("MONTHLY_DONATION_YN"        , gfnma_nvl2(item.DNTN_DDC_YN));
+                        SBUxMethod.set("INCOME_TAX_YN"              , gfnma_nvl2(item.INCTX_YN));
+                        SBUxMethod.set("MAIN_ACC_TYPE"              , gfnma_nvl2(item.MN_BACNT_TYPE));
+                        SBUxMethod.set("SUPPORTEE_QTY"              , gfnma_nvl2(item.SPT_FAM_CNT));
+                        SBUxMethod.set("CHILDREN_QTY"               , gfnma_nvl2(item.CHLDRN_QTY));
 
-                        SBUxMethod.set("PENSION_YN"                 , gfnma_nvl2(item.PENSION_YN));
-                        SBUxMethod.set("HEALTH_INSURE_YN"           , gfnma_nvl2(item.HEALTH_INSURE_YN));
-                        SBUxMethod.set("LONGTERM_CARE_YN"           , gfnma_nvl2(item.LONGTERM_CARE_YN));
-                        SBUxMethod.set("PENSION_JOIN_DATE"          , gfnma_nvl2(item.PENSION_JOIN_DATE));
-                        SBUxMethod.set("HEALTH_INSURE_JOIN_DATE"    , gfnma_nvl2(item.HEALTH_INSURE_JOIN_DATE));
-                        SBUxMethod.set("PENSION_CLOSE_DATE"         , gfnma_nvl2(item.PENSION_CLOSE_DATE));
-                        SBUxMethod.set("HEALTH_INSURE_CLOSE_DATE"   , gfnma_nvl2(item.HEALTH_INSURE_CLOSE_DATE));
-                        SBUxMethod.set("LAST_APPLICATION_DATE"      , gfnma_nvl2(item.LAST_APPLICATION_DATE));
-                        SBUxMethod.set("PENSION_NO"                 , gfnma_nvl2(item.PENSION_NO));
-                        SBUxMethod.set("HEALTH_INSURE_NO"           , gfnma_nvl2(item.HEALTH_INSURE_NO));
-                        SBUxMethod.set("PENSION_BASE_AMT"           , gfnma_nvl2(item.PENSION_BASE_AMT));
-                        SBUxMethod.set("HEALTH_INSURE_BASE_AMT"     , gfnma_nvl2(item.HEALTH_INSURE_BASE_AMT));
-                        SBUxMethod.set("EMPLOY_INSURE_BASE_AMT"     , gfnma_nvl2(item.EMPLOY_INSURE_BASE_AMT));
-                        SBUxMethod.set("APPLICATION_RATE"           , gfnma_nvl2(item.APPLICATION_RATE));
-                        SBUxMethod.set("EMPLOY_INSURE_YN"           , gfnma_nvl2(item.EMPLOY_INSURE_YN));
+                        SBUxMethod.set("PENSION_YN"                 , gfnma_nvl2(item.PN_YN));
+                        SBUxMethod.set("HEALTH_INSURE_YN"           , gfnma_nvl2(item.HLTH_INSRNC_YN));
+                        SBUxMethod.set("LONGTERM_CARE_YN"           , gfnma_nvl2(item.LTRM_RCPR_INSRNC_YN));
+                        SBUxMethod.set("PENSION_JOIN_DATE"          , gfnma_nvl2(item.PN_JOIN_YMD));
+                        SBUxMethod.set("HEALTH_INSURE_JOIN_DATE"    , gfnma_nvl2(item.HLTH_INSRNC_ACQS_YMD));
+                        SBUxMethod.set("PENSION_CLOSE_DATE"         , gfnma_nvl2(item.PN_LOSE_YMD));
+                        SBUxMethod.set("HEALTH_INSURE_CLOSE_DATE"   , gfnma_nvl2(item.HLTH_INSRNC_LOSE_YMD));
+                        SBUxMethod.set("LAST_APPLICATION_DATE"      , gfnma_nvl2(item.LAST_APLY_YMD));
+                        SBUxMethod.set("PENSION_NO"                 , gfnma_nvl2(item.PN_NO));
+                        SBUxMethod.set("HEALTH_INSURE_NO"           , gfnma_nvl2(item.HLTH_INSRNC_NO));
+                        SBUxMethod.set("PENSION_BASE_AMT"           , gfnma_nvl2(item.PN_BASE_AMT));
+                        SBUxMethod.set("HEALTH_INSURE_BASE_AMT"     , gfnma_nvl2(item.HLTH_INSRNC_BASE_AMT));
+                        SBUxMethod.set("EMPLOY_INSURE_BASE_AMT"     , gfnma_nvl2(item.EPIS_BASE_AMT));
+                        SBUxMethod.set("APPLICATION_RATE"           , gfnma_nvl2(item.WTHD_APTXRT));
+                        SBUxMethod.set("EMPLOY_INSURE_YN"           , gfnma_nvl2(item.EPIS_YN));
                     });
 
                     /*gvwHrpMasterGrid.rebuild();*/
@@ -1927,34 +1925,34 @@
 
                     /*****************급여정보********************/
                     /** @type {number} **/
-                   // let totalRecordCount2 = 0;
+                    // let totalRecordCount2 = 0;
                     jsonPayInfoList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            APPLY_START_DATE        : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE          : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_START_DATE        : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE          : gfnma_nvl2(item.APLY_END_YMD),
                             MEMO                    : gfnma_nvl2(item.MEMO),
-                            SALARY_BASE_AMT         : gfnma_nvl2(item.SALARY_BASE_AMT),
-                            JOB_BASE_AMT            : gfnma_nvl2(item.JOB_BASE_AMT),
-                            OT_FIXED_BASE_AMT       : gfnma_nvl2(item.OT_FIXED_BASE_AMT),
+                            SALARY_BASE_AMT         : gfnma_nvl2(item.SLRY_BASE_AMT),
+                            JOB_BASE_AMT            : gfnma_nvl2(item.작업발령여부),
+                            OT_FIXED_BASE_AMT       : gfnma_nvl2(item.FIX_PRLG_ALWNC_AMT),
                             ROLE_BASE_AMT           : gfnma_nvl2(item.ROLE_BASE_AMT),
-                            INCENTIVE_BASE_AMT      : gfnma_nvl2(item.INCENTIVE_BASE_AMT),
-                            COMPETENCE_BASE_AMT     : gfnma_nvl2(item.COMPETENCE_BASE_AMT),
+                            INCENTIVE_BASE_AMT      : gfnma_nvl2(item.INCNTV_BASE_AMT),
+                            COMPETENCE_BASE_AMT     : gfnma_nvl2(item.CMPTNY_BASE_AMT),
                             MONTHLY_SALARY_AMT      : gfnma_nvl2(item.MONTHLY_SALARY_AMT),
-                            PAY_COUNT               : gfnma_nvl2(item.PAY_COUNT),
-                            INCENTIVE_ADD_AMT       : gfnma_nvl2(item.INCENTIVE_ADD_AMT),
-                            BONUS_COUNT             : gfnma_nvl2(item.BONUS_COUNT),
-                            ANNUAL_SALARY_AMT       : gfnma_nvl2(item.ANNUAL_SALARY_AMT),
-                            INCENTIVE_MONTH_AMT     : gfnma_nvl2(item.INCENTIVE_MONTH_AMT),
-                            HOURLY_BASE_AMT         : gfnma_nvl2(item.HOURLY_BASE_AMT),
+                            PAY_COUNT               : gfnma_nvl2(item.PAY_CNT),
+                            INCENTIVE_ADD_AMT       : gfnma_nvl2(item.INCNTV_ADD_AMT),
+                            BONUS_COUNT             : gfnma_nvl2(item.BONUS_CNT),
+                            ANNUAL_SALARY_AMT       : gfnma_nvl2(item.ANNL_SLRY_AMT),
+                            INCENTIVE_MONTH_AMT     : gfnma_nvl2(item.INCNTV_MM_AMT),
+                            HOURLY_BASE_AMT         : gfnma_nvl2(item.HR_BASE_AMT),
                             SUM_BASE_AMT            : gfnma_nvl2(item.SUM_BASE_AMT),
                             ANNUAL_BASE_AMT         : gfnma_nvl2(item.ANNUAL_BASE_AMT),
                             USERID                  : gfnma_nvl2(item.USERID),
                             USERTIME                : gfnma_nvl2(item.USERTIME),
-                            DAILY_BASE_AMT          : gfnma_nvl2(item.DAILY_BASE_AMT),
+                            DAILY_BASE_AMT          : gfnma_nvl2(item.DL_BASE_AMT),
                             BONUS_BASE_AMT          : gfnma_nvl2(item.BONUS_BASE_AMT),
-                            CONTRIBUTE_BASE_AMT     : gfnma_nvl2(item.CONTRIBUTE_BASE_AMT),
-                            ADJUST_BASE_AMT         : gfnma_nvl2(item.ADJUST_BASE_AMT)
+                            CONTRIBUTE_BASE_AMT     : gfnma_nvl2(item.CNTRB_HR_AMT),
+                            ADJUST_BASE_AMT         : gfnma_nvl2(item.AJMT_BASE_AMT)
                         }
                         jsonPayInfoList.push(msg);
                         //totalRecordCount2++;
@@ -1969,15 +1967,15 @@
                     jsonPayList.length = 0;
                     data.cv_5.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_TYPE            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
                             PAY_AMT             : gfnma_nvl2(item.PAY_AMT),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME),
                             MEMO                : gfnma_nvl2(item.MEMO),
-                            TXN_ID              : gfnma_nvl2(item.TXN_ID)
+                            TXN_ID              : gfnma_nvl2(item.TRSC_ID)
                         }
                         jsonPayList.push(msg);
                         totalRecordCount3++;
@@ -1992,16 +1990,16 @@
                     jsonDedList.length = 0;
                     data.cv_6.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_TYPE            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
                             PAY_AMT             : gfnma_nvl2(item.PAY_AMT),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME),
                             MEMO                : gfnma_nvl2(item.MEMO),
-                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.PAY_ITEM_CATEGORY),
-                            TXN_ID              : gfnma_nvl2(item.TXN_ID)
+                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.SLRY_ITEM_CTGRY),
+                            TXN_ID              : gfnma_nvl2(item.TRSC_ID)
                         }
                         jsonDedList.push(msg);
                         totalRecordCount4++;
@@ -2017,18 +2015,18 @@
                     jsonVarPayList.length = 0;
                     data.cv_8.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_TYPE            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
                             PAY_AMT             : gfnma_nvl2(item.PAY_AMT),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            TAX_PAY_DATE        : gfnma_nvl2(item.TAX_PAY_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            TAX_PAY_DATE        : gfnma_nvl2(item.TX_PAY_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                             MEMO                : gfnma_nvl2(item.MEMO),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME),
-                            TXN_ID              : gfnma_nvl2(item.TXN_ID)
+                            TXN_ID              : gfnma_nvl2(item.TRSC_ID)
                         }
-                        jsonVarPayList.push(msg);
+                        jsonVarPayList.push(msg)
                         totalRecordCount5++;
                     });
 
@@ -2041,16 +2039,16 @@
                     jsonVarDedList.length = 0;
                     data.cv_9.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_TYPE            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
                             PAY_AMT             : gfnma_nvl2(item.PAY_AMT),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            TAX_PAY_DATE        : gfnma_nvl2(item.TAX_PAY_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            TAX_PAY_DATE        : gfnma_nvl2(item.TX_PAY_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                             MEMO                : gfnma_nvl2(item.MEMO),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME),
-                            TXN_ID              : gfnma_nvl2(item.TXN_ID)
+                            TXN_ID              : gfnma_nvl2(item.TRSC_ID)
                         }
                         jsonVarDedList.push(msg);
                         totalRecordCount6++;
@@ -2065,14 +2063,14 @@
                     jsonPayExList.length = 0;
                     data.cv_10.forEach((item, index) => {
                         const msg = {
-                            PAY_TYPE            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
+                            PAY_TYPE            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
                             PAY_AMT             : gfnma_nvl2(item.PAY_AMT),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
-                            PAY_APPLY_TYPE      : gfnma_nvl2(item.PAY_APPLY_TYPE),
-                            PAY_APPLY_RATE      : gfnma_nvl2(item.PAY_APPLY_RATE),
-                            PAY_APPLY_AMT       : gfnma_nvl2(item.PAY_APPLY_AMT),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
+                            PAY_APPLY_TYPE      : gfnma_nvl2(item.SLRY_APLY_TYPE),
+                            PAY_APPLY_RATE      : gfnma_nvl2(item.SLRY_APLY_RT),
+                            PAY_APPLY_AMT       : gfnma_nvl2(item.SLRY_APLY_AMT),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME),
                             MEMO                : gfnma_nvl2(item.MEMO)
@@ -2090,16 +2088,16 @@
                     jsonDetailList.length = 0;
                     data.cv_11.forEach((item, index) => {
                         const msg = {
-                            INSU_TYPE           : gfnma_nvl2(item.INSU_TYPE),
-                            START_DATE          : gfnma_nvl2(item.START_DATE),
-                            END_DATE            : gfnma_nvl2(item.END_DATE),
-                            INSU_REASON_TYPE    : gfnma_nvl2(item.INSU_REASON_TYPE),
-                            INSU_STATE_TYPE     : gfnma_nvl2(item.INSU_STATE_TYPE),
-                            INSU_REG_TYPE       : gfnma_nvl2(item.INSU_REG_TYPE),
-                            INSU_RATE           : gfnma_nvl2(item.INSU_RATE),
-                            INSU_AMT_YN         : gfnma_nvl2(item.INSU_AMT_YN),
-                            OVER_WORKER_YN      : gfnma_nvl2(item.OVER_WORKER_YN),
-                            AGE_65_OVER_YN      : gfnma_nvl2(item.AGE_65_OVER_YN),
+                            INSU_TYPE           : gfnma_nvl2(item.INSRNC_TYPE),
+                            START_DATE          : gfnma_nvl2(item.BGNG_YMD),
+                            END_DATE            : gfnma_nvl2(item.END_DT),
+                            INSU_REASON_TYPE    : gfnma_nvl2(item.INSRNC_RSN_TYPE),
+                            INSU_STATE_TYPE     : gfnma_nvl2(item.INSRNC_QLFC_TYPE),
+                            INSU_REG_TYPE       : gfnma_nvl2(item.INSRNC_REG_TYPE),
+                            INSU_RATE           : gfnma_nvl2(item.INSRNC_RT),
+                            INSU_AMT_YN         : gfnma_nvl2(item.INSRNC_AMT_YN),
+                            OVER_WORKER_YN      : gfnma_nvl2(item.FRCNY_WRKR_YN),
+                            AGE_65_OVER_YN      : gfnma_nvl2(item.AGE65_YN),
                             MEMO                : gfnma_nvl2(item.MEMO),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME)
@@ -2117,15 +2115,15 @@
                     jsonViewEx1List.length = 0;
                     data.cv_7.forEach((item, index) => {
                         const msg = {
-                            APPLY_TYPE          : gfnma_nvl2(item.APPLY_TYPE),
-                            LONG_APPLY_TYPE     : gfnma_nvl2(item.LONG_APPLY_TYPE),
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
+                            APPLY_TYPE          : gfnma_nvl2(item.APLY_TYPE),
+                            LONG_APPLY_TYPE     : gfnma_nvl2(item.LTRM_RCPR_TYPE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
                             BASE_AMT            : gfnma_nvl2(item.BASE_AMT),
                             VAL1                : gfnma_nvl2(item.VAL1),
                             VAL2                : gfnma_nvl2(item.VAL2),
                             VAL3                : gfnma_nvl2(item.VAL3),
-                            LONG_APPLY_EXEM_AMT : gfnma_nvl2(item.LONG_APPLY_EXEM_AMT),
+                            LONG_APPLY_EXEM_AMT : gfnma_nvl2(item.LTRM_RCPR_EXMPTN_AMT),
                             MEMO                : gfnma_nvl2(item.MEMO),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME)
@@ -2143,9 +2141,9 @@
                     jsonWithholdList.length = 0;
                     data.cv_12.forEach((item, index) => {
                         const msg = {
-                            APPLY_START_DATE    : gfnma_nvl2(item.APPLY_START_DATE),
-                            APPLY_END_DATE      : gfnma_nvl2(item.APPLY_END_DATE),
-                            WITHHOLD_RATE       : gfnma_nvl2(item.WITHHOLD_RATE),
+                            APPLY_START_DATE    : gfnma_nvl2(item.APLY_STRT_YMD),
+                            APPLY_END_DATE      : gfnma_nvl2(item.APLY_END_YMD),
+                            WITHHOLD_RATE       : gfnma_nvl2(item.WTHD_RT),
                             MEMO                : gfnma_nvl2(item.MEMO),
                             USERID              : gfnma_nvl2(item.USERID),
                             USERTIME            : gfnma_nvl2(item.USERTIME)
@@ -2262,7 +2260,7 @@
 
         //TODO : 원본로우가 중복되어 에러가 나기 때문에 COMP_CODE를 추가해서 대처해놓음
         //let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
-        let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " + " AND comp_code = '" + gv_ma_selectedCorpCd + "'";
+        let query = "SELECT * FROM TB_HRP_MASTER WHERE EMP_CD = '" + EMP_CODE + "' " + " AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
         var paramObj = {
             EMP_CODE: query
         }
@@ -2292,28 +2290,28 @@
 
                 }
 
-               /* if (rs != null)
-                {
-                    if (rs.ResultDataSet.Tables[0].Rows.Count == 0)
-                    {
-                        chkpension_yn.EditValue = "Y";
-                        chkhealth_insure_yn.EditValue = "Y";
-                        chkemploy_insure_yn.EditValue = "Y";
-                        chkpay_yn.EditValue = "Y";
-                        chkbonus_pay_yn.EditValue = "N";
-                        chkover_time_pay_yn.EditValue = "Y";
-                        chkretire_pay_yn.EditValue = "Y";
-                        chkincome_tax_yn.EditValue = "Y";
-                        // 부양가족수 기본값 1로 설정
-                        numsupportee_qty.EditValue = 1;
-                        // 원천징수적용비율 100%로 설정
-                        numapplication_rate.EditValue = 100;
-                        // 비율최종적용일 시스템일자로 설정
-                        string strDate = CurrentDate("YYYYMMDD");
-                        ymdlast_application_date.Text = strDate;
-                    }
+                /* if (rs != null)
+                 {
+                     if (rs.ResultDataSet.Tables[0].Rows.Count == 0)
+                     {
+                         chkpension_yn.EditValue = "Y";
+                         chkhealth_insure_yn.EditValue = "Y";
+                         chkemploy_insure_yn.EditValue = "Y";
+                         chkpay_yn.EditValue = "Y";
+                         chkbonus_pay_yn.EditValue = "N";
+                         chkover_time_pay_yn.EditValue = "Y";
+                         chkretire_pay_yn.EditValue = "Y";
+                         chkincome_tax_yn.EditValue = "Y";
+                         // 부양가족수 기본값 1로 설정
+                         numsupportee_qty.EditValue = 1;
+                         // 원천징수적용비율 100%로 설정
+                         numapplication_rate.EditValue = 100;
+                         // 비율최종적용일 시스템일자로 설정
+                         string strDate = CurrentDate("YYYYMMDD");
+                         ymdlast_application_date.Text = strDate;
+                     }
 
-                }*/
+                 }*/
 
             } else {
                 alert(data.resultMessage);
@@ -2354,44 +2352,44 @@
 
         /*if (rowVal == -1) {*/ //데이터가 없고 행선택이 없을경우.
 
-            const msg = {
-                APPLY_START_DATE    : dateString,
-                APPLY_END_DATE      : dateString,
-                MEMO                : '',
-                SALARY_BASE_AMT     : 0,
-                JOB_BASE_AMT        : 0,
-                OT_FIXED_BASE_AMT   : 0,
-                ROLE_BASE_AMT       : 0,
-                INCENTIVE_BASE_AMT  : 0,
-                COMPETENCE_BASE_AMT : 0,
-                MONTHLY_SALARY_AMT  : 0,
-                PAY_COUNT           : 0,
-                INCENTIVE_ADD_AMT   : 0,
-                BONUS_COUNT         : 0,
-                ANNUAL_SALARY_AMT   : 0,
-                INCENTIVE_MONTH_AMT : 0,
-                HOURLY_BASE_AMT     : 0,
-                SUM_BASE_AMT        : 0,
-                ANNUAL_BASE_AMT     : 0,
-                USERID              : '',
-                USERTIME            : '',
-                DAILY_BASE_AMT      : 0,
-                BONUS_BASE_AMT      : 0,
-                CONTRIBUTE_BASE_AMT : 0,
-                ADJUST_BASE_AMT     : 0,
+        const msg = {
+            APPLY_START_DATE    : dateString,
+            APPLY_END_DATE      : dateString,
+            MEMO                : '',
+            SALARY_BASE_AMT     : 0,
+            JOB_BASE_AMT        : 0,
+            OT_FIXED_BASE_AMT   : 0,
+            ROLE_BASE_AMT       : 0,
+            INCENTIVE_BASE_AMT  : 0,
+            COMPETENCE_BASE_AMT : 0,
+            MONTHLY_SALARY_AMT  : 0,
+            PAY_COUNT           : 0,
+            INCENTIVE_ADD_AMT   : 0,
+            BONUS_COUNT         : 0,
+            ANNUAL_SALARY_AMT   : 0,
+            INCENTIVE_MONTH_AMT : 0,
+            HOURLY_BASE_AMT     : 0,
+            SUM_BASE_AMT        : 0,
+            ANNUAL_BASE_AMT     : 0,
+            USERID              : '',
+            USERTIME            : '',
+            DAILY_BASE_AMT      : 0,
+            BONUS_BASE_AMT      : 0,
+            CONTRIBUTE_BASE_AMT : 0,
+            ADJUST_BASE_AMT     : 0,
 
-                status: 'i'
-            }
-            /*jsonPayInfoList.push(msg);*/
+            status: 'i'
+        }
+        /*jsonPayInfoList.push(msg);*/
         if (rowVal == -1) {
             gvwPayInfoGrid.addRow(true, msg);
         }else{
             gvwPayInfoGrid.insertRow(rowVal,'below', msg);
         }
-                   /*gvwPayInfoGrid.addRow(true);*/
-       /* } else {
-            gvwPayInfoGrid.insertRow(rowVal);
-        }*/
+        /*gvwPayInfoGrid.addRow(true);*/
+        /* } else {
+             gvwPayInfoGrid.insertRow(rowVal);
+         }*/
         //grdFimList.refresh();
 
         /*gvwPayInfoGrid.rebuild();*/
@@ -2504,24 +2502,24 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CREATE                  : gfnma_nvl2(item.CREATE),
-                        EMP_CODE                : gfnma_nvl2(item.EMP_CODE),
-                        EMP_NAME                : gfnma_nvl2(item.EMP_NAME),
-                        PAY_GROUP_CODE          : gfnma_nvl2(item.PAY_GROUP_CODE),
-                        PAY_AREA_TYPE           : gfnma_nvl2(item.PAY_AREA_TYPE),
-                        DUTY_CODE               : gfnma_nvl2(item.DUTY_CODE),
-                        POSITION_CODE           : gfnma_nvl2(item.POSITION_CODE),
-                        DEPT_NAME               : gfnma_nvl2(item.DEPT_NAME),
-                        ENTER_DATE              : gfnma_nvl2(item.ENTER_DATE),
-                        RETIRE_DATE             : gfnma_nvl2(item.RETIRE_DATE),
-                        BANK_CODE               : gfnma_nvl2(item.BANK_CODE),
+                        EMP_CODE                : gfnma_nvl2(item.EMP_CD),
+                        EMP_NAME                : gfnma_nvl2(item.EMP_NM),
+                        PAY_GROUP_CODE          : gfnma_nvl2(item.SLRY_GRD_CD),
+                        PAY_AREA_TYPE           : gfnma_nvl2(item.SLRY_AREA_TYPE),
+                        DUTY_CODE               : gfnma_nvl2(item.JBTTL_CD),
+                        POSITION_CODE           : gfnma_nvl2(item.JBPS_CD),
+                        DEPT_NAME               : gfnma_nvl2(item.DEPT_NM),
+                        ENTER_DATE              : gfnma_nvl2(item.JNCMP_YMD),
+                        RETIRE_DATE             : gfnma_nvl2(item.RTRM_YMD),
+                        BANK_CODE               : gfnma_nvl2(item.BANK_CD),
                         BANK_ACCOUNT_REAL       : gfnma_nvl2(item.BANK_ACCOUNT_REAL),
-                        BANK_CODE2              : gfnma_nvl2(item.BANK_CODE2),
+                        BANK_CODE2              : gfnma_nvl2(item.BANK_CD2),
                         BANK_ACCOUNT2_REAL      : gfnma_nvl2(item.BANK_ACCOUNT2_REAL),
-                        EMP_STATE               : gfnma_nvl2(item.EMP_STATE),
-                        BANK_ACCOUNT            : gfnma_nvl2(item.BANK_ACCOUNT),
-                        BANK_ACCOUNT2           : gfnma_nvl2(item.BANK_ACCOUNT2),
-                        RET_PENS_BANK_CODE      : gfnma_nvl2(item.RET_PENS_BANK_CODE),
-                        RET_PENS_BANK_ACC       : gfnma_nvl2(item.RET_PENS_BANK_ACC),
+                        EMP_STATE               : gfnma_nvl2(item.EMP_STTS),
+                        BANK_ACCOUNT            : gfnma_nvl2(item.BACNT_NO),
+                        BANK_ACCOUNT2           : gfnma_nvl2(item.ACTNO2),
+                        RET_PENS_BANK_CODE      : gfnma_nvl2(item.RTRM_PN_BANK_CD),
+                        RET_PENS_BANK_ACC       : gfnma_nvl2(item.RTRM_PN_ACTNO),
                         RET_PENS_BANK_ACC_REAL  : gfnma_nvl2(item.RET_PENS_BANK_ACC_REAL)
 
                     }
@@ -3196,8 +3194,8 @@
         });
         /**************** 중복체크 End *******************/
 
-       /* //수정시 수정된 데이터만 가져감
-        updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');*/
+        /* //수정시 수정된 데이터만 가져감
+         updatedData = gvwPayInfoGrid.getUpdateData(true, 'all');*/
 
         if (!_.isEmpty(updatedData)) {
 

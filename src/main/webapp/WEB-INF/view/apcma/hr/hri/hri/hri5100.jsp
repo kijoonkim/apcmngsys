@@ -250,7 +250,7 @@
                 jsonHriList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        GUBUN				: item.GUBUN,
+                        GUBUN				: item.SE_CD,
                         CNT		            : item.CNT,
                         CNT2				: item.CNT2,
                         CNT1	           	: item.CNT1,

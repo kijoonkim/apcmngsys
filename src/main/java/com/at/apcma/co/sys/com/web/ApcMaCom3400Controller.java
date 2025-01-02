@@ -53,7 +53,7 @@ public class ApcMaCom3400Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3400_Q");
+			param.put("procedure", 		"SP_COM3400_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3400_S");
+			param.put("procedure", 		"SP_COM3400_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -103,7 +103,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3400_S");
+			param.put("procedure", 		"SP_COM3400_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class ApcMaCom3400Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3400_EMP_IF_Q");
+			param.put("procedure", 		"SP_COM3400_EMP_IF_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -153,7 +153,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3400_EMP_IF_S");
+			param.put("procedure", 		"SP_COM3400_EMP_IF_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -179,7 +179,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_FBSNAME_Q");
+			param.put("procedure", 		"SP_FBSNAME_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -203,7 +203,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S2");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S2");
 					
 			logger.info("=============insertCom3400_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -225,7 +225,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S3");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S3");
 			
 			logger.info("=============insertCom3400_S3=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -247,7 +247,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S4");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S4");
 			
 			logger.info("=============insertCom3400_S4=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -269,7 +269,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S5");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S5");
 			
 			logger.info("=============insertCom3400_S5=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -291,7 +291,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S6");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S6");
 			
 			logger.info("=============insertCom3400_S6=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -313,7 +313,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S7");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S7");
 			
 			logger.info("=============insertCom3400_S7=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -335,7 +335,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S8");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S8");
 			
 			logger.info("=============insertCom3400_S8=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -357,7 +357,7 @@ public class ApcMaCom3400Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3400_S9");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3400_S9");
 			
 			logger.info("=============insertCom3400_S9=====end========");
 			return getSuccessResponseEntityMa(resultMap);

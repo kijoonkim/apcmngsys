@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -49,7 +49,7 @@
 						<col style="width: 1%">
 						<col style="width: 7%">
 						<col style="width: 2%">
-
+ 
 						<col style="width: 8%">
 						<col style="width: 7%">
 						<col style="width: 1%">
@@ -336,9 +336,9 @@
     </div>
 </section>
 </body>
-
+ 
 <script type="text/javascript">
-
+ 
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
@@ -352,7 +352,7 @@
 		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
 			return;
 		}
-
+ 
 		fn_init();
 	}
 	
@@ -389,26 +389,26 @@
 	var jsonDoc = [];
 	var grdFileLog;
 	var jsonFileLog = [];
-
+ 
 	
 	var jsonVatContents = [];
 	var jsonVatRepDetailType = [];
 	
 	const siteElmts = [
-		{"type": "string", "col": "TAX_SITE_NAME", 		"elmt": "dtl-inp-taxSiteName"},
-		{"type": "string", "col": "BIZ_REGNO", 			"elmt": "dtl-inp-bizRegno"},
-		{"type": "string", "col": "HOME_TAX_ID", 		"elmt": "dtl-inp-homeTaxId"},
-		{"type": "string", "col": "DATA_HANDOUT_DATE", 	"elmt": "dtl-dtp-dataHandoutDate"},
+		{"type": "string", "col": "TX_SITE_NM", 		"elmt": "dtl-inp-taxSiteName"},
+		{"type": "string", "col": "BRNO", 			"elmt": "dtl-inp-bizRegno"},
+		{"type": "string", "col": "HOME_TX_ID", 		"elmt": "dtl-inp-homeTaxId"},
+		{"type": "string", "col": "DATA_SBMSN_YMD", 	"elmt": "dtl-dtp-dataHandoutDate"},
 		{"type": "string", "col": "MEMO", 				"elmt": "dtl-inp-memo"},
-		{"type": "string", "col": "BIZ_REGNO", 			"elmt": "dtl-inp-bizRegno"},
+		{"type": "string", "col": "BRNO", 			"elmt": "dtl-inp-bizRegno"},
 	];
-
-
+ 
+ 
 	let dirHandle = undefined;
-
+ 
 	const files = [];
-
-
+ 
+ 
 	const fn_setSiteInfo = function(_data) {
 		
 		if (gfn_isEmpty(_data)) {
@@ -431,9 +431,9 @@
 	
 	
     window.addEventListener("DOMContentLoaded",function(){
-
+ 
         fn_init();
-
+ 
     });
     
     /**
@@ -447,19 +447,19 @@
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
         
         await fn_initSBSelect();
-
+ 
 		// 파일경로 handler 초기화
 		dirHandle = undefined;
 		files.length = 0;
 		SBUxMethod.set("dtl-inp-filePath", "");
-
+ 
 		SBUxMethod.set("srch-inp-termFr", "");
 		SBUxMethod.set("srch-inp-termTo", "");
-
+ 
 		jsonTaxSite.length = 0;
 		jsonDoc.length = 0;
 		jsonFileLog.length = 0;
-
+ 
         fn_createGridTaxSite();
         fn_createGridDoc();
         fn_createGridFileLog();
@@ -474,9 +474,9 @@
   		
 		// 코드정보 설정
 		let result = await Promise.all([
-
-	    	gfnma_setComSelect(['_'], jsonVatType, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
-
+ 
+	    	gfnma_setComSelect(['_'], jsonVatType, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TMPLT_NM', 'Y', ''),
+ 
 			/** 신고구분명 select **/
 			gfnma_multiSelectInit({
 		            target			: ['#srch-ddm-seq']
@@ -490,14 +490,14 @@
 		            ,dropType		: 'down' 	// up, down
 		            ,dropAlign		: 'right' 	// left, right
 		            ,colValue		: 'SEQ'
-		            ,colLabel		: 'VAT_TYPE_NAME'
+		            ,colLabel		: 'VAT_TMPLT_NM'
 		            ,columns		:[
-		                {caption: "부가세유형",			ref: 'VAT_TYPE_NAME', 		width:'180px',  	style:'text-align:left'},
+		                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
 		                {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
 		                {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
 		                {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
-		                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',   width:'150px',  	style:'text-align:left'},
-		                {caption: "확정여부", 			ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+		                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
+		                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
 		                {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
 		            ]
 		            ,callback       : function(_seq) {
@@ -521,7 +521,7 @@
 			if (!gfn_isEmpty(vatType)) {
 				SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
-
+ 
 				let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
 				SBUxMethod.set('srch-dtp-yyyy', year);
 			}
@@ -544,14 +544,14 @@
         SBGridProperties.columns = [
             {
             	caption: ['신고사업장명'],               
-            	ref: 'TAX_SITE_NAME',        
+            	ref: 'TX_SITE_NM',        
             	width: '50%',    
             	style: 'text-align:center',    
             	type: 'output'
             },
             {
             	caption: ['사업자번호'],          
-            	ref: 'BIZ_REGNO',      
+            	ref: 'BRNO',      
             	width: '50%',   
             	style: 'text-align:center',    
             	type : 'output'
@@ -585,7 +585,7 @@
             },
             {
             	caption: ['부가세 서식명'],          
-            	ref: 'VAT_REPORT_NAME',      
+            	ref: 'VAT_RPT_TMPLT_NM',      
             	width: '90%',   
             	style: 'text-align:center',    
             	type: 'output'
@@ -612,42 +612,42 @@
         SBGridProperties.columns = [
             {
             	caption : ['연번'],               
-            	ref : 'CREATE_SEQ',        
+            	ref : 'WRT_SEQ',        
             	width : '60px',    
             	style : 'text-align:right',    
             	type : 'output'
             },
             {
             	caption : ['신고사업장명'],          
-            	ref : 'TAX_SITE_NAME',      
+            	ref : 'TX_SITE_NM',      
             	width : '120px',   
             	style : 'text-align:left',    
             	type : 'output'
             },
             {
             	caption : ['제출일자'],          
-            	ref : 'DATA_HANDOUT_DATE',      
+            	ref : 'DATA_SBMSN_YMD',      
             	width : '120px',   
             	style : 'text-align:center',    
             	type : 'output'
             },
             {
             	caption : ['생성자ID'],          
-            	ref : 'INSERT_USERID',      
+            	ref : 'WRT_USER_ID',      
             	width : '100px',   
             	style : 'text-align:center',    
             	type : 'output'
             },
             {
             	caption : ['생성일시'],          
-            	ref : 'INSERT_TIME',      
+            	ref : 'WRT_DT',      
             	width : '140px',   
             	style : 'text-align:center',    
             	type : 'output'
             },
             {
             	caption : ['생성자PC'],          
-            	ref : 'INSERT_PC',      
+            	ref : 'WRT_PC',      
             	width : '100px',   
             	style : 'text-align:center',    
             	type : 'output'
@@ -692,14 +692,14 @@
 		const seq = gfn_nvl(gfnma_multiSelectGet("#srch-ddm-seq"));
 		const taxSiteName = gfn_nvl(SBUxMethod.get('srch-inp-taxSiteName'));
 		const bizRegno = gfn_nvl(SBUxMethod.get('srch-inp-bizRegno'));
-
+ 
 		/*
         if (gfn_isEmpty(taxSiteName)) {
             gfn_comAlert("W0002", "신고구분명");
             return;
         }
 		*/
-
+ 
         const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
@@ -727,29 +727,32 @@
             cv_count			: '7',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromiseForList;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
             	console.log("listData.cv_1", listData.cv_1);
             	
             	jsonTaxSite.length = 0;
-
+ 
                 listData.cv_1.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
-                    	TAX_SITE_CODE	: item.TAX_SITE_CODE,
-                        TAX_SITE_NAME	: item.TAX_SITE_NAME,
-                        BIZ_REGNO		: item.BIZ_REGNO
+                    	TAX_SITE_CODE	: item.TX_SITE_CD,
+                        TAX_SITE_NAME	: item.TX_SITE_NM,
+                        BIZ_REGNO		: item.BRNO
                     }
                 	
                     jsonTaxSite.push(obj);
+
+                     */
+                    jsonTaxSite.push(item);
                 });
                 
                 grdTaxSite.rebuild();
-
+ 
             } else {
                 alert(listData.resultMessage);
             }
@@ -793,7 +796,7 @@
                 
                 V_P_YYYY 			: yyyy,
                 V_P_SEQ				: seq,
-                V_P_TAX_SITE_CODE	: _site.TAX_SITE_CODE,
+                V_P_TAX_SITE_CODE	: _site.TX_SITE_CD,
                 V_P_DATA_HANDOUT_DATE	: '',
                 V_P_TAX_SITE_NAME	: '',
                 V_P_BIZ_REGNO		: '',
@@ -812,9 +815,9 @@
             cv_count			: '7',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromiseForList;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
@@ -822,20 +825,23 @@
             	
             	// cv_2 사업장정보
             	jsonSiteInfo.length = 0;
-
+ 
                 listData.cv_2.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
-               			TAX_SITE_NAME		: item.TAX_SITE_NAME,
-               			BIZ_REGNO			: item.BIZ_REGNO,
-               			HOME_TAX_ID			: item.HOME_TAX_ID,
-               			DATA_HANDOUT_DATE	: item.DATA_HANDOUT_DATE,
+               			TAX_SITE_NAME		: item.TX_SITE_NM,
+               			BIZ_REGNO			: item.BRNO,
+               			HOME_TAX_ID			: item.HOME_TX_ID,
+               			DATA_HANDOUT_DATE	: item.DATA_SBMSN_YMD,
                			MEMO				: item.MEMO,
-               			BIZ_REGNO			: item.BIZ_REGNO,
+               			BIZ_REGNO			: item.BRNO,
                			COMPANY_NUM			: item.COMPANY_NUM,
                     }
                 	
                 	jsonSiteInfo.push(obj);
+
+                     */
+                	jsonSiteInfo.push(item);
                 });
                 
                 if (jsonSiteInfo.length > 0) {
@@ -846,44 +852,50 @@
                 
                 // cv_3 첨부서류
                 console.log("listData.cv_3", listData.cv_3);
-
+ 
             	jsonDoc.length = 0;
             	
                 listData.cv_3.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
                			REPORT_SEQ  	: item.REPORT_SEQ,
-               			VAT_REPORT_CODE : item.VAT_REPORT_CODE,
-               			VAT_REPORT_NAME : item.VAT_REPORT_NAME,
+               			VAT_REPORT_CODE : item.VAT_RPT_CD,
+               			VAT_REPORT_NAME : item.VAT_RPT_TMPLT_NM,
                     }
                 	
                 	jsonDoc.push(obj);
+
+                     */
+                	jsonDoc.push(item);
                 });
                 
                 grdDoc.rebuild();
                 
                 // cv_4 파일생성로그
                 console.log("listData.cv_4", listData.cv_4);
-
+ 
                 jsonFileLog.length = 0;
             	
                 listData.cv_4.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
-               			CREATE_SEQ  		: item.CREATE_SEQ,
-               			DATA_HANDOUT_DATE   : item.DATA_HANDOUT_DATE,
-               			INSERT_USERID   	: item.INSERT_USERID,
-               			INSERT_TIME 		: item.INSERT_TIME,
-               			INSERT_PC   		: item.INSERT_PC,
+               			CREATE_SEQ  		: item.WRT_SEQ,
+               			DATA_HANDOUT_DATE   : item.DATA_SBMSN_YMD,
+               			INSERT_USERID   	: item.WRT_USER_ID,
+               			INSERT_TIME 		: item.WRT_DT,
+               			INSERT_PC   		: item.WRT_PC,
                			MEMO    			: item.MEMO,
-               			TAX_SITE_NAME   	: item.TAX_SITE_NAME,
+               			TAX_SITE_NAME   	: item.TX_SITE_NM,
                     }
                 	
                 	jsonFileLog.push(obj);
+
+                     */
+                	jsonFileLog.push(item);
                 });
                 
                 grdFileLog.rebuild();
-
+ 
             } else {
                 alert(listData.resultMessage);
             }
@@ -922,7 +934,7 @@
                 
                 V_P_YYYY 			: yyyy,
                 V_P_SEQ				: seq,
-                V_P_TAX_SITE_CODE	: rowData.TAX_SITE_CODE,
+                V_P_TAX_SITE_CODE	: rowData.TX_SITE_CD,
                 V_P_DATA_HANDOUT_DATE	: '',
                 V_P_TAX_SITE_NAME	: '',
                 V_P_BIZ_REGNO		: '',
@@ -941,34 +953,37 @@
             cv_count			: '7',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromiseForList;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
                 // cv_4 파일생성로그
                 console.log("listData.cv_5", listData.cv_5);
-
+ 
                 jsonFileLog.length = 0;
             	
                 listData.cv_5.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
-               			CREATE_SEQ  		: item.CREATE_SEQ,
-               			DATA_HANDOUT_DATE   : item.DATA_HANDOUT_DATE,
-               			INSERT_USERID   	: item.INSERT_USERID,
-               			INSERT_TIME 		: item.INSERT_TIME,
-               			INSERT_PC   		: item.INSERT_PC,
+               			CREATE_SEQ  		: item.WRT_SEQ,
+               			DATA_HANDOUT_DATE   : item.DATA_SBMSN_YMD,
+               			INSERT_USERID   	: item.WRT_USER_ID,
+               			INSERT_TIME 		: item.WRT_DT,
+               			INSERT_PC   		: item.WRT_PC,
                			MEMO    			: item.MEMO,
-               			TAX_SITE_NAME   	: item.TAX_SITE_NAME,
+               			TAX_SITE_NAME   	: item.TX_SITE_NM,
                     }
                 	
                 	jsonFileLog.push(obj);
+
+                     */
+                	jsonFileLog.push(item);
                 });
                 
                 grdFileLog.rebuild();
-
+ 
             } else {
                 alert(listData.resultMessage);
             }
@@ -982,10 +997,10 @@
         }
 	}
 	
-
+ 
 	
     const fn_getFiles = async (dirHandle, path = dirHandle.name) => {
-
+ 
     	files.length = 0;
         for await (const entry of dirHandle.values()) {
 			
@@ -1106,10 +1121,10 @@
 		for ( let i=0; i<jsonTaxSite.length; i++ ) {
 			
 			const taxSite = jsonTaxSite[i];
-			const bizRegno = gfn_nvl(taxSite['BIZ_REGNO']).replace("-", "");
+			const bizRegno = gfn_nvl(taxSite['BRNO']).replace("-", "");
 			const dataHandoutDate = SBUxMethod.get("dtl-dtp-dataHandoutDate");
 			
-			const taxSiteCode = taxSite['TAX_SITE_CODE'];
+			const taxSiteCode = taxSite['TX_SITE_CD'];
 			
 			let filename = "";
 			switch (_workType) {
@@ -1220,15 +1235,15 @@
             cv_count			: '7',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromiseForList;
-
+ 
         jsonVatContents.length = 0;
     	jsonVatRepDetailType.length = 0;
         
         try {
             if (_.isEqual("S", listData.resultStatus)) {
-
+ 
                 listData.cv_6.forEach((item, index) => {
                 	jsonVatContents.push({
                 		VAT_CONTENTS: item.VAT_CONTENTS
@@ -1239,7 +1254,7 @@
                 	
                 	listData.cv_7.forEach((item, index) => {
                 		jsonVatRepDetailType.push({
-                			VAT_REP_DETAIL_TYPE: item.VAT_REP_DETAIL_TYPE
+                			VAT_REP_DETAIL_TYPE: item.VAT_RPT_DTL_TYPE
                     	});
                 	});
                 }
@@ -1304,10 +1319,10 @@
 		for ( let i=0; i<jsonTaxSite.length; i++ ) {
 			
 			const taxSite = jsonTaxSite[i];
-			const bizRegno = gfn_nvl(taxSite['BIZ_REGNO']).replace("-", "");
+			const bizRegno = gfn_nvl(taxSite['BRNO']).replace("-", "");
 			const dataHandoutDate = SBUxMethod.get("dtl-dtp-dataHandoutDate");
 			
-			const taxSiteCode = taxSite['TAX_SITE_CODE'];
+			const taxSiteCode = taxSite['TX_SITE_CD'];
 			
 			
 			try {
@@ -1379,7 +1394,7 @@
 	const download = function (data) {
 	    const blob = new Blob([data], { type: 'text/csv' });
 	    const url = URL.createObjectURL(blob)
-
+ 
 	    const a = document.createElement('a')
 	    a.setAttribute('href', url)
 	    a.setAttribute('download', '파일이름.txt');
@@ -1419,7 +1434,7 @@
             cv_count			: '0',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
 		const resoponseData = await postJsonPromise;
         
         try {

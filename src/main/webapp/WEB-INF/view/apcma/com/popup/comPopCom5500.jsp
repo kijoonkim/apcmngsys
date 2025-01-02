@@ -39,7 +39,7 @@
 	</section>
 </body>
 <script >
-
+ 
 /**
  * @description 공통 팝업
  */
@@ -59,7 +59,7 @@ function com5500Popup(options) {
 	};
 	$.extend(settings, options);	
 	console.log('settings:', settings);
-
+ 
 	//setGrid
     const setGrid = function() {
 	  	//기간별환율 탭 - 기간별환율등록
@@ -110,12 +110,12 @@ function com5500Popup(options) {
 	    		
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
-		    				CONTACT_GROUP		: item.CONTACT_GROUP,
-		    				EMP_CODE			: item.EMP_CODE,
-		    				EMP_NAME			: item.EMP_NAME,
-		    				MAIL_ADDRESS		: item.MAIL_ADDRESS,
-		    				TEL_NO				: item.TEL_NO,
-		    				TXN_ID				: item.TXN_ID
+		    				CONTACT_GROUP		: item.CTTPC_GRP,
+		    				EMP_CODE			: item.EMP_CD,
+		    				EMP_NAME			: item.EMP_NM,
+		    				MAIL_ADDRESS		: item.EML_ADDR,
+		    				TEL_NO				: item.TELNO,
+		    				TXN_ID				: item.TRSC_ID
 		    		}
 		    		gridList.push(msg);
 		    	});
@@ -124,7 +124,7 @@ function com5500Popup(options) {
     		} else {
     	  		alert(data.resultMessage);
     		}
-
+ 
     	} catch (e) {
 	    	if (!(e instanceof Error)) {
 	    		e = new Error(e);

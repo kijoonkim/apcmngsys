@@ -276,9 +276,9 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['grdExceptionList', 'SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList', 'SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({
@@ -292,11 +292,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -312,11 +312,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'PAY_ITEM_CODE'
-                ,colLabel		: 'PAY_ITEM_NAME'
+                ,colValue		: 'SLRY_ITEM_CD'
+                ,colLabel		: 'SLRY_ITEM_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'PAY_ITEM_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'PAY_ITEM_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SLRY_ITEM_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SLRY_ITEM_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
 
@@ -327,14 +327,14 @@
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
 
-        var searchText = gfnma_nvl2(SBUxMethod.get("srch-dept_name"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_FULL_NAME"));
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         compopup1({
             compCode: gv_ma_selectedCorpCd
@@ -343,16 +343,50 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
-            , searchInputValues: [""           , searchText ,""             ,""         ,""]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
+            , searchInputValues: [""           , "" ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
+        });
+    }
+
+    /**
+     * 그리드내 공통팝업 오픈
+     */
+    var fn_compopup2 = function(row, col, searchTt) {
+
+        var searchText 		= searchTt;
+        var replaceText0 	= "_EMP_CD_";
+        var replaceText1 	= searchText;
+        var strWhereClause 	= "AND X.EMP_CD LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS = 'WORK'";
+
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
+        SBUxMethod.openModal('modal-compopup1');
+
+        compopup1({
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_HRI001_ESS'
+            ,popupType				: 'A'
+            ,whereClause			: strWhereClause
+            ,searchCaptions			: ["사번", 		"사원명"]
+            ,searchInputFields		: ["EMP_CD", 	"EMP_NM"]
+            ,searchInputValues		: ["", 	searchText]
+            ,height					: '400px'
+            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_CD", "DEPT_NM","SITE_NM","JBPS_NM"]
+            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
+            ,itemSelectEvent		: function (data){
+                //그리드내 원하는 위치에 값 셋팅하기
+                grdExceptionList.setCellData(row, (col-1), data['EMP_CD']);
+                grdExceptionList.setCellData(row, (col+1), data['EMP_NM']);
+            }
         });
     }
 
@@ -446,11 +480,11 @@
         fn_search();
     }
 
-   /* function cfn_add(){
+    /* function cfn_add(){
 
-    }
-    function cfn_del(){
-    }*/
+     }
+     function cfn_del(){
+     }*/
 
     /**
      * 초기화
@@ -564,63 +598,29 @@
      */
     function fn_gridPopup(event, row, col) {
 
-      /*  if (!_.isEmpty(row)){
-            grdExceptionList.setRowStatus(row, 'u', true);
-        }*/
+        /*  if (!_.isEmpty(row)){
+              grdExceptionList.setRowStatus(row, 'u', true);
+          }*/
 
         let rowData = grdExceptionList.getRowData(row);
         let rowStatus = grdExceptionList.getRowStatus(row);
 
 
-      /*  if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){*/
+        /*  if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){*/
 
         let searchText = '';
         if (!_.isEmpty(rowData)){
-            searchText = rowData.EMP_CODE;
+            searchText = rowData.EMP_NAME;
         }
 
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup2(row, col, searchText);
 
-       /* }else{
-            return false;
-        }*/
+        /* }else{
+             return false;
+         }*/
 
 
-    }
-
-    /**
-     * 그리드내 공통팝업 오픈
-     */
-    var fn_compopup2 = function(row, col, searchTt) {
-
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-        SBUxMethod.openModal('modal-compopup1');
-
-        var searchText 		= searchTt;
-        var replaceText0 	= "_EMP_CODE_";
-        var replaceText1 	= "_EMP_NAME_";
-        var strWhereClause 	= "AND X.EMP_CODE LIKE '%" + replaceText0 + "%' AND X.EMP_NAME LIKE '%" + replaceText1 + "%' AND X.EMP_STATE = 'WORK'";
-
-        compopup1({
-            compCode				: gv_ma_selectedCorpCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRI001_ESS'
-            ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
-            ,searchInputFields		: ["EMP_CODE", 	"EMP_NAME"]
-            ,searchInputValues		: [searchText, 	""]
-            ,height					: '400px'
-            ,tableHeader			: ["사번", "직원명", "부서코드", "부서명", "사업장명","직위명"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_CODE", "DEPT_NAME","SITE_NAME","POSITION_NAME"]
-            ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
-            ,itemSelectEvent		: function (data){
-                //그리드내 원하는 위치에 값 셋팅하기
-                grdExceptionList.setCellData(row, (col-1), data['EMP_CODE']);
-                grdExceptionList.setCellData(row, (col+1), data['EMP_NAME']);
-            }
-        });
     }
 
 
@@ -646,8 +646,8 @@
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
 
             grdExceptionList.addRow(true, msg);
-           /* let rows = grdExceptionList.getRows()-2;
-            grdExceptionList.setCellDisabled(rows, 0, rows, 5, false, true, true);*/
+            /* let rows = grdExceptionList.getRows()-2;
+             grdExceptionList.setCellDisabled(rows, 0, rows, 5, false, true, true);*/
 
         }else{
             grdExceptionList.insertRow(rowVal, 'below', msg);
@@ -771,15 +771,15 @@
                 jsonExceptionList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_TYPE		: gfnma_nvl2(item.PAY_TYPE),
-                        EMP_CODE		: gfnma_nvl2(item.EMP_CODE),
-                        EMP_NAME		: gfnma_nvl2(item.EMP_NAME),
-                        PAY_ITEM_CODE   : gfnma_nvl2(item.PAY_ITEM_CODE),
-                        PAY_YYYYMM_FR	: gfnma_nvl2(item.PAY_YYYYMM_FR),
-                        PAY_YYYYMM_TO	: gfnma_nvl2(item.PAY_YYYYMM_TO),
-                        PAY_APPLY_TYPE	: gfnma_nvl2(item.PAY_APPLY_TYPE),
-                        PAY_APPLY_RATE	: gfnma_nvl2(item.PAY_APPLY_RATE),
-                        PAY_APPLY_AMT	: gfnma_nvl2(item.PAY_APPLY_AMT),
+                        PAY_TYPE		: gfnma_nvl2(item.SLRY_TYPE),
+                        EMP_CODE		: gfnma_nvl2(item.EMP_CD),
+                        EMP_NAME		: gfnma_nvl2(item.EMP_NM),
+                        PAY_ITEM_CODE   : gfnma_nvl2(item.SLRY_ITEM_CD),
+                        PAY_YYYYMM_FR	: gfnma_nvl2(item.SLRY_BENG_YM),
+                        PAY_YYYYMM_TO	: gfnma_nvl2(item.SLRY_END_YM),
+                        PAY_APPLY_TYPE	: gfnma_nvl2(item.SLRY_APLY_TYPE),
+                        PAY_APPLY_RATE	: gfnma_nvl2(item.SLRY_APLY_RT),
+                        PAY_APPLY_AMT	: gfnma_nvl2(item.SLRY_APLY_AMT),
                         MEMO 			: gfnma_nvl2(item.MEMO)
                     }
                     jsonExceptionList.push(msg);
@@ -817,11 +817,11 @@
 
             let listData = [];
             listData =  await getParamForm('u');
-           /* var paramObj = {
-                P_HRP1170_S: await getParamForm('u')
-            }*/
+            /* var paramObj = {
+                 P_HRP1170_S: await getParamForm('u')
+             }*/
 
-            if (_.isEmpty(listData) == false) {
+            if (listData.length > 0) {
 
                 const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1170.do", {listData: listData});
 
@@ -845,9 +845,7 @@
                     console.error("failed", e.message);
                     gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
                 }
-            }/*else {
-                gfn_comAlert("Q0000","수정할 데이터가 없습니다.");
-            }*/
+            }
         }
 
     }
@@ -870,7 +868,6 @@
         if (!_.isEmpty(updateData)) {
 
             updateData.forEach((item, index) => {
-
                 const param = {
 
                     cv_count: '0',
@@ -1124,7 +1121,7 @@
 
             fn_ColumnSetting(nRow,strType);
 
-           /* fnColumnSetting(strType);*/
+            /* fnColumnSetting(strType);*/
 
         }
 
@@ -1137,9 +1134,9 @@
         {
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), false, false, true );
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), true, false, true );
-           /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
-            grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
-           */ /*gvwException.Columns["pay_apply_rate"].OptionsColumn.AllowEdit = false;
+            /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
+             grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
+            */ /*gvwException.Columns["pay_apply_rate"].OptionsColumn.AllowEdit = false;
             //gvwException.Columns["pay_apply_rate"].AllowBlank = true;
             gvwException.Columns["pay_apply_rate"].AppearanceHeader.ForeColor = AppearanceGridForeColor;
             gvwException.Columns["pay_apply_amt"].OptionsColumn.AllowEdit = true;
@@ -1150,9 +1147,9 @@
         {
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), true, false, true );
             grdExceptionList.setCellDisabled(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), false, false, true );
-           /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
-            grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
-*/
+            /* grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),nRow, grdExceptionList.getColRef('PAY_APPLY_RATE'), '#FFFFFF');
+             grdExceptionList.setCellStyle('background-color', nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),nRow, grdExceptionList.getColRef('PAY_APPLY_AMT'), '#ccccc');
+ */
 
             /*gvwException.Columns["pay_apply_rate"].OptionsColumn.AllowEdit = true;
             //gvwException.Columns["pay_apply_rate"].AllowBlank = false;

@@ -56,7 +56,7 @@ public class ApcMaFig3150Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIG3150_Q");
+            param.put("procedure", 		"SP_FIG3150_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG3150_S");
+    		param.put("procedure", 		"SP_FIG3150_S");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -106,7 +106,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S5_IF");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S5_IF");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
@@ -130,7 +130,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG3150_S4");
+    		param.put("procedure", 		"SP_FIG3150_S4");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
@@ -155,7 +155,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
@@ -179,7 +179,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S3");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S3");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());
@@ -203,7 +203,7 @@ public class ApcMaFig3150Controller extends BaseController {
     	
     	try {
     		
-    		resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3150_S3");
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S3");
     		
     	} catch (Exception e) {
     		logger.debug(e.getMessage());

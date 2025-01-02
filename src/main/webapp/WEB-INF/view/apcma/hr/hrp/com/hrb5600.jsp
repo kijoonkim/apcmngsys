@@ -319,9 +319,9 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            gfnma_setComSelect(['SRCH_PAY_TYPE','PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['PAY_ITEM_CODE'], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwListGrid'], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_TYPE','PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['PAY_ITEM_CODE'], jsonPayItemCode2, 'L_HRP004_B', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwListGrid'], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
             /*gfnma_setComSelect([''], jsonPayItemCode1, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
             gfnma_setComSelect([''], jsonPayItemRangeType, 'L_HRB026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
 */
@@ -337,11 +337,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'PAY_ITEM_CODE'
-                ,colLabel		: 'PAY_ITEM_NAME'
+                ,colValue		: 'SLRY_ITEM_CD'
+                ,colLabel		: 'SLRY_ITEM_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'PAY_ITEM_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'PAY_ITEM_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SLRY_ITEM_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SLRY_ITEM_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -357,11 +357,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             })
 
@@ -570,11 +570,11 @@
                 jsonGvwList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CODE           : gfnma_nvl2(item.PAY_ITEM_CODE),
-                        PAY_TYPE                : gfnma_nvl2(item.PAY_TYPE),
-                        APPLY_START_DATE        : gfnma_nvl2(item.APPLY_START_DATE),
-                        PAY_ITEM_RANGE_TYPE1    : gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE1),
-                        PAY_ITEM_RANGE_TYPE2    : gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE2),
+                        PAY_ITEM_CODE           : gfnma_nvl2(item.SLRY_ITEM_CD),
+                        PAY_TYPE                : gfnma_nvl2(item.SLRY_TYPE),
+                        APPLY_START_DATE        : gfnma_nvl2(item.APLY_STRT_YMD),
+                        PAY_ITEM_RANGE_TYPE1    : gfnma_nvl2(item.SLRY_ITEM_SCP_TYPE1),
+                        PAY_ITEM_RANGE_TYPE2    : gfnma_nvl2(item.SLRY_ITEM_SCP_TYPE2),
                         KEYFIELD                : gfnma_nvl2(item.KEYFIELD)
 
                     }
@@ -666,17 +666,17 @@
 
                     data.cv_2.forEach((item, index) => {
 
-                        SBUxMethod.set("PAY_ITEM_CODE"      , gfnma_nvl2(item.PAY_ITEM_CODE));
-                        SBUxMethod.set("PAY_TYPE"           , gfnma_nvl2(item.PAY_TYPE));
-                        SBUxMethod.set("ALL_YN"             , gfnma_nvl2(item.ALL_YN));
-                        SBUxMethod.set("APPLY_START_DATE"   , gfnma_nvl2(item.APPLY_START_DATE));
-                        SBUxMethod.set("APPLY_END_DATE"     , gfnma_nvl2(item.APPLY_END_DATE));
-                       /* SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE1));
-                        SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE2));*/
+                        SBUxMethod.set("PAY_ITEM_CODE"      , gfnma_nvl2(item.SLRY_ITEM_CD));
+                        SBUxMethod.set("PAY_TYPE"           , gfnma_nvl2(item.SLRY_TYPE));
+                        SBUxMethod.set("ALL_YN"             , gfnma_nvl2(item.WHOL_YN));
+                        SBUxMethod.set("APPLY_START_DATE"   , gfnma_nvl2(item.APLY_STRT_YMD));
+                        SBUxMethod.set("APPLY_END_DATE"     , gfnma_nvl2(item.APLY_END_YMD));
+                        /* SBUxMethod.set("PAY_ITEM_RANGE_TYPE1", gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE1));
+                         SBUxMethod.set("PAY_ITEM_RANGE_TYPE2", gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE2));*/
                         SBUxMethod.set("MEMO"               , gfnma_nvl2(item.MEMO));
 
-                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE1));
-                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.PAY_ITEM_RANGE_TYPE2));
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE1', 'SBSD_CD', 'CD_NM', gfnma_nvl2(item.SLRY_ITEM_SCP_TYPE1));
+                        gfnma_multiSelectSet('#PAY_ITEM_RANGE_TYPE2', 'SBSD_CD', 'CD_NM', gfnma_nvl2(item.SLRY_ITEM_SCP_TYPE2));
 
                     });
 
@@ -686,11 +686,11 @@
                     jsonBandgvwDetailList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_RANGE_CODE1    : gfnma_nvl2(item.PAY_ITEM_RANGE_CODE1),
+                            PAY_ITEM_RANGE_CODE1    : gfnma_nvl2(item.SLRY_ITEM_SCP_CD1),
                             PAY_ITEM_RANGE_NAME1    : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME1),
-                            PAY_ITEM_RANGE_CODE2    : gfnma_nvl2(item.PAY_ITEM_RANGE_CODE2),
+                            PAY_ITEM_RANGE_CODE2    : gfnma_nvl2(item.SLRY_ITEM_SCP_CD2),
                             PAY_ITEM_RANGE_NAME2    : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME2),
-                            PAY_ITEM_RANGE_AMT      : gfnma_nvl2(item.PAY_ITEM_RANGE_AMT),
+                            PAY_ITEM_RANGE_AMT      : gfnma_nvl2(item.SLRY_ITEM_SCP_AMT),
                             MEMO                    : gfnma_nvl2(item.MEMO)
 
                         }
@@ -774,12 +774,12 @@
                 jsonBandgvwDetailList.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_RANGE_CODE1    : gfnma_nvl2(item.PAY_ITEM_RANGE_CODE1),
-                        PAY_ITEM_RANGE_NAME1    : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME1),
-                        PAY_ITEM_RANGE_CODE2    : gfnma_nvl2(item.PAY_ITEM_RANGE_CODE2),
-                        PAY_ITEM_RANGE_NAME2    : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME2),
-                        PAY_ITEM_RANGE_AMT      : gfnma_nvl2(item.PAY_ITEM_RANGE_AMT),
-                        MEMO                    : gfnma_nvl2(item.MEMO)
+                        PAY_ITEM_RANGE_CODE1     : gfnma_nvl2(item.SLRY_ITEM_SCP_CD1),
+                        PAY_ITEM_RANGE_NAME1     : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME1),
+                        PAY_ITEM_RANGE_CODE2     : gfnma_nvl2(item.SLRY_ITEM_SCP_CD2),
+                        PAY_ITEM_RANGE_NAME2     : gfnma_nvl2(item.PAY_ITEM_RANGE_NAME2),
+                        PAY_ITEM_RANGE_AMT       : gfnma_nvl2(item.SLRY_ITEM_SCP_AMT),
+                        MEMO                     : gfnma_nvl2(item.MEMO)
 
                     }
                     jsonBandgvwDetailList.push(msg);

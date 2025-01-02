@@ -209,29 +209,29 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCloseState, 'L_HRA010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCloseState, 'L_HRA010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
             //사업장
-           /* gfnma_multiSelectInit({
-                target			: ['#srch-site_code']
-                ,compCode		: gv_ma_selectedCorpCd
-                ,clientCode		: gv_ma_selectedClntCd
-                ,bizcompId		: 'L_ORG001'
-                ,whereClause	: ''
-                ,formId			: p_formId
-                ,menuId			: p_menuId
-                ,selectValue	: ''
-                ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
-                ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
-                ]
-            })*/
+            /* gfnma_multiSelectInit({
+                 target			: ['#srch-site_code']
+                 ,compCode		: gv_ma_selectedCorpCd
+                 ,clientCode		: gv_ma_selectedClntCd
+                 ,bizcompId		: 'L_ORG001'
+                 ,whereClause	: ''
+                 ,formId			: p_formId
+                 ,menuId			: p_menuId
+                 ,selectValue	: ''
+                 ,dropType		: 'down' 	// up, down
+                 ,dropAlign		: 'right' 	// left, right
+                 ,colValue		: 'SITE_CODE'
+                 ,colLabel		: 'SITE_NAME'
+                 ,columns		:[
+                     {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
+                     {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                 ]
+             })*/
         ]);
     }
 
@@ -246,18 +246,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -266,13 +266,13 @@
     const fn_compopup2 = function() {
 
         var searchText = gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 = "_EMP_CODE_";
-        var replaceText1 = "_EMP_NAME_";
-        var replaceText2 = "_DEPT_CODE_";
-        var replaceText3 = "_DEPT_NAME_";
-        var replaceText4 = "_EMP_STATE_";
-        var strWhereClause = "AND x.EMP_CODE LIKE '%" + replaceText0 + "%' AND x.DEPT_NAME LIKE '%" + replaceText1 + "%' AND x.DEPT_CODE LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NAME LIKE '%" + replaceText3 +  "%' AND x.EMP_STATE LIKE '%"+replaceText4+"%'";
+        var replaceText0 = "_EMP_CD_";
+        var replaceText1 = searchText;
+        var replaceText2 = "_DEPT_CD_";
+        var replaceText3 = "_DEPT_NM_";
+        var replaceText4 = "_EMP_STTS_";
+        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
+            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
         compopup1({
@@ -282,15 +282,15 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CODE"  , "DEPT_NAME", "EMP_CODE"   ,"EMP_NAME"  ,"EMP_STATE"]
+            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
             , searchInputValues: [""           , ""         ,""             ,searchText         ,""]
             , height: '400px'
             , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CODE"  , "EMP_NAME"  , "DEPT_NAME"   ,"SITE_NAME"  ,"EMP_STATE_NAME"]
+            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
             , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
             , itemSelectEvent: function (data) {
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
 
@@ -485,14 +485,14 @@
                 jsonInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        ORDER_SEQ 			                : gfn_nvl(item.ORDER_SEQ)
+                        ORDER_SEQ 			                : gfn_nvl(item.SORT_SEQ)
                         ,SORT_SEQ 			                : gfn_nvl(item.SORT_SEQ)
                         ,SEQ 			                    : gfn_nvl(item.SEQ)
                         ,YE_TX_TYPE 			            : gfn_nvl(item.YE_TX_TYPE)
                         ,CLOSE_STATE 			            : gfn_nvl(item.CLOSE_STATE)
-                        ,DEPT_NAME 			                : gfn_nvl(item.DEPT_NAME)
-                        ,EMP_CODE 			                : gfn_nvl(item.EMP_CODE)
-                        ,EMP_NAME 			                : gfn_nvl(item.EMP_NAME)
+                        ,DEPT_NAME 			                : gfn_nvl(item.DEPT_NM)
+                        ,EMP_CODE 			                : gfn_nvl(item.EMP_CD)
+                        ,EMP_NAME 			                : gfn_nvl(item.EMP_NM)
                         ,WORK_END_DAT 			            : gfn_nvl(item.WORK_END_DAT)
                         ,MIDWAY_TX_RETURN_YN 			    : gfn_nvl(item.MIDWAY_TX_RETURN_YN)
                         // -- A : 급여계 =  [총금액에서 수당(과세+비과세)을 뺀 부분만 표현]으로 기본급만 취한다.
@@ -511,21 +511,21 @@
                         ,PAY_TX_TOT_AMT 			        : gfn_nvl(item.PAY_TX_TOT_AMT)
                         // -- F : 비과세제외 = 비과세총액 - 비과세수당
                         ,TAX_FREE_EXCEPT_AMT 			    : gfn_nvl(item.TAX_FREE_EXCEPT_AMT)
-                        ,PAY_TOT_AMT 			            : gfn_nvl(item.PAY_TOT_AMT)
-                        ,INC_TOT_AMT 			            : gfn_nvl(item.INC_TOT_AMT)
-                        ,INC_DEAMT 			                : gfn_nvl(item.INC_DEAMT)
-                        ,INC_AMT 			                : gfn_nvl(item.INC_AMT)
+                        ,PAY_TOT_AMT 			            : gfn_nvl(item.EARN_TOT_AMT)
+                        ,INC_TOT_AMT 			            : gfn_nvl(item.ERICM_TOT_AMT)
+                        ,INC_DEAMT 			                : gfn_nvl(item.ERICM_DDC_AMT)
+                        ,INC_AMT 			                : gfn_nvl(item.ERICM_AMT)
                         ,TOT_INC_TX_STD_AMT 			    : gfn_nvl(item.TOT_INC_TX_STD_AMT)
-                        ,CALCULATE_TX_AMT 			        : gfn_nvl(item.CALCULATE_TX_AMT)
+                        ,CALCULATE_TX_AMT 			        : gfn_nvl(item.CALC_TX_AMT)
                         ,TX_DED_TOT_AMT 			        : gfn_nvl(item.TX_DED_TOT_AMT)
-                        ,CALC_INC_TX_AMT 			        : gfn_nvl(item.CALC_INC_TX_AMT)
-                        ,CALC_LOCAL_TX_AMT 			        : gfn_nvl(item.CALC_LOCAL_TX_AMT)
-                        ,CALC_SPEC_TX_AMT 			        : gfn_nvl(item.CALC_SPEC_TX_AMT)
+                        ,CALC_INC_TX_AMT 			        : gfn_nvl(item.CALC_INCTX_AMT)
+                        ,CALC_LOCAL_TX_AMT 			        : gfn_nvl(item.CALC_LCL_TX_AMT)
+                        ,CALC_SPEC_TX_AMT 			        : gfn_nvl(item.CALC_SPTX_AMT)
                         ,NOW_INC_TX_AMT 			        : gfn_nvl(item.NOW_INC_TX_AMT)
                         ,NOW_LOCAL_TX_AMT 			        : gfn_nvl(item.NOW_LOCAL_TX_AMT)
                         ,NOW_SPEC_TX_AMT 			        : gfn_nvl(item.NOW_SPEC_TX_AMT)
-                        ,INC_TX_AMT 			            : gfn_nvl(item.INC_TX_AMT)
-                        ,LOCAL_TX_AMT 			            : gfn_nvl(item.LOCAL_TX_AMT)
+                        ,INC_TX_AMT 			            : gfn_nvl(item.INCM_TX_AMT)
+                        ,LOCAL_TX_AMT 			            : gfn_nvl(item.LCL_ICNTX_AMT)
                         ,SPEC_TX_AMT 			            : gfn_nvl(item.SPEC_TX_AMT)
                         ,TX_TOT_AMT 			            : gfn_nvl(item.TX_TOT_AMT)
 

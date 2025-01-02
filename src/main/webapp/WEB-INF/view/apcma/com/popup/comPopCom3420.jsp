@@ -78,7 +78,7 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var com3420Grid; 			// 그리드를 담기위한 객체 선언
 var jsonCom3420 			= []; // 그리드의 참조 데이터 주소 선언
@@ -96,7 +96,7 @@ var jsonShippingType 		= [];
 var jsonWithholdaTaxOffice 	= [];
 var jsonWithholdaTaxOffice2	= [];
 var jsonWithholdaTaxType	= [];
-
+ 
 /**
  * @description 복수코드
  */
@@ -112,7 +112,7 @@ function compopcom3420(options) {
 		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -411,29 +411,29 @@ function compopcom3420(options) {
 		,selectValue	: ''
 		,dropType		: 'down' 	// up, down
 		,dropAlign		: 'left' 	// left, right
-		,colValue		: 'SUB_CODE'
-		,colLabel		: 'CODE_NAME'
+		,colValue		: 'SBSD_CD'
+		,colLabel		: 'CD_NM'
 		,columns		:[
-            {caption: "거래처유형코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-            {caption: "거래처유형명", 			ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'},
-            {caption: "해외여부",				ref: 'EXTRA_FIELD2', 		width:'150px',  	style:'text-align:left'},
-            {caption: "사업자등록번호필수",		ref: 'EXTRA_FIELD3',    	width:'150px',  	style:'text-align:left'},
+            {caption: "거래처유형코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+            {caption: "거래처유형명", 			ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'},
+            {caption: "해외여부",				ref: 'EXTRA_COL2', 		width:'150px',  	style:'text-align:left'},
+            {caption: "사업자등록번호필수",		ref: 'EXTRA_COL3',    	width:'150px',  	style:'text-align:left'},
 		]
 	});
-    gfnma_setComSelect(['com3420Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','TAX_TYPE'], jsonTaxType, 'L_COM029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','COM_TYPE'], jsonComType, 'L_COM030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','BIZ_TYPE'], jsonBizType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','DEFER_REASON'], jsonDeferReason, 'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','TXN_STOP_REASON'], jsonTxnStopReason, 'L_COM048', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','PUR_HANDOV_CNDT_CD'], jsonPurHandovCndtCd, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','PAY_DATE_RULE'], jsonPayDateRule, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','DELIVERY_TYPE'], jsonDeliveryType, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','RECEIPT_DATE_RULE'], jsonReceiptDateRule, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','SHIPPING_TYPE'], jsonShippingType, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_OFFICE'], jsonWithholdaTaxOffice, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_OFFICE2'], jsonWithholdaTaxOffice2, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CS_CODE', 'CS_NAME', 'Y', '');
-    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_TYPE'], jsonWithholdaTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_TYPE_CODE', 'TAX_TYPE_NAME', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','CS_GROUP'], jsonCsGroup, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','TAX_TYPE'], jsonTaxType, 'L_COM029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','COM_TYPE'], jsonComType, 'L_COM030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','BIZ_TYPE'], jsonBizType, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','DEFER_REASON'], jsonDeferReason, 'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','TXN_STOP_REASON'], jsonTxnStopReason, 'L_COM048', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','PUR_HANDOV_CNDT_CD'], jsonPurHandovCndtCd, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','PAY_DATE_RULE'], jsonPayDateRule, 'L_COM011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','DELIVERY_TYPE'], jsonDeliveryType, 'L_COM038_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','RECEIPT_DATE_RULE'], jsonReceiptDateRule, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','SHIPPING_TYPE'], jsonShippingType, 'L_COM039_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_OFFICE'], jsonWithholdaTaxOffice, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CNPT_CD', 'CNPT_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_OFFICE2'], jsonWithholdaTaxOffice2, 'L_CS_GOVERNMENT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CNPT_CD', 'CNPT_NM', 'Y', '');
+    gfnma_setComSelect(['com3420Grid','WITHHOLD_TAX_TYPE'], jsonWithholdaTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_TYPE_CD', 'TX_TYPE_NM', 'Y', '');
     
 	function fn_clearCom3420() {
 		jsonCom3420 = [];
@@ -461,98 +461,98 @@ function compopcom3420(options) {
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/com/com3420List.do", {
         	getType				: 'json',
         	workType			: 'LIST',
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonCom3420.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  							CS_CODE			: gfnma_nvl(item.CS_CODE),			
-  							CS_NAME				: gfnma_nvl(item.CS_NAME),
-  							CS_FULLNAME				: gfnma_nvl(item.CS_FULLNAME),
-  							CS_ABBR_NAME			: gfnma_nvl(item.CS_ABBR_NAME),			
-  							CS_NAME_ENG			: gfnma_nvl(item.CS_NAME_ENG),		
-  							CS_GROUP	: gfnma_nvl(item.CS_GROUP),
-  							BANK_NO	: gfnma_nvl(item.BANK_NO),
-  							CS_NAME	: gfnma_nvl(item.CS_NAME),
-  							FOREIGN_YN	: gfnma_nvl(item.FOREIGN_YN),
-  							NATION_CODE	: gfnma_nvl(item.NATION_CODE),
-  							REGION_CODE	: gfnma_nvl(item.REGION_CODE),
-  							BIZ_REGNO	: gfnma_nvl(item.BIZ_REGNO),
-  							TAX_TYPE	: gfnma_nvl(item.TAX_TYPE),
-  							COM_TYPE	: gfnma_nvl(item.COM_TYPE),
-  							BIZ_TYPE	: gfnma_nvl(item.BIZ_TYPE),
-  							COMP_REGNO	: gfnma_nvl(item.COMP_REGNO),
-  							CHIEF_NAME	: gfnma_nvl(item.CHIEF_NAME),
-  							RESIDENT_YN	: gfnma_nvl(item.RESIDENT_YN),
-  							BIZ_CATEGORY	: gfnma_nvl(item.BIZ_CATEGORY),
-  							BIZ_ITEMS	: gfnma_nvl(item.BIZ_ITEMS),
-  							PURCHASE_YN	: gfnma_nvl(item.PURCHASE_YN),
-  							SALE_YN	: gfnma_nvl(item.SALE_YN),
-  							TRANSPORT_YN	: gfnma_nvl(item.TRANSPORT_YN),
-  							CURRENCY_CODE	: gfnma_nvl(item.CURRENCY_CODE),
-  							SUB_NO	: gfnma_nvl(item.SUB_NO),
+  							CS_CODE			: gfnma_nvl(item.CNPT_CD),			
+  							CS_NAME				: gfnma_nvl(item.CNPT_NM),
+  							CS_FULLNAME				: gfnma_nvl(item.CNPT_FLNM),
+  							CS_ABBR_NAME			: gfnma_nvl(item.CNPT_NM_ABBR),			
+  							CS_NAME_ENG			: gfnma_nvl(item.CNPT_NM_ENG),		
+  							CS_GROUP	: gfnma_nvl(item.CNPT_GROUP),
+  							BANK_NO	: gfnma_nvl(item.BANK_CD),
+  							CS_NAME	: gfnma_nvl(item.CNPT_NM),
+  							FOREIGN_YN	: gfnma_nvl(item.FRCNY_YN),
+  							NATION_CODE	: gfnma_nvl(item.NTN_CD),
+  							REGION_CODE	: gfnma_nvl(item.RGN_CD),
+  							BIZ_REGNO	: gfnma_nvl(item.BRNO),
+  							TAX_TYPE	: gfnma_nvl(item.TX_TYPE),
+  							COM_TYPE	: gfnma_nvl(item.CO_TYPE),
+  							BIZ_TYPE	: gfnma_nvl(item.CORP_TYPE),
+  							COMP_REGNO	: gfnma_nvl(item.CORP_REGNO),
+  							CHIEF_NAME	: gfnma_nvl(item.CEO_NM),
+  							RESIDENT_YN	: gfnma_nvl(item.INHTNT_DLNG_YN),
+  							BIZ_CATEGORY	: gfnma_nvl(item.BZSTAT),
+  							BIZ_ITEMS	: gfnma_nvl(item.TPBIZ),
+  							PURCHASE_YN	: gfnma_nvl(item.PCPL_YN),
+  							SALE_YN	: gfnma_nvl(item.SLS_CNPT_YN),
+  							TRANSPORT_YN	: gfnma_nvl(item.TRSPRT_CNPT_YN),
+  							CURRENCY_CODE	: gfnma_nvl(item.CRN_CD),
+  							SUB_NO	: gfnma_nvl(item.SBSD_BPLC_NO),
   							USE_YN	: gfnma_nvl(item.USE_YN),
-  							LIQUOR_YN	: gfnma_nvl(item.LIQUOR_YN),
-  							ZIP_CODE	: gfnma_nvl(item.ZIP_CODE),
-  							ADDRESS	: gfnma_nvl(item.ADDRESS),
-  							TEL	: gfnma_nvl(item.TEL),
-  							FAX	: gfnma_nvl(item.FAX),
-  							EMAIL_ID	: gfnma_nvl(item.EMAIL_ID),
-  							WEB_URL	: gfnma_nvl(item.WEB_URL),
-  							START_DATE	: gfnma_nvl(item.START_DATE),
-  							END_DATE	: gfnma_nvl(item.END_DATE),
+  							LIQUOR_YN	: gfnma_nvl(item.LIQR_YN),
+  							ZIP_CODE	: gfnma_nvl(item.ZIP_CD),
+  							ADDRESS	: gfnma_nvl(item.ADDR),
+  							TEL	: gfnma_nvl(item.TELNO),
+  							FAX	: gfnma_nvl(item.FX_NO),
+  							EMAIL_ID	: gfnma_nvl(item.EML_ID),
+  							WEB_URL	: gfnma_nvl(item.HMPG_URL),
+  							START_DATE	: gfnma_nvl(item.BGNG_YMD),
+  							END_DATE	: gfnma_nvl(item.END_DT),
   							MEMO	: gfnma_nvl(item.MEMO),
-  							DEFER_YN	: gfnma_nvl(item.DEFER_YN),
-  							DEFER_REASON	: gfnma_nvl(item.DEFER_REASON),
-  							AP_ACC_CODE	: gfnma_nvl(item.AP_ACC_CODE),
-  							AP_ACC_CODE_FOREIGN	: gfnma_nvl(item.AP_ACC_CODE_FOREIGN),
-  							AR_ACC_CODE	: gfnma_nvl(item.AR_ACC_CODE),
-  							AR_ACC_CODE_FOREIGN	: gfnma_nvl(item.AR_ACC_CODE_FOREIGN),
-  							EMP_CODE	: gfnma_nvl(item.EMP_CODE),
-  							TXN_STOP_YN	: gfnma_nvl(item.TXN_STOP_YN),
-  							TXN_STOP_REASON	: gfnma_nvl(item.TXN_STOP_REASON),
+  							DEFER_YN	: gfnma_nvl(item.PAY_HLDOF_YN),
+  							DEFER_REASON	: gfnma_nvl(item.DFRMNT_RSN),
+  							AP_ACC_CODE	: gfnma_nvl(item.APS_ACNT_CD),
+  							AP_ACC_CODE_FOREIGN	: gfnma_nvl(item.APS_ACNT_CD_FRCNCY),
+  							AR_ACC_CODE	: gfnma_nvl(item.AR_ACNT_CD),
+  							AR_ACC_CODE_FOREIGN	: gfnma_nvl(item.AR_ACNT_CD_FRCNCY),
+  							EMP_CODE	: gfnma_nvl(item.EMP_CD),
+  							TXN_STOP_YN	: gfnma_nvl(item.TRSC_HLT_YN),
+  							TXN_STOP_REASON	: gfnma_nvl(item.TRSC_HLT_RSN),
   							advance_acc_code	: gfnma_nvl(item.advance_acc_code),
-  							BANKRUPTCY_YN	: gfnma_nvl(item.BANKRUPTCY_YN),
-  							PREPAY_ACC_CODE	: gfnma_nvl(item.PREPAY_ACC_CODE),
-  							ADVANCE_ACC_CODE	: gfnma_nvl(item.ADVANCE_ACC_CODE),
-  							PUR_HANDOV_CNDT_CD	: gfnma_nvl(item.PUR_HANDOV_CNDT_CD),
-  							PAY_DATE_RULE	: gfnma_nvl(item.PAY_DATE_RULE),
-  							DELIVERY_TYPE	: gfnma_nvl(item.DELIVERY_TYPE),
-  							RECEIPT_DATE_RULE	: gfnma_nvl(item.RECEIPT_DATE_RULE),
-  							SHIPPING_TYPE	: gfnma_nvl(item.SHIPPING_TYPE),
-  							AP_CLR_ACC	: gfnma_nvl(item.AP_CLR_ACC),
-  							CUSTOMER_CATEGORY	: gfnma_nvl(item.CUSTOMER_CATEGORY),
-  							LANGUAGE	: gfnma_nvl(item.LANGUAGE),
-  							TAX_CODE	: gfnma_nvl(item.TAX_CODE),
-  							MAKER_YN	: gfnma_nvl(item.MAKER_YN),
-  							EXPECTED_CUSTOMER_YN	: gfnma_nvl(item.EXPECTED_CUSTOMER_YN),
-  							WITHHOLD_TAX_YN	: gfnma_nvl(item.WITHHOLD_TAX_YN),
-  							WITHHOLD_TAX_OFFICE	: gfnma_nvl(item.WITHHOLD_TAX_OFFICE),
-  							WITHHOLD_TAX_OFFICE2	: gfnma_nvl(item.WITHHOLD_TAX_OFFICE2),
-  							WITHHOLD_TAX_TYPE	: gfnma_nvl(item.WITHHOLD_TAX_TYPE),
-  							TAX_SEND	: gfnma_nvl(item.TAX_SEND),
-  							INTERNAL_PAY_RULE_YN	: gfnma_nvl(item.INTERNAL_PAY_RULE_YN),
-  							SALES_TAX_SEND	: gfnma_nvl(item.SALES_TAX_SEND),
-  							RCPT_CHK_RANGE	: gfnma_nvl(item.RCPT_CHK_RANGE),
-  							STEEL_SCRAP_PAY_YN	: gfnma_nvl(item.STEEL_SCRAP_PAY_YN),
-  							OSP_YN	: gfnma_nvl(item.OSP_YN),
-  							REF_CS_CODE	: gfnma_nvl(item.REF_CS_CODE),
-  							SAP_VENDOR_CODE	: gfnma_nvl(item.SAP_VENDOR_CODE),
-  							SAP_CUSTOMER_CODE	: gfnma_nvl(item.SAP_CUSTOMER_CODE)
+  							BANKRUPTCY_YN	: gfnma_nvl(item.BNKRP_CNPT_YN),
+  							PREPAY_ACC_CODE	: gfnma_nvl(item.PRPY_ACNT_CD),
+  							ADVANCE_ACC_CODE	: gfnma_nvl(item.ADPYR_ACNTL_CD),
+  							PUR_HANDOV_CNDT_CD	: gfnma_nvl(item.PORDR_DLVRTRM_CD),
+  							PAY_DATE_RULE	: gfnma_nvl(item.PAY_CNDTN),
+  							DELIVERY_TYPE	: gfnma_nvl(item.DLVRTRM),
+  							RECEIPT_DATE_RULE	: gfnma_nvl(item.RCPT_YMD_RULE),
+  							SHIPPING_TYPE	: gfnma_nvl(item.SHPG_TYPE),
+  							AP_CLR_ACC	: gfnma_nvl(item.APS_CLCLN_ACNT),
+  							CUSTOMER_CATEGORY	: gfnma_nvl(item.CUST_CTRGY),
+  							LANGUAGE	: gfnma_nvl(item.LANG_ID),
+  							TAX_CODE	: gfnma_nvl(item.TX_CD),
+  							MAKER_YN	: gfnma_nvl(item.MKR_YN),
+  							EXPECTED_CUSTOMER_YN	: gfnma_nvl(item.PRNMNT_CUST_YN),
+  							WITHHOLD_TAX_YN	: gfnma_nvl(item.WTHD_TX_YN),
+  							WITHHOLD_TAX_OFFICE	: gfnma_nvl(item.WTHD_TXOFC),
+  							WITHHOLD_TAX_OFFICE2	: gfnma_nvl(item.WTHD_TXOFC2),
+  							WITHHOLD_TAX_TYPE	: gfnma_nvl(item.WTHD_TX_TYPE),
+  							TAX_SEND	: gfnma_nvl(item.TX_SEND),
+  							INTERNAL_PAY_RULE_YN	: gfnma_nvl(item.INR_PAY_RULE_YN),
+  							SALES_TAX_SEND	: gfnma_nvl(item.SLS_TXIV_TRSM),
+  							RCPT_CHK_RANGE	: gfnma_nvl(item.RCPT_CHCK_LIM),
+  							STEEL_SCRAP_PAY_YN	: gfnma_nvl(item.SCRAP_DLNG_YN),
+  							OSP_YN	: gfnma_nvl(item.OTSRC_CO_YN),
+  							REF_CS_CODE	: gfnma_nvl(item.RFRNC_CNPT_CD),
+  							SAP_VENDOR_CODE	: gfnma_nvl(item.ERP_CNPT_CD2),
+  							SAP_CUSTOMER_CODE	: gfnma_nvl(item.ERP_CNPT_CD)
   					}
   					jsonCom3420.push(msg);
   					totalRecordCount ++;
@@ -561,7 +561,7 @@ function compopcom3420(options) {
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

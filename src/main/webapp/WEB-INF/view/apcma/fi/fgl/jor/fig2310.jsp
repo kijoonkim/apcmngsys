@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -144,7 +144,7 @@
 	                            	</div>
 	                            </td>
 	                            <td></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">결의부서</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input
@@ -188,13 +188,13 @@
 	                        </tr>    
 	                        
 	                        <tr>
-
+ 
 	                            <th scope="row" class="th_bg_search">회계검토의견</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input id="sch-acct-opinion" uitype="text" class="form-control input-sm"></sbux-input>
 	                            </td>
 	                            <td></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">자금검토의건</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input id="sch-tr-opinion" uitype="text" class="form-control input-sm"></sbux-input>
@@ -225,7 +225,7 @@
 	                        </tr>    
 	                        
 	                        <tr>
-
+ 
 	                            <th scope="row" class="th_bg_search">회계승인일</th>
 	                            <td class="td_input" >
 								    <sbux-datepicker
@@ -253,7 +253,7 @@
 	                                <sbux-select id="sch-doc-status" name="sch-doc-status" uitype="single" jsondata-ref="jsonDocStatus" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">전기일자</th>
 	                            <td colspan="1" class="td_input" >
 								    <sbux-datepicker
@@ -267,7 +267,7 @@
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td colspan="3"></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">승인취소일</th>
 	                            <td class="td_input" >
 								    <sbux-datepicker
@@ -296,7 +296,7 @@
 								    </sbux-datepicker>                          
 	                            </td>
 	                            <td colspan="3"></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">통화</th>
 	                            <td class="td_input" >
 	                                <sbux-select id="sch-currency-code" name="sch-currency-code" onchange="fn_changeCurrencyCode(sch-currency-code)"  uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
@@ -309,7 +309,7 @@
 	   								<sbux-input uitype="text" id="sch-exchange-rate" class="form-control input-sm" ></sbux-input>
 	                            </td>
 	                            <td></td>
-
+ 
 	                            <th scope="row" class="th_bg_search">제목</th>
 	                            <td colspan="3" class="td_input" >
 	   								<sbux-input id="sch-description" uitype="text" class="form-control input-sm inpt_data_reqed"
@@ -623,10 +623,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -650,16 +650,17 @@
 	
     var pg_colcs_code_bizId		= 'P_CS_ALL';	//그리드내(거래처) 팝업 bizId
     var pg_colcs_code_title		= '거래처';		//그리드내(거래처) 팝업 타이틀
-    var pg_colcs_code_field1	= 'CS_CODE';	//그리드내(거래처) 컬럼명
-    var pg_colcs_code_field2	= 'CS_NAME';	//그리드내(거래처) 컬럼명
+    var pg_colcs_code_field1	= 'CNPT_CD';	//그리드내(거래처) 컬럼명
+    var pg_colcs_code_field2	= 'CNPT_NM';	//그리드내(거래처) 컬럼명
     
     var pg_colpay_term_code_bizId	= 'P_PAY_DATE';			//그리드내(지급기준) 컬럼명
     
     var pg_rule_code_bizId		= 'L_RULE';					//멀티셀렉트 'srch-compopup1-rulecode' bizId
-    var pg_rule_code_where		= "AND doc_type = '93'";	//멀티셀렉트 'srch-compopup1-rulecode' where
+    var pg_rule_code_where		= "AND SLIP_TYPE = '93'";	//멀티셀렉트 'srch-compopup1-rulecode' where
 	
 	var pg_doc_type_bizId		= 'L_FIM051';
-	var pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
+	//var pg_doc_type_where		= "AND manual_doc_write_yn = 'Y'";
+	var pg_doc_type_where		= "AND MLT_APS_SLIP_YN = 'Y'";
     
     var pg_strdoc_type			= '93';
     
@@ -683,7 +684,7 @@
     var jsonHoldFlag 			= []; 
     var jsonHoldReason			= []; // 보류사유 
     var jsonExchangeType		= [];  
-
+ 
     var jsonTaxSiteCode 		= []; // 신고사업장
     var jsonSubTaxSiteCode 		= []; // 총사업장
     var jsonDocType 			= []; // 전표유형
@@ -692,32 +693,67 @@
     
     var jsonLineType 			= []; // 라인유형
     var jsonDebitCredit 		= []; // 차/대
-
+ 
+    var jsonEtaxType			= []; // 전자발행
+    var jsonCardUseType			= []; // 카드용도
+    var jsonLocalCreditType		= []; // 내국신용장구분
+    var jsonVatNotDedType		= []; // 불공제유형
+    var jsonReportOmitYn		= []; // 예정신고누락
+    var jsonDupIssList			= []; // 중복발행
+    var jsonVatAssetType		= []; // 감가상각자산유형
+    var jsonAfterDueDateYn		= []; // 11일외전송
+    var jsonZeroReportYn		= []; // 영세율첨부서류여부
+    var jsonExcludeAmtYn		= []; // 수입금액제외
+    var jsonZeroType			= []; // 영세율구분
+ 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
-
-            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-cbosite-code'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-cboexchange-type'],		jsonExchangeType,	'L_COM034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+ 
+            gfnma_setComSelect(['sch-hold-flag'],				jsonHoldFlag, 		'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect([], 								jsonHoldReason, 	'L_COM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['sch-fi-org-code'],				jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
+            gfnma_setComSelect(['sch-cbosite-code'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['sch-cboexchange-type'],		jsonExchangeType,	'L_COM034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
             // 회계기준
-            gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-acct-rule-code'],			jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 신고사업장
-            gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-tax-site-code'],			jsonTaxSiteCode, 	'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_SITE_CD', 'TX_SITE_NM', 'Y', ''),
             // 종사업장
-            gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-sub-tax-site-code'],		jsonSubTaxSiteCode, 'L_ORG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_SITE_CD', 'TX_SITE_NM', 'Y', ''),
             // 전표유형
-            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             
             // 그리드내 라인유형
-			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 그리드내 차/대
-			gfnma_setComSelect([], 								jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect([], 								jsonDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			
+            // 전자발행
+            gfnma_setComSelect(['ETAX_TYPE'],					jsonEtaxType, 		'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 카드용도
+            gfnma_setComSelect(['CARD_USE_TYPE'],				jsonCardUseType, 	'L_FIT012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 내국신용장구분
+            gfnma_setComSelect(['LOCAL_CREDIT_TYPE'],			jsonLocalCreditType,'L_FIT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 불공제유형
+            gfnma_setComSelect(['VAT_NOT_DEDUCTION_TYPE'],		jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 예정신고누락
+            gfnma_setComSelect(['REPORT_OMIT_YN'],				jsonReportOmitYn,	'L_FIT009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 중복발행
+            gfnma_setComSelect(['DUP_ISSUE_BILL_TYPE'],			jsonDupIssList,		'L_FIT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 감가상각자산유형
+            gfnma_setComSelect(['VAT_ASSET_TYPE'],				jsonVatAssetType,	'L_FIT014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 11일외전송
+            gfnma_setComSelect(['AFTER_DUE_DATE_YN'],			jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 영세율첨부서류여부
+            gfnma_setComSelect(['ZERO_REPORT_YN'],				jsonZeroReportYn,	'L_FIT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 수입금액제외
+            gfnma_setComSelect(['EXCLUDE_REVENUE_AMT_YN'],		jsonExcludeAmtYn,	'L_FIT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 영세율구분
+            gfnma_setComSelect(['ZERO_TYPE'],					jsonZeroType,		'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//전표템플릿
 			gfnma_multiSelectInit({
@@ -731,19 +767,19 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'RULE_CODE'
-				,colLabel		: 'RULE_NAME'
+				,colValue		: 'RULE_CD'
+				,colLabel		: 'RULE_NM'
 				,columns		:[
-		            {caption: "rule코드",		ref: 'RULE_CODE',			width:'100px',  	style:'text-align:left'},
-		            {caption: "rule코드명", 	ref: 'RULE_NAME',    		width:'200px',  	style:'text-align:left'},
-		            {caption: "전표유형", 		ref: 'DOC_TYPE',    		width:'100px',  	style:'text-align:left'},
-		            {caption: "ap_doc_yn", 		ref: 'AP_DOC_YN',    		width:'100px',  	style:'text-align:left'},
-		            {caption: "ar_doc_yn", 		ref: 'AR_DOC_YN',    		width:'100px',  	style:'text-align:left'},
+		            {caption: "rule코드",		ref: 'RULE_CD',			width:'100px',  	style:'text-align:left'},
+		            {caption: "rule코드명", 	ref: 'RULE_NM',    		width:'200px',  	style:'text-align:left'},
+		            {caption: "전표유형", 		ref: 'SLIP_TYPE',    		width:'100px',  	style:'text-align:left'},
+		            {caption: "ap_doc_yn", 		ref: 'APS_SLIP_YN',    		width:'100px',  	style:'text-align:left'},
+		            {caption: "ar_doc_yn", 		ref: 'AR_SLIP_YN',    		width:'100px',  	style:'text-align:left'},
 				]
 			})
 		]);
 	}	
-
+ 
 	async function fn_init(type) {
 		
 		if(type){
@@ -786,9 +822,9 @@
 			e.preventDefault();
 			fn_gridRowDel();
 		});    	
-
+ 
     });
-
+ 
     //메뉴가 이미 열려있을때..
     window.addEventListener('message', async function(e) {
     	let obj = e.data;
@@ -900,7 +936,7 @@
 		});		
 		
     }
-
+ 
      /**
       * 콤포넌트 활성화
       */    
@@ -938,7 +974,7 @@
         		$('#btn1-row-add').attr('disabled', 	false);
         		$('#btn1-row-del').attr('disabled', 	false);
         		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
-
+ 
         		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
         		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
         		
@@ -994,13 +1030,13 @@
         		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', true);
            		SBUxMethod.attr('sch-btn-end', 			'disabled', false);
         		SBUxMethod.attr('sch-btn-cancel', 		'disabled', true);
-
+ 
         		$('#btn1-row-add').attr('disabled', 	true);
         		$('#btn1-row-del').attr('disabled', 	true);
         		
         		SBUxMethod.attr('sch-btn-release', 		'disabled', true);
         		SBUxMethod.attr('sch-btn-unrelease', 	'disabled', true);
-
+ 
         		var insert_userid		= SBUxMethod.get('sch-txtinsert-userid');
         		if(insert_userid == p_userId || !p_summit_yn){
         			$('#main-btn-save', parent.document).attr('disabled', true);
@@ -1020,7 +1056,7 @@
         		if(appr_acount != "0" ){
             		SBUxMethod.attr('sch-btn-confirmHist', 	'disabled', false);
         		}
-
+ 
         	} else {
         		
     			$('#main-btn-save', parent.document).attr('disabled', false);
@@ -1233,7 +1269,7 @@
             {caption: ["계좌행번"],					ref: 'BANK_ACCOUNT_SEQ', 		type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
 			
         ];
-
+ 
         Fig2310Grid = _SBGrid.create(SBGridProperties);
         Fig2310Grid.bind('valuechanged', 	'fn_comboValFig2310GridEvent')
         Fig2310Grid.bind('click', 			'fn_viewFig2310GridEvent');
@@ -1244,7 +1280,7 @@
     	
         let nRow = Fig2310Grid.getRow(); // 클릭한 Row Index 추출
         let nCol = Fig2310Grid.getCol(); // 클릭한 Col Index 추출
-
+ 
         let rowData 	= Fig2310Grid.getRowData(nRow);
         let cellValue 	= Fig2310Grid.getCellData(nRow, nCol); 	
 		fn_getFig2310Grid(rowData);
@@ -1370,19 +1406,19 @@
        		,popupType				: 'B'
     		,whereClause			: addParams
        		,searchCaptions			: ["부가세코드", 	"부가세명",		]
-   			,searchInputFields		: ["VAT_CODE", 		"VAT_NAME",		]
+   			,searchInputFields		: ["VAT_CD", 		"VAT_NM",		]
    			,searchInputValues		: [searchText1, 	searchText2,	]
 			,searchInputTypes		: ["input", 		"input",		]		//input, datepicker가 있는 경우
     		,width					: '600px'
     		,height					: '300px'
    			,tableHeader			: ["부가세코드", 	"부가세명",		"부가세유형",		"불공제여부"]
-   			,tableColumnNames		: ["VAT_CODE", 		"VAT_NAME",		"VAT_TYPE_CODE",	"NONDED_YN"]
+   			,tableColumnNames		: ["VAT_CD", 		"VAT_NM",		"VAT_TYPE_CD",	"NDDC_YN"]
    			,tableColumnWidths		: ["100px", 		"200px",		"100px",			"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 5, 	data['VAT_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 7, 	data['VAT_NAME'], true, true);
-				jsonFig2310[row-1]['NONDED_YN'] = data['NONDED_YN'];
+				Fig2310Grid.setCellData(row, 5, 	data['VAT_CD'], true, true);
+				Fig2310Grid.setCellData(row, 7, 	data['VAT_NM'], true, true);
+				jsonFig2310[row-1]['NONDED_YN'] = data['NDDC_YN'];
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1407,10 +1443,10 @@
      */
     var fn_gridPopup2Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_BIZ_REGNO_"; 
-        var replaceText2 	= "_CS_NAME_"; 
-        var strWhereClause 	= "AND A.CS_CODE LIKE '%" + replaceText0 + "%' AND A.BIZ_REGNO LIKE '%" + replaceText1 + "%' " + " AND A.CS_NAME LIKE '%" + replaceText2 + "%' ";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= "_BRNO_"; 
+        var replaceText2 	= "_CNPT_NM_"; 
+        var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.BRNO LIKE '%" + replaceText1 + "%' " + " AND A.CNPT_NM LIKE '%" + replaceText2 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', pg_colcs_code_title);
     	compopup1({
@@ -1420,19 +1456,19 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["고객사코드", 	"사업자번호",	"고객사명"]
-   			,searchInputFields		: ["CS_CODE", 		"BIZ_REGNO",	"CS_NAME"]
+   			,searchInputFields		: ["CNPT_CD", 		"BRNO",	"CNPT_NM"]
    			,searchInputValues		: [cellData1, 		'',				cellData2]
 			,searchInputTypes		: ["input", 		"input",		"input"]		//input, datepicker가 있는 경우
     		,width					: '1000px'
     		,height					: '500px'
    			,tableHeader			: ["거래처코드", 	"거래처명",		"사업자번호",		"거래중지여부",		"거래처유형",	"구매처",		"판매처",	"수금기준",			"수금기준명",		"수금방법",		"원천세대상여부"]
-   			,tableColumnNames		: ["CS_CODE", 		"CS_NAME",		"BIZ_REGNO",		"TXN_STOP_YN",		"CS_GROUP",		"PURCHASE_YN",	"SALE_YN",	"PAY_TERM_CODE",	"PAY_TERM_NAME",	"PAY_METHOD",	"WITHHOLD_TAX_YN"]
+   			,tableColumnNames		: ["CNPT_CD", 		"CNPT_NM",		"BRNO",		"TRSC_HLT_YN",		"CNPT_GROUP",		"PCPL_YN",	"SLS_CNPT_YN",	"PAY_TERM_CD",	"PAY_TERM_NM",	"PAY_MTHD",	"WTHD_TX_YN"]
    			,tableColumnWidths		: ["80px", 			"200px",		"100px",			"100px",			"200px",		"70px",			"70px",		"70px",				"150px",			"70px",			"120px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 8, 	data['CS_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 10, 	data['CS_NAME'], true, true);
-				jsonFig2310[row-1]['TXN_STOP_YN'] = data['TXN_STOP_YN'];
+				Fig2310Grid.setCellData(row, 8, 	data['CNPT_CD'], true, true);
+				Fig2310Grid.setCellData(row, 10, 	data['CNPT_NM'], true, true);
+				jsonFig2310[row-1]['TXN_STOP_YN'] = data['TRSC_HLT_YN'];
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1469,40 +1505,40 @@
        		,popupType				: 'B'
     		,whereClause			: addParams
        		,searchCaptions			: ["계정코드", 		"계정명"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [searchText1, 	searchText2]
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드", 		"계정명",		"계정명(한글)"]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME",	"ACCOUNT_NAME_CHN"]
+   			,tableColumnNames		: ["APLY_ACNTL_CD", 	"ACNT_NM",	"ACNT_NM_CHN"]
    			,tableColumnWidths		: ["100px", 		"250px",		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 11, 	data['ACCOUNT_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 13, 	data['ACCOUNT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 11, 	data['ACNTL_CD'], true, true);
+				Fig2310Grid.setCellData(row, 13, 	data['ACNT_NM'], true, true);
 				
-				jsonFig2310[row-1]['ACC_ITEM_CODE1'] = data['ACC_ITEM_CODE1'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE2'] = data['ACC_ITEM_CODE2'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE3'] = data['ACC_ITEM_CODE3'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE4'] = data['ACC_ITEM_CODE4'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE5'] = data['ACC_ITEM_CODE5'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE6'] = data['ACC_ITEM_CODE6'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE7'] = data['ACC_ITEM_CODE7'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE8'] = data['ACC_ITEM_CODE8'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE9'] = data['ACC_ITEM_CODE9'];
-				jsonFig2310[row-1]['ACC_ITEM_CODE10'] = data['ACC_ITEM_CODE10'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE1'] = data['ACNT_MNG_ARTCL_CD1'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE2'] = data['ACNT_MNG_ARTCL_CD2'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE3'] = data['ACNT_MNG_ARTCL_CD3'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE4'] = data['ACNT_MNG_ARTCL_CD4'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE5'] = data['ACNT_MNG_ARTCL_CD5'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE6'] = data['ACNT_MNG_ARTCL_CD6'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE7'] = data['ACNT_MNG_ARTCL_CD7'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE8'] = data['ACNT_MNG_ARTCL_CD8'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE9'] = data['ACNT_MNG_ARTCL_CD9'];
+				jsonFig2310[row-1]['ACC_ITEM_CODE10'] = data['ACNT_MNG_ARTCL_CD10'];
 				
-				jsonFig2310[row-1]['ACC_ITEM_NAME1'] = data['ACC_ITEM_NAME1'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME2'] = data['ACC_ITEM_NAME2'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME3'] = data['ACC_ITEM_NAME3'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME4'] = data['ACC_ITEM_NAME4'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME5'] = data['ACC_ITEM_NAME5'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME6'] = data['ACC_ITEM_NAME6'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME7'] = data['ACC_ITEM_NAME7'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME8'] = data['ACC_ITEM_NAME8'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME9'] = data['ACC_ITEM_NAME9'];
-				jsonFig2310[row-1]['ACC_ITEM_NAME10'] = data['ACC_ITEM_NAME10'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME1'] = data['ACNT_MNG_ARTCL_NM1'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME2'] = data['ACNT_MNG_ARTCL_NM2'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME3'] = data['ACNT_MNG_ARTCL_NM3'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME4'] = data['ACNT_MNG_ARTCL_NM4'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME5'] = data['ACNT_MNG_ARTCL_NM5'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME6'] = data['ACNT_MNG_ARTCL_NM6'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME7'] = data['ACNT_MNG_ARTCL_NM7'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME8'] = data['ACNT_MNG_ARTCL_NM8'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME9'] = data['ACNT_MNG_ARTCL_NM9'];
+				jsonFig2310[row-1]['ACC_ITEM_NAME10'] = data['ACNT_MNG_ARTCL_NM10'];
 				
 				jsonFig2310[row-1]['DATA_TYPE1'] = data['DATA_TYPE1'];
 				jsonFig2310[row-1]['DATA_TYPE2'] = data['DATA_TYPE2'];
@@ -1526,20 +1562,20 @@
 				jsonFig2310[row-1]['POPUP_ID9'] = data['POPUP_ID9'];
 				jsonFig2310[row-1]['POPUP_ID10'] = data['POPUP_ID10'];
 				
-				jsonFig2310[row-1]['ACC_ITEM_YN1'] = data['ACC_ITEM_YN1'];
-				jsonFig2310[row-1]['ACC_ITEM_YN2'] = data['ACC_ITEM_YN2'];
-				jsonFig2310[row-1]['ACC_ITEM_YN3'] = data['ACC_ITEM_YN3'];
-				jsonFig2310[row-1]['ACC_ITEM_YN4'] = data['ACC_ITEM_YN4'];
-				jsonFig2310[row-1]['ACC_ITEM_YN5'] = data['ACC_ITEM_YN5'];
-				jsonFig2310[row-1]['ACC_ITEM_YN6'] = data['ACC_ITEM_YN6'];
-				jsonFig2310[row-1]['ACC_ITEM_YN7'] = data['ACC_ITEM_YN7'];
-				jsonFig2310[row-1]['ACC_ITEM_YN8'] = data['ACC_ITEM_YN8'];
-				jsonFig2310[row-1]['ACC_ITEM_YN9'] = data['ACC_ITEM_YN9'];
-				jsonFig2310[row-1]['ACC_ITEM_YN10'] = data['ACC_ITEM_YN10'];
+				jsonFig2310[row-1]['ACC_ITEM_YN1'] = data['ACNT_MNG_ARTCL_YN1'];
+				jsonFig2310[row-1]['ACC_ITEM_YN2'] = data['ACNT_MNG_ARTCL_YN2'];
+				jsonFig2310[row-1]['ACC_ITEM_YN3'] = data['ACNT_MNG_ARTCL_YN3'];
+				jsonFig2310[row-1]['ACC_ITEM_YN4'] = data['ACNT_MNG_ARTCL_YN4'];
+				jsonFig2310[row-1]['ACC_ITEM_YN5'] = data['ACNT_MNG_ARTCL_YN5'];
+				jsonFig2310[row-1]['ACC_ITEM_YN6'] = data['ACNT_MNG_ARTCL_YN6'];
+				jsonFig2310[row-1]['ACC_ITEM_YN7'] = data['ACNT_MNG_ARTCL_YN7'];
+				jsonFig2310[row-1]['ACC_ITEM_YN8'] = data['ACNT_MNG_ARTCL_YN8'];
+				jsonFig2310[row-1]['ACC_ITEM_YN9'] = data['ACNT_MNG_ARTCL_YN9'];
+				jsonFig2310[row-1]['ACC_ITEM_YN10'] = data['ACNT_MNG_ARTCL_YN10'];
 				
-				jsonFig2310[row-1]['ACC_CATEGORY'] 	= data['ACC_CATEGORY'];
-				jsonFig2310[row-1]['PROJECT_YN'] 	= data['PROJECT_YN'];
-				jsonFig2310[row-1]['COST_CLASS'] 	= data['COST_CLASS'];
+				jsonFig2310[row-1]['ACC_CATEGORY'] 	= data['ACNT_CTGRY'];
+				jsonFig2310[row-1]['PROJECT_YN'] 	= data['PJT_YN'];
+				jsonFig2310[row-1]['COST_CLASS'] 	= data['CST_CLSF'];
 				
 				fn_getFig2310Grid(jsonFig2310[row-1]);				
 			},
@@ -1573,18 +1609,18 @@
        		,popupType				: 'B'
     		,whereClause			: ''
        		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["부서코드", 		"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["100px", 		"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 18, 	data['DEPT_NAME'], true, true);
-				Fig2310Grid.setCellData(row, 20, 	data['DEPT_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 18, 	data['DEPT_NM'], true, true);
+				Fig2310Grid.setCellData(row, 20, 	data['DEPT_CD'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1605,9 +1641,9 @@
      */
     var fn_gridPopup5Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_"; 
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCD_CD_";
+        var replaceText1 	= "_CSTCD_NM_"; 
+        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
@@ -1617,18 +1653,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME",	"DEPT_CODE",	"DEPT_NAME",	"SITE_CODE"]	
+   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 21, 	data['COST_CENTER_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 23, 	data['COST_CENTER_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 21, 	data['CSTCD_CD'], true, true);
+				Fig2310Grid.setCellData(row, 23, 	data['CSTCD_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1649,8 +1685,8 @@
      */
     var fn_gridPopup6Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_PROJECT_CODE_";
-        var replaceText1 	= "_PROJECT_NAME_"; 
+        var replaceText0 	= "_PJT_CD_";
+        var replaceText1 	= "_PJT_NM_"; 
         var strWhereClause 	= "AND PROJECT_CODE LIKE '%" + replaceText0 + "%' AND PROJECT_NAME LIKE '%" + replaceText1 + "%' ";
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
@@ -1661,19 +1697,19 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
-			,searchInputFields		: ["PROJECT_CODE",		"PROJECT_NAME"]
+			,searchInputFields		: ["PJT_CD",		"PJT_NM"]
 			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, select가 있는 경우
 			,searchInputTypeValues	: ["", 					""]				//select 경우
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["프로젝트코드", 		"프로젝트명"]
-			,tableColumnNames		: ["PROJECT_CODE", 		"PROJECT_NAME"]
+			,tableColumnNames		: ["PJT_CD", 		"PJT_NM"]
 			,tableColumnWidths		: ["100px", 			"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 24, 	data['PROJECT_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 26, 	data['PROJECT_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 24, 	data['PJT_CD'], true, true);
+				Fig2310Grid.setCellData(row, 26, 	data['PJT_NM'], true, true);
 			},
 		});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1694,9 +1730,9 @@
      */
     var fn_gridPopup7Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_PAY_TERM_CODE_";
-        var replaceText1 	= "_PAY_TERM_NAME_"; 
-        var strWhereClause 	= "AND A.PAY_TERM_CODE LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_PAY_TERM_CD_";
+        var replaceText1 	= "_PAY_TERM_NM_"; 
+        var strWhereClause 	= "AND A.PAY_TERM_CD LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급기일정보');
     	compopup1({
@@ -1706,21 +1742,21 @@
        		,popupType				: 'A'
        		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["PAY_TERM_CODE", 	"PAY_TERM_NAME"]
+   			,searchInputFields		: ["PAY_TERM_CD", 	"PAY_TERM_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
    			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '500px'
    			,tableHeader			: ["지급기일코드", 		"지급기일명",		"지급기준"	]
-   			,tableColumnNames		: ["PAY_TERM_CODE", 	"PAY_TERM_NAME",	"PAY_METHOD_NAME"]
+   			,tableColumnNames		: ["PAY_TERM_CD", 	"PAY_TERM_NM",	"PAY_METHOD_NAME"]
    			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 27, 	data['PAY_TERM_CODE'], true, true);
-				Fig2310Grid.setCellData(row, 29, 	data['PAY_TERM_NAME'], true, true);
+				Fig2310Grid.setCellData(row, 27, 	data['PAY_TERM_CD'], true, true);
+				Fig2310Grid.setCellData(row, 29, 	data['PAY_TERM_NM'], true, true);
 				Fig2310Grid.setCellData(row, 30, 	data['PAY_METHOD_NAME'], true, true);
-				Fig2310Grid.setCellData(row, 32, 	data['PAY_METHOD'], true, true);
-				Fig2310Grid.setCellData(row, 34, 	data['BASIS_TYPE'], true, true);
+				Fig2310Grid.setCellData(row, 32, 	data['PAY_MTHD'], true, true);
+				Fig2310Grid.setCellData(row, 34, 	data['BASE_CRN_CD'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1741,8 +1777,8 @@
      */
     var fn_gridPopup8Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_SUB_CODE_";
-        var replaceText1 	= "_CODE_NAME_"; 
+        var replaceText0 	= "_SBSD_CD_";
+        var replaceText1 	= "_CD_NM_"; 
         var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급방법');
@@ -1753,18 +1789,18 @@
        		,popupType				: 'A'
        		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"코드명"]
-   			,searchInputFields		: ["SUB_CODE", 			"CODE_NAME"]
+   			,searchInputFields		: ["SBSD_CD", 			"CD_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
    			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '900px'
     		,height					: '500px'
    			,tableHeader			: ["코드",		"코드명", 			"은행",			"계좌번호",			"계좌코드"]
-   			,tableColumnNames		: ["SUB_CODE",	"CODE_NAME", 		"BANK_CODE",	"ACCOUNT_NUM",		"DEPOSIT_CODE"]
+   			,tableColumnNames		: ["SBSD_CD",	"CD_NM", 		"BANK_CD",	"ACTNO",		"DPMNY_CD"]
    			,tableColumnWidths		: ["100px", 	"200px",			"100px",		"200px",			"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 30, 	data['CODE_NAME'], true, true);
-				Fig2310Grid.setCellData(row, 32, 	data['SUB_CODE'], true, true);
+				Fig2310Grid.setCellData(row, 30, 	data['CD_NM'], true, true);
+				Fig2310Grid.setCellData(row, 32, 	data['SBSD_CD'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1792,9 +1828,9 @@
      */
     var fn_gridPopup9Show = function(type, row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_TAX_TYPE_CODE_";
-        var replaceText1 	= "_TAX_TYPE_NAME_"; 
-        var strWhereClause 	= "AND A.TAX_TYPE_CODE LIKE '%" + replaceText0 + "%' AND A.TAX_TYPE_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_TX_TYPE_CD_";
+        var replaceText1 	= "_TX_TYPE_NM_"; 
+        var strWhereClause 	= "AND A.TX_TYPE_CD LIKE '%" + replaceText0 + "%' AND A.TX_TYPE_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원천징수세금코드');
     	compopup1({
@@ -1804,22 +1840,22 @@
        		,popupType				: 'A'
        		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"코드명"]
-   			,searchInputFields		: ["TAX_TYPE_CODE", 	"TAX_TYPE_NAME"]
+   			,searchInputFields		: ["TX_TYPE_CD", 	"TX_TYPE_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
    			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '900px'
     		,height					: '500px'
    			,tableHeader			: ["원천세코드",		"원천세명", 		"세율구분",		"구분명",			"원천세율"]
-   			,tableColumnNames		: ["TAX_TYPE_CODE",		"TAX_TYPE_NAME", 	"TAX_GROUP",	"TAX_GROUP_NAME",	"TAX_RATE"]
+   			,tableColumnNames		: ["TX_TYPE_CD",		"TX_TYPE_NM", 	"TX_GROUP",	"TAX_GROUP_NAME",	"TX_RT"]
    			,tableColumnWidths		: ["100px", 			"200px",			"100px",		"200px",			"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				if(type=='1'){
-					Fig2310Grid.setCellData(row, 37, 	data['TAX_TYPE_NAME'], true, true);
-					Fig2310Grid.setCellData(row, 39, 	data['TAX_TYPE_CODE'], true, true);
+					Fig2310Grid.setCellData(row, 37, 	data['TX_TYPE_NM'], true, true);
+					Fig2310Grid.setCellData(row, 39, 	data['TX_TYPE_CD'], true, true);
 				} else {
-					Fig2310Grid.setCellData(row, 41, 	data['TAX_TYPE_NAME'], true, true);
-					Fig2310Grid.setCellData(row, 43, 	data['TAX_TYPE_CODE'], true, true);
+					Fig2310Grid.setCellData(row, 41, 	data['TX_TYPE_NM'], true, true);
+					Fig2310Grid.setCellData(row, 43, 	data['TX_TYPE_CD'], true, true);
 				}
 			},
     	});
@@ -1848,9 +1884,9 @@
     	
     	cellData2			= cellData2.replace(/-/gi, "");
         var replaceText0 	= "_" + pg_colcs_code_field1 + "_";
-        var replaceText1 	= "_EXPECTED_PAY_DATE_"; 
-        var strWhereClause 	= "AND A." + pg_colcs_code_field1 + " LIKE '%" + replaceText0 + "%' AND '" + replaceText1 + "' BETWEEN A.EFFECT_START_DATE AND A.EFFECT_END_DATE";
-        //"AND A.CS_CODE LIKE '%100004%' AND '20240802' BETWEEN A.EFFECT_START_DATE AND A.EFFECT_END_DATE"        
+        var replaceText1 	= "_PAY_PRNMNT_YMD_"; 
+        var strWhereClause 	= "AND A." + pg_colcs_code_field1 + " LIKE '%" + replaceText0 + "%' AND '" + replaceText1 + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFFECT_END_DATE";
+        //"AND A.CNPT_CD LIKE '%100004%' AND '20240802' BETWEEN A.EFCT_BGNG_YMD AND A.EFFECT_END_DATE"        
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계좌행번');
     	compopup1({
@@ -1860,19 +1896,19 @@
        		,popupType				: 'A'
     		,whereClause			: (otherWhere ? otherWhere : strWhereClause)
        		,searchCaptions			: ["거래처코드", 			"지급기일"]
-   			,searchInputFields		: [pg_colcs_code_field1, 	"EXPECTED_PAY_DATE"]
+   			,searchInputFields		: [pg_colcs_code_field1, 	"PAY_PRNMNT_YMD"]
    			,searchInputValues		: [cellData1, 				cellData2]
 			,searchInputTypes		: ["input", 				"input"]		//input, datepicker가 있는 경우
     		,width					: '1000px'
     		,height					: '500px'
    			,tableHeader			: ["행번", 				"행번명",		"은행코드",			"은행명",			"계좌번호",			"비고",			"계좌주",				"거래처",			"시작일",				"종료일",			"복수등록"]
-   			,tableColumnNames		: ["BANK_ACCOUNT_SEQ", 	"SEQ_NAME",		"BANK_CODE",		"BANK_NAME",		"BANK_ACCOUNT_NO",	"DESCRIPTION",	"BANK_ACCOUNT_OWNER",	"CS_CODE",			"EFFECT_START_DATE",	"EFFECT_END_DATE",	"BNKCNT"]
+   			,tableColumnNames		: ["BACNT_SEQ", 	"SEQ_NAME",		"BANK_CD",		"BANK_NM",		"BACNT_NO",	"DSCTN",	"BACNT_OWNR",	"CNPT_CD",			"EFCT_BGNG_YMD",	"EFCT_END_YMD",	"BNKCNT"]
    			,tableColumnWidths		: ["50px", 				"80px",			"80px",				"150px",			"150px",			"200px",		"200px",				"100px",			"80px",					"80px",				"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				Fig2310Grid.setCellData(row, 55, 	data['SEQ_NAME'], true, true);
-				Fig2310Grid.setCellData(row, 57, 	data['BANK_ACCOUNT_SEQ'], true, true);
-				//Fig2310Grid.setCellData(row, 37, 	data['BANK_ACCOUNT_NO'], true, true);
+				Fig2310Grid.setCellData(row, 57, 	data['BACNT_SEQ'], true, true);
+				//Fig2310Grid.setCellData(row, 37, 	data['BACNT_NO'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -1909,17 +1945,17 @@
     		,popupType				: 'B'
     		,whereClause			: addParams
    			,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: ["", 				p_find1,		p_day]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,height					: '400px'
    			,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-   			,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+   			,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
    			,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('sch-dept-name', data.DEPT_NAME);
-				SBUxMethod.set('sch-dept-code', data.DEPT_CODE);
+				SBUxMethod.set('sch-dept-name', data.DEPT_NM);
+				SBUxMethod.set('sch-dept-code', data.DEPT_CD);
 			},
     	});
   	}   
@@ -1960,7 +1996,7 @@
      * 조회
      */
 	const fn_setFig2310Grid = async function (wtype, callbackFn){
-
+ 
 		let p_doc_status		= gfnma_nvl(SBUxMethod.get("sch-doc-status"));
 		
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
@@ -2003,7 +2039,7 @@
   				,V_P_USERID					: p_userId
   				,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2310QList.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -2012,7 +2048,7 @@
 		});    	 
         const data = await postJsonPromise;
 		console.log(data);        		
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		jsonFig2310.length = 0;
@@ -2026,7 +2062,7 @@
         			list = data.cv_2;
         		} else if(wtype=='MENU'){
         			if(data.cv_1.length>0){
-        				pg_strdoc_type = data.cv_1[0]['PARAMETER_INFO'];
+        				pg_strdoc_type = data.cv_1[0]['PRMTR_INFO'];
         			}
         			return;
         		} else {
@@ -2039,57 +2075,57 @@
   						CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
   						
   						ITEM_ID					: gfnma_nvl(item.ITEM_ID),			
-  						DOC_ID					: gfnma_nvl(item.DOC_ID),			
+  						DOC_ID					: gfnma_nvl(item.SLIP_ID),			
   						TMP_ACCOUNT_CODE		: gfnma_nvl(item.TMP_ACCOUNT_CODE),			
   						TMP_ACCOUNT_NAME		: gfnma_nvl(item.TMP_ACCOUNT_NAME),			
   						FUNCTIONAL_AMT_HIST		: gfnma_nvl(item.FUNCTIONAL_AMT_HIST),			
-  						VAT_TYPE_CODE			: gfnma_nvl(item.VAT_TYPE_CODE),			
-  						ITEM_CODE				: gfnma_nvl(item.ITEM_CODE),			
-  						UOM						: gfnma_nvl(item.UOM),			
-  						TXN_QTY					: gfnma_nvl(item.TXN_QTY),			
-  						BALANCE_SIDE			: gfnma_nvl(item.BALANCE_SIDE),			
+  						VAT_TYPE_CODE			: gfnma_nvl(item.VAT_TYPE_CD),			
+  						ITEM_CODE				: gfnma_nvl(item.ITEM_CD),			
+  						UOM						: gfnma_nvl(item.UNIT),			
+  						TXN_QTY					: gfnma_nvl(item.TRSC_QTY),			
+  						BALANCE_SIDE			: gfnma_nvl(item.ACNT_BLNC_SE),			
   						TXT_STOP_YN				: gfnma_nvl(item.TXT_STOP_YN),			
   						
   						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),			
   						LINE_TYPE				: gfnma_nvl(item.LINE_TYPE),			
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),
-  						DEBIT_CREDIT			: gfnma_nvl(item.DEBIT_CREDIT),
-  						SUPPLY_AMOUNT			: gfnma_nvl(item.SUPPLY_AMOUNT),
-  						ACC_CATEGORY			: gfnma_nvl(item.ACC_CATEGORY),
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACNTL_CD),			
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACNT_NM),
+  						DEBIT_CREDIT			: gfnma_nvl(item.DBSD_CRSD),
+  						SUPPLY_AMOUNT			: gfnma_nvl(item.SPLY_AMT),
+  						ACC_CATEGORY			: gfnma_nvl(item.ACNT_CTGRY),
   						
-  						ACC_ITEM_CODE1			: gfnma_nvl(item.ACC_ITEM_CODE1),
-  						ACC_ITEM_CODE2			: gfnma_nvl(item.ACC_ITEM_CODE2),
-  						ACC_ITEM_CODE3			: gfnma_nvl(item.ACC_ITEM_CODE3),
-  						ACC_ITEM_CODE4			: gfnma_nvl(item.ACC_ITEM_CODE4),
-  						ACC_ITEM_CODE5			: gfnma_nvl(item.ACC_ITEM_CODE5),
-  						ACC_ITEM_CODE6			: gfnma_nvl(item.ACC_ITEM_CODE6),
-  						ACC_ITEM_CODE7			: gfnma_nvl(item.ACC_ITEM_CODE7),
-  						ACC_ITEM_CODE8			: gfnma_nvl(item.ACC_ITEM_CODE8),
-  						ACC_ITEM_CODE9			: gfnma_nvl(item.ACC_ITEM_CODE9),
-  						ACC_ITEM_CODE10			: gfnma_nvl(item.ACC_ITEM_CODE10),
-
-  						ACC_ITEM_NAME1			: gfnma_nvl(item.ACC_ITEM_NAME1),
-  						ACC_ITEM_NAME2			: gfnma_nvl(item.ACC_ITEM_NAME2),
-  						ACC_ITEM_NAME3			: gfnma_nvl(item.ACC_ITEM_NAME3),
-  						ACC_ITEM_NAME4			: gfnma_nvl(item.ACC_ITEM_NAME4),
-  						ACC_ITEM_NAME5			: gfnma_nvl(item.ACC_ITEM_NAME5),
-  						ACC_ITEM_NAME6			: gfnma_nvl(item.ACC_ITEM_NAME6),
-  						ACC_ITEM_NAME7			: gfnma_nvl(item.ACC_ITEM_NAME7),
-  						ACC_ITEM_NAME8			: gfnma_nvl(item.ACC_ITEM_NAME8),
-  						ACC_ITEM_NAME9			: gfnma_nvl(item.ACC_ITEM_NAME9),
-  						ACC_ITEM_NAME10			: gfnma_nvl(item.ACC_ITEM_NAME10),
+  						ACC_ITEM_CODE1			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD1),
+  						ACC_ITEM_CODE2			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD2),
+  						ACC_ITEM_CODE3			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD3),
+  						ACC_ITEM_CODE4			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD4),
+  						ACC_ITEM_CODE5			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD5),
+  						ACC_ITEM_CODE6			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD6),
+  						ACC_ITEM_CODE7			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD7),
+  						ACC_ITEM_CODE8			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD8),
+  						ACC_ITEM_CODE9			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD9),
+  						ACC_ITEM_CODE10			: gfnma_nvl(item.ACNT_MNG_ARTCL_CD10),
+ 
+  						ACC_ITEM_NAME1			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM1),
+  						ACC_ITEM_NAME2			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM2),
+  						ACC_ITEM_NAME3			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM3),
+  						ACC_ITEM_NAME4			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM4),
+  						ACC_ITEM_NAME5			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM5),
+  						ACC_ITEM_NAME6			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM6),
+  						ACC_ITEM_NAME7			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM7),
+  						ACC_ITEM_NAME8			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM8),
+  						ACC_ITEM_NAME9			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM9),
+  						ACC_ITEM_NAME10			: gfnma_nvl(item.ACNT_MNG_ARTCL_NM10),
   						
-  						ACC_ITEM_YN1			: gfnma_nvl(item.ACC_ITEM_YN1),
-  						ACC_ITEM_YN2			: gfnma_nvl(item.ACC_ITEM_YN2),
-  						ACC_ITEM_YN3			: gfnma_nvl(item.ACC_ITEM_YN3),
-  						ACC_ITEM_YN4			: gfnma_nvl(item.ACC_ITEM_YN4),
-  						ACC_ITEM_YN5			: gfnma_nvl(item.ACC_ITEM_YN5),
-  						ACC_ITEM_YN6			: gfnma_nvl(item.ACC_ITEM_YN6),
-  						ACC_ITEM_YN7			: gfnma_nvl(item.ACC_ITEM_YN7),
-  						ACC_ITEM_YN8			: gfnma_nvl(item.ACC_ITEM_YN8),
-  						ACC_ITEM_YN9			: gfnma_nvl(item.ACC_ITEM_YN9),
-  						ACC_ITEM_YN10			: gfnma_nvl(item.ACC_ITEM_YN10),
+  						ACC_ITEM_YN1			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN1),
+  						ACC_ITEM_YN2			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN2),
+  						ACC_ITEM_YN3			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN3),
+  						ACC_ITEM_YN4			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN4),
+  						ACC_ITEM_YN5			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN5),
+  						ACC_ITEM_YN6			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN6),
+  						ACC_ITEM_YN7			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN7),
+  						ACC_ITEM_YN8			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN8),
+  						ACC_ITEM_YN9			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN9),
+  						ACC_ITEM_YN10			: gfnma_nvl(item.ACNT_MNG_ARTCL_YN10),
   						
   						DATA_TYPE1				: gfnma_nvl(item.DATA_TYPE1),
   						DATA_TYPE2				: gfnma_nvl(item.DATA_TYPE2),
@@ -2113,16 +2149,16 @@
   						POPUP_ID9				: gfnma_nvl(item.POPUP_ID9),
   						POPUP_ID10				: gfnma_nvl(item.POPUP_ID10),
   						
-  						ACC_ITEM_VALUE1			: gfnma_nvl(item.ACC_ITEM_VALUE1),
-  						ACC_ITEM_VALUE2			: gfnma_nvl(item.ACC_ITEM_VALUE2),
-  						ACC_ITEM_VALUE3			: gfnma_nvl(item.ACC_ITEM_VALUE3),
-  						ACC_ITEM_VALUE4			: gfnma_nvl(item.ACC_ITEM_VALUE4),
-  						ACC_ITEM_VALUE5			: gfnma_nvl(item.ACC_ITEM_VALUE5),
-  						ACC_ITEM_VALUE6			: gfnma_nvl(item.ACC_ITEM_VALUE6),
-  						ACC_ITEM_VALUE7			: gfnma_nvl(item.ACC_ITEM_VALUE7),
-  						ACC_ITEM_VALUE8			: gfnma_nvl(item.ACC_ITEM_VALUE8),
-  						ACC_ITEM_VALUE9			: gfnma_nvl(item.ACC_ITEM_VALUE9),
-  						ACC_ITEM_VALUE10		: gfnma_nvl(item.ACC_ITEM_VALUE10),
+  						ACC_ITEM_VALUE1			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL1),
+  						ACC_ITEM_VALUE2			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL2),
+  						ACC_ITEM_VALUE3			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL3),
+  						ACC_ITEM_VALUE4			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL4),
+  						ACC_ITEM_VALUE5			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL5),
+  						ACC_ITEM_VALUE6			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL6),
+  						ACC_ITEM_VALUE7			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL7),
+  						ACC_ITEM_VALUE8			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL8),
+  						ACC_ITEM_VALUE9			: gfnma_nvl(item.ACNT_MNG_ARTCL_VL9),
+  						ACC_ITEM_VALUE10		: gfnma_nvl(item.ACNT_MNG_ARTCL_VL10),
   						
   						ACC_VALUE_NAME1			: gfnma_nvl(item.ACC_VALUE_NAME1),
   						ACC_VALUE_NAME2			: gfnma_nvl(item.ACC_VALUE_NAME2),
@@ -2135,105 +2171,105 @@
   						ACC_VALUE_NAME9			: gfnma_nvl(item.ACC_VALUE_NAME9),
   						ACC_VALUE_NAME10		: gfnma_nvl(item.ACC_VALUE_NAME10),
   						
-  						ITEM_SOURCE_ID			: gfnma_nvl(item.ITEM_SOURCE_ID),
-  						ITEM_SOURCE_TYPE		: gfnma_nvl(item.ITEM_SOURCE_TYPE),
-  						SOURCE_RECORD_COUNT		: gfnma_nvl(item.SOURCE_RECORD_COUNT),
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),
-  						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),
-  						COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),
+  						ITEM_SOURCE_ID			: gfnma_nvl(item.ITEM_SRC_ID),
+  						ITEM_SOURCE_TYPE		: gfnma_nvl(item.ITEM_SRC_TYPE),
+  						SOURCE_RECORD_COUNT		: gfnma_nvl(item.SRC_RCRD_CNT),
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),
+  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),
+  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),
   						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),
-  						PROJECT_YN				: gfnma_nvl(item.PROJECT_YN),
-  						CS_CODE					: gfnma_nvl(item.CS_CODE),
-  						CS_NAME					: gfnma_nvl(item.CS_NAME),
-  						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),
-  						EXCHANGE_RATE			: gfnma_nvl(item.EXCHANGE_RATE),
+  						PROJECT_YN				: gfnma_nvl(item.PJT_YN),
+  						CS_CODE					: gfnma_nvl(item.CNPT_CD),
+  						CS_NAME					: gfnma_nvl(item.CNPT_NM),
+  						CURRENCY_CODE			: gfnma_nvl(item.CRN_CD),
+  						EXCHANGE_RATE			: gfnma_nvl(item.EXCHRT),
   						BASE_SCALE				: gfnma_nvl(item.BASE_SCALE),
-  						EXCHANGE_TYPE			: gfnma_nvl(item.EXCHANGE_TYPE),
-  						PAY_METHOD				: gfnma_nvl(item.PAY_METHOD),
-  						EXPECTED_PAY_DATE		: gfnma_date5(gfnma_nvl(item.EXPECTED_PAY_DATE)),
-  						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CODE),
-  						PAY_TERM_NAME			: gfnma_nvl(item.PAY_TERM_NAME),
-  						BASIS_TYPE				: gfnma_nvl(item.BASIS_TYPE),
-  						VOUCHER_TYPE			: gfnma_nvl(item.VOUCHER_TYPE),
-  						VOUCHER_NO				: gfnma_nvl(item.VOUCHER_NO),
-  						PAYEE_CODE				: gfnma_nvl(item.PAYEE_CODE),
+  						EXCHANGE_TYPE			: gfnma_nvl(item.EXCHRT_TYPE),
+  						PAY_METHOD				: gfnma_nvl(item.PAY_MTHD),
+  						EXPECTED_PAY_DATE		: gfnma_date5(gfnma_nvl(item.PAY_PRNMNT_YMD)),
+  						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CD),
+  						PAY_TERM_NAME			: gfnma_nvl(item.PAY_TERM_NM),
+  						BASIS_TYPE				: gfnma_nvl(item.BASE_CRN_CD),
+  						VOUCHER_TYPE			: gfnma_nvl(item.EVDNC_TYPE),
+  						VOUCHER_NO				: gfnma_nvl(item.EVDNC_NO),
+  						PAYEE_CODE				: gfnma_nvl(item.RCPNT_CD),
   						CARD_NO					: gfnma_nvl(item.CARD_NO),
-  						VOUCHER_RECEIPT_DATE	: gfnma_nvl(item.VOUCHER_RECEIPT_DATE),
-  						APPLY_COMPLETE_FLAG		: gfnma_nvl(item.APPLY_COMPLETE_FLAG),
-  						WITHHOLD_FLAG			: gfnma_nvl(item.WITHHOLD_FLAG),
-  						WITHHOLD_TAX_TYPE		: gfnma_nvl(item.WITHHOLD_TAX_TYPE),
-  						SITE_CODE				: gfnma_nvl(item.SITE_CODE),
-  						CREDIT_AREA				: gfnma_nvl(item.CREDIT_AREA),
-  						FI_ORG_CODE				: gfnma_nvl(item.FI_ORG_CODE),
-  						PO_LINE_NO				: gfnma_nvl(item.PO_LINE_NO),
-  						SALES_PERSON			: gfnma_nvl(item.SALES_PERSON),
-  						WITHHOLD_CS_CODE		: gfnma_nvl(item.WITHHOLD_CS_CODE),
-  						WITHHOLD_TAX_TYPE2		: gfnma_nvl(item.WITHHOLD_TAX_TYPE2),
-  						WITHHOLD_CS_CODE2		: gfnma_nvl(item.WITHHOLD_CS_CODE2),
-  						APPLY_COMPLETE_DATE		: gfnma_nvl(item.APPLY_COMPLETE_DATE),
-  						SALES_CS_CODE			: gfnma_nvl(item.SALES_CS_CODE),
-  						HOLD_FLAG				: gfnma_nvl(item.HOLD_FLAG),
-  						RELEASE_DATE			: gfnma_nvl(item.RELEASE_DATE),
-  						RELEASE_USER			: gfnma_nvl(item.RELEASE_USER),
-  						HOLD_DATE				: gfnma_nvl(item.HOLD_DATE),
-  						HOLD_USER				: gfnma_nvl(item.HOLD_USER),
-  						HOLD_REASON				: gfnma_nvl(item.HOLD_REASON),
-  						PAY_BASE_DATE			: gfnma_date5(gfnma_nvl(item.PAY_BASE_DATE)),
-  						BILL_DUE_DATE			: gfnma_nvl(item.BILL_DUE_DATE),
-  						BILL_DUE_DAY			: gfnma_nvl(item.BILL_DUE_DAY),
-  						BILL_DUE_PAY_DATE		: gfnma_nvl(item.BILL_DUE_PAY_DATE),
-  						PAY_TERM_ORIG			: gfnma_nvl(item.PAY_TERM_ORIG),
-  						PROD_GROUP				: gfnma_nvl(item.PROD_GROUP),
-  						BANK_ACCOUNT_SEQ		: gfnma_nvl(item.BANK_ACCOUNT_SEQ),
-  						MATL_NO					: gfnma_nvl(item.MATL_NO),
-  						PROD_ORDER_NO			: gfnma_nvl(item.PROD_ORDER_NO),
-  						ORDER_NO				: gfnma_nvl(item.ORDER_NO),
-  						SALES_NO				: gfnma_nvl(item.SALES_NO),
-  						ETAX_TYPE				: gfnma_nvl(item.ETAX_TYPE),
-  						AFTER_DUE_DATE_YN		: gfnma_nvl(item.AFTER_DUE_DATE_YN),
-  						DUP_ISSUE_BILL_TYPE		: gfnma_nvl(item.DUP_ISSUE_BILL_TYPE),
+  						VOUCHER_RECEIPT_DATE	: gfnma_nvl(item.EVDNC_RCPT_YMD),
+  						APPLY_COMPLETE_FLAG		: gfnma_nvl(item.REVE_CMPTN_FLAG),
+  						WITHHOLD_FLAG			: gfnma_nvl(item.WTHD_FLAG),
+  						WITHHOLD_TAX_TYPE		: gfnma_nvl(item.WTHD_TX_TYPE),
+  						SITE_CODE				: gfnma_nvl(item.SITE_CD),
+  						CREDIT_AREA				: gfnma_nvl(item.CRDT_SECT),
+  						FI_ORG_CODE				: gfnma_nvl(item.ACNTG_OGNZ_CD),
+  						PO_LINE_NO				: gfnma_nvl(item.PORDR_LINE_NO),
+  						SALES_PERSON			: gfnma_nvl(item.SALS_EMP),
+  						WITHHOLD_CS_CODE		: gfnma_nvl(item.WTHD_CNPT_CD),
+  						WITHHOLD_TAX_TYPE2		: gfnma_nvl(item.WTHD_TX_TYPE2),
+  						WITHHOLD_CS_CODE2		: gfnma_nvl(item.WTHD_CNPT_CD2),
+  						APPLY_COMPLETE_DATE		: gfnma_nvl(item.REVE_CMPTN_YMD),
+  						SALES_CS_CODE			: gfnma_nvl(item.SLL_CNPT_CD),
+  						HOLD_FLAG				: gfnma_nvl(item.HLDOF_FLAG),
+  						RELEASE_DATE			: gfnma_nvl(item.RLS_YMD),
+  						RELEASE_USER			: gfnma_nvl(item.RMV_USER),
+  						HOLD_DATE				: gfnma_nvl(item.HLDOF_YMD),
+  						HOLD_USER				: gfnma_nvl(item.HLDOF_USER),
+  						HOLD_REASON				: gfnma_nvl(item.HLDOF_RSN),
+  						PAY_BASE_DATE			: gfnma_date5(gfnma_nvl(item.PAY_RCK_YMD)),
+  						BILL_DUE_DATE			: gfnma_nvl(item.PRMNT_MTRY_YMD),
+  						BILL_DUE_DAY			: gfnma_nvl(item.PRMNT_DCNT),
+  						BILL_DUE_PAY_DATE		: gfnma_nvl(item.PRMNT_MTRY_PAY_YMD),
+  						PAY_TERM_ORIG			: gfnma_nvl(item.PAY_TERM_FRST),
+  						PROD_GROUP				: gfnma_nvl(item.PRDCT_GRP),
+  						BANK_ACCOUNT_SEQ		: gfnma_nvl(item.BACNT_SEQ),
+  						MATL_NO					: gfnma_nvl(item.INDIV_NO),
+  						PROD_ORDER_NO			: gfnma_nvl(item.PRDCTN_ORDR_NO),
+  						ORDER_NO				: gfnma_nvl(item.ORDR_NO),
+  						SALES_NO				: gfnma_nvl(item.SLS_NO),
+  						ETAX_TYPE				: gfnma_nvl(item.ELDOC_TYPE),
+  						AFTER_DUE_DATE_YN		: gfnma_nvl(item.AFTR_DUDT_SEND_YN),
+  						DUP_ISSUE_BILL_TYPE		: gfnma_nvl(item.DPCN_ISSU_BILL_TYPE),
   						EXCLUDE_REVENUE_AMT_YN	: gfnma_nvl(item.EXCLUDE_REVENUE_AMT_YN),
-  						CARD_USE_TYPE			: gfnma_nvl(item.CARD_USE_TYPE),
-  						CARD_NUM				: gfnma_nvl(item.CARD_NUM),
+  						CARD_USE_TYPE			: gfnma_nvl(item.CARD_USG_TYPE),
+  						CARD_NUM				: gfnma_nvl(item.CARD_NO),
   						VAT_NOT_DEDUCTION_TYPE	: gfnma_nvl(item.VAT_NOT_DEDUCTION_TYPE),
-  						REPORT_OMIT_YN			: gfnma_nvl(item.REPORT_OMIT_YN),
-  						STANDARD_DATE			: gfnma_nvl(item.STANDARD_DATE),
-  						VAT_ASSET_TYPE			: gfnma_nvl(item.VAT_ASSET_TYPE),
-  						SUPPLY_AMT				: gfnma_nvl(item.SUPPLY_AMT),
+  						REPORT_OMIT_YN			: gfnma_nvl(item.RPT_PRNMNT_YN),
+  						STANDARD_DATE			: gfnma_nvl(item.DCLR_YMD),
+  						VAT_ASSET_TYPE			: gfnma_nvl(item.VAT_AST_TYPE),
+  						SUPPLY_AMT				: gfnma_nvl(item.SPLY_AMT),
   						VAT_AMT					: gfnma_nvl(item.VAT_AMT),
-  						ZERO_REPORT_YN			: gfnma_nvl(item.ZERO_REPORT_YN),
-  						LOCAL_CREDIT_TYPE		: gfnma_nvl(item.LOCAL_CREDIT_TYPE),
-  						DOCUMENT_NAME			: gfnma_nvl(item.DOCUMENT_NAME),
-  						ISSUE_NAME				: gfnma_nvl(item.ISSUE_NAME),
-  						DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DOCUMENT_ISSUE_DATE),
-  						EXPORT_LICENSE_NO		: gfnma_nvl(item.EXPORT_LICENSE_NO),
-  						SHIPPING_DATE			: gfnma_nvl(item.SHIPPING_DATE),
-  						EXPORT_AMT				: gfnma_nvl(item.EXPORT_AMT),
-  						EXPORT_AMT_KRW			: gfnma_nvl(item.EXPORT_AMT_KRW),
-  						VAT_EXPORT_AMT			: gfnma_nvl(item.VAT_EXPORT_AMT),
-  						VAT_EXPORT_AMT_KRW		: gfnma_nvl(item.VAT_EXPORT_AMT_KRW),
-  						FOREIGN_AMT				: gfnma_nvl(item.FOREIGN_AMT),
-  						WON_AMT					: gfnma_nvl(item.WON_AMT),
-  						DOCUMENT_NO				: gfnma_nvl(item.DOCUMENT_NO),
-  						ZERO_TYPE				: gfnma_nvl(item.ZERO_TYPE),
-  						COST_CLASS				: gfnma_nvl(item.COST_CLASS),
-  						NONDED_YN				: gfnma_nvl(item.NONDED_YN),
-  						WITHHOLD_TAX_YN			: gfnma_nvl(item.WITHHOLD_TAX_YN),
+  						ZERO_REPORT_YN			: gfnma_nvl(item.ZRT_DCMNT_YN),
+  						LOCAL_CREDIT_TYPE		: gfnma_nvl(item.LCL_LC_TYPE),
+  						DOCUMENT_NAME			: gfnma_nvl(item.DCNMT_NM),
+  						ISSUE_NAME				: gfnma_nvl(item.ISSU_NM),
+  						DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DCNMT_ISSU_YMD),
+  						EXPORT_LICENSE_NO		: gfnma_nvl(item.EXPRT_LCNS_NO),
+  						SHIPPING_DATE			: gfnma_nvl(item.SHPG_YMD),
+  						EXPORT_AMT				: gfnma_nvl(item.EXPRT_AMT),
+  						EXPORT_AMT_KRW			: gfnma_nvl(item.EXPRT_AMT_KRW),
+  						VAT_EXPORT_AMT			: gfnma_nvl(item.VAT_THTM_EXPRT_AMT),
+  						VAT_EXPORT_AMT_KRW		: gfnma_nvl(item.VAT_THTM_EXPRT_AMT_KRW),
+  						FOREIGN_AMT				: gfnma_nvl(item.EXPRT_FRCNCY_AMT),
+  						WON_AMT					: gfnma_nvl(item.KRW_AMT),
+  						DOCUMENT_NO				: gfnma_nvl(item.DCNMT_NO),
+  						ZERO_TYPE				: gfnma_nvl(item.ZRT_TYPE),
+  						COST_CLASS				: gfnma_nvl(item.CST_CLSF),
+  						NONDED_YN				: gfnma_nvl(item.NDDC_YN),
+  						WITHHOLD_TAX_YN			: gfnma_nvl(item.WTHD_TX_YN),
   						
-  						VAT_NAME				: gfnma_nvl(item.VAT_NAME),
+  						VAT_NAME				: gfnma_nvl(item.VAT_NM),
   						ORIGINAL_AMT			: (gfnma_nvl(item.ORIGINAL_AMT)) ? gfnma_nvl(item.ORIGINAL_AMT) : '0',
-  						FUNCTIONAL_AMT			: (gfnma_nvl(item.FUNCTIONAL_AMT)) ? gfnma_nvl(item.FUNCTIONAL_AMT) : '0',
-  						PROJECT_CODE			: gfnma_nvl(item.PROJECT_CODE),
-  						PROJECT_NAME			: gfnma_nvl(item.PROJECT_NAME),
-  						BANK_NAME				: gfnma_nvl(item.BANK_NAME),
-  						BANK_ACCOUNT_NO			: gfnma_nvl(item.BANK_ACCOUNT_NO),
+  						FUNCTIONAL_AMT			: (gfnma_nvl(item.CNVS_AMT)) ? gfnma_nvl(item.CNVS_AMT) : '0',
+  						PROJECT_CODE			: gfnma_nvl(item.PJT_CD),
+  						PROJECT_NAME			: gfnma_nvl(item.PJT_NM),
+  						BANK_NAME				: gfnma_nvl(item.BANK_NM),
+  						BANK_ACCOUNT_NO			: gfnma_nvl(item.BACNT_NO),
   						REGNO					: gfnma_nvl(item.REGNO),
-  						TXN_STOP_YN				: gfnma_nvl(item.TXN_STOP_YN),
+  						TXN_STOP_YN				: gfnma_nvl(item.TRSC_HLT_YN),
   						
-  						ITEM_SOURCE_ID_ORIG		: gfnma_nvl(item.ITEM_SOURCE_ID_ORIG),
-  						ITEM_SOURCE_TYPE_ORIG	: gfnma_nvl(item.ITEM_SOURCE_TYPE_ORIG),
+  						ITEM_SOURCE_ID_ORIG		: gfnma_nvl(item.ITEM_SRC_ID_ORGNL),
+  						ITEM_SOURCE_TYPE_ORIG	: gfnma_nvl(item.ITEM_SRC_TYPE_ORGNL),
   							
   					}
   					jsonFig2310.push(msg);
@@ -2376,7 +2412,7 @@
             var strfunctional_dr_amt 	= "";
             var strfunctional_cr_amt 	= "";
             var strvat_type 			= "";
-
+ 
             var stritem_code 			= "";
             var struom 					= "";
             var strtxn_qty 				= "";
@@ -2384,8 +2420,8 @@
             var strcost_center_code 	= "";
             var strproject_code 		= "";
             var strdescription 			= "";
-
-
+ 
+ 
             var stracc_item_code1 		= "";
             var stracc_item_value1 		= "";
             var stracc_item_code2 		= "";
@@ -2406,7 +2442,7 @@
             var stracc_item_value9 		= "";
             var stracc_item_code10 		= "";
             var stracc_item_value10 	= "";
-
+ 
             var stracc_value_name1 		= "";
             var stracc_value_name2 		= "";
             var stracc_value_name3 		= "";
@@ -2417,16 +2453,16 @@
             var stracc_value_name8 		= "";
             var stracc_value_name9 		= "";
             var stracc_value_name10 	= "";
-
+ 
             var stritem_source_type_d 	= "";
             var stritem_source_id_d 	= "";
             var strsource_record_count_d = "";
-
+ 
             var strsum_acc_item1 		= "";
             var strsum_acc_value1 		= "";
             var strsum_acc_item2 		= "";
             var strsum_acc_value2 		= "";
-
+ 
             //var strtrader_id = "";
             var strcs_code 				= "";
             var strfce_gb 				= "";
@@ -2454,7 +2490,7 @@
             var strsales_cs_code 		= "";
             var strapply_complete_flag 	= "";
             var strapply_complete_date 	= "";
-
+ 
             var strhold_flag 			= "";
             var strrelease_date 		= "";
             var strrelease_user 		= "";
@@ -2468,7 +2504,7 @@
             var strpay_term_orig 		= "";
             var strprod_group 			= "";
             var strbank_account_seq 	= "";
-
+ 
             var stretax_type 				= "";
             var strafter_due_date_yn 		= "";
             var strdup_issue_bill_type 		= "";
@@ -2480,7 +2516,7 @@
             var strstandard_date 			= "";
             var strvat_asset_type 			= "";
             var strsupply_amt 				= "";
-
+ 
             var strzero_report_yn 			= "";
             var strlocal_credit_type 		= "";
             var strdocument_name 			= "";
@@ -2654,7 +2690,7 @@
                 strfunctional_dr_amt 	= strfunctional_dr_amt.slice(0, -1);
                 strfunctional_cr_amt 	= strfunctional_cr_amt.slice(0, -1);
                 strvat_type 			= strvat_type.slice(0, -1);
-
+ 
                 stritem_code 			= stritem_code.slice(0, -1);
                 struom 					= struom.slice(0, -1);
                 strtxn_qty 				= strtxn_qty.slice(0, -1);
@@ -2662,7 +2698,7 @@
                 strcost_center_code 	= strcost_center_code.slice(0, -1);
                 strproject_code 		= strproject_code.slice(0, -1);
                 strdescription 			= strdescription.slice(0, -1);
-
+ 
                 stracc_item_code1 		= stracc_item_code1.slice(0, -1);
                 stracc_item_value1 		= stracc_item_value1.slice(0, -1);
                 stracc_item_code2 		= stracc_item_code2.slice(0, -1);
@@ -2679,12 +2715,12 @@
                 stracc_item_value7 		= stracc_item_value7.slice(0, -1);
                 stracc_item_code8 		= stracc_item_code8.slice(0, -1);
                 stracc_item_value8 		= stracc_item_value8.slice(0, -1);
-
+ 
                 stracc_item_code9 		= stracc_item_code9.slice(0, -1);
                 stracc_item_value9 		= stracc_item_value9.slice(0, -1);
                 stracc_item_code10 		= stracc_item_code10.slice(0, -1);
                 stracc_item_value10 	= stracc_item_value10.slice(0, -1);
-
+ 
                 stracc_value_name1 		= stracc_value_name1.slice(0, -1);
                 stracc_value_name2 		= stracc_value_name2.slice(0, -1);
                 stracc_value_name3 		= stracc_value_name3.slice(0, -1);
@@ -2695,11 +2731,11 @@
                 stracc_value_name8 		= stracc_value_name8.slice(0, -1);
                 stracc_value_name9 		= stracc_value_name9.slice(0, -1);
                 stracc_value_name10 	= stracc_value_name10.slice(0, -1);
-
+ 
                 stritem_source_type_d 	= stritem_source_type_d.slice(0, -1);
                 stritem_source_id_d 	= stritem_source_id_d.slice(0, -1);
                 strsource_record_count_d = strsource_record_count_d.slice(0, -1);
-
+ 
                 strexpected_pay_date 	= strexpected_pay_date.slice(0, -1);
                 strpay_term_code 		= strpay_term_code.slice(0, -1);
                 strpay_method 			= strpay_method.slice(0, -1);
@@ -2727,7 +2763,7 @@
                 strsales_cs_code 		= strsales_cs_code.slice(0, -1);
                 strapply_complete_flag 	= strapply_complete_flag.slice(0, -1);
                 strapply_complete_date 	= strapply_complete_date.slice(0, -1);
-
+ 
                 strhold_flag 			= strhold_flag.slice(0, -1);
                 strrelease_date 		= strrelease_date.slice(0, -1);
                 strrelease_user 		= strrelease_user.slice(0, -1);
@@ -2741,12 +2777,12 @@
                 strpay_term_orig 		= strpay_term_orig.slice(0, -1);
                 strprod_group 			= strprod_group.slice(0, -1);
                 strbank_account_seq 	= strbank_account_seq.slice(0, -1);
-
+ 
                 strsum_acc_item1 		= strsum_acc_item1.slice(0, -1);
                 strsum_acc_value1 		= strsum_acc_value1.slice(0, -1);
                 strsum_acc_item2 		= strsum_acc_item2.slice(0, -1);
                 strsum_acc_value2 		= strsum_acc_value2.slice(0, -1);
-
+ 
                 stretax_type 			= stretax_type.slice(0, -1);
                 strafter_due_date_yn 	= strafter_due_date_yn.slice(0, -1);
                 strdup_issue_bill_type 	= strdup_issue_bill_type.slice(0, -1);
@@ -2758,7 +2794,7 @@
                 strstandard_date 		= strstandard_date.slice(0, -1);
                 strvat_asset_type 		= strvat_asset_type.slice(0, -1);
                 strsupply_amt 			= strsupply_amt.slice(0, -1);
-
+ 
                 strzero_report_yn 		= strzero_report_yn.slice(0, -1);
                 strlocal_credit_type 	= strlocal_credit_type.slice(0, -1);
                 strdocument_name 		= strdocument_name.slice(0, -1);
@@ -2950,7 +2986,7 @@
                 cv_count	: '0',
                 params: gfnma_objectToString(paramObj)
             });
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
         	
@@ -3129,17 +3165,17 @@
                 V_P_USERID			: '',
                 V_P_PC				: ''
             };
-
+ 
             const postJsonPromise = gfn_postJSON("/fi/fgl/jor/insertFig2310.do", {
             	getType		: 'json',
                 workType	: wType,
                 cv_count	: '0',
                 params: gfnma_objectToString(paramObj)
             });
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
-
+ 
             try {
             	if (_.isEqual("S", data.resultStatus)) {
                 	return true;
@@ -3184,7 +3220,7 @@
     
     const fn_getExpectedPayDate = async function (wType, strpay_term_code, strtxn_date, strdate_type) {
         var retrunData = [];
-
+ 
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID			: '',
@@ -3200,26 +3236,26 @@
             V_P_USERID			: '',
             V_P_PC				: ''
         };
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/far/rec/getExpectedPayDate.do", {
             getType: 'json',
             workType: 'Q2',
             cv_count: '1',
             params: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
         console.log('data:', data);
-
+ 
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 data.cv_1.forEach((item, index) => {
                     var msg = {
-                        EXPECTED_PAY_DATE 	: item.EXPECTED_PAY_DATE,
-                        PAY_BASE_DATE 		: item.PAY_BASE_DATE,
-                        BILL_DUE_DAY 		: item.BILL_DUE_DAY,
-                        BILL_DUE_DATE 		: item.BILL_DUE_DATE,
-                        BILL_DUE_PAY_DATE 	: item.BILL_DUE_PAY_DATE
+                        EXPECTED_PAY_DATE 	: item.PAY_PRNMNT_YMD,
+                        PAY_BASE_DATE 		: item.PAY_RCK_YMD,
+                        BILL_DUE_DAY 		: item.PRMNT_DCNT,
+                        BILL_DUE_DATE 		: item.PRMNT_MTRY_YMD,
+                        BILL_DUE_PAY_DATE 	: item.PRMNT_MTRY_PAY_YMD
                     }
                     retrunData.push(msg);
                 });
@@ -3277,7 +3313,7 @@
 			fn_enableSet();
 		});		
 	}
-
+ 
 	function fn_subSearch(callbackFn) {
     	
 		pg_vat_type_bizId	= 'P_ACCOUNT_POPUP_Q';
@@ -3310,7 +3346,7 @@
      * 전기처리 - 실행
      */
     const fn_subDocProcess = async function (wtype){
-
+ 
 		let p_fi_org_code		= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
 		let p_acct_rule_code	= gfnma_nvl(SBUxMethod.get("sch-acct-rule-code"));
 		let p_strdoc_id			= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
@@ -3340,7 +3376,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -3348,7 +3384,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -3407,7 +3443,7 @@
      * 전기취소 - 실행
      */
     const fn_subDocCancel = async function (wtype, p_strdoc_id, p_type, p_date){
-
+ 
 		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
         if(!p_strdoc_id){
     		gfn_comAlert("E0000","전기취소 할 전표를 선택하세요");
@@ -3433,7 +3469,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2200S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -3441,7 +3477,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
@@ -3534,7 +3570,7 @@
      * 보류해제, 보류지정
      */
     const fn_subAllRelease = async function (wtype, p_strdoc_id, p_item_id_d, p_hold_reason_d){
-
+ 
 		let p_fi_org_code	= gfnma_nvl(SBUxMethod.get("sch-fi-org-code"));
 		let p_doc_date		= gfnma_date7(gfnma_nvl(SBUxMethod.get("sch-doc-date")));
       	if(!p_doc_date){
@@ -3560,7 +3596,7 @@
  			,V_P_USERID					: p_userId
  			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/updateFig2310S1.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -3597,7 +3633,7 @@
  			gfn_comAlert("E0000","결재정보 생성 후 조회가 가능합니다.");
 			return;
 		}
-
+ 
 		var p_doc_id 	= gfnma_nvl(SBUxMethod.get("sch-doc-id"));
 		var p_doc_type	= gfnma_nvl(SBUxMethod.get("sch-txtsource-type2"));
     	
@@ -3689,9 +3725,9 @@
      */
     var fn_ruleSet = function(data) {
     	if(data.cv_1.length>0){
-    		SBUxMethod.set("sch-doc-type", 			data.cv_1[0]['DOC_TYPE']);
-    		SBUxMethod.set("sch-acct-rule-code", 	data.cv_1[0]['ACCT_RULE_CODE']);
-    		SBUxMethod.set("sch-currency-code", 	data.cv_1[0]['CURRENCY_CODE']);
+    		SBUxMethod.set("sch-doc-type", 			data.cv_1[0]['SLIP_TYPE']);
+    		SBUxMethod.set("sch-acct-rule-code", 	data.cv_1[0]['GAAP_CD']);
+    		SBUxMethod.set("sch-currency-code", 	data.cv_1[0]['CRN_CD']);
     		SBUxMethod.set("sch-description", 		data.cv_1[0]['MEMO']);
     	}
     }    
@@ -3701,9 +3737,9 @@
      */
     var fn_defaultRuleSet = function(data) {
     	if(data.cv_1.length>0){
-    		SBUxMethod.set("sch-doc-type", 			data.cv_1[0]['DOC_TYPE']);
-    		SBUxMethod.set("sch-acct-rule-code", 	data.cv_1[0]['ACCT_RULE_CODE']);
-    		SBUxMethod.set("sch-currency-code", 	data.cv_1[0]['CURRENCY_CODE']);
+    		SBUxMethod.set("sch-doc-type", 			data.cv_1[0]['SLIP_TYPE']);
+    		SBUxMethod.set("sch-acct-rule-code", 	data.cv_1[0]['GAAP_CD']);
+    		SBUxMethod.set("sch-currency-code", 	data.cv_1[0]['CRN_CD']);
     		SBUxMethod.set("sch-description", 		data.cv_1[0]['MEMO']);
     	}
     }    

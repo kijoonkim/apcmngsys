@@ -62,7 +62,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2240_Q");
+            param.put("procedure", 		"SP_FBS2240_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FBS2240_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FBS2240_S");
 
             logger.info("=============insertFbs2240List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -113,7 +113,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2240_S3");
+            param.put("procedure", 		"SP_FBS2240_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -143,7 +143,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBS2240_S4");
+            param.put("procedure", 		"SP_FBS2240_S4");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBSPAYROLLBATCH_S");
+            param.put("procedure", 		"SP_FBSPAYROLLBATCH_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,7 +203,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FBSPAYROLLBATCH_Q");
+            param.put("procedure", 		"SP_FBSPAYROLLBATCH_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

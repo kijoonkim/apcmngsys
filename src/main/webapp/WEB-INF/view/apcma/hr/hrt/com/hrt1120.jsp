@@ -165,7 +165,7 @@
 
         let rst = await Promise.all([
             // 집계기준
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryScale, 'L_HRT001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SUMMARY_SCALE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -177,21 +177,21 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 집계기준
-            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'gvwInfo'], jsonTimeCategory, 'L_HRT024', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_TIME_CATEGORY', 'gvwInfo'], jsonTimeCategory, 'L_HRT024', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 시간
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeTime, 'L_HRT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeTime, 'L_HRT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ATDNC_TOT_CD', 'ATDNC_TOT_NM', 'Y', ''),
             // 횟수
-            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeCount, 'L_HRT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_SUMMARY_CODE', 'TIME_SUMMARY_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonSummaryCodeCount, 'L_HRT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ATDNC_TOT_CD', 'ATDNC_TOT_NM', 'Y', ''),
             // 시작/종료일자유형
-            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonStartEndDayType, 'L_HRT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -409,46 +409,46 @@
                 jsonNeglectOfDutyInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        TIME_ITEM_CODE : item.TIME_ITEM_CODE,
-                        TIME_ITEM_NAME : item.TIME_ITEM_NAME,
-                        TIME_ITEM_ABBR_NAME : item.TIME_ITEM_ABBR_NAME,
-                        SUMMARY_SCALE : item.SUMMARY_SCALE,
-                        SUMMARY_CODE_TIME : item.SUMMARY_CODE_TIME,
-                        SUMMARY_CODE_COUNT : item.SUMMARY_CODE_COUNT,
-                        ADJUST_WORK_DAY : item.ADJUST_WORK_DAY,
-                        ADJUST_REAL_WORK_DAY : item.ADJUST_REAL_WORK_DAY,
-                        ADJUST_ANNUAL_DAY : item.ADJUST_ANNUAL_DAY,
-                        BASE_WORK_DAY : item.BASE_WORK_DAY,
-                        REAL_WORK_DAY : item.REAL_WORK_DAY,
-                        ANNUAL_DAY : item.ANNUAL_DAY,
-                        VACATION_DAY : item.VACATION_DAY,
-                        PAID_DAY : item.PAID_DAY,
-                        UNPAID_DAY : item.UNPAID_DAY,
+                        TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
+                        TIME_ITEM_NAME : item.ATDNC_ITEM_NM,
+                        TIME_ITEM_ABBR_NAME : item.ATDNC_ABBR_NM,
+                        SUMMARY_SCALE : item.SMMRY_SCL,
+                        SUMMARY_CODE_TIME : item.SMMRY_TM,
+                        SUMMARY_CODE_COUNT : item.SMMRY_CNT,
+                        ADJUST_WORK_DAY : item.AJMT_WRKDY_CNT,
+                        ADJUST_REAL_WORK_DAY : item.AJMT_ACTL_WRKDY_CNT,
+                        ADJUST_ANNUAL_DAY : item.ANNLV_DAY_CNT_AJMT,
+                        BASE_WORK_DAY : item.BASE_WORK_DCNT,
+                        REAL_WORK_DAY : item.ACTL_WORK_DCNT,
+                        ANNUAL_DAY : item.ANNLV_OCRN_DAY_CNT,
+                        VACATION_DAY : item.VCT_DCNT,
+                        PAID_DAY : item.PADLV_DCNT,
+                        UNPAID_DAY : item.UNPAID_DCNT,
                         MEMO : item.MEMO,
                         USE_YN : item.USE_YN,
-                        INPUT_YN : item.INPUT_YN,
-                        PLAN_YN : item.PLAN_YN,
+                        INPUT_YN : item.INPT_YN,
+                        PLAN_YN : item.ATDNC_PLAN_YN,
                         BASE_RULE : item.BASE_RULE,
-                        WORKER_YN : item.WORKER_YN,
-                        GENERAL_YN : item.GENERAL_YN,
-                        START_DAY_TYPE : item.START_DAY_TYPE,
-                        START_HHMM : item.START_HHMM,
+                        WORKER_YN : item.ENJB_YN,
+                        GENERAL_YN : item.GNRL_YN,
+                        START_DAY_TYPE : item.BGNG_DAY_TYPE,
+                        START_HHMM : item.BGNG_TM,
                         END_DAY_TYPE : item.END_DAY_TYPE,
-                        END_HHMM : item.END_HHMM,
-                        TIME_CATEGORY : item.TIME_CATEGORY,
-                        PAID_YN : item.PAID_YN,
+                        END_HHMM : item.END_TM,
+                        TIME_CATEGORY : item.ATDNC_CTGRY,
+                        PAID_YN : item.PAY_TRGT_YN,
                         ESS_YN : item.ESS_YN,
-                        SUMMARY_ITEM_CODE : item.SUMMARY_ITEM_CODE,
-                        TIME52_YN : item.TIME52_YN,
-                        OVERTIME_YN : item.OVERTIME_YN,
-                        EXCEPT_YN : item.EXCEPT_YN,
-                        NIGHT_TIME_YN : item.NIGHT_TIME_YN,
-                        RESULT_YN : item.RESULT_YN,
-                        ALTER_WORK_YN : item.ALTER_WORK_YN,
-                        ALTER_REQ_YN : item.ALTER_REQ_YN,
-                        SHIFT_WORK_YN : item.SHIFT_WORK_YN,
-                        CLIENT_CODE : item.CLIENT_CODE,
-                        COMP_CODE : item.COMP_CODE
+                        SUMMARY_ITEM_CODE : item.SMMRY_ITEM_CD,
+                        TIME52_YN : item.HR52_YN,
+                        OVERTIME_YN : item.OVTM_YN,
+                        EXCEPT_YN : item.EXCPT_YN,
+                        NIGHT_TIME_YN : item.NGHT_WORK_YN,
+                        RESULT_YN : item.ATDNC_RSLT_MNG_YN,
+                        ALTER_WORK_YN : item.RPLCMT_WORK_YN,
+                        ALTER_REQ_YN : item.RPLCMT_WORK_RQST_YN,
+                        SHIFT_WORK_YN : item.SHWORK_YN,
+                        CLIENT_CODE : item.CLNT_CD,
+                        COMP_CODE : item.CO_CD
                     }
                     jsonNeglectOfDutyInfoList.push(msg);
                 });

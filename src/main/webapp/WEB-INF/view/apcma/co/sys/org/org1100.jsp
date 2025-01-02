@@ -392,7 +392,7 @@
 	var jsonCurrencyCode = [];
 	const fn_initSBSelect = async function() {
 	    let rst = await Promise.all([
-			gfnma_setComSelect(['historyGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['historyGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 	        //통화코드
 	        gfnma_multiSelectInit({
 	            target: ['#CURRENCY_CODE'],
@@ -405,11 +405,11 @@
 	            selectValue: '',
 	            dropType: 'up', // up, down
 	            dropAlign: 'right', // left, right
-	            colValue: 'CURRENCY_CODE',
-	            colLabel: 'CURRENCY_NAME',
+	            colValue: 'CRN_CD',
+	            colLabel: 'CRN_NM',
 	            columns: [
-	            	{	caption: "통화코드",	ref: 'CURRENCY_CODE',	width: '125px',	style: 'text-align:left' },
-	            	{	caption: "통화명",	ref: 'CURRENCY_NAME',	width: '125px',	style: 'text-align:left' },
+	            	{	caption: "통화코드",	ref: 'CRN_CD',	width: '125px',	style: 'text-align:left' },
+	            	{	caption: "통화명",	ref: 'CRN_NM',	width: '125px',	style: 'text-align:left' },
 	            	{	caption: "비고",	ref: 'DESCIPTION',	width: '150px',	style: 'text-align:left'}
 	            ]
 	        }),
@@ -425,11 +425,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'left', // left, right
-	            colValue: 'SUB_CODE',
-	            colLabel: 'CODE_NAME',
+	            colValue: 'SBSD_CD',
+	            colLabel: 'CD_NM',
 	            columns: [
-	            	{	caption: "세무서코드",	ref: 'SUB_CODE',	width: '100px',	style: 'text-align:left' },
-	            	{	caption: "세무서명",		ref: 'CODE_NAME',	width: '100px',	style: 'text-align:left' }
+	            	{	caption: "세무서코드",	ref: 'SBSD_CD',	width: '100px',	style: 'text-align:left' },
+	            	{	caption: "세무서명",		ref: 'CD_NM',	width: '100px',	style: 'text-align:left' }
 	            ]
 	        }),
 	        //원천세관할세무소
@@ -444,11 +444,11 @@
 	            selectValue: '',
 	            dropType: 'down', // up, down
 	            dropAlign: 'left', // left, right
-	            colValue: 'SUB_CODE',
-	            colLabel: 'CODE_NAME',
+	            colValue: 'SBSD_CD',
+	            colLabel: 'CD_NM',
 	            columns: [
-	            	{	caption: "세무서코드",	ref: 'SUB_CODE',	width: '100px',	style: 'text-align:left' },
-	            	{	caption: "세무서명",		ref: 'CODE_NAME',	width: '100px',	style: 'text-align:left' }
+	            	{	caption: "세무서코드",	ref: 'SBSD_CD',	width: '100px',	style: 'text-align:left' },
+	            	{	caption: "세무서명",		ref: 'CD_NM',	width: '100px',	style: 'text-align:left' }
 	            ]
 	        }),
 	        
@@ -464,13 +464,13 @@
 	            selectValue: '',
 	            dropType: 'up', // up, down
 	            dropAlign: 'right', // left, right
-	            colValue: 'SITE_CODE',
-	            colLabel: 'SITE_NAME',
+	            colValue: 'SITE_CD',
+	            colLabel: 'SITE_NM',
 	            columns: [
-	            	{ caption: "사업장코드", 		ref: 'SITE_CODE',	width: '100px',	style: 'text-align:left'  },
-	            	{ caption: "사업장명",		ref: 'SITE_NAME',	width: '150px',	style: 'text-align:left' },
-	            	{ caption: "비고",	  		ref: 'DESCR',	width: '150px',	style: 'text-align:left' },
-	            	{ caption: "APC코드",	 	ref: 'FI_ORG_CODE',	width: '150px',	style: 'text-align:left' }
+	            	{ caption: "사업장코드", 		ref: 'SITE_CD',	width: '100px',	style: 'text-align:left'  },
+	            	{ caption: "사업장명",		ref: 'SITE_NM',	width: '150px',	style: 'text-align:left' },
+	            	{ caption: "비고",	  		ref: 'DSCTN',	width: '150px',	style: 'text-align:left' },
+	            	{ caption: "APC코드",	 	ref: 'ACNTG_OGNZ_CD',	width: '150px',	style: 'text-align:left' }
 	            ]
 	        }),
 	    ]);
@@ -504,24 +504,24 @@
 	    cfn_search();
 	});
 	
-	function fn_clickTab(){
-	    const nRow = masterGrid.getRow();
-	    const tabId = SBUxMethod.get('idxTab_norm');
+	// function fn_clickTab(){
+	//     const nRow = masterGrid.getRow();
+	//     const tabId = SBUxMethod.get('idxTab_norm');
 	    
-	    if (nRow == -1) {
-	        return;
-	    }
-	    const selectRowVal = masterGrid.getRowData(nRow);
-		if(gfn_comConfirm("Q0001", "탭 이동시 저장되지 않은 정보는 저장되지 않습니다 탭 이동")){ //{0} 하시겠습니까?
-			if(tabId == 'HISTORY'){
-				fn_searchHistoryGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
-			}else{
-				fn_searchLimitGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
-			}
-		}else{
-			SBUxMethod.selectTab('idxTab_norm', tabId);
-		}
-	}
+	//     if (nRow == -1) {
+	//         return;
+	//     }
+	//     const selectRowVal = masterGrid.getRowData(nRow);
+	// 	if(gfn_comConfirm("Q0001", "탭 이동시 저장되지 않은 정보는 저장되지 않습니다 탭 이동")){ //{0} 하시겠습니까?
+	// 		if(tabId == 'HISTORY'){
+	// 			fn_searchHistoryGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
+	// 		}else{
+	// 			fn_searchLimitGrid(selectRowVal.TAX_SITE_CODE, selectRowVal.TAX_SITE_NAME, selectRowVal.BIZ_REGNO);
+	// 		}
+	// 	}else{
+	// 		SBUxMethod.selectTab('idxTab_norm', tabId);
+	// 	}
+	// }
 	
     /**
      * 초기화
@@ -711,34 +711,34 @@
 	            masterGrid.length = 0;
 	            data.cv_1.forEach((item, index) => {
 	                const msg = {
-	                    TAX_SITE_CODE: gfnma_nvl(item.TAX_SITE_CODE),
-	                    TAX_SITE_NAME: gfnma_nvl(item.TAX_SITE_NAME),
-	                    BIZ_REGNO: gfnma_nvl(item.BIZ_REGNO),
-	                    CHIEF_NAME: gfnma_nvl(item.CHIEF_NAME),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CHIEF_SOCIALNO),
+	                    TAX_SITE_CODE: gfnma_nvl(item.TX_SITE_CD),
+	                    TAX_SITE_NAME: gfnma_nvl(item.TX_SITE_NM),
+	                    BIZ_REGNO: gfnma_nvl(item.BRNO),
+	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
+	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
 	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
-	                    TAX_SITE_STAMP: gfnma_nvl(item.TAX_SITE_STAMP),
-	                    BIZ_CATEGORY: gfnma_nvl(item.BIZ_CATEGORY),
-	                    BIZ_ITEMS: gfnma_nvl(item.BIZ_ITEMS),
-	                    ZIP_CODE: gfnma_nvl(item.ZIP_CODE),
-	                    ADDRESS: gfnma_nvl(item.ADDRESS),
-	                    TEL: gfnma_nvl(item.TEL),
-	                    RESIDENCE_TEL: gfnma_nvl(item.RESIDENCE_TEL),
-	                    FAX: gfnma_nvl(item.FAX),
-	                    ESTABLISH_DATE: gfnma_nvl(item.ESTABLISH_DATE),
-	                    CLOSE_DATE: gfnma_nvl(item.CLOSE_DATE),
-	                    HOME_TAX_ID: gfnma_nvl(item.HOME_TAX_ID),
-	                    VAT_OFFICE: gfnma_nvl(item.VAT_OFFICE),
-	                    INCOME_TAX_OFFICE: gfnma_nvl(item.INCOME_TAX_OFFICE),
-	                    VAT_EMAIL: gfnma_nvl(item.VAT_EMAIL),
-	                    INCOME_TAX_EMAIL: gfnma_nvl(item.INCOME_TAX_EMAIL),
-	                    DESCR: gfnma_nvl(item.DESCR),
+	                    TAX_SITE_STAMP: gfnma_nvl(item.TX_SITE_OS),
+	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
+	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
+	                    ZIP_CODE: gfnma_nvl(item.ZIP_CD),
+	                    ADDRESS: gfnma_nvl(item.ADDR),
+	                    TEL: gfnma_nvl(item.TELNO),
+	                    RESIDENCE_TEL: gfnma_nvl(item.RSDC_TELNO),
+	                    FAX: gfnma_nvl(item.FX_NO),
+	                    ESTABLISH_DATE: gfnma_nvl(item.CORP_FNDN_YMD),
+	                    CLOSE_DATE: gfnma_nvl(item.DDLN_YMD),
+	                    HOME_TAX_ID: gfnma_nvl(item.HOME_TX_ID),
+	                    VAT_OFFICE: gfnma_nvl(item.VAT_TXOFC),
+	                    INCOME_TAX_OFFICE: gfnma_nvl(item.INCTX_TXOFC),
+	                    VAT_EMAIL: gfnma_nvl(item.VAT_PIC_EML),
+	                    INCOME_TAX_EMAIL: gfnma_nvl(item.INCTX_PIC_EML),
+	                    DESCR: gfnma_nvl(item.DSCTN),
 	                    USE_YN: gfnma_nvl(item.USE_YN),
-	                    BIZ_SUBNO: gfnma_nvl(item.BIZ_SUBNO),
-	                    CURRENCY_CODE: gfnma_nvl(item.CURRENCY_CODE),
-	                    TAX_SITE_NAME_CHN: gfnma_nvl(item.TAX_SITE_NAME_CHN),
-	                    COMP_CODE: gfnma_nvl(item.COMP_CODE),
-	                    SITE_CODE: gfnma_nvl(item.SITE_CODE),
+	                    BIZ_SUBNO: gfnma_nvl(item.SBSD_BPLC_NO),
+	                    CURRENCY_CODE: gfnma_nvl(item.CRN_CD),
+	                    TAX_SITE_NAME_CHN: gfnma_nvl(item.TX_SITE_NM_CHN),
+	                    COMP_CODE: gfnma_nvl(item.CO_CD),
+	                    SITE_CODE: gfnma_nvl(item.SITE_CD),
 	                    SITE_STAMP_FILE_NAME: gfnma_nvl(item.SITE_STAMP_FILE_NAME)
 	                }
 	                jsonMasterList.push(msg);
@@ -791,25 +791,25 @@
 	        if (_.isEqual("S", data.resultStatus)) {
 	            data.cv_2.forEach((item, index) => {
 	                const msg = {
-	                    APPLY_START_DATE: gfnma_nvl(item.APPLY_START_DATE),
-	                    APPLY_END_DATE: gfnma_nvl(item.APPLY_END_DATE),
-	                    TAX_SITE_NAME: gfnma_nvl(item.TAX_SITE_NAME),
+	                    APPLY_START_DATE: gfnma_nvl(item.APLY_STRT_YMD),
+	                    APPLY_END_DATE: gfnma_nvl(item.APLY_END_YMD),
+	                    TAX_SITE_NAME: gfnma_nvl(item.TX_SITE_NM),
 	                    TAX_SITE_CODE: gfnma_nvl(paramObj.V_P_TAX_SITE_CODE),
-	                    BIZ_REGNO: gfnma_nvl(item.BIZ_REGNO),
-	                    BIZ_CATEGORY: gfnma_nvl(item.BIZ_CATEGORY),
-	                    BIZ_ITEMS: gfnma_nvl(item.BIZ_ITEMS),
-	                    CHIEF_NAME: gfnma_nvl(item.CHIEF_NAME),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CHIEF_SOCIALNO),
+	                    BIZ_REGNO: gfnma_nvl(item.BRNO),
+	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
+	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
+	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
+	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
 	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
-	                    ZIP_CODE: gfnma_nvl(item.ZIP_CODE),
-	                    ADDRESS: gfnma_nvl(item.ADDRESS),
-	                    ISSUE_DATE: gfnma_nvl(item.ISSUE_DATE),
-	                    ISSUE_REASON: gfnma_nvl(item.ISSUE_REASON),
+	                    ZIP_CODE: gfnma_nvl(item.ZIP_CD),
+	                    ADDRESS: gfnma_nvl(item.ADDR),
+	                    ISSUE_DATE: gfnma_nvl(item.ISSU_YMD),
+	                    ISSUE_REASON: gfnma_nvl(item.ISSU_RSN),
 	                    MEMO: gfnma_nvl(item.MEMO),
-	                    BIZ_SUBNO: gfnma_nvl(item.BIZ_SUBNO),
-	                    CURRENCY_CODE: gfnma_nvl(item.CURRENCY_CODE),
-	                    CLIENT_CODE: gfnma_nvl(item.CLIENT_CODE),
-	                    COMP_CODE: gfnma_nvl(item.COMP_CODE)
+	                    BIZ_SUBNO: gfnma_nvl(item.SBSD_BPLC_NO),
+	                    CURRENCY_CODE: gfnma_nvl(item.CRN_CD),
+	                    CLIENT_CODE: gfnma_nvl(item.CLNT_CD),
+	                    COMP_CODE: gfnma_nvl(item.CO_CD)
 	                }
 	                jsonHistoryList.push(msg);
 	            });
@@ -854,10 +854,10 @@
 	        if (_.isEqual("S", data.resultStatus)) {
 	            data.cv_2.forEach((item, index) => {
 	                const msg = {
-	                    APPLY_START_DATE			: gfnma_nvl(item.APPLY_START_DATE),
-	                    APPLY_END_DATE				: gfnma_nvl(item.APPLY_END_DATE),
-	                    ISSUE_LIMIT_MONTH			: gfnma_nvl(item.ISSUE_LIMIT_MONTH),
-	                    ISSUE_LIMIT_ONCE			: gfnma_nvl(item.ISSUE_LIMIT_ONCE),
+	                    APPLY_START_DATE			: gfnma_nvl(item.APLY_STRT_YMD),
+	                    APPLY_END_DATE				: gfnma_nvl(item.APLY_END_YMD),
+	                    ISSUE_LIMIT_MONTH			: gfnma_nvl(item.ISSU_MM_LMT),
+	                    ISSUE_LIMIT_ONCE			: gfnma_nvl(item.ISSU_PONE_LMT),
 	                    TAX_SITE_CODE				: gfnma_nvl(paramObj.V_P_TAX_SITE_CODE)
 	                }
 	                jsonLimitList.push(msg);
@@ -917,34 +917,34 @@
 		    try {
 		        if (_.isEqual("S", data.resultStatus)) {
 		        	var obj = data.cv_1[0];
-		    	    SBUxMethod.set("TAX_SITE_CODE", gfnma_nvl(obj.TAX_SITE_CODE));
-		    	    SBUxMethod.set("TAX_SITE_NAME", gfnma_nvl(obj.TAX_SITE_NAME));
-		    	    SBUxMethod.set("BIZ_REGNO1", gfnma_nvl(obj.BIZ_REGNO));
-		    	    SBUxMethod.set("CHIEF_NAME", gfnma_nvl(obj.CHIEF_NAME));
-		    	    SBUxMethod.set("CHIEF_SOCIALNO", gfnma_nvl(obj.CHIEF_SOCIALNO));
+		    	    SBUxMethod.set("TAX_SITE_CODE", gfnma_nvl(obj.TX_SITE_CD));
+		    	    SBUxMethod.set("TAX_SITE_NAME", gfnma_nvl(obj.TX_SITE_NM));
+		    	    SBUxMethod.set("BIZ_REGNO1", gfnma_nvl(obj.BRNO));
+		    	    SBUxMethod.set("CHIEF_NAME", gfnma_nvl(obj.CEO_NM));
+		    	    SBUxMethod.set("CHIEF_SOCIALNO", gfnma_nvl(obj.CEO_RRNO));
 		    	    SBUxMethod.set("CHIEF_SOCIALNO_REAL", gfnma_nvl(obj.CHIEF_SOCIALNO_REAL));
-		    	    SBUxMethod.set("BIZ_CATEGORY", gfnma_nvl(obj.BIZ_CATEGORY));
-		    	    SBUxMethod.set("BIZ_ITEMS", gfnma_nvl(obj.BIZ_ITEMS));
-		    	    SBUxMethod.set("ZIP_CODE", gfnma_nvl(obj.ZIP_CODE));
-		    	    SBUxMethod.set("ADDRESS", gfnma_nvl(obj.ADDRESS));
-		    	    SBUxMethod.set("TEL", gfnma_nvl(obj.TEL));
-		    	    SBUxMethod.set("RESIDENCE_TEL", gfnma_nvl(obj.RESIDENCE_TEL));
-		    	    SBUxMethod.set("FAX", gfnma_nvl(obj.FAX));
-		    	    SBUxMethod.set("ESTABLISH_DATE", gfnma_nvl(obj.ESTABLISH_DATE));
-		    	    SBUxMethod.set("CLOSE_DATE", gfnma_nvl(obj.CLOSE_DATE));
-		    	    SBUxMethod.set("HOME_TAX_ID", gfnma_nvl(obj.HOME_TAX_ID));
-		    	    SBUxMethod.set("VAT_EMAIL", gfnma_nvl(obj.VAT_EMAIL));
-		    	    SBUxMethod.set("INCOME_TAX_EMAIL", gfnma_nvl(obj.INCOME_TAX_EMAIL));
-		    	    SBUxMethod.set("DESCR", gfnma_nvl(obj.DESCR));
+		    	    SBUxMethod.set("BIZ_CATEGORY", gfnma_nvl(obj.BZSTAT));
+		    	    SBUxMethod.set("BIZ_ITEMS", gfnma_nvl(obj.TPBIZ));
+		    	    SBUxMethod.set("ZIP_CODE", gfnma_nvl(obj.ZIP_CD));
+		    	    SBUxMethod.set("ADDRESS", gfnma_nvl(obj.ADDR));
+		    	    SBUxMethod.set("TEL", gfnma_nvl(obj.TELNO));
+		    	    SBUxMethod.set("RESIDENCE_TEL", gfnma_nvl(obj.RSDC_TELNO));
+		    	    SBUxMethod.set("FAX", gfnma_nvl(obj.FX_NO));
+		    	    SBUxMethod.set("ESTABLISH_DATE", gfnma_nvl(obj.CORP_FNDN_YMD));
+		    	    SBUxMethod.set("CLOSE_DATE", gfnma_nvl(obj.DDLN_YMD));
+		    	    SBUxMethod.set("HOME_TAX_ID", gfnma_nvl(obj.HOME_TX_ID));
+		    	    SBUxMethod.set("VAT_EMAIL", gfnma_nvl(obj.VAT_PIC_EML));
+		    	    SBUxMethod.set("INCOME_TAX_EMAIL", gfnma_nvl(obj.INCTX_PIC_EML));
+		    	    SBUxMethod.set("DESCR", gfnma_nvl(obj.DSCTN));
 		    	    SBUxMethod.set("USE_YN", gfnma_nvl(obj.USE_YN));
-		    	    SBUxMethod.set("BIZ_SUBNO", gfnma_nvl(obj.BIZ_SUBNO));
-		    	    SBUxMethod.set("TAX_SITE_NAME_CHN", gfnma_nvl(obj.TAX_SITE_NAME_CHN));
-		    	    SBUxMethod.set("COMP_CODE", gfnma_nvl(obj.COMP_CODE));
+		    	    SBUxMethod.set("BIZ_SUBNO", gfnma_nvl(obj.SBSD_BPLC_NO));
+		    	    SBUxMethod.set("TAX_SITE_NAME_CHN", gfnma_nvl(obj.TX_SITE_NM_CHN));
+		    	    SBUxMethod.set("COMP_CODE", gfnma_nvl(obj.CO_CD));
 		    	
-		    	    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', gfnma_nvl(obj.CURRENCY_CODE));
-		    	    gfnma_multiSelectSet('#VAT_OFFICE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(obj.VAT_OFFICE));
-		    	    gfnma_multiSelectSet('#INCOME_TAX_OFFICE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl(obj.INCOME_TAX_OFFICE));
-		    	    gfnma_multiSelectSet('#SITE_CODE', 'SITE_CODE', 'SITE_NAME', gfnma_nvl(obj.SITE_CODE));
+		    	    gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', gfnma_nvl(obj.CRN_CD));
+		    	    gfnma_multiSelectSet('#VAT_OFFICE', 'SBSD_CD', 'CD_NM', gfnma_nvl(obj.VAT_TXOFC));
+		    	    gfnma_multiSelectSet('#INCOME_TAX_OFFICE', 'SBSD_CD', 'CD_NM', gfnma_nvl(obj.INCTX_TXOFC));
+		    	    gfnma_multiSelectSet('#SITE_CODE', 'SITE_CD', 'SITE_NM', gfnma_nvl(obj.SITE_CD));
 		    	
 		    	    if (gfnma_nvl(obj.SITE_STAMP_FILE_NAME) != '') {
 		    	        $("#TAX_SITE_STAMP").attr("src", "/com/getFileImage.do?fkey=" + obj.SITE_STAMP_FILE_NAME + "&comp_code=" + gv_ma_selectedCorpCd + "&client_code=" + gv_ma_selectedClntCd);
@@ -992,10 +992,10 @@
 	    SBUxMethod.set("TAX_SITE_NAME_CHN", "");
 	    SBUxMethod.set("COMP_CODE", "");
 	
-	    gfnma_multiSelectSet('#CURRENCY_CODE', 'CURRENCY_CODE', 'CURRENCY_NAME', "");
-	    gfnma_multiSelectSet('#VAT_OFFICE', 'SUB_CODE', 'CODE_NAME', "");
-	    gfnma_multiSelectSet('#INCOME_TAX_OFFICE', 'SUB_CODE', 'CODE_NAME', "");
-	    gfnma_multiSelectSet('#SITE_CODE', 'SITE_CODE', 'SITE_NAME', "");
+	    gfnma_multiSelectSet('#CURRENCY_CODE', '', '', "");
+	    gfnma_multiSelectSet('#VAT_OFFICE', '', '', "");
+	    gfnma_multiSelectSet('#INCOME_TAX_OFFICE', '', '', "");
+	    gfnma_multiSelectSet('#SITE_CODE', '', '', "");
 	    $("#TAX_SITE_STAMP").attr("src", "");
 	    
 	    jsonLimitList = []

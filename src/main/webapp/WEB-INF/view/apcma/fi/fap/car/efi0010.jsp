@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -160,10 +160,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -171,7 +171,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//집계단위
@@ -186,16 +186,16 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'ZACCD_G'
-				,colLabel		: 'ZACCD_GNAME'
+				,colValue		: 'TOT_UNIT_CD'
+				,colLabel		: 'TOT_UNIT_NM'
 				,columns		:[
-		            {caption: "집계코드",		ref: 'ZACCD_G', 			width:'100px', 		style:'text-align:left'},
-		            {caption: "집계단위명",		ref: 'ZACCD_GNAME',    		width:'200px',  	style:'text-align:left'}
+		            {caption: "집계코드",		ref: 'TOT_UNIT_CD', 			width:'100px', 		style:'text-align:left'},
+		            {caption: "집계단위명",		ref: 'TOT_UNIT_NM',    		width:'200px',  	style:'text-align:left'}
 				]
 			}),
 		]);
 	}	
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
@@ -215,7 +215,7 @@
 // 			e.preventDefault();
 // 		});
     });
-
+ 
     /**
      * 초기화
      */
@@ -226,7 +226,7 @@
     //grid 초기화
     var Efi0010Grid; 			// 그리드를 담기위한 객체 선언
     var jsonEfi0010List = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdAcct';
@@ -266,7 +266,7 @@
             {caption: ["기존계정명"], 				ref: 'OLD_ZACCD_DNAME', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["비고"], 					ref: 'etc', 					type:'output',  	width:'150px',  	style:'text-align:left'},
         ];
-
+ 
         Efi0010Grid = _SBGrid.create(SBGridProperties);
         Efi0010Grid.bind('click', 'fn_view');
     }
@@ -291,9 +291,9 @@
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
 		SBUxMethod.openModal('modal-compopup1');
     	
-        var replaceText0 	= "_ZACCD_D_";
-        var replaceText1 	= "_ZACCD_DNAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_NTSL_MNCO_ACNT_CD_";
+        var replaceText1 	= "_NTSL_MNCO_ACNT_NM_"; 
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -302,18 +302,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 		"명칭"]
-   			,searchInputFields		: ["ZACCD_D", 	"ZACCD_DNAME"]
+   			,searchInputFields		: ["NTSL_MNCO_ACNT_CD", 	"NTSL_MNCO_ACNT_NM"]
    			,searchInputValues		: [cellData1, 	cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",	"계정명"]
-   			,tableColumnNames		: ["ZACCD_D", 	"ZACCD_DNAME"]
+   			,tableColumnNames		: ["NTSL_MNCO_ACNT_CD", 	"NTSL_MNCO_ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Efi0010Grid.setCellData(row, 3, data['ZACCD_D'], true, true);
-				Efi0010Grid.setCellData(row, 5, data['ZACCD_DNAME'], true, true);
+				Efi0010Grid.setCellData(row, 3, data['NTSL_MNCO_ACNT_CD'], true, true);
+				Efi0010Grid.setCellData(row, 5, data['NTSL_MNCO_ACNT_NM'], true, true);
 			}
     	});
     }        
@@ -338,9 +338,9 @@
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
 		SBUxMethod.openModal('modal-compopup1');
     	
-        var replaceText0 	= "_ZACCD_D_";
-        var replaceText1 	= "_ZACCD_DNAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_NTSL_MNCO_ACNT_CD_";
+        var replaceText1 	= "_NTSL_MNCO_ACNT_NM_"; 
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -349,25 +349,25 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 		"명칭"]
-   			,searchInputFields		: ["ZACCD_D", 	"ZACCD_DNAME"]
+   			,searchInputFields		: ["NTSL_MNCO_ACNT_CD", 	"NTSL_MNCO_ACNT_NM"]
    			,searchInputValues		: [cellData1, 	cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",	"계정명"]
-   			,tableColumnNames		: ["ZACCD_D", 	"ZACCD_DNAME"]
+   			,tableColumnNames		: ["NTSL_MNCO_ACNT_CD", 	"NTSL_MNCO_ACNT_NM"]
    			,tableColumnWidths		: ["100px", 	"400px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Efi0010Grid.setCellData(row, 6, data['ZACCD_D'], true, true);
-				Efi0010Grid.setCellData(row, 8, data['ZACCD_DNAME'], true, true);
+				Efi0010Grid.setCellData(row, 6, data['NTSL_MNCO_ACNT_CD'], true, true);
+				Efi0010Grid.setCellData(row, 8, data['NTSL_MNCO_ACNT_NM'], true, true);
 			}
     	});
     }        
     
     //상세정보 보기
     function fn_view() {
-
+ 
     	var nCol = Efi0010Grid.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -377,7 +377,7 @@
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Efi0010Grid.getRowData(nRow);
 		console.log(rowData);        
     }
@@ -396,16 +396,16 @@
      * 목록 가져오기
      */
     const fn_setEfi0010Grid = async function(wtype) {
-
+ 
 		Efi0010Grid.clearStatus();
-
+ 
 		let p_cbozaccd_g 		= gfnma_multiSelectGet("#srch-cbozaccd-g", true);
 // 		if(!p_cbozaccd_g){
 //     		gfn_comAlert("E0000", "집계단위를 선택하세요");
 //     		return;
 // 		}
-		p_cbozaccd_g 			= p_cbozaccd_g['ZACCD_G'];
-		let p_cbozaccd_gname	= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", true)['ZACCD_GNAME']);
+		p_cbozaccd_g 			= p_cbozaccd_g['TOT_UNIT_CD'];
+		let p_cbozaccd_gname	= gfnma_nvl(gfnma_multiSelectGet("#srch-cbozaccd-g", true)['TOT_UNIT_NM']);
 		let p_txtzaccd_d		= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-d"));
 		let p_txtzaccd_dname	= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-dname"));
 		let p_txtzaccd_d2		= gfnma_nvl(SBUxMethod.get("srch-txtzaccd-d2"));
@@ -429,52 +429,52 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fap/car/selectEfi0010List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '1',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonEfi0010List.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						MANDT					: gfnma_nvl(item.MANDT),
-  						TXN_ID					: gfnma_nvl(item.TXN_ID),
-  						ZACCD_G					: gfnma_nvl(item.ZACCD_G),
-  						ZACCD_GNAME				: gfnma_nvl(item.ZACCD_GNAME),
-  						ZACCD_D					: gfnma_nvl(item.ZACCD_D),
-  						ZACCD_DNAME				: gfnma_nvl(item.ZACCD_DNAME),
-  						ZACCD_D2				: gfnma_nvl(item.ZACCD_D2),
+  						MANDT					: gfnma_nvl(item.CLNT),
+  						TXN_ID					: gfnma_nvl(item.TRSC_ID),
+  						ZACCD_G					: gfnma_nvl(item.TOT_UNIT_CD),
+  						ZACCD_GNAME				: gfnma_nvl(item.TOT_UNIT_NM),
+  						ZACCD_D					: gfnma_nvl(item.NTSL_MNCO_ACNT_CD),
+  						ZACCD_DNAME				: gfnma_nvl(item.NTSL_MNCO_ACNT_NM),
+  						ZACCD_D2				: gfnma_nvl(item.MNFTR_ACNT_CD),
   						ZACCD_DNAME2			: gfnma_nvl(item.ZACCD_DNAME2),
-  						OLD_ZACCD_D				: gfnma_nvl(item.OLD_ZACCD_D),
-  						OLD_ZACCD_DNAME			: gfnma_nvl(item.OLD_ZACCD_DNAME),
-  						MATCH_YN				: gfnma_nvl(item.MATCH_YN),
+  						OLD_ZACCD_D				: gfnma_nvl(item.BFR_ACNT_CD),
+  						OLD_ZACCD_DNAME			: gfnma_nvl(item.BFR_ACNT_DTL_NM),
+  						MATCH_YN				: gfnma_nvl(item.MTCHNG_YN),
   						MAIN_FLAD				: gfnma_nvl(item.MAIN_FLAD),
-  						ZTAX_STATUS				: gfnma_nvl(item.ZTAX_STATUS),
-  						PER_CARD_YN				: gfnma_nvl(item.PER_CARD_YN)
+  						ZTAX_STATUS				: gfnma_nvl(item.VAT_APLY_STTS),
+  						PER_CARD_YN				: gfnma_nvl(item.PRSNA_CARD_YN)
   					}
   					jsonEfi0010List.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Efi0010Grid.rebuild();
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -550,10 +550,10 @@
             	}			
             listData.push(param);
     	}	
-
+ 
         if(listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/fi/fap/car/saveEfi0010.do", {listData: listData});
-
+ 
             const data = await postJsonPromise;
             console.log('data:', data);
             try {
@@ -563,7 +563,7 @@
                 } else {
                     alert(data.resultMessage);
                 }
-
+ 
             } catch (e) {
                 if (!(e instanceof Error)) {
                     e = new Error(e);

@@ -25,7 +25,7 @@
     <title>title : 연말정산기준등록</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-
+ 
     <title>Calculator</title>
     <link rel="stylesheet" href="/resource/css/ma_custom.css">
 </head>
@@ -43,7 +43,7 @@
                              onclick="fn_btnCopy"></sbux-button>
             </div>
         </div>
-
+ 
         <div class="box-search-ma">
             <!--[pp] 검색 -->
             <!--[APC] START -->
@@ -56,19 +56,19 @@
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
                     <col style="width: 7%">
                     <col style="width: 2%">
-
+ 
                     <col style="width: 8%">
                     <col style="width: 7%">
                     <col style="width: 1%">
@@ -96,13 +96,13 @@
                 </tbody>
             </table>
         </div>
-
+ 
         <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
                 <li><span>연말정산 기준등록</span></li>
             </ul>
         </div>
-
+ 
         <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
         </sbux-tabs>
         <div class="tab-content">
@@ -136,7 +136,7 @@
                 <div>
                     <div id="sb-area-gvwDeduction" style="height:280px; width:100%;"></div>
                 </div>
-
+ 
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="ad_tbl_top">
@@ -154,7 +154,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th scope="row" class="th_bg">본인기본공제  연</th>
@@ -195,7 +195,7 @@
                             </div>
                         </div>
                     </div>
-
+ 
                     <div class="col-sm-9">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
@@ -210,7 +210,7 @@
                                     <col style="width:2%">
                                     <col style="width:10%">
                                     <%-- <col style="width:2%">--%>
-
+ 
                                 </colgroup>
                                 <tr>
                                     <th scope="row" class="th_bg">경로우대공제(만 70세 이상)  1명당 연</th>
@@ -280,7 +280,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th scope="row" class="th_bg">주택임차차입금원리금상환액 거주자간 차입한 경우 해당 과세기간 총급여액이</th>
@@ -417,7 +417,7 @@
                                     <col style="width:2%">
                                     <col style="width:10%">
                                     <%-- <col style="width:2%">--%>
-
+ 
                                 </colgroup>
                                 <tr>
                                     <th scope="row" class="th_bg">정치자금기부금/법정기부금</th>
@@ -496,7 +496,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th scope="row" class="th_bg">2000.12.31. 이전에 가입한 개인연금저축 납입액의</th>
@@ -534,7 +534,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th scope="row" class="th_bg">4천만원 이하</th>
@@ -582,7 +582,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th colspan="2" scope="row" class="th_bg">주택마련저축 총급여한도</th>
@@ -676,7 +676,7 @@
                                         <col style="width:6%">
                                         <col style="width:2%">
                                         <%-- <col style="width:2%">--%>
-
+ 
                                     </colgroup>
                                     <tr>
                                         <th scope="row" class="th_bg">출자 또는 투자금액의</th>
@@ -757,11 +757,11 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -945,11 +945,11 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -976,11 +976,11 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -1013,11 +1013,11 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -1051,11 +1051,11 @@
                                     <col style="width:1%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -1096,11 +1096,11 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:2%">
-
+ 
                                     <col style="width:2%">
                                     <col style="width:2%">
                                     <col style="width:1%">
@@ -1258,7 +1258,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>자녀 세액공제</span>
-
+ 
                                 </li>
                             </ul>
                         </div>
@@ -1293,7 +1293,7 @@
                             <ul class="ad_tbl_count">
                                 <li>
                                     <span>6세이하 자녀(2018년귀속부터폐지)</span>
-
+ 
                                 </li>
                             </ul>
                         </div>
@@ -1465,21 +1465,21 @@
                             </table>
                         </div>
                     </div>
-
+ 
                     <div class="col-sm-8">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li><span>보장성보험료 세액공제</span></li>
                             </ul>
                         </div>
-
+ 
                         <div>
                             <table id="dataArea21" class="table table-bordered tbl_fixed">
                                 <colgroup>
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:1%">
-
+ 
                                     <col style="width:10%">
                                 </colgroup>
                                 <tr>
@@ -1531,7 +1531,7 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:1%">
-
+ 
                                     <col style="width:10%">
                                 </colgroup>
                                 <tr>
@@ -1592,7 +1592,7 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:1%">
-
+ 
                                     <col style="width:10%">
                                 </colgroup>
                                 <tr>
@@ -1642,7 +1642,7 @@
                                     <col style="width:6%">
                                     <col style="width:4%">
                                     <col style="width:1%">
-
+ 
                                     <col style="width:10%">
                                 </colgroup>
                                 <tr>
@@ -1687,10 +1687,10 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:15%">
                         </colgroup>
                         <tr>
@@ -1757,10 +1757,10 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:15%">
                         </colgroup>
                         <tr>
@@ -1785,10 +1785,10 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:15%">
                         </colgroup>
                         <tr>
@@ -1813,10 +1813,10 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:15%">
                         </colgroup>
                         <tr>
@@ -1830,7 +1830,7 @@
                         </tr>
                     </table>
                 </div>
-
+ 
                 <div class="ad_tbl_top">
                     <ul class="ad_tbl_count">
                         <li><span>월세 세액공제</span></li>
@@ -1842,11 +1842,11 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:9%">
                         </colgroup>
                         <tr>
@@ -1901,10 +1901,10 @@
                             <col style="width:6%">
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:4%">
                             <col style="width:1%">
-
+ 
                             <col style="width:15%">
                         </colgroup>
                         <tr>
@@ -1933,46 +1933,46 @@
 </section>
 </body>
 <script type="text/javascript">
-
-
+ 
+ 
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.id}';
     //-----------------------------------------------------------
-
+ 
     var editType = "N";
-
+ 
     //grid 초기화
     var gvwDeductionGrid; 			// 그리드를 담기위한 객체 선언
     var jsonDeductionList = []; 	// 그리드의 참조 데이터 주소 선언
-
-
-
+ 
+ 
+ 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-
+ 
         ]);
     }
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
-
+ 
         fn_initSBSelect();
         fn_init();
-
+ 
     });
-
+ 
     const fn_init = async function () {
-
+ 
         let openDate = gfn_dateToYear(new Date());
-
+ 
         SBUxMethod.set('SRCH_YE_TX_YYYY', openDate);
-
+ 
         fn_createGrid();
-
+ 
     }
-
+ 
     // 신규
       function cfn_add() {
           editType = "N";
@@ -1986,69 +1986,69 @@
         }
 
         if (_.isEqual(editType, 'N')){
-
+ 
             if (gfn_comConfirm("Q0001", "신규 등록")) {
-
+ 
                 let chk = true;
-
+ 
                 chk = await fn_save('N');
-
+ 
                 let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
-
+ 
                 if (_.isEmpty(gridData) == false && chk == true){
-
+ 
                     chk = await fn_saveS1(gridData);
-
+ 
                 }
-
+ 
                 if (chk){
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     fn_search();
                 }
             }
         }else if (_.isEqual(editType, 'E')){
-
+ 
             // 수정 저장
             if (gfn_comConfirm("Q0001", "수정 저장")) {
-
+ 
                 let chk = true;
-
+ 
                 chk = await fn_save('U');
-
+ 
                 let gridData = gvwDeductionGrid.getUpdateData(true, 'all');
-
+ 
                 if (_.isEmpty(gridData) == false && chk == true){
-
+ 
                     chk = await fn_saveS1(gridData);
-
+ 
                 }
-
+ 
                 if (chk){
                     gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                     fn_search();
                 }
             }
         }
-
+ 
     }
     // 삭제
     /*function cfn_del() {
         fn_delete();
     }*/
-
+ 
     // 조회
     function cfn_search() {
         editType = "E";
         fn_search();
     }
-
+ 
     /**
      * 초기화
      */
     var cfn_init = function() {
         gfnma_uxDataClear('#dataArea1');
     }
-
+ 
     var tabJsonData = [
         { "id" : "0", "pid" : "-1", "order" : "1", "text" : "근로소득공제/기본공제/추가공제",     "targetid" : "tabInfo1" ,     "targetvalue" : "근로소득공제/기본공제/추가공제"},
         { "id" : "1", "pid" : "-1", "order" : "2", "text" : "특별소득공제",                    "targetid" : "tabInfo2" ,     "targetvalue" : "특별소득공제"},
@@ -2103,59 +2103,59 @@
 
         return Number(strValue);
     }
-
+ 
     //신규 작성
     function fn_create() {
-
+ 
         for (let i = 2; i < 31; i++){
             let dataArea = '#dataArea' + i;
             gfnma_uxDataClear(dataArea);
         }
-
+ 
     }
-
+ 
     /**
      * 목록 조회
      */
     const fn_search = async function () {
-
+ 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY")); //정산년도
-
+ 
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산년도");
             return;
         }
-
+ 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             ,V_P_LANG_ID: ''
             ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
+ 
             , V_P_YE_TX_YYYY   : YE_TX_YYYY
-
+ 
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
             ,V_P_PROC_ID: ''
             ,V_P_USERID: ''
             ,V_P_PC: ''
         };
-
+ 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/selectHra1100List.do", {
             getType: 'json',
             workType: 'INFO',
             cv_count: '2',
             params: gfnma_objectToString(paramObj)
         });
-
+ 
         const data = await postJsonPromise;
-
+ 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-
+ 
                 /** @type {number} **/
                 let totalRecordCount = 0;
-
+ 
                 jsonDeductionList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
@@ -2170,18 +2170,18 @@
                     jsonDeductionList.push(msg);
                     totalRecordCount++;
                 });
-
+ 
                 gvwDeductionGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
-
+ 
                 if (jsonDeductionList.length > 0){
                     jsonDeductionList.forEach((item, index) => {
                         gvwDeductionGrid.setCellDisabled(index+1, 0, index+1, 0, true, false, true);
                     })
                 }
-
+ 
                 data.cv_2.forEach((item, index) => {
-
+ 
                     //- 기본공제
                     SBUxMethod.set("PERSONAL_DED_LIM", 		    gfnma_nvl2(item.PERSONAL_DED_LIM));
                     SBUxMethod.set("WIFE_DED_LIM", 		        gfnma_nvl2(item.WIFE_DED_LIM));
@@ -2272,10 +2272,10 @@
                     //- 장기집합투자증권저축
                     SBUxMethod.set("LT_INV_ST_SV_INC_LIM", 	    gfnma_nvl2(item.LT_INV_ST_SV_INC_LIM));
                     SBUxMethod.set("LT_INV_ST_SV_DED_LIM", 	    gfnma_nvl2(item.LT_INV_ST_SV_DED_LIM));
-
+ 
                     //-추가필드 설명 필요
                     SBUxMethod.set("LT_INV_ST_SV_DER", 	    gfnma_nvl2(item.LT_INV_ST_SV_DER));
-
+ 
                     //-- 특별공제 종합한도 초과액
                     //--A.SPEC_DED_TOT_LIM,     -- 20150113 삭제
                     //-- 소득공제 종합한도 초과액
@@ -2361,12 +2361,12 @@
                     SBUxMethod.set("PENS_ACC_50_TX_DED_BELOW_R", 	gfnma_nvl2(item.PENS_ACC_50_TX_DED_BELOW_R));
                     SBUxMethod.set("RET_PENS_ACC_50_BELOW_LIM", 	gfnma_nvl2(item.RET_PENS_ACC_50_BELOW_LIM));
                 });
-
-
+ 
+ 
             } else {
                 alert(data.resultMessage);
             }
-
+ 
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
@@ -2375,20 +2375,20 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
     //근로소득 공제 리스트 저장
     const fn_saveS1 = async function (updatedData) {
-
+ 
         let listData = [];
         listData =  await getParamForm(updatedData);
-
+ 
         if (listData.length > 0) {
             const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1100S1.do", {listData: listData});
             const data = await postJsonPromise;
-
+ 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-
+ 
                     if (data.resultMessage) {
                         if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
                             return true;
@@ -2398,10 +2398,10 @@
                         }
                     }
                     return true;
-
+ 
                 } else {
                     alert(data.resultMessage);
-
+ 
                     return false;
                 }
             } catch (e) {
@@ -2412,17 +2412,17 @@
             }
         }
     }
-
+ 
     const getParamForm = async function (updatedData) {
-
+ 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY"));
-
+ 
         let returnData = [];
-
+ 
         updatedData.forEach((item, index) => {
-
+ 
             const param = {
-
+ 
                 cv_count: '0',
                 getType: 'json',
                 workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
@@ -2431,7 +2431,7 @@
                     , V_P_LANG_ID: ''
                     , V_P_COMP_CODE: gv_ma_selectedCorpCd
                     , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
+ 
                     ,V_P_YE_TX_YYYY             : YE_TX_YYYY
                     ,V_P_INC_FROM_AMT           : item.data.INC_FROM_AMT
                     ,V_P_INC_TO_AMT             : item.data.INC_TO_AMT
@@ -2439,32 +2439,32 @@
                     ,V_P_DEDUCTION_LIMIT_EAMT   : item.data.DEDUCTION_LIMIT_EAMT
                     ,V_P_DER                    : item.data.DER
                     ,V_P_MEMO                   : item.data.MEMO
-
+ 
                     , V_P_FORM_ID: p_formId
                     , V_P_MENU_ID: p_menuId
                     , V_P_PROC_ID: ''
                     , V_P_USERID: ''
                     , V_P_PC: ''
-
+ 
                 })
             }
-
+ 
             returnData.push(param);
-
+ 
         });
-
+ 
         return returnData;
     }
-
+ 
     //저장
     const fn_save = async function (type) {
-
+ 
         let YE_TX_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YE_TX_YYYY"));
         if (!YE_TX_YYYY) {
             gfn_comAlert("W0002", "정산년도");
             return;
         }
-
+ 
         let PERSONAL_DED_LIM                = gfnma_nvl2(SBUxMethod.get("PERSONAL_DED_LIM"));
         let WIFE_DED_LIM                    = gfnma_nvl2(SBUxMethod.get("WIFE_DED_LIM"));
         let SUPPORT_DED_LIM                 = gfnma_nvl2(SBUxMethod.get("SUPPORT_DED_LIM"));
@@ -2597,7 +2597,7 @@
         let HS_SV_INC_LIM                   = gfnma_nvl2(SBUxMethod.get("HS_SV_INC_LIM"));
         let HS_SUBS_SV_DED_BEF_LIM          = gfnma_nvl2(SBUxMethod.get("HS_SUBS_SV_DED_BEF_LIM"));
         let HS_TOT_SV_DED_BEF_LIM           = gfnma_nvl2(SBUxMethod.get("HS_TOT_SV_DED_BEF_LIM"));
-
+ 
         let PENS_ACC_50_DED_LIM             = gfnma_nvl2(SBUxMethod.get("PENS_ACC_50_DED_LIM"));
         let PENS_ACCOUNT_50_DED_LIMIT2      = gfnma_nvl2(SBUxMethod.get("PENS_ACCOUNT_50_DED_LIMIT2"));
         let PENS_ACC_50_TX_DER              = gfnma_nvl2(SBUxMethod.get("PENS_ACC_50_TX_DER"));
@@ -2605,14 +2605,14 @@
         let PENS_ACC_50_DED_INC_LIM         = gfnma_nvl2(SBUxMethod.get("PENS_ACC_50_DED_INC_LIM"));
         let PENS_ACC_50_TX_DED_BELOW_R      = gfnma_nvl2(SBUxMethod.get("PENS_ACC_50_TX_DED_BELOW_R"));
         let RET_PENS_ACC_50_BELOW_LIM       = gfnma_nvl2(SBUxMethod.get("RET_PENS_ACC_50_BELOW_LIM"));
-
-
+ 
+ 
         var paramObj = {
             V_P_DEBUG_MODE_YN: ''
             , V_P_LANG_ID: ''
             , V_P_COMP_CODE: gv_ma_selectedCorpCd
             , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
+ 
             , V_P_YE_TX_YYYY                : YE_TX_YYYY
             , V_P_PERSONAL_DED_LIM          : PERSONAL_DED_LIM
             , V_P_WIFE_DED_LIM              : WIFE_DED_LIM
@@ -2747,7 +2747,7 @@
             , V_P_HS_SV_INC_LIM: HS_SV_INC_LIM
             , V_P_HS_SUBS_SV_DED_BEF_LIM: HS_SUBS_SV_DED_BEF_LIM
             , V_P_HS_TOT_SV_DED_BEF_LIM: HS_TOT_SV_DED_BEF_LIM
-
+ 
             //--2020년 연말정산
             , V_P_PENS_ACC_50_DED_LIM: PENS_ACC_50_DED_LIM
             , V_P_PENS_ACCOUNT_50_DED_LIMIT2: PENS_ACCOUNT_50_DED_LIMIT2
@@ -2756,14 +2756,14 @@
             , V_P_PENS_ACC_50_DED_INC_LIM: PENS_ACC_50_DED_INC_LIM
             , V_P_PENS_ACC_50_TX_DED_BELOW_R: PENS_ACC_50_TX_DED_BELOW_R
             , V_P_RET_PENS_ACC_50_BELOW_LIM: RET_PENS_ACC_50_BELOW_LIM
-
+ 
             , V_P_FORM_ID: p_formId
             , V_P_MENU_ID: p_menuId
             , V_P_PROC_ID: ''
             , V_P_USERID: ''
             , V_P_PC: ''
         };
-
+ 
         const postJsonPromise = gfn_postJSON("/hr/hra/adj/insertHra1100.do", {
             getType: 'json',
             workType: type,
@@ -2771,7 +2771,7 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-
+ 
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if (data.resultMessage) {
@@ -2783,10 +2783,10 @@
                     }
                 }
                 return true;
-
+ 
             } else {
                 alert(data.resultMessage);
-
+ 
                 return false;
             }
         } catch (e) {
@@ -2796,13 +2796,13 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
+ 
     }
-
+ 
     // 행 추가
     const fn_btnAdd = function() {
         let rowVal = gvwDeductionGrid.getRow();
-
+ 
         const msg = {
             INC_FROM_AMT            : 0,
             INC_TO_AMT              : 0,
@@ -2810,40 +2810,40 @@
             DER                     : 0,
             DEDUCTION_LIMIT_EAMT    : 0,
             MEMO                    : '',
-
-
+ 
+ 
             status: 'i'
         }
-
+ 
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             gvwDeductionGrid.addRow(true, msg);
         }else{
             gvwDeductionGrid.insertRow(rowVal, 'below', msg);
         }
     }
-
+ 
     // 행삭제
     const fn_btnDel = async function () {
-
+ 
         let rowVal = gvwDeductionGrid.getRow();
-
+ 
         if (rowVal == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
         } else {
             gvwDeductionGrid.deleteRow(rowVal);
         }
-
+ 
     }
-
+ 
     //전년도 자료복사 버튼 클릭
     const fn_btnCopy = async function () {
-
+ 
         fn_save('COPY')
-
+ 
     }
-
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
-
+ 

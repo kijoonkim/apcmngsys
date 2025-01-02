@@ -62,7 +62,7 @@ public class ApcMaFig3300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIG3300_Q");
+            param.put("procedure", 		"SP_FIG3300_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class ApcMaFig3300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3300_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3300_S");
 
             logger.info("=============insertFig3300List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -114,7 +114,7 @@ public class ApcMaFig3300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3300_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3300_S1");
 
             logger.info("=============insertFig3300ItemList=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -136,7 +136,7 @@ public class ApcMaFig3300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_COMMON_JOB_RUN");
+            param.put("procedure", 		"SP_COMMON_JOB_RUN");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,7 +166,7 @@ public class ApcMaFig3300Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIG3300_S2");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3300_S2");
 
             logger.info("=============exclusionFig3300List=====end========");
             return getSuccessResponseEntityMa(resultMap);

@@ -183,17 +183,17 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 재직구분
-            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_EMP_STATE'], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_POSITION_CODE'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -209,18 +209,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -229,12 +229,12 @@
     const fn_findEmpCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_CODE_";
-        var replaceText2 	= "_EMP_NAME_";
-        var replaceText3 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_CD_";
+        var replaceText2 	= "_EMP_NM_";
+        var replaceText3 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_CD LIKE '%" + replaceText1 + "%' AND X.EMP_NM LIKE '%" + replaceText2 + "%' AND X.EMP_STTS LIKE '%" + replaceText3 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -243,17 +243,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
             ,searchInputValues		: ["", 			searchCode, searchName,		""]
             ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
     }
@@ -406,18 +406,18 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CNT             : item.CNT,
-                        DEPT_CODE       : item.DEPT_CODE,
-                        DEPT_NAME       : item.DEPT_NAME,
-                        POSITION_NAME   : item.POSITION_NAME,
-                        EMP_NAME        : item.EMP_NAME,
+                        DEPT_CODE       : item.DEPT_CD,
+                        DEPT_NAME       : item.DEPT_NM,
+                        POSITION_NAME   : item.JBPS_NM,
+                        EMP_NAME        : item.EMP_NM,
                         EMP_PHOTO       : item.EMP_PHOTO,
-                        EMP_PHOTO_NAME  : item.EMP_PHOTO_NAME,
+                        EMP_PHOTO_NAME  : item.EMP_PHOTO_NM,
                         EMP_PHOTO_PATH  : item.EMP_PHOTO_PATH,
-                        BIRTHDAY        : item.BIRTHDAY,
-                        ENTER_DATE      : item.ENTER_DATE,
-                        ENTER_YEAR      : item.ENTER_YEAR,
-                        POSITION_DATE   : item.POSITION_DATE,
-                        CONTRACT_DATE   : item.CONTRACT_DATE,
+                        BIRTHDAY        : item.BRDT,
+                        ENTER_DATE      : item.JNCMP_YMD,
+                        ENTER_YEAR      : item.JNCMP_YR_CNT,
+                        POSITION_DATE   : item.JBPS_APNT_YMD,
+                        CONTRACT_DATE   : item.CTRT_YMD,
                         SCHOOL_MAJOR1   : item.SCHOOL_MAJOR1,
                         SCHOOL_MAJOR2   : item.SCHOOL_MAJOR2,
                         SCHOOL_MAJOR3   : item.SCHOOL_MAJOR3,

@@ -55,21 +55,21 @@
     var grdTaxSite;
     // var jsonTaxSite = [{TAX_SITE_NAME : '그린에어주속회사', TAX_SITE_CODE : 'T02', BIZ_REGNO : '181818'}];
     var jsonTaxSite = [];
-
+ 
     const popFit1200 = {
         fn_callBack: () => {},
-
+ 
         fn_init: async function(callbackFn) {
             if (typeof callbackFn === 'function') {
                 this.fn_callBack = callbackFn;
             }
-
+ 
             await this.fn_createTaxSite();
             await this.fn_search();
         },
-
+ 
         fn_search: async function() {
-            let data = await gfnma_getComList('P_TAXSITE','','','','COMP_CODE',"COMP_NAME");
+            let data = await gfnma_getComList('P_TAXSITE','','','','CO_CD',"CORP_NM");
             jsonTaxSite = [...data.cv_1];
             grdTaxSite.rebuild();
         },

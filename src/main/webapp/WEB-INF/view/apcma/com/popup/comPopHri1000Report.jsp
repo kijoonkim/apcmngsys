@@ -74,23 +74,23 @@
 					</tbody>
 				</table>
 			</div>
-
+ 
 		</div>
 		<!--[pp] //검색결과 -->
 	</div>
 </section>
 </body>
 <script>
-
+ 
 	/**
 	 * @description 전기취소
 	 */
 	function comPopHri1000Report(options) {
-
+ 
 		// id 선언
 		var modalId  	= '#comPopHri1000Report';
 		var modalDivId 	= 'modal-comPopHri1000Report';
-
+ 
 		var settings = {
 			callbackEvent			: null
 		};

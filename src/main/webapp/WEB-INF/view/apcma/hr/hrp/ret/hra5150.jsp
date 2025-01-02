@@ -224,7 +224,7 @@
                             <col style="width:5%">
                             <col style="width:5%">
                             <col style="width:5%">
-                           <%-- <col style="width:2%">--%>
+                            <%-- <col style="width:2%">--%>
 
                             <col style="width:5%">
                             <col style="width:5%">
@@ -275,15 +275,15 @@
                                         readonly
                                 ></sbux-input>
                             </td>
-                           <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
-                           <%-- <td  class="td_input" >
-                                <sbux-button
-                                        class="btn btn-xs btn-outline-dark"
-                                        text="찾기" uitype="modal"
-                                        target-id="modal-compopup1"
-                                        onclick="fn_compopup2"
-                                ></sbux-button>
-                            </td>--%>
+                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
+                            <%-- <td  class="td_input" >
+                                 <sbux-button
+                                         class="btn btn-xs btn-outline-dark"
+                                         text="찾기" uitype="modal"
+                                         target-id="modal-compopup1"
+                                         onclick="fn_compopup2"
+                                 ></sbux-button>
+                             </td>--%>
                             <th scope="row" class="th_bg">입사일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
@@ -369,13 +369,13 @@
                             </td>
                             <th scope="row" class="th_bg">피크정산기간</th>
                             <td class="td_input" style="border-right: hidden;">
-                               <%-- <sbux-datepicker
-                                        uitype="popup"
-                                        id="PEAK_CALC_START_DATE"
-                                        name="PEAK_CALC_START_DATE"
-                                        class="input-sm"
-                                        autocomplete="off"
-                                ></sbux-datepicker>--%>
+                                <%-- <sbux-datepicker
+                                         uitype="popup"
+                                         id="PEAK_CALC_START_DATE"
+                                         name="PEAK_CALC_START_DATE"
+                                         class="input-sm"
+                                         autocomplete="off"
+                                 ></sbux-datepicker>--%>
                                 <sbux-datepicker
                                         id="PEAK_CALC_START_DATE"
                                         name="PEAK_CALC_START_DATE"
@@ -482,14 +482,14 @@
                                         style="background-color: #FFFFFF !important;"
                                         readonly
                                 ></sbux-datepicker>--%>
-                                    <sbux-datepicker
-                                            id="JOB_ST_DAT"
-                                            name="JOB_ST_DAT"
-                                            uitype="popup"
-                                            date-format="yyyy-mm-dd"
-                                            class="table-datepicker-ma"
-                                            readonly
-                                    ></sbux-datepicker>
+                                <sbux-datepicker
+                                        id="JOB_ST_DAT"
+                                        name="JOB_ST_DAT"
+                                        uitype="popup"
+                                        date-format="yyyy-mm-dd"
+                                        class="table-datepicker-ma"
+                                        readonly
+                                ></sbux-datepicker>
                             </td>
                             <th scope="row" class="th_bg">귀속연월 종료일</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
@@ -655,7 +655,7 @@
                                         autocomplete="off"
                                 ></sbux-datepicker>--%>
                             </td>
-                           <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
+                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
                             <th scope="row" class="th_bg">정상급여기간</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
@@ -689,7 +689,7 @@
                                         autocomplete="off"
                                 ></sbux-datepicker>--%>
                             </td>
-                           <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
+                            <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
                             <th scope="row" class="th_bg">정상상여기간</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-datepicker
@@ -1133,7 +1133,7 @@
                                                 readonly
                                         ></sbux-input>
                                     </td>
-                                   <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
+                                    <%-- <td style="border-right: hidden;">&nbsp;</td>--%>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1">퇴직급여</th>
@@ -1152,7 +1152,7 @@
                                                     class="form-control input-sm" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
                                                     readonly></sbux-input>
                                     </td>
-                                  <%--  <td style="border-right: hidden;">&nbsp;</td>--%>
+                                    <%--  <td style="border-right: hidden;">&nbsp;</td>--%>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg" style="background-color: #FFB6C1">비과세 퇴직급여</th>
@@ -1164,7 +1164,7 @@
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TXFREE_RET_INC_AMT" uitype="text" <%--style="background-color: #FFFFFF !important;"--%> placeholder=""
                                                     class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
-                                                    ></sbux-input>
+                                        ></sbux-input>
                                     </td>
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="TOT_TXFREE_RET_INC_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
@@ -1841,7 +1841,7 @@
                                     <td class="td_input" style="border-right:hidden;">
                                         <sbux-input id="RET_PENS_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
                                                     class="form-control input-sm inpt_data_reqed" mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }"
-                                                    ></sbux-input>
+                                        ></sbux-input>
                                     </td>
                                     <td colspan="2" class="td_input" style="border-right:hidden;">
                                         <sbux-input id="DEFER_RET_INC_AMT" uitype="text" style="background-color: #FFFFFF !important;" placeholder=""
@@ -2400,15 +2400,15 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['RET_CALC_TYPE1','gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['LIVE_NATION_CODE'], jsonLiveNationCode, 'L_COM015_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NATION_CODE', 'NATION_NAME', 'Y', ''),
-            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CODE', 'DEPT_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonEmp, 'P_HRI0001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'EMP_CODE', 'EMP_FULL_NAME', 'Y', ''),
-            //gfnma_setComSelect(['gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBonusGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwChangeGrid'], jsonPositionCode, 'L_HRI002_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+            gfnma_setComSelect(['RET_CALC_TYPE1','gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['LIVE_NATION_CODE'], jsonLiveNationCode, 'L_COM015_2', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NTN_CD', 'NTN_NM', 'Y', ''),
+            gfnma_setComSelect(['POSTING_STATUS'], jsonPostingStatus, 'L_HRP032', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonDeptName, 'P_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonEmp, 'P_HRI0001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'EMP_CD', 'EMP_FLNM', 'Y', ''),
+            //gfnma_setComSelect(['gvwMasterGrid'], jsonRetCalcType, 'L_HRA037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwBonusGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwChangeGrid'], jsonPositionCode, 'L_HRI002_1', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfoGrid'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 
             //퇴직정산구분
             gfnma_multiSelectInit({
@@ -2422,11 +2422,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2442,11 +2442,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2462,11 +2462,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2482,11 +2482,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -2504,18 +2504,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["코드", 		    "은행명"     ]
-            ,searchInputFields		: ["BANK_CODE", 	"BANK_NAME"	]
+            ,searchInputFields		: ["BANK_CD", 	"BANK_NM"	]
             ,searchInputValues		: ["", 				 searchText ]
 
             ,searchInputTypes		: ["input", 		"input"     ]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["코드",		"은행명"    ]
-            ,tableColumnNames		: ["SUB_CODE",	"CODE_NAME"]
+            ,tableColumnNames		: ["SBSD_CD",	"CD_NM"]
             ,tableColumnWidths		: ["100px", 		"150px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('BANK_NAME', data.CODE_NAME);
-                SBUxMethod.set('BANK_CODE', data.SUB_CODE);
+                SBUxMethod.set('BANK_NAME', data.CD_NM);
+                SBUxMethod.set('BANK_CODE', data.SBSD_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -2523,10 +2523,10 @@
 
     const fn_compopup2 = function() {
         var searchText 		= gfnma_nvl2(SBUxMethod.get("CS_NAME"));
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= searchText;
+        var replaceText2 	= "_BRNO_";
+        var strWhereClause 	= "AND a.CNPT_CD LIKE '%" + replaceText0 + "%' AND a.CNPT_NM LIKE '%" + replaceText1 + "%' AND a.BRNO LIKE '%"+ replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -2536,15 +2536,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
-            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputFields		: ["CNPT_CD"   , 	"CNPT_NM",  "BRNO"]
             ,searchInputValues		: [""          , 	searchText, ""         ]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BRNO", "CEO_NM","BZSTAT" ,"TPBIZ","ADDR","TELNO"   ,"FX_NO"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('CS_NAME', data.CS_NAME);
-                SBUxMethod.set('CS_CODE', data.CS_CODE);
+                SBUxMethod.set('CS_NAME', data.CNPT_NM);
+                SBUxMethod.set('CS_CODE', data.CNPT_CD);
             },
         });
     }
@@ -2768,7 +2768,7 @@
         return chk;
     }
 
-        // 삭제
+    // 삭제
     /*function cfn_del() {
         fn_delete();
     }*/
@@ -3077,9 +3077,9 @@
             return { isValid : false, message : '값을 입력하시오.'};
         }
 
-       /* if (!(/[0-9]/g).test(strValue)) {
-            return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
-        }*/
+        /* if (!(/[0-9]/g).test(strValue)) {
+             return { isValid : false, message : '숫자를 입력하시오.', value: strValue};
+         }*/
 
         return Number(strValue);
     }
@@ -3114,7 +3114,7 @@
 
         }
 
-       // gvwPayGrid.rebuild();
+        // gvwPayGrid.rebuild();
     }
 
     // 행삭제( 급여내역 리스트 )
@@ -3509,15 +3509,15 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN		        : gfnma_nvl2(item.CHK_YN),
-                        DEPT_CODE		    : gfnma_nvl2(item.DEPT_CODE),
-                        DEPT_NAME		    : gfnma_nvl2(item.DEPT_NAME),
-                        EMP_CODE		    : gfnma_nvl2(item.EMP_CODE),
-                        EMP_NAME		    : gfnma_nvl2(item.EMP_NAME),
-                        RET_CALC_CONFIRM_YN	: gfnma_nvl2(item.RET_CALC_CONFIRM_YN),
-                        SITE_CODE		    : gfnma_nvl2(item.SITE_CODE),
-                        ENTER_DATE		    : gfnma_nvl2(item.ENTER_DATE),
-                        RET_CALC_TYPE		: gfnma_nvl2(item.RET_CALC_TYPE),
-                        RET_CALC_DAT		: gfnma_nvl2(item.RET_CALC_DAT),
+                        DEPT_CODE		    : gfnma_nvl2(item.DEPT_CD),
+                        DEPT_NAME		    : gfnma_nvl2(item.DEPT_NM),
+                        EMP_CODE		    : gfnma_nvl2(item.EMP_CD),
+                        EMP_NAME		    : gfnma_nvl2(item.EMP_NM),
+                        RET_CALC_CONFIRM_YN	: gfnma_nvl2(item.RTRM_CLCLN_CFMTN_YN),
+                        SITE_CODE		    : gfnma_nvl2(item.SITE_CD),
+                        ENTER_DATE		    : gfnma_nvl2(item.JNCMP_YMD),
+                        RET_CALC_TYPE		: gfnma_nvl2(item.RTRM_CLCLN_TYPE),
+                        RET_CALC_DAT		: gfnma_nvl2(item.RTRM_CLCLN_YMD),
                         JOB_GROUP		    : gfnma_nvl2(item.JOB_GROUP),
                         AVG_PAY_TYPE		: gfnma_nvl2(item.AVG_PAY_TYPE),
 
@@ -3646,46 +3646,46 @@
 
                 //- [0] 정산 기본 정보
                 data.cv_2.forEach((item, index) => {
-                    SBUxMethod.set("RET_CALC_DAT"           , gfnma_nvl2(item.RET_CALC_DAT));
-                    SBUxMethod.set("RET_CALC_TYPE1"         , gfnma_nvl2(item.RET_CALC_TYPE));
-                    SBUxMethod.set("EMP_CODE"               , gfnma_nvl2(item.EMP_CODE));
-                    SBUxMethod.set("EMP_NAME"               , gfnma_nvl2(item.EMP_NAME));
-                    SBUxMethod.set("ENTER_DATE"             , gfnma_nvl2(item.ENTER_DATE));
-                    SBUxMethod.set("LAST_CALC_DAT"          , gfnma_nvl2(item.LAST_CALC_DAT));
-                    SBUxMethod.set("RET_DAT"                , gfnma_nvl2(item.RET_DAT));
-                    SBUxMethod.set("CALC_ST_DAT"            , gfnma_nvl2(item.CALC_ST_DAT));
-                    SBUxMethod.set("CALC_END_DAT"           , gfnma_nvl2(item.CALC_END_DAT));
-                    SBUxMethod.set("PEAK_START_DATE"        , gfnma_nvl2(item.PEAK_START_DATE));
-                    SBUxMethod.set("PEAK_CALC_START_DATE"   , gfnma_nvl2(item.PEAK_CALC_START_DATE));
-                    SBUxMethod.set("PEAK_CALC_END_DATE"     , gfnma_nvl2(item.PEAK_CALC_END_DATE));
-                    SBUxMethod.set("PEAK_PAY_START_DATE"    , gfnma_nvl2(item.PEAK_PAY_START_DATE));
-                    SBUxMethod.set("PEAK_PAY_END_DATE"      , gfnma_nvl2(item.PEAK_PAY_END_DATE));
-                    SBUxMethod.set("PEAK_BONUS_START_DATE"  , gfnma_nvl2(item.PEAK_BONUS_START_DATE));
-                    SBUxMethod.set("PEAK_BONUS_END_DATE"    , gfnma_nvl2(item.PEAK_BONUS_END_DATE));
-                    SBUxMethod.set("NORM_CALC_START_DATE"   , gfnma_nvl2(item.NORM_CALC_START_DATE));
-                    SBUxMethod.set("NORM_CALC_END_DATE"     , gfnma_nvl2(item.NORM_CALC_END_DATE));
-                    SBUxMethod.set("NORM_PAY_START_DATE"    , gfnma_nvl2(item.NORM_PAY_START_DATE));
-                    SBUxMethod.set("NORM_PAY_END_DATE"      , gfnma_nvl2(item.NORM_PAY_END_DATE));
-                    SBUxMethod.set("NORM_BONUS_START_DATE"  , gfnma_nvl2(item.NORM_BONUS_START_DATE));
-                    SBUxMethod.set("NORM_BONUS_END_DATE"    , gfnma_nvl2(item.NORM_BONUS_END_DATE));
+                    SBUxMethod.set("RET_CALC_DAT"           , gfnma_nvl2(item.RTRM_CLCLN_YMD));
+                    SBUxMethod.set("RET_CALC_TYPE1"         , gfnma_nvl2(item.RTRM_CLCLN_TYPE));
+                    SBUxMethod.set("EMP_CODE"               , gfnma_nvl2(item.EMP_CD));
+                    SBUxMethod.set("EMP_NAME"               , gfnma_nvl2(item.EMP_NM));
+                    SBUxMethod.set("ENTER_DATE"             , gfnma_nvl2(item.JNCMP_YMD));
+                    SBUxMethod.set("LAST_CALC_DAT"          , gfnma_nvl2(item.LAST_CAL_YMD));
+                    SBUxMethod.set("RET_DAT"                , gfnma_nvl2(item.RTRM_YMD));
+                    SBUxMethod.set("CALC_ST_DAT"            , gfnma_nvl2(item.CALC_BGNG_YMD));
+                    SBUxMethod.set("CALC_END_DAT"           , gfnma_nvl2(item.CALC_END_YMD));
+                    SBUxMethod.set("PEAK_START_DATE"        , gfnma_nvl2(item.SLYPK_BGNG_YMD));
+                    SBUxMethod.set("PEAK_CALC_START_DATE"   , gfnma_nvl2(item.SLYPK_CAL_BGNG_YMD));
+                    SBUxMethod.set("PEAK_CALC_END_DATE"     , gfnma_nvl2(item.SLYPK_CAL_END_YMD));
+                    SBUxMethod.set("PEAK_PAY_START_DATE"    , gfnma_nvl2(item.SLYPK_SLRY_BGNG_YMD));
+                    SBUxMethod.set("PEAK_PAY_END_DATE"      , gfnma_nvl2(item.SLYPK_SLRY_END_YMD));
+                    SBUxMethod.set("PEAK_BONUS_START_DATE"  ,gfnma_nvl2(item.SLYPK_BONUS_BGNG_YMD));
+                    SBUxMethod.set("PEAK_BONUS_END_DATE"    , gfnma_nvl2(item.SLYPK_BONUS_END_YMD));
+                    SBUxMethod.set("NORM_CALC_START_DATE"   , gfnma_nvl2(item.NML_CAL_BGNG_YMD));
+                    SBUxMethod.set("NORM_CALC_END_DATE"     , gfnma_nvl2(item.NML_CAL_END_YMD));
+                    SBUxMethod.set("NORM_PAY_START_DATE"    , gfnma_nvl2(item.NML_SLRY_BGNG_YMD));
+                    SBUxMethod.set("NORM_PAY_END_DATE"      , gfnma_nvl2(item.NML_SLRY_END_YMD));
+                    SBUxMethod.set("NORM_BONUS_START_DATE"  , gfnma_nvl2(item.NML_BONUS_BGNG_YMD));
+                    SBUxMethod.set("NORM_BONUS_END_DATE"    , gfnma_nvl2(item.NML_BONUS_END_YMD));
                     /*SBUxMethod.set("RET_REASON", 			    gfnma_nvl2(item.RET_REASON));*/
-                    gfnma_multiSelectSet('#RET_REASON', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.RET_REASON));
-                    SBUxMethod.set("RET_PENS_ST_DAT"        , gfnma_nvl2(item.RET_PENS_ST_DAT));
-                    SBUxMethod.set("EXEC_YN"                , gfnma_nvl2(item.EXEC_YN));
-                    SBUxMethod.set("EXEC_RET_PAY_AMT"       , gfnma_nvl2(item.EXEC_RET_PAY_AMT) == '' ? 0 : gfnma_nvl2(item.EXEC_RET_PAY_AMT));
-                    SBUxMethod.set("JOB_ST_DAT"             , gfnma_nvl2(item.JOB_ST_DAT));
-                    SBUxMethod.set("JOB_END_DAT"            , gfnma_nvl2(item.JOB_END_DAT));
+                    gfnma_multiSelectSet('#RET_REASON', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.RTRM_RSN));
+                    SBUxMethod.set("RET_PENS_ST_DAT"        , gfnma_nvl2(item.RTRM_PN_BGNG_YMD));
+                    SBUxMethod.set("EXEC_YN"                , gfnma_nvl2(item.EXC_YN));
+                    SBUxMethod.set("EXEC_RET_PAY_AMT"       , gfnma_nvl2(item.EXC_RTRM_PAY_AMT) == '' ? 0 : gfnma_nvl2(item.EXC_RTRM_PAY_AMT));
+                    SBUxMethod.set("JOB_ST_DAT"             , gfnma_nvl2(item.BLN_YR_STRT_YMD));
+                    SBUxMethod.set("JOB_END_DAT"            , gfnma_nvl2(item.JOB_END_YMD));
                     //TODO : cv_3에도 중복으로 들어가 있음
-                   /* SBUxMethod.set("WORKING_DAY_CNT"        , gfnma_nvl2(item.WORKING_DAY_CNT));
-                    SBUxMethod.set("WORKING_DAY_CNT_NORM"   , gfnma_nvl2(item.WORKING_DAY_CNT_NORM));
-                    SBUxMethod.set("WORKING_DAY_CNT_PEAK"   , gfnma_nvl2(item.WORKING_DAY_CNT_PEAK));
-                    SBUxMethod.set("WORKING_DAY_CNT2"       , gfnma_nvl2(item.WORKING_DAY_CNT2));
-                    SBUxMethod.set("WORKING_DAY_CNT2_NORM"  , gfnma_nvl2(item.WORKING_DAY_CNT2_NORM));
-                    SBUxMethod.set("WORKING_DAY_CNT2_PEAK"  , gfnma_nvl2(item.WORKING_DAY_CNT2_PEAK));*/
+                    /* SBUxMethod.set("WORKING_DAY_CNT"        , gfnma_nvl2(item.WORKING_DAY_CNT));
+                     SBUxMethod.set("WORKING_DAY_CNT_NORM"   , gfnma_nvl2(item.WORKING_DAY_CNT_NORM));
+                     SBUxMethod.set("WORKING_DAY_CNT_PEAK"   , gfnma_nvl2(item.WORKING_DAY_CNT_PEAK));
+                     SBUxMethod.set("WORKING_DAY_CNT2"       , gfnma_nvl2(item.WORKING_DAY_CNT2));
+                     SBUxMethod.set("WORKING_DAY_CNT2_NORM"  , gfnma_nvl2(item.WORKING_DAY_CNT2_NORM));
+                     SBUxMethod.set("WORKING_DAY_CNT2_PEAK"  , gfnma_nvl2(item.WORKING_DAY_CNT2_PEAK));*/
                     // -- 일단 화면에 보이지 않고 숨겨두고 바인딩.
-                    SBUxMethod.set("LIVE_YN"                , gfnma_nvl2(item.LIVE_YN));
-                    SBUxMethod.set("LIVE_NATION_CODE"       , gfnma_nvl2(item.LIVE_NATION_CODE));
-                    SBUxMethod.set("TO_DC_YN"               , gfnma_nvl2(item.TO_DC_YN));
+                    SBUxMethod.set("LIVE_YN"                , gfnma_nvl2(item.HBTN_YN));
+                    SBUxMethod.set("LIVE_NATION_CODE"       , gfnma_nvl2(item.HBTN_NTN_CD));
+                    SBUxMethod.set("TO_DC_YN"               , gfnma_nvl2(item.DC_SWIC_YN));
 
 
                     /* //회계처리( 퇴직일자)
@@ -3698,51 +3698,51 @@
                   -- [1-1] 평균임금계산 및 제외월수, 가산월수
                   -- [1-4] 퇴직급여현황*/
                 data.cv_3.forEach((item, index) => {
-                    SBUxMethod.set("ANN_BENEFIT_AMT"        , gfnma_nvl2(item.ANN_BENEFIT_AMT) == '' ? 0 : gfnma_nvl2(item.ANN_BENEFIT_AMT)); //연차수당
-                    SBUxMethod.set("PAY_MULTIPLE_NUMBER"    , gfnma_nvl2(item.PAY_MULTIPLE_NUMBER) == '' ? 0 :gfnma_nvl2(item.PAY_MULTIPLE_NUMBER));  //지급배수
-                    SBUxMethod.set("CUMULATIVE_DAY_CNT"     , gfnma_nvl2(item.CUMULATIVE_DAY_CNT) == '' ? 0 :gfnma_nvl2(item.PAY_MULTIPLE_NUMBER));   //누적일수
+                    SBUxMethod.set("ANN_BENEFIT_AMT"        , gfnma_nvl2(item.ANNLV_ALWNC_AMT) == '' ? 0 : gfnma_nvl2(item.ANNLV_ALWNC_AMT)); //연차수당
+                    SBUxMethod.set("PAY_MULTIPLE_NUMBER"    , gfnma_nvl2(item.WGVL_CNT) == '' ? 0 :gfnma_nvl2(item.WGVL_CNT));  //지급배수
+                    SBUxMethod.set("CUMULATIVE_DAY_CNT"     , gfnma_nvl2(item.ACML_DCNT) == '' ? 0 :gfnma_nvl2(item.WGVL_CNT));   //누적일수
                     SBUxMethod.set("BEF_3MM_DAY_CNT"        , gfnma_nvl2(item.BEF_3MM_DAY_CNT) == '' ? 0 :gfnma_nvl2(item.BEF_3MM_DAY_CNT));
                     SBUxMethod.set("BEF_3MM_DAY_CNT_NORM"   , gfnma_nvl2(item.BEF_3MM_DAY_CNT_NORM) == '' ? 0 :gfnma_nvl2(item.BEF_3MM_DAY_CNT_NORM));
                     SBUxMethod.set("BEF_3MM_DAY_CNT_PEAK"   , gfnma_nvl2(item.BEF_3MM_DAY_CNT_PEAK) == '' ? 0 :gfnma_nvl2(item.BEF_3MM_DAY_CNT_PEAK));
-                    SBUxMethod.set("RET_BONUS_ETC"          , gfnma_nvl2(item.RET_BONUS_ETC) == '' ? 0 : gfnma_nvl2(item.RET_BONUS_ETC));     //퇴직위로금 등
-                    SBUxMethod.set("AVG_MM_PAY_AMT"         , gfnma_nvl2(item.AVG_MM_PAY_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_PAY_AMT));    //평균급여
+                    SBUxMethod.set("RET_BONUS_ETC"          , gfnma_nvl2(item.RTRM_BONUS_ETC) == '' ? 0 : gfnma_nvl2(item.RTRM_BONUS_ETC));     //퇴직위로금 등
+                    SBUxMethod.set("AVG_MM_PAY_AMT"         , gfnma_nvl2(item.AVG_MM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_SLRY_AMT));    //평균급여
                     SBUxMethod.set("AVG_MM_BONUS_AMT"       , gfnma_nvl2(item.AVG_MM_BONUS_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_BONUS_AMT));  //평균상여
-                    SBUxMethod.set("AVG_MM_ANN_AMT"         , gfnma_nvl2(item.AVG_MM_ANN_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_ANN_AMT));   //평균연차수당
-                    SBUxMethod.set("AVG_MM_RET_AMT"         , gfnma_nvl2(item.AVG_MM_RET_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_RET_AMT));   //평균임금
-                    SBUxMethod.set("ANN_BENEFIT_AMT_NORM"   , gfnma_nvl2(item.ANN_BENEFIT_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.ANN_BENEFIT_AMT_NORM));
-                    SBUxMethod.set("AVG_MM_PAY_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_PAY_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_PAY_AMT_NORM));
+                    SBUxMethod.set("AVG_MM_ANN_AMT"         , gfnma_nvl2(item.AVG_MM_ANNLV_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_ANNLV_AMT));   //평균연차수당
+                    SBUxMethod.set("AVG_MM_RET_AMT"         , gfnma_nvl2(item.AVG_MM_RTRM_WG_AMT) == '' ? 0 : gfnma_nvl2(item.AVG_MM_RTRM_WG_AMT));   //평균임금
+                    SBUxMethod.set("ANN_BENEFIT_AMT_NORM"   , gfnma_nvl2(item.ANNLV_ALWNC_AMT_NLM) == '' ? 0 :gfnma_nvl2(item.ANNLV_ALWNC_AMT_NLM));
+                    SBUxMethod.set("AVG_MM_PAY_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_SLRY_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_SLRY_AMT_NORM));
                     SBUxMethod.set("AVG_MM_BONUS_AMT_NORM"  , gfnma_nvl2(item.AVG_MM_BONUS_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_BONUS_AMT_NORM));
-                    SBUxMethod.set("AVG_MM_ANN_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_ANN_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_ANN_AMT_NORM));
-                    SBUxMethod.set("AVG_MM_RET_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_RET_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_RET_AMT_NORM));
-                    SBUxMethod.set("ANN_BENEFIT_AMT_PEAK"   , gfnma_nvl2(item.ANN_BENEFIT_AMT_PEAK) == '' ? 0 :gfnma_nvl2(item.ANN_BENEFIT_AMT_PEAK));
-                    SBUxMethod.set("AVG_MM_PAY_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_PAY_AMT_PEAK) == '' ? 0 :gfnma_nvl2(item.AVG_MM_PAY_AMT_PEAK));  //평균급여(P)
-                    SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK"  , gfnma_nvl2(item.AVG_MM_BONUS_AMT_PEAK) == '' ? 0 :gfnma_nvl2(item.AVG_MM_BONUS_AMT_PEAK));
-                    SBUxMethod.set("AVG_MM_ANN_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_ANN_AMT_PEAK) == '' ? 0 :gfnma_nvl2(item.AVG_MM_ANN_AMT_PEAK));
-                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_RET_AMT_PEAK) == '' ? 0 :gfnma_nvl2(item.AVG_MM_RET_AMT_PEAK));
-                    SBUxMethod.set("EXCP_MM_BEF_CNT"        , gfnma_nvl2(item.EXCP_MM_BEF_CNT) == '' ? 0 : gfnma_nvl2(item.EXCP_MM_BEF_CNT)); //2012.12.31 이전 제외월수
-                    SBUxMethod.set("EXCP_MM_AFT_CNT"        , gfnma_nvl2(item.EXCP_MM_AFT_CNT) == '' ? 0 : gfnma_nvl2(item.EXCP_MM_AFT_CNT)); //2013.1.1 이후  제외월수
-                    SBUxMethod.set("ADD_MM_BEF_CNT"         , gfnma_nvl2(item.ADD_MM_BEF_CNT) == '' ? 0 : gfnma_nvl2(item.ADD_MM_BEF_CNT));   //2012.12.31 이전 가산월수
-                    SBUxMethod.set("ADD_MM_AFT_CNT"         , gfnma_nvl2(item.ADD_MM_AFT_CNT) == '' ? 0 : gfnma_nvl2(item.ADD_MM_AFT_CNT));   //2013.1.1 이후  가산월수
-                    SBUxMethod.set("PREV_COM_NAME"          , gfnma_nvl2(item.PREV_COM_NAME));
-                    SBUxMethod.set("PREV_COM_NUM"           , gfnma_nvl2(item.PREV_COM_NUM));
+                    SBUxMethod.set("AVG_MM_ANN_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_ANNLV_AMT_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_ANNLV_AMT_NORM));
+                    SBUxMethod.set("AVG_MM_RET_AMT_NORM"    , gfnma_nvl2(item.AVG_MM_AMT_WG_NORM) == '' ? 0 :gfnma_nvl2(item.AVG_MM_AMT_WG_NORM));
+                    SBUxMethod.set("ANN_BENEFIT_AMT_PEAK"   , gfnma_nvl2(item.ANNLV_ALWNC_AMT_MAX) == '' ? 0 :gfnma_nvl2(item.ANNLV_ALWNC_AMT_MAX));
+                    SBUxMethod.set("AVG_MM_PAY_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_SLRY_AMT2) == '' ? 0 :gfnma_nvl2(item.AVG_MM_SLRY_AMT2));  //평균급여(P)
+                    SBUxMethod.set("AVG_MM_BONUS_AMT_PEAK"  , gfnma_nvl2(item.AVG_MM_BONUS_AMT2) == '' ? 0 :gfnma_nvl2(item.AVG_MM_BONUS_AMT2));
+                    SBUxMethod.set("AVG_MM_ANN_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_ANNLV_AMT2) == '' ? 0 :gfnma_nvl2(item.AVG_MM_ANNLV_AMT2));
+                    SBUxMethod.set("AVG_MM_RET_AMT_PEAK"    , gfnma_nvl2(item.AVG_MM_RTRM_WG_AMT2) == '' ? 0 :gfnma_nvl2(item.AVG_MM_RTRM_WG_AMT2));
+                    SBUxMethod.set("EXCP_MM_BEF_CNT"        , gfnma_nvl2(item.EXCP_MM_CNT_BEF) == '' ? 0 : gfnma_nvl2(item.EXCP_MM_CNT_BEF)); //2012.12.31 이전 제외월수
+                    SBUxMethod.set("EXCP_MM_AFT_CNT"        , gfnma_nvl2(item.EXCP_MM_CNT_AFTR) == '' ? 0 : gfnma_nvl2(item.EXCP_MM_CNT_AFTR)); //2013.1.1 이후  제외월수
+                    SBUxMethod.set("ADD_MM_BEF_CNT"         , gfnma_nvl2(item.LAST_ADTN_BFR_MM_CNT) == '' ? 0 : gfnma_nvl2(item.LAST_ADTN_BFR_MM_CNT));   //2012.12.31 이전 가산월수
+                    SBUxMethod.set("ADD_MM_AFT_CNT"         , gfnma_nvl2(item.LAST_ADTN_AFTR_MM_CNT) == '' ? 0 : gfnma_nvl2(item.LAST_ADTN_AFTR_MM_CNT));   //2013.1.1 이후  가산월수
+                    SBUxMethod.set("PREV_COM_NAME"          , gfnma_nvl2(item.PAST_PWOK_NM));
+                    SBUxMethod.set("PREV_COM_NUM"           , gfnma_nvl2(item.PAST_PWOK_BRNO));
                     SBUxMethod.set("PREV_RETIRE_INC_AMT"    , gfnma_nvl2(item.PREV_RETIRE_INC_AMT) == '' ? 0 : gfnma_nvl2(item.PREV_RETIRE_INC_AMT));
-                    SBUxMethod.set("PREV_TXFREE_RET_INC_AMT", gfnma_nvl2(item.PREV_TXFREE_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.PREV_TXFREE_RET_INC_AMT));
-                    SBUxMethod.set("PREV_TX_RET_INC_AMT"    , gfnma_nvl2(item.PREV_TX_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.PREV_TX_RET_INC_AMT));
-                    SBUxMethod.set("COMP_NAME"              , gfnma_nvl2(item.COMP_NAME));
-                    SBUxMethod.set("BIZ_REGNO"              , gfnma_nvl2(item.BIZ_REGNO));
-                    SBUxMethod.set("RET_INC_AMT"            , gfnma_nvl2(item.RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.RET_INC_AMT));
-                    SBUxMethod.set("TXFREE_RET_INC_AMT"     , gfnma_nvl2(item.TXFREE_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.TXFREE_RET_INC_AMT));
-                    SBUxMethod.set("TX_RET_INC_AMT"         , gfnma_nvl2(item.TX_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.TX_RET_INC_AMT));
-                    SBUxMethod.set("TOT_RET_INC_AMT"        , gfnma_nvl2(item.TOT_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.TOT_RET_INC_AMT));
-                    SBUxMethod.set("TOT_TXFREE_RET_INC_AMT" , gfnma_nvl2(item.TOT_TXFREE_RET_INC_AMT) == '' ? 0 : gfnma_nvl2(item.TOT_TXFREE_RET_INC_AMT));
-                    SBUxMethod.set("INSURANCE_RETIRE_CHG"   , gfnma_nvl2(item.INSURANCE_RETIRE_CHG) == '' ? 0 : gfnma_nvl2(item.INSURANCE_RETIRE_CHG));
-                    SBUxMethod.set("RETIRE_ESTIMATE_AMT1"    , gfnma_nvl2(item.RETIRE_ESTIMATE_AMT) == '' ? 0 : gfnma_nvl2(item.RETIRE_ESTIMATE_AMT));
-                    SBUxMethod.set("WORKING_DAY_CNT"        , gfnma_nvl2(item.WORKING_DAY_CNT) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT));
-                    SBUxMethod.set("WORKING_DAY_CNT_NORM"   , gfnma_nvl2(item.WORKING_DAY_CNT_NORM) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT_NORM));
-                    SBUxMethod.set("WORKING_DAY_CNT_PEAK"   , gfnma_nvl2(item.WORKING_DAY_CNT_PEAK) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT_PEAK));
-                    SBUxMethod.set("WORKING_DAY_CNT2"       , gfnma_nvl2(item.WORKING_DAY_CNT2) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT2));   //적용일수
-                    SBUxMethod.set("WORKING_DAY_CNT2_NORM"  , gfnma_nvl2(item.WORKING_DAY_CNT2_NORM) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT2_NORM));
-                    SBUxMethod.set("WORKING_DAY_CNT2_PEAK"  , gfnma_nvl2(item.WORKING_DAY_CNT2_PEAK) == '' ? 0 : gfnma_nvl2(item.WORKING_DAY_CNT2_PEAK));
+                    SBUxMethod.set("PREV_TXFREE_RET_INC_AMT", gfnma_nvl2(item.TXFR_RTRM_SLRY_AMT_TMIDL) == '' ? 0 : gfnma_nvl2(item.TXFR_RTRM_SLRY_AMT_TMIDL));
+                    SBUxMethod.set("PREV_TX_RET_INC_AMT"    , gfnma_nvl2(item.TXTN_RTRM_SLRY_AMT_TMIDL) == '' ? 0 : gfnma_nvl2(item.TXTN_RTRM_SLRY_AMT_TMIDL));
+                    SBUxMethod.set("COMP_NAME"              , gfnma_nvl2(item.CORP_NM));
+                    SBUxMethod.set("BIZ_REGNO"              , gfnma_nvl2(item.BRNO));
+                    SBUxMethod.set("RET_INC_AMT"            , gfnma_nvl2(item.RTRM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.RTRM_SLRY_AMT));
+                    SBUxMethod.set("TXFREE_RET_INC_AMT"     , gfnma_nvl2(item.TXFR_RTRM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.TXFR_RTRM_SLRY_AMT));
+                    SBUxMethod.set("TX_RET_INC_AMT"         , gfnma_nvl2(item.TXTN_RTRM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.TXTN_RTRM_SLRY_AMT));
+                    SBUxMethod.set("TOT_RET_INC_AMT"        , gfnma_nvl2(item.TOT_RTRM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.TOT_RTRM_SLRY_AMT));
+                    SBUxMethod.set("TOT_TXFREE_RET_INC_AMT" , gfnma_nvl2(item.TOT_TXFR_RTRM_SLRY_AMT) == '' ? 0 : gfnma_nvl2(item.TOT_TXFR_RTRM_SLRY_AMT));
+                    SBUxMethod.set("INSURANCE_RETIRE_CHG"   , gfnma_nvl2(item.NPN_RTRM_CHG) == '' ? 0 : gfnma_nvl2(item.NPN_RTRM_CHG));
+                    SBUxMethod.set("RETIRE_ESTIMATE_AMT1"   , gfnma_nvl2(item.RTRM_ESTMTN_INPT_AMT) == '' ? 0 : gfnma_nvl2(item.RTRM_ESTMTN_INPT_AMT));
+                    SBUxMethod.set("WORKING_DAY_CNT"        , gfnma_nvl2(item.WORK_DCNT) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT));
+                    SBUxMethod.set("WORKING_DAY_CNT_NORM"   , gfnma_nvl2(item.WORK_DCNT_NML) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT_NML));
+                    SBUxMethod.set("WORKING_DAY_CNT_PEAK"   , gfnma_nvl2(item.WORK_DCNT_MAX) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT_MAX));
+                    SBUxMethod.set("WORKING_DAY_CNT2"       , gfnma_nvl2(item.WORK_DCNT2) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT2));   //적용일수
+                    SBUxMethod.set("WORKING_DAY_CNT2_NORM"  , gfnma_nvl2(item.WORK_DCNT2_NML) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT2_NML));
+                    SBUxMethod.set("WORKING_DAY_CNT2_PEAK"  , gfnma_nvl2(item.WORK_DCNT2_MAX) == '' ? 0 : gfnma_nvl2(item.WORK_DCNT2_MAX));
                 });
 
                 /** @type {number} **/
@@ -3751,15 +3751,15 @@
                 jsonPayList.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        PEAK_YN         : gfnma_nvl2(item.PEAK_YN),
-                        PAY_YYYYMM      : gfnma_nvl2(item.PAY_YYYYMM),
-                        BASE_PAY_AMT    : gfnma_nvl2(item.BASE_PAY_AMT),
-                        ALLOWANCE_AMT   : gfnma_nvl2(item.ALLOWANCE_AMT),
+                        PEAK_YN         : gfnma_nvl2(item.SLYPK_YN),
+                        PAY_YYYYMM      : gfnma_nvl2(item.SLRY_YM),
+                        BASE_PAY_AMT    : gfnma_nvl2(item.BASE_SLRY_AMT),
+                        ALLOWANCE_AMT   : gfnma_nvl2(item.ALWNC_AMT),
                         PAY_AMT         : gfnma_nvl2(item.PAY_AMT),
-                        ST_DAT          : gfnma_nvl2(item.ST_DAT),
-                        END_DAT         : gfnma_nvl2(item.END_DAT),
-                        APPLY_DAYS      : gfnma_nvl2(item.APPLY_DAYS),
-                        APPLY_AMT       : gfnma_nvl2(item.APPLY_AMT),
+                        ST_DAT          : gfnma_nvl2(item.BENG_YMD),
+                        END_DAT         : gfnma_nvl2(item.END_YMD),
+                        APPLY_DAYS      : gfnma_nvl2(item.APLY_YMD),
+                        APPLY_AMT       : gfnma_nvl2(item.APLY_AMT),
 
                     }
                     jsonPayList.push(msg);
@@ -3780,12 +3780,12 @@
                 jsonBonusList.length = 0;
                 data.cv_5.forEach((item, index) => {
                     const msg = {
-                        PEAK_YN         : gfnma_nvl2(item.PEAK_YN),
-                        PAY_YYYYMM      : gfnma_nvl2(item.PAY_YYYYMM),
-                        PAY_DATE        : gfnma_nvl2(item.PAY_DATE),
-                        PAY_ITEM_CODE   : gfnma_nvl2(item.PAY_ITEM_CODE),
+                        PEAK_YN         : gfnma_nvl2(item.SLYPK_YN),
+                        PAY_YYYYMM      : gfnma_nvl2(item.SLRY_YM),
+                        PAY_DATE        : gfnma_nvl2(item.PAY_YMD),
+                        PAY_ITEM_CODE   : gfnma_nvl2(item.SLRY_ITEM_CD),
                         PAY_AMT         : gfnma_nvl2(item.PAY_AMT),
-                        APPLY_AMT       : gfnma_nvl2(item.APPLY_AMT),
+                        APPLY_AMT       : gfnma_nvl2(item.APLY_AMT),
 
                     }
                     jsonBonusList.push(msg);
@@ -3797,159 +3797,159 @@
 
                 //[TAB2] 퇴직소득세액계산
                 data.cv_6.forEach((item, index) => {
-                    SBUxMethod.set("PREV_ENTER_DAT"             , gfnma_nvl2(item.PREV_ENTER_DAT));
-                    SBUxMethod.set("PREV_RET_INITIAL_DAT"       , gfnma_nvl2(item.PREV_RET_INITIAL_DAT));
+                    SBUxMethod.set("PREV_ENTER_DAT"             , gfnma_nvl2(item.PAST_JNCMP_YMD));
+                    SBUxMethod.set("PREV_RET_INITIAL_DAT"       , gfnma_nvl2(item.PAST_RMTM_SLRY_CRTDAY));
                     SBUxMethod.set("PREV_RETIRE_DAT"            , gfnma_nvl2(item.PREV_RETIRE_DAT));
-                    SBUxMethod.set("PREV_RET_PAY_DATE"          , gfnma_nvl2(item.PREV_RET_PAY_DATE));
-                    SBUxMethod.set("PREV_WORKING_MM_CNT"        , gfnma_nvl2(item.PREV_WORKING_MM_CNT));
-                    SBUxMethod.set("PREV_EXCP_MM_CNT"           , gfnma_nvl2(item.PREV_EXCP_MM_CNT));
-                    SBUxMethod.set("PREV_ADD_MM_CNT"            , gfnma_nvl2(item.PREV_ADD_MM_CNT));
-                    SBUxMethod.set("PREV_WORKING_YEAR_CNT"      , gfnma_nvl2(item.PREV_WORKING_YEAR_CNT));
-                    SBUxMethod.set("ENTER_DAT"                  , gfnma_nvl2(item.ENTER_DAT));
-                    SBUxMethod.set("CALC_ST_DAT"                , gfnma_nvl2(item.CALC_ST_DAT));
-                    SBUxMethod.set("RET_DAT"                    , gfnma_nvl2(item.RET_DAT));
-                    SBUxMethod.set("PAY_DATE1"                  , gfnma_nvl2(item.PAY_DATE));
-                    SBUxMethod.set("WORKING_MM_CNT"             , gfnma_nvl2(item.WORKING_MM_CNT));
-                    SBUxMethod.set("WORKING_MM_CNT_PEAK"        , gfnma_nvl2(item.WORKING_MM_CNT_PEAK));
-                    SBUxMethod.set("WORKING_MM_CNT_NORM"        , gfnma_nvl2(item.WORKING_MM_CNT_NORM));
+                    SBUxMethod.set("PREV_RET_PAY_DATE"          , gfnma_nvl2(item.PAST_RMTM_SLRY_PAY_YMD));
+                    SBUxMethod.set("PREV_WORKING_MM_CNT"        , gfnma_nvl2(item.CNSVC_MCNT_TMIDL));
+                    SBUxMethod.set("PREV_EXCP_MM_CNT"           , gfnma_nvl2(item.EXCL_MCNT_TMIDL));
+                    SBUxMethod.set("PREV_ADD_MM_CNT"            , gfnma_nvl2(item.ADTN_MCNT_TMIDL));
+                    SBUxMethod.set("PREV_WORKING_YEAR_CNT"      , gfnma_nvl2(item.CNSVC_YYCNT_TMIDL));
+                    SBUxMethod.set("ENTER_DAT"                  , gfnma_nvl2(item.JNCMP_YMD));
+                    SBUxMethod.set("CALC_ST_DAT"                , gfnma_nvl2(item.CALC_BGNG_YMD));
+                    SBUxMethod.set("RET_DAT"                    , gfnma_nvl2(item.RTRM_YMD));
+                    SBUxMethod.set("PAY_DATE1"                  , gfnma_nvl2(item.PAY_YMD));
+                    SBUxMethod.set("WORKING_MM_CNT"             , gfnma_nvl2(item.WORK_MCNT));
+                    SBUxMethod.set("WORKING_MM_CNT_PEAK"        , gfnma_nvl2(item.WORK_MCNT_MAX));
+                    SBUxMethod.set("WORKING_MM_CNT_NORM"        , gfnma_nvl2(item.WORK_MCNT_NML));
                     SBUxMethod.set("EXCP_MM_CNT"                , gfnma_nvl2(item.EXCP_MM_CNT));
-                    SBUxMethod.set("ADD_MM_CNT"                 , gfnma_nvl2(item.ADD_MM_CNT));
-                    SBUxMethod.set("WORKING_YEAR_CNT"           , gfnma_nvl2(item.WORKING_YEAR_CNT));
-                    SBUxMethod.set("WORKING_YEAR_CNT_PEAK"      , gfnma_nvl2(item.WORKING_YEAR_CNT_PEAK));
-                    SBUxMethod.set("WORKING_YEAR_CNT_NORM"      , gfnma_nvl2(item.WORKING_YEAR_CNT_NORM));
-                    SBUxMethod.set("TOT_CALC_ST_DAT"            , gfnma_nvl2(item.TOT_CALC_ST_DAT));
-                    SBUxMethod.set("TOT_RET_DAT"                , gfnma_nvl2(item.TOT_RET_DAT));
-                    SBUxMethod.set("TOT_WORKING_MM_CNT"         , gfnma_nvl2(item.TOT_WORKING_MM_CNT));
-                    SBUxMethod.set("TOT_EXCP_MM_CNT"            , gfnma_nvl2(item.TOT_EXCP_MM_CNT));
-                    SBUxMethod.set("TOT_ADD_MM_CNT"             , gfnma_nvl2(item.TOT_ADD_MM_CNT));
-                    SBUxMethod.set("TOT_OVERLAP_MM_CNT"         , gfnma_nvl2(item.TOT_OVERLAP_MM_CNT));
-                    SBUxMethod.set("TOT_WORKING_YEAR_CNT"       , gfnma_nvl2(item.TOT_WORKING_YEAR_CNT));
-                    SBUxMethod.set("TOT_CALC_ST_DAT_BEF"        , gfnma_nvl2(item.TOT_CALC_ST_DAT_BEF));
-                    SBUxMethod.set("TOT_RET_DAT_BEF"            , gfnma_nvl2(item.TOT_RET_DAT_BEF));
-                    SBUxMethod.set("TOT_WORKING_MM_CNT_BEF"     , gfnma_nvl2(item.TOT_WORKING_MM_CNT_BEF));
-                    SBUxMethod.set("TOT_EXCP_MM_CNT_BEF"        , gfnma_nvl2(item.TOT_EXCP_MM_CNT_BEF));
-                    SBUxMethod.set("TOT_ADD_MM_CNT_BEF"         , gfnma_nvl2(item.TOT_ADD_MM_CNT_BEF));
-                    SBUxMethod.set("TOT_WORKING_YEAR_CNT_BEF"   , gfnma_nvl2(item.TOT_WORKING_YEAR_CNT_BEF));
-                    SBUxMethod.set("TOT_CALC_ST_DAT_AFT"        , gfnma_nvl2(item.TOT_CALC_ST_DAT_AFT));
-                    SBUxMethod.set("TOT_RET_DAT_AFT"            , gfnma_nvl2(item.TOT_RET_DAT_AFT));
-                    SBUxMethod.set("TOT_WORKING_MM_CNT_AFT"     , gfnma_nvl2(item.TOT_WORKING_MM_CNT_AFT));
-                    SBUxMethod.set("TOT_EXCP_MM_CNT_AFT"        , gfnma_nvl2(item.TOT_EXCP_MM_CNT_AFT));
-                    SBUxMethod.set("TOT_ADD_MM_CNT_AFT"         , gfnma_nvl2(item.TOT_ADD_MM_CNT_AFT));
-                    SBUxMethod.set("TOT_WORKING_YEAR_CNT_AFT"   , gfnma_nvl2(item.TOT_WORKING_YEAR_CNT_AFT));
+                    SBUxMethod.set("ADD_MM_CNT"                 , gfnma_nvl2(item.LAST_ADTN_MM_CNT));
+                    SBUxMethod.set("WORKING_YEAR_CNT"           , gfnma_nvl2(item.WORK_YTCNT));
+                    SBUxMethod.set("WORKING_YEAR_CNT_PEAK"      , gfnma_nvl2(item.WORK_YTCNT_MAX));
+                    SBUxMethod.set("WORKING_YEAR_CNT_NORM"      , gfnma_nvl2(item.WORK_YTCNT_NML));
+                    SBUxMethod.set("TOT_CALC_ST_DAT"            , gfnma_nvl2(item.TOT_CLCLN_BENG_YMD));
+                    SBUxMethod.set("TOT_RET_DAT"                , gfnma_nvl2(item.TOT_RTRM_YMD));
+                    SBUxMethod.set("TOT_WORKING_MM_CNT"         , gfnma_nvl2(item.TOT_CNSVC_MCNT));
+                    SBUxMethod.set("TOT_EXCP_MM_CNT"            , gfnma_nvl2(item.TOT_CLCLN_EXCL_MCNT));
+                    SBUxMethod.set("TOT_ADD_MM_CNT"             , gfnma_nvl2(item.TOT_CLCLN_ADTN_MCNT));
+                    SBUxMethod.set("TOT_OVERLAP_MM_CNT"         , gfnma_nvl2(item.TOT_CLCLN_DPCN_MCNT));
+                    SBUxMethod.set("TOT_WORKING_YEAR_CNT"       , gfnma_nvl2(item.TOT_CNSVC_YYCNT));
+                    SBUxMethod.set("TOT_CALC_ST_DAT_BEF"        , gfnma_nvl2(item.TOT_CLCLN_BENG_YMD_BFR));
+                    SBUxMethod.set("TOT_RET_DAT_BEF"            , gfnma_nvl2(item.TOT_RTRM_YMD_BFR));
+                    SBUxMethod.set("TOT_WORKING_MM_CNT_BEF"     , gfnma_nvl2(item.TOT_CNSVC_MCNT_BFR));
+                    SBUxMethod.set("TOT_EXCP_MM_CNT_BEF"        , gfnma_nvl2(item.TOT_CLCLN_EXCL_MCNT_BFR));
+                    SBUxMethod.set("TOT_ADD_MM_CNT_BEF"         , gfnma_nvl2(item.TOT_CLCLN_ADTN_MCNT_BFR));
+                    SBUxMethod.set("TOT_WORKING_YEAR_CNT_BEF"   , gfnma_nvl2(item.TOT_CNSVC_YYCNT_BFR));
+                    SBUxMethod.set("TOT_CALC_ST_DAT_AFT"        , gfnma_nvl2(item.TOT_CLCLN_BENG_YMD_AFTR));
+                    SBUxMethod.set("TOT_RET_DAT_AFT"            , gfnma_nvl2(item.TOT_RTRM_YMD_AFTR));
+                    SBUxMethod.set("TOT_WORKING_MM_CNT_AFT"     , gfnma_nvl2(item.TOT_CNSVC_MCNT_AFTR));
+                    SBUxMethod.set("TOT_EXCP_MM_CNT_AFT"        , gfnma_nvl2(item.TOT_CLCLN_EXCL_MCNT_AFTR));
+                    SBUxMethod.set("TOT_ADD_MM_CNT_AFT"         , gfnma_nvl2(item.TOT_CLCLN_ADTN_MCNT_AFTR));
+                    SBUxMethod.set("TOT_WORKING_YEAR_CNT_AFT"   , gfnma_nvl2(item.TOT_CNSVC_YYCNT_AFTR));
 
                     //--퇴직소득과세표준계산(2015.12.31 이전 계산방법)
-                    SBUxMethod.set("PREV_RET_PAY_AMT"           , gfnma_nvl2(item.PREV_RET_PAY_AMT));
-                    SBUxMethod.set("RET_PAY_AMT"                , gfnma_nvl2(item.RET_PAY_AMT));
-                    SBUxMethod.set("TOT_RET_PAY_AMT1"           , gfnma_nvl2(item.TOT_RET_PAY_AMT));
-                    SBUxMethod.set("TOT_RET_FX_R_DEDUCT"        , gfnma_nvl2(item.TOT_RET_FX_R_DEDUCT));
-                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT1"    , gfnma_nvl2(item.TOT_WORKING_CNT_DEDUCT));
-                    SBUxMethod.set("TOT_RET_PAY_TX_STD_AMT"     , gfnma_nvl2(item.TOT_RET_PAY_TX_STD_AMT));
+                    SBUxMethod.set("PREV_RET_PAY_AMT"           , gfnma_nvl2(item.PAST_RMTM_SLRY_AMT));
+                    SBUxMethod.set("RET_PAY_AMT"                , gfnma_nvl2(item.RTRM_SLRY_PAY_AMT));
+                    SBUxMethod.set("TOT_RET_PAY_AMT1"           , gfnma_nvl2(item.TOT_RTRM_EARN_CLCLN_AMT));
+                    SBUxMethod.set("TOT_RET_FX_R_DEDUCT"        , gfnma_nvl2(item.TOT_RTRM_EARN_FIX_RT_DDC));
+                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT1"    , gfnma_nvl2(item.TOT_CSYRS_DDC));
+                    SBUxMethod.set("TOT_RET_PAY_TX_STD_AMT"     , gfnma_nvl2(item.TOT_RTRM_TXBS_PRDV_AMT));
 
                     // --퇴직소득과세표준계산(2016.01.01 이후 계산방법)
-                    SBUxMethod.set("TOT_RET_PAY_AMT"            , gfnma_nvl2(item.TOT_RET_PAY_AMT));
-                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT"     , gfnma_nvl2(item.TOT_WORKING_CNT_DEDUCT));
-                    SBUxMethod.set("CONV_INC_AMT_2016"          , gfnma_nvl2(item.CONV_INC_AMT_2016));
-                    SBUxMethod.set("CONV_INC_DEDUCT_2016"       , gfnma_nvl2(item.CONV_INC_DEDUCT_2016));
-                    SBUxMethod.set("RET_PAY_TX_STD_AMT_2016"    , gfnma_nvl2(item.RET_PAY_TX_STD_AMT_2016));
+                    SBUxMethod.set("TOT_RET_PAY_AMT"            , gfnma_nvl2(item.TOT_RTRM_EARN_CLCLN_AMT));
+                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT"     , gfnma_nvl2(item.TOT_CSYRS_DDC));
+                    SBUxMethod.set("CONV_INC_AMT_2016"          , gfnma_nvl2(item.CNVS_SLRY_AMT_2016));
+                    SBUxMethod.set("CONV_INC_DEDUCT_2016"       , gfnma_nvl2(item.CNVS_SLRY_DDC_2016));
+                    SBUxMethod.set("RET_PAY_TX_STD_AMT_2016"    , gfnma_nvl2(item.RTRM_TXBS_2016));
 
                     // --퇴직소득세액계산 (2015.12.31 이전 계산방법)
-                    SBUxMethod.set("RET_PAY_TX_STD_BEF"         , gfnma_nvl2(item.RET_PAY_TX_STD_BEF));
-                    SBUxMethod.set("RET_PAY_TX_STD_AFT"         , gfnma_nvl2(item.RET_PAY_TX_STD_AFT));
-                    SBUxMethod.set("TOT_RET_PAY_TX_STD"         , gfnma_nvl2(item.TOT_RET_PAY_TX_STD));
-                    SBUxMethod.set("ANN_AVG_TX_STD_AMT_BEF"     , gfnma_nvl2(item.ANN_AVG_TX_STD_AMT_BEF));
-                    SBUxMethod.set("ANN_AVG_TX_STD_AMT_AFT"     , gfnma_nvl2(item.ANN_AVG_TX_STD_AMT_AFT));
-                    SBUxMethod.set("TOT_ANN_AVG_TX_STD_AMT"     , gfnma_nvl2(item.TOT_ANN_AVG_TX_STD_AMT));
-                    SBUxMethod.set("CONV_TX_STD_AMT_AFT"        , gfnma_nvl2(item.CONV_TX_STD_AMT_AFT));
-                    SBUxMethod.set("TOT_CONV_TX_STD_AMT"        , gfnma_nvl2(item.TOT_CONV_TX_STD_AMT));
-                    SBUxMethod.set("CONV_CALC_TX_AMT_AFT"       , gfnma_nvl2(item.CONV_CALC_TX_AMT_AFT));
-                    SBUxMethod.set("TOT_CONV_CALC_TX_AMT"       , gfnma_nvl2(item.TOT_CONV_CALC_TX_AMT));
-                    SBUxMethod.set("ANN_AVG_CALC_TX_AMT_BEF"    , gfnma_nvl2(item.ANN_AVG_CALC_TX_AMT_BEF));
-                    SBUxMethod.set("ANN_AVG_CALC_TX_AMT_AFT"    , gfnma_nvl2(item.ANN_AVG_CALC_TX_AMT_AFT));
-                    SBUxMethod.set("TOT_ANN_AVG_CALC_TX_AMT"    , gfnma_nvl2(item.TOT_ANN_AVG_CALC_TX_AMT));
+                    SBUxMethod.set("RET_PAY_TX_STD_BEF"         , gfnma_nvl2(item.RTRM_TXBS_2015_BFR));
+                    SBUxMethod.set("RET_PAY_TX_STD_AFT"         , gfnma_nvl2(item.RTRM_TXBS_2015_AFTR));
+                    SBUxMethod.set("TOT_RET_PAY_TX_STD"         , gfnma_nvl2(item.TOT_RTRM_TXBS_PRDV));
+                    SBUxMethod.set("ANN_AVG_TX_STD_AMT_BEF"     , gfnma_nvl2(item.YR_AVG_TXBS_BFR));
+                    SBUxMethod.set("ANN_AVG_TX_STD_AMT_AFT"     , gfnma_nvl2(item.YR_AVG_TXBS_AFTR));
+                    SBUxMethod.set("TOT_ANN_AVG_TX_STD_AMT"     , gfnma_nvl2(item.TOT_ANNL_AVG_TXBS_AMT));
+                    SBUxMethod.set("CONV_TX_STD_AMT_AFT"        , gfnma_nvl2(item.CNVS_TX_STD_AMT_AFTR));
+                    SBUxMethod.set("TOT_CONV_TX_STD_AMT"        , gfnma_nvl2(item.TOT_CNVS_TXBS_AMT));
+                    SBUxMethod.set("CONV_CALC_TX_AMT_AFT"       , gfnma_nvl2(item.CNVS_CALC_TX_AMT_AFTR));
+                    SBUxMethod.set("TOT_CONV_CALC_TX_AMT"       , gfnma_nvl2(item.TOT_CNVS_COMPUT_TXAMT));
+                    SBUxMethod.set("ANN_AVG_CALC_TX_AMT_BEF"    , gfnma_nvl2(item.YR_AVG_CAL_TXAMT_BFR));
+                    SBUxMethod.set("ANN_AVG_CALC_TX_AMT_AFT"    , gfnma_nvl2(item.YR_AVG_CAL_TXAMT_AFTR));
+                    SBUxMethod.set("TOT_ANN_AVG_CALC_TX_AMT"    , gfnma_nvl2(item.TOT_ANNL_AVG_COMPUT_TXAMT));
                     SBUxMethod.set("CALC_TX_AMT_BEF"            , gfnma_nvl2(item.CALC_TX_AMT_BEF));
-                    SBUxMethod.set("CALC_TX_AMT_AFT"            , gfnma_nvl2(item.CALC_TX_AMT_AFT));
-                    SBUxMethod.set("TOT_CALC_TX_AMT"            , gfnma_nvl2(item.TOT_CALC_TX_AMT));
+                    SBUxMethod.set("CALC_TX_AMT_AFT"            , gfnma_nvl2(item.CALC_TX_AMT_AFTR));
+                    SBUxMethod.set("TOT_CALC_TX_AMT"            , gfnma_nvl2(item.TOT_COMPUT_TXAMT));
 
                     //--퇴직소득세액계산 (2016.01.01 이후 계산방법)
-                    SBUxMethod.set("CONV_CALC_TX_AMT_2016"      , gfnma_nvl2(item.CONV_CALC_TX_AMT_2016));
+                    SBUxMethod.set("CONV_CALC_TX_AMT_2016"      , gfnma_nvl2(item.CNVS_CALC_TX_AMT_2016));
                     SBUxMethod.set("CALC_TX_AMT_2016"           , gfnma_nvl2(item.CALC_TX_AMT_2016));
                     SBUxMethod.set("PAY_YYYY_RETIRE_DATE"       , gfnma_nvl2(item.PAY_YYYY_RETIRE_DATE));
-                    SBUxMethod.set("SPEC_CALC_TX_AMT_AMT_2016"  , gfnma_nvl2(item.SPEC_CALC_TX_AMT_AMT_2016));
-                    SBUxMethod.set("INC_PREV_PAID_TX_AMT"       , gfnma_nvl2(item.INC_PREV_PAID_TX_AMT));
-                    SBUxMethod.set("INC_TX_AMT"                 , gfnma_nvl2(item.INC_TX_AMT));
+                    SBUxMethod.set("SPEC_CALC_TX_AMT_AMT_2016"  , gfnma_nvl2(item.SPCL_CAL_TXAMT_2016));
+                    SBUxMethod.set("INC_PREV_PAID_TX_AMT"       , gfnma_nvl2(item.EXS_PAY_TXAMT));
+                    SBUxMethod.set("INC_TX_AMT"                 , gfnma_nvl2(item.INCM_TX_AMT));
                 });
 
                 // -- [TAB3] 지급내역 및 납부명세
                 data.cv_7.forEach((item, index) => {
-                    SBUxMethod.set("DEFER_INC_TX_AMT"       , gfnma_nvl2(item.DEFER_INC_TX_AMT));
+                    SBUxMethod.set("DEFER_INC_TX_AMT"       , gfnma_nvl2(item.DFRMNT_INCM_TX_AMT));
                     /*SBUxMethod.set("IRP_BANK_CODE",         gfnma_nvl2(item.IRP_BANK_CODE));*/
-                    gfnma_multiSelectSet('#IRP_BANK_CODE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.IRP_BANK_CODE));
+                    gfnma_multiSelectSet('#IRP_BANK_CODE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.IRP_BANK_CD));
                     SBUxMethod.set("IRP_BANK_NAME"          , gfnma_nvl2(item.IRP_BANK_NAME));
-                    SBUxMethod.set("IRP_BIZ_REGNO"          , gfnma_nvl2(item.IRP_BIZ_REGNO));
-                    SBUxMethod.set("IRP_BANK_ACCOUNT_REAL"           , gfnma_nvl2(item.IRP_BANK_ACC));
-                    SBUxMethod.set("RET_PENS_END_DAT"       , gfnma_nvl2(item.RET_PENS_END_DAT));
-                    SBUxMethod.set("RET_PENS_AMT"           , gfnma_nvl2(item.RET_PENS_AMT));
-                    SBUxMethod.set("DEFER_RET_INC_AMT"      , gfnma_nvl2(item.DEFER_RET_INC_AMT));
-                    SBUxMethod.set("DEFER_RET_TX_AMT"       , gfnma_nvl2(item.DEFER_RET_TX_AMT));
-                    SBUxMethod.set("INC_RET_TX_AMT"         , gfnma_nvl2(item.INC_RET_TX_AMT));
-                    SBUxMethod.set("LOCAL_RET_TX_AMT"       , gfnma_nvl2(item.LOCAL_RET_TX_AMT));
-                    SBUxMethod.set("SPEC_RET_TX_AMT"        , gfnma_nvl2(item.SPEC_RET_TX_AMT));
-                    SBUxMethod.set("RET_TX_SUM"             , gfnma_nvl2(item.RET_TX_SUM));
-                    SBUxMethod.set("INC_DEFER_TX_AMT"       , gfnma_nvl2(item.INC_DEFER_TX_AMT));
-                    SBUxMethod.set("LOCAL_DEFER_TX_AMT"     , gfnma_nvl2(item.LOCAL_DEFER_TX_AMT));
-                    SBUxMethod.set("SPEC_DEFER_TX_AMT"      , gfnma_nvl2(item.SPEC_DEFER_TX_AMT));
-                    SBUxMethod.set("DEFER_TX_SUM"           , gfnma_nvl2(item.DEFER_TX_SUM));
-                    SBUxMethod.set("INC_BALANCE_TX_AMT"     , gfnma_nvl2(item.INC_BALANCE_TX_AMT));
-                    SBUxMethod.set("LOCAL_BALANCE_TX_AMT"   , gfnma_nvl2(item.LOCAL_BALANCE_TX_AMT));
-                    SBUxMethod.set("SPEC_BALANCE_TX_AMT"    , gfnma_nvl2(item.SPEC_BALANCE_TX_AMT));
-                    SBUxMethod.set("BALANCE_TX_SUM"         , gfnma_nvl2(item.BALANCE_TX_SUM));
+                    SBUxMethod.set("IRP_BIZ_REGNO"          , gfnma_nvl2(item.IRP_BRNO));
+                    SBUxMethod.set("IRP_BANK_ACCOUNT_REAL"  , gfnma_nvl2(item.IRP_ACTNO));
+                    SBUxMethod.set("RET_PENS_END_DAT"       , gfnma_nvl2(item.RTRM_PN_END_YMD));
+                    SBUxMethod.set("RET_PENS_AMT"           , gfnma_nvl2(item.RTRM_PN_AMT));
+                    SBUxMethod.set("DEFER_RET_INC_AMT"      , gfnma_nvl2(item.DFRMNT_RTRM_INCM_AMT));
+                    SBUxMethod.set("DEFER_RET_TX_AMT"       , gfnma_nvl2(item.DFRMNT_RTRM_TX_AMT));
+                    SBUxMethod.set("INC_RET_TX_AMT"         , gfnma_nvl2(item.DCLR_TRGT_INCTX_AMT));
+                    SBUxMethod.set("LOCAL_RET_TX_AMT"       , gfnma_nvl2(item.LCL_ICNTX_DCSN_AMT));
+                    SBUxMethod.set("SPEC_RET_TX_AMT"        , gfnma_nvl2(item.SPCL_RTRM_FFV_TXAMT));
+                    SBUxMethod.set("RET_TX_SUM"             , gfnma_nvl2(item.RTRM_TXAMT_SUM));
+                    SBUxMethod.set("INC_DEFER_TX_AMT"       , gfnma_nvl2(item.DFR_RTRM_INCTX_AMT));
+                    SBUxMethod.set("LOCAL_DEFER_TX_AMT"     , gfnma_nvl2(item.LCL_ICNTX_DFMT_AMT));
+                    SBUxMethod.set("SPEC_DEFER_TX_AMT"      , gfnma_nvl2(item.SPCL_DFR_FFV_TXAMT));
+                    SBUxMethod.set("DEFER_TX_SUM"           , gfnma_nvl2(item.DFRMNT_RTRM_TX_SUM));
+                    SBUxMethod.set("INC_BALANCE_TX_AMT"     , gfnma_nvl2(item.SBTR_WTHD_INCTX_AMT));
+                    SBUxMethod.set("LOCAL_BALANCE_TX_AMT"   , gfnma_nvl2(item.SBTR_WTHD_LCLTX_AMT));
+                    SBUxMethod.set("SPEC_BALANCE_TX_AMT"    , gfnma_nvl2(item.SBTR_WTHD_FFV_TXAMT));
+                    SBUxMethod.set("BALANCE_TX_SUM"         , gfnma_nvl2(item.BLNC_TX_SUM));
                     SBUxMethod.set("COM_PAY_AMT"            , gfnma_nvl2(item.COM_PAY_AMT));
                     SBUxMethod.set("PAY_AMT_SUM"            , gfnma_nvl2(item.PAY_AMT_SUM));
-                    SBUxMethod.set("REAL_PAY_AMT"           , gfnma_nvl2(item.REAL_PAY_AMT));
-                    SBUxMethod.set("BANK_CODE"              , gfnma_nvl2(item.BANK_CODE));
-                    SBUxMethod.set("BANK_NAME"              , gfnma_nvl2(item.BANK_NAME));
-                    SBUxMethod.set("BANK_ACC"               , gfnma_nvl2(item.BANK_ACC));
+                    SBUxMethod.set("REAL_PAY_AMT"           , gfnma_nvl2(item.ACTL_PAY_AMT));
+                    SBUxMethod.set("BANK_CODE"              , gfnma_nvl2(item.BANK_CD));
+                    SBUxMethod.set("BANK_NAME"              , gfnma_nvl2(item.BANK_NM));
+                    SBUxMethod.set("BANK_ACC"               , gfnma_nvl2(item.BACNT_NO));
                     SBUxMethod.set("BANK_ACC_REAL"          , gfnma_nvl2(item.BANK_ACC_REAL));
-                    SBUxMethod.set("BANK_DEPOR"             , gfnma_nvl2(item.BANK_DEPOR));
-                    SBUxMethod.set("PENS_BANK_CODE1"        , gfnma_nvl2(item.PENS_BANK_CODE1));
+                    SBUxMethod.set("BANK_DEPOR"             , gfnma_nvl2(item.BACNT_OWNR));
+                    SBUxMethod.set("PENS_BANK_CODE1"        , gfnma_nvl2(item.PN_BANK_CD1));
                     SBUxMethod.set("PENSION_BANK_NAME1"     , gfnma_nvl2(item.PENSION_BANK_NAME1));
-                    SBUxMethod.set("INSURER1_PAY_AMT"       , gfnma_nvl2(item.INSURER1_PAY_AMT));
-                    SBUxMethod.set("PENS_BANK_CODE2"        , gfnma_nvl2(item.PENS_BANK_CODE2));
+                    SBUxMethod.set("INSURER1_PAY_AMT"       , gfnma_nvl2(item.FNST1_PAY_AMT));
+                    SBUxMethod.set("PENS_BANK_CODE2"        , gfnma_nvl2(item.PN_BANK_CD2));
                     SBUxMethod.set("PENSION_BANK_NAME2"     , gfnma_nvl2(item.PENSION_BANK_NAME2));
-                    SBUxMethod.set("INSURER2_PAY_AMT"       , gfnma_nvl2(item.INSURER2_PAY_AMT));
-                    SBUxMethod.set("PENS_BANK_CODE3"        , gfnma_nvl2(item.PENS_BANK_CODE3));
+                    SBUxMethod.set("INSURER2_PAY_AMT"       , gfnma_nvl2(item.FNST2_PAY_AMT));
+                    SBUxMethod.set("PENS_BANK_CODE3"        , gfnma_nvl2(item.PN_BANK_CD3));
                     SBUxMethod.set("PENSION_BANK_NAME3"     , gfnma_nvl2(item.PENSION_BANK_NAME3));
-                    SBUxMethod.set("INSURER3_PAY_AMT"       , gfnma_nvl2(item.INSURER3_PAY_AMT));
+                    SBUxMethod.set("INSURER3_PAY_AMT"       , gfnma_nvl2(item.FNST3_PAY_AMT));
                     SBUxMethod.set("DIFF_AMT"               , gfnma_nvl2(item.DIFF_AMT));
-                    SBUxMethod.set("INSURANCE_RETIRE_CHG"   , gfnma_nvl2(item.INSURANCE_RETIRE_CHG));
-                    SBUxMethod.set("RETIRE_ESTIMATE_AMT"    , gfnma_nvl2(item.RETIRE_ESTIMATE_AMT));
-                    SBUxMethod.set("COMP_TAX_PAY_YN"        , gfnma_nvl2(item.COMP_TAX_PAY_YN));
+                    SBUxMethod.set("INSURANCE_RETIRE_CHG"   , gfnma_nvl2(item.NPN_RTRM_CHG));
+                    SBUxMethod.set("RETIRE_ESTIMATE_AMT"    , gfnma_nvl2(item.RTRM_ESTMTN_INPT_AMT));
+                    SBUxMethod.set("COMP_TAX_PAY_YN"        , gfnma_nvl2(item.CO_TX_PAY_YN));
                 });
 
                 // -- [TAB4] 중간정산이력
                 data.cv_8.forEach((item, index) => {
-                    SBUxMethod.set("RET_CALC_DAT"       , gfnma_nvl2(item.RET_CALC_DAT));
-                    gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.RET_CALC_TYPE));
+                    SBUxMethod.set("RET_CALC_DAT"       , gfnma_nvl2(item.RTRM_CLCLN_YMD));
+                    gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.RTRM_CLCLN_TYPE));
                     //SBUxMethod.set("RET_CALC_TYPE",         gfnma_nvl2(item.RET_CALC_TYPE));
 
                     //-- 퇴직소득과세표준계산 내용
-                    SBUxMethod.set("TOT_RET_PAY_AMT"        , gfnma_nvl2(item.TOT_RET_PAY_AMT));
-                    SBUxMethod.set("TOT_RET_FX_R_DEDUCT"    , gfnma_nvl2(item.TOT_RET_FX_R_DEDUCT));
-                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT" , gfnma_nvl2(item.TOT_WORKING_CNT_DEDUCT));
-                    SBUxMethod.set("TOT_RET_PAY_TX_STD_AMT" , gfnma_nvl2(item.TOT_RET_PAY_TX_STD_AMT));
+                    SBUxMethod.set("TOT_RET_PAY_AMT"        , gfnma_nvl2(item.TOT_RTRM_EARN_CLCLN_AMT));
+                    SBUxMethod.set("TOT_RET_FX_R_DEDUCT"    , gfnma_nvl2(item.TOT_RTRM_EARN_FIX_RT_DDC));
+                    SBUxMethod.set("TOT_WORKING_CNT_DEDUCT" , gfnma_nvl2(item.TOT_CSYRS_DDC));
+                    SBUxMethod.set("TOT_RET_PAY_TX_STD_AMT" , gfnma_nvl2(item.TOT_RTRM_TXBS_PRDV_AMT));
 
                     // -- 퇴직소득세액계산 내용
-                    SBUxMethod.set("TOT_ANN_AVG_TX_STD_AMT" , gfnma_nvl2(item.TOT_ANN_AVG_TX_STD_AMT));
-                    SBUxMethod.set("TOT_CONV_TX_STD_AMT"    , gfnma_nvl2(item.TOT_CONV_TX_STD_AMT));
-                    SBUxMethod.set("TOT_CONV_CALC_TX_AMT"   , gfnma_nvl2(item.TOT_CONV_CALC_TX_AMT));
-                    SBUxMethod.set("TOT_ANN_AVG_CALC_TX_AMT", gfnma_nvl2(item.TOT_ANN_AVG_CALC_TX_AMT));
-                    SBUxMethod.set("TOT_CALC_TX_AMT"        , gfnma_nvl2(item.TOT_CALC_TX_AMT));
-                    SBUxMethod.set("INC_PREV_PAID_TX_AMT"   , gfnma_nvl2(item.INC_PREV_PAID_TX_AMT));
-                    SBUxMethod.set("INC_TX_AMT"             , gfnma_nvl2(item.INC_TX_AMT));
+                    SBUxMethod.set("TOT_ANN_AVG_TX_STD_AMT" , gfnma_nvl2(item.TOT_ANNL_AVG_TXBS_AMT));
+                    SBUxMethod.set("TOT_CONV_TX_STD_AMT"    , gfnma_nvl2(item.TOT_CNVS_TXBS_AMT));
+                    SBUxMethod.set("TOT_CONV_CALC_TX_AMT"   , gfnma_nvl2(item.TOT_CNVS_COMPUT_TXAMT));
+                    SBUxMethod.set("TOT_ANN_AVG_CALC_TX_AMT", gfnma_nvl2(item.TOT_ANNL_AVG_COMPUT_TXAMT));
+                    SBUxMethod.set("TOT_CALC_TX_AMT"        , gfnma_nvl2(item.TOT_COMPUT_TXAMT));
+                    SBUxMethod.set("INC_PREV_PAID_TX_AMT"   , gfnma_nvl2(item.EXS_PAY_TXAMT));
+                    SBUxMethod.set("INC_TX_AMT"             , gfnma_nvl2(item.INCM_TX_AMT));
 
                     //-- 납세명세 내용
-                    SBUxMethod.set("INC_DEFER_TX_AMT"       , gfnma_nvl2(item.INC_DEFER_TX_AMT));
-                    SBUxMethod.set("INC_BALANCE_TX_AMT"     , gfnma_nvl2(item.INC_BALANCE_TX_AMT));
+                    SBUxMethod.set("INC_DEFER_TX_AMT"       , gfnma_nvl2(item.DFR_RTRM_INCTX_AMT));
+                    SBUxMethod.set("INC_BALANCE_TX_AMT"     , gfnma_nvl2(item.SBTR_WTHD_INCTX_AMT));
 
                 });
 
@@ -3959,20 +3959,20 @@
                 jsonChangeList.length = 0;
                 data.cv_9.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE            : gfnma_nvl2(item.EMP_CODE),
-                        POSITION_CODE       : gfnma_nvl2(item.POSITION_CODE),
-                        POSITION_NAME       : gfnma_nvl2(item.POSITION_NAME),
+                        EMP_CODE            : gfnma_nvl2(item.EMP_CD),
+                        POSITION_CODE       : gfnma_nvl2(item.JBPS_CD),
+                        POSITION_NAME       : gfnma_nvl2(item.JBPS_NM),
                         WORK_TERM           : gfnma_nvl2(item.WORK_TERM),
                         WORK_YMD            : gfnma_nvl2(item.WORK_YMD),
-                        ST_DAT              : gfnma_nvl2(item.ST_DAT),
-                        END_DAT             : gfnma_nvl2(item.END_DAT),
-                        PAY_MULTIPLE_NUMBER : gfnma_nvl2(item.PAY_MULTIPLE_NUMBER),
-                        DD_TOT_CNT          : gfnma_nvl2(item.DD_TOT_CNT),
-                        CHG_MM_CNT          : gfnma_nvl2(item.CHG_MM_CNT),
-                        YY_CNT              : gfnma_nvl2(item.YY_CNT),
-                        MM_CNT              : gfnma_nvl2(item.MM_CNT),
-                        DD_CNT              : gfnma_nvl2(item.DD_CNT),
-                        PEAK_YN             : gfnma_nvl2(item.PEAK_YN),
+                        ST_DAT              : gfnma_nvl2(item.BENG_YMD),
+                        END_DAT             : gfnma_nvl2(item.END_YMD),
+                        PAY_MULTIPLE_NUMBER : gfnma_nvl2(item.WGVL_CNT),
+                        DD_TOT_CNT          : gfnma_nvl2(item.WORK_TOT_DCNT),
+                        CHG_MM_CNT          : gfnma_nvl2(item.CNVS_MCNT),
+                        YY_CNT              : gfnma_nvl2(item.WORK_YYCNT),
+                        MM_CNT              : gfnma_nvl2(item.WORK_MCNT),
+                        DD_CNT              : gfnma_nvl2(item.WORK_DCNT),
+                        PEAK_YN             : gfnma_nvl2(item.SLYPK_YN),
                     }
                     jsonChangeList.push(msg);
                     //totalRecordCount4++;
@@ -4104,12 +4104,12 @@
                         //SBUxMethod.set("PAY_YYYYMM", 			gfnma_nvl2(item.PAY_YYYYMM));
                         //gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.PAY_TYPE));
                         //SBUxMethod.set("PAY_DATE", 			gfnma_nvl2(item.PAY_DATE));
-                        SBUxMethod.set("POSTING_DATE"       , 			gfnma_nvl2(item.POSTING_DATE));
-                        SBUxMethod.set("EXPECTED_PAY_DATE"  , 			gfnma_nvl2(item.EXPECTED_PAY_DATE));
-                        SBUxMethod.set("POSTING_STATUS"     , 			gfnma_nvl2(item.POSTING_STATUS));
-                        //SBUxMethod.set("INVOICE_BATCH_NO", 			gfnma_nvl2(item.INVOICE_BATCH_NO));
-                        SBUxMethod.set("DOC_ID"             , 			gfnma_nvl2(item.DOC_ID));
-                        SBUxMethod.set("DOC_NAME"           , 			gfnma_nvl2(item.DOC_NAME));
+                        SBUxMethod.set("POSTING_DATE"       , 			gfnma_nvl2(item.PSTG_YMD));
+                        SBUxMethod.set("EXPECTED_PAY_DATE"  , 			gfnma_nvl2(item.PAY_PRNMNT_YMD));
+                        SBUxMethod.set("POSTING_STATUS"     , 			gfnma_nvl2(item.TOT_STTS));
+                        //SBUxMethod.set("INVOICE_BATCH_NO", 			gfnma_nvl2(item.SLIP_BTCH_NO));
+                        SBUxMethod.set("DOC_ID"             , 			gfnma_nvl2(item.SLIP_ID));
+                        SBUxMethod.set("DOC_NAME"           , 			gfnma_nvl2(item.SLIP_NM));
                         SBUxMethod.set("MEMO"               , 			gfnma_nvl2(item.MEMO));
 
                     });
@@ -4120,29 +4120,29 @@
                     jsonInfoList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_YYYYMM		            : gfnma_nvl2(item.PAY_YYYYMM),
-                            PAY_TYPE		            : gfnma_nvl2(item.PAY_TYPE),
-                            PAY_DATE		            : gfnma_nvl2(item.PAY_DATE),
-                            POSTING_SEQ		            : gfnma_nvl2(item.POSTING_SEQ),
-                            FI_ORG_CODE		            : gfnma_nvl2(item.FI_ORG_CODE),
-                            FI_ORG_NAME		            : gfnma_nvl2(item.FI_ORG_NAME),
-                            DEPT_CODE		            : gfnma_nvl2(item.DEPT_CODE),
-                            DEPT_NAME		            : gfnma_nvl2(item.DEPT_NAME),
-                            CC_CODE		                : gfnma_nvl2(item.CC_CODE),
-                            CC_NAME		                : gfnma_nvl2(item.CC_NAME),
-                            DEBIT_CREDIT		        : gfnma_nvl2(item.DEBIT_CREDIT),
-                            ACC_CODE		            : gfnma_nvl2(item.ACC_CODE),
-                            ACC_NAME		            : gfnma_nvl2(item.ACC_NAME),
-                            CURRENCY_CODE		        : gfnma_nvl2(item.CURRENCY_CODE),
-                            EMP_CODE		            : gfnma_nvl2(item.EMP_CODE),
-                            EMP_NAME		            : gfnma_nvl2(item.EMP_NAME),
+                            PAY_YYYYMM		            : gfnma_nvl2(item.SLRY_YM),
+                            PAY_TYPE		            : gfnma_nvl2(item.SLRY_TYPE),
+                            PAY_DATE		            : gfnma_nvl2(item.PAY_YMD),
+                            POSTING_SEQ		            : gfnma_nvl2(item.PSTG_SEQ),
+                            FI_ORG_CODE		            : gfnma_nvl2(item.ACNTG_OGNZ_CD),
+                            FI_ORG_NAME		            : gfnma_nvl2(item.ACNTG_OGNZ_NM),
+                            DEPT_CODE		            : gfnma_nvl2(item.DEPT_CD),
+                            DEPT_NAME		            : gfnma_nvl2(item.DEPT_NM),
+                            CC_CODE		                : gfnma_nvl2(item.CSTCT_CD),
+                            CC_NAME		                : gfnma_nvl2(item.CSTCT_NM),
+                            DEBIT_CREDIT		        : gfnma_nvl2(item.DBSD_CRSD),
+                            ACC_CODE		            : gfnma_nvl2(item.ACNTL_CD),
+                            ACC_NAME		            : gfnma_nvl2(item.ACNTL_NM),
+                            CURRENCY_CODE		        : gfnma_nvl2(item.CRN_CD),
+                            EMP_CODE		            : gfnma_nvl2(item.EMP_CD),
+                            EMP_NAME		            : gfnma_nvl2(item.EMP_NM),
                             DEBIT_AMT		            : gfnma_nvl2(item.DEBIT_AMT),
                             CREDIT_AMT		            : gfnma_nvl2(item.CREDIT_AMT),
-                            CS_CODE		                : gfnma_nvl2(item.CS_CODE),
-                            CS_NAME		                : gfnma_nvl2(item.CS_NAME),
+                            CS_CODE		                : gfnma_nvl2(item.CNPT_CD),
+                            CS_NAME		                : gfnma_nvl2(item.CNPT_NM),
                             MEMO		                : gfnma_nvl2(item.MEMO),
-                            NEED_EMP_CODE_YN		    : gfnma_nvl2(item.NEED_EMP_CODE_YN),
-                            POSTING_RESULT_ADJUST_YN    : gfnma_nvl2(item.POSTING_RESULT_ADJUST_YN),
+                            NEED_EMP_CODE_YN		    : gfnma_nvl2(item.ND_EMP_CD_YN),
+                            POSTING_RESULT_ADJUST_YN    : gfnma_nvl2(item.TOT_RSLT_AJMT_YN),
 
                         }
                         jsonInfoList.push(msg);
@@ -4231,16 +4231,16 @@
 
                     data.cv_3.forEach((item, index) => {
 
-                        SBUxMethod.set("PAY_YYYYMM"         , 			gfnma_nvl2(item.PAY_YYYYMM));
-                        gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.PAY_TYPE));
-                        SBUxMethod.set("PAY_DATE"           , 			gfnma_nvl2(item.PAY_DATE));
-                        SBUxMethod.set("POSTING_DATE"       , 			gfnma_nvl2(item.POSTING_DATE));
-                        SBUxMethod.set("EXPECTED_PAY_DATE"  , 			gfnma_nvl2(item.EXPECTED_PAY_DATE));
-                        SBUxMethod.set("POSTING_STATUS"     , 			gfnma_nvl2(item.POSTING_STATUS));
-                        //SBUxMethod.set("INVOICE_BATCH_NO", 			gfnma_nvl2(item.INVOICE_BATCH_NO));
-                        SBUxMethod.set("DOC_ID"             , 			gfnma_nvl2(item.DOC_ID));
-                        SBUxMethod.set("DOC_NAME"           , 			gfnma_nvl2(item.DOC_NAME));
-                        SBUxMethod.set("MEMO"               , 			gfnma_nvl2(item.MEMO));
+                        SBUxMethod.set("PAY_YYYYMM"         , 			gfnma_nvl2(item.SLRY_YM));
+                        gfnma_multiSelectSet('#RET_CALC_TYPE', 'SUB_CODE', 'CODE_NAME', gfnma_nvl2(item.SLRY_TYPE));
+                        SBUxMethod.set("PAY_DATE"           , 				gfnma_nvl2(item.PAY_YMD));
+                        SBUxMethod.set("POSTING_DATE"       , 			gfnma_nvl2(item.PSTG_YMD));
+                        SBUxMethod.set("EXPECTED_PAY_DATE"  , 			gfnma_nvl2(item.PAY_PRNMNT_YMD));
+                        SBUxMethod.set("POSTING_STATUS"     , 			gfnma_nvl2(item.TOT_STTS));
+                        //SBUxMethod.set("INVOICE_BATCH_NO", 			gfnma_nvl2(item.SLIP_BTCH_NO));
+                        SBUxMethod.set("DOC_ID"             , 				gfnma_nvl2(item.SLIP_ID));
+                        SBUxMethod.set("DOC_NAME"           , 				gfnma_nvl2(item.SLIP_NM));
+                        SBUxMethod.set("MEMO"               , 				gfnma_nvl2(item.MEMO));
 
                     });
 
@@ -6156,9 +6156,7 @@
                     if (data.resultMessage) {
                         alert(data.resultMessage);
                         fn_search();
-
                     }
-
                 } else {
                     alert(data.resultMessage);
                 }

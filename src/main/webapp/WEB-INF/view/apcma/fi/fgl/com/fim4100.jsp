@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma"> 
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -228,10 +228,10 @@
     </div>
     
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -239,7 +239,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var editType	= "N";
 	
 	var jsonLblacctRuleCode 		= [];	//회계기준
@@ -249,7 +249,7 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//회계기준
-            gfnma_setComSelect(['srch-lblacct-rule-code'], 	jsonLblacctRuleCode, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['srch-lblacct-rule-code'], 	jsonLblacctRuleCode, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//통화
 			gfnma_multiSelectInit({
 				target			: ['#srch-cbocurrency-code']
@@ -262,11 +262,11 @@
 				,selectValue	: ''
 				,dropType		: 'down'	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'CURRENCY_CODE'
-				,colLabel		: 'CURRENCY_NAME'
+				,colValue		: 'CRN_CD'
+				,colLabel		: 'CRN_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'CURRENCY_CODE', 		width:'70px',  		style:'text-align:left'},
-		            {caption: "명칭", 		ref: 'CURRENCY_NAME',    	width:'130px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'CRN_CD', 		width:'70px',  		style:'text-align:left'},
+		            {caption: "명칭", 		ref: 'CRN_NM',    	width:'130px',  	style:'text-align:left'}
 				]
 			}),
 			//전표구분
@@ -281,18 +281,18 @@
 				,selectValue	: ''
 				,dropType		: 'down'	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 		width:'50px',  		style:'text-align:left'},
-		            {caption: "명칭", 		ref: 'CODE_NAME',    	width:'250px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'50px',  		style:'text-align:left'},
+		            {caption: "명칭", 		ref: 'CD_NM',    	width:'250px',  	style:'text-align:left'}
 				]
 			}),
-            gfnma_setComSelect([], jsonGridComboLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([], jsonGridComboDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([], jsonGridComboLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([], jsonGridComboDebitCredit, 	'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
-
+ 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 		
@@ -310,7 +310,7 @@
 			fn_gridRowDel();
 		});
     });
-
+ 
     /**
      * 초기화
      */
@@ -321,7 +321,7 @@
     //grid Mast 초기화
     var Fim4100GridMast; 			// 그리드를 담기위한 객체 선언
     var jsonFim4100Mast = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGridMast() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdTop';
@@ -345,7 +345,7 @@
         	{caption: ["시스템코드"], 				ref: 'SYSTEM_YN', 				type:'checkbox', 	width:'100px', 		style:'text-align:center',	typeinfo: { checkedvalue: 'Y', uncheckedvalue: 'N'}},        	
             {caption: ["비고"], 					ref: 'MEMO', 					type:'output',  	width:'200px',  	style:'text-align:left'},
         ];
-
+ 
         Fim4100GridMast = _SBGrid.create(SBGridProperties);
         Fim4100GridMast.bind('click', 'fn_viewMast');
     }
@@ -354,12 +354,12 @@
     function fn_viewMast() {
     	
     	editType = "E";    	
-
+ 
         var nRow = Fim4100GridMast.getRow();
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim4100GridMast.getRowData(nRow);
 		console.log(rowData);        
 		
@@ -368,15 +368,15 @@
         SBUxMethod.set("srch-lblacct-rule-code",	rowData.ACCT_RULE_CODE);
         SBUxMethod.set("srch-chksystem-yn",			rowData.SYSTEM_YN);
         SBUxMethod.set("srch-memomemo",				rowData.MEMO);
-        gfnma_multiSelectSet('#srch-cbocurrency-code', 	'CURRENCY_CODE', 'CURRENCY_NAME', rowData.CURRENCY_CODE);
-        gfnma_multiSelectSet('#srch-cbodoc-type', 		'SUB_CODE', 'CODE_NAME', rowData.DOC_TYPE);
+        gfnma_multiSelectSet('#srch-cbocurrency-code', 	'CRN_CD', 'CRN_NM', rowData.CRN_CD);
+        gfnma_multiSelectSet('#srch-cbodoc-type', 		'SBSD_CD', 'CD_NM', rowData.SLIP_TYPE);
 		fn_setFim4100GridDetail('ITEM');
     }
     
     //grid Detail 초기화
     var Fim4100GridDetail; 			// 그리드를 담기위한 객체 선언
     var jsonFim4100Detail = []; 	// 그리드의 참조 데이터 주소 선언
-
+ 
     function fn_createGridDetail() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdBot';
@@ -422,7 +422,7 @@
             {caption: ["원가중심점명"],				ref: 'COST_CENTER_NAME',		type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["적요"], 					ref: 'DESCRIPTION', 			type:'input',  		width:'300px',  	style:'text-align:left'},
         ];
-
+ 
         Fim4100GridDetail = _SBGrid.create(SBGridProperties);
         Fim4100GridDetail.bind('click', 'fn_viewDetail');
     }
@@ -444,9 +444,9 @@
      */
     var fn_compopup1 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_"; 
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_"; 
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -456,18 +456,18 @@
            	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 			"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: [cellData1, 		cellData2]
 			,width					: '500px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드",		"계정명",		]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD", 	"ACNT_NM"]
    			,tableColumnWidths		: ["100px", 		"300px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 				//그리드내 원하는 위치에 값 셋팅하기
-				Fim4100GridDetail.setCellData(row, 3, data['ACCOUNT_CODE'], true, true);
-				Fim4100GridDetail.setCellData(row, 5, data['ACCOUNT_NAME'], true, true);
+				Fim4100GridDetail.setCellData(row, 3, data['ACNTL_CD'], true, true);
+				Fim4100GridDetail.setCellData(row, 5, data['ACNT_NM'], true, true);
 			}
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -502,18 +502,18 @@
        		,popupType				: 'B'
     		,whereClause			: ''
        		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-   			,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+   			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
    			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
 			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["부서코드", 		"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE", 	"DEPT_NAME"]
+   			,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fim4100GridDetail.setCellData(row, 8, 	data['DEPT_CODE'], true, true);
-				Fim4100GridDetail.setCellData(row, 10, 	data['DEPT_NAME'], true, true);
+				Fim4100GridDetail.setCellData(row, 8, 	data['DEPT_CD'], true, true);
+				Fim4100GridDetail.setCellData(row, 10, 	data['DEPT_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -536,9 +536,9 @@
      */
     var fn_compopup3 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_"; 
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCD_CD_";
+        var replaceText1 	= "_CSTCD_NM_"; 
+        var strWhereClause 	= "AND A.CSTCD_CD LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
@@ -548,18 +548,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME",	"DEPT_CODE",	"DEPT_NAME",	"SITE_CODE"]	
+   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fim4100GridDetail.setCellData(row, 11, 	data['COST_CENTER_CODE'], true, true);
-				Fim4100GridDetail.setCellData(row, 13, 	data['COST_CENTER_NAME'], true, true);
+				Fim4100GridDetail.setCellData(row, 11, 	data['CSTCD_CD'], true, true);
+				Fim4100GridDetail.setCellData(row, 13, 	data['CSTCD_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -567,7 +567,7 @@
     
     //상세정보 보기
     function fn_viewDetail() {
-
+ 
     	var nCol = Fim4100GridDetail.getCol();
         //특정 열 부터 이벤트 적용
         if (nCol < 1) {
@@ -577,7 +577,7 @@
 		if (nRow < 1) {
             return;
 		}
-
+ 
         let rowData = Fim4100GridDetail.getRowData(nRow);
 		console.log(rowData);        
     }
@@ -593,9 +593,9 @@
      * mast 목록 가져오기
      */
     const fn_setFim4100GridMast = async function(wtype) {
-
+ 
 		Fim4100GridMast.clearStatus();
-
+ 
 		let p_txtrule_code	= gfnma_nvl(SBUxMethod.get("srch-txtrule-code"));
 		
 	    var paramObj = { 
@@ -610,41 +610,41 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/selectFim4100List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim4100Mast.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						RULE_CODE				: gfnma_nvl(item.RULE_CODE),
-  						RULE_NAME				: gfnma_nvl(item.RULE_NAME),
-  						DOC_TYPE				: gfnma_nvl(item.DOC_TYPE),			// --> 	L_FIM051
-  						DOC_NAME				: gfnma_nvl(item.DOC_NAME),			
-  						ACCT_RULE_CODE			: gfnma_nvl(item.ACCT_RULE_CODE),	// -->	L_FIM054
+  						RULE_CODE				: gfnma_nvl(item.RULE_CD),
+  						RULE_NAME				: gfnma_nvl(item.RULE_NM),
+  						DOC_TYPE				: gfnma_nvl(item.SLIP_TYPE),			// --> 	L_FIM051
+  						DOC_NAME				: gfnma_nvl(item.SLIP_NM),			
+  						ACCT_RULE_CODE			: gfnma_nvl(item.GAAP_CD),	// -->	L_FIM054
   						ACCT_RULE_NAME			: gfnma_nvl(item.ACCT_RULE_NAME),	
-  						CURRENCY_CODE			: gfnma_nvl(item.CURRENCY_CODE),	// -->	L_COM001
+  						CURRENCY_CODE			: gfnma_nvl(item.CRN_CD),	// -->	L_COM001
   						MEMO					: gfnma_nvl(item.MEMO),
-  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
-  						SYSTEM_YN				: gfnma_nvl(item.SYSTEM_YN)
+  						COMP_CODE				: gfnma_nvl(item.CO_CD),
+  						SYSTEM_YN				: gfnma_nvl(item.SYS_YN)
   					}
   					jsonFim4100Mast.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fim4100GridMast.rebuild();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	//deatil grid 첫번째 행 선택
@@ -656,7 +656,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -670,7 +670,7 @@
      * detail 목록 가져오기
      */
     const fn_setFim4100GridDetail = async function(wtype) {
-
+ 
 		Fim4100GridDetail.clearStatus();
 		let p_txtrule_code1	= gfnma_nvl(SBUxMethod.get("srch-txtrule-code1"));
 		
@@ -686,55 +686,55 @@
 			,V_P_USERID			: ''
 			,V_P_PC				: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/selectFim4100List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFim4100Detail.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						RULE_CODE				: gfnma_nvl(item.RULE_CODE),
+  						RULE_CODE				: gfnma_nvl(item.RULE_CD),
   						ITEM_SEQ				: gfnma_nvl(item.ITEM_SEQ),
   						LINE_TYPE				: gfnma_nvl(item.LINE_TYPE),		// --> 	L_FIM052
   						LINE_TYPE_NAME			: gfnma_nvl(item.LINE_TYPE_NAME),	
-  						DEBIT_CREDIT			: gfnma_nvl(item.DEBIT_CREDIT),		// -->	L_FIG003		
+  						DEBIT_CREDIT			: gfnma_nvl(item.DBSD_CRSD),		// -->	L_FIG003		
   						DEBIT_CREDIT_NAME		: gfnma_nvl(item.DEBIT_CREDIT_NAME),	
   						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),			
-  						VAT_NAME				: gfnma_nvl(item.VAT_NAME),			
+  						VAT_NAME				: gfnma_nvl(item.VAT_NM),			
   						VAT_NAME1				: gfnma_nvl(item.VAT_NAME1),			
-  						ACCOUNT_CODE			: gfnma_nvl(item.ACCOUNT_CODE),			
-  						ACCOUNT_NAME			: gfnma_nvl(item.ACCOUNT_NAME),			
-  						DEPT_CODE				: gfnma_nvl(item.DEPT_CODE),			
-  						DEPT_NAME				: gfnma_nvl(item.DEPT_NAME),			
-  						COST_CENTER_CODE		: gfnma_nvl(item.COST_CENTER_CODE),			
-  						COST_CENTER_NAME		: gfnma_nvl(item.COST_CENTER_NAME),			
-  						DESCRIPTION				: gfnma_nvl(item.DESCRIPTION),			
-  						COMP_CODE				: gfnma_nvl(item.COMP_CODE),
+  						ACCOUNT_CODE			: gfnma_nvl(item.ACNTL_CD),			
+  						ACCOUNT_NAME			: gfnma_nvl(item.ACNT_NM),			
+  						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
+  						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
+  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),			
+  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),			
+  						DESCRIPTION				: gfnma_nvl(item.DSCTN),			
+  						COMP_CODE				: gfnma_nvl(item.CO_CD),
   					}
   					jsonFim4100Detail.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	Fim4100GridDetail.rebuild();
   	        	document.querySelector('#listCount2').innerText = totalRecordCount;
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -770,7 +770,7 @@
     	jsonFim4100Detail = [];
       	Fim4100GridDetail.rebuild();
     }
-
+ 
     /**
      * 삭제
      */
@@ -808,7 +808,7 @@
  				,V_P_USERID					: ''
  				,V_P_PC						: '' 
  		    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4100Mast.do", {
         	getType				: 'json',
         	workType			: 'D',
@@ -816,7 +816,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
 	 			gfn_comAlert("I0001");
@@ -837,7 +837,7 @@
      * 저장
      */
     function cfn_save() {
-
+ 
     	let p_txtrule_code1 	= gfnma_nvl(SBUxMethod.get("srch-txtrule-code1"));
     	let p_rule_name			= gfnma_nvl(SBUxMethod.get("srch-rule-name"));
     	let p_lblacct_rule_code	= gfnma_nvl(SBUxMethod.get("srch-lblacct-rule-code"));
@@ -845,7 +845,7 @@
     	let p_cbodoc_type		= gfnma_multiSelectGet('#srch-cbodoc-type');
     	let p_chksystem_yn		= gfnma_nvl(SBUxMethod.get('srch-chksystem-yn')['srch-chksystem-yn']);
     	let p_memomemo			= gfnma_multiSelectGet('#srch-memomemo');
-
+ 
     	if (!p_txtrule_code1) {
             gfn_comAlert("W0002", "전표Rule코드");
             return;
@@ -866,7 +866,7 @@
             gfn_comAlert("W0002", "전표구분");
             return;
         }
-
+ 
     	if (editType=="N") {
     		// 신규 등록
     		if(gfn_comConfirm("Q0001", "신규 등록")){
@@ -902,7 +902,7 @@
      * mast 저장
      */
     const fn_subInsert1 = async function (obj){
-
+ 
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
@@ -921,7 +921,7 @@
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4100Mast.do", {
         	getType				: 'json',
         	workType			: 'N',
@@ -929,7 +929,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		fn_subInsert2(obj);
@@ -988,10 +988,10 @@
     	 		}			
     	 	listData.push(param);
     	 }	
-
+ 
     	 if(listData.length > 0) {
     	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4100detail.do", {listData: listData});
-
+ 
     	 	const data = await postJsonPromise;
     	 	console.log('data:', data);
     	 	try {
@@ -1001,7 +1001,7 @@
     	 			alert(data.resultMessage);
     	 		}
    	 			cfn_search();
-
+ 
     	 	} catch (e) {
     	 		if (!(e instanceof Error)) {
     	 			e = new Error(e);
@@ -1016,7 +1016,7 @@
      * mast 수정
      */
     const fn_subUpdate1 = async function (obj){
-
+ 
  	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
 			,V_P_LANG_ID				: ''
@@ -1035,7 +1035,7 @@
 			,V_P_USERID					: ''
 			,V_P_PC						: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4100Mast.do", {
         	getType				: 'json',
         	workType			: 'U',
@@ -1043,7 +1043,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-
+ 
         try {
         	if (_.isEqual("S", data.resultStatus)) {
         		fn_subUpdate2(obj);
@@ -1109,10 +1109,10 @@
     	 		}			
     	 	listData.push(param);
     	 }	
-
+ 
     	 if(listData.length > 0) {
     	 	const postJsonPromise = gfn_postJSON("/fi/fgl/com/saveFim4100detail.do", {listData: listData});
-
+ 
     	 	const data = await postJsonPromise;
     	 	console.log('data:', data);
     	 	try {
@@ -1122,7 +1122,7 @@
     	 			alert(data.resultMessage);
     	 		}
 	 			cfn_search();
-
+ 
     	 	} catch (e) {
     	 		if (!(e instanceof Error)) {
     	 			e = new Error(e);

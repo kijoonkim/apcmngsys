@@ -219,10 +219,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="SALES_COST_ACC_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="SALES_COST_ACC_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -243,10 +243,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="SALES_COST_TEMP_ACC_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="SALES_COST_TEMP_ACC_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -267,10 +267,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="SALES_COST_CENTER_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="SALES_COST_CENTER_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -339,10 +339,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="ADMIN_COST_CENTER_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="ADMIN_COST_CENTER_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -413,10 +413,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="MFG_COST_CENTER_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="MFG_COST_CENTER_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -487,10 +487,10 @@
                         </td>
                         <td class="td_input">
                             <sbux-input
-                                        id="RESEARCH_COST_CENTER_NAME"
-                                        class="form-control input-sm"
-                                        uitype="text"
-                                        style="width:100%"
+                                    id="RESEARCH_COST_CENTER_NAME"
+                                    class="form-control input-sm"
+                                    uitype="text"
+                                    style="width:100%"
                             ></sbux-input>
                         </td>
                         <td class="td_input" style="border-right:hidden;">
@@ -641,11 +641,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect([''], jsonHrPostingType, 'L_HRP023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'EXTRA_FIELD1', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid','HR_PAY_ACCOUNT_TYPE'], jsonHrPayAccountType, 'L_HRP004_A', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwBandgvwInfoGrid'], jsonPostingSummaryType, 'L_HRP031', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect([''], jsonHrPostingType, 'L_HRP023', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'EXTRA_COL1', 'Y', ''),
 
             //전표구분
             gfnma_multiSelectInit({
@@ -659,12 +659,12 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "구분명", 		ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-                    {caption: "구분계정과목", ref: 'EXTRA_FIELD1',    		width:'100px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+                    {caption: "구분명", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "구분계정과목", ref: 'EXTRA_COL1',    		width:'100px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -680,11 +680,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "집계단위", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "집계단위", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -700,11 +700,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'up' 	// up, down
                 ,dropAlign		: 'left' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "집계단위", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "집계단위", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -742,44 +742,44 @@
             ,bizcompId				: 'P_FIM045'
             ,popupType				: 'B'
             ,whereClause			: ''
-            ,searchCaptions			: ["코드"         , 	"코드명"           ,"오픈"]
-            ,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"    ,"V_P_OPEN_TO_ALL"]
-            ,searchInputValues		: [""            , 	searchText		  ,""]
+            ,searchCaptions			: ["코드"         , 	"코드명"           /*,"오픈"*/]
+            ,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"    /*,"V_P_OPEN_TO_ALL"*/]
+            ,searchInputValues		: [""            , 	searchText		  /*,""*/]
 
-            ,searchInputTypes		: ["input"       , 	"input"           ,""]
+            ,searchInputTypes		: ["input"       , 	"input"           /*,""*/]
 
             ,height					: '400px'
-            ,tableHeader			: ["계정코드",		"계정명"   , 		"계정명(한글)"           ]
-            ,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"     ]
-            ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
+            ,tableHeader			: ["계정코드",		"계정명"   , 		"계정명(한글)" ]
+            ,tableColumnNames		: ["APLY_ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"        ]
+            ,tableColumnWidths		: ["100px", 		"250px", 		"250px"          ]
             ,itemSelectEvent		: function (data){
                 if (_.isEqual(type, '1')){
-                    SBUxMethod.set('SALES_COST_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('SALES_COST_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('SALES_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('SALES_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '2')){
-                    SBUxMethod.set('SALES_COST_TEMP_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('SALES_COST_TEMP_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('SALES_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('SALES_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '3')){
-                    SBUxMethod.set('ADMIN_COST_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('ADMIN_COST_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('ADMIN_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('ADMIN_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '4')){
-                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('ADMIN_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '5')){
-                    SBUxMethod.set('MFG_COST_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('MFG_COST_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('MFG_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('MFG_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '6')){
-                    SBUxMethod.set('MFG_COST_TEMP_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('MFG_COST_TEMP_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('MFG_COST_TEMP_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('MFG_COST_TEMP_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '7')){
-                    SBUxMethod.set('RESEARCH_COST_ACC_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('RESEARCH_COST_ACC_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('RESEARCH_COST_ACC_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('RESEARCH_COST_ACC_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '8')){
-                    SBUxMethod.set('AP_ACCOUNT_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('AP_ACCOUNT_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('AP_ACCOUNT_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('AP_ACCOUNT_NAME', data.ACNT_NM);
                 }else if (_.isEqual(type, '9')){
-                    SBUxMethod.set('AR_ACCOUNT_CODE', data.ACCOUNT_CODE);
-                    SBUxMethod.set('AR_ACCOUNT_NAME', data.ACCOUNT_NAME);
+                    SBUxMethod.set('AR_ACCOUNT_CODE', data.APLY_ACNTL_CD);
+                    SBUxMethod.set('AR_ACCOUNT_NAME', data.ACNT_NM);
                 }
             },
         });
@@ -799,9 +799,9 @@
         }else if(_.isEqual(type, '4')){
             searchText 		= gfn_nvl(SBUxMethod.get("RESEARCH_COST_CENTER_NAME"));
         }
-        var replaceText0 	= "_CC_CODE_";
-        var replaceText1 	= "_CC_NAME_";
-        var strWhereClause 	= "AND CC_CODE LIKE '%" + replaceText0 + "%' AND CC_NAME LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= searchText;
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가조직정보');
         compopup1({
@@ -811,25 +811,25 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["원가조직코드", 		"원가조직명"]
-            ,searchInputFields		: ["CC_CODE"   , 	    "CC_NAME" ]
+            ,searchInputFields		: ["CSTCT_CD"   , 	    "CSTCT_NM" ]
             ,searchInputValues		: [""           , 		searchText]
             ,height					: '400px'
             ,tableHeader			: ["원가조직코드", "원가조직명"]
-            ,tableColumnNames		: ["CC_CODE"   , "CC_NAME" ]
+            ,tableColumnNames		: ["CSTCT_CD"   , "CSTCT_NM" ]
             ,tableColumnWidths		: ["150px"     , "150px"   ]
             ,itemSelectEvent		: function (data){
                 if (_.isEqual(type, '1')){
-                    SBUxMethod.set('SALES_COST_CENTER_NAME', data.CC_NAME);
-                    SBUxMethod.set('SALES_COST_CENTER', data.CC_CODE);
+                    SBUxMethod.set('SALES_COST_CENTER_NAME', data.CSTCT_NM);
+                    SBUxMethod.set('SALES_COST_CENTER', data.CSTCT_CD);
                 }else if(_.isEqual(type, '2')){
-                    SBUxMethod.set('ADMIN_COST_CENTER_NAME', data.CC_NAME);
-                    SBUxMethod.set('ADMIN_COST_CENTER', data.CC_CODE);
+                    SBUxMethod.set('ADMIN_COST_CENTER_NAME', data.CSTCT_NM);
+                    SBUxMethod.set('ADMIN_COST_CENTER', data.CSTCT_CD);
                 }else if(_.isEqual(type, '3')){
-                    SBUxMethod.set('MFG_COST_CENTER_NAME', data.CC_NAME);
-                    SBUxMethod.set('MFG_COST_CENTER', data.CC_CODE);
+                    SBUxMethod.set('MFG_COST_CENTER_NAME', data.CSTCT_NM);
+                    SBUxMethod.set('MFG_COST_CENTER', data.CSTCT_CD);
                 }else if(_.isEqual(type, '4')){
-                    SBUxMethod.set('RESEARCH_COST_CENTER_NAME', data.CC_NAME);
-                    SBUxMethod.set('RESEARCH_COST_CENTER', data.CC_CODE);
+                    SBUxMethod.set('RESEARCH_COST_CENTER_NAME', data.CSTCT_NM);
+                    SBUxMethod.set('RESEARCH_COST_CENTER', data.CSTCT_CD);
                 }
 
             },
@@ -838,10 +838,10 @@
 
     const fn_findCsCode = function() {
         var searchText 		= gfn_nvl(SBUxMethod.get("CS_NAME"));
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var replaceText2 	= "_BIZ_REGNO_";
-        var strWhereClause 	= "AND a.CS_CODE LIKE '%" + replaceText0 + "%' AND a.CS_NAME LIKE '%" + replaceText1 + "%' AND a.BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= searchText;
+        var replaceText2 	= "_BRNO_";
+        var strWhereClause 	= "AND a.CNPT_CD LIKE '%" + replaceText0 + "%' AND a.CNPT_NM LIKE '%" + replaceText1 + "%' AND a.BRNO LIKE '%"+ replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -851,15 +851,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드"  , 	"거래처명",  "사엄자번호" ]
-            ,searchInputFields		: ["CS_CODE"   , 	"CS_NAME",  "BIZ_REGNO"]
+            ,searchInputFields		: ["CNPT_CD"   , 	"CNPT_NM",  "BRNO"]
             ,searchInputValues		: [""          , 	searchText, ""         ]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호" , "대표자"     ,"업태"          ,"종목"      ,"주소"    ,"전화"  ,"팩스"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME","BIZ_CATEGORY" ,"BIZ_ITEMS","ADDRESS","TEL"   ,"FAX"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BRNO", "CEO_NM","BZSTAT" ,"TPBIZ","ADDR","TELNO"   ,"FX_NO"]
             ,tableColumnWidths		: ["100px"    , "130px" , "100px"    , "120px"     ,"120px"        ,"100px"    ,"200px"  ,"100px" ,"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('CS_NAME', data.CS_NAME);
-                SBUxMethod.set('CS_CODE', data.CS_CODE);
+                SBUxMethod.set('CS_NAME', data.CNPT_NM);
+                SBUxMethod.set('CS_CODE', data.CNPT_CD);
             },
         });
     }
@@ -1048,46 +1048,46 @@
                 jsonBandgvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_ITEM_CATEGORY           : gfn_nvl(item.PAY_ITEM_CATEGORY),
-                        HR_PAY_ACCOUNT_TYPE         : gfn_nvl(item.HR_PAY_ACCOUNT_TYPE),
-                        POSTING_SUMMARY_TYPE        : gfn_nvl(item.POSTING_SUMMARY_TYPE),
-                        SALES_COST_ACC_CODE         : gfn_nvl(item.SALES_COST_ACC_CODE),
+                        PAY_ITEM_CATEGORY           : gfn_nvl(item.SLRY_ITEM_CTGRY),
+                        HR_PAY_ACCOUNT_TYPE         : gfn_nvl(item.HRM_SLRY_ACNT_TYPE),
+                        POSTING_SUMMARY_TYPE        : gfn_nvl(item.TOT_TYPE),
+                        SALES_COST_ACC_CODE         : gfn_nvl(item.SLS_CST_ACNT_CD),
                         SALES_COST_ACC_NAME         : gfn_nvl(item.SALES_COST_ACC_NAME),
-                        MFG_COST_ACC_CODE           : gfn_nvl(item.MFG_COST_ACC_CODE),
+                        MFG_COST_ACC_CODE           : gfn_nvl(item.MNFTR_CST_ACNT_CD),
                         MFG_COST_ACC_NAME           : gfn_nvl(item.MFG_COST_ACC_NAME),
-                        RESEARCH_COST_ACC_CODE      : gfn_nvl(item.RESEARCH_COST_ACC_CODE),
+                        RESEARCH_COST_ACC_CODE      : gfn_nvl(item.RSRCH_DVLP_ACNT_CD),
                         RESEARCH_COST_ACC_NAME      : gfn_nvl(item.RESEARCH_COST_ACC_NAME),
-                        SALES_COST_TEMP_ACC_CODE    : gfn_nvl(item.SALES_COST_TEMP_ACC_CODE),
+                        SALES_COST_TEMP_ACC_CODE    : gfn_nvl(item.SLS_CST_DLBRR_ACNT_CD),
                         SALES_COST_TEMP_ACC_NAME    : gfn_nvl(item.SALES_COST_TEMP_ACC_NAME),
-                        MFG_COST_TEMP_ACC_CODE      : gfn_nvl(item.MFG_COST_TEMP_ACC_CODE),
+                        MFG_COST_TEMP_ACC_CODE      : gfn_nvl(item.MNFTR_CST_TMPR_ACNT_CD),
                         MFG_COST_TEMP_ACC_NAME      : gfn_nvl(item.MFG_COST_TEMP_ACC_NAME),
-                        SALES_COST_CENTER           : gfn_nvl(item.SALES_COST_CENTER),
+                        SALES_COST_CENTER           : gfn_nvl(item.SLS_CSTCT),
                         SALES_COST_CENTER_NAME      : gfn_nvl(item.SALES_COST_CENTER_NAME),
-                        MFG_COST_CENTER             : gfn_nvl(item.MFG_COST_CENTER),
+                        MFG_COST_CENTER             : gfn_nvl(item.MNFTR_CSTCT),
                         MFG_COST_CENTER_NAME        : gfn_nvl(item.MFG_COST_CENTER_NAME),
-                        RESEARCH_COST_CENTER        : gfn_nvl(item.RESEARCH_COST_CENTER),
+                        RESEARCH_COST_CENTER        : gfn_nvl(item.RSRCH_DVLP_CSTCT),
                         RESEARCH_COST_CENTER_NAME   : gfn_nvl(item.RESEARCH_COST_CENTER_NAME),
-                        NEED_EMP_CODE_YN            : gfn_nvl(item.NEED_EMP_CODE_YN),
-                        POSTING_RESULT_ADJUST_YN    : gfn_nvl(item.POSTING_RESULT_ADJUST_YN),
-                        CS_CODE                     : gfn_nvl(item.CS_CODE),
-                        CS_NAME                     : gfn_nvl(item.CS_NAME),
-                        ACCOUNTING_YN               : gfn_nvl(item.ACCOUNTING_YN),
-                        DEBIT_CREDIT                : gfn_nvl(item.DEBIT_CREDIT),
-                        ADMIN_COST_ACC_CODE         : gfn_nvl(item.ADMIN_COST_ACC_CODE),
+                        NEED_EMP_CODE_YN            : gfn_nvl(item.ND_EMP_CD_YN),
+                        POSTING_RESULT_ADJUST_YN    : gfn_nvl(item.TOT_RSLT_AJMT_YN),
+                        CS_CODE                     : gfn_nvl(item.CNPT_CD),
+                        CS_NAME                     : gfn_nvl(item.CNPT_NM),
+                        ACCOUNTING_YN               : gfn_nvl(item.ACNT_PRCS_YN),
+                        DEBIT_CREDIT                : gfn_nvl(item.DBSD_CRSD),
+                        ADMIN_COST_ACC_CODE         : gfn_nvl(item.MNCO_ACNT_CD),
                         ADMIN_COST_ACC_NAME         : gfn_nvl(item.ADMIN_COST_ACC_NAME),
-                        ADMIN_COST_TEMP_ACC_CODE    : gfn_nvl(item.ADMIN_COST_TEMP_ACC_CODE),
+                        ADMIN_COST_TEMP_ACC_CODE    : gfn_nvl(item.MNCO_DLBRR),
                         ADMIN_COST_TEMP_ACC_NAME    : gfn_nvl(item.ADMIN_COST_TEMP_ACC_NAME),
-                        ADMIN_COST_CENTER           : gfn_nvl(item.ADMIN_COST_CENTER),
+                        ADMIN_COST_CENTER           : gfn_nvl(item.ADMST_CSTCO),
                         ADMIN_COST_CENTER_NAME      : gfn_nvl(item.ADMIN_COST_CENTER_NAME),
-                        PAY_GROUP_CODE              : gfn_nvl(item.PAY_GROUP_CODE),
-                        PAY_GROUP_NAME              : gfn_nvl(item.PAY_GROUP_NAME),
-                        AP_ACCOUNT_CODE             : gfn_nvl(item.AP_ACCOUNT_CODE),
+                        PAY_GROUP_CODE              : gfn_nvl(item.SLRY_GRD_CD),
+                        PAY_GROUP_NAME              : gfn_nvl(item.SLRY_GRD_NM),
+                        AP_ACCOUNT_CODE             : gfn_nvl(item.APS_ACNT_CD),
                         AP_ACCOUNT_NAME             : gfn_nvl(item.AP_ACCOUNT_NAME),
-                        AR_ACCOUNT_CODE             : gfn_nvl(item.AR_ACCOUNT_CODE),
+                        AR_ACCOUNT_CODE             : gfn_nvl(item.AR_ACNT_CD),
                         AR_ACCOUNT_NAME             : gfn_nvl(item.AR_ACCOUNT_NAME),
-                        PAY_ITEM_UNIT_YN            : gfn_nvl(item.PAY_ITEM_UNIT_YN),
-                        ACCOUNT_PAY_ITEM            : gfn_nvl(item.ACCOUNT_PAY_ITEM),
-                        ACCOUNT_PAY_ITEM_NAME       : gfn_nvl(item.ACCOUNT_PAY_ITEM_NAME),
+                        PAY_ITEM_UNIT_YN            : gfn_nvl(item.SLRY_ITEM_UNIT_YN),
+                        ACCOUNT_PAY_ITEM            : gfn_nvl(item.SLRY_SLIP__ACNT_ITEM),
+                        ACCOUNT_PAY_ITEM_NAME       : gfn_nvl(item.SLRY_SLIP__ACNT_ITEM_NM),
                     }
                     jsonBandgvwInfoList.push(msg);
                     totalRecordCount++;
@@ -1224,7 +1224,7 @@
                         if (data.resultMessage) {
                             alert(data.resultMessage);
                         }
-                            fn_search('save');
+                        fn_search('save');
 
                     } else {
                         alert(data.resultMessage);
@@ -1316,10 +1316,10 @@
             gfn_comAlert("W0002", "사용여부");
             return;
         }
-       /* if (!DEBIT_CREDIT) {
-            gfn_comAlert("W0002", "차대구분");
-            return;
-        }*/
+        /* if (!DEBIT_CREDIT) {
+             gfn_comAlert("W0002", "차대구분");
+             return;
+         }*/
 
 
         let paramObj = {

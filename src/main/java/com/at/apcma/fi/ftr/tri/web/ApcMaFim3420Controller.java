@@ -36,7 +36,7 @@ public class ApcMaFim3420Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_FIM3420_Q");
+            param.put("procedure", 		"SP_FIM3420_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

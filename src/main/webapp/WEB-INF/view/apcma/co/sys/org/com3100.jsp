@@ -146,7 +146,7 @@
 	//-----------------------------------------------------------
 
 	var mode				= 'byrow';
-	var copyMode 			= true;
+	var copyMode			= true;
 	var jsonRegionCode		= [];	// 지역
 	var jsonCurrencyCode	= [];	// 통화
 	var jsonUserYnCode		= [
@@ -157,16 +157,16 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//지역
-			gfnma_setComSelect(['masterGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','REGION_CODE'], jsonRegionCode, 'L_COM002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//통화
-			gfnma_setComSelect(['masterGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+			gfnma_setComSelect(['masterGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 		]);
 	}	
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_initSBSelect();
-    	fn_createGrid(mode, [], copyMode);
+    	fn_createGrid();
     	cfn_search();
     });
 
@@ -233,7 +233,7 @@
 			masterGrid.rebuild();
         }
     }
-    
+	
     /**
      * 초기화
      */
@@ -285,18 +285,23 @@
         const data = await postJsonPromise;
         try {
   			if (_.isEqual("S", data.resultStatus)) {
+  				
+  				console.log('paramObj ==> ' , paramObj);
+  				console.log('postJsonPromise ==> ' , postJsonPromise);
+  				console.log('data ==> ' , data);
+  				
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
   	        	jsonMasterList.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						NATION_CODE				: item.NATION_CODE,
-  						NATION_CODE_ABBR		: item.NATION_CODE_ABBR,
-  						NATION_NAME				: item.NATION_NAME,
-  						NATION_FULL_NAME		: item.NATION_FULL_NAME,
-  						NATION_FULL_NAME_CHN	: item.NATION_FULL_NAME_CHN,
-  						REGION_CODE				: item.REGION_CODE,
-  						CURRENCY_CODE			: item.CURRENCY_CODE,
+  						NATION_CODE				: item.NTN_CD,
+  						NATION_CODE_ABBR		: item.NTN_CD_ABTVTN,
+  						NATION_NAME				: item.NTN_NM,
+  						NATION_FULL_NAME		: item.NTN_FLNM,
+  						NATION_FULL_NAME_CHN	: item.NTN_NM_KORN,
+  						REGION_CODE				: item.RGN_CD,
+  						CURRENCY_CODE			: item.CRN_CD,
   						MEMO					: item.MEMO,
   						SORT_SEQ				: item.SORT_SEQ,
   						USE_YN 					: item.USE_YN
@@ -304,7 +309,7 @@
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
   				});
-  	        	fn_createGrid(mode, jsonMasterList, copyMode);
+				fn_createGrid(mode, jsonMasterList, copyMode);
   	        	document.querySelector('#listCount').innerText = totalRecordCount;
         	} else {
           		alert(data.resultMessage);
@@ -347,6 +352,13 @@
         	return;
         }
         
+        const deleteRemove = (arr, value) => {
+        	return arr.filter((element) => {
+        		return element.status  != value;
+        	});
+        };
+        masterGridUpdateData = deleteRemove(masterGridUpdateData, 'd');
+        
         let listData = [];
         masterGridUpdateData.forEach((item, index) => {
             const param = {
@@ -387,7 +399,7 @@
         const data = await postJsonPromise;
         try {
             if (_.isEqual("S", data.resultStatus)) {
-          		gfn_comAlert("I0001")				// I0001	처리 되었습니다.
+          		gfn_comAlert("I0001")				// I0001 처리 되었습니다.
           		cfn_search();						// 그리드 조회
             } else {
                 alert(data.resultMessage);
@@ -451,7 +463,7 @@
 		mode = 'byrows'; //행 단위 다중 선택
 		copyMode = true;
 		fn_createGrid(mode, data, copyMode);
-
+		
     }
     
     /*셀 복사 (셀복사모드)*/
@@ -462,9 +474,9 @@
         
         let data = masterGrid.getGridDataAll();
         jsonMasterList = [];
-	 
+		
         mode = 'free'; //셀 단위 다중 선택
-        copyMode = true;
+		copyMode = true;
         fn_createGrid(mode, data, copyMode);
     }
     

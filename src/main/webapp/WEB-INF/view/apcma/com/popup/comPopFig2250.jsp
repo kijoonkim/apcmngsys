@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			 -->
-
+ 
 			<div class="box-body">
 				
 				<div id="compopfig2250Grid" class="card cu-table-div" style="border:1px solid #f4f4f4;overflow:auto;">
@@ -52,11 +52,11 @@
 	</section>
 </body>
 <script >
-
+ 
 //grid Mast 초기화
 var Fig2250Grid; 			// 그리드를 담기위한 객체 선언
 var jsonFig2250 = []; 		// 그리드의 참조 데이터 주소 선언
-
+ 
 /**
  * @description 복수코드
  */
@@ -73,7 +73,7 @@ function compopfig2250(options) {
 		,cancelEvent			: null
 	};
 	$.extend(settings, options);	
-
+ 
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
 	if(settings.width){
@@ -82,7 +82,7 @@ function compopfig2250(options) {
 	if(settings.height){
 	 	$(modalId).find('.cu-table-div').css('height', settings.height);
 	}	
-
+ 
     function fn_createGrid() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'compopfig2250Grid';
@@ -111,16 +111,16 @@ function compopfig2250(options) {
             {caption: ["어음일수"],	   				ref: 'BILL_DUE_DAY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["어음지급일"],				ref: 'BILL_DUE_PAY_DATE', 		type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fig2250Grid = _SBGrid.create(SBGridProperties);
         //Fig2250Grid.bind('click', 'fn_viewGrid');
     }	
     fn_createGrid();	
 	
     const fn_setFig2250Grid = async function(wtype) {
-
+ 
 		Fig2250Grid.clearStatus();
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -129,62 +129,62 @@ function compopfig2250(options) {
 			
 			,V_P_FI_ORG_CODE        : settings.param['p_strfi_org_code']
 			,V_P_DOC_ID             : settings.param['p_doc_id']
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/jor/selectFig2250List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '2',
         	params				: gfnma_objectToString(paramObj, true)
 		});
-
+ 
         const data = await postJsonPromise;
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig2250.length = 0;
   	        	data.cv_2.forEach((item, index) => {
   					const msg = {
-  						DOC_ID					: gfn_nvl(item.DOC_ID),
-  						DOC_NAME				: gfn_nvl(item.DOC_NAME),
+  						DOC_ID					: gfn_nvl(item.SLIP_ID),
+  						DOC_NAME				: gfn_nvl(item.SLIP_NM),
   						ITEM_ID					: gfn_nvl(item.ITEM_ID),
   						ITEM_SEQ				: gfn_nvl(item.ITEM_SEQ),
-  						INSERT_USERID			: gfn_nvl(item.INSERT_USERID),
-  						USER_NAME				: gfn_nvl(item.USER_NAME),
-  						INSERT_TIME				: gfn_nvl(item.INSERT_TIME),
-  						PAY_BASE_DATE			: gfn_nvl(item.PAY_BASE_DATE),
-  						EXPECTED_PAY_DATE		: gfnma_date5(gfn_nvl(item.EXPECTED_PAY_DATE)),
-  						PAY_TERM_CODE			: gfn_nvl(item.PAY_TERM_CODE),
-  						PAY_TERM_NAME			: gfn_nvl(item.PAY_TERM_NAME),
-  						AMOUNT					: gfn_nvl(item.AMOUNT),
-  						DESCRIPTION				: gfn_nvl(item.DESCRIPTION),
-  						BILL_DUE_DATE			: gfnma_date5(gfn_nvl(item.BILL_DUE_DATE)),
-  						BILL_DUE_DAY			: gfn_nvl(item.BILL_DUE_DAY),
-  						BILL_DUE_PAY_DATE		: gfnma_date5(gfn_nvl(item.BILL_DUE_PAY_DATE)),
-  						BANK_ACCOUNT_SEQ		: gfn_nvl(item.BANK_ACCOUNT_SEQ),
-  						PGM_ID					: gfn_nvl(item.PGM_ID),
+  						INSERT_USERID			: gfn_nvl(item.WRT_USER_ID),
+  						USER_NAME				: gfn_nvl(item.USER_NM),
+  						INSERT_TIME				: gfn_nvl(item.WRT_DT),
+  						PAY_BASE_DATE			: gfn_nvl(item.PAY_RCK_YMD),
+  						EXPECTED_PAY_DATE		: gfnma_date5(gfn_nvl(item.PAY_PRNMNT_YMD)),
+  						PAY_TERM_CODE			: gfn_nvl(item.PAY_TERM_CD),
+  						PAY_TERM_NAME			: gfn_nvl(item.PAY_TERM_NM),
+  						AMOUNT					: gfn_nvl(item.AMT),
+  						DESCRIPTION				: gfn_nvl(item.DSCTN),
+  						BILL_DUE_DATE			: gfnma_date5(gfn_nvl(item.PRMNT_MTRY_YMD)),
+  						BILL_DUE_DAY			: gfn_nvl(item.PRMNT_DCNT),
+  						BILL_DUE_PAY_DATE		: gfnma_date5(gfn_nvl(item.PRMNT_MTRY_PAY_YMD)),
+  						BANK_ACCOUNT_SEQ		: gfn_nvl(item.BACNT_SEQ),
+  						PGM_ID					: gfn_nvl(item.PRGRM_ID),
   					}
   					jsonFig2250.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
         		Fig2250Grid.rebuild();
   	        	//document.querySelector('#listCount1').innerText = totalRecordCount;
   	        	
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);

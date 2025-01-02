@@ -54,7 +54,7 @@ public class ApcMaHra2900Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA2900_Q");
+            param.put("procedure", "SP_HRA2900_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class ApcMaHra2900Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_HRA2900_S");
+            param.put("procedure", "SP_HRA2900_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

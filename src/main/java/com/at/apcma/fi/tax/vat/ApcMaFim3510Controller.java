@@ -51,7 +51,7 @@ public class ApcMaFim3510Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_FIM3510_Q");
+            param.put("procedure", 		"SP_FIM3510_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -76,7 +76,7 @@ public class ApcMaFim3510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_FIM3510_S");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIM3510_S");
 
             logger.info("=============insertFim3510SList=====end========");
             return getSuccessResponseEntityMa(resultMap);

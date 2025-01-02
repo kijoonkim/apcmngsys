@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name 		: COM2400.jsp
+     * @Class Name 		: com2400.jsp
      * @Description 	: 달력
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.07.04
@@ -257,10 +257,6 @@
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
-            // 근무유형
-//             gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
-            // 휴일유형
-//             gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
         ]);
     }
 
@@ -377,7 +373,7 @@
             if (_.isEqual("S", data.resultStatus)) {
             	holidayList = [];
                 data.cv_1.forEach((item, index) => {
-                    if(item.HOLIDAY_YN == "Y") {
+                    if(item.HLDY_YN == "Y") {
        					let YYYYMMDD_START = item.YYYYMMDD_START.substring(5);
        					let mon = YYYYMMDD_START.substr(0, 2);
        					mon = Number(mon);
@@ -458,16 +454,16 @@
             if (_.isEqual("S", detailData.resultStatus)) {
             	var responseData = detailData.cv_2[0];
                 if(responseData) {
-                    SBUxMethod.set("SCHEDULE_NAME", 	responseData.LUNAR_DATE);
-                    SBUxMethod.set("HOLIDAY_YN", 		responseData.HOLIDAY_YN);
-                    SBUxMethod.set("HOLIDAY_NAME", 		responseData.HOLIDAY_NAME);
-                    SBUxMethod.set("BUSINESS_DAY_YN", 	responseData.BUSINESS_DAY_YN);
-                    SBUxMethod.set("WORKING_DAY_YN", 	responseData.WORKING_DAY_YN);
-                    SBUxMethod.set("LUNAR_DATE", 		responseData.LUNAR_DATE);
-                    SBUxMethod.set("LEAP_MONTH_YN", 	responseData.LEAP_MONTH_YN);
-                    SBUxMethod.set("WEEK_SEQ", 			responseData.WEEK_SEQ);
+                    SBUxMethod.set("SCHEDULE_NAME", 	responseData.LNCL_YMD);
+                    SBUxMethod.set("HOLIDAY_YN", 		responseData.HLDY_YN);
+                    SBUxMethod.set("HOLIDAY_NAME", 		responseData.HLDY_NM);
+                    SBUxMethod.set("BUSINESS_DAY_YN", 	responseData.BIZ_DAY_YN);
+                    SBUxMethod.set("WORKING_DAY_YN", 	responseData.WORK_DAY_YN);
+                    SBUxMethod.set("LUNAR_DATE", 		responseData.LNCL_YMD);
+                    SBUxMethod.set("LEAP_MONTH_YN", 	responseData.LPMM_YN);
+                    SBUxMethod.set("WEEK_SEQ", 			responseData.DOW_SEQ);
                     SBUxMethod.set("DAY_SEQ", 			responseData.DAY_SEQ);
-                    SBUxMethod.set("DESCR", 			responseData.DESCR);
+                    SBUxMethod.set("DESCR", 			responseData.DSCTN);
                 } else {
                     SBUxMethod.set("SCHEDULE_NAME", 	'');
                     SBUxMethod.set("HOLIDAY_YN", 		'');

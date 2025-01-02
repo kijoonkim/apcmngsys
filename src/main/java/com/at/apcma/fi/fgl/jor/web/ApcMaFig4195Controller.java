@@ -56,7 +56,7 @@ public class ApcMaFig4195Controller extends BaseController {
     	
     	try {
     		
-    		param.put("procedure", 		"P_FIG4195_Q");
+    		param.put("procedure", 		"SP_FIG4195_Q");
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {

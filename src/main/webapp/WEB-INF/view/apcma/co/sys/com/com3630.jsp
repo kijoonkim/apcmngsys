@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3630.jsp
+ * @Class Name 		: com3630.jsp
  * @Description 	: 계정과목 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.06.05
@@ -1119,11 +1119,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "계정그룹구분", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",			ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "계정그룹구분", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//계정분류
@@ -1138,11 +1138,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "계정분류", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "계정분류", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//미결관리대상
@@ -1157,11 +1157,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "계정특성", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "계정특성", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//원가유형
@@ -1176,11 +1176,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "코드명	",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드명	",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//통제시점
@@ -1195,11 +1195,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "명칭",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "명칭",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//통제방식
@@ -1214,11 +1214,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "통제방식",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "통제방식",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//통제주기
@@ -1233,11 +1233,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "명칭",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "명칭",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//통제방식
@@ -1252,11 +1252,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "통제방식",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "통제방식",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),	
 			//통제주기
@@ -1271,11 +1271,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "명칭",	 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "명칭",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),	
 		]);
@@ -1444,20 +1444,20 @@
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
 		    				LEVEL				: item.LEVEL,
-		    				KEYID				: item.KEYID,
-		    				PARENTKEYID			: item.PARENTKEYID,
-		    				ACCOUNT_CODE		: item.ACCOUNT_CODE,
-		    				ACCOUNT_NAME		: item.ACCOUNT_NAME,
-		    				PARENT_ACC			: item.PARENT_ACC,
-		    				ACC_CATEGORY		: item.ACC_CATEGORY,
-		    				BALANCE_SIDE		: item.BALANCE_SIDE,
-		    				ACC_CHARACTER		: item.ACC_CHARACTER,
-		    				ACC_GROUP_TYPE		: item.ACC_GROUP_TYPE,
-		    				ACCOUNT_NAME_CHN	: item.ACCOUNT_NAME_CHN,
-		    				COST_ELEMENT		: item.COST_ELEMENT,
-		    				COST_ELEMENT_NAME	: item.COST_ELEMENT_NAME,
-		    				REPORT_ACCOUNT_CODE	: item.REPORT_ACCOUNT_CODE,
-		    				REPORT_ACCOUNT_NAME	: item.REPORT_ACCOUNT_NAME
+		    				KEYID				: item.KEY_ID,
+		    				PARENTKEYID			: item.UP_KEY_ID,
+		    				ACCOUNT_CODE		: item.ACNTL_CD,
+		    				ACCOUNT_NAME		: item.ACNT_NM,
+		    				PARENT_ACC			: item.PRNT_ACNT,
+		    				ACC_CATEGORY		: item.ACNT_CTGRY,
+		    				BALANCE_SIDE		: item.ACNT_BLNC_SE,
+		    				ACC_CHARACTER		: item.INCPL_TYPE,
+		    				ACC_GROUP_TYPE		: item.ACNT_GROUP_TYPE,
+		    				ACCOUNT_NAME_CHN	: item.ACNT_NM_CHN,
+		    				COST_ELEMENT		: item.CST_ELMT_CD,
+		    				COST_ELEMENT_NAME	: item.CST_ELMT_NM,
+		    				REPORT_ACCOUNT_CODE	: item.RPT_ACNT_CD,
+		    				REPORT_ACCOUNT_NAME	: item.RPT_ACNT_NM
 		    		}
 		    		jsonMasterTreeList.push(msg);
 		    		totalRecordCount ++;
@@ -1914,96 +1914,96 @@
 
 	    		let obj = subData.cv_2[0];
 	    		// 기본정보
-   	   	   		SBUxMethod.set("ACCOUNT_CODE", 			    obj.ACCOUNT_CODE);
-		   		SBUxMethod.set("ACC_ABBR_NAME", 		    obj.ACC_ABBR_NAME);
-		   		SBUxMethod.set("ACCOUNT_NAME", 			    obj.ACCOUNT_NAME);
-		   		SBUxMethod.set("DESCR", 				    obj.DESCR);
-		   		SBUxMethod.set("ACCOUNT_NAME_CHN", 		    obj.ACCOUNT_NAME_CHN);
-		   		SBUxMethod.set("PARENT_YN", 			    obj.PARENT_YN);
-		   		SBUxMethod.set("DOC_INPUT_YN", 			    obj.DOC_INPUT_YN);
-		   		SBUxMethod.set("PARENT_ACC", 			    obj.PARENT_ACC);
+   	   	   		SBUxMethod.set("ACCOUNT_CODE", 			    obj.ACNTL_CD);
+		   		SBUxMethod.set("ACC_ABBR_NAME", 		    obj.ACNT_ABBR_NM);
+		   		SBUxMethod.set("ACCOUNT_NAME", 			    obj.ACNT_NM);
+		   		SBUxMethod.set("DESCR", 				    obj.DSCTN);
+		   		SBUxMethod.set("ACCOUNT_NAME_CHN", 		    obj.ACNT_NM_CHN);
+		   		SBUxMethod.set("PARENT_YN", 			    obj.PRNT_YN);
+		   		SBUxMethod.set("DOC_INPUT_YN", 			    obj.SLIP_INPT_YN);
+		   		SBUxMethod.set("PARENT_ACC", 			    obj.PRNT_ACNT);
 		   		SBUxMethod.set("PARENT_NAME", 			    obj.PARENT_NAME);
-		   		SBUxMethod.set("SUMACCOUNT_CODE", 		    obj.SUMACCOUNT_CODE);
+		   		SBUxMethod.set("SUMACCOUNT_CODE", 		    obj.SUM_BLNC_ACNT_CD);
 		   		SBUxMethod.set("SUMACCOUNT_NAME", 		    obj.SUMACCOUNT_NAME);
 		   		SBUxMethod.set("SORT_SEQ", 				    obj.SORT_SEQ);
-		   		SBUxMethod.set("HQ_ACCOUNT_CODE", 		    obj.HQ_ACCOUNT_CODE);
-		   		SBUxMethod.set("HQ_ACCOUNT_NAME", 		    obj.HQ_ACCOUNT_NAME);
-		   		SBUxMethod.set("REPORT_ACCOUNT_CODE", 	    obj.REPORT_ACCOUNT_CODE);
-		   		SBUxMethod.set("REPORT_ACCOUNT_NAME", 	    obj.REPORT_ACCOUNT_NAME);
-		   		SBUxMethod.set("OLD_ACCOUNT_CODE", 		    obj.OLD_ACCOUNT_CODE);
-		   		SBUxMethod.set("OLD_ACCOUNT_NAME", 		    obj.OLD_ACCOUNT_NAME);
-		   		SBUxMethod.set("SORT_SEQ_PL", 			    obj.SORT_SEQ_PL);
-		   		SBUxMethod.set("SORT_SEQ_KGAAP_PL", 	    obj.SORT_SEQ_KGAAP_PL);
-		   		SBUxMethod.set("RDO_BALANCE_SIDE", 		    obj.BALANCE_SIDE);
-		   		SBUxMethod.set("OPEN_TO_ALL_YN", 		    obj.OPEN_TO_ALL_YN);
-		   		SBUxMethod.set("OPEN_TO_FCM_YN", 		    obj.OPEN_TO_FCM_YN);
-		   		SBUxMethod.set("FS_VIEW_FLAG", 			    obj.FS_VIEW_FLAG);
+		   		SBUxMethod.set("HQ_ACCOUNT_CODE", 		    obj.HQ_ACNT_CD);
+		   		SBUxMethod.set("HQ_ACCOUNT_NAME", 		    obj.HQ_ACNT_NM);
+		   		SBUxMethod.set("REPORT_ACCOUNT_CODE", 	    obj.RPT_ACNT_CD);;
+		   		SBUxMethod.set("REPORT_ACCOUNT_NAME", 	    obj.RPT_ACNT_NM);;
+		   		SBUxMethod.set("OLD_ACCOUNT_CODE", 		    obj.BFR_ACND_CD);
+		   		SBUxMethod.set("OLD_ACCOUNT_NAME", 		    obj.BFR_ACND_NM);
+		   		SBUxMethod.set("SORT_SEQ_PL", 			    obj.SORT_SEQ_GNLS);
+		   		SBUxMethod.set("SORT_SEQ_KGAAP_PL", 	    obj.SORT_SEQ_GAAP_GNLS);
+		   		SBUxMethod.set("RDO_BALANCE_SIDE", 		    obj.ACNT_BLNC_SE);
+		   		SBUxMethod.set("OPEN_TO_ALL_YN", 		    obj.WHOL_OPN_USE_YN);
+		   		SBUxMethod.set("OPEN_TO_FCM_YN", 		    obj.OPN_FA_USE_YN);
+		   		SBUxMethod.set("FS_VIEW_FLAG", 			    obj.SBTR_ACNT_FLAG);
 		   		SBUxMethod.set("USE_YN", 				    obj.USE_YN);
-		   		SBUxMethod.set("REPORT_VIEW_YN", 		    obj.REPORT_VIEW_YN);
-		   		SBUxMethod.set("PL_VIEW_YN", 			    obj.PL_VIEW_YN);
-		   		SBUxMethod.set("KGAAP_PL_VIEW_YN", 			obj.KGAAP_PL_VIEW_YN);
-		        gfnma_multiSelectSet('#ACC_GROUP_GUBUN', 	'SUB_CODE', 'CODE_NAME', obj.ACC_GROUP_TYPE);
-		        gfnma_multiSelectSet('#ACC_CATEGORY', 		'SUB_CODE', 'CODE_NAME', obj.ACC_CATEGORY);
-		        gfnma_multiSelectSet('#ACC_CHARACTER', 		'SUB_CODE', 'CODE_NAME', obj.ACC_CHARACTER);
+		   		SBUxMethod.set("REPORT_VIEW_YN", 		    obj.RPT_VIEW_YN);
+		   		SBUxMethod.set("PL_VIEW_YN", 			    obj.PFLS_VIEW_YN);
+		   		SBUxMethod.set("KGAAP_PL_VIEW_YN", 			obj.GAAP_INQ_YN);
+		        gfnma_multiSelectSet('#ACC_GROUP_GUBUN', 	'SBSD_CD', 'CD_NM', obj.ACNT_GROUP_TYPE);
+		        gfnma_multiSelectSet('#ACC_CATEGORY', 		'SBSD_CD', 'CD_NM', obj.ACNT_CTGRY);
+		        gfnma_multiSelectSet('#ACC_CHARACTER', 		'SBSD_CD', 'CD_NM', obj.INCPL_TYPE);
 	
 		        // 회계관리
 		   		SBUxMethod.set("TTR_TYPE", 				    obj.TTR_TYPE);
 		   		SBUxMethod.set("TTR_TYPE_NAME", 		    obj.TTR_TYPE_NAME);
-		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.COST_ELEMENT_CODE);
-		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.COST_ELEMENT_NAME);
-		   		SBUxMethod.set("ASSET_YN", 				    obj.ASSET_YN);
-		   		SBUxMethod.set("GL_IMPORT_YN", 			    obj.GL_IMPORT_YN);
-		   		SBUxMethod.set("YEAR_RE_ACCOUNT_YN", 	    obj.YEAR_RE_ACCOUNT_YN);
-		   		SBUxMethod.set("MONTH_RE_ACCOUNT_YN", 	    obj.MONTH_RE_ACCOUNT_YN);
-		   		SBUxMethod.set("PROJECT_YN", 			    obj.PROJECT_YN);
-		   		SBUxMethod.set("USABLE_TAX_TYPE", 		    obj.USABLE_TAX_TYPE);
-		   		SBUxMethod.set("REMARK", 				    obj.REMARK);
-		   		SBUxMethod.set("CATEGORY1", 			    obj.CATEGORY1);
-		        gfnma_multiSelectSet('#COST_CLASS', 	    'SUB_CODE', 'CODE_NAME', obj.COST_CLASS);
+		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.CST_ELMT_CD);
+		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.CST_ELMT_NM);
+		   		SBUxMethod.set("ASSET_YN", 				    obj.AST_REG_YN);
+		   		SBUxMethod.set("GL_IMPORT_YN", 			    obj.GNRGR_RCPTN_YN);
+		   		SBUxMethod.set("YEAR_RE_ACCOUNT_YN", 	    obj.YR_PRFT_RMNDR_ACNT_YN);
+		   		SBUxMethod.set("MONTH_RE_ACCOUNT_YN", 	    obj.MM_DSSPS_PRFT_YN);
+		   		SBUxMethod.set("PROJECT_YN", 			    obj.PJT_YN);
+		   		SBUxMethod.set("USABLE_TAX_TYPE", 		    obj.USE_VAT_TYPE);
+		   		SBUxMethod.set("REMARK", 				    obj.RMRK);
+		   		SBUxMethod.set("CATEGORY1", 			    obj.CTRGY1);
+		        gfnma_multiSelectSet('#COST_CLASS', 	    'SBSD_CD', 'CD_NM', obj.CST_CLSF);
 		        
 		        //예산관리
-		   		SBUxMethod.set("BUDGETING_YN", 				obj.BUDGETING_YN);
-		   		SBUxMethod.set("BUDGET_DEPT_CODE", 			obj.BUDGET_DEPT_CODE);
+		   		SBUxMethod.set("BUDGETING_YN", 				obj.BGT_FRMT_YN);
+		   		SBUxMethod.set("BUDGET_DEPT_CODE", 			obj.BGT_OVS_DEPT_CD);
 		   		SBUxMethod.set("BUDGET_DEPT_NAME", 			obj.BUDGET_DEPT_NAME);
-		   		SBUxMethod.set("BUDGET_ACC_CODE", 			obj.BUDGET_ACC_CODE);
+		   		SBUxMethod.set("BUDGET_ACC_CODE", 			obj.BGT_ACNTL_CD);
 		   		SBUxMethod.set("BUDGET_ACC_NAME", 			obj.BUDGET_ACC_NAME);
-		   		SBUxMethod.set("BUDGET_CONTROL_YN", 		obj.BUDGET_CONTROL_YN);
-		   		SBUxMethod.set("BUDGET_FORWARD_YN", 		obj.BUDGET_FORWARD_YN);
-		   		SBUxMethod.set("PUR_BUDGET_CONTROL_YN", 	obj.PUR_BUDGET_CONTROL_YN);
-		   		SBUxMethod.set("PUR_BUDGET_FORWARD_YN", 	obj.PUR_BUDGET_FORWARD_YN);
-		   		SBUxMethod.set("CATEGORY3", 				obj.CATEGORY3);
-		   		SBUxMethod.set("PUR_BUDGET_CC", 			obj.PUR_BUDGET_CC);
+		   		SBUxMethod.set("BUDGET_CONTROL_YN", 		obj.BGT_CNTRL_YN);
+		   		SBUxMethod.set("BUDGET_FORWARD_YN", 		obj.BGT_CF_YN);
+		   		SBUxMethod.set("PUR_BUDGET_CONTROL_YN", 	obj.PORDR_BGT_CNTRL_YN);
+		   		SBUxMethod.set("PUR_BUDGET_FORWARD_YN", 	obj.PORDR_BGT_CF_YN);
+		   		SBUxMethod.set("CATEGORY3", 				obj.CTRGY3);
+		   		SBUxMethod.set("PUR_BUDGET_CC", 			obj.PORDR_BGT_CSTCT);
 		   		SBUxMethod.set("PUR_BUDGET_CC_NAME", 		obj.PUR_BUDGET_CC_NAME);
-		   		SBUxMethod.set("CATEGORY2", 				obj.CATEGORY2);
+		   		SBUxMethod.set("CATEGORY2", 				obj.CTRGY2);
 		   		SBUxMethod.set("CATEGORY2_NAME", 			obj.CATEGORY2_NAME);
-		        gfnma_multiSelectSet('#BUDGET_METHOD', 		'SUB_CODE', 'CODE_NAME', obj.BUDGET_METHOD);
-		        gfnma_multiSelectSet('#CONTROL_TIME', 		'SUB_CODE', 'CODE_NAME', obj.CONTROL_TIME);
-		        gfnma_multiSelectSet('#CONTROL_METHOD', 	'SUB_CODE', 'CODE_NAME', obj.CONTROL_METHOD);
-		        gfnma_multiSelectSet('#CONTROL_CYCLE', 		'SUB_CODE', 'CODE_NAME', obj.CONTROL_CYCLE);
-		        gfnma_multiSelectSet('#PUR_CONTROL_METHOD', 'SUB_CODE', 'CODE_NAME', obj.PUR_CONTROL_METHOD);
-		        gfnma_multiSelectSet('#PUR_CONTROL_CYCLE', 	'SUB_CODE', 'CODE_NAME', obj.PUR_CONTROL_CYCLE);
+		        gfnma_multiSelectSet('#BUDGET_METHOD', 		'SBSD_CD', 'CD_NM', obj.BGT_MNG_MTHD);
+		        gfnma_multiSelectSet('#CONTROL_TIME', 		'SBSD_CD', 'CD_NM', obj.CNTRL_TM);
+		        gfnma_multiSelectSet('#CONTROL_METHOD', 	'SBSD_CD', 'CD_NM', obj.CNTRL_MTHD);
+		        gfnma_multiSelectSet('#CONTROL_CYCLE', 		'SBSD_CD', 'CD_NM', obj.CNTRL_CYCL);
+		        gfnma_multiSelectSet('#PUR_CONTROL_METHOD', 'SBSD_CD', 'CD_NM', obj.PORDR_BGT_CNTRL_MTHD);
+		        gfnma_multiSelectSet('#PUR_CONTROL_CYCLE', 	'SBSD_CD', 'CD_NM', obj.PORDR_BGT_CNTRL_CYCL);
 		        
 		        //관리항목
-		   		SBUxMethod.set("ACC_ITEM_CODE1", 			obj.ACC_ITEM_CODE1);
-		   		SBUxMethod.set("ACC_ITEM_NAME1", 			obj.ACC_ITEM_NAME1);
-		   		SBUxMethod.set("ACC_ITEM_CODE2", 			obj.ACC_ITEM_CODE2);
-		   		SBUxMethod.set("ACC_ITEM_NAME2", 			obj.ACC_ITEM_NAME2);
-		   		SBUxMethod.set("ACC_ITEM_CODE3", 			obj.ACC_ITEM_CODE3);
-		   		SBUxMethod.set("ACC_ITEM_NAME3", 			obj.ACC_ITEM_NAME3);
-		   		SBUxMethod.set("ACC_ITEM_CODE4", 			obj.ACC_ITEM_CODE4);
-		   		SBUxMethod.set("ACC_ITEM_NAME4", 			obj.ACC_ITEM_NAME4);
-		   		SBUxMethod.set("ACC_ITEM_CODE5", 			obj.ACC_ITEM_CODE5);
-		   		SBUxMethod.set("ACC_ITEM_NAME5", 			obj.ACC_ITEM_NAME5);
-		   		SBUxMethod.set("ACC_ITEM_CODE6", 			obj.ACC_ITEM_CODE6);
-		   		SBUxMethod.set("ACC_ITEM_NAME6", 			obj.ACC_ITEM_NAME6);
-		   		SBUxMethod.set("ACC_ITEM_CODE7", 			obj.ACC_ITEM_CODE7);
-		   		SBUxMethod.set("ACC_ITEM_NAME7", 			obj.ACC_ITEM_NAME7);
-		   		SBUxMethod.set("ACC_ITEM_CODE8", 			obj.ACC_ITEM_CODE8);
-		   		SBUxMethod.set("ACC_ITEM_NAME8", 			obj.ACC_ITEM_NAME8);
-		   		SBUxMethod.set("ACC_ITEM_CODE9", 			obj.ACC_ITEM_CODE9);
-		   		SBUxMethod.set("ACC_ITEM_NAME9", 			obj.ACC_ITEM_NAME9);
-		   		SBUxMethod.set("ACC_ITEM_CODE10", 			obj.ACC_ITEM_CODE10);
-		   		SBUxMethod.set("ACC_ITEM_NAME10", 			obj.ACC_ITEM_NAME10);
+		   		SBUxMethod.set("ACC_ITEM_CODE1", 			obj.ACNT_MNG_ARTCL_CD1);
+		   		SBUxMethod.set("ACC_ITEM_NAME1", 			obj.ACNT_MNG_ARTCL_NM1);
+		   		SBUxMethod.set("ACC_ITEM_CODE2", 			obj.ACNT_MNG_ARTCL_CD2);
+		   		SBUxMethod.set("ACC_ITEM_NAME2", 			obj.ACNT_MNG_ARTCL_NM2);
+		   		SBUxMethod.set("ACC_ITEM_CODE3", 			obj.ACNT_MNG_ARTCL_CD3);
+		   		SBUxMethod.set("ACC_ITEM_NAME3", 			obj.ACNT_MNG_ARTCL_NM3);
+		   		SBUxMethod.set("ACC_ITEM_CODE4", 			obj.ACNT_MNG_ARTCL_CD4);
+		   		SBUxMethod.set("ACC_ITEM_NAME4", 			obj.ACNT_MNG_ARTCL_NM4);
+		   		SBUxMethod.set("ACC_ITEM_CODE5", 			obj.ACNT_MNG_ARTCL_CD5);
+		   		SBUxMethod.set("ACC_ITEM_NAME5", 			obj.ACNT_MNG_ARTCL_NM5);
+		   		SBUxMethod.set("ACC_ITEM_CODE6", 			obj.ACNT_MNG_ARTCL_CD6);
+		   		SBUxMethod.set("ACC_ITEM_NAME6", 			obj.ACNT_MNG_ARTCL_NM6);
+		   		SBUxMethod.set("ACC_ITEM_CODE7", 			obj.ACNT_MNG_ARTCL_CD7);
+		   		SBUxMethod.set("ACC_ITEM_NAME7", 			obj.ACNT_MNG_ARTCL_NM7);
+		   		SBUxMethod.set("ACC_ITEM_CODE8", 			obj.ACNT_MNG_ARTCL_CD8);
+		   		SBUxMethod.set("ACC_ITEM_NAME8", 			obj.ACNT_MNG_ARTCL_NM8);
+		   		SBUxMethod.set("ACC_ITEM_CODE9", 			obj.ACNT_MNG_ARTCL_CD9);
+		   		SBUxMethod.set("ACC_ITEM_NAME9", 			obj.ACNT_MNG_ARTCL_NM9);
+		   		SBUxMethod.set("ACC_ITEM_CODE10", 			obj.ACNT_MNG_ARTCL_CD10);
+		   		SBUxMethod.set("ACC_ITEM_NAME10", 			obj.ACNT_MNG_ARTCL_NM10);
 		    	SBUxMethod.set("ITEM_USE_YN1",		      	obj.ITEM_USE_YN1);
 		    	SBUxMethod.set("ITEM_USE_YN2",		      	obj.ITEM_USE_YN2);
 		    	SBUxMethod.set("ITEM_USE_YN3",		      	obj.ITEM_USE_YN3);
@@ -2017,13 +2017,13 @@
 		    	SBUxMethod.set("ESS_POPUP_PAGE",		    obj.ESS_POPUP_PAGE);
 		    	
 		        //외화관련계정
-		   		SBUxMethod.set("EXCHANGE_GAIN_ACC", 		obj.EXCHANGE_GAIN_ACC);
+		   		SBUxMethod.set("EXCHANGE_GAIN_ACC", 		obj.EXCHRT_PRF_ACNT);
 		   		SBUxMethod.set("EXCHANGE_GAIN_ACC_NAME", 	obj.EXCHANGE_GAIN_ACC_NAME);
-		   		SBUxMethod.set("EXCHANGE_LOSS_ACC", 		obj.EXCHANGE_LOSS_ACC);
+		   		SBUxMethod.set("EXCHANGE_LOSS_ACC", 		obj.EXCHRT_LOSS_ACNT);
 		   		SBUxMethod.set("EXCHANGE_LOSS_ACC_NAME", 	obj.EXCHANGE_LOSS_ACC_NAME);
-		   		SBUxMethod.set("VAL_GAIN_ACC", 				obj.VAL_GAIN_ACC);
+		   		SBUxMethod.set("VAL_GAIN_ACC", 				obj.CNVRT_PRF_ACNT_CD);
 		   		SBUxMethod.set("VAL_GAIN_ACC_NAME", 		obj.VAL_GAIN_ACC_NAME);
-		   		SBUxMethod.set("VAL_LOSS_ACC", 				obj.VAL_LOSS_ACC);
+		   		SBUxMethod.set("VAL_LOSS_ACC", 				obj.CNVRT_LOSS_ACNT_CD);
 		   		SBUxMethod.set("VAL_LOSS_ACC_NAME", 		obj.VAL_LOSS_ACC_NAME);
 		   		
     		} else {
@@ -2046,9 +2046,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("PARENT_ACC"));
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_NAME"));
-        var replaceText0 	= "_PARENT_ACC_";
-        var replaceText1 	= "_PARENT_NAME_";
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_";
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '상위계정 조회');
     	compopup1({
@@ -2058,15 +2058,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 		"계정명"]
-   			,searchInputFields		: ["PARENT_ACC", 	"PARENT_NAME"]
-   			,searchInputValues		: [searchCode, 	searchName]
+   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
+   			,searchInputValues		: [searchCode, 		searchName]
     		,height					: '400px'
    			,tableHeader			: ["계정코드", 		"계정명", 		"계정구분"]
-   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", "ACC_GROUP_TYPE"]
+   			,tableColumnNames		: ["ACNTL_CD",		"ACNT_NM", 		"ACNT_GROUP_TYPE"]
    			,tableColumnWidths		: ["80px", 			"80px", 		"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('PARENT_ACC', data.ACCOUNT_CODE);
-				SBUxMethod.set('PARENT_NAME', data.ACCOUNT_NAME);
+				SBUxMethod.set('PARENT_ACC',	data.ACNTL_CD);
+				SBUxMethod.set('PARENT_NAME',	data.ACNT_NM);
 			},
     	});
   	}
@@ -2079,9 +2079,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("SUMACCOUNT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("SUMACCOUNT_NAME"));
-        var replaceText0 	= "_SUMACCOUNT_CODE_";
-        var replaceText1 	= "_SUMACCOUNT_NAME_";
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_SUM_BLNC_ACNT_CD_";
+        var replaceText1 	= "_SUM_BLNC_ACNT_NM_";
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정과목 정보 팝업');
     	compopup1({
@@ -2091,15 +2091,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 			"계정명"]
-   			,searchInputFields		: ["SUMACCOUNT_CODE", 	"SUMACCOUNT_NAME"]
+   			,searchInputFields		: ["SUM_BLNC_ACNT_CD", 	"SUM_BLNC_ACNT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["계정코드", 		"계정명"]
-   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD",	"ACNT_NM"]
    			,tableColumnWidths		: ["80px", 			"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('SUMACCOUNT_CODE', data.ACCOUNT_CODE);
-				SBUxMethod.set('SUMACCOUNT_NAME', data.ACCOUNT_NAME);
+				SBUxMethod.set('SUMACCOUNT_CODE', data.ACNTL_CD);
+				SBUxMethod.set('SUMACCOUNT_NAME', data.ACNT_NM);
 			},
     	});
   	}
@@ -2114,7 +2114,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("TTR_TYPE_NAME"));
         var replaceText0 	= "_TTR_TYPE_";
         var replaceText1 	= "_TTR_TYPE_NAME_";
-        var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.FAM_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자금수지항목 팝업');
     	compopup1({
@@ -2127,12 +2127,12 @@
    			,searchInputFields		: ["TTR_TYPE", 	"TTR_TYPE_NAME"]
    			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
-   			,tableHeader			: ["코드", 	"명칭", 	"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
-   			,tableColumnNames		: ["CODE",	"NAME", "GROUP1", "GROUP2", "GROUP3", "GROUP4"]
-   			,tableColumnWidths		: ["80px", 	"80px", "80px",   "80px",   "80px",   "80px"]
+   			,tableHeader			: ["코드", 	"명칭", 		"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+   			,tableColumnNames		: ["CODE",	"FAM_NM", 	"GROUP1", "GROUP2", "GROUP3", "GROUP4"]
+   			,tableColumnWidths		: ["80px", 	"80px", 	"80px",   "80px",   "80px",   "80px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('TTR_TYPE', 		data.CODE);
-				SBUxMethod.set('TTR_TYPE_NAME',	data.NAME);
+				SBUxMethod.set('TTR_TYPE_NAME',	data.FAM_NM);
 			},
     	});
   	}
@@ -2145,9 +2145,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("COST_ELEMENT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_ELEMENT_NAME"));
-        var replaceText0 	= "_COST_ELEMENT_CODE_";
-        var replaceText1 	= "_COST_ELEMENT_NAME_";
-        var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.NAME LIKE '%" + replaceText1 + "%' AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_CST_ELMT_CD_";
+        var replaceText1 	= "_CST_ELMT_NM_";
+        var strWhereClause 	= "AND A.CODE LIKE '%" + replaceText0 + "%' AND A.FAM_NM LIKE '%" + replaceText1 + "%' AND A.CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가요소 팝업');
     	compopup1({
@@ -2156,16 +2156,16 @@
     		,bizcompId				: 'P_COST_ELEMENT'
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["코드", 					"명칭"]
-   			,searchInputFields		: ["COST_ELEMENT_CODE", 	"COST_ELEMENT_NAME"]
-   			,searchInputValues		: [searchCode, 	searchName]
+   			,searchCaptions			: ["코드", 			"명칭"]
+   			,searchInputFields		: ["CST_ELMT_CD", 	"CST_ELMT_NM"]
+   			,searchInputValues		: [searchCode, 		searchName]
     		,height					: '400px'
    			,tableHeader			: ["코드", 	"명칭"]
-   			,tableColumnNames		: ["CODE",	"NAME"]
+   			,tableColumnNames		: ["CODE",	"FAM_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('COST_ELEMENT_CODE', 		data.CODE);
-				SBUxMethod.set('COST_ELEMENT_NAME',		data.NAME);
+				SBUxMethod.set('COST_ELEMENT_CODE', 	data.CODE);
+				SBUxMethod.set('COST_ELEMENT_NAME',		data.FAM_NM);
 			},
     	});
   	}
@@ -2176,12 +2176,11 @@
      */ 
      //
     var fn_compopupBudgetDept = function() {
-    	
         var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_DEPT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_DEPT_NAME"));
-        var replaceText0 	= "_BUDGET_DEPT_CODE_";
-        var replaceText1 	= "_BUDGET_DEPT_NAME_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_BGT_OVS_DEPT_CD_";
+        var replaceText1 	= "_BGT_OVS_DEPT_NM_";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME FAM_NM '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서 정보 팝업');
     	compopup1({
@@ -2191,15 +2190,15 @@
         	,popupType				: 'A'
     		,whereClause			: ""
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["BUDGET_DEPT_CODE", 	"BUDGET_DEPT_NAME"]
+   			,searchInputFields		: ["BGT_OVS_DEPT_CD", 	"BGT_OVS_DEPT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["부서코드", 	"부서명"]
-   			,tableColumnNames		: ["DEPT_CODE",	"DEPT_NAME"]
+   			,tableColumnNames		: ["DEPT_CD",	"DEPT_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('BUDGET_DEPT_CODE', 		data.DEPT_CODE);
-				SBUxMethod.set('BUDGET_DEPT_NAME',		data.DEPT_NAME);
+				SBUxMethod.set('BUDGET_DEPT_CODE', 		data.DEPT_CD);
+				SBUxMethod.set('BUDGET_DEPT_NAME',		data.DEPT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -2213,9 +2212,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("BUDGET_ACC_NAME"));
-        var replaceText0 	= "_BUDGET_ACC_CODE_";
-        var replaceText1 	= "_BUDGET_ACC_NAME_";
-        var strWhereClause 	= "AND CLIENT_CODE = '" + gv_ma_selectedClntCd + "' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_BGT_ACNTL_CD_";
+        var replaceText1 	= "_BGT_ACNTL_NM_";
+        var strWhereClause 	= "AND CLNT_CD = '" + gv_ma_selectedClntCd + "' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
     	compopup1({
@@ -2225,15 +2224,15 @@
     		,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 		"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코드",			"명칭", 				"구분", 				"원가구분"]
-   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME", 	"EXTRA_FIELD1",  	"COST_CLASS"]
+   			,tableColumnNames		: ["ACNTL_CD",		"ACNT_NM",			"EXTRA_COL1",  		"CST_CLSF"]
    			,tableColumnWidths		: ["100px", 		"100px", 			"100px", 			"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('BUDGET_ACC_CODE', data.ACCOUNT_CODE);
-				SBUxMethod.set('BUDGET_ACC_NAME', data.ACCOUNT_NAME);
+				SBUxMethod.set('BUDGET_ACC_CODE', data.ACNTL_CD);
+				SBUxMethod.set('BUDGET_ACC_NAME', data.ACNT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -2249,7 +2248,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get(target + "_NAME"));
         var replaceText0 	= "_" + target + "_";
         var replaceText1 	= "_" + target + "_NAME_";
-        var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME  LIKE '%" + replaceText1 + "%' AND A.COMP_CODE = '" + gv_ma_selectedCorpCd + "' AND A.CLIENT_CODE = '" + gv_ma_selectedClntCd +  "'";
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM  LIKE '%" + replaceText1 + "%' AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' AND A.CLNT_CD = '" + gv_ma_selectedClntCd +  "'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
     	compopup1({
@@ -2262,12 +2261,12 @@
    			,searchInputFields		: [target, target + "_NAME"]
    			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
-   			,tableHeader			: ["계정코드", 		 "계정명", 			"계정(한국어)"]
-   			,tableColumnNames		: ["ACCOUNT_CODE", 	 "ACCOUNT_NAME", 	"ACCOUNT_NAME_CHN"]
-   			,tableColumnWidths		: ["80px", 			 "80px", 			"80px"]
+   			,tableHeader			: ["계정코드", 		"계정명", 		"계정(한국어)"]
+   			,tableColumnNames		: ["ACNTL_CD", 	 	"ACNT_NM", 		"ACNT_NM_CHN"]
+   			,tableColumnWidths		: ["80px", 			"80px", 		"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(target,			 data.ACCOUNT_CODE);
-				SBUxMethod.set(target + "_NAME", data.ACCOUNT_NAME);
+				SBUxMethod.set(target,			 data.ACNTL_CD);
+				SBUxMethod.set(target + "_NAME", data.ACNT_NM);
 			},
     	});
   	}
@@ -2280,9 +2279,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("ACC_ITEM_CODE" + target));
         var searchName 		= gfn_nvl(SBUxMethod.get("ACC_ITEM_NAME" + target));
-        var replaceText0 	= "_ACC_ITEM_CODE_";
-        var replaceText1 	= "_ACC_ITEM_NAME_";
-        var strWhereClause 	= "AND ACC_ITEM_VALUE LIKE '%" + replaceText0 + "%' AND ACC_VALUE_NAME  LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
+        var replaceText0 	= "_ACNT_MNG_ARTCL_CD_";
+        var replaceText1 	= "_ACNT_MNG_ARTCL_NM_";
+        var strWhereClause 	= "AND ACC_ITEM_VALUE LIKE '%" + replaceText0 + "%' AND ACC_VALUE_NAME  LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
     	compopup1({
@@ -2292,11 +2291,11 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["관리항목코드", 	"관리항목명"]
-   			,searchInputFields		: ["ACC_ITEM_CODE", "ACC_ITEM_NAME"]
+   			,searchInputFields		: ["ACNT_MNG_ARTCL_CD", "ACNT_MNG_ARTCL_NM"]
    			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
    			,tableHeader			: ["관리항목", 		 "관리항목명", 		"데이터유형",	 "컨트롤유형"]
-   			,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", 	"DATA_TYPE", "CONTROL_TYPE"]
+   			,tableColumnNames		: ["ACC_ITEM_VALUE", "ACC_VALUE_NAME", 	"DATA_TYPE", "CNTRL_TYPE"]
    			,tableColumnWidths		: ["80px", 			 "80px", 			"80px", 	 "80px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('ACC_ITEM_CODE' + target, data.ACC_ITEM_VALUE);
@@ -2304,8 +2303,6 @@
 			},
     	});
   	}
-    
-    
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

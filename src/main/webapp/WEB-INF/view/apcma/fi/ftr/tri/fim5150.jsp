@@ -25,7 +25,7 @@
     <title>title : 지금방법/조건</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-
+ 
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -224,20 +224,20 @@
 </section>
 </body>
 <script type="text/javascript">
-
+ 
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
 	var p_empCd = '${loginVO.maEmpCode}';
 	var p_fiOrgCode = "${loginVO.maFIOrgCode}";
 	//-----------------------------------------------------------
-
+ 
 	//초기화
 	function cfn_init() {
 		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
 			return;
 		}
-
+ 
 		fn_init();
 	}
 	
@@ -260,10 +260,10 @@
 	function cfn_search() {
 	    fn_search();
 	}
-
-
+ 
+ 
     // ${comMenuVO.menuId}
-
+ 
     lv_mode = "none";
     lv_modeNext = "rowcopy";
     
@@ -293,7 +293,7 @@
     	});
     	
     	//const gridMode = _.find(gridModeList, {id, _mode});
-
+ 
     	if (gfn_isEmpty(gridMode)) {
     		return;
     	}
@@ -331,7 +331,7 @@
     var jsonPayRckDay = [];			// 지급기준기산일					FIM042
     var jsonStdType = [];			// 휴일제외적용일 	STD_TYPE 		FIM040	
     var jsonPayMethod = [];			// 지급방식			PAY_METHOD		FIM081
-
+ 
     
     // 메인그리드
     var grdPayDate;
@@ -342,22 +342,22 @@
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
     });
-
+ 
     const fn_init = async function() {
-
+ 
     	let nowDate = new Date();
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
 		
 		SBUxMethod.set("srch-dtp-standardDay", lastYmd);
-
+ 
 		jsonPayDate.length = 0;
-
+ 
     	await fn_initSBSelect();
     	
         fn_createGrid(lv_mode);
     }
-
+ 
 	/**
      * @name fn_initSBSelect
      * @description 화면 초기 호출
@@ -367,19 +367,19 @@
 		
         let rst = await Promise.all([
         	// 지급,수금구분	TXN_TYPE		COM045
-        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['srch-slt-txnType'], jsonTxnType, 'L_COM045', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 기산일기준 		BASIS_TYPE		FIM037
-        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonBasisType, 'L_FIM037', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 기간유형 		PERIOD_TYPE		FIM038
-        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPeriodType, 'L_FIM038', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 시작일 룰		START_RULE		FIM043
-        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStartRule, 'L_FIM043', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 지급기준기산일					FIM042
-        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayRckDay, 'L_FIM042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 휴일제외적용일 	STD_TYPE 		FIM040
-        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonStdType, 'L_FIM040', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	// 지급방식			PAY_METHOD		FIM081
-        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+        	gfnma_setComSelect(['grdPayDate'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         	
         	// 지급조건
         	fn_setPayTerm(),
@@ -415,9 +415,9 @@
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
 		const listData = await postJsonPromiseForList;
-
+ 
 	    try {
 	    	
 			if (_.isEqual("S", listData.resultStatus)) {
@@ -425,13 +425,17 @@
 				console.log("listData.cv_1", listData.cv_1);
 	          	
 				listData.cv_1.forEach((item, index) => {
+					/*
 		        	const obj = {
-		        		PAY_TERM_CODE: item.PAY_TERM_CODE,
-		        		PAY_TERM_NAME: item.PAY_TERM_NAME,
+		        		PAY_TERM_CODE: item.PAY_TERM_CD,
+		        		PAY_TERM_NAME: item.PAY_TERM_NM,
 					}
 		                 
-				jsonPayTerm.push(obj);
-		        	
+					jsonPayTerm.push(obj);
+
+					 */
+					jsonPayTerm.push(item);
+
 	        	});
 			}
 		    
@@ -450,11 +454,11 @@
 			selectValue	: '',
 			dropType	: 'down', 	// up, down
 			dropAlign	: 'left', 	// left, right
-			colValue	: 'PAY_TERM_CODE',
-			colLabel	: 'PAY_TERM_NAME',
+			colValue	: 'PAY_TERM_CD',
+			colLabel	: 'PAY_TERM_NM',
 			columns		:[
-		    	{caption: "지급기준코드",	ref: 'PAY_TERM_CODE', 	width:'120px',  	style:'text-align:left'},
-		        {caption: "지급기준명",		ref: 'PAY_TERM_NAME',   width:'180px',  	style:'text-align:left'}
+		    	{caption: "지급기준코드",	ref: 'PAY_TERM_CD', 	width:'120px',  	style:'text-align:left'},
+		        {caption: "지급기준명",		ref: 'PAY_TERM_NM',   width:'180px',  	style:'text-align:left'}
 			],
      	}          
 	   	
@@ -625,11 +629,11 @@
 	    }
 	}
 	
-
+ 
     const columns1 = [
         {
             caption: ["기간유형","수금,지급유형"],
-            ref : 'TXN_TYPE',
+            ref : 'TRSC_TYPE',
             width : '120px',
             style : 'text-align:center',
             type : 'combo',
@@ -642,14 +646,14 @@
         },
         {
             caption: ["기간유형","지급기준코드"],
-            ref: 'PAY_TERM_CODE',
+            ref: 'PAY_TERM_CD',
             type:'input',
             width:'120px',
             style:'text-align:left'
         },
         {
             caption: ["기간유형","지급기준명"],
-            ref: 'PAY_TERM_NAME',
+            ref: 'PAY_TERM_NM',
             type:'input',
             width:'120px',
             style:'text-align:left'
@@ -667,7 +671,7 @@
         },
         {
             caption : ["일반기준","기산일기준"],
-            ref : 'BASIS_TYPE',
+            ref : 'BASE_CRN_CD',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -681,7 +685,7 @@
         },
         {
             caption : ["일반기준","기간유형"],
-            ref : 'PERIOD_TYPE',
+            ref : 'PRD_TYPE',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -695,7 +699,7 @@
         },
         {
             caption : ["일반기준","기산일 시작일기준"],
-            ref : 'START_RULE',
+            ref : 'CAL_BGNG_RULE',
             width : '150px',
             style : 'text-align:center',
             type : 'combo',
@@ -709,7 +713,7 @@
         },
         {
             caption: ["기간유형","가산월"],
-            ref: 'ADD_MONTH',
+            ref: 'ADTN_MM_CNT',
             type:'input',
             width:'70px',
             style:'text-align:right',
@@ -717,7 +721,7 @@
         },
         {
             caption: ["기간유형","가산일"],
-            ref: 'ADD_DAY',
+            ref: 'ADD_DAY_CNT',
             type:'input',
             width:'70px',
             style:'text-align:right',
@@ -725,7 +729,7 @@
         },
         {
             caption : ["일반기준","기준일수1"],
-            ref : 'ADD_DAY1',
+            ref : 'ADD_DAY_CNT1',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -738,7 +742,7 @@
             }
         },{
             caption : ["일반기준","기준일수2"],
-            ref : 'ADD_DAY2',
+            ref : 'ADD_DAY_CNT2',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -751,7 +755,7 @@
             }
         },{
             caption : ["기준일(특정일)","특정기준일1"],
-            ref : 'STANDARD1_DAY',
+            ref : 'CRTR_DAY1',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -765,7 +769,7 @@
         },
         {
             caption: ["기준일(특정일)","특정일1보다 작을때 가산월"],
-            ref: 'S1_ADD_MONTH',
+            ref: 'CRDAY1_ADD_MCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -773,7 +777,7 @@
         },
         {
             caption: ["기준일(특정일)","특정일1보다 작을때 가산일"],
-            ref: 'S1_ADD_DAY',
+            ref: 'CRDAY1_ADD_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -781,7 +785,7 @@
         },
         {
             caption : ["기준일2 ","기준일2"],
-            ref : 'STANDARD2_DAY',
+            ref : 'CRTR_DAY2',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -795,7 +799,7 @@
         },
         {
             caption: ["기준일2 ","기준일2보다 작을때 가산월"],
-            ref: 'S2_ADD_MONTH',
+            ref: 'CRDAY2_ADD_MCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -803,7 +807,7 @@
         },
         {
             caption: ["기준일2 ","기준일2보다 작을때 가산일"],
-            ref: 'S2_ADD_DAY',
+            ref: 'CRDAY2_ADD_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -811,7 +815,7 @@
         },
         {
             caption : ["기준일3 ","기준일3"],
-            ref : 'STANDARD3_DAY',
+            ref : 'CRTR_DAY3',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -825,7 +829,7 @@
         },
         {
             caption: ["기준일3 ","기준일3보다 작을때 가산월"],
-            ref: 'S3_ADD_MONTH',
+            ref: 'CRDAY3_ADD_MCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -833,7 +837,7 @@
         },
         {
             caption: ["기준일3 ","기준일3보다 작을때 가산일"],
-            ref: 'S3_ADD_DAY',
+            ref: 'CRDAY3_ADD_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -841,7 +845,7 @@
         },
         {
             caption : ["기준일4 ","기준일4"],
-            ref : 'STANDARD4_DAY',
+            ref : 'CRTR_DAY4',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -855,7 +859,7 @@
         },
         {
             caption: ["기준일4 ","기준일4보다 작을때 가산월"],
-            ref: 'S4_ADD_MONTH',
+            ref: 'CRDAY4_ADD_MCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -863,7 +867,7 @@
         },
         {
             caption: ["기준일4 ","기준일4보다 작을때 가산일"],
-            ref: 'S4_ADD_DAY',
+            ref: 'CRDAY4_ADD_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -871,7 +875,7 @@
         },
         {
             caption : ["기준일5 ","기준일5"],
-            ref : 'STANDARD5_DAY',
+            ref : 'CRTR_DAY5',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -885,7 +889,7 @@
         },
         {
             caption: ["기준일5 ","기준일5보다 작을때 가산월"],
-            ref: 'S5_ADD_MONTH',
+            ref: 'CRDAY5_ADD_MCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -893,7 +897,7 @@
         },
         {
             caption: ["기준일5 ","기준일5보다 작을때 가산일"],
-            ref: 'S5_ADD_DAY',
+            ref: 'CRDAY5_ADD_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -901,7 +905,7 @@
         },
         {
             caption : ["휴일제외기준일구분","휴일제외 기준일구분"],
-            ref : 'STD_TYPE',
+            ref : 'CRTDAY_TYPE',
             width : '120px',
             style : 'text-align:center',
             type : 'combo',
@@ -915,7 +919,7 @@
         },
         {
             caption : ["지불방식 ","지급방법"],
-            ref : 'PAY_METHOD',
+            ref : 'PAY_MTHD',
             width : '100px',
             style : 'text-align:center',
             type : 'combo',
@@ -929,14 +933,14 @@
         },
         {
             caption: ["지불방식 ","적용가능지급조건"],
-            ref: 'AVAIL_PAY_METHOD',
+            ref: 'VLD_PAY_MTHD',
             type:'input',
             width:'120px',
             style:'text-align:center',
         },
         {
             caption: ["어음일수 ","어음일수"],
-            ref: 'BILL_DAY',
+            ref: 'PRMNT_PBNCN_DCNT',
             type:'input',
             width:'120px',
             style:'text-align:right',
@@ -944,7 +948,7 @@
         },
         {
             caption : ["어음일수 ","어음-휴일기준"],
-            ref : 'BILL_DUE_TYPE',
+            ref : 'PRMNT_MTRY_HLDY_YN',
             width : '120px',
             style : 'text-align:center',
             type : 'combo',
@@ -963,11 +967,11 @@
             width:'200px',
             style:'text-align:left',
         },
-
+ 
     ];
-
+ 
     const fn_createGrid = function(_mode) {
-
+ 
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdPayDate';
         SBGridProperties.id = 'grdPayDate';
@@ -976,8 +980,8 @@
         SBGridProperties.rowheader = ['update','select'];
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.selectmode = 'free';
-
-
+ 
+ 
         switch (_mode) {
         	case "none": 		// 복사해제모드
         		break;
@@ -996,11 +1000,11 @@
         SBGridProperties.frozencols = 4; //고정열 지정
         
         SBGridProperties.columns = [];
-
+ 
         columns1.forEach((col) => {
             SBGridProperties.columns.push(col);
         });
-
+ 
         grdPayDate = _SBGrid.create(SBGridProperties);
         
         /*
@@ -1052,63 +1056,67 @@
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
-
+ 
         const listData = await postJsonPromiseForList;
-
+ 
         try {
             if (_.isEqual("S", listData.resultStatus)) {
             	
             	console.log("listData.cv_1", listData.cv_1);
             	
             	jsonPayDate.length = 0;
-
+ 
                 listData.cv_1.forEach((item, index) => {
+					/*
                     const obj = {
-                    		PAY_TERM_CODE: item.PAY_TERM_CODE,
-                    		PAY_TERM_NAME: item.PAY_TERM_NAME,
-                    		BASIS_TYPE: item.BASIS_TYPE,
-                    		ADD_DAY: item.ADD_DAY,
-                    		ADD_DAY1: item.ADD_DAY1,
-                    		ADD_DAY2: item.ADD_DAY2,
-                    		ADD_MONTH: item.ADD_MONTH,
-                    		PERIOD_TYPE: item.PERIOD_TYPE,
-                    		START_RULE: item.START_RULE,
-                    		STANDARD1_DAY: item.STANDARD1_DAY,
-                    		S1_ADD_DAY: item.S1_ADD_DAY,
-                    		S1_ADD_MONTH: item.S1_ADD_MONTH,
-                    		STANDARD2_DAY: item.STANDARD2_DAY,
-                    		S2_ADD_DAY: item.S2_ADD_DAY,
-                    		S2_ADD_MONTH: item.S2_ADD_MONTH,
-                    		STANDARD3_DAY: item.STANDARD3_DAY,
-                    		S3_ADD_DAY: item.S3_ADD_DAY,
-                    		S3_ADD_MONTH: item.S3_ADD_MONTH,
-                    		STANDARD4_DAY: item.STANDARD4_DAY,
-                    		S4_ADD_DAY: item.S4_ADD_DAY,
-                    		S4_ADD_MONTH: item.S4_ADD_MONTH,
-                    		STANDARD5_DAY: item.STANDARD5_DAY,
-                    		S5_ADD_DAY: item.S5_ADD_DAY,
-                    		S5_ADD_MONTH: item.S5_ADD_MONTH,
+                    		PAY_TERM_CODE: item.PAY_TERM_CD,
+                    		PAY_TERM_NAME: item.PAY_TERM_NM,
+                    		BASIS_TYPE: item.BASE_CRN_CD,
+                    		ADD_DAY: item.ADD_DAY_CNT,
+                    		ADD_DAY1: item.ADD_DAY_CNT1,
+                    		ADD_DAY2: item.ADD_DAY_CNT2,
+                    		ADD_MONTH: item.ADTN_MM_CNT,
+                    		PERIOD_TYPE: item.PRD_TYPE,
+                    		START_RULE: item.CAL_BGNG_RULE,
+                    		STANDARD1_DAY: item.CRTR_DAY1,
+                    		S1_ADD_DAY: item.CRDAY1_ADD_DCNT,
+                    		S1_ADD_MONTH: item.CRDAY1_ADD_MCNT,
+                    		STANDARD2_DAY: item.CRTR_DAY2,
+                    		S2_ADD_DAY: item.CRDAY2_ADD_DCNT,
+                    		S2_ADD_MONTH: item.CRDAY2_ADD_MCNT,
+                    		STANDARD3_DAY: item.CRTR_DAY3,
+                    		S3_ADD_DAY: item.CRDAY3_ADD_DCNT,
+                    		S3_ADD_MONTH: item.CRDAY3_ADD_MCNT,
+                    		STANDARD4_DAY: item.CRTR_DAY4,
+                    		S4_ADD_DAY: item.CRDAY4_ADD_DCNT,
+                    		S4_ADD_MONTH: item.CRDAY4_ADD_MCNT,
+                    		STANDARD5_DAY: item.CRTR_DAY5,
+                    		S5_ADD_DAY: item.CRDAY5_ADD_DCNT,
+                    		S5_ADD_MONTH: item.CRDAY5_ADD_MCNT,
                     		MEMO: item.MEMO,
-                    		STD_TYPE: item.STD_TYPE,
-                    		INSERT_USERID: item.INSERT_USERID,
-                    		INSERT_TIME: item.INSERT_TIME,
-                    		INSERT_PC: item.INSERT_PC,
-                    		UPDATE_PC: item.UPDATE_PC,
-                    		UPDATE_TIME: item.UPDATE_TIME,
-                    		UPDATE_USERID: item.UPDATE_USERID,
-                    		COMP_CODE: item.COMP_CODE,
-                    		PAY_METHOD: item.PAY_METHOD,
-                    		TXN_TYPE: item.TXN_TYPE,
-                    		BILL_DAY: item.BILL_DAY,
-                    		BILL_DUE_TYPE: item.BILL_DUE_TYPE,
-                    		AVAIL_PAY_METHOD: item.AVAIL_PAY_METHOD,
-                    		SAP_PAY_TERM: item.SAP_PAY_TERM,
-                    		SAP_PAY_TERM_NAME: item.SAP_PAY_TERM_NAME,
+                    		STD_TYPE: item.CRTDAY_TYPE,
+                    		INSERT_USERID: item.WRT_USER_ID,
+                    		INSERT_TIME: item.WRT_DT,
+                    		INSERT_PC: item.WRT_PC,
+                    		UPDATE_PC: item.UPDT_PC,
+                    		UPDATE_TIME: item.UPDT_DT,
+                    		UPDATE_USERID: item.UPDT_USER_ID,
+                    		COMP_CODE: item.CO_CD,
+                    		PAY_METHOD: item.PAY_MTHD,
+                    		TXN_TYPE: item.TRSC_TYPE,
+                    		BILL_DAY: item.PRMNT_PBNCN_DCNT,
+                    		BILL_DUE_TYPE: item.PRMNT_MTRY_HLDY_YN,
+                    		AVAIL_PAY_METHOD: item.VLD_PAY_MTHD,
+                    		SAP_PAY_TERM: item.ERP_PAY_TERM,
+                    		SAP_PAY_TERM_NAME: item.ERP_PAY_TERM_NM,
                     		USE_YN: item.USE_YN,
                     }
                     
                     jsonPayDate.push(obj);
-                    
+
+					 */
+                    jsonPayDate.push(item);
+
                 });
                 
                 grdPayDate.rebuild();
@@ -1140,48 +1148,48 @@
      * @description 저장 버튼
      */
 	const fn_save = async function() {
-
+ 
  		const updatedData = grdPayDate.getUpdateData(true, 'all');
         const listData = [];
-
+ 
         for(const item of updatedData) {
         	
-        	const compCode 		= gfn_nvl(item.data.COMP_CODE, gv_ma_selectedCorpCd);
-        	const clientCode 	= gfn_nvl(item.data.CLIENT_CODE, gv_ma_selectedClntCd);
+        	const compCode 		= gfn_nvl(item.data.CO_CD, gv_ma_selectedCorpCd);
+        	const clientCode 	= gfn_nvl(item.data.CLNT_CD, gv_ma_selectedClntCd);
         	const payTermCode 	= item.data.PAY_TERM_CODE;
         	const payTermName 	= item.data.PAY_TERM_NAME;
-        	const basisType 	= gfn_nvl(item.data.BASIS_TYPE);
-        	const addDay 		= parseInt(item.data.ADD_DAY) || 0;
-        	const addMonth 		= parseInt(item.data.ADD_MONTH) || 0;
-        	const periodType 	= gfn_nvl(item.data.PERIOD_TYPE);
-        	const standard1Day 	= gfn_nvl(item.data.STANDARD1_DAY);
-        	const s1AddDay 		= parseInt(item.data.S1_ADD_DAY) || 0;
-        	const s1AddMonth 	= parseInt(item.data.S1_ADD_MONTH) || 0;
+        	const basisType 	= gfn_nvl(item.data.BASE_CRN_CD);
+        	const addDay 		= parseInt(item.data.ADD_DAY_CNT) || 0;
+        	const addMonth 		= parseInt(item.data.ADTN_MM_CNT) || 0;
+        	const periodType 	= gfn_nvl(item.data.PRD_TYPE);
+        	const standard1Day 	= gfn_nvl(item.data.CRTR_DAY1);
+        	const s1AddDay 		= parseInt(item.data.CRDAY1_ADD_DCNT) || 0;
+        	const s1AddMonth 	= parseInt(item.data.CRDAY1_ADD_MCNT) || 0;
         	const memo 			= gfn_nvl(item.data.MEMO);
-        	const stdType 		= gfn_nvl(item.data.STD_TYPE);
-        	const payMethod 	= gfn_nvl(item.data.PAY_METHOD);
-        	const txnType 		= gfn_nvl(item.data.TXN_TYPE);
-        	const billDay 		= parseInt(item.data.BILL_DAY) || 0;
-        	const billDueType 	= parseInt(item.data.BILL_DUE_TYPE) || 0;
-        	const availPayMethod = gfn_nvl(item.data.AVAIL_PAY_METHOD);
-        	const sapPayTerm 	= gfn_nvl(item.data.SAP_PAY_TERM);
-        	const sapPayTermName = gfn_nvl(item.data.SAP_PAY_TERM_NAME);
-        	const startRule 	= gfn_nvl(item.data.START_RULE);
-        	const standard2Day 	= gfn_nvl(item.data.STANDARD2_DAY);
-        	const s2AddDay 		= parseInt(item.data.S2_ADD_DAY) || 0;
-        	const s2AddMonth 	= parseInt(item.data.S2_ADD_MONTH) || 0;
-        	const standard3Day 	= gfn_nvl(item.data.STANDARD3_DAY);
-        	const s3AddDay 		= parseInt(item.data.S3_ADD_DAY) || 0;
-        	const s3AddMonth 	= parseInt(item.data.S3_ADD_MONTH) || 0;
-        	const standard4Day 	= gfn_nvl(item.data.STANDARD4_DAY);
-        	const s4AddDay 		= parseInt(item.data.S4_ADD_DAY) || 0;
-        	const s4AddMonth 	= parseInt(item.data.S4_ADD_MONTH) || 0;
-        	const standard5Day 	= gfn_nvl(item.data.STANDARD5_DAY);
-        	const s5AddDay 		= parseInt(item.data.S5_ADD_DAY) || 0;
-        	const s5AddMonth 	= parseInt(item.data.S5_ADD_MONTH) || 0;
+        	const stdType 		= gfn_nvl(item.data.CRTDAY_TYPE);
+        	const payMethod 	= gfn_nvl(item.data.PAY_MTHD);
+        	const txnType 		= gfn_nvl(item.data.TRSC_TYPE);
+        	const billDay 		= parseInt(item.data.PRMNT_PBNCN_DCNT) || 0;
+        	const billDueType 	= parseInt(item.data.PRMNT_MTRY_HLDY_YN) || 0;
+        	const availPayMethod = gfn_nvl(item.data.VLD_PAY_MTHD);
+        	const sapPayTerm 	= gfn_nvl(item.data.ERP_PAY_TERM);
+        	const sapPayTermName = gfn_nvl(item.data.ERP_PAY_TERM_NM);
+        	const startRule 	= gfn_nvl(item.data.CAL_BGNG_RULE);
+        	const standard2Day 	= gfn_nvl(item.data.CRTR_DAY2);
+        	const s2AddDay 		= parseInt(item.data.CRDAY2_ADD_DCNT) || 0;
+        	const s2AddMonth 	= parseInt(item.data.CRDAY2_ADD_MCNT) || 0;
+        	const standard3Day 	= gfn_nvl(item.data.CRTR_DAY3);
+        	const s3AddDay 		= parseInt(item.data.CRDAY3_ADD_DCNT) || 0;
+        	const s3AddMonth 	= parseInt(item.data.CRDAY3_ADD_MCNT) || 0;
+        	const standard4Day 	= gfn_nvl(item.data.CRTR_DAY4);
+        	const s4AddDay 		= parseInt(item.data.CRDAY4_ADD_DCNT) || 0;
+        	const s4AddMonth 	= parseInt(item.data.CRDAY4_ADD_MCNT) || 0;
+        	const standard5Day 	= gfn_nvl(item.data.CRTR_DAY5);
+        	const s5AddDay 		= parseInt(item.data.CRDAY5_ADD_DCNT) || 0;
+        	const s5AddMonth 	= parseInt(item.data.CRDAY5_ADD_MCNT) || 0;
         	const useYn 		= gfn_nvl(item.data.USE_YN);
-        	const addDay1 		= parseInt(item.data.ADD_DAY1) || 0;
-        	const addDay2 		= parseInt(item.data.ADD_DAY2) || 0;
+        	const addDay1 		= parseInt(item.data.ADD_DAY_CNT1) || 0;
+        	const addDay2 		= parseInt(item.data.ADD_DAY_CNT2) || 0;
         	
         	if (gfn_isEmpty(txnType)) {
 				gfn_comAlert("W0005", "수금,지급유형");		//	W0005	{0}이/가 없습니다.
@@ -1299,10 +1307,10 @@
   		const paramObj = {
                 V_P_DEBUG_MODE_YN	: '',
                 V_P_LANG_ID			: '',
-                V_P_COMP_CODE		: gfn_nvl(rowData.COMP_CODE, gv_ma_selectedCorpCd),
-                V_P_CLIENT_CODE		: gfn_nvl(rowData.CLIENT_CODE, gv_ma_selectedClntCd),
+                V_P_COMP_CODE		: gfn_nvl(rowData.CO_CD, gv_ma_selectedCorpCd),
+                V_P_CLIENT_CODE		: gfn_nvl(rowData.CLNT_CD, gv_ma_selectedClntCd),
                 
-                V_P_PAY_TERM_CODE	: rowData.PAY_TERM_CODE,
+                V_P_PAY_TERM_CODE	: rowData.PAY_TERM_CD,
                 V_P_PAY_TERM_NAME	: '',
                 V_P_BASIS_TYPE		: '',
                 V_P_ADD_DAY			: '',
@@ -1363,7 +1371,7 @@
         try {
             if (_.isEqual("S", resoponseData.resultStatus)) {
             	gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-
+ 
             	await fn_search();
                 
             	await fn_setPayTerm();
@@ -1385,17 +1393,17 @@
     const fn_addRow = function() {
     	
         const rowIndex = grdPayDate.getRow();
-
+ 
         if (rowIndex < 0){ //데이터가 없고 행선택이 없을경우.
         	grdPayDate.addRow(true);
         } else {
         	grdPayDate.insertRow(rowIndex);
         }
     }
-
+ 
     // 행삭제
     const fn_delRow = async function() {
-
+ 
     	const rowIndex = grdPayDate.getRow();
     	
     	if (rowIndex < 1) {
@@ -1408,16 +1416,16 @@
 			if (!gfn_comConfirm("Q0002", "등록정보", "삭제")) {	// Q0002	{0}이/가 있습니다. {1} 하시겠습니까?
 				return;
 			}
-
+ 
 			await fn_deletePayTerm(rowIndex);
-
+ 
     	} else {
     		grdPayDate.deleteRow(rowIndex);
     	}
-
+ 
     }
     
-
+ 
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

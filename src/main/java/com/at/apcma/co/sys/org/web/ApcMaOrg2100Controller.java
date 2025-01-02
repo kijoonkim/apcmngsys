@@ -53,7 +53,7 @@ public class ApcMaOrg2100Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_ORG2100_Q");
+			param.put("procedure", 		"SP_ORG2100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaOrg2100Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_ORG2100_S");
+			param.put("procedure", 		"SP_ORG2100_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============insertOrg2100=====end========");
@@ -101,7 +101,7 @@ public class ApcMaOrg2100Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			param.put("procedure", 		"P_ORG2100_S1");
+			param.put("procedure", 		"SP_ORG2100_S1");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============insertOrg2100_S1=====end========");

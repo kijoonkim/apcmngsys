@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="box-body">
-
+ 
 				<div class="box-search-ma" >
 	                <!--[pp] 검색 -->
 					<!--[APC] START -->
@@ -268,10 +268,10 @@
         </div>
     </section>
 </body>
-
+ 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
-
+ 
 	// ${comMenuVO.menuId}
 	
 	// common ---------------------------------------------------
@@ -279,7 +279,7 @@
 	var p_menuId 	= '${comMenuVO.menuId}';
 	var p_userId 	= '${loginVO.userId}';
 	//-----------------------------------------------------------
-
+ 
 	var p_ss_issAccountChief	= '${loginVO.maIsAccountChief}';
 	var p_ss_isAccountManager	= '${loginVO.maIsAccountManager}';
 	var p_ss_defaultAcctRule	= '${loginVO.maDefaultAcctRule}';
@@ -341,18 +341,18 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
             // APC
-            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'FI_ORG_CODE', 'FI_ORG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_FI_ORG_CODE'],			jsonFiOrgCode, 		'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_SITE_CODE'],			jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
-            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],		jsonAcctRuleCode, 	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 계정수준
-            gfnma_setComSelect(['SCH_ACCOUNT_LEVEL'],		jsonAccountLevel, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_ACCOUNT_LEVEL'],		jsonAccountLevel, 	'L_FIG011_Y', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 기간
-            gfnma_setComSelect(['SCH_CBODESCR1'],			jsonCbodescr1, 		'L_FIM130', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SCH_CBODESCR1'],			jsonCbodescr1, 		'L_FIM130', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
-
+ 
 	async function fn_init() {
 		
   		await fn_initSBSelect()
@@ -371,7 +371,7 @@
     	})
     	
     });
-
+ 
     /**
      * 화면 state 변경
      */
@@ -475,7 +475,7 @@
             
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
         Fig5263Grid1 = _SBGrid.create(SBGridProperties);
         //Fig5263Grid1.bind('click', 'fn_viewFig5263Grid1Event');
         
@@ -485,7 +485,7 @@
      * 기간별 증감비교 (Tab2)
      */
     function fn_createFig5263Grid2() {
-
+ 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB2_GRID';
 	    SBGridProperties.id 				= 'Fig5263Grid2';
@@ -525,7 +525,7 @@
             
             {caption: ["비고",			""],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
 	    Fig5263Grid2 = _SBGrid.create(SBGridProperties);
     }
     
@@ -533,7 +533,7 @@
      * 월별 제조원가명세서 (Tab3)
      */
     function fn_createFig5263Grid3() {
-
+ 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB3_GRID';
 	    SBGridProperties.id 				= 'Fig5263Grid3';
@@ -575,7 +575,7 @@
             
             {caption: ["비고"],							ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
 	    Fig5263Grid3 = _SBGrid.create(SBGridProperties);
         //Fig5263Grid1.bind('click', 'fn_viewFig5263Grid1Event');
     }
@@ -584,7 +584,7 @@
      * 관리용 제조원가명세서 (Tab4)
      */
     function fn_createFig5263Grid4() {
-
+ 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB4_GRID';
 	    SBGridProperties.id 				= 'Fig5263Grid4';
@@ -621,7 +621,7 @@
             
             {caption: ["비고"],				ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
 	    Fig5263Grid4 = _SBGrid.create(SBGridProperties);
     }
     
@@ -629,7 +629,7 @@
      * 증감비교(트리) (Tab5)
      */
     function fn_createFig5263Grid5() {
-
+ 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB5_GRID';
 	    SBGridProperties.id 				= 'Fig5263Grid5';
@@ -674,15 +674,15 @@
             
             {caption: ["비고"],					ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
 	    Fig5263Grid5 = _SBGrid.create(SBGridProperties);
     }
-
+ 
     /**
      * 월별 제조원가명세서(트리) (Tab6)
      */
     function fn_createFig5263Grid6() {
-
+ 
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'SB_TAB6_GRID';
 	    SBGridProperties.id 				= 'Fig5263Grid6';
@@ -729,7 +729,7 @@
             
             {caption: ["비고"],							ref: 'ETC', 					type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
-
+ 
 	    Fig5263Grid6 = _SBGrid.create(SBGridProperties);
     }
     
@@ -796,50 +796,50 @@
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	        	jsonFig5263Grid1.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.GAAP_CD),
   						
-  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
   						PERIOD_FR 					: gfnma_nvl2(item.PERIOD_FR),
-  						PREV_DETAIL_AMT 			: gfnma_nvl2(item.PREV_DETAIL_AMT),
-  						PREV_DETAIL_QTY 			: gfnma_nvl2(item.PREV_DETAIL_QTY),
-  						PREV_END_DETAIL_AMT 		: gfnma_nvl2(item.PREV_END_DETAIL_AMT),
-  						PREV_END_DETAIL_QTY 		: gfnma_nvl2(item.PREV_END_DETAIL_QTY),
-  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_END_SUMMARY_AMT),
+  						PREV_DETAIL_AMT 			: gfnma_nvl2(item.PRVTM_DTL_AMT),
+  						PREV_DETAIL_QTY 			: gfnma_nvl2(item.PRVTM_DTL_QTY),
+  						PREV_END_DETAIL_AMT 		: gfnma_nvl2(item.PRVTM_END_DTL_AMT),
+  						PREV_END_DETAIL_QTY 		: gfnma_nvl2(item.PRVTM_END_DTL_QTY),
+  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PRVTM_END_SUM_AMT),
   						
   						PREV_PERIOD 				: gfnma_nvl2(item.PREV_PERIOD),
   						PREV_PERIOD_DESCR 			: gfnma_nvl2(item.PREV_PERIOD_DESCR),
   						PREV_PERIOD_END_FR 			: gfnma_nvl2(item.PREV_PERIOD_END_FR),
   						PREV_PERIOD_END_TO 			: gfnma_nvl2(item.PREV_PERIOD_END_TO),
-  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PREV_SUMMARY_AMT),
+  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PRVTM_SUM_AMT),
   						
   						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
-  						THIS_DETAIL_AMT 			: gfnma_nvl2(item.THIS_DETAIL_AMT),
-  						THIS_DETAIL_QTY 			: gfnma_nvl2(item.THIS_DETAIL_QTY),
-  						THIS_SUMMARY_AMT			: gfnma_nvl2(item.THIS_SUMMARY_AMT),
+  						THIS_DETAIL_AMT 			: gfnma_nvl2(item.THTM_DTL_AMT),
+  						THIS_DETAIL_QTY 			: gfnma_nvl2(item.THTM_DTL_QTY),
+  						THIS_SUMMARY_AMT			: gfnma_nvl2(item.THTM_SMMRY_AMT),
   					}
   					jsonFig5263Grid1.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	if(jsonFig5263Grid1.length>0){
   	        		strTMperiod 	= (jsonFig5263Grid1[0]['PERIOD_FR']).substr(0,4) + '-' + (jsonFig5263Grid1[0]['PERIOD_FR']).substr(4,2);
   	        		strBEperiod 	= (jsonFig5263Grid1[0]['PREV_PERIOD_END_FR']).substr(0,4) + '-' + (jsonFig5263Grid1[0]['PREV_PERIOD_END_TO']).substr(4,2);
@@ -861,7 +861,7 @@
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -870,7 +870,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+ 
     /**
      * 기간별 증감비교 (Tab2)
      */
@@ -904,7 +904,7 @@
  			gfn_comAlert("E0000","기준년월을 선택하세요");
 			return;      		 
 		}
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -920,69 +920,69 @@
 			,V_P_DESCR				: p_cbodescr1
 			,V_P_SELECT_PERIOD		: p_ymdselect_period1
 			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFig5263Grid2.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
   						ACCT_RULE_NAME				: gfnma_nvl2(item.ACCT_RULE_NAME),
   						
-  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						NET_PERIOD_AMT				: gfnma_nvl2(item.NET_PERIOD_AMT),
-  						NET_PERIOD_QTY				: gfnma_nvl2(item.NET_PERIOD_QTY),
-  						NET_PERIOD_QTY_RATE			: gfnma_nvl2(item.NET_PERIOD_QTY_RATE),
-  						NET_PERIOD_RATE				: gfnma_nvl2(item.NET_PERIOD_RATE),
+  						NET_PERIOD_AMT				: gfnma_nvl2(item.MM_DIFF_AMT),
+  						NET_PERIOD_QTY				: gfnma_nvl2(item.MM_DIFF_QTY),
+  						NET_PERIOD_QTY_RATE			: gfnma_nvl2(item.MM_DIFF_QTY_RT),
+  						NET_PERIOD_RATE				: gfnma_nvl2(item.MM_DIFF_RT),
   						
-  						NET_TOTAL_AMT				: gfnma_nvl2(item.NET_TOTAL_AMT),
-  						NET_TOTAL_RATE				: gfnma_nvl2(item.NET_TOTAL_RATE),
+  						NET_TOTAL_AMT				: gfnma_nvl2(item.MM_ACML_DIFF_AMT),
+  						NET_TOTAL_RATE				: gfnma_nvl2(item.MM_ACML_DIFF_RT),
   						
   						PERIOD_FR					: gfnma_nvl2(item.PERIOD_FR),
   						PERIOD_TO					: gfnma_nvl2(item.PERIOD_TO),
   						
-  						PREV_PERIOD_AMT 			: gfnma_nvl2(item.PREV_PERIOD_AMT),
+  						PREV_PERIOD_AMT 			: gfnma_nvl2(item.PRVTM_PRD_AMT),
   						PREV_PERIOD_DESCR 			: gfnma_nvl2(item.PREV_PERIOD_DESCR),
   						PREV_PERIOD_FR				: gfnma_nvl2(item.PREV_PERIOD_FR),
-  						PREV_PERIOD_QTY 			: gfnma_nvl2(item.PREV_PERIOD_QTY),
+  						PREV_PERIOD_QTY 			: gfnma_nvl2(item.PRVTM_PRD_QTY),
   						PREV_PERIOD_TO	 			: gfnma_nvl2(item.PREV_PERIOD_TO),
-  						PREV_TOTAL_AMT 				: gfnma_nvl2(item.PREV_TOTAL_AMT),
+  						PREV_TOTAL_AMT 				: gfnma_nvl2(item.PRVTM_AT_AMT),
   						
-  						SORT_SEQ_PL					: gfnma_nvl2(item.SORT_SEQ_PL),
-  						THIS_PERIOD_AMT				: gfnma_nvl2(item.THIS_PERIOD_AMT),
-  						THIS_PERIOD_QTY				: gfnma_nvl2(item.THIS_PERIOD_QTY),
-  						THIS_TOTAL_AMT 				: gfnma_nvl2(item.THIS_TOTAL_AMT),
+  						SORT_SEQ_PL					: gfnma_nvl2(item.SORT_SEQ_GNLS),
+  						THIS_PERIOD_AMT				: gfnma_nvl2(item.THTM_AMT),
+  						THIS_PERIOD_QTY				: gfnma_nvl2(item.THTM_QTY),
+  						THIS_TOTAL_AMT 				: gfnma_nvl2(item.THTM_ACML_AMT),
   					}
   					jsonFig5263Grid2.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	if(jsonFig5263Grid2.length>0){
   	        		strTPperiod 	= (jsonFig5263Grid2[0]['PERIOD_FR']).substr(0,6) + '-' + (jsonFig5263Grid2[0]['PERIOD_TO']).substr(0,6);
   	        		strTMperiod 	= (jsonFig5263Grid2[0]['PERIOD_TO']).substr(0,4) + '-' + (jsonFig5263Grid2[0]['PERIOD_TO']).substr(4,2);
@@ -1003,11 +1003,11 @@
   	        	
   	        	Fig5263Grid2.rebuild();
         		fn_setStyle2();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1016,7 +1016,7 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }    
-
+ 
     /**
      * 월별 제조원가명세서 (Tab3)
      */
@@ -1050,7 +1050,7 @@
  			gfn_comAlert("E0000","기준년월을 선택하세요");
 			return;      		 
 		}
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -1066,44 +1066,44 @@
 			,V_P_DESCR				: p_cbodescr1
 			,V_P_SELECT_PERIOD		: p_ymdselect_period1
 			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFig5263Grid3.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
-  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.GAAP_CD),
   						
-  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  						FI_ORG_NAME					: gfnma_nvl2(item.FI_ORG_NAME),
+  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  						FI_ORG_NAME					: gfnma_nvl2(item.ACNTG_OGNZ_NM),
   						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACNT_CD),
+  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACNT_NM),
   						
   						MON_01						: gfnma_nvl2(item.MON_01),
   						MON_02						: gfnma_nvl2(item.MON_02),
@@ -1132,12 +1132,12 @@
   						MON_Q12						: gfnma_nvl2(item.MON_Q12),
   						
   						SORT_SEQ					: gfnma_nvl2(item.SORT_SEQ),
-  						TOTAL_AMT					: gfnma_nvl2(item.TOTAL_AMT)
+  						TOTAL_AMT					: gfnma_nvl2(item.TOT_AMT)
   					}
   					jsonFig5263Grid3.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
 	  	      	//타이틀 재구성 -----------
 	  	      	fn_createFig5263Grid3();    	
 	  			Fig5263Grid3.clearStatus();
@@ -1145,11 +1145,11 @@
   	        	
   	        	Fig5263Grid3.rebuild();
         		fn_setStyle3();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1192,7 +1192,7 @@
  			gfn_comAlert("E0000","기준년월을 선택하세요");
 			return;      		 
 		}
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -1208,60 +1208,60 @@
 			,V_P_DESCR				: p_cbodescr1
 			,V_P_SELECT_PERIOD		: p_ymdselect_period1
 			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFig5263Grid4.length = 0;
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   							LVL							: gfnma_nvl2(item.LVL),
   	  						
-  	  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  	  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   	  						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  	  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  	  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-  	  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
+  	  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  	  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+  	  						ACCT_RULE_CODE				: gfnma_nvl2(item.GAAP_CD),
   	  						
-  	  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  	  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  	  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  	  						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   	  						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
-  	  						KEYID 						: gfnma_nvl2(item.KEYID),
-  	  						PARENTKEYID 				: gfnma_nvl2(item.PARENTKEYID),
+  	  						KEYID 						: gfnma_nvl2(item.KEY_ID),
+  	  						PARENTKEYID 				: gfnma_nvl2(item.UP_KEY_ID),
   	  						
   	  						PERIOD_FR 					: gfnma_nvl2(item.PERIOD_FR),
-  	  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PREV_END_SUMMARY_AMT),
+  	  						PREV_END_SUMMARY_AMT 		: gfnma_nvl2(item.PRVTM_END_SUM_AMT),
   	  						PREV_PERIOD 				: gfnma_nvl2(item.PREV_PERIOD),
   	  						PREV_PERIOD_DESCR 			: gfnma_nvl2(item.PREV_PERIOD_DESCR),
   	  						PREV_PERIOD_END_FR 			: gfnma_nvl2(item.PREV_PERIOD_END_FR),
   	  						PREV_PERIOD_END_TO 			: gfnma_nvl2(item.PREV_PERIOD_END_TO),
-  	  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PREV_SUMMARY_AMT),
+  	  						PREV_SUMMARY_AMT 			: gfnma_nvl2(item.PRVTM_SUM_AMT),
   	  						SORT_SEQ 					: gfnma_nvl2(item.SORT_SEQ),
-  	  						THIS_SUMMARY_AMT 			: gfnma_nvl2(item.THIS_SUMMARY_AMT),
+  	  						THIS_SUMMARY_AMT 			: gfnma_nvl2(item.THTM_SMMRY_AMT),
   					}
   					jsonFig5263Grid4.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	if(jsonFig5263Grid4.length>0){
   	        		strTMperiod 	= (jsonFig5263Grid4[0]['PERIOD_FR']).substr(0,4) + '01-' + (jsonFig5263Grid4[0]['PERIOD_FR']).substr(0,6);
   	        		strBEperiod 	= (jsonFig5263Grid4[0]['PREV_PERIOD_END_FR']).substr(0,4) + '01-' + (jsonFig5263Grid4[0]['PREV_PERIOD_END_TO']).substr(0,6);
@@ -1280,11 +1280,11 @@
   	        	
   	        	Fig5263Grid4.rebuild();
         		fn_setStyle4();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1327,7 +1327,7 @@
  			gfn_comAlert("E0000","기준년월을 선택하세요");
 			return;      		 
 		}
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -1343,68 +1343,68 @@
 			,V_P_DESCR				: p_cbodescr1
 			,V_P_SELECT_PERIOD		: p_ymdselect_period1
 			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFig5263Grid5.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
 						LVL							: gfnma_nvl2(item.LVL),
   						
-  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.GAAP_CD),
   						
-  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
-  						KEYID 						: gfnma_nvl2(item.KEYID),
+  						KEYID 						: gfnma_nvl2(item.KEY_ID),
   						
-  						NET_PERIOD_AMT 				: gfnma_nvl2(item.NET_PERIOD_AMT),
-  						NET_PERIOD_RATE 			: gfnma_nvl2(item.NET_PERIOD_RATE),
-  						NET_TOTAL_AMT 				: gfnma_nvl2(item.NET_TOTAL_AMT),
-  						NET_TOTAL_RATE 				: gfnma_nvl2(item.NET_TOTAL_RATE),
+  						NET_PERIOD_AMT 				: gfnma_nvl2(item.MM_DIFF_AMT),
+  						NET_PERIOD_RATE 			: gfnma_nvl2(item.MM_DIFF_RT),
+  						NET_TOTAL_AMT 				: gfnma_nvl2(item.MM_ACML_DIFF_AMT),
+  						NET_TOTAL_RATE 				: gfnma_nvl2(item.MM_ACML_DIFF_RT),
   						
-  						PARENTKEYID 				: gfnma_nvl2(item.PARENTKEYID),
+  						PARENTKEYID 				: gfnma_nvl2(item.UP_KEY_ID),
   						
   						PERIOD_FR 					: gfnma_nvl2(item.PERIOD_FR),
   						PERIOD_TO 					: gfnma_nvl2(item.PERIOD_TO),
   						
-  						PREV_PERIOD_AMT 			: gfnma_nvl2(item.PREV_PERIOD_AMT),
+  						PREV_PERIOD_AMT 			: gfnma_nvl2(item.PRVTM_PRD_AMT),
   						PREV_PERIOD_DESCR 			: gfnma_nvl2(item.PREV_PERIOD_DESCR),
   						PREV_PERIOD_FR 				: gfnma_nvl2(item.PREV_PERIOD_FR),
   						PREV_PERIOD_TO 				: gfnma_nvl2(item.PREV_PERIOD_TO),
-  						PREV_TOTAL_AMT 				: gfnma_nvl2(item.PREV_TOTAL_AMT),
-  						SORT_SEQ_PL 				: gfnma_nvl2(item.SORT_SEQ_PL),
-  						THIS_PERIOD_AMT 			: gfnma_nvl2(item.THIS_PERIOD_AMT),
-  						THIS_TOTAL_AMT 				: gfnma_nvl2(item.THIS_TOTAL_AMT),
+  						PREV_TOTAL_AMT 				: gfnma_nvl2(item.PRVTM_AT_AMT),
+  						SORT_SEQ_PL 				: gfnma_nvl2(item.SORT_SEQ_GNLS),
+  						THIS_PERIOD_AMT 			: gfnma_nvl2(item.THTM_AMT),
+  						THIS_TOTAL_AMT 				: gfnma_nvl2(item.THTM_ACML_AMT),
   					}
   					jsonFig5263Grid5.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
   	        	if(jsonFig5263Grid5.length>0){
   	        		strTPperiod 	= (jsonFig5263Grid5[0]['PERIOD_FR']).substr(0,6) + '01-' + (jsonFig5263Grid5[0]['PERIOD_TO']).substr(0,6);
   	        		strBEperiod 	= (jsonFig5263Grid5[0]['PREV_PERIOD_FR']).substr(0,6) + '01-' + (jsonFig5263Grid5[0]['PREV_PERIOD_TO']).substr(0,6);
@@ -1424,11 +1424,11 @@
   	        	
   	        	Fig5263Grid5.rebuild();
         		fn_setStyle5();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1438,7 +1438,7 @@
         }
     }    
     
-
+ 
     /**
      * 월별손익(트리) (Tab6)
      */
@@ -1472,7 +1472,7 @@
  			gfn_comAlert("E0000","기준년월을 선택하세요");
 			return;      		 
 		}
-
+ 
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN		: ''
 			,V_P_LANG_ID			: ''
@@ -1488,46 +1488,46 @@
 			,V_P_DESCR				: p_cbodescr1
 			,V_P_SELECT_PERIOD		: p_ymdselect_period1
 			,V_P_ZERO_INCLUDE_YN	: p_zero_include_yn
-
+ 
 			,V_P_FORM_ID			: p_formId
 			,V_P_MENU_ID			: p_menuId
 			,V_P_PROC_ID			: ''
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-
+ 
         const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5263List.do", {
         	getType				: 'json',
         	workType			: wtype,
         	cv_count			: '4',
         	params				: gfnma_objectToString(paramObj)
 		});
-
+ 
         const data = await postJsonPromise;
 		console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
-
+ 
   	        	/** @type {number} **/
   	    		let totalRecordCount = 0;
-
+ 
   	    		jsonFig5263Grid6.length = 0;
   	        	data.cv_3.forEach((item, index) => {
   					const msg = {
 						LVL							: gfnma_nvl2(item.LVL),
   							
-  						ACCOUNT_CODE				: gfnma_nvl2(item.ACCOUNT_CODE),
+  						ACCOUNT_CODE				: gfnma_nvl2(item.ACNTL_CD),
   						ACCOUNT_CODE_VIEW			: gfnma_nvl2(item.ACCOUNT_CODE_VIEW),
-  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACCOUNT_GROUP),
-  						ACCOUNT_NAME				: gfnma_nvl2(item.ACCOUNT_NAME),
-  						ACCT_RULE_CODE				: gfnma_nvl2(item.ACCT_RULE_CODE),
+  						ACCOUNT_GROUP				: gfnma_nvl2(item.ACNT_GROUP),
+  						ACCOUNT_NAME				: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE				: gfnma_nvl2(item.GAAP_CD),
   						
-  						COMP_CODE					: gfnma_nvl2(item.COMP_CODE),
-  						FI_ORG_CODE					: gfnma_nvl2(item.FI_ORG_CODE),
+  						COMP_CODE					: gfnma_nvl2(item.CO_CD),
+  						FI_ORG_CODE					: gfnma_nvl2(item.ACNTG_OGNZ_CD),
   						FONT_SIZE 					: gfnma_nvl2(item.FONT_SIZE),
   						
-  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACCOUNT_CODE),
-  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACCOUNT_NAME),
+  						HQ_ACCOUNT_CODE 			: gfnma_nvl2(item.HQ_ACNT_CD),
+  						HQ_ACCOUNT_NAME 			: gfnma_nvl2(item.HQ_ACNT_NM),
   						
   						MON_01						: gfnma_nvl2(item.MON_01),
   						MON_02						: gfnma_nvl2(item.MON_02),
@@ -1555,16 +1555,16 @@
   						MON_Q11						: gfnma_nvl2(item.MON_Q11),
   						MON_Q12						: gfnma_nvl2(item.MON_Q12),
   						
-  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.REPORT_ACCOUNT_CODE),
-  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.REPORT_ACCOUNT_NAME),
+  						REPORT_ACCOUNT_CODE 		: gfnma_nvl2(item.RPT_ACNT_CD),
+  						REPORT_ACCOUNT_NAME 		: gfnma_nvl2(item.RPT_ACNT_NM),
   						
-  						SORT_SEQ_PL					: gfnma_nvl2(item.SORT_SEQ_PL),
-  						TOTAL_AMT					: gfnma_nvl2(item.TOTAL_AMT)
+  						SORT_SEQ_PL					: gfnma_nvl2(item.SORT_SEQ_GNLS),
+  						TOTAL_AMT					: gfnma_nvl2(item.TOT_AMT)
   					}
   					jsonFig5263Grid6.push(msg);
   					totalRecordCount ++;
   				});
-
+ 
 	  	      	//타이틀 재구성 -----------
 	  	      	fn_createFig5263Grid6();    	
 	  			Fig5263Grid6.clearStatus();
@@ -1572,11 +1572,11 @@
   	        	
   	        	Fig5263Grid6.rebuild();
         		fn_setStyle6();
-
+ 
         	} else {
           		alert(data.resultMessage);
         	}
-
+ 
         } catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
@@ -1592,7 +1592,7 @@
     const fn_tabClick = function(val) {
     	p_sel_tab = val;
     }
-
+ 
     /**
      * 그리드 타이틀
      */
@@ -1608,8 +1608,8 @@
 		gd1_title_2 	= '전기말(' + jdate1 + ')';
 		gd1_title_3 	= '전동기(' + jdate2 + ')';
     }
-
-
+ 
+ 
     /**
      * 계정별원장조회
      */
@@ -1818,7 +1818,7 @@
     var fn_treeOpen1 = function() {
     	Fig5263Grid4.openTreeNodeAll();
   	}    
-
+ 
     /**
      * 트리접기
      */
@@ -1832,7 +1832,7 @@
     var fn_treeOpen2 = function() {
     	Fig5263Grid5.openTreeNodeAll();
   	}    
-
+ 
     /**
      * 트리접기
      */
@@ -1846,7 +1846,7 @@
     var fn_treeOpen3 = function() {
     	Fig5263Grid6.openTreeNodeAll();
   	}    
-
+ 
     /**
      * 트리접기
      */

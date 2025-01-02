@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-
+ 
 			<div class="box-body" style="padding-top: 0px">
 				<div id="preview-div" class="card" style="height:550px;border:1px solid #f4f4f4;overflow:auto;">
 				</div>
@@ -31,7 +31,7 @@
 	</section>
 </body>
 <script>
-
+ 
 function compopfileview1(type, event) {
 	
 	//id 선언
@@ -57,12 +57,12 @@ function compopfileview1(type, event) {
 	            });
 	            canvas.height = viewport.height;
 	            canvas.width = viewport.width;
-
+ 
 	            const renderContext = {
 	                canvasContext: context,
 	                viewport: viewport
 	            };
-
+ 
 	            page.render(renderContext).promise.then(function() {
 	                document.getElementById('preview-div').innerHTML = '';
 	                document.getElementById('preview-div').appendChild(canvas);
@@ -96,7 +96,7 @@ function compopfileview1(type, event) {
 	}
 	
 }
-
+ 
  
 </script>
 </html>

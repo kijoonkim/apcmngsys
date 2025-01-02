@@ -56,7 +56,7 @@ public class ApcMaCom3000Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_COM3000_Q");
+			param.put("procedure", 		"SP_COM3000_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_Q1");
+			param.put("procedure", 		"SP_COM3000_Q1");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -106,7 +106,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"SP_COM3000_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -131,7 +131,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"SP_COM3000_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -156,7 +156,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S");
+			param.put("procedure", 		"SP_COM3000_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
@@ -180,7 +180,7 @@ public class ApcMaCom3000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_COM3000_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_COM3000_S1");
 
             logger.info("=============updateCom3000_S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -204,7 +204,7 @@ public class ApcMaCom3000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_COM3000_S1");
+			param.put("procedure", 		"SP_COM3000_S1");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {

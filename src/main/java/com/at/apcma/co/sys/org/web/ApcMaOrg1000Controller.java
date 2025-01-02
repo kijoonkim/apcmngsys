@@ -53,7 +53,7 @@ public class ApcMaOrg1000Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_ORG1000_Q");
+			param.put("procedure", 		"SP_ORG1000_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 				
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaOrg1000Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_ORG1000_S");
+			param.put("procedure", 		"SP_ORG1000_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============insertOrg1000=====end========");

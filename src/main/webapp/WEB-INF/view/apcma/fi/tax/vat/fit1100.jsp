@@ -19,7 +19,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -87,19 +87,19 @@
                         <col style="width: 1%">
                         <col style="width: 7%">
                         <col style="width: 2%">
-
+ 
                         <col style="width: 8%">
                         <col style="width: 7%">
                         <col style="width: 1%">
                         <col style="width: 7%">
                         <col style="width: 2%">
-
+ 
                         <col style="width: 8%">
                         <col style="width: 7%">
                         <col style="width: 1%">
                         <col style="width: 7%">
                         <col style="width: 2%">
-
+ 
                         <col style="width: 8%">
                         <col style="width: 7%">
                         <col style="width: 1%">
@@ -358,7 +358,7 @@
         </div>
     </div>
 </section>
-
+ 
 <div>
     <sbux-modal
     	style="width:600px" 
@@ -374,11 +374,11 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
-
+ 
 </body>
 <script type="text/javascript">
-
-
+ 
+ 
 	// common ---------------------------------------------------
 	var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
 	var p_menuId = '${comMenuVO.menuId}';
@@ -387,16 +387,16 @@
 	//-----------------------------------------------------------
     
     /** 공통버튼 **/
-
+ 
     function cfn_init() {
-
+ 
         if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
             return;
         }
-
+ 
         fn_init();
     }
-
+ 
     function cfn_search() {
         fn_search();
     }
@@ -420,7 +420,7 @@
         { "styleKey": "font-size:11px;", "id" : "14", "pid" : "-1", "order" : "15", "text" : "공제받지못할매입세액명세","targetid" : "grdAP_NONDED" , "targetvalue" : "grdAP_NONDED" },
         { "styleKey": "font-size:11px;", "id" : "15", "pid" : "-1", "order" : "16", "text" : "신용카드수령금액명세","targetid" : "grdAP_CARD" , "targetvalue" : "grdAP_CARD" }
     ];
-
+ 
     // ==================================================
     // combo json
     
@@ -470,77 +470,77 @@
     /** 신고 사업장 그리드 **/
     var grdTaxSite;
     var jsonGrdTaxSite = [];
-
+ 
     /** 전체 그리드 **/
     var grdArAp;
     var jsonGrdArAp = [];
-
+ 
     /** 매출전체 **/
     var grdAr;
     var jsonGrdAr = [];
-
+ 
     /** 매입전체 **/
     var grdAp;
     var jsonGrdAp = [];
-
+ 
     /** 매출세금계산서 **/
     var grdArTaxBill;
     var jsonGrdArTaxBill = [];
-
+ 
     /** 매출계산서 **/
     var grdArBill;
     var jsonGrdArBill = [];
-
+ 
     /** 영세율 첨부서류제출명세 **/
     var grdArZeroTax;
     var jsonGrdArZeroTax = [];
-
+ 
     /** 신용카드매출전표발행집계표 **/
     var grdArCard;
     var jsonGrdArCard = [];
-
+ 
     /** 수출실적명세서 **/
     var grdArExport;
     var jsonGrdArExport = [];
-
+ 
     /** 내국신용장 **/
     var grdArCredit;
     var jsonGrdArCredit = [];
-
+ 
     /** 매입세금계산서 **/
     var grdApTaxBill;
     var jsonGrdApTaxBill = [];
-
+ 
     /** 매입계산서 **/
     var grdApBill;
     var jsonGrdApBill = [];
-
+ 
     /** 의제매입세액 **/
     var grdApDeemed;
     var jsonGrdApDeemed = [];
-
+ 
     /** 건물등감가상각자산취득명세 **/
     var grdApAsset;
     var jsonGrdApAsset = [];
-
+ 
     /** 공제받지못할매입세액명세 **/
     var grdApNonded;
     var jsonGrdApNonded = [];
-
+ 
     /** 신용카드수령금액명세서 **/
     var grdApCard;
     var jsonGrdApCard = [];
-
+ 
     /** 영세율매출명세서 **/
     var grdArZeroReport;
     var jsonGrdArZeroReport = [];
-
+ 
     window.addEventListener("DOMContentLoaded",function(){
     	
         fn_init();
-
+ 
     });
-
+ 
     /**
      * @name fn_init
      * @description 화면 초기 호출
@@ -554,15 +554,15 @@
         
         /** ul style 정리 **/
         $("#tabTopJson_ul").css({"display":"grid","grid-template-columns": "repeat(8, auto)"});
-
+ 
         /** 기준연도 **/
         SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
-
+ 
         await fn_initSBSelect();
-
+ 
         jsonGrdTaxSite.length = 0;
         fn_clearDetailData();
-
+ 
         /** tab 정렬 **/
         SBUxMethod.selectTab('tabTopJson', 'grdAR_AP');
         
@@ -586,7 +586,7 @@
         
         SBUxMethod.closeProgress(gv_loadingOptions);
     }
-
+ 
 	/**
      * @name fn_initSBSelect
      * @description 화면 초기 호출
@@ -595,8 +595,8 @@
 	const fn_initSBSelect = async function() {
 		// 코드정보 설정
 		let result = await Promise.all([
-
-	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TYPE_NAME', 'Y', ''),
+ 
+	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TMPLT_NM', 'Y', ''),
 	    	
 			/** 신고구분명 select **/
 			gfnma_multiSelectInit({
@@ -611,14 +611,14 @@
 		            ,dropType		: 'down' 	// up, down
 		            ,dropAlign		: 'right' 	// left, right
 		            ,colValue		: 'SEQ'
-		            ,colLabel		: 'VAT_TYPE_NAME'
+		            ,colLabel		: 'VAT_TMPLT_NM'
 		            ,columns		:[
-		                {caption: "부가세유형",			ref: 'VAT_TYPE_NAME', 		width:'180px',  	style:'text-align:left'},
+		                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
 		                {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
 		                {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
 		                {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
-		                {caption: "단위과세번호", 		ref: 'WHOLE_PAY_SITE_NO',   width:'150px',  	style:'text-align:left'},
-		                {caption: "확정여부", 			ref: 'CONFIRM_YN',    		width:'150px',  	style:'text-align:left'},
+		                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
+		                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
 		                {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
 		            ]
 		            ,callback       : function(_seq) {
@@ -627,37 +627,37 @@
 		        }),
 		        
 		        // 매입매출구분
-		        gfnma_setComSelect(['srch-slt-arApType'], jsonArApType, 'L_FIT003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+		        gfnma_setComSelect(['srch-slt-arApType'], jsonArApType, 'L_FIT003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		        // 부가세유형
-		        gfnma_setComSelect(['_'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CODE', 'VAT_TYPE_NAME', 'Y', ''),		        
+		        gfnma_setComSelect(['_'], jsonVatType, 'L_FIT020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_TYPE_CD', 'VAT_TMPLT_NM', 'Y', ''),		        
 		     	// 전자발행
-	            gfnma_setComSelect(['_'], jsonEtaxType,			'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonEtaxType,			'L_FIT005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 카드용도
-	            gfnma_setComSelect(['_'], jsonCardUseType, 		'L_FIT012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonCardUseType, 		'L_FIT012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 내국신용장구분
-	            gfnma_setComSelect(['_'], jsonLocalCreditType,	'L_FIT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonLocalCreditType,	'L_FIT011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 불공제유형
-	            gfnma_setComSelect(['_'], jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonVatNotDedType,	'L_FIT013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 예정신고누락
-	            gfnma_setComSelect(['_'], jsonReportOmitYn,		'L_FIT009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonReportOmitYn,		'L_FIT009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 중복발행
-	            gfnma_setComSelect(['_'], jsonDupIssBillType,	'L_FIT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonDupIssBillType,	'L_FIT007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 감가상각자산유형
-	            gfnma_setComSelect(['_'], jsonVatAssetType,		'L_FIT014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonVatAssetType,		'L_FIT014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 11일외전송
-	            gfnma_setComSelect(['_'], jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonAfterDueDateYn,	'L_FIT006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 영세율첨부서류여부
-	            gfnma_setComSelect(['_'], jsonZeroReportYn,		'L_FIT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonZeroReportYn,		'L_FIT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 수입금액제외
-	            gfnma_setComSelect(['_'], jsonExcludeAmtYn,		'L_FIT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonExcludeAmtYn,		'L_FIT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 영세율구분
-	            gfnma_setComSelect(['_'], jsonZeroType,			'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonZeroType,			'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	         	// 의제매입구분
-	            gfnma_setComSelect(['_'], jsonDeemedInputType,	'L_FIT015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+	            gfnma_setComSelect(['_'], jsonDeemedInputType,	'L_FIT015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				// 수정신고구분
-				gfnma_setComSelect(['_'], jsonAmendedTaxType,	'L_FIT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+				gfnma_setComSelect(['_'], jsonAmendedTaxType,	'L_FIT017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            // 통화
-				gfnma_setComSelect(['_'], jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CURRENCY_CODE', 'CURRENCY_NAME', 'Y', ''),
+				gfnma_setComSelect(['_'], jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 				
 			]);
 		
@@ -665,7 +665,7 @@
 		jsonVatTypeAp.length = 0;
 		
 		jsonVatType.forEach((item) => {
-			switch (gfn_nvl(item.VAT_TYPE_CODE).substr(0, 1)) {
+			switch (gfn_nvl(item.VAT_TYPE_CD).substr(0, 1)) {
 				case "P":
 					jsonVatTypeAp.push(item);
 					break;
@@ -687,7 +687,7 @@
 			if (!gfn_isEmpty(vatDclr)) {
 				SBUxMethod.set('srch-inp-termFr', vatDclr['STANDARD_TERM_FR']);
 				SBUxMethod.set('srch-inp-termTo', vatDclr['STANDARD_TERM_TO']);
-
+ 
                 let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
                 SBUxMethod.set('srch-dtp-yyyy', year);
 			}
@@ -763,7 +763,7 @@
             };
         
         console.log("paramObj", paramObj);
-
+ 
         try {
         	
             const postJsonPromiseForList = gfn_postJSON("/fi/tax/vat/selectFit1100.do", {
@@ -780,21 +780,24 @@
             	console.log("listData.cv_1", listData.cv_1);
             	
             	jsonGrdTaxSite.length = 0;
-
+ 
                 listData.cv_1.forEach((item, index) => {
-                    
+                    /*
                 	const obj = {
                 		CHK_YN			: item.CHK_YN,
-                    	TAX_SITE_CODE	: item.TAX_SITE_CODE,
-                        TAX_SITE_NAME	: item.TAX_SITE_NAME,
-                        BIZ_REGNO		: item.BIZ_REGNO
+                    	TAX_SITE_CODE	: item.TX_SITE_CD,
+                        TAX_SITE_NAME	: item.TX_SITE_NM,
+                        BIZ_REGNO		: item.BRNO
                     }
                 	
                 	jsonGrdTaxSite.push(obj);
+
+                     */
+                	jsonGrdTaxSite.push(item);
                 });
                 
                 grdTaxSite.rebuild();
-
+ 
                 isSuccess = true;
                 
             } else {
@@ -903,7 +906,7 @@
                 V_P_CS_CODE         : csCode,
                 V_P_BIZ_REGNO       : '',
                 V_P_TAX_SITE_NAME   : '',
-                V_P_TAX_SITE_CODE   : _site.TAX_SITE_CODE,
+                V_P_TAX_SITE_CODE   : _site.TX_SITE_CD,
                 
                 V_P_FORM_ID		: p_formId,
                 V_P_MENU_ID		: p_menuId,
@@ -1004,14 +1007,14 @@
             },
             {
             	caption: ['신고사업장명'],               
-            	ref: 'TAX_SITE_NAME',        
+            	ref: 'TX_SITE_NM',        
             	width: '120px',    
             	style: 'text-align:center',    
             	type: 'output'
             },
             {
             	caption: ['사업자번호'],          
-            	ref: 'BIZ_REGNO',      
+            	ref: 'BRNO',      
             	width: '180px',   
             	style: 'text-align:center',    
             	type : 'output'
@@ -1050,7 +1053,7 @@
             },
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -1062,7 +1065,7 @@
             },
             {
             	caption: ['연번'],
-            	ref : 'BILL_SEQ', 
+            	ref : 'TXIV_SEQ', 
             	width : '60px',
             	style : 'text-align:right',
             	type : 'output'
@@ -1083,21 +1086,21 @@
             },
             {
             	caption : ['회계전표번호'],
-            	ref : 'DOC_NUM', 
+            	ref : 'SLIP_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래일자'],
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px',
             	style : 'text-align:center',
             	type : 'output',
@@ -1107,7 +1110,7 @@
             },
             {
             	caption : ['신고기준일자'],
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px',
             	style : 'text-align:center',
             	type : 'output',
@@ -1117,28 +1120,28 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['종사업장번호'],
-            	ref : 'SUB_REG_NO', 
+            	ref : 'SBSD_BPLC_BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -1156,7 +1159,7 @@
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1169,7 +1172,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1182,7 +1185,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1195,7 +1198,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1208,7 +1211,7 @@
             },
             {
             	caption : ['예정신고누락구분'],
-            	ref : 'REPORT_OMIT_YN', 
+            	ref : 'RPT_PRNMNT_YN', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1221,7 +1224,7 @@
             },
             {
             	caption : ['봉사료'],
-            	ref : 'SERV_CHARGE_CARD_AMT', 
+            	ref : 'SRVC_CST_CARD_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1230,7 +1233,7 @@
             },
             {
             	caption : ['영세율첨부서류'],
-            	ref : 'ZERO_REPORT_YN', 
+            	ref : 'ZRT_DCMNT_YN', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1243,7 +1246,7 @@
             },
             {
             	caption : ['내국신용장구분'],
-            	ref : 'LOCAL_CREDIT_TYPE', 
+            	ref : 'LCL_LC_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1256,21 +1259,21 @@
             },
             {
             	caption : ['서류명'],
-            	ref : 'DOCUMENT_NAME', 
+            	ref : 'DCNMT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['발급자'],
-            	ref : 'ISSUE_NAME', 
+            	ref : 'ISSU_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['발급일자'],
-            	ref : 'DOCUMENT_ISSUE_DATE', 
+            	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px',
             	style : 'text-align:center',
             	type : 'output',
@@ -1280,14 +1283,14 @@
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['선적일자'],
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px',
             	style : 'text-align:center',
             	type : 'output',
@@ -1297,7 +1300,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1310,7 +1313,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1319,7 +1322,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1328,7 +1331,7 @@
             },
             {
             	caption : ['당기제출 원화'],
-            	ref : 'EXPORT_AMT_KRW', 
+            	ref : 'EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1337,7 +1340,7 @@
             },
             {
             	caption : ['당기신고 외화'],
-            	ref : 'VAT_EXPORT_AMT', 
+            	ref : 'VAT_THTM_EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1346,7 +1349,7 @@
             },
             {
             	caption : ['당기신고 원화'],
-            	ref : 'VAT_EXPORT_AMT_KRW', 
+            	ref : 'VAT_THTM_EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1355,7 +1358,7 @@
             },
             {
             	caption : ['수출외화 금액'],
-            	ref : 'FOREIGN_AMT', 
+            	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1364,7 +1367,7 @@
             },
             {
             	caption : ['수출원화 금액'],
-            	ref : 'WON_AMT', 
+            	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1373,14 +1376,14 @@
             },
             {
             	caption : ['서류번호'],
-            	ref : 'DOCUMENT_NO', 
+            	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['영세율적용구분'],
-            	ref : 'ZERO_TYPE', 
+            	ref : 'ZRT_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1393,7 +1396,7 @@
             },
             {
             	caption : ['카드용도구분'],
-            	ref : 'CARD_USE_TYPE', 
+            	ref : 'CARD_USG_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1406,14 +1409,14 @@
             },
             {
             	caption : ['카드번호'],
-            	ref : 'CARD_NUM', 
+            	ref : 'CARD_NO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['불공제사유 유형'],
-            	ref : 'VAT_NOT_DED_TYPE', 
+            	ref : 'VAT_NDDC_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1426,7 +1429,7 @@
             },
             {
             	caption : ['감가상각자산유형'],
-            	ref : 'VAT_ASSET_TYPE', 
+            	ref : 'VAT_AST_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1439,7 +1442,7 @@
             },
             {
             	caption : ['의제매입구분'],	
-            	ref : 'DEEMED_INPUT_TYPE', 
+            	ref : 'DMINPT_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1452,14 +1455,14 @@
             },
             {
             	caption : ['의제품명'],
-            	ref : 'GOODS_NAME', 
+            	ref : 'GDS_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['의제수량'],
-            	ref : 'PURCHASE_QUANTITY', 
+            	ref : 'PRCHS_QTY', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1468,7 +1471,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
@@ -1488,7 +1491,7 @@
             },
             {
             	caption : ['수정신고구분'],
-            	ref : 'AMENDED_TAX_TYPE', 
+            	ref : 'MDFCN_TAX_DCLR_TYPE', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'combo',
@@ -1501,14 +1504,14 @@
             },
             {
             	caption : ['정기신고분연번'],
-            	ref : 'REGULAR_BILL_SEQ', 
+            	ref : 'RGSCHDL_DCLR_SEQ', 
             	width : '80px',
             	style : 'text-align:right',
             	type : 'output'
             },
             {
             	caption : ['수정여부'],
-            	ref : 'MODIFIED_YN', 
+            	ref : 'MDFCN_YN', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'checkbox',
@@ -1521,7 +1524,7 @@
             },
             {
             	caption : ['매입자납부'],
-            	ref : 'CS_PAY_VAT_FLAG', 
+            	ref : 'PRCHSPT_PAY_VAT_FLAG', 
             	width : '80px',
             	style : 'text-align:center',
             	type : 'checkbox',
@@ -1534,7 +1537,7 @@
             },
             {
             	caption : ['감가상각자산건수'],
-            	ref : 'ASSET_VAT_COUNT', 
+            	ref : 'DPRC_AST_NOCS', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1576,7 +1579,7 @@
             },
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -1612,7 +1615,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -1630,14 +1633,14 @@
             },
             {
             	caption : ['회계전표번호'],
-            	ref : 'DOC_NUM', 
+            	ref : 'SLIP_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -1660,7 +1663,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -1678,21 +1681,21 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -1702,14 +1705,14 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -1722,14 +1725,14 @@
             },
             {
             	caption : ['작성자'],
-            	ref : 'INSERT_USERNAME', 
+            	ref : 'WRT_USER_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['계정과목'],
-            	ref : 'ACCOUNT_CODE', 
+            	ref : 'ACNTL_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
@@ -1762,7 +1765,7 @@
             },
             {
             	caption : ['매수'],
-            	ref : 'BILL_COUNT', 
+            	ref : 'TXIV_CNT', 
             	datatype: 'number',
             	width : '60px',
             	style : 'text-align:right',
@@ -1775,14 +1778,14 @@
             },
             {
             	caption : ['종사업장번호'],
-            	ref : 'SUB_REG_NO', 
+            	ref : 'SBSD_BPLC_BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1794,7 +1797,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1806,7 +1809,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1818,7 +1821,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1830,7 +1833,7 @@
             },
             {
             	caption : ['내국신용장구분'],
-            	ref : 'LOCAL_CREDIT_TYPE', 
+            	ref : 'LCL_LC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1842,7 +1845,7 @@
             },
             {
             	caption : ['영세율첨부서류'],
-            	ref : 'ZERO_REPORT_YN', 
+            	ref : 'ZRT_DCMNT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1854,21 +1857,21 @@
             },
             {
             	caption : ['서류명'],
-            	ref : 'DOCUMENT_NAME', 
+            	ref : 'DCNMT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['발급자'],
-            	ref : 'ISSUE_NAME', 
+            	ref : 'ISSU_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['발급일자'], 
-            	ref : 'DOCUMENT_ISSUE_DATE', 
+            	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	type : 'inputdate',
@@ -1885,14 +1888,14 @@
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['선적일자'], 
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	type : 'inputdate',
@@ -1909,7 +1912,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -1921,7 +1924,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1933,7 +1936,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1945,7 +1948,7 @@
             },
             {
             	caption : ['당기제출 원화'],
-            	ref : 'EXPORT_AMT_KRW', 
+            	ref : 'EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1957,7 +1960,7 @@
             },
             {
             	caption : ['당기신고 외화'],
-            	ref : 'VAT_EXPORT_AMT', 
+            	ref : 'VAT_THTM_EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1969,7 +1972,7 @@
             },
             {
             	caption : ['당기신고 원화'],
-            	ref : 'VAT_EXPORT_AMT_KRW', 
+            	ref : 'VAT_THTM_EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1981,7 +1984,7 @@
             },
             {
             	caption : ['수출외화 금액'],
-            	ref : 'FOREIGN_AMT', 
+            	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -1993,7 +1996,7 @@
             },
             {
             	caption : ['수출원화 금액'],
-            	ref : 'WON_AMT', 
+            	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2003,10 +2006,10 @@
 				},
                 format : {type:'number', rule:'#,##0'}
             },
-
+ 
             {
             	caption : ['서류번호'],
-            	ref : 'DOCUMENT_NO', 
+            	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2027,7 +2030,7 @@
             },
             {
             	caption : ['영세율적용구분'],
-            	ref : 'ZERO_TYPE', 
+            	ref : 'ZRT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2039,7 +2042,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2050,7 +2053,7 @@
             },
             {
             	caption : ['매입자납부'],               
-            	ref : 'CS_PAY_VAT_FLAG',
+            	ref : 'PRCHSPT_PAY_VAT_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2094,7 +2097,7 @@
             },
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2129,7 +2132,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	type : 'inputdate',
@@ -2146,14 +2149,14 @@
             },
             {
             	caption : ['회계전표번호'],
-            	ref : 'DOC_NUM', 
+            	ref : 'SLIP_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2176,7 +2179,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -2194,21 +2197,21 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -2218,14 +2221,14 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -2238,14 +2241,14 @@
             },
             {
             	caption : ['작성자'],
-            	ref : 'INSERT_USERNAME', 
+            	ref : 'WRT_USER_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['계정과목'],
-            	ref : 'ACCOUNT_CODE', 
+            	ref : 'ACNTL_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2278,7 +2281,7 @@
             },
             {
             	caption : ['매수'],
-            	ref : 'BILL_COUNT', 
+            	ref : 'TXIV_CNT', 
             	datatype: 'number',
             	width : '60px',
             	style : 'text-align:right',
@@ -2291,14 +2294,14 @@
             },
             {
             	caption : ['종사업장번호'],
-            	ref : 'SUB_REG_NO', 
+            	ref : 'SBSD_BPLC_BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2310,7 +2313,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2322,7 +2325,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2334,7 +2337,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2346,7 +2349,7 @@
             },
             {
             	caption : ['내국신용장구분'],
-            	ref : 'LOCAL_CREDIT_TYPE', 
+            	ref : 'LCL_LC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2358,7 +2361,7 @@
             },
             {
             	caption : ['영세율첨부서류'],
-            	ref : 'ZERO_REPORT_YN', 
+            	ref : 'ZRT_DCMNT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2368,24 +2371,24 @@
                     value : 'value'
                 },
             },
-
+ 
             {
             	caption : ['서류명'],
-            	ref : 'DOCUMENT_NAME', 
+            	ref : 'DCNMT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['발급자'],
-            	ref : 'ISSUE_NAME', 
+            	ref : 'ISSU_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['발급일자'], 
-            	ref : 'DOCUMENT_ISSUE_DATE', 
+            	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	type : 'inputdate',
@@ -2402,14 +2405,14 @@
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['선적일자'], 
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	type : 'inputdate',
@@ -2426,7 +2429,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2436,10 +2439,10 @@
                     value : 'value'
                 },
             },
-
+ 
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2451,7 +2454,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2463,7 +2466,7 @@
             },
             {
             	caption : ['당기제출 원화'],
-            	ref : 'EXPORT_AMT_KRW', 
+            	ref : 'EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2475,7 +2478,7 @@
             },
             {
             	caption : ['당기신고 외화'],
-            	ref : 'VAT_EXPORT_AMT', 
+            	ref : 'VAT_THTM_EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2487,7 +2490,7 @@
             },
             {
             	caption : ['당기신고 원화'],
-            	ref : 'VAT_EXPORT_AMT_KRW', 
+            	ref : 'VAT_THTM_EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2499,7 +2502,7 @@
             },
             {
             	caption : ['수출외화 금액'],
-            	ref : 'FOREIGN_AMT', 
+            	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2511,7 +2514,7 @@
             },
             {
             	caption : ['수출원화 금액'],
-            	ref : 'WON_AMT', 
+            	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -2521,10 +2524,10 @@
 				},
                 format : {type:'number', rule:'#,##0'}
             },
-
+ 
             {
             	caption : ['서류번호'],
-            	ref : 'DOCUMENT_NO', 
+            	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2545,7 +2548,7 @@
             },
             {
             	caption : ['영세율적용구분'],
-            	ref : 'ZERO_TYPE', 
+            	ref : 'ZRT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2557,7 +2560,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2568,7 +2571,7 @@
             },
             {
             	caption : ['매입자납부'],               
-            	ref : 'CS_PAY_VAT_FLAG',
+            	ref : 'PRCHSPT_PAY_VAT_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2598,7 +2601,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2622,7 +2625,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -2640,7 +2643,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2654,7 +2657,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -2672,7 +2675,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2680,7 +2683,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2688,7 +2691,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -2699,7 +2702,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2707,7 +2710,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -2735,7 +2738,7 @@
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2748,7 +2751,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2760,7 +2763,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2772,7 +2775,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -2798,7 +2801,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2809,7 +2812,7 @@
             },
             {
             	caption : ['매입자납부'],               
-            	ref : 'CS_PAY_VAT_FLAG',
+            	ref : 'PRCHSPT_PAY_VAT_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2838,7 +2841,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -2862,7 +2865,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -2880,7 +2883,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -2894,7 +2897,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -2912,7 +2915,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2920,7 +2923,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2928,7 +2931,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -2939,7 +2942,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2947,7 +2950,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -2975,7 +2978,7 @@
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -2988,7 +2991,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3000,7 +3003,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3012,7 +3015,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3038,7 +3041,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3049,7 +3052,7 @@
             },
             {
             	caption : ['매입자납부'],               
-            	ref : 'CS_PAY_VAT_FLAG',
+            	ref : 'PRCHSPT_PAY_VAT_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3079,7 +3082,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3103,7 +3106,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3121,7 +3124,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3139,7 +3142,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3147,7 +3150,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3155,7 +3158,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -3165,7 +3168,7 @@
             },
             {
             	caption : ['사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3173,7 +3176,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -3185,7 +3188,7 @@
             },
             {
             	caption : ['당기제출 원화'],
-            	ref : 'EXPORT_AMT_KRW', 
+            	ref : 'EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -3197,7 +3200,7 @@
             },
             {
             	caption : ['당기신고 외화'],
-            	ref : 'VAT_EXPORT_AMT', 
+            	ref : 'VAT_THTM_EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -3209,7 +3212,7 @@
             },
             {
             	caption : ['당기신고 원화'],
-            	ref : 'VAT_EXPORT_AMT_KRW', 
+            	ref : 'VAT_THTM_EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -3221,7 +3224,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3233,7 +3236,7 @@
             },
             {
             	caption : ['영세율첨부서류'],
-            	ref : 'ZERO_REPORT_YN', 
+            	ref : 'ZRT_DCMNT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3245,7 +3248,7 @@
             },            
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -3258,7 +3261,7 @@
             },
             {
             	caption : ['서류명'],
-            	ref : 'DOCUMENT_NAME', 
+            	ref : 'DCNMT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3266,7 +3269,7 @@
             },
             {
             	caption : ['발급자'],
-            	ref : 'ISSUE_NAME', 
+            	ref : 'ISSU_NM', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3274,7 +3277,7 @@
             },
             {
             	caption : ['발급일자'], 
-            	ref : 'DOCUMENT_ISSUE_DATE', 
+            	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3292,7 +3295,7 @@
             },
             {
             	caption : ['선적일자'], 
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3310,7 +3313,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3323,7 +3326,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3350,7 +3353,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3361,7 +3364,7 @@
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3369,7 +3372,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -3401,7 +3404,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3425,7 +3428,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -3443,14 +3446,14 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3468,21 +3471,21 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -3492,14 +3495,14 @@
             },
             {
             	caption : ['사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -3526,7 +3529,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3551,7 +3554,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3581,7 +3584,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3605,7 +3608,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3623,14 +3626,14 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3648,21 +3651,21 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -3672,14 +3675,14 @@
             },
             {
             	caption : ['사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3687,7 +3690,7 @@
             },
             {
             	caption : ['선적일자'], 
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3705,7 +3708,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3716,10 +3719,10 @@
                     value : 'value'
                 },
             },
-
+ 
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3732,7 +3735,7 @@
             },
             {
             	caption : ['수출외화 금액'],
-            	ref : 'FOREIGN_AMT', 
+            	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3745,7 +3748,7 @@
             },
             {
             	caption : ['수출원화 금액'],
-            	ref : 'WON_AMT', 
+            	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3758,7 +3761,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3770,14 +3773,14 @@
             },
             {
             	caption : ['서류번호'],
-            	ref : 'DOCUMENT_NO', 
+            	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -3804,7 +3807,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3834,7 +3837,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -3858,7 +3861,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3876,14 +3879,14 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3901,7 +3904,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3909,7 +3912,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3917,7 +3920,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -3928,7 +3931,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3936,7 +3939,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -3950,7 +3953,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3962,7 +3965,7 @@
             },
             {
             	caption : ['내국신용장구분'],
-            	ref : 'LOCAL_CREDIT_TYPE', 
+            	ref : 'LCL_LC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -3974,7 +3977,7 @@
             },
             {
             	caption : ['발급일자'], 
-            	ref : 'DOCUMENT_ISSUE_DATE', 
+            	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -3992,7 +3995,7 @@
             },
             {
             	caption : ['서류번호'],
-            	ref : 'DOCUMENT_NO', 
+            	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;', 
@@ -4014,7 +4017,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4025,7 +4028,7 @@
             },
             {
             	caption : ['선적일자'], 
-            	ref : 'SHIPPING_DATE', 
+            	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	type : 'inputdate',
@@ -4042,7 +4045,7 @@
             },
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -4054,7 +4057,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -4066,7 +4069,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -4078,7 +4081,7 @@
             },
             {
             	caption : ['당기신고 외화'],
-            	ref : 'VAT_EXPORT_AMT', 
+            	ref : 'VAT_THTM_EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -4090,7 +4093,7 @@
             },
             {
             	caption : ['수출외화 금액'],
-            	ref : 'FOREIGN_AMT', 
+            	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -4102,7 +4105,7 @@
             },
             {
             	caption : ['수출원화 금액'],
-            	ref : 'WON_AMT', 
+            	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -4117,7 +4120,7 @@
         grdArCredit = _SBGrid.create(SBGridProperties);
     }
     
-
+ 
     /** AP_TAX_BILL **/
 	/**
      * @name fn_createGridApTaxBill
@@ -4134,7 +4137,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4158,7 +4161,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4176,7 +4179,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -4190,7 +4193,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4208,7 +4211,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4216,7 +4219,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4224,7 +4227,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -4235,7 +4238,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4243,7 +4246,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4271,7 +4274,7 @@
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4284,7 +4287,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -4296,7 +4299,7 @@
             },
             {
             	caption : ['중복발행구분'],
-            	ref : 'DUP_ISSUE_BILL_TYPE', 
+            	ref : 'DPCN_ISSU_BILL_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -4322,7 +4325,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4333,7 +4336,7 @@
             },
             {
             	caption : ['매입자납부'],               
-            	ref : 'CS_PAY_VAT_FLAG',
+            	ref : 'PRCHSPT_PAY_VAT_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4363,7 +4366,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4387,7 +4390,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4405,7 +4408,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -4419,7 +4422,7 @@
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4437,7 +4440,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4445,7 +4448,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4453,7 +4456,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -4464,7 +4467,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4472,7 +4475,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4486,7 +4489,7 @@
             },
             {
             	caption : ['전자발행구분'],
-            	ref : 'ETAX_TYPE', 
+            	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4499,7 +4502,7 @@
             },
             {
             	caption : ['11일외전송구분'],
-            	ref : 'AFTER_DUE_DATE_YN', 
+            	ref : 'AFTR_DUDT_SEND_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -4525,7 +4528,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4556,7 +4559,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4580,7 +4583,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4598,14 +4601,14 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4623,7 +4626,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4631,7 +4634,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4639,7 +4642,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -4650,7 +4653,7 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4658,7 +4661,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4672,7 +4675,7 @@
             },
             {
             	caption : ['의제매입구분'],
-            	ref : 'DEEMED_INPUT_TYPE', 
+            	ref : 'DMINPT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4685,7 +4688,7 @@
             },
             {
             	caption : ['의제품명'],
-            	ref : 'GOODS_NAME', 
+            	ref : 'GDS_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -4693,7 +4696,7 @@
             },
             {
             	caption : ['의제수량'],
-            	ref : 'PURCHASE_QUANTITY', 
+            	ref : 'PRCHS_QTY', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4720,7 +4723,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4750,7 +4753,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4774,7 +4777,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4792,14 +4795,14 @@
             },
             {
             	caption : ['회계전표번호'],
-            	ref : 'DOC_NUM', 
+            	ref : 'SLIP_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -4813,7 +4816,7 @@
             }, 
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4831,7 +4834,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4839,7 +4842,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4847,7 +4850,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -4858,14 +4861,14 @@
             },
             {
             	caption : ['사업자(주민)번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4893,7 +4896,7 @@
             },
             {
             	caption : ['감가상각자산건수'],
-            	ref : 'ASSET_VAT_COUNT', 
+            	ref : 'DPRC_AST_NOCS', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -4907,7 +4910,7 @@
             },
             {
             	caption : ['감가상각자산유형'],
-            	ref : 'VAT_ASSET_TYPE', 
+            	ref : 'VAT_AST_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -4934,7 +4937,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4965,7 +4968,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -4989,7 +4992,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5007,7 +5010,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -5021,7 +5024,7 @@
             }, 
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5039,7 +5042,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5047,7 +5050,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5055,7 +5058,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -5066,14 +5069,14 @@
             },
             {
             	caption : ['사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -5101,7 +5104,7 @@
             },
             {
             	caption : ['불공제사유유형'],
-            	ref : 'VAT_NOT_DED_TYPE', 
+            	ref : 'VAT_NDDC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5128,7 +5131,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -5160,7 +5163,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -5184,7 +5187,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5202,7 +5205,7 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
@@ -5216,7 +5219,7 @@
             }, 
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5234,7 +5237,7 @@
             },
             {
             	caption : ['카드용도구분'],
-            	ref : 'CARD_USE_TYPE', 
+            	ref : 'CARD_USG_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -5246,21 +5249,21 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'output'
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -5270,28 +5273,28 @@
             },
             {
             	caption : ['카드번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '120px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['가맹점명'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['가맹점사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '120px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -5332,7 +5335,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -5344,7 +5347,7 @@
         ];
         grdApCard = _SBGrid.create(SBGridProperties);
     }
-
+ 
     
     /** 영세율매출명세서 AR_ZERO_REPORT **/
 	/**
@@ -5362,7 +5365,7 @@
         SBGridProperties.columns = [
             {
             	caption : ['확정'],               
-            	ref : 'CONFIRM_FLAG',
+            	ref : 'CFMTN_FLAG',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -5386,7 +5389,7 @@
             },
             {
             	caption : ['거래일자'], 
-            	ref : 'BILL_DATE', 
+            	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',	
@@ -5404,14 +5407,14 @@
             },
             {
             	caption : ['전표명'],
-            	ref : 'DOC_NAME', 
+            	ref : 'SLIP_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['신고기준일자'], 
-            	ref : 'STANDARD_DATE', 
+            	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5429,7 +5432,7 @@
             },
             {
             	caption : ['영세율구분'],
-            	ref : 'ZERO_TYPE', 
+            	ref : 'ZRT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -5441,7 +5444,7 @@
             },
             {
             	caption : ['거래처코드'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5449,7 +5452,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_NAME', 
+            	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
             	fixedstyle : 'background-color:#f1ffd9;',
@@ -5457,7 +5460,7 @@
             },
             {
             	caption : ['거래처명'],
-            	ref : 'CS_CODE', 
+            	ref : 'CNPT_CD', 
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
@@ -5468,15 +5471,15 @@
             },
             {
             	caption : ['사업자번호'],
-            	ref : 'BIZ_REGNO', 
+            	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
             	type : 'input'
             },
-
+ 
             {
             	caption : ['통화코드'],
-            	ref : 'CURRENCY_CODE', 
+            	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -5488,7 +5491,7 @@
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -5500,7 +5503,7 @@
             },
             {
             	caption : ['당기제출 외화'],
-            	ref : 'EXPORT_AMT', 
+            	ref : 'EXPRT_AMT', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -5512,7 +5515,7 @@
             },
             {
             	caption : ['당기제출 원화'],
-            	ref : 'EXPORT_AMT_KRW', 
+            	ref : 'EXPRT_AMT_KRW', 
             	width : '80px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -5524,7 +5527,7 @@
             },
             {
             	caption : ['수입금액제외구분'],
-            	ref : 'EXCLUDE_REV_AMT_YN', 
+            	ref : 'INCM_EXCL_AMT_YN', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -5536,7 +5539,7 @@
             },
             {
             	caption : ['공급가액'],
-            	ref : 'SUPPLY_AMT', 
+            	ref : 'SPLY_AMT', 
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
@@ -5563,7 +5566,7 @@
             },
             {
             	caption : ['수정여부'],               
-            	ref : 'MODIFIED_YN',
+            	ref : 'MDFCN_YN',
             	type : 'checkbox',
             	width : '40px',    
             	style : 'text-align:center',
@@ -5574,7 +5577,7 @@
             },
             {
             	caption : ['내국신용장구분'],
-            	ref : 'LOCAL_CREDIT_TYPE', 
+            	ref : 'LCL_LC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
@@ -5586,14 +5589,14 @@
             },
             {
             	caption : ['수출신고번호'],
-            	ref : 'EXPORT_LICENSE_NO', 
+            	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['환율'],
-            	ref : 'EXCHANGE_RATE', 
+            	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
             	datatype: 'number',
@@ -5611,12 +5614,12 @@
     
     
     /** grid create  --E **/
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
     /** tab Switch **/
     function fn_switchTab(selectId, selectJson){
         const li = document.querySelectorAll(".sbux-tabs-item");
@@ -5634,15 +5637,15 @@
     function fn_switchRows(){
         const ul = document.getElementById("tabTopJson_ul");
         const items = Array.from(ul.children);
-
+ 
         const firstRow = items.slice(0, 8);
         const secondRow = items.slice(8, 16);
-
+ 
         ul.innerHTML = "";
         secondRow.forEach(item => ul.appendChild(item));
         firstRow.forEach(item => ul.appendChild(item));
     }
-
+ 
     /**
      * @name fn_addRow
      * @description 그리드 행추가
@@ -5656,20 +5659,20 @@
     	}
     	
         const rowIndex = gridObj.getRow();
-
+ 
         if (rowIndex < 0){ //데이터가 없고 행선택이 없을경우.
         	gridObj.addRow(true);
         } else {
         	gridObj.insertRow(rowIndex);
         }
     }
-
+ 
     /**
      * @name fn_delRow
      * @description 그리드 행삭제
      */
     const fn_delRow = async function() {
-
+ 
 		const gridObj = fn_getCurrentGrid();
     	
     	if (gfn_isEmpty(gridObj)) {
@@ -5780,8 +5783,8 @@
     	const rowData = _gridObj.getRowData(_nRow);
     	
     	fn_compopupCsCode(
-    			rowData.CS_CODE, 
-    			rowData.CS_NAME,
+    			rowData.CNPT_CD, 
+    			rowData.CNPT_NM,
     			function(_code, _name) {
     				
     				console.log("_code", _code);
@@ -5790,8 +5793,8 @@
     				
     				let data = _gridObj.getRowData(_nRow, false);
     				console.log("data", data);
-    				data.CS_CODE = _code;
-    				data.CS_NAME = _name;
+    				data.CNPT_CD = _code;
+    				data.CNPT_NM = _name;
     				
     				let rowSts = _gridObj.getRowStatus(_nRow);
     				
@@ -5834,14 +5837,14 @@
      * @description 거래처 팝업
      */
     const fn_compopupCsCode = function(_code, _name, _callbackFnc) {
-
+ 
         var searchCode 		= "";
         var searchName 		= gfn_nvl(_name);
-        var replaceText0 	= "_CS_CODE_";
-        var replaceText1 	= "_CS_NAME_";
-        var replaceText2 	= "_BIZ_REGNO_";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= "_CNPT_NM_";
+        var replaceText2 	= "_BRNO_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
-
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -5850,20 +5853,20 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["거래처코드", "거래처명", "사업자번호" ]
-            ,searchInputFields		: ["CS_CODE", "CS_NAME", "BIZ_REGNO"]
+            ,searchInputFields		: ["CNPT_CD", "CNPT_NM", "BRNO"]
             ,searchInputValues		: [searchCode, searchName, ""]
             ,height					: '400px'
             ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소", "전화", "팩스", "지급기준", "지급기준명", "지급방법", "통화"]
-            ,tableColumnNames		: ["CS_CODE" , "CS_NAME", "BIZ_REGNO", "CHIEF_NAME", "BIZ_CATEGORY", "BIZ_ITEMS", "ADDRESS", "TEL", "FAX", "PAY_TERM_CODE", "PAY_TERM_NAME", "PAY_METHOD", "CURRENCY_CODE"]
+            ,tableColumnNames		: ["CNPT_CD" , "CNPT_NM", "BRNO", "CEO_NM", "BZSTAT", "TPBIZ", "ADDR", "TELNO", "FX_NO", "PAY_TERM_CD", "PAY_TERM_NM", "PAY_MTHD", "CRN_CD"]
             ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data) {
 				if (typeof _callbackFnc === 'function') {
-					_callbackFnc(data.CS_CODE, data.CS_NAME);
+					_callbackFnc(data.CNPT_CD, data.CNPT_NM);
 				}
 			}
         });
     }
-
+ 
     
     
     

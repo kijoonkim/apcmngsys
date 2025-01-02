@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: Com3710.jsp
+ * @Class Name 		: com3710.jsp
  * @Description 	: 프로젝트 정보
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.06.12
@@ -829,26 +829,26 @@
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
 		    				LEVEL				: item.LVL,
-		    				KEYID				: item.KEYID,
-		    				PARENTKEYID			: item.PARENTKEYID,
-		    				PROJECT_CODE		: item.PROJECT_CODE,
-		    				PROJECT_NAME		: item.PROJECT_NAME,
-		    				PROJECT_TYPE		: item.PROJECT_TYPE,
-		    				PROJECT_CATEGORY	: item.PROJECT_CATEGORY,
-		    				PROJECT_NAME_CHN	: item.PROJECT_NAME_CHN,
-		    				FI_ORG_CODE			: item.FI_ORG_CODE,
-		    				PARENT_YN			: item.PARENT_YN,
-		    				PARENT_ACC			: item.PARENT_ACC,
-		    				CODE_SEG01			: item.CODE_SEG01,
-		    				CODE_SEG02			: item.CODE_SEG02,
-		    				CODE_SEG03			: item.CODE_SEG03,
-		    				CODE_SEG04			: item.CODE_SEG04,
-		    				CODE_SEG05			: item.CODE_SEG05,
-		    				CODE_SEG06			: item.CODE_SEG06,
-		    				CODE_SEG07			: item.CODE_SEG07,
-		    				CODE_SEG08			: item.CODE_SEG08,
-		    				CODE_SEG09			: item.CODE_SEG09,
-		    				CODE_SEG10			: item.CODE_SEG10,
+		    				KEYID				: item.KEY_ID,
+		    				PARENTKEYID			: item.UP_KEY_ID,
+		    				PROJECT_CODE		: item.PJT_CD,
+		    				PROJECT_NAME		: item.PJT_NM,
+		    				PROJECT_TYPE		: item.PJT_TYPE,
+		    				PROJECT_CATEGORY	: item.PJT_CTRGY,
+		    				PROJECT_NAME_CHN	: item.PJT_NM_CHN,
+		    				FI_ORG_CODE			: item.ACNTG_OGNZ_CD,
+		    				PARENT_YN			: item.PRNT_YN,
+		    				PARENT_ACC			: item.PRNT_ACNT,
+		    				CODE_SEG01			: item.CD_SGMT01,
+		    				CODE_SEG02			: item.CD_SGMT02,
+		    				CODE_SEG03			: item.CD_SGMT03,
+		    				CODE_SEG04			: item.CD_SGMT04,
+		    				CODE_SEG05			: item.CD_SGMT05,
+		    				CODE_SEG06			: item.CD_SGMT06,
+		    				CODE_SEG07			: item.CD_SGMT07,
+		    				CODE_SEG08			: item.CD_SGMT08,
+		    				CODE_SEG09			: item.CD_SGMT09,
+		    				CODE_SEG10			: item.CD_SGMT10,
 		    		}
 		    		jsonMasterTreeList.push(msg);
 		    		totalRecordCount ++;
@@ -912,45 +912,45 @@
 		    				$('#codeSegTh'+num).text(data.cv_1[i].GROUP_NAME);
 		    				
 							if( i == '0'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode0, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '1'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode1, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '2'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode2, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '3'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode3, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '4'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode4, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '5'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode5, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '6'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode6, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '7'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode7, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '8'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode8, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							}else if( i == '9'){
-			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[i].BIZCOMPONENT_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', '');
+			     				gfnma_setComSelect(['masterTreeGrid'], jsonGroupCode9, data.cv_1[i].BIZ_CMPON_ID, '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '');
 							};
 
 							let rst = await Promise.all([
 								//채번관리 탭 항목 드랍다운 추가
 								gfnma_multiSelectInit({
-									target			: ['#'+data.cv_1[i].SEGMENT_FIELD_NAME.toUpperCase()]
+									target			: ['#'+data.cv_1[i].SGMT_ARTCL_NM.toUpperCase()]
 									,compCode		: gv_ma_selectedCorpCd
 									,clientCode		: gv_ma_selectedClntCd
-									,bizcompId		: data.cv_1[i].BIZCOMPONENT_ID
+									,bizcompId		: data.cv_1[i].BIZ_CMPON_ID
 									,whereClause	: ''
 									,formId			: p_formId
 									,menuId			: p_menuId
 									,selectValue	: ''
 									,dropType		: 'down' 	// up, down
 									,dropAlign		: 'left' 	// left, right
-									,colValue		: 'SUB_CODE'
-									,colLabel		: 'CODE_NAME'
+									,colValue		: 'SBSD_CD'
+									,colLabel		: 'CD_NM'
 									,columns		:[
-										{caption: "코드",		ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-										{caption: "계정특성", 	ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+										{caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+										{caption: "계정특성", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 									]
 								})
 							]);
@@ -986,11 +986,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'FI_ORG_CODE'
-				,colLabel		: 'FI_ORG_NAME'
+				,colValue		: 'ACNTG_OGNZ_CD'
+				,colLabel		: 'ACNTG_OGNZ_NM'
 				,columns		:[
-		            {caption: "코드",	ref: 'FI_ORG_CODE', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "명", 		ref: 'FI_ORG_NAME',    		width:'150px',  	style:'text-align:left'}
+		            {caption: "코드",	ref: 'ACNTG_OGNZ_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "명", 	ref: 'ACNTG_OGNZ_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
 			//프로젝트유형
@@ -1005,16 +1005,16 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'right' 	// left, right
-				,colValue		: 'SUB_CODE'
-				,colLabel		: 'CODE_NAME'
+				,colValue		: 'SBSD_CD'
+				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",				ref: 'SUB_CODE', 			width:'100px',  	style:'text-align:left'},
-		            {caption: "코드명", 				ref: 'CODE_NAME',    		width:'100px',  	style:'text-align:left'},
-		            {caption: "발생계정", 			ref: 'ACCOUNT_CODE',    	width:'100px',  	style:'text-align:left'},
-		            {caption: "발생계정명", 			ref: 'ACCOUNT_NAME',    	width:'100px',  	style:'text-align:left'},
-		            {caption: "건설중인자산계정", 		ref: 'CIP_ACCOUNT_CODE',    width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",				ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드명", 				ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+		            {caption: "발생계정", 			ref: 'ACNTL_CD',    	width:'100px',  	style:'text-align:left'},
+		            {caption: "발생계정명", 			ref: 'ACNT_NM',    	width:'100px',  	style:'text-align:left'},
+		            {caption: "건설중인자산계정", 		ref: 'CIP_AST_ACNT_CD',    width:'100px',  	style:'text-align:left'},
 		            {caption: "건설중인자산계정명", 	ref: 'CIP_ACCOUNT_NAME',    width:'100px',  	style:'text-align:left'},
-		            {caption: "자산계정", 			ref: 'ASSET_ACCOUNT_CODE',  width:'100px',  	style:'text-align:left'},
+		            {caption: "자산계정", 			ref: 'ASST_ACNT_CD',  width:'100px',  	style:'text-align:left'},
 		            {caption: "자산계정명", 			ref: 'ASSET_ACCOUNT_NAME',  width:'100px',  	style:'text-align:left'}
 				]
 			}),
@@ -1312,47 +1312,47 @@
 	    	if (_.isEqual("S", subData.resultStatus)) {
 	    		let obj = subData.cv_2[0];
 	    		// 기본정보
-		   		SBUxMethod.set("PROJECT_TYPE", 		    	obj.PROJECT_TYPE);
-		   		SBUxMethod.set("PROJECT_CODE", 			    obj.PROJECT_CODE);
-		   		SBUxMethod.set("PROJECT_ABBR", 				obj.PROJECT_ABBR);
-		   		SBUxMethod.set("PROJECT_NAME", 		   		obj.PROJECT_NAME);
-		   		SBUxMethod.set("PROJECT_NAME_CHN", 			obj.PROJECT_NAME_CHN);
-		   		SBUxMethod.set("PROJECT_CATEGORY", 			obj.PROJECT_CATEGORY);
-		   		SBUxMethod.set("PARENT_YN", 			    obj.PARENT_YN);
-		   		SBUxMethod.set("PARENT_CODE", 			    obj.PARENT_CODE);
+		   		SBUxMethod.set("PROJECT_TYPE", 		    	obj.PJT_TYPE);
+		   		SBUxMethod.set("PROJECT_CODE", 			    obj.PJT_CD);
+		   		SBUxMethod.set("PROJECT_ABBR", 				obj.PJT_ABBR);
+		   		SBUxMethod.set("PROJECT_NAME", 		   		obj.PJT_NM);
+		   		SBUxMethod.set("PROJECT_NAME_CHN", 			obj.PJT_NM_CHN);
+		   		SBUxMethod.set("PROJECT_CATEGORY", 			obj.PJT_CTRGY);
+		   		SBUxMethod.set("PARENT_YN", 			    obj.PRNT_YN);
+		   		SBUxMethod.set("PARENT_CODE", 			    obj.PRNT_CD);
 		   		SBUxMethod.set("PARENT_NAME", 			    obj.PARENT_NAME);
-		   		SBUxMethod.set("DEPT_CODE", 		    	obj.DEPT_CODE);
-		   		SBUxMethod.set("DEPT_NAME", 		    	obj.DEPT_NAME);
-		   		SBUxMethod.set("COST_CENTER_CODE", 		    obj.COST_CENTER_CODE);
-		   		SBUxMethod.set("COST_CENTER_NAME", 		    obj.COST_CENTER_NAME);
-		   		SBUxMethod.set("ACCOUNT_CODE", 				obj.ACCOUNT_CODE);
-		   		SBUxMethod.set("ACCOUNT_NAME", 	   			obj.ACCOUNT_NAME);
+		   		SBUxMethod.set("DEPT_CODE", 		    	obj.DEPT_CD);
+		   		SBUxMethod.set("DEPT_NAME", 		    	obj.DEPT_NM);
+		   		SBUxMethod.set("COST_CENTER_CODE", 		    obj.CSTCD_CD);
+		   		SBUxMethod.set("COST_CENTER_NAME", 		    obj.CSTCD_NM);
+		   		SBUxMethod.set("ACCOUNT_CODE", 				obj.ACNTL_CD);
+		   		SBUxMethod.set("ACCOUNT_NAME", 	   			obj.ACNT_NM);
 		   		SBUxMethod.set("USE_YN", 	    			obj.USE_YN);
-		   		SBUxMethod.set("DOC_INPUT_YN", 		    	obj.DOC_INPUT_YN);
-		   		SBUxMethod.set("BUDGET_YN", 		    	obj.BUDGET_YN);
-		   		SBUxMethod.set("ACCT_LEVEL_YN", 			obj.ACCT_LEVEL_YN);
+		   		SBUxMethod.set("DOC_INPUT_YN", 		    	obj.SLIP_INPT_YN);
+		   		SBUxMethod.set("BUDGET_YN", 		    	obj.BGT_FRMT_YN);
+		   		SBUxMethod.set("ACCT_LEVEL_YN", 			obj.ACNT_LVL_YN);
 		   		SBUxMethod.set("SORT_SEQ", 	    			obj.SORT_SEQ);
-		   		SBUxMethod.set("PROJECT_NAME_CHN", 			obj.PROJECT_NAME_CHN);
-		        gfnma_multiSelectSet('#FI_ORG_CODE', 		'FI_ORG_CODE', 'FI_ORG_NAME', obj.FI_ORG_CODE);
-		        gfnma_multiSelectSet('#PROJECT_TYPE', 		'SUB_CODE', 'CODE_NAME', obj.PROJECT_TYPE);
+		   		SBUxMethod.set("PROJECT_NAME_CHN", 			obj.PJT_NM_CHN);
+		        gfnma_multiSelectSet('#FI_ORG_CODE', 		'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', obj.ACNTG_OGNZ_CD);
+		        gfnma_multiSelectSet('#PROJECT_TYPE', 		'SBSD_CD', 'CD_NM', obj.PJT_TYPE);
 	
 		        // 회계관리
-		        gfnma_multiSelectSet('#CODE_SEG01', 		'SUB_CODE', 'CODE_NAME', obj.CODE_SEG01);
-		        gfnma_multiSelectSet('#CODE_SEG02', 	    'SUB_CODE', 'CODE_NAME', obj.CODE_SEG02);
-		        gfnma_multiSelectSet('#CODE_SEG03', 	    'SUB_CODE', 'CODE_NAME', obj.CODE_SEG03);
-		        gfnma_multiSelectSet('#CODE_SEG04', 	    'SUB_CODE', 'CODE_NAME', obj.CODE_SEG04);
+		        gfnma_multiSelectSet('#CODE_SEG01', 		'SBSD_CD', 'CD_NM', obj.CD_SGMT01);
+		        gfnma_multiSelectSet('#CODE_SEG02', 	    'SBSD_CD', 'CD_NM', obj.CD_SGMT02);
+		        gfnma_multiSelectSet('#CODE_SEG03', 	    'SBSD_CD', 'CD_NM', obj.CD_SGMT03);
+		        gfnma_multiSelectSet('#CODE_SEG04', 	    'SBSD_CD', 'CD_NM', obj.CD_SGMT04);
 		        
 		        //관리항목
-		   		SBUxMethod.set("ATTR1", 		    		obj.ATTR1);
-		   		SBUxMethod.set("ATTR2", 		    		obj.ATTR2);
-		   		SBUxMethod.set("ATTR3", 		    		obj.ATTR3);
-		   		SBUxMethod.set("ATTR4", 			    	obj.ATTR4);
-		   		SBUxMethod.set("ATTR5", 				    obj.ATTR5);
-		   		SBUxMethod.set("ATTR6", 		    		obj.ATTR6);
-		   		SBUxMethod.set("ATTR7", 			    	obj.ATTR7);
-		   		SBUxMethod.set("ATTR8", 					obj.ATTR8);
-		   		SBUxMethod.set("ATTR9", 					obj.ATTR9);
-		   		SBUxMethod.set("ATTR10", 					obj.ATTR10);
+		   		SBUxMethod.set("ATTR1", 		    		obj.ATRB1);
+		   		SBUxMethod.set("ATTR2", 		    		obj.ATRB2);
+		   		SBUxMethod.set("ATTR3", 		    		obj.ATRB3);
+		   		SBUxMethod.set("ATTR4", 			    	obj.ATRB4);
+		   		SBUxMethod.set("ATTR5", 				    obj.ATRB5);
+		   		SBUxMethod.set("ATTR6", 		    		obj.ATRB6);
+		   		SBUxMethod.set("ATTR7", 			    	obj.ATRB7);
+		   		SBUxMethod.set("ATTR8", 					obj.ATRB8);
+		   		SBUxMethod.set("ATTR9", 					obj.ATRB9);
+		   		SBUxMethod.set("ATTR10", 					obj.ATRB10);
 		   		
     		} else {
     	  		alert(subData.resultMessage);
@@ -1374,9 +1374,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("PARENT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_NAME"));
-        var replaceText0 	= "_PARENT_CODE_";
-        var replaceText1 	= "_PARENT_NAME_";
-        var strWhereClause 	= "AND A.COMP_CODE  LIKE '%" + gv_ma_selectedCorpCd + "%' AND A.PROJECT_CODE  LIKE '%" + replaceText0 + "%' AND A.PROJECT_NAME  LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_PRNT_CD_";
+        var replaceText1 	= "_PRNT_NM_";
+        var strWhereClause 	= "AND A.CO_CD  LIKE '%" + gv_ma_selectedCorpCd + "%' AND A.PJT_CD  LIKE '%" + replaceText0 + "%' AND A.PJT_NM  LIKE '%" + replaceText1 + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '상위코드 조회');
     	compopup1({
@@ -1385,16 +1385,16 @@
     		,bizcompId				: 'P_PROJECT_PARENT'
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["계정코드", 		"계정명"]
-   			,searchInputFields		: ["PARENT_CODE", 	"PARENT_NAME"]
+   			,searchCaptions			: ["계정코드", 	"계정명"]
+   			,searchInputFields		: ["PRNT_CD", 	"PRNT_NM"]
    			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
-   			,tableHeader			: ["코드", 			"명", 			"년도", 		  "부서", 		"호기", 		  "용도"]
-   			,tableColumnNames		: ["PROJECT_CODE",	"PROJECT_NAME", "CODE_SEG01", "CODE_SEG02", "CODE_SEG03", "CODE_SEG04"]
-   			,tableColumnWidths		: ["80px", 			"480px", 		"80px"]
+   			,tableHeader			: ["코드", 		"명", 		"년도", 		  "부서", 		"호기", 		  "용도"]
+   			,tableColumnNames		: ["PJT_CD",	"PJT_NM", 	"CD_SGMT01", "CD_SGMT02", "CD_SGMT03", "CD_SGMT04"]
+   			,tableColumnWidths		: ["80px", 		"480px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('PARENT_CODE', data.PROJECT_CODE);
-				SBUxMethod.set('PARENT_NAME', data.PROJECT_NAME);
+				SBUxMethod.set('PARENT_CODE', data.PJT_CD);
+				SBUxMethod.set('PARENT_NAME', data.PJT_NM);
 			},
     	});
   	}
@@ -1416,17 +1416,17 @@
             ,popupType				: 'B'
        		,whereClause			: param
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchText1, 	searchText2,	""]
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
             ,width					: '500px'
             ,height					: '400px'
             ,tableHeader			: ["부서코드",		"부서명" 		]
-            ,tableColumnNames		: ["DEPT_CODE",		"DEPT_NAME"  	]
+            ,tableColumnNames		: ["DEPT_CD",		"DEPT_NM"  	]
             ,tableColumnWidths		: ["100px", 		"200px" 		]
             ,itemSelectEvent		: function (data){
-				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CODE);
-				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NAME);
+				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CD);
+				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NM);
             },
         });
   	}
@@ -1439,9 +1439,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
-        var replaceText0 	= "_COST_CENTER_CODE_";
-        var replaceText1 	= "_COST_CENTER_NAME_";
-        var strWhereClause 	= "AND A.COST_CENTER_CODE  LIKE '%" + replaceText0 + "%' AND A.COST_CENTER_NAME  LIKE '%" + replaceText1 + "%'"  + " AND A.COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'";
+        var replaceText0 	= "_CSTCD_CD_";
+        var replaceText1 	= "_CSTCD_NM_";
+        var strWhereClause 	= "AND A.CSTCD_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM  LIKE '%" + replaceText1 + "%'"  + " AND A.CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점 팝업');
     	compopup1({
@@ -1451,15 +1451,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 			"계정명"]
-   			,searchInputFields		: ["COST_CENTER_CODE", 	"COST_CENTER_NAME"]
+   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
    			,searchInputValues		: ["", 			""]
     		,height					: '400px'
    			,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
-   			,tableColumnNames		: ["COST_CENTER_CODE",	"COST_CENTER_NAME",	"DEPT_CODE",	"COST_CENTER_NAME",	"COST_CLASS",	"SITE_CODE",	"CREDIT_AREA"]
+   			,tableColumnNames		: ["CSTCD_CD",	"CSTCD_NM",	"DEPT_CD",	"CSTCD_NM",	"CST_CLSF",	"SITE_CD",	"CRDT_SECT"]
    			,tableColumnWidths		: ["100px", 			"150PX", 			"100px", 		"100px", 			"100px", 		"100px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('COST_CENTER_CODE', data.COST_CENTER_CODE);
-				SBUxMethod.set('COST_CENTER_NAME', data.COST_CENTER_NAME);
+				SBUxMethod.set('COST_CENTER_CODE', data.CSTCD_CD);
+				SBUxMethod.set('COST_CENTER_NAME', data.CSTCD_NM);
 			},
     	});
   	}
@@ -1472,9 +1472,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get(target + "_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get(target + "_NAME"));
-        var replaceText0 	= "_ACCOUNT_CODE_";
-        var replaceText1 	= "_ACCOUNT_NAME_";        
-        var strWhereClause 	= "AND A.ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND A.ACCOUNT_NAME LIKE '%" + replaceText1 + "%'" + " AND COMP_CODE LIKE '%" + gv_ma_selectedCorpCd + "%'";
+        var replaceText0 	= "_ACNTL_CD_";
+        var replaceText1 	= "_ACNT_NM_";        
+        var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM LIKE '%" + replaceText1 + "%'" + " AND CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 정보 팝업');
     	compopup1({
@@ -1484,15 +1484,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ACCOUNT_CODE", 	"ACCOUNT_NAME"]
+   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
    			,searchInputValues		: ['', 	'']
     		,height					: '400px'
    			,tableHeader			: ["코드", 			"계정명"]
-   			,tableColumnNames		: ["ACCOUNT_CODE",	"ACCOUNT_NAME"]
+   			,tableColumnNames		: ["ACNTL_CD",	"ACNT_NM"]
    			,tableColumnWidths		: ["80px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(target + "_CODE", 	data.ACCOUNT_CODE);
-				SBUxMethod.set(target + "_NAME",	data.ACCOUNT_NAME);
+				SBUxMethod.set(target + "_CODE", 	data.ACNTL_CD);
+				SBUxMethod.set(target + "_NAME",	data.ACNT_NM);
 			},
     	});
   	}

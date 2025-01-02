@@ -51,7 +51,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
 
-                param.put("procedure", 		"P_HRI1000_Q");
+                param.put("procedure", 		"SP_HRI1000_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -81,7 +81,7 @@ public class ApcMaHri1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRI1000_S");
+            param.put("procedure", 		"SP_HRI1000_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -110,7 +110,7 @@ public class ApcMaHri1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRI1000_S1");
+            param.put("procedure", 		"SP_HRI1000_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -140,7 +140,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
             for(String key : param.keySet()){
-                if(key.contains("P_HRI1000_S")) {
+                if(key.contains("SP_HRI1000_S")) {
                     if(param.get(key) instanceof List) {
                         List<HashMap<String,Object>> listData = (List<HashMap<String, Object>>) param.get(key);
                         if(listData.size() > 0) {
@@ -182,7 +182,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRI1000_S");
+            param.put("procedure", 		"SP_HRI1000_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -213,7 +213,7 @@ public class ApcMaHri1000Controller extends BaseController {
 
         try {
 
-            param.put("procedure", 		"P_HRI1000_ENTER_EMP_S");
+            param.put("procedure", 		"SP_HRI1000_ENTER_EMP_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
@@ -244,7 +244,7 @@ public class ApcMaHri1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRI1000_Q");
+            param.put("procedure", 		"SP_HRI1000_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     		//self url 편집

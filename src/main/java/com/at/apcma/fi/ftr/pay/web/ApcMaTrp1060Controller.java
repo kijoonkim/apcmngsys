@@ -52,7 +52,7 @@ public class ApcMaTrp1060Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRP1060_Q");
+            param.put("procedure", 		"SP_TRP1060_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaTrp1060Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRP1060_S");
+            param.put("procedure", 		"SP_TRP1060_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class ApcMaTrp1060Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRP1060_S1");
+            param.put("procedure", 		"SP_TRP1060_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +142,7 @@ public class ApcMaTrp1060Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_TRP1060_D");
+            param.put("procedure", 		"SP_TRP1060_D");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

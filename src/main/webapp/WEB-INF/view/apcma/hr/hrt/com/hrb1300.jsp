@@ -261,11 +261,11 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무유형
-            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CODE', 'WORK_TYPE_NAME', 'Y', ''),
+            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WRK_PTTRN_CD', 'WORK_TYPE_NM', 'Y', ''),
             // 휴일유형
-            gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHIFT_CODE', 'SHIFT_NAME', 'Y', ''),
+            gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHWORK_CD', 'SHWORK_TEAM_NM', 'Y', ''),
             // 구분
-            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwDay'], jsonCalendarType, 'L_COM091', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -483,19 +483,19 @@
                 var responseData = detailData.cv_2[0];
 
                 if(responseData) {
-                    SBUxMethod.set("WORK_TYPE_CODE", responseData.WORK_TYPE_CODE);
-                    SBUxMethod.set("SHIFT_CODE", responseData.SHIFT_CODE);
-                    SBUxMethod.set("HOLIDAY_YN", responseData.HOLIDAY_YN);
-                    SBUxMethod.set("HOLIDAY_NAME", responseData.HOLIDAY_NAME);
-                    SBUxMethod.set("HOLIDAY2_YN", responseData.HOLIDAY2_YN);
-                    SBUxMethod.set("LUNAR_DATE", responseData.LUNAR_DATE);
-                    SBUxMethod.set("LEAP_MONTH_YN", responseData.LEAP_MONTH_YN);
-                    SBUxMethod.set("WEEK_SEQ", responseData.WEEK_SEQ);
+                    SBUxMethod.set("WORK_TYPE_CODE", responseData.WRK_PTTRN_CD);
+                    SBUxMethod.set("SHIFT_CODE", responseData.SHWORK_CD);
+                    SBUxMethod.set("HOLIDAY_YN", responseData.HLDY_YN);
+                    SBUxMethod.set("HOLIDAY_NAME", responseData.HLDY_NM);
+                    SBUxMethod.set("HOLIDAY2_YN", responseData.HLDY2_YN);
+                    SBUxMethod.set("LUNAR_DATE", responseData.LNCL_YMD);
+                    SBUxMethod.set("LEAP_MONTH_YN", responseData.LPMM_YN);
+                    SBUxMethod.set("WEEK_SEQ", responseData.DOW_SEQ);
                     SBUxMethod.set("DAY_SEQ", responseData.DAY_SEQ);
-                    SBUxMethod.set("DESCR", responseData.DESCR);
-                    SBUxMethod.set("MODIFIED_YN", responseData.MODIFIED_YN);
-                    SBUxMethod.set("HOLIDAY_TYPE1_YN", responseData.HOLIDAY_TYPE1_YN);
-                    SBUxMethod.set("HOLIDAY_TYPE2_YN", responseData.HOLIDAY_TYPE2_YN);
+                    SBUxMethod.set("DESCR", responseData.DSCTN);
+                    SBUxMethod.set("MODIFIED_YN", responseData.MDFCN_YN);
+                    SBUxMethod.set("HOLIDAY_TYPE1_YN", responseData.HLDY_TYPE1_YN);
+                    SBUxMethod.set("HOLIDAY_TYPE2_YN", responseData.HLDY_TYPE2_YN);
                 } else {
                     SBUxMethod.set("WORK_TYPE_CODE", "");
                     SBUxMethod.set("SHIFT_CODE", "");
@@ -530,9 +530,9 @@
                             const msg = {
                                 SEQ : item.SEQ,
                                 CALENDAR_TYPE : item.CALENDAR_TYPE,
-                                EMP_CODE : item.EMP_CODE,
-                                EMP_NAME : item.EMP_NAME,
-                                CALENDAR_DAY : item.CALENDAR_DAY,
+                                EMP_CODE : item.EMP_CD,
+                                EMP_NAME : item.EMP_NM,
+                                CALENDAR_DAY : item.CLNDR_DAY,
                                 ORIGINAL_DAY : item.ORIGINAL_DAY
                             }
                             jsonDayList.push(msg);

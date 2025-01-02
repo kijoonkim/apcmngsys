@@ -53,7 +53,7 @@ public class ApcMaSys1900Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "P_SYS1900_Q");
+            param.put("procedure", "SP_SYS1900_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {

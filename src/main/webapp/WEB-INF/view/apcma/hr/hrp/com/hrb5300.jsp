@@ -148,128 +148,128 @@
                     </ul>
                 </div>
 
-            <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
-            </sbux-tabs>
+                <sbux-tabs id="tabJson" name="tabJson" uitype="normal" jsondata-ref="tabJsonData" is-scrollable="false">
+                </sbux-tabs>
 
-            <div class="tab-content">
-                <div id="salaryTab" >
-                    <div>
-                        <div id="sb-area-gvwSalary" style="height:170px; width:100%;"></div>
+                <div class="tab-content">
+                    <div id="salaryTab" >
+                        <div>
+                            <div id="sb-area-gvwSalary" style="height:170px; width:100%;"></div>
+                        </div>
+                    </div>
+                    <div id="workTab" >
+                        <div>
+                            <div id="sb-area-gvwWork" style="height:170px; width:100%;"></div>
+                        </div>
+                    </div>
+                    <div id="settingTab" >
+                        <div>
+                            <div id="sb-area-gvwSetting" style="height:170px; width:100%;"></div>
+                        </div>
                     </div>
                 </div>
-                <div id="workTab" >
-                    <div>
-                        <div id="sb-area-gvwWork" style="height:170px; width:100%;"></div>
-                    </div>
-                </div>
-                <div id="settingTab" >
-                    <div>
-                        <div id="sb-area-gvwSetting" style="height:170px; width:100%;"></div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="ma-calculator">
+                    <div class="ma-buttons">
+                        <%--<button class="ma-btn" onclick="clearDisplay()">C</button>--%>
+                        <button class="ma-btn" onclick="appendToDisplay('1')">1</button>
+                        <button class="ma-btn" onclick="appendToDisplay('2')">2</button>
+                        <button class="ma-btn" onclick="appendToDisplay('3')">3</button>
+                        <button class="ma-btn" onclick="appendToDisplay('+')">+</button>
+                        <button class="ma-btn" onclick="appendToDisplay('(')">(</button>
+                        <button class="ma-btn" onclick="appendToDisplay('4')">4</button>
+                        <button class="ma-btn" onclick="appendToDisplay('5')">5</button>
+                        <button class="ma-btn" onclick="appendToDisplay('6')">6</button>
+                        <button class="ma-btn" onclick="appendToDisplay('-')">-</button>
+                        <button class="ma-btn" onclick="appendToDisplay(')')">)</button>
+                        <button class="ma-btn" onclick="appendToDisplay('7')">7</button>
+                        <button class="ma-btn" onclick="appendToDisplay('8')">8</button>
+                        <button class="ma-btn" onclick="appendToDisplay('9')">9</button>
+                        <button class="ma-btn" onclick="appendToDisplay('*')">*</button>
+                        <button class="ma-btn" onclick="subToDisplay()">←</button>
+                        <button class="ma-btn" onclick="appendToDisplay('0')">0</button>
+                        <button class="ma-btn" onclick="appendToDisplay('00')">00</button>
+                        <button class="ma-btn" onclick="appendToDisplay('.')">.</button>
+                        <button class="ma-btn" onclick="appendToDisplay('/')">/</button>
+                        <button class="ma-btn" onclick="calculateResult()">AC</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-3">
-            <div class="ma-calculator">
-                <div class="ma-buttons">
-                    <%--<button class="ma-btn" onclick="clearDisplay()">C</button>--%>
-                    <button class="ma-btn" onclick="appendToDisplay('1')">1</button>
-                    <button class="ma-btn" onclick="appendToDisplay('2')">2</button>
-                    <button class="ma-btn" onclick="appendToDisplay('3')">3</button>
-                    <button class="ma-btn" onclick="appendToDisplay('+')">+</button>
-                    <button class="ma-btn" onclick="appendToDisplay('(')">(</button>
-                    <button class="ma-btn" onclick="appendToDisplay('4')">4</button>
-                    <button class="ma-btn" onclick="appendToDisplay('5')">5</button>
-                    <button class="ma-btn" onclick="appendToDisplay('6')">6</button>
-                    <button class="ma-btn" onclick="appendToDisplay('-')">-</button>
-                    <button class="ma-btn" onclick="appendToDisplay(')')">)</button>
-                    <button class="ma-btn" onclick="appendToDisplay('7')">7</button>
-                    <button class="ma-btn" onclick="appendToDisplay('8')">8</button>
-                    <button class="ma-btn" onclick="appendToDisplay('9')">9</button>
-                    <button class="ma-btn" onclick="appendToDisplay('*')">*</button>
-                    <button class="ma-btn" onclick="subToDisplay()">←</button>
-                    <button class="ma-btn" onclick="appendToDisplay('0')">0</button>
-                    <button class="ma-btn" onclick="appendToDisplay('00')">00</button>
-                    <button class="ma-btn" onclick="appendToDisplay('.')">.</button>
-                    <button class="ma-btn" onclick="appendToDisplay('/')">/</button>
-                    <button class="ma-btn" onclick="calculateResult()">AC</button>
-                </div>
+        <div class="ad_tbl_top">
+            <ul class="ad_tbl_count">
+                <li>
+                    <span>급여산식결과</span>
+                </li>
+            </ul>
+            <div class="ad_tbl_toplist">
+                <sbux-button
+                        id="btnCheck"
+                        name="btnCheck"
+                        uitype="normal"
+                        text="구문확인"
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="fn_btnCheck"
+                        style="float: right;"
+                >
+                </sbux-button>
             </div>
         </div>
-    </div>
+        <table id="dataArea2" class="table table-bordered tbl_fixed">
+            <caption>검색 조건 설정</caption>
+            <colgroup>
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
 
-    <div class="ad_tbl_top">
-        <ul class="ad_tbl_count">
-            <li>
-                <span>급여산식결과</span>
-            </li>
-        </ul>
-        <div class="ad_tbl_toplist">
-            <sbux-button
-                    id="btnCheck"
-                    name="btnCheck"
-                    uitype="normal"
-                    text="구문확인"
-                    class="btn btn-sm btn-outline-danger"
-                    onclick="fn_btnCheck"
-                    style="float: right;"
-            >
-            </sbux-button>
-        </div>
-    </div>
-    <table id="dataArea2" class="table table-bordered tbl_fixed">
-        <caption>검색 조건 설정</caption>
-        <colgroup>
-            <col style="width: 7%">
-            <col style="width: 6%">
-            <col style="width: 6%">
-            <col style="width: 3%">
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
 
-            <col style="width: 7%">
-            <col style="width: 6%">
-            <col style="width: 6%">
-            <col style="width: 3%">
+                <col style="width: 7%">
+                <col style="width: 6%">
+                <col style="width: 6%">
+                <col style="width: 3%">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th scope="row" class="th_bg">급여(금액)산식</th>
+                <td colspan="3" class="td_input" >
+                    <sbux-textarea id="PAY_FORMULA" name="PAY_FORMULA" uitype="normal" cols="50"></sbux-textarea>
+                </td>
 
-            <col style="width: 7%">
-            <col style="width: 6%">
-            <col style="width: 6%">
-            <col style="width: 3%">
-        </colgroup>
-        <tbody>
-        <tr>
-            <th scope="row" class="th_bg">급여(금액)산식</th>
-            <td colspan="3" class="td_input" >
-                <sbux-textarea id="PAY_FORMULA" name="PAY_FORMULA" uitype="normal" cols="50"></sbux-textarea>
-            </td>
+                <th scope="row" class="th_bg">시간산식</th>
+                <td colspan="3" class="td_input" >
+                    <sbux-textarea id="QTY_FORMULA" name="QTY_FORMULA" uitype="normal" cols="50"></sbux-textarea>
+                </td>
 
-            <th scope="row" class="th_bg">시간산식</th>
-            <td colspan="3" class="td_input" >
-                <sbux-textarea id="QTY_FORMULA" name="QTY_FORMULA" uitype="normal" cols="50"></sbux-textarea>
-            </td>
+                <th scope="row" class="th_bg">시간단위</th>
+                <td colspan="3" class="td_input" >
+                    <sbux-input uitype="text" id="QTY_UNIT" class="form-control input-sm" cols="50" style="width:80%;"></sbux-input>
+                    <%--<td style="border-right: hidden;">&nbsp;</td>--%>
+                    <%--<td style="border-right: hidden;">&nbsp;</td>--%>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row" class="th_bg">급여(금액)산식설명</th>
+                <td colspan="3" class="td_input" >
+                    <sbux-textarea id="PAY_FORMULA_DESC" name="PAY_FORMULA_DESC" uitype="normal" cols="50"></sbux-textarea>
+                </td>
 
-            <th scope="row" class="th_bg">시간단위</th>
-            <td colspan="3" class="td_input" >
-                <sbux-input uitype="text" id="QTY_UNIT" class="form-control input-sm" cols="50" style="width:80%;"></sbux-input>
-            <%--<td style="border-right: hidden;">&nbsp;</td>--%>
-            <%--<td style="border-right: hidden;">&nbsp;</td>--%>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="th_bg">급여(금액)산식설명</th>
-            <td colspan="3" class="td_input" >
-                <sbux-textarea id="PAY_FORMULA_DESC" name="PAY_FORMULA_DESC" uitype="normal" cols="50"></sbux-textarea>
-            </td>
+                <th scope="row" class="th_bg">시간산식설명</th>
+                <td colspan="3" class="td_input" >
+                    <sbux-textarea id="QTY_FORMULA_DESC" name="QTY_FORMULA_DESC" uitype="normal" cols="50"></sbux-textarea>
+                </td>
 
-            <th scope="row" class="th_bg">시간산식설명</th>
-            <td colspan="3" class="td_input" >
-                <sbux-textarea id="QTY_FORMULA_DESC" name="QTY_FORMULA_DESC" uitype="normal" cols="50"></sbux-textarea>
-            </td>
-
-            <td colspan="4" style="border-right: hidden;">&nbsp;</td>
-        </tr>
-        </tbody>
-    </table>
+                <td colspan="4" style="border-right: hidden;">&nbsp;</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 </body>
@@ -303,12 +303,12 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwSalaryGrid','gvwMasterGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_ITEM_CODE', 'PAY_ITEM_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
-            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwSalaryGrid','gvwMasterGrid'], jsonPayItemCategory, 'L_HRB009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryType, 'L_HRB011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwMasterGrid'], jsonSummaryRelatedCode, 'L_HRB012', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 
             //급여체계
@@ -323,11 +323,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'PAY_GROUP_CODE'
-                ,colLabel		: 'PAY_GROUP_NAME'
+                ,colValue		: 'SLRY_GRD_CD'
+                ,colLabel		: 'SLRY_GRD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'PAY_GROUP_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'PAY_GROUP_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SLRY_GRD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'SLRY_GRD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -343,11 +343,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -363,11 +363,11 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SUB_CODE'
-                ,colLabel		: 'CODE_NAME'
+                ,colValue		: 'SBSD_CD'
+                ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SUB_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "이름", 		ref: 'CODE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "이름", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
 
@@ -394,9 +394,9 @@
     }
 
     // 신규
-  /*  function cfn_add() {
-        fn_create();
-    }*/
+    /*  function cfn_add() {
+          fn_create();
+      }*/
     // 저장
     function cfn_save() {
         fn_save();
@@ -462,21 +462,21 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["비례계수제외여부"], ref: 'PPTLCT_YN', type: 'checkbox', width: '70px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
-            }},
+                }},
             {caption: ["지급제외항목"], ref: 'PAY_EXCLUDE_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
-            }},
+                }},
             {caption: ["소급계산여부"], ref: 'RECALC_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
-            }},
+                }},
             {caption: ["최대한도 적용"], ref: 'APPLY_MAX_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
-            }},
+                }},
             {caption: ["최대한도값"], ref: 'APPLY_MAX_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["최소한도 적용"], ref: 'APPLY_MIN_YN', type: 'checkbox', width: '100px', style: 'text-align:center',
                 typeinfo: { ignoreupdate: true, fixedcellcheckbox: { usemode: true, rowindex: 1, deletecaption: false}, checkedvalue: 'Y', uncheckedvalue: 'N'
-            }},
+                }},
             {caption: ["최소한도값"], ref: 'APPLY_MIN_AMT', type: 'input', width: '100px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' ,  emptyvalue:'0'}},
             {caption: ["비    고"], ref: 'DESCR', type: 'input', width: '150px', style: 'text-align:left'},
@@ -629,28 +629,28 @@
                 data.cv_1.forEach((item, index) => {
                     const msg = {
                         CHK_YN                  : gfnma_nvl2(item.CHK_YN),
-                        PAY_ITEM_CATEGORY       : gfnma_nvl2(item.PAY_ITEM_CATEGORY),
-                        PAY_ITEM_CODE           : gfnma_nvl2(item.PAY_ITEM_CODE),
-                        PAY_ITEM_NAME           : gfnma_nvl2(item.PAY_ITEM_NAME),
-                        CALCULATE_SEQ           : gfnma_nvl2(item.CALCULATE_SEQ),
-                        PAY_EXCLUDE_YN          : gfnma_nvl2(item.PAY_EXCLUDE_YN),
-                        SUMMARY_TYPE            : gfnma_nvl2(item.SUMMARY_TYPE),
-                        SUMMARY_RELATED_CODE    : gfnma_nvl2(item.SUMMARY_RELATED_CODE),
-                        APPLY_MAX_YN            : gfnma_nvl2(item.APPLY_MAX_YN),
-                        APPLY_MAX_AMT           : gfnma_nvl2(item.APPLY_MAX_AMT),
-                        APPLY_MIN_YN            : gfnma_nvl2(item.APPLY_MIN_YN),
-                        APPLY_MIN_AMT           : gfnma_nvl2(item.APPLY_MIN_AMT),
-                        DESCR                   : gfnma_nvl2(item.DESCR),
-                        PAY_FORMULA             : gfnma_nvl2(item.PAY_FORMULA),
+                        PAY_ITEM_CATEGORY       : gfnma_nvl2(item.SLRY_ITEM_CTGRY),
+                        PAY_ITEM_CODE           : gfnma_nvl2(item.SLRY_ITEM_CD),
+                        PAY_ITEM_NAME           : gfnma_nvl2(item.SLRY_ITEM_NM),
+                        CALCULATE_SEQ           : gfnma_nvl2(item.CALC_SEQ),
+                        PAY_EXCLUDE_YN          : gfnma_nvl2(item.PAY_EXCL_YN),
+                        SUMMARY_TYPE            : gfnma_nvl2(item.SMMRY_TYPE),
+                        SUMMARY_RELATED_CODE    : gfnma_nvl2(item.SMMRY_REL_CD),
+                        APPLY_MAX_YN            : gfnma_nvl2(item.APLY_MAX_YN),
+                        APPLY_MAX_AMT           : gfnma_nvl2(item.APLY_MAX_AMT),
+                        APPLY_MIN_YN            : gfnma_nvl2(item.APLY_MIN_YN),
+                        APPLY_MIN_AMT           : gfnma_nvl2(item.APLY_MIN_AMT),
+                        DESCR                   : gfnma_nvl2(item.DSCTN),
+                        PAY_FORMULA             : gfnma_nvl2(item.SLRY_FRMLA),
                         PAY_FORMULA_TMP         : gfnma_nvl2(item.PAY_FORMULA_TMP),
-                        PAY_FORMULA_DESC        : gfnma_nvl2(item.PAY_FORMULA_DESC),
-                        RECALC_YN               : gfnma_nvl2(item.RECALC_YN),
+                        PAY_FORMULA_DESC        : gfnma_nvl2(item.SLRY_FRMLA_DSCTN),
+                        RECALC_YN               : gfnma_nvl2(item.RCAL_YN),
                         PARSING_YN              : gfnma_nvl2(item.PARSING_YN),
-                        QTY_FORMULA             : gfnma_nvl2(item.QTY_FORMULA),
+                        QTY_FORMULA             : gfnma_nvl2(item.QTY_FRMLA),
                         QTY_FORMULA_TMP         : gfnma_nvl2(item.QTY_FORMULA_TMP),
-                        QTY_FORMULA_DESC        : gfnma_nvl2(item.QTY_FORMULA_DESC),
+                        QTY_FORMULA_DESC        : gfnma_nvl2(item.QTY_FRMLA_DSCTN),
                         QTY_UNIT                : gfnma_nvl2(item.QTY_UNIT),
-                        PPTLCT_YN               : gfnma_nvl2(item.PPTLCT_YN)
+                        PPTLCT_YN               : gfnma_nvl2(item.CFCNT_EXCL_YN)
 
                     }
                     jsonMasterList.push(msg);
@@ -707,7 +707,7 @@
             // 집계방법구분이 계산 수식일 경우에만 급여산식 입력 가능함
             if (_.isEqual(rowData.SUMMARY_TYPE, "FORMULA")){
 
-               /* SBUxMethod.attr('',	'disabled', true);*/
+                /* SBUxMethod.attr('',	'disabled', true);*/
 
                 $('.ma-btn').attr('disabled', true);
                 $('.ma-btn').css("background-color", "#d9d9d9");
@@ -759,9 +759,9 @@
                     jsonSalaryList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.PAY_ITEM_CATEGORY),
-                            PAY_ITEM_CODE       : gfnma_nvl2(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME       : gfnma_nvl2(item.PAY_ITEM_NAME)
+                            PAY_ITEM_CATEGORY   : gfnma_nvl2(item.SLRY_ITEM_CTGRY),
+                            PAY_ITEM_CODE       : gfnma_nvl2(item.SLRY_ITEM_CD),
+                            PAY_ITEM_NAME       : gfnma_nvl2(item.SLRY_ITEM_NM)
                         }
                         jsonSalaryList.push(msg);
                     });
@@ -770,8 +770,8 @@
                     jsonWorkList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
-                            PAY_ITEM_CODE   : gfnma_nvl2(item.PAY_ITEM_CODE),
-                            PAY_ITEM_NAME   : gfnma_nvl2(item.PAY_ITEM_NAME)
+                            PAY_ITEM_CODE   : gfnma_nvl2(item.SLRY_ITEM_CD),
+                            PAY_ITEM_NAME   : gfnma_nvl2(item.SLRY_ITEM_NM)
                         }
                         jsonWorkList.push(msg);
                     });
@@ -780,8 +780,8 @@
                     jsonSettingList.length = 0;
                     data.cv_4.forEach((item, index) => {
                         const msg = {
-                            ITEM_CODE   : gfnma_nvl2(item.ITEM_CODE),
-                            ITEM_NAME   : gfnma_nvl2(item.ITEM_NAME)
+                            ITEM_CODE   : gfnma_nvl2(item.ITEM_CD),
+                            ITEM_NAME   : gfnma_nvl2(item.ITEM_NM)
                         }
                         jsonSettingList.push(msg);
                     });
@@ -789,10 +789,10 @@
 
                     if (_.isEmpty(data.cv_5[0]) == false){
                         data.cv_5.forEach((item, index) => {
-                            SBUxMethod.set("PAY_FORMULA"        , gfnma_nvl2(item.PAY_FORMULA));
-                            SBUxMethod.set("PAY_FORMULA_DESC"   , gfnma_nvl2(item.PAY_FORMULA_DESC));
-                            SBUxMethod.set("QTY_FORMULA"        , gfnma_nvl2(item.QTY_FORMULA));
-                            SBUxMethod.set("QTY_FORMULA_DESC"   , gfnma_nvl2(item.QTY_FORMULA_DESC));
+                            SBUxMethod.set("PAY_FORMULA"        , gfnma_nvl2(item.SLRY_FRMLA));
+                            SBUxMethod.set("PAY_FORMULA_DESC"   , gfnma_nvl2(item.SLRY_FRMLA_DSCTN));
+                            SBUxMethod.set("QTY_FORMULA"        , gfnma_nvl2(item.QTY_FRMLA));
+                            SBUxMethod.set("QTY_FORMULA_DESC"   , gfnma_nvl2(item.QTY_FRMLA_DSCTN));
                             SBUxMethod.set("QTY_UNIT"           , gfnma_nvl2(item.QTY_UNIT));
                         });
                     }
@@ -1120,8 +1120,8 @@
 
         setting.forEach((item, index) => {
 
-           /* let ITEM_CODE = '<' + item.ITEM_CODE + '>';
-            let ITEM_NAME = '<' + item.ITEM_NAME + '>';*/
+            /* let ITEM_CODE = '<' + item.ITEM_CODE + '>';
+             let ITEM_NAME = '<' + item.ITEM_NAME + '>';*/
 
             PAY_FORMULA         = PAY_FORMULA.replace('<' + item.ITEM_CODE + '>', '1');
             PAY_FORMULA_DESC    = PAY_FORMULA_DESC.replace('<' + item.ITEM_CODE + '>', '1');
@@ -1136,9 +1136,9 @@
 
         var paramObj = {
             PAY_FORMULA: gfnma_nvl2(PAY_FORMULA)
-          /*  , PAY_FORMULA_DESC: gfnma_nvl2(PAY_FORMULA_DESC)*/
+            /*  , PAY_FORMULA_DESC: gfnma_nvl2(PAY_FORMULA_DESC)*/
             , QTY_FORMULA: gfnma_nvl2(QTY_FORMULA)
-           /* , QTY_FORMULA_DESC: gfnma_nvl2(QTY_FORMULA_DESC)*/
+            /* , QTY_FORMULA_DESC: gfnma_nvl2(QTY_FORMULA_DESC)*/
 
         }
 

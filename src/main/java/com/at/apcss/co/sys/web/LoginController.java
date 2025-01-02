@@ -202,7 +202,7 @@ public class LoginController extends BaseController {
 								//----------------------------------------------------------------------------
 								//경영관리 쎄션정보 가져오기
 								Map<String, Object> gmap1 = new HashMap<String, Object>();
-								gmap1.put("procedure", 			"JPSESSIONINFO");
+								gmap1.put("procedure", 			"SP_JPSESSIONINFO");
 								gmap1.put("getType", 			"json");
 								gmap1.put("cv_count", 			"1");
 
@@ -218,8 +218,8 @@ public class LoginController extends BaseController {
 								Map<String, Object> gmap4 = new HashMap<String, Object>();
 								List<Map<String, Object>> list2 = (ArrayList<Map<String,Object>>)gmap3.get("cv_1");
 								for (int i = 0; i < list2.size(); i++) {
-									if(list2.get(i).get("CLASSNAME").equals("SESSIONINFO")) {
-										gmap4.put(list2.get(i).get("KEYCODE").toString(), list2.get(i).get("KEYVALUE"));
+									if(list2.get(i).get("CLSF_NM").equals("SESSIONINFO")) {
+										gmap4.put(list2.get(i).get("KEY_CD").toString(), list2.get(i).get("KEY_VL"));
 									}
 								}
 								request.getSession().setAttribute("maSessionInfo", gmap4);

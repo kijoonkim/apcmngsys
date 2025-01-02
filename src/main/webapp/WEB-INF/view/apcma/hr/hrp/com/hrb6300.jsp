@@ -275,10 +275,10 @@
                 jsonGlobalIncomeTaxList.length = 0;
                 data.cv_2.forEach((item, index) => {
                     const msg = {
-                        PAY_AMT_FR : item.PAY_AMT_FR,
-                        PAY_AMT_TO : item.PAY_AMT_TO,
-                        TAX_RATE : item.TAX_RATE,
-                        CUMULATIVE_TAX_DED_AMT : item.CUMULATIVE_TAX_DED_AMT
+                        PAY_AMT_FR : item.PAY_AMT_LL,
+                        PAY_AMT_TO : item.PAY_AMT_UL,
+                        TAX_RATE : item.TX_RT,
+                        CUMULATIVE_TAX_DED_AMT : item.ACML_TX_DDC_AMT
                     }
                     jsonGlobalIncomeTaxList.push(msg);
                 });
@@ -531,9 +531,9 @@
                 jsonBaseYearList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        YYYY : item.YYYY,
-                        APPLY_START_DATE : item.APPLY_START_DATE,
-                        APPLY_END_DATE : item.APPLY_END_DATE,
+                        YYYY : item.YR,
+                        APPLY_START_DATE : item.APLY_STRT_YMD,
+                        APPLY_END_DATE : item.APLY_END_YMD,
                         MEMO : item.MEMO
                     }
                     jsonBaseYearList.push(msg);

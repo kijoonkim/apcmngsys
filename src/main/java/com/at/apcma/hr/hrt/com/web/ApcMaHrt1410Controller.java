@@ -53,18 +53,18 @@ public class ApcMaHrt1410Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRT1410_Q");
+            param.put("procedure", 		"SP_HRT1410_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
             if(param.get("workType").equals("LIST")) {
                 List<Map<String, Object>> listData = (List<Map<String, Object>>) resultMap.get("cv_1");
                 if(listData.size() > 0) {
                     Map<String, Map<String, Object>> deptMap = listData.stream()
-                            .collect(Collectors.toMap(dept -> (String) dept.get("KEYID"), dept -> dept));
+                            .collect(Collectors.toMap(dept -> (String) dept.get("KEY_ID"), dept -> dept));
 
                     List<Map<String, Object>> sortedDepartments = new ArrayList<>();
                     listData.stream()
-                            .filter(dept -> !dept.containsKey("PARENTKEYID") || !deptMap.containsKey(dept.get("PARENTKEYID")))
+                            .filter(dept -> !dept.containsKey("UP_KEY_ID") || !deptMap.containsKey(dept.get("UP_KEY_ID")))
                             .forEach(dept -> ApcMaComUtil.buildTree(dept, deptMap, sortedDepartments, 0));
 
                     resultMap.put("cv_1", sortedDepartments);
@@ -72,6 +72,7 @@ public class ApcMaHrt1410Controller extends BaseController {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -98,7 +99,7 @@ public class ApcMaHrt1410Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT1410_S1");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT1410_S1");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);
@@ -120,7 +121,7 @@ public class ApcMaHrt1410Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "P_HRT1410_S2");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT1410_S2");
 
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);

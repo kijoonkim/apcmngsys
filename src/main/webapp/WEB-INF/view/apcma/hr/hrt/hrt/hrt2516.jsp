@@ -264,7 +264,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['gvwCheck'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -276,31 +276,31 @@
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
                 ,dropAlign		: 'right' 	// left, right
-                ,colValue		: 'SITE_CODE'
-                ,colLabel		: 'SITE_NAME'
+                ,colValue		: 'SITE_CD'
+                ,colLabel		: 'SITE_NM'
                 ,columns		:[
-                    {caption: "사업장코드",		ref: 'SITE_CODE', 			width:'150px',  	style:'text-align:left'},
-                    {caption: "사업장명", 		ref: 'SITE_NAME',    		width:'150px',  	style:'text-align:left'}
+                    {caption: "사업장코드",		ref: 'SITE_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "사업장명", 		ref: 'SITE_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
             // 급여영역
-            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_AREA_TYPE'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 급여체계
-            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_GROUP_CODE', 'PAY_GROUP_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_PAY_GROUP_CODE'], jsonPayGroupCode, 'L_HRI010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_GRD_CD', 'SLRY_GRD_NM', 'Y', ''),
             // 직군
-            gfnma_setComSelect(['SRCH_JOB_GROUP', 'gvwCheck'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['SRCH_JOB_GROUP', 'gvwCheck'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 처리구분
-            gfnma_setComSelect(['gvwStatus'], jsonTimeSummaryActionType, 'L_HRT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwStatus'], jsonTimeSummaryActionType, 'L_HRT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 처리구분
-            gfnma_setComSelect(['gvwCheck'], jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TIME_ITEM_CODE', 'TIME_ITEM_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ATDNC_ITEM_CD', 'ATDNC_ITEM_NM', 'Y', ''),
             // 직위
-            gfnma_setComSelect(['gvwCheck'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직책
-            gfnma_setComSelect(['gvwCheck'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonDutyCode, 'L_HRI003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 직급
-            gfnma_setComSelect(['gvwCheck'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect(['gvwCheck'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 재직구분
-            gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SUB_CODE', 'CODE_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -441,18 +441,18 @@
             ,popupType				: 'B'
             ,whereClause			: ''
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
-            ,searchInputFields		: ["DEPT_CODE", 	"DEPT_NAME",	"BASE_DATE"]
+            ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: [searchCode, 				searchName,		gfn_dateToYmd(new Date())]
 
             ,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
 
             ,height					: '400px'
             ,tableHeader			: ["기준일",		"사업장", 		"부서명", 		"사업장코드"]
-            ,tableColumnNames		: ["START_DATE",	"SITE_NAME", 	"DEPT_NAME",  	"SITE_CODE"]
+            ,tableColumnNames		: ["BGNG_YMD",	"SITE_NM", 	"DEPT_NM",  	"SITE_CD"]
             ,tableColumnWidths		: ["100px", 		"150px", 		"100px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NAME);
-                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CODE);
+                SBUxMethod.set('SRCH_DEPT_NAME', data.DEPT_NM);
+                SBUxMethod.set('SRCH_DEPT_CODE', data.DEPT_CD);
             },
         });
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
@@ -461,12 +461,12 @@
     const fn_findEmpCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
-        var replaceText0 	= "_DEPT_NAME_";
-        var replaceText1 	= "_EMP_CODE_";
-        var replaceText2 	= "_EMP_NAME_";
-        var replaceText3 	= "_EMP_STATE_";
-        var strWhereClause 	= "AND X.DEPT_NAME LIKE '%" + replaceText0 + "%' AND X.EMP_CODE LIKE '%" + replaceText1 + "%' AND X.EMP_NAME LIKE '%" + replaceText2 + "%' AND X.EMP_STATE LIKE '%" + replaceText3 + "%'";
-
+        var replaceText0 	= "_DEPT_NM_";
+        var replaceText1 	= "_EMP_CD_";
+        var replaceText2 	= "_EMP_NM_";
+        var replaceText3 	= "_EMP_STTS_";
+        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_CD LIKE '%" + replaceText1 + "%' AND X.EMP_NM LIKE '%" + replaceText2 + "%' AND X.EMP_STTS LIKE '%" + replaceText3 + "%'";
+ 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -475,17 +475,17 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서명", 		"사원코드",		"사원명",		"재직상태"]
-            ,searchInputFields		: ["DEPT_NAME", 	"EMP_CODE",		"EMP_NAME",		"EMP_STATE"]
+            ,searchInputFields		: ["DEPT_NM", 	"EMP_CD",		"EMP_NM",		"EMP_STTS"]
             ,searchInputValues		: ["", 			searchCode, searchName,		""]
             ,searchInputTypes		: ["input", 	"input", 	"input",		"select"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", 			"", "",				jsonEmpState]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-            ,tableColumnNames		: ["EMP_CODE", "EMP_NAME",  "DEPT_NAME", "SITE_NAME", "EMP_STATE_NAME"]
+            ,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
             ,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NAME);
-                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CODE);
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
     }
@@ -570,11 +570,11 @@
                         const msg = {
                             SEQ : item.SEQ,
                             TIME_SUMMARY_ACTION_TYPE : item.TIME_SUMMARY_ACTION_TYPE,
-                            INSERT_USERID : item.INSERT_USERID,
-                            INSERT_TIME : item.INSERT_TIME,
-                            ACTION_END_TIME : item.ACTION_END_TIME,
-                            INSERT_PC : item.INSERT_PC,
-                            TOT_COND : item.TOT_COND,
+                            INSERT_USERID : item.WRT_USER_ID,
+                            INSERT_TIME : item.WRT_DT,
+                            ACTION_END_TIME : item.EXCN_END_TM,
+                            INSERT_PC : item.WRT_PC,
+                            TOT_COND : item.TOT_PRMTR,
                             MEMO : item.MEMO,
                         }
                         jsonHistoryList.push(msg);
@@ -595,22 +595,22 @@
                     data.cv_3.forEach((item, index) => {
                         const msg = {
                             CHK_YN : item.CHK_YN,
-                            TXN_ID : item.TXN_ID,
-                            YYYYMMDD : item.YYYYMMDD,
-                            EMP_CODE : item.EMP_CODE,
-                            EMP_NAME : item.EMP_NAME,
-                            SITE_CODE : item.SITE_CODE,
-                            DEPT_CODE : item.DEPT_CODE,
-                            DEPT_NAME : item.DEPT_NAME,
-                            POSITION_CODE : item.POSITION_CODE,
-                            DUTY_CODE : item.DUTY_CODE,
-                            JOB_RANK : item.JOB_RANK,
-                            JOB_FAMILY : item.JOB_FAMILY,
-                            WORK_PATTERN_CODE : item.WORK_PATTERN_CODE,
-                            SHIFT_CODE : item.SHIFT_CODE,
-                            TIME_ITEM_CODE : item.TIME_ITEM_CODE,
+                            TXN_ID : item.TRSC_ID,
+                            YYYYMMDD : item.YMD,
+                            EMP_CODE : item.EMP_CD,
+                            EMP_NAME : item.EMP_NM,
+                            SITE_CODE : item.SITE_CD,
+                            DEPT_CODE : item.DEPT_CD,
+                            DEPT_NAME : item.DEPT_NM,
+                            POSITION_CODE : item.JBPS_CD,
+                            DUTY_CODE : item.JBTTL_CD,
+                            JOB_RANK : item.JBGD_CD,
+                            JOB_FAMILY : item.JOB_LWRNK_GROUP,
+                            WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                            SHIFT_CODE : item.SHWORK_CD,
+                            TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
                             JOB_GROUP : item.JOB_GROUP,
-                            CHECK_TYPE : item.CHECK_TYPE,
+                            CHECK_TYPE : item.HLTH_CKUP_TYPE,
                             SETUP_GUIDE : item.SETUP_GUIDE,
                             SORT_SEQ : item.SORT_SEQ,
                         }

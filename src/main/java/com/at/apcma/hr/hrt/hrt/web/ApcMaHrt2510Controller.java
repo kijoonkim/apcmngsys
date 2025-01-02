@@ -52,7 +52,7 @@ public class ApcMaHrt2510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRT2510_Q");
+            param.put("procedure", 		"SP_HRT2510_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class ApcMaHrt2510Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"P_HRT2510_S5_BAT");
+            param.put("procedure", 		"SP_HRT2510_S5_BAT");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();

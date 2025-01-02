@@ -53,7 +53,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 
 		try {
 			
-			param.put("procedure", 		"P_ORG1100_Q");
+			param.put("procedure", 		"SP_ORG1100_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 				
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 		
 		try {
 			
-			param.put("procedure", 		"P_ORG1100_S");
+			param.put("procedure", 		"SP_ORG1100_S");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 			logger.info("=============insertOrg1100=====end========");
@@ -102,7 +102,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_ORG1100_S1");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_ORG1100_S1");
 			
 			logger.info("=============insertOrg1100_S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
@@ -124,7 +124,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
 		try {
-			resultMap = apcMaComService.processForListData(param, session, request, "", "P_ORG1100_S2");
+			resultMap = apcMaComService.processForListData(param, session, request, "", "SP_ORG1100_S2");
 			
 			logger.info("=============insertOrg1100_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);
