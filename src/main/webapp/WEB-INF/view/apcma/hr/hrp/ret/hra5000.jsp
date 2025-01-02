@@ -1429,7 +1429,6 @@
                 if (_.isEqual("S", data.resultStatus)) {
                     if (data.resultMessage) {
                         alert(data.resultMessage);
-                    }else{
                         fn_search();
                     }
 
@@ -1521,7 +1520,6 @@
                         gfn_comAlert("I0001"); // I0001	처리 되었습니다.
                         fn_search();
                     }
-
                 } else {
                     alert(data.resultMessage);
                 }
