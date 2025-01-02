@@ -125,6 +125,8 @@ public class ComUserVO extends ComVO {
 
 	private String apcMngrYn;
 
+	private String searchUserId;
+
 	private String rtnCd;
 	private String rtnMsg;
 	

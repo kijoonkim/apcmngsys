@@ -684,7 +684,16 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 								&& StringUtils.hasText(chkOgnzInfo.getApcCd())
 								&& ComConstants.CON_YES.equals(chkOgnzInfo.getAprvYn())) {
 				} else {
-					return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+					ComUserApcVO paramUserApc = new ComUserApcVO();
+					paramUserApc.setUserId(comUserVO.getUserId());
+					paramUserApc.setApcCd(userApc.getApcCd());
+					ComUserApcVO chkUserApc = comUserMapper.selectUserApc(paramUserApc);
+
+					if (chkUserApc == null
+							|| !ComConstants.CON_YES.equals(chkUserApc.getAprvYn())
+							|| !ComConstants.CON_YES.equals(chkUserApc.getApcMngrYn())) {
+						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_PARAM_THREE, "조직||승인||APC");
+					}
 				}
 			}
 

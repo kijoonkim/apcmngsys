@@ -1747,6 +1747,15 @@
 				)
 			</when>
 	   		<otherwise>
+			   AND EXISTS (
+			       SELECT 1
+			         FROM TB_COM_USER_APC X
+			        WHERE X.USER_ID = #{searchUserId}
+			          AND X.APC_CD = UA.APC_CD
+			          AND X.APRV_YN = 'Y'
+			          AND X.APC_MNGR_YN = 'Y'
+			          AND X.DEL_YN = 'N'
+				)
    			</otherwise>
     	</choose>
 
