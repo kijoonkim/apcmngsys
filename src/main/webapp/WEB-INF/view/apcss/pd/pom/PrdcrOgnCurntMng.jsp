@@ -1799,7 +1799,6 @@
 		console.log(SBUxMethod.get('dtl-input-yr'),gfn_nvl(rowData.yr));
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
 		//console.log(rowData.apoSe);
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
 		SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1809,11 +1808,14 @@
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			fn_searchUoList();
 		}
+
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
-		let brno = '${loginVO.brno}';
-		SBUxMethod.set('dtl-input-uoBrno' , brno);
-		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+		//let brno = '${loginVO.brno}';
+		//SBUxMethod.set('dtl-input-uoBrno' , brno);
+		//SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 
 		//법인체 마감 추가로 통합조직인 경우
 		SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(rowData.prfmncCorpDdlnYn))//실적 법인체 마감

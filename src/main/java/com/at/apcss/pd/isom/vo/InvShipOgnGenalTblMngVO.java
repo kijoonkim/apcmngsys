@@ -77,5 +77,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String totAmt;
 	private String prvTotVlm;
 	private String prvTotAmt;
+	/* 20241228 물량 합계 추가 요청 */
+	private String uoSpmtVlmTot;
 
 }
