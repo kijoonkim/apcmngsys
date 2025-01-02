@@ -197,7 +197,7 @@
                 target			: ['#SRCH_WORK_PATTERN_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
-                ,bizcompId		: 'L_ORG001'
+                ,bizcompId		: 'L_HRT020'
                 ,whereClause	: ''
                 ,formId			: p_formId
                 ,menuId			: p_menuId
@@ -490,18 +490,18 @@
         list.forEach((item, index) => {
             const msg = {
                 caption: [
-                    (item.YYYYMMDD.substring(0, 4) + "년 " + item.YYYYMMDD.substring(4, 6) + "월"),
-                    item.WEEK_SEQ + " ",
-                    item.YYYYMMDD.substring(6, 8),
+                    (item.YMD.substring(0, 4) + "년 " + item.YMD.substring(4, 6) + "월"),
+                    item.DOW_SEQ + " ",
+                    item.YMD.substring(6, 8),
                     item.WEEK_DAY_NAME
                 ],
-                ref: "D"+ item.YYYYMMDD,
+                ref: "D"+ item.YMD,
                 type: 'input',
                 style: 'text-align:center;',
                 width: '25px',
                 }
 
-            if(item.HOLIDAY_YN == "Y") {
+            if(item.HLDY_YN == "Y") {
                 msg['fixedstyle'] = 'color: red;';
             }
 
@@ -565,6 +565,11 @@
 
                 jsonPatternList.length = 0;
                 jsonPatternListOrigin.length = 0;
+
+                listData.cv_2.forEach((item, index) => {
+                    item["WORK_PATTERN_CODE"] = item.WORK_TYPE_CD;
+                });
+
                 jsonPatternList = listData.cv_2;
                 jsonPatternListOrigin = listData.cv_3;
 
@@ -576,7 +581,7 @@
                         SHIFT_NAME : item.SHWORK_TEAM_NM
                     }
 
-                    colorList[item.SHIFT_CODE] = item.COLOR_CODE;
+                    colorList[item.SHWORK_CD] = item.COLOR_CODE;
 
                     jsonColorList.push(msg);
                 });

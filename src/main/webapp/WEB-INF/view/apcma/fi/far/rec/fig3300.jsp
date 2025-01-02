@@ -727,7 +727,7 @@
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
 			,height					: '400px'
 			,tableHeader			: ["계정코드",		"계정명", 		"계정명(한글)"]
-			,tableColumnNames		: ["APLY_ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"]
+			,tableColumnNames		: ["ACNTL_CD",	"ACNT_NM", 	"ACNT_NM_CHN"]
 			,tableColumnWidths		: ["100px", 		"100px", 		"200px"]
 			,itemSelectEvent		: function (data){
 				gvwItem.setCellData(row, gvwItem.getColRef("ACNTL_CD"), data.ACNTL_CD);
@@ -2300,10 +2300,10 @@
 						ISSUE_DATE : gfn_dateToYmd(new Date()),
 						SEND_DATE : gfn_dateToYmd(new Date()),
 						RECEIPT_OR_BILL : '01',
-						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
+						SELLER_REG_NO : data.cv_1[0].BRNO.replace(/-/g, ''),
 						SELLER_OWNER : data.cv_1[0].CEO_NM,
 						SELLER_NAME : data.cv_1[0].TX_SITE_NM,
-						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
+						SELLER_ADDRESS : data.cv_1[0].ADDR.replace(/,/g, '&#44;'),
 					});
 				}else{
 					gvwList.insertRow(rowVal, 'below', {
@@ -2313,10 +2313,10 @@
 						ISSUE_DATE : gfn_dateToYmd(new Date()),
 						SEND_DATE : gfn_dateToYmd(new Date()),
 						RECEIPT_OR_BILL : '01',
-						SELLER_REG_NO : data.cv_1[0].BIZ_REGNO.replace(/-/g, ''),
+						SELLER_REG_NO : data.cv_1[0].BRNO.replace(/-/g, ''),
 						SELLER_OWNER : data.cv_1[0].CEO_NM,
 						SELLER_NAME : data.cv_1[0].TX_SITE_NM,
-						SELLER_ADDRESS : data.cv_1[0].ADDRESS.replace(/,/g, '&#44;'),
+						SELLER_ADDRESS : data.cv_1[0].ADDR.replace(/,/g, '&#44;'),
 					});
 				}
 			} else {
