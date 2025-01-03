@@ -584,7 +584,7 @@
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
         var replaceText2 	= "_BRNO_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%"+ replaceText2 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -640,7 +640,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND AA.code LIKE '%" + replaceText0 + "%' AND AA.name LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND AA.CODE LIKE '%" + replaceText0 + "%' AND AA.FAM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({

@@ -1129,7 +1129,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CRN_CD_";
         var replaceText1 	= "_CRN_NM_";
-        var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CRN_CD LIKE '%" + replaceText0 + "%' AND CRN_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '통화 정보');
         compopup1({
@@ -1156,7 +1156,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("BANK_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND FAM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
@@ -1183,7 +1183,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("DEPOSIT_NAME_P"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND AA.CODE LIKE '%" + replaceText0 + "%' AND AA.FAM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
