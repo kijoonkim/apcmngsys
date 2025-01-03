@@ -1233,6 +1233,7 @@
 			SBUxMethod.set('SCH_SITE_CODE', 			p_ss_siteCode);
 			SBUxMethod.set('FM2_SITE_CODE1_A', 			p_ss_siteCode);
 			SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_ss_defaultAcctRule);
+			
 			SBUxMethod.set('SCH_ACQUIRE_DATE_FR', 		gfnma_date9(-1));
 			SBUxMethod.set('SCH_ACQUIRE_DATE_TO', 		gfnma_date4());
 			
@@ -2311,13 +2312,13 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
+   			,searchInputFields		: ["ACNTL_CD", 			"ACNT_NM"]
    			,searchInputValues		: [searchText1, 		searchText2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드", 			"계정명",			"계정(한국어)"]
-   			,tableColumnNames		: ["APLY_ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]	
+   			,tableColumnNames		: ["ACNTL_CD", 			"ACNT_NM",		"ACNT_NM_CHN"]	
    			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
