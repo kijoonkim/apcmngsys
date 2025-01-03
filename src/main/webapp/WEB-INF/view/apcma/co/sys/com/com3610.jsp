@@ -744,47 +744,47 @@
         		let rowLength = MNGARTCLSubGrid.getUpdateData(true, 'all').length;
         		let rowVal 	  = MNGARTCLSubGrid.getUpdateData(true, 'all');
         		if(rowLength >= 1 ){
-        	    		for(var i = 0; rowLength > i; i ++){
-        	    			var workType = rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-        		            		
-        	    			var paramObj = {
-       	    					   V_P_DEBUG_MODE_YN     : ''
-   	    						   ,V_P_LANG_ID          : ''
-   	    						   ,V_P_COMP_CODE        : gv_ma_selectedCorpCd
-   	    						   ,V_P_CLIENT_CODE      : gv_ma_selectedClntCd
-   	    						   ,V_P_ACC_ITEM_CODE    : ACC_ITEM_CODE
-   	    						   ,V_P_DATA_CODE        : rowVal[i].data.DATA_CODE
-   	    						   ,V_P_DATA_NAME        : rowVal[i].data.DATA_NAME
-   	    						   ,V_P_USE_YN           : rowVal[i].data.USE_YN
-   	    						   ,V_P_FORM_ID          : p_formId
-   	    						   ,V_P_MENU_ID          : p_menuId
-   	    						   ,V_P_PROC_ID          : ''
-   	    						   ,V_P_USERID           : p_userId
-   	    						   ,V_P_PC               : ''
-        	    		    };		
-        	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3610_S1.do", {
-        	    	        	getType				: 'json',
-        	    	        	workType			: workType,
-        	    	        	cv_count			: '0',
-        	    	        	params				: gfnma_objectToString(paramObj)
-        	    			});    	 
-        	    	        const subdata = await postJsonPromise;
-        	    	        try {
-        	    	        	if (_.isEqual("S", subdata.resultStatus)) {
-        	    	        		if(subdata.resultMessage){
-        	    		          		alert(subdata.resultMessage);
-        	    	        		}
-        	    	        	} else {
-        	    	          		alert(subdata.resultMessage);
-        	    	        	}
-        	    	        } catch (e) {
-        	    	    		if (!(e instanceof Error)) {
-        	    	    			e = new Error(e);
-        	    	    		}
-        	    	    		console.error("failed", e.message);
-        	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	    	        }
-        	    		}
+       	    		for(var i = 0; rowLength > i; i ++){
+       	    			var workType = rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
+       		            		
+       	    			var paramObj = {
+      	    					   V_P_DEBUG_MODE_YN     : ''
+  	    						   ,V_P_LANG_ID          : ''
+  	    						   ,V_P_COMP_CODE        : gv_ma_selectedCorpCd
+  	    						   ,V_P_CLIENT_CODE      : gv_ma_selectedClntCd
+  	    						   ,V_P_ACC_ITEM_CODE    : ACC_ITEM_CODE
+  	    						   ,V_P_DATA_CODE        : rowVal[i].data.DATA_CODE
+  	    						   ,V_P_DATA_NAME        : rowVal[i].data.DATA_NAME
+  	    						   ,V_P_USE_YN           : rowVal[i].data.USE_YN
+  	    						   ,V_P_FORM_ID          : p_formId
+  	    						   ,V_P_MENU_ID          : p_menuId
+  	    						   ,V_P_PROC_ID          : ''
+  	    						   ,V_P_USERID           : p_userId
+  	    						   ,V_P_PC               : ''
+       	    		    };
+       	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3610_S1.do", {
+       	    	        	getType				: 'json',
+       	    	        	workType			: workType,
+       	    	        	cv_count			: '0',
+       	    	        	params				: gfnma_objectToString(paramObj)
+       	    			});    	 
+       	    	        const subdata = await postJsonPromise;
+       	    	        try {
+       	    	        	if (_.isEqual("S", subdata.resultStatus)) {
+       	    	        		if(_.isEmpty(data.resultMessage) && !_.isEmpty(subdata.resultMessage)){
+       	    		          		alert(subdata.resultMessage);
+       	    	        		}
+       	    	        	} else {
+       	    	          		alert(subdata.resultMessage);
+       	    	        	}
+       	    	        } catch (e) {
+       	    	    		if (!(e instanceof Error)) {
+       	    	    			e = new Error(e);
+       	    	    		}
+       	    	    		console.error("failed", e.message);
+       	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+       	    	        }
+       	    		}
         		}
         		
         		cfn_search();

@@ -393,16 +393,16 @@
     		};
     	}else{
 	    	field_data = {
-	    	    	FIELD_CAPTION1 : gfn_nvl( data.EXTRA_COL1 ),
-	    	    	FIELD_CAPTION2 : gfn_nvl( data.EXTRA_COL2 ),
-	    	    	FIELD_CAPTION3 : gfn_nvl( data.EXTRA_COL3 ),
-	    	    	FIELD_CAPTION4 : gfn_nvl( data.EXTRA_COL4 ),
-	    	    	FIELD_CAPTION5 : gfn_nvl( data.EXTRA_COL5 ),
-	    	    	FIELD_CAPTION6 : gfn_nvl( data.EXTRA_COL6 ),
-	    	    	FIELD_CAPTION7 : gfn_nvl( data.EXTRA_COL7 ),
-	    	    	FIELD_CAPTION8 : gfn_nvl( data.EXTRA_COL8 ),
-	    	    	FIELD_CAPTION9 : gfn_nvl( data.EXTRA_COL9 ),
-	    	    	FIELD_CAPTION10 : gfn_nvl( data.EXTRA_COL10 ),
+	    	    	FIELD_CAPTION1 : gfn_nvl( data.COL_CPTN1 ),
+	    	    	FIELD_CAPTION2 : gfn_nvl( data.COL_CPTN2 ),
+	    	    	FIELD_CAPTION3 : gfn_nvl( data.COL_CPTN3 ),
+	    	    	FIELD_CAPTION4 : gfn_nvl( data.COL_CPTN4 ),
+	    	    	FIELD_CAPTION5 : gfn_nvl( data.COL_CPTN5 ),
+	    	    	FIELD_CAPTION6 : gfn_nvl( data.COL_CPTN6 ),
+	    	    	FIELD_CAPTION7 : gfn_nvl( data.COL_CPTN7 ),
+	    	    	FIELD_CAPTION8 : gfn_nvl( data.COL_CPTN8 ),
+	    	    	FIELD_CAPTION9 : gfn_nvl( data.COL_CPTN9 ),
+	    	    	FIELD_CAPTION10 : gfn_nvl( data.COL_CPTN10 ),
 	    	};
     	}
     	return field_data;
@@ -759,12 +759,12 @@
     	let FIELD_CAPTION8 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION8"));
     	let FIELD_CAPTION9 		= gfn_nvl(SBUxMethod.get("FIELD_CAPTION9"));
     	let FIELD_CAPTION10 	= gfn_nvl(SBUxMethod.get("FIELD_CAPTION10"));
-    	
+    	let valUrl = "";
     	
     	if(editType == "N"){
-    		var valUrl = "/co/sys/com/insertCom3720.do";
+    		valUrl = "/co/sys/com/insertCom3720.do";
     	}else{
-    		var valUrl = "/co/sys/com/updateCom3720.do";
+    		valUrl = "/co/sys/com/updateCom3720.do";
     	}
     	
   	    var paramObj = {
@@ -814,72 +814,71 @@
         		let rowLength = subGrid.getUpdateData(true, 'all').length;
         		let rowVal 	  = subGrid.getUpdateData(true, 'all');
         		if(rowLength >= 1 ){
-        	    		for(var i = 0; rowLength > i; i ++){
-        	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
-        		            var P_USE_YN 		= '';
-        		            var P_SYSTEM_YN 	= '';
-        	    			
-        	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
-        	    				P_USE_YN = 'N';
-        	    			}
-        	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
-        	    				P_SYSTEM_YN = 'N';
-        	    			}
-        	    			var paramObj = {
-        	    					
-       	    					   V_P_DEBUG_MODE_YN        : ''
-  	    						   ,V_P_LANG_ID             : ''
-  	    						   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-  	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-  	    						   ,V_P_GROUP_CODE          : GROUP_CODE
-  	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
-  	    						   ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
-  	    						   ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
-  	    						   ,V_P_EXTRA_FIELD1        : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
-  	    						   ,V_P_EXTRA_FIELD2        : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
-  	    						   ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
-  	    						   ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
-  	    						   ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
-  	    						   ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
-  	    						   ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
-  	    						   ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
-  	    						   ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
-  	    						   ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
-  	    						   ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
-  	    						   ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
-  	    						   ,V_P_FORM_ID             : p_formId
-  	    						   ,V_P_MENU_ID             : p_menuId
-  	    						   ,V_P_PROC_ID             : ''
-  	    						   ,V_P_USERID              : p_userId
-  	    						   ,V_P_PC                  : ''
-        	    		    };		
-        	    			
-        	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3720_S1.do", {
-        	    	        	getType				: 'json',
-        	    	        	workType			: workType,
-        	    	        	cv_count			: '0',
-        	    	        	params				: gfnma_objectToString(paramObj)
-        	    			});    	 
-        	    	        const subdata = await postJsonPromise;
+       	    		for(var i = 0; rowLength > i; i ++){
+       	    			var workType 		= rowVal[i].status == 'i' ? 'N' : (rowVal[i].status == 'u' ? 'U' : 'D');
+       		            var P_USE_YN 		= '';
+       		            var P_SYSTEM_YN 	= '';
+       	    			
+       	    			if(gfn_nvl(rowVal[i].data.USE_YN) == ""){
+       	    				P_USE_YN = 'N';
+       	    			}
+       	    			if(gfn_nvl(rowVal[i].data.SYSTEM_YN) == ""){
+       	    				P_SYSTEM_YN = 'N';
+       	    			}
+       	    			var paramObj = {
+       	    					
+      	    					   V_P_DEBUG_MODE_YN        : ''
+ 	    						   ,V_P_LANG_ID             : ''
+ 	    						   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+ 	    						   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+ 	    						   ,V_P_GROUP_CODE          : GROUP_CODE
+ 	    						   ,V_P_SUB_CODE            : gfn_nvl(rowVal[i].data.SUB_CODE)
+ 	    						   ,V_P_CODE_NAME           : gfn_nvl(rowVal[i].data.CODE_NAME)
+ 	    						   ,V_P_SYSTEM_YN           : gfn_nvl(rowVal[i].data.SYSTEM_YN) == 'Y' ? 'Y' : 'N'
+ 	    						   ,V_P_EXTRA_FIELD1        : gfn_nvl(rowVal[i].data.EXTRA_FIELD1)
+ 	    						   ,V_P_EXTRA_FIELD2        : gfn_nvl(rowVal[i].data.EXTRA_FIELD2)
+ 	    						   ,V_P_EXTRA_FIELD3        : gfn_nvl(rowVal[i].data.EXTRA_FIELD3)
+ 	    						   ,V_P_EXTRA_FIELD4        : gfn_nvl(rowVal[i].data.EXTRA_FIELD4)
+ 	    						   ,V_P_EXTRA_FIELD5        : gfn_nvl(rowVal[i].data.EXTRA_FIELD5)
+ 	    						   ,V_P_EXTRA_FIELD6        : gfn_nvl(rowVal[i].data.EXTRA_FIELD6)
+ 	    						   ,V_P_EXTRA_FIELD7        : gfn_nvl(rowVal[i].data.EXTRA_FIELD7)
+ 	    						   ,V_P_EXTRA_FIELD8        : gfn_nvl(rowVal[i].data.EXTRA_FIELD8)
+ 	    						   ,V_P_EXTRA_FIELD9        : gfn_nvl(rowVal[i].data.EXTRA_FIELD9)
+ 	    						   ,V_P_EXTRA_FIELD10       : gfn_nvl(rowVal[i].data.EXTRA_FIELD10)
+ 	    						   ,V_P_SORT_SEQ            : gfn_nvl(rowVal[i].data.SORT_SEQ)
+ 	    						   ,V_P_USE_YN              : gfn_nvl(rowVal[i].data.USE_YN) == 'Y' ? 'Y' : 'N'
+ 	    						   ,V_P_FORM_ID             : p_formId
+ 	    						   ,V_P_MENU_ID             : p_menuId
+ 	    						   ,V_P_PROC_ID             : ''
+ 	    						   ,V_P_USERID              : p_userId
+ 	    						   ,V_P_PC                  : ''
+       	    		    };		
+       	    			
+       	    	        const postJsonPromise = gfn_postJSON("/co/sys/com/updateCom3720_S1.do", {
+       	    	        	getType				: 'json',
+       	    	        	workType			: workType,
+       	    	        	cv_count			: '0',
+       	    	        	params				: gfnma_objectToString(paramObj)
+       	    			});    	 
+       	    	        const subdata = await postJsonPromise;
 
-        	    	        try {
-        	    	        	if (_.isEqual("S", subdata.resultStatus)) {
-        	    	        		if(subdata.resultMessage){
-        	    		          		alert(subdata.resultMessage);
-        	    	        		}
-        	    	        	} else {
-        	    	          		alert(subdata.resultMessage);
-        	    	        	}
-        	    	        } catch (e) {
-        	    	    		if (!(e instanceof Error)) {
-        	    	    			e = new Error(e);
-        	    	    		}
-        	    	    		console.error("failed", e.message);
-        	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	    	        }
-        	    		}
+       	    	        try {
+       	    	        	if (_.isEqual("S", subdata.resultStatus)) {
+       	    	        		if(_.isEmpty(data.resultMessage) && !_.isEmpty(subdata.resultMessage)){
+       	    		          		alert(subdata.resultMessage);
+       	    	        		}       	    	        		
+       	    	        	} else {
+       	    	          		alert(subdata.resultMessage);
+       	    	        	}
+       	    	        } catch (e) {
+       	    	    		if (!(e instanceof Error)) {
+       	    	    			e = new Error(e);
+       	    	    		}
+       	    	    		console.error("failed", e.message);
+       	    	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+       	    	        }
+       	    		}
         		}
-        		
         		cfn_search();
         	} else {
           		alert(data.resultMessage);
@@ -918,47 +917,46 @@
          }
      }
      
-     
-     const fn_gridCopyClear = async function (){
-         $('#btnCopyClear').hide();
-         $('#btnCopyLine').show();
-         $('#btnCopyCell').hide();
+    const fn_gridCopyClear = async function (){
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').show();
+        $('#btnCopyCell').hide();
 
-         let gridData = subGrid.getGridDataAll();
-         let fieldData = await fn_fieldCaption(); 
-     	 jsonSubList = [];
-		 mode = 'byrow'; //행 단위 단일  선택
-		 copy = true;
-         fn_drawSubGrid(mode,fieldData, gridData, copy);
-     }
+        let gridData = subGrid.getGridDataAll();
+        let fieldData = await fn_fieldCaption(); 
+    	jsonSubList = [];
+		mode = 'byrow'; //행 단위 단일  선택
+		copy = true;
+        fn_drawSubGrid(mode,fieldData, gridData, copy);
+    }
      
      /*행 복사 (행복사모드)*/
-     const fn_gridCopyLine = async function () { 
-         $('#btnCopyClear').hide();
-         $('#btnCopyLine').hide();
-         $('#btnCopyCell').show();
+    const fn_gridCopyLine = async function () { 
+        $('#btnCopyClear').hide();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').show();
 
-         let gridData = subGrid.getGridDataAll();
-         let fieldData = await fn_fieldCaption(); 
-     	 jsonSubList = [];
-		 mode = 'byrows'; //행 단위 다중 선택
-		 copy = true;
-         fn_drawSubGrid(mode,fieldData, gridData, copy);
-     }
+        let gridData = subGrid.getGridDataAll();
+        let fieldData = await fn_fieldCaption(); 
+    	jsonSubList = [];
+		mode = 'byrows'; //행 단위 다중 선택
+		copy = true;
+        fn_drawSubGrid(mode,fieldData, gridData, copy);
+    }
      
-     /*셀 복사 (셀복사모드)*/
-     const fn_gridCopyCell = async function () {
-         $('#btnCopyClear').show();
-         $('#btnCopyLine').hide();
-         $('#btnCopyCell').hide();
-         
-         let gridData = subGrid.getGridDataAll();
-         let fieldData = await fn_fieldCaption(); 
-     	 jsonSubList = [];
-         mode = 'free'; //셀 단위 다중 선택
-		 copy = true;
-         fn_drawSubGrid(mode,fieldData, gridData, copy);
-     }
+    /*셀 복사 (셀복사모드)*/
+    const fn_gridCopyCell = async function () {
+        $('#btnCopyClear').show();
+        $('#btnCopyLine').hide();
+        $('#btnCopyCell').hide();
+        
+        let gridData = subGrid.getGridDataAll();
+        let fieldData = await fn_fieldCaption(); 
+    	jsonSubList = [];
+        mode = 'free'; //셀 단위 다중 선택
+		copy = true;
+        fn_drawSubGrid(mode,fieldData, gridData, copy);
+    }
      
     //그룹코드 내역 보기
     const fn_view = async function() {
