@@ -821,10 +821,10 @@
 				{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
 				{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}}
+					,typeinfo : {ref:'comIcptRsnCdUo01', label:'label', value:'value', displayui : false, unselect : {label : '', value : ''}}
 				},
 				{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
-					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
+					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : false, unselect : {label : '', value : ''}
 						,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
 					}
 				},
@@ -844,7 +844,7 @@
 				},
 				{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
 					,typeinfo : {ref:'comIcptRsnDtlCdUo01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
-						,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
+						//,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
 					}
 				},
 				{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
@@ -1075,10 +1075,10 @@
 			{caption: ["적합품목"], 	ref: 'stbltItemList',	type:'output',  width:'160px',    style:'text-align:center;'},
 
 			{caption: ["탈락사유구분"], 	ref: 'icptRsnCd',	type:'combo',  width:'120px',    style:'text-align:center;', disabled : true
-				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : true}
+				,typeinfo : {ref:'comIcptRsnCdIso01', label:'label', value:'value', displayui : false}
 			},
 			{caption: ["세부탈락사유"], 	ref: 'icptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;', disabled : true
-				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true
+				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : false
 					,filtering: { usemode: true, uppercol: 'icptRsnCd', attrname: 'icptRsnCd', listall: false}
 				}
 			},
@@ -1095,7 +1095,7 @@
 			},
 			{caption: ["세부탈락사유\n(관리자입력)"], 	ref: 'mngrIcptRsnDtlCd',	type:'combo',  width:'160px',    style:'text-align:center;'
 				,typeinfo : {ref:'comIcptRsnDtlCdIso01', label:'label', value:'value', displayui : true, unselect : {label : '', value : ''}
-					,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
+					//,filtering: { usemode: true, uppercol: 'mngrIcptRsnCd', attrname: 'icptRsnCd', listall: false}
 				}
 			},
 			{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
