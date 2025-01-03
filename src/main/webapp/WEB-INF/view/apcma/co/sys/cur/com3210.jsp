@@ -418,8 +418,8 @@
         fn_search('TAB_DAILY');
     });
 	// 신규
-	function cfn_add() {
-	}
+// 	function cfn_add() {
+// 	}
 	
 	/**
 	 * 초기화
@@ -432,17 +432,22 @@
 
 	
 	// 그룹코드 내역, 세부코드 정보 저장
-	function cfn_save() {
+	async function cfn_save() {
 		
 		if(!gfnma_gridValidateCheck()){
 			return;
 		}
-		
 		var tabId = $('#idxTab_norm_ul').find('.active').attr('data-sbux-id');
+		
+		await fn_saveTabDaily();
+		await fn_saveTabMonth();
+		
 		if(tabId == 'TAB_DAILY'){
-			fn_saveTabDaily();
+			fn_search('TAB_DAILY');
+		}else if(tabId == 'TAB_AVERAGE'){
+			fn_search('TAB_AVERAGE');
 		}else if(tabId == 'TAB_MONTH'){
-			fn_saveTabMonth();
+			fn_search('TAB_MONTH');
 		}
 		
 	}
@@ -482,7 +487,6 @@
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
-                    fn_search('TAB_MONTH');
                 } else {
                     alert(data.resultMessage);
                 }
@@ -552,8 +556,6 @@
             const data = await postJsonPromise;
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    gfn_comAlert("I0001");
-                    fn_search('TAB_DAILY');
                 } else {
                     alert(data.resultMessage);
                 }
@@ -1150,7 +1152,7 @@
             {caption: ["사용자 환율3"], 		ref: 'USER_EXCHANGE_RATE3', type: 'input', width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: 'input', width: '100px', style: 'text-align:left'},
+            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: 'input', width: '100px', style: 'text-align:center'},
             {caption: ["펌뱅킹서비스"],		ref: 'FBS_SERVICE', 		type: 'input', width: '100px', style: 'text-align:left'},
             {caption: ["은행코드"], 			ref: 'BANK_CODE', 			type: 'input', width: '100px', style: 'text-align:left'}
         ];
@@ -1548,7 +1550,7 @@
             {caption: ["사용자 환율3"], 		ref: 'USER_EXCHANGE_RATE3', type: editType, width: '100px', style: 'text-align:right',
             	format : {type:'number', rule:'#,##0.00'}	
             },
-            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: editType, width: '100px', style: 'text-align:left'},
+            {caption: ["데이타구분"], 		ref: 'DATA_TYPE', 			type: editType, width: '100px', style: 'text-align:center'},
             {caption: ["펌뱅킹서비스"],		ref: 'FBS_SERVICE', 		type: editType, width: '100px', style: 'text-align:left'},
             {caption: ["은행코드"], 			ref: 'BANK_CODE', 			type: editType, width: '100px', style: 'text-align:left'}
         ];

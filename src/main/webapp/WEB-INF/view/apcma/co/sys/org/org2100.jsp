@@ -1068,7 +1068,6 @@
     }
     
     const fn_changeDateKey = async function() {
-    	//변경번호 법인별로 구분되게 where 추가
     	let strwhereClause = "AND CO_CD LIKE '%" +gv_ma_selectedCorpCd + "%'"
     	SBUxMethod.attr('modal-compopup1', 'header-title', '조직도변경번호 팝업');
     	await compopup1({
@@ -1084,12 +1083,12 @@
    			,tableHeader			: ["변경번호", 		"적용여부",	"비고"]
    			,tableColumnNames		: ["CHG_YMD",	"APLY_YN", "MEMO"]
    			,tableColumnWidths		: ["80px", 			"80px", 	"200px"]
-			,itemSelectEvent		: function (data){
+			,itemSelectEvent		: async function (data){
 				SBUxMethod.set('CHANGE_DATE_KEY', 	data.CHG_YMD);
 				SBUxMethod.set('CHANGE_DATE', 		data.CHG_YMD);
 				SBUxMethod.set('MEMO1',				data.MEMO);
-				if(gfn_nvl(data.CHANGE_DATE) != ""){
-					fn_search('CHANGE');
+				if(gfn_nvl(data.CHG_YMD) != ""){
+					await fn_search('CHANGE');
 				    SBUxMethod.attr('btnAddOrg', 'disabled', 'false');
 				    SBUxMethod.attr('btnAddRow', 'disabled', 'false');
 				    SBUxMethod.attr('btnDelRow', 'disabled', 'false');

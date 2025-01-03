@@ -225,7 +225,7 @@
 									</td>
 								</tr> 
 								<tr>
-									<th scope="row" class="th_bg">본지점계정</th>
+									<th scope="row" class="th_bg">상위원가중심점</th>
 									<td class="td_input" style="border-right: hidden;">
 										<sbux-input uitype="text" id="PARENT_COST_CENTER" class="form-control input-sm" ></sbux-input>
 									</td>

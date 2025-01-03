@@ -537,7 +537,6 @@
 	}
 	// 저장
 	function cfn_save() {
-
 		if(gfn_comConfirm("Q0001", "저장")){
 		    fn_save();
 		}
@@ -1080,7 +1079,6 @@
 	            if (data.resultMessage) {
 	                alert(data.resultMessage);
 	            }
-	            gfn_comAlert("I0001");
 	            cfn_search();
 	        } else {
 	            alert(data.resultMessage);
