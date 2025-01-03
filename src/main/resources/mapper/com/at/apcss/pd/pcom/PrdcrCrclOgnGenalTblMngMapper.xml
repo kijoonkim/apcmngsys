@@ -1205,62 +1205,45 @@
 			BRNO
 			, CLSF_CD
 			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = A.CLSF_CD) AS CLSF_NM
-			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_CNSGN_SLS_VLM,'') , 0 ) ) AS PRV_TOT_VLM
-			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_CNSGN_SLS_AMT,'') , 0 ) ) AS PRV_TOT_AMT
+			, SUM( NVL( DECODE(YR,#{YR}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{YR}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
+			, SUM( NVL( DECODE(YR,#{YR}-1,SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{YR}-1,SLS_EMSPAP_AMT,'') , 0 ) ) AS PRV_TOT_AMT
 
-			, SUM( NVL( DECODE(YR,#{yr},SLS_CNSGN_SLS_VLM,'') , 0 ) ) AS TOT_VLM
-			, SUM( NVL( DECODE(YR,#{yr},SLS_CNSGN_SLS_AMT,'') , 0 ) ) AS TOT_AMT
+			, SUM( NVL( DECODE(YR,#{YR},SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{YR},SLS_EMSPAP_VLM,'') , 0 ) ) AS TOT_VLM
+			, SUM( NVL( DECODE(YR,#{YR},SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{YR},SLS_EMSPAP_AMT,'') , 0 ) ) AS TOT_AMT
 		FROM (
 				SELECT
-					PST.*
+					YR
+					, BRNO
+					, SLS_TRST_VLM
+					, SLS_TRST_AMT
+					, SLS_EMSPAP_VLM
+					, SLS_EMSPAP_AMT
 					,(SELECT CLSF_CD
 						FROM TB_EV_APO_YR_GPC_CD
 						WHERE 1=1
 						  AND APO_SE = '1'
-						  AND YR = PST.YR
-						  AND BRNO = PST.BRNO
-						  AND UO_BRNO = PST.UO_BRNO
-						  AND ITEM_CD = PST.ITEM_CD
+						  AND YR = APS.YR
+						  AND BRNO = APS.BRNO
+						  AND ITEM_CD = APS.ITEM_CD
+						  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE
 					) AS CLSF_CD
-				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 				WHERE 1=1
-				  AND DEL_YN = 'N'
+				  AND ITEM_CD = (SELECT ITEM_CD
+				  					FROM TB_EV_APO_YR_GPC_CD
+				  					WHERE 1=1
+				  					  AND APO_SE = '1'
+				  					  AND YR = APS.YR
+				  					  AND BRNO = APS.BRNO
+				  					  AND ITEM_CD = APS.ITEM_CD
+				  					  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE)
 				  AND APO_SE = '1'
-				  AND (
-						TYPE_SE_NO IN ('2','7')
-						OR
-						(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
-						)
-				  AND (
-				  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
-											FROM TB_EV_FRMHS_APO
-											WHERE 1=1
-											  AND NVL(EXCL_YN,'N') != 'Y'
-											  AND APO_SE = '1'
-											  AND YR = PST.YR
-											  AND BRNO = PST.BRNO
-											  AND UO_BRNO = PST.UO_BRNO
-											  AND TRMT_TYPE = PST.TRMT_TYPE
-											)
-						OR
-						PRDCR_OGNZ_SN = '0'
-						)
-				  AND ITEM_CD IN (SELECT ITEM_CD
-									FROM TB_EV_APO_YR_GPC_CD
-									WHERE 1=1
-									  AND APO_SE = '1'
-									  AND YR = PST.YR
-									  AND BRNO = PST.BRNO
-									  AND UO_BRNO = PST.UO_BRNO
-									  AND STTG_UPBR_ITEM_SE != '3'
-									)
+				  AND PRCHS_SLS_SE = '2'
 				<if test='brno != null and brno != ""'>
 				  AND BRNO = #{brno}
 				</if>
-				<if test='uoBrno != null and uoBrno != ""'>
-				  AND UO_BRNO = #{uoBrno}
-				</if>
 				) A
 		GROUP BY  BRNO , CLSF_CD
+		ORDER BY CLSF_CD
 	</select>
 </mapper>
