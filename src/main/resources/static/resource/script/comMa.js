@@ -210,59 +210,29 @@ const gfnma_date8 = function(str) {
  * @name 		gfnma_date9
  * @description 현재 날짜에서 달을 차감함.
  * @function
- * @param 		{string} str : 차감 달 
+ * @param 		{string} val : 차감 달 
  * @returns 	{string}
  */
-const gfnma_date9 = function(str) {
+const gfnma_date9 = function(val) {
 	
-	var pad = function(number, length) {
-	  var str = '' + number;
-	  while (str.length < length) {
-	    str = '0' + str;
-	  }
-	  return str;
+	// 1자리면 0 붙이기
+	var pad = function(n) {
+		return n < 10 ? '0' + n : '' + n
+	}
+	// 윤년인지여부
+	var isLeapYear = function(year) { 
+		return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)); 
+	}
+	// 해당년월의 말일 구하기
+	var getLastDate = function (year, month) {    
+		return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 	}
 	
-	//윤년 check
-	var leapYear = function(year)
-	{
-	    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
-	}	
-	
-	var nowDate	= new Date();
-	var cha		= Number(str) + 1;
-	
-	var yyyy = nowDate.getFullYear().toString();
-	var MM = pad(nowDate.getMonth() + (cha),2);
-	var dd = pad(nowDate.getDate(), 2);
-	var hh = pad(nowDate.getHours(), 2);
-	var mm = pad(nowDate.getMinutes(), 2)
-	var ss = pad(nowDate.getSeconds(), 2)
-	
-	//js 날짜계산 오류 수정
-	if(MM=='01'||MM=='03'||MM=='05'||MM=='07'||MM=='08'||MM=='10'||MM=='12'){
-		if(Number(dd)>31){
-			dd = 31;
-		}
-	} else if(MM=='04'||MM=='06'||MM=='09'||MM=='11'){
-		if(Number(dd)>30){
-			dd = 30;
-		}
-	} else {
-		if(leapYear(Number(yyyy))){
-			//29
-			if(Number(dd)>29){
-				dd = 29;
-			}
-		} else {
-			//28
-			if(Number(dd)>28){
-				dd = 28;
-			}
-		}
-	}
-	rstr = yyyy + '-' + MM + '-' + dd;
-	return rstr;
+    var d = new Date();    
+	var date = d.getDate();
+	d.setDate(1); 					// 1일로 설정    
+	d.setMonth(d.getMonth() + val); // 개월수 더하기(빼기)    
+	return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(Math.min(date, getLastDate(d.getYear(), d.getMonth())));    
 }
 
 /**
