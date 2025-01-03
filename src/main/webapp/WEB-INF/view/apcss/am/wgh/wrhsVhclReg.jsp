@@ -77,7 +77,7 @@
                                     name="srch-slt-wghno"
                                     uitype="text"
                                     class="form-control input-sm"
-                                    style="width: 80%">
+                                    style="width: 80%" disabled>
                         </sbux-input>
                     </td>
                     <td colspan="4" style="border-top: hidden;"></td>

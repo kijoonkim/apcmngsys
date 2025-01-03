@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : WghFcltMapper.xml                                   				-->
+<!-- DESC : 가동시설 mapper                                            		    -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.2  	손민성        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wgh.mapper.WghFcltMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : deleteWghApcFclt                                      				-->
+    <!-- DESC : APC 가동시설 삭제                                             		    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="deleteWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
+        UPDATE /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+        TB_OPRTNG_APC_FCLT
+            SET DEL_YN = 'Y'
+          WHERE
+            APC_CD = #{apcCd}
+          AND
+            FCLT_TYPE = #{fcltType}
+          AND
+            FCLT_CD = #{fcltCd}
+    </update>
+    <!-- ==========================================================================	-->
+    <!-- NAME : deleteWghApcFclt                                      				-->
+    <!-- DESC : APC 가동시설 상세 삭제                                             		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="deleteWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
+        UPDATE /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+            TB_OPRTNG_APC_FCLT_DTL
+        SET DEL_YN = 'Y'
+        WHERE
+            APC_CD = #{apcCd}
+          AND
+            FCLT_TYPE = #{fcltType}
+          AND
+            FCLT_CD = #{fcltCd}
+          AND
+            FCLT_DTL_TYPE = #{fcltDtlType}
+    </update>
+    <!-- ==========================================================================	-->
+    <!-- NAME : insertWghApcFclt                                      				-->
+    <!-- DESC : APC 가동시설등록                                               		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
+        INSERT /* com.at.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFclt */
+        INTO TB_OPRTNG_APC_FCLT
+        (
+             APC_CD
+            ,FCLT_TYPE
+            ,FCLT_CD
+            ,FCLT_NM
+            ,FCLT_EXPLN
+            ,OPRTNG_HR
+            ,N_OPRTNG_HR
+            ,HR_UNIT
+            ,FCLT_CPCT
+            ,CPCT_UNIT
+            ,WGHT_MIN
+            ,WGHT_MAX
+            ,WGHT_UNIT
+            ,PRCS_NMTM
+            ,BGNG_YMD
+            ,END_YMD
+            ,FCLT_RMRK
+            ,SYS_FRST_INPT_DT
+            ,SYS_FRST_INPT_USER_ID
+            ,SYS_FRST_INPT_PRGRM_ID
+            ,SYS_LAST_CHG_DT
+            ,SYS_LAST_CHG_USER_ID
+            ,SYS_LAST_CHG_PRGRM_ID
+        )
+        VALUES
+            (
+                #{apcCd}
+                ,'WGH_FCLT'
+                ,#{fcltCd}
+                ,#{fcltNm}
+                ,#{fcltExpln}
+                ,#{oprtngHr}
+                ,#{nOprtngHr}
+                ,#{hrUnit}
+                ,#{fcltCpct}
+                ,#{cpctUnit}
+                ,#{wghtMin}
+                ,#{wghtMax}
+                ,#{wghtUnit}
+                ,#{prcsNmtm}
+                ,#{bgngYmd}
+                ,#{endYmd}
+                ,#{fcltRmrk}
+                ,SYSDATE
+                ,#{sysFrstInptUserId}
+                ,#{sysFrstInptPrgrmId}
+                ,SYSDATE
+                ,#{sysLastChgUserId}
+                ,#{sysLastChgPrgrmId}
+            )
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : insertWghApcFcltDtl                                      			-->
+    <!-- DESC : APC 가동시설 상세등록                                               		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
+        INSERT /* com.at.apcss.am.cmns.mapper.WghFcltMapper.insertWghApcFcltDtl */
+        INTO TB_OPRTNG_APC_FCLT_DTL
+        (
+              APC_CD
+            , FCLT_TYPE
+            , FCLT_CD
+            , FCLT_DTL_TYPE
+            , DTL_CD
+            , DTL_VL
+            , DTL_INDCT_NM
+            , FCLT_EXPLN
+            , SYS_FRST_INPT_DT
+            , SYS_FRST_INPT_USER_ID
+            , SYS_FRST_INPT_PRGRM_ID
+            , SYS_LAST_CHG_DT
+            , SYS_LAST_CHG_USER_ID
+            , SYS_LAST_CHG_PRGRM_ID
+        )
+        VALUES
+        (
+              #{apcCd}
+            , 'WGH_FCLT'
+            , #{fcltCd}
+            , #{fcltDtlType}
+            , #{dtlCd}
+            , #{dtlVl}
+            , #{dtlIndctNm}
+            , #{fcltExpln}
+            , SYSDATE
+            , #{sysFrstInptUserId}
+            , #{sysFrstInptPrgrmId}
+            , SYSDATE
+            , #{sysLastChgUserId}
+            , #{sysLastChgPrgrmId}
+        )
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : updateWghApcFclt                                        			-->
+    <!-- DESC : APC 가동시설목록 수정                                              		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
+        <![CDATA[
+        UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghApcFclt */
+            TB_OPRTNG_APC_FCLT
+        SET
+          FCLT_NM = #{fcltNm}
+         ,FCLT_EXPLN = #{fcltExpln}
+         ,OPRTNG_HR = #{oprtngHr}
+         ,N_OPRTNG_HR = #{nOprtngHr}
+         ,HR_UNIT = #{hrUnit}
+         ,FCLT_CPCT = #{fcltCpct}
+         ,CPCT_UNIT = #{cpctUnit}
+         ,WGHT_MIN = #{wghtMin}
+         ,WGHT_MAX = #{wghtMax}
+         ,WGHT_UNIT = #{wghtUnit}
+         ,PRCS_NMTM = #{prcsNmtm}
+         ,BGNG_YMD = #{bgngYmd}
+         ,END_YMD = #{endYmd}
+         ,FCLT_RMRK = #{fcltRmrk}
+         ,SYS_LAST_CHG_DT = SYSDATE
+         ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+         ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+        WHERE APC_CD = #{apcCd}
+          AND FCLT_TYPE = 'WGH_FCLT'
+          AND FCLT_CD = #{fcltCd}
+        ]]>
+    </update>
+    <!-- ==========================================================================	-->
+    <!-- NAME : updateWghApcFcltDtl                                        			-->
+    <!-- DESC : APC 가동시설 상세목록 수정                                           		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.2  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateWghApcFcltDtl" parameterType="list">
+        MERGE INTO TB_OPRTNG_APC_FCLT_DTL OAFD
+        USING (
+        <foreach collection="list" item="item" index="index" separator="UNION">
+            SELECT
+                #{item.apcCd} AS APC_CD,
+                #{item.fcltType} AS FCLT_TYPE,
+                #{item.fcltCd} AS FCLT_CD,
+                #{item.fcltDtlType} AS FCLT_DTL_TYPE,
+                #{item.dtlCd} AS DTL_CD,
+                #{item.dtlVl} AS DTL_VL,
+                #{item.dtlIndctNm} AS DTL_INDCT_NM,
+                #{item.fcltExpln} AS FCLT_EXPLN,
+                #{item.sysLastChgUserId} AS SYS_LAST_CHG_USER_ID,
+                #{item.sysLastChgPrgrmId} AS SYS_LAST_CHG_PRGRM_ID,
+                #{item.sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID,
+                #{item.sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+            FROM DUAL
+        </foreach>
+            ) source
+            ON (
+            OAFD.APC_CD = source.APC_CD AND
+            OAFD.FCLT_TYPE = source.FCLT_TYPE AND
+            OAFD.FCLT_CD = source.FCLT_CD AND
+            OAFD.FCLT_DTL_TYPE = source.FCLT_DTL_TYPE
+            )
+            WHEN MATCHED THEN
+            UPDATE SET
+            DTL_CD = source.DTL_CD,
+            DTL_VL = source.DTL_VL,
+            DTL_INDCT_NM = source.DTL_INDCT_NM,
+            FCLT_EXPLN = source.FCLT_EXPLN,
+            SYS_LAST_CHG_DT = SYSDATE,
+            SYS_LAST_CHG_USER_ID = source.SYS_LAST_CHG_USER_ID,
+            SYS_LAST_CHG_PRGRM_ID = source.SYS_LAST_CHG_PRGRM_ID
+            WHEN NOT MATCHED THEN
+            INSERT (
+            APC_CD,
+            FCLT_TYPE,
+            FCLT_CD,
+            FCLT_DTL_TYPE,
+            DTL_CD,
+            DTL_VL,
+            DTL_INDCT_NM,
+            FCLT_EXPLN,
+            SYS_FRST_INPT_DT,
+            SYS_FRST_INPT_USER_ID,
+            SYS_FRST_INPT_PRGRM_ID,
+            SYS_LAST_CHG_DT,
+            SYS_LAST_CHG_USER_ID,
+            SYS_LAST_CHG_PRGRM_ID
+            )
+            VALUES (
+            source.APC_CD,
+            source.FCLT_TYPE,
+            source.FCLT_CD,
+            source.FCLT_DTL_TYPE,
+            source.DTL_CD,
+            source.DTL_VL,
+            source.DTL_INDCT_NM,
+            source.FCLT_EXPLN,
+            SYSDATE,
+            source.SYS_FRST_INPT_USER_ID,
+            source.SYS_FRST_INPT_PRGRM_ID,
+            SYSDATE,
+            source.SYS_LAST_CHG_USER_ID,
+            source.SYS_LAST_CHG_PRGRM_ID
+            )
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

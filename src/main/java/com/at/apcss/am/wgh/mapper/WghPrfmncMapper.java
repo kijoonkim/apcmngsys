@@ -196,4 +196,5 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
     List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception;
+
 }

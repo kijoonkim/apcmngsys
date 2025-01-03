@@ -43,7 +43,7 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
         /** 계량대 정보 생성 [FN_GET_ID_WGH_FCLT] **/
         int fcltResult = wghInfoMapper.insertWghFclt(cmnsFcltVO);
         if(fcltResult == 0){
-            new EgovBizException("insert error");
+            throw new EgovBizException("insert error");
         }
 
         if(!cmnsFcltAtrbVoList.isEmpty()){
@@ -59,12 +59,12 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 
             int result = wghInfoMapper.insertWghFcltDtl(cmnsFcltDtlVO);
             if(result < 0){
-                new EgovBizException("insert error");
+                throw new EgovBizException("insert error");
             }
 
             fcltAtrb = wghInfoMapper.insertWghFcltAtrb(cmnsFcltAtrbVoList);
             if(fcltAtrb != cmnsFcltAtrbVoList.size()){
-                new EgovBizException("insert error");
+                throw new EgovBizException("insert error");
             }
         }
         return fcltAtrb;
@@ -107,21 +107,21 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 
     @Override
     public HashMap<String, Object> selectWghDtlInfo(HashMap<String, Object> resultMap, CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception {
-        CmnsFcltVO resultVo;
-        List<CmnsFcltAtrbVO> resultList;
+        List<CmnsFcltVO> resultVo;
+        List<CmnsFcltDtlVO> resultList;
         try{
             /** fclt main Table SELECT **/
-            ObjectMapper mapper = new ObjectMapper();
+//            ObjectMapper mapper = new ObjectMapper();
             resultVo = wghInfoMapper.selectWghFcltInfo(cmnsFcltDtlVO);
-            String resultJson = mapper.writeValueAsString(resultVo);
-            resultMap.put(ComConstants.PROP_RESULT_JSON, resultJson);
+//            String resultJson = mapper.writeValueAsString(resultVo);
+            resultMap.put(ComConstants.PROP_RESULT_JSON, resultVo);
 
             /** 계량대 상세속성 grid Data SELECT 없을수있음. **/
             resultList = wghInfoMapper.selectWghFcltAtrbInfoList(cmnsFcltDtlVO);
             resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
         }catch (Exception e){
-            new EgovBizException();
+            throw new EgovBizException();
         }
 
         return resultMap;
@@ -131,15 +131,15 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
     public int deleteWghInfo(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception {
         int wghCnt = wghInfoMapper.deleteWghInfo(cmnsFcltDtlVO);
         if(wghCnt <= 0){
-            new EgovBizException();
+            throw new EgovBizException();
         }
         int atrbCnt = wghInfoMapper.deleteWghAtrbInfo(cmnsFcltDtlVO);
         if(atrbCnt <= 0){
-            new EgovBizException();
+            throw new EgovBizException();
         }
         int dtlCnt = wghInfoMapper.deleteWghDtlInfo(cmnsFcltDtlVO);
         if(dtlCnt <= 0){
-            new EgovBizException();
+            throw new EgovBizException();
         }
         return wghCnt;
     }

@@ -271,6 +271,10 @@
              TB_OPRTNG_APC_FCLT
          WHERE
              APC_CD = #{apcCd}
+         AND
+             FCLT_TYPE = 'WGH_FCLT'
+         AND
+             DEL_YN = 'N'
         ]]>
         <if test=' fcltCd != null and fcltCd !=""'>
         AND  FCLT_CD = #{fcltCd}
@@ -284,17 +288,16 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2024.07.29  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectWghFcltAtrbInfoList" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO">
+    <select id="selectWghFcltAtrbInfoList" parameterType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO" resultType="com.at.apcss.am.cmns.vo.CmnsFcltDtlVO">
         <![CDATA[
         SELECT /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.selectWghFcltAtrbInfoList */
              APC_CD
             ,FCLT_TYPE
             ,FCLT_CD
-            ,FCLT_ATRB_TYPE
-            ,SN
-            ,ATRB_CD
-            ,ATRB_VL
-            ,ATRB_INDCT_NM
+            ,FCLT_DTL_TYPE
+            ,DTL_CD
+            ,DTL_VL
+            ,DTL_INDCT_NM
             ,DEL_YN
             ,SYS_FRST_INPT_DT
             ,SYS_FRST_INPT_USER_ID
@@ -303,11 +306,13 @@
             ,SYS_LAST_CHG_USER_ID
             ,SYS_LAST_CHG_PRGRM_ID
         FROM
-            TB_OPRTNG_APC_FCLT_ATRB
+            TB_OPRTNG_APC_FCLT_DTL
         WHERE
             APC_CD = #{apcCd}
+        AND FCLT_TYPE = 'WGH_FCLT'
         AND FCLT_CD = #{fcltCd}
-        ORDER BY SN
+        AND DEL_YN = 'N'
+        ORDER BY FCLT_CD
         ]]>
     </select>
 

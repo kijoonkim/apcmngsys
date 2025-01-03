@@ -65,21 +65,21 @@
                         <col style="width: 6%">
                     </colgroup>
                     <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg">계량대</th>
-                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">
-                                <sbux-select
-                                        unselected-text="전체"
-                                        uitype="single"
-                                        id="srch-slt-sortFcltCd"
-                                        name="srch-slt-sortFcltCd"
-                                        class="form-control input-sm"
-                                        style="width: 80%"
-                                        jsondata-ref="jsonSortFclt">
-                                </sbux-select>
-                            </td>
-                            <td colspan="9" style="border-top: hidden"></td>
-                        </tr>
+<%--                        <tr>--%>
+<%--                            <th scope="row" class="th_bg">계량대</th>--%>
+<%--                            <td class="tb_input" colspan="3" style="border-right: hidden;border-top: hidden;padding: 3px">--%>
+<%--                                <sbux-select--%>
+<%--                                        unselected-text="전체"--%>
+<%--                                        uitype="single"--%>
+<%--                                        id="srch-slt-sortFcltCd"--%>
+<%--                                        name="srch-slt-sortFcltCd"--%>
+<%--                                        class="form-control input-sm"--%>
+<%--                                        style="width: 80%"--%>
+<%--                                        jsondata-ref="jsonSortFclt">--%>
+<%--                                </sbux-select>--%>
+<%--                            </td>--%>
+<%--                            <td colspan="9" style="border-top: hidden"></td>--%>
+<%--                        </tr>--%>
                     </tbody>
                 </table>
                 <div>
@@ -345,15 +345,14 @@
         try{
             let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",{apcCd:gv_apcCd});
             let data = await postJsonPromise;
-            console.log(data);
 
             if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
             }
-            if(data.resultList.length > 0){
+            if(data.resultJson.length > 0){
                 jsonWghList.length = 0;
-                data.resultList.forEach((item) => {
+                data.resultJson.forEach((item) => {
                     jsonWghList.push(item);
                 });
                 grdWghList.rebuild();
@@ -392,21 +391,27 @@
             wghInfo.bgngYmd = SBUxMethod.get("dtl-dtp-bgngYmd");
             wghInfo.endYmd = SBUxMethod.get("dtl-dtp-endYmd");
 
+            let saveParam = gfn_getTableElement("wghDtlTable","dtl-",["fcltCd","fcltExpln","wghtMin","wghtMax","prcsNmtm","warehouseSeCd","cpctUnit","bgngYmd","endYmd","fcltRmrk"]);
+            saveParam.apcCd = gv_apcCd;
+
             let grdWghDtl = grdWghDtlList.getGridDataAll().filter((item,idx) => {
                 delete item.itemCd;
                 item.apcCd = gv_apcCd;
                 item.sn = idx;
+                item.fcltType = 'WGH_FCLT';
                 return item.delYn == 'N'});
+            saveParam.wghFcltDtlVO = grdWghDtl;
 
             let postJsonPromise;
 
             if(createMode && !editMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/insertWghInfo.do",[wghInfo,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/wgh/insertWghApcFclt.do",saveParam);
             }else if(editMode && !createMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/updateWghInfo.do",[wghInfo,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/wgh/updateWghApcFclt.do",saveParam);
             }else{
                 gfn_comAlert("I0002","모드가 잘못됨",editMode,createMode);
             }
+
             if(postJsonPromise){
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
@@ -468,7 +473,7 @@
 
         let idx = grdWghList.getRow();
         let wghDtlVO = grdWghList.getRowData(idx);
-        let postJsonPromise = gfn_postJSON("/am/cmns/deleteWghInfo.do",wghDtlVO);
+        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghApcFclt.do",wghDtlVO);
         let data = await postJsonPromise;
 
         try{
@@ -494,7 +499,7 @@
         SBGridProperties.clickeventarea = {fixed: true, empty: false};
         SBGridProperties.columns = [
             {caption: ['코드'], ref: 'fcltCd', width: '10%', type: 'output', style:'text-align:center'},
-            {caption: ['명칭'], ref: 'dtlIndctNm', width: '30%', type: 'output', style:'text-align:center'},
+            {caption: ['명칭'], ref: 'fcltNm', width: '30%', type: 'output', style:'text-align:center'},
             {caption: ['설명'], ref: 'fcltExpln', width: '40%', type: 'output', style:'text-align:center'},
             {caption: ['연계코드'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
         ]
@@ -517,9 +522,9 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                     }
                 }},
-            {caption: ['상세 유형'], ref: 'fcltAtrbType', width: '33%', type: 'input', style:'text-align:center'},
-            {caption: ['상세 수치'], ref: 'atrbVl', width: '24%', type: 'input', style:'text-align:center'},
-            {caption: ['상세 코드'], ref: 'atrbCd', width: '33%', type: 'input', style:'text-align:center'},
+            {caption: ['상세 유형'], ref: 'fcltDtlType', width: '33%', type: 'input', style:'text-align:center'},
+            {caption: ['상세 수치'], ref: 'dtlVl', width: '24%', type: 'input', style:'text-align:center', typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ['상세 코드'], ref: 'dtlCd', width: '33%', type: 'input', style:'text-align:center'},
         ]
         grdWghDtlList = _SBGrid.create(SBGridProperties);
         grdWghDtlList.bind('valuechanged','fn_editMode');
@@ -556,9 +561,21 @@
      * @param {number} nRow
      */
     const fn_delRow = async function(nRow) {
+        let rowData = grdWghDtlList.getRowData(nRow);
+        if(rowData.hasOwnProperty("fcltType")){
+            if(gfn_comConfirm("Q0001","등록된 정보입니다 삭제")){
+                let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghApcFcltDtl.do",rowData);
+                let data = await postJsonPromise;
+                if(data.resultStatus === 'S'){
+                    gfn_comAlert("I0001");
+                }
+            }else{
+                return;
+            }
+        }
         let gridSelectFlag = grdWghList.getRow();
         if(gridSelectFlag > -1 && !createMode){
-            fn_editMode();
+            await fn_editMode();
         }
         grdWghDtlList.deleteRow(nRow);
     }
@@ -608,11 +625,16 @@
             let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",wghDtlVO);
             let data = await postJsonPromise;
 
+            // let resultJson = data.resultJson[0];
+            // for(let key in resultJson){
+            //     SBUxMethod.set("dtl-inp-" + key,data.resultJson[0][key]);
+            // }
+
         try{
-            if(data.resultStatus == "S"){
+            if(data.resultStatus === "S"){
+                gfn_setTableElement("wghDtlTable","dtl-",data.resultJson[0],true);
                 if(data.resultList.length >= 0){
                     /** 우측 GRID **/
-                    let fcltVO = JSON.parse(data.resultJson);
                     jsonWghDtlList.length = 0;
                     jsonWghDtlList = data.resultList;
                     grdWghDtlList.rebuild();
@@ -621,15 +643,15 @@
                     grdWghDtlList.addRow(true);
                     grdWghDtlList.setCellDisabled(nRow, 0, nRow, grdWghDtlList.getCols() - 1, true);
 
-                    /** 좌측 TABLE **/
-                    const inputs = document.querySelectorAll('*[id^="dtl"]');
-                    inputs.forEach((item) => {
-                        let lastIndex = item.id.lastIndexOf("-");
-                        let extractedPart = item.id.substring(lastIndex + 1);
-                        item.value = fcltVO[extractedPart];
-                    });
-                    SBUxMethod.set("dtl-dtp-bgngYmd",fcltVO.bgngYmd);
-                    SBUxMethod.set("dtl-dtp-endYmd",fcltVO.endYmd);
+                    // /** 좌측 TABLE **/
+                    // const inputs = document.querySelectorAll('*[id^="dtl"]');
+                    // inputs.forEach((item) => {
+                    //     let lastIndex = item.id.lastIndexOf("-");
+                    //     let extractedPart = item.id.substring(lastIndex + 1);
+                    //     item.value = fcltVO[extractedPart];
+                    // });
+                    // SBUxMethod.set("dtl-dtp-bgngYmd",fcltVO.bgngYmd);
+                    // SBUxMethod.set("dtl-dtp-endYmd",fcltVO.endYmd);
 
                     /** 삭제 버튼 **/
                     SBUxMethod.attr("btnDelete","disabled","false");
