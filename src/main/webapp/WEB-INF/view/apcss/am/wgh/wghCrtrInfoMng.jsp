@@ -398,17 +398,20 @@
                 delete item.itemCd;
                 item.apcCd = gv_apcCd;
                 item.sn = idx;
+                item.fcltType = 'WGH_FCLT';
                 return item.delYn == 'N'});
+            saveParam.wghFcltDtlVO = grdWghDtl;
 
             let postJsonPromise;
 
             if(createMode && !editMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/insertWghInfo.do",[saveParam,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/wgh/insertWghApcFclt.do",saveParam);
             }else if(editMode && !createMode){
-                 postJsonPromise = gfn_postJSON("/am/cmns/updateWghInfo.do",[saveParam,grdWghDtl]);
+                 postJsonPromise = gfn_postJSON("/am/wgh/updateWghApcFclt.do",saveParam);
             }else{
                 gfn_comAlert("I0002","모드가 잘못됨",editMode,createMode);
             }
+
             if(postJsonPromise){
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
@@ -470,7 +473,7 @@
 
         let idx = grdWghList.getRow();
         let wghDtlVO = grdWghList.getRowData(idx);
-        let postJsonPromise = gfn_postJSON("/am/cmns/deleteWghInfo.do",wghDtlVO);
+        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghApcFclt.do",wghDtlVO);
         let data = await postJsonPromise;
 
         try{
@@ -496,7 +499,7 @@
         SBGridProperties.clickeventarea = {fixed: true, empty: false};
         SBGridProperties.columns = [
             {caption: ['코드'], ref: 'fcltCd', width: '10%', type: 'output', style:'text-align:center'},
-            {caption: ['명칭'], ref: 'dtlIndctNm', width: '30%', type: 'output', style:'text-align:center'},
+            {caption: ['명칭'], ref: 'fcltNm', width: '30%', type: 'output', style:'text-align:center'},
             {caption: ['설명'], ref: 'fcltExpln', width: '40%', type: 'output', style:'text-align:center'},
             {caption: ['연계코드'], ref: 'prdcrNm', width: '20%', type: 'output', style:'text-align:center'},
         ]
@@ -519,9 +522,9 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                     }
                 }},
-            {caption: ['상세 유형'], ref: 'fcltAtrbType', width: '33%', type: 'input', style:'text-align:center'},
-            {caption: ['상세 수치'], ref: 'atrbVl', width: '24%', type: 'input', style:'text-align:center'},
-            {caption: ['상세 코드'], ref: 'atrbCd', width: '33%', type: 'input', style:'text-align:center'},
+            {caption: ['상세 유형'], ref: 'fcltDtlType', width: '33%', type: 'input', style:'text-align:center'},
+            {caption: ['상세 수치'], ref: 'dtlVl', width: '24%', type: 'input', style:'text-align:center', typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ['상세 코드'], ref: 'dtlCd', width: '33%', type: 'input', style:'text-align:center'},
         ]
         grdWghDtlList = _SBGrid.create(SBGridProperties);
         grdWghDtlList.bind('valuechanged','fn_editMode');
@@ -558,9 +561,21 @@
      * @param {number} nRow
      */
     const fn_delRow = async function(nRow) {
+        let rowData = grdWghDtlList.getRowData(nRow);
+        if(rowData.hasOwnProperty("fcltType")){
+            if(gfn_comConfirm("Q0001","등록된 정보입니다 삭제")){
+                let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghApcFcltDtl.do",rowData);
+                let data = await postJsonPromise;
+                if(data.resultStatus === 'S'){
+                    gfn_comAlert("I0001");
+                }
+            }else{
+                return;
+            }
+        }
         let gridSelectFlag = grdWghList.getRow();
         if(gridSelectFlag > -1 && !createMode){
-            fn_editMode();
+            await fn_editMode();
         }
         grdWghDtlList.deleteRow(nRow);
     }

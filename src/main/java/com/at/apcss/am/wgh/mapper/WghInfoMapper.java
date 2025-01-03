@@ -81,7 +81,7 @@ public interface WghInfoMapper {
      * @throws Exception
      * @table TB_OPRTNG_APC_FCLT_ATRB
      */
-    List<CmnsFcltAtrbVO> selectWghFcltAtrbInfoList(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception;
+    List<CmnsFcltDtlVO> selectWghFcltAtrbInfoList(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception;
 
     /**
      * 계량대 목록 삭제

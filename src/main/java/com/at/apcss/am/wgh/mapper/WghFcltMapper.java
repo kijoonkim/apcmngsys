@@ -1,19 +1,28 @@
-package com.at.apcss.am.wgh.service;
+package com.at.apcss.am.wgh.mapper;
 
 import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
 import com.at.apcss.am.wgh.vo.WghFcltVO;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Select;
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.List;
 
-public interface WghMngService {
-    /**
-     * 계량대 목록 조회
-     * @param wghFcltVO
-     * @return
-     * @throws Exception
-     */
-    List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception;
+/**
+ * 계량실적 Mapper 인터페이스
+ * @author 손민성
+ * @since 2025.01.02
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2025.01.02  손민성        최초 생성
+ * </pre>
+ */
+@Mapper
+public interface WghFcltMapper {
     /**
      * 계량대 목록 삭제
      * @param wghFcltVO
@@ -43,10 +52,25 @@ public interface WghMngService {
      */
     int insertWghApcFcltDtl(WghFcltDtlVO wghFcltDtlVO) throws Exception;
     /**
-     * 계량대 상세목록 수정
+     * 계량대 목록 FCLT_CD 발번
+     * @param apcCd
+     * @return int
+     * @throws Exception
+     */
+    @Select("SELECT FN_GET_ID_WGH_FCLT(#{apcCd}) FROM DUAL")
+    String selectWghFcltCd(String apcCd) throws Exception;
+    /**
+     * 계량대 목록 수정
      * @param wghFcltVO
      * @return int
      * @throws Exception
      */
     int updateWghApcFclt(WghFcltVO wghFcltVO) throws Exception;
+    /**
+     * 계량대 상세목록 수정
+     * @param list
+     * @return int
+     * @throws Exception
+     */
+    int updateWghApcFcltDtl(List<WghFcltDtlVO> list) throws Exception;
 }

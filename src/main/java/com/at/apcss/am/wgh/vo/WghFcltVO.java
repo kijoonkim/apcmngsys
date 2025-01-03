@@ -4,6 +4,8 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class WghFcltVO extends ComVO {
@@ -72,7 +74,9 @@ public class WghFcltVO extends ComVO {
      * 시설비고
      */
     private String fcltRmrk;
-
-
+    /**
+     * DTL VO
+     */
+    private List<WghFcltDtlVO> wghFcltDtlVO;
 
 }

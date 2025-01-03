@@ -108,7 +108,7 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
     @Override
     public HashMap<String, Object> selectWghDtlInfo(HashMap<String, Object> resultMap, CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception {
         List<CmnsFcltVO> resultVo;
-        List<CmnsFcltAtrbVO> resultList;
+        List<CmnsFcltDtlVO> resultList;
         try{
             /** fclt main Table SELECT **/
 //            ObjectMapper mapper = new ObjectMapper();
