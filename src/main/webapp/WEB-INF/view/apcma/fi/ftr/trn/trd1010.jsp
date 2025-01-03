@@ -1055,7 +1055,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -1083,7 +1083,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_PAY_CURRENCY_NAME"));
         var replaceText0 	= "_CRN_CD_";
         var replaceText1 	= "_CRN_NM_";
-        var strWhereClause 	= "AND CURRENCY_CODE LIKE '%" + replaceText0 + "%' AND CURRENCY_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CRN_CD LIKE '%" + replaceText0 + "%' AND CRN_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '통화 정보');
         compopup1({
@@ -1110,7 +1110,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_DEPOSIT_CODE"));
         var replaceText0 	= "_DPMNY_CD_";
         var replaceText1 	= "_DPMNY_NM_";
-        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
         compopup1({
@@ -1136,7 +1136,7 @@
     const fn_findAccountNoForGvwList = function(nRow, nCol) {
         var replaceText0 	= "_DPMNY_CD_";
         var replaceText1 	= "_DPMNY_NM_";
-        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
         SBUxMethod.openModal('modal-compopup1');
@@ -1151,18 +1151,18 @@
             ,searchInputValues		: ["", ""]
             ,height					: '400px'
             ,tableHeader			: ["예적금코드", "예적금명", "계좌번호", "계좌유형", "금융기관코드", "금융기관명", "수금자금수지", "수금계정", "수금계정명", "수수료계정", "수수료계정명", "통화코드", "은행코드"]
-            ,tableColumnNames		: ["DPMNY_CD" , "DPMNY_NM", "ACTNO", "DPMNY_TYPE", "BANK_CNPT_CD", "BANK_CS_NAME", "RCPT_FUND_TYPE", "RCPT_ACNT_CD", "RECEIPT_ACCOUNT_NAME", "FEE_AMT", "FEE_ACCOUNT_NAME", "CRN_CD", "BANK_CD"]
+            ,tableColumnNames		: ["DPMNY_CD" , "DPMNY_NM", "ACTNO", "DPMNY_TYPE", "BANK_CNPT_CD", "BANK_CNPT_NM", "RCPT_FUND_TYPE", "RCPT_ACNT_CD", "RECEIPT_ACCOUNT_NAME", "FEE_AMT", "FEE_ACCOUNT_NAME", "CRN_CD", "BANK_CD"]
             ,tableColumnWidths		: ["100px", "200px", "140px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
             ,itemSelectEvent		: function (data){
                 if(nCol == 10 || nCol == 11) {
-                    gvwList.setCellData(nRow, gvwList.getColRef("IN_BANK_NAME"), data.BANK_CS_NAME);
+                    gvwList.setCellData(nRow, gvwList.getColRef("IN_BANK_NAME"), data.BANK_CNPT_NM);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_CURRENCY_CODE"), data.CRN_CD);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_ACCOUNT_NO"), data.ACTNO);
                     gvwList.setCellData(nRow, gvwList.getColRef("IN_DEPOSIT_CODE"), data.DPMNY_CD);
                 } else {
                     gvwList.setCellData(nRow, gvwList.getColRef("OUT_ACCOUNT_NO"), data.ACTNO);
                     gvwList.setCellData(nRow, gvwList.getColRef("OUT_DEPOSIT_CODE"), data.DPMNY_CD);
-                    gvwList.setCellData(nRow, gvwList.getColRef("OUT_BANK_NAME"), data.BANK_CS_NAME);
+                    gvwList.setCellData(nRow, gvwList.getColRef("OUT_BANK_NAME"), data.BANK_CNPT_NM);
                 }
 
             },

@@ -704,7 +704,7 @@
     const fn_findPayerName = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYER_NAME"));
         var replaceText0 	= "_CNPT_CD_";
-        var replaceText1 	= searchText;
+        var replaceText1 	= "_CNPT_NM_";
         var replaceText2 	= "_BRNO_";
         var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' AND A.BRNO LIKE '%" + replaceText2 + "%'";
 
@@ -732,6 +732,7 @@
             },
         });
     }
+
 
     const fn_findCreatedDeptName = function() {
         var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_CREATED_DEPT_NAME"));
