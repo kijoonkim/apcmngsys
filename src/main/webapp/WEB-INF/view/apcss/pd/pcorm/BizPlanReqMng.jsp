@@ -242,7 +242,7 @@
 			console.error("failed", e.message);
 		}
 		//기본년도 세팅
-		//SBUxMethod.set("srch-input-yr",year);
+		SBUxMethod.set("srch-input-yr",year);
 		SBUxMethod.set("dtl-input-yr",year);
 	}
 
@@ -546,12 +546,14 @@
 
 		if (!confirm("제출조직 일괄승인 하시겠습니까?")) return;
 
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
+		let yr = SBUxMethod.get("srch-input-yr");//
+		if(gfn_isEmpty(yr)){
+			alert("년도를 선택해주세요");
+			return false;
+		}
 
 		let postJsonPromise = gfn_postJSON("/pd/pcorm/updateAllAprvYn.do", {
-			yr : year
+			yr : yr
 		});
 		let data = await postJsonPromise;
 
@@ -560,7 +562,7 @@
 				alert("제출조직 일괄승인 되었습니다.");
 				fn_searchBizPlan();
 			}else{
-				alert("제출조직 일괄승인 도중 오류가 발생 되었습니다.");
+				fn_searchBizPlan();
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
