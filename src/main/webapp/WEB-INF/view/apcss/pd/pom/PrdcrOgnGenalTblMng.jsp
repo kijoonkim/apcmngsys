@@ -359,6 +359,12 @@
 							 -->
 						</ul>
 					</div>
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>o 생산자조직 중 "적합(Y)" 조직 → 출자출하조직 관리-전문품목 매입매출 화면의 "(생산자조직)전속출하" 실적으로 연동</p>
+						<p>　⇒ 해당 생산자조직의 것만 최종 "통합조직 판매위임액(생산자조직 출하금액)"으로 인정</p>
+						<p>o 생산자조직 중 "부적합(N) 조직 → 출자출하조직 관리-전문품목 매입매출 화면의 "(요건미달)전속출하" 실적으로 연동</p>
+						<p>　⇒ 해당 생산자조직의 것은 "통합조직 판매위임액(생산자조직 출하금액)"으로 미인정 </p>
+					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:350px; width: 100%;"></div>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
