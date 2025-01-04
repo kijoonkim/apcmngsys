@@ -274,6 +274,10 @@ public class ComCdServiceImpl extends BaseServiceImpl implements ComCdService {
 		return null;
 	}
 
+	@Override
+	public String fnGetIdComCdVl(String apcCd, String cdId) throws Exception {
+		return comCdMapper.fnGetIdComCdVl(apcCd,cdId);
+	}
 
 
 }

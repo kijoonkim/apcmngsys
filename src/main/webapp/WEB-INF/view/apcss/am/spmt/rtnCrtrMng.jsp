@@ -93,6 +93,7 @@
                                 <span>반품기준 상세정보</span>
                             </li>
                         </ul>
+                        <sbux-button disabled="true" id="btnSaveDtl" name="btnSaveDtl" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
                     </div>
                     <div id="sb-area-rtnCrtrDtl"></div>
                 </div>
@@ -125,13 +126,24 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["기준유형코드"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준유형명칭"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준코드"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if (gfn_isEmpty(objRowData.delYn)){
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
+                    } else {
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+                    }
+            }},
+            {caption: ["기준유형코드"],ref: 'shpgotCrtrType', columnhint : '<div style="width:150px;"><span>자동발번</span></div>',	type:'input',  width:'15%', style: 'text-align:center;',disabled: true,typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ["기준유형명칭"],ref: 'crtrIndctNm',	type:'input',  width:'15%', style: 'text-align:center;'},
+            {caption: ["기준코드"],ref: 'crtrCd',	type:'input',  width:'15%', style: 'text-align:center;'},
+            {caption: ["기준 비고"],ref: 'rmrk', type:'input',  width:'50%', style: 'text-align:center;'},
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
+        gridRtnCrtr.bind("click","fn_searchDtl");
+        let nRow = gridRtnCrtr.getRows();
+        gridRtnCrtr.addRow(true);
+        gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
     }
     const fn_create_rtnCrtrDtl = async function(){
         var SBGridProperties = {};
@@ -141,13 +153,84 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-            {caption: ["상세순번"],	ref: 'wghYmd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세코드"],	ref: 'wghFcltCd',		type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세값"],	ref: 'wghno',	type:'output',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세 비고"],	ref: 'vhclno',		type:'output',  width:'50%', style: 'text-align:center;'},
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    if (gfn_isEmpty(objRowData.delYn)){
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow2(" + nRow + ", " + nCol +  ")'>추가</button>";
+                    } else {
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+                    }
+                }},
+            {caption: ["상세순번"],ref: 'dtlSn', type:'input',  width:'15%', style: 'text-align:center;'},
+            {caption: ["상세코드"],ref: 'dtlCd', type:'input',  width:'15%', style: 'text-align:center;'},
+            {caption: ["상세값"],	ref: 'dtlVl', type:'input',  width:'15%', style: 'text-align:center;'},
+            {caption: ["상세 비고"],ref: 'rmrk', type:'input',  width:'50%', style: 'text-align:center;'},
         ]
         gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
+        /** 진입시 상세는 없음 상단 그리드 선택시 조회 **/
+        // let nRow = gridRtnCrtrDtl.getRows();
+        // gridRtnCrtrDtl.addRow(true);
+        // gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+    }
+
+    /**
+     * @name fn_addRow
+     * @description 행추가
+     * @param {number} nRow
+     */
+    const fn_addRow = async function(nRow, nCol) {
+        const editableRow = gridRtnCrtr.getRowData(nRow, false);
+        editableRow.delYn = "N";
+        gridRtnCrtr.rebuild();
+        gridRtnCrtr.addRow(true);
+        nRow++;
+        gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
+        /** 저장버튼 활성화 **/
+        SBUxMethod.attr("btnSave","disabled","false");
+    }
+    /**
+     * @name fn_addRow
+     * @description 행추가
+     * 하위 그리드 용 SB이슈
+     * @param {number} nRow
+     */
+    const fn_addRow2 = async function(nRow, nCol) {
+        const editableRow = gridRtnCrtrDtl.getRowData(nRow, false);
+        editableRow.delYn = "N";
+        gridRtnCrtrDtl.rebuild();
+        gridRtnCrtrDtl.addRow(true);
+        nRow++;
+        gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+    }
+    const fn_delRow = async function(nRow){
+        gridRtnCrtr.deleteRow(nRow);
+        let cnt = gridRtnCrtr.getRows();
+        if(cnt <= 2){
+            /** 저장버튼 활성화 유무 **/
+            SBUxMethod.attr("btnSave","disabled","true");
+        }
+
+    }
+    const fn_save = async function(){
+        console.log("호출");
+        let crtr = gridRtnCrtr.getGridDataAll(true).filter((item,idx) => {
+            delete item.fcltCd;
+            item.apcCd = gv_apcCd;
+            item.indctSeq = idx;
+            return item.delYn == 'N'
+        });
+        console.log(crtr);
+        return;
+        let postJsonPromise = gfn_postJSON("/am/spmt/insertShpgotApcCrtr.do",crtr);
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            gfn_comAlert("I0001");
+        }
+    }
+    const fn_searchDtl = async function(){
+        let nRow = gridRtnCrtr.getRow();
+        let rowData = gridRtnCrtr.getRowData(nRow);
+        console.log(rowData,"?");
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

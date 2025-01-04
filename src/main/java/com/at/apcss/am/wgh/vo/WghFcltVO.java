@@ -1,10 +1,12 @@
 package com.at.apcss.am.wgh.vo;
 
+import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -75,8 +77,22 @@ public class WghFcltVO extends ComVO {
      */
     private String fcltRmrk;
     /**
+     * 창고구분코드
+     */
+    private String warehouseSeCd;
+    /**
      * DTL VO
      */
     private List<WghFcltDtlVO> wghFcltDtlVO;
+
+    public List<WghFcltDtlVO> getWghFcltDtlVO() {
+        return wghFcltDtlVO == null ? null : wghFcltDtlVO.stream().collect(Collectors.toList());
+    }
+
+    public void setWghFcltDtlVO(List<WghFcltDtlVO> wghFcltDtlVO) {
+        this.wghFcltDtlVO = wghFcltDtlVO == null ? null : wghFcltDtlVO.stream().collect(Collectors.toList());
+    }
+
+
 
 }
