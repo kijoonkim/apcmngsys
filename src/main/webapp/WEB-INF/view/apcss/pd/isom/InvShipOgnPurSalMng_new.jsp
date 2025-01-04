@@ -453,14 +453,12 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
 				</div>
 
-				<div class="ad_section_top">
+				<div class="ad_section_top" id="grid3">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
-
-							<c:if test="${loginVO.userType ne '02'}">
+							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave03"></sbux-button>
 							</c:if>
-
 						</div>
 					</div>
 					<div class="ad_tbl_top">
@@ -544,7 +542,9 @@
 		fn_fcltMngCreateGrid01();
 		fn_fcltMngCreateGrid02();
 		fn_fcltMngCreateGrid03();
-
+	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
+		$("#grid3").hide();
+	</c:if>
 		await fn_initSBSelect();
 
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
