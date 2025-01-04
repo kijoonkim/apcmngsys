@@ -583,27 +583,27 @@
 		//SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 		//SBGridProperties.mergecellsverticalalign = 'bottom';
 		SBGridProperties.columns = [
-				{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
+				{caption: ["구분","구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
+				{caption: ["통합조직\n구분","통합조직\n구분" ], 	ref: 'aprv',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
 					,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
-				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
+				{caption: ["품목","품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
+				{caption: ["부류","부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
+				{caption: ["구분","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
 					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
-				{caption: ["통합조직 총\n취급 물량(톤)"], 		ref: 'slsCnsgnSlsVlmTot',   	type:'output',  width:'100px',	style:'text-align:center;'
+				{caption: ["통합조직 \n총 취급실적","총 취급물량\n(톤)"], 		ref: 'slsCnsgnSlsVlmTot',   	type:'output',  width:'100px',	style:'text-align:right;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',	style:'text-align:center;'
+				{caption: ["통합조직 \n총 취급실적","총 취급액\n(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'120px',	style:'text-align:right;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				{caption: ["생산자조직\n전속출하액 물량(톤)"], 	ref: 'slsCnsgnSlsVlm',   	type:'output',  width:'120px',	style:'text-align:center;'
+				{caption: ["생산자조직\n전속출하실적","생산자조직\n전속출하물량(톤)"], 	ref: 'slsCnsgnSlsVlm',   	type:'output',  width:'100px',	style:'text-align:right;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:center;'
+				{caption: ["생산자조직\n전속출하실적","생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:right;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-				{caption: ["전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:center;'
+				{caption: ["전속취급률(%)\n(B/A)","전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:right;'
 					,format: {type: 'string', rule: '@" %"'}},
-				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
+				{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
+				{caption: ["비고","비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
-				{caption: ["조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
+				{caption: ["조치사항","조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
