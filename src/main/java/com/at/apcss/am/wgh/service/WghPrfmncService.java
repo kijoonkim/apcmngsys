@@ -179,4 +179,28 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
     List<HashMap<String, Object>> selectMultiWghPrfmncList(WghPrfmncVO wghPrfmnc)throws Exception;
+
+
+    /**
+	 * 원물입차등록
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+    /**
+	 * 원물입차삭제
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 원물입차 조회
+	 * @param wghPrfmnc
+	 * @return List<WghPrfmncVO>
+	 * @throws Exception
+	 */
+    List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghPrfmnc)throws Exception;
 }

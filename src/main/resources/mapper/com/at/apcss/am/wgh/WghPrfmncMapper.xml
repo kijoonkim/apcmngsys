@@ -1346,4 +1346,121 @@
 		</if>
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertWghVhcl		-->
+	<!-- DESC : 원물입차등록.		                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<insert id="insertWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			INSERT INTO TB_WGH_HSTRY
+			   (APC_CD
+				, FCLT_CD
+				, PRCS_CMPTN_DT
+				, PRCS_CMPTN_YN
+				, PRCS_TASK_CD
+				, VHCLNO
+				, WGHNO
+				, WGH_DT
+				, WGH_RMRK
+				, WGH_SEQ
+				, WGH_SE_CD
+				, WGH_WGHT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_FRST_INPT_USER_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_PRGRM_ID
+				, SYS_LAST_CHG_USER_ID
+			    )VALUES(
+			    #{apcCd}
+				, #{fcltCd}
+				, #{prcsCmptnDt}
+				, #{prcsCmptnYn}
+				, #{prcsTaskCd}
+				, #{vhclno}
+				, #{wghno}
+				, TO_DATE(#{wghDt},'YYYYMMDDHH24MISS')
+				, #{wghRmrk}
+				, #{wghSeq}
+				, #{wghSeCd}
+				, #{wghWght}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptPrgrmId}
+				, #{sysFrstInptUserId}
+				, SYSDATE
+				, #{sysLastChgPrgrmId}
+				, #{sysLastChgUserId}
+			    )
+
+		]]>
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghVhcl		-->
+	<!-- DESC : 원물입차수정.		                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="updateWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			UPDATE TB_WGH_HSTRY SET
+			FCLT_CD = #{fcltCd}
+			, PRCS_CMPTN_DT = #{prcsCmptnDt}
+			, PRCS_CMPTN_YN = #{prcsCmptnYn}
+			, PRCS_TASK_CD = #{prcsTaskCd}
+			, VHCLNO = #{vhclno}
+			, WGH_DT = #{wghDt}
+			, WGH_RMRK = #{wghRmrk}
+			, WGH_WGHT = #{wghWght}
+		  WHERE WGHNO = #{wghno}
+		  	AND APC_CD = #{apcCd}
+
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.deleteWghVhcl		-->
+	<!-- DESC : 원물입차삭제.		                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.22  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+		  DELETE FROM TB_WGH_HSTRY
+		  WHERE WGHNO = #{wghno}
+		  	AND APC_CD = #{apcCd}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhclList			-->
+	<!-- DESC : 원물입차조회.		 		                            			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghVhclList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		  <![CDATA[
+		SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhclList */
+			 *
+		FROM TB_WGH_HSTRY
+		WHERE APC_CD = #{apcCd}
+		  	AND DEL_YN = 'N'
+		]]>
+		<if test=' wghDt != null and wghDt !=""'>
+			AND WGH_DT = TO_DATE(#{wghDt},'YYYYMMDDHH24MISS');
+		</if>
+	</select>
+
 </mapper>

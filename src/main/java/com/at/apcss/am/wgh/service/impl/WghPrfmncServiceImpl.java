@@ -1396,4 +1396,40 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<HashMap<String, Object>> selectMultiWghPrfmncList(WghPrfmncVO wghPrfmnc) throws Exception {
 		return wghPrfmncMapper.selectMultiWghPrfmncList(wghPrfmnc);
 	}
+
+	@Override
+	public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
+		String orgWghno = wghPrfmncVO.getWghno();
+		if(orgWghno == "" || orgWghno == null) {
+			String wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+			wghPrfmncVO.setWghno(wghno);
+			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+			wghPrfmncMapper.insertWghVhcl(wghPrfmncVO);
+		}else {
+			wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+			wghPrfmncMapper.updateWghVhcl(wghPrfmncVO);
+		}
+
+
+
+		//wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+
+		return 0;
+	}
+
+	@Override
+	public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
+		String orgWghno = wghPrfmncVO.getWghno();
+			wghPrfmncMapper.deleteWghVhcl(wghPrfmncVO);
+			wghPrfmncMapper.deleteWghPrfmncCom(wghPrfmncVO);
+		return 0;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghPrfmnc) throws Exception {
+
+		List<WghPrfmncVO> result = wghPrfmncMapper.selectWghVhclList(wghPrfmnc);
+
+		return result;
+	}
 }
