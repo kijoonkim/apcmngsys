@@ -1206,6 +1206,10 @@
 	<select id="selectIsoClsfTot" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
 			BRNO
+			, (CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '원예농산물'
+				ELSE '기타품목'
+				END
+			) AS CLSF_SE_NM
 			, CLSF_CD
 			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = A.CLSF_CD) AS CLSF_NM
 			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
@@ -1247,6 +1251,9 @@
 				</if>
 				) A
 		GROUP BY  BRNO , CLSF_CD
-		ORDER BY CLSF_CD
+		ORDER BY CASE
+					WHEN CLSF_CD IN ('2', '3', '4') THEN 1
+					ELSE 2
+				END ASC
 	</select>
 </mapper>
