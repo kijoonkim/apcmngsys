@@ -197,4 +197,37 @@ public interface WghPrfmncMapper {
 	 */
     List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception;
 
+
+    /**
+	 * 원물입차등록
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+    /**
+	 * 원물입차수정
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    public int updateWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+    /**
+	 * 원물입차삭제
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+    /**
+	 * 계량대 목록 조회
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghFcltVO) throws Exception;
+
 }

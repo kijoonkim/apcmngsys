@@ -372,6 +372,50 @@ public class WghPrfmncVO extends ComVO {
      * */
     private String distributionYn;
 
+    /*
+     * 계량순번
+     * */
+    private String wghSeq;
+
+    /*
+     * 계량구분코드
+     * */
+    private String wghSeCd;
+
+    /*
+     * 계량무게
+     * */
+    private String wghWght;
+
+    /*
+     * 계량일자
+     * */
+    private String wghDt;
+
+    /*
+     * 처리업무코드
+     * */
+    private String prcsTaskCd;
+
+    /*
+     * 처리완료일시
+     * */
+    private String prcsCmptnDt;
+
+    /*
+     * 처리완료여부
+     * */
+    private String prcsCmptnYn;
+
+    /*
+     * 계량비고
+     * */
+    private String wghRmrk;
+
+
+
+
+
 	/**
 	 * 계량상세리스트
 	 */
