@@ -767,6 +767,8 @@
 							}
 							comUoBrno.push(uoListVO);
 						});
+						SBUxMethod.refresh('dtl-inp-selUoBrno');
+
 						//속한 통합조직이 한곳 일경우
 						if(comUoBrno.length == 1){
 							$("#dtl-inp-uoBrno").show();
