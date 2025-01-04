@@ -312,8 +312,8 @@
 				</c:if>
 
 				<br>
-				<div>
-					<span>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</span>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</p>
 				</div>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">

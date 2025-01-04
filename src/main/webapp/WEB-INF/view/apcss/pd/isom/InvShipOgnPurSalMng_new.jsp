@@ -398,11 +398,26 @@
 				</c:if>
 
 				<br>
-				<div>
-					<span>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</span>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</p>
 				</div>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>▶출자출하조직 총 매입현황</p>
+						<p>o 전문품목 매입매출 화면에서 입력한 수치가 총매입매출 화면으로 자동 연계</p>
+						<p> 1) 전문/육성품목</p>
+						<p> - 불려오는 값 : 취급유형별 매입물량/매입금액, 품목별 총 매입물량/매입금액</p>
+						<!--
+						<p>   * (참고) 요건충족 취급유형 : OO색으로 표시, 요건미달 생산자조직 : OO색으로 표시
+						-->
+						<p> - 입력필요 값 : (전문품목 매입매출 화면에서의) 사입한 물량에 대해, 단순수탁 및 단순매취로 구분작성하여, 총매입물량/매입금액(합계)과 맞춰야 함("합계" 메뉴에서 보이는 "차이" 값이 0이 되는지 확인)</p>
+						<br>
+						<p> 2) 기타품목</p>
+						<p> - 불려오는 값이 별도 없으므로, 취급유형에 맞춰서 물량/금액 입력</p>
+						<br>
+						<p>  ⇒ 전문/육성/기타품목에 대해 입력완료 후 "매입저장"</p>
+					</div>
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 
@@ -415,7 +430,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출자출하조직 총 매입현황</span>
+								<span style="font-size:14px">▶출자출하조직 총 매입현황</span>
 							</li>
 						</ul>
 					</div>
@@ -425,6 +440,21 @@
 				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>▶출자출하조직 총 매출현황 - 취급실적</p>
+						<p>o 전문품목 매입매출 화면에서 입력한 수치가 총매입매출 화면으로 자동 연계</p>
+						<br>
+						<p> 1) 전문/육성품목</p>
+						<p> - 전문품목 매입매출 화면에서 입력한 매출현황(합계) 수치가 "조정 취급실적"으로 자동 연계</p>
+						<p> - 출자출하조직 총매출액 중에서 공제가 필요한 실적을 "취급액 공제 실적"에 입력하면, 조정취급실적+취급액공제실적 = 총취급실적으로 계산됨</p>
+						<p> - 품목별 총취급실적의 합계가 출자출하조직 총매출액과 일치해야 함</p>
+						<p>   * 공제가능항목 : 자체수출, 자체공판장, 군납, 학교급식 등  </p>
+						<br>
+						<p> 2) 기타품목</p>
+						<p> - 불려오는 값이 별도 없으므로, "총취급실적"에 물량/금액 입력</p>
+						<br>
+						<p>  ⇒ 전문/육성/기타품목에 대해 입력완료 후 "매출저장" </p>
+					</div>
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 
@@ -437,7 +467,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출자출하조직 총 매출현황 - 취급실적</span>
+								<span style="font-size:14px">▶출자출하조직 총 매출현황 - 취급실적</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
@@ -454,6 +484,23 @@
 				</div>
 
 				<div class="ad_section_top" id="grid3">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>▶출자출하조직 총 매출현황 - 통합조직 출하실적</p>
+						<p>o 전문품목 매입매출 화면에서 입력한 수치가 총매입매출 화면으로 자동 연계</p>
+						<br>
+						<p> 1) 전문/육성품목</p>
+						<p> - 전문품목 매입매출 화면에서 입력한 "통합조직에 출하(판매)" 수치가 "통합조직 총 출하실적"으로 자동 연계</p>
+						<p> - 단순기표 실적이 있다면 해당실적 입력 시, 통합조직 총출하실적-단순기표=인정 출하실적으로 계산됨</p>
+						<p> - 전문품목 매입매출 화면에서 입력한 취급유형별 통합조직에 출하(판매) 수치가 "생산자조직 약정(전속)출하 실적"으로 자동 연계</p>
+						<!--
+						<p>     * (참고) 요건충족 취급유형 : OO색으로 표시, 요건미달 생산자조직 : OO색으로 표시
+						-->
+						<br>
+						<p> 2) 기타품목</p>
+						<p> - 통합조직에 출하한 실적이 있다면, "통합조직 총 출하실적"에 물량/금액 입력</p>
+						<br>
+						<p>  ⇒ 전문/육성/기타품목에 대해 입력완료 후 "매출저장" </p>
+					</div>
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -464,7 +511,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">출자출하조직 총 매출현황 - 통합조직 출하실적</span>
+								<span style="font-size:14px">▶출자출하조직 총 매출현황 - 통합조직 출하실적</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->

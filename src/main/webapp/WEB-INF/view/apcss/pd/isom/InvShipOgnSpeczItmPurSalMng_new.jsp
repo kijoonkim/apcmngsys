@@ -415,12 +415,17 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">판매위임[매입] 및 출하[매출] 실적</span>
+								<span style="font-size:14px">▶판매위임[매입] 및 출하[매출] 실적</span>
 								<!--
 								<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
 								 -->
 							</li>
 						</ul>
+					</div>
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>o (생산자조직)전속출하 : 생산자조직 요건을 충족한 적합(Y)한 생산자조직에 대한 매출현황 입력(매입현황은 "생산자조직 현황"에 입력한 요건충족 생산자조직 출하량, 출하대금지급액이 자동 연계)</p>
+						<p>o (요건미달)전속출하 : 생산자조직 요건을 미충족한 부적합(N)한 생산자조직에 대한 매출현황 입력(매입현황은 "생산자조직 현황에 입력한 요건미달 생산자조직 출하량, 출하대금지급액이 자동 연계)</p>
+						<p>o 생산자조직 외 : 생산자조직을 구성하지 않고, 단순 사입한 실적에 대해 "매입현황" 및 "매출현황" 입력(불려오는 값 없음)</p>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:600px; width: 100%;"></div>
