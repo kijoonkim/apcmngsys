@@ -713,6 +713,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		fn_clearForm();//초기화
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//년도 검색값이 없는 경우 최신년도
 		if(gfn_isEmpty(yr)){
@@ -720,6 +721,8 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
+
+		fn_createGridClsfTot();
 
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -886,6 +889,8 @@
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
+		jsonClsfTot.length= 0;
+		grdClsfTot.rebuild();
 		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명

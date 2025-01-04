@@ -738,6 +738,7 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		fn_clearForm();//초기화
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//통합조직인 경우
 		if(gfn_isEmpty(yr)){
@@ -749,6 +750,9 @@
 			let year = now.getFullYear();
 			yr = year;
 		}
+
+		fn_createGridClsfTot();
+
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -1095,6 +1099,8 @@
 
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
+		jsonClsfTot.length= 0;
+		grdClsfTot.rebuild();
 	}
 
 	var comUoBrno = [];//통합조직 선택
