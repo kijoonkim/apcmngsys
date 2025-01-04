@@ -1210,6 +1210,10 @@
 				ELSE '기타품목'
 				END
 			) AS CLSF_SE_NM
+			, (CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '1'
+				ELSE '2'
+				END
+			) AS CLSF_SE_CD
 			, CLSF_CD
 			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = A.CLSF_CD) AS CLSF_NM
 			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
@@ -1246,14 +1250,58 @@
 				  					  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE)
 				  AND APO_SE = '1'
 				  AND PRCHS_SLS_SE = '2'
-				<if test='brno != null and brno != ""'>
-				  AND BRNO = #{brno}
-				</if>
+				AND BRNO = #{brno}
 				) A
 		GROUP BY  BRNO , CLSF_CD
-		ORDER BY CASE
-					WHEN CLSF_CD IN ('2', '3', '4') THEN 1
-					ELSE 2
-				END ASC
+
+		UNION ALL
+
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
+			BRNO
+			, DECODE(CLSF_SE_CD, '1' , '원예농산물' , '기타품목') AS CLSF_SE_NM
+			, CLSF_SE_CD
+			, '' AS CLSF_CD
+			, '소계' AS CLSF_NM
+			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
+			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_AMT,'') , 0 ) ) AS PRV_TOT_AMT
+
+			, SUM( NVL( DECODE(YR,#{yr},SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr},SLS_EMSPAP_VLM,'') , 0 ) ) AS TOT_VLM
+			, SUM( NVL( DECODE(YR,#{yr},SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{yr},SLS_EMSPAP_AMT,'') , 0 ) ) AS TOT_AMT
+		FROM (
+				SELECT
+					YR
+					, BRNO
+					, SLS_TRST_VLM
+					, SLS_TRST_AMT
+					, SLS_EMSPAP_VLM
+					, SLS_EMSPAP_AMT
+					,(SELECT CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '1'
+									ELSE '2'
+									END
+						FROM TB_EV_APO_YR_GPC_CD
+						WHERE 1=1
+						  AND APO_SE = '1'
+						  AND YR = APS.YR
+						  AND BRNO = APS.BRNO
+						  AND ITEM_CD = APS.ITEM_CD
+						  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE
+					) AS CLSF_SE_CD
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS APS
+				WHERE 1=1
+				  AND ITEM_CD = (SELECT ITEM_CD
+				  					FROM TB_EV_APO_YR_GPC_CD
+				  					WHERE 1=1
+				  					  AND APO_SE = '1'
+				  					  AND YR = APS.YR
+				  					  AND BRNO = APS.BRNO
+				  					  AND ITEM_CD = APS.ITEM_CD
+				  					  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE)
+				  AND APO_SE = '1'
+				  AND PRCHS_SLS_SE = '2'
+				  AND BRNO = #{brno}
+				) A
+		GROUP BY  BRNO , CLSF_SE_CD
+
+		ORDER BY CLSF_SE_CD,CLSF_CD
 	</select>
 </mapper>

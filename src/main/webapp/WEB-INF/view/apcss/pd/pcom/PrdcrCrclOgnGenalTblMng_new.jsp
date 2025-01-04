@@ -1449,6 +1449,7 @@
 						clsfCd: 		item.clsfCd
 						,clsfNm: 		item.clsfNm
 						,clsfSeNm: 		item.clsfSeNm
+						,clsfSeCd: 		item.clsfSeCd
 
 						,totVlm: 		item.totVlm
 						,totAmt: 		item.totAmt
@@ -1483,25 +1484,34 @@
 		};
 
 		let objGrid = grdClsfTot;
+
+		let col1 = objGrid.getColRef("clsfSeNm");//
+		let col2 = objGrid.getColRef("clsfNm");//
+		let col3 = objGrid.getColRef("totAmt");//
+
 		let gridData01 = objGrid.getGridDataAll();
 		let captionRow = objGrid.getFixedRows();
 		for (let i = captionRow; i < gridData01.length + captionRow; i++) {
 			// 현재 행 데이터 가져오기
 			let rowData01 = objGrid.getRowData(i);
-			totalSum.totVlm 	+= Number(rowData01.totVlm || 0);
-			totalSum.totAmt 	+= Number(rowData01.totAmt || 0);
-			totalSum.prvTotVlm 	+= Number(rowData01.prvTotVlm || 0);
-			totalSum.prvTotAmt 	+= Number(rowData01.prvTotAmt || 0);
+			if(rowData01.clsfNm !== '소계'){
+				totalSum.totVlm 	+= Number(rowData01.totVlm || 0);
+				totalSum.totAmt 	+= Number(rowData01.totAmt || 0);
+				totalSum.prvTotVlm 	+= Number(rowData01.prvTotVlm || 0);
+				totalSum.prvTotAmt 	+= Number(rowData01.prvTotAmt || 0);
+			}else if(rowData01.clsfNm === '소계'){
+				objGrid.setCellStyle('background-color', i, col2, i, col3, 'lightgray');
+			}
 		}
 
 		objGrid.addRow();
-
+		let lastRow = gridData01.length + captionRow-1;
+		objGrid.setCellStyle('background-color', lastRow , col1, lastRow, col3, 'lightgray');
 		// 합계 데이터를 objGrid에 설정
 		Object.keys(totalSum).forEach((key) => {
-			objGrid.setCellData( gridData01.length + captionRow-1, objGrid.getColRef(key), totalSum[key]);
+			objGrid.setCellData( lastRow, objGrid.getColRef(key), totalSum[key]);
 		});
-
-		objGrid.rebuild();
+		//objGrid.rebuild();
 	}
 
 

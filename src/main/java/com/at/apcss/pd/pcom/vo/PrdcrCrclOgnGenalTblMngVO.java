@@ -56,6 +56,7 @@ public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
 	private String clsfCd;
 	private String clsfNm;
 	private String clsfSeNm;
+	private String clsfSeCd;
 
 	private String totVlm;
 	private String totAmt;
