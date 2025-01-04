@@ -416,6 +416,13 @@
 				</c:if>
 
 				<!--[pp] 검색결과 상세보기-->
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>o 입력 순서</p>
+					<p>- 첫 번째) 생산자조직 리스트 : 생산자조직명, 품목선택, 취급유형, 계약시기, 출하시작시기, 출하종료시기 입력 후 "생산자조직 저장"</p>
+					<p>- 두 번째) 저장된 생산자조직 "행" 선택 후, 하단의 "농가리스트 조회"하여, 농가정보 입력(직접 행추가하여 입력 또는 서식다운-엑셀 업로드 방식 중 선택가능)</p>
+					<p>- 세 번째) 농가리스트 입력한 값이 생산자조직 리스트에 반영된 것 확인(생산자조직별 적합여부 확인)</p>
+				</div>
+
 				<!-- 생산자조직 리스트 그리드 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
@@ -432,6 +439,9 @@
 							</li>
 							 -->
 						</ul>
+					</div>
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>- 전문/육성품목만 "생산자조직 현황" 입력 필요 (앞서 "기타"로 등록한 품목은 입력 불필요)</p>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
@@ -529,6 +539,9 @@
 							</li>
 							 -->
 						</ul>
+					</div>
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>* 농가리스트 필수입력값 : 조직원명, 재배지주소, 전속(약정)출하계약량, 전속(약정)출하량, 출하대금지급액, 가입일</p>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:400px; width: 100%;"></div>
@@ -997,12 +1010,12 @@
 				return "";
 			}},
 			//{caption: ["순번"], 			ref: 'cltvtnLandSn',   	type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["조직원명","조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
-			{caption: ["재배지 주소","재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'500px',    style:'text-align:center'},
+			{caption: ["<span class='data_required'></span>조직원명","<span class='data_required'></span>조직원명"], 		ref: 'flnm',   	type:'input',  width:'100px',    style:'text-align:center'},
+			{caption: ["<span class='data_required'></span>재배지 주소","<span class='data_required'></span>재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'300px',    style:'text-align:center'},
 			{caption: ["품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center' },
-			{caption: ["기준","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["기준","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["기준","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["기준","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'110px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 			/*
 			{caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
@@ -1011,14 +1024,14 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 			*/
 
-			{caption: ["계약","계약면적(㎡)"], 	ref: 'ecCltvtnSfc',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["계약","계약면적(㎡)"], 	ref: 'ecCltvtnSfc',   	type:'input',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["계약","전속(약정)\n출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["계약","<span class='data_required'></span>전속(약정)\n출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'110px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
 
-			{caption: ["결과","전속(약정)\n출하량(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["결과","<span class='data_required'></span>전속(약정)\n출하량(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'110px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
-			{caption: ["결과","출하대금\n지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
+			{caption: ["결과","<span class='data_required'></span>출하대금\n지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["가입일","가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
