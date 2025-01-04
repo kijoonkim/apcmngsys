@@ -1290,10 +1290,10 @@
 			//합계는 고정에 기타 값을 조정 하는 방향으로 변경
 			//구분 기타의 경우만 합산
 			{caption: ["합계","물량(톤)"], 		ref: 'slsTotVlm',   	type:'output',  width:'50px',    style:'text-align:right; background-color: lightgray'
-				, calc : 'fn_slsTotVlmSum'
+				//, calc : 'fn_slsTotVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["합계","금액(천원)"], 		ref: 'slsTotAmt',   	type:'output',  width:'80px',    style:'text-align:right; background-color: lightgray; border-right-color: black !important;'
-				, calc : 'fn_slsTotAmtSum'
+				//, calc : 'fn_slsTotAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["공영\n도매시장","물량(톤)"], 		ref: 'pblcWhlslMrktVlm',   	type:'input',  width:'50px',    style:'text-align:right' 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
@@ -1360,8 +1360,8 @@
 			, 'exprtAmt'
 			, 'onlnDlngPrfmncVlm'
 			, 'onlnDlngPrfmncAmt'
-			, 'etcVlm'
-			, 'etcAmt'
+			//, 'etcVlm'
+			//, 'etcAmt'
 			//, 'slsTotVlm'
 			//, 'slsTotAmt'
 		];
@@ -2526,10 +2526,14 @@
 		let etcAmt03 = objGrid03.getColRef("etcAmt");//
 		for(var i = captionRow03; i < gridData03.length + captionRow03; i++ ){
 			let rowData03 = objGrid03.getRowData(i);
+			/*
 			if (rowData03.sttgUpbrItemSe != '3') {
 				objGrid03.setCellDisabled(i, etcVlm03, i, etcAmt03, true);
 				objGrid03.setCellStyle('background-color', i, etcVlm03, i, etcAmt03, 'lightgray');
 			}
+			*/
+			objGrid03.setCellDisabled(i, etcVlm03, i, etcAmt03, true);
+			objGrid03.setCellStyle('background-color', i, etcVlm03, i, etcAmt03, 'lightgray');
 		}
 		//소계 줄 비활성화
 		objGrid03.setCellDisabled(objGrid03.getRows()-1, sttgUpbrItemNm03, objGrid03.getRows()-1, etcAmt03, true);
