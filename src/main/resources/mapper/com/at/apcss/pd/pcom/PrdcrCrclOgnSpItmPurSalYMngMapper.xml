@@ -1785,7 +1785,7 @@ SELECT
 	'5' AS TYPE_SE_NO
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
 	,'(통합조직직속)전속출하' AS SE_NM
-	,'(생산자조직)전속출하' AS SE_DTL_NM
+	,'전속출하' AS SE_DTL_NM
 	, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = ITEM.TRMT_TYPE) AS TRMT_TYPE_NM
 	, ITEM.PRDCR_OGNZ_NM AS PRCHS_NM
 
@@ -1969,7 +1969,7 @@ SELECT
 	'6' AS TYPE_SE_NO
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
 	,'(통합조직직속)전속출하' AS SE_NM
-	,'(통합조직직속)전속출하' AS SE_DTL_NM
+	,ITEM.SE_DTL_NM AS SE_DTL_NM
 
 	/*
 	, ITEM.TRMT_TYPE_NM AS TRMT_TYPE_NM
@@ -1977,8 +1977,8 @@ SELECT
 	, ITEM.TRMT_TYPE
 	*/
 
-	, '전속출하 소계' AS TRMT_TYPE_NM
-	, '전속출하 소계' AS PRCHS_NM
+	, '소계' AS TRMT_TYPE_NM
+	, '소계' AS PRCHS_NM
 
 	, ITEM.YR
 	, ITEM.BRNO
@@ -2024,12 +2024,12 @@ FROM
 		)
 		*/
 		(SELECT
-				'(생산자조직)전속출하' AS SE_NM
+				'전속출하' AS SE_DTL_NM
 				,'Y' AS OGNZ_STBLT_YN
 			FROM DUAL
 			UNION ALL
 			SELECT
-				'(요건미달)전속출하' AS SE_NM
+				'(요건미달)전속출하' AS SE_DTL_NM
 				,'N' AS OGNZ_STBLT_YN
 			FROM DUAL
 		)

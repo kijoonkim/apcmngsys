@@ -1169,13 +1169,13 @@ SELECT
 	'6' AS TYPE_SE_NO
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
 	, ITEM.SE_NM AS SE_NM
-	, ITEM.TRMT_TYPE_NM AS PRCHS_NM
-	, ITEM.TRMT_TYPE_NM AS TRMT_TYPE_NM
-
-	/*
 	, '전속출하 소계' AS PRCHS_NM
 	, '전속출하 소계' AS TRMT_TYPE_NM
-	, '0' AS TRMT_TYPE
+
+	/*
+	, ITEM.TRMT_TYPE_NM AS PRCHS_NM
+	, ITEM.TRMT_TYPE_NM AS TRMT_TYPE_NM
+	, ITEM.TRMT_TYPE AS TRMT_TYPE
 	*/
 
 	, ITEM.YR
@@ -1183,7 +1183,7 @@ SELECT
 	, '0' AS ISO_BRNO
 	, ITEM.ITEM_CD
 	, 0 AS PRDCR_OGNZ_SN
-	, ITEM.TRMT_TYPE AS TRMT_TYPE
+	, '0' AS TRMT_TYPE
 	, TO_CHAR(ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_SE
 	, ITEM.OGNZ_STBLT_YN AS OGNZ_STBLT_YN
 	, ITEM.UO_BRNO
@@ -1200,7 +1200,8 @@ SELECT
 	, TOT.RMRK
 FROM
 	(SELECT * FROM
-		/* 출자출하조직의 경우 취급유형은 종류별로 1조직만 가능해서 소계 제외 처리 */
+		/* 취급유형은 종류별로 1조직만 가능해서 소계 제외 처리 */
+		/*
 		(SELECT * FROM
 			(SELECT
 					CD_VL_NM || ' 소계'  AS TRMT_TYPE_NM
@@ -1222,7 +1223,7 @@ FROM
 					,'N' AS OGNZ_STBLT_YN
 				FROM DUAL)
 		)
-		/*
+		*/
 		(SELECT
 				'(생산자조직)전속출하' AS SE_NM
 				,'Y' AS OGNZ_STBLT_YN
@@ -1233,7 +1234,6 @@ FROM
 				,'N' AS OGNZ_STBLT_YN
 			FROM DUAL
 		)
-		*/
 		,(SELECT
 				YR
 				, BRNO
@@ -1265,6 +1265,7 @@ FROM
 WHERE 1=1
   AND ITEM.ITEM_CD = TOT.ITEM_CD(+)
   AND ITEM.OGNZ_STBLT_YN = TOT.OGNZ_STBLT_YN(+)
+/*
   AND ITEM.TRMT_TYPE = TOT.TRMT_TYPE(+)
   AND(
 		(
@@ -1294,7 +1295,7 @@ WHERE 1=1
 						  AND ITEM_CD = ITEM.ITEM_CD
 						)
 		)
-
+*/
 /*=='7' AS TYPE_SE_NO===기타매입======================================*/
 UNION ALL
 
