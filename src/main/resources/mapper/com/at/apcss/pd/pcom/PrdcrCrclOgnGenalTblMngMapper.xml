@@ -1110,7 +1110,7 @@
 								WHERE 1=1
 								AND DEL_YN = 'N'
 								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('2','6')
+								AND TYPE_SE_NO IN ('1','5')
 								AND OGNZ_STBLT_YN = 'Y'
 								AND ITEM_CD IN (SELECT ITEM_CD
 												FROM TB_EV_APO_YR_GPC_CD
@@ -1159,6 +1159,8 @@
 												  AND BRNO = PSTB.BRNO
 												  AND STTG_UPBR_ITEM_SE != '3'
 												)
+								AND TYPE_SE_NO = '8'
+								/*
 								AND (
 										TYPE_SE_NO IN ('2','7')
 										OR
@@ -1177,6 +1179,7 @@
 										)OR
 										(PRDCR_OGNZ_SN = '0')
 									)
+								*/
 								<if test='brno != null and brno != ""'>
 								  AND BRNO = #{brno}
 								</if>
@@ -1205,11 +1208,11 @@
 			BRNO
 			, CLSF_CD
 			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = A.CLSF_CD) AS CLSF_NM
-			, SUM( NVL( DECODE(YR,#{YR}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{YR}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
-			, SUM( NVL( DECODE(YR,#{YR}-1,SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{YR}-1,SLS_EMSPAP_AMT,'') , 0 ) ) AS PRV_TOT_AMT
+			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_VLM,'') , 0 ) ) AS PRV_TOT_VLM
+			, SUM( NVL( DECODE(YR,#{yr}-1,SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{yr}-1,SLS_EMSPAP_AMT,'') , 0 ) ) AS PRV_TOT_AMT
 
-			, SUM( NVL( DECODE(YR,#{YR},SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{YR},SLS_EMSPAP_VLM,'') , 0 ) ) AS TOT_VLM
-			, SUM( NVL( DECODE(YR,#{YR},SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{YR},SLS_EMSPAP_AMT,'') , 0 ) ) AS TOT_AMT
+			, SUM( NVL( DECODE(YR,#{yr},SLS_TRST_VLM,'') , 0 ) + NVL( DECODE(YR,#{yr},SLS_EMSPAP_VLM,'') , 0 ) ) AS TOT_VLM
+			, SUM( NVL( DECODE(YR,#{yr},SLS_TRST_AMT,'') , 0 ) + NVL( DECODE(YR,#{yr},SLS_EMSPAP_AMT,'') , 0 ) ) AS TOT_AMT
 		FROM (
 				SELECT
 					YR
