@@ -1360,17 +1360,17 @@
 			, 'exprtAmt'
 			, 'onlnDlngPrfmncVlm'
 			, 'onlnDlngPrfmncAmt'
-			//, 'etcVlm'
-			//, 'etcAmt'
+			, 'etcVlm'
+			, 'etcAmt'
 			//, 'slsTotVlm'
 			//, 'slsTotAmt'
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit03(){
-		let prevCol = grdPrdcrOgnCurntMng03.getPrevCol();
-		let prevRef = grdPrdcrOgnCurntMng03.getRefOfCol(prevCol);
-		if(columnsToRefresh03.includes(prevRef)){
+		let nCol = grdPrdcrOgnCurntMng03.getCol();
+		let nRef = grdPrdcrOgnCurntMng03.getRefOfCol(nCol);
+		if(columnsToRefresh03.includes(nRef)){
 			grdPrdcrOgnCurntMng03.refresh();
 		}
 	}
@@ -1379,7 +1379,7 @@
 	function fn_slsTotVlmSum(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '3'){
+		if(rowData.sttgUpbrItemSe === '3'){
 			sumVal = Number(gfn_nvl(rowData.pblcWhlslMrktVlm))
 					//+ Number(gfn_nvl(rowData.onlnWhlslMrktVlm))
 					+ Number(gfn_nvl(rowData.lgszRtlVlm))
@@ -1399,7 +1399,7 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		//금액의 경우 기타인 경우만 합산 처리
-		if(rowData.sttgUpbrItemSe == '3'){
+		if(rowData.sttgUpbrItemSe === '3'){
 			sumVal = Number(gfn_nvl(rowData.pblcWhlslMrktAmt))
 					//+ Number(gfn_nvl(rowData.onlnWhlslMrktAmt))
 					+ Number(gfn_nvl(rowData.lgszRtlAmt))
