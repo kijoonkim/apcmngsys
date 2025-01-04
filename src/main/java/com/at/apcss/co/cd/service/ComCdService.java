@@ -216,5 +216,13 @@ public interface ComCdService {
 	 */
 	public HashMap<String, Object> updateComPckgFcltList(List<ComCdVO> comCdList) throws Exception;
 
+	/**
+	 * APC기준정보 선별기 선별구분코드 발번
+	 * @param apcCd, cdId
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	public String fnGetIdComCdVl(String apcCd, String cdId) throws Exception;
+
 
 }

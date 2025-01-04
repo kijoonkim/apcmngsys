@@ -5,7 +5,10 @@ import com.at.apcss.am.wgh.mapper.WghFcltMapper;
 import com.at.apcss.am.wgh.service.WghMngService;
 import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
 import com.at.apcss.am.wgh.vo.WghFcltVO;
+import com.at.apcss.co.cd.service.ComCdService;
+import com.at.apcss.co.cd.vo.ComCdVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -19,6 +22,9 @@ public class WghMngServiceImpl implements WghMngService {
 
     @Resource(name = "wghFcltMapper")
     private WghFcltMapper wghFcltMapper;
+
+    @Resource(name ="comCdService")
+    private ComCdService comCdService;
 
     @Override
     public List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception {
@@ -54,7 +60,25 @@ public class WghMngServiceImpl implements WghMngService {
 
     @Override
     public int insertWghApcFclt(WghFcltVO wghFcltVO) throws Exception {
+        /** 환경설정 존재, 상세에 부재 일경우 판단 **/
         String fcltCd = wghFcltVO.getFcltCd();
+        String apcCd = wghFcltVO.getApcCd();
+
+        if(StringUtils.hasText(fcltCd)){
+            /** 환경설정 부재 => 공통 생성 **/
+            /** 환경설정 계량대 정보 생성 및 코드 발번 **/
+            fcltCd = comCdService.fnGetIdComCdVl(apcCd,"WGH_FCLT_CD");
+
+            ComCdVO comCdVO = new ComCdVO();
+            BeanUtils.copyProperties(wghFcltVO, comCdVO);
+
+            comCdVO.setApcCd(apcCd);
+            comCdVO.setCdVl(fcltCd);
+            comCdVO.setCdVlNm(wghFcltVO.getFcltNm());
+            comCdVO.setCdId("WGH_FCLT_CD");
+            comCdService.insertComCdDtl(comCdVO);
+        }
+
         if(!StringUtils.hasText(fcltCd)){
             fcltCd =  wghFcltMapper.selectWghFcltCd(wghFcltVO.getApcCd());
             wghFcltVO.setFcltCd(fcltCd);

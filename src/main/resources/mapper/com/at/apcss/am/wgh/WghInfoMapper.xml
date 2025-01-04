@@ -101,9 +101,9 @@
         VALUES
         (
               #{apcCd}
-            , 'WGH_FCLT'
+            , 'WGH_FCLT_CD'
             , #{fcltCd}
-            , 'WGH_FCLT'
+            , 'WGH_FCLT_CD'
             , #{dtlCd}
             , #{dtlVl}
             , #{dtlIndctNm}
@@ -157,9 +157,9 @@
         VALUES
             (
              #{apcCd}
-            , 'WGH_FCLT'
+            , 'WGH_FCLT_CD'
             , #{fcltCd}
-            , 'WGH_FCLT'
+            , 'WGH_FCLT_CD'
             ,#{fcltExpln}
             ,#{oprtngHr}
             ,#{nOprtngHr}
@@ -215,9 +215,9 @@
         <foreach collection="list" item="item" separator=",">
             (
              #{item.apcCd}
-            ,'WGH_FCLT'
+            ,'WGH_FCLT_CD'
             ,#{item.fcltCd}
-            ,'WGH_FCLT'
+            ,'WGH_FCLT_CD'
             ,#{item.sn}
             ,#{item.atrbCd}
             ,#{item.atrbVl}
@@ -272,7 +272,7 @@
          WHERE
              APC_CD = #{apcCd}
          AND
-             FCLT_TYPE = 'WGH_FCLT'
+             FCLT_TYPE = 'WGH_FCLT_CD'
          AND
              DEL_YN = 'N'
         ]]>
@@ -309,7 +309,7 @@
             TB_OPRTNG_APC_FCLT_DTL
         WHERE
             APC_CD = #{apcCd}
-        AND FCLT_TYPE = 'WGH_FCLT'
+        AND FCLT_TYPE = 'WGH_FCLT_CD'
         AND FCLT_CD = #{fcltCd}
         AND DEL_YN = 'N'
         ORDER BY FCLT_CD
@@ -356,9 +356,9 @@
             UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.deleteWghInfo */
                 TB_OPRTNG_APC_FCLT_DTL SET
                    APC_CD = #{apcCd}
-                 , FCLT_TYPE = 'WGH_FCLT'
+                 , FCLT_TYPE = 'WGH_FCLT_CD'
                  , FCLT_CD = #{fcltCd}
-                 , FCLT_DTL_TYPE = 'WGH_FCLT'
+                 , FCLT_DTL_TYPE = 'WGH_FCLT_CD'
                  , DTL_CD = #{dtlCd}
                  , DTL_VL = #{dtlVl}
                  , DTL_INDCT_NM = #{dtlIndctNm}
@@ -374,7 +374,7 @@
         <![CDATA[
         UPDATE /* com.at.apcss.am.cmns.mapper.CmnsFcltMapper.updateWghFclt */
             TB_OPRTNG_APC_FCLT SET
-                FCLT_TYPE = 'WGH_FCLT'
+                FCLT_TYPE = 'WGH_FCLT_CD'
                ,FCLT_NM = #{fcltNm}
                ,FCLT_EXPLN = #{fcltExpln}
                ,OPRTNG_HR = #{oprtngHr}
@@ -401,9 +401,9 @@
             USING (
             SELECT
             #{apcCd} AS APC_CD,
-            'WGH_FCLT' AS FCLT_TYPE,
+            'WGH_FCLT_CD' AS FCLT_TYPE,
             #{fcltCd} AS FCLT_CD,
-            'WGH_FCLT' AS FCLT_ATRB_TYPE,
+            'WGH_FCLT_CD' AS FCLT_ATRB_TYPE,
             #{sn} AS SN,
             #{atrbCd} AS ATRB_CD,
             #{atrbVl} AS ATRB_VL,

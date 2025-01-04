@@ -2,6 +2,7 @@ package com.at.apcss.co.cd.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.co.cd.vo.ComCdVO;
@@ -171,4 +172,12 @@ public interface ComCdMapper {
 	 * @throws Exception
 	 */
 	public int updateComItem(ComCdVO comCdVO) throws Exception;
+	/**
+	 * APC기준정보 선별기 선별구분코드 발번
+	 * @param apcCd, cdId
+	 * @return HashMap<String, Object>
+	 * @throws Exception
+	 */
+	@Select("SELECT FN_GET_ID_COM_CD_VL(#{apcCd},#{cdId}) FROM DUAL")
+	String fnGetIdComCdVl(String apcCd, String cdId) throws Exception;
 }

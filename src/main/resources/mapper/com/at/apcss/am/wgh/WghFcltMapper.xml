@@ -19,17 +19,16 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="deleteWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
-        UPDATE /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+    <delete id="deleteWghApcFclt" parameterType="com.at.apcss.am.wgh.vo.WghFcltVO">
+        DELETE FROM /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
         TB_OPRTNG_APC_FCLT
-            SET DEL_YN = 'Y'
           WHERE
             APC_CD = #{apcCd}
           AND
             FCLT_TYPE = #{fcltType}
           AND
             FCLT_CD = #{fcltCd}
-    </update>
+    </delete>
     <!-- ==========================================================================	-->
     <!-- NAME : deleteWghApcFclt                                      				-->
     <!-- DESC : APC 가동시설 상세 삭제                                             		-->
@@ -38,10 +37,9 @@
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.01.2  	손민성        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <update id="deleteWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
-        UPDATE /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
+    <delete id="deleteWghApcFcltDtl" parameterType="com.at.apcss.am.wgh.vo.WghFcltDtlVO">
+        DELETE FROM /* com.at.apcss.am.cmns.mapper.WghFcltMapper.deleteWghApcFclt */
             TB_OPRTNG_APC_FCLT_DTL
-        SET DEL_YN = 'Y'
         WHERE
             APC_CD = #{apcCd}
           AND
@@ -50,7 +48,7 @@
             FCLT_CD = #{fcltCd}
           AND
             FCLT_DTL_TYPE = #{fcltDtlType}
-    </update>
+    </delete>
     <!-- ==========================================================================	-->
     <!-- NAME : insertWghApcFclt                                      				-->
     <!-- DESC : APC 가동시설등록                                               		-->
@@ -80,6 +78,7 @@
             ,BGNG_YMD
             ,END_YMD
             ,FCLT_RMRK
+            ,WAREHOUSE_SE_CD
             ,SYS_FRST_INPT_DT
             ,SYS_FRST_INPT_USER_ID
             ,SYS_FRST_INPT_PRGRM_ID
@@ -90,7 +89,7 @@
         VALUES
             (
                 #{apcCd}
-                ,'WGH_FCLT'
+                ,'WGH_FCLT_CD'
                 ,#{fcltCd}
                 ,#{fcltNm}
                 ,#{fcltExpln}
@@ -106,6 +105,7 @@
                 ,#{bgngYmd}
                 ,#{endYmd}
                 ,#{fcltRmrk}
+                ,#{warehouseSeCd}
                 ,SYSDATE
                 ,#{sysFrstInptUserId}
                 ,#{sysFrstInptPrgrmId}
@@ -144,7 +144,7 @@
         VALUES
         (
               #{apcCd}
-            , 'WGH_FCLT'
+            , 'WGH_FCLT_CD'
             , #{fcltCd}
             , #{fcltDtlType}
             , #{dtlCd}
@@ -190,7 +190,7 @@
          ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
          ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
         WHERE APC_CD = #{apcCd}
-          AND FCLT_TYPE = 'WGH_FCLT'
+          AND FCLT_TYPE = 'WGH_FCLT_CD'
           AND FCLT_CD = #{fcltCd}
         ]]>
     </update>
