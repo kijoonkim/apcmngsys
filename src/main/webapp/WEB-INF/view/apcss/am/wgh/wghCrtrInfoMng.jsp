@@ -343,9 +343,6 @@
     }
     const fn_search = async function(){
         try{
-            // let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",{apcCd:gv_apcCd});
-            // let data = await postJsonPromise;
-
             let postJsonPromise = gfn_postJSON("/co/cd/selectFcltList.do", {apcCd : gv_apcCd});
             let data = await postJsonPromise;
 
@@ -356,12 +353,14 @@
                 fcltCd : item.cdVl,
                 fcltNm : item.cdVlNm,
             }));
-            console.log(mngList);
 
             postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do",{apcCd:gv_apcCd});
             data = await postJsonPromise;
 
-            console.log(data,"원본");
+            mngList = mngList.filter(item => {
+               let fcltCd = item.fcltCd;
+               return data.resultJson.every(inner => inner.fcltCd !== fcltCd);
+            });
 
             data.resultJson = data.resultJson.concat(mngList).sort((a,b) => a.fcltCd - b.fcltCd);
 
@@ -420,8 +419,6 @@
                 item.fcltType = 'WGH_FCLT';
                 return item.delYn == 'N'});
             saveParam.wghFcltDtlVO = grdWghDtl;
-
-            console.log(saveParam,"저장전");
 
             let postJsonPromise;
 
@@ -628,7 +625,6 @@
      * @function
      */
     const fn_selectWghInfo = async function(){
-        console.log(jsonWghList,"아예없다고 썡까면어떻게해");
         if(editMode){
             if(!gfn_comConfirm("Q0001","수정중인 목록이있습니다. 조회")){
                 return;
@@ -654,12 +650,17 @@
 
         try{
             if(data.resultStatus === "S"){
-                console.log(data.resultJson[0],"없으면 신규모드로 코드는 박아서 ㄱ");
                 /** 환경설정 설비만 있고 현재 상세정보 테이블에 없을경우 **/
                 if(gfn_isEmpty(data.resultJson[0])){
+                    /** reset **/
+                    $('#wghDtlTable [id^="dtl-inp"]').val("");
+                    SBUxMethod.set("dtl-slt-warehouseSeCd","");
+                    SBUxMethod.set("dtl-slt-cpctUnit","");
+                    SBUxMethod.set("dtl-dtp-bgngYmd","");
+                    SBUxMethod.set("dtl-dtp-endYmd","");
+
                     let nRow = grdWghList.getRow();
                     let rowData = grdWghList.getRowData(nRow);
-                    console.log(rowData);
 
                     SBUxMethod.set("dtl-inp-fcltCd",rowData.fcltCd);
                     SBUxMethod.set("dtl-inp-fcltNm",rowData.fcltNm);
@@ -668,8 +669,10 @@
                     $("#createFlag").css("display","table-cell");
                     SBUxMethod.attr("btnSave","disabled","false");
                     createMode = true;
-
                 }else{
+                    $("#createFlag").css("display","none");
+                    SBUxMethod.attr("btnSave","disabled","true");
+                    createMode = false;
                     gfn_setTableElement("wghDtlTable","dtl-",data.resultJson[0],true);
                 }
                 if(data.resultList.length >= 0){
