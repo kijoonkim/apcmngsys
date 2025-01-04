@@ -1396,22 +1396,26 @@
 		//SBGridProperties.extendlastcol = 'scroll';
 		//SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.mergecells = 'bycolrec';//병합 설정 bycol : 상하 , byrow : 좌우 , bycolrec : 상하 병합 후 좌우
+		SBGridProperties.datamergefalseskip = true;//병합 제외 설정 merge : false
 		SBGridProperties.columns = [
+			{caption: ["구분","구분"]
+				,ref: 'clsfSeNm',		type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["부류","부류"]
 				,ref: 'clsfNm',		type:'output',  width:'100px',    style:'text-align:center'},
 
 			{caption: [prvTotStr,"취급 물량(톤)"]
-				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:center'
+				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:right', merge : false
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: [prvTotStr,"취급액(천원)"]
-				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:right', merge : false
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: [totStr,"취급 물량(톤)"]
-				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:right', merge : false
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: [totStr,"취급액(천원)"]
-				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:center'
+				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:right', merge : false
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 
 			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
@@ -1439,6 +1443,7 @@
 				let itemVO = {
 						clsfCd: 		item.clsfCd
 						,clsfNm: 		item.clsfNm
+						,clsfSeNm: 		item.clsfSeNm
 
 						,totVlm: 		item.totVlm
 						,totAmt: 		item.totAmt
@@ -1465,6 +1470,7 @@
 		// 합계를 저장할 변수 초기화
 		let totalSum = {
 			clsfNm: '합계',
+			clsfSeNm: '합계',
 			totVlm: 0,
 			totAmt: 0,
 			prvTotVlm: 0,

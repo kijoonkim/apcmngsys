@@ -72,6 +72,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	/* 20241226 부류별 물량, 금액 추가 */
 	private String clsfCd;
 	private String clsfNm;
+	private String clsfSeNm;
 
 	private String totVlm;
 	private String totAmt;
