@@ -619,7 +619,7 @@
 					<tbody>
 						<tr>
 							<th colspan="3" scope="row" class="th_bg th_border_right">연도</th>
-							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액</th>
+							<th colspan="4" scope="row" class="th_bg">NH(농협) 자금 신청액(최소 단위 100,000 하위 단위 절삭처리)</th>
 						</tr>
 						<tr>
 							<th colspan="3" scope="row" class="th_bg"><span class="data_required" ></span><span class="setYr">2024</span> 신규 자금 신청액(천원)</th>
@@ -632,6 +632,7 @@
 									mask = "{ 'alias': 'numeric', 'autoUnmask': true , 'autoGroup': 3, 'groupSeparator': ','}"
 									unmask-phone-dashes = "true"
 									permit-keycodes-set = "num"
+									onchange="fn_fundAplyAmt"
 								></sbux-input>
 							</td>
 							<td colspan="8" style="border: none"></td>
@@ -2797,6 +2798,15 @@
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
+		}
+	}
+
+	//자금 신청액 최소 입력 단위 100,000(천원) 1억부터 하위 단위 절삭처리
+	function fn_fundAplyAmt(){
+		if(!gfn_isEmpty(SBUxMethod.get('dtl-input-isoFundAplyAmt'))){
+			isoFundAplyAmt = parseFloat(SBUxMethod.get('dtl-input-isoFundAplyAmt'));
+			isoFundAplyAmt = Math.floor(isoFundAplyAmt / 100000) * 100000;
+			SBUxMethod.set('dtl-input-isoFundAplyAmt',isoFundAplyAmt);
 		}
 	}
 
