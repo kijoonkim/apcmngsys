@@ -171,7 +171,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdTotCrtrList" style="height:50vh;"></div>
+						<div id="sb-area-grdSlsPrfmncList" style="height:50vh;"></div>
 
  					</div>
 				</div>
@@ -196,6 +196,54 @@
 </body>
 <script type="text/javascript">
 
+	//기준유형
+	/* var jsonCrtrType = [];
+	var jsonExcl = [];
+	var jsonIncl = [];
+	var jsonCrtrKnd = [];
+	var jsonTrgtKnd = [];
+	var jsonTotArtclKnd = [];
+	var jsonDtlPrcs = []; */
+	
+	var mergeArray = [];
+	
+	var jsonDtlCd =[];
+	var jsonCrtrCd = [];
+	var jsonTermKnd = [];
+	var jsonCrtTm = [];
+	var jsonArtclKnd = [];
+	var jsonExclItem = [];
+	var jsonExclVrty = [];
+	var jsonExclPrdcr = [];
+	var jsonInclItem = [];
+	var jsonInclVrty = [];
+	var jsonInclPrdcr = [];
+	var jsonPrdcr = [];
+	
+	
+	var jsonElmt = [];
+	var jsonYn = [
+		{value : 'Y', label : '사용' }
+		, {value : 'N', lable : '미사용' }
+	];	
+	var jsonTotDtlType = [];	
+	// grid
+	// 집계기준목록
+	var grdTotCrtrList;
+	//var jsonTotCrtrList = [];
+	// 집계기준상세정보
+	var grdTotCrtrDtlList;
+	var jsonTotCrtrDtlList= [];
+	var jsonTempTotCrtrDtlList = [];
+	
+	
+	//매출실적 
+	var jsonSlsPrfmnc = [];
+	var grdSlsPrfmncList = [];
+	var jsonSlsPrfmncLsit = [];
+	
+	
+
 
 
 	const fn_initSBSelect = async function() {
@@ -208,7 +256,7 @@
 		jsonElmt = await gfn_getComCdDtls('TOT_ELMT_INCL');
 		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE'); */
 
-		jsonTermKnd = await gfn_getComCdDtls('TOT_TERM_KND');
+		/* jsonTermKnd = await gfn_getComCdDtls('TOT_TERM_KND');
 		jsonCrtTm = await gfn_getComCdDtls('TOT_CRT_TM');
 		jsonArtclKnd = await gfn_getComCdDtls('TOT_ARTCL_KND');
 		jsonExclItem = await gfn_getComCdDtls('TOT_EXCL_ITEM');
@@ -217,15 +265,16 @@
 		jsonInclItem = await gfn_getComCdDtls('TOT_INCL_ITEM');
 		jsonInclVrty = await gfn_getComCdDtls('TOT_INCL_VRTY');
 		jsonInclPrdcr = await gfn_getComCdDtls('TOT_INCL_PRDCR');
-
-		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE');
+		jsonCrtrType = await gfn_getComCdDtls('TOT_CRTR_TYPE');
+		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE'); */
+		
+		
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 
-		//jsonCrtrCd = await gfn_getComCdDtls('TOT_CRTR_CD');
+		jsonCrtrCd = await gfn_getComCdDtls('SLS_CRTR_CD');
 
 
-		jsonCrtrType = await gfn_getComCdDtls('TOT_CRTR_TYPE');
-		await gfn_setComCdSBSelect('srch-slt-crtrType', 		jsonCrtrCd, 	'TOT_CRTR_CD')			// 집계기준
+		await gfn_setComCdSBSelect('srch-slt-crtrType', jsonCrtrCd, 'SLS_CRTR_CD') // 집계기준
 		mergeArray = [...jsonCrtrCd,...jsonTermKnd,...jsonCrtTm,...jsonArtclKnd,...jsonExclItem,...jsonExclVrty,...jsonExclPrdcr,...jsonInclItem,...jsonInclVrty,...jsonInclPrdcr];
 
 
@@ -238,7 +287,7 @@
 
     const fn_init = async function() {
     	await fn_initSBSelect();
-		fn_createTotCrtrList();
+		fn_createSlsPrfmnclist();
 		fn_search();
     }
 
@@ -271,58 +320,11 @@
 
 
 
-	//기준유형
-	/* var jsonCrtrType = [];
-	var jsonExcl = [];
-	var jsonIncl = [];
-	var jsonCrtrKnd = [];
-	var jsonTrgtKnd = [];
-
-
-	var jsonTotArtclKnd = [];
-	var jsonDtlPrcs = []; */
-
-	var mergeArray = [];
-
-	var jsonDtlCd =[];
-	var jsonCrtrCd = [];
-	var jsonTermKnd = [];
-	var jsonCrtTm = [];
-	var jsonArtclKnd = [];
-	var jsonExclItem = [];
-	var jsonExclVrty = [];
-	var jsonExclPrdcr = [];
-	var jsonInclItem = [];
-	var jsonInclVrty = [];
-	var jsonInclPrdcr = [];
-	var jsonPrdcr = [];
-
-
-	var jsonElmt = [];
-
-	var jsonYn = [
-		{value : 'Y', label : '사용' }
-		, {value : 'N', lable : '미사용' }
-	];
-
-	var jsonTotDtlType = [];
-
-    // grid
-    // 집계기준목록
-    var grdTotCrtrList;
-    var jsonTotCrtrList = [];
-
-    // 집계기준상세정보
-    var grdTotCrtrDtlList;
-    var jsonTotCrtrDtlList= [];
-    var jsonTempTotCrtrDtlList = [];
-
-
-    const fn_createTotCrtrList = function() {
+    const fn_createSlsPrfmnclist = function() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdTotCrtrList';
-	    SBGridProperties.id = 'grdTotCrtrList';
-	    SBGridProperties.jsonref = 'jsonTotCrtrList';
+	    SBGridProperties.parentid = 'sb-area-grdSlsPrfmncList';
+	    SBGridProperties.id = 'grdSlsPrfmncList';
+	    SBGridProperties.jsonref = 'jsonSlsPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
@@ -330,7 +332,7 @@
 
         SBGridProperties.columns = [
         	{
-        		caption: [""], 			ref: 'checkedYn', 			type:'checkbox', 	width:'50px',	style:'text-align:center',
+        		caption: [""], 	ref: 'checkedYn', 	type:'checkbox', width:'3%',	style:'text-align:center',
 					typeinfo: {
 						ignoreupdate : true,
 						fixedcellcheckbox : {
@@ -342,42 +344,20 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["품목"],
-               	 ref : 'totCrtrType',
-               	 type: 'combo',
-               	 typeinfo : {ref:'jsonCrtrType', label:'cdVlNm', value:'cdVl'},
-               	 width:'100px',
-               	 style:'text-align:center'},
-
-            {caption: ["품종"],
-                 ref: 'crtrCd',
-                 type:'combo',
-                 typeinfo : {ref:'jsonCrtrCd', label:'label', value:'value'},
-                width:'100px',
-                style:'text-align:center'},
-            {caption: ["생산자"],
-                ref: 'totDtlType',
-                type:'combo',
-                typeinfo : {ref:'jsonDtlType', label:'cdVlNm', value:'cdVl'},
-               width:'100px',
-               style:'text-align:center'},
-            {caption: ["상세구분"],             ref: 'indctSeq',                 type:'input',      width:'100px',  style:'text-align:center'},
-            {caption: ["매출번호"],
-            	 ref: 'useYn',
-            	 type:'combo',
-            	 typeinfo : {ref:'jsonYn', label:'label', value:'value', oneclickedit: true},
-				width:'100px',  style:'text-align:center'},
-            {caption: ["수량"],             ref: '1',                 type:'output',      width:'100px',  style:'text-align:center'},
-            {caption: ["중량"],             ref: '2',                 type:'output',      width:'100px',  style:'text-align:center'},
-            {caption: ["상세코드"],             ref: '3',                 type:'output',      width:'100px',  style:'text-align:center'},
-            {caption: ["매출금액"],             ref: '4',                 type:'output',      width:'100px',  style:'text-align:center'},
-            {caption: ["확정금액"],             ref: '5',                 type:'output',      width:'100px',  style:'text-align:center'},
-            {caption: [""],             ref: '6',                 type:'output',      width:'100px',  style:'text-align:center'},
-			{caption: ["중량"], ref: 'status', type:'output',hidden : true},
+            {caption: ["품목"], ref : 'itemCd',  type: 'input', width:'9.7%', style:'text-align:center'},
+            {caption: ["품종"], ref: 'vrtyCd',   type:'input', width:'9.7%',  style:'text-align:center'},
+            {caption: ["생산자"], ref: '?',       type:'input', width:'9.7%',  style:'text-align:center'},
+            {caption: ["상세구분"],ref: '?',	   type:'input', width:'9.7%',  style:'text-align:center'},
+            {caption: ["매출번호"],ref: 'slsSn',   type:'input', width:'9.7%',  style:'text-align:center'},
+            {caption: ["수량"],  ref: 'qntt',    type:'input',width:'9.7%',  style:'text-align:center'},
+            {caption: ["중량"],  ref: 'wght',    type:'input',width:'9.7%',  style:'text-align:center'},
+            {caption: ["상세코드"],ref: '?',       type:'input',width:'9.7%',  style:'text-align:center'},
+            {caption: ["매출금액"],ref: 'rkngAmt', type:'input',width:'9.7%',  style:'text-align:center'},
+            {caption: ["확정금액"],ref: 'cfmtnAmt',type:'input',width:'9.7%',  style:'text-align:center'},
 			{caption: ["삭제여부"], ref: 'delYn', type:'output',hidden : true}
+						
         ];
-        grdTotCrtrList = _SBGrid.create(SBGridProperties);
-        grdTotCrtrList.bind('click', 'fn_grdTotCrtrClick');
+        grdSlsPrfmncList = _SBGrid.create(SBGridProperties);
     }
 
 
@@ -446,48 +426,36 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	let crtrType = SBUxMethod.get("srch-slt-crtrType");
-
-    	const postJsonPromise = gfn_postJSON("/am/tot/selectTotCrtrInfoList.do", {
+    	let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
+    	
+    	let purSalYmd;
+    	getpurSalYmd.forEach((item,index) =>{
+    		if(index === 0 ){
+    			purSalYmd = item;
+    		}
+    	})
+    	//console.log(purSalYmd);
+    	
+    	const postJsonPromise = gfn_postJSON("/am/spmt/selectSlsPrfmnc.do", {
 			apcCd: gv_selectedApcCd,
-			totCrtrType : crtrType
+			slsYmd : purSalYmd
   		});
-
-        const data = await postJsonPromise;
-
+        const data = await postJsonPromise;       
+        console.log(data);
   		try {
  			if (_.isEqual("S", data.resultStatus)) {
-
-  	          	/** @type {number} **/
-  	      		let totalRecordCount = 0;
-
-  	      		jsonTotCrtrList.length = 0;
-  	      	    jsonTotCrtrDtlList.length = 0;
-
-  	      		data.resultList1.forEach(item => {
+ 				jsonSlsPrfmnc = data.resultList;
+ 				
+ 		
+ 				
+  	      		/*
+  	      		data.resultList.forEach(item => {
   	      			item['status'] = '2';
   	      			item['gubun'] = 'update';
-  	      		});
-  	          	jsonTotCrtrList = data.resultList1;
-
-  	            data.resultList2.forEach(item =>{
-  	            	item['status'] = '2';
-  	            	item['gubun'] = 'update';
- 	            });
-
-  	            jsonTempTotCrtrDtlList = data.resultList2;
-
-
-
-          		grdTotCrtrList.rebuild();
-          		grdTotCrtrDtlList.rebuild();
-          		let nRow = grdTotCrtrList.getRows();
-  	  			let nRow2 = grdTotCrtrDtlList.getRows();
-
-  	  		    fn_addRow(grdTotCrtrList,nRow,"1");
-  	  			fn_addRow(grdTotCrtrDtlList,nRow2,"1");
-
-
+  	      		});*/
+          		//let nRow = grdSlsPrfmncList.getRows();
+  	  		    //fn_addRow(grdSlsPrfmncList,nRow,"1");
+          		grdSlsPrfmncList.rebuild();
  			 }
   		}
  		catch (e) {
@@ -503,8 +471,8 @@
 
 
     const fn_save = async function(){
-    	let rowData = grdTotCrtrList.getRowData(grdTotCrtrList.getRow());
-    	let status1 = grdTotCrtrList.getRowStatus(grdTotCrtrList.getRow());
+    	let rowData = grdSlsPrfmncList.getRowData(grdSlsPrfmncList.getRow());
+    	let status1 = grdSlsPrfmncList.getRowStatus(grdSlsPrfmncList.getRow());
 		if(rowData === undefined){
 			return;
 		}
@@ -564,42 +532,54 @@
 
 
 
-	 const fn_delete = async function(grd,index){
+	 const fn_delete = async function(){
+		 
+		 
 			// comConfirm
-			if (!gfn_comConfirm("Q0001", "집계기준목록 삭제")) {	//	Q0001	{0} 하시겠습니까?
+			if (!gfn_comConfirm("Q0001", "매출실적목록 삭제")) {	//	Q0001	{0} 하시겠습니까?
 		    	return;
 		    }
 
-	    	let rowData = grd.getRowData(index);
-			if(rowData === undefined){
+			let allData = grdSlsPrfmncList.getGridDataAll();
+			//let getCheckYn = allData.filter(item => item.checkedYn === "Y");
+			//let allData = grdSlsPrfmncList.getGridDataAll.filter((item)=>item.checkYn === "Y");
+			
+			var slsPrfmncList = [];
+			
+			
+			allData.forEach((item, index)=>{
+				if(item.checkedYn === "Y"){					
+					slsPrfmncList.push({
+						apcCd : gv_selectedApcCd,
+						slsSn : item.slsSn,
+						slsYmd : item.slsYmd
+					});
+				}
+			});
+			
+			console.log(slsPrfmncList);
+			/*
+			allData.forEach((item, index)=>{
+				if(item.checkedYn === "Y"){
+					
+					if (!slsPrfmncList.some(function(sls) {
+						return sls.slsSn === item.slsSn;
+					})) {
+						sortPrfmncList.push({
+							slsSn: item.slsSn
+		    			});
+					}
+				}
+			});*/
+			
+			
+			/*if(rowData === undefined){
 				return;
-			}
+			}*/
 
 	        try{
-
-	        	let totCrtr = {
-	        			apcCd : gv_apcCd
-	        			, totCrtrType : rowData.totCrtrType
-	        			, crtrCd : rowData.crtrCd
-	        	};
-
-
-
-				/*let totCrtrDtlList = grdTotCrtrDtlList.getGridDataAll();
-				    totCrtrDtlList.forEach((item,sn) => {
-						delete item.itemCd;
-						item["apcCd"] = gv_selectedApcCd;
-						Object.assign(item,totCrtr);
-						item["status"] = grdTotCrtrDtlList.getRowStatus(sn+1).toString();
-						item["dtlIndctNm"] = item["dtlVl"];
-
-					}); */
-
-
-	            //let totDtlList = totCrtrDtlList.filter(x => x.delYn==="N");
-
-	            let postJsonPromise = gfn_postJSON("/am/tot/deleteTotMngInfo.do",totCrtr);
-
+	            const postJsonPromise = gfn_postJSON("/am/spmt/deleteSlsPrfmnc.do",slsPrfmncList);
+	            
 	            if(postJsonPromise){
 	                let data = await postJsonPromise;
 	                if (data.resultStatus == "S") {
