@@ -64,6 +64,29 @@ public class ClclnRsltController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// APC 정산결과 조회
+	@PostMapping(value = "/api/mobile/am/clcln/selectClclnRsltList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectClclnRsltListMobile(@RequestBody ClclnRsltVO clclnRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ClclnRsltVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = clclnRsltService.selectClclnRsltList(clclnRsltVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 	
 	
 	// 정산실적 변경

@@ -397,6 +397,28 @@ public class ClclnMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// APC 정산단가 마스터 조회(모바일)
+	@PostMapping(value = "/api/mobile/am/clcln/selectClclnUntprcMstrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectClclnUntprcMstrListMobile(@RequestBody ClclnUntprcVO clclnUntprcVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ClclnUntprcVO> resultList = new ArrayList<>();
+		try {
+			resultList = clclnUntprcService.selectClclnUntprcMstrList(clclnUntprcVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 /*		
 	// 정산단가 변경
 	@PostMapping(value = "/am/clcln/updateClclnUntprcList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
