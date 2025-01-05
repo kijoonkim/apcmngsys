@@ -2,6 +2,7 @@ package com.at.apcss.am.spmt.service;
 
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 
 import java.util.List;
 
@@ -52,4 +53,11 @@ public interface ShpgotMngService {
      * @throws Exception
      */
     List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+         * 원물재고 반품이력 조회
+         * @param shpgotApcRawMtrVO
+         * @return List<ShpgotApcRawMtrVO>
+         * @throws Exception
+    */
+    List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception;
 }

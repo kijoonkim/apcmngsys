@@ -2,6 +2,7 @@ package com.at.apcss.am.spmt.mapper;
 
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import org.apache.ibatis.annotations.Select;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -70,4 +71,11 @@ public interface ShpgotMngMapper {
      * @throws Exception
      */
     List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+     * 원물재고 반품이력 조회
+     * @param shpgotApcRawMtrVO
+     * @return List<ShpgotApcRawMtrVO>
+     * @throws Exception
+     */
+    List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception;
 }

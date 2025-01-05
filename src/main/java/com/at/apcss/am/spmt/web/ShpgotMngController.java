@@ -5,6 +5,7 @@ import com.at.apcss.am.spmt.service.ShpgotMngService;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import lombok.Getter;
@@ -171,6 +172,25 @@ public class ShpgotMngController extends BaseController {
 
         return getSuccessResponseEntity(resultMap);
     }
+
+    @PostMapping(value = "/am/spmt/selectShpgotRawMtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+        public ResponseEntity<HashMap<String, Object>> selectShpgotRawMtr(@RequestBody ShpgotApcRawMtrVO shpgotApcRawMtrVO, HttpServletRequest request) throws Exception {
+            HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<ShpgotApcRawMtrVO> resultList = new ArrayList();
+            try{
+                resultList = shpgotMngService.selectShpgotRawMtr(shpgotApcRawMtrVO);
+
+            }catch (Exception e) {
+                return getErrorResponseEntity(e);
+            } finally {
+                HashMap<String, Object> rtnObj = setMenuComLog(request);
+                if (rtnObj != null) {
+                    return getErrorResponseEntity(rtnObj);
+                }
+            }
+            resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+            return getSuccessResponseEntity(resultMap);
+        }
 
     private <T> void setCommonInfo(T vo) {
         if (vo instanceof ShpgotApcCrtrVO) {

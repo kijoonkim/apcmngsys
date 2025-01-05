@@ -4,6 +4,7 @@ import com.at.apcss.am.spmt.mapper.ShpgotMngMapper;
 import com.at.apcss.am.spmt.service.ShpgotMngService;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,10 @@ public class ShpgotMngServiceImpl implements ShpgotMngService {
     @Override
     public List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception {
         return  shpgotMngMapper.selectShpgotApcCrtrDtlList(shpgotApcCrtrVO);
+    }
+
+    @Override
+    public List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception {
+        return shpgotMngMapper.selectShpgotRawMtr(shpgotApcRawMtrVO);
     }
 }
