@@ -132,6 +132,7 @@
         SBGridProperties.jsonref = 'jsonRtnCrtr';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
+        SBGridProperties.clickeventarea = {fixed: false, empty: false};
         SBGridProperties.columns = [
             {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
