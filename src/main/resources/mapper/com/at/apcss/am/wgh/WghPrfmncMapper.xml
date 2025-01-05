@@ -1413,15 +1413,13 @@
 		<![CDATA[
 			UPDATE TB_WGH_HSTRY SET
 			FCLT_CD = #{fcltCd}
-			, PRCS_CMPTN_DT = #{prcsCmptnDt}
-			, PRCS_CMPTN_YN = #{prcsCmptnYn}
-			, PRCS_TASK_CD = #{prcsTaskCd}
 			, VHCLNO = #{vhclno}
-			, WGH_DT = #{wghDt}
+			, WGH_DT = TO_DATE(#{wghDt},'YYYYMMDDHH24MISS')
 			, WGH_RMRK = #{wghRmrk}
 			, WGH_WGHT = #{wghWght}
 		  WHERE WGHNO = #{wghno}
 		  	AND APC_CD = #{apcCd}
+		  	AND WGH_SE_CD = #{wghSeCd}
 
 		]]>
 	</update>
@@ -1439,6 +1437,7 @@
 		  DELETE FROM TB_WGH_HSTRY
 		  WHERE WGHNO = #{wghno}
 		  	AND APC_CD = #{apcCd}
+		  	AND WGH_SE_CD = #{wghSeCd}
 		]]>
 	</delete>
 
@@ -1452,15 +1451,112 @@
 	<!-- ==========================================================================	-->
 	<select id="selectWghVhclList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
 		  <![CDATA[
-		SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhclList */
+		SELECT *
+		 FROM
+		(SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhclList */
+					MAX(APC_CD) AS APC_CD,
+				    WGHNO,
+				    VHCLNO,
+				    MAX(CASE WHEN WGH_SE_CD = '01' THEN TO_CHAR(WGH_DT,'YYYYMMDDHH24MISS') END) AS ENTR_TM,
+				    MAX(CASE WHEN WGH_SE_CD = '02' THEN TO_CHAR(WGH_DT,'YYYYMMDDHH24MISS') END) AS OUT_TM,
+				    MAX(CASE WHEN WGH_SE_CD = '01' THEN WGH_WGHT END) AS ENTR_WGHT,
+				    MAX(CASE WHEN WGH_SE_CD = '02' THEN WGH_WGHT END) AS OUT_WGHT,
+				    MAX(WGH_RMRK) AS WGH_RMRK,
+				    MAX(FCLT_CD) AS FCLT_CD
+				    , MAX(PRCS_TASK_CD) AS PRCS_TASK_CD
+				    , MAX(PRCS_CMPTN_DT) AS PRCS_CMPTN_DT
+				    , MAX(PRCS_CMPTN_YN) AS PRCS_CMPTN_YN
+				FROM
+				    TB_WGH_HSTRY
+				WHERE 1=1
+				  AND APC_CD = #{apcCd}
+				  AND DEL_YN = 'N'
+
+				GROUP BY
+				    WGHNO, VHCLNO) X,
+
+					(SELECT
+						  WC.APC_CD		    AS APC_CD
+						, WC.WGHNO		    AS WGHNO
+						, WD.WGH_SN			AS WGH_SN
+						, WD.WRHSNO		    AS WRHSNO
+						, WC.WGH_YMD        AS WGH_YMD
+						, WC.VHCLNO         AS VHCLNO
+						, WC.PRDCR_CD	    AS PRDCR_CD
+						, (SELECT FN_GET_PRDCR_NM(WC.PRDCR_CD,WC.APC_CD) FROM DUAL)	    AS PRDCR_NM
+						, WC.WHOL_WGHT      AS WHOL_WGHT
+						, WC.EMPT_VHCL_WGHT AS EMPT_VHCL_WGHT
+						, WC.RDCD_RT        AS RDCD_RT
+						, WC.RDCD_WGHT      AS RDCD_WGHT
+						, WC.WRHS_WGHT      AS WRHS_WGHT
+						, WC.RMRK           AS RMRK
+		                , WD.GRD_CD         AS GRD_CD
+		                , WD.PLT_KND		AS PLT_KND
+						, WD.PLT_WGHT       AS PLT_WGHT
+						, WD.BX_KND			AS BX_KND
+		                , WD.BX_QNTT        AS BX_QNTT
+						, WD.BX_WGHT        AS BX_WGHT
+						, WP.WRHS_WGHT		AS INVNTR_WGHT
+						, INV.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
+						, INV.ITEM_CD       AS ITEM_CD
+						, INV.VRTY_CD       AS VRTY_CD
+						, (SELECT FN_GET_ITEM_NM(INV.ITEM_CD,WC.APC_CD) FROM DUAL)	    AS ITEM_NM
+						, (SELECT FN_GET_VRTY_NM(INV.ITEM_CD,INV.VRTY_CD ,WC.APC_CD) FROM DUAL)	    AS VRTY_NM
+						, INV.GDS_SE_CD     AS GDS_SE_CD
+						, INV.WRHS_SE_CD    AS WRHS_SE_CD
+						, INV.TRSPRT_SE_CD  AS TRSPRT_SE_CD
+						, (SELECT FN_GET_GRD_NM_RAWMTR(WC.APC_CD, INV.ITEM_CD, WD.GRD_CD) FROM DUAL) AS GRD_NM
+		                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', INV.WAREHOUSE_SE_CD, WC.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+						, (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', INV.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+						, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', INV.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+						, (SELECT FN_GET_COM_CD_VL_NM('TRSPRT_SE_CD', INV.TRSPRT_SE_CD) FROM DUAL) AS TRSPRT_SE_NM
+						, INV.PRDCTN_YR		AS PRDCTN_YR
+						, WC.FCLT_CD		AS FCLT_CD
+						, WC.WRHS_SPMT_TYPE AS WRHS_SPMT_TYPE
+					  FROM
+					  	  TB_WGH_PRFMNC_COM WC
+					  	, TB_WGH_PRFMNC_DTL WD
+						, TB_RAW_MTR_WRHS_PRFMNC WP
+						, TB_RAW_MTR_INVNTR INV
+					 WHERE WC.APC_CD = WD.APC_CD
+					   AND WC.WGHNO = WD.WGHNO
+					   AND WC.APC_CD = WP.APC_CD
+					   AND WC.WGHNO = WP.WGHNO
+					   AND WD.WRHSNO = WP.WRHSNO
+					   AND WP.APC_CD = INV.APC_CD
+					   AND WP.WRHSNO = INV.WRHSNO
+					   AND WC.DEL_YN = 'N'
+					   AND WD.DEL_YN = 'N'
+					   AND WP.DEL_YN = 'N'
+					   AND INV.DEL_YN = 'N'
+					   ) Y
+		WHERE 1=1
+			AND X.APC_CD = Y.APC_CD(+)
+			AND X.WGHNO = Y.WGHNO(+)
+		]]>
+
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghVhcl			-->
+	<!-- DESC : 원물입차 단건조회.		 		                            			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.04  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghVhcl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		  <![CDATA[
+		SELECT /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghVhcl */
 			 *
 		FROM TB_WGH_HSTRY
 		WHERE APC_CD = #{apcCd}
 		  	AND DEL_YN = 'N'
+		  	AND WGH_SE_CD = #{wghSeCd}
+		  	AND WGHNO = #{wghno}
 		]]>
-		<if test=' wghDt != null and wghDt !=""'>
-			AND WGH_DT = TO_DATE(#{wghDt},'YYYYMMDDHH24MISS');
-		</if>
+
 	</select>
 
 </mapper>

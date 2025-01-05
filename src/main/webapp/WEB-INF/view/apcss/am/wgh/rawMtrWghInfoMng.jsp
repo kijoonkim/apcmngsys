@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : rawMtrOutVhclReg.jsp
-     * @Description : 원물 출차등록
+     * @Class Name : rawMtrWghInfoMng.jsp
+     * @Description : 원물계량정보관리
      * @author SI개발부
      * @since 2024.09.03
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 원물 출차등록</title>
+    <title>title : 원물계량정보관리</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -33,7 +33,7 @@
             <div class="box-header" style="display:flex; justify-content: flex-start;">
                 <div>
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물 입차등록 -->
+                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물계량정보관리 -->
                 </div>
                 <div style="margin-left: auto;">
 
@@ -79,80 +79,12 @@
 									 group-id="group1"
 								></sbux-select>
 							</td>
-							<th scope="row" class="th_bg">계량번호</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-input
-									id="srch-inp-wghNo"
-									name="srch-inp-wghNo"
-									class="form-control input-sm"
-									style="width:80%"
-									 group-id="group1"
-									 readonly
-								></sbux-input>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">계량일자</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-datepicker
-									id="srch-dtp-wghYmd"
-									name="srch-dtp-wghYmd"
-									uitype="popup"
-									date-format="yyyy-mm-dd"
-									class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
-									 group-id="group1"
-								></sbux-datepicker>
-							</td>
-							<th scope="row" class="th_bg">차량번호</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-input
-									id="srch-inp-vhclNo"
-									name="srch-inp-vhclNo"
-									class="form-control input-sm"
-									style="width:80%"
-									 group-id="group1"
-								></sbux-input>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row" class="th_bg">입차중량</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-input
-									id="srch-inp-entrVhclWght"
-									name="srch-inp-entrVhclWght"
-									class="form-control input-sm"
-									style="width:80%"
-									 group-id="group1"
-								></sbux-input>
-							</td>
-							<th scope="row" class="th_bg">입차시각</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-
-								<sbux-spinner
-									id="srch-dtp-entrVhclTm"
-									name="srch-dtp-entrVhclTm"
-									uitype="normal"
-									data-type="time"
-									time-hours="24hours"
-									class="form-control input-sm sbux-pik-group-ap input-sm-ast inpt_data_reqed"
-									 group-id="group1"
-								></sbux-spinner>
-							</td>
-							<th scope="row" class="th_bg">비고</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-input
-									id="srch-inp-rmrk"
-									name="srch-inp-rmrk"
-									class="form-control input-sm"
-									style="width:80%"
-									 group-id="group1"
-								></sbux-input>
-							</td>
-						</tr>
-
-						<tr>
 
 						</tr>
+
+
+
+
 
 					</tbody>
 				</table>
@@ -160,7 +92,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>입차목록</span>
+                                    <span>입출차목록</span>
                                 </li>
                             </ul>
                         </div>
@@ -226,6 +158,8 @@
         SBGridProperties.jsonref = 'jsonWghFcltDtlList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
+        	{caption: [""], 	ref: 'checkedYn', 		type: 'checkbox', 	width: '40px',	  style:'text-align: center',
+				typeinfo: {ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'Y', uncheckedvalue : 'N'}},
             {caption: ['계량대'], ref: 'fcltCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonSortFclt', label:'text', value:'value', oneclickedit: true}, style:'text-align:center',disabled : {uihidden : true}},
             {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style:'text-align:center'},
             //{caption: ['계량구분'], ref: 'wghSeCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonWghSeCd', label:'text', value:'value', oneclickedit: true} , style:'text-align:center' ,disabled : {uihidden : true}},
@@ -233,10 +167,10 @@
             {caption: ['출차시각'], ref: 'outTm', width: '100px', type: 'input', style:'text-align:center'},
             {caption: ['입차중량'], ref: 'entrWght', width: '100px', type: 'input', style:'text-align:center'},
             {caption: ['출차중량'], ref: 'outWght', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['차이'], ref: 'diff', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['계량번호'], ref: 'wghno', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['처리업무'], ref: 'prcsTaskCd', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['완료일시'], ref: 'prcsCmptnDt', width: '100px', type: 'input', style:'text-align:center'},
+            {caption: ['차이'], ref: 'diff', width: '100px', type: 'input', style:'text-align:center',disabled : {uihidden : true}},
+            {caption: ['계량번호'], ref: 'wghno', width: '100px', type: 'input', style:'text-align:center',disabled : {uihidden : true}},
+            {caption: ['처리업무'], ref: 'prcsTaskCd', width: '100px', type: 'input', style:'text-align:center',disabled : {uihidden : true}},
+            {caption: ['완료일시'], ref: 'prcsCmptnDt', width: '100px', type: 'input', style:'text-align:center',disabled : {uihidden : true}},
             {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'input', style:'text-align:center'}
             /* {caption: ['기본창고'], ref: 'warehouseSeCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonWarehouse', label:'text', value:'value', oneclickedit: true}, style:'text-align:center'},
             {caption: ['중량단위'], ref: 'wghtUnit', width: '100px', type: 'input', style:'text-align:center'},
@@ -246,7 +180,7 @@
 
         ]
         grdWghFcltDtlList = _SBGrid.create(SBGridProperties);
-        grdWghFcltDtlList.bind('click', fn_click);
+        //grdWghFcltDtlList.bind('click', fn_click);
 
     }
 	const fn_click = async function(){
@@ -257,13 +191,12 @@
 			return;
 		}
 		SBUxMethod.set("srch-slt-wghFcltCd",rowData.fcltCd);
-		SBUxMethod.set("srch-inp-wghNo",rowData.wghno);
 		SBUxMethod.set("srch-inp-vhclNo",rowData.vhclno);
-		SBUxMethod.set("srch-inp-entrVhclWght",rowData.entrWght); //입차중량
-		const timePart = rowData.entrTm.slice(-6);
-		SBUxMethod.set("srch-dtp-entrVhclTm",timePart); //입차시간
+		SBUxMethod.set("srch-inp-outVhclWght",rowData.outWght); //입차중량
+		const timePart = rowData.outTm.slice(-6);
+		SBUxMethod.set("srch-dtp-outVhclTm",timePart); //입차시간
 		SBUxMethod.set("srch-inp-rmrk",rowData.wghRmrk);
-		SBUxMethod.set("srch-dtp-wghYmd",rowData.entrTm);
+		SBUxMethod.set("srch-dtp-wghYmd",rowData.outTm);
 
 	}
 
@@ -276,7 +209,7 @@
   	        	jsonWghFcltDtlList.length = 0;
   	        	data.resultList.forEach((item, index) => {
   					let fcltVO = {
-  							apcCd : item.apcCd
+ 							apcCd : item.apcCd
  							, fcltCd : item.fcltCd
  							, prcsCmptnDt : item.prcsCmptnDt
  							, prcsCmptnYn : item.prcsCmptnYn
@@ -318,37 +251,23 @@
 
 	const fn_save = async function(){
 		let wghFclt = SBUxMethod.get("srch-slt-wghFcltCd");
-		let wghNo = SBUxMethod.get("srch-inp-wghNo");
 		let vhclNo = SBUxMethod.get("srch-inp-vhclNo");
-		let entrVhclWght = SBUxMethod.get("srch-inp-entrVhclWght"); //입차중량
-		let entrVhclTm = SBUxMethod.get("srch-dtp-entrVhclTm"); //입차시간
+		let entrVhclWght = SBUxMethod.get("srch-inp-outVhclWght"); //출차중량
+		let entrVhclTm = SBUxMethod.get("srch-dtp-outVhclTm"); //출차시간
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 		let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
 
-		if(gfn_nvl(wghFclt) === ""){
-			return;
-		}
+
 
 
 		try{
-			let obj = {
-					apcCd : gv_selectedApcCd
-					, wghno : wghNo
-					, wghSeq : 1
-					, vhclno : vhclNo
-					, wghSeCd : '01' //입차
-					, wghWght : entrVhclWght
-					, wghDt : wghYmd + entrVhclTm
-					, delYn : 'N'
-					, wghRmrk : rmrk
-					, wghYmd : wghYmd
-					, prcsCmptnYn : 'N'
-					, fcltCd : wghFclt
-			}
 
 
+			let allData = grdWghFcltDtlList.getGridDataAll();
 
-            let postJsonPromise = gfn_postJSON("/am/wgh/insertWghEntrVhcl.do",obj);
+			let filter = allData.filter(item => item.checkedYn === "Y");
+
+            let postJsonPromise = gfn_postJSON("/am/wgh/saveWghVhclInfo.do",filter);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
@@ -378,7 +297,8 @@
         if(gfn_nvl(rowData) === ""){
         	return;
         }
-        rowData['wghSeCd'] = "01";
+
+        rowData['wghSeCd'] = "02";
         let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghEntrVhcl.do",rowData);
         let data = await postJsonPromise;
 
