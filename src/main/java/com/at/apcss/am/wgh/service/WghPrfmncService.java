@@ -47,12 +47,28 @@ public interface WghPrfmncService {
 	public HashMap<String, Object> insertWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
+	 * 계량실적 등록
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertWghVhclPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
 	 * 계량실적 변경
 	 * @param wghPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> updateWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량실적 변경
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateWghVhclPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
 	 * 계량실적 삭제
@@ -187,14 +203,14 @@ public interface WghPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+	public int insertWghEntrVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
     /**
 	 * 원물입차삭제
 	 * @param wghPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+	public int deleteWghEntrVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
 	 * 원물입차 조회
@@ -202,5 +218,22 @@ public interface WghPrfmncService {
 	 * @return List<WghPrfmncVO>
 	 * @throws Exception
 	 */
-    List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghPrfmnc)throws Exception;
+    List<WghPrfmncVO> selectWghEntrVhclList(WghPrfmncVO wghPrfmnc)throws Exception;
+
+
+    /**
+	 * 원물출차등록
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertWghOutVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 원물계량정보관리
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int saveWghVhclInfo(List<WghPrfmncVO> wghPrfmncVO) throws Exception;
 }

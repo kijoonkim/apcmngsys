@@ -125,6 +125,35 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wgh/insertWghVhclPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertWghVhclPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVO.setSysFrstInptUserId(getUserId());
+			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wghPrfmncVO.setSysLastChgUserId(getUserId());
+			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.insertWghVhclPrfmnc(wghPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/wgh/updateWghPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateWghPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
@@ -137,6 +166,35 @@ public class WghPrfmncController extends BaseController {
 			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 
 			HashMap<String, Object> rtnObj = wghPrfmncService.updateWghPrfmnc(wghPrfmncVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wgh/updateWghVhclPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateWghVhclPrfmnc(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVO.setSysFrstInptUserId(getUserId());
+			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wghPrfmncVO.setSysLastChgUserId(getUserId());
+			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.updateWghVhclPrfmnc(wghPrfmncVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -389,8 +447,8 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/wgh/insertWghVhcl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertWghVhcl(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/wgh/insertWghEntrVhcl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertWghEntrVhcl(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -400,7 +458,7 @@ public class WghPrfmncController extends BaseController {
 			wghPrfmncVO.setSysLastChgUserId(getUserId());
 			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
 
-			int rtnObj = wghPrfmncService.insertWghVhcl(wghPrfmncVO);
+			int rtnObj = wghPrfmncService.insertWghEntrVhcl(wghPrfmncVO);
 
 
 		} catch (Exception e) {
@@ -416,14 +474,76 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/wgh/selectWghVhclList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	@PostMapping(value = "/am/wgh/insertWghOutVhcl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertWghOutVhcl(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVO.setSysFrstInptUserId(getUserId());
+			wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+			wghPrfmncVO.setSysLastChgUserId(getUserId());
+			wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			int rtnObj = wghPrfmncService.insertWghOutVhcl(wghPrfmncVO);
+
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wgh/saveWghVhclInfo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> saveWghVhclInfo(@RequestBody List<WghPrfmncVO> wghPrfmncVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVOList.forEach(wghPrfmncVO ->{
+				wghPrfmncVO.setSysFrstInptUserId(getUserId());
+				wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wghPrfmncVO.setSysLastChgUserId(getUserId());
+				wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+
+
+
+
+			});
+
+			wghPrfmncService.saveWghVhclInfo(wghPrfmncVOList);
+
+
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	@PostMapping(value = "/am/wgh/selectWghEntrVhclList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectWghVhclList(@RequestBody WghPrfmncVO wghPrfmnc, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<WghPrfmncVO> resultList = new ArrayList<>();
 
 		try {
-			resultList = wghPrfmncService.selectWghVhclList(wghPrfmnc);
+			resultList = wghPrfmncService.selectWghEntrVhclList(wghPrfmnc);
 
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -437,13 +557,13 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/wgh/deleteWghVhcl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteWghVhcl(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/wgh/deleteWghEntrVhcl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteWghEntrVhcl(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		try {
-			int rtnObj = wghPrfmncService.deleteWghVhcl(wghPrfmncVO);
+			int rtnObj = wghPrfmncService.deleteWghEntrVhcl(wghPrfmncVO);
 
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());

@@ -212,7 +212,7 @@ public interface WghPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-    public int updateWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+    public int updateWghVhcl(WghPrfmncVO wghPrfmncVO);
 
     /**
 	 * 원물입차삭제
@@ -223,11 +223,19 @@ public interface WghPrfmncMapper {
     public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
 
     /**
-	 * 계량대 목록 조회
+	 * 원물입차 목록 조회
 	 * @param wghFcltVO
 	 * @return
 	 * @throws Exception
 	 */
     List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghFcltVO) throws Exception;
+
+    /**
+	 * 원물입차 단건 조회
+	 * @param wghFcltVO
+	 * @return
+	 * @throws Exception
+	 */
+    WghPrfmncVO selectWghVhcl(WghPrfmncVO wghFcltVO) throws Exception;
 
 }

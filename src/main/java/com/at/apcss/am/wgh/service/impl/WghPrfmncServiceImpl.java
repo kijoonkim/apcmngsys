@@ -194,6 +194,95 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
+	public HashMap<String, Object> insertWghVhclPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
+
+		List<WghPrfmncDtlVO> wghPrfmncDtlList = wghPrfmncVO.getWghPrfmncDtlList();
+
+		int pltQntt = wghPrfmncDtlList.size();
+		if (pltQntt == 0) {
+			return ComUtil.getResultMap("W0005", "팔레트정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		double totalWght = wghPrfmncVO.getWrhsWght();
+		double remainWght = totalWght;
+		int totalBxQntt = 0;
+
+		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+			totalBxQntt += dtl.getBxQntt();
+		}
+
+		if (totalBxQntt <= 0) {
+			return ComUtil.getResultMap("W0005", "박스수량");	// W0005	{0}이/가 없습니다.
+		}
+
+		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+			int allocWght = (int)(dtl.getBxQntt() * totalWght / totalBxQntt);
+			remainWght -= allocWght;
+			dtl.setWrhsWght(allocWght);
+		}
+
+		//String wghno = wghPrfmncVO.getWghno();	//wghPrfmncVO.getWghno();
+
+		WghPrfmncVO wghPrfmc = wghPrfmncMapper.selectWghPrfmncCom(wghPrfmncVO);
+
+		if (wghPrfmc == null) {
+			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+		} else {
+			wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+		}
+
+		int seq = 0;
+		for ( WghPrfmncDtlVO dtl : wghPrfmncDtlList ) {
+
+			seq++;
+			WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+			BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+			BeanUtils.copyProperties(dtl, wghPrfmncDtlVO,
+						ApcConstants.PROP_APC_CD,
+						ApcConstants.PROP_WGHNO,
+						ComConstants.PROP_SYS_FRST_INPT_DT,
+						ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+						ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+						ComConstants.PROP_SYS_LAST_CHG_DT,
+						ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+						ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+					);
+			wghPrfmncDtlVO.setWghSn(seq);
+
+			RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+			BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+			rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+			rawMtrWrhsVO.setWghSn(seq);
+			rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+			rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+			rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+			rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+			rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+			rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
+
+			double wrhsWght = dtl.getWrhsWght();
+
+			if (seq > 0) {
+				rawMtrWrhsVO.setWrhsWght(wrhsWght);
+			} else {
+				rawMtrWrhsVO.setWrhsWght(wrhsWght + remainWght);
+			}
+
+			HashMap<String, Object> rtnObj = rawMtrWrhsService.insertRawMtrWrhs(rawMtrWrhsVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+			// 입고번호 설정
+			wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
+
+			wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
+		}
+
+		return null;
+	}
+
+
+	@Override
 	public HashMap<String, Object> updateWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
@@ -240,6 +329,60 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 
 		rtnObj = insertWghPrfmnc(wghPrfmncVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateWghVhclPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = new HashMap<>();
+		// 상세 변경 후 공통 변경
+		// int updatedCnt = wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+
+		// 상세는 삭제 후 재등록
+		WghPrfmncVO wghPrfmncInfo = selectWghPrfmnc(wghPrfmncVO);
+
+		if (wghPrfmncInfo == null || !StringUtils.hasText(wghPrfmncInfo.getWghno())) {
+			return ComUtil.getResultMap("W0005", "계량정보");	// W0005	{0}이/가 없습니다.
+		}
+
+		// 원물입고 실적 삭제 : 재고, 입고실적
+		RawMtrWrhsVO wrhsVO = new RawMtrWrhsVO();
+		BeanUtils.copyProperties(wghPrfmncVO, wrhsVO);
+		rtnObj = rawMtrWrhsService.deleteRawMtrWrhsByWghno(wrhsVO);
+
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		// 계량 실적 삭제 : 상세, 공통
+		List<WghPrfmncDtlVO> dtlList = wghPrfmncInfo.getWghPrfmncDtlList();
+		if (dtlList != null && !dtlList.isEmpty()) {
+			int deletedDtlCnt = 0;
+			for ( WghPrfmncDtlVO dtl : dtlList) {
+				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+				BeanUtils.copyProperties(dtl, wghPrfmncDtlVO,
+							ApcConstants.PROP_APC_CD,
+							ApcConstants.PROP_WGHNO,
+							ComConstants.PROP_SYS_FRST_INPT_DT,
+							ComConstants.PROP_SYS_FRST_INPT_USER_ID,
+							ComConstants.PROP_SYS_FRST_INPT_PRGRM_ID,
+							ComConstants.PROP_SYS_LAST_CHG_DT,
+							ComConstants.PROP_SYS_LAST_CHG_USER_ID,
+							ComConstants.PROP_SYS_LAST_CHG_PRGRM_ID
+						);
+				deletedDtlCnt = wghPrfmncMapper.deleteWghPrfmncDtl(wghPrfmncDtlVO);
+				if (deletedDtlCnt != 1) {
+				}
+			}
+		}
+
+		rtnObj = insertWghVhclPrfmnc(wghPrfmncVO);
 		if (rtnObj != null) {
 			throw new EgovBizException(getMessageForMap(rtnObj));
 		}
@@ -1398,7 +1541,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
+	public int insertWghEntrVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
 		String orgWghno = wghPrfmncVO.getWghno();
 		if(orgWghno == "" || orgWghno == null) {
 			String wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
@@ -1409,16 +1552,26 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
 			wghPrfmncMapper.updateWghVhcl(wghPrfmncVO);
 		}
-
-
-
-		//wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
-
 		return 0;
 	}
 
 	@Override
-	public int deleteWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
+	public int insertWghOutVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
+			String wghno = wghPrfmncVO.getWghno();
+			WghPrfmncVO wghVO = wghPrfmncMapper.selectWghVhcl(wghPrfmncVO);
+			if(wghVO != null) {
+				wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+				wghPrfmncMapper.updateWghVhcl(wghPrfmncVO);
+			}else {
+				//wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+				wghPrfmncMapper.insertWghVhcl(wghPrfmncVO);
+			}
+
+			return 0;
+	}
+
+	@Override
+	public int deleteWghEntrVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
 		String orgWghno = wghPrfmncVO.getWghno();
 			wghPrfmncMapper.deleteWghVhcl(wghPrfmncVO);
 			wghPrfmncMapper.deleteWghPrfmncCom(wghPrfmncVO);
@@ -1426,10 +1579,44 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public List<WghPrfmncVO> selectWghVhclList(WghPrfmncVO wghPrfmnc) throws Exception {
+	public List<WghPrfmncVO> selectWghEntrVhclList(WghPrfmncVO wghPrfmnc) throws Exception {
 
 		List<WghPrfmncVO> result = wghPrfmncMapper.selectWghVhclList(wghPrfmnc);
-
 		return result;
+	}
+
+	@Override
+	public int saveWghVhclInfo(List<WghPrfmncVO> wghPrfmncVOList) throws Exception {
+
+			wghPrfmncVOList.forEach(wghPrfmncVO -> {
+				WghPrfmncVO wgh1 = new WghPrfmncVO();
+				WghPrfmncVO wgh2 = new WghPrfmncVO();
+
+				//BeanUtils.copyProperties(wgh1, wghPrfmncVO);
+				//BeanUtils.copyProperties(wgh2, wghPrfmncVO);
+
+				wgh1.setApcCd(wghPrfmncVO.getApcCd());
+				wgh1.setWghno(wghPrfmncVO.getWghno());
+				wgh1.setWghDt(wghPrfmncVO.getEntrTm());
+				wgh1.setVhclno(wghPrfmncVO.getVhclno());
+				wgh1.setWghWght(wghPrfmncVO.getEntrWght());
+				wgh1.setFcltCd(wghPrfmncVO.getFcltCd());
+				wgh1.setWghRmrk(wghPrfmncVO.getWghRmrk());
+				wgh1.setWghSeCd("01");
+
+				wgh2.setApcCd(wghPrfmncVO.getApcCd());
+				wgh2.setWghno(wghPrfmncVO.getWghno());
+				wgh2.setWghDt(wghPrfmncVO.getOutTm());
+				wgh2.setWghWght(wghPrfmncVO.getOutWght());
+				wgh2.setVhclno(wghPrfmncVO.getVhclno());
+				wgh2.setFcltCd(wghPrfmncVO.getFcltCd());
+				wgh2.setWghRmrk(wghPrfmncVO.getWghRmrk());
+				wgh2.setWghSeCd("02");
+
+				wghPrfmncMapper.updateWghVhcl(wgh1);
+				wghPrfmncMapper.updateWghVhcl(wgh2);
+			});
+
+			return 0;
 	}
 }

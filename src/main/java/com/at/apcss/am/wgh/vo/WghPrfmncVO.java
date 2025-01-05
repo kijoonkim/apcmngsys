@@ -412,6 +412,33 @@ public class WghPrfmncVO extends ComVO {
      * */
     private String wghRmrk;
 
+    /*
+     * 입차시간
+     * */
+    private String entrTm;
+
+    /*
+     * 출차시간
+     * */
+    private String outTm;
+
+    /*
+     * 입차중량
+     * */
+    private String entrWght;
+
+    /*
+     * 출차중량
+     * */
+    private String outWght;
+
+
+
+
+
+
+
+
 
 
 
