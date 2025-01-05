@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +47,9 @@ public class ShpgotMngController extends BaseController {
     @Getter
     @Setter
     public static class RequestData{
+        private ShpgotApcCrtrVO shpgotApcCrtrVO;
+        private ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO;
+
         private List<ShpgotApcCrtrVO> shpgotApcCrtrVoList;
         public List<ShpgotApcCrtrVO> getShpgotApcCrtrVoList() {
             return shpgotApcCrtrVoList == null ? null : shpgotApcCrtrVoList.stream().collect(Collectors.toList());
@@ -69,29 +73,72 @@ public class ShpgotMngController extends BaseController {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         int insertCnt = 0;
 
+        /** VO 각각 들어올때 -1-**/
+//        ShpgotApcCrtrVO shpgotApcCrtrVO = requestData.getShpgotApcCrtrVO();
+//        ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO = requestData.getShpgotApcCrtrDtlVO();
+//        try{
+//            if(shpgotApcCrtrVO != null){
+//                setCommonInfo(shpgotApcCrtrVO);
+//                shpgotMngService.insertShpgotApcCrtr(shpgotApcCrtrVO);
+//            }
+//
+//        }catch (Exception e) {
+//            return getErrorResponseEntity(e);
+//        } finally {
+//            HashMap<String, Object> rtnObj = setMenuComLog(request);
+//            if (rtnObj != null) {
+//                return getErrorResponseEntity(rtnObj);
+//            }
+//        }
+
+//        /** 다중 VO가 한번에 들어올때 처리 -2-**/
         List<ShpgotApcCrtrVO> shpgotApcCrtrVoList = requestData.getShpgotApcCrtrVoList();
         List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVoList = requestData.getShpgotApcCrtrDtlVoList();
-
+//
         try {
-            for(ShpgotApcCrtrVO shpgotApcCrtrVO : shpgotApcCrtrVoList){
-                /** 공통정보 셋팅 **/
-                shpgotApcCrtrVO.setDelYn("N");
-                shpgotApcCrtrVO.setSysFrstInptUserId(getUserId());
-                shpgotApcCrtrVO.setSysFrstInptPrgrmId(getPrgrmId());
-                shpgotApcCrtrVO.setSysLastChgUserId(getUserId());
-                shpgotApcCrtrVO.setSysLastChgPrgrmId(getPrgrmId());
-            }
+//            Optional.ofNullable(shpgotApcCrtrVoList).ifPresent(list ->{
+//                for(ShpgotApcCrtrVO vo : shpgotApcCrtrVoList){
+//                    /** 공통정보 셋팅 **/
+//                    vo.setDelYn("N");
+//                    vo.setSysFrstInptUserId(getUserId());
+//                    vo.setSysFrstInptPrgrmId(getPrgrmId());
+//                    vo.setSysLastChgUserId(getUserId());
+//                    vo.setSysLastChgPrgrmId(getPrgrmId());
+//                }
+//            });
+//
+//            Optional.ofNullable(shpgotApcCrtrDtlVoList).ifPresent(list ->{
+//                for(ShpgotApcCrtrDtlVO vo : shpgotApcCrtrDtlVoList){
+//                    /** 상세 공통정보 셋팅 **/
+//                    vo.setDelYn("N");
+//                    vo.setSysFrstInptUserId(getUserId());
+//                    vo.setSysFrstInptPrgrmId(getPrgrmId());
+//                    vo.setSysLastChgUserId(getUserId());
+//                    vo.setSysLastChgPrgrmId(getPrgrmId());
+//                }
+//            });
 
-            for(ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO : shpgotApcCrtrDtlVoList){
-                /** 상세 공통정보 셋팅 **/
-                shpgotApcCrtrDtlVO.setDelYn("N");
-                shpgotApcCrtrDtlVO.setSysFrstInptUserId(getUserId());
-                shpgotApcCrtrDtlVO.setSysFrstInptPrgrmId(getPrgrmId());
-                shpgotApcCrtrDtlVO.setSysLastChgUserId(getUserId());
-                shpgotApcCrtrDtlVO.setSysLastChgPrgrmId(getPrgrmId());
+            if(Optional.ofNullable(shpgotApcCrtrVoList).map(list -> !list.isEmpty()).orElse(false)){
+                for(ShpgotApcCrtrVO vo : shpgotApcCrtrVoList){
+                    /** 공통정보 셋팅 **/
+                    vo.setDelYn("N");
+                    vo.setSysFrstInptUserId(getUserId());
+                    vo.setSysFrstInptPrgrmId(getPrgrmId());
+                    vo.setSysLastChgUserId(getUserId());
+                    vo.setSysLastChgPrgrmId(getPrgrmId());
+                }
+                insertCnt = shpgotMngService.insertShpgotApcCrtr(shpgotApcCrtrVoList);
+            }else if(Optional.ofNullable(shpgotApcCrtrDtlVoList).map(list -> !list.isEmpty()).orElse(false)){
+                for(ShpgotApcCrtrDtlVO vo : shpgotApcCrtrDtlVoList){
+                    /** 상세 공통정보 셋팅 **/
+                    vo.setDelYn("N");
+                    vo.setSysFrstInptUserId(getUserId());
+                    vo.setSysFrstInptPrgrmId(getPrgrmId());
+                    vo.setSysLastChgUserId(getUserId());
+                    vo.setSysLastChgPrgrmId(getPrgrmId());
+                }
+                insertCnt = shpgotMngService.insertShpgotApcCrtrDtl(shpgotApcCrtrDtlVoList);
             }
-
-            insertCnt = shpgotMngService.insertShpgotApcCrtr(shpgotApcCrtrVoList, shpgotApcCrtrDtlVoList);
 
         } catch (Exception e) {
             return getErrorResponseEntity(e);
@@ -105,5 +152,41 @@ public class ShpgotMngController extends BaseController {
         resultMap.put(ComConstants.PROP_INSERTED_CNT, insertCnt);
 
         return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/am/spmt/selectShpgotApcCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectShpgotApcCrtrList(@RequestBody ShpgotApcCrtrVO shpgotApcCrtrVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<ShpgotApcCrtrVO> resultList = shpgotMngService.selectShpgotApcCrtrList(shpgotApcCrtrVO);
+        resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/am/spmt/selectShpgotApcCrtrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectShpgotApcCrtrDtlList(@RequestBody ShpgotApcCrtrVO shpgotApcCrtrVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<ShpgotApcCrtrDtlVO> resultList = shpgotMngService.selectShpgotApcCrtrDtlList(shpgotApcCrtrVO);
+        resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    private <T> void setCommonInfo(T vo) {
+        if (vo instanceof ShpgotApcCrtrVO) {
+            ShpgotApcCrtrVO shpgotApcCrtrVO = (ShpgotApcCrtrVO) vo;
+            shpgotApcCrtrVO.setDelYn("N");
+            shpgotApcCrtrVO.setSysFrstInptUserId(getUserId());
+            shpgotApcCrtrVO.setSysFrstInptPrgrmId(getPrgrmId());
+            shpgotApcCrtrVO.setSysLastChgUserId(getUserId());
+            shpgotApcCrtrVO.setSysLastChgPrgrmId(getPrgrmId());
+        } else if (vo instanceof ShpgotApcCrtrDtlVO) {
+            ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO = (ShpgotApcCrtrDtlVO) vo;
+            shpgotApcCrtrDtlVO.setDelYn("N");
+            shpgotApcCrtrDtlVO.setSysFrstInptUserId(getUserId());
+            shpgotApcCrtrDtlVO.setSysFrstInptPrgrmId(getPrgrmId());
+            shpgotApcCrtrDtlVO.setSysLastChgUserId(getUserId());
+            shpgotApcCrtrDtlVO.setSysLastChgPrgrmId(getPrgrmId());
+        }
     }
 }

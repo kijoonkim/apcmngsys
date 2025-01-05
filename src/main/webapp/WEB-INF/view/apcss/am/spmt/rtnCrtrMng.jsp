@@ -62,13 +62,13 @@
                 <tr>
                     <th scope="row" class="th_bg">기준유형</th>
                     <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
-                        <sbux-select id="srch-slt-sortFcltCd"
-                                     name="srch-slt-sortFcltCd"
+                        <sbux-select id="srch-slt-shpgotCrtrType"
+                                     name="srch-slt-shpgotCrtrType"
                                      uitype="single"
                                      unselected-text="전체"
                                      class="form-control input-sm"
                                      style="width: 80%"
-                                     jsondata-ref="jsonSortFclt">
+                                     jsondata-ref="jsonShpgotCrtrType">
                         </sbux-select>
                     </td>
                     <td colspan="9" style="border-top: hidden"></td>
@@ -93,7 +93,7 @@
                                 <span>반품기준 상세정보</span>
                             </li>
                         </ul>
-                        <sbux-button disabled="true" id="btnSaveDtl" name="btnSaveDtl" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+                        <sbux-button disabled="true" id="btnSaveDtl" name="btnSaveDtl" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_saveDtl"></sbux-button>
                     </div>
                     <div id="sb-area-rtnCrtrDtl"></div>
                 </div>
@@ -110,12 +110,19 @@
     let gridRtnCrtr;
     let gridRtnCrtrDtl;
 
+    /** select val **/
+    var jsonShpgotCrtrType = [];
+    var jsonShpgotTrgtCd = [];
+    var jsonShpgotAtrbCd = [];
+
     window.addEventListener("DOMContentLoaded",function(){
        fn_init();
     });
     const fn_init = async function(){
         await fn_create_rtnCrtr();
         await fn_create_rtnCrtrDtl();
+        await fn_selectInit();
+        await fn_search();
     }
 
     const fn_create_rtnCrtr = async function(){
@@ -134,13 +141,17 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                     }
             }},
-            {caption: ["기준유형코드"],ref: 'shpgotCrtrType', columnhint : '<div style="width:150px;"><span>자동발번</span></div>',	type:'input',  width:'15%', style: 'text-align:center;',disabled: true,typeinfo:{mask:{alias:'numeric'}}},
-            {caption: ["기준유형명칭"],ref: 'crtrIndctNm',	type:'input',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준코드"],ref: 'crtrCd',	type:'input',  width:'15%', style: 'text-align:center;'},
-            {caption: ["기준 비고"],ref: 'rmrk', type:'input',  width:'50%', style: 'text-align:center;'},
+            {caption: ["기준유형코드"],ref: 'shpgotCrtrType',type:'combo',  width:'15%', style: 'text-align:center;',typeinfo : {ref:'jsonShpgotCrtrType', label:'label', value:'value', oneclickedit: true}},
+            {caption: ["기준표시명"],ref: 'crtrIndctNm',type:'input',  width:'10%', style: 'text-align:center;'},
+            {caption: ["기준코드"],ref: 'crtrCd',	type:'input',  width:'10%', style: 'text-align:center;'},
+            {caption: ["반출대상코드"],ref: 'shpgotTrgtCd',type:'combo',  width:'15%', style: 'text-align:center;',typeinfo: {ref:'jsonShpgotTrgtCd', label:'label', value:'value',oneclickedit: true}},
+            {caption: ["표시순서"],ref: 'indctSeq',	type:'input',  width:'10%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ["사용여부"],ref: 'useYn',	type:'multiradio',  width:'15%', style: 'text-align:center;', typeinfo : {radiolabel : ['Y', 'N'], radiovalue : ['Y', 'N']}},
+            {caption: ["기준 비고"],ref: 'rmrk', type:'input',  width:'20%', style: 'text-align:center;'},
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
         gridRtnCrtr.bind("click","fn_searchDtl");
+        gridRtnCrtr.bind("valuechanged","fn_changeCom");
         let nRow = gridRtnCrtr.getRows();
         gridRtnCrtr.addRow(true);
         gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
@@ -161,16 +172,27 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                     }
                 }},
-            {caption: ["상세순번"],ref: 'dtlSn', type:'input',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세코드"],ref: 'dtlCd', type:'input',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세값"],	ref: 'dtlVl', type:'input',  width:'15%', style: 'text-align:center;'},
-            {caption: ["상세 비고"],ref: 'rmrk', type:'input',  width:'50%', style: 'text-align:center;'},
+            {caption: ["상세일련번호"],ref: 'dtlSn', type:'input',  width:'12%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ["상세코드"],ref: 'dtlCd', type:'combo',  width:'12%', style: 'text-align:center;',typeinfo: {ref:'jsonShpgotAtrbCd', label:'label', value:'value',oneclickedit: true}},
+            {caption: ["상세값"],	ref: 'dtlVl', type:'input',  width:'12%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ["상세표시명"],	ref: 'dtlIndctNm', type:'input',  width:'12%', style: 'text-align:center;'},
+            {caption: ["표시순서"],ref: 'indctSeq',	type:'input',  width:'12%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
+            {caption: ["사용여부"],ref: 'useYn',	type:'multiradio',  width:'12%', style: 'text-align:center;', typeinfo : {radiolabel : ['Y', 'N'], radiovalue : ['Y', 'N']}},
+            {caption: ["상세 비고"],ref: 'rmrk', type:'input',  width:'23%', style: 'text-align:center;'},
         ]
         gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
         /** 진입시 상세는 없음 상단 그리드 선택시 조회 **/
         // let nRow = gridRtnCrtrDtl.getRows();
         // gridRtnCrtrDtl.addRow(true);
         // gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+    }
+    const fn_selectInit = async function(){
+        await gfn_setComCdSBSelect('srch-slt-shpgotCrtrType',jsonShpgotCrtrType,'SHPGOT_CRTR_TYPE');
+        jsonShpgotTrgtCd = await gfn_getComCdDtls('SHPGOT_TRGT_CD');
+        jsonShpgotTrgtCd = jsonShpgotTrgtCd.map(item => ({label: item.cdVlNm, value: item.cdVl}));
+
+        jsonShpgotAtrbCd = await gfn_getComCdDtls('SHPGOT_ATRB_CD');
+        jsonShpgotAtrbCd = jsonShpgotAtrbCd.map(item => ({label: item.cdVlNm, value: item.cdVl}));
     }
 
     /**
@@ -197,10 +219,18 @@
     const fn_addRow2 = async function(nRow, nCol) {
         const editableRow = gridRtnCrtrDtl.getRowData(nRow, false);
         editableRow.delYn = "N";
+        /** 상단 식별 키값 셋팅 **/
+        let uRow = gridRtnCrtr.getRow();
+        let uRowData = gridRtnCrtr.getRowData(uRow);
+        editableRow.shpgotCrtrType = uRowData.shpgotCrtrType;
+        editableRow.crtrCd = uRowData.crtrCd;
+
         gridRtnCrtrDtl.rebuild();
         gridRtnCrtrDtl.addRow(true);
         nRow++;
         gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+        /** 상세 저장 버튼 활성화 **/
+        SBUxMethod.attr("btnSaveDtl","disabled","false");
     }
     const fn_delRow = async function(nRow){
         gridRtnCrtr.deleteRow(nRow);
@@ -212,25 +242,87 @@
 
     }
     const fn_save = async function(){
-        console.log("호출");
         let crtr = gridRtnCrtr.getGridDataAll(true).filter((item,idx) => {
             delete item.fcltCd;
             item.apcCd = gv_apcCd;
             item.indctSeq = idx;
             return item.delYn == 'N'
         });
-        console.log(crtr);
-        return;
-        let postJsonPromise = gfn_postJSON("/am/spmt/insertShpgotApcCrtr.do",crtr);
+        let requestData = {shpgotApcCrtrVoList:crtr}
+        let postJsonPromise = gfn_postJSON("/am/spmt/insertShpgotApcCrtr.do",requestData);
         let data = await postJsonPromise;
         if(data.resultStatus === 'S'){
             gfn_comAlert("I0001");
         }
     }
+
+    const fn_saveDtl = async function(){
+        let crtrDtl = gridRtnCrtrDtl.getGridDataAll(true).filter((item,idx) => {
+            item.apcCd = gv_apcCd;
+            item.indctSeq = idx;
+            return item.delYn == 'N'
+        });
+        let requestData = {shpgotApcCrtrDtlVoList:crtrDtl}
+
+        let postJsonPromise = gfn_postJSON("/am/spmt/insertShpgotApcCrtr.do",requestData);
+        let data = await postJsonPromise;
+        if(data.resultStatus === 'S'){
+            gfn_comAlert("I0001");
+        }
+    }
+
+    const fn_search = async function(){
+        let shpgotCrtrType = SBUxMethod.get("srch-slt-shpgotCrtrType") || '';
+        let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrList.do",{apcCd:gv_apcCd,shpgotCrtrType: shpgotCrtrType});
+        let data = await postJsonPromise;
+        if (!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+        if(data.resultList.length > 0){
+            jsonRtnCrtr = data.resultList;
+            gridRtnCrtr.rebuild();
+            let nRow = gridRtnCrtr.getRows();
+            gridRtnCrtr.addRow(true);
+            gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
+        }
+    }
+
     const fn_searchDtl = async function(){
+        /** 목록 선택시 상세 조회 **/
         let nRow = gridRtnCrtr.getRow();
         let rowData = gridRtnCrtr.getRowData(nRow);
-        console.log(rowData,"?");
+        let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrDtlList.do",rowData);
+        let data = await postJsonPromise;
+        if (!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }else{
+            /** reset **/
+            jsonRtnCrtrDtl.length = 0;
+            SBUxMethod.attr("btnSaveDtl","disabled","true");
+
+            if(data.resultList.length > 0){
+                jsonRtnCrtrDtl = data.resultList;
+                gridRtnCrtrDtl.rebuild();
+                let nRow = gridRtnCrtrDtl.getRows();
+                gridRtnCrtrDtl.addRow(true);
+                gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+            }else{
+                gridRtnCrtrDtl.rebuild();
+                let nRow = gridRtnCrtrDtl.getRows();
+                gridRtnCrtrDtl.addRow(true);
+                gridRtnCrtrDtl.setCellDisabled(nRow, 0, nRow, gridRtnCrtrDtl.getCols() - 1, true);
+            }
+        }
+
+    }
+    const fn_changeCom = async function(){
+        let nRow = gridRtnCrtr.getRow();
+        let rowData = gridRtnCrtr.getRowData(nRow);
+        let prevData = gridRtnCrtr.getPrevCellDataInfo();
+
+        SBUxMethod.attr("btnSave","disabled","false");
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

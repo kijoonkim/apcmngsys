@@ -1,5 +1,6 @@
 package com.at.apcss.co.sys.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -636,6 +637,30 @@ public abstract class BaseController {
 
 		}
 	}
+
+	private <T> void setCommonInfo(List<T> list, Class<T> voClass) {
+		for (T vo : list) {
+			try {
+				// 해당 VO의 필드를 동적으로 설정할 수 있도록 리플렉션을 사용
+				Method setDelYnMethod = voClass.getMethod("setDelYn", String.class);
+				Method setSysFrstInptUserIdMethod = voClass.getMethod("setSysFrstInptUserId", String.class);
+				Method setSysFrstInptPrgrmIdMethod = voClass.getMethod("setSysFrstInptPrgrmId", String.class);
+				Method setSysLastChgUserIdMethod = voClass.getMethod("setSysLastChgUserId", String.class);
+				Method setSysLastChgPrgrmIdMethod = voClass.getMethod("setSysLastChgPrgrmId", String.class);
+
+				// 메서드를 호출하여 값 설정
+				setDelYnMethod.invoke(vo, "N");
+				setSysFrstInptUserIdMethod.invoke(vo, getUserId());
+				setSysFrstInptPrgrmIdMethod.invoke(vo, getPrgrmId());
+				setSysLastChgUserIdMethod.invoke(vo, getUserId());
+				setSysLastChgPrgrmIdMethod.invoke(vo, getPrgrmId());
+
+			} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+				e.printStackTrace();  // 예외 처리
+			}
+		}
+	}
+
 
 //	@Autowired
 //	protected MessageSource message;
