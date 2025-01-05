@@ -52,6 +52,11 @@ public class ShpgotApcCrtrVO extends ComVO {
     private String crtrIndctNm;
 
     /**
+     * 표시순서
+     */
+    private int indctSeq;
+
+    /**
      * 사용여부
      */
     private String useYn;
@@ -60,6 +65,11 @@ public class ShpgotApcCrtrVO extends ComVO {
      * 비고
      */
     private String rmrk;
+
+    /**
+     * 반출대상코드
+     */
+    private String shpgotTrgtCd;
 
     /**
      * 상세 List

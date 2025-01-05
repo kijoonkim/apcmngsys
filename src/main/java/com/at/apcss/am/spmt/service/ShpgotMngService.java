@@ -28,6 +28,8 @@ public interface ShpgotMngService {
      * @throws Exception
      */
     int insertShpgotApcCrtr(List<ShpgotApcCrtrVO> shpgotApcCrtrVoList, List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVoList) throws Exception;
+    int insertShpgotApcCrtr(ShpgotApcCrtrVO shpgotApcCrtrVo) throws Exception;
+    int insertShpgotApcCrtr(List<ShpgotApcCrtrVO> shpgotApcCrtrVoList) throws Exception;
 
     /**
      * 반품기준 상세목록 생성
@@ -36,4 +38,18 @@ public interface ShpgotMngService {
      * @throws Exception
      */
     int insertShpgotApcCrtrDtl(List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVoList) throws Exception;
+    /**
+     * 반품기준 목록 조회
+     * @param shpgotApcCrtrVO
+     * @return List<ShpgotApcCrtrVO>
+     * @throws Exception
+     */
+    List<ShpgotApcCrtrVO> selectShpgotApcCrtrList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+     * 반품기준 상세목록 조회
+     * @param shpgotApcCrtrVO
+     * @return List<ShpgotApcCrtrVO>
+     * @throws Exception
+     */
+    List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
 }

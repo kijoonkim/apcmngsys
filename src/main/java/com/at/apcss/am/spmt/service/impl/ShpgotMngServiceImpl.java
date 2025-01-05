@@ -36,7 +36,7 @@ public class ShpgotMngServiceImpl implements ShpgotMngService {
     public int insertShpgotApcCrtr(List<ShpgotApcCrtrVO> shpgotApcCrtrVoList, List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVoList) throws Exception {
         int insertCnt = 0;
         insertCnt = shpgotMngMapper.insertShpgotApcCrtr(shpgotApcCrtrVoList);
-        if(insertCnt > 0){
+        if(insertCnt < 0){
             throw new EgovBizException();
         }
 
@@ -51,7 +51,37 @@ public class ShpgotMngServiceImpl implements ShpgotMngService {
     }
 
     @Override
+    public int insertShpgotApcCrtr(ShpgotApcCrtrVO shpgotApcCrtrVo) throws Exception {
+        int insertCnt = 0;
+        insertCnt = shpgotMngMapper.insertShpgotApcCrtrSingle(shpgotApcCrtrVo);
+        if(insertCnt < 0){
+            throw new EgovBizException();
+        }
+        return insertCnt;
+    }
+
+    @Override
+    public int insertShpgotApcCrtr(List<ShpgotApcCrtrVO> shpgotApcCrtrVoList) throws Exception {
+        int insertCnt = 0;
+        insertCnt = shpgotMngMapper.insertShpgotApcCrtr(shpgotApcCrtrVoList);
+        if(insertCnt < 0){
+            throw new EgovBizException();
+        }
+        return insertCnt;
+    }
+
+    @Override
     public int insertShpgotApcCrtrDtl(List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVoList) throws Exception {
         return shpgotMngMapper.insertShpgotApcCrtrDtl(shpgotApcCrtrDtlVoList);
+    }
+
+    @Override
+    public List<ShpgotApcCrtrVO> selectShpgotApcCrtrList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception {
+        return shpgotMngMapper.selectShpgotApcCrtrList(shpgotApcCrtrVO);
+    }
+
+    @Override
+    public List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception {
+        return  shpgotMngMapper.selectShpgotApcCrtrDtlList(shpgotApcCrtrVO);
     }
 }

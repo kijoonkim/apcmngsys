@@ -49,4 +49,25 @@ public interface ShpgotMngMapper {
      * @throws Exception
      */
     int insertShpgotApcCrtrDtl(List<ShpgotApcCrtrDtlVO> shpgotApcCrtrDtlVOList) throws Exception;
+    /**
+     * 반품기준 상세목록 생성
+     * @param shpgotApcCrtrVo
+     * @return int
+     * @throws Exception
+     */
+    int insertShpgotApcCrtrSingle(ShpgotApcCrtrVO shpgotApcCrtrVo) throws Exception;
+    /**
+     * 반품기준 상세목록 조회
+     * @param shpgotApcCrtrVO
+     * @return List<ShpgotApcCrtrVO>
+     * @throws Exception
+     */
+    List<ShpgotApcCrtrVO> selectShpgotApcCrtrList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+     * 반품기준 상세목록 조회
+     * @param shpgotApcCrtrVO
+     * @return List<ShpgotApcCrtrVO>
+     * @throws Exception
+     */
+    List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
 }
