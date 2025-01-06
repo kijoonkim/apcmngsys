@@ -247,7 +247,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
+	<select id="selectInvShipOgnSpeczItmPurSalMngList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO">
 SELECT * FROM (    /* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnSpeczItmPurSalMngList */
 --=='5' AS TYPE_SE_NO===출자출하조직 생산자조직======================================
 
