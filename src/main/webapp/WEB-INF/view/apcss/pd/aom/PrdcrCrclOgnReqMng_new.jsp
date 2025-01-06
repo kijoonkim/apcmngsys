@@ -942,6 +942,7 @@
 					</tbody>
 				</table>
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+				<!--
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -950,9 +951,12 @@
 						</ul>
 				</div>
 				<div>
+				-->
 					<!-- SBGrid를 호출합니다. -->
+				<!--
 					<div id="sb-area-grdApcList" style="height:200px; width: 100%;"></div>
 				</div>
+				-->
 			</c:if>
 				<!--
 				<div>
@@ -1125,7 +1129,7 @@
 		await fn_gpcListGrid();
 		await fn_initSBSelect();
 		await fn_search();
-		await fn_apcListGrid();//해당조직의 apc정보 그리드
+		//await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		await fn_gpcListGrid();
