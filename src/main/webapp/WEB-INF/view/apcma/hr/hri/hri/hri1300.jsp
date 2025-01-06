@@ -576,7 +576,7 @@
     const fn_initSBSelect = async function () {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CODE', 'SITE_NAME', 'Y', ''),
+            gfnma_setComSelect(['bandgvwDetail'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_multiSelectInit({
                 target			: ['#SRCH_SITE_CODE', '#SITE_CODE']
                 ,compCode		: gv_ma_selectedCorpCd
@@ -1608,11 +1608,14 @@
             //소속부서
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), false, true);
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), false, true);
+            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_BTN'), false, true);
+
             //겸직 겸직헤제일때는 발령부서만 조회될수 있도록 처리
             if (APPOINT_TYPE != "O5" && APPOINT_TYPE != "O6") {
                 //귀속부서
                 bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), false, true);
                 bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), false, true);
+                bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT_BTN'), false, true);
 
                 //사업장
                 bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), false, true);
@@ -1622,10 +1625,12 @@
             //소속부서
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME1'), true, true);
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_NAME2'), true, true);
+            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('DEPT_BTN'), true, true);
 
             //귀속부서
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT1_NAME'), true, true);
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT2_NAME'), true, true);
+            bandgvwDetail.setColHidden(bandgvwDetail.getColRef('COST_DEPT_BTN'), true, true);
 
             //사업장
             bandgvwDetail.setColHidden(bandgvwDetail.getColRef('SITE_CODE1'), true, true);
