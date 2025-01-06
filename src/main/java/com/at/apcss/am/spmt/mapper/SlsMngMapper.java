@@ -25,4 +25,12 @@ public interface SlsMngMapper {
 	 */
 	public int deleteSlsPrfmnc(SlsMngVO slsMngVO);
 
+	/**
+	 * 매출실적삭제
+	 * @param SlsMngVO
+	 * @return 
+	 * @throws Exception
+	 */
+	public int updateSlsUntprc(SlsMngVO vo);
+
 }

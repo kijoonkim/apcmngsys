@@ -49,10 +49,7 @@ public class SlsMngController extends BaseController{
 	
 	@PostMapping(value = "/am/spmt/deleteSlsPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteSlsPrfmnc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {		
-		
-		
-		System.out.println("컨트롤러 들어옴");
-		
+				
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result;
 		
@@ -79,4 +76,32 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 	
+	@PostMapping(value = "/am/spmt/updateSlsUntprc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateSlsUntprc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {		
+				
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result;
+		
+		try {
+			for ( SlsMngVO slsMngVO : slsPrfmncList ) {
+				slsMngVO.setSysFrstInptUserId(getUserId());
+				slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				slsMngVO.setSysLastChgUserId(getUserId());
+				slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			
+			result = slsMngService.updateSlsUntprc(slsPrfmncList);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

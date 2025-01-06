@@ -34,4 +34,13 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 		
 		return deleteCnt;
 	}
+
+	@Override
+	public int updateSlsUntprc(List<SlsMngVO> slsMngVO) throws Exception {
+		int updateCnt = 0;
+		for(SlsMngVO vo : slsMngVO) {
+			updateCnt += slsMngMapper.updateSlsUntprc(vo);
+		}
+		return updateCnt;
+	}
 }

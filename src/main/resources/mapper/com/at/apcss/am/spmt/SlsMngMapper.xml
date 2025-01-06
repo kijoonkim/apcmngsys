@@ -22,7 +22,7 @@
 		]]>
     </select>
 
-		<!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc  	-->
 	<!-- DESC : 매출실적삭제	                                             		-->
 	<!-- ==========================================================================	-->
@@ -35,6 +35,34 @@
 	    	UPDATE /* com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc */
 	    	  TB_SLS_PRFMNC SET
 				DEL_YN = 'Y'
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND SLS_YMD = #{slsYmd}
+			   AND SLS_SN = #{slsSn}
+		]]>
+    </update>
+	
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsPrfmnc  	-->
+	<!-- DESC : 매출실적수정	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+    <update id="updateSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+    	<![CDATA[
+	    	UPDATE /* com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsUntprc */
+	    	  TB_SLS_PRFMNC SET
+				 ITEM_CD = #{itemCd}
+				, VRTY_CD = #{vrtyCd}
+				, QNTT = #{qntt}
+				, WGHT = #{wght}
+				, RKNG_AMT = #{rkngAmt}
+				, CFMTN_AMT = #{cfmtnAmt}
 				, SYS_LAST_CHG_DT = SYSDATE
 				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
 				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}

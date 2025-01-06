@@ -21,6 +21,14 @@ public interface SlsMngService {
 	 * @throws Exception
 	 */
 	public int deleteSlsPrfmnc(List<SlsMngVO> slsMngVO)throws Exception;
+
+	/**
+	 * 매출실적수정
+	 * @param SlsMngVO
+	 * @return 
+	 * @throws Exception
+	 */
+	public int updateSlsUntprc(List<SlsMngVO> slsMngVO)throws Exception;
 	
 	
 }
