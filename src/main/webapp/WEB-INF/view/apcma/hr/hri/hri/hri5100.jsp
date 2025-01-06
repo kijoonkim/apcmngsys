@@ -78,6 +78,7 @@
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 required
+                                onchange="fn_valueChangeForYmddate2(this)"
                         />
                     </td>
                     <td colspan="20" class="td_input" style="border-right: hidden;">
@@ -297,15 +298,16 @@
     }
 
     const fn_valueChangeForYmddate2 = async function(data) {
-        let date1 = gfn_nvl(SBUxMethod.get("SRCH_YMDDATE1"));
+        let date1 = gfn_nvl(SBUxMethod.get("SRCH_YMDDATE1"), '19000101');
         let date2 = gfn_nvl(SBUxMethod.get("SRCH_YMDDATE2"));
 
         if (parseInt(date2) >= parseInt(date1)) {
             gfn_comAlert("E0000", "기준일자2가 기준일자보다 늦을수 없습니다.");
+            SBUxMethod.set(data.id, "");
         }
 
         if (date2 != "") {
-            gvwInfo.setCaption("구분^년초^기준일자("+date2+")^전주증가^전주감소^현재^전주계^비율^증가^감소^계^비고")
+            gvwInfo.setCaption("구분^기준일자(("+date2+")^년초^증가(기준일2)^감소(기준일2)^증감(기준일2)^현재^비율^증가^감소^계^비고");
         }
     }
 
