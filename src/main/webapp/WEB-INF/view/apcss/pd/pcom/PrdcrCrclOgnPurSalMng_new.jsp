@@ -317,6 +317,17 @@
 					<p>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</p>
 				</div>
 				-->
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>1) 전문/육성품목</p>
+					<p>o 통합조직 전문품목 매입매출 화면에서 입력한 "매입합계" 값이 총 매입현황 "합계" 값으로 자동연동</p>
+					<p>　⇒ 생산자조직이 출하하는 취급유형에 따라 "공동선별수탁", "공동출하수탁", "공동선별매취", "단순수탁", "단순매취"로 구분하여 물량/금액 작성</p>
+					<p>　* 합계 칸의 "물량/금액의 차이 값"이 0이 되야 저장 가능</p>
+					<br>
+					<p>2) 기타품목</p>
+					<p>o 통합조직의 총매입실적이 나타날 수 있게 기타품목의 매입실적까지 모두 입력 필요</p>
+					<br>
+					<p>　⇒ 전문/육성/기타품목에 대해 입력하여 통합조직 총매입실적과 일치여부 확인 후 ＂매입저장" </p>
+				</div>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -348,6 +359,20 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:300px; width: 100%;"></div>
 				</div>
 				<br>
+
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>1) 전문/육성품목</p>
+					<p>o 통합조직 전문품목 매입매출 화면에서 입력한 "매출합계" 값이 총 매출현황 "합계" 값으로 자동연동</p>
+					<p>　⇒ 생산자조직이 출하하는 취급유형에 따라 "공동선별수탁", "공동출하수탁", "공동선별매취", "단순수탁", "단순매취"로 구분하여 물량/금액 작성</p>
+					<p>　* 합계 칸의 "물량/금액의 차이 값"이 0이 되야 저장 가능</p>
+					<p>　* 자체공판장 매출액은 별도 입력</p>
+					<br>
+					<p>2) 기타품목</p>
+					<p>o 통합조직의 총매출실적이 나타날 수 있게 기타품목의 매출실적까지 모두 입력 필요</p>
+					<p>　* 자체공판장 매출액은 별도 입력</p>
+					<br>
+					<p>　⇒ 전문/육성/기타품목에 대해 입력하여 통합조직 총매출실적과 일치여부 확인 후 ＂매출저장"</p>
+				</div>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -381,6 +406,21 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng02" style="height:300px; width: 100%;"></div>
 				</div>
 				<br>
+
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>o (전문/육성품목) 1. 매출현황의 합계값이 2. 출하처별 출하실적의 합계값으로 불려옴</p>
+					<p>o  총매출실적을 품목별 출하처별 출하실적으로 구분 작성</p>
+					<p>&nbsp- 공영도매시장 : 도매법인, 공판장에 출하한 실적을 입력    * 자체 공판실적 제외</p>
+					<p>&nbsp- 대형유통업체 : 대형마트, 백화점 등에 출하한 실적 입력</p>
+					<p>　* 해당조직이 직접 대형유통업체에 출하하지 않고, 대형유통업체 전문 벤더에 의뢰(전문벤더 매입)하여 출하한 경우 “기타"에 입력</p>
+					<p>&nbsp- 군납 : 군부대 등에 직접 출하한 경우</p>
+					<p>&nbsp- 외식, 식자재, 단체급식 : 아워홈, 신세계푸드, CJ푸드 등에 출하한 실적</p>
+					<p>&nbsp- 가공업체 : 해당조직이 농산물가공업체에 출하한 실적</p>
+					<p>&nbsp- 수출실적 : 입금액 기준으로 입력하고 증빙 필요(해당조직이 수출자/제조자/공급자로 기재된 수출실적증명원 또는 수출신고필증 등)</p>
+					<p>&nbsp- 온라인 거래실적에는 온라인 도매시장 실적을 제외한 e커머스, TV홈쇼핑 등 실적을 입력</p>
+					<br>
+					<p>※ 총매출실적에 포함된 “온라인도매시장(산지유통활성화자금 인센티브) 출하실적"은 별도 요청 예정</p>
+				</div>
 				<!--[pp] 출하처별 출하실적 명세-->
 				<div class="ad_section_top">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
