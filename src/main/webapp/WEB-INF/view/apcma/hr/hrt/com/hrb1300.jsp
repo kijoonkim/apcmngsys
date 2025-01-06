@@ -261,7 +261,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 근무유형
-            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WRK_PTTRN_CD', 'WORK_TYPE_NM', 'Y', ''),
+            gfnma_setComSelect(['WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CD', 'WORK_TYPE_NM', 'Y', ''),
             // 휴일유형
             gfnma_setComSelect(['SHIFT_CODE'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHWORK_CD', 'SHWORK_TEAM_NM', 'Y', ''),
             // 구분
@@ -483,7 +483,7 @@
                 var responseData = detailData.cv_2[0];
 
                 if(responseData) {
-                    SBUxMethod.set("WORK_TYPE_CODE", responseData.WRK_PTTRN_CD);
+                    SBUxMethod.set("WORK_TYPE_CODE", responseData.WORK_TYPE_CD);
                     SBUxMethod.set("SHIFT_CODE", responseData.SHWORK_CD);
                     SBUxMethod.set("HOLIDAY_YN", responseData.HLDY_YN);
                     SBUxMethod.set("HOLIDAY_NAME", responseData.HLDY_NM);

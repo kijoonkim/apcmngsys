@@ -1596,7 +1596,7 @@
                         SITE_CODE : item.SITE_CD,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         POSITION_CODE : item.JBPS_CD,
                         EMP_CODE : item.EMP_CD,

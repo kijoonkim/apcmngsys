@@ -572,7 +572,7 @@
                         ,WORK_REGION                    : item.WORK_RGN_CD
                         ,JOB_GROUP_GOBUN                : item.JOB_GROUP_GOBUN
                         ,JOB_FAMILY_NAME                : item.JOB_FAMILY_NAME
-                        ,WORK_PATTERN_CODE              : item.WRK_PTTRN_CD
+                        ,WORK_PATTERN_CODE              : item.WORK_TYPE_CD
                         ,WORK_PATTERN_NAME              : item.WORK_PATTERN_NAME
                         ,AGE                            : item.AGE
                         ,AGE_YY                         : item.AGE_YY

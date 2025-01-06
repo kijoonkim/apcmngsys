@@ -606,7 +606,7 @@
                             DUTY_CODE : item.JBTTL_CD,
                             JOB_RANK : item.JBGD_CD,
                             JOB_FAMILY : item.JOB_LWRNK_GROUP,
-                            WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                            WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                             SHIFT_CODE : item.SHWORK_CD,
                             TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
                             JOB_GROUP : item.JOB_GROUP,

@@ -608,7 +608,7 @@
                 jsonCheckList.length = 0;
                 checkData.cv_5.forEach((item, index) => {
                     const msg = {
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                         WORK_PATTERN_NAME : item.WORK_PATTERN_NAME,
                         YYYYMMDD : item.YMD,
                         HOLIDAY_YN : item.HLDY_YN,

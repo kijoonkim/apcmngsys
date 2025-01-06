@@ -2853,7 +2853,7 @@
                         END_DATE : item.END_DT,
                         TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);
