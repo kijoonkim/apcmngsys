@@ -2204,6 +2204,7 @@
     	var p_find1	= p_ss_languageID;
     	var p_find2	= gv_ma_selectedCorpCd;
     	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2"));
+console.log('p_find3:', p_find3);    	
    		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3"));
 		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_NAME"));
 		var p_find6	= "";
@@ -2221,8 +2222,8 @@
             ,searchInputValues		: [p_find4, 		p_find5]
             ,searchInputTypes		: ["input", 		"input"]		
         
-			,cTypeParamFields		: ["",			"",			"",			"ASST_SCLSF",		"ASSET_LEVEL3_NAME"]
-			,cTypeParamValues		: [p_find1,		p_find2,	p_find3,	p_find4,			p_find5]
+			,cTypeParamFields		: ["",	"ASST_SCLSF",		"ASSET_LEVEL3_NAME"]
+			,cTypeParamValues		: [p_find3,			p_find4,			p_find5]
         
             ,width					: '600px'
             ,height					: '400px'
