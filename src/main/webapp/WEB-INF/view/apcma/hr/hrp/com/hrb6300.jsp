@@ -217,10 +217,10 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["과세표준하한(초과)"],         ref: 'PAY_AMT_FR',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["과세표준상한(이하)"],         ref: 'PAY_AMT_TO',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["과세율(%)"],         ref: 'TAX_RATE',    type:'input',  	width:'100px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 5}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}},
-            {caption: ["누진공제액"],         ref: 'CUMULATIVE_TAX_DED_AMT',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}}
+            {caption: ["과세표준하한(초과)"],         ref: 'PAY_AMT_FR',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
+            {caption: ["과세표준상한(이하)"],         ref: 'PAY_AMT_TO',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}},
+            {caption: ["과세율(%)"],         ref: 'TAX_RATE',    type:'input',  	width:'100px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 5}, format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}, userattr : {required : true}},
+            {caption: ["누진공제액"],         ref: 'CUMULATIVE_TAX_DED_AMT',    type:'input',  	width:'300px',  style:'text-align:right', typeinfo : {mask : {alias : 'numeric'}, maxlength : 19}, format : {type:'number', rule:'#,###', emptyvalue:'0'}, userattr : {required : true}}
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
@@ -347,6 +347,10 @@
     const fn_save = async function () {
         if(!SBUxMethod.validateRequired({group_id: "panInfo"})) {
             return false;
+        }
+
+        if (await gfnma_gridValidateCheck() == false){
+            return;
         }
 
         let YYYY = gfn_nvl(SBUxMethod.get("YYYY"));

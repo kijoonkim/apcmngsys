@@ -2022,7 +2022,7 @@ const gfnma_gridValidateCheck = function() {
 		const grid = _SBGrid.getGrid(gridId);
 		const updatedData = grid.getUpdateData(true, 'all');
 		const captions = grid.getCaption('array')[0];
-		const rowHeaderLength = typeof grid.getRowHeader() === 'string' ? 1 : grid.getRowHeader().length;
+		const rowHeaderLength = (typeof grid.getRowHeader() === 'string' && grid.getRowHeader() != 'none') ? 1 : (grid.getRowHeader() == 'none' ? 0 : grid.getRowHeader().length);
 
 		for (let colIndex = 0; colIndex < grid.getCols(); colIndex++) {
 			const colAttr = grid.getColUserAttr(colIndex);
