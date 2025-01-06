@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : rawMtrOutVhclReg.jsp
-     * @Description : 원물 출차등록
+     * @Class Name : rawMtrEntrVhclReg.jsp
+     * @Description : 원물 입차등록
      * @author SI개발부
      * @since 2024.09.03
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 원물 출차등록</title>
+    <title>title : 원물 입차등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -37,12 +37,38 @@
                 </div>
                 <div style="margin-left: auto;">
 
-					<sbux-button id="btnNew" name="btnNew" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_new"></sbux-button>
-                    <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                    <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
-
-
+					<sbux-button
+							id="btnNew"
+							name="btnNew"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							text="신규"
+							onclick="fn_new"
+					></sbux-button>
+                    <sbux-button
+							id="btnSave"
+							name="btnSave"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							text="저장"
+							onclick="fn_save"
+					></sbux-button>
+                    <sbux-button
+							id="btnDelete"
+							name="btnDelete"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							text="삭제"
+							onclick="fn_delete"
+					></sbux-button>
+                    <sbux-button
+							id="btnSearch"
+							name="btnSearch"
+							uitype="normal"
+							class="btn btn-sm btn-outline-danger"
+							text="조회"
+							onclick="fn_search"
+					></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -72,9 +98,11 @@
 									id="srch-slt-wghFcltCd"
 									name="srch-slt-wghFcltCd"
 									uitype="single"
-									class="form-control input-sm"
-									unselected-text="전체"
-									jsondata-ref="jsonSortFclt"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									unselected-text="선택"
+									jsondata-ref="jsonWghFclt"
+									jsondata-value="cdVl"
+									jsondata-text="cdVlNm"
 									style="width:80%"
 									 group-id="group1"
 								></sbux-select>
@@ -87,7 +115,6 @@
 									class="form-control input-sm"
 									style="width:80%"
 									 group-id="group1"
-									 readonly
 								></sbux-input>
 							</td>
 						</tr>
@@ -127,7 +154,6 @@
 							</td>
 							<th scope="row" class="th_bg">입차시각</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
-
 								<sbux-spinner
 									id="srch-dtp-entrVhclTm"
 									name="srch-dtp-entrVhclTm"
@@ -149,11 +175,6 @@
 								></sbux-input>
 							</td>
 						</tr>
-
-						<tr>
-
-						</tr>
-
 					</tbody>
 				</table>
                     <div>
@@ -179,9 +200,6 @@
     var jsonWghFcltDtlList =[];
     var grdWghFcltDtlList;
 
-
-
-
     /** 설비유형 select **/
     var Type =[];
 
@@ -199,56 +217,165 @@
 
     var comboData = [{label : 'Y', value : 'Y'},{label : 'N', value : 'N'}];
 
+
+
     /** 선별기 검색조건**/
-    var jsonSortFclt = [];
+    var jsonWghFclt = [];
 
     /** 계량구분코드**/
     var jsonWghSeCd = [];
 
-
-
     const fn_init = async function(){
 
+		let result = await Promise.all([
+			gfn_getComCdDtls('WGH_FCLT_CD', gv_selectedApcCd),
+			gfn_getComCdDtls('WGH_SE_CD'),
+		]);
 
+		jsonWghFclt = result[0];
+		jsonWghSeCd = result[1];
 
-        let result = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-wghFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', gv_selectedApcCd), 			// 선별기
-			gfn_setComCdSBSelect('grdWghFcltDtlList',	jsonWghSeCd, 	'WGH_SE_CD', '0000')
-        ]);
+		SBUxMethod.refresh("srch-slt-wghFcltCd");
 
+		fn_createGrid();
+
+		fn_new();
+
+		await fn_search();
     }
 
     /** 하단 우측 grid create **/
-    const fn_createSortFcltDtlList = function(){
+    const fn_createGrid = function(){
+
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdRawMtrWghList';
         SBGridProperties.id = 'grdWghFcltDtlList';
         SBGridProperties.jsonref = 'jsonWghFcltDtlList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.selectmode = 'free';
+		SBGridProperties.allowcopy = true;
+		SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+		SBGridProperties.datamergefalseskip = true;
+		SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
-            {caption: ['계량대'], ref: 'fcltCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonSortFclt', label:'text', value:'value', oneclickedit: true}, style:'text-align:center',disabled : {uihidden : true}},
-            {caption: ['차량번호'], ref: 'vhclno', width: '100px', type: 'input', style:'text-align:center'},
+				/*
+			{
+				caption: ['계량일자'],
+				ref: 'wghYmd',
+				width: '120px',
+				type : 'output',
+				format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},
+				style:'text-align:center'
+			},*/
+            {
+				caption: ['계량대'],
+				ref: 'fcltCd',
+				width: '100px',
+				type: 'combo',
+				typeinfo : {
+					ref:'jsonWghFclt',
+					label:'cdVlNm',
+					value:'cdVl',
+					displayui : false,
+				},
+				style:'text-align:center',
+				disabled : true
+			},
+            {
+				caption: ['차량번호'],
+				ref: 'vhclno',
+				width: '120px',
+				type: 'output',
+				style:'text-align:center',
+				format : {type:'date', rule:'-mm-dd', origin : 'yyyymmdd'},
+			},
             //{caption: ['계량구분'], ref: 'wghSeCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonWghSeCd', label:'text', value:'value', oneclickedit: true} , style:'text-align:center' ,disabled : {uihidden : true}},
-            {caption: ['입차시각'], ref: 'entrTm', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['출차시각'], ref: 'outTm', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['입차중량'], ref: 'entrWght', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['출차중량'], ref: 'outWght', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['차이'], ref: 'diff', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['계량번호'], ref: 'wghno', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['처리업무'], ref: 'prcsTaskCd', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['완료일시'], ref: 'prcsCmptnDt', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['비고'], ref: 'rmrk', width: '100px', type: 'input', style:'text-align:center'}
-            /* {caption: ['기본창고'], ref: 'warehouseSeCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonWarehouse', label:'text', value:'value', oneclickedit: true}, style:'text-align:center'},
-            {caption: ['중량단위'], ref: 'wghtUnit', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['시작일자'], ref: 'bgngYmd', width: '100px', type : 'datepicker',  format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}, typeinfo : {oneclickedit: true}, style:'text-align:center'},
-            {caption: ['종료일자'], ref: 'endYmd', width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},  typeinfo : {oneclickedit: true}, style:'text-align:center'},
-            {caption: ['비고'], ref: 'fcltRmrk', width: '100px', type: 'input', style:'text-align:center'} */
-
+            {
+				caption: ['입차시각'],
+				ref: 'entrTm',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {type:'date', rule:'HH:mm:ss', origin:'YYYYMMDDHHnnss', usetime:true}
+			},
+            {
+				caption: ['출차시각'],
+				ref: 'outTm',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {type:'date', rule:'HH:mm:ss', origin:'YYYYMMDDHHmmss', usetime:true}
+			},
+            {
+				caption: ['입차중량'],
+				ref: 'entrWght',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {
+					type:'number',
+					rule:'#,###'
+				}
+			},
+            {
+				caption: ['출차중량'],
+				ref: 'outWght',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {
+					type:'number',
+					rule:'#,###'
+				}
+			},
+            {
+				caption: ['차이'],
+				ref: 'diff',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {
+					type:'number',
+					rule:'#,###'
+				}
+			},
+            {
+				caption: ['계량번호'],
+				ref: 'wghno',
+				width: '120px',
+				type: 'output',
+				style:'text-align:center'
+			},
+            {
+				caption: ['처리업무'],
+				ref: 'prcsTaskCd',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center'
+			},
+            {
+				caption: ['완료일시'],
+				ref: 'prcsCmptnDt',
+				width: '100px',
+				type: 'output',
+				style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm-dd HH:nn', origin:'yyyymmddHHnnss'}
+			},
+            {
+				caption: ['비고'],
+				ref: 'rmrk',
+				width: '200px',
+				type: 'output',
+				style:'text-align:center'
+			}
         ]
+
         grdWghFcltDtlList = _SBGrid.create(SBGridProperties);
         grdWghFcltDtlList.bind('click', fn_click);
 
     }
+
 	const fn_click = async function(){
 		let rowIdx = grdWghFcltDtlList.getRow();
 		let rowData = grdWghFcltDtlList.getRowData(rowIdx);
@@ -256,27 +383,34 @@
 		if(gfn_nvl(rowData) === ""){
 			return;
 		}
-		SBUxMethod.set("srch-slt-wghFcltCd",rowData.fcltCd);
-		SBUxMethod.set("srch-inp-wghNo",rowData.wghno);
+		SBUxMethod.set("srch-slt-wghFcltCd", rowData.fcltCd);
+		SBUxMethod.set("srch-inp-wghNo", rowData.wghno);
 		SBUxMethod.set("srch-inp-vhclNo",rowData.vhclno);
 		SBUxMethod.set("srch-inp-entrVhclWght",rowData.entrWght); //입차중량
 		const timePart = rowData.entrTm.slice(-6);
-		SBUxMethod.set("srch-dtp-entrVhclTm",timePart); //입차시간
+		SBUxMethod.set("srch-dtp-entrVhclTm", timePart); //입차시간
 		SBUxMethod.set("srch-inp-rmrk",rowData.wghRmrk);
 		SBUxMethod.set("srch-dtp-wghYmd",rowData.entrTm);
-
 	}
 
 
 	const fn_search = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd});
-        let data = await postJsonPromise;
+
+		const wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+		const param = {
+			apcCd : gv_selectedApcCd,
+			wghYmd: wghYmd
+		}
+
+		let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", param);
+		let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
   	        	jsonWghFcltDtlList.length = 0;
   	        	data.resultList.forEach((item, index) => {
   					let fcltVO = {
   							apcCd : item.apcCd
+							, wghYmd: item.wghYmd
  							, fcltCd : item.fcltCd
  							, prcsCmptnDt : item.prcsCmptnDt
  							, prcsCmptnYn : item.prcsCmptnYn
@@ -311,10 +445,16 @@
 	}
 
 	const fn_new = async function(){
+
 		SBUxMethod.clearGroupData('group1');
+		// 일자 설정
+		const now = new Date();
+		// 계량일자
+		SBUxMethod.set("srch-dtp-wghYmd", gfn_dateToYmd(now));
+
+		// 시각 설정
+		SBUxMethod.set("srch-dtp-entrVhclTm", gfn_dateToHms(now));
 	}
-
-
 
 	const fn_save = async function(){
 		let wghFclt = SBUxMethod.get("srch-slt-wghFcltCd");
@@ -325,14 +465,20 @@
 		let rmrk = SBUxMethod.get("srch-inp-rmrk");
 		let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
 
-		if(gfn_nvl(wghFclt) === ""){
+		if (gfn_isEmpty(wghFclt)) {
+			gfn_comAlert("W0005", "계량대");		//	W0005	{0}이/가 없습니다.
 			return;
 		}
 
+		if (gfn_isEmpty(wghYmd)) {
+			gfn_comAlert("W0005", "계량일자");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
 
-		try{
+		try {
+
 			let obj = {
-					apcCd : gv_selectedApcCd
+					  apcCd : gv_selectedApcCd
 					, wghno : wghNo
 					, wghSeq : 1
 					, vhclno : vhclNo
@@ -346,66 +492,57 @@
 					, fcltCd : wghFclt
 			}
 
-
-
             let postJsonPromise = gfn_postJSON("/am/wgh/insertWghEntrVhcl.do",obj);
 
-            if(postJsonPromise){
-                let data = await postJsonPromise;
-                if (data.resultStatus == "S") {
+			let data = await postJsonPromise;
+
+			if (data.resultStatus == "S") {
                 	gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
                     fn_search();
                     return;
                 }
-            }
-
-        }catch (e){
+        } catch (e) {
             console.log(e);
         }
-
-
 	}
 
 
     const fn_delete = async function(){
 
-        if(!gfn_comConfirm("Q0001","삭제")){
-            return;
-        };
-		let rowIdx = grdWghFcltDtlList.getRow();
-        let rowData = grdWghFcltDtlList.getRowData(rowIdx);
+		let wghNo = SBUxMethod.get("srch-inp-wghNo");
 
-        if(gfn_nvl(rowData) === ""){
-        	return;
+		if (gfn_isEmpty(wghNo)) {
+			gfn_comAlert("W0003", "삭제");		//	W0003 {0}할 대상이 없습니다.
+			return;
+		}
+
+        if  (!gfn_comConfirm("Q0001","삭제")) {
+            return;
         }
-        rowData['wghSeCd'] = "01";
-        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghEntrVhcl.do",rowData);
+
+		const param = {
+			apcCd : gv_selectedApcCd,
+			wghno : wghNo,
+			wghSeCd: "01"
+		}
+
+        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghEntrVhcl.do", param);
         let data = await postJsonPromise;
 
-        try{
-            if(data.resultStatus == "S"){
+        try {
+            if (data.resultStatus == "S") {
                 if(data.deletedCnt > 0){
                     gfn_comAlert("I0001");
                     fn_search();
                 }
-            };
-        }catch (e){
+            }
+        } catch (e){
             console.error(e);
         }
     }
 
-
-
-
-
-
-
-
-
     window.addEventListener("DOMContentLoaded",function(){
-    	fn_createSortFcltDtlList();
-    	fn_search();
-        fn_init();
+		fn_init();
     });
 
 </script>

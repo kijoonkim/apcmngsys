@@ -26,6 +26,32 @@ const gfn_dateToYmd = function(date, delimiter = "") {
 	return strYmd;
 }
 
+/**
+ * @description 날짜 관련 공통함수
+ */
+
+/**
+ * @name gfn_dateToHms
+ * @description 시각형식
+ * @param {Date} date
+ * @param {String} delimiter
+ * @function
+ * @returns
+ */
+const gfn_dateToHms = function(date, delimiter = "") {
+	let hours = ('0' + date.getHours()).slice(-2); // 시
+	let minutes = ('0' + date.getMinutes()).slice(-2);  // 분
+	let seconds = ('0' + date.getSeconds()).slice(-2);  // 초
+	//let milliseconds = date.getMilliseconds(); // 밀리초
+
+	let strHms = "";
+	strHms += hours;
+	strHms += delimiter + minutes;
+	strHms += delimiter + seconds;
+console.log(strHms);
+	return strHms;
+}
+
 
 /**
  * @name gfn_dateToYm
