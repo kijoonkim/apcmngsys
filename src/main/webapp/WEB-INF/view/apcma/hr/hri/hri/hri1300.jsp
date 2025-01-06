@@ -2577,26 +2577,26 @@
 
     // 마스터정보 set
     const fn_setMasterData = async function (data) {
-        SBUxMethod.set("APPOINT_NUM", data.APPOINT_NUM);
-        SBUxMethod.set("APPOINT_DATE", data.APPOINT_DATE);
-        SBUxMethod.set("APPOINT_TYPE", data.APPOINT_TYPE);
+        SBUxMethod.set("APPOINT_NUM", data.APNT_NO);
+        SBUxMethod.set("APPOINT_DATE", data.APNT_YMD);
+        SBUxMethod.set("APPOINT_TYPE", data.APNT_TYPE);
         SBUxMethod.set("APPOINT_TYPE_NAME", data.APPOINT_TYPE_NAME);
-        SBUxMethod.set("APPOINT_TITLE", data.APPOINT_TITLE);
-        SBUxMethod.set("APPLY_YN", data.APPLY_YN);
-        SBUxMethod.set("STATUS_CODE", data.STATUS_CODE);
+        SBUxMethod.set("APPOINT_TITLE", data.APNT_TTL);
+        SBUxMethod.set("APPLY_YN", data.APLY_YN);
+        SBUxMethod.set("STATUS_CODE", data.STTS_CD);
         SBUxMethod.set("MEMO", data.MEMO);
-        SBUxMethod.set("APPROVE_DATE", data.APPROVE_DATE);
-        SBUxMethod.set("DEPT_APPOINT_YN", data.DEPT_APPOINT_YN);
-        SBUxMethod.set("POSITION_APPOINT_YN", data.POSITION_APPOINT_YN);
-        SBUxMethod.set("DUTY_APPOINT_YN", data.DUTY_APPOINT_YN);
-        SBUxMethod.set("JOB_RANK_APPOINT_YN", data.JOB_RANK_APPOINT_YN);
-        SBUxMethod.set("JOB_GROUP_APPOINT_YN", data.JOB_GROUP_APPOINT_YN);
-        SBUxMethod.set("JOB_APPOINT_YN", data.JOB_APPOINT_YN);
-        SBUxMethod.set("JOB_FAMILY_APPOINT_YN", data.JOB_FAMILY_APPOINT_YN);
-        SBUxMethod.set("REGION_APPOINT_YN", data.REGION_APPOINT_YN);
-        SBUxMethod.set("PARENTING_WORK_TYPE_YN", data.PARENTING_WORK_TYPE_YN);
+        SBUxMethod.set("APPROVE_DATE", data.APRV_YMD);
+        SBUxMethod.set("DEPT_APPOINT_YN", data.DEPT_APNT_YN);
+        SBUxMethod.set("POSITION_APPOINT_YN", data.JBPS_APNT_YN);
+        SBUxMethod.set("DUTY_APPOINT_YN", data.JBTTL_APNT_YN);
+        SBUxMethod.set("JOB_RANK_APPOINT_YN", data.JBCD_APNT_YN);
+        SBUxMethod.set("JOB_GROUP_APPOINT_YN", data.JOB_GROUP_APNT_YN);
+        SBUxMethod.set("JOB_APPOINT_YN", data.JOB_APNT_YN);
+        SBUxMethod.set("JOB_FAMILY_APPOINT_YN", data.JOB_LWRNK_GROUP_APNT_YN);
+        SBUxMethod.set("REGION_APPOINT_YN", data.WORK_BGNG_APNT_YN);
+        SBUxMethod.set("PARENTING_WORK_TYPE_YN", data.PARNLV_WORK_TYPE_YN);
 
-        if(data.APPLY_YN == 'Y') {
+        if(data.APLY_YN == 'Y') {
             SBUxMethod.attr('btnAddAll', 'disabled', 'true');
             SBUxMethod.attr('btnReflectionInfo', 'disabled', 'true');
             SBUxMethod.attr('btnDeleteAll', 'disabled', 'false');
