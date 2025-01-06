@@ -2064,7 +2064,7 @@
                                 V_P_COMP_CODE: gv_ma_selectedCorpCd,
                                 V_P_CLIENT_CODE: gv_ma_selectedClntCd,
                                 V_P_APPOINT_NUM: masterData.v_returnStr,
-                                V_P_APPOINT_DATE: item.data.APPOINT_DATE,
+                                V_P_APPOINT_DATE: APPOINT_DATE,
                                 V_P_EMP_CODE: item.data.EMP_CODE,
                                 V_P_DEPT_CODE1: item.data.DEPT_CODE1,
                                 V_P_POSITION_CODE1: item.data.POSITION_CODE1,
