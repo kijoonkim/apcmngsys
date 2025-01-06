@@ -791,7 +791,7 @@
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
-		$(".uoInfo").hide();
+		//$(".uoInfo").hide();
 		$(".uoGrid").hide();
 		await fn_dtlSearch();
 	</c:if>
@@ -1227,7 +1227,7 @@
 				$(".uoGrid").show();
 				fn_dtlSearch01();//하위 출자출하조직 리스트
 			}else{
-				$(".uoInfo").hide();
+				//$(".uoInfo").hide();
 				$(".uoGrid").hide();
 				jsonInvShipOgnReqMng01.length = 0;
 				grdInvShipOgnReqMng01.rebuild();
@@ -1758,7 +1758,8 @@
 		//해당 로우 데이터로 출자출하조직 리스트 조회
 		let rowData = grdInvShipOgnReqMng.getRowData(nRow);
 		//console.log(rowData);
-
+		SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(rowData.corpNm))//법인명
+		SBUxMethod.set('dtl-input-brno01',gfn_nvl(rowData.brno))//사업자등록번호
 		//콤보박스로 선택할수 있게 변경 됨
 		//SBUxMethod.set("dtl-input-uoCd", rowData.apoCd);
 		//SBUxMethod.set("dtl-input-uoBrno", rowData.brno);
@@ -1772,8 +1773,8 @@
 			<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 			yr = SBUxMethod.set("dtl-input-yr");
 			</c:if>
-
 		}
+
 		//let apoCd = rowData.apoCd;
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
