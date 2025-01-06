@@ -1421,7 +1421,6 @@
 
     const fn_onload = async function () {
         // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
-        SBUxMethod.hideTab('idxTab_norm', 'tpgEducation');
         SBUxMethod.hideTab('idxTab_norm', 'tpgMasterSubDetail4');
         SBUxMethod.hideTab('idxTab_norm', 'tpgHealth');
         SBUxMethod.hideTab('idxTab_norm', 'tpgGroupInsurance');
@@ -1430,7 +1429,6 @@
         SBUxMethod.hideTab('idxTab_norm', 'tpgContractDeg');
         SBUxMethod.hideTab('idxTab_norm', 'tpgWORKPLAN');
         SBUxMethod.hideTab('idxTab_norm', 'tpgExpenditurewelfare');
-        SBUxMethod.hideTab('idxTab_norm', 'tpgPersonnelEvaluation');
         $('#START_PAY_GRADE_TH').hide();
         $('#START_PAY_GRADE_TD').hide();
         $('#CAREER_TRACK_ENTER_DATE_TH').hide();
@@ -1515,14 +1513,14 @@
         fn_createGvwLanguageGrid();
         fn_createGvwComputerSkillGrid();
         fn_createGvwFileGrid();
-        /*fn_createGvwEducationGrid();*/
+        fn_createGvwEducationGrid();
         fn_createGvwPrizeGrid();
         /*fn_createGvwHealthGrid();*/
         fn_createGvwAppointmentGrid();
         fn_createGvwAddJobGrid();
         fn_createGvwTimeOffHistoryGrid();
         /*fn_createGvwGroupInsuranceGrid();
-        fn_createGvwDiseaseGrid();
+        fn_createGvwDiseaseGrid();*/
         fn_createGvwPersonnelEvaluationGrid();
         /*fn_createGvwOfficialInjuryGrid();
         fn_createGvwContractDegGrid();
@@ -1848,7 +1846,7 @@
                                 SP_HRI1000_S6: await getParamForHri1000S6(empCode),
                                 SP_HRI1000_S7: await getParamForHri1000S7(empCode),
                                 SP_HRI1000_S8: await getParamForHri1000S8(empCode),
-                                /*SP_HRI1000_S9: await getParamForHri1000S9(empCode),*/
+                                SP_HRI1000_S9: await getParamForHri1000S9(empCode),
                                 SP_HRI1000_S10: await getParamForHri1000S10(empCode),
                                 /*SP_HRI1000_S11: await getParamForHri1000S11(empCode),*/
                                 SP_HRI1000_S12: await getParamForHri1000S12(empCode),
@@ -1856,7 +1854,7 @@
                                 SP_HRI1000_S14: await getParamForHri1000S14(empCode),
                                 /*SP_HRI1000_S15: await getParamForHri1000S15(empCode),*/
                                 /*SP_HRI1000_S16: await getParamForHri1000S16(empCode),*/
-                                /*SP_HRI1000_S17: await getParamForHri1000S17(empCode),*/
+                                SP_HRI1000_S17: await getParamForHri1000S17(empCode),
                                 /*SP_HRI1000_S18: await getParamForHri1000S18(empCode),*/
                                 /*SP_HRI1000_S19: await getParamForHri1000S19(empCode),*/
                                 SP_HRI1000_S21: await getParamForHri1000S21(editType, empCode),
@@ -2782,7 +2780,7 @@
 
                 // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 평가항목
-               /* detailData.cv_22.forEach((item, index) => {
+                detailData.cv_22.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         EVAL_YEAR : item.EVL_YR,
@@ -2794,7 +2792,7 @@
                     jsonPersonnelEvaluationList.push(msg);
                 });
 
-                gvwPersonnelEvaluation.rebuild();*/
+                gvwPersonnelEvaluation.rebuild();
 
                 // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                 // 공상발생
