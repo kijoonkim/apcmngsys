@@ -5887,7 +5887,7 @@
                     EXPECTED_PAY_DATE : data.cv_1[0].PAY_PRNMNT_YMD,
                     PAY_BASE_DATE : data.cv_1[0].PAY_RCK_YMD,
                     BILL_DUE_DAY : data.cv_1[0].PRMNT_DCNT,
-                    BILL_DUE_PAY_DATE : data.cv_1[0].PRMNT_MTRY_YMD,
+                    BILL_DUE_DATE : data.cv_1[0].PRMNT_MTRY_YMD,
                     BILL_DUE_PAY_DATE : data.cv_1[0].PRMNT_MTRY_PAY_YMD,
                 }
 
