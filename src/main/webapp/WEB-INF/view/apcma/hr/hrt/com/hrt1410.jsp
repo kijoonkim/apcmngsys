@@ -860,7 +860,7 @@
                         END_DATE : item.END_DT,
                         TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);
@@ -1000,7 +1000,7 @@
                         END_DATE : item.END_DT,
                         PRODUCTION_DEPT_YN : item.PRDCTN_DEPT_YN,
                         WORK_TIME_YN : item.WORK_TM_CHCK_YN,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         LEVEL: item.LEVEL
                     }
                     jsonDeptList.push(msg);
@@ -1101,7 +1101,7 @@
                         CHK_YN : item.CHK_YN,
                         SEQ : item.SEQ,
                         DEPT_CODE : item.DEPT_CD,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         APPLY_START_DATE : item.APLY_STRT_YMD,
                         APPLY_END_DATE : item.APLY_END_YMD,
                         MEMO : item.MEMO
@@ -1146,7 +1146,7 @@
                         END_DATE : item.END_DT,
                         TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);

@@ -3042,7 +3042,7 @@
             },
             {caption: ["사번"],        ref: 'EMP_CODE', 		     type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption: ["이름"],        ref: 'EMP_NAME', 		     type:'output',  	width:'94px',  	style:'text-align:left'},
-            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:left', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
+            {caption: ["사원별적용"],        ref: 'EMP_BASE_FLAG', 		     type:'checkbox',  	width:'82px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
             {caption: ["근무패턴코드"],  		ref: 'WORK_PATTERN_CODE',    			type:'combo',  	width:'116px',  	style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonWorkPatternCode',

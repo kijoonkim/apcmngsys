@@ -157,7 +157,7 @@
 
         let rst = await Promise.all([
             // 근무유형
-            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CD', 'WORK_TYPE_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonWorkTypeCode, 'L_HRB001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WRK_PTTRN_CD', 'WORK_TYPE_NM', 'Y', ''),
             // 휴일유형
             gfnma_setComSelect(['gvwDay', 'gvwHoliday'], jsonShiftCode, 'L_HRT_SHIFT_HOLIDAY', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SHWORK_CD', 'SHWORK_TEAM_NM', 'Y', ''),
             // 구분
@@ -368,7 +368,7 @@
                     const msg = {
                         SEQ : item.SEQ,
                         DAY_NAME : item.DAY_NAME,
-                        WORK_TYPE_CODE : item.WORK_TYPE_CD,
+                        WORK_TYPE_CODE : item.WRK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         HOLIDAY_YN : item.HLDY_YN
                     }
@@ -385,7 +385,7 @@
                         DAY_TITLE : item.DAY_TTL,
                         HOLIDAY_YN : item.HLDY_YN,
                         HOLIDAY2_YN : item.HLDY2_YN,
-                        WORK_TYPE_CODE : item.WORK_TYPE_CD,
+                        WORK_TYPE_CODE : item.WRK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         SOLAR_YN : item.SLCL_YN,
                         LEAP_MONTH_YN : item.LPMM_YN,

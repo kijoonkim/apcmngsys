@@ -727,7 +727,7 @@
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SITE_CODE"), rs_emp["SITE_CD"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_CODE"), rs_emp["DEPT_CD"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("DEPT_NAME"), rs_emp["DEPT_NM"]);
-                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"), rs_emp["WORK_TYPE_CD"]);
+                                bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"), rs_emp["WRK_PTTRN_CD"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("SHIFT_CODE"), rs_emp["SHWORK_CD"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("WORK_DAY_TYPE"), rs_emp["WORK_DAY_TYPE"]);
                                 bandgvwInfo.setCellData(nRow, bandgvwInfo.getColRef("HOLIDAY_YN"), rs_emp["HLDY_YN"]);
@@ -1476,7 +1476,7 @@
                         DUTY_CODE : item.JBTTL_CD,
                         JOB_RANK : item.JBGD_CD,
                         JOB_GROUP : item.JOB_GROUP,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         SHIFT_CODE_ORIG : item.SHWORK_CD_ORGNL,
                         HOLIDAY_YN : item.HLDY_YN,
@@ -1699,7 +1699,7 @@
                         DUTY_CODE : item.JBTTL_CD,
                         JOB_RANK : item.JBGD_CD,
                         JOB_GROUP : item.JOB_GROUP,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         SHIFT_CODE_ORIG : item.SHWORK_CD_ORGNL,
                         HOLIDAY_YN : item.HLDY_YN,

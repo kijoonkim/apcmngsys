@@ -747,7 +747,7 @@
             // 근무일
             gfnma_setComSelect(['bandgvwInfo', 'WORK_DAY_TYPE'], jsonWorkDayType, 'L_HRT019', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 근무유형
-            gfnma_setComSelect(['bandgvwInfo', 'WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRT_WORKTYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WORK_TYPE_CD', 'WORK_TYPE_NM', 'Y', ''),
+            gfnma_setComSelect(['bandgvwInfo', 'WORK_TYPE_CODE'], jsonWorkTypeCode, 'L_HRT_WORKTYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'WRK_PTTRN_CD', 'WORK_TYPE_NM', 'Y', ''),
             // 교대유형
             gfnma_setComSelect(['SHIFT_CATEGORY'], jsonShiftCategory, 'L_HRT034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 바탕색상
@@ -1533,7 +1533,7 @@
                         USE_YN : item.USE_YN,
                         FIVE_WEEK_YN : item.WK_5DAY_YN,
                         BACK_COLOR : item.SCRN_COLR,
-                        WORK_TYPE_CODE : item.WORK_TYPE_CD,
+                        WORK_TYPE_CODE : item.WRK_PTTRN_CD,
                         WORK_DAY_TYPE : item.WORK_DAY_TYPE,
                         SHIFT_CATEGORY : item.SHWORK_CTRGY,
                         PAY_ALLOWANCE_FLAG : item.PAY_ALWNC_FLAG

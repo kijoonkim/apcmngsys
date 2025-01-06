@@ -638,7 +638,7 @@
                         DEPT_NAME : item.DEPT_NM,
                         GRADE_HOBONG_CODE : item.JBCD_SLRCL_CD,
                         POSITION_CODE : item.JBPS_CD,
-                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
+                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         HOLIDAY_YN : item.HLDY_YN,
                         HOLIDAY2_YN : item.HLDY2_YN,
