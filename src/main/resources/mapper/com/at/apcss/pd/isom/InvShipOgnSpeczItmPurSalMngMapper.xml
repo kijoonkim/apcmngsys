@@ -1169,8 +1169,8 @@ SELECT
 	'6' AS TYPE_SE_NO
 	, ITEM.ITEM_NM || '(' || ITEM.STTG_UPBR_ITEM_NM || ')'  AS ITEM_NM
 	, ITEM.SE_NM AS SE_NM
-	, '전속출하 소계' AS PRCHS_NM
-	, '전속출하 소계' AS TRMT_TYPE_NM
+	, '소계' AS PRCHS_NM
+	, '소계' AS TRMT_TYPE_NM
 
 	/*
 	, ITEM.TRMT_TYPE_NM AS PRCHS_NM
