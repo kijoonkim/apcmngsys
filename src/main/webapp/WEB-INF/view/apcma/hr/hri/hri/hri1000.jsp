@@ -1835,27 +1835,27 @@
                         if (_.isEqual("S", subData.resultStatus)) {
                             // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
                             var paramObj = {
-                                P_HRI1000_S2: await getParamForHri1000S2(empCode),
+                                SP_HRI1000_S2: await getParamForHri1000S2(empCode),
                                 //P_HRI1000_S3: await getParamForHri1000S3(editType, empCode),
-                                P_HRI1000_S4: await getParamForHri1000S4(empCode),
-                                P_HRI1000_S5: await getParamForHri1000S5(empCode),
-                                P_HRI1000_S6: await getParamForHri1000S6(empCode),
-                                P_HRI1000_S7: await getParamForHri1000S7(empCode),
-                                P_HRI1000_S8: await getParamForHri1000S8(empCode),
+                                SP_HRI1000_S4: await getParamForHri1000S4(empCode),
+                                SP_HRI1000_S5: await getParamForHri1000S5(empCode),
+                                SP_HRI1000_S6: await getParamForHri1000S6(empCode),
+                                SP_HRI1000_S7: await getParamForHri1000S7(empCode),
+                                SP_HRI1000_S8: await getParamForHri1000S8(empCode),
                                 /*P_HRI1000_S9: await getParamForHri1000S9(empCode),*/
-                                P_HRI1000_S10: await getParamForHri1000S10(empCode),
+                                SP_HRI1000_S10: await getParamForHri1000S10(empCode),
                                 /*P_HRI1000_S11: await getParamForHri1000S11(empCode),*/
-                                P_HRI1000_S12: await getParamForHri1000S12(empCode),
-                                P_HRI1000_S13: await getParamForHri1000S13(empCode),
-                                P_HRI1000_S14: await getParamForHri1000S14(empCode),
+                                SP_HRI1000_S12: await getParamForHri1000S12(empCode),
+                                SP_HRI1000_S13: await getParamForHri1000S13(empCode),
+                                SP_HRI1000_S14: await getParamForHri1000S14(empCode),
                                 /*P_HRI1000_S15: await getParamForHri1000S15(empCode),*/
                                 /*P_HRI1000_S16: await getParamForHri1000S16(empCode),*/
                                 /*P_HRI1000_S17: await getParamForHri1000S17(empCode),*/
                                 /*P_HRI1000_S18: await getParamForHri1000S18(empCode),*/
                                 /*P_HRI1000_S19: await getParamForHri1000S19(empCode),*/
-                                P_HRI1000_S21: await getParamForHri1000S21(editType, empCode),
+                                SP_HRI1000_S21: await getParamForHri1000S21(editType, empCode),
                                 /*P_HRI1000_S22: await getParamForHri1000S22(empCode),*/
-                                P_HRI1000_S23: await getParamForHri1000S23(editType, empCode),
+                                SP_HRI1000_S23: await getParamForHri1000S23(editType, empCode),
                                 /*P_HRI1000_S24: await getParamForHri1000S24(empCode),*/
                             }
 
