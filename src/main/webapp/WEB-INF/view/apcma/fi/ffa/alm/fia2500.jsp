@@ -298,7 +298,7 @@
 			                                    <th scope="row" class="th_bg">취득일</th>
 			                                    <td colspan="2" class="td_input">
 												    <sbux-datepicker
-												            id="FM_ACQS_FRST_YMD"
+												            id="FM_ACQS_YMD"
 												            uitype="popup"
 												            date-format="yyyy-mm-dd"
 												            class="form-control input-sm input-sm-ast table-datepicker-ma">
@@ -1286,7 +1286,7 @@
     function fn_validation(){
     	
     	var bol = true;
-    	var p_fm_acquire_date 		= SBUxMethod.set('FM_ACQS_FRST_YMD'); 
+    	var p_fm_acquire_date 		= SBUxMethod.set('FM_ACQS_YMD'); 
     	var p_fm_currency_code 		= SBUxMethod.set('FM_CRN_CD'); 
     	var p_fm_cs_code2 			= SBUxMethod.set('FM_CNPT_CD'); 
     	var p_fm_tacquire_type 		= SBUxMethod.set('FM_ACQS_TYPE'); 
@@ -1369,26 +1369,26 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["취득일"],			ref: 'ACQUIRE_DATE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["취득일"],			ref: 'ACQS_YMD', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["취득구분"], 		ref: 'ACQUIRE_TYPE_NAME',  	  	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["취득번호"], 		ref: 'ASSET_ACQUIRE_NO',    	type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption: ["취득처"], 			ref: 'CS_NAME',    				type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["취득번호"], 		ref: 'ASST_ACQS_NO',    		type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["취득처"], 			ref: 'CNPT_NM',    				type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["자산번호"],			ref: 'ASSET_NO',  			  	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["자산명"],			ref: 'ASSET_NAME',    			type:'output',  	width:'250px',  	style:'text-align:left'},
-            {caption: ["회계기준"],			ref: 'ACCT_RULE_NAME',    		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부가세유형"],		ref: 'VAT_TYPE_NAME',  			type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["부가세율"],			ref: 'VAT_RATE',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화"],				ref: 'CURRENCY_CODE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["환율"],				ref: 'EXCHANGE_RATE',    		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산명"],			ref: 'ASST_NM',    				type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["회계기준"],			ref: 'ACCT_RULE_NAME',   		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["부가세유형"],		ref: 'VAT_TMPLT_NM',  			type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["부가세율"],			ref: 'VAT_RT',    				type:'output',  	width:'100px',  	style:'text-align:right'},
+            {caption: ["통화"],				ref: 'CRN_CD',    				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["환율"],				ref: 'EXCHRT',    				type:'output',  	width:'100px',  	style:'text-align:right'},
             
-            {caption: ["취득금액"],			ref: 'ORIGINAL_AMOUNT',    		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["전표금액"],			ref: 'FUNCTIONAL_AMOUNT',		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["부가세"],			ref: 'VAT_AMOUNT',    			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["취득금액"],			ref: 'ORGNL_AMT',    			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["전표금액"],			ref: 'CNVS_AMT',				type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["부가세"],			ref: 'VAT_AMT',    				type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             {caption: ["총합계"],			ref: 'TOTAL_AMOUNT',    		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
-            {caption: ["취득수량"],			ref: 'ACQUISITION_QTY',    		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["전표배치"],			ref: 'DOC_BATCH_NO', 		   	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["전표순번"],			ref: 'DOC_NUM',    				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["취득수량"],			ref: 'ACQS_QTY',    			type:'output',  	width:'100px',  	style:'text-align:right'},
+            {caption: ["전표배치"],			ref: 'SLIP_ID', 		   		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["전표순번"],			ref: 'SLIP_SEQ',    			type:'output',  	width:'100px',  	style:'text-align:left'},
         ];
  
         Fia2500GridMast = _SBGrid.create(SBGridProperties);
@@ -1414,7 +1414,7 @@
     	
     	Fia2500GridMast.setRow(idx);
         let rowData = Fia2500GridMast.getRowData(idx);
-		//console.log(rowData);        
+		console.log('rowData:', rowData);        
 		
         fn_setFormFia2500GridMast(rowData);
 		fn_setFia2500GridDetail('DETAIL', rowData);
@@ -1422,6 +1422,7 @@
     
     //데이터를 폼에 셋팅
     function fn_setFormFia2500GridMast(obj) {
+		console.log('form set obj:', obj);      
         
     	gfnma_uxDataSet2('#dataArea1', obj, '', 'FM_', '');
         if(obj['ACQUIRE_TYPE']!='CE' && obj['ACQUIRE_TYPE']!='SUBSIDIES'){
@@ -1483,7 +1484,7 @@
         	
         	SBUxMethod.set('FM2_CURRENCY_CODE_A', 			SBUxMethod.get('FM_CRN_CD'));
         	SBUxMethod.set('FM2_SITE_CODE1_A', 				SBUxMethod.get('FM_SITE_CD'));
-        	SBUxMethod.set('FM2_ACQUIRE_DATE_A', 			SBUxMethod.get('FM_ACQS_FRST_YMD'));
+        	SBUxMethod.set('FM2_ACQUIRE_DATE_A', 			SBUxMethod.get('FM_ACQS_YMD'));
         	SBUxMethod.set('FM2_FUNCTIONAL_AMOUNT_A', 		SBUxMethod.get('FM_CNVS_AMT'));
         	
         	SBUxMethod.set('FM2_ASSET_CATEGORY_CODE', 		SBUxMethod.get('FM_ASST_CTGRY'));
@@ -1619,7 +1620,7 @@
 		});
  
         const data = await postJsonPromise;
-		console.log('data:', data);
+		console.log('selectFia2500List data:', data);
 		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
@@ -1631,48 +1632,48 @@
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						FOCUS					: gfnma_nvl2(item.FOCUS),			
-  						ASSET_ACQUIRE_NO		: gfnma_nvl2(item.ASST_ACQS_NO),			
+  						ASST_ACQS_NO			: gfnma_nvl2(item.ASST_ACQS_NO),			
   						ASSET_NO				: gfnma_nvl2(item.ASST_NO),			
-  						ASSET_NAME				: gfnma_nvl2(item.ASST_NM),			
-  						SITE_CODE				: gfnma_nvl2(item.SITE_CD),			
-  						ACQUIRE_DATE			: gfnma_nvl2(item.ACQS_FRST_YMD),			
-  						ACQUIRE_TYPE			: gfnma_nvl2(item.ACQS_TYPE),			
+  						ASST_NM					: gfnma_nvl2(item.ASST_NM),			
+  						SITE_CD					: gfnma_nvl2(item.SITE_CD),			
+  						ACQS_YMD				: gfnma_nvl2(item.ACQS_YMD),			
+  						ACQS_TYPE				: gfnma_nvl2(item.ACQS_TYPE),			
   						ACQUIRE_TYPE_NAME		: gfnma_nvl2(item.ACQUIRE_TYPE_NAME),			
-  						ASSET_CATEGORY			: gfnma_nvl2(item.ASST_CTGRY),			
-  						ASSET_LEVEL2			: gfnma_nvl2(item.ASST_MCLSF),			
-  						ASSET_LEVEL3			: gfnma_nvl2(item.ASST_SCLSF),			
-  						DEPT_CODE				: gfnma_nvl2(item.DEPT_CD),			
-  						DEPT_NAME				: gfnma_nvl2(item.DEPT_NM),			
+  						ASST_CTGRY				: gfnma_nvl2(item.ASST_CTGRY),			
+  						ASST_MCLSF				: gfnma_nvl2(item.ASST_MCLSF),			
+  						ASST_SCLSF				: gfnma_nvl2(item.ASST_SCLSF),			
+  						DEPT_CD					: gfnma_nvl2(item.DEPT_CD),			
+  						DEPT_NM					: gfnma_nvl2(item.DEPT_NM),			
   						EMP_CODE				: gfnma_nvl2(item.EMP_CD),			
   						EMP_NAME				: gfnma_nvl2(item.EMP_NM),			
-  						CS_CODE					: gfnma_nvl2(item.CNPT_CD),			
-  						CS_NAME					: gfnma_nvl2(item.CNPT_NM),			
-  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),			
-  						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCD_NM),			
-  						PROJECT_CODE			: gfnma_nvl2(item.PJT_CD),			
-  						PROJECT_NAME			: gfnma_nvl2(item.PJT_NM),			
-  						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),			
-  						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),			
-  						TAX_SITE_CODE			: gfnma_nvl2(item.TX_SITE_CD),			
+  						CNPT_CD					: gfnma_nvl2(item.CNPT_CD),			
+  						CNPT_NM					: gfnma_nvl2(item.CNPT_NM),			
+  						CSTCD_CD				: gfnma_nvl2(item.CSTCD_CD),			
+  						CSTCD_NM				: gfnma_nvl2(item.CSTCD_NM),			
+  						PJT_CD					: gfnma_nvl2(item.PJT_CD),			
+  						PJT_NM					: gfnma_nvl2(item.PJT_NM),			
+  						ACNTL_CD				: gfnma_nvl2(item.ACNTL_CD),			
+  						ACNT_NM					: gfnma_nvl2(item.ACNT_NM),			
+  						TX_SITE_CD				: gfnma_nvl2(item.TX_SITE_CD),			
   						VAT_TYPE				: gfnma_nvl2(item.VAT_TYPE),			
-  						VAT_TYPE_NAME			: gfnma_nvl2(item.VAT_TMPLT_NM),			
-  						VAT_RATE				: gfnma_nvl2(item.VAT_RT),			
-  						CURRENCY_CODE			: gfnma_nvl2(item.CRN_CD),			
-  						EXCHANGE_RATE			: gfnma_nvl2(item.EXCHRT),			
-  						ORIGINAL_AMOUNT			: gfnma_nvl2(item.ORGNL_AMT),			
-  						VAT_AMOUNT				: gfnma_nvl2(item.VAT_AMT),			
-  						FUNCTIONAL_AMOUNT		: gfnma_nvl2(item.CNVS_AMT),			
+  						VAT_TMPLT_NM			: gfnma_nvl2(item.VAT_TMPLT_NM),			
+  						VAT_RT					: gfnma_nvl2(item.VAT_RT),			
+  						CRN_CD					: gfnma_nvl2(item.CRN_CD),			
+  						EXCHRT					: gfnma_nvl2(item.EXCHRT),			
+  						ORGNL_AMT				: gfnma_nvl2(item.ORGNL_AMT),			
+  						VAT_AMT					: gfnma_nvl2(item.VAT_AMT),			
+  						CNVS_AMT				: gfnma_nvl2(item.CNVS_AMT),			
   						TOTAL_AMOUNT			: gfnma_nvl2(item.TOTAL_AMOUNT),			
-  						INVOICE_ID				: gfnma_nvl2(item.SLIP_ID),			
-  						INVOICE_SEQ				: gfnma_nvl2(item.SLIP_SEQ),			
-  						SOURCE_TYPE				: gfnma_nvl2(item.SRC_TYPE),			
+  						SLIP_ID					: gfnma_nvl2(item.SLIP_ID),			
+  						SLIP_SEQ				: gfnma_nvl2(item.SLIP_SEQ),			
+  						SRC_TYPE				: gfnma_nvl2(item.SRC_TYPE),			
   						MEMO					: gfnma_nvl2(item.MEMO),			
-  						COMP_CODE				: gfnma_nvl2(item.CO_CD),
-  						FI_ORG_CODE				: gfnma_nvl2(item.ACNTG_OGNZ_CD),
-  						SOURCE_NAME				: gfnma_nvl2(item.SRC_NM),
-  						ACCT_RULE_CODE			: gfnma_nvl2(item.GAAP_CD),
+  						CO_CD					: gfnma_nvl2(item.CO_CD),
+  						ACNTG_OGNZ_CD			: gfnma_nvl2(item.ACNTG_OGNZ_CD),
+  						SRC_NM					: gfnma_nvl2(item.SRC_NM),
+  						GAAP_CD					: gfnma_nvl2(item.GAAP_CD),
   						ACCT_RULE_NAME			: gfnma_nvl2(item.ACCT_RULE_NAME),
-  						ACQUISITION_QTY			: gfnma_nvl2(item.ACQS_QTY),
+  						ACQS_QTY				: gfnma_nvl2(item.ACQS_QTY),
   					}
   					jsonFia2500Mast.push(msg);
   					totalRecordCount ++;
@@ -2575,7 +2576,7 @@
 		
         SBUxMethod.set("FM_SITE_CD",		SBUxMethod.get("SCH_SITE_CODE"));
         SBUxMethod.set("FM_CRN_CD",	p_ss_baseCurrCode);
-        SBUxMethod.set("FM_ACQS_FRST_YMD",	gfnma_date4());
+        SBUxMethod.set("FM_ACQS_YMD",	gfnma_date4());
 		
 		$('#main-btn-save', parent.document).attr('disabled', false);
 		$('#main-btn-del', 	parent.document).attr('disabled', true);
@@ -2632,7 +2633,7 @@
 		let p_sch_actual_flag_p		= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
 		let p_fm_asset_acquire_no	= gfnma_nvl(SBUxMethod.get("FM_ASST_ACQS_NO"));
 		let p_fm_asset_no			= gfnma_nvl(SBUxMethod.get("FM_ASST_NO"));
-		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_FRST_YMD"));
+		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_YMD"));
 		let p_fm_acquire_type		= gfnma_nvl(SBUxMethod.get("FM_ACQS_TYPE"));
 		let p_fm_cs_code			= gfnma_nvl(SBUxMethod.get("FM_CNPT_CD"));
 		let p_fm_asset_category		= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
@@ -2822,7 +2823,7 @@
 		let p_fm_tax_site_code		= gfnma_nvl(SBUxMethod.get("FM_TX_SITE_CD"));
 		let p_sch_actual_flag_p		= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
 		let p_fm_asset_no			= gfnma_nvl(SBUxMethod.get("FM_ASST_NO"));
-		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_FRST_YMD"));
+		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_YMD"));
 		let p_fm_acquire_type		= gfnma_nvl(SBUxMethod.get("FM_ACQS_TYPE"));
 		let p_fm_cs_code			= gfnma_nvl(SBUxMethod.get("FM_CNPT_CD"));
 		let p_fm_asset_category		= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
@@ -3106,7 +3107,7 @@
 		let p_fm_tax_site_code		= gfnma_nvl(SBUxMethod.get("FM_TX_SITE_CD"));
 		let p_sch_actual_flag_p		= gfnma_nvl(SBUxMethod.get("SCH_ACTUAL_FLAG_P"));
 		let p_fm_asset_no			= gfnma_nvl(SBUxMethod.get("FM_ASST_NO"));
-		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_FRST_YMD"));
+		let p_fm_acquire_date		= gfnma_nvl(SBUxMethod.get("FM_ACQS_YMD"));
 		let p_fm_acquire_type		= gfnma_nvl(SBUxMethod.get("FM_ACQS_TYPE"));
 		let p_fm_cs_code			= gfnma_nvl(SBUxMethod.get("FM_CNPT_CD"));
 		let p_fm_asset_category		= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));

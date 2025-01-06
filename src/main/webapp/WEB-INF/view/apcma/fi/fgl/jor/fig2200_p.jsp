@@ -1123,7 +1123,7 @@
     	
       	var p_strdoc_id	= '';
       	var chkList 		= Fig2200Grid.getUpdateData(true)
-		//console.log(chkList);			
+		console.log(chkList);			
 		for (var i = 0; i < chkList.length; i++) {
 			var obj = chkList[i].data;
 			if(obj['CHECK_YN']=='Y'){
@@ -1180,6 +1180,7 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
+		console.log('data:', data);
  
         try {
         	if (_.isEqual("S", data.resultStatus)) {
