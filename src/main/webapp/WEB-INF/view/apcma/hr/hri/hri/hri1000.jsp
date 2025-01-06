@@ -1842,21 +1842,21 @@
                                 SP_HRI1000_S6: await getParamForHri1000S6(empCode),
                                 SP_HRI1000_S7: await getParamForHri1000S7(empCode),
                                 SP_HRI1000_S8: await getParamForHri1000S8(empCode),
-                                /*P_HRI1000_S9: await getParamForHri1000S9(empCode),*/
+                                /*SP_HRI1000_S9: await getParamForHri1000S9(empCode),*/
                                 SP_HRI1000_S10: await getParamForHri1000S10(empCode),
-                                /*P_HRI1000_S11: await getParamForHri1000S11(empCode),*/
+                                /*SP_HRI1000_S11: await getParamForHri1000S11(empCode),*/
                                 SP_HRI1000_S12: await getParamForHri1000S12(empCode),
                                 SP_HRI1000_S13: await getParamForHri1000S13(empCode),
                                 SP_HRI1000_S14: await getParamForHri1000S14(empCode),
-                                /*P_HRI1000_S15: await getParamForHri1000S15(empCode),*/
-                                /*P_HRI1000_S16: await getParamForHri1000S16(empCode),*/
-                                /*P_HRI1000_S17: await getParamForHri1000S17(empCode),*/
-                                /*P_HRI1000_S18: await getParamForHri1000S18(empCode),*/
-                                /*P_HRI1000_S19: await getParamForHri1000S19(empCode),*/
+                                /*SP_HRI1000_S15: await getParamForHri1000S15(empCode),*/
+                                /*SP_HRI1000_S16: await getParamForHri1000S16(empCode),*/
+                                /*SP_HRI1000_S17: await getParamForHri1000S17(empCode),*/
+                                /*SP_HRI1000_S18: await getParamForHri1000S18(empCode),*/
+                                /*SP_HRI1000_S19: await getParamForHri1000S19(empCode),*/
                                 SP_HRI1000_S21: await getParamForHri1000S21(editType, empCode),
-                                /*P_HRI1000_S22: await getParamForHri1000S22(empCode),*/
+                                /*SP_HRI1000_S22: await getParamForHri1000S22(empCode),*/
                                 SP_HRI1000_S23: await getParamForHri1000S23(editType, empCode),
-                                /*P_HRI1000_S24: await getParamForHri1000S24(empCode),*/
+                                /*SP_HRI1000_S24: await getParamForHri1000S24(empCode),*/
                             }
 
                             const postJsonPromiseDetail = gfn_postJSON("/hr/hri/hri/insertHri1000Detail.do", paramObj);
@@ -2601,15 +2601,11 @@
                 // 컴퓨터활용능력
                 detailData.cv_10.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE           : item.EMP_CD
-                        ,EMP_NAME           : item.EMP_NM
-                        ,PARENT_DEPT_NAME   : item.PARENT_DEPT_NAME
-                        ,DEPT_NAME          : item.DEPT_NM
-                        ,POSITION_CODE      : item.JBPS_CD
-                        ,DUTY_CODE          : item.JBTTL_CD
-                        ,EMP_STATE          : item.EMP_STTS
-                        ,ENTER_DATE         : item.JNCMP_YMD
-                        ,RETIRE_DATE        : item.RTRM_YMD
+                        EMP_CODE : item.EMP_CD,
+                        SEQ : item.SEQ,
+                        OA_NAME : item.PC_UTLZ_ABLT_NM,
+                        OA_SKILL_LEVEL : item.PC_UTLZ_ABLT_LVL,
+                        MEMO : item.MEMO
                     }
                     jsonComputerSkillList.push(msg);
                 });
@@ -2619,14 +2615,17 @@
                 // 인사파일
                 detailData.cv_11.forEach((item, index) => {
                     const msg = {
-                        EMP_CODE : item.EMP_CD,
-                        SEQ : item.SEQ,
-                        OA_NAME : item.PC_UTLZ_ABLT_NM,
-                        OA_SKILL_LEVEL : item.PC_UTLZ_ABLT_LVL,
+                        FILE_TYPE : item.FILE_TYPE,
+                        FILE_NAME : item.FILE_NM,
+                        FILE_SERVER_PATH : item.FILE_SRVR_PATH,
+                        CREATE_TIME : item.WRT_DT,
+                        CREATE_USER : item.INPT_USER,
                         MEMO : item.MEMO
                     }
-                    jsonEmpTotalList.push(msg);
+                    jsonFileList.push(msg);
                 });
+
+                gvwFile.rebuild();
 
                 // 병역사항
                 fn_setTpgMasterSubDetail2(detailData.cv_13[0]);
