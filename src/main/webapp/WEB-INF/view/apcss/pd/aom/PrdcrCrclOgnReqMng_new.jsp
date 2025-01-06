@@ -2091,7 +2091,7 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
 		SBGridProperties.fixedrowheight=45;
-		SBGridProperties.rowheight = 72;
+		//SBGridProperties.rowheight = 72;
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02'}">
