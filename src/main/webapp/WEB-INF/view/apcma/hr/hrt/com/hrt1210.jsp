@@ -151,14 +151,14 @@
                     <tr>
                         <th scope="row" class="th_bg">교대조코드</th>
                         <td colspan="3" class="td_input">
-                            <sbux-input id="SHIFT_CODE" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                            <sbux-input id="SHIFT_CODE" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">교대조명</th>
                         <td colspan="5" class="td_input">
-                            <sbux-input id="SHIFT_NAME" class="form-control input-sm" uitype="text" style="width:100%" required></sbux-input>
+                            <sbux-input id="SHIFT_NAME" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" required></sbux-input>
                         </td>
                         <td></td>
                         <td></td>
