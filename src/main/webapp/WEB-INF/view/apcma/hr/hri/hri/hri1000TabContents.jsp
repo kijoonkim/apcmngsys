@@ -2039,7 +2039,7 @@
         jsonAddJobList.length = 0;
         jsonTimeOffHistoryList.length = 0;
         /*jsonGroupInsuranceList.length = 0;
-        jsonDiseaseList.length = 0;
+        jsonDiseaseList.length = 0;*/
         jsonPersonnelEvaluationList.length = 0;
         /*jsonOfficialInjuryList.length = 0;
         jsonContractDegList.length = 0;
@@ -2054,7 +2054,7 @@
         gvwLanguage.rebuild();
         gvwComputerSkill.rebuild();
         gvwFile.rebuild();
-        /*gvwEducation.rebuild();*/
+        gvwEducation.rebuild();
         gvwPrize.rebuild();
         /*gvwHealth.rebuild();*/
         gvwAppointment.rebuild();
@@ -2062,7 +2062,7 @@
         gvwTimeOffHistory.rebuild();
         /*gvwGroupInsurance.rebuild();*/
         /*gvwDisease.rebuild();*/
-        /*gvwPersonnelEvaluation.rebuild();*/
+        gvwPersonnelEvaluation.rebuild();
         /*gvwOfficialInjury.rebuild();*/
         /*gvwContractDeg.rebuild();*/
         /*gvwWorkPlan.rebuild();*/
@@ -2883,9 +2883,9 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'inputdate',  	width:'70px',  	style:'text-align:left',
+            {caption: ["평가년도"], 	        ref: 'EVAL_YEAR',    	        type:'datepicker',  	width:'70px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy'},
-                format : {type:'year', rule:'yyyy', origin:'YYYY'}
+                format : {type:'date', rule:'yyyy', origin:'YYYY'}
             },
             {caption: ["평가차수"],        ref: 'POSITION_CODE', 		     type:'combo',  	width:'120px',  	style:'text-align:left',
                 typeinfo: {
