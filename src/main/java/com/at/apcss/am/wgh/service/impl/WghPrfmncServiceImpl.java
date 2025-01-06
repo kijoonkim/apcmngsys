@@ -1619,4 +1619,16 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 			return 0;
 	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghRcptWrhsDtlList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptWrhsDtlList(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghRcptSpmtDtlList(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptSpmtDtlList(wghPrfmncVO);
+		return resultList;
+	}
 }

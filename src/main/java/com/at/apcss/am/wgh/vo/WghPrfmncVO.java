@@ -270,10 +270,12 @@ public class WghPrfmncVO extends ComVO {
 	 * 설비
 	 * */
 	private String fcltCd;
+	private String fcltCdNm;
 	/*
 	 * 입고출고유형
 	 * */
 	private String wrhsSpmtType;
+	private String wrhsSpmtTypeNm;
 
 	/*
 	 * 등급's

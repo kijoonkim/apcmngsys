@@ -174,12 +174,26 @@ public interface WghPrfmncService {
 	 */
 	public List<WghPrfmncVO> selectWghRcptWrhsList(WghPrfmncVO wghPrfmncVO) throws Exception;
 	/**
+	 * 계량접수등록 입고 상세 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghRcptWrhsDtlList(WghPrfmncVO wghPrfmncVO) throws Exception;
+	/**
 	 * 계량접수등록 출고 목록 조회
 	 * @param wghPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<WghPrfmncVO> selectWghRcptSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception;
+	/**
+	 * 계량접수등록 출고 상세 목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghRcptSpmtDtlList(WghPrfmncVO wghPrfmncVO) throws Exception;
 
 	/**
 	 * 계량접수 다중 저장
