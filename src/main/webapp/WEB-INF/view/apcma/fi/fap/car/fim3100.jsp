@@ -1430,7 +1430,7 @@
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('AP_ACCOUNT_CODE', 	data.APLY_ACNTL_CD);
+				SBUxMethod.set('AP_ACCOUNT_CODE', 	data.ACNTL_CD);
 				SBUxMethod.set('AP_ACCOUNT_NAME', 	data.ACNT_NM);
 			},
     	});

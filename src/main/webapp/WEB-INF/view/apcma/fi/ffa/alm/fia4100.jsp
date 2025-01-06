@@ -699,7 +699,7 @@
         
         var replaceText0 	= "_ASST_NO_";
         var replaceText1 	= "_ASST_NM_";
-        var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASST_NM LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND A.ASSET_NO LIKE '%" + replaceText0 + "%' AND A.ASST_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산목록');
     	compopup1({
