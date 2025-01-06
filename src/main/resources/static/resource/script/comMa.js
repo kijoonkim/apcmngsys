@@ -2015,3 +2015,60 @@ const gfnma_gridValidateCheck = function() {
 
 	return true; // Validation passed
 }
+
+/**
+ * @name 		gfnma_validateResidentNumber
+ * @description grid validation check
+ * @function
+ * @param 		{string} residentNumber
+ * @returns 	{boolean}
+ */
+const gfnma_validateResidentNumber = function(residentNumber) {
+	// 입력 형식이 올바른지 확인 (6자리-7자리)
+	if (!/^\d{6}-\d{7}$/.test(residentNumber)) {
+		return false;
+	}
+
+	// 주민등록번호를 숫자 배열로 변환
+	const [birthPart, restPart] = residentNumber.split("-");
+	const digits = (birthPart + restPart).split('').map(Number);
+
+	// 생년월일 검증
+	const genderCode = digits[6];
+	const yearPrefix = {
+		'1': 1900, '2': 1900, // 1900년대 남성/여성
+		'3': 2000, '4': 2000, // 2000년대 남성/여성
+		'5': 1900, '6': 1900, // 외국인 1900년대
+		'7': 2000, '8': 2000  // 외국인 2000년대
+	}[genderCode];
+
+	if (!yearPrefix) {
+		return false;
+	}
+
+	const year = yearPrefix + parseInt(birthPart.substring(0, 2), 10);
+	const month = parseInt(birthPart.substring(2, 4), 10) - 1; // 월은 0부터 시작
+	const day = parseInt(birthPart.substring(4, 6), 10);
+
+	const birthDate = new Date(year, month, day);
+	if (
+		!(birthDate instanceof Date) ||
+		isNaN(birthDate) ||
+		birthDate.getFullYear() !== year ||
+		birthDate.getMonth() !== month ||
+		birthDate.getDate() !== day ||
+		year < 1900 || year > new Date().getFullYear()
+	) {
+		return false;
+	}
+
+	// 체크섬 검증
+	const weights = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
+	let sum = 0;
+	for (let i = 0; i < 12; i++) {
+		sum += digits[i] * weights[i];
+	}
+
+	const remainder = (11 - (sum % 11)) % 10;
+	return remainder === digits[12];
+}

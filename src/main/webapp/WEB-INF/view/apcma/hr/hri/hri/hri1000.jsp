@@ -1119,6 +1119,12 @@
     const fnSocialNumChange = function(socialNum) {
         if (socialNum.length != 14) return;
 
+        if(!gfnma_validateResidentNumber(socialNum)) {
+            gfn_comAlert("E0000", "유효하지 않은 주민등록번호입니다.");
+            SBUxMethod.set("SOCIAL_NUM", "");
+            return;
+        }
+
         let SRCH_INITIAL_DATE = SBUxMethod.get("SRCH_INITIAL_DATE");
         let dtDate = new Date(SRCH_INITIAL_DATE.substring(0, 4)+ "-" + SRCH_INITIAL_DATE.substring(4, 6) + "-" + SRCH_INITIAL_DATE.substring(6, 8)); // 계산전 기산일을 가져옴
 
