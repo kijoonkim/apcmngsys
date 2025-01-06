@@ -877,6 +877,11 @@
 
 	/* Grid 화면 그리기 기능*/
 	const fn_fcltMngCreateGrid01 = async function() {
+		let yr = SBUxMethod.get("srch-input-yr");
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");
+		}
+		let totStr = yr + "년";
 
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdInvShipOgnReqMng01';
@@ -913,7 +918,7 @@
 			{caption: ["출자자수"], 			ref: 'invstNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["출자자 중 농업인수"], 	ref: 'invstExpndFrmerNope',   	type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["농업인 출자 지분율"], 	ref: 'frmerInvstAmtRt',   	type:'output',  width:'120px',    style:'text-align:center'},
-			{caption: ["2024 자금신청액"], 	ref: 'isoFundAplyAmt',   	type:'output',  width:'120px',    style:'text-align:center'
+			{caption: [totStr + "자금신청액"], 	ref: 'isoFundAplyAmt',   	type:'output',  width:'120px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["비고"], 				ref: 'rmrk',   	type:'output',  width:'120px',    style:'text-align:center'},
 
@@ -1052,13 +1057,13 @@
 
 	/* Grid Row 조회 기능*/
 	const fn_setGrdFcltList = async function(pageSize, pageNo){
-
 		let yr = SBUxMethod.get("srch-input-yr");//
 		//통합조직인 경우
 		if(gfn_isEmpty(yr)){
 			yr = SBUxMethod.get("dtl-input-yr");//
 		}
-		$(".setYr").text(yr);
+		await fn_fcltMngCreateGrid01();
+		await $(".setYr").text(yr);
 
 		//console.log(yr);
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
