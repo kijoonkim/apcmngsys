@@ -173,6 +173,7 @@ public class CmnsFcltController extends BaseController {
         resultMap.put(ComConstants.PROP_RESULT_STATUS,"S");
         return getSuccessResponseEntity(resultMap);
     }
+
     @PostMapping(value = "/am/cmns/deleteWghInfo.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
     public ResponseEntity<HashMap<String, Object>> deleteWghInfo(@RequestBody CmnsFcltDtlVO cmnsFcltDtlVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -191,6 +192,32 @@ public class CmnsFcltController extends BaseController {
         }
         resultMap.put(ComConstants.PROP_RESULT_STATUS,"S");
         resultMap.put(ComConstants.PROP_DELETED_CNT,deletedCnt);
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value="/am/cmns/saveWghFcltList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> saveWghFcltList(@RequestBody List<CmnsFcltVO> obj, HttpServletRequest request) throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        int insertedCt = 0;
+        try{
+        	for(CmnsFcltVO cmnsFcltVO : obj){
+        		cmnsFcltVO.setSysFrstInptUserId(getUserId());
+        		cmnsFcltVO.setSysFrstInptPrgrmId(getPrgrmId());
+        		cmnsFcltVO.setSysLastChgUserId(getUserId());
+        		cmnsFcltVO.setSysLastChgPrgrmId(getPrgrmId());
+            }
+            insertedCt = cmnsFcltService.saveWghFcltList(obj);
+        }catch (Exception e){
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        }finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_RESULT_STATUS,"S");
+        resultMap.put(ComConstants.PROP_INSERTED_CNT,insertedCt);
         return getSuccessResponseEntity(resultMap);
     }
 }

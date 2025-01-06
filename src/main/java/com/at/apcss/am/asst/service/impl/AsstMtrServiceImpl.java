@@ -84,6 +84,15 @@ public class AsstMtrServiceImpl extends BaseServiceImpl implements AsstMtrServic
 	public int deleteAsstMtrCrtrInfo(AsstMtrVO bomVO) throws Exception {
 		int result = 0;
 		asstMtrMapper.deleteAsstMtrCrtrInfo(bomVO);
+
+		String mtrlType = bomVO.getMtrlType();
+
+		//if(mtrlType == "S") {
+		//	asstMtrMapper.deleteBomDtlList(bomVO);
+		//	asstMtrMapper.deleteBomWrhsInfoList(bomVO);
+		//	asstMtrMapper.deleteBomSpmtInfoList(bomVO);
+		//}
+
 		return result;
 	}
 

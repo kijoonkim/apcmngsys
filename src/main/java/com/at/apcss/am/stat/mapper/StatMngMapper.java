@@ -110,4 +110,29 @@ public interface StatMngMapper {
 	 */
 	public List<HashMap<String,Object>> selectPrdSpmtPrfmncStatInfo(HashMap<String,Object> StatMngVO);
 
+	/**
+	 * 통계조회 - 투입실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String,Object>> selectPrdInptInfo(HashMap<String,Object> TotMngVO);
+	/**
+	 * 통계조회 - 입고실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String,Object>> selectPrdWrhsInfo(HashMap<String,Object> TotMngVO);
+	/**
+	 * 통계조회 - 출하실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String,Object>> selectPrdSpmtInfo(HashMap<String,Object> TotMngVO);
+	/**
+	 * 통계조회 - 생산실적
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String,Object>> selectPrdPrdctnInfo(HashMap<String,Object> TotMngVO);
+
 }

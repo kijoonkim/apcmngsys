@@ -105,4 +105,9 @@ public class CmnsFcltVO extends ComVO {
      * 시설비고
      */
     private String fcltRmrk;
+
+    /**
+     * 저장 구분 코드
+     */
+    private String gubun;
 }

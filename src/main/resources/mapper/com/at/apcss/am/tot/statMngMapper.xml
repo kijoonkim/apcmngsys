@@ -300,6 +300,119 @@
 		  	</if>
     </select>
 
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.totMngMapper.selectPrdInptInfo  	-->
+	<!-- DESC : 통계조회 - 투입실적.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdInptInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PRD_INPT A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.totMngMapper.selectPrdWrhsInfo  	-->
+	<!-- DESC : 통계조회 - 입고실적.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdWrhsInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PRD_WRHS A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.totMngMapper.selectPrdSpmtInfo  	-->
+	<!-- DESC : 통계조회 - 출하실적.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdSpmtInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PRD_SPMT A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.totMngMapper.selectPrdPrdctnInfo  	-->
+	<!-- DESC : 통계조회 - 생산실적.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectPrdPrdctnInfo" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				* FROM TB_TOT_PRD_PRDCTN A
+				WHERE 1=1
+					AND A.APC_CD = #{apcCd}
+			]]>
+			<if test='totYmdFrom != null and totYmdFrom != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdFrom}
+    		</if>
+    		<if test='totYmdTo != null and totYmdTo != ""'>
+				AND A.TOT_YMD <![CDATA[>=]]> #{totYmdTo}
+    		</if>
+			<if test='itemCd != null and itemCd != ""'>
+	   			AND A.ITEM_CD = #{itemCd}
+		  	</if>
+		  	<if test='vrtyCd != null and vrtyCd != ""'>
+	   			AND A.VRTY_CD = #{vrtyCd}
+		  	</if>
+    </select>
+
 
 
 

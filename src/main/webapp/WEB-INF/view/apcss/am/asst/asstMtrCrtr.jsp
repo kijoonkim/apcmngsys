@@ -747,11 +747,16 @@
         };
 
         let rowData = grd.getRowData(rowIndex);
+        let mtrlType = rowData.mtrlType;
+
         let url = "";
 
         let grdId = grd.getID();
         if(grdId === "grdAsstCrtrList"){
         	url = "/am/asst/deleteAsstMtrCrtrInfo.do";
+        	if(mtrlType ==="S"){
+
+        	}
         }else if(grdId === "grdBomList"){
         	url = "/am/asst/deleteBomCrtrInfo.do";
         }else if(grdId === "grdBomCmpstn"){
@@ -766,6 +771,7 @@
                 if(data.deletedCnt > 0){
                 	fn_search();
                     gfn_comAlert("I0001");
+                    grd.refresh();
                 }
             };
         }catch (e){

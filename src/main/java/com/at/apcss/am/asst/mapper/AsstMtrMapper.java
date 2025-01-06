@@ -184,6 +184,14 @@ public interface AsstMtrMapper {
 	public int deleteBomWrhsInfoList(AsstMtrVO bomVO);
 
 	/**
+	 * BOM출고삭제
+	 * @param AsstMtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBomSpmtInfoList(AsstMtrVO bomVO);
+
+	/**
 	 * BOM재고정보 조회한다.
 	 * @param AsstMtrVO
 	 * @return
