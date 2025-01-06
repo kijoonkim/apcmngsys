@@ -134,18 +134,18 @@
                                             </td>
                                             <th scope="row" class="th_bg">사업장</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                                <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">소득자 성명</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="EARNER_NAME1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="EARNER_NAME1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
                                             <td></td>
                                             <th scope="row" class="th_bg">주민등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SOCIAL_NO1" uitype="text" placeholder="" class="form-control input-sm" mask = "999999-9999999"></sbux-input>
+                                                <sbux-input id="SOCIAL_NO1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" group-id="panResidentInfo" required></sbux-input>
                                                 <sbux-input id="JUMIN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
@@ -164,7 +164,7 @@
                                             <th scope="row" class="th_bg">내·외국인구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FOREIGN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="FOREIGN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -175,14 +175,14 @@
                                             <td></td>
                                             <th scope="row" class="th_bg">거주지국</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                                <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">근무지역</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -194,7 +194,7 @@
                                             <th scope="row" class="th_bg">개인/법인 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BUSINESS_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="BUSINESS_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -207,7 +207,7 @@
                                             <th scope="row" class="th_bg">소득종류</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -219,7 +219,7 @@
                                             <th id="LBL_INCOME_SEC" scope="row" class="th_bg">소득구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_SEC" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_SEC" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -231,13 +231,13 @@
                                         <tr>
                                             <th scope="row" class="th_bg">신고사업장</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-select id="TAX_SITE_CODE1" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                                <sbux-select id="TAX_SITE_CODE1" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-select>
                                             </td>
                                             <td></td>
                                             <th scope="row" class="th_bg">정산주기</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="PAY_CYCLE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="PAY_CYCLE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -267,10 +267,10 @@
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
-                                                <sbux-input id="BANK_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
                                             <td colspan="2" class="td_input" style="border-right:hidden;" data-group="BANK">
-                                                <sbux-input id="BANK_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-button
@@ -282,7 +282,7 @@
                                             </td>
                                             <th scope="row" class="th_bg">계좌번호</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="BANK_ACCOUNT" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_ACCOUNT" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                                 <sbux-input id="CHK" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
@@ -349,12 +349,12 @@
                                         <tr>
                                             <th scope="row" class="th_bg">소득자성명(상호)</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="EARNER_NAME3" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="EARNER_NAME3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-input id="EARNER_CODE1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <th scope="row" class="th_bg">주민(사업자)등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SOCIAL_NO3" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="SOCIAL_NO3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-input id="SITE_CODE1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
@@ -362,7 +362,7 @@
                                             <th scope="row" class="th_bg">내·외국인구분</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="FOREIGN_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="FOREIGN_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -372,14 +372,14 @@
                                             </td>
                                             <th scope="row" class="th_bg">거주지국</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-select id="NATION_CODE1" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                                <sbux-select id="NATION_CODE1" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">근무지역</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="WORK_REGION1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="WORK_REGION1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -390,7 +390,7 @@
                                             <th scope="row" class="th_bg">개인/법인 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BUSINESS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="BUSINESS_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -403,7 +403,7 @@
                                             <th scope="row" class="th_bg">소득종류</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -414,7 +414,7 @@
                                             <th id="LBL_INCOME_SEC1" scope="row" class="th_bg">소득구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_SEC1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_SEC1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -426,7 +426,7 @@
                                         <tr>
                                             <th scope="row" class="th_bg">신고사업장</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-select id="TAX_SITE_CODE2" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
+                                                <sbux-select id="TAX_SITE_CODE2" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -437,7 +437,7 @@
                                                         id="BIRTHDAY"
                                                         name="BIRTHDAY"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
                                                         style="width:100%;"
                                                 />
                                             </td>
@@ -445,16 +445,16 @@
                                         <tr>
                                             <th scope="row" class="th_bg">소득자주소</th>
                                             <td colspan="4" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="ADDRESS1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="ADDRESS1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK1">
-                                                <sbux-input id="BANK_CODE1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_CODE1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK1">
-                                                <sbux-input id="BANK_NAME1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_NAME1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK1">
                                                 <sbux-button
@@ -466,7 +466,7 @@
                                             </td>
                                             <th scope="row" class="th_bg">계좌번호</th>
                                             <td class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="BANK_ACCOUNT1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-input id="BANK_ACCOUNT1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
@@ -1239,6 +1239,16 @@
     const fn_save = async function () {
         let strStatus = "";
         let enableTab = gfn_nvl(SBUxMethod.get("tabInfo"));
+
+        if(enableTab == "tpgResident") {
+            if(!SBUxMethod.validateRequired({group_id: "panResidentInfo"}) || !validateRequired("panResidentInfo")) {
+                return false;
+            }
+        } else if(enableTab == "tpgNonresident") {
+            if(!SBUxMethod.validateRequired({group_id: "panNonresidentInfo"}) || !validateRequired("panNonresidentInfo")) {
+                return false;
+            }
+        }
 
         if(enableTab == "tpgResident") {
             if (gfn_nvl(SBUxMethod.get("CHK")) == "")
