@@ -40,8 +40,8 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnPdf" name="btnPdf" uitype="normal" text="PDF 저장"
-                             class="btn btn-sm btn-outline-danger" onclick="fn_dwnPdf"></sbux-button>
+                <%--<sbux-button id="btnPdf" name="btnPdf" uitype="normal" text="PDF 저장"
+                             class="btn btn-sm btn-outline-danger" onclick="fn_dwnPdf"></sbux-button>--%>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" text="출력"
                              class="btn btn-sm btn-outline-danger" onclick="fn_btnPrint"></sbux-button>
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장"

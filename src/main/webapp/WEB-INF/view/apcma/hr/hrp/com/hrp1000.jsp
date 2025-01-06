@@ -2630,7 +2630,7 @@
         let RETIRE_PAY_YN           = gfnma_nvl2(SBUxMethod.get("RETIRE_PAY_YN").RETIRE_PAY_YN);
         let BANK_CODE2              = gfnma_nvl2(SBUxMethod.get("BANK_CODE2"));
         let BANK_ACCOUNT2_REAL      = gfnma_nvl2(SBUxMethod.get("BANK_ACCOUNT2_REAL"));
-        //BANK_ACCOUNT2_REAL          = BANK_ACCOUNT2_REAL.replace(/,/gi,'');
+        //BANK_ACCOUNT2_REAL          = BANK_ACCOUNT2_REAL.replace(/,/gi,'');T
 
         let BANK2_PAY_ITEM          = gfnma_nvl2(SBUxMethod.get("BANK2_PAY_ITEM"));
         let LUNCH_PAY_YN            = gfnma_nvl2(SBUxMethod.get("LUNCH_PAY_YN").LUNCH_PAY_YN);

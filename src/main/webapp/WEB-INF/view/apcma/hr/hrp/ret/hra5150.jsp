@@ -2775,7 +2775,17 @@
 
     // 조회
     function cfn_search() {
-        fn_search();
+
+        let tabId = SBUxMethod.get('tabJson');
+
+        if (_.isEqual(tabId, 'tabInfo4')) {
+
+            fn_searchTabInfo4();
+
+        }else{
+            fn_search();
+        }
+
     }
 
     /**

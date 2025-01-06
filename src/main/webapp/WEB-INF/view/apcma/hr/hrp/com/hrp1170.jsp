@@ -416,7 +416,8 @@
 
         let allData = grdExceptionList.getGridDataAll();
 
-        if (await fn_saveValid(allData) == fasle){
+        if (await fn_saveValid(allData) == false){
+            //gfn_comAlert("W0002", "'월별 급상여 예외자 리스트' 지급구분");
             return;
         }
 
@@ -820,6 +821,7 @@
             /* var paramObj = {
                  P_HRP1170_S: await getParamForm('u')
              }*/
+
 
             if (listData.length > 0) {
 
