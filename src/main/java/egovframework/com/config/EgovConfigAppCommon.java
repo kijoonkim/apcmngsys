@@ -210,8 +210,7 @@ public class EgovConfigAppCommon {
 	@Bean
 	public WebClient gatewayWebClient() {
 		return WebClient
-				.create("http://133.186.229.14:8000");
-				//.create("http://172.16.10.10:8000");
+				.create("http://133.186.212.16:8000");//개발WAS
 				//.create("http://localhost:8000");
 	}
 }
