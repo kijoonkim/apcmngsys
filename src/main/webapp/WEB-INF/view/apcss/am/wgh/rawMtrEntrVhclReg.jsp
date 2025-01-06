@@ -399,7 +399,8 @@
 		const wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
 		const param = {
 			apcCd : gv_selectedApcCd,
-			wghYmd: wghYmd
+			wghYmd: wghYmd,
+			wghSeCd : "01"
 		}
 
 		let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", param);
@@ -490,6 +491,7 @@
 					, wghYmd : wghYmd
 					, prcsCmptnYn : 'N'
 					, fcltCd : wghFclt
+
 			}
 
             let postJsonPromise = gfn_postJSON("/am/wgh/insertWghEntrVhcl.do",obj);

@@ -260,7 +260,7 @@
 		SBUxMethod.set("srch-inp-wghNo",rowData.wghno);
 		SBUxMethod.set("srch-inp-vhclNo",rowData.vhclno);
 		SBUxMethod.set("srch-inp-outVhclWght",rowData.outWght); //입차중량
-		const timePart = rowData.outTm.slice(-6);
+		const timePart = rowData.entrTm.slice(-6);
 		SBUxMethod.set("srch-dtp-outVhclTm",timePart); //입차시간
 		SBUxMethod.set("srch-inp-rmrk",rowData.wghRmrk);
 		SBUxMethod.set("srch-dtp-wghYmd",rowData.outTm);
@@ -269,7 +269,7 @@
 
 
 	const fn_search = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd});
+    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd, wghSeCd : "02"});
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -340,7 +340,7 @@
 					, wghno : wghNo
 					, wghSeq : 2
 					, vhclno : vhclNo
-					, wghSeCd : '02' //출차
+					, wghSeCd : '12' //출하출차
 					, wghWght : entrVhclWght
 					, wghDt : wghYmd + entrVhclTm
 					, delYn : 'N'
@@ -348,6 +348,7 @@
 					, wghYmd : wghYmd
 					, prcsCmptnYn : 'N'
 					, fcltCd : wghFclt
+					, wrhsSpmtType : 'DT'
 			}
 
 

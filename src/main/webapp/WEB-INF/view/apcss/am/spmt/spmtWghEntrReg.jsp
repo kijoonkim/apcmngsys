@@ -269,7 +269,7 @@
 
 
 	const fn_search = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd});
+    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd, wghSeCd : "02"});
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -336,7 +336,7 @@
 					, wghno : wghNo
 					, wghSeq : 1
 					, vhclno : vhclNo
-					, wghSeCd : '01' //입차
+					, wghSeCd : '11' //출하입차
 					, wghWght : entrVhclWght
 					, wghDt : wghYmd + entrVhclTm
 					, delYn : 'N'
@@ -344,6 +344,7 @@
 					, wghYmd : wghYmd
 					, prcsCmptnYn : 'N'
 					, fcltCd : wghFclt
+					, wrhsSpmtType : 'DT'
 			}
 
 
