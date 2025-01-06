@@ -397,10 +397,12 @@
 					-->
 				</c:if>
 
+				<!--
 				<br>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>전체 취급실적 작성(전문/육성 품목 포함 주요품목 작성, 취급액 비중이 낮은 품목은 기타품목으로 통합작성 후 비고란에 기타품목 명 기재</p>
 				</div>
+				-->
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
 					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
@@ -772,8 +774,8 @@
 			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
+			{caption: ["소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			/*= 수탁 =*/
 			{caption: ["수탁","공동선별수탁","물량(톤)"], ref: 'prchsSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:right'
@@ -1077,8 +1079,8 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["통합조직","통합조직","통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["통합조직","통합조직","통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 			/*총취급실적*/
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
 				,ref: 'totTrmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:right'
@@ -1330,8 +1332,8 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","소속 통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["소속 통합조직","소속 통합조직","소속 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","물량(톤)"]
 				,ref: 'totSpmtPrfmncVlm',   	type:'input',  width:'50px',    style:'text-align:right'

@@ -822,7 +822,7 @@
 			}
 			return sumVal;
 		}
-
+		/*
 		if(rowData.typeSeNo === '6' && rowData.trmtType !== '0'){
 			let sumVal = 0;
 			let captionRow = objGrid.getFixedRows();
@@ -855,6 +855,22 @@
 			}
 			return sumVal;
 		}
+		*/
+
+		if(rowData.typeSeNo === '6'){
+			let sumVal = 0;
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd
+						&& rowData01.typeSeNo === '5'
+						&& rowData01.ognzStbltYn === rowData.ognzStbltYn
+						&& !gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
+					sumVal += Number(rowData01.slsCnsgnSlsAmt);
+				}
+			}
+			return sumVal;
+		}
 
 		if(rowData.typeSeNo == '8'){
 			let sumVal = 0;
@@ -866,7 +882,7 @@
 					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
 					//직속 생산자조직에는 trmtType이 0인 경우를 제외
 					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
-					if(rowData01.typeSeNo == '2' || (rowData01.typeSeNo == '6' && rowData01.trmtType != '0') || rowData01.typeSeNo == '7'){
+					if(rowData01.typeSeNo == '1' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '5' || rowData01.typeSeNo == '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt)){
 							sumVal += Number(rowData01.slsCnsgnSlsAmt);
 						}
@@ -924,6 +940,7 @@
 			}
 			return sumVal;
 		}
+		/*
 		if(rowData.typeSeNo === '6' && rowData.trmtType !== '0'){
 			let sumVal = 0;
 			let captionRow = objGrid.getFixedRows();
@@ -954,6 +971,21 @@
 			}
 			return sumVal;
 		}
+		*/
+		if(rowData.typeSeNo === '6'){
+			let sumVal = 0;
+			let captionRow = objGrid.getFixedRows();
+			for (var i = captionRow; i < grdData.length + captionRow; i++) {
+				let rowData01 = objGrid.getRowData(i);
+				if(rowData01.itemCd == itemCd
+						&& rowData01.typeSeNo === '5'
+						&& rowData01.ognzStbltYn === rowData.ognzStbltYn
+						&& !gfn_isEmpty(rowData01.slsCnsgnSlsVlm)){
+					sumVal += Number(rowData01.slsCnsgnSlsVlm);
+				}
+			}
+			return sumVal;
+		}
 
 		if(rowData.typeSeNo === '8'){
 			let sumVal = 0;
@@ -965,7 +997,7 @@
 					//20241217 생산자조직 외 출자출하조직 리스트 추가로 인해 typeSeNo 3번을 제외함
 					//직속 생산자조직에는 trmtType이 0인 경우를 제외
 					//if(rowData01.typeSeNo == '2' || rowData01.typeSeNo == '3' || rowData01.typeSeNo == '6' || rowData01.typeSeNo == '7'){
-					if(rowData01.typeSeNo === '2' || (rowData01.typeSeNo === '6' && rowData01.trmtType !== '0') || rowData01.typeSeNo === '7'){
+					if(rowData01.typeSeNo === '1' || rowData01.typeSeNo === '3' || rowData01.typeSeNo === '5' || rowData01.typeSeNo === '7'){
 						if(!gfn_isEmpty(rowData01.slsCnsgnSlsVlm)){
 							sumVal += Number(rowData01.slsCnsgnSlsVlm);
 						}
