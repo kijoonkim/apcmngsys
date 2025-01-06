@@ -440,7 +440,7 @@
         fn_init();
 
 
-        document.getElementById('excelFile2').addEventListener('change', function (event) {
+/*        document.getElementById('excelFile2').addEventListener('change', function (event) {
             if (!window.FileReader) return;
 
             let PAY_ITEM_NAME = gfnma_nvl2(SBUxMethod.get("PAY_ITEM_NAME")); //급여항목명
@@ -497,7 +497,7 @@
                 false,
             );
             reader.readAsBinaryString(event.target.files[0]);
-        });
+        });*/
 
     });
 
