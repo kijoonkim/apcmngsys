@@ -189,56 +189,56 @@
                         <td></td>
                         <th scope="row" class="th_bg">교대유형</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="SHIFT_CATEGORY" uitype="single" jsondata-ref="jsonShiftCategory" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="SHIFT_CATEGORY" uitype="single" jsondata-ref="jsonShiftCategory" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">근무유형</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_TYPE_CODE" uitype="single" jsondata-ref="jsonWorkTypeCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">근무일</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="WORK_DAY_TYPE" uitype="single" jsondata-ref="jsonWorkDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_DAY_TYPE" uitype="single" jsondata-ref="jsonWorkDayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">바탕색상</th>
                         <td colspan="4" class="td_input">
-                            <sbux-select id="BACK_COLOR" uitype="single" jsondata-ref="jsonBackColor" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="BACK_COLOR" uitype="single" jsondata-ref="jsonBackColor" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td></td>
                         <td></td>
                         <th scope="row" class="th_bg">13유휴대상</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="PAY_ALLOWANCE_FLAG" uitype="single" jsondata-ref="jsonPayAllowanceFlag" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="PAY_ALLOWANCE_FLAG" uitype="single" jsondata-ref="jsonPayAllowanceFlag" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="th_bg">출퇴근시간</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_ON_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_ON_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_ON_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_ON_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>~</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_OFF_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_OFF_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="WORK_OFF_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="WORK_OFF_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
                             <sbux-input id="WORK_HOURS" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
@@ -249,25 +249,25 @@
                     <tr>
                         <th scope="row" class="th_bg">정상근무시간</th>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_START_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_START_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_START_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_START_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>~</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_END_DAY_TYPE" uitype="single" jsondata-ref="jsonDayType" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_END_HH" uitype="single" jsondata-ref="jsonHh" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td>:</td>
                         <td colspan="2" class="td_input">
-                            <sbux-select id="NORMAL_END_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm" required></sbux-select>
+                            <sbux-select id="NORMAL_END_MM" uitype="single" jsondata-ref="jsonMm" unselected-text="선택" class="form-control input-sm inpt_data_reqed" required></sbux-select>
                         </td>
                         <td colspan="2" class="td_input">
                             <sbux-input id="NORMAL_HOURS" class="form-control input-sm" uitype="text" style="width:100%" readonly></sbux-input>
@@ -849,7 +849,7 @@
             },
             {caption: ["근무정보", "근무유형"], 	        ref: 'WORK_TYPE_CODE',    	        type:'combo',  	width:'82px',  	style:'text-align:left',
                 typeinfo: {
-                    ref			: 'jsonWorkDayType',
+                    ref			: 'jsonWorkTypeCode',
                     label		: 'label',
                     value		: 'value',
                     itemcount	: 10

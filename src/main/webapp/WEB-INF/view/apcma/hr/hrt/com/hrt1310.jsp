@@ -567,7 +567,7 @@
                 jsonPatternListOrigin.length = 0;
 
                 listData.cv_2.forEach((item, index) => {
-                    item["WORK_PATTERN_CODE"] = item.WORK_TYPE_CD;
+                    item["WORK_PATTERN_CODE"] = item.WRK_PTTRN_CD;
                 });
 
                 jsonPatternList = listData.cv_2;
