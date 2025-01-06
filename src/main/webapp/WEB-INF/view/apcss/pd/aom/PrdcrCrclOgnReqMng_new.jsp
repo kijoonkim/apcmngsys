@@ -1126,7 +1126,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_setYear();//기본년도 세팅
+		await fn_setYear();//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
@@ -2073,6 +2073,11 @@
 	//품목입력 그리드
 	/* Grid 화면 그리기 기능*/
 	const fn_gpcListGrid = async function() {
+		let yr = SBUxMethod.get("srch-input-yr");
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");
+		}
+		let totStr = yr + "년";
 
 		let SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdGpcList';
@@ -2085,6 +2090,8 @@
 		SBGridProperties.rowheadercaption = {seq: 'No'};//seq 해더 추가
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.oneclickedit = true;//입력 활성화 true 1번클릭 false 더블클릭
+		SBGridProperties.fixedrowheight=45;
+		SBGridProperties.rowheight = 72;
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02'}">
@@ -2130,11 +2137,11 @@
 			{caption: ["품목명"], 			ref: 'itemNm',   		type:'output',  width:'150px',	style:'text-align:center'},
 
 			{caption: ["품목코드"], 		ref: 'itemCd',   		type:'output',  width:'60px',	style:'text-align:center'},
-			{caption: ["총취급액 목표(천원)"], 	ref: 'trgtTrmtAmt',   	type:'input',  width:'150px',	style:'text-align:center'
+			{caption: [totStr + "\n총취급액 목표(천원)"], 	ref: 'trgtTrmtAmt',   	type:'input',  width:'150px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
-			{caption: ["전속취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
+			{caption: [totStr + "\n전속취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
 				,format: {type: 'number', rule: '#,##0.00'}},
-			{caption: ["비고"], 			ref: 'rmrk',   			type:'input',  width:'150px',	style:'text-align:center'},
+			{caption: ["비고\n(품목명을 기타로 입력한 경우에는 세부 품목명 입력 필수)"], 			ref: 'rmrk',   			type:'input',  width:'150px',	style:'text-align:center'},
 			//{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgCtgryCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgSttgUpbrItemSe',   hidden : true},
