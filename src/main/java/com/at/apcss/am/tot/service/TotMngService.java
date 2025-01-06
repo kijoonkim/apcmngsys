@@ -3,6 +3,7 @@ package com.at.apcss.am.tot.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.tot.vo.TotCrtrVO;
 import com.at.apcss.am.tot.vo.TotMngVO;
 
 
@@ -21,6 +22,61 @@ import com.at.apcss.am.tot.vo.TotMngVO;
  * </pre>
  */
 public interface TotMngService {
+
+
+	public TotCrtrVO selectCrtr(TotCrtrVO totCrtrVO) throws Exception;
+
+	public TotCrtrVO selectCrtr(String apcCd, String totCrtrType, String crtrCd) throws Exception;
+
+	/**
+	 * 기준정보 목록 조회
+	 * @param totCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TotCrtrVO> selectCrtrList(TotCrtrVO totCrtrVO) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param totCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TotCrtrVO> selectCrtrDtlList(TotCrtrVO totCrtrVO) throws Exception;
+
+	/**
+	 * 기준 등록
+	 * @param TotMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertCrtr(TotMngVO totMngVO) throws Exception;
+
+	/**
+	 * 기준 삭제
+	 * @param TotMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteCrtr(TotMngVO totMngVO) throws Exception;
+
+	/**
+	 * 기준상세 등록
+	 * @param TotMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertCrtrDtl(TotMngVO totMngVO) throws Exception;
+
+	/**
+	 * 기준상세 삭제
+	 * @param TotMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteCrtrDtl(TotMngVO totMngVO) throws Exception;
+
+
 
 	/**
 	 * 집계기준정보조회

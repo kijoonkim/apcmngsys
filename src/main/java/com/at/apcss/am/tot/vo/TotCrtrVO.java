@@ -1,23 +1,18 @@
 package com.at.apcss.am.tot.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Getter
 @Setter
-public class TotMngVO extends ComVO{
+public class TotCrtrVO extends ComVO{
 
+	private boolean needsInsert;
 	/**
 	APC코드
 	**/
 	private String apcCd;
-
 
 	/**
 	부자재기준유형코드
@@ -45,6 +40,14 @@ public class TotMngVO extends ComVO{
 	표시순서
 	**/
 	private Integer indctSeq;
+
+	private String totCrtrTypeNm;
+	private String crtrUseYn;
+	private String crtrDtlUseYn;
+
+	private int crtrSeq;
+	private int crtrDtlSeq;
+
 	/**
 	삭제여부
 	**/
@@ -67,11 +70,6 @@ public class TotMngVO extends ComVO{
 	private String dtlIndctNm;
 
 	/**
-	상태
-	**/
-	private String status;
-
-	/**
 	집계상세처리코드
 	**/
 	private String totDtlPrcsCd;
@@ -81,44 +79,13 @@ public class TotMngVO extends ComVO{
 	**/
 	private String rmrk;
 
+	private int maxDtlSn;
+
 	/**
 	 * 집계상세유형
 	 */
 	private String totDtlType;
 
-	/**
-	 * 구분
-	 */
-	private String gubun;
-
-	/**
-	 *
-	 */
-	private String dtlNm;
-
-
-	private List<TotCrtrVO> crtrList;
-
-	private List<TotCrtrVO> crtrDtlList;
-
-
-
-	public List<TotCrtrVO> getCrtrList() {
-		return crtrList == null ? null : new ArrayList<>(crtrList);
-	}
-
-	public void setCrtrList(List<TotCrtrVO> crtrList) {
-		this.crtrList = crtrList == null ? null : new ArrayList<>(crtrList);
-	}
-
-	public List<TotCrtrVO> getCrtrDtlList() {
-		return crtrDtlList == null ? null : new ArrayList<>(crtrDtlList);
-	}
-
-	public void setCrtrDtlList(List<TotCrtrVO> crtrDtlList) {
-		this.crtrDtlList = crtrDtlList == null ? null : new ArrayList<>(crtrDtlList);
-	}
-
-
+	private String totCrtrChrVl;
 
 }

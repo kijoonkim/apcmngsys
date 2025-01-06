@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 
 
+import com.at.apcss.am.dscd.vo.DscdCrtrVO;
+import com.at.apcss.am.tot.vo.TotCrtrVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.util.ComUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,7 @@ import com.at.apcss.am.tot.vo.TotMngVO;
 import com.at.apcss.am.tot.mapper.TotMngMapper;
 import com.at.apcss.am.tot.service.TotMngService;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import org.springframework.util.StringUtils;
 
 /**
  * @Class Name : SortFcltServiceImpl.java
@@ -37,8 +42,300 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 	private TotMngMapper totMngMapper;
 
 	@Override
+	public TotCrtrVO selectCrtr(TotCrtrVO totCrtrVO) throws Exception {
+		return totMngMapper.selectCrtr(totCrtrVO);
+	}
+
+	@Override
+	public TotCrtrVO selectCrtr(String apcCd, String totCrtrType, String crtrCd) throws Exception {
+		TotCrtrVO param = new TotCrtrVO();
+		param.setApcCd(apcCd);
+		param.setTotCrtrType(totCrtrType);
+		param.setCrtrCd(crtrCd);
+
+		return selectCrtr(param);
+	}
+
+	@Override
+	public List<TotCrtrVO> selectCrtrList(TotCrtrVO totCrtrVO) throws Exception {
+		return totMngMapper.selectCrtrList(totCrtrVO);
+	}
+
+	@Override
+	public List<TotCrtrVO> selectCrtrDtlList(TotCrtrVO totCrtrVO) throws Exception {
+		return totMngMapper.selectCrtrDtlList(totCrtrVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertCrtr(TotMngVO totMngVO) throws Exception {
+
+		String apcCd = totMngVO.getApcCd();
+
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		List<TotCrtrVO> crtrList = totMngVO.getCrtrList();
+
+		if (crtrList == null || crtrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "기준저장");
+		}
+
+		String sysUserId = totMngVO.getSysLastChgUserId();
+		String sysPrgrmId = totMngVO.getSysLastChgPrgrmId();
+
+		for ( TotCrtrVO crtr : crtrList ) {
+
+			// validation check
+			if (!StringUtils.hasText(crtr.getTotCrtrType())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "집계기준유형");
+			}
+
+			if (!StringUtils.hasText(crtr.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
+			}
+
+			if (!StringUtils.hasText(crtr.getCrtrIndctNm())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준표시명");
+			}
+
+			crtr.setApcCd(apcCd);
+
+			// 데이터 확인
+			TotCrtrVO crtrInfo = selectCrtr(crtr);
+
+			if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
+				crtr.setNeedsInsert(true);
+			} else {
+				crtr.setNeedsInsert(false);
+			}
+		}
+
+		for ( TotCrtrVO crtr : crtrList ) {
+			crtr.setSysFrstInptUserId(sysUserId);
+			crtr.setSysFrstInptPrgrmId(sysPrgrmId);
+			crtr.setSysLastChgUserId(sysUserId);
+			crtr.setSysLastChgPrgrmId(sysPrgrmId);
+
+			if (crtr.isNeedsInsert()) {
+				totMngMapper.insertCrtr(crtr);
+			} else {
+				totMngMapper.updateCrtr(crtr);
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteCrtr(TotMngVO totMngVO) throws Exception {
+
+		String apcCd = totMngVO.getApcCd();
+
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		List<TotCrtrVO> crtrList = totMngVO.getCrtrList();
+
+		if (crtrList == null || crtrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "기준삭제");
+		}
+
+		String sysUserId = totMngVO.getSysLastChgUserId();
+		String sysPrgrmId = totMngVO.getSysLastChgPrgrmId();
+
+		for ( TotCrtrVO crtr : crtrList ) {
+
+			// validation check
+			if (!StringUtils.hasText(crtr.getTotCrtrType())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "집계기준유형");
+			}
+			if (!StringUtils.hasText(crtr.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
+			}
+
+			crtr.setApcCd(apcCd);
+
+			// 데이터 확인
+			TotCrtrVO crtrInfo = totMngMapper.selectCrtr(crtr);
+			if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET, "등록");
+			}
+		}
+
+		for ( TotCrtrVO crtr : crtrList ) {
+			crtr.setSysFrstInptUserId(sysUserId);
+			crtr.setSysFrstInptPrgrmId(sysPrgrmId);
+			crtr.setSysLastChgUserId(sysUserId);
+			crtr.setSysLastChgPrgrmId(sysPrgrmId);
+
+			List<TotCrtrVO> dtlList = totMngMapper.selectCrtrDtlList(crtr);
+
+			for ( TotCrtrVO dtl : dtlList ) {
+				dtl.setSysFrstInptUserId(sysUserId);
+				dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+				dtl.setSysLastChgUserId(sysUserId);
+				dtl.setSysLastChgPrgrmId(sysPrgrmId);
+
+				totMngMapper.deleteCrtrDtl(dtl);
+			}
+
+			totMngMapper.deleteCrtr(crtr);
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> insertCrtrDtl(TotMngVO totMngVO) throws Exception {
+
+		String apcCd = totMngVO.getApcCd();
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		String totCrtrType = totMngVO.getTotCrtrType();
+		if (!StringUtils.hasLength(totCrtrType)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "집계기준유형");
+		}
+
+		String crtrCd = totMngVO.getCrtrCd();
+		if (!StringUtils.hasLength(crtrCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
+		}
+
+		// header 가 없으면 등록 안됨
+		// 데이터 확인
+		TotCrtrVO crtrInfo = selectCrtr(apcCd, totCrtrType, crtrCd);
+		if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "집계기준");
+		}
+
+		int dtlSn = crtrInfo.getMaxDtlSn();
+		List<TotCrtrVO> crtrDtlList = totMngVO.getCrtrDtlList();
+
+		if (crtrDtlList == null || crtrDtlList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "저장");
+		}
+
+		String sysUserId = totMngVO.getSysLastChgUserId();
+		String sysPrgrmId = totMngVO.getSysLastChgPrgrmId();
+
+		for ( TotCrtrVO dtl : crtrDtlList ) {
+
+			// validation check
+			if (!totCrtrType.equals(dtl.getTotCrtrType())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "집계기준유형||등록유형");
+			}
+			if (!crtrCd.equals(dtl.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "기준코드||등록코드");
+			}
+
+			if (!StringUtils.hasText(dtl.getDtlIndctNm())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세표시명");
+			}
+
+			if (!StringUtils.hasText(dtl.getDtlCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세코드");
+			}
+
+			dtl.setApcCd(apcCd);
+
+			// 데이터 확인
+			TotCrtrVO dtlInfo = totMngMapper.selectCrtrDtl(dtl);
+
+			if (dtlInfo == null || !StringUtils.hasText(dtlInfo.getCrtrCd())) {
+				dtl.setNeedsInsert(true);
+				dtlSn++;
+				dtl.setDtlSn(dtlSn);
+			} else {
+				dtl.setNeedsInsert(false);
+			}
+		}
+
+		for ( TotCrtrVO dtl : crtrDtlList ) {
+			dtl.setSysFrstInptUserId(sysUserId);
+			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+			dtl.setSysLastChgUserId(sysUserId);
+			dtl.setSysLastChgPrgrmId(sysPrgrmId);
+
+			if (dtl.isNeedsInsert()) {
+				totMngMapper.insertCrtrDtl(dtl);
+			} else {
+				totMngMapper.updateCrtrDtl(dtl);
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteCrtrDtl(TotMngVO totMngVO) throws Exception {
+
+		String apcCd = totMngVO.getApcCd();
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		String totCrtrType = totMngVO.getTotCrtrType();
+		if (!StringUtils.hasLength(totCrtrType)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준유형");
+		}
+
+		String crtrCd = totMngVO.getCrtrCd();
+		if (!StringUtils.hasLength(crtrCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
+		}
+
+		List<TotCrtrVO> crtrDtlList = totMngVO.getCrtrDtlList();
+
+		if (crtrDtlList == null || crtrDtlList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+		}
+
+		String sysUserId = totMngVO.getSysLastChgUserId();
+		String sysPrgrmId = totMngVO.getSysLastChgPrgrmId();
+
+		for ( TotCrtrVO dtl : crtrDtlList ) {
+
+			// validation check
+			if (!totCrtrType.equals(dtl.getTotCrtrType())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "집계기준유형||등록유형");
+			}
+
+			if (!crtrCd.equals(dtl.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "기준코드||등록코드");
+			}
+
+			if (dtl.getDtlSn() < 1) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세일련번호");
+			}
+
+			dtl.setApcCd(apcCd);
+
+			// 데이터 확인
+			TotCrtrVO dtlInfo = totMngMapper.selectCrtrDtl(dtl);
+
+			if (dtlInfo == null || !StringUtils.hasText(dtlInfo.getCrtrCd())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
+			}
+		}
+
+		for ( TotCrtrVO dtl : crtrDtlList ) {
+			dtl.setSysFrstInptUserId(sysUserId);
+			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+			dtl.setSysLastChgUserId(sysUserId);
+			dtl.setSysLastChgPrgrmId(sysPrgrmId);
+
+			totMngMapper.deleteCrtrDtl(dtl);
+		}
+
+		return null;
+	}
+
+	@Override
 	public List<TotMngVO> selectTotCrtrInfoList(TotMngVO totMngVO) throws Exception {
-		// TODO Auto-generated method stub
 		List<TotMngVO> result = totMngMapper.selectTotMngInfoList(totMngVO);
 		return result;
 	}
@@ -119,17 +416,13 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 
 	@Override
 	public List<HashMap<String, Object>> selectSortInvntrTotInfo(HashMap<String, Object> totMngVO) throws Exception {
-		List<HashMap<String,Object>> result = totMngMapper.selectSortInvntrTotInfo(totMngVO);
-		return result;
+		return null;
 	}
 
 	@Override
 	public List<HashMap<String, Object>> selectSortPrfmncTotInfo(HashMap<String, Object> totMngVO) throws Exception {
-		List<HashMap<String,Object>> result = totMngMapper.selectSortPrfmncTotInfo(totMngVO);
-		return result;
+		return null;
 	}
-
-
 
 
 }
