@@ -2201,14 +2201,19 @@
     function fn_compopup6() {
     	
     	//type C 형 팝업
-    	var p_find1	= p_ss_languageID;
-    	var p_find2	= gv_ma_selectedCorpCd;
-    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2"));
-console.log('p_find3:', p_find3);    	
-   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3"));
-		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_NAME"));
-		var p_find6	= "";
-		var p_find7	= "";
+    	var p_find1	= 'Q';
+    	var p_find2	= 'N';
+    	var p_find3	= p_ss_languageID;
+    	var p_find4	= gv_ma_selectedCorpCd;
+    	var p_find5	= gv_ma_selectedClntCd;
+    	var p_find6	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL2"));
+   		var p_find7	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3"));
+		var p_find8	= gfnma_nvl(SBUxMethod.get("FM_ASSET_LEVEL3_NAME"));
+		var p_find9 = '';
+		var p_find10 = '';
+		var p_find11 = '';
+		var p_find12 = '';
+		var p_find13 = '';
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
         compopup1({
@@ -2219,11 +2224,11 @@ console.log('p_find3:', p_find3);
        		,whereClause			: ''
             ,searchCaptions			: ["소분류", 		"소분류명"]
             ,searchInputFields		: ["ASST_SCLSF", 	"ASSET_LEVEL3_NAME"]
-            ,searchInputValues		: [p_find4, 		p_find5]
+            ,searchInputValues		: [p_find7, 		p_find8]
             ,searchInputTypes		: ["input", 		"input"]		
         
-			,cTypeParamFields		: ["",	"ASST_SCLSF",		"ASSET_LEVEL3_NAME"]
-			,cTypeParamValues		: [p_find3,			p_find4,			p_find5]
+			,cTypeParamFields		: ["",		"",			"",			"",			"",			"",			"ASST_SCLSF",	"ASSET_LEVEL3_NAME",	"",			"",			"",			"",			""]
+			,cTypeParamValues		: [p_find1,	p_find2,	p_find3,	p_find4,	p_find5, 	p_find6,	p_find7,		p_find8,				p_find9,	p_find10,	p_find11,	p_find12,	p_find13,]
         
             ,width					: '600px'
             ,height					: '400px'
