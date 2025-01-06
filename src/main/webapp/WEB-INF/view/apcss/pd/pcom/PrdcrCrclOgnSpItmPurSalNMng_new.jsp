@@ -320,6 +320,11 @@
 				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>o 생산자조직의 출하량, 출하대금 지급액이 통합조직의 생산자조직 취급유형별 매입실적으로 연계되며, 이에 상응하는 매출실적 작성 필요</p>
+						<p>o 생산자조직 외 기타매입한 실적에 대해서는 별도 매입실적 및 매출실적(물량/금액) 입력 필요(불려오는 값 없음)</p>
+						<p>o 매출액 : 통합조직 판매액 기준. 수수료, 판매마진 등을 반영하여 매출액 작성    * 자체공판장 취급액 미포함</p>
+					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>

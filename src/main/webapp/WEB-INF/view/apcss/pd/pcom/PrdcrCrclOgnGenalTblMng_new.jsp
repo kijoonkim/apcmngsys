@@ -318,6 +318,12 @@
 				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p>o 통합조직 총 취급실적 : 전문품목 매입매출 화면에서 품목별 총매출 실적이 불려옴</p>
+						<p>o 생산자조직 전속출하실적 : 전문품목 매입매출 화면에서 "출자출하조직-전속출하 실적", "(통합조직직속) 전속출하 실적"의 합이 불려옴</p>
+						<br>
+						<p>　⇒ 생산자조직관리/출자출하조직관리/통합조직관리 실적입력 내용 확인 후 "법인체 마감"</p>
+					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
