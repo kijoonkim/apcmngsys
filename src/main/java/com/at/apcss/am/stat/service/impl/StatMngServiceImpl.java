@@ -105,5 +105,29 @@ public class StatMngServiceImpl extends BaseServiceImpl implements StatMngServic
 		return result;
 	}
 
+	@Override
+	public List<HashMap<String, Object>> selectPrdInptInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = statMngMapper.selectPrdInptInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectPrdWrhsInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = statMngMapper.selectPrdWrhsInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectPrdSpmtInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = statMngMapper.selectPrdSpmtInfo(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectPrdPrdctnInfo(HashMap<String, Object> totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = statMngMapper.selectPrdPrdctnInfo(totMngVO);
+		return result;
+	}
+
 
 }

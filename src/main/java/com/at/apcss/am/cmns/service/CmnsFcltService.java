@@ -56,4 +56,12 @@ public interface CmnsFcltService {
      * @throws Exception
      */
     int deleteWghInfo(CmnsFcltDtlVO cmnsFcltDtlVO) throws Exception;
+
+    /**
+     * 원물계량정보조회 저장
+     * @param resultMap,cmnsFcltDtlVO
+     * @return
+     * @throws Exception
+     */
+    int saveWghFcltList(List<CmnsFcltVO> resultMap) throws Exception;
 }

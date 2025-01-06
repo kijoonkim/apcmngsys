@@ -514,7 +514,6 @@
 			  FROM TB_APC_BOM_DTL BM
 			 WHERE BM.APC_CD = #{apcCd}
 			   AND BM.MTRL_CD = #{mtrlCd}
-			   AND BM.CMPSTN_SN = #{cmpstnSn}
 			   AND BM.ELMT_MTRL_CD = #{elmtMtrlCd}
 	 	]]>
    	</delete>
@@ -694,8 +693,31 @@
 	    	  WHERE APC_CD = #{apcCd}
 				AND ASST_MTR_CD = #{asstMtrCd}
 				AND ASST_MTR_NO = #{asstMtrNo}
-				AND WRHS_YMD = #{wrhsYmd}
 			]]>
+			<if test='wrhsYmd != null and wrhsYmd != ""'>
+				  AND WRHS_YMD = #{wrhsYmd}
+	    	</if>
+    </delete>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  	-->
+	<!-- DESC : BOM 출고 삭제.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <delete id="deleteBomSpmtInfoList" parameterType="com.at.apcss.am.asst.vo.AsstMtrVO">
+    	<![CDATA[
+	    	DELETE /* com.at.apcss.am.asst.mapper.AsstMtrMapper.deleteBomSpmtInfoList  */
+	    	  FROM TB_ASST_MTR_SPMT
+	    	  WHERE APC_CD = #{apcCd}
+				AND ASST_MTR_CD = #{asstMtrCd}
+				AND ASST_MTR_NO = #{asstMtrNo}
+			]]>
+			<if test='wrhsYmd != null and wrhsYmd != ""'>
+				  AND WRHS_YMD = #{wrhsYmd}
+	    	</if>
     </delete>
 
          <!-- ==========================================================================	-->

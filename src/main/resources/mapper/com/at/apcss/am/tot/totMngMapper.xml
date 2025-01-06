@@ -287,7 +287,7 @@
     <select id="selectSpmtPrfmncTotInfo" parameterType="hashmap" resultType="hashmap">
     	<![CDATA[
     		SELECT
-				* FROM TB_TOT_PRD_SPMT A
+				* FROM TB_TOT_SPMT_PRFMNC A
 				WHERE 1=1
 					AND A.APC_CD = #{apcCd}
 			]]>
@@ -479,6 +479,9 @@
 	   			AND A.VRTY_CD = #{vrtyCd}
 		  	</if>
     </select>
+
+
+
 
 
 

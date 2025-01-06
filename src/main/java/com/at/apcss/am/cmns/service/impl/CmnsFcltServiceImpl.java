@@ -5,6 +5,7 @@ import com.at.apcss.am.cmns.vo.CmnsFcltAtrbVO;
 import com.at.apcss.am.cmns.vo.CmnsFcltDtlVO;
 import com.at.apcss.am.cmns.vo.CmnsFcltVO;
 import com.at.apcss.am.wgh.mapper.WghInfoMapper;
+import com.at.apcss.co.cd.mapper.ComCdMapper;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.core.util.JsonUtils;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.at.apcss.co.cd.vo.ComCdVO;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +25,10 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 
     @Autowired
     private WghInfoMapper wghInfoMapper;
+
+    @Autowired
+    private ComCdMapper comCdMapper;
+
     @Override
     public List<CmnsFcltAtrbVO> selectWghInfoList(CmnsFcltAtrbVO cmnsFcltAtrbVO) throws Exception {
         return wghInfoMapper.selectWghInfoList(cmnsFcltAtrbVO);
@@ -135,14 +141,54 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
         }
         int atrbCnt = wghInfoMapper.deleteWghAtrbInfo(cmnsFcltDtlVO);
         if(atrbCnt <= 0){
-            throw new EgovBizException();
+            //throw new EgovBizException();
         }
         int dtlCnt = wghInfoMapper.deleteWghDtlInfo(cmnsFcltDtlVO);
         if(dtlCnt <= 0){
-            throw new EgovBizException();
+            //throw new EgovBizException();
         }
         return wghCnt;
     }
+
+	@Override
+	public int saveWghFcltList(List<CmnsFcltVO> cmnsFcltVOList) throws Exception {
+
+
+
+		cmnsFcltVOList.forEach(item -> {
+		    try {
+		        String status = item.getGubun();
+		        ComCdVO comCdVO = new ComCdVO();
+		        comCdVO.setApcCd(item.getApcCd());
+		        comCdVO.setCdId("WGH_FCLT_CD");
+		        comCdVO.setCdVlNm(item.getFcltNm());
+		        comCdVO.setSysFrstInptPrgrmId(item.getSysFrstInptPrgrmId());
+		        comCdVO.setSysFrstInptUserId(item.getSysFrstInptUserId());
+		        comCdVO.setSysLastChgPrgrmId(item.getSysLastChgPrgrmId());
+		        comCdVO.setSysLastChgUserId(item.getSysLastChgUserId());
+		        comCdVO.setCdVl(item.getFcltCd());
+		        comCdVO.setDelYn("N");
+
+		        if (status == null) {
+		            return;
+		        }
+
+		        switch (status) {
+		            case "insert":
+		                wghInfoMapper.insertWghFclt(item);
+		                comCdMapper.insertComCdDtl(comCdVO);
+		                break;
+		            case "update":
+		                wghInfoMapper.updateWghFclt(item);
+		                comCdMapper.insertComCdDtl(comCdVO);
+		                break;
+		        }
+		    } catch (Exception e) {
+
+		    }
+		});
+	return 0;
+	}
 }
 
 

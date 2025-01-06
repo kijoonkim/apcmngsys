@@ -421,7 +421,7 @@
 			}
 		})
 
-		 const postJsonPromise = gfn_postJSON("/am/stat/selectPrdWrhsStatInfo.do", {
+		 const postJsonPromise = gfn_postJSON("/am/stat/selectPrdWrhsInfo.do", {
 			 apcCd: gv_selectedApcCd
 				, itemCd : itemCd
 				, vrtyCd : vrtyCd
