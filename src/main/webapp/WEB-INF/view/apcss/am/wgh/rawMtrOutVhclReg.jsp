@@ -269,7 +269,7 @@
 
 
 	const fn_search = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd});
+    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd, wghSeCd : "01"});
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
