@@ -1981,6 +1981,7 @@
         SBUxMethod.set("PARENTING_WORK_TYPE_YN", "N");
         jsonBandgvwDetailList.length = 0;
         bandgvwDetail.rebuild();
+        fn_createBandgvwDetailGrid(false);
     }
 
     // 저장
@@ -2047,7 +2048,7 @@
 
         try {
             if (_.isEqual("S", masterData.resultStatus)) {
-                if(masterData.v_returnStr) {
+                if(gfn_nvl(masterData.v_returnStr) != "") {
                     let updatedData = bandgvwDetail.getUpdateData(true, 'all');
                     let returnData = [];
 
@@ -2183,7 +2184,7 @@
                                     try {
                                         if (_.isEqual("S", leadData.resultStatus)) {
                                             gfn_comAlert("I0001");
-                                            cfn_search();
+                                            fn_search();
                                         } else {
                                             alert(leadData.resultMessage);
                                         }
@@ -2198,7 +2199,7 @@
                                     if (subData.resultMessage) {
                                         alert(subData.resultMessage);
                                     }
-                                    cfn_search();
+                                    fn_search();
                                 }
                             } else {
                                 alert(subData.resultMessage);
@@ -2755,6 +2756,10 @@
                 });
 
                 bandgvwDetail.rebuild();
+
+                for(var i = 0; i < jsonBandgvwDetailList.length; i++) {
+                    bandgvwDetail.setRowStatus(i + 2, "i");
+                }
 
                 fnDeptAppointYnChange(null);
                 fnPositionAppointYnChange(null);
