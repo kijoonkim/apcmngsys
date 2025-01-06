@@ -7,6 +7,7 @@ import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
 import com.at.apcss.am.wgh.vo.WghFcltVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 @Service("wghMngService")
-public class WghMngServiceImpl implements WghMngService {
+public class WghMngServiceImpl extends BaseServiceImpl implements WghMngService {
 
     @Resource(name = "wghPrfmncMapper")
     private WghPrfmncMapper wghPrfmncMapper;

@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name : rawMtrWghInfo.jsp
-     * @Description : 원물계량정보조회
+     * @Description : 원물계량대정보조회
      * @author SI개발부
      * @since 2024.09.03
      * @version 1.0
@@ -36,11 +36,14 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별설비정보관리 -->
                 </div>
                 <div style="margin-left: auto;">
-
-
-                    <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_saveFcltList"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_searchFcltList"></sbux-button>
-
+                    <sbux-button
+                            id="btnSearch"
+                            name="btnSearch"
+                            uitype="normal"
+                            class="btn btn-sm btn-outline-danger"
+                            text="조회"
+                            onclick="fn_search"
+                    ></sbux-button>
                 </div>
             </div>
             <div class="box-body">
@@ -67,12 +70,14 @@
 							<th scope="row" class="th_bg">계량대</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;">
 								<sbux-select
-									id="srch-slt-sortFcltCd"
-									name="srch-slt-sortFcltCd"
+									id="srch-slt-wghFcltCd"
+									name="srch-slt-wghFcltCd"
 									uitype="single"
 									class="form-control input-sm"
 									unselected-text="전체"
-									jsondata-ref="jsonSortFclt"
+									jsondata-ref="jsonWghFclt"
+                                    jsondata-value="cdVl"
+                                    jsondata-text="cdVlNm"
 									style="width:80%"
 								></sbux-select>
 							</td>
@@ -83,7 +88,7 @@
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li>
-                                    <span>원물 계량대 목록</span>
+                                    <span>계량대 목록</span>
                                 </li>
                             </ul>
                         </div>
@@ -101,9 +106,6 @@
     /** 하단 grid ref Json **/
     var jsonWghFcltDtlList =[];
     var grdWghFcltDtlList;
-
-
-
 
     /** 설비유형 select **/
     var Type =[];
@@ -123,7 +125,7 @@
     var comboData = [{label : 'Y', value : 'Y'},{label : 'N', value : 'N'}];
 
     /** 선별기 검색조건**/
-    var jsonSortFclt = [];
+    var jsonWghFclt = [];
 
     /** 선별기 검색조건**/
     var jsonWarehouse = [];
@@ -132,23 +134,35 @@
 
     const fn_init = async function(){
 
-
-
         let result = await Promise.all([
-			gfn_setComCdSBSelect('srch-slt-sortFcltCd',	jsonSortFclt, 	'WGH_FCLT_CD', gv_selectedApcCd), 			// 선별기
-			gfn_setComCdSBSelect('grdWghFcltDtlList',	jsonWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd)
+            gfn_getComCdDtls('WGH_FCLT_CD', gv_selectedApcCd),
+            gfn_getComCdDtls('WAREHOUSE_SE_CD', gv_selectedApcCd),
         ]);
 
+        jsonWghFclt = result[0];
+        jsonWarehouse = result[1];
+
+        SBUxMethod.refresh("srch-slt-wghFcltCd");
+
+        fn_createGrid();
+        await fn_search();
     }
 
     /** 하단 우측 grid create **/
-    const fn_createSortFcltDtlList = function(){
+    const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdRawMtrWghList';
         SBGridProperties.id = 'grdWghFcltDtlList';
         SBGridProperties.jsonref = 'jsonWghFcltDtlList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true;
+        SBGridProperties.explorerbar = 'sortmove';			// 개인화 컬럼 이동 가능
+        SBGridProperties.datamergefalseskip = true;
+        SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
+            /*
             {caption: ["처리"], 		ref: 'itemCd', 		type:'button', width:'100px', style: 'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if (gfn_isEmpty(objRowData.delYn)){
@@ -157,18 +171,115 @@
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                     }
                 }},
-            {caption: ['계량대'], ref: 'fcltType', width: '100px', type: 'output', style:'text-align:center'},
-            {caption: ['코드'], ref: 'fcltCd', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['별칭'], ref: 'fcltNm', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['설명'], ref: 'fcltExpln', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['최소중량'], ref: 'wghtMin', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['계량횟수'], ref: 'prcsNmtm', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['최대중량'], ref: 'wghtMax', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['기본창고'], ref: 'warehouseSeCd', width: '100px', type: 'combo', typeinfo : {ref:'jsonWarehouse', label:'text', value:'value', oneclickedit: true}, style:'text-align:center'},
-            {caption: ['중량단위'], ref: 'wghtUnit', width: '100px', type: 'input', style:'text-align:center'},
-            {caption: ['시작일자'], ref: 'bgngYmd', width: '100px', type : 'datepicker',  format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}, typeinfo : {oneclickedit: true}, style:'text-align:center'},
-            {caption: ['종료일자'], ref: 'endYmd', width: '100px', type : 'datepicker', format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},  typeinfo : {oneclickedit: true}, style:'text-align:center'},
-            {caption: ['비고'], ref: 'fcltRmrk', width: '100px', type: 'input', style:'text-align:center'}
+            */
+
+            {
+                caption: ["계량대"],
+                ref: 'fcltCd',
+                type:'combo',
+                width:'100px',
+                style:'text-align:center;',
+                typeinfo : {
+                    ref:'jsonWghFclt',
+                    displayui : false,
+                    label:'cdVlNm',
+                    value:'cdVl'
+                },
+                disabled: true
+            },
+            {
+                caption: ['코드'],
+                ref: 'fcltCd',
+                width: '80px',
+                type: 'output',
+                style:'text-align:center'
+            },
+            {
+                caption: ['별칭'],
+                ref: 'fcltNm',
+                width: '100px',
+                type: 'output',
+                style:'text-align:left'
+            },
+            {
+                caption: ['설명'],
+                ref: 'fcltExpln',
+                width: '300px',
+                type: 'output',
+                style:'text-align:left'
+            },
+            {
+                caption: ['계량횟수'],
+                ref: 'prcsNmtm',
+                width: '70px',
+                type: 'output',
+                style:'text-align:right'
+            },
+            {
+                caption: ['최소중량'],
+                ref: 'wghtMin',
+                width: '100px',
+                type: 'output',
+                style:'text-align:right',
+                format : {
+                    type:'number',
+                    rule:'#,###'
+                }
+            },
+            {
+                caption: ['최대중량'],
+                ref: 'wghtMax',
+                width: '100px',
+                type: 'output',
+                style:'text-align:right',
+                format : {
+                    type:'number',
+                    rule:'#,###'
+                }
+            },
+            {
+                caption: ['기본창고'],
+                ref: 'warehouseSeCd',
+                width: '100px',
+                type: 'combo',
+                typeinfo : {
+                    ref:'jsonWarehouse',
+                    label:'text',
+                    value:'value'
+                },
+                style:'text-align:center',
+                disabled: true
+            },
+            {
+                caption: ['중량단위'],
+                ref: 'wghtUnit',
+                width: '100px',
+                type: 'output',
+                style:'text-align:center'
+            },
+            {
+                caption: ['시작일자'],
+                ref: 'bgngYmd',
+                width: '120px',
+                type : 'output',
+                format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},
+                style:'text-align:center'
+            },
+            {
+                caption: ['종료일자'],
+                ref: 'endYmd',
+                width: '120px',
+                type : 'output',
+                format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'},
+                style:'text-align:center'
+            },
+            {
+                caption: ['비고'],
+                ref: 'fcltRmrk',
+                width: '200px',
+                type: 'output',
+                style:'text-align:center'
+            }
 
         ]
         grdWghFcltDtlList = _SBGrid.create(SBGridProperties);
@@ -212,8 +323,16 @@
         }
     }
 
-	const fn_searchFcltList = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do", {apcCd : gv_selectedApcCd});
+
+	const fn_search = async function(){
+
+        const fcltCd = SBUxMethod.get("srch-slt-wghFcltCd");
+        const param = {
+            apcCd : gv_selectedApcCd,
+            fcltCd: fcltCd
+        }
+
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do", param);
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -240,8 +359,8 @@
   					jsonWghFcltDtlList.push(fcltVO);
   				});
   	        	grdWghFcltDtlList.rebuild();
-  	        	grdWghFcltDtlList.addRow();
-  	        	grdWghFcltDtlList.setCellDisabled(grdWghFcltDtlList.getRows() -1, 0, grdWghFcltDtlList.getRows() -1, grdWghFcltDtlList.getCols() -1, true);
+  	        	//grdWghFcltDtlList.addRow();
+  	        	//grdWghFcltDtlList.setCellDisabled(grdWghFcltDtlList.getRows() -1, 0, grdWghFcltDtlList.getRows() -1, grdWghFcltDtlList.getCols() -1, true);
 
         	} else {
         		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -253,9 +372,6 @@
     		console.error("failed", e.message);
         }
 	}
-
-
-
 
 	const fn_saveFcltList = async function(){
 		let allData = grdWghFcltDtlList.getGridDataAll();
@@ -320,10 +436,12 @@
 
 
     window.addEventListener("DOMContentLoaded",function(){
-    	fn_createSortFcltDtlList();
-    	fn_searchFcltList();
         fn_init();
     });
+
+    const fn_onChangeApc = async function() {
+        fn_init();
+    }
 
 </script>
 
