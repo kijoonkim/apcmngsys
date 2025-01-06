@@ -1182,7 +1182,7 @@
         updatedEmpData.forEach((item, index) => {
             if (item.data.EMP_BASE_FLAG == "Y") {
                 if (gfn_nvl(item.data.WORK_PATTERN_CODE) == "" || gfn_nvl(item.data.START_DATE) == "" || gfn_nvl(item.data.END_DATE) == "") {
-                    gfn_comAlert("근무패턴과 기간을 지정하십시요");
+                    gfn_comAlert("Q0000", "근무패턴과 기간을 지정하십시요");
                     return false;
                 }
             }
@@ -1220,7 +1220,7 @@
 
         updatedPatternData.forEach((item, index) => {
             if (gfn_nvl(item.data.WORK_PATTERN_CODE) == "" || gfn_nvl(item.data.APPLY_START_DATE) == "" || gfn_nvl(item.data.APPLY_END_DATE) == "") {
-                gfn_comAlert("근무패턴과 기간을 지정하십시요");
+                gfn_comAlert("Q0000","근무패턴과 기간을 지정하십시요");
                 return false;
             }
 
