@@ -5641,7 +5641,8 @@
         const firstRow = items.slice(0, 8);
         const secondRow = items.slice(8, 16);
  
-        ul.innerHTML = "";
+        //ul.innerHTML = "";
+        $('#tabTopJson_ul').html('');
         secondRow.forEach(item => ul.appendChild(item));
         firstRow.forEach(item => ul.appendChild(item));
     }
