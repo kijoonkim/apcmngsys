@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrCrclOgnOnlnWhlslMrktMapper.xml                                	-->
+<!-- DESC : 온라인도매시장 판매목표 정보 mapper                                          	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.07  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt	-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt */
+			YR
+			,BRNO
+			,TRGT_TRMT_AMT
+			,CONSIGN_TRGT_AMT
+			,CONSIGN_CRTD_TRGT_AMT
+			,TOT_TRGT_TRMT_AMT
+			,(SELECT SUM(SLS_CNSGN_SLS_AMT)
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+				WHERE 1=1
+				  AND YR = OWM.YR
+				  AND BRNO = OWM.BRNO
+				  AND TYPE_SE_NO = '8'
+				  AND ITEM_CD = (SELECT ITEM_CD
+				  					FROM TB_EV_APO_YR_GPC_CD
+				  					WHERE 1=1
+				  					  AND APO_SE = '1'
+				  					  AND YR = PST.YR
+				  					  AND BRNO = PST.BRNO
+				  					  AND ITEM_CD = PST.ITEM_CD
+				  					  AND STTG_UPBR_ITEM_SE IN ('1','2')
+				  					)
+				  AND APO_SE = '1'
+				  AND STBLT_YN = 'Y'
+			)UO_TOT_TRGT_TRMT_AMT
+			,TRGT_TRMT_RT
+		FROM TB_EV_ONLN_WHLSL_MRKT OWM
+		WHERE 1=1
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList	-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdcrCrclOgnOnlnWhlslMrktUoList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList */
+			EAM.YR
+			,EAM.BRNO
+			,EA.CRNO
+			,EA.CORP_NM
+			,EA.APO_CD
+			,EA.SLCTN_YR
+			,(SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM)
+					FROM (SELECT
+								(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_APO_YR_GPC_CD YGC
+							WHERE 1=1
+							  AND STTG_UPBR_ITEM_SE IN ('1','2')
+							  AND APO_SE = '1'
+							  AND YR = EAM.YR
+							  AND BRNO = EAM.BRNO
+							)
+			)AS ITEM_NM_LIST
+			,(SELECT 'Y' FROM TB_EV_ONLN_WHLSL_MRKT WHERE YR = EAM.YR AND BRNO = EAM.BRNO)AS CHK
+		FROM TB_EV_APLY_MNG EAM
+			,TB_EV_APO EA
+		WHERE 1=1
+		  AND EAM.BRNO = EA.BRNO(+)
+		  AND EAM.APO_SE = '1'
+		  AND EAM.YR = #{yr}
+		<if test='brno != null and brno != ""'>
+		  AND EAM.BRNO = #{brno}
+		</if>
+		<if test='corpNm != null and corpNm != ""'>
+		  AND EAM.BRNO IN (SELECT BRNO FROM TB_EV_APO WHERE CORP_NM LIKE '%' || #{corpNm} || '%')
+		</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt	-->
+	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.07  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertPrdcrCrclOgnOnlnWhlslMrkt" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		MERGE INTO TB_EV_ONLN_WHLSL_MRKT CLT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt */
+		USING DUAL
+			ON (
+					CLT.YR			= #{yr}
+					AND CLT.BRNO	= #{brno}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						  TRGT_TRMT_AMT			= #{trgtTrmtAmt}
+						, CONSIGN_TRGT_AMT		= #{consignTrgtAmt}
+						, CONSIGN_CRTD_TRGT_AMT	= #{consignCrtdTrgtAmt}
+						, TOT_TRGT_TRMT_AMT		= #{totTrgtTrmtAmt}
+						, UO_TOT_TRGT_TRMT_AMT	= #{uoTotTrgtTrmtAmt}
+						, TRGT_TRMT_RT			= #{trgtTrmtRt}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+
+					  , TRGT_TRMT_AMT
+					  , CONSIGN_TRGT_AMT
+					  , CONSIGN_CRTD_TRGT_AMT
+					  , TOT_TRGT_TRMT_AMT
+					  , UO_TOT_TRGT_TRMT_AMT
+					  , TRGT_TRMT_RT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					  #{yr}
+					  , #{brno}
+
+					  , #{trgtTrmtAmt}
+					  , #{consignTrgtAmt}
+					  , #{consignCrtdTrgtAmt}
+					  , #{totTrgtTrmtAmt}
+					  , #{uoTotTrgtTrmtAmt}
+					  , #{trgtTrmtRt}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
+</mapper>
