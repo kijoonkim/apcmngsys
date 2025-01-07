@@ -982,6 +982,11 @@
 			SBUxMethod.set('SCH_DEPRECIATION_TYPE', 	p_ss_defaultAcctRule);
 			SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_ss_defaultAcctRule);
 			
+			var p_flag = SBUxMethod.get('SCH_ACTUAL_FLAG_P');
+			if(!p_flag){
+				SBUxMethod.set('SCH_ACTUAL_FLAG_P', 	'A');	//실적으로 셋팅
+			}
+			
 			if(p_menu_param){
 	            var strparam_info = p_menu_param['ParameterInfo'];
 	    		if(strparam_info){
