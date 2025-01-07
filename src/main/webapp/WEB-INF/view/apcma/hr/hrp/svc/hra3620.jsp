@@ -583,18 +583,18 @@
 
         // 데이터 추가
         sheet.addRow([
-            "귀속연월", "근무시작일", "소득자코드", "소득자", "지급일자", "근무종료일", "근로일수"
-            , "인원수", "작업구분", "작업장소", "작업명", "작업세부명", "작업장소2", "일당"
-            , "총지급액", "근로급여", "비과세소득", "소득공제", "근로소득", "소득세", "주민세"
-            , "건강보험", "장기요양보험", "국민연금", "고용보험", "기타공제", "총공제액"
-            , "차인지급액", "분개장번호", "비고", "내··외국인구분", "거주국", "전화번호"
-            , "주소", "근무지역" // 헤더
+            "소득자코드", "소득자 성명", "귀속연월", "근무시작일", "근무종료일", "인원수"
+            , "일당", "조정금액", "유류금액", "기타비용", "작업구분", "작업장소"
+            , "작업명", "작업세부명", "작업장소2", "지급일자", "비과세소득", "근로소득공제"
+            , "소득세", "주민세", "건강보험", "장기요양보험", "국민연금", "고용보험"
+            , "기타공제", "근로급여", "차인지급액", "분개장번호"
+            , "비고" // 헤더
         ]);
 
         const validations = [{
-            ref: 'A2:A1000', // 검사 범위
+            ref: 'C2:C1000', // 검사 범위
             type: 'custom', // 사용자 지정 수식
-            formulae: '=AND(ISNUMBER(DATEVALUE(A2&"-01")),LEN(A2)=7)', // YYYY-MM 형식 검사
+            formulae: '=AND(ISNUMBER(DATEVALUE(C2&"-01")),LEN(C2)=7)', // YYYY-MM 형식 검사
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '날짜는 YYYY-MM 형식으로 입력하세요.', // 입력 안내 메시지
@@ -603,9 +603,9 @@
             error: '날짜는 YYYY-MM 형식으로 입력해야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'B2:B1000', // 검사 범위
+            ref: 'D2:D1000', // 검사 범위
             type: 'custom', // 사용자 지정 수식
-            formulae: '=AND(ISNUMBER(DATEVALUE(B2)),LEN(B2)=10)', // 날짜 형식 검사
+            formulae: '=AND(ISNUMBER(DATEVALUE(D2)),LEN(D2)=10)', // 날짜 형식 검사
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
@@ -626,15 +626,16 @@
             numFmt: '@'
         }, {
             ref: 'F2:F1000', // 검사 범위
-            type: 'custom', // 사용자 지정 수식
-            formulae: '=AND(ISNUMBER(DATEVALUE(F2)),LEN(F2)=10)', // 날짜 형식 검사
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
             showInputMessage: true,
             promptTitle: '입력 안내',
-            prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
+            prompt: '숫자를 입력하세요.',
             showErrorMessage: true,
             errorTitle: '잘못된 형식',
-            error: '날짜는 YYYY-MM-DD 형식으로 입력해야 합니다.', // 오류 메시지
-            numFmt: '@'
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
         }, {
             ref: 'G2:G1000', // 검사 범위
             type: 'whole',
@@ -660,7 +661,31 @@
             error: '숫자만 입력 가능 합니다.',
             numFmt: '0'
         }, {
-            ref: 'I2:I1000', // 작업구분
+            ref: 'I2:I1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'J2:J1000', // 검사 범위
+            type: 'whole',
+            operator: 'greaterThanOrEqual',
+            formulae: '0',
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '숫자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '숫자만 입력 가능 합니다.',
+            numFmt: '0'
+        }, {
+            ref: 'K2:K1000', // 작업구분
             type: 'list',
             formulae: '"'+jsonWorkGbn.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
             promptTitle: '입력 안내',
@@ -670,7 +695,7 @@
             error: '목록에서 선택하여야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'J2:J1000', // 작업장소
+            ref: 'L2:L1000', // 작업장소
             type: 'list',
             formulae: '"'+jsonWorkPlace.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
             promptTitle: '입력 안내',
@@ -680,7 +705,7 @@
             error: '목록에서 선택하여야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'K2:K1000', // 작업명
+            ref: 'M2:M1000', // 작업명
             type: 'list',
             formulae: '"'+jsonWorkName.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
             promptTitle: '입력 안내',
@@ -690,7 +715,7 @@
             error: '목록에서 선택하여야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'L2:L1000', // 작업세부명
+            ref: 'N2:N1000', // 작업세부명
             type: 'list',
             formulae: '"'+jsonWorkDtlName.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
             promptTitle: '입력 안내',
@@ -700,7 +725,7 @@
             error: '목록에서 선택하여야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'M2:M1000', // 작업장소2
+            ref: 'O2:O1000', // 작업장소2
             type: 'list',
             formulae: '"'+jsonWorkPlace2.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
             promptTitle: '입력 안내',
@@ -710,41 +735,16 @@
             error: '목록에서 선택하여야 합니다.', // 오류 메시지
             numFmt: '@'
         }, {
-            ref: 'N2:N1000', // 검사 범위
-            type: 'whole',
-            operator: 'greaterThanOrEqual',
-            formulae: '0',
-            showInputMessage: true,
-            promptTitle: '입력 안내',
-            prompt: '숫자를 입력하세요.',
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '숫자만 입력 가능 합니다.',
-            numFmt: '0'
-        }, {
-            ref: 'O2:O1000', // 검사 범위
-            type: 'whole',
-            operator: 'greaterThanOrEqual',
-            formulae: '0',
-            showInputMessage: true,
-            promptTitle: '입력 안내',
-            prompt: '숫자를 입력하세요.',
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '숫자만 입력 가능 합니다.',
-            numFmt: '0'
-        }, {
             ref: 'P2:P1000', // 검사 범위
-            type: 'whole',
-            operator: 'greaterThanOrEqual',
-            formulae: '0',
+            type: 'custom', // 사용자 지정 수식
+            formulae: '=AND(ISNUMBER(DATEVALUE(P2)),LEN(P2)=10)', // 날짜 형식 검사
             showInputMessage: true,
             promptTitle: '입력 안내',
-            prompt: '숫자를 입력하세요.',
+            prompt: '날짜는 YYYY-MM-DD 형식으로 입력하세요.', // 입력 안내 메시지
             showErrorMessage: true,
             errorTitle: '잘못된 형식',
-            error: '숫자만 입력 가능 합니다.',
-            numFmt: '0'
+            error: '날짜는 YYYY-MM-DD 형식으로 입력해야 합니다.', // 오류 메시지
+            numFmt: '@'
         }, {
             ref: 'Q2:Q1000', // 검사 범위
             type: 'whole',
@@ -877,48 +877,6 @@
             errorTitle: '잘못된 형식',
             error: '숫자만 입력 가능 합니다.',
             numFmt: '0'
-        }, {
-            ref: 'AB2:AB1000', // 검사 범위
-            type: 'whole',
-            operator: 'greaterThanOrEqual',
-            formulae: '0',
-            showInputMessage: true,
-            promptTitle: '입력 안내',
-            prompt: '숫자를 입력하세요.',
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '숫자만 입력 가능 합니다.',
-            numFmt: '0'
-        }, {
-            ref: 'AE2:AE1000', // 내·외국인구분
-            type: 'list',
-            formulae: '"'+jsonForeignType.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
-            promptTitle: '입력 안내',
-            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '목록에서 선택하여야 합니다.', // 오류 메시지
-            numFmt: '@'
-        }, {
-            ref: 'AF2:AF1000', // 거주국
-            type: 'list',
-            formulae: '"'+jsonNationCode.map(item => item.NTN_NM).join(',')+'"', // 드롭다운 값 설정
-            promptTitle: '입력 안내',
-            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '목록에서 선택하여야 합니다.', // 오류 메시지
-            numFmt: '@'
-        }, {
-            ref: 'AI2:AI1000', // 근무지역
-            type: 'list',
-            formulae: '"'+jsonWorkRegion.map(item => item.CD_NM).join(',')+'"', // 드롭다운 값 설정
-            promptTitle: '입력 안내',
-            prompt: '목록에서 선택하세요.', // 입력 안내 메시지
-            showErrorMessage: true,
-            errorTitle: '잘못된 형식',
-            error: '목록에서 선택하여야 합니다.', // 오류 메시지
-            numFmt: '@'
         }];
 
         // 유효성 검사 적용
@@ -953,22 +911,22 @@
 
                     workBook.SheetNames.forEach(function (sheetName) {
                         let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 1, header: [
-                                "JOB_YYYYMM",
-                                "WORK_ST_DAT",
                                 "EARNER_CODE",
                                 "EARNER_NAME",
-                                "PAY_DATE",
+                                "JOB_YYYYMM",
+                                "WORK_ST_DAT",
                                 "WORK_END_DAT",
-                                "WORK_DAY",
                                 "WORK_CNT",
+                                "DAILY_PAY_AMT",
+                                "ADJUSTMENT_AMT",
+                                "FUAL_AMT",
+                                "ETC_COST",
                                 "WORK_GBN",
                                 "WORK_PLACE",
                                 "WORK_NAME",
                                 "WORK_DTL_NAME",
                                 "WORK_PLACE2",
-                                "DAILY_PAY_AMT",
-                                "TOT_PAY_AMT",
-                                "WORK_PAY_AMT",
+                                "PAY_DATE",
                                 "NON_TXABLE_AMT",
                                 "INC_AMT",
                                 "EARNED_INC_AMT",
@@ -979,26 +937,29 @@
                                 "NATIONAL_PENS_AMT",
                                 "EMPLOY_INSURE_AMT",
                                 "ETC_DED_AMT",
-                                "TOT_DEDUCT_AMT",
+                                "WORK_PAY_AMT",
                                 "ALLOWANCE_AMT",
                                 "REMARK",
                                 "MEMO",
-                                "FOREI_TYPE",
-                                "NATION_CODE",
-                                "TEL",
-                                "ADDRESS",
-                                "WORK_REGION",
                             ]});
 
                         list.forEach((item, index) => {
+                            console.log(jsonWorkGbn, item.WORK_GBN);
                             item.WORK_GBN = jsonWorkGbn.length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
                             item.WORK_PLACE = jsonWorkPlace.length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
                             item.WORK_NAME = jsonWorkName.length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
                             item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 ? jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME)[0]["SBSD_CD"] : '';
                             item.WORK_PLACE2 = jsonWorkPlace2.length > 0 ? jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2)[0]["SBSD_CD"] : '';
-                            item.FOREI_TYPE = jsonForeignType.length > 0 ? jsonForeignType.filter(data => data["CD_NM"] == item.FOREI_TYPE)[0]["SBSD_CD"] : '';
-                            item.NATION_CODE = jsonNationCode.length > 0 ? jsonNationCode.filter(data => data["NTN_NM"] == item.NATION_CODE)[0]["NTN_CD"] : '';
-                            item.WORK_REGION = jsonWorkRegion.length > 0 ? jsonWorkRegion.filter(data => data["CD_NM"] == item.WORK_REGION)[0]["SBSD_CD"] : '';
+
+                            item.TOT_AMOUNT = Number((Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
+                            item.EARNED_INC_AMT = Number(item.TOT_AMOUNT - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
+                            item.TOT_DEDUCT_AMT = Number(Number(item.INC_TX_AMT) + Number(item.LOCAL_TX_AMT) + Number(item.HEALTH_INSURE_AMT)
+                                + Number(item.LONG_HEALTH_INSURE_AMT) + Number(item.NATIONAL_PENS_AMT) + Number(item.EMPLOY_INSURE_AMT) + Number(item.ETC_DED_AMT));
+                            item.TOT_PAY_AMT = Number(item.EARNED_INC_AMT - item.TOT_DEDUCT_AMT);
+
+                            let istart_date = new Date(item.WORK_ST_DAT);
+                            let iend_date = new Date(item.WORK_END_DAT);
+                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1)
 
                             gvwInfo.addRow(true, item);
                         });
