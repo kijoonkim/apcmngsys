@@ -883,11 +883,20 @@
     function fn_compopup1(type) {
     	
     	//type C 형 팝업
-    	var p_find1	= p_ss_languageID;
-    	var p_find2	= gv_ma_selectedCorpCd;
-    	var p_find3	= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
-   		var p_find4	= gfnma_nvl(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
-		var p_find5	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
+    	var p_find1	= 'Q';
+    	var p_find2	= 'N';
+    	var p_find3	= p_ss_languageID;
+    	var p_find4	= gv_ma_selectedCorpCd;
+    	var p_find5	= gv_ma_selectedClntCd;
+    	var p_find6	= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
+   		var p_find7	= gfnma_nvl(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
+		var p_find8	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
+		var p_find9 = '';
+		var p_find10 = '';
+		var p_find11 = '';
+		var p_find12 = '';
+		var p_find13 = '';
+		
 		
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산 소분류');
     	compopup1({
@@ -898,12 +907,12 @@
     		,whereClause			: ''
    			,searchCaptions			: ["코드", 			"코드명"]
    			,searchInputFields		: ["ASST_MCLSF", 	"ASSET_LEVEL2_NAME"]
-  			,searchInputValues		: [p_find4, 		p_find5]
+  			,searchInputValues		: [p_find7, 		p_find8]
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
 			
-			,cTypeParamFields		: ["",			"",			"",			"ASST_MCLSF",		"ASSET_LEVEL2_NAME"]
-			,cTypeParamValues		: [p_find1,		p_find2,	p_find3,	p_find4,			p_find5]
-			
+			,cTypeParamFields		: ["",		"",			"",			"",			"",			"",			"ASST_MCLSF",	"ASSET_LEVEL2_NAME",	"",			"",			"",			"",			""]
+			,cTypeParamValues		: [p_find1,	p_find2,	p_find3,	p_find4,	p_find5, 	p_find6,	p_find7,		p_find8,				p_find9,	p_find10,	p_find11,	p_find12,	p_find13,]
+    	
     		,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["중분류코드", 	"중분류명",				"자산구분",			"자산구분명",			"자산계정",			"자산계정명",			"depr_exp_acc",					"depr_exp_acc_name",					"accum_depr_acc",					"accum_depr_acc_name",						"보조금계정",					"보조금계정명",				"보조금상각비계정",		"상각누계액계정",			"보증금상각누계액계정",			"보증금상각누계액계정명",			"상각주기(회계기준)",		"상각기준(IFRS)",			"상각주기(법인세)",			"상각방법(회계기준)",		"상각방법(IFRS)",			"상각방법(법인세)",			"잔존율(회계기준)",		"잔존율(IFRS)",				"잔존율(법인세)",		"잔존가치(회계기준)",	"잔존가치(국제회계기준)",	"잔존가치(법인세)",		"내용연수(회계기준)",	"내용연수(IFRS)",	"내용연수(법인세)",	"자산화여부",		"상각여부",			"사용여부",	"재고관리여부",	"리스여부",	"소유여부"]
@@ -911,7 +920,7 @@
    			,tableColumnWidths		: ["100px", 		"100px",				"100px",			"200px",				"100px",			"150px",				"100px",						"200px",								"100px",							"100px",									"200px",						"150px",					"150px",				"150px",					"200px",						"150px",							"150px",					"150px",					"150px",					"150px",					"150px",					"150px",					"150px",				"150px",					"150px",				"150px",				"150px",					"150px",				"150px",				"150px",			"100px",			"100px",			"100px",			"100px",	"100px",		"100px",	"100px"	]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				SBUxMethod.set('FM_PRNT_ACNT_GRP', 		data.ASST_MCLSF);
+				SBUxMethod.set('FM_PRNT_ACNT_GRP', 				data.ASST_MCLSF);
 				SBUxMethod.set('FM_PARENT_ASSET_GROUP_NAME', 	data.ASSET_LEVEL2_NAME);
 			},
     	});
