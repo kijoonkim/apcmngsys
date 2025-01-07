@@ -388,7 +388,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_setYear();//기본년도 세팅
+		await fn_setYear();//기본년도 세팅
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '21'}">
 		fn_fcltMngCreateGrid();
 	</c:if>
