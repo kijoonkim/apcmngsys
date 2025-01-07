@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -49,7 +52,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
     public void setProcMapper(ProcMapper mapper) {
     	this.procMapper = mapper;
     }	
-	
+
     public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception{
     	return procMapper.callProcTibero(param);
     }    
@@ -409,10 +412,21 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		for (Map.Entry<String, Object> value : param.entrySet()) {
 
-			Map<String, Object> map = new HashMap<>();
-			map.put("formula", value.getValue());
+			/*Map<String, Object> map = new HashMap<>();
+			map.put("formula", value.getValue());*/
 
-			try {
+			//JAVA 수식확인.
+			String inputExpression = (String) value.getValue();
+			if (isValidExpression(inputExpression)) {
+				Object result = calculateExpression(inputExpression);
+				resultMap.put("resultStatus", "S");
+			} else {
+				resultStatus = "E";
+				resultMap.put("resultStatus", resultStatus);
+				return resultMap;
+			}
+
+			/*try {
 				resultVal = procMapper.checkFormula(map); // select 'formula' from dual
 
 				resultMap.put(value.getKey(), resultVal);
@@ -427,7 +441,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 			} finally {
 				resultMap.put("resultStatus", resultStatus);
-			}
+			}*/
 		}
 
 
@@ -461,4 +475,27 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		return resultMap;
 	}
+
+	// 연산 식 검증 메서드
+	public static boolean isValidExpression(String expression) {
+		if (expression == null || expression.isEmpty()) {
+			return false;
+		}
+
+		try {
+			// JavaScript 엔진으로 수식 검증
+			ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+			engine.eval(expression); // 유효성 검사
+			return true;
+		} catch (ScriptException e) {
+			return false; // 유효하지 않은 수식
+		}
+	}
+
+	// 연산 식 계산 메서드
+	public static Object calculateExpression(String expression) throws ScriptException {
+		ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
+		return engine.eval(expression); // 계산 결과 반환
+	}
+
 }
