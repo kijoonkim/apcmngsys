@@ -294,18 +294,18 @@
             {
 				caption: ['입차시각'],
 				ref: 'entrTm',
-				width: '100px',
+				width: '150px',
 				type: 'output',
 				style:'text-align:center',
-				format : {type:'date', rule:'HH:mm:ss', origin:'YYYYMMDDHHnnss', usetime:true}
+				format : {type:'date', rule:'YYYY/MM/DD HH:mm:ss', origin:'YYYYMMDDHHnnss', usetime:true}
 			},
             {
 				caption: ['출차시각'],
 				ref: 'outTm',
-				width: '100px',
+				width: '150px',
 				type: 'output',
 				style:'text-align:center',
-				format : {type:'date', rule:'HH:mm:ss', origin:'YYYYMMDDHHmmss', usetime:true}
+				format : {type:'date', rule:'YYYY/MM/DD HH:mm:ss', origin:'YYYYMMDDHHmmss', usetime:true}
 			},
             {
 				caption: ['입차중량'],
@@ -397,10 +397,15 @@
 	const fn_search = async function(){
 
 		const wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+		const vhclno = SBUxMethod.get("srch-inp-vhclNo");
+		const fcltCd = SBUxMethod.get("srch-slt-wghFcltCd");
 		const param = {
 			apcCd : gv_selectedApcCd,
 			wghYmd: wghYmd,
-			wghSeCd : "01"
+			wghSeCd : "01",
+			vhclno : vhclno,
+			fcltCd : fcltCd
+
 		}
 
 		let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", param);

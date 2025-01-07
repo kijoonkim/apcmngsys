@@ -269,7 +269,19 @@
 
 
 	const fn_search = async function(){
-    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", {apcCd : gv_selectedApcCd, wghSeCd : "01"});
+		const wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+		const vhclno = SBUxMethod.get("srch-inp-vhclNo");
+		const fcltCd = SBUxMethod.get("srch-slt-wghFcltCd");
+		const param = {
+				apcCd : gv_selectedApcCd,
+				wghYmd: wghYmd,
+				wghSeCd : "01",
+				vhclno : vhclno,
+				fcltCd : fcltCd
+
+			}
+
+    	let postJsonPromise = gfn_postJSON("/am/wgh/selectWghEntrVhclList.do", param);
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -292,9 +304,15 @@
  							, outWght : item.outWght
  							, entrTm : item.entrTm
  							, outTm : item.outTm
- 							, diff : parseInt(item.entrWght) - parseInt(item.outWght)
+
   					}
 
+  					let x = parseInt(item.entrWght);
+  					let y = gfn_nvl(item.outWght);
+  					if(y === ""){
+  						y = 0;
+  					}
+  					fcltVO['diff'] = x - parseInt(y)
   					jsonWghFcltDtlList.push(fcltVO);
   				});
   	        	grdWghFcltDtlList.rebuild();

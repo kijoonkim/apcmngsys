@@ -320,6 +320,12 @@
 			AND A.APC_CD = B.APC_CD(+)
 			AND A.FCLT_TYPE = B.FCLT_TYPE(+)
 			AND A.FCLT_CD = B.FCLT_CD(+)
+			<if test='rprsItem != null and rprsItem != ""'>
+	            AND A.RPRS_ITEM = #{rprsItem}
+			</if>
+			<if test='rprsVrty != null and rprsVrty != ""'>
+	            AND A.RPRS_VRTY = #{rprsVrty}
+			</if>
 
 
 
@@ -501,6 +507,7 @@
 			 WHERE APC_CD = #{apcCd}
 			   AND FCLT_ATRB_TYPE = #{fcltAtrbType}
 			   AND FCLT_TYPE = #{fcltType}
+			   AND FCLT_CD = #{fcltCd}
 		]]>
 	</update>
 

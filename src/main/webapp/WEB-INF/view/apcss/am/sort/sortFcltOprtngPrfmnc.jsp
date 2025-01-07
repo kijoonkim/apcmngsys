@@ -131,7 +131,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div style="display: flex;gap: 3vw" id="sb-area-grdSortFcltPrfmnc"></div>
+                        <div style="display: flex;gap: 3vw;height:300px" id="sb-area-grdSortFcltPrfmnc" ></div>
                     </div>
                     <div style="display: flex;gap: 3vw">
                         <div style="flex: 1.6">
@@ -558,8 +558,19 @@
 		SBUxMethod.set("dtl-inp-oprtngQntt",rowData.oprtngQntt);
 		SBUxMethod.set("dtl-inp-oprtngWght",rowData.oprtngWght);
 
-		SBUxMethod.set("dtl-dtp-bgngYmd",rowData.oprtngBgngDt);
-		SBUxMethod.set("dtl-dtp-endYmd",rowData.oprtngEndDt);
+
+		if(gfn_nvl(rowData.oprtngBgngDt)!==""){
+			SBUxMethod.set("dtl-dtp-bgngYmd",rowData.oprtngBgngDt.replace(/[-: ]/g, '').substring(0,12));
+		}else{
+			SBUxMethod.set("dtl-dtp-bgngYmd","");
+		}
+		if(gfn_nvl(rowData.oprtngBgngDt)!==""){
+			SBUxMethod.set("dtl-dtp-endYmd",rowData.oprtngEndDt.replace(/[-: ]/g, '').substring(0,12));
+		}else{
+			SBUxMethod.set("dtl-dtp-endYmd","");
+		}
+
+
 		SBUxMethod.set("dtl-inp-fcltRmrk",rowData.oprtngRmrk);
 	}
     const gridAfterRebuild = function(){

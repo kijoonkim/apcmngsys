@@ -1,288 +1,233 @@
+
 <%
-    /**
-     * @Class Name : sortFcltInfoMng.jsp
-     * @Description : 선별 설비 정보 관리 화면
-     * @author SI개발부
-     * @since 2024.09.03
-     * @version 1.0
-     * @Modification Information
-     * @
-     * @ 수정일       	수정자      	수정내용
-     * @ ----------	----------	---------------------------
-     * @ 2024.09.03   	박승진		최초 생성
-     * @see
-     *
-     */
+/**
+ * @Class Name : sortFcltInfoMng.jsp
+ * @Description : 선별 설비 정보 관리 화면
+ * @author SI개발부
+ * @since 2024.09.03
+ * @version 1.0
+ * @Modification Information
+ * @
+ * @ 수정일       	수정자      	수정내용
+ * @ ----------	----------	---------------------------
+ * @ 2024.09.03   	박승진		최초 생성
+ * @see
+ *
+ */
 %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 선별 설비 정보 관리</title>
-    <%@ include file="../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../frame/inc/headerScript.jsp" %>
-    <%@ include file="../../../frame/inc/clipreport.jsp" %>
-    <style>
-
-    </style>
+<title>title : 선별 설비 정보 관리</title>
+<%@ include file="../../../frame/inc/headerMeta.jsp"%>
+<%@ include file="../../../frame/inc/headerScript.jsp"%>
+<%@ include file="../../../frame/inc/clipreport.jsp"%>
+<style>
+</style>
 </head>
 <body oncontextmenu="return false">
-    <section class="content container-fluid">
-        <div class="box box-solid">
-            <div class="box-header" style="display:flex; justify-content: flex-start;">
-                <div>
-                    <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                    <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별설비정보관리 -->
-                </div>
-                <div style="margin-left: auto;">
+	<section class="content container-fluid">
+		<div class="box box-solid">
+			<div class="box-header"
+				style="display: flex; justify-content: flex-start;">
+				<div>
+					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+					<h3 class="box-title">
+						▶
+						<c:out value='${menuNm}'></c:out>
+					</h3>
+					<!-- 선별설비정보관리 -->
+				</div>
+				<div style="margin-left: auto;">
 
 
-                    <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
-                    <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
-                    <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
+					<sbux-button id="btnSave" name="btnSave" uitype="normal"
+						class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"
+						text="삭제" class="btn btn-sm btn-outline-danger"
+						onclick="fn_delete"></sbux-button>
+					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"
+						class="btn btn-sm btn-outline-danger" text="조회"
+						onclick="fn_search"></sbux-button>
 
-                </div>
-            </div>
-            <div class="box-body">
-                <%@ include file="../../../frame/inc/apcSelect.jsp" %>
-                <div>
-                <table class="table table-bordered tbl_fixed">
-					<caption>검색 조건 설정</caption>
-					<colgroup>
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">선별기</th>
-							<td class="td_input" colspan="3" style="border-right: hidden;">
-								<sbux-select
-									id="srch-slt-sortFcltCd"
-									name="srch-slt-sortFcltCd"
-									uitype="single"
-									class="form-control input-sm"
-									unselected-text="전체"
-									jsondata-ref="jsonSortFclt"
-								></sbux-select>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-                    <div>
-                        <div class="ad_tbl_top">
-                            <ul class="ad_tbl_count">
-                                <li>
-                                    <span>선별기 목록</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="sb-area-grdSortFcltList"></div>
-                    </div>
-                    <div style="display: flex;gap: 3vw">
-                        <div style="flex: 1.6">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li>
-                                        <span>선별기 기본정보</span>
-                                    </li>
-                                    <li id="createFlag"style="display: none">
-                                        <span style="color: red">신규생성중</span>
-                                    </li>
-                                    <li id="editFlag"style="display: none">
-                                        <span style="color: red">수정중</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <table id="sortFcltTable" class="table table-bordered tbl_fixed">
-                                <caption>검색 조건 설정</caption>
-                                <colgroup>
-                                    <col style="width: 15%">
-                                    <col style="width: 35%">
-                                    <col style="width: 15%">
-                                    <col style="width: 35%">
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" class="th_bg">설비코드</th>
-                                        <td class="td_input">
-                                            <sbux-input id="dtl-inp-fcltCd" name="dtl-inp-fcltCd" uitype="text" class="form-control input-sm"  readonly>
-                                            </sbux-input>
-                                        </td>
-                                        <th scope="row" class="th_bg">명칭</th>
-                                        <td class="td_input">
-                                            <sbux-input id="dtl-inp-alias" name="dtl-inp-alias" uitype="text" class="form-control input-sm"  readonly>
-                                            </sbux-input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">설비유형</th>
-                                        <td class="td_input" >
-                                            <sbux-select
-                                                    id="dtl-slt-fcltType"
-                                                    name="dtl-slt-fcltType"
-                                                    uitype="single"
-                                                    jsondata-ref="jsonFcltType"
-                                                    unselected-text="전체"
-                                                    class="form-control input-sm input-sm-ast"
-
-                                                    readonly
-                                            ></sbux-select>
-                                        </td>
-                                        <th scope="row" class="th_bg">포장구분</th>
-                                        <td class="td_input">
-                                            <sbux-select
-                                                    id="dtl-slt-pckgSe"
-                                                    name="dtl-slt-pckgSe"
-                                                    uitype="single"
-                                                    jsondata-ref="jsonPckgSe"
-                                                    unselected-text="전체"
-                                                    class="form-control input-sm input-sm-ast"
-                                                    group-id="group1"
-                                            ></sbux-select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">설명</th>
-                                        <td class="td_input" colspan="3">
-                                            <sbux-input id="dtl-inp-expln" name="dtl-inp-expln" uitype="text" class="form-control input-sm" group-id="group1">
-                                            </sbux-input>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">대표품목</th>
-                                        <td class="td_input">
-                                            <sbux-select
-                                            	id="dtl-inp-rprsItem"
-                                            	name="dtl-inp-rprsItem"
-                                            	uitype="single"
-                                                jsondata-ref="jsonApcItem"
-                                                class="form-control input-sm"
-                                                group-id="group1">
-                                            </sbux-select>
-                                        </td>
-                                        <th scope="row" class="th_bg">대표품종</th>
-                                        <td>
-                                        	<sbux-select
-                                        		id="dtl-inp-rprsVrty"
-                                        		name="dtl-inp-rprsVrty"
-                                        		uitype="single"
-                                                jsondata-ref="jsonApcVrty"
-                                                filter-source-name="dtl-inp-rprsItem"
-                                                jsondata-filter = "itemCd"
-                                        		class="form-control input-sm"
-                                        		group-id="group1">
-                                            </sbux-select>
+				</div>
+			</div>
+			<div class="box-body">
+				<%@ include file="../../../frame/inc/apcSelect.jsp"%>
+				<div>
+					<table class="table table-bordered tbl_fixed">
+						<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 6%">
+							<col style="width: 3%">
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 6%">
+							<col style="width: 3%">
+							<col style="width: 7%">
+							<col style="width: 6%">
+							<col style="width: 6%">
+							<col style="width: 3%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg">선별기</th>
+								<td class="td_input" colspan="3" style="border-right: hidden;">
+									<sbux-select id="srch-slt-sortFcltCd"
+										name="srch-slt-sortFcltCd" uitype="single"
+										class="form-control input-sm" unselected-text="전체"
+										jsondata-ref="jsonSortFclt"></sbux-select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>선별기 목록</span></li>
+							</ul>
+						</div>
+						<div id="sb-area-grdSortFcltList"></div>
+					</div>
+					<div style="display: flex; gap: 3vw">
+						<div style="flex: 1.6">
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li><span>선별기 기본정보</span></li>
+									<li id="createFlag" style="display: none"><span
+										style="color: red">신규생성중</span></li>
+									<li id="editFlag" style="display: none"><span
+										style="color: red">수정중</span></li>
+								</ul>
+							</div>
+							<table id="sortFcltTable" class="table table-bordered tbl_fixed">
+								<caption>검색 조건 설정</caption>
+								<colgroup>
+									<col style="width: 15%">
+									<col style="width: 35%">
+									<col style="width: 15%">
+									<col style="width: 35%">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row" class="th_bg">설비코드</th>
+										<td class="td_input"><sbux-input id="dtl-inp-fcltCd"
+												name="dtl-inp-fcltCd" uitype="text"
+												class="form-control input-sm" readonly> </sbux-input></td>
+										<th scope="row" class="th_bg">명칭</th>
+										<td class="td_input"><sbux-input id="dtl-inp-alias"
+												name="dtl-inp-alias" uitype="text"
+												class="form-control input-sm" readonly> </sbux-input></td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">설비유형</th>
+										<td class="td_input"><sbux-select id="dtl-slt-fcltType"
+												name="dtl-slt-fcltType" uitype="single"
+												jsondata-ref="jsonFcltType" unselected-text="전체"
+												class="form-control input-sm input-sm-ast" readonly></sbux-select>
 										</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">선별Capa</th>
-                                        <td class="td_input">
-                                        	<sbux-input id="dtl-inp-sortCapa" name="dtl-inp-sortCapa" uitype="text" class="form-control input-sm" permit-keycodes-set="num" exclude-kr="kr" group-id="group1">
-                                            </sbux-input>
-                                        </td>
-                                        <th scope="row" class="th_bg">단위</th>
-                                        <td class="td_input">
-                                        	<sbux-select
-                                                    id="dtl-slt-unit"
-                                                    name="dtl-slt-unit"
-                                                    uitype="single"
-                                                    jsondata-ref="jsonUnit"
-                                                    unselected-text="전체"
-                                                    class="form-control input-sm input-sm-ast"
-                                                    group-id="group1"
-                                            ></sbux-select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">가동시간</th>
-                                        <td class="td_input">
-                                            <sbux-datepicker
-                                            		id="dtl-dtp-oprtngHr"
-                                            		name="dtl-dtp-oprtngHr"
-                                            		uitype="popup"
-                                            		date-format="yyyy/mm/dd HH:MM"
-													show-time-bar="true"
-													class="form-control input-sm sbux-pik-group-apc input-sm-ast"
-													group-id="group1">
-
-                                    		</sbux-datepicker>
-                                        </td>
-                                        <th scope="row" class="th_bg">비가동시간</th>
-                                        <td class="td_input">
-                                           <sbux-datepicker
-                                           		id="dtl-dtp-noprtngHr"
-                                           		name="dtl-dtp-noprtngHr"
-                                           		uitype="popup"
-												date-format="yyyy/mm/dd HH:MM"
+										<th scope="row" class="th_bg">포장구분</th>
+										<td class="td_input"><sbux-select id="dtl-slt-pckgSe"
+												name="dtl-slt-pckgSe" uitype="single"
+												jsondata-ref="jsonPckgSe" unselected-text="전체"
+												class="form-control input-sm input-sm-ast" group-id="group1"></sbux-select>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">설명</th>
+										<td class="td_input" colspan="3"><sbux-input
+												id="dtl-inp-expln" name="dtl-inp-expln" uitype="text"
+												class="form-control input-sm" group-id="group1">
+											</sbux-input></td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">대표품목</th>
+										<td class="td_input"><sbux-select id="dtl-inp-rprsItem"
+												name="dtl-inp-rprsItem" uitype="single"
+												jsondata-ref="jsonApcItem" class="form-control input-sm"
+												group-id="group1"> </sbux-select></td>
+										<th scope="row" class="th_bg">대표품종</th>
+										<td><sbux-select id="dtl-inp-rprsVrty"
+												name="dtl-inp-rprsVrty" uitype="single"
+												jsondata-ref="jsonApcVrty"
+												filter-source-name="dtl-inp-rprsItem"
+												jsondata-filter="itemCd" class="form-control input-sm"
+												group-id="group1"> </sbux-select></td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">선별Capa</th>
+										<td class="td_input"><sbux-input id="dtl-inp-sortCapa"
+												name="dtl-inp-sortCapa" uitype="text"
+												class="form-control input-sm" permit-keycodes-set="num"
+												exclude-kr="kr" group-id="group1"> </sbux-input></td>
+										<th scope="row" class="th_bg">단위</th>
+										<td class="td_input"><sbux-select id="dtl-slt-unit"
+												name="dtl-slt-unit" uitype="single" jsondata-ref="jsonUnit"
+												unselected-text="전체"
+												class="form-control input-sm input-sm-ast" group-id="group1"></sbux-select>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">가동시간</th>
+										<td class="td_input"><sbux-datepicker
+												id="dtl-dtp-oprtngHr" name="dtl-dtp-oprtngHr" uitype="popup"
+												date-format="yyyy/mm/dd HH:MM" show-time-bar="true"
+												class="form-control input-sm sbux-pik-group-apc input-sm-ast"
+												group-id="group1"> </sbux-datepicker></td>
+										<th scope="row" class="th_bg">비가동시간</th>
+										<td class="td_input"><sbux-datepicker
+												id="dtl-dtp-noprtngHr" name="dtl-dtp-noprtngHr"
+												uitype="popup" date-format="yyyy/mm/dd HH:MM"
 												show-time-bar="true"
 												class="form-control input-sm sbux-pik-group-apc input-sm-ast"
-												group-id="group1">
-											</sbux-datepicker>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" class="th_bg">시작일자</th>
-                                        <td class="td_input">
-                                            <sbux-datepicker
-                                            		id="dtl-dtp-bgngYmd"
-                                         			name="dtl-dtp-bgngYmd"
-                                         			uitype="popup"
-                                         			date-format="yyyy-mm-dd"
-                                         			class="form-control input-sm input-sm-ast sbux-pik-group-apc"
-                                         			group-id="group1">
-                                      		</sbux-datepicker>
-                                        </td>
-                                        <th scope="row" class="th_bg">종료일자</th>
-                                        <td class="td_input">
-                                            <sbux-datepicker
-                                            		id="dtl-dtp-endYmd"
-                                            		name="dtl-dtp-endYmd"
-                                            		uitype="popup"
-                                            		date-format="yyyy-mm-dd"
-                                            		class="form-control input-sm input-sm-ast sbux-pik-group-apc"
-                                            		group-id="group1" >
-                                           	</sbux-datepicker>
-                                        </td>
-                                    </tr>
-                                    <tr style="height: 5vh">
-                                        <th rowspan="2" scope="row" class="th_bg">비고</th>
-                                        <td rowspan="2" class="td_input" colspan="3">
-                                            <sbux-input wrap-style="height: 100%" id="dtl-inp-fcltRmrk" name="dtl-inp-fcltRmrk" uitype="text" class="form-control input-sm" group-id="group1">
-                                            </sbux-input>
-                                        </td>
-                                    </tr>
+												group-id="group1"> </sbux-datepicker></td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">시작일자</th>
+										<td class="td_input"><sbux-datepicker
+												id="dtl-dtp-bgngYmd" name="dtl-dtp-bgngYmd" uitype="popup"
+												date-format="yyyy-mm-dd"
+												class="form-control input-sm input-sm-ast sbux-pik-group-apc"
+												group-id="group1"> </sbux-datepicker></td>
+										<th scope="row" class="th_bg">종료일자</th>
+										<td class="td_input"><sbux-datepicker id="dtl-dtp-endYmd"
+												name="dtl-dtp-endYmd" uitype="popup"
+												date-format="yyyy-mm-dd"
+												class="form-control input-sm input-sm-ast sbux-pik-group-apc"
+												group-id="group1"> </sbux-datepicker></td>
+									</tr>
+									<tr style="height: 5vh">
+										<th rowspan="2" scope="row" class="th_bg">비고</th>
+										<td rowspan="2" class="td_input" colspan="3"><sbux-input
+												wrap-style="height: 100%" id="dtl-inp-fcltRmrk"
+												name="dtl-inp-fcltRmrk" uitype="text"
+												class="form-control input-sm" group-id="group1">
+											</sbux-input></td>
+									</tr>
 
-                                </tbody>
+								</tbody>
 
-                            </table>
-                        </div>
-                        <div style="flex: 1;display: flex;flex-direction: column;">
-                            <div class="ad_tbl_top">
-                                <ul class="ad_tbl_count">
-                                    <li>
-                                        <span>상세정보</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="sb-area-grdSortFcltDtlList" style="flex: 1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="div-rpt-clipReportPrint" style="display:none;"></div>
-    </section>
+							</table>
+						</div>
+						<div style="flex: 1; display: flex; flex-direction: column;">
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li><span>상세정보</span></li>
+								</ul>
+							</div>
+							<div id="sb-area-grdSortFcltDtlList" style="flex: 1"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="div-rpt-clipReportPrint" style="display: none;"></div>
+	</section>
 </body>
 <script>
     /** 상단 grid ref Json **/
@@ -331,6 +276,8 @@
         ]);
 
         SBUxMethod.set("dtl-slt-fcltType","SORT_FCLT_CD");
+
+        await fn_search();
     }
 
     const fn_search = async function(){
@@ -435,9 +382,10 @@
             if(postJsonPromise){
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
-                    // gfn_comAlert(data.resultCode, data.resultMessage);
+                    //gfn_comAlert(data.resultCode, data.resultMessage);
                     //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
                     //fn_reset();
+                    fn_search();
                     return;
                 }
             }
@@ -610,6 +558,7 @@
 		SBUxMethod.set("dtl-inp-sortCapa",sortFcltVO.cpctUnit);
 		SBUxMethod.set("dtl-inp-fcltRmrk",sortFcltVO.fcltRmrk);
 		SBUxMethod.set("dtl-inp-rprsItem",sortFcltVO.rprsItem);
+		SBUxMethod.refresh("dtl-inp-rprsVrty");
 		SBUxMethod.set("dtl-inp-rprsVrty",sortFcltVO.rprsVrty);
 		SBUxMethod.set("dtl-slt-unit",sortFcltVO.unit);
 		SBUxMethod.set("dtl-dtp-oprtngHr",sortFcltVO.oprtngHr);
@@ -647,12 +596,12 @@
     window.addEventListener("DOMContentLoaded",function(){
     	fn_createSortListGrid();
         fn_createSortFcltDtlList();
-        fn_search();
+
         fn_init();
     });
 
 </script>
 
 
-<%@ include file="../../../frame/inc/bottomScript.jsp" %>
+<%@ include file="../../../frame/inc/bottomScript.jsp"%>
 </html>

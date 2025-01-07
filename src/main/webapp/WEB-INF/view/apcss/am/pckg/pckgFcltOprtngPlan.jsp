@@ -328,6 +328,8 @@
     	SBUxMethod.refreshGroup("group1");
     	SBUxMethod.set("dtl-inp-gubun","insert");
     	var planYm = SBUxMethod.get("srch-dtp-planYm");
+    	var rprsVrty = SBUxMethod.get("srch-inp-vrtyCd");
+    	var rprsItem = SBUxMethod.get("srch-slt-itemCd");
     	if(planYm !== planYmCheck){
     		grdSortPlan.destroy();
     		fn_createSortListGrid();
@@ -335,8 +337,15 @@
     	}
 
         try{
+        	let param = {
+        		apcCd:gv_apcCd
+        		, fcltType: 'PCKG_FCLT_CD'
+        		, planYm : planYm
+        		, rprsItem : rprsItem
+        		, rprsVrty : rprsVrty
+        	}
 
-            let postJsonPromise = gfn_postJSON("/am/sort/selectSortFcltOprtngPlanList.do",{apcCd:gv_apcCd, fcltType: 'PCKG_FCLT_CD', planYm : planYm });
+            let postJsonPromise = gfn_postJSON("/am/sort/selectSortFcltOprtngPlanList.do",param);
             let data = await postJsonPromise;
 
             if (!_.isEqual("S", data.resultStatus)) {
