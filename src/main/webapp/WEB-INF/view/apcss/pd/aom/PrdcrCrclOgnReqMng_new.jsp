@@ -1329,7 +1329,9 @@
 		fn_clearForm();
 
 		let yr = SBUxMethod.get("srch-input-yr");//
+		//년도 변경 처리
 		$(".setYr").text(yr);
+		fn_gpcListGrid();
 
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -1353,7 +1355,6 @@
 				yrChkVal = yrChk[keys[i]];
 			}
 		}
-
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
 			cmptnInst : cmptnInst

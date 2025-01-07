@@ -282,7 +282,7 @@
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
-		fn_setYear();//기본년도 세팅
+		await fn_setYear();//기본년도 세팅
 		fn_initSBSelect();
 
 		let data = opener.fn_getData();
