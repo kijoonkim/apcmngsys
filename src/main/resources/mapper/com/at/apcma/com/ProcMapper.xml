@@ -141,11 +141,6 @@
 		}
 	</select>
 
-
-	<select id="checkFormula" resultType="String" parameterType="map">
-		select ${formula} from dual;
-	</select>
-
 	<select id="checkMultiple" resultType="String" parameterType="map">
 		${query};
 	</select>

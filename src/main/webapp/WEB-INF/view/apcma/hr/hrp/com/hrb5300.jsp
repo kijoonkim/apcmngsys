@@ -1142,6 +1142,8 @@
 
         }
 
+        console.log('---paramObj----', paramObj);
+
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/chkHrb5300.do", paramObj);
 
         const data = await postJsonPromise;
