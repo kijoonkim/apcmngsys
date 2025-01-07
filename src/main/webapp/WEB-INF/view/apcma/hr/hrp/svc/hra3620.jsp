@@ -449,8 +449,6 @@
             + Number(rowData.LONG_HEALTH_INSURE_AMT) + Number(rowData.NATIONAL_PENS_AMT) + Number(rowData.EMPLOY_INSURE_AMT) + Number(rowData.ETC_DED_AMT));
         var TOT_PAY_AMT = Number(EARNED_INC_AMT - TOT_DEDUCT_AMT);
 
-        console.log(TOT_AMOUNT, EARNED_INC_AMT, TOT_DEDUCT_AMT, TOT_PAY_AMT);
-
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('TOT_AMOUNT'), TOT_AMOUNT);
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('EARNED_INC_AMT'), EARNED_INC_AMT);
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('TOT_DEDUCT_AMT'), TOT_DEDUCT_AMT);
@@ -494,7 +492,6 @@
             ,tableColumnNames		: ["EARNR_CD", "EARNR_NM"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                console.log(data);
                 gvwInfo.setCellData(row, gvwInfo.getColRef("SOCNO"), data.RGDT_NO);
                 gvwInfo.setCellData(row, gvwInfo.getColRef("SITE_CODE"), data.SITE_CD);
                 gvwInfo.setCellData(row, gvwInfo.getColRef("BANK_CODE"), data.BANK_CD);
@@ -1051,19 +1048,19 @@
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_TXN_ID : 0,
-                    V_P_JOB_YYYYMM : item.data.JOB_YYYYMM,
-                    V_P_EARNER_CODE : item.data.EARNER_CODE,
-                    V_P_SITE_CODE : item.data.SITE_CODE,
-                    V_P_PAY_DATE : item.data.PAY_DATE,
-                    V_P_WORK_END_DAT : item.data.WORK_END_DAT,
-                    V_P_WORK_ST_DAT : item.data.WORK_ST_DAT,
-                    V_P_WORK_DAY : item.data.WORK_DAY,
+                    V_P_JOB_YYYYMM : gfn_nvl(item.data.JOB_YYYYMM),
+                    V_P_EARNER_CODE : gfn_nvl(item.data.EARNER_CODE),
+                    V_P_SITE_CODE : gfn_nvl(item.data.SITE_CODE),
+                    V_P_PAY_DATE : gfn_nvl(item.data.PAY_DATE),
+                    V_P_WORK_END_DAT : gfn_nvl(item.data.WORK_END_DAT),
+                    V_P_WORK_ST_DAT : gfn_nvl(item.data.WORK_ST_DAT),
+                    V_P_WORK_DAY : gfn_nvl(item.data.WORK_DAY),
                     V_P_WORK_CNT : gfn_nvl(item.data.WORK_CNT, 0),
-                    V_P_WORK_GBN : item.data.WORK_GBN,
-                    V_P_WORK_PLACE : item.data.WORK_PLACE,
-                    V_P_WORK_NAME : item.data.WORK_NAME,
-                    V_P_WORK_DTL_NAME : item.data.WORK_DTL_NAME,
-                    V_P_WORK_PLACE2 : item.data.WORK_PLACE2,
+                    V_P_WORK_GBN : gfn_nvl(item.data.WORK_GBN),
+                    V_P_WORK_PLACE : gfn_nvl(item.data.WORK_PLACE),
+                    V_P_WORK_NAME : gfn_nvl(item.data.WORK_NAME),
+                    V_P_WORK_DTL_NAME : gfn_nvl(item.data.WORK_DTL_NAME),
+                    V_P_WORK_PLACE2 : gfn_nvl(item.data.WORK_PLACE2),
                     V_P_DAILY_PAY_AMT : gfn_nvl(item.data.DAILY_PAY_AMT, 0),
                     V_P_TOT_PAY_AMT : gfn_nvl(item.data.TOT_PAY_AMT, 0),
                     V_P_WORK_PAY_AMT : gfn_nvl(item.data.WORK_PAY_AMT, 0),
@@ -1079,9 +1076,9 @@
                     V_P_ETC_DED_AMT : gfn_nvl(item.data.ETC_DED_AMT, 0),
                     V_P_TOT_DEDUCT_AMT : gfn_nvl(item.data.TOT_DEDUCT_AMT, 0),
                     V_P_ALLOWANCE_AMT : gfn_nvl(item.data.ALLOWANCE_AMT, 0),
-                    V_P_MEMO : item.data.MEMO,
-                    V_P_REMARK : item.data.REMARK,
-                    V_P_WORK_REGION : item.data.WORK_REGION,
+                    V_P_MEMO : gfn_nvl(item.data.MEMO),
+                    V_P_REMARK : gfn_nvl(item.data.REMARK),
+                    V_P_WORK_REGION : gfn_nvl(item.data.WORK_REGION),
                     V_P_CONFIRM_YN : '',
                     V_P_ADJUSTMENT_AMT : gfn_nvl(item.data.ADJUSTMENT_AMT, 0),
                     V_P_FUAL_AMT : gfn_nvl(item.data.FUAL_AMT, 0),
@@ -1127,8 +1124,6 @@
             return;
         }
 
-        console.log(gvwInfoCheckedList)
-
         gvwInfoCheckedList.forEach((item, index) => {
             let data = gvwInfo.getRowData(item);
             const param = {
@@ -1141,12 +1136,12 @@
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_TXN_ID : 0,
-                    V_P_JOB_YYYYMM : data.JOB_YYYYMM,
-                    V_P_EARNER_CODE : data.EARNER_CODE,
+                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
+                    V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_SITE_CODE : '',
                     V_P_PAY_DATE : '',
                     V_P_WORK_END_DAT : '',
-                    V_P_WORK_ST_DAT : data.WORK_ST_DAT,
+                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
                     V_P_WORK_DAY : '',
                     V_P_WORK_CNT : '',
                     V_P_WORK_GBN : '',
@@ -1229,12 +1224,12 @@
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_TXN_ID : 0,
-                    V_P_JOB_YYYYMM : data.JOB_YYYYMM,
-                    V_P_EARNER_CODE : data.EARNER_CODE,
+                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
+                    V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_SITE_CODE : '',
                     V_P_PAY_DATE : '',
                     V_P_WORK_END_DAT : '',
-                    V_P_WORK_ST_DAT : data.WORK_ST_DAT,
+                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
                     V_P_WORK_DAY : '',
                     V_P_WORK_CNT : '',
                     V_P_WORK_GBN : '',
@@ -1337,25 +1332,25 @@
                 jsonServiceFeeList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        TXN_ID : item.TRSC_ID,
-                        JOB_YYYYMM : item.BLN_YM,
-                        SOCNO : item.RGDT_NO,
-                        WORK_ST_DAT : item.WRKDY_BGNG_YMD,
-                        EARNER_CODE : item.EARNR_CD,
-                        EARNER_NAME : item.EARNR_NM,
-                        SITE_CODE : item.SITE_CD,
-                        PAY_DATE : item.PAY_YMD,
-                        WORK_END_DAT : item.WORK_END_YMD,
+                        TXN_ID : gfn_nvl(item.TRSC_ID, 0),
+                        JOB_YYYYMM : gfn_nvl(item.BLN_YM),
+                        SOCNO : gfn_nvl(item.RGDT_NO),
+                        WORK_ST_DAT : gfn_nvl(item.WRKDY_BGNG_YMD),
+                        EARNER_CODE : gfn_nvl(item.EARNR_CD),
+                        EARNER_NAME : gfn_nvl(item.EARNR_NM),
+                        SITE_CODE : gfn_nvl(item.SITE_CD),
+                        PAY_DATE : gfn_nvl(item.PAY_YMD),
+                        WORK_END_DAT : gfn_nvl(item.WORK_END_YMD),
                         WORK_DAY : gfn_nvl(item.WORK_DCNT, 0),
-                        WORK_CNT : item.WORK_NOPE,
-                        WORK_GBN : item.JOB_SE,
-                        WORK_NAME : item.JOB_NM,
-                        WORK_PLACE : item.JOB_PLC,
-                        WORK_DTL_NAME : item.JOB_DTL_NM,
-                        WORK_PLACE2 : item.JOB_PLC2,
-                        BANK_CODE : item.BANK_CD,
-                        BANK_NAME : item.BANK_NM,
-                        BANK_ACC : item.BACNT_NO,
+                        WORK_CNT : gfn_nvl(item.WORK_NOPE),
+                        WORK_GBN : gfn_nvl(item.JOB_SE),
+                        WORK_NAME : gfn_nvl(item.JOB_NM),
+                        WORK_PLACE : gfn_nvl(item.JOB_PLC),
+                        WORK_DTL_NAME : gfn_nvl(item.JOB_DTL_NM),
+                        WORK_PLACE2 : gfn_nvl(item.JOB_PLC2),
+                        BANK_CODE : gfn_nvl(item.BANK_CD),
+                        BANK_NAME : gfn_nvl(item.BANK_NM),
+                        BANK_ACC : gfn_nvl(item.BACNT_NO),
                         DAILY_PAY_AMT : gfn_nvl(item.DAY_PAY_AMT, 0),
                         TOT_PAY_AMT : gfn_nvl(item.PAY_AMT_SUM, 0),
                         WORK_PAY_AMT : gfn_nvl(item.WORK_PAY_AMT, 0),
@@ -1371,16 +1366,16 @@
                         ETC_DED_AMT : gfn_nvl(item.ETC_DDC_AMT, 0),
                         TOT_DEDUCT_AMT : gfn_nvl(item.DDC_AMT_SUM, 0),
                         ALLOWANCE_AMT : gfn_nvl(item.SBTR_PAY_AMT, 0),
-                        MEMO : item.MEMO,
-                        REMARK : item.RMRK,
-                        FOREI_TYPE : item.FRGNR_YN,
-                        NATION_CODE : item.HBTN_NTN_CD,
-                        TEL : item.TELNO,
-                        MOBILE_PHONE : item.MOBL_NO,
-                        EMAIL : item.EML,
-                        ADDRESS : item.ADDR,
-                        WORK_REGION : item.WORK_RGN_CD,
-                        CONFIRM_YN : item.CFMTN_YN,
+                        MEMO : gfn_nvl(item.MEMO),
+                        REMARK : gfn_nvl(item.RMRK),
+                        FOREI_TYPE : gfn_nvl(item.FRGNR_YN),
+                        NATION_CODE : gfn_nvl(item.HBTN_NTN_CD),
+                        TEL : gfn_nvl(item.TELNO),
+                        MOBILE_PHONE : gfn_nvl(item.MOBL_NO),
+                        EMAIL : gfn_nvl(item.EML),
+                        ADDRESS : gfn_nvl(item.ADDR),
+                        WORK_REGION : gfn_nvl(item.WORK_RGN_CD),
+                        CONFIRM_YN : gfn_nvl(item.CFMTN_YN),
                         ADJUSTMENT_AMT : gfn_nvl(item.AJMT_AMT, 0),
                         FUAL_AMT : gfn_nvl(item.OL_AMT, 0),
                         ETC_COST : gfn_nvl(item.ETC_CST, 0),
