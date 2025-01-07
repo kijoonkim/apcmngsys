@@ -82,6 +82,7 @@
 								<sbux-select id="srch-slt-fiOrgCode" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                             <td></td>
+                            
                             <th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 
@@ -103,9 +104,6 @@
                             </td>
                             <td></td>
 
-
-                        </tr>
-                        <tr>
                             <th scope="row" class="th_bg_search">감가상각년월</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
@@ -129,7 +127,7 @@
                         <tr>
 
                             <th scope="row" class="th_bg_search">비고</th>
-                            <td colspan="7" class="td_input" style="border-right:hidden;">
+                            <td colspan="8" class="td_input" style="border-right:hidden;">
 								<sbux-input uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo" class="form-control input-sm"></sbux-input>
                             </td>
 
@@ -502,7 +500,6 @@
     	 //if (gvwInfo.FocusedRowHandle < 0)
          //    return;
 
-
          let bresult = false;
 
          let intmax_seq = 0;
@@ -512,8 +509,8 @@
 
          let data = grdAstClsfList.getGridDataAll();
 
-      // 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
-		 // cbodepreciation_type : 감가상각기준
+      	// 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
+		// cbodepreciation_type : 감가상각기준
          data.forEach(item => {
         	 if(item.checkYn === "Y"){
         			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
@@ -536,8 +533,6 @@
 
         	 }
          })
-
-
 
          if (bresult){
              fn_queryClick();
@@ -590,54 +585,53 @@
 	//조회
 	// srrWorkType : GAAP, IFRS, TAX, CANCLE
     const fnSET_P_FIA5200_S = async function(strWorkType,strSiteCodeP){
-		let depreciationYyyymm = 	SBUxMethod.get("srch-dtp-depreciationYyyymm");
-		let depreciationType = SBUxMethod.get("srch-slt-depreciationType");
+		
+		let depreciationYyyymm 	= 	SBUxMethod.get("srch-dtp-depreciationYyyymm");
+		let depreciationType 	= 	SBUxMethod.get("srch-slt-depreciationType");
 
     	 var paramObj = {
-      			V_P_DEBUG_MODE_YN	: ''
-      			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
-      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_DEPRECIATION_YYYYMM : depreciationYyyymm
-      			,V_P_DEPRECIATION_TYPE   : depreciationType
-      			,V_P_SITE_CODE           : strSiteCodeP
-      			,V_P_MEMO                : ''
-      			,V_P_FORM_ID		: p_formId
-      			,V_P_MENU_ID		: p_menuId
-      			,V_P_PROC_ID		: ''
-      			,V_P_USERID			: p_userId
-      			,V_P_PC				: ''
-      	    };
+      			V_P_DEBUG_MODE_YN			: ''
+      			,V_P_LANG_ID				: ''
+      			,V_P_COMP_CODE				: gv_ma_selectedCorpCd
+      			,V_P_CLIENT_CODE			: gv_ma_selectedClntCd
+      			,V_P_DEPRECIATION_YYYYMM 	: depreciationYyyymm
+      			,V_P_DEPRECIATION_TYPE   	: depreciationType
+      			,V_P_SITE_CODE           	: strSiteCodeP
+      			,V_P_MEMO                	: ''
+      			,V_P_FORM_ID				: p_formId
+      			,V_P_MENU_ID				: p_menuId
+      			,V_P_PROC_ID				: ''
+      			,V_P_USERID					: p_userId
+      			,V_P_PC						: ''
+      	 };
 
+         const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5200.do", {
+          	getType				: 'json',
+          	workType			:  strWorkType,
+          	cv_count			: '0',
+          	params				: gfnma_objectToString(paramObj)
+  		 });
 
-
-
-          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5200.do", {
-           	getType				: 'json',
-           	workType			:  strWorkType,
-           	cv_count			: '0',
-           	params				: gfnma_objectToString(paramObj)
-   			});
-
-          const data = await postJsonPromise;
-          // 비즈니스 로직 정보
-           try {
-          if (_.isEqual("S", data.resultStatus)) {
-              gfn_comAlert("I0001");
-              //fn_search();
-              return true;
-          } else {
-              alert(data.resultMessage);
-			  return false;
-          }
-
- 	        } catch (e) {
- 	            if (!(e instanceof Error)) {
- 	                e = new Error(e);
- 	            }
- 	            console.error("failed", e.message);
- 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
- 	        }
+         const data = await postJsonPromise;
+ 		 console.log('insertFia5200 data:', data);
+ 		 
+         // 비즈니스 로직 정보
+         try {
+	        if (_.isEqual("S", data.resultStatus)) {
+	            gfn_comAlert("I0001");
+	            //fn_search();
+	            return true;
+	        } else {
+	            alert(data.resultMessage);
+		  		return false;
+	        }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
   	//조회? 확인 후 다시 정리
