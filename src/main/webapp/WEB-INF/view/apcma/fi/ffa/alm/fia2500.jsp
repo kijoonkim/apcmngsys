@@ -145,16 +145,15 @@
 	                            <th scope="row" class="th_bg_search">취득처</th>
 	                            <td colspan="3" class="td_input" >
 		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	  									<sbux-input style="width:80px" id="SCH_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:80px" placeholder="코드" id="SCH_CS_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 	  									<font style="width:5px"></font>
 										<sbux-button
 											id="BTN_POP1" 
 											class="btn btn-xs btn-outline-dark"
-											text="…" uitype="modal"
-											target-id="modal-compopup1"
+											text="…" 
 											onclick="fn_compopup1()"></sbux-button>
 	  									<font style="width:5px"></font>
-	  									<sbux-input style="width:100%" id="SCH_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:100%" placeholder="취득처명" id="SCH_CS_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 		                           	</div>
 	                            </td>
 	                        	<td></td>
@@ -162,7 +161,7 @@
 	                            <th scope="row" class="th_bg_search">담당부서</th>
 	                            <td colspan="3" class="td_input" >
 		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	  									<sbux-input style="width:80px" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:80px" placeholder="코드" id="SCH_DEPT_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 	  									<font style="width:5px"></font>
 										<sbux-button
 											id="BTN_POP2" 
@@ -171,7 +170,7 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup2()"></sbux-button>
 	  									<font style="width:5px"></font>
-	  									<sbux-input style="width:100%" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:100%" placeholder="부서명" id="SCH_DEPT_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 		                           	</div>
 	                            </td>
 	                        	<td></td>
@@ -179,7 +178,7 @@
 	                            <th scope="row" class="th_bg_search">담당자</th>
 	                            <td colspan="3" class="td_input" >
 		                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-	  									<sbux-input style="width:80px" id="SCH_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:80px" placeholder="코드" id="SCH_EMP_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 	  									<font style="width:5px"></font>
 										<sbux-button
 											id="BTN_POP3" 
@@ -188,7 +187,7 @@
 											target-id="modal-compopup1"
 											onclick="fn_compopup3"></sbux-button>
 	  									<font style="width:5px"></font>
-	  									<sbux-input style="width:100%" id="SCH_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+	  									<sbux-input style="width:100%" placeholder="담당자명" id="SCH_EMP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 		                           	</div>
 	                            </td>
 	                        	<td></td>
@@ -320,17 +319,16 @@
 			                                    <th scope="row" class="th_bg">취득처</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_CNPT_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_CNPT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP4" 
 															style="width:20px"
 															class="btn btn-xs btn-outline-dark"
-															text="…" uitype="modal"
-															target-id="modal-compopup1"
+															text="…" 
 															onclick="fn_compopup4()"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_CNPT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="취득처명" id="FM_CNPT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
@@ -348,7 +346,7 @@
 			                                    <th scope="row" class="th_bg">부가세유형</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:60px" id="FM_VAT_TYPE" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:60px" placeholder="코드" id="FM_VAT_TYPE" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP5" 
@@ -358,7 +356,7 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup5()"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_VAT_TMPLT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="부가세유형명" id="FM_VAT_TMPLT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                </tr>
@@ -367,7 +365,7 @@
 			                                    <th scope="row" class="th_bg">담당부서</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_DEPT_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_DEPT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP6" 
@@ -377,14 +375,14 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup6('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_DEPT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="부서명" id="FM_DEPT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
 			                                    <th scope="row" class="th_bg">자산번호</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_ASST_NO" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_ASST_NO" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP7" 
@@ -394,7 +392,7 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup7()"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_ASST_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="자산명" id="FM_ASST_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                    
@@ -413,7 +411,7 @@
 			                                    <th scope="row" class="th_bg">담당자</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_EMP_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_EMP_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP8" 
@@ -423,7 +421,7 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup8"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_EMP_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="담당자명" id="FM_EMP_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
@@ -447,7 +445,7 @@
 			                                    <th scope="row" class="th_bg">원가중심점</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_CSTCD_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_CSTCD_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP9" 
@@ -457,14 +455,14 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup9('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_CSTCD_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="원가중심점명" id="FM_CSTCD_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
 			                                    <th scope="row" class="th_bg">프로젝트</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_PJT_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_PJT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP10" 
@@ -474,7 +472,7 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup10('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_PJT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="프로젝트명" id="FM_PJT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                    
@@ -498,7 +496,7 @@
 			                                    <th scope="row" class="th_bg">자산계정</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" id="FM_ACNTL_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_ACNTL_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 														<sbux-button
 															id="BTN_POP11" 
@@ -508,7 +506,7 @@
 															target-id="modal-compopup1"
 															onclick="fn_compopup11('1')"></sbux-button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" id="FM_ACNT_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="계정명" id="FM_ACNT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 			                                
@@ -569,7 +567,7 @@
 					                                    <th scope="row" class="th_bg">자산구분</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM2_ASSET_CATEGORY_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="자산명" id="FM2_ASSET_CATEGORY_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP12" 
@@ -591,7 +589,7 @@
 					                                    <th scope="row" class="th_bg">자산계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_ASSET_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_ASSET_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP13" 
@@ -601,7 +599,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup13"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="자산계정명" id="FM2_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -610,7 +608,7 @@
 					                                    <th scope="row" class="th_bg">중분류</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="중분류명" id="FM2_ASSET_LEVEL2_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP14" 
@@ -639,24 +637,23 @@
 					                                    <th scope="row" class="th_bg">최초취득처</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_CS_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_CS_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP15" 
 																	style="width:20px"
 																	class="btn btn-xs btn-outline-dark"
-																	text="…" uitype="modal"
-																	target-id="modal-compopup1"
+																	text="…" 
 																	onclick="fn_compopup15"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_CS_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="취득처명" id="FM2_CS_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각비계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_DEPR_EXP_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_DEPR_EXP_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP16" 
@@ -666,7 +663,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="계정명" id="FM2_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -675,7 +672,7 @@
 					                                    <th scope="row" class="th_bg">소분류</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:100%" id="FM2_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="코드" id="FM2_ASSET_LEVEL3_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP17" 
@@ -685,7 +682,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup16"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="display:none;" id="FM2_ASSET_LEVEL3_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="display:none;" placeholder="소분류명" id="FM2_ASSET_LEVEL3_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>
 					                                
@@ -704,7 +701,7 @@
 					                                    <th scope="row" class="th_bg">담당부서</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_DEPT_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_DEPT_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP18" 
@@ -714,14 +711,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup6('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_DEPT_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="부서명" id="FM2_DEPT_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">감가상각누계계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP19" 
@@ -731,7 +728,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('3')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="계정명" id="FM2_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -755,7 +752,7 @@
 					                                    <th scope="row" class="th_bg">원가중심점</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_COST_CENTER_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_COST_CENTER_CODE1_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP20" 
@@ -765,14 +762,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup9('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_COST_CENTER_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="원가중심점명" id="FM2_COST_CENTER_NAME1_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">보조금계정</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_SUBSIDIES_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP21" 
@@ -782,7 +779,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('4')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="계정명" id="FM2_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -801,7 +798,7 @@
 					                                    <th scope="row" class="th_bg">프로젝트</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_PROJECT_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_PROJECT_CODE_A" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP22" 
@@ -811,14 +808,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup10('2')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_PROJECT_NAME_A" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="프로젝트명" id="FM2_PROJECT_NAME_A" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
 					                                    <th scope="row" class="th_bg">보조금상각비</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_SUBSIDIES_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP23" 
@@ -828,7 +825,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('5')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="계정명" id="FM2_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -847,7 +844,7 @@
 					                                    <th scope="row" class="th_bg">위치코드</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_LOCATION_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP24" 
@@ -857,14 +854,14 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup17()"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="위치명" id="FM2_LOCATION_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 					                                
-					                                    <th scope="row" class="th_bg">보조금상각누계액</th>
+					                                    <th scope="row" class="th_bg">보조금상각누계</th>
 					                                    <td colspan="2" class="td_input">
 								                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-							  									<sbux-input style="width:80px" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:80px" placeholder="코드" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_CODE" uitype="text" class="form-control input-sm"></sbux-input>
 							  									<font style="width:5px"></font>
 																<sbux-button
 																	id="BTN_POP25" 
@@ -874,7 +871,7 @@
 																	target-id="modal-compopup1"
 																	onclick="fn_compopup11('6')"></sbux-button>
 							  									<font style="width:5px"></font>
-							  									<sbux-input style="width:100%" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
+							  									<sbux-input style="width:100%" placeholder="계정명" id="FM2_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 								                           	</div>
 					                                    </td>								
 													</tr>
@@ -1895,12 +1892,16 @@
     	
         var searchCode 		= gfnma_nvl(SBUxMethod.get('SCH_CS_CODE'));
         var searchName 		= gfnma_nvl(SBUxMethod.get('SCH_CS_NAME'));
+        if(!searchCode && !searchName){
+        	gfn_comAlert("E0000","찾고자 하는 취득처 코드 혹은 취득처명을 2글자 이상 입력하세요");
+        	return;	
+        }
         
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
         var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' ";
     	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '취득처 팝업');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -1920,6 +1921,7 @@
 				SBUxMethod.set('SCH_CS_NAME', 	data.CNPT_NM);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }       
     
     /**
@@ -1999,12 +2001,16 @@
     	
         var searchCode 		= gfnma_nvl(SBUxMethod.get('FM_CNPT_CD'));
         var searchName 		= gfnma_nvl(SBUxMethod.get("FM_CNPT_NM"));
+        if(!searchCode && !searchName){
+        	gfn_comAlert("E0000","찾고자 하는 취득처 코드 혹은 취득처명을 2글자 이상 입력하세요");
+        	return;	
+        }
         
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
         var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' ";
     	
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '취득처 팝업');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -2024,6 +2030,7 @@
 				SBUxMethod.set('FM_CNPT_NM', 	data.CNPT_NM);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }   
     
     /**
@@ -2461,12 +2468,16 @@
     	
         var searchText1 	= gfnma_nvl(SBUxMethod.get("FM2_CS_CODE1_A"));
         var searchText2 	= gfnma_nvl(SBUxMethod.get("FM2_CS_NAME1_A"));
+        if(!searchText1 && !searchText2){
+        	gfn_comAlert("E0000","찾고자 하는 취득처 코드 혹은 취득처명을 2글자 이상 입력하세요");
+        	return;	
+        }
         
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_"; 
         var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' ";
         
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '최초취득처');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
@@ -2488,6 +2499,7 @@
 				SBUxMethod.set('FM2_CS_NAME1_A', 	data.CNPT_NM);
 			},
     	});
+		SBUxMethod.openModal('modal-compopup1');
     }         
     
     /**
