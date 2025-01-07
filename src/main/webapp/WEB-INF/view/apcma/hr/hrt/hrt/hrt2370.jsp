@@ -99,7 +99,7 @@
                     <th scope="row" class="th_bg_search">기준일</th>
                     <td class="td_input">
                         <sbux-datepicker
-                                id="SCH_START_DATE"
+                                id="SRCH_START_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
                                 class="table-datepicker-ma">
@@ -110,7 +110,7 @@
                     </td>
                     <td class="td_input">
                         <sbux-datepicker
-                                id="SCH_END_DATE"
+                                id="SRCH_END_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
                                 class="table-datepicker-ma">
@@ -334,24 +334,17 @@
 
     }
 
-    // only document
-    window.addEventListener('DOMContentLoaded', async function (e) {
-
-        fn_initSBSelect();
-        fn_init();
-        await fn_onload();
-
-    });
 
     const fn_onload = async function () {
-
-
+        SBUxMethod.set("SRCH_START_DATE",gfn_dateFirstYmd(new Date()));
+        SBUxMethod.set("SRCH_END_DATE", gfn_dateToYmd(new Date()));
     }
 
-    const fn_init = async function () {
-
+    window.addEventListener('DOMContentLoaded', async function (e) {
+        await fn_initSBSelect();
         fn_createGrid();
-    }
+        await fn_onload();
+    });
 
     /**
      * 저장
@@ -444,9 +437,8 @@
 
         let SITE_CODE	       = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
         let JOB_GROUP          = gfnma_nvl2(SBUxMethod.get("SRCH_JOB_GROUP")); //직군
-        let START_DATE         = gfnma_nvl2(SBUxMethod.get("SCH_START_DATE")); //기준일
-        let END_DATE           = gfnma_nvl2(SBUxMethod.get("SCH_END_DATE")); //기준일
-        let TIME_CATEGORY      = gfnma_nvl2(SBUxMethod.get("SRCH_TIME_CATEGORY")); //구분
+        let TIME_START_DATE         = gfnma_nvl2(SBUxMethod.get("SRCH_START_DATE")); //기준일
+        let TIME_END_DATE           = gfnma_nvl2(SBUxMethod.get("SRCH_END_DATE")); //기준일
         let DEPT_CODE          = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_CODE")); //부서
         let EMP_CODE           = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원
 
@@ -455,13 +447,12 @@
             ,V_P_LANG_ID: ''
             ,V_P_COMP_CODE: gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
-
-            ,V_P_SITE_CODE      : SITE_CODE
-            ,V_P_DEPT_CODE      : DEPT_CODE
-            ,V_P_EMP_CODE       : EMP_CODE
-            ,V_P_EMP_STATE      : EMP_STATE
-            ,V_P_PAY_AREA_TYPE  : PAY_AREA_TYPE
-
+            , V_P_TIME_START_DATE : TIME_START_DATE
+            , V_P_TIME_END_DATE : TIME_END_DATE
+            , V_P_SITE_CODE : SITE_CODE
+            , V_P_DEPT_CODE : DEPT_CODE
+            , V_P_JOB_GROUP : JOB_GROUP
+            , V_P_EMP_CODE : EMP_CODE
             ,V_P_FORM_ID: p_formId
             ,V_P_MENU_ID: p_menuId
             ,V_P_PROC_ID: ''
@@ -471,14 +462,12 @@
 
         const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/selectHrt2370List.do", {
             getType: 'json',
-            workType: 'MASTER',
-            cv_count: '13',
+            workType: 'Q',
+            cv_count: '2',
             params: gfnma_objectToString(paramObj)
         });
 
         const data = await postJsonPromise;
-
-        console.log('datadatadatadata', data);
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
@@ -489,27 +478,33 @@
                 jsonGvwInfoList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        CREATE                  : gfnma_nvl2(item.CREATE),
-                        EMP_CODE                : gfnma_nvl2(item.EMP_CD),
-                        EMP_NAME                : gfnma_nvl2(item.EMP_NM),
-                        PAY_GROUP_CODE          : gfnma_nvl2(item.SLRY_GRD_CD),
-                        PAY_AREA_TYPE           : gfnma_nvl2(item.SLRY_AREA_TYPE),
-                        DUTY_CODE               : gfnma_nvl2(item.JBTTL_CD),
-                        POSITION_CODE           : gfnma_nvl2(item.JBPS_CD),
-                        DEPT_NAME               : gfnma_nvl2(item.DEPT_NM),
-                        ENTER_DATE              : gfnma_nvl2(item.JNCMP_YMD),
-                        RETIRE_DATE             : gfnma_nvl2(item.RTRM_YMD),
-                        BANK_CODE               : gfnma_nvl2(item.BANK_CD),
-                        BANK_ACCOUNT_REAL       : gfnma_nvl2(item.BANK_ACCOUNT_REAL),
-                        BANK_CODE2              : gfnma_nvl2(item.BANK_CD2),
-                        BANK_ACCOUNT2_REAL      : gfnma_nvl2(item.BANK_ACCOUNT2_REAL),
-                        EMP_STATE               : gfnma_nvl2(item.EMP_STTS),
-                        BANK_ACCOUNT            : gfnma_nvl2(item.BACNT_NO),
-                        BANK_ACCOUNT2           : gfnma_nvl2(item.ACTNO2),
-                        RET_PENS_BANK_CODE      : gfnma_nvl2(item.RTRM_PN_BANK_CD),
-                        RET_PENS_BANK_ACC       : gfnma_nvl2(item.RTRM_PN_ACTNO),
-                        RET_PENS_BANK_ACC_REAL  : gfnma_nvl2(item.RET_PENS_BANK_ACC_REAL)
-
+                        SEQ : gfn_nvl(item.SEQ),
+                        DEPT_CD : gfn_nvl(item.DEPT_CD),
+                        DEPT_NM : gfn_nvl(item.DEPT_NM),
+                        DEPT_CD1 : gfn_nvl(item.DEPT_CD1),
+                        DEPT_NM1 : gfn_nvl(item.DEPT_NM1),
+                        DEPT_CTRGY : gfn_nvl(item.DEPT_CTRGY),
+                        SORT_SEQ : gfn_nvl(item.SORT_SEQ),
+                        EMP_CD : gfn_nvl(item.EMP_CD),
+                        EMP_NM : gfn_nvl(item.EMP_NM),
+                        JBPS_CD : gfn_nvl(item.JBPS_CD),
+                        JBTTL_CD : gfn_nvl(item.JBTTL_CD),
+                        JBGD_CD : gfn_nvl(item.JBGD_CD),
+                        WORK_TYPE_CD : gfn_nvl(item.WORK_TYPE_CD),
+                        OPERATION_NAME : gfn_nvl(item.OPERATION_NAME),
+                        WRKDY_BGNG_YMD : gfn_nvl(item.WRKDY_BGNG_YMD),
+                        TM_END_YMD : gfn_nvl(item.TM_END_YMD),
+                        NORMAL_HOUR : gfn_nvl(item.NORMAL_HOUR),
+                        OVERTIME_HOUR : gfn_nvl(item.OVERTIME_HOUR),
+                        HOLIDAY_HOUR : gfn_nvl(item.HOLIDAY_HOUR),
+                        HOLIDAY_OVERTIME_HOUR : gfn_nvl(item.HOLIDAY_OVERTIME_HOUR),
+                        NIGHT_HOUR : gfn_nvl(item.NIGHT_HOUR),
+                        WEEKLY_ACC_HOUR : gfn_nvl(item.WEEKLY_ACC_HOUR),
+                        WEEK52_REMAIN_HOUR : gfn_nvl(item.WEEK52_REMAIN_HOUR),
+                        OVERTIME_ACC : gfn_nvl(item.OVERTIME_ACC),
+                        HOLIDAY_ACC : gfn_nvl(item.HOLIDAY_ACC),
+                        HOLIDAY_OVERTIME_ACC : gfn_nvl(item.HOLIDAY_OVERTIME_ACC),
+                        NIGHT_ACC : gfn_nvl(item.NIGHT_ACC)
                     }
                     jsonGvwInfoList.push(msg);
                     totalRecordCount++;
@@ -518,19 +513,9 @@
                 gvwInfoGrid.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
-                //수정했던 탭 페이지로 이동
-                /*if (tabMoveVal != null && tabMoveVal != ''){
-
-                    SBUxMethod.set('idx1', 'SBUx_IDE_JSON');
-                }*/
-
                 if(jsonGvwInfoList.length > 0) {
                     gvwInfoGrid.clickRow(1);
                 }
-
-                //fn_view('search');
-
-
             } else {
                 alert(data.resultMessage);
             }
