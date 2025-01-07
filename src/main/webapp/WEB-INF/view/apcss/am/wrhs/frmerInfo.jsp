@@ -985,6 +985,32 @@
 	}
 
 	/**
+     * @name fn_dtpChange
+     * @description From ~ To 시작일보다 종료일보다 작을 수 없음
+     */
+	const fn_dtpChange = function () {
+
+		let cfmtnYmdFrom = SBUxMethod.get("srch-dtp-cfmtnYmdFrom");
+		let cfmtnYmdTo = SBUxMethod.get("srch-dtp-cfmtnYmdTo");
+		var maxYmd = gfn_addDate(cfmtnYmdFrom, 90);
+
+		if (maxYmd < cfmtnYmdTo) {
+    		SBUxMethod.set("srch-dtp-cfmtnYmdTo", maxYmd);
+	    }
+
+		if (gfn_diffDate(cfmtnYmdFrom, cfmtnYmdTo) < 0) {
+			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
+			SBUxMethod.set("srch-dtp-cfmtnYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-cfmtnYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+
+		if (maxYmd < cfmtnYmdTo) {
+    		SBUxMethod.set("srch-dtp-cfmtnYmdTo", maxYmd);
+	    }
+	}
+
+	/**
      * @name fn_setExpctQntt
      * @description 재배농가품질 예상망 계산
      */

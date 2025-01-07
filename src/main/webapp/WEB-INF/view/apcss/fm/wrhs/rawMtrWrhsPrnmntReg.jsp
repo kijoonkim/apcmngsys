@@ -104,7 +104,7 @@
 									name="srch-dtp-prnmntYmdFrom"
 									date-format="yyyy-mm-dd"
 									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+									onchange="fn_dtpChange(srch-dtp-prnmntYmdFrom)"
 								></sbux-datepicker>
 							</td>
 							<td class="td_input"style="border-right: hidden;">
@@ -114,7 +114,7 @@
 									name="srch-dtp-prnmntYmdTo"
 									date-format="yyyy-mm-dd"
 									class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-									onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
+									onchange="fn_dtpChange(srch-dtp-prnmntYmdTo)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;">&nbsp;</td>
@@ -328,23 +328,21 @@ async function cfn_search() {
 		fn_init();
 	});
 
-	const fn_dtpChange = function(){
-		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
-		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
-		var maxYmd = gfn_addDate(wrhsYmdFrom,lv_ymd_limit);
+	const fn_dtpChange = function () {
+		let prnmntYmdFrom = SBUxMethod.get("srch-dtp-prnmntYmdFrom");
+		let prnmntYmdTo = SBUxMethod.get("srch-dtp-prnmntYmdTo");
+		var maxYmd = gfn_addDate(prnmntYmdFrom, lv_ymd_limit);
 
-		SBUxMethod.setDatepickerMaxDate('srch-dtp-wrhsYmdTo', maxYmd);
-
-		if(gfn_diffDate(wrhsYmdFrom, wrhsYmdTo) < 0){
+		if(gfn_diffDate(prnmntYmdFrom, prnmntYmdTo) < 0){
 			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
-			var dt = gfn_addDate(wrhsYmdFrom,30)
-			SBUxMethod.set("srch-dtp-wrhsYmdFrom", wrhsYmdFrom);
-			SBUxMethod.set("srch-dtp-wrhsYmdTo", dt);
+			var dt = gfn_addDate(prnmntYmdFrom, 30)
+			SBUxMethod.set("srch-dtp-prnmntYmdFrom", prnmntYmdFrom);
+			SBUxMethod.set("srch-dtp-prnmntYmdTo", dt);
 			return;
 		}
 
-		if (maxYmd < wrhsYmdTo) {
-    		SBUxMethod.set("srch-dtp-wrhsYmdTo", maxYmd);
+		if (maxYmd < prnmntYmdTo) {
+    		SBUxMethod.set("srch-dtp-prnmntYmdTo", maxYmd);
 	    }
 	}
 
