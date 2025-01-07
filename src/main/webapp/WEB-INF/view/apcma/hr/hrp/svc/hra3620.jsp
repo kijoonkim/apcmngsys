@@ -238,7 +238,7 @@
             {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
-            {caption: ["은행코드"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["소득자 성명"], 						ref: 'EARNER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
@@ -393,7 +393,28 @@
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
+        gvwInfo.bind('valuechanged','fn_gvwInfoValueChanged');
         /*gvwInfo.bind('dblclick', 'fn_gvwListDblclick')*/
+    }
+
+    const fn_gvwInfoValueChanged = async function() {
+        var nRow = gvwInfo.getRow();
+        var nCol = gvwInfo.getCol();
+        var rowData = gvwInfo.getRowData(nRow);
+
+        if (nCol == gvwInfo.getColRef('START_DATE') || nCol == gvwInfo.getColRef('END_DATE')) {
+            if (rowData.START_DATE == "" || rowData.END_DATE == "") return;
+
+            let istart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
+            let iend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+
+            if (istart_date > iend_date) {
+                gfn_comAlert("W0008",  "휴직종료일", "휴직시작일");
+                gvwInfo.setCellData(nRow, gvwInfo.getColRef('END_DATE'), istart_date.getDate());
+            } else {
+                gvwInfo.setCellData(nRow, gvwInfo.getColRef('TIME_OFF_CNT'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
+            }
+        }
     }
 
     const fn_gvwListDblclick = async function() {
@@ -424,19 +445,22 @@
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["소득자코드", "소득자명"]
-            ,searchInputFields		: ["EARNR_CD", "EARNER_NAME"]
+            ,searchInputFields		: ["EARNR_CD", "EARNR_NM"]
             ,searchInputValues		: ["", ""]
             ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
             ,tableHeader			: ["소득자코드", "소득자명"]
-            ,tableColumnNames		: ["EARNR_CD", "EARNER_NAME"]
+            ,tableColumnNames		: ["EARNR_CD", "EARNR_NM"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                gvwList.setCellData(row, gvwList.getColRef("SOCNO"), data.SOCNO);
-                gvwList.setCellData(row, gvwList.getColRef("SITE_CODE"), data.SITE_CD);
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_CODE"), data.EARNR_CD);
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_NAME"), data.EARNER_NAME);
+                console.log(data);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("SOCNO"), data.RGDT_NO);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("SITE_CODE"), data.SITE_CD);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("BANK_CODE"), data.BANK_CD);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("BANK_ACC"), data.BACNT_NO);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("EARNER_CODE"), data.EARNR_CD);
+                gvwInfo.setCellData(row, gvwInfo.getColRef("EARNER_NAME"), data.EARNR_NM);
             },
         });
 
