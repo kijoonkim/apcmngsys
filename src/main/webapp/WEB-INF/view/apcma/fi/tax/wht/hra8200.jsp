@@ -52,19 +52,19 @@
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
- 
+
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
- 
+
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
 							<col style="width: 7%">
 							<col style="width: 2%">
- 
+
 							<col style="width: 8%">
 							<col style="width: 7%">
 							<col style="width: 1%">
@@ -104,11 +104,11 @@
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
- 
+
                             <td colspan="1" class="ad_input" style="border-right: hidden;">
                             	<sbux-checkbox uitype="normal" id="srch-chk-originalFlag" name="srch-chk-originalFlag" class="form-control input-sm check" text="원천보기" true-value="Y" false-value="N">
                             </td>
- 
+
                             <td colspan="3" class="ad_input" style="border-right: hidden;">
                             	<sbux-checkbox uitype="normal" id="srch-chk-allYn" name="srch-chk-allYn" class="form-control input-sm check" text="전체여부" true-value="Y" false-value="N">
                             </td>
@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
 				</div>
- 
+
 				<div class="row">
 					<div class="col-sm-3">
 						<div class="ad_tbl_top">
@@ -124,49 +124,49 @@
 								<li>
 									<span>신고리스트</span>
 								</li>
- 
+
 							</ul>
- 
+
 						</div>
 						<div id="sb-area-grdDclrList" style="height:498px;width:100%"></div>
 					</div>
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
 					<div class="col-sm-9">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
 									<span>신고상세정보</span>
 								</li>
- 
+
 							</ul>
 						</div>
 						<div id="sb-area-grdDclrDtlInfo" style="height:498px;width:100%"></div>
 					</div>
 				</div>
- 
- 
- 
+
+
+
 				</div>
- 
+
 			</div>
- 
- 
+
+
     </section>
- 
+
 	<!-- 팝업 Modal -->
- 
- 
+
+
 </body>
- 
+
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
- 
- 
+
+
 //var gv_ma_selectedCorpCd	= '${loginVO.apcCd}';
 //var gv_ma_selectedClntCd	= '${loginVO.clntCd}';
 // common ---------------------------------------------------
@@ -174,40 +174,40 @@ var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
 var p_menuId 	= '${comMenuVO.menuId}';
 var p_userId = '${loginVO.id}';
 //-----------------------------------------------------------
- 
+
 	var editType			= "N";
- 
+
 	var jsonRegionCode		= [];	// 지역
- 
+
 	var checkboxJsonData = [
 		{ text : "원천보기", truevalue : "Y",     falsevalue: "N"},
 		{ text : "전체여부", truevalue : "Y",    falsevalue: "N"}
 	];
- 
- 
+
+
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//법인
 			gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 급여영역
             gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
- 
+
 		]);
- 
- 
+
+
 		let yyyymm = gfnma_date6().substring(0,6);
     	SBUxMethod.set("srch-dtp-submitYyyymmFr",yyyymm);
     	SBUxMethod.set("srch-dtp-submitYyyymmTo",yyyymm);
 	}
- 
+
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
- 
+
     	fn_initSBSelect();
     	fn_createGrid1();
     	fn_createGrid2();
     	//fn_search();
- 
+
 		//재직상태
 		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
 		//	function(list){
@@ -217,15 +217,15 @@ var p_userId = '${loginVO.id}';
 		//	}
 		//)
     });
- 
+
     //grid 초기화
     var grdDclrDtlInfo; 			// 그리드를 담기위한 객체 선언
     var jsonDclrDtlInfo = []; 	// 그리드의 참조 데이터 주소 선언
- 
+
     var grdDclrList;
     var jsonDclrList= [];
- 
- 
+
+
     //json
     var jsonCorp = []; //법인
     var jsonBizUnit = []; //사업단위
@@ -233,12 +233,12 @@ var p_userId = '${loginVO.id}';
 	var jsonDspsUnit = []; //처분유형
 	var jsonAcntgCrtr = []; // 회계기준
 	var jsonPayAreaType = []; // 급여영역
- 
+
 	// 신규
 	function cfn_add() {
- 
+
 	}
- 
+
 	// 그룹코드 내역, 세부코드 정보 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
@@ -248,26 +248,26 @@ var p_userId = '${loginVO.id}';
             }
 		}
     }
- 
- 
+
+
 	// 마스터 그리드 삭제
 	function cfn_del() {
 		deleteClick()
 	}
- 
+
 	// 조회
 	function cfn_search() {
 		queryClick();
- 
+
 	}
- 
+
 	// 초기화
 	function cfn_init() {
 		SBUxMethod.refreshAll()
 	}
- 
- 
- 
+
+
+
     function fn_createGrid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDclrList';
@@ -295,12 +295,12 @@ var p_userId = '${loginVO.id}';
             {caption: ["지급연월"], 	ref: 'payYyyymm',    	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["제출연월"],  		ref: 'submitYyyymm',    			type:'output',  	width:'100px',  	style:'text-align:left'}
         ];
- 
+
         grdDclrList = _SBGrid.create(SBGridProperties);
         //NationInGrid.bind('click', 'fn_view');
         grdDclrList.bind('rowchanged','focusedRowChanged');
     }
- 
+
     function fn_createGrid2() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDclrDtlInfo';
@@ -347,7 +347,7 @@ var p_userId = '${loginVO.id}';
 				34 : '#,###',
 				35 : '#,###',
 				36 : '#,###'
- 
+
 			}
 		};
         SBGridProperties.columns = [
@@ -401,48 +401,48 @@ var p_userId = '${loginVO.id}';
         	{caption: ["주민세 납부액"], ref: 'whLocalTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
         	{caption: ["총납부액"], ref: 'totTax', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
         	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
- 
+
         ];
- 
+
         grdDclrDtlInfo = _SBGrid.create(SBGridProperties);
         //NationInGrid.bind('click', 'fn_view');
     }
- 
- 
- 
+
+
+
     const queryClick = async function(){
- 
+
         //InitControls(grdList);
         //InitControls(grdDetail);
- 
+
         grdDclrList.rebuild();
 		grdDclrDtlInfo.rebuild();
- 
- 
+
+
         //int iBefore = gvwList.FocusedRowHandle;
         let iBefore = grdDclrList.getRow();
- 
+
         await fnQRY_P_HRA8200_Q("LIST");
- 
- 
- 
+
+
+
         focusedRowChanged();
         //fnQRY_P_HRA8200_Q("DETAIL");
- 
- 
- 
+
+
+
         if (iBefore < 1){
         	//newClick(); 뭐지?
         }
- 
+
     }
- 
- 
- 
+
+
+
     const focusedRowChanged = async function(){
         await fnQRY_P_HRA8200_Q("DETAIL");
     }
- 
+
     const fnQRY_P_HRA8200_Q = async function(workType){
     	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
     	let allData = grdDclrList.getGridDataAll();
@@ -467,19 +467,19 @@ var p_userId = '${loginVO.id}';
       			,V_P_USERID			: ''
       			,V_P_PC				: ''
       	    };
- 
+
     	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["submitYyyymm","jobYyyymm","payYyyymm","originalFlag","chkallYn"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
- 
+
           const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
            	getType				: 'json',
            	workType			:  workType,
            	cv_count			: '2',
            	params				: gfnma_objectToString(paramObj)
    			});
- 
+
         	const data = await postJsonPromise;
         	console.log('data:', data);
           // 비즈니스 로직 정보
@@ -488,23 +488,134 @@ var p_userId = '${loginVO.id}';
 	              //gfn_comAlert("I0001");
 	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
 	        	   if (workType === "LIST"){
-        			   var msg = convertArrayToCamelCase(data.cv_1)
-        			   jsonDclrList = msg;
+        			   //var msg = convertArrayToCamelCase(data.cv_1)
+        			   data.cv_1.forEach(item=>{
+        				   let obj = {
+        						   submitYyyymm : item.SBMSN_YM
+        						   , jobYyyymm : item.BLN_YM
+        						   , payYyyymm : item.SLRY_YM
+        						   , chkYn : item.CHK_YN
+        						   , defYn1 : item.DEF_YN_1
+        						   , defYn2 : item.DEF_YN_2
+        				   }
+        				   jsonDclrList.push(obj);
+        			   })
+        			   //jsonDclrList = msg;
 	        		   grdDclrList.rebuild();
 	               }
 	               else if (workType === "DETAIL"){
-      				   var msg = convertArrayToCamelCase(data.cv_2)
-              		   jsonDclrDtlInfo = msg;
+      				   //var msg = convertArrayToCamelCase(data.cv_2)
+      				   data.cv_2.forEach(item=>{
+        				   let obj = {
+        						   jobYyyymm : item.BLN_YM
+        						   , payYyyymm : item.SLRY_YM
+        						   , submitYyyymm : item.SBMSN_YM
+        						   , taxSiteCode : item.TX_SITE_CD
+        						   , workRegionName : item.WORK_RGN_NM
+        						   , empCode : item.EMP_CD
+        						   , empName : item.EMP_NM
+        						   , deptName : item.DEPT_NM
+        						   , gubunCode : item.SE_CD
+        						   , gubunName : item.SE_NM
+        						   , reasonCode : item.RSN_CD
+        						   , reasonCode : item.RSN_CD
+        						   , reasonName : item.RSN_NM
+        						   , socialNumDate : item.RRNO_BRDT
+        						   , payDate : item.PAY_YMD
+        						   , docDate : item.SLIP_YMD
+        						   , docName : item.SLIP_NM
+        						   , docDesc : item.SLIP_DSCTN
+        						   , payTotAmt : item.EARN_TOT_AMT
+        						   , payTotAmt2 : item.EARN_TOT_AMT2
+        						   , taxFreeAmt : item.TX_TXFR_AMT
+        						   , payTotAmt3 : item.EARN_TOT_AMT3
+        						   , payTotAmt4 : item.EARN_TOT_AMT4
+        						   , payTotAmt5 : item.EARN_TOT_AMT5
+        						   , payTotAmt6 : item.EARN_TOT_AMT6
+        						   , payTotAmt7 : item.EARN_TOT_AMT7
+        						   , payTotAmt8 : item.EARN_TOT_AMT8
+        						   , payTotAmt9 : item.EARN_TOT_AMT9
+        						   , payTotAmt10 : item.TXFR_ALWNC_AMT10
+        						   , payTotAmt11 : item.TXFR_ALWNC_AMT11
+        						   , payTotAmt12 : item.TXFR_ALWNC_AMT12
+        						   , payTotAmt13 : item.TXFR_ALWNC_AMT13
+        						   , whIncomeTax1 : item.WTHD_INCTX_AMT
+        						   , whIncomeTax2 : item.WTHD_INCTX_RMBR_AMT
+        						   , whIncomeTax3 : item.WTHD_INCTX_AJMT_AMT
+        						   , whIncomeTax4 : item.WTHD_INCTX_PAY_AMT
+        						   , whLocalTax1 : item.WTHD_RSDTX_AMT
+        						   , whLocalTax2 : item.WTHD_RSDTX_RMBR_AMT
+        						   , whLocalTax3 : item.WTHD_RSDTX_AJMT_AMT
+        						   , whLocalTax4 : item.WTHD_RSDTX_PAY_AMT
+        						   , totTax : item.TOT_PAY_TXAMT
+        						   , costDeptCode : item.CSTCT_CD
+        						   , costDeptName : item.CSTCT_NM
+
+
+        				   }
+        				   jsonDclrDtlInfo.push(obj);
+        			   })
+              		   //jsonDclrDtlInfo = msg;
       				   grdDclrDtlInfo.rebuild();
- 
+
 	               }else if (workType === "SUM"){
-	            	   var msg = convertArrayToCamelCase(data.cv_2)
-              		   jsonDclrDtlInfo = msg;
+	            	   //var msg = convertArrayToCamelCase(data.cv_2)
+	            	   data.cv_２.forEach(item=>{
+        				   let obj = {
+        						   jobYyyymm : item.BLN_YM
+        						   , payYyyymm : item.SLRY_YM
+        						   , submitYyyymm : item.SBMSN_YM
+        						   , taxSiteCode : item.TX_SITE_CD
+        						   , workRegionName : item.WORK_RGN_NM
+        						   , empCode : item.EMP_CD
+        						   , empName : item.EMP_NM
+        						   , deptName : item.DEPT_NM
+        						   , gubunCode : item.SE_CD
+        						   , gubunName : item.SE_NM
+        						   , reasonCode : item.RSN_CD
+        						   , reasonCode : item.RSN_CD
+        						   , reasonName : item.RSN_NM
+        						   , socialNumDate : item.RRNO_BRDT
+        						   , payDate : item.PAY_YMD
+        						   , docDate : item.SLIP_YMD
+        						   , docName : item.SLIP_NM
+        						   , docDesc : item.SLIP_DSCTN
+        						   , payTotAmt : item.EARN_TOT_AMT
+        						   , payTotAmt2 : item.EARN_TOT_AMT2
+        						   , taxFreeAmt : item.TX_TXFR_AMT
+        						   , payTotAmt3 : item.EARN_TOT_AMT3
+        						   , payTotAmt4 : item.EARN_TOT_AMT4
+        						   , payTotAmt5 : item.EARN_TOT_AMT5
+        						   , payTotAmt6 : item.EARN_TOT_AMT6
+        						   , payTotAmt7 : item.EARN_TOT_AMT7
+        						   , payTotAmt8 : item.EARN_TOT_AMT8
+        						   , payTotAmt9 : item.EARN_TOT_AMT9
+        						   , payTotAmt10 : item.TXFR_ALWNC_AMT10
+        						   , payTotAmt11 : item.TXFR_ALWNC_AMT11
+        						   , payTotAmt12 : item.TXFR_ALWNC_AMT12
+        						   , payTotAmt13 : item.TXFR_ALWNC_AMT13
+        						   , whIncomeTax1 : item.WTHD_INCTX_AMT
+        						   , whIncomeTax2 : item.WTHD_INCTX_RMBR_AMT
+        						   , whIncomeTax3 : item.WTHD_INCTX_AJMT_AMT
+        						   , whIncomeTax4 : item.WTHD_INCTX_PAY_AMT
+        						   , whLocalTax1 : item.WTHD_RSDTX_AMT
+        						   , whLocalTax2 : item.WTHD_RSDTX_RMBR_AMT
+        						   , whLocalTax3 : item.WTHD_RSDTX_AJMT_AMT
+        						   , whLocalTax4 : item.WTHD_RSDTX_PAY_AMT
+        						   , totTax : item.TOT_PAY_TXAMT
+        						   , costDeptCode : item.CSTCT_CD
+        						   , costDeptName : item.CSTCT_NM
+
+
+        				   }
+        				   jsonDclrDtlInfo.push(obj);
+        			   })
+              		   //jsonDclrDtlInfo = msg;
 	                   grdDclrDtlInfo.rebuild();
- 
+
 	               }else if(workType === "DEF"){
 	            	   let numCheckCount = 0;
- 
+
 	            	   allData.forEach(item=>{
 	            		   if(item.chkYn === "Y"){
 	            			   numCheckCount = numCheckCount + 1;
@@ -516,23 +627,23 @@ var p_userId = '${loginVO.id}';
                         //SetMessageBox("처리대상이 없습니다.");
                         return false;
                        }
- 
+
 	            	   const postJsonPromise2 = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
 			           	getType				: 'json',
 			           	workType			:  workType,
 			           	cv_count			: '2',
 			           	params				: gfnma_objectToString(paramObj)
 			   			});
- 
+
 			        	const data2 = await postJsonPromise;
 			        	console.log('data:', data2);
- 
+
 			        	data2.cv_3.forEach((item, index) => {
- 
+
 	        			   jsonDclrDtlInfo.push(item);
 	        		   })
 	                   grdDclrDtlInfo.rebuild();
- 
+
 	               }else if(workType === "DEF_CANCEL"){
 	            	   let numCheckCount = 0;
 	            	   allData.forEach(item=>{
@@ -546,30 +657,30 @@ var p_userId = '${loginVO.id}';
 	                        //SetMessageBox("처리대상이 없습니다.");
 	                        return false;
 	                       }
- 
+
 	            	   const postJsonPromise3 = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
 				           	getType				: 'json',
 				           	workType			:  workType,
 				           	cv_count			: '2',
 				           	params				: gfnma_objectToString(paramObj)
 				   			});
- 
+
 				        	const data3 = await postJsonPromise;
 				        	console.log('data:', data3);
- 
+
 		                   data3.cv_3.forEach((item, index) => {
 		        			   jsonDclrDtlInfo.push(item);
 		        		   })
 		                   grdDclrDtlInfo.rebuild();
- 
+
 	               }else if(workType === "REPORT"){
 	                   //리포트용 데이터 셋 정리 후 리포트 호출?
- 
+
 	               }
 	          } else {
 	              alert(data.resultMessage);
 	          }
- 
+
  	        } catch (e) {
  	            if (!(e instanceof Error)) {
  	                e = new Error(e);
@@ -578,8 +689,8 @@ var p_userId = '${loginVO.id}';
  	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
  	        }
     }
- 
- 
+
+
     const fnQRY_P_HRA8200_Q_DEF = async function(workType){
     	//grdDclrDtlInfo
     	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
@@ -605,29 +716,29 @@ var p_userId = '${loginVO.id}';
       			,V_P_USERID			: ''
       			,V_P_PC				: ''
       	    };
- 
+
     	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["submitYyyymm","jobYyyymm","payYyyymm","originalFlag","chkallYn"]);
 	 	 if(!postFlag){
 	 	    return;
 	 	 }
- 
+
           const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
            	getType				: 'json',
            	workType			:  workType,
            	cv_count			: '2',
            	params				: gfnma_objectToString(paramObj)
    			});
- 
+
         	const data = await postJsonPromise;
         	console.log('data:', data);
           // 비즈니스 로직 정보
            try {
 	          if (_.isEqual("S", data.resultStatus)) {
- 
+
 	          } else {
 	              alert(data.resultMessage);
 	          }
- 
+
  	        } catch (e) {
  	            if (!(e instanceof Error)) {
  	                e = new Error(e);
@@ -636,13 +747,13 @@ var p_userId = '${loginVO.id}';
  	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
  	        }
     }
- 
+
     const fnSET_P_HRA8200_S = async function(workType){
     	let siteCode = gfnma_multiSelectGet("#srch-slt-siteCode");
     	let dclrData = grdDclrDtlInfo.getGridDataAll();
     	let paramObjList = [];
     	dclrData.forEach(row => {
- 
+
     		var paramObj = {
          			V_P_DEBUG_MODE_YN	: ''
          			,V_P_LANG_ID		: ''
@@ -698,24 +809,24 @@ var p_userId = '${loginVO.id}';
     		//paramObjList.push(paramObj);
     	})
     	// txn_id는 감가상각리스트에서 우클릭 후 컬럼설정창에서 id  컬럼 누르면 조회된다
- 
+
          const postJsonPromise = gfn_postJSON("/hr/hra/insertHra8200.do", {
           	getType				: 'json',
           	workType			:  strWorkType,
           	cv_count			: '0',
           	params				: gfnma_objectToString(paramObjList)
   			});
- 
+
        	const data = await postJsonPromise;
        	console.log('data:', data);
          // 비즈니스 로직 정보
           try {
 	          if (_.isEqual("S", data.resultStatus)) {
- 
+
 	          } else {
 	              alert(data.resultMessage);
 	          }
- 
+
 	        } catch (e) {
 	            if (!(e instanceof Error)) {
 	                e = new Error(e);
@@ -723,16 +834,16 @@ var p_userId = '${loginVO.id}';
 	            console.error("failed", e.message);
 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        }
- 
+
     }
- 
+
     //집계버튼
     const fn_cancelClick = function (){
         if (fnQRY_P_HRA8200_Q("SUM")){
         	queryClick();
         }
     }
- 
+
     //확정버튼
     const fn_defBtnClick = async function(){
     	let allData = grdDclrDtlInfo.getGridDataAll();
@@ -758,29 +869,29 @@ var p_userId = '${loginVO.id}';
           	    };
     		fnQRY_P_HRA8200_Q_DEF_TEST(param)
     	})
- 
- 
+
+
     }
- 
+
     const fnQRY_P_HRA8200_Q_DEF_TEST = async function(param){
     	await fnQRY_P_HRA8200_Q_DEF(param);
     }
- 
+
     //확정취소
     const fn_defCancelClick = async function(){
         await fnQRY_P_HRA8200_Q("DEF_CANCEL");
         queryClick();
     }
- 
- 
+
+
 	const fn_compopup1 = function(list) {
- 
+
 		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
         var replaceText0 	= "_DEPT_NM_";
         var replaceText1 	= "_EMP_NM_";
         var replaceText2 	= "_EMP_STTS_";
         var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
- 
+
      	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
      	compopup1({
      		compCode				: gv_ma_selectedCorpCd
@@ -804,25 +915,25 @@ var p_userId = '${loginVO.id}';
  			},
      	});
    	}
- 
+
     //선택 삭제
     function fn_delete() {
- 
+
         //fn_subDelete(gfn_comConfirm("Q0001", "삭제"), list);
     }
- 
+
 	/**
      * @param {boolean} isConfirmed
      * @param {any[]} list
      */
     const fn_subDelete = async function (isConfirmed, list){
- 
+
     }
- 
+
     const fn_dtpChange = async function(){
     	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
     	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
- 
+
     	/* if(inptYmdFrom > inptYmdTo){
     		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
     		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -830,38 +941,38 @@ var p_userId = '${loginVO.id}';
     		return;
     	} */
      }
- 
- 
+
+
     const fn_clclnListAddRow = function(){
     	grdClclnList.addRow();
     }
- 
+
     const fn_clclnTrgtAddRow = function(){
     	grdClclnTrgt.addRow();
     }
- 
+
     const fn_clclnDsctnAddRow = function(){
     	grdClclnDsctn.addRow();
     }
- 
+
     const fn_clclnListDelRow = function(){
     	grdClclnList.deleteRow(grdClclnList.getRows()-1)
     }
- 
+
     const fn_clclnTrgtDelRow = function(){
     	grdClclnTrgt.deleteRow(grdClclnTrgt.getRows()-1)
     }
- 
+
     const fn_clclnDsctnDelRow = function(){
     	grdClclnDsctn.deleteRow(grdClclnDsctn.getRows()-1)
     }
- 
- 
+
+
     /** camelCase FN **/
     function toCamelCase(snakeStr) {
         return snakeStr.toLowerCase().replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
     }
- 
+
     function convertArrayToCamelCase(array) {
         return array.map(obj => {
             return Object.keys(obj).reduce((acc, key) => {
@@ -871,8 +982,8 @@ var p_userId = '${loginVO.id}';
             }, {});
         });
     }
- 
- 
+
+
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
