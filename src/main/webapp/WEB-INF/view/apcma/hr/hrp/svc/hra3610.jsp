@@ -283,7 +283,6 @@
                                             <th scope="row" class="th_bg">계좌번호</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="BANK_ACCOUNT" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
-                                                <sbux-input id="CHK" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
@@ -355,7 +354,7 @@
                                             <th scope="row" class="th_bg">주민(사업자)등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="SOCIAL_NO3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
-                                                <sbux-input id="SITE_CODE1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
+                                                <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" style="display: none;"></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -532,7 +531,7 @@
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
             // 사업장
-            gfnma_setComSelect(['SITE_CODE', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect(['SITE_CODE', 'SITE_CODE1', 'gvwResident'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 내외국민구분
             gfnma_setComSelect(['gvwResident'], jsonForeignType, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_multiSelectInit({
@@ -907,7 +906,7 @@
             var nRow = gvwResident.getRow();
             if(nRow < 1) return;
             let rowData = gvwResident.getRowData(nRow);
-
+            console.log(rowData);
             SBUxMethod.set("EARNER_CODE", gfn_nvl(rowData.EARNER_CODE));
             SBUxMethod.set("SITE_CODE", gfn_nvl(rowData.SITE_CODE));
             SBUxMethod.set("TAX_SITE_CODE1", gfn_nvl(rowData.TAX_SITE_CODE));
@@ -1008,8 +1007,8 @@
     }
 
     const fn_findBankCode = function() {
-        var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CD"));
-        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NM"));
+        var searchCode 		= gfn_nvl(SBUxMethod.get("BANK_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME"));
         var replaceText0 	= "_SBSD_CD_";
         var replaceText1 	= "_CD_NM_";
         var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%'";
@@ -1029,8 +1028,8 @@
             ,tableColumnNames		: ["SBSD_CD" , "CD_NM"]
             ,tableColumnWidths		: ["50px", "200px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('BANK_NM', data.CD_NM);
-                SBUxMethod.set('BANK_CD', data.SBSD_CD);
+                SBUxMethod.set('BANK_NAME', data.CD_NM);
+                SBUxMethod.set('BANK_CODE', data.SBSD_CD);
             },
         });
     }
@@ -1251,7 +1250,7 @@
         }
 
         if(enableTab == "tpgResident") {
-            if (gfn_nvl(SBUxMethod.get("CHK")) == "")
+            if (gfn_nvl(SBUxMethod.get("EARNER_CODE")) == "")
                 strStatus = "N";
             else
                 strStatus = "U";
@@ -1462,31 +1461,31 @@
                             COMP_CODE: item.CO_CD,
                             EARNER_CODE: item.EARNR_CD,
                             SITE_CODE: item.SITE_CD,
-                            TAX_SITE_CODE: item.TX_SITE_CD,
-                            EARNER_NAME: item.EARNER_NAME,
-                            SOCNO: item.SOCNO,
+                            TAX_SITE_CODE: item.TX_BPLC_CD,
+                            EARNER_NAME: item.EARNR_NM,
+                            SOCNO: item.RGDT_NO,
                             SOCNO_REAL: item.SOCNO_REAL,
                             BIZ_REGNO: item.BRNO,
-                            COMP_NAME: item.CORP_NM,
-                            NATION_CODE: item.NTN_CD,
-                            FOREI_TYPE: item.FOREI_TYPE,
+                            COMP_NAME: item.CONM_NM,
+                            NATION_CODE: item.HBTN_NTN_CD,
+                            FOREI_TYPE: item.FRGNR_YN,
                             WORK_REGION: item.WORK_RGN_CD,
-                            INC_TYPE: item.INC_TYPE,
-                            INC_SEC: item.INC_SEC,
-                            SITE_ZIP_CODE: item.SITE_ZIP_CODE,
-                            SITE_ADDRESS: item.SITE_ADDRESS,
+                            INC_TYPE: item.EARN_TYPE,
+                            INC_SEC: item.EARN_SE,
+                            SITE_ZIP_CODE: item.SITE_ZIP,
+                            SITE_ADDRESS: item.SITE_ADDR,
                             ZIP_CODE: item.ZIP_CD,
                             ADDRESS: item.ADDR,
-                            BUSINESS_TYPE: item.BUSINESS_TYPE,
+                            BUSINESS_TYPE: item.CORP_YN,
                             BANK_CODE: item.BANK_CD,
                             BANK_NAME: item.BANK_NM,
                             BANK_ACC: item.BACNT_NO,
                             BANK_ACC_REAL: item.BANK_ACC_REAL,
                             TEL: item.TELNO,
                             BIRTHDAY: item.BRDT,
-                            MOBILE_PHONE: item.MOBILE_PHONE,
+                            MOBILE_PHONE: item.MOBL_NO,
                             EMAIL: item.EML,
-                            PAY_CYCLE: item.PAY_CYCLE,
+                            PAY_CYCLE: item.PAY_CYCL,
                             MEMO: item.MEMO,
                         }
                         jsonResidentList.push(msg);
@@ -1509,31 +1508,31 @@
                             COMP_CODE: item.CO_CD,
                             EARNER_CODE: item.EARNR_CD,
                             SITE_CODE: item.SITE_CD,
-                            TAX_SITE_CODE: item.TX_SITE_CD,
-                            EARNER_NAME: item.EARNER_NAME,
-                            SOCNO: item.SOCNO,
+                            TAX_SITE_CODE: item.TX_BPLC_CD,
+                            EARNER_NAME: item.EARNR_NM,
+                            SOCNO: item.RGDT_NO,
                             SOCNO_REAL: item.SOCNO_REAL,
                             BIZ_REGNO: item.BRNO,
-                            COMP_NAME: item.CORP_NM,
-                            NATION_CODE: item.NTN_CD,
-                            FOREI_TYPE: item.FOREI_TYPE,
+                            COMP_NAME: item.CONM_NM,
+                            NATION_CODE: item.HBTN_NTN_CD,
+                            FOREI_TYPE: item.FRGNR_YN,
                             WORK_REGION: item.WORK_RGN_CD,
-                            INC_TYPE: item.INC_TYPE,
-                            INC_SEC: item.INC_SEC,
-                            SITE_ZIP_CODE: item.SITE_ZIP_CODE,
-                            SITE_ADDRESS: item.SITE_ADDRESS,
+                            INC_TYPE: item.EARN_TYPE,
+                            INC_SEC: item.EARN_SE,
+                            SITE_ZIP_CODE: item.SITE_ZIP,
+                            SITE_ADDRESS: item.SITE_ADDR,
                             ZIP_CODE: item.ZIP_CD,
                             ADDRESS: item.ADDR,
-                            BUSINESS_TYPE: item.BUSINESS_TYPE,
+                            BUSINESS_TYPE: item.CORP_YN,
                             BANK_CODE: item.BANK_CD,
                             BANK_NAME: item.BANK_NM,
                             BANK_ACC: item.BACNT_NO,
                             BANK_ACC_REAL: item.BANK_ACC_REAL,
                             TEL: item.TELNO,
                             BIRTHDAY: item.BRDT,
-                            MOBILE_PHONE: item.MOBILE_PHONE,
+                            MOBILE_PHONE: item.MOBL_NO,
                             EMAIL: item.EML,
-                            PAY_CYCLE: item.PAY_CYCLE,
+                            PAY_CYCLE: item.PAY_CYCL,
                             MEMO: item.MEMO,
                         }
                         jsonNonResidentList.push(msg);

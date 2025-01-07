@@ -235,6 +235,10 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
+            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["은행코드"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["소득자 성명"], 						ref: 'EARNER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
@@ -416,21 +420,23 @@
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRA060'
+            ,bizcompId				: 'P_HRA021'
             ,popupType				: 'A'
             ,whereClause			: ''
             ,searchCaptions			: ["소득자코드", "소득자명"]
-            ,searchInputFields		: ["CNPT_CD", "CNPT_NM"]
+            ,searchInputFields		: ["EARNR_CD", "EARNER_NAME"]
             ,searchInputValues		: ["", ""]
             ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
-            ,tableHeader			: ["거래처코드", "거래처명"]
-            ,tableColumnNames		: ["CNPT_CD", "CNPT_NM"]
+            ,tableHeader			: ["소득자코드", "소득자명"]
+            ,tableColumnNames		: ["EARNR_CD", "EARNER_NAME"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_CODE"), data.CNPT_CD);
-                gvwList.setCellData(row, gvwList.getColRef("EARNER_NAME"), data.CNPT_NM);
+                gvwList.setCellData(row, gvwList.getColRef("SOCNO"), data.SOCNO);
+                gvwList.setCellData(row, gvwList.getColRef("SITE_CODE"), data.SITE_CD);
+                gvwList.setCellData(row, gvwList.getColRef("EARNER_CODE"), data.EARNR_CD);
+                gvwList.setCellData(row, gvwList.getColRef("EARNER_NAME"), data.EARNER_NAME);
             },
         });
 
@@ -975,39 +981,39 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_JOB_YYYYMM : item.JOB_YYYYMM,
-                    V_P_SOCNO : item.SOCNO,
-                    V_P_WORK_ST_DAT : item.WORK_ST_DAT,
-                    V_P_EARNER_NAME : item.EARNER_NAME,
-                    V_P_SITE_CODE : item.SITE_CODE,
-                    V_P_PAY_DATE : item.PAY_DATE,
-                    V_P_WORK_END_DAT : item.WORK_END_DAT,
-                    V_P_WORK_DAY : item.WORK_DAY,
-                    V_P_DECLARATION_YYYYMM : item.DECLARATION_YYYYMM,
-                    V_P_BANK_CODE : item.BANK_CODE,
-                    V_P_BANK_ACC : item.BANK_ACC,
-                    V_P_DAILY_PAY_AMT : item.DAILY_PAY_AMT,
-                    V_P_TOT_PAY_AMT : item.TOT_PAY_AMT,
-                    V_P_WORK_PAY_AMT : item.WORK_PAY_AMT,
-                    V_P_NON_TXABLE_AMT : item.NON_TXABLE_AMT,
-                    V_P_INC_AMT : item.INC_AMT,
-                    V_P_EARNED_INC_AMT : item.EARNED_INC_AMT,
-                    V_P_INC_TX_AMT : item.INC_TX_AMT,
-                    V_P_LOCAL_TX_AMT : item.LOCAL_TX_AMT,
-                    V_P_HEALTH_INSURE_AMT : item.HEALTH_INSURE_AMT,
-                    V_P_LONG_HEALTH_INSURE_AMT : item.LONG_HEALTH_INSURE_AMT,
-                    V_P_NATIONAL_PENS_AMT : item.NATIONAL_PENS_AMT,
-                    V_P_EMPLOY_INSURE_AMT : item.EMPLOY_INSURE_AMT,
-                    V_P_ETC_DED_AMT : item.ETC_DED_AMT,
-                    V_P_TOT_DEDUCT_AMT : item.TOT_DEDUCT_AMT,
-                    V_P_ALLOWANCE_AMT : item.ALLOWANCE_AMT,
-                    V_P_MEMO : item.MEMO,
-                    V_P_REMARK : item.REMARK,
-                    V_P_FOREI_TYPE : item.FOREI_TYPE,
-                    V_P_NATION_CODE : item.NATION_CODE,
-                    V_P_TEL : item.TEL,
-                    V_P_ADDRESS : item.ADDRESS,
-                    V_P_WORK_REGION : item.WORK_REGION,
+                    V_P_JOB_YYYYMM : item.data.JOB_YYYYMM,
+                    V_P_SOCNO : item.data.SOCNO,
+                    V_P_WORK_ST_DAT : item.data.WORK_ST_DAT,
+                    V_P_EARNER_NAME : item.data.EARNER_NAME,
+                    V_P_SITE_CODE : item.data.SITE_CODE,
+                    V_P_PAY_DATE : item.data.PAY_DATE,
+                    V_P_WORK_END_DAT : item.data.WORK_END_DAT,
+                    V_P_WORK_DAY : item.data.WORK_DAY,
+                    V_P_DECLARATION_YYYYMM : item.data.DECLARATION_YYYYMM,
+                    V_P_BANK_CODE : item.data.BANK_CODE,
+                    V_P_BANK_ACC : item.data.BANK_ACC,
+                    V_P_DAILY_PAY_AMT : item.data.DAILY_PAY_AMT,
+                    V_P_TOT_PAY_AMT : item.data.TOT_PAY_AMT,
+                    V_P_WORK_PAY_AMT : item.data.WORK_PAY_AMT,
+                    V_P_NON_TXABLE_AMT : item.data.NON_TXABLE_AMT,
+                    V_P_INC_AMT : item.data.INC_AMT,
+                    V_P_EARNED_INC_AMT : item.data.EARNED_INC_AMT,
+                    V_P_INC_TX_AMT : item.data.INC_TX_AMT,
+                    V_P_LOCAL_TX_AMT : item.data.LOCAL_TX_AMT,
+                    V_P_HEALTH_INSURE_AMT : item.data.HEALTH_INSURE_AMT,
+                    V_P_LONG_HEALTH_INSURE_AMT : item.data.LONG_HEALTH_INSURE_AMT,
+                    V_P_NATIONAL_PENS_AMT : item.data.NATIONAL_PENS_AMT,
+                    V_P_EMPLOY_INSURE_AMT : item.data.EMPLOY_INSURE_AMT,
+                    V_P_ETC_DED_AMT : item.data.ETC_DED_AMT,
+                    V_P_TOT_DEDUCT_AMT : item.data.TOT_DEDUCT_AMT,
+                    V_P_ALLOWANCE_AMT : item.data.ALLOWANCE_AMT,
+                    V_P_MEMO : item.data.MEMO,
+                    V_P_REMARK : item.data.REMARK,
+                    V_P_FOREI_TYPE : item.data.FOREI_TYPE,
+                    V_P_NATION_CODE : item.data.NATION_CODE,
+                    V_P_TEL : item.data.TEL,
+                    V_P_ADDRESS : item.data.ADDRESS,
+                    V_P_WORK_REGION : item.data.WORK_REGION,
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
