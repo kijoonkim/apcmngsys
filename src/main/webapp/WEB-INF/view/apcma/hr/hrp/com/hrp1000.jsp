@@ -2457,8 +2457,9 @@
         fn_clearForm();
         gvwInfoGrid.clearStatus();
 
+        let SITE_CODE	        = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
         /* let comp_code = gfnma_nvl2(SBUxMethod.get("srch-comp_code"));  공통처리 */
-        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE"));
+        //let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE"));
         let EMP_STATE       = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_STATE"));
         let DEPT_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_CODE"));
         let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE"));

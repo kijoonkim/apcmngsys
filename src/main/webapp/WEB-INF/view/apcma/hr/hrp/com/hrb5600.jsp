@@ -524,7 +524,8 @@
     const fn_search = async function (nRow) {
 
         let APPLY_DATE      = gfnma_nvl2(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        //let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_ITEM_CODE	= gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_ITEM_CODE'));//급여항목
         let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         if (!APPLY_DATE) {
@@ -628,7 +629,8 @@
         let rowData = gvwListGrid.getRowData(nRow);
 
         let APPLY_DATE      = gfnma_nvl2(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        //let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_ITEM_CODE	= gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_ITEM_CODE'));//급여항목
         let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         if (!_.isEmpty(rowData)) {
@@ -729,7 +731,8 @@
     const fn_item = async function () {
 
         let APPLY_DATE          = gfnma_nvl2(SBUxMethod.get("SRCH_APPLY_DATE")); //기준일
-        let PAY_ITEM_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        //let PAY_ITEM_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_ITEM_CODE	= gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_ITEM_CODE'));//급여항목
         let PAY_TYPE            = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
 
         let APPLY_START_DATE    = gfnma_nvl2(SBUxMethod.get("APPLY_START_DATE"));
