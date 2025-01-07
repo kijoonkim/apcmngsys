@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.at.apcss.am.tot.vo.TotCrtrVO;
 import com.at.apcss.am.tot.vo.TotMngVO;
+import com.at.apcss.am.tot.vo.TotRsltVO;
 
 
 /**
@@ -77,6 +78,24 @@ public interface TotMngService {
 	public HashMap<String, Object> deleteCrtrDtl(TotMngVO totMngVO) throws Exception;
 
 
+	public List<TotRsltVO> selectTotRsltTermList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotRawMtrWrhsList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSortPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotPckgPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSpmtPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotRawMtrInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSortInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotGdsInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+
+
 
 	/**
 	 * 집계기준정보조회
@@ -118,8 +137,6 @@ public interface TotMngService {
 	 * @throws Exception
 	 */
 	public int deleteTotCrtrInfo(TotMngVO totMngVO) throws Exception;
-
-
 
 	/**
 	 * 집계조회 - 출하

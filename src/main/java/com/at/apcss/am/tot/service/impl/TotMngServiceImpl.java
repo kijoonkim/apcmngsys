@@ -1,5 +1,6 @@
 package com.at.apcss.am.tot.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.tot.vo.TotCrtrVO;
+import com.at.apcss.am.tot.vo.TotRsltVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.util.ComUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -333,6 +335,128 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 
 		return null;
 	}
+
+	@Override
+	public List<TotRsltVO> selectTotRsltTermList(TotRsltVO totRsltVO) throws Exception {
+
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+		} else {
+			totRsltVO.setTotYmd(totRsltVO.getCrtrYmd());
+		}
+
+		return totMngMapper.selectTotRsltTermList(totRsltVO);
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotRawMtrWrhsList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotRawMtrWrhsList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotSortPrfmncList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotSortPrfmncList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotPckgPrfmncList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotPckgPrfmncList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotSpmtPrfmncList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotSpmtPrfmncList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotRawMtrInvntrList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotRawMtrInvntrList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotSortInvntrList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotSortInvntrList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public List<TotRsltVO> selectTotGdsInvntrList(TotRsltVO totRsltVO) throws Exception {
+		List<TotRsltVO> resultList = new ArrayList<>();
+		TotRsltVO lastestRsltInfo = totMngMapper.selectLatestTotRsltMst(totRsltVO);
+
+		if (lastestRsltInfo != null && StringUtils.hasText(lastestRsltInfo.getTotYmd()) && lastestRsltInfo.getTotSn() > 0) {
+			totRsltVO.setTotYmd(lastestRsltInfo.getTotYmd());
+			totRsltVO.setTotSn(lastestRsltInfo.getTotSn());
+
+			resultList = totMngMapper.selectTotGdsInvntrList(totRsltVO);
+		}
+
+		return resultList;
+	}
+
 
 	@Override
 	public List<TotMngVO> selectTotCrtrInfoList(TotMngVO totMngVO) throws Exception {
