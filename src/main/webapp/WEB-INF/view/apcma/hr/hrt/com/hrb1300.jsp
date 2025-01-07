@@ -416,8 +416,13 @@
                     }
                 });
 
-                calendarYear(new Date());
-                fn_view(gfn_dateToYmd(new Date()));
+                if(new Date().getFullYear() != new Date(YYYY + '-01-01').getFullYear()) {
+                    calendarYear(new Date(YYYY + '-01-01'));
+                    fn_view(YYYY + '-01-01');
+                } else {
+                    calendarYear(new Date());
+                    fn_view(gfn_dateToYmd(new Date()));
+                }
             } else {
                 alert(data.resultMessage);
             }
