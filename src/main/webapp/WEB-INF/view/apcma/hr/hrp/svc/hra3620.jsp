@@ -592,6 +592,32 @@
         ]);
 
         const validations = [{
+            ref: 'A2:A1000', // 검사 범위
+            type: 'textLength',
+            operator: 'greaterThan',
+            formulae: '0',
+            allowBlank: false,
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '문자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '문자만 입력 가능 합니다.',
+            numFmt: '@'
+        }, {
+            ref: 'B2:B1000', // 검사 범위
+            type: 'textLength',
+            operator: 'greaterThan',
+            formulae: '0',
+            allowBlank: false,
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '문자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '문자만 입력 가능 합니다.',
+            numFmt: '@'
+        }, {
             ref: 'C2:C1000', // 검사 범위
             type: 'custom', // 사용자 지정 수식
             formulae: '=AND(ISNUMBER(DATEVALUE(C2&"-01")),LEN(C2)=7)', // YYYY-MM 형식 검사
@@ -959,7 +985,12 @@
 
                             let istart_date = new Date(item.WORK_ST_DAT);
                             let iend_date = new Date(item.WORK_END_DAT);
-                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1)
+                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+
+                            item.JOB_YYYYMM = item.JOB_YYYYMM.replace(/-/g, "");
+                            item.WORK_ST_DAT = item.WORK_ST_DAT.replace(/-/g, "");
+                            item.WORK_END_DAT = item.WORK_END_DAT.replace(/-/g, "");
+                            item.PAY_DATE = item.PAY_DATE.replace(/-/g, "");
 
                             gvwInfo.addRow(true, item);
                         });
