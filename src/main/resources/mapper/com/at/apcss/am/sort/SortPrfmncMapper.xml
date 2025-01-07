@@ -2018,13 +2018,13 @@
 		WHERE 1=1
 		  ]]>
 		<if test='apcCd != null and apcCd !=""'>
-			AND BP.APC_CD = ${apcCd}
+			AND BP.APC_CD = #{apcCd}
 		</if>
 		<if test='inptYmdFrom != null and inptYmdFrom !=""'>
-			AND BP.WRHS_YMD <![CDATA[>=]]> ${inptYmdFrom}
+			AND BP.WRHS_YMD <![CDATA[>=]]> #{inptYmdFrom}
 		</if>
 		<if test='inptYmdTo != null and inptYmdTo !=""'>
-			AND BP.WRHS_YMD <![CDATA[<=]]> ${inptYmdTo}
+			AND BP.WRHS_YMD <![CDATA[<=]]> #{inptYmdTo}
 		</if>
 		<if test="fcltCd != null and fcltCd != ''">
 			AND BP.FCLT_CD = #{fcltCd}

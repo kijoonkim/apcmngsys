@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.tot.vo.TotCrtrVO;
+import com.at.apcss.am.tot.vo.TotRsltVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.tot.vo.TotMngVO;
@@ -55,6 +56,29 @@ public interface TotMngMapper {
 	public int insertCrtrDtl(TotCrtrVO totCrtrVO) throws Exception;
 	public int updateCrtrDtl(TotCrtrVO totCrtrVO) throws Exception;
 	public int deleteCrtrDtl(TotCrtrVO totCrtrVO) throws Exception;
+
+
+
+	public TotRsltVO selectLatestTotRsltMst(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotRsltTermList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotRawMtrWrhsList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSortPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotPckgPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSpmtPrfmncList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotRawMtrInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotSortInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+	public List<TotRsltVO> selectTotGdsInvntrList(TotRsltVO totRsltVO) throws Exception;
+
+
+
 
 	/**
 	 * 부자재 기준정보를 조회한다.
