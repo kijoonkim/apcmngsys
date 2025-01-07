@@ -174,6 +174,7 @@
     var jsonForeignType = []; // 내외국인구분
     var jsonNationCode = []; // 거주지국
     var jsonWorkRegion = []; // 근무지역
+    var jsonEarnerCode = []; // 소득자코드
 
     //grid 초기화
     var gvwInfo; 			// 그리드를 담기위한 객체 선언
@@ -217,6 +218,8 @@
             gfnma_setComSelect(['gvwInfo'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NTN_CD', 'NTN_NM', 'Y', ''),
             // 근무지역
             gfnma_setComSelect(['gvwInfo'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 소득자코드
+            gfnma_setComSelect([''], jsonEarnerCode, 'P_HRA021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'EARNR_CD', 'EARNR_NM', 'Y', ''),
         ]);
     }
 
@@ -592,6 +595,32 @@
         ]);
 
         const validations = [{
+            ref: 'A2:A1000', // 검사 범위
+            type: 'textLength',
+            operator: 'greaterThan',
+            formulae: '0',
+            allowBlank: false,
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '문자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '문자만 입력 가능 합니다.',
+            numFmt: '@'
+        }, {
+            ref: 'B2:B1000', // 검사 범위
+            type: 'textLength',
+            operator: 'greaterThan',
+            formulae: '0',
+            allowBlank: false,
+            showInputMessage: true,
+            promptTitle: '입력 안내',
+            prompt: '문자를 입력하세요.',
+            showErrorMessage: true,
+            errorTitle: '잘못된 형식',
+            error: '문자만 입력 가능 합니다.',
+            numFmt: '@'
+        }, {
             ref: 'C2:C1000', // 검사 범위
             type: 'custom', // 사용자 지정 수식
             formulae: '=AND(ISNUMBER(DATEVALUE(C2&"-01")),LEN(C2)=7)', // YYYY-MM 형식 검사
@@ -944,7 +973,6 @@
                             ]});
 
                         list.forEach((item, index) => {
-                            console.log(jsonWorkGbn, item.WORK_GBN);
                             item.WORK_GBN = jsonWorkGbn.length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
                             item.WORK_PLACE = jsonWorkPlace.length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
                             item.WORK_NAME = jsonWorkName.length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
@@ -959,7 +987,22 @@
 
                             let istart_date = new Date(item.WORK_ST_DAT);
                             let iend_date = new Date(item.WORK_END_DAT);
-                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1)
+                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+
+                            item.JOB_YYYYMM = item.JOB_YYYYMM.replace(/-/g, "");
+                            item.WORK_ST_DAT = item.WORK_ST_DAT.replace(/-/g, "");
+                            item.WORK_END_DAT = item.WORK_END_DAT.replace(/-/g, "");
+                            item.PAY_DATE = item.PAY_DATE.replace(/-/g, "");
+
+                            item.SOCNO = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["RGDT_NO"] : '';
+                            item.SITE_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["SITE_CD"] : '';
+                            item.BANK_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["BANK_CD"] : '';
+                            item.BANK_ACC = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["BACNT_NO"] : '';
+                            item.EARNER_NAME = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["EARNR_NM"] : '';
+                            item.TEL = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["TELNO"] : '';
+                            item.ADDRESS = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["ADDR"] : '';
+                            item.FOREI_TYPE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["FRGNR_YN"] : '';
+                            item.NATION_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["HBTN_NTN_CD"] : '';
 
                             gvwInfo.addRow(true, item);
                         });
