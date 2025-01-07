@@ -258,7 +258,7 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', emptyvalue:'0'}
             },
-            {caption: ["인원수"],         ref: 'WORK_CNT',    type:'output',  	width:'75px',  style:'text-align:right',
+            {caption: ["인원수"],         ref: 'WORK_CNT',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', emptyvalue:'0'}
             },
@@ -402,17 +402,18 @@
         var nCol = gvwInfo.getCol();
         var rowData = gvwInfo.getRowData(nRow);
 
-        if (nCol == gvwInfo.getColRef('START_DATE') || nCol == gvwInfo.getColRef('END_DATE')) {
-            if (rowData.START_DATE == "" || rowData.END_DATE == "") return;
+        if (nCol == gvwInfo.getColRef('WORK_ST_DAT') || nCol == gvwInfo.getColRef('WORK_END_DAT')) {
+            if (rowData.WORK_ST_DAT == "" || rowData.WORK_END_DAT == "") return;
 
-            let istart_date = new Date(rowData.START_DATE.substring(0, 4) + "-" + rowData.START_DATE.substring(4, 6) + "-" + rowData.START_DATE.substring(6, 8));
-            let iend_date = new Date(rowData.END_DATE.substring(0, 4) + "-" + rowData.END_DATE.substring(4, 6) + "-" + rowData.END_DATE.substring(6, 8));
+            let istart_date = new Date(rowData.WORK_ST_DAT.substring(0, 4) + "-" + rowData.WORK_ST_DAT.substring(4, 6) + "-" + rowData.WORK_ST_DAT.substring(6, 8));
+            let iend_date = new Date(rowData.WORK_END_DAT.substring(0, 4) + "-" + rowData.WORK_END_DAT.substring(4, 6) + "-" + rowData.WORK_END_DAT.substring(6, 8));
 
             if (istart_date > iend_date) {
-                gfn_comAlert("W0008",  "휴직종료일", "휴직시작일");
-                gvwInfo.setCellData(nRow, gvwInfo.getColRef('END_DATE'), istart_date.getDate());
+                gfn_comAlert("W0008",  "근무종료일", "근무시작일");
+                gvwInfo.setCellData(nRow, gvwInfo.getColRef('WORK_END_DAT'), gfn_dateToYmd(istart_date));
+                gvwInfo.setCellData(nRow, gvwInfo.getColRef('WORK_DAY'), 1);
             } else {
-                gvwInfo.setCellData(nRow, gvwInfo.getColRef('TIME_OFF_CNT'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
+                gvwInfo.setCellData(nRow, gvwInfo.getColRef('WORK_DAY'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
             }
         }
     }
