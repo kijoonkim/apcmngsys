@@ -64,7 +64,7 @@ function compopfileview1(type, event) {
 	            };
  
 	            page.render(renderContext).promise.then(function() {
-	                document.getElementById('preview-div').innerHTML = '';
+	                //document.getElementById('preview-div').innerHTML = '';
 	                document.getElementById('preview-div').appendChild(canvas);
 	            });
 	        });

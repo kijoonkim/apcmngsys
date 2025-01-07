@@ -608,7 +608,8 @@
             rows[gWrow + 1] = Math.max(Trows[gWrow + 1], 0.01) + "fr";
             let newRowDefn = rows.join(" ");
             page.style.gridTemplateRows = newRowDefn;
-            document.getElementById("footer").innerHTML = newRowDefn;
+            //document.getElementById("footer").innerHTML = newRowDefn;
+            $('#footer').html(newRowDefn);
         }
         event.preventDefault()
     }
