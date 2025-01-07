@@ -1418,22 +1418,11 @@
                     }
 
                     if (gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) != "" && gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME")) != "") {
-                        let query = "SELECT min(aa.trans_count)  as  trans_count ";
-                        query += " FROM(SELECT ";
-                        query += " TO_CHAR(TO_DATE(a.txn_date, 'YYYYMMDD'), 'YYYY-MM-DD') as txn_date ";
-                        query += " , TO_CHAR(TO_DATE(a.txn_time, 'HH24:MI:SS'), 'HH24:MI:SS') as txn_time ";
-                        query += " , a.txn_time as txn_time_raw ";
-                        query += " , a.txn_date as txn_date_raw ";
-                        query += " , dense_rank() over(PARTITION BY a.txn_date order by a.txn_time) as trans_count";
-                        query += " FROM FBSBANKTXN a ";
-                        query += " where a.txn_date = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) + "' ";
-                        query += " group by a.txn_date ";
-                        query += " , a.txn_time) aa ";
-                        query += " where aa.txn_date_raw = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")) + "' ";
-                        query += " and aa.txn_time_raw = '" + gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME")) + "'";
+
 
                         var paramObj = {
-                            TRANS_COUNT: query
+                            txnDate: gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")),
+                            txnTime: gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME"))
                         }
 
                         const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2010TransCount.do", paramObj);

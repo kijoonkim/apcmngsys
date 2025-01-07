@@ -1182,8 +1182,6 @@
             ftpPath = strftpaddress + strPath;
             user = p_fbsBatchId;
             pwd = p_fbsBatchPw;
-            // user = "fcm";  // FTP 익명 로그인시. 아니면 로그인/암호 지정.
-            // pwd = "Hss2016";
         }
 
         string outputFile = newfile_name;
