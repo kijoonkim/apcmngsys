@@ -145,7 +145,7 @@
                                             <td></td>
                                             <th scope="row" class="th_bg">주민등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SOCIAL_NO1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" group-id="panResidentInfo" required></sbux-input>
+                                                <sbux-input id="SOCIAL_NO1" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panResidentInfo" required></sbux-input>
                                                 <sbux-input id="JUMIN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
@@ -353,7 +353,7 @@
                                             </td>
                                             <th scope="row" class="th_bg">주민(사업자)등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SOCIAL_NO3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
+                                                <sbux-input id="SOCIAL_NO3" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" style="display: none;"></sbux-select>
                                             </td>
                                         </tr>
@@ -1572,6 +1572,14 @@
 
             gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SBSD_CD', 'CD_NM', "1");
             $("#SITE_CODE").focus();
+        }
+    }
+
+    const fnSocialNumChange = function(data) {
+        if(!gfnma_validateResidentNumber(data.value)) {
+            gfn_comAlert("E0000", "유효하지 않은 주민등록번호입니다.");
+            SBUxMethod.set(data.id, "");
+            return;
         }
     }
 </script>
