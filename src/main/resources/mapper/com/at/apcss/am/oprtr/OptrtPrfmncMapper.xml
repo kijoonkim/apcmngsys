@@ -225,6 +225,7 @@
 			        , JOB_END_HR
 			        , JOB_HR
 			        , HR_WG
+			        , JOB_CLSF_CD
 			        , RMRK
 			        , SYS_FRST_INPT_DT
 			        , SYS_FRST_INPT_USER_ID
@@ -245,6 +246,7 @@
 			        , #{jobEndHr}
 			        , #{jobHr}
 			        , #{hrWg}
+			        , #{jobClsfCd}
 			        , #{rmrk}
 			        , SYSDATE
 			        , #{sysFrstInptUserId}

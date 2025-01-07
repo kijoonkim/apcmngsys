@@ -634,4 +634,32 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wgh/deleteWghEntrVhclList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteWghEntrVhclList(@RequestBody List<WghPrfmncVO> wghPrfmncVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			wghPrfmncVOList.forEach(item ->{
+				try {
+					wghPrfmncService.deleteWghEntrVhcl(item);
+				} catch (Exception e) {
+					logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+				}
+			});
+
+
+		} catch (Exception e) {
+
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

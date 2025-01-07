@@ -37,7 +37,6 @@
                 </div>
                 <div style="margin-left: auto;">
 
-					<sbux-button id="btnNew" name="btnNew" uitype="normal" class="btn btn-sm btn-outline-danger" text="신규" onclick="fn_new"></sbux-button>
                     <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
                     <sbux-button id="btnDelete" name="btnDelete" uitype="normal" class="btn btn-sm btn-outline-danger" text="삭제" onclick="fn_delete"></sbux-button>
                     <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -225,8 +224,13 @@
  							, outWght : item.outWght
  							, entrTm : item.entrTm
  							, outTm : item.outTm
- 							, diff : parseInt(item.entrWght) - parseInt(item.outWght)
   					}
+  					let x = parseInt(item.entrWght);
+  					let y = gfn_nvl(item.outWght);
+  					if(y === ""){
+  						y = 0;
+  					}
+  					fcltVO['diff'] = x - parseInt(y)
 
   					jsonWghFcltDtlList.push(fcltVO);
   				});
@@ -294,12 +298,13 @@
 		let rowIdx = grdWghFcltDtlList.getRow();
         let rowData = grdWghFcltDtlList.getRowData(rowIdx);
 
-        if(gfn_nvl(rowData) === ""){
+        let allData = grdWghFcltDtlList.getGridDataAll();
+        let filter = allData.filter(item => item.checkedYn === "Y");
+
+        if(gfn_nvl(filter) === ""){
         	return;
         }
-
-        rowData['wghSeCd'] = "02";
-        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghEntrVhcl.do",rowData);
+        let postJsonPromise = gfn_postJSON("/am/wgh/deleteWghEntrVhclList.do",filter);
         let data = await postJsonPromise;
 
         try{

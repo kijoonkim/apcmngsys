@@ -602,6 +602,7 @@
                     // gfn_comAlert(data.resultCode, data.resultMessage);
                     //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
                     //fn_reset();
+                    fn_search();
                     return;
                 }
             }
