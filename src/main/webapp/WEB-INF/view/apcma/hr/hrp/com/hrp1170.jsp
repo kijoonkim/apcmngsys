@@ -719,11 +719,13 @@
      */
     const fn_search = async function (/*tabMoveVal*/) {
 
-        let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        //let SITE_CODE       = gfnma_nvl2(SBUxMethod.get("SRCH_SITE_CODE")); //사업장
+        let SITE_CODE	    = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));//사업장
         let PAY_TYPE        = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_YYYYMM_FR   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); // 귀속년월 시작
         let PAY_YYYYMM_TO   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_YYYYMM_TO")); // 귀속년월 종료
-        let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        //let PAY_ITEM_CODE   = gfnma_nvl2(SBUxMethod.get("SRCH_PAY_ITEM_CODE")); //급여항목
+        let PAY_ITEM_CODE	= gfn_nvl(gfnma_multiSelectGet('#SRCH_PAY_ITEM_CODE'));//급여항목
         let EMP_CODE        = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_CODE")); //사원코드
 
         if (!PAY_YYYYMM_FR) {

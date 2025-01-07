@@ -909,7 +909,7 @@
         let TIME_END_DATE = gfn_nvl(SBUxMethod.get("SRCH_END_DATE"));
 
         //type B 형 팝업
-        var addParams = [TIME_START_DATE, TIME_END_DATE, p_userId];	//bizcompId 의 파라미터에 따라 추가할것
+        var addParams = [TIME_START_DATE, TIME_END_DATE,"'"+ p_userId+"'"];	//bizcompId 의 파라미터에 따라 추가할것
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 정보');
         compopup1({
@@ -970,7 +970,7 @@
     }
 
     const fn_findEmpCodeForBandgvwInfo = function(nRow) {
-        var addParams = [p_userId];	//bizcompId 의 파라미터에 따라 추가할것
+        var addParams = ["'"+ p_userId+"'"];	//bizcompId 의 파라미터에 따라 추가할것
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
