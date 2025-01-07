@@ -152,7 +152,7 @@
                                 uitype="modal"
                                 target-id="modal-compopup1"
                                 text="…"
-                                onclick="fn_compopup1"
+                                onclick="fn_findDeptCode"
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg_search">사원</th>
@@ -166,7 +166,7 @@
                     <td colspan="2" class="td_input" style="border-right: hidden;" data-group="EMP">
                         <sbux-input
                                 uitype="text"
-                                id="SRCH_EMP_FULL_NAME"
+                                id="SRCH_EMP_NAME"
                                 class="form-control input-sm"
 
                         ></sbux-input>
@@ -177,7 +177,7 @@
                                 uitype="modal"
                                 target-id="modal-compopup1"
                                 text="…"
-                                onclick="fn_compopup2"
+                                onclick="fn_findEmpCode"
                         ></sbux-button>
                     </td>
                     <td colspan="10" style="border-right: hidden;">&nbsp;</td>
@@ -209,7 +209,7 @@
 </section>
 <!-- 팝업 Modal -->
 <div>
-    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title="" body-html-id="body-modal-compopup1" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -221,7 +221,7 @@
     // common ---------------------------------------------------
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
-    var p_userId = '${loginVO.id}';
+    var p_userId = '${loginVO.maUserID}';
     //-----------------------------------------------------------
 
     //grid 초기화
@@ -270,17 +270,18 @@
     /**
      * 공통팝업3
      */
-    var fn_compopup1 = function() {
-
+    var fn_findDeptCode = function() {
         var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_DEPT_NAME"));
-
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
+
+        var param		 	= ["'"+ p_userId+"'"];
+
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_ORG001'
+            ,bizcompId				: 'P_ORG001_HRT'
             ,popupType				: 'B'
-            ,whereClause			: ''
+            ,whereClause			: param
             ,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
             ,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
             ,searchInputValues		: ["", 				searchText,		""]
@@ -299,41 +300,34 @@
         SBUxMethod.setModalCss('modal-compopup1', {width:'800px'})
     }
 
-    var fn_compopup2 = function() {
+    const fn_findEmpCode = function() {
+        var searchCode 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_CODE"));
+        var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_EMP_NAME"));
 
-        var searchText = gfnma_nvl2(SBUxMethod.get("SRCH_EMP_FULL_NAME"));
+        var addParams = ["'"+ p_userId+"'"];	//bizcompId 의 파라미터에 따라 추가할것
 
-        var replaceText0 = "_EMP_CD_";
-        var replaceText1 = searchText;
-        var replaceText2 = "_DEPT_CD_";
-        var replaceText3 = "_DEPT_NM_";
-        var replaceText4 = "_EMP_STTS_";
-        var strWhereClause = "AND x.EMP_CD LIKE '%" + replaceText0 + "%' AND x.EMP_NM LIKE '%" + replaceText1 + "%' AND x.DEPT_CD LIKE '%"+replaceText2
-            + "%' AND x.DEPT_NM LIKE '%" + replaceText3 +  "%' AND x.EMP_STTS LIKE '%"+replaceText4+"%'";
-
-        SBUxMethod.attr('modal-compopup1', 'header-title', '사원정보');
+        SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
         compopup1({
-            compCode: gv_ma_selectedCorpCd
-            , clientCode: gv_ma_selectedClntCd
-            , bizcompId: 'P_HRI001'
-            , popupType: 'A'
-            , whereClause: strWhereClause
-            , searchCaptions:    ["부서코드"    , "부서명"     , "사원코드"    ,"사원명"     ,"재직상태"]
-            , searchInputFields: ["DEPT_CD"  , "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"EMP_STTS"]
-            , searchInputValues: [""           , ""     ,""             ,searchText         ,""]
-            , height: '400px'
-            , tableHeader:       ["사번"       , "이름"       , "부서"        ,"사업장"      ,"재직구분"]
-            , tableColumnNames:  ["EMP_CD"  , "EMP_NM"  , "DEPT_NM"   ,"SITE_NM"  ,"EMP_STATE_NAME"]
-            , tableColumnWidths: ["80px"      , "80px"      , "100px"       , "100px"     , "80px"]
-            , itemSelectEvent: function (data) {
-                    SBUxMethod.set('SRCH_EMP_FULL_NAME', data.EMP_NM);
-                    SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,bizcompId				: 'P_EMP_WORK'
+            ,popupType				: 'B'
+            ,whereClause			: addParams
+            , searchCaptions:    ["부서코드", "부서명", "사원코드", "사원명", "기준일"]
+            , searchInputFields: ["DEPT_CD", "DEPT_NM", "EMP_CD"   ,"EMP_NM"  ,"CRTR_YMD"]
+            ,searchInputValues		: ["", "", searchCode, searchName, gfn_dateToYmd(new Date())]
+            ,searchInputTypes		: ["input", "input", "input", "input", "datepicker"]		//input, datepicker가 있는 경우
+            ,height: '400px'
+            , tableHeader:       ["사원코드", "사원명", "부서명", "부서명", "입사일", "퇴사일", "직위코드", "직위명", "파트명", "직급"]
+            , tableColumnNames:  ["EMP_CD", "EMP_NM", "DEPT_CD", "DEPT_NM", "JNCMP_YMD", "RTRM_YMD", "JBPS_CD", "JBPS_NM", "CSTCT_NM", "JBGD_CD"]
+            ,tableColumnWidths		: ["100px", "100px", "80px", "140px", "100px", "100px", "100px", "100px", "100px", "100px"]
+            ,itemSelectEvent		: function (data){
+                SBUxMethod.set('SRCH_EMP_NAME', data.EMP_NM);
+                SBUxMethod.set('SRCH_EMP_CODE', data.EMP_CD);
             },
         });
-        //SBUxMethod.openModal('modal-compopup1');
-
+        SBUxMethod.setModalCss('modal-compopup1', {width:'1020px'})
     }
-
 
     const fn_onload = async function () {
         SBUxMethod.set("SRCH_START_DATE",gfn_dateFirstYmd(new Date()));
@@ -397,15 +391,30 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', /*displayui : true,*/ label : 'label', value : 'value'}       //L_HRI002
+                typeinfo: {
+                    ref			: 'jsonPositionCode',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
             },
             {caption: ["직책"], ref: 'DUTY_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["직급"], ref : 'JOB_RANK', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', /*displayui : true,*/ label : 'label', value : 'value'}       //L_HRI005
+                typeinfo: {
+                    ref			: 'jsonJobRank',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
             },
             {caption: ["근무패턴"], ref: 'WORK_PATTERN_CODE', type: 'output', width: '100px', style: 'text-align:left'},
             {caption : ["공정명"], ref : 'OPERATION_NAME', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : '', /*displayui : true,*/ label : 'label', value : 'value'}       //L_COST_CENTER
+                typeinfo: {
+                    ref			: 'jsonOperationName',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
             },
             {caption: ['시작일'], ref: 'TIME_START_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -425,9 +434,6 @@
         ];
 
         gvwInfoGrid = _SBGrid.create(SBGridProperties);
-       /* gvwInfoGrid.bind('click', 'fn_view');
-        gvwInfoGrid.bind('keyup', 'fn_keyup');*/
-
     }
 
     /**
