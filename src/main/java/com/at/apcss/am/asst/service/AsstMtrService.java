@@ -156,5 +156,21 @@ public interface AsstMtrService {
 	 */
 	public int insertBomSpmtInfoList(List<AsstMtrVO> bomVO) throws Exception;
 
+	/**
+	 * BOM입고정보삭제
+	 * @param AsstMtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBomWrhsInfoList(List<AsstMtrVO> bomVO) throws Exception;
+
+	/**
+	 * BOM출고정보삭제
+	 * @param AsstMtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteBomSpmtInfoList(List<AsstMtrVO> bomVO) throws Exception;
+
 
 }

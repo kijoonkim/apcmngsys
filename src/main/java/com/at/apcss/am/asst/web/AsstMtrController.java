@@ -289,6 +289,68 @@ public class AsstMtrController extends BaseController {
 
 	}
 
+	@PostMapping(value = "/am/asst/deleteBomWrhsInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBomWrhsInfoList(@RequestBody List<AsstMtrVO> bomVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			bomVOList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			asstMtrService.deleteBomWrhsInfoList(bomVOList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/asst/deleteBomSpmtInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteBomSpmtInfoList(@RequestBody List<AsstMtrVO> bomVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+
+		try {
+			bomVOList.forEach(item->{
+				item.setSysFrstInptUserId(getUserId());
+				item.setSysFrstInptPrgrmId(getPrgrmId());
+				item.setSysLastChgUserId(getUserId());
+				item.setSysLastChgPrgrmId(getPrgrmId());
+				item.setDelYn("N");
+			});
+			asstMtrService.deleteBomSpmtInfoList(bomVOList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+
+
 	@PostMapping(value = "/am/asst/selectBomInvntrInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectBomInvntrInfoList(@RequestBody AsstMtrVO bomVO, HttpServletRequest request) throws Exception {
 
