@@ -1318,7 +1318,7 @@
             const param = {
                 cv_count: '0',
                 getType: 'json',
-                rownum: item.rownum,
+                rownum: 0,
                 workType: 'DELETE',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN: '',
