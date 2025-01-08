@@ -71,20 +71,21 @@ public class ApcMaHrt2370Controller extends BaseController {
         }
     }
 
-    @PostMapping(value = "/hr/hrt/hrt/insertHrt2370List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrt2370List(
+    @PostMapping(value = "/hr/hrt/hrt/selectHrt2370ColorList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHrt2370ColorList(
             @RequestBody Map<String, Object> param
             , Model model
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHrt2370List=====start========");
+        logger.info("=============selectHrt2370ColorList=====start========");
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT2370_S");
+            param.put("procedure", 		"SP_HRT2370_COLOR_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
-            logger.info("=============insertHrt2370List=====end========");
+            logger.info("=============selectHrt2370ColorList=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
             e.printStackTrace();

@@ -222,10 +222,13 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_userId = '${loginVO.maUserID}';
+    var isHrManager = '${loginVO.maIsHRManager}' == 'Y';
+    var p_deptCode = '${loginVO.maDeptCode}';
+    var p_deptName = '${loginVO.maDeptName}';
     //-----------------------------------------------------------
 
     //grid 초기화
-    var gvwInfoGrid; 			// 그리드를 담기위한 객체 선언
+    var gvwInfo; 			// 그리드를 담기위한 객체 선언
     var jsonGvwInfoList = []; 	// 그리드의 참조 데이터 주소 선언
 
     var jsonSiteCode = []; // ( L_ORG001 )SRCH_SITE_CODE
@@ -235,15 +238,20 @@
     var jsonJobRank = []; // ( L_HRI005 )JOB_RANK
     var jsonOperationName = []; // ( L_COST_CENTER )OPERATION_NAME
 
+    var pink = "0";
+    var yellow = "0";
+    var red = "0";
+    var color_type = "1";
+
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
 
             gfnma_setComSelect(['SITE_CODE'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             gfnma_setComSelect(['SRCH_JOB_GROUP'], jsonJobGroup, 'L_HRI047', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['SRCH_TIME_CATEGORY'], jsonTimeCategory, 'L_HRT024_04', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwInfoGrid'], jsonOperationName, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonOperationName, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({
@@ -332,6 +340,13 @@
     const fn_onload = async function () {
         SBUxMethod.set("SRCH_START_DATE",gfn_dateFirstYmd(new Date()));
         SBUxMethod.set("SRCH_END_DATE", gfn_dateToYmd(new Date()));
+
+        if (!isHrManager) {
+            SBUxMethod.set("SRCH_DEPT_CODE", p_deptCode);
+            SBUxMethod.set("SRCH_DEPT_NAME", p_deptName);
+        }
+
+        await fn_findColorList(color_type);
     }
 
     window.addEventListener('DOMContentLoaded', async function (e) {
@@ -340,22 +355,6 @@
         await fn_onload();
     });
 
-    /**
-     * 저장
-     */
-    async function cfn_save() {
-        if (await gfnma_gridValidateCheck() == false) {
-            return;
-        }
-
-        let updatedData = gvwInfoGrid.getUpdateData(true, 'all');
-
-        if (_.isEmpty(updatedData)){
-            return;
-        }
-
-        fn_save('', updatedData);
-    }
     /**
      * 조회
      */
@@ -374,7 +373,7 @@
     function fn_createGrid() {
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grwInfo';
-        SBGridProperties.id = 'gvwInfoGrid';
+        SBGridProperties.id = 'gvwInfo';
         SBGridProperties.jsonref = 'jsonGvwInfoList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'byrow';
@@ -433,9 +432,30 @@
             {caption: ["야근(월)"], ref: 'NIGHT_ACC', type: 'input', width: '100px', style: 'text-align:left'},
         ];
 
-        gvwInfoGrid = _SBGrid.create(SBGridProperties);
+        gvwInfo = _SBGrid.create(SBGridProperties);
     }
 
+    const fn_gvwInfoAfterRebuild = async function() {
+        var nRow = gvwInfo.getRow();
+        let gvwInfoData = gvwInfo.getGridDataAll();
+
+        for(var i = 0; i < gvwInfoData.length; i++) {
+            let rowData = gvwInfo.getRowData(i+1);
+            var week52RemainHourRowIndex = gvwInfo.getColRef("WEEK52_REMAIN_HOUR")
+
+            // 주52시간 체크
+            if (parseFloat(rowData.WEEK52_REMAIN_HOUR) <= parseFloat(red) && (nRow != (i+1))) { // 주52시간근무 <= numRed  경우 빨간색
+                gvwInfo.setCellStyle('background-color', i+1, week52RemainHourRowIndex, i+1, week52RemainHourRowIndex, 'red');
+            } else if (parseFloat(rowData.WEEK52_REMAIN_HOUR) <= parseFloat(pink) &&
+                parseFloat(rowData.WEEK52_REMAIN_HOUR) > parseFloat(red) && (nRow != (i+1))) {  // numRed < 주52시간근무 <= numPink  경우 주황색
+                gvwInfo.setCellStyle('background-color', i+1, week52RemainHourRowIndex, i+1, week52RemainHourRowIndex, 'orange');
+            } else if (parseFloat(rowData.WEEK52_REMAIN_HOUR) <= parseFloat(yellow) &&
+                parseFloat(rowData.WEEK52_REMAIN_HOUR) > parseFloat(pink) && (nRow != (i+1))) { // numPink < 주52시간근무 <= numYellow 경우 노랑색(40시간 근무까지는 정상)
+                gvwInfo.setCellStyle('background-color', i+1, week52RemainHourRowIndex, i+1, week52RemainHourRowIndex, 'green');
+            }
+        }
+    }
+    
     /**
      * 목록 조회
      */
@@ -516,11 +536,11 @@
                     totalRecordCount++;
                 });
 
-                gvwInfoGrid.rebuild();
+                gvwInfo.rebuild();
                 document.querySelector('#listCount').innerText = totalRecordCount;
 
                 if(jsonGvwInfoList.length > 0) {
-                    gvwInfoGrid.clickRow(1);
+                    gvwInfo.clickRow(1);
                 }
             } else {
                 alert(data.resultMessage);
@@ -535,85 +555,48 @@
         }
     }
 
-    //저장
-    const fn_save = async function (strWorkType, updatedData) {
+    const fn_findColorList = async function (colorType) {
+        var paramObj = {
+            V_P_DEBUG_MODE_YN: ''
+            ,V_P_LANG_ID: ''
+            ,V_P_COMP_CODE: gv_ma_selectedCorpCd
+            ,V_P_CLIENT_CODE: gv_ma_selectedClntCd
+            , V_P_COLOR_TYPE : colorType
+            ,V_P_FORM_ID: p_formId
+            ,V_P_MENU_ID: p_menuId
+            ,V_P_PROC_ID: ''
+            ,V_P_USERID: ''
+            ,V_P_PC: ''
+        };
 
-        let listData = [];
-        listData =  await getParamFormS1(updatedData);
+        const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/selectHrt2370ColorList.do", {
+            getType: 'json',
+            workType: 'Q',
+            cv_count: '1',
+            params: gfnma_objectToString(paramObj)
+        });
 
-        if (_.isEmpty(listData) == false) {
-            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2370List.do", {listData: listData});
+        const data = await postJsonPromise;
 
-            const data = await postJsonPromise;
-
-            try {
-                if (_.isEqual("S", data.resultStatus)) {
-
-                    if (data.resultMessage) {
-                        if (_.isEqual(data.v_errorCode, 'MSG0004') || _.isEqual(data.v_errorCode, 'MSG0002')){
-                            return true;
-                        }else {
-                            alert(data.resultMessage);
-                            return false;
-                        }
-                    }
-                    return true;
-
-                } else {
-                    alert(data.resultMessage);
-                    return false;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if(data.cv_1.length > 0) {
+                    yellow = gfn_nvl(data.cv_1[0]["COLOR1"]);
+                    pink = gfn_nvl(data.cv_1[0]["COLOR2"]);
+                    red = gfn_nvl(data.cv_1[0]["COLOR3"]);
                 }
-            } catch (e) {
-                if (!(e instanceof Error)) {
-                    e = new Error(e);
-                }
-                console.error("failed", e.message);
-                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            } else {
+                alert(data.resultMessage);
             }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
-    const getParamFormS1 = async function (updatedData) {
-
-        let returnData = [];
-
-        let EMP_CODE = gfnma_nvl2(SBUxMethod.get("EMP_CODE"));
-
-        if (!_.isEmpty(updatedData)) {
-
-            updatedData.forEach((item, index) => {
-
-                const param = {
-
-                    cv_count: '0',
-                    getType: 'json',
-                    workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
-                    params: gfnma_objectToString({
-                        V_P_DEBUG_MODE_YN   : ''
-                        , V_P_LANG_ID       : ''
-                        , V_P_COMP_CODE     : gv_ma_selectedCorpCd
-                        , V_P_CLIENT_CODE   : gv_ma_selectedClntCd
-
-
-
-                        , V_P_FORM_ID: p_formId
-                        , V_P_MENU_ID: p_menuId
-                        , V_P_PROC_ID: ''
-                        , V_P_USERID: ''
-                        , V_P_PC: ''
-
-                    })
-                }
-
-                returnData.push(param);
-
-            });
-        }
-
-        return returnData;
-
-    }
-
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
