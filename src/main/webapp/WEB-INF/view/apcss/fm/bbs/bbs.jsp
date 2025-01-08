@@ -681,7 +681,7 @@
         SBUxMethod.set("dtl-input-sysFrstInptUserIdNm", rowData.sysFrstInptUserIdNm);
         SBUxMethod.set("dtl-input-sysFrstInptDt", rowData.sysFrstInptDt);
 // 		console.log(rowData.attCnt);
-        if(Number(rowData.attCnt) == 0){
+        if(Number(rowData.attCnt) === 0){
 //         	console.log("attCnt = 0");
 			return;
         }
