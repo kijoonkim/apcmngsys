@@ -466,11 +466,14 @@
         }
     }
 
-     //Date format 변경
-     function fn_dateFormat(date) {
-    	 var rtnDate = date.substr(0,4) + '/' + date.substr(4,2) + '/' + date.substr(6,2);
-    	 return rtnDate;
-     }
+	//Date format 변경
+	function fn_dateFormat(date) {
+		let rtnDate = "";
+		if(!gfn_isEmpty(date)){
+			rtnDate = date.substr(0,4) + '/' + date.substr(4,2) + '/' + date.substr(6,2);
+		}
+		return rtnDate;
+	}
 
 
     //신규 작성

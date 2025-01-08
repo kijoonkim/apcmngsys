@@ -37,7 +37,7 @@
 				, CLT.SPCFCT_CD               AS SPCFCT_CD
 				, CLT.REQ_CD                   AS REQ_CD
 				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL X WHERE X.CD_VL = CLT.REQ_CD AND X.CD_ID = 'REQ_CD') AS REQ_NM
-				, CLT.CLTVTN_AREA             AS CLTVTN_AREA
+				, CLT.CLTVTN_SFC             AS CLTVTN_AREA		/* 20250108 변경된 컬럼 적용 */
 				, CLT.ENGGT_VLM               AS ENGGT_VLM
 				, CLT2.ENGGT_VLM               AS ENGGT_VLM_SPT
 				, CLT3.ENGGT_VLM               AS ENGGT_VLM_RSLT
@@ -127,7 +127,7 @@
 				, CLT.SPCFCT_CD               AS SPCFCT_CD
 				, CLT.REQ_CD                   AS REQ_CD
 				, (SELECT CD_VL_NM FROM TB_COM_CD_DTL X WHERE X.CD_VL = CLT.REQ_CD AND X.CD_ID = 'REQ_CD') AS REQ_NM
-				, CLT.CLTVTN_AREA             AS CLTVTN_AREA
+				, CLT.CLTVTN_SFC             AS CLTVTN_AREA		/* 20250108 변경된 컬럼 적용 */
 				, CLT.ENGGT_VLM               AS ENGGT_VLM
 				, CLT2.ENGGT_VLM               AS ENGGT_VLM_SPT
 				, CLT3.ENGGT_VLM               AS ENGGT_VLM_RSLT
@@ -236,7 +236,7 @@
 		    		  , VRTY_CD
 		    		  , SPCFCT_CD
 		    		  , REQ_CD
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC		/* 20250108 변경된 컬럼 적용 */
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
 		    		  , PLOR_CD
@@ -311,7 +311,7 @@
 	    		  , VRTY_CD
 	    		  , SPCFCT_CD
 	    		  , REQ_CD
-	    		  , CLTVTN_AREA
+	    		  , CLTVTN_SFC	/* 20250108 변경된 컬럼 적용 */
 	    		  , ENGGT_VLM
 	    		  , EXPCT_HRVST_QNTT
 	    		  , PLOR_CD
@@ -387,7 +387,7 @@
 	    		  , VRTY_CD
 	    		  , SPCFCT_CD
 	    		  , REQ_CD
-	    		  , CLTVTN_AREA
+	    		  , CLTVTN_SFC	/* 20250108 변경된 컬럼 적용 */
 	    		  , ENGGT_VLM
 	    		  , EXPCT_HRVST_QNTT
 	    		  , PLOR_CD
@@ -495,7 +495,7 @@
 		    		  , VRTY_CD
 		    		  , SPCFCT_CD
 		    		  , REQ_CD
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC	/* 20250108 변경된 컬럼 적용 */
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
 		    		  , PLOR_CD

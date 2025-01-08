@@ -30,7 +30,7 @@
 				, CLT.ITEM_CD                AS ITEM_CD
 				, CLT.VRTY_CD                AS VRTY_CD
 				, CLT.SPCFCT_CD              AS SPCFCT_CD
-				, CLT.CLTVTN_AREA            AS CLTVTN_AREA
+				, CLT.CLTVTN_SFC            AS CLTVTN_AREA		/* 20250108 변경된 컬럼 적용 */
 				, CLT.ENGGT_VLM              AS ENGGT_VLM
 				, CLT.EXPCT_HRVST_QNTT       AS EXPCT_HRVST_QNTT
 				, CLT.PLOR_CD                   AS PLOR
@@ -88,7 +88,7 @@
 				, CLT.ITEM_CD                AS ITEM_CD
 				, CLT.VRTY_CD                AS VRTY_CD
 				, CLT.SPCFCT_CD              AS SPCFCT_CD
-				, CLT.CLTVTN_AREA            AS CLTVTN_AREA
+				, CLT.CLTVTN_SFC            AS CLTVTN_AREA		/* 20250108 변경된 컬럼 적용 */
 				, CLT.ENGGT_VLM              AS ENGGT_VLM
 				, CLT.EXPCT_HRVST_QNTT       AS EXPCT_HRVST_QNTT
 				, CLT.PLOR_CD                   AS PLOR
@@ -171,7 +171,7 @@
 		    		  , VRTY_CD
 		    		  , SPCFCT_CD
 		    		  , REQ_CD
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC		/* 20250108 변경된 컬럼 적용 */
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
 		    		  , PLOR_CD
@@ -362,7 +362,7 @@
 		    		  , VRTY_CD
 		    		  , SPCFCT_CD
 		    		  , REQ_CD
-		    		  , CLTVTN_AREA
+		    		  , CLTVTN_SFC	/* 20250108 변경된 컬럼 적용 */
 		    		  , ENGGT_VLM
 		    		  , EXPCT_HRVST_QNTT
 		    		  , PLOR_CD
