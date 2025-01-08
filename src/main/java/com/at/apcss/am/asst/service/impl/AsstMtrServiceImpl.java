@@ -292,6 +292,60 @@ public class AsstMtrServiceImpl extends BaseServiceImpl implements AsstMtrServic
 		return 0;
 	}
 
+	@Override
+	public int deleteBomWrhsInfoList(List<AsstMtrVO> bomVO) throws Exception {
+
+
+		bomVO.forEach(item -> {
+			AsstMtrVO bomInvntr = asstMtrMapper.selectBomInvntrInfo(item);
+
+
+			double invntrQntt = bomInvntr.getInvntrQntt();
+			double invntrWght = bomInvntr.getInvntrWght();
+
+			double delInvntrQntt = item.getWrhsQntt();
+			double delInvntrWght = item.getWrhsWght();
+
+			double qnttResult = invntrQntt - delInvntrQntt;
+			double wghtResult = invntrWght - delInvntrWght;
+
+			item.setInvntrQntt(qnttResult);
+			item.setInvntrWght(wghtResult);
+
+			asstMtrMapper.updateBomInvntrInfoList(item);
+			asstMtrMapper.deleteBomWrhsInfoList(item);
+		});
+
+		return 0;
+	}
+
+	@Override
+	public int deleteBomSpmtInfoList(List<AsstMtrVO> bomVO) throws Exception {
+
+
+		bomVO.forEach(item -> {
+			AsstMtrVO bomInvntr = asstMtrMapper.selectBomInvntrInfo(item);
+
+
+			double invntrQntt = bomInvntr.getInvntrQntt();
+			double invntrWght = bomInvntr.getInvntrWght();
+
+			double delInvntrQntt = item.getWrhsQntt();
+			double delInvntrWght = item.getWrhsWght();
+
+			double qnttResult = invntrQntt + delInvntrQntt;
+			double wghtResult = invntrWght + delInvntrWght;
+
+			item.setInvntrQntt(qnttResult);
+			item.setInvntrWght(wghtResult);
+
+			asstMtrMapper.updateBomInvntrInfoList(item);
+			asstMtrMapper.deleteBomSpmtInfoList(item);
+		});
+
+		return 0;
+	}
+
 
 
 

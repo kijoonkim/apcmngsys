@@ -49,9 +49,15 @@
 					<sbux-button id="btnSave" name="btnSave" uitype="normal"
 						class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save"></sbux-button>
 
+					<sbux-button id="btnDelete" name="btnDelete" uitype="normal"
+						class="btn btn-sm btn-outline-danger" text="삭제"
+						onclick="fn_asstDelete"></sbux-button>
+
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal"
 						class="btn btn-sm btn-outline-danger" text="조회"
 						onclick="fn_search"></sbux-button>
+
+
 
 				</div>
 			</div>
@@ -582,6 +588,39 @@
 			}
 
             let postJsonPromise = gfn_postJSON("/am/asst/insertBomWrhsInfoList.do",filterData);
+
+            if(postJsonPromise){
+                let data = await postJsonPromise;
+                if (data.resultStatus == "S") {
+                    // gfn_comAlert(data.resultCode, data.resultMessage);
+                    //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
+                    //fn_reset();
+                    return;
+                }
+            }
+
+        }catch (e){
+            console.log(e);
+        }
+    }
+
+    const fn_asstDelete = async function(){
+
+    	let allData1 = grdAsstCrtrList.getGridDataAll();
+    	let allData2 = grdAsstWrhsList.getGridDataAll();
+
+
+        try{
+
+			let filterData2 = allData2.filter(item => item.checkedYn === "Y");
+			let chk = true;
+
+
+			if(!chk){
+				return;
+			}
+
+            let postJsonPromise = gfn_postJSON("/am/asst/deleteBomWrhsInfoList.do",filterData2);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
