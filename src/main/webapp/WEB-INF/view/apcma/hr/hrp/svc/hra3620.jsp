@@ -1346,7 +1346,7 @@
                         PAY_DATE : gfn_nvl(item.PAY_YMD),
                         WORK_END_DAT : gfn_nvl(item.WORK_END_YMD),
                         WORK_DAY : gfn_nvl(item.WORK_DCNT, 0),
-                        WORK_CNT : gfn_nvl(item.WORK_NOPE),
+                        WORK_CNT : gfn_nvl(item.WORK_NOPE, 0),
                         WORK_GBN : gfn_nvl(item.JOB_SE),
                         WORK_NAME : gfn_nvl(item.JOB_NM),
                         WORK_PLACE : gfn_nvl(item.JOB_PLC),
@@ -1383,6 +1383,7 @@
                         ADJUSTMENT_AMT : gfn_nvl(item.AJMT_AMT, 0),
                         FUAL_AMT : gfn_nvl(item.OL_AMT, 0),
                         ETC_COST : gfn_nvl(item.ETC_CST, 0),
+                        TOT_AMOUNT : Number((Number(gfn_nvl(item.WORK_NOPE, 0)) * Number(gfn_nvl(item.DAY_PAY_AMT, 0))) + Number(gfn_nvl(item.AJMT_AMT, 0)) + Number(gfn_nvl(item.OL_AMT, 0)) + Number(gfn_nvl(item.ETC_CST, 0)))
                     }
                     jsonServiceFeeList.push(msg);
                 });
