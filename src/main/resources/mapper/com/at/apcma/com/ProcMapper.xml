@@ -158,6 +158,29 @@
 		AND AA.TXN_TIME_RAW = #{SRCH_TXN_TIME}
 	</select>
 
+	<select id="checkEmp" resultType="String" parameterType="map">
+		SELECT *
+		FROM TB_HRP_MASTER
+		WHERE EMP_CD = #{EMP_CODE}
+		  AND CO_CD = #{CO_CD}
+	</select>
+
+	<select id="checkDate" resultType="String" parameterType="map">
+		SELECT ROUND(
+			   (MONTHS_BETWEEN(
+					   TO_DATE(  #{END_DAT} ,'yyyymmdd')+1,
+					   TO_DATE(  #{ST_DAT} ,'yyyymmdd'))) * #{CHK_BASU} ,5) AS recive
+		FROM dual
+	</select>
+
+	<select id="checkNum" resultType="String" parameterType="map">
+		SELECT NVL(EXTRA_COL4,0) AS MULTIPLE_NUM
+		FROM VW_COMCODEMASTER
+		WHERE GRP_CD = 'HRI002'
+		  AND SBSD_CD = #{POSITION_CODE}
+			LIMIT 1
+	</select>
+
 </mapper>
 
 

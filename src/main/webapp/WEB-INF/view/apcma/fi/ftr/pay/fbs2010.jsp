@@ -1421,8 +1421,8 @@
 
 
                         var paramObj = {
-                            txnDate: gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")),
-                            txnTime: gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME"))
+                            SRCH_TXN_DATE: gfn_nvl(SBUxMethod.get("SRCH_TXN_DATE")),
+                            SRCH_TXN_TIME: gfn_nvl(SBUxMethod.get("SRCH_TXN_TIME"))
                         }
 
                         const postJsonPromise = gfn_postJSON("/fi/ftr/pay/selectFbs2010TransCount.do", paramObj);

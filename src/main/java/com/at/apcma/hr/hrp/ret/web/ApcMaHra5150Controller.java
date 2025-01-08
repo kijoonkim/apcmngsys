@@ -275,7 +275,7 @@ public class ApcMaHra5150Controller extends BaseController {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         try {
-            resultMap = apcMaCommDirectService.checkMultiple(param);
+            resultMap = apcMaCommDirectService.checkDate(param);
 
         } catch (Exception e) {
             logger.debug(e.getMessage());
@@ -283,6 +283,30 @@ public class ApcMaHra5150Controller extends BaseController {
         }
 
         logger.info("=============chkMulti5150=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
+
+    // 입금환산년수의 지급배수로 환산개월수를 구함.
+    @PostMapping(value = "/hr/hrp/ret/chkMultiNum5150.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> chkMultiNum5150(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception {
+
+        logger.info("=============chkMultiNum5150=====start========");
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            resultMap = apcMaCommDirectService.checkNum(param);
+
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============chkMultiNum5150=====end========");
         return getSuccessResponseEntityMa(resultMap);
 
     }

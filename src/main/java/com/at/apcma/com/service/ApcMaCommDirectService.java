@@ -66,6 +66,24 @@ public interface ApcMaCommDirectService {
 	public HashMap<String, Object> checkMultiple(Map<String, Object> param) throws Exception;
 
 	/**
+	 * 내부에서 공통으로 수식을(쿼리문장) 확인하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> checkEmp(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 내부에서 공통으로 수식을(쿼리문장) 확인하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> checkDate(Map<String, Object> param) throws Exception;
+
+	/**
 	 * 에러메시지 처리하는 Service
 	 * @param request
 	 * @param rtype
@@ -73,5 +91,14 @@ public interface ApcMaCommDirectService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> checkError(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 에러메시지 처리하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> checkNum(Map<String, Object> param) throws Exception;
 	
 }

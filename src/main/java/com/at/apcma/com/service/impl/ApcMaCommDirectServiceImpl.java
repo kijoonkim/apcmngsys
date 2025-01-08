@@ -309,8 +309,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
 		}
 		return rmap;
-	}	
-	
+	}
+
 	private String decodeString(String strData) {
         if (strData == null) {
             return "";
@@ -412,9 +412,6 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		for (Map.Entry<String, Object> value : param.entrySet()) {
 
-			/*Map<String, Object> map = new HashMap<>();
-			map.put("formula", value.getValue());*/
-
 			//JAVA 수식확인.
 			String inputExpression = (String) value.getValue();
 			if (isValidExpression(inputExpression)) {
@@ -426,22 +423,6 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 				return resultMap;
 			}
 
-			/*try {
-				resultVal = procMapper.checkFormula(map); // select 'formula' from dual
-
-				resultMap.put(value.getKey(), resultVal);
-
-			} catch (SQLException e) {
-				logger.debug(e.getMessage());
-				resultStatus = "E"; //sql 에러시 resultStatus 값 E
-				v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
-				resultMap.put("v_errorStr", v_errorStr);
-				resultMap.put("resultStatus", resultStatus);
-				return resultMap;
-
-			} finally {
-				resultMap.put("resultStatus", resultStatus);
-			}*/
 		}
 
 
@@ -459,6 +440,87 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		try {
 			resultVal = procMapper.checkMultiple(param); // query
+			resultMap.put("TRANS_COUNT", resultVal);
+		} catch (SQLException e) {
+			logger.debug(e.getMessage());
+			resultStatus = "E"; //sql 에러시 resultStatus 값 E
+			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
+			resultMap.put("v_errorStr", v_errorStr);
+			resultMap.put("resultStatus", resultStatus);
+			return resultMap;
+
+		} finally {
+			resultMap.put("resultStatus", resultStatus);
+		}
+
+
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> checkEmp(Map<String, Object> param) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		String resultVal = ""; //성공값
+		String resultStatus = "S"; //성공으로 값 초기화
+		String v_errorStr = ""; //에러메세지
+
+		try {
+			resultVal = procMapper.checkEmp(param); // query
+			resultMap.put("TRANS_COUNT", resultVal);
+		} catch (SQLException e) {
+			logger.debug(e.getMessage());
+			resultStatus = "E"; //sql 에러시 resultStatus 값 E
+			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
+			resultMap.put("v_errorStr", v_errorStr);
+			resultMap.put("resultStatus", resultStatus);
+			return resultMap;
+
+		} finally {
+			resultMap.put("resultStatus", resultStatus);
+		}
+
+
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> checkDate(Map<String, Object> param) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		String resultVal = ""; //성공값
+		String resultStatus = "S"; //성공으로 값 초기화
+		String v_errorStr = ""; //에러메세지
+
+		try {
+			resultVal = procMapper.checkDate(param); // query
+			resultMap.put("TRANS_COUNT", resultVal);
+		} catch (SQLException e) {
+			logger.debug(e.getMessage());
+			resultStatus = "E"; //sql 에러시 resultStatus 값 E
+			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
+			resultMap.put("v_errorStr", v_errorStr);
+			resultMap.put("resultStatus", resultStatus);
+			return resultMap;
+
+		} finally {
+			resultMap.put("resultStatus", resultStatus);
+		}
+
+
+		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> checkNum(Map<String, Object> param) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<>();
+
+		String resultVal = ""; //성공값
+		String resultStatus = "S"; //성공으로 값 초기화
+		String v_errorStr = ""; //에러메세지
+
+		try {
+			resultVal = procMapper.checkNum(param); // query
 			resultMap.put("TRANS_COUNT", resultVal);
 		} catch (SQLException e) {
 			logger.debug(e.getMessage());
