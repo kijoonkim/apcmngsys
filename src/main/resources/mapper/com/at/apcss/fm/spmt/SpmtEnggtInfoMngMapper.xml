@@ -165,7 +165,7 @@
 					 GDS_CD,
 					 PRDCR_CD,
 					 SPMT_CMNDNO,
-					 CLTVTN_AREA,
+					 CLTVTN_SFC, /* 20250108 변경된 컬럼 적용 */
 					 SPMT_TYPE,
 					 TRMT_TYPE,
 					 SPMT_STR_DT,
@@ -181,9 +181,9 @@
 					 QLT_GRD,
 					 PRC,
 					 PRC_PBLNT,
-					 UNIT,
+					 UNIT_CD,	/* 20250108 변경된 컬럼 적용 */
 					 PRC_GIVE_DT,
-					 SPCL_MTTR,
+					 EXCPTN_MTTR,	/* 20250108 변경된 컬럼 적용 */
 					 ADVNC_PAY,
 					 RMRK,
 					 APC_CD2,
@@ -265,7 +265,7 @@
 					 ,GDS_CD  =  #{gdsCd}
 					 ,PRDCR_CD  =  #{prdcrCd}
 					 ,SPMT_CMNDNO  =#{spmtCmndno}
-					 ,CLTVTN_AREA  =   #{cltvtnArea}
+					 ,CLTVTN_SFC  =   #{cltvtnArea} /* 20250108 변경된 컬럼 적용 */
 					 ,SPMT_TYPE  = #{spmtType}
 					 ,TRMT_TYPE  =  #{trmtType}
 					 ,SPMT_STR_DT  =  #{spmtStrDt}
@@ -274,9 +274,9 @@
 					 ,QLT_GRD  =   #{qltGrd}
 					 ,PRC  =   #{prc}
 					 ,PRC_PBLNT  =  #{prcPblnt}
-					 ,UNIT  =  #{unit}
+					 ,UNIT_CD  =  #{unit}			/* 20250108 변경된 컬럼 적용 */
 					 ,PRC_GIVE_DT  =   #{prcGiveDt}
-					 ,SPCL_MTTR  = #{spclMttr}
+					 ,EXCPTN_MTTR  = #{spclMttr}	/* 20250108 변경된 컬럼 적용 */
 					 ,ADVNC_PAY  =  #{advncPay}
 					 ,RMRK  =  #{rmrk}
 					 ,APC_CD2  =  #{apcCd2}
