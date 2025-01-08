@@ -468,26 +468,6 @@
     	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
     </div>
 
-
-
-     <!-- 통합조직,출자출하조직 선택 Modal -->
-    <!-- 2023 09 22 ljw 통합조직 출자출하조직 리스트 팝업 생성 -->
-    <div>
-        <sbux-modal
-        	id="modal-invstmntSpmt-dtl"
-        	name="modal-invstmntSpmt-dtl"
-        	uitype="middle"
-        	header-title="통합조직,출자출하조직 선택"
-        	body-html-id="body-modal-invstmntSpmt-dtl"
-        	footer-is-close-button="false"
-        	style="width:1000px"
-       	></sbux-modal>
-    </div>
-    <div id="body-modal-invstmntSpmt-dtl">
-    	<jsp:include page="../popup/InvstmntSpmtPopup.jsp"></jsp:include>
-    </div>
-
-
 </body>
 <script type="text/javascript">
 
@@ -500,24 +480,37 @@
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
 	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 
-    // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
-    	fn_createGrid();
-    	gfn_setComCdSBSelect(
-    			['srch-slt-trmtType', 'dtl-slt-trmtType'],
-    			jsonTrmtType,
-			'TRMT_TYPE');
-    	gfn_setComCdSBSelect(
-    			['srch-slt-spmtType', 'dtl-slt-spmtType'],
-    			jsonSpmtType,
-			'SPMT_TYPE');
-    	fn_search();
-    	fn_createGrid1();
-    	/* gfn_setComCdSBSelect(
-    			['srch-select-msgKnd', 'dtl-select-msgKnd'],
-    			jsonComMsgKnd,
+	// only document
+	window.addEventListener('DOMContentLoaded', function(e) {
+		fn_init();
+	});
+
+	/* 초기세팅 */
+	const fn_init = async function() {
+		await fn_createGrid();
+		//await fn_createGrid1();
+		await fn_initSBSelect();
+		await fn_search();
+	}
+
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect(
+				['srch-slt-trmtType', 'dtl-slt-trmtType'],
+				jsonTrmtType,
+				'TRMT_TYPE')
+			,gfn_setComCdSBSelect(
+				['srch-slt-spmtType', 'dtl-slt-spmtType'],
+				jsonSpmtType,
+				'SPMT_TYPE')
+			/* ,gfn_setComCdSBSelect(
+				['srch-select-msgKnd', 'dtl-select-msgKnd'],
+				jsonComMsgKnd,
 			'MSG_KND'); */
-    });
+		]);
+	}
+
 
     //grid 초기화
     var grdComMsgList; // 그리드를 담기위한 객체 선언
@@ -1300,10 +1293,10 @@
 				//SBUxMethod.set("dtl-inp-apcCd2", apc.apcCd);
 				//SBUxMethod.set("dtl-inp-apcNm2", apc.apcNm);
 
-				SBUxMethod.set("dtl-inp-apcCd2", rowData.subCode);
-				SBUxMethod.set("dtl-inp-apcNm2", rowData.subCodeNm);
-				SBUxMethod.set("dtl-inp-apcCd3", rowData.mainCode);
-				SBUxMethod.set("dtl-inp-apcNm3", rowData.mainCodeNm);
+				SBUxMethod.set("dtl-inp-apcCd3", rowData.subCode);
+				SBUxMethod.set("dtl-inp-apcNm3", rowData.subCodeNm);
+				SBUxMethod.set("dtl-inp-apcCd2", rowData.mainCode);
+				SBUxMethod.set("dtl-inp-apcNm2", rowData.mainCodeNm);
 
 				//gfn_setApcItemSBSelect('dtl-slt-itemCd', jsonApcItem, apc.apcCd),	// 품목
 				//gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, apc.apcCd),	// 품종
