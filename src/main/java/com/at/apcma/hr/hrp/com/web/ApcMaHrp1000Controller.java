@@ -195,7 +195,7 @@ public class ApcMaHrp1000Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            resultMap = apcMaCommDirectService.checkMultiple(param);
+            resultMap = apcMaCommDirectService.checkEmp(param);
 
             logger.info("=============insertHrp1000ChkEmp=====end========");
             return getSuccessResponseEntityMa(resultMap);

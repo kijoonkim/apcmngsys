@@ -2261,9 +2261,14 @@
 
         //TODO : 원본로우가 중복되어 에러가 나기 때문에 COMP_CODE를 추가해서 대처해놓음
         //let query = "select * from hrpmaster where emp_code = '" + EMP_CODE + "' " ;
-        let query = "SELECT * FROM TB_HRP_MASTER WHERE EMP_CD = '" + EMP_CODE + "' " + " AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
+        /*let query = "SELECT * FROM TB_HRP_MASTER WHERE EMP_CD = '" + EMP_CODE + "' " + " AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
         var paramObj = {
             EMP_CODE: query
+        }*/
+
+        var paramObj = {
+            EMP_CODE: EMP_CODE,
+            CO_CD: gv_ma_selectedCorpCd
         }
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/com/insertHrp1000ChkEmp.do", paramObj);

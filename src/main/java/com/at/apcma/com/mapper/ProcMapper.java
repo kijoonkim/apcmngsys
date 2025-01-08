@@ -38,4 +38,28 @@ public interface ProcMapper {
 	 */
 	public String checkMultiple(Map<String, Object> param) throws Exception;
 
+	/**
+	 * 쿼리문장을 가져와 확인하는 Service
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkEmp(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 쿼리문장을 가져와 확인하는 Service
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkDate(Map<String, Object> param) throws Exception;
+
+	/**
+	 * 쿼리문장을 가져와 확인하는 Service
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public String checkNum(Map<String, Object> param) throws Exception;
+
 }

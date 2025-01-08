@@ -5618,8 +5618,11 @@
                     }
 
 
-                    let query = "select nvl(extra_field4,0) as multiple_num from comcodemaster where group_code = 'HRI002' and sub_code = '" + rowData.POSITION_CODE + "' ";
-                    let cnt = fn_getMmCnt(query);
+                    //let query = "select nvl(extra_field4,0) as multiple_num from comcodemaster where group_code = 'HRI002' and sub_code = '" + rowData.POSITION_CODE + "' ";
+                    var paramObj = {
+                        POSITION_CODE: gfnma_nvl2(rowData.POSITION_CODE)
+                    }
+                    let cnt = fn_getMmNum(paramObj);
                     //ResultSet rs = CommonDirectSQL(Query);
 
                     if (cnt != '') {
@@ -5645,8 +5648,13 @@
                     chk_basu = Math.floor(gfnma_nvl2(rowData.PAY_MULTIPLE_NUMBER));
                 }
 
-                let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + gfnma_nvl2(rowData.END_DAT) + "','yyyymmdd')+1, TO_DATE('" + gfnma_nvl2(rowData.ST_DAT) + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
-                let cnt = fn_getMmCnt(query);
+                //let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + gfnma_nvl2(rowData.END_DAT) + "','yyyymmdd')+1, TO_DATE('" + gfnma_nvl2(rowData.ST_DAT) + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+                var paramObj = {
+                    END_DAT: gfnma_nvl2(rowData.END_DAT),
+                    ST_DAT: gfnma_nvl2(rowData.ST_DAT),
+                    CHK_BASU: chk_basu,
+                }
+                let cnt = fn_getMmCnt(paramObj);
                 // ResultSet rs = CommonDirectSQL(Query);
                 gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(cnt));
                 //gvwChange.SetFocusedRowCellValue("chg_mm_cnt", rs.ResultDataSet.Tables[0].Rows[0]["recive"].ToString());
@@ -5662,18 +5670,21 @@
                     let CALC_END_DAT = gfnma_nvl2(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
 
 
-                    if (rowData.ST_DAT.length == 8) {
+                    let ST_DAT = gfnma_nvl2(rowData.ST_DAT);
+                    if (ST_DAT.length == 8) {
                         if (nRow > 0) {
 
-                            cc = rowData.ST_DAT;
+                            cc = gfnma_nvl2(rowData.ST_DAT);
 
                             gridData.forEach((item, index) => {
 
                                 if (nRow != index) {
 
-                                    if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
-                                        aa = item.ST_DAT;
-                                        bb = item.END_DAT;
+                                    let st1 = gfnma_nvl2(item.ST_DAT);
+                                    let end1 = gfnma_nvl2(item.END_DAT);
+                                    if (st1.length == 8 && end1.length == 8) {
+                                        aa = st1;
+                                        bb = end1;
 
                                         if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
                                             gfn_comAlert("Q0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
@@ -5702,8 +5713,10 @@
                         }
                     }
 
-                    if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
-                        if (Number(item.ST_DAT) > Number(item.END_DAT)) {
+                    let st2 = gfnma_nvl2(rowData.ST_DAT);
+                    let end2 = gfnma_nvl2(rowData.END_DAT);
+                    if (st2.length == 8 && end2.length == 8) {
+                        if (Number(st2) > Number(end2)) {
                             gfn_comAlert("Q0000", "시작일이 종료일보다 이후 일수 없습니다.");
                             gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
                             /*SetMessageBox("시작일이 종료일보다 이후 일수 없습니다.");
@@ -5712,7 +5725,7 @@
                         }
 
                     }
-                    if (Number(item.ST_DAT) < Number(CALC_ST_DAT)) {
+                    if (Number(st2) < Number(CALC_ST_DAT)) {
                         gfn_comAlert("Q0000", "적용시작일이 정산시작일보다 이전 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
                         /* SetMessageBox("적용시작일이 정산시작일보다 이전 일수 없습니다.");
@@ -5720,7 +5733,7 @@
                         return;
                     }
 
-                    if (Number(item.ST_DAT) > Number(CALC_END_DAT)) {
+                    if (Number(st2) > Number(CALC_END_DAT)) {
                         gfn_comAlert("Q0000", "적용시작일이 정산종료일보다 이후 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("ST_DAT"), '');
                         /*SetMessageBox("적용시작일이 정산종료일보다 이후 일수 없습니다.");
@@ -5735,17 +5748,20 @@
                 let CALC_ST_DAT = gfnma_nvl2(SBUxMethod.get("CALC_ST_DAT"));//정산시작일 [정산기본정보]
                 let CALC_END_DAT = gfnma_nvl2(SBUxMethod.get("CALC_END_DAT"));//정산종료일 [정산기본정보]
 
-                if (item.END_DAT.length == 8) {
+                let END_DAT = gfnma_nvl2(rowData.END_DAT);
+                if (END_DAT.length == 8) {
                     if (nRow > 0) {
-                        cc = rowData.END_DAT;
+                        cc = END_DAT;
 
                         gridData.forEach((item, index) => {
 
                             if (nRow != index) {
 
-                                if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
-                                    aa = item.ST_DAT;
-                                    bb = item.END_DAT;
+                                let st3 = gfnma_nvl2(item.ST_DAT);
+                                let end3 = gfnma_nvl2(item.END_DAT);
+                                if (st3.length == 8 && end3.length == 8) {
+                                    aa = st3;
+                                    bb = end3;
 
                                     if (Number(cc) >= Number(aa) && Number(cc) <= Number(bb)) {
                                         gfn_comAlert("Q0000", "이미 등록되어 있는 기간은 등록하실 수 없습니다.");
@@ -5773,8 +5789,11 @@
                         });
                     }
 
-                    if (item.ST_DAT.ㅣength == 8 && item.END_DAT.ㅣength == 8) {
-                        if (Number(item.END_DAT) < Number(item.ST_DAT)) {
+                    let st4 = gfnma_nvl2(rowData.ST_DAT);
+                    let end4 = gfnma_nvl2(rowData.END_DAT);
+
+                    if (st4.length == 8 && end4.length == 8) {
+                        if (Number(end4) < Number(st4)) {
                             gfn_comAlert("Q0000", "종료일이 시작일보다 이전 일수 없습니다.");
                             gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
                             /*SetMessageBox("종료일이 시작일보다 이전 일수 없습니다.");
@@ -5783,7 +5802,7 @@
                         }
                     }
 
-                    if (Number(item.END_DAT) < Number(CALC_END_DAT)) {
+                    if (Number(end4) < Number(CALC_END_DAT)) {
                         gfn_comAlert("Q0000", "적용종료일이 정산종료일보다 이후 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
                         /* SetMessageBox("적용종료일이 정산종료일보다 이후 일수 없습니다.");
@@ -5791,7 +5810,7 @@
                         return;
                     }
 
-                    if (Number(item.END_DAT) < Number(CALC_ST_DAT)) {
+                    if (Number(end4) < Number(CALC_ST_DAT)) {
                         gfn_comAlert("Q0000", "적용종료일이 정산시작일보다 이전 일수 없습니다.");
                         gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("END_DAT"), '');
                         /*SetMessageBox("적용종료일이 정산시작일보다 이전 일수 없습니다.");
@@ -5803,10 +5822,12 @@
                 }
             }
 
+            let st5 = gfnma_nvl2(rowData.ST_DAT);
+            let end5 = gfnma_nvl2(rowData.END_DAT);
 
-            if (item.ST_DAT.length == 8 && item.END_DAT.length == 8) {
+            if (st5.length == 8 && end5.length == 8) {
 
-                let endDat = Number(item.END_DAT);
+                let endDat = end5;
 
                 let dateYear    = endDat.slice(0, -4);
                 let dateMm      = endDat.slice(4, -2);
@@ -5818,7 +5839,7 @@
 
                 let endDate = gfn_dateToYmd(datDate);
 
-                let gap_day = fn_dataDiff("d", item.ST_DAT, endDate);
+                let gap_day = fn_dataDiff("d", gfnma_nvl2(rowData.ST_DAT), endDate);
 
                 let chk_gap = new Date();
                 chk_gap.setDate(datDate.getDate() + Number(gap_day));
@@ -5840,15 +5861,20 @@
 
                 let chk_basu = 1; //지급배수 변수
 
-                if (gfnma_nvl2(item.PAY_MULTIPLE_NUMBER) == '') {
+                if (gfnma_nvl2(rowData.PAY_MULTIPLE_NUMBER) == '') {
                     chk_basu = 1;
                 } else {
-                    chk_basu = Math.floor(item.PAY_MULTIPLE_NUMBER);
+                    chk_basu = Math.floor(gfnma_nvl2(rowData.PAY_MULTIPLE_NUMBER));
                 }
 
-                let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + item.END_DAT + "','yyyymmdd')+1, TO_DATE('" + item.ST_DAT + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
-                let cnt = fn_getMmCnt(query);
-                //ResultSet rs = CommonDirectSQL(Query);
+                //let query = "select ROUND((MONTHS_BETWEEN(TO_DATE('" + item.END_DAT + "','yyyymmdd')+1, TO_DATE('" + item.ST_DAT + "','yyyymmdd'))) * " + chk_basu + ",5) as recive from dual";
+                var paramObj = {
+                    END_DAT: gfnma_nvl2(rowData.END_DAT),
+                    ST_DAT: gfnma_nvl2(rowData.ST_DAT),
+                    CHK_BASU: chk_basu,
+                }
+                let cnt = fn_getMmCnt(paramObj);
+                //ResultSet rs = CommonDirectSQL(Query)
 
                 gvwChangeGrid.setCellData(nRow, gvwChangeGrid.getColRef("CHG_MM_CNT"), Number(cnt));
                 //gvwChange.SetFocusedRowCellValue("chg_mm_cnt", rs.ResultDataSet.Tables[0].Rows[0]["recive"].ToString());
@@ -6035,14 +6061,38 @@
     }
 
     //임금환산년수 지금배수로 환산개월수 구하기
-    const fn_getMmCnt = async function (query) {
-
-        var paramObj = {
-            MULTIPLE: query
-
-        }
+    const fn_getMmCnt = async function (paramObj) {
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/ret/chkMulti5150.do", paramObj);
+
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }
+
+                return gfnma_nvl2(data.MULTIPLE);//환산개월수
+                //gvwChangeGrid.setCellData(row, col, Number(data.MULTIPLE)); //환산개월수 셋팅
+                /* return  data.MULTIPLE;*/
+
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+    }
+    //임금환산년수 지금배수로 환산개월수 구하기
+    const fn_getMmNum = async function (paramObj) {
+
+        const postJsonPromise = gfn_postJSON("/hr/hrp/ret/chkMultiNum5150.do", paramObj);
 
         const data = await postJsonPromise;
 
