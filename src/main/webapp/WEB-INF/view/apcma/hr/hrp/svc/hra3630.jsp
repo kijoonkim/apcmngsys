@@ -305,28 +305,13 @@
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
             },
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
             {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'datepicker',  	width:'67px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
                 , disabled: true
             },
-            {caption: ["근무기준일"],       ref: 'WORK_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["내·외국인구분"], 		ref: 'FOREI_TYPE',   	    type:'combo', style:'text-align:left' ,width: '85px',
                 typeinfo: {
                     ref			: 'jsonForeignType',
@@ -356,6 +341,21 @@
                 }
                 , disabled: true
             },
+            {caption: ["근무기준일"],       ref: 'WORK_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
@@ -703,13 +703,13 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                var returnData = data.cv_1[0];
-
-                strSmtpHost = returnData.SMTP_HOST;
-                IntSmtpPort = parseInt(returnData.SMTP_PORT);
-                strUserName = returnData.USERNAME;
-                strPassword = returnData.PASSWORD;
-                strEmail = returnData.MAILID;
+                if(data.cv_1.length > 0) {
+                    strSmtpHost = data.cv_1[0]["SMTP_HOST"];
+                    IntSmtpPort = parseInt(data.cv_1[0]["SMTP_PORT"]);
+                    strUserName = data.cv_1[0]["USERNAME"];
+                    strPassword = data.cv_1[0]["PASSWORD"];
+                    strEmail = data.cv_1[0]["MAILID"];
+                }
             } else {
                 alert(data.resultMessage);
             }
