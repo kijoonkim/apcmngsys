@@ -231,7 +231,7 @@
 	//게시글 팝업 콜백
 	const fn_bbsDtlCallback = function(_refresh) {
 		//게시글 재조회
-		if(_refresh == "refresh"){
+		if(_refresh === "refresh"){
 			fn_search();
 		}
 	}
