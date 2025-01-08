@@ -55,9 +55,9 @@
 							<th scope="row">약정일자</th>
 							<td colspan="4" class="td_input"  style="border-right: hidden;">
 								<div style="display: flex;">
-									<sbux-datepicker id="srch-inp-enggtSrtYmd" name="srch-inp-enggtSrtYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-right:5px;"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-enggtSrtYmd" name="srch-inp-enggtSrtYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-right:5px;" onchange="fn_chkEnggtYmd"></sbux-datepicker>
 									<span>~</span>
-									<sbux-datepicker id="srch-inp-enggtEndYmd" name="srch-inp-enggtEndYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-left:5px;"></sbux-datepicker>
+									<sbux-datepicker id="srch-inp-enggtEndYmd" name="srch-inp-enggtEndYmd" uitype="popup" class="form-control input-sm input-sm-ast" style="margin-left:5px;" onchange="fn_chkEnggtYmd"></sbux-datepicker>
 								</div>
 							</td>
 
@@ -902,7 +902,23 @@
 		}
 	}
 
+	const fn_chkEnggtYmd = function() {
+		let startDay = SBUxMethod.get("srch-inp-enggtSrtYmd");
+		let endDay = SBUxMethod.get("srch-inp-enggtEndYmd");
 
+		if(gfn_isEmpty(startDay) || gfn_isEmpty(endDay)) return
+
+		// 문자열을 Date 객체로 변환
+		let startDate = new Date(startDay.slice(0, 4), startDay.slice(4, 6) - 1, startDay.slice(6));
+		let endDate = new Date(endDay.slice(0, 4), endDay.slice(4, 6) - 1, endDay.slice(6));
+
+		// 시작일이 종료일보다 빠른 경우
+		if (startDate > endDate) {
+			alert("시작일이 종료일보다 빠를 수 없습니다.");
+			SBUxMethod.set("srch-inp-enggtEndYmd" , null);
+			return;
+		}
+	}
 
 </script>
 </html>
