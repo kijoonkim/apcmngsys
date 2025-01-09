@@ -899,7 +899,7 @@
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				//console.log(corpDdlnSeCd);
 				if(corpDdlnSeCd != 'Y'){
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procUoRow(\"DEL\" , \"grdInvShipOgnReqMng01\", " + nRow + ")'>삭제</button>";
 				}
 				</c:if>
 				return "";
@@ -1485,7 +1485,7 @@
 			let captionRow = grdUoList.getFixedRows();
 			for (var i = captionRow; i < grdData.length + captionRow; i++) {
 				let rowData = grdUoList.getRowData(i);
-				console.log(rowData.delYn);
+				//console.log(rowData.delYn);
 				if(rowData.delYn != 'N'){
 					grdUoList.setCellStyle('background-color', i, selCol, i, rmrkCol, 'lightgray');
 				}
@@ -1968,6 +1968,7 @@
 			if(data.result > 0){
 				alert("삭제 되었습니다.");
 				grdInvShipOgnReqMng01.deleteRow(nRow);
+				fn_search();
 			}else{
 				alert("삭제 도중 오류가 발생 되었습니다.");
 			}
@@ -2015,8 +2016,8 @@
 	}
 
 	// Grid Row 추가 및 삭제 기능
-	function fn_procRow(gubun, grid, nRow, nCol) {
-		//console.log("===========fn_procRow===========");
+	function fn_procUoRow(gubun, grid, nRow, nCol) {
+		//console.log("===========fn_procUoRow===========");
 		if (grid === "grdInvShipOgnReqMng01") {
 			let vo = grdInvShipOgnReqMng01.getRowData(nRow);
 			var delMsg = '"' + vo.corpNm + '" 과의 조직관계를 삭제 하시겠습니까?';
@@ -2058,9 +2059,9 @@
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				if(corpDdlnSeCd != 'Y'){
 					if(strValue== null || strValue == ""){
-						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdGpcList\", " + nRow + ", " + nCol + ")'>추가</button>";
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procItemRow(\"ADD\", \"grdGpcList\", " + nRow + ", " + nCol + ")'>추가</button>";
 					}else{
-						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procItemRow(\"DEL\", \"grdGpcList\", " + nRow + ")'>삭제</button>";
 					}
 				}
 				</c:if>
@@ -2250,7 +2251,7 @@
 
 
 	// Grid Row 추가 및 삭제 기능
-	function fn_procRow(gubun, grid, nRow, nCol) {
+	function fn_procItemRow(gubun, grid, nRow, nCol) {
 		if (gubun === "ADD") {
 			if (grid === "grdGpcList") {
 				grdGpcList.setCellData(nRow, nCol, "N", true);
@@ -2273,7 +2274,7 @@
 					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
 					if(confirm(delMsg)){
 						var vo = grdGpcList.getRowData(nRow);
-						fn_deleteRsrc(vo);
+						fn_deleteItem(vo);
 						grdGpcList.deleteRow(nRow);
 					}
 				}else{
@@ -2283,7 +2284,7 @@
 		}
 	}
 	//품목 리스트 삭제
-	async function fn_deleteRsrc(vo){
+	async function fn_deleteItem(vo){
 		let postJsonPromise = gfn_postJSON("/pd/aom/deleteGpc.do", vo);
 		let data = await postJsonPromise;
 
