@@ -246,8 +246,8 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			Map<String, Object> map4 = clist.get(0);			
 			
 			//FILE_SERVER_PATH
-			if(map4.containsKey("FILE_SERVER_PATH") && !map4.get("FILE_SERVER_PATH").equals("")) {
-				dpath = map4.get("FILE_SERVER_PATH").toString();
+			if(map4.containsKey("FILE_SRVR_PATH") && !map4.get("FILE_SRVR_PATH").equals("")) {
+				dpath = map4.get("FILE_SRVR_PATH").toString();
 			}			
 			
 			//delete data --------------------------------------------------------
