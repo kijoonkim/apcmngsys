@@ -56,7 +56,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -87,7 +87,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             logger.info("=============insertFbs2310List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -108,7 +108,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             logger.info("=============insertFbs2310Sub=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -128,7 +128,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -158,7 +158,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -188,7 +188,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -218,7 +218,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

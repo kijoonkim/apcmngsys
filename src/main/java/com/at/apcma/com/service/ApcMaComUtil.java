@@ -79,10 +79,10 @@ public class ApcMaComUtil {
 			
 		} catch (IOException e){
 			isSuccess = false;
-			logger.debug(e.getMessage());
+			
 		} catch (Exception e){
 			isSuccess = false;
-			logger.debug(e.getMessage());
+			
 		} finally {
 			if(!isSuccess && flist.size()>0){
 				try{
@@ -101,7 +101,7 @@ public class ApcMaComUtil {
 						}
 					}
 				}catch(Exception e){
-					logger.debug(e.getMessage());
+					
 				}
 			}
 		}
@@ -181,10 +181,10 @@ public class ApcMaComUtil {
 			
 		} catch (IOException e){
 			isSuccess = false;
-			logger.debug(e.getMessage());
+			
 		} catch (Exception e){
 			isSuccess = false;
-			logger.debug(e.getMessage());
+			
 		} finally {
 			if(!isSuccess && flist.size()>0){
 				try{
@@ -203,7 +203,7 @@ public class ApcMaComUtil {
 						}
 					}
 				}catch(Exception e){
-					logger.debug(e.getMessage());
+					
 				}
 			}
 		}
@@ -232,7 +232,7 @@ public class ApcMaComUtil {
 				isSuccess = true;
 			}
 		} catch (IOException e) {
-			logger.debug(e.getMessage());
+			
 			isSuccess = false;
 		}
 		

@@ -59,7 +59,7 @@ public class ApcMaSys3200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -84,7 +84,7 @@ public class ApcMaSys3200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -109,7 +109,7 @@ public class ApcMaSys3200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -134,7 +134,7 @@ public class ApcMaSys3200Controller extends BaseController {
             logger.info("=============insertSys3200His=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -157,7 +157,7 @@ public class ApcMaSys3200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

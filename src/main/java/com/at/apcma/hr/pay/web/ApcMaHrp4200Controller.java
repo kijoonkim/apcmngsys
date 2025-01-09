@@ -60,7 +60,7 @@ public class ApcMaHrp4200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -87,7 +87,7 @@ public class ApcMaHrp4200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -113,7 +113,7 @@ public class ApcMaHrp4200Controller extends BaseController {
             logger.info("=============insertHrp4200S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -135,7 +135,7 @@ public class ApcMaHrp4200Controller extends BaseController {
             logger.info("=============insertHrp4200S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -157,7 +157,7 @@ public class ApcMaHrp4200Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

@@ -57,7 +57,7 @@ public class ApcMaCom2300Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -83,7 +83,7 @@ public class ApcMaCom2300Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -108,7 +108,7 @@ public class ApcMaCom2300Controller extends BaseController {
             logger.info("=============updateCom2300_S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -130,7 +130,7 @@ public class ApcMaCom2300Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		

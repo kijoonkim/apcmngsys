@@ -59,7 +59,7 @@ public class ApcMaFig3500Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -85,7 +85,7 @@ public class ApcMaFig3500Controller extends BaseController {
             logger.info("=============insertFig3500=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -107,7 +107,7 @@ public class ApcMaFig3500Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

@@ -60,7 +60,7 @@ public class ApcMaEfi0010Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -84,7 +84,7 @@ public class ApcMaEfi0010Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_EFI0010_S");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	

@@ -56,7 +56,7 @@ public class ApcMaTra1020Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
             e.printStackTrace();
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -87,7 +87,7 @@ public class ApcMaTra1020Controller extends BaseController {
             logger.info("=============insertTra1020SList=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -108,7 +108,7 @@ public class ApcMaTra1020Controller extends BaseController {
             logger.info("=============insertTra1020S1List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

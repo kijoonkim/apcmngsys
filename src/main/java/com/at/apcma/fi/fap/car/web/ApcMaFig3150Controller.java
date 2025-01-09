@@ -60,7 +60,7 @@ public class ApcMaFig3150Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -85,7 +85,7 @@ public class ApcMaFig3150Controller extends BaseController {
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -109,7 +109,7 @@ public class ApcMaFig3150Controller extends BaseController {
             resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S5_IF");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -134,7 +134,7 @@ public class ApcMaFig3150Controller extends BaseController {
     		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -158,7 +158,7 @@ public class ApcMaFig3150Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -182,7 +182,7 @@ public class ApcMaFig3150Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S3");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -206,7 +206,7 @@ public class ApcMaFig3150Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIG3150_S3");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	

@@ -56,7 +56,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -86,7 +86,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -117,7 +117,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             logger.info("=============insertTrd2010ForHistory=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -138,7 +138,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             logger.info("=============insertTrd2010ForPlan=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

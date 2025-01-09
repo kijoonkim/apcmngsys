@@ -55,7 +55,7 @@ public class ApcMaHri1000Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -84,7 +84,7 @@ public class ApcMaHri1000Controller extends BaseController {
             param.put("procedure", 		"SP_HRI1000_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -113,7 +113,7 @@ public class ApcMaHri1000Controller extends BaseController {
             param.put("procedure", 		"SP_HRI1000_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -162,7 +162,7 @@ public class ApcMaHri1000Controller extends BaseController {
                 }
             }
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -186,7 +186,7 @@ public class ApcMaHri1000Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -217,7 +217,7 @@ public class ApcMaHri1000Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -254,7 +254,7 @@ public class ApcMaHri1000Controller extends BaseController {
     		resultMap.put("SERVER_ROOT_PATH", f_path3);
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

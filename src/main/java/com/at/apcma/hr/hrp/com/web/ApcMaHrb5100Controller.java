@@ -56,7 +56,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -86,7 +86,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -118,7 +118,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

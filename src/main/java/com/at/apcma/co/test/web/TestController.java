@@ -47,7 +47,7 @@ public class TestController extends BaseController {
 			resultVO = testService.selectTest(testVO);
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);

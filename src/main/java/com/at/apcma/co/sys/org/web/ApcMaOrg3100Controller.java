@@ -57,7 +57,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 				
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -84,7 +84,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 			logger.info("=============updateOrg3100=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -108,7 +108,7 @@ public class ApcMaOrg3100Controller extends BaseController {
 			logger.info("=============deleteOrg3100=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	

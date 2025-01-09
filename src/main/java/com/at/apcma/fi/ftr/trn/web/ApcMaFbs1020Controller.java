@@ -56,7 +56,7 @@ public class ApcMaFbs1020Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -87,7 +87,7 @@ public class ApcMaFbs1020Controller extends BaseController {
             logger.info("=============insertFbs1020List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

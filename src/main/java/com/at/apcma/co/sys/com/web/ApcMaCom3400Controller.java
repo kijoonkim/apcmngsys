@@ -57,7 +57,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -82,7 +82,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -107,7 +107,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -132,7 +132,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -157,7 +157,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -183,7 +183,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -208,7 +208,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -230,7 +230,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S3=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -252,7 +252,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S4=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -274,7 +274,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S5=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -296,7 +296,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S6=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -318,7 +318,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S7=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -340,7 +340,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S8=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -362,7 +362,7 @@ public class ApcMaCom3400Controller extends BaseController {
 			logger.info("=============insertCom3400_S9=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	

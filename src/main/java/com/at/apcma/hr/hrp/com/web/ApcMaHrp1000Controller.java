@@ -61,7 +61,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -86,7 +86,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -112,7 +112,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             logger.info("=============insertHrp1000S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -134,7 +134,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             logger.info("=============insertHrp1000S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -156,7 +156,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             logger.info("=============insertHrp1000S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -178,7 +178,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             logger.info("=============insertHrp1000S4=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -200,7 +200,7 @@ public class ApcMaHrp1000Controller extends BaseController {
             logger.info("=============insertHrp1000ChkEmp=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

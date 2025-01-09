@@ -57,7 +57,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 				
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -84,7 +84,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 			logger.info("=============insertOrg1100=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -107,7 +107,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 			logger.info("=============insertOrg1100_S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -129,7 +129,7 @@ public class ApcMaOrg1100Controller extends BaseController {
 			logger.info("=============insertOrg1100_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	

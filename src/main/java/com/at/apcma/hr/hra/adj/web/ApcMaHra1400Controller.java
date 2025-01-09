@@ -58,7 +58,7 @@ public class ApcMaHra1400Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -85,7 +85,7 @@ public class ApcMaHra1400Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -111,7 +111,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -133,7 +133,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -155,7 +155,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S3=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -177,7 +177,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S4=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -199,7 +199,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S5=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -221,7 +221,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S6=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -243,7 +243,7 @@ public class ApcMaHra1400Controller extends BaseController {
             logger.info("=============insertHra1400S7=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -265,7 +265,7 @@ public class ApcMaHra1400Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -291,7 +291,7 @@ public class ApcMaHra1400Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

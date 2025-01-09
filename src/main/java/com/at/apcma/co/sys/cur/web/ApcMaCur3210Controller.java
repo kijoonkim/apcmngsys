@@ -57,7 +57,7 @@ public class ApcMaCur3210Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -82,7 +82,7 @@ public class ApcMaCur3210Controller extends BaseController {
 			logger.info("=============insertCom3210_S1=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
@@ -104,7 +104,7 @@ public class ApcMaCur3210Controller extends BaseController {
 			logger.info("=============insertCom3210_S2=====end========");
 			return getSuccessResponseEntityMa(resultMap);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 	}	
