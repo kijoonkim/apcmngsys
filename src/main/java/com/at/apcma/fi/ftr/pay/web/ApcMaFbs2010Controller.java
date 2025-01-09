@@ -64,7 +64,7 @@ public class ApcMaFbs2010Controller extends BaseController {
         try {
             resultMap = apcMaCommDirectService.checkMultiple(param);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -94,7 +94,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -124,7 +124,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBS5010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -154,7 +154,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2040_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -184,7 +184,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBSBANKTXN_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -214,7 +214,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBSBANKRESULT_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -265,7 +265,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2010_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -295,7 +295,7 @@ public class ApcMaFbs2010Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2010_S_FIRM");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

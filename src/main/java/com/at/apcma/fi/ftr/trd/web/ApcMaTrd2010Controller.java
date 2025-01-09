@@ -55,7 +55,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             param.put("procedure", 		"SP_TRD2010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaTrd2010Controller extends BaseController {
             param.put("procedure", 		"SP_TRD2010_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

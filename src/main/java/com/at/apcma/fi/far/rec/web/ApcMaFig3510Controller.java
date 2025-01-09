@@ -55,7 +55,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3510_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3510_Q1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -116,7 +116,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_EXCHANGE_RATE_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -146,7 +146,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_FIM5150_Q2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -176,7 +176,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3510_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -206,7 +206,7 @@ public class ApcMaFig3510Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3510_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

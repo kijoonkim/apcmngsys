@@ -55,7 +55,7 @@ public class ApcMaTrd1010Controller extends BaseController {
             param.put("procedure", 		"SP_TRD1010_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

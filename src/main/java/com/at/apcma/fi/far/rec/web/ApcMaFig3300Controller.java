@@ -65,7 +65,6 @@ public class ApcMaFig3300Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3300_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -97,7 +96,7 @@ public class ApcMaFig3300Controller extends BaseController {
             logger.info("=============insertFig3300List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -119,7 +118,7 @@ public class ApcMaFig3300Controller extends BaseController {
             logger.info("=============insertFig3300ItemList=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -139,7 +138,7 @@ public class ApcMaFig3300Controller extends BaseController {
             param.put("procedure", 		"SP_COMMON_JOB_RUN");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -171,7 +170,7 @@ public class ApcMaFig3300Controller extends BaseController {
             logger.info("=============exclusionFig3300List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

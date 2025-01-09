@@ -55,7 +55,7 @@ public class ApcMaHrt2510Controller extends BaseController {
             param.put("procedure", 		"SP_HRT2510_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaHrt2510Controller extends BaseController {
             param.put("procedure", 		"SP_HRT2510_S5_BAT");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

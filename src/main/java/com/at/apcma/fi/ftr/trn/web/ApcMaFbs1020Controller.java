@@ -55,7 +55,7 @@ public class ApcMaFbs1020Controller extends BaseController {
             param.put("procedure", 		"SP_FBS1020_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
