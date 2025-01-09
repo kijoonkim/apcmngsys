@@ -207,10 +207,14 @@
 
     const fn_save = async function(){
     	let rowData = grdSortFcltList.getRowData(grdSortFcltList.getRow());
+    	
+    	
 
         try{
 			let sortOprtngCrtrList = grdOprtngCrtr.getGridDataAll();
+				let chk = true;
 				sortOprtngCrtrList.forEach((item,sn) => {
+			    	
 					if(gfn_nvl(item["gubun"]) === ""){
 						item["gubun"] = "update";
 					}
@@ -218,8 +222,18 @@
 					item["apcCd"] = gv_selectedApcCd;
 					item["fcltType"] = rowData.fcltType;
 					item["fcltCd"] = rowData.fcltCd;
+					
+				    	
+			    	if(gfn_isEmpty(item.spcfctCd) || gfn_isEmpty(item.rprsVrty)){
+			    		//gfn_comAlert("W0001", "품종/규격");			//	W0002	{0}을/를 선택하세요.
+			    		chk = false;
+			    	}
 				});
 
+				if(!chk){
+					gfn_comAlert("W0001", "품목/품종/규격");			//	W0002	{0}을/를 선택하세요.
+					return;
+				}
 
             //let sortFcltDtlList = sortFcltDtl.filter(x => x.delYn==="N");
 
@@ -319,7 +333,7 @@
                     }
                 }},
             {caption: ['품목'], ref: 'rprsItem', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcItem', label:'label', value:'value', displayui : true, oneclickedit : true}, style:'text-align:center'},
-            {caption: ['품종'], ref: 'rprsVrty', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'label', value:'value', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemCd'}}, style:'text-align:center'},
+            {caption: ['품종'], ref: 'rprsVrty', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'label', value:'value', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemVrtyCd'}}, style:'text-align:center'},
             {caption: ['규격'], ref: 'spcfctCd', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemCd'}}, style:'text-align:center'},
             {caption: ['투입수량'], ref: 'inptQntt', width: '10%', type: 'input', style:'text-align:center', typeinfo : {mask : { alias: 'numeric'}}},
             {caption: ['투입중량'], ref: 'inptWght', width: '10%', type: 'input', style:'text-align:center', typeinfo : {mask : { alias: 'numeric'}}},
@@ -350,6 +364,7 @@
         grdOprtngCrtr.addStatus(nRow,"insert");
         nRow++;
         grdOprtngCrtr.setCellDisabled(nRow, 0, nRow, grdOprtngCrtr.getCols() - 1, true);
+        
     }
 
     /**
@@ -359,11 +374,15 @@
      */
     const fn_delRow = async function(nRow) {
         let rowIndex = grdOprtngCrtr.getRow();
-        let status = grdOprtngCrtr.getRowStatus(rowIndex);
-        if(status === 0){
-        	fn_deleteDtl(rowIndex);
+        let rowData = grdOprtngCrtr.getRowData(rowIndex);
+        //let status = grdOprtngCrtr.getRowStatus(rowIndex);
+        //console.log(status);
+        
+        
+        if(rowData.gubun === "insert"){
+        	grdOprtngCrtr.deleteRow(nRow,true);
         }else{
-        	grdOprtngCrtr.deleteRow(nRow);
+        	fn_deleteDtl(rowIndex);
         }
     }
 
