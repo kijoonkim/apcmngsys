@@ -1227,7 +1227,7 @@
                 let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
                 let checkData 	  = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
                 let SENDTYPE 	  = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        console.log('checkData ==>', checkData);
+
                 if (!PAY_YYYYMM_FR) {
                     gfn_comAlert("W0002", "귀속년월");
                     return;
@@ -1313,7 +1313,7 @@
                     };
                     listData.push(param);
                 });
-                 console.log(' listData ==> ' , listData);
+
                  return;
 
                 const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {listData: listData});
