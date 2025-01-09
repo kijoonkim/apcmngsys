@@ -5,6 +5,8 @@ import com.at.apcss.am.spmt.service.ShpgotMngService;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ import java.util.List;
  * </pre>
  */
 @Service("shpgotMngService")
-public class ShpgotMngServiceImpl implements ShpgotMngService {
+public class ShpgotMngServiceImpl extends BaseServiceImpl implements ShpgotMngService {
 
     @Autowired
     private ShpgotMngMapper shpgotMngMapper;

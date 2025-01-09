@@ -38,7 +38,6 @@ import com.at.apcss.co.sys.util.ComUtil;
  *
  *  </pre>
  */
-@RestController
 @Controller
 public class ComAuthrtController extends BaseController{
 
@@ -83,14 +82,14 @@ public class ComAuthrtController extends BaseController{
 		List<ComAuthrtVO> resultList;
 
 		try {
-			
+
 			String untyAuthrtType = getUntyAuthrtType();
 			//String untyOgnzType = getUntyOgnzType();
 			String untyOgnzId = getUntyOgnzId();
 			//String untyAuthrtMngYn = getUntyAuthrtMngYn();
-			
+
 			comAuthrtVO.setSuperUserYn(null);
-			
+
 			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
 				comAuthrtVO.setSuperUserYn(ComConstants.CON_YES);
 			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
@@ -100,9 +99,9 @@ public class ComAuthrtController extends BaseController{
 			} else {
 				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
 			}
-			
+
 			resultList = comAuthrtService.selectUntyAuthrtList(comAuthrtVO);
-			
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -112,7 +111,7 @@ public class ComAuthrtController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
+
 	/**
 	 * 권한그룹 단건 등록
 	 * @param comAuthrtVO
@@ -175,14 +174,14 @@ public class ComAuthrtController extends BaseController{
 		int insertedCnt = 0;
 
 		try {
-			
+
 			String untyAuthrtType = getUntyAuthrtType();
 			//String untyOgnzType = getUntyOgnzType();
 			String untyOgnzId = getUntyOgnzId();
 			String untyAuthrtMngYn = getUntyAuthrtMngYn();
-			
+
 			comAuthrtVO.setSuperUserYn(null);
-			
+
 			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
 				comAuthrtVO.setSuperUserYn(ComConstants.CON_YES);
 			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
@@ -196,7 +195,7 @@ public class ComAuthrtController extends BaseController{
 			} else {
 				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
 			}
-			
+
 			insertedCnt = comAuthrtService.insertUntyAuthrt(comAuthrtVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -212,8 +211,8 @@ public class ComAuthrtController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
+
+
 	/**
 	 * 권한그룹 변경
 	 * @param comAuthrtVO
@@ -338,9 +337,9 @@ public class ComAuthrtController extends BaseController{
 		try {
 			String untyAuthrtType = getUntyAuthrtType();
 			String untyOgnzId = getUntyOgnzId();
-			
+
 			comAuthrtMenuVO.setSuperUserYn(null);
-			
+
 			if (ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)) {
 				comAuthrtMenuVO.setSuperUserYn(ComConstants.CON_YES);
 			} else if (ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
@@ -350,7 +349,7 @@ public class ComAuthrtController extends BaseController{
 			} else {
 				return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조회권한"));
 			}
-			
+
 			resultList = comAuthrtService.selectUntyAuthrtMenuTreeList(comAuthrtMenuVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -360,7 +359,7 @@ public class ComAuthrtController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	/**
 	 * 권한메뉴 목록 등록
 	 */
@@ -477,7 +476,7 @@ public class ComAuthrtController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
+
 	/**
 	 * 화면UI 권한 목록 조회
 	 * @param comAuthrtUserVO
@@ -503,7 +502,7 @@ public class ComAuthrtController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	
+
 	/**
 	 * 화면UI권한 등록
 	 */

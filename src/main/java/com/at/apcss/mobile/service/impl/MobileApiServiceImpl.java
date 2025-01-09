@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
 import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.mobile.mapper.MobileApiMapper;
 import com.at.apcss.mobile.service.MobileApiService;
 import com.at.apcss.mobile.vo.FacilityMngVO;
@@ -32,13 +33,13 @@ import com.at.apcss.mobile.vo.WarehouseInfoVO;
  */
 
 @Service("mobileApiService")
-public class MobileApiServiceImpl implements MobileApiService{
+public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiService{
 	@Autowired
 	private MobileApiMapper mobileApiMapper;
-	
+
 	@Autowired
 	private CmnsTaskNoService cmnsTaskNoService;
-	
+
 	@Override
 	public int addRefreshToken(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub

@@ -5,6 +5,7 @@ import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaComUtil;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import org.apache.commons.lang.StringUtils;
@@ -53,43 +54,43 @@ import java.util.*;
  *
  */
 @Service("apcMaComService")
-public class ApMaComServiceImpl implements ApcMaComService {
+public class ApMaComServiceImpl extends BaseServiceImpl implements ApcMaComService {
 
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Resource(name= "apcMaCommDirectService")
 	private ApcMaCommDirectService apcMaCommDirectService;
-	
+
 	private ProcMapper procMapper;
-	
+
 	private Socket socket;
-	
+
     @Autowired
     public void setProcMapper(ProcMapper mapper) {
     	this.procMapper = mapper;
-    }	
-	
+    }
+
 	//파일 업로드 경로
 	@Value("${apcss.filepath.ma}")
     private String filePath_ma;
-	
+
     public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception{
     	return procMapper.callProcTibero(param);
-    }    
-    
+    }
+
 	public HashMap<String, Object> linkAddProcess(Map<String, Object> param, HttpSession session) {
 
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		try {
-			
+
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
     		String gmap2[][] = {
 				{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 				{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -109,36 +110,36 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				{"V_P_PROC_ID",				"SP_COM5100_S"},
 				{"V_P_USERID",				ssmap.get("USERID").toString()},
 				{"V_P_PC",					param.get("ipAddress").toString()}
-        	};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+        	};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
 		return rmap;
-	}    
-	
+	}
+
 	public HashMap<String, Object> linkFileUpdateProcess(Map<String, Object> param, HttpSession session) {
 
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		try {
-			
+
 			String link_txt = "";
 			if(param.get("FILE_TYPE").equals("1")) {
 				link_txt = "";
 			} else {
 				link_txt = ApcMaComUtil.nullToString(param.get("LINK_TXT"));
 			}
-			
+
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
     		String gmap2[][] = {
 				{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 				{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -158,29 +159,29 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				{"V_P_PROC_ID",				"SP_COM5100_S"},
 				{"V_P_USERID",				ssmap.get("USERID").toString()},
 				{"V_P_PC",					param.get("ipAddress").toString()}
-        	};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+        	};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
 		return rmap;
-	}    
-	
+	}
+
 	public HashMap<String, Object> linkDeleteProcess(Map<String, Object> param, HttpSession session) {
-		
+
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		try {
-			
+
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
 			String gmap2[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -200,32 +201,32 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+			};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
 		return rmap;
-	}    
-	
+	}
+
 	public HashMap<String, Object> fileDeleteProcess(Map<String, Object> param, HttpSession session) {
-		
+
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		String  dpath	= "";
-		
+
 		try {
-			
+
 			//get delete key ---------------------------------------------------------
 			Map<String, Object> gmap4 = new HashMap<String, Object>();
 			gmap4.put("procedure", 			"SP_COM5100_Q");
 			gmap4.put("workType", 			"Q2");
 			gmap4.put("getType", 			"json");
 			gmap4.put("cv_count", 			"1");
-			
+
 			String palist2[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -240,11 +241,11 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_Q"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2); 
-    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
-			Map<String, Object> map4 = clist.get(0);			
-			
+			};
+			Map<String, Object> map3 = apcMaCommDirectService.InnerCallProc2(gmap4, palist2);
+    		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");
+			Map<String, Object> map4 = clist.get(0);
+
 			//FILE_SERVER_PATH
 			if(map4.containsKey("FILE_SRVR_PATH") && !map4.get("FILE_SRVR_PATH").equals("")) {
 				dpath = map4.get("FILE_SRVR_PATH").toString();
@@ -256,7 +257,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
 			String gmap2[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -276,33 +277,33 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+			};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
-			
+
 			if(!dpath.equals("")) {
 				//파일삭제
 				ApcMaComUtil.fileDeleteOne(map4.get("FILE_SERVER_PATH").toString());
 			}
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
 		return rmap;
-	}    
-	
+	}
+
 	public HashMap<String, Object> fileAddProcess(MultipartFile mfile, Map<String, Object> param, HttpSession session) {
-		
+
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		try {
-			
+
 			String newFilePath = filePath_ma;
-			
+
 			//file Prefix Name create
 			newFilePath = checkUrl(newFilePath, param.get("comp_code").toString(), param.get("source_type").toString(), param.get("source_code").toString());
-			
+
 			//file
 			List<MultipartFile> mtfiles = new ArrayList<MultipartFile>();
 			mtfiles.add(mfile);
@@ -311,15 +312,15 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				rmap.put("resultStatus", 	"E");
 				rmap.put("resultMessage", 	"파일을 저장 중에 오류가 발생하였습니다.");
 				return rmap;
-			}			
-			
+			}
+
 			//save 프로시저
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			param.get("workType"));
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
 			String gmap2[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -339,26 +340,26 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+			};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
 		return rmap;
-	}  
-	
+	}
+
 	public HashMap<String, Object> hrImageUploadProcess(MultipartFile mfile, Map<String, Object> param, HttpSession session) {
-		
+
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
-		
+
 		String imgKey 	= "";
 		String imgTmKey = "";
-		
+
 		try {
-			
+
 			String newFilePath 	= filePath_ma;
 			String source_type 	= "HRIMASTEMP";		//인사사항 EMP
 			String source_code1 = "IMG";			//사진
@@ -368,10 +369,10 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			String source_code5 = "LOGO";			//법인 로고
 			String source_code6 = "STAMP";			//직인
 			String source_code7 = "SITE_STAMP";		//사용인감
-			
+
 			String path1 		= "";
 			String path2 		= "";
-			
+
 			if(param.get("type").equals("1")) {
 				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code1);
 				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code2);
@@ -388,12 +389,12 @@ public class ApMaComServiceImpl implements ApcMaComService {
 				path1 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code7);
 				path2 = checkUrl(newFilePath, param.get("comp_code").toString(), source_type, source_code7);
 			}
-		
+
 			//파일저장
 			List<MultipartFile> mtfiles = new ArrayList<MultipartFile>();
 			mtfiles.add(mfile);
 			Map<String, Object> map1 = ApcMaComUtil.fileUpload2(path1, mtfiles, param.get("empCode").toString());
-			
+
 			if(map1.get("success").equals(false)) {
 				rmap.put("resultStatus", 	"E");
 				if(param.get("type").equals("1")) {
@@ -408,15 +409,15 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					rmap.put("resultMessage", 	"사용인감 저장 중에 오류가 발생하였습니다.");
 				}
 				return rmap;
-			}			
-			
+			}
+
 			//save 프로시저
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"SP_COM5100_S");
 			gmap1.put("workType", 			"N");
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"0");
-			
+
 			String gmap2[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -436,11 +437,11 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);    
+			};
+			Map<String, Object> gmap3 = apcMaCommDirectService.InnerCallProc2(gmap1, gmap2);
 			rmap = apcMaCommDirectService.checkError(gmap3);
 			imgKey = map1.get("saveFileName").toString();
-			
+
 			//썸네일 --------------------------------
 			Map<String, Object> map2 = createThumbnail(map1.get("fullFileName").toString(), path2, map1.get("orgFileName").toString());
 
@@ -450,7 +451,7 @@ public class ApMaComServiceImpl implements ApcMaComService {
 			gmap4.put("workType", 			"N");
 			gmap4.put("getType", 			"json");
 			gmap4.put("cv_count", 			"0");
-			
+
 			String gmap5[][] = {
 					{"V_P_DEBUG_MODE_YN",		ssmap.get("DEBUGMODEYN").toString()},
 					{"V_P_LANG_ID",				ssmap.get("LANGID").toString()},
@@ -470,29 +471,29 @@ public class ApMaComServiceImpl implements ApcMaComService {
 					{"V_P_PROC_ID",				"SP_COM5100_S"},
 					{"V_P_USERID",				ssmap.get("USERID").toString()},
 					{"V_P_PC",					param.get("ipAddress").toString()}
-			};			
-			Map<String, Object> gmap6 = apcMaCommDirectService.InnerCallProc2(gmap4, gmap5);    
+			};
+			Map<String, Object> gmap6 = apcMaCommDirectService.InnerCallProc2(gmap4, gmap5);
 			rmap = apcMaCommDirectService.checkError(gmap6);
 			imgTmKey = map2.get("saveFileName").toString();
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}
-		
+
 		rmap.put("imgKey", 	 imgKey);
 		rmap.put("imgTmKey", imgTmKey);
 		return rmap;
-	}    
-	
+	}
+
 	private String checkUrl(String url, String comp_code, String source_type, String source_code) {
 		String rstr = "";
-		
+
 		if(url.contains(":")){
 			//window path
 			if(!String.valueOf(url.charAt(url.length()-1)).equals("\\")) {
-				url = url + "\\" + comp_code.toString() + "\\"; 
+				url = url + "\\" + comp_code.toString() + "\\";
 			} else {
-				url = url + comp_code.toString() + "\\"; 
+				url = url + comp_code.toString() + "\\";
 			}
 			if(source_code==null || source_code.equals("") || source_code.equals("null")) {
 				url = url + source_type.toString() + "\\" + "null" + "\\";
@@ -502,9 +503,9 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		} else {
 			//other path
 			if(!String.valueOf(url.charAt(url.length()-1)).equals("/")) {
-				url = url + "/" + comp_code.toString() + "/"; 
+				url = url + "/" + comp_code.toString() + "/";
 			} else {
-				url = url + comp_code.toString() + "/"; 
+				url = url + comp_code.toString() + "/";
 			}
 			if(source_code==null || source_code.equals("") || source_code.equals("null")) {
 				url = url + source_type.toString() + "/" + "null" + "/";
@@ -515,50 +516,50 @@ public class ApMaComServiceImpl implements ApcMaComService {
 		rstr = url;
 		return rstr;
 	}
-	
+
 	/**
 	 * 이미지를 축소하여 썸네일 이미지로 변환
 	 * @param fullPath
 	 * @return
 	 */
 	private Map<String, Object> createThumbnail(String oPath, String nPath, String fileName) {
-		
-		Map<String, Object> rmap = new HashMap<String, Object>();		
-		
+
+		Map<String, Object> rmap = new HashMap<String, Object>();
+
 		try {
-			
+
 			File oFile 		= new File(oPath);
 			int index 		= oPath.lastIndexOf(".");
 			String ext 		= oPath.substring(index + 1); // 파일 확장자
 			String sName	= StringUtils.remove(UUID.randomUUID().toString(),"-") + "." + ext;
-			
+
 			//폴더생성
 			Path newPath = Paths.get(nPath.substring(0, nPath.length() - 1));
 			Files.createDirectory(newPath);
-			
+
 			String tPath 	= nPath + sName; 			// 썸네일저장 경로
 			File tFile 		= new File(tPath);
-			
-			double ratio = 2; // 이미지 축소 비율		
-			
+
+			double ratio = 2; // 이미지 축소 비율
+
 			//썸네일 작업
 			BufferedImage oImage 	= ImageIO.read(oFile); 					// 원본이미지
 			int tWidth 				= (int) (oImage.getWidth() / ratio);	// 생성할 썸네일이미지의 너비
 			int tHeight 			= (int) (oImage.getHeight() / ratio); 	// 생성할 썸네일이미지의 높이
-			
+
 			BufferedImage tImage 	= new BufferedImage(tWidth, tHeight, BufferedImage.TYPE_3BYTE_BGR); // 썸네일이미지
 			Graphics2D graphic 		= tImage.createGraphics();
 			Image image 			= oImage.getScaledInstance(tWidth, tHeight, Image.SCALE_SMOOTH);
 			graphic.drawImage(image, 0, 0, tWidth, tHeight, null);
 			graphic.dispose(); // 리소스를 모두 해제
-			
+
 			//썸네일 완성
-			ImageIO.write(tImage, ext, tFile);			
-			
+			ImageIO.write(tImage, ext, tFile);
+
 			rmap.put("orgFileName", 	fileName);
 			rmap.put("saveFileName", 	sName);
 			rmap.put("fullFileName", 	tPath);
-			
+
 		} catch (Exception e) {
 			logger.debug("", e);
 		}

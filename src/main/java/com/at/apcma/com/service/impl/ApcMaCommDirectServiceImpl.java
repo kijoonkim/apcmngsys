@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.at.apcma.com.mapper.ProcMapper;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
 
 /**
@@ -42,23 +43,23 @@ import com.at.apcss.co.sys.util.ComUtil;
  *
  */
 @Service("apcMaCommDirectService")
-public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
+public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMaCommDirectService {
 
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	private ProcMapper procMapper;
-	
+
     @Autowired
     public void setProcMapper(ProcMapper mapper) {
     	this.procMapper = mapper;
-    }	
+    }
 
     public Map<String, Object> callProcTibero(Map<String, Object> param) throws Exception{
     	return procMapper.callProcTibero(param);
-    }    
-    
+    }
+
 	public HashMap<String, Object> callProc(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
-		
+
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
 		try {
 			HashMap<String, Object> map1 = this.InnerCallProc(param, session, request, ptype);
@@ -72,17 +73,17 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 		}
 		return rmap;
 	}
-	
+
 	private HashMap<String, Object> InnerCallProc(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
-		
+
 		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
 		Map<String, Object> ssmap 		= (HashMap<String, Object>)session.getAttribute("maSessionInfo");
 
 		try {
-			
+
 			String[] params = null;
 			int cnt 		= 0;
-			
+
 			if(request.getMethod().equals("POST")) {
 				//post type
 				if(ptype.equals("")) {
@@ -90,7 +91,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 				} else {
 					params = (String[])param.get("params");
 				}
-				
+
 			} else {
 				//get type
 				String temp1 	= param.get("params").toString();
@@ -108,24 +109,24 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 					}
 				}
 			}
-			
+
 			// get ipAddress
 			String ipAddress = request.getHeader("X-Forwarded-For");
 			if (ipAddress == null) {
 				ipAddress = request.getRemoteAddr();
 			}
-			
+
 			//강제주입 - 파라미터
 			params[0] = ssmap.get("DEBUGMODEYN").toString();
 			params[1] = ssmap.get("LANGID").toString();
 			params[params.length-3] = param.get("procedure").toString();
 			params[params.length-2] = ssmap.get("USERID").toString();
 			params[params.length-1] = ipAddress;
-			
+
 			rmap.put("procedure", 		param.get("procedure"));
 			rmap.put("workType", 		param.get("workType"));
 			rmap.put("cv_count", 		param.get("cv_count"));
-			
+
 			rmap.put("getType", 		param.get("getType"));
 			if(params!=null) {
 				rmap.put("params",		params);
@@ -138,9 +139,9 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rmap.put("v_errorState",	"");
 			rmap.put("v_errorProcedure","");
 			int cv_count = Integer.parseInt(param.get("cv_count").toString());
-			
+
 			for (int i = 0; i < cv_count; i++) {
-				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());	
+				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());
 			}
 			this.callProcTibero(rmap);
 
@@ -157,21 +158,21 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
 		}
 		return rmap;
-	}    
-    
+	}
+
 	public Map<String, Object> InnerCallProc2(Map<String, Object> param, String[][] plist) throws Exception{
-		
+
 		Map<String, Object> rmap = new HashMap<String, Object>();
-		
+
 		try {
 			String[] params = this.getStringListForStringList(plist);
-			
+
 			rmap.put("procedure", 		param.get("procedure"));
 			if(param.containsKey("workType")) {
 				rmap.put("workType", 	param.get("workType"));
 			}
 			rmap.put("cv_count", 		param.get("cv_count"));
-			
+
 			rmap.put("getType", 		param.get("getType"));
 			if(params!=null) {
 				rmap.put("params",		params);
@@ -184,12 +185,12 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rmap.put("v_errorState",	"");
 			rmap.put("v_errorProcedure","");
 			int cv_count = Integer.parseInt(param.get("cv_count").toString());
-			
+
 			for (int i = 0; i < cv_count; i++) {
-				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());	
+				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());
 			}
 			this.callProcTibero(rmap);
-			
+
 		} catch (Exception e) {
 			
 		}
@@ -197,33 +198,33 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 	}
 
 	public HashMap<String, Object> checkError(Map<String, Object> param) throws Exception{
-		
+
 		HashMap<String, Object> rmap = new HashMap<String, Object>();
 		rmap.putAll(param);
-		
+
 		try {
-			
+
 			//프로시저에서 커서의 길이를 측정하지 못해서 에러로 오는경우 정상으로 리턴한다.
 			if(param.get("v_errorCode")!=null && param.get("v_errorCode").equals("MSG0006")) {
 		    	rmap.put("resultStatus", 	"S");
 		    	rmap.put("resultMessage", 	"");
 				return rmap;
 			}
-			
+
 			//프로시저에서 v_errorCode 값이 없고,  v_errorStr 에러메시지 만 있는경우..
 			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("") && !Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 				rmap.put("resultStatus", 	"E");
 				rmap.put("resultMessage", 	param.get("v_errorStr").toString());
 				return rmap;
 			}
-			
+
 			//프로시저에서 v_errorCode 값이 반드시 있어야 하는데 없이 오는 경우..
 			if(Optional.ofNullable(param.get("v_errorCode")).orElse("").equals("")) {
 		    	rmap.put("resultStatus", 	"S");
 		    	rmap.put("resultMessage", 	"");
 				return rmap;
 			}
-			
+
 			//정상
 			HashMap<String, Object> emap1 = new HashMap<String, Object>();
 			emap1.put("MSG0000", 	"정상적으로 처리 되었습니다.");
@@ -231,7 +232,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			emap1.put("MSG0002", 	"정상적으로 등록되었습니다.");
 			emap1.put("MSG0003", 	"정상적으로 삭제되었습니다.");
 			emap1.put("MSG0004", 	"정상적으로 수정되었습니다.");
-			
+
 			//에러
 			HashMap<String, Object> emap2 = new HashMap<String, Object>();
 			emap2.put("MSG0029", 	"등록된 레코드가 없습니다.(Error : MSG0029)");
@@ -244,27 +245,27 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			emap2.put("ERR0010", 	"삭제시 에러가 발생하였습니다.(Error : ERR0010)");
 			emap2.put("ERR0001", 	"차대가 맞지 않습니다.(Error : ERR0001)");
 			emap2.put("ERR0011", 	"거래처의 계정과목이 누락되었습니다.(Error : ERR0011)");
-			
+
 			Map<String, Object> gmap1 = new HashMap<String, Object>();
 			gmap1.put("procedure", 			"ZUSRMAT.SP_SERVICEMESSAGE");
 			gmap1.put("workType", 			"QESS");
 			gmap1.put("getType", 			"json");
 			gmap1.put("cv_count", 			"1");
-			
+
     		String gmap2[][] = {
 				{"V_S_LANGCODE",			"KOR"},
 				{"V_S_ERROR_CODE",			""},
 				{"V_S_ERROR_STR",			""},
 				{"V_S_ERROR_TYPE",			""}
         	};
-    		
-			Map<String, Object> gmap3 = this.InnerCallProc2(gmap1, gmap2);    
+
+			Map<String, Object> gmap3 = this.InnerCallProc2(gmap1, gmap2);
 			List<Map<String, Object>> cv_1 = (ArrayList<Map<String, Object>>)gmap3.get("cv_1");
-			
+
 			//check
 			String p_errorCode 	= Optional.ofNullable(param.get("v_errorCode")).orElse("").toString();
 			String p_errorStr 	= Optional.ofNullable(param.get("v_errorStr")).orElse("").toString();
-			
+
 			//1 - 정상
 			for (String key : emap1.keySet()) {
 			    String value = emap1.get(key).toString();
@@ -276,8 +277,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 //			    	}
 			    	return rmap;
 			    }
-			}			
-			
+			}
+
 			//2 - error
 			for (String key : emap2.keySet()) {
 			    String value = emap2.get(key).toString();
@@ -290,8 +291,8 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 //			    	}
 			    	return rmap;
 			    }
-			}			
-			
+			}
+
 			//3 - other error message
 			for (int i = 0; i < cv_1.size() ; i++) {
 		        if (p_errorCode.equals(Optional.ofNullable(cv_1.get(i).get("ERROR_CODE")).orElse("").toString())){
@@ -386,13 +387,13 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		return camelCaseString.toString();
 	}
-	
+
 	private static String[] getStringListForStringList(String[][] palist) throws Exception {
-		
+
 		String[] rlist 	= new String[palist.length];
 		String key 	  	= null;
 		String val    	= null;
-		
+
 		for (int i = 0; i < palist.length; i++) {
 			key 	= palist[i][0];
 			val 	= palist[i][1];
@@ -408,7 +409,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 
 		String resultVal = ""; //성공값
 		String resultStatus = "S"; //성공으로 값 초기화
-		String v_errorStr = ""; //에러메세지 
+		String v_errorStr = ""; //에러메세지
 
 		for (Map.Entry<String, Object> value : param.entrySet()) {
 

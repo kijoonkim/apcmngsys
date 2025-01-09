@@ -1592,9 +1592,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				WghPrfmncVO wgh1 = new WghPrfmncVO();
 				WghPrfmncVO wgh2 = new WghPrfmncVO();
 
-				//BeanUtils.copyProperties(wgh1, wghPrfmncVO);
-				//BeanUtils.copyProperties(wgh2, wghPrfmncVO);
-
 				wgh1.setApcCd(wghPrfmncVO.getApcCd());
 				wgh1.setWghno(wghPrfmncVO.getWghno());
 				wgh1.setWghDt(wghPrfmncVO.getEntrTm());
@@ -1603,6 +1600,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				wgh1.setFcltCd(wghPrfmncVO.getFcltCd());
 				wgh1.setWghRmrk(wghPrfmncVO.getWghRmrk());
 				wgh1.setWghSeCd("01");
+				wgh1.setWghSeq("1");
+//				wgh1.setPrcsTaskCd("");
+//				wgh1.setPrcsCmptnDt("");
+//				wgh1.setPrcsCmptnYn("");
 
 				wgh2.setApcCd(wghPrfmncVO.getApcCd());
 				wgh2.setWghno(wghPrfmncVO.getWghno());
@@ -1612,9 +1613,20 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				wgh2.setFcltCd(wghPrfmncVO.getFcltCd());
 				wgh2.setWghRmrk(wghPrfmncVO.getWghRmrk());
 				wgh2.setWghSeCd("02");
+				wgh2.setWghSeq("2");
+//				wgh2.setPrcsTaskCd("");
+//				wgh2.setPrcsCmptnDt("");
+//				wgh2.setPrcsCmptnYn("");
 
 				wghPrfmncMapper.updateWghVhcl(wgh1);
-				wghPrfmncMapper.updateWghVhcl(wgh2);
+
+				WghPrfmncVO chk = wghPrfmncMapper.selectWghVhcl(wgh2);
+				if(chk == null) {
+					wghPrfmncMapper.insertWghVhcl(wgh2);
+				}else {
+					wghPrfmncMapper.updateWghVhcl(wgh2);
+				}
+
 			});
 
 			return 0;

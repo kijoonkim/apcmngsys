@@ -1,5 +1,6 @@
 package com.at.apcss.mobile.service.impl;
 
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.mobile.service.FcmService;
 import com.at.apcss.mobile.vo.FcmResponseVO;
 import com.at.apcss.mobile.vo.FcmSendVO;
@@ -21,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service("fcmService")
-public class FcmServiceImpl implements FcmService{
+public class FcmServiceImpl extends BaseServiceImpl implements FcmService{
     @Autowired
     private WebClient gatewayWebClient;
 
