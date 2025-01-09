@@ -286,7 +286,7 @@ public class ApcMaComController extends BaseController {
     		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
 			Map<String, Object> map4 = clist.get(0);			
     		//-------------------------------------------------------------------------
-			String filePath = map4.get("FILE_SERVER_PATH").toString();
+			String filePath = map4.get("FILE_SRVR_PATH").toString();
 			
 			//---------------------------------------------------------------------------
 			
@@ -360,8 +360,8 @@ public class ApcMaComController extends BaseController {
     		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
     		Map<String, Object> map4 = clist.get(0);			
     		//-------------------------------------------------------------------------
-    		String filePath 	= map4.get("FILE_SERVER_PATH").toString();
-    		String orgfileName 	= map4.get("FILE_NAME").toString();
+    		String filePath 	= map4.get("FILE_SRVR_PATH").toString();
+    		String orgfileName 	= map4.get("FILE_NM").toString();
     		
     		if(filePath!=null && !filePath.equals("")) {
     			
@@ -431,8 +431,8 @@ public class ApcMaComController extends BaseController {
     		List<Map<String, Object>> clist = (ArrayList<Map<String, Object>>)map3.get("cv_1");	
     		Map<String, Object> map4 = clist.get(0);			
     		//-------------------------------------------------------------------------
-    		String filePath 	= map4.get("FILE_SERVER_PATH").toString();
-    		String orgfileName 	= map4.get("FILE_NAME").toString();
+    		String filePath 	= map4.get("FILE_SRVR_PATH").toString();
+    		String orgfileName 	= map4.get("FILE_NM").toString();
     		
     		if(filePath!=null && !filePath.equals("")) {
     			
