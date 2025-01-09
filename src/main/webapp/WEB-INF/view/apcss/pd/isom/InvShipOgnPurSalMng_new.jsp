@@ -1831,9 +1831,52 @@
 			let delYn = rowData01.delYn;
 
 			if(delYn == 'N'){
+				if( Number(rowData01.prchsSortTrstAmt) > 0
+						&& rowData01.sttgUpbrItemSe === "3"
+						&& (gfn_isEmpty(rowData01.prchsSortTrstVlm) || Number(rowData01.prchsSortTrstVlm) == 0)){
+					alert('공동선별수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSpmtTrstAmt) > 0
+						&& rowData01.sttgUpbrItemSe === "3"
+						&& (gfn_isEmpty(rowData01.prchsSpmtTrstVlm) || Number(rowData01.prchsSpmtTrstVlm) == 0)){
+					alert('공동출하수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSmplTrstAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSmplTrstVlm) || Number(rowData01.prchsSmplTrstVlm) == 0)){
+					alert('단순수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
 				if( Number(rowData01.prchsSortEmspapAmt) > 0
+						&& rowData01.sttgUpbrItemSe === "3"
 						&& (gfn_isEmpty(rowData01.prchsSortEmspapVlm) || Number(rowData01.prchsSortEmspapVlm) == 0)){
 					alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsSmplEmspapAmt) > 0
+						&& (gfn_isEmpty(rowData01.prchsSmplEmspapVlm) || Number(rowData01.prchsSmplEmspapVlm) == 0)){
+					alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsTotVlmDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
+					alert('물량의 합계가 일치 해야합니다');
+					objGrid.selectRow(i);
+					return false;
+				}
+
+				if( Number(rowData01.prchsTotAmtDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
+					alert('금액의 합계가 일치 해야합니다');
 					objGrid.selectRow(i);
 					return false;
 				}
