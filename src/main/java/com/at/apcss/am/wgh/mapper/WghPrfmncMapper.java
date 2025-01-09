@@ -218,7 +218,7 @@ public interface WghPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-    public int insertWghVhcl(WghPrfmncVO wghPrfmncVO) throws Exception;
+    public int insertWghVhcl(WghPrfmncVO wghPrfmncVO);
 
     /**
 	 * 원물입차수정
@@ -250,6 +250,6 @@ public interface WghPrfmncMapper {
 	 * @return
 	 * @throws Exception
 	 */
-    WghPrfmncVO selectWghVhcl(WghPrfmncVO wghFcltVO) throws Exception;
+    WghPrfmncVO selectWghVhcl(WghPrfmncVO wghFcltVO);
 
 }

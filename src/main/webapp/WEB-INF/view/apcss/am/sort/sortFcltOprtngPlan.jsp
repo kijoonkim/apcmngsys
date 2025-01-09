@@ -188,7 +188,7 @@
                                         </td>
                                         <th scope="row" class="th_bg">계획번호</th>
                                         <td class="td_input">
-                                            <sbux-input id="dtl-inp-planNo" name="dtl-inp-planNo" uitype="text" class="form-control input-sm" group-id="group1">
+                                            <sbux-input id="dtl-inp-planNo" name="dtl-inp-planNo" uitype="text" class="form-control input-sm" group-id="group1" readonly>
                                             </sbux-input>
                                         </td>
                                     </tr>
@@ -448,6 +448,20 @@
             		};
             //let sortFcltDtlData = grdSortFcltDtlList.getGridDataAll();
 
+            if (gfn_isEmpty(fcltType)){
+            	gfn_comAlert("W0001","설비유형");
+            	return;
+            }
+
+            if (gfn_isEmpty(fcltCd)){
+            	gfn_comAlert("W0001","설비코드");
+            	return;
+            }
+
+			if (gfn_isEmpty(oprtngBgngDt)){
+				gfn_comAlert("W0001","작업시작시간");
+            	return;
+            }
 
 
             let postJsonPromise = gfn_postJSON("/am/sort/insertSortFcltOprtngPlan.do",sortFcltPlanInfo);

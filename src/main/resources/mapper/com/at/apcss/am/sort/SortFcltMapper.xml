@@ -814,7 +814,7 @@
 					#{fcltCd},
 					TO_DATE(#{oprtngBgngDt}, 'YYYYMMDDHH24MISS'),
 					TO_DATE(#{oprtngEndDt}, 'YYYYMMDDHH24MISS'),
-					#{planDtlCd},
+					FN_GET_PLAN_DTL_CD(#{oprtngBgngDt}),
 					#{inptQntt},
 					#{inptWght},
 					#{planQntt},
