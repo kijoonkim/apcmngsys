@@ -1668,7 +1668,7 @@
     	htm +=	'<td></td>';
     	htm +=	'<td></td>';
     	htm +=	'<td>';
-    	htm +=	'<button class="btn btn-xs btn-outline-danger">찾기</button>';
+    	htm +=	'<button class="btn btn-xs btn-outline-danger">..</button>';
     	htm +=	'</td>';
     	htm +=	'<td>' + gfnma_date4() + '</td>';
     	htm +=	'<td>' + gfnma_date4() + '</td>';
