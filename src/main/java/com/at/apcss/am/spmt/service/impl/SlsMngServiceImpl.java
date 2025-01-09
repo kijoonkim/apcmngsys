@@ -2,6 +2,7 @@ package com.at.apcss.am.spmt.service.impl;
 
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,50 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 		
 		
 		return deleteCnt;
+	}
+
+	@Override
+	public int updateSlsPrfmnc(List<SlsMngVO> slsMngVO) throws Exception {
+		int updateCnt = 0;
+		for(SlsMngVO vo : slsMngVO) {
+			updateCnt += slsMngMapper.updateSlsPrfmnc(vo);
+		}
+		return updateCnt;
+	}
+
+	@Override
+	public List<SlsMngVO> selectSlsUntprc(SlsMngVO slsMngVO) throws Exception {
+		
+		List<SlsMngVO> resultList = slsMngMapper.selectSlsUntprc(slsMngVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public int deleteSlsUntprc(SlsMngVO slsMngVO) throws Exception {
+		int deleteCnt =0;
+		deleteCnt = slsMngMapper.deleteSlsUntprc(slsMngVO);
+		return deleteCnt;
+	}
+
+	@Override
+	public int updateSlsUntprc(List<SlsMngVO> slsMngVO) throws Exception {	
+		int updateCnt =0;
+		for(SlsMngVO vo : slsMngVO) {
+			updateCnt += slsMngMapper.updateSpmtPckgUnitCd(vo);
+		}
+		if(updateCnt < 0) {
+			throw new EgovBizException();
+		}
+		updateCnt = 0;
+		for(SlsMngVO vo : slsMngVO) {
+			updateCnt += slsMngMapper.updateSpmtSlsUntprcReg(vo);
+		}
+		if(updateCnt < 0) {
+			throw new EgovBizException();
+		}
+		
+		
+		return updateCnt;
 	}
 }

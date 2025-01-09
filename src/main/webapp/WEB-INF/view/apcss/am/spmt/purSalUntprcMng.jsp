@@ -77,16 +77,14 @@
 							<th scope="row" class="th_bg">기준일자</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
+                                    uitype="range"
                                     id="dtl-dtp-crtrYmd"
                                     name="dtl-dtp-crtrYmd"
-                                    uitype="popup"
                                     date-format="yyyy/mm/dd"
-									class="form-control input-sm sbux-pik-group-apc input-sm-ast"
-									onchange="fn_dtpChange(dtl-dtp-crtrYmd)"
-									group-id="group1">
+									class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
                                	</sbux-datepicker>
 							</td>
-							<th scope="row" class="th_bg">조회구분</th>
+							<!-- <th scope="row" class="th_bg">조회구분</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-crtrType"
@@ -99,7 +97,31 @@
 									jsondata-value="cdVl"
 									style="max-width:80%;"
 								></sbux-select>
-							</td>
+							</td> -->
+							<th scope="row" class="th_bg">품목/품종</th>
+								<td class="td_input" style="border-right: hidden;">
+									<sbux-select
+										id="srch-slt-itemCd"
+										name="srch-slt-itemCd"
+										uitype="single"
+										class="form-control input-sm"
+										unselected-text="전체"
+										jsondata-ref="jsonComItem"
+										onchange="fn_onChangeSrchItemCd(this)"
+									></sbux-select>
+								</td>
+								<td class="td_input" style="border-right: hidden;">
+								<sbux-select
+									uitype="single"
+									id="srch-slt-vrtyCd"
+									name="srch-slt-vrtyCd"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									unselected-text="선택"
+									jsondata-ref="jsonComVrty"
+									jsondata-value="itemVrtyCd"
+									onchange="fn_onChangeSrchVrtyCd(this)"
+								></sbux-select>
+								</td>
 
 							<sbux-input
 								id="srch-inp-prdcrIdentno"
@@ -133,7 +155,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="sb-area-grdTotCrtrList" style="height:50vh;"></div>
+						<div id="sb-area-grdSlsUntprcList" style="height:50vh;"></div>
 
 
  					</div>
@@ -161,36 +183,22 @@
 
 
 
+
 	const fn_initSBSelect = async function() {
-		/* jsonExcl = await gfn_getComCdDtls('TOT_ELMT_EXCL');
-		jsonIncl = await gfn_getComCdDtls('TOT_ELMT_INCL');
-		jsonTrgtKnd = await gfn_getComCdDtls('TOT_TRGT_KND');
-		jsonCrtrKnd = await gfn_getComCdDtls('TOT_CRTR_KND');
-		jsonTotArtclKnd = await gfn_getComCdDtls('TOT_ARTCL_KND');
-		jsonDtlPrcs = await gfn_getComCdDtls('TOT_DTL_PRCS_CD');
-		jsonElmt = await gfn_getComCdDtls('TOT_ELMT_INCL');
-		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE'); */
 
-		jsonTermKnd = await gfn_getComCdDtls('TOT_TERM_KND');
-		jsonCrtTm = await gfn_getComCdDtls('TOT_CRT_TM');
-		jsonArtclKnd = await gfn_getComCdDtls('TOT_ARTCL_KND');
-		jsonExclItem = await gfn_getComCdDtls('TOT_EXCL_ITEM');
-		jsonExclVrty = await gfn_getComCdDtls('TOT_EXCL_VRTY');
-		jsonExclPrdcr = await gfn_getComCdDtls('TOT_EXCL_PRDCR');
-		jsonInclItem = await gfn_getComCdDtls('TOT_INCL_ITEM');
-		jsonInclVrty = await gfn_getComCdDtls('TOT_INCL_VRTY');
-		jsonInclPrdcr = await gfn_getComCdDtls('TOT_INCL_PRDCR');
-
-		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE');
+		
+		//jsonCrtrCd = await gfn_getComCdDtls('SLS_CRTR_CD');
+		jsonCrtrType = await gfn_getComCdDtls('SLS_CRTR_TYPE');
+		jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd,'');
+		await gfn_setComCdSBSelect('srch-slt-crtrType', jsonCrtrCd, 'SLS_CRTR_TYPE'); //매출기준
+		
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-
-		//jsonCrtrCd = await gfn_getComCdDtls('TOT_CRTR_CD');
-
-
-		jsonCrtrType = await gfn_getComCdDtls('TOT_CRTR_TYPE');
-		await gfn_setComCdSBSelect('srch-slt-crtrType', 		jsonCrtrCd, 	'TOT_CRTR_CD')			// 집계기준
-		mergeArray = [...jsonCrtrCd,...jsonTermKnd,...jsonCrtTm,...jsonArtclKnd,...jsonExclItem,...jsonExclVrty,...jsonExclPrdcr,...jsonInclItem,...jsonInclVrty,...jsonInclPrdcr];
-
+		
+		let result = await Promise.all([
+			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonComItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd),	// 품종
+		]);
+		
 
 	}
 
@@ -201,162 +209,71 @@
 
     const fn_init = async function() {
     	await fn_initSBSelect();
-		fn_createTotCrtrList();
-		fn_createTotCrtrDtlList();
+    	
+    	SBUxMethod.set("srch-slt-itemCd", ""); // 품목
+		SBUxMethod.set("srch-slt-vrtyCd", ""); // 품종
+		
+		fn_createSlsUntprcList();
 		fn_search();
     }
 
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
-
-    const fn_modalVrty = function() {
-    	let row = grdTotCrtrDtlList.getRow()
-		let rowData = grdTotCrtrDtlList.getRowData(grdTotCrtrDtlList.getRow());
-
-    	if(rowData.dtlCd === 'ITEM' || rowData.dtlCd === 'VRTY'){
-	    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty);
-	    	SBUxMethod.openModal("modal-vrty");
-    	}
-	}
-
-    const fn_setVrty = function(vrty) {
-		if (!gfn_isEmpty(vrty)) {
-			let row = grdTotCrtrDtlList.getRow()
-			let rowData = grdTotCrtrDtlList.getRowData(row);
-			if(rowData.dtlCd === 'ITEM'){
-				rowData['dtlVl'] = vrty.itemCd;
-			}else if(rowData.dtlCd === 'VRTY'){
-				rowData['dtlVl'] = vrty.itemCd + vrty.vrtyCd;
-			}
-			grdTotCrtrDtlList.setRowData(row,rowData,true);
-		}
-	}
 
 
 
-	//기준유형
-	/* var jsonCrtrType = [];
-	var jsonExcl = [];
-	var jsonIncl = [];
-	var jsonCrtrKnd = [];
-	var jsonTrgtKnd = [];
-
-
-	var jsonTotArtclKnd = [];
-	var jsonDtlPrcs = []; */
-
-	var mergeArray = [];
-
-	var jsonDtlCd =[];
 	var jsonCrtrCd = [];
-	var jsonTermKnd = [];
-	var jsonCrtTm = [];
-	var jsonArtclKnd = [];
-	var jsonExclItem = [];
-	var jsonExclVrty = [];
-	var jsonExclPrdcr = [];
-	var jsonInclItem = [];
-	var jsonInclVrty = [];
-	var jsonInclPrdcr = [];
-	var jsonPrdcr = [];
+    
+    //매출 단가
+    var grdSlsUntprcList;
+    var jsonSlsUntprcList = [];
+        
+  	//품목
+	var jsonComItem = [];
+	//품종
+	var jsonComVrty = [];
+	//규격
+	var jsonApcSpcfct = [];
+	//출하포장단위
+	var jsonSpmtPckgUnit = [];
 
 
-	var jsonElmt = [];
-
-	var jsonYn = [
-		{value : 'Y', label : '사용' }
-		, {value : 'N', lable : '미사용' }
-	];
-
-	var jsonTotDtlType = [];
-
-    // grid
-    // 집계기준목록
-    var grdTotCrtrList;
-    var jsonTotCrtrList = [];
-
-    // 집계기준상세정보
-    var grdTotCrtrDtlList;
-    var jsonTotCrtrDtlList= [];
-    var jsonTempTotCrtrDtlList = [];
-
-
-    const fn_createTotCrtrList = function() {
+    const fn_createSlsUntprcList = function() {
         var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdTotCrtrList';
-	    SBGridProperties.id = 'grdTotCrtrList';
-	    SBGridProperties.jsonref = 'jsonTotCrtrList';
+	    SBGridProperties.parentid = 'sb-area-grdSlsUntprcList';
+	    SBGridProperties.id = 'grdSlsUntprcList';
+	    SBGridProperties.jsonref = 'jsonSlsUntprcList';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.selectmode = 'free';
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-        	 {caption: [""], 		ref: 'itemCd', 		type:'button', width:'50px', style: 'text-align:center',
+        	 {caption: [""], 		ref: 'itemCd', 		type:'button', width:'5%', style: 'text-align:center',
                  renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                 	 if (objRowData.status==="2" || objRowData.status==="3" ){
-                		 return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdTotCrtrList," + nRow + ")'>삭제</button>";
+                		 return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(grdSlsUntprcList," + nRow + ")'>삭제</button>";
                      } else if(objRowData.status==="1") {
-                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(grdTotCrtrList," + nRow + ", 1)'>추가</button>";
+                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(grdSlsUntprcList," + nRow + ", 1)'>추가</button>";
                      }
                  }},
-            {caption: ["품목구분"],
-               	 ref : 'itemSe',
-               	 type: 'combo',
-               	 typeinfo : {ref:'jsonCrtrType', label:'cdVlNm', value:'cdVl'},
-               	 width:'100px',
-               	 style:'text-align:center'},
-
-            {caption: ["매출품목구분"],
-                 ref: 'crtrCd',
-                 type:'combo',
-                 typeinfo : {ref:'jsonCrtrCd', label:'label', value:'value'},
-                width:'100px',
-                style:'text-align:center'},
-            {caption: ["상세코드"],
-                ref: 'totDtlType',
-                type:'combo',
-                typeinfo : {ref:'jsonDtlType', label:'cdVlNm', value:'cdVl'},
-               width:'100px',
-               style:'text-align:center'},
-            {caption: ["품목번호"],             ref: 'indctSeq',                 type:'input',      width:'100px',  style:'text-align:center'},
-            {caption: ["수량"],
-            	 ref: 'useYn',
-            	 type:'combo',
-            	 typeinfo : {ref:'jsonYn', label:'label', value:'value', oneclickedit: true},
-				width:'100px',  style:'text-align:center'},
-            {caption: ["중량"],             ref: 'wght',                 type:'input',      width:'100px',  style:'text-align:center'},
-            {caption: ["금액"],             ref: 'amt',                 type:'input',      width:'100px',  style:'text-align:center'},
-            {caption: ["단가"],             ref: 'unitPrc',                 type:'input',      width:'100px',  style:'text-align:center'},
-            {caption: [""],             ref: 'gon',                 type:'output',      width:'100px',  style:'text-align:center'},
-			{caption: [""], ref: 'status', type:'output',hidden : true},
-			{caption: ["삭제여부"], ref: 'delYn', type:'output',hidden : true}
+            {caption: ["품목"], 		ref: 'itemNm',	 	  	type: 'outputbutton',	width:'12%',	typeinfo : {callback : fn_grdModalVrty},	 style:'text-align:center'},
+            {caption: ["품종"],		ref: 'vrtyNm', 		  	type:'output', 			width:'12%',	style:'text-align:center'},
+            {caption: ["규격"], 		ref: 'spcfctNm',		type:'output', 			width:'12%', 	typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false} }, style:'text-align:center'},
+            {caption: ["상품명"], 		ref: 'spmtPckgUnitNm',	type:'output',  			width:'14%',   	style:'text-align:center'},
+            {caption: ["단가"],	 	ref: 'ntslUntprc',		type:'input',			width:'12%',   	style:'text-align:center'},
+            {caption: ["적용기준일자"],	ref: 'aplcnCrtrYmd',	type:'datepicker',		width:'12%', 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, style:'text-align:center'},
+            {caption: [""],			ref: 'rmrk',			type:'input',			width:'%',   	style:'text-align:center'},      
+			{caption: ["상태"], 		ref: 'status',			type:'output',	hidden : true},
+			{caption: ["삭제여부"], 	ref: 'delYn', 			type:'output',	hidden : true},
+			{caption: ['품목코드'], 	ref: 'itemCd', width: '50px', type: 'combo', typeinfo : {ref:'jsonSpmtPckgUnit', label:'itemNm', value:'itemCd'},style:'text-align:center', hidden:true},
+            {caption: ['품종코드'], 	ref: 'vrtyCd', width: '50px', type: 'output', style:'text-align:center', hidden:true},
+            {caption: ['규격코드'], 	ref: 'spcfctCd', width: '50px', type: 'output', style:'text-align:center', hidden:true}
         ];
-        grdTotCrtrList = _SBGrid.create(SBGridProperties);
+        grdSlsUntprcList = _SBGrid.create(SBGridProperties);
     }
 
 
 
 
-    const fnCallback = function(){
-    	let row = grdTotCrtrDtlList.getRow();
-    	let rowData = grdTotCrtrDtlList.getRowData(row);
-
-    	if(gfn_nvl(rowData)===""){
-    		return;
-    	}
-
-    	if(rowData.dtlCd === "ITEM" || rowData.dtlCd === "VRTY"){
-    		fn_modalVrty();
-    	}else if(rowData.dtlCd === "PRDCR"){
-    		fn_choicePrdcr();
-    	}
-
-
-
-
-    }
 
     /**
      * @name fn_addRow
@@ -365,7 +282,9 @@
      */
     const fn_addRow = async function(grd, nRow, chk) {
     	const editableRow = grd.getRowData(nRow, false);	// call by reference(deep copy)
-
+    	
+    	
+    	
     	if(gfn_nvl(editableRow) === ""){
 
     	}else{
@@ -373,6 +292,8 @@
     	}
 
         grd.addRows([{status : chk.toString(),useYn : "Y", gubun : "insert" }]);
+    	   	
+    	
         nRow++;
         grd.setCellDisabled(nRow, 0, nRow, grd.getCols() - 1, true);
         grd.setCellDisabled(nRow-1, 0, nRow-1, grd.getCols() - 1, false);
@@ -394,8 +315,31 @@
     }
 
 
+     const fn_grdModalVrty = function(){
+     	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, "", fn_setGrdVrty, "");
+     	SBUxMethod.openModal('modal-vrty')
+     }
+	
+     const fn_setGrdVrty = function(vrty) {
+ 		if (!gfn_isEmpty(vrty)) {
+ 			let row = grdSlsUntprcList.getRow();
+ 			let rowData = grdSlsUntprcList.getRowData(row);
 
+ 			rowData['itemCd'] = vrty.itemCd;
+ 			rowData['vrtyCd'] = vrty.vrtyCd;
+ 			rowData['itemNm'] = vrty.itemNm;
+ 			rowData['vrtyNm'] = vrty.vrtyNm;
+ 			rowData['itemVrtyCd'] = vrty.itemCd + vrty.vrtyCd;
+ 			grdSlsUntprcList.setRowData(row,rowData,true);
+ 			let filter =  jsonApcSpcfct.filter(item => item.itemCd === vrty.itemCd);
+ 			let filter2 = jsonSpmtPckgUnit.filter(item => item.itemCd === vrty.itemCd);
+ 			jsonApcSpcfctGrd = filter;
+ 			jsonSpmtPckgUnitGrd = filter2;
 
+ 			grdSlsUntprcList.rebuild();
+ 			//gfn_setApcSpcfctsSBSelect('grdAsstCrtrList', jsonApcSpcfct, gv_selectedApcCd, vrty.itemCd);
+ 		}
+ 	}
 
 
 	/**
@@ -403,11 +347,38 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	let crtrType = SBUxMethod.get("srch-slt-crtrType");
+    	//let crtrType = SBUxMethod.get("srch-slt-crtrType");
+    	
+    	let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+    	
+    	let getCrtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+    	let crtrYmdFrom;
+    	let crtrYmdTo;
+    	
+    	if(getCrtrYmd === undefined){
+			return;
+		}
 
-    	const postJsonPromise = gfn_postJSON("/am/tot/selectTotCrtrInfoList.do", {
+    	getCrtrYmd.forEach((item,index) =>{
+    		if(index === 0 ){
+    			crtrYmdFrom = item;
+    		}else if(index === 1){
+    			crtrYmdTo = item;
+    		}
+    	})
+    	    	
+		if(!gfn_isEmpty(vrtyCd)){
+			vrtyCd = vrtyCd.substring(4,8);
+		}
+    	
+    	const postJsonPromise = gfn_postJSON("/am/spmt/selectSlsUntprc.do", {
 			apcCd: gv_selectedApcCd,
-			totCrtrType : crtrType
+			aplcnCrtrYmdFrom : crtrYmdFrom,
+			aplcnCrtrYmdTo : crtrYmdTo,
+			itemCd : itemCd,
+			vrtyCd : vrtyCd
+				
   		});
 
         const data = await postJsonPromise;
@@ -418,32 +389,18 @@
   	          	/** @type {number} **/
   	      		let totalRecordCount = 0;
 
-  	      		jsonTotCrtrList.length = 0;
-  	      	    jsonTotCrtrDtlList.length = 0;
+  	      		jsonSlsUntprcList.length = 0;
 
-  	      		data.resultList1.forEach(item => {
+  	      		data.resultList.forEach(item => {
   	      			item['status'] = '2';
   	      			item['gubun'] = 'update';
-  	      		});
-  	          	jsonTotCrtrList = data.resultList1;
-
-  	            data.resultList2.forEach(item =>{
-  	            	item['status'] = '2';
-  	            	item['gubun'] = 'update';
- 	            });
-
-  	            jsonTempTotCrtrDtlList = data.resultList2;
-
-
-
-          		grdTotCrtrList.rebuild();
-          		grdTotCrtrDtlList.rebuild();
-          		let nRow = grdTotCrtrList.getRows();
-  	  			let nRow2 = grdTotCrtrDtlList.getRows();
-
-  	  		    fn_addRow(grdTotCrtrList,nRow,"1");
-  	  			fn_addRow(grdTotCrtrDtlList,nRow2,"1");
-
+  	      		}); 
+  	          	jsonSlsUntprcList = data.resultList;
+  	          	
+          		grdSlsUntprcList.rebuild();
+          		
+          		let nRow = grdSlsUntprcList.getRows();
+  	  		    fn_addRow(grdSlsUntprcList,nRow,"1");
 
  			 }
   		}
@@ -460,49 +417,51 @@
 
 
     const fn_save = async function(){
-    	let rowData = grdTotCrtrList.getRowData(grdTotCrtrList.getRow());
-    	let status1 = grdTotCrtrList.getRowStatus(grdTotCrtrList.getRow());
+		
+    	let rowData = grdSlsUntprcList.getRowData(grdSlsUntprcList.getRow());
+    	let status1 = grdSlsUntprcList.getRowStatus(grdSlsUntprcList.getRow());
 		if(rowData === undefined){
 			return;
 		}
+		
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+    	
+    	let getCrtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+    	let crtrYmdFrom;
+    	let crtrYmdTo;
+    	if(getCrtrYmd === undefined){
+			return;
+		}
+
+    	getCrtrYmd.forEach((item,index) =>{
+    		if(index === 0 ){
+    			crtrYmdFrom = item;
+    		}else if(index === 1){
+    			crtrYmdTo = item;
+    		}
+    	})
+    	
+		let allData = grdSlsUntprcList.getGridDataAll();
+    	var slsUntprcList = [];
+				
         try{
-			let crtrIndctNm = jsonCrtrCd.find(item => item.value === rowData.crtrCd)
-        	let totCrtr = {
-        			apcCd : gv_selectedApcCd
-        			, totCrtrType : rowData.totCrtrType
-        			, crtrCd : rowData.crtrCd
-        			, crtrVl : rowData.crtrVl
-        			//, crtrIndctNm : mergeArray.find(item => item.cdVl === "VRTY")['cdVlNm']
-        			, crtrIndctNm : crtrIndctNm.label
-        			, indctSeq : parseInt(rowData.indctSeq)
-        			, useYn : rowData.useYn
-        			, status : status1
-      				, totDtlType : rowData.totDtlType
-      				, gubun : rowData.gubun
-        	};
-
-
-
-			let totCrtrDtlList = grdTotCrtrDtlList.getGridDataAll();
-			    totCrtrDtlList.forEach((item,sn) => {
-			    	if(gfn_nvl(item["dtlVl"]) === ""){
-			    		item["dtlVl"] = "0";
-			    	}
-					delete item.itemCd;
-					item["apcCd"] = gv_selectedApcCd;
-        			item["totCrtrType"] = rowData.totCrtrType;
-        			item["crtrCd"] = rowData.crtrCd;
-        			item["crtrVl"] = rowData.crtrVl;
-					item["apcCd"] = gv_selectedApcCd;
-					item["dtlIndctNm"] = item["dtlVl"];
-					item["gubun"] = item.gubun;
-				});
-
-            let totDtlList = totCrtrDtlList.filter(x => x.status === "3" || x.status ==="2")
-
-
-
-            let postJsonPromise = gfn_postJSON("/am/tot/insertTotCrtrInfoList.do",[totCrtr,totDtlList]);
+			
+				allData.forEach((item, index)=>{								
+					slsUntprcList.push({
+						apcCd : gv_selectedApcCd
+						, itemCd : item.itemCd
+	        			, vrtyCd : item.vrtyCd
+	        			, spcfctCd : item.spcfctCd
+	        			, spmtPckgUnitNm : item.spmtPckgUnitNm
+	        			, spmtPckgUnitCd : item.spmtPckgUnitCd
+	        			, ntslUntprc  : item.ntslUntprc
+						, aplcnCrtrYmd : item.aplcnCrtrYmd
+						, spmtSlsUntprcCd : item.spmtSlsUntprcCd
+					});
+			});
+			
+            let postJsonPromise = gfn_postJSON("/am/spmt/updateSlsUntprc.do",slsUntprcList);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
@@ -526,36 +485,44 @@
 			if (!gfn_comConfirm("Q0001", "집계기준목록 삭제")) {	//	Q0001	{0} 하시겠습니까?
 		    	return;
 		    }
-
+			
+			let getCrtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+	    	let crtrYmdFrom;
+	    	let crtrYmdTo;
+	    	
+			
+	    	getCrtrYmd.forEach((item,index) =>{
+	    		if(index === 0 ){
+	    			crtrYmdFrom = item;
+	    		}else if(index === 1){
+	    			crtrYmdTo = item;
+	    		}
+	    	})
+			
 	    	let rowData = grd.getRowData(index);
 			if(rowData === undefined){
 				return;
 			}
+			console.log(rowData);
+	    	
+	    	//let allData = grdSlsUntprcList.getGridDataAll();
+
 
 	        try{
-
-	        	let totCrtr = {
-	        			apcCd : gv_apcCd
-	        			, totCrtrType : rowData.totCrtrType
-	        			, crtrCd : rowData.crtrCd
+	        	let slsUntprc = {
+	        			apcCd : gv_selectedApcCd,
+	        			crtrYmdFrom : crtrYmdFrom,
+	        			crtrYmdTo : crtrYmdTo,
+	        			itemCd : rowData.itemCd,
+	        			vrtyCd : rowData.vrtyCd,
+	        			spmtPckgUnitCd : rowData.spmtPckgUnitCd,
+	        			spmtSlsUntprcCd : rowData.spmtSlsUntprcCd
+	        			
 	        	};
+	        	
+	        	console.log(slsUntprc);
 
-
-
-				/*let totCrtrDtlList = grdTotCrtrDtlList.getGridDataAll();
-				    totCrtrDtlList.forEach((item,sn) => {
-						delete item.itemCd;
-						item["apcCd"] = gv_selectedApcCd;
-						Object.assign(item,totCrtr);
-						item["status"] = grdTotCrtrDtlList.getRowStatus(sn+1).toString();
-						item["dtlIndctNm"] = item["dtlVl"];
-
-					}); */
-
-
-	            //let totDtlList = totCrtrDtlList.filter(x => x.delYn==="N");
-
-	            let postJsonPromise = gfn_postJSON("/am/tot/deleteTotMngInfo.do",totCrtr);
+	            let postJsonPromise = gfn_postJSON("/am/spmt/deleteSlsUntprc.do",slsUntprc);
 
 	            if(postJsonPromise){
 	                let data = await postJsonPromise;
@@ -570,102 +537,35 @@
 	        }
 	    }
 
-	 /**
-	 	 * @name fn_clearPrdcr
-	 	 * @description 생산자 폼 clear
-	 	 */
-	 	const fn_clearPrdcr = function() {
-	 		SBUxMethod.set("srch-inp-prdcrCd", "");
-	 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
-	 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	 	}
-
+		
 		/**
-		 * @name fn_choicePrdcr
-		 * @description 생산자 선택 popup 호출
+		 * @name fn_onChangeSrchItemCd
+		 * @description 품목 선택 변경 event
 		 */
-	    const fn_choicePrdcr = function() {
-	    	let row = grdTotCrtrDtlList.getRow()
-			let rowData = grdTotCrtrDtlList.getRowData(row);
-	    	if(gfn_nvl(rowData.dtlVl ) === ""){
-	    		SBUxMethod.set("srch-inp-prdcrNm","")
-	    	}else{
-	    		let prdcr = jsonPrdcr.find(item => item.prdcrCd === String(rowData.dtlVl).padStart(4, '0'));
-	    		SBUxMethod.set("srch-inp-prdcrNm",prdcr.prdcrNm)
-	    	}
+		const fn_onChangeSrchItemCd = async function(obj) {
 
-			popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
-			SBUxMethod.openModal("modal-prdcr");
+			let itemCd = obj.value;
+			const itemInfo = _.find(jsonComItem, {value: itemCd});
+			
+			let result = await Promise.all([
+				gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonComVrty, gv_selectedApcCd, itemCd)
+			]);
 		}
 
 		/**
-		 * @name fn_setPrdcr
-		 * @description 생산자 선택 popup callback 처리
+		 * @name fn_onChangeSrchVrtyCd
+		 * @description 품종 선택 변경 event
 		 */
-		const fn_setPrdcr = async function(prdcr) {
+		const fn_onChangeSrchVrtyCd = async function(obj) {
+			let vrtyCd = obj.value;
 
-			await fn_getPrdcrs();
-
-			if (!gfn_isEmpty(prdcr)) {
-				SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
-				SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
-				SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-
-				fn_setPrdcrForm(prdcr);
-
-				let row = grdTotCrtrDtlList.getRow()
-				let rowData = grdTotCrtrDtlList.getRowData(row);
-				if(rowData.dtlCd === 'PRDCR'){
-					rowData['dtlVl'] = prdcr.prdcrCd;
-				}
-
-				grdTotCrtrDtlList.setRowData(row,rowData,true);
-
-
-			}
-		}
-
-		/**
-		 * @name fn_getPrdcrs
-	     * @description 생산자 자동완성 JSON 설정
-		 */
-		const fn_getPrdcrs = async function() {
-			jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-			jsonPrdcr = gfn_setFrst(jsonPrdcr);
-		}
-
-		const fn_setPrdcrForm = async function(prdcr) {
-
-			if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
-				SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
-			} else {
-				SBUxMethod.set("srch-inp-prdcrIdentno", "");
-			}
-
-		}
-
-
-
-		const fn_setTrsprtCst = function(trsprtCst) {
-
-		}
-
-		const fn_onChangeSrchPrdcrIdentno = function(obj) {
-
-			if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
+			if(gfn_isEmpty(vrtyCd)){
 				return;
 			}
-
-
-			const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
-
-
-			SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
-			SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
-			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
-
-			fn_setPrdcrForm(prdcrInfo);
-
+			const itemCd = vrtyCd.substring(0,4);
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
 		}
 
 

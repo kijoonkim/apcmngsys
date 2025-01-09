@@ -428,33 +428,28 @@
     const fn_search = async function() {
     	let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
     	
-    	let purSalYmd;
+    	let purSalYmdFrom;
+    	let purSalYmdTo;
+
     	getpurSalYmd.forEach((item,index) =>{
     		if(index === 0 ){
-    			purSalYmd = item;
+    			purSalYmdFrom = item;
+    		}else if(index === 1){
+    			purSalYmdTo = item;
     		}
     	})
-    	//console.log(purSalYmd);
     	
     	const postJsonPromise = gfn_postJSON("/am/spmt/selectSlsPrfmnc.do", {
 			apcCd: gv_selectedApcCd,
-			slsYmd : purSalYmd
+			slsYmdFrom : purSalYmdFrom,
+			slsYmdTo : purSalYmdTo
+			
   		});
         const data = await postJsonPromise;       
         console.log(data);
   		try {
  			if (_.isEqual("S", data.resultStatus)) {
  				jsonSlsPrfmnc = data.resultList;
- 				
- 		
- 				
-  	      		/*
-  	      		data.resultList.forEach(item => {
-  	      			item['status'] = '2';
-  	      			item['gubun'] = 'update';
-  	      		});*/
-          		//let nRow = grdSlsPrfmncList.getRows();
-  	  		    //fn_addRow(grdSlsPrfmncList,nRow,"1");
           		grdSlsPrfmncList.rebuild();
  			 }
   		}
@@ -473,47 +468,65 @@
     const fn_save = async function(){
     	let rowData = grdSlsPrfmncList.getRowData(grdSlsPrfmncList.getRow());
     	let status1 = grdSlsPrfmncList.getRowStatus(grdSlsPrfmncList.getRow());
+    	
+    	
 		if(rowData === undefined){
 			return;
 		}
+		
+		let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
+    	
+    	let purSalYmdFrom;
+    	let purSalYmdTo;
+
+    	getpurSalYmd.forEach((item,index) =>{
+    		if(index === 0 ){
+    			purSalYmdFrom = item;
+    		}else if(index === 1){
+    			purSalYmdTo = item;
+    		}
+    	})
+    	
+		let allData = grdSlsPrfmncList.getGridDataAll();		
+		var slsPrfmncList = [];
+						
         try{
-			let crtrIndctNm = jsonCrtrCd.find(item => item.value === rowData.crtrCd)
-        	let totCrtr = {
-        			apcCd : gv_selectedApcCd
-        			, totCrtrType : rowData.totCrtrType
-        			, crtrCd : rowData.crtrCd
-        			, crtrVl : rowData.crtrVl
-        			//, crtrIndctNm : mergeArray.find(item => item.cdVl === "VRTY")['cdVlNm']
-        			, crtrIndctNm : crtrIndctNm.label
-        			, indctSeq : parseInt(rowData.indctSeq)
-        			, useYn : rowData.useYn
-        			, status : status1
-      				, totDtlType : rowData.totDtlType
-      				, gubun : rowData.gubun
-        	};
+			
+			/*allData.forEach((item, index)=>{
+				if(item.checkedYn === "Y"){					
+					slsPrfmncList.push({
+						apcCd : gv_selectedApcCd
+						, slsSn : item.slsSn
+						, slsYmdFrom : purSalYmdFrom
+						, slsYmdTo : purSalYmdTo
+						, itemCd : item.itemCd
+	        			, vrtyCd : item.vrtyCd
+	        			, qntt : item.qntt
+	        			, wght : item.wght
+	        			, rkngAmt : item.rkngAmt
+	        			, cfmtnAmt : item.cfmtnAmt
+					});
+				}
+			});*/
+			
+			allData.forEach((item, index)=>{								
+					slsPrfmncList.push({
+						apcCd : gv_selectedApcCd
+						, slsSn : item.slsSn
+						, slsYmdFrom : purSalYmdFrom
+						, slsYmdTo : purSalYmdTo
+						, itemCd : item.itemCd
+	        			, vrtyCd : item.vrtyCd
+	        			, qntt : item.qntt
+	        			, wght : item.wght
+	        			, rkngAmt : item.rkngAmt
+	        			, cfmtnAmt : item.cfmtnAmt
+					});
+			});
 
-
-
-			let totCrtrDtlList = grdTotCrtrDtlList.getGridDataAll();
-			    totCrtrDtlList.forEach((item,sn) => {
-			    	if(gfn_nvl(item["dtlVl"]) === ""){
-			    		item["dtlVl"] = "0";
-			    	}
-					delete item.itemCd;
-					item["apcCd"] = gv_selectedApcCd;
-        			item["totCrtrType"] = rowData.totCrtrType;
-        			item["crtrCd"] = rowData.crtrCd;
-        			item["crtrVl"] = rowData.crtrVl;
-					item["apcCd"] = gv_selectedApcCd;
-					item["dtlIndctNm"] = item["dtlVl"];
-					item["gubun"] = item.gubun;
-				});
-
-            let totDtlList = totCrtrDtlList.filter(x => x.status === "3" || x.status ==="2")
-
-
-
-            let postJsonPromise = gfn_postJSON("/am/tot/insertTotCrtrInfoList.do",[totCrtr,totDtlList]);
+			console.log(slsPrfmncList);
+			
+            let postJsonPromise = gfn_postJSON("/am/spmt/updateSlsPrfmnc.do",slsPrfmncList);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
@@ -521,6 +534,7 @@
                     // gfn_comAlert(data.resultCode, data.resultMessage);
                     //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
                     //fn_reset();
+                    fn_search();
                     return;
                 }
             }
@@ -544,6 +558,20 @@
 			//let getCheckYn = allData.filter(item => item.checkedYn === "Y");
 			//let allData = grdSlsPrfmncList.getGridDataAll.filter((item)=>item.checkYn === "Y");
 			
+			let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
+    	
+	    	let purSalYmdFrom;
+	    	let purSalYmdTo;
+	
+	    	getpurSalYmd.forEach((item,index) =>{
+	    		if(index === 0 ){
+	    			purSalYmdFrom = item;
+	    		}else if(index === 1){
+	    			purSalYmdTo = item;
+	    		}
+	    	})
+			
+			
 			var slsPrfmncList = [];
 			
 			
@@ -552,25 +580,14 @@
 					slsPrfmncList.push({
 						apcCd : gv_selectedApcCd,
 						slsSn : item.slsSn,
-						slsYmd : item.slsYmd
+						slsYmdFrom : purSalYmdFrom,
+						slsYmdTo : purSalYmdTo
 					});
 				}
 			});
 			
+		
 			console.log(slsPrfmncList);
-			/*
-			allData.forEach((item, index)=>{
-				if(item.checkedYn === "Y"){
-					
-					if (!slsPrfmncList.some(function(sls) {
-						return sls.slsSn === item.slsSn;
-					})) {
-						sortPrfmncList.push({
-							slsSn: item.slsSn
-		    			});
-					}
-				}
-			});*/
 			
 			
 			/*if(rowData === undefined){

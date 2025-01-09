@@ -24,6 +24,16 @@ public class SlsMngVO extends ComVO{
 	private String slsCrtrType;
 	
 	/**
+	구분
+	**/
+	private String gubun;
+
+	/**
+	상태
+	**/
+	private String status;
+	
+	/**
 	 * 기준코드
 	 */
 	private String crtrCd;
@@ -80,6 +90,16 @@ public class SlsMngVO extends ComVO{
 	 */
 	private String slsYmd;
 	
+	/**
+	 * 매출시작일자
+	 */
+	private String slsYmdFrom;
+	
+	/**
+	 * 매출종료일자
+	 */
+	private String slsYmdTo;
+	
 
 	/**
 	 * 매출순번
@@ -102,11 +122,20 @@ public class SlsMngVO extends ComVO{
 	 */
 	private String itemCd ;
 	
-
+	/**
+	 * 품목명
+	 */
+	private String itemNm ;
+	
 	/**
 	 * 품종코드
 	 */
 	private String vrtyCd;
+	
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm ;
 	
 
 	/**
@@ -114,7 +143,11 @@ public class SlsMngVO extends ComVO{
 	 */
 	private String spcfctCd;
 	
-
+	/**
+	 * 규격명
+	 */
+	private String spcfctNm ;
+	
 	/**
 	 * 등급코드
 	 */
@@ -182,6 +215,71 @@ public class SlsMngVO extends ComVO{
 	 * 수금여부
 	 */
 	private String clctmYn;
+	
+	/**
+	 * 출하포장단위코드
+	 */
+	private String spmtPckgUnitCd;
+	
+	/**
+	 * 출하매출단가코드
+	 */
+	private String spmtSlsUntprcCd;
+	
+	/**
+	 * 출하매출단가
+	 */
+	private int spmtSlsUntprc;
+	
+	/**
+	 * 비고
+	 */
+	private String rmrk;
+	
+	/**
+	 * 적용기준일자
+	 */
+	private String aplcnCrtrYmd;
+	
+	/**
+	 * 적용기준일자시작
+	 */
+	private String aplcnCrtrYmdFrom;
+	
+	/**
+	 * 적용기준일자종료
+	 */
+	private String aplcnCrtrYmdTo ;
+	
+	/**
+	 * 출하포장단위명
+	 */
+	private String spmtPckgUnitNm;
+	
+	/**
+	 * 판매단가
+	 */
+	private String ntslUntprc;
+	
+	/**
+	 * 상품등급
+	 */
+	private String gdsGrd;
+	
+	/**
+	 * 외부연결코드
+	 */
+	private String extrnlLnkgCd ;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	List<SlsMngVO> slsPrfmncList;
