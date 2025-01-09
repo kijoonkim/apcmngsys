@@ -209,7 +209,11 @@
 			AND FA.ITEM_CD = ITEM.ITEM_CD
 
 		WHERE 1=1
-		  AND (FA.BRNO = #{brno} OR FA.UO_BRNO = #{brno})
+		  AND (
+		  		FA.BRNO = #{brno}
+		  		OR
+		  		FA.BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+		  		)
 		<if test='uoBrno != null and uoBrno != ""'>
 		  AND FA.UO_BRNO = #{uoBrno}
 		</if>
