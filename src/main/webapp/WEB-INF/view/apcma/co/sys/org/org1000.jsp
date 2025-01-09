@@ -773,10 +773,10 @@
         }, 200); 	
     	
     	if(gfn_nvl(obj.LOGO_FILE_NAME) != ''){
-            $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ obj.LOGO_FILE_NAME +"&comp_code="+gfn_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+            $("#COMP_LOGO").attr("src", "/com/getFileImage.do?fkey="+ obj.LOGO_FILE_NAME +"&comp_code="+gfn_nvl(obj.CO_CD)+"&client_code=" + gfn_nvl(obj.CLNT_CD) );
     	}
     	if(gfn_nvl(obj.STAMP_FILE_NAME) != ''){
-            $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ obj.STAMP_FILE_NAME +"&comp_code="+gfn_nvl(obj.COMP_CODE)+"&client_code=" + gv_ma_selectedClntCd );
+            $("#COMP_STAMP").attr("src", "/com/getFileImage.do?fkey="+ obj.STAMP_FILE_NAME +"&comp_code="+gfn_nvl(obj.CO_CD)+"&client_code=" + gfn_nvl(obj.CLNT_CD) );
     	}
     	$('#btnChangeCompStamp').find('.sbux-btn-txt').text('직인 변경'); 
     	$('#btnChangeCompLogo').find('.sbux-btn-txt').text('법인 로고 변경');
