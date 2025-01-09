@@ -1190,8 +1190,8 @@
 				, CM.DDC_AMT
 
 				/* 매출 합계 */
-				, DECODE(ITEM.STTG_UPBR_ITEM_SE, '3' , NVL(SLS_TRST_VLM, 0) + NVL(SLS_EMSPAP_VLM,0) , TOT.SLS_TOT_VLM) AS SLS_TOT_VLM
-				, DECODE(ITEM.STTG_UPBR_ITEM_SE, '3' , NVL(SLS_TRST_AMT, 0) + NVL(SLS_EMSPAP_AMT,0) , TOT.SLS_TOT_AMT) AS SLS_TOT_AMT
+				, DECODE(ITEM.STTG_UPBR_ITEM_SE, '3' , NVL(CM.SLS_TRST_VLM, 0) + NVL(CM.SLS_EMSPAP_VLM,0) , TOT.SLS_TOT_VLM) AS SLS_TOT_VLM
+				, DECODE(ITEM.STTG_UPBR_ITEM_SE, '3' , NVL(CM.SLS_TRST_AMT, 0) + NVL(CM.SLS_EMSPAP_AMT,0) , TOT.SLS_TOT_AMT) AS SLS_TOT_AMT
 
 				/* 출하실적 */
 				/* 온라인도매시장 제외 별도로 받음 */
@@ -1246,15 +1246,56 @@
 				(SELECT BRNO , ITEM_CD
 						, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_TOT_AMT
 						, SUM( NVL( SLS_CNSGN_SLS_VLM , 0 ) ) AS SLS_TOT_VLM
-					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
 					  AND DEL_YN = 'N'
 					  AND APO_SE = '1'
+					  AND TYPE_SE_NO IN ('1','3','5','7')
 					  AND (
-							TYPE_SE_NO IN ('2','7')
-							OR
-							(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
+							(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+												FROM TB_EV_FRMHS_APO FA
+												WHERE 1=1
+												  AND NVL(EXCL_YN,'N') != 'Y'
+												  AND APO_SE = '1'
+												  AND BRNO = PST.BRNO
+												  AND YR = PST.YR
+												  AND TRMT_TYPE = PST.TRMT_TYPE
+												  AND ITEM_CD IN  (SELECT ITEM_CD
+																	FROM TB_EV_APO_YR_GPC_CD
+																	WHERE 1=1
+																	  AND YR = FA.YR
+																	  AND BRNO = FA.BRNO
+																	  AND APO_SE = '1'
+																	  AND STTG_UPBR_ITEM_SE != '3'
+																	)
+												)
 							)
+							OR
+							(PRDCR_OGNZ_SN = '0')
+						)
+					  AND (
+							(ISO_BRNO IN (SELECT BRNO
+											FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT IPST
+											WHERE 1=1
+											  AND DEL_YN = 'N'
+											  AND APO_SE = '2'
+											  AND YR = PST.YR
+											  AND UO_BRNO = PST.BRNO
+											  AND ITEM_CD IN (SELECT ITEM_CD
+																FROM TB_EV_APO_YR_GPC_CD
+																WHERE 1=1
+																  AND YR = IPST.YR
+																  AND BRNO = IPST.BRNO
+																  AND UO_BRNO = IPST.UO_BRNO
+																  AND APO_SE = '2'
+																  AND STTG_UPBR_ITEM_SE != '3'
+																)
+											GROUP BY BRNO
+										)
+							)
+							OR
+							(ISO_BRNO = '0')
+						)
 					<if test='yr != null and yr != ""'>
 					  AND YR = #{yr}
 					</if>
