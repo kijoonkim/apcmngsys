@@ -55,7 +55,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             param.put("procedure", 		"SP_HRB5100_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             param.put("procedure", 		"SP_HRB5100_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -117,7 +117,7 @@ public class ApcMaHrb5100Controller extends BaseController {
             logger.info("=============insertHrb5100List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

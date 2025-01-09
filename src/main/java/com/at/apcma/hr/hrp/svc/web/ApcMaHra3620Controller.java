@@ -56,7 +56,7 @@ public class ApcMaHra3620Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3620_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -88,7 +88,7 @@ public class ApcMaHra3620Controller extends BaseController {
             logger.info("=============insertHra3620List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

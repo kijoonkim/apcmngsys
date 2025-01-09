@@ -72,7 +72,7 @@ public class ApcMaHrt1410Controller extends BaseController {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -126,7 +126,7 @@ public class ApcMaHrt1410Controller extends BaseController {
             logger.info("=============insertHrt5200List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

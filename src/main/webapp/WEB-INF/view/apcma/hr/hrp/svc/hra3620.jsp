@@ -973,11 +973,11 @@
                             ]});
 
                         list.forEach((item, index) => {
-                            item.WORK_GBN = jsonWorkGbn.length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
-                            item.WORK_PLACE = jsonWorkPlace.length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
-                            item.WORK_NAME = jsonWorkName.length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
-                            item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 ? jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME)[0]["SBSD_CD"] : '';
-                            item.WORK_PLACE2 = jsonWorkPlace2.length > 0 ? jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2)[0]["SBSD_CD"] : '';
+                            item.WORK_GBN = jsonWorkGbn.length > 0 && jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN).length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
+                            item.WORK_PLACE = jsonWorkPlace.length > 0 && jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE).length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
+                            item.WORK_NAME = jsonWorkName.length > 0 && jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME).length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
+                            item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 && jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME).length > 0 ? jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME)[0]["SBSD_CD"] : '';
+                            item.WORK_PLACE2 = jsonWorkPlace2.length > 0 && jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2).length > 0 ? jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2)[0]["SBSD_CD"] : '';
 
                             item.TOT_AMOUNT = Number((Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
                             item.EARNED_INC_AMT = Number(item.TOT_AMOUNT - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));

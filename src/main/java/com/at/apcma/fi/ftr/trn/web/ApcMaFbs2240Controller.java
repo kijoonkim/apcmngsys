@@ -65,7 +65,7 @@ public class ApcMaFbs2240Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2240_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -116,7 +116,7 @@ public class ApcMaFbs2240Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2240_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -146,7 +146,7 @@ public class ApcMaFbs2240Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2240_S4");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -176,7 +176,7 @@ public class ApcMaFbs2240Controller extends BaseController {
             param.put("procedure", 		"SP_FBSPAYROLLBATCH_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -206,7 +206,7 @@ public class ApcMaFbs2240Controller extends BaseController {
             param.put("procedure", 		"SP_FBSPAYROLLBATCH_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -235,7 +235,7 @@ public class ApcMaFbs2240Controller extends BaseController {
         try {
             resultMap = apcMaComService.sendSalaryTransferDataForFtp(param);
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -304,7 +304,7 @@ public class ApcMaFbs2240Controller extends BaseController {
                 iCnt++;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

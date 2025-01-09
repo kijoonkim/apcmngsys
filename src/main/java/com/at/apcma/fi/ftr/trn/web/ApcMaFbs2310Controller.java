@@ -55,7 +55,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             param.put("procedure", 		"SP_FBS2310_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -127,7 +127,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             param.put("procedure", 		"SP_FIM5300_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -157,7 +157,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             param.put("procedure", 		"SP_FIM5300_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -187,7 +187,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             param.put("procedure", 		"SP_FBSREQMISSNUM_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -217,7 +217,7 @@ public class ApcMaFbs2310Controller extends BaseController {
             param.put("procedure", 		"SP_FBSBALANCE_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

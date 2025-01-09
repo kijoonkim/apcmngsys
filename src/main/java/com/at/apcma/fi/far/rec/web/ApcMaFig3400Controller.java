@@ -55,7 +55,7 @@ public class ApcMaFig3400Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3400_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaFig3400Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3400_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -116,7 +116,7 @@ public class ApcMaFig3400Controller extends BaseController {
             param.put("procedure", 		"SP_FIG3500_S1");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

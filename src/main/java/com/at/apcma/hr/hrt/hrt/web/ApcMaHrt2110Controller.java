@@ -53,7 +53,7 @@ public class ApcMaHrt2110Controller extends BaseController {
             param.put("procedure", 		"SP_HRT2110_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

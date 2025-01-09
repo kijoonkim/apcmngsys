@@ -55,7 +55,7 @@ public class ApcMaTrp1050Controller extends BaseController {
             param.put("procedure", 		"SP_TRP1050_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -85,7 +85,7 @@ public class ApcMaTrp1050Controller extends BaseController {
             param.put("procedure", 		"SP_TRP1050_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }

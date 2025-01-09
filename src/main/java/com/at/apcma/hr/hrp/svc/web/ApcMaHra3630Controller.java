@@ -56,7 +56,7 @@ public class ApcMaHra3630Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3630_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -86,7 +86,7 @@ public class ApcMaHra3630Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3630_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -116,7 +116,7 @@ public class ApcMaHra3630Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3630_S2");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
@@ -146,7 +146,7 @@ public class ApcMaHra3630Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3630_S3");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            e.printStackTrace();
+
             logger.debug(e.getMessage());
             return getErrorResponseEntity(e);
         }
