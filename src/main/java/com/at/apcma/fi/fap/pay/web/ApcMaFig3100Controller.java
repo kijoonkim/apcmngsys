@@ -59,7 +59,7 @@ public class ApcMaFig3100Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -85,7 +85,7 @@ public class ApcMaFig3100Controller extends BaseController {
             logger.info("=============insertFig3100=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -107,7 +107,7 @@ public class ApcMaFig3100Controller extends BaseController {
             logger.info("=============insertFig3100S1=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -129,7 +129,7 @@ public class ApcMaFig3100Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -155,7 +155,7 @@ public class ApcMaFig3100Controller extends BaseController {
             logger.info("=============insertFig3100S2=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -177,7 +177,7 @@ public class ApcMaFig3100Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -207,7 +207,7 @@ public class ApcMaFig3100Controller extends BaseController {
             logger.info("=============insertHrp1170=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }*/

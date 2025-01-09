@@ -54,7 +54,7 @@ public class ApcMaHrt2520Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -85,7 +85,7 @@ public class ApcMaHrt2520Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -117,7 +117,7 @@ public class ApcMaHrt2520Controller extends BaseController {
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -139,7 +139,7 @@ public class ApcMaHrt2520Controller extends BaseController {
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

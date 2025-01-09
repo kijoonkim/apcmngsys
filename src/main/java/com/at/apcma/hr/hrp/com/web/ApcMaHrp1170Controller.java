@@ -60,7 +60,7 @@ public class ApcMaHrp1170Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -86,7 +86,7 @@ public class ApcMaHrp1170Controller extends BaseController {
             logger.info("=============insertHrp1170=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }

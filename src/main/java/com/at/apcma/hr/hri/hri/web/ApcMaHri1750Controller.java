@@ -54,7 +54,7 @@ public class ApcMaHri1750Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -76,7 +76,7 @@ public class ApcMaHri1750Controller extends BaseController {
             param.put("procedure", 		"SP_HRI1750_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -115,7 +115,7 @@ public class ApcMaHri1750Controller extends BaseController {
           
 
       } catch (Exception e) {
-          logger.debug(e.getMessage());
+          
           return getErrorResponseEntity(e);
       }
 
@@ -144,7 +144,7 @@ public class ApcMaHri1750Controller extends BaseController {
 		String f_path3 = f_path1.replaceAll(f_path2, "");
 		resultMap.put("SEVER_ROOT_PATH", f_path3);
 	} catch (Exception e) {
-		logger.debug(e.getMessage());
+		
 		return getErrorResponseEntity(e);
 	}
 	
@@ -174,7 +174,7 @@ public class ApcMaHri1750Controller extends BaseController {
 			String f_path3 = f_path1.replaceAll(f_path2, "");
 			resultMap.put("SEVER_ROOT_PATH", f_path3);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		

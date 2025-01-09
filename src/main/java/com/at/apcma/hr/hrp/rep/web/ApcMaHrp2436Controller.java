@@ -54,7 +54,7 @@ public class ApcMaHrp2436Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -80,7 +80,7 @@ public class ApcMaHrp2436Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -112,7 +112,7 @@ public class ApcMaHrp2436Controller extends BaseController {
     		resultMap.put("SERVER_ROOT_PATH", f_path3);
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -138,7 +138,7 @@ public class ApcMaHrp2436Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

@@ -65,7 +65,7 @@ public class ApcMaCom3100Controller extends BaseController {
 			logger.debug("resultMap" + resultMap);
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -93,7 +93,7 @@ public class ApcMaCom3100Controller extends BaseController {
 			
 		} catch (Exception e) {
 			
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 			
 		}

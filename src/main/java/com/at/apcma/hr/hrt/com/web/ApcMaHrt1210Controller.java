@@ -54,7 +54,7 @@ public class ApcMaHrt1210Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -82,7 +82,7 @@ public class ApcMaHrt1210Controller extends BaseController {
         try { param.put("procedure", 		"SP_HRT1210_S");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

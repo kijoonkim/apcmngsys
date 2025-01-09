@@ -705,7 +705,7 @@ public class ApcMaComController extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -735,7 +735,7 @@ public class ApcMaComController extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -765,7 +765,7 @@ public class ApcMaComController extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -873,7 +873,7 @@ public class ApcMaComController extends BaseController {
 			param.put("procedure", 		"SP_REPORTDLL_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 

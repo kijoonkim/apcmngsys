@@ -64,7 +64,7 @@ public class ApcMaHra5200Controller extends BaseController {
 			resultMap.put("SEVER_ROOT_PATH", f_path3);
 
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 

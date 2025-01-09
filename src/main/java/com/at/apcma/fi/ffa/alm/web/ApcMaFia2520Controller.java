@@ -61,7 +61,7 @@ public class ApcMaFia2520Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -85,7 +85,7 @@ public class ApcMaFia2520Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIA2520_S");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	

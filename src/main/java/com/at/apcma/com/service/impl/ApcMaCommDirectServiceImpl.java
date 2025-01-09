@@ -65,7 +65,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			rmap = this.checkError(map1);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug(e.getMessage());
+			
 			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
 			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
 			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
@@ -151,7 +151,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 //			}
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
 			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
 			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
@@ -191,7 +191,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			this.callProcTibero(rmap);
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 		}
 		return rmap;
 	}
@@ -303,7 +303,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.debug(e.getMessage());
+			
 			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
 			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
 			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
@@ -341,7 +341,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			return originData;
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return originData;
 		}
 	}
@@ -366,7 +366,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			}
 			return originData;
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return originData;
 		}
 	}
@@ -442,7 +442,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			resultVal = procMapper.checkMultiple(param); // query
 			resultMap.put("TRANS_COUNT", resultVal);
 		} catch (SQLException e) {
-			logger.debug(e.getMessage());
+			
 			resultStatus = "E"; //sql 에러시 resultStatus 값 E
 			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
 			resultMap.put("v_errorStr", v_errorStr);
@@ -469,7 +469,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			resultVal = procMapper.checkEmp(param); // query
 			resultMap.put("TRANS_COUNT", resultVal);
 		} catch (SQLException e) {
-			logger.debug(e.getMessage());
+			
 			resultStatus = "E"; //sql 에러시 resultStatus 값 E
 			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
 			resultMap.put("v_errorStr", v_errorStr);
@@ -496,7 +496,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			resultVal = procMapper.checkDate(param); // query
 			resultMap.put("TRANS_COUNT", resultVal);
 		} catch (SQLException e) {
-			logger.debug(e.getMessage());
+			
 			resultStatus = "E"; //sql 에러시 resultStatus 값 E
 			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
 			resultMap.put("v_errorStr", v_errorStr);
@@ -523,7 +523,7 @@ public class ApcMaCommDirectServiceImpl implements ApcMaCommDirectService {
 			resultVal = procMapper.checkNum(param); // query
 			resultMap.put("TRANS_COUNT", resultVal);
 		} catch (SQLException e) {
-			logger.debug(e.getMessage());
+			
 			resultStatus = "E"; //sql 에러시 resultStatus 값 E
 			v_errorStr = e.getMessage(); //에러메세지 v_errorStr에 입력
 			resultMap.put("v_errorStr", v_errorStr);

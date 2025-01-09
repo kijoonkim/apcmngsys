@@ -61,7 +61,7 @@ public class ApcMaFia2500Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 
@@ -86,7 +86,7 @@ public class ApcMaFia2500Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -111,7 +111,7 @@ public class ApcMaFia2500Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		
@@ -135,7 +135,7 @@ public class ApcMaFia2500Controller extends BaseController {
     		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_FIA2500_S1");
     		
     	} catch (Exception e) {
-    		logger.debug(e.getMessage());
+    		
     		return getErrorResponseEntity(e);
     	}
     	
@@ -160,7 +160,7 @@ public class ApcMaFia2500Controller extends BaseController {
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			
 			return getErrorResponseEntity(e);
 		}
 		

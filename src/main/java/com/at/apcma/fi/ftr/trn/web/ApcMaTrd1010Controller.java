@@ -56,7 +56,7 @@ public class ApcMaTrd1010Controller extends BaseController {
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
 
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
 
@@ -87,7 +87,7 @@ public class ApcMaTrd1010Controller extends BaseController {
             logger.info("=============insertTrd1010List=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
@@ -108,7 +108,7 @@ public class ApcMaTrd1010Controller extends BaseController {
             logger.info("=============insertTrd1010Sub=====end========");
             return getSuccessResponseEntityMa(resultMap);
         } catch (Exception e) {
-            logger.debug(e.getMessage());
+            
             return getErrorResponseEntity(e);
         }
     }
