@@ -146,7 +146,7 @@ public class SortFcltVO extends ComVO {
 	/**
 	대표품종
 	**/
-	private String itemVrty;
+	private String itemVrtyCd;
 
 	/**
 	규격코드

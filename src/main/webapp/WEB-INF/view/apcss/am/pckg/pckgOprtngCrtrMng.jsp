@@ -318,7 +318,7 @@
                     }
                 }},
             {caption: ['품목'], ref: 'rprsItem', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcItem', label:'label', value:'value', displayui : true, oneclickedit : true}, style:'text-align:center'},
-            {caption: ['품종'], ref: 'itemVrty', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'label', value:'itemVrtyCd', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemCd'}}, style:'text-align:center'},
+            {caption: ['품종'], ref: 'itemVrtyCd', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'label', value:'itemVrtyCd', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemCd'}}, style:'text-align:center'},
             {caption: ['규격'], ref: 'spcfctCd', width: '10%', type: 'combo', typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'rprsItem', attrname : 'itemCd'}}, style:'text-align:center'},
             {caption: ['투입수량'], ref: 'inptQntt', width: '10%', type: 'input', style:'text-align:center', typeinfo : {mask : { alias: 'numeric'}}},
             {caption: ['투입중량'], ref: 'inptWght', width: '10%', type: 'input', style:'text-align:center', typeinfo : {mask : { alias: 'numeric'}}},
@@ -363,6 +363,7 @@
 
          if(rowData.gubun === "insert"){
          	grdOprtngCrtr.deleteRow(nRow,true);
+         	grdOprtngCrtr.rebuild();
          }else{
          	fn_deleteDtl(rowIndex);
          }
