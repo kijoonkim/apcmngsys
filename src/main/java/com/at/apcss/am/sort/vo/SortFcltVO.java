@@ -144,6 +144,11 @@ public class SortFcltVO extends ComVO {
 	private String rprsVrty;
 
 	/**
+	대표품종
+	**/
+	private String itemVrty;
+
+	/**
 	규격코드
 	**/
 	private String spcfctCd;
