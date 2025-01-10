@@ -435,9 +435,6 @@
                 item.fcltType = 'WGH_FCLT_CD';
                 return item.delYn == 'N'});
             saveParam.wghFcltDtlVO = grdWghDtl;
-            console.log(saveParam,"wㅓ장전");
-            console.log(editMode,"edit");
-            console.log(createMode,"create");
 
             let postJsonPromise;
 

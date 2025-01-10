@@ -237,7 +237,6 @@
     }
     const fn_delRow = async function(nRow){
         let rowData = gridRtnCrtr.getRowData(nRow);
-        console.log(rowData);
         if(!gfn_isEmpty(rowData.apcCd)){
             if(!gfn_comConfirm("Q0001","등록된 목록입니다. 삭제")){
                 return;
@@ -269,7 +268,6 @@
             gridRtnCrtrDtl.deleteRow(nRow);
             return;
         }
-        console.log(rowData,"디테일 삭제");
 
         const postJsonPromise = gfn_postJSON("/am/spmt/deleteShpgotApcCrtrDtl.do",rowData);
         const data = await postJsonPromise;
