@@ -29,8 +29,8 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn			-->
+	<!-- DESC : 출자출하조직 총괄표 목록 조회.                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -232,6 +232,7 @@
 						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
 		)TOTAL
+		ORDER BY TOTAL.STTG_UPBR_ITEM_SE
 	</select>
 
 
