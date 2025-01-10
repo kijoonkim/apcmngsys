@@ -207,13 +207,15 @@
 
     const fn_save = async function(){
     	let rowData = grdSortFcltList.getRowData(grdSortFcltList.getRow());
+    	let rowData2 = grdOprtngCrtr.getRowData(grdOprtngCrtr.getRow());
 
 
 
         try{
 			let sortOprtngCrtrList = grdOprtngCrtr.getGridDataAll();
 				let chk = true;
-				sortOprtngCrtrList.forEach((item,sn) => {
+				let filter = sortOprtngCrtrList.filter(item=>item.delYn=== "N");
+				filter.forEach((item,sn) => {
 
 					if(gfn_nvl(item["gubun"]) === ""){
 						item["gubun"] = "update";
@@ -222,9 +224,10 @@
 					item["apcCd"] = gv_selectedApcCd;
 					item["fcltType"] = rowData.fcltType;
 					item["fcltCd"] = rowData.fcltCd;
+					item["rprsVrty"] = rowData2.itemVrtyCd.substring(4);
 
 
-			    	if(gfn_isEmpty(item.spcfctCd) || gfn_isEmpty(item.rprsVrty)){
+			    	if(gfn_isEmpty(item.spcfctCd) || gfn_isEmpty(item.itemVrtyCd)){
 			    		//gfn_comAlert("W0001", "품종/규격");			//	W0002	{0}을/를 선택하세요.
 			    		chk = false;
 			    	}
@@ -237,13 +240,13 @@
 
             //let sortFcltDtlList = sortFcltDtl.filter(x => x.delYn==="N");
 
-            let postJsonPromise = gfn_postJSON("/am/sort/insertSortOprtngCrtr.do",sortOprtngCrtrList);
+            let postJsonPromise = gfn_postJSON("/am/sort/insertSortOprtngCrtr.do",filter);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
                 if (data.resultStatus == "S") {
-                    // gfn_comAlert(data.resultCode, data.resultMessage);
-                    //gfn_comAlert("I0002","1건",createMode?"생성":"수정");
+                    gfn_comAlert("I0001");
+                    grdOprtngCrtr.rebuild();
                     //fn_reset();
                     return;
                 }
@@ -290,7 +293,9 @@
         try{
             if(data.resultStatus == "S"){
                 if(data.deletedCnt > 0){
-                	fn_search();
+                	//fn_search();
+                	grdOprtngCrtr.deleteRow(rowIndex,true);
+        			grdOprtngCrtr.rebuild();
                     gfn_comAlert("I0001");
                 }
             };
