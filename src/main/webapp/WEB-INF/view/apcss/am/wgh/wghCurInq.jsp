@@ -140,8 +140,6 @@
             return;
         }
 
-        console.log(data,"여기서 저거를 잡아야해");
-
         mngList = mngList.filter(item => {
             let fcltCd = item.fcltCd;
             return data.resultList.every(inner => inner.fcltCd !== fcltCd);

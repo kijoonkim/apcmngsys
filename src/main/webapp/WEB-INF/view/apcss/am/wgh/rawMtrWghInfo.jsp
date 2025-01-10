@@ -334,7 +334,6 @@
 
     	let postJsonPromise = gfn_postJSON("/am/cmns/selectWghDtlInfo.do", param);
         let data = await postJsonPromise;
-        console.log(data,"??");
 
         try{
   			if (_.isEqual("S", data.resultStatus)) {
