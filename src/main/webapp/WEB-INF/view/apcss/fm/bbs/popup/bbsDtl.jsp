@@ -437,6 +437,7 @@
 
 		formData.append('bbsNo', bbsNo);
 
+
 		$.ajax({
 			type: 'POST',
 			url: '/fm/bbs/fileUpload.do',
