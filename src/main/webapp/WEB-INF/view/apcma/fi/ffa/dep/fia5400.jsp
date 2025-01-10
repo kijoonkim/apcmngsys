@@ -35,10 +35,17 @@
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out>
                     </h3><!-- 감가상각 내역  -->
                 </div>
+                              <div style="margin-left: auto;">
+
+                    <sbux-button id='btnExcelDwnld' name='btnExcelDwnld' uitype='normal' text='엑셀다운로드' class='btn btn-sm btn-outline-danger' onclick='fn_excelDownload' style='float: right;'></sbux-button>
+               </div>
 
             </div>
+
             <div class="box-body">
+
             	<div class="box-search-ma">
+
 				<!--[pp] 검색 -->
 				<!--[APC] START -->
 				<div>
@@ -138,25 +145,28 @@
                     </tbody>
                 </table>
                 </div>
+
 			</div>
 
+					<div>
 
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-				</sbux-tabs>
+						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
+						</sbux-tabs>
 
-				<div class="tab-content">
-					<div id="totDprcPivotTab" >
-						<div id="sb-area-grdTotDprc" style="height:500px;width:100%"></div>
+
+						<div class="tab-content">
+							<div id="totDprcPivotTab" >
+								<div id="sb-area-grdTotDprc" style="height:500px;width:100%"></div>
+							</div>
+							<div id="totDtlDprcTab" >
+								<div id="sb-area-grdTotDtlDprc" style="height:500px;width:100%"></div>
+							</div>
+							<div id="mmDprcTab" >
+								<div id="sb-area-grdMmDprc" style="height:500px;width:100%"></div>
+							</div>
+
+						</div>
 					</div>
-					<div id="totDtlDprcTab" >
-						<div id="sb-area-grdTotDtlDprc" style="height:500px;width:100%"></div>
-					</div>
-					<div id="mmDprcTab" >
-						<div id="sb-area-grdMmDprc" style="height:500px;width:100%"></div>
-					</div>
-
-				</div>
-
             </div>
     </section>
 
@@ -295,6 +305,8 @@
     window.addEventListener('DOMContentLoaded', function(e) {
 
     	fn_initSBSelect();
+    	 //$("#idxTab_norm_ul").append("<sbux-button id='btnExcelDownload' name='btnExcelDownload' uitype='normal' text='엑셀다운로드' class='btn btn-sm btn-outline-danger' onclick='fn_excelDownload' style='float: right;'></sbux-button>");
+    	//$("#idxTab_norm").append("");
 
     });
 
@@ -327,11 +339,14 @@
 	    SBGridProperties.parentid 			= 'sb-area-grdTotDprc';
 	    SBGridProperties.id 				= 'grdTotDprc';
 	    SBGridProperties.jsonref 			= 'jsonTotDprc';
+	    SBGridProperties.useinitsorting = true;
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList1;	// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
         	{caption: ['자산구분'], ref: 'ASST_CTGRY', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['감소금액'], ref: 'DSPSL_ACQS_AMT', format : {type:'number', rule:'#,###'}, width: '8%', type: 'output', style:'text-align:right'},
@@ -361,11 +376,14 @@
 	    SBGridProperties.parentid 			= 'sb-area-grdTotDtlDprc';
 	    SBGridProperties.id 				= 'grdTotDtlDprc';
 	    SBGridProperties.jsonref 			= 'jsonTotDtlDprc';
+	    SBGridProperties.useinitsorting = true;
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList2;	// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
         	{caption: ['자산번호'], ref: 'ASST_NO', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['자산명'], ref: 'ASST_NM', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -427,19 +445,22 @@
 	    SBGridProperties.parentid 			= 'sb-area-grdMmDprc';
 	    SBGridProperties.id 				= 'grdMmDprc';
 	    SBGridProperties.jsonref 			= 'jsonMmDprc';
+	    SBGridProperties.useinitsorting = true;
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrow';
 	    SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.rowheader 			= 'seq';
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
+	    SBGridProperties.contextmenulist = objMenuList3;	// 우클릭 메뉴 리스트
         SBGridProperties.columns = [
+        	{caption: ['자산번호'], ref: 'ASST_NO', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['감가상각비'], ref: 'DPCO_AMT', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:right'},
         	{caption: ['자산계정'], ref: 'ASST_ACNT_CD', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['자산구분'], ref: 'ASST_CTGRY', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['중분류'], ref: 'ASST_MCLSF', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['소분류'], ref: 'ASST_SCLSF', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['자산명'], ref: 'ASST_NM', width: '8%', type: 'output', style:'text-align:center'},
-        	{caption: ['자산번호'], ref: 'ASST_NO', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['자산수량'], ref: 'AST_DSPSL_QTY', width: '8%', type: 'output', format : {type:'number', rule:'#,###'}, style:'text-align:center'},
         	{caption: ['상각구분'], ref: 'DPRC_TYPE', width: '8%', type: 'output', style:'text-align:center'},
         	{caption: ['상각구분연월'], ref: 'DPRC_YM', width: '8%', type: 'output', style:'text-align:center'},
@@ -601,6 +622,7 @@
   	  	        			jsonMmDprc.push(msg);
   	  	    			});
   	  	        			grdMmDprc.rebuild();
+  	  	        			grdMmDprc.sortColumn(grdMmDprc.getColRef("ASST_NO"),"asc");
   	        		}
 
 
@@ -1005,6 +1027,42 @@
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
     	SBUxMethod.openModal('modal-compopup1');
+  	}
+
+    const fn_excelDownload = async function () {
+    	let tabInfo = SBUxMethod.get("idxTab_norm");
+
+        if(tabInfo === "totDprcPivotTab"){
+        	grdTotDprc.exportLocalExcel("총괄감가상각비 피벗", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		 }
+        else if(tabInfo == "totDtlDprcTab"){
+        	grdTotDtlDprc.exportLocalExcel("총괄명세감가상각비 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+        }
+        else if(tabInfo == "mmDprcTab"){
+        	grdMmDprc.exportLocalExcel("월별 감가상각비 내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+        }
+    }
+
+    var objMenuList1 = {
+    		  "excel":{
+    		    "name" : "엑셀다운로드",	//컨텍스트메뉴에 표시될 이름
+    		    "accesskey" : "a",	//단축키
+    		    "callback" : fn_excelDownload	//콜백함수명
+    		  }
+    }
+    var objMenuList2 = {
+  		  "excel":{
+  		    "name" : "엑셀다운로드",	//컨텍스트메뉴에 표시될 이름
+  		    "accesskey" : "a",	//단축키
+  		    "callback" : fn_excelDownload	//콜백함수명
+  		  }
+  	}
+    var objMenuList3 = {
+  		  "excel":{
+  		    "name" : "엑셀다운로드",	//컨텍스트메뉴에 표시될 이름
+  		    "accesskey" : "a",	//단축키
+  		    "callback" : fn_excelDownload	//콜백함수명
+  		  }
   	}
 
 </script>

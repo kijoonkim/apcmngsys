@@ -865,7 +865,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
         var replaceText0 	= "_EMP_CD_";
         var replaceText1 	= "_EMP_NM_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND EMP_CD LIKE '%" + replaceText0 + "%' AND EMP_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
     	compopup1({
@@ -901,13 +901,8 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-astNo2"));
         var replaceText0 	= "_ASST_NO_";
         var replaceText1 	= "_ASST_NM_";
-<<<<<<< Updated upstream
         var strWhereClause 	= "AND ASST_NO LIKE '%" + replaceText0 + "%' AND ASST_NM LIKE '%" + replaceText1 + "%' ";
- 
-=======
-        var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
 
->>>>>>> Stashed changes
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd

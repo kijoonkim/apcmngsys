@@ -82,7 +82,7 @@
 								<sbux-select id="srch-slt-fiOrgCode" uitype="single" jsondata-ref="jsonBizUnit" unselected-text="선택" class="form-control input-sm"></sbux-select>
                             </td>
                             <td></td>
-                            
+
                             <th scope="row" class="th_bg_search">사업장</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
 
@@ -451,6 +451,8 @@
 			     					, insertPc : item.WRT_PC
 			     					, memo : item.MEMO
 			     			}
+
+
 			     			jsonDprcHstry.push(obj);
 			     		})
         			   //jsonDprcHstry = msg;
@@ -460,7 +462,12 @@
 	            	   jsonAstClsfList.length = 0;
 	            	   //grdAstClsfList
 	            	   //var msg = convertArrayToCamelCase(data.cv_1)
-	            	    data.cv_1.forEach(item=>{
+
+			     		const filteredList = data.cv_1.filter(item1 =>
+			     			jsonBplc.some(item2 => item1.SITE_CD === item2.value)
+						);
+
+			     		filteredList.forEach(item=>{
 			     			var obj = {
 			     					checkYn : item.CHECK_YN
 			     					, seq : item.SEQ
@@ -476,6 +483,7 @@
 			     					, memo : item.MEMO
 
 			     			}
+
 			     			jsonAstClsfList.push(obj);
 			     		})
         			   //jsonAstClsfList = msg;
@@ -585,7 +593,7 @@
 	//조회
 	// srrWorkType : GAAP, IFRS, TAX, CANCLE
     const fnSET_P_FIA5200_S = async function(strWorkType,strSiteCodeP){
-		
+
 		let depreciationYyyymm 	= 	SBUxMethod.get("srch-dtp-depreciationYyyymm");
 		let depreciationType 	= 	SBUxMethod.get("srch-slt-depreciationType");
 
@@ -614,7 +622,7 @@
 
          const data = await postJsonPromise;
  		 console.log('insertFia5200 data:', data);
- 		 
+
          // 비즈니스 로직 정보
          try {
 	        if (_.isEqual("S", data.resultStatus)) {
