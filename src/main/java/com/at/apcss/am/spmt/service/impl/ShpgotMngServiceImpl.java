@@ -6,6 +6,7 @@ import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
 import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,5 +90,25 @@ public class ShpgotMngServiceImpl implements ShpgotMngService {
     @Override
     public List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception {
         return shpgotMngMapper.selectShpgotRawMtr(shpgotApcRawMtrVO);
+    }
+
+    @Override
+    public int deleteShpgotApcCrtr(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception {
+        int resultCnt = 0;
+        resultCnt = shpgotMngMapper.deleteShpgotApcCrtr(shpgotApcCrtrVO);
+        if(resultCnt < 0){
+            throw new EgovBizException();
+        }
+        ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO = new ShpgotApcCrtrDtlVO();
+
+        BeanUtils.copyProperties(shpgotApcCrtrVO,shpgotApcCrtrDtlVO);
+        shpgotMngMapper.deleteShpgotApcCrtrDtl(shpgotApcCrtrDtlVO);
+
+        return resultCnt;
+    }
+
+    @Override
+    public int deleteShpgotApcCrtrDtl(ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO) throws Exception {
+        return shpgotMngMapper.deleteShpgotApcCrtrDtl(shpgotApcCrtrDtlVO);
     }
 }

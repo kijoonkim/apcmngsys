@@ -78,4 +78,18 @@ public interface ShpgotMngMapper {
      * @throws Exception
      */
     List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception;
+    /**
+     * 반품기준 목록 삭제
+     * @param shpgotApcCrtrVO
+     * @return int
+     * @throws Exception
+     */
+    int deleteShpgotApcCrtr(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+     * 반품기준 상세목록 삭제
+     * @param shpgotApcCrtrDtlVo
+     * @return int
+     * @throws Exception
+     */
+    int deleteShpgotApcCrtrDtl(ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVo) throws Exception;
 }

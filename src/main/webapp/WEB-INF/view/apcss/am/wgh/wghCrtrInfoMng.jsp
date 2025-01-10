@@ -211,11 +211,27 @@
                                     <tr>
                                         <th scope="row" class="th_bg">시작일자</th>
                                         <td class="td_input">
-                                            <sbux-datepicker id="dtl-dtp-bgngYmd" name="dtl-dtp-bgngYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc" onchange="fn_editMode(this)"></sbux-datepicker>
+                                            <sbux-datepicker
+                                                    id="dtl-dtp-bgngYmd"
+                                                    name="dtl-dtp-bgngYmd"
+                                                    uitype="popup"
+                                                    date-format="yyyy-mm-dd"
+                                                    class="form-control input-sm input-sm-ast sbux-pik-group-apc"
+                                                    onchange="fn_editMode(this)"
+                                                    callback-before-close="fn_validateBgng()">
+                                            </sbux-datepicker>
                                         </td>
                                         <th scope="row" class="th_bg">종료일자</th>
                                         <td class="td_input">
-                                            <sbux-datepicker id="dtl-dtp-endYmd" name="dtl-dtp-endYmd" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast sbux-pik-group-apc" onchange="fn_editMode(this)"></sbux-datepicker>
+                                            <sbux-datepicker
+                                                    id="dtl-dtp-endYmd"
+                                                    name="dtl-dtp-endYmd"
+                                                    uitype="popup"
+                                                    date-format="yyyy-mm-dd"
+                                                    class="form-control input-sm input-sm-ast sbux-pik-group-apc"
+                                                    onchange="fn_editMode(this)"
+                                                    callback-before-close="fn_validateEnd()">
+                                            </sbux-datepicker>
                                         </td>
                                     </tr>
                                     <tr style="height: 5vh">
@@ -409,16 +425,19 @@
             wghInfo.bgngYmd = SBUxMethod.get("dtl-dtp-bgngYmd");
             wghInfo.endYmd = SBUxMethod.get("dtl-dtp-endYmd");
 
-            let saveParam = gfn_getTableElement("wghDtlTable","dtl-",["fcltCd","fcltExpln","wghtMin","wghtMax","prcsNmtm","warehouseSeCd","cpctUnit","bgngYmd","endYmd","fcltRmrk"]);
+            let saveParam = gfn_getTableElement("wghDtlTable","dtl-",["fcltCd","fcltExpln","wghtMin","wghtMax","prcsNmtm","warehouseSeCd","bgngYmd","endYmd","fcltRmrk"]);
             saveParam.apcCd = gv_apcCd;
 
             let grdWghDtl = grdWghDtlList.getGridDataAll().filter((item,idx) => {
                 delete item.itemCd;
                 item.apcCd = gv_apcCd;
                 item.sn = idx;
-                item.fcltType = 'WGH_FCLT';
+                item.fcltType = 'WGH_FCLT_CD';
                 return item.delYn == 'N'});
             saveParam.wghFcltDtlVO = grdWghDtl;
+            console.log(saveParam,"wㅓ장전");
+            console.log(editMode,"edit");
+            console.log(createMode,"create");
 
             let postJsonPromise;
 
@@ -484,8 +503,7 @@
             if(!gfn_comConfirm("Q0001","수정중인 목록입니다. 삭제")){
                 return;
             }
-        };
-        if(!gfn_comConfirm("Q0001","삭제")){
+        }else if(!gfn_comConfirm("Q0001","삭제")){
             return;
         };
 
@@ -738,6 +756,30 @@
             SBUxMethod.set(preId,preValue);
         }
     }
+    function fn_validateBgng (){
+        let sdate = SBUxMethod.get("dtl-dtp-bgngYmd");
+        let edate = SBUxMethod.get("dtl-dtp-endYmd");
+        if(sdate > edate){
+            gfn_comAlert("W0023","종료일자","시작일자");
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+    function fn_validateEnd (){
+        let sdate = SBUxMethod.get("dtl-dtp-bgngYmd");
+        let edate = SBUxMethod.get("dtl-dtp-endYmd");
+        if(sdate > edate){
+            gfn_comAlert("W0023","종료일자","시작일자");
+            return false;
+        }else if(edate > gfn_dateToYmd(new Date())){
+            gfn_comAlert("W0023","종료일자","현재일자");
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     window.addEventListener("DOMContentLoaded",function(){
         fn_createWghListGrid();
@@ -747,47 +789,5 @@
     });
 
 </script>
-
-<%--<script type="module">--%>
-<%--    const { createStore } = Vuex;--%>
-<%--    const { createApp } = Vue;--%>
-<%--    const store = createStore({--%>
-<%--        state() {--%>
-<%--            return {--%>
-<%--                message: 'Hello Vuex!'--%>
-<%--            }--%>
-<%--        },--%>
-<%--        mutations: {--%>
-<%--            setMessage(state, newMessage) {--%>
-<%--                state.message = newMessage;--%>
-<%--            }--%>
-<%--        },--%>
-<%--        actions: {--%>
-<%--            updateMessage({ commit }, newMessage) {--%>
-<%--                commit('setMessage', newMessage);--%>
-<%--            }--%>
-<%--        },--%>
-<%--        getters: {--%>
-<%--            message(state) {--%>
-<%--                return state.message;--%>
-<%--            }--%>
-<%--        }--%>
-<%--    });--%>
-<%--    const app = createApp({--%>
-<%--        computed: {--%>
-<%--            message() {--%>
-<%--                return this.$store.getters.message;--%>
-<%--            }--%>
-<%--        },--%>
-<%--        methods: {--%>
-<%--            changeMessage() {--%>
-<%--                this.$store.dispatch('updateMessage', 'New message from Vuex!');--%>
-<%--            }--%>
-<%--        }--%>
-<%--    });--%>
-<%--    app.use(store);--%>
-<%--    app.mount('#aaa');--%>
-
-<%--</script>--%>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

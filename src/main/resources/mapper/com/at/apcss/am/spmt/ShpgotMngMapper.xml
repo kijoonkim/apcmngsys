@@ -344,5 +344,43 @@
         AND
             WRHSNO = #{wrhsno}
     </select>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.deleteShpgotApcCrtr     -->
+    <!-- DESC : 반품 기준 목록 삭제.    	                         	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.08  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteShpgotApcCrtr" parameterType="com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO">
+        DELETE FROM TB_SHPGOT_APC_CRTR
+            WHERE
+                APC_CD = #{apcCd}
+            AND
+                SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+            AND
+                CRTR_CD = #{crtrCd}
+    </delete>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.deleteShpgotApcCrtr     -->
+    <!-- DESC : 반품 기준 목록 삭제.    	                         	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.08  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteShpgotApcCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO">
+        DELETE FROM TB_SHPGOT_APC_CRTR_DTL
+        WHERE
+            APC_CD = #{apcCd}
+          AND
+            SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+          AND
+            CRTR_CD = #{crtrCd}
+        <if test='dtlSn != null and dtlSn !=""'>
+          AND DTL_SN = #{dtlSn}
+        </if>
+    </delete>
 
 </mapper>
