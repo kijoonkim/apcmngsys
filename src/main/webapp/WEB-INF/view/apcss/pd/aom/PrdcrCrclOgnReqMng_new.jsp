@@ -895,7 +895,7 @@
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">구분</th>
 							<th colspan="4" scope="row" class="th_bg th_border_right">연도</th>
-							<th colspan="7" scope="row" class="th_bg">NH(농협) 자금 신청액(천원)(최소 단위 100,000(천원) 하위 단위 절삭처리)</th>
+							<th colspan="7" scope="row" class="th_bg">NH(농협) 자금 신청액(천원)</th>
 						</tr>
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">생산유통통합조직</th>
