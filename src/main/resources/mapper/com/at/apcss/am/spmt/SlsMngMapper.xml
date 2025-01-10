@@ -13,14 +13,31 @@
 	<!-- ==========================================================================	-->
     <select id="selectSlsPrfmnc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
     	<![CDATA[
-    		SELECT	/* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc */
-			    *
-			  FROM TB_SLS_PRFMNC SP
-			 WHERE SP.APC_CD 	= #{apcCd}
-			   AND SP.SLS_YMD 	>= #{slsYmdFrom}
-			   AND SP.SLS_YMD 	<= #{slsYmdTo}
-			   AND SP.DEL_YN = 'N'
+    		SELECT
+    			  pt0.*
+    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+    		 FROM (	
+		    		SELECT	/* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsPrfmnc */
+					    *
+					  FROM TB_SLS_PRFMNC
+					 WHERE DEL_YN = 'N'
 		]]>
+				<if test='apcCd != null and apcCd != ""'>
+	   				AND APC_CD = #{apcCd}
+				</if>
+				<if test='slsYmdFrom != null and apcCd != ""'>
+		    		AND SLS_YMD <![CDATA[>=]]> #{slsYmdFrom}
+				</if>
+				<if test='slsYmdTo != null and apcCd != ""'>
+	    			AND SLS_YMD <![CDATA[<=]]> #{slsYmdTo}
+				</if>
+				<if test='itemCd != null and apcCd != ""'>
+	    			AND ITEM_CD = #{itemCd}
+				</if>
+				<![CDATA[
+		    		  ) pt0
+				]]>
     </select>
 
 	<!-- ==========================================================================	-->

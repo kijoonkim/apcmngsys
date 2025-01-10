@@ -94,8 +94,8 @@
 							<th scope="row" class="th_bg">품목/품종</th>
 								<td class="td_input" style="border-right: hidden;">
 									<sbux-select
-										id="srch-slt-itemCd"
-										name="srch-slt-itemCd"
+										id="srch-inp-itemCd"
+										name="srch-inp-itemCd"
 										uitype="single"
 										class="form-control input-sm"
 										unselected-text="전체"
@@ -111,6 +111,7 @@
 									class="form-control input-sm"
 									maxlength="33"
 									show-clear-button="true"
+									
 									readonly
 								></sbux-input>
 								<sbux-input
@@ -196,86 +197,35 @@
 </body>
 <script type="text/javascript">
 
-	//기준유형
-	/* var jsonCrtrType = [];
-	var jsonExcl = [];
-	var jsonIncl = [];
-	var jsonCrtrKnd = [];
-	var jsonTrgtKnd = [];
-	var jsonTotArtclKnd = [];
-	var jsonDtlPrcs = []; */
+
 	
-	var mergeArray = [];
 	
-	var jsonDtlCd =[];
 	var jsonCrtrCd = [];
-	var jsonTermKnd = [];
-	var jsonCrtTm = [];
-	var jsonArtclKnd = [];
-	var jsonExclItem = [];
-	var jsonExclVrty = [];
-	var jsonExclPrdcr = [];
-	var jsonInclItem = [];
-	var jsonInclVrty = [];
-	var jsonInclPrdcr = [];
-	var jsonPrdcr = [];
-	
-	
-	var jsonElmt = [];
-	var jsonYn = [
-		{value : 'Y', label : '사용' }
-		, {value : 'N', lable : '미사용' }
-	];	
-	var jsonTotDtlType = [];	
-	// grid
-	// 집계기준목록
-	var grdTotCrtrList;
-	//var jsonTotCrtrList = [];
-	// 집계기준상세정보
-	var grdTotCrtrDtlList;
-	var jsonTotCrtrDtlList= [];
-	var jsonTempTotCrtrDtlList = [];
-	
-	
 	//매출실적 
 	var jsonSlsPrfmnc = [];
 	var grdSlsPrfmncList = [];
 	var jsonSlsPrfmncLsit = [];
 	
+	//품목
+	var jsonApcItem = [];
+	//품종
+	var jsonComVrty = [];
 	
 
 
 
 	const fn_initSBSelect = async function() {
-		/* jsonExcl = await gfn_getComCdDtls('TOT_ELMT_EXCL');
-		jsonIncl = await gfn_getComCdDtls('TOT_ELMT_INCL');
-		jsonTrgtKnd = await gfn_getComCdDtls('TOT_TRGT_KND');
-		jsonCrtrKnd = await gfn_getComCdDtls('TOT_CRTR_KND');
-		jsonTotArtclKnd = await gfn_getComCdDtls('TOT_ARTCL_KND');
-		jsonDtlPrcs = await gfn_getComCdDtls('TOT_DTL_PRCS_CD');
-		jsonElmt = await gfn_getComCdDtls('TOT_ELMT_INCL');
-		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE'); */
-
-		/* jsonTermKnd = await gfn_getComCdDtls('TOT_TERM_KND');
-		jsonCrtTm = await gfn_getComCdDtls('TOT_CRT_TM');
-		jsonArtclKnd = await gfn_getComCdDtls('TOT_ARTCL_KND');
-		jsonExclItem = await gfn_getComCdDtls('TOT_EXCL_ITEM');
-		jsonExclVrty = await gfn_getComCdDtls('TOT_EXCL_VRTY');
-		jsonExclPrdcr = await gfn_getComCdDtls('TOT_EXCL_PRDCR');
-		jsonInclItem = await gfn_getComCdDtls('TOT_INCL_ITEM');
-		jsonInclVrty = await gfn_getComCdDtls('TOT_INCL_VRTY');
-		jsonInclPrdcr = await gfn_getComCdDtls('TOT_INCL_PRDCR');
-		jsonCrtrType = await gfn_getComCdDtls('TOT_CRTR_TYPE');
-		jsonDtlType = await gfn_getComCdDtls('TOT_DTL_TYPE'); */
-		
 		
 		jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 
 		jsonCrtrCd = await gfn_getComCdDtls('SLS_CRTR_CD');
 
-
-		await gfn_setComCdSBSelect('srch-slt-crtrType', jsonCrtrCd, 'SLS_CRTR_CD') // 집계기준
-		mergeArray = [...jsonCrtrCd,...jsonTermKnd,...jsonCrtTm,...jsonArtclKnd,...jsonExclItem,...jsonExclVrty,...jsonExclPrdcr,...jsonInclItem,...jsonInclVrty,...jsonInclPrdcr];
+		await gfn_setComCdSBSelect('srch-slt-crtrType', jsonCrtrCd, 'SLS_CRTR_CD');
+		
+		let result = await Promise.all([
+			gfn_setApcItemSBSelect('srch-inp-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('srch-inp-vrtyNm', jsonComVrty, gv_selectedApcCd),	// 품종
+		]);
 
 
 	}
@@ -287,36 +237,13 @@
 
     const fn_init = async function() {
     	await fn_initSBSelect();
+    	
+    	SBUxMethod.set("srch-inp-itemCd", ""); // 품목
+		SBUxMethod.set("srch-slt-vrtyNm", ""); // 품종
+		
 		fn_createSlsPrfmnclist();
 		fn_search();
     }
-
-	function fn_closeModal(modalId){
-		SBUxMethod.closeModal(modalId);
-	}
-
-    const fn_modalVrty = function() {
-    	let row = grdTotCrtrDtlList.getRow()
-		let rowData = grdTotCrtrDtlList.getRowData(grdTotCrtrDtlList.getRow());
-
-    	if(rowData.dtlCd === 'ITEM' || rowData.dtlCd === 'VRTY'){
-	    	popVrty.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-slt-itemCd"), fn_setVrty);
-	    	SBUxMethod.openModal("modal-vrty");
-    	}
-	}
-
-    const fn_setVrty = function(vrty) {
-		if (!gfn_isEmpty(vrty)) {
-			let row = grdTotCrtrDtlList.getRow()
-			let rowData = grdTotCrtrDtlList.getRowData(row);
-			if(rowData.dtlCd === 'ITEM'){
-				rowData['dtlVl'] = vrty.itemCd;
-			}else if(rowData.dtlCd === 'VRTY'){
-				rowData['dtlVl'] = vrty.itemCd + vrty.vrtyCd;
-			}
-			grdTotCrtrDtlList.setRowData(row,rowData,true);
-		}
-	}
 
 
 
@@ -344,8 +271,8 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["품목"], ref : 'itemCd',  type: 'input', width:'9.7%', style:'text-align:center'},
-            {caption: ["품종"], ref: 'vrtyCd',   type:'input', width:'9.7%',  style:'text-align:center'},
+            {caption: ["품목"],  ref :'itemCd',  type: 'combo', width:'9.7%',typeinfo : {ref :'jsonApcItem', label : 'itemNm',value :'itemCd'}, style:'text-align:center'},
+            {caption: ["품종"],  ref: 'vrtyCd',  type:'combo', typeinfo : {ref:'jsonComVrty', label:'vrtyNm', value:'vrtyCd', filtering: {usemode: true, uppercol: 'itemNm', attrname: 'itemCd'}},width:'9.7%',  style:'text-align:center'},
             {caption: ["생산자"], ref: '?',       type:'input', width:'9.7%',  style:'text-align:center'},
             {caption: ["상세구분"],ref: '?',	   type:'input', width:'9.7%',  style:'text-align:center'},
             {caption: ["매출번호"],ref: 'slsSn',   type:'input', width:'9.7%',  style:'text-align:center'},
@@ -354,71 +281,11 @@
             {caption: ["상세코드"],ref: '?',       type:'input',width:'9.7%',  style:'text-align:center'},
             {caption: ["매출금액"],ref: 'rkngAmt', type:'input',width:'9.7%',  style:'text-align:center'},
             {caption: ["확정금액"],ref: 'cfmtnAmt',type:'input',width:'9.7%',  style:'text-align:center'},
-			{caption: ["삭제여부"], ref: 'delYn', type:'output',hidden : true}
+			{caption: ["삭제여부"],ref: 'delYn', type:'output',hidden : true}
 						
         ];
         grdSlsPrfmncList = _SBGrid.create(SBGridProperties);
     }
-
-
-
-    const fnCallback = function(){
-    	let row = grdTotCrtrDtlList.getRow();
-    	let rowData = grdTotCrtrDtlList.getRowData(row);
-
-    	if(gfn_nvl(rowData)===""){
-    		return;
-    	}
-
-    	if(rowData.dtlCd === "ITEM" || rowData.dtlCd === "VRTY"){
-    		fn_modalVrty();
-    	}else if(rowData.dtlCd === "PRDCR"){
-    		fn_choicePrdcr();
-    	}
-
-
-
-
-    }
-
-    /**
-     * @name fn_addRow
-     * @description 행추가
-     * @param {number} nRow
-     */
-    const fn_addRow = async function(grd, nRow, chk) {
-    	const editableRow = grd.getRowData(nRow, false);	// call by reference(deep copy)
-
-    	if(gfn_nvl(editableRow) === ""){
-
-    	}else{
-    		editableRow.status = "3";
-    	}
-
-        grd.addRows([{status : chk.toString(),useYn : "Y", gubun : "insert" }]);
-        nRow++;
-        grd.setCellDisabled(nRow, 0, nRow, grd.getCols() - 1, true);
-        grd.setCellDisabled(nRow-1, 0, nRow-1, grd.getCols() - 1, false);
-    }
-
-    /**
-     * @name fn_delRow
-     * @description 행삭제
-     * @param {number} nRow
-     */
-    const fn_delRow = async function(grd,nRow) {
-        let rowIndex = grd.getRow();
-        let status = grd.getRowStatus(rowIndex);
-        if(status === 0){
-        	fn_delete(grd,rowIndex);
-        }else{
-        	grd.deleteRow(nRow);
-        }
-    }
-
-
-
-
 
 
 	/**
@@ -427,9 +294,15 @@
      */
     const fn_search = async function() {
     	let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
+    	let getItemCd = SBUxMethod.get("srch-inp-itemCd");
+    	
     	
     	let purSalYmdFrom;
     	let purSalYmdTo;
+    	
+    	if(getpurSalYmd === undefined){
+    		return;
+    	}
 
     	getpurSalYmd.forEach((item,index) =>{
     		if(index === 0 ){
@@ -442,11 +315,10 @@
     	const postJsonPromise = gfn_postJSON("/am/spmt/selectSlsPrfmnc.do", {
 			apcCd: gv_selectedApcCd,
 			slsYmdFrom : purSalYmdFrom,
-			slsYmdTo : purSalYmdTo
-			
+			slsYmdTo : purSalYmdTo,
+			itemCd : getItemCd
   		});
         const data = await postJsonPromise;       
-        console.log(data);
   		try {
  			if (_.isEqual("S", data.resultStatus)) {
  				jsonSlsPrfmnc = data.resultList;
@@ -492,23 +364,6 @@
 						
         try{
 			
-			/*allData.forEach((item, index)=>{
-				if(item.checkedYn === "Y"){					
-					slsPrfmncList.push({
-						apcCd : gv_selectedApcCd
-						, slsSn : item.slsSn
-						, slsYmdFrom : purSalYmdFrom
-						, slsYmdTo : purSalYmdTo
-						, itemCd : item.itemCd
-	        			, vrtyCd : item.vrtyCd
-	        			, qntt : item.qntt
-	        			, wght : item.wght
-	        			, rkngAmt : item.rkngAmt
-	        			, cfmtnAmt : item.cfmtnAmt
-					});
-				}
-			});*/
-			
 			allData.forEach((item, index)=>{								
 					slsPrfmncList.push({
 						apcCd : gv_selectedApcCd
@@ -524,7 +379,6 @@
 					});
 			});
 
-			console.log(slsPrfmncList);
 			
             let postJsonPromise = gfn_postJSON("/am/spmt/updateSlsPrfmnc.do",slsPrfmncList);
 
@@ -707,6 +561,37 @@
 			fn_setPrdcrForm(prdcrInfo);
 
 		}
+		
+		/**
+		 * @name fn_onChangeSrchItemCd
+		 * @description 품목 선택 변경 event
+		 */
+		const fn_onChangeSrchItemCd = async function(obj) {
+
+			let itemCd = obj.value;
+			const itemInfo = _.find(jsonApcItem, {value: itemCd});
+			
+			let result = await Promise.all([
+				gfn_setApcVrtySBSelect('srch-inp-vrtyNm', jsonComVrty, gv_selectedApcCd, itemCd)
+			]);
+		}
+
+		/**
+		 * @name fn_onChangeSrchVrtyCd
+		 * @description 품종 선택 변경 event
+		 */
+		const fn_onChangeSrchVrtyCd = async function(obj) {
+			let vrtyCd = obj.value;
+
+			if(gfn_isEmpty(vrtyCd)){
+				return;
+			}
+			const itemCd = vrtyCd.substring(0,4);
+			SBUxMethod.set("srch-inp-itemCd", itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("srch-inp-vrtyNm", vrtyCd);
+		}
+
 
 
 </script>
