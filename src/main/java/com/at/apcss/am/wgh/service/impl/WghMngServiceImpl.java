@@ -5,11 +5,13 @@ import com.at.apcss.am.wgh.mapper.WghFcltMapper;
 import com.at.apcss.am.wgh.service.WghMngService;
 import com.at.apcss.am.wgh.vo.WghFcltDtlVO;
 import com.at.apcss.am.wgh.vo.WghFcltVO;
+import com.at.apcss.co.cd.mapper.ComCdMapper;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.cd.vo.ComCdVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +29,7 @@ public class WghMngServiceImpl extends BaseServiceImpl implements WghMngService 
     @Resource(name ="comCdService")
     private ComCdService comCdService;
 
+
     @Override
     public List<WghFcltVO> selectWghFclt(WghFcltVO wghFcltVO) throws Exception {
         return wghPrfmncMapper.selectWghFclt(wghFcltVO);
@@ -36,17 +39,28 @@ public class WghMngServiceImpl extends BaseServiceImpl implements WghMngService 
     public int deleteWghApcFclt(WghFcltVO wghFcltVO) throws Exception {
         int wghCnt =  wghFcltMapper.deleteWghApcFclt(wghFcltVO);
         if(wghCnt <= 0){
-            throw new EgovBizException();
+            /** 없을수 있지만 환경설정엔 있어야함. **/
+            /** 공통 환경설정의 삭제 **/
+            int dtlCnt = 0;
+            ComCdVO comCdVO = new ComCdVO();
+            comCdVO.setApcCd(wghFcltVO.getApcCd());
+            comCdVO.setCdId("WGH_FCLT_CD");
+            comCdVO.setCdVl(wghFcltVO.getFcltCd());
+            dtlCnt = comCdService.deleteComCdDtl(comCdVO);
+
+            if(dtlCnt < 0){
+                throw new EgovBizException();
+            }
+            wghCnt = dtlCnt;
         }
         List<WghFcltDtlVO> list = wghFcltVO.getWghFcltDtlVO();
         int dtlCnt = 0;
+        if (list != null && !list.isEmpty()) {
+            for(WghFcltDtlVO vo : list){
+                dtlCnt += deleteWghApcFcltDtl(vo);
+            }
+        }
 
-        for(WghFcltDtlVO vo : list){
-            dtlCnt += deleteWghApcFcltDtl(vo);
-        }
-        if(dtlCnt <= 0){
-            throw new EgovBizException();
-        }
         return wghCnt;
     }
 
@@ -113,9 +127,10 @@ public class WghMngServiceImpl extends BaseServiceImpl implements WghMngService 
             throw new EgovBizException();
         }
         List<WghFcltDtlVO> list = wghFcltVO.getWghFcltDtlVO();
-        int dtlCnt = wghFcltMapper.updateWghApcFcltDtl(list);
-        if(dtlCnt <= 0){
-            throw new EgovBizException();
+        if (list != null && !list.isEmpty()) {
+            int dtlCnt = wghFcltMapper.updateWghApcFcltDtl(list);
+            if(dtlCnt <= 0){
+            }
         }
         return wghCnt;
     }

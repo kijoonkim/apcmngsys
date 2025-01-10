@@ -522,6 +522,7 @@
             let grdType5Wght = rowData.grdType5Wght;
             let itemCd = rowData.itemCd;
             let wrhsYmd = rowData.wrhsYmd;
+            let icptWght = rowData.grdType1Wght + rowData.grdType2Wght + rowData.grdType3Wght;
 
             let result = await Promise.all([
                SBUxMethod.set('prdcr-inp-apcNm',gv_selectedApcNm),
@@ -537,7 +538,9 @@
                SBUxMethod.set('grdType4Wght',grdType4Wght),
                SBUxMethod.set('grdType5Wght',grdType5Wght),
                SBUxMethod.set('srch-reg-bffaWrhsno',bffaWrhsno),
-               SBUxMethod.set('srch-dtp-inptYmd',wrhsYmd)
+               SBUxMethod.set('srch-dtp-inptYmd',wrhsYmd),
+               SBUxMethod.set('srch-reg-icptWght',icptWght)
+
             ]);
 
             //TODO : 여기서 select 해와서 체크박스 SET 규격 맞춰서 포맷하고 SET까지 해야함.

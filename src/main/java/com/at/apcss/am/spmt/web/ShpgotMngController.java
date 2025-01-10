@@ -10,6 +10,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import lombok.Getter;
 import lombok.Setter;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -191,6 +192,41 @@ public class ShpgotMngController extends BaseController {
             resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
             return getSuccessResponseEntity(resultMap);
         }
+        @PostMapping(value = "/am/spmt/deleteShpgotApcCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+            public ResponseEntity<HashMap<String, Object>> deleteShpgotApcCrtr(@RequestBody RequestData requestData, HttpServletRequest request) throws Exception {
+                HashMap<String, Object> resultMap = new HashMap<String, Object>();
+                int resultCnt = 0;
+                try{
+                    ShpgotApcCrtrVO shpgotApcCrtrVO = requestData.getShpgotApcCrtrVO();
+                    resultCnt = shpgotMngService.deleteShpgotApcCrtr(shpgotApcCrtrVO);
+                }catch (Exception e) {
+                    return getErrorResponseEntity(e);
+                } finally {
+                    HashMap<String, Object> rtnObj = setMenuComLog(request);
+                    if (rtnObj != null) {
+                        return getErrorResponseEntity(rtnObj);
+                    }
+                }
+                resultMap.put(ComConstants.PROP_DELETED_CNT, resultCnt);
+                return getSuccessResponseEntity(resultMap); 
+            }
+        @PostMapping(value = "/am/spmt/deleteShpgotApcCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+            public ResponseEntity<HashMap<String, Object>> deleteShpgotApcCrtrDtl(@RequestBody ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO, HttpServletRequest request) throws Exception {
+                HashMap<String, Object> resultMap = new HashMap<String, Object>();
+                int resultCnt = 0;
+                try{
+                    resultCnt = shpgotMngService.deleteShpgotApcCrtrDtl(shpgotApcCrtrDtlVO);
+                }catch (Exception e) {
+                    return getErrorResponseEntity(e);
+                } finally {
+                    HashMap<String, Object> rtnObj = setMenuComLog(request);
+                    if (rtnObj != null) {
+                        return getErrorResponseEntity(rtnObj);
+                    }
+                }
+                resultMap.put(ComConstants.PROP_DELETED_CNT,resultCnt);
+                return getSuccessResponseEntity(resultMap);
+            }
 
     private <T> void setCommonInfo(T vo) {
         if (vo instanceof ShpgotApcCrtrVO) {

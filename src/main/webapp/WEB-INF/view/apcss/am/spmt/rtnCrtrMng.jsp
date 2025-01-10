@@ -75,7 +75,7 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-direction: row; gap: 10px; ">
                 <div style="flex: 1">
                     <div class="ad_tbl_top">
                         <ul class="ad_tbl_count">
@@ -84,7 +84,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="sb-area-rtnCrtr"></div>
+                    <div id="sb-area-rtnCrtr" style="height: 400px"></div>
                 </div>
                 <div style="flex: 1">
                     <div class="ad_tbl_top">
@@ -95,7 +95,7 @@
                         </ul>
                         <sbux-button disabled="true" id="btnSaveDtl" name="btnSaveDtl" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_saveDtl"></sbux-button>
                     </div>
-                    <div id="sb-area-rtnCrtrDtl"></div>
+                    <div id="sb-area-rtnCrtrDtl" style="height: 400px"></div>
                 </div>
             </div>
         </div>
@@ -133,8 +133,9 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.clickeventarea = {fixed: false, empty: false};
+        SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;',
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'7%', style: 'text-align:center;',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if (gfn_isEmpty(objRowData.delYn)){
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow(" + nRow + ", " + nCol + ")'>추가</button>";
@@ -148,7 +149,7 @@
             {caption: ["반출대상코드"],ref: 'shpgotTrgtCd',type:'combo',  width:'15%', style: 'text-align:center;',typeinfo: {ref:'jsonShpgotTrgtCd', label:'label', value:'value',oneclickedit: true}},
             {caption: ["표시순서"],ref: 'indctSeq',	type:'input',  width:'10%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
             {caption: ["사용여부"],ref: 'useYn',	type:'multiradio',  width:'15%', style: 'text-align:center;', typeinfo : {radiolabel : ['Y', 'N'], radiovalue : ['Y', 'N']}},
-            {caption: ["기준 비고"],ref: 'rmrk', type:'input',  width:'20%', style: 'text-align:center;'},
+            {caption: ["기준 비고"],ref: 'rmrk', type:'input',  width:'18%', style: 'text-align:center;'},
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
         gridRtnCrtr.bind("click","fn_searchDtl");
@@ -165,12 +166,12 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;',
+            {caption: [""],	ref: 'fcltCd',		type:'output',  width:'7%', style: 'text-align:center;',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     if (gfn_isEmpty(objRowData.delYn)){
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRow2(" + nRow + ", " + nCol +  ")'>추가</button>";
                     } else {
-                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow2(" + nRow + ")'>삭제</button>";
                     }
                 }},
             {caption: ["상세일련번호"],ref: 'dtlSn', type:'input',  width:'12%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
@@ -179,9 +180,10 @@
             {caption: ["상세표시명"],	ref: 'dtlIndctNm', type:'input',  width:'12%', style: 'text-align:center;'},
             {caption: ["표시순서"],ref: 'indctSeq',	type:'input',  width:'12%', style: 'text-align:center;',typeinfo:{mask:{alias:'numeric'}}},
             {caption: ["사용여부"],ref: 'useYn',	type:'multiradio',  width:'12%', style: 'text-align:center;', typeinfo : {radiolabel : ['Y', 'N'], radiovalue : ['Y', 'N']}},
-            {caption: ["상세 비고"],ref: 'rmrk', type:'input',  width:'23%', style: 'text-align:center;'},
+            {caption: ["상세 비고"],ref: 'rmrk', type:'input',  width:'21%', style: 'text-align:center;'},
         ]
         gridRtnCrtrDtl = _SBGrid.create(SBGridProperties);
+        gridRtnCrtrDtl.bind("valuechanged","fn_changeCom2");
         /** 진입시 상세는 없음 상단 그리드 선택시 조회 **/
         // let nRow = gridRtnCrtrDtl.getRows();
         // gridRtnCrtrDtl.addRow(true);
@@ -234,14 +236,52 @@
         SBUxMethod.attr("btnSaveDtl","disabled","false");
     }
     const fn_delRow = async function(nRow){
-        gridRtnCrtr.deleteRow(nRow);
-        let cnt = gridRtnCrtr.getRows();
-        if(cnt <= 2){
-            /** 저장버튼 활성화 유무 **/
-            SBUxMethod.attr("btnSave","disabled","true");
+        let rowData = gridRtnCrtr.getRowData(nRow);
+        console.log(rowData);
+        if(!gfn_isEmpty(rowData.apcCd)){
+            if(!gfn_comConfirm("Q0001","등록된 목록입니다. 삭제")){
+                return;
+            }
+        }else{
+            gridRtnCrtr.deleteRow(nRow);
+            return;
         }
 
+        let deleteParam = {shpgotApcCrtrVO:rowData}
+
+        const postJsonPromise = gfn_postJSON("/am/spmt/deleteShpgotApcCrtr.do",deleteParam);
+        const data = await postJsonPromise;
+
+        if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+        }
+        gfn_comAlert("I0001");
+        fn_search();
     }
+    const fn_delRow2 = async function(nRow){
+        let rowData = gridRtnCrtrDtl.getRowData(nRow);
+        if(!gfn_isEmpty(rowData.apcCd)){
+            if(!gfn_comConfirm("Q0001","등록된 목록입니다. 삭제")){
+                return;
+            }
+        }else{
+            gridRtnCrtrDtl.deleteRow(nRow);
+            return;
+        }
+        console.log(rowData,"디테일 삭제");
+
+        const postJsonPromise = gfn_postJSON("/am/spmt/deleteShpgotApcCrtrDtl.do",rowData);
+        const data = await postJsonPromise;
+
+        if (!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+        gfn_comAlert("I0001");
+        await fn_search();
+    }
+
     const fn_save = async function(){
         let crtr = gridRtnCrtr.getGridDataAll(true).filter((item,idx) => {
             delete item.fcltCd;
@@ -263,6 +303,9 @@
             item.indctSeq = idx;
             return item.delYn == 'N'
         });
+        if(crtrDtl.length <= 0){
+            gfn_comAlert("");
+        }
         let requestData = {shpgotApcCrtrDtlVoList:crtrDtl}
 
         let postJsonPromise = gfn_postJSON("/am/spmt/insertShpgotApcCrtr.do",requestData);
@@ -273,6 +316,8 @@
     }
 
     const fn_search = async function(){
+        jsonRtnCrtrDtl.length = 0;
+        gridRtnCrtrDtl.rebuild();
         let shpgotCrtrType = SBUxMethod.get("srch-slt-shpgotCrtrType") || '';
         let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrList.do",{apcCd:gv_apcCd,shpgotCrtrType: shpgotCrtrType});
         let data = await postJsonPromise;
@@ -293,7 +338,7 @@
         /** 목록 선택시 상세 조회 **/
         let nRow = gridRtnCrtr.getRow();
         let rowData = gridRtnCrtr.getRowData(nRow);
-        let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrDtlList.do",rowData);
+        let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrDtlList.do",rowData,'',true);
         let data = await postJsonPromise;
         if (!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
@@ -325,6 +370,14 @@
 
         SBUxMethod.attr("btnSave","disabled","false");
     }
+    const fn_changeCom2 = async function(){
+        let nRow = gridRtnCrtrDtl.getRow();
+        let rowData = gridRtnCrtrDtl.getRowData(nRow);
+        let prevData = gridRtnCrtrDtl.getPrevCellDataInfo();
+
+        SBUxMethod.attr("btnSaveDtl","disabled","false");
+    }
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

@@ -54,10 +54,25 @@ public interface ShpgotMngService {
      */
     List<ShpgotApcCrtrDtlVO> selectShpgotApcCrtrDtlList(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
     /**
-         * 원물재고 반품이력 조회
-         * @param shpgotApcRawMtrVO
-         * @return List<ShpgotApcRawMtrVO>
-         * @throws Exception
+     * 원물재고 반품이력 조회
+     * @param shpgotApcRawMtrVO
+     * @return List<ShpgotApcRawMtrVO>
+     * @throws Exception
     */
     List<ShpgotApcRawMtrVO> selectShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception;
+    /**
+     * 반품기준 목록 삭제
+     * @param shpgotApcCrtrVO
+     * @return int
+     * @throws Exception
+    */
+    int deleteShpgotApcCrtr(ShpgotApcCrtrVO shpgotApcCrtrVO) throws Exception;
+    /**
+     * 반품기준 상세목록 삭제
+     * @param shpgotApcCrtrDtlVO
+     * @return int
+     * @throws Exception
+     */
+    int deleteShpgotApcCrtrDtl(ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO) throws Exception;
+
 }

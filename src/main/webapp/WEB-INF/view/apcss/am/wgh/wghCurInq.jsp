@@ -82,7 +82,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="sb-area-wghCurInq"></div>
+            <div id="sb-area-wghCurInq" style="height: 400px"></div>
         </div>
     </div>
 </section>
@@ -117,10 +117,37 @@
         gridWghCurInq = _SBGrid.create(SBGridProperties);
     }
     const fn_search = async function(){
-        let fcltCd = SBUxMethod.get("srch-slt-sortFcltCd");
-        console.log(fcltCd,"?");
-        let postJsonPromise = gfn_postJSON("/am/wgh/selectWghFclt.do",{apcCd:gv_apcCd,fcltCd:fcltCd});
+        /** 환경설정의 계량대 **/
+        let postJsonPromise = gfn_postJSON("/co/cd/selectFcltList.do", {apcCd : gv_apcCd});
         let data = await postJsonPromise;
+
+        let mngList = data.resultList
+            .filter(item => item.cdId === "WGH_FCLT_CD")
+            .map(item => ({
+                apcCd : item.apcCd,
+                fcltCd : item.cdVl,
+                fcltNm : item.cdVlNm,
+                status : 'OFF',
+                sysLastChgDt : '-'
+            }));
+
+        let fcltCd = SBUxMethod.get("srch-slt-sortFcltCd") || '';
+        postJsonPromise = gfn_postJSON("/am/wgh/selectWghFclt.do",{apcCd:gv_apcCd,fcltCd:fcltCd});
+        data = await postJsonPromise;
+
+        if (!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+
+        console.log(data,"여기서 저거를 잡아야해");
+
+        mngList = mngList.filter(item => {
+            let fcltCd = item.fcltCd;
+            return data.resultList.every(inner => inner.fcltCd !== fcltCd);
+        });
+        data.resultList = data.resultList.concat(mngList).sort((a,b) => a.fcltCd - b.fcltCd);
+
         if(data.resultStatus === 'S'){
             jsonWghCurInq = data.resultList;
             jsonWghCurInq.forEach(function(item){
@@ -134,7 +161,6 @@
             });
             gridWghCurInq.rebuild();
         }
-        console.log(data);
     }
 
 </script>

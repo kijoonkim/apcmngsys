@@ -394,7 +394,7 @@
             {caption: ['품종'], 		ref: 'vrtyCd', 		width: '120px', type:'combo',  	style:'text-align:center; background:#FFF8DC;',
     			typeinfo : {ref:'jsonApcVrty', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},
             {caption: ['실중량'], 		ref: 'actlWght', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
-            {caption: ['입고가구'], 	ref: 'bxQntt', 		width: '60px', type: 'output', style:'text-align:right;', format : {type:'number', rule:'#,### '}},
+            {caption: ['입고가구'], 	ref: 'bxQntt', 		width: '60px', type: 'input', style:'text-align:right;', format : {type:'number', rule:'#,### '}},
             {caption: ['입고팔레트'], 	ref: 'pltQntt', 	width: '70px', type: 'input', style:'text-align:right; background:#FFF8DC;', format : {type:'number', rule:'#,### '}},
 		];
         for (var i=0; i<jsonApcGrd.length; i++) {
