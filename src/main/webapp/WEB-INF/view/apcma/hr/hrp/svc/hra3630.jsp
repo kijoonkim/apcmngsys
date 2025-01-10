@@ -25,6 +25,7 @@
     <title>title : 용역소득 확정 및 전송</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
+	<%@ include file="../../../../frame/inc/clipreport.jsp" %>    
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -694,7 +695,8 @@
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
             getType				: 'json',
-            workType			: 'EMAIL',
+            workType			: 'MAIL',
+//             workType			: 'EMAIL',
             cv_count			: '1',
             params				: gfnma_objectToString(paramObj)
         });
@@ -707,7 +709,7 @@
                     strSmtpHost = data.cv_1[0]["SMTP_HOST"];
                     IntSmtpPort = parseInt(data.cv_1[0]["SMTP_PORT"]);
                     strUserName = data.cv_1[0]["USERNAME"];
-                    strPassword = data.cv_1[0]["PASSWORD"];
+                    strPassword = data.cv_1[0]["PSWD"];
                     strEmail = data.cv_1[0]["MAILID"];
                 }
             } else {
@@ -940,61 +942,82 @@
     const fn_create = async function () {}
 
     const fn_saveFile = async function(){
-        var nRow = gvwInfoGrid.getRow();
-        var conn = '';
-        var SENDTYPE = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
-        if (nRow < 1) {
-            return;
-        }
-
-        let checkDatas = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
-
+    	let conn = '';
+        let checkDatas = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHECK_YN') );
         if (_.isEmpty(checkDatas)){
             gfn_comAlert("Q0000","파일 저장할 항목을 체크박스 선택하세요.");
             return;
         }
 
-        let rowData = gvwInfoGrid.getRowData(nRow);
-
         for (let i = 0; i < checkDatas.length; i++){
 
             let datas = [];
             datas.push(checkDatas[i]);
+console.log('datas ==>', datas);
+            conn = await fn_getReportData( checkDatas[i].data );
+            conn = await gfnma_convertDataForReport(conn);
+//             let psw = conn[5].data.root[0].BIRTH_DATE;
 
-            if (SENDTYPE == "ALL") {
-                conn = await fn_GetReportData('REPORT5', datas);
-                conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
-
-                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_ALL.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
-                    function(){
-                        gfn_comConfirm("Q0001", "다운로드");
-                    }
-                );
-            } else if(SENDTYPE == "PAY") {
-                conn = await fn_GetReportData('REPORT3', datas);
-                conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
-
-                await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_PAY.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
-                    function(){
-                        gfn_comConfirm("Q0001", "다운로드");
-                    }
-                );
-            } else if(SENDTYPE == "WORK") {
-                conn = await fn_GetReportData('REPORT4', datas);
-                conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
-
-                await gfn_getReportPdf("근태현황.pdf", "ma/RPT_HRP2436_Q_WORK.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
-                    function(){
-                        gfn_comConfirm("Q0001", "다운로드");
-                    }
-                );
-            }
+            await gfn_getReportPdf(
+           		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서.pdf",
+           		"ma/RPT_HRA3630.crf",
+           		conn, 
+           		{ userPassword : '1234', ownerPassword : ''},
+                function(){
+                    console.log('download');
+                }
+            );
         }
     }
 
+	const fn_getReportData = async function(obj) {
+		console.log('fn_getReportData obj ==> ', obj);
+	    var paramObj = {
+				V_P_DEBUG_MODE_YN		: ''
+				,V_P_LANG_ID			: ''
+				,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+				
+				,V_P_ACCT_RULE_CODE		: ''
+				,V_P_FI_ORG_CODE		: ''
+				,V_P_SITE_CODE			: ''
+				,V_P_PERIOD_FR			: ''
+				,V_P_PERIOD_TO			: ''
+				,V_P_ACCOUNT_GROUP		: ''
+				,V_P_CURRENCY_CODE		: ''
+				,V_P_BEGIN_INCLUDE_YN	: ''
+				,V_P_PARENT_INCLUDE_YN	: ''
+				,V_P_ZERO_INCLUDE_YN	: ''
+				
+				,V_P_FORM_ID			: p_formId
+				,V_P_MENU_ID			: p_menuId
+				,V_P_PROC_ID			: ''
+				,V_P_USERID				: ''
+				,V_P_PC					: '' 
+	    };
+	    const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210Report.do", {
+	        getType				: 'json',
+	        workType			: 'REPORT',
+	        cv_count			: '2',
+	        params				: gfnma_objectToString(paramObj)
+	    });
+	    const data = await postJsonPromise;
+	    try {
+	        if (_.isEqual("S", data.resultStatus)) {
+			} else {
+			    alert(data.resultMessage);
+			    return;
+			}
+	    } catch (e) {
+	        if (!(e instanceof Error)) {
+	            e = new Error(e);
+	        }
+	        console.error("failed", e.message);
+	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	    }
+	    return data;
+	}
+	
     const fn_sendEmail = async function () {
         let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
         let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
