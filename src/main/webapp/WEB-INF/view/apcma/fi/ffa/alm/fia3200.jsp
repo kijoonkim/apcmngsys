@@ -120,11 +120,17 @@
 							<div class="tab-content" style="width:100%" >
 							
 								<div id="SB_TOP_TAB1" >
+									<div style="display:flex;justify-content:right;width:100%;padding-bottom:10px">
+			                            <sbux-button id="btnExcelDownload1" name="btnExcelDownload1" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_excelDownload1"></sbux-button>
+									</div>
 		                            <div id="sb_area_grid1" style="height:550px; width:100%;">
 		                        	</div>         							
 								</div>
 							
 								<div id="SB_TOP_TAB2" >
+									<div style="display:flex;justify-content:right;width:100%;padding-bottom:10px">
+			                            <sbux-button id="btnExcelDownload2" name="btnExcelDownload2" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_excelDownload2"></sbux-button>
+									</div>
 		                            <div id="sb_area_grid2" style="height:550px; width:100%;">
 		                        	</div>         							
 		                    	</div>
@@ -368,32 +374,31 @@
                 datasorting	: true,
         };
         SBGridProperties.columns = [
-            {caption: ["상각여부"],				ref: 'DEPRECIATE_YN', 			type:'output',  	width:'100px', 		style:'text-align:left'},
+            {caption: ["상각여부"],				ref: 'DEPRECIATE_YN', 			type:'output',  	width:'70px', 		style:'text-align:left'},
             {caption: ["자산번호"],				ref: 'ASSET_NO', 	 		  	type:'output',  	width:'300px',  	style:'text-align:left'},
             {caption: ["구분"],					ref: 'ASSET_CATEGORY', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["중분류"], 				ref: 'ASSET_LEVEL2', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소분류"],				ref: 'ASSET_LEVEL3', 		  	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["소분류"],				ref: 'ASSET_LEVEL3', 		  	type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["원가중심점명"],			ref: 'COST_CENTER_CODE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             
-            {caption: ["신규취득가액"],				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["대체입고금액"],				ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["자본적지출"],				ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},         
-            {caption: ["보조금"],					ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["신규취득가액"],				ref: 'FUNCTIONAL_AMOUNT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대체입고금액"],				ref: 'TRANSFER_IN_AMOUNT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["자본적지출"],				ref: 'CAPITAL_EXPENDITURE', 	type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},         
+            {caption: ["보조금"],					ref: 'SUBSIDIES_AMOUNT', 		type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["처분유형"],					ref: 'DISPOSAL_TYPE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["처분일"],					ref: 'DISPOSAL_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
             
-            {caption: ["처분취득가액"],				ref: 'OUT_ACQUISITION_AMOUNT',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["대체출고금액"],				ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["처분보조금"],				ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["처분보조금상각누계액"],		ref: 'OUT_SUBSIDIES_ACC_DEPR',	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["처분상각누계액"],			ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["기말상각누계액"],			ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
-            {caption: ["기말보조금상각누계액"],		ref: 'END_SUBSIDES_ACCUM_DEPR', type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분취득가액"],				ref: 'OUT_ACQUISITION_AMOUNT',	type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["대체출고금액"],				ref: 'TRANSFER_OUT_AMOUNT', 	type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금"],				ref: 'OUT_SUBSIDIES_AMOUNT', 	type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분보조금상각누계액"],		ref: 'OUT_SUBSIDIES_ACC_DEPR',	type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["처분상각누계액"],			ref: 'OUT_ACCUM_DEPR', 			type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말상각누계액"],			ref: 'END_ACCUM_DEPR', 			type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["기말보조금상각누계액"],		ref: 'END_SUBSIDES_ACCUM_DEPR', type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
-            {caption: ["수량"],						ref: 'ASSET_QTY',  				type:'output',  	width:'100px',  	style:'text-align:left'},
-            
-            {caption: ["장부가액"],					ref: 'BOOK_VALUE',  			type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["수량"],						ref: 'ASSET_QTY',  				type:'output',  	width:'50px',  		style:'text-align:right', format : {type:'number', rule:'#,##0'}},
+            {caption: ["장부가액"],					ref: 'BOOK_VALUE',  			type:'output',  	width:'150px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},
             
             {caption: ["프로젝트번호"],				ref: 'PROJECT_CODE',  			type:'output',  	width:'250px',  	style:'text-align:left'},
             {caption: ["취득일자"],					ref: 'ACQUIRE_DATE',  			type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -696,6 +701,19 @@
         gfnma_setComSelect(['SCH_ASSET_LEVEL3'],			jsonAssetLevel2,	'L_FIA006', where2, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', '');
     }
     
+    /**
+     * 엑셀다운로드1
+     */
+    const fn_excelDownload1 = async function () {
+    	Fia3200Grid01.exportLocalExcel("자산원장List", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+    
+    /**
+     * 엑셀다운로드2
+     */
+    const fn_excelDownload2 = async function () {
+    	Fia3200Grid02.exportLocalExcel("자산원장Summary", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
     
     
 </script>
