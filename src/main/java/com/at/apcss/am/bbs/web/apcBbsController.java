@@ -84,7 +84,6 @@ public class apcBbsController extends BaseController {
 			 resultList = bbsService.selectBbsList(apcBbsVO);
 
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -115,7 +114,6 @@ public class apcBbsController extends BaseController {
 		try {
 			insertedCnt = bbsService.insertBbs(apcBbsVO);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -146,7 +144,6 @@ public class apcBbsController extends BaseController {
 		try {
 			updatedCnt = bbsService.updateBbs(apcBbsVO);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -177,7 +174,6 @@ public class apcBbsController extends BaseController {
 			deletedCnt = bbsService.deleteBbs(apcBbsVO);
 			deletedCnt = bbsService.deleteBbsAllCmnt(apcBbsVO);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -209,7 +205,6 @@ public class apcBbsController extends BaseController {
 		try {
 			deletedCnt = bbsService.deleteBbsList(bbsList);
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -243,7 +238,6 @@ public class apcBbsController extends BaseController {
 					insertedCnt = bbsService.insertBbsCmnt(apcBbsCmntVO);
 
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			} finally {
 				HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -276,7 +270,6 @@ public class apcBbsController extends BaseController {
 					insertedCnt = bbsService.insertBbsChildCmnt(apcBbsCmntVO);
 
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			} finally {
 				HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -304,7 +297,6 @@ public class apcBbsController extends BaseController {
 			try {
 				insertedCnt = bbsService.deleteBbsCmnt(apcBbsCmntVO);
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			} finally {
 				HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -328,7 +320,6 @@ public class apcBbsController extends BaseController {
 				 resultList = bbsService.selectBbsCmntList(apcBbsVO);
 
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			}
 
@@ -350,7 +341,6 @@ public class apcBbsController extends BaseController {
 				 resultList = bbsService.selectBbsAttachesList(apcBbsVO);
 
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			}
 
@@ -452,7 +442,6 @@ public class apcBbsController extends BaseController {
 			try {
 				deletedCnt = bbsService.deleteBbsAttache(apcBbsFileVO);
 			} catch (Exception e) {
-				logger.debug(e.getMessage());
 				return getErrorResponseEntity(e);
 			} finally {
 				HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -473,7 +462,6 @@ public class apcBbsController extends BaseController {
 	    	apcBbsFileVO.setAtchflno(atchflno);
 	    	apcBbsFileVO result;
 
-
 	    	result = bbsService.selectBbsAttaches(apcBbsFileVO);
 
 	    	String atchFileName = result.getAtchflNm();
@@ -493,9 +481,18 @@ public class apcBbsController extends BaseController {
 	        OutputStream os = response.getOutputStream();
 	        // 파일 입력 객체 생성
 	        FileInputStream fis = new FileInputStream(f);
-	        FileCopyUtils.copy(fis, os);
-	        fis.close();
-	        os.close();
+			try {
+				FileCopyUtils.copy(fis, os);
+				fis.close();
+				os.close();
+			} finally {
+				if (fis != null) {
+					fis.close();
+				}
+				if (os != null) {
+					os.close();
+				}
+			}
 
 	    }
 

@@ -366,7 +366,10 @@
                     grdSortBffa.rebuild();
                 }
             }catch (e){
-
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
             }
     }
     /** 초기화 버튼 **/

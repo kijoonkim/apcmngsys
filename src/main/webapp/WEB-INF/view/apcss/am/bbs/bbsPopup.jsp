@@ -593,6 +593,10 @@
          		gfn_comAlert("E0001");
          	}
          } catch(e) {
+			 if (!(e instanceof Error)) {
+				 e = new Error(e);
+			 }
+			 console.error("failed", e.message);
          }
 
          // 결과 확인 후 재조회

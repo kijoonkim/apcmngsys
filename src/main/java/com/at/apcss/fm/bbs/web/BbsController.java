@@ -527,9 +527,17 @@ public class BbsController extends BaseController {
         OutputStream os = response.getOutputStream();
         // 파일 입력 객체 생성
         FileInputStream fis = new FileInputStream(f);
-        FileCopyUtils.copy(fis, os);
-        fis.close();
-        os.close();
-
+		try {
+			FileCopyUtils.copy(fis, os);
+			fis.close();
+			os.close();
+		} finally {
+			if (fis != null) {
+				fis.close();
+			}
+			if (os != null) {
+				os.close();
+			}
+		}
     }
 }

@@ -1,5 +1,6 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -73,14 +74,22 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
             // 파일 저장 경로 설정
             String filePath = comAtchflVO.getAtchflPath();
             long t = System.currentTimeMillis();
-     		int r = (int)(Math.random()*1000000);
 
+     		//int r = (int)(Math.random()*1000000);
+			int r = ComUtil.generateRandomNum(6);
         	String atchflExtnType =  StringUtils.getFilenameExtension(comAtchflVO.getAtchflOrgnNm());
 
-            String fileName = ""+t+r + "."+atchflExtnType;
+            String fileName = "" + t + r + "." + atchflExtnType;
 
             File file = new File(filePath, fileName);
-            file.getParentFile().mkdirs();  // 디렉토리 생성
+			boolean isSuccessMkdir = false;
+			if (file.getParentFile() != null) {
+				isSuccessMkdir = file.getParentFile().mkdirs();  // 디렉토리 생성
+			}
+
+			if (!isSuccessMkdir) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "파일 업로 중 오류가 발생 하였습니다."))); // E0000	{0}
+			}
 
             comAtchflVO.setAtchflNm(fileName);
 
@@ -88,9 +97,8 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
             try (FileOutputStream fos = new FileOutputStream(file)) {
                 fos.write(decodedBytes);
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "파일 업로 중 오류가 발생 하였습니다."))); // E0000	{0}
         }
 
@@ -124,12 +132,12 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
         	contentType =  StringUtils.getFilenameExtension(originalFileName);
         }
 
-        // 파일명 난수로 처리
         long t = System.currentTimeMillis();
- 		int r = (int)(Math.random()*1000000);
+		//int r = (int)(Math.random()*1000000);
+		int r = ComUtil.generateRandomNum(6);
         String orgnNm = new String(file.getOriginalFilename().getBytes("8859_1"),"utf-8");
         String fileName = ""+t+r + "."+contentType;
-
+	
          // 파일 객체 생성
  	    File uploadfile = new File(filePath, fileName);
 
@@ -139,7 +147,7 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
  	    try (FileOutputStream fos = new FileOutputStream(uploadfile)) {
  	        fos.write(bytes); // 파일 쓰기
  	    } catch (IOException e) {
- 	        e.printStackTrace();
+ 	        //e.printStackTrace();
  	       throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "파일 업로 중 오류가 발생 하였습니다."))); // E0000	{0}
  	    }
 

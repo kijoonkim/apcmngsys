@@ -66,28 +66,22 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
 
     public HashMap<String, Object> sendMailForPdfByJson(Map<String, Object> params, HttpServletRequest request, ClipReportVO clipReportVO) throws Exception {
 
-        logger.debug("test start");
-
         Map<String, String> dataParam = new HashMap<>();
 
-        logger.debug("1");
         Set<String> keySet = params.keySet();
         for ( String key : keySet ) {
             String value = (String)params.getOrDefault(key, ComConstants.CON_BLANK);
             dataParam.put(key, value);
             //logger.debug("key {},  value  {}", key, value);
         }
-        logger.debug("2");
+
         String reportUrl = clipReportVO.getReportUrl();
         String clipURL = reportUrl + ComConstants.REPORT_JSP_EXPORT_PDF_JSON;
-        logger.debug("3");
+
         String filename = (String)params.get("pdfFileName");
-        logger.debug("4");
+
         String jsessionId = request.getSession().getId();
         //String jsessionId = request.getSession().getAttribute("JSESSIONID").toString();
-        logger.debug("5");
-        logger.debug("filename {}", filename);
-        logger.debug("jsessionId {}", jsessionId);
 
         try {
             Connection.Response reportResponse = Jsoup.connect(clipURL)
@@ -128,8 +122,6 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             //File file = new File(folderPath, filename);
             File file = new File(saveName);
 
-            logger.debug("file getAbsolutePath {}", file.getAbsolutePath());
-            logger.debug("file getPath {}", file.getPath());
             if (!file.exists()) {
                 boolean successNewFile = file.createNewFile();
                 if (!successNewFile) {
@@ -139,13 +131,27 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             logger.debug("8");
             BufferedInputStream inputStream = reportResponse.bodyStream();
             FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = inputStream.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+            try {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = inputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+            } catch (IOException e) {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
             }
-            inputStream.close();
-            fos.close();
 
             // 파일저장완료
 
@@ -221,7 +227,6 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
 
         Map<String, String> dataParam = new HashMap<>();
 
-        logger.debug("1");
         Set<String> keySet = params.keySet();
         for ( String key : keySet ) {
             String value = (String)params.getOrDefault(key, ComConstants.CON_BLANK);
@@ -229,18 +234,13 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             //logger.debug("key {},  value  {}", key, value);
         }
 
-        logger.debug("2");
         String reportUrl = clipReportVO.getReportUrl();
         String clipURL = emsReportURL + ComConstants.REPORT_JSP_EXPORT_PDF_JSON;
 
-        logger.debug("3");
         String filename = (String)params.get("pdfFileName");
-        logger.debug("4");
         String jsessionId = request.getSession().getId();
         //String jsessionId = request.getSession().getAttribute("JSESSIONID").toString();
-        logger.debug("5");
-        logger.debug("filename {}", filename);
-        logger.debug("jsessionId {}", jsessionId);
+
 
         JSONParser jsonParser = new JSONParser();
         JSONObject emsResult = null;
@@ -360,13 +360,27 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
             logger.debug("8");
             BufferedInputStream inputStream = reportResponse.bodyStream();
             FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = inputStream.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+            try {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = inputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+            } catch (IOException e) {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
             }
-            inputStream.close();
-            fos.close();
 
             // 파일저장완료
 
@@ -440,14 +454,18 @@ public class ClipReportServiceImpl extends BaseServiceImpl implements ClipReport
                 while ((inputLine = in.readLine()) != null) {
                     stringBuilder.append(inputLine);
                 }
-                in.close();
 
                 try {
                     Object obj = jsonParser.parse(stringBuilder.toString());
                     emsResult = (JSONObject) obj;
                 } catch( Exception e) {
                     return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, e.getMessage());
+                } finally {
+                    if (in != null) {
+                        in.close();
+                    }
                 }
+
             } else {
                 return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "EMS전송오류");
             }

@@ -2,6 +2,7 @@ package com.at.apcss.co.sys.util;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,6 +85,12 @@ public class ComUtil {
 
 	public static String lPad(String str, Integer length, char car) {
 	  return (String.format("%" + length + "s", "").replace(" ", String.valueOf(car)) + str).substring(str.length(), length + str.length());
+	}
+
+	public static int generateRandomNum(int length) {
+		SecureRandom secureRandom = new SecureRandom();
+		int upperLimit = (int) Math.pow(10, length);
+		return secureRandom.nextInt(upperLimit);
 	}
 
 

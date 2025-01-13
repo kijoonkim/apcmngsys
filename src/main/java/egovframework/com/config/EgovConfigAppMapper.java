@@ -83,7 +83,7 @@ public class EgovConfigAppMapper {
 				pathMatchingResourcePatternResolver
 					.getResources("classpath:/mapper/com/at/apcss/**/**/*.xml"));
 		} catch (IOException e) {
-			// TODO Exception 처리 필요
+			pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 		}
 
 		return sqlSessionFactoryBean;
