@@ -123,9 +123,6 @@
 							<th scope="row" class="th_bg th_border_right">조직구분</th>
 							<td class="td_input">
 								<sbux-input uitype="hidden" id="dtl-inp-yr" name="dtl-inp-yr"></sbux-input>
-								<!--
-								<sbux-input uitype="hidden" id="dtl-inp-uoBrno" name="dtl-inp-uoBrno"></sbux-input>
-								-->
 								<sbux-select
 									id="dtl-inp-apoSe"
 									name="dtl-inp-apoSe"
@@ -616,34 +613,6 @@
 					SBUxMethod.set('dtl-inp-brno',item.brno);
 					SBUxMethod.set('dtl-inp-apoSe',item.apoSe);
 					SBUxMethod.set('dtl-inp-corpNm',item.corpNm);
-
-					let uoBrno = "";
-					if(data.uoList != null){
-						comUoBrno.length = 0;
-						data.uoList.forEach((item, index) => {
-							uoBrno = item.uoBrno;
-							let uoListVO = {
-									'text'		: item.uoCorpNm
-									, 'label'	: item.uoCorpNm
-									, 'value'	: item.uoBrno
-									, 'uoApoCd' : item.uoApoCd
-							}
-							comUoBrno.push(uoListVO);
-						});
-						SBUxMethod.refresh('dtl-inp-selUoBrno');
-
-						//속한 통합조직이 한곳 일경우
-						if(comUoBrno.length == 1){
-							$("#dtl-inp-uoBrno").show();
-							$("#dtl-inp-selUoBrno").hide();
-							SBUxMethod.set('dtl-inp-uoBrno',uoBrno);
-						}
-					}else{
-						//출자출하조직인데 소속 통합조직이 없는 경우
-						$("#dtl-inp-uoBrno").show();
-						$("#dtl-inp-selUoBrno").hide();
-						SBUxMethod.set('dtl-inp-uoBrno',uoBrno);
-					}
 				}
 			}else{
 				alert('해당 사업자 정보가 없습니다');
@@ -657,57 +626,10 @@
 		}
 	}
 
-	/* 출자출하조직이 속한 통합조직 리스트 조회 */
-	const fn_searchUoList = async function(){
-		comUoBrno.length = 0;
-		let brno = SBUxMethod.get('dtl-inp-brno');
-
-		if(gfn_isEmpty(brno)){
-			return;
-		}
-
-		let postJsonPromise = gfn_postJSON("/pd/hisPopup/selectHisUoList.do", {
-			brno : brno
-		});
-		let data = await postJsonPromise;
-		try{
-			let uoBrno;
-			data.resultList.forEach((item, index) => {
-				uoBrno = item.uoBrno
-				let uoListVO = {
-						'text'		: item.uoCorpNm
-						, 'label'	: item.uoCorpNm
-						, 'value'	: item.uoBrno
-						, 'uoApoCd' : item.uoApoCd
-
-				}
-				comUoBrno.push(uoListVO);
-			});
-			SBUxMethod.refresh('dtl-inp-selUoBrno');
-			//console.log(comUoBrno);
-			if(comUoBrno.length == 1){
-				$("#dtl-inp-uoBrno").show();
-				$("#dtl-inp-selUoBrno").hide();
-				SBUxMethod.set('dtl-inp-selUoBrno' , uoBrno);
-				SBUxMethod.set('dtl-inp-uoBrno',uoBrno);
-			}else{
-				$("#dtl-inp-uoBrno").hide();
-				$("#dtl-inp-selUoBrno").show();
-			}
-			SBUxMethod.closeProgress("loadingOpen");
-		}catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-		}
-	}
-
 	/* 총매입매출 리스트 조회 */
 	const fn_dtlSearch = async function() {
 		let yr = SBUxMethod.get('dtl-inp-yr');
 		let brno = SBUxMethod.get('dtl-inp-brno');
-		let uoBrno = SBUxMethod.get('dtl-inp-uoBrno');
 
 		if(gfn_isEmpty(brno)){
 			return;
@@ -719,7 +641,6 @@
 		let postJsonPromise = gfn_postJSON(urlIsoPurSal, {
 			yr : yr
 			,brno : brno
-			,uoBrno : uoBrno
 		});
 		let data = await postJsonPromise;
 		try{
@@ -870,18 +791,6 @@
 			}
 			console.error("failed", e.message);
 		}
-	}
-
-	//통합조직 콤보박스 선택시 값 변경
-	function fn_changeSelUoBrno(){
-		let selVal = SBUxMethod.get('dtl-inp-selUoBrno');
-		let selCombo = _.find(comUoBrno, {value : selVal});
-		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
-			SBUxMethod.set('dtl-inp-uoBrno' , null);
-		}else{
-			SBUxMethod.set('dtl-inp-uoBrno' , selCombo.value);
-		}
-		fn_clearForm();
 	}
 
 	//그리드 커스텀 배경 및 disabled 처리
