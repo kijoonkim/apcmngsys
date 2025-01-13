@@ -271,6 +271,16 @@ public class SlsMngVO extends ComVO{
 	 */
 	private String extrnlLnkgCd ;
 	
+	/**
+	 * 생산자코드
+	 */
+	private String prdcrCd ;
+	
+	/**
+	 * 생산자명
+	 */
+	private String prdcrNm ;
+	
 	
 	
 	
