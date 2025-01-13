@@ -71,55 +71,62 @@
 						<col style="width: 6%">
 						<col style="width: 6%">
 						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 3%">
+						<col style="width: 3%">
+						
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg">매출일자</th>
-								<td colspan="3" class="td_input" style="border-right: hidden;">
+								<td colspan="4" class="td_input" style="border-right: hidden;">
+									<div style="display:flex">
 									<sbux-datepicker
 										uitype="range"
 										id="srch-dtp-purSalYmd"
 										name="srch-dtp-purSalYmd"
+										wrap-style="display:flex"
 										date-format="yyyy-mm-dd"
 										class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
-							</td>
-							<th scope="row" class="th_bg">품목/품종</th>
-								<td class="td_input" style="border-right: hidden;">
-									<sbux-select
-										id="srch-slt-itemCd"
-										name="srch-slt-itemCd"
-										uitype="single"
-										class="form-control input-sm"
-										unselected-text="전체"
-										jsondata-ref="jsonApcItem"
-										onchange="fn_selectItem"
-									></sbux-select>
+									</div>
 								</td>
-								<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-slt-vrtyNm"
-									name="srch-slt-vrtyNm"
-									class="form-control input-sm"
-									maxlength="33"
-									show-clear-button="true"
+							<th scope="row" class="th_bg">품목/품종</th>
+								<td colspan="4" class="td_input" style="border-right: hidden;">
+									<div style="display:flex">
+										<div>
+											<sbux-select
+												unselected-text="전체"
+												uitype="single"
+												id="srch-slt-itemCd"
+												name="srch-slt-itemCd"
+												class="form-control input-sm input-sm-ast"
+												jsondata-ref="jsonApcItem"
+												onchange="fn_onChangeSrchItemCd(this)">
+											</sbux-select>
+										</div>
+										<div>
+											<sbux-select
+												unselected-text="선택"
+												uitype="single"
+												id="srch-slt-vrtyCd"
+												name="srch-slt-vrtyCd"
+												class="form-control input-sm input-sm-ast inpt_data_reqed"
+												jsondata-ref="jsonApcVrty"
+												jsondata-value="itemVrtyCd"
+												onchange="fn_onChangeSrchVrtyCd(this)">
+											</sbux-select>
+										</div>
+									</div>
 									
-									readonly
-								></sbux-input>
-								<sbux-input
-									uitype="hidden"
-									id="srch-inp-vrtyCd"
-									name="srch-inp-vrtyCd"
-								></sbux-input>
-							</td>
+								</td>
+								<td colspan="3"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">생산자</th>
@@ -130,11 +137,7 @@
 									name="srch-inp-prdcrNm"
 									class="form-control input-sm"
 									style="max-width:80%;"
-									autocomplete-ref="jsonPrdcrAutocomplete"
-									autocomplete-text="name"
-									autocomplete-height="270px"
-    								oninput="fn_onInputPrdcrNm(event)"
-    								autocomplete-select-callback="fn_onSelectPrdcrNm"									
+																	
 								></sbux-input>
 							</td>
 							<td class="td_input td_prdcr_area" style="border-right: hidden;">
@@ -230,9 +233,10 @@
 	//생산자
 	var jsonDataPrdcr = [];
     var jsonPrdcr = [];
-    var jsonPrdcrAutocomplete = [];
-    var autoCompleteDataJson = [];
-	
+    
+	/* SB Select */
+	var jsonApcItem			= [];	// 품목 		itemCd		검색
+	var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
 
 
 
@@ -255,6 +259,7 @@
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_init();
+    	$(".sbux-pik-wrap").css("display","flex");
     });
 
     const fn_init = async function() {
@@ -485,18 +490,6 @@
 	        }
 	    }
 	
-	 
-	 
-	 
-	 /**
-	 	 * @name fn_clearPrdcr
-	 	 * @description 생산자 폼 clear
-	 	 */
-	 	const fn_clearPrdcr = function() {
-	 		SBUxMethod.set("srch-inp-prdcrCd", "");
-	 		SBUxMethod.set("srch-inp-prdcrIdentno", "");
-	 		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
-	 	}
 
 		/**
 		 * @name fn_choicePrdcr
@@ -522,7 +515,7 @@
 		 */
 		const fn_setPrdcr = async function(prdcr) {
 
-			//await fn_getPrdcrs();
+			await fn_getPrdcrs();
 
 			if (!gfn_isEmpty(prdcr)) {
 				SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
@@ -551,26 +544,6 @@
 			jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
 			jsonPrdcr = gfn_setFrst(jsonPrdcr);
 		}
-
-		const fn_setPrdcrForm = async function(prdcr) {
-
-			if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
-				SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
-			} else {
-				SBUxMethod.set("srch-inp-prdcrIdentno", "");
-			}
-
-		}
-
-
-
-		const fn_setTrsprtCst = function(trsprtCst) {
-
-		}
-
-		
-		
-		
 		
 		/**
 		 * @name fn_onChangeSrchItemCd
