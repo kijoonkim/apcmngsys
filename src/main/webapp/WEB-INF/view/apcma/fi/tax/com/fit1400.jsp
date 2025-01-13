@@ -370,6 +370,8 @@
         SBGridProperties.jsonref = 'jsonRptStdGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.emptyareaindexclear = false;
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
             {caption: ['기준연도'], 			ref: 'yyyy', 		width: '7%',	type: 'output',	style:'text-align: center'},
             {caption: ['부가세기간구분'], 			ref: 'taxTerm', 		width: '7%',	type: 'combo',	style:'text-align: center', typeinfo : {ref:'jsonCbotaxTerm', label:'label', value:'value'}},
@@ -396,6 +398,8 @@
         SBGridProperties.id = 'rptSiteGrid';
         SBGridProperties.jsonref = 'jsonRptSiteGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
             {caption: ['신고사업장명'], 			ref: 'taxSiteName', 		width: '50%',	type: 'output',	style:'text-align: center'},
             {caption: ['사업자번호'], 			ref: 'bizRegno', 		width: '30%',	type: 'output',	style:'text-align: center'},
@@ -411,6 +415,8 @@
         SBGridProperties.id = 'vatGrid';
         SBGridProperties.jsonref = 'jsonVatGrid';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
             {caption: ['순번'], 			ref: 'reportSeq', 		width: '20%',	type: 'output',	style:'text-align: center'},
             {caption: ['서식명'], 			ref: 'vatReportName', 		width: '50%',	type: 'output',	style:'text-align: center'},
@@ -443,6 +449,7 @@
  
         let table = document.getElementById("middleTable");
         let regs = table.querySelectorAll(`[id^="reg-"]`);
+        console.log(regs,"regs");
  
         for (const item of regs) {
            let wordIdx = item.id.lastIndexOf('-') + 1;
@@ -487,11 +494,12 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        console.log(data);
  
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_1)){
-                    const camelCasedArray = convertArrayToCamelCase(data.cv_1);
+                    const camelCasedArray = fn_convertText("Q",data.cv_1);
                     jsonRptStdGrid = camelCasedArray;
                     rptStdGrid.rebuild();
                     if(jsonRptStdGrid.length > 0){
@@ -538,11 +546,11 @@
         });
  
         const data = await postJsonPromise;
- 
+
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_2)){
-                    const camelCasedArray = convertArrayToCamelCase(data.cv_2);
+                    const camelCasedArray = fn_convertText("Q1",data.cv_2);
                     jsonRptSiteGrid = camelCasedArray;
                     rptSiteGrid.rebuild();
                 }
@@ -586,11 +594,11 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
- 
+
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_5)){
-                    const camelCasedArray = convertArrayToCamelCase(data.cv_5);
+                    const camelCasedArray = fn_convertText("NEW_Q2",data.cv_5);
                     jsonVatGrid = camelCasedArray;
                     vatGrid.rebuild();
                 }
@@ -874,7 +882,66 @@ const fn_fit1400S = async function(){
 const fn_fit1400S2 = async function(){
  
 }
- 
+const fn_convertText = async function(_workType, _list){
+        if(gfn_isEmpty(_list)){
+            return;
+        }
+     const arr = {
+             Q : {
+                YR: "YYYY",
+                SEQ: "SEQ",
+                TX_PRD: "TAX_TERM",
+                VAT_RPT_DTL_TYPE: "VAT_REP_DETAIL_TYPE",
+                ERLS_RFND_YN: "REFUND_YN",
+                VAT_TMPLT_NM: "VAT_TYPE_NAME",
+                DCLR_BGNG_MM: "STANDARD_MONTH_FR",
+                DCLR_END_MM: "STANDARD_MONTH_TO",
+                RPT_YMD: "REPORT_DATE",
+                MEMO: "MEMO",
+                RFND_TYPE: "REFUND_TYPE",
+                ERLS_RFND_CNCL_YN: "REFUND_CANCEL_YN",
+                OVS_PAY_NO: "PAY_ORGSITE_NO",
+                WRT_USER_ID: "INSERT_USERID",
+                WRT_DT: "INSERT_TIME",
+                WRT_PC: "INSERT_PC",
+                UPDT_USER_ID: "UPDATE_USERID",
+                UPDT_DT: "UPDATE_TIME",
+                UPDT_PC: "UPDATE_PC",
+                CO_CD: "COMP_CODE",
+                CLNT_CD: "CLIENT_CODE",
+                WRT_FORM_ID: "INSERT_FORM_ID",
+                WRT_MENU_ID: "INSERT_MENU_ID",
+                WRT_PRCDR_ID: "INSERT_PROC_ID",
+                UPDT_FORM_ID: "UPDATE_FORM_ID",
+                UPDT_MENU_ID: "UPDATE_MENU_ID",
+                UPDT_PRCDR_ID: "UPDATE_PROC_ID"
+            },
+            Q1 : {
+                 BRNO: "bizRegno",
+                 TX_SITE_NM: "taxSiteName",
+                 CHK_YN: "chkYn"
+            },
+            NEW_Q2 : {
+                USE_YN: "useYn",
+                REPORT_SEQ: "reportSeq",
+                VAT_RPT_CD : "vatRptCd",
+                VAT_RPT_TMPLT_NM: "vatReportName"
+            }
+     };
+        /** convert **/
+        let convertList = arr[_workType];
+
+        _list.forEach(function(_obj){
+            Object.keys(_obj).forEach(key => {
+                if (convertList[key]) {
+                    _obj[toCamelCase(convertList[key])] = _obj[key];
+                    delete _obj[key];
+                }
+            });
+        });
+
+        return _list;
+    }
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
