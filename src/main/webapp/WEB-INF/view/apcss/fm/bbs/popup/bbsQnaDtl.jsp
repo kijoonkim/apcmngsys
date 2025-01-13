@@ -526,20 +526,20 @@
 		dropArea.removeClass('highlight');
 		var files = e.originalEvent.dataTransfer.files;
 		//showFiles(files);
-		popBbsDtl.fn_showFiles(files);
+		fn_showFiles(files);
 	});
 
 	//input 변경이벤트
 	$('#bbsfile').on('change', function (e) {
 		var files = $(this)[0].files;
 		//showFiles(files);
-		popBbsDtl.fn_showFiles(files);
+		fn_showFiles(files);
 	});
 
 
-	function showFiles(newfiles) {
+	function fn_showFiles(newfiles) {
 		console.log(popBbsDtl.bbsDtlFileTrigger);
-		if(popBbsDtl.fn_trigger()){
+		if(popBbsDtl.bbsDtlFileTrigger){
 			return;
 		}
 		var newFileList = new DataTransfer();
