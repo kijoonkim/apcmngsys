@@ -260,7 +260,7 @@
 			WHERE 1=1
 			  AND MNG_NO = #{mngNo}
 		]]>
-			<if test='brno != "0"'>
+			<if test='brno != "0" and brno != null and brno != ""'>
 			  AND BRNO = #{brno}
 			</if>
 	</update>
