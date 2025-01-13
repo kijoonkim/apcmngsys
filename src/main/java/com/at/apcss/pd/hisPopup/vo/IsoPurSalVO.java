@@ -35,41 +35,97 @@ public class IsoPurSalVO extends ComVO{
 	private String trmtType;
 	private String trmtTypeNm;
 
-	//생산자조직 정보
-	private String prdcrOgnzCd;
-	private String prdcrOgnzNm;
+	private String prchsSlsSe;
+	private String prchsSlsSeNm;
 
-	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
-	private String ecSpmtVlmTot;//전속(약정)출하량
-	private String ecSpmtRate;//출하비율
-	private String ecSpmtRateA;//출하비율A
-	private String ecSpmtRateB;//출하비율B
-	private String spmtPrcTot;//출하대금지급액
-	private String prdctnVlmTot;//생산량(결과)
-	private String cnt;//조직원수
-	private String orgStbltYn;//적합여부
-	private String lastStbltYn;//최종 선정여부
-	private String exclYn;//제외 여부
+	/* 매입 */
+	private String prchsTrstVlm;
+	private String prchsTrstAmt;
+	private String prchsEmspapVlm;
+	private String prchsEmspapAmt;
 
-	private String cltvtnLandSn;
-	private String flnm;
-	private String cltvtnLandAddr;
+	private String prchsTotVlm;
+	private String prchsTotAmt;
 
-	private String joinDay;
-	private String whdwlDay;
+	private String etcVlm;
+	private String etcAmt;
 
-	private String cltvtnSfc;//cltvtnArea -> cltvtnSfc 컬럼 표준화로 변경됨
-	private String ecCltvtnSfc;
-	private String avgYrPrdctnVlm;
-	private String cltvtnAreaRmrk;
+	/* 매출 */
+	private String slsCprtnSortTrstVlm;
+	private String slsCprtnSortTrstAmt;
+	private String slsCprtnTrstVlm;
+	private String slsCprtnTrstAmt;
+	private String slsCprtnSortEmspapVlm;
+	private String slsCprtnSortEmspapAmt;
 
-	private String prdctnPlanVlm;
-	private String ecSpmtPlanVlm;
-	private String planRmrk;
-	private String prdctnVlm;
-	private String ecSpmtVlm;
-	private String spmtPrc;
-	private String spmtRmrk;
+	private String slsCprtnSortTotVlm;
+	private String slsCprtnSortTotAmt;
+
+	private String slsSmplTrstVlm;
+	private String slsSmplTrstAmt;
+	private String slsSmplEmspapVlm;
+	private String slsSmplEmspapAmt;
+
+	private String slsTrstVlm;
+	private String slsTrstAmt;
+	private String slsEmspapVlm;
+	private String slsEmspapAmt;
+
+	private String slsTotVlm;
+	private String slsTotAmt;
+
+	/*공제*/
+	private String ddcExprtVlm;
+	private String ddcExprtAmt;
+	private String ddcVlm;
+	private String ddcAmt;
+	private String ddcArmyDlvgdsVlm;
+	private String ddcArmyDlvgdsAmt;
+	private String ddcMlsrVlm;
+	private String ddcMlsrAmt;
+
+	private String spmtPrfmncVlm;
+	private String spmtPrfmncAmt;
+	private String smplInptVlm;
+	private String smplInptAmt;
+
+	private String ajmtVlm;
+	private String ajmtAmt;
+
+	private String ddcTotVlm;
+	private String ddcTotAmt;
+
+	/* 총 매입 매출*/
+	private String totTrmtPrfmncVlm;
+	private String totTrmtPrfmncAmt;
+	private String totSpmtPrfmncVlm;
+	private String totSpmtPrfmncAmt;
+
+	private String slsCprtnVlmTot;
+	private String slsCprtnAmtTot;
 
 	private String rmrk;
+
+	private String sysFrstInptUserIdNm;
+	private String sysLastChgUserIdNm;
+	private String sysFrstInptDtYmd;
+	private String sysLastChgDtYmd;
+
+	/* 매입 수탁 , 매취 추가*/
+	private String prchsSortTrstVlm;
+	private String prchsSortTrstAmt;
+	private String prchsSpmtTrstVlm;
+	private String prchsSpmtTrstAmt;
+	private String prchsSmplTrstVlm;
+	private String prchsSmplTrstAmt;
+
+	private String prchsSortEmspapVlm;
+	private String prchsSortEmspapAmt;
+	private String prchsSmplEmspapVlm;
+	private String prchsSmplEmspapAmt;
+
+	private String slsCprtnTotVlm;
+	private String slsCprtnTotAmt;
+
+	private String spmtRtAmt;
 }

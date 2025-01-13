@@ -295,20 +295,32 @@ public class ApcMaComController extends BaseController {
     			File imgFile = new File(filePath);
     			FileInputStream fis 		= new FileInputStream(imgFile);
     			ByteArrayOutputStream baos	= new ByteArrayOutputStream();
-    			byte[] buf 		= new byte[1024];
-    			int readlength 	= 0;
-    			while ( (readlength = fis.read(buf)) != -1 ) {
-					baos.write(buf,0,readlength);
+				OutputStream out = response.getOutputStream();
+				try {
+					byte[] buf 		= new byte[1024];
+					int readlength 	= 0;
+					while ( (readlength = fis.read(buf)) != -1 ) {
+						baos.write(buf,0,readlength);
+					}
+					byte[] imgbuf	= null;
+					imgbuf = baos.toByteArray();
+					baos.close();
+					fis.close();
+					int length = imgbuf.length;
+					out.write(imgbuf, 0, length);
+					out.close();
+				} finally {
+					if (fis != null) {
+						fis.close();
+					}
+					if (baos != null) {
+						baos.close();
+					}
+					if (out != null) {
+						out.close();
+					}
 				}
-    			byte[] imgbuf	= null;
-    			imgbuf = baos.toByteArray();
-    			baos.close();
-    			fis.close();
-    			
-    			int length = imgbuf.length;
-    			OutputStream out = response.getOutputStream();
-    			out.write(imgbuf, 0, length);
-    			out.close();     			
+
     		}
     	} catch (Exception e) {
     		logger.debug("", e);
@@ -374,9 +386,18 @@ public class ApcMaComController extends BaseController {
     	        OutputStream os = response.getOutputStream();
     	        // 파일 입력 객체 생성
     	        FileInputStream fis = new FileInputStream(f);
-    	        FileCopyUtils.copy(fis, os);
-    	        fis.close();
-    	        os.close();
+    	        try {
+					FileCopyUtils.copy(fis, os);
+					fis.close();
+					os.close();
+				} finally {
+					if (fis != null) {
+						fis.close();
+					}
+					if (os != null) {
+						os.close();
+					}
+				}
     		}
     	} catch (Exception e) {
     		logger.debug("", e);

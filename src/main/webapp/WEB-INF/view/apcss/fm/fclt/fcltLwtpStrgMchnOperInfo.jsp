@@ -33,7 +33,7 @@
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 저온저장고운영기간 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 저온저장고운영기간 -->
 			</div>
 			<div style="margin-left: auto;">
 				<!--

@@ -35,41 +35,35 @@ public class IsoSpItmPurSalVO extends ComVO{
 	private String trmtType;
 	private String trmtTypeNm;
 
-	//생산자조직 정보
-	private String prdcrOgnzCd;
-	private String prdcrOgnzNm;
-
-	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
-	private String ecSpmtVlmTot;//전속(약정)출하량
-	private String ecSpmtRate;//출하비율
-	private String ecSpmtRateA;//출하비율A
-	private String ecSpmtRateB;//출하비율B
-	private String spmtPrcTot;//출하대금지급액
-	private String prdctnVlmTot;//생산량(결과)
-	private String cnt;//조직원수
-	private String orgStbltYn;//적합여부
-	private String lastStbltYn;//최종 선정여부
-	private String exclYn;//제외 여부
-
-	private String cltvtnLandSn;
+	//전문품목 매입매출 정보
+	private String seNm;
+	private String seDtlNm;
+	private String prchsNm;
 	private String flnm;
-	private String cltvtnLandAddr;
+	private String slsCnsgnPrchsAmt;
+	private String uoSpmtAmt;
+	private String uoOtherSpmtAmt;
+	private String SpmtAmtTot;
 
-	private String joinDay;
-	private String whdwlDay;
-
-	private String cltvtnSfc;//cltvtnArea -> cltvtnSfc 컬럼 표준화로 변경됨
-	private String ecCltvtnSfc;
-	private String avgYrPrdctnVlm;
-	private String cltvtnAreaRmrk;
-
-	private String prdctnPlanVlm;
-	private String ecSpmtPlanVlm;
-	private String planRmrk;
-	private String prdctnVlm;
-	private String ecSpmtVlm;
-	private String spmtPrc;
-	private String spmtRmrk;
+	private String slsCnsgnPrchsVlm;
+	private String uoSpmtVlm;
+	private String uoOtherSpmtVlm;
+	private String SpmtVlmTot;
 
 	private String rmrk;
+
+	private String typeSeNoNm;
+
+	private String isoBrno;
+	private String prdcrOgnzSn;
+	private String prdcrOgnzCd;
+	private String prdcrOgnzNm;
+	private String cltvtnLandSn;
+
+	private String stbltYn; // 적합여부
+	private String ognzStbltYn; // 조직 적합여부
+	private String lastStbltYn; // 선정여부
+
+	private String typeSe; //실적 구분  1~6
+	private String typeSeNo; //실적 구분 상세 출자출하조직 brno , 생산자조직 sn 값 적용
 }

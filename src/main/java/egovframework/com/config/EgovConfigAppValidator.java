@@ -68,7 +68,7 @@ public class EgovConfigAppValidator {
 			validationFormSetLocations = pathMatchingResourcePatternResolver
 				.getResources("classpath:/egovframework/validator/let/**/*.xml");
 		} catch (IOException e) {
-			// TODO Exception 처리 필요
+			validationFormSetLocations = new Resource[] {};
 		}
 
 		validationConfigLocations.addAll(Arrays.asList(validationRulesConfigLocations));

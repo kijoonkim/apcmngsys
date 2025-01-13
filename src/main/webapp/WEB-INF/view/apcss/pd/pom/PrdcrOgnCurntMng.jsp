@@ -3215,13 +3215,13 @@
 		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
 
 		var url = "/pd/hisPopup/PrdcrOgnHisPopup.do"
-		var title = "제출서류 보기";
+		var title = "제출실적 보기";
 		//SBUxMethod.popupWindow(url, title, '600px','500px');
 
 		window.open(url, title, "width=1000px,height=900px");
 	}
 
-	//새창에서 변수 확인
+	//팝업 새창에서 변수 확인
 	function fn_getData() {
 		let data = [];
 		data.brno = SBUxMethod.get("dtl-input-brno");

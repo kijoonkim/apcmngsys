@@ -69,7 +69,6 @@ public class EgovConfigAppMapper2 {
 		sqlSessionFactoryBean.setConfigLocation(
 			//pathMatchingResourcePatternResolver.getResource("classpath:/egovframework/mapper/config/mapper-config.xml"));
 			pathMatchingResourcePatternResolver.getResource("classpath:/mapper/config/mapper-config2.xml"));
-
 		try {
 			sqlSessionFactoryBean.setMapperLocations(
 				//pathMatchingResourcePatternResolver
@@ -77,7 +76,7 @@ public class EgovConfigAppMapper2 {
 				pathMatchingResourcePatternResolver
 					.getResources("classpath:/mapper/com/at/apcma/**/**/*.xml"));
 		} catch (IOException e) {
-			// TODO Exception 처리 필요
+			pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 		}
 
 		return sqlSessionFactoryBean;

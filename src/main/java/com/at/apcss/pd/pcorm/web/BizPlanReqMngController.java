@@ -226,10 +226,24 @@ public class BizPlanReqMngController extends BaseController{
 				}
 				zipOut.close();
 
-			} catch (IOException e) {
-				try { if(fis != null)fis.close(); } catch (IOException e1) {logger.debug(e1.getMessage());/*ignore*/}
-				try { if(zipOut != null)zipOut.closeEntry();} catch (IOException e2) {logger.debug(e2.getMessage());/*ignore*/}
-				try { if(zipOut != null)zipOut.close();} catch (IOException e3) {logger.debug(e3.getMessage());/*ignore*/}
+//			}
+//			catch (IOException e) {
+//				if (fis != null) {
+//					fis.close();
+//				}
+//				if (zipOut != null) {
+//					zipOut.closeEntry();
+//				}
+//				try { if(fis != null)fis.close(); } catch (IOException e1) {logger.debug(e1.getMessage());/*ignore*/}
+//				try { if(zipOut != null)zipOut.closeEntry();} catch (IOException e2) {logger.debug(e2.getMessage());/*ignore*/}
+//				try { if(zipOut != null)zipOut.close();} catch (IOException e3) {logger.debug(e3.getMessage());/*ignore*/}
+			} finally {
+				if (fis != null) {
+					fis.close();
+				}
+				if (zipOut != null) {
+					zipOut.close();
+				}
 			}
 		}
 	}

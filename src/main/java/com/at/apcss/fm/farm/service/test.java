@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class test {
 
+	/*
 	public static void main(String[] args) throws Exception {
 		String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
 
@@ -52,7 +53,9 @@ public class test {
 					}
 				}
 			}
-/*
+
+	 */
+	/*
 
 
 			List<Map> list = (List<Map>) map.get("item");
@@ -64,7 +67,7 @@ public class test {
 
 			System.out.println(list);
 			System.out.println(map.get("message"));
-*/
-	}
+	*/
+	//}
 
 }
