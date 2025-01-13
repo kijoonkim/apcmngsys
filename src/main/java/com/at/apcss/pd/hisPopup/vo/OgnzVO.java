@@ -29,4 +29,5 @@ public class OgnzVO extends ComVO{
 	private String indctSeq;
 
 	private String frmhsCnt;
+	private String stbltYnNm;
 }
