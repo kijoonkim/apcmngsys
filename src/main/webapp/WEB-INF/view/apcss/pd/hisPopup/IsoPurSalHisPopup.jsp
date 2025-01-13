@@ -407,7 +407,12 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.fixedrowheight=36;
-		SBGridProperties.frozencols=4;
+		//부류 차이
+		if(_year == '2024'){
+			SBGridProperties.frozencols=3;
+		}else{
+			SBGridProperties.frozencols=4;
+		}
 		SBGridProperties.frozenbottomrows=1;
 
 		SBGridProperties.columns = columnsPrchs;
@@ -456,7 +461,13 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.rowheader="seq";
 		SBGridProperties.fixedrowheight=36;
-		SBGridProperties.frozencols=4;
+		//부류 차이
+		if(_year == '2024'){
+			SBGridProperties.frozencols=3;
+		}else{
+			SBGridProperties.frozencols=4;
+		}
+
 		SBGridProperties.frozenbottomrows=1;
 
 		SBGridProperties.columns = columnsDdc;
