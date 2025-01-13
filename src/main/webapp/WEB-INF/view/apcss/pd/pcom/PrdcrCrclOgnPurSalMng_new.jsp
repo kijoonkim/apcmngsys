@@ -719,10 +719,10 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["수탁","단순수탁","금액(천원)"], 	ref: 'prchsSmplTrstAmt',   type:'input',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","수탁소계","물량(톤)"], 		ref: 'prchsTrstTotVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["수탁","수탁소계","물량(톤)"], 		ref: 'prchsTrstVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_prchsTrstVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["수탁","수탁소계","금액(천원)"], 	ref: 'prchsTrstTotAmt',   type:'output',  width:'80px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
+			{caption: ["수탁","수탁소계","금액(천원)"], 	ref: 'prchsTrstAmt',   type:'output',  width:'80px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_prchsTrstAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*매취*/
@@ -734,10 +734,10 @@
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			{caption: ["매취","단순매취","금액(천원)"], 	ref: 'prchsSmplEmspapAmt',   type:'input',  width:'80px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","매취 소계","물량(톤)"], 		ref: 'prchsEmspapTotVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
+			{caption: ["매취","매취 소계","물량(톤)"], 		ref: 'prchsEmspapVlm',   type:'output',  width:'50px',    style:'text-align:center; background-color: lightgray'
 				, calc : 'fn_prchsEmspapVlmSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
-			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'prchsEmspapTotAmt',   type:'output',  width:'80px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
+			{caption: ["매취","매취 소계","금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'output',  width:'80px',    style:'text-align:center; background-color: lightgray; border-right-color: black !important;'
 				, calc : 'fn_prchsEmspapAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
 			/*합계*/
