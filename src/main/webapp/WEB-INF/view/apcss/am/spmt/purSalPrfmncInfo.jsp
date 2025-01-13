@@ -94,8 +94,8 @@
 							<th scope="row" class="th_bg">품목/품종</th>
 								<td class="td_input" style="border-right: hidden;">
 									<sbux-select
-										id="srch-inp-itemCd"
-										name="srch-inp-itemCd"
+										id="srch-slt-itemCd"
+										name="srch-slt-itemCd"
 										uitype="single"
 										class="form-control input-sm"
 										unselected-text="전체"
@@ -106,8 +106,8 @@
 								<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
-									id="srch-inp-vrtyNm"
-									name="srch-inp-vrtyNm"
+									id="srch-slt-vrtyNm"
+									name="srch-slt-vrtyNm"
 									class="form-control input-sm"
 									maxlength="33"
 									show-clear-button="true"
@@ -245,8 +245,8 @@
 		await gfn_setComCdSBSelect('srch-slt-crtrType', jsonCrtrCd, 'SLS_CRTR_CD');
 		
 		let result = await Promise.all([
-			gfn_setApcItemSBSelect('srch-inp-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
-			gfn_setApcVrtySBSelect('srch-inp-vrtyNm', jsonComVrty, gv_selectedApcCd),	// 품종
+			gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
+			gfn_setApcVrtySBSelect('srch-slt-vrtyNm', jsonComVrty, gv_selectedApcCd),	// 품종
 		]);
 
 		fn_getPrdcrs();
@@ -260,7 +260,7 @@
     const fn_init = async function() {
     	await fn_initSBSelect();
     	
-    	SBUxMethod.set("srch-inp-itemCd", ""); // 품목
+    	SBUxMethod.set("srch-slt-itemCd", ""); // 품목
 		SBUxMethod.set("srch-slt-vrtyNm", ""); // 품종
 		
 		fn_createSlsPrfmnclist();
@@ -315,7 +315,7 @@
      */
     const fn_search = async function() {
     	let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
-    	let getItemCd = SBUxMethod.get("srch-inp-itemCd");
+    	let getItemCd = SBUxMethod.get("srch-slt-itemCd");
     	
     	
     	let purSalYmdFrom;
@@ -582,7 +582,7 @@
 			const itemInfo = _.find(jsonApcItem, {value: itemCd});
 			
 			let result = await Promise.all([
-				gfn_setApcVrtySBSelect('srch-inp-vrtyNm', jsonComVrty, gv_selectedApcCd, itemCd)
+				gfn_setApcVrtySBSelect('srch-slt-vrtyNm', jsonComVrty, gv_selectedApcCd, itemCd)
 			]);
 		}
 
@@ -597,9 +597,9 @@
 				return;
 			}
 			const itemCd = vrtyCd.substring(0,4);
-			SBUxMethod.set("srch-inp-itemCd", itemCd);
+			SBUxMethod.set("srch-slt-itemCd", itemCd);
 			await fn_onChangeSrchItemCd({value: itemCd});
-			SBUxMethod.set("srch-inp-vrtyNm", vrtyCd);
+			SBUxMethod.set("srch-slt-vrtyNm", vrtyCd);
 		}
 		
 		
