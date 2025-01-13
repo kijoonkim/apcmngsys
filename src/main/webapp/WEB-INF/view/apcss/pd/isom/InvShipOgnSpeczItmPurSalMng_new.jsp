@@ -237,60 +237,6 @@
 				</table>
 			</c:if>
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
-				<!-- 통합조직 정보 , 통합조직 진척도 -->
-				<c:if test="${loginVO.apoSe eq '1'}">
-					<table class="table table-bordered tbl_fixed">
-						<caption>통합조직 정보 표기</caption>
-						<tbody>
-							<tr>
-								<th scope="row" class="th_bg th_border_right">법인명</th>
-								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userCorpNm"
-										name="dtl-input-userCorpNm"
-										class="form-control input-sm"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-								<th scope="row" class="th_bg th_border_right">사업자번호</th>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userBrno"
-										name="dtl-input-userBrno"
-										class="form-control input-sm"
-										mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-								</td>
-								<th scope="row" class="th_bg th_border_right">법인등록번호</th>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userCrno"
-										name="dtl-input-userCrno"
-										class="form-control input-sm"
-										mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-							</tr>
-						</tbody>
-					</table>
-					<!--
-					%@ include file="../prgrs/PrgrsUo.jsp" %>
-					-->
-				</c:if>
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
@@ -314,12 +260,11 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-
+						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
+						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 						<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						</c:if>
-
-						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					</div>
 				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
@@ -402,13 +347,6 @@
 					</tbody>
 				</table>
 
-				<!-- 출자출하조직 진척도 -->
-				<c:if test="${loginVO.apoSe eq '2'}">
-					<!--
-					%@ include file="../prgrs/PrgrsIso.jsp" %>
-					-->
-				</c:if>
-
 				<br>
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top">
@@ -462,9 +400,9 @@
 		await fn_setYear();//기본년도 세팅
 	<c:if test="${loginVO.apoSe eq '1'}">
 		//통합조직 기본정보
-		SBUxMethod.set("dtl-input-userCorpNm","${loginVO.corpNm}");
-		SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
-		SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
+		//SBUxMethod.set("dtl-input-userCorpNm","${loginVO.corpNm}");
+		//SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
+		//SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
 	</c:if>
 		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
@@ -1297,7 +1235,7 @@
 
 						,prdcrOgnzSn:	item.prdcrOgnzSn
 						,trmtType:		item.trmtType
-						,ognzStbltYn :	item.ognzStbltYn//조직 적합여부 (부적합 조직 값을 위해 추가)
+						,ognzStbltYn :	item.ognzStbltYn//조직 적합여부 (요건미달 조직 값을 위해 추가)
 
 						,seNm:			item.seNm
 						,seDtlNm:		item.seDtlNm
@@ -1716,5 +1654,34 @@
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
+	/* 과거 실적 조회 팝업 추가 */
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){return;}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/IsoSpItmPurSalHisPopup.do"
+		var title = "제출실적 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//팝업 새창에서 변수 확인
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		<c:if test="${loginVO.apoSe eq '1'}">
+		data.brno = '${loginVO.brno}';
+		</c:if>
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
+	}
 </script>
 </html>

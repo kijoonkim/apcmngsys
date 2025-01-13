@@ -1681,6 +1681,7 @@
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//법인등록번호
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//사업자등록번호
 
 		//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
 		//fn_searchUoList();
