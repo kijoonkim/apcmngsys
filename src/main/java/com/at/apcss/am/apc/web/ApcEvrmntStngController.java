@@ -197,7 +197,6 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -231,7 +230,6 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -257,7 +255,6 @@ public class ApcEvrmntStngController extends BaseController{
 
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -291,7 +288,6 @@ public class ApcEvrmntStngController extends BaseController{
 			}
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);

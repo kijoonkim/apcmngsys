@@ -16,7 +16,8 @@ public class EgovEnvCryptoAlgorithmCreate {
  
 	//계정암호화키 블럭사이즈
 	public int algorithmBlockSize = 1024;
- 
+
+	/*
 	public static void main(String[] args) {
 		EgovEnvCryptoAlgorithmCreate cryptoTest = new EgovEnvCryptoAlgorithmCreate();
  
@@ -29,4 +30,6 @@ public class EgovEnvCryptoAlgorithmCreate {
 		LOGGER.info("알고리즘 키 Hash(algorithmKeyHash) : "+egovPasswordEncoder.encryptPassword(cryptoTest.algorithmKey));
 		LOGGER.info("알고리즘 블럭사이즈(algorithmBlockSize)  :"+cryptoTest.algorithmBlockSize);
 	}
+
+	 */
 }

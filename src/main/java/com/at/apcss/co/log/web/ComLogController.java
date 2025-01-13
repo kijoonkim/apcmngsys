@@ -116,7 +116,6 @@ public class ComLogController extends BaseController {
 		try {
 			resultList = comLogService.selectRawMtrHstryList(comLogVO);
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -132,7 +131,6 @@ public class ComLogController extends BaseController {
 		try {
 			resultList = comLogService.selectSortHstryList(comLogVO);
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -148,7 +146,6 @@ public class ComLogController extends BaseController {
 		try {
 			resultList = comLogService.selectGdsHstryList(comLogVO);
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 

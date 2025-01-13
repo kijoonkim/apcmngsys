@@ -75,7 +75,7 @@ public class EzFilterRegistration {
 			params.put("socket.recv.buff", "146988");
 
 		} finally {
-			if (fis != null) { try { fis.close(); } catch (IOException e) { /*e.printStackTrace();*/ } }
+			if (fis != null) { try { fis.close(); } catch (IOException e) { fis = null; } }
 		}
 		
 		FilterRegistrationBean<EzFilter> filterRegBean = new FilterRegistrationBean<>();

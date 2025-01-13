@@ -377,6 +377,10 @@
         		gfn_comAlert("E0001");
         	}
         } catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
         }
     }
 
@@ -405,6 +409,10 @@
         		gfn_comAlert("E0001");
         	}
         } catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
         }
     }
 
@@ -458,6 +466,10 @@
          		gfn_comAlert("E0001");
          	}
          } catch(e) {
+			 if (!(e instanceof Error)) {
+				 e = new Error(e);
+			 }
+			 console.error("failed", e.message);
          }
     }
 

@@ -359,7 +359,9 @@
             }
 
             var title = pMenuNm;
-            document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
+            //document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
+            var titleEl = document.querySelector('.sbux-sidemeu-title-wrap>div>span');
+            titleEl.innerText = title;
 
             if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
                 fn_actionGoPage(
@@ -372,7 +374,8 @@
             }
             if(gv_userType === "00" || gv_userType ==="01"){
             	//document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
-            	document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+            	//document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
+                titleEl.innerText = "관리 시스템";
             }
         } catch (e) {
             if (!(e instanceof Error)) {

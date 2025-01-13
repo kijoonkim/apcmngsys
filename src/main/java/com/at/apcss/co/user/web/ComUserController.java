@@ -1166,10 +1166,10 @@ public class ComUserController extends BaseController {
 		        	while ((bytesRead = bIn.read(buffer)) != -1) {
 		        		bOut.write(buffer, 0, bytesRead);
                     } 
-		        	
-		        	
+
 		        	bOut.flush();
 		        } finally {
+					fIn.close();
 		        	bIn.close();
 		        	bOut.close();
 		        }
@@ -1209,9 +1209,7 @@ public class ComUserController extends BaseController {
 		        	// response 객체를 통해서 서버로부터 파일 다운로드
 			        OutputStream os = response.getOutputStream();
 			        bOut = new BufferedOutputStream(os);
-			        
 			        bOut.write(fileByte);
-			        
 			        bOut.flush();
 		        } finally {
 		        	bOut.close();
@@ -1228,7 +1226,7 @@ public class ComUserController extends BaseController {
 			//resp.setHeader("Content-Type", "application/" + extension); // 파일 형식 지정
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			logger.error(ComConstants.ERROR_CODE, e.getMessage());
 			//return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);

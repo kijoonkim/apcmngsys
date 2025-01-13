@@ -283,18 +283,27 @@ public class ApcMaFbs2240Controller extends BaseController {
                     byte[] StrByte = paddedString.getBytes(Charset.defaultCharset());
 
                     ByteArrayOutputStream baos	= new ByteArrayOutputStream();
-                    baos.write(StrByte);
-                    byte[] textbuf	= null;
-                    textbuf = baos.toByteArray();
-                    baos.close();
-
-                    int length = textbuf.length;
                     OutputStream out = response.getOutputStream();
-                    out.write(textbuf, 0, length);
-                    resultMap.put(ComConstants.PROP_RESULT_STATUS, "S");
-                    resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
-                    resultMap.put(ComConstants.PROP_RESULT_MESSAGE, "파일이 생성되었습니다.");
-                    out.close();
+                    try {
+                        baos.write(StrByte);
+                        byte[] textbuf = null;
+                        textbuf = baos.toByteArray();
+                        baos.close();
+
+                        int length = textbuf.length;
+                        out.write(textbuf, 0, length);
+                        resultMap.put(ComConstants.PROP_RESULT_STATUS, "S");
+                        resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);
+                        resultMap.put(ComConstants.PROP_RESULT_MESSAGE, "파일이 생성되었습니다.");
+                        out.close();
+                    } finally {
+                        if (baos != null) {
+                            baos.close();
+                        }
+                        if (out != null) {
+                            out.close();
+                        }
+                    }
                 } catch (Exception e) {
                     resultMap.put(ComConstants.PROP_RESULT_STATUS, "E");
                     resultMap.put(ComConstants.PROP_RESULT_CODE, ComConstants.CON_BLANK);

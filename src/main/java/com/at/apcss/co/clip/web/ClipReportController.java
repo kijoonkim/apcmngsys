@@ -47,29 +47,26 @@ public class ClipReportController extends BaseController {
             HttpServletRequest request
     ) throws Exception {
 
-        logger.debug("test start");
         request.getHeader("JSESSIONID");
 
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         Map<String, String> dataParam = new HashMap<>();
-        logger.debug("1");
+
         Set<String> keySet = params.keySet();
         for ( String key : keySet ) {
             String value = (String)params.getOrDefault(key, ComConstants.CON_BLANK);
             dataParam.put(key, value);
             //logger.debug("key {},  value  {}", key, value);
         }
-        logger.debug("2");
+
         String reportURL = getReportUrl() + ComConstants.REPORT_JSP_EXPORT_PDF_JSON;
-        logger.debug("3");
+
         String filename = (String)params.get("pdfFileName");
-        logger.debug("4");
+
         String jsessionId = request.getSession().getId();
         //String jsessionId = request.getSession().getAttribute("JSESSIONID").toString();
-        logger.debug("5");
-        logger.debug("filename {}", filename);
-        logger.debug("jsessionId {}", jsessionId);
+
 
         /*
         model.addAttribute("reportDbName", getReportDbName());
@@ -101,40 +98,42 @@ public class ClipReportController extends BaseController {
             String folderPath = str.replace("/", File.separator);
             //make folder ==================
             File uploadPathFolder = new File(rootPath, folderPath);
-            logger.debug("6");
-            logger.debug("getAbsolutePath {}", uploadPathFolder.getAbsolutePath());
-            logger.debug("uploadPathFolder {}", uploadPathFolder.getPath());
             if (!uploadPathFolder.exists()) {
                 boolean successMkdirs = uploadPathFolder.mkdirs();
                 if (!successMkdirs) {
                     return getErrorResponseEntity(ComConstants.MSGCD_ERR_CUSTOM, "디렉토리생성오류");
                 }
             }
-            logger.debug("7");
 
             String saveName = rootPath + File.separator + folderPath + File.separator + filename;
 
             //File file = new File(folderPath, filename);
             File file = new File(saveName);
 
-            logger.debug("file getAbsolutePath {}", file.getAbsolutePath());
-            logger.debug("file getPath {}", file.getPath());
             if (!file.exists()) {
                 boolean successNewFile = file.createNewFile();
                 if (!successNewFile) {
                     return getErrorResponseEntity(ComConstants.MSGCD_ERR_CUSTOM, "파일생성오류");
                 }
             }
-            logger.debug("8");
+
             BufferedInputStream inputStream = reportResponse.bodyStream();
             FileOutputStream fos = new FileOutputStream(file);
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = inputStream.read(buffer)) != -1) {
-                fos.write(buffer, 0, len);
+            try {
+                byte[] buffer = new byte[1024];
+                int len;
+                while ((len = inputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
             }
-            inputStream.close();
-            fos.close();
+
 
             // 파일저장완료
 

@@ -39,8 +39,4 @@ public class JsonUtil {
 		return pattern.matcher(str.trim()).find();
 	}
 
-	// 테스트
-	public static void main(String[] args) {
-		log.debug("CommUtil.isJSONArray {'aa':[{'bb':'cc'}], 'bb':'a1'} = {}, aaab[b]cccc = {}", isJSONArray("{\"aaaa\":[{\"aaaaa\":\"bbbbb\"}]}"));
-	}
 }

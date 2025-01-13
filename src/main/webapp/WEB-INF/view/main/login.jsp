@@ -14,15 +14,15 @@
 <body oncontextmenu="return false">
 
 <%
-	String needsCustomLogin = request.getParameter("needsCustomLogin");
-	if (!"IneedCustomLogin".equals(needsCustomLogin)) {
-		String protocol = request.isSecure() ? "https" : "http";
-		String loginUrl = (String)request.getAttribute("loginUrl");
-
-		if (loginUrl != null && !"".equals(loginUrl)) {
-			response.sendRedirect(protocol + "://" + loginUrl);
-		}
-	}
+//	String needsCustomLogin = request.getParameter("needsCustomLogin");
+//	if (!"IneedCustomLogin".equals(needsCustomLogin)) {
+//		String protocol = request.isSecure() ? "https" : "http";
+//		String loginUrl = (String)request.getAttribute("loginUrl");
+//
+//		if (loginUrl != null && !"".equals(loginUrl)) {
+//			response.sendRedirect(protocol + "://" + loginUrl);
+//		}
+//	}
 %>
 
     <div class="apc-wrap">

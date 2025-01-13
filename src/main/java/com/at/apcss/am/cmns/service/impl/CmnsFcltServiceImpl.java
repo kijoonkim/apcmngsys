@@ -153,8 +153,6 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 	@Override
 	public int saveWghFcltList(List<CmnsFcltVO> cmnsFcltVOList) throws Exception {
 
-
-
 		cmnsFcltVOList.forEach(item -> {
 		    try {
 		        String status = item.getGubun();
@@ -184,7 +182,7 @@ public class CmnsFcltServiceImpl extends BaseServiceImpl implements CmnsFcltServ
 		                break;
 		        }
 		    } catch (Exception e) {
-
+                return;
 		    }
 		});
 	return 0;

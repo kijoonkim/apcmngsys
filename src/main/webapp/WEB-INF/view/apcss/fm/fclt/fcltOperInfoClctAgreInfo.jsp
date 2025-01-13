@@ -36,7 +36,7 @@
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-					<h3 class="box-title"> ▶ ${menuNm}</h3><!-- 개인정보이용동의 -->
+					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 개인정보이용동의 -->
 			</div>
 			<div style="margin-left: auto;">
 				<!--
