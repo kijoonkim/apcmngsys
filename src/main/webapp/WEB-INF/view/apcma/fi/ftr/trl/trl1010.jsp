@@ -1803,9 +1803,9 @@
 		} else if(type=='2'){
 		}
 
-		var replaceText0 	= "_CSTCD_CD_";
-		var replaceText1 	= "_CSTCD_NM_";
-		var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+		var replaceText0 	= "_CSTCT_CD_";
+		var replaceText1 	= "_CSTCT_NM_";
+		var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
 		compopup1({
@@ -1815,18 +1815,18 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["코드", 				"명칭"]
-			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
 			,searchInputValues		: [searchText1, 		searchText2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]
+			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]
 			,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
 			,itemSelectEvent		: function (data){
 				if(type=='1'){
-					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.CSTCD_CD);
-					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.CSTCD_NM);
+					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.CSTCT_CD);
+					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.CSTCT_NM);
 				} else if(type=='2'){
 				}
 			},

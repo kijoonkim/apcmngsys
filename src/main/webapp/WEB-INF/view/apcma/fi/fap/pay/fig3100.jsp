@@ -573,7 +573,7 @@
             // 영수/청구 구분
             gfnma_setComSelect(['gvwListGrid'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 원가중심점코드
-            gfnma_setComSelect(['gvwItemGrid'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwItemGrid'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCD_NM', 'Y', ''),
             // 재직구분
             gfnma_setComSelect(['gvwListGrid'], jsonEmpState, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             //부서코드
