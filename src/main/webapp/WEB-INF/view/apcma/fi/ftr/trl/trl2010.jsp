@@ -711,7 +711,7 @@
                         CURRENCY_CODE               : gfn_nvl(item.CRN_CD),
                         EXCHANGE_RATE               : gfn_nvl(item.EXCHRT),
                         DEPT_CODE        	        : gfn_nvl(item.DEPT_CD),
-                        COST_CENTER_CODE            : gfn_nvl(item.CSTCD_CD),
+                        COST_CENTER_CODE            : gfn_nvl(item.CSTCT_CD),
                         LOAN_AMT_O        	        : gfn_nvl(item.LOAN_AMT_O),
                         LOAN_AMT_F        	        : gfn_nvl(item.LOAN_AMT_F),
                         REPAY_PLAN_AMT_O        	: gfn_nvl(item.RPMT_PLAN_AMT),
