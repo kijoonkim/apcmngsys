@@ -1466,7 +1466,7 @@
                     }
 
                     if (parentParameter.hasOwnProperty("TXN_ID")) {
-                        var strTXN_ID = parentParameter["TXN_ID"].ToString();
+                        var strTXN_ID = gfn_nvl(parentParameter["TXN_ID"]);
                     }
 
                     if (parentParameter.hasOwnProperty("DEPOSIT_CODE")) {
@@ -1911,7 +1911,7 @@
                                 PAY_REASON : item.PAY_RSN,
                                 SEND_REASON : item.RMT_RSN_CD,
                                 FEE_CHARGER : item.FEE_BRDN,
-                                FOREIGN_GB : item.FRGN_PYMT_TX,
+                                FOREIGN_GB : item.FRCNCY_PYMT_TX,
                                 ORDER1_TO_RECEIPT : item.ADDRSE_ORDR_CN1,
                                 ORDER2_TO_RECEIPT : item.ADDRSE_ORDR_CN2,
                                 ORDER3_TO_RECEIPT : item.ADDRSE_ORDR_CN3,
@@ -1932,7 +1932,7 @@
                                 BEFORE_PROXY_EMP : item.BEFORE_PROXY_EMP,
                                 NEXT_PROXY_EMP : item.NEXT_PROXY_EMP,
                                 CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
-                                PROXY_EMP_CODE : item.DLCT_EMP_CD,
+                                PROXY_EMP_CODE : item.DLGT_EMP_CD,
                                 BANK_UNIQUE_NO : item.BANK_UNQ_NO,
                             }
                             jsonFinancialTransferList.push(msg);

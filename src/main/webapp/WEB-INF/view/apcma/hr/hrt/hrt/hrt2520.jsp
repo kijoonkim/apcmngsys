@@ -1345,7 +1345,7 @@
                         EMP_NAME : item.EMP_NM,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        GRADE_HOBONG_CODE : item.JBCD_SLRCL_CD,
+                        GRADE_HOBONG_CODE : item.JBGD_SLRCL_CD,
                         POSITION_CODE : item.JBPS_CD,
                         MONTH_TYPE : item.MM_TYPE,
                         WORK_SUMMARY_CONFIRM_YN : item.WORK_TOT_CFMTN_YN,

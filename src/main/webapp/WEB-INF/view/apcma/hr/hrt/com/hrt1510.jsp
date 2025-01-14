@@ -969,7 +969,7 @@
                         WORK_TIME_YN : item.WORK_TM_CHCK_YN,
                         CREATE_CNT : item.CREATE_CNT,
                         CONFIRM_CNT : item.CONFIRM_CNT,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD
+                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD
                     }
 
                     jsonEmpList.push(msg);
@@ -1009,7 +1009,7 @@
                         POSITION_CODE : item.JBPS_CD,
                         DUTY_CODE : item.JBTTL_CD,
                         JOB_RANK : item.JBGD_CD,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
                         YYYYMMDD : item.YMD,
                         SHIFT_CODE : item.SHWORK_CD,
                         WORK_TIME_YN : item.WORK_TM_CHCK_YN,
@@ -1100,7 +1100,7 @@
                         YYYYMMDD : item.YMD,
                         SHIFT_CODE : item.SHWORK_CD,
                         DEPT_CODE : item.DEPT_CD,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
                         WORK_ON_HHMM : item.GTWK_TM,
                         WORK_OFF_HHMM : item.LVWK_TM,
                         NORMAL_START_DAY_TYPE : item.NML_BGNG_DAY_TYPE,
