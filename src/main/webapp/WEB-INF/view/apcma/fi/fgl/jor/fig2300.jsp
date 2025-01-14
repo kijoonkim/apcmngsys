@@ -1366,8 +1366,8 @@
 						ACC_VALUE_NAME9			: gfnma_nvl2(item.ACC_VALUE_NAME9),
 						ACC_VALUE_NAME10		: gfnma_nvl2(item.ACC_VALUE_NAME10),
 						
-						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),
-						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCD_NM),
+						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCT_CD),
+						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCT_NM),
 						
 						DATA_TYPE1				: gfnma_nvl2(item.DATA_TYPE1),
 						DATA_TYPE2				: gfnma_nvl2(item.DATA_TYPE2),
