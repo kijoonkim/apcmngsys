@@ -330,7 +330,7 @@
 		}
 	}
 	//법인명 변경 이벤트
-	const fn_chagneCorpNm = async function(a,b,c){
+	const fn_chagneCorpNm = async function(){
 		let brno = SBUxMethod.get("srch-inp-corpNm");
 		SBUxMethod.set("srch-inp-brno",brno);
 	}
@@ -616,7 +616,7 @@
 					}
 				}
 			}else{
-				alert('해당 사업자 정보가 없습니다');
+				alert('해당년도 실적 정보가 없습니다');
 			}
 
 		}catch (e) {

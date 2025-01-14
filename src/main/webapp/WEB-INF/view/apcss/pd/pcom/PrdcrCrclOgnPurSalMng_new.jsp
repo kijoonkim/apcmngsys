@@ -247,6 +247,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report3"></sbux-button>
 						<!--
@@ -1280,16 +1281,6 @@
 		objGrid.setCellData(grdLength + captionRow - 1, objGrid.getColRef("sttgUpbrItemNm"), "소계", true);
 
 		objGrid.refresh();
-
-		//fn_gridCustom();
-		/*
-		//비활성화 추가
-		let ctgryCdCol = objGrid.getColRef("ctgryCd");//
-		let ddcAmtCol = objGrid.getColRef("ddcAmt");//
-		objGrid.setCellDisabled(grdJson.length - 1, ctgryCdCol, grdJson.length - 1, ddcAmtCol, false);
-		objGrid.setCellDisabled(grdJson.length, ctgryCdCol, grdJson.length, ddcAmtCol, true);
-		objGrid.setCellDisabled(grdJson.length + 1, ctgryCdCol, grdJson.length + 1, ddcAmtCol, true);
-		*/
 	}
 
 
@@ -2766,6 +2757,35 @@
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
+	/* 과거 실적 조회 팝업 추가 */
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){return;}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/UoPurSalHisPopup.do"
+		var title = "제출실적 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//팝업 새창에서 변수 확인
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		<c:if test="${loginVO.apoSe eq '1'}">
+		data.brno = '${loginVO.brno}';
+		</c:if>
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
+	}
 </script>
 </html>
 
