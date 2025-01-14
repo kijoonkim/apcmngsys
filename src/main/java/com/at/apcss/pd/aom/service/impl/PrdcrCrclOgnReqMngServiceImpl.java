@@ -160,4 +160,10 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 		List<LoanVO> resultList = PrdcrCrclOgnReqMngMapper.selectLoanList(LoanVO);
 		return resultList;
 	}
+
+	@Override
+	public int updateLoanChk(LoanVO LoanVO) throws Exception {
+		int updatedCnt = PrdcrCrclOgnReqMngMapper.updateLoanChk(LoanVO);
+		return updatedCnt;
+	}
 }

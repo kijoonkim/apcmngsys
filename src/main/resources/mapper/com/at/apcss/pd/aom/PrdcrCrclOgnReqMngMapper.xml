@@ -976,8 +976,9 @@
 			AND BRNO 	= #{brno}
 	</update>
 
+	<!-- 대출잔액 현황 조회 -->
 	<select id="selectLoanList" parameterType="com.at.apcss.pd.aom.vo.LoanVO" resultType="com.at.apcss.pd.aom.vo.LoanVO">
-		SELECT
+		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
 			YR
 			, BRNO
 			, UO_BRNO
@@ -997,7 +998,19 @@
 		  AND DEL_YN = 'N'
 		  AND YR = #{yr}
 		  AND UO_BRNO = #{brno}
+		ORDER BY OGNZ_TYPE_NM , CORP_NM
 	</select>
+
+	<!-- 대출잔액 확인 여부 업데이트 -->
+	<update id="updateLoanChk" parameterType="com.at.apcss.pd.aom.vo.LoanVO">
+		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
+			TB_EV_APLY_MNG
+		   SET
+			  LN_CHK_YN	= #{lnChkYn}
+		WHERE 1=1
+		  AND YR = #{yr}
+		  AND BRNO 	= #{brno}
+	</update>
 </mapper>
 
 

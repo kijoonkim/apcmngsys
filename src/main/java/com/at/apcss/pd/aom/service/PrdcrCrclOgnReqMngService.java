@@ -158,4 +158,11 @@ public interface PrdcrCrclOgnReqMngService {
 	 * @return List<LoanVO>
 	 */
 	public List<LoanVO> selectLoanList(LoanVO LoanVO) throws Exception;
+
+	/**
+	 * 대출잔액 현황 확인 여부를 수정한다.
+	 * @param LoanVO
+	 * @return int
+	 */
+	public int updateLoanChk(LoanVO LoanVO) throws Exception;
 }

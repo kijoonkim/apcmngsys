@@ -273,7 +273,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 	}
 
 
-	// 조회
+	// 대출잔액 현황 조회
 	@PostMapping(value = "/pd/aom/selectLoanList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectLoanList(Model model, @RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -286,6 +286,23 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 대출잔액 현황 확인 여부 업데이트
+	@PostMapping(value = "/pd/aom/updateLoanChk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateLoanChk(@RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/aom/updateLoanChk >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+			result =+ PrdcrCrclOgnReqMngService.updateLoanChk(LoanVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 }

@@ -1320,7 +1320,7 @@
 			{caption: ["'24년 대출 기말잔액"],	ref: 'lnndngBlnc',	type:'output',  width:'120px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["'25년 상환예정액"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["기사용액\n'24년 잔액-'25년 상환"],	ref: 'uam',	type:'output',  width:'140px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'},
 
 			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
 		];
@@ -2874,6 +2874,49 @@
 				fn_search();
 			}else{
 				alert("선택 통합조직 신청정보가 삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//대출잔액 현황 확인 여부 업데이트
+	async function updateLoanChk(yn){
+
+		let corpDdlnSeCd = null;
+		if(yn == 1){
+			corpDdlnSeCd = 'Y'
+		}else if(yn == 2){
+			corpDdlnSeCd = 'N'
+		}
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
+			yr : year
+			,corpDdlnSeCd : corpDdlnSeCd
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if(data.result > 0){
+				if(yn == 1){
+					alert("법인체 마감 되었습니다.");
+				}else if(yn == 2){
+					alert("법인체 마감 해제 되었습니다.");
+				}
+				fn_search();
+			}else{
+				if(yn == 1){
+					alert("법인체 마감 도중 오류가 발생 되었습니다.");
+				}else if(yn == 2){
+					alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
+				}
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
