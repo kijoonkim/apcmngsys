@@ -679,9 +679,9 @@
   			,searchInputValues		: [searchCode, 	searchName]
     		,width					: '700px'
     		,height					: '400px'
-  			,tableHeader			: ["자산번호",		"자산명",		"site_code",	"dept_code",		"dept_name",	"cost_center_code",			"cost_center_name"]
-  			,tableColumnNames		: ["ASST_NO", 	 	"ASST_NM",	"SITE_CD",	"DEPT_CD",		"DEPT_NM",	"CSTCD_CD",			"ADDR"]
-  			,tableColumnWidths		: ["100px", 		 "250px",		"100px",		"100px",			"100px",		"100px",					"100px"]
+  			,tableHeader			: ["자산번호",		"자산명",		"회사코드",		"부서코드",			"부서명",		"원가중심점코드",			"원가중심점명"]
+  			,tableColumnNames		: ["ASST_NO", 	 	"ASST_NM",		"SITE_CD",		"DEPT_CD",			"DEPT_NM",		"CSTCD_CD",					"CSTCD_NM"]
+  			,tableColumnWidths		: ["100px", 		"250px",		"100px",		"100px",			"100px",		"100px",					"100px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('SCH_ASSET_CODE',	data.ASST_NO);
 				SBUxMethod.set('SCH_ASSET_NAME', 	data.ASST_NM);

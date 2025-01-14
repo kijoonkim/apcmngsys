@@ -397,13 +397,13 @@
 			                                    <th scope="row" class="th_bg">원가중심점</th>
 			                                    <td colspan="2" class="td_input">
 						                           	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-					  									<sbux-input style="width:80px" placeholder="코드" id="FM_CSTCD_CD" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:80px" placeholder="코드" id="FM_CSTCT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 					  									<font style="width:5px"></font>
 						        						<button type='button' class='ma-btn1' style='width:30px' onClick="fn_compopup7('1')">
 						        							…
 														</button>
 					  									<font style="width:5px"></font>
-					  									<sbux-input style="width:100%" placeholder="원가중심점명" id="FM_CSTCD_NM" uitype="text" class="form-control input-sm"></sbux-input>
+					  									<sbux-input style="width:100%" placeholder="원가중심점명" id="FM_CSTCT_NM" uitype="text" class="form-control input-sm"></sbux-input>
 						                           	</div>
 			                                    </td>
 											
@@ -1079,7 +1079,7 @@
     	var p_fm_dept_code				= gfnma_nvl(SBUxMethod.get('FM_DEPT_CODE')); 
     	var p_fm_asset_level3			= gfnma_nvl(SBUxMethod.get('FM_ASSET_LEVEL3')); 
     	var p_fm_currency_code			= gfnma_nvl(SBUxMethod.get('FM_CURRENCY_CODE')); 
-    	var p_fm_cost_center_code		= gfnma_nvl(SBUxMethod.get('FM_CSTCD_CD')); 
+    	var p_fm_cost_center_code		= gfnma_nvl(SBUxMethod.get('FM_CSTCT_CD')); 
     	var p_fm_acquire_date			= gfnma_nvl(SBUxMethod.get('FM_ACQS_FRST_YMD')); 
     	var p_fm_functional_amount		= gfnma_nvl(SBUxMethod.get('FM_FUNCTIONAL_AMOUNT')); 
     	var p_fm_site_code				= gfnma_nvl(SBUxMethod.get('FM_SITE_CODE')); 
@@ -1465,7 +1465,7 @@
 							DEPRECIATE_YN					: gfnma_nvl2(item.DPRC_YN),	
 							CAPITAL_EXPENDITURE				: gfnma_nvl2(item.CPEXPND_ACML_AMT),	
 							DEPR_EXP_ACC					: gfnma_nvl2(item.DPCO_ACNT),	
-							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCD_NM),	
+							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCT_NM),	
 							CS_NAME							: gfnma_nvl2(item.CNPT_NM),	
 							SUBSIDIES_AMOUNT				: gfnma_nvl2(item.GVSBS_AMT),	
 							DEPRECIATE_START_YYYYMM			: gfnma_nvl2(item.DPRC_BGNG_YM),	
@@ -1535,8 +1535,8 @@
 							ASSET_NAME						: gfnma_nvl2(item.ASST_NM),	
 							ASSET_SEQ						: gfnma_nvl2(item.AST_SEQ),	
 							ASSET_SPEC						: gfnma_nvl2(item.AST_SPCFCT),	
-							COST_CENTER_CODE				: gfnma_nvl2(item.CSTCD_CD),	
-							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCD_NM),	
+							COST_CENTER_CODE				: gfnma_nvl2(item.CSTCT_CD),	
+							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCT_NM),	
 							CURRENCY_CODE					: gfnma_nvl2(item.CRN_CD),	
 							DEPT_CODE						: gfnma_nvl2(item.DEPT_CD),	
 							DEPT_NAME						: gfnma_nvl2(item.DEPT_NM),	
@@ -1582,8 +1582,8 @@
 							DEPT_NAME						: gfnma_nvl2(item.DEPT_NM),
 							EMP_CODE						: gfnma_nvl2(item.EMP_CD),
 							EMP_NAME						: gfnma_nvl2(item.EMP_NM),
-							COST_CENTER_CODE				: gfnma_nvl2(item.CSTCD_CD),
-							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCD_NM),
+							COST_CENTER_CODE				: gfnma_nvl2(item.CSTCT_CD),
+							COST_CENTER_NAME				: gfnma_nvl2(item.CSTCT_NM),
 							PROJECT_CODE					: gfnma_nvl2(item.PJT_CD),
 							PROJECT_NAME					: gfnma_nvl2(item.PJT_NM),
 							CURRENCY_CODE					: gfnma_nvl2(item.CRN_CD),
@@ -2261,16 +2261,16 @@
         var searchText1 	= '';
         var searchText2 	= '';
         if(type=='1'){
-            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_CSTCD_CD"));
-            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_CSTCD_NM"));
+            searchText1 	= gfnma_nvl(SBUxMethod.get("FM_CSTCT_CD"));
+            searchText2 	= gfnma_nvl(SBUxMethod.get("FM_CSTCT_NM"));
         } else if(type=='2'){
             searchText1 	= gfnma_nvl(SBUxMethod.get("SCH_COST_CENTER_CODE"));
             searchText2 	= gfnma_nvl(SBUxMethod.get("SCH_COST_CENTER_NAME"));
         }
         
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_"; 
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_"; 
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
@@ -2280,22 +2280,22 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchText1, 		searchText2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
 		        if(type=='1'){
-					SBUxMethod.set('FM_CSTCD_CD', 	data.CSTCD_CD);
-					SBUxMethod.set('FM_CSTCD_NM', 	data.CSTCD_NM);
+					SBUxMethod.set('FM_CSTCT_CD', 	data.CSTCT_CD);
+					SBUxMethod.set('FM_CSTCT_NM', 	data.CSTCT_NM);
 		        } else if(type=='2'){
-					SBUxMethod.set('SCH_COST_CENTER_CODE', 	data.CSTCD_CD);
-					SBUxMethod.set('SCH_COST_CENTER_NAME', 	data.CSTCD_NM);
+					SBUxMethod.set('SCH_COST_CENTER_CODE', 	data.CSTCT_CD);
+					SBUxMethod.set('SCH_COST_CENTER_NAME', 	data.CSTCT_NM);
 		        }
 			},
     	});
@@ -2581,9 +2581,9 @@
     	
         var searchText1 	= cellData2;
         var searchText2 	= cellData1;
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         compopup1({
@@ -2593,17 +2593,17 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 				"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchText2, 		searchText1]
     		,width					: '600px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 		"명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["150px", 			"200px"]
             ,itemSelectEvent		: function (data){
                 console.log('callback data:', data);
-                Fia3100GridDetail01.setCellData(row, 17, 	data['CSTCD_NM'], true, true);
-                Fia3100GridDetail01.setCellData(row, 19, 	data['CSTCD_CD'], true, true);
+                Fia3100GridDetail01.setCellData(row, 17, 	data['CSTCT_NM'], true, true);
+                Fia3100GridDetail01.setCellData(row, 19, 	data['CSTCT_CD'], true, true);
             },
         });
 		SBUxMethod.openModal('modal-compopup1');
@@ -2674,7 +2674,7 @@
 		let p_fm_site_code			= gfnma_nvl(SBUxMethod.get("FM_SITE_CODE"));
 		let p_fm_cs_code			= gfnma_nvl(SBUxMethod.get("FM_CNPT_CD"));
 		let p_fm_dept_code			= gfnma_nvl(SBUxMethod.get("FM_DEPT_CODE"));
-		let p_fm_cost_center_code	= gfnma_nvl(SBUxMethod.get("FM_CSTCD_CD"));
+		let p_fm_cost_center_code	= gfnma_nvl(SBUxMethod.get("FM_CSTCT_CD"));
 		let p_fm_project_code		= gfnma_nvl(SBUxMethod.get("FM_PJT_CD"));
 		let p_fm_location_code		= gfnma_nvl(SBUxMethod.get("FM_LOCTN_CD"));
 		let p_fm_depreciate_yn		= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATE_YN")['FM_DEPRECIATE_YN']);
