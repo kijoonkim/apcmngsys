@@ -2462,8 +2462,8 @@
 					/**************************** 계정과목 정보 **********************************/
 					SBUxMethod.set("FM_DEPOSIT_CODE"      					, gfn_nvl(item.DEPT_CD));
 					SBUxMethod.set("FM_DEPOSIT_NAME"      					, gfn_nvl(item.DEPT_NM));
-					SBUxMethod.set("FM_COST_CENTER_CODE"      				, gfn_nvl(item.CSTCD_CD));
-					SBUxMethod.set("FM_COST_CENTER_NAME"      				, gfn_nvl(item.CSTCD_NM));
+					SBUxMethod.set("FM_COST_CENTER_CODE"      				, gfn_nvl(item.CSTCT_CD));
+					SBUxMethod.set("FM_COST_CENTER_NAME"      				, gfn_nvl(item.CSTCT_NM));
 					SBUxMethod.set("FM_LOAN_ACCOUNT"      					, gfn_nvl(item.LOAN_ACNT_CD));
 					SBUxMethod.set("FM_LOAN_ACCOUNT_NAME"      				, gfn_nvl(item.LOAN_ACCOUNT_NAME));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_CODE"      	, gfn_nvl(item.INT_CST_ACNT_CD));
@@ -2577,7 +2577,7 @@
                 jsonTrl1010Tab5.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        TXN_ID        				: gfn_nvl(item.TXN_ID),
+                        TXN_ID        				: gfn_nvl(item.TRSC_ID),
                         LOAN_NUM        			: gfn_nvl(item.LOAN_NUM),
                         PLAN_SEQ        			: gfn_nvl(item.PLAN_SEQ),
                         CURRENCY_CODE        		: gfn_nvl(item.CURRENCY_CODE),

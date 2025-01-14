@@ -2193,7 +2193,7 @@
                         ITEM_TAXABLE_AMT: gfn_nvl(item.ITEM_TX_AMT),
                         ITEM_VAT_AMT    : gfn_nvl(item.ITEM_VAT_AMT),
                         ITEM_DESC       : gfn_nvl(item.ITEM_DSCTN),
-                        COST_CENTER_CODE: gfn_nvl(item.CSTCD_CD),
+                        COST_CENTER_CODE: gfn_nvl(item.CSTCT_CD),
                         DEPT_CODE       : gfn_nvl(item.DEPT_CD),
                         DEPT_NAME       : gfn_nvl(item.DEPT_NM),
                         PROJECT_CODE    : gfn_nvl(item.PJT_CD),

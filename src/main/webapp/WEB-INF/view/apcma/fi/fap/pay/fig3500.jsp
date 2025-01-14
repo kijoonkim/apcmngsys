@@ -1917,7 +1917,7 @@
                             COMP_CODE           : gfn_nvl(item.CO_CD),
                             DOC_ID              : gfn_nvl(item.SLIP_ID),
                             CONFIRM_EMP_CODE    : gfn_nvl(item.CONFIRM_EMP_CODE),
-                            PROXY_EMP_CODE      : gfn_nvl(item.DLCT_EMP_CD),
+                            PROXY_EMP_CODE      : gfn_nvl(item.DLCT_EMP_CD), // TODO : DLGT_EMP_CD
                             APPR_ID             : gfn_nvl(item.APRV_ID),
                             APPLY_DOC_NAME      : gfn_nvl(item.APPLY_DOC_NAME),
                             APPLY_DOC_DATE      : gfn_nvl(item.APPLY_DOC_DATE),
@@ -2002,7 +2002,7 @@
                             COMP_CODE           : gfn_nvl(item.CO_CD),
                             DOC_ID              : gfn_nvl(item.SLIP_ID),
                             CONFIRM_EMP_CODE    : gfn_nvl(item.CONFIRM_EMP_CODE),
-                            PROXY_EMP_CODE      : gfn_nvl(item.DLCT_EMP_CD),
+                            PROXY_EMP_CODE      : gfn_nvl(item.DLCT_EMP_CD), // TODO : DLGT_EMP_CD
                             APPR_ID             : gfn_nvl(item.APRV_ID),
                             APPLY_DOC_NAME      : gfn_nvl(item.APPLY_DOC_NAME),
                             APPLY_DOC_DATE      : gfn_nvl(item.APPLY_DOC_DATE),
@@ -2337,7 +2337,7 @@
                         VAT_TYPE            : item.VAT_TYPE,
                         VAT_NAME            : item.VAT_NM,
                         DEPT_CODE           : item.DEPT_CD,
-                        COST_CENTER_CODE    : item.CSTCD_CD,
+                        COST_CENTER_CODE    : item.CSTCD_CD, //TODO : CSTCT_CD
                         PROJECT_CODE        : item.PJT_CD,
                         ORIGINAL_CR_AMT     : item.ORGNL_CRSD_AMT,
                         ORIGINAL_DR_AMT     : item.ORGNL_DRSD_AMT,
@@ -2495,7 +2495,7 @@
                         UPDATE_TIME : item.UPDT_DT,
                         UPDATE_PC : item.UPDT_PC,
                         DESCRIPTION : item.DSCTN,
-                        PROXY_EMP_CODE : item.DLCT_EMP_CD,
+                        PROXY_EMP_CODE : item.DLGT_EMP_CD,
                         PROXY_EMP_NAME : item.PROXY_EMP_NAME
                     }
                     jsonDetailList.push(msg);
