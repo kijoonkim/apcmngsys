@@ -877,7 +877,14 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdLoan" style="height:200px; width: 100%;"></div>
 				</div>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div style="margin-left: auto;">
+						<sbux-button id="btnLoanY" name="btnLoanY" uitype="normal" text="대출잔액 현황 확인" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('Y')"></sbux-button>
+						<sbux-button id="btnLoanN" name="btnLoanN" uitype="normal" text="대출잔액 현황 취소" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('N')"></sbux-button>
+					</div>
+				</div>
 
+				<!-- 산지유통활성지원 자금신청 현황 -->
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
@@ -1325,6 +1332,7 @@
 			{caption: ["'25년 상환예정액"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["기사용액\n'24년 잔액-'25년 상환"],	ref: 'uam',	type:'output',  width:'140px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["확인여부"],				ref: 'lnChkYn',	type:'output',  width:'80px',	style:'text-align:center'},
 
 			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
 		];
@@ -1727,6 +1735,7 @@
 						,exprpymntAmt: 	item.exprpymntAmt
 						,uam: 			item.uam
 						,lnSrc: 		item.lnSrc
+						,lnChkYn: 		item.lnChkYn
 						,uoBrno: 		item.uoBrno
 				}
 				jsonLoan.push(itemVo);
@@ -2810,9 +2819,16 @@
 			corpDdlnSeCd = 'N'
 		}
 
+		let yr = SBUxMethod.get('srch-input-yr');;
+
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
+
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
+
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
 			yr : year
@@ -2888,39 +2904,46 @@
 	}
 
 	//대출잔액 현황 확인 여부 업데이트
-	async function updateLoanChk(yn){
+	async function fn_updateLoanChk(yn){
 
-		let corpDdlnSeCd = null;
-		if(yn == 1){
-			corpDdlnSeCd = 'Y'
-		}else if(yn == 2){
-			corpDdlnSeCd = 'N'
+		if(jsonLoan.length == 0){
+			return;
+		}
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		if(gfn_isEmpty(brno)){
+			return;
 		}
 
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
-			yr : year
-			,corpDdlnSeCd : corpDdlnSeCd
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
+		//직전년도
+		yr = Number(yr) - 1;
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateLoanChk.do", {
+			yr : yr
+			,brno : brno
+			,lnChkYn : yn
 		});
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
-				if(yn == 1){
-					alert("법인체 마감 되었습니다.");
-				}else if(yn == 2){
-					alert("법인체 마감 해제 되었습니다.");
+			if(data.resultCnt > 0){
+				if(yn == 'Y'){
+					alert("대출잔액 현황 확인 되었습니다.");
+				}else if(yn == 'N'){
+					alert("대출잔액 현황 취소 되었습니다.");
 				}
-				fn_search();
+				fn_selectLoanList();
 			}else{
-				if(yn == 1){
-					alert("법인체 마감 도중 오류가 발생 되었습니다.");
-				}else if(yn == 2){
-					alert("법인체 마감 해제 도중 오류가 발생 되었습니다.");
-				}
+				alert("대출잔액 현황 확인 중 오류가 발생 되었습니다.");
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {

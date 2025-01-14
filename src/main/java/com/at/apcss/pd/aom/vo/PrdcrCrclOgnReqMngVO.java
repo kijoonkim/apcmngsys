@@ -100,6 +100,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String picMoblno;
 	private String picEml;
 
+	private String lnChkYn;//대출잔액 현황 확인여부
+
 	private List<GpcVO> gpcList;
 }
 
