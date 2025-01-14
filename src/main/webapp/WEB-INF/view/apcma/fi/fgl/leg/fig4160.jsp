@@ -6,7 +6,7 @@
  * @since 			: 2024.09.26
  * @version 		: 1.0
  * @Modification Information
- * @
+ * @FCSTCT_CD
  * @ 수정일       	수정자      수정내용
  * @ ----------		----------	---------------------------
  * @ 2024.09.26   	장성주		최초 생성
@@ -603,9 +603,9 @@
 						APPLY_DOC_DATE				: gfnma_date5(gfnma_nvl2(item.APPLY_DOC_DATE)),		
 						APPLY_DOC_ID				: gfnma_nvl2(item.APPLY_DOC_ID),		
 						APPLY_DOC_NAME				: gfnma_nvl2(item.APPLY_DOC_NAME),	
-						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),	
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCT_CD),	
 						COST_CENTER_CODE1			: gfnma_nvl2(item.COST_CENTER_CODE1),	
-						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),	
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCT_NM),	
 						
 						CS_CODE						: gfnma_nvl2(item.CNPT_CD),
 						CS_NAME						: gfnma_nvl2(item.CNPT_NM),

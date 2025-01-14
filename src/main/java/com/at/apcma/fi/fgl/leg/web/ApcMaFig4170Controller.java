@@ -43,7 +43,7 @@ public class ApcMaFig4170Controller extends BaseController {
     @Resource(name= "apcMaComService")
     private ApcMaComService apcMaComService;
     
-    // 총계정원장 조회
+    // 거래처원장조회 조회
     @PostMapping(value = "/fi/fgl/leg/selectFig4170List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectFig4170List(
     		@RequestBody Map<String, Object> param
