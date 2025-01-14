@@ -295,7 +295,7 @@
             // 금융기관코드
             gfnma_setComSelect(['gvwList'], jsonBankCsCode, 'L_CS_BANK', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CNPT_CD', 'BANK_CS_NAME', 'Y', ''),
             // 원가중심점
-            gfnma_setComSelect(['gvwList'], jsonCostCenterCode, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwList'], jsonCostCenterCode, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
             // 지급방법
             gfnma_setComSelect(['gvwList'], jsonPayMethodDeposit, 'L_FIM073_DEPOSIT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 거래유형
@@ -317,7 +317,7 @@
             // 단위
             gfnma_setComSelect(['gvwAccount'], jsonUom, 'L_LGS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'UNIT_CD', 'UNIT_NM', 'Y', ''),
             // 원가중심점코드
-            gfnma_setComSelect(['gvwAccount'], jsonCostCenterCCCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwAccount'], jsonCostCenterCCCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
             // 관리항목코드
             gfnma_setComSelect(['gvwAccount'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
             // 통화코드
@@ -1135,7 +1135,7 @@
                             CURRENCY_CODE : item.CRN_CD,
                             EXCHANGE_RATE : item.EXCHRT,
                             DEPT_CODE : item.DEPT_CD,
-                            COST_CENTER_CODE : item.CSTCD_CD,
+                            COST_CENTER_CODE : item.CSTCT_CD,
                             DEPOSIT_AMT_O : item.DEPOSIT_AMT_O,
                             DEPOSIT_AMT_F : item.DEPOSIT_AMT_F,
                             IN_PLAN_AMT_O : item.IN_PLAN_AMT_O,
@@ -1224,7 +1224,7 @@
                             VAT_TYPE : item.VAT_TYPE,
                             VAT_NAME : item.VAT_NM,
                             DEPT_CODE : item.DEPT_CD,
-                            COST_CENTER_CODE : item.CSTCD_CD,
+                            COST_CENTER_CODE : item.CSTCT_CD,
                             PROJECT_CODE : item.PJT_CD,
                             ORIGINAL_CR_AMT : item.ORGNL_CRSD_AMT,
                             ORIGINAL_DR_AMT : item.ORGNL_DRSD_AMT,

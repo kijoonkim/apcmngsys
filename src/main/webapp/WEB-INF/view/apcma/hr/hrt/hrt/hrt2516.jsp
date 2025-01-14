@@ -569,7 +569,7 @@
                     data.cv_1.forEach((item, index) => {
                         const msg = {
                             SEQ : item.SEQ,
-                            TIME_SUMMARY_ACTION_TYPE : item.TIME_SUMMARY_ACTION_TYPE,
+                            TIME_SUMMARY_ACTION_TYPE : item.TOT_TYPE,
                             INSERT_USERID : item.WRT_USER_ID,
                             INSERT_TIME : item.WRT_DT,
                             ACTION_END_TIME : item.EXCN_END_TM,
@@ -606,7 +606,7 @@
                             DUTY_CODE : item.JBTTL_CD,
                             JOB_RANK : item.JBGD_CD,
                             JOB_FAMILY : item.JOB_LWRNK_GROUP,
-                            WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                            WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
                             SHIFT_CODE : item.SHWORK_CD,
                             TIME_ITEM_CODE : item.ATDNC_ITEM_CD,
                             JOB_GROUP : item.JOB_GROUP,

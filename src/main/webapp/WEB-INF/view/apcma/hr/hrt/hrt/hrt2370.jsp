@@ -251,7 +251,7 @@
             gfnma_setComSelect(['SRCH_TIME_CATEGORY'], jsonTimeCategory, 'L_HRT024_04', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['gvwInfo'], jsonPositionCode, 'L_HRI002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['gvwInfo'], jsonJobRank, 'L_HRI005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect(['gvwInfo'], jsonOperationName, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwInfo'], jsonOperationName, 'L_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({

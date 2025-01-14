@@ -950,7 +950,7 @@
                         RETIRE_DATE : item.RTRM_YMD,
                         WORK_YEAR : item.CNSVC_YYCNT,
                         ANNUAL_DAY : item.ANNLV_OCRN_DAY_CNT,
-                        ONEYEAR_DAY : item.YEAR_BLW_DCNT,
+                        ONEYEAR_DAY : item.YR_BLW_DCNT,
                         TOT_DAY : item.TOT_DCNT,
                         ADJUST_DAY : item.AJMT_DAY_CNT,
                         CARRIED_DAY : item.CF_DCNT,

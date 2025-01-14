@@ -1558,7 +1558,7 @@
                         SITE_CODE : item.SITE_CD,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         POSITION_CODE : item.JBPS_CD,
                         EMP_CODE : item.EMP_CD,
@@ -1604,7 +1604,7 @@
                         INSERT_GROUP2 : item.INSERT_GROUP2,
                         CURRENT_APPROVE_EMP_CODE : item.CURRENT_APPROVE_EMP_CODE,
                         CURRENT_APPROVE_EMP_NAME : item.CURRENT_APPROVE_EMP_NAME,
-                        PROXY_EMP_CODE : item.DLCT_EMP_CD,
+                        PROXY_EMP_CODE : item.DLGT_EMP_CD,
                         PROXY_EMP_NAME : item.PROXY_EMP_NAME,
                         CURRENT_DUTY_CODE : item.CURRENT_DUTY_CODE,
                         APPR_COUNT : item.APPR_COUNT,
@@ -1791,7 +1791,7 @@
                         let temp_txn_id = "";
 
                         listData.cv_2.forEach((item, index) => {
-                            temp_txn_id += item.TXN_ID + "|";
+                            temp_txn_id += item.TRSC_ID + "|";
                         });
 
                         if(temp_txn_idl.length > 0) {
