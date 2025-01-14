@@ -24,5 +24,6 @@ public class LoanVO extends ComVO{
 	private String uam;			//기사용액
 	private String lnSrc;		//대출처
 	private String uoBrno;		//통합조직 사업자번호
+	private String lnChkYn;		//대출잔액 현황 확인여부
 }
 
