@@ -282,7 +282,9 @@
 			bbsSeCd: '1',//공지사항
 			bbsTtl: bbsTitle,
 			bbsUserNm: bbsUserNm,
-
+			<c:if test="${loginVO.userType ne '01' && loginVO.userType ne '00' &&  loginVO.userType ne '02'}">
+			prvtPstYn:'Y', //Y로 보내면 비밀글 표시 안됨
+			</c:if>
 			// pagination
 			pagingYn : 'Y',
 			currentPageNo : pageNo,
