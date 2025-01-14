@@ -574,7 +574,7 @@
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">정규직</th>
 							<th colspan="4" scope="row" class="th_bg th_border_right">파견직</th>
-							<th colspan="4" scope="row" class="th_bg th_border_right">일용직</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">계약직</th>
 							<th colspan="3" scope="row" class="th_bg th_border_right">합계</th>
 						</tr>
 						<tr>
@@ -605,7 +605,7 @@
 							</td>
 							<td>명</td>
 							<td colspan="3" style="border-right: hidden;">
-							<!-- 일용직 -->
+							<!-- 계약직 -->
 							<sbux-input
 										uitype="text"
 										id="dtl-input-dlbrrNope"
@@ -657,12 +657,12 @@
 						</ul>
 				</div>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
-					<p><b> o 품목리스트 : 전문/육성 품목 뿐 아니라, 조직에서 취급하고 있는 기타품목까지 모두 등록</b></p>
-					<p><b> - 여기에 등록해놓은 품목으로 조직의 총 취급액을 확인할 수 있어야 함 (★ 실적점검 시 해당서류도 제출 필요)</b></p>
+					<p><b> o 품목리스트 : 2024년도에 생산유통통합조직에서 취급한 전문/육성 품목 뿐 아니라, 조직에서 취급하고 있는 기타품목까지 모두 등록<span style="color: red;">(출자출하조직 제외)</span></b></p>
+					<p><b> - 여기에 등록해놓은 품목으로 조직의 2024년도 총 취급액을 확인할 수 있어야 함 (★ 실적점검 시 해당서류도 제출 필요)</b></p>
 					<p> - 기본요건 확인 : 임산물류, 양곡류(미곡류 제외) 취급하는 조직의 경우, 원예농산물 대상품목(부류기준 : 청과부류, 화훼부류, 약용작물류) 취급액이 전체 취급액의 50% 이상 여부 확인</p>
 					<p>　* 취급액이 너무 작은 품목(ex. 품목당 취급액 비중이 총취급액의 10% 미만 등)은 품목명을 "부류별 기타(ex.과실류기타, 과채류기타 등)"로 묶어서 작성 가능</p>
 					<p> - 평가부류 : 세팅값은 있으나 조직별 재배기준에 따라 변경 가능하며, 해당 평가부류를 적용해서 "전문품목에 대한 부류별 평가"를 진행하오니 반드시 확인 필요</p>
-					<p> - 취급액·취급률 목표 : 산지유통활성화자금 배정을 위한 평가에 반영("전문품목"만 해당하나, 육성품목 및 기타품목도 참고용으로 작성요청) </p>
+					<p> - 취급액·취급률 목표 : 산지유통활성화자금 배정을 위한 평가에 반영("전문품목"만 해당하나, 육성품목 및 기타품목도 참고용으로 작성요청)<span style="color: red">*제시된 목표는 원칙적으로 수정 불가</span></p>
 				</div>
 				<div class="sb-area-grdGpcList">
 					<!-- SBGrid를 호출합니다. -->
@@ -674,6 +674,9 @@
 								<span style="font-size:14px">▶생산유통통합조직등록</span>
 							</li>
 						</ul>
+				</div>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>o 원물확보 시군 시도 개소수 : 생산자조직의 원물확보 지역을 기준으로 작성</p>
 				</div>
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>생산유통통합조직 여부</caption>
@@ -883,6 +886,7 @@
 					</ul>
 				</div>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p style="color: red;"> o 자금대환액 및 신규사용 수요를 감안하여 신청 </p>
 					<p>o 산지유통활성화자금 : 자금신청액의 최소 단위는 100,000천원이고 이하 단위는 자동 절삭처리</p>
 					<p> ⇒ 출자출하조직 등록 내용까지 모두 확인 완료 후 "법인체 마감"</p>
 				</div>
@@ -1121,8 +1125,8 @@
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'UNTY_CTPV'), //시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'UNTY_SSG'),	 //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
@@ -3019,7 +3023,7 @@
 			{caption: ["전체 종사자 수"],			ref: 'nopeTot',				type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["정규직"],					ref: 'rgllbrNope',			type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["파견직"],					ref: 'dwNope',				type:'output',  width:'130px',	style:'text-align:center'},
-			{caption: ["일용직"],					ref: 'dlbrrNope',			type:'output',  width:'130px',	style:'text-align:center'},
+			{caption: ["계약직"],					ref: 'dlbrrNope',			type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["통합조직 자금신청액"], 			ref: 'pruoFundAplyAmt',		type:'output',  width:'130px',	style:'text-align:center'},
 
 			{caption: ["출자출하조직 자금신청액"],		ref: 'isoFundAplyAmt',		type:'output',  width:'200px',	style:'text-align:center'},
