@@ -1132,7 +1132,7 @@
     			SBUxMethod.set('sch-release-user', 				gfnma_nvl(tobj['RMV_USER']));
     			SBUxMethod.set('sch-hold-user', 				gfnma_nvl(tobj['HLDOF_USER']));
     			SBUxMethod.set('sch-hold-reason', 				gfnma_nvl(tobj['HLDOF_RSN']));
-    			SBUxMethod.set('sch-proxy-emp-code', 			gfnma_nvl(tobj['DLCT_EMP_CD']));
+    			SBUxMethod.set('sch-proxy-emp-code', 			gfnma_nvl(tobj['DLGT_EMP_CD']));
     			SBUxMethod.set('sch-source-type', 				gfnma_nvl(tobj['SRC_TYPE']));
     			SBUxMethod.set('sch-appr-id', 					gfnma_nvl(tobj['APRV_ID']));
     			SBUxMethod.set('sch-entry-path', 				gfnma_nvl(tobj['INPT_PATH']));

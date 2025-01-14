@@ -441,7 +441,7 @@
 			                            </td>
 			                            <th scope="row" class="th_bg">서류명</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NAME, 'DCNMT_NM')" id="DCNMT_NM" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NAME, 'DOC_NM')" id="DOC_NM" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <th scope="row" class="th_bg">수출외화금액</th>
 			                            <td class="td_input" >
@@ -485,7 +485,7 @@
 			                            </td>
 			                            <th scope="row" class="th_bg">발급일자</th>
 			                            <td class="td_input" >
-										    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DCNMT_ISSU_YMD')"  id="DCNMT_ISSU_YMD" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
+										    <sbux-datepicker onchange="fn_FomChange(DOCUMENT_ISSUE_DATE, 'DOC_ISSU_YMD')"  id="DOC_ISSU_YMD" uitype="popup" date-format="yyyy-mm-dd" class="form-control input-sm input-sm-ast table-datepicker-ma"></sbux-datepicker>                          
 			                            </td>
 			                            <td colspan="4" class="td_input" >
 			                            </td>
@@ -501,7 +501,7 @@
 			                            </td>
 			                            <th scope="row" class="th_bg">내국신용장서류번호</th>
 			                            <td class="td_input" >
-			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NO, 'DCNMT_NO')"  id="DCNMT_NO" uitype="text" class="form-control input-sm" ></sbux-input>
+			   								<sbux-input onchange="fn_FomChange(DOCUMENT_NO, 'DOC_NO')"  id="DOC_NO" uitype="text" class="form-control input-sm" ></sbux-input>
 			                            </td>
 			                            <td colspan="4" class="td_input" >
 			                            </td>
@@ -850,8 +850,8 @@
             {caption: ["전기일자"],  				ref: 'SLIP_YMD', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["계정명"],  					ref: 'ACNT_NM', 			type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["부서명"],  					ref: 'DEPT_NM', 				type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["원가중심코드"], 			ref: 'CSTCD_CD', 		type:'output',  	width:'80px',  		style:'text-align:left'},
-            {caption: ["원가중심명"], 				ref: 'CSTCD_NM', 		type:'output',  	width:'150px',  	style:'text-align:left'},
+            {caption: ["원가중심코드"], 			ref: 'CSTCT_CD', 		type:'output',  	width:'80px',  		style:'text-align:left'},
+            {caption: ["원가중심명"], 				ref: 'CSTCT_NM', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["거래처코드"], 				ref: 'CNPT_CD', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["거래처명"], 				ref: 'CNPT_NM', 				type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption: ["통화"], 					ref: 'CRN_CD', 			type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -1180,13 +1180,13 @@
             },
             {caption: ["부서코드"],					ref: 'DEPT_CD', 				type:'output',		width:'100px',  	style:'text-align:left', hidden:true},
             
-            {caption: ["원가중심점"], 				ref: 'CSTCD_CD',		type:'input',  		width:'70px',  		style:'text-align:left'},
+            {caption: ["원가중심점"], 				ref: 'CSTCT_CD',		type:'input',  		width:'70px',  		style:'text-align:left'},
             {caption: [''], 						ref: 'btn4',    				type:'button',  	width:'40px',  		style:'text-align:center', 
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_gridPopup4(event, " + nRow + ", " + nCol + ")'>…</button>";
             	}	
             },
-            {caption: ["원가중심점명"], 			ref: 'CSTCD_NM', 		type:'input',		width:'150px',  	style:'text-align:left'},
+            {caption: ["원가중심점명"], 			ref: 'CSTCT_NM', 		type:'input',		width:'150px',  	style:'text-align:left'},
             
             {caption: ["사업장"],					ref: 'SITE_CD', 				type:'combo',  		width:'100px',  	style:'text-align:center',
             	typeinfo: {
@@ -1765,8 +1765,8 @@
      */
     var fn_gridPopup4Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_"; 
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_"; 
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
@@ -1777,18 +1777,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310GridEdit.setCellData(row, 18, 	data['CSTCD_CD'], true, true);
-				Fig2310GridEdit.setCellData(row, 20, 	data['CSTCD_NM'], true, true);
+				Fig2310GridEdit.setCellData(row, 18, 	data['CSTCT_CD'], true, true);
+				Fig2310GridEdit.setCellData(row, 20, 	data['CSTCT_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2339,8 +2339,8 @@
     					CARD_USE_TYPE			: gfnma_nvl(item.CARD_USG_TYPE),			
     					CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
     					
-    					COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),			
-    					COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),			
+    					COST_CENTER_CODE		: gfnma_nvl(item.CSTCT_CD),			
+    					COST_CENTER_NAME		: gfnma_nvl(item.CSTCT_NM),			
     					CS_CODE					: gfnma_nvl(item.CNPT_CD),			
     					CS_NAME					: gfnma_nvl(item.CNPT_NM),			
     					CURRENCY_CODE			: gfnma_nvl(item.CRN_CD),			
@@ -2349,9 +2349,9 @@
     					DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
     					DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
     					
-    					DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DCNMT_ISSU_YMD),			
-    					DOCUMENT_NAME			: gfnma_nvl(item.DCNMT_NM),			
-    					DOCUMENT_NO				: gfnma_nvl(item.DCNMT_NO),			
+    					DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DOC_ISSU_YMD),			
+    					DOCUMENT_NAME			: gfnma_nvl(item.DOC_NM),			
+    					DOCUMENT_NO				: gfnma_nvl(item.DOC_NO),			
     					
     					DOC_BATCH_NO			: gfnma_nvl(item.SLIP_BTCH_NO),			
     					DOC_DATE				: gfnma_nvl(item.SLIP_YMD),			
@@ -2604,9 +2604,9 @@
         		var obj = gridAllList[i];
         		if(obj['CHECK_YN']=='Y'){
         			if(iCount == 0){
-                        prev_cc_code = obj["CSTCD_CD"];
+                        prev_cc_code = obj["CSTCT_CD"];
         			} else {
-                        this_cc_code = obj["CSTCD_CD"];
+                        this_cc_code = obj["CSTCT_CD"];
                         if (prev_cc_code != this_cc_code)
                         {
                             iCostCenterCnt++;
@@ -2731,7 +2731,7 @@
 		      		return;
 				}
 				if(obj['ACNT_CTGRY'] == 'D' && obj['ACNT_CTGRY'] == 'E' ){
-					if(!obj['CSTCD_CD']){
+					if(!obj['CSTCT_CD']){
 			      		gfn_comAlert("E0000","수익,비용인 경우 원가중심점이 필수 입니다.");
 			      		callbackFn(false);
 			      		return;
@@ -2784,7 +2784,7 @@
 		      		return;
 				}
 				if( obj['ACNT_CTGRY'] == 'D' && obj['ACNT_CTGRY'] == 'E' ){
-					if( !obj['CSTCD_CD'] ){
+					if( !obj['CSTCT_CD'] ){
 			      		gfn_comAlert("E0000","수익,비용인 경우 원가중심점이 필수 입니다.");
 			      		callbackFn(false);
 			      		return;
@@ -2800,7 +2800,7 @@
 				}
 				//20161114 프로젝트 필수여부 체크
 				if( obj['CST_CLSF'] == '1' || obj['CST_CLSF'] == '2' || obj['CST_CLSF'] == '8' || obj['PJT_YN'] == 'Y' ){
-					if( !obj['CSTCD_CD'] ){
+					if( !obj['CSTCT_CD'] ){
 			      		gfn_comAlert("E0000","코스트센터는 필수입력사항 입니다.");
 			      		callbackFn(false);
 			      		return;
@@ -2984,7 +2984,7 @@
                 struom 					+= obj["UNIT"] + "|";
                 strtxn_qty 				+= (obj["TRSC_QTY"] == "" ? "0" : obj["TRSC_QTY"]) + "|";
                 strdept_code 			+= obj["DEPT_CD"] + "|";
-                strcost_center_code 	+= obj["CSTCD_CD"] + "|";
+                strcost_center_code 	+= obj["CSTCT_CD"] + "|";
                 strproject_code 		+= obj["PJT_CD"] + "|";
                 strdescription 			+= obj["DSCTN"].replaceAll("|", "_").replaceAll("'", "`") + "|";
                 
@@ -3091,10 +3091,10 @@
              
                 strzero_report_yn_d 		+= obj["ZRT_DCMNT_YN"] + "|";
                 strlocal_credit_type_d 		+= obj["LCL_LC_TYPE"] + "|";
-                strdocument_name_d 			+= obj["DCNMT_NM"] + "|";
+                strdocument_name_d 			+= obj["DOC_NM"] + "|";
                 strissue_name_d 			+= obj["ISSU_NM"] + "|";
                	// MessageBox.Show("89");
-                strdocument_issue_date_d	+= obj["DCNMT_ISSU_YMD"] + "|";
+                strdocument_issue_date_d	+= obj["DOC_ISSU_YMD"] + "|";
                 strexport_license_no_d 		+= obj["EXPRT_LCNS_NO"] + "|";
                 strshipping_date_d 			+= obj["SHPG_YMD"] + "|";
                 strexport_amt_d 			+= obj["EXPRT_AMT"] + "|";
@@ -3104,7 +3104,7 @@
                 //MessageBox.Show("99");
                 strforeign_amt_d 			+= obj["EXPRT_FRCNCY_AMT"] + "|";
                 strwon_amt_d 				+= obj["KRW_AMT"] + "|";
-                strdocument_no_d 			+= obj["DCNMT_NO"] + "|";
+                strdocument_no_d 			+= obj["DOC_NO"] + "|";
                 strzero_type_d 				+= obj["ZRT_TYPE"] + "|";
                 strvat_amt_d 				+= obj["VAT_AMT"] + "|";
                 //SetMessageBox("99");
