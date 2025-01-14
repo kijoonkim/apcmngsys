@@ -404,7 +404,7 @@
 	  					DAY_NAME			: item.DAY_NAME,
  	  					HOLIDAY_YN			: item.HLDY_YN,
   	  					SEQ					: item.SEQ,
-   	  					WORKING_DAY_YN		: item.WORK_DAY_YN
+   	  					WORKING_DAY_YN		: item.WRKDY_YN1
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
@@ -430,7 +430,7 @@
 						   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 						   	START_WEEK_NAME			: item.START_WEEK_NAME,
 						   	TXN_ID					: item.TRSC_ID,
-						   	WORKING_DAY_YN			: item.WORK_DAY_YN	
+						   	WORKING_DAY_YN			: item.WRKDY_YN1
 					}
 					jsonSubList.push(msg);
 				});
@@ -450,7 +450,7 @@
     }
 	
     //세부코드 정보
-    const fn_drawSubGrid = async function(mode, data, copymod) {
+    const fn_drawSubGrid = async function(mode, data, copymode) {
     	jsonSubList = [];
         // 세부코드 정보 세팅
         SBSubGridProperties 					= {};
@@ -459,7 +459,7 @@
         SBSubGridProperties.jsonref 			= 'jsonSubList';
         SBSubGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBSubGridProperties.selectmode 			= mode;
-        SBSubGridProperties.allowcopy 			= copymod;
+        SBSubGridProperties.allowcopy 			= copymode;
         SBSubGridProperties.explorerbar 		= 'sortmove';
         SBSubGridProperties.rowheader 			= 'seq';
         SBSubGridProperties.rowheadercaption 	= {seq: 'No'};

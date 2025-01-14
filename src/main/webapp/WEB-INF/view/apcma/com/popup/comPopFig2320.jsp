@@ -1124,8 +1124,8 @@ const fn_popSubQueryDispA = async function (wtype){
 					CARD_USE_TYPE			: gfnma_nvl(item.CARD_USG_TYPE),			
 					CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
 					
-					COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),			
-					COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),			
+					COST_CENTER_CODE		: gfnma_nvl(item.CSTCT_CD),			
+					COST_CENTER_NAME		: gfnma_nvl(item.CSTCT_NM),			
 					CS_CODE					: gfnma_nvl(item.CNPT_CD),			
 					CS_NAME					: gfnma_nvl(item.CNPT_NM),			
 					CURRENCY_CODE			: gfnma_nvl(item.CRN_CD),			
