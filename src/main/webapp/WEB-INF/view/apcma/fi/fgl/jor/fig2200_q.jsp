@@ -932,7 +932,7 @@
   						APPR_SOURCE_TYPE		: gfnma_nvl2(item.APRV_SRC_TYPE),
   						INSERT_DATE				: gfnma_date5(gfnma_nvl2(item.INPT_DT)),
   						CONFIRM_EMP_CODE		: gfnma_nvl2(item.CONFIRM_EMP_CODE),
-  						PROXY_EMP_CODE			: gfnma_nvl2(item.DLCT_EMP_CD),
+  						PROXY_EMP_CODE			: gfnma_nvl2(item.DLGT_EMP_CD),
   						APPR_ID					: gfnma_nvl2(item.APRV_ID),
   						REQUEST_EMP				: gfnma_nvl2(item.REQUEST_EMP),
   						BEFORE_APPR_EMP			: gfnma_nvl2(item.BEFORE_APPR_EMP),
@@ -1919,7 +1919,7 @@
   						VAT_NAME				: gfnma_nvl2(item.VAT_NM),
   						DEPT_CODE				: gfnma_nvl2(item.DEPT_CD),
   						
-  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),
+  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCT_CD),
   						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCD_NM),
   						PROJECT_CODE			: gfnma_nvl2(item.PJT_CD),
   						ORIGINAL_CR_AMT			: gfnma_nvl2(item.ORGNL_CRSD_AMT),
