@@ -21,6 +21,7 @@ import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
+import com.at.apcss.pd.aom.vo.LoanVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
 @Controller
@@ -271,4 +272,20 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	// 조회
+	@PostMapping(value = "/pd/aom/selectLoanList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectLoanList(Model model, @RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<LoanVO> resultList = new ArrayList<>();
+		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
+		try {
+			 resultList = PrdcrCrclOgnReqMngService.selectLoanList(LoanVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

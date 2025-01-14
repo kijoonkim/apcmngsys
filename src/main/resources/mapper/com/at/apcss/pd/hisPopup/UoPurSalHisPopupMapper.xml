@@ -187,6 +187,7 @@
 		FROM (SELECT *
 					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '1'
 					  AND YR = #{yr}
 					  AND BRNO = #{brno}
