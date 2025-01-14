@@ -1133,9 +1133,9 @@ const fn_popSubQueryDispA = async function (wtype){
 					DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
 					DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
 					
-					DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DCNMT_ISSU_YMD),			
-					DOCUMENT_NAME			: gfnma_nvl(item.DCNMT_NM),			
-					DOCUMENT_NO				: gfnma_nvl(item.DCNMT_NO),			
+					DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DOC_ISSU_YMD),			
+					DOCUMENT_NAME			: gfnma_nvl(item.DOC_NM),			
+					DOCUMENT_NO				: gfnma_nvl(item.DOC_NO),			
 					
 					DOC_BATCH_NO			: gfnma_nvl(item.SLIP_BTCH_NO),			
 					DOC_DATE				: gfnma_nvl(item.SLIP_YMD),			
