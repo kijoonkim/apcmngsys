@@ -399,6 +399,8 @@
 				) AS ISO_FUND_APLY_AMT
 				, EAM.APLY_TRGT_SE
 
+				, (SELECT MAX(LN_CHK_YN) FROM TB_EV_LN_BLNC_STTS WHERE UO_BRNO = EAM.BRNO) AS LN_CHK_YN
+
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
@@ -993,6 +995,7 @@
 			, NVL(LBS.EXPRPYMNT_AMT,0) AS EXPRPYMNT_AMT
 			, NVL(LBS.UAM,0) AS UAM
 			, LN_SRC
+			, LN_CHK_YN
 		FROM USRAM.TB_EV_LN_BLNC_STTS LBS
 		WHERE 1=1
 		  AND DEL_YN = 'N'
@@ -1004,12 +1007,13 @@
 	<!-- 대출잔액 확인 여부 업데이트 -->
 	<update id="updateLoanChk" parameterType="com.at.apcss.pd.aom.vo.LoanVO">
 		UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.updateLoanChk */
-			TB_EV_APLY_MNG
+			TB_EV_LN_BLNC_STTS
 		   SET
 			  LN_CHK_YN	= #{lnChkYn}
+			  ,LN_CHK_DT = SYSDATE
 		WHERE 1=1
 		  AND YR = #{yr}
-		  AND BRNO 	= #{brno}
+		  AND UO_BRNO 	= #{brno}
 	</update>
 </mapper>
 

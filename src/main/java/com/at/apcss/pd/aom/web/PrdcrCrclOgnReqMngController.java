@@ -296,13 +296,13 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnReqMngService.updateLoanChk(LoanVO);
+			result = PrdcrCrclOgnReqMngService.updateLoanChk(LoanVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		resultMap.put("result", result);
+		resultMap.put("resultCnt", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 }
