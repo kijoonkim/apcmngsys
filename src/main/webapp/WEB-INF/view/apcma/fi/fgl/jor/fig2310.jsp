@@ -1641,9 +1641,9 @@
      */
     var fn_gridPopup5Show = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_"; 
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_"; 
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
@@ -1653,18 +1653,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fig2310Grid.setCellData(row, 21, 	data['CSTCD_CD'], true, true);
-				Fig2310Grid.setCellData(row, 23, 	data['CSTCD_NM'], true, true);
+				Fig2310Grid.setCellData(row, 21, 	data['CSTCT_CD'], true, true);
+				Fig2310Grid.setCellData(row, 23, 	data['CSTCT_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -2176,8 +2176,8 @@
   						SOURCE_RECORD_COUNT		: gfnma_nvl(item.SRC_RCRD_CNT),
   						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),
   						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),
-  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),
-  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),
+  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCT_CD),
+  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCT_NM),
   						DESCRIPTION				: gfnma_nvl(item.DSCTN),
   						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),
   						PROJECT_YN				: gfnma_nvl(item.PJT_YN),
@@ -2241,9 +2241,9 @@
   						VAT_AMT					: gfnma_nvl(item.VAT_AMT),
   						ZERO_REPORT_YN			: gfnma_nvl(item.ZRT_DCMNT_YN),
   						LOCAL_CREDIT_TYPE		: gfnma_nvl(item.LCL_LC_TYPE),
-  						DOCUMENT_NAME			: gfnma_nvl(item.DCNMT_NM),
+  						DOCUMENT_NAME			: gfnma_nvl(item.DOC_NM),
   						ISSUE_NAME				: gfnma_nvl(item.ISSU_NM),
-  						DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DCNMT_ISSU_YMD),
+  						DOCUMENT_ISSUE_DATE		: gfnma_nvl(item.DOC_ISSU_YMD),
   						EXPORT_LICENSE_NO		: gfnma_nvl(item.EXPRT_LCNS_NO),
   						SHIPPING_DATE			: gfnma_nvl(item.SHPG_YMD),
   						EXPORT_AMT				: gfnma_nvl(item.EXPRT_AMT),
@@ -2252,7 +2252,7 @@
   						VAT_EXPORT_AMT_KRW		: gfnma_nvl(item.VAT_THTM_EXPRT_AMT_KRW),
   						FOREIGN_AMT				: gfnma_nvl(item.EXPRT_FRCNCY_AMT),
   						WON_AMT					: gfnma_nvl(item.KRW_AMT),
-  						DOCUMENT_NO				: gfnma_nvl(item.DCNMT_NO),
+  						DOCUMENT_NO				: gfnma_nvl(item.DOC_NO),
   						ZERO_TYPE				: gfnma_nvl(item.ZRT_TYPE),
   						COST_CLASS				: gfnma_nvl(item.CST_CLSF),
   						NONDED_YN				: gfnma_nvl(item.NDDC_YN),
