@@ -11,6 +11,7 @@ import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
+import com.at.apcss.pd.aom.vo.LoanVO;
 
 
 /**
@@ -152,5 +153,11 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 		int updatedCnt = PrdcrCrclOgnReqMngMapper.updateUoApoSe(PrdcrCrclOgnReqMngVO);
 		PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry(PrdcrCrclOgnReqMngVO);
 		return updatedCnt;
+	}
+
+	@Override
+	public List<LoanVO> selectLoanList(LoanVO LoanVO) throws Exception {
+		List<LoanVO> resultList = PrdcrCrclOgnReqMngMapper.selectLoanList(LoanVO);
+		return resultList;
 	}
 }

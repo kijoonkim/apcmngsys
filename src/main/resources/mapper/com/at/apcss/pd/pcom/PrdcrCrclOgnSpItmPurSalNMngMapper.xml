@@ -1451,13 +1451,13 @@ ORDER BY
 
 	<!-- 저장전 기존 자료 삭제 처리 -->
 	<update id="updateDelYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
-			UPDATE /* com.at.apcss.pd.pcom.mapper.insertPrdcrCrclOgnSpItmPurSalNMngNew.updateDelYn */
-				TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-			SET
-				  DEL_YN	= 'Y'
-			WHERE 1=1
-			  AND APO_SE 	= '1'
-			  AND BRNO 		= #{brno}
-			  AND YR 		= #{yr}
+		UPDATE /* com.at.apcss.pd.pcom.mapper.insertPrdcrCrclOgnSpItmPurSalNMngNew.updateDelYn */
+			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		SET
+			  DEL_YN	= 'Y'
+		WHERE 1=1
+		  AND APO_SE 	= '1'
+		  AND BRNO 		= #{brno}
+		  AND YR 		= #{yr}
 	</update>
 </mapper>

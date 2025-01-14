@@ -2780,9 +2780,6 @@
 	function fn_getData() {
 		let data = [];
 		data.brno = SBUxMethod.get("dtl-input-brno");
-		<c:if test="${loginVO.apoSe eq '1'}">
-		data.brno = '${loginVO.brno}';
-		</c:if>
 		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
 		return data;
 	}

@@ -63,4 +63,16 @@ public class UoSpItmPurSalVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+	private String corpNm;
+	private String aprv;
+
+	private String typeSeNoNm;//
+
+	private String trmtType1;//취급유형1
+	private String trmtType2;//취급유형2
+	private String trmtType3;//취급유형3
+	private String trmtTypeRt1;//취급유형비율1
+	private String trmtTypeRt2;//취급유형비율2
+	private String trmtTypeRt3;//취급유형비율3
+
 }

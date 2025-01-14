@@ -976,6 +976,28 @@
 			AND BRNO 	= #{brno}
 	</update>
 
+	<select id="selectLoanList" parameterType="com.at.apcss.pd.aom.vo.LoanVO" resultType="com.at.apcss.pd.aom.vo.LoanVO">
+		SELECT
+			YR
+			, BRNO
+			, UO_BRNO
+			, CTPV_NM
+			, SGG_NM
+			, CORP_NM
+			, OGNZ_SE_NM
+			, OGNZ_TYPE_NM
+			, NVL(LBS.ACLN_AMT,0) AS ACLN_AMT
+			, NVL(LBS.UNLN_AMT,0) AS UNLN_AMT
+			, NVL(LBS.LNNDNG_BLNC,0) AS LNNDNG_BLNC
+			, NVL(LBS.EXPRPYMNT_AMT,0) AS EXPRPYMNT_AMT
+			, NVL(LBS.UAM,0) AS UAM
+			, LN_SRC
+		FROM USRAM.TB_EV_LN_BLNC_STTS LBS
+		WHERE 1=1
+		  AND DEL_YN = 'N'
+		  AND YR = #{yr}
+		  AND UO_BRNO = #{brno}
+	</select>
 </mapper>
 
 

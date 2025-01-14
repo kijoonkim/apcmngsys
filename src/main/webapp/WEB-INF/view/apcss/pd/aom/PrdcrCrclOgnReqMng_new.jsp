@@ -862,9 +862,25 @@
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶산지유통활성지원 자금신청 현황</span>
+								<span style="font-size:14px">▶산지유통활성화자금 조직별 대출잔액 현황</span>
 							</li>
 						</ul>
+				</div>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p><b> o 생산유통 통합조직은 통합조직 및 소속 출자출하조직의 융자원장을 확인하여 이상이 있을 시 aT 061-931-1051로 문의 </b></p>
+					<p><b> o 이상치 확인 후 최종 대출잔액 재게시 예정(2월 초)</b></p>
+				</div>
+				<div class="sb-area-grdLoan">
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdLoan" style="height:200px; width: 100%;"></div>
+				</div>
+
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶산지유통활성지원 자금신청 현황</span>
+						</li>
+					</ul>
 				</div>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>o 산지유통활성화자금 : 자금신청액의 최소 단위는 100,000천원이고 이하 단위는 자동 절삭처리</p>
@@ -1130,15 +1146,19 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
+		await fn_createGridLoan();//대출잔액 현황 그리드
 		await fn_initSBSelect();
 		await fn_search();
 		//await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
+
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		await fn_gpcListGrid();
+		await fn_createGridLoan();//대출잔액 현황 그리드
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 	</c:if>
+
 	}
 
 	/* 기본 년도값 세팅 */
@@ -1261,6 +1281,54 @@
 		grdPrdcrCrclOgnReqMng.bind('click','fn_view');
 		grdPrdcrCrclOgnReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
+
+	/* 20250114 산지유통활성화자금 조직별 대출잔액 현황 그리드 추가 */
+
+	//그리드 변수
+	var jsonLoan = []; // 그리드의 참조 데이터 주소 선언
+	var grdLoan;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_createGridLoan = async function() {
+		/*
+		let yr = SBUxMethod.get("srch-input-yr");
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");
+		}
+		let totStr = yr + "년";
+		*/
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdLoan';
+		SBGridProperties.id = 'grdLoan';
+		SBGridProperties.jsonref = 'jsonLoan';
+		SBGridProperties.emptyrecords = '융자내역이 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.columns = [
+			{caption: ["시도"],		ref: 'ctpvNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["시군구"],		ref: 'sggNm',		type:'output',  width:'80px',	style:'text-align:center'},
+
+			{caption: ["조직명"],		ref: 'corpNm',	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["조직구분"],		ref: 'ognzSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직유형"],		ref: 'ognzTypeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["'24년 실대출액"],		ref: 'aclnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 미대출액"],		ref: 'unlnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 대출 기말잔액"],	ref: 'lnndngBlnc',	type:'output',  width:'120px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'25년 상환예정액"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기사용액\n'24년 잔액-'25년 상환"],	ref: 'uam',	type:'output',  width:'140px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+		];
+
+		grdLoan = _SBGrid.create(SBGridProperties);
+
+	}
+
 	/**
 	 * 목록 조회
 	 */
@@ -1610,10 +1678,57 @@
 
 			//품목 그리드 조회
 			fn_selectGpcList();
+			fn_selectLoanList();
 			//합계 계산
 			fn_fundAplyAmt();
 			//조회후 포커스가 이상한곳으로 가있는 경우가 있어서 추가
 			window.scrollTo(0, 0);
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 대출잔액 현황 조회 기능*/
+	const fn_selectLoanList = async function(){
+		let brno = SBUxMethod.get('dtl-input-brno')//
+		let yr = SBUxMethod.get('dtl-input-yr')//
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		yr = Number(yr)-1;
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectLoanList.do", {
+			yr : yr
+			,brno : brno
+		});
+		let data = await postJsonPromise;
+		try{
+			jsonLoan.length = 0;
+			data.resultList.forEach((item, index) => {
+				let itemVo = {
+						 yr: 			item.yr
+						,ctpvNm: 		item.ctpvNm
+						,sggNm: 		item.sggNm
+						,corpNm: 		item.corpNm
+						,ognzSeNm: 		item.ognzSeNm
+						,brno: 			item.brno
+						,ognzTypeNm: 	item.ognzTypeNm
+						,aclnAmt: 		item.aclnAmt
+						,unlnAmt: 		item.unlnAmt
+						,lnndngBlnc: 	item.lnndngBlnc
+						,exprpymntAmt: 	item.exprpymntAmt
+						,uam: 			item.uam
+						,lnSrc: 		item.lnSrc
+						,uoBrno: 		item.uoBrno
+				}
+				jsonLoan.push(itemVo);
+			});
+
+			grdLoan.rebuild();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1961,7 +2076,7 @@
 		fn_calTot();
 
 		fn_selectGpcList();
-
+		fn_selectLoanList();
 	}
 	function fn_clearForm(){
 		jsonGpcList.length=0;
@@ -2753,7 +2868,8 @@
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
+			console.log();
+			if(data.resultCnt > 0){
 				alert("선택 통합조직 신청정보가 삭제 되었습니다.");
 				fn_search();
 			}else{

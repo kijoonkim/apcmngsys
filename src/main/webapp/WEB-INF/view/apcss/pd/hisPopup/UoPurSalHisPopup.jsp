@@ -196,7 +196,6 @@
 		let corpNm = data.corpNm;
 		let year = SBUxMethod.get("srch-inp-yr");
 
-		//await fn_createGridOgnz(); //출자출하조직을 포함한 그리드
 		await fn_createGridPrchs(year); //매입 그리드
 		await fn_createGridSls(year); //매출 그리드
 		await fn_createGridSpmt(year); //출하처별 출하실적 그리드
@@ -471,45 +470,6 @@
 		SBGridProperties.columns = columnsSpmt;
 
 		grdSpmt = _SBGrid.create(SBGridProperties);
-	}
-
-	//조직 그리드 상세
-	const fn_viewOgnz = async function(){
-		let objGrid = grdOgnz;
-		//데이터가 존재하는 그리드 범위 확인
-		var nCol = objGrid.getCol();
-		if (nCol < 0) {
-			return;
-		}
-		var nRow = objGrid.getRow();
-		if (nRow < 1) {
-			return;
-		}
-		if(nRow == null){
-			nRow = 1;
-		}
-
-		fn_clearInfoOgnz();//조직 정보 초기화
-		fn_clearGridPrchs();//매입 그리드 초기화
-		fn_clearGridSls();//매출 그리드 초기화
-		fn_clearGridSpmt();//출하처별 출하실적 그리드 초기화
-
-		let rowData = objGrid.getRowData(nRow);
-
-		SBUxMethod.set('dtl-inp-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
-		SBUxMethod.set('dtl-inp-corpNm',gfn_nvl(rowData.corpNm))//법인명
-		SBUxMethod.set('dtl-inp-crno',gfn_nvl(rowData.crno))//법인등록번호
-		SBUxMethod.set('dtl-inp-brno',gfn_nvl(rowData.brno))//사업자등록번호
-		SBUxMethod.set('dtl-inp-yr',gfn_nvl(rowData.yr))//사업자등록번호
-
-	}
-
-	//조직 그리드 키보드로 이동시 이벤트
-	const fn_keyupOgnz = async function(event) {
-		console.log(event);
-		if(event.keyCode == 38 || event.keyCode == 40) {
-			fn_view();
-		}
 	}
 
 	//조직 정보 초기화
@@ -1346,7 +1306,6 @@
 	];
 
 	//년도별 설정 객체 생성
-	//조회 했을 떄 사용하는 객체의 경우 년도별 차이와 관계 없이 전부 표기하는게 편함
 	//없으면 null 이고 그리드에서 쓰지 않으면 표기도 안됨
 	//변경 사항이 쭉없을 것으로 판단되면 defaultSettings 에 세팅 해주면 됨
 	const yrSettings = {
