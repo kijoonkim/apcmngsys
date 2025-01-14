@@ -270,7 +270,7 @@ public class WghPrfmncVO extends ComVO {
 	 * 설비
 	 * */
 	private String fcltCd;
-	private String fcltCdNm;
+	private String fcltNm;
 	/*
 	 * 입고출고유형
 	 * */
@@ -435,14 +435,10 @@ public class WghPrfmncVO extends ComVO {
     private String outWght;
 
 
-
-
-
-
-
-
-
-
+    /*
+     * 상세삭제여부
+     * */
+    private String dtlDelYn;
 
 
 	/**
