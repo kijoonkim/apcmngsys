@@ -110,6 +110,7 @@
 				, CM.DEL_YN		AS DEL_YN
 
 				, CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+
 				, TO_CHAR(CM.SYS_FRST_INPT_DT,'YYYY-MM-DD')		AS SYS_FRST_INPT_DT_YMD
 				, CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
 				, (SELECT USER_NM FROM TB_COM_USER WHERE USER_ID = CM.SYS_FRST_INPT_USER_ID) AS SYS_FRST_INPT_USER_ID_NM
@@ -124,6 +125,10 @@
 			  WHERE 1=1
 			    AND CM.DEL_YN = 'N'
 		]]>
+			<if test='prvtPstYn == "Y"'>
+				AND NVL(PRVT_PST_YN,'N') = 'N'
+			</if>
+
 			<if test='bbsNo != null and bbsNo != ""'>
 				AND CM.BBS_NO = #{bbsNo}
 			</if>
