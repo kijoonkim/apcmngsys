@@ -736,11 +736,11 @@
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
 				,dropAlign		: 'left' 	// left, right
-				,colValue		: 'CSTCD_CD'
-				,colLabel		: 'CSTCD_NM'
+				,colValue		: 'CSTCT_CD'
+				,colLabel		: 'CSTCT_NM'
 				,columns		:[
-		            {caption: "원가중심점코드",	ref: 'CSTCD_CD', 		width:'100px',  	style:'text-align:left'},
-		            {caption: "원가중심점명",		ref: 'CSTCD_NM',    	width:'150px',  	style:'text-align:left'}
+		            {caption: "원가중심점코드",	ref: 'CSTCT_CD', 		width:'100px',  	style:'text-align:left'},
+		            {caption: "원가중심점명",		ref: 'CSTCT_NM',    	width:'150px',  	style:'text-align:left'}
 				]
 			}),
 		]);
@@ -885,11 +885,11 @@
 			    			LEVEL						: gfn_nvl(item.LVL),
 		    				KEYID						: gfn_nvl(item.KEY_ID),
 		    				PARENTKEYID					: gfn_nvl(item.UP_KEY_ID),
-		    				COST_CENTER_CODE			: gfn_nvl(item.CSTCD_CD),
-		    				COST_CENTER_NAME			: gfn_nvl(item.CSTCD_NM),
+		    				COST_CENTER_CODE			: gfn_nvl(item.CSTCT_CD),
+		    				COST_CENTER_NAME			: gfn_nvl(item.CSTCT_NM),
 		    				COST_CLASS					: gfn_nvl(item.CST_CLSF),
 		    				USE_YN						: gfn_nvl(item.USE_YN),
-		    				COST_CENTER_NAME_CHN		: gfn_nvl(item.CSTCD_NM_CHN),
+		    				COST_CENTER_NAME_CHN		: gfn_nvl(item.CSTCT_NM_CHN),
 		    				COMP_CODE					: gfn_nvl(item.CO_CD),
 		    				PARENT_YN					: gfn_nvl(item.PRNT_YN),
 		    				PARENT_COST_CENTER			: gfn_nvl(item.PARENT_COST_CENTER),
@@ -1173,9 +1173,9 @@
 	    		
 	    		let obj = data.cv_2[0];
 	        	
-	        	SBUxMethod.set("COST_CENTER_CODE",			gfn_nvl(obj.CSTCD_CD));
-	        	SBUxMethod.set("COST_CENTER_NAME",		 	gfn_nvl(obj.CSTCD_NM ));
-	        	SBUxMethod.set("COST_CENTER_NAME_CHN",		gfn_nvl(obj.CSTCD_NM_CHN ));
+	        	SBUxMethod.set("COST_CENTER_CODE",			gfn_nvl(obj.CSTCT_CD));
+	        	SBUxMethod.set("COST_CENTER_NAME",		 	gfn_nvl(obj.CSTCT_NM ));
+	        	SBUxMethod.set("COST_CENTER_NAME_CHN",		gfn_nvl(obj.CSTCT_NM_CHN ));
 	        	SBUxMethod.set("PARENT_COST_CENTER",		gfn_nvl(obj.PARENT_COST_CENTER));
 	        	SBUxMethod.set("PARENT_COST_CENTER_NAME",	gfn_nvl(obj.PARENT_COST_CENTER_NAME));
 	        	SBUxMethod.set("PLANT_NAME",				gfn_nvl(obj.FCTRY_NM));
@@ -1214,7 +1214,7 @@
 	        	gfnma_multiSelectSet("#PLANT_CODE", 		"SBSD_CD", "CD_NM", gfn_nvl(obj.FCTRY_CD));
 	        	gfnma_multiSelectSet("#PROD_RELATION_FLAG", "SBSD_CD", "CD_NM", gfn_nvl(obj.PRDCTN_REL_FLAG));
 // 	        	gfnma_multiSelectSet("#DEFAULT_DRIVER_CODE","COST_DRIVER_CODE", "COST_DRIVER_NAME", gfn_nvl(obj.ALCTN_BSS_CD));
-	        	gfnma_multiSelectSet("#MG_COST_CENTER",		"CSTCD_CD", "COST_DRIVER_NAME", gfn_nvl(obj.NTSL_CST_CSTCT));
+	        	gfnma_multiSelectSet("#MG_COST_CENTER",		"CSTCT_CD", "COST_DRIVER_NAME", gfn_nvl(obj.NTSL_CST_CSTCT));
 	        	
 	        	
     		} else {
@@ -1236,9 +1236,9 @@
     var fn_compopupParent = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'" + "AND CSTCD_CD LIKE '%" + replaceText0 + "%'" + "AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'" + "AND CSTCT_CD LIKE '%" + replaceText0 + "%'" + "AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({
@@ -1248,16 +1248,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchCode, 	searchName]
     		,width					: '500px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["80px", 			 "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('PARENT_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('PARENT_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('PARENT_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('PARENT_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}
@@ -1336,9 +1336,9 @@
     	
         var searchText1 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체원가중심점 조회');
     	compopup1({
@@ -1348,16 +1348,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchText1, 		searchText2]
     		,width					: '600px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["80px", 			 "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('TRANS_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('TRANS_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('TRANS_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('TRANS_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}
@@ -1401,9 +1401,9 @@
     	
         var searchText1 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체원가중심점 조회');
     	compopup1({
@@ -1413,16 +1413,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchText1, 		searchText2]
     		,width					: '500px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["100px", 			 "100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('BUDGET_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('BUDGET_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('BUDGET_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('BUDGET_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}
