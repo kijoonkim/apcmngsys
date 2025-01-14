@@ -615,7 +615,7 @@
   						EMP_NAME				: gfnma_nvl2(item.EMP_NM),					//사용자명
   						CARD_NO					: gfnma_nvl2(item.CARD_NO),					//카드번호
   						APPR_NO					: gfnma_nvl2(item.APRV_NO),					//승인번호
-  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),			//코스트센터(전표)
+  						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCT_CD),			//코스트센터(전표)
   						ACCOUNT_CODE			: gfnma_nvl2(item.ACNTL_CD),				//사용계정			--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
   						ACCOUNT_NAME			: gfnma_nvl2(item.ACNT_NM),				//사용계정명		--> ACCOUNT_NAME (필요)	<-- L_ACCT_CD 공통코드 조인
   						DOC_DATE				: gfnma_nvl2(item.SLIP_YMD),					//전기일자

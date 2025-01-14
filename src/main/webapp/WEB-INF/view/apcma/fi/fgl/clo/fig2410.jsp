@@ -438,8 +438,8 @@
 						DEBIT_CODE					: gfnma_nvl2(item.DEBIT_CODE),
 						DEBIT_NAME					: gfnma_nvl2(item.DEBIT_NAME),
 						
-						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),			
-						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCT_CD),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCT_NM),			
 						PROJECT_CODE				: gfnma_nvl2(item.PJT_CD),			
 						
 						CURRENCY_CODE				: gfnma_nvl2(item.CRN_CD),
