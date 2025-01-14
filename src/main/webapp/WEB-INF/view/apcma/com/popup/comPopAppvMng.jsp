@@ -671,7 +671,7 @@ function compopappvmng(options) {
 			    				EMP_CODE			: gfnma_nvl(item.EMP_CD),
 			    				EMP_NAME			: gfnma_nvl(item.EMP_NM),
 			    				STEP_SEQ			: gfnma_nvl(item.STP_SEQ),
-			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLCT_EMP_CD),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLGT_EMP_CD),
 			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
 			    				APPR_STATUS			: gfnma_nvl(item.APRV_STTS),
 			    				APPR_STATUS_NAME	: gfnma_nvl(item.APPR_STATUS_NAME),
@@ -686,7 +686,7 @@ function compopappvmng(options) {
 			    				UPDATE_PC			: gfnma_nvl(item.UPDT_PC)
 			    		}
 			    		dlist.push(msg);
-			    		if(item.EMP_CD == settings.empCode || item.DLCT_EMP_CD == settings.empCode ){
+			    		if(item.EMP_CD == settings.empCode || item.DLGT_EMP_CD == settings.empCode ){
 			    			pp_sel_index = index;
 			    		}
 			    		totalRecordCount ++;
@@ -714,7 +714,7 @@ function compopappvmng(options) {
 			    				INSERT_PC			: gfnma_nvl(item.WRT_PC),
 			    				INSERT_TIME			: gfnma_nvl(item.WRT_DT),
 			    				INSERT_USERID		: gfnma_nvl(item.WRT_USER_ID),
-			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLCT_EMP_CD),
+			    				PROXY_EMP_CODE		: gfnma_nvl(item.DLGT_EMP_CD),
 			    				PROXY_EMP_NAME		: gfnma_nvl(item.PROXY_EMP_NAME),
 			    				SOURCE_NO			: gfnma_nvl(item.SRC_NO),
 			    				SOURCE_TYPE			: gfnma_nvl(item.SRC_TYPE),
@@ -724,7 +724,7 @@ function compopappvmng(options) {
 			    				UPDATE_USERID		: gfnma_nvl(item.UPDT_USER_ID),
 			    		}
 			    		dlist.push(msg);
-			    		if(item.EMP_CD == settings.empCode || item.DLCT_EMP_CD == settings.empCode ){
+			    		if(item.EMP_CD == settings.empCode || item.DLGT_EMP_CD == settings.empCode ){
 			    			pp_sel_index = index;
 			    		}
 			    		totalRecordCount ++;
