@@ -536,9 +536,9 @@
      */
     var fn_compopup3 = function(row, col, cellData1, cellData2) {
     	
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_"; 
-        var strWhereClause 	= "AND A.CSTCD_CD LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_"; 
+        var strWhereClause 	= "AND A.CSTCT_CD LIKE '%" + replaceText0 + "%' AND A.CSTCT_NM LIKE '%" + replaceText1 + "%' ";
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
     	compopup1({
@@ -548,18 +548,18 @@
        		,popupType				: 'A'
     		,whereClause			: strWhereClause
        		,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
    			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]	
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
-				Fim4100GridDetail.setCellData(row, 11, 	data['CSTCD_CD'], true, true);
-				Fim4100GridDetail.setCellData(row, 13, 	data['CSTCD_NM'], true, true);
+				Fim4100GridDetail.setCellData(row, 11, 	data['CSTCT_CD'], true, true);
+				Fim4100GridDetail.setCellData(row, 13, 	data['CSTCT_NM'], true, true);
 			},
     	});
 		SBUxMethod.openModal('modal-compopup1');
@@ -719,8 +719,8 @@
   						ACCOUNT_NAME			: gfnma_nvl(item.ACNT_NM),			
   						DEPT_CODE				: gfnma_nvl(item.DEPT_CD),			
   						DEPT_NAME				: gfnma_nvl(item.DEPT_NM),			
-  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCD_CD),			
-  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCD_NM),			
+  						COST_CENTER_CODE		: gfnma_nvl(item.CSTCT_CD),			
+  						COST_CENTER_NAME		: gfnma_nvl(item.CSTCT_NM),			
   						DESCRIPTION				: gfnma_nvl(item.DSCTN),			
   						COMP_CODE				: gfnma_nvl(item.CO_CD),
   					}
