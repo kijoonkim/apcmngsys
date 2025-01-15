@@ -192,6 +192,52 @@ public class ShpgotMngController extends BaseController {
             resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
             return getSuccessResponseEntity(resultMap);
         }
+        @PostMapping(value = "/am/spmt/insertShpgotRawMtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+            public ResponseEntity<HashMap<String, Object>> insertShpgotRawMtr(@RequestBody List<ShpgotApcRawMtrVO> shpgotApcRawMtrVOList, HttpServletRequest request) throws Exception {
+                HashMap<String, Object> resultMap = new HashMap<String, Object>();
+                int insertCnt = 0;
+                try{
+                    for(ShpgotApcRawMtrVO vo : shpgotApcRawMtrVOList){
+                        setCommonInfo(vo);
+                    }
+                    insertCnt = shpgotMngService.insertShpgotRawMtr(shpgotApcRawMtrVOList);
+                }catch (Exception e) {
+                    return getErrorResponseEntity(e);
+                } finally {
+                    HashMap<String, Object> rtnObj = setMenuComLog(request);
+                    if (rtnObj != null) {
+                        return getErrorResponseEntity(rtnObj);
+                    }
+                }
+                resultMap.put(ComConstants.PROP_INSERTED_CNT,insertCnt);
+                return getSuccessResponseEntity(resultMap);
+            }
+    @PostMapping(value = "/am/spmt/deleteShpgotRawMtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteShpgotRawMtr(@RequestBody ShpgotApcRawMtrVO shpgotApcRawMtrVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        int deleteCnt = 0;
+        try{
+            setCommonInfo(shpgotApcRawMtrVO);
+            deleteCnt = shpgotMngService.deleteShpgotRawMtr(shpgotApcRawMtrVO);
+        }catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_DELETED_CNT,deleteCnt);
+        return getSuccessResponseEntity(resultMap);
+    }
+
+
+
+
+
+
+
+
         @PostMapping(value = "/am/spmt/deleteShpgotApcCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
             public ResponseEntity<HashMap<String, Object>> deleteShpgotApcCrtr(@RequestBody RequestData requestData, HttpServletRequest request) throws Exception {
                 HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -243,6 +289,13 @@ public class ShpgotMngController extends BaseController {
             shpgotApcCrtrDtlVO.setSysFrstInptPrgrmId(getPrgrmId());
             shpgotApcCrtrDtlVO.setSysLastChgUserId(getUserId());
             shpgotApcCrtrDtlVO.setSysLastChgPrgrmId(getPrgrmId());
+        } else if (vo instanceof ShpgotApcRawMtrVO) {
+            ShpgotApcRawMtrVO shpgotApcRawMtrVO = (ShpgotApcRawMtrVO) vo;
+            shpgotApcRawMtrVO.setDelYn("N");
+            shpgotApcRawMtrVO.setSysFrstInptUserId(getUserId());
+            shpgotApcRawMtrVO.setSysFrstInptPrgrmId(getPrgrmId());
+            shpgotApcRawMtrVO.setSysLastChgUserId(getUserId());
+            shpgotApcRawMtrVO.setSysLastChgPrgrmId(getPrgrmId());
         }
     }
 }

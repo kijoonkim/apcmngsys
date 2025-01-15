@@ -31,6 +31,8 @@ public class ShpgotApcRawMtrVO extends ComVO {
      * 반출일자
      */
     private String shpgotYmd;
+    private String shpgotYmdTo;
+    private String shpgotYmdFrom;
 
     /**
      * 반출일련번호
@@ -51,16 +53,28 @@ public class ShpgotApcRawMtrVO extends ComVO {
      * 생산자코드
      */
     private String prdcrCd;
+    /**
+     * 생산자명
+     */
+    private String prdcrNm;
 
     /**
      * 품목코드
      */
     private String itemCd;
+    /**
+     * 품목코드명
+     */
+    private String itemNm;
 
     /**
      * 품종코드
      */
     private String vrtyCd;
+    /**
+     * 품종코드명
+     */
+    private String vrtyNm;
 
     /**
      * 등급코드
