@@ -4,6 +4,9 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @Class Name : DscdCrtrVO.java
  * @Description : APC폐기기준에 대한 VO 클래스
@@ -273,4 +276,19 @@ public class DscdCrtrVO extends ComVO {
      * 폐기 번호
      */
     private String dscdNo;
+
+
+    /**
+     * 폐기 실적 목록
+     */
+    private List<DscdCrtrVO> dscdPrfmncList;
+
+    public List<DscdCrtrVO> getDscdPrfmncList() {
+        return dscdPrfmncList;
+    }
+
+    public void setDscdPrfmncList(List<DscdCrtrVO> dscdPrfmncList) {
+        this.dscdPrfmncList = dscdPrfmncList;
+    }
+
 }

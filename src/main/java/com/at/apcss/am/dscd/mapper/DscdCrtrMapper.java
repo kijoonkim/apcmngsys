@@ -122,4 +122,12 @@ public interface DscdCrtrMapper {
      * @throws Exception
      */
     public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 상세 관리 - 폐기 실적 목록 삭제
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public int deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
 }
