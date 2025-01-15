@@ -865,10 +865,10 @@
     		}
 
     	} catch (e) {
-    	if (!(e instanceof Error)) {
-    		e = new Error(e);
-    	}
-    	console.error("failed", e.message);
+	    	if (!(e instanceof Error)) {
+	    		e = new Error(e);
+	    	}
+	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     	        
@@ -949,7 +949,7 @@
 									,colValue		: 'SBSD_CD'
 									,colLabel		: 'CD_NM'
 									,columns		:[
-										{caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+										{caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 										{caption: "계정특성", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 									]
 								})
@@ -1332,7 +1332,6 @@
 		   		SBUxMethod.set("BUDGET_YN", 		    	obj.BGT_FRMT_YN);
 		   		SBUxMethod.set("ACCT_LEVEL_YN", 			obj.ACNT_LVL_YN);
 		   		SBUxMethod.set("SORT_SEQ", 	    			obj.SORT_SEQ);
-		   		SBUxMethod.set("PROJECT_NAME_CHN", 			obj.PJT_NM_CHN);
 		        gfnma_multiSelectSet('#FI_ORG_CODE', 		'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', obj.ACNTG_OGNZ_CD);
 		        gfnma_multiSelectSet('#PROJECT_TYPE', 		'SBSD_CD', 'CD_NM', obj.PJT_TYPE);
 	

@@ -1786,7 +1786,7 @@
 	                }
 					for(var i=0; jsonWithholdTaxType.length > i; i++){
 						if(data == jsonWithholdTaxType[i].value){
-						    const strData = jsonWithholdTaxType[i].TAX_RATE.toString();
+						    const strData = jsonWithholdTaxType[i].TX_RT.toString();
 						    const decimalIndex = strData.indexOf('.');
 						    if (decimalIndex === -1) {
 						    	SBUxMethod.set("TAX_RATE", strData + '.000');
@@ -2141,7 +2141,7 @@
             },
             {caption : ["거래처코드"],	ref: 'CS_CODE', 	type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption : ["거래처명"],		ref: 'CS_NAME', 	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["사업자번호"],	ref: 'PARENT_COST_CENTER',		type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption : ["사업자번호"],	ref: 'BIZ_REGNO',		type:'output',  	width:'200px',  	style:'text-align:left'},
             {caption : ['매입처'],   		ref: 'PURCHASE_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
@@ -2684,7 +2684,7 @@
     	masterGrid.rebuild();
       	for (var i = 0; i < list.length; i++) {
       		var obj = list[i];
-      		if(obj['DEL_YN']=='Y'){
+      		if(obj['DELETE_YN']=='Y'){
       			masterGrid.setRowStyle(i+1, 'data', 'background', '#ff6347');
       		}
       	}
@@ -3899,7 +3899,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("BANK_NAME_H"));
         var replaceText0 	= "_SBSD_CD_";
         var replaceText1 	= "_CD_NM_";
-        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + searchCode + "%' AND CD_NM LIKE '%" + searchName + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보 조회');
     	compopup1({
@@ -4216,15 +4216,15 @@
         var searchText 		= searchTt;
         var replaceText0 	= "_BANK_CD_";
         var replaceText1 	= "_BANK_NM_";
-        var strWhereClause 	= "AND SBSD_CD  LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND SBSD_CD  LIKE '%" + searchTt + "%' AND CD_NM LIKE '%%'";
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_COM027'
             ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["사번", 		"사원명"]
+            ,whereClause			: ''
+            ,searchCaptions			: ["코드", 		"은행명"]
             ,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
             ,searchInputValues		: [searchText, 	""]
             ,height					: '400px'
