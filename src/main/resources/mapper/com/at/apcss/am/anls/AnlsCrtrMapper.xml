@@ -107,7 +107,7 @@
 		</if>
 		
     	<![CDATA[
-			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ
+			 ORDER BY INDCT_SEQ
 		]]>
     </select>
     

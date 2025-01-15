@@ -534,9 +534,8 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 	@Override
-	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		return rawMtrInvntrMapper.updateRawMtrInvntrChg(rawMtrInvntrVO);
 	}
 
 

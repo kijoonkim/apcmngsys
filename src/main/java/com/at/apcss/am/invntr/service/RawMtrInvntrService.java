@@ -118,11 +118,11 @@ public interface RawMtrInvntrService {
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> updateRawMtrInvntr(List<RawMtrInvntrVO> rawMtrInvntrList) throws Exception;
+	public int updateRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
 	/**
 	 * 원물재고내역 변경
-	 * @param rawMtrInvntrVO
+	 * @param rawMtrInvntrList
 	 * @return
 	 * @throws Exception
 	 */

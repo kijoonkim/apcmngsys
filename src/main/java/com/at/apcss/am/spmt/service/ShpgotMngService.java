@@ -74,5 +74,18 @@ public interface ShpgotMngService {
      * @throws Exception
      */
     int deleteShpgotApcCrtrDtl(ShpgotApcCrtrDtlVO shpgotApcCrtrDtlVO) throws Exception;
-
+    /**
+         * 반품 등록 생성
+         * @param shpgotApcRawMtrVOList
+         * @return int
+         * @throws Exception
+    */
+    int insertShpgotRawMtr(List<ShpgotApcRawMtrVO> shpgotApcRawMtrVOList) throws Exception;
+    /**
+     * 반품 등록 삭제
+     * @param shpgotApcRawMtrVO
+     * @return int
+     * @throws Exception
+     */
+    int deleteShpgotRawMtr(ShpgotApcRawMtrVO shpgotApcRawMtrVO) throws Exception;
 }
