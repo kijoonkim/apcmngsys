@@ -12,6 +12,7 @@ import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -251,6 +252,34 @@ public class DscdMngController extends BaseController {
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // APC 폐기 상세 관리 - 폐기 실적 목록 삭제
+    @PostMapping(value = "/am/dscd/deleteDscdPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> deleteDscdPrfmncList(@RequestBody List<DscdCrtrVO> dscdPrfmncList, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        for(DscdCrtrVO dscdCrtrVO : dscdPrfmncList) {
+            try {
+                HashMap<String, Object> rtnObj = dscdCrtrService.deleteDscdPrfmncList(dscdCrtrVO);
+
+                if (rtnObj != null) {
+                    return getErrorResponseEntity(rtnObj);
+                }
+            } catch (Exception e) {
+                logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+
+                return getErrorResponseEntity(e);
+            } finally {
+                HashMap<String, Object> rtnObj = setMenuComLog(request);
+
+                if (rtnObj != null) {
+                    return getErrorResponseEntity(rtnObj);
+                }
+            }
+        }
 
         return getSuccessResponseEntity(resultMap);
     }

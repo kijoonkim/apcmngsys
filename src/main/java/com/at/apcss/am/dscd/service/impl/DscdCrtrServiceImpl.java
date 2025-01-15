@@ -13,10 +13,12 @@ import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
@@ -344,5 +346,18 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
         List<DscdCrtrVO> resultList = dscdCrtrMapper.selectDscdPrfmncList(dscdCrtrVO);
 
         return resultList;
+    }
+
+    @Override
+    public HashMap<String, Object> deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<>();
+
+        // 삭제 작업 실행
+        int result = dscdCrtrMapper.deleteDscdPrfmncList(dscdCrtrVO);
+        if (result == 0) {
+            throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다.")));
+        }
+
+        return resultMap;
     }
 }
