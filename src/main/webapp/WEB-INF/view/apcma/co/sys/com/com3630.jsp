@@ -1410,16 +1410,16 @@
     	// 코드목록 그리드 초기화
     	fn_clearForm();
     	
-    	let SRCH_ACC_ITEM_CODE	= gfn_nvl(SBUxMethod.get("SRCH_ACC_ITEM_CODE"));
-    	let SRCH_ACC_ITEM_NAME 	= gfn_nvl(SBUxMethod.get("SRCH_ACC_ITEM_NAME"));
+    	let SRCH_ACCOUNT_CODE_P	= gfn_nvl(SBUxMethod.get("SRCH_ACCOUNT_CODE_P"));
+    	let SRCH_ACCOUNT_NAME_P = gfn_nvl(SBUxMethod.get("SRCH_ACCOUNT_NAME_P"));
     	
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
 	    	   ,V_P_LANG_ID             : ''
 	    	   ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
 	    	   ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-	    	   ,V_P_ACCOUNT_CODE        : ''
-	    	   ,V_P_ACCOUNT_NAME        : ''
+	    	   ,V_P_ACCOUNT_CODE        : SRCH_ACCOUNT_CODE_P
+	    	   ,V_P_ACCOUNT_NAME        : SRCH_ACCOUNT_NAME_P
 	    	   ,V_P_FORM_ID             : p_formId
 	    	   ,V_P_MENU_ID             : p_menuId
 	    	   ,V_P_PROC_ID             : ''
@@ -1454,8 +1454,8 @@
 		    				ACC_CHARACTER		: item.INCPL_TYPE,
 		    				ACC_GROUP_TYPE		: item.ACNT_GROUP_TYPE,
 		    				ACCOUNT_NAME_CHN	: item.ACNT_NM_CHN,
-		    				COST_ELEMENT		: item.CSTCT_CD,
-		    				COST_ELEMENT_NAME	: item.CSTCT_NM,
+		    				COST_ELEMENT		: item.CST_ELMT_CD,
+		    				COST_ELEMENT_NAME	: item.CST_ELMT_NM,
 		    				REPORT_ACCOUNT_CODE	: item.RPT_ACNT_CD,
 		    				REPORT_ACCOUNT_NAME	: item.RPT_ACNT_NM
 		    		}
@@ -1949,8 +1949,8 @@
 		        // 회계관리
 		   		SBUxMethod.set("TTR_TYPE", 				    obj.TTR_TYPE);
 		   		SBUxMethod.set("TTR_TYPE_NAME", 		    obj.TTR_TYPE_NAME);
-		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.CSTCT_CD);
-		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.CSTCT_NM);
+		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.CST_ELMT_CD);
+		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.CST_ELMT_NM);
 		   		SBUxMethod.set("ASSET_YN", 				    obj.AST_REG_YN);
 		   		SBUxMethod.set("GL_IMPORT_YN", 			    obj.GNLGR_RCPTN_YN);
 		   		SBUxMethod.set("YEAR_RE_ACCOUNT_YN", 	    obj.YR_PRFT_RMNDR_ACNT_YN);

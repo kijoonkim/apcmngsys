@@ -266,7 +266,7 @@
  
 	// 조회
 	function cfn_search() {
-		if(gfn_nvl(SBUxMethod.get("SRCH_YYYY")) == ''){
+		if(gfnma_nvl2(SBUxMethod.get("SRCH_YYYY")) == ''){
 			gfn_comAlert("W0002", "기준년도");
 		}else{
 			fn_search();
@@ -369,7 +369,7 @@
 
     	// 코드목록 그리드 초기화
     	fn_clearForm();
-    	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+    	let SRCH_YYYY 		= gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
     	
     	var paramObj = {
     		    V_P_DEBUG_MODE_YN       : ''
@@ -382,7 +382,7 @@
 	    	   ,V_P_PROC_ID             : ''
 	    	   ,V_P_USERID              : p_userId
 	    	   ,V_P_PC                  : ''
-   		    };		
+	    };
         const postJsonPromise = gfn_postJSON("/co/sys/cal/selectCom2300.do", {
         	getType				: 'json',
         	workType			: 'Q',
@@ -404,7 +404,7 @@
 	  					DAY_NAME			: item.DAY_NAME,
  	  					HOLIDAY_YN			: item.HLDY_YN,
   	  					SEQ					: item.SEQ,
-   	  					WORKING_DAY_YN		: item.WRKDY_YN1
+   	  					WORKING_DAY_YN		: item.WORK_DAY_YN
   					}
   					jsonMasterList.push(msg);
   					totalRecordCount ++;
@@ -419,18 +419,18 @@
 							BUSINESS_DAY_YN			: item.BIZ_DAY_YN,
 							CHK_YN					: item.CHK_YN,
 		  					DAY_TITLE				: item.DAY_TTL,
-		   	  				END_DAY					: gfn_nvl(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-			   	  			END_DAY_SOLAR			: gfn_nvl(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+		   	  				END_DAY					: gfnma_nvl2(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+			   	  			END_DAY_SOLAR			: gfnma_nvl2(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 				   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
 					   	  	HOLIDAY_YN				: item.HLDY_YN,
 					   	 	LEAP_MONTH_YN			: item.LPMM_YN,
 						   	SOLAR_YN				: item.SLCL_YN,
 						   	MEMO					: item.MEMO,
-						   	START_DAY				: gfn_nvl(item.BGNG_YMD).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-						   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+						   	START_DAY				: gfnma_nvl2(item.BGNG_YMD).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+						   	START_DAY_SOLAR			: gfnma_nvl2(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 						   	START_WEEK_NAME			: item.START_WEEK_NAME,
 						   	TXN_ID					: item.TRSC_ID,
-						   	WORKING_DAY_YN			: item.WRKDY_YN1
+						   	WORKING_DAY_YN			: item.WORK_DAY_YN
 					}
 					jsonSubList.push(msg);
 				});
@@ -494,15 +494,15 @@
 					BUSINESS_DAY_YN			: item.BUSINESS_DAY_YN,
 					CHK_YN					: item.CHK_YN,
   					DAY_TITLE				: item.DAY_TITLE,
-   	  				END_DAY					: gfn_nvl(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-	   	  			END_DAY_SOLAR			: gfn_nvl(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+   	  				END_DAY					: gfnma_nvl2(item.END_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+	   	  			END_DAY_SOLAR			: gfnma_nvl2(item.END_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 		   	  		END_WEEK_NAME			: item.END_WEEK_NAME,
 			   	  	HOLIDAY_YN				: item.HOLIDAY_YN,
 			   	 	LEAP_MONTH_YN			: item.LEAP_MONTH_YN,
 				   	SOLAR_YN				: item.SOLAR_YN,
 				   	MEMO					: item.MEMO,
-				   	START_DAY				: gfn_nvl(item.START_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
-				   	START_DAY_SOLAR			: gfn_nvl(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+				   	START_DAY				: gfnma_nvl2(item.START_DAY).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
+				   	START_DAY_SOLAR			: gfnma_nvl2(item.START_DAY_SOLAR).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"),
 				   	START_WEEK_NAME			: item.START_WEEK_NAME,
 				   	TXN_ID					: item.TXN_ID,
 				   	WORKING_DAY_YN			: item.WORKING_DAY_YN	
@@ -523,7 +523,7 @@
     
     // 그리드 삭제
     const fn_delete = async function(){
-    	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+    	let SRCH_YYYY 		= gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
 		//그리드 요일별 데이터를 담기위한 리스트
     	let sunData = [];
     	let monData = [];
@@ -556,27 +556,27 @@
     		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
     		   ,V_P_YYYY                 : SRCH_YYYY
-    		   ,V_P_SUN_HOLIDAY_YN       : gfn_nvl(sunData[0].HOLIDAY_YN)
-    		   ,V_P_MON_HOLIDAY_YN       : gfn_nvl(monData[0].HOLIDAY_YN)
-    		   ,V_P_TUE_HOLIDAY_YN       : gfn_nvl(tueData[0].HOLIDAY_YN)
-    		   ,V_P_WED_HOLIDAY_YN       : gfn_nvl(wedData[0].HOLIDAY_YN)
-    		   ,V_P_THU_HOLIDAY_YN       : gfn_nvl(thuData[0].HOLIDAY_YN)
-    		   ,V_P_FRI_HOLIDAY_YN       : gfn_nvl(friData[0].HOLIDAY_YN)
-    		   ,V_P_SAT_HOLIDAY_YN       : gfn_nvl(satData[0].HOLIDAY_YN)
-    		   ,V_P_SUN_WORKING_DAY_YN   : gfn_nvl(sunData[0].WORKING_DAY_YN)
-    		   ,V_P_MON_WORKING_DAY_YN   : gfn_nvl(monData[0].WORKING_DAY_YN)
-    		   ,V_P_TUE_WORKING_DAY_YN   : gfn_nvl(tueData[0].WORKING_DAY_YN)
-    		   ,V_P_WED_WORKING_DAY_YN   : gfn_nvl(wedData[0].WORKING_DAY_YN)
-    		   ,V_P_THU_WORKING_DAY_YN   : gfn_nvl(thuData[0].WORKING_DAY_YN)
-    		   ,V_P_FRI_WORKING_DAY_YN   : gfn_nvl(friData[0].WORKING_DAY_YN)
-    		   ,V_P_SAT_WORKING_DAY_YN   : gfn_nvl(satData[0].WORKING_DAY_YN)
-    		   ,V_P_SUN_BUSINESS_DAY_YN  : gfn_nvl(sunData[0].BUSINESS_DAY_YN)
-    		   ,V_P_MON_BUSINESS_DAY_YN  : gfn_nvl(monData[0].BUSINESS_DAY_YN)
-    		   ,V_P_TUE_BUSINESS_DAY_YN  : gfn_nvl(tueData[0].BUSINESS_DAY_YN)
-    		   ,V_P_WED_BUSINESS_DAY_YN  : gfn_nvl(wedData[0].BUSINESS_DAY_YN)
-    		   ,V_P_THU_BUSINESS_DAY_YN  : gfn_nvl(thuData[0].BUSINESS_DAY_YN)
-    		   ,V_P_FRI_BUSINESS_DAY_YN  : gfn_nvl(friData[0].BUSINESS_DAY_YN)
-    		   ,V_P_SAT_BUSINESS_DAY_YN  : gfn_nvl(satData[0].BUSINESS_DAY_YN)
+    		   ,V_P_SUN_HOLIDAY_YN       : gfnma_nvl2(sunData[0].HOLIDAY_YN)
+    		   ,V_P_MON_HOLIDAY_YN       : gfnma_nvl2(monData[0].HOLIDAY_YN)
+    		   ,V_P_TUE_HOLIDAY_YN       : gfnma_nvl2(tueData[0].HOLIDAY_YN)
+    		   ,V_P_WED_HOLIDAY_YN       : gfnma_nvl2(wedData[0].HOLIDAY_YN)
+    		   ,V_P_THU_HOLIDAY_YN       : gfnma_nvl2(thuData[0].HOLIDAY_YN)
+    		   ,V_P_FRI_HOLIDAY_YN       : gfnma_nvl2(friData[0].HOLIDAY_YN)
+    		   ,V_P_SAT_HOLIDAY_YN       : gfnma_nvl2(satData[0].HOLIDAY_YN)
+    		   ,V_P_SUN_WORKING_DAY_YN   : gfnma_nvl2(sunData[0].WORKING_DAY_YN)
+    		   ,V_P_MON_WORKING_DAY_YN   : gfnma_nvl2(monData[0].WORKING_DAY_YN)
+    		   ,V_P_TUE_WORKING_DAY_YN   : gfnma_nvl2(tueData[0].WORKING_DAY_YN)
+    		   ,V_P_WED_WORKING_DAY_YN   : gfnma_nvl2(wedData[0].WORKING_DAY_YN)
+    		   ,V_P_THU_WORKING_DAY_YN   : gfnma_nvl2(thuData[0].WORKING_DAY_YN)
+    		   ,V_P_FRI_WORKING_DAY_YN   : gfnma_nvl2(friData[0].WORKING_DAY_YN)
+    		   ,V_P_SAT_WORKING_DAY_YN   : gfnma_nvl2(satData[0].WORKING_DAY_YN)
+    		   ,V_P_SUN_BUSINESS_DAY_YN  : gfnma_nvl2(sunData[0].BUSINESS_DAY_YN)
+    		   ,V_P_MON_BUSINESS_DAY_YN  : gfnma_nvl2(monData[0].BUSINESS_DAY_YN)
+    		   ,V_P_TUE_BUSINESS_DAY_YN  : gfnma_nvl2(tueData[0].BUSINESS_DAY_YN)
+    		   ,V_P_WED_BUSINESS_DAY_YN  : gfnma_nvl2(wedData[0].BUSINESS_DAY_YN)
+    		   ,V_P_THU_BUSINESS_DAY_YN  : gfnma_nvl2(thuData[0].BUSINESS_DAY_YN)
+    		   ,V_P_FRI_BUSINESS_DAY_YN  : gfnma_nvl2(friData[0].BUSINESS_DAY_YN)
+    		   ,V_P_SAT_BUSINESS_DAY_YN  : gfnma_nvl2(satData[0].BUSINESS_DAY_YN)
     		   ,V_P_FORM_ID              : p_formId
     		   ,V_P_MENU_ID              : p_menuId
     		   ,V_P_PROC_ID              : ''
@@ -616,7 +616,7 @@
     		return;
     	}
     	
-    	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+    	let SRCH_YYYY 		= gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
 		//그리드 요일별 데이터를 담기위한 리스트
     	let sunData = [];
     	let monData = [];
@@ -649,27 +649,27 @@
     		   ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
     		   ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
     		   ,V_P_YYYY                 : SRCH_YYYY
-    		   ,V_P_SUN_HOLIDAY_YN       : gfn_nvl(sunData[0].HOLIDAY_YN)
-    		   ,V_P_MON_HOLIDAY_YN       : gfn_nvl(monData[0].HOLIDAY_YN)
-    		   ,V_P_TUE_HOLIDAY_YN       : gfn_nvl(tueData[0].HOLIDAY_YN)
-    		   ,V_P_WED_HOLIDAY_YN       : gfn_nvl(wedData[0].HOLIDAY_YN)
-    		   ,V_P_THU_HOLIDAY_YN       : gfn_nvl(thuData[0].HOLIDAY_YN)
-    		   ,V_P_FRI_HOLIDAY_YN       : gfn_nvl(friData[0].HOLIDAY_YN)
-    		   ,V_P_SAT_HOLIDAY_YN       : gfn_nvl(satData[0].HOLIDAY_YN)
-    		   ,V_P_SUN_WORKING_DAY_YN   : gfn_nvl(sunData[0].WORKING_DAY_YN)
-    		   ,V_P_MON_WORKING_DAY_YN   : gfn_nvl(monData[0].WORKING_DAY_YN)
-    		   ,V_P_TUE_WORKING_DAY_YN   : gfn_nvl(tueData[0].WORKING_DAY_YN)
-    		   ,V_P_WED_WORKING_DAY_YN   : gfn_nvl(wedData[0].WORKING_DAY_YN)
-    		   ,V_P_THU_WORKING_DAY_YN   : gfn_nvl(thuData[0].WORKING_DAY_YN)
-    		   ,V_P_FRI_WORKING_DAY_YN   : gfn_nvl(friData[0].WORKING_DAY_YN)
-    		   ,V_P_SAT_WORKING_DAY_YN   : gfn_nvl(satData[0].WORKING_DAY_YN)
-    		   ,V_P_SUN_BUSINESS_DAY_YN  : gfn_nvl(sunData[0].BUSINESS_DAY_YN)
-    		   ,V_P_MON_BUSINESS_DAY_YN  : gfn_nvl(monData[0].BUSINESS_DAY_YN)
-    		   ,V_P_TUE_BUSINESS_DAY_YN  : gfn_nvl(tueData[0].BUSINESS_DAY_YN)
-    		   ,V_P_WED_BUSINESS_DAY_YN  : gfn_nvl(wedData[0].BUSINESS_DAY_YN)
-    		   ,V_P_THU_BUSINESS_DAY_YN  : gfn_nvl(thuData[0].BUSINESS_DAY_YN)
-    		   ,V_P_FRI_BUSINESS_DAY_YN  : gfn_nvl(friData[0].BUSINESS_DAY_YN)
-    		   ,V_P_SAT_BUSINESS_DAY_YN  : gfn_nvl(satData[0].BUSINESS_DAY_YN)
+    		   ,V_P_SUN_HOLIDAY_YN       : gfnma_nvl2(sunData[0].HOLIDAY_YN)
+    		   ,V_P_MON_HOLIDAY_YN       : gfnma_nvl2(monData[0].HOLIDAY_YN)
+    		   ,V_P_TUE_HOLIDAY_YN       : gfnma_nvl2(tueData[0].HOLIDAY_YN)
+    		   ,V_P_WED_HOLIDAY_YN       : gfnma_nvl2(wedData[0].HOLIDAY_YN)
+    		   ,V_P_THU_HOLIDAY_YN       : gfnma_nvl2(thuData[0].HOLIDAY_YN)
+    		   ,V_P_FRI_HOLIDAY_YN       : gfnma_nvl2(friData[0].HOLIDAY_YN)
+    		   ,V_P_SAT_HOLIDAY_YN       : gfnma_nvl2(satData[0].HOLIDAY_YN)
+    		   ,V_P_SUN_WORKING_DAY_YN   : gfnma_nvl2(sunData[0].WORKING_DAY_YN)
+    		   ,V_P_MON_WORKING_DAY_YN   : gfnma_nvl2(monData[0].WORKING_DAY_YN)
+    		   ,V_P_TUE_WORKING_DAY_YN   : gfnma_nvl2(tueData[0].WORKING_DAY_YN)
+    		   ,V_P_WED_WORKING_DAY_YN   : gfnma_nvl2(wedData[0].WORKING_DAY_YN)
+    		   ,V_P_THU_WORKING_DAY_YN   : gfnma_nvl2(thuData[0].WORKING_DAY_YN)
+    		   ,V_P_FRI_WORKING_DAY_YN   : gfnma_nvl2(friData[0].WORKING_DAY_YN)
+    		   ,V_P_SAT_WORKING_DAY_YN   : gfnma_nvl2(satData[0].WORKING_DAY_YN)
+    		   ,V_P_SUN_BUSINESS_DAY_YN  : gfnma_nvl2(sunData[0].BUSINESS_DAY_YN)
+    		   ,V_P_MON_BUSINESS_DAY_YN  : gfnma_nvl2(monData[0].BUSINESS_DAY_YN)
+    		   ,V_P_TUE_BUSINESS_DAY_YN  : gfnma_nvl2(tueData[0].BUSINESS_DAY_YN)
+    		   ,V_P_WED_BUSINESS_DAY_YN  : gfnma_nvl2(wedData[0].BUSINESS_DAY_YN)
+    		   ,V_P_THU_BUSINESS_DAY_YN  : gfnma_nvl2(thuData[0].BUSINESS_DAY_YN)
+    		   ,V_P_FRI_BUSINESS_DAY_YN  : gfnma_nvl2(friData[0].BUSINESS_DAY_YN)
+    		   ,V_P_SAT_BUSINESS_DAY_YN  : gfnma_nvl2(satData[0].BUSINESS_DAY_YN)
     		   ,V_P_FORM_ID              : p_formId
     		   ,V_P_MENU_ID              : p_menuId
     		   ,V_P_PROC_ID              : ''
@@ -702,16 +702,16 @@
 								,V_P_COMP_CODE            : gv_ma_selectedCorpCd
 								,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
 								,V_P_YYYY                 : SRCH_YYYY
-								,V_P_TXN_ID               : gfn_nvl(item.data.TXN_ID)
-								,V_P_START_DAY            : gfn_nvl(item.data.START_DAY).replaceAll('-','')
-								,V_P_END_DAY              : gfn_nvl(item.data.END_DAY).replaceAll('-','')
-								,V_P_SOLAR_YN             : gfn_nvl(item.data.SOLAR_YN)
-								,V_P_LEAP_MONTH_YN        : gfn_nvl(item.data.LEAP_MONTH_YN)
-								,V_P_DAY_TITLE            : gfn_nvl(item.data.DAY_TITLE)
-								,V_P_HOLIDAY_YN           : gfn_nvl(item.data.HOLIDAY_YN)
-								,V_P_WORKING_DAY_YN       : gfn_nvl(item.data.WORKING_DAY_YN)
-								,V_P_BUSINESS_DAY_YN      : gfn_nvl(item.data.BUSINESS_DAY_YN)
-								,V_P_MEMO                 : gfn_nvl(item.data.MEMO)
+								,V_P_TXN_ID               : gfnma_nvl2(item.data.TXN_ID)
+								,V_P_START_DAY            : gfnma_nvl2(item.data.START_DAY).replaceAll('-','')
+								,V_P_END_DAY              : gfnma_nvl2(item.data.END_DAY).replaceAll('-','')
+								,V_P_SOLAR_YN             : gfnma_nvl2(item.data.SOLAR_YN)
+								,V_P_LEAP_MONTH_YN        : gfnma_nvl2(item.data.LEAP_MONTH_YN)
+								,V_P_DAY_TITLE            : gfnma_nvl2(item.data.DAY_TITLE)
+								,V_P_HOLIDAY_YN           : gfnma_nvl2(item.data.HOLIDAY_YN)
+								,V_P_WORKING_DAY_YN       : gfnma_nvl2(item.data.WORKING_DAY_YN)
+								,V_P_BUSINESS_DAY_YN      : gfnma_nvl2(item.data.BUSINESS_DAY_YN)
+								,V_P_MEMO                 : gfnma_nvl2(item.data.MEMO)
 								,V_P_FORM_ID              : p_formId
 								,V_P_MENU_ID              : p_menuId
 								,V_P_PROC_ID              : ""
@@ -776,18 +776,18 @@
          }
      }
      
-     /*셀복사 해제 (복사모드해제)*/
-     const fn_gridCopyClear = function (){ 
-         $('#btnCopyClear').hide();
-         $('#btnCopyLine').show();
-         $('#btnCopyCell').hide();
-
-         let data = subGrid.getGridDataAll();
-     	 jsonSubList = [];
-		 mode = 'byrow'; //행 단위 단일  선택
-         fn_drawSubGrid(mode, data, true);
-
-     }
+	/*셀복사 해제 (복사모드해제)*/
+	const fn_gridCopyClear = function (){ 
+		$('#btnCopyClear').hide();
+		$('#btnCopyLine').show();
+		$('#btnCopyCell').hide();
+		
+		let data = subGrid.getGridDataAll();
+		jsonSubList = [];
+		mode = 'byrow'; //행 단위 단일  선택
+		fn_drawSubGrid(mode, data, true);
+	
+	}
      
      /*행 복사 (행복사모드)*/
      const fn_gridCopyLine = function () { 
@@ -819,7 +819,7 @@
      //전년도 자료 복사
      const fn_copyPrevYear = async function() {
     	 
-         let SRCH_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+         let SRCH_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
 
          const paramObj = {
     	    	   V_P_DEBUG_MODE_YN         : '' 
@@ -886,7 +886,7 @@
 
      	// 코드목록 그리드 초기화
      	fn_clearForm();
-     	let SRCH_YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+     	let SRCH_YYYY = gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
      	
      	var paramObj = {
 	    	    V_P_DEBUG_MODE_YN       : ''
@@ -931,7 +931,7 @@
 		
      	// 코드목록 그리드 초기화
      	fn_clearForm();
-     	let SRCH_YYYY 		= gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
+     	let SRCH_YYYY 		= gfnma_nvl2(SBUxMethod.get("SRCH_YYYY"));
      	
      	var paramObj = {
 	     		    V_P_DEBUG_MODE_YN       : ''
