@@ -574,7 +574,7 @@
 						<tr>
 							<th colspan="4" scope="row" class="th_bg th_border_right">정규직</th>
 							<th colspan="4" scope="row" class="th_bg th_border_right">파견직</th>
-							<th colspan="4" scope="row" class="th_bg th_border_right">일용직</th>
+							<th colspan="4" scope="row" class="th_bg th_border_right">계약직</th>
 							<th colspan="3" scope="row" class="th_bg th_border_right">합계</th>
 						</tr>
 						<tr>
@@ -605,7 +605,7 @@
 							</td>
 							<td>명</td>
 							<td colspan="3" style="border-right: hidden;">
-							<!-- 일용직 -->
+							<!-- 계약직 -->
 							<sbux-input
 										uitype="text"
 										id="dtl-input-dlbrrNope"
@@ -657,12 +657,12 @@
 						</ul>
 				</div>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
-					<p><b> o 품목리스트 : 전문/육성 품목 뿐 아니라, 조직에서 취급하고 있는 기타품목까지 모두 등록</b></p>
-					<p><b> - 여기에 등록해놓은 품목으로 조직의 총 취급액을 확인할 수 있어야 함 (★ 실적점검 시 해당서류도 제출 필요)</b></p>
+					<p><b> o 품목리스트 : 2024년도에 생산유통통합조직에서 취급한 전문/육성 품목 뿐 아니라, 조직에서 취급하고 있는 기타품목까지 모두 등록<span style="color: red;">(출자출하조직 제외)</span></b></p>
+					<p><b> - 여기에 등록해놓은 품목으로 조직의 2024년도 총 취급액을 확인할 수 있어야 함 (★ 실적점검 시 해당서류도 제출 필요)</b></p>
 					<p> - 기본요건 확인 : 임산물류, 양곡류(미곡류 제외) 취급하는 조직의 경우, 원예농산물 대상품목(부류기준 : 청과부류, 화훼부류, 약용작물류) 취급액이 전체 취급액의 50% 이상 여부 확인</p>
 					<p>　* 취급액이 너무 작은 품목(ex. 품목당 취급액 비중이 총취급액의 10% 미만 등)은 품목명을 "부류별 기타(ex.과실류기타, 과채류기타 등)"로 묶어서 작성 가능</p>
 					<p> - 평가부류 : 세팅값은 있으나 조직별 재배기준에 따라 변경 가능하며, 해당 평가부류를 적용해서 "전문품목에 대한 부류별 평가"를 진행하오니 반드시 확인 필요</p>
-					<p> - 취급액·취급률 목표 : 산지유통활성화자금 배정을 위한 평가에 반영("전문품목"만 해당하나, 육성품목 및 기타품목도 참고용으로 작성요청) </p>
+					<p> - 취급액·취급률 목표 : 산지유통활성화자금 배정을 위한 평가에 반영("전문품목"만 해당하나, 육성품목 및 기타품목도 참고용으로 작성요청)<span style="color: red">*제시된 목표는 원칙적으로 수정 불가</span></p>
 				</div>
 				<div class="sb-area-grdGpcList">
 					<!-- SBGrid를 호출합니다. -->
@@ -674,6 +674,9 @@
 								<span style="font-size:14px">▶생산유통통합조직등록</span>
 							</li>
 						</ul>
+				</div>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>o 원물확보 시군 시도 개소수 : 생산자조직의 원물확보 지역을 기준으로 작성</p>
 				</div>
 				<table class="table table-bordered tbl_fixed" style="border: none">
 					<caption>생산유통통합조직 여부</caption>
@@ -862,11 +865,35 @@
 				<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span style="font-size:14px">▶산지유통활성지원 자금신청 현황</span>
+								<span style="font-size:14px">▶산지유통활성화자금 조직별 대출잔액 현황</span>
 							</li>
 						</ul>
 				</div>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p><b> o 생산유통 통합조직은 통합조직 및 소속 출자출하조직의 융자원장을 확인하여 이상이 있을 시 aT 061-931-1051로 문의 </b></p>
+					<p><b> o 이상치 확인 후 최종 대출잔액 재게시 예정(2월 초)</b></p>
+				</div>
+				<div class="sb-area-grdLoan">
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdLoan" style="height:200px; width: 100%;"></div>
+				</div>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div style="margin-left: auto;">
+						<sbux-button id="btnLoanY" name="btnLoanY" uitype="normal" text="대출잔액 현황 확인" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('Y')"></sbux-button>
+						<sbux-button id="btnLoanN" name="btnLoanN" uitype="normal" text="대출잔액 현황 취소" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('N')"></sbux-button>
+					</div>
+				</div>
+
+				<!-- 산지유통활성지원 자금신청 현황 -->
+				<div class="ad_tbl_top">
+					<ul class="ad_tbl_count">
+						<li>
+							<span style="font-size:14px">▶산지유통활성지원 자금신청 현황</span>
+						</li>
+					</ul>
+				</div>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p style="color: red;"> o 자금대환액 및 신규사용 수요를 감안하여 신청 </p>
 					<p>o 산지유통활성화자금 : 자금신청액의 최소 단위는 100,000천원이고 이하 단위는 자동 절삭처리</p>
 					<p> ⇒ 출자출하조직 등록 내용까지 모두 확인 완료 후 "법인체 마감"</p>
 				</div>
@@ -1105,8 +1132,8 @@
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'CMPTN_INST_SIGUN'),	 //시군
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'UNTY_CTPV'), //시도
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 	'UNTY_SSG'),	 //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
@@ -1130,15 +1157,19 @@
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
+		await fn_createGridLoan();//대출잔액 현황 그리드
 		await fn_initSBSelect();
 		await fn_search();
 		//await fn_apcListGrid();//해당조직의 apc정보 그리드
 	</c:if>
+
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 		await fn_gpcListGrid();
+		await fn_createGridLoan();//대출잔액 현황 그리드
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 	</c:if>
+
 	}
 
 	/* 기본 년도값 세팅 */
@@ -1261,6 +1292,55 @@
 		grdPrdcrCrclOgnReqMng.bind('click','fn_view');
 		grdPrdcrCrclOgnReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
 	}
+
+	/* 20250114 산지유통활성화자금 조직별 대출잔액 현황 그리드 추가 */
+
+	//그리드 변수
+	var jsonLoan = []; // 그리드의 참조 데이터 주소 선언
+	var grdLoan;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_createGridLoan = async function() {
+		/*
+		let yr = SBUxMethod.get("srch-input-yr");
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("dtl-input-yr");
+		}
+		let totStr = yr + "년";
+		*/
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdLoan';
+		SBGridProperties.id = 'grdLoan';
+		SBGridProperties.jsonref = 'jsonLoan';
+		SBGridProperties.emptyrecords = '융자내역이 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.columns = [
+			{caption: ["시도"],		ref: 'ctpvNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["시군구"],		ref: 'sggNm',		type:'output',  width:'80px',	style:'text-align:center'},
+
+			{caption: ["조직명"],		ref: 'corpNm',	type:'output',  width:'200px',	style:'text-align:center'},
+			{caption: ["조직구분"],		ref: 'ognzSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직유형"],		ref: 'ognzTypeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["'24년 실대출액"],		ref: 'aclnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 미대출액"],		ref: 'unlnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 대출 기말잔액"],	ref: 'lnndngBlnc',	type:'output',  width:'120px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'25년 상환예정액"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기사용액\n'24년 잔액-'25년 상환"],	ref: 'uam',	type:'output',  width:'140px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["확인여부"],				ref: 'lnChkYn',	type:'output',  width:'80px',	style:'text-align:center'},
+
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+		];
+
+		grdLoan = _SBGrid.create(SBGridProperties);
+
+	}
+
 	/**
 	 * 목록 조회
 	 */
@@ -1610,10 +1690,58 @@
 
 			//품목 그리드 조회
 			fn_selectGpcList();
+			fn_selectLoanList();
 			//합계 계산
 			fn_fundAplyAmt();
 			//조회후 포커스가 이상한곳으로 가있는 경우가 있어서 추가
 			window.scrollTo(0, 0);
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	/* 대출잔액 현황 조회 기능*/
+	const fn_selectLoanList = async function(){
+		let brno = SBUxMethod.get('dtl-input-brno')//
+		let yr = SBUxMethod.get('dtl-input-yr')//
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+		yr = Number(yr)-1;
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectLoanList.do", {
+			yr : yr
+			,brno : brno
+		});
+		let data = await postJsonPromise;
+		try{
+			jsonLoan.length = 0;
+			data.resultList.forEach((item, index) => {
+				let itemVo = {
+						 yr: 			item.yr
+						,ctpvNm: 		item.ctpvNm
+						,sggNm: 		item.sggNm
+						,corpNm: 		item.corpNm
+						,ognzSeNm: 		item.ognzSeNm
+						,brno: 			item.brno
+						,ognzTypeNm: 	item.ognzTypeNm
+						,aclnAmt: 		item.aclnAmt
+						,unlnAmt: 		item.unlnAmt
+						,lnndngBlnc: 	item.lnndngBlnc
+						,exprpymntAmt: 	item.exprpymntAmt
+						,uam: 			item.uam
+						,lnSrc: 		item.lnSrc
+						,lnChkYn: 		item.lnChkYn
+						,uoBrno: 		item.uoBrno
+				}
+				jsonLoan.push(itemVo);
+			});
+
+			grdLoan.rebuild();
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1961,7 +2089,7 @@
 		fn_calTot();
 
 		fn_selectGpcList();
-
+		fn_selectLoanList();
 	}
 	function fn_clearForm(){
 		jsonGpcList.length=0;
@@ -2691,9 +2819,16 @@
 			corpDdlnSeCd = 'N'
 		}
 
+		let yr = SBUxMethod.get('srch-input-yr');;
+
 		//현재년도
 		let now = new Date();
 		let year = now.getFullYear();
+
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
+
 
 		let postJsonPromise = gfn_postJSON("/pd/aom/updateCorpDdlnSeCd.do", {
 			yr : year
@@ -2753,11 +2888,62 @@
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
+			console.log();
+			if(data.resultCnt > 0){
 				alert("선택 통합조직 신청정보가 삭제 되었습니다.");
 				fn_search();
 			}else{
 				alert("선택 통합조직 신청정보가 삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//대출잔액 현황 확인 여부 업데이트
+	async function fn_updateLoanChk(yn){
+
+		if(jsonLoan.length == 0){
+			return;
+		}
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		if(gfn_isEmpty(brno)){
+			return;
+		}
+
+		//현재년도
+		let now = new Date();
+		let year = now.getFullYear();
+
+		if(gfn_isEmpty(yr)){
+			yr = year;
+		}
+		//직전년도
+		yr = Number(yr) - 1;
+
+		let postJsonPromise = gfn_postJSON("/pd/aom/updateLoanChk.do", {
+			yr : yr
+			,brno : brno
+			,lnChkYn : yn
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if(data.resultCnt > 0){
+				if(yn == 'Y'){
+					alert("대출잔액 현황 확인 되었습니다.");
+				}else if(yn == 'N'){
+					alert("대출잔액 현황 취소 되었습니다.");
+				}
+				fn_selectLoanList();
+			}else{
+				alert("대출잔액 현황 확인 중 오류가 발생 되었습니다.");
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -2860,7 +3046,7 @@
 			{caption: ["전체 종사자 수"],			ref: 'nopeTot',				type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["정규직"],					ref: 'rgllbrNope',			type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["파견직"],					ref: 'dwNope',				type:'output',  width:'130px',	style:'text-align:center'},
-			{caption: ["일용직"],					ref: 'dlbrrNope',			type:'output',  width:'130px',	style:'text-align:center'},
+			{caption: ["계약직"],					ref: 'dlbrrNope',			type:'output',  width:'130px',	style:'text-align:center'},
 			{caption: ["통합조직 자금신청액"], 			ref: 'pruoFundAplyAmt',		type:'output',  width:'130px',	style:'text-align:center'},
 
 			{caption: ["출자출하조직 자금신청액"],		ref: 'isoFundAplyAmt',		type:'output',  width:'200px',	style:'text-align:center'},

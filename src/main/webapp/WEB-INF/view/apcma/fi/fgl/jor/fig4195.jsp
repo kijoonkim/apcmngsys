@@ -1,6 +1,6 @@
 <%
 /**
- * @Class Name 		: fig2310_99.jsp
+ * @Class Name 		: fig4195.jsp
  * @Description 	: 미결잔액조회 화면
  * @author 			: 인텔릭아이앤에스
  * @since 			: 2024.09.20
@@ -644,8 +644,8 @@
 						BILL_DUE_PAY_DATE			: gfnma_date5(gfnma_nvl2(item.PRMNT_MTRY_PAY_YMD)),			
 						
 						CHECK_YN					: gfnma_nvl2(item.CHECK_YN),			
-						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),			
-						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCT_CD),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCT_NM),			
   					
 						CS_CODE						: gfnma_nvl2(item.CNPT_CD),
 						CS_NAME						: gfnma_nvl2(item.CNPT_NM),

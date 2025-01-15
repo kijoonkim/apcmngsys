@@ -778,7 +778,7 @@
                         EMP_CODE		: gfnma_nvl2(item.EMP_CD),
                         EMP_NAME		: gfnma_nvl2(item.EMP_NM),
                         PAY_ITEM_CODE   : gfnma_nvl2(item.SLRY_ITEM_CD),
-                        PAY_YYYYMM_FR	: gfnma_nvl2(item.SLRY_BENG_YM),
+                        PAY_YYYYMM_FR	: gfnma_nvl2(item.SLRY_BGNG_YM),
                         PAY_YYYYMM_TO	: gfnma_nvl2(item.SLRY_END_YM),
                         PAY_APPLY_TYPE	: gfnma_nvl2(item.SLRY_APLY_TYPE),
                         PAY_APPLY_RATE	: gfnma_nvl2(item.SLRY_APLY_RT),

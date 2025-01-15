@@ -645,7 +645,7 @@
             // 양력/음력
             gfnma_setComSelect(['gvwFamily','BIRTHDAY_TYPE'], jsonBirthdayType, 'L_HRM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 호봉
-            gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'JBCD_SLRCL_CD', 'GRADE_HOBONG_NAME', 'Y', ''),
+            gfnma_setComSelect(['SALARY_CLASS'], jsonSalaryClass, 'L_HRI011', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'JBGD_SLRCL_CD', 'GRADE_HOBONG_NAME', 'Y', ''),
             // 인건비분류
             /*gfnma_setComSelect(['LABOR_COST_GROUP'], jsonLaborCostGroup, 'L_HRI007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),*/
             gfnma_multiSelectInit({
@@ -2693,7 +2693,7 @@
                         DEPT_NAME2 : item.DEPT_NM2,
                         POSITION_NAME2 : item.JBPS_NM2,
                         DUTY_NAME2 : item.JBTTL_NM2,
-                        JOB_RANK_NAME2 : item.JBCD_NM2,
+                        JOB_RANK_NAME2 : item.JBGD_NM2,
                         JOB_FAMILY_NAME2 : item.JOB_LWRNK_GROUP_NM2,
                         JOB_NAME2 : item.DUTY_NM2,
                         REGION_NAME2 : item.RGN_NM2,
@@ -2857,7 +2857,7 @@
                         END_DATE : item.END_DT,
                         TXN_ID : item.TRSC_ID,
                         EMP_BASE_FLAG : item.EMP_BASE_FLAG,
-                        WORK_PATTERN_CODE : item.WRK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
                         SORT_SEQ : item.SORT_SEQ
                     }
                     jsonEmpList.push(msg);

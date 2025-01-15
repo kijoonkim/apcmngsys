@@ -1454,8 +1454,8 @@
 		    				ACC_CHARACTER		: item.INCPL_TYPE,
 		    				ACC_GROUP_TYPE		: item.ACNT_GROUP_TYPE,
 		    				ACCOUNT_NAME_CHN	: item.ACNT_NM_CHN,
-		    				COST_ELEMENT		: item.CST_ELMT_CD,
-		    				COST_ELEMENT_NAME	: item.CST_ELMT_NM,
+		    				COST_ELEMENT		: item.CSTCT_CD,
+		    				COST_ELEMENT_NAME	: item.CSTCT_NM,
 		    				REPORT_ACCOUNT_CODE	: item.RPT_ACNT_CD,
 		    				REPORT_ACCOUNT_NAME	: item.RPT_ACNT_NM
 		    		}
@@ -1928,8 +1928,8 @@
 		   		SBUxMethod.set("SORT_SEQ", 				    obj.SORT_SEQ);
 		   		SBUxMethod.set("HQ_ACCOUNT_CODE", 		    obj.HQ_ACNT_CD);
 		   		SBUxMethod.set("HQ_ACCOUNT_NAME", 		    obj.HQ_ACNT_NM);
-		   		SBUxMethod.set("REPORT_ACCOUNT_CODE", 	    obj.RPT_ACNT_CD);;
-		   		SBUxMethod.set("REPORT_ACCOUNT_NAME", 	    obj.RPT_ACNT_NM);;
+		   		SBUxMethod.set("REPORT_ACCOUNT_CODE", 	    obj.RPT_ACNT_CD);
+		   		SBUxMethod.set("REPORT_ACCOUNT_NAME", 	    obj.RPT_ACNT_NM);
 		   		SBUxMethod.set("OLD_ACCOUNT_CODE", 		    obj.BFR_ACND_CD);
 		   		SBUxMethod.set("OLD_ACCOUNT_NAME", 		    obj.BFR_ACND_NM);
 		   		SBUxMethod.set("SORT_SEQ_PL", 			    obj.SORT_SEQ_GNLS);
@@ -1949,10 +1949,10 @@
 		        // 회계관리
 		   		SBUxMethod.set("TTR_TYPE", 				    obj.TTR_TYPE);
 		   		SBUxMethod.set("TTR_TYPE_NAME", 		    obj.TTR_TYPE_NAME);
-		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.CST_ELMT_CD);
-		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.CST_ELMT_NM);
+		   		SBUxMethod.set("COST_ELEMENT_CODE", 	    obj.CSTCT_CD);
+		   		SBUxMethod.set("COST_ELEMENT_NAME", 	    obj.CSTCT_NM);
 		   		SBUxMethod.set("ASSET_YN", 				    obj.AST_REG_YN);
-		   		SBUxMethod.set("GL_IMPORT_YN", 			    obj.GNRGR_RCPTN_YN);
+		   		SBUxMethod.set("GL_IMPORT_YN", 			    obj.GNLGR_RCPTN_YN);
 		   		SBUxMethod.set("YEAR_RE_ACCOUNT_YN", 	    obj.YR_PRFT_RMNDR_ACNT_YN);
 		   		SBUxMethod.set("MONTH_RE_ACCOUNT_YN", 	    obj.MM_DSSPS_PRFT_YN);
 		   		SBUxMethod.set("PROJECT_YN", 			    obj.PJT_YN);

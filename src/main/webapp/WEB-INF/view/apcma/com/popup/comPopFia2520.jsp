@@ -418,8 +418,8 @@ function compopfia2520(options) {
   						ASSET_SPEC						: gfn_nvl(item.AST_SPCFCT),
   						CHK_YN							: gfn_nvl(item.CHK_YN),
   						COMP_CODE						: gfn_nvl(item.CO_CD),
-  						COST_CENTER_CODE				: gfn_nvl(item.CSTCD_CD),
-  						COST_CENTER_NAME				: gfn_nvl(item.CSTCD_NM),
+  						COST_CENTER_CODE				: gfn_nvl(item.CSTCT_CD),
+  						COST_CENTER_NAME				: gfn_nvl(item.CSTCT_NM),
   						CS_CODE							: gfn_nvl(item.CNPT_CD),
   						CS_NAME							: gfn_nvl(item.CNPT_NM),
   						CURRENCY_CODE					: gfn_nvl(item.CRN_CD),
@@ -808,9 +808,9 @@ function fn_popFia2520_gridPopup3(event, row, col) {
  */
 var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
 	
-    var replaceText0 	= "_CSTCD_CD_";
-    var replaceText1 	= "_CSTCD_NM_";
-    var strWhereClause 	= "AND X.CSTCD_CD LIKE '%" + replaceText0 + "%' AND X.CSTCD_NM LIKE '%" + replaceText1 + "%'";
+    var replaceText0 	= "_CSTCT_CD_";
+    var replaceText1 	= "_CSTCT_NM_";
+    var strWhereClause 	= "AND X.CSTCT_CD LIKE '%" + replaceText0 + "%' AND X.CSTCT_NM LIKE '%" + replaceText1 + "%'";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 	compopup1({
@@ -820,17 +820,17 @@ var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
     	,popupType				: 'A'
 		,whereClause			: strWhereClause
 		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+		,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,height					: '400px'
 		,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-		,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+		,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
 		,tableColumnWidths		: ["80px", 	"80px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
-			PopFia2520Grid.setCellData(row, 13,	data['CSTCD_CD'], true, true);
-			PopFia2520Grid.setCellData(row, 15,	data['CSTCD_NM'], true, true);
+			PopFia2520Grid.setCellData(row, 13,	data['CSTCT_CD'], true, true);
+			PopFia2520Grid.setCellData(row, 15,	data['CSTCT_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');

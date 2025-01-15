@@ -2647,7 +2647,7 @@
 		    				INSERT_USERID			: gfn_nvl(item.WRT_USER_ID),
 		    				NEXT_APPR_EMP			: gfn_nvl(item.NEXT_APPR_EMP),
 		    				NEXT_PROXY_EMP			: gfn_nvl(item.NEXT_PROXY_EMP),
-		    				PROXY_EMP_CODE			: gfn_nvl(item.DLCT_EMP_CD),
+		    				PROXY_EMP_CODE			: gfn_nvl(item.DLGT_EMP_CD),
 		    				PURCHASE_YN				: gfn_nvl(item.PCPL_YN),
 		    				REQUEST_EMP				: gfn_nvl(item.REQUEST_EMP),
 		    				SALE_YN					: gfn_nvl(item.SLS_CNPT_YN),
@@ -2666,9 +2666,8 @@
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
 	    	   	
                 if(jsonMasterList.length > 0) {
-  	                	masterGrid.clickRow(1);
+  	                masterGrid.clickRow(1);
                 }
-	                
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -3931,9 +3930,9 @@
     var fn_compopupParent = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get('PARENT_COST_CENTER'));
         var searchName 		= gfn_nvl(SBUxMethod.get("PARENT_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '본지점계정 조회');
     	compopup1({
@@ -3943,16 +3942,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchCode, 	searchName]
     		,width					: '500px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["80px", 			 "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('PARENT_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('PARENT_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('PARENT_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('PARENT_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}
@@ -4031,9 +4030,9 @@
     	
         var searchText1 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체거래처 조회');
     	compopup1({
@@ -4043,16 +4042,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchText1, 		searchText2]
     		,width					: '600px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["80px", 			 "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('TRANS_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('TRANS_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('TRANS_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('TRANS_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}
@@ -4096,9 +4095,9 @@
     	
         var searchText1 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("BUDGET_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '대체거래처 조회');
     	compopup1({
@@ -4108,16 +4107,16 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: [searchText1, 		searchText2]
     		,width					: '500px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["100px", 			 "100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('BUDGET_COST_CENTER',		data.CSTCD_CD);
-				SBUxMethod.set('BUDGET_COST_CENTER_NAME', 	data.CSTCD_NM);
+				SBUxMethod.set('BUDGET_COST_CENTER',		data.CSTCT_CD);
+				SBUxMethod.set('BUDGET_COST_CENTER_NAME', 	data.CSTCT_NM);
 			},
     	});
   	}

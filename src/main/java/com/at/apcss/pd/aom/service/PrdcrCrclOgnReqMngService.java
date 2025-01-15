@@ -5,6 +5,7 @@ import java.util.List;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
+import com.at.apcss.pd.aom.vo.LoanVO;
 
 
 /**
@@ -150,4 +151,18 @@ public interface PrdcrCrclOgnReqMngService {
 	 * @throws Exception
 	 */
 	public int updateUoApoSe(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
+
+	/**
+	 * 대출잔액 현황 리스트를 조회한다.
+	 * @param LoanVO
+	 * @return List<LoanVO>
+	 */
+	public List<LoanVO> selectLoanList(LoanVO LoanVO) throws Exception;
+
+	/**
+	 * 대출잔액 현황 확인 여부를 수정한다.
+	 * @param LoanVO
+	 * @return int
+	 */
+	public int updateLoanChk(LoanVO LoanVO) throws Exception;
 }

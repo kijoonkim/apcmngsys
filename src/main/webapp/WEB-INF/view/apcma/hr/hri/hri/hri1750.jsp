@@ -779,7 +779,7 @@
                         INSERT_EMP_CODE : item.INSERT_EMP_CODE,
                         CURRENT_APPROVE_EMP_CODE : item.CURRENT_APPROVE_EMP_CODE,
                         CURRENT_APPROVE_EMP_NAME : item.CURRENT_APPROVE_EMP_NAME,
-                        PROXY_EMP_CODE : item.DLCT_EMP_CD,
+                        PROXY_EMP_CODE : item.DLGT_EMP_CD,
                         PROXY_EMP_NAME : item.PROXY_EMP_NAME,
                         RETIRE_DATE : item.RTRM_YMD
                     }

@@ -648,7 +648,7 @@
 						<tr>
 							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>정규직</th>
 							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>파견직</th>
-							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>일용직</th>
+							<th colspan="3" scope="row" class="th_bg th_border_right"  style="text-align:center;"><span class="data_required" ></span>계약직</th>
 							<th colspan="3" scope="row" class="th_bg"  style="text-align:center;"><span class="data_required" ></span>합계</th>
 						</tr>
 						<tr>
@@ -679,7 +679,7 @@
 						</td>
 						<td>명</td>
 						<td colspan="2" style="border-right:hidden;">
-						<!-- 일용직 -->
+						<!-- 계약직 -->
 						<sbux-input
 									uitype="text"
 									id="dtl-input-dlbrrNope"
@@ -1569,7 +1569,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		var dlbrrNope = SBUxMethod.get("dtl-input-dlbrrNope");
 		if(gfn_isEmpty(dlbrrNope)){
-			gfn_comAlert("W0002", "종사자 수 일용직");
+			gfn_comAlert("W0002", "종사자 수 계약직");
 			return false;
 		}
 		//
@@ -2161,7 +2161,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			{caption: ["기타 출자금"], 	ref: 'etcInvstAmt',   	type:'output', width:'60px',style:'text-align:center' },
 			{caption: ["정규직인원수"], 	ref: 'rgllbrNope',   	type:'output', width:'60px',style:'text-align:center' },
 			{caption: ["파견직인원수"], 	ref: 'dwNope',   		type:'output', width:'60px',style:'text-align:center' },
-			{caption: ["일용직인원수"], 	ref: 'dlbrrNope',   	type:'output', width:'60px',style:'text-align:center' },
+			{caption: ["계약직인원수"], 	ref: 'dlbrrNope',   	type:'output', width:'60px',style:'text-align:center' },
 
 			{caption: ["대표자성명"], 	ref: 'rprsvFlnm',   	type:'output', width:'60px',style:'text-align:center' },
 			{caption: ["대표자전화번호"], 	ref: 'rprsvTelno',   	type:'output', width:'60px',style:'text-align:center' },

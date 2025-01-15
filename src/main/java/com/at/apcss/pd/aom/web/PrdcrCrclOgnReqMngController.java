@@ -21,6 +21,7 @@ import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.pd.aom.service.PrdcrCrclOgnReqMngService;
 import com.at.apcss.pd.aom.vo.ApcInfoVO;
 import com.at.apcss.pd.aom.vo.GpcVO;
+import com.at.apcss.pd.aom.vo.LoanVO;
 import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 
 @Controller
@@ -271,4 +272,37 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	// 대출잔액 현황 조회
+	@PostMapping(value = "/pd/aom/selectLoanList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectLoanList(Model model, @RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<LoanVO> resultList = new ArrayList<>();
+		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
+		try {
+			 resultList = PrdcrCrclOgnReqMngService.selectLoanList(LoanVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 대출잔액 현황 확인 여부 업데이트
+	@PostMapping(value = "/pd/aom/updateLoanChk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateLoanChk(@RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/aom/updateLoanChk >>> 호출 >>> ");
+
+		int result = 0;
+		try {
+			result = PrdcrCrclOgnReqMngService.updateLoanChk(LoanVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("resultCnt", result);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

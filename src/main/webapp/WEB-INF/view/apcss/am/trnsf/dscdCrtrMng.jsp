@@ -227,7 +227,16 @@
                     colNm: "crtrCd"
                 }
             },
-            {caption: ["기준표시명"], ref: 'crtrIndctNm', type: 'input', width: '140px', style: 'text-align: center; background-color: #FFF8DC;', userattr: {colNm: "crtrIndctNm"}},
+            {
+                caption: ["기준표시명"],
+                ref: 'crtrIndctNm',
+                type: 'input',
+                width: '140px',
+                style: 'text-align: center; background-color: #FFF8DC;',
+                userattr: {
+                    colNm: "crtrIndctNm"
+                }
+            },
             // {caption: ["기준값"], ref: 'crtrVl', type: 'input', width: '120px', style: 'text-align: center;', userattr: {colNm: "crtrVl"}, typeinfo: {mask: {alias: '#', repeat: '*', unmaskvalue: true}, maxlength: 6, oneclickedit: true}, format: {type: 'number', rule: '#,###.#'}},
             // {caption: ["표시순서"], ref: 'indctSeq', type: 'input', width: '80px', style: 'text-align: right;', userattr: {colNm: "indctSeq"}, typeinfo: {mask: {alias: '#', repeat: '*', unmaskvalue: true}, maxlength: 6, oneclickedit: true}, format: {type: 'number', rule: '#,###'}},
             // {caption: ["사용"], ref: 'useYn', type: 'combo', width: '50px', style: 'text-align: center', typeinfo: {ref: 'jsonYn', label: 'cdVlNm', value: 'cdVl', displayui: false}},
@@ -298,7 +307,16 @@
                     value: 'cdVl'
                 }
             },
-            // {caption: ["상세표시명"], ref: 'dtlIndctNm', type: 'input', width: '140px', style: 'text-align: center; background-color: #FFF8DC;', userattr: {colNm: "dtlIndctNm"}},
+            {
+                caption: ["상세표시명"],
+                ref: 'dtlIndctNm',
+                type: 'input',
+                width: '140px',
+                style: 'text-align: center; background-color: #FFF8DC;',
+                userattr: {
+                    colNm: "dtlIndctNm"
+                }
+            },
             {
                 caption: ["상세값"],
                 ref: 'dtlVl',
@@ -608,10 +626,10 @@
             //     return;
             // }
             //
-            // if(gfn_isEmpty(rowData.dtlIndctNm)) {
-            //     gfn_comAlert("W0005", "상세표시명"); // W0005 {0}이/가 없습니다.
-            //     return;
-            // }
+            if(gfn_isEmpty(rowData.dtlIndctNm)) {
+                gfn_comAlert("W0005", "상세표시명"); // W0005 {0}이/가 없습니다.
+                return;
+            }
 
             if(gfn_isEmpty(rowData.dtlCd)) {
                 gfn_comAlert("W0005", "상세코드");  // W0005 {0}이/가 없습니다.
@@ -624,7 +642,7 @@
                 dtlSn: rowData.dtlSn,
                 dtlCd: rowData.dtlCd,
                 dtlVl: rowData.dtlVl,
-                dtlIndctNm: rowData.dtlIndctNm,
+                // dtlIndctNm: rowData.dtlIndctNm,
                 indctSeq: rowData.indctSeq,
                 useYn: rowData.useYn
             });

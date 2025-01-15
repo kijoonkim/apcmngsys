@@ -310,7 +310,7 @@
 			// 영수/청구 구분
 			gfnma_setComSelect(['gvwList'], jsonReceiptOrBill, 'L_FIT042', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			// 원가중심점코드
-			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+			gfnma_setComSelect(['gvwItem'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 			// 재직구분
 			gfnma_setComSelect([''], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
@@ -825,7 +825,7 @@
 							ITEM_TAXABLE_AMT: item.ITEM_TX_AMT,
 							ITEM_VAT_AMT: item.ITEM_VAT_AMT,
 							ITEM_DESC: item.ITEM_DSCTN,
-							COST_CENTER_CODE: item.CSTCD_CD,
+							COST_CENTER_CODE: item.CSTCT_CD,
 							DEPT_CODE: item.DEPT_CD,
 							DEPT_NAME: item.DEPT_NM,
 							PROJECT_CODE: item.PJT_CD,

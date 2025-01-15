@@ -1803,9 +1803,9 @@
 		} else if(type=='2'){
 		}
 
-		var replaceText0 	= "_CSTCD_CD_";
-		var replaceText1 	= "_CSTCD_NM_";
-		var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+		var replaceText0 	= "_CSTCT_CD_";
+		var replaceText1 	= "_CSTCT_NM_";
+		var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
 		compopup1({
@@ -1815,18 +1815,18 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["코드", 				"명칭"]
-			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
 			,searchInputValues		: [searchText1, 		searchText2]
 			,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["코드", 				"명칭",				"부서코드",		"부서명",		"사업장"]
-			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]
+			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM",	"DEPT_CD",	"DEPT_NM",	"SITE_CD"]
 			,tableColumnWidths		: ["150px", 			"250px",			"100px",		"150px",		"100px"]
 			,itemSelectEvent		: function (data){
 				if(type=='1'){
-					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.CSTCD_CD);
-					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.CSTCD_NM);
+					SBUxMethod.set('FM_COST_CENTER_CODE', 	data.CSTCT_CD);
+					SBUxMethod.set('FM_COST_CENTER_NAME', 	data.CSTCT_NM);
 				} else if(type=='2'){
 				}
 			},
@@ -2462,8 +2462,8 @@
 					/**************************** 계정과목 정보 **********************************/
 					SBUxMethod.set("FM_DEPOSIT_CODE"      					, gfn_nvl(item.DEPT_CD));
 					SBUxMethod.set("FM_DEPOSIT_NAME"      					, gfn_nvl(item.DEPT_NM));
-					SBUxMethod.set("FM_COST_CENTER_CODE"      				, gfn_nvl(item.CSTCD_CD));
-					SBUxMethod.set("FM_COST_CENTER_NAME"      				, gfn_nvl(item.CSTCD_NM));
+					SBUxMethod.set("FM_COST_CENTER_CODE"      				, gfn_nvl(item.CSTCT_CD));
+					SBUxMethod.set("FM_COST_CENTER_NAME"      				, gfn_nvl(item.CSTCT_NM));
 					SBUxMethod.set("FM_LOAN_ACCOUNT"      					, gfn_nvl(item.LOAN_ACNT_CD));
 					SBUxMethod.set("FM_LOAN_ACCOUNT_NAME"      				, gfn_nvl(item.LOAN_ACCOUNT_NAME));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_CODE"      	, gfn_nvl(item.INT_CST_ACNT_CD));
@@ -2577,7 +2577,7 @@
                 jsonTrl1010Tab5.length = 0;
                 data.cv_4.forEach((item, index) => {
                     const msg = {
-                        TXN_ID        				: gfn_nvl(item.TXN_ID),
+                        TXN_ID        				: gfn_nvl(item.TRSC_ID),
                         LOAN_NUM        			: gfn_nvl(item.LOAN_NUM),
                         PLAN_SEQ        			: gfn_nvl(item.PLAN_SEQ),
                         CURRENCY_CODE        		: gfn_nvl(item.CURRENCY_CODE),

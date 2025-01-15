@@ -987,7 +987,7 @@
                         BEFORE_PROXY_EMP : item.BEFORE_PROXY_EMP,
                         NEXT_PROXY_EMP : item.NEXT_PROXY_EMP,
                         CONFIRM_EMP_CODE : item.CONFIRM_EMP_CODE,
-                        PROXY_EMP_CODE : item.DLCT_EMP_CD,
+                        PROXY_EMP_CODE : item.DLGT_EMP_CD,
                     }
                     jsonTransferDetailList.push(msg);
                 });

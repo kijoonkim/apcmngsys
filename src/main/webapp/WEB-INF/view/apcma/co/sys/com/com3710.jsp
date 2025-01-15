@@ -1323,8 +1323,8 @@
 		   		SBUxMethod.set("PARENT_NAME", 			    obj.PARENT_NAME);
 		   		SBUxMethod.set("DEPT_CODE", 		    	obj.DEPT_CD);
 		   		SBUxMethod.set("DEPT_NAME", 		    	obj.DEPT_NM);
-		   		SBUxMethod.set("COST_CENTER_CODE", 		    obj.CSTCD_CD);
-		   		SBUxMethod.set("COST_CENTER_NAME", 		    obj.CSTCD_NM);
+		   		SBUxMethod.set("COST_CENTER_CODE", 		    obj.CSTCT_CD);
+		   		SBUxMethod.set("COST_CENTER_NAME", 		    obj.CSTCT_NM);
 		   		SBUxMethod.set("ACCOUNT_CODE", 				obj.ACNTL_CD);
 		   		SBUxMethod.set("ACCOUNT_NAME", 	   			obj.ACNT_NM);
 		   		SBUxMethod.set("USE_YN", 	    			obj.USE_YN);
@@ -1439,9 +1439,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("COST_CENTER_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND A.CSTCD_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM  LIKE '%" + replaceText1 + "%'"  + " AND A.CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND A.CSTCT_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCT_NM  LIKE '%" + replaceText1 + "%'"  + " AND A.CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점 팝업');
     	compopup1({
@@ -1451,15 +1451,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 			"계정명"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: ["", 			""]
     		,height					: '400px'
    			,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
-   			,tableColumnNames		: ["CSTCD_CD",	"CSTCD_NM",	"DEPT_CD",	"CSTCD_NM",	"CST_CLSF",	"SITE_CD",	"CRDT_SECT"]
+   			,tableColumnNames		: ["CSTCT_CD",	"CSTCT_NM",	"DEPT_CD",	"CSTCT_NM",	"CST_CLSF",	"SITE_CD",	"CRDT_SECT"]
    			,tableColumnWidths		: ["100px", 			"150PX", 			"100px", 		"100px", 			"100px", 		"100px", 		"100px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('COST_CENTER_CODE', data.CSTCD_CD);
-				SBUxMethod.set('COST_CENTER_NAME', data.CSTCD_NM);
+				SBUxMethod.set('COST_CENTER_CODE', data.CSTCT_CD);
+				SBUxMethod.set('COST_CENTER_NAME', data.CSTCT_NM);
 			},
     	});
   	}

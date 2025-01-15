@@ -403,7 +403,7 @@
 		}
 	}
 	//법인명 변경 이벤트
-	const fn_chagneCorpNm = async function(a,b,c){
+	const fn_chagneCorpNm = async function(){
 		let brno = SBUxMethod.get("srch-inp-corpNm");
 		SBUxMethod.set("srch-inp-brno",brno);
 	}
@@ -783,7 +783,7 @@
 					}
 				}
 			}else{
-				alert('해당 사업자 정보가 없습니다');
+				alert('해당년도 실적 정보가 없습니다');
 			}
 
 		}catch (e) {
@@ -1125,7 +1125,6 @@
 
 	//년도별 설정 객체 생성
 	//PrdcrOgnz 생산자조직 , CltvtnLand 농가
-	//조회 했을 떄 사용하는 객체의 경우 년도별 차이와 관계 없이 전부 표기하는게 편함
 	//없으면 null 이고 그리드에서 쓰지 않으면 표기도 안됨
 	//변경 사항이 쭉없을 것으로 판단되면 defaultSettings 에 세팅 해주면 됨
 	const yrSettings = {

@@ -679,9 +679,9 @@
   			,searchInputValues		: [searchCode, 	searchName]
     		,width					: '700px'
     		,height					: '400px'
-  			,tableHeader			: ["자산번호",		"자산명",		"site_code",	"dept_code",		"dept_name",	"cost_center_code",			"cost_center_name"]
-  			,tableColumnNames		: ["ASST_NO", 	 	"ASST_NM",	"SITE_CD",	"DEPT_CD",		"DEPT_NM",	"CSTCD_CD",			"ADDR"]
-  			,tableColumnWidths		: ["100px", 		 "250px",		"100px",		"100px",			"100px",		"100px",					"100px"]
+  			,tableHeader			: ["자산번호",		"자산명",		"회사코드",		"부서코드",			"부서명",		"원가중심점코드",			"원가중심점명"]
+  			,tableColumnNames		: ["ASST_NO", 	 	"ASST_NM",		"SITE_CD",		"DEPT_CD",			"DEPT_NM",		"CSTCT_CD",					"CSTCT_NM"]
+  			,tableColumnWidths		: ["100px", 		"250px",		"100px",		"100px",			"100px",		"100px",					"100px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('SCH_ASSET_CODE',	data.ASST_NO);
 				SBUxMethod.set('SCH_ASSET_NAME', 	data.ASST_NM);
@@ -714,7 +714,7 @@
     		,width					: '800px'
     		,height					: '400px'
   			,tableHeader			: ["자산번호", 	"자산명",		"사업장",		"자산구분",			"구분명",				"중분류명",				"소분류명",				"부서코드",		"부서명",		"원가코드",			"원가중심점",		"프로젝트코드",	"프로젝트명"]
-  			,tableColumnNames		: ["ASST_NO", 	"ASST_NM",	"SITE_CD",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"ASSET_LEVEL2_NAME",	"ASSET_LEVEL3_NAME",	"DEPT_CD",	"DEPT_NM",	"CSTCD_CD",	"CSTCD_NM",	"PJT_CD",	"PJT_NM"]
+  			,tableColumnNames		: ["ASST_NO", 	"ASST_NM",	"SITE_CD",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"ASSET_LEVEL2_NAME",	"ASSET_LEVEL3_NAME",	"DEPT_CD",	"DEPT_NM",	"CSTCT_CD",	"CSTCT_NM",	"PJT_CD",	"PJT_NM"]
   			,tableColumnWidths		: ["80px", 	 	"250px",		"100px",		"80px",				"80px",					"100px",				"100px",				"100px",		"200px",		"100px",			"150px",			"100px",		"250px",]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('FM_ASSET_NO',	data.ASST_NO);
@@ -723,8 +723,8 @@
 				SBUxMethod.set('FM_SITE_CODE_FROM',	data.SITE_CD);
 				SBUxMethod.set('FM_DEPT_CODE_FROM',	data.DEPT_CD);
 				SBUxMethod.set('FM_DEPT_NAME_FROM',	data.DEPT_NM);
-				SBUxMethod.set('FM_COST_CENTER_CODE_FROM',	data.CSTCD_CD);
-				SBUxMethod.set('FM_COST_CENTER_NAME_FROM',	data.CSTCD_NM);
+				SBUxMethod.set('FM_COST_CENTER_CODE_FROM',	data.CSTCT_CD);
+				SBUxMethod.set('FM_COST_CENTER_NAME_FROM',	data.CSTCT_NM);
 			},
     	});
     }     
@@ -791,9 +791,9 @@
             searchText2		= gfnma_nvl(SBUxMethod.get("FM_COST_CENTER_NAME_TO"));
         }
         
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%'";
  
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
@@ -803,19 +803,19 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchText1, 		searchText2]
     		,height					: '500px'
    			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,tableColumnWidths		: ["100px", 				"200px"]
 			,itemSelectEvent		: function (data){
                 if(type=='1'){
-	                SBUxMethod.set('FM_COST_CENTER_CODE_FROM', data.CSTCD_CD);
-	                SBUxMethod.set('FM_COST_CENTER_NAME_FROM', data.CSTCD_NM);
+	                SBUxMethod.set('FM_COST_CENTER_CODE_FROM', data.CSTCT_CD);
+	                SBUxMethod.set('FM_COST_CENTER_NAME_FROM', data.CSTCT_NM);
                 } else if(type=='2'){
-	                SBUxMethod.set('FM_COST_CENTER_CODE_TO', data.CSTCD_CD);
-	                SBUxMethod.set('FM_COST_CENTER_NAME_TO', data.CSTCD_NM);
+	                SBUxMethod.set('FM_COST_CENTER_CODE_TO', data.CSTCT_CD);
+	                SBUxMethod.set('FM_COST_CENTER_NAME_TO', data.CSTCT_NM);
                 }
 			},
     	});

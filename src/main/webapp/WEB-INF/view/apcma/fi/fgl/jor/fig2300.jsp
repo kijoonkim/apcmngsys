@@ -1042,7 +1042,7 @@
   						NEXTE_PROXY_EMP			: gfnma_nvl2(item.NEXT_PROXY_EMP),
   						POSTING_DATE			: gfnma_date5(gfnma_nvl2(item.PSTG_YMD)),
   						POSTING_USER			: gfnma_nvl2(item.PSTG_PIC),
-  						PROXY_EMP_CODE			: gfnma_nvl2(item.DLCT_EMP_CD),
+  						PROXY_EMP_CODE			: gfnma_nvl2(item.DLGT_EMP_CD),
   						RELEASE_USER			: gfnma_nvl2(item.RMV_USER),
   						REQUEST_EMP				: gfnma_nvl2(item.REQUEST_EMP),
   						REVERSE_FLAG			: gfnma_nvl2(item.REVE_FLAG),
@@ -1366,8 +1366,8 @@
 						ACC_VALUE_NAME9			: gfnma_nvl2(item.ACC_VALUE_NAME9),
 						ACC_VALUE_NAME10		: gfnma_nvl2(item.ACC_VALUE_NAME10),
 						
-						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCD_CD),
-						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCD_NM),
+						COST_CENTER_CODE		: gfnma_nvl2(item.CSTCT_CD),
+						COST_CENTER_NAME		: gfnma_nvl2(item.CSTCT_NM),
 						
 						DATA_TYPE1				: gfnma_nvl2(item.DATA_TYPE1),
 						DATA_TYPE2				: gfnma_nvl2(item.DATA_TYPE2),
@@ -1621,7 +1621,7 @@
   						DUTY_NAME				: gfnma_nvl(item.JBTTL_NM),
   						EMP_CODE				: gfnma_nvl(item.EMP_CD),
   						EMP_NAME				: gfnma_nvl(item.EMP_NM),
-  						PROXY_EMP_CODE			: gfnma_nvl(item.DLCT_EMP_CD),
+  						PROXY_EMP_CODE			: gfnma_nvl(item.DLGT_EMP_CD),
   						PROXY_EMP_NAME			: gfnma_nvl(item.PROXY_EMP_NAME),
   						STEP_SEQ				: gfnma_nvl(item.STP_SEQ),
   						UPDATE_EMP_NAME			: gfnma_nvl(item.UPDATE_EMP_NAME),

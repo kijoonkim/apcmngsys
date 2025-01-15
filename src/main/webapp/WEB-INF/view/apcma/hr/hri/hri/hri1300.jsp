@@ -808,9 +808,9 @@
     const fn_findCostDeptCodeForBandgvwDetail = function(nRow) {
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
  
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND CSTCD_CD LIKE '%" + replaceText0 + "%' AND CSTCD_NM LIKE '%" + replaceText1 + "%' ";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -819,15 +819,15 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", 				"명칭"]
-            ,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+            ,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
             ,searchInputValues		: ["", 			""]
             ,height					: '400px'
             ,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-            ,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+            ,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
             ,tableColumnWidths		: ["80px", 	"80px"]
             ,itemSelectEvent		: function (data){
-                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2"), data['CSTCD_CD']);
-                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2_NAME"), data['CSTCD_NM']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2"), data['CSTCT_CD']);
+                bandgvwDetail.setCellData(nRow, bandgvwDetail.getColRef("COST_DEPT2_NAME"), data['CSTCT_NM']);
             },
         });
         SBUxMethod.openModal('modal-compopup1');
@@ -1908,7 +1908,7 @@
                         DEPT_APPOINT_YN: item.DEPT_APNT_YN,
                         POSITION_APPOINT_YN: item.JBPS_APNT_YN,
                         DUTY_APPOINT_YN: item.JBTTL_APNT_YN,
-                        JOB_RANK_APPOINT_YN: item.JBCD_APNT_YN,
+                        JOB_RANK_APPOINT_YN: item.JBGD_APNT_YN,
                         JOB_GROUP_APPOINT_YN: item.JOB_GROUP_APNT_YN,
                         JOB_APPOINT_YN: item.JOB_APNT_YN,
                         REGION_APPOINT_YN: item.WORK_BGNG_APNT_YN,
@@ -1924,7 +1924,7 @@
                         BEFORE_PROXY_EMP: item.BEFORE_PROXY_EMP,
                         NEXT_PROXY_EMP: item.NEXT_PROXY_EMP,
                         CONFIRM_EMP_CODE: item.CONFIRM_EMP_CODE,
-                        PROXY_EMP_CODE: item.DLCT_EMP_CD,
+                        PROXY_EMP_CODE: item.DLGT_EMP_CD,
                         STATUS_CODE: item.STTS_CD,
                         APPROVE_DATE: item.APRV_YMD
                     }
@@ -2524,7 +2524,7 @@
                         DEPT_NAME1 : item.DEPT_NM1,
                         POSITION_CODE1 : item.JBPS_CD1,
                         DUTY_CODE1 : item.JBTTL_CD1,
-                        JOB_RANK1 : item.JBCD1,
+                        JOB_RANK1 : item.JBGD1,
                         JOB_GROUP1 : item.JOB_GROUP1,
                         JOB_CODE1 : item.JOB_CD1,
                         REGION_CODE1 : item.RGN_CD1,
@@ -2536,7 +2536,7 @@
                         DEPT_NAME3 : item.DEPT_NAME3,
                         POSITION_CODE2 : item.JBPS_CD2,
                         DUTY_CODE2 : item.JBTTL_CD2,
-                        JOB_RANK2 : item.JBCD2,
+                        JOB_RANK2 : item.JBGD2,
                         JOB_GROUP2 : item.JOB_GROUP2,
                         JOB_CODE2 : item.JOB_CD2,
                         REGION_CODE2 : item.RGN_CD2,
@@ -2590,7 +2590,7 @@
         SBUxMethod.set("DEPT_APPOINT_YN", data.DEPT_APNT_YN);
         SBUxMethod.set("POSITION_APPOINT_YN", data.JBPS_APNT_YN);
         SBUxMethod.set("DUTY_APPOINT_YN", data.JBTTL_APNT_YN);
-        SBUxMethod.set("JOB_RANK_APPOINT_YN", data.JBCD_APNT_YN);
+        SBUxMethod.set("JOB_RANK_APPOINT_YN", data.JBGD_APNT_YN);
         SBUxMethod.set("JOB_GROUP_APPOINT_YN", data.JOB_GROUP_APNT_YN);
         SBUxMethod.set("JOB_APPOINT_YN", data.JOB_APNT_YN);
         SBUxMethod.set("JOB_FAMILY_APPOINT_YN", data.JOB_LWRNK_GROUP_APNT_YN);
@@ -2717,7 +2717,7 @@
                         DEPT_NAME1 : item.DEPT_NM1,
                         POSITION_CODE1 : item.JBPS_CD1,
                         DUTY_CODE1 : item.JBTTL_CD1,
-                        JOB_RANK1 : item.JBCD1,
+                        JOB_RANK1 : item.JBGD1,
                         JOB_GROUP1 : item.JOB_GROUP1,
                         JOB_CODE1 : item.JOB_CD1,
                         REGION_CODE1 : item.RGN_CD1,
@@ -2729,7 +2729,7 @@
                         DEPT_NAME2 : item.DEPT_NM2,
                         POSITION_CODE2 : item.JBPS_CD2,
                         DUTY_CODE2 : item.JBTTL_CD2,
-                        JOB_RANK2 : item.JBCD2,
+                        JOB_RANK2 : item.JBGD2,
                         JOB_GROUP2 : item.JOB_GROUP2,
                         JOB_CODE2 : item.JOB_CD2,
                         JOB_FAMILY2 : item.JOB_LWRNK_GROUP2,

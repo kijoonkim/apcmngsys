@@ -360,7 +360,7 @@
             // 단위
             gfnma_setComSelect(['gvwAccount'], jsonUom, 'L_LGS001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'UNIT_CD', 'UNIT_NM', 'Y', ''),
             // 원가중심점코드
-            gfnma_setComSelect(['gvwAccount'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwAccount'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
             // 관리항목코드
             gfnma_setComSelect(['gvwAccount'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
         ]);
@@ -1334,7 +1334,7 @@
                             VAT_TYPE : item.VAT_TYPE,
                             VAT_NAME : item.VAT_NM,
                             DEPT_CODE : item.DEPT_CD,
-                            COST_CENTER_CODE : item.CSTCD_CD,
+                            COST_CENTER_CODE : item.CSTCT_CD,
                             PROJECT_CODE : item.PJT_CD,
                             ORIGINAL_CR_AMT : item.ORGNL_CRSD_AMT,
                             ORIGINAL_DR_AMT : item.ORGNL_DRSD_AMT,

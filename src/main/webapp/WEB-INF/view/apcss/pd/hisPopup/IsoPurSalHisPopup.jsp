@@ -89,7 +89,7 @@
 				</div>
 				<!--[pp] //검색결과 -->
 
-				<!-- 생산자 조직 영역 -->
+				<!-- 출자출하조직 영역 -->
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="prdcrOgnHis-btnSearch-prdcrOgnz" name="prdcrOgnHis-btnSearch-prdcrOgnz" uitype="normal" text="총매입매출 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch"></sbux-button>
@@ -170,12 +170,12 @@
 						<ul class="ad_tbl_count">
 							<li>
 								<span style="font-size:14px">▶매출 리스트</span>
-								<span style="font-size:12px">(조회건수 <span id="listCntDdc">0</span>건)</span>
+								<span style="font-size:12px">(조회건수 <span id="listCntSls">0</span>건)</span>
 							</li>
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdDdc" style="height:400px; width: 100%;"></div>
+					<div id="sb-area-grdSls" style="height:400px; width: 100%;"></div>
 				</div>
 			</div>
 		</div>
@@ -199,7 +199,7 @@
 
 		await fn_createGridOgnz(); //출자출하조직을 포함한 리스트
 		await fn_createGridPrchs(year); //매입 리스트
-		await fn_createGridDdc(year); //매출 리스트
+		await fn_createGridSls(year); //매출 리스트
 
 
 		await fn_searchUserInfo(brno,corpNm);
@@ -310,7 +310,7 @@
 		}
 	}
 	//법인명 변경 이벤트
-	const fn_chagneCorpNm = async function(a,b,c){
+	const fn_chagneCorpNm = async function(){
 		let brno = SBUxMethod.get("srch-inp-corpNm");
 		SBUxMethod.set("srch-inp-brno",brno);
 	}
@@ -423,8 +423,8 @@
 		//grdPrdcrOgnz.bind('keyup','fn_keyupPrdcrOgnz');
 	}
 
-	var jsonDdc = []; // 그리드의 참조 데이터 주소 선언
-	var grdDdc;
+	var jsonSls = []; // 그리드의 참조 데이터 주소 선언
+	var grdSls;
 
 	const objMenuList03 = {
 			"excelDwnld": {
@@ -446,14 +446,14 @@
 	}
 
 	/* 공제 그리드 생성 */
-	const fn_createGridDdc = async function(_year) {
+	const fn_createGridSls = async function(_year) {
 		// 년도에 따른 설정 가져오기
-		const { columnsDdc } = yrSettings[_year] || defaultSettings;
+		const { columnsSls } = yrSettings[_year] || defaultSettings;
 
 		let SBGridProperties = {};
-		SBGridProperties.parentid = 'sb-area-grdDdc';
-		SBGridProperties.id = 'grdDdc';
-		SBGridProperties.jsonref = 'jsonDdc';
+		SBGridProperties.parentid = 'sb-area-grdSls';
+		SBGridProperties.id = 'grdSls';
+		SBGridProperties.jsonref = 'jsonSls';
 		SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		SBGridProperties.selectmode = 'byrow';
 		SBGridProperties.contextmenu = true;				// 우클린 메뉴 호출 여부
@@ -470,9 +470,9 @@
 
 		SBGridProperties.frozenbottomrows=1;
 
-		SBGridProperties.columns = columnsDdc;
+		SBGridProperties.columns = columnsSls;
 
-		grdDdc = _SBGrid.create(SBGridProperties);
+		grdSls = _SBGrid.create(SBGridProperties);
 	}
 
 	//조직 그리드 상세
@@ -493,7 +493,7 @@
 
 		fn_clearInfoOgnz();//조직 정보 초기화
 		fn_clearGridPrchs();//매입 그리드 초기화
-		fn_clearGridDdc();//매출 그리드 초기화
+		fn_clearGridSls();//매출 그리드 초기화
 
 		let rowData = objGrid.getRowData(nRow);
 
@@ -542,10 +542,10 @@
 		document.querySelector('#listCntPrchs').innerText = 0;
 	}
 	//매출 그리드 초기화
-	const fn_clearGridDdc = async function() {
-		jsonDdc.length = 0;
-		grdDdc.rebuild();
-		document.querySelector('#listCntDdc').innerText = 0;
+	const fn_clearGridSls = async function() {
+		jsonSls.length = 0;
+		grdSls.rebuild();
+		document.querySelector('#listCntSls').innerText = 0;
 	}
 
 	//사업자정보 조회
@@ -554,14 +554,14 @@
 		fn_clearGridOgnz();//조직 그리드 초기화
 		fn_clearInfoOgnz();//조직 정보 초기화
 		fn_clearGridPrchs();//매입 그리드 초기화
-		fn_clearGridDdc();//매출 그리드 초기화
+		fn_clearGridSls();//매출 그리드 초기화
 
 		let yr = SBUxMethod.get('srch-inp-yr');
 		let brno = SBUxMethod.get('srch-inp-brno');
 
 		//년도에 따른 그리드 변경 처리
 		await fn_createGridPrchs(yr); //생산자조직 리스트
-		await fn_createGridDdc(yr); //농가 리스트
+		await fn_createGridSls(yr); //농가 리스트
 
 		if(gfn_isEmpty(brno)){
 			return;
@@ -626,7 +626,7 @@
 					SBUxMethod.set('dtl-inp-corpNm',item.corpNm);
 				}
 			}else{
-				alert('해당 사업자 정보가 없습니다');
+				alert('해당년도 실적 정보가 없습니다');
 			}
 
 		}catch (e) {
@@ -656,7 +656,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonPrchs.length = 0;
-			jsonDdc.length = 0;
+			jsonSls.length = 0;
 			data.resultList.forEach((item, index) => {
 				//년도별 차이와 관계없이 전부 넣기
 				if(item.prchsSlsSe === '1'){
@@ -781,20 +781,20 @@
 
 							,spmtRtAmt: 			item.spmtRtAmt
 					};
-					jsonDdc.push(itemVo);
+					jsonSls.push(itemVo);
 				}
 			});
 			document.querySelector('#listCntPrchs').innerText = jsonPrchs.length;
-			document.querySelector('#listCntDdc').innerText = jsonDdc.length;
+			document.querySelector('#listCntSls').innerText = jsonSls.length;
 			//소계 추가
 			grdPrchs.addRow();
-			grdDdc.addRow();
+			grdSls.addRow();
 
 			fn_grdTot01();
 			fn_grdTot02();
 
 			grdPrchs.rebuild();
-			grdDdc.rebuild();
+			grdSls.rebuild();
 			fn_gridCustom();
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -872,7 +872,7 @@
 			}
 		}
 
-		let objGrid02 = grdDdc;
+		let objGrid02 = grdSls;
 
 		let totTrmtPrfmncVlm = objGrid02.getColRef("totTrmtPrfmncVlm");//총취급물량
 		let totTrmtPrfmncAmt = objGrid02.getColRef("totTrmtPrfmncAmt");//총취급실적
@@ -1005,8 +1005,8 @@
 		];
 
 		//그리드 추가 용 1줄 합계용 1줄
-		let objGrid = grdDdc;
-		let grdJson = jsonDdc;
+		let objGrid = grdSls;
+		let grdJson = jsonSls;
 
 		//그리드 해더 row수
 		let captionRow = objGrid.getFixedRows();
@@ -1026,8 +1026,6 @@
 		});
 
 		objGrid.refresh();
-
-		fn_gridCustom();
 	}
 
 	/* 년도별 컬럼 세팅 */
@@ -1136,7 +1134,7 @@
 		{caption: ["상세내역"], 	ref: 'delYn',		hidden : true}
 	];
 
-	const columnsDdc2024 = [
+	const columnsSls2024 = [
 		{caption: ["품목","품목","품목","품목"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'55px',    style:'text-align:center'},
 		{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 		{caption: ["품목분류","품목분류","품목분류","품목분류"], 	ref: 'ctgryNm',   	type:'output',  width:'80px',    style:'text-align:center'},
@@ -1265,7 +1263,7 @@
 		{caption: ["상세내역"], 	ref: 'crno',		hidden : true}
 	];
 
-	const columnsDdc2025 = [
+	const columnsSls2025 = [
 		{caption: ["구분","구분","구분","구분"], 		ref: 'sttgUpbrItemNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 		{caption: ["부류","부류","부류","부류"], 		ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 		{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
@@ -1342,25 +1340,24 @@
 
 
 	//년도별 설정 객체 생성
-	//조회 했을 떄 사용하는 객체의 경우 년도별 차이와 관계 없이 전부 표기하는게 편함
 	//없으면 null 이고 그리드에서 쓰지 않으면 표기도 안됨
 	//변경 사항이 쭉없을 것으로 판단되면 defaultSettings 에 세팅 해주면 됨
 	const yrSettings = {
 		"2024": {
 			columnsPrchs : columnsPrchs2024
-			, columnsDdc : columnsDdc2024
+			, columnsSls : columnsSls2024
 			, urlIsoPurSal : '/pd/hisPopup/selectHisIsoPurSal2024.do'
 		},
 		"2025": {
 			columnsPrchs : columnsPrchs2025
-			, columnsDdc : columnsDdc2025
+			, columnsSls : columnsSls2025
 			, urlIsoPurSal : '/pd/hisPopup/selectHisIsoPurSal2025.do'
 		},
 	};
 	//기본 설정
 	const defaultSettings = {
 			columnsPrchs : columnsPrchs2025
-			, columnsDdc : columnsDdc2025
+			, columnsSls : columnsSls2025
 			, urlIsoPurSal : '/pd/hisPopup/selectHisIsoPurSal2025.do'
 		}
 

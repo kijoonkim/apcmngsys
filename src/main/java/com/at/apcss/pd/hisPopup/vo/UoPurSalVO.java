@@ -10,66 +10,111 @@ import lombok.Setter;
 @Setter
 public class UoPurSalVO extends ComVO{
 
-	private String yr;//등록년도
-	//조직 정보
+	private String yr;
 	private String apoCd;
 	private String apoSe;
-	private String apoSeNm;
+	private String aprv;
 	private String brno;
 	private String crno;
 	private String corpNm;
-	private String uoBrno;
-	private String uoCorpNm;
-	private String aprv;
-	private String aprvNm;
 
-	//품목 에 속하는 정보
-	private String itemCd;
-	private String itemNm;
 	private String ctgryCd;
 	private String ctgryNm;
 	private String clsfCd;
 	private String clsfNm;
+	private String itemCd;
+	private String itemNm;
+
 	private String sttgUpbrItemSe;
 	private String sttgUpbrItemNm;
-	private String trmtType;
-	private String trmtTypeNm;
 
-	//생산자조직 정보
-	private String prdcrOgnzCd;
-	private String prdcrOgnzNm;
+	private String prchsSlsSe;
+	private String prchsSlsSeNm;
+	//매입 수탁
+	private String prchsTrstVlm;
+	private String prchsTrstAmt;
+	//매입 매취
+	private String prchsEmspapVlm;
+	private String prchsEmspapAmt;
 
-	private String ecSpmtPlanVlmTot;//전속(약정)출하계획량
-	private String ecSpmtVlmTot;//전속(약정)출하량
-	private String ecSpmtRate;//출하비율
-	private String ecSpmtRateA;//출하비율A
-	private String ecSpmtRateB;//출하비율B
-	private String spmtPrcTot;//출하대금지급액
-	private String prdctnVlmTot;//생산량(결과)
-	private String cnt;//조직원수
-	private String orgStbltYn;//적합여부
-	private String lastStbltYn;//최종 선정여부
-	private String exclYn;//제외 여부
+	private String prchsTotVlm;
+	private String prchsTotAmt;
+	private String orgPrchsTotAmt;
 
-	private String cltvtnLandSn;
-	private String flnm;
-	private String cltvtnLandAddr;
+	//매출 수탁
+	private String slsCprtnSortTrstVlm;
+	private String slsCprtnSortTrstAmt;
+	private String slsCprtnTrstVlm;
+	private String slsCprtnTrstAmt;
+	private String slsSmplTrstVlm;
+	private String slsSmplTrstAmt;
 
-	private String joinDay;
-	private String whdwlDay;
+	private String slsTrstVlm;
+	private String slsTrstAmt;
 
-	private String cltvtnSfc;//cltvtnArea -> cltvtnSfc 컬럼 표준화로 변경됨
-	private String ecCltvtnSfc;
-	private String avgYrPrdctnVlm;
-	private String cltvtnAreaRmrk;
+	//매출 매취
+	private String slsCprtnSortEmspapVlm;
+	private String slsCprtnSortEmspapAmt;
+	private String slsSmplEmspapVlm;
+	private String slsSmplEmspapAmt;
 
-	private String prdctnPlanVlm;
-	private String ecSpmtPlanVlm;
-	private String planRmrk;
-	private String prdctnVlm;
-	private String ecSpmtVlm;
-	private String spmtPrc;
-	private String spmtRmrk;
+	private String slsEmspapVlm;
+	private String slsEmspapAmt;
+
+	private String slsTotVlm;
+	private String slsTotAmt;
+	private String orgSlsTotAmt;
+
+	private String ddcVlm;
+	private String ddcAmt;
+
+	/*출하실적*/
+
+	private String pblcWhlslMrktVlm;//공영 도매시장 물량
+	private String pblcWhlslMrktAmt;//공영 도매시장 금액
+
+	private String onlnWhlslMrktVlm;//온라인 도매시장 물량
+	private String onlnWhlslMrktAmt;//온라인 도매시장 금액
+
+	private String lgszRtlVlm;//대형 유통업체 물량
+	private String lgszRtlAmt;//대형 유통업체 금액
+
+	private String armyDlvgdsVlm;//군납 물량
+	private String armyDlvgdsAmt;//군납 금액
+
+	private String eatoutMtrlMlsrVlm;//외식 식자재 및 단체급식 물량
+	private String eatoutMtrlMlsrAmt;//외식 식자재 및 단체급식 금액
+
+	private String mnfcRtlVlm;//가공업체 물량
+	private String mnfcRtlAmt;//가공업체 금액
+
+	private String exprtVlm;//수출 물량
+	private String exprtAmt;//수출 금액
+
+	private String onlnDlngPrfmncVlm;//온라인 거래실적 (e커머스, TV홈쇼핑 등 포함) 물량
+	private String onlnDlngPrfmncAmt;//온라인 거래실적 (e커머스, TV홈쇼핑 등 포함) 금액
+
+	private String etcVlm;//기타 물량
+	private String etcAmt;//기타 금액
 
 	private String rmrk;
+
+	private String sysFrstInptUserIdNm;
+	private String sysLastChgUserIdNm;
+	private String sysFrstInptDtYmd;
+	private String sysLastChgDtYmd;
+
+
+	/* 매입 수탁 추가 */
+	private String prchsSortTrstVlm;
+	private String prchsSortTrstAmt;
+	private String prchsSpmtTrstVlm;
+	private String prchsSpmtTrstAmt;
+	private String prchsSmplTrstVlm;
+	private String prchsSmplTrstAmt;
+	/* 매입 매취 추가 */
+	private String prchsSortEmspapVlm;
+	private String prchsSortEmspapAmt;
+	private String prchsSmplEmspapVlm;
+	private String prchsSmplEmspapAmt;
 }

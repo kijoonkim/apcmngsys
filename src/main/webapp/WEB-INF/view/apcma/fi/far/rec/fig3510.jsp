@@ -1972,9 +1972,9 @@
     }
 
     var fn_findCostCenterCodeForGvwWFItem = function (row) {
-        var replaceText0 = "_CSTCD_CD_";
-        var replaceText1 = "_CSTCD_NM_";
-        var strWhereClause = "AND A.CSTCD_CD LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM LIKE '%" + replaceText1 + "%'";
+        var replaceText0 = "_CSTCT_CD_";
+        var replaceText1 = "_CSTCT_NM_";
+        var strWhereClause = "AND A.CSTCT_CD LIKE '%" + replaceText0 + "%' AND A.CSTCT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         SBUxMethod.openModal('modal-compopup1');
@@ -1985,16 +1985,16 @@
             , popupType: 'A'
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
-            , searchInputFields: ["CSTCD_CD", "CSTCD_NM"]
+            , searchInputFields: ["CSTCT_CD", "CSTCT_NM"]
             , searchInputValues: ["", ""]
             , height: '400px'
             , tableHeader: ["코드", "명칭", "부서코드", "부서명", "사업장", "여신영역"]
-            , tableColumnNames: ["CSTCD_CD", "CSTCD_NM", "DEPT_CD", "DEPT_NM", "SITE_CD", "CRDT_SECT"]
+            , tableColumnNames: ["CSTCT_CD", "CSTCT_NM", "DEPT_CD", "DEPT_NM", "SITE_CD", "CRDT_SECT"]
             , tableColumnWidths: ["100px", "150px", "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CLASS"), data.CST_CLSF, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.CSTCD_CD, true, true);
-                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.CSTCD_NM, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_CODE"), data.CSTCT_CD, true, true);
+                gvwWFItem.setCellData(row, gvwWFItem.getColRef("COST_CENTER_NAME"), data.CSTCT_NM, true, true);
             },
         });
     }
@@ -2042,7 +2042,7 @@
             , searchInputValues: ["", ""]
             , height: '400px'
             , tableHeader: ["프로젝트코드", "프로젝트명", "코스트센터코드", "코스트센터"]
-            , tableColumnNames: ["PJT_CD", "PJT_NM", "CSTCD_CD", "CSTCD_NM"]
+            , tableColumnNames: ["PJT_CD", "PJT_NM", "CSTCT_CD", "CSTCT_NM"]
             , tableColumnWidths: ["150px", "250px", "100px", "250px"]
             , itemSelectEvent: function (data) {
                 gvwWFItem.setCellData(row, gvwWFItem.getColRef("PROJECT_CODE"), data.PJT_CD, true, true);
@@ -5393,7 +5393,7 @@
                     SBUxMethod.set('APPR_ID', formData.APRV_ID);
                     SBUxMethod.set('INSERT_USERID', formData.WRT_USER_ID);
                     SBUxMethod.set('CONFIRM_EMP_CODE', formData.CONFIRM_EMP_CODE);
-                    SBUxMethod.set('PROXY_EMP_CODE', formData.DLCT_EMP_CD);
+                    SBUxMethod.set('PROXY_EMP_CODE', formData.DLGT_EMP_CD);
                     SBUxMethod.set('TEMP_AREA', formData.TEMP_AREA);
                     await fn_getBankAccountSeq();
 
@@ -5429,8 +5429,8 @@
                         VAT_NAME: item.VAT_NM,
                         VAT_TYPE_CODE: item.VAT_TYPE_CD,
                         DEPT_CODE: item.DEPT_CD,
-                        COST_CENTER_CODE: item.CSTCD_CD,
-                        COST_CENTER_NAME: item.CSTCD_NM,
+                        COST_CENTER_CODE: item.CSTCT_CD,
+                        COST_CENTER_NAME: item.CSTCT_NM,
                         PROJECT_CODE: item.PJT_CD,
                         PROJECT_NAME: item.PJT_NM,
                         ORIGINAL_AMT: item.ORIGINAL_AMT,
@@ -5563,9 +5563,9 @@
                         VAT_AMT: item.VAT_AMT,
                         ZERO_REPORT_YN: item.ZRT_DCMNT_YN,
                         LOCAL_CREDIT_TYPE: item.LCL_LC_TYPE,
-                        DOCUMENT_NAME: item.DCNMT_NM,
+                        DOCUMENT_NAME: item.DOC_NM,
                         ISSUE_NAME: item.ISSU_NM,
-                        DOCUMENT_ISSUE_DATE: item.DCNMT_ISSU_YMD,
+                        DOCUMENT_ISSUE_DATE: item.DOC_ISSU_YMD,
                         EXPORT_LICENSE_NO: item.EXPRT_LCNS_NO,
                         SHIPPING_DATE: item.SHPG_YMD,
                         EXPORT_AMT: item.EXPRT_AMT,
@@ -5574,7 +5574,7 @@
                         VAT_EXPORT_AMT_KRW: item.VAT_THTM_EXPRT_AMT_KRW,
                         FOREIGN_AMT: item.EXPRT_FRCNCY_AMT,
                         WON_AMT: item.KRW_AMT,
-                        DOCUMENT_NO: item.DCNMT_NO,
+                        DOCUMENT_NO: item.DOC_NO,
                         ZERO_TYPE: item.ZRT_TYPE,
                         HOLD_FLAG: item.HLDOF_FLAG,
                         RELEASE_DATE: item.RMV_YMD,
@@ -6061,8 +6061,8 @@
                     ACC_VALUE_NAME10 : item.ACC_VALUE_NAME10,
                     DEPT_CODE : item.DEPT_CD,
                     DEPT_NAME : item.DEPT_NM,
-                    COST_CENTER_CODE : item.CSTCD_CD,
-                    COST_CENTER_NAME : item.CSTCD_NM,
+                    COST_CENTER_CODE : item.CSTCT_CD,
+                    COST_CENTER_NAME : item.CSTCT_NM,
                     DESCRIPTION : item.DSCTN,
                     VAT_TYPE : item.VAT_TYPE,
                     PROJECT_YN : item.PJT_YN,
@@ -6105,9 +6105,9 @@
                     SUPPLY_AMT : item.SPLY_AMT,
                     ZERO_REPORT_YN : item.ZRT_DCMNT_YN,
                     LOCAL_CREDIT_TYPE : item.LCL_LC_TYPE,
-                    DOCUMENT_NAME : item.DCNMT_NM,
+                    DOCUMENT_NAME : item.DOC_NM,
                     ISSUE_NAME : item.ISSU_NM,
-                    DOCUMENT_ISSUE_DATE : item.DCNMT_ISSU_YMD,
+                    DOCUMENT_ISSUE_DATE : item.DOC_ISSU_YMD,
                     EXPORT_LICENSE_NO : item.EXPRT_LCNS_NO,
                     SHIPPING_DATE : item.SHPG_YMD,
                     EXPORT_AMT : item.EXPRT_AMT,
@@ -6324,8 +6324,8 @@
                         POPUP_ID10 : item.POPUP_ID10,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        COST_CENTER_CODE : item.CSTCD_CD,
-                        COST_CENTER_NAME : item.CSTCD_NM,
+                        COST_CENTER_CODE : item.CSTCT_CD,
+                        COST_CENTER_NAME : item.CSTCT_NM,
                         DESCRIPTION : item.DSCTN,
                         VAT_TYPE : item.VAT_TYPE,
                         VAT_NAME : item.VAT_NM,
@@ -6369,9 +6369,9 @@
                         VAT_AMT : item.VAT_AMT,
                         ZERO_REPORT_YN : item.ZRT_DCMNT_YN,
                         LOCAL_CREDIT_TYPE : item.LCL_LC_TYPE,
-                        DOCUMENT_NAME : item.DCNMT_NM,
+                        DOCUMENT_NAME : item.DOC_NM,
                         ISSUE_NAME : item.ISSU_NM,
-                        DOCUMENT_ISSUE_DATE : item.DCNMT_ISSU_YMD,
+                        DOCUMENT_ISSUE_DATE : item.DOC_ISSU_YMD,
                         EXPORT_LICENSE_NO : item.EXPRT_LCNS_NO,
                         SHIPPING_DATE : item.SHPG_YMD,
                         EXPORT_AMT : item.EXPRT_AMT,
@@ -6380,7 +6380,7 @@
                         VAT_EXPORT_AMT_KRW : item.VAT_THTM_EXPRT_AMT_KRW,
                         FOREIGN_AMT : item.EXPRT_FRCNCY_AMT,
                         WON_AMT : item.KRW_AMT,
-                        DOCUMENT_NO : item.DCNMT_NO,
+                        DOCUMENT_NO : item.DOC_NO,
                         ZERO_TYPE : item.ZRT_TYPE,
                         HOLD_FLAG : item.HLDOF_FLAG,
                         RELEASE_DATE : item.RLS_YMD,

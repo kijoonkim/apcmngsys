@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : UoPurSalHisPopupMapper.xml                                    		-->
+<!-- DESC : 출자출하조직 총 매입 매출 과거조회 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024	-->
+	<!-- DESC : 출자출하조직 총 매입 매출 조회 2024년                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisUoPurSal2024" parameterType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO">
+		SELECT	/* com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2024 */
+			APS.YR
+			,APS.BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = APS.BRNO) AS CORP_NM
+			,APS.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = APS.ITEM_CD) AS ITEM_NM
+			,APS.PRCHS_SLS_SE
+			,DECODE(APS.STTG_UPBR_ITEM_SE, '3' , APS.STTG_UPBR_ITEM_SE , YGC.STTG_UPBR_ITEM_SE ) AS STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = DECODE(APS.STTG_UPBR_ITEM_SE, '3' , APS.STTG_UPBR_ITEM_SE , YGC.STTG_UPBR_ITEM_SE )) AS STTG_UPBR_ITEM_NM
+			,DECODE(APS.STTG_UPBR_ITEM_SE, '3' , APS.CTGRY_CD , YGC.CTGRY_CD ) AS CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = DECODE(APS.STTG_UPBR_ITEM_SE, '3' , APS.CTGRY_CD , YGC.CTGRY_CD )) AS CTGRY_NM
+			/*매입*/
+			, NVL(APS.PRCHS_TRST_VLM,0) AS PRCHS_TRST_VLM
+			, NVL(APS.PRCHS_TRST_AMT,0) AS PRCHS_TRST_AMT
+			, NVL(APS.PRCHS_EMSPAP_VLM,0) AS PRCHS_EMSPAP_VLM
+			, NVL(APS.PRCHS_EMSPAP_AMT,0) AS PRCHS_EMSPAP_AMT
+
+			, (NVL(APS.PRCHS_TRST_VLM,0) + NVL(APS.PRCHS_EMSPAP_VLM,0)) AS PRCHS_TOT_VLM
+			, (NVL(APS.PRCHS_TRST_AMT,0) + NVL(APS.PRCHS_EMSPAP_AMT,0)) AS PRCHS_TOT_AMT
+
+			/*매출*/
+			, NVL(APS.SLS_EMSPAP_VLM,0) AS SLS_EMSPAP_VLM
+			, NVL(APS.SLS_EMSPAP_AMT,0) AS SLS_EMSPAP_AMT
+			, NVL(APS.SLS_TRST_VLM,0) AS SLS_TRST_VLM
+			, NVL(APS.SLS_TRST_AMT,0) AS SLS_TRST_AMT
+
+			, (NVL(APS.SLS_EMSPAP_VLM,0) + NVL(APS.SLS_TRST_VLM,0) ) AS SLS_TOT_VLM
+			, (NVL(APS.SLS_EMSPAP_AMT,0) + NVL(APS.SLS_TRST_AMT,0) ) AS SLS_TOT_AMT
+
+			, NVL(APS.DDC_VLM,0) AS DDC_VLM
+			, NVL(APS.DDC_AMT,0) AS DDC_AMT
+
+			/*출하실적*/
+			, NVL(APS.PBLC_WHLSL_MRKT_VLM,0) AS PBLC_WHLSL_MRKT_VLM
+			, NVL(APS.PBLC_WHLSL_MRKT_AMT,0) AS PBLC_WHLSL_MRKT_AMT
+			, NVL(APS.ONLN_WHLSL_MRKT_VLM,0) AS ONLN_WHLSL_MRKT_VLM
+			, NVL(APS.ONLN_WHLSL_MRKT_AMT,0) AS ONLN_WHLSL_MRKT_AMT
+			, NVL(APS.LGSZ_RTL_VLM,0) AS LGSZ_RTL_VLM
+			, NVL(APS.LGSZ_RTL_AMT,0) AS LGSZ_RTL_AMT
+			, NVL(APS.ARMY_DLVGDS_VLM,0) AS ARMY_DLVGDS_VLM
+			, NVL(APS.ARMY_DLVGDS_AMT,0) AS ARMY_DLVGDS_AMT
+			, NVL(APS.EATOUT_MTRL_MLSR_VLM,0) AS EATOUT_MTRL_MLSR_VLM
+			, NVL(APS.EATOUT_MTRL_MLSR_AMT,0) AS EATOUT_MTRL_MLSR_AMT
+			, NVL(APS.MNFC_RTL_VLM,0) AS MNFC_RTL_VLM
+			, NVL(APS.MNFC_RTL_AMT,0) AS MNFC_RTL_AMT
+			, NVL(APS.EXPRT_VLM,0) AS EXPRT_VLM
+			, NVL(APS.EXPRT_AMT,0) AS EXPRT_AMT
+			, NVL(APS.ONLN_DLNG_PRFMNC_VLM,0) AS ONLN_DLNG_PRFMNC_VLM
+			, NVL(APS.ONLN_DLNG_PRFMNC_AMT,0) AS ONLN_DLNG_PRFMNC_AMT
+			, NVL(APS.ETC_VLM,0) AS ETC_VLM
+			, NVL(APS.ETC_AMT,0) AS ETC_AMT
+		FROM (SELECT *
+					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND YR = #{yr}
+					  AND BRNO = #{brno}
+				) APS
+				, (SELECT *
+					FROM TB_EV_APO_YR_GPC_CD
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND YR = #{yr}
+					  AND BRNO = #{brno}
+				) YGC
+		WHERE 1=1
+		  AND APS.ITEM_CD = YGC.ITEM_CD(+)
+		  AND (
+		  		APS.STTG_UPBR_ITEM_SE = '3'
+		  		OR
+		  		(APS.STTG_UPBR_ITEM_SE IN ('1','2') AND APS.ITEM_CD = YGC.ITEM_CD )
+		  		)
+		ORDER BY APS.PRCHS_SLS_SE , DECODE(APS.STTG_UPBR_ITEM_SE, '3' , APS.STTG_UPBR_ITEM_SE , YGC.STTG_UPBR_ITEM_SE )
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025	-->
+	<!-- DESC : 출자출하조직 총 매입 매출 조회 2024년                                     		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisUoPurSal2025" parameterType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO" resultType="com.at.apcss.pd.hisPopup.vo.UoPurSalVO">
+		SELECT	/* com.at.apcss.pd.hisPopup.mapper.UoPurSalHisPopupMapper.selectHisUoPurSal2025 */
+			APS.YR
+			,APS.BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = APS.BRNO) AS CORP_NM
+			,APS.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = APS.ITEM_CD) AS ITEM_NM
+			,APS.PRCHS_SLS_SE
+			,YGC.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = YGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,YGC.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = YGC.CTGRY_CD) AS CTGRY_NM
+			/*매입*/
+			/*수탁*/
+			, NVL(APS.PRCHS_SORT_TRST_VLM,0) AS PRCHS_SORT_TRST_VLM
+			, NVL(APS.PRCHS_SORT_TRST_AMT,0) AS PRCHS_SORT_TRST_AMT
+			, NVL(APS.PRCHS_SPMT_TRST_VLM,0) AS PRCHS_SPMT_TRST_VLM
+			, NVL(APS.PRCHS_SPMT_TRST_AMT,0) AS PRCHS_SPMT_TRST_AMT
+			, NVL(APS.PRCHS_SMPL_TRST_VLM,0) AS PRCHS_SMPL_TRST_VLM
+			, NVL(APS.PRCHS_SMPL_TRST_AMT,0) AS PRCHS_SMPL_TRST_AMT
+			, NVL(APS.PRCHS_TRST_VLM,0) AS PRCHS_TRST_VLM
+			, NVL(APS.PRCHS_TRST_AMT,0) AS PRCHS_TRST_AMT
+			/*매취*/
+			, NVL(APS.PRCHS_SORT_EMSPAP_VLM,0) AS PRCHS_SORT_EMSPAP_VLM
+			, NVL(APS.PRCHS_SORT_EMSPAP_AMT,0) AS PRCHS_SORT_EMSPAP_AMT
+			, NVL(APS.PRCHS_SMPL_EMSPAP_VLM,0) AS PRCHS_SMPL_EMSPAP_VLM
+			, NVL(APS.PRCHS_SMPL_EMSPAP_AMT,0) AS PRCHS_SMPL_EMSPAP_AMT
+			, NVL(APS.PRCHS_EMSPAP_VLM,0) AS PRCHS_EMSPAP_VLM
+			, NVL(APS.PRCHS_EMSPAP_AMT,0) AS PRCHS_EMSPAP_AMT
+
+			, (NVL(APS.PRCHS_TRST_VLM,0) + NVL(APS.PRCHS_EMSPAP_VLM,0)) AS PRCHS_TOT_VLM
+			, (NVL(APS.PRCHS_TRST_AMT,0) + NVL(APS.PRCHS_EMSPAP_AMT,0)) AS PRCHS_TOT_AMT
+
+			/* 매출 수탁 */
+			, NVL(APS.SLS_CPRTN_TRST_VLM,0) AS SLS_CPRTN_TRST_VLM
+			, NVL(APS.SLS_CPRTN_TRST_AMT,0) AS SLS_CPRTN_TRST_AMT
+			, NVL(APS.SLS_CPRTN_SORT_TRST_VLM,0) AS SLS_CPRTN_SORT_TRST_VLM
+			, NVL(APS.SLS_CPRTN_SORT_TRST_AMT,0) AS SLS_CPRTN_SORT_TRST_AMT
+			, NVL(APS.SLS_SMPL_TRST_VLM,0) AS SLS_SMPL_TRST_VLM
+			, NVL(APS.SLS_SMPL_TRST_AMT,0) AS SLS_SMPL_TRST_AMT
+
+			, NVL(APS.SLS_TRST_VLM,0) AS SLS_TRST_VLM
+			, NVL(APS.SLS_TRST_AMT,0) AS SLS_TRST_AMT
+
+			/* 매출 매취 */
+			, NVL(APS.SLS_CPRTN_SORT_EMSPAP_VLM,0) AS SLS_CPRTN_SORT_EMSPAP_VLM
+			, NVL(APS.SLS_CPRTN_SORT_EMSPAP_AMT,0) AS SLS_CPRTN_SORT_EMSPAP_AMT
+			, NVL(APS.SLS_SMPL_EMSPAP_VLM,0) AS SLS_SMPL_EMSPAP_VLM
+			, NVL(APS.SLS_SMPL_EMSPAP_AMT,0) AS SLS_SMPL_EMSPAP_AMT
+
+			, NVL(APS.SLS_EMSPAP_VLM,0) AS SLS_EMSPAP_VLM
+			, NVL(APS.SLS_EMSPAP_AMT,0) AS SLS_EMSPAP_AMT
+
+			/* 매출 합계 */
+			, (NVL(APS.SLS_TRST_VLM,0) + NVL(APS.SLS_EMSPAP_VLM,0)) AS SLS_TOT_VLM
+			, (NVL(APS.SLS_TRST_AMT,0) + NVL(APS.SLS_EMSPAP_AMT,0)) AS SLS_TOT_AMT
+
+			, NVL(APS.DDC_VLM,0) AS DDC_VLM
+			, NVL(APS.DDC_AMT,0) AS DDC_AMT
+
+			/*출하실적*/
+			, NVL(APS.PBLC_WHLSL_MRKT_VLM,0) AS PBLC_WHLSL_MRKT_VLM
+			, NVL(APS.PBLC_WHLSL_MRKT_AMT,0) AS PBLC_WHLSL_MRKT_AMT
+			, NVL(APS.ONLN_WHLSL_MRKT_VLM,0) AS ONLN_WHLSL_MRKT_VLM
+			, NVL(APS.ONLN_WHLSL_MRKT_AMT,0) AS ONLN_WHLSL_MRKT_AMT
+			, NVL(APS.LGSZ_RTL_VLM,0) AS LGSZ_RTL_VLM
+			, NVL(APS.LGSZ_RTL_AMT,0) AS LGSZ_RTL_AMT
+			, NVL(APS.ARMY_DLVGDS_VLM,0) AS ARMY_DLVGDS_VLM
+			, NVL(APS.ARMY_DLVGDS_AMT,0) AS ARMY_DLVGDS_AMT
+			, NVL(APS.EATOUT_MTRL_MLSR_VLM,0) AS EATOUT_MTRL_MLSR_VLM
+			, NVL(APS.EATOUT_MTRL_MLSR_AMT,0) AS EATOUT_MTRL_MLSR_AMT
+			, NVL(APS.MNFC_RTL_VLM,0) AS MNFC_RTL_VLM
+			, NVL(APS.MNFC_RTL_AMT,0) AS MNFC_RTL_AMT
+			, NVL(APS.EXPRT_VLM,0) AS EXPRT_VLM
+			, NVL(APS.EXPRT_AMT,0) AS EXPRT_AMT
+			, NVL(APS.ONLN_DLNG_PRFMNC_VLM,0) AS ONLN_DLNG_PRFMNC_VLM
+			, NVL(APS.ONLN_DLNG_PRFMNC_AMT,0) AS ONLN_DLNG_PRFMNC_AMT
+			, NVL(APS.ETC_VLM,0) AS ETC_VLM
+			, NVL(APS.ETC_AMT,0) AS ETC_AMT
+
+		FROM (SELECT *
+					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+					WHERE 1=1
+					  AND DEL_YN = 'N'
+					  AND APO_SE = '1'
+					  AND YR = #{yr}
+					  AND BRNO = #{brno}
+				) APS
+				, (SELECT *
+					FROM TB_EV_APO_YR_GPC_CD
+					WHERE 1=1
+					  AND APO_SE = '1'
+					  AND YR = #{yr}
+					  AND BRNO = #{brno}
+				) YGC
+		WHERE 1=1
+		  AND APS.ITEM_CD = YGC.ITEM_CD(+)
+		ORDER BY APS.PRCHS_SLS_SE , YGC.STTG_UPBR_ITEM_SE, YGC.CTGRY_CD
+	</select>
+
+</mapper>

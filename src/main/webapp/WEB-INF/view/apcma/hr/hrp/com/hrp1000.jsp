@@ -1934,7 +1934,7 @@
                             APPLY_END_DATE          : gfnma_nvl2(item.APLY_END_YMD),
                             MEMO                    : gfnma_nvl2(item.MEMO),
                             SALARY_BASE_AMT         : gfnma_nvl2(item.SLRY_BASE_AMT),
-                            JOB_BASE_AMT            : gfnma_nvl2(item.작업발령여부),
+                            JOB_BASE_AMT            : gfnma_nvl2(item.JOB_BASE_AMT),
                             OT_FIXED_BASE_AMT       : gfnma_nvl2(item.FIX_PRLG_ALWNC_AMT),
                             ROLE_BASE_AMT           : gfnma_nvl2(item.ROLE_BASE_AMT),
                             INCENTIVE_BASE_AMT      : gfnma_nvl2(item.INCNTV_BASE_AMT),

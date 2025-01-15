@@ -1130,6 +1130,30 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					// 입고번호 설정
 					wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
 					wghPrfmncMapper.insertWghPrfmncDtl(wghPrfmncDtlVO);
+				} else if ("Y".equals(wghPrfmncVO.getDtlDelYn())) {
+
+					WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+					BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+
+					HashMap<String, Object> rtnObj = deleteWghPrfmncDtl(wghPrfmncDtlVO);
+					if (rtnObj != null) {
+						throw new EgovBizException(getMessageForMap(rtnObj));
+					}
+
+					RawMtrWrhsVO rawMtrWrhsVO = new RawMtrWrhsVO();
+					BeanUtils.copyProperties(wghPrfmncVO, rawMtrWrhsVO);
+					rawMtrWrhsVO.setWrhsYmd(wghPrfmncVO.getWghYmd());
+					rawMtrWrhsVO.setGrdCd(wghPrfmncDtlVO.getGrdCd());
+					rawMtrWrhsVO.setPltno(wghPrfmncDtlVO.getPltno());
+					rawMtrWrhsVO.setBxKnd(wghPrfmncDtlVO.getBxKnd());
+					rawMtrWrhsVO.setBxQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setWrhsQntt(wghPrfmncDtlVO.getBxQntt());
+					rawMtrWrhsVO.setStdGrdList(wghPrfmncDtlVO.getStdGrdList());
+
+					HashMap<String, Object> rtnObjWrhs = rawMtrWrhsService.deleteRawMtrWrhs(rawMtrWrhsVO);
+					if (rtnObjWrhs != null) {
+						throw new EgovBizException(getMessageForMap(rtnObjWrhs));
+					}
 				} else {
 
 					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();

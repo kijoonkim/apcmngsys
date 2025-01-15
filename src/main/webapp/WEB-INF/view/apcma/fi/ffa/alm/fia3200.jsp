@@ -123,7 +123,7 @@
 									<div style="display:flex;justify-content:right;width:100%;padding-bottom:10px">
 			                            <sbux-button id="btnExcelDownload1" name="btnExcelDownload1" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_excelDownload1"></sbux-button>
 									</div>
-		                            <div id="sb_area_grid1" style="height:550px; width:100%;">
+		                            <div id="sb_area_grid1" style="height:500px; width:100%;">
 		                        	</div>         							
 								</div>
 							
@@ -131,7 +131,7 @@
 									<div style="display:flex;justify-content:right;width:100%;padding-bottom:10px">
 			                            <sbux-button id="btnExcelDownload2" name="btnExcelDownload2" uitype="normal" text="엑셀다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_excelDownload2"></sbux-button>
 									</div>
-		                            <div id="sb_area_grid2" style="height:550px; width:100%;">
+		                            <div id="sb_area_grid2" style="height:500px; width:100%;">
 		                        	</div>         							
 		                    	</div>
 		
@@ -529,8 +529,8 @@
 						BOOK_VALUE					: gfnma_nvl2(item.BKVL),			
 						CAPITAL_EXPENDITURE			: gfnma_nvl2(item.CPEXPND_ACML_AMT),			
 						COMP_CODE					: gfnma_nvl2(item.CO_CD),			
-						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCD_CD),			
-						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCD_NM),			
+						COST_CENTER_CODE			: gfnma_nvl2(item.CSTCT_CD),			
+						COST_CENTER_NAME			: gfnma_nvl2(item.CSTCT_NM),			
 						DEPRECIATE_YN				: gfnma_nvl2(item.DPRC_YN),			
 						DISPOSAL_DATE				: gfnma_nvl2(item.DSPSL_YMD),			
 						DISPOSAL_TYPE				: gfnma_nvl2(item.DSPSL_TYPE),			
