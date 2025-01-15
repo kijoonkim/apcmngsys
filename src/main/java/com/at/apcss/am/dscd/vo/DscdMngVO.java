@@ -26,15 +26,23 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class DscdMngVO extends ComVO {
-
+    /**
+     * APC 코드
+     */
 	private String apcCd;
 
+    /**
+     * 폐기 기준 타입
+     */
 	private String dscdCrtrType;
-	
+
+    /**
+     * 기준 코드
+     */
 	private String crtrCd;
 	
 	/**
-	 * 폐기기준 목록
+	 * 폐기 기준 목록
 	 */
 	private List<DscdCrtrVO> dscdCrtrList;
 
@@ -47,7 +55,7 @@ public class DscdMngVO extends ComVO {
 	}
 
 	/**
-	 * 폐기기준 목록
+	 * 폐기 기준 상세 목록
 	 */
 	private List<DscdCrtrVO> dscdCrtrDtlList;
 
@@ -58,5 +66,4 @@ public class DscdMngVO extends ComVO {
 	public void setDscdCrtrDtlList(List<DscdCrtrVO> dscdCrtrDtlList) {
 		this.dscdCrtrDtlList = dscdCrtrDtlList == null ? null : new ArrayList<>(dscdCrtrDtlList);
 	}
-
 }

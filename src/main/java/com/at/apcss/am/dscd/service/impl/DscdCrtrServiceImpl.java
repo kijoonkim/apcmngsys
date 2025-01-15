@@ -9,6 +9,7 @@ import com.at.apcss.am.dscd.mapper.DscdCrtrMapper;
 import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -337,4 +338,11 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 
 		return null;
 	}
+
+    @Override
+    public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectDscdPrfmncList(dscdCrtrVO);
+
+        return resultList;
+    }
 }

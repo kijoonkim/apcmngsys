@@ -4,6 +4,7 @@ import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
 import com.at.apcss.am.clcln.vo.ClclnMngVO;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -97,4 +98,11 @@ public interface DscdCrtrService {
 	 */
 	public HashMap<String, Object> deleteDscdCrtrDtl(DscdMngVO dscdMngVO) throws Exception;
 	
+    /**
+     * 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
 }
