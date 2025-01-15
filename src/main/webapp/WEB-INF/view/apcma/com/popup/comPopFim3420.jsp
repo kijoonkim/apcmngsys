@@ -172,7 +172,7 @@ function compopfim3420(options) {
 						DUTY_NAME				: gfnma_nvl(item.JBTTL_NM),
   						EMP_CODE				: gfnma_nvl(item.EMP_CD),
   						EMP_NAME				: gfnma_nvl(item.EMP_NM),
-  						PROXY_EMP_CODE			: gfnma_nvl(item.DLCT_EMP_CD),
+  						PROXY_EMP_CODE			: gfnma_nvl(item.DLGT_EMP_CD),
   						PROXY_EMP_NAME			: gfnma_nvl(item.PROXY_EMP_NAME),
   						STEP_SEQ				: gfnma_nvl(item.STP_SEQ),
   						UPDATE_EMP_NAME			: gfnma_nvl(item.UPDATE_EMP_NAME),
