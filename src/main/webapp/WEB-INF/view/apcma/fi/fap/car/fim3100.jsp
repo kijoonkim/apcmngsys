@@ -513,18 +513,18 @@
 													    <div class="dropdown-menu" aria-labelledby="VIEW_LEVEL" style="width:200px;height:150px;padding-top:0px;overflow:auto">
 													    </div>
 													</div>    
-			                                        <font style="width:10px"></font>
-			                                        <font>개인형카드회계처리</font>
-			                                        <font style="width:5px"></font>
-					                       			<sbux-checkbox 
-					                       				id="PERSONAL_CARD_ACCT_YN" 
-					                       				uitype="normal" 
-					                       				text="예" 
-					                       				true-value="Y" 
-					                       				false-value="N" 
-					                       				style="margin-top:8px"
-					                       				>
-					                       			</sbux-checkbox>
+			                                        <span style="padding-left:10px;padding-top:5px;font-weight:bold;">
+				                                        <font style="padding-right:5px">개인형카드회계처리</font>
+						                       			<sbux-checkbox 
+						                       				id="PERSONAL_CARD_ACCT_YN" 
+						                       				uitype="normal" 
+						                       				text="예" 
+						                       				true-value="Y" 
+						                       				false-value="N" 
+						                       				style="margin-top:8px"
+						                       				>
+						                       			</sbux-checkbox>
+			                                        </span>
 												</div>                                
 		                                    </td>
 		                                </tr>
