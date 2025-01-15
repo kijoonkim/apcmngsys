@@ -3,6 +3,7 @@ package com.at.apcss.am.dscd.mapper;
 import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import java.util.HashMap;
@@ -113,4 +114,12 @@ public interface DscdCrtrMapper {
 	 * @throws Exception
 	 */
 	public int deleteDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
 }
