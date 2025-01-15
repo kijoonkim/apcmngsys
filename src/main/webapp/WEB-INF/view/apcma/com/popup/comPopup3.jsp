@@ -86,9 +86,9 @@ function compopup3(options) {
 		,separator				: null
 		,callbackEvent			: null
 		,cancelEvent			: null
+		,data					: null
 	};
 	$.extend(settings, options);	
-	//console.log('settings:', settings);
  
 	//css
  	$(modalId).find('.cu-table-div').css('height', settings.height);
@@ -102,15 +102,18 @@ function compopup3(options) {
 			$(this).find('td').eq(0).text(cnt);
 		});
 	}
-	
 	//행추가
-	var addTr = function(){
+	var addTr = function(data){
 		var tar = $(modalId).find('.cu-table-div').find('tbody');
 		var htm = '';
 		htm += '<tr>';
 		htm += '<td></td>';
 		htm += '<td>';
-		htm += '<input uitype="text" class="form-control input-sm" style="width:100%" value="" />';
+		if(data){
+			htm += '<input uitype="text" class="form-control input-sm" style="width:100%" value="' + data + '" />';
+		}else{
+			htm += '<input uitype="text" class="form-control input-sm" style="width:100%" value="" />';
+		}
 		htm += '</td>';
 		htm += '</tr>';
 		tar.append(htm);
@@ -141,7 +144,20 @@ function compopup3(options) {
 		e.preventDefault()
 		addTr();
 	});	
- 
+	
+	if(!_.isEmpty(settings.data)){
+		
+		if (settings.data.slice(-1) == '|'){
+			settings.data = settings.data.slice(0, -1);
+		}
+		
+		let splitData = settings.data.split("|");
+		
+		for(let i = 0 ;splitData.length > i; i++){
+			addTr(splitData[i]);
+		}
+	}
+	
 	//행삭제
 	$(modalId).find('.cu-btn-minus').off('click');
 	$(modalId).find('.cu-btn-minus').click(function(e){
