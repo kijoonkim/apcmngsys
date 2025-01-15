@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name : wghCurInq.jsp
-     * @Description : 계량현황조회 화면
+     * @Description : 반품 등록 원물화면
      * @author SI개발부
      * @since 2024.11.25
      * @version 1.0
@@ -196,7 +196,6 @@
                                         class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
                                 ></sbux-datepicker>
                             </div>
-
                         </div>
                     </div>
                     <div id="sb-area-rtnCrtrDtl"></div>
