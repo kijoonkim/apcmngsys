@@ -514,6 +514,155 @@
     </delete>
 
     <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectDscdRegList       -->
+    <!-- DESC : 폐기 등록 - 폐기 등록 목록 조회.    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.16  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectDscdRegList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        SELECT
+              IP.APC_CD AS APC_CD
+            , (SELECT FN_GET_APC_NM(IP.APC_CD) FROM DUAL) AS APC_NM
+            , IP.DSCD_YMD AS DSCD_YMD
+            , IP.DSCD_SN AS DSCD_SN
+            , IP.DSCD_RSN AS DSCD_RSN
+            , IP.DTL_SN AS DTL_SN
+            , IP.INVNTR_SE_CD AS INVNTR_SE_CD
+            , IP.INVNTR_NO AS INVNTR_NO
+            , IP.INVNTR_SN AS INVNTR_SN
+            , IP.PRDCR_CD AS PRDCR_CD
+            , (SELECT FN_GET_PRDCR_NM(IP.PRDCR_CD, IP.APC_CD) FROM DUAL) AS PRDCR_NM
+            , IP.ITEM_CD AS ITEM_CD
+            , (SELECT FN_GET_ITEM_NM(IP.ITEM_CD, IP.APC_CD) FROM DUAL) AS ITEM_NM
+            , IP.VRTY_CD AS VRTY_CD
+            , (SELECT FN_GET_VRTY_NM(IP.ITEM_CD, IP.VRTY_CD, IP.APC_CD) FROM DUAL) AS VRTY_NM
+            , IP.GRD_CD AS GRD_CD
+            , IP.SPCFCT_CD AS SPCFCT_CD
+            , IP.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+            , IP.GDS_SE_CD AS GDS_SE_CD
+            , IP.WRHS_SE_CD AS WRHS_SE_CD
+            , IP.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+            , IP.DSCD_QNTT AS DSCD_QNTT
+            , IP.DSCD_WGHT AS DSCD_WGHT
+            , IP.DEL_YN AS DEL_YN
+            , IP.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
+            , IP.SYS_FRST_INPT_USER_ID AS SYS_FRST_INPT_USER_ID
+            , IP.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+            , IP.SYS_LAST_CHG_DT AS SYS_LAST_CHG_DT
+            , IP.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+            , IP.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
+        FROM TB_INVNTR_DSCD_PRFMNC IP
+        WHERE APC_CD = #{apcCd}
+        <if test='pckgno != null and pckgno !=""'>
+            AND INVNTR_NO = #{pckgno}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+            AND ITEM_CD = #{itemCd}
+        </if>
+        <if test='prdcrCd != null and prdcrCd !=""'>
+            AND PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd !=""'>
+            AND VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='warehouseSeCd != null and warehouseSeCd !=""'>
+            AND WAREHOUSE_SE_CD = #{warehouseSeCd}
+        </if>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.insertDscdRegList        -->
+    <!-- DESC : 폐기 등록 - 폐기 등록 목록 추가.    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.16  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertDscdRegList" parameterType="list">
+        INSERT
+        INTO TB_INVNTR_DSCD_PRFMNC (
+              APC_CD
+            , DSCD_YMD
+            , DSCD_SN
+            , DTL_SN
+            , DSCD_RSN
+            , INVNTR_SE_CD
+            , INVNTR_NO
+            , INVNTR_SN
+            , PRDCR_CD
+            , ITEM_CD
+            , VRTY_CD
+            , GRD_CD
+            , SPCFCT_CD
+            , SPMT_PCKG_UNIT_CD
+            , GDS_SE_CD
+            , WRHS_SE_CD
+            , WAREHOUSE_SE_CD
+            , DSCD_QNTT
+            , DSCD_WGHT
+            , DEL_YN
+            , SYS_FRST_INPT_DT
+            , SYS_FRST_INPT_USER_ID
+            , SYS_FRST_INPT_PRGRM_ID
+            , SYS_LAST_CHG_DT
+            , SYS_LAST_CHG_USER_ID
+            , SYS_LAST_CHG_PRGRM_ID
+        )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+        (
+              #{item.apcCd}
+            , #{item.dscdYmd}
+            , #{item.dscdSn}
+            , #{item.dtlSn}
+            , #{item.dscdRsn}
+            , #{item.invntrSeCd}
+            , #{item.invntrNo}
+            , #{item.invntrSn}
+            , #{item.prdcrCd}
+            , #{item.itemCd}
+            , #{item.vrtyCd}
+            , #{item.grdCd}
+            , #{item.spcfctCd}
+            , #{item.spmtPckgUnitCd}
+            , #{item.gdsSeCd}
+            , #{item.wrhsSeCd}
+            , #{item.warehouseSeCd}
+            , #{item.dscdQntt}
+            , #{item.dscdWght}
+            , #{item.delYn}
+            , SYSDATE
+            , #{item.sysFrstInptUserId}
+            , #{item.sysFrstInptPrgrmId}
+            , SYSDATE
+            , #{item.sysLastChgUserId}
+            , #{item.sysLastChgPrgrmId}
+        )
+        </foreach>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.deleteDscdRegList        -->
+    <!-- DESC : 폐기 등록 - 폐기 등록 목록 삭제.    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.16  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteDscdRegList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        DELETE
+        FROM TB_INVNTR_DSCD_PRFMNC
+        WHERE APC_CD = #{apcCd}
+        AND DSCD_YMD = #{dscdYmd}
+        AND DSCD_SN = #{dscdSn}
+        AND DTL_SN = #{dtlSn}
+        AND INVNTR_SN = #{invntrSn}
+    </delete>
+
+    <!-- ==========================================================================	-->
     <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList		-->
     <!-- DESC : 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회.                       	-->
     <!-- ==========================================================================	-->
@@ -525,25 +674,13 @@
         <![CDATA[
             SELECT
                   IP.APC_CD AS APC_CD
-    		    , (
-                    SELECT FN_GET_APC_NM(IP.APC_CD)
-                    FROM DUAL
-                ) AS APC_NM
+    		    , (SELECT FN_GET_APC_NM(IP.APC_CD) FROM DUAL) AS APC_NM
                 , IP.ITEM_CD AS ITEM_CD
-                , (
-                    SELECT FN_GET_ITEM_NM(IP.ITEM_CD, IP.APC_CD)
-                    FROM DUAL
-                ) AS ITEM_NM
+                , (SELECT FN_GET_ITEM_NM(IP.ITEM_CD, IP.APC_CD) FROM DUAL) AS ITEM_NM
                 , IP.VRTY_CD AS VRTY_CD
-                , (
-                    SELECT FN_GET_VRTY_NM(IP.ITEM_CD, IP.VRTY_CD, IP.APC_CD)
-                    FROM DUAL
-                ) AS VRTY_NM
+                , (SELECT FN_GET_VRTY_NM(IP.ITEM_CD, IP.VRTY_CD, IP.APC_CD) FROM DUAL) AS VRTY_NM
                 , IP.PRDCR_CD AS PRDCR_CD
-				, (
-                    SELECT FN_GET_PRDCR_NM(IP.PRDCR_CD, IP.APC_CD)
-                    FROM DUAL
-                ) AS PRDCR_NM
+				, (SELECT FN_GET_PRDCR_NM(IP.PRDCR_CD, IP.APC_CD) FROM DUAL ) AS PRDCR_NM
                 , IP.DSCD_SN        AS DSCD_SN
                 , IP.DSCD_QNTT      AS DSCD_QNTT
                 , IP.DSCD_WGHT      AS DSCD_WGHT

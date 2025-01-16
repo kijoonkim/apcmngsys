@@ -9,7 +9,13 @@ import com.at.apcss.am.dscd.mapper.DscdCrtrMapper;
 import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.invntr.service.GdsInvntrService;
+import com.at.apcss.am.invntr.service.RawMtrInvntrService;
+import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
+import com.at.apcss.am.trnsf.service.TrnsfGdsInvntrService;
+import com.at.apcss.am.trnsf.vo.TrnsfGdsInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -340,6 +346,36 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 
 		return null;
 	}
+
+    @Override
+    public List<DscdCrtrVO> selectDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        return dscdCrtrMapper.selectDscdRegList(dscdCrtrVO);
+    }
+
+    @Resource(name = "gdsInvntrService")
+    private GdsInvntrService gdsInvntrService;
+
+    @Override
+    public int insertDscdRegList(List<DscdCrtrVO> dscdRegList) throws Exception {
+        int insertCnt = 0;
+        insertCnt = dscdCrtrMapper.insertDscdRegList(dscdRegList);
+        if(insertCnt <= 0){
+            throw new EgovBizException();
+        }
+
+        return insertCnt;
+    }
+
+    @Override
+    public int deleteDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        int deleteCnt = 0;
+        deleteCnt = dscdCrtrMapper.deleteDscdRegList(dscdCrtrVO);
+        if(deleteCnt <= 0) {
+            throw new EgovBizException();
+        }
+
+        return deleteCnt;
+    }
 
     @Override
     public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {

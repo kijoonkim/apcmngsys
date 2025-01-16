@@ -9,6 +9,9 @@ import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
+import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -232,6 +235,72 @@ public class DscdMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+    // APC 폐기 등록 - 폐기 등록 목록 조회
+    @PostMapping(value = "/am/dscd/selectDscdRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectDscdRegList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<DscdCrtrVO> resultList = new ArrayList();
+        try{
+            resultList = dscdCrtrService.selectDscdRegList(dscdCrtrVO);
+        }catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // APC 폐기 등록 - 폐기 등록 목록 추가
+    @PostMapping(value = "/am/dscd/insertDscdRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertDscdRegList(@RequestBody List<DscdCrtrVO> dscdRegList, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        int insertCnt = 0;
+
+        try{
+            for(DscdCrtrVO vo : dscdRegList){
+                setCommonInfo(vo);
+            }
+
+            insertCnt = dscdCrtrService.insertDscdRegList(dscdRegList);
+        }catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_INSERTED_CNT,insertCnt);
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // APC 폐기 등록 - 폐기 등록 목록 삭제
+    @PostMapping(value = "/am/dscd/deleteDscdRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteDscdRegList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        int deleteCnt = 0;
+
+        try{
+            setCommonInfo(dscdCrtrVO);
+            deleteCnt = dscdCrtrService.deleteDscdRegList(dscdCrtrVO);
+        }catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+        resultMap.put(ComConstants.PROP_DELETED_CNT, deleteCnt);
+        return getSuccessResponseEntity(resultMap);
+    }
+
     // APC 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회
     @PostMapping(value = "/am/dscd/selectDscdPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectDscdPrfmncList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
@@ -282,6 +351,17 @@ public class DscdMngController extends BaseController {
         }
 
         return getSuccessResponseEntity(resultMap);
+    }
+
+    private <T> void setCommonInfo(T vo) {
+        if(vo instanceof DscdCrtrVO) {
+            DscdCrtrVO dscdCrtrVO = (DscdCrtrVO) vo;
+            dscdCrtrVO.setDelYn("N");
+            dscdCrtrVO.setSysFrstInptUserId(getUserId());
+            dscdCrtrVO.setSysFrstInptPrgrmId(getPrgrmId());
+            dscdCrtrVO.setSysLastChgUserId(getUserId());
+            dscdCrtrVO.setSysLastChgPrgrmId(getPrgrmId());
+        }
     }
 }
 
