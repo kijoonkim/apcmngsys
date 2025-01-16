@@ -138,7 +138,8 @@
 									id="srch-slt-clclnSn"
 									name="srch-slt-clclnSn"
 									uitype="single"
-									class="form-control input-sm"
+									class="form-control input-sm input-sm-ast inpt_data_reqed"
+									unselected-text="선택"
 									jsondata-ref="jsonClclnSn"
 									jsondata-text="cdVlNm"
 									jsondata-value="cdVl"									
@@ -559,9 +560,7 @@
   					item.cdVlNm = "" + item.clclnSn + "차";
   					jsonClclnSn.push(item);
 				});
-  				
-  				console.log("jsonClclnSn", jsonClclnSn);
-	        	
+
         	} else {
         		console.log("clclnSn errorCode", data.resultCode);
         		console.log("clclnSn errorMessage", data.resultMessage);
@@ -575,6 +574,9 @@
 		}
 		
 		SBUxMethod.refresh("srch-slt-clclnSn");
+
+		fn_onChangeSrchClclnSn({value: null});
+
 	}
  	
  	
@@ -1630,10 +1632,7 @@
 		
 		const clclnSn = obj.value;
 		const chkInfo = _.find(jsonClclnSn, {cdVl: clclnSn});
-		console.log("clclnSn", clclnSn);
-		console.log("jsonClclnSn", jsonClclnSn);
-		console.log("chkInfo", chkInfo);
-		
+
 		if (!gfn_isEmpty(chkInfo)) {
 			// set 단가정보
 			const bgngYmd = gfn_nvl(chkInfo.bgngYmd);
@@ -1651,6 +1650,8 @@
 		
 		await fn_search();
 	}
+
+
     
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

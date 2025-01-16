@@ -63,6 +63,6 @@ public interface ClclnRsltMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertSpClclnRsltReg(ClclnRsltDtlVO clclnRsltDtlVO) throws Exception;
+	public void insertSpClclnRsltReg(ClclnRsltDtlVO clclnRsltDtlVO) throws Exception;
 	
 }

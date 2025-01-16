@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : statMapper.xml                                   			-->
+<!-- DESC : 통계 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.10.08  	박승진       Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.stat.mapper.StatMngMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList  	-->
+	<!-- DESC : 통계 기준상세 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectStatCrtrDtlInUseList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectStatCrtrDtlInUseList */
+				  C.APC_CD				AS APC_CD
+				, C.STATS_CRTR_TYPE		AS STATS_CRTR_TYPE
+				, CT.CD_VL_NM			AS STAT_CRTR_TYPE_NM
+				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
+				, C.CRTR_CD			  	AS CRTR_CD
+				, C.CRTR_VL			  	AS CRTR_VL
+				, C.CRTR_INDCT_NM		AS CRTR_INDCT_NM
+				, C.INDCT_SEQ			AS CRTR_SEQ
+				, C.USE_YN				AS CRTR_USE_YN
+      			, CD.DTL_SN				AS DTL_SN
+				, CD.DTL_CD				AS DTL_CD
+				, CD.DTL_VL				AS DTL_VL
+				, CD.DTL_INDCT_NM		AS DTL_INDCT_NM
+        		, CD.STAT_DTL_PRCS_CD  	AS STAT_DTL_PRCS_CD
+				, CD.USE_YN				AS CRTR_DTL_USE_YN
+				, CD.INDCT_SEQ			AS INDCT_SEQ
+				, CD.INDCT_SEQ			AS CRTR_DTL_SEQ
+				, CD.USE_YN				AS USE_YN
+
+			  FROM TB_STATS_CRTR C
+
+			  JOIN TB_COM_CD_DTL CT
+			    ON CT.CD_ID = 'STATS_CRTR_TYPE'
+			   AND CT.APC_CD = '0000'
+			   AND CT.CD_VL = C.STAT_CRTR_TYPE
+			   AND CT.DEL_YN = 'N'
+
+			  JOIN TB_STATS_CRTR_DTL CD
+			    ON CD.APC_CD = C.APC_CD
+			   AND CD.STATS_CRTR_TYPE = C.STATS_CRTR_TYPE
+			   AND CD.CRTR_CD = C.CRTR_CD
+			   AND CD.DEL_YN = 'N'
+
+			 WHERE C.DEL_YN = 'N'
+			   AND C.USE_YN = 'Y'
+			   AND CD.USE_YN = 'Y'
+		]]>
+
+		<if test='apcCd != null and apcCd != ""'>
+			AND C.APC_CD = #{apcCd}
+		</if>
+
+		<if test='statsCrtrType != null and statsCrtrType != ""'>
+			AND C.STATS_CRTR_TYPE = #{statsCrtrType}
+		</if>
+
+		<if test='crtrCd != null and crtrCd != ""'>
+			AND C.CRTR_CD = #{crtrCd}
+		</if>
+
+		<if test='crtrUseYn != null and crtrUseYn != ""'>
+			AND C.USE_YN = #{crtrUseYn}
+		</if>
+
+		<if test='crtrDtlUseYn != null and crtrDtlUseYn != ""'>
+			AND CD.USE_YN = #{crtrDtlUseYn}
+		</if>
+
+		<![CDATA[
+			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ, CRTR_DTL_SEQ, DTL_SN
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtr  				-->
+	<!-- DESC : 통계 기준 단건 조회.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtr */
+				  APC_CD
+				, STATS_CRTR_TYPE
+				, CRTR_CD
+				, CRTR_VL
+				, CRTR_INDCT_NM
+				, INDCT_SEQ
+				, USE_YN
+				, DEL_YN
+			  FROM TB_STATS_CRTR
+			 WHERE APC_CD = #{apcCd}
+			   AND STATS_CRTR_TYPE = #{statsCrtrType}
+			   AND CRTR_CD = #{crtrCd}
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrList  			-->
+	<!-- DESC : 통계 기준목록 조회.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCrtrList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+      		SELECT /* com.at.apcss.am.tot.mapper.TotMngMapper.selectCrtrList */
+				  C.APC_CD				AS APC_CD
+				, C.STATS_CRTR_TYPE	  	AS STATS_CRTR_TYPE
+				, CT.CD_VL_NM			AS STATS_CRTR_TYPE_NM
+				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
+				, C.CRTR_CD			    AS CRTR_CD
+				, C.CRTR_VL			    AS CRTR_VL
+				, C.CRTR_INDCT_NM		AS CRTR_INDCT_NM
+				, C.INDCT_SEQ			AS INDCT_SEQ
+				, C.INDCT_SEQ			AS CRTR_SEQ
+				, C.USE_YN				AS USE_YN
+      			, CC.CD_CHR_VL			AS CRTR_CHR_VL
+
+			  FROM TB_STATS_CRTR C
+
+			  JOIN TB_COM_CD_DTL CT
+			    ON CT.CD_ID = 'STATS_CRTR_TYPE'
+			   AND CT.APC_CD = '0000'
+			   AND CT.CD_VL = C.STATS_CRTR_TYPE
+			   AND CT.DEL_YN = 'N'
+
+			  LEFT JOIN TB_COM_CD_DTL CC
+			    ON CC.CD_ID = 'STATS_CRTR_CD'
+			   AND CC.APC_CD = '0000'
+			   AND CC.CD_VL = C.CRTR_CD
+			   AND CC.DEL_YN = 'N'
+
+			 WHERE C.DEL_YN = 'N'
+			   AND C.APC_CD = #{apcCd}
+		]]>
+		<if test='statsCrtrType != null and statsCrtrType != ""'>
+			AND C.STATS_CRTR_TYPE = #{statsCrtrType}
+		</if>
+
+		<if test='crtrCd != null and crtrCd != ""'>
+			AND C.CRTR_CD = #{crtrCd}
+		</if>
+
+		<if test='crtrIndctNm != null and crtrIndctNm != ""'>
+			AND C.CRTR_INDCT_NM LIKE '%' || #{crtrIndctNm} || '%'
+		</if>
+
+		<if test='useYn != null and useYn != ""'>
+			AND C.USE_YN = #{useYn}
+		</if>
+
+		<![CDATA[
+			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl  			-->
+	<!-- DESC : 통계기준 상세 단건 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+      		SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtl */
+				  CD.APC_CD				AS APC_CD
+				, CD.STATS_CRTR_TYPE	AS STATS_CRTR_TYPE
+				, CD.CRTR_CD			AS CRTR_CD
+				, CD.DTL_SN				AS DTL_SN
+				, CD.DTL_CD				AS DTL_CD
+				, CD.DTL_VL				AS DTL_VL
+				, CD.DTL_INDCT_NM		AS DTL_INDCT_NM
+				, CD.USE_YN				AS USE_YN
+				, CD.DEL_YN				AS DEL_YN
+				FROM TB_STATS_CRTR_DTL CD
+				WHERE CD.APC_CD = #{apcCd}
+				  AND CD.STATS_CRTR_TYPE = #{statsCrtrType}
+				  AND CD.CRTR_CD = #{crtrCd}
+				  AND CD.DTL_SN = #{dtlSn}
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectCrtrDtlList" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList */
+				  C.APC_CD				AS APC_CD
+				, C.STATS_CRTR_TYPE		AS STATS_CRTR_TYPE
+				, CT.CD_VL_NM			AS STATS_CRTR_TYPE_NM
+				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
+				, C.CRTR_CD			  	AS CRTR_CD
+				, C.CRTR_VL			  	AS CRTR_VL
+				, C.CRTR_INDCT_NM		AS CRTR_INDCT_NM
+				, C.INDCT_SEQ			AS CRTR_SEQ
+				, C.USE_YN				AS CRTR_USE_YN
+      			, CC.CD_CHR_VL			AS TOT_CRTR_CHR_VL
+				, CD.DTL_SN				AS DTL_SN
+				, CD.DTL_CD				AS DTL_CD
+				, CD.DTL_VL				AS DTL_VL
+				, CD.DTL_INDCT_NM		AS DTL_INDCT_NM
+				, CD.USE_YN				AS CRTR_DTL_USE_YN
+				, CD.INDCT_SEQ			AS INDCT_SEQ
+				, CD.INDCT_SEQ			AS CRTR_DTL_SEQ
+				, CD.USE_YN				AS USE_YN
+			  FROM TB_STATS_CRTR C
+
+			  JOIN TB_COM_CD_DTL CT
+			    ON CT.CD_ID = 'STATS_CRTR_TYPE'
+			   AND CT.APC_CD = '0000'
+			   AND CT.CD_VL = C.STATS_CRTR_TYPE
+			   AND CT.DEL_YN = 'N'
+
+			  JOIN TB_COM_CD_DTL CC
+			    ON CC.CD_ID = 'STAT_CRTR_CD'
+			   AND CC.APC_CD = '0000'
+			   AND CC.CD_VL = C.CRTR_CD
+			   AND CC.DEL_YN = 'N'
+
+			  LEFT JOIN TB_STATS_CRTR_DTL CD
+			    ON CD.APC_CD = C.APC_CD
+			   AND CD.STATS_CRTR_TYPE = C.STATS_CRTR_TYPE
+			   AND CD.CRTR_CD = C.CRTR_CD
+			   AND CD.DEL_YN = 'N'
+
+			 WHERE C.DEL_YN = 'N'
+			   AND C.APC_CD = #{apcCd}
+		]]>
+		<if test='statsCrtrType != null and statsCrtrType != ""'>
+			AND C.STATS_CRTR_TYPE = #{statsCrtrType}
+		</if>
+
+		<if test='crtrCd != null and crtrCd != ""'>
+			AND C.CRTR_CD = #{crtrCd}
+		</if>
+
+		<if test='crtrUseYn != null and crtrUseYn != ""'>
+			AND C.USE_YN = #{crtrUseYn}
+		</if>
+
+		<if test='crtrDtlUseYn != null and crtrDtlUseYn != ""'>
+			AND CD.USE_YN = #{crtrDtlUseYn}
+		</if>
+
+		<![CDATA[
+			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ, CRTR_DTL_SEQ, DTL_SN
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.insertCrtr  				-->
+	<!-- DESC : 통계 기준 등록.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.stat.mapper.statMngMapper.insertCrtr */
+			INTO TB_STATS_CRTR (
+				  APC_CD
+				, STATS_CRTR_TYPE
+				, CRTR_CD
+				, CRTR_VL
+				, CRTR_INDCT_NM
+				, INDCT_SEQ
+				, USE_YN
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+				  #{apcCd}
+				, #{statsCrtrType}
+				, #{crtrCd}
+				, #{crtrVl}
+				, #{crtrIndctNm}
+				, #{indctSeq}
+				, #{useYn}
+				, 'N'
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.updateCrtr  				-->
+	<!-- DESC : 통계 기준 변경.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.stat.mapper.statMngMapper.updateCrtr */
+			TB_STATS_CRTR
+		SET
+			  CRTR_VL = #{crtrVl}
+			, CRTR_INDCT_NM = #{crtrIndctNm}
+			, INDCT_SEQ = #{indctSeq}
+			, USE_YN = #{useYn}
+			, SYS_LAST_CHG_DT = SYSDATE
+			, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+			, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+		WHERE APC_CD = #{apcCd}
+		  AND STATS_CRTR_TYPE = #{statsCrtrType}
+		  AND CRTR_CD = #{crtrCd}
+		]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtr  				-->
+	<!-- DESC : 통계 기준 삭제.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteCrtr" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+		DELETE /* com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtr */
+		FROM TB_STATS_CRTR
+		WHERE APC_CD = #{apcCd}
+		  AND STATS_CRTR_TYPE = #{statsCrtrType}
+		  AND CRTR_CD = #{crtrCd}
+		]]>
+    </delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl  			-->
+	<!-- DESC : 통계 기준 상세 등록.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.stat.mapper.statMngMapper.insertCrtrDtl */
+			INTO TB_STATS_CRTR_DTL (
+				   APC_CD
+				 , STATS_CRTR_TYPE
+				 , CRTR_CD
+				 , DTL_SN
+				 , DTL_CD
+				 , DTL_VL
+				 , DTL_INDCT_NM
+				 , INDCT_SEQ
+				 , USE_YN
+				 , DEL_YN
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+					#{apcCd}
+					, #{statsCrtrType}
+					, #{crtrCd}
+					, #{dtlSn}
+					, #{dtlCd}
+					, #{dtlVl}
+					, #{dtlIndctNm}
+					, #{indctSeq}
+					, #{useYn}
+					, 'N'
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl  			-->
+	<!-- DESC : 통계 기준 상세 변경.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.stat.mapper.statMngMapper.updateCrtrDtl */
+				TB_STATS_CRTR_DTL
+			SET
+				  DTL_CD = #{dtlCd}
+				, DTL_VL = #{dtlVl}
+				, DTL_INDCT_NM = #{dtlIndctNm}
+				, INDCT_SEQ = #{indctSeq}
+				, USE_YN = #{useYn}
+				, SYS_LAST_CHG_DT = SYSDATE
+				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE APC_CD = #{apcCd}
+			AND STATS_CRTR_TYPE = #{statsCrtrType}
+			AND CRTR_CD = #{crtrCd}
+			AND DTL_SN = #{dtlSn}
+		]]>
+    </update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl  			-->
+	<!-- DESC : 통계 기준 상세 삭제.	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteCrtrDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.am.stat.mapper.statMngMapper.deleteCrtrDtl */
+				TB_STATS_CRTR_DTL
+			WHERE APC_CD = #{apcCd}
+			AND STATS_CRTR_TYPE = #{statsCrtrType}
+			AND CRTR_CD = #{crtrCd}
+			AND DTL_SN = #{dtlSn}
+		]]>
+    </delete>
+
+</mapper>

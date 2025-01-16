@@ -23,6 +23,15 @@
 //			response.sendRedirect(protocol + "://" + loginUrl);
 //		}
 //	}
+
+    String needsCustomLogin = request.getParameter("needsCustomLogin");
+
+    if (!"IneedCustomLogin".equals(needsCustomLogin)) {
+        String loginUrl = (String) request.getAttribute("loginUrl");
+        if (loginUrl != null && !"".equals(loginUrl)) {
+            response.sendRedirect(loginUrl);
+        }
+    }
 %>
 
     <div class="apc-wrap">

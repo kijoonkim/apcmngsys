@@ -34,6 +34,14 @@
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button
+						id="btn-rsltCrt"
+						name="btn-rsltCrt"
+						uitype="normal"
+						text="집계생성"
+						class="btn btn-sm btn-outline-dark"
+						onclick="fn_insertTotRsltCrt"
+				></sbux-button>
+				<sbux-button
 						id="btnDoc"
 						name="btnDoc"
 						uitype="normal"
@@ -628,6 +636,56 @@
 		});
 	}
 
+
+	/**
+	 * @name fn_insertTotRsltCrt
+	 * @description 집계생성
+	 */
+	const fn_insertTotRsltCrt = async function() {
+
+		const termKndCd = SBUxMethod.get("srch-slt-termKndCd");
+		const crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+
+		if (gfn_isEmpty(termKndCd)) {
+			gfn_comAlert("W0001", "기간구분");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+		if (gfn_isEmpty(crtrYmd)) {
+			gfn_comAlert("W0001", "기준일자");		//	W0001	{0}을/를 선택하세요.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "집계생성")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		const param = {
+			apcCd: gv_selectedApcCd,
+			crtrYmd: crtrYmd,
+			totCrtrType: __TOT_CRTR_TYPE__,
+			termKndCd: termKndCd
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON("/am/tot/insertTotRsltCrt.do", param);
+			const data = await postJsonPromise;
+
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				await fn_search();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+
+	}
 
 	/**
 	 * @name fn_doc

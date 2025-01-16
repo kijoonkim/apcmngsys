@@ -88,22 +88,6 @@
 								style="max-width:80%;"
 						></sbux-select>
 					</td>
-					<sbux-input
-							id="srch-inp-prdcrIdentno"
-							name="srch-inp-prdcrIdentno"
-							uitype="hidden"
-					></sbux-input>
-					<sbux-input
-							id="srch-inp-prdcrCd"
-							name="srch-inp-prdcrCd"
-							uitype="hidden"
-					></sbux-input>
-					<sbux-input
-							id="srch-inp-prdcrNm"
-							name="srch-inp-prdcrNm"
-							uitype="hidden"
-					></sbux-input>
-
 				</tr>
 
 				</tbody>

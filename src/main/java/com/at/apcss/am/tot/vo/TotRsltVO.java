@@ -83,4 +83,6 @@ public class TotRsltVO extends ComVO {
     private String colHyYear;
     private String colHyMonth;
 
+    private String rtnCd;
+    private String rtnMsg;
 }

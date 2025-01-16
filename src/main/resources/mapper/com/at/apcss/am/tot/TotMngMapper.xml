@@ -63,7 +63,7 @@
 
 				  C.APC_CD				AS APC_CD
 				, C.TOT_CRTR_TYPE	  	AS TOT_CRTR_TYPE
-				, CT.CD_VL_NM			AS DSCD_CRTR_TYPE_NM
+				, CT.CD_VL_NM			AS TOT_CRTR_TYPE_NM
 				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
 				, C.CRTR_CD			    AS CRTR_CD
 				, C.CRTR_VL			    AS CRTR_VL
@@ -575,18 +575,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -752,18 +752,19 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
+
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -929,18 +930,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -1112,18 +1113,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -1292,18 +1293,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -1467,18 +1468,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -1644,18 +1645,18 @@
 			</when>
 			<when test='termKndCd != null and termKndCd =="HY"'>
 				-- 반기
-				, TO_CHAR(DL.DT, 'YYYY') || LPAD(TO_CHAR(DL.DT, 'Q'), 2, '0')	AS T_0
-				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2, 2, '0')		AS T_1
-				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2, 2, '0')		AS T_2
-				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2, 2, '0')		AS T_3
-				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2, 2, '0')		AS T_4
-				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2, 2, '0')		AS T_5
-				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2, 2, '0')		AS T_6
-				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2, 2, '0')		AS T_7
-				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2, 2, '0')		AS T_8
-				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2, 2, '0')		AS T_9
-				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2, 2, '0')		AS T_10
-				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2, 2, '0')		AS T_11
+				, TO_CHAR(DL.DT, 'YYYY') || LPAD(CEIL(TO_CHAR(DL.DT, 'Q') / 2), 2, '0')	AS T_0
+				, TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -1 *6), 'Q') / 2), 2, '0')		AS T_1
+				, TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -2 *6), 'Q') / 2), 2, '0')		AS T_2
+				, TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -3 *6), 'Q') / 2), 2, '0')		AS T_3
+				, TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -4 *6), 'Q') / 2), 2, '0')		AS T_4
+				, TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -5 *6), 'Q') / 2), 2, '0')		AS T_5
+				, TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -6 *6), 'Q') / 2), 2, '0')		AS T_6
+				, TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -7 *6), 'Q') / 2), 2, '0')		AS T_7
+				, TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -8 *6), 'Q') / 2), 2, '0')		AS T_8
+				, TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -9 *6), 'Q') / 2), 2, '0')		AS T_9
+				, TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -10 *6), 'Q') / 2), 2, '0')		AS T_10
+				, TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'YYYY') || LPAD(CEIL(TO_CHAR(ADD_MONTHS(DL.DT, -11 *6), 'Q') / 2), 2, '0')		AS T_11
 			</when>
 			<when test='termKndCd != null and termKndCd =="QY"'>
 				-- 분기
@@ -1731,6 +1732,30 @@
 		]]>
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrtRp		-->
+	<!-- DESC : 집계생성		                        	             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.09.21  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSptotRsltCrt" statementType="CALLABLE" parameterType="com.at.apcss.am.tot.vo.TotRsltVO">
+    	<![CDATA[
+			{call /* com.at.apcss.am.tot.mapper.TotMngMapper.insertSptotRsltCrt */
+				SP_TOT_RSLT_CRT (
+					  #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+					, #{apcCd}
+					, #{crtrYmd}
+				    , #{totCrtrType}
+				    , #{termKndCd}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+    </insert>
 
 
 	<!-- ==========================================================================	-->
