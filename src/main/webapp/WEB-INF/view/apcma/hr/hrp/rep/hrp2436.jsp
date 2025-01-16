@@ -1180,8 +1180,7 @@
             if (SENDTYPE == "ALL") {
                 conn = await fn_GetReportData('REPORT5', datas);
                 conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
-
+                let psw = conn[5].data.root[0].EMP_CODE;
                 await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_ALL.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
                     function(){
                         gfn_comConfirm("Q0001", "다운로드");
@@ -1190,7 +1189,7 @@
             } else if(SENDTYPE == "PAY") {
                 conn = await fn_GetReportData('REPORT3', datas);
                 conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
+                let psw = conn[5].data.root[0].EMP_CODE;
 
                 await gfn_getReportPdf("급여명세서.pdf", "ma/RPT_HRP2436_Q_PAY.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
                     function(){
@@ -1200,7 +1199,7 @@
             } else if(SENDTYPE == "WORK") {
                 conn = await fn_GetReportData('REPORT4', datas);
                 conn = await gfnma_convertDataForReport(conn);
-                let psw = conn[5].data.root[0].BIRTH_DATE;
+                let psw = conn[5].data.root[0].EMP_CODE;
 
                 await gfn_getReportPdf("근태현황.pdf", "ma/RPT_HRP2436_Q_WORK.crf", conn, {	userPassword : psw, ownerPassword : '1111'},
                     function(){
@@ -1313,8 +1312,6 @@
                     };
                     listData.push(param);
                 });
-
-                 return;
 
                 const postJsonPromise = gfn_postJSON("/co/sys/cal/updateCom2100.do", {listData: listData});
                 const data = await postJsonPromise;
