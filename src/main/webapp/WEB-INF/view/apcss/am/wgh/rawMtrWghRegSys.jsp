@@ -41,6 +41,11 @@
 		#wsarea div {
 			font-size: large;
 		}
+		#nowWght{
+			margin-left: 5px;
+			font-weight: bold;
+			font-size: medium;
+		}
 	</style>
 </head>
 <body oncontextmenu="return false">
@@ -54,14 +59,6 @@
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
-					<sbux-button
-							id="btnConnect"
-							name="btnConnect"
-							uitype="normal"
-							class="btn btn-sm btn-primary"
-							onclick="fn_connectWs"
-							text="데이터수신"
-					></sbux-button>
 					<sbux-button
 						id="btnDocRawMtrWgh"
 						name="btnDocRawMtrWgh"
@@ -137,7 +134,7 @@
 					<tbody>
 						<tr>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
-							<td class="td_input" style="border-right:hidden;" >
+							<td class="td_input" style="border-right:hidden; border-top: hidden" >
 								<sbux-datepicker
 									id="dtl-dtp-wghYmd"
 									name="dtl-dtp-wghYmd"
@@ -146,9 +143,9 @@
 									class="form-control input-sm input-sm-ast inpt_data_reqed"
 								></sbux-datepicker>
 							</td>
-							<td colspan="3"></td>
+							<td colspan="3" style="border-top: hidden"></td>
 							<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
-							<td class="td_input" style="border-right:hidden;">
+							<td class="td_input" style="border-right:hidden; border-top: hidden">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-prdcrNm"
@@ -162,7 +159,7 @@
     								autocomplete-select-callback="fn_onSelectPrdcrNm"
    								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden; border-top: hidden">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-prdcrIdentno"
@@ -174,7 +171,7 @@
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
 								/>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style="border-right: hidden; border-top: hidden">
 								<sbux-button
 									id="btnSrchPrdcr"
 									name="btnSrchPrdcr"
@@ -186,7 +183,7 @@
 								></sbux-button>
 							</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style="border-right: hidden; border-top: hidden">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-vhclno"
@@ -195,79 +192,124 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
+							<td colspan="3" class="td_input"  style="border-top: hidden">
 								<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>전체중량/시간</th>
-							<td class="td_input" style="border-right:hidden;" >
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-wholWght"
-									name="dtl-inp-wholWght"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									maxlength="6"
-									autocomplete="off"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-									onchange="fn_onChangeWholWght"
-								></sbux-input>
-							</td>
-							<td style="border-right:hidden;">Kg</td>
-							<td colspan="" class="td_input" style="border-right:hidden;" >
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-wholWghtTime"
-									name="dtl-inp-wholWghtTime"
-									class="form-control input-sm input-sm-ast"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<td>
-								<sbux-button
-									id="btnWhol"
-									name="btnWhol"
-									class="btn btn-xs btn-outline-dark"
-									text="측정"
-									uitype="normal"
-									onclick="fn_whol"
-								></sbux-button>
+							<td colspan="4" class="td_input" style="border-right: hidden;">
+								<div style="display: flex; gap: 5px">
+									<div style="flex-basis: 30%">
+										<sbux-input
+												uitype="text"
+												id="dtl-inp-wholWght"
+												name="dtl-inp-wholWght"
+												class="form-control input-sm input-sm-ast inpt_data_reqed"
+												maxlength="6"
+												autocomplete="off"
+												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+												onchange="fn_onChangeWholWght"
+										></sbux-input>
+									</div>
+									<div style="display: flex; align-items: center">
+										Kg
+									</div>
+									<div style="flex: 1">
+										<sbux-input
+												uitype="text"
+												id="dtl-inp-wholWghtTime"
+												name="dtl-inp-wholWghtTime"
+												class="form-control input-sm input-sm-ast"
+												autocomplete="off"
+												readonly
+										></sbux-input>
+									</div>
+									<div style="display: flex">
+										<sbux-button
+												id="btnWhol"
+												name="btnWhol"
+												class="btn btn-xs btn-outline-dark"
+												text="측정"
+												uitype="normal"
+												onclick="fn_whol"
+										></sbux-button>
+									</div>
+								</div>
 							</td>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>공차중량/시간</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-emptVhclWght"
-									name="dtl-inp-emptVhclWght"
-									class="form-control input-sm input-sm-ast inpt_data_reqed"
-									maxlength="6"
-									autocomplete="off"
-									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-									onchange="fn_onChangeEmptVhclWght"
-								></sbux-input>
+							<td class="td_input" colspan="4" style="border-right: hidden;">
+								<div style="display: flex; gap: 5px">
+									<div style="flex-basis: 30%">
+										<sbux-input
+												uitype="text"
+												id="dtl-inp-emptVhclWght"
+												name="dtl-inp-emptVhclWght"
+												class="form-control input-sm input-sm-ast inpt_data_reqed"
+												maxlength="6"
+												autocomplete="off"
+												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
+												onchange="fn_onChangeEmptVhclWght"
+										></sbux-input>
+									</div>
+									<div style="display: flex; align-items: center">
+										KG
+									</div>
+									<div style="flex: 1">
+										<sbux-input
+												uitype="text"
+												id="dtl-inp-emptVhclWghtTime"
+												name="dtl-inp-emptVhclWghtTime"
+												class="form-control input-sm input-sm-ast"
+												autocomplete="off"
+												readonly
+										></sbux-input>
+									</div>
+									<div style="display: flex">
+										<sbux-button
+												id="btnEmptVhcl"
+												name="btnEmptVhcl"
+												class="btn btn-xs btn-outline-dark"
+												text="측정"
+												uitype="normal"
+												onclick="fn_emptVhcl"
+										></sbux-button>
+									</div>
+								</div>
 							</td>
-							<td>Kg</td>
-							<td class="td_input" style="border-right:hidden;" >
-								<sbux-input
-									uitype="text"
-									id="dtl-inp-emptVhclWghtTime"
-									name="dtl-inp-emptVhclWghtTime"
-									class="form-control input-sm input-sm-ast"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<td>
-								<sbux-button
-									id="btnEmptVhcl"
-									name="btnEmptVhcl"
-									class="btn btn-xs btn-outline-dark"
-									text="측정"
-									uitype="normal"
-									onclick="fn_emptVhcl"
-								></sbux-button>
-							</td>
+<%--							<td class="td_input" style="border-right: hidden;">--%>
+<%--								<sbux-input--%>
+<%--									uitype="text"--%>
+<%--									id="dtl-inp-emptVhclWght"--%>
+<%--									name="dtl-inp-emptVhclWght"--%>
+<%--									class="form-control input-sm input-sm-ast inpt_data_reqed"--%>
+<%--									maxlength="6"--%>
+<%--									autocomplete="off"--%>
+<%--									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"--%>
+<%--									onchange="fn_onChangeEmptVhclWght"--%>
+<%--								></sbux-input>--%>
+<%--							</td>--%>
+<%--							<td>Kg</td>--%>
+<%--							<td class="td_input" style="border-right:hidden;" >--%>
+<%--								<sbux-input--%>
+<%--									uitype="text"--%>
+<%--									id="dtl-inp-emptVhclWghtTime"--%>
+<%--									name="dtl-inp-emptVhclWghtTime"--%>
+<%--									class="form-control input-sm input-sm-ast"--%>
+<%--									autocomplete="off"--%>
+<%--									readonly--%>
+<%--								></sbux-input>--%>
+<%--							</td>--%>
+<%--							<td>--%>
+<%--								<sbux-button--%>
+<%--									id="btnEmptVhcl"--%>
+<%--									name="btnEmptVhcl"--%>
+<%--									class="btn btn-xs btn-outline-dark"--%>
+<%--									text="측정"--%>
+<%--									uitype="normal"--%>
+<%--									onclick="fn_emptVhcl"--%>
+<%--								></sbux-button>--%>
+<%--							</td>--%>
 							<th scope="row" class="th_bg">실중량</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-input
@@ -279,7 +321,7 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td colspan="3">Kg</td>
+							<td class="td_input" colspan="3">Kg</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg"><span class="data_required" ></span>품목</th>
@@ -336,7 +378,7 @@
 									mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 								></sbux-input>
 							</td>
-							<td></td>
+							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">운임</th>
@@ -357,15 +399,17 @@
 									id="dtl-inp-rmrk"
 									name="dtl-inp-rmrk"
 									class="form-control input-sm"
+									style="width: 80%"
 								></sbux-input>
 							</td>
 							<th scope="row" class="th_bg">타출고처</th>
-							<td colspan="4" class="td_input" style="border-right:hidden;" >
+							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-oinstSpmtNm"
 									name="dtl-inp-oinstSpmtNm"
 									class="form-control input-sm"
+									style="width:80%"
 								></sbux-input>
 							</td>
 						</tr>
@@ -393,12 +437,13 @@
 							</td>
 							<td colspan="3"></td>
 							<th scope="row" class="th_bg">작업자</th>
-							<td class="td_input" style="border-right:hidden;" >
+							<td colspan="4" class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-inp-oprtrNm"
 									name="dtl-inp-oprtrNm"
 									class="form-control input-sm"
+									style="width:80%"
 								></sbux-input>
 							</td>
 						</tr>
@@ -580,9 +625,7 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
-
 		fn_init();
-
 	});
 
 	const fn_init = async function() {
@@ -591,6 +634,7 @@
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
+		ws.init();
 	}
 
 	const fn_getPrdcrs = async function() {
@@ -1122,10 +1166,12 @@
 	 * @description 전체중량 이벤트
 	 */
 	const fn_whol = function () {
-		console.log("전체중량 체크");
-
-		SBUxMethod.set('dtl-inp-wholWght', 28322);
-		SBUxMethod.set('dtl-inp-wholWghtTime', "2024-12-27 12:24:12");
+		let wght = $("#nowWght").text();
+		wght = parseFloat(wght) || 0;
+		let now = new Date();
+		const formattedDate = now.toLocaleString('ko-KR');
+		SBUxMethod.set('dtl-inp-wholWght', wght);
+		SBUxMethod.set('dtl-inp-wholWghtTime', formattedDate);
 	}
 
 	/**
@@ -1133,12 +1179,20 @@
 	 * @description 공차중량 이벤트
 	 */
 	const fn_emptVhcl = function () {
-		console.log("공차중량 체크");
-		SBUxMethod.set('dtl-inp-emptVhclWght', 3872);
-		SBUxMethod.set('dtl-inp-emptVhclWghtTime', "2024-12-27 13:24:12");
+		let wght = $("#nowWght").text();
+		wght = parseFloat(wght) || 0;
+		let now = new Date();
+		const formattedDate = now.toLocaleString('ko-KR');
+		SBUxMethod.set('dtl-inp-emptVhclWght', wght);
+		SBUxMethod.set('dtl-inp-emptVhclWghtTime', formattedDate);
 
-		let actlWght = ((parseFloat(SBUxMethod.get('dtl-inp-wholWght')) || 0) - (parseFloat(SBUxMethod.get('dtl-inp-emptVhclWght')) || 0)).toFixed(2);
-		SBUxMethod.set('dtl-inp-actlWght', actlWght);
+		fn_calWght();
+	}
+	const fn_calWght = function(){
+		let whol = parseFloat(SBUxMethod.get("dtl-inp-wholWght")) || 0;
+		let empt = parseFloat(SBUxMethod.get("dtl-inp-emptVhclWght")) || 0;
+
+		SBUxMethod.set('dtl-inp-actlWght', (whol - empt));
 	}
 
 	/**
@@ -1414,25 +1468,72 @@
                      fn_popApcLinkCallBack
                  );
      }
-	 const fn_connectWs = async function(){
-		let socket = new WebSocket("ws://localhost:9090/ws");
 
-		socket.onopen = () => {
-			console.log("Connected to WebSocket server");
-			socket.send("hello, server");
-			$("#wsarea").css("display","block");
-		};
+	const ws = {
+		socket: null,
+		init: function() {
+			this.socket = new WebSocket("ws://localhost:9090/ws");
 
-		socket.onmessage = (event) => {
-			console.log("received from server",event.data);
-			/** append text **/
-			$("#wsarea div").remove();
-			$("#wsarea").append(`<div>${'${event.data}'}</div>`);
-		}
-		socket.onclose = () => {
-			console.log("close");
-		}
-	 }
+			this.socket.onopen = () => {
+				console.log("서버에 연결됨");
+				this.socket.send("hello, server");
+			};
+
+			this.socket.onmessage = (event) => {
+				console.log("서버로부터 받은 메시지: ", event.data);
+				$("#nowWght").text('');
+				$("#nowWght").text(event.data);
+			};
+
+			this.socket.onerror = (error) => {
+				console.error("WebSocket Error: ", error);
+			};
+
+			this.socket.onclose = () => {
+				console.log("서버와의 연결이 종료됨");
+			};
+		},
+		//
+		// GetWholWght: function() {
+		// 	if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+		// 		this.socket.send("wholWght");
+		// 	} else {
+		// 		console.log("WebSocket 연결이 열리지 않았습니다.");
+		// 	}
+		// },
+		// GetEmptWght: function(){
+		// 	if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+		// 		this.socket.send("emptWght");
+		// 	} else {
+		// 		console.log("WebSocket 연결이 열리지 않았습니다.");
+		// 	}
+		// },
+		// handleResponse: async function(response) {
+		// 	const [key, value] = response.split(":");
+		// 	const result = {
+		// 		[key.trim()]: value.trim()
+		// 	};
+		// 	/** 시간 **/
+		// 	let now = new Date();
+		// 	const formattedDate = now.toLocaleString('ko-KR');
+		//
+		// 	if(result.hasOwnProperty("wholWght")){
+		// 		SBUxMethod.set("dtl-inp-wholWght",result.wholWght);
+		// 		SBUxMethod.set("dtl-inp-wholWghtTime",formattedDate);
+		// 	}else if(result.hasOwnProperty("emptWght")){
+		// 		SBUxMethod.set("dtl-inp-emptVhclWght",result.emptWght);
+		// 		SBUxMethod.set("dtl-inp-emptVhclWghtTime",formattedDate);
+		// 		fn_calWght();
+		// 	}
+		// 	/** 이후 데이터.. **/
+		// 	console.log(result);
+		// }
+	};
+	function addWghtInput(){
+		$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr td").last().remove();
+		$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr").append(`<th class='th_bg'>계량정보</th><td class='td_input' colspan="8"><span id="nowWght">수신중..</spna></td>`)
+	}
+	addWghtInput();
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
