@@ -560,13 +560,21 @@
             const endRow = parseInt(endCell.match(/\d+/)[0]);
             const column = startCell.replace(/\d+/g, ''); // 열 추출
 
-            sheet.getColumn(column).numFmt = validation.numFmt;
             for (let row = startRow; row <= endRow; row++) {
                 const cell = column + row;
 
+                let formulae;
+                if (Array.isArray(validation.formulae)) {
+                    formulae = validation.formulae; // 배열 그대로 사용
+                } else if (typeof validation.formulae === 'string') {
+                    formulae = [validation.formulae.replace(/[A-Z]+\d+/g, cell)]; // 문자열 처리
+                } else {
+                    formulae = []; // 기본값 처리
+                }
+
                 sheet.getCell(cell).dataValidation = {
                     type: validation.type,
-                    formulae: [validation.formulae.replace(/[A-Z]+\d+/g, cell)] || '',
+                    formulae: formulae,
                     allowBlank: validation.allowBlank || false,
                     showInputMessage: validation.promptTitle ? true : false,
                     promptTitle: validation.promptTitle || '',
@@ -575,6 +583,12 @@
                     errorTitle: validation.errorTitle || '',
                     error: validation.error || '',
                 };
+
+                if (validation.numFmt) {
+                    const [startCol] = validation.ref.split(':');
+                    const column = startCol.replace(/\d+/g, ''); // 열 이름 추출
+                    sheet.getColumn(column).numFmt = validation.numFmt;
+                }
             }
         });
     };
@@ -597,8 +611,8 @@
         const validations = [{
             ref: 'A2:A1000', // 검사 범위
             type: 'textLength',
-            operator: 'greaterThan',
-            formulae: '0',
+            operator: 'between',
+            formulae: [1, 10],
             allowBlank: false,
             showInputMessage: true,
             promptTitle: '입력 안내',
@@ -610,8 +624,8 @@
         }, {
             ref: 'B2:B1000', // 검사 범위
             type: 'textLength',
-            operator: 'greaterThan',
-            formulae: '0',
+            operator: 'between',
+            formulae: [1, 100],
             allowBlank: false,
             showInputMessage: true,
             promptTitle: '입력 안내',
@@ -657,7 +671,7 @@
             ref: 'F2:F1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -669,7 +683,7 @@
             ref: 'G2:G1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -681,7 +695,7 @@
             ref: 'H2:H1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -693,7 +707,7 @@
             ref: 'I2:I1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -705,7 +719,7 @@
             ref: 'J2:J1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -778,7 +792,7 @@
             ref: 'Q2:Q1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -790,7 +804,7 @@
             ref: 'R2:R1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -802,7 +816,7 @@
             ref: 'S2:S1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -814,7 +828,7 @@
             ref: 'T2:T1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -826,7 +840,7 @@
             ref: 'U2:U1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -838,7 +852,7 @@
             ref: 'V2:V1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -850,7 +864,7 @@
             ref: 'W2:W1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -862,7 +876,7 @@
             ref: 'X2:X1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -874,7 +888,7 @@
             ref: 'Y2:Y1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -886,7 +900,7 @@
             ref: 'Z2:Z1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
@@ -898,7 +912,7 @@
             ref: 'AA2:AA1000', // 검사 범위
             type: 'whole',
             operator: 'greaterThanOrEqual',
-            formulae: '0',
+            formulae: [-99999999999999.99999, 99999999999999.99999],
             showInputMessage: true,
             promptTitle: '입력 안내',
             prompt: '숫자를 입력하세요.',
