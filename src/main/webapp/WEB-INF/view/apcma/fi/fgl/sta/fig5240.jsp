@@ -406,7 +406,10 @@
 		SBUxMethod.set('SCH_FI_ORG_CODE', 			p_ss_fiOrgCode);
 		SBUxMethod.set('SCH_ACCT_RULE_CODE', 		p_ss_defaultAcctRule);
 		SBUxMethod.set('SCH_CHKSUM_YN', 			'N');
+		
+		SBUxMethod.set('SCH_CHKREPORT_YN', 			'Y');
 		SBUxMethod.set('SCH_CHKZERO_INCLUDE_YN', 	'Y');
+		SBUxMethod.set('SCH_CHKHQ_YN', 				'Y');
     	
     	//년월
         var sdate	= gfnma_date1().substr(0,4) + gfnma_date1().substr(5,2);

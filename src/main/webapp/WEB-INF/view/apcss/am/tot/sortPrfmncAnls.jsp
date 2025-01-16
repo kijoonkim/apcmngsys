@@ -111,12 +111,44 @@
                 <tr>
                     <th scope="row" class="th_bg">생산자</th>
                     <td class="td_input" colspan="3" style="border-right: hidden">
-                        <sbux-input id="srch-slt-vhclno"
-                                    name="srch-slt-vhclno"
-                                    uitype="text"
-                                    class="form-control input-sm"
-                                    style="width: 80%">
-                        </sbux-input>
+                        <div style="display: flex; gap: 5px; justify-content: left; align-items: center;">
+                            <div style="flex-basis: 15%">
+                                <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+                                <sbux-input
+                                        uitype="text"
+                                        id="srch-inp-prdcrIdentno"
+                                        name="srch-inp-prdcrIdentno"
+                                        class="form-control input-sm"
+                                        maxlength="3"
+                                        autocomplete="off"
+                                        onchange="fn_onChangeSrchPrdcrIdentno(this)"
+                                />
+                            </div>
+                            <div>
+                                <sbux-input
+                                        uitype="text"
+                                        id="srch-inp-prdcrNm"
+                                        name="srch-inp-prdcrNm"
+                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        placeholder="초성검색 가능"
+                                        autocomplete-ref="jsonPrdcrAutocomplete"
+                                        autocomplete-text="name"
+                                        autocomplete-height="270px"
+                                        oninput="fn_onInputPrdcrNm(event)"
+                                        autocomplete-select-callback="fn_onSelectPrdcrNm"
+                                ></sbux-input>
+                            </div>
+                            <div>
+                                <sbux-button
+                                        id="btn-srch-prdcr"
+                                        name="btn-srch-prdcr"
+                                        class="btn btn-xs btn-outline-dark"
+                                        text="찾기" uitype="modal"
+                                        target-id="modal-prdcr"
+                                        onclick="fn_choicePrdcr"
+                                ></sbux-button>
+                            </div>
+                        </div>
                     </td>
                     <th scope="row" class="th_bg">상세구분</th>
                     <td class="td_input" colspan="4" style="border-right: hidden">
@@ -154,23 +186,45 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="sb-area-rtnCrtr"></div>
+                    <div id="sb-area-rtnCrtr" style="height: 400px"></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- 생산자 선택 Modal -->
+<div>
+    <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+</div>
+<div id="body-modal-prdcr">
+    <jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+</div>
+
 </body>
 <script type="application/javascript">
     /** grid 변수 셋팅 **/
     var jsonRtnCrtr = [];
     let gridRtnCrtr;
 
+    var jsonApcItem = [];
+    var jsonApcVrty = [];
+
+    /* 생산자 자동완성 */
+    var jsonPrdcr			= [];
+    var jsonPrdcrAutocomplete = [];
     window.addEventListener("DOMContentLoaded",function(){
         fn_init();
+        fn_initSelect();
     });
     const fn_init = async function(){
         await fn_create_rtnCrtr();
+        SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
+    }
+    const fn_initSelect = async function(){
+       let rst = await Promise.all([
+           gfn_setApcItemSBSelect('srch-slt-itemCd',jsonApcItem, gv_selectedApcCd),
+        ]);
     }
 
     const fn_create_rtnCrtr = async function(){
@@ -195,6 +249,168 @@
         ]
         gridRtnCrtr = _SBGrid.create(SBGridProperties);
     }
+
+    /**
+     * @name fn_onChangeSrchItemCd
+     * @description 품목 선택 변경 event
+     */
+    const fn_onChangeSrchItemCd = async function(obj) {
+        let itemCd = obj.value;
+        let result = await Promise.all([
+            gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),
+        ]);
+        console.log(result[0]);
+    }
+
+    /**
+     * @name fn_onChangeSrchVrtyCd
+     * @description 품종 선택 변경 event
+     */
+    const fn_onChangeSrchVrtyCd = async function(obj) {
+        let vrtyCd = obj.value;
+        const itemCd = vrtyCd.substring(0,4);
+
+        const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+        if(!gfn_isEmpty(vrtyCd)){
+
+            SBUxMethod.set("srch-inp-wghtAvg", "");
+
+            if (itemCd != prvItemCd) {
+                SBUxMethod.set("srch-slt-itemCd", itemCd);
+                await fn_onChangeSrchItemCd({value: itemCd});
+                SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+            } else{
+                SBUxMethod.set("srch-slt-itemCd", itemCd);
+                await fn_onChangeSrchItemCd({value: itemCd});
+                SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+            }
+        }
+    }
+
+    /** 생산자 auto satrt **/
+    /**
+     * @name fn_getPrdcrs
+     * @description 생산자 자동완성 JSON 설정
+     */
+    const fn_getPrdcrs = async function() {
+        jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
+        jsonPrdcr = gfn_setFrst(jsonPrdcr);
+    }
+    /**
+     * @name getByteLengthOfString
+     * @description 글자 byte 크기 계산
+     */
+    const getByteLengthOfString = function (s, b, i, c) {
+        for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+        return b;
+    }
+
+    /**
+     * @name fn_onInputPrdcrNm
+     * @description 생산자명 입력 시 event : autocomplete
+     */
+    const fn_onInputPrdcrNm = function(prdcrNm){
+        fn_clearPrdcr();
+        if(getByteLengthOfString(prdcrNm.target.value) > 100){
+            SBUxMethod.set("srch-inp-prdcrNm", "");
+            return;
+        }
+        jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
+        SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+    }
+
+    /**
+     * @name fn_onSelectPrdcrNm
+     * @description 생산자 autocomplete 선택 callback
+     */
+    function fn_onSelectPrdcrNm(value, label, item) {
+        // 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+        if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
+            document.getElementById('btn-srch-prdcr').click();
+        } else{
+            SBUxMethod.set("srch-inp-prdcrCd", value);
+            SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+            let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+            prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
+
+            fn_setPrdcrForm(prdcr);
+
+        }
+    }
+
+    /**
+     * @name fn_clearPrdcr
+     * @description 생산자 폼 clear
+     */
+    const fn_clearPrdcr = function() {
+        SBUxMethod.set("srch-inp-prdcrCd", "");
+        SBUxMethod.set("srch-inp-prdcrIdentno", "");
+        SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+    }
+
+    /**
+     * @name fn_choicePrdcr
+     * @description 생산자 선택 popup 호출
+     */
+    const fn_choicePrdcr = function() {
+        popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+    }
+
+    /**
+     * @name fn_setPrdcr
+     * @description 생산자 선택 popup callback 처리
+     */
+    const fn_setPrdcr = async function(prdcr) {
+
+        await fn_getPrdcrs();
+
+        if (!gfn_isEmpty(prdcr)) {
+            SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+            SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+            SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+            fn_setPrdcrForm(prdcr);
+        }
+    }
+
+    const fn_setPrdcrForm = async function(prdcr) {
+
+        if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+            await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+            SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
+            fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
+        } else {
+            if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
+                const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+                if (prvItemCd != prdcr.rprsItemCd) {
+                    SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
+                    fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+                }
+            }
+        }
+
+        if (!gfn_isEmpty(prdcr.wrhsSeCd)) {	// 입고구분
+            SBUxMethod.set("srch-rdo-wrhsSeCd", prdcr.wrhsSeCd);
+        }
+        if (!gfn_isEmpty(prdcr.gdsSeCd)) {	// 상품구분
+            SBUxMethod.set("srch-rdo-gdsSeCd", prdcr.gdsSeCd);
+        }
+        if (!gfn_isEmpty(prdcr.trsprtSeCd)) {	// 운송구분
+            SBUxMethod.set("srch-rdo-trsprtSeCd", prdcr.trsprtSeCd);
+        }
+        if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
+            SBUxMethod.set("srch-inp-vhclno", prdcr.vhclno);
+        }
+
+        if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+            SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+        } else {
+            SBUxMethod.set("srch-inp-prdcrIdentno", "");
+        }
+
+    }
+    /** 생산자 auto end **/
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

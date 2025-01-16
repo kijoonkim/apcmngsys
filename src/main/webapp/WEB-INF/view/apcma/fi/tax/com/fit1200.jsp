@@ -124,7 +124,7 @@
                         <tr>
                             <th scope="row" class="th_bg">사업장 구분</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="reg-slt-taxSiteType" uitype="single" jsondata-ref="jsonTaxSiteType"
+                                <sbux-select id="reg-slt-TX_SITE_TYPE" uitype="single" jsondata-ref="jsonTaxSiteType"
                                              unselected-text="선택" class="form-control input-sm"
                                              jsondata-text="CD_NM" jsondata-value="SBSD_CD"></sbux-select>
                             </td>
@@ -132,9 +132,9 @@
                             <th scope="row" class="th_bg">사업장 코드</th>
                             <td colspan="2" class="td_input" style="border-right: hidden;">
                                 <div style="display: flex; gap: 5px">
-                                <sbux-input id="reg-slt-wholePaySiteCode" name="reg-slt-wholePaySiteCode" uitype="text" class="form-control input-sm" wrap-style="flex-basis:30%"></sbux-input>
+                                <sbux-input id="reg-slt-OVS_BPLC_CD" name="reg-slt-OVS_BPLC_CD" uitype="text" class="form-control input-sm" wrap-style="flex-basis:30%"></sbux-input>
                                 <div style="display: flex;position: relative">
-                                    <sbux-input id="reg-slt-taxSiteName" name="reg-slt-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
+                                    <sbux-input id="reg-slt-TX_SITE_NM" name="reg-slt-TX_SITE_NM" uitype="text" class="form-control input-sm"></sbux-input>
                                     <button style="background-image:url('/static/resource/svg/dot_w.svg');background-repeat: no-repeat; background-position: center;
                                     background-size: contain; position: absolute; right: 1px; top: 1px; bottom: 1px; border: 0; background-color: white; width: 10px;" onclick="fn_openPopup()"></button>
                                 </div>
@@ -142,31 +142,31 @@
                             </td>
                             <th scope="row" class="th_bg">신고번호</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-slt-wholePaySiteNo" name="reg-slt-wholePaySiteNo" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-slt-OVS_BPLC_NO" name="reg-slt-OVS_BPLC_NO" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">대손채권세액공제비율(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-baddebtsNumerator" name="reg-inp-baddebtsNumerator" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-BADDT_RPMT_NMTR" name="reg-inp-BADDT_RPMT_NMTR" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">의제매입세액(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-deemedNumerator" name="reg-inp-deemedNumerator" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-DMINPT_NMTR" name="reg-inp-DMINPT_NMTR" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg">대손채권세액공제비율(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-baddebtsDenominator" name="reg-inp-baddebtsDenominator" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-BADDT_RPMT_DNMNTR" name="reg-inp-BADDT_RPMT_DNMNTR" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">의제매입세액(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-deemedDenominator" name="reg-inp-deemedDenominator" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-DMINPT_DNMNTR" name="reg-inp-DMINPT_DNMNTR" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -174,7 +174,7 @@
                             <td colspan="3" style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">한도율(분자)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-deemLimitNum" name="reg-inp-deemLimitNum" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-DMINPT_NMTR_LMT" name="reg-inp-DMINPT_NMTR_LMT" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -182,7 +182,7 @@
                             <td colspan="3" style="border-right: hidden"></td>
                             <th scope="row" class="th_bg">한도율(분모)</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="reg-inp-deemLimitDenom" name="reg-inp-deemLimitDenom" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="reg-inp-DMINPT_DNMNTR_LMT" name="reg-inp-DMINPT_DNMNTR_LMT" uitype="text" class="form-control input-sm"></sbux-input>
                             </td>
                             <td colspan="4"></td>
                         </tr>
@@ -333,7 +333,7 @@
                 let elements = table.querySelectorAll("[id^='reg-']");
                 let idsArray = Array.from(elements).map(element => element.id);
                 for(let key in data.cv_1[0]){
-                    let sbElId = gfnma_snakeToCamel(key);
+                    let sbElId = key;
                     idsArray.forEach(item => {
                        let sbId = item.split('-').pop();
                        if(sbElId == sbId){
@@ -410,11 +410,11 @@
     function dblclick(){
         let gridIdx = grdTaxSite.getRow();
         let rowData = grdTaxSite.getRowData(gridIdx);
-        let _siteCode = rowData.TAX_SITE_CODE;
-        let _orgsiteName = rowData.TAX_SITE_NAME;
+        let _siteCode = rowData.TX_SITE_CD;
+        let _orgsiteName = rowData.TX_SITE_NM;
  
-        SBUxMethod.set("reg-slt-wholePaySiteCode",_siteCode);
-        SBUxMethod.set("reg-slt-taxSiteName",_orgsiteName);
+        SBUxMethod.set("reg-slt-OVS_BPLC_CD",_siteCode);
+        SBUxMethod.set("reg-slt-TX_SITE_NM",_orgsiteName);
  
         SBUxMethod.closeModal('wholePaySitePopup');
     }

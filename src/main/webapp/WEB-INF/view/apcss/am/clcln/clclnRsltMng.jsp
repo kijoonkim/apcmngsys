@@ -693,7 +693,84 @@
  	}
 
 
- 	/**
+
+	/**
+	 * @description 메뉴트리그리드 컨텍스트메뉴 json
+	 * @type {object}
+	 */
+	const objMenuList = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",			//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",					//단축키
+			"callback": fn_excelDwnld,			//콜백함수명
+		},
+		"personalSave" : {
+			"name": "개인화 저장",				//컨텍스트메뉴에 표시될 이름
+			"accesskey": "s",					//단축키
+			"callback": fn_personalSave,		//콜백함수명
+		},
+		"personalLoad" : {
+			"name": "개인화 호출",				//컨텍스트메뉴에 표시될 이름
+			"accesskey": "l",					//단축키
+			"callback": fn_personalLoad,		//콜백함수명
+		},
+		"colHidden" : {
+			"name": "열 숨기기",				//컨텍스트메뉴에 표시될 이름
+			"accesskey": "h",					//단축키
+			"callback": fn_colHidden,			//콜백함수명
+		},
+		"colShow" : {
+			"name": "열 보이기",				//컨텍스트메뉴에 표시될 이름
+			"accesskey": "w",					//단축키
+			"callback": fn_colShow,				//콜백함수명
+		}
+	};
+
+	// 엑셀 다운로드
+	function fn_excelDwnld() {
+
+		if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")){
+			grdClclnRslt.exportData("xlsx","정산실적",true);
+		} else {
+			grdClclnRslt.exportLocalExcel("정산실적", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		}
+
+	}
+
+	let nCol = []
+	// exportData에서 제외할 컬럼을 담습니다.
+	function ExcelExport(checkbox) {
+		if (checkbox.checked) {
+			nCol.push(grdClclnRslt.getMouseCol())
+			// 체크된 컬럼을 배열에 담습니다.
+		} else if (!checkbox.checked) {
+			nCol = nCol.filter(item=>item !== grdClclnRslt.getMouseCol())
+			// 체크해제된 컬럼을 배열에서 제거합니다.
+		}
+	}
+
+	// 개인화 저장
+	function fn_personalSave(){
+		grdClclnRslt.savePersonalInfo("apcCd");
+	}
+	// 개인화 호출
+	function fn_personalLoad(){
+		grdClclnRslt.loadPersonalInfo("apcCd");
+	}
+	// 열 숨기기
+	function fn_colHidden(){
+		grdClclnRslt.setColHidden(grdClclnRslt.getCol(), true);
+	}
+	// 열 보이기
+	function fn_colShow(){
+		for(let i = grdClclnRslt.getFixedCols(); i < grdClclnRslt.getCols()-1; i++) {
+			grdClclnRslt.setColHidden(i, false);
+		}
+	}
+
+
+
+	/**
      * @name fn_createGrid
      * @description 정산실적 그리드 생성
      * @function
@@ -709,6 +786,8 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.scrollbubbling = false;
+		SBGridProperties.contextmenu = true;			// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuList;	// 우클릭 메뉴 리스트
 		SBGridProperties.frozencols = 2;
 	    //SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
@@ -1783,7 +1862,6 @@
   				grdClclnRslt.rebuild();
 
 	        	document.querySelector('#cnt-clclnRslt').innerText = totalRecordCount;
-	        	console.log(jsonClclnRslt)
 
         	} else {
         		gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.

@@ -264,6 +264,9 @@
         <if test='shpgotCrtrType != null and shpgotCrtrType != ""'>
             AND SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
         </if>
+        <if test='shpgotTrgtCd != null and shpgotTrgtCd != ""'>
+            AND SHPGOT_TRGT_CD = #{shpgotTrgtCd}
+        </if>
     </select>
     <!-- ==========================================================================	-->
     <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.selectShpgotApcCrtrDtlList	-->
@@ -298,6 +301,9 @@
         APC_CD = #{apcCd}
         <if test='shpgotCrtrType != null and shpgotCrtrType != ""'>
             AND SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+        </if>
+        <if test='crtrCd != null and crtrCd != ""'>
+            AND CRTR_CD = #{crtrCd}
         </if>
     </select>
     <!-- ==========================================================================	-->
@@ -337,12 +343,35 @@
             ,SYS_LAST_CHG_DT
             ,SYS_LAST_CHG_USER_ID
             ,SYS_LAST_CHG_PRGRM_ID
+            , (SELECT FN_GET_PRDCR_NM(PRDCR_CD, APC_CD) FROM DUAL) AS PRDCR_NM
+            , (SELECT FN_GET_ITEM_NM(ITEM_CD, APC_CD) FROM DUAL) AS ITEM_NM
+            , (SELECT FN_GET_VRTY_NM(ITEM_CD, VRTY_CD, APC_CD) FROM DUAL) AS VRTY_NM
         FROM
             TB_SHPGOT_APC_RAW_MTR
         WHERE
             APC_CD = #{apcCd}
-        AND
-            WRHSNO = #{wrhsno}
+        <if test='wrhsno != null and wrhsno !=""'>
+            AND WRHSNO = #{wrhsno}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+            AND ITEM_CD = #{itemCd}
+        </if>
+        <if test='prdcrCd != null and prdcrCd !=""'>
+            AND PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd !=""'>
+            AND VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='warehouseSeCd != null and warehouseSeCd !=""'>
+            AND WAREHOUSE_SE_CD = #{warehouseSeCd}
+        </if>
+        <if test='shpgotYmdFrom != null and shpgotYmdFrom !=""'>
+            AND SHPGOT_YMD <![CDATA[>=]]> #{shpgotYmdFrom}
+        </if>
+        <if test='shpgotYmdTo != null and shpgotYmdTo !=""'>
+            AND SHPGOT_YMD <![CDATA[<=]]> #{shpgotYmdTo}
+        </if>
+
     </select>
     <!-- ==========================================================================	-->
     <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.deleteShpgotApcCrtr     -->
@@ -382,5 +411,95 @@
           AND DTL_SN = #{dtlSn}
         </if>
     </delete>
-
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.insertShpgotRawMtr      -->
+    <!-- DESC : 반품 등록 생성           	                         	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.14  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertShpgotRawMtr" parameterType="list">
+        INSERT INTO TB_SHPGOT_APC_RAW_MTR
+            (
+                 APC_CD
+                ,SHPGOT_YMD
+                ,SHPGOT_SN
+                ,DTL_SN
+                ,WRHSNO
+                ,PRDCR_CD
+                ,ITEM_CD
+                ,VRTY_CD
+                ,GRD_CD
+                ,SPCFCT_CD
+                ,SPMT_PCKG_UNIT_CD
+                ,GDS_SE_CD
+                ,WRHS_SE_CD
+                ,WAREHOUSE_SE_CD
+                ,CNPT_CD
+                ,SHPGOT_CS_CD
+                ,SHPGOT_BAD_CD
+                ,SHPGOT_RMRK
+                ,SHPGOT_QNTT
+                ,SHPGOT_WGHT
+                ,DEL_YN
+                ,SYS_FRST_INPT_DT
+                ,SYS_FRST_INPT_USER_ID
+                ,SYS_FRST_INPT_PRGRM_ID
+                ,SYS_LAST_CHG_DT
+                ,SYS_LAST_CHG_USER_ID
+                ,SYS_LAST_CHG_PRGRM_ID
+            )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+             #{item.apcCd}
+            ,#{item.shpgotYmd}
+            ,#{item.shpgotSn}
+            ,#{item.dtlSn}
+            ,#{item.wrhsno}
+            ,#{item.prdcrCd}
+            ,#{item.itemCd}
+            ,#{item.vrtyCd}
+            ,#{item.grdCd}
+            ,#{item.spcfctCd}
+            ,#{item.spmtPckgUnitCd}
+            ,#{item.gdsSeCd}
+            ,#{item.wrhsSeCd}
+            ,#{item.warehouseSeCd}
+            ,#{item.cnptCd}
+            ,#{item.shpgotCsCd}
+            ,#{item.shpgotBadCd}
+            ,#{item.shpgotRmrk}
+            ,#{item.shpgotQntt}
+            ,#{item.shpgotWght}
+            ,#{item.delYn}
+            ,SYSDATE
+            ,#{item.sysFrstInptUserId}
+            ,#{item.sysFrstInptPrgrmId}
+            ,SYSDATE
+            ,#{item.sysLastChgUserId}
+            ,#{item.sysLastChgPrgrmId}
+            )
+        </foreach>
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.ShpgotMngMapper.deleteShpgotRawMtr      -->
+    <!-- DESC : 반품 등록 생성           	                         	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.14  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteShpgotRawMtr" parameterType="com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO">
+        DELETE FROM TB_SHPGOT_APC_RAW_MTR
+        WHERE
+            APC_CD = #{apcCd}
+        AND
+            SHPGOT_YMD = #{shpgotYmd}
+        AND
+            SHPGOT_SN = #{shpgotSn}
+        AND
+            DTL_SN = #{dtlSn}
+    </delete>
 </mapper>

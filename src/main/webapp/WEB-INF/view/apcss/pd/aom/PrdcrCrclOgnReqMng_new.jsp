@@ -872,6 +872,7 @@
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p><b> o 생산유통 통합조직은 통합조직 및 소속 출자출하조직의 융자원장을 확인하여 이상이 있을 시 aT 061-931-1051로 문의 </b></p>
 					<p><b> o 이상치 확인 후 최종 대출잔액 재게시 예정(2월 초)</b></p>
+					<p>o 단위 : 원</p>
 				</div>
 				<div class="sb-area-grdLoan">
 					<!-- SBGrid를 호출합니다. -->
@@ -1072,7 +1073,6 @@
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
-
 		/**
 		 * 엔터시 검색 이벤트
 		 */
@@ -1169,12 +1169,11 @@
 		await fn_initSBSelect();
 		await fn_dtlSearch();
 	</c:if>
-
 	}
 
 	/* 기본 년도값 세팅 */
 	const fn_setYear = async function() {
-		console.log('fn_selectSetYear');
+		//console.log('fn_selectSetYear');
 		let cdId = "SET_YEAR";
 		//SET_YEAR 공통코드의 1첫번쨰 순서의 값 불러오기
 		let postJsonPromise = gfn_postJSON("/pd/bsm/selectSetYear.do", {
@@ -1326,11 +1325,11 @@
 			{caption: ["조직구분"],		ref: 'ognzSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["조직유형"],		ref: 'ognzTypeNm',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["'24년 실대출액"],		ref: 'aclnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["'24년 미대출액"],		ref: 'unlnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["'24년 대출 기말잔액"],	ref: 'lnndngBlnc',	type:'output',  width:'120px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["'25년 상환예정액"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["기사용액\n'24년 잔액-'25년 상환"],	ref: 'uam',	type:'output',  width:'140px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 실대출액(원)"],		ref: 'aclnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 미대출액(원)"],		ref: 'unlnAmt',	type:'output',  width:'120px',	style:'text-align:right'			,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'24년 대출 기말잔액(원)"],	ref: 'lnndngBlnc',	type:'output',  width:'150px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["'25년 상환예정액(원)"],		ref: 'exprpymntAmt',	type:'output',  width:'120px',	style:'text-align:right'	,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+			{caption: ["기사용액\n'24년 잔액-'25년 상환(원)"],	ref: 'uam',	type:'output',  width:'160px',	style:'text-align:right'		,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 			{caption: ["대출처"],				ref: 'lnSrc',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["확인여부"],				ref: 'lnChkYn',	type:'output',  width:'80px',	style:'text-align:center'},
 
@@ -1358,7 +1357,6 @@
 		let currentPageNo = grdPrdcrCrclOgnReqMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
 	}
-
 
 	const fn_report = async function() {
 
@@ -1640,12 +1638,27 @@
 
 			//산지조직관리 작성 확인
 			if(wrtYn != 'Y'){
-				alert("산지조직관리 작성이 필요합니다.");
 				$(".btn").hide();// 모든 버튼 숨기기
 				$(".sb-area-grdGpcList").hide();
-
 				SBUxMethod.clearAllData();//모든 데이터 클리어
-				return false;
+
+				alert("산지조직관리 작성이 필요합니다.");
+
+				//iframe 밖의 탭 닫기
+				//parent.tabJsonData 열린 탭 정보 리스트
+				//parent.SBUxMethod.get('tab_menu') 현재 선택된 탭이름
+				//현재 열린 탭정보
+				let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
+
+				//사이드 메뉴를 누르기 전 상태로 돌려야함
+				//removeTab 으로 탭 닫기 하는경우 기존 사이드메뉴 누른 상태가 남아서
+				//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+				parent.SBUxMethod.refresh('side_menu');
+				//탭닫기
+				parent.gfn_tabClose(tabInfo);
+				//parent.gfn_tabClose("TAB_PD_003_003");
+				//parent.SBUxMethod.removeTab('tab_menu','TAB_PD_003_003');
+				return;
 			}
 			//마감 확인
 			if(corpDdlnSeCd == 'Y'){

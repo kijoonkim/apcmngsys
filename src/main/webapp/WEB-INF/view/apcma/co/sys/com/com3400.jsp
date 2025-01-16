@@ -2557,7 +2557,6 @@
             {caption : ["매칭유형"], 			ref: 'MAP_TYPE', width : '150px', style : 'text-align:center', type : 'combo', userattr : {required : true} ,
                 typeinfo : {
                     ref : 'jsonMapType',
-                    
                     label : 'label',
                     value : 'value'
                 }
@@ -4127,7 +4126,6 @@
     	
     	SBUxMethod.attr('modal-compopup3', 'header-title', '복수코드');
 		SBUxMethod.openModal('modal-compopup3');
-		
     	compopup3({
     		height			: '400px'
    			,callbackEvent	: function (data){
@@ -4142,7 +4140,8 @@
    				}else{
    					SBUxMethod.set('SRCH_MULTI_YN', 'N');
    				}
-   			},
+   			}
+   			,data : multiSelectData
     	});
     	SBUxMethod.setModalCss('modal-compopup3', {width:'400px'})
   	}    

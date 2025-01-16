@@ -4,26 +4,11 @@ import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @Class Name : SpmtCmndVO.java
- * @Description : 반품기준 관리에대한 VO 클래스
- * @author 손민성
- * @since 2025.01.04
- * @version 1.0
- * @see
- *
- * <pre>
- * << 개정이력(Modification Information) >>
- * 수정일        수정자        수정내용
- * ----------  ----------  ---------------------------
- * 2025.01.04  손민성        최초 생성
- * </pre>
- */
 @Getter
 @Setter
-public class ShpgotApcRawMtrVO extends ComVO {
+public class ShpgotApcGdsVO extends ComVO {
     /**
-     * APC코드
+     * APC 코드
      */
     private String apcCd;
 
@@ -31,8 +16,6 @@ public class ShpgotApcRawMtrVO extends ComVO {
      * 반출일자
      */
     private String shpgotYmd;
-    private String shpgotYmdTo;
-    private String shpgotYmdFrom;
 
     /**
      * 반출일련번호
@@ -45,36 +28,34 @@ public class ShpgotApcRawMtrVO extends ComVO {
     private int dtlSn;
 
     /**
-     * 입고번호
+     * 반출번호
      */
-    private String wrhsno;
+    private String shpgotNo;
+
+    /**
+     * 포장번호
+     */
+    private String pckgno;
+
+    /**
+     * 포장순번
+     */
+    private int pckgSn;
 
     /**
      * 생산자코드
      */
     private String prdcrCd;
-    /**
-     * 생산자명
-     */
-    private String prdcrNm;
 
     /**
      * 품목코드
      */
     private String itemCd;
-    /**
-     * 품목코드명
-     */
-    private String itemNm;
 
     /**
      * 품종코드
      */
     private String vrtyCd;
-    /**
-     * 품종코드명
-     */
-    private String vrtyNm;
 
     /**
      * 등급코드
@@ -134,5 +115,6 @@ public class ShpgotApcRawMtrVO extends ComVO {
     /**
      * 반출중량
      */
-    private double shpgotWght;
+    private int shpgotWght;
+
 }

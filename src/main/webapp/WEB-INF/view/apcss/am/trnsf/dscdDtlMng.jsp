@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : rtnPrfmncInqGds.jsp
-     * @Description : 반품 실적 조회(상품) 화면
+     * @Class Name : dscdDtlMng.jsp
+     * @Description : 폐기 상세 관리 화면
      * @author SI개발부
      * @since 2024.12.19
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 반품 실적 조회(상품)</title>
+    <title>title : 폐기 상세 관리</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -34,7 +34,6 @@
                 <%--/** 상단 버튼 **/--%>
                 <div style="margin-left: auto;">
                     <sbux-button
-                        disabled="true"
                         id="btnSave"
                         name="btnSave"
                         uitype="normal"
@@ -43,7 +42,6 @@
                         onclick="fn_save"
                     ></sbux-button>
                     <sbux-button
-                        disabled="true"
                         id="btnDelete"
                         name="btnDelete"
                         uitype="normal"
@@ -63,7 +61,7 @@
             </div>
             <div class="box-body">
                 <%@ include file="../../../frame/inc/apcSelect.jsp" %>
-                <table class="table table-bordered tbl_fixed">
+                <table id="searchTable" class="table table-bordered tbl_fixed">
                     <colgroup>
                         <col style="width: 7%">
                         <col style="width: 6%">
@@ -86,16 +84,16 @@
                                 <div style="display: flex;justify-content: center;align-items: center">
                                     <sbux-datepicker
                                         uitype="popup"
-                                        id="srch-dtp-wrhsYmdFrom"
-                                        name="srch-dtp-wrhsYmdFrom"
+                                        id="srch-dtp-dscdYmdFrom"
+                                        name="srch-dtp-dscdYmdFrom"
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
                                     ></sbux-datepicker>
                                     <div style="width: 2vw;text-align: center">~</div>
                                     <sbux-datepicker
                                         uitype="popup"
-                                        id="srch-dtp-wrhsYmdTo"
-                                        name="srch-dtp-wrhsYmdTo"
+                                        id="srch-dtp-dscdYmdTo"
+                                        name="srch-dtp-dscdYmdTo"
                                         date-format="yyyy-mm-dd"
                                         class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
                                     ></sbux-datepicker>
@@ -196,7 +194,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div id="sb-area-rtnCrtr"></div>
+                        <div id="sb-area-gridDscdPrfmnc"></div>
                     </div>
                 </div>
             </div>
@@ -223,10 +221,10 @@
 <script type="application/javascript">
     /** grid 변수 셋팅 **/
     var jsonRtnCrtr = [];
-    var jsonApcItem			= [];	// 품목 		itemCd		    검색
-    var jsonApcVrty			= [];	// 품종 		vrtyCd		    검색
+    var jsonApcItem = [];	// 품목   itemCd  검색
+    var jsonApcVrty = [];	// 품종   vrtyCd  검색
 
-    let gridRtnCrtr;
+    let gridDscdPrfmnc;
 
     /** 생산자 관련 변수 **/
     var jsonDataPrdcr = [];
@@ -235,8 +233,8 @@
     var autoCompleteDataJson = [];
 
     window.addEventListener("DOMContentLoaded", function() {
-        SBUxMethod.set("srch-dtp-wrhsYmdTo", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("srch-dtp-wrhsYmdFrom", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-dscdYmdTo", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-dscdYmdFrom", gfn_dateToYmd(new Date()));
 
         fn_init();
     });
@@ -247,89 +245,188 @@
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_apcCd),	// 품종
         ])
 
-        await fn_create_rtnCrtr();
+        await fn_createGrid();
+        await fn_getPrdcrs();
     }
 
-    const fn_create_rtnCrtr = async function() {
+    const fn_createGrid = async function() {
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-rtnCrtr';
-        SBGridProperties.id = 'gridRtnCrtr';
-        SBGridProperties.jsonref = 'jsonRtnCrtr';
+        SBGridProperties.parentid = 'sb-area-gridDscdPrfmnc';
+        SBGridProperties.id = 'gridDscdPrfmnc';
+        SBGridProperties.jsonref = 'jsonDscdPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {
-                caption: [""],
-                ref: 'fcltCd',
-                type: 'output',
-                width: '5%',
-                style: 'text-align: center;'
+                caption: ["<input type='checkbox' onchange='fn_checkAll(gridDscdPrfmnc, this);'>"],
+                ref: 'checkedYn',
+                width: '3%',
+                style: 'text-align: center',
+                type: 'checkbox',
+                typeinfo: {
+                    checkedvalue: 'Y',
+                    uncheckedvalue: 'N'
+                }
             },
             {
                 caption: ["품목"],
-                ref: 'wghYmd',
+                ref: 'itemNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["품종"],
-                ref: 'wghFcltCd',
+                ref: 'vrtyNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["생산자"],
-                ref: 'wghno',
+                ref: 'prdcrNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["상세구분"],
-                ref: 'wghno',
+                ref: 'crtrIndctNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["폐기번호"],
-                ref: 'vhclno',
+                ref: 'dscdSn',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["수량"],
-                ref: 'vhclno',
+                ref: 'dscdQntt',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["중량"],
-                ref: 'vhclno',
+                ref: 'dscdWght',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["상세코드"],
-                ref: 'vhclno',
+                ref: 'dtlCd',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
             },
             {
                 caption: ["폐기사유"],
-                ref: 'vhclno',
+                ref: 'dscdRsn',
                 type: 'output',
-                width: '31%',
+                width: '33%',
                 style: 'text-align: center;'
             }
         ]
-        gridRtnCrtr = _SBGrid.create(SBGridProperties);
+        gridDscdPrfmnc = _SBGrid.create(SBGridProperties);
+    }
+
+    /**
+     * @name fn_checkAll
+     * @description 그리드 체크박스, 전체 선택
+     */
+    const fn_checkAll = function(grid, obj) {
+        const checkedYn = obj.checked ? "Y" : "N";
+        //체크박스 열 index
+        const getColRef = grid.getColRef("checkedYn");
+
+        for(var i = 0; i < grid.getGridDataAll().length; i++){
+            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+        }
+        grid.refresh();
+    }
+
+    /**
+     * @name fn_search
+     * @description 폐기 실적 목록 조회 버튼
+     */
+    const fn_search = async function() {
+        let srchParam = gfn_getTableElement("searchTable", "srch-", ["itemCd", "vrtyCd", "vhclno", "warehouseSeCd", "inqType", "prdcrNm", "prdcrCd"]);
+        if(!srchParam) {
+            return;
+        }
+        if(srchParam.vrtyCd && srchParam.vrtyCd.length > 4) {
+            srchParam.vrtyCd = srchParam.vrtyCd.slice(-4);
+        }
+
+        srchParam.apcCd = gv_apcCd;
+        console.log("srchParam: ", srchParam);
+
+        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", srchParam);
+        const data = await postJsonPromise;
+        console.log(data);
+
+        if(!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+
+        if(data.resultList.length > 0) {
+            jsonDscdPrfmnc = data.resultList;
+            gridDscdPrfmnc.rebuild();
+        }
+    }
+
+    /**
+     * @name fn_delete
+     * @description 폐기 실적 목록 삭제 버튼
+     */
+    const fn_delete = async function() {
+        const dscdPrfmncList = [];
+        const allData = gridDscdPrfmnc.getGridDataAll();
+
+        allData.forEach((item, index) => {
+            let rowData = gridDscdPrfmnc.getRowData(index);
+            if(item.checkedYn === "Y") {
+                dscdPrfmncList.push(item);
+            }
+        });
+        console.log("dscdPrfmncList: ", dscdPrfmncList);
+
+        if(dscdPrfmncList.length == 0) {
+            gfn_comAlert("W0005", "삭제대상");  // W0005    {0}이/가 없습니다.
+            return;
+        }
+
+        if(!gfn_comConfirm("Q0001", "선택내역 삭제")) {  // Q0001    {0} 하시겠습니까?
+            return;
+        }
+
+        try {
+            const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdPrfmncList.do", dscdPrfmncList);
+            const data = await postJsonPromise;
+            console.log("data: ", data);
+
+            gfn_comAlert("I0001");  // I0001    처리 되었습니다.
+            fn_search();
+        } catch(e) {
+            if(!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");  // E0001    오류가 발생하였습니다.
+        }
+    }
+
+    /**
+     * @name fn_save
+     * @description 폐기 실적 목록 저장 버튼
+     */
+    const fn_save = async function() {
     }
 
     /**

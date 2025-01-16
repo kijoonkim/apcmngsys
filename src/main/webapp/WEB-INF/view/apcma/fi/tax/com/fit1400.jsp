@@ -131,7 +131,7 @@
                             <tr>
                                 <th scope="row" class="th_bg">기준연도</th> <!--class="data_required" 필수 표기 -->
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-datepicker id="reg-dtp-yyyy" name="reg-dtp-yyyy" uitype="popup" datepicker-mode="year" date-format="yyyy"
+                                    <sbux-datepicker id="reg-dtp-YR" name="reg-dtp-YR" uitype="popup" datepicker-mode="year" date-format="yyyy"
                                                      class="table-datepicker-ma" onchange="fn_seqChange(reg-dtp-yyyy)">
                                     </sbux-datepicker>
                                     <sbux-input id="reg-inp-seq" name="reg-inp-seq" uitype="text" style="display: none">
@@ -141,32 +141,32 @@
                                 <td></td>
                                 <th scope="row" class="th_bg">부가세기간구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-taxTerm" name="reg-slt-taxTerm" uitype="single" jsondata-ref="jsonCbotaxTerm" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-TX_PRD" name="reg-slt-TX_PRD" uitype="single" jsondata-ref="jsonCbotaxTerm" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">신고구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-vatRepDetailType" name="reg-slt-vatRepDetailType" uitype="single" jsondata-ref="jsonCbotaxRepDtlType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-VAT_RPT_DTL_TYPE" name="reg-slt-VAT_RPT_DTL_TYPE" uitype="single" jsondata-ref="jsonCbotaxRepDtlType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">부가세 서식명</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-input id="reg-inp-vatTypeName" name="reg-inp-vatTypeName" uitype="text"></sbux-input>
+                                    <sbux-input id="reg-inp-VAT_TMPLT_NM" name="reg-inp-VAT_TMPLT_NM" uitype="text"></sbux-input>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">신고기준월</th>
                                 <td class="td_input" style="border-right: hidden" colspan="2">
                                     <div style="display: flex; gap: 10px">
-                                        <sbux-datepicker id="reg-dtp-standardMonthFr"
-                                                         name="reg-dtp-standardMonthFr"
+                                        <sbux-datepicker id="reg-dtp-DCLR_BGNG_MM"
+                                                         name="reg-dtp-DCLR_BGNG_MM"
                                                          uitype="popup" datepicker-mode="month"
                                                          date-format="yyyy-mm"
                                                          class="table-datepicker-ma">
                                         </sbux-datepicker>
-                                        <sbux-datepicker id="reg-dtp-standardMonthTo"
-                                                         name="reg-dtp-standardMonthTo"
+                                        <sbux-datepicker id="reg-dtp-DCLR_END_MM"
+                                                         name="reg-dtp-DCLR_END_MM"
                                                          uitype="popup" datepicker-mode="month"
                                                          date-format="yyyy-mm"
                                                          class="table-datepicker-ma">
@@ -177,8 +177,8 @@
                                 <th scope="row" class="th_bg">신고일</th>
                                 <td class="td_input" style="border-right: hidden">
                                     <sbux-datepicker
-                                            id="reg-dtp-reportDate"
-                                            name="reg-dtp-reportDate"
+                                            id="reg-dtp-RPT_YMD"
+                                            name="reg-dtp-RPT_YMD"
                                             uitype="popup"
                                             class="table-datepicker-ma" date-format="yyyy-mm-dd">
                                     </sbux-datepicker>
@@ -188,18 +188,18 @@
                             <tr>
                                 <th scope="row" class="th_bg">조기환급 신고여부</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-checkbox id="reg-chk-refundYn" name="reg-chk-refundYn" uitype="normal" text="조기환급신고" false-value="N" true-value="Y">
+                                    <sbux-checkbox id="reg-chk-ERLS_RFND_YN" name="reg-chk-ERLS_RFND_YN" uitype="normal" text="조기환급신고" false-value="N" true-value="Y">
                                     </sbux-checkbox>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">환급구분</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-select id="reg-slt-refundType" name="reg-slt-refundType" uitype="single" jsondata-ref="jsonCboRfType" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                    <sbux-select id="reg-slt-RFND_TYPE" name="reg-slt-RFND_TYPE" uitype="single" jsondata-ref="jsonCboRfType" unselected-text="선택" class="form-control input-sm"></sbux-select>
                                 </td>
                                 <td></td>
                                 <th scope="row" class="th_bg">조기환급취소여부</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-checkbox id="reg-chk-refundCancelYn" name="reg-chk-refundCancelYn" uitype="normal" text="조기환급취소여부" false-value="N" true-value="Y">
+                                    <sbux-checkbox id="reg-chk-ERLS_RFND_CNCL_YN" name="reg-chk-ERLS_RFND_CNCL_YN" uitype="normal" text="조기환급취소여부" false-value="N" true-value="Y">
                                     </sbux-checkbox>
                                 </td>
                                 <td></td>
@@ -207,14 +207,14 @@
                             <tr>
                                 <th scope="row" class="th_bg">총괄(단위과세)번호</th>
                                 <td class="td_input" style="border-right: hidden">
-                                    <sbux-input id="reg-inp-payOrgsiteNo" name="reg-inp-payOrgsiteNo" uitype="text"></sbux-input>
+                                    <sbux-input id="reg-inp-OVS_PAY_NO" name="reg-inp-OVS_PAY_NO" uitype="text"></sbux-input>
                                 </td>
                                 <td colspan="7"></td>
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">비고</th>
                                 <td class="td_input" colspan="8">
-                                    <sbux-textarea id="reg-txa-memo" name="reg-txa-memo"  uitype="normal" rows="2" wrap-style="width:100%">
+                                    <sbux-textarea id="reg-txa-MEMO" name="reg-txa-MEMO"  uitype="normal" rows="2" wrap-style="width:100%">
                                     </sbux-textarea>
                                 </td>
                             </tr>
@@ -276,7 +276,7 @@
  
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
  
@@ -289,15 +289,15 @@
  
         /** 등록조건_부가세기준정보 select **/
         jsonCbotaxTerm = await gfnma_getComSelectList('L_FIT002','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SBSD_CD',"CD_NM");
-        SBUxMethod.refresh("reg-slt-taxTerm");
+        SBUxMethod.refresh("reg-slt-TX_PRD");
  
         /** 등록조건_신고구분 select **/
         jsonCbotaxRepDtlType = await gfnma_getComSelectList('L_FIT035','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SBSD_CD',"CD_NM");
-        SBUxMethod.refresh("reg-slt-vatRepDetailType");
+        SBUxMethod.refresh("reg-slt-VAT_RPT_DTL_TYPE");
  
         /** 등록조건_환급구분 select **/
         jsonCboRfType = await gfnma_getComSelectList('L_FIT023','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'SBSD_CD',"CD_NM");
-        SBUxMethod.refresh("reg-slt-refundType");
+        SBUxMethod.refresh("reg-slt-RFND_TYPE");
  
         await fn_search();
     }
@@ -373,19 +373,19 @@
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
-            {caption: ['기준연도'], 			ref: 'yyyy', 		width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세기간구분'], 			ref: 'taxTerm', 		width: '7%',	type: 'combo',	style:'text-align: center', typeinfo : {ref:'jsonCbotaxTerm', label:'label', value:'value'}},
-            {caption: ['신고구분'],				ref: 'vatRepDetailType', 		width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['부가세 서식명'],				ref: 'vatTypeName', 		width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고기준시작월'], 				ref: 'standardMonthFr', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
-            {caption: ['신고기준종료월'], 				ref: 'standardMonthTo', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
-            {caption: ['신고사업장수'], 				ref: 'siteCnt', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고일'], 				ref: 'reportDate', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
-            {caption: ['비고'], 				ref: 'memo', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'payOrgsiteNo', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['조기환급신고여부'], 				ref: 'refundYn', 	width: '10%',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급구분'], 				ref: 'refundType', 	width: '7%',	type: 'output',	style:'text-align: center'},
-            {caption: ['환급취소여부'], 				ref: 'refundCancelYn', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['기준연도'], 			ref: 'YR', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세기간구분'], 			ref: 'TX_PRD', 		width: '7%',	type: 'combo',	style:'text-align: center', typeinfo : {ref:'jsonCbotaxTerm', label:'label', value:'value'}},
+            {caption: ['신고구분'],				ref: 'VAT_RPT_DTL_TYPE', 		width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['부가세 서식명'],				ref: 'VAT_TMPLT_NM', 		width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고기준시작월'], 				ref: 'DCLR_BGNG_MM', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
+            {caption: ['신고기준종료월'], 				ref: 'DCLR_END_MM', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm'}},
+            {caption: ['신고사업장수'], 				ref: 'SITE_CNT', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고일'], 				ref: 'RPT_YMD', 	width: '7%',	type: 'output',	style:'text-align: center',format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd'}},
+            {caption: ['비고'], 				ref: 'MEMO', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['총괄납부(단위과세)관리번호'], 				ref: 'OVS_PAY_NO', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['조기환급신고여부'], 				ref: 'ERLS_RFND_YN', 	width: '10%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급구분'], 				ref: 'RFND_TYPE', 	width: '7%',	type: 'output',	style:'text-align: center'},
+            {caption: ['환급취소여부'], 				ref: 'ERLS_RFND_CNCL_YN', 	width: '7%',	type: 'output',	style:'text-align: center'},
         ]
         rptStdGrid = _SBGrid.create(SBGridProperties);
         rptStdGrid.bind('click','fn_setMdGrid');
@@ -401,9 +401,9 @@
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
-            {caption: ['신고사업장명'], 			ref: 'taxSiteName', 		width: '50%',	type: 'output',	style:'text-align: center'},
-            {caption: ['사업자번호'], 			ref: 'bizRegno', 		width: '30%',	type: 'output',	style:'text-align: center'},
-            {caption: ['신고여부'],				ref: 'chkYn', 		width: '20%',   style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['신고사업장명'], 			ref: 'TX_SITE_NM', 		width: '50%',	type: 'output',	style:'text-align: center'},
+            {caption: ['사업자번호'], 			ref: 'BRNO', 		width: '30%',	type: 'output',	style:'text-align: center'},
+            {caption: ['신고여부'],				ref: 'CHK_YN', 		width: '20%',   style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
         ]
         rptSiteGrid = _SBGrid.create(SBGridProperties);
     }
@@ -418,9 +418,9 @@
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns =[
-            {caption: ['순번'], 			ref: 'reportSeq', 		width: '20%',	type: 'output',	style:'text-align: center'},
-            {caption: ['서식명'], 			ref: 'vatReportName', 		width: '50%',	type: 'output',	style:'text-align: center'},
-            {caption: ['작성대상'],				ref: 'useYn', 		width: '30%',	style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
+            {caption: ['순번'], 			ref: 'REPORT_SEQ', 		width: '20%',	type: 'output',	style:'text-align: center'},
+            {caption: ['서식명'], 			ref: 'VAT_RPT_TMPLT_NM', 		width: '50%',	type: 'output',	style:'text-align: center'},
+            {caption: ['작성대상'],				ref: 'USE_YN', 		width: '30%',	style:'text-align: center', type : 'checkbox', typeinfo : {checkedvalue : 'Y', uncheckedvalue : 'N'}},
         ]
         vatGrid = _SBGrid.create(SBGridProperties);
     }
@@ -449,8 +449,7 @@
  
         let table = document.getElementById("middleTable");
         let regs = table.querySelectorAll(`[id^="reg-"]`);
-        console.log(regs,"regs");
- 
+
         for (const item of regs) {
            let wordIdx = item.id.lastIndexOf('-') + 1;
            let key = item.id.substring(wordIdx);
@@ -494,13 +493,11 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data);
  
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_1)){
-                    const camelCasedArray = fn_convertText("Q",data.cv_1);
-                    jsonRptStdGrid = camelCasedArray;
+                    jsonRptStdGrid = data.cv_1;
                     rptStdGrid.rebuild();
                     if(jsonRptStdGrid.length > 0){
                         rptStdGrid.clickRow(0);
@@ -550,8 +547,7 @@
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_2)){
-                    const camelCasedArray = fn_convertText("Q1",data.cv_2);
-                    jsonRptSiteGrid = camelCasedArray;
+                    jsonRptSiteGrid = data.cv_2;
                     rptSiteGrid.rebuild();
                 }
             }
@@ -598,8 +594,7 @@
         try{
             if (_.isEqual("S", data.resultStatus)) {
                 if(!gfn_isEmpty(data.cv_5)){
-                    const camelCasedArray = fn_convertText("NEW_Q2",data.cv_5);
-                    jsonVatGrid = camelCasedArray;
+                    jsonVatGrid = data.cv_5;
                     vatGrid.rebuild();
                 }
             }
@@ -737,8 +732,8 @@ const fn_saveS2 = async function(){
     let seq = gfnma_nvl(rptStdGrid.getRows());
     paramObj.V_P_SEQ = seq;
  
-    let taxSiteCode = jsonRptSiteGrid[0].taxSiteCode;
-    let useYn = jsonRptSiteGrid[0].chkYn;
+    let taxSiteCode = jsonRptSiteGrid[0].TX_SITE_CD;
+    let useYn = jsonRptSiteGrid[0].CHK_YN;
  
     let reportingDate = SBUxMethod.get("reg-dtp-reportDate");
  

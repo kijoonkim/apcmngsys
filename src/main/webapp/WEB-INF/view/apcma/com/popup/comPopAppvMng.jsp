@@ -212,7 +212,6 @@ var _compopappvmng_fnTreeView = function(){
 	}
  
 	_compopappvmng_treeGridSelRow = _compopappvmng_treeGrid.getRowData(nRow);	
-	console.log('treeGrid rowData:', _compopappvmng_treeGridSelRow);
 }
  
 function compopappvmng(options) {
@@ -243,7 +242,6 @@ function compopappvmng(options) {
 		,callback				: null
 	};
 	$.extend(settings, options);	
-	console.log('settings:', settings);
 	
 	//css
 	$('#' + modalDivId).find('.sbux-mol-hd-close').css({'font-size':'30px','margin-top':'-20px'});
@@ -263,8 +261,6 @@ function compopappvmng(options) {
   		
   	    fn_createTreeGrid();
   	    fn_treeSearch();
-  	    
-		console.log('_compopappvmng_jsonApprCategory:', _compopappvmng_jsonApprCategory);  	    
   	    
   	    fn_basicSearch(function(){
   	    	var len = $('#compopappvmng').find('.cu-basic-table').find('tbody').find('tr').length;
@@ -398,7 +394,6 @@ function compopappvmng(options) {
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-    	console.log('popup appr tree data:', data);
  
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
@@ -423,7 +418,6 @@ function compopappvmng(options) {
 		    	});
 	    	   	
 	    	   	_compopappvmng_treeGrid.rebuild();
-	        	//console.log('_compopappvmng_jsonTreeList :', _compopappvmng_jsonTreeList);
 	    		} else {
 	    	  		alert(data.resultMessage);
 	    		}
@@ -502,8 +496,11 @@ function compopappvmng(options) {
 		htm += ' >';
 		
 		htm += '<td>' + gfnma_nvl(obj['STEP_SEQ']) 			+ '</td>';
-		htm += '<td>' + gfnma_nvl(obj['APPR_CATEGORY'])		+ '</td>';
-		htm += '<td>' + gfnma_nvl(obj['APPR_TYPE'])			+ '</td>';
+		htm += '<td>';
+		htm += fn_setSelectHtml(_compopappvmng_jsonApprCategory, gfnma_nvl(obj['APPR_CATEGORY'])); //obj['APPR_TYPE']
+		htm += '</td>';		
+		htm += '<td>' + "결재" + '</td>';
+// 		htm += '<td>' + gfnma_nvl(obj['APPR_TYPE']) + '</td>';
 		htm += '<td>' + gfnma_nvl(obj['DEPT_NAME1'])		+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['DUTY_NAME'])			+ '</td>';
 		htm += '<td>' + gfnma_nvl(obj['EMP_NAME']) 			+ '</td>';
@@ -528,12 +525,12 @@ function compopappvmng(options) {
 		var htm = '<select class="form-control form-select" style="width:100px" >';
 		var list = _compopappvmng_jsonApprCategory;
 		for (var i = 0; i < list.length; i++) {
-			if(chk == list[i]['SUB_CODE']){
-				htm += '<option  value="' + list[i]['SUB_CODE'] + '" selected>';
+			if(chk == list[i]['SBSD_CD']){
+				htm += '<option  value="' + list[i]['SBSD_CD'] + '" selected>';
 			} else {
-				htm += '<option  value="' + list[i]['SUB_CODE'] + '">';
+				htm += '<option  value="' + list[i]['SBSD_CD'] + '">';
 			}
-			htm += list[i]['CODE_NAME'];
+			htm += list[i]['CD_NM'];
 			htm += '</option >';
 		}
 		htm += '</select>'
@@ -638,7 +635,6 @@ function compopappvmng(options) {
 			,V_P_USERID              : ''
 			,V_P_PC                  : ''
 	    };
-    	console.log('popup paramObj:', paramObj);
     	
 		const postJsonPromise = gfn_postJSON("/com/comApprEmpList.do", {
 			getType				: 'json',
@@ -647,8 +643,6 @@ function compopappvmng(options) {
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
-    	console.log('popup appr basic data:', data);
-    	console.log('settings.workType:', settings.workType);
  
     	var dlist = [];
     	try {
@@ -730,7 +724,6 @@ function compopappvmng(options) {
 			    		totalRecordCount ++;
 			    	});
 	    		}
-        	console.log('dlist :', dlist);
         	fn_createBasicGrid(dlist);	        	
     		} else {
     	  		alert(data.resultMessage);
@@ -956,10 +949,6 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
-		console.log('승인=====================================');    	
-		console.log('paramObj:', paramObj);    	
-		console.log('procedure: P_FIM3400_S');    	
-		console.log('tmp_workType:', tmp_workType);    	
 		
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpOk.do", {
    			getType				: 'json',
@@ -1125,10 +1114,6 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
-		console.log('반려=====================================');    	
-		console.log('paramObj:', paramObj);    	
-		console.log('procedure: P_FIM3400_S');    	
-		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpOk.do", {
    			getType				: 'json',
@@ -1208,10 +1193,6 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
-		console.log('회수=====================================');    	
-		console.log('paramObj:', paramObj);    	
-		console.log('procedure: P_FIM3400_S3');    	
-		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpCancel.do", {
    			getType				: 'json',
@@ -1285,10 +1266,6 @@ function compopappvmng(options) {
    			,V_P_USERID              : ''
    			,V_P_PC                  : ''
    	    };
-		console.log('결재삭제=====================================');    	
-		console.log('paramObj:', paramObj);    	
-		console.log('procedure: P_FIM3400_S3');    	
-		console.log('tmp_workType:', tmp_workType);    	
        	
    		const postJsonPromise = gfn_postJSON("/com/comApprEmpCancel.do", {
    			getType				: 'json',
@@ -1375,8 +1352,6 @@ function compopappvmng(options) {
         setTimeout(function () {
 	        _compopappvmng_treeGrid.clickCell(treeFindIdx, 1, true);
 	        _compopappvmng_treeGrid.setCellStyles(treeFindIdx, 1, treeFindIdx, 1, 'background : #ddd');
-	        //console.log('==>>>treeFindIdx:', treeFindIdx);  	// 결과를 콘솔에 출력합니다.
-	        //_compopappvmng_treeGridSelRow <--- 값은 자동으로 이쪾으로 담김 (이벤트발생됨)
         }, 100); 					// openTreeNodeAll() 메소드로 node가 모두 펼쳐지는 시간을 고려하여 0.1초 뒤에 실행
 	});		
 	

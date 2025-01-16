@@ -3,6 +3,8 @@ package  com.at.apcss.am.stat.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.stat.vo.StatCrtrVO;
+import com.at.apcss.am.tot.vo.TotCrtrVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.stat.vo.StatMngVO;
@@ -27,112 +29,46 @@ public interface StatMngMapper {
 
 
 	/**
-	 * 통계 기준정보를 조회한다.
-	 * @param totMngVO
+	 * 통계기준상세 (사용) 조회
+	 *
+	 * @param statCrtrVO
 	 * @return
+	 * @throws Exception
 	 */
-	public List<StatMngVO> selectStatMngInfoList(StatMngVO StatMngVO);
+	public List<StatCrtrVO> selectStatCrtrDtlInUseList(StatCrtrVO statCrtrVO) throws Exception;
+
+	public StatCrtrVO selectCrtr(StatCrtrVO statCrtrVO) throws Exception;
 
 	/**
-	 * 통계 기준정보상세를 조회한다.
-	 * @param totMngVO
+	 * 기준정보 목록 조회
+	 *
+	 * @param statCrtrVO
 	 * @return
+	 * @throws Exception
 	 */
-	public List<StatMngVO> selectStatMngInfoDtlList(StatMngVO StatMngVO);
+	public List<StatCrtrVO> selectCrtrList(StatCrtrVO statCrtrVO) throws Exception;
+
+	public StatCrtrVO selectCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
 	/**
-	 * 통계 기준정보 등록.
-	 * @param StatMngVO
+	 * 기준상세 목록 조회
+	 *
+	 * @param statCrtrVO
 	 * @return
+	 * @throws Exception
 	 */
-	public int insertStatMngInfo(StatMngVO StatMngVO);
+	public List<StatCrtrVO> selectCrtrDtlList(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 통계 기준정보 수정.
-	 * @param StatMngVO
-	 * @return
-	 */
-	public int updateStatMngInfo(StatMngVO StatMngVO);
+	public int insertCrtr(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 통계 기준상세정보 등록.
-	 * @param StatMngVO
-	 * @return
-	 */
-	public int insertStatMngDtlInfo(StatMngVO StatMngVO);
+	public int updateCrtr(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 통계 기준상세정보 수정.
-	 * @param StatMngVO
-	 * @return
-	 */
-	public int updateStatMngDtlInfo(StatMngVO StatMngVO);
+	public int deleteCrtr(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 통계 기준정보 삭제.
-	 * @param StatMngVO
-	 * @return
-	 */
-	public int deleteStatMngInfo(StatMngVO StatMngVO);
+	public int insertCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 통계 기준상세정보 삭제.
-	 * @param StatMngVO
-	 * @return
-	 */
-	public int deleteStatMngDtlInfo(StatMngVO StatMngVO);
+	public int updateCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
-	/**
-	 * 기간별 입고통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdWrhsStatInfo(HashMap<String,Object> StatMngVO);
-
-	/**
-	 * 기간별 투입통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdInptPrfmncStatInfo(HashMap<String,Object> StatMngVO);
-
-	/**
-	 * 기간별 생산통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncStatInfo(HashMap<String,Object> StatMngVO);
-
-	/**
-	 * 기간별 출하통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdSpmtPrfmncStatInfo(HashMap<String,Object> StatMngVO);
-
-	/**
-	 * 통계조회 - 투입실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdInptInfo(HashMap<String,Object> TotMngVO);
-	/**
-	 * 통계조회 - 입고실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdWrhsInfo(HashMap<String,Object> TotMngVO);
-	/**
-	 * 통계조회 - 출하실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdSpmtInfo(HashMap<String,Object> TotMngVO);
-	/**
-	 * 통계조회 - 생산실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdPrdctnInfo(HashMap<String,Object> TotMngVO);
+	public int deleteCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
 }

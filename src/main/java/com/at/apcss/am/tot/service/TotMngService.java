@@ -94,6 +94,15 @@ public interface TotMngService {
 
 	public List<TotRsltVO> selectTotGdsInvntrList(TotRsltVO totRsltVO) throws Exception;
 
+	/**
+	 * 집계결과 생성
+	 * @param totRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertTotRsltCrt(TotRsltVO totRsltVO) throws Exception;
+
+
 
 
 

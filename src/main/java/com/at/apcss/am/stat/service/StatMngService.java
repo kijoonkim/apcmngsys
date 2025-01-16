@@ -3,7 +3,10 @@ package com.at.apcss.am.stat.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.stat.vo.StatCrtrVO;
 import com.at.apcss.am.stat.vo.StatMngVO;
+import com.at.apcss.am.tot.vo.TotCrtrVO;
+import com.at.apcss.am.tot.vo.TotMngVO;
 
 
 /**
@@ -22,111 +25,60 @@ import com.at.apcss.am.stat.vo.StatMngVO;
  */
 public interface StatMngService {
 
+
+
+	public List<StatCrtrVO> selectStatCrtrDtlInUseList(StatCrtrVO statCrtrVO) throws Exception;
+
+	public StatCrtrVO selectCrtr(StatCrtrVO statCrtrVO) throws Exception;
+
+	public StatCrtrVO selectCrtr(String apcCd, String statsCrtrType, String crtrCd) throws Exception;
+
 	/**
-	 * 통계기준정보조회
+	 * 기준정보 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<StatCrtrVO> selectCrtrList(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<StatCrtrVO> selectCrtrDtlList(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준 등록
 	 * @param StatMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<StatMngVO> selectStatCrtrInfoList(StatMngVO StatMngVO) throws Exception;
+	public HashMap<String, Object> insertCrtr(StatMngVO statMngVO) throws Exception;
 
 	/**
-	 * 통계기준상세정보조회
+	 * 기준 삭제
 	 * @param StatMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public List<StatMngVO> selectStatCrtrInfoDtlList(StatMngVO StatMngVO) throws Exception;
+	public HashMap<String, Object> deleteCrtr(StatMngVO statMngVO) throws Exception;
 
 	/**
-	 * 통계기준정보등록
+	 * 기준상세 등록
 	 * @param StatMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertStatCrtrInfo(StatMngVO StatMngVO) throws Exception;
+	public HashMap<String, Object> insertCrtrDtl(StatMngVO statMngVO) throws Exception;
 
 	/**
-	 * 통계기준상세정보등록
+	 * 기준상세 삭제
 	 * @param StatMngVO
 	 * @return
 	 * @throws Exception
 	 */
-	public int insertStatCrtrDtlInfo(List<StatMngVO> StatMngVO) throws Exception;
-
-
-	/**
-	 * 통계기준정보삭제
-	 * @param StatMngVO
-	 * @return
-	 * @throws Exception
-	 */
-	public int deleteStatCrtrInfo(StatMngVO totMngVO) throws Exception;
-
-
-
-	/**
-	 * 기간별 입고통계 조회
-	 * @param HashMap<String, Object>
-	 * @return
-	 * @throws Exception
-	 */
-	public List<HashMap<String, Object>> selectPrdWrhsStatInfo(HashMap<String, Object> totMngVO) throws Exception;
-
-	/**
-	 * 기간별 투입통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdInptPrfmncStatInfo(HashMap<String,Object> StatMngVO) throws Exception;
-
-	/**
-	 * 기간별 생산통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncStatInfo(HashMap<String,Object> StatMngVO) throws Exception;
-
-	/**
-	 * 기간별 출하통계 조회
-	 * @param HashMap<String,Object>
-	 * @return
-	 */
-	public List<HashMap<String,Object>> selectPrdSpmtPrfmncStatInfo(HashMap<String,Object> StatMngVO) throws Exception;
-
-	/**
-	 * 통계조회 - 투입실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 * @throws Exception
-	 */
-	public List<HashMap<String,Object>> selectPrdInptInfo(HashMap<String,Object> totMngVO) throws Exception;
-
-	/**
-	 * 통계조회 - 입고실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 * @throws Exception
-	 */
-	public List<HashMap<String,Object>> selectPrdWrhsInfo(HashMap<String,Object> totMngVO) throws Exception;
-
-	/**
-	 * 통계조회 - 출하실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 * @throws Exception
-	 */
-	public List<HashMap<String,Object>> selectPrdSpmtInfo(HashMap<String,Object> totMngVO) throws Exception;
-
-
-	/**
-	 * 통계조회 - 생산실적
-	 * @param HashMap<String,Object>
-	 * @return
-	 * @throws Exception
-	 */
-	public List<HashMap<String,Object>> selectPrdPrdctnInfo(HashMap<String,Object> totMngVO) throws Exception;
-
-
+	public HashMap<String, Object> deleteCrtrDtl(StatMngVO statMngVO) throws Exception;
 
 }

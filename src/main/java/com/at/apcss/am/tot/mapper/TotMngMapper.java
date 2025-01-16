@@ -78,6 +78,12 @@ public interface TotMngMapper {
 	public List<TotRsltVO> selectTotGdsInvntrList(TotRsltVO totRsltVO) throws Exception;
 
 
+	/**
+	 * 집계 생성
+	 * @param totRsltVO
+	 * @throws Exception
+	 */
+	public void insertSptotRsltCrt(TotRsltVO totRsltVO) throws Exception;
 
 
 	/**
@@ -185,7 +191,6 @@ public interface TotMngMapper {
 	 * @return
 	 */
 	public List<HashMap<String,Object>> selectSortPrfmncTotInfo(HashMap<String,Object> TotMngVO);
-
 
 
 

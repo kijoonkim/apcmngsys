@@ -316,6 +316,9 @@
     const fn_search = async function(){
         jsonRtnCrtrDtl.length = 0;
         gridRtnCrtrDtl.rebuild();
+        jsonRtnCrtr.length = 0;
+        gridRtnCrtr.rebuild();
+
         let shpgotCrtrType = SBUxMethod.get("srch-slt-shpgotCrtrType") || '';
         let postJsonPromise = gfn_postJSON("/am/spmt/selectShpgotApcCrtrList.do",{apcCd:gv_apcCd,shpgotCrtrType: shpgotCrtrType});
         let data = await postJsonPromise;
@@ -326,10 +329,11 @@
         if(data.resultList.length > 0){
             jsonRtnCrtr = data.resultList;
             gridRtnCrtr.rebuild();
-            let nRow = gridRtnCrtr.getRows();
-            gridRtnCrtr.addRow(true);
-            gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
         }
+        let nRow = gridRtnCrtr.getRows();
+        gridRtnCrtr.addRow(true);
+        nRow++;
+        gridRtnCrtr.setCellDisabled(nRow, 0, nRow, gridRtnCrtr.getCols() - 1, true);
     }
 
     const fn_searchDtl = async function(){

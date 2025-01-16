@@ -513,6 +513,96 @@
 		]]>
     </delete>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.selectDscdPrfmncList		-->
+    <!-- DESC : 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회.                       	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.14  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectDscdPrfmncList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        <![CDATA[
+            SELECT
+                  IP.APC_CD AS APC_CD
+    		    , (
+                    SELECT FN_GET_APC_NM(IP.APC_CD)
+                    FROM DUAL
+                ) AS APC_NM
+                , IP.ITEM_CD AS ITEM_CD
+                , (
+                    SELECT FN_GET_ITEM_NM(IP.ITEM_CD, IP.APC_CD)
+                    FROM DUAL
+                ) AS ITEM_NM
+                , IP.VRTY_CD AS VRTY_CD
+                , (
+                    SELECT FN_GET_VRTY_NM(IP.ITEM_CD, IP.VRTY_CD, IP.APC_CD)
+                    FROM DUAL
+                ) AS VRTY_NM
+                , IP.PRDCR_CD AS PRDCR_CD
+				, (
+                    SELECT FN_GET_PRDCR_NM(IP.PRDCR_CD, IP.APC_CD)
+                    FROM DUAL
+                ) AS PRDCR_NM
+                , IP.DSCD_SN        AS DSCD_SN
+                , IP.DSCD_QNTT      AS DSCD_QNTT
+                , IP.DSCD_WGHT      AS DSCD_WGHT
+                , IP.DTL_CD         AS DTL_CD
+                , IP.DSCD_RSN       AS DSCD_RSN
+                , CC.CRTR_INDCT_NM  AS CRTR_INDCT_NM
+                , CC.CRTR_CD        AS CRTR_CD
+              FROM TB_INVNTR_DSCD_PRFMNC IP
+              JOIN TB_INVNTR_DSCD_CRTR_DTL CD
+                ON IP.APC_CD = CD.APC_CD
+               AND IP.DTL_CD = CD.DTL_CD
+              JOIN TB_INVNTR_DSCD_CRTR CC
+                ON CC.APC_CD = CD.APC_CD
+               AND CC.CRTR_CD = CD.CRTR_CD
+        ]]>
+        <if test='apcCd != null and apcCd != ""'>
+             WHERE IP.APC_CD = #{apcCd}
+        </if>
+        <if test='dscdYmd != null and dscdYmd != ""'>
+               AND IP.DSCD_YMD = #{dscdYmd}
+        </if>
+        <if test='dscdYmdFrom != null and dscdYmdFrom != ""'>
+               AND IP.DSCD_YMD <![CDATA[>=]]> #{dscdYmdFrom}
+        </if>
+        <if test='dscdYmdTo != null and dscdYmdTo != ""'>
+               AND IP.DSCD_YMD <![CDATA[<=]]> #{dscdYmdTo}
+        </if>
+        <if test='prdcrCd != null and prdcrCd != ""'>
+               AND IP.PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd != ""'>
+               AND IP.ITEM_CD = #{itemCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd != ""'>
+               AND IP.VRTY_CD = #{vrtyCd}
+        </if>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.dscd.mapper.DscdCrtrMapper.deleteDscdPrfmncList		-->
+    <!-- DESC : 폐기 상세 관리 - 폐기 실적 목록 삭제.                       	            -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.14  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteDscdPrfmncList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        <![CDATA[
+        DELETE
+          FROM TB_INVNTR_DSCD_PRFMNC
+         WHERE APC_CD       = #{apcCd}
+           AND ITEM_CD      = #{itemCd}
+           AND VRTY_CD      = #{vrtyCd}
+           AND PRDCR_CD     = #{prdcrCd}
+           AND DSCD_SN      = #{dscdSn}
+           AND DSCD_QNTT    = #{dscdQntt}
+           AND DSCD_WGHT    = #{dscdWght}
+           AND DTL_CD       = #{dtlCd}
+           AND DSCD_RSN     = #{dscdRsn}
+        ]]>
+    </delete>
 </mapper>
-
-

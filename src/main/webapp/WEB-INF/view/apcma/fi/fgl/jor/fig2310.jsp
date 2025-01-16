@@ -1505,13 +1505,13 @@
        		,popupType				: 'B'
     		,whereClause			: addParams
        		,searchCaptions			: ["계정코드", 		"계정명"]
-   			,searchInputFields		: ["ACNTL_CD", 	"ACNT_NM"]
+   			,searchInputFields		: ["ACNTL_CD", 		"ACNT_NM"]
    			,searchInputValues		: [searchText1, 	searchText2]
 			,searchInputTypes		: ["input", 		"input"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '400px'
    			,tableHeader			: ["계정코드", 		"계정명",		"계정명(한글)"]
-   			,tableColumnNames		: ["APLY_ACNTL_CD", 	"ACNT_NM",	"ACNT_NM_CHN"]
+   			,tableColumnNames		: ["ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]
    			,tableColumnWidths		: ["100px", 		"250px",		"250px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
@@ -1687,7 +1687,7 @@
     	
         var replaceText0 	= "_PJT_CD_";
         var replaceText1 	= "_PJT_NM_"; 
-        var strWhereClause 	= "AND PROJECT_CODE LIKE '%" + replaceText0 + "%' AND PROJECT_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND PJT_CD LIKE '%" + replaceText0 + "%' AND PJT_NM LIKE '%" + replaceText1 + "%' ";
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '프로젝트');
 		compopup1({
@@ -1697,14 +1697,14 @@
 			,popupType				: 'A'
 			,whereClause			: strWhereClause
 			,searchCaptions			: ["프로젝트코드",		"프로젝트명"]
-			,searchInputFields		: ["PJT_CD",		"PJT_NM"]
+			,searchInputFields		: ["PJT_CD",			"PJT_NM"]
 			,searchInputValues		: [cellData1, 			cellData2]
 			,searchInputTypes		: ["input", 			"input"]		//input, select가 있는 경우
 			,searchInputTypeValues	: ["", 					""]				//select 경우
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["프로젝트코드", 		"프로젝트명"]
-			,tableColumnNames		: ["PJT_CD", 		"PJT_NM"]
+			,tableColumnNames		: ["PJT_CD", 			"PJT_NM"]
 			,tableColumnWidths		: ["100px", 			"500px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);
@@ -1779,7 +1779,7 @@
     	
         var replaceText0 	= "_SBSD_CD_";
         var replaceText1 	= "_CD_NM_"; 
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '지급방법');
     	compopup1({
@@ -1795,7 +1795,7 @@
     		,width					: '900px'
     		,height					: '500px'
    			,tableHeader			: ["코드",		"코드명", 			"은행",			"계좌번호",			"계좌코드"]
-   			,tableColumnNames		: ["SBSD_CD",	"CD_NM", 		"BANK_CD",	"ACTNO",		"DPMNY_CD"]
+   			,tableColumnNames		: ["SBSD_CD",	"CD_NM", 			"BANK_CD",		"ACTNO",			"DPMNY_CD"]
    			,tableColumnWidths		: ["100px", 	"200px",			"100px",		"200px",			"200px"]
 			,itemSelectEvent		: function (data){
 				console.log('callback data:', data);

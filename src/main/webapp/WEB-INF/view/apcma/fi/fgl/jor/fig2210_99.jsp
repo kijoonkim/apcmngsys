@@ -1158,7 +1158,8 @@
    					}
    					jsonGridSum.push(msg);
    	        	});	
-				jsonGridSum = data.cv_4;
+				console.log('jsonGridSum:', jsonGridSum);   	        	
+				//jsonGridSum = data.cv_4;
 				FigGridSum.rebuild();
     			
                 //합계표시 보여주기 결정
