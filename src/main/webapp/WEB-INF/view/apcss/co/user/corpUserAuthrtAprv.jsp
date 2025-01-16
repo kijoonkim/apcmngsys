@@ -682,6 +682,7 @@
 					ognzCd:			item.ognzCd,
 					ognzNm:			item.ognzNm,
 					crno:			item.crno,
+					brno:			item.brno, /* 20250116 빠진 사업자번호 추가 함 */
 					jbps: 			item.jbps,
 					authrtMngrYn:	item.authrtMngrYn,
 					aplyYn:			item.aplyYn,
