@@ -11,10 +11,13 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 	private String yr;
 	private String apoCd;
 	private String apoSe;
+	private String apoSeNm;
 	private String aprv;
 	private String brno;
+	private String uoBrno;
 	private String crno;
 	private String corpNm;
+	private String uoCorpNm;
 
 	private String chk;
 
@@ -26,5 +29,19 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 	private String totTrgtTrmtAmt;
 	private String uoTotTrgtTrmtAmt;
 	private String trgtTrmtRt;
+
+	private String itemCd;
+	private String itemNm;
+	private String ctgryCd;
+	private String ctgryNm;
+	private String clsfCd;
+	private String clsfNm;
+
+	private String trmtAmt;
+	private String consignTrmtAmt;
+
+	private String trmtAmtTot;
+
+	private String crtrAmt;
 
 }

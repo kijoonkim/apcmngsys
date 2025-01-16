@@ -45,4 +45,32 @@ public interface PrdcrCrclOgnOnlnWhlslMrktMapper {
 	 */
 	public int insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
+	/**
+	 * 속한 조직 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOgnzList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
+	/**
+	 * 속한 조직 품목 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectItemList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
+	/**
+	 * 온라인도매시장 출하실적 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOnlnDtlList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
+	/**
+	 * 온라인도매시장 출하실적 정보를 저장한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return int
+	 */
+	public int insertOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
 }

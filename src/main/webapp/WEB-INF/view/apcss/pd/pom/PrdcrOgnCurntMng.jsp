@@ -241,61 +241,6 @@
 
 			</c:if>
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
-				<!-- 통합조직 정보 , 통합조직 진척도 -->
-				<c:if test="${loginVO.apoSe eq '1'}">
-					<table class="table table-bordered tbl_fixed">
-						<caption>통합조직 정보 표기</caption>
-						<tbody>
-							<tr>
-								<th scope="row" class="th_bg th_border_right">법인명</th>
-								<sbux-input uitype="hidden" id="dtl-input-userApoCd" name="dtl-input-userApoCd"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-userApoSe" name="dtl-input-userApoSe"></sbux-input>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userCorpNm"
-										name="dtl-input-userCorpNm"
-										class="form-control input-sm"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-								<th scope="row" class="th_bg th_border_right">사업자번호</th>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userBrno"
-										name="dtl-input-userBrno"
-										class="form-control input-sm"
-										mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-								</td>
-								<th scope="row" class="th_bg th_border_right">법인등록번호</th>
-								<td colspan="2" class="td_input">
-									<sbux-input
-										uitype="text"
-										id="dtl-input-userCrno"
-										name="dtl-input-userCrno"
-										class="form-control input-sm"
-										mask = "{ 'alias': '999999-9999999' , 'autoUnmask': true}"
-										autocomplete="off"
-										readonly
-									></sbux-input>
-								</td>
-								<td class="td_input"  style="border-left: hidden;">
-							</tr>
-						</tbody>
-					</table>
-					<!--
-					%@ include file="../prgrs/PrgrsUo.jsp" %>
-					-->
-				</c:if>
-
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<!-- 조직 리스트 -->
@@ -312,110 +257,9 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng" style="height:350px; width: 100%;"></div>
 				</div>
 				<br>
-				<!-- 생산자 조직 리스트 -->
-				<div class="box-header" style="display:flex; justify-content: flex-start;" >
-					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
-
-						<c:if test="${loginVO.userType ne '02'}">
-							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
-						</c:if>
-						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
-						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
-						<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 하위 농가리스트 출력" onclick="fn_report4"></sbux-button>
-					</div>
-				</div>
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
-				<table class="table table-bordered tbl_fixed">
-					<caption>출하조직 표기</caption>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg th_border_right">조직구분</th>
-							<td colspan="2" class="td_input">
-								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
-								<!--
-								<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
-								 -->
-								<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
-								<sbux-input uitype="hidden" id="dtl-input-prfmncCorpDdlnYn" name="dtl-input-prfmncCorpDdlnYn"></sbux-input>
-								<sbux-select
-									id="dtl-input-apoSe"
-									name="dtl-input-apoSe"
-									uitype="single"
-									jsondata-ref="jsonComApoSe"
-									unselected-text="선택"
-									class="form-control input-sm"
-									readonly
-								></sbux-select>
-							</td>
-							<!--
-							<td class="td_input">
-							 -->
-							<th scope="row" class="th_bg th_border_right">법인명</th>
-							<td colspan="2" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-corpNm"
-									name="dtl-input-corpNm"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<!--
-							<td class="td_input"  style="border-left: hidden;">
-							 -->
-							<th scope="row" class="th_bg th_border_right">사업자번호</th>
-							<td colspan="2" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-brno"
-									name="dtl-input-brno"
-									class="form-control input-sm"
-									mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<th scope="row" class="th_bg th_border_right">통합조직 선택</th>
-							<td colspan="2" class="td_input">
-								<sbux-select
-									id="dtl-input-selUoBrno"
-									name="dtl-input-selUoBrno"
-									uitype="single"
-									jsondata-ref="comUoBrno"
-									unselected-text="선택"
-									class="form-control input-sm"
-									onchange="fn_changeSelUoBrno"
-								></sbux-select>
-								<sbux-input
-									uitype="text"
-									id="dtl-input-uoBrno"
-									name="dtl-input-uoBrno"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<!--
-							<td class="td_input"  style="border-left: hidden;">
-							<td colspan="5" class="td_input"  style="border-left: hidden;">
-							</td>
-							 -->
-						</tr>
-					</tbody>
-				</table>
 
-				<!-- 출자출하조직 진척도 -->
-				<c:if test="${loginVO.apoSe eq '2'}">
-					<!--
-					%@ include file="../prgrs/PrgrsIso.jsp" %>
-					-->
-				</c:if>
 
-				<!--[pp] 검색결과 상세보기-->
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>o 입력 순서</p>
 					<p>- 첫 번째) 생산자조직 리스트 : 생산자조직명, 품목선택, 취급유형, 계약시기, 출하시작시기, 출하종료시기 입력 후 "생산자조직 저장"</p>
@@ -426,7 +270,8 @@
 					<p>o 작년 APC지원시스템에 사업신청 및 실적입력한 조직은 과거실적 조회 가능</p>
 					<p>　(농가리스트는 마우스 우클릭으로 기존 입력내용 엑셀 다운로드 가능하며, 올해 서식에 맞춰 업데이트 후 업로드 가능)</p>
 				</div>
-
+				<hr>
+				<!--[pp] 검색결과 상세보기-->
 				<!-- 생산자조직 리스트 그리드 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
@@ -444,6 +289,100 @@
 							 -->
 						</ul>
 					</div>
+					<!-- 생산자 조직 리스트 -->
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+
+							<c:if test="${loginVO.userType ne '02'}">
+								<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
+							</c:if>
+							<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
+							<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
+							<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 하위 농가리스트 출력" onclick="fn_report4"></sbux-button>
+						</div>
+					</div>
+					<table class="table table-bordered tbl_fixed">
+						<caption>출하조직 표기</caption>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg th_border_right">조직구분</th>
+								<td colspan="2" class="td_input">
+									<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-apoCd"></sbux-input>
+									<sbux-input uitype="hidden" id="dtl-input-crno" name="dtl-input-crno"></sbux-input>
+									<!--
+									<sbux-input uitype="hidden" id="dtl-input-uoBrno" name="dtl-input-uoBrno"></sbux-input>
+									 -->
+									<sbux-input uitype="hidden" id="dtl-input-uoCd" name="dtl-input-uoCd"></sbux-input>
+									<sbux-input uitype="hidden" id="dtl-input-yr" name="dtl-input-yr"></sbux-input>
+									<sbux-input uitype="hidden" id="dtl-input-prfmncCorpDdlnYn" name="dtl-input-prfmncCorpDdlnYn"></sbux-input>
+									<sbux-select
+										id="dtl-input-apoSe"
+										name="dtl-input-apoSe"
+										uitype="single"
+										jsondata-ref="jsonComApoSe"
+										unselected-text="선택"
+										class="form-control input-sm"
+										readonly
+									></sbux-select>
+								</td>
+								<!--
+								<td class="td_input">
+								 -->
+								<th scope="row" class="th_bg th_border_right">법인명</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-corpNm"
+										name="dtl-input-corpNm"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<!--
+								<td class="td_input"  style="border-left: hidden;">
+								 -->
+								<th scope="row" class="th_bg th_border_right">사업자번호</th>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-brno"
+										name="dtl-input-brno"
+										class="form-control input-sm"
+										mask = "{ 'alias': '999-99-99999' , 'autoUnmask': true}"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<th scope="row" class="th_bg th_border_right">통합조직 선택</th>
+								<td colspan="2" class="td_input">
+									<sbux-select
+										id="dtl-input-selUoBrno"
+										name="dtl-input-selUoBrno"
+										uitype="single"
+										jsondata-ref="comUoBrno"
+										unselected-text="선택"
+										class="form-control input-sm"
+										onchange="fn_changeSelUoBrno"
+									></sbux-select>
+									<sbux-input
+										uitype="text"
+										id="dtl-input-uoBrno"
+										name="dtl-input-uoBrno"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<!--
+								<td class="td_input"  style="border-left: hidden;">
+								<td colspan="5" class="td_input"  style="border-left: hidden;">
+								</td>
+								 -->
+							</tr>
+						</tbody>
+					</table>
 					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 						<p>o 전문/육성품목만 "생산자조직 현황" 입력 필요 (앞서 "기타"로 등록한 품목은 입력 불필요)</p>
 						<p>o 생산자조직을 보유한 출자출하조직/통합조직이 작성 (통합조직은 직속 생산자조직이 있는 경우에만 입력)</p>
@@ -452,81 +391,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
 				<br>
-				<!-- 농가 리스트 -->
-				<div class="box-header" style="display:flex; justify-content: flex-start;" >
-					<div style="margin-left: auto;">
-						<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="농가리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch02"></sbux-button>
-
-						<c:if test="${loginVO.userType ne '02'}">
-							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="농가리스트 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList02"></sbux-button>
-						</c:if>
-
-						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="농가리스트 출력" onclick="fn_report3"></sbux-button>
-						<sbux-button id="btnDown" name="btnDown" uitype="normal" text="서식다운" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld"></sbux-button>
-
-						<c:if test="${loginVO.userType ne '02'}">
-							<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
-						</c:if>
-
-					</div>
-				</div>
-				<table class="table table-bordered tbl_fixed">
-					<caption>출하조직 표기</caption>
-					<tbody>
-						<tr>
-							<th scope="row" class="th_bg th_border_right">생산자조직 명</th>
-							<sbux-input uitype="hidden" id="dtl-input-apoCd01" name="dtl-input-apoCd01"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-apoSe01" name="dtl-input-apoSe01"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-brno01" name="dtl-input-brno01"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-crno01" name="dtl-input-crno01"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-yr01" name="dtl-input-yr01"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzSn" name="dtl-input-prdcrOgnzSn"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzCd" name="dtl-input-prdcrOgnzCd"></sbux-input>
-							<sbux-input uitype="hidden" id="dtl-input-sttgUpbrItemSe" name="dtl-input-sttgUpbrItemSe"></sbux-input>
-							<td colspan="2" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-prdcrOgnzNm"
-									name="dtl-input-prdcrOgnzNm"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<td class="td_input"  style="border-left: hidden;">
-							<th scope="row" class="th_bg th_border_right">품목</th>
-							<sbux-input uitype="hidden" id="dtl-input-itemCd" name="dtl-input-itemCd"></sbux-input>
-							<td colspan="2" class="td_input">
-								<sbux-input
-									uitype="text"
-									id="dtl-input-itemNm"
-									name="dtl-input-itemNm"
-									class="form-control input-sm"
-									autocomplete="off"
-									readonly
-								></sbux-input>
-							</td>
-							<td class="td_input"  style="border-left: hidden;">
-								<!--
-								<sbux-button id="srch-btn-gpcList" name="srch-btn-gpcList" uitype="modal" target-id="modal-gpcList" onclick="fn_choiceGpcList" text="품목찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
-								 -->
-							</td>
-							<th scope="row" class="th_bg th_border_right">취급유형</th>
-							<td colspan="2" class="td_input">
-								<sbux-select
-									id="dtl-input-trmtType"
-									name="dtl-input-trmtType"
-									uitype="single"
-									jsondata-ref="jsonComDtlTrmtType"
-									unselected-text="선택"
-									class="form-control input-sm"
-									readonly
-								></sbux-select>
-							</td>
-							<td class="td_input"  style="border-left: hidden;">
-						</tr>
-					</tbody>
-				</table>
+				<hr>
 				<!--[pp] 검색결과 상세보기-->
 				<!-- 농가 리스트 그리드 -->
 				<div class="ad_section_top">
@@ -545,6 +410,80 @@
 							 -->
 						</ul>
 					</div>
+					<div class="box-header" style="display:flex; justify-content: flex-start;" >
+						<div style="margin-left: auto;">
+							<sbux-button id="btnSearchFclt2" name="btnSearchFclt2" uitype="normal" text="농가리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch02"></sbux-button>
+
+							<c:if test="${loginVO.userType ne '02'}">
+								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="농가리스트 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList02"></sbux-button>
+							</c:if>
+
+							<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="농가리스트 출력" onclick="fn_report3"></sbux-button>
+							<sbux-button id="btnDown" name="btnDown" uitype="normal" text="서식다운" class="btn btn-sm btn-outline-danger" onclick="fn_dwnld"></sbux-button>
+
+							<c:if test="${loginVO.userType ne '02'}">
+								<sbux-button id="btnUpload" name="btnUpload" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-outline-danger" onclick="fn_upload"></sbux-button>
+							</c:if>
+
+						</div>
+					</div>
+					<table class="table table-bordered tbl_fixed">
+						<caption>출하조직 표기</caption>
+						<tbody>
+							<tr>
+								<th scope="row" class="th_bg th_border_right">생산자조직 명</th>
+								<sbux-input uitype="hidden" id="dtl-input-apoCd01" name="dtl-input-apoCd01"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-apoSe01" name="dtl-input-apoSe01"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-brno01" name="dtl-input-brno01"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-crno01" name="dtl-input-crno01"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-yr01" name="dtl-input-yr01"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzSn" name="dtl-input-prdcrOgnzSn"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-prdcrOgnzCd" name="dtl-input-prdcrOgnzCd"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-sttgUpbrItemSe" name="dtl-input-sttgUpbrItemSe"></sbux-input>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-prdcrOgnzNm"
+										name="dtl-input-prdcrOgnzNm"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+								<th scope="row" class="th_bg th_border_right">품목</th>
+								<sbux-input uitype="hidden" id="dtl-input-itemCd" name="dtl-input-itemCd"></sbux-input>
+								<td colspan="2" class="td_input">
+									<sbux-input
+										uitype="text"
+										id="dtl-input-itemNm"
+										name="dtl-input-itemNm"
+										class="form-control input-sm"
+										autocomplete="off"
+										readonly
+									></sbux-input>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+									<!--
+									<sbux-button id="srch-btn-gpcList" name="srch-btn-gpcList" uitype="modal" target-id="modal-gpcList" onclick="fn_choiceGpcList" text="품목찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
+									 -->
+								</td>
+								<th scope="row" class="th_bg th_border_right">취급유형</th>
+								<td colspan="2" class="td_input">
+									<sbux-select
+										id="dtl-input-trmtType"
+										name="dtl-input-trmtType"
+										uitype="single"
+										jsondata-ref="jsonComDtlTrmtType"
+										unselected-text="선택"
+										class="form-control input-sm"
+										readonly
+									></sbux-select>
+								</td>
+								<td class="td_input"  style="border-left: hidden;">
+							</tr>
+						</tbody>
+					</table>
 					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 						<p>* 농가리스트 필수입력값 : 조직원명, 재배지주소, 전속(약정)출하계약량, 전속(약정)출하량, 출하대금지급액, 가입일</p>
 					</div>
@@ -616,9 +555,26 @@
 //그리드 에디트 상태에서 영역외 클릭시 부자연스럽게 그리드 영역이 부자연스럽게 이동함
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		//법인계정인데 조직구분이 없는 경우
+		<c:if test="${loginVO.mbrTypeCd eq '1' && empty loginVO.apoSe}">
+			$(".btn").hide();// 모든 버튼 숨기기
+			alert('신청정보가 없습니다');
+			//iframe 밖의 탭 닫기
+			//parent.tabJsonData 열린 탭 정보 리스트
+			//parent.SBUxMethod.get('tab_menu') 현재 선택된 탭이름
+			//현재 열린 탭정보
+			let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
+
+			//사이드 메뉴를 누르기 전 상태로 돌려야함
+			//removeTab 으로 탭 닫기 하는경우 기존 사이드메뉴 누른 상태가 남아서
+			//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+			parent.SBUxMethod.refresh('side_menu');
+			//탭닫기
+			parent.gfn_tabClose(tabInfo);
+		</c:if>
+
 		fn_init();
-		let str = '${loginVO.apoSe}';
-		console.log(str);
+
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
 
@@ -1321,11 +1277,6 @@
 
 			//grdPrdcrOgnCurntMng.rebuild();
 
-			<c:if test="${loginVO.apoSe eq '1'}">
-			//통합조직 진척도 조회
-			//cfn_selectPrgrs();
-			</c:if>
-
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1357,6 +1308,9 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			console.log("data==="+data);
+			if(data.resultList == null){
+				alert('신청정보가 없습니다');
+			}
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -1557,6 +1511,8 @@
 		let prdcrOgnzCd = SBUxMethod.get('dtl-input-prdcrOgnzCd');
 		let prdcrOgnzNm = SBUxMethod.get('dtl-input-prdcrOgnzNm');
 
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
+
 		for(var i=1+1; i<=gridData.length+1; i++ ){
 
 			let rowData = grdPrdcrOgnCurntMng02.getRowData(i);
@@ -1570,6 +1526,7 @@
 					rowData.apoSe = apoSe;
 					rowData.crno = crno;
 					rowData.brno = brno;
+					rowData.uoBrno = uoBrno;
 					rowData.yr = yr;
 					rowData.itemCd = itemCd;
 					rowData.trmtType = trmtType;
@@ -1621,7 +1578,6 @@
 				}
 				console.error("failed", e.message);
 			}
-
 		}
 	}
 
@@ -2497,6 +2453,7 @@
 		let crno = SBUxMethod.get('dtl-input-crno01');
 		let brno = SBUxMethod.get('dtl-input-brno01');
 		let yr = SBUxMethod.get('dtl-input-yr01');
+		let uoBrno = SBUxMethod.get('dtl-input-uoBrno');
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		let trmtType = SBUxMethod.get('dtl-input-trmtType');
 		let sttgUpbrItemSe = SBUxMethod.get('dtl-input-sttgUpbrItemSe');
@@ -2558,6 +2515,7 @@
 			rowData.apoSe = apoSe;
 			rowData.crno = crno;
 			rowData.brno = brno;
+			rowData.uoBrno = uoBrno;
 			rowData.yr = yr;
 			rowData.itemCd = itemCd;
 			rowData.trmtType = trmtType;
