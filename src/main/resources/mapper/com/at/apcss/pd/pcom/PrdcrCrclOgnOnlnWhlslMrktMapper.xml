@@ -14,7 +14,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrkt	-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- DESC : 온라인 도매시장 목표 조회                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -46,7 +46,15 @@
 				  AND APO_SE = '1'
 				  AND STBLT_YN = 'Y'
 			)UO_TOT_TRGT_TRMT_AMT
+			,CRTR_AMT
 			,TRGT_TRMT_RT
+			,(SELECT
+					SUM( NVL(TRMT_AMT,0) + NVL(CONSIGN_TRMT_AMT,0) )
+				FROM TB_EV_ONLN_WHLSL_MRKT_DTL
+				WHERE 1=1
+				  AND YR = OWM.YR
+				  AND UO_BRNO = OWM.BRNO
+			) AS TRMT_AMT_TOT
 		FROM TB_EV_ONLN_WHLSL_MRKT OWM
 		WHERE 1=1
 		  AND YR = #{yr}
@@ -55,7 +63,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectPrdcrCrclOgnOnlnWhlslMrktUoList	-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- DESC : 온라인도매시장 통합조직 조회                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -97,7 +105,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt	-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- DESC : 온라인도매시장 목표 저장                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -154,6 +162,175 @@
 					  , #{totTrgtTrmtAmt}
 					  , #{uoTotTrgtTrmtAmt}
 					  , #{trgtTrmtRt}
+
+					  , SYSDATE
+					  , #{sysFrstInptUserId}
+					  , #{sysFrstInptPrgrmId}
+					  , SYSDATE
+					  , #{sysLastChgUserId}
+					  , #{sysLastChgPrgrmId}
+					)
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList	-->
+	<!-- DESC : 속한 조직 목록을 조회한다.                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectOgnzList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList */
+			EAM.BRNO
+			,EA.CORP_NM
+			,EAM.APO_SE
+			,DECODE(EAM.APO_SE, '1', '통합조직', '2', '출자출하조직', '') AS APO_SE_NM
+		FROM TB_EV_APLY_MNG EAM
+			,TB_EV_APO EA
+		WHERE 1=1
+		  AND EAM.BRNO = EA.BRNO(+)
+		  AND EAM.YR = #{yr}
+		  AND (
+		  			EAM.BRNO = #{brno}
+		  			OR
+		  			EAM.UO_BRNO = #{brno}
+		  		)
+		ORDER BY APO_SE
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
+	<!-- DESC : 속한 조직 품목 목록을 조회한다.                                          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectItemList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
+			YGC.BRNO
+			,YGC.ITEM_CD
+			,YGC.ITEM_NM
+
+			,YGC.CTGRY_CD
+			,YGC.CTGRY_NM
+
+			,YGC.CLSF_CD
+			,YGC.CLSF_NM
+		FROM TB_EV_APO_YR_GPC_CD YGC
+		WHERE 1=1
+		  AND YGC.YR = #{yr}
+		  AND (
+		  			YGC.BRNO = #{brno}
+		  			OR
+		  			YGC.UO_BRNO = #{brno}
+		  		)
+		ORDER BY BRNO, ITEM_CD
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList	-->
+	<!-- DESC : 온라인도매시장 출하실적                                          			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectOnlnDtlList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
+			WMD.YR
+			,DECODE(WMD.BRNO,WMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
+			,WMD.BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.BRNO) AS CORP_NM
+			,WMD.UO_BRNO
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS UO_CORP_NM
+
+			,WMD.ITEM_CD
+			,YGC.ITEM_NM
+
+			,YGC.CTGRY_CD
+			,YGC.CTGRY_NM
+
+			,YGC.CLSF_CD
+			,YGC.CLSF_NM
+
+			,WMD.TRMT_AMT
+			,WMD.CONSIGN_TRMT_AMT
+
+			,(NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0)) AS TRMT_AMT_TOT
+
+			,WMD.DEL_YN
+
+		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
+			,TB_EV_APO_YR_GPC_CD YGC
+		WHERE 1=1
+		  AND WMD.ITEM_CD = YGC.ITEM_CD(+)
+		  AND WMD.BRNO = YGC.BRNO(+)
+		  AND WMD.YR = #{yr}
+		  AND (
+		  			WMD.BRNO = #{brno}
+		  			OR
+		  			WMD.UO_BRNO = #{brno}
+		  		)
+		ORDER BY DECODE(BRNO,UO_BRNO,'1','2'), BRNO, ITEM_CD
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl	-->
+	<!-- DESC : 온라인도매시장 출하실적 저장                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.15  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		MERGE INTO TB_EV_ONLN_WHLSL_MRKT_DTL WMD /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl */
+		USING DUAL
+			ON (
+					WMD.YR			= #{yr}
+					AND WMD.BRNO	= #{brno}
+					AND WMD.UO_BRNO	= #{uoBrno}
+					AND WMD.ITEM_CD	= #{itemCd}
+				)
+		WHEN MATCHED THEN
+				UPDATE
+					   SET
+						TRMT_AMT			= #{trmtAmt}
+						, CONSIGN_TRMT_AMT	= #{consignTrmtAmt}
+
+						, SYS_LAST_CHG_DT		= SYSDATE
+						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHEN NOT MATCHED THEN
+			 INSERT
+					(
+						YR
+					  , BRNO
+					  , UO_BRNO
+
+					  , ITEM_CD
+
+					  , TRMT_AMT
+					  , CONSIGN_TRMT_AMT
+
+					  , SYS_FRST_INPT_DT
+					  , SYS_FRST_INPT_USER_ID
+					  , SYS_FRST_INPT_PRGRM_ID
+					  , SYS_LAST_CHG_DT
+					  , SYS_LAST_CHG_USER_ID
+					  , SYS_LAST_CHG_PRGRM_ID
+					)
+				VALUES
+					(
+					  #{yr}
+					  , #{brno}
+					  , #{uoBrno}
+
+					  , #{itemCd}
+
+					  , #{trmtAmt}
+					  , #{consignTrmtAmt}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}

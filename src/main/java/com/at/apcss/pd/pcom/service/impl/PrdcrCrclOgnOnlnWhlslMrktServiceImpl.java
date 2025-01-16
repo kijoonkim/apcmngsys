@@ -48,8 +48,45 @@ public class PrdcrCrclOgnOnlnWhlslMrktServiceImpl extends BaseServiceImpl implem
 	@Override
 	public int insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO)
 			throws Exception {
-		int updatedCnt = PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO);
-		return updatedCnt;
+		int insertedCnt = PrdcrCrclOgnOnlnWhlslMrktMapper.insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return insertedCnt;
 	}
 
+	@Override
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOgnzList(
+			PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectOgnzList(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectItemList(
+			PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOnlnDtlList(
+			PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectOnlnDtlList(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return resultList;
+	}
+
+	@Override
+	public int insertOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO)
+			throws Exception {
+		int insertedCnt = PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return insertedCnt;
+	}
+
+	@Override
+	public int multiSaveOnlnDtl(List<PrdcrCrclOgnOnlnWhlslMrktVO> PrdcrCrclOgnOnlnWhlslMrktVOList)
+			throws Exception {
+		int insertedCnt = 0;
+		for (PrdcrCrclOgnOnlnWhlslMrktVO prdcrCrclOgnOnlnWhlslMrktVO : PrdcrCrclOgnOnlnWhlslMrktVOList) {
+			insertedCnt += PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl(prdcrCrclOgnOnlnWhlslMrktVO);
+		}
+		return insertedCnt;
+	}
 }

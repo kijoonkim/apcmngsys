@@ -45,5 +45,43 @@ public interface PrdcrCrclOgnOnlnWhlslMrktService {
 	 */
 	public int insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
 
+	/**
+	 * 속한 조직 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOgnzList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
 
+	/**
+	 * 속한 조직 품목 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectItemList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
+	/**
+	 * 온라인도매시장 출하실적 목록을 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectOnlnDtlList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
+	/**
+	 * 온라인도매시장 출하실적 정보를 저장한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
+	/**
+	 * 온라인도매시장 출하실적 정보리스트를 저장한다.
+	 * @param List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveOnlnDtl(List<PrdcrCrclOgnOnlnWhlslMrktVO> PrdcrCrclOgnOnlnWhlslMrktVOList) throws Exception;
 }
