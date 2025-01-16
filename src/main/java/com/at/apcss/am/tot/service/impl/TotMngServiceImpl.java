@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 
 
+import com.at.apcss.am.clcln.vo.ClclnRsltDtlVO;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.tot.vo.TotCrtrVO;
 import com.at.apcss.am.tot.vo.TotRsltVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -455,6 +457,42 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 		}
 
 		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertTotRsltCrt(TotRsltVO totRsltVO) throws Exception {
+
+		if (!StringUtils.hasText(totRsltVO.getApcCd())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		// validation check
+		if (!StringUtils.hasText(totRsltVO.getCrtrYmd())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준일자");
+		}
+
+		if (!StringUtils.hasText(totRsltVO.getTotCrtrType())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "집계유형");
+		}
+
+		if (!StringUtils.hasText(totRsltVO.getTermKndCd())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기간구분");
+		}
+
+		totMngMapper.insertSptotRsltCrt(totRsltVO);
+
+		if (StringUtils.hasText(totRsltVO.getRtnCd())) {
+			throw new EgovBizException(
+					getMessageForMap(
+							ComUtil.getResultMap(
+									totRsltVO.getRtnCd(),
+									totRsltVO.getRtnMsg()
+							)
+					)
+			);
+		}
+
+		return null;
 	}
 
 

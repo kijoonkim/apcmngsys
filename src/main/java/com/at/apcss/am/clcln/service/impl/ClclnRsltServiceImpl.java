@@ -189,8 +189,7 @@ public class ClclnRsltServiceImpl extends BaseServiceImpl implements ClclnRsltSe
 						)
 				); 
 		}
-		
-		
+
 		return null;
 	}
 

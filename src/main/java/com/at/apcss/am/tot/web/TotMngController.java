@@ -46,8 +46,6 @@ public class TotMngController extends BaseController {
 	private TotMngService totMngService;
 
 
-
-
 	@PostMapping(value = "/am/tot/selectCrtrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectCrtrList(@RequestBody TotCrtrVO totCrtrVO, HttpServletRequest request) throws Exception {
 
@@ -209,6 +207,37 @@ public class TotMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+
+	@PostMapping(value = "/am/tot/insertTotRsltCrt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertTotRsltCrt(@RequestBody TotRsltVO totRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			totRsltVO.setSysFrstInptUserId(getUserId());
+			totRsltVO.setSysFrstInptPrgrmId(getPrgrmId());
+			totRsltVO.setSysLastChgUserId(getUserId());
+			totRsltVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = totMngService.insertTotRsltCrt(totRsltVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 
 	@PostMapping(value = "/am/tot/selectTotRsltTermList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectTotRsltTermList(@RequestBody TotRsltVO totRsltVO, HttpServletRequest request) throws Exception {

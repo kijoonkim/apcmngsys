@@ -1,13 +1,17 @@
 package com.at.apcss.am.stat.vo;
 
+import com.at.apcss.am.tot.vo.TotCrtrVO;
 import com.at.apcss.co.sys.vo.ComVO;
 
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
-public class StatMngVO extends ComVO{
+public class StatMngVO extends ComVO {
 
 	/**
 	APC코드
@@ -17,76 +21,27 @@ public class StatMngVO extends ComVO{
 	/**
 	통계기준유형코드
 	**/
-	private String statCrtrType;
+	private String statsCrtrType;
 
-
-	/**
-	기준코드
-	**/
 	private String crtrCd;
-	/**
-	기준값
-	**/
-	private Integer crtrVl;
-	/**
-	기준표시명
-	**/
-	private String crtrIndctNm;
-	/**
-	사용여부
-	**/
-	private String useYn;
-	/**
-	표시순서
-	**/
-	private Integer indctSeq;
-	/**
-	삭제여부
-	**/
-	private String delYn;
-	/**
-	상세순번
-	**/
-	private Integer dtlSn;
-	/**
-	상세코드
-	**/
-	private String dtlCd;
-	/**
-	상세값
-	**/
-	private String dtlVl;
-	/**
-	상세표시명
-	**/
-	private String dtlIndctNm;
 
-	/**
-	상태
-	**/
-	private String status;
+	private List<StatCrtrVO> crtrList;
 
-	/**
-	통계상세처리코드
-	**/
-	private String statDtlPrcsCd;
+	private List<StatCrtrVO> crtrDtlList;
 
-	/**
-	비고
-	**/
-	private String rmrk;
+	public List<StatCrtrVO> getCrtrList() {
+		return crtrList == null ? null : new ArrayList<>(crtrList);
+	}
 
+	public void setCrtrList(List<StatCrtrVO> crtrList) {
+		this.crtrList = crtrList == null ? null : new ArrayList<>(crtrList);
+	}
 
-	/**
-	 * 구분
-	 */
-	private String gubun;
+	public List<StatCrtrVO> getCrtrDtlList() {
+		return crtrDtlList == null ? null : new ArrayList<>(crtrDtlList);
+	}
 
-	/**
-	 *
-	 */
-	private String dtlNm;
-
-
-
+	public void setCrtrDtlList(List<StatCrtrVO> crtrDtlList) {
+		this.crtrDtlList = crtrDtlList == null ? null : new ArrayList<>(crtrDtlList);
+	}
 }
