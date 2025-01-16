@@ -69,7 +69,7 @@
         },
  
         fn_search: async function() {
-            let data = await gfnma_getComList('P_TAXSITE','','','','CO_CD',"CORP_NM");
+            let data = await gfnma_getComList('P_TAXSITE','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM",'');
             jsonTaxSite = [...data.cv_1];
             grdTaxSite.rebuild();
         },
@@ -81,9 +81,9 @@
                 jsonref: 'jsonTaxSite',
                 emptyrecords: '데이터가 없습니다.',
                 columns: [
-                    {caption: ['코드'], ref: 'TAX_SITE_CODE', type: 'output', width: '15%', style: 'text-align:center'},
-                    {caption: ['사업장명'], ref: 'TAX_SITE_NAME', type: 'output', width: '45%', style: 'text-align:center'},
-                    {caption: ['사업자번호'], ref: 'BIZ_REGNO', type: 'output', width: '40%', style: 'text-align:center'}
+                    {caption: ['코드'], ref: 'TX_SITE_CD', type: 'output', width: '15%', style: 'text-align:center'},
+                    {caption: ['사업장명'], ref: 'TX_SITE_NM', type: 'output', width: '45%', style: 'text-align:center'},
+                    {caption: ['사업자번호'], ref: 'BRNO', type: 'output', width: '40%', style: 'text-align:center'}
                 ]
             };
             grdTaxSite = _SBGrid.create(gridProperties);
