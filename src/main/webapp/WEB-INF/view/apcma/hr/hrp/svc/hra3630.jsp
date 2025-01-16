@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name 		: hra3620.jsp
-     * @Description 	: 용역소득 확정 및 전송 화면
+     * @Description 	: 용역소득 지급 및 전송 화면
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.11.05
      * @version 		: 1.0
@@ -22,7 +22,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 용역소득 확정 및 전송</title>
+    <title>title : 용역소득 지급 및 전송</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 	<%@ include file="../../../../frame/inc/clipreport.jsp" %>    
@@ -40,6 +40,8 @@
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFile"></sbux-button>
                 <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendEmail"></sbux-button>
                 <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendSMS"></sbux-button>
+                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
+                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_confirm"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -118,18 +120,6 @@
                     <th scope="row" class="th_bg_search">소득자명</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td></td>
-                    <th scope="row" class="th_bg_search">양식일자</th>
-                    <td colspan="3" class="td_input">
-                        <sbux-datepicker
-                                uitype="popup"
-                                id="SRCH_REPORT_DATE"
-                                name="SRCH_REPORT_DATE"
-                                date-format="yyyy-mm-dd"
-                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
-                                style="width:100%;"
-                        />
                     </td>
                     <td></td>
                 </tr>
@@ -306,33 +296,8 @@
             {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
             },
-            {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'datepicker',  	width:'67px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm'},
-                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
-                , disabled: true
-            },
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["내·외국인구분"], 		ref: 'FOREI_TYPE',   	    type:'combo', style:'text-align:left' ,width: '85px',
-                typeinfo: {
-                    ref			: 'jsonForeignType',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["거주국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
-                typeinfo: {
-                    ref			: 'jsonNationCode',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["전화번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
-            {caption: ["주소"], 		ref: 'ADDRESS',   	    type:'output', style:'text-align:left' ,width: '200px'},
             {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '100px',
                 typeinfo: {
                     ref			: 'jsonWorkRegion',
@@ -352,10 +317,19 @@
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
+            {caption: ["총 금액"],         ref: 'TOT_AMOUNT',    type:'output',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
             {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
+            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["계좌번호"],         ref: 'BANK_ACCOUNT',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["휴대폰번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
             {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
         ];
 
@@ -452,6 +426,10 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
+            {caption: ["총 금액"],         ref: 'TOT_AMOUNT',    type:'output',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
             {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
@@ -501,10 +479,6 @@
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["총공제액"],         ref: 'TOT_DEDUCT_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["차인지급액"],         ref: 'ALLOWANCE_AMT',    type:'output',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
@@ -635,7 +609,6 @@
                         EMPLOY_INSURE_AMT : item.EPIS_AMT,
                         ETC_DED_AMT : item.ETC_DDC_AMT,
                         TOT_DEDUCT_AMT : item.DDC_AMT_SUM,
-                        ALLOWANCE_AMT : item.SBTR_PAY_AMT,
                         MEMO : item.MEMO,
                         REMARK : item.RMRK,
                         FOREI_TYPE : item.FRGNR_YN,
@@ -911,13 +884,15 @@
                         EARNER_NAME : item.EARNR_NM,
                         SITE_CODE : item.SITE_CD,
                         TOT_PAY_AMT : item.PAY_AMT_SUM,
-                        FOREI_TYPE : item.FRGNR_YN,
-                        NATION_CODE : item.HBTN_NTN_CD,
-                        TEL : item.TELNO,
                         MOBILE_PHONE : item.MOBL_NO,
                         EMAIL : item.EML,
-                        ADDRESS : item.ADDR,
                         WORK_REGION : item.WORK_RGN_CD,
+                        BANK_CODE : item.BANK_CD,
+                        BANK_NAME : item.BANK_NM,
+                        BANK_ACC : item.BANK_ACC_REAL,
+                        PAY_CYCLE : item.PAY_CYCL,
+                        TEL : item.MOBL_NO,
+                        MEMO : item.MEMO
                     }
                     jsonServiceFeePayList.push(msg);
                 });
@@ -1117,6 +1092,178 @@ console.log('datas ==>', datas);
             }
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    const fn_confirm = async function () {
+        let gvwInfoCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHK_YN"), true);
+        let returnData = [];
+
+        if(gvwInfoCheckedList.length == 0) {
+            return;
+        }
+
+        gvwInfoCheckedList.forEach((item, index) => {
+            let data = gvwInfo.getRowData(item);
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                workType : 'CONFIRM',
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_TXN_ID : 0,
+                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
+                    V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
+                    V_P_SITE_CODE : '',
+                    V_P_PAY_DATE : '',
+                    V_P_WORK_END_DAT : '',
+                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
+                    V_P_WORK_DAY : '',
+                    V_P_WORK_CNT : '',
+                    V_P_WORK_GBN : '',
+                    V_P_WORK_PLACE : '',
+                    V_P_WORK_NAME : '',
+                    V_P_WORK_DTL_NAME : '',
+                    V_P_WORK_PLACE2 : '',
+                    V_P_DAILY_PAY_AMT : '',
+                    V_P_TOT_PAY_AMT : '',
+                    V_P_NON_TXABLE_AMT : '',
+                    V_P_INC_AMT : '',
+                    V_P_EARNED_INC_AMT : '',
+                    V_P_INC_TX_AMT : '',
+                    V_P_LOCAL_TX_AMT : '',
+                    V_P_HEALTH_INSURE_AMT : '',
+                    V_P_LONG_HEALTH_INSURE_AMT : '',
+                    V_P_NATIONAL_PENS_AMT : '',
+                    V_P_EMPLOY_INSURE_AMT : '',
+                    V_P_ETC_DED_AMT : '',
+                    V_P_TOT_DEDUCT_AMT : '',
+                    V_P_MEMO : '',
+                    V_P_REMARK : '',
+                    V_P_WORK_REGION : '',
+                    V_P_CONFIRM_YN : '',
+                    V_P_ADJUSTMENT_AMT : '',
+                    V_P_FUAL_AMT : '',
+                    V_P_ETC_COST : '',
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3620List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    await fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } else {
+            await fn_search();
+        }
+    }
+
+    const fn_cancel = async function () {
+        let gvwInfoCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHK_YN"), true);
+        let returnData = [];
+
+        if(gvwInfoCheckedList.length == 0) {
+            return;
+        }
+
+        gvwInfoCheckedList.forEach((item, index) => {
+            let data = gvwInfo.getRowData(item);
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                workType : 'CONFIRM_CANCLE',
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_TXN_ID : 0,
+                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
+                    V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
+                    V_P_SITE_CODE : '',
+                    V_P_PAY_DATE : '',
+                    V_P_WORK_END_DAT : '',
+                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
+                    V_P_WORK_DAY : '',
+                    V_P_WORK_CNT : '',
+                    V_P_WORK_GBN : '',
+                    V_P_WORK_PLACE : '',
+                    V_P_WORK_NAME : '',
+                    V_P_WORK_DTL_NAME : '',
+                    V_P_WORK_PLACE2 : '',
+                    V_P_DAILY_PAY_AMT : '',
+                    V_P_TOT_PAY_AMT : '',
+                    V_P_NON_TXABLE_AMT : '',
+                    V_P_INC_AMT : '',
+                    V_P_EARNED_INC_AMT : '',
+                    V_P_INC_TX_AMT : '',
+                    V_P_LOCAL_TX_AMT : '',
+                    V_P_HEALTH_INSURE_AMT : '',
+                    V_P_LONG_HEALTH_INSURE_AMT : '',
+                    V_P_NATIONAL_PENS_AMT : '',
+                    V_P_EMPLOY_INSURE_AMT : '',
+                    V_P_ETC_DED_AMT : '',
+                    V_P_TOT_DEDUCT_AMT : '',
+                    V_P_MEMO : '',
+                    V_P_REMARK : '',
+                    V_P_WORK_REGION : '',
+                    V_P_CONFIRM_YN : '',
+                    V_P_ADJUSTMENT_AMT : '',
+                    V_P_FUAL_AMT : '',
+                    V_P_ETC_COST : '',
+                    V_P_FORM_ID : p_formId,
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3620List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    await fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        } else {
+            await fn_search();
         }
     }
 </script>

@@ -72,7 +72,7 @@
                     <th scope="row" class="th_bg_search">사업장</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panHeader" required>
+                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
@@ -133,6 +133,7 @@
                         <div class="ad_tbl_toplist">
                             <sbux-button id="btnUploadExcel" name="btnUploadExcel" uitype="normal" text="엑셀업로드" class="btn btn-sm btn-outline-danger" onclick="$('#excelFile').click()" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnDownloadExcelForm" name="btnDownloadExcelForm" uitype="normal" text="엑셀 서식 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadExcelForm" style="float: right; margin-right: 3px;"></sbux-button>
+                            <sbux-button id="btnDownloadExcel" name="btnDownloadExcel" uitype="normal" text="엑셀 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadExcel" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delRow" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnAdd" name="btnAdd" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right; margin-right: 3px;"></sbux-button>
                             <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
@@ -233,7 +234,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["확정여부"], 		ref: 'CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '103px'
+            {caption: ["확정여부"], 		ref: 'CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
@@ -281,11 +282,11 @@
                 typeinfo: {dateformat: 'yyyy-mm'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
             },
-            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
+            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
+            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
@@ -409,14 +410,6 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["근로급여"],         ref: 'WORK_PAY_AMT',    type:'input',  	width:'104px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["차인지급액"],         ref: 'ALLOWANCE_AMT',    type:'input',  	width:'75px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
             {caption: ["분개장번호"],         ref: 'REMARK',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["비고"],         ref: 'MEMO',    type:'input',  	width:'100px',  style:'text-align:left'},
         ];
@@ -521,6 +514,7 @@
         let rowVal = gvwInfo.getRow();
         let JOB_YYYYMM = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_FR"));
         let DECLARATION_YYYYMM = gfn_addMonth(JOB_YYYYMM, 1).substring(0, 6);
+        let gridlength = gvwInfo.getGridDataAll().length+1;
 
         if (rowVal == -1){
             gvwInfo.addRow(true, {
@@ -530,6 +524,17 @@
                 NATION_CODE : "KR",
                 PAY_DATE : gfn_dateToYmd(new Date()),
             });
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("EARNER_CODE"), gridlength, gvwInfo.getColRef("EARNER_CODE"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("EARNER_NAME"), gridlength, gvwInfo.getColRef("EARNER_NAME"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("EARNER_BTN"), gridlength, gvwInfo.getColRef("EARNER_BTN"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_ST_DAT"), gridlength, gvwInfo.getColRef("WORK_ST_DAT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_END_DAT"), gridlength, gvwInfo.getColRef("WORK_END_DAT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_CNT"), gridlength, gvwInfo.getColRef("WORK_CNT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("DAILY_PAY_AMT"), gridlength, gvwInfo.getColRef("DAILY_PAY_AMT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_GBN"), gridlength, gvwInfo.getColRef("WORK_GBN"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_PLACE"), gridlength, gvwInfo.getColRef("WORK_PLACE"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("WORK_NAME"), gridlength, gvwInfo.getColRef("WORK_NAME"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("PAY_DATE"), gridlength, gvwInfo.getColRef("PAY_DATE"), "#FFF8DC");
         }else{
             gvwInfo.insertRow(rowVal, 'below', {
                 JOB_YYYYMM : JOB_YYYYMM,
@@ -538,6 +543,17 @@
                 NATION_CODE : "KR",
                 PAY_DATE : gfn_dateToYmd(new Date()),
             });
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("EARNER_CODE"), rowVal+1, gvwInfo.getColRef("EARNER_CODE"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("EARNER_NAME"), rowVal+1, gvwInfo.getColRef("EARNER_NAME"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("EARNER_BTN"), rowVal+1, gvwInfo.getColRef("EARNER_BTN"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_ST_DAT"), rowVal+1, gvwInfo.getColRef("WORK_ST_DAT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_END_DAT"), rowVal+1, gvwInfo.getColRef("WORK_END_DAT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_CNT"), rowVal+1, gvwInfo.getColRef("WORK_CNT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("DAILY_PAY_AMT"), rowVal+1, gvwInfo.getColRef("DAILY_PAY_AMT"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_GBN"), rowVal+1, gvwInfo.getColRef("WORK_GBN"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_PLACE"), rowVal+1, gvwInfo.getColRef("WORK_PLACE"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("WORK_NAME"), rowVal+1, gvwInfo.getColRef("WORK_NAME"), "#FFF8DC");
+            gvwInfo.setCellStyle('background-color', rowVal+1, gvwInfo.getColRef("PAY_DATE"), rowVal+1, gvwInfo.getColRef("PAY_DATE"), "#FFF8DC");
         }
     }
 
@@ -604,8 +620,7 @@
             , "일당", "조정금액", "유류금액", "기타비용", "작업구분", "작업장소"
             , "작업명", "작업세부명", "작업장소2", "지급일자", "비과세소득", "근로소득공제"
             , "소득세", "주민세", "건강보험", "장기요양보험", "국민연금", "고용보험"
-            , "기타공제", "근로급여", "차인지급액", "분개장번호"
-            , "비고" // 헤더
+            , "기타공제", "분개장번호", "비고" // 헤더
         ]);
 
         const validations = [{
@@ -937,6 +952,10 @@
         });
     }
 
+    const fn_downloadExcel = async function () {
+        gvwInfo.exportLocalExcel("용역비등록내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+    }
+
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_initSBSelect();
         fn_createGvwInfoGrid();
@@ -980,8 +999,6 @@
                                 "NATIONAL_PENS_AMT",
                                 "EMPLOY_INSURE_AMT",
                                 "ETC_DED_AMT",
-                                "WORK_PAY_AMT",
-                                "ALLOWANCE_AMT",
                                 "REMARK",
                                 "MEMO",
                             ]});
@@ -1081,7 +1098,6 @@
                     V_P_WORK_PLACE2 : gfn_nvl(item.data.WORK_PLACE2),
                     V_P_DAILY_PAY_AMT : gfn_nvl(item.data.DAILY_PAY_AMT, 0),
                     V_P_TOT_PAY_AMT : gfn_nvl(item.data.TOT_PAY_AMT, 0),
-                    V_P_WORK_PAY_AMT : gfn_nvl(item.data.WORK_PAY_AMT, 0),
                     V_P_NON_TXABLE_AMT : gfn_nvl(item.data.NON_TXABLE_AMT, 0),
                     V_P_INC_AMT : gfn_nvl(item.data.INC_AMT, 0),
                     V_P_EARNED_INC_AMT : gfn_nvl(item.data.EARNED_INC_AMT, 0),
@@ -1093,7 +1109,6 @@
                     V_P_EMPLOY_INSURE_AMT : gfn_nvl(item.data.EMPLOY_INSURE_AMT, 0),
                     V_P_ETC_DED_AMT : gfn_nvl(item.data.ETC_DED_AMT, 0),
                     V_P_TOT_DEDUCT_AMT : gfn_nvl(item.data.TOT_DEDUCT_AMT, 0),
-                    V_P_ALLOWANCE_AMT : gfn_nvl(item.data.ALLOWANCE_AMT, 0),
                     V_P_MEMO : gfn_nvl(item.data.MEMO),
                     V_P_REMARK : gfn_nvl(item.data.REMARK),
                     V_P_WORK_REGION : gfn_nvl(item.data.WORK_REGION),
@@ -1169,7 +1184,6 @@
                     V_P_WORK_PLACE2 : '',
                     V_P_DAILY_PAY_AMT : '',
                     V_P_TOT_PAY_AMT : '',
-                    V_P_WORK_PAY_AMT : '',
                     V_P_NON_TXABLE_AMT : '',
                     V_P_INC_AMT : '',
                     V_P_EARNED_INC_AMT : '',
@@ -1181,7 +1195,6 @@
                     V_P_EMPLOY_INSURE_AMT : '',
                     V_P_ETC_DED_AMT : '',
                     V_P_TOT_DEDUCT_AMT : '',
-                    V_P_ALLOWANCE_AMT : '',
                     V_P_MEMO : '',
                     V_P_REMARK : '',
                     V_P_WORK_REGION : '',
@@ -1257,7 +1270,6 @@
                     V_P_WORK_PLACE2 : '',
                     V_P_DAILY_PAY_AMT : '',
                     V_P_TOT_PAY_AMT : '',
-                    V_P_WORK_PAY_AMT : '',
                     V_P_NON_TXABLE_AMT : '',
                     V_P_INC_AMT : '',
                     V_P_EARNED_INC_AMT : '',
@@ -1269,7 +1281,6 @@
                     V_P_EMPLOY_INSURE_AMT : '',
                     V_P_ETC_DED_AMT : '',
                     V_P_TOT_DEDUCT_AMT : '',
-                    V_P_ALLOWANCE_AMT : '',
                     V_P_MEMO : '',
                     V_P_REMARK : '',
                     V_P_WORK_REGION : '',
@@ -1371,7 +1382,6 @@
                         BANK_ACC : gfn_nvl(item.BACNT_NO),
                         DAILY_PAY_AMT : gfn_nvl(item.DAY_PAY_AMT, 0),
                         TOT_PAY_AMT : gfn_nvl(item.PAY_AMT_SUM, 0),
-                        WORK_PAY_AMT : gfn_nvl(item.WORK_PAY_AMT, 0),
                         NON_TXABLE_AMT : gfn_nvl(item.TXFR_INCM_AMT, 0),
                         INC_AMT : gfn_nvl(item.EARN_DDC_AMT, 0),
                         EARNED_INC_AMT : gfn_nvl(item.ERICM_AMT, 0),
@@ -1383,7 +1393,6 @@
                         EMPLOY_INSURE_AMT : gfn_nvl(item.EPIS_AMT, 0),
                         ETC_DED_AMT : gfn_nvl(item.ETC_DDC_AMT, 0),
                         TOT_DEDUCT_AMT : gfn_nvl(item.DDC_AMT_SUM, 0),
-                        ALLOWANCE_AMT : gfn_nvl(item.SBTR_PAY_AMT, 0),
                         MEMO : gfn_nvl(item.MEMO),
                         REMARK : gfn_nvl(item.RMRK),
                         FOREI_TYPE : gfn_nvl(item.FRGNR_YN),
