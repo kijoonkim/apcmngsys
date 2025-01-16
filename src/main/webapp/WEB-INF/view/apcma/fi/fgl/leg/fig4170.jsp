@@ -885,10 +885,14 @@
   					totalRecordCount ++;
   				});
 				
+  	        	SBUxMethod.openProgress(gv_loadingOptions);
+  	        	
   	        	fn_convertData(list);
         		Fig4170Grid.rebuild();
   	        	fn_setStyleGrid();
   	        	document.querySelector('#listCount1').innerText = totalRecordCount;
+  	        	
+  	        	SBUxMethod.closeProgress(gv_loadingOptions);
   	        	
         	} else {
           		alert(data.resultMessage);
