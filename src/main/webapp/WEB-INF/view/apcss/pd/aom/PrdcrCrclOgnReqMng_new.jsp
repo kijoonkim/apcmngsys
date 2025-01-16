@@ -42,13 +42,17 @@
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
 					-->
+					<!--
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="하위출자출하조직 등록정보 출력" onclick="fn_report3"></sbux-button>
+					-->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					<sbux-button id="btnCorpDdlnSeCd01" name="btnCorpDdlnSeCd01" uitype="normal" text="법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
+					<!--
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="통합조직 등록정보 출력" onclick="fn_report2"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="하위출자출하조직 등록정보 출력" onclick="fn_report3"></sbux-button>
+					-->
 				</c:if>
 				</div>
 			</div>

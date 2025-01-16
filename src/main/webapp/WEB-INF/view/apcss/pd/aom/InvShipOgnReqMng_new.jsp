@@ -43,11 +43,15 @@
 				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
 					<c:if test="${loginVO.apoSe eq '1'}">
 						<sbux-button id="btnSearchFclt01" name="btnSearchFclt01" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch01"></sbux-button>
+						<!--
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
+						-->
 					</c:if>
 					<c:if test="${loginVO.apoSe eq '2'}">
 						<sbux-button id="btnSearchFclt02" name="btnSearchFclt02" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlSearch02"></sbux-button>
+						<!--
 						<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report3"></sbux-button>
+						-->
 					</c:if>
 					<sbux-button id="btnSaveFclt01" name="btnSaveFclt01" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</c:if>
