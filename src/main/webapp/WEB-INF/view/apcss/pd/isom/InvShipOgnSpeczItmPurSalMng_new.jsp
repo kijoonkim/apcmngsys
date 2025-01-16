@@ -376,6 +376,24 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		//법인계정인데 조직구분이 없는 경우
+		<c:if test="${loginVO.mbrTypeCd eq '1' && empty loginVO.apoSe}">
+			$(".btn").hide();// 모든 버튼 숨기기
+			alert('신청정보가 없습니다');
+			//iframe 밖의 탭 닫기
+			//parent.tabJsonData 열린 탭 정보 리스트
+			//parent.SBUxMethod.get('tab_menu') 현재 선택된 탭이름
+			//현재 열린 탭정보
+			let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
+
+			//사이드 메뉴를 누르기 전 상태로 돌려야함
+			//removeTab 으로 탭 닫기 하는경우 기존 사이드메뉴 누른 상태가 남아서
+			//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+			parent.SBUxMethod.refresh('side_menu');
+			//탭닫기
+			parent.gfn_tabClose(tabInfo);
+		</c:if>
+
 		fn_init();
 
 		/**
