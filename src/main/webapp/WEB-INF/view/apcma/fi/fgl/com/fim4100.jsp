@@ -391,10 +391,10 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption : ["행유형"], ref : 'LINE_TYPE', width : '150px', style : 'text-align:center', type : 'combo', disabled: false,
+            {caption : ["행유형"], ref : 'LINE_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: false,
                 typeinfo : {ref : 'jsonGridComboLineType',  label : 'label', value : 'value'}
             },
-            {caption : ["행유형"], ref : 'DEBIT_CREDIT', width : '100px', style : 'text-align:center', type : 'combo', disabled: false,
+            {caption : ["행유형"], ref : 'DEBIT_CREDIT', width : '70px', style : 'text-align:center', type : 'combo', disabled: false,
                 typeinfo : {ref : 'jsonGridComboDebitCredit',  label : 'label', value : 'value'}
             },
             {caption: ["계정코드"],  				ref: 'ACCOUNT_CODE', 			type:'output',		width:'100px',  	style:'text-align:left'},

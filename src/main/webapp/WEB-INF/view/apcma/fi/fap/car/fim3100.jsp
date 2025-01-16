@@ -1664,14 +1664,14 @@
     	htm +=	'<input type="hidden" name="EMP_CODE">';
     	htm +=	'<input type="hidden" name="PAY_DATE" 		value="' + gfnma_date().substr(0,8) + '">';
     	htm +=	'<input type="hidden" name="RECEIVE_DATE" 	value="' + gfnma_date().substr(0,8) + '">';
-    	htm +=	'<td></td>';
-    	htm +=	'<td></td>';
-    	htm +=	'<td></td>';
+    	htm +=	'<td style="text-align:left"></td>';
+    	htm +=	'<td style="text-align:left"></td>';
+    	htm +=	'<td style="text-align:left"></td>';
     	htm +=	'<td>';
     	htm +=	'<button class="btn btn-xs btn-outline-danger">..</button>';
     	htm +=	'</td>';
-    	htm +=	'<td>' + gfnma_date4() + '</td>';
-    	htm +=	'<td>' + gfnma_date4() + '</td>';
+    	htm +=	'<td style="text-align:left">' + gfnma_date4() + '</td>';
+    	htm +=	'<td style="text-align:left">' + gfnma_date4() + '</td>';
     	htm +=	'</tr>';
     	
     	var tar = $('#card-history-table').find('tbody');
