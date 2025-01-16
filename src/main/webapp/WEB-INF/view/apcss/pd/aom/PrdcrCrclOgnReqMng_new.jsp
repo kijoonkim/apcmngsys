@@ -1641,15 +1641,21 @@
 				$(".btn").hide();// 모든 버튼 숨기기
 				$(".sb-area-grdGpcList").hide();
 				SBUxMethod.clearAllData();//모든 데이터 클리어
+
 				alert("산지조직관리 작성이 필요합니다.");
 
 				//iframe 밖의 탭 닫기
 				//parent.tabJsonData 열린 탭 정보 리스트
-				//parent.SBUxMethod.get('tab_menu') 탭이름
+				//parent.SBUxMethod.get('tab_menu') 현재 선택된 탭이름
 				//현재 열린 탭정보
-				//let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
-				//parent.SBUxMethod.set('side_menu','');
-				//parent.gfn_tabClose(tabInfo);
+				let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
+
+				//사이드 메뉴를 누르기 전 상태로 돌려야함
+				//removeTab 으로 탭 닫기 하는경우 기존 사이드메뉴 누른 상태가 남아서
+				//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+				parent.SBUxMethod.refresh('side_menu');
+				//탭닫기
+				parent.gfn_tabClose(tabInfo);
 				//parent.gfn_tabClose("TAB_PD_003_003");
 				//parent.SBUxMethod.removeTab('tab_menu','TAB_PD_003_003');
 				return;
