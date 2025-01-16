@@ -23,6 +23,25 @@
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+	<style>
+		#wsarea {
+			border: solid 1px black;
+			display: none;
+			position: absolute;
+			z-index: 9999;
+			width: 50vw;
+			height: 50vh;
+			top: 35%;
+			left: 55%;
+			transform: translate(-50%, -50%);
+			background-color: white;
+			padding: 3vw;
+			overflow: scroll;
+		}
+		#wsarea div {
+			font-size: large;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -35,6 +54,14 @@
                     </sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button
+							id="btnConnect"
+							name="btnConnect"
+							uitype="normal"
+							class="btn btn-sm btn-primary"
+							onclick="fn_connectWs"
+							text="데이터수신"
+					></sbux-button>
 					<sbux-button
 						id="btnDocRawMtrWgh"
 						name="btnDocRawMtrWgh"
@@ -405,6 +432,9 @@
 				</div>
 			</div>
 			<!--[pp] //검색결과 -->
+			<div id="wsarea">
+				<button style="position: absolute; top: 5px; right: 10px" onclick="$('#wsarea').css('display','none');">X</button>
+			</div>
 		</div>
 	</section>
     <!-- 생산자 선택 Modal -->
@@ -1384,6 +1414,25 @@
                      fn_popApcLinkCallBack
                  );
      }
+	 const fn_connectWs = async function(){
+		let socket = new WebSocket("ws://localhost:9090/ws");
+
+		socket.onopen = () => {
+			console.log("Connected to WebSocket server");
+			socket.send("hello, server");
+			$("#wsarea").css("display","block");
+		};
+
+		socket.onmessage = (event) => {
+			console.log("received from server",event.data);
+			/** append text **/
+			$("#wsarea div").remove();
+			$("#wsarea").append(`<div>${'${event.data}'}</div>`);
+		}
+		socket.onclose = () => {
+			console.log("close");
+		}
+	 }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
