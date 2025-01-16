@@ -31,6 +31,11 @@ public class DscdCrtrVO extends ComVO {
 	private String apcCd;
 
     /**
+     * APC명
+     */
+    private String apcNm;
+
+    /**
      * 폐기 기준 유형
      */
 	private String dscdCrtrType;
@@ -191,11 +196,17 @@ public class DscdCrtrVO extends ComVO {
      * 재고 번호
      */
     private String invntrNo;
+    private String pckgno;
 
     /**
      * 재고 일련번호 (재고 순번)
      */
     private int invntrSn;
+
+    /**
+     * 대표 생산자 코드
+     */
+    private String rprsPrdcdCd;
 
     /**
      * 생산자 코드
@@ -233,6 +244,11 @@ public class DscdCrtrVO extends ComVO {
     private String grdCd;
 
     /**
+     * 등급 코드
+     */
+    private String sortGrdCd;
+
+    /**
      * 규격 코드
      */
     private String spcfctCd;
@@ -260,12 +276,14 @@ public class DscdCrtrVO extends ComVO {
     /**
      * 폐기 수량
      */
-    private double dscdQntt;
+    private int dscdQntt;
+    private int invntrQntt;
 
     /**
      * 폐기 중량 (폐기 무게)
      */
     private double dscdWght;
+    private double invntrWght;
 
     /**
      * 폐기 사유
@@ -276,7 +294,6 @@ public class DscdCrtrVO extends ComVO {
      * 폐기 번호
      */
     private String dscdNo;
-
 
     /**
      * 폐기 실적 목록
