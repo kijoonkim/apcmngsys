@@ -68,8 +68,12 @@ select.form-control.input-sm.inpt_data_reqed {
   overflow-x:hidden !important;
   overflow:auto;
   width:100%;
-  min-height:780px;
+  /*min-height:780px;*/
   border:0px;
+  height: 100%;
+}
+.tab-pane{
+  height: 100%;
 }
 .sbmaps-panel text{
   font-size : 20px !important;
