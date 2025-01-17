@@ -251,8 +251,8 @@
 			,TEA.APO_SE
 			,TEA.BRNO
 			,TEA.CRNO
-			,TEA.CTPV
-			,TEA.SGG
+			, TRIM(TEA.CTPV) AS CTPV
+			, TRIM(TEA.SGG) AS SGG
 			,TEA.CORP_NM
 			,TEA.CORP_SE_CD
 			,TEAM.YR
@@ -271,7 +271,7 @@
 		  AND TEA.CMPTN_INST = #{cmptnInst}
 		</if>
 		<if test='ctpv != null and ctpv != ""'>
-		  AND TEA.CTPV = #{ctpv}
+		  AND TRIM(TEA.CTPV) = #{ctpv}
 		</if>
 
 		<if test='corpSeCd != null and corpSeCd != ""'>

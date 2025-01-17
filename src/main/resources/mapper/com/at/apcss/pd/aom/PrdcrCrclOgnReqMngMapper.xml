@@ -25,8 +25,8 @@
 			  CM.APO_CD
 			, EAM.APO_SE
 			, CM.WRT_YN
-			, CM.CTPV
-			, CM.SGG
+			, TRIM(CM.CTPV) AS CTPV
+			, TRIM(CM.SGG) AS SGG
 			, CM.CORP_NM
 			, CM.BRNO
 			, CM.CRNO
@@ -104,8 +104,8 @@
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.CRNO
@@ -199,8 +199,8 @@
 				  CM.APO_CD
 				, EAM.APO_SE
 				, CM.WRT_YN
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.CRNO
@@ -457,7 +457,7 @@
 				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV = #{ctpv}
+				AND TRIM(CM.CTPV) = #{ctpv}
 			</if>
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD = #{corpSeCd}
@@ -831,8 +831,8 @@
 			,C.CLSF_NM
 			,DECODE(C.STTG_UPBR_ITEM_SE,1,'전문',2,'육성','') AS STTG_UPBR_ITEM_NM
 			,C.ITEM_NM
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = A.CTPV) AS CTPV
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_SIGUN' AND CD_VL = A.SGG) AS SGG
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_CTPV' AND CD_VL = TRIM(A.CTPV) ) AS CTPV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CMPTN_INST_SIGUN' AND CD_VL = TRIM(A.SGG) ) AS SGG
 			,A.ZIP
 			,DECODE(A.ROAD_NM_DTL_ADDR , '' , '[지번]' || A.LOTNO_ADDR || ' ' || A.LOTNO_DTL_ADDR , '[도로명]' || A.ROAD_NM_ADDR || ' ' || A.ROAD_NM_DTL_ADDR ) AS ADDR
 			,A.ROAD_NM_ADDR || ' ' ||A.ROAD_NM_DTL_ADDR AS ADDRR
@@ -975,7 +975,8 @@
 		   SET
 			  APO_SE	= #{apoSe}
 		 WHERE 1=1
-			AND BRNO 	= #{brno}
+		   AND YR 		= #{yr}
+		   AND BRNO 	= #{brno}
 	</update>
 
 	<!-- 대출잔액 현황 조회 -->

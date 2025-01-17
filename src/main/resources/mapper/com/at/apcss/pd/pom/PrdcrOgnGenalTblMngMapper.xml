@@ -25,8 +25,8 @@
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.CRNO

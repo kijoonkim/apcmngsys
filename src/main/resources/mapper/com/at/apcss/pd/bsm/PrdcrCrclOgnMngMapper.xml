@@ -33,8 +33,8 @@
 				, CM.NONGHYUP_CD
 				, CM.CORP_FNDN_DAY
 				, CM.CMPTN_INST
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.ZIP
 				, CM.LOTNO_ADDR
 				, CM.LOTNO_DTL_ADDR
@@ -153,8 +153,8 @@
 				, CM.NONGHYUP_CD
 				, CM.CORP_FNDN_DAY
 				, CM.CMPTN_INST
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.ZIP
 				, CM.LOTNO_ADDR
 				, CM.LOTNO_DTL_ADDR
@@ -210,10 +210,10 @@
 				AND CM.CMPTN_INST LIKE #{cmptnInst} || '%'
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV LIKE '%' || #{ctpv} || '%'
+				AND TRIM(CM.CTPV) LIKE '%' || #{ctpv} || '%'
 			</if>
 			<if test='sgg != null and sgg != ""'>
-				AND CM.SGG LIKE '%' || #{sgg} || '%'
+				AND TRIM(CM.SGG) LIKE '%' || #{sgg} || '%'
 			</if>
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD LIKE #{corpSeCd} || '%'
@@ -809,8 +809,8 @@
 			, CM.NONGHYUP_CD
 			, CM.CORP_FNDN_DAY
 			, CM.CMPTN_INST
-			, CM.CTPV
-			, CM.SGG
+			, TRIM(CM.CTPV) AS CTPV
+			, TRIM(CM.SGG) AS SGG
 			, CM.ZIP
 			, CM.LOTNO_ADDR
 			, CM.LOTNO_DTL_ADDR
