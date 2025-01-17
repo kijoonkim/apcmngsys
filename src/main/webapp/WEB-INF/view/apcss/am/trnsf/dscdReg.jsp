@@ -351,7 +351,7 @@
             }
         ]
         gridInvntrList = _SBGrid.create(SBGridProperties);
-        gridInvntrList.bind("click","fn_selectInvntr");
+        gridInvntrList.bind("click", "fn_selectInvntr");
     }
 
     const fn_create_rtnCrtrDtl = async function() {

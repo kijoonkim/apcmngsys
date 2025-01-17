@@ -52,14 +52,6 @@ public interface DscdCrtrService {
 	public DscdCrtrVO selectDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
 	
 	/**
-	 * 폐기기준 상세 목록 조회
-	 * @param dscdCrtrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception;
-	
-	/**
 	 * 폐기기준 상세 조회 (사용중)
 	 * @param dscdCrtrVO
 	 * @return
@@ -82,22 +74,30 @@ public interface DscdCrtrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception;
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 상세정보 조회
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception;
 	
 	/**
-	 * 폐기기준 상세 등록
-	 * @param dscdMngVO
+	 * 폐기 기준 관리 - 폐기기준 상세정보 등록
+	 * @param dscdCrtrVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> insertDscdCrtrDtl(DscdMngVO dscdMngVO) throws Exception;
+    public int insertDscdCrtrDtl(List<DscdCrtrVO> dscdCrtrVO) throws Exception;
 	
 	/**
-	 * 폐기기준 상세 삭제
-	 * @param dscdMngVO
+	 * 폐기 기준 관리 - 폐기기준 상세정보 삭제
+	 * @param dscdCrtrVO
 	 * @return
 	 * @throws Exception
 	 */
-	public HashMap<String, Object> deleteDscdCrtrDtl(DscdMngVO dscdMngVO) throws Exception;
+    public int deleteDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
 
     /**
      * 폐기 등록 - 폐기 등록 목록 조회
