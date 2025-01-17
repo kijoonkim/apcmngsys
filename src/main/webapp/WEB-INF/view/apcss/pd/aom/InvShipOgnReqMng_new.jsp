@@ -762,7 +762,7 @@
 			//gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), //시도
 			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'UNTY_CTPV'), //시도
 			//gfn_setComCdSBSelect('srch-input-sgg', 		jsonComSgg, 		'CMPTN_INST_SIGUN'), //시군
-			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'UNTY_SSG'), //시군
+			gfn_setComCdSBSelect('srch-input-sgg', 			jsonComSgg, 		'UNTY_SGG'), //시군
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
 			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), //법인형태
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
