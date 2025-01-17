@@ -37,11 +37,11 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_confirm"></sbux-button>
+                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
                 <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFile"></sbux-button>
                 <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendEmail"></sbux-button>
                 <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendSMS"></sbux-button>
-                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
-                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_confirm"></sbux-button>
             </div>
         </div>
         <div class="box-body">
@@ -237,6 +237,7 @@
     var jsonForeignType = []; // 내외국인구분
     var jsonNationCode = []; // 거주지국
     var jsonWorkRegion = []; // 근무지역
+    var jsonPayCycle = []; // 정산주기
 
     //grid 초기화
     var gvwInfo; 			// 그리드를 담기위한 객체 선언
@@ -281,6 +282,8 @@
             gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonNationCode, 'L_COM015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'NTN_CD', 'NTN_NM', 'Y', ''),
             // 근무지역
             gfnma_setComSelect(['gvwInfo', 'gvwDetail'], jsonWorkRegion, 'L_HRI999', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 정산주기
+            gfnma_setComSelect(['gvwInfo'], jsonPayCycle, 'L_HRA021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
         ]);
     }
 
@@ -321,14 +324,26 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
+            {caption: ["총 지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["총 공제액"],         ref: 'TOT_DEDUCT_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
             {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["계좌번호"],         ref: 'BANK_ACCOUNT',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'combo',  	width:'75px',  style:'text-align:left',
+                typeinfo: {
+                    ref			: 'jsonPayCycle',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+                , disabled: true
+            },
             {caption: ["휴대폰번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
             {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
         ];
@@ -347,143 +362,16 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'datepicker',  	width:'67px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm'},
-                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
+            {caption: ["확정여부"], 		ref: 'CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
-            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
-            {caption: ["근로일수"],         ref: 'WORK_DAY',    type:'output',  	width:'69px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', emptyvalue:'0'}
-            },
-            {caption: ["인원수"],         ref: 'WORK_CNT',    type:'output',  	width:'75px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', emptyvalue:'0'}
-            },
-            {caption: ["작업구분"], 		ref: 'WORK_GBN',   	    type:'combo', style:'text-align:left' ,width: '103px',
-                typeinfo: {
-                    ref			: 'jsonWorkGbn',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["작업장소"], 		ref: 'WORK_PLACE',   	    type:'combo', style:'text-align:left' ,width: '91px',
-                typeinfo: {
-                    ref			: 'jsonWorkPlace',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["작업명"], 		ref: 'WORK_NAME',   	    type:'combo', style:'text-align:left' ,width: '138px',
-                typeinfo: {
-                    ref			: 'jsonWorkName',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["작업세부명"], 		ref: 'WORK_DTL_NAME',   	    type:'combo', style:'text-align:left' ,width: '118px',
-                typeinfo: {
-                    ref			: 'jsonWorkDtlName',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["작업장소2"], 		ref: 'WORK_PLACE2',   	    type:'combo', style:'text-align:left' ,width: '87px',
-                typeinfo: {
-                    ref			: 'jsonWorkPlace2',
-                    label		: 'label',
-                    value		: 'value',
-                    itemcount	: 10
-                }
-                , disabled: true
-            },
-            {caption: ["일당"],         ref: 'DAILY_PAY_AMT',    type:'output',  	width:'60px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["총 금액"],         ref: 'TOT_AMOUNT',    type:'output',  	width:'60px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["총지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["근로급여"],         ref: 'WORK_PAY_AMT',    type:'output',  	width:'104px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["비과세소득"],         ref: 'NON_TXABLE_AMT',    type:'output',  	width:'110px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["소득공제"],         ref: 'INC_AMT',    type:'output',  	width:'97px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["근로소득"],         ref: 'EARNED_INC_AMT',    type:'output',  	width:'89px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["소득세"],         ref: 'INC_TX_AMT',    type:'output',  	width:'97px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["주민세"],         ref: 'LOCAL_TX_AMT',    type:'output',  	width:'101px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["건강보험"],         ref: 'HEALTH_INSURE_AMT',    type:'output',  	width:'112px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["장기요양보험"],         ref: 'LONG_HEALTH_INSURE_AMT',    type:'output',  	width:'105px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["국민연금"],         ref: 'NATIONAL_PENS_AMT',    type:'output',  	width:'100px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["고용보험"],         ref: 'EMPLOY_INSURE_AMT',    type:'output',  	width:'92px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["기타공제"],         ref: 'ETC_DED_AMT',    type:'output',  	width:'99px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["총공제액"],         ref: 'TOT_DEDUCT_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
-                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
-            },
-            {caption: ["분개장번호"],         ref: 'REMARK',    type:'output',  	width:'100px',  style:'text-align:left'},
-            {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
+            {caption: ["전화번호"], 		ref: 'TEL',   	    type:'input', style:'text-align:left' ,width: '90px', hidden: true},
+            {caption: ["주소"], 		ref: 'ADDRESS',   	    type:'input', style:'text-align:left' ,width: '200px', hidden: true},
             {caption: ["내·외국인구분"], 		ref: 'FOREI_TYPE',   	    type:'combo', style:'text-align:left' ,width: '85px',
                 typeinfo: {
                     ref			: 'jsonForeignType',
@@ -491,7 +379,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
+                , hidden: true
             },
             {caption: ["거주국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
                 typeinfo: {
@@ -500,10 +388,8 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
+                , hidden: true
             },
-            {caption: ["전화번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
-            {caption: ["주소"], 		ref: 'ADDRESS',   	    type:'output', style:'text-align:left' ,width: '200px'},
             {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '100px',
                 typeinfo: {
                     ref			: 'jsonWorkRegion',
@@ -511,8 +397,144 @@
                     value		: 'value',
                     itemcount	: 10
                 }
-                , disabled: true
+                , hidden: true
             },
+            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm'},
+                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
+            },
+            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["근로일수"],         ref: 'WORK_DAY',    type:'output',  	width:'69px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', emptyvalue:'0'}
+            },
+            {caption: ["인원수"],         ref: 'WORK_CNT',    type:'input',  	width:'75px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["일당"],         ref: 'DAILY_PAY_AMT',    type:'input',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["조정금액"],         ref: 'ADJUSTMENT_AMT',    type:'input',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["유류금액"],         ref: 'FUAL_AMT',    type:'input',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["기타비용"],         ref: 'ETC_COST',    type:'input',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["총 금액"],         ref: 'TOT_AMOUNT',    type:'output',  	width:'60px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["작업구분"], 		ref: 'WORK_GBN',   	    type:'combo', style:'text-align:left' ,width: '103px',
+                typeinfo: {
+                    ref			: 'jsonWorkGbn',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["작업장소"], 		ref: 'WORK_PLACE',   	    type:'combo', style:'text-align:left' ,width: '91px',
+                typeinfo: {
+                    ref			: 'jsonWorkPlace',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["작업명"], 		ref: 'WORK_NAME',   	    type:'combo', style:'text-align:left' ,width: '138px',
+                typeinfo: {
+                    ref			: 'jsonWorkName',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["작업세부명"], 		ref: 'WORK_DTL_NAME',   	    type:'combo', style:'text-align:left' ,width: '118px',
+                typeinfo: {
+                    ref			: 'jsonWorkDtlName',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["작업장소2"], 		ref: 'WORK_PLACE2',   	    type:'combo', style:'text-align:left' ,width: '87px',
+                typeinfo: {
+                    ref			: 'jsonWorkPlace2',
+                    label		: 'label',
+                    value		: 'value',
+                    itemcount	: 10
+                }
+            },
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            },
+            {caption: ["비과세소득"],         ref: 'NON_TXABLE_AMT',    type:'input',  	width:'110px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["근로소득공제"],         ref: 'INC_AMT',    type:'input',  	width:'97px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["근로소득금액"],         ref: 'EARNED_INC_AMT',    type:'output',  	width:'89px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["소득세"],         ref: 'INC_TX_AMT',    type:'input',  	width:'97px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["주민세"],         ref: 'LOCAL_TX_AMT',    type:'input',  	width:'101px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["건강보험"],         ref: 'HEALTH_INSURE_AMT',    type:'input',  	width:'112px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["장기요양보험"],         ref: 'LONG_HEALTH_INSURE_AMT',    type:'input',  	width:'105px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["국민연금"],         ref: 'NATIONAL_PENS_AMT',    type:'input',  	width:'100px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["고용보험"],         ref: 'EMPLOY_INSURE_AMT',    type:'input',  	width:'92px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["기타공제"],         ref: 'ETC_DED_AMT',    type:'input',  	width:'99px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["총 공제액"],         ref: 'TOT_DEDUCT_AMT',    type:'output',  	width:'102px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["총 지급액"],         ref: 'TOT_PAY_AMT',    type:'output',  	width:'103px',  style:'text-align:right',
+                typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
+                , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+            },
+            {caption: ["분개장번호"],         ref: 'REMARK',    type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["비고"],         ref: 'MEMO',    type:'input',  	width:'100px',  style:'text-align:left'},
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
@@ -576,48 +598,52 @@
                 jsonServiceFeeList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        TXN_ID : item.TRSC_ID,
-                        JOB_YYYYMM : item.BLN_YM,
-                        SOCNO : item.RGDT_NO,
-                        WORK_ST_DAT : item.WRKDY_BGNG_YMD,
-                        EARNER_CODE : item.EARNR_CD,
-                        EARNER_NAME : item.EARNR_NM,
-                        SITE_CODE : item.SITE_CD,
-                        PAY_DATE : item.PAY_YMD,
-                        WORK_END_DAT : item.WORK_END_YMD,
-                        WORK_DAY : item.WORK_DCNT,
-                        WORK_CNT : item.WORK_NOPE,
-                        WORK_GBN : item.JOB_SE,
-                        WORK_NAME : item.JOB_NM,
-                        WORK_PLACE : item.JOB_PLC,
-                        WORK_DTL_NAME : item.JOB_DTL_NM,
-                        WORK_PLACE2 : item.JOB_PLC2,
-                        BANK_CODE : item.BANK_CD,
-                        BANK_NAME : item.BANK_NM,
-                        BANK_ACC : item.BACNT_NO,
-                        DAILY_PAY_AMT : item.DAY_PAY_AMT,
-                        TOT_PAY_AMT : item.PAY_AMT_SUM,
-                        WORK_PAY_AMT : item.WORK_PAY_AMT,
-                        NON_TXABLE_AMT : item.TXFR_INCM_AMT,
-                        INC_AMT : item.EARN_DDC_AMT,
-                        EARNED_INC_AMT : item.ERICM_AMT,
-                        INC_TX_AMT : item.INCTX_AMT,
-                        LOCAL_TX_AMT : item.RSDTX_AMT,
-                        HEALTH_INSURE_AMT : item.HLTH_INSRNC_AMT,
-                        LONG_HEALTH_INSURE_AMT : item.LTRM_RCPR_INSRNC_AMT,
-                        NATIONAL_PENS_AMT : item.NPN_AMT,
-                        EMPLOY_INSURE_AMT : item.EPIS_AMT,
-                        ETC_DED_AMT : item.ETC_DDC_AMT,
-                        TOT_DEDUCT_AMT : item.DDC_AMT_SUM,
-                        MEMO : item.MEMO,
-                        REMARK : item.RMRK,
-                        FOREI_TYPE : item.FRGNR_YN,
-                        NATION_CODE : item.HBTN_NTN_CD,
-                        TEL : item.TELNO,
-                        MOBILE_PHONE : item.MOBL_NO,
-                        EMAIL : item.EML,
-                        ADDRESS : item.ADDR,
-                        WORK_REGION : item.WORK_RGN_CD,
+                        TXN_ID : gfn_nvl(item.TRSC_ID),
+                        JOB_YYYYMM : gfn_nvl(item.BLN_YM),
+                        SOCNO : gfn_nvl(item.RGDT_NO),
+                        WORK_ST_DAT : gfn_nvl(item.WRKDY_BGNG_YMD),
+                        EARNER_CODE : gfn_nvl(item.EARNR_CD),
+                        EARNER_NAME : gfn_nvl(item.EARNR_NM),
+                        SITE_CODE : gfn_nvl(item.SITE_CD),
+                        PAY_DATE : gfn_nvl(item.PAY_YMD),
+                        WORK_END_DAT : gfn_nvl(item.WORK_END_YMD),
+                        WORK_DAY : gfn_nvl(item.WORK_DCNT),
+                        WORK_CNT : gfn_nvl(item.WORK_NOPE),
+                        WORK_GBN : gfn_nvl(item.JOB_SE),
+                        WORK_NAME : gfn_nvl(item.JOB_NM),
+                        WORK_PLACE : gfn_nvl(item.JOB_PLC),
+                        WORK_DTL_NAME : gfn_nvl(item.JOB_DTL_NM),
+                        WORK_PLACE2 : gfn_nvl(item.JOB_PLC2),
+                        BANK_CODE : gfn_nvl(item.BANK_CD),
+                        BANK_NAME : gfn_nvl(item.BANK_NM),
+                        BANK_ACC : gfn_nvl(item.BACNT_NO),
+                        DAILY_PAY_AMT : gfn_nvl(item.DAY_PAY_AMT, 0),
+                        TOT_PAY_AMT : gfn_nvl(item.PAY_AMT_SUM, 0),
+                        WORK_PAY_AMT : gfn_nvl(item.WORK_PAY_AMT, 0),
+                        NON_TXABLE_AMT : gfn_nvl(item.TXFR_INCM_AMT, 0),
+                        INC_AMT : gfn_nvl(item.EARN_DDC_AMT, 0),
+                        EARNED_INC_AMT : gfn_nvl(item.ERICM_AMT, 0),
+                        INC_TX_AMT : gfn_nvl(item.INCTX_AMT, 0),
+                        LOCAL_TX_AMT : gfn_nvl(item.RSDTX_AMT, 0),
+                        HEALTH_INSURE_AMT : gfn_nvl(item.HLTH_INSRNC_AMT, 0),
+                        LONG_HEALTH_INSURE_AMT : gfn_nvl(item.LTRM_RCPR_INSRNC_AMT, 0),
+                        NATIONAL_PENS_AMT : gfn_nvl(item.NPN_AMT, 0),
+                        EMPLOY_INSURE_AMT : gfn_nvl(item.EPIS_AMT, 0),
+                        ETC_DED_AMT : gfn_nvl(item.ETC_DDC_AMT, 0),
+                        TOT_DEDUCT_AMT : gfn_nvl(item.DDC_AMT_SUM, 0),
+                        MEMO : gfn_nvl(item.MEMO),
+                        REMARK : gfn_nvl(item.RMRK),
+                        FOREI_TYPE : gfn_nvl(item.FRGNR_YN),
+                        NATION_CODE : gfn_nvl(item.HBTN_NTN_CD),
+                        TEL : gfn_nvl(item.TELNO),
+                        MOBILE_PHONE : gfn_nvl(item.MOBL_NO),
+                        EMAIL : gfn_nvl(item.EML),
+                        ADDRESS : gfn_nvl(item.ADDR),
+                        WORK_REGION : gfn_nvl(item.WORK_RGN_CD),
+                        ADJUSTMENT_AMT : gfn_nvl(item.AJMT_AMT, 0),
+                        FUAL_AMT : gfn_nvl(item.OL_AMT, 0),
+                        ETC_COST : gfn_nvl(item.ETC_CST, 0),
+                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
                     }
                     jsonServiceFeeList.push(msg);
                 });
@@ -878,21 +904,23 @@
                 jsonServiceFeePayList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
-                        PAY_DATE : item.PAY_YMD,
-                        WORK_DATE : item.WORK_DATE,
-                        EARNER_CODE : item.EARNR_CD,
-                        EARNER_NAME : item.EARNR_NM,
-                        SITE_CODE : item.SITE_CD,
-                        TOT_PAY_AMT : item.PAY_AMT_SUM,
-                        MOBILE_PHONE : item.MOBL_NO,
-                        EMAIL : item.EML,
-                        WORK_REGION : item.WORK_RGN_CD,
-                        BANK_CODE : item.BANK_CD,
-                        BANK_NAME : item.BANK_NM,
-                        BANK_ACC : item.BANK_ACC_REAL,
-                        PAY_CYCLE : item.PAY_CYCL,
-                        TEL : item.MOBL_NO,
-                        MEMO : item.MEMO
+                        PAY_DATE : gfn_nvl(item.PAY_YMD),
+                        WORK_DATE : gfn_nvl(item.WORK_DATE),
+                        EARNER_CODE : gfn_nvl(item.EARNR_CD),
+                        EARNER_NAME : gfn_nvl(item.EARNR_NM),
+                        SITE_CODE : gfn_nvl(item.SITE_CD),
+                        TOT_PAY_AMT : gfn_nvl(item.PAY_AMT_SUM, 0),
+                        TOT_DEDUCT_AMT : gfn_nvl(item.DDC_AMT_SUM, 0),
+                        MOBILE_PHONE : gfn_nvl(item.MOBL_NO),
+                        EMAIL : gfn_nvl(item.EML),
+                        WORK_REGION : gfn_nvl(item.WORK_RGN_CD),
+                        BANK_CODE : gfn_nvl(item.BANK_CD),
+                        BANK_NAME : gfn_nvl(item.BANK_NM),
+                        BANK_ACC : gfn_nvl(item.BANK_ACC_REAL),
+                        PAY_CYCLE : gfn_nvl(item.PAY_CYCL),
+                        TEL : gfn_nvl(item.MOBL_NO),
+                        MEMO : gfn_nvl(item.MEMO),
+                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
                     }
                     jsonServiceFeePayList.push(msg);
                 });
@@ -900,6 +928,9 @@
 
                 if(jsonServiceFeePayList.length > 0) {
                     gvwInfo.clickRow(1);
+                } else {
+                    jsonServiceFeeList.length = 0;
+                    gvwDetail.rebuild();
                 }
             } else {
                 alert(data.resultMessage);

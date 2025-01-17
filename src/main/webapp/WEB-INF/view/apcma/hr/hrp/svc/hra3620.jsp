@@ -1406,7 +1406,7 @@
                         ADJUSTMENT_AMT : gfn_nvl(item.AJMT_AMT, 0),
                         FUAL_AMT : gfn_nvl(item.OL_AMT, 0),
                         ETC_COST : gfn_nvl(item.ETC_CST, 0),
-                        TOT_AMOUNT : Number((Number(gfn_nvl(item.WORK_NOPE, 0)) * Number(gfn_nvl(item.DAY_PAY_AMT, 0))) + Number(gfn_nvl(item.AJMT_AMT, 0)) + Number(gfn_nvl(item.OL_AMT, 0)) + Number(gfn_nvl(item.ETC_CST, 0)))
+                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
                     }
                     jsonServiceFeeList.push(msg);
                 });
