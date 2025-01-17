@@ -37,11 +37,11 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_confirm"></sbux-button>
-                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
-                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFile"></sbux-button>
-                <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendEmail"></sbux-button>
-                <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송" class="btn btn-sm btn-outline-danger" onclick="fn_sendSMS"></sbux-button>
+                <sbux-button id="btnFile" name="btnFile" uitype="normal" text="파일저장" class="btn btn-sm btn-outline-danger" style="float: right; margin-right: 3px;" onclick="fn_saveFile"></sbux-button>
+                <sbux-button id="btnSendEmail" name="btnSendEmail" uitype="normal" text="Email 발송" class="btn btn-sm btn-outline-danger" style="float: right; margin-right: 3px;" onclick="fn_sendEmail"></sbux-button>
+                <sbux-button id="btnSendSMS" name="btnSendSMS" uitype="normal" text="SMS 발송" class="btn btn-sm btn-outline-danger" style="float: right; margin-right: 3px;" onclick="fn_sendSMS"></sbux-button>
+                <sbux-button id="btnCancel" name="btnCancel" uitype="normal" text="확정취소" class="btn btn-sm btn-outline-danger" style="float: right; margin-right: 3px;" onclick="fn_cancel"></sbux-button>
+                <sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" style="float: right; margin-right: 3px;" onclick="fn_confirm"></sbux-button>
             </div>
         </div>
         <div class="box-body">
