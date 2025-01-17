@@ -86,6 +86,11 @@ public class DscdCrtrVO extends ComVO {
 	private int dtlSn;
 
     /**
+     * 상세 일련번호
+     */
+    private String dtlRmrk;
+
+    /**
      * 상세 코드
      */
 	private String dtlCd;

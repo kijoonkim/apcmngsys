@@ -74,45 +74,20 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 	}
 
 	@Override
-	public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception {
-		return dscdCrtrMapper.selectDscdCrtrDtlList(dscdCrtrVO);
-	}
-
-	@Override
 	public List<DscdCrtrVO> selectCrtrDtlListInUse(DscdCrtrVO dscdCrtrVO) throws Exception {
 		return dscdCrtrMapper.selectDscdCrtrDtlList(dscdCrtrVO);
 	}
 
 	@Override
 	public HashMap<String, Object> insertDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
-
 		String apcCd = dscdMngVO.getApcCd();
 
-		if (!StringUtils.hasText(apcCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
-		}
-
 		List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
-
-		if (dscdCrtrList == null || dscdCrtrList.isEmpty()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "기준저장");
-		}
 
 		String sysUserId = dscdMngVO.getSysLastChgUserId();
 		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
 
 		for ( DscdCrtrVO crtr : dscdCrtrList ) {
-
-			// validation check
-			if (!StringUtils.hasText(crtr.getDscdCrtrType())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "폐기기준유형");
-			}
-			if (!StringUtils.hasText(crtr.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
-			}
-			if (!StringUtils.hasText(crtr.getCrtrIndctNm())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준표시명");
-			}
 
 			crtr.setApcCd(apcCd);
 
@@ -146,36 +121,13 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 	public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
 		String apcCd = dscdMngVO.getApcCd();
 
-		if (!StringUtils.hasLength(apcCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
-		}
-
 		List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
-
-		if (dscdCrtrList == null || dscdCrtrList.isEmpty()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "기준삭제");
-		}
 
 		String sysUserId = dscdMngVO.getSysLastChgUserId();
 		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
 
 		for ( DscdCrtrVO crtr : dscdCrtrList ) {
-
-			// validation check
-			if (!StringUtils.hasText(crtr.getDscdCrtrType())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "폐기기준유형");
-			}
-			if (!StringUtils.hasText(crtr.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
-			}
-
 			crtr.setApcCd(apcCd);
-
-			// 데이터 확인
-			DscdCrtrVO crtrInfo = selectDscdCrtr(crtr);
-			if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET, "등록");
-			}
 		}
 
 		for ( DscdCrtrVO crtr : dscdCrtrList ) {
@@ -201,159 +153,37 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 		return null;
 	}
 
-	@Override
-	public HashMap<String, Object> insertDscdCrtrDtl(DscdMngVO dscdMngVO) throws Exception {
+    @Override
+    public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        return dscdCrtrMapper.selectDscdCrtrDtlList(dscdCrtrVO);
+    }
 
-		String apcCd = dscdMngVO.getApcCd();
-		if (!StringUtils.hasLength(apcCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
-		}
+    @Override
+    public int insertDscdCrtrDtl(List<DscdCrtrVO> dscdCrtrVO) throws Exception {
+        int insertCnt = 0;
+        insertCnt = dscdCrtrMapper.insertDscdCrtrDtl(dscdCrtrVO);
+        if(insertCnt <= 0){
+            throw new EgovBizException();
+        }
 
-		String dscdCrtrType = dscdMngVO.getDscdCrtrType();
-		if (!StringUtils.hasLength(dscdCrtrType)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "폐기기준유형");
-		}
+        return insertCnt;
+    }
 
-		String crtrCd = dscdMngVO.getCrtrCd();
-		if (!StringUtils.hasLength(crtrCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
-		}
+    @Override
+    public int deleteDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception {
+        int deleteCnt = 0;
+        deleteCnt = dscdCrtrMapper.deleteDscdCrtrDtl(dscdCrtrVO);
+        if(deleteCnt <= 0) {
+            throw new EgovBizException();
+        }
 
-		// header 가 없으면 등록 안됨
-		// 데이터 확인
-		DscdCrtrVO crtrInfo = selectDscdCrtr(apcCd, dscdCrtrType, crtrCd);
-		if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "폐기기준");
-		}
-
-		int dtlSn = crtrInfo.getMaxDtlSn();
-		List<DscdCrtrVO> dscdCrtrDtlList = dscdMngVO.getDscdCrtrDtlList();
-
-		if (dscdCrtrDtlList == null || dscdCrtrDtlList.isEmpty()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "저장");
-		}
-
-		String sysUserId = dscdMngVO.getSysLastChgUserId();
-		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
-
-		for ( DscdCrtrVO dtl : dscdCrtrDtlList ) {
-
-			// validation check
-			if (!dscdCrtrType.equals(dtl.getDscdCrtrType())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "폐기기준유형||등록유형");
-			}
-			if (!crtrCd.equals(dtl.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "기준코드||등록코드");
-			}
-
-			if (!StringUtils.hasText(dtl.getDtlIndctNm())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세표시명");
-			}
-
-			if (!StringUtils.hasText(dtl.getDtlCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세코드");
-			}
-
-			dtl.setApcCd(apcCd);
-
-			// 데이터 확인
-			DscdCrtrVO dtlInfo = selectDscdCrtrDtl(dtl);
-
-			if (dtlInfo == null || !StringUtils.hasText(dtlInfo.getCrtrCd())) {
-				dtl.setNeedsInsert(true);
-				dtlSn++;
-				dtl.setDtlSn(dtlSn);
-			} else {
-				dtl.setNeedsInsert(false);
-			}
-		}
-
-		for ( DscdCrtrVO dtl : dscdCrtrDtlList ) {
-			dtl.setSysFrstInptUserId(sysUserId);
-			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
-			dtl.setSysLastChgUserId(sysUserId);
-			dtl.setSysLastChgPrgrmId(sysPrgrmId);
-
-			if (dtl.isNeedsInsert()) {
-				dscdCrtrMapper.insertDscdCrtrDtl(dtl);
-			} else {
-				dscdCrtrMapper.updateDscdCrtrDtl(dtl);
-			}
-		}
-
-		return null;
-	}
-
-	@Override
-	public HashMap<String, Object> deleteDscdCrtrDtl(DscdMngVO dscdMngVO) throws Exception {
-
-		String apcCd = dscdMngVO.getApcCd();
-		if (!StringUtils.hasLength(apcCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
-		}
-
-		String dscdCrtrType = dscdMngVO.getDscdCrtrType();
-		if (!StringUtils.hasLength(dscdCrtrType)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "폐기기준유형");
-		}
-
-		String crtrCd = dscdMngVO.getCrtrCd();
-		if (!StringUtils.hasLength(crtrCd)) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준코드");
-		}
-
-		List<DscdCrtrVO> dscdCrtrDtlList = dscdMngVO.getDscdCrtrDtlList();
-
-		if (dscdCrtrDtlList == null || dscdCrtrDtlList.isEmpty()) {
-			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
-		}
-
-		String sysUserId = dscdMngVO.getSysLastChgUserId();
-		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
-
-		for ( DscdCrtrVO dtl : dscdCrtrDtlList ) {
-
-			// validation check
-			if (!dscdCrtrType.equals(dtl.getDscdCrtrType())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "폐기기준유형||등록유형");
-			}
-			if (!crtrCd.equals(dtl.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_EQUAL, "기준코드||등록코드");
-			}
-
-			if (dtl.getDtlSn() < 1) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "상세일련번호");
-			}
-
-			dtl.setApcCd(apcCd);
-
-			// 데이터 확인
-			DscdCrtrVO dtlInfo = selectDscdCrtrDtl(dtl);
-
-			if (dtlInfo == null || !StringUtils.hasText(dtlInfo.getCrtrCd())) {
-				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "삭제");
-			}
-		}
-
-		for ( DscdCrtrVO dtl : dscdCrtrDtlList ) {
-			dtl.setSysFrstInptUserId(sysUserId);
-			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
-			dtl.setSysLastChgUserId(sysUserId);
-			dtl.setSysLastChgPrgrmId(sysPrgrmId);
-
-			dscdCrtrMapper.deleteDscdCrtrDtl(dtl);
-		}
-
-		return null;
-	}
+        return deleteCnt;
+    }
 
     @Override
     public List<DscdCrtrVO> selectDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
         return dscdCrtrMapper.selectDscdRegList(dscdCrtrVO);
     }
-
-    @Resource(name = "gdsInvntrService")
-    private GdsInvntrService gdsInvntrService;
 
     @Override
     public int insertDscdRegList(List<DscdCrtrVO> dscdRegList) throws Exception {

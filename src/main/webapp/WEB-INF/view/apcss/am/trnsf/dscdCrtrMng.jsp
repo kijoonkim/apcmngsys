@@ -111,8 +111,9 @@
                             </ul>
                             <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
                                 <sbux-button
-                                    id="btn-saveDtl"
-                                    name="btn-saveDtl"
+                                    disabled="true"
+                                    id="btnSaveDtl"
+                                    name="btnSaveDtl"
                                     uitype="normal"
                                     class="btn btn-sm btn-outline-dark"
                                     onclick="fn_saveDtl"
@@ -237,9 +238,6 @@
                     colNm: "crtrIndctNm"
                 }
             },
-            // {caption: ["기준값"], ref: 'crtrVl', type: 'input', width: '120px', style: 'text-align: center;', userattr: {colNm: "crtrVl"}, typeinfo: {mask: {alias: '#', repeat: '*', unmaskvalue: true}, maxlength: 6, oneclickedit: true}, format: {type: 'number', rule: '#,###.#'}},
-            // {caption: ["표시순서"], ref: 'indctSeq', type: 'input', width: '80px', style: 'text-align: right;', userattr: {colNm: "indctSeq"}, typeinfo: {mask: {alias: '#', repeat: '*', unmaskvalue: true}, maxlength: 6, oneclickedit: true}, format: {type: 'number', rule: '#,###'}},
-            // {caption: ["사용"], ref: 'useYn', type: 'combo', width: '50px', style: 'text-align: center', typeinfo: {ref: 'jsonYn', label: 'cdVlNm', value: 'cdVl', displayui: false}},
             {
                 caption: ["기준 비고"],
                 ref: 'crtrRmrk',
@@ -253,7 +251,7 @@
         ]
 
         grdDscdCrtr = _SBGrid.create(SBGridProperties);
-        grdDscdCrtr.bind('rowchanged', fn_grdDscdCrtrRowChanged);
+        grdDscdCrtr.bind('click', "fn_searchDscdCrtrDtlInfo");
 
         const nRow = grdDscdCrtr.getRows();
         grdDscdCrtr.addRow(true);
@@ -267,39 +265,40 @@
         SBGridProperties.id = 'grdDscdCrtrDtl';
         SBGridProperties.jsonref = 'jsonDscdCrtrDtl';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.datamergefalseskip = true;
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true;
+        SBGridProperties.allowpaste = true;
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.scrollbubbling = false;
         SBGridProperties.oneclickedit = true;
-        SBGridProperties.allowpaste = true;
         SBGridProperties.columns = [
             {
                 caption: ["처리"],
-                ref: 'delYn',
+                ref: 'fcltCd',
                 type: 'button',
-                width: '60px',
+                width: '5%',
                 style: 'text-align: center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    if(gfn_isEmpty(strValue)) {
-                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRowDtl(" + nRow + ")'>추가</button>";
+                    if(gfn_isEmpty(objRowData.delYn)) {
+                        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRowDtl(" + nRow + ", " + nCol + ")'>추가</button>";
                     } else {
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRowDtl(" + nRow + ")'>삭제</button>";
                     }
                 }
             },
-            // {caption: ["폐기기준유형"], ref: 'dscdCrtrTypeNm', type: 'output', style: 'text-align: center'},
-            // {caption: ["기준코드"], ref: 'crtrCd', type: 'output', width: '120px', style: 'text-align: center;', userattr: {colNm: "crtrCd"}, hidden: true},
-            // {caption: ["기준표시명"], ref: 'crtrIndctNm', type: 'input', width: '140px', style: 'text-align:center;', userattr: {colNm: "crtrIndctNm"}},
             {
                 caption: ["상세순번"],
-                ref: 'dtlSeq',
+                ref: 'dtlSn',
+                type: 'output',
+                width: '10%',
+                style: 'text-align: center;'
             },
             {
                 caption: ["상세코드"],
                 ref: 'dtlCd',
                 type: 'combo',
-                width: '120px',
+                width: '10%',
                 style: 'text-align: center',
                 typeinfo: {
                     ref: 'jsonDscdAtrbCd',
@@ -311,7 +310,7 @@
                 caption: ["상세표시명"],
                 ref: 'dtlIndctNm',
                 type: 'input',
-                width: '140px',
+                width: '10%',
                 style: 'text-align: center; background-color: #FFF8DC;',
                 userattr: {
                     colNm: "dtlIndctNm"
@@ -321,7 +320,7 @@
                 caption: ["상세값"],
                 ref: 'dtlVl',
                 type: 'input',
-                width: '120px',
+                width: '10%',
                 style: 'text-align:center;',
                 userattr: {
                     colNm: "dtlVl"
@@ -344,11 +343,9 @@
                 caption: ["상세비고"],
                 ref: 'dtlRmrk',
                 type: 'input',
-                width: '200px',
+                width: '55%',
                 style: 'text-align: left;',
             }
-            // {caption: ["표시순서"], ref: 'indctSeq', type: 'input', width: '80px', style: 'text-align: right;', userattr: {colNm: "indctSeq"}, typeinfo: {mask: {alias: '#', repeat: '*', unmaskvalue: true}, maxlength: 6, oneclickedit: true}, format: {type: 'number', rule: '#,###'}},
-            // {caption: ["사용"], ref: 'useYn', type: 'combo', width: '50px', style: 'text-align: center', typeinfo: {ref: 'jsonYn', label: 'cdVlNm', value: 'cdVl', displayui: false}}
         ]
         grdDscdCrtrDtl = _SBGrid.create(SBGridProperties);
     }
@@ -398,65 +395,6 @@
 
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-            }
-
-        } catch (e) {
-            if(!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    /**
-     * @name fn_setGrdDscdCrtrDtl
-     * @description 폐기기준 상세 목록 조회
-     * @function
-     */
-    const fn_setGrdDscdCrtrDtl = async function(_crtr) {
-        let needsNewRow = true;
-        jsonDscdCrtrDtl.length = 0;
-
-        try {
-            const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdCrtrDtlList.do", {
-                apcCd: gv_selectedApcCd,
-                dscdCrtrType: _crtr.dscdCrtrType,
-                crtrCd: _crtr.crtrCd
-            });
-
-            const data = await postJsonPromise;
-
-            if(_.isEqual("S", data.resultStatus)) {
-                if(data.resultList.length > 0) {
-                    needsNewRow = true;
-                }
-
-                data.resultList.forEach((item, index) => {
-                    item.delYn = "N";
-                    item.chkVl = "Y";
-
-                    if(!gfn_isEmpty(item.dtlSn)) {
-                        jsonDscdCrtrDtl.push(item);
-                    }
-                });
-
-                let totalRecordCount = jsonDscdCrtrDtl.length;
-                grdDscdCrtrDtl.rebuild();
-
-                document.querySelector('#cnt-crtrDtl').innerText = totalRecordCount;
-
-                grdDscdCrtrDtl.setCellDisabled(0, 0, grdDscdCrtrDtl.getRows() -1, 3, true);
-                grdDscdCrtrDtl.setCellDisabled(0, 4, grdDscdCrtrDtl.getRows() -1, grdDscdCrtrDtl.getCols() -1, false);
-
-                if(needsNewRow) {
-                    grdDscdCrtrDtl.addRow();
-                    grdDscdCrtrDtl.setCellDisabled(grdDscdCrtrDtl.getRows() -1, 0, grdDscdCrtrDtl.getRows() -1, grdDscdCrtrDtl.getCols() -1, true);
-                }
-
-            } else {
-                gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-                //gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
             }
 
         } catch (e) {
@@ -589,167 +527,6 @@
     }
 
     /**
-     * @name fn_saveDtl
-     * @description 상세기준 저장 버튼
-     */
-    const fn_saveDtl = async function() {
-        await fn_insertCrtrDtl();
-    }
-
-    /**
-     * @name fn_insertCrtrDtl
-     * @description 상세기준 저장 버튼
-     */
-    const fn_insertCrtrDtl = async function() {
-        const crtrDtlList = [];
-
-        const allData = grdDscdCrtrDtl.getGridDataAll();
-
-        const crtrRow = grdDscdCrtr.getRow();
-        const crtrInfo = grdDscdCrtr.getRowData(crtrRow);
-
-        for(var i=1; i<=allData.length; i++) {
-            const rowData = grdDscdCrtrDtl.getRowData(i);
-            const rowSts = grdDscdCrtrDtl.getRowStatus(i);
-
-            if(!_.isEqual("N", rowData.delYn) || rowSts === 0) {
-                continue;
-            }
-
-            // if(gfn_isEmpty(rowData.dscdCrtrType)) {
-            //     gfn_comAlert("W0005", "폐기기준유형");    // W0005 {0}이/가 없습니다.
-            //     return;
-            // }
-            //
-            // if(gfn_isEmpty(rowData.crtrCd)) {
-            //     gfn_comAlert("W0005", "기준코드");  // W0005 {0}이/가 없습니다.
-            //     return;
-            // }
-            //
-            if(gfn_isEmpty(rowData.dtlIndctNm)) {
-                gfn_comAlert("W0005", "상세표시명"); // W0005 {0}이/가 없습니다.
-                return;
-            }
-
-            if(gfn_isEmpty(rowData.dtlCd)) {
-                gfn_comAlert("W0005", "상세코드");  // W0005 {0}이/가 없습니다.
-                return;
-            }
-
-            crtrDtlList.push({
-                dscdCrtrType: rowData.dscdCrtrType,
-                crtrCd: rowData.crtrCd,
-                dtlSn: rowData.dtlSn,
-                dtlCd: rowData.dtlCd,
-                dtlVl: rowData.dtlVl,
-                // dtlIndctNm: rowData.dtlIndctNm,
-                indctSeq: rowData.indctSeq,
-                useYn: rowData.useYn
-            });
-        }
-
-        if(crtrDtlList.length == 0) {
-            gfn_comAlert("W0003", "저장");    // W0003 {0}할 대상이 없습니다.
-            return;
-        }
-
-        if(!gfn_comConfirm("Q0001", "저장")) {    // Q0001 {0} 하시겠습니까?
-            return;
-        }
-
-        const param = {
-            apcCd: gv_selectedApcCd,
-            dscdCrtrType: crtrInfo.dscdCrtrType,
-            crtrCd: crtrInfo.crtrCd,
-            dscdCrtrDtlList: crtrDtlList
-        }
-
-        try {
-            const postJsonPromise = gfn_postJSON("/am/dscd/insertDscdCrtrDtl.do", param);
-            const data = await postJsonPromise;
-
-            if(_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");  // I0001 처리 되었습니다.
-                fn_setGrdDscdCrtrDtl(crtrInfo);
-            } else {
-                gfn_comAlert(data.resultCode, data.resultMessage);  // E0001 오류가 발생하였습니다.
-            }
-        } catch(e) {
-            if(!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");  // E0001 오류가 발생하였습니다.
-        }
-    }
-
-    /**
-     * @name fn_deleteCrtrDtl
-     * @description 상세기준 삭제
-     */
-    const fn_deleteCrtrDtl = async function(_crtrDtl) {
-
-        const crtrDtlList = [{
-            dscdCrtrType: _crtrDtl.dscdCrtrType,
-            crtrCd: _crtrDtl.crtrCd,
-            dtlSn: _crtrDtl.dtlSn
-        }];
-
-        if(crtrDtlList.length == 0) {
-            gfn_comAlert("W0003", "삭제");    // W0003 {0}할 대상이 없습니다.
-            return;
-        }
-
-        const param = {
-            apcCd: gv_selectedApcCd,
-            dscdCrtrType: _crtrDtl.dscdCrtrType,
-            crtrCd: _crtrDtl.crtrCd,
-            dscdCrtrDtlList: crtrDtlList
-        }
-
-        try {
-            const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdCrtrDtl.do", param);
-            const data = await postJsonPromise;
-
-            if(_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");  // I0001 처리 되었습니다.
-
-                const crtrRow = grdDscdCrtr.getRow();
-                const crtrInfo = grdDscdCrtr.getRowData(crtrRow);
-
-                fn_setGrdDscdCrtrDtl(crtrInfo);
-            } else {
-                gfn_comAlert(data.resultCode, data.resultMessage);  // E0001 오류가 발생하였습니다.
-            }
-        } catch(e) {
-            if(!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");  // E0001 오류가 발생하였습니다.
-        }
-    }
-
-    const fn_grdDscdCrtrRowChanged = function() {
-        const nRow = grdDscdCrtr.getRow();
-
-        if(nRow < 1) {
-            return;
-        }
-
-        const _crtr = grdDscdCrtr.getRowData(nRow);
-
-        if(gfn_isEmpty(_crtr) || !_.isEqual("Y", _crtr["chkVl"])) {
-            jsonDscdCrtrDtl.length = 0;
-            grdDscdCrtrDtl.refresh();
-            document.querySelector('#cnt-crtrDtl').innerText = 0;
-            return;
-        }
-
-        fn_setGrdDscdCrtrDtl(_crtr);
-    }
-
-    /**
      * @name fn_addRow
      * @description 행추가
      * @param {number} nRow
@@ -786,58 +563,128 @@
     }
 
     /**
+     * @name fn_searchDscdCrtrDtlInfo
+     * @description 폐기기준 목록 클릭 시, 폐기기준 상세정보 조회
+     * @function
+     */
+    const fn_searchDscdCrtrDtlInfo = async function() {
+        let nRow = grdDscdCrtr.getRow();
+        let rowData = grdDscdCrtr.getRowData(nRow, true);
+
+        jsonDscdCrtrDtl.length = 0;
+        grdDscdCrtrDtl.rebuild();
+
+        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdCrtrDtlList.do", rowData);
+        const data = await postJsonPromise;
+
+        if(!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+
+        if(data.resultList.length > 0) {
+            let totalRecordCount = jsonDscdCrtrDtl.length;
+            document.querySelector('#cnt-crtrDtl').innerText = totalRecordCount;
+
+            jsonDscdCrtrDtl = data.resultList;
+            grdDscdCrtrDtl.rebuild();
+            nRow = grdDscdCrtrDtl.getRows();
+            grdDscdCrtrDtl.addRow(true);
+            grdDscdCrtrDtl.setCellDisabled(1, 0, nRow, grdDscdCrtrDtl.getCols() -1, true, true);
+        } else {
+            console.log("엘스");
+            nRow = grdDscdCrtrDtl.getRows();
+            grdDscdCrtrDtl.addRow(true);
+            grdDscdCrtrDtl.setCellDisabled(nRow, 0, nRow, grdDscdCrtrDtl.getCols() -1, true, true);
+        }
+    }
+
+    /**
      * @name fn_addRowDtl
-     * @description 행추가
+     * @description 폐기기준 상세정보 행 추가
      * @param {number} nRow
      */
     const fn_addRowDtl = async function(nRow) {
-        const crtrRow = grdDscdCrtr.getRow();
+        const tRow = grdDscdCrtr.getRow();
+        let tData = grdDscdCrtr.getRowData(tRow, true);
+        let mRow = nRow + 1;
 
-        if(crtrRow < 1) {
-            gfn_comAlert("W0001", "폐기기준");  // W0001 {0}을/를 선택하세요.
-            return;
-        }
-
-        const _crtr = grdDscdCrtr.getRowData(crtrRow);
-
-        if(gfn_isEmpty(_crtr) || !_.isEqual("Y", _crtr["chkVl"])) {
-            gfn_comAlert("W0020", "미등록");   // W0020 {0} 상태의 {1} 입니다.
-            return;
-        }
-
-        const editableRow = grdDscdCrtrDtl.getRowData(nRow, false); // call by reference(deep copy)
-
-        editableRow.dscdCrtrType = _crtr.dscdCrtrType;
-        editableRow.dscdCrtrTypeNm = _crtr.dscdCrtrTypeNm;
-        editableRow.crtrCd = _crtr.crtrCd;
-        editableRow.crtrIndctNm = _crtr.crtrIndctNm;
+        const editableRow = grdDscdCrtrDtl.getRowData(nRow, false);
+        editableRow.dscdCrtrType = tData.dscdCrtrType;
+        editableRow.crtrCd = tData.crtrCd;
+        editableRow.crtrIndctNm = tData.crtrIndctNm;
         editableRow.delYn = "N";
         editableRow.useYn = "Y";
 
-        grdDscdCrtrDtl.rebuild();
-        grdDscdCrtrDtl.setCellDisabled(nRow, 3, nRow, grdDscdCrtrDtl.getCols() - 1, false);
-
-        nRow++;
         grdDscdCrtrDtl.addRow(true);
-        grdDscdCrtrDtl.setCellDisabled(nRow, 0, nRow, grdDscdCrtrDtl.getCols() - 1, true);
+        grdDscdCrtrDtl.setCellDisabled(mRow, 0, mRow, grdDscdCrtrDtl.getCols() - 1, true);
+        grdDscdCrtrDtl.setCellDisabled(nRow, 0, nRow, grdDscdCrtrDtl.getCols() - 1, false);
+
+        SBUxMethod.attr("btnSaveDtl", "disabled", "false");
     }
 
     /**
      * @name fn_delRowDtl
-     * @description 행삭제
+     * @description 폐기기준 상세정보 행 삭제
      * @param {number} nRow
      */
-    const fn_delRowDtl = async function(_nRow) {
-        const rowData = grdDscdCrtrDtl.getRowData(_nRow);
-        if(_.isEqual("Y", rowData["chkVl"])) {
-            if(!gfn_comConfirm("Q0002", "등록기준상세", "삭제")) {  // Q0002 {0}이/가 있습니다. {1} 하시겠습니까?
+    const fn_delRowDtl = async function(nRow) {
+        const delData = grdDscdCrtrDtl.getRowData(nRow);
+
+        if(delData.hasOwnProperty("sysFrstInptDt")) {
+            if(!gfn_comConfirm("Q0001", "등록된 폐기기준 상세정보입니다. 삭제")) {   // 등록된 폐기기준 상세정보입니다. 삭제하시겠습니까?
                 return;
             }
 
-            await fn_deleteCrtrDtl(rowData);
-        } else {
-            grdDscdCrtrDtl.deleteRow(_nRow);
+            const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdCrtrDtl.do", delData);
+            const data = await postJsonPromise;
+
+            if(!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+            }
+
+            gfn_comAlert("I0001");
+
+            await fn_search();
+        }else{
+            grdDscdCrtrDtl.deleteRow(nRow);
         }
+    }
+
+    /**
+     * @name fn_saveDtl
+     * @description 폐기기준 상세정보 저장
+     */
+    const fn_saveDtl = async function() {
+        let saveParam = grdDscdCrtrDtl.getGridDataAll().filter(item => item.delYn === 'N').map((item, idx) => {
+            delete item.fcltCd;
+            item.apcCd = gv_selectedApcCd;
+            item.dtlSn = idx + 1;
+            item.indctSeq = idx + 1;
+            item.dtlVl = parseInt(item.dtlVl);
+
+            return item;
+        });
+
+        saveParam = saveParam.filter(item => !item.hasOwnProperty("sysFrstInptDt"));
+        console.log("saveParam: ", saveParam);
+
+        if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/am/dscd/insertDscdCrtrDtl.do", saveParam);
+        const data = await postJsonPromise;
+        console.log("data: ", data);
+        if(!_.isEqual("S", data.resultStatus)) {
+            gfn_comAlert(data.resultCode, data.resultMessage);
+            return;
+        }
+
+        gfn_comAlert("I0001");
+
+        await fn_search();
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
