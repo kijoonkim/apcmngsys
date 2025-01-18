@@ -44,7 +44,23 @@
 		#nowWght{
 			margin-left: 5px;
 			font-weight: bold;
-			font-size: medium;
+			font-size: x-large;
+			color: #0a0a0a;
+		}
+		img{
+			cursor: pointer;
+		}
+		#nowWghtDot {
+			animation: blink 0.5s infinite step-start;
+		}
+
+		@keyframes blink {
+			0%, 100% {
+				opacity: 1;
+			}
+			50% {
+				opacity: 0;
+			}
 		}
 	</style>
 </head>
@@ -52,11 +68,18 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-				<div>
+				<div style="display: flex">
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물계량등록 -->
-                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text="">
-                    </sbux-label>
+                    <sbux-label id="lbl-wghno" name="lbl-wghno" uitype="normal" text=""></sbux-label>
+					<div style="display: flex; position: absolute; left: 170px; top: 5px">
+						<div id="svg-container" style="display: flex; align-items: center;gap: 5px">
+							<img id="onBtn" onclick="fn_forceInit();" src="/static/resource/svg/onBtn.svg" style="width: 50px;display: none;"/>
+							<img id="offBtn" onclick="fn_forceInit();" src="/static/resource/svg/offBtn.svg" style="width: 50px;display: none;"/>
+							<div id="nowWght"></div>
+							<span id="unit" style="display: none;color: rgb(28, 84, 162); font-weight: bold; font-size: x-large">KG</span>
+						</div>
+					</div>
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
@@ -1471,69 +1494,64 @@
 
 	const ws = {
 		socket: null,
+		isConnected: false,
+		isReconnecting: false,
+		reconnectInterval: 300000,
 		init: function() {
 			this.socket = new WebSocket("ws://localhost:9090/ws");
 
 			this.socket.onopen = () => {
-				console.log("서버에 연결됨");
+				this.isConnected = true;
+
+				$("#unit").css("display","initial");
+				$("#onBtn").css("display","initial");
+				$("#offBtn").css("display","none");
 				this.socket.send("hello, server");
 			};
 
 			this.socket.onmessage = (event) => {
-				console.log("서버로부터 받은 메시지: ", event.data);
 				$("#nowWght").text('');
 				$("#nowWght").text(event.data);
 			};
 
 			this.socket.onerror = (error) => {
-				console.error("WebSocket Error: ", error);
+				this.isConnected = false;
 			};
 
 			this.socket.onclose = () => {
-				console.log("서버와의 연결이 종료됨");
+				this.isConnected = false;
+				this.isReconnecting = false;
+				$("#nowWght").text('수신중');
+				$("#nowWght").append(`<span id="nowWghtDot">...</span>`)
+				$("#unit").css("display","none");
+				$("#offBtn").css("display","initial");
+				$("#onBtn").css("display","none");
+                this.reconnect();
 			};
 		},
-		//
-		// GetWholWght: function() {
-		// 	if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-		// 		this.socket.send("wholWght");
-		// 	} else {
-		// 		console.log("WebSocket 연결이 열리지 않았습니다.");
-		// 	}
-		// },
-		// GetEmptWght: function(){
-		// 	if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-		// 		this.socket.send("emptWght");
-		// 	} else {
-		// 		console.log("WebSocket 연결이 열리지 않았습니다.");
-		// 	}
-		// },
-		// handleResponse: async function(response) {
-		// 	const [key, value] = response.split(":");
-		// 	const result = {
-		// 		[key.trim()]: value.trim()
-		// 	};
-		// 	/** 시간 **/
-		// 	let now = new Date();
-		// 	const formattedDate = now.toLocaleString('ko-KR');
-		//
-		// 	if(result.hasOwnProperty("wholWght")){
-		// 		SBUxMethod.set("dtl-inp-wholWght",result.wholWght);
-		// 		SBUxMethod.set("dtl-inp-wholWghtTime",formattedDate);
-		// 	}else if(result.hasOwnProperty("emptWght")){
-		// 		SBUxMethod.set("dtl-inp-emptVhclWght",result.emptWght);
-		// 		SBUxMethod.set("dtl-inp-emptVhclWghtTime",formattedDate);
-		// 		fn_calWght();
-		// 	}
-		// 	/** 이후 데이터.. **/
-		// 	console.log(result);
-		// }
+		checkConnection: function() {
+			if (!this.isConnected && this.isReconnecting) {
+				this.init();
+			}
+		},
+		reconnect: function() {
+			if (!this.isConnected && !this.isReconnecting) {
+				console.log(`웹소켓 재연결 시도 중... (${'${this.reconnectInterval / 1000}'}초 간격)`);
+				this.isReconnecting = true;
+				setTimeout(() => {
+					this.checkConnection();
+				}, this.reconnectInterval);
+			}
+		}
 	};
-	function addWghtInput(){
-		$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr td").last().remove();
-		$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr").append(`<th class='th_bg'>계량정보</th><td class='td_input' colspan="8"><span id="nowWght">수신중..</spna></td>`)
+	const fn_forceInit = async function(){
+		ws.init();
 	}
-	addWghtInput();
+	// function addWghtInput(){
+	// 	$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr td").last().remove();
+	// 	$("body > section > div > div.box-body.srch-keyup-area > table:nth-child(1) > tbody > tr").append(`<th class='th_bg'>계량정보</th><td class='td_input' colspan="8"><span id="nowWght">수신중..</spna></td>`)
+	// }
+	// addWghtInput();
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
