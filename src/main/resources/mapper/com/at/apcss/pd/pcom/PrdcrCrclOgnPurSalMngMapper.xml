@@ -1333,7 +1333,7 @@
 	</select>
 
 	<!-- 통합조직 총매입매출 임시저장 처리 -->
-	<update id="updateTempSaveAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<update id="updateTempSaveUoAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		UPDATE /* com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.updateTempSaveAps */
 			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 		   SET
@@ -1359,7 +1359,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.01.20  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectTempSaveAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
+	<select id="selectTempSaveUoAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO">
 		SELECT	/* com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngMapper.selectTempSaveAps */
 			TMPR_STRG_YN
 			,TMPR_STRG_RSN
@@ -1367,7 +1367,7 @@
 		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
 		WHERE 1=1
 		  AND DEL_YN = 'N'
-		  AND APO_SE = '2'
+		  AND APO_SE = '1'
 		  AND ROWNUM = 1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
