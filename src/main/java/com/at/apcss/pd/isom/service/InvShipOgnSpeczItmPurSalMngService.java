@@ -52,4 +52,12 @@ public interface InvShipOgnSpeczItmPurSalMngService {
 	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
 	//20241212 개발서버 신규 화면 등록
 	public int multiSaveInvShipOgnSpeczItmPurSalMngListNew(List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList) throws Exception;
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return InvShipOgnSpeczItmPurSalMngVO
+	 * @throws Exception
+	 */
+	public InvShipOgnSpeczItmPurSalMngVO selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
 }

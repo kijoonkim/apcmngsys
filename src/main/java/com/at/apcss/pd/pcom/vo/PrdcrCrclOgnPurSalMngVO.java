@@ -116,4 +116,9 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String prchsSmplEmspapVlm;
 	private String prchsSmplEmspapAmt;
 
+	/* 20250117 임시저장 추가 */
+	private String tmprStrgYn;
+	private String tmprStrgRsn;
+	private String tmprStrgDt;
+
 }

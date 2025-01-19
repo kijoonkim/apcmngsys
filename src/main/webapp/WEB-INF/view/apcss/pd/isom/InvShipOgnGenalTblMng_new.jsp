@@ -481,14 +481,17 @@
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('srch-input-cmptnInst', 	jsonComCmptnInst, 	'CMPTNC_INST'), //관할기관
-			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 	'CMPTN_INST_CTPV'), //시도
+			//gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('srch-input-ctpv', 		jsonComCtpv, 		'UNTY_CTPV'), //시도
 			gfn_setComCdSBSelect('srch-input-corpSeCd', 	jsonComCorpSeCd, 	'CORP_SE_CD'), //법인구분
-			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 	'CORP_SHAP'), //법인형태
-			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 	'APRV_UPBR_SE_CD'), //신청구분
+			gfn_setComCdSBSelect('srch-input-corpDtlSeCd', 	jsonComCorpDtlSeCd, 'CORP_SHAP'), //법인형태
+			gfn_setComCdSBSelect('srch-input-aprv', 		jsonComAprv, 		'APRV_UPBR_SE_CD'), //신청구분
 			gfn_setComCdSBSelect('srch-input-aplyTrgtSe', 	jsonComAplyTrgtSe, 	'APLY_TRGT_SE'), //신청대상구분
 
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
-			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'CMPTN_INST_CTPV'), //시도
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCtpv, 		'UNTY_CTPV'), //시도
+			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'CMPTN_INST_SIGUN'),//시군
+			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdSgg, 		'UNTY_SGG'),//시군
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonGrdCorpSeCd, 	'CORP_SE_CD'),//법인구분
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng', 	jsonComGrdAprv, 	'APRV_UPBR_SE_CD'), //신청구분
 

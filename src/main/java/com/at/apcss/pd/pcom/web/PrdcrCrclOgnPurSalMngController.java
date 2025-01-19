@@ -185,17 +185,21 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		PrdcrCrclOgnPurSalMngVO result = new PrdcrCrclOgnPurSalMngVO();
 		try {
 			//매입 리스트
 			resultPrchsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
 			//매출 리스트
 			resultSlsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO);
+			//임시저장 정보
+			result = PrdcrCrclOgnPurSalMngService.selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put("resultPrchsList", resultPrchsList);
 		resultMap.put("resultSlsList", resultSlsList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
 

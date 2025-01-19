@@ -25,8 +25,8 @@
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
-				, CM.CTPV
-				, CM.SGG
+				, TRIM(CM.CTPV) AS CTPV
+				, TRIM(CM.SGG) AS SGG
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.CRNO
@@ -122,7 +122,7 @@
 				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV = #{ctpv}
+				AND TRIM(CM.CTPV) = #{ctpv}
 			</if>
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD = #{corpSeCd}

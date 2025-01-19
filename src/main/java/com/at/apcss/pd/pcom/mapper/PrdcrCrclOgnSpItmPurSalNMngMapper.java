@@ -50,4 +50,18 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 	//저장전 기존 데이터 삭제 처리
 	public int updateDelYn(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+
+	/**
+	 * 총매입매출 임시저장 처리.
+	 * @param PrdcrCrclOgnSpItmPurSalNMngVO
+	 * @return int
+	 */
+	public int updateTempSaveUoAps(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param PrdcrCrclOgnSpItmPurSalNMngVO
+	 * @return PrdcrCrclOgnSpItmPurSalNMngVO
+	 */
+	public PrdcrCrclOgnSpItmPurSalNMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 }

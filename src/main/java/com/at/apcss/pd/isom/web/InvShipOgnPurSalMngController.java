@@ -71,15 +71,18 @@ public class InvShipOgnPurSalMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
 		List<InvShipOgnPurSalMngVO> resultSlsList = new ArrayList<>();
+		InvShipOgnPurSalMngVO result = new InvShipOgnPurSalMngVO();
 		try {
 			 resultPrchsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO);
 			 resultSlsList = invShipOgnPurSalMngService.selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO);
+			 result = invShipOgnPurSalMngService.selectTempSaveIsoAps(InvShipOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put("resultPrchsList", resultPrchsList);
 		resultMap.put("resultSlsList", resultSlsList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
 

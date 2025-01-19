@@ -134,13 +134,16 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnSpItmPurSalYMngListNew(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+		PrdcrCrclOgnSpItmPurSalYMngVO result = new PrdcrCrclOgnSpItmPurSalYMngVO();
 		try {
 			 resultList = PrdcrCrclOgnSpItmPurSalYMngService.selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+			 result = PrdcrCrclOgnSpItmPurSalYMngService.selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
 	// 개발서버 신규화면 등록

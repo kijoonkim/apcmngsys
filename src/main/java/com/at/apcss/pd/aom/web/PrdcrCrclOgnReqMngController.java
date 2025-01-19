@@ -209,7 +209,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	@PostMapping(value = "/pd/aom/deleteGpc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteGpc(@RequestBody GpcVO gpcVO, HttpServletRequest request) throws Exception {
-		logger.debug("/pd/aom/deletePrdcrCrclOgnReqMng >>> 호출 >>> ");
+		logger.debug("/pd/aom/deleteGpc >>> 호출 >>> ");
 
 		int result = 0;
 		try {

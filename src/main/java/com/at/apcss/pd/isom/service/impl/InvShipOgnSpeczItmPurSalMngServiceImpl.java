@@ -25,7 +25,7 @@ import com.at.apcss.pd.isom.vo.ItemStbltYnVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("InvShipOgnSpeczItmPurSalMngService")
@@ -153,16 +153,29 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//출자출하조직 사업자번호
 		String uoBrnoVal = null;//통합조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		int delYn = 0;
 		for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
 			yrVal = InvShipOgnSpeczItmPurSalMngVO.getYr();
 			brnoVal = InvShipOgnSpeczItmPurSalMngVO.getBrno();
 			uoBrnoVal = InvShipOgnSpeczItmPurSalMngVO.getUoBrno();
+			tmprStrgYnVal = InvShipOgnSpeczItmPurSalMngVO.getTmprStrgYn();
 			//저장 전 기존 자료 전체 삭제 처리
 			if(delYn == 0) {
 				delYn = InvShipOgnSpeczItmPurSalMngMapper.updateDelYn(InvShipOgnSpeczItmPurSalMngVO);
 			}
 			savedCnt += insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO);
+		}
+		//임시저장인 경우 적합여부 체크 하지 않음
+		if("Y".equals(tmprStrgYnVal)) {
+			InvShipOgnSpeczItmPurSalMngVO tmprStrgVo = new InvShipOgnSpeczItmPurSalMngVO();
+			tmprStrgVo.setYr(yrVal);
+			tmprStrgVo.setBrno(brnoVal);
+			tmprStrgVo.setUoBrno(uoBrnoVal);
+			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+			InvShipOgnSpeczItmPurSalMngMapper.updateTempSaveAps(tmprStrgVo);
+			InvShipOgnSpeczItmPurSalMngMapper.updateTempSavePst(tmprStrgVo);
+			return savedCnt;
 		}
 
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
@@ -188,6 +201,14 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 			}
 		}
 		return savedCnt;
+	}
+
+	@Override
+	public InvShipOgnSpeczItmPurSalMngVO selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception {
+
+		InvShipOgnSpeczItmPurSalMngVO resultVO = InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO);
+
+		return resultVO;
 	}
 
 }

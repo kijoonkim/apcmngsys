@@ -54,4 +54,12 @@ public interface PrdcrCrclOgnSpItmPurSalYMngService {
 	public int multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList) throws Exception;
 	/* 개발서버 신규화면 적합여부 체크 */
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @return PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @throws Exception
+	 */
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 }

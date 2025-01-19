@@ -134,13 +134,16 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnSpeczItmPurSalMngListNew(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
+		InvShipOgnSpeczItmPurSalMngVO result = new InvShipOgnSpeczItmPurSalMngVO();
 		try {
 			resultList = InvShipOgnSpeczItmPurSalMngService.selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO);
+			result = InvShipOgnSpeczItmPurSalMngService.selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
 	// 개발서버 신규 화면 등록

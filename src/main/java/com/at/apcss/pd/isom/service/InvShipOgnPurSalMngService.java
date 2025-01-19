@@ -112,4 +112,12 @@ public interface InvShipOgnPurSalMngService {
 
 	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총 매입 매출 임시저장 정보를 조회한다.
+	 * @param InvShipOgnPurSalMngVO
+	 * @return InvShipOgnPurSalMngVO
+	 * @throws Exception
+	 */
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+
 }
