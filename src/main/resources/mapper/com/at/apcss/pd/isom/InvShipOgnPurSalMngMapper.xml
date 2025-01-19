@@ -1641,7 +1641,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngNew	-->
-	<!-- DESC : 출자출하조직 전문품목 매입매출                                             		-->
+	<!-- DESC : 출자출하조직 총 매입매출                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -1841,6 +1841,7 @@
 				(SELECT *
 					FROM TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '2'
 					  AND PRCHS_SLS_SE = '1'
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = APS.YR AND BRNO = APS.BRNO)
@@ -1863,8 +1864,10 @@
 						, SUM( DECODE(PST.TRMT_TYPE , '3' ,  SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_SORT_EMSPAP_AMT
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '2'
 					  AND TYPE_SE_NO = '5'
+					  AND NVL(TMPR_STRG_YN,'N') = 'N'
 					  AND CTGRY_CD IS NULL
 					  AND CLTVTN_LAND_SN IS NULL
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3' AND UO_BRNO = PST.UO_BRNO)
@@ -1893,8 +1896,10 @@
 						, SUM( NVL( SLS_CNSGN_PRCHS_AMT , 0 ) ) AS PRCHS_TOT_AMT
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '2'
 					  AND TYPE_SE_NO = '7'
+					  AND NVL(TMPR_STRG_YN,'N') = 'N'
 					  AND CTGRY_CD IS NULL
 					  AND CLTVTN_LAND_SN IS NULL
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3')
@@ -2066,8 +2071,10 @@
 						, SUM( DECODE(PST.TRMT_TYPE , '3' ,  UO_SPMT_AMT , 0 ) ) AS SLS_CPRTN_SORT_EMSPAP_AMT
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '2'
 					  AND TYPE_SE_NO = '5'
+					  AND NVL(TMPR_STRG_YN,'N') = 'N'
 					  AND CTGRY_CD IS NULL
 					  AND CLTVTN_LAND_SN IS NULL
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3')
@@ -2099,8 +2106,10 @@
 
 					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 					WHERE 1=1
+					  AND DEL_YN = 'N'
 					  AND APO_SE = '2'
 					  AND TYPE_SE_NO = '7'
+					  AND NVL(TMPR_STRG_YN,'N') = 'N'
 					  AND CTGRY_CD IS NULL
 					  AND CLTVTN_LAND_SN IS NULL
 					  AND ITEM_CD IN (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = PST.YR AND BRNO = PST.BRNO AND STTG_UPBR_ITEM_SE != '3')
@@ -2125,5 +2134,46 @@
 			   AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
 		)
 		ORDER BY STTG_UPBR_ITEM_SE , ITEM_CD , UO_BRNO DESC
+	</select>
+
+	<!-- 출자출하조직 총매입매출 임시저장 처리 -->
+	<update id="updateTempSaveIsoAps" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		UPDATE /* com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngMapper.updateTempSaveIsoAps */
+			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
+		   SET
+			<if test='tmprStrgYn == "Y"'>
+				TMPR_STRG_YN	= 'Y'
+				, TMPR_STRG_RSN	= ''
+				, TMPR_STRG_DT	= SYSDATE
+			</if>
+			<if test='tmprStrgYn != "Y"'>
+				TMPR_STRG_YN	= 'N'
+			</if>
+		WHERE 1=1
+		  AND APO_SE = '2'
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngMapper.selectTempSaveIsoAps	-->
+	<!-- DESC : 임시저장 조회                                            					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.20  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectTempSaveIsoAps" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		SELECT	/* com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngMapper.selectTempSaveIsoAps */
+			TMPR_STRG_YN
+			,TMPR_STRG_RSN
+			,TMPR_STRG_DT
+		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+		WHERE 1=1
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '2'
+		  AND ROWNUM = 1
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
 	</select>
 </mapper>

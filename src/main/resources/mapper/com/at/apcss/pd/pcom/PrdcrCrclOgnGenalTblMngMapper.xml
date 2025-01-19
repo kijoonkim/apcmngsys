@@ -1074,8 +1074,10 @@
 							, (SELECT STBLT_YN
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 								WHERE 1=1
+								  AND DEL_YN = 'N'
 								  AND APO_SE = '1'
 								  AND TYPE_SE_NO ='8'
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
 								  AND BRNO = ITEM.BRNO
 								  AND YR = ITEM.YR
 								  AND ITEM_CD = ITEM.ITEM_CD
@@ -1108,11 +1110,12 @@
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
 								WHERE 1=1
-								AND DEL_YN = 'N'
-								AND APO_SE = '1'
-								AND TYPE_SE_NO IN ('1','5')
-								AND OGNZ_STBLT_YN = 'Y'
-								AND ITEM_CD IN (SELECT ITEM_CD
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO IN ('1','5')
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND OGNZ_STBLT_YN = 'Y'
+								  AND ITEM_CD IN (SELECT ITEM_CD
 												FROM TB_EV_APO_YR_GPC_CD
 												WHERE 1=1
 												  AND APO_SE = '1'
@@ -1149,9 +1152,10 @@
 									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
 								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
 								WHERE 1=1
-								AND DEL_YN = 'N'
-								AND APO_SE = '1'
-								AND ITEM_CD IN (SELECT ITEM_CD
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '1'
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND ITEM_CD IN (SELECT ITEM_CD
 												FROM TB_EV_APO_YR_GPC_CD
 												WHERE 1=1
 												  AND APO_SE = '1'
@@ -1159,14 +1163,14 @@
 												  AND BRNO = PSTB.BRNO
 												  AND STTG_UPBR_ITEM_SE != '3'
 												)
-								AND TYPE_SE_NO = '8'
+								  AND TYPE_SE_NO = '8'
 								/*
-								AND (
+								  AND (
 										TYPE_SE_NO IN ('2','7')
 										OR
 										(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
-									)
-								AND (
+										)
+								  AND (
 										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1

@@ -50,4 +50,25 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 	//20241230 저장전 기존 자료 삭제 처리
 	public int updateDelYn(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+
+	/**
+	 * 총매입매출 임시저장 처리.
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return int
+	 */
+	public int updateTempSaveAps(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+
+	/**
+	 * 전문품목 매입매출 임시저장 처리.
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return int
+	 */
+	public int updateTempSavePst(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return InvShipOgnSpeczItmPurSalMngVO
+	 */
+	public InvShipOgnSpeczItmPurSalMngVO selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 }

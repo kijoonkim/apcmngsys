@@ -122,7 +122,7 @@
 				AND CM.CMPTN_INST = #{cmptnInst}
 			</if>
 			<if test='ctpv != null and ctpv != ""'>
-				AND CM.CTPV = #{ctpv}
+				AND TRIM(CM.CTPV) = #{ctpv}
 			</if>
 			<if test='corpSeCd != null and corpSeCd != ""'>
 				AND CM.CORP_SE_CD = #{corpSeCd}

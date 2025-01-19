@@ -71,5 +71,8 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
-
+	/* 20250117 임시저장 추가 */
+	private String tmprStrgYn;
+	private String tmprStrgRsn;
+	private String tmprStrgDt;
 }

@@ -84,4 +84,18 @@ public interface InvShipOgnPurSalMngMapper {
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
 	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+
+	/**
+	 * 출자출하조직 총매입매출 입시저장
+	 * @param InvShipOgnPurSalMngVO
+	 * @return int
+	 */
+	public int updateTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+
+	/**
+	 * 출자출하조직 총 매입 매출 임시저장 정보
+	 * @param InvShipOgnPurSalMngVO
+	 * @return InvShipOgnPurSalMngVO
+	 */
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
 }

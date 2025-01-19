@@ -335,7 +335,10 @@
 						</tr>
 					</tbody>
 				</table>
-
+				<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+					<p><b style="color: red">임시저장 상태입니다</b></p>
+					<p id="tmprStrgRsn"></p>
+				</div>
 				<!--
 				<br>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
@@ -362,6 +365,7 @@
 						<div style="margin-left: auto;">
 
 							<c:if test="${loginVO.userType ne '02'}">
+							<sbux-button id="btnTempSave1" name="btnTempSave1" uitype="normal" text="매입임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01('Y')"></sbux-button>
 							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="매입저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
 							</c:if>
 
@@ -400,7 +404,8 @@
 						<div style="margin-left: auto;">
 
 							<c:if test="${loginVO.userType ne '02'}">
-							<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
+								<sbux-button id="btnTempSave2" name="btnTempSave2" uitype="normal" text="매출임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02('Y')"></sbux-button>
+								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave02"></sbux-button>
 							</c:if>
 
 						</div>
@@ -445,6 +450,7 @@
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
 							<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+							<sbux-button id="btnTempSave3" name="btnTempSave3" uitype="normal" text="매출임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave03('Y')"></sbux-button>
 							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="매출저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave03"></sbux-button>
 							</c:if>
 						</div>
@@ -1769,7 +1775,7 @@
 
 
 	//매입 다중 세이브
-	const fn_listSave01 = async function(){
+	const fn_listSave01 = async function(_tmprStrgYn){
 
 		let objGrid = grdPrdcrOgnCurntMng01;
 
@@ -1791,60 +1797,67 @@
 			let delYn = rowData01.delYn;
 
 			if(delYn == 'N'){
-				if( Number(rowData01.prchsSortTrstAmt) > 0
-						&& rowData01.sttgUpbrItemSe === "3"
-						&& (gfn_isEmpty(rowData01.prchsSortTrstVlm) || Number(rowData01.prchsSortTrstVlm) == 0)){
-					alert('공동선별수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+				//임시저장여부 확인
+				if(_tmprStrgYn != 'Y'){
+					if( Number(rowData01.prchsSortTrstAmt) > 0
+							&& rowData01.sttgUpbrItemSe === "3"
+							&& (gfn_isEmpty(rowData01.prchsSortTrstVlm) || Number(rowData01.prchsSortTrstVlm) == 0)){
+						alert('공동선별수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsSpmtTrstAmt) > 0
-						&& rowData01.sttgUpbrItemSe === "3"
-						&& (gfn_isEmpty(rowData01.prchsSpmtTrstVlm) || Number(rowData01.prchsSpmtTrstVlm) == 0)){
-					alert('공동출하수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData01.prchsSpmtTrstAmt) > 0
+							&& rowData01.sttgUpbrItemSe === "3"
+							&& (gfn_isEmpty(rowData01.prchsSpmtTrstVlm) || Number(rowData01.prchsSpmtTrstVlm) == 0)){
+						alert('공동출하수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsSmplTrstAmt) > 0
-						&& (gfn_isEmpty(rowData01.prchsSmplTrstVlm) || Number(rowData01.prchsSmplTrstVlm) == 0)){
-					alert('단순수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData01.prchsSmplTrstAmt) > 0
+							&& (gfn_isEmpty(rowData01.prchsSmplTrstVlm) || Number(rowData01.prchsSmplTrstVlm) == 0)){
+						alert('단순수탁 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsSortEmspapAmt) > 0
-						&& rowData01.sttgUpbrItemSe === "3"
-						&& (gfn_isEmpty(rowData01.prchsSortEmspapVlm) || Number(rowData01.prchsSortEmspapVlm) == 0)){
-					alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData01.prchsSortEmspapAmt) > 0
+							&& rowData01.sttgUpbrItemSe === "3"
+							&& (gfn_isEmpty(rowData01.prchsSortEmspapVlm) || Number(rowData01.prchsSortEmspapVlm) == 0)){
+						alert('공동선별매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsSmplEmspapAmt) > 0
-						&& (gfn_isEmpty(rowData01.prchsSmplEmspapVlm) || Number(rowData01.prchsSmplEmspapVlm) == 0)){
-					alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData01.prchsSmplEmspapAmt) > 0
+							&& (gfn_isEmpty(rowData01.prchsSmplEmspapVlm) || Number(rowData01.prchsSmplEmspapVlm) == 0)){
+						alert('단순매취 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsTotVlmDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
-					alert('물량의 합계가 일치 해야합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData01.prchsTotVlmDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
+						alert('물량의 합계가 일치 해야합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData01.prchsTotAmtDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
-					alert('금액의 합계가 일치 해야합니다');
-					objGrid.selectRow(i);
-					return false;
+					if( Number(rowData01.prchsTotAmtDiff) !== 0 && rowData01.sttgUpbrItemSe !== "3"){
+						alert('금액의 합계가 일치 해야합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 				}
 
 				rowData01.apoCd = apoCd;
 				rowData01.apoSe = apoSe;
 				rowData01.crno = crno;
 				rowData01.brno = brno;
+
+				if(_tmprStrgYn == 'Y'){
+					rowData01.tmprStrgYn = _tmprStrgYn;
+				}
 
 				rowData01.rowSts = "I";
 				saveList.push(rowData01);
@@ -1879,7 +1892,7 @@
 	}
 
 	//매출 다중 세이브
-	const fn_listSave02 = async function(){
+	const fn_listSave02 = async function(_tmprStrgYn){
 		let saveList = [];
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
@@ -1899,47 +1912,50 @@
 			let delYn = rowData02.delYn;
 
 			if(delYn == 'N'){
+				if(_tmprStrgYn != 'Y'){
+					if( Number(rowData02.totTrmtPrfmncAmt) > 0 && rowData02.sttgUpbrItemSe === '3'
+							&& (gfn_isEmpty(rowData02.totTrmtPrfmncVlm) || Number(rowData02.totTrmtPrfmncVlm) == 0)){
+						alert('총취급실적 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData02.totTrmtPrfmncAmt) > 0 && rowData02.sttgUpbrItemSe === '3'
-						&& (gfn_isEmpty(rowData02.totTrmtPrfmncVlm) || Number(rowData02.totTrmtPrfmncVlm) == 0)){
-					alert('총취급실적 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData02.ddcExprtAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+							&& (gfn_isEmpty(rowData02.ddcExprtVlm) || Number(rowData02.ddcExprtVlm) == 0)){
+						alert('자체수출 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
+					if( Number(rowData02.ddcAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+							&& (gfn_isEmpty(rowData02.ddcVlm) || Number(rowData02.ddcVlm) == 0)){
+						alert('자체공판장 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData02.ddcExprtAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
-						&& (gfn_isEmpty(rowData02.ddcExprtVlm) || Number(rowData02.ddcExprtVlm) == 0)){
-					alert('자체수출 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
-				if( Number(rowData02.ddcAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
-						&& (gfn_isEmpty(rowData02.ddcVlm) || Number(rowData02.ddcVlm) == 0)){
-					alert('자체공판장 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData02.ddcArmyDlvgdsAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+						&& (gfn_isEmpty(rowData02.ddcArmyDlvgdsVlm) || Number(rowData02.ddcArmyDlvgdsVlm) == 0)){
+						alert('군납 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData02.ddcArmyDlvgdsAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
-					&& (gfn_isEmpty(rowData02.ddcArmyDlvgdsVlm) || Number(rowData02.ddcArmyDlvgdsVlm) == 0)){
-					alert('군납 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
+					if( Number(rowData02.ddcMlsrAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
+						&& (gfn_isEmpty(rowData02.ddcMlsrVlm) || Number(rowData02.ddcMlsrVlm) == 0)){
+						alert('학교급식 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 				}
-
-				if( Number(rowData02.ddcMlsrAmt) > 0 && rowData02.sttgUpbrItemSe !== '3'
-					&& (gfn_isEmpty(rowData02.ddcMlsrVlm) || Number(rowData02.ddcMlsrVlm) == 0)){
-					alert('학교급식 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
-
 
 				rowData02.apoCd = apoCd;
 				rowData02.apoSe = apoSe;
 				rowData02.crno = crno;
 				rowData02.brno = brno;
 				rowData02.brno = brno;
+				if(_tmprStrgYn == 'Y'){
+					rowData02.tmprStrgYn = _tmprStrgYn;
+				}
 
 				rowData02.rowSts = "I";
 				saveList.push(rowData02);
@@ -1996,30 +2012,31 @@
 			let delYn = rowData.delYn;
 
 			if(delYn == 'N'){
+				if(_tmprStrgYn != 'Y'){
+					if( Number(rowData.totSpmtPrfmncAmt) > 0 && rowData.sttgUpbrItemSe === '3'
+							&& (gfn_isEmpty(rowData.totSpmtPrfmncVlm) || Number(rowData.totSpmtPrfmncVlm) == 0)){
+						alert('통합조직 총 출하실적 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData.totSpmtPrfmncAmt) > 0 && rowData.sttgUpbrItemSe === '3'
-						&& (gfn_isEmpty(rowData.totSpmtPrfmncVlm) || Number(rowData.totSpmtPrfmncVlm) == 0)){
-					alert('통합조직 총 출하실적 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
+					if( Number(rowData.smplInptAmt) > 0 && rowData.sttgUpbrItemSe !== '3'
+							&& (gfn_isEmpty(rowData.smplInptVlm) || Number(rowData.smplInptVlm) == 0)){
+						alert('단순기표 금액이 존재하는 경우 물량 입력이 필요합니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 
-				if( Number(rowData.smplInptAmt) > 0 && rowData.sttgUpbrItemSe !== '3'
-						&& (gfn_isEmpty(rowData.smplInptVlm) || Number(rowData.smplInptVlm) == 0)){
-					alert('단순기표 금액이 존재하는 경우 물량 입력이 필요합니다');
-					objGrid.selectRow(i);
-					return false;
-				}
-
-				if( Number(rowData.spmtPrfmncAmt) < 0 && rowData.sttgUpbrItemSe !== '3'){
-					alert('인정출하실적 금액이 음수 일수 없습니다');
-					objGrid.selectRow(i);
-					return false;
-				}
-				if( Number(rowData.spmtPrfmncVlm) < 0 && rowData.sttgUpbrItemSe !== '3'){
-					alert('인정출하실적 물량이 음수 일수 없습니다');
-					objGrid.selectRow(i);
-					return false;
+					if( Number(rowData.spmtPrfmncAmt) < 0 && rowData.sttgUpbrItemSe !== '3'){
+						alert('인정출하실적 금액이 음수 일수 없습니다');
+						objGrid.selectRow(i);
+						return false;
+					}
+					if( Number(rowData.spmtPrfmncVlm) < 0 && rowData.sttgUpbrItemSe !== '3'){
+						alert('인정출하실적 물량이 음수 일수 없습니다');
+						objGrid.selectRow(i);
+						return false;
+					}
 				}
 
 				rowData.apoCd = apoCd;
@@ -2027,6 +2044,10 @@
 				rowData.crno = crno;
 				rowData.brno = brno;
 				rowData.brno = brno;
+
+				if(_tmprStrgYn == 'Y'){
+					rowData01.tmprStrgYn = _tmprStrgYn;
+				}
 
 				rowData.rowSts = "I";
 				saveList.push(rowData);
@@ -2108,6 +2129,9 @@
 		jsonPrdcrOgnCurntMng03.length= 0;
 		grdPrdcrOgnCurntMng03.rebuild();
 
+		//임시저장 표기
+		$("#tmprArea").hide();
+		$("#tmprStrgRsn").text("");
 	}
 
 
@@ -2165,7 +2189,18 @@
 			jsonPrdcrOgnCurntMng01.length = 0;
 			jsonPrdcrOgnCurntMng02.length = 0;
 			jsonPrdcrOgnCurntMng03.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
+			let tmprVo = data.resultMap;
+			if(tmprVo != null){
+				if(tmprVo.tmprStrgYn == 'Y'){
+					$("#tmprArea").show();
+					$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
+				}else{
+					$("#tmprArea").hide();
+					$("#tmprStrgRsn").text("");
+				}
+			}
+
 			data.resultPrchsList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO01 = {
 						apoCd: 	item.apoCd
@@ -2322,6 +2357,9 @@
 			fn_grdTot03();
 			fn_grdTot02();
 			fn_grdTot01();
+
+			//포커스 이동
+			SBUxMethod.focus('dtl-input-brno');
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

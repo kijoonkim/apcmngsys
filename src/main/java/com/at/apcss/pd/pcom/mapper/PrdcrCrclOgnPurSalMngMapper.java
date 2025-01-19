@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 /**
@@ -46,4 +47,18 @@ public interface PrdcrCrclOgnPurSalMngMapper {
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 	//매출 리스트
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+
+	/**
+	 * 통합조직 총매입매출 입시저장
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return int
+	 */
+	public int updateTempSaveUoAps(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+
+	/**
+	 * 통합조직 총 매입 매출 임시저장 정보
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return PrdcrCrclOgnPurSalMngVO
+	 */
+	public PrdcrCrclOgnPurSalMngVO selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 }

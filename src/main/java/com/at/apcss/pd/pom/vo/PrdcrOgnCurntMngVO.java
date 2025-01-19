@@ -107,6 +107,8 @@ public class PrdcrOgnCurntMngVO extends ComVO{
 	private String spmtRmrk;
 	private String cnt;
 
+	private String tmprStrgYn;
+
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;

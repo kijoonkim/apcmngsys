@@ -31,9 +31,11 @@
 			,(SELECT SUM(SLS_CNSGN_SLS_AMT)
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 				WHERE 1=1
+				  AND DEL_YN = 'N'
 				  AND YR = OWM.YR
 				  AND BRNO = OWM.BRNO
 				  AND TYPE_SE_NO = '8'
+				  AND NVL(TMPR_STRG_YN,'N') = 'N'
 				  AND ITEM_CD = (SELECT ITEM_CD
 				  					FROM TB_EV_APO_YR_GPC_CD
 				  					WHERE 1=1
@@ -224,7 +226,7 @@
 		  AND (
 		  			YGC.BRNO = #{brno}
 		  			OR
-		  			YGC.UO_BRNO = #{brno}
+		  			YGC.BRNO IN (SELECT BRNO FROM TB_EV_APLY_MNG WHERE YR = #{yr} AND UO_BRNO = #{brno})
 		  		)
 		ORDER BY BRNO, ITEM_CD
 	</select>

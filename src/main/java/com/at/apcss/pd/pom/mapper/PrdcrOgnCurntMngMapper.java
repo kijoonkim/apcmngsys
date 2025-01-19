@@ -68,4 +68,16 @@ public interface PrdcrOgnCurntMngMapper {
 	public List<TbEvFrmhsApoVO> selectRawData01(TbEvFrmhsApoVO tbEvFrmhsApoVO);
 	//농가 로우데이터
 	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO prdcrOgnCurntMngVO);
+	/**
+	 * 총매입매출 임시저장 처리.
+	 * @param PrdcrOgnCurntMngVO
+	 * @return int
+	 */
+	public int updateTempSaveAps(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
+	/**
+	 * 전문품목 매입매출 임시저장 처리.
+	 * @param PrdcrOgnCurntMngVO
+	 * @return int
+	 */
+	public int updateTempSavePst(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO);
 }

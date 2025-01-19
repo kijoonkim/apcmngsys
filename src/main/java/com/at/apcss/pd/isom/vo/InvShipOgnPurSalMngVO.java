@@ -115,4 +115,9 @@ public class InvShipOgnPurSalMngVO extends ComVO{
 	private String slsCprtnTotVlm;
 	private String slsCprtnTotAmt;
 
+	/* 20250117 임시저장 추가 */
+	private String tmprStrgYn;
+	private String tmprStrgRsn;
+	private String tmprStrgDt;
+
 }

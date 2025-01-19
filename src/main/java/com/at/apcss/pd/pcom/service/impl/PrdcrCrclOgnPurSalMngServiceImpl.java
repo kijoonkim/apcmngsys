@@ -73,35 +73,63 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 	@Override
 	public int multiSavePrdcrCrclOgnPurSalMngList01(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+			yrVal = PrdcrCrclOgnPurSalMngVO.getYr();
+			brnoVal = PrdcrCrclOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = PrdcrCrclOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertPrdcrCrclOgnPurSalMng01(PrdcrCrclOgnPurSalMngVO);
-			/*
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrCrclOgnPurSalMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnPurSalMng01(PrdcrCrclOgnPurSalMngVO);
-			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrCrclOgnPurSalMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
-			}
-			*/
 		}
+		//임시저장 변경
+		PrdcrCrclOgnPurSalMngVO tmprStrgVo = new PrdcrCrclOgnPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		PrdcrCrclOgnPurSalMngMapper.updateTempSaveUoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
 	public int multiSavePrdcrCrclOgnPurSalMngList02(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+			yrVal = PrdcrCrclOgnPurSalMngVO.getYr();
+			brnoVal = PrdcrCrclOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = PrdcrCrclOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertPrdcrCrclOgnPurSalMng02(PrdcrCrclOgnPurSalMngVO);
 		}
+		//임시저장 변경
+			PrdcrCrclOgnPurSalMngVO tmprStrgVo = new PrdcrCrclOgnPurSalMngVO();
+			tmprStrgVo.setYr(yrVal);
+			tmprStrgVo.setBrno(brnoVal);
+			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+			PrdcrCrclOgnPurSalMngMapper.updateTempSaveUoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
 	public int multiSavePrdcrCrclOgnPurSalMngList03(List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
+			yrVal = PrdcrCrclOgnPurSalMngVO.getYr();
+			brnoVal = PrdcrCrclOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = PrdcrCrclOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertPrdcrCrclOgnPurSalMng03(PrdcrCrclOgnPurSalMngVO);
 		}
+		//임시저장 변경
+		PrdcrCrclOgnPurSalMngVO tmprStrgVo = new PrdcrCrclOgnPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		PrdcrCrclOgnPurSalMngMapper.updateTempSaveUoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
@@ -129,6 +157,14 @@ public class PrdcrCrclOgnPurSalMngServiceImpl extends BaseServiceImpl implements
 
 		List<PrdcrCrclOgnPurSalMngVO> resultList = PrdcrCrclOgnPurSalMngMapper.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
 		return resultList;
+	}
+
+	@Override
+	public PrdcrCrclOgnPurSalMngVO selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception {
+
+		PrdcrCrclOgnPurSalMngVO resultVO = PrdcrCrclOgnPurSalMngMapper.selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO);
+
+		return resultVO;
 	}
 
 }

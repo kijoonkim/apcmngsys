@@ -1353,7 +1353,7 @@ ORDER BY
 	<!-- ==========================================================================	-->
 	<insert id="insertPrdcrCrclOgnSpItmPurSalNMngNew" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
 		<![CDATA[
-		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.pcom.mapper.insertPrdcrCrclOgnSpItmPurSalNMngNew.insertPrdcrCrclOgnSpItmPurSalNMng */
+		MERGE INTO TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT CLT  /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.insertPrdcrCrclOgnSpItmPurSalNMng */
 		USING DUAL
 			ON (
 					CLT.YR	 			= #{yr}
@@ -1377,14 +1377,22 @@ ORDER BY
 						, SLS_CNSGN_SLS_VLM		= #{slsCnsgnSlsVlm}
 
 						, RMRK					= #{rmrk}
-
+						, TMPR_STRG_RSN			= ''
+		]]>
+						<if test='tmprStrgYn == "Y"'>
+						, TMPR_STRG_YN	= 'Y'
+						, TMPR_STRG_DT	= SYSDATE
+						</if>
+						<if test='tmprStrgYn != "Y"'>
+						, TMPR_STRG_YN	= 'N'
+						</if>
+		<![CDATA[
 						, DEL_YN				= 'N'
 
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
-				]]>
-				<![CDATA[
+		]]>
 		WHEN NOT MATCHED THEN
 			 INSERT
 					(
@@ -1408,7 +1416,10 @@ ORDER BY
 					  , SLS_CNSGN_SLS_VLM
 
 					  , RMRK
-
+					<if test='tmprStrgYn == "Y"'>
+					  , TMPR_STRG_YN
+					  , TMPR_STRG_DT
+					</if>
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
 					  , SYS_FRST_INPT_PRGRM_ID
@@ -1416,6 +1427,7 @@ ORDER BY
 					  , SYS_LAST_CHG_USER_ID
 					  , SYS_LAST_CHG_PRGRM_ID
 					)
+		<![CDATA[
 				VALUES
 					(
 					    #{yr}
@@ -1438,7 +1450,12 @@ ORDER BY
 					  , #{slsCnsgnSlsVlm}
 
 					  , #{rmrk}
-
+		]]>
+					<if test='tmprStrgYn == "Y"'>
+					  , 'Y'
+					  , SYSDATE
+					</if>
+		<![CDATA[
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
 					  , #{sysFrstInptPrgrmId}
@@ -1449,15 +1466,53 @@ ORDER BY
 		]]>
 	</insert>
 
-	<!-- 저장전 기존 자료 삭제 처리 -->
+	<!-- 저장 전 기존 자료 삭제 처리 -->
 	<update id="updateDelYn" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
-		UPDATE /* com.at.apcss.pd.pcom.mapper.insertPrdcrCrclOgnSpItmPurSalNMngNew.updateDelYn */
+		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.updateDelYn */
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 		SET
 			  DEL_YN	= 'Y'
+			  ,STBLT_YN = ''
 		WHERE 1=1
 		  AND APO_SE 	= '1'
 		  AND BRNO 		= #{brno}
 		  AND YR 		= #{yr}
 	</update>
+
+	<!-- 총매입매출 임시저장 처리 -->
+	<update id="updateTempSaveUoAps" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper.updateTempSaveAps */
+			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
+		   SET
+			  TMPR_STRG_YN = 'Y'
+			  ,TMPR_STRG_RSN = APS.TMPR_STRG_RSN || (SELECT '통합조직-전문품목 매입매출 변경' || '(' || CORP_NM || ', ' || BRNO || ', ' || TO_CHAR(SYSDATE,'YY/MM/DD hh:mm') || ') ' FROM TB_EV_APO WHERE BRNO = #{brno})
+			  ,TMPR_STRG_DT = SYSDATE
+		WHERE 1=1
+		  AND APO_SE = '1'
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngMapper.selectTempSaveUoPst	-->
+	<!-- DESC : 임시저장 조회                                            					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.20  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectTempSaveUoPst" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO">
+		SELECT	/* com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngMapper.selectTempSaveUoPst */
+			TMPR_STRG_YN
+			,TMPR_STRG_RSN
+			,TMPR_STRG_DT
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+		WHERE 1=1
+		  AND DEL_YN = 'N'
+		  AND APO_SE = '1'
+		  AND TYPE_SE_NO = '8'
+		  AND ROWNUM = 1
+		  AND YR = #{yr}
+		  AND BRNO = #{brno}
+	</select>
 </mapper>

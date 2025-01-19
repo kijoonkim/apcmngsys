@@ -50,4 +50,12 @@ public interface PrdcrCrclOgnPurSalMngService {
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매입 매출 임시저장 정보를 조회한다.
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return PrdcrCrclOgnPurSalMngVO
+	 * @throws Exception
+	 */
+	public PrdcrCrclOgnPurSalMngVO selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 }

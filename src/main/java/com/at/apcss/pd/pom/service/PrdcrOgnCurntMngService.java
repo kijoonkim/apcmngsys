@@ -73,4 +73,18 @@ public interface PrdcrOgnCurntMngService {
 	//농가 로우데이터
 	public List<PrdcrOgnCurntMngVO> selectRawData02(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
 
+	/**
+	 * 총매입매출 임시저장 처리.
+	 * @param PrdcrOgnCurntMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateTempSaveAps(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
+	/**
+	 * 전문품목 매입매출 임시저장 처리.
+	 * @param PrdcrOgnCurntMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateTempSavePst(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception;
 }

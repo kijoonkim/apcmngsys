@@ -101,27 +101,63 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	@Override
 	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+			yrVal = InvShipOgnPurSalMngVO.getYr();
+			brnoVal = InvShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
 		}
+		//임시저장 변경
+		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
 	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+			yrVal = InvShipOgnPurSalMngVO.getYr();
+			brnoVal = InvShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO);
 		}
+		//임시저장 변경
+		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
 	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;// 등록년도
+		String brnoVal = null;//출자출하조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
+			yrVal = InvShipOgnPurSalMngVO.getYr();
+			brnoVal = InvShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
 			savedCnt += insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO);
 		}
+		//임시저장 변경
+		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
@@ -137,4 +173,11 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 		return resultList;
 	}
 
+	@Override
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		InvShipOgnPurSalMngVO resultVO = InvShipOgnPurSalMngMapper.selectTempSaveIsoAps(InvShipOgnPurSalMngVO);
+
+		return resultVO;
+	}
 }

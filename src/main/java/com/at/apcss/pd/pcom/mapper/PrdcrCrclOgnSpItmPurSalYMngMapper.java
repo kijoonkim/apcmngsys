@@ -5,7 +5,6 @@ import java.util.List;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 
 /**
@@ -53,4 +52,18 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
 	//저장전 기존 데이터 삭제 처리
 	public int updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	/**
+	 * 총매입매출 임시저장 처리.
+	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @return int
+	 */
+	public int updateTempSaveUoAps(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @return PrdcrCrclOgnSpItmPurSalYMngVO
+	 */
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 }

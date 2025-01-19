@@ -5,7 +5,6 @@ import java.util.List;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
 
-
 /**
  * 평가등록결과 Service 인터페이스
  * @author 김동제
@@ -52,4 +51,12 @@ public interface PrdcrCrclOgnSpItmPurSalNMngService {
 	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception;
 	//20241212 개발서버 신규 화면 등록
 	public int multiSavePrdcrCrclOgnSpItmPurSalNMngListNew(List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList) throws Exception;
+
+	/**
+	 * 임시저장 정보를 조회한다.
+	 * @param PrdcrCrclOgnSpItmPurSalNMngVO
+	 * @return PrdcrCrclOgnSpItmPurSalNMngVO
+	 * @throws Exception
+	 */
+	public PrdcrCrclOgnSpItmPurSalNMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception;
 }

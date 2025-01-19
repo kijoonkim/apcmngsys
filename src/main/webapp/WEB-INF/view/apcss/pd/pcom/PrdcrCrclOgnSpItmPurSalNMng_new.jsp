@@ -34,6 +34,7 @@
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnTempSave" name="btnTempSave" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave('Y')"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					<!--
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -259,6 +260,7 @@
 						<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 						-->
 						<c:if test="${loginVO.userType ne '02'}">
+							<sbux-button id="btnTempSave2" name="btnTempSave2" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave('Y')"></sbux-button>
 							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						</c:if>
 					</div>
@@ -321,6 +323,10 @@
 						<p>o 생산자조직의 출하량, 출하대금 지급액이 통합조직의 생산자조직 취급유형별 매입실적으로 연계되며, 이에 상응하는 매출실적 작성 필요</p>
 						<p>o 생산자조직 외 기타매입한 실적에 대해서는 별도 매입실적 및 매출실적(물량/금액) 입력 필요(불려오는 값 없음)</p>
 						<p>o 매출액 : 통합조직 판매액 기준. 수수료, 판매마진 등을 반영하여 매출액 작성    * 자체공판장 취급액 미포함</p>
+					</div>
+					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+						<p><b style="color: red">임시저장 상태입니다</b></p>
+						<p id="tmprStrgRsn"></p>
 					</div>
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -1032,6 +1038,10 @@
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
+
+		//임시저장 표기
+		$("#tmprArea").hide();
+		$("#tmprStrgRsn").text("");
 	}
 
 
@@ -1069,6 +1079,18 @@
 			jsonPrdcrOgnCurntMng01.length = 0;
 			let totalRecordCount = 0;
 			//console.log("data==="+data);
+
+			let tmprVo = data.resultMap;
+			if(tmprVo != null){
+				if(tmprVo.tmprStrgYn == 'Y'){
+					$("#tmprArea").show();
+					$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
+				}else{
+					$("#tmprArea").hide();
+					$("#tmprStrgRsn").text("");
+				}
+			}
+
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						yr:			item.yr
@@ -1183,7 +1205,7 @@
 	}
 
 	//실적 저장
-	const fn_listSave = async function(){
+	const fn_listSave = async function(_tmprStrgYn){
 		let objGrid = grdPrdcrOgnCurntMng01;
 		let gridData01 = objGrid.getGridDataAll();
 		let saveList = [];
@@ -1196,58 +1218,65 @@
 			let rowData01 = objGrid.getRowData(i);
 			let rowSts01 = objGrid.getRowStatus(i);
 
-			//매입 값이 있을경우 매출 값을 입력 필수
-			if(rowData01.typeSeNo == '5' && rowData01.trmtType !== '0'){
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
-					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
-						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
-						objGrid.selectRow(i);
-						return false;
+			//임시저장여부 확인
+			if(_tmprStrgYn != 'Y'){
+				//매입 값이 있을경우 매출 값을 입력 필수
+				if(rowData01.typeSeNo == '5' && rowData01.trmtType !== '0'){
+					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+						if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
+							alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+							objGrid.selectRow(i);
+							return false;
+						}
 					}
-				}
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
-						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
-					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
-					objGrid.selectRow(i);
-					return;
-				}
-			}
-
-			if(rowData01.typeSeNo == '7'){
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
-					if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
-						alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+					if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) && Number(rowData01.slsCnsgnSlsAmt) != 0
+							&& (gfn_isEmpty(rowData01.slsCnsgnSlsVlm) || Number(rowData01.slsCnsgnSlsVlm) == 0)){
+						alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
 						objGrid.selectRow(i);
-						return false;
+						return;
 					}
 				}
 
-				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
-					if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
-						alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
-						objGrid.selectRow(i);
-						return false;
+				if(rowData01.typeSeNo == '7'){
+					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) &&  Number(rowData01.slsCnsgnPrchsAmt) != 0){
+						if(gfn_isEmpty(rowData01.slsCnsgnSlsAmt) || Number(rowData01.slsCnsgnSlsAmt) == 0){
+							alert('매입 값이 있을경우 매출 금액 입력이 필수 입니다.');
+							objGrid.selectRow(i);
+							return false;
+						}
 					}
-				}
 
-				if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
-						&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
-					alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
-					objGrid.selectRow(i);
-					return;
-				}
+					if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) &&  Number(rowData01.slsCnsgnSlsAmt) != 0){
+						if(gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) || Number(rowData01.slsCnsgnPrchsAmt) == 0){
+							alert('매출 값이 있을경우 매입 금액 입력이 필수 입니다.');
+							objGrid.selectRow(i);
+							return false;
+						}
+					}
 
-				if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) && Number(rowData01.slsCnsgnSlsAmt) != 0
-						&& (gfn_isEmpty(rowData01.slsCnsgnSlsVlm) || Number(rowData01.slsCnsgnSlsVlm) == 0)){
-					alert('매입 금액이 있는 경우 매입 물량은 필수 입니다');
-					objGrid.selectRow(i);
-					return;
+					if(!gfn_isEmpty(rowData01.slsCnsgnPrchsAmt) && Number(rowData01.slsCnsgnPrchsAmt) != 0
+							&& (gfn_isEmpty(rowData01.slsCnsgnPrchsVlm) || Number(rowData01.slsCnsgnPrchsVlm) == 0)){
+						alert('매출 금액이 있는 경우 매출 물량은 필수 입니다');
+						objGrid.selectRow(i);
+						return;
+					}
+
+					if(!gfn_isEmpty(rowData01.slsCnsgnSlsAmt) && Number(rowData01.slsCnsgnSlsAmt) != 0
+							&& (gfn_isEmpty(rowData01.slsCnsgnSlsVlm) || Number(rowData01.slsCnsgnSlsVlm) == 0)){
+						alert('매입 금액이 있는 경우 매입 물량은 필수 입니다');
+						objGrid.selectRow(i);
+						return;
+					}
 				}
 			}
 
 			rowData01.apoSe = '1';
 			rowData01.brno = brno;
 			rowData01.uoBrno = brno;
+
+			if(_tmprStrgYn == 'Y'){
+				rowData01.tmprStrgYn = _tmprStrgYn;
+			}
 
 			rowData01.rowSts = "I";
 			saveList.push(rowData01);

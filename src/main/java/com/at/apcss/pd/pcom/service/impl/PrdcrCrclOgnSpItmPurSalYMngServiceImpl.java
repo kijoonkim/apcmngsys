@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
 import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalYMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
@@ -135,15 +136,28 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//통합조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		int delYn = 0;
 		for (PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO : PrdcrCrclOgnSpItmPurSalYMngVOList) {
 			yrVal = PrdcrCrclOgnSpItmPurSalYMngVO.getYr();
 			brnoVal = PrdcrCrclOgnSpItmPurSalYMngVO.getBrno();
+			tmprStrgYnVal = PrdcrCrclOgnSpItmPurSalYMngVO.getTmprStrgYn();
 			if(delYn == 0) {
 				delYn = PrdcrCrclOgnSpItmPurSalYMngMapper.updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO);
 			}
 			savedCnt += insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO);
 		}
+
+		//임시저장인 경우 적합여부 체크 하지 않음
+		if("Y".equals(tmprStrgYnVal)) {
+			PrdcrCrclOgnSpItmPurSalYMngVO tmprStrgVo = new PrdcrCrclOgnSpItmPurSalYMngVO();
+			tmprStrgVo.setYr(yrVal);
+			tmprStrgVo.setBrno(brnoVal);
+			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+			PrdcrCrclOgnSpItmPurSalYMngMapper.updateTempSaveUoAps(tmprStrgVo);
+			return savedCnt;
+		}
+
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
 		if(yrVal != null && !yrVal.equals("")
 			&& brnoVal != null && !brnoVal.equals("")){
@@ -169,5 +183,13 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnListNew(ItemUoStbltYnVo);
 		return resultList;
+	}
+
+	@Override
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+
+		PrdcrCrclOgnSpItmPurSalYMngVO resultVO = PrdcrCrclOgnSpItmPurSalYMngMapper.selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO);
+
+		return resultVO;
 	}
 }

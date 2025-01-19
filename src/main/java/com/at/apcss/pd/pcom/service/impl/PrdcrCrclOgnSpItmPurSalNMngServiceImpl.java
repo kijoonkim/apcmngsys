@@ -11,6 +11,7 @@ import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalNMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
+import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 
 
 /**
@@ -137,15 +138,28 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//통합조직 사업자번호
+		String tmprStrgYnVal = null;//임시저장 여부
 		int delYn = 0;
 		for (PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO : PrdcrCrclOgnSpItmPurSalNMngVOList) {
 			yrVal = PrdcrCrclOgnSpItmPurSalNMngVO.getYr();
 			brnoVal = PrdcrCrclOgnSpItmPurSalNMngVO.getBrno();
+			tmprStrgYnVal = PrdcrCrclOgnSpItmPurSalNMngVO.getTmprStrgYn();
 			if(delYn == 0) {
 				delYn = PrdcrCrclOgnSpItmPurSalNMngMapper.updateDelYn(PrdcrCrclOgnSpItmPurSalNMngVO);
 			}
 			savedCnt += insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO);
 		}
+
+		//임시저장인 경우 적합여부 체크 하지 않음
+		if("Y".equals(tmprStrgYnVal)) {
+			PrdcrCrclOgnSpItmPurSalNMngVO tmprStrgVo = new PrdcrCrclOgnSpItmPurSalNMngVO();
+			tmprStrgVo.setYr(yrVal);
+			tmprStrgVo.setBrno(brnoVal);
+			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+			PrdcrCrclOgnSpItmPurSalNMngMapper.updateTempSaveUoAps(tmprStrgVo);
+			return savedCnt;
+		}
+
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
 		if(yrVal != null && !yrVal.equals("")
 			&& brnoVal != null && !brnoVal.equals("")){
@@ -165,5 +179,13 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 			}
 		}
 		return savedCnt;
+	}
+
+	@Override
+	public PrdcrCrclOgnSpItmPurSalNMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception {
+
+		PrdcrCrclOgnSpItmPurSalNMngVO resultVO = PrdcrCrclOgnSpItmPurSalNMngMapper.selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalNMngVO);
+
+		return resultVO;
 	}
 }

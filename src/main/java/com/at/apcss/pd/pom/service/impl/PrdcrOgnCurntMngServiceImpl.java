@@ -23,7 +23,7 @@ import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.06.21  정연두        최초 생성
+ * 2023.06.21          최초 생성
  * </pre>
  */
 @Service("PrdcrOgnCurntMngService")
@@ -77,9 +77,13 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 		//생사자조직seq,등록년도는 하위조직은 모두 같은 값을 가짐
 		String prdcrOgnzSnVal = null;
 		String yrVal = null;
+		String brnoVal = "";
+		String uoBrnoVal = "";
 		for (PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO : PrdcrOgnCurntMngVOList) {
 			prdcrOgnzSnVal = PrdcrOgnCurntMngVO.getPrdcrOgnzSn();//생산자조직seq
 			yrVal = PrdcrOgnCurntMngVO.getYr();//등록년도
+			brnoVal = PrdcrOgnCurntMngVO.getBrno();//사업자번호
+			uoBrnoVal = PrdcrOgnCurntMngVO.getUoBrno();//통합조직 사업자번호
 			savedCnt += insertPrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 		}
 		//생사자조직seq,등록년도가 비어 있지 않을떄
@@ -95,6 +99,14 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 				updateTbEvFrmhsApoStbltYn(resultVo);
 			}
 		}
+
+		//영향이 가는 전문품목 매입매출, 총매입매출 임시저장 처리
+		PrdcrOgnCurntMngVO tempSaveVo = new PrdcrOgnCurntMngVO();
+		tempSaveVo.setYr(yrVal);
+		tempSaveVo.setBrno(brnoVal);
+		tempSaveVo.setBrno(uoBrnoVal);
+		updateTempSaveAps(tempSaveVo);
+		updateTempSavePst(tempSaveVo);
 		return savedCnt;
 	}
 	//생산자조직 적합여부 업데이트
@@ -141,11 +153,25 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 	@Override
 	public int multiSaveTbEvFrmhsApoList(List<TbEvFrmhsApoVO> tbEvFrmhsApoVOList) throws Exception {
 		int savedCnt = 0;
+		String yrVal = null;
+		String brnoVal = "";
+		String uoBrnoVal = "";
 		for (TbEvFrmhsApoVO tbEvFrmhsApoVO : tbEvFrmhsApoVOList) {
+			yrVal = tbEvFrmhsApoVO.getYr();
+			brnoVal = tbEvFrmhsApoVO.getBrno();
+			uoBrnoVal = tbEvFrmhsApoVO.getUoBrno();
 			savedCnt += insertTbEvFrmhsApo(tbEvFrmhsApoVO);
 			//생산자조직 품목,취급유형,전문육성구분 수정
 			updateTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		}
+
+		//영향이 가는 전문품목 매입매출, 총매입매출 임시저장 처리
+		PrdcrOgnCurntMngVO tempSaveVo = new PrdcrOgnCurntMngVO();
+		tempSaveVo.setYr(yrVal);
+		tempSaveVo.setBrno(brnoVal);
+		tempSaveVo.setUoBrno(uoBrnoVal);
+		updateTempSaveAps(tempSaveVo);
+		updateTempSavePst(tempSaveVo);
 		return savedCnt;
 	}
 
@@ -186,6 +212,18 @@ public class PrdcrOgnCurntMngServiceImpl extends BaseServiceImpl implements Prdc
 
 		List<PrdcrOgnCurntMngVO> resultList = PrdcrOgnCurntMngMapper.selectRawData02(prdcrOgnCurntMngVO);
 		return resultList;
+	}
+
+	@Override
+	public int updateTempSaveAps(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
+		int updatedCnt = PrdcrOgnCurntMngMapper.updateTempSaveAps(PrdcrOgnCurntMngVO);
+		return updatedCnt;
+	}
+
+	@Override
+	public int updateTempSavePst(PrdcrOgnCurntMngVO PrdcrOgnCurntMngVO) throws Exception {
+		int updatedCnt = PrdcrOgnCurntMngMapper.updateTempSavePst(PrdcrOgnCurntMngVO);
+		return updatedCnt;
 	}
 
 }
