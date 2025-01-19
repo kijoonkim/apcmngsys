@@ -256,7 +256,7 @@
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-
+						<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 						<c:if test="${loginVO.userType ne '02'}">
 							<sbux-button id="btnTempSave2" name="btnTempSave2" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave('Y')"></sbux-button>
 							<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -1787,6 +1787,33 @@
 		 */
 		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
+
+	/* 과거 실적 조회 팝업 추가 */
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){return;}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/UoSpItmPurSalYHisPopup.do"
+		var title = "제출실적 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//팝업 새창에서 변수 확인
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
 	}
 
 </script>
