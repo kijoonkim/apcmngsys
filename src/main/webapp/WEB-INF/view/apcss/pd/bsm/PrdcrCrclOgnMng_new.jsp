@@ -1009,7 +1009,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -1043,10 +1043,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	}
 
 	const fn_ctpvDtlChange = async function(){
-		console.log("fn_ctpvDtlChange");
-		console.log(jsonComDtlSgg);
+		//console.log("fn_ctpvDtlChange");
+		//console.log(jsonComDtlSgg);
 		SBUxMethod.set("dtl-input-sgg", "");
-		console.log(SBUxMethod.get("dtl-input-sgg"));
+		//console.log(SBUxMethod.get("dtl-input-sgg"));
 	}
 
 	var jsonPrdcrCrclOgnMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1147,7 +1147,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
      * 목록 조회
      */
 	const fn_search = async function() {
-		console.log("fn_search");
+		//console.log("fn_search");
 		// set pagination
 		let pageSize = grdPrdcrCrclOgnMng.getPageSize();
 		let pageNo = 1;
@@ -1245,7 +1245,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		try{
 			jsonPrdcrCrclOgnMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrCrclOgnMngVO = {
 						apoSe: item.apoSe
@@ -1341,7 +1341,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		let data = await postJsonPromise;
 		let corpDdlnSeCd;//법인체마감 확인
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				corpDdlnSeCd = item.corpDdlnSeCd;
 				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))
@@ -1417,12 +1417,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	 * 저장 버튼
 	 */
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
+		//console.log("******************fn_save**********************************");
 
 		var mngmstInfoId = SBUxMethod.get('dtl-input-mngmstInfoId')//
 		var mngmstYn = SBUxMethod.get('dtl-input-mngmstYn')//
-		console.log(mngmstInfoId);
-		console.log(mngmstYn);
+		//console.log(mngmstInfoId);
+		//console.log(mngmstYn);
 		let apoCd = SBUxMethod.get("dtl-input-apoCd");
 		//필수값 체크
 		if(!fn_checkRequiredInput()){
@@ -1654,7 +1654,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	 * 신규 등록
 	 */
 	const fn_subInsert = async function (isConfirmed){
-		console.log("******************fn_subInsert**********************************");
+		//console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		const postJsonPromise = gfn_postJSON("/pd/bsm/insertPrdcrCrclOgnMng.do", {
@@ -1702,7 +1702,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		});
 
 		const data = await postJsonPromise;
-		console.log("insert result", data);
+		//console.log("insert result", data);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -1727,7 +1727,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	  * 저장시 년도별로 히스토리를 별개로 저장중 TB_EV_APO_HSTRY
 	*/
 	const fn_subUpdate = async function (isConfirmed){
-		console.log("******************fn_subUpdate**********************************");
+		//console.log("******************fn_subUpdate**********************************");
 		if (!isConfirmed) return;
 
 		const postJsonPromise = gfn_postJSON("/pd/bsm/updatePrdcrCrclOgnMng.do", {
@@ -1785,8 +1785,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		});
 
 		const data = await postJsonPromise;
-		console.log("update result", data);
-		console.log(data.resultStatus);
+		//console.log("update result", data);
+		//console.log(data.resultStatus);
 
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
@@ -1807,7 +1807,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//사업자번호 조회 팝업
 	const fn_choiceBrno = function() {
-		console.log("======fn_choiceBrno=======");
+		//console.log("======fn_choiceBrno=======");
 		popBrno.init(fn_setBrno);
 	}
 	//사업자번호 조회 팝업 콜백함수
@@ -1838,7 +1838,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrCrclOgnMng.getCol();
@@ -1919,7 +1919,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 	}
 
 	function fn_create() {
-		console.log("******************fn_create**********************************");
+		//console.log("******************fn_create**********************************");
 		SBUxMethod.set('dtl-input-apoCd',null)//
 		SBUxMethod.set('dtl-input-apoSe',null)//
 		SBUxMethod.set('dtl-input-uoBrno',null)//
@@ -2221,7 +2221,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						apoSe: item.apoSe

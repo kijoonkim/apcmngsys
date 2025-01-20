@@ -73,4 +73,11 @@ public interface PrdcrCrclOgnOnlnWhlslMrktMapper {
 	 */
 	public int insertOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
+	/**
+	 * 온라인도매시장 출하실적 정보를 삭제한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return int
+	 */
+	public int deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
 }

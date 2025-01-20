@@ -89,4 +89,11 @@ public class PrdcrCrclOgnOnlnWhlslMrktServiceImpl extends BaseServiceImpl implem
 		}
 		return insertedCnt;
 	}
+
+	@Override
+	public int deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO)
+			throws Exception {
+		int deletedCnt = PrdcrCrclOgnOnlnWhlslMrktMapper.deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return deletedCnt;
+	}
 }

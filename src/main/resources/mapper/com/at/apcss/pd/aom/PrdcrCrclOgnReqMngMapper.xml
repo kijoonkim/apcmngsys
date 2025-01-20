@@ -866,11 +866,10 @@
 			, USRAM.TB_EV_APO_YR_GPC_CD C
 		WHERE 1=1
 		  AND B.YR = #{yr}
-		  AND A.APO_CD = B.APO_CD
-		  AND A.APO_SE  = B.APO_SE
-		  AND B.YR = C.YR
-		  AND B.APO_CD = C.APO_CD
 		  AND B.APO_SE = '1'
+		  AND B.BRNO = A.BRNO(+)
+		  AND B.YR = C.YR(+)
+		  AND B.BRNO = C.BRNO(+)
 		  AND A.CORP_NM NOT IN ('테스트 통합조직 at17'
 								,'at21(출자출하조직21)_테스트'
 								,'at11(통합조직11)_테스트'

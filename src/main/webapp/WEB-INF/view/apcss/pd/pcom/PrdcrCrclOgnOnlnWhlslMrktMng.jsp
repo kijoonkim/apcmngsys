@@ -148,15 +148,50 @@
 					</tbody>
 				</table>
 				<br>
+				<br>
+				<div class="ad_section_top" id="grid3">
+					<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+						<p><b>&lt;작성 시 유의사항 및 산지유통활성화자금 인센티브 인정요건&gt;</b></p>
+						<p>o 전문품목 매입매출 화면에서 입력한 수치가 총매입매출 화면으로 자동 연계</p>
+						<p>o 통합조직 및 출자출하조직의 온라인도매시장 출하실적 입력(★ 아래 증빙자료를 실적점검/현장실사 시 제출 필요)</p>
+						<!--
+						<p>　 - 통합조직이 직접판매자/위탁판매 시 출하자인 경우 : "출자출하조직명"에 해당없음 선택 후 입력</p>
+						<p>　 - 출자출하조직이 직접판매자/위탁판매 시 출하자인 경우 : 해당 "출자출하조직명"을 검색한 후 입력</p>
+						-->
+						<p>　 - 직접판매 실적 : aT 온라인도매시장에 증빙을 요청하시어 확인 후 입력</p>
+						<p>　 - 위탁판매 실적 : 출하를 위탁한 도매법인에게 출하내역서 증빙을 요청하시어 확인 후 입력</p>
+						<p>o 사업신청 시 등록한 품목을 검색하여 품목별 실적 입력</p>
+						<p>　  - 기 등록한 부류(과실류/시설원예/노지채소)를 기준으로 평가할 예정이므로 부류 확인 필수</p>
+						<p>o 최종 실적평가 시, 1) '25년 선정된 통합조직 및 출자출하조직에 한하여, 2) 품목은 원예농산물에 한하여, 3) 품목기준이 아닌 부류별 실적을 기준으로 산정할 예정임</p>
+						<p>　 - 평가 시 탈락한 출자출하조직 실적, 원예농산물 외 품목의 출하실적은 온라인도매시장 출하실적으로 미인정</p>
+
+					</div>
+					<div class="ad_tbl_top">
+						<ul class="ad_tbl_count">
+							<li>
+								<span style="font-size:14px">▶온라인도매시장 - 출하실적</span>
+							</li>
+						</ul>
+					</div>
+					<!-- SBGrid를 호출합니다. -->
+					<div id="sb-area-grdOnln" style="height:200px; width: 100%;"></div>
+				</div>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div style="margin-left: auto;">
+						<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="출하실적 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveOnln"></sbux-button>
+					</div>
+				</div>
+
+
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
-							<span style="font-size:14px">▶온라인도매시장 판매목표</span>
+							<span style="font-size:14px">▶온라인도매시장 - 판매목표</span>
 						</li>
 					</ul>
 				</div>
 				<table class="table table-bordered tbl_fixed" style="border: none">
-					<caption>온라인도매시장 판매목표</caption>
+					<caption>▶온라인도매시장 - 판매목표</caption>
 						<!--
 						<col style="width: 20%">
 						-->
@@ -166,12 +201,13 @@
 							<th colspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">위탁판매 실적</th>
 							<th rowspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">총 목표액(천원)<br>(C = A+B)</th>
 							<th rowspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">통합조직 전문품목<br>총취급액(천원)(D)</th>
-							<th rowspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">전문품목 총취급액 대비<br>온라인도매시장 목표 비율(%)<br>(E = C/D)</th>
+							<th rowspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">(참고)기준거래액<br>(통합조직 전문품목 총취급액의2%)<br>(E = D*0.02)</th>
+							<th rowspan="2" scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">온라인도매시장<br>판매 확대 목표(%)<br>[F=(C-K)/K*100 또는<br>F=(C-E)/E*100]</th>
 						</tr>
 						<tr>
-							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">2025년<br>목표액(천원)(A)</th>
-							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">2025년 목표액(천원)</th>
-							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">인정 목표액(천원)(80%)(A)</th>
+							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;"><span class="setYr">2024</span>년<br>목표액(천원)(A)</th>
+							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;"><span class="setYr">2024</span>년 목표액(천원)</th>
+							<th scope="row" class="th_bg text-center" style="border: 1px solid #ffffff !important;">인정 목표액(천원)<br>(위탁판매는 80%만 인정)(B)</th>
 						</tr>
 						<tr>
 							<td class="td_input">
@@ -230,6 +266,18 @@
 								></sbux-input>
 							</td>
 							<td class="td_input">
+								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-trmtAmtTot"></sbux-input>
+								<sbux-input
+									uitype="text"
+									id="dtl-input-crtrAmt"
+									name="dtl-input-crtrAmt"
+									class="form-control input-sm"
+									placeholder="자동산출"
+									mask="{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+									readonly
+								></sbux-input>
+							</td>
+							<td class="td_input">
 								<sbux-input
 									uitype="text"
 									id="dtl-input-trgtTrmtRt"
@@ -245,9 +293,21 @@
 				</table>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>o 산지유통활성화자금 평가에 "온라인도매 확대 노력" 지표 신설로, 목표액 작성 필요</p>
-					<p> - '26년 자금배정 시에는 온라인도매시장 판매실적 중 직접판매 실적은 100%, 공판장, 도매법인 등을 통한 위탁판매 실적은 80% 인정</p>
-					<p> - 통합조직이 소속 출자출하조직의 직접판매 또는 위탁판매 목표액까지 확인하여 <b>통합조직의(출자출하조직 목표액 포함) 총괄 목표액 작성</b></p>
-					<p> - 목표액에는 전문/육성품목 외 기타품목까지 원예농산물 취급실적 포함하여 입력</p>
+					<p>&nbsp;- '26년 자금배정 시에는 온라인도매시장 판매실적 중 직접판매 실적은 100%, 공판장, 도매법인 등을 통한 위탁판매 실적은 80% 인정</p>
+					<p>&nbsp;- 통합조직이 소속 출자출하조직의 직접판매 또는 위탁판매 목표액까지 확인하여 통합조직의(출자출하조직 목표액 포함) 총괄 목표액 작성</p>
+					<p>&nbsp;- 목표액에는 전문/육성품목 외 기타품목까지 원예농산물 취급실적 포함하여 입력</p>
+
+					<p>o 온라인도매시장 확대 노력 산식 : (내년도 온라인도매시장 판매액 목표-금년도 판매액(또는 기준거래액)) ÷ 금년도 판매액(또는 기준거래액) × 100</p>
+					<p>&nbsp;* 판매액 : 온라인도매시장 직접 판매액(100%), 위탁 판매액(80%)</p>
+					<p>&nbsp;* 기준거래액 : 생산유통통합조직의 금년도 전문품목 총취급액의 2%</p>
+					<p>&nbsp;- 금년도 판매액이 기준거래액 미만인 경우 금년도 판매액이 아닌 기준거래액 적용</p>
+					<p>&nbsp;- (사례1 K&lt;E):(C-E)/E*100</p>
+					<p>&nbsp;- (사례2 K&gt;E):(C-K)/K*100</p>
+				</div>
+				<div class="box-header" style="display:flex; justify-content: flex-start;" >
+					<div style="margin-left: auto;">
+						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="판매목표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -263,8 +323,8 @@
 	/* 초기세팅 */
 	const fn_init = async function() {
 		await fn_setYear();//기본년도 세팅
-		await fn_createUoListGrid();
-		await fn_search();
+		await fn_createUoListGrid();//통합조직 리스트 그리드 생성
+		await fn_search();//정보 조회
 	}
 
 	/* 기본 년도값 세팅 */
@@ -354,7 +414,9 @@
 		SBUxMethod.set('dtl-input-corpNm'	,gfn_nvl(rowData.corpNm))	//법인명
 		SBUxMethod.set('dtl-input-yr'		,gfn_nvl(rowData.yr))		//등록년도
 
-		fn_dtlSearch();
+		await fn_searchComboList();//조직 리스트, 품목 리스트 콤보박스 데이터
+		await fn_createGridOnln();//온라인도매시장 출하실적 그리드 생성
+		await fn_dtlSearch();
 	}
 
 
@@ -429,14 +491,65 @@
 
 		let data = await postJsonPromise;
 		try{
+			/* 온라인도매시장 판매목표 */
 			let item = data.resultMap;
-			SBUxMethod.set('dtl-input-trgtTrmtAmt',item.trgtTrmtAmt);
-			SBUxMethod.set('dtl-input-consignTrgtAmt',item.consignTrgtAmt);
-			//SBUxMethod.set('dtl-input-consignCrtdTrgtAmt',item.consignCrtdTrgtAmt);
-			//SBUxMethod.set('dtl-input-totTrgtTrmtAmt',item.totTrgtTrmtAmt);
-			SBUxMethod.set('dtl-input-uoTotTrgtTrmtAmt',item.uoTotTrgtTrmtAmt);
-			//SBUxMethod.set('dtl-input-trgtTrmtRt',item.trgtTrmtRt);
+			if(data.resultMap != null){
+				SBUxMethod.set('dtl-input-trgtTrmtAmt',item.trgtTrmtAmt);
+				SBUxMethod.set('dtl-input-consignTrgtAmt',item.consignTrgtAmt);
+				//SBUxMethod.set('dtl-input-consignCrtdTrgtAmt',item.consignCrtdTrgtAmt);
+				//SBUxMethod.set('dtl-input-totTrgtTrmtAmt',item.totTrgtTrmtAmt);
+				SBUxMethod.set('dtl-input-uoTotTrgtTrmtAmt',item.uoTotTrgtTrmtAmt);
+				SBUxMethod.set('dtl-input-trmtAmtTot',item.trmtAmtTot);
+				SBUxMethod.set('dtl-input-crtrAmt',item.crtrAmt);
+				//SBUxMethod.set('dtl-input-trgtTrmtRt',item.trgtTrmtRt);
+			}
 			fn_calTotRt();
+
+			/* 온라인도매시장 출하실적 */
+			jsonOnln.length = 0;
+			if(data.resultList != null){
+				data.resultList.forEach((item, index) => {
+					let itemVo = {
+							yr: item.yr
+							,apoSe: item.apoSe
+							,apoSeNm: item.apoSeNm
+							,brno: item.brno
+							,uoBrno: item.uoBrno
+							,itemCd: item.itemCd
+							,ctgryNm: item.ctgryNm
+							,clsfNm: item.clsfNm
+
+							,trmtAmt: item.trmtAmt
+							,consignTrmtAmt: item.consignTrmtAmt
+
+							,trmtAmtTot: item.trmtAmtTot
+
+							,delYn: item.delYn
+					}
+					jsonOnln.push(itemVo);
+				});
+				grdOnln.rebuild();
+			}
+
+			grdOnln.addRow(true);
+			grdOnln.addRow(true);
+
+			fn_grdTot();//합계
+
+			let nRow = jsonOnln.length;
+			let delYnCol = grdOnln.getColRef('delYn');//처리
+			let brnoCol = grdOnln.getColRef('brno');//사업자번호
+			let itemCdCol = grdOnln.getColRef('itemCd');//품목
+			let trmtAmtCol = grdOnln.getColRef('trmtAmt');//직접판매 실적
+			let consignTrmtAmtCol = grdOnln.getColRef('consignTrmtAmt');//위탁판매 실적
+			//추가 row 비활성화
+			grdOnln.setCellDisabled(nRow-1, brnoCol, nRow-1, itemCdCol, true);
+			grdOnln.setCellDisabled(nRow, brnoCol, nRow, itemCdCol, true);
+			grdOnln.setCellDisabled(nRow-1, trmtAmtCol, nRow-1, consignTrmtAmtCol, true);
+			grdOnln.setCellDisabled(nRow, trmtAmtCol, nRow, consignTrmtAmtCol, true);
+			grdOnln.setCellStyle('background-color', nRow-1, delYnCol, nRow-1, consignTrmtAmtCol, 'lightgray');
+			grdOnln.setCellStyle('background-color', nRow, delYnCol, nRow, consignTrmtAmtCol, 'lightgray');
+
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -445,14 +558,13 @@
 		}
 	}
 
-	//저장
+	//판매목표 저장
 	async function fn_save(){
 
 		let brno = SBUxMethod.get("dtl-input-brno");
 		if(gfn_isEmpty(brno)) return;
 
 		let yr = SBUxMethod.get('dtl-input-yr');
-
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/insertPrdcrCrclOgnOnlnWhlslMrkt.do", {
 			brno : brno
@@ -462,12 +574,98 @@
 			,consignCrtdTrgtAmt : SBUxMethod.get('dtl-input-consignCrtdTrgtAmt')
 			,totTrgtTrmtAmt : SBUxMethod.get('dtl-input-totTrgtTrmtAmt')
 			,uoTotTrgtTrmtAmt : SBUxMethod.get('dtl-input-uoTotTrgtTrmtAmt')
+			,crtrAmt : SBUxMethod.get('dtl-input-crtrAmt')
 			,trgtTrmtRt : SBUxMethod.get('dtl-input-trgtTrmtRt')
 		});
-		let data = await postJsonPromise;
 
+		let data = await postJsonPromise;
 		try{
-			fn_search();
+
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				fn_dtlSearch();
+			} else {
+				alert(data.resultMessage);
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출하실적 저장
+	async function fn_saveOnln(){
+
+		let brno = SBUxMethod.get("dtl-input-brno");
+		if(gfn_isEmpty(brno)) return;
+
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)) return;
+
+		let objGrid = grdOnln;
+		let gridData = objGrid.getGridDataAll();
+		let saveList = [];
+
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
+			let rowData = objGrid.getRowData(i);
+			let rowSts = objGrid.getRowStatus(i);
+			console.log(rowData);
+			console.log(rowData.delYn == 'N',rowData.delYn === 'N');
+			if(rowData.delYn === 'N'){
+				rowData.uoBrno = brno;
+
+				if(gfn_isEmpty(rowData.brno)){
+					alert('조직을 선택해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(gfn_isEmpty(rowData.itemCd)){
+					alert('품목을 선택해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(gfn_isEmpty(rowData.trmtAmt)){
+					alert('직접판매 실적을 입력해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(gfn_isEmpty(rowData.consignTrmtAmt)){
+					alert('위탁판매 실적을 입력해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				rowData.rowSts = "I";
+				saveList.push(rowData);
+			}
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		let regMsg = "저장 하시겠습니까?";
+		if(!confirm(regMsg)){
+			return;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/multiSaveOnlnDtl.do", saveList);
+
+		let data = await postJsonPromise;
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				fn_dtlSearch();
+			} else {
+				alert(data.resultMessage);
+			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -494,9 +692,293 @@
 		//총 목표액 = 직접판매 목표액 + 위탁판매 인정 목표액
 		let totTrgtTrmtAmt = parseFloat(trgtTrmtAmt) + parseFloat(consignCrtdTrgtAmt);
 		SBUxMethod.set('dtl-input-totTrgtTrmtAmt',totTrgtTrmtAmt);
+
+		//기준거래액
+		let crtrAmt = (parseFloat(uoTotTrgtTrmtAmt)*0.02).toFixed(0);
+		SBUxMethod.set('dtl-input-crtrAmt',crtrAmt);
+
 		//목표 비율
-		let trgtTrmtRt = uoTotTrgtTrmtAmt == 0 ? 0 : (parseFloat(totTrgtTrmtAmt) / parseFloat(uoTotTrgtTrmtAmt) * 100).toFixed(2) ;
+		let trgtTrmtRt = 0;
+		//let trgtTrmtRt = uoTotTrgtTrmtAmt == 0 ? 0 : (parseFloat(totTrgtTrmtAmt) / parseFloat(uoTotTrgtTrmtAmt) * 100).toFixed(2) ;
+		//온라인 도매시장 출하실적 합계 (조회 할떄 저장된 출하실적 그리드 합계를 불러옴)
+		let trmtAmtTot = parseFloat(SBUxMethod.get('dtl-input-trmtAmtTot'));
+		trmtAmtTot = gfn_isEmpty(trmtAmtTot) ? 0 : trmtAmtTot;
+		//E 기준거래액 ,K 온라인도매시장 출하실적 합계
+		//E > K --> F=(C-E)/E*100
+		//E <= K --> F=(C-K)/K*100
+		if(crtrAmt > trmtAmtTot){
+			trgtTrmtRt = ( (parseFloat(totTrgtTrmtAmt) - parseFloat(crtrAmt)) / parseFloat(crtrAmt) * 100 ).toFixed(2);
+		}else{
+			trgtTrmtRt = ( (parseFloat(totTrgtTrmtAmt) - parseFloat(trmtAmtTot)) / parseFloat(trmtAmtTot) * 100 ).toFixed(2);
+		}
+
 		SBUxMethod.set('dtl-input-trgtTrmtRt',trgtTrmtRt);
+	}
+
+	/* 20250115 온라인도매시장 출하실적 그리드 추가 */
+
+	//그리드 변수
+	var jsonOnln = []; // 그리드의 참조 데이터 주소 선언
+	var grdOnln;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_createGridOnln = async function() {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-grdOnln';
+		SBGridProperties.id = 'grdOnln';
+		SBGridProperties.jsonref = 'jsonOnln';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		//SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.frozenbottomrows=1;
+		SBGridProperties.columns = [
+			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+				<c:if test="${loginVO.userType ne '02'}">
+				//그리드 메인 길이
+				let grdLength = jsonOnln.length;
+				if(strValue== null || strValue == ""){
+					//마지막줄은 합계 줄
+					if(grdLength===nRow){
+						return "";
+					}else{
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdOnln\", " + nRow + ", " + nCol + ")'>추가</button>";
+					}
+				}else{
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdOnln\", " + nRow + ")'>삭제</button>";
+				}
+				</c:if>
+				return "";
+			}},
+			{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["조직선택"],		ref: 'brno',	type:'combo',  width:'200px',	style:'text-align:center'
+				,typeinfo : {ref:'jsonOgnz', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
+
+			{caption: ["품목명"],		ref: 'itemCd',	type:'combo',  width:'100px',	style:'text-align:center'
+				,typeinfo : {ref:'jsonItem', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'
+					,filtering: { usemode: true, uppercol: 'brno', attrname: 'brno', listall: false}}
+			},
+			{caption: ["부류"],		ref: 'clsfNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["평가부류"],		ref: 'ctgryNm',	type:'output',  width:'80px',	style:'text-align:center'},
+
+			{caption: ["직접판매 실적\n금액(천원)"],	ref: 'trmtAmt',	type:'input',  width:'120px',	style:'text-align:right', merge: false
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["위탁판매 실적\n금액(천원)"],	ref: 'consignTrmtAmt',	type:'input',  width:'120px',	style:'text-align:right'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
+				,calc : 'fn_trmtAmtTot'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+
+			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
+		];
+
+		grdOnln = _SBGrid.create(SBGridProperties);
+		grdOnln.bind('valuechanged','fn_valuechanged');
+	}
+
+	/* 조직 콤보박스 , 품목 콤보박스 추가 */
+	var jsonOgnz = [];
+	var jsonItem = [];
+
+	/* 콤보박스 조회*/
+	const fn_searchComboList = async function(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		let yr = SBUxMethod.get('dtl-input-yr');
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectOnlnComboList.do", {
+			yr : yr
+			,brno : brno
+		});
+
+		let data = await postJsonPromise ;
+		try{
+			jsonOgnz.length = 0;
+			data.resultOgnzList.forEach((item, index) => {
+				let ItemVO = {
+						text: item.corpNm
+						,value: item.brno
+						,apoSe: item.apoSe
+						,apoSeNm: item.apoSeNm
+						,label: item.corpNm
+				}
+				jsonOgnz.push(ItemVO);
+			});
+
+			jsonItem.length = 0;
+			data.resultItemList.forEach((item, index) => {
+				let ItemVO = {
+						text: item.itemNm
+						,value: item.itemCd
+						,label: item.itemNm
+						,brno: item.brno
+						,ctgryNm: item.ctgryNm
+						,clsfNm: item.clsfNm
+				}
+				jsonItem.push(ItemVO);
+			});
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	//출하실적 소계
+	function fn_trmtAmtTot(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		//추가를 위한 row제외
+		if(nRow == (jsonOnln.length-1)){
+			sumVal = "";
+		}else{
+			sumVal = Number(gfn_nvl(rowData.trmtAmt)) + Number(gfn_nvl(rowData.consignTrmtAmt));
+		}
+		return sumVal;
+	}
+
+	//해당 컬럼 변경시 리프래시 리스트
+	const columnsToRefresh = [
+		'trmtAmt', 'consignTrmtAmt'
+	];
+	//콤보박스 컬럼 리스트
+	const comboList = [
+		'brno', 'itemCd'
+	];
+	//입력값 확인 후 합계 처리
+	function fn_valuechanged(){
+		let objGrid = grdOnln;
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
+		if(columnsToRefresh.includes(nRef)){
+			objGrid.refresh();
+			fn_grdTot();
+		}else if(comboList.includes(nRef)){
+			fn_dtlValSet(nRef);//콤보박스 변경에 따른 값 세팅
+		}
+	}
+	//합계
+	function fn_grdTot(){
+		// 계산할 열 이름 배열
+		const columnsToSum = [
+			"trmtAmt",
+			"consignTrmtAmt"
+		];
+
+		let objGrid = grdOnln;
+		let grdJson = jsonOnln;
+
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		//그리드 메인 길이
+		let grdLength = grdJson.length;
+
+		//마지막 줄은 소계라서 제외
+		grdJson = grdJson.slice(0, -1);
+		// 각 열의 합계 계산
+		const subtotals = columnsToSum.reduce((acc, col) => {
+			acc[col] = grdJson.reduce((sum, row) => sum + Number(gfn_nvl(row[col])), 0);
+			return acc;
+		}, {});
+
+		columnsToSum.forEach(col => {
+			objGrid.setCellData(grdLength + captionRow - 1, objGrid.getColRef(col), subtotals[col]);
+		});
+
+		objGrid.refresh();
+	}
+
+	//fn_valSet
+	function fn_dtlValSet(nRef){
+		let objGrid = grdOnln;
+		let nRow = objGrid.getRow();
+		let rowData = objGrid.getRowData(nRow);
+		if(nRef == "brno"){
+			let brnoArr = _.find(jsonOgnz, {value : rowData.brno});
+			let apoSeCol = objGrid.getColRef("apoSe");//조직구분
+			let apoSeNmCol = objGrid.getColRef("apoSeNm");//조직구분
+			objGrid.setCellData(nRow, apoSeCol, brnoArr.apoSe);
+			objGrid.setCellData(nRow, apoSeNmCol, brnoArr.apoSeNm);
+		}else if(nRef == "itemCd"){
+			let itemArr = _.find(jsonItem, {value : rowData.itemCd});
+			console.log(itemArr);
+			let clsfNmCol = objGrid.getColRef("clsfNm");//부류
+			let ctgryNmCol = objGrid.getColRef("ctgryNm");//평가부류
+			objGrid.setCellData(nRow, clsfNmCol, itemArr.clsfNm);
+			objGrid.setCellData(nRow, ctgryNmCol, itemArr.ctgryNm);
+		}
+	}
+
+	/* Grid Row 추가 및 삭제 기능*/
+	function fn_procRow(gubun, grid, nRow, nCol) {
+		let objGrid = grdOnln;
+		if (gubun === "ADD") {
+			if (grid === "grdOnln") {
+				//행추가
+				objGrid.addRow(true);
+
+				let yrCol = objGrid.getColRef('yr');//등록년도
+				let brnoCol = objGrid.getColRef('brno');//사업자번호
+				let trmtAmtCol = objGrid.getColRef('trmtAmt');//직접판매 실적
+				let consignTrmtAmtCol = objGrid.getColRef('consignTrmtAmt');//위탁판매 실적
+
+				//값 수정
+				objGrid.setCellData(nRow, yrCol, SBUxMethod.get('dtl-input-yr'), true);
+				objGrid.setCellData(nRow, nCol, "N", true);
+
+				//기존 row 활성화
+				objGrid.setCellDisabled(nRow, brnoCol, nRow, consignTrmtAmtCol, false);
+				objGrid.setCellStyle('background-color', nRow, nCol, nRow, consignTrmtAmtCol, 'white');
+				//추가 row 비활성화
+				objGrid.setCellDisabled(nRow+2, brnoCol, nRow+2, consignTrmtAmtCol, true);
+				objGrid.setCellStyle('background-color', nRow+2, nCol, nRow+2, consignTrmtAmtCol, 'lightgray');
+			}
+		}
+		else if (gubun === "DEL") {
+			if (grid === "grdOnln") {
+				if(objGrid.getRowStatus(nRow) == 0 || objGrid.getRowStatus(nRow) == 2){
+					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
+					if(confirm(delMsg)){
+						var rowVal = objGrid.getRowData(nRow);
+						fn_deleteRsrc(rowVal);
+						fn_search();
+					}
+				}else{
+					objGrid.deleteRow(nRow);
+				}
+			}
+		}
+	}
+
+	//생산자조직 리스트 선택 데이터 삭제
+	async function fn_deleteRsrc(itemVO){
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/deleteOnlnDtl.do", itemVO);
+		let data = await postJsonPromise;
+
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				fn_dtlSearch();
+			} else {
+				//alert(data.resultMessage);
+				alert("삭제 도중 오류가 발생 되었습니다.");
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 </script>

@@ -196,7 +196,7 @@
 		  AND (
 		  			EAM.BRNO = #{brno}
 		  			OR
-		  			EAM.UO_BRNO = #{brno}
+		  			EAM.BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
 		  		)
 		ORDER BY APO_SE
 	</select>
@@ -342,4 +342,17 @@
 					  , #{sysLastChgPrgrmId}
 					)
 	</insert>
+
+	<!-- 온라인도매시장 출하실적 삭제 처리 -->
+	<delete id="deleteOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		<![CDATA[
+		DELETE FROM TB_EV_ONLN_WHLSL_MRKT_DTL	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl */
+		 WHERE 1=1
+		   WMD.YR			= #{yr}
+		   AND BRNO			= #{brno}
+		   AND UO_BRNO		= #{uoBrno}
+		   AND ITEM_CD		= #{itemCd}
+		]]>
+	</delete>
+
 </mapper>
