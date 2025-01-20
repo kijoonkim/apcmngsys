@@ -1200,7 +1200,7 @@
 			TB_EV_UO_ISO_ALL_PRCHS_SLS APS
 		   SET
 			  TMPR_STRG_YN = 'Y'
-			  ,TMPR_STRG_RSN = APS.TMPR_STRG_RSN || (SELECT ' 생산자조직 현황 변경' || '(' || CORP_NM || ', ' || BRNO || ', ' || TO_CHAR(SYSDATE,'YY/MM/DD hh:mm') || ') ' FROM TB_EV_APO WHERE BRNO = #{brno})
+			  ,TMPR_STRG_RSN = APS.TMPR_STRG_RSN || (SELECT ' 생산자조직 현황 변경' || '(' || CORP_NM || ', ' || BRNO || ', ' || TO_CHAR(SYSDATE,'YY/MM/DD hh24:mi') || ') ' FROM TB_EV_APO WHERE BRNO = #{brno})
 			  ,TMPR_STRG_DT = SYSDATE
 		WHERE 1=1
 		  AND YR = #{yr}
@@ -1219,7 +1219,7 @@
 			TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 		   SET
 			  TMPR_STRG_YN = 'Y'
-			  ,TMPR_STRG_RSN = PST.TMPR_STRG_RSN || (SELECT ' 생산자조직 현황 변경' || '(' || CORP_NM || ', ' || BRNO || ', ' || TO_CHAR(SYSDATE,'YY/MM/DD hh:mm') || ') ' FROM TB_EV_APO WHERE BRNO = #{brno})
+			  ,TMPR_STRG_RSN = PST.TMPR_STRG_RSN || (SELECT ' 생산자조직 현황 변경' || '(' || CORP_NM || ', ' || BRNO || ', ' || TO_CHAR(SYSDATE,'YY/MM/DD hh24:mi') || ') ' FROM TB_EV_APO WHERE BRNO = #{brno})
 			  ,TMPR_STRG_DT = SYSDATE
 			  ,STBLT_YN = ''
 		WHERE 1=1
