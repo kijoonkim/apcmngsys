@@ -1344,6 +1344,7 @@
 			</if>
 			<if test='tmprStrgYn != "Y"'>
 				TMPR_STRG_YN	= 'N'
+				, TMPR_STRG_RSN	= ''
 			</if>
 		WHERE 1=1
 		  AND APO_SE = '1'
