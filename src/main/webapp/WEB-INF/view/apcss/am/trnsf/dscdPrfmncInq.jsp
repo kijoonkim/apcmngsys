@@ -142,30 +142,6 @@
                                     ></sbux-button>
                                 </div>
                             </td>
-                            <th scope="row" class="th_bg">상세구분</th>
-                            <td class="td_input" colspan="4" style="border-right: hidden">
-                                <sbux-select
-                                    unselected-text="선택"
-                                    uitype="single"
-                                    id="srch-slt-warehouseSeCd"
-                                    name="srch-slt-warehouseSeCd"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                    style="width: 80%"
-                                    jsondata-ref="jsonComWarehouse"
-                                ></sbux-select>
-                            </td>
-                            <th scope="row" class="th_bg">조회구분</th>
-                            <td class="td_input" colspan="3">
-                                <sbux-select
-                                    unselected-text="선택"
-                                    uitype="single"
-                                    id="srch-slt-inqType"
-                                    name="srch-slt-inqType"
-                                    style="width: 80%"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                    jsondata-ref="jsonComWarehouse"
-                                ></sbux-select>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -263,13 +239,6 @@
                 style: 'text-align: center;'
             },
             {
-                caption: ["상세구분"],
-                ref: 'crtrIndctNm',
-                type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
-            },
-            {
                 caption: ["폐기번호"],
                 ref: 'dscdSn',
                 type: 'output',
@@ -292,7 +261,7 @@
             },
             {
                 caption: ["상세코드"],
-                ref: 'dtlCd',
+                ref: 'dtlIndctNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
@@ -301,7 +270,7 @@
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '36%',
+                width: '44%',
                 style: 'text-align: center;'
             }
         ]
@@ -322,11 +291,9 @@
         }
 
         srchParam.apcCd = gv_apcCd;
-        console.log("srchParam: ", srchParam);
 
         const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", srchParam);
         const data = await postJsonPromise;
-        console.log(data);
 
         if(!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);

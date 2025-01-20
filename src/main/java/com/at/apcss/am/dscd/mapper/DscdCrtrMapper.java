@@ -1,13 +1,9 @@
 package com.at.apcss.am.dscd.mapper;
 
-import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
-import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
+
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -92,6 +88,7 @@ public interface DscdCrtrMapper {
 	 */
 	public int updateDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
 
+
     /**
      * 폐기 기준 관리 - 폐기기준 상세정보 조회
      * @param dscdCrtrVO
@@ -101,7 +98,7 @@ public interface DscdCrtrMapper {
     public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception;
 
     /**
-     * 폐기 기준 관리 - 폐기기준 상세정보 등록
+     * 폐기 기준 관리 - 폐기기준 상세정보 추가
      * @param dscdCrtrVO
      * @return
      * @throws Exception

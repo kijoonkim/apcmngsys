@@ -158,30 +158,6 @@
                                     ></sbux-button>
                                 </div>
                             </td>
-                            <th scope="row" class="th_bg">상세구분</th>
-                            <td class="td_input" colspan="4" style="border-right: hidden">
-                                <sbux-select
-                                    unselected-text="선택"
-                                    uitype="single"
-                                    id="srch-slt-warehouseSeCd"
-                                    name="srch-slt-warehouseSeCd"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                    style="width: 80%"
-                                    jsondata-ref="jsonComWarehouse"
-                                ></sbux-select>
-                            </td>
-                            <th scope="row" class="th_bg">조회구분</th>
-                            <td class="td_input" colspan="3">
-                                <sbux-select
-                                    unselected-text="선택"
-                                    uitype="single"
-                                    id="srch-slt-inqType"
-                                    name="srch-slt-inqType"
-                                    style="width: 80%"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                    jsondata-ref="jsonComWarehouse"
-                                ></sbux-select>
-                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -290,13 +266,6 @@
                 style: 'text-align: center;'
             },
             {
-                caption: ["상세구분"],
-                ref: 'crtrIndctNm',
-                type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
-            },
-            {
                 caption: ["폐기번호"],
                 ref: 'dscdSn',
                 type: 'output',
@@ -319,7 +288,7 @@
             },
             {
                 caption: ["상세코드"],
-                ref: 'dtlCd',
+                ref: 'dtlIndctNm',
                 type: 'output',
                 width: '8%',
                 style: 'text-align: center;'
@@ -328,7 +297,7 @@
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '33%',
+                width: '44%',
                 style: 'text-align: center;'
             }
         ]
@@ -364,11 +333,9 @@
         }
 
         srchParam.apcCd = gv_apcCd;
-        console.log("srchParam: ", srchParam);
 
         const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", srchParam);
         const data = await postJsonPromise;
-        console.log(data);
 
         if(!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
@@ -395,7 +362,6 @@
                 dscdPrfmncList.push(item);
             }
         });
-        console.log("dscdPrfmncList: ", dscdPrfmncList);
 
         if(dscdPrfmncList.length == 0) {
             gfn_comAlert("W0005", "삭제대상");  // W0005    {0}이/가 없습니다.
@@ -409,7 +375,6 @@
         try {
             const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdPrfmncList.do", dscdPrfmncList);
             const data = await postJsonPromise;
-            console.log("data: ", data);
 
             gfn_comAlert("I0001");  // I0001    처리 되었습니다.
             fn_search();
@@ -420,13 +385,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");  // E0001    오류가 발생하였습니다.
         }
-    }
-
-    /**
-     * @name fn_save
-     * @description 폐기 실적 목록 저장 버튼
-     */
-    const fn_save = async function() {
     }
 
     /**
@@ -472,7 +430,6 @@
     const fn_getPrdcrs = async function() {
         jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
         jsonPrdcr = gfn_setFrst(jsonPrdcr);
-        console.log(jsonPrdcr);
     }
 
     /**

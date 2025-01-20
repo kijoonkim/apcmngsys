@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name : dscdCrtrMng.jsp
-     * @Description : 폐기기준관리 화면
+     * @Description : 폐기 기준 관리 화면
      * @author SI개발부
      * @since 2024.11.25
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 폐기기준관리</title>
+    <title>title : 폐기 기준 관리</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -34,6 +34,7 @@
                 <%--/** 상단 버튼 **/--%>
                 <div style="margin-left: auto;">
                     <sbux-button
+                        disabled="true"
                         id="btnSave"
                         name="btnSave"
                         uitype="normal"
@@ -171,11 +172,7 @@
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true;
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.explorerbar = 'sort';
-        SBGridProperties.scrollbubbling = false;
-        SBGridProperties.frozencols = 2;
         SBGridProperties.oneclickedit = true;
-        SBGridProperties.allowpaste = true;
         SBGridProperties.columns = [
             {
                 caption: ["처리"],
@@ -252,10 +249,6 @@
 
         grdDscdCrtr = _SBGrid.create(SBGridProperties);
         grdDscdCrtr.bind('click', "fn_searchDscdCrtrDtlInfo");
-
-        const nRow = grdDscdCrtr.getRows();
-        grdDscdCrtr.addRow(true);
-        grdDscdCrtr.setCellDisabled(nRow, 0, nRow, grdDscdCrtr.getCols() - 1, true);
     }
 
 
@@ -265,12 +258,9 @@
         SBGridProperties.id = 'grdDscdCrtrDtl';
         SBGridProperties.jsonref = 'jsonDscdCrtrDtl';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.datamergefalseskip = true;
         SBGridProperties.selectmode = 'free';
         SBGridProperties.allowcopy = true;
-        SBGridProperties.allowpaste = true;
         SBGridProperties.extendlastcol = 'scroll';
-        SBGridProperties.scrollbubbling = false;
         SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
             {
@@ -280,7 +270,7 @@
                 width: '5%',
                 style: 'text-align: center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    if(gfn_isEmpty(objRowData.delYn)) {
+                    if(gfn_isEmpty(objRowData.useYn)) {
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_addRowDtl(" + nRow + ", " + nCol + ")'>추가</button>";
                     } else {
                         return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRowDtl(" + nRow + ")'>삭제</button>";
@@ -353,6 +343,9 @@
     const fn_search = async function() {
         jsonDscdCrtrDtl.length = 0;
         grdDscdCrtrDtl.refresh();
+
+        SBUxMethod.attr("btnSave", "disabled", "true");
+        SBUxMethod.attr("btnSaveDtl", "disabled", "true");
 
         await fn_setGrdDscdCrtr();
     }
@@ -536,6 +529,8 @@
         editableRow.delYn = "N";
         editableRow.useYn = "Y";
 
+        SBUxMethod.attr("btnSave", "disabled", "false");
+
         grdDscdCrtr.rebuild();
         grdDscdCrtr.setCellDisabled(nRow, 2, nRow, grdDscdCrtr.getCols() - 1, false);
         nRow++;
@@ -549,7 +544,6 @@
      * @param {number} nRow
      */
     const fn_delRow = async function(_nRow) {
-        //const rowStatus = grdDscdCrtr.getRowStatus(_nRow);
         const _crtr = grdDscdCrtr.getRowData(_nRow);
 
         if(_.isEqual("Y", _crtr["chkVl"])) {
@@ -559,6 +553,8 @@
             await fn_deleteCrtr(_crtr);
         } else {
             grdDscdCrtr.deleteRow(_nRow);
+
+            SBUxMethod.attr("btnSave", "disabled", "true");
         }
     }
 
@@ -570,6 +566,9 @@
     const fn_searchDscdCrtrDtlInfo = async function() {
         let nRow = grdDscdCrtr.getRow();
         let rowData = grdDscdCrtr.getRowData(nRow, true);
+        if(rowData.dscdCrtrType == "") {
+            return;
+        }
 
         jsonDscdCrtrDtl.length = 0;
         grdDscdCrtrDtl.rebuild();
@@ -592,7 +591,6 @@
             grdDscdCrtrDtl.addRow(true);
             grdDscdCrtrDtl.setCellDisabled(1, 0, nRow, grdDscdCrtrDtl.getCols() -1, true, true);
         } else {
-            console.log("엘스");
             nRow = grdDscdCrtrDtl.getRows();
             grdDscdCrtrDtl.addRow(true);
             grdDscdCrtrDtl.setCellDisabled(nRow, 0, nRow, grdDscdCrtrDtl.getCols() -1, true, true);
@@ -649,6 +647,8 @@
             await fn_search();
         }else{
             grdDscdCrtrDtl.deleteRow(nRow);
+
+            SBUxMethod.attr("btnSaveDtl", "disabled", "true");
         }
     }
 
@@ -657,7 +657,7 @@
      * @description 폐기기준 상세정보 저장
      */
     const fn_saveDtl = async function() {
-        let saveParam = grdDscdCrtrDtl.getGridDataAll().filter(item => item.delYn === 'N').map((item, idx) => {
+        let saveParam = grdDscdCrtrDtl.getGridDataAll().filter(item => item.useYn === 'Y').map((item, idx) => {
             delete item.fcltCd;
             item.apcCd = gv_selectedApcCd;
             item.dtlSn = idx + 1;
@@ -668,7 +668,6 @@
         });
 
         saveParam = saveParam.filter(item => !item.hasOwnProperty("sysFrstInptDt"));
-        console.log("saveParam: ", saveParam);
 
         if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
             return;
@@ -676,13 +675,13 @@
 
         const postJsonPromise = gfn_postJSON("/am/dscd/insertDscdCrtrDtl.do", saveParam);
         const data = await postJsonPromise;
-        console.log("data: ", data);
+
         if(!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
         }
 
-        gfn_comAlert("I0001");
+        gfn_comAlert("I0001");  // 처리되었습니다.
 
         await fn_search();
     }

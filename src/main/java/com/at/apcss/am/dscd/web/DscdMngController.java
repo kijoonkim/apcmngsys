@@ -1,21 +1,11 @@
 package com.at.apcss.am.dscd.web;
 
-import com.at.apcss.am.clcln.service.ClclnCrtrService;
-import com.at.apcss.am.clcln.service.ClclnUntprcService;
-import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
-import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
-import com.at.apcss.am.spmt.vo.ShpgotApcCrtrVO;
-import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
-import com.at.apcss.co.sys.util.ComUtil;
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,6 +144,7 @@ public class DscdMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
     // APC 폐기 기준 관리 - 폐기기준 상세정보 조회
     @PostMapping(value = "/am/dscd/selectDscdCrtrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectDscdCrtrDtlList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
@@ -172,7 +164,7 @@ public class DscdMngController extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
-    // APC 폐기 기준 관리 - 폐기기준 상세정보 등록
+    // APC 폐기 기준 관리 - 폐기기준 상세정보 추가
     @PostMapping(value = "/am/dscd/insertDscdCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> insertDscdCrtrDtl(@RequestBody List<DscdCrtrVO> dscdCrtrVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
