@@ -41,6 +41,7 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 	private String consignTrmtAmt;
 
 	private String trmtAmtTot;
+	private String consignTrmtAmtTot;
 
 	private String crtrAmt;
 
