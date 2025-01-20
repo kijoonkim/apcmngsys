@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComLinkMapper.xml                                    				-->
+<!-- DESC : 공통연결 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.09.05  	신정철        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.link.mapper.ComLinkMapper">
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.selectComLnkgRpt		    -->
+    <!-- DESC : 연결보고서 조회                                             	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.05  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectComLnkgRpt" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO" resultType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+        <![CDATA[
+            SELECT
+                  LNKG_UNQ_ID	AS LNKG_UNQ_ID
+                , TASK_ID	    AS TASK_ID
+                , TASK_SE_CD	AS TASK_SE_CD
+                , RPT_DOC_FILE_PATH	AS RPT_DOC_FILE_PATH
+                , PRGRM_NM	    AS PRGRM_NM
+                , PRGRM_URL	    AS PRGRM_URL
+                , PRGRM_PRCS_TYPE	AS PRGRM_PRCS_TYPE
+                , PRCS_RSLT_NOCS	AS PRCS_RSLT_NOCS
+                , PRMTR_DATA	AS PRMTR_DATA
+                , LNKG_CERT_KEY	AS LNKG_CERT_KEY
+                , LNKG_OPEN_YMD	AS LNKG_OPEN_YMD
+                , LNKG_EXPRY_YN	AS LNKG_EXPRY_YN
+              FROM TB_LNKG_RPT_DOC
+             WHERE LNKG_UNQ_ID = #{lnkgUnqId}
+        ]]>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.insertComLnkgRpt		    -->
+    <!-- DESC : 연결보고서 등록                                        		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.05  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertComLnkgRpt" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+        <![CDATA[
+            INSERT INTO TB_LNKG_RPT_DOC (
+                  LNKG_UNQ_ID
+                , TASK_ID
+                , TASK_SE_CD
+                , RPT_DOC_FILE_PATH
+                , PRGRM_NM
+                , PRGRM_URL
+                , PRGRM_PRCS_TYPE
+                , PRCS_RSLT_NOCS
+                , PRMTR_DATA
+                , LNKG_CERT_KEY
+                , LNKG_OPEN_YMD
+                , LNKG_EXPRY_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+            ) VALUES (
+                  #{lnkgUnqId}
+                , #{taskId}
+                , #{taskSeCd}
+                , #{rptDocFilePath}
+                , #{prgrmNm}
+                , #{prgrmUrl}
+                , #{prgrmPrcsType}
+                , #{prcsRsltNocs}
+                , #{prmtrData}
+                , #{lnkgCertKey}
+                , #{lnkgOpenYmd}
+                , #{lnkgExpryYn}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.co.link.mapper.ComLinkMapper.updateComLnkgRptExpry     -->
+    <!-- DESC : 연결보고서 만료                                        		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.09.05  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateComLnkgRptExpry" parameterType="com.at.apcss.co.link.vo.ComLnkgRptVO">
+        <![CDATA[
+            UPDATE TB_LNKG_RPT_DOC
+                SET LNKG_EXPRY_YN = 'Y'
+             WHERE LNKG_UNQ_ID = #{lnkgUnqId}
+        ]]>
+    </update>
+
+</mapper>
