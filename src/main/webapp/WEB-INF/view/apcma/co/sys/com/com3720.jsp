@@ -193,13 +193,13 @@
                                 <tr>
                                     <th scope="row" class="th_bg">WHERE 조건</th>
                                     <td class="td_input" colspan="6" >
-                                        <sbux-input id="SQL_WHERE_CODE" class="form-control input-sm" uitype="text" style="width:100%;  height:50px;"></sbux-input>
+                                        <sbux-textarea id="SQL_WHERE_CODE" class="form-control input-sm" uitype="normal" style="width:100%;  height:50px;"></sbux-textarea>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg">적요</th>
                                     <td class="td_input" colspan="6" >
-                                        <sbux-input id="DESCR" class="form-control input-sm" uitype="text" style="width:100%;  height:50px;"></sbux-input>
+                                        <sbux-textarea id="DESCR" class="form-control input-sm" uitype="normal" style="width:100%;  height:50px;"></sbux-textarea>
                                     </td>
                                 </tr>
                                 <tr>

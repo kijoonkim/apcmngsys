@@ -68,7 +68,7 @@
                         	onclick="fn_mailingList" 
                         	style="margin-right: 1rem;">
                         	</sbux-button>
-                        <sbux-button id="btn_currencyData" name="btn_currencyData" uitype="normal" text="환율(외부) 가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_currencyData"></sbux-button>
+<!--                         <sbux-button id="btn_currencyData" name="btn_currencyData" uitype="normal" text="환율(외부) 가져오기" class="btn btn-sm btn-outline-danger" onclick="fn_currencyData"></sbux-button> -->
 <!--                         <sbux-button id="btn_fbsExchangeRate" name="btn_fbsExchangeRate" uitype="normal" text="환율요청" class="btn btn-sm btn-outline-danger" onclick="fn_fbsExchangeRate"></sbux-button> -->
                     </div>
                     <div class="box-search-ma">

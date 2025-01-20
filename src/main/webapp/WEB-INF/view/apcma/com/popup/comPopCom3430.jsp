@@ -35,7 +35,7 @@
 						<tbody>
 							<tr>
 								<th scope="row" class="th_bg">거래처유형</th>
-								<td class="td_input" style="border-right: hidden;" colspan="2">
+								<td class="td_output" style="border-right: hidden;" colspan="2">
 									<div class="dropdown">
 										<button 
 											style="width:160px;text-align:left" 
@@ -130,6 +130,8 @@ function compopcom3430(options) {
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.selectmode 		= 'byrows';
 	    SBGridProperties.allowcopy 			= true; //복사	    
+	    SBGridProperties.explorerbar 		= 'sortmove';
+	    SBGridProperties.useinitsorting 	= true;		    
         SBGridProperties.rowheader 			= 'seq';
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '40'};
@@ -155,7 +157,8 @@ function compopcom3430(options) {
             {caption : ['해외거래처여부'],		ref: 'FOREIGN_YN',		type:'checkbox',	width: '80px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
-            		uncheckedvalue : "N" }, 
+            		uncheckedvalue : "N" 
+            	}, 
             		style : 'text-align:center'
             },            
             {caption: ["국가코드"],  			ref: 'NATION_CODE', 				type:'output',  	width:'100px',  	style:'text-align:left'},
