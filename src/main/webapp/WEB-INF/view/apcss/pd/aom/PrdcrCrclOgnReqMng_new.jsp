@@ -3040,9 +3040,12 @@
 			{caption: ["사업자번호"],				ref: 'brno',				type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["법인번호"],					ref: 'crno',				type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["업체명"],					ref: 'corpNm',				type:'output',  width:'90px',	style:'text-align:center'},
-			{caption: ["품목분류"],					ref: 'ctgryNm',				type:'output',  width:'90px',	style:'text-align:center'},
-			{caption: ["전문/육성 구분"],			ref: 'sttgUpbrItemNm',		type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["품목명"],					ref: 'itemNm',				type:'output',  width:'90px',	style:'text-align:center'},
+			{caption: ["평가부류"],					ref: 'ctgryNm',				type:'output',  width:'90px',	style:'text-align:center'},
+			{caption: ["품목부류"],					ref: 'clsfNm',				type:'output',  width:'90px',	style:'text-align:center'},
+			{caption: ["전문/육성 구분"],			ref: 'sttgUpbrItemNm',		type:'output',  w1idth:'90px',	style:'text-align:center'},
+			{caption: ["취급액 목표"],				ref: 'trgtTrmtAmt',			type:'output',  w1idth:'90px',	style:'text-align:center'},
+			{caption: ["취급률 목표"],				ref: 'trgtTrmtRt',			type:'output',  w1idth:'90px',	style:'text-align:center'},
 			{caption: ["시도"],					ref: 'ctpv',				type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["시군구"],					ref: 'sgg',					type:'output',  width:'90px',	style:'text-align:center'},
 			{caption: ["우편번호"],					ref: 'zip',					type:'output',  width:'90px',	style:'text-align:center'},
@@ -3104,6 +3107,7 @@
 						,crno				:item.crno
 						,corpNm				:item.corpNm
 						,ctgryNm			:item.ctgryNm
+						,clsfNm				:item.clsfNm
 						,sttgUpbrItemNm		:item.sttgUpbrItemNm
 						,itemNm				:item.itemNm
 						,ctpv				:item.ctpv
@@ -3133,6 +3137,10 @@
 						,picTelno			:item.picTelno
 						,picMoblno			:item.picMoblno
 						,picEml				:item.picEml
+
+						,trgtTrmtAmt		:item.trgtTrmtAmt	//취급액 목표
+						,trgtTrmtRt			:item.trgtTrmtRt	//취급률 목표
+
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

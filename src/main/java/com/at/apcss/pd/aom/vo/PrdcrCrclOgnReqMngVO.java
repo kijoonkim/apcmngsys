@@ -103,5 +103,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String lnChkYn;//대출잔액 현황 확인여부
 
 	private List<GpcVO> gpcList;
+
+	private String trgtTrmtAmt;		//취급액 목표
+	private String trgtTrmtRt;		//취급률 목표
 }
 
