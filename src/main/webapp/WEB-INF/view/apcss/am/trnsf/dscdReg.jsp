@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : wghCurInq.jsp
-     * @Description : 반품 등록(상품)화면
+     * @Class Name : dscdReg.jsp
+     * @Description : 폐기 등록 화면
      * @author SI개발부
      * @since 2024.12.19
      * @version 1.0
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>title : 반품 등록(상품)</title>
+    <title>title : 폐기 등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -173,18 +173,7 @@
                                     jsondata-ref="jsonApcWarehouse"
                                 ></sbux-select>
                             </td>
-                            <th scope="row" class="th_bg">조회구분</th>
-                            <td class="td_input" colspan="3">
-                                <sbux-select
-                                    unselected-text="선택"
-                                    uitype="single"
-                                    id="srch-slt-inqType"
-                                    name="srch-slt-inqType"
-                                    style="width: 80%"
-                                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                                    jsondata-ref="jsonComWarehouse">
-                                </sbux-select>
-                            </td>
+                            <td colspan="4" style="border-top: hidden"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -269,7 +258,6 @@
 
     const fn_init = async function() {
         let result = await Promise.all([
-            // gfn_getComCdDtls('DSCD_ATRB_CD'),   //상세 코드
             gfn_postJSON("/am/dscd/selectDscdCrtrDtlList.do", {apcCd: gv_selectedApcCd}),
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_apcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_apcCd),	// 품종
@@ -299,7 +287,6 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
-            // {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
             {
                 caption: ["품목"],
                 ref: 'itemNm',
@@ -369,7 +356,7 @@
         SBGridProperties.oneclickedit = true;
         SBGridProperties.columns = [
             {
-                caption: [""],
+                caption: ["처리"],
                 ref: 'fcltCd',
                 type: 'button',
                 width: '5%',
@@ -476,7 +463,7 @@
             gridInvntrList.rebuild();
         }
 
-        console.log(data);
+        SBUxMethod.attr("btnSave", "disabled", "true");
     }
 
     /**
@@ -486,7 +473,6 @@
     const fn_selectInvntr = async function() {
         let nRow = gridInvntrList.getRow();
         let rowData = gridInvntrList.getRowData(nRow, true);
-        console.log("rowData: ", rowData);
 
         /** reset **/
         jsonDscdRegList.length = 0;
@@ -494,7 +480,6 @@
 
         const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdRegList.do", rowData);
         const data = await postJsonPromise;
-        console.log("data: ", data);
 
         if(!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
@@ -538,10 +523,7 @@
         editableRow.spcfctCd = tData.spcfctCd;
         editableRow.spmtPckgUnitCd = tData.spmtPckgUnitCd;
         editableRow.invntrSeCd = tData.spmtPckgUnitCd;
-        // editableRow.dscdQntt = tData.invntrQntt;
-        // editableRow.dscdWght = tData.invntrWght;
         editableRow.delYn = 'N';
-        console.log("tData.rprsPrdcdCd: ", tData.rprsPrdcrCd);
 
         gridDscdRegList.addRow(true);
         gridDscdRegList.setCellDisabled(mRow, 0, mRow, gridDscdRegList.getCols() - 1, true);
@@ -562,10 +544,9 @@
             if(!gfn_comConfirm("Q0001","등록된 폐기 실적입니다. 삭제")) {   // 등록된 폐기 실적입니다. 삭제하시겠습니까?
                 return;
             }
-            console.log("delData: ", delData);
+
             const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdRegList.do", delData);
             const data = await postJsonPromise;
-            console.log("data: ", data);
 
             if(!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
@@ -577,6 +558,8 @@
             await fn_search();
         }else{
             gridDscdRegList.deleteRow(nRow);
+
+            SBUxMethod.attr("btnSave", "disabled", "true");
         }
     }
 
@@ -598,7 +581,6 @@
         });
 
         saveParam = saveParam.filter(item => !item.hasOwnProperty("sysFrstInptDt"));
-        console.log("saveParam: ", saveParam);
 
         if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
             return;
@@ -606,7 +588,7 @@
 
         const postJsonPromise = gfn_postJSON("/am/dscd/insertDscdRegList.do", saveParam);
         const data = await postJsonPromise;
-        console.log("data: ", data);
+
         if(!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
@@ -660,7 +642,6 @@
     const fn_getPrdcrs = async function() {
         jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
         jsonPrdcr = gfn_setFrst(jsonPrdcr);
-        console.log(jsonPrdcr);
     }
 
     /**
@@ -729,13 +710,12 @@
      * @description 생산자명 입력 시 event : autocomplete
      */
     const fn_onInputPrdcrNm = function(prdcrNm){
-        console.log("생산자명: ", prdcrNm);
         fn_clearPrdcr();
         if(getByteLengthOfString(prdcrNm.target.value) > 100) {
             SBUxMethod.set("srch-inp-prdcrNm", "");
             return;
         }
-        console.log("jsonPrdcr: ", jsonPrdcr);
+
         jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
         SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }

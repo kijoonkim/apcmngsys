@@ -1,11 +1,7 @@
 package com.at.apcss.am.dscd.service;
 
-import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
-import com.at.apcss.am.spmt.vo.ShpgotApcRawMtrVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +71,7 @@ public interface DscdCrtrService {
 	 */
 	public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception;
 
+
     /**
      * 폐기 기준 관리 - 폐기기준 상세정보 조회
      * @param dscdCrtrVO
@@ -84,7 +81,7 @@ public interface DscdCrtrService {
     public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception;
 	
 	/**
-	 * 폐기 기준 관리 - 폐기기준 상세정보 등록
+	 * 폐기 기준 관리 - 폐기기준 상세정보 추가
 	 * @param dscdCrtrVO
 	 * @return
 	 * @throws Exception
