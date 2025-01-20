@@ -40,6 +40,10 @@
 </body>
 <script >
  
+var grid5500;
+var grdList		= [];
+var jsonContactGroup	= [];
+
 /**
  * @description 공통 팝업
  */
@@ -49,9 +53,6 @@ function com5500Popup(options) {
 	var modalId  	= '#com5500Popup';
 	var modalDivId 	= 'modal-com5500Popup';
 	
-	var grid;
-	var grdList		= [];
-	
 	var settings = {
 		contact_group			: null
 		,comp_code				: null
@@ -60,28 +61,55 @@ function com5500Popup(options) {
 	$.extend(settings, options);	
 	console.log('settings:', settings);
  
+    const setGridCombo = async function() {
+        let rst = await Promise.all([
+        	gfnma_setComSelect(['grid5500', 'CONTACT_GROUP'], jsonContactGroup, 'L_FBS026', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', '', ''),
+        	SBUxMethod.set("SRCH_CONTACT_GROUP", settings.contact_group),
+        ]);
+    }
+    
 	//setGrid
-    const setGrid = function() {
+    const setGrid = async function() {
+		
 	  	//기간별환율 탭 - 기간별환율등록
 	    var SBGridProperties = {};
 	    SBGridProperties.parentid 			= 'sb-area-grid';
-	    SBGridProperties.id 				= 'grid';
+	    SBGridProperties.id 				= 'grid5500';
 	    SBGridProperties.jsonref 			= 'gridList';
 	    SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-	    SBGridProperties.selectmode 		= 'byrow';
+	    SBGridProperties.selectmode 		= 'free';
+	    SBGridProperties.allowcopy 			= true; //복사
 	    SBGridProperties.explorerbar 		= 'sortmove';
+        SBGridProperties.rowheader 			= 'seq';
+		SBGridProperties.rowheadercaption 	= {seq: 'No'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'};	    
 	    SBGridProperties.extendlastcol 		= 'scroll';
 	    SBGridProperties.columns = [
-	        {caption: ["연락처그룹"], ref: 'CONTACT_GROUP', 	type: 'output', width: '120px', style: 'text-align:left'},
+            {caption : ["연락처그룹"], ref : 'CONTACT_GROUP', width : '150px', style : 'text-align:center', type : 'combo', disabled : true,
+                typeinfo : {
+                    ref : 'jsonContactGroup',
+                    label : 'label',
+                    value : 'value'
+                }
+            },
 	        {caption: ["사번"], 		ref: 'EMP_CODE', 		type: 'output', width: '80px',  style: 'text-align:left'},
 	        {caption: ["사원명"], 	ref: 'EMP_NAME', 		type: 'output', width: '120px', style: 'text-align:left'},
 	        {caption: ["메일주소"], 	ref: 'MAIL_ADDRESS', 	type: 'output', width: '200px', style: 'text-align:left'},
 	        {caption: ["전화번호"], 	ref: 'TEL_NO', 			type: 'output', width: '150px', style: 'text-align:left'},
-	        {caption: ["적요"], 		ref: 'TXN_ID', 			type: 'output', width: '100px', style: 'text-align:left'}
+	        {caption: ["적요"], 		ref: 'DESCRIPTION', 	type: 'output', width: '100px', style: 'text-align:left'}
 	    ];
-	    grid = _SBGrid.create(SBGridProperties);
+	    grid5500 = _SBGrid.create(SBGridProperties);
 	}
-	
+    
+    function formatPhoneNumber(phoneNumber) {
+        if (!/^\d{9,11}$/.test(phoneNumber) ) {
+            return phoneNumber;
+        }else if(_.isEmpty(phoneNumber)){
+            return phoneNumber;
+        }
+        return phoneNumber.replace( /^(\d{2,3})(\d{3,4})(\d{4})$/, "$1-$2-$3" );
+    }
+    
 	// get data
     const getData = async function() {
    		var paramObj = {
@@ -103,24 +131,24 @@ function com5500Popup(options) {
 	        params				: gfnma_objectToString(paramObj)
   		});
   	    const data = await postJsonPromise;
-    	console.log('popup get data:', data);
     	
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
-	    		
+	    		gridList.length = 0;
 	    	   	data.cv_1.forEach((item, index) => {
 		    		const msg = {
 		    				CONTACT_GROUP		: item.CTTPC_GRP,
 		    				EMP_CODE			: item.EMP_CD,
 		    				EMP_NAME			: item.EMP_NM,
 		    				MAIL_ADDRESS		: item.EML_ADDR,
-		    				TEL_NO				: item.TELNO,
-		    				TXN_ID				: item.TRSC_ID
+		    				TEL_NO				: formatPhoneNumber(gfnma_nvl2(item.TELNO)),
+		    				TXN_ID				: item.TRSC_ID,
+		    				DESCRIPTION			: item.DSCTN
 		    		}
 		    		gridList.push(msg);
 		    	});
-	    	   	grid.rebuild();
-	
+	    	   	grid5500.rebuild();
+
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -133,11 +161,10 @@ function com5500Popup(options) {
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
     };
-	
-	//start
-	SBUxMethod.set("SRCH_CONTACT_GROUP", settings.contact_group);
-	setGrid();
-	getData();
+    
+    setGridCombo();
+    setGrid();
+    getData();
 	
 }
  

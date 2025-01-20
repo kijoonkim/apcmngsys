@@ -1122,7 +1122,7 @@
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",			ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",			ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "계정그룹구분", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1137,11 +1137,11 @@
 				,menuId			: p_menuId
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
+				,dropAlign		: 'left' 	// left, right
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "계정분류", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1156,11 +1156,11 @@
 				,menuId			: p_menuId
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
+				,dropAlign		: 'left' 	// left, right
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "계정특성", 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1175,11 +1175,11 @@
 				,menuId			: p_menuId
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'right' 	// left, right
+				,dropAlign		: 'left' 	// left, right
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명	",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1198,7 +1198,7 @@
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명칭",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1217,7 +1217,7 @@
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "통제방식",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1236,7 +1236,7 @@
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명칭",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
@@ -1255,7 +1255,7 @@
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
-		            {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
+		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "통제방식",	 	ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),	
@@ -1930,8 +1930,8 @@
 		   		SBUxMethod.set("HQ_ACCOUNT_NAME", 		    obj.HQ_ACNT_NM);
 		   		SBUxMethod.set("REPORT_ACCOUNT_CODE", 	    obj.RPT_ACNT_CD);
 		   		SBUxMethod.set("REPORT_ACCOUNT_NAME", 	    obj.RPT_ACNT_NM);
-		   		SBUxMethod.set("OLD_ACCOUNT_CODE", 		    obj.BFR_ACND_CD);
-		   		SBUxMethod.set("OLD_ACCOUNT_NAME", 		    obj.BFR_ACND_NM);
+		   		SBUxMethod.set("OLD_ACCOUNT_CODE", 		    obj.BFR_ACNT_CD);
+		   		SBUxMethod.set("OLD_ACCOUNT_NAME", 		    obj.BFR_ACNT_NM);
 		   		SBUxMethod.set("SORT_SEQ_PL", 			    obj.SORT_SEQ_GNLS);
 		   		SBUxMethod.set("SORT_SEQ_KGAAP_PL", 	    obj.SORT_SEQ_GAAP_GNLS);
 		   		SBUxMethod.set("RDO_BALANCE_SIDE", 		    obj.ACNT_BLNC_SE);

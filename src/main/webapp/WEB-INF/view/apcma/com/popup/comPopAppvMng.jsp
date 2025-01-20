@@ -606,19 +606,33 @@ function compopappvmng(options) {
 			wType = 'APPR';
 		}
 		
+		var COMP_CODE = settings.compCode;
+		var CLIENT_CODE = settings.clientCode
+		var APPR_ID = settings.apprId
+		var SOURCE_NO = settings.sourceNo
+		var SOURCE_TYPE = settings.sourceType
+		var DEPT_CODE = settings.deptCode
+		var DEPT_NAME = settings.deptName
+		var COST_CENTER_CODE = settings.costCenterCode
+		var EMP_CODE = settings.empCode
+		var EMP_NAME = settings.empName
+		var USER_ID = settings.empCode
+		var FORM_ID = settings.formID
+		var MENU_ID = settings.menuId
+		console.log(settings);
     	var paramObj = {
 			 V_P_DEBUG_MODE_YN       : ''
 			,V_P_LANG_ID             : ''
-			,V_P_COMP_CODE           : settings.compCode
-			,V_P_CLIENT_CODE         : settings.clientCode
-			,V_P_APPR_ID             : settings.apprId
-			,V_P_SOURCE_NO           : settings.sourceNo
-			,V_P_SOURCE_TYPE         : settings.sourceType
-			,V_P_DEPT_CODE           : settings.deptCode
-			,V_P_DEPT_NAME           : settings.deptName
-			,V_P_COST_CENTER_CODE    : settings.costCenterCode
-			,V_P_EMP_CODE            : settings.empCode
-			,V_P_EMP_NAME            : settings.empName
+			,V_P_COMP_CODE           : gfnma_nvl2(COMP_CODE)
+			,V_P_CLIENT_CODE         : gfnma_nvl2(CLIENT_CODE)
+			,V_P_APPR_ID             : gfnma_nvl2(APPR_ID)
+			,V_P_SOURCE_NO           : gfnma_nvl2(SOURCE_NO)
+			,V_P_SOURCE_TYPE         : gfnma_nvl2(SOURCE_TYPE)
+			,V_P_DEPT_CODE           : gfnma_nvl2(DEPT_CODE)
+			,V_P_DEPT_NAME           : gfnma_nvl2(DEPT_NAME)
+			,V_P_COST_CENTER_CODE    : gfnma_nvl2(COST_CENTER_CODE)
+			,V_P_EMP_CODE            : gfnma_nvl2(EMP_CODE)
+			,V_P_EMP_NAME            : gfnma_nvl2(EMP_NAME)
 			,V_P_DOC_TYPE            : ''
 			,V_P_SEQ                 : '0'
 			,V_P_SOURCE_SYS          : 'FCM'
@@ -628,9 +642,9 @@ function compopappvmng(options) {
 			,V_P_SUB_CODE4           : ''
 			,V_P_SUB_CODE5           : ''
 			,V_P_AMOUNT              : '0'
-			,V_P_USER_ID             : settings.empCode    	   
-			,V_P_FORM_ID             : settings.formID
-			,V_P_MENU_ID             : settings.menuId
+			,V_P_USER_ID             : gfnma_nvl2(USER_ID)   	   
+			,V_P_FORM_ID             : gfnma_nvl2(FORM_ID)
+			,V_P_MENU_ID             : gfnma_nvl2(MENU_ID)
 			,V_P_PROC_ID             : ''
 			,V_P_USERID              : ''
 			,V_P_PC                  : ''

@@ -528,6 +528,7 @@
             {caption: ["코드그룹명"],		ref: 'GROUP_NAME',    	type:'output',  	width:'150px',  	style:'text-align:left'}
         ];
         CMNSCDGrid	= _SBGrid.create(SBGridProperties);
+//         CMNSCDGrid.bind('rowchanged', 'fn_view');
         CMNSCDGrid.bind('click', 'fn_view');
         CMNSCDGrid.bind('keyup', 'fn_keyup');
     }
@@ -1203,6 +1204,7 @@
     const fn_delRow = async function () {
         let rowVal = CMNSCDSubGrid.getRow();
         let rowData = CMNSCDSubGrid.getRowData(rowVal)
+        let rowStatus = CMNSCDSubGrid.getRowStatus(rowVal)
         if (rowVal == -1) {
             gfn_comAlert("W0003", "행삭제");			// W0003	{0}할 대상이 없습니다.
             return;
@@ -1212,7 +1214,11 @@
 					gfn_comAlert('E0000', '시스템코드는 삭제할 수 없습니다.');
 					return;
 				}else{
-    				await fn_deleteSubGrid(rowVal, rowData);
+					if(rowStatus == 1 || rowStatus == 3){
+						CMNSCDSubGrid.deleteRow(rowVal);
+					}else{
+	    				await fn_deleteSubGrid(rowVal, rowData);
+					}
 				}
     		}
         }
