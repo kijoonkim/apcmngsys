@@ -1577,6 +1577,9 @@
 			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
 			//SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
 		}
+		//임시저장 표기
+		$("#tmprArea").hide();
+		$("#tmprStrgRsn").text("");
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 	}
