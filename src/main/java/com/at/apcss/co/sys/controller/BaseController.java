@@ -68,6 +68,7 @@ public abstract class BaseController {
 	private String filepathFm;
 	private String filepathPd;
 
+	private String linkRviewUrl;
 
 	@PostConstruct
 	protected void init() {
@@ -86,7 +87,14 @@ public abstract class BaseController {
 		filepathCo = env.getProperty("apcss.filepath.co");
 		filepathFm = env.getProperty("apcss.filepath.fm");
 		filepathPd = env.getProperty("apcss.filepath.pd");
+
+		linkRviewUrl = env.getProperty("link.rview.url");
 	}
+
+
+
+
+
 
 	/**
 	 * @return [서버 id]
@@ -133,8 +141,13 @@ public abstract class BaseController {
 		return filepathPd;
 	}
 
-	
-	
+
+	/**
+	 * 링크리포트URL
+	 * @return
+	 */
+	protected String getLinkRviewUrl() { return linkRviewUrl; }
+
 	/**
 	 * @return [로그인 url]
 	 */

@@ -468,6 +468,36 @@ console.log("report", report);
 }
 
 
+/**
+ * @name gfn_drawClipReportLink
+ * @description 클립리포트 View
+ */
+const gfn_drawClipReportLink = async function(divId, reportKey,check) {
+	const report = createOOFReport(gv_reportUrl + __JSP_SERVER, reportKey, document.getElementById(divId));
+	console.log("report", report);
+	//printEXEDirect()
+	report.setViewType(1);
+	report.setIsPrintUse("html","pdf","exe");
+	//report.setStyle("close_button", "display:none;");
+	report.setReportDirectPrintButton(true,1);
+
+	let query = window.location.href;
+	let param = new URLSearchParams(query);
+	if(param.get('mobileYn') === 'true'){
+		report.setEndReportEvent(function(){
+			report.printHTMLDirect();
+		});
+		report.view();
+
+	}else{
+		if(check.exePrintYn === "Y"){
+			report.exeDirectPrint(false, "", "", 1, -1, 1, "");
+		}else{
+			report.view();
+		}
+	}
+}
+
 
 
 /**
