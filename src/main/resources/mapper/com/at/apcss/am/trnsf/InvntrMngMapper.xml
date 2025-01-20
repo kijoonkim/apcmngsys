@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : InvntrMngMapper.xml                                   				-->
+<!-- DESC : 재고관리 mapper                   				                		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!--   	        					Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.trnsf.mapper.InvntrMngMapper">
+	
+	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr		-->
+    <!-- DESC : 재고기준 조회   	                         	               				-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+		<![CDATA[
+	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtr*/
+	              APC_CD
+	             ,INVNTR_CRTR_TYPE
+	             ,CRTR_CD
+	             ,CRTR_VL
+	             ,CRTR_INDCT_NM
+	             ,INDCT_SEQ
+	             ,USE_YN
+	             ,DEL_YN
+	             ,SYS_FRST_INPT_DT
+	             ,SYS_FRST_INPT_USER_ID
+	             ,SYS_FRST_INPT_PRGRM_ID
+	             ,SYS_LAST_CHG_DT
+	             ,SYS_LAST_CHG_USER_ID
+	             ,SYS_LAST_CHG_PRGRM_ID
+	        FROM
+	        	TB_INVNTR_CRTR
+	        WHERE
+	            APC_CD = #{apcCd}
+	            AND DEL_YN = 'N'
+            ]]>
+                <if test='invntrCrtrType != null and invntrCrtrType != ""'>
+                    AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+                </if>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr		-->
+    <!-- DESC : 재고기준 등록   	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <insert id="insertInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    	<![CDATA[
+    		INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtr*/
+    		INTO TB_INVNTR_CRTR(
+    			 APC_CD
+    			,INVNTR_CRTR_TYPE
+    			,CRTR_CD
+    			,CRTR_VL
+    			,CRTR_INDCT_NM
+    			,INDCT_SEQ
+    			,USE_YN
+    			,DEL_YN
+				,SYS_FRST_INPT_DT
+				,SYS_FRST_INPT_USER_ID
+				,SYS_FRST_INPT_PRGRM_ID
+				,SYS_LAST_CHG_DT
+				,SYS_LAST_CHG_USER_ID
+				,SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+				 #{apcCd}
+				,#{invntrCrtrType}
+				,#{crtrCd}
+				,#{crtrVl}
+				,#{crtrIndctNm}
+				,#{indctSeq}
+				,#{useYn}
+				,'N'
+				,SYSDATE
+				,#{sysFrstInptUserId}
+				,#{sysFrstInptPrgrmId}
+				,SYSDATE
+				,#{sysLastChgUserId}
+				,#{sysLastChgPrgrmId}
+			)
+    	]]>
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtr		-->
+    <!-- DESC : 재고기준 변경   	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="updateInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+       <![CDATA[
+            UPDATE
+                TB_INVNTR_CRTR SET
+                    CRTR_VL =#{crtrVl}
+                    ,CRTR_INDCT_NM = #{crtrIndctNm}
+                    ,INDCT_SEQ = #{indctSeq}
+                    ,USE_YN = #{useYn}
+                    ,SYS_LAST_CHG_DT = SYSDATE
+                    ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                    ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+                WHERE
+                    APC_CD = #{apcCd}
+            ]]>
+                <if test='invntrCrtrType != null and invntrCrtrType != ""'>
+                    AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+                </if>
+                <if test='crtrCd != null and crtrCd != ""'>
+                    AND CRTR_CD = #{crtrCd}
+                </if>
+
+
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtr		-->
+    <!-- DESC : 재고기준 삭제   	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="deleteInvntrCrtr" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+       <![CDATA[
+        UPDATE
+            TB_INVNTR_CRTR SET
+                             DEL_YN = 'Y'
+                             ,SYS_LAST_CHG_DT = SYSDATE
+                             ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                             ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+        WHERE
+            APC_CD = #{apcCd}
+            AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+            AND CRTR_CD = #{crtrCd}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl		-->
+    <!-- DESC : 재고기준 조회   	                         	               				-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+        <![CDATA[
+	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrCrtrDtl*/
+	              APC_CD
+	             ,INVNTR_CRTR_TYPE
+	             ,CRTR_CD
+	             ,DTL_SN
+	             ,DTL_CD
+	             ,DTL_VL
+	             ,DTL_INDCT_NM
+	             ,INDCT_SEQ
+	             ,USE_YN
+	             ,DEL_YN
+	             ,SYS_FRST_INPT_DT
+	             ,SYS_FRST_INPT_USER_ID
+	             ,SYS_FRST_INPT_PRGRM_ID
+	             ,SYS_LAST_CHG_DT
+	             ,SYS_LAST_CHG_USER_ID
+	             ,SYS_LAST_CHG_PRGRM_ID
+	        FROM
+	        	TB_INVNTR_CRTR_DTL
+	        WHERE
+	            APC_CD = #{apcCd}
+	            AND DEL_YN = 'N'
+            ]]>
+        <if test='invntrCrtrType != null and invntrCrtrType != ""'>
+            AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+        </if>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl		-->
+    <!-- DESC : 재고기준 상세 등록   	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <insert id="insertInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    	<![CDATA[
+        INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrCrtrDtl*/
+        INTO TB_INVNTR_CRTR_DTL(
+                            APC_CD
+                           ,INVNTR_CRTR_TYPE
+                           ,CRTR_CD
+                           ,DTL_SN
+                           ,DTL_CD
+                           ,DTL_VL
+                           ,DTL_INDCT_NM
+                           ,INDCT_SEQ
+                           ,USE_YN
+                           ,DEL_YN
+                           ,SYS_FRST_INPT_DT
+                           ,SYS_FRST_INPT_USER_ID
+                           ,SYS_FRST_INPT_PRGRM_ID
+                           ,SYS_LAST_CHG_DT
+                           ,SYS_LAST_CHG_USER_ID
+                           ,SYS_LAST_CHG_PRGRM_ID
+        ) VALUES (
+                 #{apcCd}
+                 ,#{invntrCrtrType}
+                 ,#{crtrCd}
+                 ,#{dtlSn}
+                 ,#{dtlCd}
+                 ,#{dtlVl}
+                 ,#{dtlIndctNm}
+                 ,#{indctSeq}
+                 ,#{useYn}
+                 ,'N'
+                 ,SYSDATE
+                 ,#{sysFrstInptUserId}
+                 ,#{sysFrstInptPrgrmId}
+                 ,SYSDATE
+                 ,#{sysLastChgUserId}
+                 ,#{sysLastChgPrgrmId}
+                 )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrCrtrDtl		-->
+    <!-- DESC : 재고기준 상세 변경   	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="updateInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+        <![CDATA[
+            UPDATE
+                TB_INVNTR_CRTR_DTL SET
+                    DTL_SN =#{dtlSn}
+                    ,DTL_CD = #{dtlCd}
+                    ,DTL_VL = #{dtlVl}
+                    ,DTL_INDCT_NM = #{dtlIndctNm}
+                    ,INDCT_SEQ = #{indctSeq}
+                    ,USE_YN = #{useYn}
+                    ,SYS_LAST_CHG_DT = SYSDATE
+                    ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                    ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+                WHERE
+                    APC_CD = #{apcCd}
+            ]]>
+        <if test='invntrCrtrType != null and invntrCrtrType != ""'>
+            AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+        </if>
+        <if test='crtrCd != null and crtrCd != ""'>
+            AND CRTR_CD = #{crtrCd}
+        </if>
+
+
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrCrtrDtl	-->
+    <!-- DESC : 재고기준 상세 삭제   	                         	                	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="deleteInvntrCrtrDtl" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+       <![CDATA[
+        UPDATE
+            TB_INVNTR_CRTR_DTL SET
+            DEL_YN = 'Y'
+             ,SYS_LAST_CHG_DT = SYSDATE
+             ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+             ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+        WHERE
+            APC_CD = #{apcCd}
+              AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+              AND CRTR_CD = #{crtrCd}
+              AND DTL_SN = #{dtlSn}
+        ]]>
+    </update>
+
+
+
+</mapper>
