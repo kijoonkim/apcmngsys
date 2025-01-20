@@ -266,7 +266,7 @@
 								></sbux-input>
 							</td>
 							<td class="td_input">
-								<sbux-input uitype="hidden" id="dtl-input-apoCd" name="dtl-input-trmtAmtTot"></sbux-input>
+								<sbux-input uitype="hidden" id="dtl-input-trmtAmtTot" name="dtl-input-trmtAmtTot"></sbux-input>
 								<sbux-input
 									uitype="text"
 									id="dtl-input-crtrAmt"
@@ -494,13 +494,13 @@
 			/* 온라인도매시장 판매목표 */
 			let item = data.resultMap;
 			if(data.resultMap != null){
-				SBUxMethod.set('dtl-input-trgtTrmtAmt',item.trgtTrmtAmt);
-				SBUxMethod.set('dtl-input-consignTrgtAmt',item.consignTrgtAmt);
-				//SBUxMethod.set('dtl-input-consignCrtdTrgtAmt',item.consignCrtdTrgtAmt);
-				//SBUxMethod.set('dtl-input-totTrgtTrmtAmt',item.totTrgtTrmtAmt);
-				SBUxMethod.set('dtl-input-uoTotTrgtTrmtAmt',item.uoTotTrgtTrmtAmt);
-				SBUxMethod.set('dtl-input-trmtAmtTot',item.trmtAmtTot);
-				SBUxMethod.set('dtl-input-crtrAmt',item.crtrAmt);
+				SBUxMethod.set('dtl-input-trgtTrmtAmt',gfn_nvl(item.trgtTrmtAmt));
+				SBUxMethod.set('dtl-input-consignTrgtAmt',gfn_nvl(item.consignTrgtAmt));
+				//SBUxMethod.set('dtl-input-consignCrtdTrgtAmt',gfn_nvl(item.consignCrtdTrgtAmt));
+				//SBUxMethod.set('dtl-input-totTrgtTrmtAmt',gfn_nvl(item.totTrgtTrmtAmt));
+				SBUxMethod.set('dtl-input-uoTotTrgtTrmtAmt',gfn_nvl(item.uoTotTrgtTrmtAmt));
+				SBUxMethod.set('dtl-input-trmtAmtTot',gfn_nvl(item.trmtAmtTot));
+				SBUxMethod.set('dtl-input-crtrAmt',gfn_nvl(item.crtrAmt));
 				//SBUxMethod.set('dtl-input-trgtTrmtRt',item.trgtTrmtRt);
 			}
 			fn_calTotRt();
@@ -523,6 +523,7 @@
 							,consignTrmtAmt: item.consignTrmtAmt
 
 							,trmtAmtTot: item.trmtAmtTot
+							,consignTrmtAmtTot: item.consignTrmtAmtTot
 
 							,delYn: item.delYn
 					}
@@ -613,8 +614,6 @@
 		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 			let rowData = objGrid.getRowData(i);
 			let rowSts = objGrid.getRowStatus(i);
-			console.log(rowData);
-			console.log(rowData.delYn == 'N',rowData.delYn === 'N');
 			if(rowData.delYn === 'N'){
 				rowData.uoBrno = brno;
 
@@ -686,6 +685,8 @@
 		consignTrgtAmt = gfn_isEmpty(consignTrgtAmt) ? 0 : consignTrgtAmt;
 		uoTotTrgtTrmtAmt = gfn_isEmpty(uoTotTrgtTrmtAmt) ? 0 : uoTotTrgtTrmtAmt;
 
+		SBUxMethod.set('dtl-input-uoTotTrgtTrmtAmt',uoTotTrgtTrmtAmt);
+
 		//위탁판매 인정 목표액 = 위탁판매 목표액 의 80%
 		let consignCrtdTrgtAmt = (parseFloat(consignTrgtAmt) * 0.8).toFixed(0) ;
 		SBUxMethod.set('dtl-input-consignCrtdTrgtAmt',consignCrtdTrgtAmt);
@@ -733,7 +734,7 @@
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.explorerbar = 'sort';//정렬
-		SBGridProperties.fixedrowheight=35;
+		SBGridProperties.fixedrowheight=88;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -773,6 +774,10 @@
 			},
 			{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
 				,calc : 'fn_trmtAmtTot'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["참고\n*온라인도매시장 판매 확대\n목표 산출시 적용될 판매실적\n(직접판매100%,위탁판매80%\n고려 실적)(K)"],	ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'
+				,calc : 'fn_consignTrmtAmtTot'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
 
@@ -842,6 +847,22 @@
 			sumVal = "";
 		}else{
 			sumVal = Number(gfn_nvl(rowData.trmtAmt)) + Number(gfn_nvl(rowData.consignTrmtAmt));
+		}
+		return sumVal;
+	}
+
+	//출하실적 참고 판매실적
+	function fn_consignTrmtAmtTot(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = 0;
+		//추가를 위한 row제외
+		if(nRow == (jsonOnln.length-1)){
+			sumVal = "";
+		}else{
+			let treatmentAmount = parseFloat(rowData.trmtAmt) || 0;
+			let consignmentAmount = parseFloat(rowData.consignTrmtAmt) || 0;
+			let adjustedConsignmentAmount = consignmentAmount * 0.8;
+			sumVal = treatmentAmount + Math.round(adjustedConsignmentAmount);
 		}
 		return sumVal;
 	}
