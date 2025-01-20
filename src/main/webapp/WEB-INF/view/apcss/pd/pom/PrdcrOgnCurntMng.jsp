@@ -32,9 +32,9 @@
 					 -->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '2'}">
+					<!--
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
-					<!--
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
 					<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 하위 농가리스트 출력" onclick="fn_report4"></sbux-button>
 					-->
@@ -294,10 +294,10 @@
 					<!-- 생산자 조직 리스트 -->
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
 						<div style="margin-left: auto;">
-							<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
+							<sbux-button id="btnSearchFclt11" name="btnSearchFclt11" uitype="normal" text="생산자조직 조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch01"></sbux-button>
 							<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 							<c:if test="${loginVO.userType ne '02'}">
-								<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
+								<sbux-button id="btnSaveFclt11" name="btnSaveFclt11" uitype="normal" text="생산자조직 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList01"></sbux-button>
 							</c:if>
 							<!--
 							<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="생산자조직 출력" onclick="fn_report2"></sbux-button>
@@ -1914,7 +1914,9 @@
 			return;
 		}
 		*/
-
+		if(gfn_isEmpty(rowData.prdcrOgnzSn)){
+			return;
+		}
 		SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-crno01',gfn_nvl(rowData.crno))//법인등록번호
@@ -2163,10 +2165,11 @@
 
 		let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		if(gfn_isEmpty(itemCd)){return;}
+		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
+		if(gfn_isEmpty(prdcrOgnzSn)){return;}
 
 		let apoCd = SBUxMethod.get('dtl-input-apoCd');
 
-		let prdcrOgnzSn = SBUxMethod.get('dtl-input-prdcrOgnzSn');
 		let yr = SBUxMethod.get('dtl-input-yr');
 		//let itemCd = SBUxMethod.get('dtl-input-itemCd');
 		//let trmtType = SBUxMethod.get('dtl-input-trmtType');
