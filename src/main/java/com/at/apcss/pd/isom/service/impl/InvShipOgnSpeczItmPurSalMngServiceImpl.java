@@ -166,15 +166,16 @@ public class InvShipOgnSpeczItmPurSalMngServiceImpl extends BaseServiceImpl impl
 			}
 			savedCnt += insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO);
 		}
+		InvShipOgnSpeczItmPurSalMngVO tmprStrgVo = new InvShipOgnSpeczItmPurSalMngVO();
+		tmprStrgVo.setYr(yrVal);
+		tmprStrgVo.setBrno(brnoVal);
+		tmprStrgVo.setUoBrno(uoBrnoVal);
+		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
+		InvShipOgnSpeczItmPurSalMngMapper.updateTempSaveAps(tmprStrgVo);
+		InvShipOgnSpeczItmPurSalMngMapper.updateTempSavePst(tmprStrgVo);
+
 		//임시저장인 경우 적합여부 체크 하지 않음
 		if("Y".equals(tmprStrgYnVal)) {
-			InvShipOgnSpeczItmPurSalMngVO tmprStrgVo = new InvShipOgnSpeczItmPurSalMngVO();
-			tmprStrgVo.setYr(yrVal);
-			tmprStrgVo.setBrno(brnoVal);
-			tmprStrgVo.setUoBrno(uoBrnoVal);
-			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
-			InvShipOgnSpeczItmPurSalMngMapper.updateTempSaveAps(tmprStrgVo);
-			InvShipOgnSpeczItmPurSalMngMapper.updateTempSavePst(tmprStrgVo);
 			return savedCnt;
 		}
 

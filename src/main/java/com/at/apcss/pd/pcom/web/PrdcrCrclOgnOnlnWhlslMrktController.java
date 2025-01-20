@@ -136,4 +136,27 @@ public class PrdcrCrclOgnOnlnWhlslMrktController extends BaseController{
 		resultMap.put("resultCnt", resultCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//온라인도매시장 출하실적 저장
+	@PostMapping(value = "/pd/pcom/deleteOnlnDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteOnlnDtl(@RequestBody PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/pcom/multiSaveOnlnDtl.do >>> 호출 >>> ");
+
+		int resultCnt = 0;
+
+		try {
+			PrdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptPrgrmId(getPrgrmId());
+			PrdcrCrclOgnOnlnWhlslMrktVO.setSysFrstInptUserId(getUserId());
+			PrdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgPrgrmId(getPrgrmId());
+			PrdcrCrclOgnOnlnWhlslMrktVO.setSysLastChgUserId(getUserId());
+
+			resultCnt = PrdcrCrclOgnOnlnWhlslMrktService.deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("resultCnt", resultCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

@@ -84,4 +84,13 @@ public interface PrdcrCrclOgnOnlnWhlslMrktService {
 	 * @throws Exception
 	 */
 	public int multiSaveOnlnDtl(List<PrdcrCrclOgnOnlnWhlslMrktVO> PrdcrCrclOgnOnlnWhlslMrktVOList) throws Exception;
+
+	/**
+	 * 온라인도매시장 출하실적 정보를 삭제한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
 }

@@ -221,9 +221,16 @@
 				</table>
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>o 산지유통활성화자금 평가에 "온라인도매 확대 노력" 지표 신설로, 목표액 작성 필요</p>
-					<p> - '26년 자금배정 시에는 온라인도매시장 판매실적 중 직접판매 실적은 100%, 공판장, 도매법인 등을 통한 위탁판매 실적은 80% 인정</p>
-					<p> - 통합조직이 소속 출자출하조직의 직접판매 또는 위탁판매 목표액까지 확인하여 통합조직의(출자출하조직 목표액 포함) 총괄 목표액 작성</p>
-					<p> - 목표액에는 전문/육성품목 외 기타품목까지 원예농산물 취급실적 포함하여 입력</p>
+					<p>&nbsp;- '26년 자금배정 시에는 온라인도매시장 판매실적 중 직접판매 실적은 100%, 공판장, 도매법인 등을 통한 위탁판매 실적은 80% 인정</p>
+					<p>&nbsp;- 통합조직이 소속 출자출하조직의 직접판매 또는 위탁판매 목표액까지 확인하여 통합조직의(출자출하조직 목표액 포함) 총괄 목표액 작성</p>
+					<p>&nbsp;- 목표액에는 전문/육성품목 외 기타품목까지 원예농산물 취급실적 포함하여 입력</p>
+
+					<p>o 온라인도매시장 확대 노력 산식 : (내년도 온라인도매시장 판매액 목표-금년도 판매액(또는 기준거래액)) ÷ 금년도 판매액(또는 기준거래액) × 100</p>
+					<p>&nbsp;* 판매액 : 온라인도매시장 직접 판매액(100%), 위탁 판매액(80%)</p>
+					<p>&nbsp;* 기준거래액 : 생산유통통합조직의 금년도 전문품목 총취급액의 2%</p>
+					<p>&nbsp;- 금년도 판매액이 기준거래액 미만인 경우 금년도 판매액이 아닌 기준거래액 적용</p>
+					<p>&nbsp;- (사례1 K&lt;E):(C-E)/E*100</p>
+					<p>&nbsp;- (사례2 K&gt;E):(C-K)/K*100</p>
 				</div>
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
@@ -233,7 +240,6 @@
 			</div>
 		</div>
 	</section>
-
 </body>
 <script type="text/javascript">
 
@@ -590,10 +596,10 @@
 			{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["조직선택"],		ref: 'brno',	type:'combo',  width:'200px',	style:'text-align:center'
-				,typeinfo : {ref:'jsonOgnz', label:'label', value:'value', displayui : true}},
+				,typeinfo : {ref:'jsonOgnz', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
 			{caption: ["품목명"],		ref: 'itemCd',	type:'combo',  width:'100px',	style:'text-align:center'
-				,typeinfo : {ref:'jsonItem', label:'label', value:'value', displayui : true
+				,typeinfo : {ref:'jsonItem', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'
 					,filtering: { usemode: true, uppercol: 'brno', attrname: 'brno', listall: false}}
 			},
 			{caption: ["부류"],		ref: 'clsfNm',	type:'output',  width:'80px',	style:'text-align:center'},
@@ -794,16 +800,17 @@
 	}
 
 	//생산자조직 리스트 선택 데이터 삭제
-	async function fn_deleteRsrc(PrdcrOgnCurntMngVO){
-		return;
-		//prdcrOgnzSn 값 필수
-		//let postJsonPromise = gfn_postJSON("/pd/pom/deleteTbEvFrmhsApo.do", PrdcrOgnCurntMngVO);
+	async function fn_deleteRsrc(itemVO){
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/deleteOnlnDtl.do", itemVO);
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
-				alert("삭제 되었습니다.");
-			}else{
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+				fn_dtlSearch();
+			} else {
+				//alert(data.resultMessage);
 				alert("삭제 도중 오류가 발생 되었습니다.");
 			}
 		}catch (e) {
