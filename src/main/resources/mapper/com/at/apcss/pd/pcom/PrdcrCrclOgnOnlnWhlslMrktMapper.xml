@@ -346,9 +346,9 @@
 	<!-- 온라인도매시장 출하실적 삭제 처리 -->
 	<delete id="deleteOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
 		<![CDATA[
-		DELETE FROM TB_EV_ONLN_WHLSL_MRKT_DTL	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.insertOnlnDtl */
+		DELETE FROM TB_EV_ONLN_WHLSL_MRKT_DTL	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.deleteOnlnDtl */
 		 WHERE 1=1
-		   WMD.YR			= #{yr}
+		   AND YR			= #{yr}
 		   AND BRNO			= #{brno}
 		   AND UO_BRNO		= #{uoBrno}
 		   AND ITEM_CD		= #{itemCd}
