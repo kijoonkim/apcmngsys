@@ -299,7 +299,7 @@
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
             },
-            {caption: ["지급확정여부"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
+            {caption: ["지급확정여부"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '80px'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
@@ -314,7 +314,16 @@
                 }
                 , disabled: true
             },
-            {caption: ["근무기준일"],       ref: 'WORK_DATE', 		type:'output',  	width:'180px',  	style:'text-align:left'},
+            {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
+            {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
+                typeinfo: {dateformat: 'yyyy-mm-dd'},
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , disabled: true
+            },
             {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -334,7 +343,7 @@
             },
             {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["계좌번호"],         ref: 'BANK_ACCOUNT',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'combo',  	width:'75px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPayCycle',
@@ -901,7 +910,8 @@
                     const msg = {
                         PAY_CONFIRM_YN : gfn_nvl(item.CFMTN_YN2, 'N'),
                         PAY_DATE : gfn_nvl(item.PAY_YMD),
-                        WORK_DATE : gfn_nvl(item.WORK_DATE),
+                        WORK_ST_DAT : gfn_nvl(item.WRKDY_BGNG_YMD),
+                        WORK_END_DAT : gfn_nvl(item.WORK_END_YMD),
                         EARNER_CODE : gfn_nvl(item.EARNR_CD),
                         EARNER_NAME : gfn_nvl(item.EARNR_NM),
                         SITE_CODE : gfn_nvl(item.SITE_CD),
@@ -912,7 +922,7 @@
                         WORK_REGION : gfn_nvl(item.WORK_RGN_CD),
                         BANK_CODE : gfn_nvl(item.BANK_CD),
                         BANK_NAME : gfn_nvl(item.BANK_NM),
-                        BANK_ACC : gfn_nvl(item.BANK_ACC_REAL),
+                        BANK_ACC : gfn_nvl(item.BACNT_NO),
                         PAY_CYCLE : gfn_nvl(item.PAY_CYCL),
                         TEL : gfn_nvl(item.MOBL_NO),
                         MEMO : gfn_nvl(item.MEMO),
