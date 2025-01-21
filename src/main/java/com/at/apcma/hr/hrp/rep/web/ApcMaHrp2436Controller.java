@@ -1,5 +1,6 @@
 package com.at.apcma.hr.hrp.rep.web;
 
+import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
 import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.http.MediaType;
@@ -37,6 +38,9 @@ public class ApcMaHrp2436Controller extends BaseController {
     @Resource(name= "apcMaCommDirectService")
     private ApcMaCommDirectService apcMaCommDirectService;
 
+    @Resource(name= "apcMaComService")
+    private ApcMaComService apcMaComService;
+    
     // 급여명세서 메일발송 조회
     @PostMapping(value = "/hr/hrp/rep/selectHrp2436List.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
     public ResponseEntity<HashMap<String, Object>> selectHrp2436List(
@@ -134,8 +138,10 @@ public class ApcMaHrp2436Controller extends BaseController {
 
         try {
 
-            param.put("procedure", "SP_COM_TRSM_SMS");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        	resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP2436_S3");
+        	
+//            param.put("procedure", "SP_HRP2436_S3");
+//            resultMap = apcMaComService.processForListData(param, session, request, "");
 
         } catch (Exception e) {
             
