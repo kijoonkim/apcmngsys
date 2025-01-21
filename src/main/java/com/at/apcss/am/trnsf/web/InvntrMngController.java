@@ -1,5 +1,6 @@
 package com.at.apcss.am.trnsf.web;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -124,6 +125,63 @@ public class InvntrMngController extends BaseController {
 			invntrMngVO.setSysLastChgUserId(getUserId());
 			invntrMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			result =invntrMngService.deleteInvntrCrtrDtl(invntrMngVO);
+		}catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST,result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/trnsf/selectInvntrApcBss.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectInvntrApcBss (@RequestBody InvntrMngVO invntrMngVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<InvntrMngVO> resultList = invntrMngService.selectInvntrApcBss(invntrMngVO);
+		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/trnsf/insertInvntrApcBss.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertInvntrApcBss (@RequestBody List<InvntrMngVO> bssInvntrList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result;
+		try {
+			for( InvntrMngVO invntrMngVO : bssInvntrList) {
+				invntrMngVO.setSysFrstInptUserId(getUserId());
+				invntrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				invntrMngVO.setSysLastChgUserId(getUserId());
+				invntrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+			result =invntrMngService.insertInvntrApcBss(bssInvntrList);
+		}catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST,result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/trnsf/deleteInvntrApcBss.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteInvntrApcBss (@RequestBody InvntrMngVO invntrMngVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result;
+		try {
+			invntrMngVO.setSysLastChgUserId(getUserId());
+			invntrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			result =invntrMngService.deleteInvntrApcBss(invntrMngVO);
 		}catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {

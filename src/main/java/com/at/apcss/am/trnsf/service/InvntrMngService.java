@@ -53,4 +53,28 @@ public interface InvntrMngService {
 	 * @throws Exception
 	 */
 	public int deleteInvntrCrtrDtl(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 조회
+	 * @param invntrMngVO
+	 * @return List<InvntrMngVO>
+	 * @throws Exception
+	 */
+	public List<InvntrMngVO> selectInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 등록
+	 * @param invntrCrtrList
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertInvntrApcBss(List<InvntrMngVO> bssInvntrList) throws Exception;
+
+	/**
+	 * 기초재고 삭제
+	 * @param invntrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
 }

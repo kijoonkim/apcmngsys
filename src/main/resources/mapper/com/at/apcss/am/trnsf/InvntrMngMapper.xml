@@ -299,6 +299,162 @@
         ]]>
     </update>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss		-->
+    <!-- DESC : 기초재고 조회   	                         	               				-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO" resultType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+        <![CDATA[
+	        SELECT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.selectInvntrApcBss*/
+                APC_CD
+	            ,INVNTR_SE_CD
+	            ,INVNTR_YMD
+	            ,INVNTR_SN
+	            ,PRDCR_CD
+	            ,ITEM_CD
+	            ,VRTY_CD
+	            ,ITEM_CD || VRTY_CD AS ITEM_VRTY_CD
+	            ,GRD_CD
+	            ,SPCFCT_CD
+	            ,SPMT_PCKG_UNIT_CD
+	            ,GDS_SE_CD
+	            ,WRHS_SE_CD
+	            ,WAREHOUSE_SE_CD
+	            ,BSS_QNTT
+	            ,BSS_WGHT
+	            ,DEL_YN
+	            ,SYS_FRST_INPT_DT
+	            ,SYS_FRST_INPT_USER_ID
+                ,SYS_FRST_INPT_PRGRM_ID
+                ,SYS_LAST_CHG_DT
+                ,SYS_LAST_CHG_USER_ID
+                ,SYS_LAST_CHG_PRGRM_ID
+	        FROM
+	        	TB_INVNTR_APC_BSS
+	        WHERE
+	            APC_CD = #{apcCd}
+	            AND DEL_YN = 'N'
+            ]]>
+        <if test='invntrSeCd != null and invntrSeCd != ""'>
+            AND INVNTR_SE_CD = #{invntrSeCd}
+        </if>
+        <if test='invntrYmd != null and invntrYmd != ""'>
+            AND INVNTR_YMD = #{invntrYmd}
+        </if>
 
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss		-->
+    <!-- DESC : 재고기준 등록  	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <insert id="insertInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+    	<![CDATA[
+        INSERT /*com.at.apcss.am.trnsf.mapper.InvntrMngMapper.insertInvntrApcBss*/
+        INTO TB_INVNTR_APC_BSS(
+                APC_CD
+               ,INVNTR_SE_CD
+               ,INVNTR_YMD
+               ,INVNTR_SN
+               ,ITEM_CD
+               ,VRTY_CD
+               ,WAREHOUSE_SE_CD
+               ,BSS_QNTT
+               ,BSS_WGHT
+               ,DEL_YN
+               ,SYS_FRST_INPT_DT
+               ,SYS_FRST_INPT_USER_ID
+               ,SYS_FRST_INPT_PRGRM_ID
+               ,SYS_LAST_CHG_DT
+               ,SYS_LAST_CHG_USER_ID
+               ,SYS_LAST_CHG_PRGRM_ID
+        ) VALUES (
+                 #{apcCd}
+                 ,#{invntrSeCd}
+                 ,#{invntrYmd}
+                 ,#{invntrSn}
+                 ,#{itemCd}
+                 ,#{vrtyCd}
+                 ,#{warehouseSeCd}
+                 ,#{bssQntt}
+                 ,#{bssWght}
+                 ,'N'
+                 ,SYSDATE
+                 ,#{sysFrstInptUserId}
+                 ,#{sysFrstInptPrgrmId}
+                 ,SYSDATE
+                 ,#{sysLastChgUserId}
+                 ,#{sysLastChgPrgrmId}
+                 )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.deleteInvntrApcBss		-->
+    <!-- DESC : 재고기준 삭제  	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+
+    <update id="deleteInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+        UPDATE TB_INVNTR_APC_BSS
+        SET
+            DEL_YN = 'Y'
+            ,SYS_LAST_CHG_DT = SYSDATE
+            ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+            ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+        WHERE
+            APC_CD = #{apcCd}
+            AND INVNTR_SE_CD = #{invntrSeCd}
+            AND INVNTR_YMD = #{invntrYmd}
+            AND INVNTR_SN = #{invntrSn}
+    </update>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.trnsf.mapper.InvntrMngMapper.updateInvntrApcBss		-->
+    <!-- DESC : 기초재고 변경  	                         	                			-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 			  	        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="updateInvntrApcBss" parameterType="com.at.apcss.am.trnsf.vo.InvntrMngVO">
+        <![CDATA[
+            UPDATE TB_INVNTR_APC_BSS
+                 SET
+                    BSS_QNTT = #{bssQntt}
+                    ,BSS_WGHT = #{bssWght}
+                    ,SYS_LAST_CHG_DT = SYSDATE
+                    ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                    ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+                WHERE
+                    APC_CD = #{apcCd}
+            ]]>
+        <if test='invntrSeCd != null and invntrSeCd != ""'>
+            AND INVNTR_SE_CD = #{invntrSeCd}
+        </if>
+        <if test='invntrYmd != null and invntrYmd != ""'>
+            AND INVNTR_YMD = #{invntrYmd}
+        </if>
+        <if test='invntrSn != null and invntrSn != ""'>
+            AND INVNTR_SN = #{invntrSn}
+        </if>
+
+
+    </update>
 
 </mapper>

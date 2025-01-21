@@ -72,4 +72,36 @@ public interface InvntrMngMapper {
 	 * @throws Exception
 	 */
 	public int deleteInvntrCrtrDtl(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 조회
+	 * @param invntrMngVO
+	 * @return List<InvntrMngVO>
+	 * @throws Exception
+	 */
+	public List<InvntrMngVO> selectInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 등록
+	 * @param invntrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int insertInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 변경
+	 * @param invntrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
+
+	/**
+	 * 기초재고 삭제
+	 * @param invntrMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int deleteInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception;
 }

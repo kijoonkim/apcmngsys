@@ -102,4 +102,91 @@ public class InvntrMngVO extends ComVO{
 	 구분
 	 **/
 	private String gubun;
+
+	/**
+	 * 재고 구분 코드
+	 */
+	private String invntrSeCd;
+
+	/**
+	 * 재고 일자
+	 */
+	private String invntrYmd;
+
+	/**
+	 * 재고 순번
+	 */
+	private int invntrSn;
+
+	/**
+	 * 생산자 코드
+	 */
+	private String prdcrCd;
+
+	/**
+	 * 품목 코드
+	 */
+	private String itemCd;
+
+	/**
+	 * 품종 코드
+	 */
+	private String vrtyCd;
+
+	/**
+	 * 등급 코드
+	 */
+	private String grdCd;
+
+	/**
+	 * 규격 코드
+	 */
+	private String spcfctCd;
+
+	/**
+	 * 출하 포장 단위 코드
+	 */
+	private String spmtPckgUnitCd;
+
+	/**
+	 * 상품 구분 코드
+	 */
+	private String gdsSeCd;
+
+	/**
+	 * 입고 구분 코드
+	 */
+	private String wrhsSeCd;
+
+	/**
+	 * 창고 구분 코드
+	 */
+	private String warehouseSeCd;
+
+	/**
+	 * 기초 수량
+	 */
+	private int bssQntt;
+
+	/**
+	 * 기초 무게
+	 */
+	private int bssWght;
+
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
+
+	/**
+	 * 품목명
+	 */
+	private String vrtyNm;
+
+	/**
+	 * 품목품종코드
+	 */
+	private String itemVrtyCd;
+
+
 }
