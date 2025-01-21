@@ -103,7 +103,7 @@ public class ApcMaHrp2436Controller extends BaseController {
     	try {
     		
     		param.put("procedure", "SP_HRP2436_Q");
-    		resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+    		resultMap = apcMaCommDirectService.callProcRpt(param, session, request, "");
     		
     		//self url 편집
     		String f_path1 = request.getRequestURL().toString();

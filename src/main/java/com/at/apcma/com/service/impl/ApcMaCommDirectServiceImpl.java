@@ -560,5 +560,109 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 		ScriptEngine engine = new ScriptEngineManager().getEngineByName("JavaScript");
 		return engine.eval(expression); // 계산 결과 반환
 	}
+	
+	
+	public HashMap<String, Object> callProcRpt(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
+
+		HashMap<String, Object> rmap = new HashMap<String, Object>();
+		try {
+			HashMap<String, Object> map1 = this.InnerCallProcRpt(param, session, request, ptype);
+			rmap = this.checkError(map1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
+			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
+			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
+		}
+		return rmap;
+	}
+
+	private HashMap<String, Object> InnerCallProcRpt(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception{
+
+		HashMap<String, Object> rmap 	= new HashMap<String, Object>();
+		Map<String, Object> ssmap 		= new HashMap<String, Object>();
+
+		try {
+
+			String[] params = null;
+			int cnt 		= 0;
+
+			if(request.getMethod().equals("POST")) {
+				//post type
+				if(ptype.equals("")) {
+					params = param.get("params").toString().split(",", -1);
+				} else {
+					params = (String[])param.get("params");
+				}
+
+			} else {
+				//get type
+				String temp1 	= param.get("params").toString();
+				if(temp1!=null && !temp1.equals("")) {
+					String[] temp2	= temp1.split(",");
+					params = new String[temp2.length];
+					for (String temp3 : temp2) {
+						String[] temp4	= temp3.split(":");
+						if(temp4.length>1) {
+							params[cnt] = temp4[1];
+						} else {
+							params[cnt] = "";
+						}
+						cnt ++;
+					}
+				}
+			}
+
+			// get ipAddress
+			String ipAddress = request.getHeader("X-Forwarded-For");
+			if (ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+
+			//강제주입 - 파라미터
+			params[0] = "";
+			params[1] = "";
+			params[params.length-3] = param.get("procedure").toString();
+			params[params.length-2] = "";
+			params[params.length-1] = ipAddress;
+
+			rmap.put("procedure", 		param.get("procedure"));
+			rmap.put("workType", 		param.get("workType"));
+			rmap.put("cv_count", 		param.get("cv_count"));
+
+			rmap.put("getType", 		param.get("getType"));
+			if(params!=null) {
+				rmap.put("params",		params);
+			}
+			rmap.put("v_errorCode", 	"");
+			rmap.put("v_rowCount", 		0);
+			rmap.put("v_errorNote", 	"");
+			rmap.put("v_returnStr", 	"");
+			rmap.put("v_errorStr", 		"");
+			rmap.put("v_errorState",	"");
+			rmap.put("v_errorProcedure","");
+			int cv_count = Integer.parseInt(param.get("cv_count").toString());
+
+			for (int i = 0; i < cv_count; i++) {
+				rmap.put("cv_" + (i + 1), new ArrayList<Map<String, Object>>());
+			}
+			this.callProcTibero(rmap);
+
+//			if(param.containsKey("convertLowerCase") && param.get("convertLowerCase").equals("Y")) {
+//				convertLowerCase(rmap);
+//			} else {
+//				convertCamelCase(rmap);
+//			}
+
+		} catch (Exception e) {
+			
+			rmap.put(ComConstants.PROP_RESULT_STATUS, 	"E");
+			rmap.put(ComConstants.PROP_RESULT_CODE, 	ComConstants.CON_BLANK);
+			rmap.put(ComConstants.PROP_RESULT_MESSAGE, 	"서버 에러입니다.");
+		}
+		return rmap;
+	}
+	
 
 }
