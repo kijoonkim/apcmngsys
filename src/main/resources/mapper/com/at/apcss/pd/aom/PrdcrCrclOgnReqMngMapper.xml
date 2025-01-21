@@ -657,14 +657,15 @@
 		MERGE INTO TB_EV_APO_YR_GPC_CD CLT  /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 		USING DUAL
 			ON (
-					CLT.APO_CD  	= #{apoCd}
+					CLT.BRNO  		= #{brno}
+				AND CLT.APO_SE		= #{apoSe}
 				AND CLT.YR  		= #{yr}
 				AND CLT.ITEM_CD  	= #{itemCd}
 				)
 		WHEN MATCHED THEN
 				 UPDATE /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.insertGpc */
 					SET
-						RMRK	= #{rmrk}
+						RMRK					= #{rmrk}
 						, CTGRY_CD 				= #{ctgryCd}
 						, CTGRY_NM 				= (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = #{ctgryCd})
 						, STTG_UPBR_ITEM_SE 	= #{sttgUpbrItemSe}
@@ -672,9 +673,13 @@
 						, CLSF_NM 				= (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = #{clsfCd})
 						, TRGT_TRMT_AMT			= #{trgtTrmtAmt}
 						, TRGT_TRMT_RT			= #{trgtTrmtRt}
+
 				]]>
 				<if test='delYn != null and delYn != ""'>
 						, DEL_YN 				= #{delYn}
+				</if>
+				<if test='uoBrno != null and uoBrno != ""'>
+						, UO_BRNO 				= #{uoBrno}
 				</if>
 				<![CDATA[
 						, SYS_LAST_CHG_DT		= SYSDATE
@@ -748,6 +753,7 @@
 				, CM.CORP_NM
 				, CM.BRNO
 				, CM.CRNO
+				, CM.UO_BRNO
 
 				, CM.YR
 				, CM.STTG_UPBR_ITEM_SE
@@ -1002,7 +1008,12 @@
 		WHERE 1=1
 		  AND DEL_YN = 'N'
 		  AND YR = #{yr}
-		  AND UO_BRNO = #{brno}
+		  AND (
+		  		UO_BRNO = #{brno}
+		  		OR
+		  		UO_BRNO IN (SELECT BRNO FROM TB_EV_BRNO_MNG WHERE BRNO != 0 AND MNG_NO IN (SELECT MNG_NO FROM TB_EV_BRNO_MNG WHERE BRNO = #{brno}))
+				)
+
 		ORDER BY OGNZ_TYPE_NM , CORP_NM
 	</select>
 
