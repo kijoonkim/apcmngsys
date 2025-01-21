@@ -101,4 +101,13 @@ public interface ApcMaCommDirectService {
 	 */
 	public HashMap<String, Object> checkNum(Map<String, Object> param) throws Exception;
 	
+	/**
+	 * 레포트에서 공통으로 처리하는 Service
+	 * @param request
+	 * @param rtype
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> callProcRpt(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype) throws Exception;
+
 }
