@@ -17,7 +17,6 @@ import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.InvntrAtrbService;
 import com.at.apcss.am.invntr.service.InvntrGrdService;
-import com.at.apcss.am.invntr.service.InvntrMngService;
 import com.at.apcss.am.invntr.service.InvntrService;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
