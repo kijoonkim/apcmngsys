@@ -882,7 +882,7 @@
 
 	//조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupOgnz = async function(event) {
-		console.log('dd');
+		//console.log('dd');
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
 		}
@@ -2361,7 +2361,6 @@
 
 			let rowData = grdGpcList.getRowData(i);
 			let rowSts = grdGpcList.getRowStatus(i);
-			//console.log(i+"행 상태값 : "+rowSts);
 
 			let delYn = rowData.delYn;
 

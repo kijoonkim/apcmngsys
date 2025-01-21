@@ -2258,10 +2258,6 @@
 				</c:if>
 				return "";
 			}},
-			{caption: ["통합조직코드"], 	ref: 'apoCd',   	hidden : true},
-			{caption: ["통합조직코드"], 	ref: 'apoSe',   	hidden : true},
-			{caption: ["통합조직코드"], 	ref: 'brno',   		hidden : true},
-			{caption: ["통합조직코드"], 	ref: 'yr',   		hidden : true},
 			/*
 			{caption: ["분류명"], 		ref: 'ctgryNm',   	type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["분류코드"], 		ref: 'ctgryCd',   	hidden : true},
@@ -2294,7 +2290,13 @@
 			{caption: [totStr + "\n전속취급률 목표(%)"], 	ref: 'trgtTrmtRt',   	type:'input',  width:'110px',	style:'text-align:center'
 				,format: {type: 'number', rule: '#,##0.00'}},
 			{caption: ["비고\n(품목명을 기타로 입력한 경우에는 세부 품목명 입력 필수)"], 			ref: 'rmrk',   			type:'input',  width:'150px',	style:'text-align:center'},
-			//{caption: ["품목코드"], 			ref: 'itemCd',   	hidden : true},
+
+			{caption: ["통합조직코드"], 	ref: 'apoCd',   			hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'apoSe',   			hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'brno',   				hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'uoBrno',   			hidden : true},
+			{caption: ["통합조직코드"], 	ref: 'yr',   				hidden : true},
+			//{caption: ["품목코드"], 	ref: 'itemCd',   			hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgCtgryCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'orgSttgUpbrItemSe',   hidden : true},
 		];
@@ -2455,6 +2457,7 @@
 						,apoCd: item.apoCd
 						,apoSe: item.apoSe
 						,brno: item.brno
+						,uoBrno: item.uoBrno
 
 						,clsfCd: item.clsfCd
 
@@ -2911,7 +2914,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log();
 			if(data.resultCnt > 0){
 				alert("선택 통합조직 신청정보가 삭제 되었습니다.");
 				fn_search();
