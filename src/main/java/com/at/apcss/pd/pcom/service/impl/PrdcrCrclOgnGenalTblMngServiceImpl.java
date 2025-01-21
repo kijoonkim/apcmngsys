@@ -187,4 +187,16 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVo);
 		return resultList;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnGenalTblMngVO> selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnGenalTblMngVO> selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO);
+		return resultList;
+	}
 }
