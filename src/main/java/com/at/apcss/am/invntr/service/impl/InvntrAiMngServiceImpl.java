@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.mapper.InvntrAiMngMapper;
-import com.at.apcss.am.invntr.mapper.InvntrMngMapper;
+import com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.InvntrAiMngService;
-import com.at.apcss.am.invntr.service.InvntrMngService;
+
 import com.at.apcss.am.invntr.service.InvntrService;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.service.SortInvntrService;

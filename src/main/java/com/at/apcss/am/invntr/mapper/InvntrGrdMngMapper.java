@@ -1,14 +1,15 @@
-package com.at.apcss.am.invntr.service;
+package com.at.apcss.am.invntr.mapper;
 
-import java.util.HashMap;
 import java.util.List;
+
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.invntr.vo.InvntrMngVO;
 
 /**
- * 재고관리 Service 인터페이스
- * @author 박승진
- * @since 2025.01.13
+ * 재고관리 Mapper 인터페이스
+ * @author 신정철
+ * @since 2023.06.21
  * @version 1.0
  * @see
  *
@@ -16,20 +17,18 @@ import com.at.apcss.am.invntr.vo.InvntrMngVO;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2025.01.13  박승진        최초 생성
+ * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-public interface InvntrMngService {
-
+@Mapper
+public interface InvntrGrdMngMapper {
 	/**
-	 * 재고 등급 조회
-	 * @param invntrVO
+	 * 재고관리조회
+	 *
+	 * @param InvntrMngVO
 	 * @return
 	 * @throws Exception
 	 */
 	public List<InvntrMngVO> selectInvntrGrdMng(InvntrMngVO invntrMngVO) throws Exception;
-
-
-
 
 }

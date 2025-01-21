@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.mapper.InvntrGrdMapper;
-import com.at.apcss.am.invntr.mapper.InvntrMngMapper;
+import com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper;
 import com.at.apcss.am.invntr.mapper.InvntrTypeMapper;
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
