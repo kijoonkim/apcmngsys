@@ -1013,6 +1013,21 @@
                             item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 && jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME).length > 0 ? jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME)[0]["SBSD_CD"] : '';
                             item.WORK_PLACE2 = jsonWorkPlace2.length > 0 && jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2).length > 0 ? jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2)[0]["SBSD_CD"] : '';
 
+                            item.WORK_CNT = gfn_nvl(item.WORK_CNT, 0);
+                            item.DAILY_PAY_AMT = gfn_nvl(item.DAILY_PAY_AMT, 0);
+                            item.ADJUSTMENT_AMT = gfn_nvl(item.ADJUSTMENT_AMT, 0);
+                            item.FUAL_AMT = gfn_nvl(item.FUAL_AMT, 0);
+                            item.ETC_COST = gfn_nvl(item.ETC_COST, 0);
+                            item.NON_TXABLE_AMT = gfn_nvl(item.NON_TXABLE_AMT, 0);
+                            item.INC_AMT = gfn_nvl(item.INC_AMT, 0);
+                            item.INC_TX_AMT = gfn_nvl(item.INC_TX_AMT, 0);
+                            item.LOCAL_TX_AMT = gfn_nvl(item.LOCAL_TX_AMT, 0);
+                            item.HEALTH_INSURE_AMT = gfn_nvl(item.HEALTH_INSURE_AMT, 0);
+                            item.LONG_HEALTH_INSURE_AMT = gfn_nvl(item.LONG_HEALTH_INSURE_AMT, 0);
+                            item.NATIONAL_PENS_AMT = gfn_nvl(item.NATIONAL_PENS_AMT, 0);
+                            item.EMPLOY_INSURE_AMT = gfn_nvl(item.EMPLOY_INSURE_AMT, 0);
+                            item.ETC_DED_AMT = gfn_nvl(item.ETC_DED_AMT, 0);
+
                             item.TOT_AMOUNT = Number((Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
                             item.EARNED_INC_AMT = Number(item.TOT_AMOUNT - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
                             item.TOT_DEDUCT_AMT = Number(Number(item.INC_TX_AMT) + Number(item.LOCAL_TX_AMT) + Number(item.HEALTH_INSURE_AMT)
@@ -1039,9 +1054,12 @@
                             item.NATION_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["HBTN_NTN_CD"] : '';
                             item.TXN_ID = 0;
 
+                            console.log(item);
                             gvwInfo.addRow(true, item);
                         });
 
+
+                        document.getElementById('excelFile').value = '';
                     })
                 },
                 false,
