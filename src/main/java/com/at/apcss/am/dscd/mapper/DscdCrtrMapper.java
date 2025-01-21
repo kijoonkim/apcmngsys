@@ -32,14 +32,6 @@ public interface DscdCrtrMapper {
 	public DscdCrtrVO selectDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
 
 	/**
-	 * 폐기기준 목록 조회
-	 * @param dscdCrtrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception;
-
-	/**
 	 * 폐기기준 상세 조회
 	 * @param dscdCrtrVO
 	 * @return
@@ -56,29 +48,12 @@ public interface DscdCrtrMapper {
 	public List<DscdCrtrVO> selectCrtrDtlListInUse(DscdCrtrVO dscdCrtrVO) throws Exception;
 
 	/**
-	 * 폐기기준 등록
-	 * @param dscdCrtrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public int insertDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
-
-	/**
 	 * 폐기기준 변경
 	 * @param dscdCrtrVO
 	 * @return
 	 * @throws Exception
 	 */
 	public int updateDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
-	
-	
-	/**
-	 * 폐기기준 삭제
-	 * @param dscdCrtrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public int deleteDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
 
 	/**
 	 * 폐기기준 상세 변경
@@ -88,6 +63,30 @@ public interface DscdCrtrMapper {
 	 */
 	public int updateDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
 
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 조회
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 추가
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public int insertDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 삭제
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public int deleteDscdCrtr(DscdCrtrVO dscdCrtrVO) throws Exception;
 
     /**
      * 폐기 기준 관리 - 폐기기준 상세정보 조회

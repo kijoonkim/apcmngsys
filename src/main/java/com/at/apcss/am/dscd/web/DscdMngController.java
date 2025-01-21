@@ -39,87 +39,6 @@ public class DscdMngController extends BaseController {
 
 	@Resource(name = "dscdCrtrService")
 	private DscdCrtrService dscdCrtrService;
-
-	// APC 폐기기준 조회
-	@PostMapping(value = "/am/dscd/selectDscdCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectDscdCrtrList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		List<DscdCrtrVO> resultList = new ArrayList<>();
-		
-		try {
-			resultList = dscdCrtrService.selectDscdCrtrList(dscdCrtrVO);
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-		}
-
-		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-		return getSuccessResponseEntity(resultMap);
-	}
-	
-	// APC 폐기기준 등록
-	@PostMapping(value = "/am/dscd/insertDscdCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertDscdCrtr(@RequestBody DscdMngVO dscdMngVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		try {
-			dscdMngVO.setSysFrstInptUserId(getUserId());
-			dscdMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			dscdMngVO.setSysLastChgUserId(getUserId());
-			dscdMngVO.setSysLastChgPrgrmId(getPrgrmId());
-			
-			HashMap<String, Object> rtnObj = dscdCrtrService.insertDscdCrtr(dscdMngVO);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-			
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-		}
-
-		return getSuccessResponseEntity(resultMap);
-	}
-	
-	// APC 폐기기준 삭제
-	@PostMapping(value = "/am/dscd/deleteDscdCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteDscdCrtr(@RequestBody DscdMngVO dscdMngVO, HttpServletRequest request) throws Exception {
-
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		try {
-			dscdMngVO.setSysFrstInptUserId(getUserId());
-			dscdMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			dscdMngVO.setSysLastChgUserId(getUserId());
-			dscdMngVO.setSysLastChgPrgrmId(getPrgrmId());
-			
-			HashMap<String, Object> rtnObj = dscdCrtrService.deleteDscdCrtr(dscdMngVO);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-			
-		} catch (Exception e) {
-			return getErrorResponseEntity(e);
-		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
-		}
-
-		return getSuccessResponseEntity(resultMap);
-	}
 	
 	// APC 폐기기준 상세 조회 (사용중)
 	@PostMapping(value = "/am/dscd/selectCrtrDtlListInUse.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -144,6 +63,87 @@ public class DscdMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+    // APC 폐기 기준 관리 - 폐기기준 목록 조회
+    @PostMapping(value = "/am/dscd/selectDscdCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectDscdCrtrList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<DscdCrtrVO> resultList = new ArrayList<>();
+
+        try {
+            resultList = dscdCrtrService.selectDscdCrtrList(dscdCrtrVO);
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // APC 폐기 기준 관리 - 폐기기준 목록 추가
+    @PostMapping(value = "/am/dscd/insertDscdCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> insertDscdCrtr(@RequestBody DscdMngVO dscdMngVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            dscdMngVO.setSysFrstInptUserId(getUserId());
+            dscdMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+            dscdMngVO.setSysLastChgUserId(getUserId());
+            dscdMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+            HashMap<String, Object> rtnObj = dscdCrtrService.insertDscdCrtr(dscdMngVO);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // APC 폐기 기준 관리 - 폐기기준 목록 삭제
+    @PostMapping(value = "/am/dscd/deleteDscdCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> deleteDscdCrtr(@RequestBody DscdMngVO dscdMngVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        try {
+            dscdMngVO.setSysFrstInptUserId(getUserId());
+            dscdMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+            dscdMngVO.setSysLastChgUserId(getUserId());
+            dscdMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+            HashMap<String, Object> rtnObj = dscdCrtrService.deleteDscdCrtr(dscdMngVO);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
 
     // APC 폐기 기준 관리 - 폐기기준 상세정보 조회
     @PostMapping(value = "/am/dscd/selectDscdCrtrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
@@ -306,23 +306,21 @@ public class DscdMngController extends BaseController {
     public ResponseEntity<HashMap<String, Object>> deleteDscdPrfmncList(@RequestBody List<DscdCrtrVO> dscdPrfmncList, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-        for(DscdCrtrVO dscdCrtrVO : dscdPrfmncList) {
-            try {
-                HashMap<String, Object> rtnObj = dscdCrtrService.deleteDscdPrfmncList(dscdCrtrVO);
-
-                if (rtnObj != null) {
-                    return getErrorResponseEntity(rtnObj);
+        try {
+            dscdPrfmncList.forEach(item ->{
+                try {
+                    dscdCrtrService.deleteDscdPrfmncList(item);
+                } catch (Exception e) {
+                    logger.debug(ComConstants.ERROR_CODE, e.getMessage());
                 }
-            } catch (Exception e) {
-                logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            });
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
 
-                return getErrorResponseEntity(e);
-            } finally {
-                HashMap<String, Object> rtnObj = setMenuComLog(request);
-
-                if (rtnObj != null) {
-                    return getErrorResponseEntity(rtnObj);
-                }
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
             }
         }
 

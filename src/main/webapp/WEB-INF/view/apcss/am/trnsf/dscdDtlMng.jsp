@@ -34,14 +34,6 @@
                 <%--/** 상단 버튼 **/--%>
                 <div style="margin-left: auto;">
                     <sbux-button
-                        id="btnSave"
-                        name="btnSave"
-                        uitype="normal"
-                        class="btn btn-sm btn-outline-danger"
-                        text="저장"
-                        onclick="fn_save"
-                    ></sbux-button>
-                    <sbux-button
                         id="btnDelete"
                         name="btnDelete"
                         uitype="normal"
@@ -234,12 +226,17 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {
-                caption: ["<input type='checkbox' onchange='fn_checkAll(gridDscdPrfmnc, this);'>"],
+                caption: [""],
                 ref: 'checkedYn',
+                type: 'checkbox',
                 width: '3%',
                 style: 'text-align: center',
-                type: 'checkbox',
                 typeinfo: {
+                    ignoreupdate: true,
+                    fixedcellcheckbox: {
+                        usemode: true,
+                        rowindex: 0
+                    },
                     checkedvalue: 'Y',
                     uncheckedvalue: 'N'
                 }
@@ -305,21 +302,6 @@
     }
 
     /**
-     * @name fn_checkAll
-     * @description 그리드 체크박스, 전체 선택
-     */
-    const fn_checkAll = function(grid, obj) {
-        const checkedYn = obj.checked ? "Y" : "N";
-        //체크박스 열 index
-        const getColRef = grid.getColRef("checkedYn");
-
-        for(var i = 0; i < grid.getGridDataAll().length; i++){
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
-        }
-        grid.refresh();
-    }
-
-    /**
      * @name fn_search
      * @description 폐기 실적 목록 조회 버튼
      */
@@ -342,48 +324,40 @@
             return;
         }
 
-        if(data.resultList.length > 0) {
-            jsonDscdPrfmnc = data.resultList;
-            gridDscdPrfmnc.rebuild();
-        }
+        jsonDscdPrfmnc = data.resultList;
+        gridDscdPrfmnc.rebuild();
     }
 
     /**
      * @name fn_delete
      * @description 폐기 실적 목록 삭제 버튼
      */
-    const fn_delete = async function() {
-        const dscdPrfmncList = [];
-        const allData = gridDscdPrfmnc.getGridDataAll();
+    const fn_delete = async function(){
+        let allData = gridDscdPrfmnc.getGridDataAll();
+        let dscdPrfmncList = allData.filter(item => item.checkedYn === "Y");
 
-        allData.forEach((item, index) => {
-            let rowData = gridDscdPrfmnc.getRowData(index);
-            if(item.checkedYn === "Y") {
-                dscdPrfmncList.push(item);
+        if(gfn_nvl(dscdPrfmncList) === "") {
+            gfn_comAlert("W0003", "삭제");    // W0003 {0}할 대상이 없습니다.
+
+            return;
+        }
+        if(!gfn_comConfirm("Q0001","삭제")) {
+            return;
+        }
+
+        let postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdPrfmncList.do", dscdPrfmncList);
+        let data = await postJsonPromise;
+
+        try{
+            if(!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
             }
-        });
-
-        if(dscdPrfmncList.length == 0) {
-            gfn_comAlert("W0005", "삭제대상");  // W0005    {0}이/가 없습니다.
-            return;
-        }
-
-        if(!gfn_comConfirm("Q0001", "선택내역 삭제")) {  // Q0001    {0} 하시겠습니까?
-            return;
-        }
-
-        try {
-            const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdPrfmncList.do", dscdPrfmncList);
-            const data = await postJsonPromise;
 
             gfn_comAlert("I0001");  // I0001    처리 되었습니다.
-            fn_search();
-        } catch(e) {
-            if(!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");  // E0001    오류가 발생하였습니다.
+            await fn_search();
+        }catch (e){
+            console.error(e);
         }
     }
 

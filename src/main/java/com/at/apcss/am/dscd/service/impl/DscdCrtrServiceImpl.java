@@ -4,9 +4,7 @@ import com.at.apcss.am.dscd.mapper.DscdCrtrMapper;
 import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
-import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComUtil;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +50,6 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 	}
 
 	@Override
-	public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception {
-		return dscdCrtrMapper.selectDscdCrtrList(dscdCrtrVO);
-	}
-
-	@Override
 	public DscdCrtrVO selectDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception {
 		return dscdCrtrMapper.selectDscdCrtrDtl(dscdCrtrVO);
 	}
@@ -66,81 +59,86 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 		return dscdCrtrMapper.selectDscdCrtrDtlList(dscdCrtrVO);
 	}
 
-	@Override
-	public HashMap<String, Object> insertDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
-		String apcCd = dscdMngVO.getApcCd();
 
-		List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
+    @Override
+    public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        return dscdCrtrMapper.selectDscdCrtrList(dscdCrtrVO);
+    }
 
-		String sysUserId = dscdMngVO.getSysLastChgUserId();
-		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
+    @Override
+    public HashMap<String, Object> insertDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
+        String apcCd = dscdMngVO.getApcCd();
 
-		for ( DscdCrtrVO crtr : dscdCrtrList ) {
+        List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
 
-			crtr.setApcCd(apcCd);
+        String sysUserId = dscdMngVO.getSysLastChgUserId();
+        String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
 
-			// 데이터 확인
-			DscdCrtrVO crtrInfo = selectDscdCrtr(crtr);
+        for ( DscdCrtrVO crtr : dscdCrtrList ) {
 
-			if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
-				crtr.setNeedsInsert(true);
-			} else {
-				crtr.setNeedsInsert(false);
-			}
-		}
+            crtr.setApcCd(apcCd);
 
-		for ( DscdCrtrVO crtr : dscdCrtrList ) {
-			crtr.setSysFrstInptUserId(sysUserId);
-			crtr.setSysFrstInptPrgrmId(sysPrgrmId);
-			crtr.setSysLastChgUserId(sysUserId);
-			crtr.setSysLastChgPrgrmId(sysPrgrmId);
+            // 데이터 확인
+            DscdCrtrVO crtrInfo = selectDscdCrtr(crtr);
 
-			if (crtr.isNeedsInsert()) {
-				dscdCrtrMapper.insertDscdCrtr(crtr);
-			} else {
-				dscdCrtrMapper.updateDscdCrtr(crtr);
-			}
-		}
+            if (crtrInfo == null || !StringUtils.hasText(crtrInfo.getCrtrCd())) {
+                crtr.setNeedsInsert(true);
+            } else {
+                crtr.setNeedsInsert(false);
+            }
+        }
 
-		return null;
-	}
+        for ( DscdCrtrVO crtr : dscdCrtrList ) {
+            crtr.setSysFrstInptUserId(sysUserId);
+            crtr.setSysFrstInptPrgrmId(sysPrgrmId);
+            crtr.setSysLastChgUserId(sysUserId);
+            crtr.setSysLastChgPrgrmId(sysPrgrmId);
 
-	@Override
-	public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
-		String apcCd = dscdMngVO.getApcCd();
+            if (crtr.isNeedsInsert()) {
+                dscdCrtrMapper.insertDscdCrtr(crtr);
+            } else {
+                dscdCrtrMapper.updateDscdCrtr(crtr);
+            }
+        }
 
-		List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
+        return null;
+    }
 
-		String sysUserId = dscdMngVO.getSysLastChgUserId();
-		String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
+    @Override
+    public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception {
+        String apcCd = dscdMngVO.getApcCd();
 
-		for ( DscdCrtrVO crtr : dscdCrtrList ) {
-			crtr.setApcCd(apcCd);
-		}
+        List<DscdCrtrVO> dscdCrtrList = dscdMngVO.getDscdCrtrList();
 
-		for ( DscdCrtrVO crtr : dscdCrtrList ) {
-			crtr.setSysFrstInptUserId(sysUserId);
-			crtr.setSysFrstInptPrgrmId(sysPrgrmId);
-			crtr.setSysLastChgUserId(sysUserId);
-			crtr.setSysLastChgPrgrmId(sysPrgrmId);
+        String sysUserId = dscdMngVO.getSysLastChgUserId();
+        String sysPrgrmId = dscdMngVO.getSysLastChgPrgrmId();
 
-			List<DscdCrtrVO> dtlList = dscdCrtrMapper.selectDscdCrtrDtlList(crtr);
+        for ( DscdCrtrVO crtr : dscdCrtrList ) {
+            crtr.setApcCd(apcCd);
+        }
 
-			for ( DscdCrtrVO dtl : dtlList ) {
-				dtl.setSysFrstInptUserId(sysUserId);
-				dtl.setSysFrstInptPrgrmId(sysPrgrmId);
-				dtl.setSysLastChgUserId(sysUserId);
-				dtl.setSysLastChgPrgrmId(sysPrgrmId);
+        for ( DscdCrtrVO crtr : dscdCrtrList ) {
+            crtr.setSysFrstInptUserId(sysUserId);
+            crtr.setSysFrstInptPrgrmId(sysPrgrmId);
+            crtr.setSysLastChgUserId(sysUserId);
+            crtr.setSysLastChgPrgrmId(sysPrgrmId);
 
-				dscdCrtrMapper.deleteDscdCrtrDtl(dtl);
-			}
+            List<DscdCrtrVO> dtlList = dscdCrtrMapper.selectDscdCrtrDtlList(crtr);
 
-			dscdCrtrMapper.deleteDscdCrtr(crtr);
-		}
+            for ( DscdCrtrVO dtl : dtlList ) {
+                dtl.setSysFrstInptUserId(sysUserId);
+                dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+                dtl.setSysLastChgUserId(sysUserId);
+                dtl.setSysLastChgPrgrmId(sysPrgrmId);
 
-		return null;
-	}
+                dscdCrtrMapper.deleteDscdCrtrDtl(dtl);
+            }
 
+            dscdCrtrMapper.deleteDscdCrtr(crtr);
+        }
+
+        return null;
+    }
 
     @Override
     public List<DscdCrtrVO> selectDscdCrtrDtlList(DscdCrtrVO dscdCrtrVO) throws Exception {
@@ -204,15 +202,9 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
     }
 
     @Override
-    public HashMap<String, Object> deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        HashMap<String, Object> resultMap = new HashMap<>();
+    public int deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        dscdCrtrMapper.deleteDscdPrfmncList(dscdCrtrVO);
 
-        // 삭제 작업 실행
-        int result = dscdCrtrMapper.deleteDscdPrfmncList(dscdCrtrVO);
-        if (result == 0) {
-            throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "삭제 중 오류가 발생 했습니다.")));
-        }
-
-        return resultMap;
+        return 0;
     }
 }
