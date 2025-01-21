@@ -1661,9 +1661,12 @@
 				let tabInfo = _.find(parent.tabJsonData, {text: parent.SBUxMethod.get('tab_menu')});
 
 				//사이드 메뉴를 누르기 전 상태로 돌려야함
-				//removeTab 으로 탭 닫기 하는경우 기존 사이드메뉴 누른 상태가 남아서
+				//removeTab 으로 탭 닫기 하는경우 문제가 있음
+				//포키싱된 사이드 메뉴 상태가 남아서 사이드 메뉴의 빈공간을 누를시 포커싱된 메뉴가 열리는 현상이 있음
 				//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+				//사이드 메뉴 재호출 처리
 				parent.SBUxMethod.refresh('side_menu');
+
 				//탭닫기
 				parent.gfn_tabClose(tabInfo);
 				//parent.gfn_tabClose("TAB_PD_003_003");
