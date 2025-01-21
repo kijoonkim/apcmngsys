@@ -12,6 +12,7 @@ public class PrdcrCrclOgnGenalTblMngVO extends ComVO{
 	private String apoCd;
 	private String uoCd;
 	private String apoSe;
+	private String apoSeNm;
 	private String brno;
 	private String uoBrno;
 	private String crno;

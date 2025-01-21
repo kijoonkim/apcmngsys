@@ -1308,4 +1308,80 @@
 
 		ORDER BY CLSF_SE_CD,CLSF_CD
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPstTmepChk	-->
+	<!-- DESC : 전문품목 매입매출 임시저장 여부 조회                                            					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPstTmepChk" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		SELECT
+			BRNO
+			,(SELECT CORP_NM
+				FROM TB_EV_APO
+				WHERE BRNO = PST.BRNO
+			) AS CORP_NM
+			,DECODE(
+					(SELECT APO_SE
+						FROM TB_EV_APLY_MNG
+						WHERE 1=1
+						  AND YR = PST.YR
+						  AND BRNO = PST.BRNO)
+						, '1' ,'통합조직'
+						, '2' ,'출자출하조직'
+						,''
+			) AS APO_SE_NM
+		FROM
+			(SELECT BRNO , YR
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND UO_BRNO = #{brno}
+				  AND TMPR_STRG_YN = 'Y'
+				  AND DEL_YN = 'N'
+				GROUP BY BRNO, YR
+			) PST
+		ORDER BY APO_SE_NM DESC
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectApsTmepChk	-->
+	<!-- DESC : 총 매입매출 임시저장 여부 조회                                            					-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApsTmepChk" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+		SELECT
+			BRNO
+			,(SELECT CORP_NM
+				FROM TB_EV_APO
+				WHERE BRNO = APS.BRNO
+			) AS CORP_NM
+			,DECODE(
+					(SELECT APO_SE
+						FROM TB_EV_APLY_MNG
+						WHERE 1=1
+						  AND YR = APS.YR
+						  AND BRNO = APS.BRNO)
+						, '1' ,'통합조직'
+						, '2' ,'출자출하조직'
+						,''
+			) AS APO_SE_NM
+		FROM
+			(SELECT BRNO , YR
+				FROM TB_EV_UO_ISO_ALL_PRCHS_SLS
+				WHERE 1=1
+				  AND YR = #{yr}
+				  AND UO_BRNO = #{brno}
+				  AND TMPR_STRG_YN = 'Y'
+				  AND DEL_YN = 'N'
+				GROUP BY BRNO, YR
+			) APS
+		ORDER BY APO_SE_NM DESC
+	</select>
 </mapper>

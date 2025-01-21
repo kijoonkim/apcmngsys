@@ -29,9 +29,9 @@
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					-->
 				</c:if>
-				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
-					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_prfmncCorpDdlnYn(1)"></sbux-button>
+					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_userPrfmncCorpDdlnYn"></sbux-button>
 					<!--
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
 					<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -348,7 +348,9 @@
 							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+							<!--
 							<sbux-button id="updateStbltYn4" name="updateStbltYn4" uitype="normal" text="적합여부 전체 갱신" class="btn btn-sm btn-outline-danger" onclick="fn_updateAllUoStbltYn"></sbux-button>
+							-->
 							<sbux-button id="btnSave01" name="btnSave01" uitype="normal" text="조치사항 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 						</div>
 					</div>
@@ -469,7 +471,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -495,7 +497,7 @@
 			gfn_setComCdSBSelect('grdPrdcrOgnCurntMng01', 	jsonComGrdSttgUpbrItemSe_1, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
 		]);
-		console.log("============fn_initSBSelect=====1=======");
+		//console.log("============fn_initSBSelect=====1=======");
 	}
 
 
@@ -789,7 +791,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -852,7 +854,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -873,7 +875,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
@@ -891,7 +893,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -989,7 +991,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						sttgUpbrItemSe: item.sttgUpbrItemSe
@@ -1043,7 +1045,7 @@
 			}
 		}
 
-		console.log(item);
+		//console.log(item);
 		//예외 품목인 경우
 		if(item.chkItemA == 'Y'){
 			item.ctgryCd = '2'
@@ -1056,64 +1058,64 @@
 		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotAA != 'Y'){
-					console.log("item.chkAmtTotAA = "+item.chkAmtTotAA);
+					//console.log("item.chkAmtTotAA = "+item.chkAmtTotAA);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAA == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkAA = "+item.chkAA);
+						//console.log("item.chkAA = "+item.chkAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAA == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAA == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotAB != 'Y'){
-					console.log("item.chkAmtTotAB = "+item.chkAmtTotAB);
+					//console.log("item.chkAmtTotAB = "+item.chkAmtTotAB);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAB == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkRtAA = "+item.chkRtAA);
+						//console.log("item.chkRtAA = "+item.chkRtAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAB == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAB == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
-					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
+					//console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAC == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkRtAA = "+item.chkRtAA);
+						//console.log("item.chkRtAA = "+item.chkRtAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAC == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAC == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
@@ -1121,64 +1123,64 @@
 		}else if(item.aprv == '1' && item.sttgUpbrItemSe == '2'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotBA != 'Y'){
-					console.log("item.chkAmtTotBA = "+item.chkAmtTotBA);
+					//console.log("item.chkAmtTotBA = "+item.chkAmtTotBA);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBA == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBA == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBA == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotBB != 'Y'){
-					console.log("item.chkAmtTotBB = "+item.chkAmtTotBB);
+					//console.log("item.chkAmtTotBB = "+item.chkAmtTotBB);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBB == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBB == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBB == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
-					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
+					//console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBC == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBC == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBC == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
@@ -1186,22 +1188,22 @@
 		}else if(item.aprv == '2'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotCA != 'Y'){
-					console.log("item.chkAmtTotCA = "+item.chkAmtTotCA);
+					//console.log("item.chkAmtTotCA = "+item.chkAmtTotCA);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotCB != 'Y'){
-					console.log("item.chkAmtTotCB = "+item.chkAmtTotCB);
+					//console.log("item.chkAmtTotCB = "+item.chkAmtTotCB);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotCC != 'Y'){
-					console.log("item.chkAmtTotCC = "+item.chkAmtTotCC);
+					//console.log("item.chkAmtTotCC = "+item.chkAmtTotCC);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}
 			if(item.chkRtC != 'Y'){
-				console.log("item.chkRtC = "+item.chkRtC);
+				//console.log("item.chkRtC = "+item.chkRtC);
 				stbltYnNmMng.push('약정취급률 요건 미달');
 			}
 		}
@@ -1210,7 +1212,7 @@
 
 	//적합여부 변경
 	async function fn_updateStbltYn(_chk){
-		console.log("*************fn_updateStbltYn******************");
+		//console.log("*************fn_updateStbltYn******************");
 		let nRow = grdPrdcrOgnCurntMng01.getRow();
 		if(nRow < 1){
 			return false;
@@ -1260,9 +1262,79 @@
 		}
 	}
 
+	//유저 실적 법인체 선택마감
+	async function fn_userPrfmncCorpDdlnYn(){
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)) return;
+
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			//현재년도
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let postJsonPromise = gfn_postJSON("/pd/pcom/updateUserPrfmncCorpDdlnYn.do", {
+			brno : brno
+			,yr : yr
+			,prfmncCorpDdlnYn : 'Y'
+		});
+		let data = await postJsonPromise;
+
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
+				alert("실적 법인체 마감 되었습니다.");
+
+				//사이드 메뉴를 누르기 전 상태로 돌려야함
+				//removeTab 으로 탭 닫기 하는경우 문제가 있음
+				//포키싱된 사이드 메뉴 상태가 남아서 사이드 메뉴의 빈공간을 누를시 포커싱된 메뉴가 열리는 현상이 있음
+				//사이드 메뉴를 아무것도 선택안한 상태로 돌릴 방법이 필요함 -> 재호출 or 닫힘으로 처리
+				//사이드 메뉴 재호출 처리
+				parent.SBUxMethod.refresh('side_menu');
+
+				//전체 탭 닫기
+				//parent.SBUxMethod.removeAllTab("tab_menu");
+
+				//iframe 밖의 탭 닫기
+				//parent.tabJsonData 열린 탭 정보 리스트
+				//parent.SBUxMethod.get('tab_menu') 현재 선택된 탭이름
+				//현재 열린 탭리스트
+				let tabList = parent.tabJsonData;
+				//현재 열린 탭정보
+				let tabInfo = _.find(tabList, {text: parent.SBUxMethod.get('tab_menu')});
+				console.log(tabInfo);
+				//PD에 속하는 탭 리스트
+				let pdTabList = tabList.filter(item => item.targetid.startsWith('TAB_PD'));
+
+				//현재 열린 탭과 공지사항을 제외한 탭 리스트
+				const etcPdTabList = pdTabList.filter(item => item.targetid != tabInfo.targetid &&  item.targetid != "TAB_PD_009");
+				//현재 열린 탭을 제외한 탭 우선 닫기
+				etcPdTabList.forEach(item => {
+					parent.gfn_tabClose(item.targetid);
+				});
+				//탭닫기
+				parent.gfn_tabClose(tabInfo);
+
+			}else{
+				console.log(data);
+				if(data.tempList != null){
+					alert("임시저장 여부를 확인해주세요\n"+data.tempList);
+				}else{
+					alert("실적 법인체 마감 도중 오류가 발생 되었습니다.");
+				}
+			}
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
 	//실적 법인체 선택마감
 	async function fn_prfmncCorpDdlnYn(yn){
-		console.log("fn_prfmncCorpDdlnYn");
+		//console.log("fn_prfmncCorpDdlnYn");
 		let brno = SBUxMethod.get('dtl-input-brno');
 		//let apoSe = SBUxMethod.get('dtl-input-apoSe');
 
@@ -1275,20 +1347,24 @@
 			prfmncCorpDdlnYn = 'N'
 		}
 
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			//현재년도
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/updatePrfmncCorpDdlnYn.do", {
 			brno : brno
-			,yr : year
+			,yr : yr
 			,prfmncCorpDdlnYn : prfmncCorpDdlnYn
 			//,apoSe : apoSe
 		});
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
+			if(_.isEqual("S", data.resultStatus)){
 				if(yn == 1){
 					alert("실적 법인체 마감 되었습니다.");
 				}else if(yn == 2){
@@ -1320,7 +1396,7 @@
 		});
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
+			//console.log(data);
 			if(_.isEqual("S", data.resultStatus)){
 				alert("통합조직 적합여부 갱신 되었습니다.");
 				fn_search();
@@ -1337,7 +1413,7 @@
 
 	//실적 법인체 일괄 마감
 	async function fn_prfmncCorpDdlnYnAll(yn){
-		console.log("fn_prfmncCorpDdlnYnAll");
+		//console.log("fn_prfmncCorpDdlnYnAll");
 		let prfmncCorpDdlnYn = null;
 		if(yn == 1){
 			prfmncCorpDdlnYn = 'Y'
@@ -1345,18 +1421,23 @@
 			prfmncCorpDdlnYn = 'N'
 		}
 
-		//현재년도
-		let now = new Date();
-		let year = now.getFullYear();
+		let yr = SBUxMethod.get('dtl-input-yr');
+		if(gfn_isEmpty(yr)){
+			//현재년도
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/updatePrfmncCorpDdlnYn.do", {
-			yr : year
+			yr : yr
 			,prfmncCorpDdlnYn : prfmncCorpDdlnYn
 		});
 		let data = await postJsonPromise;
 
 		try{
-			if(data.result > 0){
+
+			if(_.isEqual("S", data.resultStatus) ){
 				if(yn == 1){
 					alert("실적 법인체 마감 되었습니다.");
 				}else if(yn == 2){
@@ -1592,7 +1673,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr

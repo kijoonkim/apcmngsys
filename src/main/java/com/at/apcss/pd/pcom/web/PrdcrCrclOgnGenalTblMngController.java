@@ -111,6 +111,40 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//유저 실적 법인체 마감 업데이트
+	@PostMapping(value = "/pd/pcom/updateUserPrfmncCorpDdlnYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateUserPrfmncCorpDdlnYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception {
+		logger.debug("/pd/aom/updatePrfmncCorpDdlnYn.do >>> 호출 >>> ");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int resultCnt = 0;
+		String tempList = "";
+		try {
+			List<PrdcrCrclOgnGenalTblMngVO> pstList = new ArrayList<>();
+			pstList = PrdcrCrclOgnGenalTblMngService.selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO);
+
+			for (PrdcrCrclOgnGenalTblMngVO pst : pstList) {
+				tempList += "전문품목 매입매출" + "(" + pst.getApoSeNm() + "," + pst.getCorpNm() + "," + pst.getBrno() + ")\n";
+			}
+
+			List<PrdcrCrclOgnGenalTblMngVO> aspList = new ArrayList<>();
+			aspList = PrdcrCrclOgnGenalTblMngService.selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO);
+			for (PrdcrCrclOgnGenalTblMngVO asp : aspList) {
+				tempList += "총 매입매출" + "(" + asp.getApoSeNm() + "," + asp.getCorpNm() + "," + asp.getBrno() + ")\n";
+			}
+
+			if(pstList.size() > 0 || aspList.size() > 0) {
+				resultMap.put("tempList", tempList);
+				return getErrorResponseEntity(resultMap);
+			}
+
+			resultCnt = PrdcrCrclOgnGenalTblMngService.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put("resultCnt", resultCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	//적합여부 전체 갱신
 	@PostMapping(value = "/pd/pcom/updateAllUoStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateAllUoStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
