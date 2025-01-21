@@ -156,6 +156,10 @@
                                 <span style="font-size:12px">※ 저장된 내용이 발송되므로 편집 후 반드시 저장하세요.</span>
                             </li>
                         </ul>
+                        <div style="margin-left: auto;">
+                            <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+                            <sbux-button id="btnDel" name="btnDel" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
+                        </div>
                     </div>
                     <div>
                         <table class="table table-bordered tbl_fixed">
@@ -771,7 +775,11 @@
     }
 
     const fn_save = async function () {
-        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        var nRow = gvwInfo.getRow();
+        if(nRow < 1) return;
+        var rowData = gvwInfo.getRowData(nRow);
+
+        let PAY_DATE = gfn_nvl(rowData.PAY_DATE);
         let EMAIL_SUBJECT = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
         let EMAIL_BODY = gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
         let NOTICE_MEMO = gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
@@ -821,7 +829,11 @@
     }
 
     const fn_delete = async function () {
-        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
+        var nRow = gvwInfo.getRow();
+        if(nRow < 1) return;
+        var rowData = gvwInfo.getRowData(nRow);
+
+        let PAY_DATE = gfn_nvl(rowData.PAY_DATE);
         let EMAIL_SUBJECT = gfn_nvl(SBUxMethod.get("EMAIL_SUBJECT"));
         let EMAIL_BODY = gfn_nvl(SBUxMethod.get("EMAIL_BODY"));
         let NOTICE_MEMO = gfn_nvl(SBUxMethod.get("NOTICE_MEMO"));
@@ -954,8 +966,6 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
-    const fn_create = async function () {}
 
     const fn_saveFile = async function(){
     	let conn = '';
