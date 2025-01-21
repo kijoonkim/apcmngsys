@@ -75,4 +75,34 @@ public class InvntrMngServiceImpl extends BaseServiceImpl implements InvntrMngSe
 		return deleteCnt;
 	}
 
+	@Override
+	public List<InvntrMngVO> selectInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception {
+		return invntrMngMapper.selectInvntrApcBss(invntrMngVO);
+	}
+
+	@Override
+	public int insertInvntrApcBss(List<InvntrMngVO> bssInvntrList) throws Exception {
+		int resultCnt = 0;
+		for(InvntrMngVO invntrMngVO : bssInvntrList ){
+			String status = invntrMngVO.getGubun();
+			if(status.equals("insert")){
+				resultCnt = invntrMngMapper.insertInvntrApcBss(invntrMngVO);
+			}else if(status.equals("update")){
+				resultCnt = invntrMngMapper.updateInvntrApcBss(invntrMngVO);
+			}
+			if(resultCnt < 0){
+				throw new EgovBizException();
+			}
+		}
+
+		return resultCnt;
+	}
+
+	@Override
+	public int deleteInvntrApcBss(InvntrMngVO invntrMngVO) throws Exception {
+		int deleteCnt = 0;
+		deleteCnt = invntrMngMapper.deleteInvntrApcBss(invntrMngVO);
+		return deleteCnt;
+	}
+
 }
