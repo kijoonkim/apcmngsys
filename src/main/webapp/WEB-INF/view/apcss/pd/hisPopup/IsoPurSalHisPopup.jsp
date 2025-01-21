@@ -507,7 +507,6 @@
 
 	//조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupOgnz = async function(event) {
-		console.log(event);
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
 		}
