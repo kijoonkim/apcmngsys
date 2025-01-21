@@ -232,6 +232,8 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
             {caption: ["확정여부"], 		ref: 'CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'

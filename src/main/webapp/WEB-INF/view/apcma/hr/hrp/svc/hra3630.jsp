@@ -295,6 +295,8 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
@@ -369,6 +371,8 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
+        SBGridProperties.explorerbar = 'sort';
+        SBGridProperties.useinitsorting	= true;
         SBGridProperties.columns = [
             {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -955,7 +959,7 @@
 
     const fn_saveFile = async function(){
     	let conn = '';
-        let checkDatas = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHECK_YN') );
+        let checkDatas = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHK_YN') );
         if (_.isEmpty(checkDatas)){
             gfn_comAlert("Q0000","파일 저장할 항목을 체크박스 선택하세요.");
             return;
@@ -972,7 +976,7 @@
             await gfn_getReportPdf(
            		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서.pdf",
            		"ma/RPT_HRA3630.crf",
-           		conn, 
+           		conn,
            		{ userPassword : '1234', ownerPassword : ''},
                 function(){
                     console.log('download');
@@ -982,31 +986,24 @@
     }
 
 	const fn_getReportData = async function(obj) {
-		console.log('fn_getReportData obj ==> ', obj);
-	    var paramObj = {
+        var paramObj = {
 				V_P_DEBUG_MODE_YN		: ''
 				,V_P_LANG_ID			: ''
 				,V_P_COMP_CODE			: gv_ma_selectedCorpCd
 				,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
-				
-				,V_P_ACCT_RULE_CODE		: ''
-				,V_P_FI_ORG_CODE		: ''
-				,V_P_SITE_CODE			: ''
-				,V_P_PERIOD_FR			: ''
-				,V_P_PERIOD_TO			: ''
-				,V_P_ACCOUNT_GROUP		: ''
-				,V_P_CURRENCY_CODE		: ''
-				,V_P_BEGIN_INCLUDE_YN	: ''
-				,V_P_PARENT_INCLUDE_YN	: ''
-				,V_P_ZERO_INCLUDE_YN	: ''
-				
+                ,V_P_PAY_DATE_FR : ''
+                ,V_P_PAY_DATE_TO : ''
+                ,V_P_SITE_CODE : ''
+                ,V_P_EARNER_NAME : ''
+                ,V_P_PAY_DATE : obj.PAY_DATE
+                ,V_P_EARNER_CODE : obj.EARNER_CODE
 				,V_P_FORM_ID			: p_formId
 				,V_P_MENU_ID			: p_menuId
 				,V_P_PROC_ID			: ''
 				,V_P_USERID				: ''
-				,V_P_PC					: '' 
+				,V_P_PC					: ''
 	    };
-	    const postJsonPromise = gfn_postJSON("/fi/fgl/sta/selectFig5210Report.do", {
+	    const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
 	        getType				: 'json',
 	        workType			: 'REPORT',
 	        cv_count			: '2',
