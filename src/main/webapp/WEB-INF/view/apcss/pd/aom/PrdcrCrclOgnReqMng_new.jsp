@@ -1115,6 +1115,12 @@
 		{'text': 'N','label': 'N', 'value': 'N'}
 	];
 
+	//경영체등록여부
+	var jsonComMngmstYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+
 	var jsonComCmptnInst = [];//관할기관
 	var jsonComCtpv = [];//시도
 	var jsonComSgg = [];//시군

@@ -236,7 +236,7 @@
 			</c:if><!-- 관리자 권한인 경우 그리드 표기 -->
 
 			<!-- 통합조직 인경우 표기 -->
-			<div class = "uoInfo">
+			<div id="uoInfo">
 				<table class="table table-bordered tbl_fixed">
 					<caption>사용자 표기</caption>
 					<tbody>
@@ -274,7 +274,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div class = "uoGrid">
+			<div id="isoListGrid">
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -287,7 +287,6 @@
 					<div id="sb-area-grdInvShipOgnReqMng01" style="height:250px; width: 100%;"></div>
 				</div>
 			</div>
-
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
 						<li>
@@ -560,7 +559,6 @@
 						</tr>
 					</tbody>
 				</table>
-
 				<!-- 출자출하조직이 속한 통합조직 리스트 그리드 -->
 				<div class="uoList">
 					<div class="ad_tbl_top">
@@ -790,7 +788,7 @@
 		fn_uoListGrid();
 		fn_fcltMngCreateGrid01();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-		$(".uoGrid").show();
+		$("#uoGrid").show();
 		fn_fcltMngCreateGrid();
 	</c:if>
 
@@ -799,8 +797,8 @@
 		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2' || loginVO.mbrTypeCd eq '1'}">
-		//$(".uoInfo").hide();
-		$(".uoGrid").hide();
+		//$("#uoInfo").hide();
+		$("#isoListGrid").hide();
 		await fn_dtlSearch();
 	</c:if>
 	}
@@ -877,7 +875,17 @@
 		//grdInvShipOgnReqMng.refresh({"combo":true});
 		//클릭 이벤트 바인드
 		grdInvShipOgnReqMng.bind('click','fn_view');
+		//키보드 이동 이벤트
+		grdInvShipOgnReqMng.bind('keyup','fn_keyupOgnz');
 		grdInvShipOgnReqMng.bind('beforepagechanged', 'fn_pagingBbsList');
+	}
+
+	//조직 그리드 키보드로 이동시 이벤트
+	const fn_keyupOgnz = async function(event) {
+		console.log('dd');
+		if(event.keyCode == 38 || event.keyCode == 40) {
+			fn_view();
+		}
 	}
 
 	var jsonInvShipOgnReqMng01 = []; // 그리드의 참조 데이터 주소 선언
@@ -953,7 +961,16 @@
 		//grdInvShipOgnReqMng01.refresh({"combo":true});
 		//클릭 이벤트 바인드
 		grdInvShipOgnReqMng01.bind('click','fn_view01');
+		//키보드 이동
+		grdInvShipOgnReqMng01.bind('keyup','fn_keyupOgnz01');
+	}
 
+
+	//조직 그리드 키보드로 이동시 이벤트
+	const fn_keyupOgnz01 = async function(event) {
+		if(event.keyCode == 38 || event.keyCode == 40) {
+			fn_view01();
+		}
 	}
 
 	/**
@@ -1219,7 +1236,7 @@
 				$(".btn").hide();// 모든 버튼 숨기기
 				SBUxMethod.clearAllData();//모든 데이터 클리어
 				//하위 출자출하조직 그리드 데이터 제거
-				$(".ad_section_top").hide();
+				$("#isoListGrid").hide();
 
 				alert("산지조직관리 작성이 필요합니다.");
 
@@ -1246,16 +1263,16 @@
 				$("#btnSaveFclt1").hide();
 				SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 				SBUxMethod.attr('dtl-input-isoFundAplyAmt','readonly',true);
-				return false;
+
 			}
 
 			if(apoSe == '1'){
-				$(".uoInfo").show();
-				$(".uoGrid").show();
+				$("#uoInfo").show();
+				$("#isoListGrid").show();
 				fn_dtlSearch01();//하위 출자출하조직 리스트
 			}else{
-				//$(".uoInfo").hide();
-				$(".uoGrid").hide();
+				//$("#uoInfo").hide();
+				$("#isoListGrid").hide();
 				jsonInvShipOgnReqMng01.length = 0;
 				grdInvShipOgnReqMng01.rebuild();
 				fn_dtlSearch02();//출자출하조직 정보 조회
@@ -2226,6 +2243,7 @@
 			});
 
 			grdGpcList.rebuild();
+
 			let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 			if(corpDdlnSeCd != 'Y'){
 				//비어 있는 마지막 줄 추가용도
@@ -2259,6 +2277,13 @@
 						grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, true);
 						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
 						//grdGpcList.setCellStyle('background-color', i, ctgryCdCol, i, ctgryCdCol, 'white');
+					}
+
+					//법인체 마감인 경우
+					if(corpDdlnSeCd == 'Y'){
+						grdGpcList.setCellDisabled(i, sttgUpbrItemSeCol, i, sttgUpbrItemSeCol, true);
+						grdGpcList.setCellDisabled(i, clsfCdCol, i, clsfCdCol, true);
+						grdGpcList.setCellDisabled(i, ctgryCdCol, i, ctgryCdCol, true);
 					}
 				}
 			}
@@ -2403,6 +2428,12 @@
 
 	//그리드 클릭이벤트
 	function gridClick(){
+		//법인체 마감여부 확인
+		let corpDdlnSeCd = SBUxMethod.get('dtl-input-corpDdlnSeCd');//법인체마감 여부
+		if(corpDdlnSeCd == 'Y'){
+			return;
+		}
+
 		//console.log("================gridClick================");
 		//grdGpcList 그리드 객체
 		let selGridRow = grdGpcList.getRow();
@@ -2438,6 +2469,12 @@
 
 	//품목선택 팝업 버튼
 	function fn_openMaodalGpcSelect(nRow){
+		//법인체 마감여부 확인
+		let corpDdlnSeCd = SBUxMethod.get('dtl-input-corpDdlnSeCd');//법인체마감 여부
+		if(corpDdlnSeCd == 'Y'){
+			return;
+		}
+
 		grdGpcList.setRow(nRow);
 		let delYnCol = grdGpcList.getColRef('delYn');
 		let delYnValue = grdGpcList.getCellData(nRow,delYnCol);
@@ -2568,6 +2605,12 @@
 
 	/* Grid Row 추가 및 삭제 기능*/
 	function fn_uoGridAdd(gubun, grid, nRow, nCol) {
+		//법인체 마감여부 확인
+		let corpDdlnSeCd = SBUxMethod.get('dtl-input-corpDdlnSeCd');//법인체마감 여부
+		if(corpDdlnSeCd == 'Y'){
+			return;
+		}
+
 		if (gubun === "ADD") {
 			if (grid === "grdUoList") {
 				grdUoList.setCellData(nRow, nCol, "N", true);
@@ -2613,6 +2656,12 @@
 
 	//그리드 클릭이벤트
 	function gridUoListClick(){
+		//법인체 마감여부 확인
+		let corpDdlnSeCd = SBUxMethod.get('dtl-input-corpDdlnSeCd');//법인체마감 여부
+		if(corpDdlnSeCd == 'Y'){
+			return;
+		}
+
 		//grdPrdcrCrclOgnReqClsMng 그리드 객체
 		let selGridUoListRow = grdUoList.getRow();
 		let selGridUoListCol = grdUoList.getCol();
