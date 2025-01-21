@@ -1002,7 +1002,12 @@
 		WHERE 1=1
 		  AND DEL_YN = 'N'
 		  AND YR = #{yr}
-		  AND UO_BRNO = #{brno}
+		  AND (
+		  		UO_BRNO = #{brno}
+		  		OR
+		  		UO_BRNO IN (SELECT BRNO FROM TB_EV_BRNO_MNG WHERE BRNO != 0 AND MNG_NO IN (SELECT MNG_NO FROM TB_EV_BRNO_MNG WHERE BRNO = #{brno}))
+				)
+
 		ORDER BY OGNZ_TYPE_NM , CORP_NM
 	</select>
 
