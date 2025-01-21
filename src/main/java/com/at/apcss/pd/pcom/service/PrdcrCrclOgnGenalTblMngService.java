@@ -101,4 +101,21 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 * @throws Exception
 	 */
 	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
+
+	/**
+	 * 전문품목 매입매출 임시저장 여부를 조회 한다
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return List<PrdcrCrclOgnGenalTblMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnGenalTblMngVO> selectPstTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 총 매입매출 임시저장 여부를 조회 한다
+	 * @param PrdcrCrclOgnGenalTblMngVO
+	 * @return List<PrdcrCrclOgnGenalTblMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnGenalTblMngVO> selectApsTmepChk(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 }
