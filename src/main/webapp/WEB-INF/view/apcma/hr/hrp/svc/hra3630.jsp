@@ -599,7 +599,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
             getType				: 'json',
             workType			: 'DETAIL',
-            cv_count			: '1',
+            cv_count			: '2',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -708,7 +708,7 @@
             getType				: 'json',
             workType			: 'MAIL',
 //             workType			: 'EMAIL',
-            cv_count			: '1',
+            cv_count			: '2',
             params				: gfnma_objectToString(paramObj)
         });
 
@@ -913,7 +913,7 @@
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
             getType				: 'json',
             workType			: 'LIST',
-            cv_count			: '1',
+            cv_count			: '2',
             params				: gfnma_objectToString(paramObj)
         });
 
