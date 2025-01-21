@@ -32,14 +32,6 @@ public interface DscdCrtrService {
 	public DscdCrtrVO selectDscdCrtr(String apcCd, String dscdCrtrType, String crtrCd) throws Exception;
 	
 	/**
-	 * 폐기기준 목록 조회
-	 * @param dscdCrtrVO
-	 * @return
-	 * @throws Exception
-	 */
-	public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception;
-	
-	/**
 	 * 폐기기준 상세 조회
 	 * @param dscdCrtrVO
 	 * @return
@@ -54,23 +46,31 @@ public interface DscdCrtrService {
 	 * @throws Exception
 	 */
 	public List<DscdCrtrVO> selectCrtrDtlListInUse(DscdCrtrVO dscdCrtrVO) throws Exception;
-	
-	/**
-	 * 폐기기준 등록
-	 * @param dscdMngVO
-	 * @return
-	 * @throws Exception
-	 */
-	public HashMap<String, Object> insertDscdCrtr(DscdMngVO clclnMngVO) throws Exception;
-	
-	/**
-	 * 폐기기준 삭제
-	 * @param dscdMngVO
-	 * @return
-	 * @throws Exception
-	 */
-	public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception;
 
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 조회
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectDscdCrtrList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 추가
+     * @param clclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertDscdCrtr(DscdMngVO clclnMngVO) throws Exception;
+
+    /**
+     * 폐기 기준 관리 - 폐기기준 목록 삭제
+     * @param dscdMngVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteDscdCrtr(DscdMngVO dscdMngVO) throws Exception;
 
     /**
      * 폐기 기준 관리 - 폐기기준 상세정보 조회
@@ -134,5 +134,5 @@ public interface DscdCrtrService {
      * @return
      * @throws Exception
      */
-    public HashMap<String, Object> deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
+    public int deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception;
 }
