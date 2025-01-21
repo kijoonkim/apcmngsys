@@ -350,7 +350,7 @@
 			//감가상각주기
 			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//코스트센터
-			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 
 					]);
 
@@ -712,7 +712,7 @@
 								   , outAcquisitionAmount : item.DSPSL_ACQS_AMT
 								   , outSubsidiesAmount : item.DSPSL_SBS_AMT
 								   , endAcquisitionAmount : item.ACQS_AMT_EBLNC
-								   , endSubsidiesAmount : item.SBS_AMT_EBLNC
+								   , endSubsidiesAmount : item.GVSBS_AMT_EBLNC
 								   , beginAccumDepr : item.BSC_ACML_DPRC_AMT
 								   , acqDeprAmt : item.DPCO_AMT
 								   , beginSubsidiesAccDepr : item.BSS_GVSBS_DPRC_ACML_AMT
@@ -722,11 +722,11 @@
 								   , outAccumDepr : item.DSPSL_ACML_DPRC
 								   , outSubsidiesAccumDepr : item.DSPSL_SBS_ACML_DPRC_AMT
 								   , endAccumDepr : item.ACML_DPRC_EBLNC
-								   , endSubsidesAccumDepr : item.SBS_DPRC_ACML_EBLNC
+								   , endSubsidesAccumDepr : item.GVSBS_DPRC_ACML_EBLNC
 								   , memo : item.MEMO
 								   , deptName : item.DEPT_NM
 								   , deptName : item.DEPT_NM
-								   , costCenterCode : item.CSTCD_CD
+								   , costCenterCode : item.CSTCT_CD
 								   , compCode : item.CO_CD
 								   , fiOrgCode : item.ACNTG_OGNZ_CD
 								   , siteCode : item.SITE_CD
@@ -1047,8 +1047,8 @@
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterName"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
@@ -1059,15 +1059,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-costCenterCode', 		data.CSTCD_CD);
-				SBUxMethod.set('srch-inp-costCenterName',		data.CSTCD_NM);
+				SBUxMethod.set('srch-inp-costCenterCode', 		data.CSTCT_CD);
+				SBUxMethod.set('srch-inp-costCenterName',		data.CSTCT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});

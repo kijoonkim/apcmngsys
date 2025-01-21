@@ -327,7 +327,7 @@
 			//소분류
 			gfnma_setComSelect(['grdClclnDsctn'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 			//코스트센터
-			gfnma_setComSelect(['grdClclnDsctn'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+			gfnma_setComSelect(['grdClclnDsctn'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 
 			//
 			gfnma_setComSelect(['grdClclnDsctn'], jsonDept, 'P_HRI001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'DEPT_CD', 'DEPT_NM', 'Y', ''),
@@ -1085,11 +1085,11 @@
             					, transferDate : item.RPLCMT_YMD
             					, projectCode : item.PJT_CD
             					, projectName : item.PJT_NM
-            					, costCenterName : item.CSTCD_NM
+            					, costCenterName : item.CSTCT_NM
             					, currencyCode : item.CRN_CD
             					, exchangeRate : item.EXCHRT
             					, totalTransferAmount : item.TOT_RPLCMT_AMT
-            					, bookTransferAmount : item.GNRGR_TRNSF_AMT
+            					, bookTransferAmount : item.GNLGR_TRNSF_AMT
             					, memo : item.MEMO
             					, interfaceFlag : item.IF_FLAG
             					, insertUserid : item.WRT_USER_ID
@@ -1126,7 +1126,7 @@
             					, transferAmount2 : item.TRANSFER_AMOUNT2
             					, netAmount : item.BLNC_AMT
             					, memo : item.MEMO
-            					, bookAmt : item.GNRGR_AMT
+            					, bookAmt : item.GNLGR_AMT
             					, transferQty : item.RPLCMT_QTY
 
             			}
@@ -1145,8 +1145,8 @@
             					, deptCode : item.DEPT_CD
             					, deptName : item.DEPT_NM
             					, deptName : item.DEPT_NM
-            					, costCenterCode : item.CSTCD_CD
-            					, costCenterName : item.CSTCD_NM
+            					, costCenterCode : item.CSTCT_CD
+            					, costCenterName : item.CSTCT_NM
             					, accountCode : item.ACNTL_CD
             					, accountName : item.ACNT_NM
             					, transferAmount : item.RPLCMT_AMT
@@ -1175,7 +1175,7 @@
             					, assetNo : item.ASST_NO
             					, assetName : item.ASST_NM
             					, transferAmount : item.RPLCMT_AMT
-            					, bookAmt : item.GNRGR_AMT
+            					, bookAmt : item.GNLGR_AMT
             					, qty : item.QTY
             					, memo : item.MEMO
 
@@ -1371,8 +1371,8 @@
     const fn_assetLevel2 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         //var strWhereClause 	= "AND x.CNPT_CD LIKE '%" + replaceText0 + "%' AND x.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
@@ -1407,8 +1407,8 @@
     const fn_assetLevel3 = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         //var strWhereClause 	= "AND x.CNPT_CD LIKE '%" + replaceText0 + "%' AND x.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
@@ -1440,8 +1440,8 @@
     const fn_astSePopup = function(){
     	var searchCode 		= "";
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetCategoryName"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         //var strWhereClause 	= "AND x.CNPT_CD LIKE '%" + replaceText0 + "%' AND x.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
@@ -1582,8 +1582,8 @@
 
         var searchText1 	= gfn_nvl(SBUxMethod.get("RPLCMT_CSTCT"));
         var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터 정보');
@@ -1596,12 +1596,12 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
   			,searchCaptions			: ["코드", 	"명칭"]
-  			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+  			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
   			,searchInputValues		: ["", 		""]
     		,width					: '600px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
-  			,tableColumnNames		: ["CSTCD_CD", 	 "CSTCD_NM"]
+  			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
   			,tableColumnWidths		: ["80px", 			 "80px"]
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnDsctn.getRow();

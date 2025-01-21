@@ -277,7 +277,7 @@
 			gfnma_setComSelect(['grdTotDtlDprc'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 
 			//코스트센터
-			gfnma_setComSelect(['grdTotDtlDprc'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+			gfnma_setComSelect(['grdTotDtlDprc'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 
 
 
@@ -397,7 +397,7 @@
         	{caption: ['내용연수'], ref: 'DPRC_INTRVL', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['부서코드'], ref: 'DEPT_CD', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['부서명'], ref: 'DEPT_NM', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ['원가중심점'], ref: 'CSTCD_CD', 				type : 'combo', typeinfo : {ref:'jsonCostCenter', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
+        	{caption: ['원가중심점'], ref: 'CSTCT_CD', 				type : 'combo', typeinfo : {ref:'jsonCostCenter', label:'label', value:'value'},disabled:true,		width:'80px',		style:'text-align:center'},
         	{caption: ['취득일'], ref: 'ACQS_FRST_YMD', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ['최초취득가액'], ref: 'ORGNL_AMT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
         	{caption: ['기초취득가액'], ref: 'BEGIN_ACQUISTION_AMOUNT', 				type:'output', format : {type:'number', rule:'#,###'},		width:'80px',		style:'text-align:right'},
@@ -571,7 +571,7 @@
 	  	  	        			, BSS_GVSBS_DPRC_ACML_AMT : item.BSS_GVSBS_DPRC_ACML_AMT
 	  	  	        			, BSS_GVSBS_AMT : item.BSS_GVSBS_AMT
 	  	  	        			, BKVL : item.BKVL
-	  	  	        			, CSTCD_CD : item.CSTCD_CD
+	  	  	        			, CSTCT_CD : item.CSTCT_CD
 	  	  	        			, DPRC_MTHD : item.DPRC_MTHD
 	  	  	        			, DPRC_INTRVL : item.DPRC_INTRVL
 	  	  	        			, DPRC_TYPE : item.DPRC_TYPE
@@ -940,15 +940,15 @@
         	,popupType				: 'A'
     		,whereClause			: ''
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-dspsTab-costCenter1', 		data.CSTCD_CD);
-				SBUxMethod.set('srch-inp-dspsTab-costCenter2',		data.CSTCD_NM);
+				SBUxMethod.set('srch-inp-dspsTab-costCenter1', 		data.CSTCT_CD);
+				SBUxMethod.set('srch-inp-dspsTab-costCenter2',		data.CSTCT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});

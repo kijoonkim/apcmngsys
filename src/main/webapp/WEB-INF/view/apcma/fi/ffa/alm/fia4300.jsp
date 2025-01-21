@@ -1337,7 +1337,7 @@
 
 	        		var msg = {
 		        			compCode : item.CO_CD
-		        			, costCenterName : item.CSTCD_NM
+		        			, costCenterName : item.CSTCT_NM
 		        			, acctRuleCode : item.ACNTG_OGNZ_CD
 		        			, vatRate : item.VAT_RT
 		        			, expenseCsName : item.EXPENSE_CS_NAME
@@ -1356,7 +1356,7 @@
 		        			, expenseAccountName : item.EXPENSE_ACCOUNT_NAME
 		        			, expenseAmount : item.DSPS_EPS_AMT
 		        			, memo : item.MEMO
-		        			, costCenterCode : item.CSTCD_CD
+		        			, costCenterCode : item.CSTCT_CD
 		        			, bookValue : item.BKVL
 		        			, orgnlAstDspslNo : item.ORGNL_AST_DSPSL_NO
 		        			, dispFunctionalAmt : item.DSPSL_CNVS_AMT
@@ -2983,15 +2983,8 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-ast-assetName"));
         var replaceText0 	= "_ASST_NO_";
         var replaceText1 	= "_ASST_NM_";
-<<<<<<< Updated upstream
         var strWhereClause 	= "AND ASST_NO LIKE '%" + replaceText0 + "%' AND ASST_NM LIKE '%" + replaceText1 + "%' ";
- 
- 
-=======
-        var strWhereClause 	= "AND ASSET_NO LIKE '%" + replaceText0 + "%' AND ASSET_NAME LIKE '%" + replaceText1 + "%' ";
 
-
->>>>>>> Stashed changes
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
@@ -3024,8 +3017,8 @@
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-costCenterName"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
 
         var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
 
@@ -3037,15 +3030,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코스트센터코드", 	"코스트센터명"]
-   			,tableColumnNames		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-dsps-costCenterCode', 		data.CSTCD_CD);
-				SBUxMethod.set('srch-dsps-costCenterName',		data.CSTCD_NM);
+				SBUxMethod.set('srch-dsps-costCenterCode', 		data.CSTCT_CD);
+				SBUxMethod.set('srch-dsps-costCenterName',		data.CSTCT_NM);
 			},
     	});
     	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
