@@ -161,4 +161,26 @@ public class ApcMaHra3630Controller extends BaseController {
             return getSuccessResponseEntity(resultMap);
         }
     }
+
+    @PostMapping(value = "/hr/hrp/svc/insertHra3630ListForConfirm.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHra3620List(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHra3630ListForConfirm=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA3630_S4");
+
+            logger.info("=============insertHra3630ListForConfirm=====end========");
+            return getSuccessResponseEntityMa(resultMap);
+        } catch (Exception e) {
+
+
+            return getErrorResponseEntity(e);
+        }
+    }
 }

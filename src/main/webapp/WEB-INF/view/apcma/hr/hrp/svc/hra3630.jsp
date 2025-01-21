@@ -296,8 +296,12 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [""],			    ref: 'CHECK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
+            {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
+            },
+            {caption: ["지급확정여부"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
+                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
+                , disabled: true
             },
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
@@ -310,11 +314,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["근무기준일"],       ref: 'WORK_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
-                , disabled: true
-            },
+            {caption: ["근무기준일"],       ref: 'WORK_DATE', 		type:'output',  	width:'180px',  	style:'text-align:left'},
             {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'datepicker',  	width:'85px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -345,7 +345,6 @@
                 , disabled: true
             },
             {caption: ["휴대폰번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
-            {caption: ["비고"],         ref: 'MEMO',    type:'output',  	width:'100px',  style:'text-align:left'},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
@@ -362,10 +361,6 @@
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["확정여부"], 		ref: 'CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
-                , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
-                , disabled: true
-            },
             {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -904,6 +899,7 @@
                 jsonServiceFeePayList.length = 0;
                 data.cv_1.forEach((item, index) => {
                     const msg = {
+                        PAY_CONFIRM_YN : gfn_nvl(item.CFMTN_YN2, 'N'),
                         PAY_DATE : gfn_nvl(item.PAY_YMD),
                         WORK_DATE : gfn_nvl(item.WORK_DATE),
                         EARNER_CODE : gfn_nvl(item.EARNR_CD),
@@ -959,10 +955,9 @@
 
             let datas = [];
             datas.push(checkDatas[i]);
-console.log('datas ==>', datas);
+
             conn = await fn_getReportData( checkDatas[i].data );
             conn = await gfnma_convertDataForReport(conn);
-//             let psw = conn[5].data.root[0].BIRTH_DATE;
 
             await gfn_getReportPdf(
            		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서.pdf",
@@ -1139,46 +1134,14 @@ console.log('datas ==>', datas);
             const param = {
                 cv_count : '0',
                 getType : 'json',
-                workType : 'CONFIRM',
+                workType : 'PAY_CONFIRM',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : 0,
-                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
-                    V_P_SITE_CODE : '',
-                    V_P_PAY_DATE : '',
-                    V_P_WORK_END_DAT : '',
-                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
-                    V_P_WORK_DAY : '',
-                    V_P_WORK_CNT : '',
-                    V_P_WORK_GBN : '',
-                    V_P_WORK_PLACE : '',
-                    V_P_WORK_NAME : '',
-                    V_P_WORK_DTL_NAME : '',
-                    V_P_WORK_PLACE2 : '',
-                    V_P_DAILY_PAY_AMT : '',
-                    V_P_TOT_PAY_AMT : '',
-                    V_P_NON_TXABLE_AMT : '',
-                    V_P_INC_AMT : '',
-                    V_P_EARNED_INC_AMT : '',
-                    V_P_INC_TX_AMT : '',
-                    V_P_LOCAL_TX_AMT : '',
-                    V_P_HEALTH_INSURE_AMT : '',
-                    V_P_LONG_HEALTH_INSURE_AMT : '',
-                    V_P_NATIONAL_PENS_AMT : '',
-                    V_P_EMPLOY_INSURE_AMT : '',
-                    V_P_ETC_DED_AMT : '',
-                    V_P_TOT_DEDUCT_AMT : '',
-                    V_P_MEMO : '',
-                    V_P_REMARK : '',
-                    V_P_WORK_REGION : '',
-                    V_P_CONFIRM_YN : '',
-                    V_P_ADJUSTMENT_AMT : '',
-                    V_P_FUAL_AMT : '',
-                    V_P_ETC_COST : '',
+                    V_P_PAY_DATE : gfn_nvl(data.PAY_DATE),
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -1190,7 +1153,7 @@ console.log('datas ==>', datas);
         });
 
         if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3620List.do", {listData: returnData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ListForConfirm.do", {listData: returnData});
             const data = await postJsonPromise;
 
             try {
@@ -1225,46 +1188,14 @@ console.log('datas ==>', datas);
             const param = {
                 cv_count : '0',
                 getType : 'json',
-                workType : 'CONFIRM_CANCLE',
+                workType : 'PAY_CONFIRM_CANCLE',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : 0,
-                    V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
-                    V_P_SITE_CODE : '',
-                    V_P_PAY_DATE : '',
-                    V_P_WORK_END_DAT : '',
-                    V_P_WORK_ST_DAT : gfn_nvl(data.WORK_ST_DAT),
-                    V_P_WORK_DAY : '',
-                    V_P_WORK_CNT : '',
-                    V_P_WORK_GBN : '',
-                    V_P_WORK_PLACE : '',
-                    V_P_WORK_NAME : '',
-                    V_P_WORK_DTL_NAME : '',
-                    V_P_WORK_PLACE2 : '',
-                    V_P_DAILY_PAY_AMT : '',
-                    V_P_TOT_PAY_AMT : '',
-                    V_P_NON_TXABLE_AMT : '',
-                    V_P_INC_AMT : '',
-                    V_P_EARNED_INC_AMT : '',
-                    V_P_INC_TX_AMT : '',
-                    V_P_LOCAL_TX_AMT : '',
-                    V_P_HEALTH_INSURE_AMT : '',
-                    V_P_LONG_HEALTH_INSURE_AMT : '',
-                    V_P_NATIONAL_PENS_AMT : '',
-                    V_P_EMPLOY_INSURE_AMT : '',
-                    V_P_ETC_DED_AMT : '',
-                    V_P_TOT_DEDUCT_AMT : '',
-                    V_P_MEMO : '',
-                    V_P_REMARK : '',
-                    V_P_WORK_REGION : '',
-                    V_P_CONFIRM_YN : '',
-                    V_P_ADJUSTMENT_AMT : '',
-                    V_P_FUAL_AMT : '',
-                    V_P_ETC_COST : '',
+                    V_P_PAY_DATE : gfn_nvl(data.PAY_DATE),
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -1276,7 +1207,7 @@ console.log('datas ==>', datas);
         });
 
         if(returnData.length > 0) {
-            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3620List.do", {listData: returnData});
+            const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ListForConfirm.do", {listData: returnData});
             const data = await postJsonPromise;
 
             try {

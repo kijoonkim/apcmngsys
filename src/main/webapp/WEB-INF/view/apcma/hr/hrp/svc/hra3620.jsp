@@ -279,7 +279,7 @@
                 }
             },
             {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm'},
+                typeinfo: {dateformat: 'yyyy-mm', calendartype: 'yearmonth'},
                 format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
             },
             {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
@@ -412,6 +412,7 @@
             },
             {caption: ["분개장번호"],         ref: 'REMARK',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["비고"],         ref: 'MEMO',    type:'input',  	width:'100px',  style:'text-align:left'},
+            {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'input',  	width:'75px',  style:'text-align:left', hidden: true},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
@@ -518,6 +519,7 @@
 
         if (rowVal == -1){
             gvwInfo.addRow(true, {
+                TXN_ID : 0,
                 JOB_YYYYMM : JOB_YYYYMM,
                 DECLARATION_YYYYMM : DECLARATION_YYYYMM,
                 FOREI_TYPE : "1",
@@ -537,6 +539,7 @@
             gvwInfo.setCellStyle('background-color', gridlength, gvwInfo.getColRef("PAY_DATE"), gridlength, gvwInfo.getColRef("PAY_DATE"), "#FFF8DC");
         }else{
             gvwInfo.insertRow(rowVal, 'below', {
+                TXN_ID : 0,
                 JOB_YYYYMM : JOB_YYYYMM,
                 DECLARATION_YYYYMM : DECLARATION_YYYYMM,
                 FOREI_TYPE : "1",
@@ -1034,6 +1037,7 @@
                             item.ADDRESS = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["ADDR"] : '';
                             item.FOREI_TYPE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["FRGNR_YN"] : '';
                             item.NATION_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["HBTN_NTN_CD"] : '';
+                            item.TXN_ID = 0;
 
                             gvwInfo.addRow(true, item);
                         });
@@ -1082,7 +1086,7 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : 0,
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID, 0),
                     V_P_JOB_YYYYMM : gfn_nvl(item.data.JOB_YYYYMM),
                     V_P_EARNER_CODE : gfn_nvl(item.data.EARNER_CODE),
                     V_P_SITE_CODE : gfn_nvl(item.data.SITE_CODE),
@@ -1168,7 +1172,7 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : 0,
+                    V_P_TXN_ID : gfn_nvl(data.TXN_ID, 0),
                     V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_SITE_CODE : '',
@@ -1254,7 +1258,7 @@
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : 0,
+                    V_P_TXN_ID : gfn_nvl(data.TXN_ID, 0),
                     V_P_JOB_YYYYMM : gfn_nvl(data.JOB_YYYYMM),
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_SITE_CODE : '',
