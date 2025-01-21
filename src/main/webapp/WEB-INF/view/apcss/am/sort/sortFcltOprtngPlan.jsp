@@ -548,8 +548,10 @@
 		SBUxMethod.set("dtl-inp-inptWght",rowData.inptWght);
 		SBUxMethod.set("dtl-inp-planQntt",rowData.planQntt);
 		SBUxMethod.set("dtl-inp-planWght",rowData.planWght);
-		SBUxMethod.set("dtl-dtp-bgngYmd",rowData.oprtngBgngDt);
-		SBUxMethod.set("dtl-dtp-endYmd",rowData.oprtngEndDt);
+		const formattedDate1 = rowData.oprtngBgngDt.replace(/[-:\s]/g, "");
+		const formattedDate2 = rowData.oprtngEndDt.replace(/[-:\s]/g, "");
+		SBUxMethod.set("dtl-dtp-bgngYmd",formattedDate1);
+		SBUxMethod.set("dtl-dtp-endYmd",formattedDate2);
 		SBUxMethod.set("dtl-inp-fcltRmrk",rowData.planRmrk);
 		SBUxMethod.set("dtl-inp-gubun","update");
 

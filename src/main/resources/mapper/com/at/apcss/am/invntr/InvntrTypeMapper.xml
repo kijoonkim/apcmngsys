@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : InvntrTypeMapper.xml                                   				-->
+<!-- DESC : 재고 유형 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.13  	박승진        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrTypeMapper">
+
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateRawMtrInvntrType	-->
+	<!-- DESC : 원물재고 등급 수정                             						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateRawMtrInvntrType" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateRawMtrInvntrType */
+				TB_RAW_MTR_INVNTR
+			   SET
+			   GDS_SE_CD = #{gdsSeCd}
+			    , WRHS_SE_CD = #{wrhsSeCd}
+			    , TRSPRT_SE_CD = #{trsprtSeCd}
+			   	, SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND WRHSNO = #{invntrno}
+		]]>
+	</update>
+
+	    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateSortInvntrType	-->
+	<!-- DESC : 선별재고 등급 수정                             						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateSortInvntrType" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateSortInvntrType */
+				TB_SORT_INVNTR
+			   SET
+			    GDS_SE_CD = #{gdsSeCd}
+			    , WRHS_SE_CD = #{wrhsSeCd}
+			   	, SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND SORTNO = #{invntrno}
+			   AND SORT_SN = #{sn}
+		]]>
+	</update>
+
+	    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateGdsInvntrType	-->
+	<!-- DESC : 상품재고 등급 수정                             						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+    <update id="updateGdsInvntrType" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.invntr.mapper.InvntrTypeMapper.updateGdsInvntrType */
+				TB_GDS_INVNTR
+			   SET
+			    GDS_SE_CD = #{gdsSeCd}
+			    , WRHS_SE_CD = #{wrhsSeCd}
+			    , TRSPRT_SE_CD = #{trsprtSeCd}
+			   	, SYS_LAST_CHG_DT 			= SYSDATE
+	    		, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+	    		, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+
+			 WHERE APC_CD = #{apcCd}
+			   AND PCKGNO = #{invntrno}
+			   AND PCKG_SN = #{sn}
+		]]>
+	</update>
+
+
+</mapper>

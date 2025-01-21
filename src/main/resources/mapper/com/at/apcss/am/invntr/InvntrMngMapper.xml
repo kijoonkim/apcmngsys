@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : InvntrMngMapper.xml                                   				-->
+<!-- DESC : 재고 mapper                                            				-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.13  	박승진        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrMngMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrMngMapper.selectInvntrGrdMng		-->
+	<!-- DESC : 재고 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectInvntrGrdMng" parameterType="com.at.apcss.am.invntr.vo.InvntrMngVO" resultType="com.at.apcss.am.invntr.vo.InvntrMngVO">
+    	<if test='invntrType == "1"'>
+	    	<![CDATA[
+		    	SELECT
+		    	A.APC_CD
+				, A.WRHSNO AS INVNTRNO
+				, A.WRHS_YMD
+				, A.ITEM_CD
+				, A.VRTY_CD
+				, A.ITEM_CD || A.VRTY_CD AS ITEM_VRTY_CD
+				, A.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+				, B.GRD_CD
+				, B.GRD_KND
+				, '1' AS INVNTR_TYPE
+				, A.PRCS_TYPE
+				, (SELECT FN_GET_GRD_NM_RAWMTR(A.APC_CD, A.ITEM_CD, B.GRD_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_STD_GRD_RAWMTR(A.APC_CD, A.WRHSNO, 'CD') FROM DUAL) AS STD_GRD_CD
+				, (SELECT FN_GET_STD_GRD_RAWMTR(A.APC_CD, A.WRHSNO) FROM DUAL) AS STD_GRD
+				, WRHS_SE_CD
+				, GDS_SE_CD
+				, TRSPRT_SE_CD
+
+
+				  FROM TB_RAW_MTR_INVNTR A
+	  		 		, TB_RAW_MTR_STD_GRD B
+
+			WHERE 1=1
+				AND A.APC_CD = B.APC_CD
+				AND A.WRHSNO = B.WRHSNO
+				AND A.DEL_YN = 'N'
+				AND B.DEL_YN = 'N'
+				AND A.APC_CD = #{apcCd}
+				AND B.GRD_KND = #{grdKnd}
+
+			]]>
+				<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+				 	AND A.WAREHOUSE_SE_CD = #{warehouseSeCd}
+				</if>
+				<if test='itemCd != null and itemCd != ""'>
+					AND A.ITEM_CD = #{itemCd}
+	    		</if>
+	    		<if test='vrtyCd != null and vrtyCd != ""'>
+					AND A.VRTY_CD = #{vrtyCd}
+	    		</if>
+		</if>
+		<if test='invntrType == "2"'>
+			<![CDATA[
+		    SELECT
+				A.APC_CD
+				, A.SORTNO AS INVNTRNO
+				, A.SORT_SN AS SN
+				, A.ITEM_CD
+				, A.VRTY_CD
+				, A.ITEM_CD || A.VRTY_CD AS ITEM_VRTY_CD
+				, A.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+				, '2' AS INVNTR_TYPE
+				, A.PRCS_TYPE
+				, B.GRD_KND
+				, (SELECT FN_GET_GRD_NM_SORT(A.APC_CD, A.ITEM_CD, B.GRD_CD) FROM DUAL) AS GRD_NM
+				, (SELECT FN_GET_STD_GRD_SORT(A.APC_CD, A.SORTNO, A.SORT_SN,'') FROM DUAL) AS STD_GRD_CD
+				, (SELECT FN_GET_STD_GRD_SORT(A.APC_CD, A.SORTNO, A.SORT_SN,'NM') FROM DUAL) AS STD_GRD
+				, WRHS_SE_CD
+				, GDS_SE_CD
+
+
+			  FROM TB_SORT_INVNTR A
+  		 		, TB_SORT_STD_GRD B
+
+			WHERE 1=1
+				AND A.APC_CD = B.APC_CD
+				AND A.SORTNO = B.SORTNO
+				AND A.DEL_YN = 'N'
+				AND B.DEL_YN = 'N'
+				AND B.GRD_KND = '01'
+
+			]]>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			 	AND A.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+				AND A.ITEM_CD = #{itemCd}
+    		</if>
+    		<if test='vrtyCd != null and vrtyCd != ""'>
+				AND A.VRTY_CD = #{vrtyCd}
+    		</if>
+		</if>
+		<if test='invntrType == "3"'>
+			<![CDATA[
+			SELECT
+				  A.APC_CD
+				, A.PCKGNO AS INVNTRNO
+				, A.PCKG_SN AS SN
+				, A.ITEM_CD
+				, A.VRTY_CD
+				, A.ITEM_CD || A.VRTY_CD AS ITEM_VRTY_CD
+				, A.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+				, '3' AS INVNTR_TYPE
+				, A.PRCS_TYPE
+				, B.GRD_KND
+				, (SELECT FN_GET_GRD_NM_GDS(A.APC_CD, A.ITEM_CD, B.GRD_CD) FROM DUAL) AS GRD_NM
+				, WRHS_SE_CD
+				, GDS_SE_CD
+				, TRSPRT_SE_CD
+
+			FROM TB_GDS_INVNTR A
+				, TB_GDS_STD_GRD B
+			WHERE 1=1
+				AND A.APC_CD = B.APC_CD
+				AND A.PCKGNO = B.PCKGNO
+				AND A.DEL_YN = 'N'
+				AND B.DEL_YN = 'N'
+				AND B.GRD_KND = '01'
+				]]>
+			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			 	AND A.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			</if>
+			<if test='itemCd != null and itemCd != ""'>
+				AND A.ITEM_CD = #{itemCd}
+    		</if>
+    		<if test='vrtyCd != null and vrtyCd != ""'>
+				AND A.VRTY_CD = #{vrtyCd}
+    		</if>
+		</if>
+    </select>
+
+
+
+
+
+
+</mapper>
