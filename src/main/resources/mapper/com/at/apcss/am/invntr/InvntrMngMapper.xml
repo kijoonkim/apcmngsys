@@ -10,7 +10,7 @@
 <!-- 2025.01.13  	박승진        		Initial Creation                            -->
 <!-- ==========================================================================	-->
 
-<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrMngMapper">
+<mapper namespace="com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper">
 
 
 	<!-- ==========================================================================	-->

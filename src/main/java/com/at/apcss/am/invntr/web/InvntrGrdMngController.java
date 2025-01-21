@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.invntr.service.InvntrAiMngService;
 import com.at.apcss.am.invntr.service.InvntrAtrbService;
+import com.at.apcss.am.invntr.service.InvntrGrdMngService;
 import com.at.apcss.am.invntr.service.InvntrGrdService;
-import com.at.apcss.am.invntr.service.InvntrMngService;
-import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.InvntrAiMngVO;
 import com.at.apcss.am.invntr.vo.InvntrMngVO;
-import com.at.apcss.am.invntr.vo.SortInvntrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -40,9 +38,9 @@ import com.at.apcss.co.sys.controller.BaseController;
  * </pre>
  */
 @Controller
-public class InvntrMngController extends BaseController {
-	@Resource(name = "invntrMngService")
-	private InvntrMngService invntrMngService;
+public class InvntrGrdMngController extends BaseController {
+	@Resource(name = "invntrGrdMngService")
+	private InvntrGrdMngService invntrGrdMngService;
 
 	@Resource(name = "invntrGrdService")
 	private InvntrGrdService invntrGrdService;
@@ -64,7 +62,7 @@ public class InvntrMngController extends BaseController {
 		List<InvntrMngVO> resultList = new ArrayList<>();
 		try {
 
-			resultList = invntrMngService.selectInvntrGrdMng(invntrMngVO);
+			resultList = invntrGrdMngService.selectInvntrGrdMng(invntrMngVO);
 
 		} catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());

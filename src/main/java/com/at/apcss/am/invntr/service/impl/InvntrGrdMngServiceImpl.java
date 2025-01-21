@@ -8,9 +8,9 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.at.apcss.am.invntr.mapper.InvntrMngMapper;
+import com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
-import com.at.apcss.am.invntr.service.InvntrMngService;
+import com.at.apcss.am.invntr.service.InvntrGrdMngService;
 import com.at.apcss.am.invntr.service.InvntrService;
 import com.at.apcss.am.invntr.service.RawMtrInvntrService;
 import com.at.apcss.am.invntr.service.SortInvntrService;
@@ -34,12 +34,12 @@ import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
  * 2023.06.21  신정철        최초 생성
  * </pre>
  */
-@Service("invntrMngService")
-public class InvntrMngServiceImpl extends BaseServiceImpl implements InvntrMngService {
+@Service("invntrGrdMngService")
+public class InvntrGrdMngServiceImpl extends BaseServiceImpl implements InvntrGrdMngService {
 
 
 	@Autowired
-	private InvntrMngMapper invntrMngMapper;
+	private InvntrGrdMngMapper invntrMngMapper;
 
 	@Override
 	public List<InvntrMngVO> selectInvntrGrdMng(InvntrMngVO invntrMngVO) throws Exception {
