@@ -98,7 +98,7 @@ public class ApcMailController extends BaseController {
                 emsMailVO.setSendInfo(mailFrom);        // 발송자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
                 emsMailVO.setRcvInfo(recipientsTo);     // 수신자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
                 emsMailVO.setSendType("D");             // D : 즉시전송(기본값), R : 예약전송
-                rtnObj = apcMailService.sendEmsMail(emsMailVO);
+                rtnObj = apcMailService.sendEmsMailSimple(emsMailVO);
 
             } else {
                 ApcMailVO apcMailVO = new ApcMailVO(
