@@ -182,7 +182,7 @@
                                 </td>
                                 <th scope="row" rowspan="8" class="th_bg">SMS문자메시지</th>
                                 <td colspan="2" rowspan="8" class="td_input" >
-                                    <sbux-textarea id="SMS_MSESSAGE" name="SMS_MSESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
+                                    <sbux-textarea id="SMS_MESSAGE" name="SMS_MESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
                                     </sbux-textarea>
                                 </td>
                             </tr>
@@ -552,8 +552,6 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
-        gvwDetail.bind('click', 'fn_viewForDetail');
-        gvwDetail.bind('keyup', 'fn_keyupForDetail');
     }
 
     const fn_keyup = async function(event) {
@@ -662,68 +660,17 @@
                     jsonServiceFeeList.push(msg);
                 });
                 gvwDetail.rebuild();
-            } else {
-                alert(data.resultMessage);
-            }
 
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_keyupForDetail = async function(event) {
-        if(event.keyCode == 38 || event.keyCode == 40) {
-            fn_viewForDetail();
-        }
-    }
-
-    const fn_viewForDetail = async function () {
-        var nRow = gvwDetail.getRow();
-        if(nRow < 1) return;
-        var rowData = gvwDetail.getRowData(nRow);
-
-        if(gfn_nvl(rowData) == "") return;
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_PAY_DATE_FR : '',
-            V_P_PAY_DATE_TO : '',
-            V_P_SITE_CODE : '',
-            V_P_EARNER_NAME : '',
-            V_P_PAY_DATE : '',
-            V_P_EARNER_CODE : '',
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
-            getType				: 'json',
-            workType			: 'MAIL',
-//             workType			: 'EMAIL',
-            cv_count			: '2',
-            params				: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if(data.cv_1.length > 0) {
-                    strSmtpHost = data.cv_1[0]["SMTP_HOST"];
-                    IntSmtpPort = parseInt(data.cv_1[0]["SMTP_PORT"]);
-                    strUserName = data.cv_1[0]["USERNAME"];
-                    strPassword = data.cv_1[0]["PSWD"];
-                    strEmail = data.cv_1[0]["MAILID"];
+                if(data.cv_2.length > 0) {
+                    SBUxMethod.set("EMAIL_SUBJECT", gfn_nvl(data.cv_2[0].EML_SBJT));
+                    SBUxMethod.set("SMS_MESSAGE", gfn_nvl(data.cv_2[0].SMS_TTL));
+                    SBUxMethod.set("EMAIL_BODY", gfn_nvl(data.cv_2[0].EML_MTXT));
+                    SBUxMethod.set("NOTICE_MEMO", gfn_nvl(data.cv_2[0].NTC_CN));
+                } else {
+                    SBUxMethod.set("EMAIL_SUBJECT", "");
+                    SBUxMethod.set("SMS_MESSAGE", "");
+                    SBUxMethod.set("EMAIL_BODY", "");
+                    SBUxMethod.set("NOTICE_MEMO", "");
                 }
             } else {
                 alert(data.resultMessage);
@@ -1022,7 +969,7 @@
 	        params				: gfnma_objectToString(paramObj, true)
 	    });
 	    const data = await postJsonPromise;
-console.log('data ==>', data);	    
+
 	    try {
 	        if (_.isEqual("S", data.resultStatus)) {
 			    return data;
@@ -1088,21 +1035,12 @@ console.log('data ==>', data);
     }
 
     const fn_sendSMS = async function () {
-//         let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
-//         let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-//         let TEL_NO = gfn_nvl(SBUxMethod.get("TEL_NO"));
-//         let SMS_SEND_YN = gfn_nvl(SBUxMethod.get("SMS_SEND_YN"));
-//         let SMS_SEND_MSG = gfn_nvl(SBUxMethod.get("SMS_SEND_MSG"));
-//         let SMS_KEY = gfn_nvl(SBUxMethod.get("SMS_KEY"));
-//         let SMS_DATA_SET = gfn_nvl(SBUxMethod.get("SMS_DATA_SET"));
-        
         let checkData 	  = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHK_YN') );
         if (_.isEmpty(checkData)) {
             gfn_comAlert("W0001", "SMS 발송할 데이터");
             return;
         }
-        
-        console.log('checkData ==>', checkData);
+
         let paramObj = {};
         let listData = [];
         
@@ -1117,8 +1055,8 @@ console.log('data ==>', data);
                 ,V_P_PAY_DATE_TO        : ''
                 ,V_P_SITE_CODE          : ''
                 ,V_P_EARNER_NAME        : ''
-                ,V_P_PAY_DATE           : gfnm_nvl2(item.data.PAY_DATE)
-                ,V_P_EARNER_CODE        : gfnm_nvl2(item.data.EARNER_CODE)
+                ,V_P_PAY_DATE           : gfn_nvl(item.data.PAY_DATE)
+                ,V_P_EARNER_CODE        : gfn_nvl(item.data.EARNER_CODE)
                 ,V_P_FORM_ID			: p_formId
                 ,V_P_MENU_ID			: p_menuId
                 ,V_P_PROC_ID			: ''
@@ -1164,11 +1102,9 @@ console.log('data ==>', data);
             };
             listData.push(param);
         });
-        
-        
+
         return;
-        
-        
+
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
