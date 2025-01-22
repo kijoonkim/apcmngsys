@@ -31,5 +31,6 @@ public interface ApcMailService {
 
     public HashMap<String, Object> sendEmsMail(EmsMailVO emsMailVO) throws Exception;
 
+    public HashMap<String, Object> sendEmsMailSimple(EmsMailVO emsMailVO) throws Exception;
 
 }
