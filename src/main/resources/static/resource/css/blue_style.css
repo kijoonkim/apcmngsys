@@ -139,6 +139,7 @@ body {
 }
 .sbt-input-tab .tab-content {
   padding: 10px;
+  height: calc(100% - 34px);
 }
 .sbt-input-tab,
 .sbt-tab-wrap,

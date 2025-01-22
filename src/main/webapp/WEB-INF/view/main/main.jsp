@@ -852,7 +852,7 @@
             <brand-item text="APC통합지원" image-src="/resource/images/header_logo.png" wrap-style="width:500px;">
             </brand-item>
         </sbux-menu>
-        <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;background:#149fff;position: absolute;right: 0">
+        <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;position: absolute;right: 0">
             <div style="width: 50px;margin-left: 5px;position: relative;cursor: pointer" onclick="fn_msgPopup();">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-bell-circle" width="100%" height="100%" viewBox="0 0 24 24">
                     <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M17,16V15L16,14V11.39C16,10.3 15.73,9.34 15.21,8.53C14.7,7.72 13.96,7.21 13,7V6.5A1,1 0 0,0 12,5.5A1,1 0 0,0 11,6.5V7C10.04,7.21 9.3,7.72 8.79,8.53C8.27,9.34 8,10.3 8,11.39V14L7,15V16H17M13.5,17H10.5A1.5,1.5 0 0,0 12,18.5A1.5,1.5 0 0,0 13.5,17Z" fill="#fff" />
@@ -866,7 +866,7 @@
                 <span class="name-t" style="margin-left: 5px"><c:out value='${userName}'></c:out></span>
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
-                    <li style="background-color:#149FFF;">
+                    <li style="padding: 0!important;">
                         <sbux-button
                             id="btnPrfrmImprvDmnd"
                             name="btnPrfrmImprvDmnd"
@@ -940,7 +940,7 @@
             <!--full content-->
             <div class="sbt-wrap-full">
                 <!--탭 입력 영역-->
-                <div class="sbt-input-tab">
+                <div class="sbt-input-tab" style="height: 100%">
                     <!--탭 영역-->
                     <sbux-tabs
                     	id="tab_menu"
@@ -1217,14 +1217,18 @@
 
     	}
     }
+    const getHomeSvg = function(){
+        return `<?xml version="1.0" encoding="iso-8859-1"?><!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="13px" viewBox="0 0 612.008 612.008" style="enable-background:new 0 0 612.008 612.008;" xml:space="preserve"><g><g id="Shape_379_1_"><g><path d="M609.208,298.575L313.306,3.815c-3.987-3.988-10.445-3.988-14.433,0L2.961,298.575c-3.988,3.988-3.907,10.353,0,14.393c1.999,2.06,4.61,3.11,7.201,3.131v0.041h71.441v284.865c0,2.815,1.142,5.335,2.988,7.171c1.846,1.856,4.396,3.009,7.211,3.009h142.8c5.63,0,10.2-4.569,10.2-10.18V397.556h122.401v203.449c0,5.6,4.569,10.18,10.2,10.18h142.8c5.63,0,10.2-4.569,10.2-10.18V316.14h71.899c2.673,0.051,5.191-1,6.905-3.162C612.676,308.541,613.197,302.563,609.208,298.575z" fill="#FFFFFF"/></g></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`;
+    }
 
     const initMain = async function() {
         var tabName = "TAB_CO_014";
         var menuNo = "CO_014";
+        let svg = getHomeSvg();
         var jsonTabSelect = {
             'id': tabName
             , 'pid': '-1'
-            , 'text': '🏠'	//'대시보드'
+            , 'text': svg	//'대시보드'
             , 'targetid': tabName
             , 'targetvalue': tabName
             , 'targetname': 'frmJson'
@@ -1683,7 +1687,7 @@
     const fn_topMenuSet = async function () {
         let width = $("body > div.sbt-A-wrap > div.sbt-all-header > div").css("width");
         $("#idxTop_json > div").css({
-            "width": "100vw",
+            "width": "100%",
             "left": "0",
             "margin-left": "0"
         });

@@ -16,6 +16,9 @@
 	font-weight: bold;
 	margin-right: 10px;
 }
+.sbgrid_PA, .mCustomScrollBox{
+	overflow: scroll !important;
+}
 </style>
 
 </head>
@@ -23,9 +26,6 @@
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-
-
-
 				<div>
 					<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 경영체정보 -->
@@ -105,34 +105,25 @@
 									onclick="fn_choiceFrmer"
 								></sbux-button>
 							</td>
-
-
-
-
-
 						</tr>
 					</tbody>
 				</table>
-
-				<div class="table-responsive tbl_scroll_sm">
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-				</sbux-tabs>
-
-
-
-				<div class="tab-content">
-					<div id="gnrlSttnTab" >
-						<div id="sb-area-gnrlSttn" style="height:470px;"></div>
-						<div>
-							<table class="table table-bordered tbl_fixed">
-								<caption>일반현황</caption>
-								<colgroup>
-									<col style="width:20%">
-									<col style="width:30%">
-									<col style="width:20%">
-									<col style="width:30%">
-								</colgroup>
-								<tbody>
+				<div class="table-responsive tbl_scroll_sm" style="height: calc(100% - 36px)" >
+					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData" wrap-style="height:100%">
+					</sbux-tabs>
+					<div class="tab-content">
+						<div id="gnrlSttnTab" style="display: flex">
+							<div id="sb-area-gnrlSttn" style="height:470px;flex: 1"></div>
+							<div style="flex: 1">
+								<table class="table table-bordered tbl_fixed">
+									<caption>일반현황</caption>
+									<colgroup>
+										<col style="width:20%">
+										<col style="width:30%">
+										<col style="width:20%">
+										<col style="width:30%">
+									</colgroup>
+									<tbody>
 									<tr>
 										<th scope="row" class="th_bg" >농업인번호</th>
 										<td>
@@ -246,24 +237,22 @@
 
 
 
-								</tbody>
-							</table>
+									</tbody>
+								</table>
+							</div>
 						</div>
-
-
-					</div>
-					<div id="frlnTab" >
-						<div id="sb-area-frln" style="height:470px;"></div>
-						<div>
-							<table class="table table-bordered tbl_fixed">
-								<caption>농지</caption>
-								<colgroup>
-									<col style="width:20%">
-									<col style="width:30%">
-									<col style="width:20%">
-									<col style="width:30%">
-								</colgroup>
-								<tbody>
+						<div id="frlnTab" >
+							<div id="sb-area-frln" style="height:470px;"></div>
+							<div>
+								<table class="table table-bordered tbl_fixed">
+									<caption>농지</caption>
+									<colgroup>
+										<col style="width:20%">
+										<col style="width:30%">
+										<col style="width:20%">
+										<col style="width:30%">
+									</colgroup>
+									<tbody>
 									<tr>
 										<th scope="row" class="th_bg" >농업인번호</th>
 										<td>
@@ -387,39 +376,37 @@
 
 
 
-								</tbody>
-							</table>
+									</tbody>
+								</table>
+							</div>
+
 						</div>
-
-					</div>
-					<div id="eduFnshTab" >
-						<div id="sb-area-eduFnsh" style="height:470px;"></div>
-					</div>
-					<div id="ecfrdCertTab" >
-						<div id="sb-area-ecfrdCert" style="height:470px;"></div>
-					</div>
-					<div id="rcfvHstryTab" >
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li>
-									<span>농업인 수혜이력</span>
-								</li>
-							</ul>
+						<div id="eduFnshTab" >
+							<div id="sb-area-eduFnsh" style="height:470px;"></div>
 						</div>
-						<div id="sb-area-frmerRcfvHstry" style="height:470px;"></div>
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
-								<li>
-									<span>농지 수혜이력</span>
-								</li>
-							</ul>
+						<div id="ecfrdCertTab" >
+							<div id="sb-area-ecfrdCert" style="height:470px;"></div>
 						</div>
-						<div id="sb-area-frlnRcfvHstry" style="height:470px;"></div>
+						<div id="rcfvHstryTab" >
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li>
+										<span>농업인 수혜이력</span>
+									</li>
+								</ul>
+							</div>
+							<div id="sb-area-frmerRcfvHstry" style="height:470px;"></div>
+							<div class="ad_tbl_top">
+								<ul class="ad_tbl_count">
+									<li>
+										<span>농지 수혜이력</span>
+									</li>
+								</ul>
+							</div>
+							<div id="sb-area-frlnRcfvHstry" style="height:470px;"></div>
 
+						</div>
 					</div>
-
-				</div>
-
 				</div>
 			</div>
 		</div>

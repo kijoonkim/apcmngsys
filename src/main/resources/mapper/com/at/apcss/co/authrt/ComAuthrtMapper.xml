@@ -1857,4 +1857,41 @@
 			   AND MENU_ID = #{menuId}
 		]]>
 	</delete>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.authrt.mapper.ComAuthrtMapper.selectComUserList	    -->
+	<!-- DESC : 기본 사용자 권한 목록 조회.                                          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.1.22  	손민성       	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<select id="selectComUserList" parameterType="com.at.apcss.co.authrt.vo.ComAuthrtVO" resultType="com.at.apcss.co.authrt.vo.ComAuthrtVO">
+		SELECT
+			UA.USER_ID AS USER_ID
+			,MAX(UA.APC_CD) AS APC_CD
+    		,MAX(UA.BSC_APC_YN) AS BSC_APC_YN
+			,MAX(UA.APRV_YN) AS APRV_YN
+			,MAX(UA.APRV_DT) AS APRV_DT
+			,MAX(UA.APRV_RMRK) AS APRV_RMRK
+			,MAX(UA.APLY_YN) AS APLY_YN
+			,MAX(UA.APLY_DT) AS APLY_DT
+			,MAX(UA.APLY_RMRK) AS APLY_RMRK
+			,MAX(UA.PRDCTN_MNG_USE_YN) AS PRDCTN_MNG_USE_YN
+    		,MAX(UA.ADMST_MNG_USE_YN) AS ADMST_MNG_USE_YN
+    		,MAX(UA.FRMHS_MNG_USE_YN) AS FRMHS_MNG_USE_YN
+		FROM
+			TB_COM_USER_APC AS UA
+		JOIN
+			TB_COM_USER AS CU
+		ON
+			UA.APC_CD = CU.APC_CD
+		<if test="apcCd != null and apcCd != ''">
+			WHERE UA.APC_CD = #{apcCd}
+		</if>
+		GROUP BY
+		UA.USER_ID
+		<if test="apcCd == null or apcCd == ''">
+			LIMIT 100
+		</if>
+	</select>
 </mapper>
