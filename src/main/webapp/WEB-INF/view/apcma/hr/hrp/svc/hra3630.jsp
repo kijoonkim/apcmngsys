@@ -303,6 +303,20 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [2, 7],
+                sum : [8,9,10],
+            },
+            grandtotalrow : {
+                titlecol: 0,
+                titlevalue: '합계',
+                style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol: 0
+            },
+        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
@@ -931,7 +945,7 @@
 
             conn = await fn_getReportData( checkDatas[i].data );
             conn = await gfnma_convertDataForReport(conn);
-            
+
             await gfn_getReportPdf(
            		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서 " + gfnma_date5(checkDatas[i].data.PAY_DATE) + ".pdf",
            		"ma/RPT_HRA3630.crf",
