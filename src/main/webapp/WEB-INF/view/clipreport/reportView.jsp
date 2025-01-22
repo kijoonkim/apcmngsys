@@ -17,9 +17,9 @@
 <section>
     <div class="box box-solid">
         <div class="box-header" style="display:flex; justify-content: flex-start;" >
-            <div>
-                <h3 class="box-title"> ▶ 보고서 번호 : <c:out value='${uuid}'></c:out></h3>
-            </div>
+<!--             <div> -->
+<%--                 <h3 class="box-title"> ▶ 보고서 번호 : <c:out value='${uuid}'></c:out></h3> --%>
+<!--             </div> -->
             <div style="margin-left: auto;">
                 <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
                 <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
@@ -34,8 +34,9 @@
                 <button id="btn-reportView">보고서 출력</button>
             </div>
         </div>
-        <div id="div-rpt-clipReportJSON" style="width:1000px;height:80vh;"></div>
+<!--         <div id="div-rpt-clipReportJSON" style="width:100%;height:80vh;"></div> -->
     </div>
+        <div id="div-rpt-clipReportJSON" style="width:100%;height:80vh;"></div>
 </section>
 
 </body>
@@ -149,7 +150,7 @@
         const workType = param.prgrmPrcsType;
         const cvCount = param.prcsRsltNocs;
         const params = param.prmtrData;
-
+// console.log('params ==> ', params.split(','));
         try {
             const postJsonPromise = gfn_postJSON(
                 url, {
@@ -161,6 +162,9 @@
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
+//             	console.log('param ==>', param);
+//             	console.log('params ==>', params);
+//             	console.log('data ==>', data);
                 return data;
             } else {
                 return null;
