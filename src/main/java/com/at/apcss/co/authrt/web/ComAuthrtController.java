@@ -756,4 +756,22 @@ public class ComAuthrtController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/co/authrt/selectComUserList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectComUserList(@RequestBody  ComAuthrtVO comAuthrtVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<ComAuthrtVO> resultList = new ArrayList<>();
+	        try{
+				resultList = comAuthrtService.selectComUserList(comAuthrtVO);
+
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+	        return getSuccessResponseEntity(resultMap);
+	    }
 }

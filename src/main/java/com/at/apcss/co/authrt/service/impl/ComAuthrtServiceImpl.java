@@ -1553,6 +1553,8 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		return null;
 	}
 
-
-
+	@Override
+	public List<ComAuthrtVO> selectComUserList(ComAuthrtVO comAuthrtVO) throws Exception {
+		return comAuthrtMapper.selectComUserList(comAuthrtVO);
+	}
 }

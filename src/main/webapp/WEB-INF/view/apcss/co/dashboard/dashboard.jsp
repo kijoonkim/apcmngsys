@@ -44,6 +44,7 @@
 		}
 		.dash_area{
 			border-radius: 8px;
+			margin-right: 2vw;
 		}
 		.dash_area.char_donut{
 			display: flex;
@@ -122,6 +123,7 @@
 		}
 		.ad_tbl_top2{
 			display: flex;
+			justify-content: end;
 		}
 		.summary_box.box_b > div{
 			display: flex;
@@ -176,19 +178,19 @@
 							onchange=""
 					></sbux-select>
 				</div>
-				<span class="dash_top_span">조회구분</span>
-				<div style="display: flex; align-items: center">
-					 <sbux-select
-							  id="srch-slt-type"
-							  name="srch-slt-type"
-							  uitype="single"
-							  jsondata-ref="jsonApcItem"
-							  unselected-text="선택"
-							  class="form-control input-sm"
-							  style="background-color: white"
-							  onchange=""
-					 ></sbux-select>
-				</div>
+<%--				<span class="dash_top_span">조회구분</span>--%>
+<%--				<div style="display: flex; align-items: center">--%>
+<%--					 <sbux-select--%>
+<%--							  id="srch-slt-type"--%>
+<%--							  name="srch-slt-type"--%>
+<%--							  uitype="single"--%>
+<%--							  jsondata-ref="jsonApcItem"--%>
+<%--							  unselected-text="선택"--%>
+<%--							  class="form-control input-sm"--%>
+<%--							  style="background-color: white"--%>
+<%--							  onchange=""--%>
+<%--					 ></sbux-select>--%>
+<%--				</div>--%>
 			</div>
 		</div>
 		<div class="box-body" style="height: calc(100% - 10vh)">
@@ -200,6 +202,15 @@
 								<span>품목별 현황</span>
 							</li>
 						</ul>
+						<div id="ymBtn" style="display: flex;gap: 10px">
+							<sbux-radio id="rdo_norm1" name="rdo_norm" uitype="normal"
+										text="월단위" value="mm" checked>
+							</sbux-radio>
+
+							<sbux-radio id="rdo_norm2" name="rdo_norm" uitype="normal"
+										text="연단위" value="yyyy">
+							</sbux-radio>
+						</div>
 					</div>
 				</div>
 				<div class="dash_area">
@@ -211,7 +222,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="dash_area char_donut" style="border: 1px solid #D8D8D8;margin-right: 2vw">
+				<div class="dash_area char_donut" style="border: 1px solid #D8D8D8;">
 <%--					donut 그래프 --%>
 					<div id="wrhs"></div>
 					<div id="sort"></div>
@@ -272,10 +283,10 @@
 							<td id="oprtr"></td>
 						</tr>
 						<tr>
-							<th>관리자</th>
-							<td></td>
-							<th>직거래</th>
-							<td></td>
+							<th>사용자</th>
+							<td id="user"></td>
+							<th>거래처</th>
+							<td id="cnpt"></td>
 						</tr>
 						</tbody>
 					</table>
@@ -300,7 +311,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="dash_area char_combi" style="border: 1px solid #D8D8D8; margin-right: 2vw">
+				<div class="dash_area char_combi" style="border: 1px solid #D8D8D8;">
 <%--					bar 그래프 --%>
 					<div id="trend"></div>
 				</div>
@@ -354,6 +365,8 @@
 		getItemList();
 		getPrdcrList();
 		getOprtrList();
+		getCnptList();
+		getUserList();
 		fn_createChar();
 	});
 	const fn_createChar = async function(){
@@ -570,20 +583,28 @@
 		let data = await postJsonPromise;
 		$("#oprtr").text(data.resultList.length + '명');
 	}
+	const getCnptList = async function(){
+		const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: gv_selectedApcCd, delYn: "N"}, null, true);
+		const data = await postJsonPromise;
+		console.log(data);
+		$("#cnpt").text(data.resultList.length + '개');
+	}
+	const getUserList = async function(){
+		const postJsonPromise = gfn_postJSON("/co/authrt/selectComUserList.do",{apcCd:gv_selectedApcCd});
+		const data = await postJsonPromise;
+		console.log(data);
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
+		}
+		$("#user").text(data.resultList.length + '명');
+	}
 
 </script>
 
 <!-- 아래부터 차트 -->
 <script type="text/javascript">
 	var jsonDashboard = [];
-
-	//only document
-	window.addEventListener('DOMContentLoaded', function(e) {
-		// var title = gv_apcNm + " 월별 실적 통계"
-		// SBUxMethod.set("lbl-apcNm", title);
-		// fn_createDashboardGrid();
-		// postJsonDashboard();
-	});
 
 	async function postJsonDashboard() {
 		let apcCd = gv_apcCd;
