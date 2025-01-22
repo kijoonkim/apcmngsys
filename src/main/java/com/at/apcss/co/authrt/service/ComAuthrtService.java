@@ -307,5 +307,10 @@ public interface ComAuthrtService {
 	 * @return
 	 */
 	public HashMap<String, Object> deleteBmk(ComAuthrtVO comAuthrtVO) throws Exception;
-
+	/**
+	 * 일반 사용자 목록 조회
+	 * @param comAuthrtVO
+	 * @return
+	 */
+    List<ComAuthrtVO> selectComUserList(ComAuthrtVO comAuthrtVO) throws Exception;
 }

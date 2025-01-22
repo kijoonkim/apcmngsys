@@ -22,376 +22,756 @@
 	<title>메인</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<style>
+		.dash_top{
+			display: flex;
+			background-color: rgba(128, 128, 128, 0.15);
+			border-radius: 5px;
+			width: 100%;
+			height: 100%;
+			gap: 5px;
+		}
+		.dash_top_span{
+			align-content: center;
+			color: black;
+			margin-left: 3vw;
+		}
+		.dash_body{
+			display: grid;
+			grid-template-columns: 1fr 10px 1fr;
+			grid-template-rows: 30px 1.6fr 30px 30px 1fr;
+			height: 100%;
+			width: 100%;
+		}
+		.dash_area{
+			border-radius: 8px;
+		}
+		.dash_area.char_donut{
+			display: flex;
+			gap: 5px;
+			justify-content: center;
+			align-items: center;
+		}
+		.dash_area.char_donut div{
+			flex: 1;
+			width: 100%;
+			height: 70%;
+			display: flex;
+			align-items: center;
+		}
+		.dash_area.char_combi{
+			display: flex;
+			gap: 5px;
+			justify-content: center;
+			align-items: center;
+		}
+		.dash_area.char_combi div{
+			flex: 1;
+			width: 100%;
+			height: 85%;
+			display: flex;
+			align-items: center;
+			padding-bottom: 2vh;
+		}
+		.summary_box{
+			border: 1px solid #D8D8D8;
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.summary_box.box_b{
+			border-bottom: 10px solid #4073C0;
+		}
+		.color_b{
+			color: #4073C0;
+			font-size: large;
+		}
+		.summary_box.box_g{
+			border-bottom: 10px solid #1bb394;
+		}
+		.color_g{
+			color: #1bb394;
+			font-size: large;
+		}
+		.summary_box.box_p{
+			border-bottom: 10px solid #eb5c87;
+		}
+		.color_p{
+			color: #eb5c87;
+			font-size: large;
+		}
+		.ad_tbl_count li span{
+			color: black !important;
+			font-weight: bold !important;
+			font-size: 2rem;
+		}
+		table th{
+			background-color: color(srgb 0.9629 0.9729 0.9728);
+			font-weight: initial;
+			text-align: center;
+			border: 1px solid;
+			border-bottom: initial;
+		}
+		table td{
+			border: 1px solid;
+			padding-left: 5px;
+			width: 150px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.ad_tbl_top2{
+			display: flex;
+			justify-content: end;
+		}
+		.summary_box.box_b > div{
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+		}
+		.box_aling {
+			display: flex;
+			gap: 5px;
+			align-items: end;
+		}
+		.ellipsis-text {
+			width: 200px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.sbchart-title{
+			font-weight: bold;
+			font-size: large;
+		}
+		.sbux-pik-input.sbux-dirty {
+			background: #ffffff;
+			border-color: #fefefe;
+			color: #000;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false;">
 <section class="content container-fluid">
 	<div class="box box-solid">
-		<div class="box-header" style="text-align:right;" >
-			<h3 class="box-title" style="line-height: 30px; float:left;"><sbux-label id="lbl-apcNm" name="lbl-apcNm" style="font-weight:bold;"></sbux-label></h3>
-			<span style="display:inline-block;">
-            	<button type="button" class="btn btn-sm btn-outline-danger" style="float:left; margin-left:20px;" onclick="fn_search()">조회</button>
-            </span>
+		<div class="box-header" style="text-align:right; height: 10vh" >
+			<div class="dash_top">
+				<span class="dash_top_span">조회 APC</span>
+				<div style="display: flex; align-items: center; flex-basis: 10%">
+					<sbux-select
+							id="gsb-slt-apcCd"
+							name="gsb-slt-apcCd"
+							uitype="single"
+							jsondata-ref="cjsonApcList"
+							jsondata-text="apcNm"
+							jsondata-value="apcCd"
+							class="form-control input-sm"
+							onchange="cfn_onChangeApc(this)"
+							style="background-color: white;"
+					></sbux-select>
+				</div>
+				<span class="dash_top_span">기준일자</span>
+				<div style="display: flex; align-items: center">
+					<sbux-datepicker id="srch-dtl-ymd"
+									 name="srch-dtl-ymd"
+									 class="form-control pull-right input-sm input-sm-ast"
+									 wrap-style="width:80%"
+									 onchange="fn_search()"
+									 uitype="popup">
+					</sbux-datepicker>
+				</div>
+<%--				<span class="dash_top_span">조회구분</span>--%>
+<%--				<div style="display: flex; align-items: center">--%>
+<%--					 <sbux-select--%>
+<%--							  id="srch-slt-type"--%>
+<%--							  name="srch-slt-type"--%>
+<%--							  uitype="single"--%>
+<%--							  jsondata-ref="jsonApcItem"--%>
+<%--							  unselected-text="선택"--%>
+<%--							  class="form-control input-sm"--%>
+<%--							  style="background-color: white"--%>
+<%--							  onchange=""--%>
+<%--					 ></sbux-select>--%>
+<%--				</div>--%>
+			</div>
+		</div>
+		<div class="box-body" style="height: calc(100% - 10vh)!important;">
+			<div class="dash_body">
+				<div class="dash_area">
+					<div class="ad_tbl_top2">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>품목별 현황</span>
+							</li>
+						</ul>
+						<div id="ymBtn" style="display: flex;gap: 10px">
+							<sbux-radio id="idx" name="idx" uitype="normal"
+										jsondata-ref="radioJsonData"
+										onchange="fn_setYM()">
+							</sbux-radio>
+						</div>
+					</div>
+				</div>
+				<div></div>
+				<div class="dash_area">
+					<div class="ad_tbl_top2">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>APC 요약정보</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="dash_area char_donut" style="border: 1px solid #D8D8D8;">
+<%--					donut 그래프 --%>
+					<div id="wrhs"></div>
+					<div id="sort"></div>
+					<div id="spmt"></div>
+				</div>
+				<div></div>
+				<div class="dash_area" style="display: flex; flex-direction: column">
+<%--					환경설정 Table --%>
+					<table style="flex: 1">
+						<colgroup>
+							<col style="width: 20%">
+							<col style="width: 30%">
+							<col style="width: 20%">
+							<col style="width: 30%">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>법인명</th>
+							<td></td>
+							<th>APC명</th>
+							<td id="apcNm"></td>
+						</tr>
+						<tr>
+							<th>업태</th>
+							<td id="bzstat"></td>
+							<th>종목</th>
+							<td id="cls"></td>
+						</tr>
+						<tr>
+							<th>대표자명</th>
+							<td colspan="3" id="apcRprsvNm"></td>
+						</tr>
+						<tr>
+							<th>전화번호</th>
+							<td id="telno"></td>
+							<th>팩스번호</th>
+							<td id="fxno"></td>
+						</tr>
+						<tr>
+							<th>주소</th>
+							<td colspan="3" id="addr"></td>
+						</tr>
+						<tr>
+							<th>사업자번호</th>
+							<td colspan="3" id="actno"></td>
+						</tr>
+						<tr>
+							<th>품목</th>
+							<td colspan="3">
+								<div id="itemNm" class="ellipsis-text">
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>생산자</th>
+							<td id="prdcr"></td>
+							<th>작업자</th>
+							<td id="oprtr"></td>
+						</tr>
+						<tr>
+							<th>사용자</th>
+							<td id="user"></td>
+							<th>거래처</th>
+							<td id="cnpt"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div></div>
+				<div></div>
+				<div></div>
+
+				<div class="dash_area">
+					<div class="ad_tbl_top2">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>품목별 추이</span>
+							</li>
+						</ul>
+						<sbux-radio id="trc" name="trc" uitype="normal"
+									jsondata-ref="radioTrcJsonData"
+									onchange="fn_setTrc()">
+						</sbux-radio>
+					</div>
+				</div>
+				<div></div>
+				<div class="dash_area">
+					<div class="ad_tbl_top2">
+						<ul class="ad_tbl_count">
+							<li>
+								<span>요약 실적</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="dash_area char_combi" style="border: 1px solid #D8D8D8;">
+<%--					bar 그래프 --%>
+					<div id="trend"></div>
+				</div>
+				<div></div>
+				<div class="dash_area" style="display: flex">
+<%--					박스 세개 --%>
+					<div style="display: flex; gap: 5px; flex: 1">
+						<div class="summary_box box_b">
+							<div>
+								<div style="font-size: 1.5rem">입고량</div>
+								<div class="box_aling"><span id="wrhsCard" class="color_b"></span>kg</div>
+							</div>
+						</div>
+						<div class="summary_box box_g">
+							<div>
+								<div style="font-size: 1.5rem">선별량</div>
+								<div class="box_aling"><span id="sortCard" class="color_g"></span>kg</div>
+							</div>
+						</div>
+						<div class="summary_box box_p">
+							<div>
+								<div style="font-size: 1.5rem">출하량</div>
+								<div class="box_aling"><span id="spmtCard" class="color_p"></span>kg</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<!--==========그래프=============-->
-		<div class="box-body">
-			<div class="box box-solid" style="width:30%; height:385px; float:left; margin-right:5%;">
-				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">입고 현황</h1>
-				<div id="chart-area-wrhs" style="height: 338px;"></div>
-			</div>
-			<div class="box box-solid" style="width:30%; height:385px; float:left; margin-right:5%;">
-				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">생산 현황</h1>
-				<div id="chart-area-sort" style="height: 338px;"></div>
-			</div>
-			<div class="box box-solid" style="width:30%; height:385px; float:right;">
-				<h1 class="box-title" style="margin-top: 10px;margin-left: 10px;">출고 현황</h1>
-				<div id="chart-area-spmt" style="height: 338px;"></div>
-			</div>
-		</div>
-		<!--==========그래프=============-->
 
-		<!--==========그리드=============-->
-		<div class="box-body">
-			<div class="table-responsive tbl_scroll_sm">
-				<div id="sb-area-grdDashboard" style="width:100%;height:260px;"></div>
-			</div>
-		</div>
-		<!--==========그리드=============-->
 
 	</div>
 </section>
-
 <script type="text/javascript">
-	var jsonDashboard = [];
+	<c:choose>
+	<c:when test="${comApcList != null}">
+	var cjsonApcList = ${comApcList};
+	</c:when>
+	<c:otherwise>
+	var cjsonApcList = {};
+	</c:otherwise>
+	</c:choose>
+	const cfn_onChangeApc = function(obj) {
+		gv_selectedApcCd = obj.value;
+		fn_search();
+	}
+	/** radio json **/
+	var radioJsonData = [
+		{ text : "월단위"  , value : "mm", style:'margin-right : 8px',checked : "checked" },
+		{ text : "연단위"  , value : "yy" },
+	];
+	var radioTrcJsonData = [
+		{ text : "입고"  , value : "01", style:'margin-right : 8px',checked : "checked" },
+		{ text : "생산"  , value : "02", style:'margin-right : 8px'},
+		{ text : "출하"  , value : "03" },
+	];
+	/** 차트용 JSON **/
+	let curItemMM = [];
+	let curItemYY = [];
+	let curSmryMM = [];
+	let curSmryYY = [];
 
-	//only document
-	window.addEventListener('DOMContentLoaded', function(e) {
-		var title = gv_apcNm + " 월별 실적 통계"
-		SBUxMethod.set("lbl-apcNm", title);
-		fn_createDashboardGrid();
-		postJsonDashboard();
+	/** 품목별 추이 **/
+	let curItemTRC = [];
+	let trcTypes = {};
+	let trcColumns = [];
+
+	/** charColumns **/
+	let columnWrhs = [];
+	let columnSort = [];
+	let columnSpmt = [];
+
+	let columnTrc = [];
+
+	window.addEventListener("DOMContentLoaded", function(e){
+		SBUxMethod.set("srch-dtl-ymd",gfn_dateToYmd(new Date()));
+		selectApcEvrmntStng();
+		/** 환경설정 정보 **/
+		getItemList();
+		getPrdcrList();
+		getOprtrList();
+		getCnptList();
+		getUserList();
+		/** 최초 진입 data select **/
+		fn_search();
 	});
+	const fn_createChar = async function(){
+		await fn_createWrhs();
+		await fn_createSort();
+		await fn_createSpmt();
+		await fn_createTrend();
+	}
 
-	async function postJsonDashboard() {
-		let apcCd = gv_apcCd;
-		if(gv_userType == '01' || gv_userType == '00'){
-			apcCd ='';
-		}
+	const fn_createWrhs = async function(){
+		sb.chart.render("#wrhs", {
+			global: {
+				animation: {
+					show: true,
+					delay: 1000
+				},
+				color: {
+					pattern: ['#f45d8b','#19b394','#1956b3','#edebeb']
+				},
+			},
+			data: {
+				type:'pie',
+				columns: columnWrhs
+			},
+			legend: {
+				position: "bottom",
+				item: {
+					tile: {
+						point: "circle"
+					}
+				}
+			},
+			title: {
+				text: "입고",
+				padding: {
+					bottom: 20
+				}
+			},
+			extend: {
+				pie: {
+					label: {
+						show: false
+					}
+				}
+			}
+		});
+	}
+	const fn_createSort = async function(){
+		sb.chart.render("#sort", {
+			global: {
+				animation: {
+					show: true,
+					delay: 1000
+				},
+				color: {
+					pattern: ['#f45d8b','#19b394','#1956b3','#edebeb']
+				},
+			},
+			data: {
+				type:'pie',
+				columns: columnWrhs
+			},
+			legend: {
+				position: "bottom",
+				item: {
+					tile: {
+						point: "circle"
+					}
+				}
+			},
+			title: {
+				text: "생산",
+				padding: {
+					bottom: 20
+				}
+			},
+			extend: {
+				pie: {
+					label: {
+						show: false
+					}
+				}
+			}
+		});
+	}
+	const fn_createSpmt = async function(){
+		sb.chart.render("#spmt", {
+			global: {
+				animation: {
+					show: true,
+					delay: 1000
+				},
+				color: {
+					pattern: ['#f45d8b','#19b394','#1956b3','#edebeb']
+				},
+			},
+			data: {
+				type:'pie',
+				columns: columnSpmt
+			},
+			legend: {
+				position: "bottom",
+				item: {
+					tile: {
+						point: "circle"
+					}
+				}
+			},
+			title: {
+				text: "출하",
+				padding: {
+					bottom: 20
+				}
+			},
+			extend: {
+				pie: {
+					label: {
+						show: false
+					}
+				}
+			}
+		});
+	}
+	const fn_createTrend = async function(){
+		let title1 = trcColumns[0][0];
+		let title2 = trcColumns[1][0];
+		let title3 = trcColumns[2][0];
+		let title4 = trcColumns[3][0];
+		sb.chart.render("#trend", {
+			global: {
+				animation: {
+					show: true,
+					delay: 1000,
+					types: {
+						[title1]: "rise",
+						[title2]: "rise",
+						[title3]: "rise",
+						[title4]: "fill"
+					}
+				},
+				color: {
+					pattern: ['#f45d8b','#19b394','#1956b3','#aeb0b3']
+				},
+			},
+			data: {
+				columns:trcColumns,
+				types: { [title1] : "bar", [title2] : "bar", [title3] : "bar", [title4]:"line" },
+			},
+			legend: {
+				show: false
+			},
+			axis: {
+				x: {
+					show: false
+				},
+				y: {
+					show: false
+				}
+			},
+			grid: {
+				x: {
+					show: false
+				},
+				y: {
+					show: false
+				}
+			},
+			extend: {
+				line: {
+					hideCircle: true,
+					setLinesWidthAll: 8,
+					linecap: 'square',
+				},
+				bar:{
+					width: {
+						ratio: 0.5
+					}
+				}
+			}
+		});
+	}
 
-		let postJsonPromise = gfn_postJSON("/co/dashboard/selectStats.do", {'gv_apcCd': apcCd});
+	const selectApcEvrmntStng = async function(){
+		let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : gv_selectedApcCd});
 		let data = await postJsonPromise;
-
-        try{
-  			if (_.isEqual("S", data.resultStatus)) {
-
-  	        	jsonDashboard.length = 0;
-  	        	data.result[0].dayPrcsSttn.forEach((item, index) => {
-  					let dashboard = {
-  					    itemNm 		: item.itemNm
-  					  , wgt1 		: item.wgt1
-  					  , wgt2 		: item.wgt2
-  					  , wgt3 		: item.wgt3
-  					  , wgt4 		: item.wgt4
-  					  , wgt5		: item.wgt5
-  					}
-  					jsonDashboard.push(dashboard);
-  				});
-  	        	grdDashboard.rebuild();
-
-        	} else {
-        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        	}
-        } catch (e) {
-    		if (!(e instanceof Error)) {
-    			e = new Error(e);
-    		}
-    		console.error("failed", e.message);
-        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-
-		for (let i = 0; i < data.result.length; i++) {
-			let nowData = data.result[i];
-			let date = dateGetMonth(nowData.wrhsSttn.wsDate);
-			chartDataWrhs.push({month:date, wrhs: nowData.wrhsSttn.wgt,wrhsLine: nowData.wrhsSttn.wgt});
-			chartDataSort.push({month:date, sort: nowData.prdctnSttn.sort,pckg: nowData.prdctnSttn.pckg,pckgLine:nowData.prdctnSttn.pckg});
-			chartDataSpmt.push({month:date, spmt: nowData.spmtPrfmnc.wgt,spmtLine: nowData.spmtPrfmnc.wgt});
-			yearList.push(parseInt(nowData.wrhsSttn.wsDate.substring(0,4),10))
+		let resultVO = data.resultVO;
+		let tds = $('table td[id]');
+		$('table td[id]').each(function() {
+			// 현재 요소의 id를 가져옴
+			const id = $(this).attr('id');
+			$(this).text(resultVO[id]);
+		});
+	}
+	const getItemList = async function(){
+		let itemList = await gfn_getApcItem(gv_selectedApcCd);
+		let items = '';
+		itemList.forEach(function(item,idx){
+			if(item.itemNm){
+				items += item.itemNm + ",";
+			}
+		});
+		$("#itemNm").text(items);
+	}
+	const getPrdcrList = async function(){
+		let prdcrList = await gfn_getPrdcrs(gv_selectedApcCd);
+		$("#prdcr").text(prdcrList.length + '명');
+	}
+	const getOprtrList = async function(){
+		let postJsonPromise = gfn_postJSON("/am/oprtr/selectOprtrList.do", {
+			apcCd 		: gv_selectedApcCd
+		});
+		let data = await postJsonPromise;
+		$("#oprtr").text(data.resultList.length + '명');
+	}
+	const getCnptList = async function(){
+		const postJsonPromise = gfn_postJSON(URL_CNPT_INFO, {apcCd: gv_selectedApcCd, delYn: "N"}, null, true);
+		const data = await postJsonPromise;
+		$("#cnpt").text(data.resultList.length + '개');
+	}
+	const getUserList = async function(){
+		const postJsonPromise = gfn_postJSON("/co/authrt/selectComUserList.do",{apcCd:gv_selectedApcCd});
+		const data = await postJsonPromise;
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
 		}
+		$("#user").text(data.resultList.length + '명');
+	}
 
-		if(yearList[0] == yearList[yearList.length-1]){
-			chartYear = yearList[0]
-		}else{
-			chartYear = yearList[0] + " ~ " + yearList[yearList.length-1]
+	const fn_search = async function(){
+		let ymd = SBUxMethod.get("srch-dtl-ymd");
+		let param = {
+			V_APC_CD : gv_selectedApcCd,
+			V_YMD : ymd,
+			V_RSLT_TYPE : 'ABC',
+			R_CUR_SMRY_APC : '',
+			R_CUR_SMRY_YY : '',
+			R_CUR_SMRY_MM : '',
+			R_CUR_ITEM_YY : '',
+			R_CUR_ITEM_MM : '',
+			R_CUR_ITEM_TRC : '',
+			R_ERR_CD : '',
+			R_ERR_MSG : ''
+		};
+
+		const postJsonPromise = gfn_postJSON("/co/dashboard/selectData.do",param);
+		const data = await postJsonPromise;
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
 		}
-
-		createChartWrhs();
-		createChartSort();
-		createChartSpmt();
+		curItemMM = data.R_CUR_ITEM_MM;
+		curItemYY = data.R_CUR_ITEM_YY;
+		curSmryMM = data.R_CUR_SMRY_MM;
+		curSmryYY = data.R_CUR_SMRY_YY;
+		curItemTRC = data.R_CUR_ITEM_TRC;
+		await fn_setYM();
+		await fn_setTrc();
 	}
-	//dashBoard dateFormat
-	function dateGetMonth(date){
-		let year = parseInt(date.substring(0,4),10);
-		let month = parseInt(date.substring(4,6),10);
-		let monthDate = new Date(year,month -1);
-		return (monthDate.getMonth()+1)+"월";
+	const fn_setYM = async function(){
+		let ym = SBUxMethod.get('idx');
+
+		if(ym === 'mm'){
+			fn_donutFormat(curItemMM);
+			fn_cardFormat(curSmryMM);
+		}else if(ym ==='yy'){
+			fn_donutFormat(curItemYY);
+			fn_cardFormat(curSmryYY);
+		}
+		await fn_createWrhs();
+		await fn_createSort();
+		await fn_createSpmt();
+	}
+	const fn_setTrc = async function(){
+		fn_trendFormat(curItemTRC);
 	}
 
-	var chartWrhs;
-	var chartSort;
-	var chartSpmt;
-	var chartYear;
+	const fn_donutFormat= function(arr = []){
+		columnWrhs.length = 0;
+		columnSort.length = 0;
+		columnSpmt.length = 0;
 
-	var chartDataWrhs = [];
-	var chartDataSort = [];
-	var chartDataSpmt = [];
-	var yearList = [];
+		if(gfn_isEmpty(arr)){
+			return;
+		}
+		let wrhs = [];
+		let sort = [];
+		let spmt = [];
 
-	// 차트 생성
-	const createChartWrhs = async function (){
-		var chartConfig = {
-			global: { // 전역 설정들
-				color: {
-					pattern: ['#8995E1', 'red']
-				},
-			},
-			grid: {
-				y: {
-					show: false
-				},
-				x: {
-					show: false
-				}
-			},
-			data: {
-				types: {wrhs: 'bar', wrhsLine: 'spline'},
-				json: chartDataWrhs,
-				keys: { // data 타입을 json 형태로 받아올 때에만 사용
-					x: "month",
-					value: ["wrhs", "wrhsLine"]
-				},
-			},
-			extend: {
-				line: {
-					setLinesWidth: [
-						{"key":"wrhsLine", "width":2}
-					],
-				}
-			},
-			axis: {
-				x: {
-					type: 'category',
-					label: {
-						text: chartYear,
-						position: "outer-center"
-					}
-				},
-				y: {
-					tick: {
-					multiline: false,
-					}
-				}
+		arr.forEach(function(item){
+			let type = item.RSLT_TYPE;
 
-			},
-			tooltip: {
-				custom: function(data) {
-					return '<div style="color: white; border: 3px solid black;">'
-							+ chartDataWrhs[data[0].x].month
-							+ '<br>'
-							+ '입고 : ' + addCommasToNumber(data[0].value)
-							+ '</div>';
-				}
-			},
-			legend: {
-				show: false
+			switch (type){
+				case '01' :
+					wrhs.push([item.ITEM_NM,item.WGHT]);
+					break;
+				case '02' :
+					sort.push([item.ITEM_NM,item.WGHT])
+					break;
+				case '03' :
+					spmt.push([item.ITEM_NM,item.WGHT])
+					break;
 			}
-
-
-		};
-		chartWrhs = new sb.chart("#chart-area-wrhs", chartConfig).render();
-	};
-	const createChartSort = async function (){
-		var chartConfig = {
-			global: { // 전역 설정들
-				color: {
-					pattern: ['#4458DB', '#8995E1', 'red']
-				},
-			},
-			grid: {
-				y: {
-
-					show: false
-				},
-				x: {
-					show: false
-				}
-			},
-			data: {
-				types: {sort: 'bar', pckg: 'bar', pckgLine: 'spline'},
-				json: chartDataSort,
-				keys: { // data 타입을 json 형태로 받아올 때에만 사용
-					x: "month",
-					value: ["sort", "pckg", "pckgLine"]
-				},
-			},
-			extend: {
-				line: {
-					setLinesWidth: [
-						{"key":"pckgLine", "width":2}
-					],
-				}
-			},
-			axis: {
-				x: {
-					type: 'category',
-					label: {
-						text: chartYear,
-						position: "outer-center"
-					}
-				},
-				y: {
-					tick: {
-					multiline: false,
-					}
-				}
-			},
-			tooltip: {
-				custom: function(data) {
-					return '<div style="color: white; border: 3px solid black;">'
-							+ chartDataSort[data[0].x].month
-							+ '<br>'
-							+ '선별 : ' + addCommasToNumber(data[0].value)
-							+ '<br>'
-							+ "포장 : " + addCommasToNumber(data[2].value)
-							+	'</div>';
-				}
-			},
-			legend: {
-				show: false
-			}
-
-
-		};
-		chartSort = new sb.chart("#chart-area-sort", chartConfig).render();
-	};
-	const createChartSpmt = async function (){
-		var chartConfig = {
-			global: { // 전역 설정들
-				color: {
-					pattern: ['#8995E1', 'red']
-				},
-			},
-			grid: {
-				y: {
-					show: false
-				},
-				x: {
-					show: false
-				}
-			},
-			data: {
-				types: {spmt: 'bar', spmtLine: 'spline'},
-				json: chartDataSpmt,
-				keys: { // data 타입을 json 형태로 받아올 때에만 사용
-					x: "month",
-					value: ["spmt", "spmtLine"]
-				},
-			},
-			extend: {
-				line: {
-					setLinesWidth: [
-						{"key":"spmtLine", "width":2}
-					],
-				}
-			},
-			axis: {
-				x: {
-					type: 'category',
-					label: {
-						text: chartYear,
-						position: "outer-center"
-					}
-				},
-				y: {
-					tick: {
-					multiline: false,
-					}
-				}
-			},
-			tooltip: {
-				custom: function(data) {
-					return '<div style="color: white; border: 3px solid black;">'
-							+ chartDataSpmt[data[0].x].month
-							+ '<br>'
-							+ '출고 : ' + addCommasToNumber(data[0].value)
-							+ '</div>';
-				}
-			},
-			legend: {
-				show: false
-			}
-
-
-		};
-		chartSpmt = new sb.chart("#chart-area-spmt", chartConfig).render();
-	};
-
-	// 그리드 생성
-	function fn_createDashboardGrid() {
-		let date = new Date();
-		let year  = date.getFullYear();
-		let month = ('0' + (date.getMonth() + 1)).slice(-2);
-		let day   = ('0' + date.getDate()).slice(-2);
-
-		let strYmd = year + "년 " + month + "월 " + day + "일 작업 실적";
-
-        var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-grdDashboard';
-	    SBGridProperties.id = 'grdDashboard';
-	    SBGridProperties.jsonref = 'jsonDashboard';
-	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'free';
-	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.allowcopy = true;
-        SBGridProperties.columns = [
-        	{caption: [strYmd,"대표품목"], 	ref: 'itemNm', 	type: 'output', width: '17%',	style: 'text-align: center'},
-            {caption: [strYmd,'원물입고 (Kg)'], 	ref: 'wgt1', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-    		    typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: [strYmd,'선별실적 (Kg)'], 	ref: 'wgt2', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: [strYmd,'포장실적 (Kg)'], 	ref: 'wgt3',	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: [strYmd,'발주서 접수 (Kg)'], 	ref: 'wgt4', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-            {caption: [strYmd,'출하실적 (Kg)'], 	ref: 'wgt5', 	type: 'output',	width: '17%',	style: 'text-align: right; padding-right: 5px;',
-				typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}}
-        ];
-        grdDashboard = _SBGrid.create(SBGridProperties);
-    }
-
-	// 조회 버튼
-	function fn_search(){
-		chartDataSort = [];
-		chartDataWrhs = [];
-		chartDataSpmt = [];
-
-		grdDashboard.rebuild();
-
-    	// grid clear
-    	jsonDashboard.length = 0;
-		grdDashboard.refresh();
-		postJsonDashboard();
+		});
+		columnWrhs = wrhs;
+		columnSort = sort;
+		columnSpmt = spmt;
 	}
-	
-	function addCommasToNumber(number) {
-	    // 숫자를 문자열로 변환
-	    let strNumber = number.toString();
-	    
-	    // 정규식을 사용하여 숫자 포맷 변경
-	    strNumber = strNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	    
-	    return strNumber;
+	const fn_cardFormat = function(arr = []){
+		if(gfn_isEmpty(arr)){
+			return;
+		}
+		arr.forEach(function(item){
+			let type = item.RSLT_TYPE;
+			switch(type){
+				case '01' :
+					$("#wrhsCard").text(formatCommas(item.WGHT));
+					break;
+				case '02' :
+					$("#sortCard").text(formatCommas(item.WGHT));
+					break;
+				case '03' :
+					$("#spmtCard").text(formatCommas(item.WGHT));
+					break;
+			}
+		});
 	}
+	const fn_trendFormat = function(arr = []){
+		let type = SBUxMethod.get('trc');
+		const groupedItems = arr.reduce((acc, item) => {
+			if (!acc[item.ITEM_NM]) {
+				acc[item.ITEM_NM] = [];
+			}
+			acc[item.ITEM_NM].push(item);
+			return acc;
+		}, {});
+		trcColumns.length = 0;
+
+		// trcColumns
+		Object.entries(groupedItems).forEach(([key, value]) => {
+			let arr = [];
+			/** 명칭 입력 **/
+			arr.push(key);
+			let convert = value
+					.filter(item => item.RSLT_TYPE === type)
+					.map(inner => [
+						inner.W_0, inner.W_1, inner.W_2,
+						inner.W_3, inner.W_4, inner.W_5,
+						inner.W_6, inner.W_7, inner.W_8,
+						inner.W_9, inner.W_10, inner.W_11
+					]);
+			arr = [...arr, ...convert.flat()];
+			trcColumns.push(arr);
+		});
+		fn_createTrend();
+	}
+	function formatCommas(number) {
+		if(gfn_isEmpty(number)){
+			return;
+		}
+		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 </script>
 </body>
 </html>

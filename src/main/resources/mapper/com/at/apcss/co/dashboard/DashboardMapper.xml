@@ -33,6 +33,14 @@
 		<result property="wgt4" column="wgt4" />
 		<result property="wgt5" column="wgt5" />
 	</resultMap>
+
+    <resultMap id="curSmryApc" type="hashmap" autoMapping="true" />
+    <resultMap id="curSmryYy" type="hashmap" autoMapping="true" />
+    <resultMap id="curSmryMm" type="hashmap" autoMapping="true" />
+    <resultMap id="curItemYy" type="hashmap" autoMapping="true" />
+    <resultMap id="curItemMm" type="hashmap" autoMapping="true" />
+    <resultMap id="curItemTrc" type="hashmap" autoMapping="true" />
+
     <!-- ==========================================================================	-->
     <!-- NAME : com.at.apcss.co.dashboard.DashboardMapper.selectDashboardInfoList   -->
     <!-- DESC : 대시보드 입고,출고,생산 현황조회                                       	-->
@@ -300,6 +308,26 @@ FROM   (
 GROUP BY dpDate, itemCd
 ORDER BY itemCd
 	</select>
+
+    <select id="selectData" parameterType="hashMap" statementType="CALLABLE">
+        {
+            call SP_APC_SMRY_RSLT_INQ (
+                 V_USER_ID => #{V_USER_ID, javaType=java.lang.String, jdbcType=VARCHAR, mode=IN},
+                 V_PRGRM_ID => #{V_PRGRM_ID, javaType=java.lang.String, jdbcType=VARCHAR, mode=IN},
+                 V_APC_CD => #{V_APC_CD, javaType=java.lang.String, jdbcType=VARCHAR, mode=IN},
+                 V_YMD => #{V_YMD, javaType=java.lang.String, jdbcType=VARCHAR, mode=IN},
+                 V_RSLT_TYPE => #{V_RSLT_TYPE, javaType=java.lang.String, jdbcType=VARCHAR, mode=IN},
+                 R_CUR_SMRY_APC => #{R_CUR_SMRY_APC, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curSmryApc, mode=OUT},
+                 R_CUR_SMRY_YY => #{R_CUR_SMRY_YY, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curSmryYy, mode=OUT},
+                 R_CUR_SMRY_MM => #{R_CUR_SMRY_MM, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curSmryMm, mode=OUT},
+                 R_CUR_ITEM_YY => #{R_CUR_ITEM_YY, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curItemYy, mode=OUT},
+                 R_CUR_ITEM_MM => #{R_CUR_ITEM_MM, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curItemMm, mode=OUT},
+                 R_CUR_ITEM_TRC => #{R_CUR_ITEM_TRC, javaType=java.sql.ResultSet, jdbcType=CURSOR, resultMap=curItemTrc, mode=OUT},
+                 R_ERR_CD => #{R_ERR_CD, javaType=java.lang.String, jdbcType=VARCHAR, mode=OUT},
+                 R_ERR_MSG => #{R_ERR_MSG, javaType=java.lang.String, jdbcType=VARCHAR, mode=OUT}
+                 )
+        }
+    </select>
 
 
 

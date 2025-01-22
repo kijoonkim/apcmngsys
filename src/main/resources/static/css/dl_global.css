@@ -632,6 +632,7 @@
 /* grid */
 .content {
 	padding-left: 20px; padding-right: 20px;
+	height: 100%;
 }
 .row {
 	margin-right: -5px; margin-left: -5px;

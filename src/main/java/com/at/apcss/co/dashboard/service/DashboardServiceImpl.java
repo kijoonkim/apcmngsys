@@ -1,5 +1,6 @@
 package com.at.apcss.co.dashboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,9 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		return resultList;
 	}
 
+	@Override
+	public HashMap<String, Object> selectData(HashMap<String, Object> param) throws Exception {
+		mainDashboardMapper.selectData(param);
+		return param;
+	}
 }

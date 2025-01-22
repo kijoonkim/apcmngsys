@@ -2,6 +2,8 @@
 
 body {
 	padding-right: 0 !important; /* 모달창 오픈시 padding-right 쌓이는 오류 제거 */
+	height: 100vh !important;
+	overflow: hidden;
 }
 .modal-open, .modal {
 	padding-right: 0px !important;
