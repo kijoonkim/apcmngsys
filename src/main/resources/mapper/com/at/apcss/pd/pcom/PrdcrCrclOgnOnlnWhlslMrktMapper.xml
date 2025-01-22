@@ -249,13 +249,13 @@
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS UO_CORP_NM
 
 			,WMD.ITEM_CD
-			,YGC.ITEM_NM
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = WMD.ITEM_CD) AS ITEM_NM
 
-			,YGC.CTGRY_CD
-			,YGC.CTGRY_NM
+			,WMD.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = WMD.CTGRY_CD) AS CTGRY_NM
 
-			,YGC.CLSF_CD
-			,YGC.CLSF_NM
+			,WMD.CLSF_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = WMD.CLSF_CD) AS CLSF_NM
 
 			,WMD.TRMT_AMT
 			,WMD.CONSIGN_TRMT_AMT
@@ -267,10 +267,7 @@
 			,WMD.DEL_YN
 
 		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
-			,TB_EV_APO_YR_GPC_CD YGC
 		WHERE 1=1
-		  AND WMD.ITEM_CD = YGC.ITEM_CD(+)
-		  AND WMD.BRNO = YGC.BRNO(+)
 		  AND WMD.YR = #{yr}
 		  AND (
 		  			WMD.BRNO = #{brno}
@@ -302,6 +299,8 @@
 					   SET
 						TRMT_AMT			= #{trmtAmt}
 						, CONSIGN_TRMT_AMT	= #{consignTrmtAmt}
+						, CTGRY_CD			= #{ctgryCd}
+						, CLSF_CD			= #{clsfCd}
 
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
@@ -314,6 +313,8 @@
 					  , UO_BRNO
 
 					  , ITEM_CD
+					  , CTGRY_CD
+					  , CLSF_CD
 
 					  , TRMT_AMT
 					  , CONSIGN_TRMT_AMT
@@ -332,6 +333,8 @@
 					  , #{uoBrno}
 
 					  , #{itemCd}
+					  , #{ctgryCd}
+					  , #{clsfCd}
 
 					  , #{trmtAmt}
 					  , #{consignTrmtAmt}
