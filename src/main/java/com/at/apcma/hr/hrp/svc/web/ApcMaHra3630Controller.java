@@ -56,7 +56,6 @@ public class ApcMaHra3630Controller extends BaseController {
             param.put("procedure", 		"SP_HRA3630_Q");
             resultMap = apcMaCommDirectService.callProc(param, session, request, "");
         } catch (Exception e) {
-
             
             return getErrorResponseEntity(e);
         }
@@ -143,8 +142,7 @@ public class ApcMaHra3630Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"SP_HRA3630_S3");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA3630_S3");
         } catch (Exception e) {
 
             
@@ -183,4 +181,36 @@ public class ApcMaHra3630Controller extends BaseController {
             return getErrorResponseEntity(e);
         }
     }
+    
+    //리포트 데이터 조회
+    @PostMapping(value = "/hr/hrp/svc/selectHra3630Report.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectHra3630Report(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============selectHra3630Report=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            param.put("procedure", 		"SP_HRA3630_Q");
+            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+        } catch (Exception e) {
+            
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============selectHra3630Report=====end========");
+        if(resultMap.get("resultStatus").equals("E")) {
+            String errorCode = Optional.ofNullable(resultMap.get("v_errorCode")).orElse("").toString();
+            String errorStr = Optional.ofNullable(resultMap.get("resultMessage")).orElse("").toString();
+
+            return getErrorResponseEntity(errorCode, errorStr);
+        } else {
+            return getSuccessResponseEntity(resultMap);
+        }
+    }
+    
+    
 }
