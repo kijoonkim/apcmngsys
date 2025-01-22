@@ -386,9 +386,9 @@ public class RawMtrInvntrVO extends ComVO {
 	private String chgYmdFrom;
 	private String chgYmdTo;
 	private int chgSn;
-	private int chgBfrQntt;
+	private double chgBfrQntt;
 	private double chgBfrWght;
-	private int chgAftrQntt;
+	private double chgAftrQntt;
 	private double chgAftrWght;
 	private String chgRsnCd;
 	private String chgRsnNm;
