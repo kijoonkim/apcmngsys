@@ -1103,8 +1103,6 @@
             listData.push(param);
         });
 
-        return;
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
