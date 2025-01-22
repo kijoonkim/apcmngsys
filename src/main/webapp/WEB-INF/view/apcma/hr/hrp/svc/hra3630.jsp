@@ -661,7 +661,7 @@
                 });
                 gvwDetail.rebuild();
 
-                if(data.cv_2.length > 0) {
+                if(data.cv_2.length > 0 && data.cv_2[0] != null) {
                     SBUxMethod.set("EMAIL_SUBJECT", gfn_nvl(data.cv_2[0].EML_SBJT));
                     SBUxMethod.set("SMS_MESSAGE", gfn_nvl(data.cv_2[0].SMS_TTL));
                     SBUxMethod.set("EMAIL_BODY", gfn_nvl(data.cv_2[0].EML_MTXT));
@@ -931,9 +931,9 @@
 
             conn = await fn_getReportData( checkDatas[i].data );
             conn = await gfnma_convertDataForReport(conn);
-
+            
             await gfn_getReportPdf(
-           		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서.pdf",
+           		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서 " + gfnma_date5(checkDatas[i].data.PAY_DATE) + ".pdf",
            		"ma/RPT_HRA3630.crf",
            		conn,
            		{ userPassword : '', ownerPassword : ''},
