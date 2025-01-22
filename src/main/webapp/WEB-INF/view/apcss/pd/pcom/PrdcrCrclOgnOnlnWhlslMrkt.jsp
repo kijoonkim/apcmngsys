@@ -240,6 +240,22 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- 품목 팝업 -->
+	<div>
+		<sbux-modal
+			id="modal-gpcList"
+			name="modal-gpcList"
+			uitype="middle"
+			header-title="품목 선택"
+			body-html-id="body-modal-gpcList"
+			footer-is-close-button="false"
+			style="width:800px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-gpcList">
+		<jsp:include page="/WEB-INF/view/apcss/pd/popup/gpcSelectPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -253,6 +269,7 @@
 		await fn_setYear();//기본년도 세팅
 		await fn_searchUser();//사용자정보
 		await fn_searchComboList();//조직 리스트, 품목 리스트 콤보박스 데이터
+		await fn_initSBSelect();
 		await fn_createGridOnln();//온라인도매시장 출하실적 그리드 생성
 		await fn_search();//정보 조회
 	}
@@ -282,6 +299,21 @@
 		//SBUxMethod.set("srch-input-yr",year);
 		SBUxMethod.set("dtl-input-yr",year);
 		$(".setYr").text(year);
+	}
+
+	var jsonGrdCtgryCd = [];//평가부류
+	var jsonGrdClsfCd = [];//부류
+
+	/**
+	 * combo 설정
+	 */
+	const fn_initSBSelect = async function() {
+		// 검색 SB select
+		let rst = await Promise.all([
+			gfn_setComCdSBSelect('grdOnln', jsonGrdCtgryCd, 'CTGRY_CD'), //평가부류
+			gfn_setComCdSBSelect('grdOnln', jsonGrdClsfCd, 	'CLSF_CD'), //부류
+
+		]);
 	}
 
 
@@ -356,6 +388,10 @@
 							,brno: item.brno
 							,uoBrno: item.uoBrno
 							,itemCd: item.itemCd
+							,ctgryCd: item.ctgryCd
+							,clsfCd: item.clsfCd
+
+							,itemNm: item.itemNm
 							,ctgryNm: item.ctgryNm
 							,clsfNm: item.clsfNm
 
@@ -469,6 +505,18 @@
 					return;
 				}
 
+				if(gfn_isEmpty(rowData.clsfCd)){
+					alert('부류를 선택해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
+				if(gfn_isEmpty(rowData.ctgryCd)){
+					alert('평가부류를 선택해주세요');
+					objGrid.selectRow(i);
+					return;
+				}
+
 				if(gfn_isEmpty(rowData.trmtAmt)){
 					alert('직접판매 실적을 입력해주세요');
 					objGrid.selectRow(i);
@@ -577,34 +625,51 @@
 		SBGridProperties.fixedrowheight=88;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
-			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				<c:if test="${loginVO.userType ne '02'}">
-				//그리드 메인 길이
-				let grdLength = jsonOnln.length;
-				if(strValue== null || strValue == ""){
-					//마지막줄은 합계 줄
-					if(grdLength===nRow){
+			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center'
+				, renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+					<c:if test="${loginVO.userType ne '02'}">
+					let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+					//그리드 메인 길이
+					let grdLength = jsonOnln.length;
+					if(corpDdlnSeCd == 'Y'){
 						return "";
-					}else{
-						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdOnln\", " + nRow + ", " + nCol + ")'>추가</button>";
 					}
-				}else{
-					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdOnln\", " + nRow + ")'>삭제</button>";
-				}
-				</c:if>
+					if(strValue== null || strValue == ""){
+						//마지막줄은 합계 줄
+						if(grdLength===nRow){
+							return "";
+						}else{
+							return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\" , \"grdOnln\", " + nRow + ", " + nCol + ")'>추가</button>";
+						}
+					}else{
+						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"DEL\" , \"grdOnln\", " + nRow + ")'>삭제</button>";
+					}
+					</c:if>
 				return "";
 			}},
 			{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["조직선택"],		ref: 'brno',	type:'combo',  width:'200px',	style:'text-align:center'
 				,typeinfo : {ref:'jsonOgnz', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
-
-			{caption: ["품목명"],		ref: 'itemCd',	type:'combo',  width:'100px',	style:'text-align:center'
-				,typeinfo : {ref:'jsonItem', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'
-					,filtering: { usemode: true, uppercol: 'brno', attrname: 'brno', listall: false}}
-			},
-			{caption: ["부류"],		ref: 'clsfNm',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["평가부류"],		ref: 'ctgryNm',	type:'output',  width:'80px',	style:'text-align:center'},
+			/* 20250122 기존 품목 연계에서 품목 자유선택으로 변경 요청 */
+			{caption: ["품목선택"], 				ref: 'sel',   	type:'button', width:'60px',	style:'text-align:center'
+				, renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+					let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
+					let delYnCol = objGrid.getColRef('delYn');
+					let delYnVal = objGrid.getCellData(nRow,delYnCol);
+					console.log(delYnVal);
+					if(corpDdlnSeCd != 'Y'){
+						if(delYnVal == 'N'){
+							return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
+						}
+					}
+					return "";
+				}},
+			{caption: ["품목명"],		ref: 'itemNm',	type:'output',  width:'100px',	style:'text-align:center'},
+			{caption: ["부류"],		ref: 'clsfCd',	type:'combo',  width:'80px',	style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdClsfCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
+			{caption: ["평가부류"],		ref: 'ctgryCd',	type:'combo',  width:'80px',	style:'text-align:center'
+				,typeinfo : {ref:'jsonGrdCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
 			{caption: ["직접판매 실적\n금액(천원)"],	ref: 'trmtAmt',	type:'input',  width:'120px',	style:'text-align:right', merge: false
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
@@ -622,11 +687,13 @@
 			},
 
 			{caption: ["상세내역"], 	ref: 'uoBrno',   		hidden : true},
+			{caption: ["상세내역"], 	ref: 'itemCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 		];
 
 		grdOnln = _SBGrid.create(SBGridProperties);
 		grdOnln.bind('valuechanged','fn_valuechanged');
+		grdOnln.bind('dblclick','gridClick');
 	}
 
 	/* 조직 콤보박스 , 품목 콤보박스 추가 */
@@ -812,6 +879,8 @@
 				objGrid.setCellData(nRow, yrCol, SBUxMethod.get('dtl-input-yr'), true);
 				objGrid.setCellData(nRow, nCol, "N", true);
 
+				objGrid.refresh();
+
 				//기존 row 활성화
 				objGrid.setCellDisabled(nRow, brnoCol, nRow, consignTrmtAmtCol, false);
 				objGrid.setCellStyle('background-color', nRow, nCol, nRow, consignTrmtAmtCol, 'white');
@@ -858,5 +927,95 @@
 		}
 	}
 
+
+	/* 품목 팝업 추가 */
+
+	//그리드 클릭이벤트
+	function gridClick(){
+		let objGrid = grdOnln;
+
+		//objGrid 그리드 객체
+		let selGridRow = objGrid.getRow();
+		let selGridCol = objGrid.getCol();
+
+
+		let delYnCol = objGrid.getColRef('delYn');
+		let delYnValue = objGrid.getCellData(selGridRow,delYnCol);
+
+		//임력할 데이터 인지 확인
+		//추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
+		//fn_procRow 의 ADD 확인
+		if(delYnValue != 'N'){
+			return;
+		}
+
+		//분류,품목,
+		//let ctgryNmCol = objGrid.getColRef('ctgryNm');
+		let itemNmCol = objGrid.getColRef('itemNm');
+
+		if(selGridRow == '-1'){
+			return;
+		} else {
+			if (selGridCol == itemNmCol){
+				//팝업창 오픈
+				//통합조직 팝업창 id : modal-gpcList
+				//popGpcSelect.init(fn_setGridItem);
+				//SBUxMethod.openModal('modal-gpcList');
+				fn_openMaodalGpcSelect(selGridRow);
+			}
+		}
+	}
+	//품목선택 팝업 버튼
+	function fn_openMaodalGpcSelect(nRow){
+		let objGrid = grdOnln;
+
+		let delYnCol = objGrid.getColRef('delYn');
+		let delYnValue = objGrid.getCellData(nRow,delYnCol);
+		if(delYnValue == '' || delYnValue == null){
+			return
+		}
+		objGrid.setRow(nRow);
+		popGpcSelect.init(fn_setGridItem , 'N');
+		SBUxMethod.openModal('modal-gpcList');
+	}
+
+
+	// 그리드의 품목 선택 팝업 콜백 함수
+	const fn_setGridItem = function(rowData) {
+		let objGrid = grdOnln;
+
+		if (!gfn_isEmpty(rowData)) {
+			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
+			//selGridRow : 선택된 행 값
+
+			let selGridRow = objGrid.getRow();
+
+			let itemCdCol = objGrid.getColRef("itemCd");//품목코드 인덱스
+			let itemNmCol = objGrid.getColRef("itemNm");//품목명 인덱스
+
+			/*
+			let gridData = objGrid.getGridDataAll();
+			let captionRow = objGrid.getFixedRows();
+			for(var i=captionRow; i < gridData.length + captionRow; i++ ){
+				let orgRowData = objGrid.getRowData(i);
+				if ($.trim(rowData.itemCd) === $.trim(orgRowData.itemCd)){
+					gfn_comAlert("E0000", "동일한 품목이 있습니다.");
+					return false;
+				}
+			}
+			*/
+
+			let selRowData = objGrid.getRowData(selGridRow);
+
+			//그리드 값 세팅
+			objGrid.setCellData(selGridRow,itemCdCol,rowData.itemCd,true);
+			objGrid.setCellData(selGridRow,itemNmCol,rowData.itemNm,true);
+
+			let grdStatus = objGrid.getRowStatus(selGridRow);
+		 	if(grdStatus != '1'){
+		 		objGrid.setRowStatus(selGridRow,'update');
+		 	}
+		}
+	}
 </script>
 </html>
