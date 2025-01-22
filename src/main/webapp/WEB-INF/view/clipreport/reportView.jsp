@@ -50,7 +50,6 @@
         inset: 0;
         width: 100vw;
         height: 100vh;
-        display: none;
     }
 
     /* 모바일 스타일 */
@@ -81,7 +80,7 @@
         </c:choose>
         <button id="btn-reportView">보고서 출력</button>
     </div>
-    <div id="div-rpt-clipReportJSON" style="width:100vh;height:100vh;display:none;"></div>
+    <div id="div-rpt-clipReportJSON" style="display: none;"></div>
 </div>
 
 
@@ -234,7 +233,7 @@ console.log('params ==> ', params.split(','));
         }
         gfn_drawClipReportLink("div-rpt-clipReportJSON", reportKey, check);
         $('#div-rpt-clipReportJSON').css('display', '');
-        $('.container').css('display', 'none');
+        $('.input-container').css('display', 'none');
     }
 
     /*
