@@ -204,6 +204,23 @@ public interface TotMngService {
 	public List<HashMap<String,Object>> selectSortPrfmncTotInfo(HashMap<String,Object> totMngVO) throws Exception;
 
 
+	/**
+	 * 품목별 선별 실적 조회
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO) throws Exception;
+
+	/**
+	 * 선별실적 분석
+	 * @param HashMap<String,Object>
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectSortPrfmncAnls(TotRsltVO totMngVO) throws Exception;
+
+
 
 
 
