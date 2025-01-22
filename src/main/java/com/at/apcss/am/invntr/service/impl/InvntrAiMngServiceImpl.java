@@ -124,6 +124,13 @@ public class InvntrAiMngServiceImpl extends BaseServiceImpl implements InvntrAiM
 		return result;
 	}
 
+	@Override
+	public int updateInvntrAiPlanYn(InvntrAiMngVO invntrAiMngVO) {
+		int result = 0;
+		invntrAiMngMapper.updateInvntrAiMngYn(invntrAiMngVO);
+		return result;
+	}
+
 
 
 	@Override

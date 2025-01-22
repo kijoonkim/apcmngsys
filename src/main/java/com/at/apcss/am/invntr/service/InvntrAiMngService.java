@@ -74,6 +74,15 @@ public interface InvntrAiMngService {
 	 */
 	public int insertInvntrAiPlan(InvntrAiMngVO invntrAiMngVO) throws Exception;
 
+
+	/**
+	 * 실사계획 실사여부수정
+	 * @param invntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrAiPlanYn(InvntrAiMngVO invntrAiMngVO) throws Exception;
+
 	/**
 	 * 실사재고관리 조회
 	 *

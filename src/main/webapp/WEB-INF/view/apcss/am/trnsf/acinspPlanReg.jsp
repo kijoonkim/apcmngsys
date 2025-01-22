@@ -166,7 +166,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div id="sb-area-aiPlan"></div>
+                    <div id="sb-area-aiPlan" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -234,9 +234,9 @@
             {caption: ["기준명"],	ref: 'planNm',		type:'output',  width:'150px', style: 'text-align:center;'},
             {caption: ["계획일자"],	ref: 'planYmd',		type:'output',  width:'150px', style: 'text-align:center;'},
             {caption: ["계획번호"],	ref: 'planno',		type:'output',  width:'150px', style: 'text-align:center;'},
-            {caption: ['대상품목'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItemCd', label:'label', value:'value', displayui : true, oneclickedit : true}, style:'text-align:center'},
-            {caption: ['대상품종'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrtyCd', label:'label', value:'itemVrtyCd', displayui : true, oneclickedit : true, filtering: {usemode : true, uppercol : 'itemCd', attrname : 'itemCd', listall: false}}, style:'text-align:center'},
-            {caption: ['저장위치'], ref: 'warehouseSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonComWarehouse', label:'label', value:'value', displayui : true, oneclickedit : true}, style:'text-align:center'},
+            {caption: ['대상품목'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItemCd', label:'label', value:'value', oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+            {caption: ['대상품종'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrtyCd', label:'label', value:'itemVrtyCd', oneclickedit : true, filtering: {usemode : true, uppercol : 'itemCd', attrname : 'itemCd', listall: false}}, style:'text-align:center',disabled : {uihidden : true}},
+            {caption: ['저장위치'], ref: 'warehouseSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonComWarehouse', label:'label', value:'value', oneclickedit : true}, style:'text-align:center',disabled : {uihidden : true}},
             {caption: ["실사여부"],	ref: 'aiYn',		type:'output',  width:'150px', style: 'text-align:center;'},
             {caption: ["비고"],	ref: 'planRmrk',		type:'output',  width:'150px', style: 'text-align:center;'},
         ]
@@ -327,6 +327,17 @@
     	let planYmd = SBUxMethod.get("srch-dtl-planYmd");
     	let planRmrk = SBUxMethod.get("srch-slt-rmrk");
     	let planNm = SBUxMethod.get('srch-slt-aiCrtr')
+
+    	if(gfn_nvl(planNm)=== ""){
+    		gfn_comAlert("W0002","실사기준명");
+    		return;
+    	}
+
+    	if(gfn_nvl(planYmd)=== ""){
+    		gfn_comAlert("W0002","계획일자");
+    		return;
+    	}
+
 
         try{
             let aiPlanInfo ={
