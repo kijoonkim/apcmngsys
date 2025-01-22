@@ -123,7 +123,6 @@ public class SlsMngController extends BaseController{
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
-
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 		return getSuccessResponseEntity(resultMap);
@@ -157,21 +156,20 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 	
-	@PostMapping(value = "/am/spmt/updateSlsUntprc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateSlsUntprc(@RequestBody List<SlsMngVO> slsUntprcList, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/spmt/updateSlsUntprcReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateSlsUntprcReg(@RequestBody List<SlsMngVO> slsUntprcList, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		int result = 0;
-		
+
 		for ( SlsMngVO slsMngVO : slsUntprcList ) {
 			slsMngVO.setSysFrstInptUserId(getUserId());
 			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 			slsMngVO.setSysLastChgUserId(getUserId());
 			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
 		}
-		
 		try {
-			result = slsMngService.updateSlsUntprc(slsUntprcList);
+			result = slsMngService.updateSlsUntprcReg(slsUntprcList);
 
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
@@ -187,4 +185,25 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 
 	}
+
+	@PostMapping(value = "/am/spmt/selectSlsUntprcDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSlsUntprcDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SlsMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = slsMngService.selectSlsUntprcDtl(slsMngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

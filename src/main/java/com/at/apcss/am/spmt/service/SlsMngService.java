@@ -32,28 +32,35 @@ public interface SlsMngService {
 	
 	/**
 	 * 매출단가조회
-	 * @param SlsMngVO
+	 * @param slsMngVO
 	 * @return 
 	 * @throws Exception
 	 */
 	public List<SlsMngVO> selectSlsUntprc(SlsMngVO slsMngVO)throws Exception;
 
-	/**
-	 * 매출단가삭제
-	 * @param SlsMngVO
-	 * @return 
-	 * @throws Exception
-	 */
-	public int deleteSlsUntprc(SlsMngVO slsMngVO)throws Exception;
+
 
 	/**
-	 * 매출단가변경
-	 * @param SlsMngVO
-	 * @return 
+	 * 매출단가상세조회
+	 * @param slsMngVO
+	 * @return
 	 * @throws Exception
 	 */
-	public int updateSlsUntprc(List<SlsMngVO> slsMngVO)throws Exception;
-	
-	
-	
+    public List<SlsMngVO> selectSlsUntprcDtl(SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출단가 변경
+	 * @param slsUntprcList
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSlsUntprcReg(List<SlsMngVO> slsUntprcList) throws Exception;
+
+	/**
+	 * 매출단가 삭제
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSlsUntprc (SlsMngVO slsMngVO) throws Exception;
 }
