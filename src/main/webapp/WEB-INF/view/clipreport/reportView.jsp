@@ -195,21 +195,19 @@
         const workType = param.prgrmPrcsType;
         const cvCount = param.prcsRsltNocs;
         const params = param.prmtrData;
-console.log('params ==> ', params.split(','));
+        const paramList = params.split(',');
         try {
             const postJsonPromise = gfn_postJSON(
                 url, {
                     getType: 'json',
                     workType: workType,
+                    userId: paramList[paramList.length -2],
                     cv_count: cvCount,
                     params: params
             });
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
-//             	console.log('param ==>', param);
-//             	console.log('params ==>', params);
-//             	console.log('data ==>', data);
                 return data;
             } else {
                 return null;
