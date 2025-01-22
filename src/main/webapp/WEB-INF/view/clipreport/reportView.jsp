@@ -10,20 +10,66 @@
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
     <%@ include file="../frame/inc/clipreport.jsp" %>
-<style>    
-	.container {
-				display: flex;
-				justify-content: center; /* 가로 중앙 정렬 */
-				align-items: center;    /* 세로 중앙 정렬 */
-				height: 100vh;          /* 화면 전체 높이 */
-	}
+<style>
+    .container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .input-container {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;  /* 요소들 사이 간격 */
+    }
+
+    #certKey {
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #btn-reportView {
+        padding: 0.5rem 1rem;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #btn-reportView:hover {
+        background-color: #2563eb;
+    }
+
+    #div-rpt-clipReportJSON {
+        position: absolute;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+    }
+
+    /* 모바일 스타일 */
+    @media (max-width: 768px) {
+        .input-container {
+            flex-direction: column;
+        }
+
+        #certKey {
+            width: 16rem;
+        }
+    }
 </style>    
 </head>
 <body oncontextmenu="return false">
 <c:set scope="request" var="uuid" value="${uuid}"></c:set>
 <c:set scope="request" var="certYn" value="${certYn}"></c:set>
-<section>
-    <div class="container" style="margin-left: auto;">
+<div class="container">
+    <div class="input-container">
         <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
         <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
         <c:choose>
@@ -35,8 +81,9 @@
         </c:choose>
         <button id="btn-reportView">보고서 출력</button>
     </div>
-    <div id="div-rpt-clipReportJSON" style="width:100%;height:70vh;display:none;"></div>
-</section>
+    <div id="div-rpt-clipReportJSON" style="width:100vh;height:100vh;display:none;"></div>
+</div>
+
 
 </body>
 <script type="text/javascript">
