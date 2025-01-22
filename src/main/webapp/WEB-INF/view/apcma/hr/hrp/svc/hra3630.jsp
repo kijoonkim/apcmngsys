@@ -979,6 +979,7 @@
 	    const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630Report.do", {
 	        getType				: 'json',
 	        workType			: 'REPORT',
+	        userId				: p_userId,
 	        cv_count			: '2',
 	        params				: gfnma_objectToString(paramObj, true)
 	    });

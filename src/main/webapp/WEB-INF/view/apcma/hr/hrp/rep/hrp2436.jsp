@@ -1418,6 +1418,7 @@ console.log('checkData ==>', checkData);
         const postJsonPromise = gfn_postJSON("/hr/hrp/rep/selectHrp2436Report.do", {
             getType				: 'json',
             workType			: workType,
+            userId				: p_userId,
             cv_count			: '15',
             params				: gfnma_objectToString(paramObj)
         });
