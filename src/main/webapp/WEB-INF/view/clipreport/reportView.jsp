@@ -10,33 +10,32 @@
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
     <%@ include file="../frame/inc/clipreport.jsp" %>
+<style>    
+	.container {
+				display: flex;
+				justify-content: center; /* 가로 중앙 정렬 */
+				align-items: center;    /* 세로 중앙 정렬 */
+				height: 100vh;          /* 화면 전체 높이 */
+	}
+</style>    
 </head>
 <body oncontextmenu="return false">
 <c:set scope="request" var="uuid" value="${uuid}"></c:set>
 <c:set scope="request" var="certYn" value="${certYn}"></c:set>
 <section>
-    <div class="box box-solid">
-        <div class="box-header" style="display:flex; justify-content: flex-start;" >
-<!--             <div> -->
-<%--                 <h3 class="box-title"> ▶ 보고서 번호 : <c:out value='${uuid}'></c:out></h3> --%>
-<!--             </div> -->
-            <div style="margin-left: auto;">
-                <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
-                <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
-                <c:choose>
-                    <c:when test="${certYn != null && certYn == 'Y'}">
-                        <span>인증번호</span>
-                        <input type="password" id="certKey" name="certKey" value="" />
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
-                <button id="btn-reportView">보고서 출력</button>
-            </div>
-        </div>
-<!--         <div id="div-rpt-clipReportJSON" style="width:100%;height:80vh;"></div> -->
+    <div class="container" style="margin-left: auto;">
+        <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
+        <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
+        <c:choose>
+            <c:when test="${certYn != null && certYn == 'Y'}">
+                <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요."/>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
+        <button id="btn-reportView">보고서 출력</button>
     </div>
-        <div id="div-rpt-clipReportJSON" style="width:100%;height:80vh;"></div>
+    <div id="div-rpt-clipReportJSON" style="width:100%;height:70vh;display:none;"></div>
 </section>
 
 </body>
@@ -127,7 +126,7 @@
 
 
     window.addEventListener('DOMContentLoaded', function(e) {
-
+// 		$('#div-rpt-clipReportJSON').css('display', 'none');
         fn_init();
         //fn_drawClipReport();
     });
@@ -150,7 +149,7 @@
         const workType = param.prgrmPrcsType;
         const cvCount = param.prcsRsltNocs;
         const params = param.prmtrData;
-// console.log('params ==> ', params.split(','));
+console.log('params ==> ', params.split(','));
         try {
             const postJsonPromise = gfn_postJSON(
                 url, {
@@ -158,7 +157,7 @@
                     workType: workType,
                     cv_count: cvCount,
                     params: params
-                });
+            });
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
@@ -187,6 +186,8 @@
             exePrintYn : exePrintYn
         }
         gfn_drawClipReportLink("div-rpt-clipReportJSON", reportKey, check);
+        $('#div-rpt-clipReportJSON').css('display', '');
+        $('.container').css('display', 'none');
     }
 
     /*
