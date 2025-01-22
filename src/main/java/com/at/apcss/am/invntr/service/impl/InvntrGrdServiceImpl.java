@@ -1,29 +1,18 @@
 package com.at.apcss.am.invntr.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.invntr.mapper.GdsInvntrMapper;
 import com.at.apcss.am.invntr.mapper.InvntrGrdMapper;
-import com.at.apcss.am.invntr.mapper.InvntrGrdMngMapper;
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.invntr.mapper.SortInvntrMapper;
-import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.service.InvntrGrdService;
-import com.at.apcss.am.invntr.service.InvntrService;
-import com.at.apcss.am.invntr.service.RawMtrInvntrService;
-import com.at.apcss.am.invntr.service.SortInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.InvntrMngVO;
-import com.at.apcss.am.invntr.vo.InvntrVO;
 import com.at.apcss.am.invntr.vo.RawMtrInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
-import com.at.apcss.am.sort.mapper.SortPrfmncMapper;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 /**
@@ -106,7 +95,7 @@ public class InvntrGrdServiceImpl extends BaseServiceImpl implements InvntrGrdSe
 		sortInvntrVO.setSysLastChgUserId(invntrMngVO.getSysLastChgUserId());
 		sortInvntrVO.setSysLastChgPrgrmId(invntrMngVO.getSysLastChgPrgrmId());
 		String sortno = sortInvntrVO.getSortno();
-		int sortSn = sortInvntrVO.getSortSn();
+		int sortSn = (int) sortInvntrVO.getSortSn();
 
 		invntrMngVO.getSortStdGrdList().forEach(item ->{
 			item.setSysLastChgUserId(invntrMngVO.getSysLastChgUserId());
@@ -138,7 +127,7 @@ public class InvntrGrdServiceImpl extends BaseServiceImpl implements InvntrGrdSe
 		gdsInvntrVO.setSysLastChgUserId(invntrMngVO.getSysLastChgUserId());
 		gdsInvntrVO.setSysLastChgPrgrmId(invntrMngVO.getSysLastChgPrgrmId());
 		String pckgno = gdsInvntrVO.getPckgno();
-		int pckgSn = gdsInvntrVO.getPckgSn();
+		int pckgSn = (int) gdsInvntrVO.getPckgSn();
 
 		invntrMngVO.getGdsStdGrdList().forEach(item ->{
 			item.setSysLastChgUserId(invntrMngVO.getSysLastChgUserId());
