@@ -193,5 +193,20 @@ public interface TotMngMapper {
 	public List<HashMap<String,Object>> selectSortPrfmncTotInfo(HashMap<String,Object> TotMngVO);
 
 
+	/**
+	 * 품목별 선별 실적 분석
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO);
+
+	/**
+	 * 선별 실적 분석
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectSortPrfmncAnls(TotRsltVO totMngVO);
+
+
 
 }

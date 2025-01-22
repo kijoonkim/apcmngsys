@@ -695,5 +695,48 @@ public class TotMngController extends BaseController {
 
 	}
 
+	@PostMapping(value = "/am/tot/selectItemClsSortPrfmncAnls.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectItemClsSortPrfmncAnls(@RequestBody TotRsltVO totRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> resultList = new ArrayList<>();
+
+		try {
+			resultList = totMngService.selectItemClsSortPrfmncAnls(totRsltVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/tot/selectSortPrfmncAnls.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSortPrfmncAnls(@RequestBody TotRsltVO totRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<HashMap<String,Object>> resultList = new ArrayList<>();
+
+		try {
+			resultList = totMngService.selectSortPrfmncAnls(totRsltVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 
 }

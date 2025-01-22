@@ -586,5 +586,17 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 		return null;
 	}
 
+	@Override
+	public List<HashMap<String, Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectItemClsSortPrfmncAnls(totMngVO);
+		return result;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectSortPrfmncAnls(TotRsltVO totMngVO) throws Exception {
+		List<HashMap<String,Object>> result = totMngMapper.selectSortPrfmncAnls(totMngVO);
+		return result;
+	}
+
 
 }
