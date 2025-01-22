@@ -1,5 +1,6 @@
 package com.at.apcss.co.dashboard.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.co.dashboard.vo.DashboardVO;
@@ -26,5 +27,10 @@ public interface DashboardService {
 	 * @return
 	 */
 	List<DashboardVO> selectStats(DashboardVO gv_apcCd) throws Exception;
-
+	/**
+	 * 대시보드 데이터 조회
+	 * @param param
+	 * @return
+	 */
+    HashMap<String, Object> selectData(HashMap<String, Object> param) throws Exception;
 }

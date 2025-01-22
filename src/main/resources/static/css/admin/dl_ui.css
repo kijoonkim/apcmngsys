@@ -181,7 +181,6 @@ input.ad_input_login:focus{
 .box-body {
 	padding: 10px 15px 15px;
 	height: calc(100% - 57px) !important;
-	overflow: scroll;
 }
 .nav-tabs-custom > .header {
 	margin: 0; padding: 10px;

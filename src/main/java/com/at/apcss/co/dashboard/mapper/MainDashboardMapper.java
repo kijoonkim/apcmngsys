@@ -2,6 +2,7 @@ package com.at.apcss.co.dashboard.mapper;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -30,4 +31,5 @@ public interface MainDashboardMapper {
 
 	public List<DashboardVO.DayPrcsSttn> selectdayPrcsSttnList(DashboardVO gv_apcCd) throws Exception;
 
+    HashMap<String, Object> selectData(HashMap<String, Object> param) throws Exception;
 }

@@ -50,4 +50,21 @@ public class MainDashboardController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	@PostMapping(value = "/co/dashboard/selectData.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectData(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+	        try{
+				param.put("V_USER_ID", getUserId());
+				param.put("V_PRGRM_ID", getPrgrmId());
+				resultMap = dashBoardService.selectData(param);
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+	        return getSuccessResponseEntity(resultMap);
+	    }
 }
