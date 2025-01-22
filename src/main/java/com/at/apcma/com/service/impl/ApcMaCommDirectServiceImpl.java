@@ -619,12 +619,16 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 			if (ipAddress == null) {
 				ipAddress = request.getRemoteAddr();
 			}
-
+			// get userId
+			String userId = "";
+			if (param.get("userId") != null && !param.get("userId").toString().trim().isEmpty() && !"undefined".equals(param.get("userId").toString().trim())) {
+			    userId = param.get("userId").toString().trim();
+			}
 			//강제주입 - 파라미터
 			params[0] = "";
 			params[1] = "";
 			params[params.length-3] = param.get("procedure").toString();
-			params[params.length-2] = "";
+			params[params.length-2] = userId;
 			params[params.length-1] = ipAddress;
 
 			rmap.put("procedure", 		param.get("procedure"));
