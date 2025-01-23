@@ -25,6 +25,7 @@ import javax.mail.internet.*;
 import javax.ws.rs.HttpMethod;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -38,6 +39,8 @@ import java.util.*;
 @Service("apcMailService")
 public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailService {
 
+    @Value("${spring.server.type}")
+    private String serverType;
 
     @Value("${mail.smtp.host}")
     private String smtpHost;
@@ -228,6 +231,24 @@ public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailServic
     }
 
     @Override
+    public HashMap<String, Object> sendMailSimple(ApcMailVO apcMailVO) throws Exception {
+        HashMap<String, Object> rtnObj = null;
+        if (ComConstants.SERVER_TYPE_PRD.equals(this.serverType)) {
+            EmsMailVO emsMailVO = new EmsMailVO();
+            emsMailVO.setTitle(ComUtil.nullToDefault(apcMailVO.getSubject(), "[제목없음]"));   // 메일 발송 제목
+            emsMailVO.setContent(apcMailVO.getContent());          // 메일 발송 내용
+            emsMailVO.setSendInfo(apcMailVO.getMailFrom());        // 발송자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+            emsMailVO.setRcvInfo(apcMailVO.getRecipientsTo());     // 수신자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+            emsMailVO.setSendType("D");             // D : 즉시전송(기본값), R : 예약전송
+            rtnObj = sendEmsMailSimple(emsMailVO);
+        } else {
+            rtnObj = sendMail(apcMailVO);
+        }
+
+        return rtnObj;
+    }
+
+    @Override
     public HashMap<String, Object> sendEmsMail(EmsMailVO emsMailVO) throws Exception {
 
         if (!StringUtils.hasText(emsServerUrl)) {
@@ -383,82 +404,103 @@ public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailServic
 
         String emsURL = emsServerUrl.concat("api/sendMail.do");
 
+        JSONParser jsonParser = new JSONParser();
+
         String defaultCategoryNm = "APC";
         String defaultLinkNm = "APC";
 
-        Map<String, String> emsMap = new HashMap<>();
-        emsMap.put("title", emsMailVO.getTitle());              // 메일 발송 제목
-        emsMap.put("content", emsMailVO.getContent());          // 메일 발송 내용
-        emsMap.put("sendInfo", emsMailVO.getSendInfo());        // 발송자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
-        emsMap.put("rcvInfo", emsMailVO.getRcvInfo());          // 수신자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
-        emsMap.put("sendDate", emsMailVO.getSendDate());        // 메일 전송 시간(YYYYMMDDHH24MISS), 기본값 : 현재시간
-        emsMap.put("sendType", emsMailVO.getSendType());        // D : 즉시전송(기본값), R : 예약전송
-        emsMap.put("categoryNm", ComUtil.nullToDefault(emsMailVO.getCategoryNm(), defaultCategoryNm));  // 메일의 분류 값 : APC
-        emsMap.put("linkNm", ComUtil.nullToDefault(emsMailVO.getLinkNm(), defaultLinkNm));              // 각 시스템별 고유 구분 값(연계시스템 코드) : APC
-        emsMap.put("memo", emsMailVO.getMemo());                // 메모 : 사용자 지정값
+        JSONObject data = new JSONObject();
+        data.put("title", emsMailVO.getTitle());              // 메일 발송 제목
+        data.put("content", emsMailVO.getContent());          // 메일 발송 내용
+        data.put("sendInfo", emsMailVO.getSendInfo());        // 발송자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+        data.put("rcvInfo", emsMailVO.getRcvInfo());          // 수신자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+        data.put("sendDate", emsMailVO.getSendDate());        // 메일 전송 시간(YYYYMMDDHH24MISS), 기본값 : 현재시간
+        data.put("sendType", emsMailVO.getSendType());        // D : 즉시전송(기본값), R : 예약전송
+        data.put("categoryNm", ComUtil.nullToDefault(emsMailVO.getCategoryNm(), defaultCategoryNm));  // 메일의 분류 값 : APC
+        data.put("linkNm", ComUtil.nullToDefault(emsMailVO.getLinkNm(), defaultLinkNm));              // 각 시스템별 고유 구분 값(연계시스템 코드) : APC
+        data.put("memo", emsMailVO.getMemo());                // 메모 : 사용자 지정값
 
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(emsMap);
+        JSONObject body = new JSONObject();
+        body.put("data", data);
 
         emsURL = emsServerUrl.concat("api/sendMail.do");
 
-        URL url = new URL(emsURL); //URL 객체 생성
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(HttpMethod.POST);
-        connection.setRequestProperty("Content-Type", "application/json; utf-8");
-        connection.setRequestProperty("Accept", "application/json");
-
-        connection.setDoOutput(true);
-        connection.setUseCaches(false);
-        connection.setConnectTimeout(15000);
-
-
+        JSONObject jsonRoot = new JSONObject();
         String emsResult = "";
-        OutputStreamWriter wr = null;
-        wr = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8);
 
-        JSONObject jsonData = new JSONObject();
-        jsonData.put("data", json);
-        wr.write(new Gson().toJson(jsonData));
-        wr.flush();
-        wr.close();
+        try {
+            URL url = new URL(emsURL); //URL 객체 생성
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(HttpMethod.POST);
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
 
-        int emsResponseCode = connection.getResponseCode();
-        if (emsResponseCode == HttpURLConnection.HTTP_OK || emsResponseCode == HttpURLConnection.HTTP_CREATED) {
-            try {
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String inputLine;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((inputLine = in.readLine()) != null) {
-                    stringBuilder.append(inputLine);
-                }
-                in.close();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
+            bw.write(body.toString());
+            bw.flush();
+            bw.close();
 
-                JSONParser jsonParser = new JSONParser();
-                Object objRoot = jsonParser.parse(stringBuilder.toString());
-                JSONObject jsonRoot = (JSONObject) objRoot;
-                if (jsonRoot != null) {
-                    Object objTop = jsonRoot.get("result");
-                    JSONObject jsonTop = (JSONObject) objTop;
-                    if (jsonTop != null) {
-                        Object objResult = jsonTop.get("result");
-                        JSONObject jsonResult = (JSONObject) objResult;
-                        if (jsonResult != null) {
-                            emsResult = (String)jsonResult.get("result");
-                        }
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream())); //, StandardCharsets.UTF_8
+            String inputLine;
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((inputLine = br.readLine()) != null) {
+                stringBuilder.append(inputLine);
+            }
+            br.close();
+
+            Object objResp  = jsonParser.parse(stringBuilder.toString());
+            jsonRoot = (JSONObject) objResp;
+
+            int emsResponseCode = connection.getResponseCode();
+            String errorMessage = "";
+            switch (emsResponseCode) {
+
+                case HttpURLConnection.HTTP_OK:
+                case HttpURLConnection.HTTP_CREATED:
+                    errorMessage = "";
+                    break;
+
+                case HttpURLConnection.HTTP_BAD_REQUEST:
+                    errorMessage = "EMS 파라미터 오류";
+                    break;
+                case HttpURLConnection.HTTP_INTERNAL_ERROR:
+                    errorMessage = "EMS 처리 오류";
+                    break;
+
+                default:
+                    errorMessage = "EMS 응답오류";
+                    break;
+            }
+
+            if (StringUtils.hasText(errorMessage)) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errorMessage);
+            }
+
+            if (jsonRoot != null) {
+                Object objTop = jsonRoot.get("result");
+                JSONObject jsonTop = (JSONObject) objTop;
+                if (jsonTop != null) {
+                    Object objResult = jsonTop.get("result");
+                    JSONObject jsonResult = (JSONObject) objResult;
+                    if (jsonResult != null) {
+                        emsResult = (String)jsonResult.get("result");
                     }
                 }
-            } catch( Exception e) {
-                return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "EMS 송신 후 응답 없음");
             }
-        } else {
-            return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "EMS 전송 실패 " + emsResponseCode);
-        }
 
-        if (!"SUCCESS".equals(emsResult)) {
-            return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "EMS 송신");
+            if (!"SUCCESS".equals(emsResult)) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "EMS 송신");
+            }
+
+        } catch (ProtocolException e){
+            logger.error(e.getLocalizedMessage());
+            return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, e.getLocalizedMessage());
+        } catch (IOException e) {
+            return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, e.getLocalizedMessage());
         }
 
         return null;
     }
+
 }

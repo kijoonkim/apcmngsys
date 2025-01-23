@@ -76,6 +76,57 @@ public class ApcMailController extends BaseController {
     }
 
     @PostMapping(value="/mail/sendApcMailSimple", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<HashMap<String, Object>> sendApcMailSimpleTest (
+            HttpServletRequest request,
+            @RequestParam("mailFrom") String mailFrom,
+            @RequestParam("recipientsTo") String recipientsTo,
+            @RequestParam(value="recipientsCc", required = false) String recipientsCc,
+            @RequestParam(value="recipientsBcc", required = false) String recipientsBcc,
+            @RequestParam(value="subject", required = false) String subject,
+            @RequestParam(value="content", required = false) String content,
+            @RequestParam(value="charset", required = false) String charset
+    ) throws Exception {
+
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        try {
+
+            HashMap<String, Object> rtnObj = null;
+            if (ComConstants.SERVER_TYPE_PRD.equals(getServerType())) {
+                EmsMailVO emsMailVO = new EmsMailVO();
+                emsMailVO.setTitle(ComUtil.nullToDefault(subject, "[제목없음]"));   // 메일 발송 제목
+                emsMailVO.setContent(content);          // 메일 발송 내용
+                emsMailVO.setSendInfo(mailFrom);        // 발송자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+                emsMailVO.setRcvInfo(recipientsTo);     // 수신자 정보 : (이메일주소 이름) 이메일 주소와 이름 띄어쓰기로 구분
+                emsMailVO.setSendType("D");             // D : 즉시전송(기본값), R : 예약전송
+                rtnObj = apcMailService.sendEmsMailSimple(emsMailVO);
+
+            } else {
+                ApcMailVO apcMailVO = new ApcMailVO(
+                        mailFrom,
+                        recipientsTo,
+                        recipientsCc,
+                        recipientsBcc,
+                        subject,
+                        content,
+                        charset
+                );
+                rtnObj = apcMailService.sendMail(apcMailVO);
+            }
+
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch( Exception e) {
+            getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+}
+
+    @PostMapping(value="/mail/sendApcMailSimple.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<HashMap<String, Object>> sendApcMailSimple (
             HttpServletRequest request,
             @RequestParam("mailFrom") String mailFrom,
@@ -124,5 +175,4 @@ public class ApcMailController extends BaseController {
 
         return getSuccessResponseEntity(resultMap);
     }
-
 }
