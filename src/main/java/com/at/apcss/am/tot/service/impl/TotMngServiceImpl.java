@@ -602,4 +602,9 @@ public class TotMngServiceImpl extends BaseServiceImpl implements TotMngService 
 	public List<HashMap<String, Object>> selectPrdctnVol(HashMap<String, Object> param) throws Exception {
 		return totMngMapper.selectPrdctnVol(param);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> selectAnlsList(HashMap<String, Object> param) throws Exception {
+		return totMngMapper.selectAnlsList(param);
+	}
 }
