@@ -227,4 +227,12 @@ public interface TotMngService {
 	 * @throws Exception
 	 */
     List<HashMap<String, Object>> selectPrdctnVol(HashMap<String, Object> param) throws Exception;
+
+	/**
+	 * 단가 분석 조회
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    List<HashMap<String, Object>> selectAnlsList(HashMap<String, Object> param) throws Exception;
 }

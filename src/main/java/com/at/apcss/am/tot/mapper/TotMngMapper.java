@@ -205,15 +205,20 @@ public interface TotMngMapper {
 	 * @param HashMap<String,Object>
 	 * @return
 	 */
-	public List<HashMap<String, Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO);
+	public List<HashMap<String, Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO) throws Exception;;
 
 	/**
 	 * 선별 실적 분석
 	 * @param HashMap<String,Object>
 	 * @return
 	 */
-	public List<HashMap<String, Object>> selectSortPrfmncAnls(TotRsltVO totMngVO);
+	public List<HashMap<String, Object>> selectSortPrfmncAnls(TotRsltVO totMngVO) throws Exception;
 
-
-
+	/**
+	 * 단가 분석 조회
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    List<HashMap<String, Object>> selectAnlsList(HashMap<String, Object> param) throws Exception;
 }
