@@ -182,22 +182,15 @@
 						</tr>
 					</tbody>
 		 		</table>
-
-
-
-
-
-
-				<!-- 엑셀 시트별 데이터 영역 -->
-			</div>
 				<sbux-tabs
 					id="idxTab_norm"
-					class="sbuxTabContent"
 					name="idxTab_norm"
+
 					uitype="webacc"
 					is-scrollable="false"
 					jsondata-ref="tabJsonData"
-					callback-before-select="fnBeforeSelectTab" >
+					callback-before-select="fnBeforeSelectTab"
+					style="height:450px" >
 				</sbux-tabs>
 				<div class="tab-content" >
 					<div id="dhtyJobTab">
@@ -233,6 +226,14 @@
 
 
 				</div>
+
+
+
+
+
+				<!-- 엑셀 시트별 데이터 영역 -->
+			</div>
+
 		</div>
 
 
