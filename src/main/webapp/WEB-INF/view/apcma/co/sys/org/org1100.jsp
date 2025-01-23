@@ -191,9 +191,8 @@
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
-			                        <th scope="row" class="th_bg">대표주민번호</th>
+			                        <th style="border-right:hidden;"></th>
 		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm " style="width:100%"></sbux-input>		
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
@@ -632,7 +631,6 @@
 	        { caption: ["업태"], ref: 'BIZ_CATEGORY', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
 	        { caption: ["종목"], ref: 'BIZ_ITEMS', type: 'input',  width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
 	        { caption: ["대표자"],  ref: 'CHIEF_NAME', type: 'input', width: '120px',  style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["대표주민번호"],  ref: 'CHIEF_SOCIALNO', type: 'input', width: '120px',  style: 'text-align:left' },
 	        { caption: ["우편번호"], ref: 'ZIP_CODE', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
 	        { caption: ["주소"], ref: 'ADDRESS', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
 	        { caption: ["교부일"], ref: 'ISSUE_DATE', type: 'input', width: '120px', style: 'text-align:left' },
@@ -714,8 +712,6 @@
 	                    TAX_SITE_NAME: gfnma_nvl(item.TX_SITE_NM),
 	                    BIZ_REGNO: gfnma_nvl(item.BRNO),
 	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
-	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
 	                    TAX_SITE_STAMP: gfnma_nvl(item.TX_SITE_OS),
 	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
 	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
@@ -798,8 +794,6 @@
 	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
 	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
 	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
-	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
 	                    ZIP_CODE: gfnma_nvl(item.ZIP_CD),
 	                    ADDRESS: gfnma_nvl(item.ADDR),
 	                    ISSUE_DATE: gfnma_nvl(item.ISSU_YMD),
@@ -920,8 +914,6 @@
 		    	    SBUxMethod.set("TAX_SITE_NAME", gfnma_nvl(obj.TX_SITE_NM));
 		    	    SBUxMethod.set("BIZ_REGNO1", gfnma_nvl(obj.BRNO));
 		    	    SBUxMethod.set("CHIEF_NAME", gfnma_nvl(obj.CEO_NM));
-		    	    SBUxMethod.set("CHIEF_SOCIALNO", gfnma_nvl(obj.CEO_RRNO));
-		    	    SBUxMethod.set("CHIEF_SOCIALNO_REAL", gfnma_nvl(obj.CHIEF_SOCIALNO_REAL));
 		    	    SBUxMethod.set("BIZ_CATEGORY", gfnma_nvl(obj.BZSTAT));
 		    	    SBUxMethod.set("BIZ_ITEMS", gfnma_nvl(obj.TPBIZ));
 		    	    SBUxMethod.set("ZIP_CODE", gfnma_nvl(obj.ZIP_CD));
@@ -971,8 +963,6 @@
 	    SBUxMethod.set("TAX_SITE_NAME", "");
 	    SBUxMethod.set("BIZ_REGNO1", "");
 	    SBUxMethod.set("CHIEF_NAME", "");
-	    SBUxMethod.set("CHIEF_SOCIALNO", "");
-	    SBUxMethod.set("CHIEF_SOCIALNO_REAL", "");
 	    SBUxMethod.set("BIZ_CATEGORY", "");
 	    SBUxMethod.set("BIZ_ITEMS", "");
 	    SBUxMethod.set("ZIP_CODE", "");
@@ -1041,7 +1031,6 @@
     			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
     			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
     			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_CHIEF_SOCIALNO      : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO"))
     			  ,V_P_TAX_SITE_STAMP      : ''
     			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
     			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
@@ -1104,7 +1093,6 @@
     			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
     			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
     			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_CHIEF_SOCIALNO      : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO"))
     			  ,V_P_TAX_SITE_STAMP      : ''
     			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
     			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
@@ -1278,7 +1266,6 @@
             		  ,V_P_BIZ_CATEGORY         : gfnma_nvl(item.data.BIZ_CATEGORY)
             		  ,V_P_BIZ_ITEMS            : gfnma_nvl(item.data.BIZ_ITEMS)
             		  ,V_P_CHIEF_NAME           : gfnma_nvl(item.data.CHIEF_NAME)
-            		  ,V_P_CHIEF_SOCIALNO       : gfnma_nvl(item.data.CHIEF_SOCIALNO)
             		  ,V_P_ZIP_CODE             : gfnma_nvl(item.data.ZIP_CODE)
             		  ,V_P_ADDRESS              : gfnma_nvl(item.data.ADDRESS)
             		  ,V_P_ISSUE_DATE           : gfnma_nvl(item.data.ISSUE_DATE)
