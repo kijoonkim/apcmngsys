@@ -145,6 +145,14 @@
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  AOPO.APC_CD = #{apcCd}
 			</if>
+			<if test='userId != null and userId != ""'>
+				<if test='userType == "27"'>
+				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 2) = (SELECT CTPV FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+				<if test='userType == "28"'>
+				  AND SUBSTR(AOPO.APC_ADM_CD , 0 , 4) = (SELECT SUBSTR(SGG, 0 , 4) FROM TB_COM_USER WHERE USER_ID = #{userId})
+				</if>
+			</if>
 
 	</select>
 

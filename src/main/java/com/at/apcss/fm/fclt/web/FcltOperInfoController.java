@@ -60,7 +60,8 @@ public class FcltOperInfoController extends BaseController {
 		List<FcltOperInfoVO> resultList = new ArrayList<>();
 		FcltOperInfoVO userInfo = new FcltOperInfoVO();
 
-		fcltOperInfoVO.setUserId(getUserId());
+		fcltOperInfoVO.setUserId(getUserId());//유저아이디
+		fcltOperInfoVO.setUserType(getUserType());//유저권한
 
 		try {
 			resultList = fcltOperInfoService.selectFcltOperInfoList(fcltOperInfoVO);
