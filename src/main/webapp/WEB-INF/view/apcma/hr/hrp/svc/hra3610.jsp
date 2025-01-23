@@ -726,8 +726,8 @@
                 , hidden: true
             },
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
-            {caption: ["주민등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
+/*            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+            {caption: ["주민등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},*/
             {caption: ["사업자등록번호"],         ref: 'BIZ_REGNO',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["상호"],         ref: 'COMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["거주지국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -820,8 +820,8 @@
                 , hidden: true
             },
             {caption: ["소득자성명(상호)"],         ref: 'EARNER_NAME',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
-            {caption: ["주민(사업자)등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
+            /*{caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+            {caption: ["주민(사업자)등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},*/
             {caption: ["사업자등록번호"],         ref: 'BIZ_REGNO',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["상호"],         ref: 'COMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["거주지국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -1463,8 +1463,8 @@
                             SITE_CODE: item.SITE_CD,
                             TAX_SITE_CODE: item.TX_BPLC_CD,
                             EARNER_NAME: item.EARNR_NM,
-                            SOCNO: item.RGDT_NO,
-                            SOCNO_REAL: item.SOCNO_REAL,
+/*                            SOCNO: item.RGDT_NO,
+                            SOCNO_REAL: item.SOCNO_REAL,*/
                             BIZ_REGNO: item.BRNO,
                             COMP_NAME: item.CONM_NM,
                             NATION_CODE: item.HBTN_NTN_CD,
@@ -1510,8 +1510,8 @@
                             SITE_CODE: item.SITE_CD,
                             TAX_SITE_CODE: item.TX_BPLC_CD,
                             EARNER_NAME: item.EARNR_NM,
-                            SOCNO: item.RGDT_NO,
-                            SOCNO_REAL: item.SOCNO_REAL,
+/*                            SOCNO: item.RGDT_NO,
+                            SOCNO_REAL: item.SOCNO_REAL,*/
                             BIZ_REGNO: item.BRNO,
                             COMP_NAME: item.CONM_NM,
                             NATION_CODE: item.HBTN_NTN_CD,

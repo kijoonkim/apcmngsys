@@ -405,7 +405,7 @@
             {caption: ["이름"],         ref: 'EMP_FULL_NAME',    type:'output',  	width:'65px',  style:'text-align:left'},
             {caption: ["계좌번호"],         ref: 'BANK_ACCOUNT_REAL',    type:'output',  	width:'115px',  style:'text-align:left'},
             {caption: ["예금주"],         ref: 'BANK_DEPOSITOR',    type:'output',  	width:'65px',  style:'text-align:left'},
-            {caption: ["주민번호"],         ref: 'SOCIAL_NUM_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
+            /*{caption: ["주민번호"],         ref: 'SOCIAL_NUM_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},*/
             {caption: ["지급액"],         ref: 'PAY_NET_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
@@ -957,8 +957,8 @@
                         BANK_ACCOUNT : item.BACNT_NO,
                         BANK_ACCOUNT_REAL : item.BANK_ACCOUNT_REAL,
                         BANK_DEPOSITOR : item.BANK_DEPOSITOR,
-                        SOCIAL_NUM : item.RRNO_ENCPT,
-                        SOCIAL_NUM_REAL : item.SOCIAL_NUM_REAL,
+                        /*SOCIAL_NUM : item.RRNO_ENCPT,*/
+                        /*SOCIAL_NUM_REAL : item.SOCIAL_NUM_REAL,*/
                         PAY_NET_AMT : item.PAY_ACTL_AMT,
                         FIRMBANK_CODE : item.FBS_CD,
                         FIRMBANK_NAME_CODE : item.FBS_BANK_CD,
