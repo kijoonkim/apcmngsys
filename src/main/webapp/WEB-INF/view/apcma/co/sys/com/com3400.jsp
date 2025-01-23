@@ -5058,8 +5058,7 @@
     }
     
     /**
-     * 주민번호 정규식
-     */
+    * 주민번호 정규식
     function fn_socialRegex(regexString) {
     	
     	regexString = regexString.replaceAll('-', '');
@@ -5089,6 +5088,7 @@
         }
         return true;
 	}   
+    */
     
     /**
      * 사업자번호 정규식
