@@ -28,6 +28,8 @@ public interface ApcMailService {
 
     public HashMap<String, Object> sendMail(ApcMailVO apcMailVO, List<MultipartFile> multipartFiles) throws Exception;
 
+    public HashMap<String, Object> sendMailSimple(ApcMailVO apcMailVO) throws Exception;
+
 
     public HashMap<String, Object> sendEmsMail(EmsMailVO emsMailVO) throws Exception;
 
