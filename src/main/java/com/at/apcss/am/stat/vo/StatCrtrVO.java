@@ -69,4 +69,10 @@ public class StatCrtrVO extends ComVO {
 
     private String crtrChrVl;
 
+    private String crtrYmdFrom;
+    private String crtrYmdTo;
+
+    private String itemCd;
+    private String vrtyCd;
+
 }
