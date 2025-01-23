@@ -142,7 +142,7 @@
 	                        	<sbux-button id="btnTaxSiteStamp" name="btnTaxSiteStamp" uitype="normal" text="사용인감 추가" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right:1rem;"></sbux-button>
 	                        </div>
                         </div>
-		                <table class="table table-bordered tbl_fixed">
+		                <table id="dataTable1" class="table table-bordered tbl_fixed">
 		                    <caption>검색 조건 설정</caption>
 		                    <colgroup>
 								<col style="width: 20%">
@@ -191,13 +191,8 @@
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
-			                        <th style="border-right:hidden;"></th>
-		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                            </td>		                        
-		                        </tr>
-		                        <tr>
 			                        <th scope="row" class="th_bg">업태</th>
-		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="3">
+		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="">
 		                                <sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
@@ -611,12 +606,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-				fixedstyle : 'background-color:#f1ffd9;',	width:'150px',	style:'text-align:center'	
+					width:'150px',	style:'text-align:center'	
 		    },	
 			{	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-		    	fixedstyle : 'background-color:#f1ffd9;', width:'150px',	style:'text-align:center'	
+		    	 width:'150px',	style:'text-align:center'	
 		    },	
-	        { caption: ["사업장명"],   ref: 'TAX_SITE_NAME',	  type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;', },
+	        { caption: ["사업장명"],   ref: 'TAX_SITE_NAME',	  type: 'input', width: '120px', style: 'text-align:left',  },
 	        { caption: ["종사업장번호"], ref: 'BIZ_SUBNO',       type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["사업자번호"], ref: 'BIZ_REGNO', type: 'input',  width: '120px', style: 'text-align:left' },
             {caption: ["통화코드"],	ref: 'CURRENCY_CODE', 	type:'combo',  	width:'100px',  	style:'text-align:center',
@@ -628,11 +623,11 @@
             	}
             },
 	        
-	        { caption: ["업태"], ref: 'BIZ_CATEGORY', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["종목"], ref: 'BIZ_ITEMS', type: 'input',  width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["대표자"],  ref: 'CHIEF_NAME', type: 'input', width: '120px',  style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["우편번호"], ref: 'ZIP_CODE', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["주소"], ref: 'ADDRESS', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
+	        { caption: ["업태"], ref: 'BIZ_CATEGORY', type: 'input', width: '120px', style: 'text-align:left',  },
+	        { caption: ["종목"], ref: 'BIZ_ITEMS', type: 'input',  width: '120px', style: 'text-align:left',  },
+	        { caption: ["대표자"],  ref: 'CHIEF_NAME', type: 'input', width: '120px',  style: 'text-align:left',  },
+	        { caption: ["우편번호"], ref: 'ZIP_CODE', type: 'input', width: '120px', style: 'text-align:left',  },
+	        { caption: ["주소"], ref: 'ADDRESS', type: 'input', width: '120px', style: 'text-align:left',  },
 	        { caption: ["교부일"], ref: 'ISSUE_DATE', type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["교부사유"], ref: 'ISSUE_REASON', type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left' },
@@ -658,13 +653,13 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'	
+		    	width:'150px',	style:'text-align:center', 	
 		    },	
 		    {	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},	
-		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'
+		    	width:'150px',	style:'text-align:center', 
 		    },
-		    {	caption:["월발행한도"],	ref:'ISSUE_LIMIT_MONTH',	type:'input',	width:'150px',	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'	},
-		    {	caption:["1회발행한도"],	ref:'ISSUE_LIMIT_ONCE',	type:'input',	width:'150px',	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'	},
+		    {	caption:["월발행한도"],	ref:'ISSUE_LIMIT_MONTH',	type:'input',	width:'150px',	style:'text-align:left', 	},
+		    {	caption:["1회발행한도"],	ref:'ISSUE_LIMIT_ONCE',	type:'input',	width:'150px',	style:'text-align:left', 	},
 		    {	caption:["사업장코드"],	ref:'TAX_SITE_CODE',	type:'input',	width:'150px',	style:'text-align:left', hidden: true	}
 	    ];
 	    limitGrid = _SBGrid.create(SBGridProperties);
@@ -1403,8 +1398,6 @@
 	        }
 	    }
 	}
-	
-	    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
