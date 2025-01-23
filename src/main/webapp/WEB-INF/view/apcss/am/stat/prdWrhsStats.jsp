@@ -55,9 +55,7 @@
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
-
 				<table class="table table-bordered tbl_fixed">
-					<caption>검색 조건 설정</caption>
 					<colgroup>
 						<col style="width: 7%">
 						<col style="width: 6%">
@@ -65,101 +63,97 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
+						<col style="width: 3%">
+						<col style="width: 3%">
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
-						<tr>
-							<th scope="row" class="th_bg">품목/품종</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									id="srch-slt-itemCd"
-									name="srch-slt-itemCd"
-									uitype="single"
-									class="form-control input-sm"
-									unselected-text="전체"
-									jsondata-ref="jsonApcItem"
-									onchange="fn_selectItem"
-								></sbux-select>
-							</td>
-<!-- 							<td class="td_input" style="border-right: hidden;"> -->
-<!-- 								<sbux-select id="srch-slt-vrtyCd" name="srch-slt-vrtyCd" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonVrty"></sbux-select> -->
-<!-- 							</td> -->
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-input
-									uitype="text"
-									id="srch-inp-vrtyNm"
-									name="srch-inp-vrtyNm"
-									class="form-control input-sm"
-									maxlength="33"
-									show-clear-button="true"
-									readonly
-								></sbux-input>
-								<sbux-input
-									uitype="hidden"
-									id="srch-inp-vrtyCd"
-									name="srch-inp-vrtyCd"
-								></sbux-input>
-							</td>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-button
-									id="btnSrchVrty"
-									name="btnSrchVrty"
-									class="btn btn-xs btn-outline-dark"
-									text="찾기"
-									uitype="modal"
-									target-id="modal-vrty"
-									onclick="fn_modalVrty"
-								/>
-							</td>
-							<th scope="row" class="th_bg">통계 기간</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-radio
-									id="srch-rdo-json"
-									name="srch-rdo-json"
-									uitype="normal"
-									jsondata-ref="radioJsonData"
-									jsondata-text="dtlNm"
-									jsondata-value="dtlCd"
-									text-right-padding="10px"
-									onchange="fn_radioChange(srch-rdo-json)" >
-								</sbux-radio>
-							</td>
-							<th scope="row" class="th_bg">기준일자</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+					<tr>
+						<th scope="row" class="th_bg">기준일자</th>
+						<td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
+							<div style="display: flex;gap: 5px">
 								<sbux-datepicker
-                                    id="dtl-dtp-crtrYmd"
-                                    name="dtl-dtp-crtrYmd"
-                                    uitype="popup"
-                                    date-format="yyyy/mm/dd"
-									class="form-control input-sm sbux-pik-group-apc input-sm-ast"
-									onchange="fn_dtpChange(dtl-dtp-crtrYmd)"
-									group-id="group1">
-                               	</sbux-datepicker>
-							</td>
-
-						</tr>
+										uitype="popup"
+										id="srch-dtp-wrhsYmdFrom"
+										name="srch-dtp-wrhsYmdFrom"
+										date-format="yyyy-mm-dd"
+										class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+										onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+								></sbux-datepicker>
+								<sbux-datepicker
+										uitype="popup"
+										id="srch-dtp-wrhsYmdTo"
+										name="srch-dtp-wrhsYmdTo"
+										date-format="yyyy-mm-dd"
+										class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
+										onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
+								></sbux-datepicker>
+							</div>
+						</td>
+						<th scope="row" class="th_bg">품목/품종</th>
+						<td class="td_input" colspan="4" style="border-top: hidden;border-right: hidden">
+							<div style="display: flex; gap: 5px">
+								<sbux-select
+										unselected-text="전체"
+										uitype="single"
+										id="srch-slt-itemCd"
+										name="srch-slt-itemCd"
+										class="form-control input-sm input-sm-ast"
+										jsondata-ref="jsonApcItem"
+										onchange="fn_onChangeSrchItemCd(this)">
+								</sbux-select>
+								<sbux-select
+										unselected-text="선택"
+										uitype="single"
+										id="srch-slt-vrtyCd"
+										name="srch-slt-vrtyCd"
+										class="form-control input-sm input-sm-ast inpt_data_reqed"
+										jsondata-ref="jsonApcVrty"
+										jsondata-value="itemVrtyCd"
+										onchange="fn_onChangeSrchVrtyCd(this)">
+								</sbux-select>
+							</div>
+						</td>
+						<td colspan="4" style="border-top: hidden"></td>
+					</tr>
 					</tbody>
 				</table>
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div style="display: flex; flex-direction: column; height: 40vh">
- 					<div class="row">
-						<div class="ad_tbl_top">
-							<ul class="ad_tbl_count">
+				<div style="display: flex;height: 100%; gap: 3vw; margin-top: 5vh">
+					<div style="flex: 1;display: flex; flex-direction: column; height: 80%">
+						<div style="flex:1">
+							<ul class="ad_tbl_count" style="left: auto;top: 19vh">
 								<li>
-									<span>기간별 입고통계</span>
+									<span>품목별 입고량</span>
 								</li>
 							</ul>
+							<div id="sb-area-itemWrhs" style="height: 200px; width: 100%"></div>
 						</div>
-						<div id="sb-area-grdRawMtrInvntrStat" style="height:60vh;"></div>
- 					</div>
+						<div style="flex:1">
+							<ul class="ad_tbl_count" style="left: auto; top: 55vh">
+								<li>
+									<span>생산자별 입고량</span>
+								</li>
+							</ul>
+							<div id="sb-area-cnptWrhs" style="height: 200px; width: 100%"></div>
+						</div>
+					</div>
+					<div style="flex: 1">
+						<ul class="ad_tbl_count" style="left: auto;top: 19vh">
+							<li>
+								<span>입고 상세</span>
+							</li>
+						</ul>
+						<div id="sb-area-dtlWrhs" style="height: 500px"></div>
+					</div>
 				</div>
+
 				<!--[pp] //검색결과 -->
 			</div>
 		</div>
@@ -180,8 +174,13 @@
     </div>
 </body>
 <script type="text/javascript">
+	let jsonItemWrhs = [];
+	let jsonCnptWrhs = [];
+	let jsonDtlWrhs = [];
 
-
+	let gridItemWrhs;
+	let gridCnptWrhs;
+	let gridDtlWrhs;
 
 	const fn_initSBSelect = async function() {
 		let result = await Promise.all([
@@ -191,10 +190,10 @@
 			await fn_statCrtrElmtInfoList("WRHS","STAT_ELMT_KND")
         ]);
 
-
-		let  jsonTermKndTest  = await gfn_getComCdDtls('STAT_TERM_KND');
-		jsonTermKndTest[0]['checked'] = "checked";
-		jsonTermKnd = jsonTermKndTest;
+		//
+		// let  jsonTermKndTest  = await gfn_getComCdDtls('STAT_TERM_KND');
+		// jsonTermKndTest[0]['checked'] = "checked";
+		// jsonTermKnd = jsonTermKndTest;
 
 	}
 
@@ -237,32 +236,27 @@
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+		SBUxMethod.set("srch-dtp-wrhsYmdFrom",gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-wrhsYmdTo",gfn_dateToYmd(new Date()));
     	fn_init();
     });
 
     const fn_init = async function() {
     	await fn_initSBSelect();
-    	fn_createRawMtrInvntrStat();
-    	SBUxMethod.set("dtl-dtp-crtrYmd",gfn_dateToYmd(new Date()));
-
-
-    	 radioJsonData = jsonStatCrtrDtlTermList;
-    	 SBUxMethod.refresh("srch-rdo-json");
-
-
-    	let radio = SBUxMethod.get("srch-rdo-json");
-		fn_radioChange(radio);
-		//fn_search();
+		await fn_create_itemWrhs();
+		await fn_create_cnptWrhs();
+		await fn_create_dtlWrhs();
+		// radioJsonData = jsonStatCrtrDtlTermList;
+    	// SBUxMethod.refresh("srch-rdo-json");
+		//
+    	// let radio = SBUxMethod.get("srch-rdo-json");
+		// fn_radioChange(radio);
+		await fn_search();
     }
 
     var radioJsonData = [];
-
-
-
-
 	//품목
 	var jsonApcItem = [];
-
 	//품종
 	var jsonApcVrty = [];
 
@@ -401,84 +395,40 @@
      * @description 조회 버튼
      */
     const fn_search = async function() {
-    	let copy = structuredClone(dateSaveList);
-		let startDay = copy[0].replaceAll("-","");
-		let endDay = copy.pop().replaceAll("-","");
-		let itemCd = SBUxMethod.get("srch-slt-itemCd");
-		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
-		let avgChk = false; //"AVG평균",
-		let usgrtChk = false; //"USGRT사용률"
-		let badrtChk = false; //"BADRT불량률"
+		let wrhsYmdFrom = SBUxMethod.get("srch-dtp-wrhsYmdFrom");
+		let wrhsYmdTo = SBUxMethod.get("srch-dtp-wrhsYmdTo");
+		if(gfn_isEmpty(wrhsYmdFrom)){
+			gfn_comAlert("W0005","기준일자");
+			return;
+		}
+		if(gfn_isEmpty(wrhsYmdTo)){
+			gfn_comAlert("W0005","기준일자");
+			return;
+		}
 
+		let itemCd = SBUxMethod.get("srch-slt-itemCd") || '';
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd") || '';
+		vrtyCd = vrtyCd.substring(4);
+		let param = {
+			apcCd: gv_selectedApcCd,
+			wrhsYmdFrom : wrhsYmdFrom,
+			wrhsYmdTo : wrhsYmdTo,
+			itemCd : itemCd,
+			vrtyCd : vrtyCd
+		}
+		const postJsonPromise = gfn_postJSON("/am/stat/selectPrdWrhsList.do",param);
+		const data = await postJsonPromise;
 
-		jsonStatCrtrDtlElmtList.forEach(item => {
-			if(item.dtlCd ==="AVG"){
-				avgChk = true
-			}else if(item.dtlCd ==="USGRT"){
-				usgrtChk = true
-			}else if(item.dtlCd ==="BADRT"){
-				badrtChk = true
-			}
-		})
-
-		 const postJsonPromise = gfn_postJSON("/am/stat/selectPrdWrhsInfo.do", {
-			 apcCd: gv_selectedApcCd
-				, itemCd : itemCd
-				, vrtyCd : vrtyCd
-				, statYmdFrom : startDay
-				, statYmdEnd : endDay
-  		});
-
-        const data = await postJsonPromise;
-
-  		try {
- 			if (_.isEqual("S", data.resultStatus)) {
-
-  	      		jsonRawMtrInvntrStat.length = 0;
-
-  	      		jsonRawMtrInvntrStat = convertArrayToCamelCase(data.resultList);
-  	      		let statalRow = {};
-
-	  	      	const dayResult = jsonRawMtrInvntrStat.reduce((acc, item) => {
-		  	          // Iterate through each key-value pair in the object
-		  	          Object.keys(item).forEach(key => {
-		  	              // If the key represents a date, add the value to the result
-		  	              if (key >= startDay && key <= endDay ) {
-		  	                  acc[key] = (acc[key] || 0) + item[key];
-		  	              }
-		  	              if (key === "statQntt") {
-		  	                  acc[key] = (acc[key] || 0) + item[key];
-		  	              }
-		  	          });
-		  	          return acc;
-		  	      }, {});
-
-	  	      	const statalCount = data.resultList.length; // Number of objects in the data array
-	  	    	const avgResult = Object.keys(dayResult).reduce((acc, key) => {
-	  	    		let avg = dayResult[key] / statalCount;
-	  	        	acc[key] = avg.toFixed(1);
-	  	        return acc;
-	  	    	}, {});
-
-	  	      //dayResult["itemNm"] = "합계";
-	  	      dayResult["vrtyNm"] = "합계";
-	  	      avgResult["vrtyNm"] = "평균";
-	  	      jsonRawMtrInvntrStat.push(dayResult);
-	  	      if(avgChk){
-	  	    	jsonRawMtrInvntrStat.push(avgResult);
-	  	      }
-
-
-  	          grdRawMtrInvntrStat.rebuild();
- 			 }
-  		}
- 		catch (e) {
- 	            if (!(e instanceof Error)) {
- 	                e = new Error(e);
- 	            }
- 	            console.error("failed", e.message);
- 	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
- 	    }
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
+		}
+		jsonItemWrhs = data.ITEM;
+		gridItemWrhs.rebuild();
+		jsonCnptWrhs = data.CNPT;
+		gridCnptWrhs.rebuild();
+		jsonDtlWrhs = data.WRHS;
+		gridDtlWrhs.rebuild();
 	}
 
 
@@ -547,12 +497,6 @@
  	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
  	    }
 	}
-
-
-
-
-
-
 
     function getWeeklyDates(date) {
         const today = date;
@@ -789,14 +733,86 @@
  		gfn_popClipReportPost("기간별입고통계조회", "am/rawMtrInvntrTot.crf",null, conn);
  	}
 
+	/**
+	 * @name fn_onChangeSrchItemCd
+	 * @description 품목 선택 변경 event
+	 */
+	const fn_onChangeSrchItemCd = async function(obj) {
+		let itemCd = obj.value;
+		const itemInfo = _.find(jsonApcItem, {value: itemCd});
+		let result = await Promise.all([
+			gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd, itemCd),
+		]);
+	}
 
+	/**
+	 * @name fn_onChangeSrchVrtyCd
+	 * @description 품종 선택 변경 event
+	 */
+	const fn_onChangeSrchVrtyCd = async function(obj) {
+		let vrtyCd = obj.value;
+		const itemCd = vrtyCd.substring(0,4);
 
-
-
-
-
-
-
+		const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
+		if(!gfn_isEmpty(vrtyCd)){
+			if (itemCd != prvItemCd) {
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			} else{
+				SBUxMethod.set("srch-slt-itemCd", itemCd);
+				await fn_onChangeSrchItemCd({value: itemCd});
+				SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
+			}
+		}
+	}
+	const fn_create_itemWrhs = async function(){
+		var SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-itemWrhs';
+		SBGridProperties.id = 'gridItemWrhs';
+		SBGridProperties.jsonref = 'jsonItemWrhs';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.datamergefalseskip = true;
+		SBGridProperties.columns = [
+			{caption: ["품목"],	ref: 'ITEM_NM',		type:'output',  width:'25%', style: 'text-align:center;'},
+			{caption: ["품종"],	ref: 'VRTY_NM',		type:'output',  width:'25%', style: 'text-align:center;'},
+			{caption: ["수량"],	ref: 'QNTT',		type:'output',  width:'25%', style: 'text-align:center;'},
+			{caption: ["중량"],	ref: 'WGHT',		type:'output',  width:'25%', style: 'text-align:center;'},
+		]
+		gridItemWrhs = _SBGrid.create(SBGridProperties);
+	}
+	const fn_create_cnptWrhs = async function(){
+		var SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-cnptWrhs';
+		SBGridProperties.id = 'gridCnptWrhs';
+		SBGridProperties.jsonref = 'jsonCnptWrhs';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.datamergefalseskip = true;
+		SBGridProperties.columns = [
+			{caption: ["생산자"],	ref: 'PRDCR_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["대표품목"],	ref: 'ITEM_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["대표품종"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["수량"],	ref: 'QNTT',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["중량"],	ref: 'WGHT',		type:'output',  width:'20%', style: 'text-align:center;'},
+		]
+		gridCnptWrhs = _SBGrid.create(SBGridProperties);
+	}
+	const fn_create_dtlWrhs = async function(){
+		var SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-dtlWrhs';
+		SBGridProperties.id = 'gridDtlWrhs';
+		SBGridProperties.jsonref = 'jsonDtlWrhs';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.datamergefalseskip = true;
+		SBGridProperties.columns = [
+			{caption: ["생산자"],	ref: 'PRDCR_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["대표품목"],	ref: 'ITEM_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["대표품종"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["수량"],	ref: 'QNTT',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["중량"],	ref: 'WGHT',		type:'output',  width:'20%', style: 'text-align:center;'},
+		]
+		gridDtlWrhs = _SBGrid.create(SBGridProperties);
+	}
 
 
 

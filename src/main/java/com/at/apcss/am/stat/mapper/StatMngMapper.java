@@ -71,6 +71,11 @@ public interface StatMngMapper {
 
 	public int deleteCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
+    List<HashMap<String, Object>> selectItemWrhs(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectCnptWrhs(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectWrhs(HashMap<String, Object> param) throws Exception;
 	/**
 	 * 기준정보 목록 조회
 	 *
@@ -107,4 +112,8 @@ public interface StatMngMapper {
 	 */
 	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
 
+
+    List<HashMap<String, Object>> selectItemInpt(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectDtlInpt(HashMap<String, Object> param) throws Exception;
 }
