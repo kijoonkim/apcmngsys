@@ -246,6 +246,24 @@ public class StatMngController extends BaseController {
 	        }
 	        return getSuccessResponseEntity(resultMap);
 	    }
+	@PostMapping(value = "/am/stat/selectPrdInptList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPrdInptList(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			resultMap = statMngService.selectPrdInptList(param);
+
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 
 	@PostMapping(value = "/am/stat/selectPrdSpmtInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdSpmtInfo(@RequestBody StatCrtrVO statCrtrVO, HttpServletRequest request) throws Exception {

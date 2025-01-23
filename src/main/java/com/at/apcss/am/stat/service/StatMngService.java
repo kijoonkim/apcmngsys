@@ -81,7 +81,7 @@ public interface StatMngService {
 	 */
 	public HashMap<String, Object> deleteCrtrDtl(StatMngVO statMngVO) throws Exception;
 	/**
-	 * 기간별 입고 통계
+	 * 기간별 입고 통계조회
 	 * @param param
 	 * @return
 	 * @throws Exception
@@ -120,4 +120,11 @@ public interface StatMngService {
 	 */
 	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
 
+	/**
+	 * 기간별 투입실적 통계조회
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> selectPrdInptList(HashMap<String, Object> param) throws Exception;
 }

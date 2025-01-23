@@ -125,7 +125,7 @@
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div style="display: flex;height: 100%; gap: 5vw; margin-top: 5vh">
+				<div style="display: flex;height: 100%; gap: 3vw; margin-top: 5vh">
 					<div style="flex: 1;display: flex; flex-direction: column; height: 80%">
 						<div style="flex:1">
 							<ul class="ad_tbl_count" style="left: auto;top: 19vh">
@@ -133,7 +133,7 @@
 									<span>품목별 입고량</span>
 								</li>
 							</ul>
-							<div id="sb-area-itemWrhs" style="height: 200px; width: 80%"></div>
+							<div id="sb-area-itemWrhs" style="height: 200px; width: 100%"></div>
 						</div>
 						<div style="flex:1">
 							<ul class="ad_tbl_count" style="left: auto; top: 55vh">

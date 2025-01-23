@@ -614,6 +614,106 @@
 		ORDER BY
 			ITEM_CD, VRTY_CD, PRDCR_NM
 	</select>
+	<select id="selectItemInpt" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			A.APC_CD      AS APC_CD
+			 , A.ITEM_CD     AS ITEM_CD
+			 , A.VRTY_CD AS VRTY_CD
+			 , (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+			 , A.QNTT        AS QNTT
+			 , A.WGHT        AS WGHT
+		FROM (
+				 SELECT
+					 RP.APC_CD                 AS APC_CD
+					  , RI.ITEM_CD                    AS ITEM_CD
+					  , RI.VRTY_CD                    AS VRTY_CD
+					  , SUM(RP.QNTT)              AS QNTT
+					  , SUM(RP.WGHT)              AS WGHT
+				 FROM TB_SORT_INPT_PRFMNC RP
+						  JOIN TB_RAW_MTR_INVNTR RI
+							   ON RI.APC_CD = RP.APC_CD
+								   AND RI.WRHSNO = RP.WRHSNO
+								   AND RI.DEL_YN = 'N'
+				 WHERE RP.DEL_YN = 'N'
+				 AND RP.APC_CD = #{apcCd}
+				 AND RP.INPT_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+			     <if test='itemCd != null and itemCd != ""'>
+				   AND RI.ITEM_CD = #{itemCd}
+				 </if>
+				 <if test='vrtyCd != null and vrtyCd != ""'>
+				   AND RI.VRTY_CD = #{vrtyCd}
+				 </if>
+					  GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+			 ) A
+		WHERE 1=1
+		ORDER BY WGHT DESC
+	</select>
+	<select id="selectDtlInpt" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			A.APC_CD      AS APC_CD
+			 , A.ITEM_CD     AS ITEM_CD
+			 , A.VRTY_CD AS VRTY_CD
+			 , (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+			 , A.QNTT        AS QNTT
+			 , A.WGHT        AS WGHT
+			 , B.QNTT        AS SORT_QNTT
+			 , B.WGHT        AS SORT_WGHT
+		FROM (
+				 SELECT
+					 RP.APC_CD                 AS APC_CD
+					  , RI.ITEM_CD                    AS ITEM_CD
+					  , RI.VRTY_CD                    AS VRTY_CD
+					  , SUM(RP.QNTT)              AS QNTT
+					  , SUM(RP.WGHT)              AS WGHT
+				 FROM TB_SORT_INPT_PRFMNC RP
+						  JOIN TB_RAW_MTR_INVNTR RI
+							   ON RI.APC_CD = RP.APC_CD
+								   AND RI.WRHSNO = RP.WRHSNO
+								   AND RI.DEL_YN = 'N'
+				 WHERE RP.DEL_YN = 'N'
+				 AND RP.APC_CD = #{apcCd}
+				 AND RP.INPT_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+				 <if test='itemCd != null and itemCd != ""'>
+				 AND RI.ITEM_CD = #{itemCd}
+				 </if>
+				 <if test='vrtyCd != null and vrtyCd != ""'>
+				 AND RI.VRTY_CD = #{vrtyCd}
+				 </if>
+					  GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+			 ) A
+				 LEFT JOIN (
+			SELECT
+				RP.APC_CD
+				 , RI.ITEM_CD
+				 , RI.VRTY_CD
+				 , SUM(RP.SORT_QNTT)     AS QNTT
+				 , SUM(RP.SORT_WGHT)     AS WGHT
+			FROM TB_SORT_PRFMNC RP
+					 JOIN TB_SORT_INVNTR RI
+						  ON RI.APC_CD = RP.APC_CD
+							  AND RI.SORTNO = RP.SORTNO
+							  AND RI.SORT_SN = RP.SORT_SN
+							  AND RI.DEL_YN = 'N'
+			WHERE RP.DEL_YN = 'N'
+			AND RP.APC_CD = #{apcCd}
+			AND RP.INPT_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+			<if test='itemCd != null and itemCd != ""'>
+			  AND RI.ITEM_CD = #{itemCd}
+			</if>
+			<if test='vrtyCd != null and vrtyCd != ""'>
+			  AND RI.VRTY_CD = #{vrtyCd}
+			</if>
+			GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+		) B
+						   ON B.APC_CD = A.APC_CD
+							   AND B.ITEM_CD = A.ITEM_CD
+							   AND B.VRTY_CD = A.VRTY_CD
+		WHERE 1=1
+		ORDER BY ITEM_NM, VRTY_NM
+	</select>
+
 
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->

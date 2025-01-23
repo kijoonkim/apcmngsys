@@ -112,4 +112,8 @@ public interface StatMngMapper {
 	 */
 	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
 
+
+    List<HashMap<String, Object>> selectItemInpt(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectDtlInpt(HashMap<String, Object> param) throws Exception;
 }
