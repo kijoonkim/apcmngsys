@@ -2235,6 +2235,126 @@
 		  	</if>
     </select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectPrdctnVol  			-->
+	<!-- DESC : 생산량 비교 조회.	                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.22  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdctnVol" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			   A.APC_CD
+			 , A.ITEM_CD
+			 , (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+			 , A.W_0	AS W_0
+			 , A.W_1	AS W_1
+			 , A.W_2	AS W_2
+			 , A.W_3	AS W_3
+			 , A.W_4	AS W_4
+			 , A.W_5	AS W_5
+			 , A.W_6	AS W_6
+			 , A.W_7	AS W_7
+			 , A.W_8	AS W_8
+			 , A.W_9	AS W_9
+			 , A.W_10	AS W_10
+			 , A.W_11	AS W_11
+			 , A.W_12	AS W_12
+			 , NVL(A.W_0, 0) - NVL(A.W_1, 0)	AS D_0
+			 , NVL(A.W_1, 0) - NVL(A.W_2, 0)	AS D_1
+			 , NVL(A.W_2, 0) - NVL(A.W_3, 0)	AS D_2
+			 , NVL(A.W_3, 0) - NVL(A.W_4, 0)	AS D_3
+			 , NVL(A.W_4, 0) - NVL(A.W_5, 0)	AS D_4
+			 , NVL(A.W_5, 0) - NVL(A.W_6, 0)	AS D_5
+			 , NVL(A.W_6, 0) - NVL(A.W_7, 0)	AS D_6
+			 , NVL(A.W_7, 0) - NVL(A.W_8, 0)	AS D_7
+			 , NVL(A.W_8, 0) - NVL(A.W_9, 0)	AS D_8
+			 , NVL(A.W_9, 0) - NVL(A.W_10, 0)	AS D_9
+			 , NVL(A.W_10, 0) - NVL(A.W_11, 0)	AS D_10
+			 , NVL(A.W_11, 0) - NVL(A.W_12, 0)	AS D_11
+		FROM (
+				 SELECT
+					    RS.APC_CD
+					  , RS.ITEM_CD
+					  , RS.VRTY_CD
+					  , SUM(CASE RS.YM WHEN RS.T_0 THEN RS.QNTT ELSE 0 END)	AS Q_0
+					  , SUM(CASE RS.YM WHEN RS.T_1 THEN RS.QNTT ELSE 0 END)	AS Q_1
+					  , SUM(CASE RS.YM WHEN RS.T_2 THEN RS.QNTT ELSE 0 END)	AS Q_2
+					  , SUM(CASE RS.YM WHEN RS.T_3 THEN RS.QNTT ELSE 0 END)	AS Q_3
+					  , SUM(CASE RS.YM WHEN RS.T_4 THEN RS.QNTT ELSE 0 END)	AS Q_4
+					  , SUM(CASE RS.YM WHEN RS.T_5 THEN RS.QNTT ELSE 0 END)	AS Q_5
+					  , SUM(CASE RS.YM WHEN RS.T_6 THEN RS.QNTT ELSE 0 END)	AS Q_6
+					  , SUM(CASE RS.YM WHEN RS.T_7 THEN RS.QNTT ELSE 0 END)	AS Q_7
+					  , SUM(CASE RS.YM WHEN RS.T_8 THEN RS.QNTT ELSE 0 END)	AS Q_8
+					  , SUM(CASE RS.YM WHEN RS.T_9 THEN RS.QNTT ELSE 0 END)	AS Q_9
+					  , SUM(CASE RS.YM WHEN RS.T_10 THEN RS.QNTT ELSE 0 END)	AS Q_10
+					  , SUM(CASE RS.YM WHEN RS.T_11 THEN RS.QNTT ELSE 0 END)	AS Q_11
+					  , SUM(CASE RS.YM WHEN RS.T_11 THEN RS.QNTT ELSE 0 END)	AS Q_12
+					  , SUM(CASE RS.YM WHEN RS.T_0 THEN RS.WGHT ELSE 0 END)	AS W_0
+					  , SUM(CASE RS.YM WHEN RS.T_1 THEN RS.WGHT ELSE 0 END)	AS W_1
+					  , SUM(CASE RS.YM WHEN RS.T_2 THEN RS.WGHT ELSE 0 END)	AS W_2
+					  , SUM(CASE RS.YM WHEN RS.T_3 THEN RS.WGHT ELSE 0 END)	AS W_3
+					  , SUM(CASE RS.YM WHEN RS.T_4 THEN RS.WGHT ELSE 0 END)	AS W_4
+					  , SUM(CASE RS.YM WHEN RS.T_5 THEN RS.WGHT ELSE 0 END)	AS W_5
+					  , SUM(CASE RS.YM WHEN RS.T_6 THEN RS.WGHT ELSE 0 END)	AS W_6
+					  , SUM(CASE RS.YM WHEN RS.T_7 THEN RS.WGHT ELSE 0 END)	AS W_7
+					  , SUM(CASE RS.YM WHEN RS.T_8 THEN RS.WGHT ELSE 0 END)	AS W_8
+					  , SUM(CASE RS.YM WHEN RS.T_9 THEN RS.WGHT ELSE 0 END)	AS W_9
+					  , SUM(CASE RS.YM WHEN RS.T_10 THEN RS.WGHT ELSE 0 END)	AS W_10
+					  , SUM(CASE RS.YM WHEN RS.T_11 THEN RS.WGHT ELSE 0 END)	AS W_11
+					  , SUM(CASE RS.YM WHEN RS.T_11 THEN RS.WGHT ELSE 0 END)	AS W_12
+				 FROM (
+						  SELECT
+							  RP.APC_CD
+							   , TO_CHAR(DL.DT, 'YYYYMM')										AS T_0
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -1), 'YYYYMM')			AS T_1
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -2), 'YYYYMM')			AS T_2
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -3), 'YYYYMM')			AS T_3
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -4), 'YYYYMM')			AS T_4
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -5), 'YYYYMM')			AS T_5
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -6), 'YYYYMM')			AS T_6
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -7), 'YYYYMM')			AS T_7
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -8), 'YYYYMM')			AS T_8
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -9), 'YYYYMM')			AS T_9
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -10), 'YYYYMM')			AS T_10
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -11), 'YYYYMM')			AS T_11
+							   , TO_CHAR(ADD_MONTHS(DL.DT, -12), 'YYYYMM')			AS T_12
+							   , RI.ITEM_CD
+							   , RI.VRTY_CD
+							   , SUBSTR(RP.INPT_YMD, 1, 6)	AS YM
+							   , SUM(RP.SORT_QNTT)			AS QNTT
+							   , SUM(RP.SORT_WGHT)			AS WGHT
+						  FROM TB_SORT_PRFMNC RP
+						  JOIN TB_SORT_INVNTR RI
+								ON RI.APC_CD = RP.APC_CD
+								AND RI.SORTNO = RP.SORTNO
+								AND RI.SORT_SN = RP.SORT_SN
+								AND RI.DEL_YN = 'N'
+							 , (
+							  SELECT
+								 #{apcCd}							AS APC_CD
+							   , TO_DATE(#{ymd}, 'YYYYMMDD')		AS DT
+							  FROM DUAL
+								) DL
+						  WHERE RP.APC_CD = DL.APC_CD
+							AND RP.INPT_YMD BETWEEN TO_CHAR(TRUNC(ADD_MONTHS(DL.DT, -12), 'MM'), 'YYYYMMDD') AND TO_CHAR(LAST_DAY(DL.DT), 'YYYYMMDD')
+					  <if test='itemCd != null and itemCd != ""'>
+						    AND RI.ITEM_CD = #{itemCd}
+					  </if>
+					  <if test='vrtyCd != null and vrtyCd != ""'>
+						    AND RI.VRTY_CD = #{vrtyCd}
+					  </if>
+							GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD, SUBSTR(RP.INPT_YMD, 1, 6), DL.DT
+					  ) RS
+				 WHERE 1=1
+				 GROUP BY RS.APC_CD, RS.ITEM_CD, RS.VRTY_CD
+			 ) A
+		WHERE 1=1
+		ORDER BY ITEM_NM, VRTY_NM
+	</select>
+
 
 
 

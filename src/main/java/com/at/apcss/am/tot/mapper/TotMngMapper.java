@@ -192,6 +192,11 @@ public interface TotMngMapper {
 	 */
 	public List<HashMap<String,Object>> selectSortPrfmncTotInfo(HashMap<String,Object> TotMngVO);
 
-
-
+	/**
+	 * 생산량 비교 분석 조회
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    List<HashMap<String, Object>> selectPrdctnVol(HashMap<String, Object> param) throws Exception;
 }
