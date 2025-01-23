@@ -66,32 +66,6 @@ public class ApcMaHrp2436Controller extends BaseController {
         return getSuccessResponseEntityMa(resultMap);
 
     }
-
-    // 급여명세서 메일발송 저장
-    @PostMapping(value = "/hr/hrp/rep/insertHrp2436.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertHrp2436(
-            @RequestBody Map<String, Object> param
-            , Model model
-            , HttpSession session
-            , HttpServletRequest request) throws Exception{
-
-        logger.info("=============insertHrp2436=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-
-        try {
-
-            param.put("procedure", "SP_HRP2436_S");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
-
-        } catch (Exception e) {
-            
-            return getErrorResponseEntity(e);
-        }
-
-        logger.info("=============insertHrp2436=====end========");
-        return getSuccessResponseEntityMa(resultMap);
-
-    }
     
     // 급여명세서 메일발송( 급여명세서 일괄출력 ) 레포트 데이터 조회
     @PostMapping(value = "/hr/hrp/rep/selectHrp2436Report.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -153,5 +127,28 @@ public class ApcMaHrp2436Controller extends BaseController {
 
     }
 
+
+    // 급여명세서 메일발송 저장
+    @PostMapping(value = "/hr/hrp/rep/insertHrp2436Email.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrp2436Email(
+            @RequestBody Map<String, Object> param
+            , Model model
+            , HttpSession session
+            , HttpServletRequest request) throws Exception{
+
+        logger.info("=============insertHrp2436Email=====start========");
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+        	resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRP2436_S2");
+        } catch (Exception e) {
+            
+            return getErrorResponseEntity(e);
+        }
+
+        logger.info("=============insertHrp2436Email=====end========");
+        return getSuccessResponseEntityMa(resultMap);
+
+    }
 
 }

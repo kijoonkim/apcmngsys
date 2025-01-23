@@ -112,8 +112,7 @@ public class ApcMaHra3630Controller extends BaseController {
         HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
         try {
-            param.put("procedure", 		"SP_HRA3630_S2");
-            resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRA3630_S2");
         } catch (Exception e) {
 
             

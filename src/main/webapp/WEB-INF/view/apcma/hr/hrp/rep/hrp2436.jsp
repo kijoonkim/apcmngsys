@@ -1218,13 +1218,126 @@
      * Email 발송
      */
     const fn_btnSendEmail = async function () {
-    }
+//             /*
+        let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
+        let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
+        let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
+        let checkData 	  = gvwInfoGrid.getCheckedRowData( gvwInfoGrid.getColRef('CHK_YN') );
+        let SENDTYPE 	  = gfn_nvl(SBUxMethod.get("SENDTYPE")); //발송구분
 
+        if (!PAY_YYYYMM_FR) {
+            gfn_comAlert("W0002", "귀속년월");
+            return;
+        }
+        if (!PAY_TYPE) {
+            gfn_comAlert("W0002", "지급구분");
+            return;
+        }
+        if (!PAY_DATE) {
+            gfn_comAlert("W0002", "지급일");
+            return;
+        }
+        if (_.isEmpty(checkData)) {
+            gfn_comAlert("W0001", "Email 발송할 데이터");
+            return;
+        }
+
+        let paramObj = {};
+        let listData = [];
+        checkData.forEach((item, index) => {
+        	
+			if(gfn_isEmpty(gfn_nvl(item.data.IN_EMAIL))){
+				return;
+			};
+			
+            paramObj = {
+                    V_P_DEBUG_MODE_YN 		: '',
+                    V_P_LANG_ID 			: '',
+                    V_P_COMP_CODE 			: gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE 		: gv_ma_selectedClntCd,
+
+                    V_P_SITE_CODE 			: '',
+                    V_P_DEPT_CODE 			: '',
+                    V_P_EMP_CODE     		: gfn_nvl(item.data.EMP_CODE),
+                    V_P_PAY_YYYYMM    		: gfn_nvl(item.data.PAY_YYYYMM),
+                    V_P_PAY_YYYYMM1       	: gfn_nvl(item.data.PAY_YYYYMM),
+                    V_P_PAY_TYPE        	: gfn_nvl(item.data.PAY_TYPE),
+                    V_P_PAY_DATE			: gfn_nvl(item.data.PAY_DATE),
+                    V_P_EMP_CODE_LIST 		: gfn_nvl(item.data.EMP_CODE),
+                    V_P_PAY_YYYYMM2 		: gfn_nvl(item.data.PAY_YYYYMM),
+                    V_P_PAY_TYPE1     		: gfn_nvl(item.data.PAY_TYPE),
+                    V_P_PAY_DATE1    		: gfn_nvl(item.data.PAY_DATE),
+                    V_P_PAY_AREA_TYPE       : '',
+                    V_P_REPORT_TYPE        	: SENDTYPE,
+
+                    V_P_FORM_ID 			: p_formId,
+                    V_P_MENU_ID 			: p_menuId,
+                    V_P_PROC_ID 			: '',
+                    V_P_USERID 				: '',
+                    V_P_PC 					: ''
+            };
+            const param = {
+                cv_count: '0',
+                getType: 'json',
+                workType: 'N',
+                rownum: item.rownum,
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN      : ''
+                    ,V_P_LANG_ID           : ''
+                    ,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+                    ,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+
+                    ,V_P_RPT_URL 	  			: p_linkRviewUrl						//리포트 링크
+                    ,V_P_EMAIL_ADDR	  			: gfn_nvl(item.data.IN_EMAIL)			//이메일 주소
+                    ,V_P_LNKG_UNQ_ID   			: gfnma_generateUUID().replace(/-/g,'')	//UUID
+                    ,V_P_TASK_ID				: "MA"									//업무아이디 AM, CO, MA 경영은 MA 고정
+                    ,V_P_TASK_SE_CD    			: '1'									//업무구분코드 	1:급여, 2용역
+                    ,V_P_RPT_DOC_FILE_PATH     	: SENDTYPE == 'ALL' ? 'ma/RPT_HRP2436_Q_ALL.crf' : (SENDTYPE == 'PAY' ? 'ma/RPT_HRP2436_Q_PAY.crf' : 'ma/RPT_HRP2436_Q_WORK.crf') // 보고문서파일경로
+                    ,V_P_PRGRM_NM		    	: 'SP_HRP2436_Q'						// 리포트 조회 프로시저 명		
+                    ,V_P_PRGRM_URL		      	: '/hr/hrp/rep/selectHrp2436Report.do'	//리포트 조회 URL
+                    ,V_P_PRGRM_PRCS_TYPE 		: SENDTYPE == 'ALL' ? 'REPORT5' : (SENDTYPE == 'PAY' ? 'REPORT3' : 'REPORT4') // 프로시저 워크타입
+                    ,V_P_PRCS_RSLT_NOCS 		: '15'									//프로시저 커서 카운트
+                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj) 		// 리포트 조회 파라미터
+                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.EMP_CODE)			// 조회 가능 비밀번호
+                    ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
+                    ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
+                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
+                    ,V_P_SYS_FRST_INPT_USER_ID	: p_userId								//시스템최초입력사용자ID
+                    ,V_P_SYS_FRST_INPT_PRGRM_ID	: p_formId								//시스템최초입력프로그램ID
+
+                    ,V_P_FORM_ID           : p_formId
+                    ,V_P_MENU_ID           : p_menuId
+                    ,V_P_PROC_ID           : ''
+                    ,V_P_USERID            : p_userId
+                    ,V_P_PC                : ''
+                }, true)
+            };
+            listData.push(param);
+        });
+        const postJsonPromise = gfn_postJSON("/hr/hrp/rep/insertHrp2436Email.do", {listData: listData});
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }else {
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                }
+            } else {
+                alert(data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
     /**
      * SMS 발송
      */
     const fn_btnSendSMS = async function () {
-//             /*
         let PAY_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM_FR")); //귀속년월
         let PAY_TYPE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); //지급구분
         let PAY_DATE      = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); //지급일자
@@ -1250,7 +1363,6 @@
 
         let paramObj = {};
         let listData = [];
-console.log('checkData ==>', checkData);
         checkData.forEach((item, index) => {
 
             paramObj = {
@@ -1279,12 +1391,6 @@ console.log('checkData ==>', checkData);
                     V_P_USERID 				: '',
                     V_P_PC 					: ''
             };
-//    	        파라미터 구분자 추가
-//    			let objToString = '';
-//    	        objToString = '';
-//    	    	for (let data in paramObj){
-//    	    		objToString += paramObj[data] + '|'
-//    	    	}
             const param = {
                 cv_count: '0',
                 getType: 'json',
@@ -1342,7 +1448,6 @@ console.log('checkData ==>', checkData);
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-//                     */
     }
 
     /**
