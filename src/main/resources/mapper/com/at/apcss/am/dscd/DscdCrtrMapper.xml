@@ -493,6 +493,300 @@
     </delete>
 
     <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectRawMtrInvntrList   -->
+    <!-- DESC : 폐기 등록 - 재고 목록 조회 (원물).    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.22  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectRawMtrInvntrList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        <![CDATA[
+    		SELECT
+                  pt0.*
+                , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , NVL(TIDP.DSCD_QNTT, 0) AS DSCD_QNTT
+                , NVL(TIDP.DSCD_WGHT, 0) AS DSCD_WGHT
+                , (pt0.INVNTR_QNTT - NVL(TIDP.DSCD_QNTT, 0)) AS INVNTR_DSCD_QNTT
+                , (pt0.INVNTR_WGHT - NVL(TIDP.DSCD_WGHT, 0)) AS INVNTR_DSCD_WGHT
+            FROM (
+                SELECT
+                      MAX(TRMI.APC_CD) AS APC_CD
+                    , MAX(TRMI.WRHSNO) AS WRHSNO
+                    , TRMI.PRDCR_CD AS PRDCR_CD
+                    , TRMI.ITEM_CD AS ITEM_CD
+                    , TRMI.VRTY_CD AS VRTY_CD
+                    , TRMI.GDS_SE_CD AS GDS_SE_CD
+                    , TRMI.WRHS_SE_CD AS WRHS_SE_CD
+                    , TRMI.TRSPRT_SE_CD AS TRSPRT_SE_CD
+                    , TRMI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+                    , MAX(TRMI.BX_KND) AS BX_KND
+                    , MAX(TRMI.GRD_CD) AS GRD_CD
+                    , SUM(TRMI.WRHS_QNTT) AS WRHS_QNTT
+                    , SUM(TRMI.WRHS_WGHT) AS WRHS_WGHT
+                    , SUM(TRMI.INPT_QNTT) AS INPT_QNTT
+                    , SUM(TRMI.INPT_WGHT) AS INPT_WGHT
+                    , MAX(TRMI.RMRK) AS RMRK
+                    , SUM(TRMI.INPT_PRGRS_QNTT) AS INPT_PRGRS_QNTT
+                    , SUM(TRMI.INPT_PRGRS_WGHT) AS INPT_PRGRS_WGHT
+
+                    , MAX(TRMI.WRHS_YMD) AS WRHS_YMD
+                    , MAX(TRMI.PLTNO) AS PLTNO
+                    , SUM(TRMI.INVNTR_QNTT) AS INVNTR_QNTT
+                    , SUM(TRMI.INVNTR_WGHT) AS INVNTR_WGHT
+                FROM TB_RAW_MTR_INVNTR TRMI
+                WHERE TRMI.DEL_YN = 'N'
+                AND TRMI.INVNTR_WGHT > 0
+		]]>
+        <if test='apcCd != null and apcCd != ""'>
+                AND TRMI.APC_CD = #{apcCd}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+                AND TRMI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd !=""'>
+                AND TRMI.VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='warehouseSeCd != null and warehouseSeCd != ""'>
+                AND TRMI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+        </if>
+        <if test='prdcrCd != null and prdcrCd !=""'>
+                AND TRMI.PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='invntrYmdFrom != null and invntrYmdFrom != ""'>
+                AND TRMI.WRHS_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+        </if>
+        <if test='invntrYmdTo != null and invntrYmdTo != ""'>
+                AND TRMI.WRHS_YMD <![CDATA[<=]]> #{invntrYmdTo}
+        </if>
+        <![CDATA[
+                GROUP BY
+                      TRMI.PRDCR_CD
+                    , TRMI.ITEM_CD
+                    , TRMI.VRTY_CD
+                    , TRMI.GDS_SE_CD
+                    , TRMI.WRHS_SE_CD
+                    , TRMI.TRSPRT_SE_CD
+                    , TRMI.WAREHOUSE_SE_CD
+            ) pt0
+            LEFT JOIN TB_INVNTR_DSCD_PRFMNC TIDP
+            ON pt0.APC_CD = TIDP.APC_CD
+            AND pt0.PLTNO = TIDP.INVNTR_NO
+            ORDER BY
+                  ITEM_NM
+                , VRTY_NM
+                , WAREHOUSE_SE_NM
+                , PRDCR_NM
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectSortInvntrList   -->
+    <!-- DESC : 폐기 등록 - 재고 목록 조회 (선별).    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.22  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSortInvntrList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        <![CDATA[
+    		SELECT
+                  pt0.*
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+                , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD',pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+                , NVL(TIDP.DSCD_QNTT, 0) AS DSCD_QNTT
+                , NVL(TIDP.DSCD_WGHT, 0) AS DSCD_WGHT
+                , (pt0.INVNTR_QNTT - NVL(TIDP.DSCD_QNTT, 0)) AS INVNTR_DSCD_QNTT
+                , (pt0.INVNTR_WGHT - NVL(TIDP.DSCD_WGHT, 0)) AS INVNTR_DSCD_WGHT
+                , pt0.SORTNO || '-' || pt0.SORT_SN AS SORTNO_SN
+            FROM (
+                SELECT
+                      MAX(TSI.APC_CD) AS APC_CD
+                    , MAX(TSI.SORT_SN) AS SORT_SN
+                    , TSI.GRD_CD AS GRD_CD
+                    , MAX(TSI.FCLT_CD) AS FCLT_CD
+                    , TSI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+                    , TSI.ITEM_CD AS ITEM_CD
+                    , TSI.VRTY_CD AS VRTY_CD
+                    , TSI.SPCFCT_CD AS SPCFCT_CD
+                    , TSI.GDS_SE_CD AS GDS_SE_CD
+                    , MAX(TSI.WRHS_SE_CD) AS WRHS_SE_CD
+                    , TSI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+                    , SUM(TSI.SORT_QNTT) AS SORT_QNTT
+                    , SUM(TSI.SORT_WGHT) AS SORT_WGHT
+                    , SUM(TSI.PCKG_QNTT) AS PCKG_QNTT
+                    , SUM(TSI.PCKG_WGHT) AS PCKG_WGHT
+
+                    , MAX(TSI.INPT_YMD) AS SORT_YMD
+                    , MAX(TSI.SORTNO) AS SORTNO
+                    , SUM(TSI.INVNTR_QNTT) AS INVNTR_QNTT
+                    , SUM(TSI.INVNTR_WGHT) AS INVNTR_WGHT
+                FROM TB_SORT_INVNTR TSI
+                WHERE TSI.DEL_YN = 'N'
+                AND TSI.INVNTR_WGHT > 0
+		]]>
+        <if test='apcCd != null and apcCd != ""'>
+                AND TSI.APC_CD = #{apcCd}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+                AND TSI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd !=""'>
+                AND TSI.VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='warehouseSeCd != null and warehouseSeCd != ""'>
+                AND TSI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+        </if>
+        <if test='prdcrCd != null and prdcrCd !=""'>
+                AND TSI.PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='spcfctCd != null and spcfctCd !=""'>
+                AND TSI.SPCFCT_CD = #{spcfctCd}
+        </if>
+        <if test='invntrYmdFrom != null and invntrYmdFrom != ""'>
+                AND TSI.INPT_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+        </if>
+        <if test='invntrYmdTo != null and invntrYmdTo != ""'>
+                AND TSI.INPT_YMD <![CDATA[<=]]> #{invntrYmdTo}
+        </if>
+        <![CDATA[
+                GROUP BY
+                      TSI.GRD_CD
+                    , TSI.RPRS_PRDCR_CD
+                    , TSI.ITEM_CD
+                    , TSI.VRTY_CD
+                    , TSI.SPCFCT_CD
+                    , TSI.GDS_SE_CD
+                    , TSI.WAREHOUSE_SE_CD
+            ) pt0
+            LEFT JOIN TB_INVNTR_DSCD_PRFMNC TIDP
+            ON pt0.APC_CD = TIDP.APC_CD
+            AND pt0.SORTNO = TIDP.INVNTR_NO
+            ORDER BY
+                  ITEM_NM
+                , VRTY_NM
+                , RPRS_PRDCR_NM
+                , WAREHOUSE_SE_NM
+                , SORTNO_SN
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectGdsInvntrList   -->
+    <!-- DESC : 폐기 등록 - 재고 목록 조회 (상품).    	                         	    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.01.22  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectGdsInvntrList" parameterType="com.at.apcss.am.dscd.vo.DscdCrtrVO" resultType="com.at.apcss.am.dscd.vo.DscdCrtrVO">
+        <![CDATA[
+    		SELECT
+                  pt0.*
+                , (SELECT FN_GET_GDS_NM(pt0.GDS_CD,pt0.APC_CD) FROM DUAL) AS GDS_NM
+                , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+                , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+                , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+                , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) AS GRD_NM
+                , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+                , (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+                , NVL(TIDP.DSCD_QNTT, 0) AS DSCD_QNTT
+                , NVL(TIDP.DSCD_WGHT, 0) AS DSCD_WGHT
+                , (pt0.INVNTR_QNTT - NVL(TIDP.DSCD_QNTT, 0)) AS INVNTR_DSCD_QNTT
+                , (pt0.INVNTR_WGHT - NVL(TIDP.DSCD_WGHT, 0)) AS INVNTR_DSCD_WGHT
+                , pt0.PCKGNO || '-' || pt0.PCKG_SN AS PCKGNO_SN
+            FROM (
+                SELECT
+                      MAX(TGI.APC_CD) AS APC_CD
+                    , MAX(TGI.PCKG_SN) AS PCKG_SN
+                    , MAX(TGI.FCLT_CD) AS FCLT_CD
+                    , TGI.RPRS_PRDCR_CD AS RPRS_PRDCR_CD
+                    , TGI.ITEM_CD AS ITEM_CD
+                    , TGI.VRTY_CD AS VRTY_CD
+                    , TGI.SPCFCT_CD AS SPCFCT_CD
+                    , TGI.GDS_GRD AS GDS_GRD
+                    , MAX(TGI.GDS_CD) AS GDS_CD
+                    , MAX(TGI.GDS_SE_CD) AS GDS_SE_CD
+                    , MAX(TGI.PRDCTN_YR) AS PRDCTN_YR
+                    , TGI.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+                    , TGI.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+                    , SUM(TGI.PCKG_QNTT) AS PCKG_QNTT
+                    , SUM(TGI.PCKG_WGHT) AS PCKG_WGHT
+                    , SUM(TGI.SPMT_QNTT) AS SPMT_QNTT
+                    , SUM(TGI.SPMT_WGHT) AS SPMT_WGHT
+                    , MAX(TGI.PLOR_CD) AS PLOR_CD
+                    , MAX(TSI.GRD_CD) AS SORT_GRD_CD
+
+                    , MAX(TGI.PCKG_YMD) AS PCKG_YMD
+                    , MAX(TGI.PCKGNO) AS PCKGNO
+                    , SUM(TGI.INVNTR_QNTT) AS INVNTR_QNTT
+                    , SUM(TGI.INVNTR_WGHT) AS INVNTR_WGHT
+                FROM
+                      TB_GDS_INVNTR TGI
+                    , TB_SORT_INVNTR TSI
+                WHERE TGI.DEL_YN = 'N'
+                AND TGI.APC_CD = TSI.APC_CD
+                AND TGI.PCKG_SORTNO = TSI.SORTNO
+                AND TGI.PCKG_SORT_SN = TSI.SORT_SN
+                AND TGI.INVNTR_WGHT > 0
+		]]>
+        <if test='apcCd != null and apcCd != ""'>
+                AND TGI.APC_CD = #{apcCd}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+                AND TGI.ITEM_CD = #{itemCd}
+        </if>
+        <if test='vrtyCd != null and vrtyCd !=""'>
+                AND TGI.VRTY_CD = #{vrtyCd}
+        </if>
+        <if test='warehouseSeCd != null and warehouseSeCd != ""'>
+                AND TGI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+        </if>
+        <if test='prdcrCd != null and prdcrCd !=""'>
+                AND TGI.PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='spcfctCd != null and spcfctCd !=""'>
+                AND TGI.SPCFCT_CD = #{spcfctCd}
+        </if>
+        <if test='invntrYmdFrom != null and invntrYmdFrom != ""'>
+                AND TGI.PCKG_YMD <![CDATA[>=]]> #{invntrYmdFrom}
+        </if>
+        <if test='invntrYmdTo != null and invntrYmdTo != ""'>
+                AND TGI.PCKG_YMD <![CDATA[<=]]> #{invntrYmdTo}
+        </if>
+        <![CDATA[
+                GROUP BY
+                      TGI.RPRS_PRDCR_CD
+                    , TGI.ITEM_CD
+                    , TGI.VRTY_CD
+                    , TGI.SPCFCT_CD
+                    , TGI.GDS_GRD
+                    , TGI.SPMT_PCKG_UNIT_CD
+                    , TGI.WAREHOUSE_SE_CD
+            ) pt0
+            LEFT JOIN TB_INVNTR_DSCD_PRFMNC TIDP
+            ON pt0.APC_CD = TIDP.APC_CD
+            AND pt0.PCKGNO = TIDP.INVNTR_NO
+            ORDER BY
+                  ITEM_NM
+                , VRTY_NM
+                , SPCFCT_NM
+                , GRD_NM
+                , WAREHOUSE_SE_NM
+                , RPRS_PRDCR_NM
+                , PCKGNO_SN
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
     <!-- NAME : com.at.apcss.am.spmt.mapper.DscdCrtrMapper.selectDscdRegList        -->
     <!-- DESC : 폐기 등록 - 폐기 등록 목록 조회.    	                         	    -->
     <!-- ==========================================================================	-->
@@ -598,7 +892,7 @@
                 , #{item.dtlSn}
                 , #{item.dscdRsn}
                 , #{item.invntrSeCd}
-                , #{item.invntrNo}
+                , #{item.invntrno}
                 , #{item.invntrSn}
                 , #{item.prdcrCd}
                 , #{item.itemCd}
@@ -637,7 +931,6 @@
         AND DSCD_YMD = #{dscdYmd}
         AND DSCD_SN = #{dscdSn}
         AND DTL_SN = #{dtlSn}
-        AND INVNTR_SN = #{invntrSn}
     </delete>
 
     <!-- ==========================================================================	-->
