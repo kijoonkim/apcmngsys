@@ -80,5 +80,11 @@ public interface StatMngService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> deleteCrtrDtl(StatMngVO statMngVO) throws Exception;
-
+	/**
+	 * 기간별 입고 통계
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+    HashMap<String, Object> selectPrdWrhsList(HashMap<String, Object> param) throws Exception;
 }

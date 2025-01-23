@@ -71,4 +71,9 @@ public interface StatMngMapper {
 
 	public int deleteCrtrDtl(StatCrtrVO statCrtrVO) throws Exception;
 
+    List<HashMap<String, Object>> selectItemWrhs(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectCnptWrhs(HashMap<String, Object> param) throws Exception;
+
+	List<HashMap<String, Object>> selectWrhs(HashMap<String, Object> param) throws Exception;
 }

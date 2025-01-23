@@ -459,4 +459,160 @@
 		]]>
     </delete>
 
+	<select id="selectItemWrhs" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			A.APC_CD      AS APC_CD
+			 , A.ITEM_CD     AS ITEM_CD
+			 , A.VRTY_CD AS VRTY_CD
+			 , (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+			 , A.QNTT        AS QNTT
+			 , A.WGHT        AS WGHT
+		FROM (
+				 SELECT
+					 RP.APC_CD                 AS APC_CD
+					  , RI.ITEM_CD                    AS ITEM_CD
+					  , RI.VRTY_CD                    AS VRTY_CD
+					  , SUM(RP.BX_QNTT)           AS QNTT
+					  , SUM(RP.WRHS_WGHT)     AS WGHT
+				 FROM TB_RAW_MTR_WRHS_PRFMNC RP
+						  JOIN TB_RAW_MTR_INVNTR RI
+							   ON RI.APC_CD = RP.APC_CD
+								   AND RI.WRHSNO = RP.WRHSNO
+								   AND RI.DEL_YN = 'N'
+								   AND RI.PRCS_TYPE IS NULL
+				 WHERE RP.DEL_YN = 'N'
+				   AND RP.APC_CD = #{apcCd}
+				   AND RP.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+				 <if test='itemCd != null and itemCd != ""'>
+					AND RI.ITEM_CD = #{itemCd}
+				 </if>
+				 <if test='vrtyCd != null and vrtyCd != ""'>
+					AND RI.VRTY_CD = #{vrtyCd}
+				 </if>
+
+					  GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+			 ) A
+		WHERE 1=1
+		ORDER BY WGHT DESC
+	</select>
+	<select id="selectCnptWrhs" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			A.APC_CD      AS APC_CD
+			 , A.ITEM_CD     AS ITEM_CD
+			 , A.VRTY_CD AS VRTY_CD
+			 , A.PRDCR_CD    AS PRDCR_CD
+			 , A.PRDCR_NM AS PRDCR_NM
+			 , (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+			 , A.QNTT        AS QNTT
+			 , A.WGHT        AS WGHT
+		FROM (
+				 SELECT
+					 RP.APC_CD                 AS APC_CD
+					  , RI.PRDCR_CD                   AS PRDCR_CD
+					  , MAX(PI.PRDCR_NM)          AS PRDCR_NM
+					  , MAX(PI.RPRS_ITEM_CD)  AS ITEM_CD
+					  , MAX(PI.RPRS_VRTY_CD)  AS VRTY_CD
+					  , SUM(RP.BX_QNTT)           AS QNTT
+					  , SUM(RP.WRHS_WGHT)     AS WGHT
+				 FROM TB_RAW_MTR_WRHS_PRFMNC RP
+						  JOIN TB_RAW_MTR_INVNTR RI
+							   ON RI.APC_CD = RP.APC_CD
+								   AND RI.WRHSNO = RP.WRHSNO
+								   AND RI.DEL_YN = 'N'
+								   AND RI.PRCS_TYPE IS NULL
+						  JOIN TB_PRDCR_INFO PI
+							   ON PI.APC_CD = RI.APC_CD
+								   AND PI.PRDCR_CD = RI.PRDCR_CD
+								   AND PI.DEL_YN = 'N'
+				 WHERE RP.DEL_YN = 'N'
+				   AND RP.APC_CD = #{apcCd}
+				   AND RP.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+				 <if test='itemCd != null and itemCd != ""'>
+				   AND RI.ITEM_CD = #{itemCd}
+				 </if>
+				 <if test='vrtyCd != null and vrtyCd != ""'>
+				   AND RI.VRTY_CD = #{vrtyCd}
+				 </if>
+					  GROUP BY RP.APC_CD, RI.PRDCR_CD
+			 ) A
+		WHERE 1=1
+		ORDER BY WGHT DESC, PRDCR_NM
+	</select>
+	<select id="selectWrhs" resultType="hashmap" parameterType="hashmap">
+		SELECT
+			A.APC_CD AS APC_CD
+			 , A.ITEM_CD AS ITEM_CD
+			 , A.VRTY_CD AS VRTY_CD
+			 , A.PRDCR_CD AS PRDCR_CD
+			 , (
+			SELECT
+				FN_GET_ITEM_NM(
+						A.ITEM_CD
+					, A.APC_CD
+				)
+			FROM
+				DUAL
+		) AS ITEM_NM
+			 , (
+			SELECT
+				FN_GET_VRTY_NM(
+						A.ITEM_CD
+					, A.VRTY_CD
+					, A.APC_CD
+				)
+			FROM
+				DUAL
+		) AS VRTY_NM
+			 , (
+			SELECT
+				FN_GET_PRDCR_NM(
+						A.PRDCR_CD
+					, A.APC_CD
+				)
+			FROM
+				DUAL
+		) AS PRDCR_NM
+			 , A.QNTT AS QNTT
+			 , A.WGHT AS WGHT
+		FROM
+			(
+				SELECT
+					RP.APC_CD AS APC_CD
+					 , RI.ITEM_CD AS ITEM_CD
+					 , RI.VRTY_CD AS VRTY_CD
+					 , RI.PRDCR_CD AS PRDCR_CD
+					 , SUM(RP.BX_QNTT) AS QNTT
+					 , SUM(RP.WRHS_WGHT) AS WGHT
+				FROM
+					TB_RAW_MTR_WRHS_PRFMNC RP
+						JOIN TB_RAW_MTR_INVNTR RI
+							 ON
+										 RI.APC_CD = RP.APC_CD
+									 AND RI.WRHSNO = RP.WRHSNO
+									 AND RI.DEL_YN = 'N'
+									 AND RI.PRCS_TYPE IS NULL
+				WHERE
+					RP.DEL_YN = 'N'
+					  AND RP.APC_CD = #{apcCd}
+					  AND RP.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+				 <if test='itemCd != null and itemCd != ""'>
+				  AND RI.ITEM_CD = #{itemCd}
+				 </if>
+				 <if test='vrtyCd != null and vrtyCd != ""'>
+				  AND RI.VRTY_CD = #{vrtyCd}
+				 </if>
+					 GROUP BY
+					RP.APC_CD
+					   , RI.ITEM_CD
+					   , RI.VRTY_CD
+					   , RI.PRDCR_CD
+			) A
+		WHERE
+			1 = 1
+		ORDER BY
+			ITEM_CD, VRTY_CD, PRDCR_NM
+	</select>
+
 </mapper>
