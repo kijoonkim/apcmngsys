@@ -123,8 +123,8 @@ public class ApcMailController extends BaseController {
         }
 
         return getSuccessResponseEntity(resultMap);
+
     }
-}
 
     @PostMapping(value="/mail/sendApcMailSimple.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<HashMap<String, Object>> sendApcMailSimple (
