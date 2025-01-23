@@ -693,10 +693,8 @@
 		SBGridProperties.columns = [
 			{caption: ["품목"],	ref: 'ITEM_NM',		type:'output',  width:'25%', style: 'text-align:center;'},
 			{caption: ["품종"],	ref: 'VRTY_NM',		type:'output',  width:'25%', style: 'text-align:center;'},
-			{caption: ["입고수량"],	ref: 'QNTT',		type:'output',  width:'25%', style: 'text-align:center;'},
-			{caption: ["입고중량"],	ref: 'WGHT',		type:'output',  width:'25%', style: 'text-align:center;'},
-			{caption: ["투입수량"],	ref: 'WGHT',		type:'output',  width:'25%', style: 'text-align:center;'},
-			{caption: ["투입중량"],	ref: 'WGHT',		type:'output',  width:'25%', style: 'text-align:center;'},
+			{caption: ["투입수량"],	ref: 'QNTT',		type:'output',  width:'25%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
+			{caption: ["투입중량"],	ref: 'WGHT',		type:'output',  width:'25%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
 		]
 		gridItemWrhs = _SBGrid.create(SBGridProperties);
 	}
@@ -710,10 +708,10 @@
 		SBGridProperties.columns = [
 			{caption: ["품목"],	ref: 'PRDCR_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
 			{caption: ["품종"],	ref: 'ITEM_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
-			{caption: ["투입수량"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
-			{caption: ["투입중량"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;'},
-			{caption: ["선별수량"],	ref: 'QNTT',		type:'output',  width:'20%', style: 'text-align:center;'},
-			{caption: ["선별중량"],	ref: 'WGHT',		type:'output',  width:'20%', style: 'text-align:center;'},
+			{caption: ["투입수량"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
+			{caption: ["투입중량"],	ref: 'VRTY_NM',		type:'output',  width:'20%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
+			{caption: ["선별수량"],	ref: 'QNTT',		type:'output',  width:'20%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
+			{caption: ["선별중량"],	ref: 'WGHT',		type:'output',  width:'20%', style: 'text-align:center;',format : {type:'number', rule:'#,###'}},
 		]
 		gridCnptWrhs = _SBGrid.create(SBGridProperties);
 	}
