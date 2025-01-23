@@ -709,8 +709,8 @@
   								, taxSiteCode : item.TX_SITE_CD
   								, empCode : item.EMP_CD
   								, empName : item.EMP_NM
-  								, socialNum : item.RRNO_ENCPT
-  								, socialNumReal : item.SOCIAL_NUM_REAL
+  								//, socialNum : item.RRNO_ENCPT
+  								//, socialNumReal : item.SOCIAL_NUM_REAL
   								, deptName : item.DEPT_NM
   								, cellphoneNum : item.MOBL_NO
   								, familyForeiYn : item.FAM_FRGNR_YN
