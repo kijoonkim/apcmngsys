@@ -82,6 +82,22 @@ public interface InvntrAiMngMapper {
 	public int updateInvntrAiPlan(InvntrAiMngVO invntrMngVO);
 
 	/**
+	 * 실사계획 실사여부 수정
+	 * @param invntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrAiMngYn(InvntrAiMngVO invntrMngVO);
+
+	/**
+	 * 실사계획 실사여부수정
+	 * @param invntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateInvntrAiPlanYn(InvntrAiMngVO invntrMngVO);
+
+	/**
 	 * 실사계획 등록
 	 * @param invntrVO
 	 * @return

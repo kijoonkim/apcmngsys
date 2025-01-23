@@ -362,6 +362,35 @@ public class InvntrGrdMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/invntr/updateInvntrAiPlanYn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertInvntrAiPlanYn(@RequestBody InvntrAiMngVO invntrMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<InvntrAiMngVO> resultList = new ArrayList<>();
+		try {
+
+			invntrMngVO.setSysFrstInptUserId(getUserId());
+			invntrMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			invntrMngVO.setSysLastChgUserId(getUserId());
+			invntrMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			invntrAiMngService.updateInvntrAiPlanYn(invntrMngVO);
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 	@PostMapping(value = "/am/invntr/deleteInvntrAiPlan.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> deleteInvntrAiPlan(@RequestBody InvntrAiMngVO invntrMngVO, HttpServletRequest request) throws Exception {
 

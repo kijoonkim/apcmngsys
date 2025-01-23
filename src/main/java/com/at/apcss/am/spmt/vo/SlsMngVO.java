@@ -280,18 +280,52 @@ public class SlsMngVO extends ComVO{
 	 * 생산자명
 	 */
 	private String prdcrNm ;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * 품목품종코드
+	 */
+	private String itemVrtyCd ;
+
+	/**
+	 * 품목규격코드
+	 */
+	private String itemSpcfctCd ;
+
+	/**
+	 * 상품명
+	 */
+	private String gdsNm ;
+
+	/** *
+	 *  시스템 최초 입력 일시
+	 *   */
+	private String sysFrstInptDt;
+
+	/** *
+	 *  시스템 최초 입력 사용자 ID
+	 *  */
+	private String sysFrstInptUserId;
+
+	/** *
+	 *  시스템 최초 입력 프로그램 ID
+	 *  */
+	private String sysFrstInptPrgrmId;
+
+	/** *
+	 *  시스템 최종 변경 일시
+	 *  */
+	private String sysLastChgDt;
+
+	/** *
+	 *  시스템 최종 변경 사용자 ID
+	 *  */
+	private String sysLastChgUserId;
+
+	/** *
+	 *  시스템 최종 변경 프로그램 ID
+	 *  */
+	private String sysLastChgPrgrmId;
+
 	List<SlsMngVO> slsPrfmncList;
 	
 	

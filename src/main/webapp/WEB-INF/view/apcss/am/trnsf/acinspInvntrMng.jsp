@@ -22,6 +22,7 @@
   <title>title : 실사재고관리</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
+  <%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
 <body oncontextmenu="return false">
 <section class="content container-fluid">
@@ -33,6 +34,7 @@
       </div>
       <%--            /** 상단 버튼 **/--%>
       <div style="margin-left: auto;">
+        <sbux-button id="btnDocAiPrfmnc" name="btnDocAiPrfmnc" uitype="normal" text="실사결과" class="btn btn-sm btn-success" onclick="fn_docAiPrfmnc"></sbux-button>
         <sbux-button id="btnSave" name="btnSave" uitype="normal" class="btn btn-sm btn-outline-danger" text="저장" onclick="fn_save('insert')"></sbux-button>
         <sbux-button id="btnDelete" name="btnDelete" uitype="normal" text="삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delete"></sbux-button>
         <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search"></sbux-button>
@@ -83,9 +85,20 @@
       <div style="display: flex; flex-direction: column; gap: 10px;margin-top: 15px">
         <div style="flex: 1">
           <div style="display: flex; justify-content: space-between;margin-bottom: 10px">
-              <span style="margin-right: 3px; font-weight: 600; color: #3c6dbc;align-content: end">
-                 실사 계획 목록
-              </span>
+          	  <div>
+	              <span style="margin-right: 3px; font-weight: 600; color: #3c6dbc;align-content: end">
+	                 실사 계획 목록
+	              </span>
+              </div>
+              <div>
+				   <sbux-button
+				        id="srch-btn-aiPrfmncCmplt"
+                        name="srch-btn-aiPrfmncCmplt"
+                        class="btn btn-xs btn-outline-dark"
+                        text="실사완료"
+                        onclick="fn_aiPrfmncCmplt">
+          			</sbux-button>
+			  </div>
           </div>
           <div id="sb-area-aiInvntrPlan"></div>
         </div>
@@ -153,6 +166,7 @@
 						name="srch-slt-itemCd"
 						class="form-control input-sm input-sm-ast"
 						jsondata-ref="jsonApcItemCd"
+						onchange="fn_itemChange"
 						group-id="group1">
 					</sbux-select>
 				</td>
@@ -326,7 +340,7 @@
 	            			</sbux-button>
 						</div>
           </div>
-          <div id="sb-area-aiInvntrMng"></div>
+          <div id="sb-area-aiInvntrMng" style="height:200px"></div>
         </div>
       </div>
     </div>
@@ -417,6 +431,8 @@
 
       jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd,'');
       SBUxMethod.refreshGroup("group1");
+      SBUxMethod.attr('srch-btn-update', 'disabled', 'true');
+      SBUxMethod.attr('srch-btn-aiPrfmncCmplt', 'disabled', 'true');
 
   }
 
@@ -424,6 +440,7 @@
 	await fn_initSBselect();
 	await fn_createAiInvntrPlan();
     await fn_createAiInvntrMng();
+    await fn_search();
   }
 
   const fn_createAiInvntrPlan = async function(){
@@ -455,25 +472,23 @@
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.datamergefalseskip = true;
     SBGridProperties.columns = [
-      {caption: ['생산자'], ref: 'prdcrCd', width: '150px',  type : 'combo', type: 'combo', typeinfo : {ref:'jsonPrdcrPop', label:'prdcrNm', value:'prdcrCd',  oneclickedit : true} , style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['입고구분'], ref: 'wrhsSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonWrhsSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['대상품목'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItemCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['대상품종'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrtyCd', label:'label', value:'itemVrtyCd',  oneclickedit : true, filtering: {usemode : true, uppercol : 'itemCd', attrname : 'itemCd', listall: false}}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['생산자'], ref: 'prdcrCd', width: '130px',  type : 'combo', type: 'combo', typeinfo : {ref:'jsonPrdcrPop', label:'prdcrNm', value:'prdcrCd',  oneclickedit : true} , style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['입고구분'], ref: 'wrhsSeCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonWrhsSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['대상품목'], ref: 'itemCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonApcItemCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['대상품종'], ref: 'itemVrtyCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonApcVrtyCd', label:'label', value:'itemVrtyCd',  oneclickedit : true, filtering: {usemode : true, uppercol : 'itemCd', attrname : 'itemCd', listall: false}}, style:'text-align:center', disabled : {uihidden : true}},
 
-      {caption: ['재고구분'], ref: 'invntrSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonInvntrSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['등급'], ref: 'grdNm', width: '150px', type: 'output',  style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['재고구분'], ref: 'invntrSeCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonInvntrSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['등급'], ref: 'grdNm', width: '130px', type: 'output',  style:'text-align:center', disabled : {uihidden : true}},
 
-      {caption: ['규격'], ref: 'spcfctCd', width: '100px', type : 'combo', typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd',  filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false} }, style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['포장단위'], ref: 'spmtPckgUnitNm', width: '100px', type : 'output', style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['상품구분'], ref: 'gdsSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonGdsSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
-      {caption: ['저장위치'], ref: 'warehouseSeCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonComWarehouse', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
-
-      {caption: ["수량"],	ref: 'invntrQntt',		type:'input',  width:'150px', style: 'text-align:center;'},
-      {caption: ["중량"],	ref: 'invntrWght',		type:'input',  width:'150px', style: 'text-align:center;'}, //중량은 자동계산 되도록
-
-      {caption: ["비고"],	ref: 'rmrk',		type:'input',  width:'150px', style: 'text-align:center;'},
+      {caption: ['규격'], ref: 'spcfctCd', width: '130px', type : 'combo', typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd',  filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false} }, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['포장단위'], ref: 'spmtPckgUnitNm', width: '130px', type : 'output', style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['상품구분'], ref: 'gdsSeCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonGdsSeCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['저장위치'], ref: 'warehouseSeCd', width: '130px', type: 'combo', typeinfo : {ref:'jsonComWarehouse', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ["수량"],	ref: 'invntrQntt',		type:'input',  width:'130px', style: 'text-align:center;'},
+      {caption: ["중량"],	ref: 'invntrWght',		type:'input',  width:'130px', style: 'text-align:center;'}, //중량은 자동계산 되도록
     ]
     grdAiInvntrMng = _SBGrid.create(SBGridProperties);
+    grdAiInvntrMng.bind('click',fn_grdAiInvntrMngClick);
   }
 
   const fn_grdAiInvntrPlanClick = async function(){
@@ -482,6 +497,7 @@
 		  SBUxMethod.set("srch-lbl-planno","");
 		  SBUxMethod.set("srch-inp-planno","");
 		  SBUxMethod.attr('btnSave', 'disabled', 'true');
+		  SBUxMethod.attr('srch-btn-aiPrfmncCmplt', 'disabled', 'true');
 		  return;
 	  }
 	  let rowData = grdAiInvntrPlan.getRowData(row);
@@ -489,9 +505,21 @@
 	  SBUxMethod.set("srch-lbl-planno","계획번호 : " + rowData.planno);
 	  SBUxMethod.set("srch-inp-planno",rowData.planno);
 	  SBUxMethod.attr('btnSave', 'disabled', 'false');
+	  SBUxMethod.attr('srch-btn-aiPrfmncCmplt', 'disabled', 'false');
 
 	  jsonAiInvntrMng = jsonAiInvntrMngTemp.filter(item => item.planno === rowData.planno);
 	  grdAiInvntrMng.rebuild();
+  }
+
+  const fn_grdAiInvntrMngClick = async function(){
+	  let row = grdAiInvntrMng.getRow();
+	  if(row === -1){
+		  SBUxMethod.attr('srch-btn-update', 'disabled', 'true');
+		  return;
+	  }
+
+	  SBUxMethod.attr('srch-btn-update', 'disabled', 'false');
+
   }
 
   const fn_grdInvntrSeChange = async function(){
@@ -512,6 +540,10 @@
 		  SBUxMethod.refresh("srch-slt-grdCd");
 	  }
 
+  }
+
+  const fn_itemChange = async function(){
+	  SBUxMethod.set("srch-slt-vrtyCd","")
   }
 
   const fn_vrtyChange = async function(args){
@@ -535,7 +567,7 @@
 
 		let obj = {
 				apcCd : apcCd
-				, aiYmd : planYmd
+				//, aiYmd : planYmd
 				};
 
 		let postJsonPromise = gfn_postJSON("/am/invntr/selectInvntrAiMng.do",obj );
@@ -601,6 +633,9 @@
 	    try{
 			if (_.isEqual("S", data.resultStatus)) {
 				jsonAiPlan.length = 0;
+				jsonAiInvntrMng.length = 0;
+				SBUxMethod.set("srch-lbl-planno","");
+			    SBUxMethod.set("srch-inp-planno","");
 		    	data.resultList.forEach((item, index) => {
 					let spmtPckgUnitVO = {
 					  apcCd : item.apcCd
@@ -700,6 +735,38 @@
 	    }
 	}
 
+  const fn_aiPrfmncCmplt = async function(){
+
+
+		let row = grdAiInvntrPlan.getRow();
+		if(row === -1){
+			return;
+		}
+		let rowData = grdAiInvntrPlan.getRowData(row);
+
+		let obj = {
+				apcCd : gv_apcCd
+				, planno : rowData.planno
+				, aiYn : 'Y'
+		}
+
+		let postJsonPromise = gfn_postJSON("/am/invntr/updateInvntrAiPlanYn.do",obj );
+	    let data = await postJsonPromise;
+	    try{
+			if (_.isEqual("S", data.resultStatus)) {
+				fn_search();
+    	} else {
+    		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    	}
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+
+
   const fn_delete = async function(){
 		let apcCd = gv_apcCd;
 		let row = grdAiInvntrMng.getRow();
@@ -723,6 +790,7 @@
 	    try{
 			if (_.isEqual("S", data.resultStatus)) {
 				fn_search();
+				grdAiInvntrMng.refresh();
     	} else {
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
@@ -855,6 +923,25 @@
  			SBUxMethod.set("srch-slt-prdcrCd",prdcr.prdcrCd);
  		}
  	}
+
+ 	/**
+	 * @name fn_docAiPrfmnc
+	 * @description 실사결과 발행
+	 */
+	const fn_docAiPrfmnc = async function() {
+		const rptUrl = await gfn_getReportUrl('0000', 'AI_DOC');
+		let row = grdAiInvntrPlan.getRow()
+
+ 		if (row === -1) {
+ 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+			return;
+ 		}
+		const rowData = grdAiInvntrPlan.getRowData(row);
+		let planno = rowData.planno
+
+ 		gfn_popClipReport("실사결과", rptUrl, {apcCd: gv_selectedApcCd, planno : planno });
+ 	}
+
 
 
 </script>

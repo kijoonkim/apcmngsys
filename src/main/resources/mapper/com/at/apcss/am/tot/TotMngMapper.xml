@@ -2235,6 +2235,335 @@
 		  	</if>
     </select>
 
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectItemClsSortPrfmncAnls  	-->
+	<!-- DESC : 품목별 선별 실적 분석                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.22  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectItemClsSortPrfmncAnls" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				  A.APC_CD			AS APC_CD
+				, A.ITEM_CD			AS ITEM_CD
+				, A.VRTY_CD			AS VRTY_CD
+				, A.SPCFCT_CD		AS SPCFCT_CD
+				, A.GRD_CD			AS GRD_CD
+				, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(A.ITEM_CD, A.SPCFCT_CD, A.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, (SELECT FN_GET_GRD_NM_SORT(A.APC_CD, A.ITEM_CD, A.GRD_CD) FROM DUAL) 		AS GRD_NM
+				, A.INPT_QNTT		AS INPT_QNTT
+				, A.INPT_WGHT		AS INPT_WGHT
+				, A.TOT_QNTT		AS TOT_QNTT
+				, A.TOT_WGHT		AS TOT_WGHT
+				, NVL(A.INPT_QNTT, 0) - NVL(A.TOT_QNTT, 0)		AS DIFF_QNTT
+				, NVL(A.INPT_WGHT, 0) - NVL(A.TOT_WGHT, 0)		AS DIFF_WGHT
+				, ROUND((A.TOT_QNTT / NULLIF(A.INPT_QNTT, 0)) * 100, 0)	AS RT_QNTT
+				, ROUND((A.TOT_WGHT / NULLIF(A.INPT_WGHT, 0)) * 100, 0)	AS RT_WGHT
+				, A.QNTT	AS QNTT
+				, A.WGHT	AS WGHT
+				, ROUND((A.QNTT / NULLIF(A.TOT_QNTT, 0)) * 100, 0)		AS RT_PART_QNTT
+				, ROUND((A.WGHT / NULLIF(A.TOT_WGHT, 0)) * 100, 0)		AS RT_PART_WGHT
+ 			FROM (
+				SELECT
+					  T.APC_CD			AS APC_CD
+					, T.ITEM_CD			AS ITEM_CD
+					, T.VRTY_CD		AS VRTY_CD
+					, T.SPCFCT_CD	AS SPCFCT_CD
+					, T.GRD_CD			AS GRD_CD
+					, T.QNTT			AS QNTT
+					, T.WGHT			AS WGHT
+					, SUM(T.QNTT) OVER (PARTITION BY T.APC_CD, T.ITEM_CD, T.VRTY_CD)	AS TOT_QNTT
+					, SUM(T.WGHT) OVER (PARTITION BY T.APC_CD, T.ITEM_CD, T.VRTY_CD)	AS TOT_WGHT
+					, INP.INPT_QNTT	AS INPT_QNTT
+					, INP.INPT_WGHT	AS INPT_WGHT
+				  FROM (
+					SELECT
+						  RP.APC_CD		AS APC_CD
+						, RI.ITEM_CD		AS ITEM_CD
+						, RI.VRTY_CD		AS VRTY_CD
+						, RI.SPCFCT_CD	AS SPCFCT_CD
+						, RI.GRD_CD			AS GRD_CD
+						, SUM(RP.SORT_QNTT)	AS QNTT
+						, SUM(RP.SORT_WGHT)	AS WGHT
+					  FROM TB_SORT_PRFMNC RP
+					  JOIN TB_SORT_INVNTR RI
+					    ON RI.APC_CD = RP.APC_CD
+					   AND RI.SORTNO = RP.SORTNO
+					   AND RI.SORT_SN = RP.SORT_SN
+					   AND RI.DEL_YN = 'N'
+					 WHERE RP.APC_CD = #{apcCd}
+					 ]]>
+					 <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+					    AND RP.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+					 </if>
+					<if test='inptYmdTo != null and inptYmdTo != ""'>
+					    AND RP.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+			    	</if>
+					<if test='itemCd != null and itemCd != ""'>
+					    AND RI.ITEM_CD = #{itemCd}
+			    	</if>
+			    	<if test='vrtyCd != null and vrtyCd != ""'>
+					    AND RI.VRTY_CD = #{vrtyCd}
+			    	</if>
+
+					 <![CDATA[
+					 GROUP BY
+					 	  RP.APC_CD
+						, RI.ITEM_CD
+						, RI.VRTY_CD
+						, RI.SPCFCT_CD
+						, RI.GRD_CD
+					) T
+				  LEFT JOIN (
+					  		SELECT
+					  			  RI.ITEM_CD		AS ITEM_CD
+					  			, RI.VRTY_CD		AS VRTY_CD
+					  			, SUM(IP.QNTT)	AS INPT_QNTT
+					  			, SUM(IP.WGHT)	AS INPT_WGHT
+					  		  FROM TB_SORT_INPT_PRFMNC IP
+					  		  JOIN TB_RAW_MTR_INVNTR RI
+					  		    ON RI.APC_CD = IP.APC_CD
+					  		   AND RI.WRHSNO = IP.WRHSNO
+					  		   AND RI.DEL_YN = 'N'
+							 WHERE IP.APC_CD = #{apcCd}
+							   AND IP.DEL_YN = 'N'
+							   ]]>
+							   <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+								  AND IP.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+    						   </if>
+								<if test='inptYmdTo != null and inptYmdTo != ""'>
+								  AND iP.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+						    	</if>
+							 GROUP BY RI.ITEM_CD, RI.VRTY_CD
+					  	) INP
+					   ON INP.ITEM_CD = T.ITEM_CD
+					  AND INP.VRTY_CD = T.VRTY_CD
+							) A
+						ORDER BY
+							  APC_CD
+							, ITEM_CD
+							, VRTY_CD
+							, SPCFCT_CD
+							, GRD_CD
+
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectSortPrfmncAnls  	-->
+	<!-- DESC : 선별 실적 분석                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.22  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectSortPrfmncAnls" parameterType="hashmap" resultType="hashmap">
+    	<![CDATA[
+    		SELECT
+				  A.APC_CD			AS APC_CD
+				, A.ITEM_CD			AS ITEM_CD
+				, A.VRTY_CD			AS VRTY_CD
+				, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+				, A.INPT_QNTT		AS INPT_QNTT
+				, A.INPT_WGHT		AS INPT_WGHT
+				, A.QNTT	AS QNTT
+				, A.WGHT	AS WGHT
+				, A.Q_0		AS Q_0
+				, A.Q_1		AS Q_1
+				, A.Q_2		AS Q_2
+				, A.Q_3		AS Q_3
+				, A.Q_4		AS Q_4
+				, A.Q_5		AS Q_5
+				, A.Q_6		AS Q_6
+				, A.Q_7		AS Q_7
+				, A.Q_8		AS Q_8
+				, A.Q_9		AS Q_9
+				, A.Q_10	    AS Q_10
+				, A.Q_11	    AS Q_11
+				, A.W_0		AS W_0
+				, A.W_1		AS W_1
+				, A.W_2		AS W_2
+				, A.W_3		AS W_3
+				, A.W_4		AS W_4
+				, A.W_5		AS W_5
+				, A.W_6		AS W_6
+				, A.W_7		AS W_7
+				, A.W_8		AS W_8
+				, A.W_9		AS W_9
+				, A.W_10	AS W_10
+				, A.W_11	AS W_11
+				, A.IQ_0	AS IQ_0
+				, A.IQ_1	AS IQ_1
+				, A.IQ_2	AS IQ_2
+				, A.IQ_3	AS IQ_3
+				, A.IQ_4	AS IQ_4
+				, A.IQ_5	AS IQ_5
+				, A.IQ_6	AS IQ_6
+				, A.IQ_7	AS IQ_7
+				, A.IQ_8	AS IQ_8
+				, A.IQ_9	AS IQ_9
+				, A.IQ_10	AS IQ_10
+				, A.IQ_11	AS IQ_11
+				, A.IW_0	AS IW_0
+				, A.IW_1	AS IW_1
+				, A.IW_2	AS IW_2
+				, A.IW_3	AS IW_3
+				, A.IW_4	AS IW_4
+				, A.IW_5	AS IW_5
+				, A.IW_6	AS IW_6
+				, A.IW_7	AS IW_7
+				, A.IW_8	AS IW_8
+				, A.IW_9	AS IW_9
+				, A.IW_10	AS W_10
+				, A.IW_11	AS W_11
+
+			  FROM (
+			SELECT
+				  T.APC_CD			AS APC_CD
+				, T.ITEM_CD			AS ITEM_CD
+				, T.VRTY_CD		AS VRTY_CD
+				, SUM(T.QNTT)	AS QNTT
+				, SUM(T.WGHT)	AS WGHT
+				, SUM(INP.INPT_QNTT)	AS INPT_QNTT
+				, SUM(INP.INPT_WGHT)	AS INPT_WGHT
+				, SUM(CASE T.YM WHEN T.T_0 THEN T.QNTT ELSE 0 END)	AS Q_0
+				, SUM(CASE T.YM WHEN T.T_1 THEN T.QNTT ELSE 0 END)	AS Q_1
+				, SUM(CASE T.YM WHEN T.T_2 THEN T.QNTT ELSE 0 END)	AS Q_2
+				, SUM(CASE T.YM WHEN T.T_3 THEN T.QNTT ELSE 0 END)	AS Q_3
+				, SUM(CASE T.YM WHEN T.T_4 THEN T.QNTT ELSE 0 END)	AS Q_4
+				, SUM(CASE T.YM WHEN T.T_5 THEN T.QNTT ELSE 0 END)	AS Q_5
+				, SUM(CASE T.YM WHEN T.T_6 THEN T.QNTT ELSE 0 END)	AS Q_6
+				, SUM(CASE T.YM WHEN T.T_7 THEN T.QNTT ELSE 0 END)	AS Q_7
+				, SUM(CASE T.YM WHEN T.T_8 THEN T.QNTT ELSE 0 END)	AS Q_8
+				, SUM(CASE T.YM WHEN T.T_9 THEN T.QNTT ELSE 0 END)	AS Q_9
+				, SUM(CASE T.YM WHEN T.T_10 THEN T.QNTT ELSE 0 END)	AS Q_10
+				, SUM(CASE T.YM WHEN T.T_11 THEN T.QNTT ELSE 0 END)	AS Q_11
+				, SUM(CASE T.YM WHEN T.T_0 THEN T.WGHT ELSE 0 END)	AS W_0
+				, SUM(CASE T.YM WHEN T.T_1 THEN T.WGHT ELSE 0 END)	AS W_1
+				, SUM(CASE T.YM WHEN T.T_2 THEN T.WGHT ELSE 0 END)	AS W_2
+				, SUM(CASE T.YM WHEN T.T_3 THEN T.WGHT ELSE 0 END)	AS W_3
+				, SUM(CASE T.YM WHEN T.T_4 THEN T.WGHT ELSE 0 END)	AS W_4
+				, SUM(CASE T.YM WHEN T.T_5 THEN T.WGHT ELSE 0 END)	AS W_5
+				, SUM(CASE T.YM WHEN T.T_6 THEN T.WGHT ELSE 0 END)	AS W_6
+				, SUM(CASE T.YM WHEN T.T_7 THEN T.WGHT ELSE 0 END)	AS W_7
+				, SUM(CASE T.YM WHEN T.T_8 THEN T.WGHT ELSE 0 END)	AS W_8
+				, SUM(CASE T.YM WHEN T.T_9 THEN T.WGHT ELSE 0 END)	AS W_9
+				, SUM(CASE T.YM WHEN T.T_10 THEN T.WGHT ELSE 0 END)	AS W_10
+				, SUM(CASE T.YM WHEN T.T_11 THEN T.WGHT ELSE 0 END)	AS W_11
+				, SUM(CASE T.YM WHEN T.T_0 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_0
+				, SUM(CASE T.YM WHEN T.T_1 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_1
+				, SUM(CASE T.YM WHEN T.T_2 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_2
+				, SUM(CASE T.YM WHEN T.T_3 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_3
+				, SUM(CASE T.YM WHEN T.T_4 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_4
+				, SUM(CASE T.YM WHEN T.T_5 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_5
+				, SUM(CASE T.YM WHEN T.T_6 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_6
+				, SUM(CASE T.YM WHEN T.T_7 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_7
+				, SUM(CASE T.YM WHEN T.T_8 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_8
+				, SUM(CASE T.YM WHEN T.T_9 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_9
+				, SUM(CASE T.YM WHEN T.T_10 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_10
+				, SUM(CASE T.YM WHEN T.T_11 THEN INP.INPT_QNTT ELSE 0 END)	AS IQ_11
+				, SUM(CASE T.YM WHEN T.T_0 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_0
+				, SUM(CASE T.YM WHEN T.T_1 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_1
+				, SUM(CASE T.YM WHEN T.T_2 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_2
+				, SUM(CASE T.YM WHEN T.T_3 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_3
+				, SUM(CASE T.YM WHEN T.T_4 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_4
+				, SUM(CASE T.YM WHEN T.T_5 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_5
+				, SUM(CASE T.YM WHEN T.T_6 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_6
+				, SUM(CASE T.YM WHEN T.T_7 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_7
+				, SUM(CASE T.YM WHEN T.T_8 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_8
+				, SUM(CASE T.YM WHEN T.T_9 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_9
+				, SUM(CASE T.YM WHEN T.T_10 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_10
+				, SUM(CASE T.YM WHEN T.T_11 THEN INP.INPT_WGHT ELSE 0 END)	AS IW_11
+			  FROM (
+							SELECT
+								  RP.APC_CD		AS APC_CD
+								, RI.ITEM_CD		AS ITEM_CD
+								, RI.VRTY_CD		AS VRTY_CD
+								, SUBSTR(RI.INPT_YMD, 1, 6)	AS YM
+								, SUM(RP.SORT_QNTT)	AS QNTT
+								, SUM(RP.SORT_WGHT)	AS WGHT
+							  	, DL.DT				AS DT
+								, TO_CHAR(DL.DT, 'YYYYMM')							AS T_0
+								, TO_CHAR(ADD_MONTHS(DL.DT, -1), 'YYYYMM')			AS T_1
+								, TO_CHAR(ADD_MONTHS(DL.DT, -2), 'YYYYMM')			AS T_2
+								, TO_CHAR(ADD_MONTHS(DL.DT, -3), 'YYYYMM')			AS T_3
+								, TO_CHAR(ADD_MONTHS(DL.DT, -4), 'YYYYMM')			AS T_4
+								, TO_CHAR(ADD_MONTHS(DL.DT, -5), 'YYYYMM')			AS T_5
+								, TO_CHAR(ADD_MONTHS(DL.DT, -6), 'YYYYMM')			AS T_6
+								, TO_CHAR(ADD_MONTHS(DL.DT, -7), 'YYYYMM')			AS T_7
+								, TO_CHAR(ADD_MONTHS(DL.DT, -8), 'YYYYMM')			AS T_8
+								, TO_CHAR(ADD_MONTHS(DL.DT, -9), 'YYYYMM')			AS T_9
+								, TO_CHAR(ADD_MONTHS(DL.DT, -10), 'YYYYMM')			AS T_10
+								, TO_CHAR(ADD_MONTHS(DL.DT, -11), 'YYYYMM')			AS T_11
+							  FROM TB_SORT_PRFMNC RP
+							  JOIN TB_SORT_INVNTR RI
+							    ON RI.APC_CD = RP.APC_CD
+							   AND RI.SORTNO = RP.SORTNO
+							   AND RI.SORT_SN = RP.SORT_SN
+							   AND RI.DEL_YN = 'N'
+							  , (
+									SELECT
+									  TO_DATE(#{crtrYmd}, 'YYYYMMDD')	AS DT
+								  FROM DUAL
+							  ) DL
+							 WHERE RP.APC_CD = #{apcCd}
+							   AND RP.INPT_YMD BETWEEN TO_CHAR(TRUNC(ADD_MONTHS(DL.DT, -11), 'MM'), 'YYYYMMDD') AND TO_CHAR(LAST_DAY(DL.DT), 'YYYYMMDD')
+						 ]]>
+							   <if test='itemCd != null and itemCd != ""'>
+								  AND RI.ITEM_CD = #{itemCd}
+    						   </if>
+    						   <if test='vrtyCd != null and vrtyCd != ""'>
+								  AND RI.VRTY_CD = #{vrtyCd}
+    						   </if>
+
+							 GROUP BY
+							 	  RP.APC_CD
+								, RI.ITEM_CD
+								, RI.VRTY_CD
+								, SUBSTR(RI.INPT_YMD, 1, 6)
+								, DL.DT
+							) T
+						  LEFT JOIN (
+						  		SELECT
+						  			  RI.ITEM_CD		AS ITEM_CD
+						  			, RI.VRTY_CD		AS VRTY_CD
+						  			, SUBSTR(IP.INPT_YMD, 1, 6)	AS YM
+						  			, SUM(IP.QNTT)	AS INPT_QNTT
+						  			, SUM(IP.WGHT)	AS INPT_WGHT
+						  		  FROM TB_SORT_INPT_PRFMNC IP
+						  		  JOIN TB_RAW_MTR_INVNTR RI
+						  		    ON RI.APC_CD = IP.APC_CD
+						  		   AND RI.WRHSNO = IP.WRHSNO
+						  		   AND RI.DEL_YN = 'N'
+								  , (
+										SELECT
+										  TO_DATE(#{crtrYmd}, 'YYYYMMDD')	AS DT
+									  FROM DUAL
+								  ) DL
+								 WHERE IP.APC_CD = #{apcCd}
+								   AND IP.DEL_YN = 'N'
+								   AND IP.INPT_YMD BETWEEN TO_CHAR(TRUNC(ADD_MONTHS(DL.DT, -11), 'MM'), 'YYYYMMDD') AND TO_CHAR(LAST_DAY(DL.DT), 'YYYYMMDD')
+								 GROUP BY RI.ITEM_CD, RI.VRTY_CD, SUBSTR(IP.INPT_YMD, 1, 6)
+						  	) INP
+						   ON INP.ITEM_CD = T.ITEM_CD
+						  AND INP.VRTY_CD = T.VRTY_CD
+						  AND INP.YM = T.YM
+					 GROUP BY
+						  T.APC_CD
+						, T.ITEM_CD
+						, T.VRTY_CD
+				) A
+			ORDER BY
+				  APC_CD
+				, ITEM_CD
+				, VRTY_CD
+
+    </select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.tot.mapper.totMngMapper.selectPrdctnVol  			-->
 	<!-- DESC : 생산량 비교 조회.	                                             		-->

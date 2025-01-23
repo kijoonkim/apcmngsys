@@ -10,33 +10,79 @@
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
     <%@ include file="../frame/inc/clipreport.jsp" %>
+<style>
+    .container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .input-container {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;  /* 요소들 사이 간격 */
+    }
+
+    #certKey {
+        padding: 0.5rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #btn-reportView {
+        padding: 0.5rem 1rem;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #btn-reportView:hover {
+        background-color: #2563eb;
+    }
+
+    #div-rpt-clipReportJSON {
+        position: absolute;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* 모바일 스타일 */
+    @media (max-width: 768px) {
+        .input-container {
+            flex-direction: column;
+        }
+
+        #certKey {
+            width: 16rem;
+        }
+    }
+</style>    
 </head>
 <body oncontextmenu="return false">
 <c:set scope="request" var="uuid" value="${uuid}"></c:set>
 <c:set scope="request" var="certYn" value="${certYn}"></c:set>
-<section>
-    <div class="box box-solid">
-        <div class="box-header" style="display:flex; justify-content: flex-start;" >
-            <div>
-                <h3 class="box-title"> ▶ 보고서 번호 : <c:out value='${uuid}'></c:out></h3>
-            </div>
-            <div style="margin-left: auto;">
-                <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
-                <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
-                <c:choose>
-                    <c:when test="${certYn != null && certYn == 'Y'}">
-                        <span>인증번호</span>
-                        <input type="password" id="certKey" name="certKey" value="" />
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
-                </c:choose>
-                <button id="btn-reportView">보고서 출력</button>
-            </div>
-        </div>
-        <div id="div-rpt-clipReportJSON" style="width:1000px;height:80vh;"></div>
+<div class="container">
+    <div class="input-container">
+        <input type="hidden" id="uuid" name="uuid" value="<c:out value='${uuid}'></c:out>" />
+        <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
+        <c:choose>
+            <c:when test="${certYn != null && certYn == 'Y'}">
+                <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요."/>
+            </c:when>
+            <c:otherwise>
+            </c:otherwise>
+        </c:choose>
+        <button id="btn-reportView">보고서 출력</button>
     </div>
-</section>
+    <div id="div-rpt-clipReportJSON" style="display: none;"></div>
+</div>
+
 
 </body>
 <script type="text/javascript">
@@ -126,7 +172,7 @@
 
 
     window.addEventListener('DOMContentLoaded', function(e) {
-
+// 		$('#div-rpt-clipReportJSON').css('display', 'none');
         fn_init();
         //fn_drawClipReport();
     });
@@ -149,15 +195,16 @@
         const workType = param.prgrmPrcsType;
         const cvCount = param.prcsRsltNocs;
         const params = param.prmtrData;
-
+        const paramList = params.split(',');
         try {
             const postJsonPromise = gfn_postJSON(
                 url, {
                     getType: 'json',
                     workType: workType,
+                    userId: paramList[paramList.length -2],
                     cv_count: cvCount,
                     params: params
-                });
+            });
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
@@ -183,6 +230,8 @@
             exePrintYn : exePrintYn
         }
         gfn_drawClipReportLink("div-rpt-clipReportJSON", reportKey, check);
+        $('#div-rpt-clipReportJSON').css('display', '');
+        $('.input-container').css('display', 'none');
     }
 
     /*

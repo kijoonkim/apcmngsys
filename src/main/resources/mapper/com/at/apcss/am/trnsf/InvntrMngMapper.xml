@@ -222,7 +222,12 @@
                  #{apcCd}
                  ,#{invntrCrtrType}
                  ,#{crtrCd}
-                 ,#{dtlSn}
+                 ,(SELECT MAX(DTL_SN)
+                   FROM TB_INVNTR_CRTR_DTL
+                   WHERE APC_CD = #{apcCd}
+                   AND INVNTR_CRTR_TYPE = #{invntrCrtrType}
+                   AND CRTR_CD = #{crtrCd}
+                   ) + 1
                  ,#{dtlCd}
                  ,#{dtlVl}
                  ,#{dtlIndctNm}

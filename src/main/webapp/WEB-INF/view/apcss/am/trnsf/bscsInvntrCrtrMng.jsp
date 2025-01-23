@@ -75,7 +75,7 @@
         </tr>
         </tbody>
       </table>
-      <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-direction: row; gap: 10px">
         <div style="flex: 1">
           <div class="ad_tbl_top">
             <ul class="ad_tbl_count">
@@ -84,7 +84,7 @@
               </li>
             </ul>
           </div>
-          <div id="sb-area-grdInvntrCrtr"></div>
+          <div id="sb-area-grdInvntrCrtr" style="height: 500px"></div>
         </div>
         <div style="flex: 1">
           <div class="ad_tbl_top">
@@ -96,8 +96,8 @@
             <div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
               <sbux-button disabled="true" id="btnSaveDtl" name="btnSaveDtl" uitype="normal" class="btn btn-sm btn-outline-danger" text="상세저장" onclick="fn_saveDtl"></sbux-button>
             </div>
-          </di v>
-          <div id="sb-area-grdInvntrCrtrDtl"></div>
+          </div>
+          <div id="sb-area-grdInvntrCrtrDtl" style="height: 500px"></div>
         </div>
       </div>
     </div>
@@ -201,12 +201,12 @@
                   return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRowDtl(" + nRow + ")'>삭제</button>";
               }
       }},
-      {caption: ["상세코드"],	ref: 'dtlCd',		type:'combo',  typeinfo : {ref:'jsonDtlCd',label:'cdVlNm', value:'cdVl',oneclickedit: true},width:'15.5%', style: 'text-align:center;'},
-      {caption: ["상세순번"],	ref: 'dtlSn',		type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'15.5%', style: 'text-align:center;'},
-      {caption: ["상세값"],	    ref: 'dtlVl',	    type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'15.5%', style: 'text-align:center;'},
-      {caption: ["상세표시명"],	ref: 'dtlIndctNm',	type:'input',  width:'15.5%', style: 'text-align:center;'},
-      {caption: ["표시순서"],	ref: 'indctSeq',	type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'15.5%', 	style: 'text-align:center;'},
-      {caption: ["사용여부"],	ref: 'useYn',		type:'combo',  typeinfo : {ref :'jsonUseYn', label:'cdVlNm', value:'cdVl', oneclickedit: true}, width:'15.5%',		style: 'text-align:center;'},
+      {caption: ["상세코드"],	ref: 'dtlCd',		type:'combo',  typeinfo : {ref:'jsonDtlCd',label:'cdVlNm', value:'cdVl',oneclickedit: true},width:'18.4%', style: 'text-align:center;'},
+      /*{caption: ["상세순번"],	ref: 'dtlSn',		type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'15.5%', style: 'text-align:center;'},*/
+      {caption: ["상세값"],	    ref: 'dtlVl',	    type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'18.4%', style: 'text-align:center;'},
+      {caption: ["상세표시명"],	ref: 'dtlIndctNm',	type:'input',  width:'18.4%', style: 'text-align:center;'},
+      {caption: ["표시순서"],	ref: 'indctSeq',	type:'input',  typeinfo : {mask : {alias :'numeric'}},  width:'18.4%', 	style: 'text-align:center;'},
+      {caption: ["사용여부"],	ref: 'useYn',		type:'combo',  typeinfo : {ref :'jsonUseYn', label:'cdVlNm', value:'cdVl', oneclickedit: true}, width:'18.4%',		style: 'text-align:center;'},
     ]
     grdInvntrCrtrDtl = _SBGrid.create(SBGridProperties);
     //grdInvntrCrtrDtl.bind("click","fn_setDtlCd");

@@ -40,37 +40,37 @@ public interface SlsMngMapper {
 	 * @throws Exception
 	 */
 	public List<SlsMngVO> selectSlsUntprc(SlsMngVO slsMngVO);
-	
-	/**
-	 * 매출단가삭제
-	 * @param SlsMngVO
-	 * @return 
-	 * @throws Exception
-	 */
-	public int deleteSlsUntprc(SlsMngVO slsMngVO);
 
 	/**
-	 * 매출단가등록
-	 * @param SlsMngVO
-	 * @return 
+	 * 매출단가상세조회
+	 * @param slsMngVO
+	 * @return
 	 * @throws Exception
 	 */
-	public int insertSlsUntprc(SlsMngVO item);
-	
+    public List<SlsMngVO> selectSlsUntprcDtl(SlsMngVO slsMngVO) throws Exception;
+
 	/**
-	 * 매출단가변경
-	 * @param SlsMngVO
-	 * @return 
+	 * 매출단가 변경
+	 * @param slsMngVO
+	 * @return
 	 * @throws Exception
 	 */
-	public int updateSpmtPckgUnitCd(SlsMngVO vo);
-	
+	public int updateSlsUntprc(SlsMngVO slsMngVO) throws Exception;
+
 	/**
-	 * 매출단가변경
-	 * @param SlsMngVO
-	 * @return 
+	 * 매출단가 등록
+	 * @param slsMngVO
+	 * @return
 	 * @throws Exception
 	 */
-	public int updateSpmtSlsUntprcReg(SlsMngVO vo);
+	public int insertSlsUntprc(SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출단가삭제
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSlsUntprc(SlsMngVO slsMngVO) throws Exception;
 
 }

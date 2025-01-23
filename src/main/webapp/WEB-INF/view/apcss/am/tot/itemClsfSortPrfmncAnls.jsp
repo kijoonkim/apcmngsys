@@ -1,15 +1,15 @@
 <%
   /**
-   * @Class Name : wghCurInq.jsp
-   * @Description : 계량현황조회 화면
+   * @Class Name : itemClsfSortPrfmncAnls.jsp
+   * @Description : 품목별 선별 실적 분석 화면
    * @author SI개발부
-   * @since 2024.11.25
+   * @since 2025.01.22
    * @version 1.0
    * @Modification Information
    * @
    * @ 수정일        수정자        수정내용
    * @ ---------- ---------- ---------------------------
-   * @ 2024.11.25     손민성       최초 생성
+   * @ 2025.01.22     박승진       최초 생성
    * @see
    *
    */
@@ -19,7 +19,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <title>title : 계량현황 조회</title>
+  <title>title : 품목별 선별 실적 분석</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
 </head>
@@ -29,7 +29,7 @@
     <div class="box-header" style="display:flex; justify-content: flex-start;">
       <div>
         <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-        <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 계량현황조회 -->
+        <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 품목별 선별 실적 분석 -->
       </div>
       <%--            /** 상단 버튼 **/--%>
       <div style="margin-left: auto;">
@@ -60,89 +60,48 @@
         </colgroup>
         <tbody>
         <tr>
-          <th scope="row" class="th_bg">기준일자</th>
+          <th scope="row" class="th_bg">투입일자</th>
           <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
             <div style="display: flex;justify-content: center;align-items: center">
               <sbux-datepicker
-                      uitype="popup"
-                      id="srch-dtp-wrhsYmdFrom"
-                      name="srch-dtp-wrhsYmdFrom"
+                      uitype="range"
+                      id="srch-dtp-inptYmd"
+                      name="srch-dtp-inptYmd"
                       date-format="yyyy-mm-dd"
                       class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-                      onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
               ></sbux-datepicker>
-              <div style="width: 2vw;text-align: center">~</div>
-              <sbux-datepicker
-                      uitype="popup"
-                      id="srch-dtp-wrhsYmdTo"
-                      name="srch-dtp-wrhsYmdTo"
-                      date-format="yyyy-mm-dd"
-                      class="form-control pull-right input-sm inpt_data_reqed input-sm-ast"
-                      onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
-              ></sbux-datepicker>
-            </div>
           </td>
           <th scope="row" class="th_bg">품목/품종</th>
-          <td class="td_input" colspan="4" style="border-top: hidden;border-right: hidden">
-            <div style="display: flex; gap: 5px">
-              <sbux-select
-                      unselected-text="전체"
-                      uitype="single"
-                      id="srch-slt-itemCd"
-                      name="srch-slt-itemCd"
-                      class="form-control input-sm input-sm-ast"
-                      jsondata-ref="jsonApcItem"
-                      onchange="fn_onChangeSrchItemCd(this)">
-              </sbux-select>
-              <sbux-select
-                      unselected-text="선택"
-                      uitype="single"
-                      id="srch-slt-vrtyCd"
-                      name="srch-slt-vrtyCd"
-                      class="form-control input-sm input-sm-ast inpt_data_reqed"
-                      jsondata-ref="jsonApcVrty"
-                      jsondata-value="itemVrtyCd"
-                      onchange="fn_onChangeSrchVrtyCd(this)">
-              </sbux-select>
-            </div>
-          </td>
+				<td class="td_input" style="border-right: hidden;">
+					<sbux-select
+						unselected-text="전체"
+						uitype="single"
+						id="srch-slt-itemCd"
+						name="srch-slt-itemCd"
+						class="form-control input-sm input-sm-ast"
+						jsondata-ref="jsonApcItemCd"
+						onchange="fn_itemChange"
+						group-id="group1">
+					</sbux-select>
+				</td>
+				<td class="td_input" colspan="2"style="border-right: hidden;">
+					<sbux-select
+						unselected-text="선택"
+						uitype="single"
+						id="srch-slt-vrtyCd"
+						name="srch-slt-vrtyCd"
+						class="form-control input-sm input-sm-ast "
+						jsondata-ref="jsonApcVrtyCd"
+						jsondata-value="vrtyCd"
+						filter-source-name="srch-slt-itemCd"
+						jsondata-filter="itemCd"
+						onchange="fn_vrtyChange(srch-slt-vrtyCd)"
+						group-id="group1">
+					</sbux-select>
+				</td>
           <td colspan="4" style="border-top: hidden"></td>
         </tr>
-        <tr>
-          <th scope="row" class="th_bg">생산자</th>
-          <td class="td_input" colspan="3" style="border-right: hidden">
-            <sbux-input id="srch-slt-vhclno"
-                        name="srch-slt-vhclno"
-                        uitype="text"
-                        class="form-control input-sm"
-                        style="width: 80%">
-            </sbux-input>
-          </td>
-          <th scope="row" class="th_bg">상세구분</th>
-          <td class="td_input" colspan="4" style="border-right: hidden">
-            <sbux-select
-                    unselected-text="선택"
-                    uitype="single"
-                    id="srch-slt-warehouseSeCd"
-                    name="srch-slt-warehouseSeCd"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    style="width: 80%"
-                    jsondata-ref="jsonComWarehouse">
-            </sbux-select>
-          </td>
-          <th scope="row" class="th_bg">조회구분</th>
-          <td class="td_input" colspan="3">
-            <sbux-select
-                    unselected-text="선택"
-                    uitype="single"
-                    id="srch-slt-inqType"
-                    name="srch-slt-inqType"
-                    style="width: 80%"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    jsondata-ref="jsonComWarehouse">
-            </sbux-select>
-          </td>
-        </tr>
+
         </tbody>
       </table>
       <div style="display: flex; flex-direction: column; gap: 10px">
@@ -154,7 +113,7 @@
               </li>
             </ul>
           </div>
-          <div id="sb-area-rtnCrtr"></div>
+          <div id="sb-area-itemClsSortPrfmncAnls" style="height:400px"></div>
         </div>
       </div>
     </div>
@@ -163,37 +122,145 @@
 </body>
 <script type="application/javascript">
   /** grid 변수 셋팅 **/
-  var jsonRtnCrtr = [];
-  let gridRtnCrtr;
+  var jsonItemClsSortPrfmncAnls = [];
+  let grdItemClsSortPrfmncAnls;
+
+  /** 품목 **/
+  var jsonApcItemCd = [];
+
+  /** 품종 **/
+  var jsonApcVrtyCd = [];
+
+  /** 규격 **/
+  var jsonApcSpcfct = [];
+
+  /** 표준등급 **/
+  var jsonStdGrd = [];
+  var jsonStdGrdTemp = [];
 
   window.addEventListener("DOMContentLoaded",function(){
     fn_init();
   });
   const fn_init = async function(){
-    await fn_create_rtnCrtr();
+	  await fn_initSBselect();
+      await fn_createItemClsSortPrfmncAnls();
   }
 
-  const fn_create_rtnCrtr = async function(){
+  const fn_initSBselect = async function(){
+
+      let result = await Promise.all([
+		gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItemCd, gv_apcCd),		// 품목
+		gfn_setApcVrtySBSelect("srch-slt-vrtyCd", 		jsonApcVrtyCd, 	gv_apcCd),			// APC 품종(저장)
+		fn_selectStdGrd(),
+      ]);
+
+      jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd,'');
+  }
+
+  const fn_createItemClsSortPrfmncAnls = async function(){
     var SBGridProperties = {};
-    SBGridProperties.parentid = 'sb-area-rtnCrtr';
-    SBGridProperties.id = 'gridRtnCrtr';
-    SBGridProperties.jsonref = 'jsonRtnCrtr';
+    SBGridProperties.parentid = 'sb-area-itemClsSortPrfmncAnls';
+    SBGridProperties.id = 'grdItemClsSortPrfmncAnls';
+    SBGridProperties.jsonref = 'jsonItemClsSortPrfmncAnls';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.datamergefalseskip = true;
     SBGridProperties.columns = [
-      {caption: [""],	ref: 'fcltCd',		type:'output',  width:'5%', style: 'text-align:center;'},
-      {caption: ["품목"],	ref: 'wghYmd',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["품종"],	ref: 'wghFcltCd',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["기준일자"],	ref: 'vhclno',		type:'output',  width:'15%', style: 'text-align:center;'},
-      {caption: ["입고수량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["입고중량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["선별수량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["선별중량"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["수율"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
-      {caption: ["처리기간"],	ref: 'vhclno',		type:'output',  width:'10%', style: 'text-align:center;'},
+      {caption: ['품목'], ref: 'ITEM_CD', width: '120px', type: 'combo', typeinfo : {ref:'jsonApcItemCd', label:'label', value:'value',  oneclickedit : true}, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['품종'], ref: 'VRTY_NM', width: '120px', type: 'output', style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['규격'], ref: 'SPCFCT_CD', width: '120px', type : 'combo', typeinfo : {ref:'jsonApcSpcfct', label:'spcfctNm', value:'spcfctCd',  filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false} }, style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ['등급'], ref: 'GRD_NM', width: '120px', type: 'output',  style:'text-align:center', disabled : {uihidden : true}},
+      {caption: ["투입수량"],	ref: 'INPT_QNTT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["투입중량"],	ref: 'INPT_WGHT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["총선별수량"],	ref: 'TOT_QNTT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["총선별중량"],	ref: 'TOT_WGHT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["차이(수량)"],	ref: 'DIFF_QNTT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["차이(중량)"],	ref: 'DIFF_WGHT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["선별수량"],	ref: 'QNTT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["선별중량"],	ref: 'WGHT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'number', rule:'#,###'}},
+      {caption: ["구성비율"],	ref: 'RT_PART_WGHT',		type:'output',  width:'120px', style: 'text-align:right;',format : {type:'string', rule:'@"%"'}}
     ]
-    gridRtnCrtr = _SBGrid.create(SBGridProperties);
+    grdItemClsSortPrfmncAnls = _SBGrid.create(SBGridProperties);
   }
+
+  const fn_search = async function(){
+	  jsonItemClsSortPrfmncAnls.length = 0;
+	  let apcCd = gv_apcCd;
+	  let inptYmd = SBUxMethod.get("srch-dtp-inptYmd");
+	  let itemCd = SBUxMethod.get("srch-slt-itemCd");
+	  let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+
+	  if( inptYmd === "undefined"){
+		  return;
+	  }
+	  if(gfn_nvl(inptYmd[0]) === "" || gfn_nvl(inptYmd[1]) === ""){
+		  return;
+	  }
+
+
+		let obj = {
+				apcCd : apcCd
+				, inptYmdFrom : inptYmd[0]
+				, inptYmdTo   : inptYmd[1]
+				, itemCd 	  : itemCd
+				, vrtyCd	  : vrtyCd
+				};
+
+		let postJsonPromise = gfn_postJSON("/am/tot/selectItemClsSortPrfmncAnls.do",obj );
+	    let data = await postJsonPromise;
+	    try{
+			if (_.isEqual("S", data.resultStatus)) {
+				jsonItemClsSortPrfmncAnls.length = 0;
+				jsonItemClsSortPrfmncAnls = data.resultList;
+		    	grdItemClsSortPrfmncAnls.rebuild();
+      	} else {
+      		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      	}
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+
+
+  const fn_selectStdGrd = async function(){
+		let apcCd = gv_apcCd;
+		let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {apcCd : apcCd});
+	    let data = await postJsonPromise;
+	    try{
+			if (_.isEqual("S", data.resultStatus)) {
+				jsonStdGrd.length = 0;
+				jsonStdGrdTemp.length = 0;
+		    	data.resultList.forEach((item, index) => {
+					let spmtPckgUnitVO = {
+						itemCd : item.itemCd
+						, grdSeCd : item.grdSeCd
+						, grdKnd : item.grdKnd
+						, grdCd : item.grdCd
+						, grdNm : item.grdNm
+						, grdVl : item.grdVl
+						, stdGrdType : item.stdGrdType
+						, itemGrdSeCd : item.itemCd + item.grdSeCd
+					}
+					jsonStdGrdTemp.push(spmtPckgUnitVO);
+				});
+
+     	} else {
+     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+     	}
+	    }catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+	    }
+	}
+
+
+
+
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

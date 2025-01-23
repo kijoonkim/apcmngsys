@@ -61,23 +61,24 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 	}
 
 	@Override
-	public int updateSlsUntprc(List<SlsMngVO> slsMngVO) throws Exception {	
-		int updateCnt =0;
-		for(SlsMngVO vo : slsMngVO) {
-			updateCnt += slsMngMapper.updateSpmtPckgUnitCd(vo);
+	public int updateSlsUntprcReg(List<SlsMngVO> slsUntprcList) throws Exception {
+		int resultCnt =0;
+		for(SlsMngVO slsMngVO : slsUntprcList) {
+			String gubun = slsMngVO.getGubun();
+			if(gubun.equals("insert")){
+				resultCnt = slsMngMapper.insertSlsUntprc(slsMngVO);
+			}else if(gubun.equals("update")){
+				resultCnt = slsMngMapper.updateSlsUntprc(slsMngVO);
+			}
 		}
-		if(updateCnt < 0) {
+		if(resultCnt < 0) {
 			throw new EgovBizException();
 		}
-		updateCnt = 0;
-		for(SlsMngVO vo : slsMngVO) {
-			updateCnt += slsMngMapper.updateSpmtSlsUntprcReg(vo);
-		}
-		if(updateCnt < 0) {
-			throw new EgovBizException();
-		}
-		
-		
-		return updateCnt;
+		return resultCnt;
+	}
+
+	@Override
+	public List<SlsMngVO> selectSlsUntprcDtl(SlsMngVO slsMngVO) throws Exception {
+		return slsMngMapper.selectSlsUntprcDtl(slsMngVO);
 	}
 }

@@ -85,4 +85,7 @@ public class TotRsltVO extends ComVO {
 
     private String rtnCd;
     private String rtnMsg;
+
+    private String inptYmdFrom;
+    private String inptYmdTo;
 }

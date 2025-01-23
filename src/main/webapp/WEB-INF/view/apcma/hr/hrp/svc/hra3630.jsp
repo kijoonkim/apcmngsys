@@ -182,7 +182,7 @@
                                 </td>
                                 <th scope="row" rowspan="8" class="th_bg">SMS문자메시지</th>
                                 <td colspan="2" rowspan="8" class="td_input" >
-                                    <sbux-textarea id="SMS_SESSAGE" name="SMS_SESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
+                                    <sbux-textarea id="SMS_MESSAGE" name="SMS_MESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
                                     </sbux-textarea>
                                 </td>
                             </tr>
@@ -224,6 +224,8 @@
     var p_formId = gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId = '${comMenuVO.menuId}';
     var p_siteCode = "${loginVO.maSiteCode}";
+    var p_userId = '${loginVO.id}';
+    var p_linkRviewUrl = '${linkRviewUrl}';
     //-----------------------------------------------------------
 
     var strEmail = "";
@@ -301,6 +303,20 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
+        SBGridProperties.total = {
+            type 		: 'grand',
+            position	: 'bottom',
+            columns		: {
+                standard : [2, 7],
+                sum : [8,9,10],
+            },
+            grandtotalrow : {
+                titlecol: 0,
+                titlevalue: '합계',
+                style: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                stylestartcol: 0
+            },
+        };
         SBGridProperties.columns = [
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
@@ -550,8 +566,6 @@
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
-        gvwDetail.bind('click', 'fn_viewForDetail');
-        gvwDetail.bind('keyup', 'fn_keyupForDetail');
     }
 
     const fn_keyup = async function(event) {
@@ -660,68 +674,17 @@
                     jsonServiceFeeList.push(msg);
                 });
                 gvwDetail.rebuild();
-            } else {
-                alert(data.resultMessage);
-            }
 
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-
-    const fn_keyupForDetail = async function(event) {
-        if(event.keyCode == 38 || event.keyCode == 40) {
-            fn_viewForDetail();
-        }
-    }
-
-    const fn_viewForDetail = async function () {
-        var nRow = gvwDetail.getRow();
-        if(nRow < 1) return;
-        var rowData = gvwDetail.getRowData(nRow);
-
-        if(gfn_nvl(rowData) == "") return;
-
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_PAY_DATE_FR : '',
-            V_P_PAY_DATE_TO : '',
-            V_P_SITE_CODE : '',
-            V_P_EARNER_NAME : '',
-            V_P_PAY_DATE : '',
-            V_P_EARNER_CODE : '',
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
-        };
-
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
-            getType				: 'json',
-            workType			: 'MAIL',
-//             workType			: 'EMAIL',
-            cv_count			: '2',
-            params				: gfnma_objectToString(paramObj)
-        });
-
-        const data = await postJsonPromise;
-
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                if(data.cv_1.length > 0) {
-                    strSmtpHost = data.cv_1[0]["SMTP_HOST"];
-                    IntSmtpPort = parseInt(data.cv_1[0]["SMTP_PORT"]);
-                    strUserName = data.cv_1[0]["USERNAME"];
-                    strPassword = data.cv_1[0]["PSWD"];
-                    strEmail = data.cv_1[0]["MAILID"];
+                if(data.cv_2.length > 0 && data.cv_2[0] != null) {
+                    SBUxMethod.set("EMAIL_SUBJECT", gfn_nvl(data.cv_2[0].EML_SBJT));
+                    SBUxMethod.set("SMS_MESSAGE", gfn_nvl(data.cv_2[0].SMS_TTL));
+                    SBUxMethod.set("EMAIL_BODY", gfn_nvl(data.cv_2[0].EML_MTXT));
+                    SBUxMethod.set("NOTICE_MEMO", gfn_nvl(data.cv_2[0].NTC_CN));
+                } else {
+                    SBUxMethod.set("EMAIL_SUBJECT", "");
+                    SBUxMethod.set("SMS_MESSAGE", "");
+                    SBUxMethod.set("EMAIL_BODY", "");
+                    SBUxMethod.set("NOTICE_MEMO", "");
                 }
             } else {
                 alert(data.resultMessage);
@@ -798,7 +761,7 @@
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
-            V_P_USERID			: '',
+            V_P_USERID			: p_userId,
             V_P_PC				: ''
         };
 
@@ -852,7 +815,7 @@
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
-            V_P_USERID			: '',
+            V_P_USERID			: p_userId,
             V_P_PC				: ''
         };
 
@@ -906,7 +869,7 @@
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
-            V_P_USERID			: '',
+            V_P_USERID			: p_userId,
             V_P_PC				: ''
         };
 
@@ -984,10 +947,10 @@
             conn = await gfnma_convertDataForReport(conn);
 
             await gfn_getReportPdf(
-           		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서.pdf",
+           		checkDatas[i].data.EARNER_NAME + " 용역비 임금명세서 " + gfnma_date5(checkDatas[i].data.PAY_DATE) + ".pdf",
            		"ma/RPT_HRA3630.crf",
            		conn,
-           		{ userPassword : '1234', ownerPassword : ''},
+           		{ userPassword : '', ownerPassword : ''},
                 function(){
                     console.log('download');
                 }
@@ -1010,18 +973,21 @@
 				,V_P_FORM_ID			: p_formId
 				,V_P_MENU_ID			: p_menuId
 				,V_P_PROC_ID			: ''
-				,V_P_USERID				: ''
+				,V_P_USERID				: p_userId
 				,V_P_PC					: ''
 	    };
-	    const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630List.do", {
+	    const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3630Report.do", {
 	        getType				: 'json',
 	        workType			: 'REPORT',
+	        userId				: p_userId,
 	        cv_count			: '2',
-	        params				: gfnma_objectToString(paramObj)
+	        params				: gfnma_objectToString(paramObj, true)
 	    });
 	    const data = await postJsonPromise;
+
 	    try {
 	        if (_.isEqual("S", data.resultStatus)) {
+			    return data;
 			} else {
 			    alert(data.resultMessage);
 			    return;
@@ -1033,7 +999,6 @@
 	        console.error("failed", e.message);
 	        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	    }
-	    return data;
 	}
 	
     const fn_sendEmail = async function () {
@@ -1054,7 +1019,7 @@
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
-            V_P_USERID			: '',
+            V_P_USERID			: p_userId,
             V_P_PC				: ''
         };
 
@@ -1085,46 +1050,84 @@
     }
 
     const fn_sendSMS = async function () {
-        let PAY_DATE = gfn_nvl(SBUxMethod.get("PAY_DATE"));
-        let EARNER_CODE = gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-        let TEL_NO = gfn_nvl(SBUxMethod.get("TEL_NO"));
-        let SMS_SEND_YN = gfn_nvl(SBUxMethod.get("SMS_SEND_YN"));
-        let SMS_SEND_MSG = gfn_nvl(SBUxMethod.get("SMS_SEND_MSG"));
-        let SMS_KEY = gfn_nvl(SBUxMethod.get("SMS_KEY"));
-        let SMS_DATA_SET = gfn_nvl(SBUxMethod.get("SMS_DATA_SET"));
+        let checkData 	  = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHK_YN') );
+        if (_.isEmpty(checkData)) {
+            gfn_comAlert("W0001", "SMS 발송할 데이터");
+            return;
+        }
 
-        var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_PAY_DATE : PAY_DATE,
-            V_P_EARNER_CODE : EARNER_CODE,
-            V_P_TEL_NO : TEL_NO,
-            V_P_SMS_SEND_YN : SMS_SEND_YN,
-            V_P_SMS_SEND_MSG : SMS_SEND_MSG,
-            V_P_SMS_KEY : SMS_KEY,
-            V_P_SMS_DATA_SET : SMS_DATA_SET,
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
-        };
+        let paramObj = {};
+        let listData = [];
+        
+        checkData.forEach((item, index) => {
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {
-            getType				: 'json',
-            workType			: 'N',
-            cv_count			: '0',
-            params				: gfnma_objectToString(paramObj)
+            paramObj = {
+                V_P_DEBUG_MODE_YN		: ''
+                ,V_P_LANG_ID			: ''
+                ,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+                ,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+                ,V_P_PAY_DATE_FR        : ''
+                ,V_P_PAY_DATE_TO        : ''
+                ,V_P_SITE_CODE          : ''
+                ,V_P_EARNER_NAME        : ''
+                ,V_P_PAY_DATE           : gfn_nvl(item.data.PAY_DATE)
+                ,V_P_EARNER_CODE        : gfn_nvl(item.data.EARNER_CODE)
+                ,V_P_FORM_ID			: p_formId
+                ,V_P_MENU_ID			: p_menuId
+                ,V_P_PROC_ID			: ''
+                ,V_P_USERID				: p_userId
+                ,V_P_PC					: ''
+            };
+            
+            const param = {
+                cv_count: '0',
+                getType: 'json',
+                workType: 'N',
+                rownum: item.rownum,
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN      : ''
+                    ,V_P_LANG_ID           : ''
+                    ,V_P_COMP_CODE         : gv_ma_selectedCorpCd
+                    ,V_P_CLIENT_CODE       : gv_ma_selectedClntCd
+
+                    ,V_P_RPT_URL 	  			: p_linkRviewUrl						//리포트 링크
+                    ,V_P_MOBL_NO 	  			: gfn_nvl(item.data.MOBILE_PHONE).replace(/-/g,'')		//휴대폰번호
+                    ,V_P_LNKG_UNQ_ID   			: gfnma_generateUUID().replace(/-/g,'')	//UUID
+                    ,V_P_TASK_ID				: "MA"									//업무아이디 AM, CO, MA 경영은 MA 고정
+                    ,V_P_TASK_SE_CD    			: '2'									//업무구분코드 	1:급여, 2용역
+                    ,V_P_RPT_DOC_FILE_PATH     	: "ma/RPT_HRA3630.crf" 					// 보고문서파일경로
+                    ,V_P_PRGRM_NM		    	: 'SP_HRA3630_Q'						// 리포트 조회 프로시저 명		
+                    ,V_P_PRGRM_URL		      	: '/hr/hrp/svc/selectHra3630Report.do'	//리포트 조회 URL
+                    ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 							// 프로시저 워크타입
+                    ,V_P_PRCS_RSLT_NOCS 		: '2'									//프로시저 커서 카운트
+                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj) 		// 리포트 조회 파라미터
+                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.EARNER_CODE)		// 조회 가능 비밀번호
+                    ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
+                    ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
+                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
+                    ,V_P_SYS_FRST_INPT_USER_ID	: p_userId								//시스템최초입력사용자ID
+                    ,V_P_SYS_FRST_INPT_PRGRM_ID	: p_formId								//시스템최초입력프로그램ID
+
+                    ,V_P_FORM_ID           : p_formId
+                    ,V_P_MENU_ID           : p_menuId
+                    ,V_P_PROC_ID           : ''
+                    ,V_P_USERID            : p_userId
+                    ,V_P_PC                : ''
+                }, true)
+            };
+            listData.push(param);
         });
 
+        const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");
-                await fn_search();
+                if (data.resultMessage) {
+                    alert(data.resultMessage);
+                }else {
+                    gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+                }
             } else {
                 alert(data.resultMessage);
             }
@@ -1162,7 +1165,7 @@
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
-                    V_P_USERID : '',
+                    V_P_USERID : p_userId,
                     V_P_PC : ''
                 })
             }
@@ -1216,7 +1219,7 @@
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
-                    V_P_USERID : '',
+                    V_P_USERID : p_userId,
                     V_P_PC : ''
                 })
             }

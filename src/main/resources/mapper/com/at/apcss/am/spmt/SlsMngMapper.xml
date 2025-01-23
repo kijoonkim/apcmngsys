@@ -120,57 +120,60 @@
 	<!--                            -->
 	<!-- ==========================================================================	-->
     <select id="selectSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
-    	<![CDATA[   	
-   		    SELECT
-    			  pt0.*
-    			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
-	    		, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
-	    		, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
-    		 FROM (		
-			    	SELECT /* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc */
-		    			SSUR.APC_CD				AS APC_CD,
-		    			SSUR.SPMT_PCKG_UNIT_CD 	AS SPMT_PCKG_UNIT_CD,
-		    			SPU.SPMT_PCKG_UNIT_NM 	AS SPMT_PCKG_UNIT_NM,
-		    			SPU.ITEM_CD 			AS ITEM_CD,
-		    			SPU.VRTY_CD 			AS VRTY_CD,
-		    			SPU.SPCFCT_CD 			AS SPCFCT_CD,
-		    			SPU.NTSL_UNTPRC 		AS NTSL_UNTPRC,
-		    			SPU.DEL_YN 				AS DEL_YN,
-		    			SPU.RMRK 				AS RMRK,
-		    			SPU.BRND_NM 			AS BRND_NM,
-		    			SSUR.APLCN_CRTR_YMD 	AS APLCN_CRTR_YMD,
-		    			SSUR.SPMT_SLS_UNTPRC_CD AS SPMT_SLS_UNTPRC_CD
-		    		FROM TB_SPMT_PCKG_UNIT SPU 
-		    			LEFT JOIN TB_SPMT_SLS_UNTPRC_REG SSUR
-		    			ON SSUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
-		    		WHERE SSUR.DEL_YN = 'N'
-	    			
-		]]>
-    			<if test='apcCd != null and apcCd != ""'>
-		   			AND SPU.APC_CD = #{apcCd}
+    	<![CDATA[
+			    SELECT
+					  pt0.*
+					, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+					, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
+					, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)		AS SPCFCT_NM
+				 FROM (
+						SELECT /* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprc */
+							SPU.APC_CD					AS APC_CD,
+							SPU.SPMT_PCKG_UNIT_CD 		AS SPMT_PCKG_UNIT_CD,
+							SPU.SPMT_PCKG_UNIT_NM 		AS SPMT_PCKG_UNIT_NM,
+							SPU.ITEM_CD 				AS ITEM_CD,
+							SPU.VRTY_CD 				AS VRTY_CD,
+							SPU.SPCFCT_CD 				AS SPCFCT_CD,
+							SPU.NTSL_UNTPRC 			AS NTSL_UNTPRC,
+							SPU.DEL_YN 					AS DEL_YN,
+							SPU.GDS_GRD					AS GDS_GRD,
+							SPU.BRND_NM 				AS BRND_NM,
+							SSUR.APLCN_CRTR_YMD 		AS APLCN_CRTR_YMD,
+							SSUR.SPMT_SLS_UNTPRC 		AS SPMT_SLS_UNTPRC,
+							SSUR.RMRK					AS RMRK
+						FROM TB_SPMT_PCKG_UNIT SPU
+							LEFT JOIN TB_SPMT_SLS_UNTPRC_REG SSUR
+							ON SSUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+							AND SSUR.APC_CD = SPU.APC_CD
+						WHERE SPU.DEL_YN = 'N'
+						    AND SSUR.DEL_YN = 'N'
+
+			]]>
+				<if test='apcCd != null and apcCd != ""'>
+					AND SPU.APC_CD = #{apcCd}
 				</if>
-				<if test='aplcnCrtrYmdFrom != null and apcCd != ""'>
-		    		AND SSUR.APLCN_CRTR_YMD <![CDATA[>=]]> #{aplcnCrtrYmdFrom}
+				<if test='aplcnCrtrYmd != null and aplcnCrtrYmd != ""'>
+					AND  SSUR.APLCN_CRTR_YMD = #{aplcnCrtrYmd}
 				</if>
-				<if test='aplcnCrtrYmdTo != null and apcCd != ""'>
-	    			AND SSUR.APLCN_CRTR_YMD <![CDATA[<=]]> #{aplcnCrtrYmdTo}
+				<if test='itemCd != null and itemCd != ""'>
+					AND  SPU.ITEM_CD = #{itemCd}
 				</if>
-				<if test='itemCd != null and apcCd != ""'>
-		    		AND SPU.ITEM_CD = #{itemCd}
+				<if test='vrtyCd != null and vrtyCd != ""'>
+					AND  SPU.VRTY_CD = #{vrtyCd}
 				</if>
-				<if test='vrtyCd != null and apcCd != ""'>
-		    		AND SPU.VRTY_CD = #{vrtyCd}	
-				</if>	
-				<![CDATA[
+				<if test='gdsNm != null and gdsNm != ""'>
+					AND  SPU.SPMT_PCKG_UNIT_NM LIKE '%'||#{gdsNm}||'%'
+				</if>
+		<![CDATA[
 		    		  ) pt0
-				]]>
-									
-    
-    </select>
+			]]>
+
+
+	</select>
     
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsUntprc  	-->
-	<!-- DESC : 매출단가삭제	                                             		-->
+	<!-- DESC : 매출단가 삭제	                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -189,57 +192,119 @@
     		AND SPMT_SLS_UNTPRC_CD = #{spmtSlsUntprcCd}
 		]]>			
     </update>
-    
 
-  
-  
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSpmtPckgUnitCd  	-->
-	<!-- DESC : 매출단가변경	                                             		-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl			-->
+	<!-- DESC : 매출단가상세조회 			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!--                       -->
+	<!--                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSpmtPckgUnitCd" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
-    	<![CDATA[
-	    	UPDATE /*com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSpmtPckgUnitCd*/	
-	    		TB_SPMT_PCKG_UNIT 
-    		SET NTSL_UNTPRC = #{ntslUntprc}
-    			, SYS_LAST_CHG_DT = SYSDATE
-				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
-				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
-    		WHERE APC_CD = #{apcCd}
-    			AND SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
-	    		AND ITEM_CD = #{itemCd}
-	    	
-	    			    			
-		]]>			
-    </update>
-    
-    <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSpmtSlsUntprcReg  	-->
-	<!-- DESC : 매출단가변경	                                             		-->
+	<select id="selectSlsUntprcDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+
+						SELECT /* com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsUntprcDtl */
+							SSUR.APC_CD					AS APC_CD
+							,SSUR.SPMT_PCKG_UNIT_CD 	AS SPMT_PCKG_UNIT_CD
+							,SSUR.SPMT_SLS_UNTPRC_CD	AS SPMT_SLS_UNTPRC_CD
+							,SSUR.SPMT_SLS_UNTPRC		AS SPMT_SLS_UNTPRC
+							,SSUR.RMRK					AS RMRK
+							,SSUR.DEL_YN				AS DEL_YN
+							,SSUR.APLCN_CRTR_YMD 		AS APLCN_CRTR_YMD
+						FROM
+						     TB_SPMT_SLS_UNTPRC_REG SSUR
+							LEFT JOIN TB_SPMT_PCKG_UNIT SPU
+							ON SSUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+						    AND SSUR.APC_CD = SPU.APC_CD
+						WHERE SPU.DEL_YN = 'N'
+						  AND SSUR.DEL_YN = 'N'
+
+			]]>
+					<if test='apcCd != null and apcCd != ""'>
+						AND SSUR.APC_CD = #{apcCd}
+					</if>
+					<if test='itemCd != null and itemCd != ""'>
+						AND SPU.ITEM_CD = #{itemCd}
+					</if>
+					<if test='vrtyCd != null and vrtyCd != ""'>
+						AND SPU.VRTY_CD = #{vrtyCd}
+					</if>
+					<if test='spcfctCd != null and spcfctCd != ""'>
+						AND SPU.SPCFCT_CD = #{spcfctCd}
+					</if>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsUntprc			-->
+	<!-- DESC : 매출단가 변경			                      	             	 	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!--                       -->
+	<!--                            -->
 	<!-- ==========================================================================	-->
-    <update id="updateSpmtSlsUntprcReg" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
-    	<![CDATA[
-	    	UPDATE /*com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSpmtSlsUntprcReg*/
-	    		TB_SPMT_SLS_UNTPRC_REG 
-    		SET APLCN_CRTR_YMD = #{aplcnCrtrYmd}
-    			, SYS_LAST_CHG_DT = SYSDATE
-				, SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
-				, SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
-    		WHERE APC_CD = #{apcCd}
-    		AND SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
-    		AND SPMT_SLS_UNTPRC_CD = #{spmtSlsUntprcCd}
-	    			    			
-		]]>			
-    </update>
-	
+
+	<update id="updateSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			UPDATE
+				TB_SPMT_SLS_UNTPRC_REG
+			SET
+			    SPMT_SLS_UNTPRC = #{spmtSlsUntprc}
+				,RMRK = #{rmrk}
+				,APLCN_CRTR_YMD = #{aplcnCrtrYmd}
+			  	,SYS_LAST_CHG_DT = SYSDATE
+				,SYS_LAST_CHG_USER_ID = #{spmtPckgUnitCd}
+				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE
+			    APC_CD = #{apcCd}
+				AND SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+				AND SPMT_SLS_UNTPRC_CD = #{spmtSlsUntprcCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsUntprc			-->
+	<!-- DESC : 매출단가 등록			                      	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                            -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSlsUntprc" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			INSERT INTO
+			    TB_SPMT_SLS_UNTPRC_REG
+				(
+					APC_CD
+					,SPMT_PCKG_UNIT_CD
+					,SPMT_SLS_UNTPRC_CD
+					,SPMT_SLS_UNTPRC
+					,RMRK
+					,SYS_FRST_INPT_DT
+					,SYS_FRST_INPT_USER_ID
+					,SYS_FRST_INPT_PRGRM_ID
+					,SYS_LAST_CHG_DT
+					,SYS_LAST_CHG_USER_ID
+					,SYS_LAST_CHG_PRGRM_ID
+					,APLCN_CRTR_YMD
+				)
+				VALUES (
+				        #{apcCd}
+				        ,#{spmtPckgUnitCd}
+				        ,(SELECT FN_GET_ID_SPMT_SLS_UNTPRC_CD(#{apcCd}) FROM DUAL)
+				        ,#{spmtSlsUntprc}
+				        ,#{rmrk}
+				        ,SYSDATE
+				        ,#{sysFrstInptUserId}
+				        ,#{sysFrstInptPrgrmId}
+				        ,SYSDATE
+				        ,#{sysLastChgUserId}
+				        ,#{sysLastChgPrgrmId}
+				        ,#{aplcnCrtrYmd}
+					   )
+		]]>
+	</insert>
 </mapper>
 
 

@@ -183,7 +183,7 @@
 		]]>
 	</delete>
 
-		<!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlan	-->
 	<!-- DESC : 실사기준 수정		                                       	-->
 	<!-- ==========================================================================	-->
@@ -206,6 +206,26 @@
 
 		]]>
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn	-->
+	<!-- DESC : 실사기준 수정		                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.14  	박승진        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="updateInvntrAiMngYn" parameterType="com.at.apcss.am.invntr.vo.InvntrAiMngVO">
+		<![CDATA[
+			UPDATE  /* com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.updateInvntrAiPlanYn */
+			   TB_INVNTR_AI_PLAN SET
+				AI_YN = #{aiYn}
+			 WHERE APC_CD = #{apcCd}
+			   AND PLANNO = #{planno}
+
+		]]>
+	</update>
+
 
 			<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.InvntrAiMngMapper.insertInvntrAiPlan	-->

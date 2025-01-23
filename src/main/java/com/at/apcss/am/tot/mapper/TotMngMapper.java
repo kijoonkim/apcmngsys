@@ -199,4 +199,21 @@ public interface TotMngMapper {
 	 * @throws Exception
 	 */
     List<HashMap<String, Object>> selectPrdctnVol(HashMap<String, Object> param) throws Exception;
+
+	/**
+	 * 품목별 선별 실적 분석
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectItemClsSortPrfmncAnls(TotRsltVO totMngVO);
+
+	/**
+	 * 선별 실적 분석
+	 * @param HashMap<String,Object>
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectSortPrfmncAnls(TotRsltVO totMngVO);
+
+
+
 }
