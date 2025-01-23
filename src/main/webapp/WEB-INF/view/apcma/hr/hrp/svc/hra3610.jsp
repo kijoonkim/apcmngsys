@@ -142,12 +142,12 @@
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="EARNER_NAME1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
-                                            <td></td>
+                                            <td></td><%--
                                             <th scope="row" class="th_bg">주민등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="SOCIAL_NO1" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panResidentInfo" required></sbux-input>
                                                 <sbux-input id="JUMIN" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                            </td>
+                                            </td>--%>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">사업자등록번호</th>
@@ -350,12 +350,12 @@
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="EARNER_NAME3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-input id="EARNER_CODE1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                            </td>
+                                            </td><%--
                                             <th scope="row" class="th_bg">주민(사업자)등록번호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="SOCIAL_NO3" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" style="display: none;"></sbux-select>
-                                            </td>
+                                            </td>--%>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">내·외국인구분</th>
@@ -726,8 +726,8 @@
                 , hidden: true
             },
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
-            {caption: ["주민등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
+/*            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+            {caption: ["주민등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},*/
             {caption: ["사업자등록번호"],         ref: 'BIZ_REGNO',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["상호"],         ref: 'COMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["거주지국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -820,8 +820,8 @@
                 , hidden: true
             },
             {caption: ["소득자성명(상호)"],         ref: 'EARNER_NAME',    type:'output',  	width:'80px',  style:'text-align:left'},
-            {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
-            {caption: ["주민(사업자)등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},
+            /*{caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
+            {caption: ["주민(사업자)등록번호"],         ref: 'SOCNO_REAL',    type:'output',  	width:'110px',  style:'text-align:left'},*/
             {caption: ["사업자등록번호"],         ref: 'BIZ_REGNO',    type:'output',  	width:'100px',  style:'text-align:left'},
             {caption: ["상호"],         ref: 'COMP_NAME',    type:'output',  	width:'100px',  style:'text-align:left', hidden: true},
             {caption: ["거주지국"], 		ref: 'NATION_CODE',   	    type:'combo', style:'text-align:left' ,width: '100px',
@@ -911,7 +911,7 @@
             SBUxMethod.set("SITE_CODE", gfn_nvl(rowData.SITE_CODE));
             SBUxMethod.set("TAX_SITE_CODE1", gfn_nvl(rowData.TAX_SITE_CODE));
             SBUxMethod.set("EARNER_NAME1", gfn_nvl(rowData.EARNER_NAME));
-            SBUxMethod.set("SOCIAL_NO1", gfn_nvl(rowData.SOCNO_REAL));
+            /*SBUxMethod.set("SOCIAL_NO1", gfn_nvl(rowData.SOCNO_REAL));*/
             SBUxMethod.set("BIZ_REGNO1", gfn_nvl(rowData.BIZ_REGNO));
             SBUxMethod.set("COMP_NAME", gfn_nvl(rowData.COMP_NAME));
             SBUxMethod.set("NATION_CODE", gfn_nvl(rowData.NATION_CODE));
@@ -933,8 +933,8 @@
             gfnma_multiSelectSet('#PAY_CYCLE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.PAY_CYCLE));
             SBUxMethod.set("MEMO", gfn_nvl(rowData.MEMO));
 
-            SBUxMethod.set("SOCIAL_NO1", gvwResident.getCellData(nRow, gvwResident.getColRef("SOCNO_REAL")));
-            SBUxMethod.set("JUMIN", "");
+            /*SBUxMethod.set("SOCIAL_NO1", gvwResident.getCellData(nRow, gvwResident.getColRef("SOCNO_REAL")));*/
+            /*SBUxMethod.set("JUMIN", "");*/
         } else if(enableTab == "tpgNonresident") {
             var nRow = gvwNonresident.getRow();
             if(nRow < 1) return;
@@ -944,7 +944,7 @@
             SBUxMethod.set("SITE_CODE1", gfn_nvl(rowData.SITE_CODE));
             SBUxMethod.set("TAX_SITE_CODE2", gfn_nvl(rowData.TAX_SITE_CODE));
             SBUxMethod.set("EARNER_NAME3", gfn_nvl(rowData.EARNER_NAME));
-            SBUxMethod.set("SOCIAL_NO3", gfn_nvl(rowData.SOCNO_REAL));
+            /*SBUxMethod.set("SOCIAL_NO3", gfn_nvl(rowData.SOCNO_REAL));*/
             SBUxMethod.set("NATION_CODE1", gfn_nvl(rowData.NATION_CODE));
             gfnma_multiSelectSet('#FOREIGN_TYPE1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.FOREI_TYPE));
             gfnma_multiSelectSet('#WORK_REGION1', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.WORK_REGION));
@@ -959,7 +959,7 @@
             SBUxMethod.set("BIRTHDAY", gfn_nvl(rowData.BIRTHDAY));
             SBUxMethod.set("MEMO1", gfn_nvl(rowData.MEMO));
 
-            SBUxMethod.set("SOCIAL_NO3", gvwNonresident.getCellData(nRow, gvwNonresident.getColRef("SOCNO_REAL")));
+            /*SBUxMethod.set("SOCIAL_NO3", gvwNonresident.getCellData(nRow, gvwNonresident.getColRef("SOCNO_REAL")));*/
         }
 
         SBUxMethod.attr("EARNER_CODE", "readonly", true);
@@ -1269,7 +1269,7 @@
             IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
             V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
             V_P_EARNER_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_NAME1")) : gfn_nvl(SBUxMethod.get("EARNER_NAME3")),
-            V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),
+            /*V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),*/
             V_P_BIZ_REGNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BIZ_REGNO1")) : "",
             V_P_COMP_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("COMP_NAME")) : "",
             V_P_NATION_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("NATION_CODE")) : gfn_nvl(SBUxMethod.get("NATION_CODE1")),
@@ -1364,7 +1364,7 @@
                 IV_P_EARNER_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_CODE")) : gfn_nvl(SBUxMethod.get("EARNER_CODE1")),
                 V_P_SITE_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SITE_CODE")) : gfn_nvl(SBUxMethod.get("SITE_CODE1")),
                 V_P_EARNER_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("EARNER_NAME1")) : gfn_nvl(SBUxMethod.get("EARNER_NAME3")),
-                V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),
+                /*V_P_SOCNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("SOCIAL_NO1")) : gfn_nvl(SBUxMethod.get("SOCIAL_NO3")),*/
                 V_P_BIZ_REGNO : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("BIZ_REGNO1")) : "",
                 V_P_COMP_NAME : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("COMP_NAME")) : "",
                 V_P_NATION_CODE : enableTab == "tpgResident" ? gfn_nvl(SBUxMethod.get("NATION_CODE")) : gfn_nvl(SBUxMethod.get("NATION_CODE1")),
@@ -1463,8 +1463,8 @@
                             SITE_CODE: item.SITE_CD,
                             TAX_SITE_CODE: item.TX_BPLC_CD,
                             EARNER_NAME: item.EARNR_NM,
-                            SOCNO: item.RGDT_NO,
-                            SOCNO_REAL: item.SOCNO_REAL,
+/*                            SOCNO: item.RGDT_NO,
+                            SOCNO_REAL: item.SOCNO_REAL,*/
                             BIZ_REGNO: item.BRNO,
                             COMP_NAME: item.CONM_NM,
                             NATION_CODE: item.HBTN_NTN_CD,
@@ -1510,8 +1510,8 @@
                             SITE_CODE: item.SITE_CD,
                             TAX_SITE_CODE: item.TX_BPLC_CD,
                             EARNER_NAME: item.EARNR_NM,
-                            SOCNO: item.RGDT_NO,
-                            SOCNO_REAL: item.SOCNO_REAL,
+/*                            SOCNO: item.RGDT_NO,
+                            SOCNO_REAL: item.SOCNO_REAL,*/
                             BIZ_REGNO: item.BRNO,
                             COMP_NAME: item.CONM_NM,
                             NATION_CODE: item.HBTN_NTN_CD,

@@ -113,6 +113,30 @@ public interface DscdCrtrMapper {
     public int deleteDscdCrtrDtl(DscdCrtrVO dscdCrtrVO) throws Exception;
 
     /**
+     * 폐기 등록 - 재고 목록 조회 (원물)
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectRawMtrInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 등록 - 재고 목록 조회 (선별)
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectSortInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
+     * 폐기 등록 - 재고 목록 조회 (상품)
+     * @param dscdCrtrVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdCrtrVO> selectGdsInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception;
+
+    /**
      * 폐기 등록 - 폐기 등록 목록 조회
      * @param dscdCrtrVO
      * @return

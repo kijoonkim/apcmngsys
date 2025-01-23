@@ -142,7 +142,7 @@
 	                        	<sbux-button id="btnTaxSiteStamp" name="btnTaxSiteStamp" uitype="normal" text="사용인감 추가" class="btn btn-sm btn-outline-danger"  style="float: right; margin-right:1rem;"></sbux-button>
 	                        </div>
                         </div>
-		                <table class="table table-bordered tbl_fixed">
+		                <table id="dataTable1" class="table table-bordered tbl_fixed">
 		                    <caption>검색 조건 설정</caption>
 		                    <colgroup>
 								<col style="width: 20%">
@@ -191,14 +191,8 @@
 		                            </td>		                        
 		                        </tr>
 		                        <tr>
-			                        <th scope="row" class="th_bg">대표주민번호</th>
-		                            <td class="td_input"  style="border-right:hidden;width:100%;">
-		                                <sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm " style="width:100%"></sbux-input>		
-		                            </td>		                        
-		                        </tr>
-		                        <tr>
 			                        <th scope="row" class="th_bg">업태</th>
-		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="3">
+		                            <td class="td_input"  style="border-right:hidden;width:100%;" colspan="">
 		                                <sbux-input uitype="text" id="BIZ_CATEGORY" class="form-control input-sm " style="width:100%" ></sbux-input>		
 		                            </td>		                        
 		                        </tr>
@@ -612,12 +606,12 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-				fixedstyle : 'background-color:#f1ffd9;',	width:'150px',	style:'text-align:center'	
+					width:'150px',	style:'text-align:center'	
 		    },	
 			{	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-		    	fixedstyle : 'background-color:#f1ffd9;', width:'150px',	style:'text-align:center'	
+		    	 width:'150px',	style:'text-align:center'	
 		    },	
-	        { caption: ["사업장명"],   ref: 'TAX_SITE_NAME',	  type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;', },
+	        { caption: ["사업장명"],   ref: 'TAX_SITE_NAME',	  type: 'input', width: '120px', style: 'text-align:left',  },
 	        { caption: ["종사업장번호"], ref: 'BIZ_SUBNO',       type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["사업자번호"], ref: 'BIZ_REGNO', type: 'input',  width: '120px', style: 'text-align:left' },
             {caption: ["통화코드"],	ref: 'CURRENCY_CODE', 	type:'combo',  	width:'100px',  	style:'text-align:center',
@@ -629,12 +623,11 @@
             	}
             },
 	        
-	        { caption: ["업태"], ref: 'BIZ_CATEGORY', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["종목"], ref: 'BIZ_ITEMS', type: 'input',  width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["대표자"],  ref: 'CHIEF_NAME', type: 'input', width: '120px',  style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["대표주민번호"],  ref: 'CHIEF_SOCIALNO', type: 'input', width: '120px',  style: 'text-align:left' },
-	        { caption: ["우편번호"], ref: 'ZIP_CODE', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
-	        { caption: ["주소"], ref: 'ADDRESS', type: 'input', width: '120px', style: 'text-align:left', fixedstyle : 'background-color:#f1ffd9;' },
+	        { caption: ["업태"], ref: 'BIZ_CATEGORY', type: 'input', width: '120px', style: 'text-align:left',  },
+	        { caption: ["종목"], ref: 'BIZ_ITEMS', type: 'input',  width: '120px', style: 'text-align:left',  },
+	        { caption: ["대표자"],  ref: 'CHIEF_NAME', type: 'input', width: '120px',  style: 'text-align:left',  },
+	        { caption: ["우편번호"], ref: 'ZIP_CODE', type: 'input', width: '120px', style: 'text-align:left',  },
+	        { caption: ["주소"], ref: 'ADDRESS', type: 'input', width: '120px', style: 'text-align:left',  },
 	        { caption: ["교부일"], ref: 'ISSUE_DATE', type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["교부사유"], ref: 'ISSUE_REASON', type: 'input', width: '120px', style: 'text-align:left' },
 	        { caption: ["비고"], ref: 'MEMO', type: 'input', width: '120px', style: 'text-align:left' },
@@ -660,13 +653,13 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.columns = [
 			{	caption:['적용시작일'],	ref:'APPLY_START_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},
-		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'	
+		    	width:'150px',	style:'text-align:center', 	
 		    },	
 		    {	caption:['적용종료일'],	ref:'APPLY_END_DATE',	type:'inputdate',	typeinfo:{	dateformat:"yyyy-mm-dd"	,displayui:true	},	
-		    	width:'150px',	style:'text-align:center', fixedstyle : 'background-color:#f1ffd9;'
+		    	width:'150px',	style:'text-align:center', 
 		    },
-		    {	caption:["월발행한도"],	ref:'ISSUE_LIMIT_MONTH',	type:'input',	width:'150px',	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'	},
-		    {	caption:["1회발행한도"],	ref:'ISSUE_LIMIT_ONCE',	type:'input',	width:'150px',	style:'text-align:left', fixedstyle : 'background-color:#f1ffd9;'	},
+		    {	caption:["월발행한도"],	ref:'ISSUE_LIMIT_MONTH',	type:'input',	width:'150px',	style:'text-align:left', 	},
+		    {	caption:["1회발행한도"],	ref:'ISSUE_LIMIT_ONCE',	type:'input',	width:'150px',	style:'text-align:left', 	},
 		    {	caption:["사업장코드"],	ref:'TAX_SITE_CODE',	type:'input',	width:'150px',	style:'text-align:left', hidden: true	}
 	    ];
 	    limitGrid = _SBGrid.create(SBGridProperties);
@@ -714,8 +707,6 @@
 	                    TAX_SITE_NAME: gfnma_nvl(item.TX_SITE_NM),
 	                    BIZ_REGNO: gfnma_nvl(item.BRNO),
 	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
-	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
 	                    TAX_SITE_STAMP: gfnma_nvl(item.TX_SITE_OS),
 	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
 	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
@@ -798,8 +789,6 @@
 	                    BIZ_CATEGORY: gfnma_nvl(item.BZSTAT),
 	                    BIZ_ITEMS: gfnma_nvl(item.TPBIZ),
 	                    CHIEF_NAME: gfnma_nvl(item.CEO_NM),
-	                    CHIEF_SOCIALNO: gfnma_nvl(item.CEO_RRNO),
-	                    CHIEF_SOCIALNO_REAL: gfnma_nvl(item.CHIEF_SOCIALNO_REAL),
 	                    ZIP_CODE: gfnma_nvl(item.ZIP_CD),
 	                    ADDRESS: gfnma_nvl(item.ADDR),
 	                    ISSUE_DATE: gfnma_nvl(item.ISSU_YMD),
@@ -920,8 +909,6 @@
 		    	    SBUxMethod.set("TAX_SITE_NAME", gfnma_nvl(obj.TX_SITE_NM));
 		    	    SBUxMethod.set("BIZ_REGNO1", gfnma_nvl(obj.BRNO));
 		    	    SBUxMethod.set("CHIEF_NAME", gfnma_nvl(obj.CEO_NM));
-		    	    SBUxMethod.set("CHIEF_SOCIALNO", gfnma_nvl(obj.CEO_RRNO));
-		    	    SBUxMethod.set("CHIEF_SOCIALNO_REAL", gfnma_nvl(obj.CHIEF_SOCIALNO_REAL));
 		    	    SBUxMethod.set("BIZ_CATEGORY", gfnma_nvl(obj.BZSTAT));
 		    	    SBUxMethod.set("BIZ_ITEMS", gfnma_nvl(obj.TPBIZ));
 		    	    SBUxMethod.set("ZIP_CODE", gfnma_nvl(obj.ZIP_CD));
@@ -971,8 +958,6 @@
 	    SBUxMethod.set("TAX_SITE_NAME", "");
 	    SBUxMethod.set("BIZ_REGNO1", "");
 	    SBUxMethod.set("CHIEF_NAME", "");
-	    SBUxMethod.set("CHIEF_SOCIALNO", "");
-	    SBUxMethod.set("CHIEF_SOCIALNO_REAL", "");
 	    SBUxMethod.set("BIZ_CATEGORY", "");
 	    SBUxMethod.set("BIZ_ITEMS", "");
 	    SBUxMethod.set("ZIP_CODE", "");
@@ -1041,7 +1026,6 @@
     			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
     			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
     			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_CHIEF_SOCIALNO      : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO"))
     			  ,V_P_TAX_SITE_STAMP      : ''
     			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
     			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
@@ -1104,7 +1088,6 @@
     			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
     			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
     			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_CHIEF_SOCIALNO      : gfnma_nvl(SBUxMethod.get("CHIEF_SOCIALNO"))
     			  ,V_P_TAX_SITE_STAMP      : ''
     			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
     			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
@@ -1278,7 +1261,6 @@
             		  ,V_P_BIZ_CATEGORY         : gfnma_nvl(item.data.BIZ_CATEGORY)
             		  ,V_P_BIZ_ITEMS            : gfnma_nvl(item.data.BIZ_ITEMS)
             		  ,V_P_CHIEF_NAME           : gfnma_nvl(item.data.CHIEF_NAME)
-            		  ,V_P_CHIEF_SOCIALNO       : gfnma_nvl(item.data.CHIEF_SOCIALNO)
             		  ,V_P_ZIP_CODE             : gfnma_nvl(item.data.ZIP_CODE)
             		  ,V_P_ADDRESS              : gfnma_nvl(item.data.ADDRESS)
             		  ,V_P_ISSUE_DATE           : gfnma_nvl(item.data.ISSUE_DATE)
@@ -1416,8 +1398,6 @@
 	        }
 	    }
 	}
-	
-	    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

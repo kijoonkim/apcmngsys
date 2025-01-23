@@ -200,8 +200,7 @@ public class DscdCrtrVO extends ComVO {
     /**
      * 재고 번호
      */
-    private String invntrNo;
-    private String pckgno;
+    private String invntrno;
 
     /**
      * 재고 일련번호 (재고 순번)
@@ -211,7 +210,12 @@ public class DscdCrtrVO extends ComVO {
     /**
      * 대표 생산자 코드
      */
-    private String rprsPrdcdCd;
+    private String rprsPrdcrCd;
+
+    /**
+     * 대표 생산자명
+     */
+    private String rprsPrdcrNm;
 
     /**
      * 생산자 코드
@@ -259,6 +263,11 @@ public class DscdCrtrVO extends ComVO {
     private String spcfctCd;
 
     /**
+     * 규격명
+     */
+    private String spcfctNm;
+
+    /**
      * 출고 포장 단위 코드 (출하 포장 단위 코드)
      */
     private String spmtPckgUnitCd;
@@ -282,13 +291,31 @@ public class DscdCrtrVO extends ComVO {
      * 폐기 수량
      */
     private int dscdQntt;
+
+    /**
+     * 재고 수량
+     */
     private int invntrQntt;
+
+    /**
+     * 재고 수량
+     */
+    private int invntrDscdQntt;
 
     /**
      * 폐기 중량 (폐기 무게)
      */
     private double dscdWght;
+
+    /**
+     * 재고 중량
+     */
     private double invntrWght;
+
+    /**
+     * 재고 중량
+     */
+    private double invntrDscdWght;
 
     /**
      * 폐기 사유
@@ -299,6 +326,71 @@ public class DscdCrtrVO extends ComVO {
      * 폐기 번호
      */
     private String dscdNo;
+
+    /**
+     * 재고일자
+     */
+    private String invntrYmd;
+
+    /**
+     * 입고 시작일자
+     */
+    private String invntrYmdFrom;
+
+    /**
+     * 입고 종료일자
+     */
+    private String invntrYmdTo;
+
+    /**
+     * 입고일자
+     */
+    private String wrhsYmd;
+
+    /**
+     * 팔레트번호
+     */
+    private String pltno;
+
+    /**
+     * 등급명
+     */
+    private String grdNm;
+
+    /**
+     * 창고명
+     */
+    private String warehouseSeNm;
+
+    /**
+     * 선별일자
+     */
+    private String sortYmd;
+
+    /**
+     * 선별번호
+     */
+    private String sortno;
+
+    /**
+     * 포장일자
+     */
+    private String pckgYmd;
+
+    /**
+     * 포장번호
+     */
+    private String pckgno;
+
+    /**
+     * 상품명
+     */
+    private String gdsNm;
+
+    /**
+     * 불량코드
+     */
+    private String badCd;
 
     /**
      * 폐기 실적 목록

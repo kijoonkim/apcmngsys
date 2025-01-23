@@ -2945,7 +2945,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
         var replaceText0 	= "_EMP_CD_";
         var replaceText1 	= "_EMP_NM_";
-        var strWhereClause 	= "AND EMP_CODE LIKE '%" + replaceText0 + "%' AND EMP_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND EMP_CD LIKE '%" + replaceText0 + "%' AND EMP_NM LIKE '%" + replaceText1 + "%' ";
 
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '담당자정보');
@@ -3020,7 +3020,7 @@
         var replaceText0 	= "_CSTCT_CD_";
         var replaceText1 	= "_CSTCT_NM_";
 
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
@@ -3054,8 +3054,8 @@
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get("srch-dsps-expenseCsCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-expenseCsName"));
-        var replaceText0 	= "_CS_CD_";
-        var replaceText1 	= "_CS_NM_";
+        var replaceText0 	= "_CNPT_CD_";
+        var replaceText1 	= "_CNPT_NM_";
         var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '비용거래처');
@@ -3066,11 +3066,11 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CS_CD", 	"CS_NM"]
+   			,searchInputFields		: ["CNPT_CD", 	"CNPT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["비용거래처코드", 	"비용거래처명"]
-   			,tableColumnNames		: ["CS_CD", 	"CS_NM"]
+   			,tableColumnNames		: ["CNPT_CD", 	"CNPT_NM"]
    			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('srch-dsps-expenseCsCode', 		data.CNPT_CD);
@@ -3092,7 +3092,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-dsps-expenseAccountName"));
         var replaceText0 	= "_ACNTL_CD_";
         var replaceText1 	= "_ACNT_NM_";
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '처분비용계정');
     	compopup1({

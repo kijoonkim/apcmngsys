@@ -168,6 +168,24 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
     }
 
     @Override
+    public List<DscdCrtrVO> selectRawMtrInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectRawMtrInvntrList(dscdCrtrVO);
+        return resultList;
+    }
+
+    @Override
+    public List<DscdCrtrVO> selectSortInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectSortInvntrList(dscdCrtrVO);
+        return resultList;
+    }
+
+    @Override
+    public List<DscdCrtrVO> selectGdsInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
+        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectGdsInvntrList(dscdCrtrVO);
+        return resultList;
+    }
+
+    @Override
     public List<DscdCrtrVO> selectDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
         return dscdCrtrMapper.selectDscdRegList(dscdCrtrVO);
     }
@@ -185,13 +203,9 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
 
     @Override
     public int deleteDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        int deleteCnt = 0;
-        deleteCnt = dscdCrtrMapper.deleteDscdRegList(dscdCrtrVO);
-        if(deleteCnt <= 0) {
-            throw new EgovBizException();
-        }
+        dscdCrtrMapper.deleteDscdRegList(dscdCrtrVO);
 
-        return deleteCnt;
+        return 0;
     }
 
     @Override

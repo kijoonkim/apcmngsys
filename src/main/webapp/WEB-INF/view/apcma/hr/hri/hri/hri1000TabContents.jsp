@@ -2025,7 +2025,7 @@
         SBUxMethod.set("GUARANTOR2_ADDRESS", "");
 
         // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
-        jsonFamilyList.length = 0;
+        /*jsonFamilyList.length = 0;*/
         jsonSchoolList.length = 0;
         jsonCareerList.length = 0;
         jsonLicenseList.length = 0;
@@ -2047,7 +2047,7 @@
         jsonEmpList.length = 0;
         /*jsonExpenditurewelfareList.length = 0;*/
 
-        gvwFamily.rebuild();
+        /*gvwFamily.rebuild();*/
         gvwSchool.rebuild();
         gvwCareer.rebuild();
         gvwLicense.rebuild();

@@ -223,16 +223,18 @@
                                         <sbux-input id="SIGN_IMG_PATH" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                         <sbux-input id="SIGN_IMG_NAME" class="form-control input-sm" uitype="hidden" style="width:100%;" readonly></sbux-input>
                                     </td>
+                                    <%--
                                     <th scope="row" class="th_bg"><span class="data_required"></span>주민등록번호</th>
                                     <td colspan="2" class="td_input">
                                         <sbux-input id="DISPLAY_SOCIAL_NUM" class="form-control input-sm" uitype="text" style="width:100%;"></sbux-input>
                                         <sbux-input id="SOCIAL_NUM" class="form-control input-sm inpt_data_reqed" uitype="text" style="width:100%" mask = "999999-9999999" onchange="fnSocialNumChange(SOCIAL_NUM)" group-id="panInfo" required></sbux-input>
                                     </td>
-                                    <td></td>
+                                    <td></td>--%>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>재직구분</th>
                                     <td class="td_input">
                                         <sbux-select id="EMP_STATE" uitype="single" jsondata-ref="jsonEmpState" unselected-text="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" required></sbux-select>
                                     </td>
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th scope="row" class="th_bg"><span class="data_required"></span>이름</th>
@@ -1422,6 +1424,7 @@
     const fn_onload = async function () {
         // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
         SBUxMethod.hideTab('idxTab_norm', 'tpgMasterSubDetail4');
+        SBUxMethod.hideTab('idxTab_norm', 'tpgFAMILY');
         SBUxMethod.hideTab('idxTab_norm', 'tpgHealth');
         SBUxMethod.hideTab('idxTab_norm', 'tpgGroupInsurance');
         SBUxMethod.hideTab('idxTab_norm', 'tpgDisease');
@@ -1458,8 +1461,8 @@
         SBUxMethod.set("CAREER_TRACK", 0);
         SBUxMethod.set("START_PAY_GRADE", 0);
         SBUxMethod.set("CURRENT_PAY_GRADE", 0);
-        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
-        SBUxMethod.show('SOCIAL_NUM');
+        /*SBUxMethod.hide('DISPLAY_SOCIAL_NUM');*/
+        /*SBUxMethod.show('SOCIAL_NUM');*/
 
         SBUxMethod.set("SRCH_INITIAL_DATE", gfn_dateToYmd(new Date()));
 
@@ -1506,7 +1509,7 @@
         // TODO : 단위테스트 요청으로 탭 숨김처리하면서 그리드도 같이 주석 처리
         await fn_initSBSelect();
         fn_createGvwListGrid();
-        fn_createGvwFamilyGrid();
+        /*fn_createGvwFamilyGrid();*/
         fn_createGvwSchoolGrid();
         fn_createGvwCareerGrid();
         fn_createGvwLicenseGrid();
@@ -1707,8 +1710,8 @@
     const fn_create = async function() {
         editType = "N";
         SBUxMethod.set("EMP_CODE", "");
-        SBUxMethod.set("DISPLAY_SOCIAL_NUM", "");
-        SBUxMethod.set("SOCIAL_NUM", "");
+        /*SBUxMethod.set("DISPLAY_SOCIAL_NUM", "");*/
+        /*SBUxMethod.set("SOCIAL_NUM", "");*/
         SBUxMethod.set("POSITION_CODE", "");
         SBUxMethod.set("POSITION_CODE_PERIOD", "");
         SBUxMethod.set("EMP_NAME", "");
@@ -1767,8 +1770,8 @@
         SBUxMethod.set("ANNUAL_BASE_DATE", "");
         SBUxMethod.set("CURRENT_PAY_GRADE", 0);
         SBUxMethod.set("CURRENT_PAY_GRADE_DATE", "");
-        SBUxMethod.hide('DISPLAY_SOCIAL_NUM');
-        SBUxMethod.show('SOCIAL_NUM');
+        /*SBUxMethod.hide('DISPLAY_SOCIAL_NUM');*/
+        /*SBUxMethod.show('SOCIAL_NUM');*/
         SBUxMethod.attr('EMP_CODE', 'readonly', 'false');
         SBUxMethod.attr('POSITION_CODE', 'readonly', 'false');
         SBUxMethod.attr('JOB_GROUP', 'readonly', 'false');
@@ -1841,7 +1844,7 @@
                             var paramObj = {
                                 SP_HRI1000_S2: await getParamForHri1000S2(empCode),
                                 //P_HRI1000_S3: await getParamForHri1000S3(editType, empCode),
-                                SP_HRI1000_S4: await getParamForHri1000S4(empCode),
+                                /*SP_HRI1000_S4: await getParamForHri1000S4(empCode),*/
                                 SP_HRI1000_S5: await getParamForHri1000S5(empCode),
                                 SP_HRI1000_S6: await getParamForHri1000S6(empCode),
                                 SP_HRI1000_S7: await getParamForHri1000S7(empCode),
@@ -2253,8 +2256,8 @@
     const fn_setMasterData = async function(data) {
         SBUxMethod.set("APPOINT_YN", data.APNT_YN);
         SBUxMethod.set("EMP_CODE", data.EMP_CD);
-        SBUxMethod.set("DISPLAY_SOCIAL_NUM", data.DISPLAY_SOCIAL_NUM);
-        SBUxMethod.set("SOCIAL_NUM", data.RRNO_ENCPT);
+        /*SBUxMethod.set("DISPLAY_SOCIAL_NUM", data.DISPLAY_SOCIAL_NUM);*/
+        /*SBUxMethod.set("SOCIAL_NUM", data.RRNO_ENCPT);*/
         SBUxMethod.set("POSITION_CODE", data.JBPS_CD);
         SBUxMethod.set("POSITION_CODE_PERIOD", data.POSITION_CODE_PERIOD);
         SBUxMethod.set("EMP_NAME", data.EMP_NM);
@@ -2392,8 +2395,8 @@
 
         cfn_add();
         editType = "U";
-        SBUxMethod.show('DISPLAY_SOCIAL_NUM');
-        SBUxMethod.hide('SOCIAL_NUM');
+        // /*SBUxMethod.show('DISPLAY_SOCIAL_NUM');*/
+        /*SBUxMethod.hide('SOCIAL_NUM');*/
         SBUxMethod.attr('EMP_CODE', 'readonly', 'true');
         SBUxMethod.attr('POSITION_CODE', 'readonly', 'true');
         SBUxMethod.attr('JOB_GROUP', 'readonly', 'true');
@@ -2475,7 +2478,8 @@
                 fn_setTpgMasterSubDetail(detailData.cv_4[0]);
 
                 // 가족사항
-                detailData.cv_5.forEach((item, index) => {
+                // TODO : 단위테스트 요청으로 숨김처리 (Grid 생성부분도 주석처리함)
+                /*detailData.cv_5.forEach((item, index) => {
                     const msg = {
                         SEQ : item.SEQ,
                         NAME : item.FAM_NM,
@@ -2506,7 +2510,7 @@
                     jsonFamilyList.push(msg);
                 });
 
-                gvwFamily.rebuild();
+                gvwFamily.rebuild();*/
 
                 // 학력사항
                 detailData.cv_6.forEach((item, index) => {
@@ -2903,7 +2907,7 @@
         let EMP_NAME = gfn_nvl(SBUxMethod.get("EMP_NAME"));
         let EMP_NAME_CHN = gfn_nvl(SBUxMethod.get("EMP_NAME_CHN"));
         let EMP_NAME_ENG = gfn_nvl(SBUxMethod.get("EMP_NAME_ENG"));
-        let SOCIAL_NUM = gfn_nvl(SBUxMethod.get("SOCIAL_NUM"));
+        /*let SOCIAL_NUM = gfn_nvl(SBUxMethod.get("SOCIAL_NUM"));*/
         let BIRTHDAY = gfn_nvl(SBUxMethod.get("BIRTHDAY"));
         let BIRTHDAY_TYPE = gfn_nvl(SBUxMethod.get("BIRTHDAY_TYPE"));
         let LEAP_MONTH_YN = gfn_nvl(SBUxMethod.get("LEAP_MONTH_YN").LEAP_MONTH_YN);
@@ -3000,7 +3004,7 @@
             V_P_EMP_NAME : EMP_NAME,
             V_P_EMP_NAME_CHN : EMP_NAME_CHN,
             V_P_EMP_NAME_ENG : EMP_NAME_ENG,
-            V_P_SOCIAL_NUM : SOCIAL_NUM,
+            /*V_P_SOCIAL_NUM : SOCIAL_NUM,*/
             V_P_BIRTHDAY : BIRTHDAY,
             V_P_BIRTHDAY_TYPE : BIRTHDAY_TYPE,
             V_P_LEAP_MONTH_YN : LEAP_MONTH_YN,
