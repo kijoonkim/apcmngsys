@@ -470,9 +470,8 @@
 								<td class="td_input" style="border-right: hidden;" colspan="2">
 									<sbux-input uitype="text" id="CHIEF_NAME" class="form-control input-sm inpt_data_reqed" group-id="panAppoint" required></sbux-input>
 								</td>
-								<th scope="row" class="th_bg">주민번호</th>
+								<th style="border-right: hidden;"></th>
 								<td class="td_input" style="border-right: hidden;" colspan="2">
-									<sbux-input uitype="text" id="CHIEF_SOCIALNO" class="form-control input-sm" ></sbux-input>
 								</td>
 								<td class="td_input" style="border-right: hidden;">	
 								</td>									
@@ -2018,12 +2017,6 @@
     
     const fn_setSave = async function(){
     	
-		if(SBUxMethod.get("CHIEF_SOCIALNO") != ''){
-			if( !fn_socialRegex(SBUxMethod.get("CHIEF_SOCIALNO")) ){
-				gfn_comAlert("E0000", "주민번호 형식이 올바르지 않습니다.");
-				return; 
-			}
-		}
 		if(SBUxMethod.get("BIZ_REGNO") != ''){
 			if( !fn_compRegNoRegex(SBUxMethod.get("BIZ_REGNO")) ){
 				gfn_comAlert("E0000", "사업자번호 형식이 올바르지 않습니다.");
@@ -2778,7 +2771,6 @@
 		        	SBUxMethod.set("COMP_REGNO",					gfn_nvl(cv_1.CORP_REGNO));
 		        	SBUxMethod.set("SUB_NO",							gfn_nvl(cv_1.SBSD_BPLC_NO));
 		        	SBUxMethod.set("CHIEF_NAME",				gfn_nvl(cv_1.CEO_NM));
-		        	SBUxMethod.set("CHIEF_SOCIALNO",		gfn_nvl(cv_1.CEO_RRNO));
 		        	SBUxMethod.set("BIZ_CATEGORY",				gfn_nvl(cv_1.BZSTAT));
 		        	SBUxMethod.set("BIZ_ITEMS",					gfn_nvl(cv_1.TPBIZ));
 		        	SBUxMethod.set("TXN_STOP_DATE",					gfn_nvl(cv_1.TRSC_HLT_YMD));
@@ -3031,18 +3023,6 @@
 					SBUxMethod.disableTab('tabSalesCategory');
 				}
 				
-	    		if(obj.INHTNT_DLNG_YN == 'Y'){
-	    			if(obj.CNPT_GROUP != '6000'){
-		    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
-		                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
-		                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
-	    			}
-				}else{
-	    			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
-				}
-				
     		} else {
     	  		alert(data.resultMessage);
     		}
@@ -3083,20 +3063,6 @@
 				SBUxMethod.disableTab('tabSales');
 				SBUxMethod.disableTab('tabSalesShipTo');
 				SBUxMethod.disableTab('tabSalesCategory');
-			}
-		})
-    	//주민분여부 체크박스
-    	$('#RESIDENT_YN').change(function(){
-    		if($(this).val() == 'Y'){
-    			if(gfnma_multiSelectGet('#CS_GROUP' != '6000')){
-	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
-    			}
-			}else{
-    			$('#CHIEF_SOCIALNO').removeClass('inpt_data_reqed');
-                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','');
-                SBUxMethod.attr('CHIEF_SOCIALNO','required','');
 			}
 		})
 		//법인구분 라디오 버튼
@@ -3254,10 +3220,6 @@
                     $('#CHIEF_NAME').removeClass('inpt_data_reqed');
                     SBUxMethod.attr('CHIEF_NAME','group-id','');
                     SBUxMethod.attr('CHIEF_NAME','required','');
-                }else{
-	    			$('#CHIEF_SOCIALNO').addClass('inpt_data_reqed');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','group-id','panAppoint');
-	                SBUxMethod.attr('CHIEF_SOCIALNO','required','required');
                 }
             }
             
@@ -3469,7 +3431,6 @@
     	SBUxMethod.set("BIZ_REGNO",					"");
     	SBUxMethod.set("SUB_NO",					"");
     	SBUxMethod.set("CHIEF_NAME",				"");
-    	SBUxMethod.set("CHIEF_SOCIALNO",			"");
     	SBUxMethod.set("BIZ_CATEGORY",				"");
     	SBUxMethod.set("BIZ_ITEMS",					"");
     	SBUxMethod.set("TXN_STOP_DATE",				"");
@@ -3578,7 +3539,6 @@
 			   ,V_P_BIZ_TYPE             : gfn_nvl(SBUxMethod.get("BIZ_TYPE"))
 			   ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
 			   ,V_P_CHIEF_NAME           : gfn_nvl(SBUxMethod.get("CHIEF_NAME"))
-			   ,V_P_CHIEF_SOCIALNO       : gfn_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
 			   ,V_P_RESIDENT_YN          : gfn_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
 			   ,V_P_BIZ_CATEGORY         : gfn_nvl(SBUxMethod.get("BIZ_CATEGORY"))
 			   ,V_P_BIZ_ITEMS            : gfn_nvl(SBUxMethod.get("BIZ_ITEMS"))
@@ -3705,7 +3665,6 @@
 			   ,V_P_BIZ_TYPE             : gfn_nvl(SBUxMethod.get("BIZ_TYPE"))
 			   ,V_P_COMP_REGNO           : gfn_nvl(SBUxMethod.get("COMP_REGNO")).replaceAll('-', '')
 			   ,V_P_CHIEF_NAME           : gfn_nvl(SBUxMethod.get("CHIEF_NAME"))
-			   ,V_P_CHIEF_SOCIALNO       : gfn_nvl(SBUxMethod.get("CHIEF_SOCIALNO")).replaceAll('-', '')
 			   ,V_P_RESIDENT_YN          : gfn_nvl(SBUxMethod.get("RESIDENT_YN").RESIDENT_YN)
 			   ,V_P_BIZ_CATEGORY         : gfn_nvl(SBUxMethod.get("BIZ_CATEGORY"))
 			   ,V_P_BIZ_ITEMS            : gfn_nvl(SBUxMethod.get("BIZ_ITEMS"))
