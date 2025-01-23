@@ -76,4 +76,40 @@ public interface StatMngMapper {
 	List<HashMap<String, Object>> selectCnptWrhs(HashMap<String, Object> param) throws Exception;
 
 	List<HashMap<String, Object>> selectWrhs(HashMap<String, Object> param) throws Exception;
+	/**
+	 * 기준정보 목록 조회
+	 *
+	 * @param statCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdSpmtInfo(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준정보 목록 조회
+	 *
+	 * @param statCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdSpmtInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준정보 목록 조회
+	 *
+	 * @param statCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfo(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준정보 목록 조회
+	 *
+	 * @param statCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
+
 }

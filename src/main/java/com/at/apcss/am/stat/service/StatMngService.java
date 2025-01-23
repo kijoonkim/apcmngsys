@@ -87,4 +87,37 @@ public interface StatMngService {
 	 * @throws Exception
 	 */
     HashMap<String, Object> selectPrdWrhsList(HashMap<String, Object> param) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdSpmtInfo(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdSpmtInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfo(StatCrtrVO statCrtrVO) throws Exception;
+
+	/**
+	 * 기준상세 목록 조회
+	 * @param StatCrtrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectPrdPrdctnPrfmncInfoDtl(StatCrtrVO statCrtrVO) throws Exception;
+
 }

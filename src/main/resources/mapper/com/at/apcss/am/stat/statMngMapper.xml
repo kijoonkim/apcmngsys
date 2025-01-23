@@ -615,4 +615,222 @@
 			ITEM_CD, VRTY_CD, PRDCR_NM
 	</select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdSpmtInfo" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+		<![CDATA[
+			SELECT
+		  A.APC_CD		AS APC_CD
+		, A.ITEM_CD		AS ITEM_CD
+		, A.VRTY_CD	AS VRTY_CD
+		, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+		, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+		, A.QNTT		AS QNTT
+		, A.WGHT		AS WGHT
+	  FROM (
+			SELECT
+				  RP.APC_CD
+				, RI.ITEM_CD
+				, RI.VRTY_CD
+				, SUM(SD.SPMT_QNTT)		AS QNTT
+				, SUM(SD.SPMT_WGHT)		AS WGHT
+	  		  FROM TB_SPMT_PRFMNC_COM RP
+	  		  JOIN TB_SPMT_PRFMNC_DTL SD
+	  		    ON SD.APC_CD = RP.APC_CD
+	  		   AND SD.SPMTNO = RP.SPMTNO
+	  		   AND SD.DEL_YN = 'N'
+			  JOIN TB_GDS_INVNTR RI
+			    ON RI.APC_CD = SD.APC_CD
+			   AND RI.PCKGNO = SD.PCKGNO
+			   AND RI.PCKG_SN = SD.PCKG_SN
+			   AND RI.DEL_YN = 'N'
+			 WHERE RP.DEL_YN = 'N'
+			   AND RP.APC_CD = #{apcCd}
+			   AND RP.SPMT_YMD BETWEEN #{crtrYmdFrom} AND #{crtrYmdTo}
+		]]>
+			   <if test='itemCd != null and itemCd != ""'>
+			    	AND RI.ITEM_CD = #{itemCd}
+			   </if>
+			   <if test='vrtyCd != null and vrtyCd != ""'>
+			    	AND RI.VRTY_CD = #{vrtyCd}
+			   </if>
+
+			 GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+		) A
+	 WHERE 1=1
+	 ORDER BY WGHT DESC
+
+
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectPrdSpmtInfoDtl			-->
+	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdSpmtInfoDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+		<![CDATA[
+			SELECT
+		  A.APC_CD		AS APC_CD
+		, A.ITEM_CD		AS ITEM_CD
+		, A.VRTY_CD	AS VRTY_CD
+		, A.SPCFCT_CD				AS SPCFCT_CD
+		, A.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+		, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+		, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+		, (SELECT FN_GET_SPCFCT_NM(A.ITEM_CD, A.SPCFCT_CD, A.APC_CD) FROM DUAL) AS SPCFCT_NM
+		, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(A.SPMT_PCKG_UNIT_CD, A.APC_CD) FROM DUAL) AS SPMT_PCKG_UNIT_NM
+		, A.QNTT		AS QNTT
+		, A.WGHT		AS WGHT
+	  FROM (
+			SELECT
+				  RP.APC_CD
+				, RI.ITEM_CD
+				, RI.VRTY_CD
+				, RI.SPCFCT_CD
+				, RI.SPMT_PCKG_UNIT_CD
+				, SUM(SD.SPMT_QNTT)		AS QNTT
+				, SUM(SD.SPMT_WGHT)		AS WGHT
+	  		  FROM TB_SPMT_PRFMNC_COM RP
+	  		  JOIN TB_SPMT_PRFMNC_DTL SD
+	  		    ON SD.APC_CD = RP.APC_CD
+	  		   AND SD.SPMTNO = RP.SPMTNO
+	  		   AND SD.DEL_YN = 'N'
+			  JOIN TB_GDS_INVNTR RI
+			    ON RI.APC_CD = SD.APC_CD
+			   AND RI.PCKGNO = SD.PCKGNO
+			   AND RI.PCKG_SN = SD.PCKG_SN
+			   AND RI.DEL_YN = 'N'
+			 WHERE RP.DEL_YN = 'N'
+			   AND RP.APC_CD = #{apcCd}
+			   AND RP.SPMT_YMD BETWEEN #{crtrYmdFrom} AND #{crtrYmdTo}
+			   ]]>
+			   <if test='itemCd != null and itemCd != ""'>
+			    	AND RI.ITEM_CD = #{itemCd}
+			   </if>
+			   <if test='vrtyCd != null and vrtyCd != ""'>
+			    	AND RI.VRTY_CD = #{vrtyCd}
+			   </if>
+			 GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD, RI.SPCFCT_CD, RI.SPMT_PCKG_UNIT_CD
+		) A
+	 WHERE 1=1
+	 ORDER BY ITEM_NM, VRTY_NM,SPCFCT_NM DESC
+
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdPrdctnPrfmncInfo" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+		<![CDATA[
+			SELECT
+		  A.APC_CD		AS APC_CD
+		, A.ITEM_CD		AS ITEM_CD
+		, A.VRTY_CD	AS VRTY_CD
+		, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+		, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+		, A.QNTT		AS QNTT
+		, A.WGHT		AS WGHT
+	  FROM (
+		SELECT
+			  RP.APC_CD
+			, RI.ITEM_CD
+			, RI.VRTY_CD
+			, SUM(RP.SORT_QNTT)		AS QNTT
+			, SUM(RP.SORT_WGHT)		AS WGHT
+		  FROM TB_SORT_PRFMNC RP
+		  JOIN TB_SORT_INVNTR RI
+		    ON RI.APC_CD = RP.APC_CD
+		   AND RI.SORTNO = RP.SORTNO
+		   AND RI.SORT_SN = RP.SORT_SN
+		   AND RI.DEL_YN = 'N'
+		 WHERE RP.DEL_YN = 'N'
+		   AND RP.APC_CD = #{apcCd}
+		   AND RP.INPT_YMD BETWEEN #{crtrYmdFrom} AND #{crtrYmdTo}
+		   ]]>
+			   <if test='itemCd != null and itemCd != ""'>
+			    	AND RI.ITEM_CD = #{itemCd}
+			   </if>
+			   <if test='vrtyCd != null and vrtyCd != ""'>
+			    	AND RI.VRTY_CD = #{vrtyCd}
+			   </if>
+
+		 GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD
+		) A
+	 ORDER BY WGHT DESC
+	;
+
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.stat.mapper.statMngMapper.selectCrtrDtlList			-->
+	<!-- DESC : 통계기준 상세 목록 조회.	                                          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.08  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrdPrdctnPrfmncInfoDtl" parameterType="com.at.apcss.am.stat.vo.StatCrtrVO" resultType="hashmap">
+	<![CDATA[
+	SELECT
+		  A.APC_CD			AS APC_CD
+		, A.ITEM_CD			AS ITEM_CD
+		, A.VRTY_CD		AS VRTY_CD
+		, A.SPCFCT_CD	AS SPCFCT_CD
+		, A.GRD_CD			AS GRD_CD
+		, (SELECT FN_GET_ITEM_NM(A.ITEM_CD, A.APC_CD) FROM DUAL) AS ITEM_NM
+		, (SELECT FN_GET_VRTY_NM(A.ITEM_CD, A.VRTY_CD, A.APC_CD) FROM DUAL) AS VRTY_NM
+		, (SELECT FN_GET_SPCFCT_NM(A.ITEM_CD, A.SPCFCT_CD, A.APC_CD) FROM DUAL) AS SPCFCT_NM
+		, (SELECT FN_GET_GRD_NM_SORT(A.APC_CD, A.ITEM_CD, A.GRD_CD) FROM DUAL) AS GRD_NM
+		, A.QNTT		AS QNTT
+		, A.WGHT		AS WGHT
+	  FROM (
+		SELECT
+			  RP.APC_CD
+			, RI.ITEM_CD
+			, RI.VRTY_CD
+			, RI.SPCFCT_CD
+			, RI.GRD_CD
+			, SUM(RP.SORT_QNTT)		AS QNTT
+			, SUM(RP.SORT_WGHT)		AS WGHT
+		  FROM TB_SORT_PRFMNC RP
+		  JOIN TB_SORT_INVNTR RI
+		    ON RI.APC_CD = RP.APC_CD
+		   AND RI.SORTNO = RP.SORTNO
+		   AND RI.SORT_SN = RP.SORT_SN
+		   AND RI.DEL_YN = 'N'
+		 WHERE RP.DEL_YN = 'N'
+		   AND RP.APC_CD = #{apcCd}
+		   AND RP.INPT_YMD BETWEEN #{crtrYmdFrom} AND #{crtrYmdTo}
+		   ]]>
+			   <if test='itemCd != null and itemCd != ""'>
+			    	AND RI.ITEM_CD = #{itemCd}
+			   </if>
+			   <if test='vrtyCd != null and vrtyCd != ""'>
+			    	AND RI.VRTY_CD = #{vrtyCd}
+			   </if>
+
+
+		 GROUP BY RP.APC_CD, RI.ITEM_CD, RI.VRTY_CD, RI.SPCFCT_CD, RI.GRD_CD
+		) A
+	 ORDER BY ITEM_NM, VRTY_NM, SPCFCT_NM, GRD_CD
+	</select>
+
 </mapper>
