@@ -25,9 +25,6 @@
     <title>title : 근로소득원천징수부 조회/출력</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
-
-    <title>Calculator</title>
-    <link rel="stylesheet" href="/resource/css/ma_custom.css">
 </head>
 <body oncontextmenu="return false">
 <section>

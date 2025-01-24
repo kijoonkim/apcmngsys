@@ -623,7 +623,7 @@
             {caption : ["직위"], ref : 'POSITION_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPositionCode',  label : 'label', value : 'value'}
             },
-            {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
+           // {caption: ["주민등록번호"], ref: 'SOCIAL_NO', type: 'output', width: '100px', style: 'text-align:left'},
             {caption: ["보수월액"], ref: 'BASE_INCOME_AMT', type: 'output', width: '120px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["산정실업급여(사원)"], ref: 'EMP_INSURE_AMT', type: 'output', width: '120px', style: 'text-align:right'
@@ -1105,8 +1105,8 @@
             , V_P_PAY_AREA_TYPE : PAY_AREA_TYPE
             , V_P_DEPT_CODE     : DEPT_CODE
             , V_P_EMP_CODE      : EMP_CODE
-            , V_P_SOCIAL_NO     : ''
-            , V_P_SOCIAL_DATE   : ''
+            /*, V_P_SOCIAL_NO     : ''
+            , V_P_SOCIAL_DATE   : ''*/
             , V_P_EMP_NAME      : ''
             , V_P_YYYYMM_FR     : YYYYMM_FR
             , V_P_YYYYMM_TO     : YYYYMM_TO
@@ -1145,7 +1145,7 @@
                         PAY_AREA_TYPE            : gfn_nvl(item.SLRY_AREA_TYPE),
                         EMP_CODE                 : gfn_nvl(item.EMP_CD),
                         EMP_NAME                 : gfn_nvl(item.EMP_NM),
-                        SOCIAL_NO                : gfn_nvl(item.RGDT_NO),
+                        //SOCIAL_NO                : gfn_nvl(item.RGDT_NO),
                         BASE_INCOME_AMT          : gfn_nvl(item.BASE_INCM_AMT),
                         EMP_INSURE_AMT           : gfn_nvl(item.UNEMPSLRY_AMT),
                         COMP_INSURE_AMT          : gfn_nvl(item.CO_INSRNC_AMT),
@@ -1394,8 +1394,8 @@
         let grdList = gvwListGrid.getGridDataAll();
 
         let isChecked       = false;
-        let strSocial_no    = '';
-        let strSocial_no2   = '';
+        /*let strSocial_no    = '';
+        let strSocial_no2   = '';*/
         let strEmp_Name     = '';
 
         grdList.forEach((item,index) =>{
@@ -1411,7 +1411,7 @@
             return false;
         }
 
-        grdList.forEach((item,index) =>{
+        /*grdList.forEach((item,index) =>{
 
             if (_.isEqual(item.CHECK_YN, 'Y')){
                 strSocial_no    = item.SOCIAL_NO.replace("-", "") + '|';
@@ -1422,7 +1422,7 @@
 
         if (strSocial_no.length > 0){
             strSocial_no = strSocial_no.slice(0, -1);
-        }
+        }*/
 
         var paramObj = {
             V_P_DEBUG_MODE_YN: 'N'
@@ -1434,8 +1434,8 @@
             , V_P_PAY_AREA_TYPE : PAY_AREA_TYPE
             , V_P_DEPT_CODE     : DEPT_CODE
             , V_P_EMP_CODE      : EMP_CODE
-            , V_P_SOCIAL_NO     : strSocial_no
-            , V_P_SOCIAL_DATE   : strSocial_no2
+            /*, V_P_SOCIAL_NO     : strSocial_no
+            , V_P_SOCIAL_DATE   : strSocial_no2*/
             , V_P_EMP_NAME      : strEmp_Name
             , V_P_YYYYMM_FR     : ''
             , V_P_YYYYMM_TO     : ''
@@ -1463,7 +1463,7 @@
                     const msg = {
                         EMP_CODE    : gfn_nvl(item.EMP_CD),
                         EMP_NAME    : gfn_nvl(item.EMP_NM),
-                        SOCIAL_NO   : gfn_nvl(item.RGDT_NO)
+                        //SOCIAL_NO   : gfn_nvl(item.RGDT_NO)
 
                     }
                 });
@@ -1542,8 +1542,8 @@
                 jsonHeaders.push('PAY_AREA_TYPE');
             }else if (_.isEqual('직위', item)){   //jsonPositionCode
                 jsonHeaders.push('POSITION_CODE');
-            }else if (_.isEqual('주민등록번호', item)){
-                jsonHeaders.push('SOCIAL_NO');
+           /* }else if (_.isEqual('주민등록번호', item)){
+                jsonHeaders.push('SOCIAL_NO');*/
             }else if (_.isEqual('보수월액', item)){
                 jsonHeaders.push('BASE_INCOME_AMT');
             }else if (_.isEqual('산정실업급여(사원)', item)){

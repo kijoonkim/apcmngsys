@@ -26,9 +26,6 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
-
-    <title>Calculator</title>
-    <link rel="stylesheet" href="/resource/css/ma_custom.css">
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -483,8 +480,8 @@
                         COMP_REGNO                      : gfnma_nvl2(item.COMP_REGNO),
                         ADDRESS                         : gfnma_nvl2(item.ADDRESS),
                         EMP_NAME                        : gfnma_nvl2(item.EMP_NAME),
-                        SOCIAL_NUM                      : gfnma_nvl2(item.SOCIAL_NUM),
-                        SOCIAL_NUM_REAL                 : gfnma_nvl2(item.SOCIAL_NUM_REAL),
+                        /*SOCIAL_NUM                      : gfnma_nvl2(item.SOCIAL_NUM),
+                        SOCIAL_NUM_REAL                 : gfnma_nvl2(item.SOCIAL_NUM_REAL),*/
                         RESIDENCE_ADDRESS               : gfnma_nvl2(item.RESIDENCE_ADDRESS),
                         EXEC_YN                         : gfnma_nvl2(item.EXEC_YN),
                         RET_PENS_ST_DAT                 : gfnma_nvl2(item.RET_PENS_ST_DAT),
