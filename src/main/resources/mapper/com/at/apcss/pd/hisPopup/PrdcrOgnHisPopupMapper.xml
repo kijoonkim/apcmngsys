@@ -122,8 +122,9 @@
 			  CM.UO_APO_CD
 			, CM.UO_BRNO
 			, CM.UO_CORP_NM
-		  FROM TB_EV_APO_UO_CD CM
+		  FROM TB_EV_APO_UO_CD_HSTRY CM
 		 WHERE 1=1
+			AND YR = #{yr}
 			AND CM.ISO_BRNO = #{brno}
 	</select>
 
