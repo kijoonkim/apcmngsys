@@ -150,6 +150,9 @@
 			border-color: #fefefe;
 			color: #000;
 		}
+		.sbchart-no-data{
+			left: 88%!important;
+		}
 	</style>
 </head>
 <body oncontextmenu="return false;">
@@ -431,7 +434,8 @@
 			},
 			data: {
 				type:'pie',
-				columns: columnWrhs
+				columns: columnWrhs,
+				noData: "데이터가 없습니다."
 			},
 			legend: {
 				position: "bottom",
@@ -469,7 +473,8 @@
 			},
 			data: {
 				type:'pie',
-				columns: columnWrhs
+				columns: columnWrhs,
+				noData: "데이터가 없습니다."
 			},
 			legend: {
 				position: "bottom",
@@ -507,7 +512,8 @@
 			},
 			data: {
 				type:'pie',
-				columns: columnSpmt
+				columns: columnSpmt,
+				noData: "데이터가 없습니다."
 			},
 			legend: {
 				position: "bottom",
@@ -556,6 +562,7 @@
 			data: {
 				columns:trcColumns,
 				types: { [title1] : "bar", [title2] : "bar", [title3] : "bar", [title4]:"line" },
+				noData: "데이터가 없습니다."
 			},
 			legend: {
 				show: false
@@ -725,13 +732,13 @@
 			let type = item.RSLT_TYPE;
 			switch(type){
 				case '01' :
-					$("#wrhsCard").text(formatCommas(item.WGHT));
+					$("#wrhsCard").text(formatCommas(item.WGHT || 0));
 					break;
 				case '02' :
-					$("#sortCard").text(formatCommas(item.WGHT));
+					$("#sortCard").text(formatCommas(item.WGHT || 0));
 					break;
 				case '03' :
-					$("#spmtCard").text(formatCommas(item.WGHT));
+					$("#spmtCard").text(formatCommas(item.WGHT || 0));
 					break;
 			}
 		});
