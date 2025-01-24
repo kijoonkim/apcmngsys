@@ -367,12 +367,10 @@
 								<th scope="row" class="th_bg">법인구분</th>
 								<td class="td_input " colspan="2" id="rdotd">
 									<p class="ad_input_row">
-										<sbux-radio id="BIZ_TYPE1" name="BIZ_TYPE" uitype="normal" value="C" class="radio_label" checked></sbux-radio>
-										<label class="radio_label" for-id="BIZ_TYPE1">법인</label>
+										<sbux-radio id="BIZ_TYPE1" name="BIZ_TYPE" uitype="normal" value="C" class="radio_label" text="법인" checked></sbux-radio>
 									</p>
 									<p class="ad_input_row">
-										<sbux-radio id="BIZ_TYPE2" name="BIZ_TYPE" uitype="normal" value="P" class="radio_label"></sbux-radio>
-										<label class="radio_label" for-id="BIZ_TYPE2">개인</label>
+										<sbux-radio id="BIZ_TYPE2" name="BIZ_TYPE" uitype="normal" value="P" text="개인" class="radio_label"></sbux-radio>
 									</p>
 								</td>						
 								<th scope="row" class="th_bg">법인번호</th>
@@ -2821,18 +2819,18 @@
 	    		}
 	    		if(data.cv_2.length > 0) {
 		        	//주소 ~ 매핑이력 - 주소/연락처
-		        	SBUxMethod.set("ZIP_CODE", 					gfn_nvl(cv_2.ZIP_CD));
-		        	SBUxMethod.set("START_DATE", 			gfn_nvl(cv_2.BGNG_YMD));
-		        	SBUxMethod.set("END_DATE", 					gfn_nvl(cv_2.END_DT));
-		        	SBUxMethod.set("ADDRESS", 				gfn_nvl(cv_2.ADDR));
-		        	SBUxMethod.set("TEL", 							gfn_nvl(cv_2.TELNO));
-		        	SBUxMethod.set("FAX", 							gfn_nvl(cv_2.FX_NO));
-		        	SBUxMethod.set("EMAIL_ID", 					gfn_nvl(cv_2.EML_ID));
-		        	SBUxMethod.set("WEB_URL", 					gfn_nvl(cv_2.HMPG_URL));
-		        	SBUxMethod.set("RESULT1", 						gfn_nvl(cv_2.INQ_RSLT1));
-		        	SBUxMethod.set("MEMO", 						gfn_nvl(cv_2.MEMO));
+		        	SBUxMethod.set("ZIP_CODE", 			gfn_nvl(cv_2.ZIP_CD));
+		        	SBUxMethod.set("START_DATE", 		gfn_nvl(cv_2.BGNG_YMD));
+		        	SBUxMethod.set("END_DATE", 			gfn_nvl(cv_2.END_DT));
+		        	SBUxMethod.set("ADDRESS", 			gfn_nvl(cv_2.ADDR));
+		        	SBUxMethod.set("TEL", 				gfn_nvl(cv_2.TELNO));
+		        	SBUxMethod.set("FAX", 				gfn_nvl(cv_2.FX_NO));
+		        	SBUxMethod.set("EMAIL_ID", 			gfn_nvl(cv_2.EML_ID));
+		        	SBUxMethod.set("WEB_URL", 			gfn_nvl(cv_2.HMPG_URL));
+		        	SBUxMethod.set("RESULT1", 			gfn_nvl(cv_2.INQ_RSLT1));
+		        	SBUxMethod.set("MEMO", 				gfn_nvl(cv_2.MEMO));
 		        	SBUxMethod.set("SAP_CUSTOMER_CODE", gfn_nvl(cv_2.ERP_CNPT_CD));
-		        	SBUxMethod.set("SAP_VENDOR_CODE", 		gfn_nvl(cv_2.ERP_CNPT_CD2));
+		        	SBUxMethod.set("SAP_VENDOR_CODE", 	gfn_nvl(cv_2.ERP_CNPT_CD2));
 	    		}
 	        	
 	        	//주소 ~ 매핑이력 - 자금정보
@@ -2868,17 +2866,17 @@
 	    	   	
 	    		if(data.cv_4.length > 0) {
 		    	   	//주소 ~ 매핑이력 - 구매정보
-		    	   	SBUxMethod.set("TAX_SEND", 						gfn_nvl(cv_4.TX_SEND));
+		    	   	SBUxMethod.set("TAX_SEND", 					gfn_nvl(cv_4.TX_SEND));
 		    	   	SBUxMethod.set("INTERNAL_PAY_RULE_YN", 		gfn_nvl(cv_4.INR_PAY_RULE_YN));
-		    	   	SBUxMethod.set("RCPT_CHK_RANGE", 				gfn_nvl(cv_4.RCPT_CHCK_LIM));
-		    	   	SBUxMethod.set("AP_ACC_CODE", 					gfn_nvl(cv_4.APS_ACNT_CD));
-		    	   	SBUxMethod.set("AP_ACC_NAME", 					gfn_nvl(cv_4.AP_ACC_NAME));
-		    	   	SBUxMethod.set("AP_CLR_ACC", 						gfn_nvl(cv_4.APS_CLCLN_ACNT))
-		    	   	SBUxMethod.set("AP_CLR_ACC_NAME", 				gfn_nvl(cv_4.AP_CLR_ACC_NAME));
-		    	   	SBUxMethod.set("AP_ACC_CODE_FOREIGN", 			gfn_nvl(cv_4.APS_ACNT_CD_FRCNCY))
-		    	   	SBUxMethod.set("AP_ACC_NAME_FOREIGN", 			gfn_nvl(cv_4.AP_ACC_NAME_FOREIGN))
+		    	   	SBUxMethod.set("RCPT_CHK_RANGE", 			gfn_nvl(cv_4.RCPT_CHCK_LIM));
+		    	   	SBUxMethod.set("AP_ACC_CODE", 				gfn_nvl(cv_4.APS_ACNT_CD));
+		    	   	SBUxMethod.set("AP_ACC_NAME", 				gfn_nvl(cv_4.AP_ACC_NAME));
+		    	   	SBUxMethod.set("AP_CLR_ACC", 				gfn_nvl(cv_4.APS_CLCLN_ACNT))
+		    	   	SBUxMethod.set("AP_CLR_ACC_NAME", 			gfn_nvl(cv_4.AP_CLR_ACC_NAME));
+		    	   	SBUxMethod.set("AP_ACC_CODE_FOREIGN", 		gfn_nvl(cv_4.APS_ACNT_CD_FRCNCY))
+		    	   	SBUxMethod.set("AP_ACC_NAME_FOREIGN", 		gfn_nvl(cv_4.AP_ACC_NAME_FOREIGN))
 		    	   	SBUxMethod.set("PREPAY_ACC_CODE", 			gfn_nvl(cv_4.PRPY_ACNT_CD));
-		    	   	SBUxMethod.set("PREPAY_ACC_NAME", 				gfn_nvl(cv_4.PREPAY_ACC_NAME));
+		    	   	SBUxMethod.set("PREPAY_ACC_NAME", 			gfn_nvl(cv_4.PREPAY_ACC_NAME));
 		        	gfnma_multiSelectSet("#TAX_CODE", 			"VAT_CD", 		"VAT_NM",		gfn_nvl(cv_4.TX_CD));
 		        	gfnma_multiSelectSet("#PUR_HANDOV_CNDT_CD", "SBSD_CD", 		"CD_NM",	gfn_nvl(cv_4.PORDR_DLVRTRM_CD));
 		        	gfnma_multiSelectSet("#PAY_DATE_RULE", 		"PAY_TERM_CD", 	"PAY_TERM_NM",gfn_nvl(cv_4.PAY_CNDTN));
@@ -3763,8 +3761,9 @@
     
     //직원 거래처 생성
     const fn_Emp = async function(){
-    	await fn_emp_Q();
-    	await fn_emp_S();
+    	if(await fn_emp_Q() == true){
+	    	await fn_emp_S();
+    	}
     }
     
     const fn_emp_Q = async function(){
@@ -3801,6 +3800,7 @@
 	    	   	strEmpCode_d 		= strEmpCode_d.substring(0, strEmpCode_d.length -1);
 	    	   	strBankCode_d 		= strBankCode_d.substring(0, strBankCode_d.length -1);
 	    	   	strBankAccount_d 	= strBankAccount_d.substring(0, strBankAccount_d.length -1);
+	       		return true;
 	       	}
         } catch (e) {
 	   		if (!(e instanceof Error)) {
@@ -3931,15 +3931,15 @@
     		,bizcompId				: 'P_FI_DEPT'
        		,popupType				: 'B'
     		,whereClause			: ''
-       		,searchCaptions			: ["부서코드", 		"부서명",		"기준일"]
+       		,searchCaptions			: ["부서코드", 	"부서명",		"기준일"]
    			,searchInputFields		: ["DEPT_CD", 	"DEPT_NM",	"CRTR_YMD"]
-   			,searchInputValues		: [searchText1, 	searchText2,	searchText3]
-			,searchInputTypes		: ["input", 		"input",		"datepicker"]		//input, datepicker가 있는 경우
+   			,searchInputValues		: [searchText1, searchText2,	searchText3]
+			,searchInputTypes		: ["input", 	"input",		"datepicker"]		//input, datepicker가 있는 경우
     		,width					: '700px'
     		,height					: '300px'
-   			,tableHeader			: ["부서코드", 		"부서명"]
+   			,tableHeader			: ["부서코드", 	"부서명"]
    			,tableColumnNames		: ["DEPT_CD", 	"DEPT_NM"]
-   			,tableColumnWidths		: ["150px", 		"250px"]
+   			,tableColumnWidths		: ["150px", 	"250px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('DEPT_CODE', 	data.DEPT_CD);
 				SBUxMethod.set('DEPT_NAME', 	data.DEPT_NM);
@@ -3972,7 +3972,7 @@
     		,width					: '600px'
     		,height					: '400px'
    			,tableHeader			: ["부서코드", 		"부서명"]
-   			,tableColumnNames		: ["SITE_CD", 	"SITE_NM"]
+   			,tableColumnNames		: ["SITE_CD", 		"SITE_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('SITE_CODE', 	data.SITE_CD);
@@ -3999,14 +3999,14 @@
     		,bizcompId				: 'P_COST_CENTER'
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
-  			,searchCaptions			: ["코드", 	"명칭"]
+  			,searchCaptions			: ["코드", 		"명칭"]
   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
-  			,searchInputValues		: [searchText1, 		searchText2]
+  			,searchInputValues		: [searchText1, searchText2]
     		,width					: '600px'
     		,height					: '400px'
   			,tableHeader			: ["코드", 		 "명칭"]
   			,tableColumnNames		: ["CSTCT_CD", 	 "CSTCT_NM"]
-  			,tableColumnWidths		: ["80px", 			 "80px"]
+  			,tableColumnWidths		: ["80px", 		 "80px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set('TRANS_COST_CENTER',		data.CSTCT_CD);
 				SBUxMethod.set('TRANS_COST_CENTER_NAME', 	data.CSTCT_NM);
