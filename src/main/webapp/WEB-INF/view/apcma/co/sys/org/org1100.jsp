@@ -402,9 +402,9 @@
 	            colValue: 'CRN_CD',
 	            colLabel: 'CRN_NM',
 	            columns: [
-	            	{	caption: "통화코드",	ref: 'CRN_CD',	width: '125px',	style: 'text-align:left' },
-	            	{	caption: "통화명",	ref: 'CRN_NM',	width: '125px',	style: 'text-align:left' },
-	            	{	caption: "비고",	ref: 'DESCIPTION',	width: '150px',	style: 'text-align:left'}
+	            	{ caption: "통화코드",	ref: 'CRN_CD',	width: '125px',	style: 'text-align:left' },
+	            	{ caption: "통화명",	ref: 'CRN_NM',	width: '125px',	style: 'text-align:left' },
+	            	{ caption: "비고",	ref: 'DESCIPTION',	width: '150px',	style: 'text-align:left'}
 	            ]
 	        }),
 	        //부가세관할세무소
@@ -1015,41 +1015,41 @@
             return false;
         }
 	    var paramObj = {
-	    		   V_P_DEBUG_MODE_YN       : ''
-    			  ,V_P_LANG_ID             : ''
-    			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-    			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-    			  ,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
-    			  ,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
-    			  ,V_P_TAX_SITE_NAME_CHN   : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME_CHN"))
-    			  ,V_P_BIZ_REGNO           : gfnma_nvl(SBUxMethod.get("BIZ_REGNO1"))
-    			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
-    			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
-    			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_TAX_SITE_STAMP      : ''
-    			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-    			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-    			  ,V_P_TEL                 : gfnma_nvl(SBUxMethod.get("TEL"))
-    			  ,V_P_RESIDENCE_TEL       : gfnma_nvl(SBUxMethod.get("RESIDENCE_TEL"))
-    			  ,V_P_CELL_PHONE          : gfnma_nvl(SBUxMethod.get("CELL_PHONE"))
-    			  ,V_P_FAX                 : gfnma_nvl(SBUxMethod.get("FAX"))
-    			  ,V_P_ESTABLISH_DATE      : gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE"))
-    			  ,V_P_CLOSE_DATE          : gfnma_nvl(SBUxMethod.get("CLOSE_DATE"))
-    			  ,V_P_HOME_TAX_ID         : gfnma_nvl(SBUxMethod.get("HOME_TAX_ID"))
-    			  ,V_P_VAT_OFFICE          : gfnma_multiSelectGet("#VAT_OFFICE")
-    			  ,V_P_INCOME_TAX_OFFICE   : gfnma_multiSelectGet("#INCOME_TAX_OFFICE")
-    			  ,V_P_VAT_EMAIL           : gfnma_nvl(SBUxMethod.get("VAT_EMAIL"))
-    			  ,V_P_INCOME_TAX_EMAIL    : gfnma_nvl(SBUxMethod.get("INCOME_TAX_EMAIL"))
-    			  ,V_P_DESCR               : gfnma_nvl(SBUxMethod.get("DESCR"))
-    			  ,V_P_USE_YN              : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-    			  ,V_P_BIZ_SUBNO           : gfnma_nvl(SBUxMethod.get("BIZ_SUBNO"))
-    			  ,V_P_CURRENCY_CODE       : gfnma_multiSelectGet("#CURRENCY_CODE")
-    			  ,V_P_SITE_CODE           : gfnma_multiSelectGet("#SITE_CODE")
-    			  ,V_P_FORM_ID             : p_formId
-    			  ,V_P_MENU_ID             : p_menuId
-    			  ,V_P_PROC_ID             : ''
-    			  ,V_P_USERID              : p_userId
-    			  ,V_P_PC                  : ''
+	    		 V_P_DEBUG_MODE_YN       : ''
+    			,V_P_LANG_ID             : ''
+    			,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+    			,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+    			,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
+    			,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
+    			,V_P_TAX_SITE_NAME_CHN   : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME_CHN"))
+    			,V_P_BIZ_REGNO           : gfnma_nvl(SBUxMethod.get("BIZ_REGNO1"))
+    			,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
+    			,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
+    			,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
+    			,V_P_TAX_SITE_STAMP      : ''
+    			,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
+    			,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
+    			,V_P_TEL                 : gfnma_nvl(SBUxMethod.get("TEL"))
+    			,V_P_RESIDENCE_TEL       : gfnma_nvl(SBUxMethod.get("RESIDENCE_TEL"))
+    			,V_P_CELL_PHONE          : gfnma_nvl(SBUxMethod.get("CELL_PHONE"))
+    			,V_P_FAX                 : gfnma_nvl(SBUxMethod.get("FAX"))
+    			,V_P_ESTABLISH_DATE      : gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE"))
+    			,V_P_CLOSE_DATE          : gfnma_nvl(SBUxMethod.get("CLOSE_DATE"))
+    			,V_P_HOME_TAX_ID         : gfnma_nvl(SBUxMethod.get("HOME_TAX_ID"))
+    			,V_P_VAT_OFFICE          : gfnma_multiSelectGet("#VAT_OFFICE")
+    			,V_P_INCOME_TAX_OFFICE   : gfnma_multiSelectGet("#INCOME_TAX_OFFICE")
+    			,V_P_VAT_EMAIL           : gfnma_nvl(SBUxMethod.get("VAT_EMAIL"))
+    			,V_P_INCOME_TAX_EMAIL    : gfnma_nvl(SBUxMethod.get("INCOME_TAX_EMAIL"))
+    			,V_P_DESCR               : gfnma_nvl(SBUxMethod.get("DESCR"))
+    			,V_P_USE_YN              : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
+    			,V_P_BIZ_SUBNO           : gfnma_nvl(SBUxMethod.get("BIZ_SUBNO"))
+    			,V_P_CURRENCY_CODE       : gfnma_multiSelectGet("#CURRENCY_CODE")
+    			,V_P_SITE_CODE           : gfnma_multiSelectGet("#SITE_CODE")
+    			,V_P_FORM_ID             : p_formId
+    			,V_P_MENU_ID             : p_menuId
+    			,V_P_PROC_ID             : ''
+    			,V_P_USERID              : p_userId
+    			,V_P_PC                  : ''
 	    };
 	    const postJsonPromise = gfn_postJSON("/co/sys/org/insertOrg1100.do", {
 	        getType: 'json',
@@ -1077,41 +1077,41 @@
 	}
 	const fn_delete = async function() {
 	    var paramObj = {
-	    		   V_P_DEBUG_MODE_YN       : ''
-    			  ,V_P_LANG_ID             : ''
-    			  ,V_P_COMP_CODE           : gv_ma_selectedCorpCd
-    			  ,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
-    			  ,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
-    			  ,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
-    			  ,V_P_TAX_SITE_NAME_CHN   : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME_CHN"))
-    			  ,V_P_BIZ_REGNO           : gfnma_nvl(SBUxMethod.get("BIZ_REGNO1"))
-    			  ,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
-    			  ,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
-    			  ,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
-    			  ,V_P_TAX_SITE_STAMP      : ''
-    			  ,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
-    			  ,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
-    			  ,V_P_TEL                 : gfnma_nvl(SBUxMethod.get("TEL"))
-    			  ,V_P_RESIDENCE_TEL       : gfnma_nvl(SBUxMethod.get("RESIDENCE_TEL"))
-    			  ,V_P_CELL_PHONE          : gfnma_nvl(SBUxMethod.get("CELL_PHONE"))
-    			  ,V_P_FAX                 : gfnma_nvl(SBUxMethod.get("FAX"))
-    			  ,V_P_ESTABLISH_DATE      : gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE"))
-    			  ,V_P_CLOSE_DATE          : gfnma_nvl(SBUxMethod.get("CLOSE_DATE"))
-    			  ,V_P_HOME_TAX_ID         : gfnma_nvl(SBUxMethod.get("HOME_TAX_ID"))
-    			  ,V_P_VAT_OFFICE          : gfnma_multiSelectGet("#VAT_OFFICE")
-    			  ,V_P_INCOME_TAX_OFFICE   : gfnma_multiSelectGet("#INCOME_TAX_OFFICE")
-    			  ,V_P_VAT_EMAIL           : gfnma_nvl(SBUxMethod.get("VAT_EMAIL"))
-    			  ,V_P_INCOME_TAX_EMAIL    : gfnma_nvl(SBUxMethod.get("INCOME_TAX_EMAIL"))
-    			  ,V_P_DESCR               : gfnma_nvl(SBUxMethod.get("DESCR"))
-    			  ,V_P_USE_YN              : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
-    			  ,V_P_BIZ_SUBNO           : gfnma_nvl(SBUxMethod.get("BIZ_SUBNO"))
-    			  ,V_P_CURRENCY_CODE       : gfnma_multiSelectGet("#CURRENCY_CODE")
-    			  ,V_P_SITE_CODE           : gfnma_multiSelectGet("#SITE_CODE")
-    			  ,V_P_FORM_ID             : p_formId
-    			  ,V_P_MENU_ID             : p_menuId
-    			  ,V_P_PROC_ID             : ''
-    			  ,V_P_USERID              : p_userId
-    			  ,V_P_PC                  : ''
+	    		 V_P_DEBUG_MODE_YN       : ''
+    			,V_P_LANG_ID             : ''
+    			,V_P_COMP_CODE           : gv_ma_selectedCorpCd
+    			,V_P_CLIENT_CODE         : gv_ma_selectedClntCd
+    			,V_P_TAX_SITE_CODE       : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
+    			,V_P_TAX_SITE_NAME       : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME"))
+    			,V_P_TAX_SITE_NAME_CHN   : gfnma_nvl(SBUxMethod.get("TAX_SITE_NAME_CHN"))
+    			,V_P_BIZ_REGNO           : gfnma_nvl(SBUxMethod.get("BIZ_REGNO1"))
+    			,V_P_BIZ_CATEGORY        : gfnma_nvl(SBUxMethod.get("BIZ_CATEGORY"))
+    			,V_P_BIZ_ITEMS           : gfnma_nvl(SBUxMethod.get("BIZ_ITEMS"))
+    			,V_P_CHIEF_NAME          : gfnma_nvl(SBUxMethod.get("CHIEF_NAME"))
+    			,V_P_TAX_SITE_STAMP      : ''
+    			,V_P_ZIP_CODE            : gfnma_nvl(SBUxMethod.get("ZIP_CODE"))
+    			,V_P_ADDRESS             : gfnma_nvl(SBUxMethod.get("ADDRESS"))
+    			,V_P_TEL                 : gfnma_nvl(SBUxMethod.get("TEL"))
+    			,V_P_RESIDENCE_TEL       : gfnma_nvl(SBUxMethod.get("RESIDENCE_TEL"))
+    			,V_P_CELL_PHONE          : gfnma_nvl(SBUxMethod.get("CELL_PHONE"))
+    			,V_P_FAX                 : gfnma_nvl(SBUxMethod.get("FAX"))
+    			,V_P_ESTABLISH_DATE      : gfnma_nvl(SBUxMethod.get("ESTABLISH_DATE"))
+    			,V_P_CLOSE_DATE          : gfnma_nvl(SBUxMethod.get("CLOSE_DATE"))
+    			,V_P_HOME_TAX_ID         : gfnma_nvl(SBUxMethod.get("HOME_TAX_ID"))
+    			,V_P_VAT_OFFICE          : gfnma_multiSelectGet("#VAT_OFFICE")
+    			,V_P_INCOME_TAX_OFFICE   : gfnma_multiSelectGet("#INCOME_TAX_OFFICE")
+    			,V_P_VAT_EMAIL           : gfnma_nvl(SBUxMethod.get("VAT_EMAIL"))
+    			,V_P_INCOME_TAX_EMAIL    : gfnma_nvl(SBUxMethod.get("INCOME_TAX_EMAIL"))
+    			,V_P_DESCR               : gfnma_nvl(SBUxMethod.get("DESCR"))
+    			,V_P_USE_YN              : gfnma_nvl(SBUxMethod.get("USE_YN").USE_YN)
+    			,V_P_BIZ_SUBNO           : gfnma_nvl(SBUxMethod.get("BIZ_SUBNO"))
+    			,V_P_CURRENCY_CODE       : gfnma_multiSelectGet("#CURRENCY_CODE")
+    			,V_P_SITE_CODE           : gfnma_multiSelectGet("#SITE_CODE")
+    			,V_P_FORM_ID             : p_formId
+    			,V_P_MENU_ID             : p_menuId
+    			,V_P_PROC_ID             : ''
+    			,V_P_USERID              : p_userId
+    			,V_P_PC                  : ''
 	    };
 	    const postJsonPromise = gfn_postJSON("/co/sys/org/insertOrg1100.do", {
 	        getType: 'json',
@@ -1181,10 +1181,10 @@
 	}
 	
 	/**
-	 * @name fn_delHistoryRow
-	 * @DESCRIPTION 변경이력관리 그리드 행 삭제
-	 * @function
-	 */
+	* @name fn_delHistoryRow
+	* @DESCRIPTION 변경이력관리 그리드 행 삭제
+	* @function
+	*/
 	const fn_delHistoryRow = async function() {
 	    var rowVal = historyGrid.getRow();
 	    if (rowVal == -1) { //데이터가 없고 행선택이 없을경우.
@@ -1195,10 +1195,10 @@
 	    }
 	}
 	/**
-	 * @name fn_saveHistoryGrid
-	 * @DESCRIPTION 변경이력관리 탭 저장
-	 * @function
-	 */
+	* @name fn_saveHistoryGrid
+	* @DESCRIPTION 변경이력관리 탭 저장
+	* @function
+	*/
 	const fn_saveHistoryGrid = async function() {
 		
 		if(gfn_comConfirm("Q0001", "저장") == false){
@@ -1249,30 +1249,30 @@
 	            rownum: item.rownum,
 	            workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
 	            params: gfnma_objectToString({
-	            	   V_P_DEBUG_MODE_YN        : ''
-            		  ,V_P_LANG_ID              : ''
-            		  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
-            		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-            		  ,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
-            		  ,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)
-            		  ,V_P_APPLY_END_DATE       : gfnma_nvl(item.data.APPLY_END_DATE)
-            		  ,V_P_TAX_SITE_NAME        : gfnma_nvl(item.data.TAX_SITE_NAME)
-            		  ,V_P_BIZ_REGNO            : gfnma_nvl(item.data.BIZ_REGNO)
-            		  ,V_P_BIZ_CATEGORY         : gfnma_nvl(item.data.BIZ_CATEGORY)
-            		  ,V_P_BIZ_ITEMS            : gfnma_nvl(item.data.BIZ_ITEMS)
-            		  ,V_P_CHIEF_NAME           : gfnma_nvl(item.data.CHIEF_NAME)
-            		  ,V_P_ZIP_CODE             : gfnma_nvl(item.data.ZIP_CODE)
-            		  ,V_P_ADDRESS              : gfnma_nvl(item.data.ADDRESS)
-            		  ,V_P_ISSUE_DATE           : gfnma_nvl(item.data.ISSUE_DATE)
-            		  ,V_P_ISSUE_REASON         : gfnma_nvl(item.data.ISSUE_REASON)
-            		  ,V_P_MEMO                 : gfnma_nvl(item.data.MEMO)
-            		  ,V_P_BIZ_SUBNO            : gfnma_nvl(item.data.BIZ_SUBNO)
-            		  ,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
-            		  ,V_P_FORM_ID              : p_formId
-            		  ,V_P_MENU_ID              : p_menuId
-            		  ,V_P_PROC_ID              : ''
-            		  ,V_P_USERID               : p_userId
-            		  ,V_P_PC                   : ''
+	            	 V_P_DEBUG_MODE_YN        : ''
+            		,V_P_LANG_ID              : ''
+            		,V_P_COMP_CODE            : gv_ma_selectedCorpCd
+            		,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+            		,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
+            		,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)
+            		,V_P_APPLY_END_DATE       : gfnma_nvl(item.data.APPLY_END_DATE)
+            		,V_P_TAX_SITE_NAME        : gfnma_nvl(item.data.TAX_SITE_NAME)
+            		,V_P_BIZ_REGNO            : gfnma_nvl(item.data.BIZ_REGNO)
+            		,V_P_BIZ_CATEGORY         : gfnma_nvl(item.data.BIZ_CATEGORY)
+            		,V_P_BIZ_ITEMS            : gfnma_nvl(item.data.BIZ_ITEMS)
+            		,V_P_CHIEF_NAME           : gfnma_nvl(item.data.CHIEF_NAME)
+            		,V_P_ZIP_CODE             : gfnma_nvl(item.data.ZIP_CODE)
+            		,V_P_ADDRESS              : gfnma_nvl(item.data.ADDRESS)
+            		,V_P_ISSUE_DATE           : gfnma_nvl(item.data.ISSUE_DATE)
+            		,V_P_ISSUE_REASON         : gfnma_nvl(item.data.ISSUE_REASON)
+            		,V_P_MEMO                 : gfnma_nvl(item.data.MEMO)
+            		,V_P_BIZ_SUBNO            : gfnma_nvl(item.data.BIZ_SUBNO)
+            		,V_P_CURRENCY_CODE        : gfnma_nvl(item.data.CURRENCY_CODE)
+            		,V_P_FORM_ID              : p_formId
+            		,V_P_MENU_ID              : p_menuId
+            		,V_P_PROC_ID              : ''
+            		,V_P_USERID               : p_userId
+            		,V_P_PC                   : ''
 	            })
 	        }
 	        listData.push(param);
@@ -1361,20 +1361,20 @@
 	            rownum: item.rownum,
 	            workType: item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
 	            params: gfnma_objectToString({
-	            	   V_P_DEBUG_MODE_YN        : ""
-            		  ,V_P_LANG_ID              : ""
-            		  ,V_P_COMP_CODE            : gv_ma_selectedCorpCd
-            		  ,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
-            		  ,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
-            		  ,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)
-            		  ,V_P_APPLY_END_DATE       : gfnma_nvl(item.data.APPLY_END_DATE)
-            		  ,V_P_ISSUE_LIMIT_MONTH    : gfnma_nvl(item.data.ISSUE_LIMIT_MONTH)
-            		  ,V_P_ISSUE_LIMIT_ONCE     : gfnma_nvl(item.data.ISSUE_LIMIT_ONCE)
-            		  ,V_P_FORM_ID              : p_formId
-            		  ,V_P_MENU_ID              : p_menuId
-            		  ,V_P_PROC_ID              : ""
-            		  ,V_P_USERID               : p_userId
-            		  ,V_P_PC                   : ""
+	            	 V_P_DEBUG_MODE_YN        : ""
+            		,V_P_LANG_ID              : ""
+            		,V_P_COMP_CODE            : gv_ma_selectedCorpCd
+            		,V_P_CLIENT_CODE          : gv_ma_selectedClntCd
+            		,V_P_TAX_SITE_CODE        : gfnma_nvl(SBUxMethod.get("TAX_SITE_CODE"))
+            		,V_P_APPLY_START_DATE     : gfnma_nvl(item.data.APPLY_START_DATE)
+            		,V_P_APPLY_END_DATE       : gfnma_nvl(item.data.APPLY_END_DATE)
+            		,V_P_ISSUE_LIMIT_MONTH    : gfnma_nvl(item.data.ISSUE_LIMIT_MONTH)
+            		,V_P_ISSUE_LIMIT_ONCE     : gfnma_nvl(item.data.ISSUE_LIMIT_ONCE)
+            		,V_P_FORM_ID              : p_formId
+            		,V_P_MENU_ID              : p_menuId
+            		,V_P_PROC_ID              : ""
+            		,V_P_USERID               : p_userId
+            		,V_P_PC                   : ""
 	            })
 	        }
 	        listData.push(param);
