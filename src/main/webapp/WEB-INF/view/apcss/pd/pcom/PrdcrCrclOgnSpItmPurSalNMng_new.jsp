@@ -324,7 +324,7 @@
 						<p>o 생산자조직 외 기타매입한 실적에 대해서는 별도 매입실적 및 매출실적(물량/금액) 입력 필요(불려오는 값 없음)</p>
 						<p>o 매출액 : 통합조직 판매액 기준. 수수료, 판매마진 등을 반영하여 매출액 작성    * 자체공판장 취급액 미포함</p>
 					</div>
-					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none;  max-height: 200px; overflow: auto;">
 						<p><b style="color: red">임시저장 상태입니다</b></p>
 						<p id="tmprStrgRsn"></p>
 					</div>

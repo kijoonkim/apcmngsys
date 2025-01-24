@@ -372,7 +372,7 @@
 						<p>o (요건미달)전속출하 : 생산자조직 요건을 미충족한 부적합(N) 생산자조직에 대한 매출현황 입력(매입현황은 "생산자조직 현황에 입력한 요건미달 생산자조직의 출하량, 출하대금지급액이 자동 연계)</p>
 						<p>o 생산자조직 외 : 생산자조직을 구성하지 않고, 단순 사입한 실적에 대해 "매입현황" 및 "매출현황" 입력(불려오는 값 없음)</p>
 					</div>
-					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none;  max-height: 200px; overflow: auto;">
 						<p><b style="color: red">임시저장 상태입니다</b></p>
 						<p id="tmprStrgRsn"></p>
 					</div>

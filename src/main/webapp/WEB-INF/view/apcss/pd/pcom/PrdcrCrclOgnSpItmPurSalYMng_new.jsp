@@ -328,7 +328,7 @@
 						<p>o 기타매입 : 통합조직이 단순사입해온 실적에 대해 "매입현황" 및 "매출현황" 입력 필요(불려오는 값 없음)</p>
 						<p>　⇒ "출자출하조직-전속출하 실적 + (통합조직직속)전속출하-전속출하 실적"의 합이 최종 "생산자조직 전속출하 실적"으로 인정</p>
 					</div>
-					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+					<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none; max-height: 200px; overflow: auto;">
 						<p><b style="color: red">임시저장 상태입니다</b></p>
 						<p id="tmprStrgRsn"></p>
 					</div>
