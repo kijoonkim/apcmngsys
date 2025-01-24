@@ -26,9 +26,6 @@
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
     <%@ include file="../../../../frame/inc/clipreport.jsp" %>
-
-    <title>Calculator</title>
-    <link rel="stylesheet" href="/resource/css/ma_custom.css">
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -561,7 +558,7 @@
         {caption: ["귀속부서명(코스트센터)"], ref: 'COST_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left'},
         {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
         {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
-        {caption: ["주민등록번호"], ref: 'SOCIAL_NUM_RAEL', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+        //{caption: ["주민등록번호"], ref: 'SOCIAL_NUM_RAEL', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
         {caption : ["직군"], ref : 'JOB_GROUP', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
             typeinfo : {ref : 'jsonJobGroup',  label : 'label', value : 'value'}
         },
@@ -594,7 +591,7 @@
         {caption : ["직급"], ref : 'JOB_RANK', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
             typeinfo : {ref : 'jsonJobRank',  label : 'label', value : 'value'}
         },
-        {caption: ["social_num"], ref: 'SOCIAL_NUM', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
+        //{caption: ["social_num"], ref: 'SOCIAL_NUM', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
         {caption: ["호봉"], ref: 'HOBONG', type: 'output', width: '140px', style: 'text-align:left'},
         {caption: ["코스트센터명"], ref: 'COST_DEPT_NAME', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
         {caption: ["코스트센터"], ref: 'COST_DEPT_CODE', type: 'output', width: '140px', style: 'text-align:left', hidden: true},
@@ -774,8 +771,8 @@
                         DEPT_NAME               : gfn_nvl(item.DEPT_NM),
                         EMP_CODE                : gfn_nvl(item.EMP_CD),
                         EMP_NAME                : gfn_nvl(item.EMP_NM),
-                        SOCIAL_NUM              : gfn_nvl(item.RRNO_ENCPT),
-                        SOCIAL_NUM_REAL         : gfn_nvl(item.SOCIAL_NUM_REAL),
+                       /* SOCIAL_NUM              : gfn_nvl(item.RRNO_ENCPT),
+                        SOCIAL_NUM_REAL         : gfn_nvl(item.SOCIAL_NUM_REAL),*/
                         PAY_TYPE                : gfn_nvl(item.SLRY_TYPE),
                         POSITION_CODE           : gfn_nvl(item.JBPS_CD),
                         DUTY_CODE               : gfn_nvl(item.JBTTL_CD),
