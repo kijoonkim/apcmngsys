@@ -31,12 +31,20 @@
 
 
     <style>
-        /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
+       /*해당 레이아웃 템플릿 페이지를 표현하기위한 임의의 스타일 CSS 입니다.
         실작업시, 해당 프로젝트의 CSS 네이밍에 맞추어 재작업이 필요합니다.*/
         html, body {
             height:100%;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            width : 100%;
+            overscroll-behavior: none;
         }
-        .sbt-A-wrap {min-width:1024px; margin:0 auto; height:100vh; overflow: scroll; -ms-overflow-style: none; scrollbar-width: none;}
+        #mainBody > div.sbt-A-wrap > div.main > div.content > div.row{
+            margin : 0 !important;
+        }
+        .sbt-A-wrap {min-width:612px; margin:0 auto; height:100vh; overflow: scroll; -ms-overflow-style: none; scrollbar-width: none;}
         .sbt-A-wrap ::-webkit-scrollbar {display: none;}
         .sbt-A-wrap .main {display:table;  width:100%;}
         .sbt-A-wrap .left {display:table-cell; vertical-align: top; width:200px; height:90vh;}
@@ -868,7 +876,7 @@
             <!--full content-->
             <div class="sbt-wrap-full">
                 <!--탭 입력 영역-->
-                <div class="sbt-input-tab">
+                <div class="sbt-input-tab" style="height: 100%">
                     <!--탭 영역-->
                     <sbux-tabs
                     	id="tab_menu"
