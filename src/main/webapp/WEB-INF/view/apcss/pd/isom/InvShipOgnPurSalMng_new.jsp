@@ -335,7 +335,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none">
+				<div id="tmprArea" style="border:1px solid #red; background-color: #ffc0cb; border-radius: 10px; padding: 10px; display: none; max-height: 200px; overflow: auto;">
 					<p><b style="color: red">임시저장 상태입니다</b></p>
 					<p id="tmprStrgRsn"></p>
 				</div>

@@ -236,9 +236,9 @@
 						THEN (SELECT (SELECT APRV FROM TB_EV_APO WHERE BRNO = AM.UO_BRNO) AS APRV
 								FROM TB_EV_APLY_MNG AM
 								WHERE 1=1
-								  AND BRNO = CM.BRNO
+								  AND BRNO = EAM.BRNO
 								  AND APO_SE = '2'
-								  AND YR = #{yr}
+								  AND YR = EAM.YR
 							)
 					ELSE '' END
 				) AS APRV
@@ -447,7 +447,7 @@
 						</if>
 						) EAM
 			 WHERE 1=1
-			   AND CM.BRNO = EAM.BRNO(+)
+			   AND EAM.BRNO = CM.BRNO(+)
 			   AND CM.APO_CD IS NOT NULL
 
 			<if test='apoSe != null and apoSe != ""'>
