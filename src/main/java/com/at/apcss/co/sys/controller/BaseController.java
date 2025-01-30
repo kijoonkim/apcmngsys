@@ -67,8 +67,9 @@ public abstract class BaseController {
 	private String filepathCo;
 	private String filepathFm;
 	private String filepathPd;
-
 	private String linkRviewUrl;
+
+	private String serverSchedule;
 
 	@PostConstruct
 	protected void init() {
@@ -89,6 +90,9 @@ public abstract class BaseController {
 		filepathPd = env.getProperty("apcss.filepath.pd");
 
 		linkRviewUrl = env.getProperty("link.rview.url");
+
+		serverSchedule = env.getProperty("spring.server.schedule");
+
 	}
 
 
@@ -178,9 +182,12 @@ public abstract class BaseController {
 	/**
 	 * @return [Report Path 설정]
 	 */
-	@Bean(name = {"reportPath"})
 	protected String getReportPath() {
 		return reportPath;
+	}
+
+	protected boolean isScheduleAvailable() {
+		return "yes".equals(serverSchedule);
 	}
 
 	protected String getUserId() {

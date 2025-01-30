@@ -30,6 +30,10 @@ public interface RawMtrInvntrService {
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+	public RawMtrInvntrVO selectRawMtrInvntrById(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	public RawMtrInvntrVO selectRawMtrInvntrById(String apcCd, String wrhsno) throws Exception;
+
 	/**
 	 * 원물재고 목록 조회
 	 * @param rawMtrInvntrVO
@@ -240,4 +244,21 @@ public interface RawMtrInvntrService {
 	 * @throws Exception
 	 */
     void updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+
+	/**
+	 * 원물반출등록 재고 차감
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrShpgot(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+	/**
+	 * 원물반출취소 재고 복원
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateInvntrShpgotCncl(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 }

@@ -1,9 +1,11 @@
 package com.at.apcss.co.mail.service.impl;
 
 import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.mail.mapper.ApcMailMapper;
 import com.at.apcss.co.mail.service.ApcMailService;
 import com.at.apcss.co.mail.vo.ApcMailVO;
 import com.at.apcss.co.mail.vo.AttachFileVO;
+import com.at.apcss.co.mail.vo.EmlLogVO;
 import com.at.apcss.co.mail.vo.EmsMailVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
@@ -12,7 +14,9 @@ import com.google.gson.Gson;
 import org.hsqldb.lib.StringUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +42,10 @@ import java.util.*;
 
 @Service("apcMailService")
 public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailService {
+
+    @Autowired
+    ApcMailMapper apcMailMapper;
+
 
     @Value("${spring.server.type}")
     private String serverType;
@@ -498,6 +506,49 @@ public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailServic
             return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, e.getLocalizedMessage());
         } catch (IOException e) {
             return ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, e.getLocalizedMessage());
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<EmlLogVO> selectComEmlLogListForSndng(EmlLogVO emlLogVO) throws Exception {
+        return null;
+    }
+
+
+    @Override
+    public HashMap<String, Object> updateComEmlLogForStandby() throws Exception {
+
+        EmlLogVO paramVO = new EmlLogVO();
+        paramVO.setFetchSize(1000);
+        List<EmlLogVO> standbyList = apcMailMapper.selectComEmlLogListForSndng(paramVO);
+
+        if (standbyList != null && !standbyList.isEmpty()) {
+
+            for ( EmlLogVO eml : standbyList ) {
+                ApcMailVO apcMailVO = new ApcMailVO(
+                        eml.getSndptyEml(),         // mailFrom,
+                        eml.getRcvrEml(),           // recipientsTo,
+                        ComConstants.CON_BLANK,     // recipientsCc,
+                        ComConstants.CON_BLANK,     // recipientsBcc,
+                        eml.getSbjt(),              // subject,
+                        eml.getConts(),             // content,
+                        ComConstants.CON_BLANK      // charset
+                );
+
+                HashMap<String, Object> rtnObj = sendMailSimple(apcMailVO);
+
+                if (rtnObj != null) {
+                    eml.setSndngYn(ComConstants.CON_X);
+                } else {
+                    eml.setSndngYn(ComConstants.CON_YES);
+                }
+
+                eml.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
+                eml.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+                apcMailMapper.updateComEmlLogSndng(eml);
+            }
         }
 
         return null;

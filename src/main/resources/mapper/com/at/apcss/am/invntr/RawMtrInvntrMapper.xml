@@ -12,6 +12,59 @@
 
 <mapper namespace="com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper">
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrById	-->
+	<!-- DESC : 원물재고 단건 조회.	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.07.28  	신정철        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectRawMtrInvntrById" parameterType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO" resultType="com.at.apcss.am.invntr.vo.RawMtrInvntrVO">
+		<![CDATA[
+	    	SELECT /* com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntrById */
+				  RI.APC_CD		AS APC_CD
+				, RI.WRHSNO		AS WRHSNO
+				, RI.PLTNO		AS PLTNO
+				, RI.WRHS_YMD		AS WRHS_YMD
+				, RI.PRDCR_CD		AS PRDCR_CD
+				, RI.ITEM_CD		AS ITEM_CD
+				, RI.VRTY_CD		AS VRTY_CD
+				, RI.GDS_SE_CD		AS GDS_SE_CD
+				, RI.WRHS_SE_CD		AS WRHS_SE_CD
+				, RI.TRSPRT_SE_CD		AS TRSPRT_SE_CD
+				, RI.WAREHOUSE_SE_CD		AS WAREHOUSE_SE_CD
+				, RI.BX_KND		AS BX_KND
+				, RI.DEL_YN		AS DEL_YN
+				, RI.GRD_CD		AS GRD_CD
+				, RI.PRDCTN_YR		AS PRDCTN_YR
+				, RI.GRD_IDNTY_PRSN		AS GRD_IDNTY_PRSN
+				, RI.RMRK		AS RMRK
+				, RI.WRHS_QNTT		AS WRHS_QNTT
+				, RI.WRHS_WGHT		AS WRHS_WGHT
+				, RI.INPT_QNTT		AS INPT_QNTT
+				, RI.INPT_WGHT		AS INPT_WGHT
+				, RI.INVNTR_QNTT		AS INVNTR_QNTT
+				, RI.INVNTR_WGHT		AS INVNTR_WGHT
+				, RI.INVNTR_CHG_RSN_CD		AS INVNTR_CHG_RSN_CD
+				, RI.TRNSF_QNTT		AS TRNSF_QNTT
+				, RI.TRNSF_WGHT		AS TRNSF_WGHT
+				, RI.INPT_PRGRS_QNTT		AS INPT_PRGRS_QNTT
+				, RI.INPT_PRGRS_WGHT		AS INPT_PRGRS_WGHT
+				, RI.PRCS_QNTT		AS PRCS_QNTT
+				, RI.PRCS_WGHT		AS PRCS_WGHT
+				, RI.PRCS_NO		AS PRCS_NO
+				, RI.PRCS_TYPE		AS PRCS_TYPE
+				, RI.INVNTR_STTS_CD		AS INVNTR_STTS_CD
+				, RI.STRG_LOCTN_CD		AS STRG_LOCTN_CD
+				, RI.CHCKR		AS CHCKR
+				, RI.SPCFCT_CD		AS SPCFCT_CD
+				, RI.PLOR_CD		AS PLOR_CD
+			FROM TB_RAW_MTR_INVNTR RI
+			WHERE RI.APC_CD = #{apcCd}
+			  AND RI.WRHSNO = #{wrhsno}
+		]]>
+    </select>
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper.selectRawMtrInvntr	-->

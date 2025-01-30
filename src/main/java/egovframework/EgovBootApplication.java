@@ -12,11 +12,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.FileInputStream;
 
 @ServletComponentScan
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@EnableScheduling
 //@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 

@@ -119,6 +119,7 @@ public class ComConstants {
 
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
+	public final static String CON_X = "X";
 
 	public final static String CON_XSDENY_CHAR = "----==_dummy_part_66f108b0c681a_bf1d241437c4";
 
