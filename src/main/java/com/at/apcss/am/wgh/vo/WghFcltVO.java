@@ -1,6 +1,5 @@
 package com.at.apcss.am.wgh.vo;
 
-import com.at.apcss.am.spmt.vo.ShpgotApcCrtrDtlVO;
 import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
