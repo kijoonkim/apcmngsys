@@ -33,6 +33,17 @@ public interface RawMtrInvntrMapper {
 	 */
 	public RawMtrInvntrVO selectRawMtrInvntr(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
 
+
+	/**
+	 * 원물재고 단건 조회 by Id
+	 * @param rawMtrInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrInvntrVO selectRawMtrInvntrById(RawMtrInvntrVO rawMtrInvntrVO) throws Exception;
+
+
+
 	/**
 	 * 원물재고 표준등급 목록 조회
 	 * @param rawMtrInvntrVO

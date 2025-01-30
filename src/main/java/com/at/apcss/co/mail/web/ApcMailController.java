@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -117,7 +118,7 @@ public class ApcMailController extends BaseController {
                 return getErrorResponseEntity(rtnObj);
             }
         } catch( Exception e) {
-            getErrorResponseEntity(e);
+            return getErrorResponseEntity(e);
         } finally {
             setMenuComLog(request);
         }
@@ -168,11 +169,13 @@ public class ApcMailController extends BaseController {
                 return getErrorResponseEntity(rtnObj);
             }
         } catch( Exception e) {
-            getErrorResponseEntity(e);
+            return getErrorResponseEntity(e);
         } finally {
             setMenuComLog(request);
         }
 
         return getSuccessResponseEntity(resultMap);
     }
+
+
 }

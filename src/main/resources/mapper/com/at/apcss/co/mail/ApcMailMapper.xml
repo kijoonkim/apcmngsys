@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcMailMapper.xml                           		        			-->
+<!-- DESC : APC 메일 mapper                   					                -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.08.29  	신정철        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.mail.mapper.ApcMailMapper">
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog			-->
+	<!-- DESC : 공통메일로그 단건 조회.             		           	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectComEmlLog" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+		<![CDATA[
+			SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLog */
+				  EL.EML_SEQ		AS EML_SEQ
+				, EL.SNDPTY_EML		AS SNDPTY_EML
+				, EL.RCVR_EML		AS RCVR_EML
+				, EL.SBJT			AS SBJT
+				, EL.CONTS			AS CONTS
+				, EL.SNDNG_TYPE		AS SNDNG_TYPE
+				, EL.SNDNG_DT		AS SNDNG_DT
+				, EL.SNDPTY_NM		AS SNDPTY_NM
+				, EL.RCVR_NM		AS RCVR_NM
+				, EL.SNDNG_YN		AS SNDNG_YN
+				, EL.DEL_YN			AS DEL_YN
+    		  FROM TB_COM_EML_LOG EL
+    		 WHERE EML_SEQ = #{emlSeq}
+    		 ORDER BY EML_SEQ
+		]]>
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList		-->
+	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectComEmlLogList" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+		<![CDATA[
+		SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogList */
+			   EL.EML_SEQ		AS EML_SEQ
+			 , EL.SNDPTY_EML	AS SNDPTY_EML
+			 , EL.RCVR_EML		AS RCVR_EML
+			 , EL.SBJT			AS SBJT
+			 , EL.CONTS			AS CONTS
+			 , EL.SNDNG_TYPE	AS SNDNG_TYPE
+			 , EL.SNDNG_DT		AS SNDNG_DT
+			 , EL.SNDPTY_NM		AS SNDPTY_NM
+			 , EL.RCVR_NM		AS RCVR_NM
+			 , EL.SNDNG_YN		AS SNDNG_YN
+		FROM TB_COM_EML_LOG EL
+		WHERE 1=1
+
+		]]>
+		<if test='sndngYn != null and prgrmNm != ""'>
+			AND EL.SNDNG_YN = #{sndngYn}
+		</if>
+		<![CDATA[
+    		ORDER BY EML_SEQ
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng	-->
+	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectComEmlLogListForSndng" parameterType="com.at.apcss.co.mail.vo.EmlLogVO" resultType="com.at.apcss.co.mail.vo.EmlLogVO">
+		<![CDATA[
+		SELECT	/* com.at.apcss.co.mail.mapper.ApcMailMapper.selectComEmlLogListForSndng */
+			   EL.EML_SEQ		AS EML_SEQ
+			 , EL.SNDPTY_EML	AS SNDPTY_EML
+			 , EL.RCVR_EML		AS RCVR_EML
+			 , EL.SBJT			AS SBJT
+			 , EL.CONTS			AS CONTS
+			 , EL.SNDNG_TYPE	AS SNDNG_TYPE
+			 , EL.SNDNG_DT		AS SNDNG_DT
+			 , EL.SNDPTY_NM		AS SNDPTY_NM
+			 , EL.RCVR_NM		AS RCVR_NM
+			 , EL.SNDNG_YN		AS SNDNG_YN
+		FROM TB_COM_EML_LOG EL
+		WHERE EL.SNDNG_YN = 'N'
+		ORDER BY EML_SEQ
+		FETCH FIRST #{fetchSize} ROWS ONLY
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng	-->
+	<!-- DESC : 공통메일로그 목록 조회.             		           	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.08.29  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateComEmlLogSndng" parameterType="com.at.apcss.co.mail.vo.EmlLogVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.co.mail.mapper.ApcMailMapper.updateComEmlLogSndng */
+				TB_COM_EML_LOG
+				SET
+				  SNDNG_YN = #{sndngYn}
+				, SYS_LAST_CHG_DT		= SYSDATE
+			    , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+			    , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+			WHERE EML_SEQ = #{emlSeq}
+		]]>
+	</update>
+
+</mapper>
+
+

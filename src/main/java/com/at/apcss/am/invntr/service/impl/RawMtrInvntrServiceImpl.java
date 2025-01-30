@@ -74,6 +74,21 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	}
 
 	@Override
+	public RawMtrInvntrVO selectRawMtrInvntrById(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+		return rawMtrInvntrMapper.selectRawMtrInvntrById(rawMtrInvntrVO);
+	}
+
+	@Override
+	public RawMtrInvntrVO selectRawMtrInvntrById(String apcCd, String wrhsno) throws Exception {
+
+		RawMtrInvntrVO param = new RawMtrInvntrVO();
+		param.setApcCd(apcCd);
+		param.setWrhsno(wrhsno);
+
+		return selectRawMtrInvntrById(param);
+	}
+
+	@Override
 	public List<RawMtrInvntrVO> selectRawMtrInvntrList(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
 
 		List<RawMtrInvntrVO> resultList = rawMtrInvntrMapper.selectRawMtrInvntrList(rawMtrInvntrVO);
@@ -922,6 +937,116 @@ public class RawMtrInvntrServiceImpl extends BaseServiceImpl implements RawMtrIn
 	@Override
 	public void updateRawMtrWrhsListAndPlt(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
 
+	}
+
+	@Override
+	public HashMap<String, Object> updateInvntrShpgot(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		String sysFrstInptUserId = rawMtrInvntrVO.getSysFrstInptUserId();
+		String sysFrstInptPrgrmId = rawMtrInvntrVO.getSysFrstInptPrgrmId();
+		String sysLastChgUserId = rawMtrInvntrVO.getSysLastChgUserId();
+		String sysLastChgPrgrmId = rawMtrInvntrVO.getSysLastChgPrgrmId();
+
+		/** 총 처리 수량 중량 **/
+		double prcsQntt = rawMtrInvntrVO.getPrcsQntt();
+		double prcsWght = rawMtrInvntrVO.getPrcsWght();
+
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		invntrVO.setApcCd(invntrInfo.getApcCd());
+		invntrVO.setWrhsno(invntrInfo.getWrhsno());
+
+		invntrVO.setSysFrstInptUserId(sysFrstInptUserId);
+		invntrVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+		invntrVO.setSysLastChgUserId(sysLastChgUserId);
+		invntrVO.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+
+		double invntrQntt = invntrInfo.getInvntrQntt();
+		double invntrWght = invntrInfo.getInvntrWght();
+
+		double prvPrcsQntt = invntrInfo.getPrcsQntt();
+		double prvPrcsWght = invntrInfo.getPrcsWght();
+
+		if (invntrQntt < prcsQntt && invntrWght < prcsWght) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LACK, "재고량");
+		}
+
+		invntrVO.setInvntrQntt(invntrQntt - prcsQntt);
+		invntrVO.setInvntrWght(invntrWght - prcsWght);
+		invntrVO.setPrcsQntt(prvPrcsQntt + prcsQntt); 	//처리수량
+		invntrVO.setPrcsWght(prvPrcsWght + prcsWght); 	//처리중량
+
+		// 원물 재고변경 이력 등록 (반출)
+		invntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_R1);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(invntrVO);
+
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rawMtrInvntrMapper.updateInvntrPrcs(invntrVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateInvntrShpgotCncl(RawMtrInvntrVO rawMtrInvntrVO) throws Exception {
+
+		String sysFrstInptUserId = rawMtrInvntrVO.getSysFrstInptUserId();
+		String sysFrstInptPrgrmId = rawMtrInvntrVO.getSysFrstInptPrgrmId();
+		String sysLastChgUserId = rawMtrInvntrVO.getSysLastChgUserId();
+		String sysLastChgPrgrmId = rawMtrInvntrVO.getSysLastChgPrgrmId();
+
+		/** 총 처리 수량 중량 **/
+		double prcsQntt = rawMtrInvntrVO.getPrcsQntt();
+		double prcsWght = rawMtrInvntrVO.getPrcsWght();
+
+		RawMtrInvntrVO invntrInfo = rawMtrInvntrMapper.selectRawMtrInvntr(rawMtrInvntrVO);
+		if (invntrInfo == null || !StringUtils.hasText(invntrInfo.getWrhsno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "원물재고");
+		}
+
+		RawMtrInvntrVO invntrVO = new RawMtrInvntrVO();
+		invntrVO.setApcCd(invntrInfo.getApcCd());
+		invntrVO.setWrhsno(invntrInfo.getWrhsno());
+
+		invntrVO.setSysFrstInptUserId(sysFrstInptUserId);
+		invntrVO.setSysFrstInptPrgrmId(sysFrstInptPrgrmId);
+		invntrVO.setSysLastChgUserId(sysLastChgUserId);
+		invntrVO.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+
+		double invntrQntt = invntrInfo.getInvntrQntt();
+		double invntrWght = invntrInfo.getInvntrWght();
+
+		double prvPrcsQntt = invntrInfo.getPrcsQntt();
+		double prvPrcsWght = invntrInfo.getPrcsWght();
+
+		if (prvPrcsQntt < prcsQntt && prvPrcsWght < prcsWght) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LACK, "기처리량");
+		}
+
+		invntrVO.setInvntrQntt(invntrQntt + prcsQntt);
+		invntrVO.setInvntrWght(invntrWght + prcsWght);
+		invntrVO.setPrcsQntt(prvPrcsQntt - prcsQntt); 	// 처리수량
+		invntrVO.setPrcsWght(prvPrcsWght - prcsWght); 	// 처리중량
+
+		// 원물 재고변경 이력 등록 (반출)
+		invntrVO.setChgRsnCd(AmConstants.CON_INVNTR_CHG_RSN_CD_R2);
+		HashMap<String, Object> rtnObj = insertRawMtrChgHstry(invntrVO);
+
+		if (rtnObj != null) {
+			// error throw exception;
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		rawMtrInvntrMapper.updateInvntrPrcs(invntrVO);
+
+		return null;
 	}
 
 }

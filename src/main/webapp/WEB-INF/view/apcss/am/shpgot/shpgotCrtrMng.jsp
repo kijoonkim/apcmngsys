@@ -1,7 +1,7 @@
 <%
  /**
-  * @Class Name : statCrtrMng.jsp
-  * @Description : 통계기준관리
+  * @Class Name : shpgotCrtrType.jsp
+  * @Description : 반품기준관리
   * @author SI개발부
   * @since 2024.10.23
   * @version 1.0
@@ -9,7 +9,7 @@
   * @
   * @ 수정일       	수정자      	수정내용
   * @ ----------	----------	---------------------------
-  * @ 2024.10.23   	박승진			최초 생성
+  * @ 2024.10.23   	박승진		최초 생성
   * @see
   *
   */
@@ -19,17 +19,18 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<title>title : 통계기준관리</title>
+	<title>title : 반품기준관리</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
 </head>
+<body>
 <section class="content container-fluid">
 	<div class="box box-solid">
 		<div class="box-header" style="display:flex; justify-content: flex-start;" >
 			<div>
 				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 통계기준관리 -->
+				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 반품기준관리 -->
 			</div>
 			<div style="margin-left: auto;">
 				<sbux-button
@@ -72,23 +73,22 @@
 					<col style="width: 3%">
 				</colgroup>
 				<tbody>
-				<tr>
-					<th scope="row" class="th_bg">기준유형</th>
-					<td colspan="3" class="td_input" style="border-right: hidden;">
-						<sbux-select
-								id="srch-slt-crtrType"
-								name="srch-slt-crtrType"
-								uitype="single"
-								class="form-control input-sm"
-								unselected-text="전체"
-								jsondata-ref="jsonCrtrType"
-								jsondata-text="cdVlNm"
-								jsondata-value="cdVl"
-								style="max-width:80%;"
-						></sbux-select>
-					</td>
-				</tr>
-
+					<tr>
+						<th scope="row" class="th_bg">기준유형</th>
+						<td colspan="3" class="td_input" style="border-right: hidden;">
+							<sbux-select
+									id="srch-slt-crtrType"
+									name="srch-slt-crtrType"
+									uitype="single"
+									class="form-control input-sm"
+									unselected-text="전체"
+									jsondata-ref="jsonCrtrType"
+									jsondata-text="cdVlNm"
+									jsondata-value="cdVl"
+									style="max-width:80%;"
+							></sbux-select>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 
@@ -96,22 +96,22 @@
 			<!--[pp] 검색결과 -->
 			<div style="display: flex; flex-direction: column; height: 40vh">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
-									<span>통계기준 목록</span>
+									<span>반품기준 목록</span>
 									<span style="font-size:12px">(조회건수 <span id="cnt-crtr">0</span>건)</span>
 								</li>
 							</ul>
 						</div>
 						<div id="sb-area-grdCrtr" style="height:60vh;"></div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-7">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
-									<span>통계기준 상세정보</span>
+									<span>반품기준 상세정보</span>
 									<span style="font-size:12px">(조회건수 <span id="cnt-crtrDtl">0</span>건)</span>
 								</li>
 							</ul>
@@ -142,12 +142,22 @@
 	<jsp:include page="../../am/popup/vrtyCrtrPopup.jsp"></jsp:include>
 </div>
 
+<!-- 생산자 선택 Modal -->
 <div>
 	<sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
 </div>
 <div id="body-modal-prdcr">
 	<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
 </div>
+
+<!-- 거래처 선택 Modal -->
+<div>
+	<sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+</div>
+<div id="body-modal-cnpt">
+	<jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
+</div>
+
 </body>
 <script type="text/javascript">
 
@@ -155,6 +165,13 @@
 
 	var jsonCrtrType = [];
 	var jsonCrtrCd = [];
+	var jsonShpgotTrgtCd = [];
+
+
+	var jsonShpgotRsn = [];
+	var jsonShpgotBscAtrb = [];
+	var jsonShpgotExcpt = [];
+
 	var jsonDtlCd = [];
 	var jsonApcItem	= [];	// 품목 		itemCd
 
@@ -187,19 +204,42 @@
 
 	const fn_initSBSelect = async function() {
 
+
 		let result = await Promise.all([
-			gfn_getComCdDtls('STATS_CRTR_TYPE'),
-			gfn_getComCdDtls('STATS_CRTR_CD'),
-			gfn_getApcItem(gv_selectedApcCd)
+			gfn_getComCdDtls('SHPGOT_CRTR_TYPE'),
+			gfn_getComCdDtls('SHPGOT_TRGT_CD'),
+			gfn_getComCdDtls('SHPGOT_RSN'),
+			gfn_getComCdDtls('SHPGOT_BSC_ATRB'),
+			gfn_getComCdDtls('SHPGOT_EXCPT'),
+			gfn_getApcItem(gv_selectedApcCd),
 		]);
 
 		jsonCrtrType = result[0];
-		jsonCrtrCd = result[1];
-		jsonApcItem = result[2];
+		jsonShpgotTrgtCd = result[1];
+		jsonShpgotRsn = result[2];
+		jsonShpgotBscAtrb = result[3];
+		jsonShpgotExcpt = result[4];
+		jsonApcItem = result[5];
+
+		jsonCrtrCd.length = 0;
+		jsonShpgotRsn.forEach((item) => {
+			jsonCrtrCd.push(item);
+		});
+		jsonShpgotBscAtrb.forEach((item) => {
+			jsonCrtrCd.push(item);
+		});
+		jsonShpgotExcpt.forEach((item) => {
+			jsonCrtrCd.push(item);
+		});
 
 		SBUxMethod.refresh("srch-slt-crtrType");
 	}
 
+
+	/**
+	 * @name fn_createGrid
+	 * @description 기준목록 그리드 생성
+	 */
 	const fn_createGrid = function() {
 		var SBGridProperties = {};
 		SBGridProperties.parentid = 'sb-area-grdCrtr';
@@ -212,7 +252,12 @@
 		SBGridProperties.extendlastcol = 'scroll';
 
 		SBGridProperties.columns = [
-			{caption: ["처리"], 		ref: 'delYn', 		type:'button', width:'60px', style: 'text-align:center',
+			{
+				caption: ["처리"],
+				ref: 'delYn',
+				type:'button',
+				width:'60px',
+				style: 'text-align:center',
 				renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 					if (!gfn_isEmpty(strValue)){
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
@@ -222,18 +267,40 @@
 				}},
 			{
 				caption: ["기준유형"],
-				ref : 'statsCrtrType',
+				ref : 'shpgotCrtrType',
 				type: 'combo',
 				typeinfo : {ref:'jsonCrtrType', label:'cdVlNm', value:'cdVl'},
-				width:'200px',
-				style:'text-align:center'
+				width:'100px',
+				style:'text-align:center',
+				userattr: {colNm: "shpgotCrtrType"},
 			},
+				/*
+			{
+				caption: ["반품대상"],
+				ref: 'shpgotTrgtCd',
+				type:'combo',
+				typeinfo : {ref:'jsonShpgotTrgtCd', label:'cdVlNm', value:'cdVl'},
+				width:'100px',
+				style:'text-align:center',
+				userattr: {colNm: "trgtCd"},
+			},
+				 */
 			{
 				caption: ["기준코드"],
 				ref: 'crtrCd',
 				type:'combo',
-				typeinfo : {ref:'jsonCrtrCd', label:'cdVlNm', value:'cdVl'},
-				width:'150px',
+				typeinfo : {
+					ref:'jsonCrtrCd',
+					label:'cdVlNm',
+					value:'cdVl',
+					filtering: {
+						usemode: true,
+						uppercol: 'shpgotCrtrType',
+						attrname: 'cdId',
+						listall: false
+					}
+				},
+				width:'120px',
 				style:'text-align:center',
 				userattr: {colNm: "crtrCd"},
 			},
@@ -241,7 +308,7 @@
 				caption: ["기준표시명"],
 				ref: 'crtrIndctNm',
 				type: 'input',
-				width:'140px',
+				width:'120px',
 				style: 'text-align:left;',
 				userattr: {colNm: "crtrIndctNm"},
 			},
@@ -249,8 +316,11 @@
 				caption: ["표시순서"],
 				ref: 'indctSeq',
 				type:'input',
-				width:'100px',
-				style:'text-align:right'
+				width:'60px',
+				style:'text-align:right',
+				typeinfo : {
+					mask : {alias : 'numeric'}
+				}
 			},
 			{
 				caption: ["사용여부"],
@@ -260,12 +330,25 @@
 				width:'100px',
 				style:'text-align:center'
 			},
+			{
+				caption: ["비고"],
+				ref: 'rmrk',
+				type: 'input',
+				width:'200px',
+				style: 'text-align:left;',
+				userattr: {colNm: "rmrk"},
+			},
 		];
+
 		grdCrtr = _SBGrid.create(SBGridProperties);
 		grdCrtr.bind('rowchanged', fn_grdCrtrRowChanged);
 		grdCrtr.bind('valuechanged', fn_grdCrtrValueChanged);
 	}
 
+	/**
+	 * @name fn_createGridDtl
+	 * @description 기준상세목록 그리드 생성
+	 */
 	const fn_createGridDtl = async function(_crtr) {
 
 		jsonDtlCd.length = 0;
@@ -275,7 +358,12 @@
 			ref: 'dtlCd',
 			type:'input',
 			width:'150px',
-			style:'text-align:center'
+			style:'text-align:center',
+			typeinfo : {
+				mask : {alias : '*', repeat : '*'},
+				imemode : 'inactive'
+			},
+			userattr: {colNm: "dtlCd"},
 		}
 
 		let indctNm = "상세표시명";
@@ -306,7 +394,7 @@
 						typeinfo : {ref:'jsonApcItem', label:'itemNm', value:'itemCd', oneclickedit: true},
 						width:'150px',
 						style:'text-align:center',
-						userattr: {colNm: "dtlIndctNm"},
+						userattr: {colNm: "itemCd"},
 					}
 
 					hideIndctNm = true;
@@ -341,10 +429,24 @@
 
 					break;
 
+				case "CNPT_CD":
+					dtlCol = 	{
+						caption: ["거래처코드"],
+						ref: 'dtlCd',
+						type:'inputbutton',
+						typeinfo : {callback: fn_grdCnptPopup},
+						width:'150px',
+						style:'text-align:center',
+						userattr: {colNm: "cnptCd"},
+					}
+
+					indctNm = "거래처명";
+
+					break;
+
 				default:
 					break;
 			}
-
 		}
 
 		var SBGridProperties = {};
@@ -398,12 +500,24 @@
 					width:'80px',
 					style:'text-align:center'
 				},
+				{
+					caption: ["비고"],
+					ref: 'rmrk',
+					type: 'input',
+					width:'200px',
+					style: 'text-align:left;',
+					userattr: {colNm: "rmrk"},
+				},
 		);
 
 		grdCrtrDtl = _SBGrid.create(SBGridProperties);
 		grdCrtrDtl.bind('valuechanged', fn_grdCrtrDtlValueChanged);
 	}
 
+	/**
+	 * @name fn_grdCrtrRowChanged
+	 * @description 기준목록 그리드 행 변경 이벤트
+	 */
 	const fn_grdCrtrRowChanged = async function() {
 
 		const nRow = grdCrtr.getRow();
@@ -424,6 +538,74 @@
 		await fn_setGrdCrtrDtl(rowData);
 	}
 
+	/**
+	 * @name fn_setGrdCrtr
+	 * @description 기준 목록 조회
+	 */
+	const fn_setGrdCrtr = async function() {
+
+		let crtrType = SBUxMethod.get("srch-slt-crtrType");
+
+		const postJsonPromise = gfn_postJSON("/am/shpgot/selectCrtrList.do", {
+			apcCd: gv_selectedApcCd,
+			shpgotCrtrType : crtrType
+		});
+
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+
+				jsonCrtr.length = 0;
+				data.resultList.forEach((item, index) => {
+					item.delYn = "N";
+					item.chkVl = "Y";
+					jsonCrtr.push(item);
+				});
+
+				/** @type {number} **/
+				let totalRecordCount = jsonCrtr.length;
+				grdCrtr.rebuild();
+
+				grdCrtr.setCellDisabled(
+						0,
+						0,
+						grdCrtr.getRows() -1,
+						3,
+						true
+				);
+				grdCrtr.setCellDisabled(
+						0,
+						4,
+						grdCrtr.getRows() -1,
+						grdCrtr.getCols() -1,
+						false
+				);
+
+				grdCrtr.addRow();
+				grdCrtr.setCellDisabled(
+						grdCrtr.getRows() -1,
+						0,
+						grdCrtr.getRows() -1,
+						grdCrtr.getCols() -1,
+						true
+				);
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/**
+	 * @name fn_setGrdCrtrDtl
+	 * @description 기준상세 목록 조회
+	 */
 	const fn_setGrdCrtrDtl = async function(_crtr) {
 
 		let needsNewRow = true;
@@ -433,9 +615,9 @@
 
 		try {
 
-			const postJsonPromise = gfn_postJSON("/am/stat/selectCrtrDtlList.do", {
+			const postJsonPromise = gfn_postJSON("/am/shpgot/selectCrtrDtlList.do", {
 				apcCd: gv_selectedApcCd,
-				statsCrtrType: _crtr.statsCrtrType,
+				shpgotCrtrType: _crtr.shpgotCrtrType,
 				crtrCd: _crtr.crtrCd,
 			});
 
@@ -464,12 +646,12 @@
 						0,
 						0,
 						grdCrtrDtl.getRows() -1,
-						3,
+						2,
 						true
 				);
 				grdCrtrDtl.setCellDisabled(
 						0,
-						4,
+						3,
 						grdCrtrDtl.getRows() -1,
 						grdCrtrDtl.getCols() -1,
 						false
@@ -592,6 +774,48 @@
 	}
 
 	/**
+	 * @name fn_grdCnptPopup
+	 * @description 거래처 선택 popup 호출
+	 */
+	const fn_grdCnptPopup = function() {
+
+		let row = grdCrtrDtl.getRow();
+
+		if (row < 1) {
+			return;
+		}
+
+		let rowData = grdCrtrDtl.getRowData(row);
+
+		if (!_.isEqual('CNPT_CD', rowData.crtrChrVl)) {
+			return;
+		}
+
+		popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, "", fn_setGrdCnpt);
+		SBUxMethod.openModal("modal-cnpt");
+	}
+
+	/**
+	 * @name fn_setGrdCnpt
+	 * @description 거래처 선택 popup callback 처리
+	 */
+	const fn_setGrdCnpt = async function(cnpt) {
+
+		let row = grdCrtrDtl.getRow()
+		let rowData = grdCrtrDtl.getRowData(row, false);
+
+		if (!gfn_isEmpty(cnpt)) {
+			rowData['dtlCd'] = cnpt.cnptCd;
+			rowData['dtlIndctNm'] = cnpt.cnptNm;
+		} else {
+			rowData['dtlCd'] = "";
+			rowData['dtlIndctNm'] = "";
+		}
+
+		grdCrtrDtl.refresh()
+	}
+
+	/**
 	 * @name fn_addRow
 	 * @description 행추가
 	 * @param {number} nRow
@@ -600,9 +824,8 @@
 		const editableRow = grdCrtr.getRowData(nRow, false);	// call by reference(deep copy)
 		editableRow.delYn = "N";
 		editableRow.useYn = "Y";
-
-		grdCrtr.rebuild();
-		grdCrtr.setCellDisabled(nRow, 2, nRow, grdCrtr.getCols() - 1, false);
+		//grdCrtr.rebuild();
+		grdCrtr.setCellDisabled(nRow, 0, nRow, grdCrtr.getCols() - 1, false);
 		nRow++;
 		grdCrtr.addRow(true);
 		grdCrtr.setCellDisabled(nRow, 0, nRow, grdCrtr.getCols() - 1, true);
@@ -637,7 +860,7 @@
 		const crtrRow = grdCrtr.getRow();
 
 		if (crtrRow < 1) {
-			gfn_comAlert("W0001", "통계기준");		//	W0001	{0}을/를 선택하세요.
+			gfn_comAlert("W0001", "반품기준");		//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
@@ -650,16 +873,16 @@
 
 		const editableRow = grdCrtrDtl.getRowData(nRow, false);	// call by reference(deep copy)
 
-		editableRow.statsCrtrType = _crtr.statsCrtrType;
-		editableRow.statsCrtrTypeNm = _crtr.statsCrtrTypeNm;
+		editableRow.shpgotCrtrType = _crtr.shpgotCrtrType;
+		editableRow.shpgotCrtrTypeNm = _crtr.shpgotCrtrTypeNm;
 		editableRow.crtrCd = _crtr.crtrCd;
 		editableRow.crtrIndctNm = _crtr.crtrIndctNm;
 		editableRow.crtrChrVl = _crtr.crtrChrVl;
 		editableRow.delYn = "N";
 		editableRow.useYn = "Y";
 
-		grdCrtrDtl.rebuild();
-		grdCrtrDtl.setCellDisabled(nRow, 3, nRow, grdCrtrDtl.getCols() - 1, false);
+		//grdCrtrDtl.rebuild();
+		grdCrtrDtl.setCellDisabled(nRow, 2, nRow, grdCrtrDtl.getCols() - 1, false);
 
 		nRow++;
 		grdCrtrDtl.addRow(true);
@@ -698,66 +921,6 @@
 		await fn_setGrdCrtr();
 	}
 
-	const fn_setGrdCrtr = async function() {
-
-		let crtrType = SBUxMethod.get("srch-slt-crtrType");
-
-		const postJsonPromise = gfn_postJSON("/am/stat/selectCrtrList.do", {
-			apcCd: gv_selectedApcCd,
-			statsCrtrType : crtrType
-		});
-
-		const data = await postJsonPromise;
-
-		try {
-			if (_.isEqual("S", data.resultStatus)) {
-
-				jsonCrtr.length = 0;
-				data.resultList.forEach((item, index) => {
-					item.delYn = "N";
-					item.chkVl = "Y";
-					jsonCrtr.push(item);
-				});
-
-				/** @type {number} **/
-				let totalRecordCount = jsonCrtr.length;
-				grdCrtr.rebuild();
-
-				grdCrtr.setCellDisabled(
-						0,
-						0,
-						grdCrtr.getRows() -1,
-						2,
-						true
-				);
-				grdCrtr.setCellDisabled(
-						0,
-						3,
-						grdCrtr.getRows() -1,
-						grdCrtr.getCols() -1,
-						false
-				);
-
-				grdCrtr.addRow();
-				grdCrtr.setCellDisabled(
-						grdCrtr.getRows() -1,
-						0,
-						grdCrtr.getRows() -1,
-						grdCrtr.getCols() -1,
-						true
-				);
-			} else {
-				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-			}
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
-			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-		}
-	}
-
 	const fn_save = async function() {
 		await fn_insertCrtr();
 	}
@@ -780,7 +943,7 @@
 				continue;
 			}
 
-			if (gfn_isEmpty(rowData.statsCrtrType)) {
+			if (gfn_isEmpty(rowData.shpgotCrtrType)) {
 				gfn_comAlert("W0005", "기준유형");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
@@ -796,12 +959,14 @@
 			}
 
 			crtrList.push({
-				statsCrtrType: rowData.statsCrtrType,
+				shpgotCrtrType: rowData.shpgotCrtrType,
 				crtrCd: rowData.crtrCd,
 				crtrVl: rowData.crtrVl,
+				shpgotTrgtCd: rowData.shpgotTrgtCd,
 				crtrIndctNm: rowData.crtrIndctNm,
 				indctSeq: rowData.indctSeq,
 				useYn: rowData.useYn,
+				rmrk: rowData.rmrk
 			});
 		}
 
@@ -820,7 +985,7 @@
 		}
 
 		try {
-			const postJsonPromise = gfn_postJSON("/am/stat/insertCrtr.do", param);
+			const postJsonPromise = gfn_postJSON("/am/shpgot/insertCrtr.do", param);
 			const data = await postJsonPromise;
 
 			if (_.isEqual("S", data.resultStatus)) {
@@ -847,7 +1012,7 @@
 	const fn_deleteCrtr = async function(_crtr) {
 
 		const crtrList = [{
-			statsCrtrType: _crtr.statsCrtrType,
+			shpgotCrtrType: _crtr.shpgotCrtrType,
 			crtrCd: _crtr.crtrCd,
 		}];
 
@@ -857,7 +1022,7 @@
 		}
 
 		try {
-			const postJsonPromise = gfn_postJSON("/am/tot/deleteCrtr.do", param);
+			const postJsonPromise = gfn_postJSON("/am/shpgot/deleteCrtr.do", param);
 			const data = await postJsonPromise;
 
 			if (_.isEqual("S", data.resultStatus)) {
@@ -906,7 +1071,7 @@
 				continue;
 			}
 
-			if (gfn_isEmpty(rowData.statsCrtrType)) {
+			if (gfn_isEmpty(rowData.shpgotCrtrType)) {
 				gfn_comAlert("W0005", "기준유형");		//	W0005	{0}이/가 없습니다.
 				return;
 			}
@@ -927,7 +1092,7 @@
 			}
 
 			crtrDtlList.push({
-				statsCrtrType: rowData.statsCrtrType,
+				shpgotCrtrType: rowData.shpgotCrtrType,
 				crtrCd: rowData.crtrCd,
 				dtlSn: rowData.dtlSn,
 				dtlCd: rowData.dtlCd,
@@ -935,6 +1100,7 @@
 				dtlIndctNm: rowData.dtlIndctNm,
 				indctSeq: rowData.indctSeq,
 				useYn: rowData.useYn,
+				rmrk: rowData.rmrk
 			});
 		}
 
@@ -949,13 +1115,13 @@
 
 		const param = {
 			apcCd: gv_selectedApcCd,
-			statsCrtrType: crtrInfo.statsCrtrType,
+			shpgotCrtrType: crtrInfo.shpgotCrtrType,
 			crtrCd: crtrInfo.crtrCd,
 			crtrDtlList: crtrDtlList
 		}
 
 		try {
-			const postJsonPromise = gfn_postJSON("/am/tot/insertCrtrDtl.do", param);
+			const postJsonPromise = gfn_postJSON("/am/shpgot/insertCrtrDtl.do", param);
 			const data = await postJsonPromise;
 
 			if (_.isEqual("S", data.resultStatus)) {
@@ -982,7 +1148,7 @@
 	const fn_deleteCrtrDtl = async function(_crtrDtl) {
 
 		const crtrDtlList = [{
-			statsCrtrType: _crtrDtl.statsCrtrType,
+			shpgotCrtrType: _crtrDtl.shpgotCrtrType,
 			crtrCd: _crtrDtl.crtrCd,
 			dtlSn: _crtrDtl.dtlSn,
 		}];
@@ -994,13 +1160,13 @@
 
 		const param = {
 			apcCd: gv_selectedApcCd,
-			statsCrtrType: _crtrDtl.statsCrtrType,
+			shpgotCrtrType: _crtrDtl.shpgotCrtrType,
 			crtrCd: _crtrDtl.crtrCd,
 			crtrDtlList: crtrDtlList
 		}
 
 		try {
-			const postJsonPromise = gfn_postJSON("/am/stat/deleteCrtrDtl.do", param);
+			const postJsonPromise = gfn_postJSON("/am/shpgot/deleteCrtrDtl.do", param);
 			const data = await postJsonPromise;
 
 			if (_.isEqual("S", data.resultStatus)) {
@@ -1033,26 +1199,39 @@
 		var nRow = grdCrtr.getRow();
 		var nCol = grdCrtr.getCol();
 
+		const nColCrtrCd = grdCrtr.getColRef("crtrCd");
+		const nColCrtrIndctNm = grdCrtr.getColRef("crtrIndctNm");
+
 		const usrAttr = grdCrtr.getColUserAttr(nCol);
+
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
 			const rowData = grdCrtr.getRowData(nRow, false);	// deep copy
-
 			switch (usrAttr.colNm) {
+				case "shpgotCrtrType":
+					rowData.crtrCd = "";
+					rowData.crtrIndctNm = "";
+					//grdCrtr.setCellData(nRow, nColCrtrCd, "", true);
+					//grdCrtr.setCellData(nRow, nColCrtrIndctNm, "", true);
+					//grdCrtr.refresh();
+					break;
 
 				case "crtrCd":
 					if (!gfn_isEmpty(rowData.crtrCd)) {
-
 						const chkInfo = _.find(jsonCrtrCd, {cdVl: rowData.crtrCd});
 						if (!gfn_isEmpty(chkInfo)) {
 							rowData.crtrIndctNm = chkInfo.cdVlNm;
-							grdCrtr.refresh();
+							//grdCrtr.setCellData(nRow, nColCrtrIndctNm, chkInfo.cdVlNm, true);
+							//grdCrtr.refresh();
 						}
 					}
 					break;
+
 				default:
 					return;
 			}
+
+			grdCrtr.refresh();
 		}
 	}
 
@@ -1071,7 +1250,6 @@
 			const rowData = grdCrtrDtl.getRowData(nRow, false);	// deep copy
 
 			switch (usrAttr.colNm) {
-
 				case "comCd":
 					if (!gfn_isEmpty(rowData.dtlCd)) {
 						const chkInfo = _.find(jsonDtlCd, {cdVl: rowData.dtlCd});
@@ -1090,12 +1268,17 @@
 						}
 					}
 					break;
+				case "dtlCd":
+					if (!gfn_isEmpty(rowData.dtlCd)) {
+						rowData.dtlCd = rowData.dtlCd.toUpperCase();
+						grdCrtrDtl.refresh();
+					}
+					break;
 				default:
 					return;
 			}
 		}
 	}
-
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

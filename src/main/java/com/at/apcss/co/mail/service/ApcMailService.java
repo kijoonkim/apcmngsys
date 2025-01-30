@@ -1,6 +1,7 @@
 package com.at.apcss.co.mail.service;
 
 import com.at.apcss.co.mail.vo.ApcMailVO;
+import com.at.apcss.co.mail.vo.EmlLogVO;
 import com.at.apcss.co.mail.vo.EmsMailVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,5 +35,20 @@ public interface ApcMailService {
     public HashMap<String, Object> sendEmsMail(EmsMailVO emsMailVO) throws Exception;
 
     public HashMap<String, Object> sendEmsMailSimple(EmsMailVO emsMailVO) throws Exception;
+
+
+    /**
+     * 미송신 메일로그 목록 조회
+     * @param emlLogVO
+     * @return
+     * @throws Exception
+     */
+    public List<EmlLogVO> selectComEmlLogListForSndng(EmlLogVO emlLogVO) throws Exception;
+    /**
+     * 공통 메일 로그 송신
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateComEmlLogForStandby() throws Exception;
 
 }

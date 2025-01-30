@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SpmtCmndMapper.xml                                   				-->
+<!-- DESC : 반품 기준 mapper                   				                -->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2024.08.16  	손민성        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.shpgot.mapper.ShpgotMngMapper">
+
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtr  			-->
+    <!-- DESC : 기준 단건 조회.                                             		    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectCrtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+		<![CDATA[
+            SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtr */
+                  A.APC_CD
+                , A.SHPGOT_CRTR_TYPE
+                , A.CRTR_CD
+                , A.CRTR_VL
+                , A.CRTR_INDCT_NM
+                , A.INDCT_SEQ
+                , A.RMRK
+                , A.SHPGOT_TRGT_CD
+                , A.USE_YN
+                , A.DEL_YN
+                , (
+                    SELECT MAX(X.DTL_SN)
+                      FROM TB_SHPGOT_APC_CRTR_DTL X
+                     WHERE X.APC_CD = A.APC_CD
+                       AND X.SHPGOT_CRTR_TYPE = A.SHPGOT_CRTR_TYPE
+                       AND X.CRTR_CD = A.CRTR_CD
+                )   AS MAX_DTL_SN
+            FROM TB_SHPGOT_APC_CRTR A
+            WHERE A.APC_CD = #{apcCd}
+              AND A.SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+              AND A.CRTR_CD = #{crtrCd}
+        ]]>
+	</select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrList  		-->
+    <!-- DESC : 기준 목록 조회.                                             		    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectCrtrList" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+      		SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrList */
+				  C.APC_CD				AS APC_CD
+				, C.SHPGOT_CRTR_TYPE    AS SHPGOT_CRTR_TYPE
+				, CT.CD_VL_NM			AS SHPGOT_CRTR_TYPE_NM
+				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
+				, C.CRTR_CD			    AS CRTR_CD
+				, C.CRTR_VL			    AS CRTR_VL
+				, C.CRTR_INDCT_NM		AS CRTR_INDCT_NM
+				, C.INDCT_SEQ			AS INDCT_SEQ
+				, C.INDCT_SEQ			AS CRTR_SEQ
+				, C.USE_YN				AS USE_YN
+                , C.RMRK                AS RMRK
+                , C.SHPGOT_TRGT_CD      AS SHPGOT_TRGT_CD
+      			, CC.CD_CHR_VL			AS CRTR_CHR_VL
+
+			  FROM TB_SHPGOT_APC_CRTR C
+
+			  JOIN TB_COM_CD_DTL CT
+			    ON CT.CD_ID = 'SHPGOT_CRTR_TYPE'
+			   AND CT.APC_CD = '0000'
+			   AND CT.CD_VL = C.SHPGOT_CRTR_TYPE
+			   AND CT.DEL_YN = 'N'
+
+			  LEFT JOIN TB_COM_CD_DTL CC
+			    ON CC.CD_ID = C.SHPGOT_CRTR_TYPE
+			   AND CC.APC_CD = '0000'
+			   AND CC.CD_VL = C.CRTR_CD
+			   AND CC.DEL_YN = 'N'
+
+			 WHERE C.DEL_YN = 'N'
+			   AND C.APC_CD = #{apcCd}
+		]]>
+        <if test='shpgotCrtrType != null and shpgotCrtrType != ""'>
+            AND C.SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+        </if>
+
+        <if test='crtrCd != null and crtrCd != ""'>
+            AND C.CRTR_CD = #{crtrCd}
+        </if>
+
+        <if test='crtrIndctNm != null and crtrIndctNm != ""'>
+            AND C.CRTR_INDCT_NM LIKE '%' || #{crtrIndctNm} || '%'
+        </if>
+
+        <if test='useYn != null and useYn != ""'>
+            AND C.USE_YN = #{useYn}
+        </if>
+
+        <![CDATA[
+			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ
+		]]>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrDtl  		-->
+    <!-- DESC : 기준상세 단건 조회.                                             		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectCrtrDtl" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrDtl */
+                CD.APC_CD				AS APC_CD
+                 , CD.SHPGOT_CRTR_TYPE	AS SHPGOT_CRTR_TYPE
+                 , CD.CRTR_CD			AS CRTR_CD
+                 , CD.DTL_SN			AS DTL_SN
+                 , CD.DTL_CD			AS DTL_CD
+                 , CD.DTL_VL			AS DTL_VL
+                 , CD.DTL_INDCT_NM		AS DTL_INDCT_NM
+                 , CD.USE_YN			AS USE_YN
+                 , CD.DEL_YN			AS DEL_YN
+                 , CD.RMRK              AS RMRK
+            FROM TB_SHPGOT_APC_CRTR_DTL CD
+            WHERE CD.APC_CD = #{apcCd}
+              AND CD.SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+              AND CD.CRTR_CD = #{crtrCd}
+              AND CD.DTL_SN = #{dtlSn}
+        ]]>
+	</select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrDtlList 	-->
+    <!-- DESC : 기준상세 목록 조회.                                             		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectCrtrDtlList" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectCrtrDtlList */
+				  C.APC_CD				AS APC_CD
+				, C.SHPGOT_CRTR_TYPE	AS SHPGOT_CRTR_TYPE
+				, CT.CD_VL_NM			AS SHPGOT_CRTR_TYPE_NM
+				, CT.INDCT_SEQ			AS CRTR_TYPE_SEQ
+				, C.CRTR_CD			  	AS CRTR_CD
+				, C.CRTR_VL			  	AS CRTR_VL
+				, C.CRTR_INDCT_NM		AS CRTR_INDCT_NM
+                , C.SHPGOT_TRGT_CD      AS SHPGOT_TRGT_CD
+				, C.INDCT_SEQ			AS CRTR_SEQ
+				, C.USE_YN				AS CRTR_USE_YN
+      			, CT.CD_CHR_VL			AS CRTR_CHR_VL
+				, CD.DTL_SN				AS DTL_SN
+				, CD.DTL_CD				AS DTL_CD
+				, CD.DTL_VL				AS DTL_VL
+				, CD.DTL_INDCT_NM		AS DTL_INDCT_NM
+				, CD.USE_YN				AS CRTR_DTL_USE_YN
+				, CD.INDCT_SEQ			AS INDCT_SEQ
+				, CD.INDCT_SEQ			AS CRTR_DTL_SEQ
+				, CD.USE_YN				AS USE_YN
+                , CD.RMRK               AS RMRK
+			  FROM TB_SHPGOT_APC_CRTR C
+
+			  JOIN TB_COM_CD_DTL CT
+			    ON CT.CD_ID = 'SHPGOT_CRTR_TYPE'
+			   AND CT.APC_CD = '0000'
+			   AND CT.CD_VL = C.SHPGOT_CRTR_TYPE
+			   AND CT.DEL_YN = 'N'
+
+			  LEFT JOIN TB_SHPGOT_APC_CRTR_DTL CD
+			    ON CD.APC_CD = C.APC_CD
+			   AND CD.SHPGOT_CRTR_TYPE = C.SHPGOT_CRTR_TYPE
+			   AND CD.CRTR_CD = C.CRTR_CD
+			   AND CD.DEL_YN = 'N'
+
+			 WHERE C.DEL_YN = 'N'
+			   AND C.APC_CD = #{apcCd}
+		]]>
+        <if test='shpgotCrtrType != null and shpgotCrtrType != ""'>
+            AND C.SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+        </if>
+
+        <if test='crtrCd != null and crtrCd != ""'>
+            AND C.CRTR_CD = #{crtrCd}
+        </if>
+
+        <if test='crtrUseYn != null and crtrUseYn != ""'>
+            AND C.USE_YN = #{crtrUseYn}
+        </if>
+
+        <if test='crtrDtlUseYn != null and crtrDtlUseYn != ""'>
+            AND CD.USE_YN = #{crtrDtlUseYn}
+        </if>
+
+        <![CDATA[
+			 ORDER BY CRTR_TYPE_SEQ, CRTR_SEQ, CRTR_DTL_SEQ, DTL_SN
+		]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertCrtr 	        -->
+    <!-- DESC : 기준 등록.                                             		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertCrtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            INSERT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertCrtr */
+            INTO TB_SHPGOT_APC_CRTR (
+                  APC_CD
+                , SHPGOT_CRTR_TYPE
+                , CRTR_CD
+                , CRTR_VL
+                , CRTR_INDCT_NM
+                , RMRK
+                , SHPGOT_TRGT_CD
+                , INDCT_SEQ
+                , USE_YN
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{shpgotCrtrType}
+                , #{crtrCd}
+                , #{crtrVl}
+                , #{crtrIndctNm}
+                , #{rmrk}
+                , #{shpgotTrgtCd}
+                , #{indctSeq}
+                , #{useYn}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateCrtr 	        -->
+    <!-- DESC : 기준 변경.                                             		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateCrtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            UPDATE /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateCrtr */
+                TB_SHPGOT_APC_CRTR
+            SET
+                CRTR_VL = #{crtrVl}
+              , CRTR_INDCT_NM = #{crtrIndctNm}
+              , INDCT_SEQ = #{indctSeq}
+              , RMRK = #{rmrk}
+              , USE_YN = #{useYn}
+              , SYS_LAST_CHG_DT = SYSDATE
+              , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+              AND SHPGOT_CRTR_TYPE = #{shpgotTrgtCd}
+              AND CRTR_CD = #{crtrCd}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.deleteCrtr 	        -->
+    <!-- DESC : 기준 삭제.                                             		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteCrtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            DELETE /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.deleteCrtr */
+                FROM TB_SHPGOT_APC_CRTR
+            WHERE APC_CD = #{apcCd}
+              AND SHPGOT_CRTR_TYPE = #{shpgotTrgtCd}
+              AND CRTR_CD = #{crtrCd}
+        ]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertCrtrDtl 	    -->
+    <!-- DESC : 기준상세 등록.                                             		    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertCrtrDtl" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            INSERT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertCrtrDtl */
+            INTO TB_SHPGOT_APC_CRTR_DTL (
+                  APC_CD
+                , SHPGOT_CRTR_TYPE
+                , CRTR_CD
+                , DTL_SN
+                , DTL_CD
+                , DTL_VL
+                , DTL_INDCT_NM
+                , INDCT_SEQ
+                , RMRK
+                , USE_YN
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                  #{apcCd}
+                , #{shpgotCrtrType}
+                , #{crtrCd}
+                , #{dtlSn}
+                , #{dtlCd}
+                , #{dtlVl}
+                , #{dtlIndctNm}
+                , #{indctSeq}
+                , #{rmrk}
+                , #{useYn}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateCrtrDtl	        -->
+    <!-- DESC : 기준 상세 변경.                                             	        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateCrtrDtl" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            UPDATE /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateCrtrDtl */
+                TB_SHPGOT_APC_CRTR_DTL
+            SET
+                  DTL_VL = #{dtlVl}
+                , DTL_INDCT_NM = #{dtlIndctNm}
+                , RMRK = #{rmrk}
+                , INDCT_SEQ = #{indctSeq}
+                , USE_YN = #{useYn}
+                , SYS_LAST_CHG_DT = SYSDATE
+                , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE APC_CD = #{apcCd}
+              AND SHPGOT_CRTR_TYPE = #{shpgotCrtrType}
+              AND CRTR_CD = #{crtrCd}
+              AND DTL_SN = #{dtlSn}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.deleteCrtrDtl 	    -->
+    <!-- DESC : 기준 상세 삭제.                                             		    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <delete id="deleteCrtrDtl" parameterType="com.at.apcss.am.shpgot.vo.ShpgotCrtrVO">
+        <![CDATA[
+            DELETE /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.deleteCrtrDtl */
+            FROM TB_SHPGOT_APC_CRTR
+            WHERE APC_CD = #{apcCd}
+              AND SHPGOT_CRTR_TYPE = #{shpgotTrgtCd}
+              AND CRTR_CD = #{crtrCd}
+              AND DTL_SN = #{dtlSn}
+        ]]>
+    </delete>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtrMaxSn	-->
+    <!-- DESC : .                                             		                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectShpgotRsltRawMtrMaxSn" parameterType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO">
+		<![CDATA[
+            SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtrMaxSn */
+                  #{apcCd}      AS APC_CD
+                , #{shpgotYmd}  AS SHPGOT_YMD
+                , NVL(MAX(A.SHPGOT_SN), 0)  AS MAX_SN
+            FROM TB_SHPGOT_APC_RAW_MTR A
+            WHERE A.APC_CD = #{apcCd}
+              AND A.SHPGOT_YMD = #{shpgotYmd}
+        ]]>
+	</select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertShpgotRsltRawMtr 	        -->
+    <!-- DESC : 원물반품 등록.                                             		        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertShpgotRsltRawMtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO">
+        <![CDATA[
+        INSERT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.insertShpgotRsltRawMtr */
+            INTO TB_SHPGOT_APC_RAW_MTR (
+                  APC_CD
+                , SHPGOT_YMD
+                , SHPGOT_SN
+                , DTL_SN
+                , WRHSNO
+                , PRDCR_CD
+                , ITEM_CD
+                , VRTY_CD
+                , GRD_CD
+                , SPCFCT_CD
+                , SPMT_PCKG_UNIT_CD
+                , GDS_SE_CD
+                , WRHS_SE_CD
+                , WAREHOUSE_SE_CD
+                , CNPT_CD
+                , SHPGOT_CS_CD
+                , SHPGOT_BAD_CD
+                , SHPGOT_RMRK
+                , SHPGOT_QNTT
+                , SHPGOT_WGHT
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+        ) VALUES (
+                  #{apcCd}
+                , #{shpgotYmd}
+                , #{shpgotSn}
+                , #{dtlSn}
+                , #{wrhsno}
+                , #{prdcrCd}
+                , #{itemCd}
+                , #{vrtyCd}
+                , #{grdCd}
+                , #{spcfctCd}
+                , #{spmtPckgUnitCd}
+                , #{gdsSeCd}
+                , #{wrhsSeCd}
+                , #{warehouseSeCd}
+                , #{cnptCd}
+                , #{shpgotCsCd}
+                , #{shpgotBadCd}
+                , #{shpgotRmrk}
+                , #{shpgotQntt}
+                , #{shpgotWght}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateShpgotRsltRawMtrForDelY 	        -->
+    <!-- DESC : 원물반품 삭제 (SET DEL_YN -> Y)                                       -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateShpgotRsltRawMtrForDelY" parameterType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO">
+        <![CDATA[
+        UPDATE /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.updateShpgotRsltRawMtrForDelY */
+            TB_SHPGOT_APC_RAW_MTR SET
+              DEL_YN = 'Y'
+            , SYS_LAST_CHG_DT = SYSDATE
+            , SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+            , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+        WHERE APC_CD = #{apcCd}
+          AND SHPGOT_YMD = #{shpgotYmd}
+          AND SHPGOT_SN = #{shpgotSn}
+          AND DTL_SN = #{dtlSn}
+        ]]>
+    </update>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtr    -->
+    <!-- DESC : 반출실적(원물) 단건 조회.                                             	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectShpgotRsltRawMtr" parameterType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO">
+        <![CDATA[
+        SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtr */
+             SR.APC_CD				AS APC_CD
+          , SR.SHPGOT_YMD			AS SHPGOT_YMD
+          , SR.SHPGOT_SN			AS SHPGOT_SN
+          , SR.DTL_SN				AS DTL_SN
+          , SR.WRHSNO				AS WRHSNO
+          , SR.PRDCR_CD				AS PRDCR_CD
+          , SR.ITEM_CD				AS ITEM_CD
+          , SR.VRTY_CD				AS VRTY_CD
+          , SR.GRD_CD				AS GRD_CD
+          , SR.SPCFCT_CD			AS SPCFCT_CD
+          , SR.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+          , SR.GDS_SE_CD			AS GDS_SE_CD
+          , SR.WRHS_SE_CD			AS WRHS_SE_CD
+          , SR.WAREHOUSE_SE_CD	    AS WAREHOUSE_SE_CD
+          , SR.CNPT_CD				AS CNPT_CD
+          , SR.SHPGOT_CS_CD		    AS SHPGOT_CS_CD
+          , SR.SHPGOT_BAD_CD		AS SHPGOT_BAD_CD
+          , SR.SHPGOT_RMRK			AS SHPGOT_RMRK
+          , SR.SHPGOT_QNTT			AS SHPGOT_QNTT
+          , SR.SHPGOT_WGHT			AS SHPGOT_WGHT
+          , SR.DEL_YN
+         FROM TB_SHPGOT_APC_RAW_MTR SR
+         WHERE SR.APC_CD = #{apcCd}
+           AND SR.SHPGOT_YMD = #{shpgotYmd}
+           AND SR.SHPGOT_SN = #{shpgotSn}
+           AND SR.DTL_SN = #{dtlSn}
+        ]]>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtrList    -->
+    <!-- DESC : 반출실적(원물) 조회.                                             		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.10.08  	박승진        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectShpgotRsltRawMtrList" parameterType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO" resultType="com.at.apcss.am.shpgot.vo.ShpgotRsltVO">
+		<![CDATA[
+        SELECT /* com.at.apcss.am.shpgot.mapper.ShpgotMngMapper.selectShpgotRsltRawMtrList */
+            pt0.*
+             , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+             , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+             , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+             , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS GRD_NM
+            , (SELECT X.DTL_INDCT_NM  FROM TB_SHPGOT_APC_CRTR_DTL X WHERE X.APC_CD = pt0.APC_CD AND X.SHPGOT_CRTR_TYPE = 'SHPGOT_RSN' AND X.CRTR_CD = 'SHPGOT_CS_CD' AND X.DTL_CD = pt0.SHPGOT_CS_CD AND X.USE_YN = 'Y')	AS SHPGOT_CS_NM
+            , (SELECT X.DTL_INDCT_NM  FROM TB_SHPGOT_APC_CRTR_DTL X WHERE X.APC_CD = pt0.APC_CD AND X.SHPGOT_CRTR_TYPE = 'SHPGOT_RSN' AND X.CRTR_CD = 'SHPGOT_BAD_CD' AND X.DTL_CD = pt0.SHPGOT_BAD_CD AND X.USE_YN = 'Y')	AS SHPGOT_BAD_NM
+
+        FROM (
+                 SELECT
+                     SR.APC_CD				AS APC_CD
+                  , SR.SHPGOT_YMD			AS SHPGOT_YMD
+                  , SR.SHPGOT_SN			AS SHPGOT_SN
+                  , SR.DTL_SN				AS DTL_SN
+                  , SR.WRHSNO				AS WRHSNO
+                  , SR.PRDCR_CD				AS PRDCR_CD
+                  , SR.ITEM_CD				AS ITEM_CD
+                  , SR.VRTY_CD				AS VRTY_CD
+                  , SR.GRD_CD				AS GRD_CD
+                  , SR.SPCFCT_CD			AS SPCFCT_CD
+                  , SR.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+                  , SR.GDS_SE_CD			AS GDS_SE_CD
+                  , SR.WRHS_SE_CD			AS WRHS_SE_CD
+                  , SR.WAREHOUSE_SE_CD	    AS WAREHOUSE_SE_CD
+                  , SR.CNPT_CD				AS CNPT_CD
+                  , SR.SHPGOT_CS_CD		    AS SHPGOT_CS_CD
+                  , SR.SHPGOT_BAD_CD		AS SHPGOT_BAD_CD
+                  , SR.SHPGOT_RMRK			AS SHPGOT_RMRK
+                  , SR.SHPGOT_QNTT			AS SHPGOT_QNTT
+                  , SR.SHPGOT_WGHT			AS SHPGOT_WGHT
+                  , RI.PLTNO                AS PLTNO
+                 FROM TB_SHPGOT_APC_RAW_MTR SR
+
+                JOIN TB_RAW_MTR_INVNTR RI
+                ON RI.APC_CD = SR.APC_CD
+                AND RI.WRHSNO = SR.WRHSNO
+                AND RI.DEL_YN = 'N'
+
+                 WHERE SR.DEL_YN = 'N'
+                   AND SR.APC_CD = #{apcCd}
+                   AND SR.SHPGOT_YMD BETWEEN #{shpgotYmdFrom} AND #{shpgotYmdTo}
+        ]]>
+            <if test='prdcrCd != null and prdcrCd != ""'>
+			    AND SR.PRDCR_CD = #{prdcrCd}
+            </if>
+            <if test='itemCd != null and itemCd != ""'>
+                AND SR.ITEM_CD = #{itemCd}
+            </if>
+            <if test='vrtyCd != null and vrtyCd != ""'>
+                AND SR.VRTY_CD = #{vrtyCd}
+            </if>
+            <if test='warehouseSeCd != null and warehouseSeCd != ""'>
+                AND SR.WAREHOUSE_SE_CD = #{warehouseSeCd}
+            </if>
+            <if test='pltno != null and pltno != ""'>
+                AND RI.PLTNO = #{pltno}
+            </if>
+            <if test='pltnos != null and pltnos !=""'>
+                AND RI.PLTNO IN
+                <foreach item="pltno" collection="pltnos" open="(" separator="," close=")">
+                     TRIM(#{pltno})
+                </foreach>
+            </if>
+        <![CDATA[
+             ) pt0
+             ORDER BY APC_CD, SHPGOT_YMD, SHPGOT_SN, ITEM_CD, VRTY_CD
+        ]]>
+	</select>
+
+
+</mapper>
