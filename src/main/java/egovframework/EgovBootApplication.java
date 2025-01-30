@@ -18,7 +18,6 @@ import java.io.FileInputStream;
 
 @ServletComponentScan
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@EnableScheduling
 //@Import({EgovWebApplicationInitializer.class})
 public class EgovBootApplication extends SpringBootServletInitializer {
 
