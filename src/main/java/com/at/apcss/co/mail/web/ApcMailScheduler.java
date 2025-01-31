@@ -17,11 +17,12 @@ public class ApcMailScheduler extends BaseController {
     public void sendMailScheduler () {
 
         if (isScheduleAvailable()) {
-            logger.info("스케쥴 활성화 테스트!");
+            logger.debug("스케쥴 활성화 테스트!");
             try {
                 apcMailService.updateComEmlLogForStandby();
             } catch( Exception e) {
-                getErrorResponseEntity(e);
+                //getErrorResponseEntity(e);
+                logger.error(e.getLocalizedMessage());
             }
         } else {
             logger.info("스케쥴 활성화 안됨!");
