@@ -91,7 +91,7 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 	 * @param PrdcrCrclOgnGenalTblMngVO
 	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 */
-	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
+	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 
 	/**
 	 * 신규 총괄표 조회

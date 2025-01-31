@@ -177,8 +177,8 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
-	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
-		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO);
+	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {
+		List<PrdcrCrclOgnGenalTblMngVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO);
 		return resultList;
 	}
 

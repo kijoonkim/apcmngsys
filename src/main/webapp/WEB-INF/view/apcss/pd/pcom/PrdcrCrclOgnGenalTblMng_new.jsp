@@ -1473,8 +1473,8 @@
 		};
 
 	function fn_excelDwnld04() {
-		grdPrdcrOgnCurntMng04.exportLocalExcel("출자출하조직관리(총괄표 - 부류별 합계)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
-    }
+		grdPrdcrOgnCurntMng04.exportLocalExcel("통합조직관리(총괄표 - 부류별 합계)", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+	}
 
 	/* Grid 화면 그리기 기능*/
 	const fn_createGridClsfTot = async function() {
@@ -1524,14 +1524,14 @@
 		grdClsfTot = _SBGrid.create(SBGridProperties);
 	}
 
-	//총괄표 조회
+	//부류별 합계 조회
 	async function fn_dtlSearchClsfTot() {
 
 		let brno = SBUxMethod.get('dtl-input-brno');
 		if(gfn_isEmpty(brno)){return;}
 		let yr = SBUxMethod.get('dtl-input-yr');
 
-		let postJsonPromise01 = gfn_postJSON("/pd/pcom/selectIsoClsfTot.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/pcom/selectUoClsfTot.do", {
 			uoBrno : brno
 			,brno : brno
 			,yr : yr

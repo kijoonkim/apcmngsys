@@ -92,7 +92,7 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 * @return List<PrdcrCrclOgnGenalTblMngVO>
 	 * @throws Exception
 	 */
-	public List<PrdcrCrclOgnGenalTblMngVO> selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
+	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
 	/**
 	 * 통합조직 신규 총괄표 조회
