@@ -35,6 +35,7 @@
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnTempSave" name="btnTempSave" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave('Y')"></sbux-button>
 					<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
 					<!--
@@ -1283,6 +1284,7 @@
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
 					$('#btnSaveFclt1').hide();
+					$('#btnTempSave2').hide();
 				}
 			});
 			fn_dtlGridSearch();

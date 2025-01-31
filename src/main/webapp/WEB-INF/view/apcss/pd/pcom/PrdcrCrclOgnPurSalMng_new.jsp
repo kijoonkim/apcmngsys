@@ -31,7 +31,9 @@
 					 -->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1' || loginVO.apoSe eq '2'}">
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+
 					<!--
 					<sbux-button id="btnReport2" name="btnReport2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="출력(출자출하조직 총 매입.매출 연계)" onclick="fn_report3"></sbux-button>
@@ -333,7 +335,7 @@
 						<div style="margin-left: auto;">
 
 							<c:if test="${loginVO.userType ne '02'}">
-								<sbux-button id="btnTempSave1" name="btnTempSave1" uitype="normal" text="매입 임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01('Y')"></sbux-button>
+								<sbux-button id="btnTempSave2" name="btnTempSave2" uitype="normal" text="매입 임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01('Y')"></sbux-button>
 								<sbux-button id="btnSaveFclt2" name="btnSaveFclt2" uitype="normal" text="매입 저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave01"></sbux-button>
 							</c:if>
 
@@ -1720,9 +1722,14 @@
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
+
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
 					$('#btnSaveFclt4').hide();
+
+					$('#btnTempSave2').hide();
+					$('#btnTempSave3').hide();
+					$('#btnTempSave4').hide();
 				}
 				</c:if>
 
