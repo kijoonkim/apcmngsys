@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <!-- ==========================================================================	-->
-<!-- NAME : BbsMapper.xml                                    				-->
-<!-- DESC : 게시판 정보 mapper                                             			-->
+<!-- NAME : BbsMapper.xml                                    					-->
+<!-- DESC : 통합조직 총괄표 정보 mapper                                             	-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
@@ -1207,7 +1207,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.12.26  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectIsoClsfTot" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
+	<select id="selectUoClsfTot" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectIsoClsfTot */
 			BRNO
 			, (CASE WHEN CLSF_CD IN ('2', '3', '4') THEN '원예농산물'

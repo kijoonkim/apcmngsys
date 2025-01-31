@@ -227,13 +227,13 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	}
 
 	// 부류별 합계
-	@PostMapping(value = "/pd/pcom/selectIsoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectIsoClsfTot(Model model, @RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	@PostMapping(value = "/pd/pcom/selectUoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoClsfTot(Model model, @RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		logger.debug("/pd/aom/selectPrdcrCrclOgnGenalTblMngList.do >>> 호출 >>> ");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnGenalTblMngService.selectIsoClsfTot(PrdcrCrclOgnGenalTblMngVO);
+			 resultList = PrdcrCrclOgnGenalTblMngService.selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

@@ -1502,6 +1502,11 @@ FROM
 		  AND APO_SE = '2'
 		  AND TYPE_SE_NO = '5'
 		  AND OGNZ_STBLT_YN = 'Y'
+		  AND (
+		  		TMPR_STRG_YN = 'Y'
+		  		OR
+		  		(TMPR_STRG_YN != 'Y' AND NVL(UO_SPMT_AMT,0) > 0)
+		  		)
 		  AND ITEM_CD IN (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
@@ -1628,14 +1633,40 @@ WHERE 1=1
 		ITEM.OGNZ_STBLT_YN = '0'
 		OR
 		EXISTS (SELECT 1
-					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+					FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT IPST
 					WHERE 1=1
 						  AND APO_SE = '2'
 						  AND DEL_YN = 'N'
 						  AND YR = ITEM.YR
+						  AND OGNZ_STBLT_YN = 'Y'
+						  AND TYPE_SE_NO = '5'
+						  AND (
+						  		TMPR_STRG_YN = 'Y'
+						  		OR
+						  		(TMPR_STRG_YN != 'Y' AND NVL(UO_SPMT_AMT,0) > 0)
+						  		)
 						  AND UO_BRNO = ITEM.BRNO
 						  AND ITEM_CD = ITEM.ITEM_CD
 						  AND STBLT_YN = ITEM.OGNZ_STBLT_YN
+						  AND ITEM_CD IN (SELECT ITEM_CD
+											FROM TB_EV_APO_YR_GPC_CD
+											WHERE 1=1
+											  AND APO_SE = '2'
+											  AND YR = IPST.YR
+											  AND BRNO = IPST.BRNO
+											  AND UO_BRNO = IPST.UO_BRNO
+											  AND STTG_UPBR_ITEM_SE != '3'
+											)
+						  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+													FROM TB_EV_FRMHS_APO
+													WHERE 1=1
+													  AND APO_SE = '2'
+													  AND YR = IPST.YR
+													  AND BRNO = IPST.BRNO
+													  AND UO_BRNO = IPST.UO_BRNO
+													  AND ITEM_CD = IPST.ITEM_CD
+													  AND TRMT_TYPE = IPST.TRMT_TYPE
+													)
 						)
 		)
 
@@ -1700,6 +1731,11 @@ FROM
 		  AND OGNZ_STBLT_YN = DECODE(TYPE_SE_NO, '5' , 'N' , '7' , '0' , '')
 		  AND YR= #{yr}
 		  AND UO_BRNO = #{brno}
+		  AND (
+		  		TMPR_STRG_YN = 'Y'
+		  		OR
+		  		(TMPR_STRG_YN != 'Y' AND NVL(UO_SPMT_AMT,0) > 0)
+		  		)
 		  AND ITEM_CD IN (SELECT ITEM_CD
 							FROM TB_EV_APO_YR_GPC_CD
 							WHERE 1=1
