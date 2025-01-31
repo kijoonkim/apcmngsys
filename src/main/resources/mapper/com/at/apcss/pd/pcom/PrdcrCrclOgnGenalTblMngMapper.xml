@@ -1228,7 +1228,7 @@
 		FROM (
 				SELECT
 					YR
-					, BRNO
+					, #{brno} AS BRNO
 					, SLS_TRST_VLM
 					, SLS_TRST_AMT
 					, SLS_EMSPAP_VLM
@@ -1254,7 +1254,11 @@
 				  					  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE)
 				  AND APO_SE = '1'
 				  AND PRCHS_SLS_SE = '2'
-				AND BRNO = #{brno}
+				  AND (
+				  		BRNO = #{brno}
+				  		OR
+				  		BRNO IN (SELECT BRNO FROM TB_EV_BRNO_MNG WHERE BRNO != 0 AND MNG_NO IN (SELECT MNG_NO FROM TB_EV_BRNO_MNG WHERE BRNO = #{brno}))
+				  		)
 				) A
 		GROUP BY  BRNO , CLSF_CD
 
@@ -1274,7 +1278,7 @@
 		FROM (
 				SELECT
 					YR
-					, BRNO
+					, #{brno} AS BRNO
 					, SLS_TRST_VLM
 					, SLS_TRST_AMT
 					, SLS_EMSPAP_VLM
@@ -1302,7 +1306,12 @@
 				  					  AND STTG_UPBR_ITEM_SE = APS.STTG_UPBR_ITEM_SE)
 				  AND APO_SE = '1'
 				  AND PRCHS_SLS_SE = '2'
-				  AND BRNO = #{brno}
+				  AND (
+				  		BRNO = #{brno}
+				  		OR
+				  		BRNO IN (SELECT BRNO FROM TB_EV_BRNO_MNG WHERE BRNO != 0 AND MNG_NO IN (SELECT MNG_NO FROM TB_EV_BRNO_MNG WHERE BRNO = #{brno}))
+				  		)
+
 				) A
 		GROUP BY  BRNO , CLSF_SE_CD
 
