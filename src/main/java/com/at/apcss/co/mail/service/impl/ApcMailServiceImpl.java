@@ -36,6 +36,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -537,17 +538,20 @@ public class ApcMailServiceImpl extends BaseServiceImpl implements ApcMailServic
                         ComConstants.CON_BLANK      // charset
                 );
 
-                HashMap<String, Object> rtnObj = sendMailSimple(apcMailVO);
+                eml.setSndngYn(ComConstants.CON_YES);
 
-                if (rtnObj != null) {
+                try  {
+                    HashMap<String, Object> rtnObj = sendMailSimple(apcMailVO);
+                    if (rtnObj != null) {
+                        eml.setSndngYn(ComConstants.CON_X);
+                    }
+                } catch (Exception e) {
                     eml.setSndngYn(ComConstants.CON_X);
-                } else {
-                    eml.setSndngYn(ComConstants.CON_YES);
+                } finally {
+                    eml.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
+                    eml.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
+                    apcMailMapper.updateComEmlLogSndng(eml);
                 }
-
-                eml.setSysLastChgUserId(ComConstants.DEFAULT_ERR_USER);
-                eml.setSysLastChgPrgrmId(ComConstants.DEFAULT_ERR_PRGRM);
-                apcMailMapper.updateComEmlLogSndng(eml);
             }
         }
 
