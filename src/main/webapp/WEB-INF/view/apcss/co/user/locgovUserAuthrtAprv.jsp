@@ -508,6 +508,7 @@
 	        	type:'output',  	
 	        	width:'120px', 
 	        	style:'text-align:left',
+				hidden: true
 	        },
 	        {
 	        	caption: ["전화번호"],		
@@ -521,7 +522,8 @@
 	        	ref: 'eml',   	
 	        	type:'output',  	
 	        	width:'150px', 
-	        	style:'text-align:left'
+	        	style:'text-align:left',
+				hidden: true
 	        },
 	        {
         		caption: ["관리자신청"], 		
