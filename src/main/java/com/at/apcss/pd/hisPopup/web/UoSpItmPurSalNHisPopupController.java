@@ -32,7 +32,7 @@ public class UoSpItmPurSalNHisPopupController extends BaseController{
 		return "apcss/pd/hisPopup/UoSpItmPurSalNHisPopup";
 	}
 
-	//출자출하조직 전문품목 매입 매출 2024년 조회
+	//통합조직 전문품목 매입매출 2024년 조회
 	@PostMapping(value = "/pd/hisPopup/selectHisUoSpItmPurSalN2024.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectHisUoSpItmPurSalN2024(Model model, @RequestBody UoSpItmPurSalVO UoSpItmPurSalVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
@@ -48,7 +48,7 @@ public class UoSpItmPurSalNHisPopupController extends BaseController{
 	}
 
 
-	//출자출하조직 전문품목 매입 매출 2025년 조회
+	//통합조직 전문품목 매입매출 2025년 조회
 	@PostMapping(value = "/pd/hisPopup/selectHisUoSpItmPurSalN2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectHisUoSpItmPurSalN2025(Model model, @RequestBody UoSpItmPurSalVO UoSpItmPurSalVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();

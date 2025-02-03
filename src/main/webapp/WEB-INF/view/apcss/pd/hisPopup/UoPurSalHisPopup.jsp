@@ -7,11 +7,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>통합조직 총 매입매출 과거조회 팝업</title>
-	<!--
-		새창으로 열기 기준
-		SBUx openModal은 메인 페이지 에서 css js include 해오지만
-		새창으로 열면 해당 부분이 없어서 추가 함
-	-->
 	<%@ include file="../../../frame/inc/headerScriptPopup.jsp" %>
 
 </head>
