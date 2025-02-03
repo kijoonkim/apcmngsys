@@ -645,9 +645,17 @@
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit01(e){
 		let objGrid = e.data.target;
+		let nRow = objGrid.getRow();
 		let nCol = objGrid.getCol();
 		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh01.includes(nRef)){
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
 			objGrid.refresh();
 		}
 	}
@@ -1550,6 +1558,13 @@
 
 			//임시저장여부 확인
 			if(_tmprStrgYn != 'Y'){
+				//임시저장인 경우 구분에 값이 없음
+				if(rowData01.typeSeNo == '1' && gfn_isEmpty(rowData01.ognzStbltYn)){
+					alert(rowData01.prchsNm + ' 조직의 임시저장 여부를 확인해주세요');
+					fn_movefocus(objGrid , i);
+					return false;
+				}
+
 				let slsCnsgnSlsAmtCol = objGrid.getColRef("slsCnsgnSlsAmt");
 				//매입 값이 있을경우 매출 값을 입력 필수
 				if(rowData01.typeSeNo === '1' || (rowData01.typeSeNo === '5' && rowData01.trmtType !== '0')){

@@ -809,12 +809,20 @@
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
-	function fn_AfterEdit01(){
-		//console.log('fn_AfterEdit01');
-		let nCol = grdPrdcrOgnCurntMng01.getCol();
-		let nRef = grdPrdcrOgnCurntMng01.getRefOfCol(nCol);
+	function fn_AfterEdit01(e){
+		let objGrid = e.data.target;
+		let nRow = objGrid.getRow();
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh01.includes(nRef)){
-			grdPrdcrOgnCurntMng01.refresh();
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
+			objGrid.refresh();
 			fn_grdTot01();
 		}
 	}
@@ -1116,9 +1124,17 @@
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit02(){
 		let objGrid = grdPrdcrOgnCurntMng02;
+		let nRow = objGrid.getRow();
 		let nCol = objGrid.getCol();
 		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh02.includes(nRef)){
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
 			objGrid.refresh();
 			fn_grdTot02();
 		}
@@ -1424,11 +1440,20 @@
 		];
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
-	function fn_AfterEdit03(){
-		let nCol = grdPrdcrOgnCurntMng03.getCol();
-		let nRef = grdPrdcrOgnCurntMng03.getRefOfCol(nCol);
+	function fn_AfterEdit03(e){
+		let objGrid = e.data.target;
+		let nRow = objGrid.getRow();
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh03.includes(nRef)){
-			grdPrdcrOgnCurntMng03.refresh();
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
+			objGrid.refresh();
 		}
 	}
 

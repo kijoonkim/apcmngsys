@@ -50,6 +50,8 @@ public interface PrdcrCrclOgnSpItmPurSalNMngMapper {
 	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
 	//저장전 기존 데이터 삭제 처리
 	public int updateDelYn(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO);
+	/* 개발서버 신규 화면 적합여부 */
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	/**
 	 * 총매입매출 임시저장 처리.

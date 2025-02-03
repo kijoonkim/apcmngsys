@@ -1039,27 +1039,21 @@
 		'ecSpmtPlanVlm','avgYrPrdctnVlm', 'ecSpmtVlm'
 	];
 	//값변경 이벤트
-	function fn_valuechanged(e){
-		console.log(e);
-		console.log(e.data.target);
-		console.log(grdPrdcrOgnCurntMng02);
+	function fn_valuechanged(){
 		let nRow = grdPrdcrOgnCurntMng02.getRow();
 		let nCol = grdPrdcrOgnCurntMng02.getCol();
 		let valueData = grdPrdcrOgnCurntMng02.getCellData(nRow,nCol);
 
 		let colName = grdPrdcrOgnCurntMng02.getRefOfCol(nCol);
-		console.log(colName);
 		//붙여넣을 값 확인 리스트 체크
 		if(columnsList01.includes(colName) || columnsList02.includes(colName)){
 			const regex = /[^0-9.]/g;// 숫자 소숫점
 			let result = Number(valueData.replace(regex,''));
-			console.log(result);
 			if(columnsList02.includes(colName)){
 				result = result.toFixed(2);
 			}else{
 				result = result.toFixed(0);
 			}
-			console.log(result);
 			grdPrdcrOgnCurntMng02.setCellData(nRow,nCol, result);
 		}
 	}

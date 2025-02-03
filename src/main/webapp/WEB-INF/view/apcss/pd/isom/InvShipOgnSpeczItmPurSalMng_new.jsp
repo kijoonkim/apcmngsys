@@ -700,8 +700,14 @@
 		let nRow = objGrid.getRow();
 		let nCol = objGrid.getCol();
 		let nRef = objGrid.getRefOfCol(nCol);
-		console.log(nRow,nCol,nRef);
 		if(columnsToRefresh01.includes(nRef)){
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
 			objGrid.refresh();
 		}
 	}

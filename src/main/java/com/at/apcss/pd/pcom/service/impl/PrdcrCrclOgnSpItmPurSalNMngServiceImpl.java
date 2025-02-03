@@ -11,7 +11,6 @@ import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalNMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalNMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalNMngVO;
-import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 
 
 /**
@@ -179,6 +178,13 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 			}
 		}
 		return savedCnt;
+	}
+
+	/* 개발서버 신규화면 적합여부 체크 */
+	@Override
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalNMngMapper.selectItemUoStbltYnListNew(ItemUoStbltYnVo);
+		return resultList;
 	}
 
 	@Override
