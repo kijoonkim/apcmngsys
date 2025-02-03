@@ -155,7 +155,6 @@
 					</tr>
 				</tbody>
 			</table>
-			</div>
 			<div style="display:flex; justify-content: flex-start; margin-top: 10px;" >
 				<div>
 				</div>
@@ -174,21 +173,20 @@
 					<sbux-button id="btnSelAprv" name="btnSelAprv" uitype="normal" text="선택 승인" class="btn btn-sm btn-outline-danger" onclick="fn_selAprv('Y')"></sbux-button>
 				</div>
 			</div>
-			<div class="box-body">
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li>
-							<span style="font-size:14px">▶검색리스트</span>
-							<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
-						</li>
-					</ul>
-				</div>
-				<!-- SBGrid를 호출합니다. -->
-				<div id="sb-area-grdFcltPrgrsInfo" style="height:450px; width: 100%;"></div>
+			<div class="ad_tbl_top">
+				<ul class="ad_tbl_count">
+					<li>
+						<span style="font-size:14px">▶검색리스트</span>
+						<span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span>
+					</li>
+				</ul>
 			</div>
-			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
-			<div id="sb-area-hiddenGrd1" style="height:400px; width: 100%; display: none;"></div>
+			<!-- SBGrid를 호출합니다. -->
+			<div id="sb-area-grdFcltPrgrsInfo" style="height:450px; width: 100%;"></div>
 		</div>
+		<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
+		<div id="sb-area-hiddenGrd1" style="height:400px; width: 100%; display: none;"></div>
+	</div>
 	</section>
 	<!-- apc 선택 Modal -->
 	<div>
