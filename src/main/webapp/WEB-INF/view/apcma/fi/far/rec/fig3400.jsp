@@ -72,7 +72,7 @@
                     </colgroup>
                     <tbody>
 						<tr>
-							<th scope="row" class="th_bg">APC</th>
+							<th scope="row" class=th_bg_search>APC</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
 								<div class="dropdown">
 									<button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_FI_ORG_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +84,7 @@
 								</div>
 							</td>
                             <td></td>
-                            <th scope="row" class="th_bg">상태</th>
+                            <th scope="row" class="th_bg_search">상태</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_STATUS" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -107,7 +107,7 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
-                            <th scope="row" class="th_bg">거래처</th>
+                            <th scope="row" class="th_bg_search">거래처</th>
                             <td colspan="3" class="td_input" data-group="SRCH_PAYER">
                                 <sbux-input id="SRCH_PAYER_CODE" name="SRCH_PAYER_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYER_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -122,7 +122,7 @@
                             </td>
 						</tr>
 						<tr>
-                            <th scope="row" class="th_bg">작성부서</th>
+                            <th scope="row" class="th_bg_search">작성부서</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_DEPT">
                                 <sbux-input id="SRCH_CREATED_DEPT_CODE" name="SRCH_CREATED_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -135,7 +135,7 @@
                                         onclick="fn_findCreatedDeptName"
                                 ></sbux-button>
                             </td>
-                            <th scope="row" class="th_bg">청구부서</th>
+                            <th scope="row" class="th_bg_search">청구부서</th>
                             <td colspan="3" class="td_input" data-group="SRCH_PAYEE_DEPT">
                                 <sbux-input id="SRCH_PAYEE_DEPT_CODE" name="SRCH_PAYEE_DEPT_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_DEPT_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -159,7 +159,7 @@
                                         true-value="Y" false-value="N"
                                 />
                             </td>
-                            <th scope="row" class="th_bg">전표구분</th>
+                            <th scope="row" class="th_bg_search">전표구분</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <div class="dropdown">
                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_DOC_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -173,7 +173,7 @@
                             <td></td>
 						</tr>
 						 <tr>
-                             <th scope="row" class="th_bg">년월</th>
+                             <th scope="row" class="th_bg_search">년월</th>
                              <td class="td_input" style="border-right:hidden;">
                                  <sbux-datepicker
                                          uitype="popup"
@@ -187,7 +187,7 @@
                                  />
                              </td>
                              <td colspan="3"></td>
-							<th scope="row" class="th_bg">거래일자</th>
+							<th scope="row" class="th_bg_search">거래일자</th>
 							<td class="td_input" style="border-right:hidden;">
 								<sbux-datepicker
 										uitype="popup"
@@ -216,7 +216,7 @@
 								/>
 							</td>
                              <td></td>
-                            <th scope="row" class="th_bg">작성자</th>
+                            <th scope="row" class="th_bg_search">작성자</th>
                             <td colspan="3" class="td_input" data-group="SRCH_CREATED_BY">
                                 <sbux-input id="SRCH_CREATED_BY_CODE" name="SRCH_CREATED_BY_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_CREATED_BY_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -229,7 +229,7 @@
                                         onclick="fn_findCreatedByName"
                                 ></sbux-button>
                             </td>
-                            <th scope="row" class="th_bg">실사용자</th>
+                            <th scope="row" class="th_bg_search">실사용자</th>
                             <td colspan="3" class="td_input" data-group="SRCH_PAYEE">
                                 <sbux-input id="SRCH_PAYEE_CODE" name="SRCH_PAYEE_CODE" uitype="hidden"></sbux-input>
                                 <sbux-input id="SRCH_PAYEE_NAME" class="form-control input-sm" uitype="text" style="width:100%"></sbux-input>
@@ -244,7 +244,7 @@
                             </td>
 						</tr>
                         <tr>
-                            <th scope="row" class="th_bg">전표번호</th>
+                            <th scope="row" class="th_bg_search">전표번호</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_DOC_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
@@ -269,7 +269,7 @@
                                 ></sbux-button>
                             </td>
                             <td></td>
-                            <th scope="row" class="th_bg">제목</th>
+                            <th scope="row" class="th_bg_search">제목</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
                                 <sbux-input id="SRCH_DESC" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
