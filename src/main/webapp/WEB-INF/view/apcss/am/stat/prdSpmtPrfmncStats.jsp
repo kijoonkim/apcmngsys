@@ -354,11 +354,15 @@
 
 		//HY : 반기별 , MM : 월별 , QY : 분기별 , YY : 연도별
 		const dtlCd = SBUxMethod.get("srch-rdo-json");
-		const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
+		//const crtrYr = SBUxMethod.get("dtl-dtp-crtrYmd").substring(0,4)
 
 		//기준일자
 		const crtrYmd = SBUxMethod.get("dtl-dtp-crtrYmd");
+		let itemCd = SBUxMethod.get("srch-slt-itemCd") || '';
+		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd") || '';
+		vrtyCd = vrtyCd.substring(4);
 
+/*
 
 		//let allData = grdRawMtrInvntrTot.getGridDataAll();
 		let allData = [{
@@ -423,19 +427,29 @@
 					,"crtrYr" : 2024
 			}
 				];
-		/* allData.map(item => {
+		/!* allData.map(item => {
 			item['dtlCd'] = dtlCd;
 			item['crtrYr'] = crtrYr;
-			}); */
+			}); *!/
+
 		let data = {
 				"root" : allData
 			}
 		const conn = [];
 		conn.push({data:data})
+*/
+
+		let conn = {
+			apcCd : gv_apcCd
+			, ymdFrom : crtrYmd[0]
+			, ymdTo : crtrYmd[1]
+			, itemCd : itemCd
+			, vrtyCd : vrtyCd
+		}
 
  		//gfn_popClipReport("원물입고 실적집계", rptUrl,null, data);
 
- 		gfn_popClipReportPost("기간별 출하실적조회", "am/rawMtrInvntrTot.crf",null, conn);
+ 		gfn_popClipReport("기간별 출하실적조회", "am/prdSpmtPrfmncTot.crf", conn);
  	}
 
 
