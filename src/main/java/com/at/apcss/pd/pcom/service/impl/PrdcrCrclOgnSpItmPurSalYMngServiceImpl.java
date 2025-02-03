@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
 import com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper;
 import com.at.apcss.pd.pcom.service.PrdcrCrclOgnSpItmPurSalYMngService;
 import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
