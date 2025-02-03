@@ -1558,6 +1558,13 @@
 
 			//임시저장여부 확인
 			if(_tmprStrgYn != 'Y'){
+				//임시저장인 경우 구분에 값이 없음
+				if(rowData01.typeSeNo == '1' && gfn_isEmpty(rowData01.ognzStbltYn)){
+					alert(rowData01.prchsNm + ' 조직의 임시저장 여부를 확인해주세요');
+					fn_movefocus(objGrid , i);
+					return false;
+				}
+
 				let slsCnsgnSlsAmtCol = objGrid.getColRef("slsCnsgnSlsAmt");
 				//매입 값이 있을경우 매출 값을 입력 필수
 				if(rowData01.typeSeNo === '1' || (rowData01.typeSeNo === '5' && rowData01.trmtType !== '0')){
