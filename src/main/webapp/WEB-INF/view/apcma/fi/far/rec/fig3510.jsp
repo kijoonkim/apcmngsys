@@ -3794,8 +3794,8 @@
         let DOC_AMT = Number(value.replace(/,/gi, ''));
 
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != "") {
-            let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
-            let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+            let vatInfo = jsonVatCode.filter(data => data["VAT_CD"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+            let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RT) == "" ? "0" : gfn_nvl(vatInfo.VAT_RT));
 
             let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
             let VAT_AMOUNT = Number(DOC_AMT) - Number(SUPPLY_AMT);
@@ -6188,11 +6188,11 @@
 
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "") return false;
 
-        let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
-        dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+        let vatInfo = jsonVatCode.filter(data => data["VAT_CD"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+        dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RT) == "" ? "0" : gfn_nvl(vatInfo.VAT_RT));
 
-        dcmlimit_plus_rate = Number(gfn_nvl(vatInfo.LIMIT_PLUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_PLUS_RATE));
-        dcmlimit_minus_rate = Number(gfn_nvl(vatInfo.LIMIT_MINUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_MINUS_RATE));
+        dcmlimit_plus_rate = Number(gfn_nvl(vatInfo.HGHST_RT) == "" ? "0" : gfn_nvl(vatInfo.HGHST_RT));
+        dcmlimit_minus_rate = Number(gfn_nvl(vatInfo.LOWST_RT) == "" ? "0" : gfn_nvl(vatInfo.LOWST_RT));
 
         dcmlimit_plus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 + (dcmlimit_plus_rate / 100));
         dcmlimit_minus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 - (dcmlimit_minus_rate / 100));
