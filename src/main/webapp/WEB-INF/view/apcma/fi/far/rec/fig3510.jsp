@@ -2133,14 +2133,14 @@
             {caption: ["부가세유형명"], ref: 'VAT_NAME', type: 'output', width: '184px', style: 'text-align:left'},
             {caption: ["부가세유형명"], 		ref: 'VAT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'},
             {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["계정과목명"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {
@@ -2170,14 +2170,14 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["사업장"], ref: 'SITE_CODE', type: 'input', width: '100px', style: 'text-align:left',
@@ -2193,7 +2193,7 @@
             {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
             {caption: ["프로젝트명"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
@@ -5356,7 +5356,7 @@
                     gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', gfn_nvl(formData.CRN_CD));
                     SBUxMethod.set('EXCHANGE_RATE', formData.EXCHRT);
                     SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
-                    gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CD));
+                    gfnma_multiSelectSet('#VAT_CODE', 'VAT_CD', 'VAT_NM', gfn_nvl(formData.VAT_CD));
                     SBUxMethod.set('DOC_AMT', formData.SLIP_AMT);
                     gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(formData.PAY_MTHD));
                     SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CD);
