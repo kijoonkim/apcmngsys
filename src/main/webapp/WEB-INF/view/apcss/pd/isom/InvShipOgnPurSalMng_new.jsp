@@ -617,7 +617,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -834,11 +834,20 @@
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_valuechanged01(){
-		let nCol = grdPrdcrOgnCurntMng01.getCol();
-		let nRef = grdPrdcrOgnCurntMng01.getRefOfCol(nCol);
-
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let nRow = objGrid.getRow();
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
+		//소숫점 제외 처리
 		if(columnsToRefresh01.includes(nRef)){
-			grdPrdcrOgnCurntMng01.refresh();
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
+			objGrid.refresh();
 			fn_grdTot01();
 		}
 	}
@@ -906,13 +915,9 @@
 							+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
 							+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm))
 					);
-			console.log(sumVal);
 			if(sumVal === 0){
-				console.log('0');
 				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
 			}else{
-				console.log('!0');
-				console.log(nRow,nCol);
 				objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'red');
 			}
 			return sumVal;
@@ -1131,17 +1136,22 @@
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_valuechanged02(){
-		grdPrdcrOgnCurntMng02.refresh();
-		fn_grdTot02();
-
-		/*
+		let objGrid = grdPrdcrOgnCurntMng02;
+		let nRow = objGrid.getRow();
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
+		//소숫점 제외 처리
 		if(columnsToRefresh02.includes(nRef)){
-			let nCol = grdPrdcrOgnCurntMng02.getCol();
-			let nRef = grdPrdcrOgnCurntMng02.getRefOfCol(nCol);
-			grdPrdcrOgnCurntMng02.refresh();
-			fn_grdTot02("refresh");
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
 		}
-		*/
+
+		objGrid.refresh();
+		fn_grdTot02();
 	}
 
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
@@ -1386,18 +1396,22 @@
 
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_valuechanged03(){
-		grdPrdcrOgnCurntMng03.refresh();
-		fn_grdTot03();
-
-		/*
+		let objGrid = grdPrdcrOgnCurntMng03;
+		let nRow = objGrid.getRow();
+		let nCol = objGrid.getCol();
+		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh03.includes(nRef)){
-			let nCol = grdPrdcrOgnCurntMng03.getCol();
-			let nRef = grdPrdcrOgnCurntMng03.getRefOfCol(nCol);
-			grdPrdcrOgnCurntMng03.refresh();
-			fn_grdTot03("refresh");
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
 		}
-		*/
+		objGrid.refresh();
+		fn_grdTot03();
 	}
+
 
 	//출하실적 물량
 	function fn_spmtPrfmncVlm(objGrid, nRow, nCol){
@@ -1669,7 +1683,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				<c:if test="${loginVO.apoSe eq '1'}">
@@ -1742,7 +1756,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -2597,7 +2611,6 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			//SBUxMethod.set('dtl-input-uoCd' , null);
@@ -2698,7 +2711,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr						: item.yr
