@@ -270,6 +270,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
     	fn_init();
     	$(".sbux-pik-wrap").css("display","flex");
+		SBUxMethod.set("srch-dtp-purSalYmd",gfn_dateFirstYmd(new Date())+','+gfn_dateLastYmd(new Date())); //현재날짜
     });
 
     const fn_init = async function() {
@@ -279,7 +280,7 @@
 		SBUxMethod.set("srch-slt-vrtyNm", ""); // 품종
 		
 		fn_createSlsPrfmnclist();
-		fn_search();
+		await fn_search();
     }
 
 
@@ -308,17 +309,16 @@
 						uncheckedvalue : 'N'
 					}
         	},
-            {caption: ["품목"],  ref :'itemCd',  type: 'combo', width:'9.7%',typeinfo : {ref :'jsonApcItem', label : 'itemNm',value :'itemCd'}, style:'text-align:center'},
+            {caption: ["품목"],  ref :'itemCd',  type: 'combo', width:'9.7%',typeinfo : {ref :'jsonApcItem', label : 'itemNm',value :'itemCd',onclickedit: true}, style:'text-align:center'},
             {caption: ["품종"],  ref: 'vrtyCd',  type:'combo', typeinfo : {ref:'jsonApcVrty', label:'vrtyNm', value:'vrtyCd', filtering: {usemode: true, uppercol: 'itemNm', attrname: 'itemCd'}},width:'9.7%',  style:'text-align:center'},
-            {caption: ["생산자"], ref: '?',       type:'input', width:'9.7%',  style:'text-align:center'},
-            {caption: ["상세구분"],ref: '?',	   type:'input', width:'9.7%',  style:'text-align:center'},
-            {caption: ["매출번호"],ref: 'slsSn',   type:'input', width:'9.7%',  style:'text-align:center'},
-            {caption: ["수량"],  ref: 'qntt',    type:'input',width:'9.7%',  style:'text-align:center'},
-            {caption: ["중량"],  ref: 'wght',    type:'input',width:'9.7%',  style:'text-align:center'},
-            {caption: ["상세코드"],ref: '?',       type:'input',width:'9.7%',  style:'text-align:center'},
-            {caption: ["매출금액"],ref: 'rkngAmt', type:'input',width:'9.7%',  style:'text-align:center'},
-            {caption: ["확정금액"],ref: 'cfmtnAmt',type:'input',width:'9.7%',  style:'text-align:center'},
-			{caption: ["삭제여부"],ref: 'delYn', type:'output',hidden : true}
+            {caption: ["생산자"], ref: 'prdcrNm', type:'input', width:'9.7%',  style:'text-align:center'},
+            /*{caption: ["상세구분"],ref: '?',	   type:'input', width:'9.7%',  style:'text-align:center'},*/
+            {caption: ["매출번호"],ref: 'slsSn',   type:'input',typeinfo :{mask : {alias :'numeric'},onclickedit :true}, width:'9.7%',  style:'text-align:center'},
+            {caption: ["수량"],  ref: 'qntt',    type:'input',typeinfo :{mask : {alias :'numeric'},onclickedit : true},format : {type:'number',rule:'#,###'},width:'9.7%',  style:'text-align:center'},
+            {caption: ["중량"],  ref: 'wght',    type:'input',typeinfo :{mask : {alias :'numeric'},onclickedit: true},format : {type:'number',rule:'#,###'},width:'9.7%',  style:'text-align:center'},
+            /*{caption: ["상세코드"],ref: '?',       type:'input',width:'9.7%',  style:'text-align:center'},*/
+            {caption: ["매출금액"],ref: 'rkngAmt', type:'input',typeinfo :{mask : {alias :'numeric'},onclickedit :true},format : {type:'number',rule:'#,###'}, width:'9.7%',  style:'text-align:center'},
+            {caption: ["확정금액"],ref: 'cfmtnAmt',type:'input',typeinfo :{mask : {alias :'numeric'}},format : {type:'number',rule:'#,###'},width:'9.7%',  style:'text-align:center'},
 						
         ];
         grdSlsPrfmncList = _SBGrid.create(SBGridProperties);
@@ -331,6 +331,7 @@
     const fn_search = async function() {
     	let getpurSalYmd= SBUxMethod.get("srch-dtp-purSalYmd");
     	let getItemCd = SBUxMethod.get("srch-slt-itemCd");
+		let getPrdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
     	
     	
     	let purSalYmdFrom;
@@ -352,7 +353,8 @@
 			apcCd: gv_selectedApcCd,
 			slsYmdFrom : purSalYmdFrom,
 			slsYmdTo : purSalYmdTo,
-			itemCd : getItemCd
+			itemCd : getItemCd,
+			prdcrCd :getPrdcrCd
   		});
         const data = await postJsonPromise;       
   		try {

@@ -63,4 +63,52 @@ public interface SlsMngService {
 	 * @throws Exception
 	 */
 	public int deleteSlsUntprc (SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출 기준 조회
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<SlsMngVO> selectSlsCrtr(SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출 기준 상세 조회
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SlsMngVO> selectSlsCrtrDtl(SlsMngVO slsMngVO)throws Exception;
+
+	/**
+	 * 매출 기준 등록
+	 * @param slsCrtrList
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSlsCrtr(List<SlsMngVO> slsCrtrList)throws Exception;
+
+	/**
+	 * 매출 기준 상세 등록
+	 * @param slsCrtrDtlList
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSlsCrtrDtl(List<SlsMngVO> slsCrtrDtlList) throws Exception;
+
+	/**
+	 * 매출 기준 삭제
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSlsCrtr(SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출 기준 상세 삭제
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteSlsCrtrDtl(SlsMngVO slsMngVO) throws Exception;
 }
