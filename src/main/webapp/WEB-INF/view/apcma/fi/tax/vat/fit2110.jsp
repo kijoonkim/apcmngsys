@@ -411,25 +411,25 @@
                                     <tr>
                                         <td colspan="2">합&emsp;&emsp;&emsp;&emsp;계</td>
                                         <td>
-                                            <sbux-input id="totalCustomerCnt2" name="totalCustomerCnt2" uitype="text"
+                                            <sbux-input id="TOTAL_CUSTOMER_CNT2" name="TOTAL_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="totalBillCnt2" name="totalBillCnt2" uitype="text"
+                                            <sbux-input id="TOTAL_BILL_CNT2" name="TOTAL_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="totSplyAmt2" name="totalSupplyAmt2" uitype="text"
+                                            <sbux-input id="TOT_SPLY_AMT2" name="TOT_SPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="totVatAmt2" name="totalVatAmt2" uitype="text"
+                                            <sbux-input id="TOT_VAT_AMT2" name="TOT_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -439,25 +439,25 @@
                                         <td rowspan="3">과세기간 종료일 다음 달11일까지 전송된 전자세금 계산서 발급분</td>
                                         <td>사업자등록번호 발급분</td>
                                         <td>
-                                            <sbux-input id="etaxCorpRegnoCustomerCnt2" name="etaxCorpRegnoCustomerCnt2" uitype="text"
+                                            <sbux-input id="ETAX_CORP_REGNO_CUSTOMER_CNT2" name="ETAX_CORP_REGNO_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxCorpRegnoBillCnt2" name="etaxCorpRegnoBillCnt2" uitype="text"
+                                            <sbux-input id="ETAX_CORP_REGNO_BILL_CNT2" name="ETAX_CORP_REGNO_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxCorpRegnoSupplyAmt2" name="etaxCorpRegnoSupplyAmt2" uitype="text"
+                                            <sbux-input id="ETAX_CORP_REGNO_SUPPLY_AMT2" name="ETAX_CORP_REGNO_SUPPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxCorpRegnoVatAmt2" name="etaxCorpRegnoVatAmt2" uitype="text"
+                                            <sbux-input id="ETAX_CORP_REGNO_VAT_AMT2" name="ETAX_CORP_REGNO_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -466,25 +466,25 @@
                                     <tr>
                                         <td>주민등록번호 발급분</td>
                                         <td>
-                                            <sbux-input id="etaxResidentRegnoCustomerC2" name="etaxResidentRegnoCustomerC2" uitype="text"
+                                            <sbux-input id="ETAX_RESIDENT_REGNO_CUSTOMER_C2" name="ETAX_RESIDENT_REGNO_CUSTOMER_C2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxResidentRegnoBillCnt2" name="etaxResidentRegnoBillCnt2" uitype="text"
+                                            <sbux-input id="ETAX_RESIDENT_REGNO_BILL_CNT2" name="ETAX_RESIDENT_REGNO_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxResidentRegnoSupplyAmt2" name="etaxResidentRegnoSupplyAmt2" uitype="text"
+                                            <sbux-input id="ETAX_RESIDENT_REGNO_SUPPLY_AMT2" name="ETAX_RESIDENT_REGNO_SUPPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxResidentRegnoVatAmt2" name="etaxResidentRegnoVatAmt2" uitype="text"
+                                            <sbux-input id="ETAX_RESIDENT_REGNO_VAT_AMT2" name="ETAX_RESIDENT_REGNO_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -493,25 +493,25 @@
                                     <tr>
                                         <td>소계</td>
                                         <td>
-                                            <sbux-input id="etaxSumCustomerCnt2" name="etaxSumCustomerCnt2" uitype="text"
+                                            <sbux-input id="ETAX_SUM_CUSTOMER_CNT2" name="ETAX_SUM_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxSumBillCnt2" name="etaxSumBillCnt2" uitype="text"
+                                            <sbux-input id="ETAX_SUM_BILL_CNT2" name="ETAX_SUM_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxSumSupplyAmt2" name="etaxSumSupplyAmt2" uitype="text"
+                                            <sbux-input id="ETAX_SUM_SUPPLY_AMT2" name="ETAX_SUM_SUPPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="etaxSupplyVatAmt2" name="etaxSupplyVatAmt2" uitype="text"
+                                            <sbux-input id="ETAX_SUPPLY_VAT_AMT2" name="ETAX_SUPPLY_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -521,25 +521,25 @@
                                         <td rowspan="3">위 전자세금계산서 외의 발급분</td>
                                         <td>사업자등록번호 발급분</td>
                                         <td>
-                                            <sbux-input id="corpRegnoCustomerCnt2" name="corpRegnoCustomerCnt2" uitype="text"
+                                            <sbux-input id="CORP_REGNO_CUSTOMER_CNT2" name="CORP_REGNO_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="corpRegnoBillCnt2" name="corpRegnoBillCnt2" uitype="text"
+                                            <sbux-input id="CORP_REGNO_BILL_CNT2" name="CORP_REGNO_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="corpRegnoSupplyAmt2" name="corpRegnoSupplyAmt2" uitype="text"
+                                            <sbux-input id="CORP_REGNO_SUPPLY_AMT2" name="CORP_REGNO_SUPPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="corpRegnoVatAmt2" name="corpRegnoVatAmt2" uitype="text"
+                                            <sbux-input id="CORP_REGNO_VAT_AMT2" name="CORP_REGNO_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -548,25 +548,25 @@
                                     <tr>
                                         <td>주민등록번호 발급분</td>
                                         <td>
-                                            <sbux-input id="residentRegnoCustomerCnt2" name="residentRegnoCustomerCnt2" uitype="text"
+                                            <sbux-input id="RESIDENT_REGNO_CUSTOMER_CNT2" name="RESIDENT_REGNO_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="residentRegnoBillCnt2" name="residentRegnoBillCnt2" uitype="text"
+                                            <sbux-input id="RESIDENT_REGNO_BILL_CNT2" name="RESIDENT_REGNO_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="residentRegnoSupplyAmt2" name="residentRegnoSupplyAmt2" uitype="text"
+                                            <sbux-input id="RESIDENT_REGNO_SUPPLY_AMT2" name="RESIDENT_REGNO_SUPPLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="residentRegnoVatAmt2" name="residentRegnoVatAmt2" uitype="text"
+                                            <sbux-input id="RESIDENT_REGNO_VAT_AMT2" name="RESIDENT_REGNO_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -575,25 +575,25 @@
                                     <tr>
                                         <td>소계</td>
                                         <td>
-                                            <sbux-input id="sumCustomerCnt2" name="sumCustomerCnt2" uitype="text"
+                                            <sbux-input id="SUM_CUSTOMER_CNT2" name="SUM_CUSTOMER_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="sumBillCnt2" name="sumBillCnt2" uitype="text"
+                                            <sbux-input id="SUM_BILL_CNT2" name="SUM_BILL_CNT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="sumSupllyAmt2" name="sumSupllyAmt2" uitype="text"
+                                            <sbux-input id="SUM_SUPLLY_AMT2" name="SUM_SUPLLY_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
                                         </td>
                                         <td>
-                                            <sbux-input id="supplyVatAmt2" name="supplyVatAmt2" uitype="text"
+                                            <sbux-input id="SUPPLY_VAT_AMT2" name="SUPPLY_VAT_AMT2" uitype="text"
                                                         class="tpgTd" init="0" readonly
                                                         mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true }">
                                             </sbux-input>
@@ -744,7 +744,6 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"?이거옴?");
         if(data.resultStatus === 'S'){
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
@@ -759,21 +758,24 @@
                     params				: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-                console.log(data,"??두번쨰~~");
- 
+
                 if(data.resultStatus === 'S'){
                     if(workType === 'Q'){
                         let resultObj = data.cv_2[0];
                         for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
+                            let elId = "#" + key;
+                            $(elId).val(parseInt(resultObj[key]) || 0);
                         }
+                        jsonGrdAr = data.cv_3;
+                        grdAr.rebuild();
                     }else{
-                        let resultObj = data.cv_3[0];
+                        let resultObj = data.cv_4[0];
                         for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
+                            let elId = "#" + key + '2';
+                            $(elId).val(parseInt(resultObj[key]) || 0);
                         }
+                        jsonGrdAp = data.cv_5;
+                        grdAp.rebuild();
                     }
                 }
             }
@@ -952,15 +954,15 @@
                 let resultObj = data.cv_2[0];
                 for(let key in resultObj){
                     let elId = "#" + key;
-                    $(elId).val(parseInt(resultObj[key]));
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
                 jsonGrdAr = data.cv_3;
                 grdAr.rebuild();
             }else{
                 let resultObj = data.cv_4[0];
                 for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key) + '2';
-                    $(elId).val(parseInt(resultObj[key]));
+                    let elId = "#" + key + '2';
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
                 jsonGrdAp = data.cv_5;
                 grdAp.rebuild();
@@ -1003,14 +1005,18 @@
                 let resultObj = data.cv_2[0];
                 for(let key in resultObj){
                     let elId = "#" + key;
-                    $(elId).val(parseInt(resultObj[key]));
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
+                jsonGrdAr = data.cv_3;
+                grdAr.rebuild();
             }else{
-                let resultObj = data.cv_3[0];
+                let resultObj = data.cv_4[0];
                 for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
+                    let elId = "#" + key + '2';
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
+                jsonGrdAp = data.cv_5;
+                grdAp.rebuild();
             }
         }
     }
