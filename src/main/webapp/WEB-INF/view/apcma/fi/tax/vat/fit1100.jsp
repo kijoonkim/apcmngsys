@@ -299,9 +299,9 @@
                     	id="tabTopJson" 
                     	name="tabTopJson" 
                     	uitype="webacc" 
-                    	is-scrollable="false" 
+                    	is-scrollable="false"
                     	jsondata-ref="tabJsonData"
-                        callback-after-select="fn_switchTab"
+<%--                        callback-after-select="fn_switchTab"--%>
                     ></sbux-tabs>
                     <div class="tab-content">
                         <div id="grdAR_AP">

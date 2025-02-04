@@ -748,6 +748,7 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        console.log(data,"?");
  
         if(data.resultStatus === 'S'){
             let resultObj = data.cv_1[0];
