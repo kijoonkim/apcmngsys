@@ -347,6 +347,7 @@
 									name="dtl-input-uoBrno"
 									class="form-control input-sm"
 									autocomplete="off"
+									style="display:none;"
 									readonly
 								></sbux-input>
 							</td>
@@ -433,13 +434,8 @@
 		//SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
 		//SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
 	</c:if>
-		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
-		<c:if test="${loginVO.apoSe eq '1'}">
-		$("#dtl-input-uoBrno").show();
-		$("#dtl-input-selUoBrno").hide();
-		</c:if>
 	</c:if>
 		fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
@@ -1185,11 +1181,11 @@
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
+		SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 		fn_searchUoList();
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
-		//console.log(brno);
 		SBUxMethod.set('dtl-input-uoBrno' , brno);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
