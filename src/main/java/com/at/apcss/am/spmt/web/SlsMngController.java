@@ -3,10 +3,12 @@ package com.at.apcss.am.spmt.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.type.CollectionType;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -202,6 +204,152 @@ public class SlsMngController extends BaseController{
 			}
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/selectSlsCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSlsCrtr(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SlsMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = slsMngService.selectSlsCrtr(slsMngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/selectSlsCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSlsCrtrDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<SlsMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = slsMngService.selectSlsCrtrDtl(slsMngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/insertSlsCrtr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertSlsCrtr(@RequestBody List<Object> data, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		int result = 0;
+		ObjectMapper mapper = new ObjectMapper();
+		List<Map<String,Object>> cmnsSlsCrtrList = (List<Map<String, Object>>) data.get(0);
+		CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, SlsMngVO.class);
+		List<SlsMngVO> slsCrtrList = mapper.convertValue(cmnsSlsCrtrList, listType);
+
+		slsCrtrList.forEach(item->{
+			item.setSysFrstInptUserId(getUserId());
+			item.setSysFrstInptPrgrmId(getPrgrmId());
+			item.setSysLastChgUserId(getUserId());
+			item.setSysLastChgPrgrmId(getPrgrmId());
+		});
+
+		List<Map<String,Object>> cmnsSlsCrtrDtlList = (List<Map<String, Object>>) data.get(1);
+		CollectionType dtlListType = mapper.getTypeFactory().constructCollectionType(List.class, SlsMngVO.class);
+		List<SlsMngVO> slsCrtrDtlList = mapper.convertValue(cmnsSlsCrtrDtlList, dtlListType);
+
+		slsCrtrDtlList.forEach(item->{
+			item.setSysFrstInptUserId(getUserId());
+			item.setSysFrstInptPrgrmId(getPrgrmId());
+			item.setSysLastChgUserId(getUserId());
+			item.setSysLastChgPrgrmId(getPrgrmId());
+		});
+
+	/*	for ( SlsMngVO slsMngVO : slsCrtrList ) {
+			slsMngVO.setSysFrstInptUserId(getUserId());
+			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			slsMngVO.setSysLastChgUserId(getUserId());
+			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		}*/
+		try {
+			result = slsMngService.insertSlsCrtr(slsCrtrList);
+			result = slsMngService.insertSlsCrtrDtl(slsCrtrDtlList);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+	@PostMapping(value = "/am/spmt/deleteSlsCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSlsCrtr(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		try {
+			slsMngVO.setSysFrstInptUserId(getUserId());
+			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			slsMngVO.setSysLastChgUserId(getUserId());
+			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			result = slsMngService.deleteSlsCrtr(slsMngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/deleteSlsCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSlsCrtrDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		try {
+			slsMngVO.setSysFrstInptUserId(getUserId());
+			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			slsMngVO.setSysLastChgUserId(getUserId());
+			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			result = slsMngService.deleteSlsCrtrDtl(slsMngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_DELETED_CNT, result);
 
 		return getSuccessResponseEntity(resultMap);
 	}

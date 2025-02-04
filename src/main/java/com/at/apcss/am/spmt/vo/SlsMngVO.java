@@ -83,6 +83,11 @@ public class SlsMngVO extends ComVO{
 	 * 상세표시명
 	 */
 	private String dtlChrVl;
+
+	/**
+	 * 상세표시명
+	 */
+	private String dtlIndctNm;
 	
 
 	/**

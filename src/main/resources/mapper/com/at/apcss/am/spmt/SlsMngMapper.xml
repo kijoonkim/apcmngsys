@@ -52,6 +52,9 @@
 				<if test='itemCd != null and apcCd != ""'>
 	    			AND SP.ITEM_CD = #{itemCd}
 				</if>
+				<if test='prdcrCd != null and prdcrCd != ""'>
+					AND SPD.PRDCR_CD = #{prdcrCd}
+				</if>
 				<![CDATA[
 		    		  ) pt0
 				]]>
@@ -253,7 +256,7 @@
 				,RMRK = #{rmrk}
 				,APLCN_CRTR_YMD = #{aplcnCrtrYmd}
 			  	,SYS_LAST_CHG_DT = SYSDATE
-				,SYS_LAST_CHG_USER_ID = #{spmtPckgUnitCd}
+				,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
 				,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
 			WHERE
 			    APC_CD = #{apcCd}
@@ -305,6 +308,280 @@
 					   )
 		]]>
 	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtr				-->
+	<!-- DESC : 매출 기준 조회 			                      	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			SELECT
+			    APC_CD
+				,SLS_CRTR_TYPE
+				,CRTR_CD
+				,CRTR_VL
+				,CRTR_INDCT_NM
+				,INDCT_SEQ
+				,USE_YN
+				,DEL_YN
+			FROM
+			    TB_SLS_CRTR
+			WHERE DEL_YN = 'N'
+		]]>
+			<if test='apcCd != null and apcCd != ""'>
+				AND APC_CD = #{apcCd}
+			</if>
+			<if test='slsCrtrType != null and slsCrtrType != ""'>
+				AND SLS_CRTR_TYPE = #{slsCrtrType}
+			</if>
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectSlsCrtrDtl			-->
+	<!-- DESC : 매출 기준 상세 조회 			                      	             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                            -->
+	<!-- ==========================================================================	-->
+
+	<select id="selectSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			SELECT
+			    APC_CD
+				,SLS_CRTR_TYPE
+				,CRTR_CD
+				,DTL_SN
+			    ,DTL_CD
+			    ,DTL_VL
+			    ,DTL_CHR_VL
+			    ,DTL_INDCT_NM
+			    ,INDCT_SEQ
+				,INDCT_SEQ
+				,USE_YN
+				,DEL_YN
+			FROM
+			    TB_SLS_CRTR_DTL
+			WHERE DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			AND APC_CD = #{apcCd}
+		</if>
+		<if test='slsCrtrType != null and slsCrtrType != ""'>
+			AND SLS_CRTR_TYPE = #{slsCrtrType}
+		</if>
+		<if test='crtrCd != null and crtrCd != ""'>
+			AND CRTR_CD = #{crtrCd}
+		</if>
+
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtr  			-->
+	<!-- DESC : 매출 기준 등록	                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+
+	<insert id="insertSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			INSERT INTO
+				TB_SLS_CRTR(
+				    APC_CD
+				    ,SLS_CRTR_TYPE
+				    ,CRTR_CD
+				    ,CRTR_VL
+				    ,CRTR_INDCT_NM
+				    ,INDCT_SEQ
+				    ,USE_YN
+				    ,DEL_YN
+				    ,SYS_FRST_INPT_DT
+				    ,SYS_FRST_INPT_USER_ID
+				    ,SYS_FRST_INPT_PRGRM_ID
+				    ,SYS_LAST_CHG_DT
+				    ,SYS_LAST_CHG_USER_ID
+				    ,SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+					#{apcCd}
+					,#{slsCrtrType}
+					,#{crtrCd}
+					,#{crtrVl}
+					,#{crtrIndctNm}
+					,#{indctSeq}
+					,#{useYn}
+					,'N'
+					,SYSDATE
+					,#{sysFrstInptUserId}
+					,#{sysFrstInptPrgrmId}
+					,SYSDATE
+					,#{sysLastChgUserId}
+					,#{sysLastChgPrgrmId}
+		 	)
+		]]>
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.updateSlsCrtr  			-->
+	<!-- DESC : 매출 기준 변경	                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+
+	<update id="updateSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+		    UPDATE
+		    	TB_SLS_CRTR
+		    SET
+		        CRTR_VL = #{crtrVl}
+		    	,CRTR_INDCT_NM = #{crtrIndctNm}
+		      	,INDCT_SEQ = #{indctSeq}
+		    	,USE_YN = #{useYn}
+		    	,SYS_LAST_CHG_DT = SYSDATE
+			  	,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+			  	,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+		    WHERE
+		        APC_CD = #{apcCd}
+		    	AND SLS_CRTR_TYPE = #{slsCrtrType}
+		    	AND CRTR_CD =#{crtrCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
+	<!-- DESC : 매출 기준 상세 등록	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+		INSERT INTO
+			TB_SLS_CRTR_DTL(
+						APC_CD
+					   ,SLS_CRTR_TYPE
+					   ,CRTR_CD
+					   ,DTL_SN
+					   ,DTL_CD
+					   ,DTL_VL
+					   ,DTL_CHR_VL
+					   ,DTL_INDCT_NM
+					   ,INDCT_SEQ
+					   ,USE_YN
+					   ,DEL_YN
+					   ,SYS_FRST_INPT_DT
+					   ,SYS_FRST_INPT_USER_ID
+					   ,SYS_FRST_INPT_PRGRM_ID
+					   ,SYS_LAST_CHG_DT
+					   ,SYS_LAST_CHG_USER_ID
+					   ,SYS_LAST_CHG_PRGRM_ID
+		) VALUES (
+				  #{apcCd}
+				 ,#{slsCrtrType}
+				 ,#{crtrCd}
+				 ,(SELECT COALESCE(MAX(DTL_SN),0) +1
+				   FROM TB_SLS_CRTR_DTL
+				   WHERE APC_CD = #{apcCd}
+					 AND SLS_CRTR_TYPE = #{slsCrtrType}
+					 AND CRTR_CD = #{crtrCd}
+				  )
+				 ,#{dtlCd}
+				 ,#{dtlVl}
+				 ,#{dtlChrVl}
+				 ,#{dtlIndctNm}
+				 ,#{indctSeq}
+				 ,#{useYn}
+				 ,'N'
+				 ,SYSDATE
+				 ,#{sysFrstInptUserId}
+				 ,#{sysFrstInptPrgrmId}
+				 ,SYSDATE
+				 ,#{sysLastChgUserId}
+				 ,#{sysLastChgPrgrmId}
+				 )
+		]]>
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.insertSlsCrtrDtl  			-->
+	<!-- DESC : 매출 기준 상세 수정	                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+
+	<update id="updateSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		UPDATE
+			TB_SLS_CRTR_DTL
+		SET
+		    DTL_CD = #{dtlCd}
+			,DTL_VL = #{dtlVl}
+			,DTL_CHR_VL = #{dtlChrVl}
+		  	,INDCT_SEQ = #{indctSeq}
+			,USE_YN = #{useYn}
+		  	,SYS_LAST_CHG_DT = SYSDATE
+		  	,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+		  	,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+		WHERE
+		    APC_CD = #{apcCd}
+			AND SLS_CRTR_TYPE = #{slsCrtrType}
+			AND CRTR_CD = #{crtrCd}
+			AND DTL_SN = #{dtlSn}
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtr  			-->
+	<!-- DESC : 매출 기준 삭제		                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+
+	<delete id="deleteSlsCrtr" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		DELETE
+		FROM
+			TB_SLS_CRTR
+		WHERE
+			APC_CD = #{apcCd}
+		  	AND SLS_CRTR_TYPE = #{slsCrtrType}
+		  	AND CRTR_CD = #{crtrCd}
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.deleteSlsCrtrDtl  			-->
+	<!-- DESC : 매출 기준 상세 삭제		                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+
+	<update id="deleteSlsCrtrDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		UPDATE
+			TB_SLS_CRTR_DTL
+		SET
+			DEL_YN = 'Y'
+		  ,SYS_LAST_CHG_DT = SYSDATE
+		  ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+		  ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+		WHERE
+			APC_CD = #{apcCd}
+		  AND SLS_CRTR_TYPE = #{slsCrtrType}
+		  AND CRTR_CD = #{crtrCd}
+		  AND DTL_SN = #{dtlSn}
+	</update>
 </mapper>
 
 
