@@ -24,14 +24,16 @@
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnReport" name="btnReport" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report"></sbux-button>
 					-->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1'}">
-					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_userPrfmncCorpDdlnYn"></sbux-button>
+					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 					<!--
 					<sbux-button id="btnReport3" name="btnReport3" uitype="normal" class="btn btn-sm btn-primary" text="전속(약정)출하 현황출력" onclick="fn_report3"></sbux-button>
 					<sbux-button id="btnReport4" name="btnReport4" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_report2"></sbux-button>
@@ -605,8 +607,9 @@
 					,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
 				{caption: ["품목","품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["부류","부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["구분","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
-					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+
+				//{caption: ["구분","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
+					//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 \n총 취급실적","총 취급물량\n(톤)"], 		ref: 'slsCnsgnSlsVlmTot',   	type:'output',  width:'100px',	style:'text-align:right;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["통합조직 \n총 취급실적","총 취급액\n(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'120px',	style:'text-align:right;'
@@ -1804,6 +1807,33 @@
 				console.error("failed", e.message);
 			}
 		}
+	}
+
+	/* 과거 실적 조회 팝업 추가 */
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){return;}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/UoGenalTblHisPopup.do"
+		var title = "제출실적 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//팝업 새창에서 변수 확인
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
 	}
 
 </script>

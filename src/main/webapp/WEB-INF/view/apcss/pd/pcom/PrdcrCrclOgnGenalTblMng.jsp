@@ -576,8 +576,8 @@
 					,typeinfo : {ref:'jsonComGrdAprv_1', label:'label', value:'value', displayui : false}},
 				{caption: ["품목"], 	ref: 'itemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["부류"], 	ref: 'ctgryNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
-				{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
-					,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
+				//{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
+					//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',	style:'text-align:center;'
 					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:center;'
