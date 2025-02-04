@@ -68,8 +68,8 @@
 
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- NAME : com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList	-->
+	<!-- DESC : 신청 정보 조회                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
@@ -85,7 +85,7 @@
 			  FROM (
 		</if>
 
-			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectInvShipOgnReqMngList */
+			SELECT /* com.at.apcss.pd.aom.mapper.InvShipOgnReqMngMapper.selectInvShipOgnReqMngList */
 				  CM.APO_CD
 				, CM.APO_SE
 				, CM.WRT_YN
