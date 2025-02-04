@@ -1567,7 +1567,7 @@
 		if(gfn_isEmpty(brno)) return;
 		if(gfn_isEmpty(year)) return;
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMng.do", {
 			brno : brno
 			,yr : year
 		});
@@ -1577,66 +1577,66 @@
 			let wrtYn = null;
 			let corpDdlnSeCd = null;
 			let apoSe = null;
-			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//
-				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//
-				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//
-				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//
-				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//
-				//신청정보가 없는 경우 년도값이 없음
-				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
+			let item = data.resultMap;
 
-				SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn))//
-				SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm))//
-				SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr))//
-				SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(item.lotnoDtlAddr))//
-				SBUxMethod.set('dtl-input-zip',gfn_nvl(item.zip))//
-				SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(item.roadNmAddr))//
-				SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(item.roadNmDtlAddr))//
-				SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(item.corpSeCd))//
-				SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(item.corpDtlSeCd))//
-				SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(item.corpFndnDay))//
-				SBUxMethod.set('dtl-input-invstNope',gfn_nvl(item.invstNope))//
-				SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(item.invstExpndFrmerNope))//
-				SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(item.invstAmt))//
-				SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(item.frmerInvstAmt))//
-				SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(item.prdcrGrpInvstAmt))//
-				SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(item.locgovInvstAmt))//
-				SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(item.etcInvstAmt))//
-				SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(item.rgllbrNope))//
-				SBUxMethod.set('dtl-input-dwNope',gfn_nvl(item.dwNope))//
-				SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(item.dlbrrNope))//
-				SBUxMethod.set('rdo-aprv',gfn_nvl(item.aprv))//
+			SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd));
+			SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe));
+			SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm));
+			SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno));
+			SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno));
+			//신청정보가 없는 경우 년도값이 없음
+			//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr));
 
-				SBUxMethod.set('dtl-input-rawMtrEnsr',gfn_nvl(item.rawMtrEnsr))//
-				let rawMtrEnsr = SBUxMethod.get('dtl-input-rawMtrEnsr');
-				if(rawMtrEnsr == '1'){
-					SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(item.rawMtrEnsrSigunCnt))//
-					SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(item.sigunNm))//
-				}else if (rawMtrEnsr == '2'){
-					SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(item.rawMtrEnsrCtpvCnt))//
-					SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(item.ctpvNm))//
-				}
-				SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(item.isoHldYn))//
+			SBUxMethod.set('dtl-input-mngmstYn',gfn_nvl(item.mngmstYn));
+			SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(item.picFlnm));
+			SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(item.lotnoAddr));
+			SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(item.lotnoDtlAddr));
+			SBUxMethod.set('dtl-input-zip',gfn_nvl(item.zip));
+			SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(item.roadNmAddr));
+			SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(item.roadNmDtlAddr));
+			SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(item.corpSeCd));
+			SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(item.corpDtlSeCd));
+			SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(item.corpFndnDay));
+			SBUxMethod.set('dtl-input-invstNope',gfn_nvl(item.invstNope));
+			SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(item.invstExpndFrmerNope));
+			SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(item.invstAmt));
+			SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(item.frmerInvstAmt));
+			SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(item.prdcrGrpInvstAmt));
+			SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(item.locgovInvstAmt));
+			SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(item.etcInvstAmt));
+			SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(item.rgllbrNope));
+			SBUxMethod.set('dtl-input-dwNope',gfn_nvl(item.dwNope));
+			SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(item.dlbrrNope));
+			SBUxMethod.set('rdo-aprv',gfn_nvl(item.aprv));
 
-				SBUxMethod.set('dtl-input-untyYn',gfn_nvl(item.untyYn))//
-				SBUxMethod.set('dtl-input-uoNm',gfn_nvl(item.uoNm))//
-				SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno))//
-				SBUxMethod.set('dtl-input-untyYr',gfn_nvl(item.untyYr))//
+			SBUxMethod.set('dtl-input-rawMtrEnsr',gfn_nvl(item.rawMtrEnsr));
+			let rawMtrEnsr = SBUxMethod.get('dtl-input-rawMtrEnsr');
+			if(rawMtrEnsr == '1'){
+				SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(item.rawMtrEnsrSigunCnt));
+				SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(item.sigunNm));
+			}else if (rawMtrEnsr == '2'){
+				SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(item.rawMtrEnsrCtpvCnt));
+				SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(item.ctpvNm));
+			}
+			SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(item.isoHldYn));
 
-				SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(item.pruoFundAplyAmt))//
-				SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(item.isoFundAplyAmt))//
-				//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe))//
+			SBUxMethod.set('dtl-input-untyYn',gfn_nvl(item.untyYn));
+			SBUxMethod.set('dtl-input-uoNm',gfn_nvl(item.uoNm));
+			SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(item.uoBrno));
+			SBUxMethod.set('dtl-input-untyYr',gfn_nvl(item.untyYr));
+
+			SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(item.pruoFundAplyAmt));
+			SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(item.isoFundAplyAmt));
+			//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(item.aplyTrgtSe));
 
 
-				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))//
-				apoSe = item.apoSe;
-				wrtYn = item.wrtYn;
-				corpDdlnSeCd = item.corpDdlnSeCd;
+			SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd));
+			apoSe = item.apoSe;
+			wrtYn = item.wrtYn;
+			corpDdlnSeCd = item.corpDdlnSeCd;
 
-				fn_calFrmerInvstAmtRt();
-				fn_calTot();
-			});
+			fn_calFrmerInvstAmtRt();
+			fn_calTot();
 
 			if(apoSe == '2'){
 				alert('출자출하조직으로 신청한 계정입니다\n변경이 필요하신 경우 관리자에게 문의 주십시오');
@@ -2060,56 +2060,56 @@
 		//서치폼에서 클릭시 디테일폼에 데이터출력
 		let rowData = grdPrdcrCrclOgnReqMng.getRowData(nRow);
 
-		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//
-		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//
-		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//
-		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//
-		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//
-		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//
+		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd));
+		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr));
+		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe));
+		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm));
+		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno));
+		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno));
 
-		SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(rowData.picFlnm))//
-		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(rowData.lotnoAddr))//
-		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(rowData.lotnoDtlAddr))//
-		SBUxMethod.set('dtl-input-zip',gfn_nvl(rowData.zip))//
-		SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(rowData.roadNmAddr))//
-		SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(rowData.roadNmDtlAddr))//
-		SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(rowData.corpSeCd))//
-		SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(rowData.corpDtlSeCd))//
-		SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(rowData.corpFndnDay))//
-		SBUxMethod.set('dtl-input-invstNope',gfn_nvl(rowData.invstNope))//
-		SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(rowData.invstExpndFrmerNope))//
-		SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(rowData.invstAmt))//
-		SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(rowData.frmerInvstAmt))//
-		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(rowData.prdcrGrpInvstAmt))//
-		SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(rowData.locgovInvstAmt))//
-		SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(rowData.etcInvstAmt))//
-		SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(rowData.rgllbrNope))//
-		SBUxMethod.set('dtl-input-dwNope',gfn_nvl(rowData.dwNope))//
-		SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(rowData.dlbrrNope))//
+		SBUxMethod.set('dtl-input-picFlnm',gfn_nvl(rowData.picFlnm));
+		SBUxMethod.set('dtl-input-lotnoAddr',gfn_nvl(rowData.lotnoAddr));
+		SBUxMethod.set('dtl-input-lotnoDtlAddr',gfn_nvl(rowData.lotnoDtlAddr));
+		SBUxMethod.set('dtl-input-zip',gfn_nvl(rowData.zip));
+		SBUxMethod.set('dtl-input-roadNmAddr',gfn_nvl(rowData.roadNmAddr));
+		SBUxMethod.set('dtl-input-roadNmDtlAddr',gfn_nvl(rowData.roadNmDtlAddr));
+		SBUxMethod.set('dtl-input-corpSeCd',gfn_nvl(rowData.corpSeCd));
+		SBUxMethod.set('dtl-input-corpDtlSeCd',gfn_nvl(rowData.corpDtlSeCd));
+		SBUxMethod.set('dtl-input-corpFndnDay',gfn_nvl(rowData.corpFndnDay));
+		SBUxMethod.set('dtl-input-invstNope',gfn_nvl(rowData.invstNope));
+		SBUxMethod.set('dtl-input-invstExpndFrmerNope',gfn_nvl(rowData.invstExpndFrmerNope));
+		SBUxMethod.set('dtl-input-invstAmt',gfn_nvl(rowData.invstAmt));
+		SBUxMethod.set('dtl-input-frmerInvstAmt',gfn_nvl(rowData.frmerInvstAmt));
+		SBUxMethod.set('dtl-input-prdcrGrpInvstAmt',gfn_nvl(rowData.prdcrGrpInvstAmt));
+		SBUxMethod.set('dtl-input-locgovInvstAmt',gfn_nvl(rowData.locgovInvstAmt));
+		SBUxMethod.set('dtl-input-etcInvstAmt',gfn_nvl(rowData.etcInvstAmt));
+		SBUxMethod.set('dtl-input-rgllbrNope',gfn_nvl(rowData.rgllbrNope));
+		SBUxMethod.set('dtl-input-dwNope',gfn_nvl(rowData.dwNope));
+		SBUxMethod.set('dtl-input-dlbrrNope',gfn_nvl(rowData.dlbrrNope));
 
 
-		SBUxMethod.set('rdo-aprv',gfn_nvl(rowData.aprv))//
-		SBUxMethod.set('dtl-input-rawMtrEnsr',gfn_nvl(rowData.rawMtrEnsr))//
-		SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrCnt))//
-		SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.rawMtrEnsrNm))//
-		SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(rowData.isoHldYn))//
+		SBUxMethod.set('rdo-aprv',gfn_nvl(rowData.aprv));
+		SBUxMethod.set('dtl-input-rawMtrEnsr',gfn_nvl(rowData.rawMtrEnsr));
+		SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrCnt));
+		SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.rawMtrEnsrNm));
+		SBUxMethod.set('dtl-input-isoHldYn',gfn_nvl(rowData.isoHldYn));
 		let rawMtrEnsr = SBUxMethod.get('dtl-input-rawMtrEnsr');
 		if(rawMtrEnsr == '1'){
-			SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrSigunCnt))//
-			SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.sigunNm))//
+			SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrSigunCnt));
+			SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.sigunNm));
 		}else if (rawMtrEnsr == '2'){
-			SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrCtpvCnt))//
-			SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.ctpvNm))//
+			SBUxMethod.set('dtl-input-rawMtrEnsrCnt',gfn_nvl(rowData.rawMtrEnsrCtpvCnt));
+			SBUxMethod.set('dtl-input-rawMtrEnsrNm',gfn_nvl(rowData.ctpvNm));
 		}
 
-		SBUxMethod.set('dtl-input-untyYn',gfn_nvl(rowData.untyYn))//
-		SBUxMethod.set('dtl-input-uoNm',gfn_nvl(rowData.uoNm))//
-		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(rowData.uoBrno))//
-		SBUxMethod.set('dtl-input-untyYr',gfn_nvl(rowData.untyYr))//
+		SBUxMethod.set('dtl-input-untyYn',gfn_nvl(rowData.untyYn));
+		SBUxMethod.set('dtl-input-uoNm',gfn_nvl(rowData.uoNm));
+		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(rowData.uoBrno));
+		SBUxMethod.set('dtl-input-untyYr',gfn_nvl(rowData.untyYr));
 
-		SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(rowData.pruoFundAplyAmt))//
-		SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(rowData.isoFundAplyAmt))//
-		//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe))//
+		SBUxMethod.set('dtl-input-pruoFundAplyAmt',gfn_nvl(rowData.pruoFundAplyAmt));
+		SBUxMethod.set('dtl-input-isoFundAplyAmt',gfn_nvl(rowData.isoFundAplyAmt));
+		//SBUxMethod.set('dtl-input-aplyTrgtSe',gfn_nvl(rowData.aplyTrgtSe));
 		fn_fundAplyAmt();
 		fn_calFrmerInvstAmtRt();
 		fn_calTot();
