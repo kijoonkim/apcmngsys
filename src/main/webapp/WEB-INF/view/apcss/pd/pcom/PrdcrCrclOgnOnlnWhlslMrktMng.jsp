@@ -782,7 +782,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		SBGridProperties.explorerbar = 'sort';//정렬
+		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.fixedrowheight=88;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
