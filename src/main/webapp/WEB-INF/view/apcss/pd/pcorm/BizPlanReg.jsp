@@ -331,7 +331,7 @@
 
 	//첨부파일 업로드
 	function fn_upload() {
-		console.log("===========fn_fileUpload");
+		//console.log("===========fn_fileUpload");
 
 		let brno = '${loginVO.brno}';
 		//if(gfn_isEmpty(brno)) return;
@@ -414,12 +414,12 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				alert("처리 되었습니다.");
 				fn_dtlSearch();
 			},
 			error: function (error) {
-				 console.log('Error:', error);
+				 //console.log('Error:', error);
 			}
 		});
 	}

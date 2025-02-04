@@ -1306,7 +1306,7 @@
 				let tabList = parent.tabJsonData;
 				//현재 열린 탭정보
 				let tabInfo = _.find(tabList, {text: parent.SBUxMethod.get('tab_menu')});
-				console.log(tabInfo);
+				//console.log(tabInfo);
 				//PD에 속하는 탭 리스트
 				let pdTabList = tabList.filter(item => item.targetid.startsWith('TAB_PD'));
 
@@ -1320,7 +1320,7 @@
 				parent.gfn_tabClose(tabInfo);
 
 			}else{
-				console.log(data);
+				//console.log(data);
 				if(data.tempList != null){
 					alert("임시저장 여부를 확인해주세요\n"+data.tempList);
 				}else{

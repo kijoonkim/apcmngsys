@@ -294,7 +294,7 @@
 			let rowData = grdBrnoNumMng.getRowData(i);
 			let rowSts = grdBrnoNumMng.getRowStatus(i);
 
-			console.log(rowData);
+			//console.log(rowData);
 
 			if(rowSts == '3' || rowSts == '1'){
 				rowData.rowSts = 'I';
@@ -379,8 +379,8 @@
 
 	// 조직 선택 팝업 콜백 함수
 	const fn_setGridBrnoMng = function(rowData) {
-		console.log(rowData);
-		console.log(grdBrnoNumMng);
+		//console.log(rowData);
+		//console.log(grdBrnoNumMng);
 		//그리드 객체
 		let objGrid = grdBrnoNumMng;
 
@@ -462,7 +462,7 @@
 
 		let impData = _grdImp.getGridDataAll();
 
-		console.log(_grdImp);
+		//console.log(_grdImp);
 
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
@@ -613,7 +613,7 @@
 			SBGridProperties.extendlastcol = 'none';
 			SBGridProperties.columns = exp.columns;
 			exp.sbGrid = _SBGrid.create(SBGridProperties);
-			console.log(exp.sbGrid);
+			//console.log(exp.sbGrid);
 			if(jsonExpUpload.length == 0){
 				exp.sbGrid.addRow(true);
 			}

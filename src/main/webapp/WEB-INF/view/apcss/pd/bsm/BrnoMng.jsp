@@ -387,8 +387,8 @@
 		for(var i=1; i<= gridData.length; i++ ){
 			let rowData = grdBrnoMng.getRowData(i);
 			let rowSts = grdBrnoMng.getRowStatus(i);
-			console.log(rowData);
-			console.log(rowSts);
+			//console.log(rowData);
+			//console.log(rowSts);
 			if(rowData.checked == 'Y'){
 				if(gfn_isEmpty(rowData.corpNm)){
 					gfn_comAlert("W0002", "법인명");//W0002 : {0}을/를 입력하세요.
