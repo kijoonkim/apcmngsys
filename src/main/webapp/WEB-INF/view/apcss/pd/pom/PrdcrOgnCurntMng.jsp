@@ -375,6 +375,7 @@
 										name="dtl-input-uoBrno"
 										class="form-control input-sm"
 										autocomplete="off"
+										style="display:none;"
 										readonly
 									></sbux-input>
 								</td>
@@ -605,13 +606,8 @@
 		SBUxMethod.set("dtl-input-userBrno","${loginVO.brno}");
 		SBUxMethod.set("dtl-input-userCrno","${loginVO.crno}");
 	</c:if>
-		$("#dtl-input-uoBrno").hide();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 		fn_fcltMngCreateGrid();
-		<c:if test="${loginVO.apoSe eq '1'}">
-		$("#dtl-input-uoBrno").show();
-		$("#dtl-input-selUoBrno").hide();
-		</c:if>
 	</c:if>
 		fn_fcltMngCreateGrid01();
 		fn_fcltMngCreateGrid02();
@@ -697,7 +693,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -1230,9 +1226,9 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 처리
 				if (item.prfmncCorpDdlnYn == 'Y') {
@@ -1296,7 +1292,7 @@
 		//사용자인경우는 현재 올해 년도만 사용함
 
 		let yr = SBUxMethod.get('dtl-input-yr');
-		console.log(yr);
+		//console.log(yr);
 		if(gfn_isEmpty(yr)){
 			let now = new Date();
 			let year = now.getFullYear();
@@ -1310,7 +1306,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			if(data.resultList == null){
 				alert('신청정보가 없습니다');
 			}
@@ -1322,7 +1318,7 @@
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
 
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장버튼, 엑셀업로드 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
@@ -1375,7 +1371,7 @@
 				rowData.uoBrno = uoBrno;
 				rowData.yr = yr;
 
-				console.log(rowData);
+				//console.log(rowData);
 				//모든데이터 저장 처리
 				rowData.rowSts = "I";
 				saveList.push(rowData);
@@ -1493,7 +1489,7 @@
 
 	//농가 다중 세이브
 	async function fn_saveFmList02() {
-		console.log("===============fn_saveFmList02=================");
+		//console.log("===============fn_saveFmList02=================");
 		let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
 		let saveList = [];
 
@@ -1586,14 +1582,14 @@
 
 	function fn_checkRequiredInput01(){
 		//필수값 확인
-		console.log("======fn_checkRequiredInput01======");
+		//console.log("======fn_checkRequiredInput01======");
 		//품목 그리드 필수갑 확인
 		let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
 
 		for(var i=1+1; i<=gridData.length+1; i++ ){
 			let rowData = grdPrdcrOgnCurntMng02.getRowData(i);
-			console.log(rowData);
-			console.log(gfn_isEmpty(rowData.prdcrOgnzNm));
+			//console.log(rowData);
+			//console.log(gfn_isEmpty(rowData.prdcrOgnzNm));
 			if(rowData.delYn == 'N'){
 				if(gfn_isEmpty(rowData.flnm)){
 					gfn_comAlert("W0002", "조직원명");		//	W0002	{0}을/를 입력하세요.
@@ -1749,7 +1745,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1765,7 +1761,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -1773,7 +1769,7 @@
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
-		console.log(SBUxMethod.get('dtl-input-yr'),gfn_nvl(rowData.yr));
+		//console.log(SBUxMethod.get('dtl-input-yr'),gfn_nvl(rowData.yr));
 		//통합조직 일 때 통합조직 선택 콤보 초기화 및 비활성하
 		//console.log(rowData.apoSe);
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
@@ -1782,18 +1778,18 @@
 		if(rowData.apoSe == '1'){
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		}else if(rowData.apoSe == '2'){
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 			SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
 			fn_searchUoList();
+			</c:if>
+			<c:if test="${loginVO.apoSe eq '1'}">
+			let brno = '${loginVO.brno}';
+			SBUxMethod.set('dtl-input-uoBrno' , brno);
+			SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
+			</c:if>
 		}
 
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-
-		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
-		//let brno = '${loginVO.brno}';
-		//SBUxMethod.set('dtl-input-uoBrno' , brno);
-		//SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
-
 		//법인체 마감 추가로 통합조직인 경우
 		SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(rowData.prfmncCorpDdlnYn))//실적 법인체 마감
 		</c:if>
@@ -1852,7 +1848,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
@@ -2068,7 +2064,7 @@
 		let data = await postJsonPromise01;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 						apoCd: 	item.apoCd
@@ -2177,9 +2173,9 @@
 		try{
 			jsonPrdcrOgnCurntMng02.length = 0;
 			jsonExpUpload.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log(item.itemNm);
+				//console.log(item.itemNm);
 				let PrdcrOgnCurntMngVO = {
 						apoCd: 	item.apoCd
 						,apoSe: item.apoSe
@@ -2235,11 +2231,11 @@
 				grdPrdcrOgnCurntMng02.addRow();
 				let flnmCol = grdPrdcrOgnCurntMng02.getColRef('flnm');//조직원명
 				let cltvtnAreaRmrkCol = grdPrdcrOgnCurntMng02.getColRef('cltvtnAreaRmrk');//비고
-				console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
+				//console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
 				//추가 row 비활성화
 				grdPrdcrOgnCurntMng02.setCellDisabled(nRow, flnmCol, nRow, cltvtnAreaRmrkCol, true);
 				grdPrdcrOgnCurntMng02.setCellStyle('background-color', nRow, flnmCol, nRow, cltvtnAreaRmrkCol, 'lightgray');
-				console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
+				//console.log(nRow,flnmCol,cltvtnAreaRmrkCol);
 			}
 
 		}catch (e) {
@@ -2252,7 +2248,7 @@
 
 	//그리드 클릭이벤트
 	function gridClick(){
-		console.log("================grid dbClick================");
+		//console.log("================grid dbClick================");
 		//grdGpcList 그리드 객체
 		let selGridRow = grdPrdcrOgnCurntMng01.getRow();
 		let selGridCol = grdPrdcrOgnCurntMng01.getCol();
@@ -2286,7 +2282,7 @@
 				if(gfn_isEmpty(uoBrno)){
 					uoBrno = brno;
 				}
-				console.log(yr, brno, uoBrno);
+				//console.log(yr, brno, uoBrno);
 				popYrGpcSelect.init(yr, brno, uoBrno, fn_setGridItem);
 				SBUxMethod.openModal('modal-yrGpcList');
 			}
@@ -2306,14 +2302,14 @@
 		if(gfn_isEmpty(uoBrno)){
 			uoBrno = brno;
 		}
-		console.log(yr, brno, uoBrno);
+		//console.log(yr, brno, uoBrno);
 		popYrGpcSelect.init(yr, brno, uoBrno, fn_setGridItem);
 		SBUxMethod.openModal('modal-yrGpcList');
 	}
 
 	// 그리드의 품목 선택 팝업 콜백 함수
 	const fn_setGridItem = function(rowData) {
-		console.log("================fn_setGridItem================");
+		//console.log("================fn_setGridItem================");
 		//console.log(rowData);
 		if (!gfn_isEmpty(rowData)) {
 			//setCellData (행,열,입력 데이터,[refresh여부],[행 상태 정보 update로 변경])
@@ -2687,8 +2683,8 @@
      */
 	const fn_grdImpValueChanged = function(_grdImp) {
 		//valuechanged 이벤트
-		console.log("fn_grdImpValueChanged");
-		console.log(_grdImp);
+		//console.log("fn_grdImpValueChanged");
+		//console.log(_grdImp);
 		var nRow = _grdImp.getRow();
 		var nCol = _grdImp.getCol();
 	}
@@ -2698,8 +2694,8 @@
 	 * @description afterimportexcel 이벤트
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
-		console.log("fn_setDataAfterImport");
-		console.log(_grdImp);
+		//console.log("fn_setDataAfterImport");
+		//console.log(_grdImp);
 		let impData = _grdImp.getGridDataAll();
 
 		const today = gfn_dateToYmd(new Date());
@@ -2713,11 +2709,11 @@
 				continue;
 			}
 			let dateVal = rowData.joinDay;
-			console.log(dateVal);
+			//console.log(dateVal);
 			if (!gfn_isEmpty(rowData.joinDay)) {
 				//날짜입력시 특수 문자 제거
 				let result = formatData(dateVal);
-				console.log(result);
+				//console.log(result);
 				rowData.joinDay = result;//년월일 이상 적는 경우 대비
 			}
 
@@ -2781,7 +2777,7 @@
 			SBGridProperties.extendlastcol = 'none';
 			SBGridProperties.columns = exp.columns;
 			exp.sbGrid = _SBGrid.create(SBGridProperties);
-			console.log(exp.sbGrid);
+			//console.log(exp.sbGrid);
 			exp.sbGrid.addRow(true);
 		});
 	}
@@ -2830,7 +2826,7 @@
 
 	//엑셀업로드 저장시 기존 농가리스트 삭제
 	async function fn_cltbtnSnDeleteRsrc(prdcrOgnzSn, yr){
-		console.log("==========fn_cltbtnSnDeleteRsrc============");
+		//console.log("==========fn_cltbtnSnDeleteRsrc============");
 		let postJsonPromise = gfn_postJSON("/pd/pom/deleteTbEvFrmhsPrdctnEcSpmtSttnApo.do", {
 				prdcrOgnzSn : prdcrOgnzSn
 				,yr : yr
@@ -2839,13 +2835,13 @@
 
 		try{
 			//console.log(data);
-			console.log("삭제 되었습니다.");
+			//console.log("삭제 되었습니다.");
 			alert("삭제 되었습니다.");
 			/*
 			if(data.result > 0){
-				console.log("삭제 되었습니다.");
+				//console.log("삭제 되었습니다.");
 			}else{
-				console.log("삭제 할 데이터가 없습니다.");
+				//console.log("삭제 할 데이터가 없습니다.");
 				//alert("삭제 도중 오류가 발생 되었습니다.");
 			}
 			*/
@@ -2925,7 +2921,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr: 				item.yr
@@ -3078,7 +3074,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr: 		item.yr

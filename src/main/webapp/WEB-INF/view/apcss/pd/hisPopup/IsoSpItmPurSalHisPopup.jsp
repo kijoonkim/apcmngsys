@@ -460,7 +460,7 @@
 		SBUxMethod.set('dtl-inp-yr',gfn_nvl(rowData.yr))//사업자등록번호
 		$("#dtl-inp-uoBrno").show();
 		$("#dtl-inp-selUoBrno").hide();
-		console.log(rowData);
+		//console.log(rowData);
 		if(rowData.apoSe == '1'){
 			//await fn_searchUoList();
 			await SBUxMethod.set('dtl-inp-uoBrno',gfn_nvl(rowData.brno))//속한 통합조직 사업자등록번호
@@ -471,7 +471,7 @@
 
 	//조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupOgnz = async function(event) {
-		console.log(event);
+		//console.log(event);
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
 		}
@@ -690,7 +690,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonIsoSpItmPurSal.length = 0;
-			console.log(data);
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				//년도별 차이와 관계없이 전부 넣기
 				let itemNm;

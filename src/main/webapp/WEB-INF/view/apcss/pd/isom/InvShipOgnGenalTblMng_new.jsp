@@ -476,7 +476,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -830,7 +830,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -891,7 +891,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -969,7 +969,7 @@
 		let data = await postJsonPromise01;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO01 = {
 						apoCd: 	item.apoCd
@@ -1029,7 +1029,7 @@
 	//탈락적합 사유
 	function fn_calStbltYn(item) {
 		let stbltYnNmMng = [];
-		console.log(item);
+		//console.log(item);
 		//강제로 변경한 경우가 존재 함
 		if(!gfn_isEmpty(item.orgStbltYn)){
 			if (item.orgStbltYn == 'Y') {
@@ -1165,7 +1165,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
 			//SBUxMethod.set('dtl-input-uoCd' , null);
@@ -1177,7 +1177,7 @@
 
 	//통합조직 출자출하조직으로 권한 변경
 	async function fn_updateStbltYn(_chk){
-		console.log("*************fn_updateStbltYn******************");
+		//console.log("*************fn_updateStbltYn******************");
 		let nRow = grdPrdcrOgnCurntMng01.getRow();
 		if(nRow < 1){
 			return false;
@@ -1463,7 +1463,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr

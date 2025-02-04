@@ -937,7 +937,7 @@
 		/*
 		let fileupUrl = '/pd/bsm/fileUpload/'+gfn_nvl(rowData.brno)+'.do';
 		SBUxMethod.attr('files', 'upload-url', fileupUrl);
-		console.log('fileupUrl = '+fileupUrl);
+		//console.log('fileupUrl = '+fileupUrl);
 
 		$('#filesArea').sbFileupload({
 			id : "files",

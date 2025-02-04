@@ -1161,7 +1161,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -1209,7 +1209,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
@@ -1227,7 +1227,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -1276,9 +1276,9 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log(item);
+				//console.log(item);
 				let scr = item.scr;
 				//점수값이 비었을 경우 기본 산출값으로
 				if (gfn_isEmpty(scr)) {
@@ -1329,7 +1329,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng02.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						yr: item.yr
@@ -1377,7 +1377,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng05.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
@@ -1447,7 +1447,7 @@
 		let data = await postJsonPromise06;
 		try{
 			jsonPrdcrOgnCurntMng06.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
@@ -1520,7 +1520,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonScrRslt.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 
 				let itemVO = {
@@ -1623,7 +1623,7 @@
 
 	//산출식 관리 팝업 버튼
 	function fn_openMaodalComputWay(){
-		console.log('fn_openMaodalComputWay');
+		//console.log('fn_openMaodalComputWay');
 		popComputWay.init();
 		SBUxMethod.openModal('modal-computWay');
 	}
@@ -1906,7 +1906,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr
@@ -2016,7 +2016,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr
@@ -2349,7 +2349,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -2396,9 +2396,9 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonUserGrid01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				console.log(item);
+				//console.log(item);
 				let scr = item.scr;
 				//점수값이 비었을 경우 기본 산출값으로
 				if (gfn_isEmpty(scr)) {
@@ -2449,7 +2449,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonUserGrid02.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 						yr: item.yr
@@ -2494,7 +2494,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonUserGrid03.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 
 				let itemVO = {
@@ -2546,7 +2546,7 @@
 		let data = await postJsonPromise06;
 		try{
 			jsonUserGrid04.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 					brno: 	item.brno
@@ -2599,7 +2599,7 @@
 		let data = await postJsonPromise05;
 		try{
 			jsonUserGrid05.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 
 				let itemVO = {
@@ -2744,7 +2744,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd02.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr:	item.yr
@@ -2942,7 +2942,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd03.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr:					item.yr

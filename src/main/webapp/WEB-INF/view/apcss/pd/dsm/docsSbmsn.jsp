@@ -1430,10 +1430,10 @@
      * 그리드 클릭 이벤트
      */
 	const fn_view = async function(_dcmntKnd) {
-		console.log('fn_view',_dcmntKnd);
+		//console.log('fn_view',_dcmntKnd);
 
 		const {seNm , objGrid} = documentSettings[_dcmntKnd] || defaultSettings;
-		console.log(objGrid);
+		//console.log(objGrid);
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = objGrid.getCol();
@@ -1513,8 +1513,8 @@
 
 		for (const key in documentSettings) {
 			const {objGrid} = documentSettings[key];
-			console.log(objGrid);
-			console.log(typeof objGrid);
+			//console.log(objGrid);
+			//console.log(typeof objGrid);
 			if(typeof objGrid === 'object'){
 				documentSettings[key].objGrid.rebuild();
 			}
@@ -1641,7 +1641,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log(data.resultMap);
+			//console.log(data.resultMap);
 			let item = data.resultMap;
 			if(item != null){
 				SBUxMethod.set('dtl-inp-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
@@ -1866,7 +1866,7 @@
 		try{
 			// 문서 종류에 따른 설정 가져오기
 			const { seNm } = documentSettings[_dcmntKnd] || defaultSettings;
-			console.log(seNm);
+			//console.log(seNm);
 
 			data.resultList.forEach((item, index) => {
 				let sn = item.sn;
@@ -1898,7 +1898,7 @@
      * 기본요건 저장
      */
 	const fn_save = async function(_dcmntKnd) {
-		console.log("===========fn_saveBsc");
+		//console.log("===========fn_saveBsc");
 
 		// 문서 종류에 따른 설정 가져오기
 		const { fileCnt, seNm } = documentSettings[_dcmntKnd] || defaultSettings;
@@ -1975,8 +1975,8 @@
 			}
 		}
 
-		console.log(newFileList.files);
-		console.log(newFileSeList);
+		//console.log(newFileList.files);
+		//console.log(newFileSeList);
 
 		if(newFileList.files.length == 0){
 			//alert('저장할 파일이 없습니다');
@@ -1995,12 +1995,12 @@
 			processData: false,
 			contentType: false,
 			success: function (response) {
-				console.log(response);
+				//console.log(response);
 				alert("처리 되었습니다.");
 				fn_searchUser();
 			},
 			error: function (error) {
-				 console.log('Error:', error);
+				 //console.log('Error:', error);
 			}
 		});
 	}

@@ -69,7 +69,7 @@
 				</table>
 				<!--[pp] //검색 -->
 
-				<!-- 통합조직 전문품목 매입매출 영역 -->
+				<!-- 통합조직 총괄표 영역 -->
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="prdcrOgnHis-btnSearch-prdcrOgnz" name="prdcrOgnHis-btnSearch-prdcrOgnz" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_searchUoGenalTbl"></sbux-button>
@@ -132,7 +132,7 @@
 					</tbody>
 				</table>
 
-				<!-- 통합조직 전문품목 매입매출 리스트 그리드 -->
+				<!-- 통합조직 총괄표 리스트 그리드 -->
 				<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -316,7 +316,7 @@
 		grdUoGenalTbl.exportLocalExcel( fileNm, {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
 	}
 
-	/* 통합조직 전문품목 매입매출 그리드 생성 */
+	/* 통합조직 총괄표 그리드 생성 */
 	const fn_createGridUoGenalTbl = async function(_year) {
 		// 년도에 따른 설정 가져오기
 		const { columnsUoGenalTbl } = yrSettings[_year] || defaultSettings;
@@ -396,7 +396,7 @@
 		SBUxMethod.set('dtl-inp-brno',null);
 	}
 
-	//통합조직 전문품목 매입매출 그리드 초기화
+	//통합조직 총괄표 그리드 초기화
 	const fn_clearGridUo = async function() {
 		jsonUoGenalTbl.length = 0;
 		grdUoGenalTbl.rebuild();
@@ -407,7 +407,7 @@
 	const fn_search = async function() {
 		//전체 조회 정보 초기화
 		fn_clearInfoOgnz();//조직 정보 초기화
-		fn_clearGridUo();//통합조직 전문품목 매입매출 그리드 초기화
+		fn_clearGridUo();//통합조직 총괄표 그리드 초기화
 
 		let yr = SBUxMethod.get('srch-inp-yr');
 		let brno = SBUxMethod.get('srch-inp-brno');
@@ -454,7 +454,7 @@
 		}
 	}
 
-	/* 통합조직 전문품목 매입매출 리스트 조회 */
+	/* 통합조직 총괄표 리스트 조회 */
 	const fn_searchUoGenalTbl = async function() {
 
 		let yr = SBUxMethod.get('dtl-inp-yr');
@@ -502,7 +502,7 @@
 			grdUoGenalTbl.rebuild();
 
 			//부류별 합계 그리드 초기화
-			console.log('grdClsfTot',typeof grdClsfTot);
+			//console.log('grdClsfTot',typeof grdClsfTot);
 			if(!gfn_isEmpty(grdClsfTot)){
 				jsonClsfTot.length = 0;
 				grdClsfTot.rebuild();
@@ -609,7 +609,7 @@
 		//objGrid.rebuild();
 	}
 
-	/* 통합조직 전문품목 매입매출 년도별 컬럼 세팅 */
+	/* 통합조직 총괄표 년도별 컬럼 세팅 */
 	const columnsUoGenalTbl2024 = [
 		{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 		{caption: ["통합조직\n구분"], 	ref: 'aprvNm',   	type:'output',  width:'100px',	style:'text-align:center;'},

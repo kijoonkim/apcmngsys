@@ -335,7 +335,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		//console.log("============fn_initSBSelect============");
+		////console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			gfn_setComCdSBSelect('dtl-inp-trmtType', 		jsonComDtlTrmtType, 	'TRMT_TYPE'), //취급유형
@@ -579,7 +579,7 @@
 		SBUxMethod.set('dtl-inp-yr',gfn_nvl(rowData.yr))//사업자등록번호
 		$("#dtl-inp-uoBrno").show();
 		$("#dtl-inp-selUoBrno").hide();
-		console.log(rowData);
+		//console.log(rowData);
 		if(rowData.apoSe == '1'){
 			//await fn_searchUoList();
 			await SBUxMethod.set('dtl-inp-uoBrno',gfn_nvl(rowData.brno))//속한 통합조직 사업자등록번호
@@ -590,7 +590,7 @@
 
 	//조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupOgnz = async function(event) {
-		console.log(event);
+		//console.log(event);
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
 		}
@@ -615,7 +615,7 @@
 		fn_clearGridCltvtnLand();//농가 그리드 초기화
 
 		let rowData = objGrid.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-inp-prdcrOgnzSn',gfn_nvl(rowData.prdcrOgnzSn))//생산자조직 순번
 		SBUxMethod.set('dtl-inp-prdcrOgnzNm',gfn_nvl(rowData.prdcrOgnzNm))//생산자조직 명
 		SBUxMethod.set('dtl-inp-itemCd',gfn_nvl(rowData.itemCd))//품목 코드
@@ -626,7 +626,7 @@
 
 	//생산자조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupPrdcrOgnz = async function(event) {
-		console.log(event);
+		//console.log(event);
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_viewPrdcrOgnz();
 		}
@@ -816,7 +816,7 @@
 				comUoBrno.push(uoListVO);
 			});
 			SBUxMethod.refresh('dtl-inp-selUoBrno');
-			//console.log(comUoBrno);
+			////console.log(comUoBrno);
 			if(comUoBrno.length == 1){
 				$("#dtl-inp-uoBrno").show();
 				$("#dtl-inp-selUoBrno").hide();
@@ -860,7 +860,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonPrdcrOgnz.length = 0;
-			console.log(data);
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				//년도별 차이와 관계없이 전부 넣기
 				let itemVo = {
@@ -989,7 +989,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-inp-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-inp-uoBrno' , null);

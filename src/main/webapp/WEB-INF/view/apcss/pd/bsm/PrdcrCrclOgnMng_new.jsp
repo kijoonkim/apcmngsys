@@ -1800,7 +1800,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 				alert(data.resultMessage);
 			}
 		} catch(e) {
-			console.log(data.resultMessage);
+			//console.log(data.resultMessage);
 		}
 
 	}
