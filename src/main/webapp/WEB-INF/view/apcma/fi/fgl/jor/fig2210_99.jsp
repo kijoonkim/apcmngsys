@@ -674,6 +674,15 @@
     	<jsp:include page="../../../com/popup/comPopFim3420.jsp"></jsp:include>
     </div>
  
+	 <!-- 팝업 Modal -->
+	<div>
+	    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	<!--     <sbux-modal style="width:700px" id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal> -->
+	</div>
+	<div id="body-modal-compopupcs">
+	    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
+	</div>
+
 	<!-- 팝업 Modal -->
     <div>
         <sbux-modal style="width:500px" id="modal-compopup4" name="modal-compopup4" uitype="middle" header-title="" body-html-id="body-modal-compopup4" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
@@ -2802,17 +2811,34 @@
 		event.stopPropagation();	
         let cellData1 = Fig2210Grid.getCellData(row, 8) 
         let cellData2 = Fig2210Grid.getCellData(row, 10) 
-        if(!cellData1 && !cellData2){
-        	gfn_comAlert("E0000","찾고자 하는 거래처 코드 혹은 거래처명을 2글자 이상 입력하세요");
-        	return;	
-        }
     	fn_gridPopup2Show(row, col, cellData1, cellData2);
 	}
     
     /**
      * 그리드내 공통팝업(거래처) 오픈
      */
-    var fn_gridPopup2Show = function(row, col, cellData1, cellData2) {
+     
+     var fn_gridPopup2Show = async function(row, col, cellData1, cellData2) {
+         var strWhereClause = [''];
+
+         SBUxMethod.attr('modal-compopupcs', 'header-title', '거래처 정보');
+         await comPopupCs({
+             compCode: gv_ma_selectedCorpCd
+             , clientCode: gv_ma_selectedClntCd
+             , type: '99'
+             , bizcompId: pg_colcs_code_bizId
+             , whereClause: strWhereClause
+             , itemSelectEvent: function (data) {
+ 				console.log('callback data:', data);
+				Fig2210Grid.setCellData(row, 8, 	data['CNPT_CD'], true, true);
+				Fig2210Grid.setCellData(row, 10, 	data['CNPT_NM'], true, true);
+				jsonFig2210[row-1]['TXN_STOP_YN'] = data['TRSC_HLT_YN'];
+             },
+         });
+         SBUxMethod.openModal('modal-compopupcs');
+     }
+     
+    var fn_gridPopup2Show1 = function(row, col, cellData1, cellData2) {
     	
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_BRNO_"; 
@@ -2832,7 +2858,7 @@
 			,searchInputTypes		: ["input", 		"input",		"input"]		//input, datepicker가 있는 경우
     		,width					: '1000px'
     		,height					: '500px'
-   			,tableHeader			: ["거래처코드", 	"거래처명",		"사업자번호",		"거래중지여부",		"거래처유형",	"구매처",		"판매처",	"수금기준",			"수금기준명",		"수금방법",		"원천세대상여부"]
+   			,tableHeader			: ["거래처코드", 	"거래처명",		"사업자번호",		"거래중지여부",		"거래처유형",			"구매처",		"판매처",			"수금기준",		"수금기준명",		"수금방법",		"원천세대상여부"]
    			,tableColumnNames		: ["CNPT_CD", 		"CNPT_NM",		"BRNO",		"TRSC_HLT_YN",		"CNPT_GROUP",		"PCPL_YN",	"SLS_CNPT_YN",	"PAY_TERM_CD",	"PAY_TERM_NM",	"PAY_MTHD",	"WTHD_TX_YN"]
    			,tableColumnWidths		: ["80px", 			"200px",		"100px",			"100px",			"200px",		"70px",			"70px",		"70px",				"150px",			"70px",			"120px"]
 			,itemSelectEvent		: function (data){
