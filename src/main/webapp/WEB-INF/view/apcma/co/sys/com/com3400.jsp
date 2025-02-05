@@ -50,8 +50,8 @@
 					<sbux-button id="btnEmp" name="btnEmp" uitype="normal" text="직원거래처 생성" class="btn btn-sm btn-outline-danger" onclick="fn_Emp" style="float: right;" ></sbux-button>
 <!-- 					<sbux-button id="btnSubmit" name="btnSubmit" uitype="normal" text="결재" class="btn btn-sm btn-outline-danger" onclick="fn_submit" style="float: right;margin-right:1rem;" ></sbux-button> -->
 					<sbux-button id="btnSubmitHis" name="btnSubmitHis" uitype="normal" text="결재이력" class="btn btn-sm btn-outline-danger" onclick="fn_submitHis" style="float: right;margin-right:1rem;" ></sbux-button>
-					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm" style="float: right;margin-right:1rem;" ></sbux-button>
-					<sbux-button id="btnUnconfirm" name="btnUnconfirm" uitype="normal" text="미확정" class="btn btn-sm btn-outline-danger" onclick="fn_unconfirm" style="float: right;margin-right:1rem;" ></sbux-button>
+					<sbux-button id="btnConfirm" name="btnConfirm" uitype="normal" text="확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm('CONFIRM')" style="float: right;margin-right:1rem;" ></sbux-button>
+					<sbux-button id="btnUnconfirm" name="btnUnconfirm" uitype="normal" text="미확정" class="btn btn-sm btn-outline-danger" onclick="fn_confirm('UNCONFIRM')" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnErrorSearch" name="btnErrorSearch" uitype="normal" text="오류 조회" class="btn btn-sm btn-outline-danger" onclick="fn_errorSearch" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnList" name="btnList" uitype="normal" text="리스트 조회" class="btn btn-sm btn-outline-danger" onclick="fn_list" style="float: right;margin-right:1rem;" ></sbux-button>
 					<sbux-button id="btnOld" name="btnOld" uitype="normal" text="이력 조회" class="btn btn-sm btn-outline-danger" onclick="fn_old" style="float: right;margin-right:1rem;" ></sbux-button>
@@ -132,7 +132,7 @@
 								<th scope="row" class="th_bg_search">거래처구분</th>
 								<td class="td_input" colspan="3" style="border-right:hidden;">
 									<div class="dropdown">
-										<button 
+										<button
 											style="width:160px;text-align:left" 
 											class="btn btn-sm btn-light dropdown-toggle " 
 											type="button"
@@ -143,7 +143,7 @@
 											<font>선택</font>
 											<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>        
 										</button>
-										<div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:250px;padding-top:0px;overflow:auto">
+										<div class="dropdown-menu" aria-labelledby=SRCH_CS_TYPE style="width:250px;height:200px;padding-top:0px;overflow:auto">
 										</div>
 									</div>                              
 								</td>
@@ -1310,7 +1310,7 @@
 				target			: ['#SRCH_CS_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
-				,bizcompId		: 'L_FIM101'
+				,bizcompId		: 'L_COM068'
 				,whereClause	: ''
 				,formId			: p_formId
 				,menuId			: p_menuId
@@ -2127,27 +2127,27 @@
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: [''],    			ref: 'CHECK_YN',		type:'checkbox',	width: '80px', 
+            {caption: [''],    			ref: 'CHECK_YN',		type:'checkbox',	width: '30px', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
             },
-            {caption : ["거래처코드"],	ref: 'CS_CODE', 	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["거래처명"],		ref: 'CS_NAME', 	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption : ["사업자번호"],	ref: 'BIZ_REGNO',		type:'output',  	width:'200px',  	style:'text-align:left'},
-            {caption : ['매입처'],   		ref: 'PURCHASE_YN',		type:'checkbox',	width: '80px', 
+            {caption : ["거래처코드"],	ref: 'CS_CODE', 	type:'output',  	width:'80px',  	style:'text-align:left'},
+            {caption : ["거래처명"],		ref: 'CS_NAME', 	type:'output',  	width:'120px',  	style:'text-align:left'},
+            {caption : ["사업자번호"],	ref: 'BIZ_REGNO',		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption : ['매입처'],   		ref: 'PURCHASE_YN',		type:'checkbox',	width: '40px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
             		uncheckedvalue : "N" }, 
             		style : 'text-align:center',
             		disabled : true
             },
-            {caption : ['매출처'],			ref: 'SALE_YN',		type:'checkbox',	width: '80px', 
+            {caption : ['매출처'],			ref: 'SALE_YN',		type:'checkbox',	width: '40px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
             		uncheckedvalue : "N" }, 
             		style : 'text-align:center',
             		disabled : true
             },
-            {caption : ['확정여부'],   		ref: 'USE_YN',		type:'checkbox',	width: '80px', 
+            {caption : ['확정여부'],   		ref: 'USE_YN',		type:'checkbox',	width: '60px', 
             	typeinfo : { 
             		checkedvalue : "Y", 
             		uncheckedvalue : "N" }, 
@@ -2801,7 +2801,7 @@
 		        	gfnma_multiSelectSet("#NATION_CODE", 		"NTN_CD", 		"NTN_NM", 	gfn_nvl(cv_1.NTN_CD));
 		        	gfnma_multiSelectSet("#CURRENCY_CODE", 		"CRN_CD", 	"CRN_NM",gfn_nvl(cv_1.CRN_CD));
 		        	
-		            if(gfn_nvl(cv_1.STTS_CD) == '5'){
+		            if(gfn_nvl(cv_1.STTS_CD) == '1' || gfn_nvl(cv_1.STTS_CD) == '5'){
 		                $("#main-btn-save", parent.document).removeAttr('disabled');
 		                $("#main-btn-appr", parent.document).removeAttr('disabled');
 		                $("#main-btn-attach", parent.document).removeAttr('disabled');
@@ -3293,7 +3293,7 @@
                 SBUxMethod.attr('BIZ_ITEMS','group-id','');
                 SBUxMethod.attr('BIZ_ITEMS','required','');
             }
-            if(gfnma_multiSelectGet('#STATUS_CODE') == '5'){
+            if(gfnma_multiSelectGet('#STATUS_CODE') == '5' || gfnma_multiSelectGet('#STATUS_CODE') == '1'|| gfnma_multiSelectGet('#STATUS_CODE') == ''){
                 $("#main-btn-save", parent.document).removeAttr('disabled');
                 $("#main-btn-appr", parent.document).removeAttr('disabled');
                 $("#main-btn-attach", parent.document).removeAttr('disabled');
@@ -3614,7 +3614,7 @@
         	getType				: 'json',
         	workType			: 'D',
         	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
+        	params				: gfnma_objectToString(paramObj, true)
 		});   
         const data = await postJsonPromise;
         try {
@@ -3740,7 +3740,7 @@
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '0',
-        	params				: gfnma_objectToString(paramObj)
+        	params				: gfnma_objectToString(paramObj, true)
 		});   
         const data = await postJsonPromise;
         try {
@@ -3833,19 +3833,19 @@
 	       	cv_count			: '0',
 	       	params				: gfnma_objectToString(paramObj)
 		});    	 
-       const data = await postJsonPromise;
+        const data = await postJsonPromise;
        
 		try {
 	       	if (_.isEqual("S", data.resultStatus)) {
 	       		gfn_comAlert("I0002", '직원 거래처', '생성'); // {0}을/를 {1} 하였습니다.
 	       	}
-       } catch (e) {
-   		if (!(e instanceof Error)) {
-   			e = new Error(e);
-   		}
-   		console.error("failed", e.message);
-       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-       }
+        } catch (e) {
+	   		if (!(e instanceof Error)) {
+	   			e = new Error(e);
+	   		}
+	   		console.error("failed", e.message);
+	       	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
     }
 
 	/**
@@ -4521,8 +4521,8 @@
         }
     }
     
-    // 확정
-    const fn_confirm = async function() {
+    // 확정 OR 미확정
+    const fn_confirm = async function(workType) {
         let masterGridRowVal 	= masterGrid.getRow();
         let masterGridRowLength = masterGrid.getRows();
         let masterGridChkRow 	= masterGrid.getCheckedRowData(masterGrid.getColRef('CHECK_YN'));
@@ -4545,71 +4545,7 @@
                 cv_count: '0',
                 getType: 'json',
                 rownum: item.rownum,
-                workType: 'CONFIRM',
-                params: gfnma_objectToString({
-                	 V_P_DEBUG_MODE_YN      : ''
-               		,V_P_LANG_ID            : ''
-               		,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-               		,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-               		,IV_P_CS_CODE           : gfn_nvl(item.data.CS_CODE)
-               		,V_P_DEFER_YN           : ''
-               		,V_P_DEFER_REASON       : ''
-               		,V_P_TXN_STOP_YN        : gfn_nvl(item.data.TXN_STOP_YN)
-               		,V_P_TXN_STOP_REASON    : ''
-               		,V_P_USE_YN             : gfn_nvl(item.data.USE_YN)
-               		,V_P_FORM_ID            : p_formId
-               		,V_P_MENU_ID            : p_menuId
-               		,V_P_PROC_ID            : ''
-               		,V_P_USERID             : p_userId
-               		,V_P_PC                 : ''
-                })
-            }
-            listData.push(param);
-        });
-        const postJsonPromise = gfn_postJSON("/co/sys/com/insertCom3400_S2.do", {listData: listData});
-        const data = await postJsonPromise;
-        try {
-            if (_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert("I0001");
-                fn_init();
-            } else {
-                alert(data.resultMessage);
-            }
-
-        } catch (e) {
-            if (!(e instanceof Error)) {
-                e = new Error(e);
-            }
-            console.error("failed", e.message);
-            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-    }
-    
-    // 미확정
-    const fn_unconfirm = async function() {
-        let masterGridRowVal 	= masterGrid.getRow();
-        let masterGridRowLength = masterGrid.getRows();
-        let masterGridChkRow 	= masterGrid.getCheckedRowData(masterGrid.getColRef('CHECK_YN'));
-        let cnt = 0;
-        if (masterGridRowVal == -1) {
-            gfn_comAlert("W0003", "확정"); // W0003	{0}할 대상이 없습니다.
-            return;
-        }
-        if (masterGridRowLength == 0) {
-            gfn_comAlert("W0003", "확정"); // W0003	{0}할 대상이 없습니다.
-            return;
-        }
-       	if(masterGridChkRow.length == 0){
-       		gfn_comAlert("W0001", "거래처 리스트에서 체크박스"); //{0}을/를 선택하세요.
-       		return;
-       	}
-        let listData = [];
-		masterGridChkRow.forEach((item, index) => {
-            const param = {
-                cv_count: '0',
-                getType: 'json',
-                rownum: item.rownum,
-                workType: 'UNCONFIRM',
+                workType: workType,
                 params: gfnma_objectToString({
                 	 V_P_DEBUG_MODE_YN      : ''
                		,V_P_LANG_ID            : ''

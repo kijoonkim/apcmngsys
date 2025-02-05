@@ -18,7 +18,9 @@ const gfnma_objectToString = function (obj, log) {
 	}
 	for(key in obj){
 		temp = obj[key] + '';
-		res += temp.replaceAll("\,", "&#44;") + ',';
+		// ∥ 파라미터 구분자로 변경함
+		res += temp + '∥';
+		//res += temp.replaceAll("\,", "&#44;") + ',';
 		if(log){
 			logstr += key + ' : "' + obj[key] + '",\n';
 		}

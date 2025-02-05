@@ -30,6 +30,13 @@
 </div>
 <script>
 
+window.addEventListener('keydown', function(event) {
+    if (event.altKey && (event.key === 'F' || event.key === 'f' || event.key === 'ㄹ')) {
+        event.preventDefault();
+        cfn_search();
+    }
+});
+
 /*
  * 화면 비율을 줄였을 때 그리드내에 있는 셀렉트, 인풋등등 위치를 찾지못할때
  
@@ -50,14 +57,6 @@
         document.body.style.setProperty('width', Math.trunc(scaleX * 100) + '%', 'important');
         document.body.style.setProperty('height', Math.trunc(scaleY * 100) + '%', 'important');
     }
-
-
-    window.addEventListener('keydown', function(event) {
-        if (event.altKey && (event.key === 'F' || event.key === 'f' || event.key === 'ㄹ')) {
-            event.preventDefault();
-            cfn_search();
-        }
-    });
 
     document.addEventListener('DOMContentLoaded', function() {
         let isDragging = false;
