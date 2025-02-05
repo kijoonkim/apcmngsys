@@ -22,6 +22,8 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnRowData1" name="btnRowData1" uitype="normal" text="출하실적 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect(1)"></sbux-button>
+					<sbux-button id="btnRowData2" name="btnRowData2" uitype="normal" text="판매목표 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect(2)"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
@@ -311,8 +313,9 @@
 				</div>
 			</div>
 		</div>
+		<!-- 로우데이터 그리드 -->
+		<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 	</section>
-
 	<!-- 품목 팝업 -->
 	<div>
 		<sbux-modal
@@ -341,6 +344,7 @@
 		await fn_setYear();//기본년도 세팅
 		await fn_initSBSelect();
 		await fn_createUoListGrid();//통합조직 리스트 그리드 생성
+		await fn_createGridOnln();//온라인도매시장 출하실적 그리드 생성
 		await fn_search();//정보 조회
 	}
 
@@ -448,7 +452,7 @@
 		SBUxMethod.set('dtl-input-yr'		,gfn_nvl(rowData.yr))		//등록년도
 
 		await fn_searchComboList();//조직 리스트, 품목 리스트 콤보박스 데이터
-		await fn_createGridOnln();//온라인도매시장 출하실적 그리드 생성
+		await grdOnln.rebuild();
 		await fn_dtlSearch();
 	}
 
@@ -782,7 +786,7 @@
 		SBGridProperties.selectmode = 'byrow';
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		SBGridProperties.explorerbar = 'sort';//정렬
+		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.fixedrowheight=88;
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
@@ -813,7 +817,7 @@
 					let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 					let delYnCol = objGrid.getColRef('delYn');
 					let delYnVal = objGrid.getCellData(nRow,delYnCol);
-					console.log(delYnVal);
+					//console.log(delYnVal);
 					if(corpDdlnSeCd != 'Y'){
 						if(delYnVal == 'N'){
 							return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
@@ -1001,7 +1005,7 @@
 			let captionRow = objGrid.getFixedRows();
 			for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 				let rowData01 = objGrid.getRowData(i);
-				console.log(rowData.itemCd , rowData01.itemCd , rowData.brno , rowData01.brno);
+				//console.log(rowData.itemCd , rowData01.itemCd , rowData.brno , rowData01.brno);
 				if(nRow != i && rowData.itemCd == rowData01.itemCd && rowData.brno == rowData01.brno){
 					let brnoArr = _.find(jsonOgnz, {value : rowData.brno});
 					objGrid.setCellData(nRow, clsfNmCol, '');
@@ -1044,8 +1048,7 @@
 				objGrid.setCellDisabled(nRow+2, brnoCol, nRow+2, consignTrmtAmtCol, true);
 				objGrid.setCellStyle('background-color', nRow+2, nCol, nRow+2, consignTrmtAmtCol, 'lightgray');
 			}
-		}
-		else if (gubun === "DEL") {
+		}else if (gubun === "DEL") {
 			if (grid === "grdOnln") {
 				if(objGrid.getRowStatus(nRow) == 0 || objGrid.getRowStatus(nRow) == 2){
 					var delMsg = "등록 된 행 입니다. 삭제 하시겠습니까?";
@@ -1098,7 +1101,7 @@
 		let delYnCol = objGrid.getColRef('delYn');
 		let delYnValue = objGrid.getCellData(selGridRow,delYnCol);
 
-		//임력할 데이터 인지 확인
+		//입력할 데이터 인지 확인
 		//추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
 		//fn_procRow 의 ADD 확인
 		if(delYnValue != 'N'){
@@ -1173,5 +1176,187 @@
 		 	}
 		}
 	}
+
+	/* 로우데이터 요청 */
+
+	var jsonHiddenGrd = []; // 그리드의 참조 데이터 주소 선언
+	var hiddenGrd;
+
+	/* Grid 화면 그리기 기능*/
+	const fn_hiddenGrd = async function(_gridSe) {
+
+		let SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-hiddenGrd';
+		SBGridProperties.id = 'hiddenGrd';
+		SBGridProperties.jsonref = 'jsonHiddenGrd';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'byrow';
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.oneclickedit = true;
+		SBGridProperties.rowheader="seq";
+		/* _gridSe 1 출하실적 , 2 판매목표 */
+		if(_gridSe == '1'){
+			SBGridProperties.columns = columnsGrid1;
+		}else if(_gridSe == '2'){
+			SBGridProperties.columns = columnsGrid2;
+		}
+
+		hiddenGrd = _SBGrid.create(SBGridProperties);
+	}
+
+	const columnsGrid1 = [
+		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["사업자번호"],	ref: 'uoBrno',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["법인명"],		ref: 'uoCorpNm',	type:'output',  width:'80px',	style:'text-align:center'},
+
+		{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'200px',	style:'text-align:center'},
+		{caption: ["법인명"],		ref: 'corpNm',	type:'output',  width:'200px',	style:'text-align:center'},
+
+		{caption: ["품목명"],		ref: 'itemNm',	type:'output',  width:'100px',	style:'text-align:center'},
+		{caption: ["부류"],		ref: 'clsfNm',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["평가부류"],		ref: 'ctgryNm',	type:'output',  width:'80px',	style:'text-align:center'},
+
+		{caption: ["직접판매 실적 금액(천원)"],	ref: 'trmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["위탁판매 실적 금액(천원)"],	ref: 'consignTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right;'},
+		{caption: ["참고 *온라인도매시장 판매 확대 목표 산출시 적용될 판매실적 (직접판매100%,위탁판매80% 고려 실적)(K)"]
+			,ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'},
+	];
+
+	const columnsGrid2 = [
+		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["법인명"],		ref: 'corpNm',	type:'output',  width:'80px',	style:'text-align:center'},
+
+		{caption: ["직접판매 실적 2025년 목표액(천원)(A)"],	ref: 'trgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["위탁판매 실적 2025년 목표액(천원)"],	ref: 'consignTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["위탁판매 실적 인정 목표액(천원)(위탁판매는 80%만 인정)(B)"],	ref: 'consignCrtdTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["총 목표액(천원)(C = A+B)"],	ref: 'totTrgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["통합조직 전문품목 총취급액(천원)(D)"],	ref: 'uoTotTrgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["(참고)기준거래액 (통합조직 전문품목 총취급액의2%) (E = D*0.02)"],	ref: 'crtrAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["출하실적 합계"],	ref: 'trmtAmtTot',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["온라인도매시장 판매 확대 목표(%) [F=(C-K)/K*100 또는 F=(C-E)/E*100]"],		ref: 'trgtTrmtRt',	type:'output',  width:'120px',	style:'text-align:right'},
+	];
+
+	const fn_hiddenGrdSelect = async function(_gridSe){
+		console.log('_gridSe',_gridSe);
+		/* _gridSe 1 출하실적 , 2 판매목표 */
+		await fn_hiddenGrd(_gridSe);
+		let yr = SBUxMethod.get("srch-input-yr");
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		/* _gridSe 1 출하실적 , 2 판매목표 */
+		let rowDataUrl;
+		if(_gridSe == '1'){
+			rowDataUrl = "/pd/pcom/selectRawDataOnlnDtl.do";
+		}else if(_gridSe == '2'){
+			rowDataUrl = "/pd/pcom/selectRawDataOnln.do";
+		}
+
+		let postJsonPromise = gfn_postJSON(rowDataUrl, {
+			yr : yr
+		});
+
+		let data = await postJsonPromise;
+		try{
+			jsonHiddenGrd.length = 0;
+			//console.log("data==="+data);
+			data.resultList.forEach((item, index) => {
+				let hiddenGrdVO;
+				if(_gridSe == '1'){
+					console.log('1');
+					hiddenGrdVO = {
+							yr					:item.yr
+							,uoBrno				:item.uoBrno
+							,uoCorpNm			:item.uoCorpNm
+
+							,apoSeNm			:item.apoSeNm
+							,brno				:item.brno
+							,corpNm				:item.corpNm
+
+							,itemNm				:item.itemNm
+							,clsfNm				:item.clsfNm
+							,ctgryNm			:item.ctgryNm
+
+							,trmtAmt			:item.trmtAmt
+							,consignTrmtAmt		:item.consignTrmtAmt
+							,trmtAmtTot			:item.trmtAmtTot
+							,consignTrmtAmtTot	:item.consignTrmtAmtTot
+						};
+				}else if(_gridSe == '2'){
+					console.log('2');
+					hiddenGrdVO = {
+							yr: item.yr
+							,brno: item.brno
+							,corpNm: item.corpNm
+
+							,trgtTrmtAmt: item.trgtTrmtAmt
+							,consignTrgtAmt: item.consignTrgtAmt
+							,consignCrtdTrgtAmt: item.consignCrtdTrgtAmt
+
+							,totTrgtTrmtAmt: item.totTrgtTrmtAmt
+							,uoTotTrgtTrmtAmt: item.uoTotTrgtTrmtAmt
+
+							,trmtAmtTot: item.trmtAmtTot
+							,crtrAmt: (Number(item.uoTotTrgtTrmtAmt)*0.02).toFixed(2)
+
+							,trgtTrmtRt: item.trgtTrmtRt
+						};
+					console.log(hiddenGrdVO);
+				}
+				jsonHiddenGrd.push(hiddenGrdVO);
+			});
+
+			await hiddenGrd.rebuild();
+
+			await fn_excelDown(_gridSe);
+
+		}catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+	//로우 데이터 엑셀 다운로드
+	function fn_excelDown(_gridSe){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+		let fileName = formattedDate;
+		/* _gridSe 1 출하실적 , 2 판매목표 */
+		if(_gridSe == '1'){
+			fileName += "_온라인도매시장_출하실적_로우데이터";
+		}else if(_gridSe == '2'){
+			fileName += "_온라인도매시장_판매목표_로우데이터";
+		}
+
+
+		/*
+		datagrid.exportData(param1, param2, param3, param4);
+		param1(필수)[string]: 다운 받을 파일 형식
+		param2(필수)[string]: 다운 받을 파일 제목
+		param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+		→ false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+		param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+		→ arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+		→ combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+		→ true : label 값으로 저장
+		→ false : value 값으로 저장
+		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+		 */
+		//console.log(hiddenGrd.exportData);
+		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
+
 </script>
 </html>

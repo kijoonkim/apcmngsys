@@ -96,4 +96,18 @@ public class PrdcrCrclOgnOnlnWhlslMrktServiceImpl extends BaseServiceImpl implem
 		int deletedCnt = PrdcrCrclOgnOnlnWhlslMrktMapper.deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
 		return deletedCnt;
 	}
+
+	@Override
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO)
+			throws Exception {
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnlnDtl(
+			PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception {
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
+		return resultList;
+	}
 }

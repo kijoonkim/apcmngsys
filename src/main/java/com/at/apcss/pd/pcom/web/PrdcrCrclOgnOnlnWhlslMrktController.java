@@ -159,4 +159,39 @@ public class PrdcrCrclOgnOnlnWhlslMrktController extends BaseController{
 		resultMap.put("resultCnt", resultCnt);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//온라인도매시장 판매목표 로우데이터 조회
+	@PostMapping(value = "/pd/pcom/selectRawDataOnln.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataOnln(Model model, @RequestBody PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO, HttpServletRequest request) throws Exception{
+		logger.debug("/pd/pcom/selectRawDataOnln.do >>> 호출 >>> ");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = new ArrayList<>();
+		try {
+			//온라인도매시장 출하실적
+			resultList = PrdcrCrclOgnOnlnWhlslMrktService.selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//온라인도매시장 출하실적 로우데이터 조회
+	@PostMapping(value = "/pd/pcom/selectRawDataOnlnDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataOnlnDtl(Model model, @RequestBody PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO, HttpServletRequest request) throws Exception{
+		logger.debug("/pd/pcom/selectRawDataOnlnDtl.do >>> 호출 >>> ");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = new ArrayList<>();
+		try {
+			//온라인도매시장 출하실적
+			resultList = PrdcrCrclOgnOnlnWhlslMrktService.selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

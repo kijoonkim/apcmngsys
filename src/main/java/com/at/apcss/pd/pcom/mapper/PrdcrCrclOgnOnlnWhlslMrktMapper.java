@@ -34,14 +34,14 @@ public interface PrdcrCrclOgnOnlnWhlslMrktMapper {
 	/**
 	 * 통합조직 목록을 조회한다.
 	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
-	 * @return PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
 	 */
 	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectPrdcrCrclOgnOnlnWhlslMrktUoList(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
 	/**
 	 * 온라인도매시장 판매목표 정보를 저장한다.
 	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
-	 * @return PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return int
 	 */
 	public int insertPrdcrCrclOgnOnlnWhlslMrkt(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
@@ -79,5 +79,19 @@ public interface PrdcrCrclOgnOnlnWhlslMrktMapper {
 	 * @return int
 	 */
 	public int deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
+	/**
+	 * 온라인도매시장 판매목표 로우데이터를 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
+
+	/**
+	 * 온라인도매시장 출하실적 로우데이터를 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
 }
