@@ -1104,7 +1104,7 @@
 				prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
 
 				fn_setPrdcrForm(prdcr);
-				
+
 			}
 	}
 
@@ -1174,7 +1174,8 @@
 
  		const sortnoSn = sortnoSnList.join("','");
  		const sortno = sortnoList.join("','");
- 		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
+ 		const inptYmd = SBUxMethod.get("srch-dtp-inptYmdFrom");
+ 		gfn_popClipReport("선별확인서", rptUrl, {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno, inptYmd : inptYmd});
  		//gfn_popClipReport("선별확인서", "am/sortIdntyDoc.crf", {apcCd: gv_selectedApcCd, sortnoSn: sortnoSn, sortno: sortno});
  	}
 

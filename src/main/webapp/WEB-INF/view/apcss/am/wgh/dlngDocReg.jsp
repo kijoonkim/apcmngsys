@@ -190,48 +190,48 @@
 
 					</tbody>
 				</table>
-				<div class="ad_tbl_top" style="margin-top:30px">
-					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData" >
-					</sbux-tabs>
+					<div style="margin-top:30px">
+						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData" >
+						</sbux-tabs>
 
-					<div class="tab-content" >
-						<div id="regTab">
-							<!--[pp] //검색 -->
-							<!--[pp] 검색결과 -->
-							<div class="ad_tbl_top2">
-								<ul class="ad_tbl_count">
-									<li>
+						<div class="tab-content">
+							<div id="regTab">
+								<!--[pp] //검색 -->
+								<!--[pp] 검색결과 -->
+								<div class="ad_tbl_top2">
+									<ul class="ad_tbl_count">
+										<li>
 
-									</li>
-								</ul>
-								<div class="ad_tbl_toplist">
-									<sbux-select
-										id="srch-slt-spcfctCd"
-										name="srch-slt-spcfctCd"
-										uitype="single"
-										jsondata-ref="jsonApcSpcfct"
-									></sbux-select>
-									<sbux-button
-										id="btnBndlAplcn"
-										name="btnBndlAplcn"
-										uitype="normal"
-										class="btn btn-sm btn-primary"
-										onclick="fn_bndlAplcn"
-										text="일괄적용"
-									></sbux-button>
+										</li>
+									</ul>
+									<div class="ad_tbl_toplist">
+										<sbux-select
+											id="srch-slt-spcfctCd"
+											name="srch-slt-spcfctCd"
+											uitype="single"
+											jsondata-ref="jsonApcSpcfct"
+										></sbux-select>
+										<sbux-button
+											id="btnBndlAplcn"
+											name="btnBndlAplcn"
+											uitype="normal"
+											class="btn btn-sm btn-primary"
+											onclick="fn_bndlAplcn"
+											text="일괄적용"
+										></sbux-button>
+									</div>
+								</div>
+								<div class="table-responsive tbl_scroll_sm">
+									<div id="sb-area-grdRawMtrWrhs" style="height:450px;"></div>
 								</div>
 							</div>
-							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-grdRawMtrWrhs" style="height:450px;"></div>
-							</div>
-						</div>
-						<div id=listTab>
-							<div class="table-responsive tbl_scroll_sm">
-								<div id="sb-area-grdRegList" style="height:450px;"></div>
+							<div id=listTab>
+								<div class="table-responsive tbl_scroll_sm">
+									<div id="sb-area-grdRegList" style="height:450px;"></div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 				<!-- 엑셀 시트별 데이터 영역 -->
 			</div>
 		</div>
