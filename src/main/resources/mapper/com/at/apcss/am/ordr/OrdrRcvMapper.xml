@@ -368,10 +368,27 @@
 			   AND MD.WRHS_YMD = MH.WRHS_YMD
 			   AND MD.ORDR_SEQ = MH.ORDR_SEQ
 			   AND MD.OUTORDRNO = MH.OUTORDRNO
-			   
+
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
 			   AND MH.WRHS_YMD = #{wrhsYmd}
-			   
+		]]>
+		<choose>
+			<when test='receiptYn != null and receiptYn.equals("Y")'>
+				AND EXISTS (
+					SELECT 1
+					  FROM TB_OUTORDR_INFO OI
+					WHERE OI.APC_CD = MD.ORDR_APC_CD
+					  AND OI.WRHS_YMD = MD.WRHS_YMD
+					  AND OI.ORDR_SEQ = MD.ORDR_SEQ
+					  AND OI.DTL_SEQ = MD.DTL_SEQ
+					  AND OI.DEL_YN = 'N'
+					  AND OI.RCPT_CFMTN_YMD IS NOT NULL
+				)
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+ 		<![CDATA[
 			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ, DTL_SEQ
 		]]>
 	</select>
@@ -451,7 +468,24 @@
 			   
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
 			   AND MH.WRHS_YMD = #{wrhsYmd}
-			   
+		]]>
+		<choose>
+			<when test='receiptYn != null and receiptYn.equals("Y")'>
+				AND EXISTS (
+				SELECT 1
+				FROM TB_OUTORDR_INFO OI
+				WHERE OI.APC_CD = MD.ORDR_APC_CD
+				AND OI.WRHS_YMD = MD.WRHS_YMD
+				AND OI.ORDR_SEQ = MD.ORDR_SEQ
+				AND OI.DTL_SEQ = MD.DTL_SEQ
+				AND OI.DEL_YN = 'N'
+				AND OI.RCPT_CFMTN_YMD IS NOT NULL
+				)
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<![CDATA[
 			 ORDER BY WRHS_YMD, OUTORDRNO, ORDR_SEQ, DTL_SEQ
 		]]>
 	</select>

@@ -1,17 +1,18 @@
 package com.at.apcss.am.ordr.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.at.apcss.am.cmns.service.CmnsTaskNoService;
+import com.at.apcss.am.cmns.service.CmnsValidationService;
+import com.at.apcss.am.cmns.service.CnptService;
+import com.at.apcss.am.cmns.vo.LgszMrktVO;
+import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
+import com.at.apcss.am.ordr.service.OrdrRcvService;
+import com.at.apcss.am.ordr.vo.*;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
+import com.at.apcss.co.sys.util.ComRSACrypto;
+import com.at.apcss.co.sys.util.ComUtil;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.jasypt.commons.CommonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,26 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
-import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.cmns.service.CmnsValidationService;
-import com.at.apcss.am.cmns.service.CnptService;
-import com.at.apcss.am.cmns.vo.LgszMrktVO;
-import com.at.apcss.am.constants.AmConstants;
-import com.at.apcss.am.ordr.mapper.OrdrRcvMapper;
-import com.at.apcss.am.ordr.service.OrdrRcvService;
-import com.at.apcss.am.ordr.vo.MrktHomeplusDtlVO;
-import com.at.apcss.am.ordr.vo.MrktHomeplusVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.ordr.vo.OrdrHomeplusMVO;
-import com.at.apcss.am.ordr.vo.OrdrHomeplusSVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvHomeplusVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.am.ordr.vo.OrdrVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
-import com.at.apcss.co.sys.util.ComRSACrypto;
-import com.at.apcss.co.sys.util.ComUtil;
+import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -1928,33 +1912,31 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	}
 
 	@Override
-	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd) throws Exception {
-		
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception {
+
 		List<HashMap<String, Object>> ordrList = new ArrayList<>();
-		
-		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
-		
-		param.setOrdrApcCd(ordrApcCd);
-		param.setWrhsYmd(wrhsYmd);
-		
-		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrHomeplusDtl(param);
-		
+
+		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrHomeplusDtl(mrktOrdrDtlVO);
+
 		String outordrno = "";
-		
+
 		HashMap<String, Object> ordr = new HashMap<>();
 		List<HashMap<String, Object>> dtlList = new ArrayList<>();
-		
+
+		String ordrApcCd = mrktOrdrDtlVO.getOrdrApcCd();
+		String wrhsYmd = mrktOrdrDtlVO.getWrhsYmd();
+
 		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
-			
+
 			HashMap<String, Object> dtl = new HashMap<>();
-			
+
 			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
-				
+
 				if (dtlList.size() > 0) {
 					ordr.put("DTL_LIST", dtlList);
 					ordrList.add(ordr);
 				}
-				
+
 				ordr = new HashMap<>();
 				ordr.put("APC_CD", ordrApcCd);
 				ordr.put("GR_DATE", wrhsYmd);
@@ -1984,7 +1966,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 				dtlList = new ArrayList<>();
 			}
-			
+
 			dtl.put("PO_NO", dtlVO.getOutordrno());
 			dtl.put("SEQ", dtlVO.getDtlSeq());
 			dtl.put("GR_DATE", wrhsYmd);
@@ -2005,18 +1987,38 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			dtl.put("PO_AMT", dtlVO.getOutordrAmt());
 			dtl.put("PO_PRICE", dtlVO.getOutordrUntprc());
 			dtl.put("GR_QTY", dtlVO.getWrhsQntt());
-			
+
 			dtlList.add(dtl);
-			
+
 			outordrno = dtlVO.getOutordrno();
 		}
-		
+
 		if (dtlList.size() > 0) {
 			ordr.put("DTL_LIST", dtlList);
 			ordrList.add(ordr);
 		}
-		
+
 		return ordrList;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd) throws Exception {
+
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+
+		return selectOrdrListForHomeplus(param);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd, String receiptYn) throws Exception {
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+		param.setReceiptYn(receiptYn);
+
+		return selectOrdrListForHomeplus(param);
 	}
 
 	@Override
@@ -2786,38 +2788,35 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 	@Override
 	public List<MrktOrdrVO> selectOrdrListForLotte(MrktOrdrVO mrktHomeplusVO) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd) throws Exception {
-		
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception {
+
 		List<HashMap<String, Object>> ordrList = new ArrayList<>();
-		
-		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
-		
-		param.setOrdrApcCd(ordrApcCd);
-		param.setWrhsYmd(wrhsYmd);
-	
-		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrLotteDtl(param);
-		
+
+		String ordrApcCd = mrktOrdrDtlVO.getOrdrApcCd();
+		String wrhsYmd = mrktOrdrDtlVO.getWrhsYmd();
+
+		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrLotteDtl(mrktOrdrDtlVO);
+
 		String outordrno = "";
-		
+
 		HashMap<String, Object> ordr = new HashMap<>();
 		List<HashMap<String, Object>> dtlList = new ArrayList<>();
-		
+
 		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
-			
+
 			HashMap<String, Object> dtl = new HashMap<>();
-			
+
 			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
-				
+
 				if (dtlList.size() > 0) {
 					ordr.put("DTL_LIST", dtlList);
 					ordrList.add(ordr);
 				}
-				
+
 				ordr = new HashMap<>();
 				ordr.put("APC_CD", ordrApcCd);
 				ordr.put("WRHS_YMD", wrhsYmd);
@@ -2845,7 +2844,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 				dtlList = new ArrayList<>();
 			}
-			
+
 			dtl.put("DOC_NO", dtlVO.getOutordrno());
 			dtl.put("SEQ", dtlVO.getDtlSeq());
 			dtl.put("WRHS_YMD", wrhsYmd);
@@ -2865,20 +2864,38 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			dtl.put("OUTORDR_AMT", dtlVO.getOutordrAmt());
 			dtl.put("OUTORDR_UNTPR", dtlVO.getOutordrUntprc());
 			dtl.put("WRHS_QNTT", dtlVO.getWrhsQntt());
-			
+
 			dtlList.add(dtl);
-			
+
 			outordrno = dtlVO.getOutordrno();
 		}
-		
+
 		if (dtlList.size() > 0) {
 			ordr.put("DTL_LIST", dtlList);
 			ordrList.add(ordr);
 		}
-		
+
 		return ordrList;
-	}	
-	
-	
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd) throws Exception {
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+
+		return selectOrdrListForLottesuper(param);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd, String receiptYn) throws Exception {
+		MrktOrdrDtlVO param = new MrktOrdrDtlVO();
+		param.setOrdrApcCd(ordrApcCd);
+		param.setWrhsYmd(wrhsYmd);
+		param.setReceiptYn(receiptYn);
+
+		return selectOrdrListForLottesuper(param);
+	}
+
 
 }

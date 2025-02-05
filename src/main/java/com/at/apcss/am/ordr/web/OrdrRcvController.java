@@ -46,8 +46,7 @@ public class OrdrRcvController extends BaseController {
 	@Resource(name = "ordrRcvService")
 	private OrdrRcvService ordrRcvService;
 
-	
-	
+
 	@PostMapping(value = "/am/ordr/insertOrdrRcvHomeplus", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> insertOrdr(@RequestBody OrdrRcvVO ordrRcvVO, HttpServletRequest request) throws Exception {
 

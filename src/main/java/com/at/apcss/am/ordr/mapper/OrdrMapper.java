@@ -2,6 +2,7 @@ package com.at.apcss.am.ordr.mapper;
 
 import java.util.List;
 
+import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.am.ordr.vo.OrdrVO;
@@ -85,4 +86,22 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public void updateCmndno(OrdrVO ordrVO) throws Exception;
+
+
+	/**
+	 * 대형마트 발주수신정보 상세조회
+	 * @param mrktOrdrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MrktOrdrDtlVO> selectMrktOrdrDtlList(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+
+
+	/**
+	 * 발주정보 접수처리
+	 * @param mrktOrdrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateOutordrReceipt(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
 }
