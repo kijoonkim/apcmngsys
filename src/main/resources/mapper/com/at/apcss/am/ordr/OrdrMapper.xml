@@ -745,10 +745,10 @@
 			<otherwise>
 			</otherwise>
 		</choose>
-		<if test='mrktGdsCd != null and mrktGdsCd == "Y"'>
+		<if test='mrktGdsCd != null and mrktGdsCd != ""'>
 				AND MD.MRKT_GDS_CD LIKE '%' || #{mrktGdsCd} || '%'
 		</if>
-		<if test='mrktGdsNm != null and mrktGdsNm == "Y"'>
+		<if test='mrktGdsNm != null and mrktGdsNm != ""'>
 			AND MD.MRKT_GDS_NM LIKE '%' || #{mrktGdsNm} || '%'
 		</if>
 		<![CDATA[
@@ -843,10 +843,10 @@
 			<otherwise>
 			</otherwise>
 		</choose>
-		<if test='mrktGdsCd != null and mrktGdsCd == "Y"'>
+		<if test='mrktGdsCd != null and mrktGdsCd != ""'>
 			AND MD.MRKT_GDS_CD LIKE '%' || #{mrktGdsCd} || '%'
 		</if>
-		<if test='mrktGdsNm != null and mrktGdsNm == "Y"'>
+		<if test='mrktGdsNm != null and mrktGdsNm != ""'>
 			AND MD.MRKT_GDS_NM LIKE '%' || #{mrktGdsNm} || '%'
 		</if>
 		<![CDATA[
