@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
+import com.at.apcss.am.ordr.vo.MrktOrdrVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -243,4 +245,66 @@ public class OrdrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	/**
+	 *
+	 * @param mrktOrdrDtlVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/ordr/selectMrktOrdrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectMrktOrdrDtlList(@RequestBody MrktOrdrDtlVO mrktOrdrDtlVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> rtnObj = null;
+
+		List<MrktOrdrDtlVO> resultList = new ArrayList<>();
+		try {
+			resultList = ordrService.selectMrktOrdrDtlList(mrktOrdrDtlVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			rtnObj = setMenuComLog(request);
+		}
+
+		if (rtnObj != null) {
+			return getErrorResponseEntity(rtnObj);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/ordr/insertOutordrReceipt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertOutordrReceipt(@RequestBody MrktOrdrVO mrktOrdrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> rtnObj = null;
+
+		try {
+
+			mrktOrdrVO.setSysFrstInptUserId(getUserId());
+			mrktOrdrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			mrktOrdrVO.setSysLastChgUserId(getUserId());
+			mrktOrdrVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			rtnObj = ordrService.insertOutordrReceipt(mrktOrdrVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			rtnObj = setMenuComLog(request);
+		}
+
+		if (rtnObj != null) {
+			return getErrorResponseEntity(rtnObj);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

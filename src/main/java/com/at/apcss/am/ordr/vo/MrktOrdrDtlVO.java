@@ -1,17 +1,22 @@
 package com.at.apcss.am.ordr.vo;
 
+import com.at.apcss.co.sys.vo.ComVO;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MrktOrdrDtlVO {
+public class MrktOrdrDtlVO extends ComVO {
 	
 	private String rtnCd;
 	private String rtnMsg;
-	
+
+	private String apcCd;
 	private String ordrApcCd;
 	private String wrhsYmd;
+	private String wrhsYmdFrom;
+	private String wrhsYmdTo;
+
 	private long ordrSeq;
 	private String outordrno;
 	private int dtlSeq;
@@ -59,4 +64,21 @@ public class MrktOrdrDtlVO {
 	private String warehouseTxt;
 	private String warehouseNm;
 	private String ordrDsctn;
+
+
+	private String lgszMrktCd;
+	private String rcptnSeCd;
+	private String apcSeCd;
+	private String ordrCrtDt;
+	private String ordrChgDt;
+	private String ordrPrcsCd;
+	private String ordrPrcsDt;
+	private String ordrPrcsMsg;
+	private String receiptYn;
+	private String lgszMrktNm;
+	private String rcptnSeNm;
+
+	private String apcOutordrno;
+
+
 }

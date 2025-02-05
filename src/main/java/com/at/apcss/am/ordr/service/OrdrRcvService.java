@@ -3,10 +3,7 @@ package com.at.apcss.am.ordr.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.ordr.vo.MrktHomeplusVO;
-import com.at.apcss.am.ordr.vo.MrktOrdrVO;
-import com.at.apcss.am.ordr.vo.OrdrRcvVO;
-import com.at.apcss.am.ordr.vo.OrdrVO;
+import com.at.apcss.am.ordr.vo.*;
 
 /**
  * 발주정보 Service 인터페이스
@@ -116,7 +113,15 @@ public interface OrdrRcvService {
 	 * @throws Exception
 	 */
 	public List<MrktHomeplusVO> selectOrdrListForHomeplus(MrktHomeplusVO mrktHomeplusVO) throws Exception;
-	
+
+
+	/**
+	 * 발주정보(원본) 조회 (홈플러스)
+	 * @param mrktOrdrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
 	/**
 	 * 발주정보(원본) 조회 (홈플러스)
 	 * @param ordrApcCd
@@ -125,6 +130,7 @@ public interface OrdrRcvService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd) throws Exception;
+	public List<HashMap<String, Object>> selectOrdrListForHomeplus(String ordrApcCd, String wrhsYmd, String receiptYn) throws Exception;
 
 	
 	
@@ -136,6 +142,9 @@ public interface OrdrRcvService {
 	 */
 	public List<MrktOrdrVO> selectOrdrListForLotte(MrktOrdrVO mrktHomeplusVO) throws Exception;
 	
+
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+
 	/**
 	 * 발주정보(원본) 조회 (롯데)
 	 * @param ordrApcCd
@@ -144,6 +153,7 @@ public interface OrdrRcvService {
 	 * @throws Exception
 	 */
 	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd) throws Exception;
+	public List<HashMap<String, Object>> selectOrdrListForLottesuper(String ordrApcCd, String wrhsYmd, String receiptYn) throws Exception;
 
 	
 }
