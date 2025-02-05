@@ -694,6 +694,7 @@
 		const crtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 
 		reportCol['termKndCd'] = termKndCd;
+		reportCol['crtrYmd'] = crtrYmd;
 
 		let rstlData = {
 			data: {
