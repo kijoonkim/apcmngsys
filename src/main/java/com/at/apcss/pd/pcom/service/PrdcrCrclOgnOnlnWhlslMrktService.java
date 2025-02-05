@@ -93,4 +93,20 @@ public interface PrdcrCrclOgnOnlnWhlslMrktService {
 	 */
 	public int deleteOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
 
+	/**
+	 * 온라인도매시장 판매목표 로우데이터를 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
+	/**
+	 * 온라인도매시장 출하실적 로우데이터를 조회한다.
+	 * @param PrdcrCrclOgnOnlnWhlslMrktVO
+	 * @return List<PrdcrCrclOgnOnlnWhlslMrktVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
+
 }

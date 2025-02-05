@@ -502,7 +502,6 @@
 			grdUoGenalTbl.rebuild();
 
 			//부류별 합계 그리드 초기화
-			//console.log('grdClsfTot',typeof grdClsfTot);
 			if(!gfn_isEmpty(grdClsfTot)){
 				jsonClsfTot.length = 0;
 				grdClsfTot.rebuild();
@@ -510,7 +509,6 @@
 
 			if('2024' < yr){
 				fn_dtlSearchClsfTot();
-			}else{
 			}
 		}catch (e) {
 			if (!(e instanceof Error)) {
