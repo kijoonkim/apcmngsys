@@ -3,9 +3,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>title : SBUx2.6</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -491,7 +491,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -850,7 +850,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -916,7 +916,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -940,7 +940,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdPrdcrOgnCurntMng.getCol();
@@ -1029,7 +1029,7 @@
 	function fn_changeSelUoBrno(){
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
-		console.log(selCombo);
+		//console.log(selCombo);
 
 		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
 			SBUxMethod.set('dtl-input-uoBrno' , null);
@@ -1137,7 +1137,7 @@
 		let data = await postJsonPromise01;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 						brno: 	item.brno
@@ -1248,7 +1248,7 @@
 
 	//통합조직 출자출하조직으로 권한 변경
 	async function fn_updateStbltYn(_chk){
-		console.log("*************fn_updateStbltYn******************");
+		//console.log("*************fn_updateStbltYn******************");
 		let nRow = grdPrdcrOgnCurntMng01.getRow();
 
 		if(nRow < 1){
@@ -1278,7 +1278,7 @@
 		}
 
 		let yr = SBUxMethod.get("dtl-input-yr");
-		console.log("yr = "+yr);
+		//console.log("yr = "+yr);
 		if (gfn_isEmpty(yr)) {
 			let now = new Date();
 			let year = now.getFullYear();
@@ -1381,7 +1381,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						brno: 		item.brno

@@ -302,7 +302,8 @@ public class ApcLinkApiController extends BaseController {
 				return getErrorResponseEntity("E30", "인증 오류");
 			}
 			*/
-			
+
+			/*
 			OrdrRcvVO ordrRcvVO = new OrdrRcvVO();
 
 			ordrRcvVO.setSysFrstInptUserId(apcCd);
@@ -321,8 +322,9 @@ public class ApcLinkApiController extends BaseController {
 			if (rtnObj != null) {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
-			
-			ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, wrhsYmd); 
+			*/
+
+			ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, wrhsYmd, ComConstants.CON_YES);
 			
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -377,7 +379,8 @@ public class ApcLinkApiController extends BaseController {
 				return getErrorResponseEntity("E30", "인증 오류");
 			}
 			*/
-			
+
+			/*
 			OrdrRcvVO ordrRcvVO = new OrdrRcvVO();
 
 			ordrRcvVO.setSysFrstInptUserId(apcCd);
@@ -395,6 +398,7 @@ public class ApcLinkApiController extends BaseController {
 			if (rtnObj != null) {
 				return getErrorResponseEntity("E20", "APC연계정보 없음");
 			}
+			 */
 			
 			ordrItems = ordrRcvService.selectOrdrListForLottesuper(apcCd, wrhsYmd); 
 			

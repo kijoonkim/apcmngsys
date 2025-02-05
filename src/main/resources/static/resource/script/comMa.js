@@ -18,7 +18,9 @@ const gfnma_objectToString = function (obj, log) {
 	}
 	for(key in obj){
 		temp = obj[key] + '';
-		res += temp.replaceAll("\,", "&#44;") + ',';
+		// ∥ 파라미터 구분자로 변경함
+		res += temp + '∥';
+		//res += temp.replaceAll("\,", "&#44;") + ',';
 		if(log){
 			logstr += key + ' : "' + obj[key] + '",\n';
 		}
@@ -740,7 +742,7 @@ async function gfnma_multiSelectInit(obj) {
 			var obj = data.cv_1[i];
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
 			for(j=0; j<_columns.length; j++){
-				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl(obj[_columns[j]['ref']]) + '</td>';
+				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl2(obj[_columns[j]['ref']]) + '</td>';
 			}	
 			htm += '</tr>';
 		}

@@ -87,7 +87,7 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 			if(request.getMethod().equals("POST")) {
 				//post type
 				if(ptype.equals("")) {
-					params = param.get("params").toString().split(",", -1);
+					params = param.get("params").toString().split("\\∥", -1);
 				} else {
 					params = (String[])param.get("params");
 				}
@@ -96,7 +96,7 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 				//get type
 				String temp1 	= param.get("params").toString();
 				if(temp1!=null && !temp1.equals("")) {
-					String[] temp2	= temp1.split(",");
+					String[] temp2	= temp1.split("\\∥");
 					params = new String[temp2.length];
 					for (String temp3 : temp2) {
 						String[] temp4	= temp3.split(":");
@@ -591,7 +591,7 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 			if(request.getMethod().equals("POST")) {
 				//post type
 				if(ptype.equals("")) {
-					params = param.get("params").toString().split(",", -1);
+					params = param.get("params").toString().split("\\∥", -1);
 				} else {
 					params = (String[])param.get("params");
 				}
@@ -600,7 +600,7 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 				//get type
 				String temp1 	= param.get("params").toString();
 				if(temp1!=null && !temp1.equals("")) {
-					String[] temp2	= temp1.split(",");
+					String[] temp2	= temp1.split("\\∥");
 					params = new String[temp2.length];
 					for (String temp3 : temp2) {
 						String[] temp4	= temp3.split(":");

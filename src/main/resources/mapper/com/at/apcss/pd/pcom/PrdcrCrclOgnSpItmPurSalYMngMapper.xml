@@ -2430,7 +2430,7 @@ ORDER BY
 	</insert>
 
 	<select id="selectItemUoStbltYnListNew" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnListNew */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -2674,11 +2674,7 @@ ORDER BY
 								WHERE 1=1
 								AND APO_SE = '1'
 								AND DEL_YN = 'N'
-								AND (
-										TYPE_SE_NO IN ('2','7')
-										OR
-										(TYPE_SE_NO = '6' AND TRMT_TYPE != '0')
-									)
+								AND TYPE_SE_NO = '8'
 								<if test='brno != null and brno != ""'>
 								  AND BRNO = #{brno}
 								</if>

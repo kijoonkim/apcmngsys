@@ -1,0 +1,82 @@
+
+package com.at.apcss.pd.hisPopup.vo;
+
+import com.at.apcss.co.sys.vo.ComVO;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class UoGenalTblVO extends ComVO{
+
+	private String yr;
+	private String apoCd;
+	private String uoCd;
+	private String apoSe;
+	private String apoSeNm;
+	private String brno;
+	private String uoBrno;
+	private String crno;
+	private String corpNm;
+	private String ctpv;
+	private String sgg;
+	private String cmptnInst;
+	private String corpSeCd;
+	private String corpDtlSeCd;
+
+	private String aprv;
+	private String aprvNm;
+
+	private String stbltYn;
+
+	private String itemNm;
+	private String itemCd;
+
+	private String sttgUpbrItemSe;
+	private String sttgUpbrItemNm;
+
+	private String ctgryCd;
+	private String ctgryNm;
+
+	private String totTrmtPrfmnc;//통합조직총취급액(A)
+	private String totSpmtPrfmnc;//생산자조직 전속출하액
+	private String totTrmtRt;//전속취급률
+
+	private String prfmncCorpDdlnYn;//실적 법인체 마감
+
+	private String actnMttr;//조치사항
+
+	private String sysFrstInptUserIdNm;
+	private String sysLastChgUserIdNm;
+	private String sysFrstInptDtYmd;
+	private String sysLastChgDtYmd;
+
+	/* 20241216 물량 추가 */
+	private String totTrmtPrfmncVlm;//통합조직총취급 물량
+	private String totSpmtPrfmncVlm;//생산자조직 전속출하 물량
+
+	/* 20241226 부류별 물량, 금액 추가 */
+	private String clsfCd;
+	private String clsfNm;
+	private String clsfSeNm;
+	private String clsfSeCd;
+
+	private String totVlm;
+	private String totAmt;
+	private String prvTotVlm;
+	private String prvTotAmt;
+
+	private String slctnYr;
+
+	private String corpSeNm;
+	private String corpDtlSeNm;
+
+	private String slsCnsgnSlsAmt;
+	private String slsCnsgnSlsAmtTot;
+	private String slsCnsgnSlsAmtRt;
+
+	private String slsCnsgnSlsVlm;
+	private String slsCnsgnSlsVlmTot;
+
+}

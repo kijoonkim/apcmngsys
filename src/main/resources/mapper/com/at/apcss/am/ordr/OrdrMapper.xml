@@ -587,6 +587,301 @@
 			   AND SPMT_CMNDNO	= #{spmtCmndno}
 		]]>
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.selectMrktOrdrDtlList		-->
+	<!-- DESC : 대형마트 발주수신 상세목록 조회.	                         	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.04  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectMrktOrdrDtlList" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO" resultType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.ordr.mapper.OrdrMapper.selectMrktOrdrDtlList */
+					  MO.ORDR_APC_CD		AS ORDR_APC_CD
+					, MO.LGSZ_MRKT_CD		AS LGSZ_MRKT_CD
+					, MO.RCPTN_SE_CD		AS RCPTN_SE_CD
+					, MO.APC_SE_CD			AS APC_SE_CD
+			     	, MO.APC_OUTORDRNO		AS APC_OUTORDRNO
+					, MO.WRHS_YMD			AS WRHS_YMD
+					, MO.ORDR_SEQ			AS ORDR_SEQ
+					, MO.ORDR_CRT_DT		AS ORDR_CRT_DT
+					, MO.ORDR_CHG_DT		AS ORDR_CHG_DT
+					, MO.ORDR_PRCS_CD		AS ORDR_PRCS_CD
+					, MO.ORDR_PRCS_DT		AS ORDR_PRCS_DT
+					, MO.ORDR_PRCS_MSG		AS ORDR_PRCS_MSG
+					, MO.OUTORDRNO			AS OUTORDRNO
+					, MO.TOT_OUTORDR_AMT	AS TOT_OUTORDR_AMT
+					, MO.OUTORDR_YMD		AS OUTORDR_YMD
+					, MO.MRKT_WRHS_KND		AS MRKT_WRHS_KND
+					, MO.TRSM_YMD			AS TRSM_YMD
+					, MO.TRSM_TM			AS TRSM_TM
+					, MO.RCPTN_YMD			AS RCPTN_YMD
+					, MO.RCPTN_TM			AS RCPTN_TM
+					, MO.RCPTN_YN			AS RCPTN_YN
+					, MO.ORDRR				AS ORDRR
+					, MO.CNTR_CD			AS CNTR_CD
+					, MO.CNTR_NM			AS CNTR_NM
+					, MO.SPLR_CD			AS SPLR_CD
+					, MO.SPLR_NM			AS SPLR_NM
+					, MO.USER_ID			AS USER_ID
+					, MO.BPLC_CD			AS BPLC_CD
+					, MO.CO_CD				AS CO_CD
+					, MO.CO_NM				AS CO_NM
+					, MO.VR_WAREHOUSE_CD	AS VR_WAREHOUSE_CD
+					, MO.VR_WAREHOUSE_TXT	AS VR_WAREHOUSE_TXT
+					, MO.VR_WAREHOUSE_NM	AS VR_WAREHOUSE_NM
+					, MO.ORDR_DSCTN			AS ORDR_DSCTN
+					, MO.DTL_SEQ			AS DTL_SEQ
+					, MO.MRKT_GDS_CD 		AS MRKT_GDS_CD
+					, MO.MRKT_GDS_NM		AS MRKT_GDS_NM
+					, MO.MRKT_NTSL_CD		AS MRKT_NTSL_CD
+					, MO.STOR_CD			AS STOR_CD
+					, MO.STOR_NM			AS STOR_NM
+					, MO.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+					, MO.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+					, MO.UP_GRD_ITEM		AS UP_GRD_ITEM
+					, MO.BX_GDS_QNTT		AS BX_GDS_QNTT
+					, MO.OUTORDR_QNTT		AS OUTORDR_QNTT
+					, MO.OUTORDR_UNIT		AS OUTORDR_UNIT
+					, MO.PIECE_QNTT			AS PIECE_QNTT
+					, MO.ZCST_QNTT			AS ZCST_QNTT
+					, MO.PIECE_UNTPRC		AS PIECE_UNTPRC
+					, MO.TXAMT				AS TXAMT
+					, MO.OUTORDR_AMT		AS OUTORDR_AMT
+					, MO.OUTORDR_UNTPRC		AS OUTORDR_UNTPRC
+					, MO.WRHS_QNTT			AS WRHS_QNTT
+					, MO.RECEIPT_YN			AS RECEIPT_YN
+					, (SELECT FN_GET_COM_CD_VL_NM('LGSZ_MRKT_CD', MO.LGSZ_MRKT_CD) FROM DUAL)          AS LGSZ_MRKT_NM
+					, (SELECT FN_GET_COM_CD_VL_NM('RCPTN_SE_CD', MO.RCPTN_SE_CD) FROM DUAL)          AS RCPTN_SE_NM
+			  FROM (
+					SELECT
+						  MH.ORDR_APC_CD			AS ORDR_APC_CD
+						, '21'								AS LGSZ_MRKT_CD
+						, (SELECT FN_GET_COM_CD_CHR_VL('LGSZ_MRKT_CD', '21') FROM DUAL) AS RCPTN_SE_CD
+						, OI.APC_SE_CD				AS APC_SE_CD
+					    , OI.OUTORDRNO				AS APC_OUTORDRNO
+						, MH.WRHS_YMD				AS WRHS_YMD
+						, MH.ORDR_SEQ				AS ORDR_SEQ
+						, MH.ORDR_CRT_DT			AS ORDR_CRT_DT
+						, MH.ORDR_CHG_DT			AS ORDR_CHG_DT
+						, MH.ORDR_PRCS_CD		AS ORDR_PRCS_CD
+						, MH.ORDR_PRCS_DT			AS ORDR_PRCS_DT
+						, MH.ORDR_PRCS_MSG		AS ORDR_PRCS_MSG
+						, MH.OUTORDRNO				AS OUTORDRNO
+						, MH.OUTORDR_AMT			AS TOT_OUTORDR_AMT
+						, MH.OUTORDR_YMD			AS OUTORDR_YMD
+						, MH.MRKT_WRHS_KND		AS MRKT_WRHS_KND
+						, MH.TRSM_YMD		AS TRSM_YMD
+						, MH.TRSM_TM			AS TRSM_TM
+						, MH.RCPTN_YMD		AS RCPTN_YMD
+						, MH.RCPTN_TM		AS RCPTN_TM
+						, MH.RCPTN_YN		AS RCPTN_YN
+						, MH.ORDRR		AS ORDRR
+						, MH.CNTR_CD		AS CNTR_CD
+						, MH.CNTR_NM		AS CNTR_NM
+						, MH.SPLR_CD		AS SPLR_CD
+						, MH.SPLR_NM		AS SPLR_NM
+						, MH.USER_ID		AS USER_ID
+						, MH.BPLC_CD		AS BPLC_CD
+						, MH.CO_CD		AS CO_CD
+						, MH.CO_NM		AS CO_NM
+						, MH.VR_WAREHOUSE_CD		AS VR_WAREHOUSE_CD
+						, MH.VR_WAREHOUSE_TXT		AS VR_WAREHOUSE_TXT
+						, MH.VR_WAREHOUSE_NM		AS VR_WAREHOUSE_NM
+						, NULL							AS ORDR_DSCTN
+						, MD.DTL_SEQ					AS DTL_SEQ
+						, MD.MRKT_GDS_CD			AS MRKT_GDS_CD
+						, MD.MRKT_GDS_NM			AS MRKT_GDS_NM
+						, NULL							AS MRKT_NTSL_CD
+
+						, MD.STOR_CD					AS STOR_CD
+						, MD.STOR_NM					AS STOR_NM
+						, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+						, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+						, MD.UP_GRD_ITEM			AS UP_GRD_ITEM
+						, MD.BX_GDS_QNTT			AS BX_GDS_QNTT
+						, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+						, MD.OUTORDR_UNIT			AS OUTORDR_UNIT
+						, MD.PIECE_QNTT				AS PIECE_QNTT
+						, MD.ZCST_QNTT				AS ZCST_QNTT
+						, MD.PIECE_UNTPRC			AS PIECE_UNTPRC
+						, MD.TXAMT					AS TXAMT
+						, MD.OUTORDR_AMT			AS OUTORDR_AMT
+						, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+						, MD.WRHS_QNTT				AS WRHS_QNTT
+						, CASE
+							WHEN OI.RCPT_CFMTN_YMD IS NOT NULL THEN 'Y'
+							ELSE 'N'
+						  END				AS RECEIPT_YN
+
+					  FROM TB_MRKT_ORDR_IF_HP MH
+
+					  JOIN TB_MRKT_ORDR_IF_HP_DTL MD
+						ON MD.ORDR_APC_CD = MH.ORDR_APC_CD
+					   AND MD.WRHS_YMD = MH.WRHS_YMD
+					   AND MD.ORDR_SEQ = MH.ORDR_SEQ
+					   AND MD.OUTORDRNO = MH.OUTORDRNO
+
+					  JOIN TB_OUTORDR_INFO OI
+						ON OI.APC_CD = MD.ORDR_APC_CD
+					   AND OI.WRHS_YMD = MD.WRHS_YMD
+					   AND OI.ORDR_SEQ = MD.ORDR_SEQ
+					   AND OI.DTL_SEQ = MD.DTL_SEQ
+					   AND OI.DEL_YN = 'N'
+
+					 WHERE MH.ORDR_APC_CD = #{apcCd}
+					   AND MH.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+					   AND #{lgszMrktCd} = '21'
+		]]>
+		<choose>
+			<when test='receiptYn != null and receiptYn.equals("Y")'>
+				AND OI.RCPT_CFMTN_YMD IS NOT NULL
+			</when>
+			<when test='receiptYn != null and receiptYn.equals("N")'>
+				AND OI.RCPT_CFMTN_YMD IS NULL
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<if test='mrktGdsCd != null and mrktGdsCd != ""'>
+				AND MD.MRKT_GDS_CD LIKE '%' || #{mrktGdsCd} || '%'
+		</if>
+		<if test='mrktGdsNm != null and mrktGdsNm != ""'>
+			AND MD.MRKT_GDS_NM LIKE '%' || #{mrktGdsNm} || '%'
+		</if>
+		<![CDATA[
+					UNION ALL
+					SELECT
+						  MH.ORDR_APC_CD			AS ORDR_APC_CD
+						, MH.LGSZ_MRKT_CD			AS LGSZ_MRKT_CD
+						, (SELECT FN_GET_COM_CD_CHR_VL('LGSZ_MRKT_CD', MH.LGSZ_MRKT_CD) FROM DUAL) AS RCPTN_SE_CD
+						, OI.APC_SE_CD				AS APC_SE_CD
+					    , OI.OUTORDRNO				AS APC_OUTORDRNO
+						, MH.WRHS_YMD				AS WRHS_YMD
+						, MH.ORDR_SEQ				AS ORDR_SEQ
+						, MH.ORDR_CRT_DT			AS ORDR_CRT_DT
+						, MH.ORDR_CHG_DT			AS ORDR_CHG_DT
+						, MH.ORDR_PRCS_CD		AS ORDR_PRCS_CD
+						, MH.ORDR_PRCS_DT			AS ORDR_PRCS_DT
+						, MH.ORDR_PRCS_MSG		AS ORDR_PRCS_MSG
+						, MH.OUTORDRNO				AS OUTORDRNO
+						, MH.OUTORDR_AMT			AS TOT_OUTORDR_AMT
+						, MH.OUTORDR_YMD			AS OUTORDR_YMD
+						, MH.MRKT_WRHS_KND		AS MRKT_WRHS_KND
+						, MH.TRSM_YMD		AS TRSM_YMD
+						, MH.TRSM_TM			AS TRSM_TM
+						, MH.RCPTN_YMD		AS RCPTN_YMD
+						, MH.RCPTN_TM		AS RCPTN_TM
+						, MH.RCPTN_YN		AS RCPTN_YN
+						, MH.ORDRR		AS ORDRR
+						, MH.CNTR_CD		AS CNTR_CD
+						, MH.CNTR_NM		AS CNTR_NM
+						, MH.SPLR_CD		AS SPLR_CD
+						, MH.SPLR_NM		AS SPLR_NM
+						, MH.USER_ID		AS USER_ID
+						, MH.BPLC_CD		AS BPLC_CD
+						, MH.CO_CD		AS CO_CD
+						, MH.CO_NM		AS CO_NM
+						, MH.WAREHOUSE_CD		AS VR_WAREHOUSE_CD
+						, MH.WAREHOUSE_TXT		AS VR_WAREHOUSE_TXT
+						, MH.WAREHOUSE_NM		AS VR_WAREHOUSE_NM
+						, MH.ORDR_DSCTN			AS ORDR_DSCTN
+
+						, MD.DTL_SEQ					AS DTL_SEQ
+						, MD.MRKT_GDS_CD			AS MRKT_GDS_CD
+						, MD.MRKT_GDS_NM			AS MRKT_GDS_NM
+						, MD.MRKT_NTSL_CD			AS MRKT_NTSL_CD
+
+						, MD.STOR_CD					AS STOR_CD
+						, MD.STOR_NM					AS STOR_NM
+						, MD.MRKT_WRHS_TYPE		AS MRKT_WRHS_TYPE
+						, MD.MRKT_WRHS_TYPE_NM	AS MRKT_WRHS_TYPE_NM
+						, MD.UP_GRD_ITEM			AS UP_GRD_ITEM
+						, MD.BX_GDS_QNTT			AS BX_GDS_QNTT
+						, MD.OUTORDR_QNTT		AS OUTORDR_QNTT
+						, MD.OUTORDR_UNIT			AS OUTORDR_UNIT
+						, MD.PIECE_QNTT				AS PIECE_QNTT
+						, MD.ZCST_QNTT				AS ZCST_QNTT
+						, MD.PIECE_UNTPRC			AS PIECE_UNTPRC
+						, MD.TXAMT					AS TXAMT
+						, MD.OUTORDR_AMT			AS OUTORDR_AMT
+						, MD.OUTORDR_UNTPRC	AS OUTORDR_UNTPRC
+						, MD.WRHS_QNTT				AS WRHS_QNTT
+						, CASE
+							WHEN OI.RCPT_CFMTN_YMD IS NOT NULL THEN 'Y'
+							ELSE 'N'
+						  END				AS RECEIPT_YN
+
+					  FROM TB_MRKT_ORDR_IF_LT MH
+
+					  JOIN TB_MRKT_ORDR_IF_LT_DTL MD
+						ON MD.ORDR_APC_CD = MH.ORDR_APC_CD
+					   AND MD.WRHS_YMD = MH.WRHS_YMD
+					   AND MD.ORDR_SEQ = MH.ORDR_SEQ
+					   AND MD.OUTORDRNO = MH.OUTORDRNO
+
+					  JOIN TB_OUTORDR_INFO OI
+						ON OI.APC_CD = MD.ORDR_APC_CD
+					   AND OI.WRHS_YMD = MD.WRHS_YMD
+					   AND OI.ORDR_SEQ = MD.ORDR_SEQ
+					   AND OI.DTL_SEQ = MD.DTL_SEQ
+					   AND OI.DEL_YN = 'N'
+
+					 WHERE MH.ORDR_APC_CD = #{apcCd}
+					   AND MH.WRHS_YMD BETWEEN #{wrhsYmdFrom} AND #{wrhsYmdTo}
+					   AND #{lgszMrktCd} IN ('31', '32')
+		]]>
+		<choose>
+			<when test='receiptYn != null and receiptYn.equals("Y")'>
+					AND OI.RCPT_CFMTN_YMD IS NOT NULL
+			</when>
+			<when test='receiptYn != null and receiptYn.equals("N")'>
+				AND OI.RCPT_CFMTN_YMD IS NULL
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<if test='mrktGdsCd != null and mrktGdsCd != ""'>
+			AND MD.MRKT_GDS_CD LIKE '%' || #{mrktGdsCd} || '%'
+		</if>
+		<if test='mrktGdsNm != null and mrktGdsNm != ""'>
+			AND MD.MRKT_GDS_NM LIKE '%' || #{mrktGdsNm} || '%'
+		</if>
+		<![CDATA[
+			  ) MO
+			 WHERE 1=1
+
+			 ORDER BY ORDR_APC_CD, WRHS_YMD, LGSZ_MRKT_CD, ORDR_SEQ
+		]]>
+
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.updateOutordrReceipt		-->
+	<!-- DESC : 대형마트 발주수신 상세목록 조회.	                         	        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.04  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateOutordrReceipt" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.ordr.mapper.OrdrMapper.updateOutordrReceipt */
+				TB_OUTORDR_INFO
+			SET
+			      SYS_LAST_CHG_DT 			= SYSDATE
+				, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, RCPT_CFMTN_APC_CD		= #{ordrApcCd}
+				, RCPT_CFMTN_YMD		= TO_CHAR(SYSDATE, 'YYYYMMDD')
+			WHERE APC_CD		= #{ordrApcCd}
+			  AND APC_SE_CD 	= #{apcSeCd}
+			  AND OUTORDRNO 	= #{apcOutordrno}
+		]]>
+	</update>
 </mapper>
 
 

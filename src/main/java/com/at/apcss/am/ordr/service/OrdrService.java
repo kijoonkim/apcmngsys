@@ -3,6 +3,8 @@ package com.at.apcss.am.ordr.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
+import com.at.apcss.am.ordr.vo.MrktOrdrVO;
 import com.at.apcss.am.ordr.vo.OrdrVO;
 
 /**
@@ -108,4 +110,21 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	public void updateCmndno(OrdrVO ordrVO) throws Exception;
+
+	/**
+	 * 마켓발주정보 상세조회
+	 * @param mrktOrdrDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<MrktOrdrDtlVO> selectMrktOrdrDtlList(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+
+
+	/**
+	 * 발주정보 접수 (대형마트)
+	 * @param mrktOrdrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception;
 }

@@ -469,7 +469,7 @@
 		//등록년도
 		let yr = gfn_nvl(rowData.yr);
 
-		console.log(brno,yr);
+		//console.log(brno,yr);
 
 		if(gfn_isEmpty(brno)){return;}
 		if(gfn_isEmpty(yr)){return;}
@@ -533,16 +533,16 @@
 				alert("삭제 처리 되었습니다.");
 				this.fn_search();
 			} else {
-				console.log(data.resultMessage);
+				//console.log(data.resultMessage);
 			}
 		} catch(e) {
-			console.log(data.resultMessage);
+			//console.log(data.resultMessage);
 		}
 	}
 
 	//제출조직 일괄승인
 	async function fn_AllAprvYn(){
-		console.log("fn_AllAprvYn");
+		//console.log("fn_AllAprvYn");
 
 		if (!confirm("제출조직 일괄승인 하시겠습니까?")) return;
 
@@ -623,7 +623,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr		: item.yr
@@ -686,7 +686,7 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
-		console.log(hiddenGrd.exportData);
+		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 </script>

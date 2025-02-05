@@ -13,15 +13,15 @@
 <mapper namespace="com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper">
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbs				-->
-	<!-- DESC : 게시판 테이블 단건조회.                                             		-->
+	<!-- NAME : com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng	-->
+	<!-- DESC : 신청 정보 조회                                             				-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
-		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList */
+		SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng */
 			  CM.APO_CD
 			, EAM.APO_SE
 			, CM.WRT_YN
@@ -31,7 +31,32 @@
 			, CM.BRNO
 			, CM.CRNO
 
-			, EAM.UO_BRNO
+			, CM.PIC_FLNM
+			, CM.ZIP
+			, CM.LOTNO_ADDR
+			, CM.LOTNO_DTL_ADDR
+			, CM.ROAD_NM_ADDR
+			, CM.ROAD_NM_DTL_ADDR
+			, CM.CORP_SE_CD
+			, CM.CORP_DTL_SE_CD
+			, CM.CORP_FNDN_DAY
+			, CM.INVST_NOPE
+			, CM.INVST_EXPND_FRMER_NOPE
+			, CM.INVST_AMT
+			, CM.FRMER_INVST_AMT
+			, CM.PRDCR_GRP_INVST_AMT
+			, CM.LOCGOV_INVST_AMT
+			, CM.ETC_INVST_AMT
+			, CM.RGLLBR_NOPE
+			, CM.DW_NOPE
+			, CM.DLBRR_NOPE
+			, CM.ISO_HLD_YN
+			, CM.UNTY_YN
+
+			, CM.UO_BRNO
+			, CM.UO_NM
+
+			, CM.UNTY_YR
 			, (CASE WHEN EAM.APO_SE = '1'
 					THEN CM.APRV
 					WHEN EAM.APO_SE = '2'
@@ -44,11 +69,12 @@
 						)
 				ELSE '' END
 			) AS APRV
-			, CM.STBLT_YN
+
+			, CM.MNGMST_YN
 			, EAM.YR
 			, EAM.APLY_DAY
 			, DECODE(EAM.APO_SE
-				, '1' , EAM.CORP_DDLN_SE_CD
+					, '1' , EAM.CORP_DDLN_SE_CD
 					, '2' , DECODE(NVL((SELECT COUNT(CORP_DDLN_SE_CD)
 										FROM TB_EV_APLY_MNG
 										WHERE 1=1
@@ -65,24 +91,32 @@
 									)
 					,''
 			) AS CORP_DDLN_SE_CD
-			, DECODE(EAM.APO_SE
-					, '1' , EAM.PRFMNC_CORP_DDLN_YN
-					, '2' , DECODE(NVL((SELECT COUNT(PRFMNC_CORP_DDLN_YN)
-										FROM TB_EV_APLY_MNG
-										WHERE 1=1
-										  AND APO_SE = '1'
-										  AND YR = EAM.YR
-										  AND PRFMNC_CORP_DDLN_YN = 'Y'
-										  AND BRNO IN (SELECT UO_BRNO
-														FROM TB_EV_APO_UO_CD
-														WHERE ISO_BRNO = EAM.BRNO
-														)
-										),0)
-									, 0 , 'N'
-									, 'Y'
+
+			,(CASE WHEN TRIM(RAW_MTR_ENSR_SIGUN_CNT) IS NOT NULL THEN '1'
+					WHEN TRIM(RAW_MTR_ENSR_CTPV_CNT) IS NOT NULL THEN '2'
+					END
+			) AS RAW_MTR_ENSR
+
+			, EAM.RAW_MTR_ENSR_SIGUN_CNT
+			, EAM.RAW_MTR_ENSR_CTPV_CNT
+			, EAM.CTPV_NM
+			, EAM.SIGUN_NM
+			, EAM.PRUO_FUND_APLY_AMT
+			/*화면 표기와 동일하게 맞추기 위해 조직정보에 있는 경우만 합산 변경*/
+			,NVL( (SELECT SUM(ISO_FUND_APLY_AMT)
+					FROM TB_EV_APLY_MNG
+					WHERE YR = EAM.YR
+					  AND UO_BRNO = EAM.BRNO
+					  AND APO_SE = '2'
+					  AND BRNO IN (SELECT ISO_BRNO
+									FROM TB_EV_APO_UO_CD
+									WHERE UO_BRNO = CM.BRNO
 									)
-					,''
-			) AS PRFMNC_CORP_DDLN_YN
+					),0
+			) AS ISO_FUND_APLY_AMT
+			, EAM.APLY_TRGT_SE
+
+			, (SELECT MAX(LN_CHK_YN) FROM TB_EV_LN_BLNC_STTS WHERE UO_BRNO = EAM.BRNO) AS LN_CHK_YN
 
 		  FROM (SELECT *
 					FROM TB_EV_APO

@@ -631,9 +631,17 @@
 	//그리드 열 속성의 calc 은 그리드 생성시 작동함  refresh() 해서 데이터 변경시로 유사하게 가능
 	function fn_AfterEdit01(e){
 		let objGrid = e.data.target;
+		let nRow = objGrid.getRow();
 		let nCol = objGrid.getCol();
 		let nRef = objGrid.getRefOfCol(nCol);
 		if(columnsToRefresh01.includes(nRef)){
+			//소숫점 버림 처리
+			let valueData = objGrid.getCellData(nRow,nCol);
+			const regex = /[^0-9.]/g;// 숫자 소숫점
+			let result = Number(valueData.replace(regex,''));
+			result = result.toFixed(0);
+			objGrid.setCellData(nRow,nCol, result);
+
 			objGrid.refresh();
 		}
 	}
@@ -919,7 +927,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -981,7 +989,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -991,7 +999,7 @@
 				//신청하지 않는 경우 값이 없음
 				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
 
-				console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
+				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리

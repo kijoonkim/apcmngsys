@@ -51,7 +51,8 @@ public interface PrdcrCrclOgnSpItmPurSalNMngService {
 	public int insertPrdcrCrclOgnSpItmPurSalNMngNew(PrdcrCrclOgnSpItmPurSalNMngVO PrdcrCrclOgnSpItmPurSalNMngVO) throws Exception;
 	//20241212 개발서버 신규 화면 등록
 	public int multiSavePrdcrCrclOgnSpItmPurSalNMngListNew(List<PrdcrCrclOgnSpItmPurSalNMngVO> PrdcrCrclOgnSpItmPurSalNMngVOList) throws Exception;
-
+	/* 개발서버 신규화면 적합여부 체크 */
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 	/**
 	 * 임시저장 정보를 조회한다.
 	 * @param PrdcrCrclOgnSpItmPurSalNMngVO

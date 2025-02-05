@@ -1632,47 +1632,50 @@
             gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['gvwWFItem'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            //필요없는 체크박스 하이드
+            SBUxMethod.hide('OPEN_TO_ALL_YN'),
+            
         ]);
     }
 
     var fn_getBankAccountSeq = async function () {
         // 계좌정보
         await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
-            await gfnma_multiSelectInit({
-                target: ['#BANK_ACCOUNT_SEQ']
-                , compCode: gv_ma_selectedCorpCd
-                , clientCode: gv_ma_selectedClntCd
-                , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
-                , formId: p_formId
-                , menuId: p_menuId
-                , selectValue: ''
-                , dropType: 'down' 	// up, down
-                , dropAlign: 'left' 	// left, right
-                , colValue: 'BANK_ACCOUNT_SEQ'
-                , colLabel: 'SEQ_NAME'
-                , columns: [
-                    {caption: "행번", ref: 'BANK_ACCOUNT_SEQ', width: '50px', style: 'text-align:left'},
-                    {caption: "행번명", ref: 'SEQ_NAME', width: '60px', style: 'text-align:left'},
-                    {caption: "은행코드", ref: 'BANK_CODE', width: '50px', style: 'text-align:left'},
-                    {caption: "은행명", ref: 'BANK_NAME', width: '100px', style: 'text-align:left'},
-                    {caption: "계좌번호", ref: 'BANK_ACCOUNT_NO', width: '130px', style: 'text-align:left'},
-                    {caption: "비고", ref: 'DESCRIPTION', width: '120px', style: 'text-align:left'},
-                    {caption: "계좌주", ref: 'BANK_ACCOUNT_OWNER', width: '100px', style: 'text-align:left'},
-                    {caption: "거래처", ref: 'CS_CODE', width: '100px', style: 'text-align:left'},
-                    {caption: "시작일", ref: 'EFFECT_START_DATE', width: '100px', style: 'text-align:left'},
-                    {caption: "종료일", ref: 'EFFECT_END_DATE', width: '100px', style: 'text-align:left'},
-                    {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
-                ]
-                , callback : function(value) {
-                    if (!bnew) return;
+        await gfnma_multiSelectInit({
+            target: ['#BANK_ACCOUNT_SEQ']
+            , compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'L_CS_ACCOUNT'
+            , whereClause: "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
+            , formId: p_formId
+            , menuId: p_menuId
+            , selectValue: ''
+            , dropType: 'down' 	// up, down
+            , dropAlign: 'left' 	// left, right
+            , colValue: 'BANK_ACCOUNT_SEQ'
+            , colLabel: 'SEQ_NAME'
+            , columns: [
+                {caption: "행번", ref: 'BACNT_SEQ', width: '50px', style: 'text-align:left'},
+                {caption: "행번명", ref: 'SEQ_NAME', width: '60px', style: 'text-align:left'},
+                {caption: "은행코드", ref: 'BANK_CD', width: '50px', style: 'text-align:left'},
+                {caption: "은행명", ref: 'BANK_NM', width: '100px', style: 'text-align:left'},
+                {caption: "계좌번호", ref: 'BACNT_NO', width: '130px', style: 'text-align:left'},
+                {caption: "비고", ref: 'DSCTN', width: '120px', style: 'text-align:left'},
+                {caption: "계좌주", ref: 'BACNT_OWNR', width: '100px', style: 'text-align:left'},
+                {caption: "거래처", ref: 'CNPT_CD', width: '100px', style: 'text-align:left'},
+                {caption: "시작일", ref: 'EFCT_BGNG_YMD', width: '100px', style: 'text-align:left'},
+                {caption: "종료일", ref: 'EFCT_END_YMD', width: '100px', style: 'text-align:left'},
+                {caption: "복수등록", ref: 'BNKCNT', width: '100px', style: 'text-align:left'},
+            ]
+            , callback : function(value) {
+                if (!bnew) return;
 
-                    SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_CODE"]);
-                    SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BANK_ACCOUNT_NO"]);
-                    SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["DESCRIPTION"]);
-                    SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BANK_ACCOUNT_SEQ"] == value)[0]["BNKCNT"]);
-                }
-            });
+                SBUxMethod.set('BANK_CODE', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BANK_CD"]);
+                SBUxMethod.set('BANK_ACCOUNT_NO', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BACNT_NO"]);
+                SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["DSCTN"]);
+                SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BNKCNT"]);
+            }
+        });
     }
 
     var fn_changeExpectedPayDate = async function (value) {
@@ -2116,7 +2119,6 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , disabled: true
             },
             {
                 caption: ["차/대"], ref: 'DEBIT_CREDIT', type: 'combo', width: '66px', style: 'text-align:left',
@@ -2126,20 +2128,19 @@
                     value: 'value',
                     itemcount: 10
                 }
-                , disabled: true
             },
             {caption: ["부가세유형"], ref: 'VAT_TYPE', type: 'output', width: '72px', style: 'text-align:left'},
             {caption: ["부가세유형명"], ref: 'VAT_NAME', type: 'output', width: '184px', style: 'text-align:left'},
             {caption: ["부가세유형명"], 		ref: 'VAT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'},
             {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["계정과목명"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {
@@ -2169,14 +2170,14 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["사업장"], ref: 'SITE_CODE', type: 'input', width: '100px', style: 'text-align:left',
@@ -2192,7 +2193,7 @@
             {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
             {caption: ["프로젝트명"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'>...</button>";
                 }
             },
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
@@ -3794,8 +3795,8 @@
         let DOC_AMT = Number(value.replace(/,/gi, ''));
 
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) != "") {
-            let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
-            let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+            let vatInfo = jsonVatCode.filter(data => data["VAT_CD"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+            let dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RT) == "" ? "0" : gfn_nvl(vatInfo.VAT_RT));
 
             let SUPPLY_AMT = DOC_AMT / (1+(dcmvat_rate/100));
             let VAT_AMOUNT = Number(DOC_AMT) - Number(SUPPLY_AMT);
@@ -4586,7 +4587,6 @@
 
             for(var i = 0; i < updatedData.length; i++) {
                 let thisdr = updatedData[i].data;
-
                 if (strRowStatus == "D" || updatedData[i].status == 'd')
                     continue;
 
@@ -4633,7 +4633,6 @@
                         } else {
                             Dsupply_amt = Dsupply_amt_orig;
                         }
-
                         if (Dsupply_amt != Math.round(Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT")).replace(/,/g, '')) * Number(gfn_nvl(SBUxMethod.get("EXCHANGE_RATE")).replace(/,/g, '')))) {
                             gfn_comAlert("E0000", "전표헤더의 공급가액과 부가세탭의 공급가액이 다릅니다.");
                             return false;
@@ -4842,7 +4841,6 @@
                     strvat_amt += Number(gfn_nvl(thisdr["VAT_AMT"])) + "|";
                 }
             }
-
             if (dSumdr_amt != dSumCr_amt) {
                 gfn_comAlert("E0000", "차대금액이 맞지 않습니다. 금액을 확인해 주십시오.");
                 return false;
@@ -5169,16 +5167,17 @@
                             SBUxMethod.set("DOC_BATCH_NO", data.v_returnStr);
                         }
                     }
-
                     bResult = true;
+                    
                 } else {
-                    var strreturn_string = data.v_returnStr.split('|');
-
-                    gfn_comAlert("E0002", "배치번호 : " + data.v_returnStr.replaceAll("|", ","));
-
+                	if(data.v_returnStr){
+	                    var strreturn_string = data.v_returnStr.split('|');
+	                    gfn_comAlert("E0002", "배치번호 : " + data.v_returnStr.replaceAll("|", ","));
+                	}else if(data.data.resultMessage){
+                		gfn_comAlert("E0002", data.resultMessage);
+                	}
                     bResult = false;
                 }
-
                 return bResult;
             } catch (e) {
                 if (!(e instanceof Error)) {
@@ -5357,7 +5356,7 @@
                     gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', gfn_nvl(formData.CRN_CD));
                     SBUxMethod.set('EXCHANGE_RATE', formData.EXCHRT);
                     SBUxMethod.set('BASE_SCALE', formData.BASE_SCALE);
-                    gfnma_multiSelectSet('#VAT_CODE', 'VAT_CODE', 'VAT_NAME', gfn_nvl(formData.VAT_CD));
+                    gfnma_multiSelectSet('#VAT_CODE', 'VAT_CD', 'VAT_NM', gfn_nvl(formData.VAT_CD));
                     SBUxMethod.set('DOC_AMT', formData.SLIP_AMT);
                     gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(formData.PAY_MTHD));
                     SBUxMethod.set('PAY_TERM_CODE', formData.PAY_TERM_CD);
@@ -5687,7 +5686,6 @@
                 alert(data.resultMessage);
             }
         } catch (e) {
-            console.log(e);
             if (!(e instanceof Error)) {
                 e = new Error(e);
             }
@@ -6188,11 +6186,11 @@
 
         if(gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')) == "") return false;
 
-        let vatInfo = jsonVatCode.filter(data => data["VAT_CODE"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
-        dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RATE) == "" ? "0" : gfn_nvl(vatInfo.VAT_RATE));
+        let vatInfo = jsonVatCode.filter(data => data["VAT_CD"] == gfn_nvl(gfnma_multiSelectGet('#VAT_CODE')))[0];
+        dcmvat_rate = Number(gfn_nvl(vatInfo.VAT_RT) == "" ? "0" : gfn_nvl(vatInfo.VAT_RT));
 
-        dcmlimit_plus_rate = Number(gfn_nvl(vatInfo.LIMIT_PLUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_PLUS_RATE));
-        dcmlimit_minus_rate = Number(gfn_nvl(vatInfo.LIMIT_MINUS_RATE) == "" ? "0" : gfn_nvl(vatInfo.LIMIT_MINUS_RATE));
+        dcmlimit_plus_rate = Number(gfn_nvl(vatInfo.HGHST_RT) == "" ? "0" : gfn_nvl(vatInfo.HGHST_RT));
+        dcmlimit_minus_rate = Number(gfn_nvl(vatInfo.LOWST_RT) == "" ? "0" : gfn_nvl(vatInfo.LOWST_RT));
 
         dcmlimit_plus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 + (dcmlimit_plus_rate / 100));
         dcmlimit_minus_amt = Number(gfn_nvl(SBUxMethod.get("SUPPLY_AMT"))) * (dcmvat_rate / 100) * (1 - (dcmlimit_minus_rate / 100));
@@ -6270,7 +6268,7 @@
                         COST_CLASS : item.CST_CLSF,
                         ORIGINAL_AMT : item.ORIGINAL_AMT,
                         FUNCTIONAL_AMT : item.CNVS_AMT,
-                        SUPPLY_AMOUNT : item.SPLY_AMT,
+                        SUPPLY_AMOUNT : item.SUPPLY_AMOUNT,
                         DEBIT_CREDIT : item.DBSD_CRSD,
                         ACC_ITEM_CODE1 : item.ACNT_MNG_ARTCL_CD1,
                         ACC_ITEM_CODE2 : item.ACNT_MNG_ARTCL_CD2,

@@ -7,11 +7,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>출자출하조직 전문품목 매입매출 과거조회 팝업</title>
-	<!--
-		새창으로 열기 기준
-		SBUx openModal은 메인 페이지 에서 css js include 해오지만
-		새창으로 열면 해당 부분이 없어서 추가 함
-	-->
 	<%@ include file="../../../frame/inc/headerScriptPopup.jsp" %>
 
 </head>
@@ -465,7 +460,7 @@
 		SBUxMethod.set('dtl-inp-yr',gfn_nvl(rowData.yr))//사업자등록번호
 		$("#dtl-inp-uoBrno").show();
 		$("#dtl-inp-selUoBrno").hide();
-		console.log(rowData);
+		//console.log(rowData);
 		if(rowData.apoSe == '1'){
 			//await fn_searchUoList();
 			await SBUxMethod.set('dtl-inp-uoBrno',gfn_nvl(rowData.brno))//속한 통합조직 사업자등록번호
@@ -476,7 +471,7 @@
 
 	//조직 그리드 키보드로 이동시 이벤트
 	const fn_keyupOgnz = async function(event) {
-		console.log(event);
+		//console.log(event);
 		if(event.keyCode == 38 || event.keyCode == 40) {
 			fn_view();
 		}
@@ -695,7 +690,7 @@
 		let data = await postJsonPromise;
 		try{
 			jsonIsoSpItmPurSal.length = 0;
-			console.log(data);
+			//console.log(data);
 			data.resultList.forEach((item, index) => {
 				//년도별 차이와 관계없이 전부 넣기
 				let itemNm;

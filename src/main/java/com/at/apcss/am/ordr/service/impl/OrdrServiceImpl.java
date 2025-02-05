@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.ordr.vo.MrktOrdrDtlVO;
+import com.at.apcss.am.ordr.vo.MrktOrdrVO;
+import com.at.apcss.am.shpgot.vo.ShpgotCrtrVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import com.at.apcss.am.ordr.vo.OrdrVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.springframework.util.StringUtils;
 
 /**
  * @Class Name : OrdrServiceImpl.java
@@ -159,6 +163,46 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 	@Override
 	public void updateCmndno(OrdrVO ordrVO) throws Exception {
 		ordrMapper.updateCmndno(ordrVO);
+	}
+
+	@Override
+	public List<MrktOrdrDtlVO> selectMrktOrdrDtlList(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception {
+		return ordrMapper.selectMrktOrdrDtlList(mrktOrdrDtlVO);
+	}
+
+	@Override
+	public HashMap<String, Object> insertOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception {
+
+		String apcCd = mrktOrdrVO.getOrdrApcCd();
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		List<MrktOrdrDtlVO> ordrList = mrktOrdrVO.getDtlList();
+		if (ordrList == null || ordrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "접수처리");
+		}
+
+		String sysUserId = mrktOrdrVO.getSysLastChgUserId();
+		String sysPrgrmId = mrktOrdrVO.getSysLastChgPrgrmId();
+
+		for ( MrktOrdrDtlVO dtl : ordrList ) {
+			if (!StringUtils.hasText(dtl.getApcOutordrno())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "발주번호");
+			}
+		}
+
+		for ( MrktOrdrDtlVO dtl : ordrList ) {
+			dtl.setSysFrstInptUserId(sysUserId);
+			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+			dtl.setSysLastChgUserId(sysUserId);
+			dtl.setSysLastChgPrgrmId(sysPrgrmId);
+			dtl.setOrdrApcCd(apcCd);
+
+			ordrMapper.updateOutordrReceipt(dtl);
+		}
+
+		return null;
 	}
 
 

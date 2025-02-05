@@ -1196,7 +1196,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+		let postJsonPromise01 = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMng.do", {
 		//let postJsonPromise01 = gfn_postJSON("/pd/aom/selectInvShipOgnReqMngList.do", {
 			brno : brno
 			,yr : yr
@@ -1209,27 +1209,19 @@
 			let corpDdlnSeCd = null;
 			let apoSe = null;
 			//console.log('data');
-			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(item.apoCd))//통합조직 코드
-				SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(item.apoSe))//통합조직 구분
-				SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm))//법인명
-				//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno))//법인등록번호
-				SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno))//사업자등록번호
-				//신청정보가 없는 경우 년도값이 없음
-				//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr))//
-				wrtYn = item.wrtYn;
-				corpDdlnSeCd = item.corpDdlnSeCd;
-				apoSe = item.apoSe;
-				SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd))//법인체마감 여부
-			});
+			let item = data.resultMap;
 
-			//let apoSe = SBUxMethod.get('dtl-input-apoSe01');
-
-			/*
-			//하위 출자출하조직 그리드 데이터 제거
-			jsonInvShipOgnReqMng01.length = 0;
-			grdInvShipOgnReqMng01.rebuild();
-			*/
+			SBUxMethod.set('dtl-input-apoCd01',gfn_nvl(item.apoCd));//통합조직 코드
+			SBUxMethod.set('dtl-input-apoSe01',gfn_nvl(item.apoSe));//통합조직 구분
+			SBUxMethod.set('dtl-input-corpNm01',gfn_nvl(item.corpNm));//법인명
+			//SBUxMethod.set('dtl-input-crno01',gfn_nvl(item.crno));//법인등록번호
+			SBUxMethod.set('dtl-input-brno01',gfn_nvl(item.brno));//사업자등록번호
+			//신청정보가 없는 경우 년도값이 없음
+			//SBUxMethod.set('dtl-input-yr',gfn_nvl(item.yr));//
+			wrtYn = item.wrtYn;
+			corpDdlnSeCd = item.corpDdlnSeCd;
+			apoSe = item.apoSe;
+			SBUxMethod.set('dtl-input-corpDdlnSeCd',gfn_nvl(item.corpDdlnSeCd));//법인체마감 여부
 
 			//산지조직관리 작성여부
 			if(wrtYn != 'Y'){

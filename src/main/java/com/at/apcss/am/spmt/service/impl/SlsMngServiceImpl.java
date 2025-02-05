@@ -60,6 +60,7 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 		return deleteCnt;
 	}
 
+
 	@Override
 	public int updateSlsUntprcReg(List<SlsMngVO> slsUntprcList) throws Exception {
 		int resultCnt =0;
@@ -80,5 +81,63 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 	@Override
 	public List<SlsMngVO> selectSlsUntprcDtl(SlsMngVO slsMngVO) throws Exception {
 		return slsMngMapper.selectSlsUntprcDtl(slsMngVO);
+	}
+
+	@Override
+	public List<SlsMngVO> selectSlsCrtr(SlsMngVO slsMngVO) throws Exception {
+		return slsMngMapper.selectSlsCrtr(slsMngVO);
+	}
+
+	@Override
+	public List<SlsMngVO> selectSlsCrtrDtl(SlsMngVO slsMngVO) throws Exception {
+		return slsMngMapper.selectSlsCrtrDtl(slsMngVO);
+	}
+
+	@Override
+	public int insertSlsCrtr(List<SlsMngVO> slsCrtrList) throws Exception {
+		int resultCnt = 0;
+		for(SlsMngVO slsMngVO : slsCrtrList ){
+			String gubun = slsMngVO.getGubun();
+			if(gubun.equals("insert")){
+				resultCnt = slsMngMapper.insertSlsCrtr(slsMngVO);
+			}else if(gubun.equals("update")){
+				resultCnt = slsMngMapper.updateSlsCrtr(slsMngVO);
+			}
+			if(resultCnt < 0){
+				throw new EgovBizException();
+			}
+		}
+		return resultCnt;
+	}
+
+	@Override
+	public int insertSlsCrtrDtl(List<SlsMngVO> slsCrtrDtlList) throws Exception {
+		int resultCnt = 0;
+		for(SlsMngVO slsMngVO : slsCrtrDtlList){
+			String gubun = slsMngVO.getGubun();
+			if(gubun.equals("insert")){
+				resultCnt = slsMngMapper.insertSlsCrtrDtl(slsMngVO);
+			}else if(gubun.equals("update")){
+				resultCnt = slsMngMapper.updateSlsCrtrDtl(slsMngVO);
+			}
+			if(resultCnt < 0){
+				throw new EgovBizException();
+			}
+		}
+		return resultCnt;
+	}
+
+	@Override
+	public int deleteSlsCrtr(SlsMngVO slsMngVO) throws Exception {
+		int delectCnt = 0;
+		delectCnt = slsMngMapper.deleteSlsCrtr(slsMngVO);
+		return delectCnt;
+	}
+
+	@Override
+	public int deleteSlsCrtrDtl(SlsMngVO slsMngVO) throws Exception {
+		int delectCnt = 0;
+		delectCnt = slsMngMapper.deleteSlsCrtrDtl(slsMngVO);
+		return delectCnt;
 	}
 }
