@@ -93,7 +93,7 @@
                             <span style="margin-right: 10px;" id="LBL_INVOICE">세금계산서</span>
                             <sbux-input id="APPROVAL_NO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             <sbux-input id="VOUCHER_TYPE" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                            <sbux-button class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
+                            <sbux-button class="btn btn-xs btn-outline-dark" text="…" uitype="modal" target-id="modal-compopup1" onclick="fn_findApprovalNo"></sbux-button>
                         </div>
                         <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_btnPrint"></sbux-button>
 
@@ -164,7 +164,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="DEPT">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="..." uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findDeptCode"
                                         disabled="true"
@@ -221,11 +221,17 @@
                                 <sbux-input id="BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                             </td>
                             <td class="td_input" style="border-right:hidden;" data-group="CS">
+<!--                                 <sbux-button -->
+<!--                                         class="btn btn-xs btn-outline-dark" -->
+<!--                                         text="…" uitype="modal" -->
+<!--                                         target-id="modal-compopup1" -->
+<!--                                         onclick="fn_findCsCode" -->
+<!--                                 ></sbux-button> -->
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="..." uitype="modal"
-                                        target-id="modal-compopup1"
-                                        onclick="fn_findCsCode"
+                                        text="…" uitype="modal"
+                                        target-id="modal-compopupcs"
+                                        onclick="fn_findCsCode2"
                                 ></sbux-button>
                             </td>
                             <td></td>
@@ -239,7 +245,7 @@
                             <td class="td_input" style="border-right:hidden;" data-group="PAY_TERM">
                                 <sbux-button
                                         class="btn btn-xs btn-outline-dark"
-                                        text="..." uitype="modal"
+                                        text="…" uitype="modal"
                                         target-id="modal-compopup1"
                                         onclick="fn_findPayTermCode"
                                 ></sbux-button>
@@ -849,7 +855,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME1"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(1)"
                                         ></sbux-button>
@@ -865,7 +871,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME5"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(5)"
                                         ></sbux-button>
@@ -881,7 +887,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME9"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(9)"
                                         ></sbux-button>
@@ -899,7 +905,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME2"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(2)"
                                         ></sbux-button>
@@ -915,7 +921,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME6"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(6)"
                                         ></sbux-button>
@@ -931,7 +937,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME10"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(10)"
                                         ></sbux-button>
@@ -949,7 +955,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME3"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(3)"
                                         ></sbux-button>
@@ -965,7 +971,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME7"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(7)"
                                         ></sbux-button>
@@ -983,7 +989,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME4"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(4)"
                                         ></sbux-button>
@@ -999,7 +1005,7 @@
                                         <sbux-button
                                                 id="BTN_ACC_VALUE_NAME8"
                                                 class="btn btn-xs btn-outline-dark"
-                                                text="..." uitype="modal"
+                                                text="…" uitype="modal"
                                                 target-id="modal-compopup1"
                                                 onclick="fn_findAccItem(8)"
                                         ></sbux-button>
@@ -1025,6 +1031,15 @@
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+</div>
+
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+<!--     <sbux-modal style="width:700px" id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal> -->
+</div>
+<div id="body-modal-compopupcs">
+    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
 </div>
 
 <!-- 팝업 Modal -->
@@ -1772,37 +1787,82 @@
         SBUxMethod.setModalCss('modal-compopup1', {width: '800px'})
     }
 
-    var fn_findCsCode = function () {
-        var CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
-        var CS_NAME = gfn_nvl(SBUxMethod.get("CS_NAME"));
-        var replaceText0 = "_CNPT_CD_";
-        var replaceText1 = "_CNPT_NM_";
-        var replaceText2 = "_BRNO_";
-        var strWhereClause = "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%" + replaceText2 + "%'"
-            + (strsourceType == "AP" ? "AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD " : "");
+//     var fn_findCsCode = function () {
+//         var CS_CODE = gfn_nvl(SBUxMethod.get("CS_CODE"));
+//         var CS_NAME = gfn_nvl(SBUxMethod.get("CS_NAME"));
+//         var replaceText0 = "_CNPT_CD_";
+//         var replaceText1 = "_CNPT_NM_";
+//         var replaceText2 = "_BRNO_";
+//         var strWhereClause = "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%" + replaceText2 + "%'"
+//             + (strsourceType == "AP" ? "AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD " : "");
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
-        compopup1({
+//         SBUxMethod.attr('modal-compopup1', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
+//         compopup1({
+//             compCode: gv_ma_selectedCorpCd
+//             , clientCode: gv_ma_selectedClntCd
+//             , bizcompId: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
+//             , popupType: 'A'
+//             , whereClause: strWhereClause
+//             , searchCaptions: ["거래처코드", "거래처명", "사업자번호"]
+//             , searchInputFields: ["CNPT_CD", "CNPT_NM", "BRNO"]
+//             , searchInputValues: [CS_CODE, CS_NAME, ""]
+//             , height: '400px'
+//             , tableHeader: ["거래처코드", "거래처명", "사업자번호", "거래중지여부", "대표자", "업태", "종목", "주소", "전화", "팩스"
+//                 , "채무계정", "채무계정명", "지급기준", "지급기준명", "지급방법", "통화", "TXN_STOP_REASON"]
+//             , tableColumnNames: ["CNPT_CD", "CNPT_NM", "BRNO", "TRSC_HLT_YN", "CEO_NM", "BZSTAT", "TPBIZ"
+//                 , "ADDR", "TELNO", "FX_NO", "APS_ACNT_CD", "AP_ACC_NAME", "PAY_TERM_CD", "PAY_TERM_NM", "PAY_MTHD", "CRN_CD", "TRSC_HLT_RSN"]
+//             , tableColumnWidths: ["90px", "150px", "130px", "70px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px"
+//                 , "100px", "100px", "100px", "100px"]
+//             , itemSelectEvent: function (data) {
+//                 SBUxMethod.set('CS_CODE', data.CNPT_CD);
+//                 SBUxMethod.set('CS_NAME', data.CNPT_NM);
+//                 SBUxMethod.set('BIZ_REGNO', data.BRNO);
+
+//                 if(gfn_nvl(data.PAY_TERM_CD) != "") {
+//                     SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CD);
+//                     SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NM);
+//                 }
+
+//                 if(gfn_nvl(data.PAY_TERM_CD) != "") {
+//                     gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
+//                 }
+
+//                 if(gfn_nvl(data.CRN_CD) != "") {
+//                     gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', data.CRN_CD);
+//                 }
+
+//                 if (gfn_nvl(data.CNPT_CD) != "" && gfn_nvl(SBUxMethod.get("DOC_TYPE")) != "") {
+//                     SBUxMethod.attr("DOC_TYPE", "readonly", "true");
+
+//                     $("#btnAddRow").removeAttr('disabled');
+//                     $("#btnDeleteRow").removeAttr('disabled');
+//                     $("#btnCreateLine").removeAttr('disabled');
+//                 } else {
+//                     SBUxMethod.attr("DOC_TYPE", "readonly", "false");
+
+//                     $("#btnAddRow").attr('disabled', 'true');
+//                     $("#btnDeleteRow").attr('disabled', 'true');
+//                     $("#btnCreateLine").attr('disabled', 'true');
+//                 }
+
+//                 fn_getBankAccountSeq();
+//             },
+//         });
+//     }
+    var fn_findCsCode2 = async function () {
+        var strWhereClause = [ gfn_nvl(SBUxMethod.get("DOC_DATE")) ]
+        SBUxMethod.attr('modal-compopupcs', 'header-title', strsourceType == "AP" ? '거래처 (구매)' : '거래처 (판매)');
+        await comPopupCs({
             compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
+            , type: strsourceType
             , bizcompId: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
-            , popupType: 'A'
             , whereClause: strWhereClause
-            , searchCaptions: ["거래처코드", "거래처명", "사업자번호"]
-            , searchInputFields: ["CNPT_CD", "CNPT_NM", "BRNO"]
-            , searchInputValues: [CS_CODE, CS_NAME, ""]
-            , height: '400px'
-            , tableHeader: ["거래처코드", "거래처명", "사업자번호", "거래중지여부", "대표자", "업태", "종목", "주소", "전화", "팩스"
-                , "채무계정", "채무계정명", "지급기준", "지급기준명", "지급방법", "통화", "TXN_STOP_REASON"]
-            , tableColumnNames: ["CNPT_CD", "CNPT_NM", "BRNO", "TRSC_HLT_YN", "CEO_NM", "BZSTAT", "TPBIZ"
-                , "ADDR", "TELNO", "FX_NO", "APS_ACNT_CD", "AP_ACC_NAME", "PAY_TERM_CD", "PAY_TERM_NM", "PAY_MTHD", "CRN_CD", "TRSC_HLT_RSN"]
-            , tableColumnWidths: ["90px", "150px", "130px", "70px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px"
-                , "100px", "100px", "100px", "100px"]
             , itemSelectEvent: function (data) {
+            	console.log('fn_findCsCode2 data == > ', data);
                 SBUxMethod.set('CS_CODE', data.CNPT_CD);
                 SBUxMethod.set('CS_NAME', data.CNPT_NM);
                 SBUxMethod.set('BIZ_REGNO', data.BRNO);
-
                 if(gfn_nvl(data.PAY_TERM_CD) != "") {
                     SBUxMethod.set('PAY_TERM_CODE', data.PAY_TERM_CD);
                     SBUxMethod.set('PAY_TERM_NAME', data.PAY_TERM_NM);
@@ -1829,7 +1889,6 @@
                     $("#btnDeleteRow").attr('disabled', 'true');
                     $("#btnCreateLine").attr('disabled', 'true');
                 }
-
                 fn_getBankAccountSeq();
             },
         });
@@ -2133,14 +2192,14 @@
             {caption: ["부가세유형명"], ref: 'VAT_NAME', type: 'output', width: '184px', style: 'text-align:left'},
             {caption: ["부가세유형명"], 		ref: 'VAT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'>...</button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findVatTypeForGvwWFItem(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["계정코드"], ref: 'ACCOUNT_CODE', type: 'output', width: '80px', style: 'text-align:left'},
             {caption: ["계정과목명"], ref: 'ACCOUNT_NAME', type: 'output', width: '170px', style: 'text-align:left'},
             {caption: ["계정과목명"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'>...</button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountCodeForGvwWFItem(" + nRow + ")'>…</button>";
                 }
             },
             {
@@ -2170,14 +2229,14 @@
             {caption: ["부서"], ref: 'DEPT_NAME', type: 'output', width: '120px', style: 'text-align:left'},
             {caption: ["부서"], 		ref: 'DEPT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'>...</button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findFiDeptCodeForGvwWFItem(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["원가중심점"], ref: 'COST_CENTER_CODE', type: 'output', width: '91px', style: 'text-align:left'},
             {caption: ["원가중심점명"], ref: 'COST_CENTER_NAME', type: 'output', width: '150px', style: 'text-align:left'},
             {caption: ["원가중심점명"], 		ref: 'COST_CENTER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'>...</button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findCostCenterCodeForGvwWFItem(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["사업장"], ref: 'SITE_CODE', type: 'input', width: '100px', style: 'text-align:left',
@@ -2193,7 +2252,7 @@
             {caption: ["프로젝트명"], ref: 'PROJECT_NAME', type: 'output', width: '234px', style: 'text-align:left'},
             {caption: ["프로젝트명"], 		ref: 'PROJECT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'>...</button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findProjectCodeForGvwWFItem(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["품목"], ref: 'ITEM_CODE', type: 'input', width: '100px', style: 'text-align:left'},
