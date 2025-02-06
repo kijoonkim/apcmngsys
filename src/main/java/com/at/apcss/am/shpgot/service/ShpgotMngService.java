@@ -118,5 +118,22 @@ public interface ShpgotMngService {
 	 */
 	public List<ShpgotRsltVO> selectShpgotRsltRawMtrList(ShpgotRsltVO shpgotRsltVO) throws Exception;
 
+	/**
+	 * 상품 반출 실적 공통 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShpgotRsltVO> selectShpgotRsltGdsComList(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+	/**
+	 * 상품 반출 실적 상세 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShpgotRsltVO> selectShpgotRsltGdsList(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+
 
 }

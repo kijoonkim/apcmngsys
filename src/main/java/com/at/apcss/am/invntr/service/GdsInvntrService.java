@@ -146,6 +146,8 @@ public interface GdsInvntrService {
 	 */
 	public HashMap<String, Object> deleteGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
 
+	public HashMap<String, Object> deleteGdsInvntrForCrynCncl(GdsInvntrVO gdsInvntrVO) throws Exception;
+
 	/**
 	 * 상품재고 변경 : 출하처리
 	 * @param gdsInvntrVO
@@ -206,28 +208,28 @@ public interface GdsInvntrService {
 	 * @return List<SpmtDsctnTotVO>
 	 * @throws Exception
 	 */
-    List<GdsInvntrVO> selectSortGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	public List<GdsInvntrVO> selectSortGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 	/**
 	 * 상품재고 조회 [선출하 D3]
 	 * @param gdsInvntrVO
 	 * @return List<gdsInvntrVO>
 	 * @throws Exception
 	 */
-	List<SpmtPrfmncVO> selectBelowZeroGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
+	public List<SpmtPrfmncVO> selectBelowZeroGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception;
 	/**
 	 * 일일대사 선출하실적 선별실적 => 상품재고 조회
 	 * @param sortInvntrVO
 	 * @return List<gdsInvntrVO>
 	 * @throws Exception
 	 */
-	GdsInvntrVO selectGdsInvntrToSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
+	public GdsInvntrVO selectGdsInvntrToSortInvntr(SortInvntrVO sortInvntrVO) throws Exception;
 	/**
 	 * 일일대사 선출하실적 감가산 적용 UPDATE
 	 * @param originGdsInvntrVO
 	 * @return int
 	 * @throws Exception
 	 */
-	int updateReconciliation(GdsInvntrVO originGdsInvntrVO) throws Exception;
+	public int updateReconciliation(GdsInvntrVO originGdsInvntrVO) throws Exception;
 
 	/**
 	 * 일일대사 선출하실적 마이너스재고 del_yn & 0값 처리
@@ -235,19 +237,28 @@ public interface GdsInvntrService {
 	 * @return int
 	 * @throws Exception
 	 */
-	int updateGdsInvntrDelQnttWght(GdsInvntrVO originGdsInvntrVO) throws Exception;
+	public int updateGdsInvntrDelQnttWght(GdsInvntrVO originGdsInvntrVO) throws Exception;
 	/**
 	 * 일일대사 선출하실적 선별실적별 재고정보 포함 SELECT
 	 * @param sortPrfmncVO
 	 * @return int
 	 * @throws Exception
 	 */
-	List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception;
+	public List<GdsInvntrVO> selectSortPrfmncToGdsInvntrList(SortPrfmncVO sortPrfmncVO) throws Exception;
 	/**
 	 * 출하실적 간편등록 (원물,선별 생략)
 	 * @param gdsInvntrVO
 	 * @return int
 	 * @throws Exception
 	 */
-    int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+    public int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception;
+
+	/**
+	 * 포장번호 조회
+	 * @param apcCd
+	 * @param pckgYmd
+	 * @return
+	 * @throws Exception
+	 */
+	public String selectPckgno(String apcCd, String pckgYmd) throws Exception;
 }

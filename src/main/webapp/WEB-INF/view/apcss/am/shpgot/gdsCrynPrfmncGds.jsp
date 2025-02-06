@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name : shpgotPrfmncRawMtr.jsp
-     * @Description : 반품실적조회(원물) 화면
+     * @Class Name : gdsCrynPrfmncGds.jsp
+     * @Description : 반품실적조회(상품) 화면
      * @author SI개발부
      * @since 2024.11.25
      * @version 1.0
@@ -29,7 +29,7 @@
         <div class="box-header" style="display:flex; justify-content: flex-start;">
             <div>
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 반품실적조회(원물) -->
+                <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 반품실적조회(상품) -->
             </div>
             <%--            /** 상단 버튼 **/--%>
             <div style="margin-left: auto;">
@@ -108,69 +108,28 @@
                             />
                         </td>
                         <td></td>
-                        <td class="td_input" style="border-right: hidden;">
-                            <sbux-input
-                                    uitype="text"
-                                    id="srch-inp-prdcrNm"
-                                    name="srch-inp-prdcrNm"
+                        <th scope="row" class="th_bg" style="border-right: hidden;">거래처</th>
+                        <td colspan="2" class="td_input" style="border-right: hidden;">
+                            <sbux-select
+                                    unselected-text="전체"
+                                    uitype="single"
+                                    id="srch-slt-cnptCd"
+                                    name="srch-slt-cnptCd"
                                     class="form-control input-sm input-sm-ast"
-                                    placeholder="초성검색 가능"
-                                    autocomplete-ref="jsonPrdcrAutocomplete"
-                                    autocomplete-text="name"
-                                    autocomplete-height="270px"
-                                    onkeyup="fn_onKeyUpPrdcrNm(srch-inp-prdcrNm)"
-                                    autocomplete-select-callback="fn_onSelectPrdcrNm"
-                            ></sbux-input>
-                            <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-                        </td>
-                        <td class="td_input" style="border-right: hidden;">
-                            <sbux-input
-                                    uitype="text"
-                                    id="srch-inp-prdcrIdentno"
-                                    name="srch-inp-prdcrIdentno"
-                                    class="form-control input-sm"
-                                    maxlength="2"
-                                    autocomplete="off"
-                                    onchange="fn_onChangeSrchPrdcrIdentno(this)"
+                                    jsondata-ref="jsonCnpt"
                             />
                         </td>
                         <td class="td_input">
                             <sbux-button
-                                    id="srch-btn-prdcrNm"
-                                    name="srch-btn-prdcrNm"
-                                    class="btn btn-xs btn-outline-dark"
-                                    text="찾기"
+                                    id="srch-btn-cnpt"
+                                    name="srch-btn-cnpt"
                                     uitype="modal"
-                                    target-id="modal-prdcr"
-                                    onclick="fn_choicePrdcr"
+                                    target-id="modal-cnpt"
+                                    onclick="fn_choiceCnpt"
+                                    text="찾기"
+                                    class="btn btn-xs btn-outline-dark"
                             ></sbux-button>
                         </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="th_bg">창고구분</th>
-                        <td class="td_input" colspan="2" style="border-right: hidden">
-                            <sbux-select
-                                    unselected-text="전체"
-                                    uitype="single"
-                                    id="srch-slt-warehouseSeCd"
-                                    name="srch-slt-warehouseSeCd"
-                                    class="form-control input-sm"
-                                    style="width: 80%"
-                                    jsondata-ref="jsonComWarehouse">
-                            </sbux-select>
-                        </td>
-                        <td></td>
-                        <th scope="row" class="th_bg">컨테이너/팔레트</th>
-                        <td colspan= "5" class="td_input" style="border-right: hidden;">
-                            <sbux-input
-                                    uitype="text"
-                                    id="srch-inp-pltno"
-                                    name="srch-inp-pltno"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                            />
-                        </td>
-                        <td colspan= "2">쉼표로 분리</td>
                     </tr>
                 </tbody>
             </table>
@@ -183,17 +142,28 @@
                 </ul>
             </div>
             <div class="table-responsive tbl_scroll_sm">
-                <div id="sb-area-grdRslt" style="height:484px;"></div>
+                <div id="sb-area-grdRslt" style="height:280px;"></div>
+            </div>
+            <div class="ad_tbl_top">
+                <ul class="ad_tbl_count">
+                    <li>
+                        <span>반품상세 목록</span>
+                        <span style="font-size:12px">(조회건수 <span id="cnt-rsltDtl">0</span>건)</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="table-responsive tbl_scroll_sm">
+                <div id="sb-area-grdRsltDtl" style="height:204px;"></div>
             </div>
         </div>
     </div>
 </section>
-<!-- 사용자 선택 Modal -->
+<!-- 거래처 선택 Modal -->
 <div>
-    <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
+    <sbux-modal id="modal-cnpt" name="modal-cnpt" uitype="middle" header-title="거래처 선택" body-html-id="body-modal-cnpt" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
 </div>
-<div id="body-modal-prdcr">
-    <jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+<div id="body-modal-cnpt">
+    <jsp:include page="/WEB-INF/view/apcss/am/popup/cnptPopup.jsp"></jsp:include>
 </div>
 </body>
 <script type="application/javascript">
@@ -211,6 +181,8 @@
     var grdRslt;
     var jsonRslt = [];
 
+    var grdRsltDtl;
+    var jsonRsltDtl = [];
 
     window.addEventListener("DOMContentLoaded",function(){
         fn_init();
@@ -219,6 +191,7 @@
     const fn_init = async function(){
 
         jsonRslt.length = 0;
+        jsonRsltDtl.length = 0;
 
         // 일자 설정
         const nowDate = new Date();
@@ -232,10 +205,12 @@
             gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, 	gv_selectedApcCd),
             gfn_setApcVrtySBSelect("srch-slt-vrtyCd", jsonApcVrty, 	gv_selectedApcCd),
-            fn_getPrdcrs(),
+            gfn_setCpntRgnSBSelect("srch-slt-cnptCd", jsonCnpt, gv_selectedApcCd),
+            //fn_getPrdcrs(),
         ]);
 
         await fn_createGrid();
+        await fn_createGridDtl();
     }
 
     /**
@@ -249,7 +224,7 @@
 
     /**
      * @name fn_createGrid
-     * @description 반품대상 그리드 생성
+     * @description 반품공통 그리드 생성
      * @function
      */
     const fn_createGrid = async function() {
@@ -266,62 +241,151 @@
         SBGridProperties.frozencols = 3;
         SBGridProperties.columns = [
             {
-                caption : ["선택","선택"],
+                caption : ["선택"],
                 ref: 'checkedYn', type: 'checkbox',  width:'50px',
                 style: 'text-align:center',
                 userattr: {colNm: "checkedYn"},
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {   caption: ["반품정보","일자"],
+            {   caption: ["반품일자"],
                 ref: 'shpgotYmd',
                 type: 'output',
                 width:'120px',
                 style: 'text-align:center',
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
             },
-            {   caption: ["반품정보","순번"],
+            {   caption: ["순번"],
                 ref: 'shpgotSn',
                 type: 'output',
                 width:'50px',
                 style: 'text-align:right',
             },
             {
-                caption: ["컨테이너<br>팔레트","컨테이너<br>팔레트"],
-                ref: 'pltno',
-                type: 'output',
-                width:'120px',
-                style: 'text-align:center'
-            },
-            {
-                caption: ["생산자","생산자"],
-                ref: 'prdcrNm',
+                caption: ["운송사"],
+                ref: 'trsprtCoNm',
                 type: 'output',
                 width:'80px',
                 style: 'text-align:center'
             },
             {
-                caption: ["품목","품목"],
+                caption: ["차량번호"],
+                ref: 'vhclno',
+                type: 'output',
+                width:'80px',
+                style: 'text-align:center'
+            },
+            {
+                caption: ["운송비"],
+                ref: 'trsprtCst',
+                type: 'output',
+                width:'70px',
+                style: 'text-align:right',
+                format : {type:'number', rule:'#,###'},
+            },
+            {
+                caption: ["수량"],
+                ref: 'shpgotQntt',
+                type: 'output',
+                width:'70px',
+                style: 'text-align:right',
+                userattr: {colNm: "shpgotQntt"},
+                format : {type:'number', rule:'#,###'},
+            },
+            {
+                caption: ["중량 (Kg)"],
+                ref: 'shpgotWght',
+                type:'output',
+                width:'80px',
+                style: 'text-align:right',
+                userattr: {colNm: "shpgotWght"},
+                format : {type:'number', rule:'#,###'},
+            },
+            {
+                caption: ["비고"],
+                ref: 'rmrk',
+                type:'output',
+                width:'200px',
+                style: 'text-align:left',
+                userattr: {colNm: "shpgotRmrk"},
+            },
+        ];
+
+        grdRslt = _SBGrid.create(SBGridProperties);
+        grdRslt.bind('rowchanged', fn_grdRsltRowChanged);
+    }
+
+
+    /**
+     * @name fn_grdRsltRowChanged
+     * @description 공통 그리드 Row 변경 event 처리
+     * @function
+     */
+    const fn_grdRsltRowChanged = async function() {
+        const nRow = grdRslt.getRow();
+
+        if (nRow < 1) {
+            return;
+        }
+
+        const rowData = grdRslt.getRowData(nRow);
+        await fn_setGrdRsltDtl(rowData);
+    }
+
+    /**
+     * @name fn_createGridDtl
+     * @description 반품상세 그리드 생성
+     * @function
+     */
+    const fn_createGridDtl = async function() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdRsltDtl';
+        SBGridProperties.id = 'grdRsltDtl';
+        SBGridProperties.jsonref = 'jsonRsltDtl';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true;
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.useinitsorting = true;
+        SBGridProperties.scrollbubbling = false;
+        SBGridProperties.frozencols = 3;
+        SBGridProperties.columns = [
+            {
+                caption: ["상품명"],
+                ref: 'spmtPckgUnitNm',
+                type: 'output',
+                width:'150px',
+                style: 'text-align:center'
+            },
+            {
+                caption: ["품목"],
                 ref: 'itemNm',
                 type: 'output',
                 width:'80px',
                 style: 'text-align:center'
             },
             {
-                caption: ["품종","품종"],
+                caption: ["품종"],
                 ref: 'vrtyNm',
                 type: 'output',
                 width:'100px',
                 style: 'text-align:center'
             },
             {
-                caption: ["등급","등급"],
+                caption: ["규격"],
+                ref: 'vrtyNm',
+                type: 'output',
+                width:'100px',
+                style: 'text-align:center'
+            },
+            {
+                caption: ["등급"],
                 ref: 'grdNm',
                 type: 'output',
                 width:'80px',
                 style: 'text-align:center'
             },
             {
-                caption: ["창고","창고"],
+                caption: ["반품창고"],
                 ref: 'warehouseSeCd',
                 type: 'combo',
                 width:'120px',
@@ -335,7 +399,7 @@
                 disabled: true,
             },
             {
-                caption: ["반품실적","수량"],
+                caption: ["수량"],
                 ref: 'shpgotQntt',
                 type: 'output',
                 width:'70px',
@@ -344,7 +408,7 @@
                 format : {type:'number', rule:'#,###'},
             },
             {
-                caption: ["반품실적","중량 (Kg)"],
+                caption: ["중량 (Kg)"],
                 ref: 'shpgotWght',
                 type:'output',
                 width:'70px',
@@ -353,21 +417,21 @@
                 format : {type:'number', rule:'#,###'},
             },
             {
-                caption: ["반품사유","원인코드"],
+                caption: ["원인코드"],
                 ref: 'shpgotCsNm',
                 type: 'output',
                 width:'120px',
                 style: 'text-align:center',
             },
             {
-                caption: ["반품사유","불량코드"],
+                caption: ["불량코드"],
                 ref: 'shpgotBadNm',
                 type: 'output',
                 width:'120px',
                 style: 'text-align:center',
             },
             {
-                caption: ["반품사유","비고"],
+                caption: ["반품사유"],
                 ref: 'shpgotRmrk',
                 type:'output',
                 width:'200px',
@@ -376,8 +440,9 @@
             },
         ];
 
-        grdRslt = _SBGrid.create(SBGridProperties);
+        grdRsltDtl = _SBGrid.create(SBGridProperties);
     }
+
 
     /**
      * @name fn_search
@@ -385,6 +450,8 @@
      * @function
      */
     const fn_search = async function() {
+        jsonRsltDtl.length = 0;
+        grdRsltDtl.refresh();
         await fn_setGrdRslt();
     }
 
@@ -398,27 +465,27 @@
 
         jsonRslt.length = 0;
 
-        // 재고 조회
-        let shpgotYmdFrom = SBUxMethod.get('srch-dtp-shpgotYmd_from');    // 입고일자from
-        let shpgotYmdTo = SBUxMethod.get('srch-dtp-shpgotYmd_to');        // 입고일자to
-        let prdcrCd = gfn_nvl(SBUxMethod.get("srch-inp-prdcrCd"));		// 생산자
+        // 반품 공통 조회
+        let shpgotYmdFrom = SBUxMethod.get('srch-dtp-shpgotYmd_from');  // 반품일자from
+        let shpgotYmdTo = SBUxMethod.get('srch-dtp-shpgotYmd_to');      // 반품일자to
+        let cnptCd = SBUxMethod.get("srch-slt-cnptCd");		            // 거래처
         let itemCd = SBUxMethod.get("srch-slt-itemCd");				    // 품목
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");                 // 품종
-        let pltno = gfn_nvl(SBUxMethod.get("srch-inp-pltno"));
         if (!gfn_isEmpty(vrtyCd)) {
             vrtyCd = vrtyCd.substring(4);
         }
 
+        const param = {
+            apcCd: gv_selectedApcCd,
+            shpgotYmdFrom: shpgotYmdFrom,
+            shpgotYmdTo: shpgotYmdTo,
+            cnptCd: cnptCd,
+            itemCd: itemCd,
+            vrtyCd: vrtyCd
+        }
+
         try {
-            const postJsonPromise = gfn_postJSON("/am/shpgot/selectShpgotRsltRawMtrList.do", {
-                apcCd: gv_selectedApcCd,
-                shpgotYmdFrom: shpgotYmdFrom,
-                shpgotYmdTo: shpgotYmdTo,
-                prdcrCd: prdcrCd,
-                itemCd: itemCd,
-                vrtyCd: vrtyCd,
-                pltno: pltno,
-            });
+            const postJsonPromise = gfn_postJSON("/am/shpgot/selectShpgotRsltGdsComList.do", param);
 
             const data = await postJsonPromise;
 
@@ -427,7 +494,12 @@
                     jsonRslt.push(item);
                 });
 
-                grdRslt.rebuild();
+                grdRslt.refresh();
+
+                if (jsonRslt.length > 0) {
+                    grdRslt.selectRow(1);
+                    await fn_setGrdRsltDtl(jsonRslt[0]);
+                }
 
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
@@ -444,6 +516,46 @@
         document.querySelector('#cnt-rslt').innerText = jsonRslt.length;
     }
 
+    /**
+     * @name fn_setGrdRsltDtl
+     * @description 반품실적 상세 조회
+     * @function
+     */
+    const fn_setGrdRsltDtl = async function(rslt) {
+
+        jsonRsltDtl.length = 0;
+
+        const param = {
+            apcCd: rslt.apcCd,
+            shpgotYmd: rslt.shpgotYmd,
+            shpgotSn: rslt.shpgotSn
+        }
+
+        try {
+            const postJsonPromise = gfn_postJSON("/am/shpgot/selectShpgotRsltGdsList.do", param);
+
+            const data = await postJsonPromise;
+
+            if (_.isEqual("S", data.resultStatus)) {
+                data.resultList.forEach((item, index) => {
+                    jsonRsltDtl.push(item);
+                });
+
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+            }
+
+        } catch(e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        } finally {
+            grdRsltDtl.refresh();
+            document.querySelector('#cnt-rsltDtl').innerText = jsonRsltDtl.length;
+        }
+    }
 
     /**
      * @name fn_choicePrdcr
@@ -565,7 +677,6 @@
      */
     const fn_delete = async function(){
 
-
         const shpgotList = []
 
         // 반품 수량, 중량 확인
@@ -594,7 +705,7 @@
         }
 
         try {
-            const postJsonPromise = gfn_postJSON("/am/shpgot/deleteShpgotRsltRawMtr.do", param);
+            const postJsonPromise = gfn_postJSON("/am/shpgot/deleteShpgotRsltGds.do", param);
             const data = await postJsonPromise;
 
             if (_.isEqual("S", data.resultStatus)) {
@@ -611,6 +722,28 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+
+    /**
+     * @name fn_choiceCnpt
+     * @description 거래처선택팝업 호출
+     */
+    const fn_choiceCnpt = function() {
+        popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, "", fn_setCnpt);
+    }
+
+    /**
+     * @name fn_setCnpt
+     * @description 거래처 선택 callback
+     */
+    const fn_setCnpt = function(cnpt) {
+        if (!gfn_isEmpty(cnpt)) {
+            SBUxMethod.set('srch-slt-cnptCd', cnpt.cnptCd);
+        } else {
+            SBUxMethod.set('srch-slt-cnptCd', "");
+        }
+    }
+
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

@@ -173,6 +173,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	}
 
 	@Override
+	public HashMap<String, Object> deleteGdsInvntrForCrynCncl(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return deleteGdsInvntr(gdsInvntrVO);
+	}
+
+	@Override
 	public HashMap<String, Object> insertGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) throws Exception {
 
 		for ( GdsInvntrVO gdsInvntrVO : gdsInvntrList ) {
@@ -686,5 +691,10 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	@Override
 	public int selectSimpGdsInvntr(GdsInvntrVO gdsInvntrVO) throws Exception {
 		return gdsInvntrMapper.selectSimpGdsInvntr(gdsInvntrVO);
+	}
+
+	@Override
+	public String selectPckgno(String apcCd, String pckgYmd) throws Exception {
+		return cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
 	}
 }

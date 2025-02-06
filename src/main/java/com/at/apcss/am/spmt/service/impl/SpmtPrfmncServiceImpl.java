@@ -2207,4 +2207,70 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 	public List<SpmtPrfmncVO> selectSpmtPrfmncDetailList(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
 		return spmtPrfmncMapper.selectSpmtPrfmncDetailList(spmtPrfmncVO);
 	}
+
+	@Override
+	public SpmtPrfmncVO selectSpmtDtlPrfmncForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		return spmtPrfmncMapper.selectSpmtDtlPrfmncForCryn(spmtPrfmncVO);
+	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtDtlPrfmncListForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		spmtPrfmncVO.setCrynYn(ComConstants.CON_NONE);
+		return spmtPrfmncMapper.selectSpmtDtlPrfmncListForCryn(spmtPrfmncVO);
+	}
+
+	@Override
+	public HashMap<String, Object> updateSpmtForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+
+		SpmtPrfmncVO spmtInfo = selectSpmtDtlPrfmncForCryn(spmtPrfmncVO);
+		if (spmtInfo == null || !StringUtils.hasText(spmtInfo.getSpmtno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하정보");
+		}
+
+		int qntt = spmtPrfmncVO.getCrynQntt();
+		double wght = spmtPrfmncVO.getCrynWght();
+
+		if (spmtInfo.getRmnSpmtQntt() < qntt || spmtInfo.getRmnSpmtWght() < wght) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LACK, "출하량");
+		}
+
+		int crynQntt = spmtInfo.getCrynQntt() + qntt;
+		double crynWght = spmtInfo.getCrynWght() + wght;
+
+		SpmtPrfmncVO spmtVO = new SpmtPrfmncVO();
+		BeanUtils.copyProperties(spmtPrfmncVO, spmtVO);
+		spmtVO.setCrynQntt(crynQntt);
+		spmtVO.setCrynWght(crynWght);
+
+		spmtPrfmncMapper.updateSpmtForCryn(spmtVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateSpmtForCrynCncl(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		SpmtPrfmncVO spmtInfo = selectSpmtDtlPrfmncForCryn(spmtPrfmncVO);
+		if (spmtInfo == null || !StringUtils.hasText(spmtInfo.getSpmtno())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하정보");
+		}
+
+		int qntt = spmtPrfmncVO.getCrynQntt();
+		double wght = spmtPrfmncVO.getCrynWght();
+
+		if (spmtInfo.getCrynQntt() < qntt || spmtInfo.getCrynWght() < wght) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_TGT_LACK, "반입량");
+		}
+
+		int crynQntt = spmtInfo.getCrynQntt() - qntt;
+		double crynWght = spmtInfo.getCrynWght() - wght;
+
+		SpmtPrfmncVO spmtVO = new SpmtPrfmncVO();
+		BeanUtils.copyProperties(spmtPrfmncVO, spmtVO);
+		spmtVO.setCrynQntt(crynQntt);
+		spmtVO.setCrynWght(crynWght);
+
+		spmtPrfmncMapper.updateSpmtForCryn(spmtVO);
+
+		return null;
+	}
 }

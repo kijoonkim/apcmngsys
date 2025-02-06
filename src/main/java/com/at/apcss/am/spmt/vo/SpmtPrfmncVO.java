@@ -1,5 +1,6 @@
 package com.at.apcss.am.spmt.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -366,14 +367,20 @@ public class SpmtPrfmncVO extends ComVO {
 	private String spmtIndct;
 	private String spmtInvId;
 
+	private int rmnSpmtQntt;
+	private double rmnSpmtWght;
+	private int crynQntt;
+	private double crynWght;
+	private String crynYn;
+
 	private List<SpmtGdsVO> spmtGdsList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
-		return spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+		return spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
 
 	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
-		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+		this.spmtGdsList = spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
 
 }

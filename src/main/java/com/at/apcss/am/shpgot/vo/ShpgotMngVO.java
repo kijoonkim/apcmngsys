@@ -19,6 +19,13 @@ public class ShpgotMngVO extends ComVO {
 
 	private String shpgotYmd;
 
+	private String trsprtCoCd;
+	private String vhclno;
+	private double trsprtCst;
+
+	private String rmrk;
+
+
 	private List<ShpgotCrtrVO> crtrList;
 
 	private List<ShpgotCrtrVO> crtrDtlList;
