@@ -1426,6 +1426,173 @@
 		ORDER BY SPMT_SN
 	</select>
 
+
+	<!-- ========================================================================== -->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlPrfmncForCryn -->
+	<!-- DESC : 출하실적 상세 단건 조회 (반품처리용)                            		-->
+	<!-- DATE           AUTHOR            DESCRIPTION                               -->
+	<!-- ========================================================================== -->
+	<!-- 2024.08.21      김호            Initial Creation                            -->
+	<!-- ========================================================================== -->
+	<select id="selectSpmtDtlPrfmncForCryn" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlPrfmncForCryn */
+				  SC.APC_CD			AS APC_CD
+				, SC.SPMTNO			AS SPMTNO
+				, SC.SPMT_YMD		AS SPMT_YMD
+				, SC.CNPT_CD		AS CNPT_CD
+				, SC.TRSPRT_CO_CD	AS TRSPRT_CO_CD
+				, SC.VHCLNO			AS VHCLNO
+				, SC.DLDTN			AS DLDTN
+				, SC.DLNG_SHAP_CD	AS DLNG_SHAP_CD
+				, SC.DLNG_MTHD_CD	AS DLNG_MTHD_CD
+				, SD.SPMT_SN		AS SPMT_SN
+				, SD.PCKGNO			AS PCKGNO
+				, SD.PCKG_SN		AS PCKG_SN
+				, SD.ITEM_CD		AS ITEM_CD
+				, SD.VRTY_CD		AS VRTY_CD
+				, SD.SPCFCT_CD		AS SPCFCT_CD
+				, SD.GDS_GRD		AS GDS_GRD
+				, SD.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				, SD.GDS_CD			AS GDS_CD
+				, SD.OUTORDRNO		AS OUTORDRNO
+				, SD.BRND_NM		AS BRND_NM
+				, SD.SPMT_QNTT		AS SPMT_QNTT
+				, SD.SPMT_WGHT		AS SPMT_WGHT
+				, SD.CRYN_QNTT		AS CRYN_QNTT
+				, SD.CRYN_WGHT		AS CRYN_WGHT
+				, SD.SPMT_QNTT - NVL(SD.CRYN_QNTT, 0)	AS RMN_SPMT_QNTT
+				, SD.SPMT_WGHT - NVL(SD.CRYN_WGHT, 0)	AS RMN_SPMT_WGHT
+
+				, GI.GDS_SE_CD		AS GDS_SE_CD
+				, GI.WRHS_SE_CD		AS WRHS_SE_CD
+
+			  FROM TB_SPMT_PRFMNC_COM SC
+
+			  JOIN TB_SPMT_PRFMNC_DTL SD
+				ON SD.APC_CD = SC.APC_CD
+			   AND SD.SPMTNO = SC.SPMTNO
+			   AND SD.DEL_YN = 'N'
+
+			  JOIN TB_GDS_INVNTR GI
+			    ON GI.APC_CD = SD.APC_CD
+			   AND GI.PCKGNO = SD.PCKGNO
+			   AND GI.PCKG_SN = SD.PCKG_SN
+			   AND GI.DEL_YN = 'N'
+
+			WHERE SC.DEL_YN = 'N'
+			   AND SC.APC_CD = #{apcCd}
+			   AND SC.SPMTNO = #{spmtno}
+			   AND SD.PCKGNO = #{pckgno}
+			   AND SD.PCKG_SN = #{pckgSn}
+			   AND SD.SPMT_SN = #{spmtSn}
+        ]]>
+	</select>
+
+	<!-- ========================================================================== -->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlPrfmncListForCryn -->
+	<!-- DESC : 출하실적 상세 조회 (반품처리용)                                			-->
+	<!-- DATE           AUTHOR            DESCRIPTION                               -->
+	<!-- ========================================================================== -->
+	<!-- 2024.08.21      김호            Initial Creation                            -->
+	<!-- ========================================================================== -->
+	<select id="selectSpmtDtlPrfmncListForCryn" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtDtlPrfmncListForCryn */
+				  pt0.*
+				, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)											AS GDS_NM
+				, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 										AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)						AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL)				AS SPCFCT_NM
+				, (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)										AS CNPT_NM
+				, (SELECT FN_GET_TRSPRT_CO_NM(pt0.TRSPRT_CO_CD, pt0.APC_CD) FROM DUAL)						AS TRSPRT_CO_NM
+				, (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) 				AS GDS_GRD_NM
+				, (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   	AS SPMT_PCKG_UNIT_NM
+			  FROM (
+					SELECT
+						  SC.APC_CD			AS APC_CD
+						, SC.SPMTNO			AS SPMTNO
+						, SC.SPMT_YMD		AS SPMT_YMD
+						, SC.CNPT_CD		AS CNPT_CD
+						, SC.TRSPRT_CO_CD	AS TRSPRT_CO_CD
+						, SC.VHCLNO			AS VHCLNO
+						, SC.DLDTN			AS DLDTN
+						, SC.DLNG_SHAP_CD	AS DLNG_SHAP_CD
+						, SC.DLNG_MTHD_CD	AS DLNG_MTHD_CD
+						, SD.SPMT_SN		AS SPMT_SN
+					    , SD.PCKGNO			AS PCKGNO
+					    , SD.PCKG_SN		AS PCKG_SN
+						, SD.ITEM_CD		AS ITEM_CD
+						, SD.VRTY_CD		AS VRTY_CD
+						, SD.SPCFCT_CD		AS SPCFCT_CD
+						, SD.GDS_GRD		AS GDS_GRD
+						, SD.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+						, SD.GDS_CD			AS GDS_CD
+						, SD.OUTORDRNO		AS OUTORDRNO
+						, SD.BRND_NM		AS BRND_NM
+						, SD.SPMT_QNTT		AS SPMT_QNTT
+						, SD.SPMT_WGHT		AS SPMT_WGHT
+						, SD.CRYN_QNTT		AS CRYN_QNTT
+						, SD.CRYN_WGHT		AS CRYN_WGHT
+						, SD.SPMT_QNTT - NVL(SD.CRYN_QNTT, 0)	AS RMN_SPMT_QNTT
+						, SD.SPMT_WGHT - NVL(SD.CRYN_WGHT, 0)	AS RMN_SPMT_WGHT
+
+					  FROM TB_SPMT_PRFMNC_COM SC
+
+					  JOIN TB_SPMT_PRFMNC_DTL SD
+						ON SD.APC_CD = SC.APC_CD
+					   AND SD.SPMTNO = SC.SPMTNO
+					   AND SD.DEL_YN = 'N'
+
+					 WHERE SC.DEL_YN = 'N'
+					   AND SC.APC_CD = #{apcCd}
+					   AND SC.SPMT_YMD BETWEEN #{spmtYmdFrom} AND #{spmtYmdTo}
+        ]]>
+		<choose>
+			<when test='crynYn != null and crynYn.equals("Y")'>
+				AND NVL(SD.CRYN_QNTT, 0) > 0
+			</when>
+			<when test='crynYn != null and crynYn.equals("N")'>
+				AND SD.SPMT_QNTT - NVL(SD.CRYN_QNTT, 0) > 0
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+		<![CDATA[
+			  ) pt0
+
+			 WHERE 1=1
+
+			 ORDER BY SPMT_YMD, CNPT_CD, SPMTNO, SPMT_SN
+        ]]>
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.updateSpmtForCryn		-->
+	<!-- DESC : 출하실적 상세 변경 (반입처리)                 	             	 		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.21  	김호        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateSpmtForCryn" parameterType="com.at.apcss.am.spmt.vo.SpmtCmndVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.updateSpmtForCryn */
+				TB_SPMT_PRFMNC_DTL
+			SET
+			      SYS_LAST_CHG_DT			= SYSDATE
+			  	, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+			  	, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+				, CRYN_QNTT	= #{crynQntt}
+			  	, CRYN_WGHT = #{crynWght}
+			WHERE APC_CD 	= #{apcCd}
+			  AND SPMTNO	= #{spmtno}
+			  AND PCKGNO   = #{pckgno}
+			  AND SPMT_SN	= #{spmtSn}
+		]]>
+	</update>
+
 </mapper>
 
 

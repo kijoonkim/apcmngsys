@@ -285,4 +285,108 @@ public class ShpgotMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/shpgot/insertShpgotRsltGds.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertShpgotRsltGds(@RequestBody ShpgotMngVO shpgotMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			shpgotMngVO.setSysFrstInptUserId(getUserId());
+			shpgotMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			shpgotMngVO.setSysLastChgUserId(getUserId());
+			shpgotMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = shpgotMngService.insertShpgotRsltGds(shpgotMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	@PostMapping(value = "/am/shpgot/deleteShpgotRsltGds.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteShpgotRsltGds(@RequestBody ShpgotMngVO shpgotMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			shpgotMngVO.setSysFrstInptUserId(getUserId());
+			shpgotMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			shpgotMngVO.setSysLastChgUserId(getUserId());
+			shpgotMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = shpgotMngService.deleteShpgotRsltGds(shpgotMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	@PostMapping(value = "/am/shpgot/selectShpgotRsltGdsComList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectShpgotRsltGdsComList(@RequestBody ShpgotRsltVO shpgotRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ShpgotRsltVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = shpgotMngService.selectShpgotRsltGdsComList(shpgotRsltVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	@PostMapping(value = "/am/shpgot/selectShpgotRsltGdsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectShpgotRsltGdsList(@RequestBody ShpgotRsltVO shpgotRsltVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<ShpgotRsltVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = shpgotMngService.selectShpgotRsltGdsList(shpgotRsltVO);
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 }

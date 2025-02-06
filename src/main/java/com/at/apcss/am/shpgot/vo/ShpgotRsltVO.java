@@ -36,6 +36,20 @@ public class ShpgotRsltVO extends ComVO {
     private int shpgotQntt;
     private double shpgotWght;
 
+    private String shpgotNo;
+    private String pckgno;
+    private int pckgSn;
+    private String trsprtCoCd;
+    private String trsprtCoNm;
+    private String vhclno;
+    private String dldtn;
+    private double trsprtCst;
+    private String rmrk;
+    private String bfrSpmtno;
+    private String bfrPckgno;
+    private int bfrPckgSn;
+    private int bfrSpmtSn;
+
 
     private String pltno;
     private String[] pltnos;
@@ -45,5 +59,6 @@ public class ShpgotRsltVO extends ComVO {
     private String grdNm;
     private String shpgotCsNm;
     private String shpgotBadNm;
+    private String spmtPckgUnitNm;
 
 }

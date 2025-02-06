@@ -546,8 +546,7 @@ public class SpmtPrfmncController extends BaseController {
 		List<SpmtPrfmncVO> resultList = new ArrayList<>();
 		try{
 			resultList = spmtPrfmncService.selectSpmtPrfmncDetailList(spmtPrfmncVO);
-		}catch (Exception e){
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+		} catch (Exception e){
 			return getErrorResponseEntity(e);
 		} finally{
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -556,6 +555,32 @@ public class SpmtPrfmncController extends BaseController {
 			}
 		}
 	resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+
+	@PostMapping(value = "/am/spmt/selectSpmtDtlPrfmncListForCryn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtDtlPrfmncListForCryn(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<>();
+		HashMap<String, Object> rtnObj = null;
+
+		List<SpmtPrfmncVO> resultList = new ArrayList<>();
+		try{
+			resultList = spmtPrfmncService.selectSpmtDtlPrfmncListForCryn(spmtPrfmncVO);
+		} catch (Exception e){
+			return getErrorResponseEntity(e);
+		} finally {
+			rtnObj = setMenuComLog(request);
+		}
+
+		if (rtnObj != null){
+			return getErrorResponseEntity(rtnObj);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 

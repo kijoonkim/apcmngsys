@@ -198,14 +198,14 @@ public interface SpmtPrfmncService {
 	 * @return List<GdsInvntrVO>
 	 * @throws Exception
 	 */
-    List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	public List<GdsInvntrVO> selectSpmtPrfmncInvntList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 	/**
 	 * 출하실적등록 모바일 출하실적공통 조회
 	 * @param spmtPrfmncVO
 	 * @return List<GdsInvntrVO>
 	 * @throws Exception
 	 */
-    List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	public List<SpmtPrfmncVO> selectSpmtPrfmncComList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
 	/**
 	 * 출하실적등록 모바일 출하실적등록 내역조회
@@ -213,7 +213,7 @@ public interface SpmtPrfmncService {
 	 * @return List<GdsInvntrVO>
 	 * @throws Exception
 	 */
-	List<SpmtPrfmncVO> selectSpmtPrfmncRegList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	public List<SpmtPrfmncVO> selectSpmtPrfmncRegList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
     /**
      * 출하실적 변경 By 상품리스트
@@ -237,19 +237,53 @@ public interface SpmtPrfmncService {
 	 * @return
 	 * @throws Exception
 	 */
-	HashMap<String, Object> reconciliationDaliySpmt(SortInvntrVO sortInvntrVO, SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	public HashMap<String, Object> reconciliationDaliySpmt(SortInvntrVO sortInvntrVO, SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 	/**
 	 * 출하실적 마이너스재고, 포장,출하 데이터
 	 * @param list
 	 * @return
 	 * @throws Exception
 	 */
-	HashMap<String, Object> insertSpmtPrfmncByPckg(List<SpmtPrfmncComVO> list) throws Exception;
+	public HashMap<String, Object> insertSpmtPrfmncByPckg(List<SpmtPrfmncComVO> list) throws Exception;
 	/**
 	 * 출하실적 상세 목록 조회
 	 * @param spmtPrfmncVO
 	 * @return
 	 * @throws Exception
 	 */
-	List<SpmtPrfmncVO> selectSpmtPrfmncDetailList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+	public List<SpmtPrfmncVO> selectSpmtPrfmncDetailList(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 출하상세실적 단건 조회 (반입처리용)
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public SpmtPrfmncVO selectSpmtDtlPrfmncForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 출하상세실적 조회 (반입처리용)
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtDtlPrfmncListForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+
+	/**
+	 * 반입 출하실적 상세 변경
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSpmtForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 반입취소 출하실적 상세 변경
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateSpmtForCrynCncl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
 }

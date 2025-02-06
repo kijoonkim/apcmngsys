@@ -44,7 +44,7 @@ public interface ShpgotMngMapper {
 	/**
 	 * 기준정보 목록 조회
 	 *
-	 * @param statCrtrVO
+	 * @param shpgotCrtrVO
 	 * @return
 	 * @throws Exception
 	 */
@@ -61,7 +61,7 @@ public interface ShpgotMngMapper {
 	/**
 	 * 기준상세 목록 조회
 	 *
-	 * @param statCrtrVO
+	 * @param shpgotCrtrVo
 	 * @return
 	 * @throws Exception
 	 */
@@ -124,6 +124,16 @@ public interface ShpgotMngMapper {
 	 */
 	public ShpgotRsltVO selectShpgotRsltRawMtrMaxSn(ShpgotRsltVO shpgotRsltVO) throws Exception;
 
+
+	/**
+	 * 반품일자 max 순번 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ShpgotRsltVO selectShpgotRsltGdsMaxSn(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+
 	/**
 	 * 원물 반품 등록
 	 * @param shpgotRsltVO
@@ -152,7 +162,51 @@ public interface ShpgotMngMapper {
 	public List<ShpgotRsltVO> selectShpgotRsltRawMtrList(ShpgotRsltVO shpgotRsltVO) throws Exception;
 
 
+	/**
+	 * 상품 반품 단건 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public ShpgotRsltVO selectShpgotRsltGds(ShpgotRsltVO shpgotRsltVO) throws Exception;
 
+
+	/**
+	 * 상품 반품 등록
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertShpgotRsltGds(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+	/**
+	 * 상품 반품 공통 등록
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertShpgotRsltGdsCom(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+	public int updateShpgotRsltGdsForDelY(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+	public int updateShpgotRsltGdsComForDelY(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+
+	/**
+	 * 상품 반출 실적 공통 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShpgotRsltVO> selectShpgotRsltGdsComList(ShpgotRsltVO shpgotRsltVO) throws Exception;
+
+	/**
+	 * 상품 반출 실적 조회
+	 * @param shpgotRsltVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShpgotRsltVO> selectShpgotRsltGdsList(ShpgotRsltVO shpgotRsltVO) throws Exception;
 
 
 }
