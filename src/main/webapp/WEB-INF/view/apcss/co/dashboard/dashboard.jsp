@@ -548,20 +548,14 @@
 				animation: {
 					show: true,
 					delay: 1000,
-					types: {
-						[title1]: "rise",
-						[title2]: "rise",
-						[title3]: "rise",
-						[title4]: "fill"
-					}
 				},
 				color: {
 					pattern: ['#f45d8b','#19b394','#1956b3','#aeb0b3']
 				},
 			},
 			data: {
+				type:'bar',
 				columns:trcColumns,
-				types: { [title1] : "bar", [title2] : "bar", [title3] : "bar", [title4]:"line" },
 				noData: "데이터가 없습니다."
 			},
 			legend: {
@@ -569,7 +563,8 @@
 			},
 			axis: {
 				x: {
-					show: false
+					type:'category',
+					categories: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"]
 				},
 				y: {
 					show: false
@@ -584,11 +579,6 @@
 				}
 			},
 			extend: {
-				line: {
-					hideCircle: true,
-					setLinesWidthAll: 8,
-					linecap: 'square',
-				},
 				bar:{
 					width: {
 						ratio: 0.5
@@ -663,6 +653,7 @@
 
 		const postJsonPromise = gfn_postJSON("/co/dashboard/selectData.do",param);
 		const data = await postJsonPromise;
+		console.log(data,"???");
 		if (!_.isEqual("S", data.resultStatus)) {
 		        gfn_comAlert(data.resultCode, data.resultMessage);
 		        return;

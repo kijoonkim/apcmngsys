@@ -149,7 +149,7 @@
 				</table>
 
 				<div class="table-responsive tbl_scroll_sm">
-					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
+					<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData">
 					</sbux-tabs>
 					<div class="tab-content">
 						<div id="cltvtnHstryTab" >
