@@ -263,7 +263,7 @@
 						name : "srch-inp-corpNm",
 						uitype : "single",
 						jsondataRef : "jsonComHisBrno",
-						unselectedText : "전체",
+						unselectedText : "선택",
 						class : "form-control input-sm",
 						onchange : "fn_chagneCorpNm"
 					});
