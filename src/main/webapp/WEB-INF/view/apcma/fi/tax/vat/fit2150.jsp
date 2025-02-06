@@ -89,73 +89,73 @@
             <!--[APC] END -->
             <!-- content_header start -->
             <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
-                <colgroup>
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" >기준연도</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
-                        </sbux-datepicker>
-                    </td>
-                    <td></td>
-                    <th scope="row" >신고구분명</th>
-                    <td colspan="3" class="td_input">
-                        <div style="display: flex;gap: 5px">
-                            <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <font>선택</font>
-                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                    <colgroup>
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+
+                        <col style="width: 8%">
+                        <col style="width: 7%">
+                        <col style="width: 1%">
+                        <col style="width: 7%">
+                        <col style="width: 2%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th scope="row" >기준연도</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
+                                             date-format="yyyy" class="table-datepicker-ma"
+                                             onchange="fn_setMultSelect(srch-dtp-yyyy)">
+                            </sbux-datepicker>
+                        </td>
+                        <td></td>
+                        <th scope="row" >신고구분명</th>
+                        <td colspan="8" class="td_input" style="border-right: hidden;">
+                            <div style="display: flex;gap: 5px">
+                                <div class="dropdown">
+                                    <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <font>선택</font>
+                                        <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
+                                    </div>
                                 </div>
+                                <sbux-input readonly id="srch-dtp-ymdstandardTermFr" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
+                                <p style="text-align: center;line-height: 30px">~</p>
+                                <sbux-input readonly id="srch-dtp-ymdstandardTermTo" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
                             </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
-                            <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" style="text-align: center" uitype="text" class="form-control input-sm"></sbux-input>
-                        </div>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row" >신고사업장</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm" style="width: 50%"></sbux-input>
-                    </td>
-                    <td></td>
-                    <th scope="row" >사업자번호</th>
-                    <td colspan="3" class="td_input">
-                        <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm" style="width: 35%"></sbux-input>
-                    </td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" >신고사업장</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-input id="srch-inp-taxSiteName" name="srch-inp-taxSiteName" uitype="text" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td></td>
+                        <th scope="row" >사업자번호</th>
+                        <td colspan="3" class="td_input" style="border-right: hidden;">
+                            <sbux-input id="srch-inp-bizRegno" name="srch-inp-bizRegno" uitype="text" class="form-control input-sm"></sbux-input>
+                        </td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
                 <div style=" height: 80vh; display: flex">
                 <div style="width: 30%;padding: 10px">
@@ -168,7 +168,7 @@
                 </div>
                 <div id="resizer"></div>
                 <div style="padding: 10px;flex: 1;display: flex;flex-direction: column">
-                    <div style="flex: 1">
+                    <div style="flex: 0.5">
                         <div class="ad_tbl_top">
                             <ul class="ad_tbl_count">
                                 <li><span>◎ 제출자 인적사항</span></li>
@@ -445,14 +445,21 @@
         fn_createGrid();
         fn_init();
     });
-    const fn_init = async function(){
+    const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'CO_CD', "CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
+        SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
- 
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
+
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy) {
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
@@ -519,6 +526,7 @@
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
+
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = _value;
  

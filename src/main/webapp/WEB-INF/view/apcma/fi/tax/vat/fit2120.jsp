@@ -594,12 +594,12 @@
                     if(workType === 'Q'){
                         let resultObj = data.cv_2[0];
                         for(let key in resultObj){
-                            $(`#${'${key}'}`).val(resultObj[key]);
+                            $(`#${'${key}'}`).val(resultObj[key] || 0);
                         }
                     }else{
                         let resultObj = data.cv_4[0];
                         for(let key in resultObj){
-                            $(`#${'${key}'}2`).val(resultObj[key]);
+                            $(`#${'${key}'}2`).val(resultObj[key] || 0);
                         }
                     }
                 }
@@ -773,14 +773,14 @@
             if(workType === 'Q'){
                 let resultObj = data.cv_2[0];
                 for(let key in resultObj){
-                    $(`#${'${key}'}`).val(resultObj[key]);
+                    $(`#${'${key}'}`).val(resultObj[key] || 0);
                 }
                 jsonGrdAr = data.cv_3;
                 grdAr.rebuild();
             }else{
                 let resultObj = data.cv_4[0];
                 for(let key in resultObj){
-                    $(`#${'${key}'}2`).val(resultObj[key]);
+                    $(`#${'${key}'}2`).val(resultObj[key] || 0);
                 }
                 jsonGrdAp = data.cv_5;
                 grdAp.rebuild();
@@ -822,12 +822,12 @@
             if(workType === 'Q'){
                 let resultObj = data.cv_2[0];
                 for(let key in resultObj){
-                    $(`#${'${key}'}`).val(resultObj[key]);
+                    $(`#${'${key}'}`).val(resultObj[key] || 0);
                 }
             }else{
                 let resultObj = data.cv_4[0];
                 for(let key in resultObj){
-                    $(`#${'${key}'}2`).val(resultObj[key]);
+                    $(`#${'${key}'}2`).val(resultObj[key] || 0);
                 }
             }
         }

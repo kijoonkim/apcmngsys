@@ -91,8 +91,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy" class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -152,20 +152,20 @@
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.frozencols = 3;
         SBGridProperties.columns = [
-            {caption : ['사업장','종사업장번호'],ref : 'TX_SITE_NM',width : '100px', style : 'text-align:center', type : 'output'},
+            {caption : ['사업장','종사업장번호'],ref : 'TX_SITE_CD',width : '100px', style : 'text-align:center', type : 'output'},
             {caption : ['사업장','신고사업장명'],ref : 'TX_SITE_NM',width : '100px', style : 'text-align:center', type : 'output'},
-            {caption : ['사업장','사업장등록번호'],ref : 'TX_SITE_NM',width : '100px', style : 'text-align:center', type : 'output'},
-            {caption : ['매출세액','구분'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매출세액','상세구분'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매출세액','과세표준'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매출세액','세액'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매입세액','구분'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매입세액','상세구분'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매입세액','과세표준'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['매입세액','세액'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['가산세','가산세'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['공제세액','공제세액'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
-            {caption : ['납부세액','납부세액'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['사업장','사업장등록번호'],ref : 'BRNO',width : '100px', style : 'text-align:center', type : 'output'},
+            {caption : ['매출세액','구분'], ref : 'LINE1_AR_CATEGORY', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매출세액','상세구분'], ref : 'LINE2_AR_CATEGORY', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매출세액','과세표준'], ref : 'LINE1_AR_STD_SUPPLY_AMT', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매출세액','세액'], ref : 'LINE2_AR_STD_SUPPLY_AMT', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매입세액','구분'], ref : 'LINE1_AP_CATEGORY', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매입세액','상세구분'], ref : 'LINE2_AP_CATEGORY', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매입세액','과세표준'], ref : 'LINE1_AP_STD_SUPPLY_AMT', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['매입세액','세액'], ref : 'LINE2_AP_STD_SUPPLY_AMT', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['가산세','가산세'], ref : 'ADTN_VAT_AMT2', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['공제세액','공제세액'], ref : 'RDCTN_ETC_DDC_TXAMT2', width : '100px',style : 'text-align:center', type : 'output'},
+            {caption : ['납부세액','납부세액'], ref : 'SUM_TXAMT', width : '100px',style : 'text-align:center', type : 'output'},
             {caption : ['비고','비고'], ref : 'BRNO', width : '100px',style : 'text-align:center', type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
@@ -175,35 +175,42 @@
         jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
- 
+
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
- 
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
+
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy) {
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
-            target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedCorpCd
-            ,clientCode		: gv_ma_selectedClntCd
-            ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
-            ,formId			: p_formId
-            ,menuId			: p_menuId
-            ,selectValue	: ''
-            ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
-            ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TMPLT_NM'
-            ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
-                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
-                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+            target: ['#src-btn-currencyCode']
+            , compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'L_FIT030'
+            , whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
+            , formId: p_formId
+            , menuId: p_menuId
+            , selectValue: ''
+            , dropType: 'down' 	// up, down
+            , dropAlign: '' 	// left, right
+            , colValue: 'SEQ'
+            , colLabel: 'VAT_TMPLT_NM'
+            , columns: [
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
+                {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
+                {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
+                {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
+                {caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+                {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
+                {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
-            ,callback       : fn_choice
-        })
+            , callback: fn_choice
+        });
     }
     async function fn_choice(_value) {
         /** reset **/
@@ -255,6 +262,11 @@
             params: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        if(data.resultStatus === 'S') {
+            jsonGrdList = data.cv_1;
+            grdListGrid.rebuild();
+        }
+
     }
     function cfn_search(){
         fn_search();
