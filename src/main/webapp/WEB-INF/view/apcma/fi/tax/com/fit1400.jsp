@@ -653,26 +653,26 @@ const fn_save = async function(){
         ,V_P_LANG_ID                    : ''
         ,V_P_COMP_CODE                  : gv_ma_selectedCorpCd
         ,V_P_CLIENT_CODE                : gv_ma_selectedClntCd
-        ,VL_P_YYYY                      : ''
+        ,VL_P_YR                        : ''
         ,V_P_SEQ                        : ''
-        ,V_P_TAX_TERM                   : ''
-        ,V_P_VAT_REP_DETAIL_TYPE        : ''
-        ,V_P_REFUND_YN                  : ''
-        ,V_P_VAT_TYPE_NAME              : ''
-        ,V_P_STANDARD_MONTH_FR          : ''
-        ,V_P_STANDARD_MONTH_TO          : ''
-        ,V_P_REPORT_DATE                : ''
-        ,V_P_PAY_ORGSITE_NO             : ''
+        ,V_P_TX_PRD                     : ''
+        ,V_P_VAT_RPT_DTL_TYPE           : ''
+        ,V_P_ERLS_RFND_YN               : ''
+        ,V_P_VAT_TMPLT_NM               : ''
+        ,V_P_DCLR_BGNG_MM               : ''
+        ,V_P_DCLR_END_MM                : ''
+        ,V_P_RPT_YMD                    : ''
+        ,V_P_OVS_PAY_NO                 : ''
         ,V_P_MEMO                       : ''
-        ,V_P_REFUND_TYPE                : ''
-        ,V_P_REFUND_CANCEL_YN           : ''
+        ,V_P_RFND_TYPE                  : ''
+        ,V_P_ERLS_RFND_CNCL_YN          : ''
         ,V_P_FORM_ID                    : p_formId
         ,V_P_MENU_ID                    : p_menuId
         ,V_P_PROC_ID                    : ''
         ,V_P_USERID			            : ''
         ,V_P_PC				            : ''
     }
-    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_",["memo","seq"]);
+    let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_",["MEMO","seq"]);
  
     if(!postFlag){
         return;
@@ -680,7 +680,7 @@ const fn_save = async function(){
     /** 공통으로 get 불가능한 요소 **/
     let seq = '';
     if(status === 'U'){
-        seq = gfnma_nvl(rptStdGrid.getRowData(rowIdx).seq);
+        seq = gfnma_multiSelectGet("#src-btn-currencyCode");
     }else if(status === 'N'){
         seq = gfnma_nvl(rptStdGrid.getRows());
     }
@@ -694,7 +694,7 @@ const fn_save = async function(){
         params				: gfnma_objectToString(paramObj)
     });
     const data = await postJsonPromise;
- 
+
     if(data.resultStatus === "S"){
         gfn_comAlert("Q0000",data.resultMessage);
         await fn_saveS2();
@@ -820,34 +820,34 @@ const fn_delete = async function() {
     let status = "D";
     let rowIdx = rptStdGrid.getRow();
     var paramObj = {
-        V_P_DEBUG_MODE_YN: ''
-        , V_P_LANG_ID: ''
-        , V_P_COMP_CODE: gv_ma_selectedCorpCd
-        , V_P_CLIENT_CODE: gv_ma_selectedClntCd
-        , VL_P_YYYY: ''
-        , V_P_SEQ: ''
-        , V_P_TAX_TERM: ''
-        , V_P_VAT_REP_DETAIL_TYPE: ''
-        , V_P_REFUND_YN: ''
-        , V_P_VAT_TYPE_NAME: ''
-        , V_P_STANDARD_MONTH_FR: ''
-        , V_P_STANDARD_MONTH_TO: ''
-        , V_P_REPORT_DATE: ''
-        , V_P_PAY_ORGSITE_NO: ''
-        , V_P_MEMO: ''
-        , V_P_REFUND_TYPE: ''
-        , V_P_REFUND_CANCEL_YN: ''
-        , V_P_FORM_ID: p_formId
-        , V_P_MENU_ID: p_menuId
-        , V_P_PROC_ID: ''
-        , V_P_USERID: ''
-        , V_P_PC: ''
+         V_P_DEBUG_MODE_YN              : ''
+        ,V_P_LANG_ID                    : ''
+        ,V_P_COMP_CODE                  : gv_ma_selectedCorpCd
+        ,V_P_CLIENT_CODE                : gv_ma_selectedClntCd
+        ,VL_P_YR                        : ''
+        ,V_P_SEQ                        : ''
+        ,V_P_TX_PRD                     : ''
+        ,V_P_VAT_RPT_DTL_TYPE           : ''
+        ,V_P_ERLS_RFND_YN               : ''
+        ,V_P_VAT_TMPLT_NM               : ''
+        ,V_P_DCLR_BGNG_MM               : ''
+        ,V_P_DCLR_END_MM                : ''
+        ,V_P_RPT_YMD                    : ''
+        ,V_P_OVS_PAY_NO                 : ''
+        ,V_P_MEMO                       : ''
+        ,V_P_RFND_TYPE                  : ''
+        ,V_P_ERLS_RFND_CNCL_YN          : ''
+        ,V_P_FORM_ID                    : p_formId
+        ,V_P_MENU_ID                    : p_menuId
+        ,V_P_PROC_ID                    : ''
+        ,V_P_USERID			            : ''
+        ,V_P_PC				            : ''
     }
     /** 공통으로 get 불가능한 요소 **/
-    let seq = gfnma_nvl(rptStdGrid.getRowData(rowIdx).seq);
-    paramObj.V_P_SEQ = seq;
+    let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
     let postFlag = gfnma_getTableElement("middleTable","reg-",paramObj,"V_P_");
- 
+    paramObj.V_P_SEQ = seq;
+
     if(!postFlag){
         return;
     }

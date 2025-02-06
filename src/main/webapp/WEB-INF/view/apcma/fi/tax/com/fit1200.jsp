@@ -221,7 +221,7 @@
         /** 사업장 구분 **/
         let data = await gfnma_getComList('L_FIT036','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         jsonTaxSiteType = data.cv_1;
-        SBUxMethod.refresh('reg-slt-taxSiteType');
+        SBUxMethod.refresh('reg-slt-TX_SITE_TYPE');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
  
         /** 기준연도 **/
