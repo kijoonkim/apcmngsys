@@ -124,8 +124,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy" class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -2339,7 +2339,8 @@
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
         /** 한도율 **/
         jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         jsonLimitRate = jsonLimitRateData.cv_1;
@@ -2347,32 +2348,37 @@
         SBUxMethod.set('DMINPT_TRGT_LIM_RT','3');
         SBUxMethod.refresh('LMT_RT');
         SBUxMethod.set('LMT_RT','3');
- 
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy) {
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
-            target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedCorpCd
-            ,clientCode		: gv_ma_selectedClntCd
-            ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
-            ,formId			: p_formId
-            ,menuId			: p_menuId
-            ,selectValue	: ''
-            ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
-            ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TMPLT_NM'
-            ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
-                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
-                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+            target: ['#src-btn-currencyCode']
+            , compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'L_FIT030'
+            , whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
+            , formId: p_formId
+            , menuId: p_menuId
+            , selectValue: ''
+            , dropType: 'down' 	// up, down
+            , dropAlign: '' 	// left, right
+            , colValue: 'SEQ'
+            , colLabel: 'VAT_TMPLT_NM'
+            , columns: [
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
+                {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
+                {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
+                {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
+                {caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+                {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
+                {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
-            ,callback       : fn_choice
-        })
+            , callback: fn_choice
+        });
     }
     async function fn_choice(_value){
         /** reset **/
