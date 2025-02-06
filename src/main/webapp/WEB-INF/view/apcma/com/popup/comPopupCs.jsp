@@ -31,8 +31,10 @@
                                 	<sbux-input id="SRCH_CS_NAME_POP" class="form-control input-sm" uitype="text"></sbux-input>
                                 </td>
                                 <td colspan="2" rowspan="2" class="td_input" style="border-right: hidden;">
-                        			<sbux-button id="btnSearchPopCs" name="btnSearchPopCs" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger cu-btn-search-compopupcs" style="float: right;"></sbux-button>
-                        			<sbux-button id="btnClearPopCs" name="btnClearPopCs" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger cu-btn-clear-compopupcs" style="float: right;"></sbux-button>
+                                	<div>
+	                        			<sbux-button id="btnSearchPopCs" name="btnSearchPopCs" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger cu-btn-search-compopupcs" style="float: right;"></sbux-button>
+	                        			<sbux-button id="btnClearPopCs" name="btnClearPopCs" uitype="normal" text="초기화" class="btn btn-sm btn-outline-danger cu-btn-clear-compopupcs" style="float: right;"></sbux-button>
+                                	</div>
                                 </td>
 							</tr>
 							<tr>
@@ -90,6 +92,7 @@ async function comPopupCs(options, selectRowVal) {
 	var settings = {
 			compCode				: null
 			,clientCode				: null
+			,inputData				: null
 			,type					: null
 			,bizcompId				: null
 			,whereClause			: null
@@ -101,19 +104,27 @@ async function comPopupCs(options, selectRowVal) {
 	console.log('settings:', settings);
 	console.log('gridclickRowEvent:', settings);
 
+    const comPopupCsInputData = async function () {
+        let rst = await Promise.all([
+        	console.log('comPopupCsInputData settings ==>', settings),
+		    $('#SRCH_CS_CODE_POP').val(settings.inputData.CS_CODE),
+		    $('#SRCH_CS_NAME_POP').val(settings.inputData.CS_NAME),
+		    $('#SRCH_BRNO_POP').val(settings.inputData.BIZ_REGNO),
+        ]);
+    }
+    comPopupCsInputData();
 	//setGrid
     const setCsGridFig3510 = function() {
         
-	  	//기간별환율 탭 - 기간별환율등록
 	    SBGridPropertiescomPopupCs = {};
-	    SBGridPropertiescomPopupCs.parentid 			= 'sb-area-grid-cs';
+	    SBGridPropertiescomPopupCs.parentid 		= 'sb-area-grid-cs';
 	    SBGridPropertiescomPopupCs.id 				= 'gridComPopCs';
 	    SBGridPropertiescomPopupCs.jsonref 			= 'gridComPopCsList';
-	    SBGridPropertiescomPopupCs.emptyrecords 		= '데이터가 없습니다.';
+	    SBGridPropertiescomPopupCs.emptyrecords 	= '데이터가 없습니다.';
 	    SBGridPropertiescomPopupCs.selectmode 		= 'byrows';
-	    SBGridPropertiescomPopupCs.allowcopy 			= true; //복사
+	    SBGridPropertiescomPopupCs.allowcopy 		= true; //복사
 	    SBGridPropertiescomPopupCs.explorerbar 		= 'sortmove';
-	    SBGridPropertiescomPopupCs.extendlastcol 		= 'scroll';
+	    SBGridPropertiescomPopupCs.extendlastcol 	= 'scroll';
 	    SBGridPropertiescomPopupCs.showscrollinfo = {
 	            type        :   'vertical',
 	            callback    :   function(nDataCount, nTopRow, nBottomRow){
@@ -144,17 +155,16 @@ async function comPopupCs(options, selectRowVal) {
 	    gridComPopCs.bind('click', 'clickPop');
 	}
     const setCsGridFig2210_99 = function() {
-        
 	  	//기간별환율 탭 - 기간별환율등록
 	    SBGridPropertiescomPopupCs = {};
-	    SBGridPropertiescomPopupCs.parentid 			= 'sb-area-grid-cs';
+	    SBGridPropertiescomPopupCs.parentid 		= 'sb-area-grid-cs';
 	    SBGridPropertiescomPopupCs.id 				= 'gridComPopCs';
 	    SBGridPropertiescomPopupCs.jsonref 			= 'gridComPopCsList';
-	    SBGridPropertiescomPopupCs.emptyrecords 		= '데이터가 없습니다.';
+	    SBGridPropertiescomPopupCs.emptyrecords 	= '데이터가 없습니다.';
 	    SBGridPropertiescomPopupCs.selectmode 		= 'byrows';
-	    SBGridPropertiescomPopupCs.allowcopy 			= true; //복사
+	    SBGridPropertiescomPopupCs.allowcopy 		= true; //복사
 	    SBGridPropertiescomPopupCs.explorerbar 		= 'sortmove';
-	    SBGridPropertiescomPopupCs.extendlastcol 		= 'scroll';
+	    SBGridPropertiescomPopupCs.extendlastcol 	= 'scroll';
 	    SBGridPropertiescomPopupCs.showscrollinfo = {
 	            type        :   'vertical',
 	            callback    :   function(nDataCount, nTopRow, nBottomRow){
@@ -204,7 +214,6 @@ async function comPopupCs(options, selectRowVal) {
 	
     const searchPopCs = async function() {
 		let strWhereClause = await replaceWhereClause();
-		console.log('searchPopCs settings.whereClause ==>', settings.whereClause);
    		var paramObj = {
    	   			V_P_DEBUG_MODE_YN	: ''
    	   			,V_P_LANG_ID		: ''

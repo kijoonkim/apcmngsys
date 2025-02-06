@@ -1856,6 +1856,11 @@
             compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
             , type: strsourceType
+            , inputData: { 
+            	"CS_CODE" : gfnma_nvl2(SBUxMethod.get('CS_CODE')) , 
+            	"CS_NAME" : gfnma_nvl2(SBUxMethod.get('CS_NAME')), 
+            	"BIZ_REGNO" : gfnma_nvl2(SBUxMethod.get('BIZ_REGNO')) 
+            }
             , bizcompId: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
             , whereClause: strWhereClause
             , itemSelectEvent: function (data) {
