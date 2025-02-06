@@ -24,6 +24,7 @@
 				<div style="margin-left: auto;">
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -31,6 +32,7 @@
 					 -->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '2'}">
+					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
 
 					<!--
@@ -1261,6 +1263,12 @@
 		if(gfn_isEmpty(yr)){
 			yr = SBUxMethod.get("dtl-input-yr");
 		}
+		//년도 검색값이 없는 경우 최신년도
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
 		let prvYr = Number(yr) - 1;
 		let prvTotStr = prvYr + "년";
 		let totStr = yr + "년";
@@ -1540,6 +1548,36 @@
 		 */
 		//console.log(hiddenGrd.exportData);
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
+	}
+
+	/* 과거 실적 조회 팝업 추가 */
+
+	//과거 조회 팝업
+	const fn_openMaodal = function() {
+		//사업자번호
+		let brno = SBUxMethod.get("dtl-input-brno");
+
+		if(gfn_isEmpty(brno)){
+			alert("선택된 조직이 없습니다");
+			return;
+		}
+
+		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
+		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
+
+		var url = "/pd/hisPopup/IsoGenalTblHisPopup.do"
+		var title = "제출실적 보기";
+		//SBUxMethod.popupWindow(url, title, '600px','500px');
+
+		window.open(url, title, "width=1000px,height=900px");
+	}
+
+	//팝업 새창에서 변수 확인
+	function fn_getData() {
+		let data = [];
+		data.brno = SBUxMethod.get("dtl-input-brno");
+		data.corpNm = SBUxMethod.get("dtl-input-corpNm");
+		return data;
 	}
 
 </script>

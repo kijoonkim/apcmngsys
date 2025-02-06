@@ -1816,7 +1816,10 @@
 		//사업자번호
 		let brno = SBUxMethod.get("dtl-input-brno");
 
-		if(gfn_isEmpty(brno)){return;}
+		if(gfn_isEmpty(brno)){
+			alert("선택된 조직이 없습니다");
+			return;
+		}
 
 		//popBizPlanPdfViewer.init(rowData , fn_setPdfViewer);
 		//SBUxMethod.openModal('modal-bizPlanPdfViewer');
