@@ -357,7 +357,7 @@
 				<sbux-tabs
 					id="tab-svg"
 					name="tab-svg"
-					uitype="webacc"
+					uitype="normal"
 					is-scrollable="false"
 					wrap-style="height:100%"
 					jsondata-ref="jsonMasterTabData"
@@ -696,7 +696,7 @@
 				//gfnma_setComSelect(['srch-slt-svgMethod'], jsonSvgMethod, 'L_FIF015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				gfnma_setComSelect(['srch-slt-regType'], jsonRegType, 'L_FBS017', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				// 수금유형
-	            gfnma_setComSelect(['grdSvg'], jsonReceiptType, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+	            gfnma_setComSelect(['grdSvg'], jsonReceiptType, 'P_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            
 				// 은행
 				
@@ -1531,32 +1531,28 @@
             	ref: 'CUST_CNPT_CD',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["고객명"],				
             	ref: 'CUSTOMER_CS_NAME',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["원가중심점"],				
             	ref: 'CSTCD_CD',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["원가중심점명"],				
             	ref: 'CSTCD_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["반제전표번호"],				
@@ -1729,8 +1725,7 @@
             	ref: 'REVE_NO',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["거래일"], 
@@ -2113,8 +2108,7 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["전표상태"],

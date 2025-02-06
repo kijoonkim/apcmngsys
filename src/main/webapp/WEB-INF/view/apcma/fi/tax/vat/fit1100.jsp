@@ -298,7 +298,7 @@
                     <sbux-tabs
                     	id="tabTopJson" 
                     	name="tabTopJson" 
-                    	uitype="webacc" 
+                    	uitype="normal"
                     	is-scrollable="false"
                     	jsondata-ref="tabJsonData"
 <%--                        callback-after-select="fn_switchTab"--%>
@@ -1075,7 +1075,6 @@
             	ref : 'VAT_TYPE', 
             	width : '120px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatType',
@@ -1593,7 +1592,6 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -1618,7 +1616,6 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -1666,7 +1663,6 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2019,7 +2015,6 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -2182,7 +2177,6 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2537,7 +2531,6 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -2615,7 +2608,6 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-                fixedstyle : 'background-color:#f1ffd9;',
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -2628,7 +2620,6 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2660,7 +2651,6 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2678,7 +2668,6 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
             	type : 'output'
             },
             {
@@ -2686,7 +2675,6 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
             	type : 'output'
             },
             {
@@ -2695,7 +2683,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',	
+             		
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -2705,7 +2693,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -2714,7 +2702,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -2728,7 +2716,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -2741,7 +2729,7 @@
             	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonEtaxType',
@@ -2790,7 +2778,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -2855,7 +2843,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-                fixedstyle : 'background-color:#f1ffd9;',
+                
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -2868,7 +2856,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2900,7 +2888,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -2918,7 +2906,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -2926,7 +2914,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -2935,7 +2923,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',	
+             		
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -2945,7 +2933,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -2954,7 +2942,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -2968,7 +2956,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -2981,7 +2969,7 @@
             	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonEtaxType',
@@ -3030,7 +3018,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -3096,7 +3084,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -3109,7 +3097,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3127,7 +3115,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3145,7 +3133,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -3153,7 +3141,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -3171,7 +3159,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3264,7 +3252,7 @@
             	ref : 'DCNMT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3272,7 +3260,7 @@
             	ref : 'ISSU_NM', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3280,7 +3268,7 @@
             	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3298,7 +3286,7 @@
             	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3316,7 +3304,7 @@
             	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonCurrencyCode',
@@ -3329,7 +3317,7 @@
             	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	datatype: 'number',
             	type : 'input',
             	typeinfo: {
@@ -3342,7 +3330,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -3367,7 +3355,7 @@
             	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3418,7 +3406,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -3431,7 +3419,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3456,7 +3444,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3506,7 +3494,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -3599,7 +3587,7 @@
             	width : '80px',
             	style : 'text-align:left',
             	type : 'combo',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
                     label : 'label',
@@ -3611,7 +3599,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3636,7 +3624,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3685,7 +3673,7 @@
             	ref : 'EXPRT_LCNS_NO', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3693,7 +3681,7 @@
             	ref : 'SHPG_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3711,7 +3699,7 @@
             	ref : 'CRN_CD', 
             	width : '60px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonCurrencyCode',
@@ -3725,7 +3713,7 @@
             	ref : 'EXCHRT', 
             	width : '60px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	datatype: 'number',
             	type : 'input',
             	typeinfo: {
@@ -3738,7 +3726,7 @@
             	ref : 'EXPRT_FRCNCY_AMT', 
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	datatype: 'number',
             	type : 'input',
             	typeinfo: {
@@ -3751,7 +3739,7 @@
             	ref : 'KRW_AMT', 
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	datatype: 'number',
             	type : 'input',
             	typeinfo: {
@@ -3796,7 +3784,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -3851,7 +3839,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -3864,7 +3852,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3889,7 +3877,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3907,7 +3895,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -3915,7 +3903,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -3924,7 +3912,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',
+             	
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -3934,7 +3922,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input'
             },
             {
@@ -3943,7 +3931,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -3980,7 +3968,7 @@
             	ref : 'DCNMT_ISSU_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
                 type : 'inputdate',
             	format : {
             		type:'date', 
@@ -3998,7 +3986,7 @@
             	ref : 'DCNMT_NO', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'input'
             },
             {
@@ -4006,7 +3994,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -4151,7 +4139,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-                fixedstyle : 'background-color:#f1ffd9;',
+                
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -4164,7 +4152,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4196,7 +4184,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4214,7 +4202,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4222,7 +4210,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4231,7 +4219,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',	
+             		
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -4241,7 +4229,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -4250,7 +4238,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4264,7 +4252,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4277,7 +4265,7 @@
             	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonEtaxType',
@@ -4314,7 +4302,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -4380,7 +4368,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-                fixedstyle : 'background-color:#f1ffd9;',
+                
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -4393,7 +4381,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4425,7 +4413,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4443,7 +4431,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4451,7 +4439,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4460,7 +4448,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',	
+             		
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -4470,7 +4458,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -4479,7 +4467,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4492,7 +4480,7 @@
             	ref : 'ELDOC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonEtaxType',
@@ -4517,7 +4505,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -4573,7 +4561,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-                fixedstyle : 'background-color:#f1ffd9;',
+                
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -4586,7 +4574,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4611,7 +4599,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4629,7 +4617,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4637,7 +4625,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'output'
             },
             {
@@ -4646,7 +4634,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',	
+             		
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -4656,7 +4644,7 @@
             	ref : 'BRNO', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -4665,7 +4653,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4678,7 +4666,7 @@
             	ref : 'DMINPT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonDeemedInputType',
@@ -4691,7 +4679,7 @@
             	ref : 'GDS_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'input'
             },
             {
@@ -4712,7 +4700,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -4767,7 +4755,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -4780,7 +4768,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4819,7 +4807,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -4837,7 +4825,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -4845,7 +4833,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -4854,7 +4842,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',
+             	
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -4872,7 +4860,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4886,7 +4874,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4900,7 +4888,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -4913,7 +4901,7 @@
             	ref : 'VAT_AST_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatAssetType',
@@ -4926,7 +4914,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -4982,7 +4970,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -4995,7 +4983,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5027,7 +5015,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5045,7 +5033,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -5053,7 +5041,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -5062,7 +5050,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',
+             	
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -5080,7 +5068,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -5094,7 +5082,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -5107,7 +5095,7 @@
             	ref : 'VAT_NDDC_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatNotDedType',
@@ -5120,7 +5108,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
@@ -5177,7 +5165,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAp',
@@ -5190,7 +5178,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',	
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5222,7 +5210,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5298,7 +5286,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -5312,7 +5300,7 @@
             	datatype: 'number',
             	width : '80px',
             	style : 'text-align:right',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'input',
             	datatype: 'number',
             	typeinfo: {
@@ -5379,7 +5367,7 @@
             	ref : 'VAT_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonVatTypeAr',
@@ -5392,7 +5380,7 @@
             	ref : 'TXIV_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',	
+            		
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5417,7 +5405,7 @@
             	ref : 'DCLR_YMD', 
             	width : '100px', 
             	style : 'text-align:center',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'inputdate',
             	format : {
             		type:'date', 
@@ -5447,7 +5435,7 @@
             	ref : 'CNPT_CD', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -5455,7 +5443,7 @@
             	ref : 'CNPT_NM', 
             	width : '100px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	
             	type : 'output'
             },
             {
@@ -5464,7 +5452,7 @@
             	width : '30px',
              	type:'button',
              	style: 'text-align:center',
-             	fixedstyle : 'background-color:#f1ffd9;',
+             	
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
   					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_popGridCsCode(" + nRow + ")'>...</button>";
      	        }
@@ -5555,7 +5543,7 @@
             	ref : 'AR_AP_TYPE', 
             	width : '80px',
             	style : 'text-align:left',
-            	fixedstyle : 'background-color:#f1ffd9;', 
+            	 
             	type : 'combo',
             	typeinfo : {
                     ref : 'jsonArApType',
