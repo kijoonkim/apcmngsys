@@ -229,7 +229,7 @@
 	            <sbux-tabs
 					id="tab-svg"
 					name="tab-svg"
-					uitype="webacc"
+					uitype="normal"
 					is-scrollable="false"
 					wrap-style="height:100%"
 					jsondata-ref="jsonMasterTabData"
@@ -391,10 +391,7 @@
     	let nowDate = new Date();
 		let firstYmd = gfn_dateFirstYmd(nowDate);
 		let lastYmd = gfn_dateToYmd(nowDate);
-		
-		console.log("firstYmd", firstYmd);
-		console.log("lastYmd", lastYmd);
-		
+
 		SBUxMethod.set("srch-dtp-txnDateFrom", firstYmd);
 		SBUxMethod.set("srch-dtp-txnDateTo", lastYmd);
 		
@@ -458,11 +455,12 @@
 					]
 				}),
 				// 수금방법
-				gfnma_setComSelect(['srch-slt-payMethod'], jsonPayMethod, 'P_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+				gfnma_setComSelect(['srch-slt-payMethod'], jsonPayMethod, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				// 등록구분
 				//gfnma_setComSelect(['srch-slt-svgMethod'], jsonSvgMethod, 'L_FIF015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-				gfnma_setComSelect(['srch-slt-regType'], jsonRegType, 'L_FBS017', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-				
+				//gfnma_setComSelect(['srch-slt-regType'], jsonRegType, 'L_FBS017', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+				gfnma_setComSelect(['srch-slt-regType'], jsonRegType, 'L_FBS017', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+
 				// 은행
 				gfnma_setComSelect(['grdSvg'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
 				// 거래유형
@@ -485,6 +483,7 @@
 	            gfnma_setComSelect(['grdAcntg'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            
 			]);
+
 	}
     
 	/**
@@ -530,8 +529,7 @@
             	ref : 'CRN_CD', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     displayui : true,
@@ -587,8 +585,7 @@
             	ref : 'PAY_MTHD', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonPayMethod',
                     displayui : true,
@@ -602,16 +599,14 @@
             	ref: 'DPST_SVG_CD',		
             	type:'input',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["입금은행"],
             	ref : 'CUST_BANK_CD', 
             	width : '100px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonBankCode',
                     displayui : true,
@@ -625,8 +620,7 @@
             	ref: 'CUST_BACNT_NO',		
             	type:'input',  	
             	width:'150px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ['환율'],
@@ -647,16 +641,14 @@
             	ref: 'DSCTN',		
             	type:'input',  	
             	width:'150px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {	
             	caption : ["등록구분"],				
             	ref: 'REG_TYPE', 
             	width : '100px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonRegType',
                     oneclickedit:true,
@@ -730,8 +722,7 @@
             	ref: 'FUND_BTCH_NO',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["순번"],				
@@ -797,8 +788,7 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["전표상태"],
@@ -819,8 +809,7 @@
             	ref : 'CRN_CD', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     label : 'label',
@@ -842,8 +831,7 @@
             	ref : 'EXCHRT_TYPE', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonExchangeType',
                     label : 'label',
@@ -874,8 +862,7 @@
             	ref : 'BANK_CNPT_CD', 
             	width : '100px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonBankCode',
                     displayui : true,
@@ -903,8 +890,7 @@
             	ref : 'PAY_MTHD', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonPayMethod',
                     displayui : true,
@@ -962,8 +948,7 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["전표상태"],
@@ -1157,8 +1142,7 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["전표상태"],
@@ -1178,8 +1162,7 @@
             	ref: 'REVE_NO',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["반제일"], 
@@ -1226,8 +1209,7 @@
             	ref : 'CRN_CD', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonCurrencyCode',
                     displayui : true,
@@ -1241,8 +1223,7 @@
             	ref : 'EXCHRT_TYPE', 
             	width : '150px', 
             	style : 'text-align:center', 
-            	type : 'combo', 
-            	fixedstyle : 'background-color:#f1ffd9;',
+            	type : 'combo',
                 typeinfo : {
                     ref : 'jsonExchangeType',
                     displayui : true,
@@ -1288,8 +1269,7 @@
             	ref: 'APPLY_DOC_NAME',		
             	type:'output',  	
             	width:'60px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption: ["증빙유형"],

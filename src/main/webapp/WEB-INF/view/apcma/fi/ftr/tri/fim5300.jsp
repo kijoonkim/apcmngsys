@@ -593,9 +593,8 @@
 						<sbux-tabs
 							id="tab-bank"
 							name="tab-bank"
-							uitype="webacc"
+							uitype="normal"
 							is-scrollable="false"
-							wrap-style="height:100%"
 							jsondata-css-style="styleKey"
 							jsondata-ref="jsonDetailTabData"
 							onclick="fn_tabClick"
@@ -2208,7 +2207,9 @@
                      */
 					jsonSvgGnlgr.push(item);
                 });
-                
+
+				console.log(jsonSvgGnlgr);
+
                 grdSvgGnlgr.rebuild();
                 
                 fn_clearDetail();
@@ -2878,7 +2879,6 @@
             	style : 'text-align:right',
             	type : 'output',
                 format : {type:'number', rule:'0,000.00'},
-                fixedstyle : 'background-color:#f1ffd9;',
             },
             {
             	caption : ['법인세율(%)'],
@@ -2888,7 +2888,6 @@
             	style : 'text-align:right',
             	type : 'output',
                 format : {type:'number', rule:'0,000.00'},
-                fixedstyle : 'background-color:#f1ffd9;',
             },
             {
             	caption : ['지방소득세율(%)'],
@@ -2898,7 +2897,6 @@
             	style : 'text-align:right',
             	type : 'output',
                 format : {type:'number', rule:'0,000.00'},
-                fixedstyle : 'background-color:#f1ffd9;',
             },
             {
             	caption : ["자금상태"],
@@ -3007,9 +3005,11 @@
 			const elType = el.type;
 			
 			if (_.isEqual(elType, "string")) {
-				SBUxMethod.set(el.elmt, gfn_nvl(_data[el.id]), gfn_isEmpty(el['default']) ? "" : el['default']);
+				//SBUxMethod.set(el.elmt, gfn_nvl(_data[el.id]), gfn_isEmpty(el['default']) ? "" : el['default']);
+				SBUxMethod.set(el.elmt, gfn_nvl(_data[el.col]), gfn_isEmpty(el['default']) ? "" : el['default']);
 			} else {
-				SBUxMethod.set(el.elmt, _data[el.id]);
+				//SBUxMethod.set(el.elmt, _data[el.id]);
+				SBUxMethod.set(el.elmt, _data[el.col]);
 			}
 		});
 	}

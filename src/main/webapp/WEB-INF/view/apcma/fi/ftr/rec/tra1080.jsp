@@ -622,32 +622,28 @@
             	ref: 'CUST_CNPT_CD',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["고객명"],				
             	ref: 'CUSTOMER_CS_NAME',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["원가중심점"],				
             	ref: 'CSTCD_CD',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["원가중심점명"],				
             	ref: 'CSTCD_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left', 
-            	fixedstyle : 'background-color:#f1ffd9;' 
+            	style:'text-align:left',
             },
             {
             	caption : ["반제전표번호"],				
