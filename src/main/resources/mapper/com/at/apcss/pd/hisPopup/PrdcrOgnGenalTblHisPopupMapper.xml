@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrdcrOgnGenalTblHisPopupMapper.xml                                    		-->
+<!-- DESC : 생산자조직 총괄표 과거조회 mapper                                             		-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper">
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2024	-->
+	<!-- DESC : 생산자조직 총괄표 조회 2024년                                     			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisPrdcrOgnGenalTbl2024" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
+		SELECT	/* com.at.apcss.pd.pom.mapper.PrdcrOgnCurntMngMapper.selectTbEvFrmhsApoStbltYnList */
+			TOTAL.BRNO
+			,TOTAL.UO_BRNO
+			,TOTAL.PRDCR_OGNZ_SN
+			,TOTAL.PRDCR_OGNZ_NM
+			,TOTAL.YR
+			,TOTAL.APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,TOTAL.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = TOTAL.CTGRY_CD) AS CTGRY_NM
+			,TOTAL.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = TOTAL.ITEM_CD) AS ITEM_NM
+			,TOTAL.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = TOTAL.TRMT_TYPE) AS TRMT_TYPE_NM
+			,TOTAL.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = TOTAL.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,TOTAL.CNT
+			,TOTAL.SPMT_PRC_TOT
+			,TOTAL.PRDCTN_VLM_TOT
+			,TOTAL.EC_SPMT_VLM_TOT
+			,TOTAL.EC_SPMT_PLAN_VLM_TOT
+			,TOTAL.EC_SPMT_RATE_A
+			,TOTAL.EC_SPMT_RATE_B
+			,(CASE WHEN APRV = '1' THEN
+									(CASE WHEN TOTAL.STTG_UPBR_ITEM_SE = '1' THEN
+																				(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 200000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_A) >= 80
+																					THEN 'Y'
+																					ELSE 'N' END)
+										WHEN TOTAL.STTG_UPBR_ITEM_SE = '2' THEN 'Y'
+										ELSE 'N' END)
+					WHEN APRV = '2' THEN
+									(CASE WHEN TRMT_TYPE = '1' THEN
+																	(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5  AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 50000 AND TO_NUMBER(TOTAL.EC_SPMT_RATE_B) >= 80
+																		THEN 'Y'
+																		ELSE 'N' END)
+											WHEN TRMT_TYPE = '2' THEN
+																	(CASE WHEN TO_NUMBER(TOTAL.CNT) >= 5 AND TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 50000
+																		THEN 'Y'
+																		ELSE 'N' END)
+											WHEN TRMT_TYPE = '3' THEN
+																	(CASE WHEN TO_NUMBER(TOTAL.SPMT_PRC_TOT) >= 50000
+																		THEN 'Y'
+																		ELSE 'N' END)
+										ELSE 'N' END)
+				ELSE 'N'
+				END
+			) AS STBLT_YN
+			,TOTAL.ORG_STBLT_YN
+		FROM (SELECT
+			TEFA.BRNO
+			,TEFA.UO_BRNO
+			,TEFA.PRDCR_OGNZ_SN
+			,TEFA.PRDCR_OGNZ_NM
+			,TEFA.YR
+			,TEFA.APO_SE
+			,TEFA.ITEM_CD
+			,TEFA.CTGRY_CD
+			,TEFA.STTG_UPBR_ITEM_SE
+			,TEFA.STBLT_YN AS ORG_STBLT_YN
+			,NVL(TEFA.TRMT_TYPE,'0') AS TRMT_TYPE
+			,(SELECT APO_SE FROM TB_EV_APO WHERE BRNO = TEFA.BRNO) AS APO_SE_CHK
+			,(SELECT NVL(APRV,'0')
+				FROM TB_EV_APO
+				WHERE BRNO = (CASE WHEN TEFA.APO_SE = '1'
+									THEN NVL(TEFA.BRNO,'')
+									ELSE NVL(TEFA.UO_BRNO,'') END)
+			) AS APRV
+			,CNT
+			,TEFPSS.SPMT_PRC_TOT
+			,TEFPSS.PRDCTN_VLM_TOT
+			,TEFPSS.EC_SPMT_VLM_TOT
+			,TEFPSS.EC_SPMT_PLAN_VLM_TOT
+			,ROUND(NVL( TEFPSS.EC_SPMT_VLM_TOT/ NULLIF( TEFPSS.PRDCTN_VLM_TOT, 0 ) , 0 ) * 100 , 2 ) AS EC_SPMT_RATE_A
+			,ROUND(NVL( TEFPSS.EC_SPMT_VLM_TOT/ NULLIF( TEFPSS.EC_SPMT_PLAN_VLM_TOT, 0 ) , 0 ) * 100 , 2 ) AS EC_SPMT_RATE_B
+		FROM (SELECT *
+					FROM TB_EV_FRMHS_APO
+					WHERE 1=1
+					  AND NVL(EXCL_YN,'N') != 'Y'
+					<if test='brno != null and brno != ""'>
+					  AND BRNO = #{brno}
+					</if>
+					<if test='uoBrno != null and uoBrno != ""'>
+					  AND UO_BRNO = #{uoBrno}
+					</if>
+					<if test='yr != null and yr != ""'>
+					  AND YR = #{yr}
+					</if>
+					) TEFA
+		LEFT JOIN (SELECT
+								PRDCR_OGNZ_SN
+								,YR
+								,BRNO
+								,COUNT(PRDCR_OGNZ_SN) AS CNT
+								,SUM(NVL(SPMT_PRC,0)) AS SPMT_PRC_TOT
+								,SUM(NVL(PRDCTN_VLM,0)) AS PRDCTN_VLM_TOT
+								,SUM(NVL(EC_SPMT_VLM,0)) AS EC_SPMT_VLM_TOT
+								,SUM(NVL(EC_SPMT_PLAN_VLM,0)) AS EC_SPMT_PLAN_VLM_TOT
+							FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN
+							WHERE 1=1
+							<if test='brno != null and brno != ""'>
+					  		  AND BRNO = #{brno}
+							</if>
+							<if test='uoBrno != null and uoBrno != "" and brno != null and brno != ""'>
+					 	 	  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+					 	 	  							FROM TB_EV_FRMHS_APO
+					 	 	  							WHERE 1=1
+					 	 	  							  AND NVL(EXCL_YN,'N') != 'Y'
+					 	 	  							  AND BRNO = #{brno}
+					 	 	  							  AND UO_BRNO = #{uoBrno})
+							</if>
+							<if test='yr != null and yr != ""'>
+							  AND YR = #{yr}
+							</if>
+							GROUP BY PRDCR_OGNZ_SN , YR , BRNO
+							)TEFPSS
+		ON TEFA.PRDCR_OGNZ_SN = TEFPSS.PRDCR_OGNZ_SN
+		AND TEFA.YR = TEFPSS.YR
+		AND TEFA.BRNO = TEFPSS.BRNO)TOTAL
+		ORDER BY TOTAL.PRDCR_OGNZ_SN ASC
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.hisPopup.mapper.PrdcrOgnGenalTblHisPopupMapper.selectHisPrdcrOgnGenalTbl2025	-->
+	<!-- DESC : 생산자조직 총괄표 조회 2025년                                     			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.01.10  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectHisPrdcrOgnGenalTbl2025" parameterType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO" resultType="com.at.apcss.pd.hisPopup.vo.PrdcrOgnGenalTblVO">
+		SELECT
+			FA.UO_BRNO
+			,FA.BRNO
+			,FA.APO_SE
+			,DECODE(FA.APO_SE , '1' , '통합조직' , '2' , '출자출하조직' ,'') AS APO_SE_NM
+			,PRDCR_OGNZ_NM
+			,PRDCR_OGNZ_SN
+			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = (SELECT APRV FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO)) AS APRV_NM
+			,ITEM.CTGRY_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+			,FA.ITEM_CD
+			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = FA.ITEM_CD) AS ITEM_NM
+			,FA.TRMT_TYPE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) AS TRMT_TYPE_NM
+			,ITEM.STTG_UPBR_ITEM_SE
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			,ITEM.CLSF_CD
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = ITEM.CLSF_CD) AS CLSF_NM
+
+			,FA.STBLT_YN
+
+			,(SELECT COUNT(CLTVTN_LAND_SN) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS CNT
+
+			,(SELECT SUM(EC_SPMT_PLAN_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_PLAN_VLM_TOT
+			,(SELECT SUM(EC_SPMT_VLM) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_VLM_TOT
+
+			,(SELECT SUM(SPMT_PRC) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS SPMT_PRC_TOT
+
+			,(SELECT ROUND( (SUM(EC_SPMT_VLM)/NULLIF(SUM(EC_SPMT_PLAN_VLM),0))*100 ,2) FROM TB_EV_FRMHS_PRDCTN_EC_SPMT_STTN WHERE PRDCR_OGNZ_SN = FA.PRDCR_OGNZ_SN) AS EC_SPMT_RATE_B
+
+			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = FA.UO_BRNO) AS UO_CORP_NM
+			,EA.CORP_NM
+
+		FROM
+			TB_EV_FRMHS_APO FA
+
+			LEFT JOIN TB_EV_APO EA
+			ON FA.BRNO = EA.BRNO
+
+			LEFT JOIN TB_EV_APO_YR_GPC_CD ITEM
+			ON FA.YR = ITEM.YR
+			AND FA.UO_BRNO = ITEM.BRNO
+			AND FA.ITEM_CD = ITEM.ITEM_CD
+
+		WHERE 1=1
+		  AND (
+		  		FA.BRNO = #{brno}
+		  		OR
+		  		FA.BRNO IN (SELECT ISO_BRNO FROM TB_EV_APO_UO_CD WHERE UO_BRNO = #{brno})
+		  		)
+		<if test='uoBrno != null and uoBrno != ""'>
+		  AND FA.UO_BRNO = #{uoBrno}
+		</if>
+		  AND FA.YR = #{yr}
+
+		ORDER BY APO_SE , CORP_NM , PRDCR_OGNZ_NM
+	</select>
+</mapper>
