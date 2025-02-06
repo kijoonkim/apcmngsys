@@ -2809,8 +2809,8 @@
      */
 	function fn_gridPopup2(event, row, col) {
 		event.stopPropagation();	
-        let cellData1 = Fig2210Grid.getCellData(row, 8) 
-        let cellData2 = Fig2210Grid.getCellData(row, 10) 
+        let cellData1 = Fig2210Grid.getCellData(row, 8);
+        let cellData2 = Fig2210Grid.getCellData(row, 10);
     	fn_gridPopup2Show(row, col, cellData1, cellData2);
 	}
     
@@ -2826,6 +2826,7 @@
              compCode: gv_ma_selectedCorpCd
              , clientCode: gv_ma_selectedClntCd
              , type: '99'
+             , inputData: { "CS_CODE" : gfnma_nvl2(cellData1) , "CS_NAME" : gfnma_nvl2(cellData2), "BIZ_REGNO" : '' }
              , bizcompId: pg_colcs_code_bizId
              , whereClause: strWhereClause
              , itemSelectEvent: function (data) {
@@ -2838,39 +2839,6 @@
          SBUxMethod.openModal('modal-compopupcs');
      }
      
-    var fn_gridPopup2Show1 = function(row, col, cellData1, cellData2) {
-    	
-        var replaceText0 	= "_CNPT_CD_";
-        var replaceText1 	= "_BRNO_"; 
-        var replaceText2 	= "_CNPT_NM_"; 
-        var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.BRNO LIKE '%" + replaceText1 + "%' " + " AND A.CNPT_NM LIKE '%" + replaceText2 + "%' ";
-        
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처');
-    	compopup1({
-    		compCode				: gv_ma_selectedCorpCd
-    		,clientCode				: gv_ma_selectedClntCd
-    		,bizcompId				: pg_colcs_code_bizId
-       		,popupType				: 'A'
-    		,whereClause			: strWhereClause
-       		,searchCaptions			: ["고객사코드", 	"사업자번호",	"고객사명"]
-   			,searchInputFields		: ["CNPT_CD", 		"BRNO",	"CNPT_NM"]
-   			,searchInputValues		: [cellData1, 		'',				cellData2]
-			,searchInputTypes		: ["input", 		"input",		"input"]		//input, datepicker가 있는 경우
-    		,width					: '1000px'
-    		,height					: '500px'
-   			,tableHeader			: ["거래처코드", 	"거래처명",		"사업자번호",		"거래중지여부",		"거래처유형",			"구매처",		"판매처",			"수금기준",		"수금기준명",		"수금방법",		"원천세대상여부"]
-   			,tableColumnNames		: ["CNPT_CD", 		"CNPT_NM",		"BRNO",		"TRSC_HLT_YN",		"CNPT_GROUP",		"PCPL_YN",	"SLS_CNPT_YN",	"PAY_TERM_CD",	"PAY_TERM_NM",	"PAY_MTHD",	"WTHD_TX_YN"]
-   			,tableColumnWidths		: ["80px", 			"200px",		"100px",			"100px",			"200px",		"70px",			"70px",		"70px",				"150px",			"70px",			"120px"]
-			,itemSelectEvent		: function (data){
-				console.log('callback data:', data);
-				Fig2210Grid.setCellData(row, 8, 	data['CNPT_CD'], true, true);
-				Fig2210Grid.setCellData(row, 10, 	data['CNPT_NM'], true, true);
-				jsonFig2210[row-1]['TXN_STOP_YN'] = data['TRSC_HLT_YN'];
-			},
-    	});
-		SBUxMethod.openModal('modal-compopup1');
-    }  
-    
     /**
      * 그리드내 팝업(계정코드) 조회
      */
