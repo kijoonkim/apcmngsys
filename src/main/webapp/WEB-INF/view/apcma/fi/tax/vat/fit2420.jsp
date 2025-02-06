@@ -109,8 +109,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy" class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -152,7 +152,6 @@
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
     //-----------------------------------------------------------
-    var jsonCorpNm = [];
     var jsonGrdReport = [];
     var grdReport;
  
@@ -162,30 +161,35 @@
         fn_init();
     });
  
-    const fn_init = async function(){
+    const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
-        jsonReasonCodeData = await gfnma_getComList('L_FIT025','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
+        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'CO_CD', "CORP_NM");
+        jsonReasonCodeData = await gfnma_getComList('L_FIT025', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CO_CD', "CORP_NM");
         jsonReasonCode = jsonReasonCodeData.cv_1;
         SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
+        SBUxMethod.setValue('srch-slt-corpNm', gv_ma_selectedCorpCd);
         /** 제출사유 **/
         SBUxMethod.refresh('SBMSN_RSN_CD');
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
- 
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
+
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy){
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
             target			: ['#src-btn-currencyCode']
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: 'AND A.YR = ' + "'" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: '' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
@@ -198,7 +202,7 @@
                 {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
-        })
+        });
     }
     async function fn_choice(_value) {
         /** reset **/
@@ -242,7 +246,6 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,'조회결과');
     }
  
     const fn_createGrid = function(){

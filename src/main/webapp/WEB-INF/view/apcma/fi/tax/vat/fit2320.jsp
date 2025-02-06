@@ -196,7 +196,6 @@
   var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
   var p_menuId 	= '${comMenuVO.menuId}';
   //-----------------------------------------------------------
-  var jsonCorpNm = [];
   /** 제출사유 **/
   var jsonReasonCode = [];
   var jsonGrdList = [];
@@ -261,16 +260,12 @@
     grdListGrid.rebuild();
     jsonGrdDetail.length = 0;
     grdDetailGrid.rebuild();
- 
-    gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
-    SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
-    SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
- 
+
     const inputs = document.querySelectorAll('#panRightHeader input');
     inputs.forEach(input => {
       input.value = 0;
     });
- 
+
     let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
     if (tr.length) {
       let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
@@ -278,7 +273,7 @@
         SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
         SBUxMethod.set('srch-dtp-yyyy', termFr.text().split('-')[0]);
       }
- 
+
       let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
       if (termTo.length) {
         SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
@@ -300,7 +295,7 @@
       ,V_P_USERID             : ''
       ,V_P_PC                 : ''
     }
- 
+
     let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
     paramObj.V_P_SEQ = _value;
  

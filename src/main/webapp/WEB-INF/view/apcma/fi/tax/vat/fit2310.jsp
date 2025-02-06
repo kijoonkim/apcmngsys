@@ -423,7 +423,6 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
-        console.log(data,"첫번째");
         if(data.resultStatus === 'S') {
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();

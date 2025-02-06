@@ -124,8 +124,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy" class="table-datepicker-ma"
+                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -879,7 +879,8 @@
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy',gfn_dateToYear(new Date()));
+        let yyyy = gfn_dateToYear(new Date());
+        SBUxMethod.set('srch-dtp-yyyy', yyyy);
         /** 한도율 **/
         jsonLimitRateData = await gfnma_getComList('L_FIT027','',gv_ma_selectedCorpCd,gv_ma_selectedClntCd,'CO_CD',"CORP_NM");
         jsonLimitRate = jsonLimitRateData.cv_1;
@@ -887,32 +888,37 @@
         SBUxMethod.set('DMINPT_TRGT_LIM_RT','3');
         SBUxMethod.refresh('LMT_RT');
         SBUxMethod.set('LMT_RT','3');
- 
+        /** 신고구분명 select **/
+        await fn_setMultSelect(yyyy);
+    }
+    async function fn_setMultSelect(yyyy) {
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
         /** 신고구분명 select **/
         gfnma_multiSelectInit({
-            target			: ['#src-btn-currencyCode']
-            ,compCode		: gv_ma_selectedCorpCd
-            ,clientCode		: gv_ma_selectedClntCd
-            ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
-            ,formId			: p_formId
-            ,menuId			: p_menuId
-            ,selectValue	: ''
-            ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
-            ,colValue		: 'SEQ'
-            ,colLabel		: 'VAT_TMPLT_NM'
-            ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
-                {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
-                {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+            target: ['#src-btn-currencyCode']
+            , compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , bizcompId: 'L_FIT030'
+            , whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
+            , formId: p_formId
+            , menuId: p_menuId
+            , selectValue: ''
+            , dropType: 'down' 	// up, down
+            , dropAlign: '' 	// left, right
+            , colValue: 'SEQ'
+            , colLabel: 'VAT_TMPLT_NM'
+            , columns: [
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
+                {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
+                {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
+                {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
+                {caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+                {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
+                {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
-            ,callback       : fn_choice
-        })
+            , callback: fn_choice
+        });
     }
     async function fn_choice(_value){
         /** reset **/
@@ -971,21 +977,17 @@
                     params				: gfnma_objectToString(paramObj)
                 });
                 const data = await postJsonPromise;
-                console.log(data,"두번쨰");
- 
+
                 if(data.resultStatus === 'S'){
-                    if(workType === 'Q'){
-                        let resultObj = data.cv_2[0];
-                        for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
-                        }
-                    }else{
-                        let resultObj = data.cv_3[0];
-                        for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
-                        }
+                    let resultObj = data.cv_2[0];
+                    for(let key in resultObj){
+                        let elId = "#" + key;
+                        $(elId).val(parseInt(resultObj[key]) || 0);
+                    }
+                    let resultObj2 = data.cv_3[0];
+                    for(let key in resultObj2){
+                        let elId = "#" + key;
+                        $(elId).val(parseInt(resultObj2[key]) || 0);
                     }
                 }
             }
@@ -1002,7 +1004,6 @@
             {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
-        grdListGrid.bind("click","fn_setSiteCode");
     }
  
     const fn_createFarmerGrid = function(){
@@ -1056,8 +1057,6 @@
         const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
         leftSide.style.width = `${'${newLeftWidth}'}%`;
         grdListGrid.resize();
-        grdAr.resize();
-        grdAp.resize();
     };
  
     const mouseUpHandler = function () {
@@ -1158,65 +1157,16 @@
             if(workType === 'Q'){
                 let resultObj = data.cv_2[0];
                 for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
+                    let elId = "#" + key;
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
-                jsonGrdAr = data.cv_3;
-                grdAr.rebuild();
+                jsonGrdFarmer = data.cv_3;
+                grdFarmer.rebuild();
             }else{
                 let resultObj = data.cv_4[0];
                 for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key) + '2';
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-                jsonGrdAp = data.cv_5;
-                grdAp.rebuild();
-            }
-        }
-    }
-    async function fn_setSiteCode(){
-        var paramObj = {
-            V_P_DEBUG_MODE_YN      : ''
-            ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
-            ,V_P_AR_AP_TYPE         : ''
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-        }
- 
-        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
-        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
-        paramObj.V_P_AR_AP_TYPE = arapType;
-        let workType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'Q':'Q1';
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
-            getType				: 'json',
-            cv_count			: '13',
-            workType            : workType,
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-        if(data.resultStatus === 'S'){
-            if(workType === 'Q'){
-                let resultObj = data.cv_2[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-            }else{
-                let resultObj = data.cv_3[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
+                    let elId = "#" + key + '2';
+                    $(elId).val(parseInt(resultObj[key]) || 0);
                 }
             }
         }
