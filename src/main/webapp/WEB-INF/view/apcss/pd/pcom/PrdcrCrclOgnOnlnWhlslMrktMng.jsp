@@ -22,10 +22,14 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnRowData1" name="btnRowData1" uitype="normal" text="출하실적 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect(1)"></sbux-button>
 					<sbux-button id="btnRowData2" name="btnRowData2" uitype="normal" text="판매목표 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect(2)"></sbux-button>
+				</c:if>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
@@ -178,11 +182,13 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdOnln" style="height:300px; width: 100%;"></div>
 				</div>
+			<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="출하실적 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveOnln"></sbux-button>
 					</div>
 				</div>
+			</c:if>
 
 
 				<div class="ad_tbl_top">
@@ -306,11 +312,13 @@
 					<p>&nbsp;- (사례1 K&lt;E):(C-E)/E*100</p>
 					<p>&nbsp;- (사례2 K&gt;E):(C-K)/K*100</p>
 				</div>
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="판매목표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</div>
 				</div>
+			</c:if>
 			</div>
 		</div>
 		<!-- 로우데이터 그리드 -->
@@ -791,7 +799,7 @@
 		SBGridProperties.frozenbottomrows=1;
 		SBGridProperties.columns = [
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				<c:if test="${loginVO.userType ne '02'}">
+				<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 				//그리드 메인 길이
 				let grdLength = jsonOnln.length;
 				if(strValue== null || strValue == ""){
