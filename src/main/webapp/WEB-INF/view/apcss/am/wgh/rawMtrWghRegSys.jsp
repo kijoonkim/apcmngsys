@@ -849,7 +849,7 @@
  		}
 
 		const wghno = wghnoList.join("','");
-		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc.crf", {apcCd: gv_selectedApcCd, wghno: wghno});
+		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc.crf_0669", {apcCd: gv_selectedApcCd, wghno: wghno});
 	}
 
 	/**
