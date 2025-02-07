@@ -34,10 +34,14 @@
 				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_userGridSearch"></sbux-button>
 				</c:if>
+				<c:if test="${loginVO.userType eq '91'}">
+					<!-- userType 91 농협관계자 조회 -->
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				</c:if>
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -302,12 +306,14 @@
 				</table>
 				<br>
 			<!-- 관리자 화면 그리드 -->
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 				<!--[pp] 검색결과 상세보기-->
 				<div class="ad_section_top" style="width: 99%;">
 					<div class="box-header" style="display:flex; justify-content: flex-start; width: 100%;" >
 						<div style="margin-left: auto;">
+							<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 							<sbux-button id="btnSaveFclt3" name="btnSaveFclt3" uitype="normal" text="최종점수 저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveScrRslt"></sbux-button>
+							</c:if>
 						</div>
 					</div>
 					<div class="ad_tbl_top">
@@ -522,7 +528,8 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		await fn_setYear();//기본년도 세팅
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
+		await fn_initSBSelect();
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 		await fn_fcltMngCreateGrid();
 
 		//await fn_fcltMngCreateGrid01();
@@ -533,6 +540,7 @@
 
 		await fn_createGridScrRslt();
 
+		await fn_search();
 	</c:if>
 	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		//await fn_userGrid01();
@@ -540,16 +548,9 @@
 		await fn_userGrid03();
 		await fn_userGrid04();
 		await fn_userGrid05();
-	</c:if>
-		await fn_initSBSelect();
 
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
-		await fn_search();
-	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
 		await fn_dtlSearch();
 	</c:if>
-
 	}
 
 	/* 기본 년도값 세팅 */

@@ -22,6 +22,10 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+				<c:if test="${loginVO.userType eq '91'}">
+					<!-- userType 91 농협관계자 조회 -->
+					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
+				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
 					<!--
 					<sbux-button id="btn-srch-input-outordrInq" name="btn-srch-input-outordrInq" uitype="normal" text="신규" class="btn btn-sm btn-outline-danger" onclick="fn_create"></sbux-button>
@@ -57,7 +61,7 @@
 				</div>
 			</div>
 			<div class="box-body">
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '91' ||  loginVO.userType eq '02'}">
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -238,7 +242,7 @@
 					<div>
 					</div>
 					<div style="margin-left: auto;">
-						<c:if test="${loginVO.userType ne '02'}">
+						<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 						<sbux-button id="btnCorpDdlnSeCdY" name="btnCorpDdlnSeCdY" uitype="normal" text="법인체 선택마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(1)"></sbux-button>
 						<sbux-button id="btnCorpDdlnSeCdN" name="btnCorpDdlnSeCdN" uitype="normal" text="법인체 선택마감해제" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCd(2)"></sbux-button>
 						<sbux-button id="btnCorpDdlnSeCdAllY" name="btnCorpDdlnSeCdAllY" uitype="normal" text="법인체 일괄마감" class="btn btn-sm btn-outline-danger" onclick="fn_corpDdlnSeCdAll(1)"></sbux-button>
@@ -882,12 +886,14 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdLoan" style="height:200px; width: 100%;"></div>
 				</div>
+			<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
 						<sbux-button id="btnLoanY" name="btnLoanY" uitype="normal" text="대출잔액 현황 확인" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('Y')"></sbux-button>
 						<sbux-button id="btnLoanN" name="btnLoanN" uitype="normal" text="대출잔액 현황 취소" class="btn btn-sm btn-outline-danger" onclick="fn_updateLoanChk('N')"></sbux-button>
 					</div>
 				</div>
+			</c:if>
 
 				<!-- 산지유통활성지원 자금신청 현황 -->
 				<div class="ad_tbl_top">
@@ -1046,7 +1052,7 @@
 				</div>
 				<div style="margin-left: auto;">
 
-					<c:if test="${loginVO.userType ne '02'}">
+					<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 						<sbux-button id="btnSaveFclt1" name="btnSaveFclt1" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</c:if>
 
@@ -1164,7 +1170,7 @@
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		await fn_setYear();//기본년도 세팅
-	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02' || loginVO.userType eq '91'}">
 		await fn_fcltMngCreateGrid();
 		await fn_gpcListGrid();
 		await fn_createGridLoan();//대출잔액 현황 그리드
@@ -2249,7 +2255,7 @@
 		//SBGridProperties.rowheight = 72;
 		SBGridProperties.columns = [
 			{caption: ["처리"], 				ref: 'delYn',   	type:'button', width:'60px',	style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
-				<c:if test="${loginVO.userType ne '02'}">
+				<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
 				let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 				if(corpDdlnSeCd != 'Y'){
 					if(strValue== null || strValue == ""){
