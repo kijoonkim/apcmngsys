@@ -506,8 +506,11 @@
 			params				: gfnma_objectToString(paramObj)
 		});
     	const data = await postJsonPromise;
+		console.log(data);        		
+		
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
+	    		fn_search();
     		} else {
     	  		alert(data.resultMessage);
    			}
