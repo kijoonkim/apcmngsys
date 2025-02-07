@@ -2693,6 +2693,7 @@
 	/**
 	 * @name fn_setDataAfterImport
 	 * @description afterimportexcel 이벤트
+	 * 엑셀데이터 후 처리
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
 		//console.log("fn_setDataAfterImport");
@@ -2709,6 +2710,23 @@
 			if(typeof rowData == "undefined" || rowData == null || rowData == "" ){
 				continue;
 			}
+			//숫자 확인이 필요한 컬럼 리스트
+			const filteredData = [
+					'cltvtnSfc'
+					,'avgYrPrdctnVlm'
+					,'ecCltvtnSfc'
+					,'ecSpmtPlanVlm'
+					,'ecSpmtVlm'
+					,'spmtPrc'
+				];
+
+			//숫자,소숫점 허용 정규식 처리
+			for (const key in rowData) {
+				if(filteredData.includes(key)){
+					rowData[key] = extractNumbers(rowData[key]);
+				}
+			}
+
 			let dateVal = rowData.joinDay;
 			//console.log(dateVal);
 			if (!gfn_isEmpty(rowData.joinDay)) {
@@ -2722,6 +2740,17 @@
 		}
 		_grdImp.refresh();
 
+	}
+	//엑셀 업로시 문자열이 들어가는경우 String , 숫자인경우는 number
+	function extractNumbers(str) {
+		if(typeof str == 'string'){
+			// 숫자와 소수점이 아닌 모든 문자를 공백으로 대체
+			const result = str.replace(/[^0-9.]/g, '');
+			return result;
+		}else if(typeof str == 'number'){
+			return str;
+		}
+		return "";
 	}
 
 
