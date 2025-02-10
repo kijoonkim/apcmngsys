@@ -1077,10 +1077,10 @@
 															  AND STBLT_YN = 'Y'
 															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '2'
-															  AND YR = PSTA.YR
-															  AND BRNO = PSTA.BRNO
-															  AND UO_BRNO = PSTA.UO_BRNO
-															  AND TRMT_TYPE = PSTA.TRMT_TYPE
+															  AND YR = PSTB.YR
+															  AND BRNO = PSTB.BRNO
+															  AND UO_BRNO = PSTB.UO_BRNO
+															  AND TRMT_TYPE = PSTB.TRMT_TYPE
 														)
 										OR
 										PRDCR_OGNZ_SN = '0'
