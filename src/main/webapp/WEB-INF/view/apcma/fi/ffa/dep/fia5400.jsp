@@ -93,7 +93,7 @@
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	class="btn btn-sm btn-light dropdown-toggle"
 										    	type="button"
 										    	id="srch-slt-siteCode"
 										    	data-toggle="dropdown"
@@ -150,7 +150,7 @@
 
 					<div>
 
-						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
+						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData">
 						</sbux-tabs>
 
 

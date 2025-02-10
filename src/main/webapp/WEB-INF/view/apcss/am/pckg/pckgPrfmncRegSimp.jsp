@@ -360,19 +360,20 @@
         }
     };
     let CAROUSEL_LENGTH = 0;
-    let current = 0;
+    //let current = 0;
 
     function fn_left(_el){
         let id = _el;
 
         if (carouselObj[id].current !== 0) {
             carouselObj[id].current--;
+            let current =  carouselObj[id].current;
             $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * -76.7}'}vw)`);
         }
     }
     function fn_right(_el){
         let id = _el;
-
+		let current =  carouselObj[id].current;
         if (carouselObj[id].current !== carouselObj[id].CAROUSEL_LENGTH) {
             $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * -76.7}'}vw)`);
             carouselObj[id].current++;
@@ -451,16 +452,16 @@
         const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
         let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-        //let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
-        //										.map(item => item.itemVrtyCd);
+        let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
+        										.map(item => item.itemVrtyCd);
 
-        //let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
-		//if (filteredList.length == 0){
-		//	filteredList = useYn;
-		//}
+        let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
+		if (filteredList.length == 0){
+			filteredList = useYn;
+		}
 
-        //data.resultList = filteredList;
-        data.resultList = useYn;
+        data.resultList = filteredList;
+        //data.resultList = useYn;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
         carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
@@ -471,7 +472,7 @@
     }
 
     const fn_append_button = async function(data, id, label, value, flag = false){
-        if(gfn_isEmpty(data)) return;
+        //if(gfn_isEmpty(data)) return;
 
         let targetId = "#" + id;
 
@@ -556,9 +557,36 @@
         let dataObj = $(_el).data();
         /** 만약 정보 더 필요해서 data 추가되면 돌려서 집어야함 **/
         for(let key in dataObj){
-            if(key == 'itemcd'){
-                await fn_search_spcfct(dataObj[key]);
-                await fn_search_vrty(dataObj[key],nowPrdcrNm);
+            if(key == 'itemcd' || key == 'prdcrcd'){
+            		//품목 변경시 0페이지로 이동
+            		carouselObj.vrtyInfoWrap.current = 0;
+                	$(`#vrtyInfoWrap > div > div.carousel`).css('transform', `translateX(0vw)`);
+                	if(key == 'itemcd'){
+                		await fn_search_spcfct(dataObj[key]);
+                	}
+
+
+                	let nowPrdcrNm = "";
+                	let prdcrInfo = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active");
+                	if (prdcrInfo !== null){
+                		nowPrdcrNm = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active").outerText;
+                	}else{
+                		continue
+                	}
+                	if(key == 'prdcrcd'){
+                		let active = document.querySelector("#itemInfoWrap > div > div > div > div.tabBox.active");
+                        let itemCd = "";
+                        if(active === null){
+                            return;
+                        }else{
+                            itemCd = active.dataset.itemcd;
+                        }
+                		await fn_search_vrty(itemCd,nowPrdcrNm);
+                	}else if(key == 'itemcd'){
+                		await fn_search_vrty(dataObj[key],nowPrdcrNm);
+                	}
+
+
                 /** 품목별 품종, 규격 셋팅시 active가 없으면 재고탭 refresh **/
                 /** 품종 **/
                 if(!$(`#vrtyInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
@@ -577,9 +605,13 @@
                     }
                 }
             }
-            if(key == 'prdcrcd'){
-            	nowPrdcrNm = _el.outerText;
-            }
+            //if(key == 'prdcrcd'){
+            	//nowPrdcrNm = _el.outerText;
+            	//생산자코드 변경시 품목 active 제거
+            	//document.querySelector("#itemInfoWrap > div > div > div > div.tabBox.active")?.classList.remove("active");
+            //}
+
+            /** saveparam format **/
             let prefix = key.replace('cd','');
             pckgObj[prefix + 'Cd'] = String(dataObj[key]);
             pckgObj[prefix + 'Nm'] = String($(_el).text().trim());

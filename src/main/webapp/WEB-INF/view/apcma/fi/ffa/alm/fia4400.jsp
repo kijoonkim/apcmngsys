@@ -497,10 +497,20 @@
         SBGridProperties.columns = [
             {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 			ref: 'transferSeq',    	type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'inputbutton', typeinfo : {callback: fn_bizPopupGrd},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["프로젝트"],      	ref: 'projectName', 		type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산번호"],			ref: 'assetNo',			type:'inputbutton', typeinfo : {callback: fn_astPopup} ,	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산명"], 			ref: 'assetName', 				type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'output',  	width:'30px',  	style:'text-align:left',
+            	 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd(grdClclnTrgt," + nRow + ", 5)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                 }
+           	},
+            {caption: ["프로젝트"],      	ref: 'projectName', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산번호"],			ref: 'assetNo',			type:'output', 	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산번호"],			ref: 'assetNoBtn',			type:'button',	width:'30px',  	style:'text-align:left',
+            	 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astPopup(grdClclnTrgt," + nRow + ", 5)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                 }
+            },
+            {caption: ["자산명"], 			ref: 'assetName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["정산금액"], 		ref: 'transferAmount',  			type:'input',  	width:'100px', format : {type:'number', rule:'#,###'}, 	style:'text-align:left'},
         	{caption: ["취득금액"], 		ref: 'assetAmount', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
             {caption: ["기정산금액"], 		ref: 'transferAmount2', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},	style:'text-align:center'},
@@ -525,14 +535,49 @@
         SBGridProperties.columns = [
             {caption: ["정산번호"],			ref: 'cipTransferNo', 			type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["순번"], 		ref: 'transferSeq',    	type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산구분"],  		ref: 'assetCategory',   type:'inputbutton', typeinfo : {callback:fn_astSePopup} ,  	width:'100px',  	style:'text-align:left'},
-            {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'inputbutton', typeinfo : {callback:fn_assetLevel2},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'inputbutton', typeinfo : {callback:fn_assetLevel3},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["부서"], 			ref: 'deptName', 				type:'inputbutton',typeinfo : {callback:fn_compopupDept} , 	width:'100px',  	style:'text-align:left'},
-            {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'inputbutton', typeinfo : {callback:fn_compopupCostCenter}, width:'100px',  	style:'text-align:left'},
-        	{caption: ["계정명"], 		ref: 'accountName', 				type:'inputbutton', typeinfo : {callback: fn_accountPopup},		width:'80px',		style:'text-align:center'},
+            {caption: ["자산구분"],  		ref: 'assetCategory',   type:'output',   	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산구분"],  		ref: 'assetCategoryBtn',   type:'button',  	width:'30px',  	style:'text-align:left',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astSePopup()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'output',	width:'100px',  	style:'text-align:left'},
+            {caption: ["중분류"],      	ref: 'assetLevel2NameBtn', 		type:'button', typeinfo : {callback:fn_assetLevel2},  	width:'30px',  	style:'text-align:left',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel2()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'output', width:'100px',  	style:'text-align:left'},
+            {caption: ["소분류"],	ref: 'assetLevel3NameBtn',	type:'button', typeinfo : {callback:fn_assetLevel3},  	width:'30px',  	style:'text-align:left',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel3()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["부서"], 			ref: 'deptName', 				type:'output', 	width:'100px',  	style:'text-align:left'},
+            {caption: ["부서"], 			ref: 'deptNameBtn', 				type:'button',typeinfo : {callback:fn_compopupDept} , 	width:'30px',  	style:'text-align:left',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupDept()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+            {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'output', width:'100px',  	style:'text-align:left'},
+            {caption: ["코스트센터"], 		ref: 'costCenterNameBtn',  			type:'button', typeinfo : {callback:fn_compopupCostCenter}, width:'30px',  	style:'text-align:left',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupCostCenter()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
+        	{caption: ["계정명"], 		ref: 'accountName', 				type:'output', 		width:'80px',		style:'text-align:center'},
+        	{caption: ["계정명"], 		ref: 'accountNameBtn', 				type:'button', typeinfo : {callback: fn_accountPopup},		width:'30px',		style:'text-align:center',
+        		renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_accountPopup()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+        	},
             {caption: ["금액"], 		ref: 'transferAmount', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
-            {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'inputbutton', typeinfo : {callback: fn_bizPopupGrd},		width:'80px',		style:'text-align:center'},
+            {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'output', 	width:'80px',		style:'text-align:center'},
+            {caption: ["프로젝트코드"], 		ref: 'projectCodeBtn', 				type:'button',		width:'30px',		style:'text-align:center',
+            	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                }
+            },
             {caption: ["프로젝트명"], 		ref: 'projectName', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["대체수량"], 		ref: 'transferQty', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'memo', 				type:'input',		width:'80px',		style:'text-align:center'},
@@ -1346,14 +1391,14 @@
             	if(chk === "grdClclnTrgt"){
             		var rowIdx = grdClclnTrgt.getRow();
             		var rowData = grdClclnTrgt.getRowData(rowIdx);
-            		rowData["projectCode"] = data.PROJECT_CODE;
-            		rowData["projectName"] = data.PROJECT_NAME;
+            		rowData["projectCode"] = data.PJT_CD;
+            		rowData["projectName"] = data.PJT_NM;
             		grdClclnTrgt.setRowData(rowIdx,rowData,true);
             	}else if(chk === "grdClclnDsctn"){
             		var rowIdx = grdClclnDsctn.getRow();
             		var rowData = grdClclnDsctn.getRowData(rowIdx);
-            		rowData["projectCode"] = data.PROJECT_CODE;
-            		rowData["projectName"] = data.PROJECT_NAME;
+            		rowData["projectCode"] = data.PJT_CD;
+            		rowData["projectName"] = data.PJT_NM;
             		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 
             	}else{
@@ -1393,8 +1438,8 @@
 
 				var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["assetLevel2"] = data.ASSET_GROUP_CODE;
-        		rowData["assetLevel2Name"] = data.ASSET_GROUP_NAME;
+        		rowData["assetLevel2"] = data.ASST_GROUP_CD;
+        		rowData["assetLevel2Name"] = data.ASST_GROUP_NM;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 
 			},
@@ -1428,8 +1473,8 @@
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["assetLevel3"] = data.ASSET_GROUP_CODE;
-        		rowData["assetLevel3Name"] = data.ASSET_GROUP_NAME;
+        		rowData["assetLevel3"] = data.ASST_GROUP_CD;
+        		rowData["assetLevel3Name"] = data.ASST_GROUP_NM;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 			},
     	});
@@ -1461,8 +1506,8 @@
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["assetCategory"] = data.CODE_NAME;
-        		rowData["assetCategoryCode"] = data.SUB_CODE;
+        		rowData["assetCategory"] = data.CD_NM;
+        		rowData["assetCategoryCode"] = data.SBSD_CD;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 			},
     	});
@@ -1475,7 +1520,7 @@
      * 자산
      */
      //
-    var fn_astPopup= function() {
+    var fn_astPopup= function(grd,row,col) {
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산정보');
 
         //var strWhereClause 	= "AND x.CNPT_CD LIKE '%" + searchCode + "%' AND x.CNPT_NM LIKE '%" + searchName + "%'";
@@ -1497,8 +1542,8 @@
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnTrgt.getRow();
         		var rowData = grdClclnTrgt.getRowData(rowIdx);
-        		rowData["assetNo"] = data.ASSET_NO;
-        		rowData["assetName"] = data.ASSET_NAME;
+        		rowData["assetNo"] = data.ASST_NO;
+        		rowData["assetName"] = data.ASST_NM;
         		grdClclnTrgt.setRowData(rowIdx,rowData,true);
 			},
     	});
@@ -1537,8 +1582,8 @@
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["deptCode"] = data.DEPT_CODE;
-        		rowData["deptName"] = data.DEPT_NAME;
+        		rowData["deptCode"] = data.DEPT_CD;
+        		rowData["deptName"] = data.DEPT_NM;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 			},
     	});
@@ -1567,8 +1612,8 @@
             ,itemSelectEvent		: function (data){
             	var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["accountCode"] = data.ACCOUNT_CODE;
-        		rowData["accountName"] = data.ACCOUNT_NAME;
+        		rowData["accountCode"] = data.APLY_ACNTL_CD;
+        		rowData["accountName"] = data.ACNT_NM;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
             },
         });
@@ -1584,7 +1629,7 @@
         var searchText2 	= gfn_nvl(SBUxMethod.get("TRANS_COST_CENTER_NAME"));
         var replaceText0 	= "_CSTCT_CD_";
         var replaceText1 	= "_CSTCT_NM_";
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터 정보');
     	SBUxMethod.openModal('modal-compopup1');
@@ -1606,8 +1651,8 @@
 			,itemSelectEvent		: function (data){
 				var rowIdx = grdClclnDsctn.getRow();
         		var rowData = grdClclnDsctn.getRowData(rowIdx);
-        		rowData["costCenterCode"] = data.COST_CENTER_CODE;
-        		rowData["costCenterName"] = data.COST_CENTER_NAME;
+        		rowData["costCenterCode"] = data.CSTCT_CD;
+        		rowData["costCenterName"] = data.CSTCT_NM;
         		grdClclnDsctn.setRowData(rowIdx,rowData,true);
 			},
     	});
