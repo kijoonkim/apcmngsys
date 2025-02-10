@@ -103,7 +103,7 @@
 									<div class="dropdown">
 										    <button
 										    	style="width:160px;text-align:left"
-										    	class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+										    	class="btn btn-sm btn-light dropdown-toggle"
 										    	type="button"
 										    	id="srch-slt-siteCode"
 										    	data-toggle="dropdown"

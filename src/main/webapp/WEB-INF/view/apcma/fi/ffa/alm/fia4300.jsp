@@ -227,7 +227,7 @@
 					<div id="sb-area-grdAstDsps" style="height: 258px; width: 100%"></div>
 
 				</div>
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc"
+				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal"
 					is-scrollable="false" jsondata-ref="tabJsonData"> </sbux-tabs>
 
 				<div class="tab-content">
@@ -264,7 +264,7 @@
 									<td class="td_input" style="border-right: hidden;"><sbux-select
 											id="srch-ast-acctRuleCode" name="srch-ast-acctRuleCode"
 											class="form-control input-sm inpt_data_reqed" uitype="single"
-											jsondata-ref="jsonAcntgCrtr" group-id="group1">
+											jsondata-ref="jsonAcntgCrtr" group-id="group1" required>
 										</sbux-input></td>
 									<th scope="row" class="th_bg acqsAmt1">취득가액</th>
 									<td class="td_input acqsAmt1" style="border-right: hidden;">
@@ -272,7 +272,7 @@
 											name="srch-ast-acquisitionAmount1"
 											class="form-control input-sm inpt_data_reqed"
 											init="0"
-											uitype="text" group-id="group1"></sbux-input>
+											uitype="text" group-id="group1" required ></sbux-input>
 									</td>
 
 									<th scope="row" class="th_bg">상각누계액</th>
@@ -305,7 +305,8 @@
 											id="srch-ast-disposalType" name="srch-ast-disposalType"
 											class="form-control input-sm inpt_data_reqed" uitype="single"
 											jsondata-ref="jsonDspsUnit" group-id="group1"
-											onchange="fn_cbodisposalTypeEditValueChanged(srch-slt-disposalType)">
+											onchange="fn_cbodisposalTypeEditValueChanged(srch-slt-disposalType)"
+											required>
 										</sbux-input></td>
 
 									<th scope="row" class="th_bg">처분일</th>
@@ -314,7 +315,7 @@
 											uitype="popup" date-format="yyyy-mm-dd"
 											class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 											callback-after-close="fn_dspsCloseAfter()" group-id="group1"
-											onchange="ymddisposal_date_Closed(srch-dtp-disposalDate)"></sbux-datepicker>
+											onchange="ymddisposal_date_Closed(srch-dtp-disposalDate)" required></sbux-datepicker>
 
 									</td>
 									<th scope="row" class="th_bg ntAsstncAmt2">국고보조금</th>
@@ -355,7 +356,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-ast-assetNo"
-												name="srch-ast-assetNo" class="form-control input-sm inpt_data_reqed" group-id="group1"></sbux-input>
+												name="srch-ast-assetNo" class="form-control input-sm inpt_data_reqed" group-id="group1" required ></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP4"
@@ -365,7 +366,7 @@
 												onclick="fn_astPopup">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-ast-assetName" uitype="text" class="form-control input-sm inpt_data_reqed"></sbux-input>
+											<sbux-input style="width:100%" id="srch-ast-assetName" uitype="text" class="form-control input-sm inpt_data_reqed" required ></sbux-input>
 										</div>
 									</td>
 
@@ -546,7 +547,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-dsps-csCode"
-												name="srch-dsps-csCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+												name="srch-dsps-csCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP5"
@@ -556,7 +557,7 @@
 												onclick="fn_cnptPopup('srch-dsps-csName')">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-dsps-csName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-dsps-csName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 										</div>
 									</td>
 
@@ -602,7 +603,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-dsps-deptCode"
-												name="srch-dsps-deptCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+												name="srch-dsps-deptCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP6"
@@ -612,7 +613,7 @@
 												onclick="fn_tkcgDeptPopup('srch-dsps-deptName')">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-dsps-deptName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-dsps-deptName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 										</div>
 									</td>
 
@@ -622,7 +623,7 @@
 											name="srch-dsps-exchangeRate"
 											class="form-control input-sm inpt_data_reqed inpt_data_reqed" uitype="text"
 											group-id="dsps1"
-											onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)">
+											onchage="numexchange_rate_EditValueChanged(srch-dsps-exchangeRate)" required >
 										</sbux-select>
 									</td>
 
@@ -656,7 +657,7 @@
 											name="srch-dsps-disposalPl"
 											class="form-control input-sm inpt_data_reqed" uitype="text"
 											init="0"
-											group-id="dsps1"></sbux-input>
+											group-id="dsps1" required ></sbux-input>
 									</td>
 								</tr>
 								<tr>
@@ -664,7 +665,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-dsps-empCode"
-												name="srch-dsps-empCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+												name="srch-dsps-empCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP8"
@@ -674,7 +675,7 @@
 												onclick="fn_picPopup('srch-dsps-empName')">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-dsps-empName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-dsps-empName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1" required ></sbux-input>
 										</div>
 									</td>
 									<th scope="row" class="th_bg">매각금액</th>
@@ -683,7 +684,7 @@
 											name="srch-dsps-disposalOriginalAmount"
 											class="form-control input-sm inpt_data_reqed"
 											init="0"
-											uitype="text" group-id="dsps1">
+											uitype="text" group-id="dsps1" required >
 										</sbux-select>
 									</td>
 
@@ -694,7 +695,7 @@
 											name="srch-dsps-vatAmount"
 											class="form-control input-sm inpt_data_reqed" uitype="text"
 											init="0"
-											group-id="dsps1"></sbux-input>
+											group-id="dsps1" required ></sbux-input>
 									</td>
 
 									<th scope="row" class="th_bg">처분수량</th>
@@ -712,7 +713,7 @@
 									<td colspan="3" class="td_input" style="border-right: hidden;">
 										<div style="display:flex;float:left;vertical-align:middle;width:100%">
 											<sbux-input uitype="text" id="srch-dsps-costCenterCode"
-												name="srch-dsps-costCenterCode" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+												name="srch-dsps-costCenterCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
 											<font style="width:5px"></font>
 											<sbux-button
 												id="BTN_POP9"
@@ -722,7 +723,7 @@
 												onclick="fn_costCenterPopup">
 											</sbux-button>
 											<font style="width:5px"></font>
-											<sbux-input style="width:100%" id="srch-dsps-costCenterName" uitype="text" class="form-control input-sm inpt_data_reqed" group-id="dsps1"></sbux-input>
+											<sbux-input style="width:100%" id="srch-dsps-costCenterName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
 										</div>
 									</td>
 
@@ -732,7 +733,7 @@
 											name="srch-dsps-dispFunctionalAmt"
 											class="form-control input-sm inpt_data_reqed"
 											init="0"
-											uitype="text" group-id="dsps1"></sbux-input>
+											uitype="text" group-id="dsps1" required ></sbux-input>
 									</td>
 									<th scope="row" class="th_bg">금액합계</th>
 									<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -740,7 +741,7 @@
 											name="srch-dsps-totalAmount"
 											class="form-control input-sm inpt_data_reqed"
 											init="0"
-											uitype="text" group-id="dsps1"></sbux-input>
+											uitype="text" group-id="dsps1" required ></sbux-input>
 									</td>
 								</tr>
 
@@ -2789,32 +2790,16 @@
 
     const fnDataValidation = function(){
  		//component_value 값이 undefined or null or "" 인경우 return 되도록
-		let astData = SBUxMethod.getGroupData("ast1");
-		let dspsData = SBUxMethod.getGroupData("dsps1");
- 		let chkValidation1 = true;
- 		let chkValidation2 = true;
 
- 		astData.some(x => {
-			let chk = x.component_value;
-			if(chk === undefined || chk === null || chk === ""){
-				chkValidation1 = false;
-				return true;
+		const elements = document.querySelectorAll('.inpt_data_reqed');
+		const values = Array.from(elements).map(el => el.value || el.textContent);
+		let chk = true;
+		values.forEach(item => {
+			if(item === ""){
+				chk = false
 			}
 		})
-
-		dspsData.some(x => {
-			let chk = x.component_value;
-			if(chk === undefined || chk === null || chk === ""){
-				chkValidation2 = false;
-				return true;
-			}
-		})
-		if(chkValidation1 && chkValidation2){
-			return true;
-		}else{
-			return false;
-		}
-
+		return chk
  	}
 
 
