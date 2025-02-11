@@ -530,18 +530,19 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		String apcNm = comUserVO.getApcNm();
 		String userType = comUserVO.getUserType();
 		String authrtType = ComConstants.CON_BLANK;
-
-		if (!StringUtils.hasText(userType)) {
-			userType = ComConstants.CON_USER_TYPE_ADMIN;
-		}
+		String mngrAplyYn = comUserVO.getMngrAplyYn();
 
 		if (ComConstants.CON_USER_TYPE_ADMIN.equals(userType)) {
 			authrtType = ComConstants.CON_AUTHRT_TYPE_ADMIN;
 		} else if (ComConstants.CON_USER_TYPE_USER.equals(userType)) {
 			authrtType = ComConstants.CON_AUTHRT_TYPE_USER;
 		} else {
-			HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자유형");
-			return resultMap;
+			if (ComConstants.CON_YES.equals(mngrAplyYn)) {
+				authrtType = ComConstants.CON_AUTHRT_TYPE_ADMIN;
+			} else {
+				HashMap<String, Object> resultMap = ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "관리자권한");
+				return resultMap;
+			}
 		}
 
 		// apc 권한 정보 조회
