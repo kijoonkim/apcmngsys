@@ -853,15 +853,15 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.fm.bbs.mapper.BbsMngMapper.selectBbsList			-->
-	<!-- DESC : 게시판 테이블 목록 조회.                                             		-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNe	-->
+	<!-- DESC : 총괄표 조회 2025년 기준                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectPrdcrCrclOgnGenalTblMngListNew" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
