@@ -22,34 +22,48 @@
 	<!-- ==========================================================================	-->
     <select id="selectComUser" parameterType="com.at.apcss.co.user.vo.ComUserVO" resultType="com.at.apcss.co.user.vo.ComUserVO">
     	<![CDATA[
-			SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUser */
-				  CU.USER_ID            AS USER_ID
-				, CU.USER_NM            AS USER_NM
-				, CU.USER_TYPE          AS USER_TYPE
-				, CU.USER_STTS          AS USER_STTS
-				, CU.EML                AS EML
-				, CU.TELNO          	AS TELNO
-				, CU.APC_CD             AS APC_CD
-				, (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM
-				, CU.OGDP_NM            AS OGDP_NM
-				, CU.CHRGD_CERT_YN      AS CHRGD_CERT_YN
-				, CU.CHRGD_CERT_TYPE    AS CHRGD_CERT_TYPE
-				, CU.LCK_YN             AS LCK_YN
-				, CU.LGN_FAIL_NMTM      AS LGN_FAIL_NMTM
-				, CU.END_LGN_DT         AS END_LGN_DT
-				, CU.END_LGN_IP         AS END_LGN_IP
-				, CU.MBL_TELNO              AS MBL_TELNO
-				, CU.DEL_YN                 AS DEL_YN
-				, CU.SYS_FRST_INPT_DT       AS SYS_FRST_INPT_DT
-				, CU.SYS_FRST_INPT_USER_ID  AS SYS_FRST_INPT_USER_ID
-				, CU.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
-				, CU.SYS_LAST_CHG_DT       	AS SYS_LAST_CHG_DT
-				, CU.SYS_LAST_CHG_USER_ID  	AS SYS_LAST_CHG_USER_ID
-				, CU.SYS_LAST_CHG_USER_ID 	AS SYS_LAST_CHG_USER_ID
+		SELECT /* com.at.apcss.co.user.ComUserMapper.selectComUser */
+			CU.USER_ID                                                         AS USER_ID
+			 , CU.USER_NM                                                      AS USER_NM
+			 , CU.USER_TYPE                                                    AS USER_TYPE
+			 , CU.USER_STTS                                                    AS USER_STTS
+			 , CU.EML                                                          AS EML
+			 , CU.TELNO                                                        AS TELNO
+			 , CU.APC_CD                                                       AS APC_CD
+			 , (SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = CU.APC_CD) AS APC_NM
+			 , CU.OGDP_NM                                                      AS OGDP_NM
+			 , CU.CHRGD_CERT_YN                                                AS CHRGD_CERT_YN
+			 , CU.CHRGD_CERT_TYPE                                              AS CHRGD_CERT_TYPE
+			 , CU.LCK_YN                                                       AS LCK_YN
+			 , CU.LGN_FAIL_NMTM                                                AS LGN_FAIL_NMTM
+			 , CU.END_LGN_DT                                                   AS END_LGN_DT
+			 , CU.END_LGN_IP                                                   AS END_LGN_IP
+			 , CU.MBL_TELNO                                                    AS MBL_TELNO
+			 , CU.DEL_YN                                                       AS DEL_YN
+			 , CU.SYS_FRST_INPT_DT                                             AS SYS_FRST_INPT_DT
+			 , CU.SYS_FRST_INPT_USER_ID                                        AS SYS_FRST_INPT_USER_ID
+			 , CU.SYS_FRST_INPT_PRGRM_ID                                       AS SYS_FRST_INPT_PRGRM_ID
+			 , CU.SYS_LAST_CHG_DT                                              AS SYS_LAST_CHG_DT
+			 , CU.SYS_LAST_CHG_USER_ID                                         AS SYS_LAST_CHG_USER_ID
+			 , CU.SYS_LAST_CHG_USER_ID                                         AS SYS_LAST_CHG_USER_ID
+			 , CU.TYPE_CD                                                      AS TYPE_CD
 
-			  FROM TB_COM_USER CU
-			 WHERE CU.USER_ID = #{userId}
-    	]]>
+			 , CASE
+				   WHEN CU.TYPE_CD = '1'
+					   AND EXISTS (
+							SELECT *
+							FROM TB_COM_UNTY_MNGR X
+							WHERE X.UNTY_OGNZ_CD = 'UO' || CU.UNTY_OGNZ_CD
+							  AND X.USER_ID = CU.USER_ID
+							  AND X.APRV_YN = 'Y'
+							  AND X.DEL_YN = 'N'
+					   ) THEN 'Y'
+				   ELSE 'N'
+			END		AS MNGR_APLY_YN
+
+		FROM TB_COM_USER CU
+		WHERE CU.USER_ID = #{userId}
+		]]>
     </select>
 
 	<!-- ==========================================================================	-->

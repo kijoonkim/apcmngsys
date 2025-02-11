@@ -233,7 +233,6 @@ public class ComConstants {
 	public final static String CON_USER_TYPE_PRDCR = "20";
 
 
-
 	/* 사용자 상태 */
 	public final static String CON_USER_STTS_STANDBY = "00";
 	public final static String CON_USER_STTS_VALID = "01";
