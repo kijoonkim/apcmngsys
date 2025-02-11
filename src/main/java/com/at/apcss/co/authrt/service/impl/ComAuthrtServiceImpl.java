@@ -531,6 +531,10 @@ public class ComAuthrtServiceImpl extends BaseServiceImpl implements ComAuthrtSe
 		String userType = comUserVO.getUserType();
 		String authrtType = ComConstants.CON_BLANK;
 
+		if (!StringUtils.hasText(userType)) {
+			userType = ComConstants.CON_USER_TYPE_ADMIN;
+		}
+
 		if (ComConstants.CON_USER_TYPE_ADMIN.equals(userType)) {
 			authrtType = ComConstants.CON_AUTHRT_TYPE_ADMIN;
 		} else if (ComConstants.CON_USER_TYPE_USER.equals(userType)) {
