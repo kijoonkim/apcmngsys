@@ -37,6 +37,7 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
+                <sbux-button id="btnBizComponent" name="btnBizComponent" uitype="normal" class="btn btn-sm btn-outline-danger" text="일괄" onclick="fn_bizComponent()"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print()"></sbux-button>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
@@ -531,6 +532,7 @@
     ];
 
     const fn_initSBSelect = async function() {
+    	return;
         let rst = await Promise.all([
             // 사업장
             gfnma_setComSelect(['SRCH_SITE_CODE', 'SITE_CODE', 'gvwTimeOffHistory'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
@@ -601,7 +603,7 @@
                 ,colValue		: 'SBSD_CD'
                 ,colLabel		: 'CD_NM'
                 ,columns		:[
-                    {caption: "코드",		ref: 'SBSD_CD', 			width:'150px',  	style:'text-align:left'},
+                    {caption: "코드",		ref: 'SBSD_CD', 		width:'150px',  	style:'text-align:left'},
                     {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
                 ]
             }),
@@ -1117,7 +1119,11 @@
 
         ]);
     }
-
+	
+// 	const fn_initSBSelect = async function(){
+// 		await fn_bizComponent();
+// 	}
+	
     const fnSocialNumChange = function(socialNum) {
         if (socialNum.length != 14) return;
 
@@ -3216,6 +3222,157 @@
         }
         return data;
     }
+    
+    const fn_bizComponent = async function(){
+    	
+    	const start = performance.now();
+    	let componentList = [
+    	    'L_ORG001', 
+    	    'L_HRI009', 
+    	    'L_HRI047', 
+    	    'L_HRI003', 
+    	    'L_HRI003', 
+    	    'L_HRI004', 
+    	    'L_HRM002', 
+    	    'L_HRI002', 
+    	    'L_HRI005', 
+    	    'L_HRI006', 
+    	    'L_HRI073_A', 
+    	    'L_HRI041_01', 
+    	    'L_HRM001', 
+    	    'L_HRI011', 
+    	    'L_HRI007', 
+    	    'L_ORG003', 
+    	    'L_HRI999', 
+    	    'L_HRI008', 
+    	    'L_HRI065', 
+    	    'L_COM015_2', 
+    	    'L_HRI013', 
+    	    'L_HRI041_02', 
+    	    'L_HRI014', 
+    	    'L_HRI015', 
+    	    'L_COM014', 
+    	    'L_HRI038', 
+    	    'L_HRI017', 
+    	    'L_HRI018', 
+    	    'L_HRI016', 
+    	    'L_HRI025'
+    	    ]
+    	
+//     	let componentList = [
+//     	    'L_ORG001', 
+//     	    'L_HRI009', 
+//     	    'L_HRI047', 
+//     	    'L_HRI003', 
+//     	    'L_HRI003', 
+//     	    'L_HRI004', 
+//     	    'L_HRM002', 
+//     	    'L_HRI002', 
+//     	    'L_HRI005', 
+//     	    'L_HRI006', 
+//     	    'L_HRI073_A', 
+//     	    'L_HRI041_01', 
+//     	    'L_HRM001', 
+//     	    'L_HRI011', 
+//     	    'L_HRI007', 
+//     	    'L_ORG003', 
+//     	    'L_HRI999', 
+//     	    'L_HRI008', 
+//     	    'L_HRI065', 
+//     	    'L_COM015_2', 
+//     	    'L_HRI013', 
+//     	    'L_HRI041_02', 
+//     	    'L_HRI014', 
+//     	    'L_HRI015', 
+//     	    'L_COM014', 
+//     	    'L_HRI038', 
+//     	    'L_HRI017', 
+//     	    'L_HRI018', 
+//     	    'L_HRI016', 
+//     	    'L_HRI025', 
+//     	    'L_HRI026', 
+//     	    'L_HRI027', 
+//     	    'L_HRI054', 
+//     	    'L_HRI028', 
+//     	    'L_HRI049', 
+//     	    'L_HRI057', 
+//     	    'L_HRI029', 
+//     	    'L_HRI030', 
+//     	    'L_HRI031', 
+//     	    'L_HRI068', 
+//     	    'L_HRI032', 
+//     	    'L_HRI045', 
+//     	    'L_HRI061', 
+//     	    'L_HRI034', 
+//     	    'L_HRI039', 
+//     	    'L_HRI019', 
+//     	    'L_HRI021', 
+//     	    'L_HRI020', 
+//     	    'L_HRI023', 
+//     	    'L_HRI022', 
+//     	    'L_HRI055', 
+//     	    'L_HRI053', 
+//     	    'L_HRI024', 
+//     	    'L_HRI035', 
+//     	    'L_HRI060', 
+//     	    'L_HRI030', 
+//     	    'L_HRI036', 
+//     	    'L_HRI037', 
+//     	    'L_ORG900', 
+//     	    'L_HRT003', 
+//     	    'L_HRI062', 
+//     	    'L_HRI063', 
+//     	    'L_HRIZ04', 
+//     	    'L_HRIZ03', 
+//     	    'L_HRI070', 
+//     	    'L_HRT020', 
+//     	    'L_HRW103_02'
+//     	];
+    	
+    	let BIZCOMP_ID_LIST = '';
+    	let WHERE_CLAUSE_LIST = '';
+    	let PARAM_LIST = '';
+    	
+    	componentList.forEach((item, index) => {
+    		BIZCOMP_ID_LIST 	+= componentList[index] + "|";
+    		WHERE_CLAUSE_LIST 	+= "|";
+    		PARAM_LIST 			+= "|";
+        });
+    	
+    	BIZCOMP_ID_LIST = BIZCOMP_ID_LIST.slice(0, -1);
+    	WHERE_CLAUSE_LIST = WHERE_CLAUSE_LIST.slice(0, -1);
+    	PARAM_LIST = PARAM_LIST.slice(0, -1);
+    	
+    	console.log('BIZCOMP_ID_LIST ==>', BIZCOMP_ID_LIST);
+    	console.log('WHERE_CLAUSE_LIST ==>', WHERE_CLAUSE_LIST);
+    	console.log('PARAM_LIST ==>', PARAM_LIST);
+    	
+    	let componentData = await gfn_bizComponentData(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, PARAM_LIST, gv_ma_selectedCorpCd, gv_ma_selectedClntCd);
+    	
+ 		const end = performance.now();
+ 		const elapsedTime = (end - start) / 1000;
+ 		console.log('fn_bizComponent Function execution time :' + elapsedTime.toFixed(3) + ' seconds');
+ 		
+    	return;
+    	
+ 		const groupedData = componentData.reduce((acc, { bizCompId, cv_1 }) => {
+ 		    acc[bizCompId] = acc[bizCompId] || [];
+ 		    acc[bizCompId].push({ cv_1 });
+ 		    return acc;
+ 		}, {});
+//  		const groupedData = componentData.reduce((acc, { bizCompId, LINE, SUB }) => {
+//  		    acc[BIZCOMPID] = acc[bizCompId] || [];
+//  		    acc[BIZCOMPID].push({ LINE, SUB });
+//  		    return acc;
+//  		}, {});
+ 		
+ 		console.log('componentData ==>', componentData);
+ 		console.log('groupedData ==>', groupedData);
+ 		
+ 		
+    }
+    
+    
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>

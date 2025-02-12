@@ -1,19 +1,19 @@
 <%
 /**
- * @Class Name 		: com3400.jsp
- * @Description 	: 거래처 정보
- * @author 			: 인텔릭아이앤에스
- * @since 			: 2024.08.26
- * @version 		: 1.0
- * @Modification Information
- * @
- * @ 수정일       	수정자      수정내용
- * @ ----------		----------	---------------------------
- * @ 2024.08.26   	천용진		최초 생성
- * @see
- *
- */
- 
+* @Class Name 		: com3400.jsp
+* @Description 	: 거래처 정보
+* @author 			: 인텔릭아이앤에스
+* @since 			: 2024.08.26
+* @version 		: 1.0
+* @Modification Information
+* @
+* @ 수정일       	수정자      수정내용
+* @ ----------		----------	---------------------------
+* @ 2024.08.26   	천용진		최초 생성
+* @see
+*
+*/
+
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -223,7 +223,7 @@
 									<sbux-input id="CS_CODE" class="form-control input-sm"  uitype="text"  style="width:100%" readonly></sbux-input>
 								</td>	                                    
 								<td class="td_input" style="border-right: hidden;">
-									<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="코드확정" true-value="Y" false-value="N"/>
+									<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="코드확정" true-value="Y" false-value="N" readonly/>
 								</td>	                                    
 								<th scope="row" class="th_bg">약칭</th>
 								<td class="td_input" style="border-right: hidden;">
@@ -2687,10 +2687,15 @@
     	
     	// 그리드의 빈곳을 눌렀을 때 리턴
     	const nRow = masterGrid.getRow();
+    	const nCol = masterGrid.getCol();
 	    if (nRow == -1) {
 	        return;
 	    }
 
+//         if (nCol < 1) {
+//             return;
+//         }
+        
 		SBUxMethod.enableTab('tabAddress');
 		SBUxMethod.enableTab('tabFinance');
 		SBUxMethod.enableTab('tabPurchase');
@@ -2764,8 +2769,8 @@
 		        	SBUxMethod.set("CS_NAME",						gfn_nvl(cv_1.CNPT_NM));
 		        	SBUxMethod.set("CS_FULLNAME",				gfn_nvl(cv_1.CNPT_FLNM));
 		        	SBUxMethod.set("CS_NAME_ENG",					gfn_nvl(cv_1.CNPT_NM_ENG));
-		        	SBUxMethod.set("BANK_NO_H",						gfn_nvl(cv_1.BANK_NO_H));
-		        	SBUxMethod.set("BANK_NAME_H",					gfn_nvl(cv_1.BANK_NAME_H));
+		        	SBUxMethod.set("BANK_NO_H",						gfn_nvl(cv_1.BANK_CD));
+		        	SBUxMethod.set("BANK_NAME_H",					gfn_nvl(cv_1.BANK_NM));
 		        	SBUxMethod.set("COMP_REGNO",					gfn_nvl(cv_1.CORP_REGNO));
 		        	SBUxMethod.set("SUB_NO",							gfn_nvl(cv_1.SBSD_BPLC_NO));
 		        	SBUxMethod.set("CHIEF_NAME",				gfn_nvl(cv_1.CEO_NM));
@@ -3653,7 +3658,7 @@
 			   ,V_P_CS_ABBR_NAME         : gfn_nvl(SBUxMethod.get("CS_ABBR_NAME"))
 			   ,V_P_CS_NAME_ENG          : gfn_nvl(SBUxMethod.get("CS_NAME_ENG"))
 			   ,V_P_CS_GROUP             : gfnma_multiSelectGet("#CS_GROUP")
-			   ,V_P_BANK_NO              : gfn_nvl(SBUxMethod.get("BANK_NO"))
+			   ,V_P_BANK_NO              : gfn_nvl(SBUxMethod.get("BANK_NO_H"))
 			   ,IV_P_FOREIGN_YN          : gfn_nvl(SBUxMethod.get("FOREIGN_YN").FOREIGN_YN)
 			   ,V_P_NATION_CODE          : gfnma_multiSelectGet("#NATION_CODE")
 			   ,V_P_REGION_CODE          : gfnma_multiSelectGet("#REGION_CODE")
@@ -4527,11 +4532,7 @@
         let masterGridRowLength = masterGrid.getRows();
         let masterGridChkRow 	= masterGrid.getCheckedRowData(masterGrid.getColRef('CHECK_YN'));
         let cnt = 0;
-        if (masterGridRowVal == -1) {
-            gfn_comAlert("W0003", "확정"); // W0003	{0}할 대상이 없습니다.
-            return;
-        }
-        if (masterGridRowLength == 0) {
+        if (masterGridRowVal == -1 || masterGridRowLength == 0) {
             gfn_comAlert("W0003", "확정"); // W0003	{0}할 대상이 없습니다.
             return;
         }
@@ -4571,7 +4572,8 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");
-                fn_init();
+//                 fn_init();
+                cfn_search();
             } else {
                 alert(data.resultMessage);
             }

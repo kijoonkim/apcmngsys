@@ -79,6 +79,17 @@ public interface ApcMaComService {
 	 * @return
 	 */
 	HashMap<String, Object> processForListData(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception;
+	
+	/**
+	 * 화면에서 list로 보낸 data를 for-loop를 통해 일괄 처리
+	 * @param param
+	 * @param session
+	 * @param request
+	 * @param ptype
+	 * @param procedureName
+	 * @return
+	 */
+	HashMap<String, Object> processForListDataBizComponent(Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName) throws Exception;
 
 	/**
 	 * 실시간 이체 socket 호출
