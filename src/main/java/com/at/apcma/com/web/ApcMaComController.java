@@ -11,12 +11,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Clob;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.at.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
@@ -35,6 +39,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.at.apcma.com.service.ApcMaComService;
 import com.at.apcma.com.service.ApcMaCommDirectService;
@@ -110,6 +118,20 @@ public class ApcMaComController extends BaseController {
 			param.put("procedure", 		"SP_ESS_BIZCOMP_MULTI_Q");
 			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 			
+			List<Map<String, Object>> xlist = (List<Map<String, Object>>) resultMap.get("cv_1");
+			
+			List<Map<String, Object>> blist = new ArrayList<Map<String,Object>>();
+			for (int i = 0; i < xlist.size(); i++) {
+				Map<String, Object> map1 = (HashMap<String, Object>)xlist.get(i);
+				Map<String, Object> map2 = new HashMap<String, Object>();
+				
+				String xmlString = convertClobToString((Clob)map1.get("CLOB1"));
+				List<Map<String, Object>> alist = convertXmlToListMap("ROW" ,xmlString); //XML 시작 두번쨰 NODE: ROW
+				map2.put(map1.get("BIZ_CMPON_ID").toString(), alist);
+				blist.add(map2);
+			}
+			resultMap.put("cv_1", blist);
+			
 		} catch (Exception e) {
 			logger.debug("", e);
 			return getErrorResponseEntity(e);
@@ -119,10 +141,77 @@ public class ApcMaComController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}		
 	
+    /**
+     * CLOB 을 STRING 으로 변환
+     * @param clob
+     * @return
+     * @throws SQLException
+     */
+    private static String convertClobToString(Clob clob) throws SQLException {
+        if (clob == null) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        try (Reader reader = clob.getCharacterStream();
+             BufferedReader br = new BufferedReader(reader)) {
+            
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n"); // 개행 포함
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("CLOB 변환 중 오류 발생", e);
+        }
+
+        return sb.toString();
+    }
+    
+    /**
+     * XML 을 List 로 변환
+     * @param xmlString
+     * @return
+     * @throws Exception
+     */
+    private static List<Map<String, Object>> convertXmlToListMap(String skey, String xmlString) throws Exception {
+        List<Map<String, Object>> list = new ArrayList<>();
+
+        // XML 파서를 위한 DocumentBuilder 생성
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        // XML 문자열을 InputStream으로 변환 후 파싱
+        InputStream inputStream = new ByteArrayInputStream(xmlString.getBytes());
+        Document document = builder.parse(inputStream);
+        document.getDocumentElement().normalize();
+
+        // <item> 태그를 찾아 리스트로 변환
+        NodeList nodeList = document.getElementsByTagName(skey);
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                Map<String, Object> map = new HashMap<>();
+
+                // <item> 내부의 모든 태그를 찾아서 맵에 추가
+                NodeList childNodes = element.getChildNodes();
+                for (int j = 0; j < childNodes.getLength(); j++) {
+                    Node child = childNodes.item(j);
+                    if (child.getNodeType() == Node.ELEMENT_NODE) {
+                        map.put(child.getNodeName(), child.getTextContent().trim());
+                    }
+                }
+                list.add(map);
+            }
+        }
+        return list;
+    }    
+    
 	//file select 조회
 	@PostMapping(value = "/com/comFileList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> comFileList(
 			@RequestBody Map<String, Object> param
+			
 			,Model model
 			//,@RequestBody ComMsgVO comMsgVO
 			,HttpSession session

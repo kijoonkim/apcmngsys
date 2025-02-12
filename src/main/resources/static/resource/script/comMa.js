@@ -2108,7 +2108,7 @@ const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, 
     const data = await postJsonPromise;
     try {
 		if (_.isEqual("S", data.resultStatus)) {
-			console.log('data ==>', data);
+			console.log('gfn_bizComponentData data ==>', data);
 			return data;
     	} else {
       		alert(data.resultMessage);
