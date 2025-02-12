@@ -1,8 +1,10 @@
 package com.at.apcss.am.dscd.web;
 
 import com.at.apcss.am.dscd.service.DscdCrtrService;
+import com.at.apcss.am.dscd.service.InvntrDscdService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -39,6 +41,9 @@ public class DscdMngController extends BaseController {
 
 	@Resource(name = "dscdCrtrService")
 	private DscdCrtrService dscdCrtrService;
+
+    @Resource(name = "invntrDscdService")
+    private InvntrDscdService invntrDscdService;
 	
 	// APC 폐기기준 상세 조회 (사용중)
 	@PostMapping(value = "/am/dscd/selectCrtrDtlListInUse.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -213,11 +218,11 @@ public class DscdMngController extends BaseController {
 
     // APC 폐기 등록 - 재고 목록 조회 (원물)
     @PostMapping(value = "/am/dscd/selectRawMtrInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> selectRawMtrInvntrList(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        List<DscdCrtrVO> resultList;
+        List<DscdPrfmncVO> resultList;
         try {
-            resultList = dscdCrtrService.selectRawMtrInvntrList(dscdCrtrVO);
+            resultList = invntrDscdService.selectRawMtrInvntrList(dscdPrfmncVO);
         } catch (Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
             return getErrorResponseEntity(e);
@@ -236,11 +241,11 @@ public class DscdMngController extends BaseController {
 
     // APC 폐기 등록 - 재고 목록 조회 (선별)
     @PostMapping(value = "/am/dscd/selectSortInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectSortInvntrList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> selectSortInvntrList(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        List<DscdCrtrVO> resultList;
+        List<DscdPrfmncVO> resultList;
         try {
-            resultList = dscdCrtrService.selectSortInvntrList(dscdCrtrVO);
+            resultList = invntrDscdService.selectSortInvntrList(dscdPrfmncVO);
         } catch (Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
             return getErrorResponseEntity(e);
@@ -259,11 +264,11 @@ public class DscdMngController extends BaseController {
 
     // APC 폐기 등록 - 재고 목록 조회 (상품)
     @PostMapping(value = "/am/dscd/selectGdsInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> selectGdsInvntrList(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        List<DscdCrtrVO> resultList;
+        List<DscdPrfmncVO> resultList;
         try {
-            resultList = dscdCrtrService.selectGdsInvntrList(dscdCrtrVO);
+            resultList = invntrDscdService.selectGdsInvntrList(dscdPrfmncVO);
         } catch (Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
             return getErrorResponseEntity(e);
@@ -301,17 +306,20 @@ public class DscdMngController extends BaseController {
 
     // APC 폐기 등록 - 폐기 등록 목록 추가
     @PostMapping(value = "/am/dscd/insertDscdRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> insertDscdRegList(@RequestBody List<DscdCrtrVO> dscdRegList, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> insertDscdRegList(@RequestBody List<DscdPrfmncVO> dscdRegList, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
         int insertCnt = 0;
 
         try{
-            for(DscdCrtrVO vo : dscdRegList){
-                setCommonInfo(vo);
+            for(DscdPrfmncVO vo : dscdRegList){
+                vo.setSysFrstInptUserId(getUserId());
+                vo.setSysFrstInptPrgrmId(getPrgrmId());
+                vo.setSysLastChgUserId(getUserId());
+                vo.setSysLastChgPrgrmId(getPrgrmId());
             }
 
-            insertCnt = dscdCrtrService.insertDscdRegList(dscdRegList);
+            insertCnt = invntrDscdService.insertDscdRegList(dscdRegList);
         }catch (Exception e) {
             return getErrorResponseEntity(e);
         } finally {
@@ -324,39 +332,14 @@ public class DscdMngController extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
-    // APC 폐기 등록 - 폐기 등록 목록 삭제
-    @PostMapping(value = "/am/dscd/deleteDscdRegList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-    public ResponseEntity<HashMap<String, Object>> deleteDscdRegList(@RequestBody List<DscdCrtrVO> dscdRegList, HttpServletRequest request) throws Exception {
-        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-
-        try {
-            dscdRegList.forEach(item ->{
-                try {
-                    dscdCrtrService.deleteDscdRegList(item);
-                } catch (Exception e) {
-                    logger.debug(ComConstants.ERROR_CODE, e.getMessage());
-                }
-            });
-        } catch (Exception e) {
-            return getErrorResponseEntity(e);
-        } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
-        }
-
-        return getSuccessResponseEntity(resultMap);
-    }
 
     // APC 폐기 (실적 조회, 상세 관리) - 폐기 실적 목록 조회
     @PostMapping(value = "/am/dscd/selectDscdPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-    public ResponseEntity<HashMap<String, Object>> selectDscdPrfmncList(@RequestBody DscdCrtrVO dscdCrtrVO, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> selectDscdPrfmncList(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
-        List<DscdCrtrVO> resultList;
+        List<DscdPrfmncVO> resultList;
         try {
-            resultList = dscdCrtrService.selectDscdPrfmncList(dscdCrtrVO);
+            resultList = invntrDscdService.selectDscdPrfmncList(dscdPrfmncVO);
         } catch(Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 
@@ -376,17 +359,19 @@ public class DscdMngController extends BaseController {
 
     // APC 폐기 상세 관리 - 폐기 실적 목록 삭제
     @PostMapping(value = "/am/dscd/deleteDscdPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-    public ResponseEntity<HashMap<String, Object>> deleteDscdPrfmncList(@RequestBody List<DscdCrtrVO> dscdPrfmncList, HttpServletRequest request) throws Exception {
+    public ResponseEntity<HashMap<String, Object>> deleteDscdPrfmncList(@RequestBody List<DscdPrfmncVO> dscdPrfmncList, HttpServletRequest request) throws Exception {
+
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
+        int result = 0;
         try {
-            dscdPrfmncList.forEach(item ->{
-                try {
-                    dscdCrtrService.deleteDscdPrfmncList(item);
-                } catch (Exception e) {
-                    logger.debug(ComConstants.ERROR_CODE, e.getMessage());
-                }
-            });
+            for(DscdPrfmncVO dscdPrfmncVO : dscdPrfmncList){
+                dscdPrfmncVO.setSysFrstInptUserId(getUserId());
+                dscdPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+                dscdPrfmncVO.setSysLastChgUserId(getUserId());
+                dscdPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+            }
+            result = invntrDscdService.deleteDscdPrfmnc(dscdPrfmncList);
         } catch (Exception e) {
             return getErrorResponseEntity(e);
         } finally {

@@ -34,6 +34,14 @@
                 <%--/** 상단 버튼 **/--%>
                 <div style="margin-left: auto;">
                     <sbux-button
+                            id="btnDelete"
+                            name="btnDelete"
+                            uitype="normal"
+                            text="폐기취소"
+                            class="btn btn-sm btn-success"
+                            onclick="fn_delete"
+                    ></sbux-button>
+                    <sbux-button
                         id="btnSearch"
                         name="btnSearch"
                         uitype="normal"
@@ -154,7 +162,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div id="sb-area-gridDscdPrfmnc"></div>
+                        <div id="sb-area-gridDscdPrfmnc" style="height: 400px"></div>
                     </div>
                 </div>
             </div>
@@ -191,10 +199,11 @@
     var jsonPrdcr = [];
     var jsonPrdcrAutocomplete = [];
     var autoCompleteDataJson = [];
+    var jsonComSpcfct = [];
 
     window.addEventListener("DOMContentLoaded", function() {
         SBUxMethod.set("srch-dtp-dscdYmdTo", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("srch-dtp-dscdYmdFrom", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("srch-dtp-dscdYmdFrom", gfn_dateFirstYmd(new Date()));
 
         fn_init();
     });
@@ -218,6 +227,46 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {
+                caption : ["선택"],
+                ref: 'checkedYn', type: 'checkbox',  width:'4%',
+                style: 'text-align:center',
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N'}
+            },
+            {
+                caption: ["폐기일자"],
+                ref: 'dscdYmd',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;',
+                format: {
+                    type: 'date',
+                    rule: 'yyyy-mm-dd',
+                    origin: 'yyyymmdd'
+                }
+            },
+            {
+                caption: ["재고구분"],
+                ref: 'invntrSeCdNm',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;'
+            },
+            {
+                caption: ["재고번호"],
+                ref: 'invntrno',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;'
+            },
+
+            {
+                caption: ["폐기순번"],
+                ref: 'dscdSn',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;'
+            },
+            {
                 caption: ["품목"],
                 ref: 'itemNm',
                 type: 'output',
@@ -239,40 +288,42 @@
                 style: 'text-align: center;'
             },
             {
-                caption: ["폐기번호"],
-                ref: 'dscdSn',
-                type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
-            },
-            {
-                caption: ["수량"],
+                caption: ["폐기수량"],
                 ref: 'dscdQntt',
                 type: 'output',
                 width: '8%',
-                style: 'text-align: center;'
+                style: 'text-align: center;',
+                format: {
+                    type: 'number',
+                    rule: '#,###'
+                }
             },
             {
-                caption: ["중량"],
+                caption: ["폐기중량"],
                 ref: 'dscdWght',
                 type: 'output',
                 width: '8%',
-                style: 'text-align: center;'
-            },
-            {
-                caption: ["상세코드"],
-                ref: 'dtlIndctNm',
-                type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
+                style: 'text-align: center;',
+                format: {
+                    type: 'number',
+                    rule: '#,###'
+                }
             },
             {
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '44%',
+                width: '24%',
                 style: 'text-align: center;'
-            }
+            },
+            {
+                caption: ["재고순번"],
+                ref: 'invntrSn',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;',
+                hidden : true
+            },
         ]
         gridDscdPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -282,17 +333,27 @@
      * @description 폐기 실적 목록 조회 버튼
      */
     const fn_search = async function() {
-        let srchParam = gfn_getTableElement("searchTable", "srch-", ["itemCd", "vrtyCd", "vhclno", "warehouseSeCd", "inqType", "prdcrNm", "prdcrCd"]);
-        if(!srchParam) {
-            return;
-        }
-        if(srchParam.vrtyCd && srchParam.vrtyCd.length > 4) {
-            srchParam.vrtyCd = srchParam.vrtyCd.slice(-4);
+        jsonDscdPrfmnc.length = 0;
+        gridDscdPrfmnc.rebuild();
+
+        let dscdYmdFrom = SBUxMethod.get("srch-dtp-dscdYmdFrom");
+        let dscdYmdTo = SBUxMethod.get("srch-dtp-dscdYmdTo");
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+        if (!gfn_isEmpty(vrtyCd)) {
+            vrtyCd = vrtyCd.substring(4);
         }
 
-        srchParam.apcCd = gv_apcCd;
+        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", {
+            apcCd : gv_selectedApcCd,
+            dscdYmdFrom : dscdYmdFrom,
+            dscdYmdTo : dscdYmdTo,
+            itemCd : itemCd,
+            vrtyCd : vrtyCd,
+            prdcrCd : prdcrCd,
+        });
 
-        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", srchParam);
         const data = await postJsonPromise;
 
         if(!_.isEqual("S", data.resultStatus)) {
@@ -349,7 +410,6 @@
     const fn_getPrdcrs = async function() {
         jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
         jsonPrdcr = gfn_setFrst(jsonPrdcr);
-        console.log(jsonPrdcr);
     }
 
     /**
@@ -418,13 +478,13 @@
      * @description 생산자명 입력 시 event : autocomplete
      */
     const fn_onInputPrdcrNm = function(prdcrNm){
-        console.log("생산자명: ", prdcrNm);
+        //console.log("생산자명: ", prdcrNm);
         fn_clearPrdcr();
         if(getByteLengthOfString(prdcrNm.target.value) > 100) {
             SBUxMethod.set("srch-inp-prdcrNm", "");
             return;
         }
-        console.log("jsonPrdcr: ", jsonPrdcr);
+        //console.log("jsonPrdcr: ", jsonPrdcr);
         jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
         SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
@@ -455,6 +515,42 @@
             fn_setPrdcrForm(prdcr);
         }
     }
+
+    /**
+     * @name fn_delete
+     * @description 폐기취소
+     * @function
+     */
+    const fn_delete = async function(){
+        let allData = gridDscdPrfmnc.getGridDataAll();
+        let filtered = allData.filter(item => item.checkedYn === "Y"); //폐기 취소
+
+        if(gfn_isEmpty(filtered)){
+            gfn_comAlert("W0003", "삭제");    // W0003 {0}할 대상이 없습니다.
+            return;
+        }
+        if (!gfn_comConfirm("Q0001", "폐기취소")) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        try{
+            const postJsonPromise = gfn_postJSON("/am/dscd/deleteDscdPrfmncList.do",filtered);
+
+            const data = await postJsonPromise;
+
+            if(!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+            }
+            gfn_comAlert("I0001"); //처리 되었습니다.
+            await fn_search();
+
+        }catch (e) {
+            console.log(e);
+        }
+
+    }
+
     /* End */
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
