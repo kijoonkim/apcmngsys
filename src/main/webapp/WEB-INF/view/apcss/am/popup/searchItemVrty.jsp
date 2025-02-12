@@ -139,8 +139,9 @@
 		            	}
 			    }},
 		        {caption: ["생산자명"], 	ref: 'prdcrNm',  	type: 'output',  width:'100px',	style:'text-align:center'},
-		        {caption: ['품목코드'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItem', label:'itemNm', value:'itemCd'}, style:'text-align:center'},
-	        	{caption: ['품종코드'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'vrtyNm', value:'itemVrtyCd', filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false}},style:'text-align:center'},
+		        {caption: ['품목명'], ref: 'itemCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcItem', label:'itemNm', value:'itemCd'}, style:'text-align:center'},
+	        	{caption: ['품종명'], ref: 'itemVrtyCd', width: '150px', type: 'combo', typeinfo : {ref:'jsonApcVrty', label:'vrtyNm', value:'itemVrtyCd', filtering: {usemode: true, uppercol: 'itemCd', attrname: 'itemCd', listall: false}},style:'text-align:center'},
+	        	{caption : ['사용여부'],	ref : 'useYn',	width : '120px',		style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']} },
 	        	{caption: ["순번"], 	ref: 'indctSeq',  	type: 'input',  width:'100px',	style:'text-align:center'},
 
 		        {caption: [""], 	ref: 'rmrk',  	type: 'output',  width:'100px',	style:'text-align:center'}
@@ -188,31 +189,29 @@
 	}
 	const fn_setcomSearchItemVrty = async function(pageSize, pageNo) {
 		let prdcrCd = SBUxMethod.get("input-hidden2");
-		let itemNm = SBUxMethod.get("itemVrty-inp-comNm");
-		let item = jsonApcItem.filter(item => item.itemNm === itemNm);
-		let itemCd = "";
-		if(gfn_nvl(item) !== ""){
-			itemCd = item[0].itemCd;
-		}
-
-
-		jsonSearchItemVrty = [];
-
+		let itemNm = gfn_nvl(SBUxMethod.get("itemVrty-inp-comNm"));
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrTypeDtlList.do", {
 
 			pagingYn : 'Y',
 			currentPageNo : pageNo,
 			recordCountPerPage : pageSize,
 			prdcrCd : prdcrCd,
-			apcCd : popSearchItemVrty.prvApcCd,
-			crtrCd : itemCd
+			apcCd : popSearchItemVrty.prvApcCd
 			}, null, true);
 
         let data = await postJsonPromise;
         try{
         	let totalRecordCount = 0;
         	jsonSearchItemVrty.lenght = 0;
-        	data.resultList.forEach((item, index) => {
+        	jsonSearchItemVrty = [];
+        	let itemList = new Set(jsonApcItem.filter((item) => item.itemNm.includes(itemNm))
+        						.map(item => item.itemCd));
+
+
+
+        	let filteredItem = data.resultList.filter(item => itemList.has(item.crtrCd.substr(0,4))); // y에서 itemCd가 x에 포함된 것만 필터링
+
+        	filteredItem.forEach((item, index) => {
 				let comCdDtlList = {
 						prdcrNm : item.prdcrNm
 						, prdcrCrtrType : item.prdcrCrtrType
@@ -221,6 +220,8 @@
 						, itemVrtyCd : item.crtrCd
 						, indctSeq : item.indctSeq
 						, delYn : item.delYn
+						, useYn : item.useYn
+						, indctSeq : item.indctSeq
 
 				}
 				jsonSearchItemVrty.push(comCdDtlList);

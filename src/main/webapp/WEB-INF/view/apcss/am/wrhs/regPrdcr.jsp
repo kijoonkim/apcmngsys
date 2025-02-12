@@ -172,7 +172,7 @@
     	<jsp:include page="../../am/popup/comCdPopup.jsp"></jsp:include>
     </div>
 
-    <!-- 산지 선택 Modal -->
+    <!-- 조회품종 Modal -->
     <div>
         <sbux-modal id="modal-searchItemVrty" name="modal-searchItemVrty" uitype="middle" header-title="조회품종" body-html-id="body-modal-searchItemVrty" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
     </div>

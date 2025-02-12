@@ -256,7 +256,7 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 			if(status.equals("insert")) {
 				prdcrMapper.insertPrdcrTypeDtl(item);
 			}else if(status.equals("update")) {
-				//prdcrMapper.updatePrdcrTypeDtl(item);
+				prdcrMapper.updatePrdcrTypeDtl(item);
 			}
 		});
 		return result;
@@ -267,6 +267,12 @@ public class PrdcrServiceImpl extends BaseServiceImpl implements PrdcrService {
 		int result = 0;
 		prdcrMapper.deletePrdcrTypeDtl(prdcrVO);
 		return result;
+	}
+
+	@Override
+	public List<PrdcrVO> selectPrdcrTypeDtlVrty(PrdcrVO prdcrVO) throws Exception {
+		List<PrdcrVO> resultList = prdcrMapper.selectPrdcrTypeDtlVrty(prdcrVO);
+		return resultList;
 	}
 
 

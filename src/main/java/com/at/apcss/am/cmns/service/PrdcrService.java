@@ -132,6 +132,14 @@ public interface PrdcrService {
 	public List<PrdcrVO> selectPrdcrTypeDtlList(PrdcrVO prdcrVO) throws Exception;
 
 	/**
+	 * 생산자상세유형품종 목록 조회
+	 * @param prdcrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrVO> selectPrdcrTypeDtlVrty(PrdcrVO prdcrVO) throws Exception;
+
+	/**
 	 * 생산자상세유형정보 목록 저장
 	 * @param prdcrVO
 	 * @return

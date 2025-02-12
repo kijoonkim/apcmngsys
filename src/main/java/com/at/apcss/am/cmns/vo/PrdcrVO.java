@@ -55,6 +55,31 @@ public class PrdcrVO extends ComVO {
 	 * 대표품목명
 	 */
 	private String rprsItemNm;
+
+	/**
+	 * 품목품종코드
+	 */
+	private String itemVrtyCd;
+
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+
+	/**
+	 * 품목코드
+	 */
+	private String itemCd;
+
+	/**
+	 * 품목명
+	 */
+	private String itemNm;
 	/**
 	 * 대표품종코드
 	 */

@@ -224,7 +224,7 @@
 		  	  AND AVC.EXTRNL_LNKG_CD = #{extrnlLnkgCd}
 		</if>
 		<![CDATA[
-			ORDER BY ITEM_CD, SN, VRTY_CD
+			ORDER BY ITEM_CD, SN, VRTY_NM
 		]]>
 
     </select>
@@ -532,7 +532,7 @@
 			 WHERE CNT > 0
 		]]>
     </select>
-    
+
     <!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsVrtyMapper.updateVrty				-->
 	<!-- DESC : APC기준 품목 정보 업데이트  		                            				-->
@@ -596,7 +596,7 @@
 				, SC.SEED_NM	AS SEED_NM
 				, SC.INDCT_NM	AS INDCT_NM
 				, SC.INDCT_SEQ	AS INDCT_SEQ
-				
+
 			  FROM TB_APC_SEED_CRTR SC
 			 WHERE SC.APC_CD = #{apcCd}
 			   AND SC.DEL_YN = 'N'
@@ -614,7 +614,7 @@
 		<if test='seedNm != null and seedNm != ""'>
 			   AND SC.SEED_NM LIKE '%' || #{seedNm} || '%'
 		</if>
-		
+
 		<![CDATA[
 			ORDER BY ITEM_CD, VRTY_CD, INDCT_SEQ
 		]]>
