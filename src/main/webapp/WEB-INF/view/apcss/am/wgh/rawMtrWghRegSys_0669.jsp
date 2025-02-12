@@ -969,20 +969,18 @@
 	const fn_docRawMtrWgh = function() {
 
 		const wghnoList = [];
-		const allData = grdWghPrfmnc.getGridDataAll();
-		allData.forEach((item) => {
-			if (item.checkedYn === "Y") {
-				wghnoList.push(item.wghno);
-    		}
-		});
 
- 		if (wghnoList.length === 0) {
- 			gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
-			return;
- 		}
+		let rowIdx = grdWghPrfmnc.getRow();
+		if(rowIdx == -1){
+	 		gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
+		}
+		let rowData = grdWghPrfmnc.getRowData(rowIdx);
 
-		const wghno = wghnoList.join("','");
-		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc.crf", {apcCd: gv_selectedApcCd, wghno: wghno});
+		let wghno = rowData.wghno;
+
+
+		//const wghno = wghnoList.join("','");
+		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc_0669.crf", {apcCd: gv_selectedApcCd, wghno: wghno});
 	}
 
 	/**
