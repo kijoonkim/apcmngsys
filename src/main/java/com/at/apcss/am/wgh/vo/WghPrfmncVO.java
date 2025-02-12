@@ -278,6 +278,11 @@ public class WghPrfmncVO extends ComVO {
 	private String wrhsSpmtTypeNm;
 
 	/*
+	 * 등급 구분
+	 */
+	private String grdSeCd;
+
+	/*
 	 * 등급's
 	 * */
 	private String grdCd1;
@@ -472,6 +477,18 @@ public class WghPrfmncVO extends ComVO {
 
 	public void setStdGrdList(List<RawMtrStdGrdVO> stdGrdList) {
 		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+	}
+
+	/**
+	 * 검품등급
+	 */
+	private List<WghInspPrfmncVO> inspPrfmncList;
+
+	public List<WghInspPrfmncVO> getInspPrfmncList(){
+		return inspPrfmncList == null ? null : inspPrfmncList.stream().collect(Collectors.toList());
+	}
+	public void setInspPrfmncList(List<WghInspPrfmncVO> inspPrfmncList){
+		this.inspPrfmncList = inspPrfmncList == null ? null : inspPrfmncList.stream().collect(Collectors.toList());
 	}
 
 }

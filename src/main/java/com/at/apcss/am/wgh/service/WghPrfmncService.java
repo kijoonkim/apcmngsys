@@ -3,6 +3,8 @@ package com.at.apcss.am.wgh.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 
@@ -202,6 +204,7 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception;
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception;
 	/**
 	 * 원물계량 정보 조회
 	 * @param wghPrfmnc
@@ -250,4 +253,12 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
 	public int saveWghVhclInfo(List<WghPrfmncVO> wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량검사실적 조회
+	 * @param wghInspPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+    List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception;
 }

@@ -1764,8 +1764,69 @@
 
 		]]>
 	</insert>
+    <insert id="insertUpdateInspList" parameterType="list">
+		MERGE INTO TB_WGH_INSP_PRFMNC WIP
+			USING (
+				<foreach collection="list" item="item" index="index" separator="UNION">
+					SELECT
+						#{item.apcCd} AS APC_CD,
+						#{item.wghno} AS WGHNO,
+						#{item.itemCd} AS ITEM_CD,
+						#{item.vrtyCd} AS VRTY_CD,
+						#{item.grdCd} AS GRD_CD,
+						#{item.grdVl} AS GRD_VL,
+						#{item.sysLastChgUserId} AS SYS_LAST_CHG_USER_ID,
+						#{item.sysLastChgPrgrmId} AS SYS_LAST_CHG_PRGRM_ID,
+						#{item.sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID,
+						#{item.sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+					FROM DUAL
+				</foreach>
+				) source
+			ON (
+					WIP.APC_CD = source.APC_CD
+				AND WIP.WGHNO = source.WGHNO
+				AND WIP.ITEM_CD = source.ITEM_CD
+				AND WIP.VRTY_CD = source.VRTY_CD
+				AND WIP.GRD_CD = source.GRD_CD
+				)
+		WHEN MATCHED THEN
+			UPDATE SET
+				GRD_VL = source.GRD_VL,
+				SYS_LAST_CHG_DT = SYSDATE,
+				SYS_LAST_CHG_USER_ID = source.SYS_LAST_CHG_USER_ID,
+				SYS_LAST_CHG_PRGRM_ID = source.SYS_LAST_CHG_PRGRM_ID
+		WHEN NOT MATCHED THEN
+			INSERT (
+				APC_CD,
+				WGHNO,
+				ITEM_CD,
+				VRTY_CD,
+				GRD_CD,
+				GRD_VL,
+				SYS_FRST_INPT_DT,
+				SYS_FRST_INPT_USER_ID,
+				SYS_FRST_INPT_PRGRM_ID,
+				SYS_LAST_CHG_DT,
+				SYS_LAST_CHG_USER_ID,
+				SYS_LAST_CHG_PRGRM_ID
+				   )
+			VALUES (
+				source.APC_CD,
+				source.WGHNO,
+				source.ITEM_CD,
+				source.VRTY_CD,
+				source.GRD_CD,
+				source.GRD_VL,
+				SYSDATE,
+				source.SYS_FRST_INPT_USER_ID,
+				source.SYS_FRST_INPT_PRGRM_ID,
+				SYSDATE,
+				source.SYS_LAST_CHG_USER_ID,
+				source.SYS_LAST_CHG_PRGRM_ID
+				   )
+	</insert>
 
-	<!-- ==========================================================================	-->
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghVhcl		-->
 	<!-- DESC : 원물입차수정.		                             				-->
 	<!-- ==========================================================================	-->
@@ -1942,6 +2003,21 @@
 		  	AND WGHNO = #{wghno}
 		]]>
 
+	</select>
+
+	<select id="selectWghInspPrfmncList" resultType="com.at.apcss.am.wgh.vo.WghInspPrfmncVO">
+		SELECT  /* com.at.apcss.am.cmns.mapper.WghInfoMapper.selectWghInspPrfmncList */
+			 APC_CD AS APC_CD
+			,WGHNO AS WGHNO
+			,ITEM_CD AS ITEM_CD
+			,VRTY_CD AS VRTY_CD
+			,GRD_CD AS GRD_CD
+			,GRD_VL AS GRD_VL
+		FROM TB_WGH_INSP_PRFMNC
+		WHERE
+			APC_CD = #{apcCd}
+		AND WGHNO = #{wghno}
+		AND ITEM_CD = #{itemCd}
 	</select>
 
 </mapper>
