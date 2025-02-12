@@ -393,6 +393,32 @@ public class DscdCrtrVO extends ComVO {
     private String badCd;
 
     /**
+     * 입고수량
+     */
+    private int qntt;
+
+    /**
+     * 입고중량
+     */
+    private int wght;
+
+    /**
+     * 입고번호
+     */
+    private String wrhsNo;
+
+    /**
+     * 선별순번
+     */
+    private int sortSn;
+
+    /**
+     * 포장순번
+     */
+    private int pckgSn;
+
+
+    /**
      * 폐기 실적 목록
      */
     private List<DscdCrtrVO> dscdPrfmncList;

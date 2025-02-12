@@ -4,6 +4,7 @@ import com.at.apcss.am.dscd.mapper.DscdCrtrMapper;
 import com.at.apcss.am.dscd.service.DscdCrtrService;
 import com.at.apcss.am.dscd.vo.DscdCrtrVO;
 import com.at.apcss.am.dscd.vo.DscdMngVO;
+import com.at.apcss.am.dscd.vo.DscdPrfmncVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -167,53 +168,12 @@ public class DscdCrtrServiceImpl extends BaseServiceImpl implements DscdCrtrServ
         return deleteCnt;
     }
 
-    @Override
-    public List<DscdCrtrVO> selectRawMtrInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectRawMtrInvntrList(dscdCrtrVO);
-        return resultList;
-    }
-
-    @Override
-    public List<DscdCrtrVO> selectSortInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectSortInvntrList(dscdCrtrVO);
-        return resultList;
-    }
-
-    @Override
-    public List<DscdCrtrVO> selectGdsInvntrList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectGdsInvntrList(dscdCrtrVO);
-        return resultList;
-    }
 
     @Override
     public List<DscdCrtrVO> selectDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
         return dscdCrtrMapper.selectDscdRegList(dscdCrtrVO);
     }
 
-    @Override
-    public int insertDscdRegList(List<DscdCrtrVO> dscdRegList) throws Exception {
-        int insertCnt = 0;
-        insertCnt = dscdCrtrMapper.insertDscdRegList(dscdRegList);
-        if(insertCnt <= 0){
-            throw new EgovBizException();
-        }
-
-        return insertCnt;
-    }
-
-    @Override
-    public int deleteDscdRegList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        dscdCrtrMapper.deleteDscdRegList(dscdCrtrVO);
-
-        return 0;
-    }
-
-    @Override
-    public List<DscdCrtrVO> selectDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
-        List<DscdCrtrVO> resultList = dscdCrtrMapper.selectDscdPrfmncList(dscdCrtrVO);
-
-        return resultList;
-    }
 
     @Override
     public int deleteDscdPrfmncList(DscdCrtrVO dscdCrtrVO) throws Exception {
