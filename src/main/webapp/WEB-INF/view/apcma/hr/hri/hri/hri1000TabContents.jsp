@@ -529,8 +529,6 @@
                 <col style="width: 11%">
                 <col style="width: 11%">
                 <col style="width: 11%">
-                <col style="width: 11%">
-                <col style="width: 11%">
             </colgroup>
             <tbody>
             <tr>
@@ -579,7 +577,7 @@
                     <sbux-input id="FAMILY_REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="…" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('FAMILY_REGISTER')"></sbux-button>
+                    <sbux-button id="btnZip1" name="btnUserEnd" uitype="normal" text="…" class="btn btn-xs btn-outline-dark" onclick="fn_findAddress('FAMILY_REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="FAMILY_REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -602,7 +600,7 @@
                     <sbux-input id="REGISTER_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="…" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('REGISTER')"></sbux-button>
+                    <sbux-button id="btnZip2" name="btnUserEnd" uitype="normal" text="…" class="btn btn-xs btn-outline-dark" onclick="fn_findAddress('REGISTER')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="REGISTER_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -629,7 +627,7 @@
                     <sbux-input id="EMERGENCY_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="…" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('EMERGENCY')"></sbux-button>
+                    <sbux-button id="btnZip3" name="btnUserEnd" uitype="normal" text="…" class="btn btn-xs btn-outline-dark" onclick="fn_findAddress('EMERGENCY')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="EMERGENCY_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -645,7 +643,7 @@
                     <sbux-input id="RESIDENCE_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                 </td>
                 <td class="td_input" style="border-right:hidden;">
-                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="…" class="btn btn-sm btn-outline-danger" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
+                    <sbux-button id="btnZip4" name="btnUserEnd" uitype="normal" text="…" class="btn btn-xs btn-outline-dark" onclick="fn_findAddress('RESIDENCE')"></sbux-button>
                 </td>
                 <td colspan="4" class="td_input" style="border-right:hidden;">
                     <sbux-input id="RESIDENCE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panInfo" tab-index="1" required></sbux-input>

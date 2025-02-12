@@ -93,6 +93,32 @@ public class ApcMaComController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}		
 	
+	//select 조회
+	@PostMapping(value = "/com/comSelectListMulti.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> comSelectListMulti(
+			@RequestBody Map<String, Object> param
+			,Model model
+			//,@RequestBody ComMsgVO comMsgVO
+			,HttpSession session
+			,HttpServletRequest request) throws Exception{
+		
+		logger.info("=============comSelectListMulti=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		try {
+			
+			param.put("procedure", 		"SP_ESS_BIZCOMP_MULTI_Q");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
+			
+		} catch (Exception e) {
+			logger.debug("", e);
+			return getErrorResponseEntity(e);
+		}
+		
+		logger.info("=============comSelectListMulti=====end========");
+		return getSuccessResponseEntity(resultMap);
+	}		
+	
 	//file select 조회
 	@PostMapping(value = "/com/comFileList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> comFileList(

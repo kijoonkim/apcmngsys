@@ -607,6 +607,56 @@ public class ApMaComServiceImpl extends BaseServiceImpl implements ApcMaComServi
 		return result;
     }
 
+	/**
+	 * 화면에서 list로 보낸 data를 for-loop를 통해 일괄 처리
+	 * @param param
+	 * @param session
+	 * @param request
+	 * @param ptype
+	 * @param procedureName
+	 * @return
+	 */
+	
+	@Override
+	public HashMap<String, Object> processForListDataBizComponent( Map<String, Object> param, HttpSession session, HttpServletRequest request, String ptype, String procedureName ) {
+	    HashMap<String, Object> result = new HashMap<>();
+	    List<HashMap<String, Object>> returnData = new ArrayList<>();
+
+	    String finalPtype = Objects.requireNonNullElse(ptype, "");
+
+	    param.forEach((key, value) -> {
+	        if (key.contains("listData") && value instanceof List<?>) {
+	            List<?> rawList = (List<?>) value;
+	            for (Object obj : rawList) {
+	                if (obj instanceof HashMap<?, ?>) {
+	                    @SuppressWarnings("unchecked")
+	                    HashMap<String, Object> listItem = (HashMap<String, Object>) obj;
+
+	                    listItem.put("procedure", procedureName);
+	                    
+	                    try {
+	                        HashMap<String, Object> processedItem = apcMaCommDirectService.callProc(listItem, session, request, finalPtype);
+	                        processedItem.put("bizCompId", listItem.get("bizComponentId"));
+	                        returnData.add(processedItem);
+	                    } catch (Exception e) {
+	                        logger.error("Error processing listItem: {}", listItem, e);
+	                        
+	                        HashMap<String, Object> errorItem = new HashMap<>(listItem);
+	                        errorItem.put("error", e.getMessage());
+	                        returnData.add(errorItem);
+	                    }
+	                }
+	            }
+	        }
+	    });
+
+	    result.put("returnData", returnData);
+
+	    return result;
+	}
+
+
+	
 	@Override
 	public HashMap<String, Object> sendFirmBanking(Map<String, Object> param) {
 		HashMap<String,Object> resultMap = new HashMap<>();

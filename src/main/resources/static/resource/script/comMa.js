@@ -420,7 +420,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 		,V_P_CLIENT_CODE	: _clientcode
 		,V_P_BIZCOMP_ID		: _bizcompid
 		,V_P_WHERE_CLAUSE	: _whereclause
-		,V_P_PROC_PARAMS	: ''
+		,V_P_PARAM_LIST		: ''
 		,V_P_FORM_ID		: ''
 		,V_P_MENU_ID		: ''
 		,V_P_PROC_ID		: ''
@@ -494,7 +494,7 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 }
 
 /**
- * @name 		gfnma_setComSelect
+ * @name 		gfnma_getComSelectList
  * @description sbux-select 데이터 가져오기
  * @function
  * @param 		{(string|string[])} _targetIds
@@ -519,7 +519,7 @@ async function gfnma_getComSelectList(_bizcompid, _whereclause, _compcode, _clie
 		,V_P_CLIENT_CODE	: _clientcode
 		,V_P_BIZCOMP_ID		: _bizcompid
 		,V_P_WHERE_CLAUSE	: _whereclause
-		,V_P_PROC_PARAMS	: ''
+		,V_P_PARAM_LIST		: ''
 		,V_P_FORM_ID		: ''
 		,V_P_MENU_ID		: ''
 		,V_P_PROC_ID		: ''
@@ -562,7 +562,7 @@ async function gfnma_getComSelectList(_bizcompid, _whereclause, _compcode, _clie
 	return rlist;
 }
 /**
- * @name 		gfnma_setComSelect
+ * @name 		gfnma_getComList
  * @description sbux-select 데이터 가져오기
  * @function
  * @param 		{(string|string[])} _targetIds
@@ -587,7 +587,7 @@ async function gfnma_getComList(_bizcompid, _whereclause, _compcode, _clientcode
 		,V_P_CLIENT_CODE	: _clientcode
 		,V_P_BIZCOMP_ID		: _bizcompid
 		,V_P_WHERE_CLAUSE	: _whereclause
-		,V_P_PROC_PARAMS	: ''
+		,V_P_PARAM_LIST		: ''
 		,V_P_FORM_ID		: ''
 		,V_P_MENU_ID		: ''
 		,V_P_PROC_ID		: ''
@@ -603,7 +603,7 @@ async function gfnma_getComList(_bizcompid, _whereclause, _compcode, _clientcode
 	});
 
 	const data = await postJsonPromise;
-	console.log('gfnma_getComSelectList get data:', data);
+	console.log('gfnma_getComList get data:', data);
 	return data;
 }
 
@@ -648,7 +648,7 @@ async function gfnma_multiSelectInit(obj) {
 		,V_P_CLIENT_CODE	: _clientCode
 		,V_P_BIZCOMP_ID		: _bizcompId
 		,V_P_WHERE_CLAUSE	: _whereClause
-		,V_P_PROC_PARAMS	: ''
+		,V_P_PARAM_LIST		: ''
 		,V_P_FORM_ID		: _formId
 		,V_P_MENU_ID		: _menuId
 		,V_P_PROC_ID		: ''
@@ -790,7 +790,7 @@ async function gfnma_multiSelectInit(obj) {
 		} else {
 			innerCreat(_target, data);
 		}
-		
+
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
@@ -798,6 +798,8 @@ async function gfnma_multiSelectInit(obj) {
 		console.error("failed", e);
 		console.error("failed", e.message);
 	}
+
+
 }
 
 /**
@@ -2073,4 +2075,51 @@ const gfnma_validateResidentNumber = function(residentNumber) {
 
 	const remainder = (11 - (sum % 11)) % 10;
 	return remainder === digits[12];
+}
+
+const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, PARAM_LIST, COMP_CODE, CLIENT_CODE  ){
+
+	let BIZCOMP_ID_LIST_LENGTH = BIZCOMP_ID_LIST.split('|');
+	console.log('BIZCOMP_ID_LIST_LENGTH ==>', BIZCOMP_ID_LIST_LENGTH);
+	if(BIZCOMP_ID_LIST_LENGTH.length > 30){
+		return;
+	}
+	var paramObj = {
+		     V_P_DEBUG_MODE_YN      : ''
+		    ,V_P_LANG_ID            : ''
+		    ,V_P_COMP_CODE          : COMP_CODE
+		    ,V_P_CLIENT_CODE        : CLIENT_CODE
+		    ,V_P_BIZCOMP_ID_LIST    : BIZCOMP_ID_LIST
+		    ,V_P_WHERE_CLAUSE_LIST  : WHERE_CLAUSE_LIST
+		    ,V_P_PARAM_LIST         : PARAM_LIST
+		    ,V_P_FORM_ID            : ''
+		    ,V_P_MENU_ID            : ''
+		    ,V_P_PROC_ID            : ''
+		    ,V_P_USERID             : ''
+		    ,V_P_PC                 : ''
+    };
+    const postJsonPromise = gfn_postJSON("/com/comSelectListMulti.do", {
+    	getType				: 'json',
+    	workType			: 'Q',
+    	cv_count			: '1',
+    	params				: gfnma_objectToString(paramObj, true)
+	});
+
+    const data = await postJsonPromise;
+    try {
+		if (_.isEqual("S", data.resultStatus)) {
+			console.log('data ==>', data);
+			return data;
+    	} else {
+      		alert(data.resultMessage);
+    	}
+
+    } catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e.message);
+    	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+	        
 }
