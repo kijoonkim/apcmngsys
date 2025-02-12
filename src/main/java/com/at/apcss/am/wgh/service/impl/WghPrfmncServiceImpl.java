@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +76,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	// 상품코드 서비스
 	@Resource(name = "cmnsGdsService")
 	private CmnsGdsService cmnsGdsService;
+
+	// 팔레트 서비스
+	@Resource(name="pltWrhsSpmtService")
+	private PltWrhsSpmtService pltWrhsSpmtService;
 
 	@Override
 	public WghPrfmncVO selectWghPrfmnc(WghPrfmncVO wghPrfmncVO) throws Exception {
@@ -579,6 +586,27 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
+		if(rtnObj != null){
+			throw new EgovBizException();
+		}
+		String prcsNo = wghPrfmncList.get(0).getWghno();
+		if(pltWrhsSpmtList.size() > 0){
+			int sn = pltWrhsSpmtService.selectWrhsSpmtSN(pltWrhsSpmtList.get(0)).getSn();
+			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
+				pltWrhsSpmtVO.setSn(sn);
+				pltWrhsSpmtVO.setPrcsNo(prcsNo);
+				rtnObj = pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO, false);
+				if(rtnObj != null){
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
 	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
 
 		List<WghPrfmncVO> insertWrhsList = new ArrayList<>();
@@ -644,6 +672,13 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
 
 					}
+					/** 검품등급 insert **/
+					/** 검품등급 wghno set **/
+					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+					for(WghInspPrfmncVO vo : inspList){
+						vo.setWghno(wghno);
+					}
+					wghPrfmncMapper.insertUpdateInspList(inspList);
 
 				} else {
 					if (groupId != wghPrfmncVO.getGroupId()) {
@@ -663,8 +698,16 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
 
 						}
+
 					} else {
 						wghPrfmncVO.setWghno(wghno);
+						/** 검품등급 insert **/
+						/** 검품등급 wghno set **/
+						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+						for(WghInspPrfmncVO vo : inspList){
+							vo.setWghno(wghno);
+						}
+						wghPrfmncMapper.insertUpdateInspList(inspList);
 
 						if ("Y".equals(wghPrfmncVO.getDistributionYn())) {
 
@@ -717,6 +760,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				if (rtnObj != null) {
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
+
 				// 입고번호 설정
 				wghPrfmncDtlVO.setWrhsno(rawMtrWrhsVO.getWrhsno());
 				wghPrfmncDtlVO.setPltno(rawMtrWrhsVO.getPltno());
@@ -760,6 +804,13 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
 
 					}
+					/** 검품등급 insert **/
+					/** 검품등급 wghno set **/
+					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+					for(WghInspPrfmncVO vo : inspList){
+						vo.setWghno(wghno);
+					}
+					wghPrfmncMapper.insertUpdateInspList(inspList);
 
 				} else {
 					if (groupId != wghPrfmncVO.getGroupId()) {
@@ -779,8 +830,16 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
 
 						}
+
 					} else {
 						wghPrfmncVO.setWghno(wghno);
+						/** 검품등급 insert **/
+						/** 검품등급 wghno set **/
+						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+						for(WghInspPrfmncVO vo : inspList){
+							vo.setWghno(wghno);
+						}
+						wghPrfmncMapper.insertUpdateInspList(inspList);
 
 						if ("Y".equals(wghPrfmncVO.getDistributionYn())) {
 
@@ -1057,8 +1116,15 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
 
 						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
-
 					}
+					/** 검품등급 insert **/
+					/** 검품등급 wghno set **/
+					String wghno = wghPrfmncVO.getWghno();
+					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+					for(WghInspPrfmncVO vo : inspList){
+						vo.setWghno(wghno);
+					}
+					wghPrfmncMapper.insertUpdateInspList(inspList);
 				} else {
 
 					if (groupId != wghPrfmncVO.getGroupId()) {
@@ -1073,9 +1139,17 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
 
 							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
-
 						}
+
 					} else {
+						/** 검품등급 insert **/
+						/** 검품등급 wghno set **/
+						String wghno = wghPrfmncVO.getWghno();
+						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+						for(WghInspPrfmncVO vo : inspList){
+							vo.setWghno(wghno);
+						}
+						wghPrfmncMapper.insertUpdateInspList(inspList);
 
 						if ("Y".equals(wghPrfmncVO.getDistributionYn())) {
 
@@ -1243,8 +1317,15 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
 
 						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
-
 					}
+					/** 검품등급 insert **/
+					/** 검품등급 wghno set **/
+					String wghno = wghPrfmncVO.getWghno();
+					List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+					for(WghInspPrfmncVO vo : inspList){
+						vo.setWghno(wghno);
+					}
+					wghPrfmncMapper.insertUpdateInspList(inspList);
 				} else {
 
 					if (groupId != wghPrfmncVO.getGroupId()) {
@@ -1268,9 +1349,17 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
 
 							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
-
 						}
+
 					} else {
+						/** 검품등급 insert **/
+						/** 검품등급 wghno set **/
+						String wghno = wghPrfmncVO.getWghno();
+						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+						for(WghInspPrfmncVO vo : inspList){
+							vo.setWghno(wghno);
+						}
+						wghPrfmncMapper.insertUpdateInspList(inspList);
 
 						if ("Y".equals(wghPrfmncVO.getDistributionYn())) {
 
@@ -1666,5 +1755,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<WghPrfmncVO> selectWghRcptSpmtDtlList(WghPrfmncVO wghPrfmncVO) throws Exception {
 		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghRcptSpmtDtlList(wghPrfmncVO);
 		return resultList;
+	}
+
+	@Override
+	public List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception {
+		return wghPrfmncMapper.selectWghInspPrfmncList(wghInspPrfmncVO);
 	}
 }

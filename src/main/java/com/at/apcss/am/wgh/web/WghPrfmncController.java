@@ -5,8 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -454,9 +460,25 @@ public class WghPrfmncController extends BaseController {
 	 * @throws Exception
 	 */
 	@PostMapping(value = "/am/wgh/multiWghPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiWghPrfmncList(@RequestBody List<WghPrfmncVO> wghPrfmncList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiWghPrfmncList(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		Object wghPrfmncListData = param.get("multiList");
+		Object pltWrhsSpmtVOData = param.get("pltWrhsSpmt");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		List<WghPrfmncVO> wghPrfmncList = objectMapper.convertValue(
+				wghPrfmncListData,
+				new TypeReference<List<WghPrfmncVO>>() {
+				}
+		);
+		List<PltWrhsSpmtVO> pltWrhsSpmtList = objectMapper.convertValue(
+				pltWrhsSpmtVOData,
+				new TypeReference<List<PltWrhsSpmtVO>>() {
+				}
+		);
 
 		try {
 			for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
@@ -464,9 +486,23 @@ public class WghPrfmncController extends BaseController {
 				wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				wghPrfmncVO.setSysLastChgUserId(getUserId());
 				wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+				/** 검품등급 공통정보 셋팅 **/
+				List<WghInspPrfmncVO> list = wghPrfmncVO.getInspPrfmncList();
+				for(WghInspPrfmncVO vo : list){
+					vo.setSysFrstInptUserId(getUserId());
+					vo.setSysFrstInptPrgrmId(getPrgrmId());
+					vo.setSysLastChgUserId(getUserId());
+					vo.setSysLastChgPrgrmId(getPrgrmId());
+				}
+			}
+			for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+				pltWrhsSpmtVO.setSysFrstInptUserId(getUserId());
+				pltWrhsSpmtVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pltWrhsSpmtVO.setSysLastChgUserId(getUserId());
+				pltWrhsSpmtVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList);
+			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList,pltWrhsSpmtList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
@@ -650,7 +686,6 @@ public class WghPrfmncController extends BaseController {
 
 
 		} catch (Exception e) {
-
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -659,6 +694,26 @@ public class WghPrfmncController extends BaseController {
 			}
 		}
 
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wgh/selectWghInspPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghInspPrfmncList(@RequestBody WghInspPrfmncVO wghInspPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghInspPrfmncVO> resultList = new ArrayList<>();
+
+		try{
+			resultList = wghPrfmncService.selectWghInspPrfmncList(wghInspPrfmncVO);
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
 
