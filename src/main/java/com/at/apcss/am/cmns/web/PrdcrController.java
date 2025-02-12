@@ -223,6 +223,33 @@ public class PrdcrController extends BaseController {
 	}
 
 	// 생산자팝업 - 생산자 목록 조회
+		@PostMapping(value = "/am/cmns/selectPrdcrTypeDtlVrty.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectPrdcrTypeDtlVrty(@RequestBody PrdcrVO prdcrVO, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<PrdcrVO> resultList = new ArrayList<>();
+
+
+			try {
+
+				resultList = prdcrService.selectPrdcrTypeDtlVrty(prdcrVO);
+
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
+
+
+	// 생산자팝업 - 생산자 목록 조회
 	@PostMapping(value = "/am/cmns/savePrdcrTypeDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> savePrdcrTypeDtlList(@RequestBody List<PrdcrVO> prdcrList, HttpServletRequest request) throws Exception {
 

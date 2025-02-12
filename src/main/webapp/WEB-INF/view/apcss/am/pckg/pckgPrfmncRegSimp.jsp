@@ -32,8 +32,8 @@
         }
         .tabBox{
             border: 1px solid black;
-            font-size: 2vw;
-            width: 15vw;
+            font-size: 1vw;
+            width: 8vw;
             text-align: center;
             padding: 10px 0px;
             text-wrap: nowrap;
@@ -42,6 +42,7 @@
             border-radius: 5px;
             background: white;
         }
+
         .tabBox_sm{
             border: 1px solid black;
             font-size: 1vw;
@@ -71,7 +72,7 @@
         .cell{
             display: grid;
             grid-gap: 5px;
-            grid-template-columns: repeat(5,1fr);
+            grid-template-columns: repeat(9,1fr);
             padding: 0px 5px;
         }
         .carouselBtn{
@@ -90,6 +91,33 @@
         table th{
             text-align : center;
         }
+
+		.sbux-spi {
+		    display: flex;
+		    align-items: center;
+		    height: 100%;
+		}
+
+		.sbux-spi-inp-wrap input {
+		    height: 100%;
+		    text-align: center;
+		}
+
+		.sbux-spi-btn-wrap {
+		    display: flex;
+		    flex-direction: column;
+		    height: 100%;
+		}
+
+		.sbux-spi-btn {
+		    flex: 1;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+
+
+
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -121,6 +149,7 @@
                         text="조회"
                         onclick="fn_search"
                 ></sbux-button>
+
             </div>
         </div>
         <div class="box-body">
@@ -231,7 +260,7 @@
                             <th scope="row" class="th_bg">품종</th>
                             <td id="vrtyInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
                                 <button class="carouselBtn" onclick="fn_left('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                <div class="carousel_container" style="width: 99%; overflow: hidden">
                                     <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
 
                                     </div>
@@ -280,8 +309,35 @@
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">10</div>
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">50</div>
                                     </div>
+
                                     <div style="display: flex; gap: 1.5vw">
-                                        <input id="pckgQntt" type="number" style="font-size: 1.5vw;color: white; text-align: center; background: #307ea5;border: 1px solid black;font-weight: bold"/>
+
+                                        <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal">
+                                         	<span class="sbux-spi-inp-wrap" style="height:100%">
+                                         		<input type="number"
+                                         			   id="spinner_normal_0"
+                                         			   maxlength="undefined"
+                                         			   class="sbux-spi-inp sbux-spi-type-num sbux-spi-txt-center sbux-exist"
+                                         			   data-sbux-name="spinner_normal"
+                                         			   data-sbux-model-name="spinner_normal"
+                                         			   data-sbux-storage-data="value"
+                                         			   style="height:100%;  font-size: 1.2vw">
+                                   			</span>
+                                   			<span class="sbux-spi-btn-wrap sbux-spi-btn-vertical" style="height:100%">
+                                   				<button type="button" id="buttonUp"class="sbux-spi-btn sbux-spi-up">
+	                                   				<i class="fas fa-caret-up" aria-hidden="true"></i>
+	                                   			</button>
+	                                   			<button type="button" id="buttonDown" class="sbux-spi-btn sbux-spi-down">
+	                                   				<i class="fas fa-caret-down" aria-hidden="true"></i>
+                                   				</button>
+                                   			</span>
+                                   			<input type="hidden" name="spinner_normal" style="display:none;" value="">
+                                 		</div>
+
+
+
+
+
                                         <sbux-button
                                                 id="btnRegReset"
                                                 name="btnRegReset"
@@ -336,10 +392,29 @@
     /** 포장 실적 Obj **/
     let pckgObj = {};
 
+
     window.addEventListener("DOMContentLoaded",function(){
        fn_init();
        /** 포장등록시 일일기준 강제처리 **/
        fn_changeTab();
+
+       const inputField = document.getElementById("spinner_normal_0");
+       const buttonUp = document.getElementById("buttonUp");
+       const buttonDown = document.getElementById("buttonDown");
+
+       // 초기값 설정
+       inputField.value = inputField.value || 0;
+
+       buttonUp.addEventListener("click", function () {
+           inputField.value = parseInt(inputField.value, 10) + 1;
+       });
+
+       buttonDown.addEventListener("click", function () {
+           let currentValue = parseInt(inputField.value, 10);
+           if (currentValue > 0) {
+               inputField.value = currentValue - 1;
+           }
+       });
     });
     let carouselObj = {
         cnptInfoWrap : {
@@ -368,14 +443,14 @@
         if (carouselObj[id].current !== 0) {
             carouselObj[id].current--;
             let current =  carouselObj[id].current;
-            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * -76.7}'}vw)`);
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${current * - 74.7}'}vw)`);
         }
     }
     function fn_right(_el){
         let id = _el;
 		let current =  carouselObj[id].current;
         if (carouselObj[id].current !== carouselObj[id].CAROUSEL_LENGTH) {
-            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * -76.7}'}vw)`);
+            $(`#${'${id}'} > div > div.carousel`).css('transform', `translateX(${'${(current +1) * - 74.7}'}vw)`);
             carouselObj[id].current++;
         }
     }
@@ -412,13 +487,14 @@
                 return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
                 }
             },
-            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
-            {caption: ["생산자"],	ref: 'rprsPrdcrNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["생산자"],	ref: 'rprsPrdcrNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["본수"],	ref: 'bxGdsQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
             {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["합계"],	ref: 'sum',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
     }
@@ -448,20 +524,10 @@
         await fn_append_button(data,"itemInfoWrap","itemNm","itemCd");
         carouselObj.itemInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#itemInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
-    const fn_search_vrty = async function(_itemCd,_prdcrNm){
-        const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
+    const fn_search_vrty = async function(_itemCd,_prdcrCd){
+        const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrTypeDtlVrty.do", {apcCd: gv_apcCd,prdcrCd : _prdcrCd ,crtrCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
-        let useYn = data.resultList.filter((item) => item.useYn ==='Y');
-        let tempJsonSearchItemVrty = jsonSearchItemVrty.filter(item => item.prdcrNm === _prdcrNm)
-        										.map(item => item.itemVrtyCd);
 
-        let filteredList = useYn.filter(item => tempJsonSearchItemVrty.includes(item.itemVrtyCd));
-		if (filteredList.length == 0){
-			filteredList = useYn;
-		}
-
-        data.resultList = filteredList;
-        //data.resultList = useYn;
         await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
         carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
     }
@@ -477,21 +543,21 @@
         let targetId = "#" + id;
 
         /** 다음페이지 필요하지않을 경우 **/
-        if(data.resultList.length < 11){
+        if(data.resultList.length < 18){
             $(`${'${targetId}'} > button`).css('display','none');
         }else{
             $(`${'${targetId}'} > button`).css('display','block');
         }
 
         if(!flag){
-            if(data.resultList.length % 10 !== 0 && data.resultList.length > 5){
-                let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
+            if(data.resultList.length % 18 !== 0 && data.resultList.length > 9){
+                let cnt = (Math.floor(data.resultList.length / 18) + 1) * 18;
                 let originLength = data.resultList.length;
                 data.resultList.length = cnt;
                 data.resultList.fill({cnptNm:'null'},originLength);
             }
-            if(data.resultList.length < 5){
-                let cnt = (Math.floor(data.resultList.length / 5) + 1) * 5;
+            if(data.resultList.length < 9){
+                let cnt = (Math.floor(data.resultList.length / 9) + 1) * 9;
                 let originLength = data.resultList.length;
                 data.resultList.length = cnt;
                 data.resultList.fill({cnptNm:'null'},originLength);
@@ -512,41 +578,77 @@
                 data.resultList[0].active = 'active';
             }
 
-            if(data.resultList.length % 10 !== 0 && data.resultList.length > 10 ){
-                let cnt = (Math.floor(data.resultList.length / 10) + 1) * 10;
-                let originLength = data.resultList.length;
-                data.resultList.length = cnt;
-                data.resultList.fill({cnptNm:'null'},originLength);
+            if(id === "vrtyInfoWrap"){
+            	if(data.resultList.length % 18 !== 0 && data.resultList.length > 36 ){
+                    let cnt = (Math.floor(data.resultList.length / 36) + 1) * 36;
+                    let originLength = data.resultList.length;
+                    data.resultList.length = cnt;
+                    data.resultList.fill({cnptNm:'null'},originLength);
+                }
+            }else{
+            	if(data.resultList.length % 18 !== 0 && data.resultList.length > 18 ){
+                    let cnt = (Math.floor(data.resultList.length / 18) + 1) * 18;
+                    let originLength = data.resultList.length;
+                    data.resultList.length = cnt;
+                    data.resultList.fill({cnptNm:'null'},originLength);
+                }
             }
 
-            if(data.resultList.length < 5){
+
+
+
+            if(data.resultList.length < 9){
                 let originLength = data.resultList.length;
-                data.resultList.length = 5;
+                data.resultList.length = 9;
                 data.resultList.fill({cnptNm:'null'},originLength);
             }
         }
 
         for(let i = 0; i < data.resultList.length; i++){
-            if(i != 0 && i % 10 != 0){
-                let flag = data.resultList[i].cnptNm == 'null';
-                let style = flag ? 'visibility:hidden;' : '';
+        	if(id === "vrtyInfoWrap"){
+        		if(i != 0 && i % 36 != 0){
+                    let flag = data.resultList[i].cnptNm == 'null';
+                    let style = flag ? 'visibility:hidden;' : '';
 
-                $(`${'${targetId}'} > .carousel_container > .carousel > :last-child`).append(`
-                <div class="tabBox" style="${'${style}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]}'}">
-                    ${'${data.resultList[i][label]}'}
-                </div>
-                `);
-            }else{
-                let active = data.resultList[i].active || '';
-                    $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
-                    <div class="cell">
-                        <div class="tabBox ${'${active}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]'}}">
-                            ${'${data.resultList[i][label]}'}
-                        </div>
+                    $(`${'${targetId}'} > .carousel_container > .carousel > :last-child`).append(`
+                    <div class="tabBox" style="${'${style}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]}'}">
+                        ${'${data.resultList[i][label]}'}
                     </div>
-                    `)
-                }
+                    `);
+                }else{
+                    let active = data.resultList[i].active || '';
+                        $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
+                        <div class="cell">
+                            <div class="tabBox  ${'${active}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]'}}">
+                                ${'${data.resultList[i][label]}'}
+                            </div>
+                        </div>
+                        `)
+                    }
+
+        	}else{
+        		if(i != 0 && i % 18 != 0){
+                    let flag = data.resultList[i].cnptNm == 'null';
+                    let style = flag ? 'visibility:hidden;' : '';
+
+                    $(`${'${targetId}'} > .carousel_container > .carousel > :last-child`).append(`
+                    <div class="tabBox" style="${'${style}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]}'}">
+                        ${'${data.resultList[i][label]}'}
+                    </div>
+                    `);
+                }else{
+                    let active = data.resultList[i].active || '';
+                        $(`${'${targetId}'} > .carousel_container > .carousel`).append(`
+                        <div class="cell">
+                            <div class="tabBox  ${'${active}'}" onclick="fn_select_button(this)" data-${'${value}'}="${'${data.resultList[i][value]'}}">
+                                ${'${data.resultList[i][label]}'}
+                            </div>
+                        </div>
+                        `)
+               }
             }
+        }
+
     }
 
     const fn_select_button = async function(_el){
@@ -567,9 +669,11 @@
 
 
                 	let nowPrdcrNm = "";
+                	let nowPrdcrCd = "";
                 	let prdcrInfo = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active");
                 	if (prdcrInfo !== null){
                 		nowPrdcrNm = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active").outerText;
+                		nowPrdcrCd = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active").dataset['prdcrcd'];
                 	}else{
                 		continue
                 	}
@@ -581,9 +685,9 @@
                         }else{
                             itemCd = active.dataset.itemcd;
                         }
-                		await fn_search_vrty(itemCd,nowPrdcrNm);
+                		await fn_search_vrty(itemCd,nowPrdcrCd);
                 	}else if(key == 'itemcd'){
-                		await fn_search_vrty(dataObj[key],nowPrdcrNm);
+                		await fn_search_vrty(dataObj[key],nowPrdcrCd);
                 	}
 
 
@@ -618,12 +722,14 @@
         }
     }
     const fn_cntAdd = function(_el){
+
         let value = parseInt($(_el).text());
-        let originCnt = parseInt($("#pckgQntt").val()) || 0;
-        $("#pckgQntt").val(originCnt + value);
+        let originCnt = document.getElementById("spinner_normal_0").value || 0;
+        $("#spinner_normal_0").val(parseInt(originCnt) + value);
+        //$("#pckgQntt").val(originCnt + value);
     }
     const fn_RegReset = function(){
-        $("#pckgQntt").val('');
+        $("#spinner_normal_0").val('');
     }
 
     const fn_addDragEvn = function(_id) {
@@ -690,7 +796,7 @@
     const fn_save = async function(){
         pckgObj.apcCd = gv_apcCd;
         pckgObj.pckgYmd = SBUxMethod.get('srch-dtp-pckgYmdFrom');
-        pckgObj.invntrQntt = parseInt($("#pckgQntt").val());
+        pckgObj.invntrQntt = parseInt($("#spinner_normal_0").val());
         pckgObj.bxGdsQntt = parseInt($("div.tabBox_sm.active").text());
 
         pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
@@ -747,7 +853,14 @@
         const data = await postJsonPromise;
         try {
             if(data.resultStatus === 'S'){
-                jsonPckgPrfmnc = data.resultList;
+
+
+                let result = data.resultList.map(item => {
+                    let data = item.invntrQntt * parseInt(item.bxGdsQntt);
+                    item['sum'] = data;
+                    return item;
+                }).sort((a, b) => b.pckgno.localeCompare(a.pckgno));
+                jsonPckgPrfmnc = result;
                 gridPckgPrfmnc.rebuild();
             }
         }catch (e) {
