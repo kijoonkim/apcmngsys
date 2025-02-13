@@ -278,16 +278,16 @@ public class WghPrfmncController extends BaseController {
 				new TypeReference<List<PltWrhsSpmtVO>>() {
 				}
 		);
-		wghPrfmncVO.setSysLastChgPrgrmId(getUserId());
-		wghPrfmncVO.setSysLastChgUserId(getPrgrmId());
-		wghPrfmncVO.setSysFrstInptPrgrmId(getUserId());
-		wghPrfmncVO.setSysFrstInptUserId(getPrgrmId());
+		wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+		wghPrfmncVO.setSysLastChgUserId(getUserId());
+		wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+		wghPrfmncVO.setSysFrstInptUserId(getUserId());
 
 		for(PltWrhsSpmtVO vo : pltWrhsSpmtVOList){
-			vo.setSysLastChgPrgrmId(getUserId());
-			vo.setSysLastChgUserId(getPrgrmId());
-			vo.setSysFrstInptPrgrmId(getUserId());
-			vo.setSysFrstInptUserId(getPrgrmId());
+			vo.setSysLastChgPrgrmId(getPrgrmId());
+			vo.setSysLastChgUserId(getUserId());
+			vo.setSysFrstInptPrgrmId(getPrgrmId());
+			vo.setSysFrstInptUserId(getUserId());
 		}
 
 		try {
