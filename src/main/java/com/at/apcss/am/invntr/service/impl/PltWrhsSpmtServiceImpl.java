@@ -93,7 +93,8 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	@Override
 	public HashMap<String, Object> insertPltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO, boolean flag) throws Exception {
 		PltWrhsSpmtVO resultVO = selectPltBxMngWrhsSpmt(pltWrhsSpmtVO);
-		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
+//		int insertedCnt = pltWrhsSpmtMapper.insertPltWrhsSpmt(pltWrhsSpmtVO);
+		int insertedCnt = pltWrhsSpmtMapper.mergePltWrhsSpmt(pltWrhsSpmtVO);
 
 		if(flag) {
 			if (insertedCnt > 0) {

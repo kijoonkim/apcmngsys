@@ -1,6 +1,5 @@
 package com.at.apcss.am.invntr.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
@@ -94,6 +93,7 @@ public interface PltWrhsSpmtMapper {
 	 * @throws Exception
 	 */
 	PltWrhsSpmtVO selectWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO)throws Exception;
+	int selectPltWrhsSpmtSN(PltWrhsSpmtVO pltWrhsSpmtVO)throws Exception;
 	/**
 	 * 팔레트 입출고실적 생성후 파레트정보내 현수량 업데이트
 	 * @param pltWrhsSpmtVO
@@ -101,4 +101,6 @@ public interface PltWrhsSpmtMapper {
 	 * @throws Exception
 	 */
 	void updatePltBxInfoBssInvntrQntt(PltWrhsSpmtVO pltWrhsSpmtVO)throws Exception;
+
+	int mergePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
 }

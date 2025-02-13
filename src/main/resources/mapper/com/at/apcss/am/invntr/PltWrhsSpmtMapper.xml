@@ -163,8 +163,88 @@
 				)
     	]]>
     </insert>
+	<insert id="mergePltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		MERGE INTO TB_PLT_WRHS_SPMT PWS
+			USING (
+				SELECT
+					#{apcCd} AS APC_CD,
+					#{jobYmd} AS JOB_YMD,
+					#{wrhsSpmtSeCd} AS WRHS_SPMT_SE_CD,
+					#{pltBxSeCd} AS PLT_BX_SE_CD,
+					#{pltBxCd} AS PLT_BX_CD,
+					#{prdcrCd} AS PRDCR_CD,
+					#{pltNm} AS PLT_NM,
+					#{rmrk} AS RMRK,
+					#{sn} AS SN,
+					#{qntt} AS QNTT,
+					#{unitWght} AS UNIT_WGHT,
+					#{wrhsSpmtType} AS WRHS_SPMT_TYPE,
+					#{prcsNo} AS PRCS_NO,
+					#{sysLastChgUserId} AS SYS_LAST_CHG_USER_ID,
+					#{sysLastChgPrgrmId} AS SYS_LAST_CHG_PRGRM_ID,
+					#{sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID,
+					#{sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+				FROM DUAL
+				) source
+			ON (
+					PWS.APC_CD = source.APC_CD
+				AND PWS.JOB_YMD = source.JOB_YMD
+			    AND PWS.WRHS_SPMT_SE_CD = source.WRHS_SPMT_SE_CD
+				AND PWS.PLT_BX_SE_CD = source.PLT_BX_SE_CD
+				AND PWS.PLT_BX_CD = source.PLT_BX_CD
+				AND PWS.SN = source.SN
+				)
+		WHEN MATCHED THEN
+			UPDATE SET
+				QNTT = source.QNTT
+		WHEN NOT MATCHED THEN
+			INSERT
+	    		(
+					  APC_CD
+					, JOB_YMD
+					, WRHS_SPMT_SE_CD
+					, PLT_BX_SE_CD
+					, PLT_BX_CD
+					, PRDCR_CD
+					, SN
+					, PLT_NM
+					, UNIT_WGHT
+					, QNTT
+					, PRCS_NO
+					, RMRK
+					, WRHS_SPMT_TYPE
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				)
+				VALUES
+				(
+					source.APC_CD,
+					source.JOB_YMD,
+					source.WRHS_SPMT_SE_CD,
+					source.PLT_BX_SE_CD,
+					source.PLT_BX_CD,
+					source.PRDCR_CD,
+				 	source.SN,
+					source.PLT_NM,
+					source.UNIT_WGHT,
+					source.QNTT,
+					source.PRCS_NO,
+					source.RMRK,
+					source.WRHS_SPMT_TYPE,
+					SYSDATE,
+					source.SYS_FRST_INPT_USER_ID,
+					source.SYS_FRST_INPT_PRGRM_ID,
+					SYSDATE,
+					source.SYS_LAST_CHG_USER_ID,
+					source.SYS_LAST_CHG_PRGRM_ID
+				)
+	</insert>
 
-    <!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.updatePltWrhs				-->
 	<!-- DESC : 팔레트/박스 입출 기초재고수량 입고. 			               	        -->
 	<!-- ==========================================================================	-->
@@ -313,9 +393,21 @@
 		FROM TB_PLT_WRHS_SPMT
 		WHERE APC_CD   = #{apcCd}
 		  AND JOB_YMD = #{jobYmd}
-		  AND WRHS_SPMT_SE_CD = #{wrhsSpmtSeCd}
-		  AND PLT_BX_SE_CD = #{pltBxSeCd}
-		  AND PLT_BX_CD = #{pltBxCd}
+		<if test='wrhsSpmtSeCd != null and wrhsSpmtSeCd != ""'>
+			AND WRHS_SPMT_SE_CD	= #{wrhsSpmtSeCd}
+		</if>
+		<if test='pltBxSeCd != null and pltBxSeCd != ""'>
+			AND PLT_BX_SE_CD	= #{pltBxSeCd}
+		</if>
+		<if test='pltBxCd != null and pltBxCd != ""'>
+			AND PLT_BX_CD	= #{pltBxCd}
+		</if>
+	</select>
+	<select id="selectPltWrhsSpmtSN" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="int">
+	SELECT NVL(TO_NUMBER(MAX(SN)), 0) + 1 AS SN
+	FROM TB_PLT_WRHS_SPMT
+	WHERE APC_CD   = #{apcCd}
+	AND JOB_YMD = #{jobYmd}
 	</select>
 	<update id="updatePltBxInfoBssInvntrQntt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
 		UPDATE
@@ -327,4 +419,6 @@
 		AND PLT_BX_SE_CD = #{pltBxSeCd}
 		AND PLT_BX_CD = #{pltBxCd}
 	</update>
+
+
 </mapper>
