@@ -137,13 +137,19 @@
 							SPU.ITEM_CD 				AS ITEM_CD,
 							SPU.VRTY_CD 				AS VRTY_CD,
 							SPU.SPCFCT_CD 				AS SPCFCT_CD,
-							SPU.NTSL_UNTPRC 			AS NTSL_UNTPRC,
 							SPU.DEL_YN 					AS DEL_YN,
 							SPU.GDS_GRD					AS GDS_GRD,
 							SPU.BRND_NM 				AS BRND_NM,
 							SSUR.APLCN_CRTR_YMD 		AS APLCN_CRTR_YMD,
 							SSUR.SPMT_SLS_UNTPRC 		AS SPMT_SLS_UNTPRC,
-							SSUR.RMRK					AS RMRK
+							SSUR.RMRK					AS RMRK,
+							(SELECT MAX(X.SPMT_SLS_UNTPRC) KEEP (DENSE_RANK LAST ORDER BY X.APLCN_CRTR_YMD)
+							 FROM TB_SPMT_SLS_UNTPRC_REG X
+							 WHERE X.APC_CD = SPU.APC_CD
+							   AND X.DEL_YN = 'N'
+							   AND X.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+							   AND X.APLCN_CRTR_YMD <= #{aplcnCrtrYmd}
+							) AS NTSL_UNTPRC
 						FROM TB_SPMT_PCKG_UNIT SPU
 							LEFT JOIN TB_SPMT_SLS_UNTPRC_REG SSUR
 							ON SSUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
@@ -156,7 +162,7 @@
 					AND SPU.APC_CD = #{apcCd}
 				</if>
 				<if test='aplcnCrtrYmd != null and aplcnCrtrYmd != ""'>
-					AND  SSUR.APLCN_CRTR_YMD = #{aplcnCrtrYmd}
+					AND  SSUR.APLCN_CRTR_YMD <![CDATA[<=]]> #{aplcnCrtrYmd}
 				</if>
 				<if test='itemCd != null and itemCd != ""'>
 					AND  SPU.ITEM_CD = #{itemCd}
@@ -236,6 +242,16 @@
 					<if test='spcfctCd != null and spcfctCd != ""'>
 						AND SPU.SPCFCT_CD = #{spcfctCd}
 					</if>
+					<if test='brndNm != null and brndNm != ""'>
+						AND SPU.BRND_NM = #{brndNm}
+					</if>
+					<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+						AND SSUR.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+					</if>
+					<if test='aplcnCrtrYmd != null and aplcnCrtrYmd != ""'>
+						AND SSUR.APLCN_CRTR_YMD <![CDATA[<=]]> #{aplcnCrtrYmd}
+					</if>
+					ORDER BY SSUR.APLCN_CRTR_YMD
 	</select>
 
 	<!-- ==========================================================================	-->
@@ -582,6 +598,38 @@
 		  AND CRTR_CD = #{crtrCd}
 		  AND DTL_SN = #{dtlSn}
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SlsMngMapper.selectUntprcDtl  			-->
+	<!-- DESC : 매출단가저장시 단가상세 조회		                                        -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!--                       -->
+	<!-- ==========================================================================	-->
+	<select id="selectUntprcDtl" parameterType="com.at.apcss.am.spmt.vo.SlsMngVO" resultType="com.at.apcss.am.spmt.vo.SlsMngVO">
+		<![CDATA[
+			SELECT
+			    APC_CD
+				,SPMT_PCKG_UNIT_CD
+				,SPMT_SLS_UNTPRC_CD
+				,SPMT_SLS_UNTPRC
+				,RMRK
+				,APLCN_CRTR_YMD
+			FROM
+			    TB_SPMT_SLS_UNTPRC_REG
+			WHERE DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			AND APC_CD = #{apcCd}
+		</if>
+		<if test='spmtSlsUntprcCd != null and spmtSlsUntprcCd != ""'>
+			AND SPMT_PCKG_UNIT_CD = #{spmtSlsUntprcCd}
+		</if>
+		<if test='aplcnCrtrYmd != null and aplcnCrtrYmd != ""'>
+			AND APLCN_CRTR_YMD = #{aplcnCrtrYmd}
+		</if>
+	</select>
 </mapper>
 
 

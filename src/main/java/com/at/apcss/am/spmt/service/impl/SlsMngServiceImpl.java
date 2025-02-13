@@ -67,9 +67,16 @@ public class SlsMngServiceImpl extends BaseServiceImpl implements SlsMngService 
 		for(SlsMngVO slsMngVO : slsUntprcList) {
 			String gubun = slsMngVO.getGubun();
 			if(gubun.equals("insert")){
-				resultCnt = slsMngMapper.insertSlsUntprc(slsMngVO);
+				SlsMngVO selectUntprcDtl = slsMngMapper.selectUntprcDtl(slsMngVO);
+				if(selectUntprcDtl == null){
+					resultCnt += slsMngMapper.insertSlsUntprc(slsMngVO);
+				}else{
+					slsMngVO.setSpmtSlsUntprcCd(selectUntprcDtl.getSpmtSlsUntprcCd());
+					resultCnt += slsMngMapper.updateSlsUntprc(slsMngVO);
+				}
+
 			}else if(gubun.equals("update")){
-				resultCnt = slsMngMapper.updateSlsUntprc(slsMngVO);
+				resultCnt += slsMngMapper.updateSlsUntprc(slsMngVO);
 			}
 		}
 		if(resultCnt < 0) {

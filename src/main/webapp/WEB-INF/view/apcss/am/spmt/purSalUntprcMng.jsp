@@ -104,8 +104,8 @@
 										uitype="single"
 										id="srch-slt-vrtyCd"
 										name="srch-slt-vrtyCd"
-										class="form-control input-sm input-sm-ast inpt_data_reqed"
-										unselected-text="선택"
+										class="form-control input-sm input-sm-ast"
+										unselected-text="전체"
 										jsondata-ref="jsonComVrty"
 										jsondata-value="itemVrtyCd"
 										onchange="fn_onChangeSrchVrtyCd(this)"
@@ -261,7 +261,7 @@
 					}
 			}},
 			{caption: ["적용기준일자"],	ref: 'aplcnCrtrYmd', type:'datepicker',format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'},typeinfo : {oneclickedit: true},width:'25%',style:'text-align:center'},
-			{caption: ["매출단가"], 		ref: 'spmtSlsUntprc',type:'input', typeinfo : {mask : {alias :'numeric'}, oneclickedit: true},format : {type:'number', rule:'#,###원'},width:'25%',style:'text-align:center'},
+			{caption: ["단가"], 		ref: 'spmtSlsUntprc',type:'input', typeinfo : {mask : {alias :'numeric'}, oneclickedit: true},format : {type:'number', rule:'#,###원'},width:'25%',style:'text-align:center'},
 			{caption: ["비고"],		 	ref: 'rmrk', 		 type:'input', typeinfo :{oneclickedit: true}, width:'40%',	style:'text-align:center'},
 		];
 		grdSlsUntprcDtlList = _SBGrid.create(SBGridProperties);
@@ -278,7 +278,6 @@
     const fn_addRow = async function(nRow, nCol) {
 		let slsUntprcRow = grdSlsUntprcList.getRow();
 		let slsUntprcData = grdSlsUntprcList.getRowData(slsUntprcRow);
-		//console.log(slsUntprcData);
 
     	const editableRow = grdSlsUntprcDtlList.getRowData(nRow, false);	// call by reference(deep copy)
 		editableRow.delYn = "N";
@@ -332,7 +331,6 @@
 		let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
 		let aplcnCrtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
 		let gdsNm = SBUxMethod.get("dtl-inp-gdsNm");
-
 		if(!gfn_isEmpty(vrtyCd)){
 			vrtyCd = vrtyCd.substring(4,8);
 		}
@@ -342,8 +340,7 @@
 				aplcnCrtrYmd : aplcnCrtrYmd,
 				itemCd : itemCd,
 				vrtyCd : vrtyCd,
-				gdsNm : gdsNm
-
+				gdsNm : gdsNm,
 			});
 
 			const data = await postJsonPromise;
@@ -354,6 +351,28 @@
  			 }
 
 			 if(data.resultList.length > 0){
+
+				 let resultList = data.resultList;
+				 console.log(resultList);
+				 let newAdd = [];
+				 for(let i = 0; i < resultList.length; i++){
+					 let isExist = false;
+					 for(let j = 0; j<newAdd.length; j++){
+						 if(resultList[i].itemCd === newAdd[j].itemCd &&
+						 	resultList[i].vrtyCd === newAdd[j].vrtyCd &&
+						 	resultList[i].spcfctCd === newAdd[j].spcfctCd &&
+						 	resultList[i].spmtPckgUnitNm === newAdd[j].spmtPckgUnitNm &&
+						 	resultList[i].ntslUntprc === newAdd[j].ntslUntprc){
+							 isExist = true;
+							 break;
+						 }
+					 }
+					 if (!isExist) {
+						 newAdd.push(resultList[i]);
+					 }
+				 }
+
+				 /*
 				 // 그룹화 로직
 				 const groupedData = data.resultList.reduce((acc, curr) => {
 					 // 그룹 키 생성
@@ -380,10 +399,14 @@
 
 				// 결과를 배열 형태로 변환
 				 const result = Object.values(groupedData);
+				 */
 
-				 //jsonSlsUntprcList = data.resultList;
-				 jsonSlsUntprcList = result;
+				 //jsonSlsUntprcList = result;
+				 jsonSlsUntprcList = newAdd;
 				 grdSlsUntprcList.rebuild();
+
+				 grdSlsUntprcList.setRow(1);//focus 지정
+				 await fn_searchDtl();
 			 }
 
   		}
@@ -396,8 +419,12 @@
 		jsonUntprcDtlList.length = 0;
 		grdSlsUntprcDtlList.rebuild();
 
+		let aplcnCrtrYmd = SBUxMethod.get("srch-dtp-crtrYmd");
+
 		let nRow = grdSlsUntprcList.getRow();
-		let rowData = grdSlsUntprcList.getRowData(nRow);
+		let rowData = grdSlsUntprcList.getRowData(nRow,false);
+		rowData.aplcnCrtrYmd = aplcnCrtrYmd;
+		console.log("클릭할 때 ",rowData);
 
 		if(gfn_isEmpty(rowData)){
 			return;
@@ -431,27 +458,43 @@
     const fn_save = async function(){
 		let allData = grdSlsUntprcDtlList.getGridDataAll();
 
+		if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
+			return;
+		}
+
         try{
-			allData = allData.filter(item=>{
+			let saveList = [];
+			for(let i = 0; i < allData.length; i++){
+				let isExist = false;
+				for(let j=0; j<saveList.length; j++){
+					if(allData[i].aplcnCrtrYmd === saveList[j].aplcnCrtrYmd){
+						isExist = true;
+						break;
+					}
+				}
+				if(!isExist){
+					saveList.push(allData[i]);
+				}else{
+					gfn_comAlert("W0009","적용기준일자") //W0009 {0} 이/가 있습니다.
+					return;
+				}
+			}
+			saveList = saveList.filter(item=>{
 				if(gfn_nvl(item.gubun) === ""){
 					item.gubun = "update";
 				}
 				item.apcCd = gv_selectedApcCd;
 				return item.delYn === 'N'
 			})
-
-			console.log("fn_save : ",allData);
-
-            let postJsonPromise = gfn_postJSON("/am/spmt/updateSlsUntprcReg.do",allData);
+            let postJsonPromise = gfn_postJSON("/am/spmt/updateSlsUntprcReg.do",saveList);
 
 			let data = await postJsonPromise;
 
-			if (data.resultStatus == "S") {
-				//gfn_comAlert(data.resultCode, data.resultMessage);
-				//gfn_comAlert("I0002","1건",createMode?"생성":"수정");
-				//fn_reset();
+			if(!_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert(data.resultCode, data.resultMessage);
 				return;
 			}
+			gfn_comAlert("I0001"); //처리 되었습니다.
 			await fn_search();
         }catch (e){
             console.log(e);
