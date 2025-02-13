@@ -468,16 +468,17 @@
 									></sbux-input>
 								</td>
 								<td colspan="3"></td>
-								<th scope="row" class="th_bg">비고</th>
-								<td colspan="4" class="td_input" style="border-right:hidden;" >
+								<th scope="row" class="th_bg">작업자</th>
+								<td colspan="4" class="td_input">
 									<sbux-input
 											uitype="text"
-											id="dtl-inp-rmrk"
-											name="dtl-inp-rmrk"
+											id="dtl-inp-oprtrNm"
+											name="dtl-inp-oprtrNm"
 											class="form-control input-sm"
-											style="width: 80%"
+											style="width:80%"
 									></sbux-input>
 								</td>
+
 								<th scope="row" class="th_bg">타출고처</th>
 								<td colspan="4" class="td_input">
 									<sbux-input
@@ -490,36 +491,14 @@
 								</td>
 							</tr>
 							<tr>
-								<th scope="row" class="th_bg">출고가구</th>
-								<td class="td_input" style="border-right:hidden;" >
+								<th scope="row" class="th_bg">비고</th>
+								<td colspan="4" class="td_input" style="border-right:hidden;" >
 									<sbux-input
 											uitype="text"
-											id="dtl-inp-shpgotQntt"
-											name="dtl-inp-shpgotQntt"
+											id="dtl-inp-rmrk"
+											name="dtl-inp-rmrk"
 											class="form-control input-sm"
-											mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-									></sbux-input>
-								</td>
-								<td colspan="3"></td>
-								<th scope="row" class="th_bg">출고팔레트</th>
-								<td class="td_input" style="border-right:hidden;" >
-									<sbux-input
-											uitype="text"
-											id="dtl-inp-shpgotPltQntt"
-											name="dtl-inp-shpgotPltQntt"
-											class="form-control input-sm"
-											mask = "{ 'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
-									></sbux-input>
-								</td>
-								<td colspan="3"></td>
-								<th scope="row" class="th_bg">작업자</th>
-								<td colspan="4" class="td_input">
-									<sbux-input
-											uitype="text"
-											id="dtl-inp-oprtrNm"
-											name="dtl-inp-oprtrNm"
-											class="form-control input-sm"
-											style="width:80%"
+											style="width: 80%"
 									></sbux-input>
 								</td>
 							</tr>
@@ -614,6 +593,14 @@
             style="width:800px"
         ></sbux-modal>
     </div>
+	<!-- 생산작업자 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-oprtr" name="modal-oprtr" uitype="middle" header-title="생산작업자 등록" body-html-id="body-modal-oprtr" footer-is-close-button="false" header-is-close-button="false" style="width:900px"></sbux-modal>
+	</div>
+	<div id="body-modal-oprtr">
+		<jsp:include page="../apc/oprtrMngPopup.jsp"></jsp:include>
+	</div>
+
     <div id="body-modal-apcLinkPop">
         <jsp:include page="../../am/popup/apcLinkPopup.jsp"></jsp:include>
      </div>
@@ -789,6 +776,7 @@
 		jsonPltBox.forEach(function(item){
 			item.Bqntt = '';
 			item.Pqntt = '';
+			item.sn = 0;
 		});
 		grdPltBox.rebuild();
 	}
@@ -810,7 +798,6 @@
 	    SBGridProperties.id = 'grdWghPrfmnc';
 	    SBGridProperties.jsonref = 'jsonWghPrfmnc';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
@@ -960,6 +947,35 @@
 			});
 		});
 		grdInsp.rebuild();
+
+		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do",{apcCd: gv_selectedApcCd, prcsNo: rowData.wghno});
+		const dataForPlt = await postJsonPromiseForPlt;
+		if (!_.isEqual("S", dataForPlt.resultStatus)) {
+			gfn_comAlert(dataForPlt.resultCode, dataForPlt.resultMessage);
+			return;
+		}
+		jsonPltBox.forEach(function(item){
+			item.Bqntt = '';
+			item.Pqntt = '';
+			item.sn = 0;
+		});
+
+		dataForPlt.resultList.forEach(function(item){
+			let prefix = item.pltBxSeCd;
+			let pltBxCd = item.pltBxCd;
+			let filterTxt = item.wrhsSpmtSeNm;
+			let qntt = item.qntt;
+			jsonPltBox.forEach(function(plt){
+				if(plt.type === filterTxt){
+					let keyNm = prefix + 'pltBxCd';
+					if(plt[keyNm] === pltBxCd){
+						plt[prefix + 'qntt'] = qntt;
+						plt.sn = item.sn;
+					}
+				}
+			});
+		});
+		grdPltBox.rebuild();
 	}
 
 	/**
@@ -1418,6 +1434,7 @@
 		 });
 		let Cfclt = SBUxMethod.get("dtl-slt-fcltCd");
 		document.cookie = "addr="+ Cfclt + "; path=/; max-age=31536000; secure; samesite=strict";
+
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", {multiList:multiList,pltWrhsSpmt:pltWrhsSpmt});
 	    	const data = await postJsonPromise;

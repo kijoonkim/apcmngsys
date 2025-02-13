@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
@@ -55,6 +56,9 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Autowired
 	private WghPrfmncMapper wghPrfmncMapper;
+
+	@Autowired
+	private PltWrhsSpmtMapper pltWrhsSpmtMapper;
 
 	@Resource(name="cmnsTaskNoService")
 	private CmnsTaskNoService cmnsTaskNoService;
@@ -593,11 +597,13 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 		String prcsNo = wghPrfmncList.get(0).getWghno();
 		if(pltWrhsSpmtList.size() > 0){
-			int sn = pltWrhsSpmtService.selectWrhsSpmtSN(pltWrhsSpmtList.get(0)).getSn();
 			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
-				pltWrhsSpmtVO.setSn(sn);
+				if(pltWrhsSpmtVO.getSn() == 0){
+					int sn = pltWrhsSpmtMapper.selectPltWrhsSpmtSN(pltWrhsSpmtVO);
+					pltWrhsSpmtVO.setSn(sn);
+				}
 				pltWrhsSpmtVO.setPrcsNo(prcsNo);
-				rtnObj = pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO, false);
+				rtnObj = pltWrhsSpmtService.insertPltWrhsSpmt(pltWrhsSpmtVO, true);
 				if(rtnObj != null){
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
