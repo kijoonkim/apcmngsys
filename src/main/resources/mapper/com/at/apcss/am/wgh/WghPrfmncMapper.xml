@@ -2020,4 +2020,16 @@
 		AND ITEM_CD = #{itemCd}
 	</select>
 
+	<delete id="deleteWghInspPrfmncList" parameterType="java.util.List">
+		DELETE FROM TB_WGH_INSP_PRFMNC
+		WHERE
+		<foreach collection="list" item="vo" open="(" separator="OR" close=")">
+			(APC_CD = #{vo.apcCd}
+			AND WGHNO = #{vo.wghno}
+			AND ITEM_CD = #{vo.itemCd}
+			AND VRTY_CD = #{vo.vrtyCd}
+			AND GRD_CD = #{vo.grdCd})
+		</foreach>
+	</delete>
+
 </mapper>

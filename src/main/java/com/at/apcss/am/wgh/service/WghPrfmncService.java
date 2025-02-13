@@ -261,4 +261,12 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
     List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception;
+
+	/**
+	 * 원물계량실적 삭제 및 검품등급 삭제
+	 * @param wghPrfmncVO
+	 * @param wghInspPrfmncVOList
+	 * @return
+	 */
+	HashMap<String, Object> deleteWghPrfmncInspList(WghPrfmncVO wghPrfmncVO, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltWrhsSpmtVOList) throws Exception;
 }

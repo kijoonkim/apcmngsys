@@ -267,4 +267,6 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
     List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception;
+
+	int deleteWghInspPrfmncList(List<WghInspPrfmncVO> wghInspPrfmncVOList) throws Exception;
 }
