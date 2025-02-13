@@ -112,6 +112,16 @@
 										<span>매출기준 상세정보</span>
 									</li>
 								</ul>
+								<div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+									<sbux-button
+											id="btnSaveDtl"
+											name="btnSaveDtl"
+											uitype="normal"
+											text="상세저장"
+											class="btn btn-sm btn-success"
+											onclick="fn_saveDtl"
+									></sbux-button>
+								</div>
 							</div>
 							<div id="sb-area-grdSlsCrtrDtlList" style="height:500px;"></div>
 						</div>
@@ -257,11 +267,11 @@
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(\"grdSlsCrtrDtlList\"," + nRow + ")'>삭제</button>";
 					}
 				}},
-            {caption: ["기준코드"], ref: 'crtrCd', type:'combo', typeinfo :{ref :'jsonCrtrCd',label:'cdVlNm',value :'cdVl',oneclickedit: true},width:'18.5%', style:'text-align:center'},
-            {caption: ["상세코드"], ref: 'dtlCd', type:'combo', typeinfo : {ref:'jsonDtlCd',label:'cdVlNm', value:'cdVl',oneclickedit: true},width:'18.5%', style:'text-align:center' },
-			{caption: ["상세코드값"], ref: 'dtlChrVl', type:'input',typeinfo :{oneclickedit: true},  width:'18.5%',  style:'text-align:center'},
-			{caption: ["표시순서"], ref: 'indctSeq', type:'input',typeinfo:{ mask : {alias :'numeric'}, oneclickedit: true}, width:'18.5%', style:'text-align:center' },
-			{caption: ["사용여부"], ref: 'useYn', type:'combo',typeinfo : {ref :'jsonUseYn',label:'cdVlNm', value:'cdVl', oneclickedit: true},width:'18.5', style:'text-align:center'},
+            {caption: ["기준코드"], ref: 'crtrCd', type:'combo', typeinfo :{ref :'jsonCrtrCd',label:'cdVlNm',value :'cdVl',oneclickedit: true},width:'18.8%', style:'text-align:center'},
+            {caption: ["상세코드"], ref: 'dtlCd', type:'combo', typeinfo : {ref:'jsonDtlCd',label:'cdVlNm', value:'cdVl',oneclickedit: true},width:'18.8%', style:'text-align:center' },
+			{caption: ["상세코드값"], ref: 'dtlChrVl', type:'input',typeinfo :{oneclickedit: true},  width:'18.8%',  style:'text-align:center'},
+			{caption: ["표시순서"], ref: 'indctSeq', type:'input',typeinfo:{ mask : {alias :'numeric'}, oneclickedit: true}, width:'18.8%', style:'text-align:center' },
+			{caption: ["사용여부"], ref: 'useYn', type:'combo',typeinfo : {ref :'jsonUseYn',label:'cdVlNm', value:'cdVl', oneclickedit: true},width:'18.8', style:'text-align:center'},
         ];
         grdSlsCrtrDtlList = _SBGrid.create(SBGridProperties);
     }
@@ -275,14 +285,14 @@
 	 */
     const fn_addRow = async function(grd, nRow) {
 		if(grd === "grdSlscrtrList"){
-			let editableRow = grdSlscrtrList.getRowData(nRow, false);	// call by reference(deep copy)
-			if(gfn_isEmpty(editableRow)){
+			let editTableRow = grdSlscrtrList.getRowData(nRow, false);	// call by reference(deep copy)
+			if(gfn_isEmpty(editTableRow)){
 				gfn_comAlert("W0001","매출 기준목록");
 				return;
 			}else{
-				editableRow.status = "3";
-				editableRow.gubun = "insert";
-				editableRow.delYn = "N";
+				editTableRow.status = "3";
+				editTableRow.gubun = "insert";
+				editTableRow.delYn = "N";
 			}
 			//grd.addRows([{status : chk.toString(r) gubun : "insert" }]);
 			grdSlscrtrList.addRow();
@@ -290,26 +300,27 @@
 			grdSlscrtrList.setCellDisabled(nRow, 0, nRow, grdSlscrtrList.getCols() - 1, true);
 			grdSlscrtrList.setCellDisabled(nRow-1, 0, nRow-1, grdSlscrtrList.getCols() - 1, false);
 		}else if(grd === "grdSlsCrtrDtlList"){
-			let editableRow = grdSlsCrtrDtlList.getRowData(nRow, false);
+			let editTableRow = grdSlsCrtrDtlList.getRowData(nRow, false);
 			let getRow = grdSlscrtrList.getRow();
 			let getGrdSlsCrtrList = grdSlscrtrList.getRowData(getRow);
 			let getSlsCrtrType = getGrdSlsCrtrList.slsCrtrType;
+
 			let getCrtrCd = getGrdSlsCrtrList.crtrCd;
 
-			if(gfn_isEmpty(editableRow)){
+			if(gfn_isEmpty(editTableRow)){
 				gfn_comAlert("W0001","매출 기준목록");
 				return;
 			}else{
-				editableRow.status = "3";
-				editableRow.gubun = "insert";
-				editableRow.delYn = "N";
-				editableRow.slsCrtrType = getSlsCrtrType;
-				editableRow.crtrCd = getCrtrCd;
+				editTableRow.status = "3";
+				editTableRow.gubun = "insert";
+				editTableRow.delYn = "N";
+				editTableRow.slsCrtrType = getSlsCrtrType;
+				editTableRow.crtrCd = getCrtrCd;
+				editTableRow.useYn = "Y";
 
 			}
 			grdSlsCrtrDtlList.addRow();
 			nRow++;
-			console.log("grdSlsCrtrDtlList nRow : ",nRow ,"col : ",grdSlsCrtrDtlList.getCols());
 			grdSlsCrtrDtlList.setCellDisabled(0, 0, nRow-1, grdSlsCrtrDtlList.getCols() - 1, false);
 			grdSlsCrtrDtlList.setCellDisabled(0, 0, nRow-1, 1, true);
 			grdSlsCrtrDtlList.setCellDisabled(nRow, 0, nRow, grdSlsCrtrDtlList.getCols() - 1, true); //마지막행
@@ -371,10 +382,10 @@
 					grdSlscrtrList.addRow(true);
 					grdSlscrtrList.setCellDisabled(1, 1, rowLength,grdSlscrtrList.getCols() -5, true);
 					grdSlscrtrList.setCellDisabled(nRow, 0, nRow,grdSlscrtrList.getCols() - 1, true);//마지막행
-					/*let nRow2 = grdSlsCrtrDtlList.getRows();
 
-                    fn_addRow(grdSlscrtrList,nRow,"1");
-                    fn_addRow(grdSlsCrtrDtlList,nRow2,"1");*/
+					grdSlscrtrList.setRow(1); //focus 지정
+					await fn_clickGrdSlsCrtr();
+
 				}else{
 					jsonSlsCrtrList.length = 0;
 					grdSlscrtrList.rebuild();
@@ -395,6 +406,9 @@
 	}
 
 	const fn_clickGrdSlsCrtr = async function(){
+		jsonSlsCrtrDtlList.length = 0;
+		grdSlsCrtrDtlList.rebuild();
+
 		let nRow = grdSlscrtrList.getRow();
 		let rowData = grdSlscrtrList.getRowData(nRow);
 		if(gfn_isEmpty(rowData)){
@@ -432,7 +446,6 @@
 				jsonSlsCrtrDtlList = data.resultList;
 				grdSlsCrtrDtlList.rebuild();
 				let nRow = grdSlsCrtrDtlList.getRows();
-				console.log("클릭할 때 : ",nRow)
 				grdSlsCrtrDtlList.addRow(true);
 				grdSlsCrtrDtlList.setCellDisabled(0, 1, nRow-1, 1, true);
 				grdSlsCrtrDtlList.setCellDisabled(nRow, 0, nRow, grdSlsCrtrDtlList.getCols() - 1, true);
@@ -444,7 +457,6 @@
 			}
 		}
 	}
-
 
 
     const fn_save = async function(){
@@ -469,20 +481,12 @@
 				}
 			});
 
-			let slsCrtrDtlList = grdSlsCrtrDtlList.getGridDataAll();
-			slsCrtrDtlList = slsCrtrDtlList.filter(item => {
-				if(gfn_nvl(item.gubun) === ""){
-					item.gubun = "update";
-				}
-				item.apcCd = gv_selectedApcCd;
-				//item.slsCrtrType = item.crtrCd;
-				return item.delYn === 'N'
-			})
-
-			console.log(slsCrtrDtlList);
+			if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
+				return;
+			}
 
 
-            let postJsonPromise = gfn_postJSON("/am/spmt/insertSlsCrtr.do",[allData,slsCrtrDtlList]);
+            let postJsonPromise = gfn_postJSON("/am/spmt/insertSlsCrtr.do",allData);
 
             if(postJsonPromise){
                 let data = await postJsonPromise;
@@ -499,6 +503,38 @@
             console.log(e);
         }
     }
+
+	const fn_saveDtl = async function(){
+		let allData = grdSlsCrtrDtlList.getGridDataAll();
+		allData = allData.filter(item => {
+			if(gfn_nvl(item.gubun) === ""){
+				item.gubun = "update";
+			}
+			item.apcCd = gv_selectedApcCd;
+			return item.delYn === 'N'
+		})
+
+
+		if(!gfn_comConfirm("Q0001", "상세 저장")) {    // 저장 하시겠습니까?
+			return;
+		}
+
+		try{
+			let postJsonPromise = gfn_postJSON("/am/spmt/insertSlsCrtrDtl.do",allData);
+			let data = await  postJsonPromise;
+
+			if(!_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert(data.resultCode, data.resultMessage);
+				return;
+			}
+
+			gfn_comAlert("I0001");
+			await fn_search();
+
+		}catch (e) {
+			console.log(e);
+		}
+	}
 
 
 

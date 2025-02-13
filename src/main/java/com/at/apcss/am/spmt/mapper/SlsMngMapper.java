@@ -136,4 +136,12 @@ public interface SlsMngMapper {
 	 * @throws Exception
 	 */
 	public int deleteSlsCrtrDtl(SlsMngVO slsMngVO) throws Exception;
+
+	/**
+	 * 매출단가저장시 단가상세 조회
+	 * @param slsMngVO
+	 * @return
+	 * @throws Exception
+	 */
+    public SlsMngVO selectUntprcDtl(SlsMngVO slsMngVO) throws Exception;
 }

@@ -26,14 +26,14 @@ import com.at.apcss.co.sys.vo.ComVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-public class SlsMngController extends BaseController{
+public class SlsMngController extends BaseController {
 
-	@Resource(name= "slsMngService")
+	@Resource(name = "slsMngService")
 	private SlsMngService slsMngService;
-	
-	@PostMapping(value = "/am/spmt/selectSlsPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSlsPrfmncList(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {		
-		
+
+	@PostMapping(value = "/am/spmt/selectSlsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSlsPrfmncList(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SlsMngVO> resultList = new ArrayList<>();
 		try {
@@ -51,21 +51,21 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/spmt/deleteSlsPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteSlsPrfmnc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {		
-				
+
+	@PostMapping(value = "/am/spmt/deleteSlsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteSlsPrfmnc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result;
-		
+
 		try {
-			for ( SlsMngVO slsMngVO : slsPrfmncList ) {
+			for (SlsMngVO slsMngVO : slsPrfmncList) {
 				slsMngVO.setSysFrstInptUserId(getUserId());
 				slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 				slsMngVO.setSysLastChgUserId(getUserId());
 				slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			
+
 			result = slsMngService.deleteSlsPrfmnc(slsPrfmncList);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -80,21 +80,21 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/spmt/updateSlsPrfmnc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> updateSlsPrfmnc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {		
-				
+
+	@PostMapping(value = "/am/spmt/updateSlsPrfmnc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateSlsPrfmnc(@RequestBody List<SlsMngVO> slsPrfmncList, HttpServletRequest request) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result;
-		
+
 		try {
-			for ( SlsMngVO slsMngVO : slsPrfmncList ) {
+			for (SlsMngVO slsMngVO : slsPrfmncList) {
 				slsMngVO.setSysFrstInptUserId(getUserId());
 				slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 				slsMngVO.setSysLastChgUserId(getUserId());
 				slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
-			
+
 			result = slsMngService.updateSlsPrfmnc(slsPrfmncList);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -109,10 +109,10 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/spmt/selectSlsUntprc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> selectSlsUntprc(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {		
-		
+
+	@PostMapping(value = "/am/spmt/selectSlsUntprc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectSlsUntprc(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<SlsMngVO> resultList = new ArrayList<>();
 		try {
@@ -129,20 +129,20 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	
-	@PostMapping(value = "/am/spmt/deleteSlsUntprc.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> deleteSlsUntprc(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {		
-				
+
+
+	@PostMapping(value = "/am/spmt/deleteSlsUntprc.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> deleteSlsUntprc(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result;
-		
-		try {			
+
+		try {
 			slsMngVO.setSysFrstInptUserId(getUserId());
 			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 			slsMngVO.setSysLastChgUserId(getUserId());
 			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
-			
+
 			result = slsMngService.deleteSlsUntprc(slsMngVO);
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -157,14 +157,14 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-	
-	@PostMapping(value = "/am/spmt/updateSlsUntprcReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+
+	@PostMapping(value = "/am/spmt/updateSlsUntprcReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateSlsUntprcReg(@RequestBody List<SlsMngVO> slsUntprcList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
 
-		for ( SlsMngVO slsMngVO : slsUntprcList ) {
+		for (SlsMngVO slsMngVO : slsUntprcList) {
 			slsMngVO.setSysFrstInptUserId(getUserId());
 			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 			slsMngVO.setSysLastChgUserId(getUserId());
@@ -173,7 +173,7 @@ public class SlsMngController extends BaseController{
 		try {
 			result = slsMngService.updateSlsUntprcReg(slsUntprcList);
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -188,7 +188,7 @@ public class SlsMngController extends BaseController{
 
 	}
 
-	@PostMapping(value = "/am/spmt/selectSlsUntprcDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/spmt/selectSlsUntprcDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSlsUntprcDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -208,7 +208,7 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/spmt/selectSlsCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/spmt/selectSlsCrtr.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSlsCrtr(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -228,7 +228,7 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/spmt/selectSlsCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/spmt/selectSlsCrtrDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectSlsCrtrDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -248,44 +248,22 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/spmt/insertSlsCrtr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertSlsCrtr(@RequestBody List<Object> data, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/spmt/insertSlsCrtr.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertSlsCrtr(@RequestBody List<SlsMngVO> slsCrtrList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		int result = 0;
-		ObjectMapper mapper = new ObjectMapper();
-		List<Map<String,Object>> cmnsSlsCrtrList = (List<Map<String, Object>>) data.get(0);
-		CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, SlsMngVO.class);
-		List<SlsMngVO> slsCrtrList = mapper.convertValue(cmnsSlsCrtrList, listType);
 
-		slsCrtrList.forEach(item->{
-			item.setSysFrstInptUserId(getUserId());
-			item.setSysFrstInptPrgrmId(getPrgrmId());
-			item.setSysLastChgUserId(getUserId());
-			item.setSysLastChgPrgrmId(getPrgrmId());
-		});
-
-		List<Map<String,Object>> cmnsSlsCrtrDtlList = (List<Map<String, Object>>) data.get(1);
-		CollectionType dtlListType = mapper.getTypeFactory().constructCollectionType(List.class, SlsMngVO.class);
-		List<SlsMngVO> slsCrtrDtlList = mapper.convertValue(cmnsSlsCrtrDtlList, dtlListType);
-
-		slsCrtrDtlList.forEach(item->{
-			item.setSysFrstInptUserId(getUserId());
-			item.setSysFrstInptPrgrmId(getPrgrmId());
-			item.setSysLastChgUserId(getUserId());
-			item.setSysLastChgPrgrmId(getPrgrmId());
-		});
-
-	/*	for ( SlsMngVO slsMngVO : slsCrtrList ) {
+		for (SlsMngVO slsMngVO : slsCrtrList) {
 			slsMngVO.setSysFrstInptUserId(getUserId());
 			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
 			slsMngVO.setSysLastChgUserId(getUserId());
 			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
-		}*/
+		}
+
 		try {
 			result = slsMngService.insertSlsCrtr(slsCrtrList);
-			result = slsMngService.insertSlsCrtrDtl(slsCrtrDtlList);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
 			HashMap<String, Object> rtnObj = setMenuComLog(request);
@@ -300,7 +278,38 @@ public class SlsMngController extends BaseController{
 
 	}
 
-	@PostMapping(value = "/am/spmt/deleteSlsCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/spmt/insertSlsCrtrDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertSlsCrtrDtl(@RequestBody List<SlsMngVO> slsCrtrDtlList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int result = 0;
+
+		for (SlsMngVO slsMngVO : slsCrtrDtlList) {
+			slsMngVO.setSysFrstInptUserId(getUserId());
+			slsMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			slsMngVO.setSysLastChgUserId(getUserId());
+			slsMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		try {
+			result = slsMngService.insertSlsCrtrDtl(slsCrtrDtlList);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_UPDATED_CNT, result);
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
+
+
+	@PostMapping(value = "/am/spmt/deleteSlsCrtr.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteSlsCrtr(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -327,7 +336,7 @@ public class SlsMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/spmt/deleteSlsCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	@PostMapping(value = "/am/spmt/deleteSlsCrtrDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deleteSlsCrtrDtl(@RequestBody SlsMngVO slsMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -353,5 +362,4 @@ public class SlsMngController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 }

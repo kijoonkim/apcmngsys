@@ -331,6 +331,11 @@ public class SlsMngVO extends ComVO{
 	 *  */
 	private String sysLastChgPrgrmId;
 
+	/**
+	 * 현재날짜
+	 */
+	private String todayDate;
+
 	List<SlsMngVO> slsPrfmncList;
 	
 	
