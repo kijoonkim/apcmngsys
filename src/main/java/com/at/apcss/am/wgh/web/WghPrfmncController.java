@@ -249,6 +249,67 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wgh/deleteWghPrfmncInspList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteWghPrfmncInspList(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Object wghPrfmncData = param.get("wghPrfmnc");
+		Object inspListData = param.get("inspList");
+		Object pltWrhsSpmtData = param.get("pltList");
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+		WghPrfmncVO wghPrfmncVO = objectMapper.convertValue(
+				wghPrfmncData,
+				new TypeReference<WghPrfmncVO>() {
+				}
+		);
+
+		List<WghInspPrfmncVO> wghInspPrfmncVOList = objectMapper.convertValue(
+				inspListData,
+				new TypeReference<List<WghInspPrfmncVO>>() {
+				}
+		);
+
+		List<PltWrhsSpmtVO> pltWrhsSpmtVOList = objectMapper.convertValue(
+				pltWrhsSpmtData,
+				new TypeReference<List<PltWrhsSpmtVO>>() {
+				}
+		);
+		wghPrfmncVO.setSysLastChgPrgrmId(getUserId());
+		wghPrfmncVO.setSysLastChgUserId(getPrgrmId());
+		wghPrfmncVO.setSysFrstInptPrgrmId(getUserId());
+		wghPrfmncVO.setSysFrstInptUserId(getPrgrmId());
+
+		for(PltWrhsSpmtVO vo : pltWrhsSpmtVOList){
+			vo.setSysLastChgPrgrmId(getUserId());
+			vo.setSysLastChgUserId(getPrgrmId());
+			vo.setSysFrstInptPrgrmId(getUserId());
+			vo.setSysFrstInptUserId(getPrgrmId());
+		}
+
+		try {
+			HashMap<String, Object> rtnObj = wghPrfmncService.deleteWghPrfmncInspList(wghPrfmncVO, wghInspPrfmncVOList, pltWrhsSpmtVOList);
+
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	/**
 	 * 계량정보관리 출고 목록 조회
 	 * @param WghPrfmncVO

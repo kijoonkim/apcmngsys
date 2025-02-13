@@ -607,27 +607,6 @@
 
 </body>
 <script type="text/javascript">
-
-	/**
-	 * 공통버튼 연계처리
-	 */
-	async function cfn_init() {
-		await fn_reset();
-	}
-	async function cfn_add() {
-
-	}
-	async function cfn_del() {
-		await fn_delete();
-	}
-	async function cfn_save() {
-		await fn_save();
-	}
-	async function cfn_search() {
-		await fn_search();
-	}
-
-
 	let prvRowNum = -1;
 
 	var jsonApcItem			= [];	// 품목 		itemCd		검색
@@ -987,7 +966,7 @@
 		const wghnoList = [];
 
 		let rowIdx = grdWghPrfmnc.getRow();
-		if(rowIdx == -1){
+		if(rowIdx < 0 ){
 	 		gfn_comAlert("W0001", "발행대상");		//	W0001	{0}을/를 선택하세요.
 		}
 		let rowData = grdWghPrfmnc.getRowData(rowIdx);
@@ -1215,12 +1194,120 @@
           	} else {
 	          	grdWghPrfmnc.rebuild();
           	}
+			/** 계량 내역 set **/
+			SBUxMethod.set("crtr-ymd",wghYmd);
+			$("#cnt-wgh").text(data.resultList.length || 0);
+
 		} catch (e) {
     		if (!(e instanceof Error)) {
     			e = new Error(e);
     		}
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	const fn_delete = async function(){
+		/** 계량실적 삭제대상 **/
+		let nRow = grdWghPrfmnc.getRow();
+		let deleteVo = grdWghPrfmnc.getRowData(nRow);
+
+		/** 검품등급 삭제대상 **/
+		let grdList = grdInsp.getGridDataAll();
+		/** 검품등급 셋팅 **/
+		const result = {};
+		let inspList = [];
+		let wghno = deleteVo.wghno;
+		let itemCd = deleteVo.itemCd;
+		let vrtyCd = deleteVo.vrtyCd.split(',');
+		let wghYmd = deleteVo.wghYmd;
+		let prdcrCd = deleteVo.prdcrCd;
+
+		grdList.forEach(obj => {
+			const grdCd = obj.grdCd;
+			Object.keys(obj).forEach(key => {
+				if (key !== "grdCd" && obj[key] !== "") {
+					if (!result[key]) {
+						result[key] = {};
+					}
+					result[key][grdCd] = obj[key];
+				}
+			});
+		});
+		let inspVO = {
+			apcCd : gv_selectedApcCd,
+			wghno : wghno,
+			itemCd : itemCd,
+			vrtyCd : '',
+			grdCd : '',
+			grdVl : '',
+		}
+		Object.keys(result).forEach(function(item){
+			if(vrtyCd.findIndex( (vrtyCd) => item === vrtyCd) > -1 ){
+				Object.keys(result[item]).forEach(function(iner){
+					let vo = JSON.parse(JSON.stringify(inspVO));
+					vo.vrtyCd = item;
+					vo.grdCd = iner;
+					vo.grdVl = result[item][iner];
+					inspList.push(vo);
+				});
+			}
+		});
+
+
+
+		/** 팔레트불출 관리 삭제대상 **/
+		let pltList = [];
+		let pltGrd = grdPltBox.getGridDataAll();
+		pltGrd = pltGrd.filter(item => (item.Bqntt > 0 || item.Pqntt > 0) && !item.hasOwnProperty("subtotal"));
+		pltGrd.forEach(function(item){
+			if(item.Bqntt > 0){
+				pltList.push({
+					apcCd : gv_selectedApcCd,
+					jobYmd : wghYmd,
+					wrhsSpmtSeCd : item.type === '입고'? '1' : '2',
+					pltBxSeCd : 'B',
+					pltBxCd : item.BpltBxCd,
+					prdcrCd : prdcrCd,
+					qntt : parseInt(item.Bqntt),
+					sn : item.sn
+				})
+			}
+			if(item.Pqntt > 0){
+				pltList.push({
+					apcCd : gv_selectedApcCd,
+					jobYmd : wghYmd,
+					wrhsSpmtSeCd : item.type === '입고'? '1' : '2',
+					pltBxSeCd : 'P',
+					pltBxCd : item.PpltBxCd,
+					prdcrCd : prdcrCd,
+					qntt : parseInt(item.Pqntt),
+					sn : item.sn
+				})
+			}
+		});
+
+		let param = {
+			wghPrfmnc : deleteVo,
+			inspList : inspList,
+			pltList : pltList,
+		}
+
+		const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncInspList.do", param);
+		const data = await postJsonPromise;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				fn_search();
+				fn_reset();
+				gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
 		}
 	}
 
@@ -1394,7 +1481,8 @@
 					pltBxSeCd : 'B',
 					pltBxCd : item.BpltBxCd,
 					prdcrCd : prdcrCd,
-					qntt : parseInt(item.Bqntt)
+					qntt : parseInt(item.Bqntt),
+					sn : item.sn
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1405,7 +1493,8 @@
 					pltBxSeCd : 'P',
 					pltBxCd : item.PpltBxCd,
 					prdcrCd : prdcrCd,
-					qntt : parseInt(item.Pqntt)
+					qntt : parseInt(item.Pqntt),
+					sn : item.sn
 				})
 			}
 		});

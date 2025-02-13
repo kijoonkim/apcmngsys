@@ -1767,4 +1767,30 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception {
 		return wghPrfmncMapper.selectWghInspPrfmncList(wghInspPrfmncVO);
 	}
+
+	@Override
+	public HashMap<String, Object> deleteWghPrfmncInspList(WghPrfmncVO wghPrfmncVO, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltWrhsSpmtVOList) throws Exception {
+		/** 계량실적 관련 삭제 **/
+		HashMap<String, Object> rtnObj = deleteWghPrfmnc(wghPrfmncVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		/** 검품등급 삭제 **/
+		if(wghInspPrfmncVOList.size() > 0){
+			int delCnt = wghPrfmncMapper.deleteWghInspPrfmncList(wghInspPrfmncVOList);
+			if(delCnt != wghInspPrfmncVOList.size()){
+				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
+			}
+		}
+		/** 팔레트 불출관리 삭제 **/
+		if(pltWrhsSpmtVOList.size() > 0){
+			for(PltWrhsSpmtVO vo : pltWrhsSpmtVOList){
+				rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
+				if(rtnObj != null){
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
+		}
+		return null;
+	}
 }
