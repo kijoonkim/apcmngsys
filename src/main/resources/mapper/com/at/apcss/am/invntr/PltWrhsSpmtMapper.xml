@@ -193,6 +193,7 @@
 				AND PWS.PLT_BX_SE_CD = source.PLT_BX_SE_CD
 				AND PWS.PLT_BX_CD = source.PLT_BX_CD
 				AND PWS.SN = source.SN
+			    AND PWS.PRCS_NO = source.PRCS_NO
 				)
 		WHEN MATCHED THEN
 			UPDATE SET

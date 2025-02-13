@@ -755,7 +755,8 @@
 		jsonPltBox.forEach(function(item){
 			item.Bqntt = '';
 			item.Pqntt = '';
-			item.sn = 0;
+			item.Bsn = 0;
+			item.Psn = 0;
 		});
 		grdPltBox.rebuild();
 	}
@@ -874,7 +875,6 @@
           		let vrtyCd = item.vrtyCd
           		let vrtyCdCol = grdVrty.getColRef(vrtyCd);
 
-
           		for (var i=1; i<=jsonGrdCd.length; i++) {
 
           			let grdCdKey = "grdCd" + i;
@@ -893,9 +893,7 @@
 
 	          	grdVrty.setCellData(j+1, grdCdCol, jsonGrdCd[j].grdCd, true);
           	}
-
           	grdVrty.rebuild();
-
 
 		} catch (e) {
     		if (!(e instanceof Error)) {
@@ -936,7 +934,8 @@
 		jsonPltBox.forEach(function(item){
 			item.Bqntt = '';
 			item.Pqntt = '';
-			item.sn = 0;
+			item.Bsn = 0;
+			item.Psn = 0;
 		});
 
 		dataForPlt.resultList.forEach(function(item){
@@ -949,7 +948,7 @@
 					let keyNm = prefix + 'pltBxCd';
 					if(plt[keyNm] === pltBxCd){
 						plt[prefix + 'qntt'] = qntt;
-						plt.sn = item.sn;
+						plt[prefix + 'sn'] = item.sn;
 					}
 				}
 			});
@@ -988,6 +987,8 @@
 		jsonPltBox.forEach(function(item){
 			item.Bqntt = '';
 			item.Pqntt = '';
+			item.Bsn = 0;
+			item.Psn = 0;
 		});
 		grdPltBox.rebuild();
 	}
@@ -1270,7 +1271,7 @@
 					pltBxCd : item.BpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Bqntt),
-					sn : item.sn
+					sn : item.Bsn
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1282,7 +1283,7 @@
 					pltBxCd : item.PpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Pqntt),
-					sn : item.sn
+					sn : item.Psn
 				})
 			}
 		});
@@ -1482,7 +1483,7 @@
 					pltBxCd : item.BpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Bqntt),
-					sn : item.sn
+					sn : item.Bsn
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1494,7 +1495,7 @@
 					pltBxCd : item.PpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Pqntt),
-					sn : item.sn
+					sn : item.Psn
 				})
 			}
 		});
