@@ -700,11 +700,10 @@
 		await fn_selectPltBxList();
 		await fn_modalDrag();
 		/** cookie Set **/
-		let addr = getCookie('addr').toString();
-		if(addr){
-			SBUxMethod.set("dtl-slt-fcltCd",addr);
+		let addr = getCookie('addr');
+		if(!gfn_isEmpty(addr)){
+			SBUxMethod.set("dtl-slt-fcltCd",addr.toString());
 		}
-
 		ws.init();
 	}
 
