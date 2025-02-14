@@ -492,7 +492,7 @@
 							</tr>
 							<tr>
 								<th scope="row" class="th_bg">비고</th>
-								<td colspan="4" class="td_input" style="border-right:hidden;" >
+								<td colspan="14" class="td_input">
 									<sbux-input
 											uitype="text"
 											id="dtl-inp-rmrk"
@@ -830,6 +830,7 @@
 
 		let rowData = grdWghPrfmnc.getRowData(nRow);
 		let wrhsSpmtType = rowData.wrhsSpmtType;
+
 
 		SBUxMethod.set('dtl-dtp-wghYmd', rowData.wghYmd);
       	SBUxMethod.set('dtl-inp-wghno', rowData.wghno);
