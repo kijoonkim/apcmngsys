@@ -28,6 +28,7 @@
 				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					<sbux-button id="btnReportAll1" name="btnReportAll1" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_allReport"></sbux-button>
 					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
@@ -35,6 +36,7 @@
 					-->
 				</c:if>
 				<c:if test="${loginVO.apoSe eq '1'}">
+					<sbux-button id="btnReportAll2" name="btnReportAll2" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_allReport"></sbux-button>
 					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnPrfmncCorpDdlnYn01" name="btnPrfmncCorpDdlnYn01" uitype="normal" text="실적 법인체마감" class="btn btn-sm btn-outline-danger" onclick="fn_userPrfmncCorpDdlnYn"></sbux-button>
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_dtlGridSearch"></sbux-button>
@@ -662,6 +664,36 @@
 		let recordCountPerPage = grdPrdcrOgnCurntMng.getPageSize();   		// 몇개의 데이터를 가져올지 설정
 		let currentPageNo = grdPrdcrOgnCurntMng.getSelectPageIndex(); 		// 몇번째 인덱스 부터 데이터를 가져올지 설정
 		fn_setGrdFcltList(recordCountPerPage, currentPageNo);
+	}
+
+	//통합리포트
+	const fn_allReport = async function() {
+		let yr = SBUxMethod.get("dtl-input-yr");//
+		if(gfn_isEmpty(yr)){
+			yr = SBUxMethod.get("srch-input-yr");//
+		}
+		//년도 검색값이 없는 경우 최신년도
+		if(gfn_isEmpty(yr)){
+			let now = new Date();
+			let year = now.getFullYear();
+			yr = year;
+		}
+
+		let brno = SBUxMethod.get("dtl-input-brno");//
+		if(gfn_isEmpty(brno)){
+			alert("통합조직을 선택해주세요");
+			return ;
+		}
+		let crno = SBUxMethod.get("dtl-input-crno");//
+		let corpNm = SBUxMethod.get("dtl-input-corpNm");//
+
+		gfn_popClipReport("검색리스트", "pd/all1.crf", {
+			yr			: gfn_nvl(yr)
+			, brno		: gfn_nvl(brno)
+			, uoBrno	: gfn_nvl(brno)
+			, corpNm 	: gfn_nvl(corpNm)
+			, crno 		: gfn_nvl(crno)
+		});
 	}
 
 	const fn_report = async function() {
