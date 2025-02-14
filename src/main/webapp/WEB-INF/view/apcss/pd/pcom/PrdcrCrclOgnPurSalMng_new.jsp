@@ -957,7 +957,9 @@
 	function fn_grdTot01(){
 		// 계산할 열 이름 배열
 		const columnsToSum = [
-			"prchsTrstVlm", "prchsTrstAmt", "prchsEmspapVlm", "prchsEmspapAmt","prchsTotAmt",
+			"prchsTrstVlm", "prchsTrstAmt",
+			"prchsEmspapVlm", "prchsEmspapAmt",
+			"prchsTotVlm", "prchsTotAmt",
 			"prchsSortTrstVlm","prchsSortTrstAmt",
 			"prchsSpmtTrstVlm","prchsSpmtTrstAmt",
 			"prchsSmplTrstVlm","prchsSmplTrstAmt",
