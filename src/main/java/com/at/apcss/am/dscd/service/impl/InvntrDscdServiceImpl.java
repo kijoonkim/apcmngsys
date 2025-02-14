@@ -50,8 +50,14 @@ public class InvntrDscdServiceImpl extends BaseServiceImpl implements InvntrDscd
                 int dscdQntt = dscdPrfmncVO.getDscdQntt();//폐기수량
                 double dscdWght = dscdPrfmncVO.getDscdWght();//폐기 중량
 
+                int prvPrcsQntt = dscdPrfmncVO.getPrcsQntt();//처리수량
+                double prvPrcsWght = dscdPrfmncVO.getPrcsWght();//처리중량
+
+
                 dscdPrfmncVO.setInvntrQntt(invntrQntt - dscdQntt);
                 dscdPrfmncVO.setInvntrWght(invntrWght - dscdWght);
+                dscdPrfmncVO.setPrcsQntt(prvPrcsQntt + dscdQntt);
+                dscdPrfmncVO.setPrcsWght(prvPrcsWght + dscdWght);
 
                 int updateRawInvntrCnt = invntrDscdMapper.updateRawInvntr(dscdPrfmncVO);
                 if(updateRawInvntrCnt < 0){

@@ -53,6 +53,8 @@
                     , TRMI.INVNTR_QNTT AS INVNTR_QNTT
                     , TRMI.INVNTR_WGHT AS INVNTR_WGHT
                     , TRMI.SPCFCT_CD AS SPCFCT_CD
+                    , TRMI.PRCS_QNTT AS PRCS_QNTT
+                    , TRMI.PRCS_WGHT AS PRCS_WGHT
                 FROM TB_RAW_MTR_INVNTR TRMI
                 WHERE TRMI.DEL_YN = 'N'
                 AND TRMI.INVNTR_WGHT > 0
@@ -260,7 +262,6 @@
                                    , DSCD_YMD
                                    , DSCD_SN
                                    , DTL_SN
-                                   , DSCD_RSN
                                    , INVNTR_SE_CD
                                    , INVNTR_NO
                                    , INVNTR_SN
@@ -282,6 +283,9 @@
                                    , SYS_LAST_CHG_DT
                                    , SYS_LAST_CHG_USER_ID
                                    , SYS_LAST_CHG_PRGRM_ID
+                                   , DSCD_RSN
+                                   , DSCD_CS_CD
+                                   , DSCD_BAD_CD
         )
         VALUES
             (
@@ -289,7 +293,6 @@
             , #{dscdYmd}
             , (SELECT COALESCE(MAX(DSCD_SN),0)+1 FROM TB_INVNTR_DSCD_PRFMNC WHERE APC_CD = #{apcCd} AND DSCD_YMD = #{dscdYmd} )
             , #{dtlSn}
-            , #{dscdRsn}
             , #{invntrSeCd}
             , #{invntrno}
             , #{invntrSn}
@@ -311,6 +314,9 @@
             , SYSDATE
             , #{sysLastChgUserId}
             , #{sysLastChgPrgrmId}
+            , #{dscdRsn}
+            , #{dscdCsCd}
+            , #{dscdBadCd}
             )
     </insert>
 
@@ -328,6 +334,8 @@
         SET
             INVNTR_QNTT = #{invntrQntt}
           ,INVNTR_WGHT = #{invntrWght}
+          ,PRCS_QNTT = #{prcsQntt}
+          ,PRCS_WGHT = #{prcsWght}
           ,SYS_LAST_CHG_DT = SYSDATE
           ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
           ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
@@ -393,55 +401,68 @@
     <select id="selectDscdPrfmncList" parameterType="com.at.apcss.am.dscd.vo.DscdPrfmncVO" resultType="com.at.apcss.am.dscd.vo.DscdPrfmncVO">
         <![CDATA[
             SELECT
-                APC_CD
-                ,DSCD_YMD
-                ,DSCD_SN
-                ,DTL_SN
-                ,INVNTR_SE_CD
-                ,INVNTR_NO
-                ,INVNTR_SN
-                ,PRDCR_CD
-                ,ITEM_CD
-                ,VRTY_CD
-                ,GRD_CD
-                ,SPCFCT_CD
-                ,SPMT_PCKG_UNIT_CD
-                ,GDS_SE_CD
-                ,WRHS_SE_CD
-                ,WAREHOUSE_SE_CD
-                ,DSCD_QNTT
-                ,DSCD_WGHT
-                ,SYS_FRST_INPT_DT
-                ,SYS_FRST_INPT_USER_ID
-                ,SYS_FRST_INPT_PRGRM_ID
-                ,SYS_LAST_CHG_DT
-                ,SYS_LAST_CHG_USER_ID
-                ,SYS_LAST_CHG_PRGRM_ID
-                ,DSCD_RSN
-                ,(SELECT FN_GET_ITEM_NM(ITEM_CD,APC_CD) FROM DUAL) AS ITEM_NM
-                ,(SELECT FN_GET_VRTY_NM(ITEM_CD,VRTY_CD,APC_CD) FROM DUAL) AS VRTY_NM
-                ,(SELECT FN_GET_PRDCR_NM(PRDCR_CD,APC_CD)FROM DUAL) AS PRDCR_NM
-                ,(SELECT FN_GET_COM_CD_VL_NM('INVNTR_SE_CD',INVNTR_SE_CD)FROM DUAL) AS INVNTR_SE_CD_NM
-            FROM TB_INVNTR_DSCD_PRFMNC
-            WHERE DEL_YN = 'N'
+                IDP.APC_CD  AS APC_CD
+                ,IDP.DSCD_YMD AS DSCD_YMD
+                ,IDP.DSCD_SN AS DSCD_SN
+                ,IDP.DTL_SN AS DTL_SN
+                ,IDP.INVNTR_SE_CD AS INVNTR_SE_CD
+                ,IDP.INVNTR_NO AS INVNTR_NO
+                ,IDP.INVNTR_SN AS INVNTR_SN
+                ,IDP.PRDCR_CD AS PRDCR_CD
+                ,IDP.ITEM_CD AS ITEM_CD
+                ,IDP.VRTY_CD AS VRTY_CD
+                ,IDP.GRD_CD AS GRD_CD
+                ,IDP.SPCFCT_CD AS SPCFCT_CD
+                ,IDP.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+                ,IDP.GDS_SE_CD AS GDS_SE_CD
+                ,IDP.WRHS_SE_CD AS WRHS_SE_CD
+                ,IDP.WAREHOUSE_SE_CD AS WAREHOUSE_SE_CD
+                ,IDP.DSCD_QNTT AS DSCD_QNTT
+                ,IDP.DSCD_WGHT AS DSCD_WGHT
+                ,IDP.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
+                ,IDP.SYS_FRST_INPT_USER_ID AS SYS_FRST_INPT_USER_ID
+                ,IDP.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+                ,IDP.SYS_LAST_CHG_DT AS SYS_LAST_CHG_DT
+                ,IDP.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+                ,IDP.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
+                ,IDP.DSCD_RSN AS DSCD_RSN
+                ,(SELECT FN_GET_ITEM_NM(IDP.ITEM_CD,IDP.APC_CD) FROM DUAL) AS ITEM_NM
+                ,(SELECT FN_GET_VRTY_NM(IDP.ITEM_CD,IDP.VRTY_CD,IDP.APC_CD) FROM DUAL) AS VRTY_NM
+                ,(SELECT FN_GET_PRDCR_NM(IDP.PRDCR_CD,IDP.APC_CD)FROM DUAL) AS PRDCR_NM
+                ,(SELECT FN_GET_COM_CD_VL_NM('INVNTR_SE_CD',IDP.INVNTR_SE_CD)FROM DUAL) AS INVNTR_SE_CD_NM
+                ,IDC.CRTR_INDCT_NM AS DSCD_CS_CD_NM
+                ,DC.CRTR_INDCT_NM AS DSCD_BAD_CD_NM
+            FROM TB_INVNTR_DSCD_PRFMNC IDP
+
+            LEFT JOIN TB_INVNTR_DSCD_CRTR IDC
+            ON IDP.APC_CD = IDC.APC_CD
+            AND IDP.DSCD_CS_CD = IDC.CRTR_CD
+            AND IDC.DEL_YN = 'N'
+
+            LEFT JOIN TB_INVNTR_DSCD_CRTR DC
+            ON IDP.APC_CD = DC.APC_CD
+            AND IDP.DSCD_BAD_CD = DC.CRTR_CD
+            AND DC.DEL_YN = 'N'
+
+            WHERE IDP.DEL_YN = 'N'
         ]]>
         <if test='apcCd != null and apcCd != ""'>
-            AND APC_CD = #{apcCd}
+            AND IDP.APC_CD = #{apcCd}
         </if>
         <if test='dscdYmdFrom != null and dscdYmdFrom != ""'>
-            AND DSCD_YMD <![CDATA[>=]]> #{dscdYmdFrom}
+            AND IDP.DSCD_YMD <![CDATA[>=]]> #{dscdYmdFrom}
         </if>
         <if test='dscdYmdTo != null and dscdYmdTo != ""'>
-            AND DSCD_YMD <![CDATA[<=]]> #{dscdYmdTo}
+            AND IDP.DSCD_YMD <![CDATA[<=]]> #{dscdYmdTo}
         </if>
         <if test='itemCd != null and itemCd != ""'>
-            AND ITEM_CD = #{itemCd}
+            AND IDP.ITEM_CD = #{itemCd}
         </if>
         <if test='vrtyCd != null and vrtyCd != ""'>
-            AND VRTY_CD = #{vrtyCd}
+            AND IDP.VRTY_CD = #{vrtyCd}
         </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
-            AND PRDCR_CD = #{prdcrCd}
+            AND IDP.PRDCR_CD = #{prdcrCd}
         </if>
     </select>
 
