@@ -304,6 +304,7 @@
     var jsonBadCd = [];    // 불량코드    badCd    조회
     var jsonDscdSeCd = [];    // 폐기사유코드    dscdSeCd    조회
 
+
     var dscdRegList = [];
 
     /** grid 변수 셋팅 **/
@@ -744,9 +745,21 @@
                         rule: '#,###'
                     }
                 },
-               /* {
-                    caption: ['불량코드', '불량코드'],
-                    ref: 'badCd',
+               {
+                    caption: ['폐기원인코드', '폐기원인코드'],
+                    ref: 'dscdCsCd',
+                    width: '100px',
+                    type: 'combo',
+                    style: 'text-align: center; background-color: #FFF8DC;',
+                    typeinfo: {
+                        ref: 'jsonDscdSeCd',
+                        label: 'label',
+                        value: 'value'
+                    }
+                },
+                {
+                    caption: ['폐기사유코드', '폐기사유코드'],
+                    ref: 'dscdBadCd',
                     width: '100px',
                     type: 'combo',
                     style: 'text-align: center; background-color: #FFF8DC;',
@@ -756,18 +769,6 @@
                         value: 'value'
                     }
                 },
-                {
-                    caption: ['폐기사유코드', '폐기사유코드'],
-                    ref: 'dscdSeCd',
-                    width: '100px',
-                    type: 'combo',
-                    style: 'text-align: center; background-color: #FFF8DC;',
-                    typeinfo: {
-                        ref: 'jsonDscdSeCd',
-                        label: 'label',
-                        value: 'value'
-                    }
-                },*/
                 {
                     caption: ['폐기사유', '폐기사유'],
                     ref: 'dscdRsn',
@@ -1061,7 +1062,6 @@
                 deleteIndex.push(i+2);
             }
         }
-        //console.log("행삭제 인덱스",deleteIndex,deleteIndex.length);
         if(gfn_isEmpty(deleteIndex)) {
             gfn_comAlert("W0003", "삭제");    // W0003 {0}할 대상이 없습니다.
             return;
@@ -1087,7 +1087,6 @@
             return item;
         });
 
-        console.log("저장할 때 ",saveParam);
 
         if(!gfn_comConfirm("Q0001", "저장")) {    // 저장 하시겠습니까?
             return;

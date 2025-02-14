@@ -493,4 +493,24 @@ public class DscdPrfmncVO extends ComVO {
      */
     private String pckgnoSn;
 
+    /**
+     * 폐기원인코드
+     */
+    private String dscdCsCd;
+
+    /**
+     * 폐기사유코드
+     */
+    private String dscdBadCd;
+
+    /**
+     * 폐기원인코드명
+     */
+    private String dscdCsCdNm;
+
+    /**
+     * 폐기사유코드명
+     */
+    private String dscdBadCdNm;
+
 }

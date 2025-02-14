@@ -216,6 +216,7 @@
 
         await fn_createGrid();
         await fn_getPrdcrs();
+        await fn_search();
     }
 
     const fn_createGrid = async function() {
@@ -310,10 +311,24 @@
                 }
             },
             {
+                caption: ["폐기원인코드"],
+                ref: 'dscdCsCdNm',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;'
+            },
+            {
+                caption: ["폐기사유코드"],
+                ref: 'dscdBadCdNm',
+                type: 'output',
+                width: '8%',
+                style: 'text-align: center;'
+            },
+            {
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '24%',
+                width: '8%',
                 style: 'text-align: center;'
             },
             {
@@ -478,13 +493,11 @@
      * @description 생산자명 입력 시 event : autocomplete
      */
     const fn_onInputPrdcrNm = function(prdcrNm){
-        //console.log("생산자명: ", prdcrNm);
         fn_clearPrdcr();
         if(getByteLengthOfString(prdcrNm.target.value) > 100) {
             SBUxMethod.set("srch-inp-prdcrNm", "");
             return;
         }
-        //console.log("jsonPrdcr: ", jsonPrdcr);
         jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
         SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
     }
