@@ -493,6 +493,92 @@ async function gfnma_setComSelect(_targetIds, _jsondataRef, _bizcompid, _wherecl
 	}
 }
 
+ /*
+ * @name 		gfnma_setComSelect2
+ * @description 화면에서 받은 데이터로 sbux-select 설정
+ * @function
+ * @param 		{(string|string[])} _targetIds
+ * @param 		{any[]} _jsondataRef
+ * @param 		{string} _bizcompid
+ * @param 		{any[]} _bizCompDatas
+ * @param 		{string} _whereclause
+ * @param 		{string} _compcode
+ * @param 		{string} _clientcode
+ * @param 		{string} _subcode
+ * @param 		{string} _codename
+ * @param 		{string} _allyn
+ * @param 		{string} _defaultvalue
+ * @returns 	{void}
+ */
+async function gfnma_setComSelect2(_targetIds, _jsondataRef, _bizCompDatas, _bizcompid, _whereclause, _compcode, _clientcode, _subcode, _codename, _allyn, _defaultvalue) {
+
+	let data = '';
+
+	for(var i = 0; _bizCompDatas.length > i; i++){
+		if(!gfn_isEmpty(_bizCompDatas[i][_bizcompid])){
+			data = _bizCompDatas[i][_bizcompid];
+			break;
+		}
+	}
+
+
+	if (gfn_isEmpty(_bizcompid) || gfn_isEmpty(_bizCompDatas) || gfn_isEmpty(data)) {
+		return;
+	}
+
+	try {
+		_jsondataRef.length = 0;
+		data.forEach((item) => {
+			if(item){
+				if(_defaultvalue){
+					if(_defaultvalue==item[_subcode]){
+						const cdVl = {
+							text		: gfnma_nvl(item[_codename]),
+							label		: gfnma_nvl(item[_codename]),
+							value		: gfnma_nvl(item[_subcode]),
+							selected	: "selected"
+						}
+						if(_allyn== "Y") Object.assign(cdVl, item);
+						_jsondataRef.push(cdVl);
+					} else {
+						const cdVl = {
+							text	: gfnma_nvl(item[_codename]),
+							label	: gfnma_nvl(item[_codename]),
+							value	: gfnma_nvl(item[_subcode])
+						}
+						if(_allyn== "Y") Object.assign(cdVl, item);
+						_jsondataRef.push(cdVl);
+					}
+				} else {
+					const cdVl = {
+						text	: gfnma_nvl(item[_codename]),
+						label	: gfnma_nvl(item[_codename]),
+						value	: gfnma_nvl(item[_subcode])
+					}
+					if(_allyn== "Y") Object.assign(cdVl, item);
+					_jsondataRef.push(cdVl);
+				}
+			}
+		});
+
+		if (Array.isArray(_targetIds)) {
+			_targetIds.forEach((_targetId) => {
+				SBUxMethod.refresh(_targetId);
+			});
+		} else {
+			SBUxMethod.refresh(_targetIds);
+		}
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}
+}
+
+
 /**
  * @name 		gfnma_getComSelectList
  * @description sbux-select 데이터 가져오기
@@ -798,9 +884,189 @@ async function gfnma_multiSelectInit(obj) {
 		console.error("failed", e);
 		console.error("failed", e.message);
 	}
-
-
 }
+
+/**
+ * @name 		gfnma_multiSelectInit2
+ * @description 화면에서 데이터를 받아 멀티 컬럼 select
+ * @function
+ * @param 		{string} target
+ * @param 		{string} compCode
+ * @param 		{string} clientCode
+ * @param 		{string} bizcompId
+ * @param 		{string} whereClause
+ * @param 		{string} formId
+ * @param 		{string} menuId
+ * @param 		{string} selectValue
+ * @param 		{string} colValue
+ * @param 		{string} colLabel
+ * @param 		{string} columns
+ * @param 		{any[]} _bizCompDatas
+ * @returns 	{void}
+ */
+async function gfnma_multiSelectInit2(obj, bizCompDatas) {
+
+	var _target			= obj.target;
+	var _compCode		= obj.compCode;
+	var _clientCode		= obj.clientCode;
+	var _bizcompId		= obj.bizcompId;
+	var _whereClause	= obj.whereClause;
+	var _formId			= obj.formId;
+	var _menuId			= obj.menuId;
+	var _selectValue	= obj.selectValue;
+	var _dropType		= obj.dropType;
+	var _dropAlign		= obj.dropAlign;
+	var _colValue		= obj.colValue;
+	var _colLabel		= obj.colLabel;
+	var _columns		= obj.columns;
+	var _callback		= obj.callback;
+
+	let data = '';
+
+	for(var i = 0; bizCompDatas.length > i; i++){
+		if(!gfn_isEmpty(bizCompDatas[i][_bizcompId])){
+			data = bizCompDatas[i][_bizcompId];
+			break;
+		}
+	}
+	
+	if(gfn_isEmpty(data)){
+		return;
+	}
+
+	const innerCreat = function (tarId, data) {
+		
+		//중간에 버튼 삽입 -----------------------
+		var bchk = $(tarId).closest('div').find('button').length;
+		if(bchk==1){
+			$(tarId).closest('div').find('button').removeClass('btn-light').addClass('btn-outline-secondary');
+			$(tarId).closest('div').find('button').find('i').remove();
+			$(tarId).closest('div').find('button').css('border-right', 'none').css('border-radius', '0px');
+			
+			var tmpBtn = '';
+			tmpBtn += '<button type="button" style="width:25px;min-width:25px;padding-left:0px;padding-right:0px" class="btn btn-sm btn-outline-secondary dropdown-toggle">';
+			tmpBtn += '	<span class="visually-hidden">';
+			tmpBtn += '		<i class="sbux-sidemeu-ico fas fa-angle-down" style="font-size: 14px;color:#9b9ea1"></i>';        
+			tmpBtn += '	</span>';
+			tmpBtn += '</button>';
+			$(tarId).closest('div').find('button').after(tmpBtn);
+			$(tarId).closest('div').find('button').eq(1).click(function(event){
+				event.stopPropagation();
+				if($(this).closest('div').hasClass('open')===true){
+					$(this).closest('div').removeClass('open');
+					$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'false');
+				} else {
+					//console.log($(this).closest('div'));
+					$(this).closest('div').addClass('open');
+					$(this).closest('div').find('button').eq(0).attr('aria-expanded', 'true');
+				}
+			});
+			
+			//console.log('id:', $(tarId).attr('id'));
+			var tmpWidth1 = $(tarId).closest('div').find('button').eq(0).width();
+			var tmpWidth2 = $(tarId).closest('div').find('button').eq(1).width();
+			var tmpWidth3 = tmpWidth1 + tmpWidth2;
+			//console.log('tmpWidth3:', tmpWidth3);
+			$(tarId).closest('div').css('min-width', tmpWidth3);
+			tmpWidth3 = tmpWidth1 - tmpWidth2;
+			//console.log('tmpWidth3:', tmpWidth3);
+			$(tarId).closest('div').find('button').eq(0).width(tmpWidth3);
+		}
+		//------------------------------------------
+		
+		//style set
+		if(_dropType=='down'){
+			$(tarId).closest('div').addClass('dropdown');
+		} else {
+			$(tarId).closest('div').addClass('dropup');
+		}
+		if(_dropAlign=='right'){
+			$(tarId).closest('div').find('.dropdown-menu').addClass('dropdown-menu-right');
+		}
+		
+		var htm 	= '';		
+		var tcss 	= 'padding-top:4px;padding-bottom:4px;font-weight:bold;';
+		htm += '<table class="table table-sm table-bordered table-hover" style="width:100%;display:inline-block">';
+		htm += '<thead style="position:sticky;top:0">';
+		htm += '<tr style="background:#dddcdc;text-align:left;">';
+		//table head
+		for(i=0; i<_columns.length; i++){
+			htm += '<th style="' + tcss + 'width:' + _columns[i]['width'] + ';' + _columns[i]['style'] + '" >' + _columns[i]['caption'] + '</th>';
+		}	
+		htm += '</tr>';
+		htm += '</thead>';
+		htm += '<tbody></tbody>';
+		htm += '</table>';
+		$(tarId).closest('div').find('.dropdown-menu').html(htm);
+		$(tarId).closest('div').find('.dropdown-menu').css('border', 'solid 1px #a3a1a1');
+		$(tarId).closest('div').addClass('cu-multi-select');
+		
+		//table tbody
+		htm = '';
+		htm += '<tr style="cursor:pointer" class="clickable-row">';
+		htm += '<td colspan="'+ _columns.length +'" style="text-align:center;" cu-code="">선택</td>';
+		htm += '</tr>';
+		for(i=0; i<data.length; i++){
+			var obj = data[i];
+			htm += '<tr style="cursor:pointer" class="clickable-row">';
+			for(j=0; j<_columns.length; j++){
+				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl2(obj[_columns[j]['ref']]) + '</td>';
+			}	
+			htm += '</tr>';
+		}
+		$(tarId).closest('div').find('tbody').html(htm);
+		
+		//button clear
+		$(tarId).closest('div').find('button').find('font').text('선택');
+		$(tarId).closest('div').find('button').attr('cu-value', '');
+		$(tarId).closest('div').find('button').attr('cu-label', '');
+		
+		//tr click event
+		$(tarId).closest('div').find('.clickable-row').click(function(){
+			if($(this).hasClass('active')){
+				$(this).removeClass('active')
+				$(tarId).attr('cu-value', '');
+				$(tarId).attr('cu-label', '');
+				$(tarId).find('font').text('선택');
+			} else {
+				$(this).addClass('active').siblings().removeClass('active');
+				var empty = $(this).find('[cu-code=""]').text();
+				if(empty) {
+					$(tarId).attr('cu-value', '');
+					$(tarId).attr('cu-label', '');
+					$(tarId).find('font').text('선택');
+				} else {
+					var cu_value = $(this).find('[cu-code=' + _colValue + ']').text();
+					var cu_label = $(this).find('[cu-code=' + _colLabel + ']').text();
+					$(tarId).attr('cu-value', cu_value);
+					$(tarId).attr('cu-label', cu_label);
+					$(tarId).find('font').text(cu_label);
+				}
+				if(typeof _callback == "function") {
+					_callback(cu_value)
+				}
+			}
+		});		
+	}	
+
+	try {
+		if (Array.isArray(_target)) {
+			_target.forEach((tarId) => {
+				innerCreat(tarId, data);
+			});
+		} else {
+			innerCreat(_target, data);
+		}
+
+	} catch (e) {
+		if (!(e instanceof Error)) {
+			e = new Error(e);
+		}
+		console.error("failed", e);
+		console.error("failed", e.message);
+	}
+}
+
 
 /**
  * @name 		gfnma_multiSelectSet
@@ -2079,11 +2345,6 @@ const gfnma_validateResidentNumber = function(residentNumber) {
 
 const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, PARAM_LIST, COMP_CODE, CLIENT_CODE  ){
 
-	let BIZCOMP_ID_LIST_LENGTH = BIZCOMP_ID_LIST.split('|');
-	console.log('BIZCOMP_ID_LIST_LENGTH ==>', BIZCOMP_ID_LIST_LENGTH);
-	if(BIZCOMP_ID_LIST_LENGTH.length > 30){
-		return;
-	}
 	var paramObj = {
 		     V_P_DEBUG_MODE_YN      : ''
 		    ,V_P_LANG_ID            : ''
@@ -2098,6 +2359,7 @@ const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, 
 		    ,V_P_USERID             : ''
 		    ,V_P_PC                 : ''
     };
+
     const postJsonPromise = gfn_postJSON("/com/comSelectListMulti.do", {
     	getType				: 'json',
     	workType			: 'Q',
@@ -2108,9 +2370,13 @@ const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, 
     const data = await postJsonPromise;
     try {
 		if (_.isEqual("S", data.resultStatus)) {
-			console.log('gfn_bizComponentData data ==>', data);
+			console.log(' gfn_bizComponentData data ==>', data);
+			if(!gfn_isEmpty(data.v_errorStr)){
+				console.log(' ERROR COMPONENT==>', data.v_errorStr);
+			}
 			return data;
     	} else {
+			console.log(' ERROR data ==>', data);
       		alert(data.resultMessage);
     	}
 
@@ -2121,5 +2387,21 @@ const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, 
 		console.error("failed", e.message);
     	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
-	        
+}
+
+const gfn_mergeJsonData = async function(...jsonArrays) {
+    const mergedData = {};
+
+    jsonArrays.forEach(jsonArray => {
+        jsonArray.forEach(json => {
+            Object.keys(json).forEach(key => {
+				//키가 없는 경우에만 추가
+                if (!mergedData[key]) {
+                    mergedData[key] = json[key];
+                }
+            });
+        });
+    });
+
+    return mergedData;
 }

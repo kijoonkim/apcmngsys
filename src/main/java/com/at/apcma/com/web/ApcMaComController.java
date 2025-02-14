@@ -24,6 +24,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.at.apcss.co.sys.vo.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+
+import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -186,7 +188,8 @@ public class ApcMaComController extends BaseController {
         document.getDocumentElement().normalize();
 
         // <item> 태그를 찾아 리스트로 변환
-        NodeList nodeList = document.getElementsByTagName(skey);
+        NodeList nodeList = document.getElementsByTagName(skey.toString());
+        
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
