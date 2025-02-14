@@ -1207,6 +1207,8 @@
 	var strBankCode_d 		= '';
 	var strBankAccount_d 	= '';
 	
+	var jsonBizCompData 		= []; //공통 비즈니스 컴포넌트 데이터
+	
 	var multiSelectData 		= ''; // 복수선택 데이터
 	var jsonWithholdTaxType		= []; // 원천세유형
 	var jsonUseYn				= []; //확정여부, 거래중지여부, 삭제여부
@@ -1235,56 +1237,56 @@
 	var jsonCOM011				= [];
 	
 	const fn_initSBSelect = async function() {
-		
+		jsonBizCompData = await fn_bizComponent();
 		let rst = await Promise.all([
 			//버튼 숨김처리
 			$('.hidden-td').hide(),
-			gfnma_setComSelect([], jsonEmpState, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect([], jsonCOM011, 'L_COM011', "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect2([], jsonEmpState, jsonBizCompData, 'L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2([], jsonCOM011, jsonBizCompData, 'L_COM011', "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//원천세 유형
-            gfnma_setComSelect([], jsonWithholdTaxType, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_TYPE_CD', 'TX_TYPE_NM', 'Y', ''),
+            gfnma_setComSelect2([], jsonWithholdTaxType, jsonBizCompData, 'L_WITHHOLD_TAX_TYPE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TX_TYPE_CD', 'TX_TYPE_NM', 'Y', ''),
 			//자금정보 탭 어음상품종류
-            gfnma_setComSelect(['masterGrid','STATUS_CODE'], jsonStatusCode, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['masterGrid','STATUS_CODE'], jsonStatusCode, jsonBizCompData, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자금정보 탭 어음상품종류
-            gfnma_setComSelect(['financeGrid','NOTE_TYPE'], jsonNoteType, 'L_FIF044', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','NOTE_TYPE'], jsonNoteType, jsonBizCompData, 'L_FIF044', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자금정보 탭 지급사유
-            gfnma_setComSelect(['financeGrid','PAY_REASON'], jsonPayReason, 'L_COM062', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','PAY_REASON'], jsonPayReason, jsonBizCompData, 'L_COM062', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자금정보 탭 송금사유
-            gfnma_setComSelect(['financeGrid','SEND_REASON'], jsonSendReason, 'L_COM063', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','SEND_REASON'], jsonSendReason, jsonBizCompData, 'L_COM063', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자금정보 탭 수수료부담자
-            gfnma_setComSelect(['financeGrid','FEE_CHARGER'], jsonFeeCharger, 'L_COM064', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','FEE_CHARGER'], jsonFeeCharger, jsonBizCompData, 'L_COM064', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//자금정보 탭 통화
-            gfnma_setComSelect(['financeGrid','CURRENCY_CODE'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','CURRENCY_CODE'], jsonCurrencyCode, jsonBizCompData, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
 			//자금정보 탭 통화
-            gfnma_setComSelect(['financeGrid','VAT_ACCOUNT_YN'], jsonVatAccountYN, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['financeGrid','VAT_ACCOUNT_YN'], jsonVatAccountYN, jsonBizCompData, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//구매정보 탭 용도
-            gfnma_setComSelect(['purchaseGrid','PUR_CONTACT_TYPE'], jsonPurContactType, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['purchaseGrid','PUR_CONTACT_TYPE'], jsonPurContactType, jsonBizCompData, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//구매정보 탭 용도
-            gfnma_setComSelect(['salesGrid','SALE_CONTACT_TYPE'], jsonSaleContactType, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesGrid','SALE_CONTACT_TYPE'], jsonSaleContactType, jsonBizCompData, 'L_COM049', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 여신관리영역
-            gfnma_setComSelect(['salesCategoryGrid','CREDIT_AREA'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CREDIT_AREA'], jsonCreditArea, jsonBizCompData, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류1
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY1'], jsonCsCategory1, 'L_COM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY1'], jsonCsCategory1, jsonBizCompData, 'L_COM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류2
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY2'], jsonCsCategory2, 'L_COM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY2'], jsonCsCategory2, jsonBizCompData, 'L_COM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류3
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY3'], jsonCsCategory3, 'L_COM053', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY3'], jsonCsCategory3, jsonBizCompData, 'L_COM053', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류4
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY4'], jsonCsCategory4, 'L_COM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY4'], jsonCsCategory4, jsonBizCompData, 'L_COM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류5
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY5'], jsonCsCategory5, 'L_COM055', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY5'], jsonCsCategory5, jsonBizCompData, 'L_COM055', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류6
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY6'], jsonCsCategory6, 'L_COM056', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY6'], jsonCsCategory6, jsonBizCompData, 'L_COM056', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류7
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY7'], jsonCsCategory7, 'L_COM057', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY7'], jsonCsCategory7, jsonBizCompData, 'L_COM057', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류8
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY8'], jsonCsCategory8, 'L_COM058', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY8'], jsonCsCategory8, jsonBizCompData, 'L_COM058', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류9
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY9'], jsonCsCategory9, 'L_COM059', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY9'], jsonCsCategory9, jsonBizCompData, 'L_COM059', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//판매처분류 탭 분류10
-            gfnma_setComSelect(['salesCategoryGrid','CS_CATEGORY10'], jsonCsCategory10,'L_COM060', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['salesCategoryGrid','CS_CATEGORY10'], jsonCsCategory10, jsonBizCompData,'L_COM060', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
          	//매핑이력 탭 매칭유형
-            gfnma_setComSelect(['mappingGrid','MAP_TYPE'], jsonMapType	,'L_COM111_G', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'MTCHNG_TYPE', 'MAP_TYPE_NAME', 'Y', ''),
+            gfnma_setComSelect2(['mappingGrid','MAP_TYPE'], jsonMapType, jsonBizCompData	,'L_COM111_G', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'MTCHNG_TYPE', 'MAP_TYPE_NAME', 'Y', ''),
 			//거래처유형
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_CS_GROUP_P']
@@ -1304,9 +1306,9 @@
 		            {caption: "거래처유형명", 			ref: 'CD_NM',    	width:'250px',  	style:'text-align:left'},
 		            {caption: "사업자등록번호", 	ref: 'EXTRA_COL3',    width:'200px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//거래처구분
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#SRCH_CS_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1323,15 +1325,15 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//확정여부
-            gfnma_setComSelect(['SRCH_USE_YN1'], jsonUseYn, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'Y'),
+            gfnma_setComSelect2(['SRCH_USE_YN1'], jsonUseYn, jsonBizCompData, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'Y'),
 			//거래중지여부
-            gfnma_setComSelect(['SRCH_USE_YN2'], jsonUseYn, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'N'),
+            gfnma_setComSelect2(['SRCH_USE_YN2'], jsonUseYn, jsonBizCompData, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'N'),
 			//삭제여부
-            gfnma_setComSelect(['SRCH_DELETE_YN'], jsonUseYn, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'N'),
+            gfnma_setComSelect2(['SRCH_DELETE_YN'], jsonUseYn, jsonBizCompData, 'L_COM036', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', 'N'),
 			//통화
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#CURRENCY_CODE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1348,9 +1350,9 @@
 		            {caption: "통화코드",	ref: 'CRN_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "통화명",	ref: 'CRN_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 		    //거래처유형
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#CS_GROUP']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1369,9 +1371,9 @@
 		            {caption: "해외여부",				ref: 'EXTRA_COL2', 		width:'150px',  	style:'text-align:left'},
 		            {caption: "사업자등록번호필수",		ref: 'EXTRA_COL3',    	width:'150px',  	style:'text-align:left'},
 				]
-			}),
+			}, jsonBizCompData),
 			//국가
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#NATION_CODE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1388,9 +1390,9 @@
 		            {caption: "국가코드",		ref: 'NTN_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "국가명", 		ref: 'NTN_NM',    		width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//지역
-	 		gfnma_multiSelectInit({
+	 		gfnma_multiSelectInit2({
 				target			: ['#REGION_CODE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1407,9 +1409,9 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  		style:'text-align:left'},
 		            {caption: "지역(국내)",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-	 		}),
+	 		}, jsonBizCompData),
 			//기업규모
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#COM_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1426,9 +1428,9 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명칭",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//과세유형
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#TAX_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1445,9 +1447,9 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명칭",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//기업분류
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#CS_CATEGORY']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1464,9 +1466,9 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명칭",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//지급보류여부
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#DEFER_REASON']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1484,9 +1486,9 @@
 		            {caption: "사유명",	ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'},
 		            {caption: "초기값",	ref: 'DEFAULT_FLAG',   	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			//거래중지여부
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#TXN_STOP_REASON']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1503,10 +1505,10 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "사유",	ref: 'CD_NM',    	width:'250px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 
 			//상태
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#STATUS_CODE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1523,10 +1525,10 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "전표상태",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 
 			//구매정보 - 부가세
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#TAX_CODE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1546,10 +1548,10 @@
 		            {caption: "유형명",		ref: 'VAT_TMPLT_NM',   width:'250px',  	style:'text-align:left'},
 		            {caption: "세율",		ref: 'VAT_RT',    	width:'50px',  	style:'text-align:left'},
 				]
-			}),
+			}, jsonBizCompData),
 
 			//자금정보 - FBS서비스
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#FBS_SERVICE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1566,10 +1568,10 @@
 		            {caption: "코드",	ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 
 			//구매정보 - 업체전표마감구분
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#SLIP_CLS']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1586,10 +1588,10 @@
 		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			
 			//구매정보 - 지급조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#PAY_DATE_RULE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1609,10 +1611,10 @@
 		            {caption: "지급방법",		ref: 'PAY_MTHD',    		width:'80px',  	style:'text-align:left'},
 		            {caption: "지급방법명",	ref: 'PAY_METHOD_NAME', 	width:'150px',  style:'text-align:left'}
 				]
-			}),
+			}, jsonBizCompData),
 			
 			//구매정보 - 지급조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#PUR_HANDOV_CNDT_CD']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1629,10 +1631,10 @@
 		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]				
-			}),
+			}, jsonBizCompData),
 			
 			//판매정보 - 인도조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#DELIVERY_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1649,11 +1651,11 @@
 		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]				
-			}),
+			}, jsonBizCompData),
 			
 			
 			//판매정보 - 수금조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#RECEIPT_DATE_RULE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1671,10 +1673,10 @@
 		            {caption: "명칭",		ref: 'PAY_TERM_NM',    	width:'150px',  	style:'text-align:left'},
 		            {caption: "명칭2",		ref: 'PAY_TERM_NAME2',    	width:'150px',  	style:'text-align:left'}
 				]				
-			}),
+			}, jsonBizCompData),
 			
 			//판매정보 - 세금계산서발행조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#VAT_ISSUE_COND']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1691,10 +1693,10 @@
 		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]	
-			}),
+			}, jsonBizCompData),
 			
 			//판매정보 - 출하조건
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#SHIPPING_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1711,10 +1713,10 @@
 		            {caption: "코드",		ref: 'SBSD_CD', 		width:'100px',  	style:'text-align:left'},
 		            {caption: "코드명",		ref: 'CD_NM',    	width:'150px',  	style:'text-align:left'}
 				]	
-			}),
+			}, jsonBizCompData),
 			
 			//세금 등 - 원천세납부세무서
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#WITHHOLD_TAX_OFFICE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1733,10 +1735,10 @@
 		            {caption: "사업자번호",		ref: 'BRNO', 		width:'150px',  	style:'text-align:left'},
 		            {caption: "주소",			ref: 'ADDR',    		width:'300px',  	style:'text-align:left'}
 				]	
-			}),
+			}, jsonBizCompData),
 			
 			//세금 등 - 원천세납부구청
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#WITHHOLD_TAX_OFFICE2']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1755,9 +1757,9 @@
 		            {caption: "사업자번호",		ref: 'BRNO', 		width:'150px',  	style:'text-align:left'},
 		            {caption: "주소",			ref: 'ADDR',    		width:'300px',  	style:'text-align:left'}
 				]	
-			}),
+			}, jsonBizCompData),
 			//세금 등 - 원천세유형
-			gfnma_multiSelectInit({
+			gfnma_multiSelectInit2({
 				target			: ['#WITHHOLD_TAX_TYPE']
 				,compCode		: gv_ma_selectedCorpCd
 				,clientCode		: gv_ma_selectedClntCd
@@ -1800,13 +1802,13 @@
 						}
 					}
 	        	}
-			}),
+			}, jsonBizCompData),
 		]);
-
 	}	
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
+    	
     	//사번열 안보이게 수정
 		$('#EMP_TH').hide();
 		$('#EMP_TD').hide();
@@ -1824,17 +1826,30 @@
     }
 
     const fn_init = async function () {
+    	let start1 = performance.now();
     	await fn_initSBSelect();
     	await fn_createGrid();
-    	await fn_createFinanceGrid();
-    	await fn_createPurchaseGrid();
-    	await fn_createSalesGrid();
-    	await fn_createSalesShipToGrid();
-    	await fn_createSalesCategoryGrid();
-    	await fn_createHistoryGrid();
-    	await fn_createMappingGrid();
+    	fn_createFinanceGrid();
+    	fn_createPurchaseGrid();
+    	fn_createSalesGrid();
+    	fn_createSalesShipToGrid();
+    	fn_createSalesCategoryGrid();
+    	fn_createHistoryGrid();
+    	fn_createMappingGrid();
+//     	await fn_initSBSelect();
+//     	await fn_createGrid();
+//     	await fn_createFinanceGrid();
+//     	await fn_createPurchaseGrid();
+//     	await fn_createSalesGrid();
+//     	await fn_createSalesShipToGrid();
+//     	await fn_createSalesCategoryGrid();
+//     	await fn_createHistoryGrid();
+//     	await fn_createMappingGrid();
     	cfn_search();
     	fn_event();
+        let end1 = performance.now();
+ 		let elapsedTime1 = (end1 - start1) / 1000;
+ 		console.log('COM3400 execution time :' + elapsedTime1.toFixed(3) + ' seconds');
     }
     
     /**
@@ -2126,6 +2141,13 @@
 		SBGridProperties.rowheadercaption 	= {seq: 'No'};
         SBGridProperties.rowheaderwidth 	= {seq: '60'};
 	    SBGridProperties.extendlastcol 		= 'scroll';
+	    SBGridProperties.showscrollinfo = {
+	            type        :   'vertical',
+	            callback    :   function(nDataCount, nTopRow, nBottomRow){
+	                return '전체 건 수: ' + nDataCount + '<br>' + '상단 행: ' + nTopRow + ', 하단 행: ' + nBottomRow;
+	            }
+	        };
+	    SBGridProperties.livescroll = false;	    
         SBGridProperties.columns = [
             {caption: [''],    			ref: 'CHECK_YN',		type:'checkbox',	width: '30px', 
             	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
@@ -2564,7 +2586,7 @@
      * 코드목록 조회
      */
     const fn_search = async function() {
-
+    	let start1 = performance.now();
     	// 코드목록 그리드 초기화
     	await fn_clearForm();
     	await fn_clearSubForm();
@@ -2614,7 +2636,11 @@
 			cv_count			: '13',
 			params				: gfnma_objectToString(paramObj)
 		});
+		let start12 = performance.now();
     	const data = await postJsonPromise;
+        let end12 = performance.now();
+ 		let elapsedTime12 = (end12 - start12) / 1000;
+ 		console.log('COM3400 postJsonPromise execution time :' + elapsedTime12.toFixed(3) + ' seconds');
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    	   	/** @type {number} **/
@@ -2654,7 +2680,7 @@
 	    	   	
 	    	   	fn_setMasterGridStyle(jsonMasterList);
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
-	    	   	
+
                 if(jsonMasterList.length > 0) {
   	                masterGrid.clickRow(1);
                 }
@@ -2668,6 +2694,9 @@
 	    	console.error("failed", e.message);
     		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     	}
+        let end1 = performance.now();
+ 		let elapsedTime1 = (end1 - start1) / 1000;
+ 		console.log('COM3400 search execution time :' + elapsedTime1.toFixed(3) + ' seconds');
     	        
     }
     const fn_setMasterGridStyle = async function(list) {
@@ -5052,6 +5081,75 @@
    	    	return false;
    	    }
    	}
+    
+    const fn_bizComponent = async function(){
+    	let componentList_1 = {
+        	    'L_HRI009' 				: "" ,
+        	    'L_COM011' 				: "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "'" ,
+        	    'L_WITHHOLD_TAX_TYPE' 	: "" ,
+        	    'L_FIG002' 			: "" ,
+        	    'L_FIF044' 			: "" ,
+        	    'L_COM062' 			: "" ,
+        	    'L_COM063' 			: "" ,
+        	    'L_COM064' 			: "" ,
+        	    'L_COM001' 			: "" ,
+        	    'L_COM036' 			: "" ,
+        	    'L_COM049' 			: "" ,
+        	    'L_ORG020' 			: "" ,
+        	    'L_COM051' 			: "" ,
+        	    'L_COM052' 			: "" ,
+        	    'L_COM053' 			: "" ,
+        	    'L_COM054' 			: "" ,
+        	    'L_COM055' 			: "" ,
+        	    'L_COM056' 			: "" ,
+        	    'L_COM057' 			: "" ,
+        	    'L_COM058' 			: "" ,
+        	    'L_COM059' 			: "" ,
+        	    'L_COM060' 			: "" ,
+        	    'L_COM111_G' 		: "" ,
+        	    'L_COM011' 			: "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "'" ,
+        	    'L_COM068' 			: "" ,
+        	    'L_COM036' 			: "" ,
+        	    'L_COM001' 			: "" ,
+        	    'L_COM011' 			: "" ,
+        	    'L_COM015' 			: "" ,
+        	    'L_COM003' 			: "" ,
+        	    'L_COM030' 			: "" ,
+        	    'L_COM029' 			: "" ,
+        	    'L_COM069' 			: "" ,
+        	    'L_FIM107' 			: "" ,
+        	    'L_COM048' 			: "" ,
+        	    'L_FIG002' 			: "" ,
+        	    'L_VAT_INFO_P' 		: "" ,
+        	    'L_FBS019' 			: "" ,
+        	    'L_COM112' 			: "" ,
+        	    'L_COM012_P' 		: "" ,
+        	    'L_COM038_1' 		: "" ,
+        	    'L_COM012_S' 		: "" ,
+        	    'L_COM061' 			: "" ,
+        	    'L_COM039_1' 		: "" ,
+        	    'L_CS_GOVERNMENT' 	: ""         	    
+        	};
+    	
+    	let BIZCOMP_ID_LIST_1 = '';
+    	let WHERE_CLAUSE_LIST_1 = '';
+    	let PARAM_LIST_1 = '';
+    	
+    	for( key in componentList_1 ){
+    		BIZCOMP_ID_LIST_1 		+= key + "|";
+    		WHERE_CLAUSE_LIST_1 	+= componentList_1[key] + "|";
+    		PARAM_LIST_1 			+= "|";
+    	}
+    	
+    	BIZCOMP_ID_LIST_1 = BIZCOMP_ID_LIST_1.slice(0, -1);
+    	WHERE_CLAUSE_LIST_1 = WHERE_CLAUSE_LIST_1.slice(0, -1);
+    	PARAM_LIST_1 = PARAM_LIST_1.slice(0, -1);
+    	
+    	let componentData = await gfn_bizComponentData(BIZCOMP_ID_LIST_1, WHERE_CLAUSE_LIST_1, PARAM_LIST_1, gv_ma_selectedCorpCd, gv_ma_selectedClntCd);
+ 		
+ 		return componentData.cv_1;
+ 		
+    }
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
