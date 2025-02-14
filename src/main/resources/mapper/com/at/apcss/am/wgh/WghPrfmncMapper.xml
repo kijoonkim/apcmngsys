@@ -887,6 +887,7 @@
 			      , Y.VHCLNO                AS VHCLNO
 			      , Y.PRDCR_CD	            AS PRDCR_CD
 			      , (SELECT FN_GET_PRDCR_NM(Y.PRDCR_CD, Y.APC_CD) FROM DUAL) AS PRDCR_NM
+			      , MAX(Y.RMRK)				AS RMRK
 			      , Y.ITEM_CD               AS ITEM_CD
 			      , (SELECT FN_GET_ITEM_NM(Y.ITEM_CD, Y.APC_CD) FROM DUAL) AS ITEM_NM
 			      , LISTAGG(Y.VRTY_CD, ',') WITHIN GROUP(ORDER BY Y.VRTY_CD) AS VRTY_CD
@@ -947,6 +948,7 @@
                          , X.OINST_SPMT_NM      AS OINST_SPMT_NM
                          , X.TRSPRT_CST         AS TRSPRT_CST
                          , x.OPRTR_NM           AS OPRTR_NM
+                         , x.RMRK				AS RMRK
                          , X.DRVR_NM            AS DRVR_NM
                          , X.BANK_CD            AS BANK_CD
                          , X.ACTNO              AS ACTNO
@@ -993,6 +995,7 @@
                                  , WC.OINST_SPMT_NM
                                  , WC.TRSPRT_CST
                                  , WC.OPRTR_NM
+			     				 , WC.RMRK
                                  , VI.DRVR_NM
                                  , VI.BANK_CD
                                  , VI.ACTNO
@@ -1261,6 +1264,7 @@
                   , MAX(Y.BANK_CD)          AS BANK_CD
                   , FN_UTL_DECRYPT_ARIA(MAX(Y.ACTNO))            AS ACTNO
                   , MAX(Y.TELNO)            AS TELNO
+                  , MAX(Y.RMRK)				AS RMRK
 			      , MAX(GRD_CD_1)           AS GRD_CD_1
 			      , SUM(GRD_QNTT_1)         AS GRD_QNTT_1
 			      , MAX(GRD_WRHSNO_1)       AS GRD_WRHSNO_1
@@ -1303,6 +1307,7 @@
                          , X.ACTNO              AS ACTNO
                          , X.TELNO              AS TELNO
                          , X.WRHSNO				AS WRHSNO
+                         , X.RMRK				AS RMRK
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.GRD_CD END AS GRD_CD_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.BX_QNTT END AS GRD_QNTT_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.WRHSNO END AS GRD_WRHSNO_1
@@ -1332,6 +1337,7 @@
 			                     , WC.EMPT_VHCL_WGHT
 			                     , WC.FCLT_CD
 			                     , WC.WRHS_SPMT_TYPE
+			     				 , WC.RMRK
 			                     , WD.GRD_CD
 			                     , WD.PLT_QNTT
 			                     , WD.BX_QNTT
