@@ -220,19 +220,6 @@
 									></sbux-datepicker>
 								</td>
 								<td colspan="2" style="border-top: hidden"></td>
-								<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
-								<td class="td_input" style="border-right: hidden; border-top: hidden">
-									<sbux-input
-											uitype="text"
-											id="dtl-inp-vhclno"
-											name="dtl-inp-vhclno"
-											class="form-control input-sm inpt_data_reqed"
-											autocomplete="off"
-									></sbux-input>
-								</td>
-								<td colspan="3" class="td_input"  style="border-top: hidden">
-									<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
-								</td>
 								<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
 								<td class="td_input" style="border-right:hidden; border-top: hidden">
 									<sbux-input
@@ -270,6 +257,19 @@
 											target-id="modal-prdcr"
 											onclick="fn_choicePrdcr"
 									></sbux-button>
+								</td>
+								<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
+								<td class="td_input" style="border-right: hidden; border-top: hidden">
+									<sbux-input
+											uitype="text"
+											id="dtl-inp-vhclno"
+											name="dtl-inp-vhclno"
+											class="form-control input-sm inpt_data_reqed"
+											autocomplete="off"
+									></sbux-input>
+								</td>
+								<td colspan="3" class="td_input"  style="border-top: hidden">
+									<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
 								</td>
 							</tr>
 							<tr>
@@ -970,10 +970,15 @@
 		let rowData = grdWghPrfmnc.getRowData(rowIdx);
 
 		let wghno = rowData.wghno;
-
+		let reportVo = {
+			APC_CD : gv_selectedApcCd,
+			ITEM_CD : rowData.itemCd,
+			WGHNO : wghno,
+			JOB_YMD : rowData.wghYmd
+		}
 
 		//const wghno = wghnoList.join("','");
-		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc_0669.crf", {apcCd: gv_selectedApcCd, wghno: wghno});
+		gfn_popClipReport("계량확인서", "am/rawMtrWghDoc_0669.crf", reportVo);
 	}
 
 	/**
