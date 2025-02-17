@@ -726,8 +726,9 @@ async function gfnma_multiSelectInit(obj) {
 	var _colLabel		= obj.colLabel;
 	var _columns		= obj.columns;
 	var _callback		= obj.callback;
+	var _returnData		= obj.returnData;
 
-    var paramObj = { 
+    var paramObj = {
 		V_P_DEBUG_MODE_YN	: ''
 		,V_P_LANG_ID		: 'KOR'
 		,V_P_COMP_CODE		: _compCode
@@ -751,7 +752,7 @@ async function gfnma_multiSelectInit(obj) {
 
 	const data = await postJsonPromise;
 	console.log('multi select data ('+_bizcompId + '):', data);
-
+	
 	const innerCreat = function (tarId, data) {
 		
 		//중간에 버튼 삽입 -----------------------
@@ -829,11 +830,12 @@ async function gfnma_multiSelectInit(obj) {
 			htm += '<tr style="cursor:pointer" class="clickable-row">';
 			for(j=0; j<_columns.length; j++){
 				htm += '<td style="' + _columns[j]['style'] + '" cu-code="' + _columns[j]['ref'] + '">' + gfnma_nvl2(obj[_columns[j]['ref']]) + '</td>';
-			}	
+			}
 			htm += '</tr>';
 		}
 		$(tarId).closest('div').find('tbody').html(htm);
 		
+
 		//button clear
 		$(tarId).closest('div').find('button').find('font').text('선택');
 		$(tarId).closest('div').find('button').attr('cu-value', '');
@@ -864,11 +866,11 @@ async function gfnma_multiSelectInit(obj) {
 					_callback(cu_value)
 				}
 			}
-		});		
+		});	
 	}	
-
+	
 	try {
-		
+
 		if (Array.isArray(_target)) {
 			_target.forEach((tarId) => {
 				innerCreat(tarId, data);
@@ -876,7 +878,11 @@ async function gfnma_multiSelectInit(obj) {
 		} else {
 			innerCreat(_target, data);
 		}
-
+		
+		if(typeof _returnData == "function") {
+			_returnData(data);
+		}
+		
 	} catch (e) {
 		if (!(e instanceof Error)) {
 			e = new Error(e);
@@ -1539,7 +1545,7 @@ async function gfnma_getComCode(obj, callbackFn) {
 	});
 
 	const data = await postJsonPromise;
-	console.log('gfnma_getComCode data (P_COM3000_Q1):', data);
+	console.log('gfnma_getComCode data (SP_COM3000_Q1):', data);
 
 	var rlist = [];
 	try {
@@ -1548,25 +1554,25 @@ async function gfnma_getComCode(obj, callbackFn) {
 
         	data.cv_1.forEach((item, index) => {
 				const msg = {
-					SUB_CODE				: gfnma_nvl(item.SUB_CODE),			
-					CODE_NAME				: gfnma_nvl(item.CODE_NAME),			
-					SYSTEM_YN				: gfnma_nvl(item.SYSTEM_YN),			
-					DESCR					: gfnma_nvl(item.DESCR),			
-					EXTRA_FIELD1			: gfnma_nvl(item.EXTRA_FIELD1),			
-					EXTRA_FIELD2			: gfnma_nvl(item.EXTRA_FIELD2),			
-					EXTRA_FIELD3			: gfnma_nvl(item.EXTRA_FIELD3),			
-					EXTRA_FIELD4			: gfnma_nvl(item.EXTRA_FIELD4),			
-					EXTRA_FIELD5			: gfnma_nvl(item.EXTRA_FIELD5),			
-					EXTRA_FIELD6			: gfnma_nvl(item.EXTRA_FIELD6),			
-					EXTRA_FIELD7			: gfnma_nvl(item.EXTRA_FIELD7),			
-					EXTRA_FIELD8			: gfnma_nvl(item.EXTRA_FIELD8),			
-					EXTRA_FIELD9			: gfnma_nvl(item.EXTRA_FIELD9),			
-					EXTRA_FIELD10			: gfnma_nvl(item.EXTRA_FIELD10),			
+					SUB_CODE				: gfnma_nvl(item.SBSD_CD),			
+					CODE_NAME				: gfnma_nvl(item.CD_NM),			
+					SYSTEM_YN				: gfnma_nvl(item.SYS_YN),			
+					DESCR					: gfnma_nvl(item.DSCTN),			
+					EXTRA_FIELD1			: gfnma_nvl(item.EXTRA_COL1),			
+					EXTRA_FIELD2			: gfnma_nvl(item.EXTRA_COL2),			
+					EXTRA_FIELD3			: gfnma_nvl(item.EXTRA_COL3),			
+					EXTRA_FIELD4			: gfnma_nvl(item.EXTRA_COL4),			
+					EXTRA_FIELD5			: gfnma_nvl(item.EXTRA_COL5),			
+					EXTRA_FIELD6			: gfnma_nvl(item.EXTRA_COL6),			
+					EXTRA_FIELD7			: gfnma_nvl(item.EXTRA_COL7),			
+					EXTRA_FIELD8			: gfnma_nvl(item.EXTRA_COL8),			
+					EXTRA_FIELD9			: gfnma_nvl(item.EXTRA_COL9),			
+					EXTRA_FIELD10			: gfnma_nvl(item.EXTRA_COL10),			
 					SORT_SEQ				: gfnma_nvl(item.SORT_SEQ),			
 					USE_YN					: gfnma_nvl(item.USE_YN),			
-					GROUP_CODE				: gfnma_nvl(item.GROUP_CODE),			
-					CLIENT_CODE				: gfnma_nvl(item.CLIENT_CODE),			
-					COMP_CODE				: gfnma_nvl(item.COMP_CODE),			
+					GROUP_CODE				: gfnma_nvl(item.GRP_CD),			
+					CLIENT_CODE				: gfnma_nvl(item.CLNT_CD),			
+					COMP_CODE				: gfnma_nvl(item.CO_CD),			
 				}
 				rlist.push(msg);
 			});
