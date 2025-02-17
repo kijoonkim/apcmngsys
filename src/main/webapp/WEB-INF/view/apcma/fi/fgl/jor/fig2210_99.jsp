@@ -1555,7 +1555,7 @@
             		chk = true;
             		break;
     			}
-    			if(!obj['CS_CODE']){
+    			if(!obj['CNPT_CD']){
             		gfn_comAlert("E0000","헤더 라인일 경우 거래처는 필수 입니다.");
             		chk = true;
             		break;
@@ -2824,7 +2824,7 @@
          await comPopupCs({
              compCode: gv_ma_selectedCorpCd
              , clientCode: gv_ma_selectedClntCd
-             , inputData: { "CS_CODE" : gfnma_nvl2(cellData1) , "CS_NAME" : gfnma_nvl2(cellData2), "BIZ_REGNO" : '' }
+             , inputData: { "CNPT_CD" : gfnma_nvl2(cellData1) , "CNPT_NM" : gfnma_nvl2(cellData2), "BIZ_REGNO" : '' }
              , bizcompId: pg_colcs_code_bizId
              , whereClause: strWhereClause
              , itemSelectEvent: function (data) {
@@ -3469,15 +3469,26 @@
      * 행추가
      */
     var fn_gridRowAdd = function() {
+    	
+    	var p_currency_code = SBUxMethod.get('sch-currency-code');
+    	if(!p_currency_code){
+    		gfn_comAlert("E0000","상단 통화를 선택해야 합니다.");
+    		return;
+    	}
+    	
         var idx = Fig2210Grid.getRows();
+        var tidx = idx;
         if(idx==-1){
         	idx = 0;
+        	tidx = 1;        	
         }
         Fig2210Grid.insertRow(idx-1, 'below');
         Fig2210Grid.setCellData(idx, 2, idx, true, true);
         Fig2210Grid.setCellData(idx, 14, 0, true, true);
         Fig2210Grid.setCellData(idx, 15, 0, true, true);
         Fig2210Grid.setCellData(idx, 32, 1, true, true);
+        
+		jsonFig2210[idx-1]['CURRENCY_CODE'] = p_currency_code; 
     }
     
     /**
