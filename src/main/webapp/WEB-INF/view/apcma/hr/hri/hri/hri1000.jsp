@@ -37,7 +37,6 @@
                 </h3>
             </div>
             <div style="margin-left: auto;">
-                <sbux-button id="btnBizComponent" name="btnBizComponent" uitype="normal" class="btn btn-sm btn-outline-danger" text="일괄" onclick="fn_bizComponent()"></sbux-button>
                 <sbux-button id="btnPrint" name="btnPrint" uitype="normal" class="btn btn-sm btn-outline-danger" text="출력" onclick="fn_print()"></sbux-button>
                 <sbux-button id="btnCopyHistory" name="btnCopyHistory" uitype="normal" class="btn btn-sm btn-outline-danger" text="이력복사" onclick="fn_copyHistory"></sbux-button>
                 <sbux-button id="btnJoinCompnay" name="btnJoinCompnay" uitype="normal" class="btn btn-sm btn-outline-danger" text="입사처리" onclick="fn_joinCompnay"></sbux-button>
