@@ -1695,9 +1695,9 @@
 			{caption: ["출자출하조직 법인명	"],		ref:'isoCorpNm', 		type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["생산자조직 번호"],		ref:'prdcrOgnzSn', 		type:'output', width:'140px',	style:'text-align:center'},
 			{caption: ["생산자조직명"],			ref:'prdcrOgnzNm', 		type:'output', width:'120px',	style:'text-align:center'},
-			//{caption: ["판매위임 매입 물량"],		ref:'slsCnsgnPrchsVlm', type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매위임 매입 물량"],		ref:'slsCnsgnPrchsVlm', type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["판매위임 매입 금액"],		ref:'slsCnsgnPrchsAmt', type:'output', width:'120px',	style:'text-align:center'},
-			//{caption: ["판매 매출 물량"],		ref:'slsCnsgnSlsVlm', 	type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매 매출 물량"],		ref:'slsCnsgnSlsVlm', 	type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["판매 매출 금액"],		ref:'slsCnsgnSlsAmt', 	type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["비고"],				ref:'rmrk', 			type:'output', width:'70px',	style:'text-align:center'},
 			{caption: ["적합여부"],				ref:'stbltYn', 			type:'output', width:'90px',	style:'text-align:center'},
@@ -1750,8 +1750,8 @@
 					,prdcrOgnzNm		: item.prdcrOgnzNm
 					,slsCnsgnPrchsAmt	: Number(item.slsCnsgnPrchsAmt)
 					,slsCnsgnSlsAmt		: Number(item.slsCnsgnSlsAmt)
-					//,slsCnsgnPrchsVlm	: Number(item.slsCnsgnPrchsVlm)
-					//,slsCnsgnSlsVlm	: Number(item.slsCnsgnSlsVlm)
+					,slsCnsgnPrchsVlm	: Number(item.slsCnsgnPrchsVlm)
+					,slsCnsgnSlsVlm		: Number(item.slsCnsgnSlsVlm)
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 					,lastStbltYn		: item.lastStbltYn
