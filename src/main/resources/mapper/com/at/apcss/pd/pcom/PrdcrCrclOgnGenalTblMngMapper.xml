@@ -729,6 +729,322 @@
 		ORDER BY BRNO , ITEM_CD , STBLT_YN
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025	-->
+	<!-- DESC : 통합조직 총괄표 로우데이터 2025                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025 */
+			TOTAL.ITEM_CD
+			,TOTAL.ITEM_NM
+			,TOTAL.STTG_UPBR_ITEM_SE
+			,TOTAL.STTG_UPBR_ITEM_NM
+			,TOTAL.CTGRY_CD
+			,TOTAL.CTGRY_NM
+			,TOTAL.BRNO
+			,TOTAL.YR
+			,TOTAL.APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,TOTAL.CORP_NM
+			,TOTAL.SLS_CNSGN_SLS_AMT
+			,TOTAL.SLS_CNSGN_SLS_AMT_TOT
+			,TOTAL.SLS_CNSGN_SLS_AMT_RT
+
+			,TOTAL.SLS_CNSGN_SLS_VLM
+			,TOTAL.SLS_CNSGN_SLS_VLM_TOT
+
+			/*예외*/
+			,TOTAL.CHK_ITEM_A /*CTGRY_CD 2*/
+			,TOTAL.CHK_ITEM_B /*CTGRY_CD 3*/
+
+			/* 총취급액 최저 금액 */
+			,TOTAL.CHK_AMT_TOT_A_A
+			,TOTAL.CHK_AMT_TOT_A_B
+			,TOTAL.CHK_AMT_TOT_A_C
+
+			,TOTAL.CHK_AMT_TOT_B_A
+			,TOTAL.CHK_AMT_TOT_B_B
+			,TOTAL.CHK_AMT_TOT_B_C
+
+			,TOTAL.CHK_AMT_TOT_C_A
+			,TOTAL.CHK_AMT_TOT_C_B
+			,TOTAL.CHK_AMT_TOT_C_C
+
+			/* 총취급액 전속 취급률 기준 금액 */
+			,TOTAL.CHK_A_A
+			,TOTAL.CHK_A_B
+			,TOTAL.CHK_A_C
+
+			,TOTAL.CHK_B_A
+			,TOTAL.CHK_B_B
+			,TOTAL.CHK_B_C
+
+			/*전속취급률 */
+			,TOTAL.CHK_RT_A_A
+			,TOTAL.CHK_RT_A_B
+			--,TOTAL.CHK_RT_A_C
+
+			,TOTAL.CHK_RT_B_A
+			,TOTAL.CHK_RT_B_B
+			--,TOTAL.CHK_RT_B_C
+
+			,TOTAL.CHK_RT_C
+
+			/*APRV 1승인형 2육성형 */
+			/*STTG_UPBR_ITEM_SE 1전문품목 2육성품목 */
+			/*CTGRY_CD 1과실 2시설 3노지*/
+			, (CASE WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '1' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
+						THEN (CASE WHEN TOTAL.CHK_A_A = 'A' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_A_A = 'B' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+					WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '1' AND ( (TOTAL.CTGRY_CD ='2' and TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_A = 'Y')
+						THEN (CASE WHEN TOTAL.CHK_A_B = 'A' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_A_B = 'B' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+					WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '1' AND ( TOTAL.CTGRY_CD ='3' OR TOTAL.CHK_ITEM_B = 'Y')
+						THEN (CASE WHEN TOTAL.CHK_A_C = 'A' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_A_C = 'B' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+
+					WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '2' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
+						THEN (CASE WHEN TOTAL.CHK_B_A = 'A' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_B_A = 'B' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+					WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '2' AND ( (TOTAL.CTGRY_CD ='2' and TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_A = 'Y')
+						THEN (CASE WHEN TOTAL.CHK_B_B = 'A' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_B_B = 'B' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+					WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '2' AND ( TOTAL.CTGRY_CD ='3' OR TOTAL.CHK_ITEM_B = 'Y')
+						THEN (CASE WHEN TOTAL.CHK_B_C = 'A' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+									WHEN TOTAL.CHK_B_C = 'B' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+									ELSE 'N' END)
+
+					WHEN  TOTAL.APRV = '2' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
+						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_A = 'Y' AND TOTAL.CHK_RT_C = 'Y'
+									THEN 'Y'
+									ELSE 'N' END)
+					WHEN  TOTAL.APRV = '2' AND ( (TOTAL.CTGRY_CD ='2' and TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_A = 'Y')
+						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_B = 'Y' AND TOTAL.CHK_RT_C = 'Y'
+									THEN 'Y'
+									ELSE 'N' END)
+					WHEN  TOTAL.APRV = '2' AND ( TOTAL.CTGRY_CD ='3' OR TOTAL.CHK_ITEM_B = 'Y')
+						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_C = 'Y' AND TOTAL.CHK_RT_C = 'Y'
+									THEN 'Y'
+									ELSE 'N' END)
+					ELSE 'N' END
+			) AS STBLT_YN
+			,TOTAL.ORG_STBLT_YN
+			,(SELECT ACTN_MTTR FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT WHERE BRNO = TOTAL.BRNO AND YR = TOTAL.YR AND APO_SE = '1' AND TYPE_SE_NO = '8' AND ITEM_CD = TOTAL.ITEM_CD) AS ACTN_MTTR
+		FROM
+				(SELECT
+					TOT.ITEM_CD
+					,TOT.ITEM_NM
+					,TOT.STTG_UPBR_ITEM_SE
+					,TOT.STTG_UPBR_ITEM_NM
+					,TOT.CTGRY_CD
+					,TOT.CTGRY_NM
+					,TOT.BRNO
+					,TOT.YR
+					,TOT.APRV
+					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOT.APRV) AS APRV_NM
+					,TOT.CORP_NM
+
+					,TOT.SLS_CNSGN_SLS_AMT
+					,TOT.SLS_CNSGN_SLS_AMT_TOT
+					,TOT.SLS_CNSGN_SLS_AMT_RT
+
+					,TOT.SLS_CNSGN_SLS_VLM
+					,TOT.SLS_CNSGN_SLS_VLM_TOT
+
+					/*60억 참다래 0611 자두 0608 블루베리 0659 블랙베리 0664 구즈베리 0676 구스베리 0678*/
+					/* 40억 오이 0901 호박 0902 가지 0903*/
+					,(CASE WHEN ITEM_CD = '0611' THEN 'Y'
+								WHEN ITEM_CD = '0608' THEN 'Y'
+								WHEN ITEM_CD = '0659' THEN 'Y'
+								WHEN ITEM_CD = '0664' THEN 'Y'
+								WHEN ITEM_CD = '0676' THEN 'Y'
+								WHEN ITEM_CD = '0678' THEN 'Y'
+								ELSE 'N' END) AS CHK_ITEM_A
+
+					,(CASE WHEN ITEM_CD = '0901' THEN 'Y'
+								WHEN ITEM_CD = '0902' THEN 'Y'
+								WHEN ITEM_CD = '0903' THEN 'Y'
+								ELSE 'N' END) AS CHK_ITEM_B
+
+					/* 총취급액 최저 금액 */
+					/*승인형 전문품목*/
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 8000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_A_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 6000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_A_B
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 4000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_A_C
+					/*승인형 육성품목*/
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 4000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_B_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 3000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_B_B
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 2000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_B_C
+					/* 육성형 */
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT >= 4000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_C_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT >= 3000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_C_B
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT >= 2000000 THEN 'Y' ELSE 'N' END) AS CHK_AMT_TOT_C_C
+
+					/* 총취급액 전속 취급률 기준 금액 */
+					<![CDATA[
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 15000000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 8000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 15000000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_A_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 10000000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 6000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 10000000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_A_B
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 7000000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 4000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 7000000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_A_C
+
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 7500000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 4000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 7500000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_B_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 5000000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 3000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 5000000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_B_B
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 3500000 THEN 'A'
+								WHEN TOT.SLS_CNSGN_SLS_AMT_TOT >= 2000000 AND TOT.SLS_CNSGN_SLS_AMT_TOT < 3500000 THEN 'B'
+								ELSE 'N' END
+					) AS CHK_B_C
+					]]>
+					/*전속취급률 */
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 40 THEN 'Y' ELSE 'N' END) AS CHK_RT_A_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 50 THEN 'Y' ELSE 'N' END) AS CHK_RT_A_B
+
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 20 THEN 'Y' ELSE 'N' END) AS CHK_RT_B_A
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 25 THEN 'Y' ELSE 'N' END) AS CHK_RT_B_B
+
+					,(CASE WHEN TOT.SLS_CNSGN_SLS_AMT_RT >= 30 THEN 'Y' ELSE 'N' END) AS CHK_RT_C
+					,TOT.STBLT_YN AS ORG_STBLT_YN
+				FROM
+					(SELECT
+							ITEM.ITEM_CD
+							, ITEM.ITEM_NM
+							, ITEM.STTG_UPBR_ITEM_SE
+							, ITEM.STTG_UPBR_ITEM_NM
+							, ITEM.CTGRY_CD
+							, ITEM.CTGRY_NM
+							, ITEM.BRNO
+							, ITEM.YR
+							, (SELECT APRV FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS APRV
+							, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CORP_NM
+
+							, TOTA.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT
+
+							, TOTB.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT_TOT
+
+							, TOTA.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM
+
+							, TOTB.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM_TOT
+
+							, ROUND(NVL( TOTA.SLS_CNSGN_SLS_AMT  / NULLIF( TOTB.SLS_CNSGN_SLS_AMT  , 0 ) , 0 ) * 100 , 2 ) AS SLS_CNSGN_SLS_AMT_RT
+							, (SELECT STBLT_YN
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO ='8'
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND BRNO = ITEM.BRNO
+								  AND YR = ITEM.YR
+								  AND ITEM_CD = ITEM.ITEM_CD
+							) AS STBLT_YN
+						FROM
+							(SELECT
+									ITEM_CD
+									, YR
+									, STTG_UPBR_ITEM_SE
+									, CTGRY_CD
+									, TO_CHAR(BRNO) AS BRNO
+									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+								FROM TB_EV_APO_YR_GPC_CD AYGC
+								WHERE 1=1
+								  AND STTG_UPBR_ITEM_SE != '3'
+								  AND APO_SE = '1'
+								  AND YR = #{yr}
+							) ITEM ,
+							(SELECT
+									BRNO
+									, ITEM_CD
+									, SUM( NVL( SLS_CNSGN_SLS_VLM , 0 ) ) AS SLS_CNSGN_SLS_VLM
+									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTA
+								WHERE 1=1
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '1'
+								  AND TYPE_SE_NO IN ('1','5')
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND OGNZ_STBLT_YN = 'Y'
+								  AND ITEM_CD IN (SELECT ITEM_CD
+															FROM TB_EV_APO_YR_GPC_CD
+															WHERE 1=1
+															  AND APO_SE = '1'
+															  AND YR = PSTA.YR
+															  AND BRNO = PSTA.BRNO
+															  AND STTG_UPBR_ITEM_SE != '3'
+															)
+								AND (
+										(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
+															FROM TB_EV_FRMHS_APO
+															WHERE 1=1
+															  AND STBLT_YN = 'Y'
+															  AND NVL(EXCL_YN,'N') != 'Y'
+															  AND APO_SE = '1'
+															  AND YR = PSTA.YR
+															  AND BRNO = PSTA.BRNO
+															  AND TRMT_TYPE = PSTA.TRMT_TYPE
+															)
+										)OR
+										(PRDCR_OGNZ_SN = '0')
+									)
+								  AND YR = #{yr}
+								GROUP BY BRNO, ITEM_CD
+							) TOTA ,
+							(SELECT
+									BRNO
+									, ITEM_CD
+									, SUM( NVL( SLS_CNSGN_SLS_VLM , 0 ) ) AS SLS_CNSGN_SLS_VLM
+									, SUM( NVL( SLS_CNSGN_SLS_AMT , 0 ) ) AS SLS_CNSGN_SLS_AMT
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PSTB
+								WHERE 1=1
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '1'
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND ITEM_CD IN (SELECT ITEM_CD
+												FROM TB_EV_APO_YR_GPC_CD
+												WHERE 1=1
+												  AND APO_SE = '1'
+												  AND YR = PSTB.YR
+												  AND BRNO = PSTB.BRNO
+												  AND STTG_UPBR_ITEM_SE != '3'
+												)
+								  AND TYPE_SE_NO = '8'
+								  AND YR = #{yr}
+								GROUP BY BRNO, ITEM_CD
+							) TOTB
+						WHERE 1=1
+						  AND ITEM.BRNO = TOTA.BRNO(+)
+						  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+
+						  AND ITEM.BRNO = TOTB.BRNO(+)
+						  AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
+					)TOT
+			)TOTAL
+		ORDER BY  BRNO , ITEM_CD , STBLT_YN
+	</select>
+
 	<!-- 조치사항 초기화 -->
 	<update id="updateItemUoActnMttr" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnGenalTblMngVO">
 		UPDATE /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.updateItemUoStbltYnInit */
@@ -1358,7 +1674,7 @@
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectApsTmepChk	-->
-	<!-- DESC : 총 매입매출 임시저장 여부 조회                                            					-->
+	<!-- DESC : 총 매입매출 임시저장 여부 조회                                            		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->

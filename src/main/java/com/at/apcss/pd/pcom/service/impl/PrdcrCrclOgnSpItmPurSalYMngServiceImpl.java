@@ -110,10 +110,17 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
 		return insertedCnt;
 	}
-	//전문품목 매입매출 출자출하조직 보유 로우데이터
+	//전문품목 매입매출 출자출하조직 보유 로우데이터 2024년
 	@Override
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO);
+		return resultList;
+	}
+
+	//전문품목 매입매출 출자출하조직 보유 로우데이터 2025년
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO);
 		return resultList;
 	}
 

@@ -11,7 +11,7 @@ import com.at.apcss.pd.pom.vo.TbEvFrmhsApoVO;
 
 /**
  * 게시판 Mapper 인터페이스
- * @author 정연두
+ * @author
  * @since 2023.06.21
  * @version 1.0
  * @see
@@ -44,11 +44,18 @@ public interface PrdcrCrclOgnGenalTblMngMapper {
 
 
 	/**
-	 * 총괄표 로우데이터
+	 * 총괄표 로우데이터 2024
 	 * @param ItemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 */
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo);
+
+	/**
+	 * 총괄표 로우데이터 2025
+	 * @param ItemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 */
+	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO ItemUoStbltYnVo);
 
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO);
 

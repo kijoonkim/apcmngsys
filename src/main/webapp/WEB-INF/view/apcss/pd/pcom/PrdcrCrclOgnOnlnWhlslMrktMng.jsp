@@ -315,7 +315,7 @@
 			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 				<div class="box-header" style="display:flex; justify-content: flex-start;" >
 					<div style="margin-left: auto;">
-						<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="판매목표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
+						<sbux-button id="btnSaveFclt4" name="btnSaveFclt4" uitype="normal" text="판매목표 저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 					</div>
 				</div>
 			</c:if>

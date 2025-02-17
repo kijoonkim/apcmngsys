@@ -39,8 +39,21 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	public int updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
 
-
+	/**
+	 * 총괄표 로우데이터 2024
+	 * @param ItemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 * @throws Exception
+	 */
 	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+
+	/**
+	 * 총괄표 로우데이터 2025
+	 * @param ItemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
 
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
