@@ -45,7 +45,21 @@ public interface PrdcrCrclOgnPurSalMngService {
 
 	public int deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다 2024년
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return List<PrdcrCrclOgnPurSalMngVO>
+	 * @throws Exception
+	 */
 	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다 2025년
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return List<PrdcrCrclOgnPurSalMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList2025(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
