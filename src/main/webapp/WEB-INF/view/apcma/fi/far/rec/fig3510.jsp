@@ -1036,7 +1036,6 @@
 <!-- 팝업 Modal -->
 <div>
     <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-<!--     <sbux-modal style="width:700px" id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal> -->
 </div>
 <div id="body-modal-compopupcs">
     <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
@@ -1855,7 +1854,6 @@
         await comPopupCs({
             compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
-            , type: strsourceType
             , inputData: { 
             	"CS_CODE" : gfnma_nvl2(SBUxMethod.get('CS_CODE')) , 
             	"CS_NAME" : gfnma_nvl2(SBUxMethod.get('CS_NAME')), 

@@ -164,7 +164,7 @@
 										id="BTN_POP1"
 										class="btn btn-xs btn-outline-dark"
 										text="…" uitype="modal"
-										target-id="modal-compopup1"
+										target-id="modal-compopupcs"
 										onclick="fn_cnptPopup('srch-inp-csName')">
 									</sbux-button>
 									<font style="width:5px"></font>
@@ -553,7 +553,7 @@
 												id="BTN_POP5"
 												class="btn btn-xs btn-outline-dark"
 												text="…" uitype="modal"
-												target-id="modal-compopup1"
+												target-id="modal-compopupcs"
 												onclick="fn_cnptPopup('srch-dsps-csName')">
 											</sbux-button>
 											<font style="width:5px"></font>
@@ -868,6 +868,14 @@
 	</div>
 	<div id="body-modal-compopup1">
 		<jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
+	</div>
+	
+	<!-- 팝업 Modal -->
+	<div>
+	    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-compopupcs">
+	    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
 	</div>
 
 </body>
@@ -2809,7 +2817,7 @@
      * 거래처코드
      */
      //
-    var fn_cnptPopup = function(id) {
+    var fn_cnptPopup = async function(id) {
 
     	var cdId = "";
     	var nmId = "";
@@ -2824,36 +2832,26 @@
 
         var searchCode 		= gfnma_nvl(SBUxMethod.get(cdId));
         var searchName 		= gfnma_nvl(SBUxMethod.get(nmId));
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + searchCode + "%' AND CNPT_NM LIKE '%" + searchName + "%' ";
 
-
-
-        var replaceText0 	= "_CS_CD_";
-        var replaceText1 	= "_CS_NM_";
-        var strWhereClause 	= "AND CS_CD LIKE '%" + replaceText0 + "%' AND CS_NM LIKE '%" + replaceText1 + "%' ";
-
-        //var strWhereClause 	= "AND x.CNPT_CD LIKE '%" + replaceText0 + "%' AND x.CNPT_NM LIKE '%" + replaceText1 + "%'";
-
-    	SBUxMethod.attr('modal-compopup1', 'header-title', '거래처정보');
-    	compopup1({
+    	SBUxMethod.attr('modal-compopupcs', 'header-title', '거래처정보');
+    	await comPopupCs({
     		compCode				: gv_ma_selectedCorpCd
     		,clientCode				: gv_ma_selectedClntCd
+            ,inputData: {
+            	"CS_CODE" : gfnma_nvl2(searchCode), 
+            	"CS_NAME" : gfnma_nvl2(searchName), 
+            	"BIZ_REGNO" : ''
+            }
     		,bizcompId				: 'P_COM008'
-        	,popupType				: 'A'
     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["코드", 				"명칭"]
-   			,searchInputFields		: ["CS_CD", 	"CS_NM"]
-   			,searchInputValues		: [searchCode, 			searchName]
-    		,height					: '400px'
-   			,tableHeader			: ["거래처코드", 	"거래처명"]
-   			,tableColumnNames		: ["CS_CD",	"CS_NM"]
-   			,tableColumnWidths		: ["80px", 	"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(cdId, 		data.CS_CD);
-				SBUxMethod.set(nmId,		data.CS_NM);
+				SBUxMethod.set(cdId, 		data.CNPT_CD);
+				SBUxMethod.set(nmId,		data.CNPT_NM);
 			},
     	});
-    	SBUxMethod.setModalCss('modal-compopup1', {width:'800px'});
-    	SBUxMethod.openModal('modal-compopup1');
+    	SBUxMethod.setModalCss('modal-compopupcs', {width:'800px'});
+    	SBUxMethod.openModal('modal-compopupcs');
   	}
 
     /**
