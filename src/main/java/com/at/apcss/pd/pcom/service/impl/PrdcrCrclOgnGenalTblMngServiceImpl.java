@@ -77,6 +77,11 @@ public class PrdcrCrclOgnGenalTblMngServiceImpl extends BaseServiceImpl implemen
 		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList(ItemUoStbltYnVo);
 		return resultList;
 	}
+	@Override
+	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
+		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025(ItemUoStbltYnVo);
+		return resultList;
+	}
 
 	@Override
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception {

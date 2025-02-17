@@ -1680,7 +1680,9 @@
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["통합조직 총 취급물량(톤)"],	ref:'slsCnsgnSlsVlmTot',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(A)통합조직 총 취급액(천원)"],	ref:'slsCnsgnSlsAmtTot',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["생산자조직 전속출하물량(톤)"],	ref:'slsCnsgnSlsVlm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(B)생산자조직 전속출하액(천원)"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
@@ -1703,7 +1705,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngSelectRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do", {
 			yr : yr
 			});
 
@@ -1731,6 +1733,9 @@
 					,slsCnsgnSlsAmt			:Number(item.slsCnsgnSlsAmt)
 					,slsCnsgnSlsAmtTot		:Number(item.slsCnsgnSlsAmtTot)
 					,slsCnsgnSlsAmtRt		:Number(item.slsCnsgnSlsAmtRt)
+
+					,slsCnsgnSlsVlm			:Number(item.slsCnsgnSlsVlm)
+					,slsCnsgnSlsVlmTot		:Number(item.slsCnsgnSlsVlmTot)
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn
