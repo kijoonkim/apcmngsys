@@ -2388,20 +2388,3 @@ const gfn_bizComponentData = async function(BIZCOMP_ID_LIST, WHERE_CLAUSE_LIST, 
     	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
 }
-
-const gfn_mergeJsonData = async function(...jsonArrays) {
-    const mergedData = {};
-
-    jsonArrays.forEach(jsonArray => {
-        jsonArray.forEach(json => {
-            Object.keys(json).forEach(key => {
-				//키가 없는 경우에만 추가
-                if (!mergedData[key]) {
-                    mergedData[key] = json[key];
-                }
-            });
-        });
-    });
-
-    return mergedData;
-}

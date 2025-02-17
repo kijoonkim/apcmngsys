@@ -11,7 +11,7 @@
 		<div class="box box-solid">
 			<div class="box-header" style="display:flex; justify-content: flex-start;" >
 				<div> 
-					<table id="comPopupCsTable" class="table table-bordered tbl_row tbl_fixed">
+					<table id="srchComPopupCsTable" class="table table-bordered tbl_row tbl_fixed">
 						<colgroup>
 							<col style="width:15%">
 							<col style="width:25%">
@@ -93,7 +93,6 @@ async function comPopupCs(options, selectRowVal) {
 			compCode				: null
 			,clientCode				: null
 			,inputData				: null
-			,type					: null
 			,bizcompId				: null
 			,whereClause			: null
 			,itemSelectEvent		: null
@@ -102,11 +101,11 @@ async function comPopupCs(options, selectRowVal) {
 	$.extend(settings, options);
 	$.extend(gridclickRowEvent, options);
 	console.log('settings:', settings);
-	console.log('gridclickRowEvent:', settings);
+	console.log('gridclickRowEvent:', gridclickRowEvent);
 
     const comPopupCsInputData = async function () {
         let rst = await Promise.all([
-        	console.log('comPopupCsInputData settings ==>', settings),
+        	console.log('comPopupCsInputData settings ==>', settings.inputData),
 		    $('#SRCH_CS_CODE_POP').val(settings.inputData.CS_CODE),
 		    $('#SRCH_CS_NAME_POP').val(settings.inputData.CS_NAME),
 		    $('#SRCH_BRNO_POP').val(settings.inputData.BIZ_REGNO),
@@ -188,9 +187,34 @@ async function comPopupCs(options, selectRowVal) {
 	    gridComPopCs = _SBGrid.create(SBGridPropertiescomPopupCs);
 	    gridComPopCs.bind('click', 'clickPop');
 	}
+    const setCsGridFia4300 = function() {
+	  	//기간별환율 탭 - 기간별환율등록
+	    SBGridPropertiescomPopupCs = {};
+	    SBGridPropertiescomPopupCs.parentid 		= 'sb-area-grid-cs';
+	    SBGridPropertiescomPopupCs.id 				= 'gridComPopCs';
+	    SBGridPropertiescomPopupCs.jsonref 			= 'gridComPopCsList';
+	    SBGridPropertiescomPopupCs.emptyrecords 	= '데이터가 없습니다.';
+	    SBGridPropertiescomPopupCs.selectmode 		= 'byrows';
+	    SBGridPropertiescomPopupCs.allowcopy 		= true; //복사
+	    SBGridPropertiescomPopupCs.explorerbar 		= 'sortmove';
+	    SBGridPropertiescomPopupCs.extendlastcol 	= 'scroll';
+	    SBGridPropertiescomPopupCs.showscrollinfo = {
+	            type        :   'vertical',
+	            callback    :   function(nDataCount, nTopRow, nBottomRow){
+	                return '전체 건 수: ' + nDataCount + '<br>' + '상단 행: ' + nTopRow + ', 하단 행: ' + nBottomRow;
+	            }
+	        };
+	    SBGridPropertiescomPopupCs.livescroll = false;
+	    SBGridPropertiescomPopupCs.columns = [
+	        {caption: ["거래처코드"], 		ref: 'CNPT_CD', 		type: 'output', width: '180px',  style: 'text-align:center'},
+	        {caption: ["거래처명"], 			ref: 'CNPT_NM', 		type: 'output', width: '300px', style: 'text-align:left'}
+	    ];
+	    gridComPopCs = _SBGrid.create(SBGridPropertiescomPopupCs);
+	    gridComPopCs.bind('click', 'clickPop');
+	}
     
     const clearPopCs = function() {
-    	gfnma_uxDataClear('#comPopupCsTable');
+    	gfnma_uxDataClear('#srchComPopupCsTable');
     }
     
 	// get data
@@ -201,12 +225,14 @@ async function comPopupCs(options, selectRowVal) {
         var SRCH_BRNO_POP = gfnma_nvl2($('#SRCH_BRNO_POP').val());
         
         var strWhereClause = '';
-        if(settings.type == 'AP'){
+        if(settings.bizcompId == 'P_CS_PURCHASE_DOC'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%' AND '" + settings.whereClause[0] + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD ";
-        }else if(settings.type == 'AR'){
+        }else if(settings.bizcompId == 'P_CS_SALE_DOC'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
-        }else if(settings.type == '99'){
+    	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
+        }else if(settings.bizcompId == 'P_COM008'){
+        	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%'";
         }
         
         return strWhereClause;
@@ -221,7 +247,7 @@ async function comPopupCs(options, selectRowVal) {
    	   			,V_P_CLIENT_CODE	: settings.clientCode
    	   			,V_P_BIZCOMP_ID		: settings.bizcompId
    	   			,V_P_WHERE_CLAUSE	: strWhereClause
-   	   			,V_P_PROC_PARAMS	: ''
+   	   			,V_P_PARAM_LIST		: ''
    	   			,V_P_FORM_ID		: ''
    	   			,V_P_MENU_ID		: ''
    	   			,V_P_PROC_ID		: ''
@@ -241,7 +267,7 @@ async function comPopupCs(options, selectRowVal) {
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		gridComPopCsList.length = 0;
-	    		if(settings.type == 'AP' || settings.type == 'AR'){
+	    		if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC'){
 		    	   	data.cv_1.forEach((item, index) => {
 			    		const msg = {
 			    				ADDR			: item.ADDR,
@@ -270,7 +296,7 @@ async function comPopupCs(options, selectRowVal) {
 			    		}
 			    		gridComPopCsList.push(msg);
 			    	});
-	    		}else if(settings.type == '99'){
+	    		}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
 		    	   	data.cv_1.forEach((item, index) => {
 			    		const msg = {
 			    				ADPYR_ACNTL_CD			: item.ADPYR_ACNTL_CD,
@@ -279,10 +305,10 @@ async function comPopupCs(options, selectRowVal) {
 			    				AP_ACC_NAME		: item.AP_ACC_NAME,
 			    				AR_ACC_NAME		: gfnma_nvl2(item.AR_ACC_NAME),
 			    				AR_ACNT_CD			: item.AR_ACNT_CD,
-			    				BASE_SCALE			: item.BASE_SCALE,
-			    				BRNO			: item.BRNO,
-			    				CNPT_CD			: item.CNPT_CD,
-			    				CNPT_GROUP			: item.CNPT_GROUP,
+			    				BASE_SCALE : item.BASE_SCALE,
+			    				BRNO : item.BRNO,
+			    				CNPT_CD : item.CNPT_CD,
+			    				CNPT_GROUP : item.CNPT_GROUP,
 			    				CNPT_NM			: item.CNPT_NM,
 			    				CO_CD		: item.CO_CD,
 			    				CRN_CD		: item.CRN_CD,
@@ -295,6 +321,24 @@ async function comPopupCs(options, selectRowVal) {
 			    				SLS_CNPT_YN	: item.SLS_CNPT_YN,
 			    				TRSC_HLT_YN		: item.TRSC_HLT_YN,
 			    				WTHD_TX_YN		: item.WTHD_TX_YN
+			    		}
+			    		gridComPopCsList.push(msg);
+			    	});
+	    		}else if(settings.bizcompId == 'P_COM008'){
+		    	   	data.cv_1.forEach((item, index) => {
+			    		const msg = {
+			    				ADDR			: item.ADDR,
+			    				ADPYR_ACNTL_CD		: item.ADPYR_ACNTL_CD,
+			    				ADVANCE_ACC_NAME		: item.ADVANCE_ACC_NAME,
+			    				AR_ACC_NAME		: item.AR_ACC_NAME,
+			    				BRNO : item.BRNO,
+			    				BZSTAT : item.BZSTAT,
+			    				CEO_NM : item.CEO_NM,
+			    				CNPT_CD			: item.CNPT_CD,
+			    				CNPT_NM		: item.CNPT_NM,
+			    				FX_NO		: item.FX_NO,
+			    				TELNO			: item.TELNO,
+			    				TPBIZ		: item.TPBIZ
 			    		}
 			    		gridComPopCsList.push(msg);
 			    	});
@@ -335,10 +379,12 @@ async function comPopupCs(options, selectRowVal) {
 		}
 	});
 	
-	if(settings.type == 'AP' || settings.type == 'AR'){
+	if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC'){
 		setCsGridFig3510();
-	}else if(settings.type == '99'){
+	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
 		setCsGridFig2210_99();
+	}else if(settings.bizcompId == 'P_COM008'){
+		setCsGridFia4300();
 	}
     replaceWhereClause();
     searchPopCs();
