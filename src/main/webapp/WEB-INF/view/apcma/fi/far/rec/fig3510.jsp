@@ -1103,6 +1103,7 @@
     var jsonBankAccountSeq = []; // 계좌정보
     var jsonVatCode = []; // 세금코드
     var jsonSiteCode = []; // 사업장
+    var jsonTaxSiteCode = []; // 사업장
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1161,6 +1162,15 @@
                     {caption: "신고사업장코드", ref: 'TX_SITE_CD', width: '150px', style: 'text-align:left'},
                     {caption: "신고사업장명", ref: 'TX_SITE_NM', width: '150px', style: 'text-align:left'}
                 ]
+	            , returnData : function (data){
+	                if(data == ''){
+	                	return;
+	                }
+        			jsonTaxSiteCode.length = 0;
+        			for(var i = 0; data.cv_1.length > i; i++){
+        				jsonTaxSiteCode.push(data.cv_1[i]);
+        			}
+	        	}
             }),
             // 전표구분
             gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '' + (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE like '91%'" : "AND AR_SLIP_WRT_YN = 'Y'")), gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
@@ -1651,7 +1661,7 @@
             
         ]);
     }
-
+    
     var fn_getBankAccountSeq = async function () {
         // 계좌정보
         await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
@@ -4141,7 +4151,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
                 $("#btnScmInfo").removeAttr('disabled');
 
@@ -4172,7 +4182,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "false");
                 $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             } else if (strsourceType == "BAD") {
                 strFileSourceType = "BADSALESDOC";
                 $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -4194,7 +4204,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             }
         } else {
             SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
@@ -4213,9 +4223,13 @@
             $("#btnDeleteRow").attr("disabled", "true");
         }
 
+        if(jsonTaxSiteCode.length == 1){
+	        gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 	'TX_SITE_CD', 'TX_SITE_NM', jsonTaxSiteCode[0].TX_SITE_CD);
+	        gfnma_multiSelectSet('#TAX_SITE_CODE', 		'TX_SITE_CD', 'TX_SITE_NM', jsonTaxSiteCode[0].TX_SITE_CD);
+        }
+        
         //사용자
         SBUxMethod.set("EMP_CODE", gfn_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
-
         if (p_isAccountManager || p_isAccountChief) {
             SBUxMethod.set("OPEN_TO_ALL_YN", "N");
             SBUxMethod.set("OPEN_TO_FCM_YN", "N");
@@ -4327,7 +4341,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
             $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -4345,7 +4358,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "false");
             $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         } else if (strsourceType == "BAD") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
             $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
@@ -4359,7 +4371,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
             $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
         $("#main-btn-save", parent.document).removeAttr('disabled');
@@ -4400,7 +4411,6 @@
         SBUxMethod.set("DEPT_NAME", p_deptName);
 
         SBUxMethod.set("SOURCE_DOC", "MANUAL");
-        gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         if (strsourceType == "AP") {
             SBUxMethod.set("DOC_TYPE", "19"); //미지급
@@ -5399,7 +5409,7 @@
                 jsonAccountLineList.length = 0;
 
                 var formData = listData.cv_1[0];
-
+console.log('formData',formData);
                 if(formData) {
                     SBUxMethod.set('KEY_ID', formData.KEY_ID);
                     SBUxMethod.set('ACCT_RULE_CODE', formData.GAAP_CD);
