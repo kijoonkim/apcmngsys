@@ -1434,6 +1434,109 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 	</select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025	-->
+	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) 로우데이터 조회 2025년                        	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.12  	ljw        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025 */
+			YR
+			,BRNO
+			,UO_BRNO
+			,ITEM_CD
+			,( (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = PST.ITEM_CD) || '(' || (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = YGC.STTG_UPBR_ITEM_SE) FROM TB_EV_APO_YR_GPC_CD YGC WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD) || ')' ) AS ITEM_NM
+			,(SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD) AS STTG_UPBR_ITEM_SE
+			,(SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)AS CTGRY_CD
+			,PRDCR_OGNZ_SN
+			,TYPE_SE_NO
+			,DECODE(PST.TYPE_SE_NO
+							, '1', '출자출하조직'
+							, '2', '출자출하조직'
+							, '3', '출자출하조직'
+							, '4', '출자출하조직'
+							, '5', '(통합조직직속)전속출하'
+							, '6', '(통합조직직속)전속출하'
+							, '7', '기타매입'
+							, '8', '합계'
+							, ''
+			) AS SE_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '2', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '0', '생산자조직 외(단순사입 포함)','')
+							, '3', '생산자조직 외(단순사입 포함)'
+							, '4', '합계'
+							, '5', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '6', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '7', '생산자조직 외'
+							, '8', '합계'
+							, ''
+			) AS SE_DTL_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', ''
+							, '2', '소계'
+							, '3', ''
+							, '4', '합계'
+							, '5', (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) FROM TB_EV_FRMHS_APO FA WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN)
+							, '6', '소계'
+							, '7', ''
+							, '8', '합계'
+							, ''
+			) AS TRMT_TYPE_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', (SELECT CORP_NM
+										FROM TB_EV_APO EV
+										WHERE 1=1
+										  AND BRNO = PST.ISO_BRNO)
+							, '2', '소계'
+							, '3', (SELECT CORP_NM
+										FROM TB_EV_APO EV
+										WHERE 1=1
+										  AND BRNO = PST.ISO_BRNO)
+							, '4', '합계'
+							, '5', (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO FA WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN)
+							, '6', '소계'
+							, '7', '농가, 법인 등'
+							, '8', '합계'
+							, ''
+			) AS PRCHS_NM
+
+			, PST.SLS_CNSGN_PRCHS_AMT
+			, PST.SLS_CNSGN_SLS_AMT
+			, PST.SLS_CNSGN_PRCHS_VLM
+			, PST.SLS_CNSGN_SLS_VLM
+
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+		WHERE 1=1
+		  AND YR = #{yr}
+		  AND APO_SE = '1'
+		  AND (
+		  			(TYPE_SE_NO != '5' AND PRDCR_OGNZ_SN = '0')
+		  			OR
+		  			(TYPE_SE_NO = '5' AND PRDCR_OGNZ_SN = (SELECT PRDCR_OGNZ_SN FROM TB_EV_FRMHS_APO WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN AND NVL(EXCL_YN,'N') != 'Y'))
+		  		)
+		  AND ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)
+		ORDER BY
+			BRNO
+			,ITEM_CD
+			, (CASE	WHEN PST.TYPE_SE_NO = '1' THEN '1'
+					WHEN PST.TYPE_SE_NO = '2' AND PST.OGNZ_STBLT_YN = '0' THEN '4'
+					WHEN PST.TYPE_SE_NO = '2' THEN '1'
+					WHEN PST.TYPE_SE_NO = '5' THEN '5'
+					WHEN PST.TYPE_SE_NO = '6' THEN '5'
+					ELSE TO_CHAR(PST.TYPE_SE_NO) END)
+			, OGNZ_STBLT_YN DESC
+			, CASE	WHEN TRMT_TYPE = 1 THEN 3
+					WHEN TRMT_TYPE = 2 THEN 1
+					WHEN TRMT_TYPE = 3 THEN 2
+					ELSE 4 END
+			, TRMT_TYPE
+			, TYPE_SE_NO
+	</select>
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew	-->
 	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) 조회                                     	-->
 	<!-- ==========================================================================	-->

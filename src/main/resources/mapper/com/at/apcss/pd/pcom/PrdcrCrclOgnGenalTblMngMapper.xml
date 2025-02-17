@@ -738,7 +738,7 @@
 	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
-		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNew */
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectRawDataList2025 */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
