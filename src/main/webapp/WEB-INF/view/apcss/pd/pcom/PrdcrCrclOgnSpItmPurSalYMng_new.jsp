@@ -1686,7 +1686,8 @@
 			{caption: ["법인명"],				ref:'corpNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["통합조직 구분"],			ref:'aprv', 			type:'output', width:'70px',	style:'text-align:center'},
 			{caption: ["구분"],				ref:'typeSeNo', 		type:'output', width:'90px',	style:'text-align:center'},
-			{caption: ["구분명"],				ref:'typeSeNoNm', 		type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["구분"],				ref:'seNm', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["구분상세"],				ref:'seDtlNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["품목명"],				ref:'itemNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["분류명"],				ref:'ctgryNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["전문/육성 구분"],		ref:'sttgUpbrItemNm', 	type:'output', width:'120px',	style:'text-align:center'},
@@ -1724,7 +1725,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList2025.do", {
 		    yr : yr
 			});
 
@@ -1739,7 +1740,8 @@
 					,corpNm				: item.corpNm
 					,aprv				: item.aprv
 					,typeSeNo			: item.typeSeNo
-					,typeSeNoNm			: item.typeSeNoNm
+					,seNm				: item.seNm
+					,seDtlNm			: item.seDtlNm
 					,itemNm				: item.itemNm
 					,ctgryNm			: item.ctgryNm
 					,sttgUpbrItemNm		: item.sttgUpbrItemNm
