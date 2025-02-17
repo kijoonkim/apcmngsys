@@ -926,6 +926,7 @@ async function gfnma_multiSelectInit2(obj, bizCompDatas) {
 	var _colLabel		= obj.colLabel;
 	var _columns		= obj.columns;
 	var _callback		= obj.callback;
+	var _returnData		= obj.returnData;
 
 	let data = '';
 
@@ -1062,6 +1063,10 @@ async function gfnma_multiSelectInit2(obj, bizCompDatas) {
 			});
 		} else {
 			innerCreat(_target, data);
+		}
+		
+		if(typeof _returnData == "function") {
+			_returnData(data);
 		}
 
 	} catch (e) {
