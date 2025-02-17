@@ -264,8 +264,12 @@
                 caption: ["폐기순번"],
                 ref: 'dscdSn',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
+                width: '4%',
+                style: 'text-align: right;',
+                format: {
+                    type: 'number',
+                    rule: '#,###'
+                }
             },
             {
                 caption: ["품목"],
@@ -292,8 +296,8 @@
                 caption: ["폐기수량"],
                 ref: 'dscdQntt',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;',
+                width: '6%',
+                style: 'text-align: right;',
                 format: {
                     type: 'number',
                     rule: '#,###'
@@ -303,8 +307,8 @@
                 caption: ["폐기중량"],
                 ref: 'dscdWght',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;',
+                width: '6%',
+                style: 'text-align: right;',
                 format: {
                     type: 'number',
                     rule: '#,###'
@@ -328,8 +332,8 @@
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
+                width: '16%',
+                style: 'text-align: left;'
             },
             {
                 caption: ["재고순번"],

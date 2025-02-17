@@ -129,4 +129,27 @@ public interface InvntrDscdMapper {
      */
     public int deleteDscdPrfmnc(DscdPrfmncVO dscdPrfmncVO) throws Exception;
 
+    /**
+     * 폐기 상세 관리 - 폐기 원인 코드 조회
+     * @param dscdPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdPrfmncVO> selectDscdCsCd(DscdPrfmncVO dscdPrfmncVO) throws Exception;
+
+    /**
+     * 폐기 상세 관리 - 폐기 사유 코드 조회
+     * @param dscdPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdPrfmncVO> selectDscdBadCd(DscdPrfmncVO dscdPrfmncVO) throws Exception;
+
+    /**
+     * 폐기 상세 관리 - 폐기원인/사유 변경
+     * @param dscdPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public int updateDscdPrfmncDtl(DscdPrfmncVO dscdPrfmncVO) throws Exception;
 }
