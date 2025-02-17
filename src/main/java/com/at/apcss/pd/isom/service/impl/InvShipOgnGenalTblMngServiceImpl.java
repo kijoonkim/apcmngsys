@@ -75,9 +75,9 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataListNew(InvShipOgnGenalTblMngVO);
+		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList2025(InvShipOgnGenalTblMngVO);
 		return resultList;
 	}
 

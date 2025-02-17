@@ -67,11 +67,11 @@ public interface InvShipOgnGenalTblMngMapper {
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
 	/**
-	 * 로우데이터를 조회 한다
+	 * 로우데이터를 조회 한다 2025년
 	 * @param InvShipOgnGenalTblMngVO
 	 * @return List<InvShipOgnGenalTblMngVO>
 	 */
-	public List<InvShipOgnGenalTblMngVO> selectRawDataListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
 	/**
 	 * 부류별 합계를 조회 한다

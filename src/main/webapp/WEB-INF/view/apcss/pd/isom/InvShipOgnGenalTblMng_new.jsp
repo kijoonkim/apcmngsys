@@ -1465,7 +1465,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataListNew.do", {
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", {
 				yr : yr
 			});
 
