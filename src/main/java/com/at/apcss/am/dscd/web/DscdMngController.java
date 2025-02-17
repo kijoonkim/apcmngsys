@@ -385,6 +385,79 @@ public class DscdMngController extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
+    @PostMapping(value = "/am/dscd/selectDscdCsCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectDscdCsCd(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<DscdPrfmncVO> resultList;
+        try {
+            resultList = invntrDscdService.selectDscdCsCd(dscdPrfmncVO);
+        } catch(Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/am/dscd/selectDscdBadCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectDscdBadCd(@RequestBody DscdPrfmncVO dscdPrfmncVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<DscdPrfmncVO> resultList;
+        try {
+            resultList = invntrDscdService.selectDscdBadCd(dscdPrfmncVO);
+        } catch(Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/am/dscd/updateDscdPrfmncDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> updateDscdPrfmncDtl(@RequestBody List<DscdPrfmncVO> dscdPrfmncList, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        int result = 0;
+        try {
+            for(DscdPrfmncVO dscdPrfmncVO : dscdPrfmncList){
+                dscdPrfmncVO.setSysFrstInptUserId(getUserId());
+                dscdPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+                dscdPrfmncVO.setSysLastChgUserId(getUserId());
+                dscdPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+            }
+            result = invntrDscdService.updateDscdPrfmncDtl(dscdPrfmncList);
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
     private <T> void setCommonInfo(T vo) {
         if(vo instanceof DscdCrtrVO) {
             DscdCrtrVO dscdCrtrVO = (DscdCrtrVO) vo;
