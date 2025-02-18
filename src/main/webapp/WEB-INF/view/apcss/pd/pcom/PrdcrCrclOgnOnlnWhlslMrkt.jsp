@@ -331,7 +331,6 @@
 		});
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			data.resultList.forEach((item, index) => {
 				if(item.apoSe == '2'){
 					alert('통합조직 메뉴입니다');

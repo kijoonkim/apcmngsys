@@ -1685,6 +1685,9 @@
 				//저장버튼 숨김 처리
 				$("#btnSaveFclt01").hide();
 				$("#btnSaveFclt1").hide();
+				$("#btnLoanY").hide();
+				$("#btnLoanN").hide();
+
 				//법인체마감 버튼 숨김 처리
 				$("#btnCorpDdlnSeCd01").hide();
 
@@ -2829,7 +2832,12 @@
 				}else if(yn == 2){
 					alert("법인체 마감 해제 되었습니다.");
 				}
+				<c:if test="${loginVO.apoSe eq '1'}">
+				fn_dtlSearch();
+				</c:if>
+				<c:if test="${loginVO.apoSe ne '1'}">
 				fn_search();
+				</c:if>
 			}else{
 				if(yn == 1){
 					alert("법인체 마감 도중 오류가 발생 되었습니다.");
