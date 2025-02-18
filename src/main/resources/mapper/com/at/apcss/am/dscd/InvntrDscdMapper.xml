@@ -466,6 +466,12 @@
         <if test='prdcrCd != null and prdcrCd != ""'>
             AND IDP.PRDCR_CD = #{prdcrCd}
         </if>
+        <if test='invntrSeCd != null and invntrSeCd != ""'>
+            AND IDP.INVNTR_SE_CD = #{invntrSeCd}
+        </if>
+        <if test='invntrno != null and invntrno != ""'>
+            AND IDP.INVNTR_NO LIKE '%'||#{invntrno}||'%'
+        </if>
             ORDER BY IDP.DSCD_YMD
     </select>
 
