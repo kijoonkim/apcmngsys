@@ -148,6 +148,30 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">재고구분</th>
+                            <td class="td_input" colspan="3" style="border-right: hidden">
+                                <sbux-select
+                                        unselected-text="선택"
+                                        uitype="single"
+                                        id="srch-slt-invntrSeCd"
+                                        name="srch-slt-invntrSeCd"
+                                        class="form-control input-sm"
+                                        jsondata-ref="jsonInvntrSeCd"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">재고번호</th>
+                            <td class="td_input" colspan="3" style="border-right: hidden">
+                                <sbux-input
+                                        uitype="text"
+                                        id="srch-inp-invntrno"
+                                        name="srch-inp-invntrno"
+                                        class="form-control input-sm"
+                                ></sbux-input>
+                            </td>
+                            <td colspan="4" style="border-top: hidden"></td>
+
+                        </tr>
                     </tbody>
                 </table>
                 <div style="display: flex; flex-direction: column; gap: 10px">
@@ -201,6 +225,8 @@
     var jsonDscdCsCd = [];
     //폐기사유코드
     var jsonDscdBadCd = [];
+    //재고구분
+    var jsonInvntrSeCd = [];
 
     window.addEventListener("DOMContentLoaded", function() {
         SBUxMethod.set("srch-dtp-dscdYmdTo", gfn_dateToYmd(new Date()));
@@ -219,6 +245,7 @@
 
         jsonDscdCsCd = [...rst[2].resultList] || [];
         jsonDscdBadCd = [...rst[3].resultList] || [];
+        await gfn_setComCdSBSelect('srch-slt-invntrSeCd', jsonInvntrSeCd, 'INVNTR_SE_CD'),//재고구분
 
         await fn_createGrid();
         await fn_getPrdcrs();
@@ -235,7 +262,7 @@
         SBGridProperties.datamergefalseskip = true;
         SBGridProperties.columns = [
             {
-                caption: [""],
+                caption: ["선택"],
                 ref: 'checkedYn',
                 type: 'checkbox',
                 width: '3%',
@@ -244,7 +271,6 @@
                 typeinfo: {
                     ignoreupdate: true,
                     fixedcellcheckbox: {
-                        usemode: true,
                         rowindex: 0
                     },
                     checkedvalue: 'Y',
@@ -369,17 +395,38 @@
      * @description 폐기 실적 목록 조회 버튼
      */
     const fn_search = async function() {
-        let srchParam = gfn_getTableElement("searchTable", "srch-", ["itemCd", "vrtyCd", "vhclno", "warehouseSeCd", "inqType", "prdcrNm", "prdcrCd"]);
+        /*let srchParam = gfn_getTableElement("searchTable", "srch-", ["itemCd", "vrtyCd", "vhclno", "warehouseSeCd", "inqType", "prdcrNm", "prdcrCd"]);
         if(!srchParam) {
             return;
         }
         if(srchParam.vrtyCd && srchParam.vrtyCd.length > 4) {
             srchParam.vrtyCd = srchParam.vrtyCd.slice(-4);
         }
-
         srchParam.apcCd = gv_apcCd;
+        srchParam.invntrno = invntrno;
+        srchParam.invntrSeCd = invntrSeCd;*/
 
-        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", srchParam);
+        let dscdYmdFrom = SBUxMethod.get("srch-dtp-dscdYmdFrom");
+        let dscdYmdTo = SBUxMethod.get("srch-dtp-dscdYmdTo");
+        let itemCd = SBUxMethod.get("srch-slt-itemCd");
+        let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
+        let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+        let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
+        let invntrno = SBUxMethod.get("srch-inp-invntrno");
+        if (!gfn_isEmpty(vrtyCd)) {
+            vrtyCd = vrtyCd.substring(4);
+        }
+
+        const postJsonPromise = gfn_postJSON("/am/dscd/selectDscdPrfmncList.do", {
+            apcCd : gv_apcCd,
+            dscdYmdFrom : dscdYmdFrom,
+            dscdYmdTo : dscdYmdTo,
+            itemCd : itemCd,
+            vrtyCd : vrtyCd,
+            prdcrCd : prdcrCd,
+            invntrSeCd : invntrSeCd,
+            invntrno : invntrno,
+        });
         const data = await postJsonPromise;
 
         if(!_.isEqual("S", data.resultStatus)) {
@@ -432,12 +479,11 @@
         let allData = gridDscdPrfmnc.getGridDataAll();
         let filtered = allData.filter(item => item.checkedYn === "Y");
 
-        if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
-            return;
-        }
-
         if(gfn_isEmpty(filtered)){
             gfn_comAlert("W0003", "저장");    // W0003 {0}할 대상이 없습니다.
+            return;
+        }
+        if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
             return;
         }
 
