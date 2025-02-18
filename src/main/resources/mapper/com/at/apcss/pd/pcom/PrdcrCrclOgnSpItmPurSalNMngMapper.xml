@@ -1363,6 +1363,7 @@ ORDER BY
 			/*예외*/
 			,TOTAL.CHK_ITEM_A /*CTGRY_CD 2*/
 			,TOTAL.CHK_ITEM_B /*CTGRY_CD 3*/
+			,TOTAL.CHK_ITEM_C /*20250218 추가 CTGRY_CD 1*/
 
 			/* 총취급액 최저 금액 */
 			,TOTAL.CHK_AMT_TOT_A_A
@@ -1400,6 +1401,7 @@ ORDER BY
 			/*APRV 1승인형 2육성형 */
 			/*STTG_UPBR_ITEM_SE 1전문품목 2육성품목 */
 			/*CTGRY_CD 1과실 2시설 3노지*/
+			/*
 			, (CASE WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '1' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
 						THEN (CASE WHEN TOTAL.CHK_A_A = 'A' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
 											WHEN TOTAL.CHK_A_A = 'B' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
@@ -1440,6 +1442,87 @@ ORDER BY
 									ELSE 'N' END)
 					ELSE 'N' END
 			) AS STBLT_YN
+			*/
+			,(CASE
+				WHEN TOTAL.APRV = '1'
+					THEN
+						CASE
+							WHEN TOTAL.STTG_UPBR_ITEM_SE = '1'
+								THEN
+									CASE
+										WHEN (TOTAL.CTGRY_CD = '1' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_C = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_A = 'A' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_A = 'B' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '2' AND TOTAL.CHK_ITEM_B != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_A = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_B = 'A' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_B = 'B' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '3' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_B = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_C = 'A' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_C = 'B' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										END
+							WHEN TOTAL.STTG_UPBR_ITEM_SE = '2'
+								THEN
+									CASE
+										WHEN (TOTAL.CTGRY_CD = '1' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_C = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_A = 'A' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_A = 'B' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '2' AND TOTAL.CHK_ITEM_B != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_A = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_B = 'A' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_B = 'B' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '3' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_B = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_C = 'A' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_C = 'B' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										END
+							END
+					WHEN TOTAL.APRV = '2'
+						THEN
+							CASE
+								WHEN TOTAL.CTGRY_CD = '1'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_A = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+								WHEN TOTAL.CTGRY_CD = '2'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_B = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+								WHEN TOTAL.CTGRY_CD = '3'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_C = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+							END
+					ELSE
+						'N'
+			END) AS STBLT_YN
 
 		FROM
 				(SELECT
@@ -1461,6 +1544,7 @@ ORDER BY
 
 					/*60억 참다래 0611 자두 0608 블루베리 0659 블랙베리 0664 구즈베리 0676 구스베리 0678*/
 					/* 40억 오이 0901 호박 0902 가지 0903*/
+					/* 20250218 추가 고구마는 과실류 취급 고구마 0502 */
 					,(CASE WHEN ITEM_CD = '0611' THEN 'Y'
 								WHEN ITEM_CD = '0608' THEN 'Y'
 								WHEN ITEM_CD = '0659' THEN 'Y'
@@ -1473,6 +1557,9 @@ ORDER BY
 								WHEN ITEM_CD = '0902' THEN 'Y'
 								WHEN ITEM_CD = '0903' THEN 'Y'
 								ELSE 'N' END) AS CHK_ITEM_B
+
+					,(CASE WHEN ITEM_CD = '0502' THEN 'Y'
+								ELSE 'N' END) AS CHK_ITEM_C
 
 					/* 총취급액 최저 금액 */
 					/*승인형 전문품목*/
