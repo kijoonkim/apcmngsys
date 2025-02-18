@@ -1749,7 +1749,7 @@
 				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					//저장 버튼만 숨김처리
+					//저장 버튼 숨김처리
 
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
@@ -1839,6 +1839,10 @@
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
 					$('#btnSaveFclt4').hide();
+
+					$('#btnTempSave2').hide();
+					$('#btnTempSave3').hide();
+					$('#btnTempSave4').hide();
 				}
 			});
 			fn_dtlGridSearch();

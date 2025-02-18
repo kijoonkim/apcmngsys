@@ -1293,6 +1293,7 @@
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
 					$('#btnSaveFclt1').hide();
+					$('#btnTempSave').hide();
 					$('#btnTempSave2').hide();
 				}
 			});

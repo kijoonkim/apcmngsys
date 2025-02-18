@@ -331,11 +331,18 @@
 		});
 		let data = await postJsonPromise;
 		try{
+			console.log(data);
 			data.resultList.forEach((item, index) => {
 				if(item.apoSe == '2'){
 					alert('통합조직 메뉴입니다');
 					return false;
 				}
+				if(item.prfmncCorpDdlnYn == "Y"){
+					//저장 버튼만 숨김처리
+					$('#btnSaveFclt').hide();
+					$('#btnSaveFclt3').hide();
+				}
+
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))
@@ -657,7 +664,6 @@
 					let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 					let delYnCol = objGrid.getColRef('delYn');
 					let delYnVal = objGrid.getCellData(nRow,delYnCol);
-					console.log(delYnVal);
 					if(corpDdlnSeCd != 'Y'){
 						if(delYnVal == 'N'){
 							return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
@@ -845,7 +851,7 @@
 			let captionRow = objGrid.getFixedRows();
 			for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 				let rowData01 = objGrid.getRowData(i);
-				console.log(rowData.itemCd , rowData01.itemCd , rowData.brno , rowData01.brno);
+				//console.log(rowData.itemCd , rowData01.itemCd , rowData.brno , rowData01.brno);
 				if(nRow != i && rowData.itemCd == rowData01.itemCd && rowData.brno == rowData01.brno){
 					let brnoArr = _.find(jsonOgnz, {value : rowData.brno});
 					objGrid.setCellData(nRow, clsfNmCol, '');
@@ -905,7 +911,7 @@
 		}
 	}
 
-	//생산자조직 리스트 선택 데이터 삭제
+	//리스트 선택 데이터 삭제
 	async function fn_deleteRsrc(itemVO){
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/deleteOnlnDtl.do", itemVO);
@@ -914,7 +920,7 @@
 		try{
 			if (_.isEqual("S", data.resultStatus)) {
 				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
-				fn_dtlSearch();
+				fn_search();
 			} else {
 				//alert(data.resultMessage);
 				alert("삭제 도중 오류가 발생 되었습니다.");
