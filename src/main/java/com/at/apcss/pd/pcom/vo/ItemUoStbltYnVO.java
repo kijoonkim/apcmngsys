@@ -47,6 +47,7 @@ public class ItemUoStbltYnVO extends ComVO{
 	/*예외*/
 	private String chkItemA; /*CTGRY_CD 2*/
 	private String chkItemB; /*CTGRY_CD 3*/
+	private String chkItemC; /*CTGRY_CD 1 20250218 추가 */
 
 	/* 총취급액 최저 금액 */
 	private String chkAmtTotAA;

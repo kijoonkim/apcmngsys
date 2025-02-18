@@ -117,6 +117,7 @@ public class PrdcrCrclOgnVluIdctrMngVO extends ComVO{
 	/*예외*/
 	private String chkItemA; /*CTGRY_CD 2*/
 	private String chkItemB; /*CTGRY_CD 3*/
+	private String chkItemC; /*20250218 추가 CTGRY_CD 1*/
 
 	/* 총취급액 최저 금액 */
 	private String chkAmtTotAA;
