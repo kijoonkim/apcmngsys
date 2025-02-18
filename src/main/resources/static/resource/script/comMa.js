@@ -1164,7 +1164,17 @@ const gfnma_uxDataSet = function (target, obj) {
 			var cls = $(target).find('#'+key).attr('class') + '';
 			var val = gfnma_nvl(obj[key]);
 			if(cls.indexOf('sbux-')>-1){
-				SBUxMethod.set(key,	val);
+				var len = $(target).find('#'+key).parent('.sbux-pik-date').length;
+				if(len==1){
+					//datepicker
+					if(val=='0' || val==0 || val=='' || val==null){
+						SBUxMethod.set(key,	'');
+					} else {
+						SBUxMethod.set(key,	val);
+					}
+				} else {
+					SBUxMethod.set(key,	val);
+				}
 			} else {
 				$(target).find('#'+key).val(val);
 				$(target).find('#'+key).text(val);
