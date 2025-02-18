@@ -1529,7 +1529,7 @@
 		document.cookie = "addr="+ Cfclt + "; path=/; max-age=31536000; secure; samesite=strict";
 
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
-			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList.do", {multiList:multiList,pltWrhsSpmt:pltWrhsSpmt});
+			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do", {multiList:multiList,pltWrhsSpmt:pltWrhsSpmt});
 	    	const data = await postJsonPromise;
 
 	    	try {
