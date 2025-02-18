@@ -1327,6 +1327,7 @@
 					//저장버튼, 엑셀업로드 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
 					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt11').hide();
 					$('#btnUpload').hide();
 				}
 			});

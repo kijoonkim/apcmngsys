@@ -627,7 +627,9 @@
 				{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["비고","비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				{caption: ["조치사항","조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
+			</c:if>
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -891,8 +893,12 @@
 
 		let data = await postJsonPromise ;
 		try{
-			//console.log("data==="+data);
+			console.log(data);
 			data.resultList.forEach((item, index) => {
+				if(item.prfmncCorpDdlnYn == "Y"){
+					//법인체마감 버튼 숨김 처리
+					$("#btnPrfmncCorpDdlnYn01").hide();
+				}
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
@@ -1690,7 +1696,7 @@
 			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["비고"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'}
+			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'},
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
