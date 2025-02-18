@@ -982,6 +982,10 @@
 								FROM TB_EV_APO_YR_GPC_CD AYGC
 								WHERE 1=1
 								  AND APO_SE = '2'
+								  AND BRNO NOT IN (SELECT BRNO
+													FROM TB_COM_USER
+													WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61','beop11','beop12')
+													)
 								  AND STTG_UPBR_ITEM_SE IN ('1','2')
 								  AND YR = #{yr}
 								  AND ITEM_CD = (SELECT ITEM_CD

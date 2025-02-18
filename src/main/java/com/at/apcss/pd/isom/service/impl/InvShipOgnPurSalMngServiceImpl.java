@@ -174,6 +174,13 @@ public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements I
 	}
 
 	@Override
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+
+		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectRawDataList2025(InvShipOgnPurSalMngVO);
+		return resultList;
+	}
+
+	@Override
 	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
 
 		InvShipOgnPurSalMngVO resultVO = InvShipOgnPurSalMngMapper.selectTempSaveIsoAps(InvShipOgnPurSalMngVO);

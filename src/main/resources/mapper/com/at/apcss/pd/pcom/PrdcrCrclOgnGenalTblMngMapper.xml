@@ -1063,6 +1063,10 @@
 								  AND STTG_UPBR_ITEM_SE != '3'
 								  AND APO_SE = '1'
 								  AND YR = #{yr}
+								  AND BRNO NOT IN (SELECT BRNO
+													FROM TB_COM_USER
+													WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
+													)
 							) ITEM ,
 							(SELECT
 									BRNO
