@@ -825,7 +825,6 @@
 					let corpDdlnSeCd = SBUxMethod.get("dtl-input-corpDdlnSeCd");
 					let delYnCol = objGrid.getColRef('delYn');
 					let delYnVal = objGrid.getCellData(nRow,delYnCol);
-					//console.log(delYnVal);
 					if(corpDdlnSeCd != 'Y'){
 						if(delYnVal == 'N'){
 							return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_openMaodalGpcSelect(" + nRow + ")'>선택</button>";
@@ -1248,7 +1247,6 @@
 	];
 
 	const fn_hiddenGrdSelect = async function(_gridSe){
-		console.log('_gridSe',_gridSe);
 		/* _gridSe 1 출하실적 , 2 판매목표 */
 		await fn_hiddenGrd(_gridSe);
 		let yr = SBUxMethod.get("srch-input-yr");
@@ -1277,7 +1275,6 @@
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO;
 				if(_gridSe == '1'){
-					console.log('1');
 					hiddenGrdVO = {
 							yr					:item.yr
 							,uoBrno				:item.uoBrno
@@ -1297,7 +1294,6 @@
 							,consignTrmtAmtTot	:item.consignTrmtAmtTot
 						};
 				}else if(_gridSe == '2'){
-					console.log('2');
 					hiddenGrdVO = {
 							yr: item.yr
 							,brno: item.brno
@@ -1315,7 +1311,6 @@
 
 							,trgtTrmtRt: item.trgtTrmtRt
 						};
-					console.log(hiddenGrdVO);
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

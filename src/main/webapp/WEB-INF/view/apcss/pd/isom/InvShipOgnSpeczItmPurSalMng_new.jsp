@@ -27,7 +27,9 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
+					<c:if test="${loginVO.apoSe ne '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					</c:if>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 
 					<c:if test="${loginVO.userType ne '02'}">
@@ -1058,6 +1060,9 @@
 					//저장 버튼만 숨김처리
 					$('#btnSaveFclt').hide();
 					$('#btnSaveFclt2').hide();
+
+					$('#btnTempSave').hide();
+					$('#btnTempSave2').hide();
 				}
 				</c:if>
 				let PrdcrOgnCurntMngVO = {
@@ -1140,6 +1145,9 @@
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
 					$('#btnSaveFclt1').hide();
+
+					$('#btnTempSave').hide();
+					$('#btnTempSave2').hide();
 				}
 			});
 			fn_searchUoList();

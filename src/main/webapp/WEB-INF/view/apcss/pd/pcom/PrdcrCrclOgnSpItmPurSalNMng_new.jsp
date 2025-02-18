@@ -1006,8 +1006,9 @@
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					//저장 버튼만 숨김처리
+					//저장 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
+					$('#btnTempSave').hide();
 					$('#btnTempSave2').hide();
 				}
 			});

@@ -27,7 +27,9 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
+					<c:if test="${loginVO.apoSe ne '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					</c:if>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_listSave"></sbux-button>
@@ -1694,6 +1696,10 @@
 					$('#btnSaveFclt1').hide();
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
+
+					$('#btnTempSave1').hide();
+					$('#btnTempSave2').hide();
+					$('#btnTempSave3').hide();
 				}
 				</c:if>
 				let PrdcrOgnCurntMngVO = {
@@ -1767,15 +1773,20 @@
 				SBUxMethod.set('dtl-input-prfmncCorpDdlnYn',gfn_nvl(item.prfmncCorpDdlnYn))//실적 법인체 마감
 				if(gfn_isEmpty(item.yr)){
 					//저장 버튼 숨김처리
-					$('#btnSaveFclt1').hide();
+					$('#.btn').hide();
 					alert('신청정보가 없습니다');
 				}
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
+					$('#btnSaveFclt1').hide();
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
+
+					$('#btnTempSave1').hide();
+					$('#btnTempSave2').hide();
+					$('#btnTempSave3').hide();
 				}
 			});
 			//총매입매출은 전체 값이 다보여야 해서 통합조직을 고르지 않음
