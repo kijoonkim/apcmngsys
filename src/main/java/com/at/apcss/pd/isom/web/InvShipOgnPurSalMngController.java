@@ -217,4 +217,19 @@ public class InvShipOgnPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 로우데이터 조회
+	@PostMapping(value = "/pd/isom/selectInvShipOgnPurSalMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<InvShipOgnPurSalMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = invShipOgnPurSalMngService.selectRawDataList2025(InvShipOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

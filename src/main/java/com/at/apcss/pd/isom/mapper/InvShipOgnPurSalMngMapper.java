@@ -83,7 +83,19 @@ public interface InvShipOgnPurSalMngMapper {
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총매입매출 로우데이터를 조회 한다.2024년
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
 	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+
+	/**
+	 * 출자출하조직 총매입매출 로우데이터를 조회 한다.2025년
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총매입매출 입시저장

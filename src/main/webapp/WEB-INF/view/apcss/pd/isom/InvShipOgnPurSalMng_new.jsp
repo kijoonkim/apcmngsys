@@ -2663,45 +2663,66 @@
 			{caption: ["분류코드"],		ref: 'ctgryCd',               type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["분류명"],		ref: 'ctgryNm',               type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["통합조직사업자번호"],		ref: 'uoBrno',                type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["통합조직명"],		ref: 'uoCorpNm',              type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 수탁 물량(톤)"],		ref: 'prchsTrstVlm',          type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 수탁 금액(천원)"],		ref: 'prchsTrstAmt',          type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 매취 물량(톤)"],		ref: 'prchsEmspapVlm',        type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 매취 금액(천원)"],		ref: 'prchsEmspapAmt',        type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 합계 물량(톤)"],		ref: 'prchsVlmTot',           type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 합계 금액(천원)"],		ref: 'prchsAmtTot',           type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["기타 물량(톤)"],		ref: 'etcVlm',                type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["기타 금액(천원)"],		ref: 'etcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 합계 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["매입 합계 금액(천원)"],		ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총취급실적 물량(톤)"],		ref: 'totTrmtPrfmncVlm1',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총취급실적 금액(천원)"],		ref: 'totTrmtPrfmncAmt1',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["통합조직명"],			ref: 'uoCorpNm',              type:'output',  width:'70px',	style:'text-align:center'},
+			/*매입*/
+			/*= 수탁 =*/
+			{caption: ["매입 공동선별수탁 물량(톤)"], 	ref: 'prchsSortTrstVlm',   	type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 공동선별수탁 금액(천원)"], 	ref: 'prchsSortTrstAmt',   	type:'input',  width:'70px',    style:'text-align:right'},
+
+			{caption: ["매입 공동출하수탁 물량(톤)"], 	ref: 'prchsSpmtTrstVlm',   	type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 공동출하수탁 금액(천원)"], 	ref: 'prchsSpmtTrstAmt',   	type:'input',  width:'70px',    style:'text-align:right'},
+
+			{caption: ["매입 단순수탁 물량(톤)"], 		ref: 'prchsSmplTrstVlm',   	type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 단순수탁 금액(천원)"], 	ref: 'prchsSmplTrstAmt',   	type:'input',  width:'70px',    style:'text-align:right'},
+
+			{caption: ["매입 수탁소계 물량(톤)"], 		ref: 'prchsTrstVlm',   	type:'output',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 수탁소계 금액(천원)"], 	ref: 'prchsTrstAmt',   	type:'output',  width:'70px',    style:'text-align:right;'},
+
+			/*= 매취 =*/
+			{caption: ["매입 공동선별매취 물량(톤)"], 	ref: 'prchsSortEmspapVlm',   type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 공동선별매취 금액(천원)"], 	ref: 'prchsSortEmspapAmt',   type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 단순매취 물량(톤)"], 		ref: 'prchsSmplEmspapVlm',   type:'input',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 단순매취 금액(천원)"], 	ref: 'prchsSmplEmspapAmt',   type:'input',  width:'70px',    style:'text-align:right'},
+
+			{caption: ["매입 매취소계 물량(톤)"], 		ref: 'prchsEmspapVlm',   type:'output',  width:'70px',    style:'text-align:right'},
+			{caption: ["매입 매취소계 금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'output',  width:'70px',    style:'text-align:right;'},
+
+			/*= 매입 합계 =*/
+			{caption: ["합계 물량(톤)"], 			ref: 'prchsTotVlm',   		type:'output',  width:'70px',    style:'text-align:right'},
+			{caption: ["합계 금액(천원)"], 			ref: 'prchsTotAmt',   		type:'output',  width:'70px',    style:'text-align:right'},
+
+
+			/*매출 취급실적*/
+			{caption: ["총취급실적 물량(톤)"],		ref: 'totTrmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총취급실적 금액(천원)"],	ref: 'totTrmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체수출 물량(톤)"],		ref: 'ddcExprtVlm',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체수출 금액(천원)"],		ref: 'ddcExprtAmt',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["자체공판장 물량(톤)"],		ref: 'ddcVlm',                type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["자체공판장 금액(천원)"],		ref: 'ddcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["자체공판장 금액(천원)"],	ref: 'ddcAmt',                type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["군납 물량(톤)"],		ref: 'ddcArmyDlvgdsVlm',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["군납 금액(천원)"],		ref: 'ddcArmyDlvgdsAmt',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["학교급식 물량(톤)"],		ref: 'ddcMlsrVlm',            type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["학교급식 금액(천원)"],		ref: 'ddcMlsrAmt',            type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공제대상 소계 물량(톤)"],		ref: 'ddcVlmTot',             type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공제대상 소계 금액(천원)"],		ref: 'ddcAmtTot',             type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["조정 취급실적 물량(톤)"],		ref: 'ajmtVlm',               type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["조정 취급실적 금액(A)"],		ref: 'ajmtAmt',               type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총 출하실적 물량(톤)"],		ref: 'totSpmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["총 출하실적 금액(천원)"],		ref: 'totSpmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공제대상 소계 물량(톤)"],	ref: 'ddcVlmTot',             type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공제대상 소계 금액(천원)"],	ref: 'ddcAmtTot',             type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["조정 취급실적 물량(톤)"],	ref: 'ajmtVlm',               type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["조정 취급실적 금액(A)"],	ref: 'ajmtAmt',               type:'output',  width:'70px',	style:'text-align:center'},
+			/*
+			{caption: ["총 출하실적 물량(톤)"],	ref: 'totSpmtPrfmncVlm',      type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["총 출하실적 금액(천원)"],	ref: 'totSpmtPrfmncAmt',      type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["단순기표 물량(톤)"],		ref: 'smplInptVlm',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["단순기표 금액(천원)"],		ref: 'smplInptAmt',           type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["출하실적 물량(톤)"],		ref: 'spmtPrfmncVlm',         type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["출하실적 금액(B)"],		ref: 'spmtPrfmncAmt',         type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동선별수탁 물량(톤)"],		ref: 'slsCprtnSortTrstVlm',   type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동선별수탁 금액(천원)"],		ref: 'slsCprtnSortTrstAmt',   type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동선별매취 물량(톤)"],		ref: 'slsCprtnSortEmspapVlm', type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동선별매취 금액(천원)"],		ref: 'slsCprtnSortEmspapAmt', type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동출하수탁 물량(톤)"],		ref: 'slsCprtnTrstVlm',       type:'output',  width:'70px',	style:'text-align:center'},
-			{caption: ["공동출하수탁 금액(천원)"],		ref: 'slsCprtnTrstAmt',       type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 물량(톤)"],	ref: 'slsCprtnSortTrstVlm',   type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별수탁 금액(천원)"],	ref: 'slsCprtnSortTrstAmt',   type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별매취 물량(톤)"],	ref: 'slsCprtnSortEmspapVlm', type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동선별매취 금액(천원)"],	ref: 'slsCprtnSortEmspapAmt', type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동출하수탁 물량(톤)"],	ref: 'slsCprtnTrstVlm',       type:'output',  width:'70px',	style:'text-align:center'},
+			{caption: ["공동출하수탁 금액(천원)"],	ref: 'slsCprtnTrstAmt',       type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["합계 물량(톤)"],		ref: 'slsCprtnVlmTot',        type:'output',  width:'70px',	style:'text-align:center'},
 			{caption: ["합계 금액(천원)"],		ref: 'slsCprtnAmtTot',        type:'output',  width:'70px',	style:'text-align:center'},
+			*/
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -2716,7 +2737,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnPurSalMngRawDataList2025.do", {
 			yr : yr
 		});
 
@@ -2741,14 +2762,26 @@
 						,uoBrno					: item.uoBrno
 						,uoCorpNm				: item.uoCorpNm
 
+						,prchsSortTrstVlm		: Number(item.prchsSortTrstVlm)
+						,prchsSortTrstAmt		: Number(item.prchsSortTrstAmt)
+						,prchsSpmtTrstVlm		: Number(item.prchsSpmtTrstVlm)
+						,prchsSpmtTrstAmt		: Number(item.prchsSpmtTrstAmt)
+						,prchsSmplTrstVlm		: Number(item.prchsSmplTrstVlm)
+						,prchsSmplTrstAmt		: Number(item.prchsSmplTrstAmt)
 						,prchsTrstVlm			: Number(item.prchsTrstVlm)
 						,prchsTrstAmt			: Number(item.prchsTrstAmt)
+						,prchsSortEmspapVlm		: Number(item.prchsSortEmspapVlm)
+						,prchsSortEmspapAmt		: Number(item.prchsSortEmspapAmt)
+						,prchsSmplEmspapVlm		: Number(item.prchsSmplEmspapVlm)
+						,prchsSmplEmspapAmt		: Number(item.prchsSmplEmspapAmt)
 						,prchsEmspapVlm			: Number(item.prchsEmspapVlm)
 						,prchsEmspapAmt			: Number(item.prchsEmspapAmt)
-						,prchsVlmTot			: Number(item.prchsTotVlm)
-						,prchsAmtTot			: Number(item.prchsTotAmt)
-						,etcVlm					: Number(item.etcVlm)
-						,etcAmt					: Number(item.etcAmt)
+
+						,prchsTotVlm			: Number(item.prchsTotVlm)
+						,prchsTotAmt			: Number(item.prchsTotAmt)
+
+						//,etcVlm					: Number(item.etcVlm)
+						//,etcAmt					: Number(item.etcAmt)
 
 						,slsCprtnSortTrstVlm	: Number(item.slsCprtnSortTrstVlm)
 						,slsCprtnSortTrstAmt	: Number(item.slsCprtnSortTrstAmt)
@@ -2774,10 +2807,9 @@
 						,smplInptAmt			: Number(item.smplInptAmt)
 						,ajmtVlm				: Number(item.ajmtVlm)
 						,ajmtAmt				: Number(item.ajmtAmt)
+
 						,totTrmtPrfmncVlm		: Number(item.totTrmtPrfmncVlm)
 						,totTrmtPrfmncAmt		: Number(item.totTrmtPrfmncAmt)
-						,totTrmtPrfmncVlm1		: Number(item.totTrmtPrfmncVlm)
-						,totTrmtPrfmncAmt1		: Number(item.totTrmtPrfmncAmt)
 						,totSpmtPrfmncVlm		: Number(item.totSpmtPrfmncVlm)
 						,totSpmtPrfmncAmt		: Number(item.totSpmtPrfmncAmt)
 				}

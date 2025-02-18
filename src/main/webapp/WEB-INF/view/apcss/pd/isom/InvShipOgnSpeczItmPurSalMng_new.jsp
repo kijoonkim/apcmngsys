@@ -1618,18 +1618,31 @@
 			{caption: ["법인명"],					ref:'corpNm',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"],			ref:'uoBrno',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["통합조직 법인명"],			ref:'uoCorpNm',			type:'output',width:'70px',	style:'text-align:center'},
+
 			{caption: ["통합조직 구분"],				ref:'aprv',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["구분"],					ref:'typeSeNo',			type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["구분명"],					ref:'typeSeNoNm',		type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["구분명"],					ref:'seNm',				type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["취급유형"],					ref:'trmtTypeNm',		type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["매입처"],					ref:'prchsNm',			type:'output',width:'70px',	style:'text-align:center'},
+
 			{caption: ["품목명"],					ref:'itemNm',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["분류명"],					ref:'ctgryNm',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["전문/육성 구분"],			ref:'sttgUpbrItemNm',	type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["취급유형"],					ref:'trmtTypeNm',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["생산자조직 번호"],			ref:'prdcrOgnzSn',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["생산자조직명"],				ref:'prdcrOgnzNm',		type:'output',width:'70px',	style:'text-align:center'},
+
+			{caption: ["판매위임 매입 물량"],			ref:'slsCnsgnPrchsVlm',	type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["판매위임 매입 금액"],			ref:'slsCnsgnPrchsAmt',	type:'output',width:'70px',	style:'text-align:center'},
+
+			{caption: ["출하 매출 물량 통합조직에 출하"],	ref:'uoSpmtVlm',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["출하 매출 금액 통합조직에 출하"],	ref:'uoSpmtAmt',		type:'output',width:'70px',	style:'text-align:center'},
+
+			{caption: ["출하 매출 물량 통합조직 외 출하"],	ref:'uoOtherSpmtVlm',	type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["출하 매출 금액 통합조직 외 출하"],	ref:'uoOtherSpmtAmt',	type:'output',width:'70px',	style:'text-align:center'},
+
+			{caption: ["출하 매출 합계 물량"],			ref:'spmtVlmTot',	type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["출하 매출 합계 금액"],			ref:'spmtAmtTot',	type:'output',width:'70px',	style:'text-align:center'},
+
 			{caption: ["비고"],					ref:'rmrk',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["적합여부"],					ref:'stbltYn',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["선정여부"],					ref:'lastStbltYn',		type:'output',width:'70px',	style:'text-align:center'}
@@ -1647,7 +1660,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", {
 		    yr : yr
 			});
 
@@ -1662,18 +1675,28 @@
 					,corpNm				: item.corpNm
 					,uoBrno				: item.uoBrno
 					,uoCorpNm			: item.uoCorpNm
+					,itemNm				: item.itemNm
 					,aprv				: item.aprv
 					,typeSeNo			: item.typeSeNo
-					,typeSeNoNm			: item.typeSeNoNm
-					,itemNm				: item.itemNm
+					,seNm				: item.seNm
 					,ctgryNm			: item.ctgryNm
 					,sttgUpbrItemNm		: item.sttgUpbrItemNm
 					,trmtTypeNm			: item.trmtTypeNm
+					,prchsNm			: item.prchsNm
 					,prdcrOgnzSn		: item.prdcrOgnzSn
 					,prdcrOgnzNm		: item.prdcrOgnzNm
+
 					,slsCnsgnPrchsAmt	: Number(item.slsCnsgnPrchsAmt)
 					,uoSpmtAmt			: Number(item.uoSpmtAmt)
 					,uoOtherSpmtAmt		: Number(item.uoOtherSpmtAmt)
+
+					,slsCnsgnPrchsVlm	: Number(item.slsCnsgnPrchsVlm)
+					,uoSpmtVlm			: Number(item.uoSpmtVlm)
+					,uoOtherSpmtVlm		: Number(item.uoOtherSpmtVlm)
+
+					,spmtVlmTot			: Number(item.spmtVlmTot)
+					,spmtAmtTot			: Number(item.spmtAmtTot)
+
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 					,lastStbltYn		: item.lastStbltYn

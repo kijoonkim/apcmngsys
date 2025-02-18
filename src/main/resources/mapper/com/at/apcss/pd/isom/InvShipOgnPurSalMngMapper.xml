@@ -1637,6 +1637,155 @@
 		ORDER BY BRNO , PRCHS_SLS_SE  , A.STTG_UPBR_ITEM_SE , UO_BRNO , ITEM_CD
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectRawDataList2025	-->
+	<!-- DESC : 출자출하조직 총 매입매출 로우데이터 조회 2025년                                   	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		SELECT /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectRawDataList2025 */
+			YR
+			, BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CM.BRNO) AS CORP_NM
+			, UO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = CM.UO_BRNO) AS UO_CORP_NM
+			, DECODE( (SELECT
+							(SELECT APRV FROM TB_EV_APO WHERE BRNO = EAM.UO_BRNO)
+						FROM TB_EV_APLY_MNG EAM
+						WHERE YR = CM.YR
+						  AND BRNO = CM.BRNO
+						  AND APO_SE = '2'
+						)
+						, '1' , '승인형'
+						, '2' , '육성형'
+						, ''
+			) AS APRV
+			, PRCHS_SLS_SE
+			, DECODE(CM.PRCHS_SLS_SE,'1','매입',2,'매출','') AS PRCHS_SLS_SE_NM
+			, STTG_UPBR_ITEM_SE
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = CM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+			, ITEM_CD
+			, (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = CM.ITEM_CD) AS ITEM_NM
+			, CTGRY_CD
+			, (SELECT CD_VL_NM
+				FROM TB_COM_CD_DTL
+				WHERE CD_ID = 'CTGRY_CD'
+				  AND CD_VL = (SELECT CTGRY_CD
+				  				FROM TB_EV_APO_YR_GPC_CD
+				  				WHERE APO_SE = '2'
+				  				  AND BRNO = CM.BRNO
+				  				  AND YR = CM.YR
+				  				  AND ITEM_CD = CM.ITEM_CD)
+			) AS CTGRY_NM
+
+			/*매입*/
+			/*수탁*/
+			, CM.PRCHS_SORT_TRST_VLM
+			, CM.PRCHS_SORT_TRST_AMT
+			, CM.PRCHS_SPMT_TRST_VLM
+			, CM.PRCHS_SPMT_TRST_AMT
+			, CM.PRCHS_SMPL_TRST_VLM
+			, CM.PRCHS_SMPL_TRST_AMT
+			, NVL(CM.PRCHS_SORT_TRST_VLM, 0) + NVL(CM.PRCHS_SPMT_TRST_VLM,0) + NVL(CM.PRCHS_SMPL_TRST_VLM,0) AS PRCHS_TRST_VLM
+			, NVL(CM.PRCHS_SORT_TRST_AMT, 0) + NVL(CM.PRCHS_SPMT_TRST_AMT,0) + NVL(CM.PRCHS_SMPL_TRST_AMT,0) AS PRCHS_TRST_AMT
+			/*매취*/
+			, CM.PRCHS_SORT_EMSPAP_VLM
+			, CM.PRCHS_SORT_EMSPAP_AMT
+			, CM.PRCHS_SMPL_EMSPAP_VLM
+			, CM.PRCHS_SMPL_EMSPAP_AMT
+			, NVL(CM.PRCHS_SORT_EMSPAP_VLM, 0) + NVL(CM.PRCHS_SMPL_EMSPAP_VLM,0) AS PRCHS_EMSPAP_VLM
+			, NVL(CM.PRCHS_SORT_EMSPAP_AMT, 0) + NVL(CM.PRCHS_SMPL_EMSPAP_AMT,0) AS PRCHS_EMSPAP_AMT
+
+			, NVL(CM.PRCHS_SORT_TRST_VLM, 0) + NVL(CM.PRCHS_SPMT_TRST_VLM,0) + NVL(CM.PRCHS_SMPL_TRST_VLM,0)
+				 + NVL(CM.PRCHS_SORT_EMSPAP_VLM,0) + NVL(CM.PRCHS_SMPL_EMSPAP_VLM,0) AS PRCHS_TOT_VLM
+			, NVL(CM.PRCHS_SORT_TRST_AMT, 0) + NVL(CM.PRCHS_SPMT_TRST_AMT,0) + NVL(CM.PRCHS_SMPL_TRST_AMT,0)
+				 + NVL(CM.PRCHS_SORT_EMSPAP_AMT,0) + NVL(CM.PRCHS_SMPL_EMSPAP_AMT,0) AS PRCHS_TOT_AMT
+
+			/*매출*/
+			/* 매출 수탁 */
+			, SLS_CPRTN_TRST_VLM
+			, SLS_CPRTN_TRST_AMT
+			, SLS_CPRTN_SORT_TRST_VLM
+			, SLS_CPRTN_SORT_TRST_AMT
+			, SLS_SMPL_TRST_VLM
+			, SLS_SMPL_TRST_AMT
+
+			, NVL(CM.SLS_CPRTN_TRST_VLM, 0) + NVL(CM.SLS_CPRTN_SORT_TRST_VLM,0) + NVL(CM.SLS_SMPL_TRST_VLM,0) AS SLS_TRST_VLM
+			, NVL(CM.SLS_CPRTN_TRST_AMT, 0) + NVL(CM.SLS_CPRTN_SORT_TRST_AMT,0) + NVL(CM.SLS_SMPL_TRST_AMT,0) AS SLS_TRST_AMT
+
+			/* 매출 매취 */
+			, CM.SLS_CPRTN_SORT_EMSPAP_VLM
+			, CM.SLS_CPRTN_SORT_EMSPAP_AMT
+			, CM.SLS_SMPL_EMSPAP_VLM
+			, CM.SLS_SMPL_EMSPAP_AMT
+
+			, NVL(CM.SLS_CPRTN_SORT_EMSPAP_VLM, 0) + NVL(CM.SLS_SMPL_EMSPAP_VLM,0) AS SLS_EMSPAP_VLM
+			, NVL(CM.SLS_CPRTN_SORT_EMSPAP_AMT, 0) + NVL(CM.SLS_SMPL_EMSPAP_AMT,0) AS SLS_EMSPAP_AMT
+
+			, CM.DDC_VLM
+			, CM.DDC_AMT
+
+			/* 매출 합계 */
+			, NVL(CM.SLS_CPRTN_TRST_VLM, 0) + NVL(CM.SLS_CPRTN_SORT_TRST_VLM,0) + NVL(CM.SLS_SMPL_TRST_VLM,0)
+				 + NVL(CM.SLS_CPRTN_SORT_EMSPAP_VLM,0) + NVL(CM.SLS_SMPL_EMSPAP_VLM,0) AS SLS_TOT_VLM
+			, NVL(CM.SLS_CPRTN_TRST_AMT, 0) + NVL(CM.SLS_CPRTN_SORT_TRST_AMT,0) + NVL(CM.SLS_SMPL_TRST_AMT,0)
+				 + NVL(CM.SLS_CPRTN_SORT_EMSPAP_AMT,0) + NVL(CM.SLS_SMPL_EMSPAP_AMT,0) AS SLS_TOT_AMT
+
+			/*공제*/
+			, DDC_EXPRT_VLM
+			, DDC_EXPRT_AMT
+			, DDC_VLM
+			, DDC_AMT
+			, DDC_ARMY_DLVGDS_VLM
+			, DDC_ARMY_DLVGDS_AMT
+			, DDC_MLSR_VLM
+			, DDC_MLSR_AMT
+
+			, NVL(DDC_EXPRT_VLM , 0)
+				+ NVL(DDC_VLM , 0)
+				+ NVL(DDC_ARMY_DLVGDS_VLM , 0)
+				+ NVL(DDC_MLSR_VLM , 0)
+			AS DDC_VLM_TOT
+			, NVL(DDC_EXPRT_AMT , 0)
+				+ NVL(DDC_AMT , 0)
+				+ NVL(DDC_ARMY_DLVGDS_AMT , 0)
+				+ NVL(DDC_MLSR_AMT , 0)
+			AS DDC_AMT_TOT
+
+			, SPMT_PRFMNC_VLM
+			, SPMT_PRFMNC_AMT
+			, SMPL_INPT_VLM
+			, SMPL_INPT_AMT
+
+			, AJMT_VLM
+			, AJMT_AMT
+
+			/* 총 실적 */
+			, TOT_TRMT_PRFMNC_VLM
+			, TOT_TRMT_PRFMNC_AMT
+			, TOT_SPMT_PRFMNC_VLM
+			, TOT_SPMT_PRFMNC_AMT
+
+		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS CM
+		WHERE APO_SE ='2'
+		  AND YR = #{yr}
+		  AND BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61','beop01','beop02')
+								)
+		  AND ITEM_CD = (SELECT ITEM_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE APO_SE = '2'
+							  AND BRNO = CM.BRNO
+							  AND YR = CM.YR
+							  AND ITEM_CD = CM.ITEM_CD
+							  )
+		ORDER BY BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , ITEM_CD
+	</select>
+
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 	<!-- ==========================================================================	-->
@@ -1645,7 +1794,7 @@
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2024.12.09  	ljw        	Initial Creation                            -->
+	<!-- 2024.12.09  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectInvShipOgnPurSalMngNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
 		<![CDATA[

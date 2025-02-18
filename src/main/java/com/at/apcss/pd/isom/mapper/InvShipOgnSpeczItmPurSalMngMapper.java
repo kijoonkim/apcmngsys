@@ -42,13 +42,39 @@ public interface InvShipOgnSpeczItmPurSalMngMapper {
 
 	public void updateItemStbltYnInit(ItemStbltYnVO ItemStbltYnVo);
 
+	/**
+	 * 출자출하조직 전문품목 매입매출 로우데이터 조회 2024년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 */
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
-	//20241212 개발서버 테스트 화면용
+	/**
+	 * 출자출하조직 전문품목 매입매출 로우데이터 조회 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 */
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList2025(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 조회 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 */
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
-	//20241212 개발서버 테스트 화면용
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 저장 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return int
+	 */
 	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
-	//20241230 저장전 기존 자료 삭제 처리
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 저장 전 기존 데이터 삭제 처리
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return int
+	 */
 	public int updateDelYn(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO);
 
 	/**

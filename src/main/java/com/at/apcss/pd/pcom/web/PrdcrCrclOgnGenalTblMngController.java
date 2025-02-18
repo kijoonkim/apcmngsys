@@ -146,6 +146,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 	}
 
 	//적합여부 전체 갱신
+	//2024년 기준으로 되어 있음 사용시 수정 필요
 	@PostMapping(value = "/pd/pcom/updateAllUoStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> updateAllUoStbltYn(@RequestBody PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
 		logger.debug("/pd/aom/updateAllUoStbltYn.do >>> 호출 >>> ");
@@ -160,6 +161,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 		PrdcrCrclOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		try {
+			/*
 			//생산자조직 세부정보 갱신
 			int frmhsItemChk = PrdcrCrclOgnGenalTblMngService.updateFrmhsItem(PrdcrCrclOgnGenalTblMngVO);
 			//전문품목 매입매출 세부정보 갱신
@@ -177,7 +179,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 			resultMap.put("frmhsCnt", frmhsCnt);
 			resultMap.put("isoCnt", isoCnt);
 			resultMap.put("uoCnt", uoCnt);
-
+			*/
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

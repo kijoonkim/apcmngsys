@@ -1100,15 +1100,19 @@
 
 		FROM TB_EV_UO_ISO_ALL_PRCHS_SLS CM
 		WHERE APO_SE ='1'
-			AND YR = #{yr}
-			AND BRNO NOT IN (SELECT BRNO
-											FROM TB_COM_USER
-											WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
-										)
-			AND ITEM_CD = DECODE(CM.STTG_UPBR_ITEM_SE
-									, '3' , CM.ITEM_CD
-									, (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE BRNO = CM.BRNO AND YR = CM.YR AND ITEM_CD = CM.ITEM_CD)
+		  AND DEL_YN = 'N'
+		  AND YR = #{yr}
+		  AND BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
 								)
+		  AND ITEM_CD = (SELECT ITEM_CD
+							FROM TB_EV_APO_YR_GPC_CD
+							WHERE APO_SE = '1'
+							  AND BRNO = CM.BRNO
+							  AND YR = CM.YR
+							  AND ITEM_CD = CM.ITEM_CD
+							  )
 		ORDER BY BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , ITEM_CD
 	</select>
 

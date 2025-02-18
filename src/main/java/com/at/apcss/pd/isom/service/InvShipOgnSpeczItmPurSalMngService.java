@@ -44,13 +44,44 @@ public interface InvShipOgnSpeczItmPurSalMngService {
 
 	public int updateItemStbltYn(ItemStbltYnVO ItemStbltYnVo) throws Exception;
 
+	/**
+	 * 출자출하조직 전문품목 매입매출 로우데이터를 조회 한다. 2024년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 * @throws Exception
+	 */
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
 
-	//20241212 개발서버 신규 화면 조회
+	/**
+	 * 출자출하조직 전문품목 매입매출 로우데이터를 조회 한다. 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 * @throws Exception
+	 */
+	public List<InvShipOgnSpeczItmPurSalMngVO> selectRawDataList2025(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 조회 한다. 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 * @throws Exception
+	 */
 	public List<InvShipOgnSpeczItmPurSalMngVO> selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
-	//20241212 개발서버 신규 화면 등록
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 저장 한다. 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 * @throws Exception
+	 */
 	public int insertInvShipOgnSpeczItmPurSalMngNew(InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO) throws Exception;
-	//20241212 개발서버 신규 화면 등록
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 리스트를 저장 한다. 2025년
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @return List<InvShipOgnSpeczItmPurSalMngVO>
+	 * @throws Exception
+	 */
 	public int multiSaveInvShipOgnSpeczItmPurSalMngListNew(List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList) throws Exception;
 
 	/**
