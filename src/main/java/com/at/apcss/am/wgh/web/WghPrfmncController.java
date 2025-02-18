@@ -521,7 +521,36 @@ public class WghPrfmncController extends BaseController {
 	 * @throws Exception
 	 */
 	@PostMapping(value = "/am/wgh/multiWghPrfmncList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiWghPrfmncList(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiWghPrfmncList(@RequestBody List<WghPrfmncVO> wghPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
+				wghPrfmncVO.setSysFrstInptUserId(getUserId());
+				wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wghPrfmncVO.setSysLastChgUserId(getUserId());
+				wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	@PostMapping(value = "/am/wgh/multiWghPrfmncList0669.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiWghPrfmncList0669(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Object wghPrfmncListData = param.get("multiList");
