@@ -77,7 +77,7 @@
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+<%--					<%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -101,8 +101,27 @@
 					</colgroup>
 					<tbody>
 						<tr>
+							<th scope="row" class="th_bg">APC명</th>
+							<td class="td_input" colspan="3">
+								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
+							</td>
+							<th scope="row" class="th_bg">계량대</th>
+							<td colspan="4" class="td_input" style="border-right: hidden">
+								<sbux-select
+									id="srch-slt-fcltCd"
+									name="srch-slt-fcltCd"
+									uitype="single"
+									jsondata-ref="jsonComFcltCd"
+									unselected-text="선택"
+									class="form-control input-sm"
+									wrap-style="width:60%">
+								</sbux-select>
+							</td>
+							<td colspan="4"></td>
+						</tr>
+						<tr>
 							<th scope="row" class="th_bg">입고일자</th>
-							<td class="td_input"style="border-right: hidden;">
+							<td class="td_input"style="; border-right: hidden">
 								<sbux-datepicker
 									uitype="popup"
 									id="srch-dtp-wrhsYmdFrom"
@@ -112,7 +131,7 @@
 									onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)"
 								></sbux-datepicker>
 							</td>
-							<td class="td_input"style="border-right: hidden;">
+							<td class="td_input"style=";border-right: hidden">
 								<sbux-datepicker
 									uitype="popup"
 									id="srch-dtp-wrhsYmdTo"
@@ -122,12 +141,12 @@
 									onchange="fn_dtpChange(srch-dtp-wrhsYmdTo)"
 								></sbux-datepicker>
 							</td>
-							<td style="border-right: hidden;">&nbsp;</td>
+							<td style=";border-right: hidden">&nbsp;</td>
 							<th scope="row" class="th_bg">품목/품종</th>
-							<td class="td_input"  style="border-right: hidden;">
+							<td class="td_input"  style=";border-right: hidden">
 								<sbux-select unselected-text="전체" uitype="single" id="srch-slt-itemCd" name="srch-slt-itemCd" class="form-control input-sm" jsondata-ref="jsonComItem" onchange="fn_selectItem"></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" style=";border-right: hidden">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-vrtyCd"
@@ -138,11 +157,11 @@
 									readonly
 								></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style=";border-right: hidden">
 								<sbux-button id="btnSrchVrty" name="btnSrchVrty" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vrty" onclick="fn_modalVrty"/>
 							</td>
 							<th scope="row" class="th_bg">생산자</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style=";border-right: hidden">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-prdcrNm"
@@ -157,7 +176,7 @@
    								></sbux-input>
    								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
 							</td>
-							<td class="td_input" style="border-right: hidden;">
+							<td class="td_input" style=";border-right: hidden">
 								<sbux-input
 									uitype="text"
 									id="srch-inp-prdcrIdentno"
@@ -327,6 +346,7 @@ async function cfn_search() {
 
     var jsonPrdcr				= [];
     var jsonPrdcrAutocomplete 	= [];
+	var jsonComFcltCd 			= [];
 
     var jsonWrhsSeCd			= [];	// 입고구분 checkbox 검색
    	var jsonGdsSeCd				= [];	// 상품구분 checkbox 검색
@@ -341,6 +361,7 @@ async function cfn_search() {
 		 	gfn_setComCdSBSelect('dtl-chk-wrhsSeCd', jsonWrhsSeCd, 'WRHS_SE_CD'),											// 입고구분
 		 	gfn_setComCdSBSelect('dtl-chk-gdsSeCd', jsonGdsSeCd, 'GDS_SE_CD', gv_selectedApcCd),							// 상품구분
 		 	gfn_setComCdSBSelect('dtl-chk-trsprtSeCd', jsonTrsprtSeCd, 'TRSPRT_SE_CD'),										// 운송구분
+			gfn_setComCdSBSelect('srch-slt-fcltCd', jsonComFcltCd, 'WGH_FCLT_CD', gv_selectedApcCd),							// 설비
 	 	]);
 		jsonWrhsSeCd = gfn_getJsonFilter(jsonWrhsSeCd, 'value', ["1", "2", "3"]);
 		jsonWrhsSeCd.forEach(e => e.checked = "checked");
@@ -349,6 +370,7 @@ async function cfn_search() {
 		SBUxMethod.refresh('dtl-chk-gdsSeCd');
 		jsonTrsprtSeCd.forEach(e => e.checked = "checked");
 		SBUxMethod.refresh('dtl-chk-trsprtSeCd');
+
 	}
 
     const fn_modalVrty = function() {
@@ -775,6 +797,7 @@ const fn_docRawMtrWrhsList = async function() {
 		let vrtyCd = vrtyCds.length > 0 ? vrtyCds.join(',') : "";
 
 		let invntrYn = SBUxMethod.get("srch-slt-invntrYn");
+		let fcltCd = SBUxMethod.get("srch-slt-fcltCd");
 
  	    try{
  	    	let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
@@ -791,6 +814,7 @@ const fn_docRawMtrWrhsList = async function() {
 	 				itemCd: itemCd,
 	 				vhclno: vhclno,
 	 				invntrYn: invntrYn,
+					fcltCd: fcltCd
 	 	          	// pagination
 	 	  	  		//pagingYn : 'Y',
 	 	  			//currentPageNo : pageNo,

@@ -700,7 +700,9 @@
 			   AND PC.APC_CD(+) = WP.APC_CD
 			   AND PC.WGHNO(+) = WP.WGHNO
 		]]>
-
+		<if test='fcltCd != null and fcltCd != ""'>
+			   AND PC.FCLT_CD = #{fcltCd}
+		</if>
 		<if test='apcCd != null and apcCd != ""'>
 			   AND WP.APC_CD = #{apcCd}
 		</if>
