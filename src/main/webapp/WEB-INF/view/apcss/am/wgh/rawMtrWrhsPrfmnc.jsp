@@ -491,6 +491,7 @@ async function cfn_search() {
                 typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true, fixedcellcheckbox : {usemode : true, rowindex : 0}}
             },
 	        {caption: ["입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'120px',    style:'text-align:center', format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
+			{caption: ["계량대"],		ref: 'fcltNm',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["생산자"],		ref: 'prdcrNm',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["참여조직명"],	ref: 'prdcrNm',      type:'output',  width:'120px',    style:'text-align:center'},
 	        {caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'90px',    style:'text-align:center'},
@@ -789,7 +790,7 @@ const fn_docRawMtrWrhsList = async function() {
 	 				vrtyCd: vrtyCd,
 	 				itemCd: itemCd,
 	 				vhclno: vhclno,
-	 				invntrYn: invntrYn
+	 				invntrYn: invntrYn,
 	 	          	// pagination
 	 	  	  		//pagingYn : 'Y',
 	 	  			//currentPageNo : pageNo,
@@ -845,7 +846,8 @@ const fn_docRawMtrWrhsList = async function() {
   						invntrQntt: item.invntrQntt,
   						invntrWght: item.invntrWght,
   						untPrc : item.untPrc,
-  						splyPrc : item.splyPrc
+  						splyPrc : item.splyPrc,
+						fcltNm : item.fcltNm
   				}
           		jsonRawMtrWrhs.push(rawMtrWrhs);
 

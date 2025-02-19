@@ -316,7 +316,6 @@ public class RawMtrWrhsVO extends ComVO {
 	 * 원물규격명
 	 * */
 	private String spcfctNm;
-
 	/*
 	 * 검수자
 	 * */
@@ -325,7 +324,14 @@ public class RawMtrWrhsVO extends ComVO {
      * 저장위치
      * */
     private String strgLoctnCd;
-
+	/*
+	 * 계량대 코드
+	 */
+	private String fcltCd;
+	/*
+	 * 계량대 명
+	 */
+	private String fcltNm;
 
 	/**
 	 * 표준등급 목록
