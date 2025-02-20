@@ -49,6 +49,9 @@ public class ClclnWkrptVO extends ComVO {
 	private int bxQnttFri;
 	private int bxQnttSat;
 	private int bxQnttSun;
+
+	private int bxQntt;
+	private int bxWght;
 	/*
 	 * 거래처(월~일)
 	 * */
@@ -59,6 +62,10 @@ public class ClclnWkrptVO extends ComVO {
 	private String prdcrNmFri;
 	private String prdcrNmSat;
 	private String prdcrNmSun;
+
+	private String prdcrNm;
+
+	private String dy;
 
 	/*
 	 * 입고토탈수

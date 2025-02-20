@@ -37,4 +37,10 @@ public class ClclnWkrptServiceImpl extends BaseServiceImpl implements ClclnWkrpt
 		return resultList;
 	}
 
+	@Override
+	public List<ClclnWkrptVO> selectWkrptLastQnttList(ClclnWkrptVO clclnWkrptVO) throws Exception {
+		List<ClclnWkrptVO> resultList = clclnWkrptMapper.selectWkrptLastQnttList(clclnWkrptVO);
+		return resultList;
+	}
+
 }
