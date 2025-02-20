@@ -1090,12 +1090,16 @@
 
 		//console.log(item);
 		//예외 품목인 경우
-		if(item.chkItemA == 'Y'){
+		if(item.aprv == '1' && item.chkItemA == 'Y'){
 			item.ctgryCd = '2'
 		}
 		//예외 품목인 경우
-		if(item.chkItemB == 'Y'){
+		if(item.aprv == '1' && item.chkItemB == 'Y'){
 			item.ctgryCd = '3'
+		}
+		//예외 품목인 경우
+		if(item.aprv == '1' && item.chkItemC == 'Y'){
+			item.ctgryCd = '1'
 		}
 
 		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){
