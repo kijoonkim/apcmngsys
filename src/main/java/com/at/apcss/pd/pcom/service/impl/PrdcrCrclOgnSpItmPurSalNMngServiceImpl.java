@@ -167,7 +167,7 @@ public class PrdcrCrclOgnSpItmPurSalNMngServiceImpl extends BaseServiceImpl impl
 
 			ItemStbltYnVo.setYr(yrVal);
 			ItemStbltYnVo.setBrno(brnoVal);
-			resultVoList = selectItemUoStbltYnList(ItemStbltYnVo);
+			resultVoList = selectItemUoStbltYnListNew(ItemStbltYnVo);
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
 				//적합여부 초기화
