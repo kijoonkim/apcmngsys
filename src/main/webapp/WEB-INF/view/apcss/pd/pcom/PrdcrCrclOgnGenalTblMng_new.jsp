@@ -789,6 +789,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -819,6 +821,8 @@
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 
 			,prfmncCorpDdlnYn : prfmncCorpDdlnYn //실적 법인체 마감 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
