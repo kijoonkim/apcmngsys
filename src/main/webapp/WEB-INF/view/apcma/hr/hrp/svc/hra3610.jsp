@@ -350,12 +350,12 @@
                                             <td class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="EARNER_NAME3" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panNonresidentInfo" required></sbux-input>
                                                 <sbux-input id="EARNER_CODE1" uitype="hidden" placeholder="" class="form-control input-sm"></sbux-input>
-                                            </td><%--
-                                            <th scope="row" class="th_bg">주민(사업자)등록번호</th>
+                                            </td>
+                                            <th scope="row" class="th_bg">사업장코드</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                                <sbux-input id="SOCIAL_NO3" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panNonresidentInfo" required></sbux-input>
-                                                <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm" style="display: none;"></sbux-select>
-                                            </td>--%>
+<!--                                                 <sbux-input id="SOCIAL_NO3" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panNonresidentInfo" required></sbux-input> -->
+                                                <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">내·외국인구분</th>
@@ -402,7 +402,7 @@
                                             <th scope="row" class="th_bg">소득종류</th>
                                             <td class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
+                                                    <button style="width:150px !important;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panNonresidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -413,7 +413,7 @@
                                             <th id="LBL_INCOME_SEC1" scope="row" class="th_bg">소득구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_SEC1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:200px !important;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="INCOME_SEC1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
