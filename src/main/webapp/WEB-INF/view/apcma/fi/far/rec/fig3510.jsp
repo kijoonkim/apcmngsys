@@ -1091,6 +1091,8 @@
     var editType = "Q";
     var copyMode = "clear";
 
+    var jsonBizCompData = []; // //공통 비즈니스 컴포넌트 데이터 
+
     var jsonDocType = []; // 전표구분
     var jsonVoucherType = []; // 증빙유형
     var jsonBankCode = []; // 은행코드
@@ -1103,8 +1105,6 @@
     var jsonBankAccountSeq = []; // 계좌정보
     var jsonVatCode = []; // 세금코드
     var jsonSiteCode = []; // 사업장
-    var jsonTaxSiteCode = []; // 사업장
-    var jsonBizCompData = []; // //공통 비즈니스 컴포넌트 데이터 
 
     //grid 초기화
     var gvwWFItem; 			// 그리드를 담기위한 객체 선언
@@ -1166,13 +1166,13 @@
                     {caption: "신고사업장명", ref: 'TX_SITE_NM', width: '150px', style: 'text-align:left'}
                 ]
 	            , returnData : function (data){
-	                if(data.cv_1.length == 0){
+	                if(data.length == 0){
 	                	return;
 	                }
-        			jsonTaxSiteCode.length = 0;
-        			for(var i = 0; data.cv_1.length > i; i++){
-        				jsonTaxSiteCode.push(data.cv_1[i]);
-        			}
+//         			jsonTaxSiteCode.length = 0;
+//         			for(var i = 0; data.cv_1.length > i; i++){
+//         				jsonTaxSiteCode.push(data.cv_1[i]);
+//         			}
 	        	}
             }, jsonBizCompData),
             // 전표구분
@@ -1255,8 +1255,8 @@
                 , colLabel: 'CRN_NM'
                 , columns: [
                     {caption: "통화", ref: 'CRN_CD', width: '100px', style: 'text-align:left'},
-                    {caption: "통화명", ref: 'CRN_NM', width: '100px', style: 'text-align:left'},
-                    {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
+                    {caption: "통화명", ref: 'CRN_NM', width: '150px', style: 'text-align:left'}
+//                     ,{caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     if(value == "KRW") {
@@ -1786,6 +1786,7 @@
                 SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CD));
                 SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NM));
                 gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
+// 				gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', gfn_nvl(data.CRN_CD));
                 SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CRN_CD));
 
                 SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
@@ -1874,7 +1875,6 @@
             , bizcompId: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
             , whereClause: strWhereClause
             , itemSelectEvent: function (data) {
-            	console.log('fn_findCsCode2 data == > ', data);
                 SBUxMethod.set('CS_CODE', data.CNPT_CD);
                 SBUxMethod.set('CS_NAME', data.CNPT_NM);
                 SBUxMethod.set('BIZ_REGNO', data.BRNO);
@@ -4227,12 +4227,12 @@
 
         for(var i=0; jsonBizCompData.length > i; i++){
         	if(jsonBizCompData[i].L_ORG003){
-        		jsonTaxSiteCode = jsonBizCompData[i].L_ORG003;
+		        if(jsonBizCompData[i].L_ORG003.length == 1){
+			        gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 	'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
+			        gfnma_multiSelectSet('#TAX_SITE_CODE', 		'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
+			        break;
+		        }
         	}
-        }
-        if(jsonTaxSiteCode.length == 1){
-	        gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 	'TX_SITE_CD', 'TX_SITE_NM', jsonTaxSiteCode[0].TX_SITE_CD);
-	        gfnma_multiSelectSet('#TAX_SITE_CODE', 		'TX_SITE_CD', 'TX_SITE_NM', jsonTaxSiteCode[0].TX_SITE_CD);
         }
         
         //사용자
@@ -5416,7 +5416,6 @@
                 jsonAccountLineList.length = 0;
 
                 var formData = listData.cv_1[0];
-console.log('formData',formData);
                 if(formData) {
                     SBUxMethod.set('KEY_ID', formData.KEY_ID);
                     SBUxMethod.set('ACCT_RULE_CODE', formData.GAAP_CD);
@@ -6696,7 +6695,7 @@ console.log('formData',formData);
     		    , 'L_CS_ACCOUNT' : ''
     		    , 'L_FIM052' : ''
     		    , 'L_FIG003' : ''
-    		    , 'L_COM001' : ''
+    		    , 'L_COM001' : "AND USE_YN = 'Y'"
     		    , 'L_ORG020' : ''
     		    , 'L_ORG001' : ''
     		    , 'P_FIM041' : ''
@@ -6705,7 +6704,6 @@ console.log('formData',formData);
     		    , 'L_ORG003' : ''
     		    , 'L_USER' : ''
     		    , 'L_RULE' : ''
-    		    , 'L_COM001' : ''
     		    , 'L_FIT005' : ''
     		    , 'L_FIT012' : ''
     		    , 'L_FIT011' : ''
@@ -6739,6 +6737,5 @@ console.log('formData',formData);
  		
  		return componentData.cv_1;
     }
-    
     
 </script>

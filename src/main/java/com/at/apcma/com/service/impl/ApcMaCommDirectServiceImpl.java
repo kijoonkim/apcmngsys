@@ -621,9 +621,12 @@ public class ApcMaCommDirectServiceImpl extends BaseServiceImpl implements ApcMa
 			}
 			// get userId
 			String userId = "";
-			if (param.get("userId") != null && !param.get("userId").toString().trim().isEmpty() && !"undefined".equals(param.get("userId").toString().trim())) {
+			if (param.get("userId") != null || !param.get("userId").toString().trim().isEmpty() || !"undefined".equals(param.get("userId").toString().trim())) {
 			    userId = param.get("userId").toString().trim();
 			}
+//			if (param.get("userId") != null && !param.get("userId").toString().trim().isEmpty() && !"undefined".equals(param.get("userId").toString().trim())) {
+//				userId = param.get("userId").toString().trim();
+//			}
 			//강제주입 - 파라미터
 			params[0] = "";
 			params[1] = "";
