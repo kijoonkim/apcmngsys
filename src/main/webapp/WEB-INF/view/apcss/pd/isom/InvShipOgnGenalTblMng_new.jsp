@@ -1444,6 +1444,7 @@
 			{caption: ["(C)자체판매액 생산자조직 출하 금액(천원)"],			ref:'uoOtherSpmtAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["자체판매액 생산자조직 외 출하 물량(톤)"],			ref:'uoOtherSpmtVlmOther',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(D)자체판매액 생산자조직 외 출하 금액(천원)"],		ref:'uoOtherSpmtAmtOther',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["(E=A+B+C+D)출자출하조직 총 물량(톤)"],			ref:'uoSpmtVlmTot',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(E=A+B+C+D)출자출하조직 총 판매액(천원)"],		ref:'uoSpmtAmtTot',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["[A/(A+C)]출자출하조직의 통합조직 판매위임비율 생산자조직출하 "],	ref:'uoSpmtAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["[(A+B)/E]출자출하조직의 통합조직 판매위임비율 전체출하 "],		ref:'uoSpmtAmtTotRt',	type:'output',width:'70px',style:'text-align:center'},
@@ -1501,6 +1502,7 @@
 					,uoOtherSpmtVlm			:Number(item.uoOtherSpmtVlm)
 					,uoOtherSpmtVlmOther	:Number(item.uoOtherSpmtVlmOther)
 
+					,uoSpmtVlmTot			:Number(item.uoSpmtVlmTot)
 					,uoSpmtAmtTot			:Number(item.uoSpmtAmtTot)
 					,uoSpmtAmtRt			:Number(item.uoSpmtAmtRt)
 					,uoSpmtAmtTotRt			:Number(item.uoSpmtAmtTotRt)

@@ -789,6 +789,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -819,6 +821,8 @@
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 
 			,prfmncCorpDdlnYn : prfmncCorpDdlnYn //실적 법인체 마감 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
@@ -1090,12 +1094,16 @@
 
 		//console.log(item);
 		//예외 품목인 경우
-		if(item.chkItemA == 'Y'){
+		if(item.aprv == '1' && item.chkItemA == 'Y'){
 			item.ctgryCd = '2'
 		}
 		//예외 품목인 경우
-		if(item.chkItemB == 'Y'){
+		if(item.aprv == '1' && item.chkItemB == 'Y'){
 			item.ctgryCd = '3'
+		}
+		//예외 품목인 경우
+		if(item.aprv == '1' && item.chkItemC == 'Y'){
+			item.ctgryCd = '1'
 		}
 
 		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){

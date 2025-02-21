@@ -893,6 +893,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -920,6 +922,8 @@
 			,stbltYnNm:'Y'
 			,yrChk : yrChkVal
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
