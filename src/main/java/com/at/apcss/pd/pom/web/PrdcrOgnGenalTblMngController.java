@@ -159,4 +159,18 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 생산자조직 총괄표 로우데이터 2025년
+	@PostMapping(value = "/pd/pom/selectRawDataPrdcrOgnzList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataPrdcrOgnzList2025(Model model, @RequestBody PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrOgnGenalTblMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrOgnGenalTblMngService.selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
 }
