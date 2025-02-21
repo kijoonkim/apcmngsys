@@ -70,9 +70,9 @@
                 <tr>
                     <th scope="row" class="th_bg_search">소득자 성명</th>
                     <td colspan="3" class="td_input" style="border-right:hidden;">
-                        <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                        <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm" style="border-right:none;"></sbux-input>
                     </td>
-                    <td></td>
+                    <td style="border-right:none;"></td>
                     <th id="TH_SRCH_BIZ_REGNO" scope="row" class="th_bg_search">사업자등록번호</th>
                     <td colspan="3" id="TD_SRCH_BIZ_REGNO" class="td_input" style="border-right:hidden;">
                         <sbux-input id="SRCH_BIZ_REGNO" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -134,7 +134,7 @@
                                             </td>
                                             <th scope="row" class="th_bg">사업장</th>
                                             <td colspan="2" class="td_input">
-                                                <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                                <sbux-select id="SITE_CODE" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -194,7 +194,7 @@
                                             <th scope="row" class="th_bg">개인/법인 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
-                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="BUSINESS_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="BUSINESS_TYPE1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
@@ -354,7 +354,7 @@
                                             <th scope="row" class="th_bg">사업장코드</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
 <!--                                                 <sbux-input id="SOCIAL_NO3" uitype="text" class="form-control input-sm inpt_data_reqed" mask = "999999-9999999" onchange="fnSocialNumChange(this)" group-id="panNonresidentInfo" required></sbux-input> -->
-                                                <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
+                                                <sbux-select id="SITE_CODE1" uitype="single" jsondata-ref="jsonSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"></sbux-select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -436,7 +436,7 @@
                                                         id="BIRTHDAY"
                                                         name="BIRTHDAY"
                                                         date-format="yyyy-mm-dd"
-                                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast"
+                                                        class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                                         style="width:100%;"
                                                 />
                                             </td>
@@ -953,7 +953,7 @@
             SBUxMethod.set("ADDRESS1", gfn_nvl(rowData.ADDRESS));
             gfnma_multiSelectSet('#BUSINESS_TYPE', 'SBSD_CD', 'CD_NM', gfn_nvl(rowData.BUSINESS_TYPE));
             SBUxMethod.set("BANK_CODE1", gfn_nvl(rowData.BANK_CODE));
-            SBUxMethod.set("BANK_NAME", gfn_nvl(rowData.BANK_NAME));
+            SBUxMethod.set("BANK_NAME1", gfn_nvl(rowData.BANK_NAME));
             SBUxMethod.set("BANK_ACCOUNT1", gfn_nvl(rowData.BANK_ACC_REAL));
             SBUxMethod.set("TEL1", gfn_nvl(rowData.TEL));
             SBUxMethod.set("BIRTHDAY", gfn_nvl(rowData.BIRTHDAY));
@@ -1303,7 +1303,7 @@
             getType				: 'json',
             workType			: strStatus,
             cv_count			: '0',
-            params				: gfnma_objectToString(paramObj)
+            params				: gfnma_objectToString(paramObj, true)
         });
 
         const data = await postJsonPromise;
