@@ -134,6 +134,7 @@
                                                 name="YYYYMMDD"
                                                 class="input-sm table-datepicker-ma"
                                                 autocomplete="off"
+                                                date-format="yyyy-mm-dd"
                                                 readonly
                                         ></sbux-datepicker>
                                     </td>
@@ -145,6 +146,7 @@
                                                 name="LUNAR_DATE"
                                                 class="input-sm table-datepicker-ma"
                                                 autocomplete="off"
+                                                date-format="yyyy-mm-dd"
                                                 readonly
                                         ></sbux-datepicker>
                                     </td>
@@ -456,7 +458,7 @@
     const fn_view = async function(date) {
         SBUxMethod.set("YYYYMMDD", date);
         let YYYYMMDD = gfn_nvl(SBUxMethod.get("YYYYMMDD"));
-        let YYYYMM = YYYYMMDD.substring(0.6);
+        let YYYYMM = YYYYMMDD.replaceAll('-','').slice(0, 6);
         let YYYY = gfn_nvl(SBUxMethod.get("SRCH_YYYY"));
 
         var paramObj = {
