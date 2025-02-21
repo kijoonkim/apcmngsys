@@ -1782,6 +1782,7 @@
 							  AND BRNO = CM.BRNO
 							  AND YR = CM.YR
 							  AND ITEM_CD = CM.ITEM_CD
+							  AND STTG_UPBR_ITEM_SE = CM.STTG_UPBR_ITEM_SE
 							  )
 		ORDER BY BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , ITEM_CD
 	</select>
