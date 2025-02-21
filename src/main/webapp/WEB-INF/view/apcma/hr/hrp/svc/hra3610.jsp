@@ -113,10 +113,10 @@
                                         <colgroup>
                                             <col style="width:17%">
                                             <col style="width:17%">
-                                            <col style="width:3%">
-                                            <col style="width:17%">
-                                            <col style="width:3%">
-                                            <col style="width:17%">
+                                            <col style="width:4%">
+                                            <col style="width:16%">
+                                            <col style="width:4%">
+                                            <col style="width:16%">
                                             <col style="width:17%">
                                         </colgroup>
                                         <tr>
@@ -139,7 +139,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">소득자 성명</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="EARNER_NAME1" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
                                             <td></td><%--
@@ -151,10 +151,9 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">사업자등록번호</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="BIZ_REGNO1" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
-                                            <td></td>
                                             <th scope="row" class="th_bg">상호</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="COMP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -162,7 +161,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">내·외국인구분</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <div class="dropdown">
                                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="FOREIGN_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
@@ -172,7 +171,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td></td>
                                             <th scope="row" class="th_bg">거주지국</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-select id="NATION_CODE" uitype="single" jsondata-ref="jsonNationCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-select>
@@ -180,7 +178,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">근무지역</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <div class="dropdown">
                                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="WORK_REGION" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
@@ -190,7 +188,6 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td></td>
                                             <th scope="row" class="th_bg">개인/법인 구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
@@ -205,17 +202,16 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">소득종류</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <div class="dropdown">
                                                     <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed" type="button" id="INCOME_TYPE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" group-id="panResidentInfo" required>
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="INCOME_TYPE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="INCOME_TYPE" style="width:250px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td></td>
                                             <th id="LBL_INCOME_SEC" scope="row" class="th_bg">소득구분</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
@@ -230,10 +226,9 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">신고사업장</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-select id="TAX_SITE_CODE1" uitype="single" jsondata-ref="jsonTaxSiteCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-select>
                                             </td>
-                                            <td></td>
                                             <th scope="row" class="th_bg">정산주기</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <div class="dropdown">
@@ -248,16 +243,16 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">사업장소재지</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="SITE_ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
-                                            <td colspan="4" class="td_input" style="border-right:hidden;">
+                                            <td colspan="3" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="SITE_ADDRESS" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">주소</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="ZIP_CODE" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                             <td colspan="4" class="td_input" style="border-right:hidden;">
@@ -266,10 +261,10 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">은행</th>
-                                            <td class="td_input" style="border-right:hidden;" data-group="BANK">
+                                            <td class="td_input" style="border-right:hidden;" data-group="BANK" colspan="2">
                                                 <sbux-input id="BANK_CODE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
-                                            <td colspan="2" class="td_input" style="border-right:hidden;" data-group="BANK">
+                                            <td colspan="" class="td_input" style="border-right:hidden;" data-group="BANK">
                                                 <sbux-input id="BANK_NAME" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
                                             <td class="td_input" style="border-right:hidden;" data-group="BANK">
@@ -287,10 +282,9 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">휴대폰번호</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="MOBILE_PHONE" uitype="text" placeholder="" class="form-control input-sm inpt_data_reqed" group-id="panResidentInfo" required></sbux-input>
                                             </td>
-                                            <td></td>
                                             <th scope="row" class="th_bg">이메일</th>
                                             <td colspan="2" class="td_input" style="border-right:hidden;">
                                                 <sbux-input id="EMAIL" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -298,7 +292,7 @@
                                         </tr>
                                         <tr>
                                             <th scope="row" class="th_bg">전화번호</th>
-                                            <td class="td_input" style="border-right:hidden;">
+                                            <td class="td_input" style="border-right:hidden;" colspan="2">
                                                 <sbux-input id="TEL" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
                                             </td>
                                         </tr>
@@ -341,8 +335,8 @@
                                             <col style="width:17%">
                                             <col style="width:17%">
                                             <col style="width:17%">
-                                            <col style="width:3%">
-                                            <col style="width:17%">
+                                            <col style="width:4%">
+                                            <col style="width:16%">
                                             <col style="width:17%">
                                         </colgroup>
                                         <tr>
@@ -406,7 +400,7 @@
                                                         <font>선택</font>
                                                         <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="INCOME_TYPE1" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+                                                    <div class="dropdown-menu" aria-labelledby="INCOME_TYPE1" style="width:250px;height:150px;padding-top:0px;overflow:auto">
                                                     </div>
                                                 </div>
                                             </td>
@@ -544,12 +538,12 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SBSD_CD'
                 ,colLabel		: 'CD_NM'
                 ,columns		:[
                     {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'},
                 ]
             }),
             // 거주지국
@@ -566,12 +560,12 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SBSD_CD'
                 ,colLabel		: 'CD_NM'
                 ,columns		:[
                     {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'},
                 ]
             }),
             // 개인/법인 구분
@@ -591,7 +585,7 @@
                 ,colLabel		: 'CD_NM'
                 ,columns		:[
                     {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'},
                 ]
             }),
             // 소득종류
@@ -606,12 +600,12 @@
                 ,menuId			: p_menuId
                 ,selectValue	: ''
                 ,dropType		: 'down' 	// up, down
-                ,dropAlign		: 'right' 	// left, right
+                ,dropAlign		: 'left' 	// left, right
                 ,colValue		: 'SBSD_CD'
                 ,colLabel		: 'CD_NM'
                 ,columns		:[
                     {caption: "코드",		ref: 'SBSD_CD', 			width:'100px',  	style:'text-align:left'},
-                    {caption: "명칭", 		ref: 'CD_NM',    		width:'100px',  	style:'text-align:left'},
+                    {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'},
                 ]
                 ,callback : function(data) {
                     if (gfn_nvl(data) == "") {
@@ -710,9 +704,10 @@
         SBGridProperties.id 				= 'gvwResident';
         SBGridProperties.jsonref 			= 'jsonResidentList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.allowcopy 			= true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.useinitsorting = true;
+        SBGridProperties.explorerbar 		= 'sort';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
@@ -796,6 +791,7 @@
         gvwResident = _SBGrid.create(SBGridProperties);
         gvwResident.bind('click', 'fn_view');
         gvwResident.bind('keyup', 'fn_keyup');
+        gvwResident.sortColumn( 0 , 'asc');
     }
 
     function fn_createGvwNonresidentGrid() {
@@ -806,7 +802,8 @@
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
-        SBGridProperties.useinitsorting = true;
+        SBGridProperties.explorerbar 		= 'sort';
+        SBGridProperties.useinitsorting 	= true;
         SBGridProperties.columns = [
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'80px',  style:'text-align:left'},
             {caption: ["사업장"], 		ref: 'SITE_CODE',   	    type:'combo', style:'text-align:left' ,width: '120px',
