@@ -16,6 +16,12 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String userAgent = request.getHeader("User-Agent");
+	boolean isMobile = userAgent.matches(".*(Mobile|Android|iPhone|iPad).*");
+%>
+<c:set var="isMobile" value="<%= isMobile %>" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1378,6 +1384,8 @@ input::-webkit-inner-spin-button {
 
 </body>
 <script type="text/javascript">
+	/** mobile **/
+	var isMobile = ${isMobile};
 
     let lv_rawMtrVlType;
 
@@ -1633,6 +1641,18 @@ input::-webkit-inner-spin-button {
 
     // only document
     window.addEventListener('DOMContentLoaded', function (e) {
+		console.log(isMobile);
+		if(isMobile){
+			if(document.documentElement.requestFullscreen){
+				document.documentElement.requestFullscreen();
+			}else if(document.documentElement.webkitRequestFullscreen){
+				document.documentElement.webkitRequestFullscreen()
+			}else if(document.documentElement.msRequestFullscreen){
+				document.documentElement.msRequestFullscreen();
+			}
+		}
+		fn_fullScreen();
+
         const el = document.querySelector(".srch-pltno")
         el.addEventListener("keyup", (event) => {
             if (event.keyCode === 13 && !event.altKey && !event.ctrlKey && !event.shiftKey) {

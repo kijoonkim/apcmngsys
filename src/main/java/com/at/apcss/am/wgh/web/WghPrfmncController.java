@@ -9,6 +9,7 @@ import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -555,6 +556,7 @@ public class WghPrfmncController extends BaseController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		Object wghPrfmncListData = param.get("multiList");
 		Object pltWrhsSpmtVOData = param.get("pltWrhsSpmt");
+		Object wghHstryListData = param.get("wghHstryList");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -567,6 +569,11 @@ public class WghPrfmncController extends BaseController {
 		List<PltWrhsSpmtVO> pltWrhsSpmtList = objectMapper.convertValue(
 				pltWrhsSpmtVOData,
 				new TypeReference<List<PltWrhsSpmtVO>>() {
+				}
+		);
+		List<WghHstryVO> wghHstryVOList = objectMapper.convertValue(
+				wghHstryListData,
+				new TypeReference<List<WghHstryVO>>() {
 				}
 		);
 
@@ -591,8 +598,14 @@ public class WghPrfmncController extends BaseController {
 				pltWrhsSpmtVO.setSysLastChgUserId(getUserId());
 				pltWrhsSpmtVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
+			for (WghHstryVO wghHstryVO : wghHstryVOList){
+				wghHstryVO.setSysFrstInptUserId(getUserId());
+				wghHstryVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wghHstryVO.setSysLastChgUserId(getUserId());
+				wghHstryVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
 
-			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList,pltWrhsSpmtList);
+			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList, pltWrhsSpmtList, wghHstryVOList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

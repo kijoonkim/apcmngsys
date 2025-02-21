@@ -114,6 +114,7 @@
 		},
 		callbackFnc: function() {},
 		init: async function(_apcCd, _apcNm, _callbackFnc, _vhclno) {
+			console.log("호출은가능?");
 			// set param
 			SBUxMethod.set("vhcl-inp-apcCd", _apcCd);
 			SBUxMethod.set("vhcl-inp-apcNm", _apcNm);
@@ -133,11 +134,11 @@
 				let rst = await Promise.all([
 					gfn_setComCdSBSelect('grdVhcl', jsonComBankCdVhclPop,'BANK_CD')		// 은행
 				]);
-				this.createGrid();
-				this.search();
+				await this.createGrid();
+				await this.search();
 			} else {
 			    grdVhclPop.bind('dblclick', popVhcl.choice);
-				this.search();
+				await this.search();
 			}
 
 			this.prvApcCd = _apcCd;

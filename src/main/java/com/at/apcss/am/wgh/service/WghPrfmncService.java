@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncVO;
@@ -204,7 +205,7 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList) throws Exception;
-	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception;
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList) throws Exception;
 	/**
 	 * 원물계량 정보 조회
 	 * @param wghPrfmnc
