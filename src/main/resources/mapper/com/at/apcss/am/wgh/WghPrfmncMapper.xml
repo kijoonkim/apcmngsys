@@ -1868,12 +1868,13 @@
 				AND WH.WGHNO = src.WGHNO
 				AND WH.WGH_SEQ = src.WGH_SEQ
 				AND WH.VHCLNO = src.VHCLNO
-				AND WGH_SE_CD = src.WGH_SE_CD
+				AND WH.WGH_SE_CD = src.WGH_SE_CD
 				AND DEL_YN = 'N'
 			   )
 		WHEN MATCHED THEN
 			UPDATE SET
 				WGH_WGHT = src.WGH_WGHT,
+			    WGH_DT = TO_DATE(src.WGH_DT, 'YYYYMMDDHH24MI'),
 				SYS_LAST_CHG_DT = SYSDATE,
 				SYS_LAST_CHG_USER_ID = src.SYS_LAST_CHG_USER_ID,
 				SYS_LAST_CHG_PRGRM_ID = src.SYS_LAST_CHG_PRGRM_ID
@@ -1891,6 +1892,7 @@
 					  PRCS_CMPTN_YN,
 					  WGH_RMRK,
 					  FCLT_CD,
+					  DEL_YN,
 					  SYS_FRST_INPT_DT,
 					  SYS_FRST_INPT_USER_ID,
 					  SYS_FRST_INPT_PRGRM_ID,
@@ -1905,12 +1907,13 @@
 					  src.VHCLNO,
 					  src.WGH_SE_CD,
 					  src.WGH_WGHT,
-					  TO_DATE(src.WGH_DT, 'HH24MI'),
+					  TO_DATE(src.WGH_DT, 'YYYYMMDDHH24MI'),
 					  src.PRCS_TASK_CD,
 					  src.PRCS_CMPTN_DT,
-					  src.PRCS_CMPTN_YN,
+			          'N',
 					  src.WGH_RMRK,
 					  src.FCLT_CD,
+					  'N',
 					  SYSDATE,
 					  src.SYS_FRST_INPT_USER_ID,
 					  src.SYS_FRST_INPT_PRGRM_ID,
@@ -2093,7 +2096,7 @@
 		FROM TB_WGH_HSTRY
 		WHERE APC_CD = #{apcCd}
 		  	AND DEL_YN = 'N'
-		  	AND WGH_SE_CD = #{wghSeCd}
+				AND WGH_SE_CD = #{wghSeCd}
 		  	AND WGHNO = #{wghno}
 		]]>
 
@@ -2125,5 +2128,28 @@
 			AND GRD_CD = #{vo.grdCd})
 		</foreach>
 	</delete>
+
+	<select id="selectWghHstryList" parameterType="com.at.apcss.am.wgh.vo.WghHstryVO" resultType="com.at.apcss.am.wgh.vo.WghHstryVO">
+		SELECT
+			 APC_CD AS APC_CD
+			,WGHNO AS WGHNO
+			,WGH_SEQ AS WGH_SEQ
+			,VHCLNO AS VHCLNO
+			,WGH_SE_CD AS WGH_SE_CD
+			,WGH_WGHT AS WGH_WGHT
+			,WGH_DT AS WGH_DT
+			,PRCS_TASK_CD AS PRCS_TASK_CD
+			,PRCS_CMPTN_DT AS PRCS_CMPTN_DT
+			,PRCS_CMPTN_YN AS PRCS_CMPTN_YN
+			,WGH_RMRK AS WGH_RMRK
+			,DEL_YN AS DEL_YN
+			,FCLT_CD AS FCLT_CD
+		FROM
+			TB_WGH_HSTRY
+		WHERE
+			APC_CD = #{apcCd}
+		AND	WGHNO = #{wghno}
+		ORDER BY WGH_SE_CD
+	</select>
 
 </mapper>

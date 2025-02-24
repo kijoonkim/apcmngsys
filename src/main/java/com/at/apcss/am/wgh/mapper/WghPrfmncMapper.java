@@ -267,4 +267,10 @@ public interface WghPrfmncMapper {
 	int deleteWghInspPrfmncList(List<WghInspPrfmncVO> wghInspPrfmncVOList) throws Exception;
 
 	int mergeWghHstry(List<WghHstryVO> wghHstryVOList) throws Exception;
+	/**
+	 * 계량이력 조회 for wghno
+	 * @param wghHstryVO
+	 * @return List<WghHstryVO>
+	 */
+	List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception;
 }

@@ -215,7 +215,7 @@
 								</td>
 								<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
 								<td colspan="9" class="td_input">
-									<div style="display: flex; gap: 10px; width: 50%">
+									<div style="display: flex; gap: 10px; width: 30%">
 										<sbux-datepicker
 												id="dtl-dtp-wghYmd"
 												name="dtl-dtp-wghYmd"
@@ -224,15 +224,15 @@
 												date-format="yyyy-mm-dd"
 												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
 										></sbux-datepicker>
-										<sbux-spinner
-												id="dtl-spi-wghDt"
-												name="dtl-spi-wghDt"
-												uitype="normal"
-												wrap-style="flex:1"
-												data-type="time"
-												time-format="HH:MM"
-												time-hours="24hours"
-										></sbux-spinner>
+<%--										<sbux-spinner--%>
+<%--												id="dtl-spi-wghDt"--%>
+<%--												name="dtl-spi-wghDt"--%>
+<%--												uitype="normal"--%>
+<%--												wrap-style="flex:1"--%>
+<%--												data-type="time"--%>
+<%--												time-format="HH:MM"--%>
+<%--												time-hours="24hours"--%>
+<%--										></sbux-spinner>--%>
 									</div>
 								</td>
 							</tr>
@@ -323,15 +323,16 @@
 										<div style="display: flex; align-items: center">
 											Kg
 										</div>
-										<div style="flex: 1">
-											<sbux-input
-													uitype="text"
+										<div style="flex-basis:45%; display: flex; align-items: center">
+											<sbux-spinner
 													id="dtl-inp-wholWghtTime"
 													name="dtl-inp-wholWghtTime"
-													class="form-control input-sm input-sm-ast"
-													autocomplete="off"
-													readonly
-											></sbux-input>
+													uitype="normal"
+													wrap-style="width: 100%"
+													data-type="time"
+													time-format="HH:MM"
+													time-hours="24hours"
+											></sbux-spinner>
 										</div>
 										<div style="display: flex">
 											<sbux-button
@@ -361,17 +362,18 @@
 											></sbux-input>
 										</div>
 										<div style="display: flex; align-items: center">
-											KG
+											Kg
 										</div>
-										<div style="flex: 1">
-											<sbux-input
-													uitype="text"
+										<div style="flex-basis:45%; display: flex; align-items: center">
+											<sbux-spinner
 													id="dtl-inp-emptVhclWghtTime"
 													name="dtl-inp-emptVhclWghtTime"
-													class="form-control input-sm input-sm-ast"
-													autocomplete="off"
-													readonly
-											></sbux-input>
+													uitype="normal"
+													wrap-style="width: 100%"
+													data-type="time"
+													time-format="HH:MM"
+													time-hours="24hours"
+											></sbux-spinner>
 										</div>
 										<div style="display: flex">
 											<sbux-button
@@ -385,39 +387,6 @@
 										</div>
 									</div>
 								</td>
-								<%--							<td class="td_input" style="border-right: hidden;">--%>
-								<%--								<sbux-input--%>
-								<%--									uitype="text"--%>
-								<%--									id="dtl-inp-emptVhclWght"--%>
-								<%--									name="dtl-inp-emptVhclWght"--%>
-								<%--									class="form-control input-sm input-sm-ast inpt_data_reqed"--%>
-								<%--									maxlength="6"--%>
-								<%--									autocomplete="off"--%>
-								<%--									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"--%>
-								<%--									onchange="fn_onChangeEmptVhclWght"--%>
-								<%--								></sbux-input>--%>
-								<%--							</td>--%>
-								<%--							<td>Kg</td>--%>
-								<%--							<td class="td_input" style="border-right:hidden;" >--%>
-								<%--								<sbux-input--%>
-								<%--									uitype="text"--%>
-								<%--									id="dtl-inp-emptVhclWghtTime"--%>
-								<%--									name="dtl-inp-emptVhclWghtTime"--%>
-								<%--									class="form-control input-sm input-sm-ast"--%>
-								<%--									autocomplete="off"--%>
-								<%--									readonly--%>
-								<%--								></sbux-input>--%>
-								<%--							</td>--%>
-								<%--							<td>--%>
-								<%--								<sbux-button--%>
-								<%--									id="btnEmptVhcl"--%>
-								<%--									name="btnEmptVhcl"--%>
-								<%--									class="btn btn-xs btn-outline-dark"--%>
-								<%--									text="측정"--%>
-								<%--									uitype="normal"--%>
-								<%--									onclick="fn_emptVhcl"--%>
-								<%--								></sbux-button>--%>
-								<%--							</td>--%>
 								<th scope="row" class="th_bg">실중량</th>
 								<td class="td_input" style="border-right:hidden;">
 									<sbux-input
@@ -715,9 +684,9 @@
 		SBUxMethod.set('dtl-dtp-wghYmd', gfn_dateToYmd(new Date()));
 	}
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_init();
-
+	window.addEventListener('DOMContentLoaded',async function(e) {
+		await fn_init();
+		await fn_search();
 	});
 	const getCookie = (name) => {
 		const value = `; ${'${document.cookie}'}`;
@@ -993,6 +962,35 @@
 			});
 		});
 		grdPltBox.rebuild();
+
+		/** 계량이력 시간 **/
+		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
+		const data = await postJsonPromiseHstry;
+
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
+		}
+
+		data.resultList.forEach(function(item,idx){
+			let time = fn_formatTime(item.wghDt);
+			if(idx == 0){
+				SBUxMethod.set("dtl-inp-wholWghtTime", time);
+			}else{
+				SBUxMethod.set("dtl-inp-emptVhclWghtTime", time);
+			}
+		});
+
+	}
+	const fn_formatTime = function(_date){
+		const dateStr = _date;
+		const date = new Date(dateStr.replace(" ", "T"));
+
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+
+		const result = hours + minutes;
+		return result;
 	}
 
 	/**
@@ -1181,7 +1179,7 @@
 			return;
 		}
 
-		let vrtyList = grdVrty.getGridDataAll();
+		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let total = 0;
 		for (var i=1; i<=vrtyList.length; i++) {
 
@@ -1413,8 +1411,17 @@
  		let shpgotPltQntt 	= SBUxMethod.get('dtl-inp-shpgotPltQntt') || "";
  		let oprtrNm 		= SBUxMethod.get('dtl-inp-oprtrNm') || "";
 
-		let vrtyList = grdVrty.getGridDataAll();
+		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let grdList = grdInsp.getGridDataAll();
+
+		/** 저장대상 없음 **/
+		const even = (el) => Object.keys(el).length > 1;
+
+		if(!vrtyList.some(even)){
+			gfn_comAlert("W0002","실적 대상");
+			return;
+		}
+
 		/** 검품등급 셋팅 **/
 		 const result = {};
 
@@ -1603,21 +1610,24 @@
 			fcltCd : fcltCd,
 		}
 		/** 계량 시각 **/
+		let emptyTime = SBUxMethod.get("dtl-inp-emptVhclWghtTime");
+		let wholTime = SBUxMethod.get("dtl-inp-wholWghtTime");
 		let wghDt = SBUxMethod.get("dtl-spi-wghDt");
+		/** 계량구분 코드**/
 		let wghSeCd = jsonWghSeCd.filter(item => item.cdChrVl === wrhsSpmtType);
 		let wghHstryList = [];
-		console.log(wghSeCd);
 		wghSeCd.forEach(function(item,idx){
 			let vo = JSON.parse(JSON.stringify(wghHstryVO));
 			/** 입출차, 입고출하로 무게 구분 **/
 			if(item.cdNumVl == "1"){
 				vo.wghWght = wrhsSpmtType == "RT" ? wholWght : emptVhclWght;
+				vo.wghDt = wghYmd + wholTime;
 			}else if(item.cdNumVl == "2"){
 				vo.wghWght = wrhsSpmtType == "RT" ? emptVhclWght : wholWght;
+				vo.wghDt = wghYmd + emptyTime;
 			}
 			vo.wghSeCd = item.cdVl;
 			vo.wghSeq = idx;
-			vo.wghDt = wghDt;
 			wghHstryList.push(vo);
 		});
 
@@ -1657,10 +1667,9 @@
 		let wght = $("#nowWght").text().replace(/,/g, "");
 		wght = parseFloat(wght) || 0;
 		let now = new Date();
-		const formattedDate = now.toLocaleString('ko-KR');
+		const formattedDate = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', '');
 		SBUxMethod.set('dtl-inp-wholWght', wght);
 		SBUxMethod.set('dtl-inp-wholWghtTime', formattedDate);
-		console.log(new Date(formattedDate));
 	}
 
 	/**
@@ -1671,7 +1680,8 @@
 		let wght = $("#nowWght").text().replace(/,/g, "");
 		wght = parseFloat(wght) || 0;
 		let now = new Date();
-		const formattedDate = now.toLocaleString('ko-KR');
+
+		const formattedDate = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', '');
 		SBUxMethod.set('dtl-inp-emptVhclWght', wght);
 		SBUxMethod.set('dtl-inp-emptVhclWghtTime', formattedDate);
 

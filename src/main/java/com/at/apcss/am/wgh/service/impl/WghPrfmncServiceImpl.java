@@ -613,7 +613,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 		/** 계량이력 실적 생성 및 수정 **/
 		for(WghHstryVO vo : wghHstryVOList){
-			vo.setWghNo(prcsNo);
+			vo.setWghno(prcsNo);
 		}
 		try{
 			int hstryCnt = wghPrfmncMapper.mergeWghHstry(wghHstryVOList);
@@ -1821,5 +1821,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception {
+		return wghPrfmncMapper.selectWghHstryList(wghHstryVO);
 	}
 }

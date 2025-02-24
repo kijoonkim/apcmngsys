@@ -11,13 +11,13 @@ public class WghHstryVO extends ComVO {
     private String apcCd;
 
     /** 계량 번호 */
-    private String wghNo;
+    private String wghno;
 
     /** 계량 순서 */
     private int wghSeq;
 
     /** 차량 번호 */
-    private String vhclNo;
+    private String vhclno;
 
     /** 계량 구분 코드 */
     private String wghSeCd;

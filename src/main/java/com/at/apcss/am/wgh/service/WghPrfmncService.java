@@ -270,4 +270,10 @@ public interface WghPrfmncService {
 	 * @return
 	 */
 	HashMap<String, Object> deleteWghPrfmncInspList(WghPrfmncVO wghPrfmncVO, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltWrhsSpmtVOList) throws Exception;
+	/**
+	 * 계량이력 조회 for wghno
+	 * @param wghHstryVO
+	 * @return List<WghHstryVO>
+	 */
+	List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception;
 }

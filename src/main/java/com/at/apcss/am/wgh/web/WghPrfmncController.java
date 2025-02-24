@@ -820,4 +820,23 @@ public class WghPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	@PostMapping(value = "/am/wgh/selectWghHstryList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectWghHstryList(@RequestBody WghHstryVO wghHstryVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<WghHstryVO> resultList = new ArrayList<>();
+	        try{
+				resultList = wghPrfmncService.selectWghHstryList(wghHstryVO);
+
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+	        return getSuccessResponseEntity(resultMap);
+	    }
+
 }
