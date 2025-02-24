@@ -179,6 +179,21 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// 로우데이터 조회
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnPurSalMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnPurSalMngService.selectRawDataList2025(PrdcrCrclOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 매입, 매출 리스트 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngListNew(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{

@@ -145,7 +145,27 @@ public class InvntrDscdServiceImpl extends BaseServiceImpl implements InvntrDscd
         return resultCnt;
     }
 
+    @Override
+    public List<DscdPrfmncVO> selectDscdCsCd(DscdPrfmncVO dscdPrfmncVO) throws Exception {
+        return invntrDscdMapper.selectDscdCsCd(dscdPrfmncVO);
+    }
 
+    @Override
+    public List<DscdPrfmncVO> selectDscdBadCd(DscdPrfmncVO dscdPrfmncVO) throws Exception {
+        return invntrDscdMapper.selectDscdBadCd(dscdPrfmncVO);
+    }
+
+    @Override
+    public int updateDscdPrfmncDtl(List<DscdPrfmncVO> dscdPrfmncList) throws Exception {
+        int updateCnt = 0;
+        for(DscdPrfmncVO dscdPrfmncVO : dscdPrfmncList){
+            updateCnt += invntrDscdMapper.updateDscdPrfmncDtl(dscdPrfmncVO);
+        }
+        if(updateCnt < 0){
+            throw new EgovBizException();
+        }
+        return updateCnt;
+    }
 
 
 }

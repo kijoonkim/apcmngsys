@@ -61,5 +61,27 @@ public class ClclnWkrptController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 주간 입고출고 현환 목록 조회
+		@PostMapping(value = "/am/clcln/selectWkrptLastQnttList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectWkrptLastQnttList(@RequestBody ClclnWkrptVO clclnWkrptVO, HttpServletRequest request) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<ClclnWkrptVO> resultList = new ArrayList<>();
+			try {
+				resultList = clclnWkrptService.selectWkrptLastQnttList(clclnWkrptVO);
+			} catch (Exception e) {
+				return getErrorResponseEntity(e);
+			} finally {
+				HashMap<String, Object> rtnObj = setMenuComLog(request);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+			return getSuccessResponseEntity(resultMap);
+		}
 }
 

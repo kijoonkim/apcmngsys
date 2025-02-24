@@ -114,13 +114,28 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 조회
+	// 통합조직 전문품목 매입매출 로우데이터 조회 2024년
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = PrdcrCrclOgnSpItmPurSalYMngService.selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 통합조직 전문품목 매입매출 로우데이터 조회 2025년
+	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = PrdcrCrclOgnSpItmPurSalYMngService.selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

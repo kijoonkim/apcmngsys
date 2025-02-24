@@ -20,7 +20,7 @@
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2024.11.12  	김호        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
-    <select id="selectWkrptList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    <select id="selectWkrptListTEST" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
     	<![CDATA[
 			SELECT /* com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList */
 			       Z.APC_CD
@@ -113,6 +113,104 @@
     	]]>
     </select>
 
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptList		-->
+	<!-- DESC : 주간 입출고현황 			                        	            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWkrptList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    	<![CDATA[
+			SELECT
+				A.*
+				, (SELECT FN_GET_COM_CD_VL_NM('WRHS_SPMT_TYPE', A.WRHS_SPMT_TYPE) FROM DUAL) AS WRHS_SPMT_TYPE_NM
+				, (SELECT FN_GET_PRDCR_NM(A.PRDCR_CD, A.APC_CD) FROM DUAL) AS PRDCR_NM
+				, TO_CHAR(TO_DATE(A.WGH_YMD, 'YYYYMMDD'), 'DY', 'NLS_DATE_LANGUAGE=KOREAN') AS DY
+				FROM(
+			    SELECT
+			      WC.APC_CD
+			      ,WC.WGH_YMD
+			      , WC.WRHS_SPMT_TYPE
+			      , SUM(WD.BX_QNTT) AS BX_QNTT
+			      , SUM(WD.BX_WGHT)	AS BX_WGHT
+			      , WC.PRDCR_CD
+			    FROM TB_WGH_PRFMNC_COM WC
+			         , TB_WGH_PRFMNC_DTL WD
+			    WHERE WC.APC_CD = WD.APC_CD
+			      AND WC.WGHNO = WD.WGHNO
+			      AND WC.DEL_YN = 'N'
+			      AND WD.DEL_YN = 'N'
+		      ]]>
+			      <if test='apcCd != null and apcCd != ""'>
+		               AND WC.APC_CD = #{apcCd}
+				</if>
+				<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+	 			    AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+				</if>
+				<if test='wghYmdTo != null and wghYmdTo != ""'>
+	 				AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+				</if>
+			    GROUP BY WC.APC_CD,WC.WGH_YMD,WC.WRHS_SPMT_TYPE,WC.PRDCR_CD
+                ) A
+			    ORDER BY A.WRHS_SPMT_TYPE,A.WGH_YMD
+
+    </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
+	<!-- DESC : 전재고 조회 			                        	            	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectWkrptLastQnttList" parameterType="com.at.apcss.am.clcln.vo.ClclnWkrptVO" resultType="com.at.apcss.am.clcln.vo.ClclnWkrptVO">
+    	<![CDATA[
+    	SELECT
+			(SELECT
+                   SUM(WD.BX_QNTT) AS BX_QNTT
+                 FROM TB_WGH_PRFMNC_COM WC
+                    , TB_WGH_PRFMNC_DTL WD
+                WHERE WC.APC_CD = WD.APC_CD
+                  AND WC.WGHNO = WD.WGHNO
+                  AND WC.DEL_YN = 'N'
+                  AND WD.DEL_YN = 'N'
+                  AND WC.WRHS_SPMT_TYPE = 'RT'
+		      ]]>
+			      <if test='apcCd != null and apcCd != ""'>
+		               AND WC.APC_CD = #{apcCd}
+				</if>
+				<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+	 			    AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+				</if>
+				<if test='wghYmdTo != null and wghYmdTo != ""'>
+	 				AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+				</if>
+			    GROUP BY WC.APC_CD,WC.WRHS_SPMT_TYPE) -
+			    (SELECT
+                   SUM(WD.BX_QNTT) AS BX_QNTT
+                 FROM TB_WGH_PRFMNC_COM WC
+                    , TB_WGH_PRFMNC_DTL WD
+                WHERE WC.APC_CD = WD.APC_CD
+                  AND WC.WGHNO = WD.WGHNO
+                  AND WC.DEL_YN = 'N'
+                  AND WD.DEL_YN = 'N'
+                  AND WC.WRHS_SPMT_TYPE = 'DT'
+
+			      <if test='apcCd != null and apcCd != ""'>
+		               AND WC.APC_CD = #{apcCd}
+				</if>
+				<if test='wghYmdFrom != null and wghYmdFrom != ""'>
+	 			    AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+				</if>
+				<if test='wghYmdTo != null and wghYmdTo != ""'>
+	 				AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+				</if>
+			    GROUP BY WC.APC_CD,WC.WRHS_SPMT_TYPE) AS TOT_INVNTR_QNTT
+		  FROM DUAL
+    </select>
 </mapper>
 
 

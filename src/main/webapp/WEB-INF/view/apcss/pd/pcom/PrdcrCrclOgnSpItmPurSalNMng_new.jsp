@@ -893,6 +893,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -920,6 +922,8 @@
 			,stbltYnNm:'Y'
 			,yrChk : yrChkVal
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
@@ -1006,8 +1010,9 @@
 				//console.log("prfmncCorpDdlnYn = " + item.prfmncCorpDdlnYn);
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					//저장 버튼만 숨김처리
+					//저장 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
+					$('#btnTempSave').hide();
 					$('#btnTempSave2').hide();
 				}
 			});

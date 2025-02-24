@@ -104,52 +104,74 @@
                                         onchange="fn_onChangeSrchItemCd(this)"
                                     ></sbux-select>
                                     <sbux-select
-                                        unselected-text="선택"
+                                        unselected-text="전체"
                                         uitype="single"
                                         id="srch-slt-vrtyCd"
                                         name="srch-slt-vrtyCd"
-                                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                                        class="form-control input-sm input-sm-ast"
                                         jsondata-ref="jsonApcVrty"
                                         jsondata-value="itemVrtyCd"
                                         onchange="fn_onChangeSrchVrtyCd(this)"
                                     ></sbux-select>
                                 </div>
                             </td>
-                            <td colspan="4" style="border-top: hidden"></td>
-                        </tr>
-                        <tr>
+
                             <th scope="row" class="th_bg">생산자</th>
                             <td class="td_input" colspan="3" style="border-right: hidden">
                                 <div style="display: flex">
                                     <sbux-input
-                                        id="srch-inp-prdcrCd"
-                                        name="srch-inp-prdcrCd"
-                                        uitype="hidden"
+                                            id="srch-inp-prdcrCd"
+                                            name="srch-inp-prdcrCd"
+                                            uitype="hidden"
                                     ></sbux-input>
                                     <sbux-input
-                                        uitype="text"
-                                        id="srch-inp-prdcrNm"
-                                        name="srch-inp-prdcrNm"
-                                        class="form-control input-sm"
-                                        wrap-style="margin-right: 10px"
-                                        placeholder="초성검색 가능"
-                                        autocomplete-ref="jsonPrdcrAutocomplete"
-                                        autocomplete-text="name"
-                                        autocomplete-height="270px"
-                                        autocomplete-select-callback="fn_onSelectPrdcrNm"
-                                        oninput="fn_onInputPrdcrNm(event)"
+                                            uitype="text"
+                                            id="srch-inp-prdcrNm"
+                                            name="srch-inp-prdcrNm"
+                                            class="form-control input-sm"
+                                            wrap-style="margin-right: 10px"
+                                            placeholder="초성검색 가능"
+                                            autocomplete-ref="jsonPrdcrAutocomplete"
+                                            autocomplete-text="name"
+                                            autocomplete-height="270px"
+                                            autocomplete-select-callback="fn_onSelectPrdcrNm"
+                                            oninput="fn_onInputPrdcrNm(event)"
                                     ></sbux-input>
                                     <sbux-button
-                                        id="btnSrchPrdcr"
-                                        name="btnSrchPrdcr"
-                                        class="btn btn-xs btn-outline-dark"
-                                        text="찾기"
-                                        uitype="modal"
-                                        target-id="modal-prdcr"
-                                        onclick="fn_choicePrdcr"
+                                            id="btnSrchPrdcr"
+                                            name="btnSrchPrdcr"
+                                            class="btn btn-xs btn-outline-dark"
+                                            text="찾기"
+                                            uitype="modal"
+                                            target-id="modal-prdcr"
+                                            onclick="fn_choicePrdcr"
                                     ></sbux-button>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">재고구분</th>
+                            <td class="td_input" colspan="3" style="border-right: hidden">
+                                <sbux-select
+                                        unselected-text="선택"
+                                        uitype="single"
+                                        id="srch-slt-invntrSeCd"
+                                        name="srch-slt-invntrSeCd"
+                                        class="form-control input-sm"
+                                        jsondata-ref="jsonInvntrSeCd"
+                                ></sbux-select>
+                            </td>
+                            <th scope="row" class="th_bg">재고번호</th>
+                            <td class="td_input" colspan="3" style="border-right: hidden">
+                                <sbux-input
+                                        uitype="text"
+                                        id="srch-inp-invntrno"
+                                        name="srch-inp-invntrno"
+                                        class="form-control input-sm"
+                                ></sbux-input>
+                            </td>
+                            <td colspan="4" style="border-top: hidden"></td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -201,6 +223,9 @@
     var autoCompleteDataJson = [];
     var jsonComSpcfct = [];
 
+    //재고구분
+    var jsonInvntrSeCd = [];
+
     window.addEventListener("DOMContentLoaded", function() {
         SBUxMethod.set("srch-dtp-dscdYmdTo", gfn_dateToYmd(new Date()));
         SBUxMethod.set("srch-dtp-dscdYmdFrom", gfn_dateFirstYmd(new Date()));
@@ -212,7 +237,8 @@
         let rst = await Promise.all([
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_apcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_apcCd)	// 품종
-        ])
+        ]);
+        await gfn_setComCdSBSelect('srch-slt-invntrSeCd', jsonInvntrSeCd, 'INVNTR_SE_CD'),//재고구분
 
         await fn_createGrid();
         await fn_getPrdcrs();
@@ -264,8 +290,12 @@
                 caption: ["폐기순번"],
                 ref: 'dscdSn',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
+                width: '4%',
+                style: 'text-align: right;',
+                format: {
+                    type: 'number',
+                    rule: '#,###'
+                }
             },
             {
                 caption: ["품목"],
@@ -292,8 +322,8 @@
                 caption: ["폐기수량"],
                 ref: 'dscdQntt',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;',
+                width: '6%',
+                style: 'text-align: right;',
                 format: {
                     type: 'number',
                     rule: '#,###'
@@ -303,8 +333,8 @@
                 caption: ["폐기중량"],
                 ref: 'dscdWght',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;',
+                width: '6%',
+                style: 'text-align: right;',
                 format: {
                     type: 'number',
                     rule: '#,###'
@@ -328,8 +358,8 @@
                 caption: ["폐기사유"],
                 ref: 'dscdRsn',
                 type: 'output',
-                width: '8%',
-                style: 'text-align: center;'
+                width: '16%',
+                style: 'text-align: left;'
             },
             {
                 caption: ["재고순번"],
@@ -356,6 +386,8 @@
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
         let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");
         let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+        let invntrSeCd = SBUxMethod.get("srch-slt-invntrSeCd");
+        let invntrno = SBUxMethod.get("srch-inp-invntrno");
         if (!gfn_isEmpty(vrtyCd)) {
             vrtyCd = vrtyCd.substring(4);
         }
@@ -367,6 +399,8 @@
             itemCd : itemCd,
             vrtyCd : vrtyCd,
             prdcrCd : prdcrCd,
+            invntrSeCd : invntrSeCd,
+            invntrno : invntrno,
         });
 
         const data = await postJsonPromise;

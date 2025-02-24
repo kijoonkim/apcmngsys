@@ -56,4 +56,27 @@ public interface InvntrDscdService {
      */
     public int deleteDscdPrfmnc(List<DscdPrfmncVO> dscdPrfmncList) throws Exception;
 
+    /**
+     * 폐기 상세 관리 - 폐기 원인 코드 조회
+     * @param dscdPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdPrfmncVO> selectDscdCsCd(DscdPrfmncVO dscdPrfmncVO) throws Exception;
+
+    /**
+     * 폐기 상세 관리 - 폐기 사유 코드 조회
+     * @param dscdPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<DscdPrfmncVO> selectDscdBadCd(DscdPrfmncVO dscdPrfmncVO) throws Exception;
+
+    /**
+     * 폐기 상세 관리 - 폐기원인/사유 변경
+     * @param dscdPrfmncList
+     * @return
+     * @throws Exception
+     */
+    public int updateDscdPrfmncDtl(List<DscdPrfmncVO> dscdPrfmncList) throws Exception;
 }

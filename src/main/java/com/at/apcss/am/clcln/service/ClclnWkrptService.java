@@ -28,4 +28,12 @@ public interface ClclnWkrptService {
 	 */
 	public List<ClclnWkrptVO> selectWkrptList(ClclnWkrptVO clclnWkrptVO) throws Exception;
 
+	/**
+	 * 전재고조회
+	 * @param ClclnWkrptVO
+	 * @return List<ClclnWkrptVO>
+	 * @throws Exception
+	 */
+	public List<ClclnWkrptVO> selectWkrptLastQnttList(ClclnWkrptVO clclnWkrptVO) throws Exception;
+
 }

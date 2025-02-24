@@ -1179,6 +1179,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -1206,6 +1208,8 @@
 			,stbltYnNm:'Y'
 			,yrChk : yrChkVal
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
@@ -1293,6 +1297,7 @@
 				if (item.prfmncCorpDdlnYn == 'Y') {
 					//저장 버튼만 숨김처리
 					$('#btnSaveFclt1').hide();
+					$('#btnTempSave').hide();
 					$('#btnTempSave2').hide();
 				}
 			});
@@ -1686,7 +1691,8 @@
 			{caption: ["법인명"],				ref:'corpNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["통합조직 구분"],			ref:'aprv', 			type:'output', width:'70px',	style:'text-align:center'},
 			{caption: ["구분"],				ref:'typeSeNo', 		type:'output', width:'90px',	style:'text-align:center'},
-			{caption: ["구분명"],				ref:'typeSeNoNm', 		type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["구분"],				ref:'seNm', 			type:'output', width:'100px',	style:'text-align:center'},
+			{caption: ["구분상세"],				ref:'seDtlNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["품목명"],				ref:'itemNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["분류명"],				ref:'ctgryNm', 			type:'output', width:'100px',	style:'text-align:center'},
 			{caption: ["전문/육성 구분"],		ref:'sttgUpbrItemNm', 	type:'output', width:'120px',	style:'text-align:center'},
@@ -1695,9 +1701,9 @@
 			{caption: ["출자출하조직 법인명	"],		ref:'isoCorpNm', 		type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["생산자조직 번호"],		ref:'prdcrOgnzSn', 		type:'output', width:'140px',	style:'text-align:center'},
 			{caption: ["생산자조직명"],			ref:'prdcrOgnzNm', 		type:'output', width:'120px',	style:'text-align:center'},
-			//{caption: ["판매위임 매입 물량"],		ref:'slsCnsgnPrchsVlm', type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매위임 매입 물량"],		ref:'slsCnsgnPrchsVlm', type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["판매위임 매입 금액"],		ref:'slsCnsgnPrchsAmt', type:'output', width:'120px',	style:'text-align:center'},
-			//{caption: ["판매 매출 물량"],		ref:'slsCnsgnSlsVlm', 	type:'output', width:'120px',	style:'text-align:center'},
+			{caption: ["판매 매출 물량"],		ref:'slsCnsgnSlsVlm', 	type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["판매 매출 금액"],		ref:'slsCnsgnSlsAmt', 	type:'output', width:'120px',	style:'text-align:center'},
 			{caption: ["비고"],				ref:'rmrk', 			type:'output', width:'70px',	style:'text-align:center'},
 			{caption: ["적합여부"],				ref:'stbltYn', 			type:'output', width:'90px',	style:'text-align:center'},
@@ -1724,7 +1730,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList2025.do", {
 		    yr : yr
 			});
 
@@ -1739,7 +1745,8 @@
 					,corpNm				: item.corpNm
 					,aprv				: item.aprv
 					,typeSeNo			: item.typeSeNo
-					,typeSeNoNm			: item.typeSeNoNm
+					,seNm				: item.seNm
+					,seDtlNm			: item.seDtlNm
 					,itemNm				: item.itemNm
 					,ctgryNm			: item.ctgryNm
 					,sttgUpbrItemNm		: item.sttgUpbrItemNm
@@ -1750,8 +1757,8 @@
 					,prdcrOgnzNm		: item.prdcrOgnzNm
 					,slsCnsgnPrchsAmt	: Number(item.slsCnsgnPrchsAmt)
 					,slsCnsgnSlsAmt		: Number(item.slsCnsgnSlsAmt)
-					//,slsCnsgnPrchsVlm	: Number(item.slsCnsgnPrchsVlm)
-					//,slsCnsgnSlsVlm	: Number(item.slsCnsgnSlsVlm)
+					,slsCnsgnPrchsVlm	: Number(item.slsCnsgnPrchsVlm)
+					,slsCnsgnSlsVlm		: Number(item.slsCnsgnSlsVlm)
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
 					,lastStbltYn		: item.lastStbltYn

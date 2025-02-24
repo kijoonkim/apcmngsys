@@ -2150,7 +2150,13 @@
 	    SBGridProperties.livescroll = false;	    
         SBGridProperties.columns = [
             {caption: [''],    			ref: 'CHECK_YN',		type:'checkbox',	width: '30px', 
-            	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center'
+            	typeinfo : { 
+            		checkedvalue : "Y", 
+            		uncheckedvalue : "N" ,
+            		fixedcellcheckbox : { 
+	            			usemode : true , rowindex : 0 , deletecaption : false 
+	            		}
+	            	}, style : 'text-align:center'
             },
             {caption : ["거래처코드"],	ref: 'CS_CODE', 	type:'output',  	width:'80px',  	style:'text-align:left'},
             {caption : ["거래처명"],		ref: 'CS_NAME', 	type:'output',  	width:'120px',  	style:'text-align:left'},
@@ -2634,7 +2640,7 @@
 			getType				: 'json',
 			workType			: 'LIST',
 			cv_count			: '13',
-			params				: gfnma_objectToString(paramObj)
+			params				: gfnma_objectToString(paramObj, true)
 		});
 		let start12 = performance.now();
     	const data = await postJsonPromise;

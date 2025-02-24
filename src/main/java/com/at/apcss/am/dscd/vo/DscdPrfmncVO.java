@@ -513,4 +513,33 @@ public class DscdPrfmncVO extends ComVO {
      */
     private String dscdBadCdNm;
 
+    /**
+     * 재고기준유형
+     */
+    private String dscdCrtrType;
+
+    /**
+     * 기준코드
+     */
+    private String crtrCd;
+
+    /**
+     * 기준값
+     */
+    private int crtrVl;
+
+    /**
+     * 기준표시명
+     */
+    private String crtrIndctNm;
+
+    /**
+     * 표시순서
+     */
+    private String indctSeq;
+
+    /**
+     * 기준비고
+     */
+    private String crtrRmrk;
 }

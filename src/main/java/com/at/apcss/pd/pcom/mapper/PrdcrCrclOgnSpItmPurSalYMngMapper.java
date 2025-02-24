@@ -42,7 +42,20 @@ public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 
 	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
 
+	/**
+	 * 통합조직 전문품목 매입매출 로우데이터 조회 2024년
+	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
+	 */
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
+	/**
+	 * 통합조직 전문품목 매입매출 로우데이터 조회 2025년
+	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+
 
 	/* 개발서버 신규 화면 조회 */
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);

@@ -41,6 +41,20 @@ public interface PrdcrOgnGenalTblMngService {
 
 	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
 
+	/**
+	 * 생산자조직 총괄표 로우데이터를 조회 한다 2024년
+	 * @param PrdcrOgnGenalTblMngVO
+	 * @return List<PrdcrOgnGenalTblMngVO>
+	 * @throws Exception
+	 */
 	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 생산자조직 총괄표 로우데이터를 조회 한다 2025년
+	 * @param PrdcrOgnGenalTblMngVO
+	 * @return List<PrdcrOgnGenalTblMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO) throws Exception;
 
 }

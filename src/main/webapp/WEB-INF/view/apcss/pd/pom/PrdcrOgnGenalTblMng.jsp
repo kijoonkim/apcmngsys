@@ -26,7 +26,9 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
+					<c:if test="${loginVO.apoSe ne '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
+					</c:if>
 					<sbux-button id="btnOpenPopup" name="btnOpenPopup" uitype="normal" class="btn btn-sm btn-primary" text="과거실적 팝업" onclick="fn_openMaodal"></sbux-button>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
@@ -1346,17 +1348,21 @@
 
 			{caption: ["생산자조직 명"], 	ref: 'prdcrOgnzNm',   	type:'output',  width:'180px',    style:'text-align:center'},
 			{caption: ["품목"], 			ref: 'itemNm',   		type:'output',  width:'150px',    style:'text-align:center'},
-			{caption: ["분류"], 			ref: 'ctgryNm',   		type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["부류"], 			ref: 'clsfNm',   		type:'output',  width:'70px',    style:'text-align:center'},
+			{caption: ["평가부류"], 		ref: 'ctgryNm',   		type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["취급유형"], 		ref: 'trmtTypeNm',   	type:'output',  width:'85px',    style:'text-align:center'},
 
 			{caption: ["조직원수"], 					ref: 'cnt',   			type:'output',  width:'60px',    style:'text-align:center'},
-			{caption: ["생산량(결과)(톤)[A]"], 			ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
-			{caption: ["전속(약정)출하계약량(톤)[B]"], 		ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
-			{caption: ["전속(약정)출하량(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
-			{caption: ["출하대금 지급액(천원)"], 			ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			//{caption: ["생산량(결과)(톤)[A]"], 			ref: 'prdctnVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			//{caption: ["전속(약정)출하계약량(톤)[B]"], 		ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			//{caption: ["전속(약정)출하량(결과)(톤)[C]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["계약물량(톤)[A]"], 		ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["출하량(톤)[B]"], 		ref: 'ecSpmtVlmTot',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["출하대금 지급액(천원)"], 	ref: 'spmtPrcTot',   	type:'output',  width:'100px',    style:'text-align:center'},
 
-			{caption: ["출하비율(%)(승인형)[C/A]"],		ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["출하비율(%)(육성형)[C/B]"],		ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			//{caption: ["출하비율(%)(승인형)[C/A]"],		ref: 'ecSpmtRateA',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			//{caption: ["출하비율(%)(육성형)[C/B]"],		ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
+			{caption: ["출하비율(%)[B/A]"],		ref: 'ecSpmtRateB',   	type:'output',  width:'100px',    style:'text-align:center;'},
 			{caption: ["적합여부(기준적용)"], 		ref: 'stbltYn',   		type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["적합여부"], 			ref: 'orgStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["선정여부"], 			ref: 'lastStbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
@@ -1377,7 +1383,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pom/selectRawDataPrdcrOgnzList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pom/selectRawDataPrdcrOgnzList2025.do", {
 			yr : yr
 			});
 
@@ -1399,10 +1405,11 @@
 						,trmtTypeNm: item.trmtTypeNm
 						,ctgryCd: 	item.ctgryCd
 						,ctgryNm: 	item.ctgryNm
+						,clsfCd: 	item.clsfCd
+						,clsfNm: 	item.clsfNm
 						,itemCd: 	item.itemCd
 						,itemNm: 	item.itemNm
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
-
 
 						,prdcrOgnzSn: item.prdcrOgnzSn
 						,prdcrOgnzNm: item.prdcrOgnzNm

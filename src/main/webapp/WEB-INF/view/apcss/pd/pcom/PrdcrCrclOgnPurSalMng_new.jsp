@@ -1702,6 +1702,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -1733,6 +1735,8 @@
 			,yrChk : yrChkVal
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 
+			,aprv : aprv
+
 			//페이징
 			,pagingYn : 'Y'
 			,currentPageNo : pageNo
@@ -1749,7 +1753,7 @@
 				<c:if test="${loginVO.apoSe eq '1'}">
 				//실적 법인체 마감 저장 버튼 제거
 				if (item.prfmncCorpDdlnYn == 'Y') {
-					//저장 버튼만 숨김처리
+					//저장 버튼 숨김처리
 
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
@@ -1839,6 +1843,10 @@
 					$('#btnSaveFclt2').hide();
 					$('#btnSaveFclt3').hide();
 					$('#btnSaveFclt4').hide();
+
+					$('#btnTempSave2').hide();
+					$('#btnTempSave3').hide();
+					$('#btnTempSave4').hide();
 				}
 			});
 			fn_dtlGridSearch();
@@ -2700,28 +2708,59 @@
 			{caption: ["분류코드"],    ref: 'ctgryCd',           type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["분류명"],    ref: 'ctgryNm',           type:'output',  width:'70px',    style:'text-align:center'},
 
-			{caption: ["매입 수탁 물량(톤)"],    ref: 'prchsTrstVlm',      type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매입 수탁 금액(천원)"],    ref: 'prchsTrstAmt',      type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매입 매취 물량(톤)"],    ref: 'prchsEmspapVlm',    type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매입 매취 금액(천원)"],    ref: 'prchsEmspapAmt',    type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매입 합계 물량(톤)"],    ref: 'prchsTotVlm',       type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["(저장된)매입 합계 금액(천원)"],    ref: 'orgPrchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["(불러온)매입 합계 금액(천원)"],    ref: 'prchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
+			/*수탁*/
+			{caption: ["매입 공동선별수탁 물량(톤)"], 	ref: 'prchsSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:center'},
+			{caption: ["매입 공동선별수탁 금액(천원)"], 	ref: 'prchsSortTrstAmt',   	type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["매입 공동출하수탁 물량(톤)"], 	ref: 'prchsSpmtTrstVlm',   type:'input',  width:'50px',    style:'text-align:center'},
+			{caption: ["매입 공동출하수탁 금액(천원)"], 	ref: 'prchsSpmtTrstAmt',   type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["매입 단순수탁 물량(톤)"], 		ref: 'prchsSmplTrstVlm',   type:'input',  width:'50px',    style:'text-align:center'},
+			{caption: ["매입 단순수탁 금액(천원)"], 	ref: 'prchsSmplTrstAmt',   type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["매입 수탁소계 물량(톤)"], 		ref: 'prchsTrstVlm',   type:'output',  width:'50px',    style:'text-align:center;'},
+			{caption: ["매입 수탁소계 금액(천원)"], 	ref: 'prchsTrstAmt',   type:'output',  width:'80px',    style:'text-align:center;'},
+			/*매취*/
+			{caption: ["매입 공동선별매취 물량(톤)"], 	ref: 'prchsSortEmspapVlm',   type:'input',  width:'50px',    style:'text-align:center'},
+			{caption: ["매입 공동선별매취 금액(천원)"], 	ref: 'prchsSortEmspapAmt',   type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["매입 단순매취 물량(톤)"], 		ref: 'prchsSmplEmspapVlm',   type:'input',  width:'50px',    style:'text-align:center'},
+			{caption: ["매입 단순매취 금액(천원)"], 	ref: 'prchsSmplEmspapAmt',   type:'input',  width:'80px',    style:'text-align:center'},
+			{caption: ["매입 매취 소계 물량(톤)"], 		ref: 'prchsEmspapVlm',   type:'output',  width:'50px',    style:'text-align:center;'},
+			{caption: ["매입 매취 소계 금액(천원)"], 	ref: 'prchsEmspapAmt',   type:'output',  width:'80px',    style:'text-align:center;'},
+			/*합계*/
+			{caption: ["매입 합계 물량(톤)"], 		ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:center;'},
+			{caption: ["매입 합계 금액(천원)"], 		ref: 'prchsTotAmt',   		type:'output',  width:'80px',    style:'text-align:center;'},
 
-			{caption: ["매출 수탁 물량(톤)"],    ref: 'slsEmspapVlm',      type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 수탁 금액(천원)"],    ref: 'slsEmspapAmt',      type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 매취 물량(톤)"],    ref: 'slsTrstVlm',        type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 매취 금액(천원)"],    ref: 'slsTrstAmt',        type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 합계 물량(톤)"],    ref: 'slsTotVlm',         type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["(저장된)매출 합계 금액(천원)"],    ref: 'orgSlsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["(불러온)매출 합계 금액(천원)"],    ref: 'slsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 자체공판장 매출액 물량(톤)"],    ref: 'ddcVlm',            type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["매출 자체공판장 매출액 금액(천원)"],    ref: 'ddcAmt',            type:'output',  width:'70px',    style:'text-align:center'},
+			//{caption: ["(저장된)매입 합계 금액(천원)"],    ref: 'orgPrchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
+			//{caption: ["(불러온)매입 합계 금액(천원)"],    ref: 'prchsTotAmt',       type:'output',  width:'70px',    style:'text-align:center'},
+
+			/*수탁*/
+			{caption: ["매출 공동선별수탁 물량(톤)"], 	ref: 'slsCprtnSortTrstVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["매출 공동선별수탁 금액(천원)"], 	ref: 'slsCprtnSortTrstAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+			{caption: ["매출 공동출하수탁 물량(톤)"], 	ref: 'slsCprtnTrstVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["매출 공동출하수탁 금액(천원)"], 	ref: 'slsCprtnTrstAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+			{caption: ["매출 단순수탁 물량(톤)"], 		ref: 'slsSmplTrstVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["매출 단순수탁 금액(천원)"], 	ref: 'slsSmplTrstAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+			{caption: ["매출 수탁 소계 물량(톤)"], 		ref: 'slsTrstVlm',   	type:'input',  width:'50px',    style:'text-align:right;'},
+			{caption: ["매출 수탁 소계 금액(천원)"], 	ref: 'slsTrstAmt',   	type:'input',  width:'80px',    style:'text-align:right;'},
+			/*매취*/
+			{caption: ["매출 공동선별매취 물량(톤)"], 	ref: 'slsCprtnSortEmspapVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["매출 공동선별매취 금액(천원)"], 	ref: 'slsCprtnSortEmspapAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+			{caption: ["매출 단순매취 물량(톤)"], 		ref: 'slsSmplEmspapVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["매출 단순매취 금액(천원)"], 	ref: 'slsSmplEmspapAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+			{caption: ["매출 매취 소계 물량(톤)"], 		ref: 'slsEmspapVlm',   	type:'input',  width:'50px',    style:'text-align:right;'},
+			{caption: ["매출 매취 소계 금액(천원)"], 	ref: 'slsEmspapAmt',   	type:'input',  width:'80px',    style:'text-align:right;'},
+			//합계
+			{caption: ["매출 합계 물량(톤)"], 	ref: 'slsTotVlm',   	type:'output',  width:'50px',    style:'text-align:right;'},
+			{caption: ["매출 합계 금액(천원)"], 	ref: 'slsTotAmt',   	type:'output',  width:'80px',    style:'text-align:right;'},
+			/*자체공판장 매출*/
+			{caption: ["자체공판장 매출액 물량(톤)"], 	ref: 'ddcVlm',   	type:'input',  width:'50px',    style:'text-align:right'},
+			{caption: ["자체공판장 매출액 금액(천원)"], 	ref: 'ddcAmt',   	type:'input',  width:'80px',    style:'text-align:right'},
+
+			//{caption: ["(저장된)매출 합계 금액(천원)"],    ref: 'orgSlsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
+			//{caption: ["(불러온)매출 합계 금액(천원)"],    ref: 'slsTotAmt',         type:'output',  width:'70px',    style:'text-align:center'},
 
 			{caption: ["공영 도매시장 물량(톤)"],    ref: 'pblcWhlslMrktVlm',  type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["공영 도매시장 금액(천원)"],    ref: 'pblcWhlslMrktAmt',  type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["온라인 도매시장 물량(톤)"],    ref: 'onlnWhlslMrktVlm',  type:'output',  width:'70px',    style:'text-align:center'},
-			{caption: ["온라인 도매시장 금액(천원)"],    ref: 'onlnWhlslMrktAmt',  type:'output',  width:'70px',    style:'text-align:center'},
+			//{caption: ["온라인 도매시장 물량(톤)"],    ref: 'onlnWhlslMrktVlm',  type:'output',  width:'70px',    style:'text-align:center'},
+			//{caption: ["온라인 도매시장 금액(천원)"],    ref: 'onlnWhlslMrktAmt',  type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["대형 유통업체 물량(톤)"],    ref: 'lgszRtlVlm',        type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["대형 유통업체 금액(천원)"],    ref: 'lgszRtlAmt',        type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["군납 물량(톤)"],    ref: 'armyDlvgdsVlm',     type:'output',  width:'70px',    style:'text-align:center'},
@@ -2750,7 +2789,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList2025.do", {
 		    yr : yr
 			});
 
@@ -2772,21 +2811,51 @@
 					, itemNm              : item.itemNm
 					, ctgryCd             : item.ctgryCd
 					, ctgryNm             : item.ctgryNm
-					, prchsTrstVlm        : Number(item.prchsTrstVlm)
-					, prchsTrstAmt        : Number(item.prchsTrstAmt)
-					, prchsEmspapVlm      : Number(item.prchsEmspapVlm)
-					, prchsEmspapAmt      : Number(item.prchsEmspapAmt)
-					, prchsTotVlm         : Number(item.prchsTotVlm)
-					, prchsTotAmt         : Number(item.prchsTotAmt)
-					, orgPrchsTotAmt         : Number(item.orgPrchsTotAmt) //기존값과 다른 경우를 위해 추가
+					/* 매입 수탁 */
+					,prchsSortTrstVlm		: Number(item.prchsSortTrstVlm)
+					,prchsSortTrstAmt		: Number(item.prchsSortTrstAmt)
+					,prchsSpmtTrstVlm		: Number(item.prchsSpmtTrstVlm)
+					,prchsSpmtTrstAmt		: Number(item.prchsSpmtTrstAmt)
+					,prchsSmplTrstVlm		: Number(item.prchsSmplTrstVlm)
+					,prchsSmplTrstAmt		: Number(item.prchsSmplTrstAmt)
+					/* 매입 수탁 소계 */
+					,prchsTrstVlm			: Number(item.prchsTrstVlm)
+					,prchsTrstAmt			: Number(item.prchsTrstAmt)
+					/* 매입 매취 */
+					,prchsSortEmspapVlm		: Number(item.prchsSortEmspapVlm)
+					,prchsSortEmspapAmt		: Number(item.prchsSortEmspapAmt)
+					,prchsSmplEmspapVlm		: Number(item.prchsSmplEmspapVlm)
+					,prchsSmplEmspapAmt		: Number(item.prchsSmplEmspapAmt)
+					/* 매입 매취 소계 */
+					,prchsEmspapVlm			: Number(item.prchsEmspapVlm)
+					,prchsEmspapAmt			: Number(item.prchsEmspapAmt)
+					/* 매입 합계 */
+					,prchsTotVlm			: Number(item.prchsTotVlm)
+					,prchsTotAmt			: Number(item.prchsTotAmt)
+					, orgPrchsTotAmt      : Number(item.orgPrchsTotAmt) //기존값과 다른 경우를 위해 추가
 
-					, slsEmspapVlm        : Number(item.slsEmspapVlm)
-					, slsEmspapAmt        : Number(item.slsEmspapAmt)
-					, slsTrstVlm          : Number(item.slsTrstVlm)
-					, slsTrstAmt          : Number(item.slsTrstAmt)
-					, slsTotVlm           : Number(item.slsTotVlm)
-					, slsTotAmt           : Number(item.slsTotAmt)
-					, orgSlsTotAmt           : Number(item.orgSlsTotAmt) //기존값과 다른 경우를 위해 추가
+					/* 매출 수탁 */
+					,slsCprtnTrstVlm		: Number(item.slsCprtnTrstVlm)
+					,slsCprtnTrstAmt		: Number(item.slsCprtnTrstAmt)
+					,slsCprtnSortTrstVlm	: Number(item.slsCprtnSortTrstVlm)
+					,slsCprtnSortTrstAmt	: Number(item.slsCprtnSortTrstAmt)
+					,slsSmplTrstVlm			: Number(item.slsSmplTrstVlm)
+					,slsSmplTrstAmt			: Number(item.slsSmplTrstAmt)
+					/* 매출 수탁 합계 */
+					,slsTrstVlm				: Number(item.slsTrstVlm)
+					,slsTrstAmt				: Number(item.slsTrstAmt)
+					/* 매출 매취 */
+					,slsCprtnSortEmspapVlm	: Number(item.slsCprtnSortEmspapVlm)
+					,slsCprtnSortEmspapAmt	: Number(item.slsCprtnSortEmspapAmt)
+					,slsSmplEmspapVlm		: Number(item.slsSmplEmspapVlm)
+					,slsSmplEmspapAmt		: Number(item.slsSmplEmspapAmt)
+					/* 매출 매취 소계 */
+					,slsEmspapVlm			: Number(item.slsEmspapVlm)
+					,slsEmspapAmt			: Number(item.slsEmspapAmt)
+					/* 매출 합계 */
+					,slsTotVlm				: Number(item.slsTotVlm)
+					,slsTotAmt				: Number(item.slsTotAmt)
+					, orgSlsTotAmt        : Number(item.orgSlsTotAmt) //기존값과 다른 경우를 위해 추가
 
 
 					, ddcVlm              : Number(item.ddcVlm)

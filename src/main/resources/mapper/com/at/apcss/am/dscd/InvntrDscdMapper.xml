@@ -431,7 +431,9 @@
                 ,(SELECT FN_GET_PRDCR_NM(IDP.PRDCR_CD,IDP.APC_CD)FROM DUAL) AS PRDCR_NM
                 ,(SELECT FN_GET_COM_CD_VL_NM('INVNTR_SE_CD',IDP.INVNTR_SE_CD)FROM DUAL) AS INVNTR_SE_CD_NM
                 ,IDC.CRTR_INDCT_NM AS DSCD_CS_CD_NM
+                ,IDC.CRTR_CD AS DSCD_CS_CD
                 ,DC.CRTR_INDCT_NM AS DSCD_BAD_CD_NM
+                ,DC.CRTR_CD AS DSCD_BAD_CD
             FROM TB_INVNTR_DSCD_PRFMNC IDP
 
             LEFT JOIN TB_INVNTR_DSCD_CRTR IDC
@@ -464,6 +466,13 @@
         <if test='prdcrCd != null and prdcrCd != ""'>
             AND IDP.PRDCR_CD = #{prdcrCd}
         </if>
+        <if test='invntrSeCd != null and invntrSeCd != ""'>
+            AND IDP.INVNTR_SE_CD = #{invntrSeCd}
+        </if>
+        <if test='invntrno != null and invntrno != ""'>
+            AND IDP.INVNTR_NO LIKE '%'||#{invntrno}||'%'
+        </if>
+            ORDER BY IDP.DSCD_YMD
     </select>
 
     <!-- ==========================================================================	-->
@@ -651,6 +660,76 @@
         AND DSCD_YMD = #{dscdYmd}
         AND DSCD_SN =#{dscdSn}
         AND DTL_SN = #{dtlSn}
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.dscd.mapper.InvntrDscdMapper.selectDscdCsCd	        -->
+    <!-- DESC : 폐기상세관리 - 폐기원인코드조회                      	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.02.17  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectDscdCsCd" parameterType="com.at.apcss.am.dscd.vo.DscdPrfmncVO" resultType="com.at.apcss.am.dscd.vo.DscdPrfmncVO">
+        SELECT
+            APC_CD
+            ,DSCD_CRTR_TYPE
+            ,CRTR_CD
+            ,CRTR_VL
+            ,CRTR_INDCT_NM
+            ,INDCT_SEQ
+            ,CRTR_RMRK
+        FROM TB_INVNTR_DSCD_CRTR
+        WHERE DSCD_CRTR_TYPE = 'DSCD_CS_CD'
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.dscd.mapper.InvntrDscdMapper.selectDscdBadCd	    -->
+    <!-- DESC : 폐기상세관리 - 폐기사유코드조회                      	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.02.17  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectDscdBadCd" parameterType="com.at.apcss.am.dscd.vo.DscdPrfmncVO" resultType="com.at.apcss.am.dscd.vo.DscdPrfmncVO">
+        SELECT
+            APC_CD
+             ,DSCD_CRTR_TYPE
+             ,CRTR_CD
+             ,CRTR_VL
+             ,CRTR_INDCT_NM
+             ,INDCT_SEQ
+             ,CRTR_RMRK
+        FROM TB_INVNTR_DSCD_CRTR
+        WHERE DSCD_CRTR_TYPE = 'DSCD_BAD_CD'
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.dscd.mapper.InvntrDscdMapper.updateDscdPrfmncDtl	    -->
+    <!-- DESC : 폐기상세관리 - 폐기원인/사유 변경                      	                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.02.17  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+
+    <update id="updateDscdPrfmncDtl" parameterType="com.at.apcss.am.dscd.vo.DscdPrfmncVO">
+        <![CDATA[
+            UPDATE TB_INVNTR_DSCD_PRFMNC
+            SET
+                DSCD_CS_CD = #{dscdCsCd}
+                ,DSCD_BAD_CD = #{dscdBadCd}
+                ,DSCD_RSN = #{dscdRsn}
+                ,SYS_LAST_CHG_DT = SYSDATE
+                ,SYS_LAST_CHG_USER_ID = #{sysLastChgUserId}
+                ,SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+            WHERE
+                APC_CD = #{apcCd}
+                AND DSCD_YMD = #{dscdYmd}
+                AND DSCD_SN = #{dscdSn}
+                AND DTL_SN = #{dtlSn}
+
+        ]]>
     </update>
 
 </mapper>

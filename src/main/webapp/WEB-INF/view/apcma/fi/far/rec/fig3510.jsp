@@ -1036,7 +1036,6 @@
 <!-- 팝업 Modal -->
 <div>
     <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-<!--     <sbux-modal style="width:700px" id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal> -->
 </div>
 <div id="body-modal-compopupcs">
     <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
@@ -1092,6 +1091,8 @@
     var editType = "Q";
     var copyMode = "clear";
 
+    var jsonBizCompData = []; // //공통 비즈니스 컴포넌트 데이터 
+
     var jsonDocType = []; // 전표구분
     var jsonVoucherType = []; // 증빙유형
     var jsonBankCode = []; // 은행코드
@@ -1143,9 +1144,11 @@
     }
 
     const fn_initSBSelect = async function () {
+    	
+    	jsonBizCompData = await fn_bizComponent();
         let rst = await Promise.all([
             // APC
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#TAX_SITE_CODE', '#SUB_TAX_SITE_CODE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1162,11 +1165,20 @@
                     {caption: "신고사업장코드", ref: 'TX_SITE_CD', width: '150px', style: 'text-align:left'},
                     {caption: "신고사업장명", ref: 'TX_SITE_NM', width: '150px', style: 'text-align:left'}
                 ]
-            }),
+	            , returnData : function (data){
+	                if(data.length == 0){
+	                	return;
+	                }
+//         			jsonTaxSiteCode.length = 0;
+//         			for(var i = 0; data.cv_1.length > i; i++){
+//         				jsonTaxSiteCode.push(data.cv_1[i]);
+//         			}
+	        	}
+            }, jsonBizCompData),
             // 전표구분
-            gfnma_setComSelect(['DOC_TYPE'], jsonDocType, 'L_FIM051', '' + (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE like '91%'" : "AND AR_SLIP_WRT_YN = 'Y'")), gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['DOC_TYPE'], jsonDocType, jsonBizCompData, 'L_FIM051', '' + (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE like '91%'" : "AND AR_SLIP_WRT_YN = 'Y'")), gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표상태
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#DOC_STATUS']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1183,9 +1195,9 @@
                     {caption: "코드", ref: 'SBSD_CD', width: '150px', style: 'text-align:left'},
                     {caption: "전표상태", ref: 'CD_NM', width: '150px', style: 'text-align:left'}
                 ]
-            }),
+            }, jsonBizCompData),
             // 사용자
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#PAYEE_CODE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1202,11 +1214,11 @@
                     {caption: "사용자ID", ref: 'USER_ID', width: '150px', style: 'text-align:left'},
                     {caption: "사용자명", ref: 'USER_NM', width: '150px', style: 'text-align:left'}
                 ]
-            }),
+            }, jsonBizCompData),
             // 증빙유형
-            gfnma_setComSelect(['VOUCHER_TYPE'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['VOUCHER_TYPE'], jsonVoucherType, jsonBizCompData, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 지급방법
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#PAY_METHOD']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1226,9 +1238,9 @@
                     {caption: "계좌번호", ref: 'ACCOUNT_NUM', width: '120px', style: 'text-align:left'},
                     {caption: "계좌코드", ref: 'DEPOSIT_CODE', width: '100px', style: 'text-align:left'}
                 ]
-            }),
+            }, jsonBizCompData),
             // 통화
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#CURRENCY_CODE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1243,8 +1255,8 @@
                 , colLabel: 'CRN_NM'
                 , columns: [
                     {caption: "통화", ref: 'CRN_CD', width: '100px', style: 'text-align:left'},
-                    {caption: "통화명", ref: 'CRN_NM', width: '100px', style: 'text-align:left'},
-                    {caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
+                    {caption: "통화명", ref: 'CRN_NM', width: '150px', style: 'text-align:left'}
+//                     ,{caption: "비고", ref: 'DESCIPTION', width: '150px', style: 'text-align:left'}
                 ]
                 , callback : function(value) {
                     if(value == "KRW") {
@@ -1258,10 +1270,10 @@
 
                     fn_getExchange();
                 }
-            }),
+            }, jsonBizCompData),
             // 세금코드
-            gfnma_setComSelect([''], jsonVatCode, 'L_VAT_INFO', "AND A.USE_YN = 'Y' AND B.AR_AP_TYPE = '" + strsourceType + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_CD', 'VAT_NM', 'Y', ''),
-            gfnma_multiSelectInit({
+            gfnma_setComSelect2([''], jsonVatCode, jsonBizCompData, 'L_VAT_INFO', "AND A.USE_YN = 'Y' AND B.AR_AP_TYPE = '" + strsourceType + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'VAT_CD', 'VAT_NM', 'Y', ''),
+            gfnma_multiSelectInit2({
                 target: ['#VAT_CODE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1296,9 +1308,9 @@
                         SBUxMethod.set("VAT_AMOUNT", VAT_AMOUNT);
                     }
                 }
-            }),
+            }, jsonBizCompData),
             // 전표템플릿
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#RULE_CODE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1330,11 +1342,11 @@
                     $("#btnAddRow").removeAttr('disabled');
                     $("#btnDeleteRow").removeAttr('disabled');
                 }
-            }),
+            }, jsonBizCompData),
             // 은행코드
-            gfnma_setComSelect(['BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
+            gfnma_setComSelect2(['BANK_CODE'], jsonBankCode, jsonBizCompData, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
             // 전자발행
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#ETAX_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1356,9 +1368,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ETAX_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 카드용도구분
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#CARD_USE_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1380,9 +1392,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("CARD_USE_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 내국신용장구분
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#LOCAL_CREDIT_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1404,9 +1416,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("LOCAL_CREDIT_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 불공제 사유 유형
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#VAT_NOT_DEDUCTION_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1428,9 +1440,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_NOT_DEDUCTION_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 예정누락여부
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#REPORT_OMIT_YN']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1452,9 +1464,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("REPORT_OMIT_YN"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 중복발행구분
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#DUP_ISSUE_BILL_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1476,9 +1488,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("DUP_ISSUE_BILL_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 감가상각자산유형
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#VAT_ASSET_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1500,9 +1512,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("VAT_ASSET_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 중복발행구분
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#AFTER_DUE_DATE_YN']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1524,9 +1536,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("AFTER_DUE_DATE_YN"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 영세율첨부서류여부
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#ZERO_REPORT_YN']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1548,9 +1560,9 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_REPORT_YN"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 수입금액제외
-            gfnma_multiSelectInit({
+            gfnma_multiSelectInit2({
                 target: ['#EXCLUDE_REVENUE_AMT_YN']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1572,10 +1584,10 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("EXCLUDE_REVENUE_AMT_YN"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 수입금액제외
-            gfnma_setComSelect(['gvwWFItem'], jsonZeroType, 'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_multiSelectInit({
+            gfnma_setComSelect2(['gvwWFItem'], jsonZeroType, jsonBizCompData, 'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_multiSelectInit2({
                 target: ['#ZERO_TYPE']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1597,10 +1609,10 @@
                     if(nRow < 0) return;
                     gvwWFItem.setCellData(nRow, gvwWFItem.getColRef("ZERO_TYPE"), value, true, true);
                 }
-            }),
+            }, jsonBizCompData),
             // 계좌정보
-            gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BACNT_SEQ', 'SEQ_NAME', 'Y', ''),
-            gfnma_multiSelectInit({
+            gfnma_setComSelect2([''], jsonBankAccountSeq, jsonBizCompData, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BACNT_SEQ', 'SEQ_NAME', 'Y', ''),
+            gfnma_multiSelectInit2({
                 target: ['#BANK_ACCOUNT_SEQ']
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
@@ -1634,25 +1646,24 @@
                     SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["DSCTN"]);
                     SBUxMethod.set('BNKCNT', jsonBankAccountSeq.filter(data => data["BACNT_SEQ"] == value)[0]["BNKCNT"]);
                 }
-            }),
+            }, jsonBizCompData),
             // 유형
-            gfnma_setComSelect(['gvwWFItem'], jsonLineType, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonLineType, jsonBizCompData, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 차/대
-            gfnma_setComSelect(['gvwWFItem'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonDebitCredit, jsonBizCompData, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 관리항목코드
-            gfnma_setComSelect(['gvwWFItem'], jsonAccItemCode, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonAccItemCode, jsonBizCompData, 'P_FIM041', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACC_ITEM_VALUE', 'ACC_VALUE_NAME', 'Y', ''),
             // 통화코드
-            gfnma_setComSelect(['gvwWFItem'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonCurrencyCode, jsonBizCompData, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             // 여신영역
-            gfnma_setComSelect(['gvwWFItem'], jsonCreditArea, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonCreditArea, jsonBizCompData, 'L_ORG020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 사업장
-            gfnma_setComSelect(['gvwWFItem'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
+            gfnma_setComSelect2(['gvwWFItem'], jsonSiteCode, jsonBizCompData, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             //필요없는 체크박스 하이드
             SBUxMethod.hide('OPEN_TO_ALL_YN'),
-            
         ]);
     }
-
+    
     var fn_getBankAccountSeq = async function () {
         // 계좌정보
         await gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("DOC_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_ACCOUNT_SEQ', 'SEQ_NAME', 'Y', ''),
@@ -1775,6 +1786,7 @@
                 SBUxMethod.set('PAY_TERM_CODE', gfn_nvl(data.PAY_TERM_CD));
                 SBUxMethod.set('PAY_TERM_NAME', gfn_nvl(data.PAY_TERM_NM));
                 gfnma_multiSelectSet('#PAY_METHOD', 'SBSD_CD', 'CD_NM', gfn_nvl(data.PAY_MTHD));
+// 				gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', gfn_nvl(data.CRN_CD));
                 SBUxMethod.set('CURRENCY_CODE', gfn_nvl(data.CRN_CD));
 
                 SBUxMethod.set('BASE_SCALE', gfn_nvl(data.BASE_SCALE));
@@ -1855,7 +1867,6 @@
         await comPopupCs({
             compCode: gv_ma_selectedCorpCd
             , clientCode: gv_ma_selectedClntCd
-            , type: strsourceType
             , inputData: { 
             	"CS_CODE" : gfnma_nvl2(SBUxMethod.get('CS_CODE')) , 
             	"CS_NAME" : gfnma_nvl2(SBUxMethod.get('CS_NAME')), 
@@ -1864,7 +1875,6 @@
             , bizcompId: strsourceType == "AP" ? 'P_CS_PURCHASE_DOC' : "P_CS_SALE_DOC"
             , whereClause: strWhereClause
             , itemSelectEvent: function (data) {
-            	console.log('fn_findCsCode2 data == > ', data);
                 SBUxMethod.set('CS_CODE', data.CNPT_CD);
                 SBUxMethod.set('CS_NAME', data.CNPT_NM);
                 SBUxMethod.set('BIZ_REGNO', data.BRNO);
@@ -4143,7 +4153,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
                 $("#btnScmInfo").removeAttr('disabled');
 
@@ -4174,7 +4184,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "false");
                 $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             } else if (strsourceType == "BAD") {
                 strFileSourceType = "BADSALESDOC";
                 $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -4196,7 +4206,7 @@
 
                 $("#SUB_TAX_SITE_CODE").attr("required", "true");
                 $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-                gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
+//                 gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
             }
         } else {
             SBUxMethod.set("SRCH_DOC_H_FI_ORG_CODE", p_fiOrgCode);
@@ -4215,9 +4225,18 @@
             $("#btnDeleteRow").attr("disabled", "true");
         }
 
+        for(var i=0; jsonBizCompData.length > i; i++){
+        	if(jsonBizCompData[i].L_ORG003){
+		        if(jsonBizCompData[i].L_ORG003.length == 1){
+			        gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 	'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
+			        gfnma_multiSelectSet('#TAX_SITE_CODE', 		'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
+			        break;
+		        }
+        	}
+        }
+        
         //사용자
         SBUxMethod.set("EMP_CODE", gfn_nvl(gfnma_multiSelectGet('#PAYEE_CODE')));
-
         if (p_isAccountManager || p_isAccountChief) {
             SBUxMethod.set("OPEN_TO_ALL_YN", "N");
             SBUxMethod.set("OPEN_TO_FCM_YN", "N");
@@ -4329,7 +4348,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
             $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         } else if (strsourceType == "AP") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
@@ -4347,7 +4365,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "false");
             $("#SUB_TAX_SITE_CODE").removeClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         } else if (strsourceType == "BAD") {
             $("#DUP_ISSUE_BILL_TYPE").attr('disabled', 'true');
             $("#EXCLUDE_REVENUE_AMT_YN").attr('disabled', 'true');
@@ -4361,7 +4378,6 @@
 
             $("#SUB_TAX_SITE_CODE").attr("required", "true");
             $("#SUB_TAX_SITE_CODE").addClass("inpt_data_reqed");
-            gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
         }
 
         $("#main-btn-save", parent.document).removeAttr('disabled');
@@ -4402,7 +4418,6 @@
         SBUxMethod.set("DEPT_NAME", p_deptName);
 
         SBUxMethod.set("SOURCE_DOC", "MANUAL");
-        gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', "T02");
 
         if (strsourceType == "AP") {
             SBUxMethod.set("DOC_TYPE", "19"); //미지급
@@ -5401,7 +5416,6 @@
                 jsonAccountLineList.length = 0;
 
                 var formData = listData.cv_1[0];
-
                 if(formData) {
                     SBUxMethod.set('KEY_ID', formData.KEY_ID);
                     SBUxMethod.set('ACCT_RULE_CODE', formData.GAAP_CD);
@@ -6668,4 +6682,60 @@
             }
         });
     }
+    
+    
+    const fn_bizComponent = async function(){
+    	
+    	let componentList_1 = {
+    		    'L_FIG005' : ''
+    		    , 'L_FIM051' : ''
+    		    , 'L_BANK_CODE' : ''
+    		    , 'L_VAT_INFO' : ''
+    		    , 'L_FIT010' : ''
+    		    , 'L_CS_ACCOUNT' : ''
+    		    , 'L_FIM052' : ''
+    		    , 'L_FIG003' : ''
+    		    , 'L_COM001' : "AND USE_YN = 'Y'"
+    		    , 'L_ORG020' : ''
+    		    , 'L_ORG001' : ''
+    		    , 'P_FIM041' : ''
+    		    , 'L_FIM081' : ''
+    		    , 'L_FIG002' : ''
+    		    , 'L_ORG003' : ''
+    		    , 'L_USER' : ''
+    		    , 'L_RULE' : ''
+    		    , 'L_FIT005' : ''
+    		    , 'L_FIT012' : ''
+    		    , 'L_FIT011' : ''
+    		    , 'L_FIT007' : ''
+    		    , 'L_FIT009' : ''
+    		    , 'L_FIT013' : ''
+    		    , 'L_FIT014' : ''
+    		    , 'L_FIT006' : ''
+    		    , 'L_FIT019' : ''
+    		    , 'L_FIT008' : ''
+    		    , 'L_FIT010' : ''
+    		    , 'L_VAT_INFO' : '' 
+    		    , 'L_CS_ACCOUNT' : '' 
+    		}
+    	
+    	let BIZCOMP_ID_LIST_1 = '';
+    	let WHERE_CLAUSE_LIST_1 = '';
+    	let PARAM_LIST_1 = '';
+    	
+    	for( key in componentList_1 ){
+    		BIZCOMP_ID_LIST_1 		+= key + "|";
+    		WHERE_CLAUSE_LIST_1 	+= componentList_1[key] + "|";
+    		PARAM_LIST_1 			+= "|";
+    	}
+    	
+    	BIZCOMP_ID_LIST_1 = BIZCOMP_ID_LIST_1.slice(0, -1);
+    	WHERE_CLAUSE_LIST_1 = WHERE_CLAUSE_LIST_1.slice(0, -1);
+    	PARAM_LIST_1 = PARAM_LIST_1.slice(0, -1);
+    	
+    	let componentData = await gfn_bizComponentData(BIZCOMP_ID_LIST_1, WHERE_CLAUSE_LIST_1, PARAM_LIST_1, gv_ma_selectedCorpCd, gv_ma_selectedClntCd);
+ 		
+ 		return componentData.cv_1;
+    }
+    
 </script>

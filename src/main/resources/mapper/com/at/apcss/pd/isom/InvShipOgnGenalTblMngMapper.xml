@@ -560,7 +560,7 @@
 	<!-- 2024.12.23  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
     <select id="selectInvShipOgnGenalTblMngListNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectItemStbltYn */
+		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew */
 			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
@@ -822,28 +822,27 @@
 	</select>
 
 	<!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectRawDataListNew	-->
-	<!-- DESC : 2025 로우데이터                                            		-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataList2025	-->
+	<!-- DESC : 출자출하조직 총괄표 로우데이터 2025년                                             		-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2024.12.23  	ljw        		Initial Creation                            -->
+	<!-- 2025.02.17  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
-	<select id="selectRawDataListNew" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
-		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectRawDataListNew */
-			TOTAL.YR
-			,TOTAL.UO_BRNO
-			,TOTAL.UO_CORP_NM
-			,TOTAL.BRNO
-			,TOTAL.CORP_NM
-			,TOTAL.APRV
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
-			,TOTAL.ITEM_CD
+	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
+		SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew */
+			TOTAL.ITEM_CD
 			,TOTAL.ITEM_NM
-			,TOTAL.CTGRY_CD
-			,TOTAL.CTGRY_NM
 			,TOTAL.STTG_UPBR_ITEM_SE
 			,TOTAL.STTG_UPBR_ITEM_NM
+			,TOTAL.CTGRY_CD
+			,TOTAL.CTGRY_NM
+			,TOTAL.BRNO
+			,TOTAL.UO_BRNO
+			,TOTAL.YR
+			,TOTAL.APRV
+			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOTAL.APRV) AS APRV_NM
+			,TOTAL.CORP_NM
 			,TOTAL.UO_SPMT_AMT
 			,TOTAL.UO_SPMT_AMT_OTHER
 			,TOTAL.UO_OTHER_SPMT_AMT
@@ -855,6 +854,7 @@
 			,TOTAL.UO_OTHER_SPMT_VLM_OTHER
 
 			,TOTAL.UO_SPMT_AMT_TOT
+			,TOTAL.UO_SPMT_VLM_TOT
 			,TOTAL.UO_SPMT_AMT_RT
 			,TOTAL.UO_SPMT_AMT_TOT_RT
 
@@ -877,12 +877,8 @@
 					ELSE 'N' END
 			) AS STBLT_YN
 			,TOTAL.ORG_STBLT_YN
-			,DECODE(TOTAL.UO_STBLT_YN
-					, 'Y' , DECODE(TOTAL.ORG_STBLT_YN , 'Y' , TOTAL.LAST_STBLT_YN , '')
-					, ''
-			) AS LAST_STBLT_YN
 		FROM
-				(SELECT
+			(SELECT
 					TOT.ITEM_CD
 					,TOT.ITEM_NM
 					,TOT.STTG_UPBR_ITEM_SE
@@ -895,7 +891,6 @@
 					,TOT.APRV
 					,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'APRV_UPBR_SE_CD' AND CD_VL = TOT.APRV) AS APRV_NM
 					,TOT.CORP_NM
-					,TOT.UO_CORP_NM
 					,TOT.UO_SPMT_AMT
 					,TOT.UO_SPMT_AMT_OTHER
 					,TOT.UO_OTHER_SPMT_AMT
@@ -907,6 +902,7 @@
 					,TOT.UO_OTHER_SPMT_VLM_OTHER
 
 					,TOT.UO_SPMT_AMT_TOT
+					,TOT.UO_SPMT_VLM_TOT
 					,TOT.UO_SPMT_AMT_RT
 					,TOT.UO_SPMT_AMT_TOT_RT
 					/* 20240603 승인형 작년 기준인것을 올해 기준으로 변경 60 -> 50 , 60 -> 40 */
@@ -918,39 +914,19 @@
 					,(CASE WHEN TOT.UO_SPMT_AMT_RT >= 100 THEN 'Y' ELSE 'N' END) AS CHK_B_B
 					,(CASE WHEN TOT.UO_SPMT_AMT_TOT_RT >=  20 THEN 'Y' ELSE 'N' END) AS CHK_B_C
 					,TOT.STBLT_YN AS ORG_STBLT_YN
-					,(SELECT STBLT_YN
-						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
-						WHERE 1=1
-						  AND DEL_YN = 'N'
-						  AND APO_SE = '1'
-						  AND TYPE_SE_NO = '8'
-						  AND NVL(TMPR_STRG_YN,'N') = 'N'
-						  AND YR = TOT.YR
-						  AND BRNO = TOT.UO_BRNO
-						  AND ITEM_CD = TOT.ITEM_CD
-					) AS UO_STBLT_YN
-					,(SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN)
-						FROM TB_EV_REG_RSLT ERR
-						WHERE 1=1
-						  AND BRNO = TOT.BRNO
-						  AND YR = TOT.YR
-						  AND 'Y' = DECODE(APO_SE ,'1' , 'Y' , '2' ,DECODE(ERR.UO_BRNO , TOT.UO_BRNO , 'Y' , 'N')
-						)
-					) AS LAST_STBLT_YN
 				FROM
 					(SELECT
 							ITEM.ITEM_CD
 							, ITEM.ITEM_NM
 							, ITEM.STTG_UPBR_ITEM_SE
-							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = ITEM.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+							, ITEM.STTG_UPBR_ITEM_NM
 							, ITEM.CTGRY_CD
-							,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = ITEM.CTGRY_CD) AS CTGRY_NM
+							, ITEM.CTGRY_NM
 							, ITEM.BRNO
 							, ITEM.UO_BRNO
 							, ITEM.YR
 							, (SELECT APRV FROM TB_EV_APO WHERE BRNO = ITEM.UO_BRNO) AS APRV
 							, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.BRNO) AS CORP_NM
-							, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ITEM.UO_BRNO) AS UO_CORP_NM
 
 							, TOTA.UO_SPMT_AMT 	AS UO_SPMT_AMT
 							, TOTB.UO_SPMT_AMT 	AS UO_SPMT_AMT_OTHER
@@ -965,6 +941,7 @@
 							, TOTB.UO_OTHER_SPMT_VLM 	AS UO_OTHER_SPMT_VLM_OTHER
 
 							, (NVL(TOTA.UO_SPMT_AMT,0) + NVL(TOTA.UO_OTHER_SPMT_AMT,0) + NVL(TOTB.UO_SPMT_AMT,0) + NVL(TOTB.UO_OTHER_SPMT_AMT,0)) AS UO_SPMT_AMT_TOT
+							, (NVL(TOTA.UO_SPMT_VLM,0) + NVL(TOTA.UO_OTHER_SPMT_VLM,0) + NVL(TOTB.UO_SPMT_VLM,0) + NVL(TOTB.UO_OTHER_SPMT_VLM,0)) AS UO_SPMT_VLM_TOT
 
 							, ROUND(NVL( NVL(TOTA.UO_SPMT_AMT,0) / NULLIF( NVL(TOTA.UO_SPMT_AMT,0) + NVL(TOTA.UO_OTHER_SPMT_AMT,0) , 0 ) , 0 ) * 100 , 2 ) AS UO_SPMT_AMT_RT
 							, ROUND(
@@ -979,41 +956,46 @@
 										, 0 ) * 100
 									, 2
 							) AS UO_SPMT_AMT_TOT_RT
-							, ITEM.STBLT_YN
+							, (SELECT STBLT_YN
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '2'
+								  AND TYPE_SE_NO ='8'
+								  AND NVL(TMPR_STRG_YN,'N') = 'N'
+								  AND BRNO = ITEM.BRNO
+								  AND UO_BRNO = ITEM.UO_BRNO
+								  AND YR = ITEM.YR
+								  AND ITEM_CD = ITEM.ITEM_CD
+							) AS STBLT_YN
 						FROM
 							(SELECT
 									ITEM_CD
 									, YR
-									, (SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD)AS STTG_UPBR_ITEM_SE
-									, (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE YR = A.YR AND BRNO = A.UO_BRNO AND ITEM_CD = A.ITEM_CD)AS CTGRY_CD
+									, STTG_UPBR_ITEM_SE
+									, CTGRY_CD
 									, UO_BRNO
 									, BRNO
-									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = A.ITEM_CD) AS ITEM_NM
-									, STBLT_YN
-								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT A
-									WHERE 1=1
-									  AND DEL_YN = 'N'
-									  AND APO_SE = '2'
-									  AND TYPE_SE_NO = '8'
-									  AND NVL(TMPR_STRG_YN,'N') = 'N'
-									  AND YR = #{yr}
-									  AND BRNO NOT IN (SELECT BRNO
-														FROM TB_COM_USER
-														WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61')
-														)
-									  AND UO_BRNO NOT IN (SELECT BRNO
-															FROM TB_COM_USER
-															WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51')
-															)
-									  AND ITEM_CD = (SELECT ITEM_CD
-									  					FROM TB_EV_APO_YR_GPC_CD
-									  					WHERE 1=1
-									  					  AND APO_SE = '2'
-									  					  AND STTG_UPBR_ITEM_SE != '3'
-									  					  AND YR = A.YR
-									  					  AND BRNO = A.BRNO
-									  					  AND UO_BRNO = A.UO_BRNO
-									  					  AND ITEM_CD = A.ITEM_CD)
+									,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = AYGC.ITEM_CD) AS ITEM_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = AYGC.CTGRY_CD) AS CTGRY_NM
+									,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = AYGC.STTG_UPBR_ITEM_SE) AS STTG_UPBR_ITEM_NM
+								FROM TB_EV_APO_YR_GPC_CD AYGC
+								WHERE 1=1
+								  AND APO_SE = '2'
+								  AND BRNO NOT IN (SELECT BRNO
+													FROM TB_COM_USER
+													WHERE USER_ID IN ('at21','at22','at23','at24','at25','at26','at27','at61','beop11','beop12')
+													)
+								  AND STTG_UPBR_ITEM_SE IN ('1','2')
+								  AND YR = #{yr}
+								  AND ITEM_CD = (SELECT ITEM_CD
+										  					FROM TB_EV_APO_YR_GPC_CD
+										  					WHERE 1=1
+										  					  AND APO_SE = '1'
+										  					  AND STTG_UPBR_ITEM_SE IN ('1','2')
+										  					  AND YR = AYGC.YR
+										  					  AND BRNO = AYGC.UO_BRNO
+										  					  AND ITEM_CD = AYGC.ITEM_CD)
 							) ITEM ,
 							(SELECT
 									BRNO
@@ -1029,16 +1011,15 @@
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5')
 								  AND NVL(TMPR_STRG_YN,'N') = 'N'
-								  AND YR = #{yr}
-								  AND ITEM_CD = (SELECT ITEM_CD
-								  					FROM TB_EV_APO_YR_GPC_CD
-								  					WHERE 1=1
-								  					  AND APO_SE = '2'
-								  					  AND STTG_UPBR_ITEM_SE != '3'
-								  					  AND YR = PSTA.YR
-								  					  AND BRNO = PSTA.BRNO
-								  					  AND UO_BRNO = PSTA.UO_BRNO
-								  					  AND ITEM_CD = PSTA.ITEM_CD)
+								  AND OGNZ_STBLT_YN = 'Y'
+								  AND ITEM_CD IN (SELECT ITEM_CD
+													FROM TB_EV_APO_YR_GPC_CD
+													WHERE 1=1
+													  AND APO_SE = '2'
+													  AND YR = PSTA.YR
+													  AND BRNO = PSTA.BRNO
+													  AND UO_BRNO = PSTA.UO_BRNO
+													)
 								  AND PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
@@ -1050,7 +1031,8 @@
 															  AND UO_BRNO = PSTA.UO_BRNO
 															  AND TRMT_TYPE = PSTA.TRMT_TYPE
 														)
-								GROUP BY BRNO, UO_BRNO , ITEM_CD
+								  AND YR = #{yr}
+								GROUP BY  UO_BRNO, BRNO , ITEM_CD
 							) TOTA ,
 							(SELECT
 									BRNO
@@ -1066,22 +1048,19 @@
 								  AND APO_SE = '2'
 								  AND TYPE_SE_NO IN ('5','7')
 								  AND NVL(TMPR_STRG_YN,'N') = 'N'
-								  AND CTGRY_CD IS NULL
-								  AND CLTVTN_LAND_SN IS NULL
 								  AND OGNZ_STBLT_YN = DECODE(PSTB.TYPE_SE_NO, '5' , 'N' , '7' ,'0' ,'')
-								  AND YR = #{yr}
 								  AND (
 								  		PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 															FROM TB_EV_FRMHS_APO
 															WHERE 1=1
-															  AND STBLT_YN = 'Y'
+															  AND STBLT_YN = 'N'
 															  AND NVL(EXCL_YN,'N') != 'Y'
 															  AND APO_SE = '2'
 															  AND YR = PSTB.YR
 															  AND BRNO = PSTB.BRNO
 															  AND UO_BRNO = PSTB.UO_BRNO
 															  AND TRMT_TYPE = PSTB.TRMT_TYPE
-														)
+															)
 										OR
 										PRDCR_OGNZ_SN = '0'
 										)
@@ -1092,19 +1071,20 @@
 													  AND YR = PSTB.YR
 													  AND BRNO = PSTB.BRNO
 													  AND UO_BRNO = PSTB.UO_BRNO
-													  AND STTG_UPBR_ITEM_SE != '3'
 													)
-								GROUP BY  BRNO , UO_BRNO , ITEM_CD
+								  AND YR = #{yr}
+								GROUP BY  UO_BRNO, BRNO , ITEM_CD
 							) TOTB
 						WHERE 1=1
-						  AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
-						  AND ITEM.BRNO = TOTA.BRNO(+)
-						  AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
-						  AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
-						  AND ITEM.BRNO = TOTB.BRNO(+)
-						  AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
+						AND ITEM.BRNO = TOTA.BRNO(+)
+						AND ITEM.UO_BRNO = TOTA.UO_BRNO(+)
+						AND ITEM.ITEM_CD = TOTA.ITEM_CD(+)
+
+						AND ITEM.BRNO = TOTB.BRNO(+)
+						AND ITEM.UO_BRNO = TOTB.UO_BRNO(+)
+						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
-		)TOTAL
+			)TOTAL
 		ORDER BY UO_BRNO , BRNO , ITEM_CD , STBLT_YN
 	</select>
 

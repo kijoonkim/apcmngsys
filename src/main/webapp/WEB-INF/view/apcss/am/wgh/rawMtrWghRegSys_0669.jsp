@@ -758,6 +758,7 @@
 			return Object.keys(b).length - Object.keys(a).length;
 		});
 
+
 		jsonPltBox = merged;
 		jsonPltBox.forEach(function(item){
 			item.Bqntt = '';
@@ -1404,6 +1405,18 @@
             return;
     	}
 
+		 let sumBqntt; // 팔레트 불출관리 상자 합계
+		 for(let i =0; i<jsonPltBox.length; i++){
+			 if(jsonPltBox[i].BpltBxNm === "합계" && jsonPltBox[i].type === "입고"){
+				 sumBqntt = jsonPltBox[i].Bqntt;
+			 }
+		 }
+		 if(sumBqntt !== bxQntt && bxQntt){
+			 gfn_comAlert("W0006", "입고 가구 수","팔레트 불출관리 상자 합계"); // W0006 {0}와/과 {1}이/가 서로 다릅니다.
+			 return;
+		 }
+
+
  		let trsprtCst 		= SBUxMethod.get('dtl-inp-trsprtCst') || 0;
  		let rmrk 			= SBUxMethod.get('dtl-inp-rmrk') || "";
  		let oinstSpmtNm 	= SBUxMethod.get('dtl-inp-oinstSpmtNm') || "";
@@ -1843,7 +1856,6 @@
 		}
 	}
 
-
 	/**
 	 * @name fn_choiceVhcl
 	 * @description 차량번호 선택 popup
@@ -2050,6 +2062,7 @@
 	}
 	const fn_pltBxModal = async function(){
 		const displayValue = $('#pltBxModal').css('display');
+
 		if(displayValue === 'none'){
 			$("#pltBxModal").css("display","block");
 		}else{

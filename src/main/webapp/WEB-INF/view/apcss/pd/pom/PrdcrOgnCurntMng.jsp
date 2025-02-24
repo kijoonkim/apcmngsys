@@ -27,8 +27,10 @@
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.apoSe eq '1'}">
+					<c:if test="${loginVO.apoSe ne '1'}">
 					<sbux-button id="btnRowData" name="btnRowData" uitype="normal" text="생산자조직 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect"></sbux-button>
 					<sbux-button id="btnRowData1" name="btnRowData1" uitype="normal" text="농가 로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_hiddenGrdSelect01"></sbux-button>
+					</c:if>
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<!--
 					<sbux-button id="btnSaveFclt" name="btnSaveFclt" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveFmList"></sbux-button>
@@ -1236,6 +1238,7 @@
 					//저장버튼, 엑셀업로드 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
 					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt11').hide();
 					$('#btnUpload').hide();
 				}
 				</c:if>
@@ -1324,6 +1327,7 @@
 					//저장버튼, 엑셀업로드 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
 					$('#btnSaveFclt2').hide();
+					$('#btnSaveFclt11').hide();
 					$('#btnUpload').hide();
 				}
 			});

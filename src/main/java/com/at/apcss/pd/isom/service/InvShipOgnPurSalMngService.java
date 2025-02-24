@@ -110,7 +110,21 @@ public interface InvShipOgnPurSalMngService {
 
 	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다.2024년
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 * @throws Exception
+	 */
 	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다.2025년
+	 * @param InvShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 * @throws Exception
+	 */
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출 임시저장 정보를 조회한다.

@@ -1295,7 +1295,7 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 	<!-- 전문품목 매입매출 통합조직 로우데이터 -->
 	<select id="selectRawDataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
-		SELECT
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList */
 			UO_PST.YR
 			, UO_PST.BRNO
 			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = UO_PST.BRNO) AS CORP_NM
@@ -1431,6 +1431,186 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		  AND UO_PST.BRNO = ISO_PST.BRNO(+)
 		  AND UO_PST.ISO_BRNO = ISO_PST.ISO_BRNO(+)
 		ORDER BY UO_PST.BRNO , UO_PST.ITEM_CD , UO_PST.TYPE_SE_NO , UO_PST. ISO_BRNO , UO_PST.PRDCR_OGNZ_SN
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025	-->
+	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) 로우데이터 조회 2025년                        	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.12.12  	ljw        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<select id="selectRawDataList2025" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025 */
+			PST.YR
+			,PST.BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = PST.BRNO) AS CORP_NM
+			, DECODE( (SELECT APRV
+						FROM TB_EV_APO
+						WHERE BRNO = PST.BRNO
+						)
+						, '1' , '승인형'
+						, '2' , '육성형'
+						, ''
+			) AS APRV
+			,PST.UO_BRNO
+			,PST.ITEM_CD
+			,( (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = PST.ITEM_CD) || '(' || (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = YGC.STTG_UPBR_ITEM_SE) FROM TB_EV_APO_YR_GPC_CD YGC WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD) || ')' ) AS ITEM_NM
+			,(SELECT STTG_UPBR_ITEM_SE FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD) AS STTG_UPBR_ITEM_SE
+			,(SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)AS CTGRY_CD
+
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = (SELECT CTGRY_CD FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND ITEM_CD = PST.ITEM_CD AND YR = PST.YR AND BRNO = PST.BRNO)) AS CTGRY_NM
+			, (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'STTG_UPBR_ITEM_SE' AND CD_VL = (SELECT STTG_UPBR_ITEM_SE  FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND ITEM_CD = PST.ITEM_CD AND YR = PST.YR AND BRNO = PST.BRNO)) AS STTG_UPBR_ITEM_NM
+
+			,PRDCR_OGNZ_SN
+			, (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO WHERE PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN) AS PRDCR_OGNZ_NM
+			, PST.ISO_BRNO
+			, (SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = PST.ISO_BRNO) AS ISO_CORP_NM
+			,TYPE_SE_NO
+			,DECODE(PST.TYPE_SE_NO
+							, '1', '출자출하조직'
+							, '2', '출자출하조직'
+							, '3', '출자출하조직'
+							, '4', '출자출하조직'
+							, '5', '(통합조직직속)전속출하'
+							, '6', '(통합조직직속)전속출하'
+							, '7', '기타매입'
+							, '8', '합계'
+							, ''
+			) AS SE_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '2', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '0', '생산자조직 외(단순사입 포함)','')
+							, '3', '생산자조직 외(단순사입 포함)'
+							, '4', '합계'
+							, '5', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '6', DECODE(PST.OGNZ_STBLT_YN, 'Y', '전속출하', 'N' , '(요건미달)전속출하', '')
+							, '7', '생산자조직 외'
+							, '8', '합계'
+							, ''
+			) AS SE_DTL_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', ''
+							, '2', '소계'
+							, '3', ''
+							, '4', '합계'
+							, '5', (SELECT (SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'TRMT_TYPE' AND CD_VL = FA.TRMT_TYPE) FROM TB_EV_FRMHS_APO FA WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN)
+							, '6', '소계'
+							, '7', ''
+							, '8', '합계'
+							, ''
+			) AS TRMT_TYPE_NM
+			,DECODE(PST.TYPE_SE_NO
+							, '1', (SELECT CORP_NM
+										FROM TB_EV_APO EV
+										WHERE 1=1
+										  AND BRNO = PST.ISO_BRNO)
+							, '2', '소계'
+							, '3', (SELECT CORP_NM
+										FROM TB_EV_APO EV
+										WHERE 1=1
+										  AND BRNO = PST.ISO_BRNO)
+							, '4', '합계'
+							, '5', (SELECT PRDCR_OGNZ_NM FROM TB_EV_FRMHS_APO FA WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN)
+							, '6', '소계'
+							, '7', '농가, 법인 등'
+							, '8', '합계'
+							, ''
+			) AS PRCHS_NM
+
+			, PST.SLS_CNSGN_PRCHS_AMT
+			, PST.SLS_CNSGN_SLS_AMT
+			, PST.SLS_CNSGN_PRCHS_VLM
+			, PST.SLS_CNSGN_SLS_VLM
+
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE1) AS TRMT_TYPE1
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE2) AS TRMT_TYPE2
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE3) AS TRMT_TYPE3
+
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT1) AS TRMT_TYPE_RT1
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT2) AS TRMT_TYPE_RT2
+			,DECODE(PST.TYPE_SE_NO , '1' , TRMT_TYPE_RT3) AS TRMT_TYPE_RT3
+
+			, PST.RMRK
+			, PST.STBLT_YN
+			,(SELECT NVL(ERR.MNGR_STBLT_YN , ERR.STBLT_YN)
+				FROM TB_EV_REG_RSLT ERR
+				WHERE 1=1
+				  AND BRNO = PST.BRNO
+				  AND YR = PST.YR
+				  AND APO_SE = '1'
+			) AS LAST_STBLT_YN
+
+		FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+			,(SELECT
+					TOTAL.*
+					, ROUND(TRMT_TYPE1 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT1
+					, ROUND(TRMT_TYPE2 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT2
+					, ROUND(TRMT_TYPE3 * 100 / NULLIF(TRMT_TYPE1 + TRMT_TYPE2 + TRMT_TYPE3 , 0) ,2) AS TRMT_TYPE_RT3
+				FROM
+				(SELECT PST.YR
+						, PST.BRNO AS ISO_BRNO
+						, PST.UO_BRNO AS BRNO
+						, PST.ITEM_CD
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '1' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE1
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '2' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE2
+						, SUM( NVL( DECODE( EFA.TRMT_TYPE , '3' , PST.SLS_CNSGN_PRCHS_AMT , 0 ) , 0 ) ) AS TRMT_TYPE3
+					FROM (SELECT *
+								FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
+								WHERE 1=1
+								  AND DEL_YN = 'N'
+								  AND APO_SE = '2'
+								  AND STBLT_YN= 'Y'
+								  AND TYPE_SE_NO ='5'
+								  AND YR= #{yr}
+						) PST
+						,(SELECT
+								*
+							FROM TB_EV_FRMHS_APO
+							WHERE 1=1
+							  AND YR = #{yr}
+							  AND APO_SE = '2'
+						) EFA
+					WHERE 1=1
+					  AND PST.BRNO = EFA.BRNO(+)
+					  AND PST.UO_BRNO = EFA.UO_BRNO(+)
+					  AND PST.PRDCR_OGNZ_SN = EFA.PRDCR_OGNZ_SN(+)
+					GROUP BY PST.YR , PST.BRNO , PST.UO_BRNO , PST.ITEM_CD
+				) TOTAL) TOT
+		WHERE 1=1
+		  AND PST.BRNO = TOT.BRNO(+)
+		  AND PST.ISO_BRNO = TOT.ISO_BRNO(+)
+		  AND PST.ITEM_CD = TOT.ITEM_CD(+)
+		  AND PST.YR = #{yr}
+		  AND PST.APO_SE = '1'
+		  AND DEL_YN = 'N'
+		  AND (
+		  			(TYPE_SE_NO != '5' AND PRDCR_OGNZ_SN = '0')
+		  			OR
+		  			(TYPE_SE_NO = '5' AND PRDCR_OGNZ_SN = (SELECT PRDCR_OGNZ_SN FROM TB_EV_FRMHS_APO WHERE YR = PST.YR AND BRNO = PST.BRNO AND PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN AND NVL(EXCL_YN,'N') != 'Y'))
+		  		)
+		  AND PST.ITEM_CD = (SELECT ITEM_CD FROM TB_EV_APO_YR_GPC_CD WHERE APO_SE = '1' AND YR = PST.YR AND BRNO = PST.BRNO AND ITEM_CD = PST.ITEM_CD)
+		  AND PST.BRNO NOT IN (SELECT BRNO
+								FROM TB_COM_USER
+								WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
+								)
+		ORDER BY
+			BRNO
+			,ITEM_CD
+			, (CASE	WHEN PST.TYPE_SE_NO = '1' THEN '1'
+					WHEN PST.TYPE_SE_NO = '2' AND PST.OGNZ_STBLT_YN = '0' THEN '4'
+					WHEN PST.TYPE_SE_NO = '2' THEN '1'
+					WHEN PST.TYPE_SE_NO = '5' THEN '5'
+					WHEN PST.TYPE_SE_NO = '6' THEN '5'
+					ELSE TO_CHAR(PST.TYPE_SE_NO) END)
+			, OGNZ_STBLT_YN DESC
+			, CASE	WHEN TRMT_TYPE = 1 THEN 3
+					WHEN TRMT_TYPE = 2 THEN 1
+					WHEN TRMT_TYPE = 3 THEN 2
+					ELSE 4 END
+			, TRMT_TYPE
+			, TYPE_SE_NO
 	</select>
 
 	<!-- ==========================================================================	-->
@@ -2449,6 +2629,7 @@ ORDER BY
 			/*예외*/
 			,TOTAL.CHK_ITEM_A /*CTGRY_CD 2*/
 			,TOTAL.CHK_ITEM_B /*CTGRY_CD 3*/
+			,TOTAL.CHK_ITEM_C /*20250218 추가 CTGRY_CD 1*/
 
 			/* 총취급액 최저 금액 */
 			,TOTAL.CHK_AMT_TOT_A_A
@@ -2486,6 +2667,7 @@ ORDER BY
 			/*APRV 1승인형 2육성형 */
 			/*STTG_UPBR_ITEM_SE 1전문품목 2육성품목 */
 			/*CTGRY_CD 1과실 2시설 3노지*/
+			/*
 			, (CASE WHEN TOTAL.APRV = '1' AND TOTAL.STTG_UPBR_ITEM_SE = '1' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
 						THEN (CASE WHEN TOTAL.CHK_A_A = 'A' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
 											WHEN TOTAL.CHK_A_A = 'B' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
@@ -2512,20 +2694,102 @@ ORDER BY
 											WHEN TOTAL.CHK_B_C = 'B' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
 									ELSE 'N' END)
 
-					WHEN  TOTAL.APRV = '2' AND (TOTAL.CTGRY_CD ='1' and TOTAL.CHK_ITEM_A != 'Y')
+					WHEN  TOTAL.APRV = '2' AND TOTAL.CTGRY_CD ='1'
 						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_A = 'Y' AND TOTAL.CHK_RT_C = 'Y'
 									THEN 'Y'
 									ELSE 'N' END)
-					WHEN  TOTAL.APRV = '2' AND ( (TOTAL.CTGRY_CD ='2' and TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_A = 'Y')
+					WHEN  TOTAL.APRV = '2' AND TOTAL.CTGRY_CD ='2'
 						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_B = 'Y' AND TOTAL.CHK_RT_C = 'Y'
 									THEN 'Y'
 									ELSE 'N' END)
-					WHEN  TOTAL.APRV = '2' AND ( TOTAL.CTGRY_CD ='3' OR TOTAL.CHK_ITEM_B = 'Y')
+					WHEN  TOTAL.APRV = '2' AND TOTAL.CTGRY_CD ='3'
 						THEN (CASE WHEN  TOTAL.CHK_AMT_TOT_C_C = 'Y' AND TOTAL.CHK_RT_C = 'Y'
 									THEN 'Y'
 									ELSE 'N' END)
 					ELSE 'N' END
 			) AS STBLT_YN
+			*/
+			,(CASE
+				WHEN TOTAL.APRV = '1'
+					THEN
+						CASE
+							WHEN TOTAL.STTG_UPBR_ITEM_SE = '1'
+								THEN
+									CASE
+										WHEN (TOTAL.CTGRY_CD = '1' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_C = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_A = 'A' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_A = 'B' AND TOTAL.CHK_AMT_TOT_A_A = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '2' AND TOTAL.CHK_ITEM_B != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_A = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_B = 'A' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_B = 'B' AND TOTAL.CHK_AMT_TOT_A_B = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '3' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_B = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_A_C = 'A' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_A_C = 'B' AND TOTAL.CHK_AMT_TOT_A_C = 'Y' AND TOTAL.CHK_RT_A_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										END
+							WHEN TOTAL.STTG_UPBR_ITEM_SE = '2'
+								THEN
+									CASE
+										WHEN (TOTAL.CTGRY_CD = '1' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_B != 'Y') OR TOTAL.CHK_ITEM_C = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_A = 'A' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_A = 'B' AND TOTAL.CHK_AMT_TOT_B_A = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '2' AND TOTAL.CHK_ITEM_B != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_A = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_B = 'A' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_B = 'B' AND TOTAL.CHK_AMT_TOT_B_B = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										WHEN (TOTAL.CTGRY_CD = '3' AND TOTAL.CHK_ITEM_A != 'Y' AND TOTAL.CHK_ITEM_C != 'Y') OR TOTAL.CHK_ITEM_B = 'Y'
+											THEN
+												CASE
+													WHEN TOTAL.CHK_B_C = 'A' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_A = 'Y' THEN 'Y'
+													WHEN TOTAL.CHK_B_C = 'B' AND TOTAL.CHK_AMT_TOT_B_C = 'Y' AND TOTAL.CHK_RT_B_B = 'Y' THEN 'Y'
+													ELSE 'N'
+												END
+										END
+							END
+					WHEN TOTAL.APRV = '2'
+						THEN
+							CASE
+								WHEN TOTAL.CTGRY_CD = '1'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_A = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+								WHEN TOTAL.CTGRY_CD = '2'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_B = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+								WHEN TOTAL.CTGRY_CD = '3'
+									THEN
+										CASE
+											WHEN TOTAL.CHK_AMT_TOT_C_C = 'Y' AND TOTAL.CHK_RT_C = 'Y' THEN 'Y'
+											ELSE 'N'
+										END
+							END
+					ELSE
+						'N'
+			END) AS STBLT_YN
+
 
 		FROM
 				(SELECT
@@ -2545,8 +2809,9 @@ ORDER BY
 					,TOT.SLS_CNSGN_SLS_AMT_TOT
 					,TOT.SLS_CNSGN_SLS_AMT_RT
 
-					/*60억 참다래 0611 자두 0608 블루베리 0659 블랙베리 0664 구즈베리 0676 구스베리 0678*/
-					/* 40억 오이 0901 호박 0902 가지 0903*/
+					/* 60억 참다래 0611 자두 0608 블루베리 0659 블랙베리 0664 구즈베리 0676 구스베리 0678 */
+					/* 40억 오이 0901 호박 0902 가지 0903 */
+					/* 20250218 추가 고구마는 과실류 취급 고구마 0502 */
 					,(CASE WHEN ITEM_CD = '0611' THEN 'Y'
 								WHEN ITEM_CD = '0608' THEN 'Y'
 								WHEN ITEM_CD = '0659' THEN 'Y'
@@ -2559,6 +2824,9 @@ ORDER BY
 								WHEN ITEM_CD = '0902' THEN 'Y'
 								WHEN ITEM_CD = '0903' THEN 'Y'
 								ELSE 'N' END) AS CHK_ITEM_B
+
+					,(CASE WHEN ITEM_CD = '0502' THEN 'Y'
+								ELSE 'N' END) AS CHK_ITEM_C
 
 					/* 총취급액 최저 금액 */
 					/*승인형 전문품목*/

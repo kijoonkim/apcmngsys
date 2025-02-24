@@ -285,7 +285,7 @@ function compopup1(options) {
    			,V_P_CLIENT_CODE	: settings.clientCode
    			,V_P_BIZCOMP_ID		: settings.bizcompId
    			,V_P_WHERE_CLAUSE	: wstr
-   			,V_P_PROC_PARAMS	: pstr
+   			,V_P_PARAM_LIST		: pstr
    			,V_P_FORM_ID		: ''
    			,V_P_MENU_ID		: ''
    			,V_P_PROC_ID		: ''
@@ -361,7 +361,6 @@ function compopup1(options) {
  
 	$(modalId).find('input').off('keydown');
 	$(modalId).find('input').keydown(function(e){
-		console.log(e);
 		if(e.keyCode && e.keyCode == 13) {
 			getData();
 		} else if(e.keyCode && (e.keyCode == 8 || e.keyCode == 46)) {

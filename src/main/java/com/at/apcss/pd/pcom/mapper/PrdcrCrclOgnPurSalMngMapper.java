@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 
 /**
@@ -42,7 +41,19 @@ public interface PrdcrCrclOgnPurSalMngMapper {
 
 	public int deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO) throws Exception;
 
+	/**
+	 * 통합조직 총매입매출 로우데이터 조회 2024년
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return List<PrdcrCrclOgnPurSalMngVO>
+	 */
 	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
+
+	/**
+	 * 통합조직 총매입매출 로우데이터 조회 2025년
+	 * @param PrdcrCrclOgnPurSalMngVO
+	 * @return List<PrdcrCrclOgnPurSalMngVO>
+	 */
+	public List<PrdcrCrclOgnPurSalMngVO> selectRawDataList2025(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 	//매입 리스트
 	public List<PrdcrCrclOgnPurSalMngVO> selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO);
 	//매출 리스트

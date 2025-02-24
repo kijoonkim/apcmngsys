@@ -677,7 +677,6 @@
 	 <!-- 팝업 Modal -->
 	<div>
 	    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
-	<!--     <sbux-modal style="width:700px" id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal> -->
 	</div>
 	<div id="body-modal-compopupcs">
 	    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
@@ -1556,7 +1555,7 @@
             		chk = true;
             		break;
     			}
-    			if(!obj['CS_CODE']){
+    			if(!obj['CNPT_CD']){
             		gfn_comAlert("E0000","헤더 라인일 경우 거래처는 필수 입니다.");
             		chk = true;
             		break;
@@ -1910,7 +1909,7 @@
             strpay_term_code		+=	gfnma_nvl(list[i]['PAY_TERM_CODE']) + "|";
             strpay_method			+=	gfnma_nvl(list[i]['PAY_METHOD']) + "|";
             
-            strcs_code				+=	gfnma_nvl(list[i]['CS_CODE']) + "|";
+            strcs_code				+=	gfnma_nvl(list[i]['CNPT_CD']) + "|";
             strfce_gb 				+= "" + "|";
             strcurrency_code		+=	gfnma_nvl(list[i]['CURRENCY_CODE']) + "|";
             strexchange_type		+=	gfnma_nvl(list[i]['EXCHANGE_TYPE']) + "|";
@@ -1966,7 +1965,14 @@
             strreport_omit_yn			+=	gfnma_nvl(list[i]['REPORT_OMIT_YN']) + "|";
             strstandard_date			+=	gfnma_getNumber(gfnma_nvl(list[i]['STANDARD_DATE'])) + "|";
             strvat_asset_type			+=	gfnma_nvl(list[i]['VAT_ASSET_TYPE']) + "|";
-            strsupply_amt				+=	gfnma_nvl(list[i]['SUPPLY_AMT']) + "|";
+            
+            //라인유형 
+            if(gfnma_nvl(list[i]['LINE_TYPE'])=='3'){
+            	//부가세
+	            strsupply_amt 			+=  gfnma_nvl(SBUxMethod.get('SUPPLY_AMT'))  + "|";
+            } else {
+	            strsupply_amt			+=	gfnma_nvl(list[i]['SUPPLY_AMT']) + "|";
+            }
             
             strzero_report_yn			+=	gfnma_nvl(list[i]['ZERO_REPORT_YN']) + "|";
             strlocal_credit_type		+=	gfnma_nvl(list[i]['LOCAL_CREDIT_TYPE']) + "|";
@@ -2258,7 +2264,7 @@
 			,V_P_REPORT_OMIT_YN_D			: strreport_omit_yn          
 			,V_P_STANDARD_DATE_D			: strstandard_date           
 			,V_P_VAT_ASSET_TYPE_D			: strvat_asset_type          
-			,V_P_SUPPLY_AMT_D				: strsupply_amt           
+			,V_P_SUPPLY_AMT_D				: strsupply_amt           			//공급가액
 			
 			,V_P_ZERO_REPORT_YN_D			: strzero_report_yn       
 			,V_P_LOCAL_CREDIT_TYPE_D		: strlocal_credit_type    
@@ -2293,7 +2299,8 @@
         	params				: gfnma_objectToString(paramObj)
 		});    	 
         const data = await postJsonPromise;
-		console.log('P_FIG2210_S data:', data);
+		console.log('P_FIG2210_S save paramObj:', paramObj);
+		console.log('P_FIG2210_S save data:', data);
         
         try {
         	if (_.isEqual("S", data.resultStatus)) {
@@ -2825,8 +2832,7 @@
          await comPopupCs({
              compCode: gv_ma_selectedCorpCd
              , clientCode: gv_ma_selectedClntCd
-             , type: '99'
-             , inputData: { "CS_CODE" : gfnma_nvl2(cellData1) , "CS_NAME" : gfnma_nvl2(cellData2), "BIZ_REGNO" : '' }
+             , inputData: { "CNPT_CD" : gfnma_nvl2(cellData1) , "CNPT_NM" : gfnma_nvl2(cellData2), "BRNO" : '' }
              , bizcompId: pg_colcs_code_bizId
              , whereClause: strWhereClause
              , itemSelectEvent: function (data) {
@@ -2834,6 +2840,7 @@
 				Fig2210Grid.setCellData(row, 8, 	data['CNPT_CD'], true, true);
 				Fig2210Grid.setCellData(row, 10, 	data['CNPT_NM'], true, true);
 				jsonFig2210[row-1]['TXN_STOP_YN'] = data['TRSC_HLT_YN'];
+				//jsonFig2210[row-1]['BRNO'] = data['BRNO'];
              },
          });
          SBUxMethod.openModal('modal-compopupcs');
@@ -3471,15 +3478,26 @@
      * 행추가
      */
     var fn_gridRowAdd = function() {
+    	
+    	var p_currency_code = SBUxMethod.get('sch-currency-code');
+    	if(!p_currency_code){
+    		gfn_comAlert("E0000","상단 통화를 선택해야 합니다.");
+    		return;
+    	}
+    	
         var idx = Fig2210Grid.getRows();
+        var tidx = idx;
         if(idx==-1){
         	idx = 0;
+        	tidx = 1;        	
         }
         Fig2210Grid.insertRow(idx-1, 'below');
         Fig2210Grid.setCellData(idx, 2, idx, true, true);
         Fig2210Grid.setCellData(idx, 14, 0, true, true);
         Fig2210Grid.setCellData(idx, 15, 0, true, true);
         Fig2210Grid.setCellData(idx, 32, 1, true, true);
+        
+		jsonFig2210[idx-1]['CURRENCY_CODE'] = p_currency_code; 
     }
     
     /**

@@ -41,5 +41,17 @@ public interface PrdcrOgnGenalTblMngMapper {
 
 	public int updateStbltYn(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
 
+	/**
+	 * 생산자조직 총괄표 로우데이터 조회 2024년
+	 * @param PrdcrOgnGenalTblMngVO
+	 * @return List<PrdcrOgnGenalTblMngVO>
+	 */
 	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
+
+	/**
+	 * 생산자조직 총괄표 로우데이터 조회 2025년
+	 * @param PrdcrOgnGenalTblMngVO
+	 * @return List<PrdcrOgnGenalTblMngVO>
+	 */
+	public List<PrdcrOgnGenalTblMngVO> selectRawDataPrdcrOgnzList2025(PrdcrOgnGenalTblMngVO PrdcrOgnGenalTblMngVO);
 }

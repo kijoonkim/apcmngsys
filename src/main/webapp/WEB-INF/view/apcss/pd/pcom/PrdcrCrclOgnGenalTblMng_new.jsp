@@ -627,7 +627,9 @@
 				{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["비고","비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },
+			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 				{caption: ["조치사항","조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
+			</c:if>
 				{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 				{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -787,6 +789,8 @@
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
+		let aprv = SBUxMethod.get("srch-input-aprv");//
+
 		//sbgrid 체크박스 값 사용
 		let yrChk = SBUxMethod.get("srch-input-yrChk");//
 		let keys = Object.getOwnPropertyNames(yrChk);
@@ -817,6 +821,8 @@
 			,stbltHldYn : stbltHldYn //적합품목 보유 여부
 
 			,prfmncCorpDdlnYn : prfmncCorpDdlnYn //실적 법인체 마감 여부
+
+			,aprv : aprv
 
 			//페이징
 			,pagingYn : 'Y'
@@ -891,8 +897,12 @@
 
 		let data = await postJsonPromise ;
 		try{
-			//console.log("data==="+data);
+			console.log(data);
 			data.resultList.forEach((item, index) => {
+				if(item.prfmncCorpDdlnYn == "Y"){
+					//법인체마감 버튼 숨김 처리
+					$("#btnPrfmncCorpDdlnYn01").hide();
+				}
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
 				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
@@ -1084,12 +1094,16 @@
 
 		//console.log(item);
 		//예외 품목인 경우
-		if(item.chkItemA == 'Y'){
+		if(item.aprv == '1' && item.chkItemA == 'Y'){
 			item.ctgryCd = '2'
 		}
 		//예외 품목인 경우
-		if(item.chkItemB == 'Y'){
+		if(item.aprv == '1' && item.chkItemB == 'Y'){
 			item.ctgryCd = '3'
+		}
+		//예외 품목인 경우
+		if(item.aprv == '1' && item.chkItemC == 'Y'){
+			item.ctgryCd = '1'
 		}
 
 		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){
@@ -1680,7 +1694,9 @@
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["통합조직 총 취급물량(톤)"],	ref:'slsCnsgnSlsVlmTot',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(A)통합조직 총 취급액(천원)"],	ref:'slsCnsgnSlsAmtTot',			type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["생산자조직 전속출하물량(톤)"],	ref:'slsCnsgnSlsVlm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(B)생산자조직 전속출하액(천원)"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
@@ -1688,7 +1704,7 @@
 			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["비고"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'}
+			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'},
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -1703,7 +1719,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngSelectRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do", {
 			yr : yr
 			});
 
@@ -1731,6 +1747,9 @@
 					,slsCnsgnSlsAmt			:Number(item.slsCnsgnSlsAmt)
 					,slsCnsgnSlsAmtTot		:Number(item.slsCnsgnSlsAmtTot)
 					,slsCnsgnSlsAmtRt		:Number(item.slsCnsgnSlsAmtRt)
+
+					,slsCnsgnSlsVlm			:Number(item.slsCnsgnSlsVlm)
+					,slsCnsgnSlsVlmTot		:Number(item.slsCnsgnSlsVlmTot)
 
 					,stbltYn				:item.stbltYn
 					,orgStbltYn				:item.orgStbltYn

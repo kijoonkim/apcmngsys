@@ -42,6 +42,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngVO extends ComVO{
 	private String itemCd;
 	private String itemNm;
 	private String isoBrno;
+	private String isoCorpNm;
 	private String prdcrOgnzSn;
 	private String prdcrOgnzCd;
 	private String prdcrOgnzNm;
