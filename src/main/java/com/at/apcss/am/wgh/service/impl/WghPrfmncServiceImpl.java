@@ -1,5 +1,6 @@
 package com.at.apcss.am.wgh.service.impl;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.annotation.Resource;
 import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.BeanUtils;
@@ -590,7 +592,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList) throws Exception {
 		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
 		if(rtnObj != null){
 			throw new EgovBizException();
@@ -608,6 +610,18 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
 			}
+		}
+		/** 계량이력 실적 생성 및 수정 **/
+		for(WghHstryVO vo : wghHstryVOList){
+			vo.setWghno(prcsNo);
+		}
+		try{
+			int hstryCnt = wghPrfmncMapper.mergeWghHstry(wghHstryVOList);
+
+		}catch (SQLException e){
+			throw new EgovBizException(getMessage("계량이력 생성중 에러가 발생했습니다."));
+		}catch (Exception e){
+			throw new EgovBizException();
 		}
 		return null;
 	}
@@ -783,7 +797,6 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 
 		}
-
 
 		if (insertSpmtList != null && insertSpmtList.size() > 0) {
 			int groupId = 0;
@@ -1808,5 +1821,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception {
+		return wghPrfmncMapper.selectWghHstryList(wghHstryVO);
 	}
 }

@@ -3,12 +3,8 @@ package com.at.apcss.am.wgh.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
-import com.at.apcss.am.wgh.vo.WghFcltVO;
+import com.at.apcss.am.wgh.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
-import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
-import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 
 /**
  * 계량실적 Mapper 인터페이스
@@ -269,4 +265,12 @@ public interface WghPrfmncMapper {
     List<WghInspPrfmncVO> selectWghInspPrfmncList(WghInspPrfmncVO wghInspPrfmncVO) throws Exception;
 
 	int deleteWghInspPrfmncList(List<WghInspPrfmncVO> wghInspPrfmncVOList) throws Exception;
+
+	int mergeWghHstry(List<WghHstryVO> wghHstryVOList) throws Exception;
+	/**
+	 * 계량이력 조회 for wghno
+	 * @param wghHstryVO
+	 * @return List<WghHstryVO>
+	 */
+	List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception;
 }

@@ -182,7 +182,7 @@
 					</div>
 					<div id="origin-wghtData">
 						<!--[APC] START -->
-						<%@ include file="../../../frame/inc/apcSelect.jsp" %>
+<%--						<%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
 						<!--[APC] END -->
 						<sbux-input id="dtl-inp-wghno" name="dtl-inp-wghno" uitype="hidden"></sbux-input>
 						<sbux-input id="dtl-inp-prdcrCd" name="dtl-inp-prdcrCd" uitype="hidden"></sbux-input>
@@ -209,19 +209,36 @@
 							</colgroup>
 							<tbody>
 							<tr>
-								<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
-								<td colspan="2" class="td_input" style="border-right:hidden; border-top: hidden" >
-									<sbux-datepicker
-											id="dtl-dtp-wghYmd"
-											name="dtl-dtp-wghYmd"
-											uitype="popup"
-											date-format="yyyy-mm-dd"
-											class="form-control input-sm input-sm-ast inpt_data_reqed"
-									></sbux-datepicker>
+								<th scope="row" class="th_bg">APC명</th>
+								<td colspan="4" class="td_input" style="border-right: hidden;">
+									<%@include file="../../../frame/inc/apcSelectComp.jsp" %>
 								</td>
-								<td colspan="2" style="border-top: hidden"></td>
+								<th scope="row" class="th_bg" ><span class="data_required" ></span>계량일자</th>
+								<td colspan="9" class="td_input">
+									<div style="display: flex; gap: 10px; width: 30%">
+										<sbux-datepicker
+												id="dtl-dtp-wghYmd"
+												name="dtl-dtp-wghYmd"
+												uitype="popup"
+												wrap-style="flex:1; display:flex"
+												date-format="yyyy-mm-dd"
+												class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+										></sbux-datepicker>
+<%--										<sbux-spinner--%>
+<%--												id="dtl-spi-wghDt"--%>
+<%--												name="dtl-spi-wghDt"--%>
+<%--												uitype="normal"--%>
+<%--												wrap-style="flex:1"--%>
+<%--												data-type="time"--%>
+<%--												time-format="HH:MM"--%>
+<%--												time-hours="24hours"--%>
+<%--										></sbux-spinner>--%>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row" class="th_bg" ><span class="data_required" ></span>생산자</th>
-								<td class="td_input" style="border-right:hidden; border-top: hidden">
+								<td class="td_input" style="border-right:hidden;">
 									<sbux-input
 											uitype="text"
 											id="dtl-inp-prdcrNm"
@@ -235,7 +252,7 @@
 											autocomplete-select-callback="fn_onSelectPrdcrNm"
 									></sbux-input>
 								</td>
-								<td class="td_input" style="border-right: hidden; border-top: hidden">
+								<td class="td_input" style="border-right: hidden;">
 									<sbux-input
 											uitype="text"
 											id="dtl-inp-prdcrIdentno"
@@ -247,7 +264,7 @@
 											onchange="fn_onChangeSrchPrdcrIdentno(this)"
 									/>
 								</td>
-								<td colspan="2" class="td_input" style=" border-top: hidden">
+								<td colspan="2" class="td_input">
 									<sbux-button
 											id="btnSrchPrdcr"
 											name="btnSrchPrdcr"
@@ -259,17 +276,32 @@
 									></sbux-button>
 								</td>
 								<th scope="row" class="th_bg"><span class="data_required" ></span>차량번호</th>
-								<td class="td_input" style="border-right: hidden; border-top: hidden">
-									<sbux-input
+								<td colspan="9" class="td_input">
+									<div style="display: flex; gap: 10px">
+										<sbux-input
+												uitype="text"
+												id="dtl-inp-vhclno"
+												name="dtl-inp-vhclno"
+												class="form-control input-sm inpt_data_reqed"
+												autocomplete="off"
+										></sbux-input>
+										<sbux-button
+												id="btnSrchVhclno"
+												name="btnSrchVhclno"
+												class="btn btn-xs btn-outline-dark"
+												text="찾기"
+												uitype="modal"
+												target-id="modal-vhcl"
+												onclick="fn_choiceVhcl"
+										></sbux-button>
+										<sbux-input
+											id="vhclInfo"
+											name="vhclInfo"
 											uitype="text"
-											id="dtl-inp-vhclno"
-											name="dtl-inp-vhclno"
-											class="form-control input-sm inpt_data_reqed"
-											autocomplete="off"
-									></sbux-input>
-								</td>
-								<td colspan="3" class="td_input"  style="border-top: hidden">
-									<sbux-button id="btnSrchVhclno" name="btnSrchVhclno" class="btn btn-xs btn-outline-dark" text="찾기" uitype="modal" target-id="modal-vhcl" onclick="fn_choiceVhcl"></sbux-button>
+											wrap-style="flex:1; margin-right:1vw"
+											readonly
+										></sbux-input>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -291,15 +323,16 @@
 										<div style="display: flex; align-items: center">
 											Kg
 										</div>
-										<div style="flex: 1">
-											<sbux-input
-													uitype="text"
+										<div style="flex-basis:45%; display: flex; align-items: center">
+											<sbux-spinner
 													id="dtl-inp-wholWghtTime"
 													name="dtl-inp-wholWghtTime"
-													class="form-control input-sm input-sm-ast"
-													autocomplete="off"
-													readonly
-											></sbux-input>
+													uitype="normal"
+													wrap-style="width: 100%"
+													data-type="time"
+													time-format="HH:MM"
+													time-hours="24hours"
+											></sbux-spinner>
 										</div>
 										<div style="display: flex">
 											<sbux-button
@@ -329,17 +362,18 @@
 											></sbux-input>
 										</div>
 										<div style="display: flex; align-items: center">
-											KG
+											Kg
 										</div>
-										<div style="flex: 1">
-											<sbux-input
-													uitype="text"
+										<div style="flex-basis:45%; display: flex; align-items: center">
+											<sbux-spinner
 													id="dtl-inp-emptVhclWghtTime"
 													name="dtl-inp-emptVhclWghtTime"
-													class="form-control input-sm input-sm-ast"
-													autocomplete="off"
-													readonly
-											></sbux-input>
+													uitype="normal"
+													wrap-style="width: 100%"
+													data-type="time"
+													time-format="HH:MM"
+													time-hours="24hours"
+											></sbux-spinner>
 										</div>
 										<div style="display: flex">
 											<sbux-button
@@ -353,39 +387,6 @@
 										</div>
 									</div>
 								</td>
-								<%--							<td class="td_input" style="border-right: hidden;">--%>
-								<%--								<sbux-input--%>
-								<%--									uitype="text"--%>
-								<%--									id="dtl-inp-emptVhclWght"--%>
-								<%--									name="dtl-inp-emptVhclWght"--%>
-								<%--									class="form-control input-sm input-sm-ast inpt_data_reqed"--%>
-								<%--									maxlength="6"--%>
-								<%--									autocomplete="off"--%>
-								<%--									mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"--%>
-								<%--									onchange="fn_onChangeEmptVhclWght"--%>
-								<%--								></sbux-input>--%>
-								<%--							</td>--%>
-								<%--							<td>Kg</td>--%>
-								<%--							<td class="td_input" style="border-right:hidden;" >--%>
-								<%--								<sbux-input--%>
-								<%--									uitype="text"--%>
-								<%--									id="dtl-inp-emptVhclWghtTime"--%>
-								<%--									name="dtl-inp-emptVhclWghtTime"--%>
-								<%--									class="form-control input-sm input-sm-ast"--%>
-								<%--									autocomplete="off"--%>
-								<%--									readonly--%>
-								<%--								></sbux-input>--%>
-								<%--							</td>--%>
-								<%--							<td>--%>
-								<%--								<sbux-button--%>
-								<%--									id="btnEmptVhcl"--%>
-								<%--									name="btnEmptVhcl"--%>
-								<%--									class="btn btn-xs btn-outline-dark"--%>
-								<%--									text="측정"--%>
-								<%--									uitype="normal"--%>
-								<%--									onclick="fn_emptVhcl"--%>
-								<%--								></sbux-button>--%>
-								<%--							</td>--%>
 								<th scope="row" class="th_bg">실중량</th>
 								<td class="td_input" style="border-right:hidden;">
 									<sbux-input
@@ -408,7 +409,7 @@
 											uitype="single"
 											jsondata-ref="jsonApcItem"
 											unselected-text="선택"
-											class="form-control input-sm"
+											class="form-control input-sm inpt_data_reqed"
 											onchange="fn_onChangeSrchItemCd(this)"
 									></sbux-select>
 								</td>
@@ -421,7 +422,7 @@
 											uitype="single"
 											jsondata-ref="jsonComFcltCd"
 											unselected-text="선택"
-											class="form-control input-sm"
+											class="form-control input-sm inpt_data_reqed"
 									></sbux-select>
 								</td>
 								<td colspan="2" class="td_input" style="border-right: hidden;">
@@ -507,7 +508,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdVrty" style="width:100%;height:132px;"></div>
+					<div id="sb-area-grdVrty" style="width:100%;height:162px;"></div>
 					<div id="sb-area-grdVrty2" style="width:100%;height:110px;"></div>
 				</div>
 
@@ -623,6 +624,8 @@
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
 
+	var jsonWghSeCd = [];	//계량구분코드
+
     /* SBGrid */
     var grdWghPrfmnc;	// 계량실적조회
 
@@ -658,7 +661,9 @@
 			gfn_setComCdSBSelect('dtl-rdo-gdsSeCd', 		jsonComGdsSeCd,  		'GDS_SE_CD', 		gv_selectedApcCd), 	// 상품구분 등록
 			gfn_setComCdSBSelect('dtl-slt-fcltCd',			jsonComFcltCd, 			'WGH_FCLT_CD', 		gv_selectedApcCd),	// 설비
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
+			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		jsonWghSeCd = rst[6];
 
 		jsonComWrhsSpmtType = jsonComWrhsSpmtType.filter(item => item.value !== 'TF');
 		jsonGrdWrhsSpmtType = jsonGrdWrhsSpmtType.filter(item => item.value !== 'TF');
@@ -679,9 +684,9 @@
 		SBUxMethod.set('dtl-dtp-wghYmd', gfn_dateToYmd(new Date()));
 	}
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		fn_init();
-
+	window.addEventListener('DOMContentLoaded',async function(e) {
+		await fn_init();
+		await fn_search();
 	});
 	const getCookie = (name) => {
 		const value = `; ${'${document.cookie}'}`;
@@ -705,6 +710,9 @@
 			SBUxMethod.set("dtl-slt-fcltCd",addr.toString());
 		}
 		ws.init();
+
+		/** addRow 대체 **/
+		await fn_addRow();
 	}
 
 	const fn_selectPltBxList = async function(){
@@ -955,6 +963,35 @@
 			});
 		});
 		grdPltBox.rebuild();
+
+		/** 계량이력 시간 **/
+		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
+		const data = await postJsonPromiseHstry;
+
+		if (!_.isEqual("S", data.resultStatus)) {
+		        gfn_comAlert(data.resultCode, data.resultMessage);
+		        return;
+		}
+
+		data.resultList.forEach(function(item,idx){
+			let time = fn_formatTime(item.wghDt);
+			if(idx == 0){
+				SBUxMethod.set("dtl-inp-wholWghtTime", time);
+			}else{
+				SBUxMethod.set("dtl-inp-emptVhclWghtTime", time);
+			}
+		});
+
+	}
+	const fn_formatTime = function(_date){
+		const dateStr = _date;
+		const date = new Date(dateStr.replace(" ", "T"));
+
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+
+		const result = hours + minutes;
+		return result;
 	}
 
 	/**
@@ -1070,23 +1107,43 @@
 	        SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'free';
 		    SBGridProperties.oneclickedit = true;
+
+			/** total cnt **/
+			let sum = Array.from({ length: jsonApcVrty.length }, (_ = 1, i) => i + _);
 	        let columns = [{caption: ['등급'], ref: 'grdCd', width: '80px', type:'combo',  	style:'text-align:center',
     			typeinfo : {ref:'jsonGrdCd', 		displayui : false,	itemcount: 10, label:'label', value:'value'}},];
 
 	        for(var i=0; i<jsonApcVrty.length; i++) {
-
 	        	columns.push(
 	        			{caption: [jsonApcVrty[i].vrtyNm], ref: jsonApcVrty[i].vrtyCd, width: '100px', type: 'input', style:'text-align:right', format : {type:'number', rule:'###.## '}},
-	        		)
+	        		);
 	        }
+			/** total 추가 **/
+			SBGridProperties.total = {
+				type: 'grand',
+				position: 'bottom',
+				columns : {
+					standard : [0],
+					sum : [1,2,3,4,5,6,7,8,9,10,11],
+				},
+				grandtotalrow : {
+					titlecol 	: 0,
+					titlevalue	: '합계',
+					style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+					stylestartcol	: 0
+				},
+			}
+
 			SBGridProperties.columns = columns;
 
 	        grdVrty = _SBGrid.create(SBGridProperties);
+			delete SBGridProperties.total;
+
 	        grdVrty.bind('valuechanged', 'fn_grdQnttChanged');
-			for (var j=0; j<jsonGrdCd.length; j++) {
-				grdVrty.addRow(true, {'grdCd': jsonGrdCd[j].grdCd});
-			}
-			grdVrty.refresh();
+			// for (var j=0; j<jsonGrdCd.length; j++) {
+			// 	grdVrty.addRow(true, {'grdCd': jsonGrdCd[j].grdCd});
+			// }
+			// grdVrty.refresh();
 			/** 검품 등급종류 set **/
 			let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, grdSeCd : '04', grdKnd : '01'});
 			let data = await postJsonPromise;
@@ -1123,7 +1180,7 @@
 			return;
 		}
 
-		let vrtyList = grdVrty.getGridDataAll();
+		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let total = 0;
 		for (var i=1; i<=vrtyList.length; i++) {
 
@@ -1367,8 +1424,17 @@
  		let shpgotPltQntt 	= SBUxMethod.get('dtl-inp-shpgotPltQntt') || "";
  		let oprtrNm 		= SBUxMethod.get('dtl-inp-oprtrNm') || "";
 
-		let vrtyList = grdVrty.getGridDataAll();
+		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let grdList = grdInsp.getGridDataAll();
+
+		/** 저장대상 없음 **/
+		const even = (el) => Object.keys(el).length > 1;
+
+		if(!vrtyList.some(even)){
+			gfn_comAlert("W0002","실적 대상");
+			return;
+		}
+
 		/** 검품등급 셋팅 **/
 		 const result = {};
 
@@ -1541,8 +1607,50 @@
 		let Cfclt = SBUxMethod.get("dtl-slt-fcltCd");
 		document.cookie = "addr="+ Cfclt + "; path=/; max-age=31536000; secure; samesite=strict";
 
+		/** 계량이력 set **/
+		let wghHstryVO = {
+			apcCd : gv_selectedApcCd,
+			wghno: '',
+			wghSeq : '',
+			vhclno : vhclno,
+			wghSeCd : '',
+			wghWght : '',
+			wghDt : '',
+			prcsTaskCd : '',
+			prcsCmptnDt : '',
+			prcsCmptnYn : '',
+			wghRmrk : '',
+			fcltCd : fcltCd,
+		}
+		/** 계량 시각 **/
+		let emptyTime = SBUxMethod.get("dtl-inp-emptVhclWghtTime");
+		let wholTime = SBUxMethod.get("dtl-inp-wholWghtTime");
+		let wghDt = SBUxMethod.get("dtl-spi-wghDt");
+		/** 계량구분 코드**/
+		let wghSeCd = jsonWghSeCd.filter(item => item.cdChrVl === wrhsSpmtType);
+		let wghHstryList = [];
+		wghSeCd.forEach(function(item,idx){
+			let vo = JSON.parse(JSON.stringify(wghHstryVO));
+			/** 입출차, 입고출하로 무게 구분 **/
+			if(item.cdNumVl == "1"){
+				vo.wghWght = wrhsSpmtType == "RT" ? wholWght : emptVhclWght;
+				vo.wghDt = wghYmd + wholTime;
+			}else if(item.cdNumVl == "2"){
+				vo.wghWght = wrhsSpmtType == "RT" ? emptVhclWght : wholWght;
+				vo.wghDt = wghYmd + emptyTime;
+			}
+			vo.wghSeCd = item.cdVl;
+			vo.wghSeq = idx;
+			wghHstryList.push(vo);
+		});
+
 		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
-			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do", {multiList:multiList,pltWrhsSpmt:pltWrhsSpmt});
+			const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",
+					{
+						multiList : multiList,
+						pltWrhsSpmt : pltWrhsSpmt,
+						wghHstryList : wghHstryList
+					});
 	    	const data = await postJsonPromise;
 
 	    	try {
@@ -1572,7 +1680,7 @@
 		let wght = $("#nowWght").text().replace(/,/g, "");
 		wght = parseFloat(wght) || 0;
 		let now = new Date();
-		const formattedDate = now.toLocaleString('ko-KR');
+		const formattedDate = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', '');
 		SBUxMethod.set('dtl-inp-wholWght', wght);
 		SBUxMethod.set('dtl-inp-wholWghtTime', formattedDate);
 	}
@@ -1585,7 +1693,8 @@
 		let wght = $("#nowWght").text().replace(/,/g, "");
 		wght = parseFloat(wght) || 0;
 		let now = new Date();
-		const formattedDate = now.toLocaleString('ko-KR');
+
+		const formattedDate = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false }).replace(':', '');
 		SBUxMethod.set('dtl-inp-emptVhclWght', wght);
 		SBUxMethod.set('dtl-inp-emptVhclWghtTime', formattedDate);
 
@@ -1733,6 +1842,12 @@
 		}
 		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
+			await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, prdcr.vhclno);
+			SBUxMethod.openModal('modal-vhcl');
+			if(grdVhclPop.getRows() == 2){
+				grdVhclPop.setRow(1);
+				popVhcl.choice();
+			}
 		}
 		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
 			SBUxMethod.set("dtl-inp-prdcrIdentno", prdcr.prdcrIdentno);
@@ -1748,10 +1863,18 @@
 	const fn_choiceVhcl = function() {
 		popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, SBUxMethod.get("dtl-inp-vhclno"));
 	}
-	const fn_setVhcl = function(vhcl) {
+	function fn_setVhcl(vhcl) {
+		let vhclInfo = '';
 		if (!gfn_isEmpty(vhcl)) {
 			SBUxMethod.set("dtl-inp-vhclno", vhcl.vhclno);
+			if(vhcl.drvrNm){
+				vhclInfo += '기사명 : ' + vhcl.drvrNm + ' ';
+			}
+			if(vhcl.rmrk){
+				vhclInfo += '비고 : ' + vhcl.rmrk + ' ';
+			}
 		}
+		SBUxMethod.set("vhclInfo",vhclInfo);
 	}
 
 	/**
@@ -1892,7 +2015,11 @@
 
 			this.socket.onmessage = (event) => {
 				$("#nowWght").text('');
-				let wght = parseInt(event.data).toLocaleString('en-US');
+				let wght = parseInt(event.data);
+				if(isNaN(wght)){
+					wght = 0;
+				}
+				wght = wght.toLocaleString('en-US');
 				$("#nowWght").text(wght);
 				$("#nowWght").css("color","blue");
 			};
@@ -2017,6 +2144,10 @@
 			isDragging = false;
 			$("#closeModal").css("cursor","grab");
 		});
+	}
+	const fn_addRow = async function(){
+		jsonVrty = jsonGrdCd.map((item) => ({'grdCd' : item.grdCd}));
+		grdVrty.rebuild();
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

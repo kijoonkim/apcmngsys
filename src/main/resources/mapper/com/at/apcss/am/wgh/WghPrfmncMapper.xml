@@ -1831,8 +1831,99 @@
 				source.SYS_LAST_CHG_PRGRM_ID
 				   )
 	</insert>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.mergeWghHstry			-->
+	<!-- DESC : 계량이력 생성.				                             				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	손민성        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<insert id="mergeWghHstry" parameterType="list">
+		MERGE INTO TB_WGH_HSTRY WH
+			USING (
+				 <foreach collection="list" item="item" index="index" separator="UNION">
+					  SELECT
+					  #{item.apcCd} AS APC_CD,
+					  #{item.wghno} AS WGHNO,
+					  #{item.wghSeq} AS WGH_SEQ,
+					  #{item.vhclno} AS VHCLNO,
+					  #{item.wghSeCd} AS WGH_SE_CD,
+					  #{item.wghWght} AS WGH_WGHT,
+					  #{item.wghDt} AS WGH_DT,
+					  #{item.prcsTaskCd} AS PRCS_TASK_CD,
+					  #{item.prcsCmptnDt} AS PRCS_CMPTN_DT,
+					  #{item.prcsCmptnYn} AS PRCS_CMPTN_YN,
+					  #{item.wghRmrk} AS WGH_RMRK,
+					  #{item.fcltCd} AS FCLT_CD,
+					  #{item.sysLastChgUserId} AS SYS_LAST_CHG_USER_ID,
+					  #{item.sysLastChgPrgrmId} AS SYS_LAST_CHG_PRGRM_ID,
+					  #{item.sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID,
+					  #{item.sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID
+					  FROM DUAL
+				 </foreach>
+				 ) src
+			ON (
+					WH.APC_CD = src.APC_CD
+				AND WH.WGHNO = src.WGHNO
+				AND WH.WGH_SEQ = src.WGH_SEQ
+				AND WH.VHCLNO = src.VHCLNO
+				AND WH.WGH_SE_CD = src.WGH_SE_CD
+				AND DEL_YN = 'N'
+			   )
+		WHEN MATCHED THEN
+			UPDATE SET
+				WGH_WGHT = src.WGH_WGHT,
+			    WGH_DT = TO_DATE(src.WGH_DT, 'YYYYMMDDHH24MI'),
+				SYS_LAST_CHG_DT = SYSDATE,
+				SYS_LAST_CHG_USER_ID = src.SYS_LAST_CHG_USER_ID,
+				SYS_LAST_CHG_PRGRM_ID = src.SYS_LAST_CHG_PRGRM_ID
+		WHEN NOT MATCHED THEN
+			INSERT (
+					  APC_CD,
+					  WGHNO,
+					  WGH_SEQ,
+					  VHCLNO,
+					  WGH_SE_CD,
+					  WGH_WGHT,
+					  WGH_DT,
+					  PRCS_TASK_CD,
+					  PRCS_CMPTN_DT,
+					  PRCS_CMPTN_YN,
+					  WGH_RMRK,
+					  FCLT_CD,
+					  DEL_YN,
+					  SYS_FRST_INPT_DT,
+					  SYS_FRST_INPT_USER_ID,
+					  SYS_FRST_INPT_PRGRM_ID,
+					  SYS_LAST_CHG_DT,
+					  SYS_LAST_CHG_USER_ID,
+					  SYS_LAST_CHG_PRGRM_ID
+				   )
+			VALUES (
+					  src.APC_CD,
+					  src.WGHNO,
+					  src.WGH_SEQ,
+					  src.VHCLNO,
+					  src.WGH_SE_CD,
+					  src.WGH_WGHT,
+					  TO_DATE(src.WGH_DT, 'YYYYMMDDHH24MI'),
+					  src.PRCS_TASK_CD,
+					  src.PRCS_CMPTN_DT,
+			          'N',
+					  src.WGH_RMRK,
+					  src.FCLT_CD,
+					  'N',
+					  SYSDATE,
+					  src.SYS_FRST_INPT_USER_ID,
+					  src.SYS_FRST_INPT_PRGRM_ID,
+					  SYSDATE,
+					  src.SYS_LAST_CHG_USER_ID,
+					  src.SYS_LAST_CHG_PRGRM_ID
+					)
+	</insert>
 
-    <!-- ==========================================================================	-->
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateWghVhcl		-->
 	<!-- DESC : 원물입차수정.		                             				-->
 	<!-- ==========================================================================	-->
@@ -2005,7 +2096,7 @@
 		FROM TB_WGH_HSTRY
 		WHERE APC_CD = #{apcCd}
 		  	AND DEL_YN = 'N'
-		  	AND WGH_SE_CD = #{wghSeCd}
+				AND WGH_SE_CD = #{wghSeCd}
 		  	AND WGHNO = #{wghno}
 		]]>
 
@@ -2037,5 +2128,28 @@
 			AND GRD_CD = #{vo.grdCd})
 		</foreach>
 	</delete>
+
+	<select id="selectWghHstryList" parameterType="com.at.apcss.am.wgh.vo.WghHstryVO" resultType="com.at.apcss.am.wgh.vo.WghHstryVO">
+		SELECT
+			 APC_CD AS APC_CD
+			,WGHNO AS WGHNO
+			,WGH_SEQ AS WGH_SEQ
+			,VHCLNO AS VHCLNO
+			,WGH_SE_CD AS WGH_SE_CD
+			,WGH_WGHT AS WGH_WGHT
+			,WGH_DT AS WGH_DT
+			,PRCS_TASK_CD AS PRCS_TASK_CD
+			,PRCS_CMPTN_DT AS PRCS_CMPTN_DT
+			,PRCS_CMPTN_YN AS PRCS_CMPTN_YN
+			,WGH_RMRK AS WGH_RMRK
+			,DEL_YN AS DEL_YN
+			,FCLT_CD AS FCLT_CD
+		FROM
+			TB_WGH_HSTRY
+		WHERE
+			APC_CD = #{apcCd}
+		AND	WGHNO = #{wghno}
+		ORDER BY WGH_SE_CD
+	</select>
 
 </mapper>

@@ -9,19 +9,26 @@
  * @description
  * @param {Date} date
  * @param {String} delimiter
+ * @param {Boolean} format
  * @function
  * @returns
  */
-const gfn_dateToYmd = function(date, delimiter = "") {
+const gfn_dateToYmd = function(date, delimiter = "", format = false) {
 
     let year  = date.getFullYear();
     let month = ('0' + (date.getMonth() + 1)).slice(-2);
     let day   = ('0' + date.getDate()).slice(-2);
 
 	let strYmd = "";
-	strYmd += year;
-	strYmd += delimiter + month;
-	strYmd += delimiter + day;
+	if(format){
+		strYmd += year + '년 ';
+		strYmd += month + '월 ';
+		strYmd += day + '일 ';
+	}else{
+		strYmd += year;
+		strYmd += delimiter + month;
+		strYmd += delimiter + day;
+	}
 
 	return strYmd;
 }
