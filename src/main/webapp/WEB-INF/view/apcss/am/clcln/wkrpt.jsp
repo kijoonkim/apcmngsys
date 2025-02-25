@@ -32,6 +32,21 @@
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별실적등록 -->
             </div>
             <div style="margin-left: auto;">
+            	<sbux-button
+					id="btnWkrptDoc"
+					name="btnWkrptDoc"
+					class="btn btn-sm btn-primary"
+					text="주간입출고 출력"
+					onclick="fn_docWeekWrhsSpmt"
+				></sbux-button>
+            	<sbux-button
+					id="btnNowInvntr"
+					name="btnNowInvntr"
+					class="btn btn-sm btn-primary"
+					text="현재고 저장"
+					target-id="modal-prdcr"
+					onclick="fn_saveNowInvntr"
+				></sbux-button>
                 <sbux-button
                         id="btn-reset"
                         name="btn-reset"
@@ -57,16 +72,18 @@
             <div id="sb-area-wkrpt" style="height: 560px; margin-bottom: 10px; margin-top: 10px"></div>
             <table class="table table-bordered tbl_fixed">
                 <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8.5%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
                 </colgroup>
                 <tbody>
                     <tr>
@@ -79,7 +96,6 @@
                                     id="info-inp-lastWkndWrhs"
                                     name="info-inp-lastWkndWrhs"
                                     class="form-control input-sm"
-                                    disabled
                                     autocomplete="off"
                             />
                         </td>
@@ -110,7 +126,7 @@
                             />
                         </td>
                         <th scope="row" class="th_bg">
-                            현 재고
+                            재고
                         </th>
                         <td class="td_input">
                             <sbux-input
@@ -120,6 +136,19 @@
                                     class="form-control input-sm"
                                     autocomplete="off"
                                     disabled
+                            />
+                        </td>
+
+                        <th scope="row" class="th_bg">
+                            현 재고
+                        </th>
+                        <td class="td_input">
+                            <sbux-input
+                                    uitype="text"
+                                    id="info-inp-nowQntt"
+                                    name="info-inp-nowQntt"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
                             />
                         </td>
                         <th scope="row" class="th_bg">
@@ -253,7 +282,7 @@
 	        jsonWkrpt = result;
 	        grdWkrpt.refresh();
 
-	        await fn_searchLastQnttList();
+	        //await fn_searchLastQnttList();
           	/* data.resultList.forEach((item, index) => {
   				const wkrpt = {
   						apcCd 			: item.apcCd
@@ -399,7 +428,7 @@
      * @name fn_docRawMtrWgh
      * @description 주간입출고현황 발행 버튼
      */
-	const fn_docＷeekWrhsSpmt = function() {
+	const fn_docWeekWrhsSpmt = function() {
 
 		let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
 		let yr = wghYmd.substr(0,4);
@@ -438,7 +467,7 @@
 			, sunIdx : 0
 	}
 	let wrhsObj = {
-			"apcCd": "0599",
+			"apcCd": gv_apcCd,
 			"bxQnttMon": 0,
 			"bxQnttTue": 0,
 			"bxQnttWed": 0,
@@ -456,7 +485,7 @@
 			"wrhsSpmtTypeNm": "입고"
 		};
 	let spmtObj = {
-			"apcCd": "0599",
+			"apcCd": gv_apcCd,
 			"bxQnttMon": 0,
 			"bxQnttTue": 0,
 			"bxQnttWed": 0,
