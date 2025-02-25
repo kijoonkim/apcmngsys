@@ -539,10 +539,25 @@
 		});
 	}
 	const fn_createTrend = async function(){
-		let title1 = trcColumns[0][0];
-		let title2 = trcColumns[1][0];
-		let title3 = trcColumns[2][0];
-		let title4 = trcColumns[3][0];
+		let nowMonth = parseInt(SBUxMethod.get('srch-dtl-ymd').substring(4,6));
+		let nowYear = parseInt(SBUxMethod.get('srch-dtl-ymd').substring(2,4));
+
+		let range = [];
+		for (let i = 0; i < 12 ;i++){
+			let month =  (nowMonth + i ) % 12 + 1;
+			if (month === 1) {
+				range.push("`" + nowYear + "년 " + month + "월");
+			} else {
+				range.push(month+"월");
+			}
+		}
+
+		//널병합연산자??
+		let title1 = trcColumns[0]?.[0] !== undefined ? trcColumns[0][0] : (trcColumns[0] ?? [])[0];
+		let title2 = trcColumns[1]?.[0] !== undefined ? trcColumns[1][0] : (trcColumns[1] ?? [])[0];
+		let title3 = trcColumns[2]?.[0] !== undefined ? trcColumns[2][0] : (trcColumns[2] ?? [])[0];
+		let title4 = trcColumns[3]?.[0] !== undefined ? trcColumns[3][0] : (trcColumns[3] ?? [])[0];
+
 		sb.chart.render("#trend", {
 			global: {
 				animation: {
@@ -564,7 +579,7 @@
 			axis: {
 				x: {
 					type:'category',
-					categories: ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"]
+					categories: range
 				},
 				y: {
 					show: false
@@ -753,10 +768,10 @@
 			let convert = value
 					.filter(item => item.RSLT_TYPE === type)
 					.map(inner => [
-						inner.W_0, inner.W_1, inner.W_2,
-						inner.W_3, inner.W_4, inner.W_5,
-						inner.W_6, inner.W_7, inner.W_8,
-						inner.W_9, inner.W_10, inner.W_11
+						inner.W_11, inner.W_10, inner.W_9,
+						inner.W_8, inner.W_7, inner.W_6,
+						inner.W_5, inner.W_4, inner.W_3,
+						inner.W_2, inner.W_1, inner.W_0
 					]);
 			arr = [...arr, ...convert.flat()];
 			trcColumns.push(arr);
