@@ -339,15 +339,17 @@
     		case "01":
     			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["10", "20", "21", "30", "40"]);
     			break;
-    		case "10":
+			default:	//case "10":
     			jsonComAuthrtType = gfn_getJsonFilter(jsonComAuthrtType, 'value', ["20", "21"]);
     			jsonComSysId = gfn_getJsonFilter(jsonComSysId, 'value', ["AM", "MA", "FM", "CO"]);
 
     			break;
+			/*
     		default:
     			jsonComSysId.length = 0;
     			jsonComAuthrtType.length = 0;
     			break;
+			 */
     	}
 
     	SBUxMethod.refresh("srch-slt-sysId");
