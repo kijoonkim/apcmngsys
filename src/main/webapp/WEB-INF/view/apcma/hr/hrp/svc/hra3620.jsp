@@ -473,17 +473,25 @@
     }
 
     const fn_findEarnerCode = function(row) {
-        SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
-
+    	
+    	let rowData = gvwInfo.getRowData(row);
+    	
+        var searchCode 		= gfn_nvl( rowData.EARNER_CODE);
+        var searchName 		= gfn_nvl( rowData.EARNER_NAME);
+        var replaceText0 	= "_EARNR_CD_";
+        var replaceText1 	= "_EARNR_NM_";
+        var strWhereClause 	= "AND A.EARNR_CD LIKE '%" + replaceText0 + "%' AND A.EARNR_NM LIKE '%"  + replaceText1 +  "%' " ;
+        
+    	SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRA021'
             ,popupType				: 'A'
-            ,whereClause			: ''
+            ,whereClause			: strWhereClause
             ,searchCaptions			: ["소득자코드", "소득자명"]
             ,searchInputFields		: ["EARNR_CD", "EARNR_NM"]
-            ,searchInputValues		: ["", ""]
+            ,searchInputValues		: [searchCode, searchName]
             ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
