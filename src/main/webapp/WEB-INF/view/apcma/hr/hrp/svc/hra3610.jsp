@@ -977,30 +977,53 @@
     }
 
     const fn_findEarnerCode = function() {
+    	
         var searchCode 		= gfn_nvl(SBUxMethod.get("EARNER_CODE"));
-        var replaceText0 	= "_CNPT_CD_";
-        var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%'";
- 
+        var replaceText0 	= "_EARNR_CD_";
+        var replaceText1 	= "_EARNR_NM_";
+        var strWhereClause 	= "AND A.EARNR_CD LIKE '%" + replaceText0 + "%' AND A.EARNR_NM LIKE '%"  + replaceText1 +  "%' " ;
+    	
         SBUxMethod.attr('modal-compopup1', 'header-title', '소득자코드 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_HRA060'
+            ,bizcompId				: 'P_HRA021'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
-            ,searchCaptions			: ["코드", "코드명"]
-            ,searchInputFields		: ["CNPT_CD", "CNPT_NM"]
+            ,searchCaptions			: ["소득자코드", "소득자명"]
+            ,searchInputFields		: ["EARNR_CD", "EARNR_NM"]
             ,searchInputValues		: [searchCode, ""]
             ,searchInputTypes		: ["input", "input"]			//input, select가 있는 경우
             ,searchInputTypeValues	: ["", ""]				//select 경우
             ,height					: '400px'
-            ,tableHeader			: ["거래처코드", "거래처명"]
-            ,tableColumnNames		: ["CNPT_CD", "CNPT_NM"]
+            ,tableHeader			: ["소득자코드", "소득자명"]
+            ,tableColumnNames		: ["EARNR_CD", "EARNR_NM"]
             ,tableColumnWidths		: ["80px", "160px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('EARNER_CODE', data.CNPT_CD);
+            	SBUxMethod.set('EARNER_CODE', data.EARNR_CD);
             },
         });
+    	
+        
+//         compopup1({
+//             compCode				: gv_ma_selectedCorpCd
+//             ,clientCode				: gv_ma_selectedClntCd
+//             ,bizcompId				: 'P_HRA060'
+//             ,popupType				: 'A'
+//             ,whereClause			: strWhereClause
+//             ,searchCaptions			: ["코드", "코드명"]
+//             ,searchInputFields		: ["EARNR_CD", "EARNR_NM"]
+//             ,searchInputValues		: [searchCode, ""]
+//             ,searchInputTypes		: ["input", "input"]		//input, select가 있는 경우
+//             ,searchInputTypeValues	: ["", ""]					//select 경우
+//             ,height					: '400px'
+//             ,tableHeader			: ["거래처코드", "거래처명"]
+//             ,tableColumnNames		: ["CNPT_CD", "CNPT_NM"]
+//             ,tableColumnWidths		: ["80px", "160px"]
+//             ,itemSelectEvent		: function (data){
+//                 SBUxMethod.set('EARNER_CODE', data.CNPT_CD);
+//             },
+//         });
     }
 
     const fn_findBankCode = function() {
