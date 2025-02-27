@@ -916,8 +916,8 @@
 		    	    SBUxMethod.set("TEL", gfnma_nvl(obj.TELNO));
 		    	    SBUxMethod.set("RESIDENCE_TEL", gfnma_nvl(obj.RSDC_TELNO));
 		    	    SBUxMethod.set("FAX", gfnma_nvl(obj.FX_NO));
-		    	    SBUxMethod.set("ESTABLISH_DATE", gfnma_nvl(obj.CORP_FNDN_YMD));
-		    	    SBUxMethod.set("CLOSE_DATE", gfnma_nvl(obj.DDLN_YMD));
+		    	    SBUxMethod.set("ESTABLISH_DATE", gfnma_nvl(obj.FNDN_YMD));
+		    	    SBUxMethod.set("CLOSE_DATE", gfnma_nvl(obj.SCBIZ_YMD));
 		    	    SBUxMethod.set("HOME_TAX_ID", gfnma_nvl(obj.HOME_TX_ID));
 		    	    SBUxMethod.set("VAT_EMAIL", gfnma_nvl(obj.VAT_PIC_EML));
 		    	    SBUxMethod.set("INCOME_TAX_EMAIL", gfnma_nvl(obj.INCTX_PIC_EML));
