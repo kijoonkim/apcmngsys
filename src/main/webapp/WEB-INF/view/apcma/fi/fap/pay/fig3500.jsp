@@ -138,7 +138,7 @@
                                     name="SRCH_PERIOD_YYYYMM"
                                     date-format="yyyy-mm"
                                     datepicker-mode="month"
-                                    class="table-datepicker-ma inpt_data_reqed"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                     style="width:100%;"
                                     onchange="fn_payDate"
                             />
@@ -217,7 +217,7 @@
                                     id="SRCH_TXN_DATE_FROM"
                                     name="SRCH_TXN_DATE_FROM"
                                     date-format="yyyy-mm-dd"
-                                    class="table-datepicker-ma inpt_data_reqed"
+                                    class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                     style="width:100%;"
                             />
                         </td>
@@ -230,7 +230,7 @@
                                     id="SRCH_TXN_DATE_TO"
                                     name="SRCH_TXN_DATE_TO"
                                     date-format="yyyy-mm-dd"
-                                    class="table-datepicker-ma inpt_data_reqed"
+									class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                     style="width:100%;"
                             />
                         </td>
