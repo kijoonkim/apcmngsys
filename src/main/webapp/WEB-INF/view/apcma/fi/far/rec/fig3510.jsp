@@ -193,7 +193,7 @@
                             </td>
                             <th scope="row" class="th_bg">전표ID</th>
                             <td colspan="2" class="td_input" style="border-right:hidden;">
-                                <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="DOC_ID" uitype="text" placeholder="" class="form-control input-sm" readonly></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">실사용자</th>
                             <td class="td_input" style="border-right:hidden;">
@@ -3524,7 +3524,7 @@
             $("#main-btn-appr", parent.document).attr('disabled', true);
             $("#main-btn-save", parent.document).removeAttr('disabled');
             $("#main-btn-attach", parent.document).attr('disabled', true);
-            $("#btnPrint").removeAttr('disabled');
+//             $("#btnPrint").removeAttr('disabled');
 
             $("#btnAddRow").attr('disabled', 'true');
             $("#btnDeleteRow").attr('disabled', 'true');
@@ -3555,7 +3555,7 @@
                 $("#main-btn-appr", parent.document).removeAttr('disabled');
                 $("#main-btn-save", parent.document).removeAttr('disabled');
                 $("#main-btn-attach", parent.document).removeAttr('disabled');
-                $("#btnPrint").attr('disabled', 'true');
+//                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").removeAttr('disabled');
                 $("#btnDeleteRow").removeAttr('disabled');
@@ -3583,7 +3583,7 @@
                 $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#main-btn-save", parent.document).attr('disabled', true);
                 $("#main-btn-attach", parent.document).attr('disabled', true);
-                $("#btnPrint").attr('disabled', 'true');
+//                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3622,7 +3622,7 @@
                 $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#main-btn-save", parent.document).attr('disabled', true);
                 $("#main-btn-attach", parent.document).attr('disabled', true);
-                $("#btnPrint").attr('disabled', 'true');
+//                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3654,7 +3654,7 @@
                 $("#main-btn-appr", parent.document).attr('disabled', true);
                 $("#main-btn-save", parent.document).attr('disabled', true);
                 $("#main-btn-attach", parent.document).attr('disabled', true);
-                $("#btnPrint").attr('disabled', 'true');
+//                 $("#btnPrint").attr('disabled', 'true');
 
                 $("#btnAddRow").attr('disabled', 'true');
                 $("#btnDeleteRow").attr('disabled', 'true');
@@ -3671,7 +3671,15 @@
                 }*/
             }
         }
-
+        
+        //전표ID 값이 있는지 체크하여 출력버튼 제어
+       	console.log('gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))) ==> ', gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))));
+        if( gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))) ){
+        	$("#btnPrint").attr('disabled', 'true');
+        }else{
+        	$("#btnPrint").removeAttr('disabled');
+        }
+        
         if (p_isAccountManager || (strDoc_status == "1" && gfn_nvl(SBUxMethod.get('INSERT_USERID')) == p_userId)) {
             // TODO : panWFTop.ActionMode = ActionMode.Save;
             // TODO : gvwWFItem.ActionMode = ActionMode.Save;
@@ -4017,12 +4025,12 @@
         let initObject = localStorage.getItem("callMain");
         await fn_initSBSelect();
         await fn_createGvwWFItemGrid();
-
+        
         if(!gfn_isEmpty(initObject)){
             initObject = JSON.parse(initObject);
             localStorage.removeItem("callMain");
-
             await fn_onload(initObject);
+            
         } else {
             await fn_onload();
         }
@@ -4223,16 +4231,14 @@
 
             $("#btnAddRow").attr("disabled", "true");
             $("#btnDeleteRow").attr("disabled", "true");
-        }
-
-        for(var i=0; jsonBizCompData.length > i; i++){
-        	if(jsonBizCompData[i].L_ORG003){
-		        if(jsonBizCompData[i].L_ORG003.length == 1){
+            
+	        for(var i=0; jsonBizCompData.length > i; i++){
+	        	if(jsonBizCompData[i].L_ORG003 && jsonBizCompData[i].L_ORG003.length == 1){
 			        gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 	'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
 			        gfnma_multiSelectSet('#TAX_SITE_CODE', 		'TX_SITE_CD', 'TX_SITE_NM', jsonBizCompData[i].L_ORG003[0]["TX_SITE_CD"] );
 			        break;
-		        }
-        	}
+	        	}
+	        }
         }
         
         //사용자
@@ -5358,11 +5364,8 @@
         }
 
         let strkey_id = gfn_nvl(SBUxMethod.get("KEY_ID"));
-console.log('strkey_id ==> ', strkey_id);
-console.log('jsonAccountLineList ==> ', jsonAccountLineList);
         for (var j = jsonAccountLineList.length - 1; j >= 0; j--){
             let strKeyIdItem = gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("KEY_ID"));
-console.log('strKeyIdItem ==> ', strKeyIdItem);
 
             if (strkey_id == strKeyIdItem) {
                 gvwWFItem.deleteRow((j+1));
@@ -5479,8 +5482,8 @@ console.log('strKeyIdItem ==> ', strKeyIdItem);
                     SBUxMethod.set('BANK_CODE', formData.BANK_CD);
                     SBUxMethod.set('BANK_ACCOUNT_NO', formData.BACNT_NO);
                     SBUxMethod.set('BANK_ACCOUNT_DESCRIPTION', formData.BANK_ACCOUNT_DESCRIPTION);
-                    gfnma_multiSelectSet('#TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.TX_SITE_CD));
-                    gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TAX_SITE_CODE', 'TAX_SITE_NAME', gfn_nvl(formData.SBSD_TXBIZ_BPLC_CD));
+                    gfnma_multiSelectSet('#TAX_SITE_CODE', 'TX_SITE_CD', 'TX_SITE_NM', gfn_nvl(formData.TX_SITE_CD));
+                    gfnma_multiSelectSet('#SUB_TAX_SITE_CODE', 'TX_SITE_CD', 'TX_SITE_NM', gfn_nvl(formData.SBSD_TXBIZ_BPLC_CD));
                     SBUxMethod.set('APPLY_COMPLETE_FLAG', formData.REVE_CMPTN_FLAG);
                     SBUxMethod.set('REVERSE_FLAG', formData.REVE_FLAG);
                     SBUxMethod.set('REVERSE_DOC_NAME', formData.REVERSE_DOC_NAME);
