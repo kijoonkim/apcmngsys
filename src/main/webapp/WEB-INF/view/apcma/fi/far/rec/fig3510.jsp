@@ -5230,7 +5230,7 @@
                 getType: 'json',
                 workType: strRowStatus,
                 cv_count: '0',
-                params: gfnma_objectToString(paramObj)
+                params: gfnma_objectToString(paramObj, true)
             });
 
             const data = await postJsonPromise;
@@ -5252,7 +5252,7 @@
                 	if(data.v_returnStr){
 	                    var strreturn_string = data.v_returnStr.split('|');
 	                    gfn_comAlert("E0002", "배치번호 : " + data.v_returnStr.replaceAll("|", ","));
-                	}else if(data.data.resultMessage){
+                	}else if(data.resultMessage){
                 		gfn_comAlert("E0002", data.resultMessage);
                 	}
                     bResult = false;
@@ -5358,16 +5358,18 @@
         }
 
         let strkey_id = gfn_nvl(SBUxMethod.get("KEY_ID"));
-
+console.log('strkey_id ==> ', strkey_id);
+console.log('jsonAccountLineList ==> ', jsonAccountLineList);
         for (var j = jsonAccountLineList.length - 1; j >= 0; j--){
             let strKeyIdItem = gvwWFItem.getCellData((i+1), gvwWFItem.getColRef("KEY_ID"));
+console.log('strKeyIdItem ==> ', strKeyIdItem);
 
             if (strkey_id == strKeyIdItem) {
                 gvwWFItem.deleteRow((j+1));
             }
         }
 
-        if (gfn_comConfirm("정말 삭제하시겠습니까? 삭제하시려면 예를 클릭하세요.")) {
+        if (gfn_comConfirm("Q0001", "정말 삭제")) {
             if (await fnSET_P_FIG3510_S("D")) {
                 fn_create();
             }
