@@ -1189,9 +1189,9 @@
                     ,V_P_RPT_DOC_FILE_PATH     	: "ma/RPT_HRA3630.crf" 					// 보고문서파일경로
                     ,V_P_PRGRM_NM		    	: 'SP_HRA3630_Q'						// 리포트 조회 프로시저 명		
                     ,V_P_PRGRM_URL		      	: '/hr/hrp/svc/selectHra3630Report.do'	//리포트 조회 URL
-                    ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 							// 프로시저 워크타입
+                    ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 								// 프로시저 워크타입
                     ,V_P_PRCS_RSLT_NOCS 		: '2'									//프로시저 커서 카운트
-                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj) 		// 리포트 조회 파라미터
+                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj).replaceAll('∥', ',')		// 리포트 조회 파라미터
                     ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.EARNER_CODE)		// 조회 가능 비밀번호
                     ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
                     ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
@@ -1204,11 +1204,10 @@
                     ,V_P_PROC_ID           : ''
                     ,V_P_USERID            : p_userId
                     ,V_P_PC                : ''
-                }, true)
+                })
             };
             listData.push(param);
         });
-
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
@@ -1231,7 +1230,7 @@
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
-
+    
     const fn_confirm = async function () {
         let gvwInfoCheckedList = gvwInfo.getCheckedRows(gvwInfo.getColRef("CHK_YN"), true);
         let returnData = [];
