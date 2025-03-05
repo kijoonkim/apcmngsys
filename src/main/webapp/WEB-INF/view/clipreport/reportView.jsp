@@ -86,7 +86,6 @@
 
 </body>
 <script type="text/javascript">
-
     const lnkgRpt = {
         lnkgUnqId: "",
         taskId: "",
@@ -101,24 +100,19 @@
         lnkgOpenYmd: "",
         lnkgExpryYn: "",
     }
-
-
+    
     const fn_init = async function() {
         document.getElementById("btn-reportView").addEventListener('click', fn_viewReport);
     }
 
     const fn_viewReport = async function() {
         const uuid = document.querySelector("#uuid").value;
-        console.log("uuid", uuid);
         const certYn = document.querySelector("#certYn").value;
         let certKey = "";
-        console.log("certYn", certYn);
 
         if (_.isEqual("Y", certYn)) {
             certKey = document.querySelector("#certKey").value;
-            console.log("certKeyval", certKey);
         }
-        console.log("certKey", certKey);
 
         try {
             const postJsonPromise = gfn_postJSON("/link/selectLnkgData", {
@@ -144,12 +138,10 @@
                 lnkgRpt.lnkgExpryYn	    = item.lnkgExpryYn;
 
                 const reportData = await fn_getReportData(lnkgRpt);
-
                 if (reportData == null) {
                     gfn_comAlert("E0003", "보고서정보 조회");
                     return;
                 }
-
                 const conn = await gfnma_convertDataForReport(reportData);
                 //gfn_popClipReportPost
                 fn_drawClipReport(lnkgRpt.rptDocFilePath, conn);
@@ -195,7 +187,7 @@
         const workType = param.prgrmPrcsType;
         const cvCount = param.prcsRsltNocs;
         const params = param.prmtrData;
-        const paramList = params.split(',');
+        const paramList = params.split('∥');
         try {
             const postJsonPromise = gfn_postJSON(
                 url, {
@@ -206,7 +198,6 @@
                     params: params
             });
             const data = await postJsonPromise;
-
             if (_.isEqual("S", data.resultStatus)) {
                 return data;
             } else {
