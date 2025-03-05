@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
+    var cjsonApcList = {};
     <c:choose>
     <c:when test="${comApcList != null}">
-    var cjsonApcList = ${comApcList};
+        cjsonApcList = ${comApcList};
     </c:when>
     <c:otherwise>
-    var cjsonApcList = {};
+        cjsonApcList = {};
     </c:otherwise>
     </c:choose>
+    cjsonApcList.forEach( (apc) => {
+        if (gfn_isEmpty(gv_selectedApcCd)) {
+            gv_selectedApcCd = apc.apcCd;
+            gv_selectedApcNm = apc.apcNm;
+            gv_selectedApcSeCd = apc.apcSeCd;
+            return false;
+        }
+    });
+
     <c:if test="${loginVO != null && loginVO.apcAdminType != null}">
     //gv_selectedApcCd = null;
     //gv_selectedApcNm = null;
