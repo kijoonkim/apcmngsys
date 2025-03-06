@@ -368,6 +368,7 @@
 							<sbux-button id="updateStbltYn1" name="updateStbltYn1" uitype="normal" text="적합여부 Y으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(1)"></sbux-button>
 							<sbux-button id="updateStbltYn2" name="updateStbltYn2" uitype="normal" text="적합여부 N으로 변경" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn(2)"></sbux-button>
 							<sbux-button id="updateStbltYn3" name="updateStbltYn3" uitype="normal" text="적합여부 빈칸으로 초기화" class="btn btn-sm btn-outline-danger" onclick="fn_updateStbltYn"></sbux-button>
+							<sbux-button id="btnSave01" name="btnSave01" uitype="normal" text="조치사항 저장" class="btn btn-sm btn-outline-danger" onclick="fn_updateActnMttr"></sbux-button>
 						</div>
 					</div>
 					<div style="display:flex; justify-content: flex-start;" >
@@ -641,6 +642,9 @@
 			{caption: ["적합여부","적합여부","적합여부"], 	ref: 'orgStbltYn',   	type:'output',  width:'70px',    style:'text-align:center;'},
 			{caption: ["탈락사유","탈락사유","탈락사유"], 	ref: 'stbltYnNm',   	type:'textarea',  width:'150px',    style:'padding-left:10px'
 				,typeinfo : {textareanewline : true},disabled:true },
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+			{caption: ["조치사항","조치사항","조치사항"], 		ref: 'actnMttr',   	type:'input',  width:'200px',	style:'text-align:center'},
+		</c:if>
 			{caption: ["상세내역"], 	ref: 'apoCd',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'apoSe',   		hidden : true},
 			{caption: ["상세내역"], 	ref: 'brno',   			hidden : true},
@@ -1014,6 +1018,9 @@
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
 						,stbltYnNm: fn_calStbltYn(item)
+	   				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
+						,actnMttr: 		item.actnMttr
+					</c:if>
 				};
 
 				jsonPrdcrOgnCurntMng01.push(PrdcrOgnCurntMngVO01);
@@ -1180,7 +1187,7 @@
 		}
 	}
 
-	//통합조직 출자출하조직으로 권한 변경
+	//적합여부 변경
 	async function fn_updateStbltYn(_chk){
 		//console.log("*************fn_updateStbltYn******************");
 		let nRow = grdPrdcrOgnCurntMng01.getRow();
@@ -1241,6 +1248,82 @@
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
+		}
+	}
+
+	//조치사항 저장
+	const fn_updateActnMttr = async function(){
+		let objGrid = grdPrdcrOgnCurntMng01;
+		let gridData01 = objGrid.getGridDataAll();
+		let saveList = [];
+
+		let brno = SBUxMethod.get('dtl-input-brno');
+		if(gfn_isEmpty(brno)){
+			return false;
+		}
+
+		let apoSeVal = SBUxMethod.get('dtl-input-apoSe');
+		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if(apoSeVal == '2'){
+			if(gfn_isEmpty(uoBrnoVal)){
+				alert("통합조직을 선택해 주세요");
+				return;
+			}
+		}else if(apoSeVal == '1'){
+			uoBrnoVal = null;
+		}
+
+		//그리드 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
+			let rowData01 = objGrid.getRowData(i);
+			let rowSts01 = objGrid.getRowStatus(i);
+			//let delYn = rowData01.delYn;
+
+			rowData01.rowSts = "I";
+			rowData01.uoBrno = uoBrnoVal;
+			rowData01.apoSe = "2";
+			saveList.push(rowData01);
+			/*
+			if (rowSts01 === 3){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 2){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else if (rowSts01 === 1){
+				rowData01.rowSts = "I";
+				saveList.push(rowData01);
+			} else {
+				continue;
+			}
+			*/
+		}
+		if(saveList.length == 0){
+			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+		console.log(saveList);
+
+		let regMsg = "저장 하시겠습니까?";
+		if(confirm(regMsg)){
+
+			let postJsonPromise = gfn_postJSON("/pd/isom/multiSaveItemIsoActnMttr.do", saveList);
+			let data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
+					fn_dtlGridSearch();
+					//fn_searchFcltList();
+				} else {
+					alert(data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
+			}
 		}
 	}
 
@@ -1451,8 +1534,8 @@
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(실제)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["탈락사유"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'}
-
+			{caption: ["탈락사유"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'},
 		];
 
 
@@ -1511,6 +1594,7 @@
 					,orgStbltYn				:item.orgStbltYn
 					,lastStbltYn			:item.lastStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
+					,actnMttr				:item.actnMttr
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});

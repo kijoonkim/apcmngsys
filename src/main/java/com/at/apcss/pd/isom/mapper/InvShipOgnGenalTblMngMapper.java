@@ -80,4 +80,11 @@ public interface InvShipOgnGenalTblMngMapper {
 	 */
 	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
+	/**
+	 * 조치사항을 저장 한다
+	 * @param InvShipOgnGenalTblMngVO
+	 * @return int
+	 */
+	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+
 }

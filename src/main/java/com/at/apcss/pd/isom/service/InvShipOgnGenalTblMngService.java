@@ -24,7 +24,7 @@ public interface InvShipOgnGenalTblMngService {
 	/**
 	 * 정보를 조회한다.
 	 * @param InvShipOgnGenalTblMngVO
-	 * @return
+	 * @return InvShipOgnGenalTblMngVO
 	 * @throws Exception
 	 */
 	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
@@ -42,4 +42,20 @@ public interface InvShipOgnGenalTblMngService {
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
 
 	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 조치사항을 저장한다.
+	 * @param InvShipOgnGenalTblMngVO
+	 * @return int
+	 * @throws Exception
+	 */
+	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+
+	/**
+	 * 조치사항을 저장한다.
+	 * @param List<InvShipOgnGenalTblMngVO>
+	 * @return int
+	 * @throws Exception
+	 */
+	public int multiSaveItemIsoActnMttr(List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList) throws Exception;
 }

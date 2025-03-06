@@ -149,4 +149,29 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	//조치사항 업데이트
+	//예외적인 상황에 관리자가 임의로 조치사항 변경
+	@PostMapping(value = "/pd/isom/multiSaveItemIsoActnMttr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		int savedCnt = 0;
+		try {
+			for (InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
+				InvShipOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				InvShipOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+				InvShipOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				InvShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+			}
+
+			savedCnt = InvShipOgnGenalTblMngService.multiSaveItemIsoActnMttr(InvShipOgnGenalTblMngVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_SAVED_CNT, savedCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
 }

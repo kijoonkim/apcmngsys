@@ -88,4 +88,20 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 		return resultList;
 	}
 
+	@Override
+	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+		int updatedCnt = InvShipOgnGenalTblMngMapper.updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
+
+		return updatedCnt;
+	}
+
+	@Override
+	public int multiSaveItemIsoActnMttr(List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList) throws Exception {
+		int savedCnt = 0;
+		for (InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
+			savedCnt += updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
+		}
+		return savedCnt;
+	}
+
 }
