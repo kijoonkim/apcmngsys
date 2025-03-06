@@ -1113,7 +1113,7 @@
                     ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 							// 프로시저 워크타입
                     ,V_P_PRCS_RSLT_NOCS 		: '2'									//프로시저 커서 카운트
                     ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj) 		// 리포트 조회 파라미터
-                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.EARNER_CODE)		// 조회 가능 비밀번호
+                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.MOBILE_PHONE.slice(-4))		// 조회 가능 비밀번호
                     ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
                     ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
                     ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
@@ -1202,7 +1202,7 @@
                     ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 								// 프로시저 워크타입
                     ,V_P_PRCS_RSLT_NOCS 		: '2'									//프로시저 커서 카운트
                     ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj).replaceAll('∥', ',')		// 리포트 조회 파라미터
-                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.EARNER_CODE)		// 조회 가능 비밀번호
+                    ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.MOBILE_PHONE.slice(-4))		// 조회 가능 비밀번호
                     ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
                     ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
                     ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
