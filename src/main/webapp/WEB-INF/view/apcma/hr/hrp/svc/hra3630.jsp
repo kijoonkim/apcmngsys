@@ -171,7 +171,9 @@
                                 <col style="width: 10%">
                                 <col style="width: 10%">
                                 <col style="width: 10%">
-                                <col style="width: 20%">
+                                <col style="width: 7%">
+                                <col style="width: 7%">
+                                <col style="width: 6%">
                             </colgroup>
                             <tbody>
                             <tr>
@@ -180,10 +182,13 @@
                                     <sbux-textarea id="EMAIL_SUBJECT" name="EMAIL_SUBJECT" rows="1"  uitype="normal" wrap-style="width:100%" class="">
                                     </sbux-textarea>
                                 </td>
-                                <th scope="row" rowspan="8" class="th_bg">SMS문자메시지</th>
-                                <td colspan="2" rowspan="8" class="td_input" >
-                                    <sbux-textarea id="SMS_MESSAGE" name="SMS_MESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
-                                    </sbux-textarea>
+                                <th scope="row" class="th_bg">SMS 전송 파라미터</th>
+                                <td colspan="2" class="td_input">
+                                	<div style="padding-left:2rem">
+										<p style="vertical-align:top">@COMP&emsp;->&emsp;법인명</p>                            
+										<p style="vertical-align:top">@NAME&emsp;->&emsp;소득자명</p>                            
+										<p style="vertical-align:top">@DATE&emsp;->&emsp;지급일자</p>                            
+                            		</div>
                                 </td>
                             </tr>
                             <tr>
@@ -192,6 +197,11 @@
                                     <sbux-textarea id="EMAIL_BODY" name="EMAIL_BODY"  uitype="normal" rows="5" wrap-style="width:100%" class="">
                                     </sbux-textarea>
                                 </td>
+                                <th scope="row" rowspan="8" class="th_bg">SMS 문자메시지</th>
+                                <td colspan="2" rowspan="8" class="td_input" >
+                                    <sbux-textarea id="SMS_MESSAGE" name="SMS_MESSAGE"  uitype="normal" rows="16" wrap-style="width:100%">
+                                    </sbux-textarea>
+                                </td>                                    
                             </tr>
                             <tr>
                                 <th scope="row" class="th_bg">공지사항</th>
@@ -299,7 +309,7 @@
         SBGridProperties.id 				= 'gvwInfo';
         SBGridProperties.jsonref 			= 'jsonServiceFeePayList';
         SBGridProperties.emptyrecords 		= '데이터가 없습니다.';
-        SBGridProperties.allowcopy = true; //복사
+        SBGridProperties.allowcopy 			= true; //복사
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
@@ -1115,7 +1125,7 @@
                     ,V_P_PROC_ID           : ''
                     ,V_P_USERID            : p_userId
                     ,V_P_PC                : ''
-                }, true)
+                })
             };
             listData.push(param);
         });
