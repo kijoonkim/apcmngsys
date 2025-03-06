@@ -90,7 +90,7 @@
             <c:otherwise>
             </c:otherwise>
         </c:choose>
-        <button id="btn-reportView">보고서 출력</button>
+        <button id="btn-reportView">명세서 출력</button>
     </div>
     <div id="div-rpt-clipReportJSON" style="display: none;"></div>
 </div>
