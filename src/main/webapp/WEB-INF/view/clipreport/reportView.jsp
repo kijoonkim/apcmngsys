@@ -26,6 +26,7 @@
         gap: 1rem;  /* 요소들 사이 간격 */
     }
 
+
     #certKey {
         padding: 0.5rem 1rem;
         border: 1px solid #ccc;
@@ -59,8 +60,19 @@
         }
 
         #certKey {
-            width: 16rem;
+            width: 80vw;
+            height: 15vh;
         }
+        #certKey::placeholder {
+			font-size: x-large;
+        }
+        
+	    #btn-reportView {
+	        width:  80vw;
+			height: 15vh;
+			font-size: x-large;
+			
+	    }        
     }
 </style>    
 </head>
@@ -82,7 +94,6 @@
     </div>
     <div id="div-rpt-clipReportJSON" style="display: none;"></div>
 </div>
-
 
 </body>
 <script type="text/javascript">
