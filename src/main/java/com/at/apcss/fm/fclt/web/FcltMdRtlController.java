@@ -38,14 +38,14 @@ public class FcltMdRtlController extends BaseController {
 	// APC전수조사 대시보드
 	@Resource(name= "fcltMdRtlService")
 	private FcltMdRtlService fcltMdRtlService;
-	
+
 	// 기준년도 목록 조회
 	@PostMapping(value = "/am/fclt/crtrYr", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectCrtrYnList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		List<FcltMdRtlVO> resultList = new ArrayList<>();
-		
+
 		try {
 			resultList = fcltMdRtlService.selectCrtrYnList(fcltMdRtlVO);
 		} catch (Exception e) {
@@ -61,7 +61,6 @@ public class FcltMdRtlController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
 	// APC현황
 	@PostMapping(value = "/fm/fclt/selectMapSttn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectMapSttn(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
@@ -70,6 +69,23 @@ public class FcltMdRtlController extends BaseController {
 		List<FcltMdRtlVO> resultLsit = new ArrayList<>();
 		try {
 			resultLsit = fcltMdRtlService.selectMapSttn(fcltMdRtlVO);
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultLsit);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 전수조사집계현황
+	@PostMapping(value = "/fm/fclt/selectApcTotList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcTotList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<HashMap<String,Object>> resultLsit = new ArrayList<>();
+		try {
+			resultLsit = fcltMdRtlService.selectApcTotList(fcltMdRtlVO);
 		} catch (Exception e) {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
@@ -113,11 +129,11 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 산지유통시설지역별현황 조회
 	@PostMapping(value = "/fm/fclt/selectMdRtlFcltRgnNowGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectMdRtlFcltRgnNowGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap = fcltMdRtlService.selectMdRtlFcltRgnNowGridList(fcltMdRtlVO);
@@ -132,11 +148,11 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 정부지원 산지유통시설 현황 조회
 	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtMdRtlFcltGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtMdRtlFcltGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap = fcltMdRtlService.selectGvrngmtSprtMdRtlFcltGridList(fcltMdRtlVO);
@@ -151,11 +167,11 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 정부지원 산지유통시설 현황 조회
 	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtMdRtlOgnzTypeGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtMdRtlOgnzTypeGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap = fcltMdRtlService.selectGvrngmtSprtMdRtlOgnzTypeGridList(fcltMdRtlVO);
@@ -170,11 +186,11 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 산지유통시설 운영실적 조회
 	@PostMapping(value = "/fm/fclt/selectMdRtlFcltOperPrfmncGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectMdRtlFcltOperPrfmncGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap = fcltMdRtlService.selectMdRtlFcltOperPrfmncGridList(fcltMdRtlVO);
@@ -189,11 +205,11 @@ public class FcltMdRtlController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
-	
+
 	// 정부지원 지역별 운영실적
 	@PostMapping(value = "/fm/fclt/selectGvrngmtSprtRgnOperPrfmncGridList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectGvrngmtSprtRgnOperPrfmncGridList(@RequestBody FcltMdRtlVO fcltMdRtlVO, HttpServletRequest request) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			resultMap = fcltMdRtlService.selectGvrngmtSprtRgnOperPrfmncGridList(fcltMdRtlVO);

@@ -64,7 +64,7 @@
 			            THEN '33'
 			            WHEN pt0.CTPV_CD = '44'
 			            THEN '34'
-			            WHEN pt0.CTPV_CD = '52'/*45 -> 52 전라북도특별시*/
+         			    WHEN pt0.CTPV_CD = '45' OR pt0.CTPV_CD = '52' /*45 -> 52 전북특별자치도 */
 			            THEN '35'
 			            WHEN pt0.CTPV_CD = '46'
 			            THEN '36'
@@ -79,7 +79,7 @@
 			        END AS CTPV_CD
 			      , pt0.APC_QNTT
 			  FROM (
-			        SELECT CTPV_NM
+			        SELECT NVL(CTPV_NM,(SELECT FN_GET_COM_CD_VL_NM('CTPV',CTPV_CD) FROM DUAL)) AS CTPV_NM
 			             , CTPV_CD
 			             , COUNT(*) APC_QNTT
 			          FROM TB_TE_APC_OPER_PRSN_OTLN
@@ -92,6 +92,363 @@
 		<![CDATA[
 			        GROUP BY CTPV_CD, CTPV_NM
 			        ) pt0
+		]]>
+
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME :com.at.apcss.fm.fclt.mapper.FcltMdRtlMapper.selectApcTotList			-->
+	<!-- DESC : 전수조사 현황조회.                     	 								-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.06  	박승진        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<select id="selectApcTotList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="hashmap">
+		<![CDATA[
+
+
+SELECT
+'합계' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형' THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' THEN 1 END) AS S8
+, COUNT(*) AS S9
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+
+
+
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+						  FROM TB_TE_APC_OPER_PRSN_OTLN where CRTR_YR = #{crtrYr} AND TOT_STTN_YN = 'Y') B
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+		 	  AND A.APRV IS NOT NULL
+	)X
+
+
+UNION ALL
+
+
+
+
+SELECT
+'정부지원' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형' THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' THEN 1 END) AS S8
+, COUNT(*) AS S9
+
+FROM
+	(
+		 SELECT
+			 CASE
+			 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+			 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+			, NVL(B.MB,'농업법인') AS MB
+			, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+						  FROM TB_TE_APC_OPER_PRSN_OTLN where CRTR_YR = #{crtrYr} AND TOT_STTN_YN = 'Y' AND GVRMNT_SPRT_YN = 'Y') B
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+SELECT
+'소유_민간' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형' AND TYPE_CD = '민간' THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND TYPE_CD = '민간'  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND TYPE_CD = '민간'  THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형'  AND TYPE_CD = '민간' THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND TYPE_CD = '민간' THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND TYPE_CD = '민간' THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND TYPE_CD = '민간' THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND TYPE_CD = '민간' THEN 1 END) AS S8
+, COUNT(CASE WHEN TYPE_CD = '민간' THEN 1 END) AS S9
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, (SELECT FN_GET_COM_CD_VL_NM('CMSU_TYPE_CD',B.TYPE_CD) FROM DUAL) AS TYPE_CD
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, TYPE_CD
+						  FROM TB_TE_APC_OPER_PRSN_OTLN where CRTR_YR = #{crtrYr} AND TOT_STTN_YN = 'Y') B
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+
+SELECT
+'소유_공공' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형' AND TYPE_CD = '공공' THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND TYPE_CD = '공공'  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND TYPE_CD = '공공'  THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형'  AND TYPE_CD = '공공' THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND TYPE_CD = '공공' THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND TYPE_CD = '공공' THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND TYPE_CD = '공공' THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND TYPE_CD = '공공' THEN 1 END) AS S8
+, COUNT(CASE WHEN TYPE_CD = '공공' THEN 1 END) AS S9
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, (SELECT FN_GET_COM_CD_VL_NM('CMSU_TYPE_CD',B.TYPE_CD) FROM DUAL) AS TYPE_CD
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, TYPE_CD
+						  FROM TB_TE_APC_OPER_PRSN_OTLN where CRTR_YR = #{crtrYr} AND TOT_STTN_YN = 'Y') B
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+SELECT
+'설비_CA' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형'  AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_CA_STRG_PLC_AREA > 0  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S8
+, COUNT(CASE WHEN  STRG_PLC_CA_STRG_PLC_AREA > 0 THEN 1 END) AS S9
+
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, C.STRG_PLC_CA_STRG_PLC_AREA AS STRG_PLC_CA_STRG_PLC_AREA
+		, C.STRG_PLC_PRC_PLC_AREA AS STRG_PLC_PRC_PLC_AREA
+		, C.STRG_PLC_LWTP_STRG_AREA AS STRG_PLC_LWTP_STRG_AREA
+		, D.SORT_MCHN_SPCFCT_CNT
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, CRTR_YR
+						  FROM TB_TE_APC_OPER_PRSN_OTLN WHERE TOT_STTN_YN = 'Y') B
+						  , TB_TE_APC_FCLT_STTS C
+  						  , (SELECT CRTR_YR
+  						  				,APC_CD
+  						  				,COUNT(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT_CNT
+			  				 FROM TB_TE_APC_FCLT_STTS_DTL
+		  				 GROUP BY CRTR_YR, APC_CD) D
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+			  AND B.CRTR_YR = C.CRTR_YR
+ 			  AND B.CRTR_YR = D.CRTR_YR
+			  AND B.APC_CD = C.APC_CD
+			  AND B.APC_CD = D.APC_CD
+			  AND B.CRTR_YR = #{crtrYr}
+     	  	  AND C.CRTR_YR = #{crtrYr}
+     	  	  AND D.CRTR_YR = #{crtrYr}
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+SELECT
+'설비_예냉' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형'  AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_PRC_PLC_AREA > 0  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S8
+, COUNT(CASE WHEN  STRG_PLC_PRC_PLC_AREA > 0 THEN 1 END) AS S9
+
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, C.STRG_PLC_CA_STRG_PLC_AREA AS STRG_PLC_CA_STRG_PLC_AREA
+		, C.STRG_PLC_PRC_PLC_AREA AS STRG_PLC_PRC_PLC_AREA
+		, C.STRG_PLC_LWTP_STRG_AREA AS STRG_PLC_LWTP_STRG_AREA
+		, D.SORT_MCHN_SPCFCT_CNT
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, CRTR_YR
+						  FROM TB_TE_APC_OPER_PRSN_OTLN WHERE TOT_STTN_YN = 'Y') B
+						  , TB_TE_APC_FCLT_STTS C
+  						  , (SELECT CRTR_YR
+  						  				,APC_CD
+  						  				,COUNT(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT_CNT
+			  				 FROM TB_TE_APC_FCLT_STTS_DTL
+		  				 GROUP BY CRTR_YR, APC_CD) D
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+			  AND B.CRTR_YR = C.CRTR_YR
+ 			  AND B.CRTR_YR = D.CRTR_YR
+			  AND B.APC_CD = C.APC_CD
+			  AND B.APC_CD = D.APC_CD
+			  AND B.CRTR_YR = #{crtrYr}
+     	  	  AND C.CRTR_YR = #{crtrYr}
+     	  	  AND D.CRTR_YR = #{crtrYr}
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+SELECT
+'설비_저온' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형'  AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_LWTP_STRG_AREA > 0  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S8
+, COUNT(CASE WHEN  STRG_PLC_LWTP_STRG_AREA > 0 THEN 1 END) AS S9
+
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, C.STRG_PLC_CA_STRG_PLC_AREA AS STRG_PLC_CA_STRG_PLC_AREA
+		, C.STRG_PLC_PRC_PLC_AREA AS STRG_PLC_PRC_PLC_AREA
+		, C.STRG_PLC_LWTP_STRG_AREA AS STRG_PLC_LWTP_STRG_AREA
+		, D.SORT_MCHN_SPCFCT_CNT
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, CRTR_YR
+						  FROM TB_TE_APC_OPER_PRSN_OTLN WHERE TOT_STTN_YN = 'Y') B
+						  , TB_TE_APC_FCLT_STTS C
+  						  , (SELECT CRTR_YR
+  						  				,APC_CD
+  						  				,COUNT(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT_CNT
+			  				 FROM TB_TE_APC_FCLT_STTS_DTL
+		  				 GROUP BY CRTR_YR, APC_CD) D
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+			  AND B.CRTR_YR = C.CRTR_YR
+ 			  AND B.CRTR_YR = D.CRTR_YR
+			  AND B.APC_CD = C.APC_CD
+			  AND B.APC_CD = D.APC_CD
+			  AND B.CRTR_YR = #{crtrYr}
+     	  	  AND C.CRTR_YR = #{crtrYr}
+     	  	  AND D.CRTR_YR = #{crtrYr}
+		 	  AND A.APRV IS NOT NULL
+	)X
+UNION ALL
+SELECT
+'설비_선별' AS S0
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '승인형'  AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S1
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농협' AND APRV = '육성형' AND SORT_MCHN_SPCFCT_CNT > 0  THEN 1 END) AS S2
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '승인형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S3
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '통합조직' AND MB = '농업법인' AND APRV = '육성형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S4
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '승인형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S5
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농협' AND APRV = '육성형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S6
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '승인형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S7
+, COUNT(CASE WHEN X.OGNZ_TYPE_CD = '개별조직' AND MB = '농업법인' AND APRV = '육성형' AND SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S8
+, COUNT(CASE WHEN  SORT_MCHN_SPCFCT_CNT > 0 THEN 1 END) AS S9
+
+FROM
+	(
+		 SELECT
+		 CASE
+		 	WHEN B.OGNZ_TYPE_CD IN ('1','2','3','4') THEN '통합조직'
+		 	WHEN B.OGNZ_TYPE_CD = '5' THEN '개별조직' END AS OGNZ_TYPE_CD
+		, NVL(B.MB,'농업법인') AS MB
+		, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',A.APRV) FROM DUAL) AS APRV
+		, C.STRG_PLC_CA_STRG_PLC_AREA AS STRG_PLC_CA_STRG_PLC_AREA
+		, C.STRG_PLC_PRC_PLC_AREA AS STRG_PLC_PRC_PLC_AREA
+		, C.STRG_PLC_LWTP_STRG_AREA AS STRG_PLC_LWTP_STRG_AREA
+		, D.SORT_MCHN_SPCFCT_CNT
+		 FROM TB_EV_APO A
+					, (SELECT
+							APC_CD
+							, MB
+							, OPER_OGNZ_BRNO
+							, APC_NM
+							, OGNZ_TYPE_CD
+							, CRTR_YR
+						  FROM TB_TE_APC_OPER_PRSN_OTLN WHERE TOT_STTN_YN = 'Y') B
+						  , TB_TE_APC_FCLT_STTS C
+  						  , (SELECT CRTR_YR
+  						  				,APC_CD
+  						  				,COUNT(SORT_MCHN_SPCFCT) AS SORT_MCHN_SPCFCT_CNT
+			  				 FROM TB_TE_APC_FCLT_STTS_DTL
+		  				 GROUP BY CRTR_YR, APC_CD) D
+		 WHERE A.BRNO = B.OPER_OGNZ_BRNO
+			  AND B.CRTR_YR = C.CRTR_YR
+ 			  AND B.CRTR_YR = D.CRTR_YR
+			  AND B.APC_CD = C.APC_CD
+			  AND B.APC_CD = D.APC_CD
+			  AND B.CRTR_YR = #{crtrYr}
+     	  	  AND C.CRTR_YR = #{crtrYr}
+     	  	  AND D.CRTR_YR = #{crtrYr}
+		 	  AND A.APRV IS NOT NULL
+	)X
+
+
 		]]>
 
 	</select>
@@ -114,14 +471,14 @@
 			     , AOO.OPER_OGNZ_NM     AS OPER_OGNZ_NM
 			     , AOO.OPER_OGNZ_BRNO   AS OPER_OGNZ_BRNO
 			     , AOO.CTPV_CD          AS CTPV_CD
-			     , AOO.CTPV_NM          AS CTPV_NM
+			     , NVL(AOO.CTPV_NM,(SELECT FN_GET_COM_CD_VL_NM('CTPV',AOO.CTPV_CD) FROM DUAL))          AS CTPV_NM
 			     , AOO.SIGUN_CD         AS SIGUN_CD
-			     , AOO.SIGUN_NM         AS SIGUN_NM
+			     , NVL(AOO.SIGUN_NM,(SELECT FN_GET_COM_CD_VL_NM('UNTY_SGG',AOO.SIGUN_CD) FROM DUAL))         AS SIGUN_NM
 			     , AOO.MB               AS MB
 			     , AOO.OGNZ_TYPE_CD     AS OGNZ_TYPE_CD
-			     , AOO.OGNZ_TYPE        AS OGNZ_TYPE
+			     , NVL(AOO.OGNZ_TYPE,(SELECT FN_GET_COM_CD_VL_NM('OGNZ_TYPE_CD',AOO.OGNZ_TYPE_CD) FROM DUAL))        AS OGNZ_TYPE
 			     , AOO.TYPE_CD          AS TYPE_CD
-			     , AOO.TYPE_NM          AS TYPE_NM
+			     , NVL(AOO.TYPE_NM,(SELECT FN_GET_COM_CD_VL_NM('CMSU_TYPE_CD',AOO.TYPE_CD) FROM DUAL))          AS TYPE_NM
 			     , AOO.OWNR             AS OWNR
 			     , AOO.LOCTN            AS LOCTN
 			     , AOO.RPRSV            AS RPRSV
@@ -755,7 +1112,7 @@
 
 			FROM  ( SELECT '통합조직운영 APC'                  AS S0
 			              , 1                                   AS S1
-			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
+			              , NVL(B.NE,0) + NVL(B.LCLT_EXPND,0) + NVL(B.SLF_BRDN,0)    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
 			                      , SUM(NE) AS NE
@@ -776,7 +1133,7 @@
 			        UNION ALL
 			        SELECT '개별조직운영 APC'                  AS S0
 			              , 1                                   AS S1
-			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S2
+			              , NVL(B.NE,0) + NVL(B.LCLT_EXPND,0) + NVL(B.SLF_BRDN,0)    AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
 			                      , SUM(NE) AS NE
@@ -816,14 +1173,15 @@
 			      , ROUND(SUM(S4)/1000000,0)            AS V4
 
 			FROM  ( SELECT '통합조직운영 APC'                  AS S0
-			              , B.NE                                AS S1
-			              , B.LCLT_EXPND                        AS S2
-			              , B.SLF_BRDN                          AS S3
-			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S4
+			              , NVL(B.NE,0)                                AS S1
+			              , NVL(B.LCLT_EXPND,0)                        AS S2
+			              , NVL(B.SLF_BRDN,0)                          AS S3
+						  , NVL(B.NE,0) + NVL(B.LCLT_EXPND,0) + NVL(B.SLF_BRDN,0)    AS S4
+
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
 			                      , SUM(NE) AS NE
-			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(LCLT_EXPND_CTPV) +  SUM(LCLT_EXPND_SGG) AS LCLT_EXPND
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
@@ -839,14 +1197,14 @@
 			        AND     A.OGNZ_TYPE_CD NOT IN ('5')
 			        UNION ALL
 			        SELECT '개별조직운영 APC'                  AS S0
-			              , B.NE                                AS S1
-			              , B.LCLT_EXPND                        AS S2
-			              , B.SLF_BRDN                          AS S3
-			              , B.NE + B.LCLT_EXPND + B.SLF_BRDN    AS S4
+			              , NVL(B.NE,0)                                AS S1
+			              , NVL(B.LCLT_EXPND,0)                        AS S2
+			              , NVL(B.SLF_BRDN,0)                          AS S3
+			              , NVL(B.NE,0) + NVL(B.LCLT_EXPND,0) + NVL(B.SLF_BRDN,0)    AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
 			                      , SUM(NE) AS NE
-			                      , SUM(LCLT_EXPND) AS LCLT_EXPND
+			                      , SUM(LCLT_EXPND_CTPV) +  SUM(LCLT_EXPND_SGG) AS LCLT_EXPND
 			                      , SUM(SLF_BRDN) AS SLF_BRDN
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
@@ -890,7 +1248,7 @@
 			              , CASE WHEN A.TYPE_CD = '2' THEN B.AMT END  AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
-			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                      , SUM(NVL(NE,0)+NVL(LCLT_EXPND_CTPV ,0) + NVL(LCLT_EXPND_SGG,0) +NVL(SLF_BRDN,0)) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
 			        WHERE   1=1
@@ -911,7 +1269,7 @@
 			              , CASE WHEN A.TYPE_CD = '2' THEN B.AMT END  AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
-			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                      , SUM(NVL(NE,0)+NVL(LCLT_EXPND_CTPV ,0) + NVL(LCLT_EXPND_SGG,0)+NVL(SLF_BRDN,0)) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
 			        WHERE   1=1
@@ -954,7 +1312,7 @@
 			              , CASE WHEN A.MB IS NULL THEN B.AMT END       AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
-			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                      , SUM(NVL(NE,0)+NVL(LCLT_EXPND,0)+NVL(SLF_BRDN,0)) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
 			        WHERE   1=1
@@ -975,7 +1333,7 @@
 			              , CASE WHEN A.MB IS NULL THEN B.AMT END       AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A
 			              ,(SELECT  APC_CD
-			                      , SUM(NE+LCLT_EXPND+SLF_BRDN) AS AMT
+			                      , SUM(NVL(NE,0)+NVL(LCLT_EXPND,0)+NVL(SLF_BRDN,0)) AS AMT
 			                FROM    USRAM.TB_TE_APC_FCLT_INSTL_SPLMNT
 			                GROUP BY APC_CD) B
 			        WHERE   1=1
@@ -1003,7 +1361,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)          AS V0
+			SELECT  S0          AS V0
 			      , SUM(S1)     AS V1
 			      , SUM(S2)     AS V2
 			      , SUM(S3)     AS V3
@@ -1011,7 +1369,7 @@
 			      , SUM(S5)     AS V5
 			      , SUM(S6)     AS V6
 			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM)  AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '1' THEN 1 END    AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '2' THEN 1 END    AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '1' THEN 1 END        AS S3
@@ -1053,7 +1411,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)          AS V0
+			SELECT  S0			AS V0
 			      , SUM(S1)     AS V1
 			      , SUM(S2)     AS V2
 			      , SUM(S3)     AS V3
@@ -1061,7 +1419,7 @@
 			      , SUM(S5)     AS V5
 			      , SUM(S6)     AS V6
 			      , SUM(S7)     AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
@@ -1103,14 +1461,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)        	AS V0
+			SELECT  S0									AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
 			      , NVL(ROUND(SUM(S1)/SUM(S2),0),0)     AS V2
 			      , NVL(ROUND(SUM(S3),0),0)             AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S4),0),0)     AS V4
 			      , NVL(ROUND(SUM(S5),0),0)             AS V5
 			      , NVL(ROUND(SUM(S5)/SUM(S6),0),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN
 			                     NVL(B.CSP_CFPP_AREA,0) +
 			                     NVL(B.CSP_CLN_OPRTNG_PRCS_AREA,0) END              AS S1
@@ -1159,12 +1517,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 			AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 ELSE 0 END    AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN
@@ -1206,12 +1564,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 			AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 ELSE 0 END      AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN
@@ -1253,12 +1611,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		AS V0
+			SELECT  S0								AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
 			      , NVL(ROUND(SUM(S2),0),0)         AS V2
 			      , NVL(ROUND(SUM(S3),0),0)         AS V3
 			      , NVL(ROUND(SUM(S3)/NULLIF(SUM(S2),0),0),0) AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 			AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
 			              , NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0)                          AS S3
@@ -1299,12 +1657,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 	AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN = 'Y'         THEN 1 END         AS S3
@@ -1353,14 +1711,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , NVL(ROUND(SUM(S3)/1000000,0),0)             AS V3
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V4
 			      , NVL(ROUND(SUM(S5)/1000000,0),0)             AS V5
 			      , NVL(ROUND((SUM(S5)/SUM(S1))/1000000,0),0)   AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , 1                               AS S1
 			              , B.NE                            AS S2
 			              , B.LCLT_EXPND                    AS S3
@@ -1407,7 +1765,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)
@@ -1416,7 +1774,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0)
 			             ELSE 0 END                             AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 					AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 ELSE 0 END                                 AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 ELSE 0 END                                 AS S3
@@ -1463,7 +1821,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnInvstOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   			AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)
@@ -1472,7 +1830,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0)
 			             ELSE 0 END                             AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 					AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 ELSE 0 END                                AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 ELSE 0 END                                    AS S3
@@ -2381,7 +2739,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtMdRtlOgnzTypeGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0			AS V0
 			      , SUM(S1)     						AS V1
 			      , SUM(S2)     						AS V2
 			      , SUM(S3)     						AS V3
@@ -2389,7 +2747,8 @@
 			      , SUM(S5)     						AS V5
 			      , SUM(S6)     						AS V6
 			      , SUM(S7)     						AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT
+							(SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '1' THEN 1 END    AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.TYPE_CD = '2' THEN 1 END    AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.TYPE_CD = '1' THEN 1 END        AS S3
@@ -2432,7 +2791,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtRgnOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0			AS V0
 			      , SUM(S1)     						AS V1
 			      , SUM(S2)     						AS V2
 			      , SUM(S3)     						AS V3
@@ -2440,7 +2799,7 @@
 			      , SUM(S5)     						AS V5
 			      , SUM(S6)     						AS V6
 			      , SUM(S7)     						AS V7
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NOT NULL THEN 1 END   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') AND A.MB IS NULL THEN 1 END       AS S2
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND A.MB IS NOT NULL THEN 1 END       AS S3
@@ -2483,14 +2842,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtLgstcsGdsFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0			AS V0
 			      , NVL(ROUND(SUM(S1),0),0)             AS V1
 			      , NVL(ROUND(SUM(S1)/SUM(S2),0),0)     AS V2
 			      , NVL(ROUND(SUM(S3),0),0)             AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S4),0),0)     AS V4
 			      , NVL(ROUND(SUM(S5),0),0)             AS V5
 			      , NVL(ROUND(SUM(S5)/SUM(S6),0),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN
 			                     NVL(B.CSP_CFPP_AREA,0) +
 			                     NVL(B.CSP_CLN_OPRTNG_PRCS_AREA,0) END              AS S1
@@ -2540,12 +2899,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtLwtpStrgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 			AS S0
 			           	  , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN 1 ELSE 0 END    AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_LWTP_STRG_AREA,0) > 0 THEN
@@ -2588,12 +2947,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtPrprtnClngFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT	(SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN 1 ELSE 0 END      AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_PRC_PLC_AREA,0) > 0 THEN
@@ -2636,12 +2995,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtStrgFcltGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		AS V0
+			SELECT  S0								AS V0
 			      , NVL(ROUND(SUM(S1),0),0)         AS V1
 			      , NVL(ROUND(SUM(S2),0),0)         AS V2
 			      , NVL(ROUND(SUM(S3),0),0)         AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0) AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 			AS S0
 			              , 1                                                                   AS S1
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN 1 ELSE 0 END  AS S2
 			              , CASE WHEN NVL(B.STRG_PLC_CA_STRG_PLC_AREA,0) > 0 THEN
@@ -2684,12 +3043,12 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtFcltMsrmtEqpmntGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)		   AS V0
+			SELECT  S0								   AS V0
 			      , NVL(ROUND(SUM(S1),0),0)            AS V1
 			      , NVL(ROUND(SUM(S2),0),0)            AS V2
 			      , NVL(ROUND(SUM(S3),0),0)            AS V3
 			      , NVL(ROUND(SUM(S3)/SUM(S2),0),0)    AS V4
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 	AS S0
 			              , 1                                                           AS S1
 			              , CASE WHEN B.SORT_MCHN_SPCFCT IS NOT NULL THEN 1 END         AS S2
 			              , CASE WHEN B.SORT_BRCK_MCHN = 'Y'         THEN 1 END         AS S3
@@ -2739,14 +3098,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectGvrngmtSprtRgnInvstAtmAllGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , NVL(ROUND(SUM(S3)/1000000,0),0)             AS V3
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V4
 			      , NVL(ROUND(SUM(S5)/1000000,0),0)             AS V5
 			      , NVL(ROUND((SUM(S5)/SUM(S1))/1000000,0),0)   AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , 1                               AS S1
 			              , B.NE                            AS S2
 			              , B.LCLT_EXPND                    AS S3
@@ -2794,7 +3153,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdInvstAtmOwnrGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)
@@ -2803,7 +3162,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0)
 			             ELSE 0 END                             AS V6   -- 공공 평균투자액
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 					AS S0
 			              , CASE WHEN A.TYPE_CD = '1' THEN 1 ELSE 0 END                                 AS S1
 			              , CASE WHEN A.TYPE_CD = '1' THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END  AS S2
 			              , CASE WHEN A.TYPE_CD = '2' THEN 1 ELSE 0 END                                 AS S3
@@ -2851,7 +3210,7 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdInvstAtmOperPrsnGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)					AS V0
+			SELECT  S0											AS V0
 			      , NVL(SUM(S1),0)                              AS V1
 			      , NVL(ROUND(SUM(S2)/1000000,0),0)             AS V2
 			      , CASE WHEN SUM(S1) > 0 THEN NVL(ROUND((SUM(S2)/SUM(S1))/1000000,0),0)
@@ -2860,7 +3219,7 @@
 			      , NVL(ROUND(SUM(S4)/1000000,0),0)             AS V5
 			      , CASE WHEN SUM(S3) > 0 THEN NVL(ROUND((SUM(S4)/SUM(S3))/1000000,0),0)
 			             ELSE 0 END                             AS V6   -- 법인 평균투자액
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 					AS S0
 			              , CASE WHEN A.MB IS NOT NULL THEN 1 ELSE 0 END                                AS S1
 			              , CASE WHEN A.MB IS NOT NULL THEN B.NE + B.LCLT_EXPND + B.SLF_BRDN ELSE 0 END AS S2
 			              , CASE WHEN A.MB IS NULL THEN 1 ELSE 0 END                                    AS S3
@@ -2926,11 +3285,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			      ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
+
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-			]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -2954,11 +3325,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			      ]]>
+	                <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -2982,11 +3365,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3010,11 +3405,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3053,11 +3460,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+				]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_GNRL_TRMT_AMT) AS  APC_GNRL_TRMT_AMT
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3077,11 +3498,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_GNRL_TRMT_AMT) AS  APC_GNRL_TRMT_AMT
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3101,11 +3536,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_GNRL_TRMT_AMT) AS  APC_GNRL_TRMT_AMT
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3125,11 +3574,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+			]]>
+					<choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_GNRL_TRMT_AMT) AS  APC_GNRL_TRMT_AMT
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3166,11 +3629,26 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+               ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) as APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) as APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) as APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3188,11 +3666,26 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+ 			]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) as APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) as APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) as APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-			]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3210,11 +3703,26 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+ 			]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) as APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) as APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) as APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3232,11 +3740,26 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+ 		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) as APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) as APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) as APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3261,14 +3784,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
 			      , ROUND(SUM(S2),0)     				AS V2
 			      , ROUND(SUM(S1)+SUM(S2),0)     				AS V3
 			      , ROUND(SUM(S4),0)     				AS V4
 			      , ROUND(SUM(S5),0)     				AS V5
 			      , ROUND(SUM(S6),0)     				AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN
 							(SELECT  SUM(X.APC_OPER_AMT)
                  			   FROM    USRAM.TB_TE_APC_OPER_PRFMNC_DTL X
@@ -3294,11 +3817,24 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_OGNZ_SUM END          AS S5
 			              , B.RTL_OGNZ_OGNZ_SUM                                                     AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		 ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3330,14 +3866,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
 			      , ROUND(SUM(S2)/SUM(A2),0)     		AS V2
 			      , ROUND(SUM(S3)/SUM(A3),0)     		AS V3
 			      , ROUND(SUM(S4)/SUM(A4),0)     		AS V4
 			      , ROUND(SUM(S5)/SUM(A5),0)     		AS V5
 			      , ROUND(SUM(S6)/SUM(A6),0)     		AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN (SELECT  SUM(X.APC_OPER_AMT)
                  FROM    USRAM.TB_TE_APC_OPER_PRFMNC_DTL X
                  WHERE   X.APC_CD = A.APC_CD
@@ -3375,11 +3911,24 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND B.RTL_OGNZ_OGNZ_SUM > 0 THEN 1 END            AS A5
 			              , CASE WHEN B.RTL_OGNZ_OGNZ_SUM > 0 THEN 1 END                                        AS A6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		 ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3411,14 +3960,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
 			      , ROUND(SUM(S2),0)     				AS V2
 			      , ROUND(SUM(S3),0)     				AS V3
 			      , ROUND(SUM(S4),0)     				AS V4
 			      , ROUND(SUM(S5),0)     				AS V5
 			      , ROUND(SUM(S6),0)     				AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 											AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
                               FROM TB_TE_APC_OPER_PRFMNC_DTL X
                              WHERE 1=1
@@ -3435,11 +3984,25 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END     AS S5
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP                                                AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		 ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-		]]>
+
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3471,14 +4034,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectMdApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)	 AS V0
+			SELECT  S0							 AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     AS V1
 			      , ROUND(SUM(S2)/SUM(A1),0)     AS V2
 			      , ROUND(SUM(S3)/SUM(A1),0)     AS V3
 			      , ROUND(SUM(S4)/SUM(A1),0)     AS V4
 			      , ROUND(SUM(S5)/SUM(A1),0)     AS V5
 			      , ROUND(SUM(S6)/SUM(A1),0)     AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 														AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN (SELECT SUM(X.APC_TRMT_AMT)
                               FROM TB_TE_APC_OPER_PRFMNC_DTL X
                              WHERE 1=1
@@ -3502,11 +4065,25 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP > 0 THEN 1 END       AS A5
 			              , CASE WHEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP > 0 THEN 1 END                                   AS A6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		 ]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+							, SUM(APC_TRMT_AMT) AS APC_APC_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3548,11 +4125,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+ 		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3569,11 +4158,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3590,11 +4191,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3611,11 +4224,23 @@
 			              , 1                       AS A1
 			              , B.RTL_OGNZ_OGNZ_SUM     AS S2
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3652,11 +4277,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3674,11 +4313,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3696,11 +4349,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3718,11 +4385,25 @@
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST  AS S3
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3760,11 +4441,25 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3783,11 +4478,25 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3806,11 +4515,25 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3829,11 +4552,25 @@
 			              , B.APC_APC_CTRT_EMSPAP           AS S4
 			              , 1                               AS A1
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_GNRL_TRMT_AMT) AS APC_GNRL_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3859,14 +4596,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzTrmtPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
 			      , ROUND(SUM(S2),0)     				AS V2
 			      , ROUND(SUM(S3),0)     				AS V3
 			      , ROUND(SUM(S4),0)     				AS V4
 			      , ROUND(SUM(S5),0)     				AS V5
 			      , ROUND(SUM(S6),0)     				AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 				AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END  AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END      AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                 AS S3
@@ -3874,11 +4611,23 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_OGNZ_SUM END          AS S5
 			              , B.RTL_OGNZ_OGNZ_SUM                                                     AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3912,14 +4661,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzTrmtPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
 			      , ROUND(SUM(S2)/SUM(A2),0)     		AS V2
 			      , ROUND(SUM(S3)/SUM(A3),0)     		AS V3
 			      , ROUND(SUM(S4)/SUM(A4),0)     		AS V4
 			      , ROUND(SUM(S5)/SUM(A5),0)     		AS V5
 			      , ROUND(SUM(S6)/SUM(A6),0)     		AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 							AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END              AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.RTL_OGNZ_TOT_TRMT_AMT END                  AS S2
 			              , B.RTL_OGNZ_TOT_TRMT_AMT                                                             AS S3
@@ -3933,11 +4682,23 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND B.RTL_OGNZ_OGNZ_SUM > 0 THEN 1 END            AS A5
 			              , CASE WHEN B.RTL_OGNZ_OGNZ_SUM > 0 THEN 1 END                                        AS A6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(RTL_OGNZ_OGNZ_SUM) as RTL_OGNZ_OGNZ_SUM
+							, SUM(RTL_OGNZ_TOT_TRMT_AMT) AS RTL_OGNZ_TOT_TRMT_AMT
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -3971,14 +4732,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzApcPrcsPrfmncGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1),0)     				AS V1
 			      , ROUND(SUM(S2),0)     				AS V2
 			      , ROUND(SUM(S3),0)     				AS V3
 			      , ROUND(SUM(S4),0)     				AS V4
 			      , ROUND(SUM(S5),0)     				AS V5
 			      , ROUND(SUM(S6),0)     				AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 											AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                   AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                       AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                  AS S3
@@ -3986,11 +4747,24 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP END     AS S5
 			              , B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP                                                AS S6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}
@@ -4024,14 +4798,14 @@
 	<!-- ==========================================================================	-->
     <select id="selectRgnOperOgnzApcPrcsPrfmncAvgGridList" parameterType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO" resultType="com.at.apcss.fm.fclt.vo.FcltMdRtlVO">
     	<![CDATA[
-			SELECT  DECODE(S0, '히', '기타', S0)			AS V0
+			SELECT  S0									AS V0
 			      , ROUND(SUM(S1)/SUM(A1),0)     		AS V1
 			      , ROUND(SUM(S2)/SUM(A1),0)     		AS V2
 			      , ROUND(SUM(S3)/SUM(A1),0)     		AS V3
 			      , ROUND(SUM(S4)/SUM(A1),0)     		AS V4
 			      , ROUND(SUM(S5)/SUM(A1),0)     		AS V5
 			      , ROUND(SUM(S6)/SUM(A1),0)     		AS V6
-			FROM  ( SELECT  DECODE(A.CTPV_NM,'서울시','히','광주시','히','대구시','히','부산시','히','세종시','히','울산시','히', A.CTPV_NM) AS S0
+			FROM  ( SELECT  (SELECT FN_GET_COM_CD_VL_NM('CTPV',A.CTPV_CD) FROM DUAL) 														AS S0
 			              , CASE WHEN A.OGNZ_TYPE_CD NOT IN ('5') THEN B.APC_APC_TRMT_AMT END                                               AS S1
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') THEN B.APC_APC_TRMT_AMT END                                                   AS S2
 			              , B.APC_APC_TRMT_AMT                                                                                              AS S3
@@ -4046,11 +4820,24 @@
 			              , CASE WHEN A.OGNZ_TYPE_CD IN ('5') AND B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP > 0 THEN 1 END       AS A5
 			              , CASE WHEN B.APC_APC_OGNZ_CPRTN_SORT_TRST+B.APC_APC_CTRT_EMSPAP > 0 THEN 1 END                                   AS A6
 			        FROM    USRAM.TB_TE_APC_OPER_PRSN_OTLN A,
-			                USRAM.TB_TE_APC_OPER_PRFMNC B
+		]]>
+			        <choose>
+        				<when test="crtrYr == '2023' or crtrYr == '2022'">USRAM.TB_TE_APC_OPER_PRFMNC B</when>
+        				<otherwise>
+        				(SELECT
+							CRTR_YR
+							, APC_CD
+							, SUM(APC_TRMT_AMT) as APC_APC_TRMT_AMT
+							, SUM(APC_OGNZ_CPRTN_SORT_TRST) AS APC_APC_OGNZ_CPRTN_SORT_TRST
+							, SUM(APC_CTRT_EMSPAP) AS APC_APC_CTRT_EMSPAP
+						 FROM USRAM.TB_TE_APC_OPER_PRFMNC_DTL
+						WHERE CRTR_YR = #{crtrYr}
+						GROUP BY CRTR_YR,APC_CD	) B
+						</otherwise>
+    				</choose>
 			        WHERE   1=1
 			        AND A.TOT_STTN_YN = 'Y'
 			        AND NVL(A.DUP_YN, 'N') != 'Y'
-		]]>
 				<if test='crtrYr != null and crtrYr != ""'>
 					AND   	A.CRTR_YR         = #{crtrYr}
 					AND     B.CRTR_YR         = #{crtrYr}

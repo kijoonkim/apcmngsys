@@ -34,6 +34,14 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception;
+
+	/**
+	 * 전수조사 집계현황
+	 * @param FcltMdRtlVO
+	 * @return List<MdRtlFcltVO>
+	 * @throws Exception
+	 */
+	public List<HashMap<String,Object>> selectApcTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
 	/**
 	 * APC지역목록조회
 	 * @param FcltMdRtlVO
@@ -48,7 +56,7 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectMdRtlOgnzNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
-	
+
 	/**
 	 * 산지유통시설지역별현황 목록을 조회한다.
 	 * @param fcltMdRtlVO
@@ -56,7 +64,7 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectMdRtlFcltRgnNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
-	
+
 	/**
 	 * 정부지원산지유통시설현황 목록을 조회한다.
 	 * @param fcltMdRtlVO
@@ -64,7 +72,7 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
-	
+
 	/**
 	 * 정부지원산지유통시설지역별현황 목록을 조회한다.
 	 * @param fcltMdRtlVO
@@ -72,7 +80,7 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
-	
+
 	/**
 	 * 산지유통시설 운영실적 목록을 조회한다.
 	 * @param fcltMdRtlVO
@@ -80,7 +88,7 @@ public interface FcltMdRtlService {
 	 * @throws Exception
 	 */
 	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception;
-	
+
 	/**
 	 * 정부지원 지역별 운영실적 목록을 조회한다.
 	 * @param fcltMdRtlVO
