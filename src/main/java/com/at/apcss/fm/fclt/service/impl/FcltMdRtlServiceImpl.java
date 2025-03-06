@@ -1,5 +1,6 @@
 package com.at.apcss.fm.fclt.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectCrtrYnList(fcltMdRtlVO);
 		return resultList;
 	}
-	
+
 	@Override
 	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectMapSttn(fcltMdRtlVO);
@@ -38,7 +39,7 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 	public HashMap<String,Object> selectMdRtlOgnzNowGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
+
 		//개소수:소유자 및 운영자
 		List<FcltMdRtlVO> resultMdRtlOgnz = fcltMdRtlMapper.selectMdRtlOgnzGridList(fcltMdRtlVO);
 		//개소수:소유자 및 운영자
@@ -119,19 +120,19 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		resultMap.put("resultRgnInvstAtmAll", resultRgnInvstAtmAll);
 		resultMap.put("resultRgnInvstAtmOwnr", resultRgnInvstAtmOwnr);
 		resultMap.put("resultRgnInvstOperPrsn", resultRgnInvstOperPrsn);
-		
-		
+
+
 		return resultMap;
 
 	}
-	
-	
+
+
 	@Override
 	public HashMap<String,Object> selectGvrngmtSprtMdRtlFcltGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		
+
+
 		// 정부지원 산지유통시설 현황 - 개소수:산지유통조직 유형
 		List<FcltMdRtlVO> resultBzeatCntMdRtlOgnzType =  fcltMdRtlMapper.selectBzeatCntMdRtlOgnzTypeGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 개소수:소유자 및 운영자
@@ -156,7 +157,7 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultBzeatCntInvstAtmOwnr =  fcltMdRtlMapper.selectBzeatCntInvstAtmOwnrGridList(fcltMdRtlVO);
 		// 정부지원 산지유통시설 현황 - 투자금액:운영자
 		List<FcltMdRtlVO> resultBzeatCntInvstOperPrsn =  fcltMdRtlMapper.selectBzeatCntInvstOperPrsnGridList(fcltMdRtlVO);
-		
+
 		resultMap.put("resultBzeatCntMdRtlOgnzType", resultBzeatCntMdRtlOgnzType);
 		resultMap.put("resultBzeatCntOwnrAndOper", resultBzeatCntOwnrAndOper);
 		resultMap.put("resultFcltEqpmntAllBdar", resultFcltEqpmntAllBdar);
@@ -169,17 +170,17 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		resultMap.put("resultBzeatCntInvstAtmFundType", resultBzeatCntInvstAtmFundType);
 		resultMap.put("resultBzeatCntInvstAtmOwnr", resultBzeatCntInvstAtmOwnr);
 		resultMap.put("resultBzeatCntInvstOperPrsn", resultBzeatCntInvstOperPrsn);
-		
+
 		return resultMap;
-		
+
 	}
-	
+
 	@Override
 	public HashMap<String,Object> selectGvrngmtSprtMdRtlOgnzTypeGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		
+
+
 		// 정부지원산지유통시설지역별현황 - 지역별 개소수 : 산지유통조직 유형
 		List<FcltMdRtlVO> resultGvrngmtSprtMdRtlOgnzType =  fcltMdRtlMapper.selectGvrngmtSprtMdRtlOgnzTypeGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 개소수 : 운영자
@@ -200,7 +201,7 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultMdInvstAtmOwnr =  fcltMdRtlMapper.selectMdInvstAtmOwnrGridList(fcltMdRtlVO);
 		// 정부지원산지유통시설지역별현황 - 지역별 투자금액 : 운영자
 		List<FcltMdRtlVO> resultMdInvstAtmOperPrsn =  fcltMdRtlMapper.selectMdInvstAtmOperPrsnGridList(fcltMdRtlVO);
-		
+
 		resultMap.put("resultGvrngmtSprtMdRtlOgnzType", resultGvrngmtSprtMdRtlOgnzType);
 		resultMap.put("resultGvrngmtSprtRgnOperPrsn", resultGvrngmtSprtRgnOperPrsn);
 		resultMap.put("resultGvrngmtSprtLgstcsGdsFclt", resultGvrngmtSprtLgstcsGdsFclt);
@@ -211,16 +212,16 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		resultMap.put("resultGvrngmtSprtRgnInvstAtmAll", resultGvrngmtSprtRgnInvstAtmAll);
 		resultMap.put("resultMdInvstAtmOwnr", resultMdInvstAtmOwnr);
 		resultMap.put("resultMdInvstAtmOperPrsn", resultMdInvstAtmOperPrsn);
-		
+
 		return resultMap;
-		
+
 	}
 	@Override
 	public HashMap<String,Object> selectMdRtlFcltOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		
+
+
 		// 산지유통시설운영실적 - 운영조직 취급실적
 		List<FcltMdRtlVO> resultOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
 		// 산지유통시설운영실적 - 운영조직 처리실적
@@ -235,8 +236,8 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultMdApcPrcsPrfmnc =  fcltMdRtlMapper.selectMdApcPrcsPrfmncGridList(fcltMdRtlVO);
 		// 산지유통시설운영실적 - 지역별 APC 처리실적(평균)
 		List<FcltMdRtlVO> resultMdApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectMdApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
-		
-		
+
+
 		resultMap.put("resultOperOgnzTrmtPrfmnc", resultOperOgnzTrmtPrfmnc);
 		resultMap.put("resultOperOgnzPrcsPrfmnc", resultOperOgnzPrcsPrfmnc);
 		resultMap.put("resultOperOgnzAvgTrmtPrfmnc", resultOperOgnzAvgTrmtPrfmnc);
@@ -244,16 +245,16 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		resultMap.put("resultMdOperOgnzTrmtPrfmncAvg", resultMdOperOgnzTrmtPrfmncAvg);
 		resultMap.put("resultMdApcPrcsPrfmnc", resultMdApcPrcsPrfmnc);
 		resultMap.put("resultMdApcPrcsPrfmncAvg", resultMdApcPrcsPrfmncAvg);
-		
+
 		return resultMap;
-		
+
 	}
 	@Override
 	public HashMap<String,Object> selectGvrngmtSprtRgnOperPrfmncGridList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		
-		
+
+
 		// 정부지원지역별운영실적 - 운영조직 취급실적
 		List<FcltMdRtlVO> resultGvrngmtSprtOperOgnzTrmtPrfmnc =  fcltMdRtlMapper.selectGvrngmtSprtOperOgnzTrmtPrfmncGridList(fcltMdRtlVO);
 		// 정부지원지역별운영실적 - 산지유통시설 처리실적
@@ -268,8 +269,8 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmnc =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncGridList(fcltMdRtlVO);
 		// 정부지원지역별운영실적 - 산지유통시설 처리실적(평균)
 		List<FcltMdRtlVO> resultRgnOperOgnzApcPrcsPrfmncAvg =  fcltMdRtlMapper.selectRgnOperOgnzApcPrcsPrfmncAvgGridList(fcltMdRtlVO);
-		
-		
+
+
 		resultMap.put("resultGvrngmtSprtOperOgnzTrmtPrfmnc", resultGvrngmtSprtOperOgnzTrmtPrfmnc);
 		resultMap.put("resultMdRtlFcltPrcsPrfmnc", resultMdRtlFcltPrcsPrfmnc);
 		resultMap.put("resultMdRtlFcltPrcsPrfmncAvg", resultMdRtlFcltPrcsPrfmncAvg);
@@ -277,9 +278,15 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 		resultMap.put("resultRgnOperOgnzTrmtPrfmncAvg", resultRgnOperOgnzTrmtPrfmncAvg);
 		resultMap.put("resultRgnOperOgnzApcPrcsPrfmnc", resultRgnOperOgnzApcPrcsPrfmnc);
 		resultMap.put("resultRgnOperOgnzApcPrcsPrfmncAvg", resultRgnOperOgnzApcPrcsPrfmncAvg);
-		
+
 		return resultMap;
-		
+
 	}
-	
+
+	@Override
+	public List<HashMap<String, Object>> selectApcTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		List<HashMap<String,Object>> resultList = fcltMdRtlMapper.selectApcTotList(fcltMdRtlVO);
+		return resultList;
+	}
+
 }

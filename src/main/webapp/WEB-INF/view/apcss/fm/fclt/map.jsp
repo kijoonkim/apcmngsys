@@ -9,12 +9,50 @@
 <head>
 	<meta charset="UTF-8">
     <title>title : SBUx2.6</title>
+    <style>
+    .boxbox {
+	  display: flex;
+	  width: 100%;
+	}
+
+	.box1 {
+	  flex: 8;
+	}
+
+	.box2 {
+	  flex: 2;
+	  padding-right: 30px;
+	}
+
+    </style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
 		<div class="box box-solid">
 			<div class="box-body">
 				<div class="row">
+					<div class ="row">
+						<div class="boxbox">
+							<div class="box1">
+								<div class="ad_tbl_top" style="padding-right: 60px;">
+										<ul class="ad_tbl_count">
+											<li><span>전수조사 집계현황</span></li>
+										</ul>
+										<sbux-radio id="rdo_json" name="rdo_json" uitype="hidden" jsondata-ref="radioJsonData" >
+										</sbux-radio>
+								</div>
+									<div id="sb-area-apcTotList" style="width:97.5%;height:310px;"></div>
+							</div>
+	  						<div class="box2">
+	  							<div class="ad_tbl_top">
+									<ul class="ad_tbl_count">
+										<li><span>지역별현황</span></li>
+									</ul>
+								</div>
+								<div id="sb-area-apcLocSttnList" style="width:97.5%;height:310px;"></div>
+	  						</div>
+						</div>
+					</div>
 					<div class ="row">
 						<div class="col-sm-6">
 							<div class="ad_tbl_top">
@@ -45,11 +83,21 @@
 <script type="text/javascript">
 	var mapApcSttn = [];
 	var jsonApcAreaList = [];
+	var jsonApcTotList = [];
+	var jsonApcLocSttnList = [];
+
+	var radioJsonData = [
+		{ text : "개소"  , value : "01", checked : "checked"},
+		{ text : "면적"  , value : "02"  },
+		{ text : "취급액"  , value : "03"   }
+	];
 
 	window.addEventListener('DOMContentLoaded', async function(e) {
 
 		let result = await Promise.all([
 			fn_createGrid(),
+			fn_createGrid2(),
+			fn_createGrid3(),
 			fn_search(),
 		]);
 
@@ -110,6 +158,38 @@
 	            }
 	    })
 	}
+	const fn_apcTotList = async function(){
+
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if(gfn_isEmpty(crtrYr)){
+
+			let result = await Promise.all([
+				gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr),		// 기준년도 목록
+			])
+			crtrYr = jsonCrtrYr[0].value;
+		}
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcTotList.do", {
+			crtrYr			: crtrYr
+  		});
+        const data = await postJsonPromise;
+        try {
+          	/** @type {number} **/
+      		jsonApcTotList.length = 0;
+      		jsonApcTotList = data.resultList;
+
+          	grdApcTotList.rebuild();
+		}catch (e) {
+
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+
+			console.error("failed", e.message);
+		}
+	}
+
 
 	const fn_apcSttn = async function(){
 
@@ -139,6 +219,8 @@
 	          		mapApcSttn.push(apcSttn);
           		}
   			});
+          	await fn_apcTotList();
+          	fn_grid3Value(mapApcSttn);
           	createMap();
           	jsonApcAreaList.length = 0;
     		grdApcAreaList.rebuild();
@@ -176,7 +258,12 @@
 		}else if(code == "34"){
 			ctpvCd = "44"
 		}else if(code == "35"){
-			ctpvCd = "45"
+			let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+			if(crtrYr  >= "2024"){
+				ctpvCd = "52"
+			}else{
+				ctpvCd = "45"
+			}
 		}else if(code == "36"){
 			ctpvCd = "46"
 		}else if(code == "37"){
@@ -221,5 +308,94 @@
 			console.error("failed", e.message);
 		}
 	}
+
+
+	const fn_createGrid2 = function(){
+		var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-apcTotList';
+	    SBGridProperties.id = 'grdApcTotList';
+	    SBGridProperties.jsonref = 'jsonApcTotList';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+	    SBGridProperties.mergecells = 'byrow';
+        SBGridProperties.columns = [
+        	{caption: ['구분','구분','구분'], 		ref: 'S0', 		width: '10%',	type: 'output',	style:'text-align: center'},
+        	{caption: ['통합조직','농협','승인형'], 		ref: 'S1', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['통합조직','농협','육성형'], 		ref: 'S2', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['통합조직','농업법인','승인형'], 		ref: 'S3', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['통합조직','농업법인','육성형'], 		ref: 'S4', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['개별조직','농협','승인형'], 		ref: 'S5', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['개별조직','농협','육성형'], 		ref: 'S6', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['개별조직','농업법인','승인형'], 		ref: 'S7', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['개별조직','농업법인','육성형'], 		ref: 'S8', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        	{caption: ['합계','합계','합계'], 		ref: 'S9', 		width: '10%',	type: 'output',	style:'text-align: center',merge :  false},
+        ];
+        grdApcTotList = _SBGrid.create(SBGridProperties);
+	}
+
+	// 부산,울산, 대구 , 광주, 세종,대전, 서울 -> 10
+	const fn_createGrid3 = function(){
+		var SBGridProperties = {};
+	    SBGridProperties.parentid = 'sb-area-apcLocSttnList';
+	    SBGridProperties.id = 'grdApcLocSttnList';
+	    SBGridProperties.jsonref = 'jsonApcLocSttnList';
+	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+	    SBGridProperties.selectmode = 'free';
+	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.allowcopy = true;
+        SBGridProperties.columns = [
+
+        	{caption: ['시도명'], 		ref: '01', 		width: '80%',	type: 'output',	style:'text-align: center'}
+        	, {caption: ['개수'], 		ref: '02', 		width: '20%',	type: 'output',	style:'text-align: center'}
+        ];
+        grdApcLocSttnList = _SBGrid.create(SBGridProperties);
+	}
+	const fn_grid3Value = function(list){
+		//let result = {'10' : 0};
+
+		let etc = 0;
+		jsonApcLocSttnList.length = 0;
+		list.forEach(item => {
+			let code = item.code;
+
+			if(code == "21" ||code == "22" || code == "24" || code == "26" || code == "29"){
+				etc += item.APC수;
+			}else if(code == "32"){
+				//result['01'] = item.APC수; //강원도
+				jsonApcLocSttnList.push({'01':'강원도','02':item.APC수});
+			}else if(code == "31"){
+				//result['02'] = item.APC수; //경기도
+				jsonApcLocSttnList.push({'01':'경기도','02':item.APC수});
+			}else if(code == "38"){
+				//result['03'] = item.APC수; //경남도
+				jsonApcLocSttnList.push({'01':'경남도','02':item.APC수});
+			}else if(code == "37"){
+				//result['04'] = item.APC수; //경북도
+				jsonApcLocSttnList.push({'01':'경북도','02':item.APC수});
+			}else if(code == "36"){
+				//result['05'] = item.APC수; //전남도
+				jsonApcLocSttnList.push({'01':'전남도','02':item.APC수});
+			}else if(code == "35"){
+				//result['06'] = item.APC수; //전북도
+				jsonApcLocSttnList.push({'01':'전북도','02':item.APC수});
+			}else if(code == "39"){
+				//result['07'] = item.APC수; //제주도
+				jsonApcLocSttnList.push({'01':'제주도','02':item.APC수});
+			}else if(code == "34"){
+				//result['08'] = item.APC수; //충남도
+				jsonApcLocSttnList.push({'01':'충남도','02':item.APC수});
+			}else if(code == "33"){
+				//result['09'] = item.APC수; //충북도
+				jsonApcLocSttnList.push({'01':'충북도','02':item.APC수});
+			}
+		})
+		//jsonApcLocSttnList = [result];
+		jsonApcLocSttnList.push({'01':'기타','02':etc});
+		const sum = jsonApcLocSttnList.reduce((acc, obj) => acc + (obj["02"] || 0), 0);
+		jsonApcLocSttnList.push({'01':'합계','02':sum});
+		grdApcLocSttnList.refresh();
+	};
 </script>
 </html>
