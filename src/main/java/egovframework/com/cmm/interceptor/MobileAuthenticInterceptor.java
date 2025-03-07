@@ -93,6 +93,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 				json.put("code", "7777");
 				json.put("message", "Unable to get JWT Token");
 				modelAndView.addObject("result", json);
+				modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 				throw new ModelAndViewDefiningException(modelAndView);
 				//return false;
 			} catch (ExpiredJwtException e) {
@@ -111,8 +112,10 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 				ModelAndView modelAndView = new ModelAndView("result");
 				JSONObject json = new JSONObject();
 				json.put("success", false);
-				json.put("code", "6666");
+				//json.put("code", "6666");
+				json.put("code", "8888");
 				json.put("message", "JWT Token has expired");
+				/*
 				json.put("requestUrl", request.getRequestURI());
 				json.put("method", request.getMethod());
 				json.put("data", data != null ? data.toString() : "{}");
@@ -142,6 +145,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 							json.put("code", "8888");
 							json.put("message", "JWT Token has expired");
 							modelAndView.addObject("result", json);
+							modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 							throw new ModelAndViewDefiningException(modelAndView);
 						}
 					} catch (Exception e2) {
@@ -152,11 +156,13 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 						json.put("code", "7777");
 						json.put("message", "UNAUTHORIZED");
 						modelAndView.addObject("result", json);
+						modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 						throw new ModelAndViewDefiningException(modelAndView);
 					}
 				}
-
+*/
 				modelAndView.addObject("result", json);
+				modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 				throw new ModelAndViewDefiningException(modelAndView);
 			}
 		} else {
@@ -167,6 +173,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 			json.put("code", "7777");
 			json.put("message", "Unable to get JWT Token");
 			modelAndView.addObject("result", json);
+			modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 			throw new ModelAndViewDefiningException(modelAndView);
 			
 			//return false;
@@ -189,6 +196,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 						json.put("code", "8888");
 						json.put("message", "JWT Token has expired");
 						modelAndView.addObject("result", json);
+						modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 						throw new ModelAndViewDefiningException(modelAndView);
 					}
 				} catch (Exception e) {
@@ -200,6 +208,7 @@ public class MobileAuthenticInterceptor extends HandlerInterceptorAdapter {
 					json.put("code", "7777");
 					json.put("message", "UNAUTHORIZED");
 					modelAndView.addObject("result", json);
+					modelAndView.setStatus(HttpStatus.UNAUTHORIZED);
 					throw new ModelAndViewDefiningException(modelAndView);
 				}
 			}
