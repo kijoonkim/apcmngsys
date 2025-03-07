@@ -2165,18 +2165,22 @@
 			SELECT  /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghPrfmncListForSpmtReg */
 			    pt0.*
 				,(pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) AS ACTL_WGHT
-				,(SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) AS CNPT_NM
+				,(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
+				,ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
 			FROM
 			    (SELECT
-					 WPC.APC_CD				AS APC_CD
-					,WPC.WGHNO				AS WGHNO
-					,WPC.WGH_YMD			AS WGH_YMD
-					,WPD.SPMTNO				AS SPMTNO
-					,WPC.VHCLNO				AS VHCLNO
-					,WPC.RMRK				AS RMRK
-			     	,WPC.WHOL_WGHT			AS WHOL_WGHT
-			     	,WPC.EMPT_VHCL_WGHT		AS EMPT_VHCL_WGHT
-			     	,WPC.PRDCR_CD 			AS CNPT_CD
+					 WPC.APC_CD					AS APC_CD
+					,WPC.WGHNO					AS WGHNO
+					,MAX(WPC.WGH_YMD)			AS WGH_YMD
+					,MAX(WPC.VHCLNO)			AS VHCLNO
+					,MAX(WPC.RMRK)				AS RMRK
+			     	,MAX(WPC.WHOL_WGHT)			AS WHOL_WGHT
+			     	,MAX(WPC.EMPT_VHCL_WGHT)	AS EMPT_VHCL_WGHT
+			     	,MAX(WPC.PRDCR_CD) 			AS PRDCR_CD
+			     	,MAX(WPC.RDCD_RT)			AS RDCD_RT
+			     	,SUM(WPD.BX_QNTT)           AS BX_QNTT
+	           		,SUM(WPD.BX_WGHT)           AS BX_WGHT
+	           		,SUM(WPD.PLT_QNTT)			AS PLT_QNTT
 
 				 FROM
 					 TB_WGH_PRFMNC_COM WPC
@@ -2199,6 +2203,9 @@
 					AND WPD.WGHNO LIKE '%' || #{wghno} || '%'
 				</if>
 		<![CDATA[
+
+				 GROUP BY WPC.APC_CD, WPC.WGHNO
+
 			    ) pt0
 		]]>
 	</select>

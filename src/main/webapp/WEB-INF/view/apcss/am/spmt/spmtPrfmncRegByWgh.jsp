@@ -121,25 +121,26 @@
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input id="dtl-inp-wholWght" name="dtl-inp-wholWght" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
                             </td>
-                            <th scope="row" class="th_bg">출고수량</th>
-                            <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="dtl-inp-spmtQntt" name="dtl-inp-spmtQntt" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
-                            </td>
-                        </tr>
-                        <tr>
                             <th scope="row" class="th_bg">공차중량</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input id="dtl-inp-emptVhclWght" name="dtl-inp-emptVhclWght" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
                             </td>
-                            <th scope="row" class="th_bg">출고중량</th>
+
+                        </tr>
+                        <tr>
+                            <th scope="row" class="th_bg">감량률(%)</th>
+                            <td class="td_input" style="border-right: hidden;">
+                                <sbux-input id="dtl-inp-rdcdRt" name="dtl-inp-rdcdRt" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
+                            </td>
+                            <th scope="row" class="th_bg">계산중량</th>
                             <td class="td_input" style="border-right: hidden;">
                                 <sbux-input id="dtl-inp-spmtWght" name="dtl-inp-spmtWght" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row" class="th_bg">감량률</th>
+                            <th scope="row" class="th_bg">출고수량</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="dtl-inp-rdcdRt" name="dtl-inp-rdcdRt" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
+                                <sbux-input id="dtl-inp-spmtQntt" name="dtl-inp-spmtQntt" uitype="text" class="form-control input-sm" mask ="{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ','}" permit-keycodes-set="num" readonly></sbux-input>
                             </td>
                             <th scope="row" class="th_bg">팔레트수량</th>
                             <td class="td_input" style="border-right: hidden;">
@@ -493,11 +494,16 @@
         SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-            {caption: ["계량일자"], 		 ref: 'wghYmd',	 	type:'output', 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, width:'20%', style:'text-align:center'},
-            {caption: ["차량번호"],		 ref: 'vhclno', 	type:'output', width:'20%', style:'text-align:center'},
-            {caption: ["거래처"], 		 ref: 'cnptNm',	    type:'output',  width:'20%', style:'text-align:center'},
-            {caption: ["실중량"], 	     ref: 'actlWght',	type:'output',  width:'20%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
-            {caption: ["비고"],	 	     ref: 'rmrk',		type:'output', width:'20%',   style:'text-align:left'},
+            {caption: ["계량일자"], 		 ref: 'wghYmd',	 	type:'output', 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, width:'10%', style:'text-align:center'},
+            {caption: ["차량번호"],		 ref: 'vhclno', 	type:'output', width:'10%', style:'text-align:center'},
+            {caption: ["생산자"], 		 ref: 'prdcrNm',	    type:'output',  width:'10%', style:'text-align:center'},
+            {caption: ["총중량"], 	     ref: 'wholWght',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
+            {caption: ["공차중량"], 	     ref: 'emptVhclWght',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
+            {caption: ["감량률(%)"], 	     ref: 'rdcdRt',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'##.## '}},
+            {caption: ["계산중량"], 	     ref: 'acptnWght',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
+            {caption: ["출고수량"], 	     ref: 'bxQntt',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
+            {caption: ["팔레트수량"], 	 ref: 'pltQntt',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,##0 '}},
+            {caption: ["비고"],	 	     ref: 'rmrk',		type:'output', width:'10%',   style:'text-align:left'},
         ];
         grdWghList = _SBGrid.create(SBGridProperties);
         grdWghList.bind('click','fn_clickGrdWghList')
@@ -677,43 +683,29 @@
      */
     const fn_clickGrdWghList = async function () {
         const row = grdWghList.getRow();
-        const rowData = grdWghList.getRowData(row);
-        if(gfn_isEmpty(rowData)){
+        if (row < 1){
             return;
         }
-        const wghno = rowData.wghno;
-        const wghYmd = rowData.wghYmd;
-
-        try{
-            const postJsonPromise = gfn_postJSON("/am/wgh/selectWghInfoForSpmtReg.do", {
-                apcCd	: gv_selectedApcCd,
-                wghYmd	: wghYmd,
-                wghno   : wghno
-            });
-            const data = await postJsonPromise;
-
-            if (!_.isEqual("S", data.resultStatus)) {
-                gfn_comAlert(data.resultCode, data.resultMessage);
-                return;
-            }
-            if(data.resultList.length > 0){
-                let result = data.resultList[0];
-                SBUxMethod.set("dtl-inp-wghYmd",result.wghYmd);
-                SBUxMethod.set("dtl-inp-wghNo",result.wghno);
-                SBUxMethod.set("dtl-inp-vhclNo",result.vhclno);
-                SBUxMethod.set("dtl-inp-drvrNm",result.drvrNm);
-                SBUxMethod.set("dtl-inp-wholWght",result.wholWght);
-                SBUxMethod.set("dtl-inp-spmtQntt",result.shpgotQntt);
-                SBUxMethod.set("dtl-inp-emptVhclWght",result.emptVhclWght);
-                SBUxMethod.set("dtl-inp-spmtWght",result.shpgotWght);
-                SBUxMethod.set("dtl-inp-rdcdRt",result.rdcdRt);
-                SBUxMethod.set("dtl-inp-pltQntt",result.pltQntt);
-                SBUxMethod.set("dtl-inp-rmrk",result.rmrk);
-                SBUxMethod.set("dtl-inp-spmtVhclno",result.vhclno);
-            }
-        }catch (e) {
-            console.error(e);
+        console.log(row);
+        const rowData = grdWghList.getRowData(row);
+        if (gfn_isEmpty(rowData)){
+            return;
         }
+
+        SBUxMethod.set("dtl-inp-wghYmd",rowData.wghYmd);
+        SBUxMethod.set("dtl-inp-wghNo",rowData.wghno);
+        SBUxMethod.set("dtl-inp-vhclNo",rowData.vhclno);
+        SBUxMethod.set("dtl-inp-drvrNm",rowData.drvrNm);
+        SBUxMethod.set("dtl-inp-wholWght",rowData.wholWght);
+        SBUxMethod.set("dtl-inp-emptVhclWght",rowData.emptVhclWght);
+        SBUxMethod.set("dtl-inp-rdcdRt",rowData.rdcdRt);
+        SBUxMethod.set("dtl-inp-spmtQntt",rowData.bxQntt);
+        SBUxMethod.set("dtl-inp-spmtWght",rowData.acptnWght);
+        SBUxMethod.set("dtl-inp-pltQntt",rowData.pltQntt);
+        SBUxMethod.set("dtl-inp-rmrk",rowData.rmrk);
+        SBUxMethod.set("dtl-inp-spmtVhclno",rowData.vhclno);
+
+
     }
 
     /**
