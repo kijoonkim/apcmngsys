@@ -194,6 +194,11 @@ public class SpmtPrfmncComVO extends ComVO {
 	 * 출하강제처리여부
 	 */
 	private String spmtFrcdPrcsYn;
+
+	/**
+	 * 계량번호
+	 */
+	private String wghno;
 	
 	private List<SpmtPrfmncVO> spmtPrfmncList;
 

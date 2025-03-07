@@ -373,6 +373,11 @@ public class SpmtPrfmncVO extends ComVO {
 	private double crynWght;
 	private String crynYn;
 
+	/**
+	 * 계량번호
+	 */
+	private String wghno;
+
 	private List<SpmtGdsVO> spmtGdsList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
@@ -382,5 +387,6 @@ public class SpmtPrfmncVO extends ComVO {
 	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
 		this.spmtGdsList = spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
+
 
 }

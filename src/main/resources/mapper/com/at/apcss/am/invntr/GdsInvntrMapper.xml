@@ -191,6 +191,61 @@
     </select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectSpmtGdsInvntrListBySpec	-->
+	<!-- DESC : 출하상품재고 목록 조회 (스펙)	                                       				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.05  	유민지        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSpmtGdsInvntrListBySpec" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+	    	SELECT /* com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectSpmtGdsInvntrListBySpec */
+				  GI.APC_CD
+				, GI.PCKGNO
+				, GI.PCKG_SN
+				, GI.PCKG_YMD
+				, GI.RPRS_PRDCR_CD
+				, GI.ITEM_CD
+				, GI.VRTY_CD
+				, GI.SPCFCT_CD
+				, GI.GDS_GRD
+				, GI.SPMT_PCKG_UNIT_CD
+	    	    , GI.WAREHOUSE_SE_CD
+				, GI.GDS_CD
+				, GI.PCKG_QNTT
+				, GI.PCKG_WGHT
+				, GI.INVNTR_QNTT	AS INVNTR_QNTT
+				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+			  FROM TB_GDS_INVNTR GI
+			 WHERE GI.APC_CD = #{apcCd}
+			   AND GI.DEL_YN = 'N'
+			   AND GI.INVNTR_QNTT > 0
+		]]>
+		<if test='itemCd != null and itemCd != ""'>
+			AND GI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			AND GI.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			AND GI.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			AND GI.GDS_GRD = #{gdsGrd}
+		</if>
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+			AND GI.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+		</if>
+		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
+			AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+		</if>
+		<![CDATA[
+    		 ORDER BY PCKG_YMD, INVNTR_QNTT
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectGdsInvntrList	-->
 	<!-- DESC : 상품재고 목록 조회.	                                       				-->
 	<!-- ==========================================================================	-->

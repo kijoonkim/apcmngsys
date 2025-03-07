@@ -9,6 +9,9 @@ import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.spmt.service.SpmtPrfmncService;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -839,4 +842,189 @@ public class WghPrfmncController extends BaseController {
 	        return getSuccessResponseEntity(resultMap);
 	    }
 
+	/**
+	 * 출하실적등록(계량) - 계량목록 조회
+	 * @param wghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectWghPrfmncListForSpmtReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghPrfmncListForSpmtReg(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectWghPrfmncListForSpmtReg(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출하실적등록(계량) - 계량정보 조회
+	 * @param wghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectWghInfoForSpmtReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectWghInfoForSpmtReg(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectWghInfoForSpmtReg(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출하실적등록(계량) - 재고조회
+	 * @param wghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectInvntrListForSpmtReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectInvntrListForSpmtReg(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectInvntrListForSpmtReg(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출하실적등록(계량) - 재고상세조회
+	 * @param wghPrfmncVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/selectInvntrDtlListForSpmtReg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectInvntrDtlListForSpmtReg(@RequestBody WghPrfmncVO wghPrfmncVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<WghPrfmncVO> resultList;
+
+		try {
+			resultList = wghPrfmncService.selectInvntrDtlListForSpmtReg(wghPrfmncVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출하실적등록(계량) - 출하등록
+	 * @param spmtPrfmncComVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/insertSpmtPrfmncByWgh.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmncByWgh (@RequestBody SpmtPrfmncComVO spmtPrfmncComVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+			spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+			spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+			spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.insertSpmtPrfmncByWgh(spmtPrfmncComVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	/**
+	 * 출하실적등록(계량) - 출하취소
+	 * @param SpmtPrfmncList
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/deleteSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteSpmtPrfmncList(@RequestBody List<SpmtPrfmncComVO> spmtPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncList) {
+				spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.deleteSpmtPrfmncList(spmtPrfmncList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		}catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
 }

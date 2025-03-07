@@ -286,4 +286,11 @@ public interface SpmtPrfmncService {
 	 */
 	public HashMap<String, Object> updateSpmtForCrynCncl(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
+	/**
+	 * 출고실적등록 - 계량
+	 * @param spmtPrfmncComVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncByWgh(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
 }

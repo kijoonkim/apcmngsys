@@ -273,4 +273,52 @@ public interface WghPrfmncMapper {
 	 * @return List<WghHstryVO>
 	 */
 	List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 계량목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghPrfmncListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 계량정보 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghInfoForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 재고조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectInvntrListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 재고상세조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectInvntrDtlListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 출하등록시 출하번호 update
+	 * @param wghDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateWghPrfmncDtlSpmtno(WghPrfmncDtlVO wghDtlVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 출하취소
+	 * @param wghDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int deleteWghPrfmncDtlSpmtno(WghPrfmncDtlVO wghDtlVO) throws Exception;
 }

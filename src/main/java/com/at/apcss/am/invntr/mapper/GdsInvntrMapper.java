@@ -60,6 +60,14 @@ public interface GdsInvntrMapper {
 	 */
 	public List<GdsInvntrVO> selectSpmtGdsInvntrListByPckgno(GdsInvntrVO gdsInvntrVO) throws Exception;
 
+	/**
+	 * 출하상품재고 목록 조회 (스펙)
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListBySpec(GdsInvntrVO gdsInvntrVO) throws Exception;
+
 
 	/**
 	 * 상품재고 목록 조회

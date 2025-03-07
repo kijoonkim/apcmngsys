@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import com.at.apcss.am.invntr.mapper.PltWrhsSpmtMapper;
 import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
 import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
@@ -1827,4 +1828,109 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	public List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception {
 		return wghPrfmncMapper.selectWghHstryList(wghHstryVO);
 	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghPrfmncListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghPrfmncListForSpmtReg(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectWghInfoForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoForSpmtReg(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectInvntrListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectInvntrListForSpmtReg(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public List<WghPrfmncVO> selectInvntrDtlListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception {
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectInvntrDtlListForSpmtReg(wghPrfmncVO);
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> insertSpmtPrfmncByWgh (SpmtPrfmncComVO spmtPrfmncComVO) throws Exception {
+
+		HashMap<String, Object> rtnObj = spmtPrfmncService.insertSpmtPrfmncByWgh(spmtPrfmncComVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+		String apcCd = spmtPrfmncComVO.getApcCd();
+		String wghno = spmtPrfmncComVO.getWghno();
+		String spmtno = spmtPrfmncComVO.getSpmtno();
+		String sysLastChgUserId = spmtPrfmncComVO.getSysLastChgUserId();
+		String sysLastChgPrgrmId = spmtPrfmncComVO.getSysLastChgPrgrmId();
+
+		if (!StringUtils.hasText(spmtno)){
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하번호")));
+		}
+
+		WghPrfmncDtlVO wghDtlVO = new WghPrfmncDtlVO();
+		wghDtlVO.setSpmtno(spmtno);
+		wghDtlVO.setWghno(wghno);
+		wghDtlVO.setApcCd(apcCd);
+		wghDtlVO.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+		wghDtlVO.setSysLastChgUserId(sysLastChgUserId);
+
+		wghPrfmncMapper.updateWghPrfmncDtlSpmtno(wghDtlVO);
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteSpmtPrfmncList(List<SpmtPrfmncComVO> spmtPrfmncList) throws Exception {
+
+		HashMap<String, Object> rtnObj;
+
+		for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncList) {
+			String apcCd = spmtPrfmncComVO.getApcCd();
+			String spmtno = spmtPrfmncComVO.getSpmtno();
+
+			if (!StringUtils.hasText(apcCd)){
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+			}
+
+			if (!StringUtils.hasText(spmtno)){
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "출하번호");
+			}
+		}
+
+		for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncList) {
+
+
+			rtnObj = spmtPrfmncService.deleteSpmt(spmtPrfmncComVO);
+			if (rtnObj != null) {
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+
+			String apcCd = spmtPrfmncComVO.getApcCd();
+			String spmtno = spmtPrfmncComVO.getSpmtno();
+			String sysLastChgUserId = spmtPrfmncComVO.getSysLastChgUserId();
+			String sysLastChgPrgrmId = spmtPrfmncComVO.getSysLastChgPrgrmId();
+			String wghno = spmtPrfmncComVO.getWghno();
+
+			if (StringUtils.hasText(wghno)) {
+				WghPrfmncDtlVO wghDtlVO = new WghPrfmncDtlVO();
+				wghDtlVO.setApcCd(apcCd);
+				wghDtlVO.setSpmtno(spmtno);
+				wghDtlVO.setWghno(wghno);
+				wghDtlVO.setSysLastChgUserId(sysLastChgUserId);
+				wghDtlVO.setSysLastChgPrgrmId(sysLastChgPrgrmId);
+
+				if ( 0 == wghPrfmncMapper.deleteWghPrfmncDtlSpmtno(wghDtlVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하번호삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
+				}
+			}
+
+		}
+
+
+		return null;
+	}
+
 }
