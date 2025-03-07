@@ -441,8 +441,8 @@
                 gvwInfo.setCellData(nRow, gvwInfo.getColRef('WORK_DAY'), Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1));
             }
         }
-
-        var TOT_AMOUNT = Number((Number(rowData.WORK_CNT) * Number(rowData.DAILY_PAY_AMT)) + Number(rowData.ADJUSTMENT_AMT) + Number(rowData.FUAL_AMT) + Number(rowData.ETC_COST));
+        
+        var TOT_AMOUNT = Number(Number(rowData.WORK_DAY) * Number(rowData.WORK_CNT) * Number(rowData.DAILY_PAY_AMT)) + Number(rowData.ADJUSTMENT_AMT) + Number(rowData.FUAL_AMT) + Number(rowData.ETC_COST);
         var EARNED_INC_AMT = Number(TOT_AMOUNT - Number(rowData.NON_TXABLE_AMT) - Number(rowData.INC_AMT));
         var TOT_DEDUCT_AMT = Number(Number(rowData.INC_TX_AMT) + Number(rowData.LOCAL_TX_AMT) + Number(rowData.HEALTH_INSURE_AMT)
             + Number(rowData.LONG_HEALTH_INSURE_AMT) + Number(rowData.NATIONAL_PENS_AMT) + Number(rowData.EMPLOY_INSURE_AMT) + Number(rowData.ETC_DED_AMT));
