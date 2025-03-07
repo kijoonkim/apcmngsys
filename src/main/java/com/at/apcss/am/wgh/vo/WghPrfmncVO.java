@@ -101,6 +101,12 @@ public class WghPrfmncVO extends ComVO {
 	 * 상품구분코드
 	 */
 	private String gdsSeCd;
+
+	/**
+	 * 상품코드
+	 */
+	private String gdsGrd;
+
 	/**
 	 * 상품구분명
 	 */
@@ -444,6 +450,77 @@ public class WghPrfmncVO extends ComVO {
      * 상세삭제여부
      * */
     private String dtlDelYn;
+
+	/*
+	 * 상품명
+	 * */
+	private String gdsNm;
+
+	/*
+	 * 규격코드
+	 * */
+	private String spcfctCd;
+
+	/*
+	 * 규격명
+	 * */
+	private String spcfctNm;
+
+	/*
+	 * 출하수량
+	 * */
+	private int spmtQntt;
+
+	/*
+	 * 출하중량
+	 * */
+	private int spmtWght;
+
+	/*
+	 * 포장번호
+	 * */
+	private String pckgno;
+
+	/*
+	 * 포장순번
+	 * */
+	private String pckgSn;
+
+	/*
+	 * 포장일자
+	 * */
+	private String pckgYmd;
+
+	/*
+	 * 출하포장단위
+	 * */
+	private String spmtPckgUnitCd;
+
+	/*
+	 * 출하포장단위명
+	 * */
+	private String spmtPckgUnitNm;
+
+	/*
+	 * 대표생산자코드
+	 * */
+	private String rprsPrdcrCd;
+
+	/*
+	 * 선별등급
+	 * */
+	private String sortGrdCd;
+
+	/*
+	 * 포장수량
+	 * */
+	private int pckgQntt;
+
+	/*
+	 * 포장중량
+	 * */
+	private int pckgWght;
+	
 
 
 	/**

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 import com.at.apcss.am.wgh.vo.WghHstryVO;
 import com.at.apcss.am.wgh.vo.WghInspPrfmncVO;
 import com.at.apcss.am.wgh.vo.WghPrfmncDtlVO;
@@ -276,4 +278,52 @@ public interface WghPrfmncService {
 	 * @return List<WghHstryVO>
 	 */
 	List<WghHstryVO> selectWghHstryList(WghHstryVO wghHstryVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 계량목록 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghPrfmncListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 계량정보 조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghInfoForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 재고조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectInvntrListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 재고상세조회
+	 * @param wghPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectInvntrDtlListForSpmtReg(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 출하등록
+	 * @param spmtPrfmncComVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSpmtPrfmncByWgh(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+	/**
+	 * 출하실적등록(계량) - 출하취소
+	 * @param spmtPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+    public HashMap<String, Object> deleteSpmtPrfmncList(List<SpmtPrfmncComVO> spmtPrfmncList) throws Exception;
 }

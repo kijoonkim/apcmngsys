@@ -99,6 +99,11 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 		return resultList;
 	}
 
+	@Override
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListBySpec(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectSpmtGdsInvntrListBySpec(gdsInvntrVO);
+	}
+
 
 	@Override
 	public List<GdsInvntrVO> selectGdsInvntrList(GdsInvntrVO gdsInvntrVO) throws Exception {
