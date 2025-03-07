@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" viewport-fit=cover">
     <title>레포트뷰어</title>
     <%@ include file="../frame/inc/headerMeta.jsp" %>
     <%@ include file="../frame/inc/headerScript.jsp" %>
@@ -52,7 +52,7 @@
         width: 100vw;
         height: 100vh;
     }
-
+	    
     /* 모바일 스타일 */
     @media (max-width: 768px) {
         .input-container {
@@ -70,10 +70,23 @@
 	    #btn-reportView {
 	        width:  80vw;
 			height: 15vh;
-			font-size: x-large;
+			font-size: 20px;
 			
 	    }        
+	    @media only screen and (max-height: 500px) {
+		    #btn-reportView {
+				bottom: 10px; /* 키패드 위로 조정 */
+		    }
+        }
+        
+        #divText{
+	        width:  80vw;
+			height: 8vh;
+			font-size: x-large;
+	    }        
+        
     }
+</head>
 </style>    
 </head>
 <body oncontextmenu="return false">
@@ -85,7 +98,8 @@
         <input type="hidden" id="certYn" name="certYn" value="<c:out value='${certYn}'></c:out>" />
         <c:choose>
             <c:when test="${certYn != null && certYn == 'Y'}">
-                <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요."/>
+            	<div id="divText"><font>휴대폰 번호 뒤 4자리를 입력하세요.</font></div>
+                <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요." inputmode="numeric" pattern="[0-9]*"/>
             </c:when>
             <c:otherwise>
             </c:otherwise>
@@ -177,7 +191,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
 // 		$('#div-rpt-clipReportJSON').css('display', 'none');
         fn_init();
-        //fn_drawClipReport();
+        fn_mobileLayout();
     });
 
 
@@ -236,23 +250,35 @@
         $('.input-container').css('display', 'none');
     }
 
-    /*
-    const fn_drawClipReport = async function() {
-        const fileName = "am/jsonSample.crf";
-        const exePrintYn = "N";
-        const param = {};
-        const conn = [];
-        conn.push({data: score},{data: students});
-        //const reportKey = await gfn_getReportKey(fileName, param);
-        const reportKey = await gfn_getReportKeyByJson(fileName, param, conn);
-        const check = {
-            exePrintYn : exePrintYn
+    const fn_mobileLayout = async function() {
+    	const isMobile = $(window).width() <= 768;
+        const $input = $("#certKey");
+        const $button = $("#btn-reportView");
+
+        if (isMobile && $input.length) {
+            $input.on("focus", () => {
+                setTimeout(() => {
+                    if ($(window).height() < 500) {
+                        $button.css({
+                            position: "fixed !important",
+                            bottom: "10px !important",
+                            left: "50% !important",
+                            transform: "translateX(-50%) !important"
+                        });
+                    }
+                }, 100);
+            });
+
+            $input.on("blur", () => {
+                $button.css({
+                    position: "relative !important",
+                    bottom: "",
+                    left: "",
+                    transform: ""
+                });
+            });
         }
-
-        gfn_drawClipReportLink("div-rpt-clipReportJSON", reportKey, check);
-
     }
-     */
 
 
 </script>

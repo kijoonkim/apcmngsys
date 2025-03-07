@@ -1153,10 +1153,17 @@
     }
     const fn_sendSMS = async function () {
         let checkData 	  = gvwInfo.getCheckedRowData( gvwInfo.getColRef('CHK_YN') );
+        let SMS_MESSAGE = gfn_nvl(SBUxMethod.get("SMS_MESSAGE"));
         if (_.isEmpty(checkData)) {
             gfn_comAlert("W0001", "SMS 발송할 데이터");
             return;
         }
+        if (_.isEmpty(SMS_MESSAGE)){
+	        gfn_comAlert("W0001", "SMS 문자메시지");
+	        return;
+        } 
+        
+        
         let paramObj = {};
         let listData = [];
         
