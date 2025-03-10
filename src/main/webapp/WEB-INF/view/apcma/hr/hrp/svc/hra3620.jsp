@@ -442,12 +442,15 @@
             }
         }
         
-        var TOT_AMOUNT = Number(Number(rowData.WORK_DAY) * Number(rowData.WORK_CNT) * Number(rowData.DAILY_PAY_AMT)) + Number(rowData.ADJUSTMENT_AMT) + Number(rowData.FUAL_AMT) + Number(rowData.ETC_COST);
+    	//총 금액
+        var TOT_AMOUNT = Number((Number(rowData.WORK_DAY) * Number(rowData.WORK_CNT) * Number(rowData.DAILY_PAY_AMT)) + Number(rowData.ADJUSTMENT_AMT) + Number(rowData.FUAL_AMT) + Number(rowData.ETC_COST));
+        //근로소득금액
         var EARNED_INC_AMT = Number(TOT_AMOUNT - Number(rowData.NON_TXABLE_AMT) - Number(rowData.INC_AMT));
+        //총 공제액
         var TOT_DEDUCT_AMT = Number(Number(rowData.INC_TX_AMT) + Number(rowData.LOCAL_TX_AMT) + Number(rowData.HEALTH_INSURE_AMT)
-            + Number(rowData.LONG_HEALTH_INSURE_AMT) + Number(rowData.NATIONAL_PENS_AMT) + Number(rowData.EMPLOY_INSURE_AMT) + Number(rowData.ETC_DED_AMT));
-        var TOT_PAY_AMT = Number(EARNED_INC_AMT - TOT_DEDUCT_AMT);
-
+        + Number(rowData.LONG_HEALTH_INSURE_AMT) + Number(rowData.NATIONAL_PENS_AMT) + Number(rowData.EMPLOY_INSURE_AMT) + Number(rowData.ETC_DED_AMT));
+        //총 지급액
+        var TOT_PAY_AMT = Number(Number(TOT_AMOUNT) - Number(TOT_DEDUCT_AMT));
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('TOT_AMOUNT'), TOT_AMOUNT);
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('EARNED_INC_AMT'), EARNED_INC_AMT);
         gvwInfo.setCellData(nRow, gvwInfo.getColRef('TOT_DEDUCT_AMT'), TOT_DEDUCT_AMT);
@@ -1038,11 +1041,15 @@
                             item.EMPLOY_INSURE_AMT = gfn_nvl(item.EMPLOY_INSURE_AMT, 0);
                             item.ETC_DED_AMT = gfn_nvl(item.ETC_DED_AMT, 0);
 
-                            item.TOT_AMOUNT = Number((Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
+                        	//총 금액
+                            item.TOT_AMOUNT = Number(( Number(item.WORK_DAY) * Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
+                            //근로소득금액
                             item.EARNED_INC_AMT = Number(item.TOT_AMOUNT - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
+                            //총 공제액
                             item.TOT_DEDUCT_AMT = Number(Number(item.INC_TX_AMT) + Number(item.LOCAL_TX_AMT) + Number(item.HEALTH_INSURE_AMT)
-                                + Number(item.LONG_HEALTH_INSURE_AMT) + Number(item.NATIONAL_PENS_AMT) + Number(item.EMPLOY_INSURE_AMT) + Number(item.ETC_DED_AMT));
-                            item.TOT_PAY_AMT = Number(item.EARNED_INC_AMT - item.TOT_DEDUCT_AMT);
+                            + Number(item.LONG_HEALTH_INSURE_AMT) + Number(item.NATIONAL_PENS_AMT) + Number(item.EMPLOY_INSURE_AMT) + Number(item.ETC_DED_AMT));
+                            //총 지급액
+                            item.TOT_PAY_AMT = Number( Number(item.TOT_AMOUNT) - Number(item.TOT_DEDUCT_AMT));
 
                             let istart_date = new Date(item.WORK_ST_DAT);
                             let iend_date = new Date(item.WORK_END_DAT);
@@ -1103,7 +1110,6 @@
     const fn_save = async function () {
         let updatedData = gvwInfo.getUpdateData(true, 'all');
         let returnData = [];
-
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count : '0',
