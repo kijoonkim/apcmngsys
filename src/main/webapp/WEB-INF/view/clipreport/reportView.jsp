@@ -100,11 +100,11 @@
             <c:when test="${certYn != null && certYn == 'Y'}">
             	<div id="divText"><font>휴대폰 번호 뒤 4자리를 입력하세요.</font></div>
                 <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요." inputmode="numeric" pattern="[0-9]*"/>
-            </c:when>
+            </c:when>R
             <c:otherwise>
             </c:otherwise>
         </c:choose>
-        <button id="btn-reportView">명세서 출력</button>
+        <button id="btn-reportView">명세서 조회</button>
     </div>
     <div id="div-rpt-clipReportJSON" style="display: none;"></div>
 </div>
