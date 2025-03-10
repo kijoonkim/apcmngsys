@@ -1812,8 +1812,9 @@
 			return false;
 		}
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData01.length; i++ ){
+		//그리드 해더 row수
+		let captionRow = grdPrdcrOgnCurntMng01.getFixedRows();
+		for(var i = captionRow; i < gridData01.length + captionRow; i++ ){
 			let rowData01 = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts01 = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			//let delYn = rowData01.delYn;
