@@ -367,7 +367,13 @@ public interface ComUserService {
 	
 	
 	public ComUserAtchflVO getUserAtchfl(ComUserVO comUserVO) throws Exception;
-	
-	
-	
+
+
+	/**
+	 * APC 사용자 경영관리항목 변경
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> updateComUserAdmstMngArtcl(ComUserVO comUserVO) throws Exception;
 }

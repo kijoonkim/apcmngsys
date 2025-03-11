@@ -286,6 +286,14 @@ public interface ComUserMapper {
     
     
     public ComUserAtchflVO selectComUserAtchfl(ComUserVO comUserVO) throws Exception;
+
+	/**
+	 * APC 사용자 경영관리항목 변경
+	 * @param comUserVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateComUserAdmstMngArtcl(ComUserVO comUserVO) throws Exception;
 }
 
 

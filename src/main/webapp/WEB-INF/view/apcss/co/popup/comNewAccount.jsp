@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
     <title>title : 신규계정 생성</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>--%>
 </head>
 <body oncontextmenu="return false">
 	<section>

@@ -129,8 +129,19 @@ public class ComUserVO extends ComVO {
 
 	private String rtnCd;
 	private String rtnMsg;
-	
-	
+
+	/**
+	 * 경영관리항목
+	 */
+	private String corpCd;
+	private String userCtrgy;
+	private String empCd;
+	private String deptCd;
+	private String hrmMngrYn;
+	private String hrmEvlRole;
+	private String hrmPayMngrYn;
+	private String acntgMngrYn;
+
 	private List<ComUserApcVO> userApcList;
 
 

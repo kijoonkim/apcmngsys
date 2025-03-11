@@ -308,7 +308,6 @@
 			              ) AS PLT_CNPT_CD
 			          FROM TB_PLT_WRHS_SPMT PWS
 			         WHERE 1=1
-			         	AND PWS.WRHS_SPMT_TYPE IS NULL
 		]]>
         <if test='delYn != null and delYn != ""'>
 				    	AND PWS.DEL_YN 					= #{delYn}
@@ -421,5 +420,43 @@
 		AND PLT_BX_CD = #{pltBxCd}
 	</update>
 
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.selectPltWrhsSpmt		-->
+	<!-- DESC : 팔레트/박스 입출 단건 조회.	                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.10  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPltWrhsSpmt" parameterType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO" resultType="com.at.apcss.am.invntr.vo.PltWrhsSpmtVO">
+		<![CDATA[
+			SELECT
+				  PWS.APC_CD			AS APC_CD
+				 ,PWS.JOB_YMD			AS JOB_YMD
+				 ,PWS.WRHS_SPMT_SE_CD	AS WRHS_SPMT_SE_CD
+				 ,PWS.PLT_BX_SE_CD		AS PLT_BX_SE_CD
+				 ,PWS.PLT_BX_CD			AS PLT_BX_CD
+				 ,PWS.PRDCR_CD 			AS PRDCR
+				 ,PWS.PLT_NM			AS PLT_NM
+				 ,PWS.RMRK				AS RMRK
+				 ,PWS.DEL_YN			AS DEL_YN
+				 ,PWS.SN				AS SN
+				 ,PWS.UNIT_WGHT 		AS UNIT_WGHT
+				 ,PWS.QNTT				AS QNTT
+				 ,PWS.PRCS_NO 			AS PRCS_NO
+				 ,PWS.PRCS_SN 			AS PRCS_SN
+				 ,PWS.WRHS_SPMT_TYPE	AS WRHS_SPMT_TYPE
+			FROM TB_PLT_WRHS_SPMT PWS
+			WHERE PWS.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and apcCd != ""'>
+			AND PWS.APC_CD = #{apcCd}
+		</if>
+		<if test='jobYmd != null and jobYmd != ""'>
+			AND PWS.JOB_YMD = #{jobYmd}
+		</if>
+		<if test='sn != null and sn != ""'>
+			AND PWS.SN = #{sn}
+		</if>
+	</select>
 </mapper>

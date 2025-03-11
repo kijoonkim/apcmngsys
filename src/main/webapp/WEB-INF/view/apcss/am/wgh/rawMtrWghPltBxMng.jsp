@@ -40,10 +40,11 @@
 			</div>
 			<div class="box-body">
 			<!--[APC] START -->
-				<jsp:include page="../../../frame/inc/apcSelectColSize.jsp">
+				<%--<jsp:include page="../../../frame/inc/apcSelectColSize.jsp">
 					<jsp:param name="colgroupData" value="[{width:20%},{width:30%},{width:20%},{width:30%}]"/>
 					<jsp:param name="addElements" value=""/>
-				</jsp:include>
+				</jsp:include>--%>
+
 			<!--[APC] END -->
 				<table class="table table-bordered tbl_fixed">
 					<caption>검색 조건 설정</caption>
@@ -61,6 +62,18 @@
 						<col style="width: 6%">
 						<col style="width: 3%">
 					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row" class="th_bg">APC명</th>
+							<td class="td_input" colspan="3">
+								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
+							</td>
+							<th scope="row" class="th_bg">입고일자</th>
+							<td class="td_input" colspan="7">
+								<sbux-datepicker uitype="popup" id="srch-dtp-jobYmd" name="srch-dtp-jobYmd" wrap-style="border:0!important" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 				<div class="ad_tbl_top">
 					<ul class="ad_tbl_count">
@@ -396,10 +409,12 @@
 	        {caption: ["생산자"],		ref: 'prdcrNm',      	type:'output',  	width:'100px',    style:'text-align:center'},
 	        {caption: ["수량"],		ref: 'qntt',      		type:'output',  	width:'100px',    style:'text-align:right',
 	        	format : {type:'number', rule:'#,###'}},
-		    {caption: ["비고"],		ref: 'rmrk',      		type:'output',  	width:'170px',    style:'text-align:center'}
+		    {caption: ["비고"],		ref: 'rmrk',      		type:'output',  	width:'590px',    style:'text-align:center'},
+		    {caption: ["처리유형"],		ref: 'wrhsSpmtTypeNm',      		type:'output',  	width:'100px',    style:'text-align:center'},
 	    ];
 
 	    grdPltWrhsSpmt = _SBGrid.create(SBGridProperties);
+		grdPltWrhsSpmt.bind('click','fn_grid2ValueChanged');
 
 	}
 
@@ -550,7 +565,10 @@
           				rmrk: item.rmrk,
           				delYn: item.delYn,
           				pltCnptNm: item.pltCnptNm,
-          				sn: item.sn
+          				sn: item.sn,
+						wrhsSpmtType : item.wrhsSpmtType,
+						wrhsSpmtTypeNm : item.wrhsSpmtTypeNm
+
 				}
       			jsonPltWrhsSpmt.push(pckgCmnd);
   			});
@@ -652,11 +670,17 @@
 		let grdRows = grdPltWrhsSpmt.getCheckedRows(0);
     	let deleteList = [];
 
-
     	for(var i=0; i< grdRows.length; i++){
-    		let nRow = grdRows[i];
-    		deleteList.push(jsonPltWrhsSpmt[nRow-1]);
-    	}
+			let nRow = grdRows[i];
+			if (gfn_isEmpty(jsonPltWrhsSpmt[nRow-1].wrhsSpmtType)) {
+				deleteList.push(jsonPltWrhsSpmt[nRow-1]);
+			} else {
+				gfn_comAlert("W0011","삭제대상");			// W0011  {0}이/가 아닙니다.
+				return;
+			}
+		}
+
+
     	if(grdRows.length == 0){
     		gfn_comAlert("W0003", "삭제");			// W0003	{0}할 대상이 없습니다.
     		return;
@@ -839,7 +863,7 @@
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
-	function apcSelectAdd(){
+	/*function apcSelectAdd(){
 		$("#apcTable tbody tr").append(`
         <th scope="row" class="th_bg">입고일자</th>
         <td class="td_input">
@@ -849,7 +873,20 @@
         </td>
         `);
 	}
-	apcSelectAdd();
+	apcSelectAdd();*/
+
+	const fn_grid2ValueChanged = function() {
+		let row = grdPltWrhsSpmt.getRow();
+		let rowData = grdPltWrhsSpmt.getRowData(row,false);
+		if (gfn_isEmpty(rowData)) {
+			return;
+		}
+		let wrhsSpmtType = rowData.wrhsSpmtType; //처리유형
+		if (!gfn_isEmpty(wrhsSpmtType)) {
+			rowData.checkedYn = "N"
+		}
+		grdPltWrhsSpmt.refresh();
+	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
