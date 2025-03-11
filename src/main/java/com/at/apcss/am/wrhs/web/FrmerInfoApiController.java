@@ -1,5 +1,6 @@
 package com.at.apcss.am.wrhs.web;
 
+import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.co.constants.ComConstants;
@@ -81,6 +82,8 @@ public class FrmerInfoApiController extends BaseController {
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         int resultList;
         try {
+            if (cltvtnHstryVO.getComAtchflVO() != null)
+                cltvtnHstryVO.getComAtchflVO().setAtchflPath(getFilepathAm());
 
             resultList = frmerInfoService.insertCltvtnHstry(cltvtnHstryVO);
 
