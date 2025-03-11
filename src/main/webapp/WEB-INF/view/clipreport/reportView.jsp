@@ -100,7 +100,7 @@
             <c:when test="${certYn != null && certYn == 'Y'}">
             	<div id="divText"><font>휴대폰 번호 뒤 4자리를 입력하세요.</font></div>
                 <input type="password" id="certKey" name="certKey" value="" placeholder="인증번호를 입력하세요." inputmode="numeric" pattern="[0-9]*"/>
-            </c:when>R
+            </c:when>
             <c:otherwise>
             </c:otherwise>
         </c:choose>
