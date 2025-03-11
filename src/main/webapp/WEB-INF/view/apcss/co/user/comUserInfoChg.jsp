@@ -154,16 +154,16 @@
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
 				<div style="display: flex ; flex-direction : row; gap : 10px";>
-					<div style = "flex: 7">
+					<div style = "flex: 8">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>사용자 내역</span></li>
 							</ul>
 						</div>
-						<div id="sb-area-grdComUser" style="height:579px;"></div>
+						<div id="sb-area-grdComUser" style="height:570px;"></div>
 					</div>
 
-					<div style = "flex: 3; display: none" id="admstMngArtcl" >
+					<div style = "flex: 2; display: none" id="admstMngArtcl" >
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>상세항목</span></li>
@@ -839,7 +839,7 @@
 		} else {
 			div.style.display = 'none';
 		}
-		grdComUser.refresh();
+		grdComUser.rebuild();
 	}
 
 </script>
