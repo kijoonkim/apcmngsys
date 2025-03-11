@@ -1700,11 +1700,15 @@
 			{caption: ["(B)생산자조직 전속출하액(천원)"],	ref:'slsCnsgnSlsAmt',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(C)전속취급률(%)"],			ref:'slsCnsgnSlsAmtRt',		type:'output',width:'70px',style:'text-align:center'},
 
+			{caption: ["취급액목표(신청관리)"],			ref:'trgtTrmtAmt',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["취급률목표(신청관리)"],			ref:'trgtTrmtRt',		type:'output',width:'70px',style:'text-align:center'},
+
 			{caption: ["적합여부(기준적용)"],	ref:'stbltYn',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["적합여부(최종)"],	ref:'orgStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["선정여부"],			ref:'lastStbltYn',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["비고"],			ref:'stbltYnNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["조치사항"],			ref:'actnMttr',		type:'output',width:'70px',style:'text-align:center'},
+
 		];
 
 		hiddenGrd = _SBGrid.create(SBGridProperties);
@@ -1730,6 +1734,7 @@
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr
+					,slctnYr				:item.slctnYr
 					,brno					:item.brno
 					,corpNm					:item.corpNm
 					,aprv					:item.aprv
@@ -1755,6 +1760,9 @@
 					,orgStbltYn				:item.orgStbltYn
 					,lastStbltYn			:item.lastStbltYn
 					,stbltYnNm				:fn_calStbltYn(item)
+
+					,trgtTrmtAmt			:item.trgtTrmtAmt
+					,trgtTrmtRt				:item.trgtTrmtRt
 
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);

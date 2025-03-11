@@ -1215,6 +1215,7 @@
 		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'uoBrno',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'uoCorpNm',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["통합조직구분"],		ref: 'aprv',	type:'output',  width:'80px',	style:'text-align:center'},
 
 		{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'200px',	style:'text-align:center'},
@@ -1235,6 +1236,7 @@
 		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'corpNm',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["통합조직구분"],		ref: 'aprv',	type:'output',  width:'80px',	style:'text-align:center'},
 
 		{caption: ["직접판매 실적 2025년 목표액(천원)(A)"],	ref: 'trgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["위탁판매 실적 2025년 목표액(천원)"],	ref: 'consignTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
@@ -1277,6 +1279,8 @@
 				if(_gridSe == '1'){
 					hiddenGrdVO = {
 							yr					:item.yr
+							,aprv				:item.aprv
+							,aprvNm				:item.aprvNm
 							,uoBrno				:item.uoBrno
 							,uoCorpNm			:item.uoCorpNm
 
@@ -1296,20 +1300,22 @@
 				}else if(_gridSe == '2'){
 					hiddenGrdVO = {
 							yr: item.yr
-							,brno: item.brno
-							,corpNm: item.corpNm
+							,aprv				:item.aprv
+							,aprvNm				:item.aprvNm
+							,brno				:item.brno
+							,corpNm				:item.corpNm
 
-							,trgtTrmtAmt: item.trgtTrmtAmt
-							,consignTrgtAmt: item.consignTrgtAmt
-							,consignCrtdTrgtAmt: item.consignCrtdTrgtAmt
+							,trgtTrmtAmt		:item.trgtTrmtAmt
+							,consignTrgtAmt		:item.consignTrgtAmt
+							,consignCrtdTrgtAmt	:item.consignCrtdTrgtAmt
 
-							,totTrgtTrmtAmt: item.totTrgtTrmtAmt
-							,uoTotTrgtTrmtAmt: item.uoTotTrgtTrmtAmt
+							,totTrgtTrmtAmt		:item.totTrgtTrmtAmt
+							,uoTotTrgtTrmtAmt	:item.uoTotTrgtTrmtAmt
 
-							,trmtAmtTot: item.trmtAmtTot
-							,crtrAmt: (Number(item.uoTotTrgtTrmtAmt)*0.02).toFixed(2)
+							,trmtAmtTot			:item.trmtAmtTot
+							,crtrAmt			:(Number(item.uoTotTrgtTrmtAmt)*0.02).toFixed(2)
 
-							,trgtTrmtRt: item.trgtTrmtRt
+							,trgtTrmtRt			:item.trgtTrmtRt
 						};
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
