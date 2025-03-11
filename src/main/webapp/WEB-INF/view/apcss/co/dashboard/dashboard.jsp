@@ -240,7 +240,7 @@
 				<div></div>
 				<div class="dash_area" style="display: flex; flex-direction: column">
 <%--					환경설정 Table --%>
-					<table style="flex: 1">1
+					<table style="flex: 1">
 						<colgroup>
 							<col style="width: 20%">
 							<col style="width: 30%">
