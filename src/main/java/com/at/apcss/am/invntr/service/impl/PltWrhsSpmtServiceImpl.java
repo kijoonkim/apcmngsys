@@ -3,6 +3,7 @@ package com.at.apcss.am.invntr.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import com.at.apcss.co.constants.ComConstants;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.at.apcss.am.invntr.service.PltWrhsSpmtService;
 import com.at.apcss.am.invntr.vo.PltWrhsSpmtVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.springframework.util.StringUtils;
 
 /**
  * @Class Name : PltWrhsSpmtServiceImpl.java
@@ -155,6 +157,14 @@ public class PltWrhsSpmtServiceImpl extends BaseServiceImpl implements PltWrhsSp
 	@Override
 	public HashMap<String, Object> updateDelYnPltWrhsSpmtList(List<PltWrhsSpmtVO> pltWrhsSpmtList) throws Exception {
 		for (PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList) {
+			PltWrhsSpmtVO selectPltWrhsSpmtInfo = selectPltWrhsSpmt(pltWrhsSpmtVO);
+			if (selectPltWrhsSpmtInfo == null) {
+				return ComUtil.getResultMap("W0005","팔레트박스입출정보");		// W0005	{0}이/가 없습니다.
+			}
+			if (StringUtils.hasText(selectPltWrhsSpmtInfo.getWrhsSpmtType())) {
+				return ComUtil.getResultMap("W0011","삭제대상");		// W0011	{0}이/가 아닙니다.
+			}
+
 			HashMap<String, Object> rtnObj = updateDelYnPltWrhsSpmt(pltWrhsSpmtVO);
 			if(rtnObj != null) {
 				throw new EgovBizException(getMessageForMap(rtnObj));

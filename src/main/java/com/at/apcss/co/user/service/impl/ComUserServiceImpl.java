@@ -876,4 +876,15 @@ public class ComUserServiceImpl extends BaseServiceImpl implements ComUserServic
 		return returnVO;
 	}
 
+	@Override
+	public HashMap<String, Object> updateComUserAdmstMngArtcl(ComUserVO comUserVO) throws Exception {
+		ComUserVO selectUserInfo = selectComUser(comUserVO);
+		if (selectUserInfo == null || !StringUtils.hasText(selectUserInfo.getUserId())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "사용자정보");
+		}
+		comUserMapper.updateComUserAdmstMngArtcl(comUserVO);
+
+		return null;
+	}
+
 }

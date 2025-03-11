@@ -40,7 +40,7 @@
 			</div>
 			<div class="box-body">
 				<!--[APC] START -->
-					<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>
+					<%--<%@ include file="../../../frame/inc/apcSelectAll.jsp" %>--%>
 				<!--[APC] END -->
 				<!--[pp] 검색 -->
 				<table class="table table-bordered tbl_row tbl_fixed">
@@ -138,17 +138,98 @@
 								></sbux-select>
 							</td>
 						</tr>
+						<tr>
+							<th scope="row" class="th_bg">APC명</th>
+							<td class="td_input" colspan="3" style="border-right: hidden;">
+								<%@ include file="../../../frame/inc/apcSelectCompAll.jsp" %>
+							</td>
+							<th scope="row" class="th_bg">상세항목</th>
+							<td class="td_input" colspan="7">
+								<sbux-checkbox id="chkboxAdmstMngArtcl" name="chkboxAdmstMngArtcl" text ="" uitype="normal" true-value = "Y" false-value = "N" onclick = "fn_chkAdmstMngArtcl()"></sbux-checkbox>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
 				<!--[pp] //검색 -->
 				<!--[pp] 검색결과 -->
-				<div class="ad_tbl_top">
-					<ul class="ad_tbl_count">
-						<li><span>사용자 내역</span></li>
-					</ul>
+				<div style="display: flex ; flex-direction : row; gap : 10px";>
+					<div style = "flex: 7">
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>사용자 내역</span></li>
+							</ul>
+						</div>
+						<div id="sb-area-grdComUser" style="height:579px;"></div>
+					</div>
+
+					<div style = "flex: 3; display: none" id="admstMngArtcl" >
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>상세항목</span></li>
+							</ul>
+							<div style="height: 5px"></div>
+							<sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="상세저장" class="btn btn-sm btn-outline-danger" onclick="fn_changeSave"></sbux-button>
+						</div>
+						<div id="" style="height:529px;">
+							<table class="table table-bordered tbl_fixed">
+								<caption>상세항목</caption>
+								<tbody>
+									<tr>
+										<th scope="row" class="th_bg">법인코드</th>
+										<td class="td_input" >
+											<sbux-input id="dtl-inp-corpCd" name="dtl-inp-corpCd" uitype="text" class="form-control input-sm"></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">사용자카테고리</th>
+										<td class="td_input" >
+											<sbux-input id="dtl-inp-userCtrgy" name="dtl-inp-userCtrgy" uitype="text" class="form-control input-sm"></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">직원코드</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-empCd" name="dtl-inp-empCd" uitype="text" class="form-control input-sm"></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">부서코드</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-deptCd" name="dtl-inp-deptCd" uitype="text" class="form-control input-sm"></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">인사관리자여부</th>
+										<td class="td_input">
+											<sbux-select id="dtl-slt-hrmMngrYn" name="dtl-slt-hrmMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComUseYn"></sbux-select>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">인사평가역할</th>
+										<td class="td_input">
+											<sbux-input id="dtl-inp-hrmEvlRole" name="dtl-inp-hrmEvlRole" uitype="text" class="form-control input-sm"></sbux-input>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">급여관리자여부</th>
+										<td class="td_input">
+											<sbux-select id="dtl-slt-hrmPayMngrYn" name="dtl-slt-hrmPayMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComUseYn"></sbux-select>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" class="th_bg">회계관리자여부</th>
+										<td class="td_input">
+											<sbux-select id="dtl-slt-acntgMngrYn" name="dtl-slt-acntgMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonComUseYn"></sbux-select>
+										</td>
+									</tr>
+									<sbux-input id="dtl-inp-userId" name="dtl-inp-userId" uitype="hidden"></sbux-input>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
-				<div id="sb-area-grdComUser" style="height:579px;"></div>
+
 			</div>
 		</div>
 		<!-- 계정생성 Modal -->
@@ -194,6 +275,12 @@
 	var grdComUser;
 	// 그리드 데이터
 	var jsonComUser	= [];
+
+	// 경영관리항목
+	var jsonComUseYn = [
+		{text:"예", value:"Y"},
+		{text:"아니오", value:"N"}
+	];
     
 	/**
 	 * @name fn_init
@@ -454,12 +541,14 @@
 	    ];
 	    grdComUser = _SBGrid.create(SBGridProperties);
 	    grdComUser.bind("afterpagechanged", fn_pagingComUser);
+		grdComUser.bind("click", fn_clickGrdComUser);
 	}
 
 	const fn_search = async function() {
 		let recordCountPerPage = grdComUser.getPageSize();  		// 몇개의 데이터를 가져올지 설정
 		let currentPageNo = 1;
 		grdComUser.movePaging(currentPageNo);
+		fn_clearAdmstMngArtcl();
 	}
 
 	//페이징
@@ -651,6 +740,106 @@
     		console.error("failed", e.message);
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
+	}
+
+	/**
+	 * @name fn_clickGrdComUser
+	 * @description 사용자 내역 click event
+	 */
+	const fn_clickGrdComUser = async function() {
+		fn_clearAdmstMngArtcl();
+		const row = grdComUser.getRow();
+		let rowData = grdComUser.getRowData(row);
+		console.log("클릭할때 ",rowData);
+		if (!gfn_isEmpty(rowData)) {
+			SBUxMethod.set("dtl-inp-corpCd",gfn_nvl(rowData.corpCd));				// 법인코드
+			SBUxMethod.set("dtl-inp-userCtrgy",gfn_nvl(rowData.userCtrgy));			// 사용자카테코리
+			SBUxMethod.set("dtl-inp-empCd",gfn_nvl(rowData.empCd));					// 직원코드
+			SBUxMethod.set("dtl-inp-deptCd",gfn_nvl(rowData.deptCd));				// 부서코드
+			SBUxMethod.set("dtl-slt-hrmMngrYn",rowData.hrmMngrYn);			// 인사관리자여부
+			SBUxMethod.set("dtl-inp-hrmEvlRole",gfn_nvl(rowData.hrmEvlRole));		// 인사평가역할
+			SBUxMethod.set("dtl-slt-hrmPayMngrYn",rowData.hrmPayMngrYn);	// 급여관리자여부
+			SBUxMethod.set("dtl-slt-acntgMngrYn",rowData.acntgMngrYn); 		// 회계관리자여부
+			SBUxMethod.set("dtl-inp-userId",gfn_nvl(rowData.userId));
+		} else {
+			return;
+		}
+	}
+
+	const fn_changeSave = async function() {
+		const userId = SBUxMethod.get("dtl-inp-userId");
+		const corpCd = SBUxMethod.get("dtl-inp-corpCd");
+		const userCtrgy= SBUxMethod.get("dtl-inp-userCtrgy");
+		const empCd = SBUxMethod.get("dtl-inp-empCd");
+		const deptCd= SBUxMethod.get("dtl-inp-deptCd");
+		const hrmMngrYn = SBUxMethod.get("dtl-slt-hrmMngrYn");
+		const hrmEvlRole = SBUxMethod.get("dtl-inp-hrmEvlRole");
+		const hrmPayMngrYn = SBUxMethod.get("dtl-slt-hrmPayMngrYn");
+		const acntgMngrYn = SBUxMethod.get("dtl-slt-acntgMngrYn");
+
+		const saveParam = {
+			userId : userId,
+			corpCd : corpCd,
+			userCtrgy : userCtrgy,
+			empCd : empCd,
+			deptCd : deptCd,
+			hrmMngrYn : hrmMngrYn,
+			hrmEvlRole : hrmEvlRole,
+			hrmPayMngrYn : hrmPayMngrYn,
+			acntgMngrYn : acntgMngrYn
+		}
+
+		if (gfn_isEmpty(userId)) {
+			gfn_comAlert("W0005", "상세저장대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "상세항목저장")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		try {
+
+			const postJsonPromise = gfn_postJSON("/co/user/saveComUserAdmstMngArtcl.do",saveParam);
+			const data = await postJsonPromise;
+
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				fn_search();
+				fn_clearAdmstMngArtcl();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	const fn_clearAdmstMngArtcl = function() {
+		SBUxMethod.clear("dtl-inp-corpCd");
+		SBUxMethod.clear("dtl-inp-userCtrgy");
+		SBUxMethod.clear("dtl-inp-empCd");
+		SBUxMethod.clear("dtl-inp-deptCd");
+		SBUxMethod.refresh("dtl-slt-hrmMngrYn");
+		SBUxMethod.clear("dtl-inp-hrmEvlRole");
+		SBUxMethod.refresh("dtl-slt-hrmPayMngrYn");
+		SBUxMethod.clear("dtl-slt-acntgMngrYn");
+		SBUxMethod.clear("dtl-inp-userId");
+	}
+
+	const fn_chkAdmstMngArtcl = function() {
+		let chk = SBUxMethod.get("chkboxAdmstMngArtcl").chkboxAdmstMngArtcl;
+		const div = document.getElementById('admstMngArtcl');
+		if (chk === "Y") {
+			div.style.display = 'block';
+		} else {
+			div.style.display = 'none';
+		}
+		grdComUser.refresh();
 	}
 
 </script>

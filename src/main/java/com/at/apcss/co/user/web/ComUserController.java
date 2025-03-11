@@ -1237,6 +1237,30 @@ public class ComUserController extends BaseController {
 
 		//return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/co/user/saveComUserAdmstMngArtcl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateComUserAdmstMngArtcl(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			comUserVO.setSysFrstInptUserId(getUserId());
+			comUserVO.setSysFrstInptPrgrmId(getPrgrmId());
+			comUserVO.setSysLastChgUserId(getUserId());
+			comUserVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = comUserService.updateComUserAdmstMngArtcl(comUserVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 		
 	
 }

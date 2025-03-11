@@ -106,7 +106,7 @@
 			font-weight: bold !important;
 			font-size: 2rem;
 		}
-		table th{
+		.dash_area table th{
 			background-color: color(srgb 0.9629 0.9729 0.9728);
 			font-weight: initial;
 			text-align: center;
@@ -153,6 +153,9 @@
 		.sbchart-no-data{
 			left: 88%!important;
 		}
+		select.form-control.input-sm {
+			background-color: #ffffff;
+		}
 	</style>
 </head>
 <body oncontextmenu="return false;">
@@ -162,7 +165,8 @@
 			<div class="dash_top">
 				<span class="dash_top_span">조회 APC</span>
 				<div style="display: flex; align-items: center; flex-basis: 10%">
-					<sbux-select
+					<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
+					<%--<sbux-select
 							id="gsb-slt-apcCd"
 							name="gsb-slt-apcCd"
 							uitype="single"
@@ -172,7 +176,7 @@
 							class="form-control input-sm"
 							onchange="cfn_onChangeApc(this)"
 							style="background-color: white;"
-					></sbux-select>
+					></sbux-select>--%>
 				</div>
 				<span class="dash_top_span">기준일자</span>
 				<div style="display: flex; align-items: center">
@@ -236,7 +240,7 @@
 				<div></div>
 				<div class="dash_area" style="display: flex; flex-direction: column">
 <%--					환경설정 Table --%>
-					<table style="flex: 1">
+					<table style="flex: 1">1
 						<colgroup>
 							<col style="width: 20%">
 							<col style="width: 30%">
@@ -370,10 +374,11 @@
 	var cjsonApcList = {};
 	</c:otherwise>
 	</c:choose>
-	const cfn_onChangeApc = function(obj) {
+
+	/*const cfn_onChangeApc = function(obj) {
 		gv_selectedApcCd = obj.value;
 		fn_search();
-	}
+	}*/
 	/** radio json **/
 	var radioJsonData = [
 		{ text : "월단위"  , value : "mm", style:'margin-right : 8px',checked : "checked" },
