@@ -13,6 +13,7 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 	private String apoSe;
 	private String apoSeNm;
 	private String aprv;
+	private String aprvNm;
 	private String brno;
 	private String uoBrno;
 	private String crno;

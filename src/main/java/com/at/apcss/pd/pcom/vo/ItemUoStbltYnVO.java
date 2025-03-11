@@ -93,4 +93,7 @@ public class ItemUoStbltYnVO extends ComVO{
 	private String sysFrstInptDtYmd;
 	private String sysLastChgDtYmd;
 
+	/* 20250312 통합조직 신청의 품목별 취급목표액, 취급률 추가*/
+	private String trgtTrmtAmt;
+	private String trgtTrmtRt;
 }
