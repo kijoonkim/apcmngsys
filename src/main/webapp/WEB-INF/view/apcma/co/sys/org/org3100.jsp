@@ -767,7 +767,6 @@
     // 저장
     function cfn_save() {
 		if(gfn_comConfirm("Q0001", "저장")){ //{0} 하시겠습니까?
-			workType = 'U';
 	        fn_save();
 		}
     }
@@ -1120,8 +1119,9 @@
         	if (_.isEqual("S", data.resultStatus)) {
         		if(data.resultMessage){
 	          		alert(data.resultMessage);
+        		}else{
+	        		gfn_comAlert("I0001");
         		}
-        		gfn_comAlert("I0001");
         		cfn_search();
         	} else {
           		alert(data.resultMessage);
@@ -1137,6 +1137,7 @@
 
     //대상사업장, 전표 전기 권한 그리드 조회
     const fn_viewSubTable = async function() {
+    	workType = 'U';
     	// 그리드의 빈곳을 눌렀을 때 리턴
     	const nRow = masterTreeGrid.getRow();
 	    if (nRow == -1) {
