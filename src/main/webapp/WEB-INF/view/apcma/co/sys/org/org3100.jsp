@@ -1319,12 +1319,12 @@
 			,searchInputTypes		: ["input", 		"input"]
     		,width					: '600px'
     		,height					: '400px'
-   			,tableHeader			: ["부서코드", 		"부서명"]
+   			,tableHeader			: ["사업장코드", 		"사업장명"]
    			,tableColumnNames		: ["SITE_CD", 	"SITE_NM"]
    			,tableColumnWidths		: ["150px", 		"250px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('SITE_CD', 	data.SITE_CD);
-				SBUxMethod.set('SITE_NM', 	data.SITE_NM);
+				SBUxMethod.set('SITE_CODE', 	data.SITE_CD);
+				SBUxMethod.set('SITE_NAME', 	data.SITE_NM);
 			},
     	});
   	}
