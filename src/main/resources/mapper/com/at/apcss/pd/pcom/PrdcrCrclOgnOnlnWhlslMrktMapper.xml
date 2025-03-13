@@ -272,6 +272,8 @@
 			,(NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) ) AS CONSIGN_TRMT_AMT_TOT
 
 			,WMD.DEL_YN
+			,WMD.RCGN_YN
+			,WMD.RMRK
 
 		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
 		WHERE 1=1
@@ -309,6 +311,9 @@
 						, CTGRY_CD			= #{ctgryCd}
 						, CLSF_CD			= #{clsfCd}
 
+						, RCGN_YN			= #{rcgnYn}
+						, RMRK				= #{rmrk}
+
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -325,6 +330,9 @@
 
 					  , TRMT_AMT
 					  , CONSIGN_TRMT_AMT
+
+					  , RCGN_YN
+					  , RMRK
 
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
@@ -345,6 +353,9 @@
 
 					  , #{trmtAmt}
 					  , #{consignTrmtAmt}
+
+					  , #{rcgnYn}
+					  , #{rmrk}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
@@ -458,9 +469,19 @@
 
 			,(NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0)) AS TRMT_AMT_TOT
 
-			,(NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) ) AS CONSIGN_TRMT_AMT_TOT
+			,DECODE(WMD.RCGN_YN
+					, 'Y', (NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) )
+					, ''
+			) AS CONSIGN_TRMT_AMT_TOT
 
 			,WMD.DEL_YN
+			,WMD.RCGN_YN
+			,WMD.RMRK
+
+			,DECODE(WMD.RCGN_YN
+					, 'Y', (NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0))
+					, ''
+			) AS RCGN_TRMT_AMT_TOT
 
 		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
 		WHERE 1=1

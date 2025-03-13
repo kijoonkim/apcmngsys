@@ -536,6 +536,9 @@
 				}
 
 				rowData.rowSts = "I";
+
+				rowData.rcgnYn = "Y";
+
 				saveList.push(rowData);
 			}
 		}

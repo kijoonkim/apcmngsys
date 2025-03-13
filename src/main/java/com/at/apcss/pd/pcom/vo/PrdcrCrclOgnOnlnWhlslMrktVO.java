@@ -46,4 +46,8 @@ public class PrdcrCrclOgnOnlnWhlslMrktVO extends ComVO{
 
 	private String crtrAmt;
 
+	/*인정여부 추가*/
+	private String rcgnYn;
+	private String rcgnTrmtAmtTot;
+	private String rmrk;
 }

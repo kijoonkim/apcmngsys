@@ -386,6 +386,12 @@
 	var jsonGrdCtgryCd = [];//평가부류
 	var jsonGrdClsfCd = [];//부류
 
+	//인정여부
+	var comRcgnYn = [
+		{'text': 'Y','label': 'Y', 'value': 'Y'},
+		{'text': 'N','label': 'N', 'value': 'N'}
+	];
+
 	/**
 	 * combo 설정
 	 */
@@ -575,6 +581,10 @@
 							,consignTrmtAmtTot: item.consignTrmtAmtTot
 
 							,delYn: item.delYn
+
+							/* 20250312 인정여부 , 비고 추가요청 */
+							,rcgnYn: item.rcgnYn
+							,rmrk: item.rmrk
 					}
 					jsonOnln.push(itemVo);
 				});
@@ -592,13 +602,17 @@
 			let itemCdCol = grdOnln.getColRef('itemCd');//품목
 			let trmtAmtCol = grdOnln.getColRef('trmtAmt');//직접판매 실적
 			let consignTrmtAmtCol = grdOnln.getColRef('consignTrmtAmt');//위탁판매 실적
+
+			let consignTrmtAmtTotCol = grdOnln.getColRef('consignTrmtAmtTot');//참고
 			//추가 row 비활성화
-			grdOnln.setCellDisabled(nRow-1, brnoCol, nRow-1, itemCdCol, true);
-			grdOnln.setCellDisabled(nRow, brnoCol, nRow, itemCdCol, true);
-			grdOnln.setCellDisabled(nRow-1, trmtAmtCol, nRow-1, consignTrmtAmtCol, true);
-			grdOnln.setCellDisabled(nRow, trmtAmtCol, nRow, consignTrmtAmtCol, true);
-			grdOnln.setCellStyle('background-color', nRow-1, delYnCol, nRow-1, consignTrmtAmtCol, 'lightgray');
-			grdOnln.setCellStyle('background-color', nRow, delYnCol, nRow, consignTrmtAmtCol, 'lightgray');
+			//grdOnln.setCellDisabled(nRow-1, brnoCol, nRow-1, itemCdCol, true);
+			//grdOnln.setCellDisabled(nRow, brnoCol, nRow, itemCdCol, true);
+			//grdOnln.setCellDisabled(nRow-1, trmtAmtCol, nRow-1, consignTrmtAmtCol, true);
+			//grdOnln.setCellDisabled(nRow, trmtAmtCol, nRow, consignTrmtAmtCol, true);
+			grdOnln.setCellDisabled(nRow-1, delYnCol, nRow-1, consignTrmtAmtTotCol, true);
+			grdOnln.setCellDisabled(nRow, delYnCol, nRow, consignTrmtAmtTotCol, true);
+			grdOnln.setCellStyle('background-color', nRow-1, delYnCol, nRow-1, consignTrmtAmtTotCol, 'lightgray');
+			grdOnln.setCellStyle('background-color', nRow, delYnCol, nRow, consignTrmtAmtTotCol, 'lightgray');
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -848,6 +862,15 @@
 				,calc : 'fn_trmtAmtTot'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
+			{caption: ["인정여부"],		ref: 'rcgnYn',	type:'combo',  width:'80px',	style:'text-align:center'
+				,calc : 'fn_rcgnYn'
+				,typeinfo : {ref:'comRcgnYn', label:'label', value:'value'}
+			},
+			{caption: ["인정실적"],	ref: 'rcgnTrmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
+				,calc : 'fn_rcgnTrmtAmtTot'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["비고"],		ref: 'rmrk',	type:'input',  width:'100px',	style:'text-align:center'},
 			{caption: ["참고\n*온라인도매시장 판매 확대\n목표 산출시 적용될 판매실적\n(직접판매100%,위탁판매80%\n고려 실적)(K)"],	ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'
 				,calc : 'fn_consignTrmtAmtTot'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
@@ -925,25 +948,62 @@
 		return sumVal;
 	}
 
-	//출하실적 참고 판매실적
-	function fn_consignTrmtAmtTot(objGrid, nRow, nCol){
+	//인정여부
+	function fn_rcgnYn(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
-		let sumVal = 0;
+		let nVal = rowData.rcgnYn;
+		//추가를 위한 row제외
+		if(rowData.delYn != "N"){
+			nVal = "";
+		}
+		return nVal;
+	}
+
+	//인정실적
+	function fn_rcgnTrmtAmtTot(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = "";
 		//추가를 위한 row제외
 		if(nRow == (jsonOnln.length-1)){
 			sumVal = "";
 		}else{
-			let treatmentAmount = parseFloat(rowData.trmtAmt) || 0;
-			let consignmentAmount = parseFloat(rowData.consignTrmtAmt) || 0;
-			let adjustedConsignmentAmount = consignmentAmount * 0.8;
-			sumVal = treatmentAmount + Math.round(adjustedConsignmentAmount);
+			if(rowData.rcgnYn == 'Y'){
+				sumVal = Number(gfn_nvl(rowData.trmtAmt)) + Number(gfn_nvl(rowData.consignTrmtAmt));
+			}else if(nRow == jsonOnln.length){
+				sumVal = rowData.rcgnTrmtAmtTot;
+			}else{
+				sumVal = "";
+			}
+		}
+		return sumVal;
+	}
+
+	//출하실적 참고 판매실적
+	function fn_consignTrmtAmtTot(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = "";
+		//추가를 위한 row제외
+		if(nRow == (objGrid.length-1)){
+			sumVal = "";
+		}else{
+			/* 20250313 인정여부 추가로 인정실적의 합계를 계산 */
+			if(rowData.rcgnYn == 'Y'){
+				let trmtAmt = parseFloat(rowData.trmtAmt) || 0;
+				let consignTrmtAmt = parseFloat(rowData.consignTrmtAmt) || 0;
+				let consignTrmtAmtCal = consignTrmtAmt * 0.8;
+				sumVal = trmtAmt + Math.round(consignTrmtAmtCal);
+			}else if(nRow == jsonOnln.length){
+				sumVal = rowData.consignTrmtAmtTot;
+			}else{
+				sumVal = "";
+			}
 		}
 		return sumVal;
 	}
 
 	//해당 컬럼 변경시 리프래시 리스트
 	const columnsToRefresh = [
-		'trmtAmt', 'consignTrmtAmt'
+		'trmtAmt', 'consignTrmtAmt','rcgnYn'
 	];
 	//콤보박스 컬럼 리스트
 	const comboList = [
@@ -966,7 +1026,9 @@
 		// 계산할 열 이름 배열
 		const columnsToSum = [
 			"trmtAmt",
-			"consignTrmtAmt"
+			"consignTrmtAmt",
+			"rcgnTrmtAmtTot",
+			"consignTrmtAmtTot"
 		];
 
 		let objGrid = grdOnln;
@@ -1038,22 +1100,39 @@
 				objGrid.addRow(true);
 
 				let yrCol = objGrid.getColRef('yr');//등록년도
+				let delYnCol = objGrid.getColRef('delYn');//처리
 				let brnoCol = objGrid.getColRef('brno');//사업자번호
 				let trmtAmtCol = objGrid.getColRef('trmtAmt');//직접판매 실적
 				let consignTrmtAmtCol = objGrid.getColRef('consignTrmtAmt');//위탁판매 실적
+				let consignTrmtAmtTotCol = objGrid.getColRef('consignTrmtAmtTot');//참고
+
+				let rcgnYnCol = objGrid.getColRef('rcgnYn');//인정여부
+				let rcgnTrmtAmtTotCol = objGrid.getColRef('rcgnTrmtAmtTot');//인정실적
+				let rmrkCol = objGrid.getColRef('rmrk');//비고
 
 				//값 수정
 				objGrid.setCellData(nRow, yrCol, SBUxMethod.get('dtl-input-yr'), true);
+				objGrid.setCellData(nRow, rcgnYnCol, "Y", true);
 				objGrid.setCellData(nRow, nCol, "N", true);
-
-				objGrid.refresh();
 
 				//기존 row 활성화
 				objGrid.setCellDisabled(nRow, brnoCol, nRow, consignTrmtAmtCol, false);
 				objGrid.setCellStyle('background-color', nRow, nCol, nRow, consignTrmtAmtCol, 'white');
+
+				objGrid.setCellDisabled(nRow, rcgnYnCol, nRow, rcgnYnCol, false);
+				objGrid.setCellStyle('background-color', nRow, rcgnYnCol, nRow, rcgnYnCol, 'white');
+				objGrid.setCellDisabled(nRow, rmrkCol, nRow, rmrkCol, false);
+				objGrid.setCellStyle('background-color', nRow, rmrkCol, nRow, rmrkCol, 'white');
 				//추가 row 비활성화
-				objGrid.setCellDisabled(nRow+2, brnoCol, nRow+2, consignTrmtAmtCol, true);
-				objGrid.setCellStyle('background-color', nRow+2, nCol, nRow+2, consignTrmtAmtCol, 'lightgray');
+				objGrid.setCellDisabled(nRow+2, delYnCol, nRow+2, consignTrmtAmtTotCol, true);
+				objGrid.setCellStyle('background-color', nRow+2, delYnCol, nRow+2, consignTrmtAmtTotCol, 'lightgray');
+
+				objGrid.setCellData(nRow+1, trmtAmtCol, null);
+				objGrid.setCellData(nRow+1, consignTrmtAmtCol, null);
+				objGrid.setCellData(nRow+1, rcgnTrmtAmtTotCol, null);
+
+				fn_grdTot();
+				objGrid.refresh();
 			}
 		}else if (gubun === "DEL") {
 			if (grid === "grdOnln") {
@@ -1228,8 +1307,15 @@
 		{caption: ["직접판매 실적 금액(천원)"],	ref: 'trmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["위탁판매 실적 금액(천원)"],	ref: 'consignTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right;'},
+
+		{caption: ["인정여부"],		ref: 'rcgnYn',	type:'output',  width:'80px',	style:'text-align:center'},
+
+		{caption: ["인정실적"],	ref: 'rcgnTrmtAmtTot',	type:'output',  width:'120px',	style:'text-align:right'},
+
 		{caption: ["참고 *온라인도매시장 판매 확대 목표 산출시 적용될 판매실적 (직접판매100%,위탁판매80% 고려 실적)(K)"]
 			,ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'},
+
+		{caption: ["비고"],		ref: 'rmrk',	type:'output',  width:'80px',	style:'text-align:center'},
 	];
 
 	const columnsGrid2 = [
@@ -1296,6 +1382,10 @@
 							,consignTrmtAmt		:item.consignTrmtAmt
 							,trmtAmtTot			:item.trmtAmtTot
 							,consignTrmtAmtTot	:item.consignTrmtAmtTot
+
+							,rcgnTrmtAmtTot		:item.rcgnTrmtAmtTot
+							,rcgnYn				:item.rcgnYn
+							,rmrk				:item.rmrk
 						};
 				}else if(_gridSe == '2'){
 					hiddenGrdVO = {
