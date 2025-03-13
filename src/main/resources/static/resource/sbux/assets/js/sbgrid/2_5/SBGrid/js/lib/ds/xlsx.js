@@ -14317,8 +14317,7 @@ TODO: Some files from word appear to write line extensions with bare equals:
 	}
 	function write_Label(R, C, v, os, opts) {
 		var b8 = !opts || opts.biff == 8;
-		console.log(b8)
-		var o = new_buf(6 + 2 + b8 + (1 + b8) * v.length);
+		var o = new_buf(6 + 2 + +b8 + (1 + b8) * v.length);
 		write_XLSCell(R, C, os, o);
 		o.write_shift(2, v.length);
 		if (b8) o.write_shift(1, 1);
