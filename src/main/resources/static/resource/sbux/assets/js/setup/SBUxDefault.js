@@ -948,6 +948,7 @@
 		storageData     : ''
 	};
 
+    SBUxG.DEF.BLUR_ON_SCROLL = false;
 
 	// **********************************************
 	// BR

@@ -16,6 +16,11 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String userAgent = request.getHeader("User-Agent");
+    boolean isMobile = userAgent.matches(".*(Mobile|Android|iPhone|iPad).*");
+%>
+<c:set var="isMobile" value="<%= isMobile %>" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -133,8 +138,7 @@
             </div>
         </div>
         <div class="box-header" style="display:flex; justify-content: flex-start;">
-            <div style="margin-right: auto;">
-
+            <div style="margin-right: auto;display: flex; gap: 1px">
                 <sbux-button
                         id="btnCmndDocPckg"
                         name="btnCmndDocPckg"
@@ -169,7 +173,7 @@
                 ></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint"/>
                         <label for="srch-chk-autoPrint">자동출력</label>
                         <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
                         <label for="srch-chk-exePrint">미리보기</label>
@@ -198,6 +202,17 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>생산자</th>
+                    <td class="td_input" style="border-right: hidden;">
+                        <sbux-input
+                                uitype="text"
+                                id="srch-inp-prdcrIdentno"
+                                name="srch-inp-prdcrIdentno"
+                                class="inpt-mbl"
+                                maxlength="3"
+                                autocomplete="off"
+                                onchange="fn_onChangeSrchPrdcrIdentno(this)"
+                        ></sbux-input>
+                    </td>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
@@ -212,17 +227,6 @@
                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                         ></sbux-input>
                         <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-                    </td>
-                    <td class="td_input" style="border-right: hidden;">
-                        <sbux-input
-                                uitype="text"
-                                id="srch-inp-prdcrIdentno"
-                                name="srch-inp-prdcrIdentno"
-                                class="inpt-mbl"
-                                maxlength="3"
-                                autocomplete="off"
-                                onchange="fn_onChangeSrchPrdcrIdentno(this)"
-                        ></sbux-input>
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <sbux-button
@@ -464,62 +468,37 @@
                 </tr>
                 </tbody>
             </table>
+            <div id="latestInfo" style="margin-top: 1vh">
+                <table class="table table-bordered tbl_fixed tbl_mbl">
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>생산자명</th>
+                        <th>번호</th>
+                        <th>팔레트 번호</th>
+                        <th>품목</th>
+                        <th>품종</th>
+                        <th>입고 수량</th>
+                        <th>입고 일자</th>
+                        <th>등록일시</th>
+                    </tr>
+                    </thead>
+                    <tbody id="latestInfoBody">
+
+                    </tbody>
+
+                </table>
+            </div>
         </div>
-        <div class="box-body" id="latestInfo">
-            <table class="table table-bordered tbl_fixed tbl_mbl">
-                <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 20%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>생산자명</th>
-                    <th>번호</th>
-                    <th>팔레트 번호</th>
-                    <th>품목</th>
-                    <th>품종</th>
-                    <th>입고 수량</th>
-                    <th>입고 일자</th>
-                    <th>등록일시</th>
-                </tr>
-                </thead>
-                <tbody id="latestInfoBody">
-
-                </tbody>
-
-            </table>
-        </div>
-
-        <!--
-        <div class="ad_tbl_top">
-            <ul class="ad_tbl_count">
-                <li>
-                    <span>입고등록 내역</span>
-                    <span style="font-size:12px">(기준일자 :
-                        <sbux-label
-                            id="crtr-ymd"
-                            name="crtr-ymd"
-                            uitype="normal"
-                            text=""
-                            class="bold"
-                            mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"
-                        ></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)
-                    </span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="table-responsive tbl_scroll_sm">
-            <div id="sb-area-grdRawMtrWrhs" style="height:165px;"></div>
-        </div>
-        -->
-
     </div>
 </section>
 
@@ -534,6 +513,8 @@
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
 <script type="text/javascript">
+
+    var isMobile = <%= isMobile %>;
 
     var jsonApcItem			= [];	// 품목 		itemCd		검색
     var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
@@ -571,6 +552,10 @@
             gfn_setApcItemSBSelect('srch-slt-itemCd', jsonApcItem, gv_selectedApcCd),	// 품목
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd),	// 품종
         ]);
+
+        if(jsonApcItem.length == 1){
+            SBUxMethod.set("srch-slt-itemCd", jsonApcItem[0].value);
+        }
 
         /*
         if (jsonComWarehouse.length > 0) {
@@ -610,7 +595,7 @@
      */
     const fn_init = async function() {
 
-        fn_setApcForm();
+        await fn_setApcForm();
 
         //SBUxMethod.set("srch-chk-fxngItem", {"srch-chk-fxngItem": false});
         //SBUxMethod.set("srch-chk-fxngWghtAvg", {"srch-chk-fxngWghtAvg": false});
@@ -656,7 +641,7 @@
 
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+    window.addEventListener('DOMContentLoaded',async function(e) {
         document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
             el.style.width = "50px";
             el.style.height = "50px";
@@ -665,7 +650,26 @@
             el.style.fontSize = "24px";
             //sbux-pik-icon
         });
-        fn_init();
+        await fn_init();
+        if(isMobile){
+            let lastTouchTime = 0;
+            $(document).one("touchstart click", function (event){
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            });
+            window.parent.postMessage("sideMenuOff", "*");
+            $("html").css({
+                "transform": "scale(0.5)",
+                "transform-origin": "0 0",
+                "width": "200%"
+            });
+        }
+
         //stdGrdSelect.init();
     });
 
@@ -915,10 +919,11 @@
                 gfn_comAlert("I0001");	// I0001	처리 되었습니다.
                 fn_clearForm();
                 //fn_search();
+                let autoPrint = $("#srch-chk-autoPrint").prop("checked");
 
-                //if(SBUxMethod.get("srch-chk-autoPrint")["srch-chk-autoPrint"]){
-
-                fn_autoPrint(data.resultMap);
+                if(autoPrint){
+                    fn_autoPrint(data.resultMap);
+                }
 
 
             } else {
@@ -1142,6 +1147,10 @@
             //stdGrdSelect.setStdGrd(gv_selectedApcCd, _GRD_SE_CD_WRHS, itemCd)
         ]);
 
+        if(jsonApcVrty.length == 1){
+            SBUxMethod.set("srch-slt-vrtyCd", jsonApcVrty[0].value);
+        }
+
         if (gfn_isEmpty(itemCd)) {
             SBUxMethod.set("srch-inp-wghtAvg", "");
         }
@@ -1323,12 +1332,6 @@
             // 생산연도
             // SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
 
-            // 생산자 clear
-            SBUxMethod.set("srch-inp-prdcrCd", "");
-            SBUxMethod.set("srch-inp-prdcrNm", "");
-            SBUxMethod.set("srch-inp-prdcrIdentno", "");
-            SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
-
             // 품목
             SBUxMethod.set("srch-slt-itemCd", "");
             // 품종
@@ -1337,6 +1340,11 @@
 
             gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);	// 품종
         }
+        // 생산자 clear
+        SBUxMethod.set("srch-inp-prdcrCd", "");
+        SBUxMethod.set("srch-inp-prdcrNm", "");
+        SBUxMethod.set("srch-inp-prdcrIdentno", "");
+        SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
 
         //if (!SBUxMethod.get("srch-chk-fxngWarehouseSeCd")["srch-chk-fxngWarehouseSeCd"]) {
         if (!document.querySelector('#srch-chk-fxngWarehouseSeCd').checked) {

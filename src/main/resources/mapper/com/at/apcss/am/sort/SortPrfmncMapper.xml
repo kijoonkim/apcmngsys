@@ -3864,4 +3864,53 @@
 		ORDER BY pt0.SORT_SN
 		]]>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortPrfmnc0244  	-->
+	<!-- DESC : 선별실적 1:N 다중 목록조회	                                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.27  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSortPrfmnc0244" resultType="java.util.HashMap">
+		SELECT
+			pt0.*
+			,(SELECT FN_GET_PRDCR_IDENTNO(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_IDENTNO
+		FROM (
+				 SELECT
+					 MAX(SP.APC_CD) AS APC_CD
+				   , SP.SORTNO
+				   , MAX(WP.WRHSNO) AS WRHSNO
+				   , '[' || LISTAGG('{"GRD_CD": "' || SI.GRD_CD || '", "SORT_QNTT": ' || SI.SORT_QNTT || '}', ', ') WITHIN GROUP (ORDER BY SI.GRD_CD) || ']' AS GRD_JSON
+				   , SUM(SI.SORT_QNTT) AS QNTT
+				   , SUM(SI.SORT_WGHT) AS WGHT
+				   , MAX(MI.ITEM_CD) AS ITEM_CD
+				   , MAX(MI.VRTY_CD) AS VRTY_CD
+				   , MAX(MI.PRDCR_CD) AS PRDCR_CD
+			  	FROM USRAM.TB_SORT_PRFMNC SP
+				  JOIN USRAM.TB_SORT_INVNTR SI
+			  		ON SP.APC_CD = SI.APC_CD
+				  	AND SP.SORTNO = SI.SORTNO
+				  	AND SP.SORT_SN = SI.SORT_SN
+				  	AND SI.DEL_YN = 'N'
+				  JOIN USRAM.TB_SORT_INPT_PRFMNC IP
+				  	ON SP.APC_CD = IP.APC_CD
+				  	AND SP.SORTNO = IP.SORTNO
+				  	AND IP.DEL_YN = 'N'
+				  JOIN USRAM.TB_RAW_MTR_WRHS_PRFMNC WP
+				  	ON IP.APC_CD = WP.APC_CD
+				  	AND IP.WRHSNO = WP.WRHSNO
+				  	AND WP.DEL_YN = 'N'
+				  JOIN USRAM.TB_RAW_MTR_INVNTR MI
+				  	ON WP.APC_CD = MI.APC_CD
+				  	AND WP.WRHSNO = MI.WRHSNO
+				  	AND MI.DEL_YN = 'N'
+			 	WHERE SP.APC_CD = #{apcCd}
+					AND SP.INPT_YMD = #{inptYmd}
+					AND SI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			 		AND SI.SORT_QNTT > 0
+			  	GROUP BY SP.SORTNO
+			  	ORDER BY SP.SORTNO
+			 ) pt0
+	</select>
 </mapper>

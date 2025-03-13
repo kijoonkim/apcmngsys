@@ -465,5 +465,8 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 		return resultList;
 	}
 
-
+	@Override
+	public List<HashMap<String, Object>> selectSortPrfmnc0244(SortPrfmncVO sortPrfmncVO) throws Exception {
+		return sortPrfmncMapper.selectSortPrfmnc0244(sortPrfmncVO);
+	}
 }
