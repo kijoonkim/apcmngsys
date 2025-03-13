@@ -33,6 +33,17 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- APC관리자승인등록 -->
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-checkbox
+							id="chkboxDtlArtcl"
+							name="chkboxDtlArtcl"
+							uitype="normal"
+							text ="상세항목"
+							true-value = "Y"
+							false-value = "N"
+							text-right-padding="5px"
+							onclick = "fn_chkDtlArtcl"
+					></sbux-checkbox>
+
 					<sbux-button
 						id="btn-aprvReg" 
 						name="btn-aprvReg" 
@@ -168,26 +179,29 @@
 						</tr>
 					</tbody>
 				</table>
-					<div class="ad_tbl_top2">
-						<ul class="ad_tbl_count">
-							<li>
-								<span>사용자 목록</span>
-								<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
-							</li>
-							<li>
-								<span style="font-size:10px;color:blue;">업무시스템 - MES : 생산관리, FM : 농가관리, PD : 생산유통통합조직, CS : APC전수조사 </span>
-							</li>
-						</ul>
-						<div class="ad_tbl_toplist_datepk">
-							<table class="table table-bordered tbl_fixed">
-					 			<caption>검색 조건 설정</caption>
-								<colgroup>
-									<col style="width: auto">
-									<col style="width: 110px">
-									<col style="width: 100px">
-									<!--<col style="width: 80px">-->
-								</colgroup>
-								<tbody>
+				<div style="display: flex ; flex-direction : row; gap : 10px"; >
+
+					<div style="flex: 8;">
+						<div class="ad_tbl_top2">
+							<ul class="ad_tbl_count">
+								<li>
+									<span>사용자 목록</span>
+									<span style="font-size:12px">(조회건수 <span id="cnt-userAprv">0</span>건)</span>
+								</li>
+								<li>
+									<span style="font-size:10px;color:blue;">업무시스템 - MES : 생산관리, FM : 농가관리, PD : 생산유통통합조직, CS : APC전수조사 </span>
+								</li>
+							</ul>
+							<div class="ad_tbl_toplist_datepk">
+								<table class="table table-bordered tbl_fixed">
+									<caption>검색 조건 설정</caption>
+									<colgroup>
+										<col style="width: auto">
+										<col style="width: 110px">
+										<col style="width: 100px">
+										<!--<col style="width: 80px">-->
+									</colgroup>
+									<tbody>
 									<tr>
 										<td style="border-left:hidden"></td>
 										<td class="td_input" style="border-right:hidden; border-left:hidden" >
@@ -195,32 +209,103 @@
 										</td>
 										<td class="td_input" style="border-right:hidden; border-left:hidden" >
 											<sbux-select
-												id="srch-slt-pageSize"
-												name="srch-slt-pageSize"
-												uitype="single"
-												class="form-control input-sm"
-												jsondata-ref="jsonPageSize"
-												onchange="setPageSize"
+													id="srch-slt-pageSize"
+													name="srch-slt-pageSize"
+													uitype="single"
+													class="form-control input-sm"
+													jsondata-ref="jsonPageSize"
+													onchange="setPageSize"
 											></sbux-select>
 										</td>
 										<!--
-										<td class="td_input" style="border-right:hidden;">
-											<sbux-button
-												id="btnAllSave" 
-												name="btnAllSave" 
-												uitype="normal" 
-												text="일괄승인" 
-												class="btn btn-sm btn-outline-danger" 
-												onclick="fn_allUserAprv()" 
-											></sbux-button>
-										</td>
-										-->
+                                        <td class="td_input" style="border-right:hidden;">
+                                            <sbux-button
+                                                id="btnAllSave"
+                                                name="btnAllSave"
+                                                uitype="normal"
+                                                text="일괄승인"
+                                                class="btn btn-sm btn-outline-danger"
+                                                onclick="fn_allUserAprv()"
+                                            ></sbux-button>
+                                        </td>
+                                        -->
 									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div id="sb-area-grdUserAprv" style="height:576px;"></div>
+					</div>
+
+					<div style = "flex: 2; display: none" id="dtlArtcl" >
+						<div class="ad_tbl_top">
+							<ul class="ad_tbl_count">
+								<li><span>상세항목</span></li>
+							</ul>
+							<div style="height: 5px"></div>
+							<sbux-button id="btn-saveDtlArtcl" name="btn-saveDtlArtcl" uitype="normal" text="상세저장" class="btn btn-sm btn-outline-danger" onclick="fn_saveDtlArtcl"></sbux-button>
+						</div>
+						<div id="" style="height:529px;">
+							<table class="table table-bordered tbl_fixed">
+								<caption>상세항목</caption>
+								<tbody>
+								<tr>
+									<th scope="row" class="th_bg">법인코드</th>
+									<td class="td_input" >
+										<sbux-input id="dtl-inp-corpCd" name="dtl-inp-corpCd" uitype="text" class="form-control input-sm"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">사용자카테고리</th>
+									<td class="td_input" >
+										<sbux-input id="dtl-inp-userCtrgy" name="dtl-inp-userCtrgy" uitype="text" class="form-control input-sm"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">직원코드</th>
+									<td class="td_input">
+										<sbux-input id="dtl-inp-empCd" name="dtl-inp-empCd" uitype="text" class="form-control input-sm"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">부서코드</th>
+									<td class="td_input">
+										<sbux-input id="dtl-inp-deptCd" name="dtl-inp-deptCd" uitype="text" class="form-control input-sm"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">인사관리자여부</th>
+									<td class="td_input">
+										<sbux-select id="dtl-slt-hrmMngrYn" name="dtl-slt-hrmMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonUseYn"></sbux-select>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">인사평가역할</th>
+									<td class="td_input">
+										<sbux-input id="dtl-inp-hrmEvlRole" name="dtl-inp-hrmEvlRole" uitype="text" class="form-control input-sm"></sbux-input>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">급여관리자여부</th>
+									<td class="td_input">
+										<sbux-select id="dtl-slt-hrmPayMngrYn" name="dtl-slt-hrmPayMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonUseYn"></sbux-select>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row" class="th_bg">회계관리자여부</th>
+									<td class="td_input">
+										<sbux-select id="dtl-slt-acntgMngrYn" name="dtl-slt-acntgMngrYn" uitype="single" class="form-control input-sm" unselected-text="선택" jsondata-ref="jsonUseYn"></sbux-select>
+									</td>
+								</tr>
+								<sbux-input id="dtl-inp-userId" name="dtl-inp-userId" uitype="hidden"></sbux-input>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<div id="sb-area-grdUserAprv" style="height:576px;"></div>
+				</div>
+
+
+
 				</div>
 			</div>
 	</section>
@@ -294,6 +379,12 @@
 	
 	var grdUserAprv;
 	var jsonUserAprv = [];
+
+	// 상세항목
+	var jsonUseYn = [
+		{text:"예", value:"Y"},
+		{text:"아니오", value:"N"}
+	];
 
 	/**
 	 * @name fn_init
@@ -602,6 +693,7 @@
 	    grdUserAprv = _SBGrid.create(SBGridProperties);
 	    grdUserAprv.bind( "afterpagechanged" , fn_pagingUserAprv);
 	    grdUserAprv.bind('valuechanged', fn_grdUserAprvValueChanged);
+	    grdUserAprv.bind('click', fn_clickGrdUserAprv);
 	}
 
     const fn_search = async function() {
@@ -695,6 +787,15 @@
 					aplySysId:		item.aplySysId,
 					brcAtchflSn:	item.brcAtchflSn,
 					brcAtchflNm:	item.brcAtchflNm,
+
+					corpCd: 		item.corpCd,
+					userCtrgy: 		item.userCtrgy,
+					empCd: 			item.empCd,
+					deptCd: 		item.deptCd,
+					hrmMngrYn: 		item.hrmMngrYn,
+					hrmEvlRole: 	item.hrmEvlRole,
+					hrmPayMngrYn: 	item.hrmPayMngrYn,
+					acntgMngrYn: 	item.acntgMngrYn
   				}
           		
           		jsonUserAprv.push(user);
@@ -963,7 +1064,117 @@
 		grdUserAprv.rebuild();
 		fn_search();
 	};
- 	
+
+	/**
+	 * @name fn_chkDtlArtcl
+	 * @description 상세항목 checkbox event
+	 */
+	const fn_chkDtlArtcl = function() {
+		let chk = SBUxMethod.get("chkboxDtlArtcl").chkboxDtlArtcl;
+		const div = document.getElementById('dtlArtcl');
+		if (chk === "Y") {
+			div.style.display = 'block';
+		} else {
+			div.style.display = 'none';
+		}
+		grdUserAprv.rebuild();
+	}
+
+	/**
+	 * @name fn_clickGrdUserAprv
+	 * @description 사용자 내역 click event
+	 */
+	const fn_clickGrdUserAprv = async function() {
+		fn_clearDtlArtcl();
+		const row = grdUserAprv.getRow();
+		let rowData = grdUserAprv.getRowData(row);
+		if (!gfn_isEmpty(rowData)) {
+			SBUxMethod.set("dtl-inp-corpCd",gfn_nvl(rowData.corpCd));				// 법인코드
+			SBUxMethod.set("dtl-inp-userCtrgy",gfn_nvl(rowData.userCtrgy));			// 사용자카테코리
+			SBUxMethod.set("dtl-inp-empCd",gfn_nvl(rowData.empCd));					// 직원코드
+			SBUxMethod.set("dtl-inp-deptCd",gfn_nvl(rowData.deptCd));				// 부서코드
+			SBUxMethod.set("dtl-slt-hrmMngrYn",rowData.hrmMngrYn);					// 인사관리자여부
+			SBUxMethod.set("dtl-inp-hrmEvlRole",gfn_nvl(rowData.hrmEvlRole));		// 인사평가역할
+			SBUxMethod.set("dtl-slt-hrmPayMngrYn",rowData.hrmPayMngrYn);			// 급여관리자여부
+			SBUxMethod.set("dtl-slt-acntgMngrYn",rowData.acntgMngrYn); 				// 회계관리자여부
+			SBUxMethod.set("dtl-inp-userId",gfn_nvl(rowData.userId));
+		} else {
+			return;
+		}
+	}
+
+	/**
+	 * @name fn_saveDtlArtcl
+	 * @description 상세항목 저장
+	 */
+	const fn_saveDtlArtcl = async function() {
+		const userId = SBUxMethod.get("dtl-inp-userId");
+		const corpCd = SBUxMethod.get("dtl-inp-corpCd");
+		const userCtrgy= SBUxMethod.get("dtl-inp-userCtrgy");
+		const empCd = SBUxMethod.get("dtl-inp-empCd");
+		const deptCd= SBUxMethod.get("dtl-inp-deptCd");
+		const hrmMngrYn = SBUxMethod.get("dtl-slt-hrmMngrYn");
+		const hrmEvlRole = SBUxMethod.get("dtl-inp-hrmEvlRole");
+		const hrmPayMngrYn = SBUxMethod.get("dtl-slt-hrmPayMngrYn");
+		const acntgMngrYn = SBUxMethod.get("dtl-slt-acntgMngrYn");
+
+		const saveParam = {
+			userId : userId,
+			corpCd : corpCd,
+			userCtrgy : userCtrgy,
+			empCd : empCd,
+			deptCd : deptCd,
+			hrmMngrYn : hrmMngrYn,
+			hrmEvlRole : hrmEvlRole,
+			hrmPayMngrYn : hrmPayMngrYn,
+			acntgMngrYn : acntgMngrYn
+		}
+
+		if (gfn_isEmpty(userId)) {
+			gfn_comAlert("W0005", "상세항목 저장대상");		//	W0005	{0}이/가 없습니다.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "상세항목저장")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		try {
+
+			const postJsonPromise = gfn_postJSON("/co/user/saveComUserAdmstMngArtcl.do",saveParam);
+			const data = await postJsonPromise;
+
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				fn_search();
+				fn_clearDtlArtcl();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/**
+	 * @name fn_clearDtlArtcl
+	 * @description 상세항목 clear
+	 */
+	const fn_clearDtlArtcl = function() {
+		SBUxMethod.clear("dtl-inp-corpCd");
+		SBUxMethod.clear("dtl-inp-userCtrgy");
+		SBUxMethod.clear("dtl-inp-empCd");
+		SBUxMethod.clear("dtl-inp-deptCd");
+		SBUxMethod.refresh("dtl-slt-hrmMngrYn");
+		SBUxMethod.clear("dtl-inp-hrmEvlRole");
+		SBUxMethod.refresh("dtl-slt-hrmPayMngrYn");
+		SBUxMethod.refresh("dtl-slt-acntgMngrYn");
+		SBUxMethod.clear("dtl-inp-userId");
+	}
 	
 </script>
 
