@@ -1141,6 +1141,7 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 			}
 
 		}else {
+
 			String spmtno = cmnsTaskNoService.selectSpmtno(spmtPrfmncList.get(0).getApcCd(), spmtPrfmncList.get(0).getSpmtYmd());
 
 			spmtPrfmncList.get(0).setSpmtno(spmtno);

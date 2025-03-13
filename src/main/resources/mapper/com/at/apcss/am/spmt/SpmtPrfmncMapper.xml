@@ -110,6 +110,7 @@
     	<if test='pagingYn == null or pagingYn.equals("N")'>
     		SELECT
     			  pt0.*
+				, (SELECT FN_GET_PRDCR_IDENTNO(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 				AS PRDCR_IDENTNO
     			, (SELECT FN_GET_GDS_NM(pt0.GDS_CD, pt0.APC_CD) FROM DUAL)							AS GDS_NM
     			, (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
     			, (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL)			AS VRTY_NM
@@ -142,6 +143,7 @@
 				     , PC.TRSPRT_CST				    AS TRSPRT_CST
 				     , PD.GDS_GRD                       AS GDS_GRD
                      , PD.SPMT_PCKG_UNIT_CD             AS SPMT_PCKG_UNIT_CD
+		    	     , PD.PRDCR_CD						AS PRDCR_CD
 				     , CASE WHEN PC.RTN_GDS_YN = 'Y'
                             THEN PD.SPMT_QNTT
                             ELSE ''

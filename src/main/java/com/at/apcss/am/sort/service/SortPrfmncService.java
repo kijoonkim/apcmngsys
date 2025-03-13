@@ -270,4 +270,11 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<HashMap<String, Object>> selectSortPrfmncToPltno(HashMap<String, Object> param)throws Exception;
+	/**
+	 * 1:N 선별실적 목록 조회
+	 * @param sortPrfmncVO
+	 * @return List
+	 * @throws Exception
+	 */
+    List<HashMap<String, Object>> selectSortPrfmnc0244(SortPrfmncVO sortPrfmncVO) throws Exception;
 }
