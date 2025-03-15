@@ -456,7 +456,7 @@
 						</ul>
 					</div>
 					<!-- SBGrid를 호출합니다. -->
-					<div id="sb-area-grdUserGrid05" style="height:100px; width: 1142px;"></div>
+					<div id="sb-area-grdUserGrid05" style="height:150px; width: 1142px;"></div>
 				</div>
 				<div class="ad_section_top" style="width: 99%;">
 					<div class="ad_tbl_top">
@@ -1396,15 +1396,15 @@
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let PrdcrOgnCurntMngVO = {
 						brno				: item.brno
@@ -1466,16 +1466,15 @@
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
-
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let itemVO = {
 					brno: 	item.brno
@@ -1552,6 +1551,18 @@
 						,ddcScr					: item.ddcScr//감점(△10)
 						,lastScr				: item.lastScr//가감점 포함 최종 점수(100)
 
+						,trgtSclClsf			: item.trgtSclClsf
+						,trgtSclItem			: item.trgtSclItem
+						,sclEff					: item.sclEff
+						,sclAch					: item.sclAch
+						,trgtTrmtClsf			: item.trgtTrmtClsf
+						,trgtTrmtItem			: item.trgtTrmtItem
+						,ognzEff				: item.ognzEff
+						,ognzAch				: item.ognzAch
+						,onlnAvgSpmtAmt			: item.onlnAvgSpmtAmt
+						,onlnRefSpmtAmt			: item.onlnRefSpmtAmt
+						,onlnEff				: item.onlnEff
+						,ednstScr				: item.ednstScr
 				};
 				jsonScrRslt.push(itemVO);
 			});
@@ -2331,18 +2342,29 @@
 		SBGridProperties.fixedrowheight=45;
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.columns = [
-			{caption: ["평가년도"],			ref: 'yr',		type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["사업자번호"],		ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
-			{caption: ["조직구분"],			ref: 'aprvNm',		type:'output',  width:'60px',    style:'text-align:center;'},
-			{caption: ["법인명"],			ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
+			{caption: ["평가년도","평가년도"],			ref: 'yr',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["사업자번호","사업자번호"],		ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
+			{caption: ["조직구분","조직구분"],			ref: 'aprvNm',		type:'output',  width:'60px',    style:'text-align:center;'},
+			{caption: ["법인명","법인명"],			ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 
-			{caption: ["전문품목 총취급액\n점수(A)(50)"], 		ref: 'slsTotAmtScr',	type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["전문품목 전속취급률\n점수(B)(50)"], 		ref: 'slsTotRtScr',	type:'output',  width:'130px',    style:'text-align:center;'},
-			{caption: ["총점(A+B)\n(100)"], 				ref: 'totScr',	type:'output',  width:'100px',    style:'text-align:center;'},
-			{caption: ["온라인도매시장\n가점(1~5)"], 			ref: 'onlnWhlslMrktScr',	type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["유통교육 가점\n(0~2)"], 				ref: 'rtlEdnstScr',	type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["감점(△10)"], 						ref: 'ddcScr',	type:'output',  width:'110px',    style:'text-align:center;'},
-			{caption: ["가감점 포함 \n최종 점수(100)"], 			ref: 'lastScr',	type:'output',  width:'110px',    style:'text-align:center;'},
+			{caption: ["취급규모(A)","부류(15)"], 		ref: 'trgtSclClsf',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["취급규모(A)","품목(15)"], 		ref: 'trgtSclItem',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["규모화(B)","노력(5)"], 			ref: 'sclEff',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["규모화(B)","달성도(5)"], 		ref: 'sclAch',	type:'input',  width:'70px',    style:'text-align:center;'},
+
+			{caption: ["전속취급률(C)","부류(15)"], 		ref: 'trgtTrmtClsf',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["전속취급률(C)","품목(15)"], 		ref: 'trgtTrmtItem',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["조직화(D)","노력(5)"], 			ref: 'ognzEff',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["조직화(D)","달성도(5)"], 		ref: 'ognzAch',	type:'input',  width:'70px',    style:'text-align:center;'},
+
+			{caption: ["온라인 도매(E)","평균판매액 대비\n출하실적(8)"], 	ref: 'onlnAvgSpmtAmt',	type:'input',  width:'90px',    style:'text-align:center;'},
+			{caption: ["온라인 도매(E)","기준판매액 대비\n출하실적(8)"], 	ref: 'onlnRefSpmtAmt',	type:'input',  width:'90px',    style:'text-align:center;'},
+			{caption: ["온라인 도매(E)","확대노력(4)"], 				ref: 'onlnEff',	type:'input',  width:'70px',    style:'text-align:center;'},
+
+			{caption: ["합계(A~E)\n(100)","합계(A~E)\n(100)"], 		ref: 'totScr',		type:'input',  width:'100px',    style:'text-align:center;'},
+			{caption: ["가점(2)","가점(2)"], 						ref: 'ednstScr',	type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["감점(-10)","감점(-10)"], 					ref: 'ddcScr',		type:'input',  width:'70px',    style:'text-align:center;'},
+			{caption: ["최종 점수\n(가감점 포함)","최종 점수\n(가감점 포함)"], 	ref: 'lastScr',		type:'input',  width:'110px',    style:'text-align:center;'},
 
 		];
 

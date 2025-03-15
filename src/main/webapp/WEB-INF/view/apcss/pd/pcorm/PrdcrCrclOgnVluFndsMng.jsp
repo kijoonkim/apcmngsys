@@ -1384,15 +1384,15 @@
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let PrdcrOgnCurntMngVO = {
 						brno				: item.brno
@@ -1454,16 +1454,16 @@
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
 
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let itemVO = {
 					brno: 	item.brno
