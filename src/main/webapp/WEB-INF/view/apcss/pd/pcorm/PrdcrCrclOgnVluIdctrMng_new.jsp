@@ -387,6 +387,7 @@
 					<div id="sb-area-grdPrdcrOgnCurntMng05" style="height:200px; width: 100%;"></div>
 				</div>
 
+				<!--
 				<div class="ad_section_top" style="width: 98%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -395,9 +396,12 @@
 							</li>
 						</ul>
 					</div>
+				-->
 					<!-- SBGrid를 호출합니다. -->
+				<!--
 					<div id="sb-area-grdApoInfo1" style="height:200px; width: 100%;"></div>
 				</div>
+				-->
 
 				<div class="ad_section_top" style="width: 98%;">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -437,7 +441,7 @@
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdPrdcrOgnCurntMng01" style="height:200px; width: 100%;"></div>
 				</div>
-
+				<!--
 				<div class="ad_section_top" style="width: 98%;">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
@@ -446,9 +450,12 @@
 							</li>
 						</ul>
 					</div>
+				-->
 					<!-- SBGrid를 호출합니다. -->
+				<!--
 					<div id="sb-area-grdApoInfo" style="height:100px; width: 100%;"></div>
 				</div>
+				-->
 
 				<div class="ad_section_top" style="width: 98%;">
 					<div class="box-header" style="display:flex; justify-content: flex-start;" >
@@ -481,6 +488,13 @@
 	</section>
 </body>
 <script type="text/javascript">
+	/*
+		2024년 -> 2025년 차이 의 경우
+		출자출하조직 품목 입력 방식이 변경
+		CLSF_CD 부류 추가
+		전문품목 매입매출 조직 적합여부 추가
+		통합조직관리 총괄표의 온라인 도매시장 실적 을 상세한 화면으로 변경 (통합조직관리 -> 온라인 도매시장 목표)
+	*/
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		fn_init();
@@ -513,8 +527,9 @@
 		await fn_fcltMngCreateGrid06();//출자출하조직 선정여부 리스트
 		await fn_fcltMngCreateGrid07();//통합조직 선정여부
 
-		await fn_apoInfoCreateGrid();
-		await fn_apoInfoCreateGrid1();
+		//기본요건 그리드
+		//await fn_apoInfoCreateGrid();
+		//await fn_apoInfoCreateGrid1();
 
 		await fn_initSBSelect();
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
@@ -639,7 +654,7 @@
 	 * combo 설정
 	 */
 	const fn_initSBSelect = async function() {
-		console.log("============fn_initSBSelect============");
+		//console.log("============fn_initSBSelect============");
 		// 검색 SB select
 		let rst = await Promise.all([
 			//검색조건
@@ -668,7 +683,7 @@
 			//gfn_setComCdSBSelect('grdPrdcrOgnCurntMng02', 	jsonComGrdSttgUpbrItemSe_2, 	'STTG_UPBR_ITEM_SE'), //품목구분
 
 		]);
-		console.log("============fn_initSBSelect=====1=======");
+		//console.log("============fn_initSBSelect=====1=======");
 	}
 
 	var jsonPrdcrOgnCurntMng = []; // 그리드의 참조 데이터 주소 선언
@@ -1536,7 +1551,7 @@
 		try{
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						apoCd: item.apoCd
@@ -1600,7 +1615,7 @@
 
 		let data = await postJsonPromise ;
 		try{
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
 				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
@@ -1622,7 +1637,7 @@
 
 	//통합조직 리스트 그리드 클릭시  이벤트
 	const fn_view = async function(){
-		console.log("******************fn_view**********************************");
+		//console.log("******************fn_view**********************************");
 
 		fn_clearForm();
 
@@ -1640,7 +1655,7 @@
 		}
 
 		let rowData = grdPrdcrOgnCurntMng.getRowData(nRow);
-		console.log(rowData);
+		//console.log(rowData);
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//법인명
@@ -1744,7 +1759,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectUoList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectUoList2025.do", {
 			brno : brno
 			, yr : yr
 		});
@@ -1753,7 +1768,7 @@
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let PrdcrOgnCurntMngVO = {
 						sttgUpbrItemSe: item.sttgUpbrItemSe
@@ -1806,27 +1821,24 @@
 			, yr : yr
 		});
 
-
 		let data = await postJsonPromise ;
 		try{
 			jsonPrdcrOgnCurntMng07.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.icptRsnDtlCd , icptRsnCd:item.icptRsnCd});
-
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: item.mngrIcptRsnDtlCd , icptRsnCd:item.mngrIcptRsnCd});
-
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let PrdcrOgnCurntMngVO = {
 						brno				: item.brno
@@ -1875,7 +1887,7 @@
 			yr = year;
 		}
 
-		let postJsonPromise02 = gfn_postJSON("/pd/pcorm/selectIsoList.do", {
+		let postJsonPromise02 = gfn_postJSON("/pd/pcorm/selectIsoList2025.do", {
 			brno : brno
 			, yr : yr
 		});
@@ -1883,7 +1895,7 @@
 		try{
 			jsonPrdcrOgnCurntMng02.length = 0;
 			jsonPrdcrOgnCurntMng05.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 					apoCd: 	item.apoCd
@@ -1957,22 +1969,21 @@
 		let data = await postJsonPromise06;
 		try{
 			jsonPrdcrOgnCurntMng06.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let pnltyVal = '';
 				let itrRtVal = item.itrRt;
 				if(!gfn_isEmpty(item.icptRsnCd) && item.icptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.icptRsnDtlCd, icptRsnCd:item.icptRsnCd});
-					pnltyVal = chkInfo.pnlty;
-					itrRtVal = chkInfo.itrRt;
+					pnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					itrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let mngrPnltyVal = '';
 				let mngrItrRtVal = item.mngrItrRt;
 				if(!gfn_isEmpty(item.mngrIcptRsnCd) && item.mngrIcptRsnCd != ''){
 					let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: item.mngrIcptRsnDtlCd, icptRsnCd:item.mngrIcptRsnCd});
-
-					mngrPnltyVal = chkInfo.pnlty;
-					mngrItrRtVal = chkInfo.itrRt;
+					mngrPnltyVal = typeof chkInfo !== 'undefined' ? chkInfo.pnlty : '';
+					mngrItrRtVal = typeof chkInfo !== 'undefined' ? chkInfo.itrRt : '';
 				}
 				let itemVO = {
 					brno: 	item.brno
@@ -2044,7 +2055,7 @@
 		try{
 			jsonPrdcrOgnCurntMng03.length = 0;
 			jsonPrdcrOgnCurntMng04.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 					brno: 	item.brno
@@ -2112,7 +2123,7 @@
 			}
 		}
 
-		console.log(item);
+		//console.log(item);
 		//예외 품목인 경우
 		if(item.chkItemA == 'Y'){
 			item.ctgryCd = '2'
@@ -2125,64 +2136,64 @@
 		if(item.aprv == '1' && item.sttgUpbrItemSe == '1'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotAA != 'Y'){
-					console.log("item.chkAmtTotAA = "+item.chkAmtTotAA);
+					//console.log("item.chkAmtTotAA = "+item.chkAmtTotAA);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAA == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkAA = "+item.chkAA);
+						//console.log("item.chkAA = "+item.chkAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAA == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAA == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotAB != 'Y'){
-					console.log("item.chkAmtTotAB = "+item.chkAmtTotAB);
+					//console.log("item.chkAmtTotAB = "+item.chkAmtTotAB);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAB == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkRtAA = "+item.chkRtAA);
+						//console.log("item.chkRtAA = "+item.chkRtAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAB == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAB == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
-					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
+					//console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkAC == 'A'){
 					if(item.chkRtAA != 'Y'){
-						console.log("item.chkRtAA = "+item.chkRtAA);
+						//console.log("item.chkRtAA = "+item.chkRtAA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAC == 'B'){
 					if(item.chkRtAB != 'Y'){
-						console.log("item.chkRtAB = "+item.chkRtAB);
+						//console.log("item.chkRtAB = "+item.chkRtAB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkAC == 'C'){
 					if(item.chkRtAC != 'Y'){
-						console.log("item.chkRtAC = "+item.chkRtAC);
+						//console.log("item.chkRtAC = "+item.chkRtAC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
@@ -2190,64 +2201,64 @@
 		}else if(item.aprv == '1' && item.sttgUpbrItemSe == '2'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotBA != 'Y'){
-					console.log("item.chkAmtTotBA = "+item.chkAmtTotBA);
+					//console.log("item.chkAmtTotBA = "+item.chkAmtTotBA);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBA == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBA == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBA == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotBB != 'Y'){
-					console.log("item.chkAmtTotBB = "+item.chkAmtTotBB);
+					//console.log("item.chkAmtTotBB = "+item.chkAmtTotBB);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBB == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBB == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBB == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotAC != 'Y'){
-					console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
+					//console.log("item.chkAmtTotAC = "+item.chkAmtTotAC);
 					stbltYnNmMng.push('총취급액 요건 미달');
 				}
 				if(item.chkBC == 'A'){
 					if(item.chkRtBA != 'Y'){
-						console.log("item.chkRtBA = "+item.chkRtBA);
+						//console.log("item.chkRtBA = "+item.chkRtBA);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBC == 'B'){
 					if(item.chkRtBB != 'Y'){
-						console.log("item.chkRtBB = "+item.chkRtBB);
+						//console.log("item.chkRtBB = "+item.chkRtBB);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}else if(item.chkBC == 'C'){
 					if(item.chkRtBC != 'Y'){
-						console.log("item.chkRtBC = "+item.chkRtBC);
+						//console.log("item.chkRtBC = "+item.chkRtBC);
 						stbltYnNmMng.push('전속취급률 요건 미달');
 					}
 				}
@@ -2255,22 +2266,22 @@
 		}else if(item.aprv == '2'){
 			if(item.ctgryCd == '1'){
 				if(item.chkAmtTotCA != 'Y'){
-					console.log("item.chkAmtTotCA = "+item.chkAmtTotCA);
+					//console.log("item.chkAmtTotCA = "+item.chkAmtTotCA);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '2'){
 				if(item.chkAmtTotCB != 'Y'){
-					console.log("item.chkAmtTotCB = "+item.chkAmtTotCB);
+					//console.log("item.chkAmtTotCB = "+item.chkAmtTotCB);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}else if(item.ctgryCd == '3'){
 				if(item.chkAmtTotCC != 'Y'){
-					console.log("item.chkAmtTotCC = "+item.chkAmtTotCC);
+					//console.log("item.chkAmtTotCC = "+item.chkAmtTotCC);
 					stbltYnNmMng.push('약정취급액 요건 미달');
 				}
 			}
 			if(item.chkRtC != 'Y'){
-				console.log("item.chkRtC = "+item.chkRtC);
+				//console.log("item.chkRtC = "+item.chkRtC);
 				stbltYnNmMng.push('약정취급률 요건 미달');
 			}
 		}
@@ -2482,7 +2493,7 @@
 			let icptRsnCdVal = datagrid.getCellData(nRow, icptRsnCdIdx);
 			if (!gfn_isEmpty(selValue)) {
 				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue, icptRsnCd:icptRsnCdVal});
-				console.log(chkInfo);
+				//console.log(chkInfo);
 				let pnltyVal = chkInfo.pnlty;
 				let itrRtVal = chkInfo.itrRt;
 				datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
@@ -2493,7 +2504,7 @@
 			let icptRsnCdVal = datagrid.getCellData(nRow, mngrIcptRsnCdIdx);
 			if (!gfn_isEmpty(selValue)) {
 				let chkInfo = _.find(comIcptRsnDtlCdUo01, {value: selValue, icptRsnCd:icptRsnCdVal});
-				console.log(chkInfo);
+				//console.log(chkInfo);
 				let pnltyVal = chkInfo.pnlty;
 				let itrRtVal = chkInfo.itrRt;
 				datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
@@ -2524,7 +2535,7 @@
 			let selValue = datagrid.getCellData(nRow, nCol);
 			let icptRsnCdVal = datagrid.getCellData(nRow, icptRsnCdIdx);
 			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue, icptRsnCd:icptRsnCdVal});
-			console.log(chkInfo);
+			//console.log(chkInfo);
 			let pnltyVal = chkInfo.pnlty;
 			let itrRtVal = chkInfo.itrRt;
 			datagrid.setCellData(nRow, pnltyIdx, pnltyVal, true);
@@ -2535,7 +2546,7 @@
 			let selValue = datagrid.getCellData(nRow, nCol);
 			let icptRsnCdVal = datagrid.getCellData(nRow, mngrIcptRsnCdIdx);
 			let chkInfo = _.find(comIcptRsnDtlCdIso01, {value: selValue, icptRsnCd:icptRsnCdVal});
-			console.log(chkInfo);
+			//console.log(chkInfo);
 			let pnltyVal = chkInfo.pnlty;
 			let itrRtVal = chkInfo.itrRt;
 			datagrid.setCellData(nRow, mngrPnltyIdx, pnltyVal, true);
@@ -2621,7 +2632,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr
@@ -2812,14 +2823,14 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectRawDataIsoList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcorm/selectRawDataIsoList2025.do", {
 			yr : yr
 			});
 
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd01.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 						yr						:item.yr
@@ -2940,7 +2951,7 @@
 
 	//선정여부 일괄 저장
 	async function fn_allSave(){
-		console.log("fn_AllSave");
+		//console.log("fn_AllSave");
 		if (!gfn_comConfirm("Q0001", "선정여부 일괄 저장")) {	//	Q0001	{0} 하시겠습니까?
     		return;
     	}
@@ -2957,7 +2968,7 @@
 		});
 		let data = await postJsonPromise;
 		//console.log(data);
-		console.log(data.savedCnt);
+		//console.log(data.savedCnt);
 		try{
 			if(_.isEqual("S", data.resultStatus)){
 				alert("선정여부 일괄 저장 되었습니다.");
@@ -3042,7 +3053,7 @@
 			let data = await postJsonPromise;
 			try{
 			jsonHiddenGrd02.length = 0;
-			console.log("data==="+data);
+			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr						:item.yr

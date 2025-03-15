@@ -38,6 +38,12 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 	}
 
 	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectUoList2025(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+	@Override
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoTotList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectUoTotList(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
@@ -46,6 +52,12 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 	@Override
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectIsoList2025(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
 	}
 
@@ -101,6 +113,12 @@ public class PrdcrCrclOgnVluIdctrMngServiceImpl extends BaseServiceImpl implemen
 	@Override
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectRawDataIsoList(prdcrCrclOgnVluIdctrMngVO);
+		return resultList;
+	}
+
+	@Override
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataIsoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception {
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = prdcrCrclOgnVluIdctrMngMapper.selectRawDataIsoList2025(prdcrCrclOgnVluIdctrMngVO);
 		return resultList;
 	}
 

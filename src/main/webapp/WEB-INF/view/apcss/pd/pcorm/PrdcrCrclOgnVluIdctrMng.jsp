@@ -483,8 +483,8 @@
 	</c:if>
 		await fn_fcltMngCreateGrid01();//통합조직
 		await fn_fcltMngCreateGrid02();//출자출하조직 적합리스트
-		await fn_fcltMngCreateGrid03();//생산자조직 적합리스트
-		await fn_fcltMngCreateGrid04();//생산자조직 부적합리스트
+		//await fn_fcltMngCreateGrid03();//생산자조직 적합리스트
+		//await fn_fcltMngCreateGrid04();//생산자조직 부적합리스트
 		await fn_fcltMngCreateGrid05();//출자출하조직 부적합리스트
 		await fn_fcltMngCreateGrid06();//출자출하조직 선정여부 리스트
 		await fn_fcltMngCreateGrid07();//통합조직 선정여부
