@@ -30,6 +30,14 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 	/**
+	 * 통합조직 등록결과 리스트 조회
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectUoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
 	 * 통합조직 총괄 조회
 	 * @param PrdcrCrclOgnVluIdctrMngVO
 	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
@@ -44,6 +52,14 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 등록결과 리스트 조회 2025
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectIsoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총괄 등록결과 리스트 조회
@@ -107,6 +123,13 @@ public interface PrdcrCrclOgnVluIdctrMngService {
 	 */
 	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataIsoList(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직 로우데이터 조회 2025
+	 * @param PrdcrCrclOgnVluIdctrMngVO
+	 * @return List<PrdcrCrclOgnVluIdctrMngVO>
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnVluIdctrMngVO> selectRawDataIsoList2025(PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO) throws Exception;
 
 
 

@@ -3148,8 +3148,8 @@
 			,ESR.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
 			,ESR.APO_SE
-			,ESR.APRV
-			,DECODE(ESR.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
+			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS APRV
+			,DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = ESR.BRNO) , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
 			,ESR.SLS_TOT_AMT_SCR
 			,ESR.SLS_TOT_RT_SCR
 			,ESR.TOT_SCR
@@ -3157,6 +3157,19 @@
 			,ESR.RTL_EDNST_SCR
 			,ESR.DDC_SCR
 			,ESR.LAST_SCR
+
+			,ESR.TRGT_SCL_CLSF
+			,ESR.TRGT_SCL_ITEM
+			,ESR.SCL_EFF
+			,ESR.SCL_ACH
+			,ESR.TRGT_TRMT_CLSF
+			,ESR.TRGT_TRMT_ITEM
+			,ESR.OGNZ_EFF
+			,ESR.OGNZ_ACH
+			,ESR.ONLN_AVG_SPMT_AMT
+			,ESR.ONLN_REF_SPMT_AMT
+			,ESR.ONLN_EFF
+			,ESR.EDNST_SCR
 		FROM TB_EV_SCR_RSLT ESR
 		WHERE 1=1
 		  AND APO_SE = '1'
@@ -3171,8 +3184,8 @@
 			,ESR.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS CORP_NM
 			,ESR.APO_SE
-			,ESR.APRV
-			,DECODE(ESR.APRV , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
+			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = ESR.BRNO) AS APRV
+			,DECODE((SELECT APRV FROM TB_EV_APO WHERE BRNO = ESR.BRNO) , '1' , '승인형' , '2' , '육성형' , '' ) AS APRV_NM
 			,ESR.SLS_TOT_AMT_SCR
 			,ESR.SLS_TOT_RT_SCR
 			,ESR.TOT_SCR
@@ -3180,6 +3193,20 @@
 			,ESR.RTL_EDNST_SCR
 			,ESR.DDC_SCR
 			,ESR.LAST_SCR
+
+			,ESR.TRGT_SCL_CLSF
+			,ESR.TRGT_SCL_ITEM
+			,ESR.SCL_EFF
+			,ESR.SCL_ACH
+			,ESR.TRGT_TRMT_CLSF
+			,ESR.TRGT_TRMT_ITEM
+			,ESR.OGNZ_EFF
+			,ESR.OGNZ_ACH
+			,ESR.ONLN_AVG_SPMT_AMT
+			,ESR.ONLN_REF_SPMT_AMT
+			,ESR.ONLN_EFF
+			,ESR.EDNST_SCR
+
 		FROM TB_EV_SCR_RSLT ESR
 		WHERE 1=1
 		  AND APO_SE = '1'
@@ -3206,6 +3233,19 @@
 						, DDC_SCR					= #{ddcScr}
 						, LAST_SCR					= #{lastScr}
 
+						, TRGT_SCL_CLSF				= #{trgtSclClsf}
+						, TRGT_SCL_ITEM				= #{trgtSclItem}
+						, SCL_EFF					= #{sclEff}
+						, SCL_ACH					= #{sclAch}
+						, TRGT_TRMT_CLSF			= #{trgtTrmtClsf}
+						, TRGT_TRMT_ITEM			= #{trgtTrmtItem}
+						, OGNZ_EFF					= #{ognzEff}
+						, OGNZ_ACH					= #{ognzAch}
+						, ONLN_AVG_SPMT_AMT			= #{onlnAvgSpmtAmt}
+						, ONLN_REF_SPMT_AMT			= #{onlnRefSpmtAmt}
+						, ONLN_EFF					= #{onlnEff}
+						, EDNST_SCR					= #{ednstScr}
+
 						, SYS_LAST_CHG_DT			= SYSDATE
 						, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID		= #{sysLastChgPrgrmId}
@@ -3230,6 +3270,19 @@
 					  , DDC_SCR
 					  , LAST_SCR
 
+					  , TRGT_SCL_CLSF
+					  , TRGT_SCL_ITEM
+					  , SCL_EFF
+					  , SCL_ACH
+					  , TRGT_TRMT_CLSF
+					  , TRGT_TRMT_ITEM
+					  , OGNZ_EFF
+					  , OGNZ_ACH
+					  , ONLN_AVG_SPMT_AMT
+					  , ONLN_REF_SPMT_AMT
+					  , ONLN_EFF
+					  , EDNST_SCR
+
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
 					  , SYS_FRST_INPT_PRGRM_ID
@@ -3253,7 +3306,18 @@
 					  , #{ddcScr}
 					  , #{lastScr}
 
-
+					  , #{trgtSclClsf}
+					  , #{trgtSclItem}
+					  , #{sclEff}
+					  , #{sclAch}
+					  , #{trgtTrmtClsf}
+					  , #{trgtTrmtItem}
+					  , #{ognzEff}
+					  , #{ognzAch}
+					  , #{onlnAvgSpmtAmt}
+					  , #{onlnRefSpmtAmt}
+					  , #{onlnEff}
+					  , #{ednstScr}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
@@ -3756,6 +3820,19 @@
 			) AS ADD_SCR
 			,SR.DDC_SCR
 			,SR.LAST_SCR
+
+			,SR.TRGT_SCL_CLSF
+			,SR.TRGT_SCL_ITEM
+			,SR.SCL_EFF
+			,SR.SCL_ACH
+			,SR.TRGT_TRMT_CLSF
+			,SR.TRGT_TRMT_ITEM
+			,SR.OGNZ_EFF
+			,SR.OGNZ_ACH
+			,SR.ONLN_AVG_SPMT_AMT
+			,SR.ONLN_REF_SPMT_AMT
+			,SR.ONLN_EFF
+			,SR.EDNST_SCR
 		FROM
 			(SELECT
 					YR

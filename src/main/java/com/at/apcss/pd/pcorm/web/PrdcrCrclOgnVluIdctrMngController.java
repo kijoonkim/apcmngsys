@@ -47,6 +47,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//통합조직 등록결과 리스트 조회 2025
+	@PostMapping(value = "/pd/pcorm/selectUoList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoList2025(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectUoList2025(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	//통합조직 총괄 조회
 	@PostMapping(value = "/pd/pcorm/selectUoTotList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> selectUoTotList(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
@@ -69,6 +84,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnVluIdctrMngService.selectIsoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//출자출하조직 등록결과 리스트 조회
+	@PostMapping(value = "/pd/pcorm/selectIsoList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoList2025(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectIsoList2025(prdcrCrclOgnVluIdctrMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -177,6 +207,21 @@ public class PrdcrCrclOgnVluIdctrMngController extends BaseController{
 		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
 		try {
 			 resultList = prdcrCrclOgnVluIdctrMngService.selectRawDataIsoList(prdcrCrclOgnVluIdctrMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	//출자출하조직 로우데이터
+	@PostMapping(value = "/pd/pcorm/selectRawDataIsoList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectRawDataIsoList2025(Model model, @RequestBody PrdcrCrclOgnVluIdctrMngVO prdcrCrclOgnVluIdctrMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnVluIdctrMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = prdcrCrclOgnVluIdctrMngService.selectRawDataIsoList2025(prdcrCrclOgnVluIdctrMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
