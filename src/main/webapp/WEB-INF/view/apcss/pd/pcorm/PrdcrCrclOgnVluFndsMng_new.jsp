@@ -399,7 +399,10 @@
 		</c:if>
 		<!-- 사용자용 화면  -->
 		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
-				<div>
+				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
+					<p>※ 생산유통 통합조직 평점 관련 참고 사항[ex) 기준총취급액 등]은 공지사항을 확인해주시기 바랍니다</p>
+				</div>
+				<div style="display: none;">
 					<table class="table table-bordered tbl_fixed" style="width: 1142px;">
 						<caption>기준데이터</caption>
 						<colgroup>
