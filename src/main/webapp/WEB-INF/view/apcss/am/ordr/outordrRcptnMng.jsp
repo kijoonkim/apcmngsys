@@ -21,6 +21,15 @@
 <head>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<style>
+		span#srch-dtp-wrhsYmd{
+			display: flex!important;
+		}
+		span.sbux-pik-wrap{
+			display: flex!important;
+			gap: 5px;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
@@ -77,7 +86,7 @@
 										onchange=""
 								/>
 							</td>
-							<td></td>
+							<td style="border-top: hidden;"></td>
 							<th scope="row" class="th_bg"><span class="data_required"></span>납기일자</th>
 							<td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden">
 								<sbux-datepicker
@@ -100,7 +109,7 @@
 										onclick="fn_ordrRcptn"
 								></sbux-button>
 							</td>
-					        <td colspan="3"></td>
+					        <td colspan="3" style="border-top: hidden;"></td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">접수여부</th>
@@ -126,7 +135,7 @@
 								></sbux-input>
 							</td>
 							<th scope="row" class="th_bg">상품코드</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
+							<td colspan="3" class="td_input">
 								<sbux-input
 										id="srch-inp-mrktGdsCd"
 										name="srch-inp-mrktGdsCd"
@@ -145,7 +154,7 @@
 							<span style="font-size:12px">(조회건수 <span id="cnt-outordr">0</span>건)</span>
 						</li>
 					</ul>
-					<div style="display:flex;vertical-align:middle;float:right;margin-right:auto">
+					<div style="display:flex;vertical-align:middle;float:right;margin-right:auto;gap: 5px">
 						<!--<div style="display: flex"></div>-->
 						<sbux-button
 								id="btn-receipt"
@@ -479,14 +488,10 @@
 	 */
 	const fn_grdOutordrValueChanged = function() {
 
-		console.log("fn_grdOutordrValueChanged");
-
 		const nRow = grdOutordr.getRow();
 		const nCol = grdOutordr.getCol();
 
 		const usrAttr = grdOutordr.getColUserAttr(nCol);
-
-		console.log(usrAttr);
 
 		if (!gfn_isEmpty(usrAttr) && usrAttr.hasOwnProperty('colNm')) {
 
