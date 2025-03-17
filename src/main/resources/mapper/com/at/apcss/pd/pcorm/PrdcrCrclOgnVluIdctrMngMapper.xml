@@ -1257,6 +1257,7 @@
 													)
 								  AND STTG_UPBR_ITEM_SE IN ('1','2')
 								  AND YR = #{yr}
+								  AND UO_BRNO = #{brno}
 								  AND ITEM_CD = (SELECT ITEM_CD
 										  					FROM TB_EV_APO_YR_GPC_CD
 										  					WHERE 1=1
@@ -1301,6 +1302,7 @@
 															  AND TRMT_TYPE = PSTA.TRMT_TYPE
 														)
 								  AND YR = #{yr}
+								  AND UO_BRNO = #{brno}
 								GROUP BY  UO_BRNO, BRNO , ITEM_CD
 							) TOTA ,
 							(SELECT
@@ -1342,6 +1344,7 @@
 													  AND UO_BRNO = PSTB.UO_BRNO
 													)
 								  AND YR = #{yr}
+								  AND UO_BRNO = #{brno}
 								GROUP BY  UO_BRNO, BRNO , ITEM_CD
 							) TOTB
 						WHERE 1=1
