@@ -164,7 +164,7 @@
 		<div class="box-header" style="text-align:right; height: 10vh" >
 			<div class="dash_top">
 				<span class="dash_top_span">조회 APC</span>
-				<div style="display: flex; align-items: center; flex-basis: 10%">
+				<div style="display: flex; align-items: center; flex-basis: 15%;">
 					<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
 					<%--<sbux-select
 							id="gsb-slt-apcCd"
@@ -178,13 +178,14 @@
 							style="background-color: white;"
 					></sbux-select>--%>
 				</div>
-				<span class="dash_top_span">기준일자</span>
+				<span class="dash_top_span" style="margin-left: 0">기준일자</span>
 				<div style="display: flex; align-items: center">
 					<sbux-datepicker id="srch-dtl-ymd"
 									 name="srch-dtl-ymd"
 									 class="form-control pull-right input-sm input-sm-ast"
 									 wrap-style="width:80%"
 									 onchange="fn_search()"
+									 date-format="yyyy-mm-dd"
 									 uitype="popup">
 					</sbux-datepicker>
 				</div>
@@ -409,6 +410,12 @@
 
 	window.addEventListener("DOMContentLoaded", function(e){
 		SBUxMethod.set("srch-dtl-ymd",gfn_dateToYmd(new Date()));
+		fn_onChangeApc();
+		/** 조회APC변경 **/
+
+	});
+
+	const fn_onChangeApc = function(){
 		selectApcEvrmntStng();
 		/** 환경설정 정보 **/
 		getItemList();
@@ -418,7 +425,9 @@
 		getUserList();
 		/** 최초 진입 data select **/
 		fn_search();
-	});
+	}
+
+
 	const fn_createChar = async function(){
 		await fn_createWrhs();
 		await fn_createSort();
@@ -612,11 +621,28 @@
 		let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : gv_selectedApcCd});
 		let data = await postJsonPromise;
 		let resultVO = data.resultVO;
+		if (gfn_isEmpty(resultVO)){
+			return;
+		}
 		let tds = $('table td[id]');
 		$('table td[id]').each(function() {
 			// 현재 요소의 id를 가져옴
 			const id = $(this).attr('id');
-			$(this).text(resultVO[id]);
+			if (_.isEqual(id,"telno") || _.isEqual(id,"fxno") ) {
+				if (resultVO[id]) {
+					let formatted;
+					if (resultVO[id].length == 10) {
+						formatted = resultVO[id].replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+					} else if (resultVO[id].length == 11) {
+						formatted = resultVO[id].replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+					}
+					$(this).text(formatted);
+				} else {
+					$(this).text("");
+				}
+			} else {
+				$(this).text(resultVO[id]);
+			}
 		});
 	}
 	const getItemList = async function(){
