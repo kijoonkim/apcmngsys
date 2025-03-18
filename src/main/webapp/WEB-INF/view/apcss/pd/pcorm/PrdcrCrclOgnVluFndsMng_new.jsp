@@ -31,7 +31,7 @@
 					 -->
 					<sbux-button id="btnSearchFclt" name="btnSearchFclt" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 				</c:if>
-				<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+				<c:if test="${loginVO.apoSe eq '1'}">
 					<sbux-button id="btnSearchFclt1" name="btnSearchFclt1" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_userGridSearch"></sbux-button>
 				</c:if>
 				<c:if test="${loginVO.userType eq '91'}">
@@ -398,7 +398,7 @@
 				</div>
 		</c:if>
 		<!-- 사용자용 화면  -->
-		<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+		<c:if test="${loginVO.apoSe eq '1'}">
 				<div style="border:1px solid #f4f4f4; background-color: #f4f4f4; border-radius: 10px; padding: 10px;">
 					<p>※ 생산유통 통합조직 평점 관련 참고 사항[ex) 기준총취급액 등]은 공지사항을 확인해주시기 바랍니다</p>
 				</div>
@@ -512,6 +512,8 @@
 <script type="text/javascript">
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+		//${loginVO.apoSe}
+		console.log(${loginVO.apoSe});
 		fn_init();
 
 		const elements = document.querySelectorAll(".srch-keyup-area");
@@ -545,7 +547,7 @@
 
 		await fn_search();
 	</c:if>
-	<c:if test="${loginVO.userType eq '21' || loginVO.userType eq '22'}">
+	<c:if test="${loginVO.apoSe eq '1'}">
 		//await fn_userGrid01();
 		//await fn_userGrid02();
 		await fn_userGrid03();
