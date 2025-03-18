@@ -405,9 +405,14 @@
 							,consignTrmtAmt: item.consignTrmtAmt
 
 							,trmtAmtTot: item.trmtAmtTot
-							,consignTrmtAmtTot: item.consignTrmtAmtTot
+							,consignTrmtAmtTot: item.rcgnYn != 'Y' ? 0 : item.consignTrmtAmtTot
 
 							,delYn: item.delYn
+
+							/* 20250312 인정여부 , 비고 추가요청 */
+							,rcgnYn: item.rcgnYn
+							,rcgnTrmtAmtTot : item.rcgnYn != 'Y' ? 0 : item.trmtAmtTot
+							,rmrk: item.rmrk
 					}
 					jsonOnln.push(itemVo);
 				});
@@ -536,8 +541,6 @@
 				}
 
 				rowData.rowSts = "I";
-
-				rowData.rcgnYn = "Y";
 
 				saveList.push(rowData);
 			}
@@ -689,6 +692,12 @@
 				,calc : 'fn_trmtAmtTot'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
 			},
+			{caption: ["인정여부"],		ref: 'rcgnYn',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray'},
+			{caption: ["인정실적"],	ref: 'rcgnTrmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
+				,calc : 'fn_rcgnTrmtAmtTot'
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+			},
+			{caption: ["비고"],		ref: 'rmrk',	type:'output',  width:'100px',	style:'text-align:center; background-color: lightgray'},
 			{caption: ["참고\n*온라인도매시장 판매 확대\n목표 산출시 적용될 판매실적\n(직접판매100%,위탁판매80%\n고려 실적)(K)"],	ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'
 				,calc : 'fn_consignTrmtAmtTot'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
@@ -753,6 +762,25 @@
 		}
 	}
 
+	//인정실적
+	function fn_rcgnTrmtAmtTot(objGrid, nRow, nCol){
+		let rowData = objGrid.getRowData(Number(nRow));
+		let sumVal = "";
+		//추가를 위한 row제외
+		if(nRow == (jsonOnln.length-1)){
+			sumVal = "";
+		}else{
+			if(rowData.rcgnYn == 'Y'){
+				sumVal = Number(gfn_nvl(rowData.trmtAmt)) + Number(gfn_nvl(rowData.consignTrmtAmt));
+			}else if(nRow == jsonOnln.length){
+				sumVal = rowData.rcgnTrmtAmtTot;
+			}else{
+				sumVal = "";
+			}
+		}
+		return sumVal;
+	}
+
 	//출하실적 소계
 	function fn_trmtAmtTot(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
@@ -774,10 +802,16 @@
 		if(nRow == (jsonOnln.length-1)){
 			sumVal = "";
 		}else{
-			let treatmentAmount = parseFloat(rowData.trmtAmt) || 0;
-			let consignmentAmount = parseFloat(rowData.consignTrmtAmt) || 0;
-			let adjustedConsignmentAmount = consignmentAmount * 0.8;
-			sumVal = treatmentAmount + Math.round(adjustedConsignmentAmount);
+			if(rowData.rcgnYn == 'Y'){
+				let treatmentAmount = parseFloat(rowData.trmtAmt) || 0;
+				let consignmentAmount = parseFloat(rowData.consignTrmtAmt) || 0;
+				let adjustedConsignmentAmount = consignmentAmount * 0.8;
+				sumVal = treatmentAmount + Math.round(adjustedConsignmentAmount);
+			}else if(nRow == jsonOnln.length){
+				sumVal = rowData.consignTrmtAmtTot;
+			}else{
+				sumVal = 0;
+			}
 		}
 		return sumVal;
 	}
@@ -807,7 +841,9 @@
 		// 계산할 열 이름 배열
 		const columnsToSum = [
 			"trmtAmt",
-			"consignTrmtAmt"
+			"consignTrmtAmt",
+			"rcgnTrmtAmtTot",
+			"consignTrmtAmtTot"
 		];
 
 		let objGrid = grdOnln;
@@ -882,10 +918,12 @@
 				let brnoCol = objGrid.getColRef('brno');//사업자번호
 				let trmtAmtCol = objGrid.getColRef('trmtAmt');//직접판매 실적
 				let consignTrmtAmtCol = objGrid.getColRef('consignTrmtAmt');//위탁판매 실적
+				let rcgnYnCol = objGrid.getColRef('rcgnYn');//위탁판매 실적
 
 				//값 수정
 				objGrid.setCellData(nRow, yrCol, SBUxMethod.get('dtl-input-yr'), true);
 				objGrid.setCellData(nRow, nCol, "N", true);
+				objGrid.setCellData(nRow, rcgnYnCol, "Y", true);
 
 				objGrid.refresh();
 
@@ -950,7 +988,7 @@
 		let delYnCol = objGrid.getColRef('delYn');
 		let delYnValue = objGrid.getCellData(selGridRow,delYnCol);
 
-		//임력할 데이터 인지 확인
+		//입력할 데이터 인지 확인
 		//추가 행의 경우 DEL_YN을 N 로 변경한 빈 행임
 		//fn_procRow 의 ADD 확인
 		if(delYnValue != 'N'){

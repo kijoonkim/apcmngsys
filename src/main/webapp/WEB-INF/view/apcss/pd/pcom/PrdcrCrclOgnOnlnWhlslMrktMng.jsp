@@ -1150,7 +1150,7 @@
 		}
 	}
 
-	//생산자조직 리스트 선택 데이터 삭제
+	//리스트 선택 데이터 삭제
 	async function fn_deleteRsrc(itemVO){
 
 		let postJsonPromise = gfn_postJSON("/pd/pcom/deleteOnlnDtl.do", itemVO);
