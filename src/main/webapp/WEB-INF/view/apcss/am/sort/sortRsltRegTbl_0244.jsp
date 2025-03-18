@@ -55,7 +55,7 @@
 
         .iner-wrap > table {
             width: 100%;
-            height: 100%;
+            height: 97%;
             user-select: none;
         }
 
@@ -63,6 +63,7 @@
             text-align: center;
             border: 1px solid black !important;
             line-height: 2;
+            font-weight: initial;
         }
 
         .iner-wrap > table td {
@@ -196,6 +197,55 @@
             text-align: left;
             padding-left: 5px;
         }
+        @media print {
+            body{
+                min-height: 90vh!important;
+                height: 90vh!important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            span.sbux-pik-icon-span{
+                display: none !important;
+            }
+            @page {
+                size: A4;
+                /*margin: 0;*/
+                margin: 15px;
+                /*margin-top: 5cm;*/
+            }
+            div.area-wrap {
+                width: 100%;
+                height: 100%;
+                overflow: initial;
+                margin-top: 5vh;
+            }
+            #sortTable *{
+                font-size: 12px!important;
+            }
+            #sortTable{
+                border-collapse: collapse!important;
+            }
+            #sortTable tbody span{
+                width: 12px!important;
+                height: 12px!important;
+                font-size: 8px!important;
+            }
+            #sortTable colgroup col:nth-child(1) {
+                width: 5.5% !important;
+            }
+            input.left, input.right{
+                padding-left: 1px!important;
+            }
+            #mblTitle{
+                margin: 1vh 0 0 0 !important;
+                font-size: 28px!important;
+                font-weight: bold;
+            }
+            .iner-wrap{
+                border: 1px solid black !important;
+            }
+        }
     </style>
 </head>
 <body style="overflow: hidden">
@@ -224,6 +274,7 @@
                     name="spmtMode"
                     uitype="normal"
                     text="출하등록"
+                    class="no-print"
                     is-change-text="true"
                     onclick="fn_spmtMode()"
             >
@@ -233,9 +284,18 @@
                     name="decompositionMode"
                     uitype="normal"
                     text="재고분리 OFF"
-                    class="btn_blue"
+                    class="btn_blue no-print"
                     is-change-text="true"
                     onclick="fn_decompositionMode()"
+            >
+            </sbux-button>
+            <sbux-button
+                    id="printButton"
+                    name="printButton"
+                    uitype="normal"
+                    text="프린트"
+                    class="no-print"
+                    onclick="fn_printPage()"
             >
             </sbux-button>
         </div>
@@ -245,7 +305,7 @@
             </colgroup>
             <thead style="border-bottom: 2px double black !important;">
             <tr>
-                <th style="letter-spacing: 3vw">작업량</th>
+                <th style="letter-spacing: 3vw; font-size: larger!important; line-height: 1.5!important;">작업량</th>
             </tr>
             <tr>
                 <th rowspan="2">생산자</th>
@@ -440,13 +500,15 @@
         }
 
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
+        let warehouseSeCd = $("#warehouse").val();
         let postUrl = "/am/wrhs/selectRawMtrWrhsPrfmncList.do";
 
         const postJsonPromise = gfn_postJSON(postUrl, {
             apcCd: gv_selectedApcCd,
             wrhsYmdFrom: wrhsYmd,
             wrhsYmdTo: wrhsYmd,
-            invntrYn: 'Y'
+            warehouseSeCd : warehouseSeCd,
+            invntrYn: 'Y',
         }, '', true);
 
         const data = await postJsonPromise;
@@ -529,7 +591,7 @@
     };
     //endregion modal fn
     //endregion utill
-    
+
     /** init **/
     const fn_init = async function () {
         /** common **/
@@ -599,7 +661,7 @@
 
                     let btn = document.createElement("button");
                     Object.assign(btn.style, {flex: '1', width: '100%'});
-                    btn.classList.add("searchBtn");
+                    btn.classList.add("searchBtn", "no-print");
                     btn.textContent = "조회";
                     wrap.appendChild(input);
                     wrap.appendChild(btn);
@@ -625,7 +687,7 @@
             let input = document.createElement("input");
             input.style.width = "100%";
             if (k % 2 > 0) {
-                let word = words.shift();
+                let word = words.shift() || '';
                 input.value = word;
                 input.readOnly = true;
                 input.style.textAlign = 'center';
@@ -848,7 +910,7 @@
             select.appendChild(option);
         });
     }
-   
+
     /** 전체 초기화 **/
     const fn_reset = async function () {
         /** table 초기화 **/
@@ -862,8 +924,8 @@
             $(item).find("td:not(:first-child)").find('input').off("change").on("change",function () {
                 fn_setJsonSortPrfmnc($(this));
             });
-            $(item).find("input").val("").prop("disabled", false);
-            $(item).find("td").removeClass("first end mid selected");
+            $(item).find("input").val("").prop({ disabled: false, readonly: false });
+            $(item).find("td").removeClass("first end mid selected").css("pointer-events", "");
 
             /** 재고분리된 로우 처리 어케했지? **/
             let tds = Array.from($(item).find("input.left"));
@@ -873,8 +935,10 @@
                    $(item).closest("td").next().remove();
                 });
             }
-
             $(item).find("input").removeClass("left right");
+            /** span 삭제 **/
+            var $spanElements = $(item).find('span');
+            $spanElements.remove();
 
         });
         /** modal 노출된 경우 **/
@@ -892,6 +956,8 @@
         sortSaveList.length = 0;
         /** 상품재고 정보 초기화 **/
         gdsInvntrList.length = 0;
+        /** 최상단 등급별 합계수량 초기화 **/
+        $("#sortTable thead tr").eq(2).find('input').val("");
 
         /** 선별실적 조회 **/
         await fn_searchSortPrfmnc();
@@ -946,12 +1012,12 @@
             SBUxMethod.set("decompositionMode","재고분리 ON");
             $("#decompositionMode").addClass("btn_on");
         }
-        
+
         $("#sortTable tbody td").off('pointerdown').on('pointerdown', function (event) {
             fn_pointerDownDecomposition(event);
         });
     }
-    
+
     /** td 선택 eventListener **/
     function fn_pointerDownSeleted(event) {
 
@@ -964,8 +1030,7 @@
         }
         event.preventDefault();
         const $target = $(event.target);
-        const rowIdx = $target.closest('tr').index();  // 현재 td가 속한 행의 인덱스
-        const colIdx = $target.index();  // 현재 td가 속한 열의 인덱스
+        const colIdx = fn_getLogicalIndex(event.target);  // 현재 td가 속한 열의 인덱스
         const inputValue = $target.find('input').val();
 
         /** 선별내역이 없을때 **/
@@ -973,24 +1038,20 @@
             return;
         };
 
-        if ($target.find('input').is('.left, .right')) {
-            nowColIdx = $target.find('input').hasClass('right') ? colIdx - 1 : colIdx;
-        } else {
-            /** 열을 등급별로 움직였을떄 **/
-            if (nowColIdx > 0) {
-                if (nowColIdx !== colIdx) {
-                    return;
-                }
-            };
-            /** 현재 col 저장 **/
-            nowColIdx = colIdx;
-        }
+        /** 열을 등급별로 움직였을떄 **/
+        if (nowColIdx > 0) {
+            if (nowColIdx !== colIdx) {
+                return;
+            }
+        };
+        /** 현재 col 저장 **/
+        nowColIdx = colIdx;
 
         if ($target.hasClass("selected")) {
             $target.removeClass("selected first end mid");
             /** 마지막 셀이였다면 ? **/
             let selecteds = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-                return $(item).index() === nowColIdx;
+                return fn_getLogicalIndex(item) === nowColIdx;
             }).length;
             if (selecteds == 0) {
                 nowColIdx = 0;
@@ -1001,14 +1062,7 @@
 
         /** UI 정리 **/
         Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-            var index = $(item).index();
-
-            // right 분리된 재고일 경우 필터 조건 부적합
-            if ($(item).find("input").hasClass("right")) {
-                return index - 1 === nowColIdx && $(item).css('pointer-events') !== 'none';
-            } else {
-                return index === nowColIdx && $(item).css('pointer-events') !== 'none';
-            }
+            return fn_getLogicalIndex(item) === nowColIdx && $(item).css('pointer-events') !== 'none';
         }).forEach(function (item, idx, arr) {
             /* 초기화 */
             $(item).removeClass("first end mid");
@@ -1190,17 +1244,11 @@
             input.disabled = false;
         });
     }
-    
+
     /** 출하실적 저장 **/
     async function fn_saveSpmt() {
         let saveList = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-            var index = $(item).index();
-
-            if ($(item).find("input").hasClass("right")) {
-                return index - 1 === nowColIdx && $(item).css('pointer-events') !== 'none';
-            } else {
-                return index === nowColIdx && $(item).css('pointer-events') !== 'none';
-            }
+            return fn_getLogicalIndex(item) === nowColIdx && $(item).css('pointer-events') !== 'none';
         });
         const sum = saveList.reduce((total, item) => {
             const inputValue = $(item).find("input").val();
@@ -1279,8 +1327,9 @@
         }).then(async result => {
             if (result.isConfirmed) {
                 let saveObj = sortSaveList[rowIndex];
-
                 let sortno = saveObj.sortno;
+                let warehouseSeCd = $("#warehouse").val();
+
                 const postUrl = gfn_isEmpty(sortno) ?
                     "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
                 try {
@@ -1293,6 +1342,7 @@
                             '',
                             'success'
                         );
+                        gfn_setCookie('warehouseSeCd',warehouseSeCd);
                         fn_reset();
                     } else {
                         Swal.fire(
@@ -1315,7 +1365,7 @@
             }
         });
     }
-    
+
     /** 원물재고 조회 - 미사용 **/
     // const fn_searchRawMtrInvntr = async function (_el) {
     //     /** 스캐너 사용 가정 **/
@@ -1447,6 +1497,7 @@
     /** 출하실적 조회 **/
     async function fn_searchSpmtPrfmncList(){
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
+        let warehouseSeCd = $("#warehouse").val();
         let itemCd = '0901';
         let vrtyCd = '0200';
 
@@ -1456,6 +1507,7 @@
             , spmtYmdTo: wrhsYmd
             , itemCd: itemCd
             , vrtyCd: vrtyCd
+            , warehouseSeCd : warehouseSeCd
         }
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
@@ -1573,19 +1625,42 @@
                 $(spmtTotalEl).val(spmtTotal);
             }
         });
-
-        spmtTotalEl.forEach(function(item,idx){
-
-        });
         /** 작업 col 초기화 **/
         nowColIdx = 0;
     }
+
+    function fn_getLogicalIndex(td){
+        let target = $(td);
+        let previousSiblings = target.prevAll().not(':last');
+        let result = 0;
+
+        previousSiblings.each(function(index, el){
+           let colspan = parseInt($(el).attr("colspan")) || 1;
+           if(colspan === 1){
+               result += 1;
+           }
+        });
+
+        result = target.index() - (result / 2);
+        return result;
+    };
+    function fn_printPage() {
+        window.focus();
+        window.print();
+    }
+
 
     window.addEventListener("DOMContentLoaded", async function () {
         await SBUxMethod.set("srch-dtp-ymd",gfn_dateToYmd(new Date()));
         await fn_modalDrag();
         await fn_createRawMtrInvntrGrid();
         await fn_init();
+
+        /** A,B동 작업장 cookie check **/
+        let warehouseSeCd = gfn_getCookie("warehouseSeCd");
+        if(warehouseSeCd){
+            $("#warehouse").val(warehouseSeCd);
+        }
 
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();

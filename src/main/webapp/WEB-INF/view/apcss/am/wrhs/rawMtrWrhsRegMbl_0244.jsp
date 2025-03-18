@@ -28,6 +28,7 @@
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
+<%--    <link rel="manifest" href="../../../../view/json/manifest0244.json">--%>
 
     <style>
 
@@ -651,24 +652,34 @@
             //sbux-pik-icon
         });
         await fn_init();
-        if(isMobile){
-            let lastTouchTime = 0;
-            $(document).one("touchstart click", function (event){
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.msRequestFullscreen) {
-                    document.documentElement.msRequestFullscreen();
-                }
-            });
-            window.parent.postMessage("sideMenuOff", "*");
-            $("html").css({
-                "transform": "scale(0.5)",
-                "transform-origin": "0 0",
-                "width": "200%"
-            });
-        }
+        let warehouseSeCd = gfn_getCookie('warehouseSeCd');
+        SBUxMethod.set("srch-slt-warehouseSeCd",warehouseSeCd);	// 창고
+        const targetNode = document.getElementById("srch-inp-prdcrIdentno");
+        const observer = new MutationObserver((mutationsList) => {
+           mutationsList.forEach((mutation) => {
+           })
+        });
+        const config = { childList: true, subtree: true, attributes: true };
+        observer.observe(targetNode, config);
+
+        // if(isMobile){
+        //     let lastTouchTime = 0;
+        //     $(document).one("touchstart click", function (event){
+        //         if (document.documentElement.requestFullscreen) {
+        //             document.documentElement.requestFullscreen();
+        //         } else if (document.documentElement.webkitRequestFullscreen) {
+        //             document.documentElement.webkitRequestFullscreen();
+        //         } else if (document.documentElement.msRequestFullscreen) {
+        //             document.documentElement.msRequestFullscreen();
+        //         }
+        //     });
+        //     window.parent.postMessage("sideMenuOff", "*");
+        //     $("html").css({
+        //         "transform": "scale(0.5)",
+        //         "transform-origin": "0 0",
+        //         "width": "200%"
+        //     });
+        // }
 
         //stdGrdSelect.init();
     });
@@ -917,6 +928,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+                gfn_setCookie("warehouseSeCd",warehouseSeCd);
                 fn_clearForm();
                 //fn_search();
                 let autoPrint = $("#srch-chk-autoPrint").prop("checked");
@@ -1369,7 +1381,8 @@
     }
 
     const fn_close = function(){
-        parent.gfn_tabClose("TAB_AM_001_008");
+        SBUxMethod.refresh("srch-inp-prdcrIdentno",{type:'number'});
+        // parent.gfn_tabClose("TAB_AM_001_008");
     }
 
     /**
@@ -1470,7 +1483,7 @@
         // 등록 상태 세팅
         SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
         SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
-        SBUxMethod.set("srch-slt-warehouseSeCd", rawMtrWrhs[0].wrhsSeCd);
+        SBUxMethod.set("srch-slt-warehouseSeCd", rawMtrWrhs[0].warehouseSeCd);
         // SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
         $("#srch-inp-bxQntt").val(rawMtrWrhs[0].bxQntt);
         SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
