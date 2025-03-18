@@ -127,6 +127,7 @@
     	<![CDATA[
 		    	SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncList */
 				       PD.SPMTNO						AS SPMTNO
+				     , GI.WAREHOUSE_SE_CD				AS WAREHOUSE_SE_CD
 				     , PD.PCKG_SN                       AS PCKG_SN
 				     , PD.PCKGNO                        AS PCKGNO
 				     , PC.APC_CD						AS APC_CD
@@ -202,6 +203,7 @@
 				  FROM TB_SPMT_PRFMNC_COM		PC
 				     , TB_SPMT_PRFMNC_DTL		PD
                      , TB_PLT_WRHS_SPMT         PWS
+                     , TB_GDS_INVNTR			GI
 				 WHERE PC.APC_CD = PD.APC_CD
 				   AND PC.SPMTNO = PD.SPMTNO
                    AND PC.APC_CD = PWS.APC_CD(+)
@@ -210,7 +212,10 @@
                    AND PWS.DEL_YN(+) = 'N'
 				   AND PC.DEL_YN = 'N'
 				   AND PD.DEL_YN = 'N'
-
+				   AND PD.APC_CD = GI.APC_CD
+				   AND PD.PCKGNO = GI.PCKGNO
+				   AND PD.PCKG_SN = GI.PCKG_SN
+				   AND GI.DEL_YN = 'N'
 		]]>
 			<if test='apcCd != null and apcCd != ""'>
 				   AND PC.APC_CD = #{apcCd}
@@ -243,7 +248,7 @@
 			       AND PD.VRTY_CD in (SELECT COL1  FROM TABLE(FN_SYS_SPLIT_STRING(#{vrtyCd})))
 			</if>
 			<if test='warehouseSeCd != null and warehouseSeCd != ""'>
-			       -- AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
+			       AND GI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 			</if>
 			<if test='dldtn != null and dldtn != ""'>
 			       AND PC.DLDTN LIKE '%' ||  #{dldtn} || '%'

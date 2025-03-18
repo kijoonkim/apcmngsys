@@ -55,14 +55,14 @@
 									unselected-text="선택" class="form-control input-sm input-sm-ast inpt_data_reqed"></sbux-select>
 								</th>
 								<th scope="row">구분</th>
-								<th>
+								<th colspan="2">
 									<sbux-radio id="grd-rdo-grdSeCd" name="grd-rdo-grdSeCd" uitype="normal"
 									jsondata-ref="jsonGGrdSeCd"
 									text-right-padding="10px"
+									wrap-style="display:flex; justify-content:center; gap:5px;"
 									onchange="fn_searchStdGrd"
-									>
+									></sbux-radio>
 								</th>
-								<th>&nbsp;</th>
 							</tr>
 
 						</tbody>
@@ -565,7 +565,6 @@
 	const fn_selectGrdApcVrty = async function() {
 		let itemCd = SBUxMethod.get("grd-slt-itemCd");
 		jsonGrdApcVrty = await gfn_getApcVrty(gv_apcCd, itemCd);
-		console.log(jsonGrdApcVrty);
 	}
 	
 	const fn_selectStdGrdJgmt = async function() {
