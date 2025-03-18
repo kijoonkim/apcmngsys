@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.clcln.service.ClclnWkrptService;
+import com.at.apcss.am.clcln.vo.ClclnNowInvntrVO;
 import com.at.apcss.am.clcln.vo.ClclnWkrptVO;
+import com.at.apcss.am.wgh.vo.WghPrfmncVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -63,13 +65,67 @@ public class ClclnWkrptController extends BaseController {
 	}
 
 	// 주간 입고출고 현환 목록 조회
-		@PostMapping(value = "/am/clcln/selectWkrptLastQnttList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-		public ResponseEntity<HashMap<String, Object>> selectWkrptLastQnttList(@RequestBody ClclnWkrptVO clclnWkrptVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/clcln/selectWkrptLastQnttList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectWkrptLastQnttList(@RequestBody ClclnWkrptVO clclnWkrptVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ClclnWkrptVO> resultList = new ArrayList<>();
+		try {
+			resultList = clclnWkrptService.selectWkrptLastQnttList(clclnWkrptVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	@PostMapping(value = "/am/clcln/insertClclnNowInvntr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertClclnNowInvntr(@RequestBody ClclnNowInvntrVO clclnNowInvntrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			clclnNowInvntrVO.setSysFrstInptUserId(getUserId());
+			clclnNowInvntrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			clclnNowInvntrVO.setSysLastChgUserId(getUserId());
+			clclnNowInvntrVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String, Object> rtnObj = clclnWkrptService.insertClclnNowInvntr(clclnNowInvntrVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	// 주간 입고출고 현환 목록 조회
+		@PostMapping(value = "/am/clcln/selectClclnNowInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+		public ResponseEntity<HashMap<String, Object>> selectClclnNowInvntrList(@RequestBody ClclnNowInvntrVO clclnNowInvntrVO, HttpServletRequest request) throws Exception {
 
 			HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<ClclnWkrptVO> resultList = new ArrayList<>();
+			List<ClclnNowInvntrVO> resultList = new ArrayList<>();
 			try {
-				resultList = clclnWkrptService.selectWkrptLastQnttList(clclnWkrptVO);
+				resultList = clclnWkrptService.selectClclnNowInvntrList(clclnNowInvntrVO);
 			} catch (Exception e) {
 				return getErrorResponseEntity(e);
 			} finally {
@@ -83,5 +139,6 @@ public class ClclnWkrptController extends BaseController {
 
 			return getSuccessResponseEntity(resultMap);
 		}
+
 }
 

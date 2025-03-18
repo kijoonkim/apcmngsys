@@ -355,11 +355,13 @@
                                                 onclick="fn_save"
                                         ></sbux-button>
                                     </div>
+
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                     </table>
+                    <div id="sb-area-pckgPrfmncReg" style="height: 200px;"></div>
                 </div>
                 <div id="tab_pckgPrfmnc">
                     <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
@@ -467,6 +469,7 @@
 
         /** 포장실적 grid 생성 **/
         await fn_create_pckgPrfmnc();
+        await fn_create_pckgPrfmncReg();
 
         await fn_setcomSearchItemVrty();
         fn_addDragEvn("cnptInfoWrap");
@@ -497,6 +500,30 @@
             {caption: ["합계"],	ref: 'sum',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
         ]
         gridPckgPrfmnc = _SBGrid.create(SBGridProperties);
+    }
+
+    const fn_create_pckgPrfmncReg = async function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-pckgPrfmncReg';
+        SBGridProperties.id = 'gridPckgPrfmncReg';
+        SBGridProperties.jsonref = 'jsonPckgPrfmnc';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.columns = [
+            {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
+                renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+                return "<button type='button'style='font-size:15px' class='btn btn-xs btn-outline-danger' onClick='fn_delRow(" + nRow + ")'>삭제</button>";
+                }
+            },
+            {caption: ["거래처"],	ref: 'cnptNm',		type:'output',  width:'15%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["생산자"],	ref: 'rprsPrdcrNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품목"],	ref: 'itemNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["품종"],	ref: 'vrtyNm',		type:'output',  width:'20%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["규격"],	ref: 'spcfctNm',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["본수"],	ref: 'bxGdsQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["수량"],	ref: 'invntrQntt',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'},
+            {caption: ["합계"],	ref: 'sum',		type:'output',  width:'10%', style: 'text-align:center; font-size:15px', fixedstyle: 'font-size:20px;font-weight:bold'}
+        ]
+        gridPckgPrfmncReg = _SBGrid.create(SBGridProperties);
     }
 
     const fn_search_cnpt = async function(){
@@ -729,7 +756,7 @@
         //$("#pckgQntt").val(originCnt + value);
     }
     const fn_RegReset = function(){
-        $("#spinner_normal_0").val('');
+        //$("#spinner_normal_0").val('');
     }
 
     const fn_addDragEvn = function(_id) {
@@ -800,7 +827,7 @@
         pckgObj.bxGdsQntt = parseInt($("div.tabBox_sm.active").text());
 
         pckgObj.rprsPrdcrCd = pckgObj.prdcrCd;
-        delete pckgObj.prdcrCd;
+        //delete pckgObj.prdcrCd;
 
         let invntrObj = {...pckgObj};
         let pckgPrfmncObj = {
@@ -833,8 +860,8 @@
         }
 
         await fn_search();
-        await fn_reset();
-        pckgObj = {};
+        //await fn_reset();
+        //pckgObj = {};
     }
 
     const fn_search = async function(){
@@ -862,6 +889,7 @@
                 }).sort((a, b) => b.pckgno.localeCompare(a.pckgno));
                 jsonPckgPrfmnc = result;
                 gridPckgPrfmnc.rebuild();
+                gridPckgPrfmncReg.rebuild();
             }
         }catch (e) {
             console.error(e);

@@ -1,8 +1,13 @@
 package com.at.apcss.am.clcln.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+
+import com.at.apcss.am.clcln.vo.ClclnNowInvntrVO;
 import com.at.apcss.am.clcln.vo.ClclnWkrptVO;
+
 
 /**
  * 주간 입고출고 Service 인터페이스
@@ -35,5 +40,10 @@ public interface ClclnWkrptService {
 	 * @throws Exception
 	 */
 	public List<ClclnWkrptVO> selectWkrptLastQnttList(ClclnWkrptVO clclnWkrptVO) throws Exception;
+
+
+	public HashMap<String, Object> insertClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
+	public HashMap<String, Object> updateClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
+	public List<ClclnNowInvntrVO> selectClclnNowInvntrList(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
 
 }

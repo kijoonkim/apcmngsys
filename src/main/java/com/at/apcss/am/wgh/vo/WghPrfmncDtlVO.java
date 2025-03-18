@@ -141,6 +141,12 @@ public class WghPrfmncDtlVO extends ComVO {
 	private String stdGrd;
 	private String stdGrdCd;
 
+
+	private String spcfctCd;
+	private String spmtPckgUnitCd;
+	private String gdsCd;
+	private String cnptCd;
+
 	/*
 	 * 출하번호
 	 * */

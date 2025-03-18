@@ -211,6 +211,102 @@
 			    GROUP BY WC.APC_CD,WC.WRHS_SPMT_TYPE) AS TOT_INVNTR_QNTT
 		  FROM DUAL
     </select>
+
+    <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.selectWkrptLastQnttList	-->
+	<!-- DESC : 전재고 조회 			                        	            	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectClclnNowInvntrList" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO" resultType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+		<![CDATA[
+    	SELECT
+			#{apcCd} AS APC_CD
+			, #{crtrYmd} AS CRTR_YMD
+			, (SELECT
+					NOW_INVNTR_QNTT
+				FROM TB_CLCLN_NOW_INVNTR X
+				WHERE CRTR_YMD = TO_CHAR(TO_DATE(#{crtrYmd}, 'YYYYMMDD') - 7, 'YYYYMMDD')
+				  AND DEL_YN = 'N'
+				)  AS LAST_WKND_QNTT
+			, (SELECT
+					NOW_INVNTR_QNTT
+				FROM TB_CLCLN_NOW_INVNTR X
+				WHERE CRTR_YMD = #{crtrYmd}
+				AND DEL_YN = 'N'
+				)  AS NOW_INVNTR_QNTT
+   		FROM DUAL
+		]]>
+    </select>
+
+     <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.insertClclnNowInvntr	-->
+	<!-- DESC : 전재고 등록 			                        	            	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <insert id="insertClclnNowInvntr" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+		INSERT INTO TB_CLCLN_NOW_INVNTR
+			(
+				APC_CD
+				, CRTR_YMD
+				, WRHS_QNTT
+				, SPMT_QNTT
+				, TOT_INVNTR_QNTT
+				, NOW_INVNTR_QNTT
+				, LS_QNTT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+
+			)
+			VALUES(
+				#{apcCd}
+				, #{crtrYmd}
+				, #{wrhsQntt}
+				, #{spmtQntt}
+				, #{totInvntrQntt}
+				, #{nowInvntrQntt}
+				, #{lsQntt}
+				, 'N'
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			)
+    </insert>
+
+
+      <!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.clcln.mapper.ClclnWkrptMapper.updateClclnNowInvntr	-->
+	<!-- DESC : 전재고 수정 			                        	            	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.20  	박승진        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <update id="updateClclnNowInvntr" parameterType="com.at.apcss.am.clcln.vo.ClclnNowInvntrVO">
+		UPDATE TB_CLCLN_NOW_INVNTR SET
+			WRHS_QNTT = #{wrhsQntt}
+			, SPMT_QNTT = #{spmtQntt}
+			, NOW_INVNTR_QNTT = #{nowInvntrQntt}
+			, SYS_LAST_CHG_DT = SYSDATE
+		WHERE APC_CD = #{apcCd}
+		  AND CRTR_YMD = #{crtrYmd}
+    </update>
+
+
+
 </mapper>
 
 

@@ -594,6 +594,7 @@
 						rowData.apcCd = gv_selectedApcCd;
 						rowData.wrhsSpmtType = SBUxMethod.get("srch-rdo-wrhsSpmtType");
 						if (rowData.itemVrtyCd.length == 8) {
+							rowData.itemCd = rowData.itemVrtyCd.substring(0,4);
 							rowData.vrtyCd = rowData.itemVrtyCd.substring(4,8);
 						}
 						rowData.groupId = i;
@@ -612,6 +613,7 @@
 					if (rowSts === 2){
 						rowData.rowSts = "U";
 						if (rowData.itemVrtyCd.length == 8) {
+							rowData.itemCd = rowData.itemVrtyCd.substring(0,4);
 							rowData.vrtyCd = rowData.itemVrtyCd.substring(4,8);
 						}
 						rowData.groupId = i;
