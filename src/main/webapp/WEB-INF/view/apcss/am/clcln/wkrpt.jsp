@@ -45,7 +45,7 @@
 					class="btn btn-sm btn-primary"
 					text="현재고 저장"
 					target-id="modal-prdcr"
-					onclick="fn_saveNowInvntr"
+					onclick="fn_saveClclnNowInvntr"
 				></sbux-button>
                 <sbux-button
                         id="btn-reset"
@@ -93,10 +93,14 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="info-inp-lastWkndWrhs"
-                                    name="info-inp-lastWkndWrhs"
+                                    id="info-inp-lastWkndQntt"
+                                    name="info-inp-lastWkndQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
+                                    onchange="fn_invntrChange(info-inp-lastWkndQntt)"
+                                    permit-keycodes-set="num"
+                                    exclude-kr="kr"
+
                             />
                         </td>
                         <th scope="row" class="th_bg">
@@ -105,11 +109,12 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="info-inp-totWrhsQntt"
-                                    name="info-inp-totWrhsQntt"
+                                    id="info-inp-wrhsQntt"
+                                    name="info-inp-wrhsQntt"
                                     class="form-control input-sm"
-                                    disabled
                                     autocomplete="off"
+                                    disabled
+
                             />
                         </td>
                         <th scope="row" class="th_bg">
@@ -118,26 +123,14 @@
                         <td class="td_input">
                             <sbux-input
                                     uitype="text"
-                                    id="info-inp-totSpmtQntt"
-                                    name="info-inp-totSpmtQntt"
+                                    id="info-inp-spmtQntt"
+                                    name="info-inp-spmtQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
                                     disabled
                             />
                         </td>
-                        <th scope="row" class="th_bg">
-                            재고
-                        </th>
-                        <td class="td_input">
-                            <sbux-input
-                                    uitype="text"
-                                    id="info-inp-totQntt"
-                                    name="info-inp-totQntt"
-                                    class="form-control input-sm"
-                                    autocomplete="off"
-                                    disabled
-                            />
-                        </td>
+
 
                         <th scope="row" class="th_bg">
                             현 재고
@@ -149,6 +142,9 @@
                                     name="info-inp-nowQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
+                                    permit-keycodes-set="num"
+                                    exclude-kr="kr"
+                                    onchange="fn_invntrChange(info-inp-nowQntt)"
                             />
                         </td>
                         <th scope="row" class="th_bg">
@@ -161,6 +157,17 @@
                                     name="info-inp-loss"
                                     class="form-control input-sm"
                                     autocomplete="off"
+                                    readonly
+                            />
+                        </td>
+                        <td class="td_input">
+                        	<sbux-input
+                                    uitype="text"
+                                    id="info-inp-lossRt"
+                                    name="info-inp-lossRt"
+                                    class="form-control input-sm"
+                                    autocomplete="off"
+                                    readonly
                             />
                         </td>
                     </tr>
@@ -275,11 +282,12 @@
 	        }
 	        fn_convert(data.resultList);
 	        let result = [...wrhsResult,...spmtResult];
-	        SBUxMethod.set("info-inp-totWrhsQntt",totWrhsQntt);
-	        SBUxMethod.set("info-inp-totSpmtQntt",totSpmtQntt);
-	        SBUxMethod.set("info-inp-totQntt",totWrhsQntt - totSpmtQntt);
+	        SBUxMethod.set("info-inp-wrhsQntt",totWrhsQntt);
+	        SBUxMethod.set("info-inp-spmtQntt",totSpmtQntt);
+	        //SBUxMethod.set("info-inp-totQntt",totWrhsQntt - totSpmtQntt);
 	        initObj();
 	        jsonWkrpt = result;
+	        await fn_searchLastQnttList();
 	        grdWkrpt.refresh();
 
 	        //await fn_searchLastQnttList();
@@ -335,16 +343,13 @@
     //전재고조회
     const fn_searchLastQnttList = async function () {
 
-    	let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");		// 기준일자
-		let wghYmdFrom = subtractDays(wghYmd,7);
-		let wghYmdTo = subtractDays(wghYmd,1);
+    	let crtrYmd = SBUxMethod.get("srch-dtp-wghYmd");		// 기준일자
 
 
 
-		const postJsonPromise = gfn_postJSON("/am/clcln/selectWkrptLastQnttList.do", {
+		const postJsonPromise = gfn_postJSON("/am/clcln/selectClclnNowInvntrList.do", {
 			apcCd		: gv_selectedApcCd,
-			wghYmdFrom 	: wghYmdFrom,
-			wghYmdTo	: wghYmdTo
+			crtrYmd     : mondayParam
   		});
 
 
@@ -353,15 +358,12 @@
 	        const data = await postJsonPromise;
 
 	        let result = data.resultList;
-	        if(data.resultList.length > 0){
-	        	SBUxMethod.set("info-inp-lastWkndWrhs",data.resultList[0].totInvntrQntt);
-	        }else{
-	        	SBUxMethod.set("info-inp-lastWkndWrhs","");
-	        }
 
-
-
-
+			if(result.length != 0){
+				SBUxMethod.set("info-inp-nowQntt",result[0].nowInvntrQntt);
+				SBUxMethod.set("info-inp-lastWkndQntt",result[0].lastWkndQntt);
+				fn_invntrChange("");
+			}
 	        if (!_.isEqual("S", data.resultStatus)) {
 	        	gfn_comAlert(data.resultCode, data.resultMessage);
 	        	return;
@@ -377,6 +379,51 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
     }
+
+  //전재고등록
+    const fn_saveClclnNowInvntr = async function () {
+
+    	let crtrYmd = SBUxMethod.get("srch-dtp-wghYmd");		// 기준일자
+    	let lastWkndWrhs = SBUxMethod.get("info-inp-lastWkndQntt"); // 전재고
+    	let wrhsQntt = SBUxMethod.get("info-inp-wrhsQntt"); //입고
+    	let spmtQntt = SBUxMethod.get("info-inp-spmtQntt"); //출고
+    	let nowQntt = SBUxMethod.get("info-inp-nowQntt"); //현재고
+    	let totQntt = SBUxMethod.get("info-inp-totQntt"); //재고
+   		let loss = SBUxMethod.get("info-inp-loss"); //로스율
+
+
+		const postJsonPromise = gfn_postJSON("/am/clcln/insertClclnNowInvntr.do", {
+			apcCd		: gv_selectedApcCd,
+			crtrYmd		: mondayParam,
+			wrhsQntt	: wrhsQntt,
+			spmtQntt	: spmtQntt,
+			nowInvntrQntt		: nowQntt,
+			totInvntrQntt		: totQntt,
+			lsQntt		: loss
+  		});
+
+
+  		try {
+
+	        const data = await postJsonPromise;
+
+	        let result = data.resultList;
+
+	        if (!_.isEqual("S", data.resultStatus)) {
+	        	gfn_comAlert(data.resultCode, data.resultMessage);
+	        	return;
+	        }
+
+		} catch (e) {
+    		if (!(e instanceof Error)) {
+    			e = new Error(e);
+    		}
+    		console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+    }
+
+
 
 
     const fn_dtpChange = async function (ymd) {
@@ -399,6 +446,7 @@
         // 월요일 날짜 구하기
         const monday = new Date(currentDate);
         monday.setDate(currentDate.getDate() + diffToMonday);
+        mondayParam = monday.toLocaleDateString('sv-SE').replace(/-/g, '');
 
 		let daysofWeek = ['월','화','수','목','금','토','일']
 
@@ -414,14 +462,18 @@
         	grdWkrpt.setCellData(0, dayDiff, fn_formatDateToMMDD(setDay, daysofWeek[i]), true);
         	dayDiff = parseInt(dayDiff) + 2;
         }
-
+        SBUxMethod.refresh("info-inp-lastWkndQntt");
+        SBUxMethod.refresh("info-inp-wrhsQntt");
+        SBUxMethod.refresh("info-inp-spmtQntt");
+        SBUxMethod.refresh("info-inp-loss");
+		SBUxMethod.refresh("info-inp-nowQntt");
         grdWkrpt.refresh();
     }
 
     const fn_formatDateToMMDD = function (date, toDay) {
         const month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
-        const day = date.getDate();
-        return month+'/'+day + " " + toDay;
+        const day = date.getDate().toString().padLeft(2,'0');
+        return month.toString().padLeft(2,'0') +'/'+day + " " + toDay;
     }
 
     /**
@@ -431,6 +483,12 @@
 	const fn_docWeekWrhsSpmt = function() {
 
 		let wghYmd = SBUxMethod.get("srch-dtp-wghYmd");
+		let lastWkndWrhs = SBUxMethod.get("info-inp-lastWkndQntt"); // 전재고
+    	let wrhsQntt = SBUxMethod.get("info-inp-wrhsQntt"); //입고
+    	let spmtQntt = SBUxMethod.get("info-inp-spmtQntt"); //출고
+    	let nowQntt = SBUxMethod.get("info-inp-nowQntt"); //현재고
+   		let loss = SBUxMethod.get("info-inp-loss"); //로스율
+
 		let yr = wghYmd.substr(0,4);
 
 		let reportVo = {
@@ -438,14 +496,37 @@
 			wghYmd : wghYmd,
 			ymdFrom : yr + weekend[0].replace("/","").split(" ")[0],
 			ymdTo : yr + weekend[6].replace("/","").split(" ")[0],
-			...weekend
+			...weekend,
+			loss : loss,
+			lastWkndWrhs : lastWkndWrhs,
+			wrhsQntt : wrhsQntt,
+			spmtQntt : spmtQntt,
+			nowQntt : nowQntt
+
 
 		}
 
-		gfn_popClipReport("주간입출고현황", "am/weekWrhsSpmt_0599.crf", reportVo);
+		const data = {
+			      "root":jsonWkrpt
+			    }
+
+	    const conn = [];
+	    conn.push({data: data});
+
+	    gfn_popClipReportPost(
+	            "주간입출고현황",
+	            "am/weekWrhsSpmt_0599.crf",
+	            reportVo,
+	            conn,
+	    );
+
+
+		//gfn_popClipReport("주간입출고현황", "am/weekWrhsSpmt_0599.crf", reportVo);
 	}
 
 
+
+	let mondayParam = "";
     let totWrhsQntt = 0;
     let totSpmtQntt = 0;
 	let idxWrhsObj = {
@@ -672,6 +753,21 @@
 	    const newDay = String(date.getDate()).padStart(2, '0');
 
 	    return newYear.toString() + newMonth.toString() + newDay.toString();
+	}
+
+	const fn_invntrChange = function(id){
+		let lastWkndWrhs = SBUxMethod.get("info-inp-lastWkndQntt"); // 전재고
+    	let wrhsQntt = SBUxMethod.get("info-inp-wrhsQntt"); //입고
+    	let spmtQntt = SBUxMethod.get("info-inp-spmtQntt"); //출고
+    	let nowQntt = SBUxMethod.get("info-inp-nowQntt"); //현재고
+
+    	if(gfn_nvl(lastWkndWrhs) == "" || gfn_nvl(nowQntt) == ""){
+    		return;
+    	}
+
+    	let loss =  (parseInt(spmtQntt) + parseInt(nowQntt)) - (parseInt(lastWkndWrhs) + parseInt(wrhsQntt));
+    	SBUxMethod.set("info-inp-loss",loss);
+
 	}
 
 

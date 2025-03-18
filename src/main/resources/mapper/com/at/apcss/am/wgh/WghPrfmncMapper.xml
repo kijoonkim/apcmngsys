@@ -513,6 +513,12 @@
 					, BX_WGHT
 					, WRHSNO
 					, SPMTNO
+					, ITEM_CD
+					, VRTY_CD
+					, SPCFCT_CD
+					, SPMT_PCKG_UNIT_CD
+					, GDS_CD
+					, CNPT_CD
 		    		, SYS_FRST_INPT_DT
 		    		, SYS_FRST_INPT_USER_ID
 		    		, SYS_FRST_INPT_PRGRM_ID
@@ -535,6 +541,12 @@
 					, #{bxWght}
 					, #{wrhsno}
 					, #{spmtno}
+					, #{itemCd}
+					, #{vrtyCd}
+					, #{spcfctCd}
+					, #{spmtPckgUnitCd}
+					, #{gdsCd}
+					, #{cnptCd}
 		    		, SYSDATE
 		    		, #{sysFrstInptUserId}
 		    		, #{sysFrstInptPrgrmId}
@@ -570,6 +582,12 @@
 				, BX_QNTT					= #{bxQntt}
 				, BX_WGHT					= #{bxWght}
 				, SPMTNO					= #{spmtno}
+				, ITEM_CD					= #{itemCd}
+				, VRTY_CD					= #{vrtyCd}
+				, SPCFCT_CD					= #{spcfctCd}
+				, SPMT_PCKG_UNIT_CD			= #{spmtPckgUnitCd}
+				, GDS_CD					= #{gdsCd}
+				, CNPT_CD					= #{cnptCd}
 		]]>
 			<if test='delYn != null and delYn != ""'>
 				, DEL_YN					= #{delYn}
@@ -778,8 +796,8 @@
 			             , WD.BX_QNTT           AS BX_QNTT
 			             , WD.BX_WGHT           AS BX_WGHT
 			             , GI.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
-			             , GI.ITEM_CD           AS ITEM_CD
-			             , GI.VRTY_CD           AS VRTY_CD
+			             , NVL(GI.ITEM_CD,WD.ITEM_CD)           AS ITEM_CD
+			             , NVL(GI.VRTY_CD,WD.VRTY_CD)           AS VRTY_CD
 			             , GI.STRG_LOCTN_CD     AS STRG_LOCTN_CD
 			             , SUBSTR(GI.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
 			             , SUBSTR(GI.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL

@@ -1,12 +1,15 @@
 package com.at.apcss.am.clcln.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.at.apcss.am.clcln.mapper.ClclnWkrptMapper;
 import com.at.apcss.am.clcln.service.ClclnWkrptService;
+import com.at.apcss.am.clcln.vo.ClclnNowInvntrVO;
 import com.at.apcss.am.clcln.vo.ClclnWkrptVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 
@@ -41,6 +44,33 @@ public class ClclnWkrptServiceImpl extends BaseServiceImpl implements ClclnWkrpt
 	public List<ClclnWkrptVO> selectWkrptLastQnttList(ClclnWkrptVO clclnWkrptVO) throws Exception {
 		List<ClclnWkrptVO> resultList = clclnWkrptMapper.selectWkrptLastQnttList(clclnWkrptVO);
 		return resultList;
+	}
+
+	@Override
+	public List<ClclnNowInvntrVO> selectClclnNowInvntrList(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception {
+		List<ClclnNowInvntrVO> result = clclnWkrptMapper.selectClclnNowInvntrList(clclnNowInvntrVO);
+		return result;
+	}
+
+	@Override
+	public HashMap<String, Object> insertClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception {
+		List<ClclnNowInvntrVO> result = clclnWkrptMapper.selectClclnNowInvntrList(clclnNowInvntrVO);
+
+		ClclnNowInvntrVO test = result.get(0);
+		int nowQntt = test.getNowInvntrQntt();
+		if(nowQntt == 0) {
+			clclnWkrptMapper.insertClclnNowInvntr(clclnNowInvntrVO);
+		}else {
+			clclnWkrptMapper.updateClclnNowInvntr(clclnNowInvntrVO);
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception {
+
+		return null;
 	}
 
 }

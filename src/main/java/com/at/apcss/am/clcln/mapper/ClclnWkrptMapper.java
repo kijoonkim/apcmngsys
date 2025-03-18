@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.at.apcss.am.clcln.vo.ClclnNowInvntrVO;
 import com.at.apcss.am.clcln.vo.ClclnWkrptVO;
 
 /**
@@ -38,6 +39,11 @@ public interface ClclnWkrptMapper {
 	 * @throws Exception
 	 */
 	public List<ClclnWkrptVO> selectWkrptLastQnttList(ClclnWkrptVO clclnWkrptVO) throws Exception;
+
+	public int insertClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
+	public int updateClclnNowInvntr(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
+
+	public List<ClclnNowInvntrVO> selectClclnNowInvntrList(ClclnNowInvntrVO clclnNowInvntrVO) throws Exception;
 
 
 
