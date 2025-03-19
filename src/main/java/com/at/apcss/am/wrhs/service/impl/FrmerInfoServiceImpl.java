@@ -153,6 +153,24 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 	@Override
 	public int updateCltvtnHstry(CltvtnHstryVO cltvtnHstryVO) throws Exception {
 		int updatedCnt = frmerInfoMapper.updateCltvtnHstry(cltvtnHstryVO);
+
+		ComAtchflVO comAtchflVO = cltvtnHstryVO.getComAtchflVO();
+
+		if (comAtchflVO != null) {
+			String prntsTblNo = "CQ" + cltvtnHstryVO.getApcCd() + cltvtnHstryVO.getPrdcrCd() + cltvtnHstryVO.getPrdcrLandInfoNo() + cltvtnHstryVO.getCltvtnHstryNo();
+			comAtchflVO.setPrntsTblNo(prntsTblNo);
+
+			HashMap<String, Object> rtnOjb = comAtchflService.fileUpload(comAtchflVO);
+
+			if (rtnOjb != null) {
+				return -1;
+			}
+
+			if (0 == comAtchflService.insertComAtchfl(comAtchflVO)) {
+				throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, "저장 중 오류가 발생 했습니다."))); // E0000	{0}
+			}
+		}
+
 		return updatedCnt;
 	}
 

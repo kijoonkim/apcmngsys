@@ -76,6 +76,34 @@
     	]]>
     </insert>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.insertComAtchfl			-->
+	<!-- DESC : 첨부파일번호 수정.	                                       			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.19  	김기준        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateComAtchfl" parameterType="com.at.apcss.am.cmns.vo.ComAtchflVO">
+		<![CDATA[
+    		UPDATE /* com.at.apcss.am.cmns.mapper.ComAtchflMapper.updateComAtchfl */
+    		  TB_COM_ATCHFL
+    		SET
+				 ATCHFL_NM 					= #{atchflNm}
+				 , ATCHFL_ORGN_NM 			= #{atchflOrgnNm}
+				 , ATCHFL_SZ 				= #{atchflSz}
+				 , ATCHFL_EXTN_TYPE 		= #{atchflExtnType}
+				 , ATCHFL_PATH 				= #{atchflPath}
+				 , SYS_LAST_CHG_DT 			= SYSDATE
+				 , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+    		WHERE
+    		  	 ATCHFL_NO 					= #{atchflNo}
+				 AND PRNTS_TBL_NO 			= #{prntsTblNo}
+				 AND PRNTS_TBL_SE_CD 		= #{prntsTblSeCd}
+    	]]>
+	</update>
+
     <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.ComAtchflMapper.selectComAtchfl			-->
 	<!-- DESC : 첨부파일 조회.	                                       				-->

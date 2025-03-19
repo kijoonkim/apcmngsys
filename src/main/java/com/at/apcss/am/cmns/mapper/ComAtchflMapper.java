@@ -30,6 +30,14 @@ public interface ComAtchflMapper {
 	public int insertComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
 
 	/**
+	 * 첨부파일 수정
+	 * @param comAtchflVO
+	 * @return Integer
+	 * @throws Exception
+	 */
+	public int updateComAtchfl(ComAtchflVO comAtchflVO) throws Exception;
+
+	/**
 	 * 첨부파일번호 발번
 	 * @param comAtchflVO
 	 * @return String
