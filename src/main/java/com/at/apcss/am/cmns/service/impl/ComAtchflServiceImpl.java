@@ -84,7 +84,7 @@ public class ComAtchflServiceImpl extends BaseServiceImpl implements ComAtchflSe
             File file = new File(filePath, fileName);
 			boolean isSuccessMkdir = false;
 			if (file.getParentFile() != null) {
-				isSuccessMkdir = file.getParentFile().mkdirs();  // 디렉토리 생성
+				isSuccessMkdir = file.getParentFile().exists() ? true : file.getParentFile().mkdirs();  // 디렉토리 생성
 			}
 
 			if (!isSuccessMkdir) {
