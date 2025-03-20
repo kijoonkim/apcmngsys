@@ -321,4 +321,28 @@ public interface WghPrfmncMapper {
 	 * @throws Exception
 	 */
 	public int deleteWghPrfmncDtlSpmtno(WghPrfmncDtlVO wghDtlVO) throws Exception;
+
+	/**
+	 * 계량정보관리 출고 목록 조회
+	 * @param wghPrfmncVO
+	 * @return List<WghPrfmncVO>
+	 * @throws Exception
+	 */
+	public List<WghPrfmncVO> selectWghInfoMngSpmtList(WghPrfmncVO wghPrfmncVO) throws Exception;
+
+	/**
+	 * 계량정보관리 - 출고 계량실적 상세 수정
+	 * @param wghPrfmncDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertSpmtWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
+
+	/**
+	 * 계량정보관리 - 출고 계량실적 상세 수정
+	 * @param wghPrfmncDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateSpmtWghPrfmncDtl(WghPrfmncDtlVO wghPrfmncDtlVO) throws Exception;
 }

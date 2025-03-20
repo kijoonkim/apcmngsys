@@ -295,7 +295,7 @@
                         <tr>
                             <th scope="row" class="th_bg"><span class="data_required"></span>거래처</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-select id="dtl-slt-cnptCd" name="dtl-slt-cnptCd" uitype="single" class="form-control input-sm inpt_data_reqed" unselected-text="전체" jsondata-ref="jsonComCnptCd"></sbux-select>
+                                <sbux-select id="dtl-slt-cnptCd" name="dtl-slt-cnptCd" uitype="single" class="form-control input-sm inpt_data_reqed" unselected-text="전체" jsondata-ref="jsonComCnptCd" ></sbux-select>
                             </td>
                             <th scope="row" class="th_bg">배송처</th>
                             <td class="td_input" >
@@ -496,7 +496,8 @@
         SBGridProperties.columns = [
             {caption: ["계량일자"], 		 ref: 'wghYmd',	 	type:'output', 	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, width:'10%', style:'text-align:center'},
             {caption: ["차량번호"],		 ref: 'vhclno', 	type:'output', width:'10%', style:'text-align:center'},
-            {caption: ["생산자"], 		 ref: 'prdcrNm',	    type:'output',  width:'10%', style:'text-align:center'},
+            /*{caption: ["생산자"], 		 ref: 'prdcrNm',	    type:'output',  width:'10%', style:'text-align:center'},*/
+            {caption: ["거래처"], 		 ref: 'cnptNm',	    type:'output',  width:'10%', style:'text-align:center'},
             {caption: ["총중량"], 	     ref: 'wholWght',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
             {caption: ["공차중량"], 	     ref: 'emptVhclWght',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'#,### '}},
             {caption: ["감량률(%)"], 	     ref: 'rdcdRt',	type:'output',  width:'10%', style:'text-align:right',format : {type:'number', rule:'##.## '}},
@@ -684,9 +685,21 @@
     const fn_clickGrdWghList = async function () {
         const row = grdWghList.getRow();
         if (row < 1){
+            SBUxMethod.set("dtl-inp-wghYmd","");
+            SBUxMethod.set("dtl-inp-wghNo","");
+            SBUxMethod.set("dtl-inp-vhclNo","");
+            SBUxMethod.set("dtl-inp-drvrNm","");
+            SBUxMethod.set("dtl-inp-wholWght","");
+            SBUxMethod.set("dtl-inp-emptVhclWght","");
+            SBUxMethod.set("dtl-inp-rdcdRt","");
+            SBUxMethod.set("dtl-inp-spmtQntt","");
+            SBUxMethod.set("dtl-inp-spmtWght","");
+            SBUxMethod.set("dtl-inp-pltQntt","");
+            SBUxMethod.set("dtl-inp-rmrk","");
+            SBUxMethod.set("dtl-inp-spmtVhclno","");
+            SBUxMethod.set("dtl-slt-cnptCd","");
             return;
         }
-        console.log(row);
         const rowData = grdWghList.getRowData(row);
         if (gfn_isEmpty(rowData)){
             return;
@@ -704,6 +717,7 @@
         SBUxMethod.set("dtl-inp-pltQntt",rowData.pltQntt);
         SBUxMethod.set("dtl-inp-rmrk",rowData.rmrk);
         SBUxMethod.set("dtl-inp-spmtVhclno",rowData.vhclno);
+        SBUxMethod.set("dtl-slt-cnptCd",rowData.cnptCd);
 
 
     }
