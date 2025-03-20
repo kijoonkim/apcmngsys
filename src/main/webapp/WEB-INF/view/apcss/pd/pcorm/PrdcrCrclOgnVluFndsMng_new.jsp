@@ -1740,8 +1740,9 @@
 		let gridData = grdPrdcrOgnCurntMng01.getGridDataAll();
 		let saveList = [];
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData.length; i++ ){
+		//테이블 해더 row수
+		let captionRow = grdPrdcrOgnCurntMng01.getFixedRows();
+		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 			let rowData = grdPrdcrOgnCurntMng01.getRowData(i);
 			let rowSts = grdPrdcrOgnCurntMng01.getRowStatus(i);
 			let delYn = rowData.delYn;
@@ -1794,8 +1795,9 @@
 		let gridData = grdPrdcrOgnCurntMng02.getGridDataAll();
 		let saveList = [];
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData.length; i++ ){
+		//테이블 해더 row수
+		let captionRow = grdPrdcrOgnCurntMng02.getFixedRows();
+		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 			let rowData = grdPrdcrOgnCurntMng02.getRowData(i);
 			let rowSts = grdPrdcrOgnCurntMng02.getRowStatus(i);
 			let delYn = rowData.delYn;
@@ -1852,8 +1854,9 @@
 		let gridData = grdScrRslt.getGridDataAll();
 		let saveList = [];
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData.length; i++ ){
+		//테이블 해더 row수
+		let captionRow = grdScrRslt.getFixedRows();
+		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 			let rowData = grdScrRslt.getRowData(i);
 			let rowSts = grdScrRslt.getRowStatus(i);
 
