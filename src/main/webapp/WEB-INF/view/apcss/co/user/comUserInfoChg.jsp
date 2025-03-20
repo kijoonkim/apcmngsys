@@ -561,7 +561,8 @@
 	}
 
 	const fn_setGrdComUser = async function(recordCountPerPage, currentPageNo) {
-		
+
+		let totalRecordCount = 0;
 		jsonComUser.length = 0;
 		
 		const apcCd = SBUxMethod.get("gsb-slt-apcCd");
