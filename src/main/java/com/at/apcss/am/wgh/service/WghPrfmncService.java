@@ -326,4 +326,12 @@ public interface WghPrfmncService {
 	 * @throws Exception
 	 */
     public HashMap<String, Object> deleteSpmtPrfmncList(List<SpmtPrfmncComVO> spmtPrfmncList) throws Exception;
+
+	/**
+	 * 계량정보관리 출고
+	 * @param wghPrfmncList
+	 * @return
+	 * @throws Exception
+	 */
+    public HashMap<String, Object> updateWghInfoDtlList(List<WghPrfmncVO> wghPrfmncList) throws Exception;
 }

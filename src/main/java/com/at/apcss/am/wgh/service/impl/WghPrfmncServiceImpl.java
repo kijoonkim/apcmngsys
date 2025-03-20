@@ -536,7 +536,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 
 	@Override
 	public List<WghPrfmncVO> selectWghInfoSpmtMngList(WghPrfmncVO wghPrfmncVO) throws Exception {
-		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoSpmtMngList(wghPrfmncVO);
+		List<WghPrfmncVO> resultList = wghPrfmncMapper.selectWghInfoMngSpmtList(wghPrfmncVO);
 		return resultList;
 	}
 
@@ -1926,6 +1926,265 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "출하번호삭제")));		// E0003	{0} 시 오류가 발생하였습니다.
 				}
 			}
+
+		}
+
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> updateWghInfoDtlList(List<WghPrfmncVO> wghPrfmncList) throws Exception {
+		//List<WghPrfmncVO> insertWrhsList = new ArrayList<>();
+		List<WghPrfmncVO> insertSpmtList = new ArrayList<>();
+		//List<WghPrfmncVO> updateWrhsList = new ArrayList<>();
+		List<WghPrfmncVO> updateSpmtList = new ArrayList<>();
+
+		HashMap<String, Object> resultMap;
+
+		for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
+
+			if (ComConstants.ROW_STS_INSERT.equals(wghPrfmncVO.getRowSts())) {
+
+
+				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
+
+					insertSpmtList.add(wghPrfmncVO);
+				}
+
+
+			}
+
+			if (ComConstants.ROW_STS_UPDATE.equals(wghPrfmncVO.getRowSts())) {
+
+
+				if ("DT".equals(wghPrfmncVO.getWrhsSpmtType())) {
+
+					updateSpmtList.add(wghPrfmncVO);
+				}
+			}
+		}
+
+
+		if (insertSpmtList != null && insertSpmtList.size() > 0) {
+			int groupId = 0;
+			int start = 1;
+			String wghno = "";
+			int seq = 1;
+			String pckgno = "";
+			String spmtno = "";
+			List<GdsInvntrVO> insertgdsInvntrList = new ArrayList<>();
+
+
+			for (WghPrfmncVO wghPrfmncVO : insertSpmtList) {
+
+				if (start == 1) {
+					groupId = wghPrfmncVO.getGroupId();
+					wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+					wghPrfmncVO.setWghno(wghno);
+
+					wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+
+					String vhclno = wghPrfmncVO.getVhclno();
+
+					if (StringUtils.hasText(vhclno)) {
+
+						WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+					}
+
+
+				} else {
+					if (groupId != wghPrfmncVO.getGroupId()) {
+						seq = 1;
+						groupId = wghPrfmncVO.getGroupId();
+						wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
+						wghPrfmncVO.setWghno(wghno);
+						wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
+
+						String vhclno = wghPrfmncVO.getVhclno();
+
+						if (StringUtils.hasText(vhclno)) {
+
+							WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+
+						}
+
+					}
+				}
+
+				String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+				String gdsSecd = wghPrfmncVO.getGdsSeCd();
+				String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+				if (!StringUtils.hasText(wrhsSecd)) {
+					wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+				}
+
+				if (!StringUtils.hasText(gdsSecd)) {
+					wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+				}
+
+				if (!StringUtils.hasText(trsprtSecd)) {
+					wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
+				}
+
+				double dtlWrhsWght = wghPrfmncVO.getDtlWrhsWght();
+				if (dtlWrhsWght > 0) {
+					wghPrfmncVO.setWrhsWght(dtlWrhsWght);
+				}
+
+				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+				wghPrfmncDtlVO.setWghSn(seq);
+
+
+				if ( 0 == wghPrfmncMapper.insertSpmtWghPrfmncDtl(wghPrfmncDtlVO)) {
+					throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량실적상세 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+				}
+
+				start++;
+				seq++;
+
+			}
+
+
+		}
+
+
+
+		if (updateSpmtList != null && updateSpmtList.size() > 0) {
+			int groupId = 0;
+			int start = 1;
+
+			String pckgno = "";
+			String spmtno = "";
+
+			List<SpmtPrfmncVO> spmtPrfmncList = new ArrayList<>();
+			List<GdsInvntrVO> insertgdsInvntrList = new ArrayList<>();
+
+			for (WghPrfmncVO wghPrfmncVO : updateSpmtList) {
+
+				if (start == 1) {
+					groupId = wghPrfmncVO.getGroupId();
+
+					wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+
+
+
+					String vhclno = wghPrfmncVO.getVhclno();
+
+					if (StringUtils.hasText(vhclno)) {
+
+						WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+						BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+						wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+					}
+
+				} else {
+
+					if (groupId != wghPrfmncVO.getGroupId()) {
+						groupId = wghPrfmncVO.getGroupId();
+						wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
+
+
+						String vhclno = wghPrfmncVO.getVhclno();
+
+						if (StringUtils.hasText(vhclno)) {
+
+							WrhsVhclVO wrhsVhclVO = new WrhsVhclVO();
+							BeanUtils.copyProperties(wghPrfmncVO, wrhsVhclVO);
+
+							wrhsVhclService.insertMergeWrhsVhcl(wrhsVhclVO);
+						}
+
+					} /*else {
+						*//** 검품등급 insert **//*
+						*//** 검품등급 wghno set **//*
+						String wghno = wghPrfmncVO.getWghno();
+						List<WghInspPrfmncVO> inspList = wghPrfmncVO.getInspPrfmncList();
+						if(inspList != null){
+							for(WghInspPrfmncVO vo : inspList){
+								vo.setWghno(wghno);
+							}
+							wghPrfmncMapper.insertUpdateInspList(inspList);
+						}
+
+						if ("Y".equals(wghPrfmncVO.getDistributionYn())) {
+
+						} else {
+
+							wghPrfmncVO.setPltQntt(0);
+							wghPrfmncVO.setWholWght(0);
+						}
+					}*/
+				}
+
+				double dtlWrhsWght = wghPrfmncVO.getDtlWrhsWght();
+				if (dtlWrhsWght > 0) {
+					wghPrfmncVO.setWrhsWght(dtlWrhsWght);
+				}
+
+				WghPrfmncDtlVO wghPrfmncDtlVO = new WghPrfmncDtlVO();
+				BeanUtils.copyProperties(wghPrfmncVO, wghPrfmncDtlVO);
+
+
+				if ("Y".equals(wghPrfmncVO.getNewYn())) {
+					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+					String gdsSecd = wghPrfmncVO.getGdsSeCd();
+					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+					if (!StringUtils.hasText(wrhsSecd)) {
+						wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(gdsSecd)) {
+						wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(trsprtSecd)) {
+						wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
+					}
+
+					if ( 0 == wghPrfmncMapper.insertSpmtWghPrfmncDtl(wghPrfmncDtlVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량실적상세 등록")));		// E0003	{0} 시 오류가 발생하였습니다.
+					}
+
+				} else {
+
+					String wrhsSecd = wghPrfmncVO.getWrhsSeCd();
+					String gdsSecd = wghPrfmncVO.getGdsSeCd();
+					String trsprtSecd = wghPrfmncVO.getTrsprtSeCd();
+
+					if (!StringUtils.hasText(wrhsSecd)) {
+						wghPrfmncVO.setWrhsSeCd(ApcConstants.WRHS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(gdsSecd)) {
+						wghPrfmncVO.setGdsSeCd(ApcConstants.GDS_SE_CD_BASIC);
+					}
+
+					if (!StringUtils.hasText(trsprtSecd)) {
+						wghPrfmncVO.setTrsprtSeCd(ApcConstants.TRSPRT_SE_CD_BASIC);
+					}
+
+					if ( 0 == wghPrfmncMapper.updateSpmtWghPrfmncDtl(wghPrfmncDtlVO)) {
+						throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "계량실적상세 수정")));		// E0003	{0} 시 오류가 발생하였습니다.
+					}
+
+
+				}
+				start++;
+			}
+
+
 
 		}
 

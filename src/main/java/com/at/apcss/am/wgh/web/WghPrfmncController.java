@@ -1027,4 +1027,41 @@ public class WghPrfmncController extends BaseController {
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	/**
+	 * 계량정보관리 - 계량정보상세 출고 저장
+	 * @param List<WghPrfmncVO>
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/am/wgh/updateWghInfoDtlList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateWghInfoDtlList(@RequestBody List<WghPrfmncVO> wghPrfmncList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for (WghPrfmncVO wghPrfmncVO : wghPrfmncList) {
+				wghPrfmncVO.setSysFrstInptUserId(getUserId());
+				wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
+				wghPrfmncVO.setSysLastChgUserId(getUserId());
+				wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = wghPrfmncService.updateWghInfoDtlList(wghPrfmncList);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

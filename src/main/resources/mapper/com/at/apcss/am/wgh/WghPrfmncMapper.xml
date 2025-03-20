@@ -2185,6 +2185,8 @@
 				,(pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) AS ACTL_WGHT
 				,(SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) AS PRDCR_NM
 				,ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+				,(SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL)   AS CNPT_NM
+     			,(SELECT X.DRVR_NM FROM TB_WRHS_VHCL_INFO X WHERE X.APC_CD = pt0.APC_CD AND X.VHCLNO = pt0.VHCLNO) AS DRVR_NM
 			FROM
 			    (SELECT
 					 WPC.APC_CD					AS APC_CD
@@ -2199,6 +2201,10 @@
 			     	,SUM(WPD.BX_QNTT)           AS BX_QNTT
 	           		,SUM(WPD.BX_WGHT)           AS BX_WGHT
 	           		,SUM(WPD.PLT_QNTT)			AS PLT_QNTT
+
+			     	,MAX(WPD.CNPT_CD)		    AS CNPT_CD
+				  	,MAX(WPD.ITEM_CD)		    AS ITEM_CD
+				  	,MAX(WPD.VRTY_CD)		    AS VRTY_CD
 
 				 FROM
 					 TB_WGH_PRFMNC_COM WPC
@@ -2457,6 +2463,210 @@
 			    APC_CD = #{apcCd}
 			AND SPMTNO = #{spmtno}
 			AND WGHNO = #{wghno}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList		-->
+	<!-- DESC : 계량관리정보 출고 목록 조회.		                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.18  	유민지        		Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<select id="selectWghInfoMngSpmtList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghInfoMngSpmtList */
+			       pt0.*
+			     , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 									AS CNPT_NM
+			     , (SELECT FN_GET_PRDCR_NM(pt0.PRDCR_CD, pt0.APC_CD) FROM DUAL) 								AS PRDCR_NM
+			     , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 									AS ITEM_NM
+			     , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 						AS VRTY_NM
+			     , (SELECT FN_GET_GRD_NM_RAWMTR(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) 				AS GRD_NM
+			     , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) 	AS WAREHOUSE_SE_NM
+			     , pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT AS ACTL_WGHT
+			     , ROUND((pt0.WHOL_WGHT - pt0.EMPT_VHCL_WGHT) * ((100 - NVL(RDCD_RT, 0)) / 100), 0) AS ACPTN_WGHT
+			  FROM (SELECT
+			              WC.APC_CD		      AS APC_CD
+					   , WC.WGHNO		      AS WGHNO
+					   , WD.WGH_SN			  AS WGH_SN
+					   , WD.WRHSNO		      AS WRHSNO
+					   , WC.WGH_YMD           AS WGH_YMD
+					   , WC.VHCLNO            AS VHCLNO
+					   , WC.PRDCR_CD	      AS PRDCR_CD
+					   , WC.WRHS_SPMT_TYPE	  AS WRHS_SPMT_TYPE
+					   , WC.WHOL_WGHT         AS WHOL_WGHT
+					   , WC.EMPT_VHCL_WGHT    AS EMPT_VHCL_WGHT
+					   , WC.RDCD_RT           AS RDCD_RT
+					   , WC.RDCD_WGHT         AS RDCD_WGHT
+					   , WC.WRHS_WGHT         AS WRHS_WGHT
+					   , WC.RMRK              AS RMRK
+					   , WD.GRD_CD            AS GRD_CD
+					   , WD.PLT_KND		      AS PLT_KND
+					   , WD.PLT_WGHT          AS PLT_WGHT
+					   , WD.BX_KND			  AS BX_KND
+					   , WD.BX_QNTT           AS BX_QNTT
+					   , WD.BX_WGHT           AS BX_WGHT
+					   , GI.WAREHOUSE_SE_CD   AS WAREHOUSE_SE_CD
+					   , WD.ITEM_CD           AS ITEM_CD
+					   , WD.VRTY_CD           AS VRTY_CD
+					   , WD.CNPT_CD			  AS CNPT_CD
+					   , GI.STRG_LOCTN_CD     AS STRG_LOCTN_CD
+					   , SUBSTR(GI.STRG_LOCTN_CD, 1, 1)  AS STRG_LOCTN_ROW
+					   , SUBSTR(GI.STRG_LOCTN_CD, 2, 2)  AS STRG_LOCTN_COL
+					   , SUBSTR(GI.STRG_LOCTN_CD, 4, 2)  AS STRG_LOCTN_LVL
+			          FROM TB_WGH_PRFMNC_COM WC
+			             , TB_WGH_PRFMNC_DTL WD
+			             , TB_SPMT_PRFMNC_COM PC
+                         , TB_SPMT_PRFMNC_DTL PD
+			             , TB_GDS_INVNTR GI
+			         WHERE WC.APC_CD = WD.APC_CD(+)
+                       AND WC.WGHNO = WD.WGHNO(+)
+                       AND WD.APC_CD = PC.APC_CD(+)
+                       AND WD.SPMTNO = PC.SPMTNO(+)
+                       AND WD.APC_CD = PD.APC_CD(+)
+                       AND WD.SPMTNO = PD.SPMTNO(+)
+                       AND WD.WGH_SN = PD.SPMT_SN(+)
+                       AND PD.APC_CD = GI.APC_CD(+)
+                       AND PD.PCKGNO = GI.PCKGNO(+)
+                       AND PD.PCKG_SN = GI.PCKG_SN(+)
+			           AND WC.DEL_YN = 'N'
+			           AND WD.DEL_YN(+) = 'N'
+			           AND PC.DEL_YN(+) = 'N'
+                       AND PD.DEL_YN(+) = 'N'
+			           AND GI.DEL_YN(+) = 'N'
+		]]>
+		<if test='apcCd != null and apcCd !=""'>
+			AND WC.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd !=""'>
+			AND WD.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd !=""'>
+			AND WD.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='prdcrCd != null and prdcrCd !=""'>
+			AND WC.PRDCR_CD = #{prdcrCd}
+		</if>
+		<if test='wrhsSpmtType != null and wrhsSpmtType !=""'>
+			AND NVL(WC.WRHS_SPMT_TYPE, 'DT') = #{wrhsSpmtType}
+		</if>
+		<if test='cnptCd != null and cnptCd !=""'>
+			AND WD.CNPT_CD = #{cnptCd}
+		</if>
+		<if test='wghYmdFrom != null and wghYmdFrom !=""'>
+			AND WC.WGH_YMD <![CDATA[>=]]> #{wghYmdFrom}
+		</if>
+		<if test='wghYmdTo != null and wghYmdTo !=""'>
+			AND WC.WGH_YMD <![CDATA[<=]]> #{wghYmdTo}
+		</if>
+		<![CDATA[
+			       ) pt0
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl	-->
+	<!-- DESC : 계량정보관리 - 출고 계량실적 상세 등록		                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.19  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSpmtWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+    	<![CDATA[
+		INSERT /* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.insertSpmtWghPrfmncDtl */
+			INTO TB_WGH_PRFMNC_DTL
+			(
+					APC_CD
+					, WGHNO
+					, WGH_SN
+					, GRD_CD
+					, PLTNO
+					, PLT_KND
+					, PLT_QNTT
+					, PLT_WGHT
+					, BX_KND
+					, BX_QNTT
+					, BX_WGHT
+					, WRHSNO
+					, SPMTNO
+					, ITEM_CD
+					, VRTY_CD
+					, CNPT_CD
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+					#{apcCd}
+					, #{wghno}
+					, #{wghSn}
+					, #{grdCd}
+					, #{pltno}
+					, #{pltKnd}
+					, #{pltQntt}
+					, #{pltWght}
+					, #{bxKnd}
+					, #{bxQntt}
+					, #{bxWght}
+					, #{wrhsno}
+					, #{spmtno}
+					, #{itemCd}
+					, #{vrtyCd}
+					, #{cnptCd}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+			)
+		]]>
+    </insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wgh.mapper.WghPrfmncMapper.updateSpmtWghPrfmncDtl	-->
+	<!-- DESC : 계량정보관리 - 출고 계량실적 상세 수정		                            -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.03.19  	유민지	       	Initial Creation                        -->
+	<!-- ==========================================================================	-->
+	<update id="updateSpmtWghPrfmncDtl" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.cmns.mapper.CmnsSpcfctMapper.updateSpmtWghPrfmncDtl */
+				TB_WGH_PRFMNC_DTL
+			SET
+			     GRD_CD 					= #{grdCd}
+				, PLTNO						= #{pltno}
+				, PLT_KND					= #{pltKnd}
+				, PLT_QNTT					= #{pltQntt}
+				, PLT_WGHT					= #{pltWght}
+				, BX_KND					= #{bxKnd}
+				, BX_QNTT					= #{bxQntt}
+				, BX_WGHT					= #{bxWght}
+			  	, WRHSNO					= #{wrhsno}
+				, SPMTNO					= #{spmtno}
+				, ITEM_CD					= #{itemCd}
+				, VRTY_CD					= #{vrtyCd}
+				, CNPT_CD					= #{cnptCd}
+				, SYS_LAST_CHG_DT 			= SYSDATE
+				, SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+		]]>
+		<if test='delYn != null and delYn != ""'>
+			, DEL_YN					= #{delYn}
+		</if>
+		<![CDATA[
+
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WGHNO 					= #{wghno}
+			   AND WGH_SN 					= #{wghSn}
 		]]>
 	</update>
 </mapper>
