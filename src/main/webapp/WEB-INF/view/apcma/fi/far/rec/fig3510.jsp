@@ -3673,7 +3673,6 @@
         }
         
         //전표ID 값이 있는지 체크하여 출력버튼 제어
-       	console.log('gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))) ==> ', gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))));
         if( gfn_isEmpty(gfn_nvl(SBUxMethod.get("DOC_ID"))) ){
         	$("#btnPrint").attr('disabled', 'true');
         }else{
