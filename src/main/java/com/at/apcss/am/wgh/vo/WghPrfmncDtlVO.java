@@ -152,10 +152,6 @@ public class WghPrfmncDtlVO extends ComVO {
 	 * */
 	private String spmtno;
 
-	/*
-	 * 거래처코드
-	 * */
-	private String cnptCd;
 	/**
 	 * 표준등급 목록
 	 */
