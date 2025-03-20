@@ -1375,7 +1375,7 @@
 				p_sch_asset_acquire_no = '';
 			}
 		} else {
-				p_sch_asset_acquire_no = '';
+			p_sch_asset_acquire_no = '';
 		}
 		
 	    var paramObj = { 
@@ -1689,7 +1689,7 @@
 						jsonFia3100Detail01.push(tobj);
 					}
 					Fia3100GridDetail01.rebuild();
-				}  	        	
+				}
   	        	
         	} else {
           		alert(data.resultMessage);
@@ -1855,10 +1855,10 @@
                 position	: 'bottom',
                 columns		: {
                     standard : [0],
-                    sum : [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+                    sum : [6, 7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
                 },
                 grandtotalrow : {
-                    titlecol 		: 6,
+                    titlecol 		: 5,
                     titlevalue		: '합계',
                     style 			: 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
                     stylestartcol	: 0
@@ -1873,7 +1873,7 @@
             {caption: ["내용연수(월)"],		ref: 'USEFUL_LIFE_MM',		  	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["상각률(1000)"],		ref: 'DEPRECIATION_RATE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
             
-            {caption: ["기초취득가액"],				ref: 'BEGIN_ACQUISITION_AMOUNT',  	type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  
+            {caption: ["기초취득가액"],				ref: 'BEGIN_ACQUISITION_AMOUNT', 		type:'output',  	width:'200px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  
             {caption: ["기초보조금"],				ref: 'BEGIN_SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  
             {caption: ["당기취득금액"],				ref: 'IN_ACQUISITION_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  
             {caption: ["당기취득보조금"],			ref: 'IN_SUBSIDIES_AMOUNT', 		type:'output',  	width:'170px',  	style:'text-align:right', format : {type:'number', rule:'#,##0'}},  

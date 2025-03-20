@@ -313,6 +313,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
+        SBGridProperties.scrollbubbling = false;
         SBGridProperties.total = {
             type 		: 'grand',
             position	: 'bottom',
@@ -331,13 +332,13 @@
             {caption: [""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'40px',  	style:'text-align:center',
                 typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}
             },
-            {caption: ["지급확정여부"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '80px'
+            {caption: ["지급확정"], 		ref: 'PAY_CONFIRM_YN',   	    type:'checkbox', style:'text-align:center' ,width: '60px'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
-            {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '100px',
+            {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '60px',
                 typeinfo: {
                     ref			: 'jsonWorkRegion',
                     label		: 'label',
@@ -373,9 +374,9 @@
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
             },
-            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["은행코드"],         ref: 'BANK_CODE',    type:'output',  	width:'60px',  style:'text-align:left'},
+            {caption: ["은행명"],         ref: 'BANK_NAME',    type:'output',  	width:'60px',  style:'text-align:left'},
+            {caption: ["계좌번호"],         ref: 'BANK_ACC',    type:'output',  	width:'110px',  style:'text-align:left'},
             {caption: ["정산주기"],         ref: 'PAY_CYCLE',    type:'combo',  	width:'75px',  style:'text-align:left',
                 typeinfo: {
                     ref			: 'jsonPayCycle',
@@ -385,8 +386,10 @@
                 }
                 , disabled: true
             },
-            {caption: ["휴대폰번호"], 		ref: 'TEL',   	    type:'output', style:'text-align:left' ,width: '90px'},
-            {caption: ["이메일 주소"], 		ref: 'EMAIL',   	    type:'output', style:'text-align:left' ,width: '200px'},
+            {caption: ["휴대폰번호"], 		ref: 'TEL',   	    	type:'output', style:'text-align:left' ,width: '90px'}, 
+            {caption: ["SMS 발송시간"], 		ref: 'SMS_SNDNG_DT',   	type:'output', style:'text-align:left' ,width: '120px'}, 
+            {caption: ["이메일 주소"], 		ref: 'EMAIL',   	    type:'output', style:'text-align:left' ,width: '150px'},
+            {caption: ["Email 발송시간"], 	ref: 'MAIL_SEND_TM',   	type:'output', style:'text-align:left' ,width: '120px'},
         ];
 
         gvwInfo = _SBGrid.create(SBGridProperties);
@@ -404,6 +407,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.explorerbar = 'sort';
         SBGridProperties.useinitsorting	= true;
+        SBGridProperties.scrollbubbling = false;
         SBGridProperties.columns = [
             {caption: ["주민등록번호"],         ref: 'SOCNO',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["사업장코드"],         ref: 'SITE_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
@@ -915,7 +919,9 @@
                         BANK_ACC : gfn_nvl(item.BACNT_NO),
                         PAY_CYCLE : gfn_nvl(item.PAY_CYCL),
                         TEL : gfn_nvl(item.MOBL_NO),
+                        SMS_SNDNG_DT : gfn_nvl(item.SMS_SNDNG_DT),
                         MEMO : gfn_nvl(item.MEMO),
+                        MAIL_SEND_TM : gfn_nvl(item.MAIL_SEND_TM),
                         TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
                     }
                     jsonServiceFeePayList.push(msg);
@@ -1112,11 +1118,11 @@
                     ,V_P_PRGRM_URL		      	: '/hr/hrp/svc/selectHra3630Report.do'	//리포트 조회 URL
                     ,V_P_PRGRM_PRCS_TYPE 		: 'REPORT' 							// 프로시저 워크타입
                     ,V_P_PRCS_RSLT_NOCS 		: '2'									//프로시저 커서 카운트
-                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj) 		// 리포트 조회 파라미터
+                    ,V_P_PRMTR_DATA				: gfnma_objectToString(paramObj).replaceAll('∥', ',') 		// 리포트 조회 파라미터
                     ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.MOBILE_PHONE.slice(-4))		// 조회 가능 비밀번호
                     ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
                     ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
-                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
+                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date1()							//시스템최초입력일시
                     ,V_P_SYS_FRST_INPT_USER_ID	: p_userId								//시스템최초입력사용자ID
                     ,V_P_SYS_FRST_INPT_PRGRM_ID	: p_formId								//시스템최초입력프로그램ID
 
@@ -1212,7 +1218,7 @@
                     ,V_P_LNKG_CERT_KEY	 		: gfn_nvl(item.data.MOBILE_PHONE.slice(-4))		// 조회 가능 비밀번호
                     ,V_P_LNKG_OPEN_YMD         	: gfn_addDate(gfnma_date4().replace(/-/g,'') , 30) //조회가능일자 (저장된 날 +30일로 임의로 설정함)
                     ,V_P_LNKG_EXPRY_YN         	: 'N' 									//연결만료여부
-                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date4().replace(/-/g,'')		//시스템최초입력일시
+                    ,V_P_SYS_FRST_INPT_DT		: gfnma_date1()							//시스템최초입력일시
                     ,V_P_SYS_FRST_INPT_USER_ID	: p_userId								//시스템최초입력사용자ID
                     ,V_P_SYS_FRST_INPT_PRGRM_ID	: p_formId								//시스템최초입력프로그램ID
 
@@ -1221,7 +1227,7 @@
                     ,V_P_PROC_ID           : ''
                     ,V_P_USERID            : p_userId
                     ,V_P_PC                : ''
-                })
+                }, true)
             };
             listData.push(param);
         });

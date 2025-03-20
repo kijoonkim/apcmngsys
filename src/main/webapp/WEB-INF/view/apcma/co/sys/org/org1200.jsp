@@ -581,7 +581,10 @@
 	    	   	masterGrid.rebuild();
 	    	   	document.querySelector('#listCount').innerText = totalRecordCount;
                 if(jsonMasterList.length > 0) {
+                	$('#btnFiOrgCode').hide();
                 	masterGrid.clickRow(1);
+                }else{
+                	$('#btnFiOrgCode').show();
                 }
     		} else {
     	  		alert(data.resultMessage);
