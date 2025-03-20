@@ -263,8 +263,9 @@
 		//그리드 필수갑 확인
 		let gridData = objGrid.getGridDataAll();
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData.length; i++ ){
+		//테이블 해더 row수
+		let captionRow = objGrid.getFixedRows();
+		for(var i = captionRow; i < gridData.length + captionRow; i++ ){
 			let rowData = objGrid.getRowData(i);
 			let rowSts = objGrid.getRowStatus(i);
 
@@ -289,8 +290,9 @@
 		let gridData = grdBrnoNumMng.getGridDataAll();
 		let saveList = [];
 
-		//그리드의 해드가 두줄이상인경우 for문 시작과 끝을 늘린만큼 늘려야함
-		for(var i=1; i<=gridData.length; i++ ){
+		//테이블 해더 row수
+		let captionRow = grdBrnoNumMng.getFixedRows();
+		for(var i = 1; i < gridData.length + captionRow; i++ ){
 			let rowData = grdBrnoNumMng.getRowData(i);
 			let rowSts = grdBrnoNumMng.getRowStatus(i);
 
