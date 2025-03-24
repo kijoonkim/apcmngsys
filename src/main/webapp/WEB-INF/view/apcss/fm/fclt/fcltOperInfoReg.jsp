@@ -438,13 +438,13 @@
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="4" style="position: relative; height: 4vh!important">
+								<sbux-button id="btnInsert1" name="btnInsert1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save" style="position: absolute; right: 0; bottom: 0; padding: 5px"></sbux-button>
+							</td>
+						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
-				<div style="margin-left: auto;">
-					<sbux-button id="btnInsert1" name="btnInsert1" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -866,6 +866,7 @@
 		if (!gfn_isEmpty(itemNm4)) {
 			if(gfn_isEmpty(operOgnzEtcCtgryCd)){
 				alert("운영조직 기타품목의 부류를 선택해주세요");
+				//gfn_comAlert("W0001","운영조직 기타품목 부류"); // W0001  {0}을/를 선택하세요.
 				return;
 			}
 		}
@@ -916,14 +917,30 @@
 			}
 			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm));
 			if(!gfn_isEmpty(itemNm)){
-				let itemData = {
+
+				let isDuplicate = false;
+
+				for (let j = 0; j < itemArr.length; j++) {
+					if (itemArr[j].itemCd == itemCd && itemArr[j].ognzSeCd == ognzSeCd) {
+						isDuplicate = true;
+						break;
+					}
+				}
+
+				if (isDuplicate) {
+					gfn_comAlert("W0009","이미 등록된 운영조직 품목"); // W0009 {0}이/가 있습니다.
+					return;
+				} else {
+					let itemData = {
 						itemNm : itemNm
 						, itemCd : itemCd
 						, ognzSeCd : ognzSeCd
 						, etcCtgryCd : etcCtgryCd
 						, sn : i
+					}
+					itemArr.push(itemData);
 				}
-				itemArr.push(itemData);
+
 			}
 		}
 
@@ -938,14 +955,29 @@
 			}
 			//console.log(i+" gfn_isEmpty(itemNm) = " + gfn_isEmpty(itemNm)+ " itemNm = "+itemNm);
 			if(!gfn_isEmpty(itemNm)){
-				let itemData = {
+
+				let isDuplicate = false;
+
+				for (let j = 0; j < itemArr.length; j++) {
+					if (itemArr[j].itemCd == itemCd && itemArr[j].ognzSeCd == ognzSeCd) {
+						isDuplicate = true;
+						break;
+					}
+				}
+
+				if (isDuplicate) {
+					gfn_comAlert("W0009","이미 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
+					return;
+				} else {
+					let itemData = {
 						itemNm : itemNm
 						, itemCd : itemCd
 						, ognzSeCd : ognzSeCd
 						, etcCtgryCd : etcCtgryCd
 						, sn : i
+					}
+					itemArr.push(itemData);
 				}
-				itemArr.push(itemData);
 			}
 		}
 
@@ -997,11 +1029,12 @@
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
+				gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 				await console.log(typeof cfn_allTabPrgrsRefrash);
 				await cfn_allTabPrgrsRefrash();
 				await selectFcltOperInfo();
 
-				await alert("처리 되었습니다.");
+				//await alert("처리 되었습니다.");
 				//fn_search();
 			} else {
 				alert(data.resultMessage);
@@ -1009,7 +1042,7 @@
 		} catch(e) {
 		}
 		// 결과 확인 후 재조회
-		console.log("insert result", data);
+		//console.log("insert result", data);
 		//진척도 재조회
 		//cfn_selectPrgrs();
 	}
@@ -1037,17 +1070,42 @@
 	}
 	// 품목 선택 팝업 콜백 함수
 	const fn_setItem = function(itemVal) {
-		//console.log(itemVal);
 		if (!gfn_isEmpty(itemVal)) {
 			switch (itemVal.sn) {
 			case 1: case 2: case 3:
-				SBUxMethod.set('dtl-inp-operOgnzItemCd' + itemVal.sn , itemVal.itemCd);
-				SBUxMethod.set('dtl-inp-operOgnzItemNm' + itemVal.sn , itemVal.itemNm);
+				let operItemCdList = [];
+				for (let i = 1; i < 4 ; i++) {
+					let operOgnzItemCd = SBUxMethod.get("dtl-inp-operOgnzItemCd"+i);
+					operItemCdList.push(operOgnzItemCd);
+				}
+				for (let i = 0; i < operItemCdList.length; i++) {
+					if (_.isEqual(operItemCdList[i],itemVal.itemCd)) {
+						gfn_comAlert("W0009","이미 등록된 운영조직 품목"); // W0009 {0}이/가 있습니다.
+						return;
+					} else {
+						SBUxMethod.set('dtl-inp-operOgnzItemCd' + itemVal.sn , itemVal.itemCd);
+						SBUxMethod.set('dtl-inp-operOgnzItemNm' + itemVal.sn , itemVal.itemNm);
+					}
+				}
+
 				break;
 			case 4: case 5: case 6:
-				let sn = Number(itemVal.sn) - 3;
-				SBUxMethod.set('dtl-inp-apcItemCd' + sn , itemVal.itemCd);
-				SBUxMethod.set('dtl-inp-apcItemNm' + sn , itemVal.itemNm);
+				let apcItemCdList = [];
+				for (let i = 1; i < 4 ; i++) {
+					let apcItemCd = SBUxMethod.get("dtl-inp-apcItemCd"+i);
+					apcItemCdList.push(apcItemCd);
+				}
+				for (let i = 0; i < apcItemCdList.length; i++) {
+					if (_.isEqual(apcItemCdList[i],itemVal.itemCd)) {
+						gfn_comAlert("W0009","이미 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
+						return;
+					} else {
+						let sn = Number(itemVal.sn) - 3;
+						SBUxMethod.set('dtl-inp-apcItemCd' + sn , itemVal.itemCd);
+						SBUxMethod.set('dtl-inp-apcItemNm' + sn , itemVal.itemNm);
+					}
+				}
+
 				break;
 			default:
 				break;

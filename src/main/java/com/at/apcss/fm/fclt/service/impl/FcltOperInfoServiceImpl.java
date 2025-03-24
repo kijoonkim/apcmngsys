@@ -12,6 +12,7 @@ import com.at.apcss.fm.fclt.vo.FcltApcVO;
 import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
 import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -86,7 +87,23 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 			fcltItemVO.setSysLastChgUserId(fcltOperInfoVO.getSysLastChgUserId());
 			fcltItemVO.setSysLastChgPrgrmId(fcltOperInfoVO.getSysLastChgPrgrmId());
 
-			itemInsertCnt += fcltOperInfoMapper.insertFcltOperInfoItem (fcltItemVO);
+			List<FcltItemVO> selectList = fcltOperInfoMapper.selectFcltOperInfoItemList(fcltItemVO);
+
+			boolean isDuplicate = false;
+
+			if (selectList != null && selectList.size() >0 ) {
+				for (FcltItemVO vo : selectList) {
+					if (StringUtils.hasText(vo.getItemCd()) && vo.getItemCd().equals(fcltItemVO.getItemCd()) && vo.getOgnzSeCd().equals(fcltItemVO.getOgnzSeCd())) {
+						isDuplicate = true;
+						break;
+					}
+				}
+			}
+
+			if (!isDuplicate) {
+				itemInsertCnt += fcltOperInfoMapper.insertFcltOperInfoItem (fcltItemVO);
+			}
+
 		}
 
 		String prgrsYn = fcltOperInfoVO.getPrgrsYn() == null ? "N" : fcltOperInfoVO.getPrgrsYn();
