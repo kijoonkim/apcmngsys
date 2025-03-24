@@ -200,7 +200,8 @@ public class RestFulService {
 			Assert.notNull(elementClass, "Class must not be null");
 
 
-			if (elementClass.getName().equals(String.class.getName())) {
+			//if (elementClass.getName().equals(String.class.getName())) {
+			if (elementClass.isAssignableFrom(String.class)) {
 				oResult = this.responseData;	// String
 			}
 			else {

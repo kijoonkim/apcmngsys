@@ -111,7 +111,7 @@ public class SearchCorpFarmerNoRegController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ searchCorpFarmerNoRegService.deleteSearchCorpFarmerNoReg(searchCorpFarmerNoRegVO);
+				result = searchCorpFarmerNoRegService.deleteSearchCorpFarmerNoReg(searchCorpFarmerNoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

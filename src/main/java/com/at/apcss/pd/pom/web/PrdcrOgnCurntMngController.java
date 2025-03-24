@@ -123,7 +123,7 @@ public class PrdcrOgnCurntMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrOgnCurntMngService.deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
+			result = PrdcrOgnCurntMngService.deletePrdcrOgnCurntMngDtl(PrdcrOgnCurntMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -180,7 +180,7 @@ public class PrdcrOgnCurntMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrOgnCurntMngService.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
+			result = PrdcrOgnCurntMngService.deleteTbEvFrmhsApo(tbEvFrmhsApoVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -197,7 +197,7 @@ public class PrdcrOgnCurntMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrOgnCurntMngService.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
+			result = PrdcrOgnCurntMngService.deleteTbEvFrmhsPrdctnEcSpmtSttnApo(tbEvFrmhsApoVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

@@ -82,7 +82,7 @@ public class NonCompliantFarmerInfoRegController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ nonCompliantFarmerInfoRegService.deleteNonCompliantFarmerInfoReg(NonCompliantFarmerInfoRegVO);
+			result = nonCompliantFarmerInfoRegService.deleteNonCompliantFarmerInfoReg(NonCompliantFarmerInfoRegVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

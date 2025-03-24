@@ -22,7 +22,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class EgovJwtTokenUtil implements Serializable{
 
 	private static final long serialVersionUID = -5180902194184255251L;
-    public static final long JWT_TOKEN_VALIDITY = 30 * 24 * 60 * 60; // 30일
+    public static final long JWT_TOKEN_VALIDITY = 30L * 24 * 60 * 60; // 30일
 	//public static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60; //하루
 	//public static final long JWT_TOKEN_VALIDITY = 1 * 60 * 60; //토큰의 유효시간 설정, 기본 60분
     //public static final long JWT_TOKEN_VALIDITY = 60; //토큰의 유효시간 설정, 기본 60초

@@ -144,7 +144,7 @@ public class FarmerInfoLogController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ farmerInfoLogService.deleteFarmerInfoLog(farmerInfoLogVO);
+				result = farmerInfoLogService.deleteFarmerInfoLog(farmerInfoLogVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -161,7 +161,6 @@ public class FarmerInfoLogController extends BaseController{
 			int savedCnt = 0;
 			int result = 0;
 			try {
-				//result =+ farmerInfoLogService.deletefarmerInfoLog(farmerInfoLogVO);
 
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";

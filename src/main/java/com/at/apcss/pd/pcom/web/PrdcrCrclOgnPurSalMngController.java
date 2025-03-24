@@ -154,7 +154,7 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnPurSalMngService.deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
+			result = PrdcrCrclOgnPurSalMngService.deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

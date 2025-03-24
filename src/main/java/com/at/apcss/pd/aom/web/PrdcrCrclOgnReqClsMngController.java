@@ -112,7 +112,7 @@ public class PrdcrCrclOgnReqClsMngController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ PrdcrCrclOgnReqClsMngService.deletePrdcrCrclOgnReqClsMng(PrdcrCrclOgnReqClsMngVO);
+				result = PrdcrCrclOgnReqClsMngService.deletePrdcrCrclOgnReqClsMng(PrdcrCrclOgnReqClsMngVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

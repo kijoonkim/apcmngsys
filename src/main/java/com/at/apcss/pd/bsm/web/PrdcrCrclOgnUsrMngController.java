@@ -128,7 +128,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		int result = 0;
 
 		try {
-			result =+ PrdcrCrclOgnUsrMngService.deleteUser(PrdcrCrclOgnUsrMngVO);
+			result = PrdcrCrclOgnUsrMngService.deleteUser(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -204,7 +204,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		int result = 0;
 
 		try {
-			result =+ PrdcrCrclOgnUsrMngService.changeUserType(PrdcrCrclOgnUsrMngVO);
+			result = PrdcrCrclOgnUsrMngService.changeUserType(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -227,7 +227,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		int result = 0;
 
 		try {
-			result =+ PrdcrCrclOgnUsrMngService.updateMemberMbrUpdtYn(PrdcrCrclOgnUsrMngVO);
+			result = PrdcrCrclOgnUsrMngService.updateMemberMbrUpdtYn(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -250,7 +250,7 @@ public class PrdcrCrclOgnUsrMngController extends BaseController{
 		int result = 0;
 
 		try {
-			result =+ PrdcrCrclOgnUsrMngService.updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO);
+			result = PrdcrCrclOgnUsrMngService.updateMemberUntyOgnzCd(PrdcrCrclOgnUsrMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

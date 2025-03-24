@@ -83,7 +83,7 @@ public class FarmLandInfoRegController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmLandInfoRegService.deleteFarmLandInfoReg(farmLandInfoRegVO);
+			result = farmLandInfoRegService.deleteFarmLandInfoReg(farmLandInfoRegVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

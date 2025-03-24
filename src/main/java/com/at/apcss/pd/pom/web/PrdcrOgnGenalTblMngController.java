@@ -106,7 +106,7 @@ public class PrdcrOgnGenalTblMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrOgnGenalTblMngService.deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
+			result = PrdcrOgnGenalTblMngService.deletePrdcrOgnGenalTblMng(PrdcrOgnGenalTblMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

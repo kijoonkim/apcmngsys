@@ -129,7 +129,7 @@ public class InvShipOgnReqMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ InvShipOgnReqMngService.deleteInvShipOgnReqMng(InvShipOgnReqMngVO);
+			result = InvShipOgnReqMngService.deleteInvShipOgnReqMng(InvShipOgnReqMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

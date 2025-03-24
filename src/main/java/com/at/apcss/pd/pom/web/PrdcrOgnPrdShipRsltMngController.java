@@ -119,7 +119,7 @@ public class PrdcrOgnPrdShipRsltMngController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ PrdcrOgnPrdShipRsltMngService.deletePrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO);
+				result = PrdcrOgnPrdShipRsltMngService.deletePrdcrOgnPrdShipRsltMng(PrdcrOgnPrdShipRsltMngVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

@@ -176,10 +176,10 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		int resultCnt = 0;
 		try {
-			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoAply(PrdcrCrclOgnReqMngVO);
-			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
-			resultCnt =+ PrdcrCrclOgnReqMngService.deleteUoItem(PrdcrCrclOgnReqMngVO);
-			resultCnt =+ PrdcrCrclOgnReqMngService.updateUoApoSe(PrdcrCrclOgnReqMngVO);//조직구분 변경
+			resultCnt += PrdcrCrclOgnReqMngService.deleteUoAply(PrdcrCrclOgnReqMngVO);
+			resultCnt += PrdcrCrclOgnReqMngService.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
+			resultCnt += PrdcrCrclOgnReqMngService.deleteUoItem(PrdcrCrclOgnReqMngVO);
+			resultCnt += PrdcrCrclOgnReqMngService.updateUoApoSe(PrdcrCrclOgnReqMngVO);//조직구분 변경
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -213,7 +213,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnReqMngService.deleteGpc(gpcVO);
+			result = PrdcrCrclOgnReqMngService.deleteGpc(gpcVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -230,7 +230,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnReqMngService.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
+			result = PrdcrCrclOgnReqMngService.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

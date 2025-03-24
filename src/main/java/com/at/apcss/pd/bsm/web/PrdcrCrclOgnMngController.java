@@ -165,7 +165,7 @@ public class PrdcrCrclOgnMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnMngService.deleteUo(uoListVO);
+			result = PrdcrCrclOgnMngService.deleteUo(uoListVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -207,7 +207,7 @@ public class PrdcrCrclOgnMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnMngService.deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+			result = PrdcrCrclOgnMngService.deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

@@ -174,7 +174,7 @@ public class SearchFarmerNoController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ searchFarmerNoService.deleteSearchFarmerNo(searchFarmerNoVO);
+				result = searchFarmerNoService.deleteSearchFarmerNo(searchFarmerNoVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -191,7 +191,6 @@ public class SearchFarmerNoController extends BaseController{
 			int savedCnt = 0;
 			int result = 0;
 			try {
-				//result =+ searchFarmerNoService.deletesearchFarmerNo(searchFarmerNoVO);
 
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";
@@ -320,8 +319,6 @@ public class SearchFarmerNoController extends BaseController{
 			System.out.println("==========================1");
 
 			try {
-				//result =+ searchFarmerNoService.deletesearchFarmerNo(searchFarmerNoVO);
-
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";
                 //String responseType = "xml";

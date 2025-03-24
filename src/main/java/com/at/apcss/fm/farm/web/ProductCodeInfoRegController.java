@@ -111,7 +111,7 @@ public class ProductCodeInfoRegController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ productCodeInfoRegService.deleteProductCodeInfoReg(productCodeInfoRegVO);
+				result = productCodeInfoRegService.deleteProductCodeInfoReg(productCodeInfoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

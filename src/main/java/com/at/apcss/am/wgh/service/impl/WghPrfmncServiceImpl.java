@@ -1692,12 +1692,12 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	@Override
 	public int insertWghEntrVhcl(WghPrfmncVO wghPrfmncVO) throws Exception {
 		String orgWghno = wghPrfmncVO.getWghno();
-		if(orgWghno == "" || orgWghno == null) {
+		if (!StringUtils.hasText(orgWghno)) {
 			String wghno = cmnsTaskNoService.selectWghno(wghPrfmncVO.getApcCd(), wghPrfmncVO.getWghYmd());
 			wghPrfmncVO.setWghno(wghno);
 			wghPrfmncMapper.insertWghPrfmncCom(wghPrfmncVO);
 			wghPrfmncMapper.insertWghVhcl(wghPrfmncVO);
-		}else {
+		} else {
 			wghPrfmncMapper.updateWghPrfmncCom(wghPrfmncVO);
 			wghPrfmncMapper.updateWghVhcl(wghPrfmncVO);
 		}
