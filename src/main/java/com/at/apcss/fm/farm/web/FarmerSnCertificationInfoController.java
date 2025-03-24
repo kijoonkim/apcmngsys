@@ -238,7 +238,7 @@ public class FarmerSnCertificationInfoController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmerSnCertificationInfoService.deleteFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
+			result = farmerSnCertificationInfoService.deleteFarmerSnCertificationInfo(farmerSnCertificationInfoVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

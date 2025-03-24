@@ -83,7 +83,7 @@ public class FarmerSnCertificationInfoRegController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmerSnCertificationInfoRegService.deleteFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
+			result = farmerSnCertificationInfoRegService.deleteFarmerSnCertificationInfoReg(farmerSnCertificationInfoRegVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

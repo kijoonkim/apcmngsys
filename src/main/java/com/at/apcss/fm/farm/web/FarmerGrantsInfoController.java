@@ -242,7 +242,7 @@ public class FarmerGrantsInfoController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmerGrantsInfoService.deleteFarmerGrantsInfo(farmerGrantsInfoVO);
+			result = farmerGrantsInfoService.deleteFarmerGrantsInfo(farmerGrantsInfoVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

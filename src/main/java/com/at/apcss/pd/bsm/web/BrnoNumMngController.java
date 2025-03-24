@@ -96,7 +96,7 @@ public class BrnoNumMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ BrnoNumMngService.deleteBrnoNumMng(BrnoNumMngVO);
+			result = BrnoNumMngService.deleteBrnoNumMng(BrnoNumMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

@@ -71,9 +71,9 @@ public class SortFcltServiceImpl extends BaseServiceImpl implements SortFcltServ
 		int result = 0;
 		SortFcltVO resultVO = sortFcltMapper.selectSortFcltInfo(sortFcltVO);
 
-		if(resultVO == null) {
+		if (resultVO == null) {
 			sortFcltMapper.insertSortFclt(sortFcltVO);
-		}else {
+		} else {
 			sortFcltMapper.updateSortFclt(sortFcltVO);
 		}
 
@@ -81,27 +81,24 @@ public class SortFcltServiceImpl extends BaseServiceImpl implements SortFcltServ
 		List<String> atrbList = Arrays.asList(new String[] {"RPRS_ITEM_CD","RPRS_VRTY_CD","STD_PCKG_CD"});
 		atrbList.forEach(data ->{
 				sortFcltVO.setFcltAtrbType(data);
-				if(data == "RPRS_ITEM_CD") {
+				if ("RPRS_ITEM_CD".equals(data)) {
 					sortFcltVO.setAtrbCd(sortFcltVO.getRprsItem());
-				}else if(data == "RPRS_VRTY_CD") {
+				} else if ("RPRS_VRTY_CD".equals(data)) {
 					sortFcltVO.setAtrbCd(sortFcltVO.getRprsVrty());
-				}else if(data == "STD_PCKG_CD") {
+				} else if ("STD_PCKG_CD".equals(data)) {
 					sortFcltVO.setAtrbCd(sortFcltVO.getUnit());
 				}
 
-			try {
+				try {
 				SortFcltVO resultVO2 = sortFcltMapper.selectSortFcltAtrb(sortFcltVO);
-
-
-				if(resultVO2 == null) {
-					sortFcltMapper.insertSortFcltAtrb(sortFcltVO);
-				}else {
-					sortFcltMapper.updateSortFcltAtrb(sortFcltVO);
+					if (resultVO2 == null) {
+						sortFcltMapper.insertSortFcltAtrb(sortFcltVO);
+					} else {
+						sortFcltMapper.updateSortFcltAtrb(sortFcltVO);
+					}
+				} catch(Exception e){
+					e.printStackTrace();
 				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-
 		});
 
 

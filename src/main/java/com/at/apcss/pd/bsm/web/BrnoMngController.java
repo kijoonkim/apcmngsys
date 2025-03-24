@@ -114,7 +114,7 @@ public class BrnoMngController extends BaseController{
 		BrnoMngVO.setSysLastChgUserId(getUserId());
 
 		try {
-			result =+ BrnoMngService.deleteBrnoMng(BrnoMngVO);
+			result = BrnoMngService.deleteBrnoMng(BrnoMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

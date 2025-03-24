@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -185,7 +186,7 @@ public class FarmerInfoController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmerInfoService.deleteFarmerInfo(farmerInfoVO);
+			result = farmerInfoService.deleteFarmerInfo(farmerInfoVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -202,7 +203,6 @@ public class FarmerInfoController extends BaseController{
 		int savedCnt = 0;
 		int result = 0;
 		try {
-			//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 			String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 			String version = "1.0";
@@ -331,7 +331,6 @@ public class FarmerInfoController extends BaseController{
 		//System.out.println("==========================1");
 
 		try {
-			//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 			String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 			String version = "1.0";
@@ -483,7 +482,6 @@ public class FarmerInfoController extends BaseController{
 		//System.out.println("==========================1");
 
 		try {
-			//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 			String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 			String version = "1.0";
@@ -621,7 +619,7 @@ public class FarmerInfoController extends BaseController{
 		//System.out.println("==========================11");
 		//System.out.println("==========================1");
 		try {
-			//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
+
 			String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 			String version = "1.0";
 			//String responseType = "xml";
@@ -733,7 +731,7 @@ public class FarmerInfoController extends BaseController{
 				}
 
 				try {
-					if(!crno.equals("") && !crno.equals(null)) {
+					if (StringUtils.hasText(crno)) {
 						String accessTokenaCrno = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzOTQ2NjksImFwaU5tIjoic2VhcmNoQ29ycEZhcm1lck5vIiwiaXNzIjoiU1lTVEVNIn0.ODINmzO1q93pfyCvsB1r-en3ebWIPOLRfUpfcMGKcbA";
 						String version = "1.0";
 						//String responseType = "xml";
@@ -788,14 +786,13 @@ public class FarmerInfoController extends BaseController{
 					}
 
 
-					if(!crno.equals("") && !crno.equals(null)) {
+					if (StringUtils.hasText(crno)) {
 
 						String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
 
 						//System.out.println("==========================11");
 						//System.out.println("==========================1");
 						try {
-							//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 							String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 							String version = "1.0";
@@ -872,7 +869,7 @@ public class FarmerInfoController extends BaseController{
 					crno = comUserVoResult.getCrno();
 				}
 				try {
-					if(!crno.equals("") && !crno.equals(null)) {
+					if(StringUtils.hasText(crno)) {
 						String accessTokenaCrno = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzOTQ2NjksImFwaU5tIjoic2VhcmNoQ29ycEZhcm1lck5vIiwiaXNzIjoiU1lTVEVNIn0.ODINmzO1q93pfyCvsB1r-en3ebWIPOLRfUpfcMGKcbA";
 						String version = "1.0";
 						//String responseType = "xml";
@@ -930,7 +927,7 @@ public class FarmerInfoController extends BaseController{
 
 
 
-					if(!crno.equals("") && !crno.equals(null)) {
+					if (StringUtils.hasText(crno)) {
 
 						String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
 
@@ -938,7 +935,6 @@ public class FarmerInfoController extends BaseController{
 						//System.out.println("==========================1");
 
 						try {
-							//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 							String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 							String version = "1.0";
@@ -1036,7 +1032,7 @@ public class FarmerInfoController extends BaseController{
 					crno = farmerInfoVOResult.getCrno();
 				}
 				try {
-					if(!crno.equals("") && !crno.equals(null)) {
+					if(StringUtils.hasText(crno)) {
 						String accessTokenaCrno = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzOTQ2NjksImFwaU5tIjoic2VhcmNoQ29ycEZhcm1lck5vIiwiaXNzIjoiU1lTVEVNIn0.ODINmzO1q93pfyCvsB1r-en3ebWIPOLRfUpfcMGKcbA";
 						String version = "1.0";
 						//String responseType = "xml";
@@ -1086,12 +1082,12 @@ public class FarmerInfoController extends BaseController{
 						}
 					}
 
-					if(!crno.equals("") && !crno.equals(null)) {
+					if (StringUtils.hasText(crno)) {
 						String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
 						//System.out.println("==========================11");
 						//System.out.println("==========================1");
 						try {
-							//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
+
 							String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 							String version = "1.0";
 							//String responseType = "xml";
@@ -1211,7 +1207,7 @@ public class FarmerInfoController extends BaseController{
 
 				try {
 
-					if(!ueserNm.equals("") && !ueserNm.equals(null)) {
+					if (StringUtils.hasText(ueserNm)) {
 						String accessTokenaBirth = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDkzODUyODQsImFwaU5tIjoic2VhcmNoRmFybWVyTm8iLCJpc3MiOiJTWVNURU0ifQ.O6g894gme_4SuYV1x9hyow-8v2X3zNCc6dzHeNIjP38";
 						String version = "1.0";
 						//String responseType = "xml";
@@ -1276,14 +1272,11 @@ public class FarmerInfoController extends BaseController{
 					}
 
 
-					if(!ueserNm.equals("") && !ueserNm.equals(null)) {
+					if (StringUtils.hasText(ueserNm)) {
 
 						String url = "https://uni.agrix.go.kr/api/srvc/farmerInfo?accessToken=eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY&version=1.0&responseType=json&frmerSn=AGUN47";
 
-						//System.out.println("==========================11");
-						//System.out.println("==========================1");
 						try {
-							//result =+ farmerInfoService.deletefarmerInfo(farmerInfoVO);
 
 							String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
 							String version = "1.0";

@@ -95,7 +95,7 @@ public class BizPlanReqMngController extends BaseController{
 			bizPlanReqMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			bizPlanReqMngVO.setSysLastChgUserId(getUserId());
 
-			result =+ bizPlanReqMngService.bppvUpdateSbmsnDcnmt(bizPlanReqMngVO);
+			result = bizPlanReqMngService.bppvUpdateSbmsnDcnmt(bizPlanReqMngVO);
 
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
@@ -119,7 +119,7 @@ public class BizPlanReqMngController extends BaseController{
 			bizPlanReqMngVO.setSysLastChgPrgrmId(getPrgrmId());
 			bizPlanReqMngVO.setSysLastChgUserId(getUserId());
 
-			result =+ bizPlanReqMngService.updateAllAprvYn(bizPlanReqMngVO);
+			result = bizPlanReqMngService.updateAllAprvYn(bizPlanReqMngVO);
 
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);

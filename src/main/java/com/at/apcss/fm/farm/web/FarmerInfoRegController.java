@@ -111,7 +111,7 @@ public class FarmerInfoRegController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ farmerInfoRegService.deleteFarmerInfoReg(farmerInfoRegVO);
+				result = farmerInfoRegService.deleteFarmerInfoReg(farmerInfoRegVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}

@@ -199,10 +199,10 @@ public class RestFulService {
 			Assert.notNull(elementClass, "Class must not be null");
 
 
-			if (elementClass.getName().equals(String.class.getName())) {
+			//if (elementClass.getName().equals(String.class.getName())) {
+			if (elementClass.isAssignableFrom(String.class)) {
 				oResult = this.responseData;	// String
-			}
-			else {
+			} else {
 				if (JsonUtil.isJSONArray(this.responseData)) {
 					oResult = (Object) gs.fromJson(this.responseData, elementClass);
 				}
@@ -227,10 +227,6 @@ public class RestFulService {
 						oResult = null;
 					}
 				}
-			}
-
-			if(oResult!=null) {
-			}else {
 			}
 
 		} catch (Exception e) {

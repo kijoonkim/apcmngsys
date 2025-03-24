@@ -104,7 +104,7 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ InvShipOgnSpeczItmPurSalMngService.deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
+			result = InvShipOgnSpeczItmPurSalMngService.deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

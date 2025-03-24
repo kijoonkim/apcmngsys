@@ -174,7 +174,7 @@ public class ApcFarmOgnzInfoController extends BaseController{
 
 			int result = 0;
 			try {
-				result =+ apcFarmOgnzInfoService.deleteApcFarmOgnzInfo(apcFarmOgnzInfoVO);
+				result = apcFarmOgnzInfoService.deleteApcFarmOgnzInfo(apcFarmOgnzInfoVO);
 			}catch (Exception e) {
 				return getErrorResponseEntity(e);
 			}
@@ -191,7 +191,6 @@ public class ApcFarmOgnzInfoController extends BaseController{
 			int savedCnt = 0;
 			int result = 0;
 			try {
-				//result =+ apcFarmOgnzInfoService.deleteapcFarmOgnzInfo(apcFarmOgnzInfoVO);
 
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";
@@ -297,7 +296,6 @@ public class ApcFarmOgnzInfoController extends BaseController{
 			System.out.println("==========================1");
 
 			try {
-				//result =+ apcFarmOgnzInfoService.deleteapcFarmOgnzInfo(apcFarmOgnzInfoVO);
 
                 String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTk2NDcyOTI3NzMsImFwaU5tIjoiZmFybWVySW5mbyIsImlzcyI6IlNZU1RFTSJ9.f9oToC5zUynRzK5zCgu-zgvZNJ0bN-MSzA_FQxtaEPY";
                 String version = "1.0";

@@ -246,8 +246,8 @@ public class FarmLandGrantsInfoController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ farmLandGrantsInfoService.deleteFarmLandGrantsInfo(FarmLandGrantsInfoVO);
-		}catch (Exception e) {
+			result = farmLandGrantsInfoService.deleteFarmLandGrantsInfo(FarmLandGrantsInfoVO);
+		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 

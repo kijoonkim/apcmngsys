@@ -101,7 +101,7 @@ public class PrdcrCrclOgnGenalTblMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ PrdcrCrclOgnGenalTblMngService.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
+			result = PrdcrCrclOgnGenalTblMngService.updatePrfmncCorpDdlnYn(PrdcrCrclOgnGenalTblMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

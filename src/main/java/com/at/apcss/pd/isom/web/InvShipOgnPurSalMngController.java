@@ -192,7 +192,7 @@ public class InvShipOgnPurSalMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result =+ invShipOgnPurSalMngService.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+			result = invShipOgnPurSalMngService.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
