@@ -3,6 +3,7 @@ package com.at.apcss.am.wrhs.web;
 import com.at.apcss.am.cmns.service.ComAtchflService;
 import com.at.apcss.am.cmns.vo.ComAtchflVO;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
+import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
 import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -69,6 +70,37 @@ public class FrmerInfoApiController extends BaseController {
         try {
 
             resultList = frmerInfoService.selectCltvtnHstryList(cltvtnHstryVO);
+
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    /**
+     * 재배농가품질 목록 조회
+     * @param cltvtnFrmhsQltVO
+     * @param request
+     * @return List<CltvtnFrmhsQltVO>
+     * @throws Exception
+     */
+    @PostMapping(value = "/api/mobile/am/wrhs/selectCltvtnFrmhsQltList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectCltvtnFrmhsQltList(@RequestBody CltvtnFrmhsQltVO cltvtnFrmhsQltVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<CltvtnFrmhsQltVO> resultList;
+        try {
+
+            resultList = frmerInfoService.selectCltvtnFrmhsQltList(cltvtnFrmhsQltVO);
 
         } catch (Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
