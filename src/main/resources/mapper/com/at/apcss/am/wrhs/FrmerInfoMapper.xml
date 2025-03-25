@@ -310,6 +310,11 @@
 				 , PRDCR_LAND_INFO_NO
 				 , CLTVTN_HSTRY_NO
 				 , CFMTN_YMD
+                 , BASE_FRTLZR_YMD
+                 , SDNG_YMD
+                 , PLNTNG_YMD
+                 , CMPT_YMD_CYCL_1
+                 , CMPT_YMD_CYCL_2
 				 , CN
 				 , RMRK
 				 , SYS_FRST_INPT_DT
@@ -326,6 +331,11 @@
 				 , #{prdcrLandInfoNo}
 				 , #{cltvtnHstryNo}
 				 , #{cfmtnYmd}
+                 , #{baseFrtlzrYmd}
+                 , #{sdngYmd}
+                 , #{plntngYmd}
+                 , #{cmptYmdCycl1}
+                 , #{cmptYmdCycl2}
 				 , #{cn}
 				 , #{rmrk}
 				 , SYSDATE
@@ -350,6 +360,11 @@
 			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
 				   TB_CLTVTN_HSTRY
 			   SET CFMTN_YMD				= #{cfmtnYmd}
+                 , BASE_FRTLZR_YMD          = #{baseFrtlzrYmd}
+                 , SDNG_YMD                 = #{sdngYmd}
+                 , PLNTNG_YMD               = #{plntngYmd}
+                 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
+                 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
 			     , CN                       = #{cn}
 				 , RMRK                     = #{rmrk}
 				 , SYS_LAST_CHG_DT          = SYSDATE
