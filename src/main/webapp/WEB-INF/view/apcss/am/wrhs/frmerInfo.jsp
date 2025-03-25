@@ -469,7 +469,7 @@
 		{value:"B", text:"B", label:"B"},
 		{value:"C", text:"C", label:"C"},
 	];
-	var choicePrdcrLandInfoNo = "";
+	let choicePrdcrLandInfoNo = "";
 	var excelYn = "N";
 
 	/**
@@ -550,6 +550,9 @@
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
 			{caption : ['농가'], 			ref: 'prdcrNm', 	type: 'output', 		width: '120px', style: 'text-align:center;'},
 			{caption : ['지역'], 			ref: 'frmhsCtpv', 	type: 'output', 		width: '80px', style: 'text-align:center;'},
+			{caption : ['위치'], 			ref: 'frlnAddr', 	type: 'output', 		width: '200px', style: 'text-align:left;'},
+			{caption : ['계약(평)'], 		ref: 'crtrArea', 	type: 'output', 		width: '80px', style: 'text-align:right;', format : {type:'number', rule:'#,###'}},
+			{caption : ['정식(평)'], 		ref: 'plntngArea', 	type: 'output', 		width: '80px', style: 'text-align:right;', format : {type:'number', rule:'#,###'}},
 			{caption : ['사진'], 	ref: 'atchflNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if (strValue== null || strValue == "") {
 			        return "";
@@ -605,6 +608,11 @@
 	    grdCltvtnFrmhsQltPrdcr = _SBGrid.create(SBGridProperties);
 	}
 
+
+	/**
+	 * @name fn_createPrdcrLandInfo
+	 * @description 영농일지 - 농지정보 grid
+	 */
 	const fn_createPrdcrLandInfo = function () {
 		var SBGridProperties = {};
 	    SBGridProperties.parentid = "sb-area-prdcrLandInfo";
@@ -614,30 +622,30 @@
 	    SBGridProperties.selectmode = 'free';
 	    SBGridProperties.explorerbar = 'move';
 	    SBGridProperties.extendlastcol = 'scroll';
-	    SBGridProperties.oneclickedit = true;
+	    SBGridProperties.oneclickedit = false;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
 	    SBGridProperties.columns = [
 
 	    	{caption : ["처리"], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-	        	if (strValue== null || strValue == "") {
+	        	if (gfn_isEmpty(strValue)) {
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procPrdcrLandInfo(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	} else {
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procPrdcrLandInfo(\"DEL\", " + nRow + ")'>삭제</button>";
 	        	}
 		    }},
-	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '220px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70}},
-	    	{caption : ["이력"], 		ref: 'prdcrLandInfoNo',  type:'button',  width:'55px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+	    	{caption : ['위치'], 		ref: 'frlnAddr', 	type: 'input', 	width: '220px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 70, oneclickedit : false}},
+	    	/*{caption : ["이력"], 		ref: 'prdcrLandInfoNo',  type:'button',  width:'55px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if(strValue== null || strValue == ""){
 	        		return "";
 	        	}else{
 			        return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_setCltvtnHstryPrdcr(" + nRow + ")'>상세</button>";
 	        	}
-		    }},
+		    }},*/
 	    	{caption : ['계약(평)'], 	ref: 'crtrArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+                typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
-                typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
+                typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
 	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
 	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
@@ -646,6 +654,7 @@
 	    ];
 	    grdPrdcrLandInfo = _SBGrid.create(SBGridProperties);
         grdPrdcrLandInfo.bind('click', 'fn_setFrlnInput');
+        grdPrdcrLandInfo.bind('rowchanged', 'fn_setCltvtnHstryPrdcr');
 	}
 
 	const fn_createCltvtnHstryPrdcr = function () {
@@ -1243,11 +1252,6 @@
 	        // 첫 번째 파일을 가져옵니다.
 	        const file = files[0];
 
-	        console.log('File name:', file.name);
-	        console.log('fileId:', fileId);
-	        console.log('File size:', file.size);
-	        console.log('File type:', file.type);
-	        console.log('Last modified:', file.lastModifiedDate);
 
 	        if (!gfn_isEmpty(fileId)) {
 
@@ -1279,7 +1283,7 @@
 
 
 	    } else {
-	        console.log('No file selected.');
+	        //console.log('No file selected.');
 	    }
 
 	}
@@ -1297,7 +1301,7 @@
         if ($(key).length) {  	// 요소 존재 여부 확인
             $(key).click();  	// 'file-2' 버튼 클릭 이벤트 트리거
         } else {
-            console.log(key + ' 요소가 존재하지 않습니다.');
+            //console.log(key + ' 요소가 존재하지 않습니다.');
         }
 	}
 
@@ -1452,39 +1456,46 @@
 
 		let prdcrCdDtl = SBUxMethod.get("dtl-inp-prdcrCd");
 
-		if (choiceTab == "frmerInfoTab") {
+		choicePrdcrLandInfoNo = "";
 
-			if (!gfn_isEmpty(prdcrCdDtl)) {
 
-				fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl);
-				fn_setPrdcrLandInfo(prdcrCdDtl)
 
-				if (!gfn_isEmpty(choicePrdcrLandInfoNo)) {
-					await fn_setCltvtnHstryPrdcr();
+		switch (choiceTab) {
+			case "frmerInfoTab":
+				//영농일지 재배 이력 grid clear
+				jsonCltvtnHstryPrdcr.length = 0;
+				grdCltvtnHstryPrdcr.refresh();
+
+				if (!gfn_isEmpty(prdcrCdDtl)) {
+
+					await Promise.all([
+						fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl),
+						fn_setPrdcrLandInfo(prdcrCdDtl)
+					]);
+
+					if (!gfn_isEmpty(choicePrdcrLandInfoNo)) {
+						await fn_setCltvtnHstryPrdcr();
+					}
+				} else {
+					gfn_comAlert("W0001", "농가");				//	W0002	{0}을/를 선택하세요.
+					return;
 				}
-			} else {
-	  			gfn_comAlert("W0001", "농가");				//	W0002	{0}을/를 선택하세요.
-	            return;
-			}
-
+				break;
+			case "frmhsQltTab":
+				fn_setCltvtnFrmhsQlt(prdcrCdDtl);
+				break;
+			case "frmhsExpctWrhsTab":
+				fn_setFrmhsExpctWrhs();
+				break;
+			case "cltvtnHstryTab":
+				fn_setCltvtnHstry();
+				break;
+			case "landInfoTab":
+				fn_setLandInfo();
+				break;
+			default:
+				break;
 		}
-
-		if (choiceTab == "frmhsQltTab") {
-			fn_setCltvtnFrmhsQlt(prdcrCdDtl)
-		}
-
-		if (choiceTab == "frmhsExpctWrhsTab") {
-			fn_setFrmhsExpctWrhs()
-		}
-
-		if (choiceTab == "cltvtnHstryTab") {
-			fn_setCltvtnHstry()
-		}
-
-		if (choiceTab == "landInfoTab") {
-			fn_setLandInfo()
-		}
-
 	}
 
 	/**
@@ -1594,14 +1605,18 @@
       * @param {String} prdcrCdDtl
       */
 	const fn_setCltvtnHstryPrdcr = async function() {
-		let rowData 		= grdPrdcrLandInfo.getRowData(grdPrdcrLandInfo.getRow());
+	    let rowData 		= grdPrdcrLandInfo.getRowData(grdPrdcrLandInfo.getRow());
 		let prdcrCd 		= "";
     	let prdcrLandInfoNo = "";
 
-    	if (gfn_isEmpty(rowData)) {
-    		prdcrLandInfoNo = choicePrdcrLandInfoNo;
-    		prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");
-    	} else {
+    	if (gfn_isEmpty(rowData.apcCd)) {
+    		//prdcrLandInfoNo = choicePrdcrLandInfoNo;
+			//prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");
+			/** 농지정보 클릭시 데이터 없을 때 **/
+			jsonCltvtnHstryPrdcr.length = 0;
+			grdCltvtnHstryPrdcr.refresh();
+			return;
+		} else {
     		prdcrLandInfoNo = rowData.prdcrLandInfoNo;
     		prdcrCd = rowData.prdcrCd;
     	}
@@ -1621,7 +1636,6 @@
 						false
 					);
 	        const data = await postJsonPromise;
-	        console.log("data", data)
 	        data.resultList.forEach((item, index) => {
 
 	        	const cltvtnHstryVO = {
@@ -1665,8 +1679,8 @@
 	}
 
      /**
-      * @name fn_setClvtnHstyr
-      * @description 재배이력 목록 조회
+      * @name fn_setCltvtnHstry
+      * @description 재배및수확후관리 조회
       * @param {String} prdcrCdDtl
       */
 	const fn_setCltvtnHstry = async function() {
@@ -1708,6 +1722,11 @@
 	        		  , frmhsCtpv		: item.frmhsCtpv
 	        		  , cfmtnYmd		: item.cfmtnYmd
 	        		  , pic				: item.pic
+
+					  , crtrArea		: item.crtrArea
+					  , plntngArea		: item.plntngArea
+					  , frlnAddr		: item.frlnAddr
+
 	        	}
 	        	jsonCltvtnHstry.push(cltvtnHstryVO);
 	        });
@@ -1728,6 +1747,7 @@
       * @param {String} prdcrCdDtl
       */
 	const fn_setPrdcrLandInfo = async function(prdcrCdDtl) {
+
 		let yr = SBUxMethod.get("srch-dtp-yr")
 		const param = {
 			apcCd		: gv_selectedApcCd
