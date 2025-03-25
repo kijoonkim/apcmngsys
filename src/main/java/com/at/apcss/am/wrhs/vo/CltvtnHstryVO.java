@@ -91,6 +91,26 @@ public class CltvtnHstryVO extends ComVO {
 	private String cfmtnYmd;
 	private String cfmtnYmdFrom;
 	private String cfmtnYmdTo;
+    /*
+     * 기반비료일자
+     * */
+    private String baseFrtlzrYmd;
+    /*
+     * 파종일자
+     * */
+    private String sdngYmd;
+    /*
+     * 정식일자
+     * */
+    private String plntngYmd;
+    /*
+     * 추비1차일자
+     * */
+    private String cmptYmdCycl1;
+    /*
+     * 추비2차일자
+     * */
+    private String cmptYmdCycl2;
 	/*
 	 * 농가지역
 	 * */
