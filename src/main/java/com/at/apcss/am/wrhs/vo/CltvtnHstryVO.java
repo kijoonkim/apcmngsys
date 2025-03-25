@@ -103,5 +103,13 @@ public class CltvtnHstryVO extends ComVO {
 	 * 담당자
 	 * */
 	private String pic;
+	/*
+	 * 계약면적(평)
+	 * */
+	private String crtrArea;
+	/*
+	 * 정식면적(평)
+	 * */
+	private String plntngArea;
 
 }
