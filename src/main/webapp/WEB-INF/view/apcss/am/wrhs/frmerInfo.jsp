@@ -355,6 +355,7 @@
 										<ul class="ad_tbl_count">
 											<li>
 												<span>농지정보</span>
+												<span style="font-size:12px">(조회건수 <span id="cnt-prdcrLandInfo">0</span>건)</span>
 											</li>
 										</ul>
 									</div>
@@ -367,6 +368,7 @@
 										<ul class="ad_tbl_count">
 											<li>
 												<span>재배 이력</span>
+												<span style="font-size:12px">(조회건수 <span id="cnt-cltvtnHstryPrdcr">0</span>건)</span>
 											</li>
 										</ul>
 									</div>
@@ -592,15 +594,15 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
 		    {caption : ['품종(캔)', 	"찬스볼"], 		ref: 'sdQntt5', 	type: 'input', 	width: '100px', style:'text-align: right; background:#FFF8DC;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-		    {caption : ['밑비료', 		"밑비료"], 		ref: 'cmpt', 		type: 'input', 	width: '100px', style: 'text-align:center; background:#FFF8DC;'},
+		    {caption : ['밑비료', 		"밑비료"], 		ref: 'cmpt', 		type: 'input', 	width: '100px', style: 'text-align:center; background:#FFF8DC;',hidden:true},
 		    {caption : ['파종일자', 	"파종일자"], 	ref: 'sdngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
-		    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+		    	format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},hidden:true},
 		    {caption : ['정식일자', 	"정식일자"], 	ref: 'clclnYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
-			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},hidden:true},
 		    {caption : ['추비일자', 	"1차"], 		ref: 'cmptYmdCycl1', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
-				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},hidden:true},
 		    {caption : ['추비일자', 	"2차"], 		ref: 'cmptYmdCycl2', 	type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
-				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true},hidden:true},
 		    {caption : ['저장결과<br>(부패율)', "저장결과<br>(부패율)"], 	ref: 'strgRslt', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 	            typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###.###'}},
         	{caption : ['비고', '비고'], 			ref: 'rmrk', 			type: 'input', 	width: '200px', style: 'text-align:left; background:#FFF8DC;'},
@@ -657,6 +659,11 @@
         grdPrdcrLandInfo.bind('rowchanged', 'fn_setCltvtnHstryPrdcr');
 	}
 
+
+	/**
+	 * @name fn_createCltvtnHstryPrdcr
+	 * @description 영농일지 - 재배이력grid
+	 */
 	const fn_createCltvtnHstryPrdcr = function () {
 		var SBGridProperties = {};
 	    SBGridProperties.parentid = "sb-area-cltvtnHstryPrdcr";
@@ -680,8 +687,18 @@
 		    }},
 		    {caption : ['확인일자', 	"확인일자"], 	ref: 'cfmtnYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-        	{caption : ['내용', '내용'], 	ref: 'cn', 			type: 'input', 		width: '250px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 300}},
-        	{caption : ['표시구분', '표시구분'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:left; background:#FFF8DC;', typeinfo : {maxlength : 300}},
+			{caption : ['밑비료일자', 	"밑비료일자"], 	ref: 'baseFrtlzrYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center;',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+			{caption : ['파종일자', 	"파종일자"], 	ref: 'sdngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center;',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+			{caption : ['정식일자', 	"정식일자"], 	ref: 'plntngYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center;',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+			{caption : ['추비일자', 	"1차"], 	ref: 'cmptYmdCycl1', 		type : 'datepicker', 	width: '100px', style:'text-align:center;',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+			{caption : ['추비일자', 	"2차"], 	ref: 'cmptYmdCycl2', 		type : 'datepicker', 	width: '100px', style:'text-align:center;',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
+        	{caption : ['내용', '내용'], 	ref: 'cn', 			type: 'input', 		width: '250px', style: 'text-align:left;', typeinfo : {maxlength : 300}},
+        	{caption : ['표시구분', '표시구분'], 		ref: 'rmrk', 		type: 'input', 		width: '200px', style: 'text-align:left;', typeinfo : {maxlength : 300}},
         	{caption : ['사진', '보기'], 	ref: 'atchflNo',	type: 'button', 	width: '60px', style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 	        	if (strValue== null || strValue == "") {
 			        return "";
@@ -1636,6 +1653,7 @@
 						false
 					);
 	        const data = await postJsonPromise;
+			let totalRecordCount = 0;
 	        data.resultList.forEach((item, index) => {
 
 	        	const cltvtnHstryVO = {
@@ -1652,6 +1670,12 @@
 	        		  , atchflOrgnNm	: item.atchflOrgnNm
 	        		  , cfmtnYmd		: item.cfmtnYmd
 	        		  , pic				: item.pic
+	        		  , baseFrtlzrYmd	: item.baseFrtlzrYmd
+	        		  , sdngYmd			: item.sdngYmd
+	        		  , plntngYmd		: item.plntngYmd
+	        		  , cmptYmdCycl1	: item.cmptYmdCycl1
+	        		  , cmptYmdCycl2	: item.cmptYmdCycl2
+
 	        	}
 
 	        	if (!gfn_isEmpty(item.cltvtnHstryNo)) {
@@ -1661,6 +1685,8 @@
 	        	}
 	        	jsonCltvtnHstryPrdcr.push(cltvtnHstryVO);
 	        });
+			totalRecordCount = jsonCltvtnHstryPrdcr.length;
+			document.querySelector('#cnt-cltvtnHstryPrdcr').innerText = totalRecordCount;
 
 	        grdCltvtnHstryPrdcr.rebuild();
 	        grdCltvtnHstryPrdcr.addRow(true);
@@ -1743,7 +1769,7 @@
 
      /**
       * @name fn_setPrdcrLandInfo
-      * @description 생산농지정보 목록 조회
+      * @description 생산 농지정보 목록 조회
       * @param {String} prdcrCdDtl
       */
 	const fn_setPrdcrLandInfo = async function(prdcrCdDtl) {
@@ -1764,12 +1790,16 @@
 					);
 	        const data = await postJsonPromise;
 
+			let totalRecordCount = 0;
 	        data.resultList.forEach((item, index) => {
 
 	        	const prdcrLandInfoVO = item;
 
 	        	jsonPrdcrLandInfo.push(prdcrLandInfoVO);
 	        });
+
+			totalRecordCount = jsonPrdcrLandInfo.length;
+			document.querySelector('#cnt-prdcrLandInfo').innerText = totalRecordCount;
 
 	        grdPrdcrLandInfo.rebuild();
 	        grdPrdcrLandInfo.addRow(true);
@@ -2329,6 +2359,10 @@
 
 	}
 
+	/**
+	 * @name fn_saveFrmerInfo
+	 * @description 영농일지 저장
+	 */
 	const fn_saveFrmerInfo = async function () {
 		let yr = SBUxMethod.get("srch-dtp-yr");
 		let prdcrCd = SBUxMethod.get("dtl-inp-prdcrCd");
@@ -2366,6 +2400,7 @@
 			prdcrChgYn = true;
 		}
 
+		/** 영농일지 - 재배 기본정보**/
 		let rowSts = grdCltvtnFrmhsQltPrdcr.getRowStatus(2);
 		if (rowSts == 2 || rowSts == 3) {
 			cltvtnFrmhsQltVO = grdCltvtnFrmhsQltPrdcr.getRowData(2);
@@ -2390,6 +2425,7 @@
 
 		}
 
+		/** 영농일지 - 농지정보**/
 		let grdLandData = grdPrdcrLandInfo.getGridDataAll();
 
 		let prdcrLandInfoList = [];
@@ -2430,13 +2466,22 @@
 			}
 		}
 
+		/** 영농일지 - 재배 이력**/
 		let grdCltvtnHstryData = grdCltvtnHstryPrdcr.getGridDataAll();
+		console.log("griddataall",grdCltvtnHstryData);
 
 		let cltvtnHstryList = [];
 
 		for (var i=0; i<grdCltvtnHstryData.length; i++) {
 
 			let rowData = grdCltvtnHstryPrdcr.getRowData(i+2);
+			if (!gfn_isEmpty(rowData.delYn)) {
+				if (gfn_isEmpty(rowData.cfmtnYmd)) {
+					gfn_comAlert("W0002","확인일자"); 	//W0002 {0}을/를 입력하세요.
+					return;
+				}
+			}
+
 			let rowSts = grdCltvtnHstryPrdcr.getRowStatus(i+2);
 			let fileName = rowData.fileName;
 			let cltvtnHstryNo = rowData.cltvtnHstryNo;
