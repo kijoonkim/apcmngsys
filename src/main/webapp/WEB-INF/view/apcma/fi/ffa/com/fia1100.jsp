@@ -151,7 +151,7 @@
 	
 	                                    <th scope="row" class="th_bg">자산분류코드</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_ASSET_GROUP_CODE" class="form-control input-sm" style="width:150px" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_ASST_GROUP_CD" class="form-control input-sm" style="width:150px" uitype="text"></sbux-input>
 	                                    </td>
 	                                </tr>
 	
@@ -163,7 +163,7 @@
 	
 	                                    <th scope="row" class="th_bg">자산분류명</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_ASSET_GROUP_NAME" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_ASST_GROUP_NM" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	                                </tr>
 	
@@ -177,10 +177,10 @@
 	                                        <div style="display:flex;float:left">
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">자산화대상</font>
-	                                            <sbux-checkbox id="FM_CAPITAL_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <sbux-checkbox id="FM_AST_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">상각여부</font>
-	                                            <sbux-checkbox id="FM_DEPRECIATE_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <sbux-checkbox id="FM_DPRC_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">사용여부</font>
 	                                            <sbux-checkbox id="FM_USE_YN" uitype="normal" text="사용" true-value="Y" false-value="N"></sbux-checkbox>
@@ -198,7 +198,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_PRNT_ACNT_GRP" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP1" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup1()"></sbux-button>
+	                                            <sbux-button id="BTN_POP1" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup1()"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:200px" id="FM_PARENT_ASSET_GROUP_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -208,10 +208,10 @@
 	                                        <div style="display:flex;float:left">
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">재고관리대상</font>
-	                                            <sbux-checkbox id="FM_INVENTORY_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <sbux-checkbox id="FM_INVT_MNG_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">보류여부</font>
-	                                            <sbux-checkbox id="FM_OWNED_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
+	                                            <sbux-checkbox id="FM_HLD_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
 	
 	                                            <font style="padding-left:20px;padding-right:5px;">리스여부</font>
 	                                            <sbux-checkbox id="FM_LEASE_YN" uitype="normal" text="예" true-value="Y" false-value="N"></sbux-checkbox>
@@ -229,12 +229,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_METHOD_GAAP" jsondata-ref="jsonDepreciationMethodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_MTHD_GAAP" jsondata-ref="jsonDepreciationMethodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_SVLF_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">자산계정</th>
@@ -242,7 +242,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_ASST_ACNT_CD" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP2" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('1')"></sbux-button>
+	                                            <sbux-button id="BTN_POP2" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('1')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_ASSET_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -252,12 +252,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_GAAP" jsondata-ref="jsonDepreciationPeriodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_PRD_GAAP" jsondata-ref="jsonDepreciationPeriodGaap" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_AMT_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">감가상각비 계정</th>
@@ -265,7 +265,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_DPCO_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP3" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('2')"></sbux-button>
+	                                            <sbux-button id="BTN_POP3" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('2')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_DEPR_EXP_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -279,7 +279,7 @@
 	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_RT_GAAP" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">감가상각누계 계정</th>
@@ -287,7 +287,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_ACML_DPRC_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP4" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('3')"></sbux-button>
+	                                            <sbux-button id="BTN_POP4" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('3')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -302,12 +302,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_METHOD_TAX" jsondata-ref="jsonDepreciationMethodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_MTHD_TAX" jsondata-ref="jsonDepreciationMethodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_SVLF_TAX" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">보조금 계정</th>
@@ -315,7 +315,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_GVSBS_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP5" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('4')"></sbux-button>
+	                                            <sbux-button id="BTN_POP5" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('4')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -325,12 +325,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_TAX" jsondata-ref="jsonDepreciationPeriodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_PRD_TAX" jsondata-ref="jsonDepreciationPeriodTax" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_AMT_TAX" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">감가상각비 계정</th>
@@ -338,7 +338,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_GVSBS_DPCO_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP6" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('5')"></sbux-button>
+	                                            <sbux-button id="BTN_POP6" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('5')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -352,7 +352,7 @@
 	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_TAX" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_RT_TAX" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">감가상각누계 계정</th>
@@ -360,7 +360,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_GVSBS_DPRC_AT_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP7" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('6')"></sbux-button>
+	                                            <sbux-button id="BTN_POP7" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('6')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -375,12 +375,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각방법</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_METHOD_IFRS" jsondata-ref="jsonDepreciationMethodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_MTHD_IFRS" jsondata-ref="jsonDepreciationMethodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">내용연수</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_USEFUL_LIFE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_SVLF_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">매각이익계정</th>
@@ -388,7 +388,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_DSPSL_PRFT_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP8" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('7')"></sbux-button>
+	                                            <sbux-button id="BTN_POP8" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('7')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_DISPOSAL_PROFIT_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -398,12 +398,12 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">감가상각주기</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-select id="FM_DEPRECIATION_PERIOD_IFRS" jsondata-ref="jsonDepreciationPeriodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select id="FM_DPRC_PRD_IFRS" jsondata-ref="jsonDepreciationPeriodIfrs" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">잔존가액</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_VALUE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_AMT_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">매각손실계정</th>
@@ -411,7 +411,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_DSCD_LOSS_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP9" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('8')"></sbux-button>
+	                                            <sbux-button id="BTN_POP9" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('8')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_DISPOSAL_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -425,7 +425,7 @@
 	
 	                                    <th scope="row" class="th_bg">잔존율</th>
 	                                    <td colspan="2" class="td_input">
-	                                        <sbux-input id="FM_SALVAGE_RATE_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_RMN_RT_IFRS" class="form-control input-sm" uitype="text"></sbux-input>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">폐기손실계정</th>
@@ -433,7 +433,7 @@
 	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
 	                                            <sbux-input style="width:100px" id="FM_DSPSL_GNLS_ACNT" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
-	                                            <sbux-button id="BTN_POP10" class="btn btn-xs btn-outline-dark" text=".." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('9')"></sbux-button>
+	                                            <sbux-button id="BTN_POP10" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup2('9')"></sbux-button>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-input style="width:300px" id="FM_DISUSE_LOSS_ACC_NAME" uitype="text" class="form-control input-sm"></sbux-input>
 	                                        </div>
@@ -532,19 +532,19 @@
 			//자산구분
 			gfnma_setComSelect(['FM_ASST_CTGRY'], 		jsonAssetCategory, 		'L_FIA001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_MTHD_GAAP'], 		jsonDepreciationMethodGaap, 	'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_PRD_GAAP'], 		jsonDepreciationPeriodGaap,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_TAX'], 			jsonDepreciationMethodTax,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_MTHD_TAX'], 			jsonDepreciationMethodTax,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_TAX'], 			jsonDepreciationPeriodTax,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_PRD_TAX'], 			jsonDepreciationPeriodTax,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//감가상각방법
-			gfnma_setComSelect(['FM_DEPRECIATION_METHOD_IFRS'], 		jsonDepreciationMethodIfrs,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_MTHD_IFRS'], 		jsonDepreciationMethodIfrs,		'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['FM_DEPRECIATION_PERIOD_IFRS'], 		jsonDepreciationPeriodIfrs,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['FM_DPRC_PRD_IFRS'], 		jsonDepreciationPeriodIfrs,		'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
  
@@ -629,19 +629,14 @@
         p_sel_rowData = rowData;
         console.log('rowData:', rowData);
 		
-		if(rowData['ASSET_LEVEL_TYPE']=='LEVEL1'){
-			//fn_fmDisabled(true);
+		if(rowData.ASSET_LEVEL_TYPE == 'LEVEL1'){
+			$('#main-btn-save', parent.document).attr('disabled', true);
 			$('#main-btn-del', 	parent.document).attr('disabled', true);
 		} else {
-			//fn_fmDisabled(false);
+			$('#main-btn-save', parent.document).attr('disabled', false);
 			$('#main-btn-del', 	parent.document).attr('disabled', false);
 		}
 		
-		if(rowData['DEPRECIATE_YN']=='Y'){
-			//fn_fmDisabled(false);
-		} else {
-			//fn_fmDisabled(true);
-		}
 		fn_fmDisabled(false);
 		
 		fn_setFia1100Detail('Q1', rowData);
@@ -669,13 +664,13 @@
 		SBUxMethod.attr('FM_HLD_YN',					'readonly', type);
 		SBUxMethod.attr('FM_LEASE_YN',					'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_METHOD_GAAP',	'readonly', type);
+		SBUxMethod.attr('FM_DPRC_MTHD_GAAP',	'readonly', type);
 		SBUxMethod.attr('FM_SVLF_GAAP',			'readonly', type);
 		SBUxMethod.attr('FM_ASST_ACNT_CD', 			'readonly', type);
 		SBUxMethod.attr('BTN_POP2', 					'readonly', type);
 		SBUxMethod.attr('FM_ASSET_ACC_NAME',			'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_PERIOD_GAAP',	'readonly', type);
+		SBUxMethod.attr('FM_DPRC_PRD_GAAP',	'readonly', type);
 		SBUxMethod.attr('FM_RMN_AMT_GAAP',		'readonly', type);
 		SBUxMethod.attr('FM_DPCO_ACNT', 				'readonly', type);
 		SBUxMethod.attr('BTN_POP3', 					'readonly', type);
@@ -686,13 +681,13 @@
 		SBUxMethod.attr('BTN_POP4', 					'readonly', type);
 		SBUxMethod.attr('FM_ACCUM_DEPR_ACC_NAME',		'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_METHOD_TAX',	'readonly', type);
+		SBUxMethod.attr('FM_DPRC_MTHD_TAX',	'readonly', type);
 		SBUxMethod.attr('FM_SVLF_TAX',			'readonly', type);
 		SBUxMethod.attr('FM_GVSBS_ACNT', 		'readonly', type);
 		SBUxMethod.attr('BTN_POP5', 					'readonly', type);
 		SBUxMethod.attr('FM_SUBSIDIES_ACC_NAME',		'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_PERIOD_TAX',	'readonly', type);
+		SBUxMethod.attr('FM_DPRC_PRD_TAX',	'readonly', type);
 		SBUxMethod.attr('FM_RMN_AMT_TAX',			'readonly', type);
 		SBUxMethod.attr('FM_GVSBS_DPCO_ACNT', 		'readonly', type);
 		SBUxMethod.attr('BTN_POP6', 					'readonly', type);
@@ -703,13 +698,13 @@
 		SBUxMethod.attr('BTN_POP7', 						'readonly', type);
 		SBUxMethod.attr('FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME',	'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_METHOD_IFRS',		'readonly', type);
+		SBUxMethod.attr('FM_DPRC_MTHD_IFRS',		'readonly', type);
 		SBUxMethod.attr('FM_SVLF_IFRS',				'readonly', type);
 		SBUxMethod.attr('FM_DSPSL_PRFT_ACNT', 		'readonly', type);
 		SBUxMethod.attr('BTN_POP8', 						'readonly', type);
 		SBUxMethod.attr('FM_DISPOSAL_PROFIT_ACC_NAME',		'readonly', type);
 		
-		SBUxMethod.attr('FM_DEPRECIATION_PERIOD_IFRS',		'readonly', type);
+		SBUxMethod.attr('FM_DPRC_PRD_IFRS',		'readonly', type);
 		SBUxMethod.attr('FM_RMN_AMT_IFRS',			'readonly', type);
 		SBUxMethod.attr('FM_DSCD_LOSS_ACNT', 		'readonly', type);
 		SBUxMethod.attr('BTN_POP9', 						'readonly', type);
@@ -863,7 +858,7 @@
   	          	if(p_asset_group_name){
   	      			SBUxMethod.attr('SCH_ASSET_GROUP_NAME',  'readonly', true);
   	          	}
-  	          
+  	        
         	} else {
           		alert(data.resultMessage);
         	}
@@ -1089,12 +1084,12 @@
 		let p_salvage_value_ifrs	= gfnma_nvl(SBUxMethod.get("FM_RMN_AMT_IFRS"));
 		let p_salvage_value_tax		= gfnma_nvl(SBUxMethod.get("FM_RMN_AMT_TAX"));
 		
-		let p_depreciation_method_gaap	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD_GAAP"));
-		let p_depreciation_method_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD_IFRS"));
-		let p_depreciation_method_tax	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_METHOD_TAX"));
-		let p_depreciation_period_gaap	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_PERIOD_GAAP"));
-		let p_depreciation_period_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_PERIOD_IFRS"));
-		let p_depreciation_period_tax	= gfnma_nvl(SBUxMethod.get("FM_DEPRECIATION_PERIOD_TAX"));
+		let p_depreciation_method_gaap	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_GAAP"));
+		let p_depreciation_method_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_IFRS"));
+		let p_depreciation_method_tax	= gfnma_nvl(SBUxMethod.get("FM_DPRC_MTHD_TAX"));
+		let p_depreciation_period_gaap	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_GAAP"));
+		let p_depreciation_period_ifrs	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_IFRS"));
+		let p_depreciation_period_tax	= gfnma_nvl(SBUxMethod.get("FM_DPRC_PRD_TAX"));
 		
 		let p_asset_account				= gfnma_nvl(SBUxMethod.get("FM_ASST_ACNT_CD"));
 		let p_depr_exp_acc				= gfnma_nvl(SBUxMethod.get("FM_DPCO_ACNT"));
@@ -1268,3 +1263,4 @@
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>
 </html>
+

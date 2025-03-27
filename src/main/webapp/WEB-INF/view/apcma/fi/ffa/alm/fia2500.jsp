@@ -1272,6 +1272,7 @@
 // 				}
 // 			} 
 //     	}
+		
 		$('#main-btn-save', parent.document).attr('disabled', true);
 		$('#main-btn-del', 	parent.document).attr('disabled', false);
     	fn_setFia2500GridMast('HEADER');
@@ -2593,10 +2594,14 @@
      */
     function cfn_add() {
 		
-        SBUxMethod.set("FM_SITE_CD",		SBUxMethod.get("SCH_SITE_CODE"));
-        SBUxMethod.set("FM_CRN_CD",	p_ss_baseCurrCode);
+    	gfnma_uxDataClear('#dataArea1');
+    	
+        SBUxMethod.set("FM_MEMO",	"");
+        SBUxMethod.set("FM_SITE_CD",	SBUxMethod.get("SCH_SITE_CODE"));
+        SBUxMethod.set("FM_CRN_CD",		p_ss_baseCurrCode);
         SBUxMethod.set("FM_ACQS_YMD",	gfnma_date4());
-		
+        
+        $('#BTN_POP7').prop('disabled', false);
 		$('#main-btn-save', parent.document).attr('disabled', false);
 		$('#main-btn-del', 	parent.document).attr('disabled', true);
     }

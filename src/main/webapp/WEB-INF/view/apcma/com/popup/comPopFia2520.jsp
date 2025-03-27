@@ -732,9 +732,9 @@ var fn_popFia2520_compopup1 = function(row, col, cellData1, cellData2) {
         ,bizcompId				: 'P_COM004'
         ,popupType				: 'A'
         ,whereClause			: strWhereClause
-        ,searchCaptions			: ["거래처코드", 	"거래처명",  	"사업자번호" ]
-        ,searchInputFields		: ["CNPT_CD", 		"CNPT_NM",  	"BRNO"]
-        ,searchInputValues		: [cellData1, 		cellData2, 	""         ]
+        ,searchCaptions			: ["거래처코드", 		"거래처명",  	"사업자번호" ]
+        ,searchInputFields		: ["CNPT_CD", 		"CNPT_NM",  "BRNO"]
+        ,searchInputValues		: [cellData1, 		cellData2, 	""]
         ,height					: '400px'
         ,width					: '1000px'
         ,tableHeader			: ["거래처코드",	"거래처명", 	"사업자번호" , 	"대표자",		"업태",			"종목",			"주소",		"전화",		"팩스"]
@@ -895,8 +895,8 @@ function fn_popFia2520_gridPopup5(event, row, col) {
 var fn_popFia2520_compopup5 = function(row, col, cellData1, cellData2) {
 	
     var replaceText0 	= "_ASST_CTGRY_";
-    var replaceText1 	= "_ASSET_CATEGORY_NAME_"; 
-    var strWhereClause 	= "AND A.ASST_CTGRY LIKE '%" + replaceText0 + "%' AND A.ASSET_CATEGORY_NAME LIKE '%" + replaceText1 + "%' ";
+    var replaceText1 	= "_ASST_CTGRY_NM_"; 
+    var strWhereClause 	= "AND A.ASST_CTGRY LIKE '%" + replaceText0 + "%' AND A.ASST_CTGRY_NM LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
 	compopup1({
@@ -906,19 +906,19 @@ var fn_popFia2520_compopup5 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
    		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASST_CTGRY", 	"ASSET_CATEGORY_NAME"]
+		,searchInputFields		: ["ASST_CTGRY", 	"ASST_CTGRY_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
    		,width					: '500px'
    		,height					: '400px'
 		,tableHeader			: ["분류코드", 			"분류명"]
-		,tableColumnNames		: ["ASST_CTGRY", 	"ASSET_CATEGORY_NAME"]	
+		,tableColumnNames		: ["ASST_CTGRY", 	"ASST_CTGRY_NM"]	
 		,tableColumnWidths		: ["100px", 			"250px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
 			PopFia2520Grid.setCellData(row, 23,	data['ASST_CTGRY'], 	true, true);
-			PopFia2520Grid.setCellData(row, 25,	data['ASSET_CATEGORY_NAME'], true, true);
+			PopFia2520Grid.setCellData(row, 25,	data['ASST_CTGRY_NM'], true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
@@ -940,8 +940,8 @@ function fn_popFia2520_gridPopup6(event, row, col) {
 var fn_popFia2520_compopup6 = function(row, col, cellData1, cellData2) {
 	
     var replaceText0 	= "_ASST_MCLSF_";
-    var replaceText1 	= "_ASSET_LEVEL2_NAME_"; 
-    var strWhereClause 	= "AND AA.ASST_MCLSF LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL2_NAME LIKE '%" + replaceText1 + "%' ";
+    var replaceText1 	= "_ASST_MCLSF_NM_"; 
+    var strWhereClause 	= "AND AA.ASST_MCLSF LIKE '%" + replaceText0 + "%' AND AA.ASST_MCLSF_NM LIKE '%" + replaceText1 + "%' ";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산중분류');
 	compopup1({
@@ -951,19 +951,19 @@ var fn_popFia2520_compopup6 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
 		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASST_MCLSF", 		"ASSET_LEVEL2_NAME"]
+		,searchInputFields		: ["ASST_MCLSF", 		"ASST_MCLSF_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 		,width					: '700px'
 		,height					: '400px'
 		,tableHeader			: ["중분류", 			"중분류명",				"자산구분",			"자산구분명",			"comp_code"]
-		,tableColumnNames		: ["ASST_MCLSF", 		"ASSET_LEVEL2_NAME",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"CO_CD"]	
+		,tableColumnNames		: ["ASST_MCLSF", 		"ASST_MCLSF_NM",	"ASST_CTGRY",	"ASST_CTGRY_NM",	"CO_CD"]	
 		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",				"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
 			PopFia2520Grid.setCellData(row, 26,	data['ASST_MCLSF'], 		true, true);
-			PopFia2520Grid.setCellData(row, 28,	data['ASSET_LEVEL2_NAME'], 	true, true);
+			PopFia2520Grid.setCellData(row, 28,	data['ASST_MCLSF_NM'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
@@ -985,8 +985,8 @@ function fn_popFia2520_gridPopup7(event, row, col) {
 var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
 	
     var replaceText0 	= "_ASST_SCLSF_";
-    var replaceText1 	= "_ASSET_LEVEL3_NAME_"; 
-    var strWhereClause 	= "AND AA.ASST_SCLSF LIKE '%" + replaceText0 + "%' AND AA.ASSET_LEVEL3_NAME LIKE '%" + replaceText1 + "%' ";
+    var replaceText1 	= "_ASST_SCLSF_NM_"; 
+    var strWhereClause 	= "AND AA.ASST_SCLSF LIKE '%" + replaceText0 + "%' AND AA.ASST_SCLSF_NM LIKE '%" + replaceText1 + "%'  AND AA.CO_CD LIKE '%" + gv_ma_selectedCorpCd + "%'";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '자산소분류');
 	compopup1({
@@ -996,19 +996,19 @@ var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
    		,popupType				: 'A'
 		,whereClause			: strWhereClause
    		,searchCaptions			: ["코드", 				"명칭"]
-		,searchInputFields		: ["ASST_SCLSF", 		"ASSET_LEVEL3_NAME"]
+		,searchInputFields		: ["ASST_SCLSF", 		"ASST_SCLSF_NM"]
 		,searchInputValues		: [cellData1, 			cellData2]
 		,searchInputTypes		: ["input", 			"input"]		//input, datepicker가 있는 경우
 		,width					: '700px'
 		,height					: '400px'
-		,tableHeader			: ["소분류",			"소분류명",				"중분류", 			"중분류명",				"자산구분",			"자산구분명",			"comp_code"]
-		,tableColumnNames		: ["ASSET_LEVE3",		"ASSET_LEVEL3_NAME",	"ASSET_LEVE2", 		"ASSET_LEVEL2_NAME",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"CO_CD"]	
-		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",				"100px",			"100px",				"100px"]
+		,tableHeader			: ["소분류",			"소분류명",				"중분류", 			"중분류명",			"자산구분",			"자산구분명",			"comp_code"]
+		,tableColumnNames		: ["ASST_SCLSF",		"ASST_SCLSF_NM",	"ASST_MCLSF", 		"ASST_MCLSF_NM",	"ASST_CTGRY",	"ASST_CTGRY_NM",	"CO_CD"]	
+		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",		"100px",			"100px",				"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
 			PopFia2520Grid.setCellData(row, 29,	data['ASST_SCLSF'], 		true, true);
-			PopFia2520Grid.setCellData(row, 31,	data['ASSET_LEVEL3_NAME'], 	true, true);
+			PopFia2520Grid.setCellData(row, 31,	data['ASST_SCLSF_NM'], 	true, true);
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
@@ -1047,8 +1047,8 @@ var fn_popFia2520_compopup8 = function(row, col, cellData1, cellData2) {
 		,width					: '700px'
 		,height					: '400px'
 		,tableHeader			: ["위치코드", 			"위치명",			"비고",			"법인"]
-		,tableColumnNames		: ["LOCTN_CD", 	"LOCTN_NM",	"DESCIPTION",	"CO_CD"]	
-		,tableColumnWidths		: ["100px", 			"200px",			"100px",		"100px"]
+		,tableColumnNames		: ["LOCTN_CD", 			"LOCTN_NM",		"DESCIPTION",	"CO_CD"]	
+		,tableColumnWidths		: ["100px", 			"200px",		"100px",		"100px"]
 		,itemSelectEvent		: function (data){
 			console.log('callback data:', data);
 			//그리드내 원하는 위치에 값 셋팅하기
