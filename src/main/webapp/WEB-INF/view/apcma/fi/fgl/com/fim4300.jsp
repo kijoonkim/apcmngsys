@@ -126,7 +126,7 @@
 	                <div class="ad_tbl_top" style="padding-top:10px">
 	                    <ul class="ad_tbl_count">
 	                        <li>
-	                            <span>결제경로</span>
+	                            <span>결재경로</span>
 	                            <span style="font-size:12px">(조회건수 <span id="listCount2">0</span>건)</span>
 	                        </li>
 	                    </ul>
@@ -1008,7 +1008,7 @@
     	var chkMastList = Fim4300GridMast.getUpdateData(true)
 		//console.log('chkMastList:', chkMastList);    	
 		if(chkMastList.length>1) {
-			gfn_comAlert("Q0000", "전표유형관리 마스타를 신규(수정)으로 1건 이상 저장하는 경우\n결제경로는 저장되지 않습니다.");
+			gfn_comAlert("Q0000", "전표유형관리 마스타를 신규(수정)으로 1건 이상 저장하는 경우\n결재경로는 저장되지 않습니다.");
 		};
 	   	for (var i = 0; i < chkMastList.length; i++) {
 	   		var doc_type = chkMastList[i]['data']['DOC_TYPE'];
@@ -1022,17 +1022,17 @@
 	   		}
 	   	}
 	   	
-    	//결제경로 check -----------------------------------------------------
+    	//결재경로 check -----------------------------------------------------
     	var chkDetailList = Fim4300GridDetail.getUpdateData(true)
 		//console.log('chkDetailList:', chkDetailList);    	
 	   	for (var i = 0; i < chkDetailList.length; i++) {
 	   		var appr_rule 	= chkDetailList[i]['data']['APPR_RULE'];
 	   		var doc_type 	= chkDetailList[i]['data']['DOC_TYPE'];
 	   		if(!appr_rule){
-				gfn_comAlert("W0002", "결제경로의 결재룰");
+				gfn_comAlert("W0002", "결재경로의 결재룰");
 	   			return;
 	   		} else if(!doc_type){
-				gfn_comAlert("W0002", "결제경로의 전표유형");
+				gfn_comAlert("W0002", "결재경로의 전표유형");
 	   			return;
 	   		}
 	   	}
