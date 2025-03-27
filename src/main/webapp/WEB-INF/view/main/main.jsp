@@ -549,8 +549,13 @@
 
             if ( $('#' + tabName).length == 0 ) {
                 if (SBUxMethod.getTabsCount('tab_menu') == maxTebMenuCnt+1) {
-                    alert("메뉴탭 최대 허용 개수(" + maxTebMenuCnt.toString() + "개)를 초과하였습니다.");
-                    return;
+                    if(gfn_comConfirm("Q0000","가장 오래된 탭을 삭제하시겠습니까?")){
+                        let target =SBUxMethod.getTabsChangedOrderData('tab_menu').data[2].targetid;
+                        SBUxMethod.removeTab('tab_menu',target);
+                    }else{
+                        // alert("메뉴탭 최대 허용 개수(" + maxTebMenuCnt.toString() + "개)를 초과하였습니다.");
+                        return;
+                    }
                 }
                 var jsonTabSelect = {
                     'id': tabName
