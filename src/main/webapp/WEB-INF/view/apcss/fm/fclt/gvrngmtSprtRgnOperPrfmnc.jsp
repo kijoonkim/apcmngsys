@@ -207,11 +207,11 @@ const fn_createGvrngmtSprtOperOgnzTrmtPrfmncGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["총취급액","총취급액 "], ref: 'v1', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","평균취급액"], ref: 'v2', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","조직화취급액 "], ref: 'v3', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'v4', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["총취급액","총취급액 "], ref: 'v1', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","평균취급액"], ref: 'v2', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","조직화취급액 "], ref: 'v3', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","평균조직화취급액"], ref: 'v4', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdGvrngmtSprtOperOgnzTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -246,11 +246,11 @@ const fn_createMdRtlFcltPrcsPrfmncGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC취급액","APC취급액"], ref: 'v1', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["일반취급액","일반취급액"], ref: 'v2', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","공동선별(수탁) "], ref: 'v3', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'v4', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["APC취급액","APC취급액"], ref: 'v1', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["일반취급액","일반취급액"], ref: 'v2', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","공동선별(수탁) "], ref: 'v3', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","계약재배(매취)"], ref: 'v4', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlFcltPrcsPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -285,11 +285,11 @@ const fn_createMdRtlFcltPrcsPrfmncAvgGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC취급액평균","APC취급액평균"], ref: 'v1', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["일반취급액평균","일반취급액평균"], ref: 'v2', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공동선별평균(수탁)","공동선별평균(수탁)"], ref: 'v3', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["계약재배평균(매취)","계약재배평균(매취)"], ref: 'v4', type: 'output',  width:'148px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'20%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["APC취급액평균","APC취급액평균"], ref: 'v1', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["일반취급액평균","일반취급액평균"], ref: 'v2', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공동선별평균(수탁)","공동선별평균(수탁)"], ref: 'v3', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["계약재배평균(매취)","계약재배평균(매취)"], ref: 'v4', type: 'output',  width:'20%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlFcltPrcsPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
@@ -326,13 +326,13 @@ const fn_createRgnOperOgnzTrmtPrfmncGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'13%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperOgnzTrmtPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -369,13 +369,13 @@ const fn_createRgnOperOgnzTrmtPrfmncAvgGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'13%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균취급액","합계"], ref: 'v3', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","농협"], ref: 'v4', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","농업법인"], ref: 'v5', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","합계"], ref: 'v6', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperOgnzTrmtPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
@@ -412,13 +412,13 @@ const fn_createRgnOperOgnzApcPrcsPrfmncGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'13%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["총취급액","농협"], ref: 'v1', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","농업법인"], ref: 'v2', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["총취급액","합계"], ref: 'v3', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농협"], ref: 'v4', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","농업법인"], ref: 'v5', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["조직화취급액","합계"], ref: 'v6', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperOgnzApcPrcsPrfmnc = _SBGrid.create(SBGridProperties);
 }
@@ -455,13 +455,13 @@ const fn_createRgnOperOgnzApcPrcsPrfmncAvgGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'200px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균취급액","합계"], ref: 'v3', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","농협"], ref: 'v4', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","농업법인"], ref: 'v5', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균조직화금액","합계"], ref: 'v6', type: 'output',  width:'100px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'13%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["평균취급액","농협"], ref: 'v1', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균취급액","농업법인"], ref: 'v2', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균취급액","합계"], ref: 'v3', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","농협"], ref: 'v4', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","농업법인"], ref: 'v5', type: 'output',  width:'13%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균조직화금액","합계"], ref: 'v6', type: 'output',  width:'17.5%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdRgnOperOgnzApcPrcsPrfmncAvg = _SBGrid.create(SBGridProperties);
 }
