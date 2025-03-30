@@ -99,9 +99,7 @@
                                     autocomplete="off"
                                     onchange="fn_invntrChange(info-inp-lastWkndQntt)"
                                     permit-keycodes-set="num"
-                                    exclude-kr="kr"
-
-                            />
+                                    exclude-kr="kr"></sbux-input>
                         </td>
                         <th scope="row" class="th_bg">
                             입고
@@ -113,9 +111,7 @@
                                     name="info-inp-wrhsQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
-                                    disabled
-
-                            />
+                                    disabled></sbux-input>
                         </td>
                         <th scope="row" class="th_bg">
                             출고
@@ -127,11 +123,8 @@
                                     name="info-inp-spmtQntt"
                                     class="form-control input-sm"
                                     autocomplete="off"
-                                    disabled
-                            />
+                                    disabled></sbux-input>
                         </td>
-
-
                         <th scope="row" class="th_bg">
                             현 재고
                         </th>
@@ -144,8 +137,7 @@
                                     autocomplete="off"
                                     permit-keycodes-set="num"
                                     exclude-kr="kr"
-                                    onchange="fn_invntrChange(info-inp-nowQntt)"
-                            />
+                                    onchange="fn_invntrChange(info-inp-nowQntt)"></sbux-input>
                         </td>
                         <th scope="row" class="th_bg">
                             로스율
@@ -157,19 +149,18 @@
                                     name="info-inp-loss"
                                     class="form-control input-sm"
                                     autocomplete="off"
-                                    readonly
-                            />
+                                    readonly></sbux-input>
                         </td>
-                        <td class="td_input">
+                        <td class="td_input" style="border-right: hidden;">
                         	<sbux-input
                                     uitype="text"
                                     id="info-inp-lossRt"
                                     name="info-inp-lossRt"
                                     class="form-control input-sm"
                                     autocomplete="off"
-                                    readonly
-                            />
+                                    readonly></sbux-input>
                         </td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -786,7 +777,7 @@
 									onchange="fn_dtpChange(srch-dtp-wghYmd)"
 								></sbux-datepicker>
 							</td>
-							<td colspan="4"></td>
+							<td colspan="5"></td>
 	`);
 
 </script>

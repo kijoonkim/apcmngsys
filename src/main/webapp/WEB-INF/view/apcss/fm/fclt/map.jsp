@@ -53,7 +53,7 @@
 	  						</div>
 						</div>
 					</div>
-					<div class ="row">
+					<div class ="row no-print">
 						<div class="col-sm-6">
 							<div class="ad_tbl_top">
 								<ul class="ad_tbl_count">

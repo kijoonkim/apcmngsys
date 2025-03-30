@@ -10,11 +10,47 @@
     <title>title : SBUx2.6</title>
    	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+	<style>
+		@media print {
+			.no-print {
+				display: none!important;
+			}
+			.break {
+				page-break-before: always !important;
+			}
+			* {
+				color: inherit !important;  /* 색상 리셋을 피하고, 기본 색상 상속 */
+				background: inherit !important;  /* 배경 색상 상속 */
+				box-shadow: inherit !important;  /* 그림자 상속 */
+				text-shadow: inherit !important;  /* 텍스트 그림자 상속 */
+			}
+			.sbgrid_FHT_st{
+				background-color: rgb(245, 251, 255);
+			}
+			@page {
+				size: A4 landscape; /* A4 가로모드 설정 */
+				margin: 0; /* 페이지 여백 설정 */
+			}
+
+			/*body {*/
+			/*	transform: scale(0.74); !* 74%로 크기 축소 *!*/
+			/*	transform-origin: top left; !* 왼쪽 상단 기준으로 크기 조정 *!*/
+			/*	width: 100%; !* 전체 너비에 맞게 조정 *!*/
+			/*	height: auto; !* 높이는 자동으로 설정 *!*/
+			/*}*/
+
+			#tab_content {
+				width: 100%;
+				height: auto;
+				page-break-inside: avoid; /* 페이지 중간에서 잘리지 않도록 설정 */
+			}
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 	<section>
 		<div class="box box-solid">
-			<div class="box-header" style="display:flex; justify-content: flex-start;" >
+			<div class="box-header no-print" style="display:flex; justify-content: flex-start;" >
 
 				<div class="ad_tbl_toplist">
 					<sbux-button id="btnMap" name="btnMap" uitype="normal" text="APC전수조사" class="btn btn-sm btn-outline-danger"><a href="#"></a></sbux-button>
@@ -39,16 +75,15 @@
 									name="srch-slt-crtrYr"
 									class="form-control input-sm input-sm-ast"
 									jsondata-ref="jsonCrtrYr"
-									style="width: 200px"
-								/>
+									style="width: 200px"></sbux-select>
 							</td>
 							<td>
 								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
+								<sbux-button id="btnPrintPdf" name="btnPrintPdf" uitype="normal" class="btn btn-sm btn-outline-danger" text="일괄조회" onclick="fn_print()"></sbux-button>
+								<sbux-button id="btnPrintPdf1" name="btnPrintPdf1" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_print1()"></sbux-button>
 							</td>
 						</tr>
 					</table>
-
-
 				</div>
 			</div>
 
@@ -63,23 +98,23 @@
 				    	<jsp:include page="../../fm/fclt/mdRtlOgnzNow.jsp"></jsp:include>
 				    </div>
 					<!-- 산지유통시설지역별현황 탭 화면 -->
-				    <div id="MdRtlFcltRgnNow">
+				    <div id="MdRtlFcltRgnNow" class="break">
 				    	<jsp:include page="../../fm/fclt/mdRtlFcltRgnNow.jsp"></jsp:include>
 				    </div>
 					<!-- 정부지원산지유통시설현황 탭 화면 -->
-				    <div id="GvrngmtSprtMdRtlFclt">
+				    <div id="GvrngmtSprtMdRtlFclt" class="break">
 				    	<jsp:include page="../../fm/fclt/gvrngmtSprtMdRtlFclt.jsp"></jsp:include>
 				    </div>
 					<!-- 정부지원산지유통시설지역별현황 탭 화면 -->
-				    <div id="GvrngmtSprtMdRtlFcltRgn">
+				    <div id="GvrngmtSprtMdRtlFcltRgn" class="break">
 				    	<jsp:include page="../../fm/fclt/gvrngmtSprtMdRtlFcltRgn.jsp"></jsp:include>
 				    </div>
 				    <!-- 산지유통시설운영실적 탭 화면 -->
-				    <div id="MdRtlFcltOperPrfmnc">
+				    <div id="MdRtlFcltOperPrfmnc" class="break">
 				    	<jsp:include page="../../fm/fclt/mdRtlFcltOperPrfmnc.jsp"></jsp:include>
 				    </div>
 				    <!-- 정부지원지역별운영실적 탭 화면 -->
-				    <div id="GvrngmtSprtRgnOperPrfmnc">
+				    <div id="GvrngmtSprtRgnOperPrfmnc" class="break">
 				    	<jsp:include page="../../fm/fclt/gvrngmtSprtRgnOperPrfmnc.jsp"></jsp:include>
 				    </div>
 				</div>
@@ -175,6 +210,58 @@
 			gfn_setCrtrYr('srch-slt-crtrYr', jsonCrtrYr),		// 기준년도 목록
 		])
 		SBUxMethod.set("srch-slt-crtrYr", jsonCrtrYr[0].value)
+	}
+	const fn_print = async function(){
+		/** 기존 탭 전부 조회 **/
+		const divs = document.querySelectorAll('#tab_content > div');
+
+		for (const [idx, div] of divs.entries()) {
+			$(div).show();
+			searchTarget = $(div).attr('id');
+			await fn_search();
+		}
+
+		// document.querySelectorAll('#tab_content > div').forEach(function(div,idx) {
+		// 	console.log(div,idx,"ㅋㅋㅋ현호잘해");
+		// 	$(div).show();
+		// 	searchTarget = $(div).attr('id');
+		// 	console.log(searchTarget);
+		// 	fn_search();
+		// });
+		//
+		// var initBody;
+		// window.onbeforeprint = function(){
+		// 	document.body.innerHTML =  document.getElementById('tab_content').innerHTML;
+		// };
+		// window.onafterprint = function(){
+		// 	document.body.innerHTML = initBody;
+		// };
+		// window.print();
+	}
+	const fn_print1 = async function(){
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectCtpvAreaList.do", {
+			crtrYr	: crtrYr
+		});
+		const data = await postJsonPromise;
+
+		const now = new Date();
+		const formatted = now.toLocaleString('ko-KR', {
+			year: '2-digit', month: '2-digit', day: '2-digit',
+			hour: '2-digit', minute: '2-digit', hour12: false
+		}).replace(/[\.\s:]/g, '');
+
+		jsonApcAreaList = data.resultList;
+		grdApcAreaList.rebuild();
+		grdApcAreaList.exportLocalExcel(`APC지역현황${'${formatted}'}`,{});
+
+		window.onbeforeprint = function(){
+			document.body.innerHTML =  document.getElementById('tab_content').innerHTML;
+		};
+		window.onafterprint = function(){
+			location.reload();
+		};
+		window.print();
 	}
 
 </script>

@@ -11,188 +11,192 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>title : SBUx2.6</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.6.0/print.js"></script>
+
 </head>
 <body oncontextmenu="return false">
 	<section class="content container-fluid">
-	<div class="box box-solid">
+	<div id="print-area" class="box box-solid">
 		<div class="box-body">
-			<div class="box-header" style="display:flex; justify-content: flex-start; padding-left:5px;" >
+			<div class="box-header no-print" style="display:flex; justify-content: flex-start; padding-left:5px;" >
 				<div>
 					<h3 class="box-title" style="line-height: 30px;"> 1. 산지유통시설현황</h3>
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<span style="font-size:15px; color:black;">1.1. 산지유통시설 개소수</span>
-							<br/>
-							<span style="font-size:12px">개소수 : 산지유통조직 유형</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
-						</li>
-					</ul>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<span style="font-size:15px; color:black;">1.1. 산지유통시설 개소수</span>
+								<br/>
+								<span style="font-size:12px">개소수 : 산지유통조직 유형</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdMdRtlOgnz" style="height:258px;"></div>
+					<span style="font-size:11px;">*출자출하조직 또는 참여조직 중 전년도 선정에서 탈락한 조직 포함</span>
+
+					<div style="height: 20px"></div>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<span style="font-size:15px; color:black;">1.2. 산지유통시설 시설ㆍ장비</span>
+								<br/>
+								<span style="font-size:12px">총 건축면적</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:m²)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdAllBdar" style="height:137px;"></div>
+					<span style="font-size:11px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
+					<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
+
+					<div style="height: 20px"></div>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">저온저장고</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdLwtpStrg" style="height:137px;"></div>
+					<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">CA 저장시설</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdStrgFclt" style="height:137px;"></div>
+					<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
+
+					<div style="height: 40px"></div>
+					<div style="height: 50px"></div>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<span style="font-size:15px; color:black;">1.3.투자금액</span>
+								<br/>
+								<span style="font-size:12px">투자금액 : 전체</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdInvstAtmAll" style="height:137px;"></div>
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">투자금액 : 소유자</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdInvstAtmOwnr" style="height:137px;"></div>
 				</div>
-				<div id="sb-area-grdMdRtlOgnz" style="height:258px;"></div>
-				<span style="font-size:11px;">*출자출하조직 또는 참여조직 중 전년도 선정에서 탈락한 조직 포함</span>
+				<div class="col-sm-6">
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">개소수:소유자 및 운영자</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdOwnrAndOper" style="height:137px;"></div>
+					<span style="font-size:11px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
+					<span style="font-size:11px;">*공공: 시ㆍ군 지방자치단체</span>
 
-				<div style="height: 50px"></div>
+					<div style="height:101px;"></div>
+					<div style="height: 22px"></div>
 
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<span style="font-size:15px; color:black;">1.2. 산지유통시설 시설ㆍ장비</span>
-							<br/>
-							<span style="font-size:12px">총 건축면적</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:m²)</span>
-						</li>
-					</ul>
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">물류ㆍ상품화 시설(건축면적)</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:m²)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdLgstcsGds" style="height:137px;"></div>
+					<span style="font-size:11px;">*물류ㆍ상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span><br/>
+					<span style="font-size:11px;">*전체면적: APC 전체 물류 및 상품화 시설</span><br/>
+					<span style="font-size:11px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">예냉시설</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdPrprtnClngFclt" style="height:137px;"></div>
+					<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">선별기·측정장비 설치 개소 수</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdFcltMsrmtEqpmnt" style="height:137px;"></div>
+					<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
+					<span style="font-size:11px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
+					<span style="font-size:11px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
+
+					<div style="height: 50px"></div>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">투자금액 : 자금 유형</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdInvstAtmFundType" style="height:137px;"></div>
+
+					<div class="ad_tbl_top" style="margin-bottom: 30px;">
+						<ul class="ad_tbl_count" style="width: 100%">
+							<li>
+								<br/>
+								<span style="font-size:12px">투자금액 : 운영자</span>
+								<br/>
+								<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
+							</li>
+						</ul>
+					</div>
+					<div id="sb-area-grdInvstAtmOperPrsn" style="height:137px;"></div>
 				</div>
-				<div id="sb-area-grdAllBdar" style="height:137px;"></div>
-				<span style="font-size:11px;">*물류시설, 상품회사설, 저장고 등 건축면적의 합계</span><br/>
-				<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
-
-				<div style="height: 20px"></div>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">저온저장고</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdLwtpStrg" style="height:137px;"></div>
-				<span style="font-size:11px;">*면적 소수점 이하 미표기</span>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">CA 저장시설</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdStrgFclt" style="height:137px;"></div>
-				<span style="font-size:11px;">*CA저장 시설 : Controlled Atmosphere Storage(기체조절 저장고)로 장기저장 과일의 신선도 유지 시설</span>
-
-				<div style="height: 40px"></div>
-				<div style="height: 50px"></div>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<span style="font-size:15px; color:black;">1.3.투자금액</span>
-							<br/>
-							<span style="font-size:12px">투자금액 : 전체</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdInvstAtmAll" style="height:137px;"></div>
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">투자금액 : 소유자</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdInvstAtmOwnr" style="height:137px;"></div>
-			</div>
-			<div class="col-sm-6">
-			<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">개소수:소유자 및 운영자</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdOwnrAndOper" style="height:137px;"></div>
-				<span style="font-size:11px;">*민간: 농협, 농업법인, 재단버인 등 민간 사업자</span><br/>
-				<span style="font-size:11px;">*공공: 시ㆍ군 지방자치단체</span>
-
-				<div style="height:101px;"></div>
-				<div style="height: 50px"></div>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">물류ㆍ상품화 시설(건축면적)</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:m²)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdLgstcsGds" style="height:137px;"></div>
-				<span style="font-size:11px;">*물류ㆍ상품화 시설: 집출하, 선별, 포장, 신선편의, 반가공 등 처리시설</span><br/>
-				<span style="font-size:11px;">*전체면적: APC 전체 물류 및 상품화 시설</span><br/>
-				<span style="font-size:11px;">*평균면적: APC 개소당 물류 및 상품화 시설</span>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">예냉시설</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,m²)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdPrprtnClngFclt" style="height:137px;"></div>
-				<span style="font-size:11px;">*예냉시설:  수확 후 또는 운송 이전에 농산물의 품온을 짧은 시간 내에 적정온도로 냉각하는 시설</span>
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">선별기·측정장비 설치 개소 수</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdFcltMsrmtEqpmnt" style="height:137px;"></div>
-				<span style="font-size:11px;">*선별기 : 선별(grading&sorting)시설 본체</span><br/>
-				<span style="font-size:11px;">*측정장비 : 당도·색택·내부손상 등 세부 품질 측정장비(선별기에 부착)</span><br/>
-				<span style="font-size:11px;">*반가공시설 : 신선편의처리, 마늘건조, 깐마늘, 고추건조 등</span>
-
-				<div style="height: 50px"></div>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">투자금액 : 자금 유형</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:백만원)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdInvstAtmFundType" style="height:137px;"></div>
-
-				<div class="ad_tbl_top" style="margin-bottom: 30px;">
-					<ul class="ad_tbl_count" style="width: 100%">
-						<li>
-							<br/>
-							<span style="font-size:12px">투자금액 : 운영자</span>
-							<br/>
-							<span style="font-size:11px; text-align: right; display: block; color:black; font-weight: normal;">(단위:개소,백만원)</span>
-						</li>
-					</ul>
-				</div>
-				<div id="sb-area-grdInvstAtmOperPrsn" style="height:137px;"></div>
 			</div>
 		</div>
 	</div>
@@ -301,10 +305,10 @@ const fn_createMdRtlOgnzGrid = function() {
     SBGridProperties.mergecells = 'bycolrec';
     SBGridProperties.allowcopy = true;
     SBGridProperties.columns = [
-    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px; '},
-    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px;'},
-    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'213px', style: 'text-align:center; padding-right:5px;'},
-    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'105px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["산지유통조직유형"], ref: 'title', type: 'output',  width:'28%', style: 'text-align:center; padding-right:5px; '},
+    	{caption : ["산지유통조직유형"], ref: 'subTitle', type: 'output',  width:'28%', style: 'text-align:center; padding-right:5px;'},
+    	{caption : ["산지유통조직유형"], ref: 's0', type: 'output',  width:'28%', style: 'text-align:center; padding-right:5px;'},
+    	{caption : ["APC 개소수"], ref: 's1', type: 'output',  width:'16%', style: 'text-align:right; padding-right:5px;', merge : false,format : {type:'number', rule:'#,###'}}
     ];
     grdMdRtlOgnz = _SBGrid.create(SBGridProperties);
 }
@@ -340,12 +344,12 @@ const fn_createOwnrAndOperGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 's0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["소유자","민간"], ref: 's1', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["소유자","공공"], ref: 's2', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","농협"], ref: 's3', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["운영자","농업법인"], ref: 's4', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'150px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 's0', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["소유자","민간"], ref: 's1', type: 'output',  width:'15%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["소유자","공공"], ref: 's2', type: 'output',  width:'15%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","농협"], ref: 's3', type: 'output',  width:'15%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["운영자","농업법인"], ref: 's4', type: 'output',  width:'15%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["합계","합계"], ref: 's5', type: 'output',  width:'15%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdOwnrAndOper = _SBGrid.create(SBGridProperties);
 }
@@ -383,13 +387,13 @@ const fn_createAllBdarGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["농협","전체면적"], ref: 'v1', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;' , format : {type:'number', rule:'#,###'}},
-    	{caption : ["농협","평균면적"], ref: 'v2', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","전체면적"], ref: 'v3', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","평균면적"], ref: 'v4', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["농협","전체면적"], ref: 'v1', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;' , format : {type:'number', rule:'#,###'}},
+    	{caption : ["농협","평균면적"], ref: 'v2', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","전체면적"], ref: 'v3', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","평균면적"], ref: 'v4', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdAllBdar = _SBGrid.create(SBGridProperties);
 }
@@ -427,13 +431,13 @@ const fn_createLgstcsGdsGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["농협","전체면적"], ref: 'v1', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농협","평균면적"], ref: 'v2', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","전체면적"], ref: 'v3', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","평균면적"], ref: 'v4', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["농협","전체면적"], ref: 'v1', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농협","평균면적"], ref: 'v2', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","전체면적"], ref: 'v3', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","평균면적"], ref: 'v4', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","전체면적"], ref: 'v5', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["전체","평균면적"], ref: 'v6', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdLgstcsGds = _SBGrid.create(SBGridProperties);
 }
@@ -468,11 +472,11 @@ const fn_createLwtpStrgGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["저온저장고 <br/> 개소수","저온저장고 <br/> 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["저온저장시(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["저온저장시(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장고 <br/> 개소수","저온저장고 <br/> 개소수"], ref: 'v2', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장시(면적)","전체면적"], ref: 'v3', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["저온저장시(면적)","평균면적"], ref: 'v4', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdLwtpStrg = _SBGrid.create(SBGridProperties);
 }
@@ -507,11 +511,11 @@ const fn_createPrprtnClngFcltGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설 <br/> 개소수","예냉시설 <br/> 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["APC 개소수","APC 개소수"], ref: 'v1', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설 <br/> 개소수","예냉시설 <br/> 개소수"], ref: 'v2', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["예냉시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdPrprtnClngFclt = _SBGrid.create(SBGridProperties);
 }
@@ -546,11 +550,11 @@ const fn_createStrgFcltGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["CA저장시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["CA저장시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'160px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["설치현황","전체 개소수"], ref: 'v1', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["설치현황","설치 개소수"], ref: 'v2', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["CA저장시설(면적)","전체면적"], ref: 'v3', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["CA저장시설(면적)","평균면적"], ref: 'v4', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdStrgFclt = _SBGrid.create(SBGridProperties);
 }
@@ -586,12 +590,12 @@ const fn_createFcltMsrmtEqpmntGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["APC개소수","APC개소수"], ref: 'v1', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["선별기 <br/> 설치 개소수","선별기 <br/> 설치 개소수"], ref: 'v2', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["당도선별기 <br/> 설치개소수","당도선별기 <br/> 설치개소수"], ref: 'v3', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["색택선별기 <br/> 설치개소수","색택선별기 <br/> 설치개소수"], ref: 'v4', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["가공설비 <br/> 설치개소수","가공설비 <br/> 설치개소수"], ref: 'v5', type: 'output',  width:'120px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["APC개소수","APC개소수"], ref: 'v1', type: 'output',  width:'16.8%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["선별기 <br/> 설치 개소수","선별기 <br/> 설치 개소수"], ref: 'v2', type: 'output',  width:'16.8%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["당도선별기 <br/> 설치개소수","당도선별기 <br/> 설치개소수"], ref: 'v3', type: 'output',  width:'16.8%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["색택선별기 <br/> 설치개소수","색택선별기 <br/> 설치개소수"], ref: 'v4', type: 'output',  width:'16.8%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["가공설비 <br/> 설치개소수","가공설비 <br/> 설치개소수"], ref: 'v5', type: 'output',  width:'16.8%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdFcltMsrmtEqpmnt = _SBGrid.create(SBGridProperties);
 }
@@ -626,10 +630,10 @@ const fn_createInvstAtmAllGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["개소 수","개소 수"], ref: 'v1', type: 'output',  width:'230px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["투자금액","투자금액"], ref: 'v2', type: 'output',  width:'230px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["평균투자금액","평균투자금액"], ref: 'v3', type: 'output',  width:'230px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'25%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["개소 수","개소 수"], ref: 'v1', type: 'output',  width:'25%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["투자금액","투자금액"], ref: 'v2', type: 'output',  width:'25%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["평균투자금액","평균투자금액"], ref: 'v3', type: 'output',  width:'25%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdInvstAtmAll = _SBGrid.create(SBGridProperties);
 }
@@ -664,11 +668,11 @@ const fn_createInvstAtmFundTypeGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["국비","국비"], ref: 'v1', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["지방비","지방비"], ref: 'v2', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["자부담","자부담"], ref: 'v3', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["합 계","합 계"], ref: 'v4', type: 'output',  width:'140px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["국비","국비"], ref: 'v1', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["지방비","지방비"], ref: 'v2', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["자부담","자부담"], ref: 'v3', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["합 계","합 계"], ref: 'v4', type: 'output',  width:'21%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdInvstAtmFundType = _SBGrid.create(SBGridProperties);
 }
@@ -706,13 +710,13 @@ const fn_createInvstAtmOwnrGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["민간 APC","개소 수"], ref: 'v1', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["민간 APC","투자금액"], ref: 'v2', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["민간 APC","평균투자액"], ref: 'v3', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","개소 수"], ref: 'v4', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","투자금액"], ref: 'v5', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["공공 APC","평균투자액"], ref: 'v6', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["민간 APC","개소 수"], ref: 'v1', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["민간 APC","투자금액"], ref: 'v2', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["민간 APC","평균투자액"], ref: 'v3', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","개소 수"], ref: 'v4', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","투자금액"], ref: 'v5', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["공공 APC","평균투자액"], ref: 'v6', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdInvstAtmOwnr = _SBGrid.create(SBGridProperties);
 }
@@ -750,13 +754,13 @@ const fn_createInvstAtmOperPrsnGrid = function() {
 		}
 	};
     SBGridProperties.columns = [
-    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'160px', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
-    	{caption : ["농 협","개소 수"], ref: 'v1', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농 협","투자금액"], ref: 'v2', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농 협","평균투자액"], ref: 'v3', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","개소 수"], ref: 'v4', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","투자금액"], ref: 'v5', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
-    	{caption : ["농업법인","평균투자액"], ref: 'v6', type: 'output',  width:'110px', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
+    	{caption : ["구분","구분"], ref: 'v0', type: 'output',  width:'16%', style: 'text-align:center; padding-right:5px; background-color:#F5FBFF'},
+    	{caption : ["농 협","개소 수"], ref: 'v1', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농 협","투자금액"], ref: 'v2', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농 협","평균투자액"], ref: 'v3', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","개소 수"], ref: 'v4', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","투자금액"], ref: 'v5', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}},
+    	{caption : ["농업법인","평균투자액"], ref: 'v6', type: 'output',  width:'14%', style: 'text-align:right; padding-right:5px;', format : {type:'number', rule:'#,###'}}
     ];
     grdInvstAtmOperPrsn = _SBGrid.create(SBGridProperties);
 }
@@ -964,6 +968,18 @@ const mdRtlOgnzNowGridRebuild = function() {
 	grdInvstAtmFundType.rebuild();
 	grdInvstAtmOwnr.rebuild();
 	grdInvstAtmOperPrsn.rebuild();
+}
+const fn_printOgnz = function(){
+	var initBody;
+	window.onbeforeprint = function(){
+		initBody = document.body.innerHTML;
+		document.body.innerHTML =  document.getElementById('print-area').innerHTML;
+		console.log(document.body.innerHTML,"??");
+	};
+	window.onafterprint = function(){
+		document.body.innerHTML = initBody;
+	};
+	window.print();
 }
 </script>
 </html>
