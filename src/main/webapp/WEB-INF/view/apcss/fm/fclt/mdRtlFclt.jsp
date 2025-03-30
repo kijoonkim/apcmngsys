@@ -77,10 +77,11 @@
 									jsondata-ref="jsonCrtrYr"
 									style="width: 200px"></sbux-select>
 							</td>
-							<td>
+							<td style="position: initial">
 								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
 								<sbux-button id="btnPrintPdf" name="btnPrintPdf" uitype="normal" class="btn btn-sm btn-outline-danger" text="일괄조회" onclick="fn_print()"></sbux-button>
 								<sbux-button id="btnPrintPdf1" name="btnPrintPdf1" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_print1()"></sbux-button>
+								<div style="position: absolute; right: 15px; bottom: 0;">출력옵션 안내 > 레이아웃: 가로모드, 배율: 맞춤설정(미리보기 확인[70~79])</div>
 							</td>
 						</tr>
 					</table>
