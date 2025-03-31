@@ -605,6 +605,8 @@
 		SBGridProperties.rowheight = 57;
 		//SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 		//SBGridProperties.mergecellsverticalalign = 'bottom';
+        SBGridProperties.explorerbar = 'sort'; // 정렬
+        SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 				{caption: ["구분","구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["통합조직\n구분","통합조직\n구분" ], 	ref: 'aprv',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
@@ -615,13 +617,13 @@
 				//{caption: ["구분","구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
 					//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 \n총 취급실적","총 취급물량\n(톤)"], 		ref: 'slsCnsgnSlsVlmTot',   	type:'output',  width:'100px',	style:'text-align:right;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["통합조직 \n총 취급실적","총 취급액\n(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'120px',	style:'text-align:right;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["생산자조직\n전속출하실적","생산자조직\n전속출하물량(톤)"], 	ref: 'slsCnsgnSlsVlm',   	type:'output',  width:'100px',	style:'text-align:right;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["생산자조직\n전속출하실적","생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:right;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["전속취급률(%)\n(B/A)","전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:right;'
 					,format: {type: 'string', rule: '@" %"'}},
 				{caption: ["적합여부","적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
@@ -1550,6 +1552,8 @@
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.mergecells = 'bycolrec';//병합 설정 bycol : 상하 , byrow : 좌우 , bycolrec : 상하 병합 후 좌우
 		SBGridProperties.datamergefalseskip = true;//병합 제외 설정 merge : false
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 			{caption: ["구분","구분"]
 				,ref: 'clsfSeNm',		type:'output',  width:'100px',    style:'text-align:center'},
@@ -1558,17 +1562,17 @@
 
 			{caption: [prvTotStr,"취급 물량(톤)"]
 				,ref: 'prvTotVlm',	type:'output',	width:'100px',    style:'text-align:right', merge : false
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 			{caption: [prvTotStr,"취급액(천원)"]
 				,ref: 'prvTotAmt',	type:'output',  width:'100px',    style:'text-align:right', merge : false
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 
 			{caption: [totStr,"취급 물량(톤)"]
 				,ref: 'totVlm',	type:'output',  width:'100px',    style:'text-align:right', merge : false
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 			{caption: [totStr,"취급액(천원)"]
 				,ref: 'totAmt',	type:'output',  width:'100px',    style:'text-align:right', merge : false
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 
 			{caption: ["상세내역"], 	ref: 'clsfCd',		hidden : true},
 		];

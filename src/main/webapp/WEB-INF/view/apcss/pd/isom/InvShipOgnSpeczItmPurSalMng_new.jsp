@@ -622,6 +622,8 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		//SBGridProperties.fixedrowheight=45;
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 				{caption : ['품목명','품목명','품목명'],
 					ref : "itemNm",   width : '100px',			style : 'text-align:center',     type : 'output'},
@@ -637,30 +639,30 @@
 					ref : "prchsNm",   width : '150px',			style : 'text-align:center',     type : 'output', merge:false},
 				{caption : ['판매위임(매입)현황','물량(톤)','물량(톤)'],
 					ref : "slsCnsgnPrchsVlm",   width : '100px',	style : 'text-align:right',	type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['판매위임(매입)현황','금액(천원)','금액(천원)'],
 					ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 
 				{caption : ['출하(매출)현황','통합조직에 출하(판매)','물량(톤)'],
 					ref : "uoSpmtVlm",		width : '100px',	style : 'text-align:right',		type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['출하(매출)현황','통합조직에 출하(판매)','금액(천원)'],
 					ref : "uoSpmtAmt",		width : '100px',	style : 'text-align:right',		type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 
 				{caption : ['출하(매출)현황','통합조직 이외 출하(판매)','물량(톤)'],
 					ref : "uoOtherSpmtVlm",	width : '100px',	style : 'text-align:right',		type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['출하(매출)현황','통합조직 이외 출하(판매)','금액(천원)'],
 					ref : "uoOtherSpmtAmt",	width : '100px',	style : 'text-align:right',		type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 
 
 				{caption : ['출하(매출)현황','합계','물량(톤)'],
-					ref : "SpmtVlmTot",   	width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcVlmSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
+					ref : "SpmtVlmTot",   	width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcVlmSum' ,  format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['출하(매출)현황','합계','금액(천원)'],
-					ref : "SpmtAmtTot",		width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcAmtSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
+					ref : "SpmtAmtTot",		width : '100px',	style : 'text-align:right; background-color: #e1e1e1',	type : 'output', calc : 'fn_calcAmtSum' ,  format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['비고','비고','비고'],
 					ref : "rmrk",   width : '150px',			style : 'text-align:right',      type : 'input', merge:false},
 

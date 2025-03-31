@@ -827,6 +827,8 @@
 		SBGridProperties.oneclickedit = false;//입력 활성화 true 1번클릭 false 더블클릭
 		SBGridProperties.fixedrowheight=45;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.columns = [
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'50px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
@@ -870,23 +872,23 @@
 
 			{caption: ["적합여부"], 		ref: 'stbltYn',   	type:'output',  width:'50px',    style:'text-align:center'},
 			{caption: ["조직원수"], 					ref: 'cnt',   	type:'output',  width:'50px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'},datatype : 'number'},
 
 			{caption: ["계약물량(톤)\n[A]"], 	ref: 'ecSpmtPlanVlmTot',   	type:'output',  width:'80px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'},
 			{caption: ["<span class='data_required'></span>계약시기"], 		ref: 'ctrtDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하량(톤)\n[B]"], 	ref: 'ecSpmtVlmTot',   	type:'output',  width:'80px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'},
 			{caption: ["<span class='data_required'></span>출하시작시기"], 		ref: 'spmtBgngDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["<span class='data_required'></span>출하종료시기"], 		ref: 'spmtEndDt',  	type:'datepicker',  width:'80px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yyyymm' , yearrange : 150, calendartype : 'yearmonth', displayui : true}, format : {type:'date', rule:'yyyy-mm', origin : 'yyyymm' }},
 			{caption: ["출하대금\n지급액(천원)"], 		ref: 'spmtPrcTot',   	type:'output',  width:'140px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 
 			{caption: ["출하비율(%)\n[B/A]"] ,format: {type: 'string', rule: '@" %"'}
-				, ref: 'ecSpmtRateB',   	type:'output',  width:'80px',    style:'text-align:center;'},
+				, ref: 'ecSpmtRateB',   	type:'output',  width:'80px',    style:'text-align:center;', datatype : 'number'},
 
 			/*
 			{caption: ["생산량\n(결과)(톤)[A]"], 	ref: 'prdctnVlmTot',   	type:'output',  width:'140px',    style:'text-align:center'
@@ -961,7 +963,8 @@
 		SBGridProperties.emptyareaindexclear = false;//그리드 빈 영역 클릭시 인덱스 초기화 여부
 		SBGridProperties.fixedrowheight=36;
 		SBGridProperties.rowheader="seq";
-		//SBGridProperties.explorerbar = 'sort';//정렬
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 			{caption: ["처리","처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
@@ -983,9 +986,9 @@
 			{caption: ["<span class='data_required'></span>재배지 주소","<span class='data_required'></span>재배지 주소"], 	ref: 'cltvtnLandAddr',   	type:'input',  width:'300px',    style:'text-align:center'},
 			{caption: ["품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'120px',    style:'text-align:center' },
 			{caption: ["기준","재배면적(㎡)"], 	ref: 'cltvtnSfc',   	type:'input',  width:'80px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 			{caption: ["기준","(평년)생산량(톤)"], ref: 'avgYrPrdctnVlm',   	type:'input',  width:'110px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'},
 			/*
 			{caption: ["생산계획량(톤)"], ref: 'prdctnPlanVlm',   	type:'input',  width:'140px',    style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
@@ -994,14 +997,14 @@
 			*/
 
 			{caption: ["계약","계약면적(㎡)"], 	ref: 'ecCltvtnSfc',   	type:'input',  width:'80px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 			{caption: ["계약","<span class='data_required'></span>전속(약정)\n출하계약량(톤)"], ref: 'ecSpmtPlanVlm',   	type:'input',  width:'110px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'},
 
 			{caption: ["결과","<span class='data_required'></span>전속(약정)\n출하량(톤)"], ref: 'ecSpmtVlm',   	type:'input',  width:'110px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'},
 			{caption: ["결과","<span class='data_required'></span>출하대금\n지급액(천원)"], ref: 'spmtPrc',   	type:'input',  width:'140px',    style:'text-align:center'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}},
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 
 			{caption: ["가입일","가입일"], 		ref: 'joinDay',  	type:'datepicker',  width:'110px',    style:'text-align:center'
 				,typeinfo : {locale : 'ko' , dateformat :'yymmdd' , yearrange : 150, displayui : true}, format : {type:'date', rule:'yyyy-mm-dd', origin : 'yyyymmdd' }},

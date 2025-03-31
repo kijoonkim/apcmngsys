@@ -990,6 +990,8 @@
 		SBGridProperties.fixedrowheight=45;
 		//SBGridProperties.rowheight = 57;
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 			{caption: ["출자출하조직명"],	ref: 'corpNm',		type:'output',  width:'160px',    style:'text-align:center;'},
 			{caption: ["사업자번호"],	ref: 'brno',		type:'output',  width:'80px',    style:'text-align:center;'},
@@ -1006,10 +1008,10 @@
 			},
 			{caption: ["패널티"], 		ref: 'pnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
 			{caption: ["자금신청액(천원)"], 	ref: 'isoFundAplyAmt',	type:'output',  width:'160px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'
 			},
 			{caption: ["금리(%)"], 		ref: 'itrRt',			type:'output',  width:'80px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'
 			},
 			{caption: ["선정여부\n(관리자입력)"], 	ref: 'mngrStbltYn',	type:'combo',  width:'90px',    style:'text-align:center;', disabled : true
 				,typeinfo : {ref:'comStbltYn', label:'label', value:'value', displayui : false}
@@ -1024,7 +1026,7 @@
 			},
 			{caption: ["패널티\n(관리자입력)"], 		ref: 'mngrPnlty',	type:'output',  width:'110px',    style:'text-align:center;'},
 			{caption: ["금리(%)\n(관리자입력)"], 		ref: 'mngrItrRt',			type:'output',  width:'110px',    style:'text-align:center;'
-				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}
+				,typeinfo : {mask : {alias: 'decimal', digits : 2}}, format : {type:'number', rule:'#,###.##'}, datatype : 'number'
 			},
 			{caption: ["비고"], 		ref: 'rmrk', 	type:'output',  width:'200px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'yr',   		hidden : true},
