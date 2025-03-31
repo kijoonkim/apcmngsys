@@ -570,6 +570,8 @@
 		SBGridProperties.rowheight = 57;
 		//SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 		//SBGridProperties.mergecellsverticalalign = 'bottom';
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 				{caption: ["구분"], 	ref: 'sttgUpbrItemNm',   	type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["통합조직\n구분"], 	ref: 'aprv',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
@@ -579,11 +581,11 @@
 				//{caption: ["구분"], 		ref: 'sttgUpbrItemSe',   	type:'combo',  width:'100px',	style:'text-align:center;', disabled:true
 					//,typeinfo : {ref:'jsonComGrdSttgUpbrItemSe_1', label:'label', value:'value', displayui : false}},
 				{caption: ["통합조직 총\n취급액(천원)(A)"], 		ref: 'slsCnsgnSlsAmtTot',   	type:'output',  width:'100px',	style:'text-align:center;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["생산자조직\n전속출하액(천원)(B)"], 	ref: 'slsCnsgnSlsAmt',   	type:'output',  width:'120px',	style:'text-align:center;'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
 				{caption: ["전속취급률(%)\n(B/A)"], 			ref: 'slsCnsgnSlsAmtRt',   		type:'output',  width:'100px',	style:'text-align:center;'
-					,format: {type: 'string', rule: '@" %"'}},
+					,format: {type: 'string', rule: '@" %"'}, datatype : 'number'},
 				{caption: ["적합여부"], 	ref: 'orgStbltYn',   		type:'output',  width:'100px',	style:'text-align:center;'},
 				{caption: ["비고"], 		ref: 'stbltYnNm',   	type:'textarea',  width:'200px',	style:'padding-left:10px'
 					,typeinfo : {textareanewline : true},disabled:true },

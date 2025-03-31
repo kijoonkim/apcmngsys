@@ -808,9 +808,10 @@
 		SBGridProperties.selectmode = 'byrow';
 		//SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
-		//SBGridProperties.explorerbar = 'sort';//정렬
 		SBGridProperties.fixedrowheight=88;
 		SBGridProperties.frozenbottomrows=1;
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 			{caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 				<c:if test="${loginVO.userType ne '02' && loginVO.userType ne '91'}">
@@ -853,14 +854,14 @@
 				,typeinfo : {ref:'jsonGrdCtgryCd', label:'label', value:'value', displayui : true, itemcount : 5, position : 'bottom'}},
 
 			{caption: ["직접판매 실적\n금액(천원)"],	ref: 'trmtAmt',	type:'input',  width:'120px',	style:'text-align:right', merge: false
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'
 			},
 			{caption: ["위탁판매 실적\n금액(천원)"],	ref: 'consignTrmtAmt',	type:'input',  width:'120px',	style:'text-align:right'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'
 			},
 			{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
 				,calc : 'fn_trmtAmtTot'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'
 			},
 			{caption: ["인정여부"],		ref: 'rcgnYn',	type:'combo',  width:'80px',	style:'text-align:center'
 				,calc : 'fn_rcgnYn'
@@ -868,7 +869,7 @@
 			},
 			{caption: ["인정실적"],	ref: 'rcgnTrmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right; background-color: lightgray'
 				,calc : 'fn_rcgnTrmtAmtTot'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}
+				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'
 			},
 			{caption: ["비고"],		ref: 'rmrk',	type:'input',  width:'100px',	style:'text-align:center'},
 			{caption: ["참고\n*온라인도매시장 판매 확대\n목표 산출시 적용될 판매실적\n(직접판매100%,위탁판매80%\n고려 실적)(K)"],	ref: 'consignTrmtAmtTot',	type:'output',  width:'200px',	style:'text-align:right; background-color: lightgray'

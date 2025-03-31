@@ -605,6 +605,8 @@
 	    SBGridProperties.oneclickedit = true;
 	    //SBGridProperties.whitespacemerge = true;//빈칸 자동병합
 	    //SBGridProperties.mergecellsverticalalign = 'bottom';
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
 		SBGridProperties.columns = [
 				{caption : ['품목명','품목명'],
 					ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
@@ -622,18 +624,18 @@
 				{caption : ['판매위임(매입)현황','물량(톤)']
 					//, calc : 'fn_calcSlsCnsgnPrchsAmt'
 					,ref : "slsCnsgnPrchsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false , datatype : 'number'},
 				{caption : ['판매위임(매입)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnPrchsAmt',
 					ref : "slsCnsgnPrchsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false },
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false , datatype : 'number'},
 
 				{caption : ['판매(매출)현황','물량(톤)']
 					//, calc : 'fn_calcSlsCnsgnSlsAmt'
 					,ref : "slsCnsgnSlsVlm",   width : '100px',        style : 'text-align:right',      type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['판매(매출)현황','금액(천원)'], calc : 'fn_calcSlsCnsgnSlsAmt',
 					ref : "slsCnsgnSlsAmt",   width : '100px',        style : 'text-align:right',      type : 'input'
-					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false},
+					,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 				{caption : ['비고','비고'],
 					ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 
