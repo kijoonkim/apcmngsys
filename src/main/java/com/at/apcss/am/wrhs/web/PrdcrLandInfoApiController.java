@@ -1,6 +1,7 @@
 package com.at.apcss.am.wrhs.web;
 
 import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
+import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
 import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -36,6 +37,36 @@ public class PrdcrLandInfoApiController extends BaseController {
 
             resultList = prdcrLandInfoService.selectPrdcrLandInfoList(prdcrLandInfoVO);
 
+        } catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    /**
+     * 생산농지정보 수정
+     * @param prdcrLandInfoVO
+     * @param request
+     * @return List<prdcrLandInfoVO>
+     * @throws Exception
+     */
+    @PostMapping(value = "/api/mobile/am/wrhs/updatePrdcrLandInfoList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> updatePrdcrLandInfoList(@RequestBody PrdcrLandInfoVO prdcrLandInfoVO, HttpServletRequest request) throws Exception {
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+        int resultList;
+
+        try {
+            resultList = prdcrLandInfoService.updatePrdcrLandInfo(prdcrLandInfoVO);
         } catch (Exception e) {
             logger.debug(ComConstants.ERROR_CODE, e.getMessage());
             return getErrorResponseEntity(e);
