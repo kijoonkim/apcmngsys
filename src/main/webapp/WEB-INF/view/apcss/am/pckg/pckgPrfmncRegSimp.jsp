@@ -85,7 +85,7 @@
             border: 0;
         }
         .btn-size {
-            width: 10vw;
+            width: 9vw;
             font-size: 1.2vw;
         }
         table th{
@@ -216,8 +216,8 @@
                 <div id="tab_pckgPrfmncReg">
                     <table class="table table-bordered tbl_fixed" style="margin-top: 10px">
                         <colgroup>
-                            <col style="width: 15%">
-                            <col style="width: 85%">
+                            <col style="width: 10%">
+                            <col style="width: 90%">
                         </colgroup>
                         <tbody>
                         <tr>
@@ -295,6 +295,29 @@
                                         <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="8">8</div>
                                         <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="9">9</div>
                                         <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="10">10</div>
+                                        <div style="flex: 1;">
+                                            <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal">
+                                         	<span class="sbux-spi-inp-wrap" style="height:100%">
+                                         		<input type="number"
+                                                       id="spinner_normal_0"
+                                                       maxlength="undefined"
+                                                       class="sbux-spi-inp sbux-spi-type-num sbux-spi-txt-center sbux-exist"
+                                                       data-sbux-name="spinner_normal"
+                                                       data-sbux-model-name="spinner_normal"
+                                                       data-sbux-storage-data="value"
+                                                       style="height:100%;  font-size: 1.2vw">
+                                   			</span>
+                                                <span class="sbux-spi-btn-wrap sbux-spi-btn-vertical" style="height:100%">
+                                   				<button type="button" id="buttonUp"class="sbux-spi-btn sbux-spi-up">
+	                                   				<i class="fas fa-caret-up" aria-hidden="true"></i>
+	                                   			</button>
+	                                   			<button type="button" id="buttonDown" class="sbux-spi-btn sbux-spi-down">
+	                                   				<i class="fas fa-caret-down" aria-hidden="true"></i>
+                                   				</button>
+                                   			</span>
+                                                <input type="hidden" name="spinner_normal" style="display:none;" value="">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
@@ -305,57 +328,34 @@
                                 <div style="display: flex; justify-content: space-between">
                                     <div style="display: flex; gap: 1.5vw">
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">1</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">2</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">3</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">4</div>
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">5</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">6</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">7</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">8</div>
+                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">9</div>
                                         <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">10</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">50</div>
+                                        <div style="flex: 1;display: flex;gap: 1vw">
+                                            <sbux-button
+                                                    id="btnRegReset"
+                                                    name="btnRegReset"
+                                                    uitype="normal"
+                                                    class="btn btn-outline-danger btn-size"
+                                                    text="초기화"
+                                                    onclick="fn_RegReset"
+                                            ></sbux-button>
+                                            <sbux-button
+                                                    id="btnRegSave"
+                                                    name="btnRegSave"
+                                                    uitype="normal"
+                                                    class="btn btn-success btn-size"
+                                                    text="저장"
+                                                    onclick="fn_save"
+                                            ></sbux-button>
+                                        </div>
                                     </div>
-
-                                    <div style="display: flex; gap: 1.5vw">
-
-                                        <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal">
-                                         	<span class="sbux-spi-inp-wrap" style="height:100%">
-                                         		<input type="number"
-                                         			   id="spinner_normal_0"
-                                         			   maxlength="undefined"
-                                         			   class="sbux-spi-inp sbux-spi-type-num sbux-spi-txt-center sbux-exist"
-                                         			   data-sbux-name="spinner_normal"
-                                         			   data-sbux-model-name="spinner_normal"
-                                         			   data-sbux-storage-data="value"
-                                         			   style="height:100%;  font-size: 1.2vw">
-                                   			</span>
-                                   			<span class="sbux-spi-btn-wrap sbux-spi-btn-vertical" style="height:100%">
-                                   				<button type="button" id="buttonUp"class="sbux-spi-btn sbux-spi-up">
-	                                   				<i class="fas fa-caret-up" aria-hidden="true"></i>
-	                                   			</button>
-	                                   			<button type="button" id="buttonDown" class="sbux-spi-btn sbux-spi-down">
-	                                   				<i class="fas fa-caret-down" aria-hidden="true"></i>
-                                   				</button>
-                                   			</span>
-                                   			<input type="hidden" name="spinner_normal" style="display:none;" value="">
-                                 		</div>
-
-
-
-
-
-                                        <sbux-button
-                                                id="btnRegReset"
-                                                name="btnRegReset"
-                                                uitype="normal"
-                                                class="btn btn-outline-danger btn-size"
-                                                text="초기화"
-                                                onclick="fn_RegReset"
-                                        ></sbux-button>
-                                        <sbux-button
-                                                id="btnRegSave"
-                                                name="btnRegSave"
-                                                uitype="normal"
-                                                class="btn btn-success btn-size"
-                                                text="저장"
-                                                onclick="fn_save"
-                                        ></sbux-button>
-                                    </div>
-
                                 </div>
                             </td>
                         </tr>
@@ -756,7 +756,7 @@
         //$("#pckgQntt").val(originCnt + value);
     }
     const fn_RegReset = function(){
-        //$("#spinner_normal_0").val('');
+        $("#spinner_normal_0").val(0);
     }
 
     const fn_addDragEvn = function(_id) {
