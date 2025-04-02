@@ -168,17 +168,17 @@
                 </tr>
                 </tbody>
             </table>
+            <div style="display: flex;flex-direction: row-reverse; align-items: center;margin-top:5px; margin-bottom:5px;">
+                <sbux-button
+                        id="btn-reg-bffa"
+                        name="btn-reg-bffa"
+                        class="btn btn-sm btn-success"
+                        text="신규등록" uitype="modal"
+                        onclick="fn_reg_bffa"
+                ></sbux-button>
+            </div>
+            <div id="sb-area-grdSortBffa" style="height: 65vh;"></div>
         </div>
-        <div style="display: flex;flex-direction: row-reverse;padding: 0px 15px; align-items: center">
-            <sbux-button
-                    id="btn-reg-bffa"
-                    name="btn-reg-bffa"
-                    class="btn btn-sm btn-success"
-                    text="신규등록" uitype="modal"
-                    onclick="fn_reg_bffa"
-            ></sbux-button>
-        </div>
-        <div id="sb-area-grdSortBffa" style="height: 60vh; padding: 10px 15px"></div>
     </div>
 </section>
 <div>

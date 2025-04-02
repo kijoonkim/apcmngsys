@@ -51,7 +51,7 @@
 				</div>
 			</div>
 
-			<div class="box-body srch-keyup-area">
+			<div class="box-body srch-keyup-area" style="display: flex;flex-direction: column">
 				<!--[APC] START -->
 					<%@ include file="../../../frame/inc/apcSelect.jsp" %>
 				<!--[APC] END -->
@@ -81,7 +81,6 @@
 					<tbody>
 						<tr>
 							<th colspan="1" scope="row" class="th_bg">선별일자</th>
-
 							<td colspan="2" class="td_input"style="border-right: hidden;">
 								<sbux-datepicker
 									uitype="popup"
@@ -92,7 +91,6 @@
 									onchange="fn_dtpChange(srch-dtp-inptYmdFrom)"
 								></sbux-datepicker>
 							</td>
-
 							<td colspan="2" class="td_input"style="border-right: hidden;">
 								<sbux-datepicker
 									uitype="popup"
@@ -103,10 +101,12 @@
 									onchange="fn_dtpChange(srch-dtp-inptYmdTo)"
 								></sbux-datepicker>
 							</td>
+
 							<th colspan="1" scope="row" class="th_bg">선별기</th>
-							<td colspan="2" class="td_input">
+							<td colspan="2" class="td_input" style="border-right: hidden;border-top: hidden">
 								<sbux-select uitype="single" id="srch-slt-fcltCd" name="srch-slt-fcltCd" class="form-control input-sm" jsondata-ref="jsonComFcltCd" onchange="fn_selectSortFclt" unselected-text="전체" ></sbux-select>
 							</td>
+							<td colspan="8" style="border-top: hidden;"></td>
 							</tr>
 							<tr>
 							<th colspan="1" scope="row" class="th_bg">생산자</th>
@@ -135,7 +135,7 @@
 								></sbux-button>
 							</td>
 							<th colspan = "1" scope="row" class="th_bg">품목</th>
-							<td colspan = "2"class="td_input">
+							<td colspan = "2"class="td_input" style="border-right: hidden;">
 								<sbux-select
 									id="srch-slt-itemCd"
 									name="srch-slt-itemCd"
@@ -145,33 +145,25 @@
 									onchange="fn_selectItem"
 								></sbux-select>
 							</td>
-
-
-
-
+								<td colspan="8"></td>
 						</tr>
 					</tbody>
 				</table>
 
-
-				<div class="table-responsive tbl_scroll_sm">
-				<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc" is-scrollable="false" jsondata-ref="tabJsonData">
-				</sbux-tabs>
-
-
-
-				<div class="tab-content">
-					<div id="exhstDsctnTab" >
-						<div id="sb-area-exhstDsctn" style="height:470px;"></div>
-					</div>
-					<div id="grdDsctnTab" >
-						<div id="sb-area-grdDsctn" style="height:470px;"></div>
-					</div>
-					<div id="grdSortBffaTab" >
-						<div id="sb-area-sortBffa" style="height:470px;"></div>
-					</div>
-				</div>
-
+				<div class="table-responsive tbl_scroll_sm" style="flex: 1;margin-top: 2vh">
+					 <sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal" is-scrollable="false" jsondata-ref="tabJsonData">
+					 </sbux-tabs>
+					 <div class="tab-content">
+						 <div id="exhstDsctnTab" >
+							  <div id="sb-area-exhstDsctn" style="height:470px;"></div>
+						 </div>
+						 <div id="grdDsctnTab" >
+							  <div id="sb-area-grdDsctn" style="height:470px;"></div>
+						 </div>
+						 <div id="grdSortBffaTab" >
+							  <div id="sb-area-sortBffa" style="height:470px;"></div>
+						 </div>
+					 </div>
 				</div>
 			</div>
 		</div>
