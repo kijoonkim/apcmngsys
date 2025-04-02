@@ -542,7 +542,7 @@
 			}
 		}
         if (bresult){
-            fn_queryClick();
+//             fn_queryClick();
         }
   	}
 
@@ -578,8 +578,8 @@
 
 			}
         }
-        if (await bresult){
-        	fn_queryClick();
+        if (bresult){
+//         	fn_queryClick();
         }
   	}
 
