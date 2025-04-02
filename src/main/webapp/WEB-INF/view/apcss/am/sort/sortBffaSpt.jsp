@@ -309,6 +309,7 @@
                             <label for="dtl-chk-itemFixed">고정</label>
                         </p>
                     </td>
+                    <td colspan="4"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg th-mbl">
@@ -364,7 +365,7 @@
                         <input id="srch-inp-wrhsWght" type="text" class="inpt-mbl" style="padding : 6px 12px; border: 1px solid #bbc4d1;border-radius: 5px;" autocomplete="off" onclick="handleClick(event)" ondblclick="handleDoubleClick(event)"/>
                     </td>
                     <td class="td_input" style="border-right:hidden;"><span class="sbux-lbl-span" style="font-size: 22pt; font-weight: bold;">Kg</span></td>
-                    <td colspan="3"></td>
+                    <td colspan="4"></td>
                 </tr>
                 </tbody>
             </table>
