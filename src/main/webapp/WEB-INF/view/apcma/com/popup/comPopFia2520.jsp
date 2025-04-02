@@ -83,14 +83,8 @@
 	                            <td colspan="3" class="td_input" >
 	                                <sbux-select id="POP_SCH_ACCT_RULE_CODE" uitype="single" jsondata-ref="pop_jsonAcctRuleCode" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>				
-	                            
-	                            <th scope="row" class="th_bg">실적구분</th>
-	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="POP_SCH_ACTUAL_FLAG_P" uitype="single" jsondata-ref="pop_jsonActualFlagP" unselected-text="선택" class="form-control input-sm"></sbux-select>
-	                            </td>				
-	                            
 	                            <th scope="row" class="th_bg"></th>
-	                            <td colspan="3" class="td_input" >
+	                            <td colspan="5" class="td_input" >
 	                            </td>				
 	                        </tr>
 	                    </tbody>
@@ -157,9 +151,7 @@ function compopfia2520(options) {
             gfnma_setComSelect(['POP_SCH_SITE_CODE'],		pop_jsonSiteCode, 		'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 회계기준
             gfnma_setComSelect(['POP_SCH_ACCT_RULE_CODE'],	pop_jsonAcctRuleCode,	'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            // 실적구분
-            gfnma_setComSelect(['POP_SCH_ACTUAL_FLAG_P'],	pop_jsonActualFlagP,	'L_FIA020', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            // 실적구분
+            // 취득구분
             gfnma_setComSelect([''],						pop_jsonAcquireType,	'L_FIA007', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 		
@@ -186,9 +178,6 @@ function compopfia2520(options) {
   			}
   			if(settings.param.p_sch_acct_rule_code){
   		  		SBUxMethod.set('POP_SCH_ACCT_RULE_CODE',	settings.param.p_sch_acct_rule_code);
-  			}
-  			if(settings.param.p_sch_actual_flag_p){
-  		  		SBUxMethod.set('POP_SCH_ACTUAL_FLAG_P',		settings.param.p_sch_actual_flag_p);
   			}
   		}
   	    fn_createGrid();	
@@ -275,7 +264,7 @@ function compopfia2520(options) {
 	        		return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_popFia2520_gridPopup4(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
             	}	
             },
-            {caption: ["자산명"],				ref: 'ASSET_NAME',				type:'output',  	width:'200px',  	style:'text-align:left'},
+            {caption: ["자산명"],				ref: 'ASSET_NAME',				type:'input',  	width:'200px',  	style:'text-align:left'},
             
          	{caption: ['최초감가상각년월'],     ref: 'DEPRECIATE_START_YYYYMM', 		type:'datepicker',	width:'100px',   	style:'text-align:left',	typeinfo : {dateformat :"yyyy-mm", calendartype :"yearmonth", displayui:true}},
          	{caption: ['최초감가율(IFRS)'],     ref: 'DEPRECIATE_START_YYYYMM_IFRS', 	type:'datepicker',	width:'100px',   	style:'text-align:left',	typeinfo : {dateformat :"yyyy-mm", calendartype :"yearmonth", displayui:true}},
@@ -348,7 +337,7 @@ function compopfia2520(options) {
         ];
         
         PopFia2520Grid = _SBGrid.create(SBGridProperties);
-        //PopFia2520Grid.bind('click', 'fn_viewGrid');
+//         PopFia2520Grid.bind('valuechanged', 'fn_setRowData');
     }	
     
     const fn_setPopFia2520Grid = async function(wtype) {
@@ -364,7 +353,7 @@ function compopfia2520(options) {
 			,V_P_FI_ORG_CODE        : gfnma_nvl(SBUxMethod.get('POP_SCH_FI_ORG_CODE'))
 			,V_P_ACCT_RULE_CODE	   	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACCT_RULE_CODE'))
 			,V_P_SITE_CODE 	    	: gfnma_nvl(SBUxMethod.get('POP_SCH_SITE_CODE'))
-			,V_P_ACTUAL_FLAG 	    : gfnma_nvl(SBUxMethod.get('POP_SCH_ACTUAL_FLAG_P'))
+			,V_P_ACTUAL_FLAG 	    : ""
 			,V_P_ACQUIRE_DATE_FR 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_FR'))
 			,V_P_ACQUIRE_DATE_TO 	: gfnma_nvl(SBUxMethod.get('POP_SCH_ACQUIRE_DATE_TO'))
  
@@ -395,89 +384,89 @@ function compopfia2520(options) {
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						CHECK_YN						: 'N',
-  						ACCOUNT_CODE					: gfn_nvl(item.ACNTL_CD),
-  						ACCOUNT_NAME					: gfn_nvl(item.ACNT_NM),
-  						ACCT_RULE_CODE					: gfn_nvl(item.GAAP_CD),
-  						ACCUM_DEPR_ACC					: gfn_nvl(item.ACML_DPRC_ACNT),
-  						ACCUM_DEPR_ACC_NAME				: gfn_nvl(item.ACCUM_DEPR_ACC_NAME),
-  						ACQUIRE_DATE					: gfn_nvl(item.ACQS_FRST_YMD),
-  						ACQUIRE_TYPE					: gfn_nvl(item.ACQS_TYPE),
-  						ACTUAL_FLAG						: gfn_nvl(item.ACTL_FLAG),
-  						ASSET_ACCOUNT					: gfn_nvl(item.ASST_ACNT_CD),
-  						ASSET_ACCOUNT_NAME				: gfn_nvl(item.ASSET_ACCOUNT_NAME),
-  						ASSET_CATEGORY					: gfn_nvl(item.ASST_CTGRY),
-  						ASSET_CATEGORY_NAME				: gfn_nvl(item.ASSET_CATEGORY_NAME),
-  						ASSET_LEVEL2					: gfn_nvl(item.ASST_MCLSF),
-  						ASSET_LEVEL2_NAME				: gfn_nvl(item.ASSET_LEVEL2_NAME),
-  						ASSET_LEVEL3					: gfn_nvl(item.ASST_SCLSF),
-  						ASSET_LEVEL3_NAME				: gfn_nvl(item.ASSET_LEVEL3_NAME),
-  						ASSET_NAME						: gfn_nvl(item.ASST_NM),
-  						ASSET_NO						: gfn_nvl(item.ASST_NO),
-  						ASSET_PRICE						: gfn_nvl(item.AST_UNTPRC),
-  						ASSET_QTY						: gfn_nvl(item.AST_DSPSL_QTY),
-  						ASSET_SPEC						: gfn_nvl(item.AST_SPCFCT),
-  						CHK_YN							: gfn_nvl(item.CHK_YN),
-  						COMP_CODE						: gfn_nvl(item.CO_CD),
-  						COST_CENTER_CODE				: gfn_nvl(item.CSTCT_CD),
-  						COST_CENTER_NAME				: gfn_nvl(item.CSTCT_NM),
-  						CS_CODE							: gfn_nvl(item.CNPT_CD),
-  						CS_NAME							: gfn_nvl(item.CNPT_NM),
-  						CURRENCY_CODE					: gfn_nvl(item.CRN_CD),
-  						DEPRECIATE_START_YYYYMM			: gfn_nvl(item.DPRC_BGNG_YM),
-  						DEPRECIATE_START_YYYYMM_IFRS	: gfn_nvl(item.DPRC_BGNG_YM_IFRS),
+  						ACCOUNT_CODE					: gfnma_nvl2(item.ACNTL_CD),
+  						ACCOUNT_NAME					: gfnma_nvl2(item.ACNT_NM),
+  						ACCT_RULE_CODE					: gfnma_nvl2(item.GAAP_CD),
+  						ACCUM_DEPR_ACC					: gfnma_nvl2(item.ACML_DPRC_ACNT),
+  						ACCUM_DEPR_ACC_NAME				: gfnma_nvl2(item.ACCUM_DEPR_ACC_NAME),
+  						ACQUIRE_DATE					: gfnma_nvl2(item.ACQS_FRST_YMD),
+  						ACQUIRE_TYPE					: gfnma_nvl2(item.ACQS_TYPE),
+  						ACTUAL_FLAG						: gfnma_nvl2(item.ACTL_FLAG),
+  						ASSET_ACCOUNT					: gfnma_nvl2(item.ASST_ACNT_CD),
+  						ASSET_ACCOUNT_NAME				: gfnma_nvl2(item.ASSET_ACCOUNT_NAME),
+  						ASSET_CATEGORY					: gfnma_nvl2(item.ASST_CTGRY),
+  						ASSET_CATEGORY_NAME				: gfnma_nvl2(item.ASSET_CATEGORY_NAME),
+  						ASSET_LEVEL2					: gfnma_nvl2(item.ASST_MCLSF),
+  						ASSET_LEVEL2_NAME				: gfnma_nvl2(item.ASSET_LEVEL2_NAME),
+  						ASSET_LEVEL3					: gfnma_nvl2(item.ASST_SCLSF),
+  						ASSET_LEVEL3_NAME				: gfnma_nvl2(item.ASSET_LEVEL3_NAME),
+  						ASSET_NAME						: gfnma_nvl2(item.ASST_NM),
+  						ASSET_NO						: gfnma_nvl2(item.ASST_NO),
+  						ASSET_PRICE						: gfnma_nvl2(item.AST_UNTPRC),
+  						ASSET_QTY						: gfnma_nvl2(item.AST_DSPSL_QTY),
+  						ASSET_SPEC						: gfnma_nvl2(item.AST_SPCFCT),
+  						CHK_YN							: gfnma_nvl2(item.CHK_YN),
+  						COMP_CODE						: gfnma_nvl2(item.CO_CD),
+  						COST_CENTER_CODE				: gfnma_nvl2(item.CSTCT_CD),
+  						COST_CENTER_NAME				: gfnma_nvl2(item.CSTCD_NM),
+  						CS_CODE							: gfnma_nvl2(item.CNPT_CD),
+  						CS_NAME							: gfnma_nvl2(item.CNPT_NM),
+  						CURRENCY_CODE					: gfnma_nvl2(item.CRN_CD),
+  						DEPRECIATE_START_YYYYMM			: gfnma_nvl2(item.DPRC_BGNG_YM),
+  						DEPRECIATE_START_YYYYMM_IFRS	: gfnma_nvl2(item.DPRC_BGNG_YM_IFRS),
   						
-  						DEPRECIATE_YN					: gfn_nvl(item.DPRC_YN),
-  						DEPRECIATION_METHOD_GAAP		: gfn_nvl(item.DPRC_MTHD_GAAP),
-  						DEPRECIATION_METHOD_IFRS		: gfn_nvl(item.DPRC_MTHD_IFRS),
-  						DEPRECIATION_METHOD_TAX			: gfn_nvl(item.DPRC_MTHD_TAX),
-  						DEPRECIATION_PERIOD_GAAP		: gfn_nvl(item.DPRC_PRD_GAAP),
-  						DEPRECIATION_PERIOD_IFRS		: gfn_nvl(item.DPRC_PRD_IFRS),
-  						DEPRECIATION_PERIOD_TAX			: gfn_nvl(item.DPRC_PRD_TAX),
+  						DEPRECIATE_YN					: gfnma_nvl2(item.DPRC_YN),
+  						DEPRECIATION_METHOD_GAAP		: gfnma_nvl2(item.DPRC_MTHD_GAAP),
+  						DEPRECIATION_METHOD_IFRS		: gfnma_nvl2(item.DPRC_MTHD_IFRS),
+  						DEPRECIATION_METHOD_TAX			: gfnma_nvl2(item.DPRC_MTHD_TAX),
+  						DEPRECIATION_PERIOD_GAAP		: gfnma_nvl2(item.DPRC_PRD_GAAP),
+  						DEPRECIATION_PERIOD_IFRS		: gfnma_nvl2(item.DPRC_PRD_IFRS),
+  						DEPRECIATION_PERIOD_TAX			: gfnma_nvl2(item.DPRC_PRD_TAX),
   						
-  						DEPR_EXP_ACC					: gfn_nvl(item.DPCO_ACNT),
-  						DEPR_EXP_ACC_NAME				: gfn_nvl(item.DEPR_EXP_ACC_NAME),
-  						DEPT_CODE						: gfn_nvl(item.DEPT_CD),
-  						DEPT_NAME						: gfn_nvl(item.DEPT_NM),
-  						DOC_ID							: gfn_nvl(item.SLIP_ID),
-  						DOC_NAME						: gfn_nvl(item.SLIP_NM),
-  						EMP_CODE						: gfn_nvl(item.EMP_CD),
-  						EMP_NAME						: gfn_nvl(item.EMP_NM),
-  						EQUIPMENT_NO					: gfn_nvl(item.EQPMNT_NO),
-  						EXCHANGE_RATE					: gfn_nvl(item.EXCHRT),
-  						FI_ORG_CODE						: gfn_nvl(item.ACNTG_OGNZ_CD),
-  						FUNCTIONAL_AMOUNT				: gfn_nvl(item.CNVS_AMT),
-  						INVOICE_ID						: gfn_nvl(item.SLIP_ID),
-  						INVOICE_SEQ						: gfn_nvl(item.SLIP_SEQ),
-  						ITEM_ID							: gfn_nvl(item.ITEM_ID),
-  						LOCATION_CODE					: gfn_nvl(item.LOCTN_CD),
-  						LOCATION_NAME					: gfn_nvl(item.LOCTN_NM),
-  						MEMO							: gfn_nvl(item.MEMO),
-  						MEMO							: gfn_nvl(item.MEMO),
-  						ORIGINAL_AMOUNT					: gfn_nvl(item.ORGNL_AMT),
-  						PROJECT_CODE					: gfn_nvl(item.PJT_CD),
-  						PROJECT_NAME					: gfn_nvl(item.PJT_NM),
-  						QTY								: gfn_nvl(item.QTY),
-  						SALVAGE_RATE_GAAP				: gfn_nvl(item.RMN_RT_GAAP),
-  						SALVAGE_RATE_IFRS				: gfn_nvl(item.RMN_RT_IFRS),
-  						SALVAGE_RATE_TAX				: gfn_nvl(item.RMN_RT_TAX),
-  						SALVAGE_VALUE_GAAP				: gfn_nvl(item.RMN_AMT_GAAP),
-  						SALVAGE_VALUE_IFRS				: gfn_nvl(item.RMN_AMT_IFRS),
-  						SALVAGE_VALUE_TAX				: gfn_nvl(item.RMN_AMT_TAX),
-  						SITE_CODE						: gfn_nvl(item.SITE_CD),
-  						SOURCE_NAME						: gfn_nvl(item.SRC_NM),
-  						SOURCE_TYPE						: gfn_nvl(item.SRC_TYPE),
-  						SUBSIDIES_ACCOUNT				: gfn_nvl(item.GVSBS_ACNT),
-  						SUBSIDIES_ACCUM_DEPR_ACC		: gfn_nvl(item.GVSBS_DPRC_AT_ACNT),
-  						SUBSIDIES_ACCUM_DEPR_ACC_NAME	: gfn_nvl(item.SUBSIDIES_ACCUM_DEPR_ACC_NAME),
-  						SUBSIDIES_ACC_NAME				: gfn_nvl(item.SUBSIDIES_ACC_NAME),
-  						SUBSIDIES_DEPR_ACC				: gfn_nvl(item.GVSBS_DPCO_ACNT),
-  						SUBSIDIES_DEPR_ACC_NAME			: gfn_nvl(item.SUBSIDIES_DEPR_ACC_NAME),
-  						UNIT_CODE						: gfn_nvl(item.UNIT_CD),
-  						USEFUL_LIFE_GAAP				: gfn_nvl(item.SVLF_GAAP),
-  						USEFUL_LIFE_IFRS				: gfn_nvl(item.SVLF_IFRS),
-  						USEFUL_LIFE_TAX					: gfn_nvl(item.SVLF_TAX),
-  						VAT_AMOUNT						: gfn_nvl(item.VAT_AMT),
-  						VAT_TYPE						: gfn_nvl(item.VAT_TYPE),
+  						DEPR_EXP_ACC					: gfnma_nvl2(item.DPCO_ACNT),
+  						DEPR_EXP_ACC_NAME				: gfnma_nvl2(item.DEPR_EXP_ACC_NAME),
+  						DEPT_CODE						: gfnma_nvl2(item.DEPT_CD),
+  						DEPT_NAME						: gfnma_nvl2(item.DEPT_NM),
+  						DOC_ID							: gfnma_nvl2(item.SLIP_ID),
+  						DOC_NAME						: gfnma_nvl2(item.SLIP_NM),
+  						EMP_CODE						: gfnma_nvl2(item.EMP_CD),
+  						EMP_NAME						: gfnma_nvl2(item.EMP_NM),
+  						EQUIPMENT_NO					: gfnma_nvl2(item.EQPMNT_NO),
+  						EXCHANGE_RATE					: gfnma_nvl2(item.EXCHRT),
+  						FI_ORG_CODE						: gfnma_nvl2(item.ACNTG_OGNZ_CD),
+  						FUNCTIONAL_AMOUNT				: gfnma_nvl2(item.CNVS_AMT),
+  						INVOICE_ID						: gfnma_nvl2(item.SLIP_ID),
+  						INVOICE_SEQ						: gfnma_nvl2(item.SLIP_SEQ),
+  						ITEM_ID							: gfnma_nvl2(item.ITEM_ID),
+  						LOCATION_CODE					: gfnma_nvl2(item.LOCTN_CD),
+  						LOCATION_NAME					: gfnma_nvl2(item.LOCTN_NM),
+  						MEMO							: gfnma_nvl2(item.MEMO),
+  						MEMO							: gfnma_nvl2(item.MEMO),
+  						ORIGINAL_AMOUNT					: gfnma_nvl2(item.ORGNL_AMT),
+  						PROJECT_CODE					: gfnma_nvl2(item.PJT_CD),
+  						PROJECT_NAME					: gfnma_nvl2(item.PJT_NM),
+  						QTY								: gfnma_nvl2(item.QTY),
+  						SALVAGE_RATE_GAAP				: gfnma_nvl2(item.RMN_RT_GAAP),
+  						SALVAGE_RATE_IFRS				: gfnma_nvl2(item.RMN_RT_IFRS),
+  						SALVAGE_RATE_TAX				: gfnma_nvl2(item.RMN_RT_TAX),
+  						SALVAGE_VALUE_GAAP				: gfnma_nvl2(item.RMN_AMT_GAAP),
+  						SALVAGE_VALUE_IFRS				: gfnma_nvl2(item.RMN_AMT_IFRS),
+  						SALVAGE_VALUE_TAX				: gfnma_nvl2(item.RMN_AMT_TAX),
+  						SITE_CODE						: gfnma_nvl2(item.SITE_CD),
+  						SOURCE_NAME						: gfnma_nvl2(item.SRC_NM),
+  						SOURCE_TYPE						: gfnma_nvl2(item.SRC_TYPE),
+  						SUBSIDIES_ACCOUNT				: gfnma_nvl2(item.GVSBS_ACNT),
+  						SUBSIDIES_ACCUM_DEPR_ACC		: gfnma_nvl2(item.GVSBS_DPRC_AT_ACNT),
+  						SUBSIDIES_ACCUM_DEPR_ACC_NAME	: gfnma_nvl2(item.SUBSIDIES_ACCUM_DEPR_ACC_NAME),
+  						SUBSIDIES_ACC_NAME				: gfnma_nvl2(item.SUBSIDIES_ACC_NAME),
+  						SUBSIDIES_DEPR_ACC				: gfnma_nvl2(item.GVSBS_DPCO_ACNT),
+  						SUBSIDIES_DEPR_ACC_NAME			: gfnma_nvl2(item.SUBSIDIES_DEPR_ACC_NAME),
+  						UNIT_CODE						: gfnma_nvl2(item.UNIT_CD),
+  						USEFUL_LIFE_GAAP				: gfnma_nvl2(item.SVLF_GAAP),
+  						USEFUL_LIFE_IFRS				: gfnma_nvl2(item.SVLF_IFRS),
+  						USEFUL_LIFE_TAX					: gfnma_nvl2(item.SVLF_TAX),
+  						VAT_AMOUNT						: gfnma_nvl2(item.VAT_AMT),
+  						VAT_TYPE						: gfnma_nvl2(item.VAT_TYPE),
   					}
   					jsonPopFia2520.push(msg);
   					totalRecordCount ++;
@@ -501,14 +490,17 @@ function compopfia2520(options) {
     
     //자산일괄등록
    	const fn_okProcess = async function() {
+   		
+    	let chkData = PopFia2520Grid.getCheckedRowData( PopFia2520Grid.getColRef('CHECK_YN') );
+    	console.log('chkData', chkData);
     	
-    	let allDatas = PopFia2520Grid.getOrgGridDataAll()
-    	if(allDatas.length < 0){
+    	if(gfn_isEmpty(chkData)){
     		return;
     	}
     	
-    	for (var i = 0; i < allDatas.length; i++) {
-    		var obj = allDatas[i];
+    	for (const rowData of chkData) {
+    		const obj = rowData.data
+    		
     		if(obj['ASSET_CATEGORY']=="" || obj['ASSET_CATEGORY_NAME']==""){
         		gfn_comAlert("E0000",	"자산구분, 자산구분명은 필수 입력입니다.");
         		return;
@@ -548,12 +540,11 @@ function compopfia2520(options) {
 		}
     	
  		if(confirm("일괄등록 하시겠습니까?")){
+	    	await fn_ProcessFia2520S('N');
  		}else{
  			return;
  		}		
     	
-    	await fn_ProcessFia2520S('N');
-    	await fn_setPopFia2520Grid('Q');
     }
     
     /**
@@ -561,7 +552,6 @@ function compopfia2520(options) {
      */
      const fn_ProcessFia2520S = async function(wType){
     	
-		let p_pop_sch_actual_flag_p			= gfnma_nvl(SBUxMethod.get("POP_SCH_ACTUAL_FLAG_P"));
     	
     	 var chkList = PopFia2520Grid.getOrgGridDataAll();
     	 console.log('---->> grid all');
@@ -588,7 +578,7 @@ function compopfia2520(options) {
     	 				
 						,V_P_ACCT_RULE_CODE     		: gfnma_nvl(obj.ACCT_RULE_CODE)
 						,V_P_SITE_CODE         			: gfnma_nvl(obj.SITE_CODE)
-						,V_P_ACTUAL_FLAG        		: gfnma_nvl(p_pop_sch_actual_flag_p)
+						,V_P_ACTUAL_FLAG        		: "A"
 						,IV_P_ASSET_ACQUIRE_NO 			: ''
 						,IV_P_ASSET_NO         			: gfnma_nvl(obj.ASSET_NO)
 						,V_P_ACQUIRE_DATE      			: gfnma_nvl(obj.ACQUIRE_DATE)
@@ -665,6 +655,7 @@ function compopfia2520(options) {
     	 	try {
     	 		if (_.isEqual("S", data.resultStatus)) {
     	 			gfn_comAlert("I0001");
+    	 			await fn_setPopFia2520Grid('Q');
     	 		} else {
     	 			alert(data.resultMessage);
     	 		}
@@ -810,7 +801,7 @@ var fn_popFia2520_compopup3 = function(row, col, cellData1, cellData2) {
 	
     var replaceText0 	= "_CSTCT_CD_";
     var replaceText1 	= "_CSTCT_NM_";
-    var strWhereClause 	= "AND X.CSTCT_CD LIKE '%" + replaceText0 + "%' AND X.CSTCT_NM LIKE '%" + replaceText1 + "%'";
+    var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%'";
     
 	SBUxMethod.attr('modal-compopup1', 'header-title', '부서정보');
 	compopup1({
@@ -1004,16 +995,101 @@ var fn_popFia2520_compopup7 = function(row, col, cellData1, cellData2) {
 		,tableHeader			: ["소분류",			"소분류명",				"중분류", 			"중분류명",			"자산구분",			"자산구분명",			"comp_code"]
 		,tableColumnNames		: ["ASST_SCLSF",		"ASST_SCLSF_NM",	"ASST_MCLSF", 		"ASST_MCLSF_NM",	"ASST_CTGRY",	"ASST_CTGRY_NM",	"CO_CD"]	
 		,tableColumnWidths		: ["100px", 			"200px",				"100px",			"100px",		"100px",			"100px",				"100px"]
-		,itemSelectEvent		: function (data){
+		,itemSelectEvent		: async function (data){
+			
 			console.log('callback data:', data);
+			console.log(' PopFia2520Grid jsonPopFia2520 data before => ', jsonPopFia2520[row]);
+			
 			//그리드내 원하는 위치에 값 셋팅하기
 			PopFia2520Grid.setCellData(row, 29,	data['ASST_SCLSF'], 		true, true);
 			PopFia2520Grid.setCellData(row, 31,	data['ASST_SCLSF_NM'], 	true, true);
+			
+			
+		    var paramObj = {
+	    		V_P_DEBUG_MODE_YN		: ''
+	    		,V_P_LANG_ID			: ''
+	    		,V_P_COMP_CODE			: gv_ma_selectedCorpCd
+	    		,V_P_CLIENT_CODE		: gv_ma_selectedClntCd
+	    		
+	    		,V_P_ASSET_LEVEL2       : gfnma_nvl2(data.ASST_MCLSF)
+	    		,V_P_ASSET_LEVEL3       : gfnma_nvl2(data.ASST_SCLSF)
+	    		,V_P_ASSET_LEVEL3_NAME  : gfnma_nvl2(data.ASST_SCLSF_NM)
+	    		
+	    		,V_P_FORM_ID			: p_formId
+	    		,V_P_MENU_ID			: p_menuId
+	    		,V_P_PROC_ID			: ''
+	    		,V_P_USERID				: p_userId
+	    		,V_P_PC					: '' 
+	        };
+
+	        const postJsonPromise = gfn_postJSON("/fi/ffa/alm/selectFia1100.do", {
+	        	getType				: 'json',
+	        	workType			: 'Q',
+	        	cv_count			: '1',
+	        	params				: gfnma_objectToString(paramObj, true)
+	    	});
+
+	        const popupData = await postJsonPromise;
+	    	console.log('popupData : ', popupData);
+	    	try {
+    			if (popupData.cv_1) {
+    				jsonPopFia2520[row-1].DEPR_EXP_ACC_NAME				= gfnma_nvl2(popupData.cv_1[0].DEPR_EXP_ACC_NAME);
+    				jsonPopFia2520[row-1].SALVAGE_VALUE_TAX				= gfnma_nvl2(popupData.cv_1[0].RMN_AMT_TAX);
+    				jsonPopFia2520[row-1].ACCUM_DEPR_ACC					= gfnma_nvl2(popupData.cv_1[0].ACML_DPRC_ACNT);
+    				jsonPopFia2520[row-1].DEPRECIATION_METHOD_IFRS		= gfnma_nvl2(popupData.cv_1[0].DPRC_MTHD_IFRS);
+    				jsonPopFia2520[row-1].ASSET_LEVEL2					= gfnma_nvl2(popupData.cv_1[0].ASST_MCLSF);
+    				jsonPopFia2520[row-1].ASSET_LEVEL2_NAME				= gfnma_nvl2(popupData.cv_1[0].ASSET_LEVEL2_NAME);
+    				jsonPopFia2520[row-1].ASSET_LEVEL3_NAME				= gfnma_nvl2(popupData.cv_1[0].ASSET_LEVEL3_NAME);
+    				jsonPopFia2520[row-1].ASSET_CATEGORY					= gfnma_nvl2(popupData.cv_1[0].ASST_CTGRY);
+    				jsonPopFia2520[row-1].ACCUM_DEPR_ACC_NAME				= gfnma_nvl2(popupData.cv_1[0].ACCUM_DEPR_ACC_NAME);
+    				jsonPopFia2520[row-1].ASSET_CATEGORY_NAME				= gfnma_nvl2(popupData.cv_1[0].ASSET_CATEGORY_NAME);
+    				jsonPopFia2520[row-1].DEPRECIATION_PERIOD_IFRS		= gfnma_nvl2(popupData.cv_1[0].DPRC_PRD_IFRS);
+    				jsonPopFia2520[row-1].SUBSIDIES_ACCUM_DEPR_ACC_NAME	= gfnma_nvl2(popupData.cv_1[0].SUBSIDIES_ACCUM_DEPR_ACC_NAME);
+    				jsonPopFia2520[row-1].DEPRECIATION_METHOD_TAX			= gfnma_nvl2(popupData.cv_1[0].DPRC_MTHD_TAX);
+    				jsonPopFia2520[row-1].ASSET_ACCOUNT_NAME				= gfnma_nvl2(popupData.cv_1[0].ASSET_ACCOUNT_NAME);
+    				jsonPopFia2520[row-1].ASSET_LEVEL3					= gfnma_nvl2(popupData.cv_1[0].ASST_SCLSF);
+    				jsonPopFia2520[row-1].USEFUL_LIFE_GAAP				= gfnma_nvl2(popupData.cv_1[0].SVLF_GAAP);
+    				jsonPopFia2520[row-1].DEPRECIATE_YN					= gfnma_nvl2(popupData.cv_1[0].DPRC_YN);
+    				jsonPopFia2520[row-1].SALVAGE_VALUE_GAAP				= gfnma_nvl2(popupData.cv_1[0].RMN_AMT_GAAP);
+    				jsonPopFia2520[row-1].DEPRECIATION_PERIOD_GAAP		= gfnma_nvl2(popupData.cv_1[0].DPRC_PRD_GAAP);
+    				jsonPopFia2520[row-1].SALVAGE_RATE_IFRS				= gfnma_nvl2(popupData.cv_1[0].RMN_RT_IFRS);
+    				jsonPopFia2520[row-1].SALVAGE_VALUE_IFRS				= gfnma_nvl2(popupData.cv_1[0].RMN_AMT_IFRS);
+    				jsonPopFia2520[row-1].SUBSIDIES_ACC_NAME				= gfnma_nvl2(popupData.cv_1[0].SUBSIDIES_ACC_NAME);
+    				jsonPopFia2520[row-1].DEPRECIATION_METHOD_GAAP		= gfnma_nvl2(popupData.cv_1[0].DPRC_MTHD_GAAP);
+    				jsonPopFia2520[row-1].SUBSIDIES_DEPR_ACC				= gfnma_nvl2(popupData.cv_1[0].GVSBS_DPCO_ACNT);
+    				jsonPopFia2520[row-1].SUBSIDIES_ACCOUNT				= gfnma_nvl2(popupData.cv_1[0].GVSBS_ACNT);
+    				jsonPopFia2520[row-1].SALVAGE_RATE_GAAP				= gfnma_nvl2(popupData.cv_1[0].RMN_RT_GAAP);
+    				jsonPopFia2520[row-1].SUBSIDIES_ACCUM_DEPR_ACC		= gfnma_nvl2(popupData.cv_1[0].GVSBS_DPRC_AT_ACNT);
+    				jsonPopFia2520[row-1].SUBSIDIES_DEPR_ACC_NAME			= gfnma_nvl2(popupData.cv_1[0].SUBSIDIES_DEPR_ACC_NAME);
+    				jsonPopFia2520[row-1].USEFUL_LIFE_TAX					= gfnma_nvl2(popupData.cv_1[0].SVLF_TAX);
+    				jsonPopFia2520[row-1].DEPR_EXP_ACC					= gfnma_nvl2(popupData.cv_1[0].DPCO_ACNT);
+    				jsonPopFia2520[row-1].SALVAGE_RATE_TAX				= gfnma_nvl2(popupData.cv_1[0].RMN_RT_TAX);
+    				jsonPopFia2520[row-1].ASSET_ACCOUNT					= gfnma_nvl2(popupData.cv_1[0].ASST_ACNT_CD);
+    				jsonPopFia2520[row-1].DEPRECIATION_PERIOD_TAX			= gfnma_nvl2(popupData.cv_1[0].DPRC_PRD_TAX);
+    				jsonPopFia2520[row-1].USEFUL_LIFE_IFRS				= gfnma_nvl2(popupData.cv_1[0].SVLF_IFRS);
+    				
+    				
+    				PopFia2520Grid.refresh(false, false, false, false, true, false, false, false, false);
+    				
+	        	} else {
+	          		alert(popupData.resultMessage);
+	        	}
+
+	        } catch (e) {
+	    		if (!(e instanceof Error)) {
+	    			e = new Error(e);
+	    		}
+	    		console.error("failed", e.message);
+	        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+	        }finally{
+	        	console.log(' PopFia2520Grid jsonPopFia2520 data after => ', jsonPopFia2520[row]);
+	        }
+			
 		},
 	});
 	SBUxMethod.openModal('modal-compopup1');
 }        
- 
+
 /**
  * 그리드내 팝업(위치코드) 조회
  */
