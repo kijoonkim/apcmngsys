@@ -1,15 +1,21 @@
 name: Update PR Body with Changed Files
+
 on:
   pull_request:
     types: [opened, synchronize]
+
 permissions:
-  pull-requests: write
+  contents: read  # ✅ 리포지토리 읽기 권한 추가
+  pull-requests: write  # ✅ PR 수정 권한 추가
+
 jobs:
   update-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ✅ 전체 히스토리 가져오기
 
       - name: Get Changed Files
         id: changed-files
@@ -31,12 +37,9 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
             | jq -r '.body')
 
-          # 기존에 '## 변경된 파일' 섹션이 있는지 확인
           if echo "$BODY" | grep -q "## 변경된 파일"; then
-            # 기존 섹션을 업데이트
             NEW_BODY=$(echo "$BODY" | sed -E "/## 변경된 파일/{N;d;}" | sed -E "\$a## 변경된 파일\n$FILES")
           else
-            # 기존 본문 끝에 새로운 섹션 추가
             NEW_BODY="${BODY}\n\n## 변경된 파일\n$FILES"
           fi
 
