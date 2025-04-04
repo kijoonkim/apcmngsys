@@ -1,7 +1,7 @@
 name: Update PR Body with Changed Files
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
 
 permissions:
