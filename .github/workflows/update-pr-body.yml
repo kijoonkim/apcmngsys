@@ -1,49 +1,48 @@
 name: Update PR Body with Changed Files
 
 on:
-  pull_request_target:
+  pull_request_target:  # ✅ PR 생성 후 즉시 실행되도록 설정
     types: [opened, synchronize]
-
-permissions:
-  contents: read  # ✅ 리포지토리 읽기 권한 추가
-  pull-requests: write  # ✅ PR 수정 권한 추가
 
 jobs:
   update-pr:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # ✅ PR 본문 업데이트 권한 추가
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ✅ 전체 히스토리 가져오기
+          fetch-depth: 2  # ✅ 비교할 수 있도록 최소한 2개의 커밋을 가져옴
 
       - name: Get Changed Files
         id: changed-files
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }} ${{ github.event.pull_request.head.ref }}
-
           BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} origin/${{ github.event.pull_request.head.ref }})
           HEAD_SHA=${{ github.event.pull_request.head.sha }}
-
           FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
           FILE_LIST=$(echo "$FILES" | awk '{print "- " $0}' ORS='\n')
-          echo "files=$FILE_LIST" >> $GITHUB_ENV
+          echo "FILES<<EOF" >> $GITHUB_ENV
+          echo "$FILE_LIST" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Update PR Body
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
-            | jq -r '.body')
+          PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+          BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
 
-          if echo "$BODY" | grep -q "## 변경된 파일"; then
-            NEW_BODY=$(echo "$BODY" | sed -E "/## 변경된 파일/{N;d;}" | sed -E "\$a## 변경된 파일\n$FILES")
-          else
-            NEW_BODY="${BODY}\n\n## 변경된 파일\n$FILES"
-          fi
+          # 기존 '## 변경된 파일' 섹션 제거
+          NEW_BODY=$(echo "$BODY" | sed '/## 변경된 파일/,$d')
+
+          # 변경된 파일 목록 추가
+          NEW_BODY="${NEW_BODY}\n\n## 변경된 파일\n$FILES"
+
+          # PR 본문 업데이트 (줄바꿈 문제 해결)
+          jq -n --arg body "$NEW_BODY" '{body: $body}' > body.json
 
           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{\"body\": \"${NEW_BODY}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+            --data @body.json "$PR_URL"
