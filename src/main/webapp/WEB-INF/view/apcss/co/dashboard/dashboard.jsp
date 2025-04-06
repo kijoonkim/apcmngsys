@@ -156,6 +156,9 @@
 		select.form-control.input-sm {
 			background-color: #ffffff;
 		}
+		body > section > div > div.box-header > div > div:nth-child(4) > span > ul{
+			z-index: 9999!important;
+		}
 	</style>
 </head>
 <body oncontextmenu="return false;">
@@ -466,7 +469,7 @@
 				}
 			},
 			tooltip: {
-				show : false
+				show : true
 			},
 			extend: {
 				pie: {
@@ -478,7 +481,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'kg';
 						}
 					},
 				}
@@ -516,7 +519,7 @@
 				}
 			},
 			tooltip: {
-				show : false
+				show : true
 			},
 			extend: {
 				pie: {
@@ -528,7 +531,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'kg';
 						}
 					},
 				}
@@ -566,7 +569,7 @@
 				}
 			},
 			tooltip: {
-				show : false
+				show : true
 			},
 			extend: {
 				pie: {
@@ -578,7 +581,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'kg';
 						}
 					},
 				}
