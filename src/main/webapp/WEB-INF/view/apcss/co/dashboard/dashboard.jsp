@@ -55,7 +55,7 @@
 		.dash_area.char_donut div{
 			flex: 1;
 			width: 100%;
-			height: 70%;
+			height: 100%;
 			display: flex;
 			align-items: center;
 		}
@@ -136,7 +136,7 @@
 			align-items: end;
 		}
 		.ellipsis-text {
-			width: 200px;
+			width: 100%;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
@@ -277,7 +277,7 @@
 						</tr>
 						<tr>
 							<th>사업자번호</th>
-							<td colspan="3" id="actno"></td>
+							<td colspan="3" id="brno"></td>
 						</tr>
 						<tr>
 							<th>품목</th>
@@ -462,14 +462,25 @@
 			title: {
 				text: "입고",
 				padding: {
-					bottom: 20
+					bottom: 5
 				}
+			},
+			tooltip: {
+				show : false
 			},
 			extend: {
 				pie: {
 					label: {
-						show: false
-					}
+						position: "outer",
+						outlineWidth: 1.5,
+						fontSize : 12,
+						outerRange : function(value, ratio, id) {
+							return ratio * 100 < 19;
+						},
+						format : function(value, ratio, id, data){
+							return data[0].id + ' ' + value + 'kg';
+						}
+					},
 				}
 			}
 		});
@@ -501,14 +512,25 @@
 			title: {
 				text: "생산",
 				padding: {
-					bottom: 20
+					bottom: 5
 				}
+			},
+			tooltip: {
+				show : false
 			},
 			extend: {
 				pie: {
 					label: {
-						show: false
-					}
+						position: "outer",
+						outlineWidth: 1.5,
+						fontSize : 12,
+						outerRange : function(value, ratio, id) {
+							return ratio * 100 < 19;
+						},
+						format : function(value, ratio, id, data){
+							return data[0].id + ' ' + value + 'kg';
+						}
+					},
 				}
 			}
 		});
@@ -540,14 +562,25 @@
 			title: {
 				text: "출하",
 				padding: {
-					bottom: 20
+					bottom: 5
 				}
+			},
+			tooltip: {
+				show : false
 			},
 			extend: {
 				pie: {
 					label: {
-						show: false
-					}
+						position: "outer",
+						outlineWidth: 1.5,
+						fontSize : 12,
+						outerRange : function(value, ratio, id) {
+							return ratio * 100 < 19;
+						},
+						format : function(value, ratio, id, data){
+							return data[0].id + ' ' + value + 'kg';
+						}
+					},
 				}
 			}
 		});
@@ -624,12 +657,14 @@
 		if (gfn_isEmpty(resultVO)){
 			return;
 		}
+		console.log(resultVO);
 		let tds = $('table td[id]');
 		$('table td[id]').each(function() {
 			// 현재 요소의 id를 가져옴
 			const id = $(this).attr('id');
 			if (_.isEqual(id,"telno") || _.isEqual(id,"fxno") ) {
 				if (resultVO[id]) {
+					console.log("이게있따고?");
 					let formatted;
 					if (resultVO[id].length == 10) {
 						formatted = resultVO[id].replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
@@ -640,6 +675,8 @@
 				} else {
 					$(this).text("");
 				}
+			}else if(_.isEqual(id,"brno")){
+				$(this).text(resultVO[id].replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3'));
 			} else {
 				$(this).text(resultVO[id]);
 			}
@@ -647,12 +684,12 @@
 	}
 	const getItemList = async function(){
 		let itemList = await gfn_getApcItem(gv_selectedApcCd);
-		let items = '';
-		itemList.forEach(function(item,idx){
-			if(item.itemNm){
-				items += item.itemNm + ",";
-			}
-		});
+		let itemNames = itemList
+				.filter(item => item.itemNm)
+				.map(item => item.itemNm);
+
+		let items = itemNames.join(', ');
+
 		$("#itemNm").text(items);
 	}
 	const getPrdcrList = async function(){
@@ -699,7 +736,6 @@
 
 		const postJsonPromise = gfn_postJSON("/co/dashboard/selectData.do",param);
 		const data = await postJsonPromise;
-		console.log(data,"???");
 		if (!_.isEqual("S", data.resultStatus)) {
 		        gfn_comAlert(data.resultCode, data.resultMessage);
 		        return;

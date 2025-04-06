@@ -61,19 +61,19 @@
 						<tr>
 							<th class="ta_r th_bg" rowspan="6">APC정보</th>
 							<td scope="row" align="right">코드</td>
-							<td scope="row" style="border-right: hidden;">
+							<td scope="row">
 								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 							<td scope="row" align="right">업태</td>
-							<td scope="row" style="border-right: hidden;">
+							<td scope="row">
 								<sbux-input id="inp-bzstat" name="inp-bzstat" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">종목</td>
-							<td scope="row" style="border-right: hidden;">
+							<td scope="row">
 								<sbux-input id="inp-cls" name="inp-cls" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">APC대표자명</td>
-							<td scope="row" style="border-right: hidden;">
+							<td scope="row">
 								<sbux-input id="inp-apcRprsvNm" name="inp-apcRprsvNm" uitype="text" class="form-control input-sm" maxlength="3"></sbux-input>
 							</td>
 						</tr>
@@ -218,7 +218,7 @@
 						</tr>
 						<tr>
 							<td scope="row" align="right">출하자신고번호</td>
-							<td class="td_input">
+							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
 									id="inp-spmtPrsnDclrNo"
 									name="inp-spmtPrsnDclrNo"
@@ -227,6 +227,7 @@
 									mask = "999999-999999"
 								></sbux-input>
 							</td>
+							<td colspan="6"></td>
 						</tr>
 						<tr>
 							<th class="ta_r th_bg" scope="row">APC사용자 관리</th>
@@ -824,6 +825,7 @@
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
+		console.log(resultVO,"너없는데?");
         try{
   			if (_.isEqual("S", data.resultStatus)) {
   	        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
