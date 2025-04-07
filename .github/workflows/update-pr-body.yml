@@ -1,48 +1,49 @@
-# name: Update PR Body with Changed Files
+name: Update PR Body with Changed Files
 
-# on:
-#   pull_request_target:  # ✅ PR 생성 후 즉시 실행되도록 설정
-#     types: [opened, synchronize]
+on:
+  pull_request_target:  # ✅ PR 생성 후 즉시 실행되도록 설정
+    types: [opened, synchronize]
 
-# jobs:
-#   update-pr:
-#     runs-on: ubuntu-latest
-#     permissions:
-#       pull-requests: write  # ✅ PR 본문 업데이트 권한 추가
+permissions:  # ✅ 전역에 선언해야 GITHUB_TOKEN 권한이 적용됨
+  pull-requests: write
 
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v4
-#         with:
-#           fetch-depth: 2  # ✅ 비교할 수 있도록 최소한 2개의 커밋을 가져옴
+jobs:
+  update-pr:
+    runs-on: ubuntu-latest
 
-#       - name: Get Changed Files
-#         id: changed-files
-#         run: |
-#           BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} origin/${{ github.event.pull_request.head.ref }})
-#           HEAD_SHA=${{ github.event.pull_request.head.sha }}
-#           FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
-#           FILE_LIST=$(echo "$FILES" | awk '{print "- " $0}' ORS='\n')
-#           echo "FILES<<EOF" >> $GITHUB_ENV
-#           echo "$FILE_LIST" >> $GITHUB_ENV
-#           echo "EOF" >> $GITHUB_ENV
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # ✅ 비교할 수 있도록 최소한 2개의 커밋을 가져옴
 
-#       - name: Update PR Body
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
-#           BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
+      - name: Get Changed Files
+        id: changed-files
+        run: |
+          BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} origin/${{ github.event.pull_request.head.ref }})
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          FILE_LIST=$(echo "$FILES" | awk '{print "- " $0}' ORS='\n')
+          echo "FILES<<EOF" >> $GITHUB_ENV
+          echo "$FILE_LIST" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-#           # 기존 '## 변경된 파일' 섹션 제거
-#           NEW_BODY=$(echo "$BODY" | sed '/## 변경된 파일/,$d')
+      - name: Update PR Body
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+          BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
 
-#           # 변경된 파일 목록 추가
-#           NEW_BODY="${NEW_BODY}\n\n## 변경된 파일\n$FILES"
+          # 기존 '## 변경된 파일' 섹션 제거
+          NEW_BODY=$(echo "$BODY" | sed '/## 변경된 파일/,$d')
 
-#           # PR 본문 업데이트 (줄바꿈 문제 해결)
-#           jq -n --arg body "$NEW_BODY" '{body: $body}' > body.json
+          # 변경된 파일 목록 추가
+          NEW_BODY="${NEW_BODY}\n\n## 변경된 파일\n$FILES"
 
-#           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
-#             -H "Content-Type: application/json" \
-#             --data @body.json "$PR_URL"
+          # PR 본문 업데이트 (줄바꿈 문제 해결)
+          jq -n --arg body "$NEW_BODY" '{body: $body}' > body.json
+
+          curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data @body.json "$PR_URL"
