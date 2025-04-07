@@ -672,7 +672,7 @@
 
 		SBUxMethod.refresh('dtl-slt-wrhsSpmtType');
 
-		if (jsonApcItem.length == 1) {
+		if (jsonApcItem.length > 0) {
 			fn_onChangeSrchItemCd({value: jsonApcItem[0].itemCd});
 			SBUxMethod.set("dtl-slt-itemCd", jsonApcItem[0].itemCd);
 		}
@@ -689,9 +689,11 @@
 		await fn_search();
 	});
 	const getCookie = (name) => {
-		const value = `; ${'${document.cookie}'}`;
-		const parts = value.split(`; ${'${name}'}=`);
-		if (parts.length === 2) return parts.pop().split(";").shift();
+		const cookieString = `; ${'${document.cookie}'}`;
+		const parts = cookieString.split(`; ${'${name}'}=`);
+		if (parts.length === 2) {
+			return parts[1].split(';')[0];
+		}
 		return null;
 	};
 
@@ -705,9 +707,14 @@
 		await fn_selectPltBxList();
 		await fn_modalDrag();
 		/** cookie Set **/
-		let addr = getCookie('addr');
+		let addr = gfn_getCookie('addr');
+		let itemCd = gfn_getCookie('itemCd');
 		if(!gfn_isEmpty(addr)){
 			SBUxMethod.set("dtl-slt-fcltCd",addr.toString());
+		}
+		if(!gfn_isEmpty(itemCd)){
+			SBUxMethod.set("dtl-slt-itemCd",itemCd.toString());
+			SBUxMethod.dispatch('dtl-slt-itemCd', 'onchange');
 		}
 		ws.init();
 
@@ -1140,10 +1147,7 @@
 			delete SBGridProperties.total;
 
 	        grdVrty.bind('valuechanged', 'fn_grdQnttChanged');
-			// for (var j=0; j<jsonGrdCd.length; j++) {
-			// 	grdVrty.addRow(true, {'grdCd': jsonGrdCd[j].grdCd});
-			// }
-			// grdVrty.refresh();
+			fn_addRow();
 			/** 검품 등급종류 set **/
 			let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, grdSeCd : '04', grdKnd : '01'});
 			let data = await postJsonPromise;
@@ -1605,7 +1609,8 @@
 			 }
 		 });
 		let Cfclt = SBUxMethod.get("dtl-slt-fcltCd");
-		document.cookie = "addr="+ Cfclt + "; path=/; max-age=31536000; secure; samesite=strict";
+		 document.cookie = `addr=${'${Cfclt}'}; path=/; max-age=31536000; samesite=strict`;
+		 document.cookie = `itemCd=${'${itemCd}'}; path=/; max-age=31536000; samesite=strict`;
 
 		/** 계량이력 set **/
 		let wghHstryVO = {
