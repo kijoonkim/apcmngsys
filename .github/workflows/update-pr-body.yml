@@ -55,14 +55,22 @@ jobs:
       
           # 구분자 주석 기준으로 본문 분리
           MARKER="<!-- 아래 변경된 파일 목록은 GitHub Actions에서 자동으로 업데이트됩니다. -->"
-          FILE_SECTION="${FILES}"
       
-          # 주석 기준으로 본문 앞뒤 나누기
-          BEFORE=$(echo "$BODY" | awk -v m="$MARKER" 'BEGIN{found=0} {if ($0==m) {found=1; print; exit} else print}')
-          FINAL_BODY="${BEFORE}\n\n${FILE_SECTION}"
+          # 변경 파일 정보 다시 읽기 (env에 넣는 대신 직접 변수로)
+          FILE_SECTION=$(cat files.txt)
       
+          # MARKER 기준으로 본문 나누기
+          BEFORE=$(echo "$BODY" | awk -v m="$MARKER" 'BEGIN{found=0} {print; if ($0==m) {exit}}')
+      
+          # 최종 바디 구성
+          FINAL_BODY="$BEFORE
+          
+          $FILE_SECTION"
+      
+          # JSON 형태로 만들기
           jq -n --arg body "$FINAL_BODY" '{body: $body}' > body.json
       
           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             --data @body.json "$PR_URL"
+
