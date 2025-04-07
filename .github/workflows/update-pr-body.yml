@@ -53,13 +53,17 @@ jobs:
         run: |
           PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
           BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
-
-          # 새로운 파일 섹션 추가
+      
+          # 구분자 주석 기준으로 본문 분리
+          MARKER="<!-- 아래 변경된 파일 목록은 GitHub Actions에서 자동으로 업데이트됩니다. -->"
           FILE_SECTION="${FILES}"
-          FINAL_BODY="${FILE_SECTION}"
-
+      
+          # 주석 기준으로 본문 앞뒤 나누기
+          BEFORE=$(echo "$BODY" | awk -v m="$MARKER" 'BEGIN{found=0} {if ($0==m) {found=1; print; exit} else print}')
+          FINAL_BODY="${BEFORE}\n\n${FILE_SECTION}"
+      
           jq -n --arg body "$FINAL_BODY" '{body: $body}' > body.json
-
+      
           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
             --data @body.json "$PR_URL"
