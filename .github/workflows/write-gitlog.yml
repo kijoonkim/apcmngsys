@@ -1,0 +1,43 @@
+name: APC GitLog CSV
+
+on:
+  workflow_dispatch:  # ✅ 수동 실행 가능하게 설정
+
+jobs:
+  generate-log:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate Custom CSV
+        run: |
+          echo '"날짜","요구사항","수정된파일","생성됨","삭제됨"' > git-log.csv
+
+          git log --name-status --date=short --pretty=format:'--%ad--%s' |
+          awk '
+            BEGIN { FS="\t"; OFS="\t" }
+            /^--/ {
+              if (NR > 1) {
+                printf "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n", date, msg, modified, added, deleted >> "git-log.csv"
+                modified = added = deleted = ""
+              }
+              line = substr($0, 3)
+              split(line, parts, "--")
+              date = parts[1]
+              msg = parts[2]
+              next
+            }
+            $1 == "M" { modified = (modified ? modified "\\n" : "") $2 }
+            $1 == "A" { added = (added ? added "\\n" : "") $2 }
+            $1 == "D" { deleted = (deleted ? deleted "\\n" : "") $2 }
+          END {
+            printf "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n", date, msg, modified, added, deleted >> "git-log.csv"
+          }'
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: custom-git-log
+          path: git-log.csv
