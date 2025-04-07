@@ -12,43 +12,51 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR branch
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          fetch-depth: 0  # 전체 히스토리 필요
-          ref: ${{ github.event.pull_request.head.ref }}  # PR 브랜치 체크아웃
+          fetch-depth: 2
 
-      - name: Fetch base branch
-        run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}
-
-      - name: Get Changed Files
+      - name: Get Changed Files (Grouped by Status)
         id: changed-files
         run: |
-          BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
+          BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} origin/${{ github.event.pull_request.head.ref }})
           HEAD_SHA=${{ github.event.pull_request.head.sha }}
-          FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
-          FILE_LIST=$(echo "$FILES" | awk '{print "- " $0}' ORS="\n")
+          CHANGES=$(git diff --name-status "$BASE_SHA" "$HEAD_SHA")
+
+          echo "### CHANGES"
+          echo "$CHANGES"
+
+          echo "" > files.txt
+          echo "## 📄 추가된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "A" {print "- " $2}' >> files.txt
+          echo "" >> files.txt
+          echo "## 📝 수정된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "M" {print "- " $2}' >> files.txt
+          echo "" >> files.txt
+          echo "## ❌ 삭제된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "D" {print "- " $2}' >> files.txt
+
           echo "FILES<<EOF" >> $GITHUB_ENV
-          echo "$FILE_LIST" >> $GITHUB_ENV
+          cat files.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: Update PR Body with changed files
+      - name: Update PR Body
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
           PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
           BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
 
-          # '## 변경된 파일' 이하 삭제
-          NEW_BODY=$(echo "$BODY" | sed '/## 변경된 파일/,$d')
+          # 기존 '## 📄 추가된 파일' ~ 삭제된 파일까지 제거
+          NEW_BODY=$(echo "$BODY" | sed '/## 📄 추가된 파일/,$d')
 
-          # 새 파일 목록 붙이기
-          NEW_BODY="${NEW_BODY}\n\n## 변경된 파일\n${FILES}"
+          # 파일 목록 추가
+          FILE_SECTION="${FILES}"
+          FINAL_BODY="${NEW_BODY}\n\n${FILE_SECTION}"
 
-          # 본문 업데이트
-          jq -n --arg body "$NEW_BODY" '{body: $body}' > body.json
+          jq -n --arg body "$FINAL_BODY" '{body: $body}' > body.json
 
           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
