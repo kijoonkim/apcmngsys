@@ -33,12 +33,12 @@ jobs:
           echo "### CHANGES"
           echo "$CHANGES"
 
-          echo "" > files.txt
-          echo "## 📄 추가된 파일" >> files.txt
-          echo "$CHANGES" | awk '$1 == "A" {print "- " $2}' >> files.txt
           echo "" >> files.txt
           echo "## 📝 수정된 파일" >> files.txt
           echo "$CHANGES" | awk '$1 == "M" {print "- " $2}' >> files.txt
+          echo "" > files.txt
+          echo "## 📄 추가된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "A" {print "- " $2}' >> files.txt
           echo "" >> files.txt
           echo "## ❌ 삭제된 파일" >> files.txt
           echo "$CHANGES" | awk '$1 == "D" {print "- " $2}' >> files.txt
@@ -54,12 +54,9 @@ jobs:
           PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
           BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
 
-          # 기존 파일 목록 섹션 제거
-          NEW_BODY=$(echo "$BODY" | sed '/## 📄 추가된 파일/,$d')
-
           # 새로운 파일 섹션 추가
           FILE_SECTION="${FILES}"
-          FINAL_BODY="${NEW_BODY}\n\n${FILE_SECTION}"
+          FINAL_BODY="${FILE_SECTION}"
 
           jq -n --arg body "$FINAL_BODY" '{body: $body}' > body.json
 
