@@ -15,6 +15,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           fetch-depth: 2  # ✅ 비교할 수 있도록 최소한 2개의 커밋을 가져옴
 
       - name: Get Changed Files
@@ -30,7 +31,7 @@ jobs:
 
       - name: Update PR Body
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
           PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
           BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
