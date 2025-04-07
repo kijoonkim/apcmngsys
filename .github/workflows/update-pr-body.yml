@@ -33,8 +33,7 @@ jobs:
           echo "### CHANGES"
           echo "$CHANGES"
 
-          echo "" >> files.txt
-          echo "## 📝 수정된 파일" >> files.txt
+          echo "## 📝 수정된 파일" > files.txt
           echo "$CHANGES" | awk '$1 == "M" {print "- " $2}' >> files.txt
           echo "" > files.txt
           echo "## 📄 추가된 파일" >> files.txt
