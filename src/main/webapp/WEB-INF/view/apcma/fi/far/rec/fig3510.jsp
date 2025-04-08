@@ -6694,7 +6694,7 @@
     		    'L_FIG005' : ''
     		    , 'L_FIM051' : ''
     		    , 'L_BANK_CODE' : ''
-    		    , 'L_VAT_INFO' : ''
+    		    , 'L_VAT_INFO' : "AND A.USE_YN = 'Y' AND B.AR_AP_TYPE = '" + strsourceType + "'"
     		    , 'L_FIT010' : ''
     		    , 'L_CS_ACCOUNT' : ''
     		    , 'L_FIM052' : ''
@@ -6719,7 +6719,6 @@
     		    , 'L_FIT019' : ''
     		    , 'L_FIT008' : ''
     		    , 'L_FIT010' : ''
-    		    , 'L_VAT_INFO' : '' 
     		    , 'L_CS_ACCOUNT' : '' 
     		}
     	
