@@ -85,10 +85,6 @@ public class CltvtnHstryVO extends ComVO {
 	 * 첨부파일 원본명
 	 * */
 	private String atchflOrgnNm;
-    /*
-     * 연도
-     * */
-    private String yr;
 	/*
 	 * 확정일자
 	 * */
