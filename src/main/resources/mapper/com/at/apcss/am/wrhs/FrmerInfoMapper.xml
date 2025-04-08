@@ -262,6 +262,7 @@
 				 , PLI.FRLN_ADDR            AS FRLN_ADDR
 				 , PLI.CRTR_AREA			AS CRTR_AREA
 				 , PLI.PLNTNG_AREA 			AS PLNTNG_AREA
+				 , PLI.YR 			AS YR
 			  FROM TB_CLTVTN_HSTRY CH
 			     , TB_PRDCR_INFO PI
 			   	 , TB_PRDCR_LAND_INFO PLI
@@ -292,6 +293,9 @@
 		<if test='cfmtnYmdTo != null and cfmtnYmdTo !=""'>
 			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
+        <if test='yr != null and yr !=""'>
+            AND PLI.YR = #{yr}
+        </if>
 		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO
 		]]>
