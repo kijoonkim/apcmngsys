@@ -15,6 +15,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.FileInputStream;
+import java.util.List;
 
 @ServletComponentScan
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -35,11 +36,31 @@ public class EgovBootApplication extends SpringBootServletInitializer {
 		springApplication.run(args);
 
 		//Google Firebase SDK 초기화
-		String firebaseConfigPath = "firebase/apcss-e27c1-firebase-adminsdk-lozm8-64d60dbb91.json";
-		FirebaseOptions options = FirebaseOptions.builder()
-				.setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream()))
-				.build();
-		FirebaseApp.initializeApp(options);
+		//String firebaseConfigPath = "firebase/apcss-e27c1-firebase-adminsdk-lozm8-64d60dbb91.json";
+		//FirebaseOptions options = FirebaseOptions.builder()
+		//.setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream()))
+		//		.build();
+		//FirebaseApp.initializeApp(options);
+
+
+		FirebaseApp firebaseApp = null;
+		List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
+
+		if(firebaseApps != null && !firebaseApps.isEmpty()){
+			for(FirebaseApp app : firebaseApps){
+		       	if(app.getName().equals(FirebaseApp.DEFAULT_APP_NAME)) {
+		           	firebaseApp = app;
+		        }
+			}
+		}else{
+			//Google Firebase SDK 초기화
+			String firebaseConfigPath = "firebase/apcss-e27c1-firebase-adminsdk-lozm8-64d60dbb91.json";
+			FirebaseOptions options = FirebaseOptions.builder()
+					.setCredentials(GoogleCredentials.fromStream(new ClassPathResource(firebaseConfigPath).getInputStream()))
+					.build();
+			firebaseApp = FirebaseApp.initializeApp(options);
+		}
+
 
 		System.out.println("##### EgovBootApplication End #####");
 	}
