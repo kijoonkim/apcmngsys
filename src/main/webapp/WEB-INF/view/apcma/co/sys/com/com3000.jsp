@@ -394,6 +394,10 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
+			
+			//그룹코드 내역 - 유형분류
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			
 			//유형분류
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_GROUP_CATEGORY']
@@ -413,9 +417,7 @@
 		            {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			
-			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+
 			
 		]);
 	}
