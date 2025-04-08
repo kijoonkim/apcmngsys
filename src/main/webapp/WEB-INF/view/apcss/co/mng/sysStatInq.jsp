@@ -30,7 +30,39 @@
 
       <div class="box-userTraffic">
         <h4 class="box-title2"> ▶ 사용자 및 트래픽</h4>
-
+        <table class="table table-striped table-bordered">
+          <tr>
+            <th rowspan="2">항목</th>
+            <th rowspan="2">현월</th>
+            <th rowspan="2">전월</th>
+            <th colspan="2">차이(전월대비)</th>
+          </tr>
+          <tr>
+            <th>건수</th>
+            <th>증감</th>
+          </tr>
+          <tr>
+            <td>총방문자</td>
+            <td id="tMVstr">0</td>
+            <td id="prvMVstr">0</td>
+            <td id="">0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>일 평균 방문자</td>
+            <td id="tMAvgVstr">0</td>
+            <td id="prvMAvgVstr">0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>총 페이지뷰(PV)</td>
+            <td id="tMTotPV">0</td>
+            <td id="prvMTotPV">0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </table>
       </div>
     </div>
   </section>
