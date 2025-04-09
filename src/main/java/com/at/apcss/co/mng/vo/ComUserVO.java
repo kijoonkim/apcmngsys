@@ -1,4 +1,4 @@
-package com.at.apcss.co.mng.sysStatInq.vo;
+package com.at.apcss.co.mng.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 

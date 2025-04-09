@@ -1,4 +1,4 @@
-package com.at.apcss.co.mng.sysStatInq.vo;
+package com.at.apcss.co.mng.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
 
@@ -30,14 +30,19 @@ public class ComMenuLogHstryVO extends ComVO {
     private String userType;
 
     /**
-     * 열람일시
+     * 사용자수 시작일자
      */
-    private String prslDt;
+    private String userYmdFrom;
+
+    /**
+     * 사용자수 종료일자
+     */
+    private String userYmdTo;
 
     /**
      * 로그인성공여부
      */
-    private String LgnScsYn;
+    private String lgnScsYn;
 
     /**
      * 열람유형

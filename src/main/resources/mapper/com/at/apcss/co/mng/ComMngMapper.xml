@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ComMngMapper.xml                                    				-->
+<!-- DESC : 웹 시스템 사용 현황 mapper                                             			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.04.09  	김은총        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.co.mng.mapper.ComMngMapper">
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				-->
+    <!-- DESC : 접속자수, 활성회원(로그인 기준) 조회                                 		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.04.09  	김은총        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectUserCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
+    	<![CDATA[
+            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectUserCnt */
+                TO_CHAR(PRSL_DT, 'YYYYMM') AS YM
+                , COUNT(USER_ID) AS CNT
+                , COUNT(DISTINCT USER_ID) AS CNT USER
+            FROM TB_COM_MENU_LOG_HSTRY
+        ]]>
+        <if test='userYmdFrom != null and userYmdFrom != ""'>
+            WHERE PRSL_DT <![CDATA[>=]]> #{userYmdFrom}
+        </if>
+        <if test='userYmdTo != null and userYmdto != ""'>
+            AND PRSL_DT <![CDATA[<]]> #{userYmdTo}
+        </if>
+        <![CDATA[
+            AND PRSL_TYPE IN ('LI')
+            GROUP BY TO_CHAR(PRSL_DT, 'YYYYMM')
+            ORDER BY YM
+        ]]>
+    </select>
+
+</mapper>
