@@ -240,6 +240,11 @@
 			     , CH.CN                AS CN
 			     , CH.RMRK              AS RMRK
 			     , CH.DEL_YN            AS DEL_YN
+			     , CH.BASE_FRTLZR_YMD	AS BASE_FRTLZR_YMD
+			     , CH.SDNG_YMD			AS SDNG_YMD
+			     , CH.PLNTNG_YMD		AS PLNTNG_YMD
+			     , CH.CMPT_YMD_CYCL_1	AS CMPT_YMD_CYCL_1
+			     , CH.CMPT_YMD_CYCL_2	AS CMPT_YMD_CYCL_2
 			     , (SELECT MAX(ATCHFL_NO)
 			     	  FROM TB_COM_ATCHFL CA
 			     	 WHERE CA.PRNTS_TBL_NO = 'CQ' || CH.APC_CD || CH.PRDCR_CD || CH.PRDCR_LAND_INFO_NO || CH.CLTVTN_HSTRY_NO
@@ -254,10 +259,19 @@
                       FROM TB_COM_USER X
                      WHERE CH.SYS_FRST_INPT_USER_ID = X.USER_ID
                    ) AS PIC
+				 , PLI.FRLN_ADDR            AS FRLN_ADDR
+				 , PLI.CRTR_AREA			AS CRTR_AREA
+				 , PLI.PLNTNG_AREA 			AS PLNTNG_AREA
+				 , PLI.YR 			AS YR
 			  FROM TB_CLTVTN_HSTRY CH
 			     , TB_PRDCR_INFO PI
+			   	 , TB_PRDCR_LAND_INFO PLI
 			 WHERE CH.APC_CD = PI.APC_CD
 			   AND CH.PRDCR_CD = PI.PRDCR_CD
+			   AND CH.APC_CD = PLI.APC_CD(+)
+    		   AND CH.PRDCR_CD = PLI.PRDCR_CD(+)
+    		   AND CH.PRDCR_LAND_INFO_NO = PLI.PRDCR_LAND_INFO_NO(+)
+			   AND PLI.DEL_YN = 'N'
 			   AND PI.DEL_YN = 'N'
 			   AND CH.DEL_YN = 'N'
 		]]>
@@ -279,6 +293,9 @@
 		<if test='cfmtnYmdTo != null and cfmtnYmdTo !=""'>
 			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
+        <if test='yr != null and yr !=""'>
+            AND PLI.YR = #{yr}
+        </if>
 		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO
 		]]>
@@ -302,6 +319,11 @@
 				 , PRDCR_LAND_INFO_NO
 				 , CLTVTN_HSTRY_NO
 				 , CFMTN_YMD
+                 , BASE_FRTLZR_YMD
+                 , SDNG_YMD
+                 , PLNTNG_YMD
+                 , CMPT_YMD_CYCL_1
+                 , CMPT_YMD_CYCL_2
 				 , CN
 				 , RMRK
 				 , SYS_FRST_INPT_DT
@@ -318,6 +340,11 @@
 				 , #{prdcrLandInfoNo}
 				 , #{cltvtnHstryNo}
 				 , #{cfmtnYmd}
+                 , #{baseFrtlzrYmd}
+                 , #{sdngYmd}
+                 , #{plntngYmd}
+                 , #{cmptYmdCycl1}
+                 , #{cmptYmdCycl2}
 				 , #{cn}
 				 , #{rmrk}
 				 , SYSDATE
@@ -342,6 +369,11 @@
 			UPDATE /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.updateCltvtnHstry */
 				   TB_CLTVTN_HSTRY
 			   SET CFMTN_YMD				= #{cfmtnYmd}
+                 , BASE_FRTLZR_YMD          = #{baseFrtlzrYmd}
+                 , SDNG_YMD                 = #{sdngYmd}
+                 , PLNTNG_YMD               = #{plntngYmd}
+                 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
+                 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
 			     , CN                       = #{cn}
 				 , RMRK                     = #{rmrk}
 				 , SYS_LAST_CHG_DT          = SYSDATE

@@ -519,32 +519,31 @@
 
       	// 자산분류리스 체크열 값이 y인 경우 site_code 값에 따라 fnSET_P_FIA5200_S(조회,회계기준과 지역코드를 기준으로 조회)
 		// cbodepreciation_type : 감가상각기준
-         data.forEach(item => {
-        	 if(item.checkYn === "Y"){
-        			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
-     			intmax_seq = intmax_seq + 1;
-     			bresult = false;
-     			strsite_code = item.siteCode;
-     			if(depreciationType === "1"){
-     				bresult = fnSET_P_FIA5200_S_TEST("GAAP", strsite_code);
-     			}else if(depreciationType === "2"){
-     				bresult = fnSET_P_FIA5200_S_TEST("IFRS", strsite_code);
-     			}else if(depreciationType === "3"){
-     				bresult = fnSET_P_FIA5200_S_TEST("TAX", strsite_code);
-     			}else{
-     				gfn_comAlert("I0001"); //감가상각기준을 선택하여주시기 바랍니다.
-     			}
-     			intprogram_seq = intprogram_seq + 1;
-     			if (!bresult){
-     				//break;
-     			}
-
-        	 }
-         })
-
-         if (bresult){
-             fn_queryClick();
-         }
+		
+		for(const item of data){
+			if(item.checkYn === "Y"){
+				//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
+	 			intmax_seq = intmax_seq + 1;
+	 			bresult = false;
+	 			strsite_code = item.siteCode;
+	 			if(depreciationType === "1"){
+	 				bresult = fnSET_P_FIA5200_S_TEST("GAAP", strsite_code);
+	 			}else if(depreciationType === "2"){
+	 				bresult = fnSET_P_FIA5200_S_TEST("IFRS", strsite_code);
+	 			}else if(depreciationType === "3"){
+	 				bresult = fnSET_P_FIA5200_S_TEST("TAX", strsite_code);
+	 			}else{
+	 				gfn_comAlert("I0001"); //감가상각기준을 선택하여주시기 바랍니다.
+	 			}
+	 			intprogram_seq = intprogram_seq + 1;
+	 			if (!bresult){
+// 	 				break;
+	 			}
+			}
+		}
+        if (bresult){
+//             fn_queryClick();
+        }
   	}
 
  	// 감가상각계산취소 클릭
@@ -566,22 +565,21 @@
 
         //data.forEach(item => {
         for (const item of data){
-	       	 if(item.checkYn === "Y"){
-	       			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
-	    			intmax_seq = intmax_seq + 1;
-	    			bresult = false;
-	    			strsite_code = item.siteCode;
-	   				bresult = fnSET_P_FIA5200_S_TEST("CANCEL", strsite_code);
-	    			intprogram_seq = intprogram_seq + 1;
-	    			if (!bresult){
-	    				//break;
-	    			}
+	       	if(item.checkYn === "Y"){
+       			//자산분류리스의 체크열값이 Y인 경우 intmax_seq + 1
+    			intmax_seq = intmax_seq + 1;
+    			bresult = false;
+    			strsite_code = item.siteCode;
+   				bresult = fnSET_P_FIA5200_S_TEST("CANCEL", strsite_code);
+    			intprogram_seq = intprogram_seq + 1;
+    			if (!bresult){
+//     				break;
+    			}
 
-	       	 }
+			}
         }
-
         if (bresult){
-        	fn_queryClick();
+//         	fn_queryClick();
         }
   	}
 

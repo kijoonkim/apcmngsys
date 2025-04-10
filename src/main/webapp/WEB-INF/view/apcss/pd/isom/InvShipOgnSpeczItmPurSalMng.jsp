@@ -638,7 +638,9 @@
 	    SBGridProperties.extendlastcol = 'scroll';
 	    SBGridProperties.fixedrowheight=45;
 	    SBGridProperties.oneclickedit = true;
-	    SBGridProperties.columns = [
+		SBGridProperties.explorerbar = 'sort'; // 정렬
+		SBGridProperties.useinitsorting = true; // 3번 클릭시 정렬 상태 복원
+		SBGridProperties.columns = [
 	            {caption : ['품목명','품목명'],
 	            	ref : "itemNm",   width : '100px',        style : 'text-align:center',     type : 'output'},
 	            {caption : ['판매위임(매입)금액(천원)','구분'],
@@ -653,15 +655,15 @@
 	            	ref : "prchsNm",   width : '150px',        style : 'text-align:center',     type : 'output', merge:false},
 	            {caption : ['판매위임(매입)금액(천원)','금액'],
 		            ref : "slsCnsgnPrchsAmt",   width : '100px',	style : 'text-align:right',	type : 'input'
-		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 	            {caption : ['출하(매출)금액(천원)','통합조직에\n출하(판매)'],
 		            ref : "uoSpmtAmt",		width : '100px',	style : 'text-align:right',		type : 'input'
-		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 		        {caption : ['출하(매출)금액(천원)','통합조직 이외\n출하(판매)'],
 		            ref : "uoOtherSpmtAmt",	width : '100px',	style : 'text-align:right',		type : 'input'
-		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false},
+		            ,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 		        {caption : ['출하(매출)금액(천원)','합계'],
-		            ref : "SpmtAmtTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcSum' ,  format : { type:'number' , rule:'#,###' }, merge:false},
+		            ref : "SpmtAmtTot",   	width : '100px',	style : 'text-align:right; background-color: #92b2c5',	type : 'output', calc : 'fn_calcSum' ,  format : { type:'number' , rule:'#,###' }, merge:false, datatype : 'number'},
 	            {caption : ['비고','비고'],
 	            	ref : "rmrk",   width : '150px',        style : 'text-align:right',      type : 'input', merge:false},
 

@@ -1,40 +1,76 @@
 name: Update PR Body with Changed Files
+
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize]
+
+permissions:
+  pull-requests: write
 
 jobs:
   update-pr:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
 
-      - name: Get Changed Files
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          fetch-depth: 0  # 전체 히스토리를 fetch해야 merge-base 사용 가능
+
+      - name: Fetch base & head branches
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git fetch origin ${{ github.event.pull_request.head.ref }}
+
+      - name: Get Changed Files (Grouped by Status)
         id: changed-files
         run: |
-          FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          FILE_LIST=$(echo "$FILES" | awk '{print "- " $0}' ORS='\n')
-          echo "files=$FILE_LIST" >> $GITHUB_ENV
+          BASE_SHA=$(git merge-base origin/${{ github.event.pull_request.base.ref }} origin/${{ github.event.pull_request.head.ref }})
+          HEAD_SHA=${{ github.event.pull_request.head.sha }}
+          CHANGES=$(git diff --name-status "$BASE_SHA" "$HEAD_SHA")
+
+          echo "### CHANGES"
+          echo "$CHANGES"
+
+          echo "## 📝 수정된 파일" > files.txt
+          echo "$CHANGES" | awk '$1 == "M" {print "- " $2}' >> files.txt
+          echo "" >> files.txt
+          echo "## 📄 추가된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "A" {print "- " $2}' >> files.txt
+          echo "" >> files.txt
+          echo "## ❌ 삭제된 파일" >> files.txt
+          echo "$CHANGES" | awk '$1 == "D" {print "- " $2}' >> files.txt
+
+          echo "FILES<<EOF" >> $GITHUB_ENV
+          cat files.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Update PR Body
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
         run: |
-          BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
-            | jq -r '.body')
-
-          # 기존에 '## 변경된 파일' 섹션이 있는지 확인
-          if echo "$BODY" | grep -q "## 변경된 파일"; then
-            # 기존 섹션을 업데이트
-            NEW_BODY=$(echo "$BODY" | sed -E "/## 변경된 파일/{N;d;}" | sed -E "\$a## 변경된 파일\n$FILES")
-          else
-            # 기존 본문 끝에 새로운 섹션 추가
-            NEW_BODY="${BODY}\n\n## 변경된 파일\n$FILES"
-          fi
-
+          PR_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+          BODY=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$PR_URL" | jq -r '.body')
+      
+          # 구분자 주석 기준으로 본문 분리
+          MARKER="<!-- 아래 변경된 파일 목록은 GitHub Actions에서 자동으로 업데이트됩니다. -->"
+      
+          # 변경 파일 정보 다시 읽기 (env에 넣는 대신 직접 변수로)
+          FILE_SECTION=$(cat files.txt)
+      
+          # MARKER 기준으로 본문 나누기
+          BEFORE=$(echo "$BODY" | awk -v m="$MARKER" 'BEGIN{found=0} {print; if ($0==m) {exit}}')
+      
+          # 최종 바디 구성
+          FINAL_BODY="$BEFORE
+          
+          $FILE_SECTION"
+      
+          # JSON 형태로 만들기
+          jq -n --arg body "$FINAL_BODY" '{body: $body}' > body.json
+      
           curl -X PATCH -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{\"body\": \"${NEW_BODY}\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+            --data @body.json "$PR_URL"
+

@@ -2939,7 +2939,7 @@
 	    	
 	    		if(data.cv_5.length > 0) {
 		        	//주소 ~ 매핑이력 - 판매정보
-		        	SBUxMethod.set("SALES_TAX_SEND", 				gfn_nvl(cv_4.SLS_TXIV_TRSM));
+		        	SBUxMethod.set("SALES_TAX_SEND", 				gfn_nvl(cv_5.SLS_TXIV_TRSM));
 		        	gfnma_multiSelectSet("#DELIVERY_TYPE", 			"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.DLVRTRM));
 		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.RCPT_YMD_RULE));
 		        	gfnma_multiSelectSet("#VAT_ISSUE_COND", 		"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.TXIV_ISSU_CND));
@@ -3782,6 +3782,7 @@
         	cv_count			: '0',
         	params				: gfnma_objectToString(paramObj, true)
 		});   
+        console.log('save workType ==>', workType);
         const data = await postJsonPromise;
         try {
         	if (_.isEqual("S", data.resultStatus)) {

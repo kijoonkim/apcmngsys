@@ -394,6 +394,10 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			
+			
+			//그룹코드 내역 - 유형분류
+			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			
 			//유형분류
 			gfnma_multiSelectInit({
 				target			: ['#SRCH_GROUP_CATEGORY']
@@ -413,9 +417,7 @@
 		            {caption: "명칭", 		ref: 'CD_NM',    		width:'150px',  	style:'text-align:left'}
 				]
 			}),
-			
-			//그룹코드 내역 - 유형분류
-			gfnma_setComSelect(['GROUP_CATEGORY'], jsonGroupCode, 'L_COM013', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+
 			
 		]);
 	}
@@ -817,7 +819,7 @@
         SBSubGridProperties.rowheaderwidth 		= {seq: '60'};
         SBSubGridProperties.extendlastcol 		= 'scroll';
         SBSubGridProperties.columns = [
-            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true} },
+            {caption: ["세부코드"],				ref: 'SUB_CODE', 		type:'input',  		width:'100px',  	style:'text-align:left', userattr : {required : true}},
             {caption: ["코드명"],					ref: 'CODE_NAME',   	type:'input',  		width:'200px',  	style:'text-align:left', userattr : {required : true} },
             {caption: ['시스템코드'],     		ref: 'SYSTEM_YN',		type :'checkbox',	width : '80px', 	typeinfo : { checkedvalue : "Y", uncheckedvalue : "N" }, style : 'text-align:center', userattr : {required : true} },
             {caption: ["정렬순서"],				ref: 'SORT_SEQ',    	type:'input',  		width:'100px',  	style:'text-align:right', userattr : {required : true} },
@@ -882,7 +884,13 @@
 			}
 			jsonCMNSCDSubList.push(msg);
 		});
+
 		CMNSCDSubGrid.rebuild();
+        if (jsonCMNSCDSubList.length > 0){
+        	jsonCMNSCDSubList.forEach((item, index) => {
+        		CMNSCDSubGrid.setCellDisabled(index+1, 1, index+1, 1, true, false, true);
+            })
+        }
     }
     
     const fn_clearForm = function() {
@@ -1194,10 +1202,10 @@
 	        }
         }
     }
-
+  
     // 행 추가
     const fn_addRow = function () {
-   		CMNSCDSubGrid.addRow(true, {SYSTEM_YN : "N", USE_YN:"Y"}, true);
+    	CMNSCDSubGrid.addRow(true, {SYSTEM_YN : "N", USE_YN:"Y"}, true);
     }
 
     // 행 삭제

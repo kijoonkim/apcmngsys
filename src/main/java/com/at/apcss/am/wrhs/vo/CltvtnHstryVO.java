@@ -85,12 +85,36 @@ public class CltvtnHstryVO extends ComVO {
 	 * 첨부파일 원본명
 	 * */
 	private String atchflOrgnNm;
+    /*
+     * 연도
+     * */
+    private String yr;
 	/*
 	 * 확정일자
 	 * */
 	private String cfmtnYmd;
 	private String cfmtnYmdFrom;
 	private String cfmtnYmdTo;
+    /*
+     * 기반비료일자
+     * */
+    private String baseFrtlzrYmd;
+    /*
+     * 파종일자
+     * */
+    private String sdngYmd;
+    /*
+     * 정식일자
+     * */
+    private String plntngYmd;
+    /*
+     * 추비1차일자
+     * */
+    private String cmptYmdCycl1;
+    /*
+     * 추비2차일자
+     * */
+    private String cmptYmdCycl2;
 	/*
 	 * 농가지역
 	 * */
@@ -103,5 +127,13 @@ public class CltvtnHstryVO extends ComVO {
 	 * 담당자
 	 * */
 	private String pic;
+	/*
+	 * 계약면적(평)
+	 * */
+	private String crtrArea;
+	/*
+	 * 정식면적(평)
+	 * */
+	private String plntngArea;
 
 }

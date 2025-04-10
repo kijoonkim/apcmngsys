@@ -1209,7 +1209,7 @@ const gfnma_uxDataSet2 = function (target, obj, except, incluld_p, incluld_b) {
 		};
 		if($(target).find('#'+skey)){
 			var cls = $(target).find('#'+skey).attr('class') + '';
-			var val = gfnma_nvl(obj[key]);
+			var val = gfnma_nvl2(obj[key]);
 			if(cls.indexOf('sbux-')>-1){
 				SBUxMethod.set(skey,	val);
 			} else {

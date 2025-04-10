@@ -1372,27 +1372,27 @@
     const fn_findCostDeptCode = function() {
         var searchCode 		= gfn_nvl(SBUxMethod.get("COST_DEPT_CODE"));
         var searchName 		= gfn_nvl(SBUxMethod.get("COST_DEPT_NAME"));
-        var replaceText0 	= "_CODE_";
-        var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND DEPT_CD LIKE '%" + replaceText0 + "%' AND DEPT_NM LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '부서 조회');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
             ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'L_ORG900_ESS'
+            ,bizcompId				: 'P_ORG010'
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서", 		"부서명"]
-            ,searchInputFields		: ["CODE", 		"FAM_NM"]
+            ,searchInputFields		: ["CSTCT_CD", 		"CSTCT_NM"]
             ,searchInputValues		: [searchCode, 			searchName]
             ,height					: '400px'
             ,tableHeader			: ["부서", "부서명"]
-            ,tableColumnNames		: ["CODE", "FAM_NM"]
+            ,tableColumnNames		: ["CSTCT_CD", "CSTCT_NM"]
             ,tableColumnWidths		: ["80px", "80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set('COST_DEPT_NAME', data.FAM_NM);
-                SBUxMethod.set('COST_DEPT_CODE', data.CODE);
+                SBUxMethod.set('COST_DEPT_NAME', data.CSTCT_NM);
+                SBUxMethod.set('COST_DEPT_CODE', data.CSTCT_CD);
             },
         });
     }
@@ -1413,7 +1413,7 @@
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["부서", 		"부서명"]
             ,searchInputFields		: ["CODE", 		"FAM_NM"]
-            ,searchInputValues		: [searchCode, 			searchName]
+            ,searchInputValues		: [searchCode, 	searchName]
             ,height					: '400px'
             ,tableHeader			: ["부서", "부서명"]
             ,tableColumnNames		: ["CODE", "FAM_NM"]

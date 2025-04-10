@@ -1501,7 +1501,7 @@
         SBGridProperties.allowcopy 			= true; //복사
         SBGridProperties.rowheader 			= 'seq';
         SBGridProperties.rowheadercaption 	= {seq: 'No'};
-        SBGridProperties.rowheaderwidth 	= {seq: '40'};
+        SBGridProperties.rowheaderwidth 	= {seq: '40'}; 
         SBGridProperties.explorerbar 		= 'sortmove';
         SBGridProperties.useinitsorting     = true;
         SBGridProperties.extendlastcol 		= 'scroll';
