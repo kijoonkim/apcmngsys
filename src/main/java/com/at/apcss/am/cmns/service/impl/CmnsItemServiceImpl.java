@@ -1,10 +1,12 @@
 package com.at.apcss.am.cmns.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.at.apcss.am.cmns.vo.*;
 import com.at.apcss.am.sort.vo.SortBffaGrdVO;
 import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
@@ -20,12 +22,6 @@ import com.at.apcss.am.cmns.service.CmnsValidationService;
 import com.at.apcss.am.cmns.service.CmnsVrtyService;
 import com.at.apcss.am.cmns.service.SpmtPckgUnitService;
 import com.at.apcss.am.cmns.service.StdGrdService;
-import com.at.apcss.am.cmns.vo.CmnsItemVO;
-import com.at.apcss.am.cmns.vo.CmnsSpcfctVO;
-import com.at.apcss.am.cmns.vo.CmnsVrtyVO;
-import com.at.apcss.am.cmns.vo.SpmtPckgUnitVO;
-import com.at.apcss.am.cmns.vo.StdGrdJgmtVO;
-import com.at.apcss.am.cmns.vo.StdGrdVO;
 import com.at.apcss.co.cd.service.ComCdService;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
@@ -262,5 +258,33 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 		return cmnsItemMapper.selectBffaGrdKndList(sortBffaWrhsStdGrdVO);
 	}
 
+	@Override
+	public ArrayList<ApcItemCrtrDtlVO> selectApcItemCrtrDtlList(ApcItemCrtrDtlVO apcItemCrtrDtlVO) throws Exception {
+		return cmnsItemMapper.selectApcItemCrtrDtlList(apcItemCrtrDtlVO);
+	}
 
+	@Override
+	public ArrayList<ApcSeedCrtrVO> selectApcSeedCrtrList(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception {
+		return cmnsItemMapper.selectApcSeedCrtrList(apcSeedCrtrVO);
+	}
+
+	@Override
+	public int mergeApcItemCrtrDtlList(List<ApcItemCrtrDtlVO> apcItemCrtrDtlList) throws Exception {
+		return cmnsItemMapper.mergeApcItemCrtrDtlList(apcItemCrtrDtlList);
+	}
+
+	@Override
+	public int mergeSeedCrtrList(List<ApcSeedCrtrVO> apcSeedCrtrVOList) throws Exception {
+		return cmnsItemMapper.mergeSeedCrtrList(apcSeedCrtrVOList);
+	}
+
+	@Override
+	public int deleteApcItemCrtrDtl(ApcItemCrtrDtlVO apcItemCrtrDtlVO) throws Exception {
+		return cmnsItemMapper.deleteApcItemCrtrDtl(apcItemCrtrDtlVO);
+	}
+
+	@Override
+	public int deleteSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception {
+		return cmnsItemMapper.deleteSeedCrtr(apcSeedCrtrVO);
+	}
 }

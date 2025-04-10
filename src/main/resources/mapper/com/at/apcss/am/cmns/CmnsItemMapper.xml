@@ -199,7 +199,6 @@
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
-
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible				-->
 	<!-- DESC : APC 품목 삭제 가능 여부.	                                       	-->
@@ -516,6 +515,254 @@
 				 AND BFFA_WRHSNO = #{bffaWrhsno}
 	]]>
 	</select>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcItemCrtrDtlList	-->
+	<!-- DESC : APC기준 품목 상세 목록조회                				          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.8  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcItemCrtrDtlList" resultType="com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
+		SELECT
+			 APC_CD 		AS APC_CD
+			,ITEM_CD 		AS ITEM_CD
+			,ITEM_DTL_CD 	AS ITEM_DTL_CD
+			,ITEM_DTL_NM 	AS ITEM_DTL_NM
+			,INDCT_SEQ 		AS INDCT_SEQ
+			,USE_YN			AS USE_YN
+			,GRD_MNG_CD		AS GRD_MNG_CD
+		FROM
+			TB_APC_ITEM_CRTR_DTL
+		WHERE
+			APC_CD = #{apcCd}
+		AND
+			ITEM_CD = #{itemCd}
+		AND
+			DEL_YN = 'N'
+	</select>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcSeedCrtrList	-->
+	<!-- DESC : APC기준 종자 목록조회  		              				          		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.8  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcSeedCrtrList" resultType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+		SELECT
+			 APC_CD		AS APC_CD
+			,SEED_CD	AS SEED_CD
+			,SEED_NM	AS SEED_NM
+			,INDCT_NM	AS INDCT_NM
+			,ITEM_CD	AS ITEM_CD
+			,VRTY_CD	AS VRTY_CD
+			,INDCT_SEQ	AS INDCT_SEQ
+		FROM
+			TB_APC_SEED_CRTR
+		WHERE
+			APC_CD = #{apcCd}
+		AND
+			ITEM_CD = #{itemCd}
+		AND
+			DEL_YN = 'N'
+	</select>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.mergeApcItemCrtrDtlList	-->
+	<!-- DESC : APC기준 품목 상세 merge  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="mergeApcItemCrtrDtlList" parameterType="list">
+		MERGE INTO TB_APC_ITEM_CRTR_DTL ICD
+		USING (
+		<foreach collection="list" item="item" separator="UNION ALL">
+			SELECT
+				 #{item.apcCd}        AS APC_CD,
+				 #{item.itemCd}       AS ITEM_CD,
+				 #{item.itemDtlCd}    AS ITEM_DTL_CD,
+				 #{item.itemDtlNm}    AS ITEM_DTL_NM,
+				 #{item.indctSeq}     AS INDCT_SEQ,
+				 #{item.useYn}        AS USE_YN,
+				 #{item.delYn}        AS DEL_YN,
+				 #{item.sysFrstInptDt} AS SYS_FRST_INPT_DT,
+				 #{item.sysFrstInptUserId} AS SYS_FRST_INPT_USER_ID,
+				 #{item.sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID,
+				 #{item.sysLastChgDt} AS SYS_LAST_CHG_DT,
+				 #{item.sysLastChgUserId} AS SYS_LAST_CHG_USER_ID,
+				 #{item.sysLastChgPrgrmId} AS SYS_LAST_CHG_PRGRM_ID,
+				 #{item.grdMngCd}     AS GRD_MNG_CD
+			FROM DUAL
+		</foreach>
+			) SRC
+		ON (
+			ICD.APC_CD = SRC.APC_CD AND
+			ICD.ITEM_CD = SRC.ITEM_CD AND
+			ICD.ITEM_DTL_CD = SRC.ITEM_DTL_CD
+			)
+		WHEN MATCHED THEN
+		UPDATE SET
+			ICD.ITEM_DTL_NM = SRC.ITEM_DTL_NM,
+			ICD.INDCT_SEQ = SRC.INDCT_SEQ,
+			ICD.USE_YN = SRC.USE_YN,
+			ICD.DEL_YN = SRC.DEL_YN,
+			ICD.SYS_LAST_CHG_DT = SYSDATE,
+			ICD.SYS_LAST_CHG_USER_ID = SRC.SYS_LAST_CHG_USER_ID,
+			ICD.SYS_LAST_CHG_PRGRM_ID = SRC.SYS_LAST_CHG_PRGRM_ID,
+			ICD.GRD_MNG_CD = SRC.GRD_MNG_CD
+		WHEN NOT MATCHED THEN
+		INSERT (
+			APC_CD,
+			ITEM_CD,
+			ITEM_DTL_CD,
+			ITEM_DTL_NM,
+			INDCT_SEQ,
+			USE_YN,
+			DEL_YN,
+			SYS_FRST_INPT_DT,
+			SYS_FRST_INPT_USER_ID,
+			SYS_FRST_INPT_PRGRM_ID,
+			SYS_LAST_CHG_DT,
+			SYS_LAST_CHG_USER_ID,
+			SYS_LAST_CHG_PRGRM_ID,
+			GRD_MNG_CD
+			   )
+		VALUES (
+			SRC.APC_CD,
+			SRC.ITEM_CD,
+			SRC.ITEM_DTL_CD,
+			SRC.ITEM_DTL_NM,
+			SRC.INDCT_SEQ,
+			SRC.USE_YN,
+			SRC.DEL_YN,
+			SYSDATE,
+			SRC.SYS_FRST_INPT_USER_ID,
+			SRC.SYS_FRST_INPT_PRGRM_ID,
+			SYSDATE,
+			SRC.SYS_LAST_CHG_USER_ID,
+			SRC.SYS_LAST_CHG_PRGRM_ID,
+			SRC.GRD_MNG_CD
+				);
+	</update>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.mergeSeedCrtrList		-->
+	<!-- DESC : APC기준 종자 목록 merge  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="mergeSeedCrtrList" parameterType="list">
+		MERGE INTO TB_APC_SEED_CRTR SC
+		USING (
+		<foreach collection="list" item="item" separator="UNION ALL">
+			SELECT
+			#{item.apcCd}              AS APC_CD,
+			#{item.seedCd}             AS SEED_CD,
+			#{item.seedNm}             AS SEED_NM,
+			#{item.indctNm}            AS INDCT_NM,
+			#{item.itemCd}             AS ITEM_CD,
+			#{item.vrtyCd}             AS VRTY_CD,
+			#{item.indctSeq}           AS INDCT_SEQ,
+			#{item.delYn}              AS DEL_YN,
+			#{item.sysFrstInptDt}      AS SYS_FRST_INPT_DT,
+			#{item.sysFrstInptUserId}  AS SYS_FRST_INPT_USER_ID,
+			#{item.sysFrstInptPrgrmId} AS SYS_FRST_INPT_PRGRM_ID,
+			#{item.sysLastChgDt}       AS SYS_LAST_CHG_DT,
+			#{item.sysLastChgUserId}   AS SYS_LAST_CHG_USER_ID,
+			#{item.sysLastChgPrgrmId}  AS SYS_LAST_CHG_PRGRM_ID
+			FROM DUAL
+		</foreach>
+		) SRC
+		ON (
+		SC.APC_CD = SRC.APC_CD AND
+		SC.SEED_CD = SRC.SEED_CD
+		)
+		WHEN MATCHED THEN
+		UPDATE SET
+		SC.SEED_NM = SRC.SEED_NM,
+		SC.INDCT_NM = SRC.INDCT_NM,
+		SC.ITEM_CD = SRC.ITEM_CD,
+		SC.VRTY_CD = SRC.VRTY_CD,
+		SC.INDCT_SEQ = SRC.INDCT_SEQ,
+		SC.DEL_YN = SRC.DEL_YN,
+		SC.SYS_LAST_CHG_DT = SYSDATE,
+		SC.SYS_LAST_CHG_USER_ID = SRC.SYS_LAST_CHG_USER_ID,
+		SC.SYS_LAST_CHG_PRGRM_ID = SRC.SYS_LAST_CHG_PRGRM_ID
+		WHEN NOT MATCHED THEN
+		INSERT (
+		APC_CD,
+		SEED_CD,
+		SEED_NM,
+		INDCT_NM,
+		ITEM_CD,
+		VRTY_CD,
+		INDCT_SEQ,
+		DEL_YN,
+		SYS_FRST_INPT_DT,
+		SYS_FRST_INPT_USER_ID,
+		SYS_FRST_INPT_PRGRM_ID,
+		SYS_LAST_CHG_DT,
+		SYS_LAST_CHG_USER_ID,
+		SYS_LAST_CHG_PRGRM_ID
+		) VALUES (
+		SRC.APC_CD,
+		SRC.SEED_CD,
+		SRC.SEED_NM,
+		SRC.INDCT_NM,
+		SRC.ITEM_CD,
+		SRC.VRTY_CD,
+		SRC.INDCT_SEQ,
+		SRC.DEL_YN,
+		SYSDATE,
+		SRC.SYS_FRST_INPT_USER_ID,
+		SRC.SYS_FRST_INPT_PRGRM_ID,
+		SYSDATE,
+		SRC.SYS_LAST_CHG_USER_ID,
+		SRC.SYS_LAST_CHG_PRGRM_ID
+		);
+	</update>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.deleteApcItemCrtrDtl		-->
+	<!-- DESC : APC기준 품목 상세 delYn  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteApcItemCrtrDtl" parameterType="com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
+		UPDATE
+			TB_APC_ITEM_CRTR_DTL
+		SET
+			DEL_YN = 'Y'
+		WHERE
+			APC_CD = #{apcCd}
+		AND
+			ITEM_CD = #{itemCd}
+		AND
+			ITEM_DTL_CD = #{itemDtlCd}
+	</update>
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.deleteSeedCrtr			-->
+	<!-- DESC : APC기준 종자 목록 delYn  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="deleteSeedCrtr" parameterType="com.at.apcss.am.cmns.vo.ApcSeedCrtrVO">
+		UPDATE
+			TB_APC_SEED_CRTR
+		SET
+			DEL_YN = 'Y'
+		WHERE
+			APC_CD = #{apcCd}
+		  AND
+		    SEED_CD = #{seedCd}
+	</update>
 </mapper>
 
 

@@ -1749,6 +1749,60 @@ const gfn_snakeToCamel = function(str){
 		return match[1].toUpperCase();
 	});
 };
+/**
+ * @name gfn_gridRowPlusMinus
+ * @description grid row 추가 삭제 공통 함수
+ * 필수 : grid 삭제 추가 renderer 작성시 data-id, data-del-fn 속성 추가
+ * 및 삭제 function 생성
+ * ex) return "<button type='button' class='btn btn-xs btn-outline-danger'
+ * data-id='grdVrtyDtl' data-del-fn='delRowFn'
+ * onClick=\"fn_vrtyDtlRowPM(event, 'DEL', " + nRow + ")\">삭제</button>";
+ * @function
+ * @param {Object} _event
+ * @param {String} _gubun
+ * @param {int} _nRow
+ * @returns void
+ */
+const gfn_gridRowPlusMinus = function(_event, _gubun, _nRow){
+	let id = $(_event.target).data('id');
+	let delFn = $(_event.target).data('delFn') || null;
+
+	let grdObj = window[id];
+
+	if (_gubun === "ADD") {
+		let firstColRef = grdObj.getRefOfCol(0);
+		let colIdx = grdObj.getColRef(firstColRef);
+		grdObj.rebuild();
+		grdObj.setCellData(_nRow, colIdx, "N");
+		grdObj.addRow(true);
+		let cols = grdObj.getCols();
+
+		/** 현재 추가된 빈행 disabled off **/
+		grdObj.setCellDisabled(_nRow , 0, _nRow , cols, false);
+		grdObj.setRowStatus(_nRow,1);
+
+		/** 최하단 추가 빈행 disabled on **/
+		grdObj.setCellDisabled(grdObj.getRows() -1, 0, grdObj.getRows() -1, grdObj.getCols() -1, true);
+	}
+	if (_gubun === "DEL") {
+		if(grdObj.getRowStatus(_nRow) == 0 || grdObj.getRowStatus(_nRow) == 2){
+			var delVO = grdObj.getRowData(_nRow);
+			const nonEmptyCount = Object.values(delVO).filter(v => v !== "" && v !== null && v !== undefined).length;
+			if(nonEmptyCount >= 2){
+				if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
+					if(!gfn_isEmpty(delFn)){
+						window[delFn](delVO);
+					}
+				}
+			}else{
+				grdObj.deleteRow(_nRow);
+			}
+		}else{
+			grdObj.deleteRow(_nRow);
+		}
+	}
+}
+
 
 /**
  * @name gfn_cloneJson
