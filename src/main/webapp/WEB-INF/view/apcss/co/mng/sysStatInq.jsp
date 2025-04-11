@@ -57,24 +57,24 @@
           <tbody>
             <tr>
               <td>총 방문자</td>
-              <td id="userTrfc-tsMmVstr" name="userTrfc-tsMmVstr">0</td>
-              <td id="userTrfc-prvMmVstr" name="userTrfc-prvMmVstr">0</td>
-              <td id="">0</td>
-              <td>0</td>
+              <td id="userTrfc-tsMmVstr" name="userTrfc-tsMmVstr">-</td>
+              <td id="userTrfc-prvMmVstr" name="userTrfc-prvMmVstr">-</td>
+              <td id="userTrfc-vstrDiff" name="userTrfc-vstrDiff">-</td>
+              <td id="userTrfc-vstrIcdc" name="userTrfc-vstrIcdc">-</td>
             </tr>
             <tr>
               <td>일 평균 방문자</td>
-              <td id="userTrfc-tsMmAvgVstr" name="userTrfc-tsMmAvgVstr">0</td>
-              <td id="userTrfc-prvMnAvgVstr" name="userTrfc-prvMnAvgVstr">0</td>
-              <td>0</td>
-              <td>0</td>
+              <td id="userTrfc-tsMmAvgVstr" name="userTrfc-tsMmAvgVstr">-</td>
+              <td id="userTrfc-prvMmAvgVstr" name="userTrfc-prvMmAvgVstr">-</td>
+              <td id="userTrfc-avgVstrDiff" name="userTrfc-avgVstrDiff">-</td>
+              <td id="userTrfc-avgVstrIcdc" name="userTrfc-avgVstrIcdc">-</td>
             </tr>
             <tr>
               <td>총 페이지뷰(PV)</td>
-              <td id="userTrfc-tsMmTotPV" name="userTrfc-tsMmTotPV">0</td>
-              <td id="userTrfc-prvMmTotPV" name="userTrfc-prvMmTotPV">0</td>
-              <td>0</td>
-              <td>0</td>
+              <td id="userTrfc-tsMmTotPV" name="userTrfc-tsMmTotPV">-</td>
+              <td id="userTrfc-prvMmTotPV" name="userTrfc-prvMmTotPV">-</td>
+              <td id="userTrfc-totPVDiff" name="userTrfc-totPVDiff">-</td>
+              <td id="userTrfc-totPVIcdc" name="userTrfc-totPVIcdc">-</td>
             </tr>
           </tbody>
         </table>
@@ -251,54 +251,169 @@
 </body>
 <script type="text/javascript">
 
-  var userYmdFrom;
-  var userYmdTo;
+  var yyyyMm;
+  var ymdFrom;
+  var ymdTo;
 
+  /** 증감률 계산 **/
+  const fn_calcGrowthRate = function (newValue, oldValue) {
+    let growthRate;
+
+    if(oldValue === 0) {
+      oldValue = 1
+    }
+
+    growthRate = (((newValue - oldValue) / oldValue) * 100).toFixed(0);
+
+    if (parseInt(growthRate) > 0) {
+      return "+" + growthRate + "%";
+    }
+    else {
+      return growthRate + "%";
+    }
+  }
+
+  /** 조회 버튼 클릭 **/
   async function fn_search() {
-    const getYM = SBUxMethod.get("sysStatInq-crtr-ym");
 
-    console.log(getYM);
+    let getYm = SBUxMethod.get("sysStatInq-crtr-ym");
+    yyyyMm = getYm;
 
-    userYmdFrom = getYM + '01';
-    userYmdTo = getOneMonthBefore(userYmdFrom) + '01';
+    console.log("getYm: " + getYm);
+    /** 시작일 **/
+    ymdFrom = gfn_addMonth(getYm, -1);
+    /** 종료일 **/
+    ymdTo = gfn_addMonth(getYm, 1);
 
-    console.log('ymdFrom: ' + userYmdFrom);
-    console.log('ymdTo: ' + userYmdTo);
-
-    fn_selectUserCnt();
+    await fn_webSysUsePrst();
   }
 
-  function getOneMonthBefore(yyyymm) {
-    const year = parseInt(yyyymm.substring(0, 4));
-    const month = parseInt(yyyymm.substring(4,6));
-
-    const currentDate = new Date(year, month - 1, 1);
-
-    const prevMonth = new Date(currentDate);
-    prevMonth.setMonth(prevMonth.getMonth() - 1);
-
-    const prvYY = prevMonth.getFullYear();
-    const prvMM = String(prevMonth.getMonth() + 1).padStart(2, '0');
-
-    console.log("yyyymm: " + prvYY + prvMM);
-    return (prvYY + prvMM);
-  }
-
-  /** 사용자 및 트래픽 조회 **/
-  const fn_selectUserCnt = async function () {
-
-    let postJsonPromise = gfn_postJSON("/co/mng/selectUserCnt.do", {
-      userYmdFrom : userYmdFrom
-      , userYmdTo   : userYmdTo
+  /** 데이터 전송 **/
+  const fn_postJsonPromise = async function (url) {
+    console.log("url: " + url);
+    const postJsonPromise = gfn_postJSON(url, {
+      ymdFrom : ymdFrom
+      , ymdTo   : ymdTo
     });
 
-    let data = await postJsonPromise;
-    console.log(data);
-
-
+    return postJsonPromise;
   }
 
+  /** 웹 시스템 사용 현황 조회 **/
+  const fn_webSysUsePrst = async function () {
 
+    await fn_vstrCnt();
+    await fn_pageViewCnt();
+    await fn_userCnt();
+  }
+
+  /** 사용자 및 트래픽 (방문자 카운트) **/
+  const fn_vstrCnt = async function () {
+
+    const data = await fn_postJsonPromise("/co/mng/selectVstrCnt.do");
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        let tsMmVstr = document.getElementById('userTrfc-tsMmVstr');
+        let prvMmVstr = document.getElementById('userTrfc-prvMmVstr');
+        let tsMmAvgVstr = document.getElementById('userTrfc-tsMmAvgVstr');
+        let prvMmAvgVstr = document.getElementById('userTrfc-prvMmAvgVstr');
+        let vstrDiff = document.getElementById('userTrfc-vstrDiff');
+        let vstrIcdc = document.getElementById('userTrfc-vstrIcdc');
+        let avgVstrDiff = document.getElementById('userTrfc-avgVstrDiff');
+        let avgVstrIcdc = document.getElementById('userTrfc-avgVstrIcdc');
+
+        let tsMmVstrCnt = data.resultList[1].cnt;
+        let prvMmVstrCnt = data.resultList[0].cnt;
+
+        let tsYr = parseInt(data.resultList[1].ym.substr(0,4));
+        let tsMm = parseInt(data.resultList[1].ym.substr(4,2));
+
+        let prvYr = parseInt(data.resultList[0].ym.substr(0,4));
+        let prvMm = parseInt(data.resultList[0].ym.substr(4,2));
+
+        let tsMmLastDate = new Date(tsYr, tsMm + 1, 0).getDate();
+        let prvMmLastDate = new Date(prvYr, prvMm + 1, 0).getDate();
+
+        let tsMmAvg = parseInt((tsMmVstrCnt / tsMmLastDate).toFixed(0));
+        let prvMmAvg = parseInt((prvMmVstrCnt / prvMmLastDate).toFixed(0));
+
+        tsMmVstr.textContent = tsMmVstrCnt;
+        prvMmVstr.textContent = prvMmVstrCnt;
+
+        tsMmAvgVstr.textContent = tsMmAvg;
+        prvMmAvgVstr.textContent = prvMmAvg;
+
+        vstrDiff.textContent = (tsMmVstrCnt - prvMmVstrCnt);
+        avgVstrDiff.textContent = (tsMmAvg - prvMmAvg);
+
+        vstrIcdc.textContent = fn_calcGrowthRate(tsMmVstrCnt, prvMmVstrCnt);
+        avgVstrIcdc.textContent = fn_calcGrowthRate(tsMmAvg, prvMmAvg);
+      }
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  /** 사용자 및 트래픽 (총 페이지뷰(PV)) **/
+
+  const fn_pageViewCnt = async function() {
+
+    const data = await fn_postJsonPromise("/co/mng/selectPageViewCnt.do");
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        let tsMmTotPV = document.getElementById('userTrfc-tsMmTotPV');
+        let prvMmTotPV = document.getElementById('userTrfc-prvMmTotPV');
+        let totPVDiff = document.getElementById('userTrfc-totPVDiff');
+        let totPVIcdc = document.getElementById('userTrfc-totPVIcdc');
+
+        let tsMmPVCnt = data.resultList[1].pageViewCnt;
+        let prvMmPVCnt = data.resultList[0].pageViewCnt;
+
+        tsMmTotPV.textContent = tsMmPVCnt;
+        prvMmTotPV.textContent = prvMmPVCnt;
+
+        totPVDiff.textContent = (tsMmPVCnt - prvMmPVCnt);
+        totPVIcdc.textContent = fn_calcGrowthRate(tsMmPVCnt, prvMmPVCnt);
+      }
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  const fn_userCnt = async function() {
+
+    console.log('yyyymm: ' + yyyyMm);
+    const postJsonPromise = gfn_postJSON("/co/mng/selectUserCnt.do", {
+      yyyyMm  : yyyyMm
+      , ymdTo : ymdTo
+    });
+
+    const data = await postJsonPromise;
+
+    console.log(data);
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+
+      }
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
 
 
 </script>

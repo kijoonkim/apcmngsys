@@ -13,31 +13,111 @@
 <mapper namespace="com.at.apcss.co.mng.mapper.ComMngMapper">
 
     <!-- ==========================================================================	-->
-    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				-->
+    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  			            	-->
     <!-- DESC : 접속자수, 활성회원(로그인 기준) 조회                                 		-->
     <!-- ==========================================================================	-->
     <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
     <!-- ===========  	============  	===========================================	-->
     <!-- 2025.04.09  	김은총        	Initial Creation                            -->
     <!-- ==========================================================================	-->
-    <select id="selectUserCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
+    <select id="selectVstrCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
     	<![CDATA[
-            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectUserCnt */
+            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectVstrCnt */
                 TO_CHAR(PRSL_DT, 'YYYYMM') AS YM
                 , COUNT(USER_ID) AS CNT
-                , COUNT(DISTINCT USER_ID) AS CNT USER
+                , COUNT(DISTINCT USER_ID) AS CNT_USER
             FROM TB_COM_MENU_LOG_HSTRY
+            WHERE PRSL_TYPE IN ('L1')
         ]]>
-        <if test='userYmdFrom != null and userYmdFrom != ""'>
-            WHERE PRSL_DT <![CDATA[>=]]> #{userYmdFrom}
+        <if test='ymdFrom != null and ymdFrom != ""'>
+            AND PRSL_DT <![CDATA[>=]]> TO_DATE(#{ymdFrom}, 'YYYYMMDD')
         </if>
-        <if test='userYmdTo != null and userYmdto != ""'>
-            AND PRSL_DT <![CDATA[<]]> #{userYmdTo}
+        <if test='ymdTo != null and ymdTo != ""'>
+            AND PRSL_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
         </if>
         <![CDATA[
-            AND PRSL_TYPE IN ('LI')
             GROUP BY TO_CHAR(PRSL_DT, 'YYYYMM')
             ORDER BY YM
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- DESC : 페이지 뷰 조회                                                		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.04.09  	김은총        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectPageViewCnt" parameterType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO" resultType="com.at.apcss.co.mng.vo.ComMenuLogHstryVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectPageViewCnt */
+                YM
+            	, SUM(CNT)	AS PAGEVIEWCNT
+	        FROM (
+                SELECT
+	                TO_CHAR(PRSL_DT, 'YYYYMM') AS YM
+	                , USER_ID
+	                , COUNT(DISTINCT MENU_ID) AS CNT
+                FROM TB_COM_MENU_LOG_HSTRY
+                WHERE PRSL_TYPE IN ('M1') -- 화면 OPEN
+        ]]>
+            <if test='ymdFrom != null and ymdFrom != ""'>
+                AND PRSL_DT <![CDATA[>=]]> TO_DATE(#{ymdFrom}, 'YYYYMMDD')
+            </if>
+            <if test='ymdTo != null and ymdTo != ""'>
+                AND PRSL_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
+            </if>
+        <![CDATA[
+                GROUP BY TO_CHAR(PRSL_DT, 'YYYYMM'), USER_ID
+            ) A
+            GROUP BY YM
+            ORDER BY YM
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- DESC : 페이지 뷰 조회                                                		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.04.11  	김은총        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectUserCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectUserCnt */
+                COUNT(A.USER_ID) AS CNT_USER
+        ]]>
+            <if test='yyyyMm != null and yyyyMm != ""'>
+                , SUM(
+                    CASE
+                        WHEN A.YM = #{yyyyMm} THEN 1
+                        ELSE 0
+                    END
+                ) AS CNT_NEW_USER
+            </if>
+        <![CDATA[
+
+            FROM (
+                SELECT
+                    A.USER_ID
+                    , TO_CHAR(A.SYS_FRST_INPT_DT, 'YYYYMM') AS YM
+                FROM TB_COM_USER A
+                WHERE NOT EXISTS (
+                    SELECT 1
+                    FROM TB_COM_CD_DTL X
+                    WHERE X.CD_ID = 'SYS_EXCLD_USER_ID'
+                        AND X.CD_VL = A.USER_ID
+                        AND X.DEL_YN = 'N'
+                        AND X.USE_YN = 'Y'
+                )
+        ]]>
+                <if test='ymdTo != null and ymdTo != ""'>
+                    AND A.SYS_FRST_INPT_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
+                </if>
+        <![CDATA[
+            ) A
         ]]>
     </select>
 

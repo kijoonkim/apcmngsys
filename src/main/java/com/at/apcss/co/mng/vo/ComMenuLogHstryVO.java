@@ -1,7 +1,13 @@
 package com.at.apcss.co.mng.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class ComMenuLogHstryVO extends ComVO {
 
     /**
@@ -30,14 +36,29 @@ public class ComMenuLogHstryVO extends ComVO {
     private String userType;
 
     /**
+     * 활성 회원수
+     */
+    private int cntUser;
+
+    /**
+     * 총 방문자
+     */
+    private int cnt;
+
+    /**
+     * 페이지뷰(PV) 카운트
+     */
+    private int pageViewCnt;
+
+    /**
      * 사용자수 시작일자
      */
-    private String userYmdFrom;
+    private String ymdFrom;
 
     /**
      * 사용자수 종료일자
      */
-    private String userYmdTo;
+    private String ymdTo;
 
     /**
      * 로그인성공여부
@@ -63,4 +84,6 @@ public class ComMenuLogHstryVO extends ComVO {
      * 수행업무구분코드
      */
     private String flfmtTaskSeCd;
+
+    private String yM;
 }

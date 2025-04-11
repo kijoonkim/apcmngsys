@@ -14,7 +14,7 @@ public interface ComMngMapper {
      * @param comMenuLogHstryVO
      * @return
      */
-    public List<ComMenuLogHstryVO> selectUserCnt(ComMenuLogHstryVO comMenuLogHstryVO);
+    public List<ComMenuLogHstryVO> selectVstrCnt(ComMenuLogHstryVO comMenuLogHstryVO);
 
     /**
      * 페이지 뷰

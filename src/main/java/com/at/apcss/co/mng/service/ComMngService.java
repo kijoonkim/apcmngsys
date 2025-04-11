@@ -12,7 +12,7 @@ public interface ComMngService {
      * @param comMenuLogHstryVO
      * @return
      */
-    public List<ComMenuLogHstryVO> selectUserCnt(ComMenuLogHstryVO comMenuLogHstryVO) throws Exception;
+    public List<ComMenuLogHstryVO> selectVstrCnt(ComMenuLogHstryVO comMenuLogHstryVO) throws Exception;
 
     /**
      * 페이지 뷰
@@ -27,4 +27,6 @@ public interface ComMngService {
      * @return
      */
     public List<ComUserVO> selectUserCnt(ComUserVO comUserVO)  throws Exception;
+
+
 }
