@@ -1950,12 +1950,21 @@
                     });
                     gvwMaster.rebuild();
                     document.querySelector('#listCount').innerText = totalRecordCount;
-
                     if (jsonSalesInvoiceList.length > 0) {
                         gvwMaster.clickRow(1);
+                    }else{
+                    	jsonDetailList.length = 0;
+                    	gvwApprove.rebuild();
+
+                    	jsonPaymentList.length = 0;
+                    	gvwPayment.rebuild();
+
+                    	jsonAccountList.length = 0;
+                    	gvwAccount.rebuild();
+                    	
+                    	
                     }
                 } else {
-
                     /** @type {number} **/
                     let totalRecordCount2 = 0;
 
@@ -2035,6 +2044,17 @@
                     });
                     gvwInfo.rebuild();
                     document.querySelector('#listCount2').innerText = totalRecordCount2;
+                    
+                    if (jsonSalesInvoiceList.length == 0) {
+                    	jsonDetailList.length = 0;
+                    	gvwApprove.rebuild();
+
+                    	jsonPaymentList.length = 0;
+                    	gvwPayment.rebuild();
+
+                    	jsonAccountList.length = 0;
+                    	gvwAccount.rebuild();
+                    }
                 }
             } else {
                 alert(listData.resultMessage);
@@ -2146,8 +2166,7 @@
         var nRow = gvwMaster.getRow();
         var nCol = gvwMaster.getCol();
         var rowData = gvwMaster.getRowData(nRow);
-
-        if(gfn_nvl(rowData) == "") return;
+        if(gfn_nvl(rowData) == "") return; 
 
         if(nCol == gvwMaster.getColRef("DOC_NAME")){
 
@@ -2179,6 +2198,7 @@
         fn_searchApplyTab(rowData)
         fn_searchAccountTab(rowData)
         fn_searchApproveTab(rowData)
+        
     }
 
     const fn_searchApplyTab = async function (rowData) {

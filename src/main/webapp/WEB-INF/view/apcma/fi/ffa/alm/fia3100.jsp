@@ -996,15 +996,15 @@
 			//fn_fmDisabled(true);
     	} else if(type=='N'){
     	}
-    }    
+    }
     
     /**
      * 목록 조회
      */
  	function cfn_search() {
-        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {        
+        if(!SBUxMethod.validateRequired({group_id: "schHeader"}) || !validateRequired("schHeader")) {
             return false;
-        }        
+        }
     	fn_setFia3100GridMast('LIST');
     }
     
@@ -1598,7 +1598,9 @@
 					Fia3100GridDetail02.rebuild();
 					
 				} else if(wtype=='BOOK'){
-					
+// 			     	const filteredList = data.cv_3.filter(item1 =>
+// 		     			jsonBplc.some(item2 => item1.SITE_CD === item2.value)
+// 					);
 	  	        	data.cv_3.forEach((item, index) => {
 	  					const msg = {
 	  							
@@ -1614,7 +1616,7 @@
 							BEGIN_SUBSIDIES_AMOUNT			: gfnma_nvl2(item.BSS_GVSBS_AMT),	
 							CONFIRM_FLAG					: gfnma_nvl2(item.CFMTN_FLAG),	
 							DEPRECIATION_METHOD				: gfnma_nvl2(item.DPRC_MTHD),	
-							DEPRECIATION_PERIOD				: gfnma_nvl2(item.DPRC_INTRVL),	
+							DEPRECIATION_PERIOD				: gfnma_nvl2(item.DPRC_PRD),	
 							DEPRECIATION_RATE				: gfnma_nvl2(item.DPRT),	
 							DEPRECIATION_TYPE				: gfnma_nvl2(item.DPRC_TYPE),	
 							DEPRECIATION_YYYYMM				: gfnma_nvl2(item.DPRC_YM),	
@@ -1841,7 +1843,15 @@
         SBGridProperties.columns = [
             {caption: ["감가상각년월"],		ref: 'DEPRECIATION_YYYYMM', 	type:'output',  	width:'100px', 		style:'text-align:left'},
             {caption: ["상각방법"],			ref: 'DEPRECIATION_METHOD',   	type:'output',  	width:'150px',  	style:'text-align:left'},
-            {caption: ["상각주기"],			ref: 'DEPRECIATION_PERIOD', 	type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["상각주기"], 			ref: 'DEPRECIATION_PERIOD',    	type : 'combo',     width:'100px',  	style:'text-align:left', disabled:true,
+            	typeinfo : {
+            		ref:'jsonDeprePeriodCode', 
+					label		: 'label',
+					value		: 'value',
+            	},  	
+            	
+            },
+
             {caption: ["내용연수"], 		ref: 'USEFUL_LIFE', 			type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["내용연수(월)"],		ref: 'USEFUL_LIFE_MM',		  	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["상각률(1000)"],		ref: 'DEPRECIATION_RATE', 		type:'output',  	width:'150px',  	style:'text-align:left'},
