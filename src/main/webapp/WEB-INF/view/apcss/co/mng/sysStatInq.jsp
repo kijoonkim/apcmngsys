@@ -257,6 +257,7 @@
 </body>
 <script type="text/javascript">
 
+  // 날짜 형식 변수
   var tsYM;
   var prvYM;
   var ymdFrom;
@@ -266,12 +267,10 @@
   var tsMmCntUser;
   var prvMmCntUser;
 
-  console.log("===========" + new Date());
-
+  // init
   const fn_init = async function () {
 
     let nowYm = gfn_dateToYm(new Date());
-    console.log(nowYm);
     SBUxMethod.set("sysStatInq-crtr-ym", nowYm);
     await fn_search();
   }
@@ -286,6 +285,7 @@
 
     growthRate = (((newValue - oldValue) / oldValue) * 100).toFixed(2);
 
+    // 양수 일시 '+' 붙이기
     if (parseInt(growthRate) >= 0) {
       return "+" + growthRate + "%";
     }
@@ -307,7 +307,6 @@
 
     tsYM = getYm;
     prvYM = ymdFrom.substring(0,6);
-    console.log('prvYM: ' + prvYM);
 
     await fn_vstrCnt();
     await fn_pageViewCnt();
@@ -332,8 +331,6 @@
   const fn_vstrCnt = async function () {
 
     const data = await fn_postJsonPromise("/co/mng/selectVstrCnt.do");
-
-    // console.log(data);
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
@@ -375,6 +372,23 @@
 
         vstrIcdc.textContent = fn_calcGrowthRate(tsMmVstrCnt, prvMmVstrCnt);
         avgVstrIcdc.textContent = fn_calcGrowthRate(tsMmAvg, prvMmAvg);
+
+        // 양수 blue, 음수 red
+        if (parseInt(vstrDiff.textContent) >= 0) {
+          vstrDiff.style.color = "blue";
+          vstrIcdc.style.color = "blue";
+        } else {
+          vstrDiff.style.color = "red";
+          vstrIcdc.style.color = "red";
+        }
+
+        if (parseInt(avgVstrDiff.textContent) >= 0) {
+          avgVstrDiff.style.color = "blue";
+          avgVstrIcdc.style.color = "blue";
+        } else {
+          avgVstrDiff.style.color = "red";
+          avgVstrIcdc.style.color = "red";
+        }
       }
     } catch (e) {
       if (!(e instanceof Error)) {
@@ -386,7 +400,6 @@
   }
 
   /** 사용자 및 트래픽 (총 페이지뷰(PV)) **/
-
   const fn_pageViewCnt = async function() {
 
     let tsMmTotPV = document.getElementById('userTrfc-tsMmTotPV');
@@ -410,6 +423,14 @@
 
         totPVDiff.textContent = (tsMmPVCnt - prvMmPVCnt);
         totPVIcdc.textContent = fn_calcGrowthRate(tsMmPVCnt, prvMmPVCnt);
+
+        if (parseInt(totPVDiff.textContent) >= 0) {
+          totPVDiff.style.color = "blue";
+          totPVIcdc.style.color = "blue";
+        } else {
+          totPVDiff.style.color = "red";
+          totPVIcdc.style.color = "red";
+        }
       }
     } catch (e) {
       if (!(e instanceof Error)) {
@@ -454,8 +475,6 @@
 
     const tsMmdata = await postJsonPromise_tsMm;
 
-    // console.log(tsMmdata);
-
     try {
       if (_.isEqual("S", tsMmdata.resultStatus)) {
 
@@ -482,8 +501,6 @@
 
     const prvMmdata = await postJsonPromise_prvMm;
 
-    // console.log(prvMmdata);
-
     try {
       if (_.isEqual("S", prvMmdata.resultStatus)) {
 
@@ -502,6 +519,31 @@
 
         actvtnMbrDiff.textContent = (tsMmCntUser - prvMmCntUser);
         actvtnMbrIcdc.textContent = fn_calcGrowthRate(tsMmCntUser, prvMmCntUser);
+
+        if (parseInt(totMbrDiff.textContent) >= 0) {
+          totMbrDiff.style.color = "blue";
+          totMbrIcdc.style.color = "blue";
+        } else {
+          totMbrDiff.style.color = "red";
+          totMbrIcdc.style.color = "red";
+        }
+
+        if (parseInt(newMbrDiff.textContent) >= 0) {
+          newMbrDiff.style.color = "blue";
+          newMbrIcdc.style.color = "blue";
+        } else {
+          newMbrDiff.style.color = "red";
+          newMbrIcdc.style.color = "red";
+        }
+
+        if (parseInt(actvtnMbrDiff.textContent) >= 0) {
+          actvtnMbrDiff.style.color = "blue";
+          actvtnMbrIcdc.style.color = "blue";
+        } else {
+          actvtnMbrDiff.style.color = "red";
+          actvtnMbrIcdc.style.color = "red";
+        }
+
       }
     } catch (e) {
       if (!(e instanceof Error)) {
