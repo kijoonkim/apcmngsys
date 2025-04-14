@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
+import com.at.apcss.am.cmns.vo.ApcSeedCrtrVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -187,5 +189,116 @@ public class CmnsItemController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+	@PostMapping(value = "/am/cmns/selectApcItemCrtrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectApcItemCrtrDtlList(@RequestBody ApcItemCrtrDtlVO apcItemCrtrDtlVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			ArrayList<ApcItemCrtrDtlVO> resultList = new ArrayList<>();
+	        try{
+				resultList = cmnsItemService.selectApcItemCrtrDtlList(apcItemCrtrDtlVO);
+	            
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+	        return getSuccessResponseEntity(resultMap); 
+	    }
+
+	@PostMapping(value = "/am/cmns/selectApcSeedCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectApcSeedCrtrList(@RequestBody ApcSeedCrtrVO apcSeedCrtrVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		ArrayList<ApcSeedCrtrVO> resultList = new ArrayList<>();
+		try{
+			resultList = cmnsItemService.selectApcSeedCrtrList(apcSeedCrtrVO);
+
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/mergeApcItemCrtrDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> mergeApcItemCrtrDtlList(@RequestBody List<ApcItemCrtrDtlVO> apcItemCrtrDtlList, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int resultCnt = 0;
+	        try{
+				setComVOFields(apcItemCrtrDtlList);
+				resultCnt = cmnsItemService.mergeApcItemCrtrDtlList(apcItemCrtrDtlList);
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_RESULT_CNT,resultCnt);
+	        return getSuccessResponseEntity(resultMap);
+	    }
+
+	@PostMapping(value = "/am/cmns/mergeSeedCrtrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> mergeSeedCrtrList(@RequestBody List<ApcSeedCrtrVO> apcSeedCrtrVOList, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int resultCnt = 0;
+		try{
+			setComVOFields(apcSeedCrtrVOList);
+			resultCnt = cmnsItemService.mergeSeedCrtrList(apcSeedCrtrVOList);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_CNT,resultCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/deleteApcItemCrtrDtl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> deleteApcItemCrtrDtl(@RequestBody ApcItemCrtrDtlVO apcItemCrtrDtlVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int deleteCnt = 0;
+	        try{
+	            deleteCnt = cmnsItemService.deleteApcItemCrtrDtl(apcItemCrtrDtlVO);
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_DELETED_CNT, deleteCnt);
+	        return getSuccessResponseEntity(resultMap);
+	    }
+	@PostMapping(value = "/am/cmns/deleteSeedCrtr.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> deleteSeedCrtr(@RequestBody ApcSeedCrtrVO apcSeedCrtrVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int deleteCnt = 0;
+	        try{
+				deleteCnt = cmnsItemService.deleteSeedCrtr(apcSeedCrtrVO);
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_DELETED_CNT, deleteCnt);
+	        return getSuccessResponseEntity(resultMap);
+	    }
 
 }

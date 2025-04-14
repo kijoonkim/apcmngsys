@@ -1,7 +1,10 @@
 package com.at.apcss.am.cmns.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO;
+import com.at.apcss.am.cmns.vo.ApcSeedCrtrVO;
 import com.at.apcss.am.sort.vo.SortBffaGrdVO;
 import com.at.apcss.am.sort.vo.SortBffaWrhsStdGrdVO;
 import com.at.apcss.co.cd.vo.ComCdVO;
@@ -125,4 +128,46 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
     List<SortBffaWrhsStdGrdVO> selectBffaGrdKndList(SortBffaWrhsStdGrdVO sortBffaWrhsStdGrdVO) throws Exception;
+	/**
+	 * APC기준 품목 상세 목록조회
+	 * @param apcItemCrtrDtlVO
+	 * @return ArrayList<ApcItemCrtrDtlVO>
+	 * @throws Exception
+	 */
+	ArrayList<ApcItemCrtrDtlVO> selectApcItemCrtrDtlList(ApcItemCrtrDtlVO apcItemCrtrDtlVO) throws Exception;
+	/**
+	 * APC기준 종자 목록조회
+	 * @param apcSeedCrtrVO
+	 * @return ArrayList<ApcSeedCrtr>
+	 * @throws Exception
+	 */
+	ArrayList<ApcSeedCrtrVO> selectApcSeedCrtrList(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
+	/**
+	 * APC기준 품목 상세 merge
+	 * @param apcItemCrtrDtlList
+	 * @return int
+	 * @throws Exception
+	 */
+    int mergeApcItemCrtrDtlList(List<ApcItemCrtrDtlVO> apcItemCrtrDtlList) throws Exception;
+	/**
+	 * APC기준 품목 종자 merge
+	 * @param apcSeedCrtrVOList
+	 * @return int
+	 * @throws Exception
+	 */
+	int mergeSeedCrtrList(List<ApcSeedCrtrVO> apcSeedCrtrVOList) throws Exception;
+	/**
+	 * APC기준 품목 상세 delete
+	 * @param apcItemCrtrDtlVO
+	 * @return int
+	 * @throws Exception
+	 */
+	int deleteApcItemCrtrDtl(ApcItemCrtrDtlVO apcItemCrtrDtlVO) throws Exception;
+	/**
+	 * APC기준 품목 종자 delete
+	 * @param apcSeedCrtrVO
+	 * @return int
+	 * @throws Exception
+	 */
+	int deleteSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
 }
