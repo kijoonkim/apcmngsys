@@ -1311,7 +1311,6 @@
 		if (nRow2 > 0) {
 			rowData2 = Fia3100GridDetail02.getRowData(nRow2);
 		}
-		
     	if(wtype=='LIST'){
     		if(!fn_validationFindArea()){
     			return;
@@ -1325,6 +1324,15 @@
     	if(wtype=='ACQ_LIST'){
     		p_site_code =  gfnma_nvl2(SBUxMethod.get("FM_SITE_CODE")); 
     	} else if(wtype=='ACQUIRE'){
+    		if(list2.length > 0){
+    			if (nRow2 < 1) {
+    	            return;
+    			}
+    			p_site_code = gfnma_nvl2(rowData2['SITE_CODE']);
+    		} else {
+    			p_site_code = gfnma_nvl2(SBUxMethod.get("FM_SITE_CODE")); 
+    		}
+    	} else if( wtype=='DETAIL' || wtype=='BOOK' || wtype=='LAND' ){
     		if(list2.length > 0){
     			if (nRow2 < 1) {
     	            return;
@@ -1407,8 +1415,6 @@
 		});
  
         const data = await postJsonPromise;
-		console.log('data:', data);
-		
 		try {
   			if (_.isEqual("S", data.resultStatus)) {
  
@@ -1771,7 +1777,6 @@
         
         if (Fia3100GridDetail01.getRefOfCol(nCol) == 'FUNCTIONAL_AMOUNT') {	
             let cellValue = Fia3100GridDetail01.getCellData(nRow, nCol); 	
-        	console.log('FUNCTIONAL_AMOUNT:', cellValue);
         	fn_setFia3100GridDetail01Total();            
         } else if (Fia3100GridDetail01.getRefOfCol(nCol) == 'ACQUIRE_QTY') {	
             Fia3100GridDetail01.setCellData(nRow, 11, 	rowData['ACQUIRE_QTY'], true, true);
@@ -1935,7 +1940,6 @@
         let nCol = Fia3100GridDetail04.getCol(); 
  
         let rowData = Fia3100GridDetail04.getRowData(nRow);
-    	console.log('rowData:', rowData);
         
         if (Fia3100GridDetail04.getRefOfCol(nCol) == 'AMOUNT') {	
         	fn_setFia3100GridDetail04Total();            
