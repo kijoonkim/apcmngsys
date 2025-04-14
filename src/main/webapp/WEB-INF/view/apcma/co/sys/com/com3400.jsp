@@ -1686,7 +1686,7 @@
 				,menuId			: p_menuId
 				,selectValue	: ''
 				,dropType		: 'down' 	// up, down
-				,dropAlign		: 'left' 	// left, right
+				,dropAlign		: 'right' 	// left, right
 				,colValue		: 'SBSD_CD'
 				,colLabel		: 'CD_NM'
 				,columns		:[
@@ -2727,10 +2727,6 @@
 	        return;
 	    }
 
-//         if (nCol < 1) {
-//             return;
-//         }
-        
 		SBUxMethod.enableTab('tabAddress');
 		SBUxMethod.enableTab('tabFinance');
 		SBUxMethod.enableTab('tabPurchase');
@@ -2861,7 +2857,7 @@
 		        	//주소 ~ 매핑이력 - 주소/연락처
 		        	SBUxMethod.set("ZIP_CODE", 			gfn_nvl(cv_2.ZIP_CD));
 		        	SBUxMethod.set("START_DATE", 		gfn_nvl(cv_2.BGNG_YMD));
-		        	SBUxMethod.set("END_DATE", 			gfn_nvl(cv_2.END_DT));
+		        	SBUxMethod.set("END_DATE", 			gfn_nvl(cv_2.END_YMD));
 		        	SBUxMethod.set("ADDRESS", 			gfn_nvl(cv_2.ADDR));
 		        	SBUxMethod.set("TEL", 				gfn_nvl(cv_2.TELNO));
 		        	SBUxMethod.set("FAX", 				gfn_nvl(cv_2.FX_NO));
@@ -2941,7 +2937,7 @@
 		        	//주소 ~ 매핑이력 - 판매정보
 		        	SBUxMethod.set("SALES_TAX_SEND", 				gfn_nvl(cv_5.SLS_TXIV_TRSM));
 		        	gfnma_multiSelectSet("#DELIVERY_TYPE", 			"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.DLVRTRM));
-		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.RCPT_YMD_RULE));
+		        	gfnma_multiSelectSet("#RECEIPT_DATE_RULE", 		"PAY_TERM_CD", 	"PAY_TERM_NM",		gfn_nvl(cv_5.RCPT_YMD_RULE));
 		        	gfnma_multiSelectSet("#VAT_ISSUE_COND", 		"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.TXIV_ISSU_CND));
 		        	gfnma_multiSelectSet("#SHIPPING_TYPE", 			"SBSD_CD", 		"CD_NM",		gfn_nvl(cv_5.SHPG_TYPE));
 	    		}
