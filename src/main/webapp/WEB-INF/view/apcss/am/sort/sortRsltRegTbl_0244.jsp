@@ -334,8 +334,6 @@
     var grdList = [];
     //생산자목록
     var prdcrList = [];
-    //거래처목록 및 출하수량
-    var cnptList = [];
     //원물재고정보
     var rawMtrInvntr = [];
     //GRID
@@ -679,9 +677,8 @@
             table.appendChild(tbody);
         }
         /** foot word **/
-        // let words = ["강서", "영진", "상주", "한국", "서운", "시판", "이월"];
-
-        /*let tfoot = document.createElement("tfoot");
+        let words = ["강서", "영진", "상주", "한국", "서운", "시판", "이월"];
+        let tfoot = document.createElement("tfoot");
         let tr = document.createElement("tr");
         tr.style.borderTop = '2px double black';
         for (let k = 0; k <= size; k++) {
@@ -698,53 +695,7 @@
             td.appendChild(input);
             tr.append(td);
         }
-
         tfoot.appendChild(tr);
-        */
-
-        let words = [];
-        let amounts = [];
-
-        cnptList.forEach(function(item) {
-            words.push(item.cnptName);
-            amounts.push(item.spmtSum);
-        });
-
-        console.log(amounts);
-
-        let tfoot = document.createElement("tfoot");
-
-        for (let j = 0; j <= words.length; j++) {
-            let tr = document.createElement("tr");
-            tr.style.borderTop = '2px double black';
-            for (let k = 0; k <= size; k++) {
-                let td = document.createElement("td");
-                td.colSpan = k == 0 ? 1 : 2;
-                let input = document.createElement("input");
-                input.style.width = "100%";
-                if (k % 2 > 0) {
-                    let word = words.shift() || '';
-                    input.value = word;
-                    input.readOnly = true;
-                    input.style.textAlign = 'center';
-                } else {
-                    let amount = amounts.shift();
-
-                    console.log('amount: ' + amount);
-
-                    input.value = amount;
-                    input.readOnly = true;
-                    input.style.textAlign = 'center';
-                }
-                td.appendChild(input);
-                tr.append(td);
-            }
-
-            tfoot.appendChild(tr);
-        };
-
-
-
         tr = document.createElement("tr");
         for (let l = 0; l <= size; l++) {
             let td = document.createElement("td");
@@ -901,15 +852,7 @@
 
         data.resultList.forEach(function(item,idx){
             $container.append(`<div onclick="fn_selectCnpt(this)" class="cell" data-idx="${'${idx}'}" data-cnpt-cd="${'${item.cnptCd}'}">${'${item.cnptNm}'}</div>`);
-
-            let cnptVo = {
-                cnptCode: data.resultList[idx].cnptCd,
-                cnptName: data.resultList[idx].cnptNm,
-                spmtSum: 0
-            }
-            cnptList.push(cnptVo);
         });
-
     }
     /** 출하실적 등록시 거래처 팝업내 선택 function **/
     const fn_selectCnpt = async function(_el){
@@ -1569,8 +1512,6 @@
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
 
-        console.log(data);
-
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
@@ -1588,16 +1529,7 @@
             /** thead 출하 수량 **/
             let spmtTotal = 0;
 
-            let temp_cnptCd = '';
-            let temp_cnptNm = '';
-
             arr.forEach((item,idx) => {
-                console.log('idx : ' + idx + ' item : ' + item);
-                console.log(JSON.stringify(item));
-
-                temp_cnptCd = item.cnptCd;
-                temp_cnptNm = item.cnptNm;
-
                 let col = parseInt(item.gdsGrd,10);
                 let row = Array.from($("tbody td:first-child input")).filter(inner => {
                     return $(inner).val() == item.prdcrIdentno;
@@ -1642,21 +1574,6 @@
                 $(cell).css("pointer-events","none");
                 nArr.push($(cell));
             });
-
-            console.log('temp_cnptCd : ' + temp_cnptCd);
-            console.log('temp_cnptNm : ' + temp_cnptNm);
-            console.log('spmtTotal : ' + spmtTotal);
-
-            cnptList.forEach(function(item) {
-                if (_.isEqual(temp_cnptCd, item.cnptCode)) {
-                    item.spmtSun = spmtTotal;
-                }
-            });
-
-            console.log(JSON.stringify(cnptList));
-
-
-
             /** UI 정리 **/
             let sum = 0;
             nArr.forEach(function (item, idx, arr) {
