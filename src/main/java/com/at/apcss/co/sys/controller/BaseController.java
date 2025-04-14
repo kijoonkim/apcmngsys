@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.co.sys.vo.ComVO;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -679,6 +680,26 @@ public abstract class BaseController {
 				e.printStackTrace();  // 예외 처리
 			}
 		}
+	}
+
+	protected void setComVOFields(Object obj) {
+		if (obj instanceof List<?>) {
+			for (Object vo : (List<?>) obj) {
+				if (vo instanceof ComVO) {
+					setFields((ComVO) vo);
+				}
+			}
+		} else if (obj instanceof ComVO) {
+			setFields((ComVO) obj);
+		}
+	}
+
+	private void setFields(ComVO vo) {
+		vo.setSysFrstInptUserId(getUserId());
+		vo.setSysLastChgUserId(getUserId());
+		vo.setSysFrstInptPrgrmId(getPrgrmId());
+		vo.setSysLastChgPrgrmId(getPrgrmId());
+		vo.setDelYn("N");
 	}
 
 

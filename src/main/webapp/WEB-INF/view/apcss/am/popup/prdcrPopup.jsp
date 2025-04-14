@@ -812,7 +812,15 @@
 			grdPrdcrPop.rebuild();
 	    }
 	}
+	const prdcrFunction = {
 
+
+	}
+
+	/** test fn **/
+	function test(){
+		console.log("너 호출은되는거지?");
+	}
 	// 엑셀다운로드
 	// exp combo
 	var jsonExpSltItem 			= [];	// 품목

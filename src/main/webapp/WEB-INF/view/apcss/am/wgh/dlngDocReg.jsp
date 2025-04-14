@@ -460,7 +460,9 @@
 	    			, itemNm : item.itemNm
 	    			, itemVrtyCd : item.itemVrtyCd
 	    	}
-	    	jsonRawMtrWrhsTemp.push(data);
+			if(item.useYn == 'Y'){
+				jsonRawMtrWrhsTemp.push(data);
+			}
 	    })
 
 	    jsonRawMtrWrhs = jsonRawMtrWrhsTemp;
