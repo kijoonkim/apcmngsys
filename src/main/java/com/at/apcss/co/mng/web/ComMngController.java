@@ -18,7 +18,19 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * @Class Name : ComMngController.java
+ * @Description : 시스템현황에 대한 Controller 클래스
+ * @author 김은총
+ * @since 2025.04.09
+ * @version 1.0
+ * @see
  *
+ *      <pre>
+ * << 개정이력(Modification Information) >>
+ * 수정일        수정자        수정내용
+ * ----------  ----------  ---------------------------
+ * 2025.04.09  김은총        최초 생성
+ *      </pre>
  */
 @Controller
 public class ComMngController extends BaseController {
