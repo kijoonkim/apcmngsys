@@ -399,11 +399,11 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayItemCode1', displayui : true, label : 'label', value : 'value'}
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '300px', style : 'text-align:left;', type : 'combo', disabled: true,
+                typeinfo : {ref : 'jsonPayItemCode1', displayui : false, label : 'label', value : 'value'}
             },
             {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
-                typeinfo : {ref : 'jsonPayType', displayui : true, label : 'label', value : 'value'}
+                typeinfo : {ref : 'jsonPayType', displayui : false, label : 'label', value : 'value'}
             },
             {caption: ['적용시작일'], ref: 'APPLY_START_DATE', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
