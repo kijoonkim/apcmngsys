@@ -81,14 +81,13 @@
                         </div>
                     </td>
                     <td></td>
-                    <th scope="row" class="th_bg_search">귀속연월</th>
+                    <th scope="row" class="th_bg_search">근무일</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_JOB_YYYYMM_FR"
                                 name="SRCH_JOB_YYYYMM_FR"
-                                date-format="yyyy-mm"
-                                datepicker-mode="month"
+                                date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 group-id="panHeader"
@@ -103,13 +102,21 @@
                                 uitype="popup"
                                 id="SRCH_JOB_YYYYMM_TO"
                                 name="SRCH_JOB_YYYYMM_TO"
-                                date-format="yyyy-mm"
-                                datepicker-mode="month"
+                                date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm inpt_data_reqed input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
                                 group-id="panHeader"
                                 required
                         />
+                    </td>
+                    <td></td>
+                    <th scope="row" class="th_bg_search">확정여부</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
+	                    <sbux-select id="SRCH_CONFIRM_YN" uitype="single" class="form-control input-sm"> 
+							<option-item value="ALL" >전체</option-item>
+							<option-item value="Y" >확정</option-item>
+							<option-item value="N" >미확정</option-item>
+						</sbux-select>
                     </td>
                     <td></td>
                     <th scope="row" class="th_bg_search">소득자 성명</th>
@@ -629,7 +636,7 @@
         // ExcelJS 인스턴스 생성
         const workbook = new ExcelJS.Workbook();
         const sheet = workbook.addWorksheet('용역비등록');
-
+		const check = ['A1', 'B1' , 'C1', 'D1', 'E1', 'F1', 'G1', 'K1', 'L1', 'M1', 'P1' ];
         // 데이터 추가
         sheet.addRow([
             "소득자코드", "소득자 성명", "귀속연월", "근무시작일", "근무종료일", "인원수"
@@ -639,6 +646,14 @@
             , "기타공제", "분개장번호", "비고" // 헤더
         ]);
 
+        for(var i = 0; check.length > i; i++){
+        	sheet.getCell(check[i]).fill = {
+                type: 'pattern',
+                pattern:'solid',
+                fgColor:{argb:'FAF087'}
+              };
+        }
+        
         const validations = [{
             ref: 'A2:A1000', // 검사 범위
             type: 'textLength',
@@ -1020,6 +1035,7 @@
                             ]});
 
                         list.forEach((item, index) => {
+                        	
                             item.WORK_GBN = jsonWorkGbn.length > 0 && jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN).length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
                             item.WORK_PLACE = jsonWorkPlace.length > 0 && jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE).length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
                             item.WORK_NAME = jsonWorkName.length > 0 && jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME).length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
@@ -1041,19 +1057,20 @@
                             item.EMPLOY_INSURE_AMT = gfn_nvl(item.EMPLOY_INSURE_AMT, 0);
                             item.ETC_DED_AMT = gfn_nvl(item.ETC_DED_AMT, 0);
 
+                            //근로일수
+                            let istart_date = new Date(item.WORK_ST_DAT);
+                            let iend_date = new Date(item.WORK_END_DAT);
+                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1);
+                            
                         	//총 금액
-                            item.TOT_AMOUNT = Number(( Number(item.WORK_DAY) * Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT)) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST));
+                            item.TOT_AMOUNT = Number( Number(item.WORK_DAY) * Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT) ) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST);
                             //근로소득금액
-                            item.EARNED_INC_AMT = Number(item.TOT_AMOUNT - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
+                            item.EARNED_INC_AMT = Number( Number(item.TOT_AMOUNT) - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
                             //총 공제액
                             item.TOT_DEDUCT_AMT = Number(Number(item.INC_TX_AMT) + Number(item.LOCAL_TX_AMT) + Number(item.HEALTH_INSURE_AMT)
                             + Number(item.LONG_HEALTH_INSURE_AMT) + Number(item.NATIONAL_PENS_AMT) + Number(item.EMPLOY_INSURE_AMT) + Number(item.ETC_DED_AMT));
                             //총 지급액
                             item.TOT_PAY_AMT = Number( Number(item.TOT_AMOUNT) - Number(item.TOT_DEDUCT_AMT));
-
-                            let istart_date = new Date(item.WORK_ST_DAT);
-                            let iend_date = new Date(item.WORK_END_DAT);
-                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1);
 
                             item.JOB_YYYYMM = item.JOB_YYYYMM.replace(/-/g, "");
                             item.WORK_ST_DAT = item.WORK_ST_DAT.replace(/-/g, "");
@@ -1074,8 +1091,6 @@
                             console.log(item);
                             gvwInfo.addRow(true, item);
                         });
-
-
                         document.getElementById('excelFile').value = '';
                     })
                 },
@@ -1103,8 +1118,8 @@
 
     const fn_onload = async function() {
         SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
-        SBUxMethod.set("SRCH_JOB_YYYYMM_FR", gfn_dateToYm(new Date()));
-        SBUxMethod.set("SRCH_JOB_YYYYMM_TO", gfn_dateToYm(new Date()));
+        SBUxMethod.set("SRCH_JOB_YYYYMM_FR", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_JOB_YYYYMM_TO", gfn_dateToYmd(new Date()));
     }
 
     const fn_save = async function () {
@@ -1370,19 +1385,19 @@
         let EARNER_NAME = gfn_nvl(SBUxMethod.get("SRCH_EARNER_NAME"));
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_JOB_YYYYMM_FR : JOB_YYYYMM_FR,
-            V_P_JOB_YYYYMM_TO : JOB_YYYYMM_TO,
-            V_P_SITE_CODE : SITE_CODE,
-            V_P_EARNER_NAME : EARNER_NAME,
-            V_P_FORM_ID		: p_formId,
-            V_P_MENU_ID		: p_menuId,
-            V_P_PROC_ID		: '',
-            V_P_USERID			: '',
-            V_P_PC				: ''
+            V_P_DEBUG_MODE_YN		: '',
+            V_P_LANG_ID				: '',
+            V_P_COMP_CODE			: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
+            V_P_JOB_YYYYMM_FR 		: JOB_YYYYMM_FR,
+            V_P_JOB_YYYYMM_TO 		: JOB_YYYYMM_TO,
+            V_P_SITE_CODE 			: SITE_CODE,
+            V_P_EARNER_NAME 		: EARNER_NAME,
+            V_P_FORM_ID				: p_formId,
+            V_P_MENU_ID				: p_menuId,
+            V_P_PROC_ID				: '',
+            V_P_USERID				: '',
+            V_P_PC					: ''
         };
 
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/selectHra3620List.do", {
@@ -1448,6 +1463,18 @@
                     }
                     jsonServiceFeeList.push(msg);
                 });
+                
+                
+                const checkConfirm = (arr, value) => {
+                    return arr.filter((element) => {
+                        return element.CONFIRM_YN  == value;
+                    });
+                };
+                let SRCH_CONFIRM_YN =  gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_YN"));
+            	if( SRCH_CONFIRM_YN  != 'ALL'){
+            		jsonServiceFeeList = checkConfirm(jsonServiceFeeList, SRCH_CONFIRM_YN);
+            	}
+            	
                 gvwInfo.rebuild();
             } else {
                 alert(data.resultMessage);
