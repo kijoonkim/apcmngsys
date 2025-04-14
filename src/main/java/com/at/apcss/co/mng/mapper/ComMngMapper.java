@@ -35,4 +35,12 @@ public interface ComMngMapper {
      * @param comUserVO
      * @return
      */
+    public List<ComUserVO> selectOgnzPrstCnt(ComUserVO comUserVO);
+
+    /**
+     * 조직별 회원 현황 및 업무별 사용 현황
+     * @param comUserVO
+     * @return
+     */
+    public List<ComUserVO> selectOgnzTaskMbrCnt(ComUserVO comUserVO);
 }

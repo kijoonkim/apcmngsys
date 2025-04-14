@@ -76,4 +76,35 @@ public class ComMngController extends BaseController {
         return getSuccessResponseEntity(resultMap);
     }
 
+    @PostMapping(value = "/co/mng/selectOgnzPrstCnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectOgnzPrstCnt(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<ComUserVO> resultList = new ArrayList<>();
+
+        try {
+            resultList = comMngService.selectOgnzPrstCnt(comUserVO);
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @PostMapping(value = "/co/mng/selectOgnzTaskMbrCnt.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectOgnzTaskMbrCnt(@RequestBody ComUserVO comUserVO, HttpServletRequest request) throws Exception{
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        List<ComUserVO> resultList = new ArrayList<>();
+
+        try {
+            resultList = comMngService.selectOgnzTaskMbrCnt(comUserVO);
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
 }

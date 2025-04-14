@@ -16,19 +16,14 @@ public class ComUserSysAuthVO extends ComVO {
     private String userId;
 
     /**
-     * 사용자 아이디
+     * 시스템 아이디
      */
     private String sysId;
 
     /**
-     * 사용자 아이디
+     * 승인여부 아이디
      */
     private String aprvYn;
-
-    /**
-     * 사용자 아이디
-     */
-    private String cdVl;
 
     
 }

@@ -121,4 +121,173 @@
         ]]>
     </select>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : mapper.com.at.apcss.co.mng.ComMngMapper  				            -->
+    <!-- DESC : 페이지 뷰 조회                                                		-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.04.14  	김은총        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectOgnzPrstCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+        <![CDATA[
+        SELECT /* com.at.apcss.co.mng.mapper.ComMngMapper.selectOgnzPrstCnt */
+            SUM(CASE
+                    WHEN A.TYPE_CD = '1'
+                        AND EXISTS (
+                            SELECT 1
+                            FROM TB_APC_OGNZ_INFO AO
+                                     JOIN TB_EV_APO EA
+                                          ON EA.BRNO = AO.BRNO
+                                              AND EA.CORP_SE_CD = 'C34010'
+                            WHERE AO.OGNZ_CD = A.UNTY_OGNZ_CD
+                        ) THEN 1
+                    ELSE 0
+                END)		AS CNT_MB  -- 농협
+             , SUM(CASE
+                       WHEN A.TYPE_CD = '1'
+                           AND NOT EXISTS (
+                               SELECT 1
+                               FROM TB_APC_OGNZ_INFO AO
+                                        JOIN TB_EV_APO EA
+                                             ON EA.BRNO = AO.BRNO
+                                                 AND EA.CORP_SE_CD = 'C34010'
+                               WHERE AO.OGNZ_CD = A.UNTY_OGNZ_CD
+                           ) THEN 1
+                       ELSE 0
+            END)		AS CNT_NOT_MB	-- 농업법인
+             , SUM(
+                CASE
+                    WHEN A.TYPE_CD = '2' AND A.CTPV IS NOT NULL AND A.SGG IS NULL THEN 1
+                    ELSE 0
+                    END)		AS CNT_CTPV		-- 시도
+             , SUM(
+                CASE
+                    WHEN A.TYPE_CD = '2' AND A.CTPV IS NOT NULL AND A.SGG IS NOT NULL THEN 1
+                    ELSE 0
+                    END)		AS CNT_SGG		-- 시군구
+        FROM (
+                 SELECT
+                     NVL(A.TYPE_CD, '1')	AS TYPE_CD
+                      , A.UNTY_OGNZ_CD
+                      , A.CTPV
+                      , A.SGG
+                 FROM TB_COM_USER A
+                 WHERE NVL(A.TYPE_CD, '1') IN ('1', '2')
+                   AND NOT EXISTS (
+                     SELECT 1
+                     FROM TB_COM_CD_DTL X
+                     WHERE X.CD_ID = 'SYS_EXCLD_USER_ID'
+                       AND X.CD_VL = A.USER_ID
+                       AND X.DEL_YN = 'N'
+                       AND X.USE_YN = 'Y'
+                 )
+        ]]>
+                <if test='ymdTo != null and ymdTo != ""'>
+                    AND A.SYS_FRST_INPT_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
+                </if>
+        <![CDATA[
+                 GROUP BY 	NVL(A.TYPE_CD, '1')
+                        , A.UNTY_OGNZ_CD
+                        , A.CTPV
+                        , A.SGG
+             ) A
+        ;
+        ]]>
+    </select>
+
+    <select id="selectOgnzTaskMbrCnt" parameterType="com.at.apcss.co.mng.vo.ComUserVO" resultType="com.at.apcss.co.mng.vo.ComUserVO">
+        <![CDATA[
+            /* com.at.apcss.co.mng.mapper.ComMngMapper.selectOgnzTaskMbrCnt */
+            -- 전체 조직현황
+            WITH COM_USER AS (
+            SELECT
+                A.USER_ID
+                , NVL(A.TYPE_CD, '1') AS TYPE_CD
+                , CASE
+                    WHEN NVL(A.TYPE_CD, '1') <> '1' THEN NULL
+                    WHEN EXISTS (
+                            SELECT 1
+                              FROM TB_APC_OGNZ_INFO AO
+                              JOIN TB_EV_APO EA
+                                ON EA.BRNO = AO.BRNO
+                              AND EA.CORP_SE_CD = 'C34010'
+                            WHERE AO.OGNZ_CD = A.UNTY_OGNZ_CD
+                        ) THEN 'Y'
+                    ELSE 'N'
+                END  AS MB_YN
+
+                , CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                          FROM TB_COM_USER_SYS_AUTH X
+                         WHERE X.USER_ID = A.USER_ID
+                           AND X.SYS_ID = 'AM'
+                           AND X.APRV_YN = 'Y'
+                           AND X.DEL_YN = 'N'
+                    ) THEN 1
+                  ELSE 0
+                  END AS CNT_AM
+                , CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                          FROM TB_COM_USER_SYS_AUTH X
+                         WHERE X.USER_ID = A.USER_ID
+                           AND X.SYS_ID = 'MA'
+                           AND X.APRV_YN = 'Y'
+                           AND X.DEL_YN = 'N'
+                    ) THEN 1
+                  ELSE 0
+                  END AS CNT_MA
+                , CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                          FROM TB_COM_USER_SYS_AUTH X
+                         WHERE X.USER_ID = A.USER_ID
+                           AND X.SYS_ID = 'PD'
+                           AND X.APRV_YN = 'Y'
+                           AND X.DEL_YN = 'N'
+                    ) THEN 1
+                  ELSE 0
+                  END AS CNT_PD
+                , CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                          FROM TB_COM_USER_SYS_AUTH X
+                         WHERE X.USER_ID = A.USER_ID
+                           AND X.SYS_ID = 'CS'
+                           AND X.APRV_YN = 'Y'
+                           AND X.DEL_YN = 'N'
+                    ) THEN 1
+                  ELSE 0
+                  END AS CNT_CS
+              FROM TB_COM_USER A
+             WHERE NOT EXISTS (
+                  SELECT 1
+                    FROM TB_COM_CD_DTL X
+                   WHERE X.CD_ID = 'SYS_EXCLD_USER_ID'
+                     AND X.CD_VL = A.USER_ID
+                     AND X.DEL_YN = 'N'
+                     AND X.USE_YN = 'Y'
+              )
+        ]]>
+            <if test='ymdTo != null and ymdTo != ""'>
+                AND A.SYS_FRST_INPT_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
+            )
+            </if>
+        <![CDATA[
+            -- 회원구분별
+            SELECT
+                  CU.TYPE_CD  -- 1 법인, 2 지자체, 3 개인(농가)
+                , CU.MB_YN    -- 법인의 경우만 Y 농협, N 농업법인
+                , COUNT(CU.USER_ID) AS CNT_USER
+                , SUM(CU.CNT_AM)		AS CNT_AM	-- 생산관리
+                , SUM(CU.CNT_MA)		AS CNT_MA	-- 경영관리
+                , SUM(CU.CNT_PD)		AS CNT_PD	-- 생산유통통합조직
+                , SUM(CU.CNT_CS)		AS CNT_CS	-- APC전수조사
+                FROM COM_USER CU
+             GROUP BY CU.TYPE_CD, CU.MB_YN
+            ;
+        ]]>
+    </select>
 </mapper>

@@ -54,4 +54,18 @@ public class ComMngServiceImpl extends BaseServiceImpl implements ComMngService 
         return resultList;
     }
 
+    @Override
+    public List<ComUserVO> selectOgnzPrstCnt(ComUserVO comUserVO) throws Exception {
+        List<ComUserVO> resultList = comMngMapper.selectOgnzPrstCnt(comUserVO);
+
+        return resultList;
+    }
+
+    @Override
+    public List<ComUserVO> selectOgnzTaskMbrCnt(ComUserVO comUserVO) throws Exception {
+        List<ComUserVO> resultList = comMngMapper.selectOgnzTaskMbrCnt(comUserVO);
+
+        return resultList;
+    }
+
 }

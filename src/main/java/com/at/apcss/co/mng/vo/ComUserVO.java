@@ -46,6 +46,51 @@ public class ComUserVO extends ComVO {
     private int cntNewUser;
 
     /**
+     * 농협 조직 수
+     */
+    private int cntMB;
+
+    /**
+     * 농업법인 조직 수
+     */
+    private int cntNotMB;
+
+    /**
+     * 시도 조직 수
+     */
+    private int cntCtPv;
+
+    /**
+     * 시군구 조직 수
+     */
+    private int cntSGG;
+
+    /**
+     * 생산관리 회원 수
+     */
+    private int cntAM;
+
+    /**
+     * 경영관리 회원 수
+     */
+    private int cntMA;
+
+    /**
+     * 생산유통통합조직 회원 수
+     */
+    private int cntPD;
+
+    /**
+     * APC전수조사 회원 수
+     */
+    private int cntCS;
+
+    /**
+     * 법인인 경우(Y: 농협, N: 농업법인)
+     */
+    private String mbYN;
+
+    /**
      * 현월 조회
      */
     private String yyyyMm;
