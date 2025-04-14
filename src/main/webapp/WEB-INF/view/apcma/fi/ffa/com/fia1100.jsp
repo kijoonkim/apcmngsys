@@ -78,20 +78,20 @@
 	                        <tr>
 	                            <th scope="row" class="th_bg_search">자산분류명</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-input id="SCH_ASSET_GROUP_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
+	                                <sbux-input id="SCH_ASST_GROUP_NM" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
 		  							<sbux-input  id="SCH_TXTLANG_ID"  	name="SCH_TXTLANG_ID" 	style="display:none;" uitype="text" 	class="form-control input-sm" ></sbux-input>
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">감가상각방법</th>
 	                            <td colspan="3" class="td_input" >
-	                                <sbux-select id="SCH_DEPRECIATION_METHOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_DPRC_MTHD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationMethod" unselected-text="선택" class="form-control input-sm"></sbux-select>
 	                            </td>
 	                            <td></td>
 	                            
 	                            <th scope="row" class="th_bg_search">감가상각주기</th>
 								<td colspan="3"  class="td_input">
-	                                <sbux-select id="SCH_DEPRECIATION_PERIOD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                <sbux-select id="SCH_DPRC_PRD" style="width:150px" uitype="single" jsondata-ref="jsonDepreciationPeriod" unselected-text="선택" class="form-control input-sm"></sbux-select>
 								</td>
 	                            <td></td>
 	                            
@@ -191,11 +191,11 @@
 	                                </tr>
 	
 	                                <tr>
-	                                    <th scope="row" class="th_bg">
+	                                    <th scope="row" class="th_bg ">
 	                                        <font id="LA_PARENT_ASSET_LABEL">중분류</font>
 	                                    </th>
 	                                    <td colspan="5" class="td_input">
-	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%">
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%" class="hide-asset-label">
 	                                            <sbux-input style="width:100px" id="FM_PRNT_ACNT_GRP" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-button id="BTN_POP1" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup1()"></sbux-button>
@@ -521,9 +521,9 @@
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
 			//감가상각방법
-			gfnma_setComSelect(['SCH_DEPRECIATION_METHOD'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['SCH_DPRC_MTHD'], jsonDepreciationMethod, 'L_FIA003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//감가상각주기
-			gfnma_setComSelect(['SCH_DEPRECIATION_PERIOD'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['SCH_DPRC_PRD'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//분류구분
 			gfnma_setComSelect(['FM_ASST_LVL_TYPE'], 	jsonAssetLevelType, 	'L_FIA002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
@@ -610,12 +610,12 @@
 	            lock: true
 	    },
         SBGridProperties.columns = [
-            {caption: ["자산분류코드"],		ref: 'ASSET_GROUP_CODE', 		type:'output',  	width:'170px',  	style:'text-align:left'},
-            {caption: ["자산분류명"], 		ref: 'ASSET_GROUP_NAME',    	type:'output',  	width:'250px',  	style:'text-align:left'},
+            {caption: ["자산분류코드"],		ref: 'ASST_GROUP_CD', 		type:'output',  	width:'170px',  	style:'text-align:left'},
+            {caption: ["자산분류명"], 		ref: 'ASST_GROUP_NM',    	type:'output',  	width:'250px',  	style:'text-align:left'},
         ];
  
         Fia1100Grid = _SBGrid.create(SBGridProperties);
-        Fia1100Grid.bind('click', 			'fn_viewFia1100GridEvent');
+        Fia1100Grid.bind('click', 'fn_viewFia1100GridEvent');
     }
     //상세정보 보기
     function fn_viewFia1100GridEvent() {
@@ -629,16 +629,17 @@
         p_sel_rowData = rowData;
         console.log('rowData:', rowData);
 		
-		if(rowData.ASSET_LEVEL_TYPE == 'LEVEL1'){
+		if(rowData.ASST_LVL_TYPE == 'LEVEL1'){
 			$('#main-btn-save', parent.document).attr('disabled', true);
 			$('#main-btn-del', 	parent.document).attr('disabled', true);
+			$('.hide-asset-label').prop('disabled', true);
+			fn_fmDisabled(true);
 		} else {
 			$('#main-btn-save', parent.document).attr('disabled', false);
 			$('#main-btn-del', 	parent.document).attr('disabled', false);
+			$('.hide-asset-label').prop('disabled', false);
+			fn_fmDisabled(false);
 		}
-		
-		fn_fmDisabled(false);
-		
 		fn_setFia1100Detail('Q1', rowData);
     }  
     
@@ -726,9 +727,9 @@
 		
   		Fia1100Grid.clearStatus();
     	
-		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_GROUP_NAME"));
-		let p_depreciation_method	= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATION_METHOD"));
-		let p_depreciation_period	= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATION_PERIOD"));
+		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASST_GROUP_NM"));
+		let p_depreciation_method	= gfnma_nvl(SBUxMethod.get("SCH_DPRC_MTHD"));
+		let p_depreciation_period	= gfnma_nvl(SBUxMethod.get("SCH_DPRC_PRD"));
 		let p_asset_category		= '';
 		let p_asset_group_code		= '';
 		
@@ -775,22 +776,22 @@
   	        	data.cv_1.forEach((item, index) => {
   					const msg = {
   						LVL							: gfnma_nvl(item.LVL),	
-  							
-  						ASSET_CATEGORY				: gfnma_nvl(item.ASST_CTGRY),
-  						ASSET_GROUP_CODE			: gfnma_nvl(item.ASST_GROUP_CD),
-  						ASSET_GROUP_NAME			: gfnma_nvl(item.ASST_GROUP_NM),
-  						ASSET_LEVEL_TYPE			: gfnma_nvl(item.ASST_LVL_TYPE),
-  						COMP_CODE					: gfnma_nvl(item.CO_CD),
   						
-  						DEPRECIATE_YN				: gfnma_nvl(item.DPRC_YN),
-  						DEPRECIATION_METHOD_GAAP	: gfnma_nvl(item.DPRC_MTHD_GAAP),
-  						DEPRECIATION_METHOD_IFRS	: gfnma_nvl(item.DPRC_MTHD_IFRS),
-  						DEPRECIATION_METHOD_TAX		: gfnma_nvl(item.DPRC_MTHD_TAX),
+  						ASST_CTGRY				: gfnma_nvl(item.ASST_CTGRY),
+  						ASST_GROUP_CD			: gfnma_nvl(item.ASST_GROUP_CD),
+  						ASST_GROUP_NM			: gfnma_nvl(item.ASST_GROUP_NM),
+  						ASST_LVL_TYPE			: gfnma_nvl(item.ASST_LVL_TYPE),
+  						CO_CD					: gfnma_nvl(item.CO_CD),
   						
-  						EXPENSE_TYPE				: gfnma_nvl(item.EPS_TYPE),
-  						KEYID						: gfnma_nvl(item.KEY_ID),
-  						PARENTKEYID					: gfnma_nvl(item.UP_KEY_ID),
-  						PARENT_ASSET_GROUP			: gfnma_nvl(item.PRNT_ACNT_GRP),
+  						DPRC_YN				: gfnma_nvl(item.DPRC_YN),
+  						DPRC_MTHD_GAAP	: gfnma_nvl(item.DPRC_MTHD_GAAP),
+  						DPRC_MTHD_IFRS	: gfnma_nvl(item.DPRC_MTHD_IFRS),
+  						DPRC_MTHD_TAX		: gfnma_nvl(item.DPRC_MTHD_TAX),
+  						
+  						EPS_TYPE				: gfnma_nvl(item.EPS_TYPE),
+  						KEY_ID						: gfnma_nvl(item.KEY_ID),
+  						UP_KEY_ID					: gfnma_nvl(item.UP_KEY_ID),
+  						PRNT_ACNT_GRP			: gfnma_nvl(item.PRNT_ACNT_GRP),
   						
   						ETC							: gfnma_nvl(item.ETC),
   					}
@@ -817,11 +818,11 @@
      */
     const fn_setFia1100Detail = async function(wtype, obj) {
 		
-		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_GROUP_NAME"));
-		let p_depreciation_method	= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATION_METHOD"));
-		let p_depreciation_period	= gfnma_nvl(SBUxMethod.get("SCH_DEPRECIATION_PERIOD"));
-		let p_asset_category		= gfnma_nvl(obj['ASSET_CATEGORY']);
-		let p_asset_group_code		= gfnma_nvl(obj['ASSET_GROUP_CODE']);
+		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASST_GROUP_NM"));
+		let p_depreciation_method	= gfnma_nvl(SBUxMethod.get("SCH_DPRC_MTHD"));
+		let p_depreciation_period	= gfnma_nvl(SBUxMethod.get("SCH_DPRC_PRD"));
+		let p_asset_category		= gfnma_nvl(obj['ASST_CTGRY']);
+		let p_asset_group_code		= gfnma_nvl(obj['ASST_GROUP_CD']);
 		
 	    var paramObj = { 
 			V_P_DEBUG_MODE_YN			: ''
@@ -856,7 +857,7 @@
   				//폼에 데이터 셋	
   	          	gfnma_uxDataSet2('#dataArea1', data.cv_2[0], '', 'FM_', '');
   	          	if(p_asset_group_name){
-  	      			SBUxMethod.attr('SCH_ASSET_GROUP_NAME',  'readonly', true);
+  	      			SBUxMethod.attr('SCH_ASST_GROUP_NM',  'readonly', true);
   	          	}
   	        
         	} else {
@@ -910,7 +911,7 @@
     	
     		,width					: '600px'
     		,height					: '400px'
-   			,tableHeader			: ["중분류코드", 	"중분류명",				"자산구분",			"자산구분명",			"자산계정",			"자산계정명",			"depr_exp_acc",					"depr_exp_acc_name",					"accum_depr_acc",					"accum_depr_acc_name",						"보조금계정",					"보조금계정명",				"보조금상각비계정",		"상각누계액계정",			"보증금상각누계액계정",			"보증금상각누계액계정명",			"상각주기(회계기준)",		"상각기준(IFRS)",			"상각주기(법인세)",			"상각방법(회계기준)",		"상각방법(IFRS)",			"상각방법(법인세)",			"잔존율(회계기준)",		"잔존율(IFRS)",				"잔존율(법인세)",		"잔존가치(회계기준)",	"잔존가치(국제회계기준)",	"잔존가치(법인세)",		"내용연수(회계기준)",	"내용연수(IFRS)",	"내용연수(법인세)",	"자산화여부",		"상각여부",			"사용여부",	"재고관리여부",	"리스여부",	"소유여부"]
+   			,tableHeader			: ["중분류코드", 	"중분류명",				"자산구분",			"자산구분명",			"자산계정",			"자산계정명",			"dpco_acnt",					"depr_exp_acc_name",					"acml_dprc_acnt",					"accum_depr_acc_name",						"보조금계정",					"보조금계정명",				"보조금상각비계정",		"상각누계액계정",			"보증금상각누계액계정",			"보증금상각누계액계정명",			"상각주기(회계기준)",		"상각기준(IFRS)",			"상각주기(법인세)",			"상각방법(회계기준)",		"상각방법(IFRS)",			"상각방법(법인세)",			"잔존율(회계기준)",		"잔존율(IFRS)",				"잔존율(법인세)",		"잔존가치(회계기준)",	"잔존가치(국제회계기준)",	"잔존가치(법인세)",		"내용연수(회계기준)",	"내용연수(IFRS)",	"내용연수(법인세)",	"자산화여부",		"상각여부",			"사용여부",	"재고관리여부",	"리스여부",	"소유여부"]
    			,tableColumnNames		: ["ASST_MCLSF", 	"ASSET_LEVEL2_NAME",	"ASST_CTGRY",	"ASSET_CATEGORY_NAME",	"ASST_ACNT_CD",	"ASSET_ACCOUNT_NAME",	"DPCO_ACNT",					"DEPR_EXP_ACC_NAME",					"ACML_DPRC_ACNT",					"ACCUM_DEPR_ACC_NAME",						"GVSBS_ACNT",			"SUBSIDIES_ACCOUNT_NAME",	"GVSBS_DPCO_ACNT",	"SUBSIDIES_DEPR_ACC_NAME",	"GVSBS_DPRC_AT_ACNT",		"SUBSIDIES_ACCUM_DEPR_ACC_NAME",	"DPRC_PRD_GAAP",	"DPRC_PRD_IFRS",	"DPRC_PRD_TAX",	"DPRC_MTHD_GAAP",	"DPRC_MTHD_IFRS",	"DPRC_MTHD_TAX",	"RMN_RT_GAAP",	"RMN_RT_IFRS",		"RMN_RT_TAX",		"RMN_AMT_GAAP",	"RMN_AMT_IFRS",		"RMN_AMT_TAX",	"SVLF_GAAP",		"SVLF_IFRS",	"SVLF_TAX",	"AST_YN",		"DPRC_YN",	"USE_YN",	"INVT_MNG_YN",	"LEASE_YN",	"HLD_YN"]
    			,tableColumnWidths		: ["100px", 		"100px",				"100px",			"200px",				"100px",			"150px",				"100px",						"200px",								"100px",							"100px",									"200px",						"150px",					"150px",				"150px",					"200px",						"150px",							"150px",					"150px",					"150px",					"150px",					"150px",					"150px",					"150px",				"150px",					"150px",				"150px",				"150px",					"150px",				"150px",				"150px",			"100px",			"100px",			"100px",			"100px",	"100px",		"100px",	"100px"	]
 			,itemSelectEvent		: function (data){
@@ -1063,7 +1064,7 @@
      */
     const fn_saveFia1100 = async function(status, callbackFn) {
 		
-		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASSET_GROUP_NAME"));
+		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASST_GROUP_NM"));
     	
 		let p_asset_group_code		= gfnma_nvl(SBUxMethod.get("FM_ASST_GROUP_CD"));
 		let p_asset_group_name1		= gfnma_nvl(SBUxMethod.get("FM_ASST_GROUP_NM"));
@@ -1241,7 +1242,7 @@
      */
     function cfn_del() {
     	
-    	if(p_sel_rowData['PARENT_ASSET_GROUP']){
+    	if(p_sel_rowData['PRNT_ACNT_GRP']){
       		gfn_comAlert("E0000","소분류가 존재하여 삭제할 수 없습니다. 소분류를 먼저 삭제해주세요.");
 			return;      		 
     		
