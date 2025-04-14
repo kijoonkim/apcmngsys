@@ -254,7 +254,7 @@
 						<tbody>
 						<tr>
 							<th>법인명</th>
-							<td></td>
+							<td id="corpNm"></td>
 							<th>APC명</th>
 							<td id="apcNm"></td>
 						</tr>
@@ -660,14 +660,13 @@
 		if (gfn_isEmpty(resultVO)){
 			return;
 		}
-		console.log(resultVO);
+		resultVO.corpNm = resultVO.apcNm;
 		let tds = $('table td[id]');
 		$('table td[id]').each(function() {
 			// 현재 요소의 id를 가져옴
 			const id = $(this).attr('id');
 			if (_.isEqual(id,"telno") || _.isEqual(id,"fxno") ) {
 				if (resultVO[id]) {
-					console.log("이게있따고?");
 					let formatted;
 					if (resultVO[id].length == 10) {
 						formatted = resultVO[id].replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
