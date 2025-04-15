@@ -286,7 +286,7 @@
     growthRate = (((newValue - oldValue) / oldValue) * 100).toFixed(2);
 
     // 양수 일시 '+' 붙이기
-    if (parseInt(growthRate) >= 0) {
+    if (parseInt(growthRate) > 0) {
       return "+" + growthRate + "%";
     }
     else {
