@@ -401,7 +401,7 @@
 	const fn_init = async function() {
 
 		SBUxMethod.set("dtl-inp-apcCd", gv_selectedApcNm);
-		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateToYmd(new Date()));
+		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
 		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
 		//fn_createExhstDsctn();
 		//fn_createGrdDsctn();
@@ -416,7 +416,7 @@
 
 
 		if(gv_apcCd === "0203"){
-				SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
+				SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
 		}
 
 		fn_selectSortBffaType();

@@ -356,6 +356,8 @@
     	await fn_initSBSelect();
     	
         fn_createGrid(lv_mode);
+        
+        fn_search();
     }
  
 	/**
@@ -672,7 +674,7 @@
         {
             caption : ["일반기준","기산일기준"],
             ref : 'BASE_CRN_CD',
-            width : '100px',
+            width : '150px',
             style : 'text-align:center',
             type : 'combo',
             typeinfo : {
@@ -1065,7 +1067,7 @@
             	console.log("listData.cv_1", listData.cv_1);
             	
             	jsonPayDate.length = 0;
- 
+ 				
                 listData.cv_1.forEach((item, index) => {
 					/*
                     const obj = {
@@ -1156,8 +1158,8 @@
         	
         	const compCode 		= gfn_nvl(item.data.CO_CD, gv_ma_selectedCorpCd);
         	const clientCode 	= gfn_nvl(item.data.CLNT_CD, gv_ma_selectedClntCd);
-        	const payTermCode 	= item.data.PAY_TERM_CODE;
-        	const payTermName 	= item.data.PAY_TERM_NAME;
+        	const payTermCode 	= item.data.PAY_TERM_CD;
+        	const payTermName 	= item.data.PAY_TERM_NM;
         	const basisType 	= gfn_nvl(item.data.BASE_CRN_CD);
         	const addDay 		= parseInt(item.data.ADD_DAY_CNT) || 0;
         	const addMonth 		= parseInt(item.data.ADTN_MM_CNT) || 0;

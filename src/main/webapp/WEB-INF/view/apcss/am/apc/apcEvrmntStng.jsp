@@ -293,6 +293,15 @@
 							</td>
 						</tr>
 						<tr>
+							<th class="ta_r th_bg" scope="row">품목상세 항목 관리</th>
+							<td class="td_input" colspan="2">
+								<sbux-button id="btnVrtyDtl" name="btnVrtyDtl" uitype="modal" text="품목별 상세항목 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-vrtyDtl" onclick="fn_modal('btnVrtyDtl')"></sbux-button>
+							</td>
+							<td colspan="6" style="color:#999">
+								품목별 상세 항목을 등록하세요.
+							</td>
+						</tr>
+						<tr>
 							<th class="ta_r th_bg" scope="row">원물 팔레트/박스</th>
 							<td class="td_input" colspan="2">
 								<sbux-button id="btnpltBx" name="btnpltBx" uitype="modal" text="팔레트/박스 등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-pltBx" onclick="fn_modal('btnPltBx')"></sbux-button>
@@ -346,6 +355,7 @@
 								품목별 육안선별실적을 관리할 수 있습니다.
 							</td>
 						</tr>
+
 <!-- 						<tr> -->
 <!-- 							<th class="ta_r th_bg" scope="row">원산지 관리</th> -->
 <!-- 							<td class="td_input" colspan="2"> -->
@@ -730,6 +740,13 @@
     <div id="body-modal-plor">
     	<jsp:include page="../apc/plorMngPopup.jsp"></jsp:include>
     </div>
+	<!-- 품목별 상세항목 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-vrtyDtl" name="modal-vrtyDtl" uitype="middle" header-title="품목상세 항목 관리" body-html-id="body-modal-vrtyDtl" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-vrtyDtl">
+		<jsp:include page="../apc/vrtyDtlPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
@@ -825,7 +842,6 @@
     	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
-		console.log(resultVO,"너없는데?");
         try{
   			if (_.isEqual("S", data.resultStatus)) {
   	        	SBUxMethod.set("inp-apcNm", resultVO.apcNm);
@@ -945,6 +961,9 @@
 			fn_createSpmtPckgUnitGrid();
 		}if(targetName == 'btnBffaSort'){
 			fn_createBffaGrdGrid();
+		}
+		if(targetName == 'btnVrtyDtl'){
+			fn_initVrtyDtl();
 		}
 	}
 

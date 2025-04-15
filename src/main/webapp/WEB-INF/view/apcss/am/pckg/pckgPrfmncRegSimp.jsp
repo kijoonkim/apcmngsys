@@ -16,12 +16,18 @@
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <title>title : 포장 간편등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <!-- Smart Wizard CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" />
+    <!-- Smart Wizard JS -->
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>
+
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
             border: 0;
@@ -32,8 +38,8 @@
         }
         .tabBox{
             border: 1px solid black;
-            font-size: 1vw;
-            width: 8vw;
+            font-size: 3vw;
+            width: 20vw;
             text-align: center;
             padding: 10px 0px;
             text-wrap: nowrap;
@@ -45,8 +51,8 @@
 
         .tabBox_sm{
             border: 1px solid black;
-            font-size: 1vw;
-            width: 5vw;
+            font-size: 1.5vw;
+            width: 15vw;
             text-align: center;
             padding: 10px 0px;
             text-wrap: nowrap;
@@ -71,8 +77,8 @@
         }
         .cell{
             display: grid;
-            grid-gap: 5px;
-            grid-template-columns: repeat(9,1fr);
+            grid-gap: 2vw;
+            grid-template-columns: repeat(4,1fr);
             padding: 0px 5px;
         }
         .carouselBtn{
@@ -115,7 +121,9 @@
 		    align-items: center;
 		    justify-content: center;
 		}
-
+        #smartwizard .tab-content {
+            min-height: 400px; /* 필요한 만큼 조정 */
+        }
 
 
     </style>
@@ -204,10 +212,14 @@
                 </tbody>
             </table>
 
-            <sbux-tabs id="tab_norm" name="tab_norm" uitype="webacc" is-scrollable="false" wrap-style="height:100%"
-                       title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
-                       title-text-array="포장등록^실적조회" onclick="fn_changeTab()"
+            <sbux-tabs id="tab_norm" name="tab_norm"
+                       uitype="normal"
+                       is-scrollable="false"
+<%--                       wrap-style="height:calc(100% - 200px)"--%>
+                       title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc^tab_test"
+                       title-text-array="포장등록^실적조회^테스트" onclick="fn_changeTab()"
                        title-style-array="{margin-right: 5px;width: 8vw;
+                 text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}">
             </sbux-tabs>
@@ -222,7 +234,7 @@
                         <tbody>
                         <tr>
                             <th scope="row" class="th_bg" style="background: white;border-right: hidden;">거래처</th>
-                            <td id="cnptInfoWrap" class="td_input_mob">
+                            <td id="cnptInfoWrap1" class="td_input_mob">
                                 <button class="carouselBtn" onclick="fn_left('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
                                 <div class="carousel_container" style="width: 100%; overflow: hidden">
                                     <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
@@ -376,6 +388,75 @@
                         ></sbux-button>
                     </div>
                 </div>
+                <div id="tab_test">
+                    <div id="smartwizard">
+                        <ul class="nav">
+                            <li><a class="nav-link" href="#step-1">거래처<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-2">생산자<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-3">품목<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-4">품종<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-5">규격<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-6">본수<br/><small></small></a></li>
+                            <li><a class="nav-link" href="#step-7">수량<br/><small></small></a></li>
+                        </ul>
+
+                        <div class="tab-content" style="height: 100%">
+                            <div id="step-1" class="tab-pane" role="tabpanel">
+                                <div id="cnptInfoWrap">
+                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-2" class="tab-pane" role="tabpanel">
+                                <div id="prdcrInfoWrap">
+                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-3" class="tab-pane" role="tabpanel">
+                                <div id="itemInfoWrap">
+                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-4" class="tab-pane" role="tabpanel">
+                                <div id="vrtyInfoWrap">
+                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-5" class="tab-pane" role="tabpanel">
+                                <div id="spcfctInfoWrap">
+                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="step-6" class="tab-pane" role="tabpanel">
+                                <h3>품목</h3>
+                                <p>여기에 Step 3 내용 작성</p>
+                            </div>
+                            <div id="step-7" class="tab-pane" role="tabpanel">
+                                <h3>품목</h3>
+                                <p>여기에 Step 3 내용 작성</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -417,6 +498,21 @@
                inputField.value = currentValue - 1;
            }
        });
+        $('#smartwizard').smartWizard({
+            theme: 'arrows', // 'default', 'arrows', 'dots', 'circles'
+            toolbar: {
+                showNextButton: false,  // "Next" 버튼 숨기기
+                showPreviousButton: false,  // "Previous" 버튼 숨기기
+                position: 'none' // 툴바 자체 숨기기
+            },
+            autoAdjustHeight: false,
+            transition: {
+                animation: 'slideHorizontal',
+                speed: '400',
+            },
+            enableAnchorOnDoneStep: true // 완료된 단계는 클릭 가능하게
+        });
+
     });
     let carouselObj = {
         cnptInfoWrap : {
@@ -684,6 +780,16 @@
         $(_el).closest('div.carousel').find("div.active").removeClass("active");
         $(_el).addClass("active");
         let dataObj = $(_el).data();
+        /** 그대로 유지 확대 화면에 사용될 네임 **/
+        let clickedText = $(_el).text();
+        console.log(clickedText);
+        console.log(_el);
+        console.log("여기맞잖아");
+        const stepIndex = $('#smartwizard .nav .nav-link.active').parent().index();
+        const navSmall = $('#smartwizard .nav .nav-link').eq(stepIndex).find('small');
+        navSmall.text(clickedText);
+        $('#smartwizard').smartWizard("next");
+
         /** 만약 정보 더 필요해서 data 추가되면 돌려서 집어야함 **/
         for(let key in dataObj){
             if(key == 'itemcd' || key == 'prdcrcd'){
@@ -693,7 +799,6 @@
                 	if(key == 'itemcd'){
                 		await fn_search_spcfct(dataObj[key]);
                 	}
-
 
                 	let nowPrdcrNm = "";
                 	let nowPrdcrCd = "";

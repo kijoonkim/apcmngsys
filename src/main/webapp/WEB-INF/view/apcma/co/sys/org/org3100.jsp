@@ -209,7 +209,7 @@
 									</td>
 									<th scope="row" class="th_bg">사용여부</th>
 									<td colspan="3" class="td_input" style="border-right: hidden;">
-										<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="사용여부" true-value="Y" false-value="N"/>
+										<sbux-checkbox uitype="normal" id="USE_YN" class="form-control input-sm check" text="사용" true-value="Y" false-value="N"/>
 									</td>
 								</tr>    
 								<tr>
@@ -373,7 +373,7 @@
 									</td>
 									<th scope="row" class="th_bg">전표대상</th>
 									<td class="td_input" style="border-right: hidden;" colspan="3">
-										<sbux-checkbox uitype="normal" id="DOC_INPUT_YN" class="form-control input-sm check" text="상위" true-value="Y" false-value="N"/>
+										<sbux-checkbox uitype="normal" id="DOC_INPUT_YN" class="form-control input-sm check" text="예" true-value="Y" false-value="N"/>
 									</td>				                            										
 								</tr>	
 								<tr>

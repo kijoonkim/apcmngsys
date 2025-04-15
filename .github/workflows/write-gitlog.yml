@@ -1,0 +1,61 @@
+name: Generate PR CSV
+
+on:
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'YYYY-MM-DD 형식의 시작 날짜'
+        required: true
+        type: string
+
+jobs:
+  export-pr-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up GitHub CLI
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+
+      - name: Authenticate GH CLI
+        run: gh auth setup-git
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch PRs since ${{ inputs.since }}
+        run: |
+          echo '"작성자","작성일","요구사항","수정된파일","추가된파일","삭제된파일"' > pr-log.csv
+
+          gh pr list --state all --json author,createdAt,body --limit 1000 | \
+          jq -r --arg since "${{ inputs.since }}" '
+            .[] |
+            select(.createdAt >= ($since + "T00:00:00Z")) |
+            {
+              author: .author.login,
+              createdAt: .createdAt,
+              body: .body
+            } |
+            . as $pr |
+            {
+              author: $pr.author,
+              createdAt: ($pr.createdAt | split("T")[0]),
+              요구사항: ($pr.body | capture("## 🛠️ 요구사항\\n(?<req>(.*\\n)*?)##")?.req // "" | gsub("[\\r\\n]+"; " ") | gsub("\""; "'")),
+              수정: ($pr.body | capture("## 📝 수정된 파일\\n(?<mod>(- .*(\\n|$))+)" )?.mod // "" | gsub("- "; "" ) | gsub("[\\r\\n]+"; "\\n") | gsub("\""; "'")),
+              추가: ($pr.body | capture("## 📄 추가된 파일\\n(?<add>(- .*(\\n|$))+)" )?.add // "" | gsub("- "; "" ) | gsub("[\\r\\n]+"; "\\n") | gsub("\""; "'")),
+              삭제: ($pr.body | capture("## ❌ 삭제된 파일\\n(?<del>(- .*(\\n|$))+)" )?.del // "" | gsub("- "; "" ) | gsub("[\\r\\n]+"; "\\n") | gsub("\""; "'"))
+            } |
+            "\"\(.author)\",\"\(.createdAt)\",\"\(.요구사항)\",\"\(.수정)\",\"\(.추가)\",\"\(.삭제)\""
+          ' >> pr-log.csv
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-log
+          path: pr-log.csv
