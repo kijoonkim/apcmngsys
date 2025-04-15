@@ -304,8 +304,8 @@
 
     growthRate = ((((newValue - oldValue) / oldValue) * 100).toFixed(2));
 
-    if ((newValue - oldValue) == 0) {
-      return "-";
+    if ((newValue - oldValue) == 0 || (newValue == 0 && oldValue == 0)) {
+      return "0";
     }
 
     // 양수 일시 '+' 붙이기
@@ -412,6 +412,13 @@
 
           vstrIcdc.textContent = "0";
           avgVstrIcdc.textContent = "0";
+
+          vstrDiff.style.color = "black";
+          vstrIcdc.style.color = "black";
+
+          avgVstrDiff.style.color = "black";
+          avgVstrIcdc.style.color = "black";
+
         } else {
           tsMmVstrCnt = data.resultList[1].cnt;
           prvMmVstrCnt = data.resultList[0].cnt;
@@ -517,6 +524,9 @@
 
           totPVDiff.textContent = "0";
           totPVIcdc.textContent = "0";
+
+          totPVDiff.style.color = "black";
+          totPVIcdc.style.color = "black";
         } else {
           tsMmPVCnt = data.resultList[1].pageViewCnt;
           prvMmPVCnt = data.resultList[0].pageViewCnt;
@@ -640,6 +650,10 @@
         } else if (parseInt(totMbrDiff.textContent) < 0) {
           totMbrDiff.style.color = "red";
           totMbrIcdc.style.color = "red";
+        } else if (parseInt(totMbrDiff.textContent) == 0) {
+          totMbrIcdc.textContent = "0";
+          totMbrIcdc.style.color = "black";
+          totMbrDiff.style.color = "black";
         }
 
         if (parseInt(newMbrDiff.textContent) > 0) {
@@ -648,6 +662,10 @@
         } else if (parseInt(newMbrDiff.textContent) < 0) {
           newMbrDiff.style.color = "red";
           newMbrIcdc.style.color = "red";
+        } else if (parseInt(newMbrDiff.textContent) == 0) {
+          newMbrIcdc.textContent = "0";
+          newMbrIcdc.style.color = "black";
+          newMbrDiff.style.color = "black";
         }
 
         if (parseInt(actvtnMbrDiff.textContent) > 0) {
@@ -656,6 +674,10 @@
         } else if (parseInt(actvtnMbrDiff.textContent) < 0) {
           actvtnMbrDiff.style.color = "red";
           actvtnMbrIcdc.style.color = "red";
+        } else if (parseInt(actvtnMbrDiff.textContent) == 0) {
+          actvtnMbrIcdc.textContent = "0";
+          actvtnMbrIcdc.style.color = "black";
+          actvtnMbrDiff.style.color = "black";
         }
 
       }
