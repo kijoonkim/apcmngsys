@@ -1361,7 +1361,7 @@
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(data.cv_3.length > 0){
-	                if(data.cv_3[0].OS_YN == 'N'){
+	                if(data.cv_3[0].IMG_YN == 'N'){
 		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }else{
 	                	data.cv_3[0].IMG2 = '';
