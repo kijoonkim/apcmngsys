@@ -90,11 +90,13 @@
                 COUNT(A.USER_ID) AS CNT_USER
         ]]>
             <if test='yyyyMm != null and yyyyMm != ""'>
-                , SUM(
-                    CASE
+                , COALESCE(
+                    SUM(
+                        CASE
                         WHEN A.YM = #{yyyyMm} THEN 1
                         ELSE 0
-                    END
+                        END
+                    ), 0
                 ) AS CNT_NEW_USER
             </if>
         <![CDATA[
@@ -115,6 +117,9 @@
         ]]>
                 <if test='ymdTo != null and ymdTo != ""'>
                     AND A.SYS_FRST_INPT_DT <![CDATA[<]]> TO_DATE(#{ymdTo}, 'YYYYMMDD')
+                </if>
+                <if test='ymdFrom != null and ymdFrom != ""'>
+                    AND A.SYS_FRST_INPT_DT <![CDATA[>=]]> TO_DATE(#{ymdFrom}, 'YYYYMMDD')
                 </if>
         <![CDATA[
             ) A
