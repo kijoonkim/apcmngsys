@@ -359,15 +359,6 @@
 
     const tsDate = await postJsonPromise;
 
-    console.log("ymdfrom: " + ymdFrom);
-    console.log("ymdto: " + ymdTo);
-    console.log(JSON.stringify(data));
-    console.log(tsDate.resultList.length);
-    console.log(JSON.stringify(tsDate));
-    console.log("------------------------------")
-    console.log(data.resultList.length)
-
-
     try {
       if (_.isEqual("S", data.resultStatus) && _.isEqual("S", tsDate.resultStatus)) {
         let tsDayVstr = document.getElementById('userTrfc-tsDayVstr');
@@ -404,8 +395,6 @@
           tsDayCntUser = tsDate.resultList[0].cntUser;
         }
 
-        console.log("------------------------------")
-        console.log(data.resultList.length)
         if (data.resultList.length == 0) {
           tsMmCntUser = 0;
           prvMmCntUser = 0;
@@ -795,9 +784,6 @@
       , ymdTo : ymdTo
     });
     const data = await postJsonPromise;
-    console.log("fn_ognzPrst");
-    console.log(data);
-    console.log(JSON.stringify(data));
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
