@@ -28,6 +28,8 @@
     <!-- Smart Wizard JS -->
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
@@ -642,6 +644,7 @@
     const fn_search_vrty = async function(_itemCd,_prdcrCd){
         const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrTypeDtlVrty.do", {apcCd: gv_apcCd,prdcrCd : _prdcrCd ,crtrCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
+        console.log(data);
 
         jsonVrtyList = data.resultList.map(item => {
             const cleaned = {};
@@ -653,6 +656,7 @@
             if (!cleaned.name && cleaned.vrtyNm) {
                 cleaned.name = cleaned.vrtyNm;
                 cleaned.value = cleaned.vrtyCd;
+                cleaned.label = cleaned.vrtyNm;
             }
             if (cleaned.name) {
                 cleaned.diassembled = Hangul.disassemble(cleaned.name, true)
@@ -717,7 +721,7 @@
                 }
             }
 
-            if(id === "vrtyInfoWrap"){
+            if(id === "vrtyBtnArea"){
             	if(data.resultList.length % 18 !== 0 && data.resultList.length > 36 ){
                     let cnt = (Math.floor(data.resultList.length / 36) + 1) * 36;
                     let originLength = data.resultList.length;
@@ -741,7 +745,7 @@
         }
 
         for(let i = 0; i < data.resultList.length; i++){
-        	if(id === "vrtyInfoWrap"){
+        	if(id === "vrtyBtnArea"){
         		if(i != 0 && i % 36 != 0){
                     let flag = data.resultList[i].cnptNm == 'null';
                     let style = flag ? 'visibility:hidden;' : '';
@@ -959,28 +963,38 @@
             pckgPrfmncVO : pckgPrfmncObj,
             gdsInvntrVO : invntrObj,
         }
+        console.log(param);
 
         if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-            if(!gfn_comConfirm("Q0001","저장")){
-                return;
-            }
-        }
-        const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncSc.do", param);
-        const data = await postJsonPromise;
-
-        try{
-            if(data.resultStatus === 'S'){
-                if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-                    gfn_comAlert("I0001");
+            await Swal.fire({
+                title: `포장실적 등록하시겠습니까?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '저장',
+                cancelButtonText: '취소',
+            }).then(async result => {
+                if(result.isConfirmed){
+                    const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncSc.do", param);
+                    const data = await postJsonPromise;
+                    try{
+                        if(data.resultStatus === 'S'){
+                            if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
+                                Swal.fire(
+                                    '처리되었습니다.',
+                                    '',
+                                    'success'
+                                );
+                            }
+                        }
+                    }catch (e) {
+                        console.error(e);
+                    }
+                    await fn_search();
                 }
-            }
-        }catch (e) {
-            console.error(e);
+            })
         }
-
-        await fn_search();
-        //await fn_reset();
-        //pckgObj = {};
     }
 
     const fn_search = async function(){
@@ -1022,23 +1036,38 @@
         }
     }
 
-    const fn_delRow = async function(_nRow){
-        if(SBUxMethod.getSwitchStatus('switch_single') === 'on'){
-            if(!gfn_comConfirm("Q0001","삭제")){
-                return;
-            }
-        }
-
-        let delObj = gridPckgPrfmnc.getRowData(_nRow);
-        const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do",delObj);
-        const data = await postJsonPromise;
-        try {
-            if(data.resultStatus === 'S'){
-                //gfn_comAlert("I0001");
-                fn_search();
-            }
-        }catch (e) {
-            console.error(e);
+    const fn_delRow = async function(_nRow) {
+        if (SBUxMethod.getSwitchStatus('switch_single') === 'on') {
+            Swal.fire({
+                title: '삭제 하시겠습니까?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '삭제',
+                cancelButtonText: '취소',
+                width: '500px'
+            }).then(async result => {
+                if (result.isConfirmed) {
+                    let delObj = gridPckgPrfmnc.getRowData(_nRow);
+                    const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do", delObj);
+                    const data = await postJsonPromise;
+                    try {
+                        if (data.resultStatus === 'S') {
+                            if (SBUxMethod.getSwitchStatus('switch_single') === 'on') {
+                                Swal.fire(
+                                    '처리되었습니다.',
+                                    '',
+                                    'success'
+                                );
+                            }
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
+                    await fn_search();
+                }
+            })
         }
     }
 
@@ -1140,7 +1169,7 @@
 
     const fn_onInputVrty = async function(_search){
         let result = gfn_filterFrst(_search,jsonVrtyList);
-       await fn_append_button({resultList:result},"vrtyBtnArea","name","value",true);
+       await fn_append_button({resultList:result},"vrtyBtnArea","vrtyNm","vrtyCd",true);
     }
     const fn_delWord = async function(_type){
         if(_type == 'one'){
