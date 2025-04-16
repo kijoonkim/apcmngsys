@@ -27,6 +27,7 @@
     <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" />
     <!-- Smart Wizard JS -->
     <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
@@ -38,8 +39,8 @@
         }
         .tabBox{
             border: 1px solid black;
-            font-size: 3vw;
-            width: 20vw;
+            font-size: 2.5vw;
+            width: 22vw;
             text-align: center;
             padding: 10px 0px;
             text-wrap: nowrap;
@@ -77,7 +78,7 @@
         }
         .cell{
             display: grid;
-            grid-gap: 2vw;
+            grid-gap: 1.1vw;
             grid-template-columns: repeat(4,1fr);
             padding: 0px 5px;
         }
@@ -123,9 +124,8 @@
 		}
         #smartwizard .tab-content {
             min-height: 400px; /* 필요한 만큼 조정 */
+            height: auto !important;
         }
-
-
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -216,179 +216,15 @@
                        uitype="normal"
                        is-scrollable="false"
 <%--                       wrap-style="height:calc(100% - 200px)"--%>
-                       title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc^tab_test"
-                       title-text-array="포장등록^실적조회^테스트" onclick="fn_changeTab()"
+                       title-target-id-array="tab_pckgPrfmncReg^tab_pckgPrfmnc"
+                       title-text-array="포장등록^실적조회" onclick="fn_changeTab()"
                        title-style-array="{margin-right: 5px;width: 8vw;
-                 text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}^{margin-right: 5px;width: 8vw;
                  text-align: center;font-weight: bold;border-radius:0}">
             </sbux-tabs>
 
-            <div class="tab-content">
+            <div class="tab-content" style="height: calc(100% - 100px)">
                 <div id="tab_pckgPrfmncReg">
-                    <table class="table table-bordered tbl_fixed" style="margin-top: 10px">
-                        <colgroup>
-                            <col style="width: 10%">
-                            <col style="width: 90%">
-                        </colgroup>
-                        <tbody>
-                        <tr>
-                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">거래처</th>
-                            <td id="cnptInfoWrap1" class="td_input_mob">
-                                <button class="carouselBtn" onclick="fn_left('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                                    </div>
-                                </div>
-                                <button class="carouselBtn" onclick="fn_right('cnptInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">생산자</th>
-                            <td id="prdcrInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
-                                <button class="carouselBtn" onclick="fn_left('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                                    </div>
-                                </div>
-                                <button class="carouselBtn" onclick="fn_right('prdcrInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">품목</th>
-                            <td id="itemInfoWrap" class="td_input_mob">
-                                <button class="carouselBtn" onclick="fn_left('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                                    </div>
-                                </div>
-                                <button class="carouselBtn" onclick="fn_right('itemInfoWrap')" style="width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">품종</th>
-                            <td id="vrtyInfoWrap" class="td_input_mob" style="background: #e8f1f9;">
-                                <button class="carouselBtn" onclick="fn_left('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 99%; overflow: hidden">
-                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                                    </div>
-                                </div>
-                                <button class="carouselBtn" onclick="fn_right('vrtyInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">규격</th>
-                            <td id="spcfctInfoWrap"class="td_input_mob">
-                                <button class="carouselBtn" onclick="fn_left('spcfctInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; left: 0; background-image: url('/static/resource/svg/arrowBack.svg')"></button>
-                                <div class="carousel_container" style="width: 100%; overflow: hidden">
-                                    <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
-
-                                    </div>
-                                </div>
-                                <button class="carouselBtn" onclick="fn_right('spcfctInfoWrap')" style="display: none; width: 3vw; height: 5vh; position: absolute; top: 40%; right: 0; background-image: url('/static/resource/svg/arrowForward.svg')"></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg">본수</th>
-                            <td class="td_input_mob" style="background: #e8f1f9;">
-                                <div class="carousel">
-                                    <div style="display: flex;gap: 1.5vw">
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="1">1</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="2">2</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="3">3</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="4">4</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="5">5</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="6">6</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="7">7</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="8">8</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="9">9</div>
-                                        <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="10">10</div>
-                                        <div style="flex: 1;">
-                                            <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal">
-                                         	<span class="sbux-spi-inp-wrap" style="height:100%">
-                                         		<input type="number"
-                                                       id="spinner_normal_0"
-                                                       maxlength="undefined"
-                                                       class="sbux-spi-inp sbux-spi-type-num sbux-spi-txt-center sbux-exist"
-                                                       data-sbux-name="spinner_normal"
-                                                       data-sbux-model-name="spinner_normal"
-                                                       data-sbux-storage-data="value"
-                                                       style="height:100%;  font-size: 1.2vw">
-                                   			</span>
-                                                <span class="sbux-spi-btn-wrap sbux-spi-btn-vertical" style="height:100%">
-                                   				<button type="button" id="buttonUp"class="sbux-spi-btn sbux-spi-up">
-	                                   				<i class="fas fa-caret-up" aria-hidden="true"></i>
-	                                   			</button>
-	                                   			<button type="button" id="buttonDown" class="sbux-spi-btn sbux-spi-down">
-	                                   				<i class="fas fa-caret-down" aria-hidden="true"></i>
-                                   				</button>
-                                   			</span>
-                                                <input type="hidden" name="spinner_normal" style="display:none;" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="th_bg" style="background: white;border-right: hidden;">수량</th>
-                            <td class="td_input_mob">
-                                <div style="display: flex; justify-content: space-between">
-                                    <div style="display: flex; gap: 1.5vw">
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">1</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">2</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">3</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">4</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">5</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">6</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">7</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">8</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">9</div>
-                                        <div class="tabBox_sm" onclick="fn_cntAdd(this)" style="font-weight: bold; background: #8faadc;">10</div>
-                                        <div style="flex: 1;display: flex;gap: 1vw">
-                                            <sbux-button
-                                                    id="btnRegReset"
-                                                    name="btnRegReset"
-                                                    uitype="normal"
-                                                    class="btn btn-outline-danger btn-size"
-                                                    text="초기화"
-                                                    onclick="fn_RegReset"
-                                            ></sbux-button>
-                                            <sbux-button
-                                                    id="btnRegSave"
-                                                    name="btnRegSave"
-                                                    uitype="normal"
-                                                    class="btn btn-success btn-size"
-                                                    text="저장"
-                                                    onclick="fn_save"
-                                            ></sbux-button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                    <div id="sb-area-pckgPrfmncReg" style="height: 200px;"></div>
-                </div>
-                <div id="tab_pckgPrfmnc">
-                    <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
-                    <div style="display: flex; justify-content: flex-end">
-                        <sbux-button
-                                id="btnExportExcel"
-                                name="btnExportExcel"
-                                uitype="normal"
-                                class="btn btn-sm btn-outline-danger"
-                                text="엑셀다운로드"
-                                onclick="fn_exportExcel"
-                        ></sbux-button>
-                    </div>
-                </div>
-                <div id="tab_test">
                     <div id="smartwizard">
                         <ul class="nav">
                             <li><a class="nav-link" href="#step-1">거래처<br/><small></small></a></li>
@@ -397,10 +233,9 @@
                             <li><a class="nav-link" href="#step-4">품종<br/><small></small></a></li>
                             <li><a class="nav-link" href="#step-5">규격<br/><small></small></a></li>
                             <li><a class="nav-link" href="#step-6">본수<br/><small></small></a></li>
-                            <li><a class="nav-link" href="#step-7">수량<br/><small></small></a></li>
                         </ul>
 
-                        <div class="tab-content" style="height: 100%">
+                        <div class="tab-content" style="height: calc(100% - 100px)!important;">
                             <div id="step-1" class="tab-pane" role="tabpanel">
                                 <div id="cnptInfoWrap">
                                     <div class="carousel_container" style="width: 100%; overflow: hidden">
@@ -429,10 +264,80 @@
                                 </div>
                             </div>
                             <div id="step-4" class="tab-pane" role="tabpanel">
-                                <div id="vrtyInfoWrap">
-                                    <div class="carousel_container" style="width: 100%; overflow: hidden">
-                                        <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
+                                <div id="vrtyInfoWrap" style="display: flex;flex-direction: column">
+                                    <div style="display: flex;justify-content:center;gap: 2vw">
+                                        <sbux-input
+                                                uitype="text"
+                                                id="srch-inp-vrtyInfo"
+                                                name="srch-inp-vrtyInfo"
+                                                class="form-control input-sm input-sm-ast"
+                                                wrap-style="flex-basis:40%;"
+                                                style="height:64px;background-color:white!important;font-size: 3rem"
+                                                placeholder="초성검색 가능"
+                                                autocomplete-ref="jsonVrtyList"
+                                                autocomplete-text="name"
+                                                autocomplete-height="270px"
+                                                oninput="fn_onInputVrty(event)"
+                                                readonly
+                                        ></sbux-input>
+                                        <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all" onclick="fn_delWord('one')">
+                                            삭제
+                                        </button>
+                                        <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all" onclick="fn_delWord('all')">
+                                            초기화
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <div class="grid grid-cols-7 gap-4 p-4">
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㄱ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㄴ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㄷ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㄹ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅁ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅂ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅅ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅇ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅈ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅊ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅋ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅌ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅍ
+                                            </button>
+                                            <button class="chosung-button bg-white border-2 border-gray-300 rounded-lg p-6 text-5xl font-bold hover:bg-blue-100 transition-all">
+                                                ㅎ
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="vrtyBtnArea">
+                                        <div class="carousel_container" style="width: 100%; overflow: hidden;">
+                                            <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -447,14 +352,81 @@
                                 </div>
                             </div>
                             <div id="step-6" class="tab-pane" role="tabpanel">
-                                <h3>품목</h3>
-                                <p>여기에 Step 3 내용 작성</p>
-                            </div>
-                            <div id="step-7" class="tab-pane" role="tabpanel">
-                                <h3>품목</h3>
-                                <p>여기에 Step 3 내용 작성</p>
+                                <div style="display: flex;flex-direction: column;gap: 1vh">
+                                    <div style="color: #3c6dbc; font-weight: 600;font-size: 2vw">본수</div>
+                                    <div class="carousel">
+                                        <div style="display: flex;gap: 1.5vw">
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="1">1</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="2">2</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="3">3</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="4">4</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="5">5</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="6">6</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="7">7</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="8">8</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="9">9</div>
+                                            <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="10">10</div>
+                                        </div>
+                                    </div>
+                                    <div style="color: #3c6dbc; font-weight: 600;font-size: 2vw">수량</div>
+                                    <div style="display: flex">
+                                        <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal" style="width: 30%; height: 6vh">
+                                         	<span class="sbux-spi-inp-wrap" style="height:100%">
+                                         		<input type="number"
+                                                       id="spinner_normal_0"
+                                                       maxlength="undefined"
+                                                       class="sbux-spi-inp sbux-spi-type-num sbux-spi-txt-center sbux-exist"
+                                                       data-sbux-name="spinner_normal"
+                                                       data-sbux-model-name="spinner_normal"
+                                                       data-sbux-storage-data="value"
+                                                       style="height:100%;  font-size: 1.2vw">
+                                   			</span>
+                                            <span class="sbux-spi-btn-wrap sbux-spi-btn-vertical" style="height:100%">
+                                   				<button type="button" id="buttonUp"class="sbux-spi-btn sbux-spi-up">
+	                                   				<i class="fas fa-caret-up" aria-hidden="true"></i>
+	                                   			</button>
+	                                   			<button type="button" id="buttonDown" class="sbux-spi-btn sbux-spi-down">
+	                                   				<i class="fas fa-caret-down" aria-hidden="true"></i>
+                                   				</button>
+                                   			</span>
+                                            <input type="hidden" name="spinner_normal" style="display:none;" value="">
+                                        </div>
+                                        <div style="margin-left: 2vw; display: flex;gap: 1vw">
+                                            <sbux-button
+                                                    id="btnRegReset"
+                                                    name="btnRegReset"
+                                                    uitype="normal"
+                                                    class="btn btn-outline-danger btn-size"
+                                                    text="초기화"
+                                                    onclick="fn_RegReset"
+                                            ></sbux-button>
+                                            <sbux-button
+                                                    id="btnRegSave"
+                                                    name="btnRegSave"
+                                                    uitype="normal"
+                                                    class="btn btn-success btn-size"
+                                                    text="저장"
+                                                    onclick="fn_save"
+                                            ></sbux-button>
+                                        </div>
+                                    </div>
+                                    <div id="sb-area-pckgPrfmncReg" style="height: 200px;"></div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div id="tab_pckgPrfmnc">
+                    <div id="sb-area-pckgPrfmnc" style="height: 500px; padding: 10px 0px"></div>
+                    <div style="display: flex; justify-content: flex-end">
+                        <sbux-button
+                                id="btnExportExcel"
+                                name="btnExportExcel"
+                                uitype="normal"
+                                class="btn btn-sm btn-outline-danger"
+                                text="엑셀다운로드"
+                                onclick="fn_exportExcel"
+                        ></sbux-button>
                     </div>
                 </div>
             </div>
@@ -470,10 +442,16 @@
     var jsonPckgPrfmnc = [];
     let gridPckgPrfmnc;
 
+    let gridPckgPrfmncReg;
+    var jsonPckgPrfmncReg = [];
 
     let jsonSearchItemVrty = [];
     /** 포장 실적 Obj **/
     let pckgObj = {};
+
+    /** 품종 json **/
+    let jsonVrtyList = [];
+    let jsonVrtyListTemp = [];
 
 
     window.addEventListener("DOMContentLoaded",function(){
@@ -511,6 +489,20 @@
                 speed: '400',
             },
             enableAnchorOnDoneStep: true // 완료된 단계는 클릭 가능하게
+        });
+
+        $('#smartwizard').on('showStep', function(e, anchorObject, stepIndex, stepDirection) {
+            if (stepIndex === 5) {
+                fn_search();
+            }
+        });
+
+        $("#vrtyInfoWrap div.grid button").on("click",function(event){
+            let target = event.target.innerText;
+            let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
+            let result = prev + target;
+            SBUxMethod.set("srch-inp-vrtyInfo",result);
+            fn_onInputVrty(result);
         });
 
     });
@@ -568,9 +560,9 @@
         await fn_create_pckgPrfmncReg();
 
         await fn_setcomSearchItemVrty();
-        fn_addDragEvn("cnptInfoWrap");
-        fn_addDragEvn("prdcrInfoWrap");
-        fn_addDragEvn("vrtyInfoWrap");
+        // fn_addDragEvn("cnptInfoWrap");
+        // fn_addDragEvn("prdcrInfoWrap");
+        // fn_addDragEvn("vrtyInfoWrap");
 
         await fn_search();
     }
@@ -602,7 +594,7 @@
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-pckgPrfmncReg';
         SBGridProperties.id = 'gridPckgPrfmncReg';
-        SBGridProperties.jsonref = 'jsonPckgPrfmnc';
+        SBGridProperties.jsonref = 'jsonPckgPrfmncReg';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
         SBGridProperties.columns = [
             {caption: ["처리"], ref: 'pckgno', type:'button', width:'5%',style: 'text-align:center;padding:5px',fixedstyle: 'font-size:20px;font-weight:bold',
@@ -651,8 +643,30 @@
         const postJsonPromise = gfn_postJSON("/am/cmns/selectPrdcrTypeDtlVrty.do", {apcCd: gv_apcCd,prdcrCd : _prdcrCd ,crtrCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
 
-        await fn_append_button(data,"vrtyInfoWrap","vrtyNm","vrtyCd",true);
-        carouselObj.vrtyInfoWrap.CAROUSEL_LENGTH = document.querySelectorAll("#vrtyInfoWrap > div.carousel_container > div.carousel > div.cell").length - 1;
+        jsonVrtyList = data.resultList.map(item => {
+            const cleaned = {};
+            Object.entries(item).forEach(([key, value]) => {
+                if (value != null) {
+                    cleaned[key] = value;
+                }
+            });
+            if (!cleaned.name && cleaned.vrtyNm) {
+                cleaned.name = cleaned.vrtyNm;
+                cleaned.value = cleaned.vrtyCd;
+            }
+            if (cleaned.name) {
+                cleaned.diassembled = Hangul.disassemble(cleaned.name, true)
+                    .filter(char => Array.isArray(char))
+                    .map(([cho]) => cho)
+                    .join('');
+            }
+            return cleaned;
+        });
+        /** 일단 최상위 8개 노출 **/
+        jsonVrtyListTemp = data.resultList.slice(0, 8);
+        data.resultList = jsonVrtyListTemp;
+        SBUxMethod.set("srch-inp-vrtyInfo","");
+        await fn_append_button(data,"vrtyBtnArea","vrtyNm","vrtyCd",true);
     }
     const fn_search_spcfct = async function(_itemCd){
         const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
@@ -698,7 +712,9 @@
             }
             if(data.resultList.length == 1){
                 /** option이 한개 뿐일떄 **/
-                data.resultList[0].active = 'active';
+                if(id !== "vrtyBtnArea"){
+                    data.resultList[0].active = 'active';
+                }
             }
 
             if(id === "vrtyInfoWrap"){
@@ -716,9 +732,6 @@
                     data.resultList.fill({cnptNm:'null'},originLength);
                 }
             }
-
-
-
 
             if(data.resultList.length < 9){
                 let originLength = data.resultList.length;
@@ -748,7 +761,6 @@
                         </div>
                         `)
                     }
-
         	}else{
         		if(i != 0 && i % 18 != 0){
                     let flag = data.resultList[i].cnptNm == 'null';
@@ -774,6 +786,10 @@
 
     }
 
+    const fn_append_button_new = async function(data, id, label, value, flag = false){
+
+    }
+
     const fn_select_button = async function(_el){
         if($(_el).hasClass("active"))return;
 
@@ -782,9 +798,6 @@
         let dataObj = $(_el).data();
         /** 그대로 유지 확대 화면에 사용될 네임 **/
         let clickedText = $(_el).text();
-        console.log(clickedText);
-        console.log(_el);
-        console.log("여기맞잖아");
         const stepIndex = $('#smartwizard .nav .nav-link.active').parent().index();
         const navSmall = $('#smartwizard .nav .nav-link').eq(stepIndex).find('small');
         navSmall.text(clickedText);
@@ -803,18 +816,19 @@
                 	let nowPrdcrNm = "";
                 	let nowPrdcrCd = "";
                 	let prdcrInfo = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active");
+
                 	if (prdcrInfo !== null){
                 		nowPrdcrNm = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active").outerText;
                 		nowPrdcrCd = document.querySelector("#prdcrInfoWrap > div > div > div > div.tabBox.active").dataset['prdcrcd'];
                 	}else{
                 		continue
                 	}
+
                 	if(key == 'prdcrcd'){
                 		let active = document.querySelector("#itemInfoWrap > div > div > div > div.tabBox.active");
                         let itemCd = "";
-                        if(active === null){
-                            return;
-                        }else{
+
+                        if(active !== null) {
                             itemCd = active.dataset.itemcd;
                         }
                 		await fn_search_vrty(itemCd,nowPrdcrCd);
@@ -972,12 +986,17 @@
     const fn_search = async function(){
         let checked = SBUxMethod.getCheckbox('chkbox_norm', {trueValueOnly:true, ignoreDisabledValue:false});
         const isEmpty = (obj) => Object.keys(obj).length === 0;
+        let saveFlag = SBUxMethod.get("tab_norm") === "tab_pckgPrfmncReg"? false : true;
+
         let postJsonPromise;
+
         if(isEmpty(checked)){
+            /** 조회화면상 그리드 **/
             let pckgYmdFrom = SBUxMethod.get("srch-dtp-pckgYmdFrom");
             let pckgYmdTo = SBUxMethod.get("srch-dtp-pckgYmdTo");
             postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmdFrom:pckgYmdFrom,pckgYmdTo:pckgYmdTo});
         }else{
+            /** 등록화면상 그리드 **/
             let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmdFrom");
             postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{apcCd: gv_apcCd,pckgYmd:pckgYmd});
         }
@@ -985,16 +1004,18 @@
         const data = await postJsonPromise;
         try {
             if(data.resultStatus === 'S'){
-
-
                 let result = data.resultList.map(item => {
                     let data = item.invntrQntt * parseInt(item.bxGdsQntt);
                     item['sum'] = data;
                     return item;
                 }).sort((a, b) => b.pckgno.localeCompare(a.pckgno));
-                jsonPckgPrfmnc = result;
-                gridPckgPrfmnc.rebuild();
-                gridPckgPrfmncReg.rebuild();
+                if(saveFlag){
+                    jsonPckgPrfmnc = result;
+                    gridPckgPrfmnc.rebuild();
+                }else{
+                    jsonPckgPrfmncReg = result;
+                    gridPckgPrfmncReg.rebuild();
+                }
             }
         }catch (e) {
             console.error(e);
@@ -1116,6 +1137,23 @@
         	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
     }
+
+    const fn_onInputVrty = async function(_search){
+        let result = gfn_filterFrst(_search,jsonVrtyList);
+       await fn_append_button({resultList:result},"vrtyBtnArea","name","value",true);
+    }
+    const fn_delWord = async function(_type){
+        if(_type == 'one'){
+            let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
+            let result = prev.slice(0,-1);
+            SBUxMethod.set("srch-inp-vrtyInfo",result);
+            await fn_onInputVrty(result);
+        }else{
+            SBUxMethod.set("srch-inp-vrtyInfo","");
+            await fn_append_button({resultList:jsonVrtyListTemp},"vrtyBtnArea","vrtyNm","vrtyCd",true);
+        }
+    }
+
 
 
 
