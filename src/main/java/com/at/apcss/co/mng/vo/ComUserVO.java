@@ -100,6 +100,11 @@ public class ComUserVO extends ComVO {
      */
     private String ymdTo;
 
+    /**
+     * 시작일자
+     */
+    private String ymdFrom;
+
     private String yM;
 
 }
