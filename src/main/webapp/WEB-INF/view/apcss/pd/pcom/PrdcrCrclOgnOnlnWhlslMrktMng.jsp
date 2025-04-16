@@ -1292,8 +1292,8 @@
 	}
 
 	const columnsGrid1 = [
-		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
-		{caption: ["사업자번호"],	ref: 'uoBrno',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["등록연도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["사업자번호"],	ref: 'uoBrno',	type:'output',  width:'150px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'uoCorpNm',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["통합조직구분"],		ref: 'aprvNm',	type:'output',  width:'80px',	style:'text-align:center'},
 
@@ -1305,8 +1305,8 @@
 		{caption: ["부류"],		ref: 'clsfNm',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["평가부류"],		ref: 'ctgryNm',	type:'output',  width:'80px',	style:'text-align:center'},
 
-		{caption: ["직접판매 실적 금액(천원)"],	ref: 'trmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
-		{caption: ["위탁판매 실적 금액(천원)"],	ref: 'consignTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["직접판매 실적 금액(천원)"],	ref: 'trmtAmt', type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["위탁판매 실적 금액(천원)"],	ref: 'consignTrmtAmt', 	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["소계"],	ref: 'trmtAmtTot',	type:'output',  width:'140px',	style:'text-align:right;'},
 
 		{caption: ["인정여부"],		ref: 'rcgnYn',	type:'output',  width:'80px',	style:'text-align:center'},
@@ -1320,13 +1320,13 @@
 	];
 
 	const columnsGrid2 = [
-		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["등록연도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'corpNm',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["통합조직구분"],		ref: 'aprvNm',	type:'output',  width:'80px',	style:'text-align:center'},
 
-		{caption: ["직접판매 실적 2025년 목표액(천원)(A)"],	ref: 'trgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
-		{caption: ["위탁판매 실적 2025년 목표액(천원)"],	ref: 'consignTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["직접판매 실적 2025년 목표액(천원)(A)"],	ref: 'trgtTrmtAmt', type:'output',  width:'120px',	style:'text-align:right'},
+		{caption: ["위탁판매 실적 2025년 목표액(천원)"],	ref: 'consignTrgtAmt', type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["위탁판매 실적 인정 목표액(천원)(위탁판매는 80%만 인정)(B)"],	ref: 'consignCrtdTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["총 목표액(천원)(C = A+B)"],	ref: 'totTrgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["통합조직 전문품목 총취급액(천원)(D)"],	ref: 'uoTotTrgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
@@ -1455,6 +1455,37 @@
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		 */
 		//console.log(hiddenGrd.exportData);
+		// var objExcelInfo = {
+		// 	strFileName : fileName + '.xlsx',
+		// 	strAction : "/am/excel/saveMultiExcel",
+		// 	bIsStyle: true,
+		// 	bIsMerge: true,
+		// 	bUseFormat: false,
+		// 	bIncludeData: true,
+		// 	bUseCompress: false
+		// };
+		// var dataList = [];
+		// var sheetNameList = [];
+		// var titleList = [];
+		// var unitList = [];
+		// var arrAdditionalData = [];
+		//
+		// let excelData = hiddenGrd.exportExcel(objExcelInfo,"return");
+		//
+		// dataList.push(excelData);
+		// sheetNameList.push("출하실적");
+		// titleList.push("");
+		// unitList.push("");
+		//
+		// arrAdditionalData.push(
+		// 		{"name": "arrSheetData", "value": JSON.stringify(dataList)},
+		// 		{"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+		// 		{"name": "arrTitle", "value": JSON.stringify(titleList)},
+		// 		{"name": "arrUnit", "value": JSON.stringify(unitList)}
+		// );
+		// objExcelInfo.arrAdditionalData = arrAdditionalData;
+		// hiddenGrd.exportExcel(objExcelInfo);
+
 		hiddenGrd.exportData("xlsx" , fileName , true , true);
 	}
 
