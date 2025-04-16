@@ -1136,7 +1136,7 @@
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_TXN_ID : gfn_nvl(item.data.TXN_ID, 0),
-                    V_P_JOB_YYYYMM : gfn_nvl(item.data.JOB_YYYYMM),
+                    V_P_JOB_YYYYMM : gfn_nvl(item.data.JOB_YYYYMM.substring(0,6)),
                     V_P_EARNER_CODE : gfn_nvl(item.data.EARNER_CODE),
                     V_P_SITE_CODE : gfn_nvl(item.data.SITE_CODE),
                     V_P_PAY_DATE : gfn_nvl(item.data.PAY_DATE),
