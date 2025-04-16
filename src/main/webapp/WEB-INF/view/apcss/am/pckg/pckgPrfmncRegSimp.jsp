@@ -1169,6 +1169,12 @@
 
     const fn_onInputVrty = async function(_search){
         let result = gfn_filterFrst(_search,jsonVrtyList);
+        result = result.map(item => ({
+            ...item,
+            label: item.name,
+            vrtyNm : item.name,
+            vrtyCd : item.value
+        }));
        await fn_append_button({resultList:result},"vrtyBtnArea","vrtyNm","vrtyCd",true);
     }
     const fn_delWord = async function(_type){
