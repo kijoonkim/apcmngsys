@@ -194,7 +194,6 @@
 		}
     }
 
-
 	// 마스터 그리드 삭제
 	function cfn_del() {
 
@@ -209,10 +208,6 @@
 	function cfn_search() {
 		fn_queryClick();
 	}
-
-
-
-
 
 	var editType			= "N";
 
@@ -241,6 +236,7 @@
 
 
 	const fn_initSBSelect = async function() {
+		SBUxMethod.hideTab('idxTab_norm','totDprcPivotTab');
 		let rst = await Promise.all([
 			//gfnma_setComSelect(['srch-slt-compCode1'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//회계단위
@@ -305,6 +301,7 @@
     window.addEventListener('DOMContentLoaded', function(e) {
 
     	fn_initSBSelect();
+    	
     	 //$("#idxTab_norm_ul").append("<sbux-button id='btnExcelDownload' name='btnExcelDownload' uitype='normal' text='엑셀다운로드' class='btn btn-sm btn-outline-danger' onclick='fn_excelDownload' style='float: right;'></sbux-button>");
     	//$("#idxTab_norm").append("");
 
@@ -513,14 +510,12 @@
 		});
 
         const data = await postJsonPromise;
-		//console.log('data:', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
 
-  				jsonTotDprc.length = 0;
-
   	        		var msg;
   	        		if(workType === "Q0"){
+  	        			jsonTotDprc.length = 0;
   	        			data.cv_1.forEach((item, index) => {
 	  	        			msg = {
 	  	        					ASST_CTGRY : item.ASST_CTGRY
@@ -542,6 +537,7 @@
   	    				});
   	        			grdTotDprc.rebuild();
   	        		}else if(workType === "Q1"){
+  	        			jsonTotDtlDprc.length = 0;
   	        			data.cv_2.forEach((item, index) => {
   	  	        			msg = {
 	  	  	        			DPCO_AMT : item.DPCO_AMT
@@ -601,6 +597,7 @@
 	  	    			});
   	  	        			grdTotDtlDprc.rebuild();
   	        		}else if(workType === "Q2"){
+  	        			jsonMmDprc.length = 0;
   	        			data.cv_3.forEach((item, index) => {
   	  	        			msg = {
 	  	  	        			DPCO_AMT : item.DPCO_AMT
@@ -616,9 +613,7 @@
 	  	  	        			, ACNTG_OGNZ_CD : item.ACNTG_OGNZ_CD
 	  	  	        			, SITE_CD : item.SITE_CD
 	  	  	        			, GVSBS_DPCO_AMT : item.GVSBS_DPCO_AMT
-
   	  	  					}
-
   	  	        			jsonMmDprc.push(msg);
   	  	    			});
   	  	        			grdMmDprc.rebuild();

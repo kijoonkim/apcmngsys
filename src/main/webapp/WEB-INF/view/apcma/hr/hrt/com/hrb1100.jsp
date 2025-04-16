@@ -219,10 +219,10 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["양력여부"],  		ref: 'LEAP_MONTH_YN',    			type:'checkbox',  	width:'69px',  	style:'text-align:center'
+            {caption: ["양력여부"],  		ref: 'SOLAR_YN',    			type:'checkbox',  	width:'69px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["윤달여부"],  		ref: 'SOLAR_YN',    			type:'checkbox',  	width:'69px',  	style:'text-align:center'
+            {caption: ["윤달여부"],  		ref: 'LEAP_MONTH_YN',    			type:'checkbox',  	width:'69px',  	style:'text-align:center'
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
             {caption: ["근무유형"], 	        ref: 'WORK_TYPE_CODE',    	    type:'combo',  	width:'99px',  	style:'text-align:left',

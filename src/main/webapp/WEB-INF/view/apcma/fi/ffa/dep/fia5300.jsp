@@ -340,7 +340,7 @@
 			//사업장
 			gfnma_setComSelect(['srch-slt-siteCode'], jsonSite, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//중분류
-			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel2, 'L_FIA005', "AND CO_CD ='" + gv_ma_selectedCorpCd + "'" , gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 			//소분류
 			gfnma_setComSelect(['srch-slt-assetLevel3'], jsonAssetLevel3, 'L_FIA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ASST_GROUP_CD', 'ASST_GROUP_NM', 'Y', ''),
 			//자산구분
@@ -351,9 +351,7 @@
 			gfnma_setComSelect(['grdDprcList'], jsonDepreciationPeriod, 'L_FIA004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//코스트센터
 			gfnma_setComSelect(['grdDprcList'], jsonCostCenter, 'P_COST_CENTER', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
-
-					]);
-
+		]);
 		let yyyymm = gfnma_date6().substring(0,6);
 		SBUxMethod.set("srch-dtp-depreciationYyyymm",yyyymm);
 		SBUxMethod.set("srch-slt-depreciationType",p_ss_defaultAcctRule);
@@ -447,7 +445,7 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: [""],			ref: 'checkYn'
+        	{caption: ["<input type='checkbox' id='allCheckbox' onchange='fn_checkAllDprcList(this);'>"],			ref: 'checkYn'
         		, type : 'checkbox'
         		,typeinfo: {
 					ignoreupdate : true,
@@ -574,11 +572,11 @@
     }
 
     const fn_confirmClick = async function(workType){
-    	if (grdDprcList.getRow() < 0)
-            return;
-
-        if (grdDprcRkng.getRow() < 0)
-            return;
+    	
+    	const grdDprcListCheckData = grdDprcList.getCheckedRowData( grdDprcList.getColRef("checkYn") );
+    	const grdDprcRkngCheckData = grdDprcRkng.getCheckedRowData( grdDprcRkng.getColRef("checkYn") );
+    	
+    	if (grdDprcListCheckData.length == 0 || grdDprcRkngCheckData.length == 0) return;
 
 
         let bresult = false;
@@ -620,6 +618,7 @@
             }
         } */
         if (bresult){
+        	gfn_comAlert('I0001');
             fn_queryClick();
         }
     }
@@ -752,7 +751,6 @@
 								   , inAmount : item.INCRS_AMT
 								   , outAmount : item.DCRS_AMT
 								   , holdingAmount : item.HLDOF_AMT
-
 						   }
 						   jsonAcqsAmtList.push(obj);
 					   })
@@ -769,7 +767,7 @@
 								   , compCode : item.CO_CD
 								   , fiOrgCode : item.ACNTG_OGNZ_CD
 								   , siteCode : item.SITE_CD
-								   , sourceId : item.SRC_ID
+								   , sourceId : gfnma_nvl2( item.SRC_ID )
 								   , docName : item.SLIP_NM
 								   , insertUserid : item.WRT_USER_ID
 								   , lastRunCount : item.LAST_RUN_COUNT
@@ -1049,7 +1047,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-costCenterName"));
         var replaceText0 	= "_CSTCT_CD_";
         var replaceText1 	= "_CSTCT_NM_";
-        var strWhereClause 	= "AND COST_CENTER_CODE LIKE '%" + replaceText0 + "%' AND COST_CENTER_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND CSTCT_CD LIKE '%" + replaceText0 + "%' AND CSTCT_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '코스트센터');
     	compopup1({
@@ -1082,7 +1080,7 @@
         var replaceText0 	= "_SBSD_CD_";
         var replaceText1 	= "_CD_NM_";
 
-        var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '자산구분');
     	compopup1({
@@ -1113,7 +1111,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel2"));
         var replaceText0 	= "_ASST_GROUP_CD_";
         var replaceText1 	= "_ASST_GROUP_NM_";
-        var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND ASST_GROUP_CD LIKE '%" + replaceText0 + "%' AND ASST_GROUP_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '중분류');
     	compopup1({
@@ -1143,7 +1141,7 @@
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-inp-assetLevel3"));
         var replaceText0 	= "_ASST_GROUP_CD_";
         var replaceText1 	= "_ASST_GROUP_NM_";
-        var strWhereClause 	= "AND ASSET_GROUP_CODE LIKE '%" + replaceText0 + "%' AND ASSET_GROUP_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND ASST_GROUP_CD LIKE '%" + replaceText0 + "%' AND ASST_GROUP_NM LIKE '%" + replaceText1 + "%' ";
 
     	SBUxMethod.attr('modal-compopup1', 'header-title', '소분류');
     	compopup1({

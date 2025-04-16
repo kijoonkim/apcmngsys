@@ -1645,7 +1645,8 @@
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
-            }
+            },
+            {caption: ["입사처리 여부"],        ref: 'ENTER_YN', 		     type:'output',  	width:'90px',  	style:'text-align:center' }
         ];
 
         gvwList = _SBGrid.create(SBGridProperties);
@@ -2051,30 +2052,38 @@
     const fn_joinCompnay = async function() {
         let EMP_CODE_LIST = "";
         let gvwListCheckedList = gvwList.getCheckedRows(gvwList.getColRef("CHK_YN"), true);
-
+		let enter_cnt = 0;
         gvwListCheckedList.forEach((item, index) => {
-            EMP_CODE_LIST += gvwList.getCellData(item, gvwList.getColRef("EMP_CODE")) + "|";
+            if(gvwList.getCellData(item, gvwList.getColRef("ENTER_YN")) == "N"){            	
+	            EMP_CODE_LIST += gvwList.getCellData(item, gvwList.getColRef("EMP_CODE")) + "|";
+            }else{
+            	enter_cnt += 1;
+            }
         });
 
         EMP_CODE_LIST = EMP_CODE_LIST.substring(0, EMP_CODE_LIST.length - 1);
 
         if (EMP_CODE_LIST.length == 0) {
+        	if(enter_cnt != 0){
+        		gfn_comAlert("Q0000", "입사처리한 사원입니다.");
+                return;
+        	}
             gfn_comAlert("W0001", "사원");		//	W0001	{0}을/를 선택하세요.
             return;
         }
 
         var paramObj = {
-            V_P_DEBUG_MODE_YN	: '',
-            V_P_LANG_ID		: '',
-            V_P_COMP_CODE		: gv_ma_selectedCorpCd,
-            V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-            V_P_EMP_CODE_LIST : EMP_CODE_LIST,
-            V_P_ENTER_DATE : '',
-            V_P_FORM_ID	: p_formId,
-            V_P_MENU_ID	: p_menuId,
-            V_P_PROC_ID	: '',
-            V_P_USERID : '',
-            V_P_PC : '',
+            V_P_DEBUG_MODE_YN		: '',
+            V_P_LANG_ID				: '',
+            V_P_COMP_CODE			: gv_ma_selectedCorpCd,
+            V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
+            V_P_EMP_CODE_LIST 		: EMP_CODE_LIST,
+            V_P_ENTER_DATE 			: '',
+            V_P_FORM_ID				: p_formId,
+            V_P_MENU_ID				: p_menuId,
+            V_P_PROC_ID				: '',
+            V_P_USERID 				: '',
+            V_P_PC 					: '',
         };
 
         const postJsonPromise = gfn_postJSON("/hr/hri/hri/insertHri1000EnterEmp.do", {
@@ -2239,6 +2248,7 @@
                         ,EMP_STATE          : item.EMP_STTS
                         ,ENTER_DATE         : item.JNCMP_YMD
                         ,RETIRE_DATE        : item.RTRM_YMD
+                        ,ENTER_YN        	: item.ENTER_YN
                     }
                     jsonEmpTotalList.push(msg);
                 });
@@ -3122,7 +3132,7 @@
 
         const postJsonPromise = gfn_postFormData("/com/hrImageUpload.do", paramData);
         const data = await postJsonPromise;
-
+console.log('data ==?', data);
         try {
             if (_.isEqual("S", data.resultStatus)) {
                 if(type == "1") {

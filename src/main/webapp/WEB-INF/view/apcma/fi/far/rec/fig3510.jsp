@@ -1720,6 +1720,10 @@
             SBUxMethod.set("BILL_DUE_DATE", ht1[0].hasOwnProperty("BILL_DUE_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DATE"]) : "" : "");
             SBUxMethod.set("BILL_DUE_DAY", ht1[0].hasOwnProperty("BILL_DUE_DAY") ? !gfn_nvl(ht1[0]["BILL_DUE_DAY"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_DAY"]) : "" : "");
             SBUxMethod.set("BILL_DUE_PAY_DATE", ht1[0].hasOwnProperty("BILL_DUE_PAY_DATE") ? !gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) == "" ? gfn_nvl(ht1[0]["BILL_DUE_PAY_DATE"]) : "" : "");
+            
+            if(gfn_nvl(SBUxMethod.get('EXPECTED_PAY_DATE')) == ""){
+                SBUxMethod.set("EXPECTED_PAY_DATE", ht1[0].PAY_PRNMNT_YMD);
+            }
         }
     }
 
@@ -5252,7 +5256,7 @@
                         }
                     }
                     bResult = true;
-                    
+                    gfn_comAlert('I0001');
                 } else {
                 	if(data.v_returnStr){
 	                    var strreturn_string = data.v_returnStr.split('|');
