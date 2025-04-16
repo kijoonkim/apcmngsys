@@ -1295,7 +1295,7 @@
 		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'uoBrno',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'uoCorpNm',	type:'output',  width:'80px',	style:'text-align:center'},
-		{caption: ["통합조직구분"],		ref: 'aprv',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["통합조직구분"],		ref: 'aprvNm',	type:'output',  width:'80px',	style:'text-align:center'},
 
 		{caption: ["조직구분"],		ref: 'apoSeNm',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'200px',	style:'text-align:center'},
@@ -1323,7 +1323,7 @@
 		{caption: ["등록년도"],		ref: 'yr',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["사업자번호"],	ref: 'brno',	type:'output',  width:'80px',	style:'text-align:center'},
 		{caption: ["법인명"],		ref: 'corpNm',	type:'output',  width:'80px',	style:'text-align:center'},
-		{caption: ["통합조직구분"],		ref: 'aprv',	type:'output',  width:'80px',	style:'text-align:center'},
+		{caption: ["통합조직구분"],		ref: 'aprvNm',	type:'output',  width:'80px',	style:'text-align:center'},
 
 		{caption: ["직접판매 실적 2025년 목표액(천원)(A)"],	ref: 'trgtTrmtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
 		{caption: ["위탁판매 실적 2025년 목표액(천원)"],	ref: 'consignTrgtAmt',	type:'output',  width:'120px',	style:'text-align:right'},
