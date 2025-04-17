@@ -364,7 +364,6 @@
 			jsonBizPlanReqMng.length = 0;
 			let totalRecordCount = 0;
 			//console.log("data==="+data);
-			console.log("조회결과",data.resultList);
 			data.resultList.forEach((item, index) => {
 				let BizPlanReqMngVO = {
 						yr		: item.yr
