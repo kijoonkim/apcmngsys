@@ -396,6 +396,8 @@
 						,mngrStbltYn	: item.mngrStbltYn
 						,mngrIcptRsnCd	: item.mngrIcptRsnCd
 						,mngrIcptRsnDtlCd : item.mngrIcptRsnDtlCd
+						,mngrIcptRsnCdNm : item.mngrIcptRsnCdNm
+						,mngrIcptRsnDtlCdNm : item.mngrIcptRsnDtlCdNm
 
 				}
 				jsonBizPlanReqMng.push(BizPlanReqMngVO);
