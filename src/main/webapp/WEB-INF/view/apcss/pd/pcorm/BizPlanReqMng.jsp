@@ -265,6 +265,7 @@
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 		SBGridProperties.rowheader="seq";
+		SBGridProperties.frozencols = 3;
 		SBGridProperties.paging = {
 				'type' : 'page',
 			  	'count' : 5,
@@ -289,6 +290,12 @@
 			},
 			{caption: ["비고","사업계획서/전환서"], 	ref: 'bizPlanRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["비고","서명 포함 스캔본"], 		ref: 'sgntrRmrk',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["선정결과","여부"], 		ref: 'stbltYn',		type:'output',  width:'100px',	style:'text-align:center'},
+			{caption: ["선정결과","사유"], 		ref: 'icptRsnCdNm',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["선정결과","상세사유"], 		ref: 'icptRsnDtlCdNm',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["선정결과(관리자입력)","여부"], 		ref: 'mngrStbltYn',		type:'output',  width:'100px',	style:'text-align:center'},
+			{caption: ["선정결과(관리자입력)","사유"], 		ref: 'mngrIcptRsnCdNm',		type:'output',  width:'150px',	style:'text-align:center'},
+			{caption: ["선정결과(관리자입력)","상세사유"], 		ref: 'mngrIcptRsnDtlCdNm',		type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["상세내역"], 	ref: 'bizPlanFileSn',		hidden : true},
 			{caption: ["상세내역"], 	ref: 'sgntrFileSnS',		hidden : true},
 		];
@@ -357,6 +364,7 @@
 			jsonBizPlanReqMng.length = 0;
 			let totalRecordCount = 0;
 			//console.log("data==="+data);
+			console.log("조회결과",data.resultList);
 			data.resultList.forEach((item, index) => {
 				let BizPlanReqMngVO = {
 						yr		: item.yr
@@ -379,6 +387,16 @@
 						,sgntrFileSn	: item.sgntrFileSn
 
 						,aprv			: item.aprv
+
+						,stbltYn		: item.stbltYn
+						,icptRsnCd		: item.icptRsnCd
+						,icptRsnDtlCd	: item.icptRsnDtlCd
+						,icptRsnCdNm	: item.icptRsnCdNm
+						,icptRsnDtlCdNm : item.icptRsnDtlCdNm
+						,mngrStbltYn	: item.mngrStbltYn
+						,mngrIcptRsnCd	: item.mngrIcptRsnCd
+						,mngrIcptRsnDtlCd : item.mngrIcptRsnDtlCd
+
 				}
 				jsonBizPlanReqMng.push(BizPlanReqMngVO);
 				if (index === 0) {

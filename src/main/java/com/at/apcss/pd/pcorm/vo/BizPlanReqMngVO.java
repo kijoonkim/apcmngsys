@@ -63,4 +63,45 @@ public class BizPlanReqMngVO extends ComVO{
 
 	private String updtSeCd;	//업데이트 구분
 
+	/**
+	 * 적합여부
+	 */
+	private String stbltYn;
+	/**
+	 * 탈락사유구분코드
+	 */
+	private String icptRsnCd;
+	/**
+	 * 세부탈락사유코드
+	 */
+	private String icptRsnDtlCd;
+	/**
+	 * 탈락사유구분명
+	 */
+	private String icptRsnCdNm;
+	/**
+	 * 세부탈락사유명
+	 */
+	private String icptRsnDtlCdNm;
+	/**
+	 * 적합여부(관리자입력)
+	 */
+	private String mngrStbltYn;
+	/**
+	 * 탈락사유구분(관리자입력)
+	 */
+	private String mngrIcptRsnCd;
+	/**
+	 * 세부탈락사유(관리자입력)
+	 */
+	private String mngrIcptRsnDtlCd;
+	/**
+	 * 탈락사유구분명
+	 */
+	private String mngrIcptRsnCdNm;
+	/**
+	 * 세부탈락사유명
+	 */
+	private String mngrIcptRsnDtlCdNm;
+
 }
