@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.softbowl.poi.SBMerge;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -703,17 +704,24 @@ public class ExcelController extends BaseConstructor{
 
 	       //=====================================================================================================================
 
-	       String title = arrListTitle.get(0);
-	       String unit = arrListUnit.get(0);
+
 
 	       // 첫번째 시트 이외의 추가 시트를 생성함
 	       for ( int i = 0; i < arrListSheetData.size(); i++ ) {
+			   String title = arrListTitle.get(i);
+			   String unit = arrListUnit.get(i);
+
+			   List<Map<String, Object>> titles = new ArrayList<>();
+			   Map<String, Object> titleMap = new HashMap<>();
+			   titleMap.put("title", title);
+			   titles.add(titleMap);
 
 	    	   sheetData = arrListSheetData.get(i);
-	    	   sheetData.put("rowmemorysize", bufferSize);
+			   sheetData.put("titles", titles);
+			   sheetData.put("rowmemorysize", bufferSize);
 	    	   sheetData.put("bIsStyle", true);
 
-	    	   excel.init(sheetData);
+			   excel.init(sheetData);
 
 	    	   //sheet 추가생성
 	    	   workbook = excel.save();
@@ -854,6 +862,12 @@ public class ExcelController extends BaseConstructor{
 	@RequestMapping(value = "/am/excel/saveMultiGridExcel",method = RequestMethod.POST)
 	public void saveMultiGridExcel(HttpServletRequest request, HttpServletResponse response) throws Exception{
 
+		/**
+		 * strRequestData 는 view 에서 exportExcel 된 그리드 객체의 정보
+		 * arrSheetData 는 arrAdditionalData로 담은 이외 그리드 데이터의 정보
+		 * typeof >> strRequestData === arrSheetData[i]
+		 * **/
+
 		boolean bCompressMode = false;
 
 		request.setCharacterEncoding("UTF-8");
@@ -946,7 +960,6 @@ public class ExcelController extends BaseConstructor{
 			sheetData.put("rowmemorysize", bufferSize);
 
 			excel.init(sheetData);
-
 			SXSSFWorkbook workbook = excel.save();
 
 			//ex) arrListSheetName = ["grid1","grid2","grid3","grid4","grid5"]
@@ -960,70 +973,13 @@ public class ExcelController extends BaseConstructor{
 			sheet0.setColumnWidth(1, 256*20);
 			int frn0 = sheet0.getFirstRowNum();		//첫번째 그리드 행 인덱스
 			int lrn0 = sheet0.getLastRowNum();		//마지막 그리드 행 인덱스
-			int fcn0 = sheet0.getRow(lrn0).getFirstCellNum();
-			int lcn0 = sheet0.getRow(lrn0).getLastCellNum();
-
-			if (sheet0.getRow(frn0) != null) {
-				XSSFCellStyle r1CellStyle0 = (XSSFCellStyle) sheet0.getRow(frn0).getCell(fcn0).getCellStyle();
-				sheet0.getRow(frn0).getCell(fcn0).setCellStyle(r1CellStyle0);
-			}
-
-			XSSFCellStyle cellStyleHD0 = null;
-			if ( lrn0 >= 2) {
-				for( int j = fcn0; j < lcn0; j++ ) {
-					if (sheet0.getRow(frn0+2) != null) {
-						cellStyleHD0 = (XSSFCellStyle) sheet0.getRow(frn0+2).getCell(j).getCellStyle();
-						cellStyleHD0.setFillBackgroundColor(cHeaderBG);
-						cellStyleHD0.setAlignment(HorizontalAlignment.CENTER);
-						cellStyleHD0.setVerticalAlignment(VerticalAlignment.CENTER);
-						cellStyleHD0.setBorderColor(BorderSide.TOP, cHeader);
-						cellStyleHD0.setBorderColor(BorderSide.LEFT, cHeader);
-						cellStyleHD0.setBorderColor(BorderSide.RIGHT, cHeader);
-						cellStyleHD0.setBorderColor(BorderSide.BOTTOM, cHeader);
-						sheet0.getRow(frn0+2).getCell(j).setCellStyle(cellStyleHD0);
-					}
-				}
-			};
-
-			if (lrn0 > 2) {
-				for ( int k = (frn0+3); k <= lrn0; k++ ) {
-					if (sheet0.getRow(k) == null) {
-						logger.debug("===sheet0.getRow(  {} ) is null ", k);
-						continue;
-					}
-					Iterator<Cell> itrc0 = sheet0.getRow(k).cellIterator();
-					int j = 0;
-					XSSFCellStyle cellStyleData0 = null;
-					while(itrc0.hasNext()){
-						Cell cell0 = itrc0.next();
-						if (j == 0 && cellStyleHD0 != null){
-							cellStyleHD0.setFillBackgroundColor(cHeaderBG);
-							cellStyleHD0.setBorderColor(BorderSide.TOP, cHeader);
-							cellStyleHD0.setBorderColor(BorderSide.LEFT, cHeader);
-							cellStyleHD0.setBorderColor(BorderSide.RIGHT, cHeader);
-							cellStyleHD0.setBorderColor(BorderSide.BOTTOM, cHeader);
-							cell0.setCellStyle(cellStyleHD0);
-						} else if ( j == 1) {
-							XSSFCellStyle cellStyleEntData0 = (XSSFCellStyle) cell0.getCellStyle();
-						} else if ( j == 2) {
-							cellStyleData0 = (XSSFCellStyle) cell0.getCellStyle();
-						}
-
-						if ( j > 1 && cell0.getCellType() == Cell.CELL_TYPE_NUMERIC && cellStyleData0 != null) {
-							cellStyleData0.setDataFormat(workbook.createDataFormat().getFormat("#,##0"));
-							cell0.setCellStyle(cellStyleData0);
-						}
-						j++;
-					}
-				}
-			};  /** SBExcel 에서 row 개수 변경한 다음 이 부분을 풀어준다. **/
-
-			//=====================================================================================================================
+			int fcn0 = sheet0.getRow(lrn0).getFirstCellNum(); //왼쪽위 꼭지점
+			int lcn0 = sheet0.getRow(lrn0).getLastCellNum(); // 오른쪽아래 꼭지점
 
 			String title = arrListTitle.get(0);
 			String unit = arrListUnit.get(0);
 
-			appendToSameSheetWithMultipleBlocks(workbook, arrListSheetData, arrListSheetName, bufferSize);
+			appendToSameSheetWithMultipleBlocks(workbook, arrListSheetData, arrListSheetName, arrListTitle,bufferSize);
 
 			String strFileName = excel.getFileName();
 			String header = getBrowser(request);
@@ -1187,6 +1143,7 @@ public class ExcelController extends BaseConstructor{
 			SXSSFWorkbook workbook,
 			ArrayList<HashMap<String, Object>> arrListSheetData,
 			ArrayList<String> arrListSheetName,
+			ArrayList<String> arrListTitle,
 			int bufferSize
 	) throws Exception {
 
@@ -1218,6 +1175,7 @@ public class ExcelController extends BaseConstructor{
 
 				// SBExcel 생성 및 저장
 				SBExcel excel = new SBExcel();
+				excel.setDebugMode(true);
 				excel.init(block);
 				SXSSFWorkbook tempWb = excel.save();
 				Sheet tempSheet = tempWb.getSheetAt(0);
@@ -1231,6 +1189,10 @@ public class ExcelController extends BaseConstructor{
 				// 시트가 없으면 새로 생성
 				if (sheet == null) {
 					sheet = workbook.createSheet(sheetName);
+				}
+				if (arrListTitle != null && idx < arrListTitle.size()) {
+					setTitleToBlock(sheet, startRow, arrListTitle.get(idx));
+					startRow++;
 				}
 
 				// 📌 Row 복사 (tempSheet → sheet)
@@ -1265,6 +1227,7 @@ public class ExcelController extends BaseConstructor{
 						destCell.setCellStyle(srcCell.getCellStyle());
 					}
 				}
+				applyHeaderStyleAndMerge(sheet, block, startRow, workbook);
 
 				// 다음 블럭을 위해 시작 row 업데이트
 				List<?> dataList = (List<?>) block.get("data");
@@ -1272,6 +1235,172 @@ public class ExcelController extends BaseConstructor{
 				startRow += dataSize + 3; // title + header 고려
 			}
 		}
+	}
+
+	private void setTitleToBlock(Sheet sheet, int startRow, String title) {
+		if (sheet == null || title == null) return;
+
+		Row titleRow = sheet.getRow(startRow);
+		if (titleRow == null) titleRow = sheet.createRow(startRow);
+
+		Cell titleCell = titleRow.createCell(0);
+		titleCell.setCellValue(title);
+
+		// 시트 스타일 병합 (예: A1 ~ E1)
+		sheet.addMergedRegion(new CellRangeAddress(startRow, startRow, 0, 4));
+	}
+
+	public void applyHeaderStyleAndMerge(Sheet sheet, Map<String, Object> sheetData, int startRow, Workbook wb) {
+		List<Map<String, String>> captions = (List<Map<String, String>>) sheetData.get("captions");
+		List<String> colseq = (List<String>) sheetData.get("colseq");
+		Map<String, Map<String, Object>> colsinfo = (Map<String, Map<String, Object>>) sheetData.get("colsinfo");
+		Map<String, String> fixedRowStyle = (Map<String, String>) sheetData.get("fixedrowstyle");
+		String mergeStrategy = (String) sheetData.get("mergecellsfixedrows");
+
+		int rowCount = captions.size();
+		int colCount = colseq.size();
+
+		// 1. 열 너비 설정
+		for (int i = 0; i < colseq.size(); i++) {
+			String colKey = colseq.get(i);
+			Map<String, Object> colInfo = colsinfo.get(colKey);
+			if (colInfo != null && colInfo.get("width") != null) {
+				try {
+					double width = Double.parseDouble(colInfo.get("width").toString());
+					sheet.setColumnWidth(i, (int)(width * 32));
+				} catch (Exception ignored) {}
+			}
+		}
+
+		// 2. 기본 스타일 생성
+		CellStyle baseStyle = createCellStyle(wb, fixedRowStyle);
+
+		// 3. 헤더 생성 + 스타일 적용
+		for (int i = 0; i < rowCount; i++) {
+			Row row = sheet.createRow(startRow + i);
+			row.setHeightInPoints(30);
+			Map<String, String> rowCaption = captions.get(i);
+
+			for (int j = 0; j < colCount; j++) {
+				String colKey = colseq.get(j);
+				String text = rowCaption.getOrDefault(colKey, "");
+				Cell cell = row.createCell(j);
+				cell.setCellValue(text);
+
+				Map<String, Object> colInfo = colsinfo.get(colKey);
+				Map<String, String> colStyleMap = colInfo != null ? (Map<String, String>) colInfo.get("style") : null;
+				CellStyle finalStyle = (colStyleMap != null) ? mergeStyle(wb, baseStyle, colStyleMap) : baseStyle;
+				cell.setCellStyle(finalStyle);
+			}
+		}
+
+		// 4. 세로 병합 (bycolrec)
+		if ("bycolrec".equals(mergeStrategy)) {
+			for (int j = 0; j < colCount; j++) {
+				String colKey = colseq.get(j);
+				String prev = null;
+				int mergeStart = startRow;
+
+				for (int i = 0; i < rowCount; i++) {
+					String text = captions.get(i).getOrDefault(colKey, "");
+					int curRow = startRow + i;
+					boolean isLast = (i == rowCount - 1);
+
+					if (!text.equals(prev) || isLast) {
+						int mergeEnd = (isLast && text.equals(prev)) ? curRow : curRow - 1;
+						if (prev != null && mergeEnd > mergeStart) {
+							sheet.addMergedRegion(new CellRangeAddress(mergeStart, mergeEnd, j, j));
+						}
+						mergeStart = curRow;
+					}
+					prev = text;
+				}
+			}
+		}
+
+		// 5. 가로 병합 (byrowrec)
+		for (int i = 0; i < rowCount; i++) {
+			Map<String, String> row = captions.get(i);
+			String prev = null;
+			int mergeStart = 0;
+			for (int j = 0; j < colCount; j++) {
+				String colKey = colseq.get(j);
+				String value = row.getOrDefault(colKey, "");
+				boolean isLast = (j == colCount - 1);
+				boolean changed = prev != null && !prev.equals(value);
+
+				if (changed || isLast) {
+					int mergeEnd = (isLast && value.equals(prev)) ? j : j - 1;
+					if (prev != null && mergeEnd > mergeStart) {
+						sheet.addMergedRegion(new CellRangeAddress(startRow + i, startRow + i, mergeStart, mergeEnd));
+					}
+					mergeStart = j;
+				}
+				prev = value;
+			}
+		}
+	}
+
+	private CellStyle createCellStyle(Workbook wb, Map<String, String> styleMap) {
+		CellStyle style = wb.createCellStyle();
+		Font font = wb.createFont();
+
+		if (styleMap == null) return style;
+
+		for (Map.Entry<String, String> entry : styleMap.entrySet()) {
+			String key = entry.getKey();
+			String val = entry.getValue();
+
+			if ("text-align".equals(key)) {
+				if ("center".equals(val)) style.setAlignment(CellStyle.ALIGN_CENTER);
+				else if ("right".equals(val)) style.setAlignment(CellStyle.ALIGN_RIGHT);
+				else if ("left".equals(val)) style.setAlignment(CellStyle.ALIGN_LEFT);
+			} else if ("vertical-align".equals(key)) {
+				if ("middle".equals(val)) style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+			} else if ("font-weight".equals(key)) {
+				if ("bold".equals(val)) font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+			} else if ("font-family".equals(key)) {
+				font.setFontName(val);
+			}
+		}
+
+		style.setFont(font);
+		return style;
+	}
+
+	private CellStyle mergeStyle(Workbook wb, CellStyle base, Map<String, String> overrideStyleMap) {
+		CellStyle newStyle = wb.createCellStyle();
+		newStyle.cloneStyleFrom(base);  // baseStyle을 복사해서 시작
+
+		Font font = wb.createFont();    // 새 Font 객체 생성
+		short bold = -1;
+
+		for (Map.Entry<String, String> entry : overrideStyleMap.entrySet()) {
+			String key = entry.getKey();
+			String val = entry.getValue();
+
+			if ("text-align".equals(key)) {
+				if ("center".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_CENTER);
+				else if ("right".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_RIGHT);
+				else if ("left".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_LEFT);
+			} else if ("vertical-align".equals(key)) {
+				if ("middle".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+				else if ("top".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+				else if ("bottom".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_BOTTOM);
+			} else if ("font-weight".equals(key)) {
+				if ("bold".equals(val)) bold = Font.BOLDWEIGHT_BOLD;
+			} else if ("font-family".equals(key)) {
+				font.setFontName(val);
+			} else if ("color".equals(key)) {
+				// 필요 시 IndexedColors 또는 사용자 지정 색상 매핑
+			} else if ("background-color".equals(key)) {
+				// 배경색 적용도 가능하지만 POI에서는 HSSFColor 또는 XSSFColor 매핑 필요
+			}
+		}
+
+		if (bold != -1) font.setBoldweight(bold);
+		newStyle.setFont(font);
+		return newStyle;
 	}
 
 	private String getBrowser(HttpServletRequest request){

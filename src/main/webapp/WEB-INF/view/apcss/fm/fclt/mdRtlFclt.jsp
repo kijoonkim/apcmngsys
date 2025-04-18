@@ -79,6 +79,7 @@
 							</td>
 							<td style="position: initial">
 								<sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
+								<sbux-button id="btnSearch1" name="btnSearch1" uitype="normal" class="btn btn-sm btn-outline-danger" text="엑셀" onclick="fn_downloadExcel()"></sbux-button>
 								<sbux-button id="btnPrintPdf" name="btnPrintPdf" uitype="normal" class="btn btn-sm btn-outline-danger" text="일괄조회" onclick="fn_print()"></sbux-button>
 								<sbux-button id="btnPrintPdf1" name="btnPrintPdf1" uitype="normal" class="btn btn-sm btn-primary" text="출력" onclick="fn_print1()"></sbux-button>
 								<div style="position: absolute; right: 15px; bottom: 0;">출력옵션 안내 > 레이아웃: 가로모드, 배율: 맞춤설정(미리보기 확인[70~79])</div>
@@ -263,6 +264,85 @@
 			location.reload();
 		};
 		window.print();
+	}
+
+	const fn_downloadExcel = async function(){
+		let btns = $("div.box-header > div.ad_tbl_toplist")
+				.find("button")
+				// .find("span")
+				.map(function () {
+					let body = this.id;
+					body = body.slice(3);
+					return {
+						text: this.innerText,
+						body: body
+					};
+				})
+				.get();
+		let seetArr = [];
+
+		let first;
+		let cnt = 0;
+		btns.forEach(function(item){
+			let gridNm = $("#" + item.body).find("div[id^='sb-area-']").get();
+			gridNm.forEach(function(iner,idx){
+				cnt++;
+				if(cnt === 1){
+					first = iner;
+				}else{
+					let title = $(iner).prev().find("span").map(function () {
+						return $(this).text();
+					}).get().join(" ");
+					seetArr.push({seetName: item.text, gridNm: iner, title: title});
+					// seetArr.push({seetName: item.text + idx, gridNm: iner, title: title});
+				}
+			});
+		});
+
+		var dataList = [];
+		var sheetNameList = seetArr.map(item => item.seetName);
+		var titleList = seetArr.map(item => item.title);
+		var unitList = Array(61).fill("");
+		var arrAdditionalData = [];
+
+		var objExcelInfo = {
+			strFileName : '전수조사현황.xlsx',
+			strAction : "/am/excel/saveMultiGridExcel",
+			objTitleInfo : [{
+				"title":"전수조사 집계현황",
+			}],
+			bIsStyle: true,
+			bIsMerge: true,
+			bUseFormat: false,
+			bIncludeData: true,
+			bUseCompress: false,
+		};
+
+
+
+		console.log(sheetNameList);
+
+		dataList = seetArr
+				// .filter((_, idx) => idx > 0)
+				.map(item => {
+					let grid = item.gridNm.id;
+					let converted = grid.replace("sb-area-", "");
+					let data = window[converted].exportExcel(objExcelInfo, "return");
+					return data;
+				});
+
+		first = first.id.replace("sb-area-","");
+		console.log(dataList);
+
+		arrAdditionalData.push(
+				{"name": "arrSheetData", "value": JSON.stringify(dataList)},
+				{"name": "arrSheetName", "value": JSON.stringify(sheetNameList)},
+				{"name": "arrTitle", "value": JSON.stringify(titleList)},
+				{"name": "arrUnit", "value": JSON.stringify(unitList)}
+		);
+
+		objExcelInfo.arrAdditionalData = arrAdditionalData;
+		window[first].exportExcel(objExcelInfo);
 	}
 
 </script>
