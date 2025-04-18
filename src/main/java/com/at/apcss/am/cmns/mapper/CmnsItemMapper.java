@@ -170,4 +170,20 @@ public interface CmnsItemMapper {
 	 * @throws Exception
 	 */
 	int deleteSeedCrtr(ApcSeedCrtrVO apcSeedCrtrVO) throws Exception;
+
+	/**
+	 * 품종의 품목 상세 조회
+	 * @param cmnsItemVO
+	 * @return List<CmnsItemVO>
+	 * @throws Exception
+	 */
+	public List<CmnsItemVO> selectItemVrtyDtlList(CmnsItemVO cmnsItemVO) throws Exception;
+
+	/**
+	 * 품종 조회
+	 * @param cmnsItemVO
+	 * @return List<CmnsItemVO>
+	 * @throws Exception
+	 */
+	public List<CmnsItemVO> selectVrtyByItemCd(CmnsItemVO cmnsItemVO) throws Exception;
 }

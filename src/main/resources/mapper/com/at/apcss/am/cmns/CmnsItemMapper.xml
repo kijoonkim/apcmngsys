@@ -199,6 +199,7 @@
 			   AND ITEM_CD 		= #{itemCd}
 		]]>
 	</delete>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.itemDelible				-->
 	<!-- DESC : APC 품목 삭제 가능 여부.	                                       	-->
@@ -763,6 +764,100 @@
 		  AND
 		    SEED_CD = #{seedCd}
 	</update>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectItemVrtyDtlList	    -->
+	<!-- DESC : 품종의 품목 상세 조회                           		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.02  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+    <select id="selectItemVrtyDtlList" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+		SELECT
+			ITM.APC_CD					AS APC_CD
+			, ITM.ITEM_CD				AS ITEM_CD
+			, MAX(ITM.ITEM_NM)			AS ITEM_NM
+			, VC.ITEM_DTL_CD			AS ITEM_DTL_CD
+			, MAX(DTL.ITEM_DTL_NM)		AS ITEM_DTL_NM
+			, MAX(DTL.INDCT_SEQ)		AS INDCT_SEQ
+			, MAX(DTL.GRD_MNG_CD)		AS GRD_MNG_CD
+		FROM TB_APC_ITEM_CRTR ITM
+
+		JOIN TB_APC_VRTY_CRTR VC
+		ON VC.APC_CD = ITM.APC_CD
+		AND VC.ITEM_CD = ITM.ITEM_CD
+		AND VC.DEL_YN = 'N'
+		AND VC.USE_YN = 'Y'
+
+		JOIN TB_APC_ITEM_CRTR_DTL DTL
+		ON DTL.APC_CD = ITM.APC_CD
+		AND DTL.ITEM_CD = ITM.ITEM_CD
+		AND DTL.ITEM_DTL_CD = VC.ITEM_DTL_CD
+		AND DTL.DEL_YN = 'N'
+
+		WHERE ITM.DEL_YN = 'N'
+		AND ITM.USE_YN = 'Y'
+		<if test='apcCd != null and apcCd != ""'>
+			AND ITM.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			AND ITM.ITEM_CD = #{itemCd}
+		</if>
+		GROUP BY
+		ITM.APC_CD
+		, ITM.ITEM_CD
+		, VC.ITEM_DTL_CD
+
+		ORDER BY APC_CD, ITEM_CD, INDCT_SEQ, ITEM_DTL_CD
+	</select>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectVrtyByItemCd	    -->
+	<!-- DESC : 품목코드로 품종 조회                           						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.09  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectVrtyByItemCd" parameterType="com.at.apcss.am.cmns.vo.CmnsItemVO" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO">
+
+		SELECT
+				ITM.APC_CD				AS APC_CD
+				, ITM.ITEM_CD			AS ITEM_CD
+				, ITM.ITEM_NM			AS ITEM_NM
+				, VC.ITEM_DTL_CD		AS ITEM_DTL_CD
+				, VC.VRTY_CD			AS VRTY_CD
+				, VC.VRTY_NM			AS VRTY_NM
+				, VC.SN					AS SN
+				, DTL.ITEM_DTL_NM		AS ITEM_DTL_NM
+				, DTL.INDCT_SEQ			AS INDCT_SEQ
+		FROM TB_APC_ITEM_CRTR ITM
+
+		JOIN TB_APC_VRTY_CRTR VC
+		ON VC.APC_CD = ITM.APC_CD
+		AND VC.ITEM_CD = ITM.ITEM_CD
+		AND VC.DEL_YN = 'N'
+		AND VC.USE_YN = 'Y'
+
+		JOIN TB_APC_ITEM_CRTR_DTL DTL
+		ON DTL.APC_CD = ITM.APC_CD
+		AND DTL.ITEM_CD = ITM.ITEM_CD
+		AND DTL.ITEM_DTL_CD = VC.ITEM_DTL_CD
+		AND DTL.DEL_YN = 'N'
+
+		WHERE ITM.DEL_YN = 'N'
+		AND ITM.USE_YN = 'Y'
+
+		<if test='apcCd != null and apcCd != ""'>
+			AND ITM.APC_CD = #{apcCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			AND ITM.ITEM_CD = #{itemCd}
+		</if>
+
+		ORDER BY APC_CD, ITEM_CD, INDCT_SEQ, ITEM_DTL_CD, SN, VRTY_CD
+	</select>
 </mapper>
 
 

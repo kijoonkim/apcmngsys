@@ -301,4 +301,47 @@ public class CmnsItemController extends BaseController {
 	        return getSuccessResponseEntity(resultMap);
 	    }
 
+	@PostMapping(value = "/am/cmns/selectVrtyItemDtlList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectItemVrtyDtlList(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsItemVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = cmnsItemService.selectItemVrtyDtlList(cmnsItemVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/cmns/selectVrtyByItemCd.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectVrtyByItemCd(@RequestBody CmnsItemVO cmnsItemVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<CmnsItemVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = cmnsItemService.selectVrtyByItemCd(cmnsItemVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
