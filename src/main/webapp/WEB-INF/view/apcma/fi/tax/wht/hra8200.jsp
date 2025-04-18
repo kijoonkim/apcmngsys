@@ -75,7 +75,7 @@
                         <tr>
                             <th scope="row" class="th_bg_search">급여영역</th>
                             <td colspan="3" class="td_input" style="border-right:hidden;">
-									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택"></sbux-select>
+									<sbux-select id="srch-slt-payAreaType" name="srch-slt-payAreaType" class="form-control input-sm inpt_data_reqed" uitype="single" jsondata-ref="jsonPayAreaType" unselected-text="선택"></sbux-select>
                             </td>
                         </tr>
                         <tr>
@@ -88,7 +88,6 @@
 									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast table-datepicker-ma"
-									onchange="fn_dtpChange(srch-dtp-submitYyyymmFr)"
 								></sbux-datepicker>
 							</td>
 							<td>-</td>
@@ -100,7 +99,6 @@
 									date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast table-datepicker-ma"
-									onchange="fn_dtpChange(srch-dtp-submitYyyymmTo)"
 								></sbux-datepicker>
 							</td>
 							<td style="border-right: hidden;"></td>
@@ -124,43 +122,25 @@
 								<li>
 									<span>신고리스트</span>
 								</li>
-
 							</ul>
-
 						</div>
 						<div id="sb-area-grdDclrList" style="height:498px;width:100%"></div>
 					</div>
-
-
-
-
-
-
 					<div class="col-sm-9">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li>
 									<span>신고상세정보</span>
 								</li>
-
 							</ul>
 						</div>
 						<div id="sb-area-grdDclrDtlInfo" style="height:498px;width:100%"></div>
 					</div>
 				</div>
-
-
-
 				</div>
-
 			</div>
-
-
     </section>
-
 	<!-- 팝업 Modal -->
-
-
 </body>
 
 <!-- inline scripts related to this page -->
@@ -208,14 +188,6 @@ var p_userId = '${loginVO.id}';
     	fn_createGrid2();
     	//fn_search();
 
-		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
-		//	function(list){
-		//		$('#SRCH_EMP_BTN').click(function(){
-		//			fn_compopup1(list);
-		//		});
-		//	}
-		//)
     });
 
     //grid 초기화
@@ -426,7 +398,6 @@ var p_userId = '${loginVO.id}';
 
 
 
-        focusedRowChanged();
         //fnQRY_P_HRA8200_Q("DETAIL");
 
 
@@ -444,29 +415,33 @@ var p_userId = '${loginVO.id}';
     }
 
     const fnQRY_P_HRA8200_Q = async function(workType){
-    	let rowData = grdDclrList.getRowData(grdDclrList.getRow());
+    	let nRow = grdDclrList.getRow();
+    	let rowData = grdDclrList.getRowData(nRow);
     	let allData = grdDclrList.getGridDataAll();
     	let originalFlag = SBUxMethod.get("srch-chk-originalFlag")['srch-chk-originalFlag'];
     	let allYn = SBUxMethod.get("srch-chk-allYn")['srch-chk-allYn'];
+    	
     	var paramObj = {
-      			V_P_DEBUG_MODE_YN	: ''
-      			,V_P_LANG_ID		: ''
-      			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
-      			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
-      			,V_P_SUBMIT_YYYYMM_FR : ''
-      			,V_P_SUBMIT_YYYYMM_TO : ''
-      			,V_P_SUBMIT_YYYYMM    : workType == "LIST" ? "" : rowData.submitYyyymm
-      			,V_P_JOB_YYYYMM       : workType == "LIST" ? "" : rowData.jobYyyymm
-      			,V_P_PAY_YYYYMM       : workType == "LIST" ? "" : rowData.payYyyymm
-      			,V_P_PAY_AREA_TYPE    : ''
-      			,V_P_ORIGINAL_FLAG    : originalFlag
-      			,V_P_CHKALL_YN        : allYn
-      			,V_P_FORM_ID		: p_formId
-      			,V_P_MENU_ID		: p_menuId
-      			,V_P_PROC_ID		: ''
-      			,V_P_USERID			: ''
-      			,V_P_PC				: ''
-      	    };
+  			V_P_DEBUG_MODE_YN	: ''
+  			,V_P_LANG_ID		: ''
+  			,V_P_COMP_CODE		: gv_ma_selectedCorpCd
+  			,V_P_CLIENT_CODE	: gv_ma_selectedClntCd
+  			
+  			,V_P_SUBMIT_YYYYMM_FR : ''
+  			,V_P_SUBMIT_YYYYMM_TO : ''
+  			,V_P_SUBMIT_YYYYMM    : workType == "LIST" ? "" : rowData.submitYyyymm
+  			,V_P_JOB_YYYYMM       : workType == "LIST" ? "" : rowData.jobYyyymm
+  			,V_P_PAY_YYYYMM       : workType == "LIST" ? "" : rowData.payYyyymm
+  			,V_P_PAY_AREA_TYPE    : ''
+  			,V_P_ORIGINAL_FLAG    : originalFlag
+  			,V_P_CHKALL_YN        : allYn
+  			
+  			,V_P_FORM_ID		: p_formId
+  			,V_P_MENU_ID		: p_menuId
+  			,V_P_PROC_ID		: ''
+  			,V_P_USERID			: ''
+  			,V_P_PC				: ''
+  	    };
 
     	 let postFlag = gfnma_getTableElement("searchTable","srch-",paramObj,"V_P_",["submitYyyymm","jobYyyymm","payYyyymm","originalFlag","chkallYn"]);
 	 	 if(!postFlag){
@@ -477,17 +452,18 @@ var p_userId = '${loginVO.id}';
            	getType				: 'json',
            	workType			:  workType,
            	cv_count			: '2',
-           	params				: gfnma_objectToString(paramObj)
+           	params				: gfnma_objectToString(paramObj, true)
    			});
 
         	const data = await postJsonPromise;
         	console.log('data:', data);
           // 비즈니스 로직 정보
-           try {
-	          if (_.isEqual("S", data.resultStatus)) {
-	              //gfn_comAlert("I0001");
-	        	  //info, log에 따라서 그리드에 데이터 넣어주는듯
-	        	   if (workType === "LIST"){
+			try {
+	        	if (_.isEqual("S", data.resultStatus)) {
+	            	//gfn_comAlert("I0001");
+	        		//info, log에 따라서 그리드에 데이터 넣어주는듯
+	        		if (workType === "LIST"){
+	        		   jsonDclrList.length = 0;
         			   //var msg = convertArrayToCamelCase(data.cv_1)
         			   data.cv_1.forEach(item=>{
         				   let obj = {
@@ -502,8 +478,11 @@ var p_userId = '${loginVO.id}';
         			   })
         			   //jsonDclrList = msg;
 	        		   grdDclrList.rebuild();
-	               }
-	               else if (workType === "DETAIL"){
+	                   if(jsonDclrList.length > 0) {
+	                	   grdDclrList.clickRow(1);
+	                   }
+	               }else if (workType === "DETAIL"){
+	            	   jsonDclrDtlInfo.length = 0;
       				   //var msg = convertArrayToCamelCase(data.cv_2)
       				   data.cv_2.forEach(item=>{
         				   let obj = {
@@ -559,6 +538,7 @@ var p_userId = '${loginVO.id}';
       				   grdDclrDtlInfo.rebuild();
 
 	               }else if (workType === "SUM"){
+	            	   jsonDclrDtlInfo.length = 0;
 	            	   //var msg = convertArrayToCamelCase(data.cv_2)
 	            	   data.cv_２.forEach(item=>{
         				   let obj = {
@@ -637,7 +617,7 @@ var p_userId = '${loginVO.id}';
 
 			        	const data2 = await postJsonPromise;
 			        	console.log('data:', data2);
-
+			        	jsonDclrDtlInfo.length = 0;
 			        	data2.cv_3.forEach((item, index) => {
 
 	        			   jsonDclrDtlInfo.push(item);
@@ -673,10 +653,10 @@ var p_userId = '${loginVO.id}';
 		        		   })
 		                   grdDclrDtlInfo.rebuild();
 
-	               }else if(workType === "REPORT"){
+	               }/*else if(workType === "REPORT"){
 	                   //리포트용 데이터 셋 정리 후 리포트 호출?
 
-	               }
+	               }*/
 	          } else {
 	              alert(data.resultMessage);
 	          }
@@ -722,22 +702,22 @@ var p_userId = '${loginVO.id}';
 	 	    return;
 	 	 }
 
-          const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hra/selectHra8200Q.do", {
            	getType				: 'json',
            	workType			:  workType,
            	cv_count			: '2',
            	params				: gfnma_objectToString(paramObj)
-   			});
+   		});
 
         	const data = await postJsonPromise;
         	console.log('data:', data);
-          // 비즈니스 로직 정보
-           try {
-	          if (_.isEqual("S", data.resultStatus)) {
+        	// 비즈니스 로직 정보
+        	try {
+	        	if (_.isEqual("S", data.resultStatus)) {
 
-	          } else {
-	              alert(data.resultMessage);
-	          }
+	        	} else {
+	            	alert(data.resultMessage);
+	        	}
 
  	        } catch (e) {
  	            if (!(e instanceof Error)) {
@@ -883,39 +863,6 @@ var p_userId = '${loginVO.id}';
         queryClick();
     }
 
-
-	const fn_compopup1 = function(list) {
-
-		var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_TXTEMP_NAME"));
-        var replaceText0 	= "_DEPT_NM_";
-        var replaceText1 	= "_EMP_NM_";
-        var replaceText2 	= "_EMP_STTS_";
-        var strWhereClause 	= "AND X.DEPT_NM LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS LIKE '%" + replaceText2 + "%'";
-
-     	SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
-     	compopup1({
-     		compCode				: gv_ma_selectedCorpCd
-     		,clientCode				: gv_ma_selectedClntCd
-     		,bizcompId				: 'P_HRI001'
-           	,popupType				: 'A'
-     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["부서",		"사원", 		"재직상태"]
-   			,searchInputFields		: ["DEPT_NM",	"EMP_NM", 	"EMP_STTS"]
-   			,searchInputValues		: ["", 			searchText,		""]
-   			,searchInputTypes		: ["input", 	"input",		"select"]			//input, select가 있는 경우
-   			,searchInputTypeValues	: ["", 			"",				list]				//select 경우
-     		,height					: '400px'
-   			,tableHeader			: ["사번", "사원명", "부서", "사업장", "재직상태"]
-   			,tableColumnNames		: ["EMP_CD", "EMP_NM",  "DEPT_NM", "SITE_NM", "EMP_STATE_NAME"]
-   			,tableColumnWidths		: ["80px", "80px", "120px", "120px", "80px"]
- 			,itemSelectEvent		: function (data){
- 				console.log('callback data:', data);
- 				SBUxMethod.set('SRCH_TXTEMP_NAME', data.EMP_NM);
- 				SBUxMethod.set('SRCH_TXTEMP_CODE', data.EMP_CD);
- 			},
-     	});
-   	}
-
     //선택 삭제
     function fn_delete() {
 
@@ -930,18 +877,15 @@ var p_userId = '${loginVO.id}';
 
     }
 
-    const fn_dtpChange = async function(){
-    	let clclnYmdFrom = SBUxMethod.get("srch-dtp-clclnYmdFrom");
-    	let clclnYmdTo = SBUxMethod.get("srch-dtp-clclnYmdTo");
 
-    	/* if(inptYmdFrom > inptYmdTo){
-    		gfn_comAlert("W0014", "시작일자", "종료일자");//W0014 {0}이/가 {1} 보다 큽니다.
-    		SBUxMethod.set("srch-dtp-inptYmdFrom", gfn_dateFirstYmd(new Date()));
-    		SBUxMethod.set("srch-dtp-inptYmdTo", gfn_dateToYmd(new Date()));
-    		return;
-    	} */
-     }
-
+    // 사용 예시
+    try {
+      console.log(calculateToDate("202501", 3));  // 출력: "202504"
+      console.log(calculateToDate("202501", -3)); // 출력: "202410"
+    } catch (error) {
+      console.error(error.message);
+    }
+    
 
     const fn_clclnListAddRow = function(){
     	grdClclnList.addRow();

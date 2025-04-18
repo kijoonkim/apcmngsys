@@ -109,7 +109,7 @@
           <th scope="row" >기준연도</th>
           <td colspan="3" class="td_input" style="border-right: hidden;">
             <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                             date-format="yyyy" class="table-datepicker-ma"
+                             date-format="yyyy" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                              onchange="fn_setMultSelect(srch-dtp-yyyy)">
             </sbux-datepicker>
           </td>
@@ -671,7 +671,7 @@
  
       if (grdListGrid.getRows() === 2) {
         grdListGrid.setRow(1);
-        paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+        paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TX_SITE_CD;
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2330.do", {
           getType: 'json',
           cv_count: '5',
@@ -769,16 +769,13 @@
       input.value = 0;
     });
   }
-  function cfn_search() {
-    fn_search();
-  }
-  const fn_search = async function(){
-    let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
-    if(gfn_isEmpty(_value)){
-      gfn_comAlert("W0002", "신고구분명");
-      return;
-    }
-    await fn_choice(_value);
+  async function cfn_search() {
+	    let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
+	    if(gfn_isEmpty(_value)){
+	      gfn_comAlert("W0002", "신고구분명");
+	      return;
+	    }
+	    await fn_choice(_value);
   }
   async function fn_setSiteCode() {
     var paramObj = {
@@ -799,7 +796,7 @@
     }
     let postFlag = gfnma_getTableElement("srchTable", "srch-", paramObj, "V_P_", ['taxSiteName', 'bizRegno']);
     paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-    paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TAX_SITE_CODE;
+    paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TX_SITE_CD;
  
     const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2330.do", {
       getType: 'json',

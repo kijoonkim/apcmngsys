@@ -245,13 +245,13 @@
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
-                {caption: "부가세유형",		ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
+                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 			width:'120px',  	style:'text-align:left'},
                 {caption: "신고기준시작월", 		ref: 'STANDARD_TERM_FR',    		width:'150px',  	style:'text-align:left'},
                 {caption: "신고기준종료월", 		ref: 'STANDARD_TERM_TO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
-                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
-                {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+                {caption: "총괄납부사업장번호", 	ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 			ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "SEQ", 				ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
             ]
             ,callback       : fn_choice
         });

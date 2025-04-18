@@ -105,7 +105,7 @@
 							<th scope="row" class="th_bg_search">귀속연월</th>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyymmFr"
-									name="srch-dtp-jobYyyymmFr" uitype="popup" date-format="yyyymm"
+									name="srch-dtp-jobYyyymmFr" uitype="popup" date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									readonly></sbux-datepicker>
@@ -113,7 +113,7 @@
 							<td>-</td>
 							<td colspan="1" class="td_input" style="border-right: hidden;">
 								<sbux-datepicker id="srch-dtp-jobYyyymmTo"
-									name="srch-dtp-jobYyyymmTo" uitype="popup" date-format="yyyymm"
+									name="srch-dtp-jobYyyymmTo" uitype="popup" date-format="yyyy-mm"
 									datepicker-mode="month"
 									class="form-control input-sm input-sm-ast table-datepicker-ma"
 									readonly></sbux-datepicker>
@@ -130,7 +130,7 @@
 								<li><span>신고리스트</span></li>
 							</ul>
 						</div>
-						<div id="sb-area-grdDclrList" style="height: 498px; width: 100%"></div>
+						<div id="sb-area-grdDclrList" style="height: 66vh; width: 100%"></div>
 					</div>
 
 
@@ -210,39 +210,33 @@
 									</td>
 									<td style="border-right: hidden;"></td>
 								</tr>
-								<th scope="row" class="th_bg_search">파일생성경로</th>
+									<th scope="row" class="th_bg_search">파일생성경로</th>
 		                            <td colspan="3" class="td_input" style="border-right:hidden;">
 										<sbux-input id="srch-inp-filePath" name="srch-inp-filePath" class="form-control input-sm" uitype="search" button-back-text="···" button-back-event="fn_showDirPicker" wrap-style="width:100%"></sbux-input>
 		                            </td>
 		                        </tr>
-
 								<tr>
 									<th scope="row" class="th_bg_search">비고</th>
-									<td colspan="9" style="border-right: hidden;"><sbux-input
+									<td colspan="9" style="border-right: hidden;padding-left:3px;">
+										<sbux-input
 											uitype="text" id="srch-inp-memomemo" name="srch-inp-memomemo"
 											class="form-control input-sm">
-										</sbux-textarea></td>
+										</sbux-textarea>
+									</td>
 								</tr>
-
-
 							</tbody>
 						</table>
 						</div>
-
-
-
-						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="webacc"
-							is-scrollable="false" jsondata-ref="tabJsonData"> </sbux-tabs>
-						<div id="simpleTab">
-							<div id="sb-area-grdSimpleGiveSpcfct"
-								style="height: 298px; width: 100%"></div>
+						<sbux-tabs id="idxTab_norm" name="idxTab_norm" uitype="normal"
+							is-scrollable="false" jsondata-ref="tabJsonData"></sbux-tabs>
+						<div class="tab-content" style="height: 40vh;">
+							<div id="simpleTab">
+								<div id="sb-area-grdSimpleGiveSpcfct" style="height: 35vh;width: 100%"></div>
+							</div>
+							<div id="lbrTab">
+								<div id="sb-area-grdEricmGiveSpcfct" style="height: 35vh;width: 100%"></div>
+							</div>
 						</div>
-						<div id="lbrTab">
-							<div id="sb-area-grdEricmGiveSpcfct"
-								style="height: 298px; width: 100%"></div>
-						</div>
-
-
 					</div>
 				</div>
 			</div>
@@ -341,32 +335,33 @@
     	SBUxMethod.set("srch-inp-submitDate",gfnma_date2());
     	await fnQRY_P_HRA8400_Q("INFO");
 
-    	grdSimpleGiveSpcfct.rebuild();
-    	grdEricmGiveSpcfct.rebuild();
+//     	grdSimpleGiveSpcfct.rebuild();
+//     	grdEricmGiveSpcfct.rebuild();
 
 	}
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
 
-
+    	
     	fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
-
+    	
     	fn_initSBSelect();
-
+    	
+    	fn_queryClick();
     });
 
     //grid 초기화
     var grdDclrList;
     var jsonDclrList = [];
 
-    var grdSimpleGiveSpcfct; 			// 그리드를 담기위한 객체 선언
-    var jsonSimpleGiveSpcfct = []; 	// 그리드의 참조 데이터 주소 선언
+    var grdSimpleGiveSpcfct; 			// 간이지급명세서
+    var jsonSimpleGiveSpcfct = []; 		// 간이지급명세서 참조 데이터 주소 선언
 
-    var grdEricmGiveSpcfct;
-    var jsonEricmGiveSpcfct= [];
+    var grdEricmGiveSpcfct;				// 근로소득지급명세서
+    var jsonEricmGiveSpcfct= [];		// 근로소득지급명세서 참조 데이터 주소 선언
 
 
 
@@ -465,7 +460,7 @@
         	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'combo',	typeinfo : {ref:'jsonTaxSite', label:'TX_SITE_NM', value:'TX_SITE_CD', oneclickedit: true},		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민등록번호"], ref: 'socialNum', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: [""], ref: 'socialNum', 				type:'output',		width:'0px',		style:'text-align:center'},
         	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["전화번호"], ref: 'telno', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["내/외국인"], ref: 'familyForeiYn', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -558,7 +553,7 @@
         	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'combo',	typeinfo : {ref:'jsonTaxSite', label:'TX_SITE_NM', value:'TX_SITE_CD', oneclickedit: true},		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["주민등록번호"], ref: 'socialNum', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: [""], ref: 'socialNum', 				type:'output',		width:'0px',		style:'text-align:center'},
         	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["소득구분코드"], ref: 'gubunCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["소득구분명"], ref: 'gubunName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -655,9 +650,9 @@
         	getType				: 'json',
         	workType			: workType,
         	cv_count			: '2',
-        	params				: gfnma_objectToString(paramObj)
+        	params				: gfnma_objectToString(paramObj, true)
 		});
-
+		console.log({workType			: workType});
         const data = await postJsonPromise;
 		//console.log('data:', data);
         try {
@@ -694,7 +689,10 @@
 
   					//jsonDclrList = convertArrayToCamelCase(data.cv_1);
   					grdDclrList.rebuild();
-
+  					
+					if(jsonDclrList.length > 0) {
+						grdDclrList.clickRow(1);
+					}
   				}else if(workType === "DETAIL"){
   					//let detailData = convertArrayToCamelCase(data.cv_2);
   					jsonSimpleGiveSpcfct.length = 0;
@@ -745,9 +743,11 @@
   					})
 					//jsonSimpleGiveSpcfct = detailData;
 					//jsonEricmGiveSpcfct = detailData;
-
-	        		grdSimpleGiveSpcfct.rebuild();
+	        		
+					grdSimpleGiveSpcfct.rebuild();
 	        		grdEricmGiveSpcfct.rebuild();
+					console.log('jsonSimpleGiveSpcfct ==>', jsonSimpleGiveSpcfct);
+					console.log('jsonEricmGiveSpcfct ==>', jsonEricmGiveSpcfct);
   				}
 
 

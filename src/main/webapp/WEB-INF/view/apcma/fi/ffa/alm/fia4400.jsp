@@ -116,7 +116,23 @@
 								</div>
 							</td>
 							<td></td>
-
+							<th scope="row" class="th_bg_search">프로젝트</th>
+							<td colspan="3" class="td_input" style="border-right: hidden;">
+								<div style="display:flex;float:left;vertical-align:middle;width:100%">
+									<sbux-input uitype="text" id="srch-inp-projectCode"
+										name="srch-inp-projectCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
+									<font style="width:5px"></font>
+									<sbux-button
+										id="BTN_POP1"
+										class="btn btn-xs btn-outline-dark"
+										text="…" uitype="modal"
+										target-id="modal-compopup1"
+										onclick="fn_bizPopup">
+									</sbux-button>
+									<font style="width:5px"></font>
+									<sbux-input style="width:100%" id="srch-inp-projectName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
+								</div>
+							</td>
 
 						</tr>
 						<tr>
@@ -153,26 +169,13 @@
 								</div>
 							</td>
 							<td></td>
-							<th scope="row" class="th_bg_search">프로젝트</th>
+														<th scope="row" class="th_bg_search">회계기준</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<div style="display:flex;float:left;vertical-align:middle;width:100%">
-									<sbux-input uitype="text" id="srch-inp-projectCode"
-										name="srch-inp-projectCode" class="form-control input-sm" group-id="dsps1"></sbux-input>
-									<font style="width:5px"></font>
-									<sbux-button
-										id="BTN_POP1"
-										class="btn btn-xs btn-outline-dark"
-										text="…" uitype="modal"
-										target-id="modal-compopup1"
-										onclick="fn_bizPopup">
-									</sbux-button>
-									<font style="width:5px"></font>
-									<sbux-input style="width:100%" id="srch-inp-projectName" uitype="text" class="form-control input-sm" group-id="dsps1"></sbux-input>
-								</div>
+								<sbux-select id="srch-slt-acctRuleCode"
+									name="srch-slt-acctRuleCode" class="form-control input-sm inpt_data_reqed"
+									uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
 							</td>
-						</tr>
-						<tr>
-
+							<td></td>
 							<th scope="row" class="th_bg_search">정산번호</th>
 							<td colspan="3" class="td_input" style="border-right: hidden;">
 								<sbux-input uitype="text" id="srch-inp-cipTransferNo"
@@ -180,13 +183,8 @@
 							</td>
 							<td></td>
 
-							<th scope="row" class="th_bg_search">회계기준</th>
-							<td colspan="3" class="td_input" style="border-right: hidden;">
-								<sbux-select id="srch-slt-acctRuleCode"
-									name="srch-slt-acctRuleCode" class="form-control input-sm inpt_data_reqed"
-									uitype="single" jsondata-ref="jsonAcntgCrtr"></sbux-select>
-							</td>
-							<td></td>
+
+							
 						</tr>
 					</tbody>
 				</table>
@@ -463,16 +461,16 @@
 					}
         	},
             {caption: ["정산번호"],		ref: 'cipTransferNo', 			type:'input',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["정산일자"], 	ref: 'transferDate',    	type:'datepicker', typeinfo : {oneclickedit: true},  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
+            {caption: ["정산일자"], 	ref: 'transferDate',    	type:'datepicker', typeinfo : {oneclickedit: false},  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업장"],  		ref: 'siteCode',    			type : 'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value', oneclickedit: false} ,  	width:'100px',  	style:'text-align:left'},
             {caption: ["취득구분"],    	ref: 'acquireType', 		type:'combo',  	width:'100px', style:'text-align:left', typeinfo : {ref:'jsonAcqsSe', label:'label', value:'value'}  },
-            {caption: ["회계기준"],		ref: 'acctRuleCode',	type : 'combo', typeinfo : {ref:'jsonAcntgCrtr', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
-            {caption: ["통화"], 		ref: 'currencyCode', 	type : 'combo', typeinfo : {ref:'jsonCurrency', label:'label', value:'value', oneclickedit: true} ,  	width:'100px',  	style:'text-align:left'},
+            {caption: ["회계기준"],		ref: 'acctRuleCode',	type : 'combo', typeinfo : {ref:'jsonAcntgCrtr', label:'label', value:'value', oneclickedit: false} ,  	width:'100px',  	style:'text-align:left'},
+            {caption: ["통화"], 		ref: 'currencyCode', 	type : 'combo', typeinfo : {ref:'jsonCurrency', label:'label', value:'value', oneclickedit: false} ,  	width:'100px',  	style:'text-align:left'},
             {caption: ["환율"], 		ref: 'exchangeRate',  			type:'input',  	width:'100px',  	style:'text-align:left'},
         	{caption: ["정산총액"], 	ref: 'totalTransferAmount', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'memo', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["전표명"], 		ref: 'docName', 				type:'input',		width:'80px',		style:'text-align:center'},
-            {caption: ["전표상태"], 	ref: 'docStatus', 				type : 'combo', typeinfo : {ref:'jsonDocStatus', label:'CD_NM', value:'SBSD_CD', oneclickedit: true},		width:'80px',		style:'text-align:center'},
+            {caption: ["전표상태"], 	ref: 'docStatus', 				type : 'combo', typeinfo : {ref:'jsonDocStatus', label:'CD_NM', value:'SBSD_CD', oneclickedit: false},		width:'80px',		style:'text-align:center'},
             {caption: ["생성자"], 		ref: 'insertUserName', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["생성일시"], 	ref: 'insertTime', 				type:'input',		width:'80px',		style:'text-align:center'},
             {caption: ["생성PC"], 		ref: 'insertPc', 				type:'input',		width:'80px',		style:'text-align:center'}
@@ -500,14 +498,14 @@
             {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["프로젝트코드"],  	ref: 'projectCode',     type : 'output',  	width:'30px',  	style:'text-align:left',
             	 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd(grdClclnTrgt," + nRow + ", 5)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd(grdClclnTrgt," + nRow + ", 5)'>…</button>";
                  }
            	},
             {caption: ["프로젝트"],      	ref: 'projectName', 		type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["자산번호"],			ref: 'assetNo',			type:'output', 	width:'100px',  	style:'text-align:left'},
             {caption: ["자산번호"],			ref: 'assetNoBtn',			type:'button',	width:'30px',  	style:'text-align:left',
             	 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astPopup(grdClclnTrgt," + nRow + ", 5)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astPopup(grdClclnTrgt," + nRow + ", 5)'>…</button>";
                  }
             },
             {caption: ["자산명"], 			ref: 'assetName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
@@ -538,44 +536,44 @@
             {caption: ["자산구분"],  		ref: 'assetCategory',   type:'output',   	width:'100px',  	style:'text-align:left'},
             {caption: ["자산구분"],  		ref: 'assetCategoryBtn',   type:'button',  	width:'30px',  	style:'text-align:left',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astSePopup()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_astSePopup()'>…</button>";
                 }
             },
             {caption: ["중분류"],      	ref: 'assetLevel2Name', 		type:'output',	width:'100px',  	style:'text-align:left'},
             {caption: ["중분류"],      	ref: 'assetLevel2NameBtn', 		type:'button', typeinfo : {callback:fn_assetLevel2},  	width:'30px',  	style:'text-align:left',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel2()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel2()'>…</button>";
                 }
             },
             {caption: ["소분류"],	ref: 'assetLevel3Name',	type:'output', width:'100px',  	style:'text-align:left'},
             {caption: ["소분류"],	ref: 'assetLevel3NameBtn',	type:'button', typeinfo : {callback:fn_assetLevel3},  	width:'30px',  	style:'text-align:left',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel3()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_assetLevel3()'>…</button>";
                 }
             },
             {caption: ["부서"], 			ref: 'deptName', 				type:'output', 	width:'100px',  	style:'text-align:left'},
             {caption: ["부서"], 			ref: 'deptNameBtn', 				type:'button',typeinfo : {callback:fn_compopupDept} , 	width:'30px',  	style:'text-align:left',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupDept()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupDept()'>…</button>";
                 }
             },
             {caption: ["코스트센터"], 		ref: 'costCenterName',  			type:'output', width:'100px',  	style:'text-align:left'},
             {caption: ["코스트센터"], 		ref: 'costCenterNameBtn',  			type:'button', typeinfo : {callback:fn_compopupCostCenter}, width:'30px',  	style:'text-align:left',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupCostCenter()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_compopupCostCenter()'>…</button>";
                 }
             },
         	{caption: ["계정명"], 		ref: 'accountName', 				type:'output', 		width:'80px',		style:'text-align:center'},
         	{caption: ["계정명"], 		ref: 'accountNameBtn', 				type:'button', typeinfo : {callback: fn_accountPopup},		width:'30px',		style:'text-align:center',
         		renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_accountPopup()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_accountPopup()'>…</button>";
                 }
         	},
             {caption: ["금액"], 		ref: 'transferAmount', 				type:'input',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
             {caption: ["프로젝트코드"], 		ref: 'projectCode', 				type:'output', 	width:'80px',		style:'text-align:center'},
             {caption: ["프로젝트코드"], 		ref: 'projectCodeBtn', 				type:'button',		width:'30px',		style:'text-align:center',
             	renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd()'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_bizPopupGrd()'>…</button>";
                 }
             },
             {caption: ["프로젝트명"], 		ref: 'projectName', 				type:'input',		width:'80px',		style:'text-align:center'},
@@ -1157,6 +1155,8 @@
             	}else if(strWorkType === "DETAIL"){
             		//var msg = convertArrayToCamelCase(data.cv_4)
             		//var msg2 = convertArrayToCamelCase(data.cv_3)
+            		jsonClclnTrgt.length = 0;
+            		jsonClclnDsctn.length = 0;
             		data.cv_4.forEach(item=>{
             			var obj = {
             					checkYn : item.CHECK_YN
@@ -1212,7 +1212,7 @@
 
             	}else if(strWorkType === "PROJECT"){
             		//var msg = convertArrayToCamelCase(data.cv_5);
-
+					jsonClclnDsctn.length = 0;
             		data.cv_5.forEach(item=>{
             			var obj = {
             					checkYn : item.CHECK_YN
@@ -1291,10 +1291,9 @@
     const fn_focusedRowChanged = async function(){
 
     	var row = grdClclnList.getRow();
-    	if(grdClclnList.getRowStatus(row) === 3){
+    	if(grdClclnList.getRowStatus(row) === 3 || row <= 0){
     		return;
     	}
-
 
     	/* for(var i = 0; i < grdClclnList.getRows(); i++)
         {
@@ -1303,7 +1302,8 @@
         } */
 
         await fnQRY_P_FIA4400_Q("DETAIL");
-        let colId = grdClclnList.getColOfID('chk');
+        let colId = grdClclnList.getColRef('chk');
+//         let colId = grdClclnList.getColOfID('chk');
         if (grdClclnList.getRowStatus(grdClclnList.getRow()) == 1 ) // 포커스 되어있는 행의 로우 상태가 추가 상태이면
         {
 

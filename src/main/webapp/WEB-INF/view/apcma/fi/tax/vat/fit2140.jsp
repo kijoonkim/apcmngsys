@@ -58,6 +58,7 @@
             background-color : white !important;
             border-radius: 0 !important;
             padding: 0px 12px !important;
+            font-size: 12px !important;
             height: auto;
         }
     </style>
@@ -109,8 +110,9 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
-                        >
+                                         date-format="yyyy"class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+                        				onchange="fn_setMultSelect(srch-dtp-yyyy)"
+                        >				
                         </sbux-datepicker>
                     </td>
                     <td></td>
@@ -308,23 +310,21 @@
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
     //-----------------------------------------------------------
-    var jsonCorpNm = [];
     var jsonGrdList = [];
     var jsonGrdDetail = [];
- 
+
     var grdDetailGrid;
     var grdListGrid;
- 
+
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
         fn_createGridDetail();
         fn_init();
     });
- 
+
     const fn_init = async function(){
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
         SBUxMethod.refresh('srch-slt-corpNm');
         SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
@@ -343,12 +343,12 @@
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: "AND A.YR = '" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: 'left' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
@@ -358,7 +358,7 @@
                 {caption: "총괄납부사업장번호", 		ref: 'UNIT_NO',    		width:'180px',  	style:'text-align:left'},
                 {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',    		width:'150px',  	style:'text-align:left'},
                 {caption: "확정여부", 		ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none',}
+                {caption: "SEQ", 		ref: 'SEQ',    		width:'150px',  	style:'text-align:left;display:none'}
             ]
             ,callback       : fn_choice
         })
@@ -421,7 +421,7 @@
  
             if (grdListGrid.getRows() === 2) {
                 grdListGrid.setRow(1);
-                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TX_SITE_CD;
                 const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2140.do", {
                     getType: 'json',
                     cv_count: '7',
@@ -466,10 +466,10 @@
             {caption : ['NO','NO'], ref : 'CARD_SEQ', width : '5%', style : 'text-align:center',    type : 'output'},
             {caption : ['⑩ 카드회원번호','⑩ 카드회원번호'], ref : 'CARD_NO', width : '20%', style : 'text-align:center',    type : 'output'},
             {caption : ['거래처명','거래처명'], ref : 'CNPT_NM', width : '15%', style : 'text-align:center',    type : 'output'},
-            {caption : ['⑪ 공급자 사업자등록번호','⑪ 공급자 사업자등록번호'], ref : 'BRNO', width : '20%', style : 'text-align:center',    type : 'output'},
-            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','거래건수'], ref : 'ETC_CARD_CNT', width : '10%', style : 'text-align:center',    type : 'output'},
-            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','공급가액'], ref : 'SPLY_AMT', width : '15%', style : 'text-align:center',    type : 'output'},
-            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','세액'], ref : 'VAT_AMT', width : '15%', style : 'text-align:center',    type : 'output'},
+            {caption : ['⑪ 공급자 사업자등록번호','⑪ 공급자 사업자등록번호'], ref : 'BRNO', width : '20%', style : 'text-align:center',    type : 'output', format : {type:'number', rule:'#,###'} },
+            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','거래건수'], ref : 'ETC_CARD_CNT', width : '10%', style : 'text-align:center',    type : 'output', format : {type:'number', rule:'#,###'} },
+            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','공급가액'], ref : 'SPLY_AMT', width : '15%', style : 'text-align:center',    type : 'output', format : {type:'number', rule:'#,###'} },
+            {caption : ['⑫ 그 밖의 신용카드 등 거래명세 합계','세액'], ref : 'VAT_AMT', width : '15%', style : 'text-align:center',    type : 'output', format : {type:'number', rule:'#,###'} },
         ];
         grdDetailGrid = _SBGrid.create(SBGridProperties);
     }
@@ -543,10 +543,8 @@
             input.value = 0;
         });
     }
-    function cfn_search() {
-        fn_search();
-    }
-    const fn_search = async function(){
+    
+    async function cfn_search() {
         let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
         if(gfn_isEmpty(_value)){
             gfn_comAlert("W0002", "신고구분명");
@@ -554,6 +552,7 @@
         }
         await fn_choice(_value);
     }
+    
     async function fn_setSiteCode(){
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
@@ -573,7 +572,7 @@
         }
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TX_SITE_CD;
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2140.do", {
             getType: 'json',
             cv_count: '7',

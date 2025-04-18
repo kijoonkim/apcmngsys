@@ -147,7 +147,7 @@
                                          uitype="popup"
                                          datepicker-mode="year"
                                          date-format="yyyy"
-                                         class="table-datepicker-ma"
+                                         class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                          onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
@@ -429,7 +429,7 @@
  
             if (grdListGrid.getRows() === 2) {
                 grdListGrid.setRow(1);
-                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TX_SITE_CD;
                 const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2310.do", {
                     getType: 'json',
                     cv_count: '8',
@@ -554,7 +554,7 @@
         }
         let postFlag = gfnma_getTableElement("srchTable", "srch-", paramObj, "V_P_", ['taxSiteName', 'bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TAX_SITE_CODE;
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TX_SITE_CD;
  
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2310.do", {
             getType: 'json',
