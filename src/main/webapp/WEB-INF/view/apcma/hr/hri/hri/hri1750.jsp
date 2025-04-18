@@ -351,12 +351,12 @@
     var editType			= "N";
     var strDate = gfn_dateToYmd(new Date());
 
-    var jsonReportType = []; // 증명서유형
-    var jsonConfirmStep = []; // 진행상태
-    var jsonPositionCode = []; // 직위
-    var jsonDutyCode = []; // 직책
-    var jsonPrintType = []; // 출력구분
-    var jsonEmpState = []; // 재직구분
+    var jsonReportType 		= []; // 증명서유형
+    var jsonConfirmStep 	= []; // 진행상태
+    var jsonPositionCode 	= []; // 직위
+    var jsonDutyCode 		= []; // 직책
+    var jsonPrintType 		= []; // 출력구분
+    var jsonEmpState 		= []; // 재직구분
 
     const fn_initSBSelect = async function() {
         let rst = await Promise.all([
@@ -924,6 +924,10 @@
         var nRow = bandgvwInfo.getRow();
         let rowData = bandgvwInfo.getRowData(nRow);
 
+        if(gfn_isEmpty(rowData)){
+        	return;
+        }
+        
         let DOC_NUM = gfn_nvl(rowData.DOC_NUM);
         let REQUEST_DATE = gfn_nvl(SBUxMethod.get("REQUEST_DATE"));
         let EMP_CODE = gfn_nvl(SBUxMethod.get("EMP_CODE"));
@@ -1042,7 +1046,6 @@
                 params				: gfnma_objectToString(paramObj)
             });
             const data = await postJsonPromise;
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -1085,55 +1088,44 @@
         	alert("출력할 증명서를 선택하세요.");
             return;
         }
-
         let rowData = bandgvwInfo.getRowData(nRow);
-
         // 00 : 미승인, 11 : 승인, 19 : 반려
         if (rowData.CONFIRM_STEP != "5") {
             alert("승인되지 않은 건은 출력이 불가능합니다.");
             return;
         }
-
         let iprint_start_date = new Date(rowData.PRINT_START_DATE.replace("-","") == "" ? "0": rowData.PRINT_START_DATE.replace("-", ""));
         let iprint_end_date = new Date(rowData.PRINT_END_DATE.replace("-", "") == "" ? "99999999": rowData.PRINT_END_DATE.replace("-", ""));
-
         // 인사총무관리자가 아닐 경우 출력가능여부가 "N"이면 출력이 안되도록 처리
         if (!isHrManager) {
             if (strDate < iprint_start_date || strDate > iprint_end_date) {
                 alert("출력기간이 아니므로 출력이 불가능합니다.");
                 return;
             }
-
             if (rowData.PRINTABLE_YN == "N")
                 return;
         }
-
     	if (rowData.REPORT_TYPE == "R_INCOME_C") {
             conn = await fn_GetReportDataIncomeC(rowData);
             conn = await gfnma_convertDataForReport(conn);
     		gfn_popClipReportPost("근로소득 원천징수영수증", "ma/RPT_HRA1600_INCOME_C.crf", null, conn );
-
         } else if(rowData.REPORT_TYPE == "R_CAREER") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
     		gfn_popClipReportPost("경력증명서", "ma/RPT_HRI1700_CAREER.crf", null, conn );
-
         } else if(rowData.REPORT_TYPE == "R_RETIRE") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
     		gfn_popClipReportPost("퇴직증명서", "ma/RPT_HRI1700_RETIRE.crf", null, conn );
-
         } else if(rowData.REPORT_TYPE == "R_WORK") {
             conn = await fn_GetReportData(rowData);
             conn = await gfnma_convertDataForReport(conn);
     		gfn_popClipReportPost("재직증명서", "ma/RPT_HRI1700_WORK.crf", null, conn );
-
         } else if(rowData.REPORT_TYPE == "R_INCOME_D") {
             conn = await fn_GetReportDataIncomeD(rowData);
             conn = await gfnma_convertDataForReport(conn);
     		gfn_popClipReportPost("퇴직소득 원천징수영수증", "ma/RPT_HRI1700_WORK.crf", null, conn );
         }
-
     }
 
     const fn_onload = async function () {
@@ -1196,11 +1188,12 @@
 
     //상세정보 보기
     const fn_view = async function() {
-        editType = "U";
         var nRow = bandgvwInfo.getRow();
         if (nRow < 1) {
             return;
         }
+
+        editType = "U";
 
         let rowData = bandgvwInfo.getRowData(nRow);
         console.log(rowData);
@@ -1365,6 +1358,11 @@
 		                data.cv_3[0].IMG2 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].STAMP_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }else{
 	                	data.cv_3[0].IMG2 = '';
+	                }
+	                
+	                //재직증명서 회사로고 추가
+	                if(obj.REPORT_TYPE === "R_WORK"){
+		                data.cv_3[0].IMG1 = data.SEVER_ROOT_PATH + "/com/getFileImage.do?fkey="+ gfn_nvl(data.cv_3[0].LOGO_FILE_NAME) +"&comp_code="+ gv_ma_selectedCorpCd +"&client_code=" + gv_ma_selectedClntCd;
 	                }
                 }
             } else {

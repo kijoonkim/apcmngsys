@@ -945,7 +945,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_TIME_ITEM_NAME"));
         var replaceText0 	= "_ATDNC_ITEM_CD_";
         var replaceText1 	= "_ATDNC_ITEM_NM_";
-        var strWhereClause 	= "AND ATDNC_ITEM_CD LIKE '%" + replaceText0 + "%' AND ATDNC_ITEM_NM LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND ATDNC_ITEM_CD LIKE '%" + replaceText0 + "%' AND ATDNC_ITEM_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '일근태항목');
         compopup1({
@@ -1009,7 +1009,7 @@
             ,clientCode				: gv_ma_selectedClntCd
             ,bizcompId				: 'P_HRT004_06'
             ,popupType				: 'A'
-            ,whereClause			: ''
+            ,whereClause			: "AND CO_CD = '" + gv_ma_selectedCorpCd + "'"
             ,searchCaptions			: ["코드", 		"명칭"]
             ,searchInputFields		: ["ATDNC_ITEM_CD", 	"ATDNC_ITEM_NM"]
             ,searchInputValues		: ["", 			""]

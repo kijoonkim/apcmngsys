@@ -59,7 +59,7 @@ public class ApcMaHri1750Controller extends BaseController {
         }
 
         logger.info("=============selectHri1750List=====end========");
-        return getSuccessResponseEntity(resultMap);
+        return getSuccessResponseEntityMa(resultMap);
     }
 
     @PostMapping(value = "/hr/hri/hri/insertHri1750.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -87,7 +87,7 @@ public class ApcMaHri1750Controller extends BaseController {
 
             return getErrorResponseEntity(errorCode, errorStr);
         } else {
-            return getSuccessResponseEntity(resultMap);
+            return getSuccessResponseEntityMa(resultMap);
         }
     }
     
@@ -120,7 +120,7 @@ public class ApcMaHri1750Controller extends BaseController {
       }
 
       logger.info("=============selectHri1750ReportList=====end========");
-      return getSuccessResponseEntity(resultMap);
+      return getSuccessResponseEntityMa(resultMap);
 	}
 	//  근로소득 원천징수 영수증 리포트 출력 리스트
 	@PostMapping(value = "/hr/hri/hri/selectHri1750ReportListIncomeC.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
@@ -149,7 +149,7 @@ public class ApcMaHri1750Controller extends BaseController {
 	}
 	
 	logger.info("=============selectHri1750ReportListIncomeC=====end========");
-	  	return getSuccessResponseEntity(resultMap);
+	  	return getSuccessResponseEntityMa(resultMap);
 	}
 	
 	//  근로소득 원천징수 영수증 리포트 출력 리스트
@@ -179,7 +179,7 @@ public class ApcMaHri1750Controller extends BaseController {
 		}
 		
 		logger.info("=============selectHri1750ReportListIncomeD=====end========");
-		return getSuccessResponseEntity(resultMap);
+		return getSuccessResponseEntityMa(resultMap);
 	}
     
     
