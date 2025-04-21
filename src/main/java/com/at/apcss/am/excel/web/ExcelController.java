@@ -709,10 +709,10 @@ public class ExcelController extends BaseConstructor{
 	       for ( int i = 0; i < arrListSheetData.size(); i++ ) {
 
 	    	   sheetData = arrListSheetData.get(i);
-	    	   sheetData.put("rowmemorysize", bufferSize);
+			   sheetData.put("rowmemorysize", bufferSize);
 	    	   sheetData.put("bIsStyle", true);
 
-	    	   excel.init(sheetData);
+			   excel.init(sheetData);
 
 	    	   //sheet 추가생성
 	    	   workbook = excel.save();
