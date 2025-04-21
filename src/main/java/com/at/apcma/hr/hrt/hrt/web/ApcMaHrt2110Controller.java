@@ -76,17 +76,39 @@ public class ApcMaHrt2110Controller extends BaseController {
             , HttpSession session
             , HttpServletRequest request) throws Exception{
 
-        logger.info("=============insertHrt2110List=====start========");
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		logger.info("=============insertHrt2110List=====start========");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
-        try {
-            resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT2110_S");
+		try {
+			
+			param.put("procedure", 		"SP_HRT2110_S");
+			resultMap = apcMaCommDirectService.callProc(param, session, request, "");
 
-            logger.info("=============insertHrt5200List=====end========");
-            return getSuccessResponseEntityMa(resultMap);
-        } catch (Exception e) {
-            
-            return getErrorResponseEntity(e);
-        }
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+		logger.info("=============insertHrt2110List=====end========");
+		return getSuccessResponseEntityMa(resultMap);
+    }
+    
+    @PostMapping(value = "/hr/hrt/hrt/insertHrt2110ListAppr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertHrt2110ListAppr(
+    		@RequestBody Map<String, Object> param
+    		, Model model
+    		, HttpSession session
+    		, HttpServletRequest request) throws Exception{
+    	
+    	logger.info("=============insertHrt2110ListAppr=====start========");
+    	HashMap<String,Object> resultMap = new HashMap<String,Object>();
+    	
+    	try {
+    		resultMap = apcMaComService.processForListData(param, session, request, "", "SP_HRT2110_S");
+    		
+    		logger.info("=============insertHrt2110ListAppr=====end========");
+    		return getSuccessResponseEntityMa(resultMap);
+    	} catch (Exception e) {
+    		
+    		return getErrorResponseEntity(e);
+    	}
     }
 }
