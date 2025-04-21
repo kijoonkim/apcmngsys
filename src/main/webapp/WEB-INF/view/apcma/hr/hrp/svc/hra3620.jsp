@@ -69,18 +69,18 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th scope="row" class="th_bg_search">사업장</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <div class="dropdown">
-                            <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <font>선택</font>
-                                <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto">
-                            </div>
-                        </div>
-                    </td>
-                    <td></td>
+<!--                     <th scope="row" class="th_bg_search">사업장</th> -->
+<!--                     <td colspan="3" class="td_input" style="border-right: hidden;"> -->
+<!--                         <div class="dropdown"> -->
+<!--                             <button style="width:100%;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="SRCH_SITE_CODE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!--                                 <font>선택</font> -->
+<!--                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i> -->
+<!--                             </button> -->
+<!--                             <div class="dropdown-menu" aria-labelledby="SRCH_SITE_CODE" style="width:300px;height:150px;padding-top:0px;overflow:auto"> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </td> -->
+<!--                     <td></td> -->
                     <th scope="row" class="th_bg_search">근무일</th>
                     <td class="td_input" style="border-right:hidden;">
                         <sbux-datepicker
@@ -107,6 +107,33 @@
                                 style="width:100%;"
                                 group-id="panHeader"
                                 required
+                        />
+                    </td>
+                    <td></td>
+                    <th scope="row" class="th_bg_search">지급일</th>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_PAY_DATE_FR"
+                                name=""SRCH_PAY_DATE_FR""
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                style="width:100%;"
+                                group-id="panHeader"
+                        />
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <span> ~ </span>
+                    </td>
+                    <td class="td_input" style="border-right:hidden;">
+                        <sbux-datepicker
+                                uitype="popup"
+                                id="SRCH_PAY_DATE_TO"
+                                name="SRCH_PAY_DATE_TO"
+                                date-format="yyyy-mm-dd"
+                                class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
+                                style="width:100%;"
+                                group-id="panHeader"
                         />
                     </td>
                     <td></td>
@@ -986,121 +1013,162 @@
     const fn_downloadExcel = async function () {
         gvwInfo.exportLocalExcel("용역비등록내역", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
     }
+    
+    window.addEventListener('DOMContentLoaded', async function (e) {
+    	await fn_initSBSelect();
+    	fn_createGvwInfoGrid();
+    	await fn_onload();
 
-    window.addEventListener('DOMContentLoaded', async function(e) {
-        await fn_initSBSelect();
-        fn_createGvwInfoGrid();
-        await fn_onload();
+    	document.getElementById('excelFile').addEventListener('change', function (event) {
+    		if (!window.FileReader) return;
 
-        document.getElementById('excelFile').addEventListener('change', function(event) {
-            if(!window.FileReader) return;
+    		try {
+    			const reader = new FileReader();
+    			reader.addEventListener(
+    				"load",
+    				() => {
+    					const workBook = XLSX.read(reader.result, { type: 'binary' });
+    					
+						//총 금액
+						let TOT_AMOUNT = 0;
+						//총 지급액
+						let TOT_PAY_AMT = 0;
 
-            var reader = new FileReader();
+    					workBook.SheetNames.forEach(function (sheetName) {
+    						const list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {
+    							range: 1,
+    							header: [
+    								"EARNER_CODE", 
+    								"EARNER_NAME", 
+    								"JOB_YYYYMM", 
+    								"WORK_ST_DAT", 
+    								"WORK_END_DAT",
+    								"WORK_CNT", 
+    								"DAILY_PAY_AMT", 
+    								"ADJUSTMENT_AMT", 
+    								"FUAL_AMT", 
+    								"ETC_COST",
+    								"WORK_GBN", 
+    								"WORK_PLACE", 
+    								"WORK_NAME", 
+    								"WORK_DTL_NAME", 
+    								"WORK_PLACE2",
+    								"PAY_DATE", 
+    								"NON_TXABLE_AMT", 
+    								"INC_AMT", 
+    								"EARNED_INC_AMT", 
+    								"INC_TX_AMT",
+    								"LOCAL_TX_AMT", 
+    								"HEALTH_INSURE_AMT", 
+    								"LONG_HEALTH_INSURE_AMT", 
+    								"NATIONAL_PENS_AMT",
+    								"EMPLOY_INSURE_AMT", 
+    								"ETC_DED_AMT", 
+    								"REMARK", 
+    								"MEMO"
+    							]
+    						});
 
-            reader.addEventListener(
-                "load",
-                () => {
-                    let workBook = XLSX.read(reader.result, { type: 'binary' });
+    						const requiredFields = [
+    							{ key: "EARNER_CODE", label: "소득자코드" },
+    							{ key: "EARNER_NAME", label: "소득자 성명" },
+    							{ key: "JOB_YYYYMM", label: "귀속연월" },
+    							{ key: "WORK_ST_DAT", label: "근무시작일" },
+    							{ key: "WORK_END_DAT", label: "근무종료일" },
+    							{ key: "WORK_CNT", 	label: "인원수" },
+    							{ key: "DAILY_PAY_AMT",	label: "일당" },
+    							{ key: "WORK_GBN", label: "작업구분" },
+    							{ key: "WORK_PLACE", label: "작업장소" },
+    							{ key: "WORK_NAME", label: "작업명" },
+    							{ key: "PAY_DATE", label: "지급일자" }
+    						];
 
-                    workBook.SheetNames.forEach(function (sheetName) {
-                        let list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {range: 1, header: [
-                                "EARNER_CODE",
-                                "EARNER_NAME",
-                                "JOB_YYYYMM",
-                                "WORK_ST_DAT",
-                                "WORK_END_DAT",
-                                "WORK_CNT",
-                                "DAILY_PAY_AMT",
-                                "ADJUSTMENT_AMT",
-                                "FUAL_AMT",
-                                "ETC_COST",
-                                "WORK_GBN",
-                                "WORK_PLACE",
-                                "WORK_NAME",
-                                "WORK_DTL_NAME",
-                                "WORK_PLACE2",
-                                "PAY_DATE",
-                                "NON_TXABLE_AMT",
-                                "INC_AMT",
-                                "EARNED_INC_AMT",
-                                "INC_TX_AMT",
-                                "LOCAL_TX_AMT",
-                                "HEALTH_INSURE_AMT",
-                                "LONG_HEALTH_INSURE_AMT",
-                                "NATIONAL_PENS_AMT",
-                                "EMPLOY_INSURE_AMT",
-                                "ETC_DED_AMT",
-                                "REMARK",
-                                "MEMO",
-                            ]});
+    						for (let i = 0; i < list.length; i++) {
+    							const item = list[i];
+    							// 필수 항목 체크
+    							for (let field of requiredFields) {
+    								if (!gfnma_nvl2(item[field.key])) {
+    									alert("엑셀 " + (i + 2) + "행의 [ " + field.label + " ] 항목이 비어 있습니다.");
+    									document.getElementById('excelFile').value = '';
+    									cfn_search();
+    									return;
+    								}
+    							}
+    						}
+    						
+    						for (let i = 0; i < list.length; i++) {
+    							const item = list[i];
+    							// 코드 매핑
+    							item.WORK_GBN 		= jsonWorkGbn.find(d => d["CD_NM"] == item.WORK_GBN)?.["SBSD_CD"] || '';
+    							item.WORK_PLACE 	= jsonWorkPlace.find(d => d["CD_NM"] == item.WORK_PLACE)?.["SBSD_CD"] || '';
+    							item.WORK_NAME 		= jsonWorkName.find(d => d["CD_NM"] == item.WORK_NAME)?.["SBSD_CD"] || '';
+    							item.WORK_DTL_NAME 	= jsonWorkDtlName.find(d => d["CD_NM"] == item.WORK_DTL_NAME)?.["SBSD_CD"] || '';
+    							item.WORK_PLACE2 	= jsonWorkPlace2.find(d => d["CD_NM"] == item.WORK_PLACE2)?.["SBSD_CD"] || '';
 
-                        list.forEach((item, index) => {
-                        	
-                            item.WORK_GBN = jsonWorkGbn.length > 0 && jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN).length > 0 ? jsonWorkGbn.filter(data => data["CD_NM"] == item.WORK_GBN)[0]["SBSD_CD"] : '';
-                            item.WORK_PLACE = jsonWorkPlace.length > 0 && jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE).length > 0 ? jsonWorkPlace.filter(data => data["CD_NM"] == item.WORK_PLACE)[0]["SBSD_CD"] : '';
-                            item.WORK_NAME = jsonWorkName.length > 0 && jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME).length > 0 ? jsonWorkName.filter(data => data["CD_NM"] == item.WORK_NAME)[0]["SBSD_CD"] : '';
-                            item.WORK_DTL_NAME = jsonWorkDtlName.length > 0 && jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME).length > 0 ? jsonWorkDtlName.filter(data => data["CD_NM"] == item.WORK_DTL_NAME)[0]["SBSD_CD"] : '';
-                            item.WORK_PLACE2 = jsonWorkPlace2.length > 0 && jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2).length > 0 ? jsonWorkPlace2.filter(data => data["CD_NM"] == item.WORK_PLACE2)[0]["SBSD_CD"] : '';
+    							// 숫자 기본값 처리
+    							item.WORK_CNT = gfn_nvl(item.WORK_CNT, 0);
+    							item.DAILY_PAY_AMT = gfn_nvl(item.DAILY_PAY_AMT, 0);
+    							item.ADJUSTMENT_AMT = gfn_nvl(item.ADJUSTMENT_AMT, 0);
+    							item.FUAL_AMT = gfn_nvl(item.FUAL_AMT, 0);
+    							item.ETC_COST = gfn_nvl(item.ETC_COST, 0);
+    							item.NON_TXABLE_AMT = gfn_nvl(item.NON_TXABLE_AMT, 0);
+    							item.INC_AMT = gfn_nvl(item.INC_AMT, 0);
+    							item.INC_TX_AMT = gfn_nvl(item.INC_TX_AMT, 0);
+    							item.LOCAL_TX_AMT = gfn_nvl(item.LOCAL_TX_AMT, 0);
+    							item.HEALTH_INSURE_AMT = gfn_nvl(item.HEALTH_INSURE_AMT, 0);
+    							item.LONG_HEALTH_INSURE_AMT = gfn_nvl(item.LONG_HEALTH_INSURE_AMT, 0);
+    							item.NATIONAL_PENS_AMT = gfn_nvl(item.NATIONAL_PENS_AMT, 0);
+    							item.EMPLOY_INSURE_AMT = gfn_nvl(item.EMPLOY_INSURE_AMT, 0);
+    							item.ETC_DED_AMT = gfn_nvl(item.ETC_DED_AMT, 0);
 
-                            item.WORK_CNT = gfn_nvl(item.WORK_CNT, 0);
-                            item.DAILY_PAY_AMT = gfn_nvl(item.DAILY_PAY_AMT, 0);
-                            item.ADJUSTMENT_AMT = gfn_nvl(item.ADJUSTMENT_AMT, 0);
-                            item.FUAL_AMT = gfn_nvl(item.FUAL_AMT, 0);
-                            item.ETC_COST = gfn_nvl(item.ETC_COST, 0);
-                            item.NON_TXABLE_AMT = gfn_nvl(item.NON_TXABLE_AMT, 0);
-                            item.INC_AMT = gfn_nvl(item.INC_AMT, 0);
-                            item.INC_TX_AMT = gfn_nvl(item.INC_TX_AMT, 0);
-                            item.LOCAL_TX_AMT = gfn_nvl(item.LOCAL_TX_AMT, 0);
-                            item.HEALTH_INSURE_AMT = gfn_nvl(item.HEALTH_INSURE_AMT, 0);
-                            item.LONG_HEALTH_INSURE_AMT = gfn_nvl(item.LONG_HEALTH_INSURE_AMT, 0);
-                            item.NATIONAL_PENS_AMT = gfn_nvl(item.NATIONAL_PENS_AMT, 0);
-                            item.EMPLOY_INSURE_AMT = gfn_nvl(item.EMPLOY_INSURE_AMT, 0);
-                            item.ETC_DED_AMT = gfn_nvl(item.ETC_DED_AMT, 0);
+    							// 날짜 및 계산 항목
+    							const istart_date = new Date(item.WORK_ST_DAT);
+    							const iend_date = new Date(item.WORK_END_DAT);
+    							item.WORK_DAY = Math.trunc(Math.abs((iend_date - istart_date) / (1000 * 60 * 60 * 24)) + 1);
+    							item.TOT_AMOUNT = item.WORK_DAY * item.WORK_CNT * item.DAILY_PAY_AMT + item.ADJUSTMENT_AMT + item.FUAL_AMT + item.ETC_COST;
+    							item.EARNED_INC_AMT = item.TOT_AMOUNT - item.NON_TXABLE_AMT - item.INC_AMT;
+    							item.TOT_DEDUCT_AMT = item.INC_TX_AMT + item.LOCAL_TX_AMT + item.HEALTH_INSURE_AMT +
+    												  item.LONG_HEALTH_INSURE_AMT + item.NATIONAL_PENS_AMT + item.EMPLOY_INSURE_AMT + item.ETC_DED_AMT;
+    							item.TOT_PAY_AMT = item.TOT_AMOUNT - item.TOT_DEDUCT_AMT;
 
-                            //근로일수
-                            let istart_date = new Date(item.WORK_ST_DAT);
-                            let iend_date = new Date(item.WORK_END_DAT);
-                            item.WORK_DAY = Math.trunc(Math.abs((iend_date.getTime() - istart_date.getTime()) / (1000 * 60 * 60 * 24)) + 1);
-                            
-                        	//총 금액
-                            item.TOT_AMOUNT = Number( Number(item.WORK_DAY) * Number(item.WORK_CNT) * Number(item.DAILY_PAY_AMT) ) + Number(item.ADJUSTMENT_AMT) + Number(item.FUAL_AMT) + Number(item.ETC_COST);
-                            //근로소득금액
-                            item.EARNED_INC_AMT = Number( Number(item.TOT_AMOUNT) - Number(item.NON_TXABLE_AMT) - Number(item.INC_AMT));
-                            //총 공제액
-                            item.TOT_DEDUCT_AMT = Number(Number(item.INC_TX_AMT) + Number(item.LOCAL_TX_AMT) + Number(item.HEALTH_INSURE_AMT)
-                            + Number(item.LONG_HEALTH_INSURE_AMT) + Number(item.NATIONAL_PENS_AMT) + Number(item.EMPLOY_INSURE_AMT) + Number(item.ETC_DED_AMT));
-                            //총 지급액
-                            item.TOT_PAY_AMT = Number( Number(item.TOT_AMOUNT) - Number(item.TOT_DEDUCT_AMT));
+    							// 날짜 포맷 정리
+    							item.JOB_YYYYMM = item.JOB_YYYYMM.replace(/-/g, "");
+    							item.WORK_ST_DAT = item.WORK_ST_DAT.replace(/-/g, "");
+    							item.WORK_END_DAT = item.WORK_END_DAT.replace(/-/g, "");
+    							item.PAY_DATE = item.PAY_DATE.replace(/-/g, "");
 
-                            item.JOB_YYYYMM = item.JOB_YYYYMM.replace(/-/g, "");
-                            item.WORK_ST_DAT = item.WORK_ST_DAT.replace(/-/g, "");
-                            item.WORK_END_DAT = item.WORK_END_DAT.replace(/-/g, "");
-                            item.PAY_DATE = item.PAY_DATE.replace(/-/g, "");
+    							// 근로자 정보 매핑
+    							const earner = jsonEarnerCode.find(d => d["EARNR_CD"] == item.EARNER_CODE) || {};
+    							item.SOCNO 			= earner["RGDT_NO"] || '';
+    							item.SITE_CODE 		= earner["SITE_CD"] || '';
+    							item.BANK_CODE 		= earner["BANK_CD"] || '';
+    							item.BANK_ACC 		= earner["BACNT_NO"] || '';
+    							item.EARNER_NAME 	= earner["EARNR_NM"] || '';
+    							item.TEL 			= earner["TELNO"] || '';
+    							item.ADDRESS 		= earner["ADDR"] || '';
+    							item.FOREI_TYPE 	= earner["FRGNR_YN"] || '';
+    							item.NATION_CODE 	= earner["HBTN_NTN_CD"] || '';
+    							item.TXN_ID 		= 0;
 
-                            item.SOCNO = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["RGDT_NO"] : '';
-                            item.SITE_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["SITE_CD"] : '';
-                            item.BANK_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["BANK_CD"] : '';
-                            item.BANK_ACC = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["BACNT_NO"] : '';
-                            item.EARNER_NAME = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["EARNR_NM"] : '';
-                            item.TEL = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["TELNO"] : '';
-                            item.ADDRESS = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["ADDR"] : '';
-                            item.FOREI_TYPE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["FRGNR_YN"] : '';
-                            item.NATION_CODE = jsonEarnerCode.length > 0 ? jsonEarnerCode.filter(data => data["EARNR_CD"] == item.EARNER_CODE)[0]["HBTN_NTN_CD"] : '';
-                            item.TXN_ID = 0;
-
-                            console.log(item);
-                            gvwInfo.addRow(true, item);
-                        });
-                        document.getElementById('excelFile').value = '';
-                    })
-                },
-                false,
-            );
-
-            reader.readAsBinaryString(event.target.files[0]);
-        });
+    							console.log(item);
+    							TOT_AMOUNT += Number(item.TOT_AMOUNT);
+    							TOT_PAY_AMT += Number(item.TOT_PAY_AMT);
+    							gvwInfo.addRow(true, item);
+    						}
+    						document.getElementById('excelFile').value = '';
+							alert('\n업로드 : ' + list.length + '건 \n\n'+  '총 금액 : ' + gfnma_getThreeComma(TOT_AMOUNT) + '원 \n\n' +  '총 지급액 : ' + gfnma_getThreeComma(TOT_PAY_AMT) +'원' );
+    					});
+    				},
+    				false
+    			);
+    			reader.readAsBinaryString(event.target.files[0]);
+    		} catch (e) {
+    			console.error(e);
+    			alert("파일을 처리하는 중 오류가 발생했습니다.");
+    		}
+    	});
     });
-
+    
     // 초기화
     function cfn_init() {
         gfnma_uxDataClear('#srchArea');
@@ -1120,6 +1188,8 @@
         SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
         SBUxMethod.set("SRCH_JOB_YYYYMM_FR", gfn_dateToYmd(new Date()));
         SBUxMethod.set("SRCH_JOB_YYYYMM_TO", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_PAY_DATE_FR", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("SRCH_PAY_DATE_TO", gfn_dateToYmd(new Date()));
     }
 
     const fn_save = async function () {
@@ -1381,6 +1451,8 @@
 
         let JOB_YYYYMM_FR = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_FR"));
         let JOB_YYYYMM_TO = gfn_nvl(SBUxMethod.get("SRCH_JOB_YYYYMM_TO"));
+        let PAY_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_FR"));
+        let PAY_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_TO"));
         let SITE_CODE = gfn_nvl(gfnma_multiSelectGet("SRCH_SITE_CODE"));
         let EARNER_NAME = gfn_nvl(SBUxMethod.get("SRCH_EARNER_NAME"));
 
@@ -1389,6 +1461,8 @@
             V_P_LANG_ID				: '',
             V_P_COMP_CODE			: gv_ma_selectedCorpCd,
             V_P_CLIENT_CODE			: gv_ma_selectedClntCd,
+            V_P_PAY_DATE_FR 		: PAY_DATE_FR,
+            V_P_PAY_DATE_TO 		: PAY_DATE_TO,
             V_P_JOB_YYYYMM_FR 		: JOB_YYYYMM_FR,
             V_P_JOB_YYYYMM_TO 		: JOB_YYYYMM_TO,
             V_P_SITE_CODE 			: SITE_CODE,
