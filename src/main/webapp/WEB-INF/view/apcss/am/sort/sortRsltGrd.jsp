@@ -808,6 +808,13 @@
 	         				,grd7 : item.QNTT_7
 	         				,grd8 : item.QNTT_8
 	         				,grd9 : item.QNTT_9
+	         				,grd10 : item.QNTT_10
+	         				,grd11 : item.QNTT_11
+	         				,grd12 : item.QNTT_12
+	         				,grd13 : item.QNTT_13
+	         				,grd14 : item.QNTT_14
+	         				,grd15 : item.QNTT_15
+	         				,grd16 : item.QNTT_16
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};
@@ -824,6 +831,13 @@
 	         				,grd7 : item.WGHT_7
 	         				,grd8 : item.WGHT_8
 	         				,grd9 : item.WGHT_9
+	         				,grd10 : item.WGHT_10
+	         				,grd11 : item.WGHT_11
+	         				,grd12 : item.WGHT_12
+	         				,grd13 : item.WGHT_13
+	         				,grd14 : item.WGHT_14
+	         				,grd15 : item.WGHT_15
+	         				,grd16 : item.WGHT_16
 	         				,sbTot        : item.SORT_WGHT
 	         		};
 	 	        	jsonGrdDsctn.push(grdDsctnQnttTot);
