@@ -815,6 +815,7 @@
 	         				,grd14 : item.QNTT_14
 	         				,grd15 : item.QNTT_15
 	         				,grd16 : item.QNTT_16
+	         				,grd17 : item.QNTT_17
 	         				,sbTot        : item.SORT_QNTT
 
 	 	        	};
@@ -838,6 +839,7 @@
 	         				,grd14 : item.WGHT_14
 	         				,grd15 : item.WGHT_15
 	         				,grd16 : item.WGHT_16
+	         				,grd17 : item.WGHT_17
 	         				,sbTot        : item.SORT_WGHT
 	         		};
 	 	        	jsonGrdDsctn.push(grdDsctnQnttTot);
