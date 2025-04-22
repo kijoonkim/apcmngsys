@@ -1882,8 +1882,8 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
+                	if (data.v_errorCode == 'MSG0003') {
+                        alert('정상적으로 승인되었습니다.');
                     }
                     await fn_search();
                 } else {
@@ -1929,8 +1929,6 @@
                 gfn_comAlert("E0000", "미확정된 근태계획 데이타가 존재합니다.");
                 return false;
             }
-
-            let listData = [];
 
             const paramObj = {
                 V_P_DEBUG_MODE_YN: '',
@@ -1994,8 +1992,8 @@
 
             try {
                 if (_.isEqual("S", data.resultStatus)) {
-                    if (data.resultMessage) {
-                        alert(data.resultMessage);
+                    if (data.v_errorCode == 'MSG0003') {
+                        alert('정상적으로 승인취소되었습니다.');
                     }
                     await fn_search();
                 } else {
@@ -2107,8 +2105,8 @@
         
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
+                if (data.v_errorCode == 'MSG0004') {
+                    alert('정상적으로 확정되었습니다.');
                 }
                 await fn_search();
             } else {
@@ -2217,8 +2215,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-                if (data.resultMessage) {
-                    alert(data.resultMessage);
+            	if (data.v_errorCode == 'MSG0004') {
+                    alert('정상적으로 확정취소되었습니다.');
                 }
                 await fn_search();
             } else {
