@@ -343,7 +343,7 @@
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
-            {caption: ["지급회차"],         ref: 'SEQ',    type:'output',  	width:'50px',  style:'text-align:center'},
+            {caption: ["지급회차"],         ref: 'SEQ',    type:'output',  	width:'50px',  style:'text-align:center', hidden: true},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '60px',
@@ -1097,11 +1097,17 @@
         }
         let paramObj = {};
         let listData = [];
-        
+        let checkConfirm = '';
+
         checkData.forEach((item, index) => {
 			if(gfn_isEmpty(gfn_nvl(item.data.EMAIL))){
 				return;
 			};
+			
+        	if(item.data.PAY_CONFIRM_YN == "N"){
+        		checkConfirm += item.rownum + ',';
+        		return;
+        	}
             paramObj = {
                 V_P_DEBUG_MODE_YN		: ''
                 ,V_P_LANG_ID			: ''
@@ -1159,6 +1165,10 @@
             };
             listData.push(param);
         });
+        
+        if( !gfn_isEmpty(checkConfirm) ) alert('EMAIL발송은 지급확정된 건만 가능합니다. \n\n 지급확정 되지 않은 행 (' +  checkConfirm.slice(0, -1) + ')');
+        if( !gfn_isEmpty(checkConfirm) && gfn_isEmpty(listData)) return;
+        
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendEmail.do", {listData: listData});
         const data = await postJsonPromise;
 
@@ -1194,11 +1204,17 @@
         } 
         
         
+        
         let paramObj = {};
         let listData = [];
-        
+        let checkConfirm = '';
         checkData.forEach((item, index) => {
 
+        	if(item.data.PAY_CONFIRM_YN == "N"){
+        		checkConfirm += item.rownum + ',';
+        		return;
+        	}
+        	
             paramObj = {
                 V_P_DEBUG_MODE_YN		: ''
                 ,V_P_LANG_ID			: ''
@@ -1256,6 +1272,11 @@
             };
             listData.push(param);
         });
+        
+        
+        if( !gfn_isEmpty(checkConfirm) ) alert('SMS발송은 지급확정된 건만 가능합니다. \n\n 지급확정 되지 않은 행 (' +  checkConfirm.slice(0, -1) + ')');
+        if( !gfn_isEmpty(checkConfirm) && gfn_isEmpty(listData)) return;
+        
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
