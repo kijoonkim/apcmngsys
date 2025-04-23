@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <%--<div class="col-md-6">
         <h4> ▶ 사용자 및 트래픽</h4>
         <table class="table table-bordered tbl_fixed">
           <thead style="background-color: #e8f1f9">
@@ -95,6 +95,17 @@
             </tr>
           </tbody>
         </table>
+      </div>--%>
+
+      <div class="col-md-6">
+        <div class="ad_tbl_top">
+          <ul class="ad_tbl_count">
+            <li>
+              <span>▶ 사용자 및 트래픽</span>
+            </li>
+          </ul>
+        </div>
+        <div id="sb-area-userTrfc"></div>
       </div>
 
       <div class="col-md-6">
@@ -285,36 +296,40 @@
   var tsMmCntUser;
   var prvMmCntUser;
 
+  // Grid 생성 변수
+  var grdUserTrfc;
+  var jsonUserTrfc;
+
+  window.addEventListener('DOMContentLoaded', function () {
+    fn_init();
+  });
+
   // init
   const fn_init = async function () {
 
     let nowYmd = gfn_dateToYmd(new Date());
     SBUxMethod.set("sysStatInq-crtr-ym", nowYmd);
     SBUxMethod.setDatepickerMaxDate("sysStatInq-crtr-ym", nowYmd)
+    fn_createUserTrfc();
     await fn_search();
   }
 
-  /** 증감률 계산 **/
-  const fn_calcGrowthRate = function (newValue, oldValue) {
-    let growthRate;
-
-    if(oldValue === 0) {
-      oldValue = 1
-    }
-
-    growthRate = ((((newValue - oldValue) / oldValue) * 100).toFixed(2));
-
-    if ((newValue - oldValue) == 0 || (newValue == 0 && oldValue == 0)) {
-      return "0";
-    }
-
-    // 양수 일시 '+' 붙이기
-    if (growthRate > 0) {
-      return "+" + growthRate + "%";
-    }
-    else {
-      return growthRate + "%";
-    }
+  const fn_createUserTrfc = function () {
+    var SBGridProperties = {};
+    SBGridProperties.parentid = "sb-area-userTrfc";
+    SBGridProperties.id = "grdUserTrfc";
+    SBGridProperties.jsonref = "jsonUserTrfc";
+    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+    SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.columns = [
+      {caption : ['항목', "항목"],            ref: 'artcl',     type: 'output', width: '15%',  style:'text-align:center;'},
+      {caption : ['금일', "금일"],            ref: 'thdy',      type: 'output', width: '17%',  style: 'text-align:center;', format : {type:'number', rule:'#,###'}},
+      {caption : ['금월', "금월"],            ref: 'tsmm',      type: 'output', width: '17%',  style: 'text-align:center;', format : {type:'number', rule:'#,###'}},
+      {caption : ['전월', "전월"],            ref: 'prvmm',     type: 'output', width: '17%',  style: 'text-align:center;', format : {type:'number', rule:'#,###'}},
+      {caption : ['차이(전월대비)', "건수"],    ref: 'diffNocs',  type: 'output', width: '17%',  style: 'text-align:center;', format : {type:'string', rule:'+#,### ; #,###'}, calc: 'fn_calcDiffNocs'},
+      {caption : ['차이(전월대비)', "증감(%)"], ref: 'diffIcdc',  type: 'output', width: '17%',  style: 'text-align:center;', calc: 'fn_calcGrowthRate'},
+    ];
+    grdUserTrfc = _SBGrid.create(SBGridProperties);
   }
 
   /** 조회 버튼 클릭 **/
@@ -337,9 +352,63 @@
 
     await fn_vstrCnt();
     await fn_pageViewCnt();
-    await fn_userCnt();
-    await fn_ognzPrst();
-    await fn_ognzTaskMbrCnt();
+    // await fn_userCnt();
+    // await fn_ognzPrst();
+    // await fn_ognzTaskMbrCnt();
+  }
+
+  const fn_zero = function(val) {
+
+    if (gfn_isEmpty(val)) {
+      return "";
+    } else {
+      if (val == 0) {
+        return "";
+      } else {
+        return val;
+      }
+    }
+  }
+
+  /** 차이(전월대비) 건수 계산**/
+  const fn_calcDiffNocs = function(objGrid, nRow, nCol) {
+    let tsMm = objGrid.getData(Number(nRow), objGrid.getColRef('tsmm'));
+    let prvMm = objGrid.getData(Number(nRow), objGrid.getColRef('prvmm'));
+
+    let diff = Number(tsMm) - Number(prvMm);
+
+    if (tsMm == "" && prvMm == "") {
+      return "";
+    }
+    return diff;
+  }
+
+  /** 증감률 계산 **/
+  const fn_calcGrowthRate = function (objGrid, nRow, nCol) {
+    let growthRate = 0;
+    let diff = objGrid.getData(Number(nRow), objGrid.getColRef('diffNocs'));
+    let prvMm = objGrid.getData(Number(nRow), objGrid.getColRef('prvmm'));
+
+    if(prvMm == 0) {
+      return "-";
+    } else {
+      growthRate = parseFloat(((Number(diff) / Number(prvMm)) * 100).toFixed(2)).toLocaleString();
+    }
+
+    if (diff === 0) {
+      return "0";
+    } else if (diff == "") {
+      return "-";
+    }
+
+    // 양수 일시 '+' 붙이기
+    if (growthRate > 0) {
+      console.log(growthRate);
+      return "+" + growthRate + "%";
+    }
+    else {
+      return growthRate + "%";
+    }
   }
 
   /** 사용자 및 트래픽 (방문자 카운트) **/
@@ -350,125 +419,79 @@
       , ymdTo : ymdTo
     });
 
-    const data = await postJsonPromise;
+    const prvTsMmData = await postJsonPromise;
 
     postJsonPromise = gfn_postJSON("/co/mng/selectVstrCnt.do", {
       ymdFrom  : dateFrom
       , ymdTo : dateTo
     });
 
-    const tsDate = await postJsonPromise;
+    const thDyDate = await postJsonPromise;
 
     try {
-      if (_.isEqual("S", data.resultStatus) && _.isEqual("S", tsDate.resultStatus)) {
-        let tsDayVstr = document.getElementById('userTrfc-tsDayVstr');
-        let tsMmVstr = document.getElementById('userTrfc-tsMmVstr');
-        let prvMmVstr = document.getElementById('userTrfc-prvMmVstr');
-        let tsDayAvgVstr = document.getElementById('userTrfc-tsDayAvgVstr');
-        let tsMmAvgVstr = document.getElementById('userTrfc-tsMmAvgVstr');
-        let prvMmAvgVstr = document.getElementById('userTrfc-prvMmAvgVstr');
-        let vstrDiff = document.getElementById('userTrfc-vstrDiff');
-        let vstrIcdc = document.getElementById('userTrfc-vstrIcdc');
-        let avgVstrDiff = document.getElementById('userTrfc-avgVstrDiff');
-        let avgVstrIcdc = document.getElementById('userTrfc-avgVstrIcdc');
+      if (_.isEqual("S", prvTsMmData.resultStatus) && _.isEqual("S", thDyDate.resultStatus)) {
 
-        let tsMmVstrCnt;
-        let prvMmVstrCnt;
+        jsonUserTrfc.length = 0;
 
-        let tsDayVstrCnt;
+        const userTrfcVO = [
+          { artcl: '총 방문자', thdy: '', tsmm: '', prvmm: '', diffNocs: '', diffIcdc: ''},
+          { artcl: '일 평균 방문자', thdy: '', tsmm: '', prvmm: '', diffNocs: '', diffIcdc: ''}
+        ];
 
-        let tsYr;
-        let tsMm;
-        let prvYr;
-        let prvMm;
-        let tsMmLastDate;
-        let prvMmLastDate;
-        let tsMmAvg;
-        let prvMmAvg;
+        thDyDate.resultList.forEach((vstr) => {
+          userTrfcVO[0].thdy = vstr.cnt;
+          userTrfcVO[1].thdy = vstr.cnt;
+        });
 
-        if (tsDate.resultList.length == 0) {
-          tsDayVstrCnt = 0;
-          tsDayCntUser = 0;
-          tsDayVstr.textContent = "0";
-        } else {
-          tsDayVstrCnt = tsDate.resultList[0].cnt;
-          tsDayCntUser = tsDate.resultList[0].cntUser;
-        }
+        const data = prvTsMmData.resultList;
+        const dataLen = data.length - 1;
 
-        if (data.resultList.length == 0) {
-          tsMmCntUser = 0;
-          prvMmCntUser = 0;
+        if (fn_zero(data) != "") {
 
-          tsDayVstr.textContent = "0";
-          tsMmVstr.textContent = "0";
-          prvMmVstr.textContent = "0";
+          if (dataLen == 0) {
+            data.unshift({
+              cnt: ""
+              , ym: ""
+            });
+          }
 
-          tsDayAvgVstr.textContent = "0";
-          tsMmAvgVstr.textContent = "0";
-          prvMmAvgVstr.textContent = "0";
+          let tsMmVstrCnt = data[1].cnt;
+          let prvMmVstrCnt = data[0].cnt;
 
-          vstrDiff.textContent = "0";
-          avgVstrDiff.textContent = "0";
+          let tsYr;
+          let tsMm;
+          let prvYr;
+          let prvMm;
+          let tsMmLastDate;
+          let prvMmLastDate;
+          let tsMmAvg;
+          let prvMmAvg;
 
-          vstrIcdc.textContent = "0";
-          avgVstrIcdc.textContent = "0";
+          userTrfcVO[0].tsmm = tsMmVstrCnt;
+          userTrfcVO[0].prvmm = prvMmVstrCnt;
 
-          vstrDiff.style.color = "black";
-          vstrIcdc.style.color = "black";
+          tsYr = parseInt(data[1].ym.substr(0,4));
+          tsMm = parseInt(data[1].ym.substr(4,2));
 
-          avgVstrDiff.style.color = "black";
-          avgVstrIcdc.style.color = "black";
-
-        } else {
-          tsMmVstrCnt = data.resultList[1].cnt;
-          prvMmVstrCnt = data.resultList[0].cnt;
-
-          tsMmCntUser = data.resultList[1].cntUser;
-          prvMmCntUser = data.resultList[0].cntUser;
-
-          tsYr = parseInt(data.resultList[1].ym.substr(0,4));
-          tsMm = parseInt(data.resultList[1].ym.substr(4,2));
-
-          prvYr = parseInt(data.resultList[0].ym.substr(0,4));
-          prvMm = parseInt(data.resultList[0].ym.substr(4,2));
+          prvYr = parseInt(data[0].ym.substr(0,4));
+          prvMm = parseInt(data[0].ym.substr(4,2));
 
           tsMmLastDate = new Date(tsYr, tsMm + 1, 0).getDate();
           prvMmLastDate = new Date(prvYr, prvMm + 1, 0).getDate();
 
-          tsMmAvg = parseInt((tsMmVstrCnt / tsMmLastDate).toFixed(0));
-          prvMmAvg = parseInt((prvMmVstrCnt / prvMmLastDate).toFixed(0));
+          tsMmAvg = Math.round(tsMmVstrCnt / tsMmLastDate);
+          prvMmAvg = Math.round(prvMmVstrCnt / prvMmLastDate);
 
-          tsDayVstr.textContent = tsDayVstrCnt.toLocaleString();
-          tsMmVstr.textContent = tsMmVstrCnt.toLocaleString();
-          prvMmVstr.textContent = prvMmVstrCnt.toLocaleString();
-
-          tsDayAvgVstr.textContent = tsDayVstrCnt.toLocaleString();
-          tsMmAvgVstr.textContent = tsMmAvg.toLocaleString();
-          prvMmAvgVstr.textContent = prvMmAvg.toLocaleString();
-
-          vstrDiff.textContent = (tsMmVstrCnt - prvMmVstrCnt).toLocaleString();
-          avgVstrDiff.textContent = (tsMmAvg - prvMmAvg).toLocaleString();
-
-          vstrIcdc.textContent = fn_calcGrowthRate(tsMmVstrCnt, prvMmVstrCnt);
-          avgVstrIcdc.textContent = fn_calcGrowthRate(tsMmAvg, prvMmAvg);
-
-          // 양수 blue, 음수 red
-          if (parseInt(vstrDiff.textContent) > 0) {
-            vstrDiff.style.color = "blue";
-            vstrIcdc.style.color = "blue";
-          } else if (parseInt(vstrDiff.textContent) < 0) {
-            vstrDiff.style.color = "red";
-            vstrIcdc.style.color = "red";
+          if (prvMmVstrCnt == "" || prvMmVstrCnt == null) {
+            prvMmAvg = "";
           }
 
-          if (parseInt(avgVstrDiff.textContent) > 0) {
-            avgVstrDiff.style.color = "blue";
-            avgVstrIcdc.style.color = "blue";
-          } else if (parseInt(avgVstrDiff.textContent) < 0) {
-            avgVstrDiff.style.color = "red";
-            avgVstrIcdc.style.color = "red";
-          }
+          userTrfcVO[1].tsmm = tsMmAvg;
+          userTrfcVO[1].prvmm = prvMmAvg;
         }
+
+        jsonUserTrfc = userTrfcVO;
+        grdUserTrfc.rebuild();
       }
     } catch (e) {
       if (!(e instanceof Error)) {
@@ -482,70 +505,47 @@
   /** 사용자 및 트래픽 (총 페이지뷰(PV)) **/
   const fn_pageViewCnt = async function() {
 
-    let tsDayTotPV = document.getElementById('userTrfc-tsDayTotPV');
-    let tsMmTotPV = document.getElementById('userTrfc-tsMmTotPV');
-    let prvMmTotPV = document.getElementById('userTrfc-prvMmTotPV');
-    let totPVDiff = document.getElementById('userTrfc-totPVDiff');
-    let totPVIcdc = document.getElementById('userTrfc-totPVIcdc');
-
-    let tsDayTotPVCnt;
-    let tsMmPVCnt;
-    let prvMmPVCnt;
-
     let postJsonPromise = gfn_postJSON("/co/mng/selectPageViewCnt.do", {
       ymdFrom  : ymdFrom
       , ymdTo : ymdTo
     });
 
-    const data = await postJsonPromise;
+    const prvTsMmData = await postJsonPromise;
 
     postJsonPromise = gfn_postJSON("/co/mng/selectPageViewCnt.do", {
       ymdFrom  : dateFrom
       , ymdTo : dateTo
     });
 
-    const tsDate = await postJsonPromise;
+    const thDyData = await postJsonPromise;
 
     try {
-      if (_.isEqual("S", data.resultStatus) && _.isEqual("S", tsDate.resultStatus)) {
+      if (_.isEqual("S", prvTsMmData.resultStatus) && _.isEqual("S", thDyData.resultStatus)) {
 
-        if (tsDate.resultList.length == 0) {
-          tsDayTotPVCnt = 0;
-          tsDayTotPV.textContent = "0";
-        } else {
-          tsDayTotPVCnt = tsDate.resultList[0].pageViewCnt;
-          tsDayTotPV.textContent = tsDayTotPVCnt.toLocaleString();
-        }
+        console.log(prvTsMmData);
 
-        if (data.resultList.length == 0) {
-          tsDayTotPV.textContent = "0";
-          tsMmTotPV.textContent = "0";
-          prvMmTotPV.textContent = "0";
+        const userTrfcVO = { artcl: '총 페이지뷰(PV)', thdy: '', tsmm: '', prvmm: '', diffNocs: '', diffIcdc: ''};
 
-          totPVDiff.textContent = "0";
-          totPVIcdc.textContent = "0";
+        thDyData.resultList.forEach((pVCnt) => {
+          userTrfcVO.thdy = pVCnt.pageViewCnt;
+        });
 
-          totPVDiff.style.color = "black";
-          totPVIcdc.style.color = "black";
-        } else {
-          tsMmPVCnt = data.resultList[1].pageViewCnt;
-          prvMmPVCnt = data.resultList[0].pageViewCnt;
+        const data = prvTsMmData.resultList;
+        const dataLen = data.length - 1;
 
-          tsDayTotPV.textContent = tsDayTotPVCnt.toLocaleString();
-          tsMmTotPV.textContent = tsMmPVCnt.toLocaleString();
-          prvMmTotPV.textContent = prvMmPVCnt.toLocaleString();
+        if (fn_zero(data) != "") {
 
-          totPVDiff.textContent = (tsMmPVCnt - prvMmPVCnt).toLocaleString();
-          totPVIcdc.textContent = fn_calcGrowthRate(tsMmPVCnt, prvMmPVCnt);
-
-          if (parseInt(totPVDiff.textContent) > 0) {
-            totPVDiff.style.color = "blue";
-            totPVIcdc.style.color = "blue";
-          } else if (parseInt(totPVDiff.textContent) < 0) {
-            totPVDiff.style.color = "red";
-            totPVIcdc.style.color = "red";
+          if (dataLen == 0) {
+            data.unshift({
+              pageViewCnt: ""
+            });
           }
+
+          userTrfcVO.tsmm = data[1].pageViewCnt;
+          userTrfcVO.prvmm = data[0].pageViewCnt;
         }
+
+        grdUserTrfc.addRow(true, userTrfcVO);
       }
     } catch (e) {
       if (!(e instanceof Error)) {
@@ -881,10 +881,6 @@
       gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
   }
-
-  window.addEventListener('DOMContentLoaded', function () {
-    fn_init();
-  });
 
 </script>
 </html>
