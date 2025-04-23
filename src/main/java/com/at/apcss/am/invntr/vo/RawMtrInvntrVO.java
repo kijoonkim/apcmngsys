@@ -75,6 +75,11 @@ public class RawMtrInvntrVO extends ComVO {
 	private String prdcrNm;
 
 	/**
+	 * 대표생산자코드
+	 */
+	private String rprsPrdcrCd;
+
+	/**
 	 * 품목코드
 	 */
 	private String itemCd;
@@ -259,6 +264,9 @@ public class RawMtrInvntrVO extends ComVO {
 	 */
 	private String sortno;
 
+	private double rprsQntt;
+	private double rprsWght;
+
 	/**
 	 * 지시수량
 	 */
@@ -424,6 +432,11 @@ public class RawMtrInvntrVO extends ComVO {
 	 * 산지코드
 	 * */
 	private String plorCd;
+
+	/**
+	 * 음수재고 제한 여부
+	 */
+	private String allowsMinusInvntrYn;
 
 	/**
 	 * 등록필요여부

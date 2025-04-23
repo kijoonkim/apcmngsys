@@ -66,6 +66,9 @@ public interface RawMtrWrhsService {
 	 */
 	public HashMap<String, Object> insertRawMtrWrhs(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
 
+	public HashMap<String, Object> insertRawMtrWrhsForCredit(RawMtrWrhsVO rawMtrWrhsVO) throws Exception;
+
+
 	/**
 	 * 원물입고 등록
 	 * @param rawMtrWrhsVO
