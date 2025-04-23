@@ -214,6 +214,11 @@ public class ComConstants {
 	 */
 	public final static String MSGCD_TGT_LACK = "W0017";
 
+	/**
+	 * W0018	잘못된 {0} 입니다.
+	 */
+	public final static String MSGCD_TGT_WRONG = "W0017";
+
 	/* CODE 정보 */
 
 	/* 권한유형 */
