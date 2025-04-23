@@ -52,7 +52,7 @@
             background: white;
         }
 
-        .tabBox_sm{
+        .tabBox_sm, .tabBox_sm2{
             border: 1px solid black;
             font-size: 1.5vw;
             width: 15vw;
@@ -370,9 +370,20 @@
                                             <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="10">10</div>
                                         </div>
                                     </div>
-                                    <div style="color: #3c6dbc; font-weight: 600;font-size: 2vw">수량</div>
-                                    <div style="display: flex">
-                                        <div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal" style="width: 30%; height: 6vh">
+                                    <div style="display: flex; line-height: 2.5">
+                                        <div style="color: #3c6dbc; font-weight: 600;font-size: 2vw">수량</div>
+                                        <div style="width: 30%; margin-left: 2vw">
+                                            <sbux-input
+                                                    uitype="text"
+                                                    id="spinner_normal_0"
+                                                    name="spinner_normal_0"
+                                                    wrap-style="flex-basis:40%;"
+                                                    style="height:100%;text-align:center;background-color:white!important;font-size: 5rem"
+                                                    readonly
+                                            ></sbux-input>
+                                        </div>
+
+                                        <%--<div class="sbux-spi sbux-spi-nor sbux-spi-align-right sbux-comp-root sbux-uuid-spinner_normal" style="width: 30%; height: 6vh; margin-left: 2vw">
                                          	<span class="sbux-spi-inp-wrap" style="height:100%">
                                          		<input type="number"
                                                        id="spinner_normal_0"
@@ -392,7 +403,7 @@
                                    				</button>
                                    			</span>
                                             <input type="hidden" name="spinner_normal" style="display:none;" value="">
-                                        </div>
+                                        </div>--%>
                                         <div style="margin-left: 2vw; display: flex;gap: 1vw">
                                             <sbux-button
                                                     id="btnRegReset"
@@ -412,6 +423,21 @@
                                             ></sbux-button>
                                         </div>
                                     </div>
+                                    <div class="carousel">
+                                        <div style="display: flex;gap: 1.5vw">
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="0">0</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="1">1</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="2">2</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="3">3</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="4">4</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="5">5</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="6">6</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="7">7</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="8">8</div>
+                                            <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="9">9</div>
+                                        </div>
+                                    </div>
+
                                     <div id="sb-area-pckgPrfmncReg" style="height: 200px;"></div>
                                 </div>
                             </div>
@@ -461,7 +487,9 @@
        /** 포장등록시 일일기준 강제처리 **/
        fn_changeTab();
 
-       const inputField = document.getElementById("spinner_normal_0");
+       // 초기값 설정
+        SBUxMethod.set("spinner_normal_0", "0");
+       /*const inputField = document.getElementById("spinner_normal_0");
        const buttonUp = document.getElementById("buttonUp");
        const buttonDown = document.getElementById("buttonDown");
 
@@ -477,7 +505,7 @@
            if (currentValue > 0) {
                inputField.value = currentValue - 1;
            }
-       });
+       });*/
         $('#smartwizard').smartWizard({
             theme: 'arrows', // 'default', 'arrows', 'dots', 'circles'
             toolbar: {
@@ -501,8 +529,9 @@
 
         $("#vrtyInfoWrap div.grid button").on("click",function(event){
             let target = event.target.innerText;
-            let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
-            let result = prev + target;
+            // let prev = SBUxMethod.get("srch-inp-vrtyInfo")||'';
+            // let result = prev + target;
+            let result = target;
             SBUxMethod.set("srch-inp-vrtyInfo",result);
             fn_onInputVrty(result);
         });
@@ -794,6 +823,16 @@
 
     }
 
+    const fn_select_qntt_button = async function(_el){
+        const qntt = _el.getAttribute('data-cnt');
+        let prev = SBUxMethod.get("spinner_normal_0")||'';
+
+        prev = (prev == 0) ? '' : prev;
+        let result = prev + qntt;
+
+        SBUxMethod.set("spinner_normal_0", result);
+    }
+
     const fn_select_button = async function(_el){
         if($(_el).hasClass("active"))return;
 
@@ -879,7 +918,8 @@
         //$("#pckgQntt").val(originCnt + value);
     }
     const fn_RegReset = function(){
-        $("#spinner_normal_0").val(0);
+        // $("#spinner_normal_0").val(0);
+        SBUxMethod.set("spinner_normal_0", "0");
     }
 
     const fn_addDragEvn = function(_id) {
@@ -1168,7 +1208,7 @@
     }
 
     const fn_onInputVrty = async function(_search){
-        let result = gfn_filterFrst(_search,jsonVrtyList);
+        let result = gfn_filterFrstStartsWith(_search, jsonVrtyList);
         result = result.map(item => ({
             ...item,
             label: item.name,
