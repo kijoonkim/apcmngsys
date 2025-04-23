@@ -8,6 +8,7 @@
 <!-- DATE   		AUTHOR			DESCRIPTION					  			-->
 <!-- ===========  	============  	===========================================	-->
 <!-- 2023.06.29  	jcshin			Initial Creation							-->
+<!-- 2025.04.16  	유민지			(승인형/육성형)조회쿼리수정						-->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper">
@@ -24,76 +25,91 @@
 
 		<![CDATA[
 			SELECT /* com.at.apcss.pd.pcorm.mapper.BizPlanReqMngMapper.selectBizPlanReqMngList */
-				EAM.YR
-				, EAM.APO_CD
-				, EAM.APO_SE
-				, EAM.BRNO
-				, DECODE(TEA.APRV , '1' , '승인형' , '2' , '육성형' , ''
-				) AS APRV
-				, TEA.CRNO
-				, TEA.CORP_NM
-				, (CASE WHEN
-					( TO_DATE(BPSD.SYS_LAST_CHG_DT, 'YYYY-MM-DD') - TO_DATE(SSD.SYS_LAST_CHG_DT, 'YYYY-MM-DD') ) > 0
-					THEN BPSD.SYS_LAST_CHG_DT
-					ELSE SSD.SYS_LAST_CHG_DT
-					END
-				) AS LAST_ULD_DT
+					EAM.YR,
+					EAM.APO_CD,
+					EAM.APO_SE,
+					EAM.BRNO,
+					DECODE(TEA.APRV, '1', '승인형', '2', '육성형', '') AS APRV,
+					TEA.CRNO,
+					TEA.CORP_NM,
 
-				, (CASE WHEN
-					BPSD.FILE_SN IS NOT NULL
-					THEN '제출'
-					ELSE '미제출'
-					END
-				) AS BIZ_PLAN_SBMSN_YN
-				, DECODE(BPSD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려'
-				) AS BIZ_PLAN_APRV_YN
+					(CASE
+						WHEN (BPSD.SYS_LAST_CHG_DT - SSD.SYS_LAST_CHG_DT) > 0
+						THEN BPSD.SYS_LAST_CHG_DT
+						ELSE SSD.SYS_LAST_CHG_DT
+					END) AS LAST_ULD_DT,
 
-				, (CASE WHEN
-					SSD.FILE_SN IS NOT NULL
-					THEN '제출'
-					ELSE '미제출'
-					END
-				) AS SGNTR_SBMSN_YN
-				, DECODE(SSD.STTS, '1' , '미승인' , '2' , '승인' , '3' , '반려'
-				) AS SGNTR_APRV_YN
+					(CASE
+						WHEN BPSD.FILE_SN IS NOT NULL THEN '제출'
+						ELSE '미제출'
+					END) AS BIZ_PLAN_SBMSN_YN,
 
-				, BPSD.RMRK AS BIZ_PLAN_RMRK
-				, SSD.RMRK AS SGNTR_RMRK
+					DECODE(BPSD.STTS, '1', '미승인', '2', '승인', '3', '반려') AS BIZ_PLAN_APRV_YN,
 
-				, BPSD.FILE_SN AS BIZ_PLAN_FILE_SN
-				, SSD.FILE_SN AS SGNTR_FILE_SN
-		]]>
-			FROM (SELECT *
-					FROM TB_EV_APLY_MNG AM
-					WHERE 1=1
-					  AND APO_SE = '1'
-					  AND '1' = (SELECT APRV FROM TB_EV_APO WHERE BRNO = AM.BRNO AND APO_SE = '1')
-				) EAM
-				, TB_EV_APO TEA
-				,(SELECT *
-					FROM TB_EV_SBMSN_DCMNT
-					WHERE 1=1
-					  AND DEL_YN = 'N'
-					  AND DCMNT_KND = 'BP'
-				) AS BPSD
-				,(SELECT *
-					FROM TB_EV_SBMSN_DCMNT
-					WHERE 1=1
-					  AND DEL_YN = 'N'
-					  AND DCMNT_KND = 'S'
-				) AS SSD
-			WHERE 1=1
-			  AND EAM.BRNO = TEA.BRNO(+)
-			  AND EAM.BRNO = BPSD.BRNO(+)
-			  AND EAM.BRNO = SSD.BRNO(+)
-			  AND EAM.APO_SE = '1'
+					(CASE
+						WHEN SSD.FILE_SN IS NOT NULL THEN '제출'
+						ELSE '미제출'
+					END) AS SGNTR_SBMSN_YN,
+
+					DECODE(SSD.STTS, '1', '미승인', '2', '승인', '3', '반려') AS SGNTR_APRV_YN,
+
+					BPSD.RMRK AS BIZ_PLAN_RMRK,
+					SSD.RMRK AS SGNTR_RMRK,
+
+					BPSD.FILE_SN AS BIZ_PLAN_FILE_SN,
+					SSD.FILE_SN AS SGNTR_FILE_SN,
+
+					RR.STBLT_YN AS STBLT_YN,
+					RR.ICPT_RSN_CD AS ICPT_RSN_CD,
+					RR.ICPT_RSN_DTL_CD AS ICPT_RSN_DTL_CD,
+					(SELECT FN_GET_COM_CD_VL_NM('UO_ICPT_RSN_CD',RR.ICPT_RSN_CD) FROM DUAL) AS ICPT_RSN_CD_NM,
+					(SELECT FN_GET_COM_CD_VL_NM('UO_ICPT_RSN_DTL_CD',RR.ICPT_RSN_DTL_CD) FROM DUAL) AS ICPT_RSN_DTL_CD_NM,
+					RR.MNGR_STBLT_YN AS MNGR_STBLT_YN,
+					RR.MNGR_ICPT_RSN_CD AS MNGR_ICPT_RSN_CD,
+					RR.MNGR_ICPT_RSN_DTL_CD AS MNGR_ICPT_RSN_DTL_CD,
+					(SELECT FN_GET_COM_CD_VL_NM('UO_ICPT_RSN_CD',RR.MNGR_ICPT_RSN_CD) FROM DUAL) AS MNGR_ICPT_RSN_CD_NM,
+					(SELECT FN_GET_COM_CD_VL_NM('UO_ICPT_RSN_DTL_CD',RR.MNGR_ICPT_RSN_DTL_CD) FROM DUAL) AS MNGR_ICPT_RSN_DTL_CD_NM
+
+		FROM TB_EV_APLY_MNG EAM
+
+			LEFT JOIN TB_EV_APO TEA
+			  ON EAM.BRNO = TEA.BRNO
+			 AND EAM.APO_SE = TEA.APO_SE
+			 --AND TEA.APRV = '2'
+
+			LEFT JOIN TB_EV_SBMSN_DCMNT BPSD
+			  ON EAM.BRNO = BPSD.BRNO
+			 AND BPSD.YR = EAM.YR
+			 AND BPSD.DEL_YN = 'N'
+			 AND BPSD.DCMNT_KND = 'BP'
+
+			LEFT JOIN TB_EV_SBMSN_DCMNT SSD
+			  ON SSD.BRNO = EAM.BRNO
+			 AND SSD.YR = EAM.YR
+			 AND SSD.DEL_YN = 'N'
+			 AND SSD.DCMNT_KND = 'S'
+
+			LEFT JOIN TB_EV_REG_RSLT RR
+			  ON RR.YR = EAM.YR
+			  AND RR.BRNO = EAM.BRNO
+			  AND RR.APO_SE = EAM.APO_SE
+			  AND RR.DEL_YN = 'N'
+
+			WHERE EAM.APO_SE = '1'
 			  AND TEA.APRV IS NOT NULL
-			  AND EAM.BRNO NOT IN (SELECT BRNO
-									FROM TB_COM_USER
-									WHERE 1=1
-									  AND USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51'
-									  					, 'at21','at22','at23','at24','at25','at26','at27','at61'))
-
+			  AND NOT EXISTS (
+					SELECT 1
+					FROM TB_COM_USER CU
+					WHERE CU.USER_ID IN (
+							  SELECT X.CD_VL
+							  FROM TB_COM_CD_DTL X
+							  WHERE X.CD_ID = 'SYS_EXCLD_USER_ID'
+								 AND X.DEL_YN = 'N'
+								 AND X.USE_YN = 'Y'
+					)
+				   AND CU.BRNO = EAM.BRNO
+			  )
+		]]>
 			<if test='yr != null and yr != ""'>
 			  AND EAM.YR = #{yr}
 			</if>

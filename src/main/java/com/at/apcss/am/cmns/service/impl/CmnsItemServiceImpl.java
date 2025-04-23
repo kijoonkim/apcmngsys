@@ -277,6 +277,18 @@ public class CmnsItemServiceImpl extends BaseServiceImpl implements CmnsItemServ
 	public int mergeSeedCrtrList(List<ApcSeedCrtrVO> apcSeedCrtrVOList) throws Exception {
 		return cmnsItemMapper.mergeSeedCrtrList(apcSeedCrtrVOList);
 	}
+	@Override
+	public List<CmnsItemVO> selectItemVrtyDtlList(CmnsItemVO cmnsItemVO) throws Exception {
+		List<CmnsItemVO> resultList = cmnsItemMapper.selectItemVrtyDtlList(cmnsItemVO);
+		return resultList;
+	}
+
+	@Override
+	public List<CmnsItemVO> selectVrtyByItemCd(CmnsItemVO cmnsItemVO) throws Exception {
+		List<CmnsItemVO> resultList = cmnsItemMapper.selectVrtyByItemCd(cmnsItemVO);
+		return resultList;
+	}
+
 
 	@Override
 	public int deleteApcItemCrtrDtl(ApcItemCrtrDtlVO apcItemCrtrDtlVO) throws Exception {

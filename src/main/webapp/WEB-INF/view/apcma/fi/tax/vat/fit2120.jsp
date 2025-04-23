@@ -515,7 +515,7 @@
         });
     }
  
-        async function fn_choice(_value){
+    async function fn_choice(_value){
         /** reset **/
         let tabType = SBUxMethod.get('tabVATtax');
         let inputs;
@@ -716,7 +716,7 @@
     function cfn_init(){
         fn_reset();
     }
-    function cfn_search() {
+    function cfn_search(){
         fn_search();
     }
     const fn_search = async function(){

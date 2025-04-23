@@ -706,7 +706,7 @@
             {caption: ["지급조건명"],         ref: 'PAY_TERM_NAME',    type:'output',  	width:'171px',  style:'text-align:left'},
             {caption: ["지급조건명"], 		ref: 'PAY_TERM_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findPayTermCodeForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findPayTermCodeForGvwList(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["지급일"],       ref: 'EXPECTED_PAY_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
@@ -781,7 +781,7 @@
             {caption: ["계좌번호"],         ref: 'ACCOUNT_NUM',    type:'output',  	width:'140px',  style:'text-align:left'},
             {caption: ["계좌번호"], 		ref: 'ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountForGvwList(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountForGvwList(" + nRow + ")'>…</button>";
                 }
             },
             {caption: ["계좌비고"],         ref: 'BANK_DESC',    type:'output',  	width:'200px',  style:'text-align:left'},

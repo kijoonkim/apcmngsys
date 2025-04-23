@@ -311,7 +311,7 @@
                                     class="input-sm-ast inpt_data_reqed inpt-mbl"
                                     jsondata-ref="jsonSpcfctCd"
                                     unselected-text="선택"
-                                    jsondata-text="spcfctNm"
+                                    jsondata-text="spmtPckgUnitNm"
                                     jsondata-value="spmtPckgUnitCd">
                             </sbux-select>
                             <sbux-input

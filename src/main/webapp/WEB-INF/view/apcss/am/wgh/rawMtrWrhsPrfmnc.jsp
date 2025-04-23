@@ -182,10 +182,10 @@
 									id="srch-inp-prdcrIdentno"
 									name="srch-inp-prdcrIdentno"
 									class="form-control input-sm"
-									maxlength="2"
+									maxlength="3"
 									autocomplete="off"
 									onchange="fn_onChangeSrchPrdcrIdentno(this)"
-								/>
+								></sbux-input>
 							</td>
 							<td class="td_input">
 								<sbux-button
@@ -339,7 +339,7 @@ async function cfn_search() {
 	await fn_search();
 }
 	// 원물입고실적 조회 날짜 제한
-	const lv_ymd_limit = 90;
+	const lv_ymd_limit = 365;
 	var jsonComItem				= [];	// 품목 		itemCd			검색
 	var jsonComVrty				= [];
 	var jsonComWarehouseSeCd	= [];	// 창고 		warehouseSeCd	검색
@@ -438,6 +438,9 @@ async function cfn_search() {
 
 		fn_initSBSelect();
 		fn_getPrdcrs();
+		if(gv_selectedApcCd === '0007'){
+			SBUxMethod.hide("btnCmndDocRaw");
+		}
 	}
 
 	// only document

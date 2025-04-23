@@ -1,7 +1,7 @@
 <%
     /**
-     * @Class Name 		: fit2330.jsp
-     * @Description 	: 영세율매출명세서 화면
+     * @Class Name 		: fit2420.jsp
+     * @Description 	: 사업장별부가세납부세액명세서
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.10.16
      * @version 		: 1.0
@@ -41,25 +41,6 @@
             border: solid 1px blue;
             padding: 5px;
         }
-        .resizer[data-direction="horizontal"] {
-            background-color: #cbd5e0;
-            cursor: ew-resize;
-            height: 100%;
-            width: 2px;
-        }
-        .resizer[data-direction="vertical"] {
-            background-color: #cbd5e0;
-            cursor: ns-resize;
-            height: 2px;
-            width: 100%;
-        }
-        .tpgTd{
-            border: 0 !important;
-            background-color : white !important;
-            border-radius: 0 !important;
-            padding: 0px 12px !important;
-            height: auto;
-        }
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -74,96 +55,112 @@
         </div>
         <div class="box-body">
             <div class="box-search-ma">
-            <!--[APC] START -->
-            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
-            <!--[APC] END -->
-            <!-- content_header start -->
-            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
-                <colgroup>
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
- 
-                    <col style="width: 8%">
-                    <col style="width: 7%">
-                    <col style="width: 1%">
-                    <col style="width: 7%">
-                    <col style="width: 2%">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="row" >기준연도</th>
-                    <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy" class="table-datepicker-ma"
-                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
-                        </sbux-datepicker>
-                    </td>
-                    <td></td>
-                    <th scope="row" >신고구분명</th>
-                    <td colspan="8" class="td_input" style="border-right: hidden;">
-                        <div style="display: flex;gap: 5px">
-                            <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <font>선택</font>
-                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:150px;padding-top:0px;overflow:auto">
-                                </div>
-                            </div>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
-                            <p style="text-align: center;line-height: 30px">~</p>
-                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
-                        </div>
-                    </td>
-                    <td></td>
-                    <th scope="row" >총괄납부관리번호</th>
-                    <td colspan="3" class="td_input" style="border-top: hidden" >
-                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm"></sbux-input>
-                    </td>
-                    <td></td>
-                </tr>
-                </tbody>
-            </table>
+	            <!--[APC] START -->
+	            <%@ include file="../../../../frame/inc/apcSelectMa.jsp" %>
+	            <!--[APC] END -->
+	            <!-- content_header start -->
+	            <table id="srchTable" class="table table-bordered tbl_fixed table-search-ma">
+	                <colgroup>
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	 
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	 
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	 
+	                    <col style="width: 8%">
+	                    <col style="width: 7%">
+	                    <col style="width: 1%">
+	                    <col style="width: 7%">
+	                    <col style="width: 2%">
+	                </colgroup>
+	                <tbody>
+	                <tr>
+	                    <th scope="row" >기준연도</th>
+	                    <td colspan="3" class="td_input" style="border-right: hidden;">
+	                        <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
+	                                         date-format="yyyy" class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
+	                                         onchange="fn_setMultSelect(srch-dtp-yyyy)">
+	                        </sbux-datepicker>
+	                    </td>
+	                    <td></td>
+	                    <th scope="row" >신고구분명</th>
+	                    <td colspan="8" class="td_input" style="border-right: hidden;">
+	                        <div style="display: flex;gap: 5px">
+	                            <div class="dropdown">
+	                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                    <font>선택</font>
+	                                    <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
+	                                </button>
+	                                <div class="dropdown-menu" aria-labelledby="src-btn-currencyCode" style="width:750px;height:250px;padding-top:0px;overflow:auto">
+	                                </div>
+	                            </div>
+	                            <sbux-input readonly id="srch-dtp-ymdstandardTermFr" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
+	                            <p style="text-align: center;line-height: 30px">~</p>
+	                            <sbux-input readonly id="srch-dtp-ymdstandardTermTo" uitype="text" class="form-control input-sm" style="text-align: center"></sbux-input>
+	                        </div>
+	                    </td>
+	                    <td></td>
+	                    <th scope="row" >총괄납부관리번호</th>
+	                    <td colspan="3" class="td_input" style="border-top: hidden" >
+	                        <sbux-input id="srch-inp-wholePaySiteNo" name="srch-inp-wholePaySiteNo" uitype="text" class="form-control input-sm"></sbux-input>
+	                    </td>
+	                    <td></td>
+	                </tr>
+	                </tbody>
+	            </table>
             </div>
-                <div style=" height: 80vh; display: flex">
-               <div id="sb-area-grdReport" style="width: 100%; height: 600px"></div>
-            </div>
+			<div class="row">
+                <div class="ad_tbl_top">
+                    <ul class="ad_tbl_count">
+                        <li>
+                            <span>◎ 사업장별 부가가치세과세표준 및 납부(환급)세액 신고명세서</span>
+<!--                             <span style="font-size:12px">(조회건수 <span id="listCount">0</span>건)</span> -->
+                        </li>
+                    </ul>
+                </div>			
+				<div>
+					<div id="sb-area-grdListGrid" style="height:60vh; width:100%;"></div>
+				</div>
+				<div>
+					<div id="sb-area-grdSubListGrid" style="width: 100%; height: 20vh"></div>
+				</div>            
+			</div> 
         </div>
     </div>
 </section>
 </body>
 <script type="text/javascript">
+
     // common ---------------------------------------------------
     var p_formId	= gfnma_formIdStr('${comMenuVO.pageUrl}');
     var p_menuId 	= '${comMenuVO.menuId}';
     //-----------------------------------------------------------
-    var jsonGrdReport = [];
-    var grdReport;
+    var jsonGrdList = [];
+    var grdListGrid;
+    var jsonSubGrdList = [];
+    var grdSubListGrid;
  
     /** DOM load **/
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_createGrid();
+        fn_createSubGrid();
         fn_init();
     });
  
     const fn_init = async function() {
         /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000', '', '', '', 'CO_CD', "CORP_NM");
         jsonReasonCodeData = await gfnma_getComList('L_FIT025', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CO_CD', "CORP_NM");
         jsonReasonCode = jsonReasonCodeData.cv_1;
         SBUxMethod.refresh('srch-slt-corpNm');
@@ -206,8 +203,10 @@
     }
     async function fn_choice(_value) {
         /** reset **/
-        jsonGrdReport.length = 0;
-        grdReport.rebuild();
+        jsonSubGrdList.length = 0;
+        jsonGrdList.length = 0;
+        grdListGrid.rebuild();
+        grdSubListGrid.rebuild();
  
         let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
         if (tr.length) {
@@ -246,102 +245,117 @@
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
+        try{
+            if(data.resultStatus === 'S') {
+            	data.cv_2.forEach((item, index) => {
+    	    		const cursorData = {
+   	    				TX_SITE_CD				: gfnma_nvl2(item.TX_SITE_CD),
+   	    				TX_SITE_NM				: gfnma_nvl2(item.TX_SITE_NM),
+   	    				ADDR					: gfnma_nvl2(item.ADDR),
+   	    				INR_DLNG_CNYN_AMT		: gfnma_nvl2(item.INR_DLNG_CNYN_AMT),
+   	    				INR_DLNG_SHPGOT_AMT		: gfnma_nvl2(item.INR_DLNG_SHPGOT_AMT),
+   	    				BRNO					: gfnma_nvl2(item.BRNO),
+   	    				AR_CATEGORY				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AR_CATEGORY) : gfnma_nvl2(item.LINE2_AR_CATEGORY) ,
+   	    				AR_STD_SUPPLY_AMT		: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AR_STD_SUPPLY_AMT) : gfnma_nvl2(item.LINE2_AR_STD_SUPPLY_AMT) ,
+   	    				AR_TAX_RATE				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AR_TAX_RATE) : gfnma_nvl2(item.LINE2_AR_TAX_RATE) ,
+   	    				AR_VAT_AMT				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AR_VAT_AMT) : gfnma_nvl2(item.LINE2_AR_VAT_AMT) ,
+   	    				AP_CATEGORY				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AP_CATEGORY) : gfnma_nvl2(item.LINE2_AP_CATEGORY) ,
+   	    				AP_STD_SUPPLY_AMT		: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AP_STD_SUPPLY_AMT) : gfnma_nvl2(item.LINE1_AP_STD_SUPPLY_AMT) ,
+   	    				AP_TAX_RATE				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AP_TAX_RATE) : gfnma_nvl2(item.LINE2_AP_TAX_RATE) ,
+   	    				AP_VAT_AMT				: index % 2 == 0 ? gfnma_nvl2(item.LINE1_AP_VAT_AMT) : gfnma_nvl2(item.LINE2_AP_VAT_AMT) ,
+   	    				TAX_VAT_AMT2			: gfnma_nvl2(item.ADTN_VAT_AMT2),
+   	    				ETC_VAT_AMT2			: gfnma_nvl2(item.RDCTN_ETC_DDC_TXAMT2),
+   	    				SUM_TOTAL				: gfnma_nvl2(item.SUM_TXAMT)
+    	    		}
+    	    		jsonGrdList.push(cursorData);
+    	    	});
+            	console.log(" jsonGrdList ", jsonGrdList);
+            	jsonSubGrdList = gfn_cloneJson(jsonGrdList);
+            	grdListGrid.rebuild();
+            	grdSubListGrid.rebuild();
+            }
+        } catch (e) {
+        	if (!(e instanceof Error)) {
+        		e = new Error(e);
+        	}
+        	console.error("failed", e.message);
+        	gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+       	}
+
     }
  
     const fn_createGrid = function(){
         var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdReport';
-        SBGridProperties.id = 'grdReport';
-        SBGridProperties.jsonref = 'jsonGrdReport';
+        SBGridProperties.parentid = 'sb-area-grdListGrid';
+        SBGridProperties.id = 'grdListGrid';
+        SBGridProperties.jsonref = 'jsonGrdList';
+        SBGridProperties.selectmode = 'free';        
+        SBGridProperties.mergecells = 'bycol';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.frozencols = 2;
         SBGridProperties.columns = [
-            {caption : ['사업장','신고사업장코드'],               ref : 'TX_SITE_CD',        width : '100px',    style : 'text-align:center',    type : 'output'},
-            {caption : ['사업장','사업장등록번호'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매출세액','구분'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매출세액','과세표준'],          ref : 'BRNO',      width : '120px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매출세액','세율'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매출세액','세액'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매입세액','구분'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매입세액','과세표준'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매입세액','세율'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['매입세액','세액'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['가산세','가산세'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['공제세액','공제세액'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['납부세액','납부세액'],          ref : 'BRNO',      width : '150px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['내부거래(판매목적)','반출액'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
-            {caption : ['내부거래(판매목적)','반입액'],          ref : 'BRNO',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['사업장','신고사업장명'],		ref : 'TX_SITE_NM',        	width : '100px',    style : 'text-align:center',    type : 'output'},
+            {caption : ['사업장','사업장등록번호'],		ref : 'BRNO',      			width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매출세액','구분'],			ref : 'AR_CATEGORY',     	width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매출세액','과세표준'],        ref : 'AR_STD_SUPPLY_AMT',  width : '120px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['매출세액','세율'],          	ref : 'AR_TAX_RATE',      	width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매출세액','세액'],          	ref : 'AR_VAT_AMT',      	width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['매입세액','구분'],          	ref : 'AP_CATEGORY',      	width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매입세액','과세표준'],        ref : 'AP_STD_SUPPLY_AMT',  width : '100px',  style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['매입세액','세율'],          	ref : 'AP_TAX_RATE',      	width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : ['매입세액','세액'],          	ref : 'AP_VAT_AMT',      	width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['가산세','가산세'],          	ref : 'TAX_VAT_AMT2',      	width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['공제세액','공제세액'],        ref : 'ETC_VAT_AMT2',      	width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['납부세액','납부세액'],        ref : 'SUM_TOTAL',      	width : '150px',  style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['내부거래(판매목적)','반출액'], ref : 'gird1',      			width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['내부거래(판매목적)','반입액'], ref : 'gird2',      			width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : ['신고사업장코드'],				ref : 'TX_SITE_CD',         width : '100px',    style : 'text-align:center',    type : 'output', hidden : true},
         ];
-        grdReport = _SBGrid.create(SBGridProperties);
+        grdListGrid = _SBGrid.create(SBGridProperties);
     }
  
-    /** resizer set **/
-    const resizer = document.getElementById('resizer');
-    const leftSide = resizer.previousElementSibling;
-    const rightSide = resizer.nextElementSibling;
+    const fn_createSubGrid = function(){
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-grdSubListGrid';
+        SBGridProperties.id = 'grdSubListGrid';
+        SBGridProperties.jsonref = 'jsonSubGrdList';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.mergecells = 'bycol';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.fixedrowheight = '0';
+        SBGridProperties.columns = [
+            {caption : [''], ref : 'gird1',        width : '100px',    style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'gird1',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'gird1',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'AR_STD_SUPPLY_AMT',      width : '120px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'AR_TAX_RATE',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'AR_VAT_AMT',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'AP_CATEGORY',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'AP_STD_SUPPLY_AMT',      width : '100px',  style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'AP_TAX_RATE',      width : '100px',   style : 'text-align:center',    type : 'output'},
+            {caption : [''], ref : 'AP_VAT_AMT',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'TAX_VAT_AMT2',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'ETC_VAT_AMT2',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'SUM_TOTAL',      width : '150px',  style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'gird1',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'gird1',      width : '100px',   style : 'text-align:right',    type : 'output', format : {type:'number', rule:'#,###'}},
+            {caption : [''], ref : 'gird1',        width : '100px',    style : 'text-align:center',    type : 'output', hidden : true},
+        ];
+        grdSubListGrid = _SBGrid.create(SBGridProperties);
+    }
  
-    let x = 0;
-    let y = 0;
- 
-    let leftWidth = 0;
- 
-    const mouseDownHandler = function (e) {
-        x = e.clientX;
-        y = e.clientY;
-        leftWidth = leftSide.getBoundingClientRect().width;
- 
-        document.addEventListener('mousemove', mouseMoveHandler);
-        document.addEventListener('mouseup', mouseUpHandler);
-    };
- 
-    const mouseMoveHandler = function (e) {
-        const dx = e.clientX - x;
-        const dy = e.clientY - y;
- 
-        document.body.style.cursor = 'col-resize';
- 
-        leftSide.style.userSelect = 'none';
-        leftSide.style.pointerEvents = 'none';
- 
-        rightSide.style.userSelect = 'none';
-        rightSide.style.pointerEvents = 'none';
- 
-        const newLeftWidth = ((leftWidth + dx) * 100) / resizer.parentNode.getBoundingClientRect().width;
-        leftSide.style.width = `${'${newLeftWidth}'}%`;
-        grdListGrid.resize();
-        grdDetailGrid.resize();
-    };
- 
-    const mouseUpHandler = function () {
-        resizer.style.removeProperty('cursor');
-        document.body.style.removeProperty('cursor');
- 
-        leftSide.style.removeProperty('user-select');
-        leftSide.style.removeProperty('pointer-events');
- 
-        rightSide.style.removeProperty('user-select');
-        rightSide.style.removeProperty('pointer-events');
- 
-        document.removeEventListener('mousemove', mouseMoveHandler);
-        document.removeEventListener('mouseup', mouseUpHandler);
-    };
-    resizer.addEventListener('mousedown', mouseDownHandler);
     /** 공통버튼 **/
     function cfn_init(){
         fn_reset();
     }
     function fn_reset(){
-        jsonGrdReport.length = 0;
-        grdReport.rebuild();
+        jsonGrdList.length = 0;
+        grdListGrid.rebuild();
  
         gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
         SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
         SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
     }
-    function cfn_search() {
-        fn_search();
-    }
-    const fn_search = async function(){
+    async function cfn_search() {
         let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
         if(gfn_isEmpty(_value)){
             gfn_comAlert("W0002", "신고구분명");
@@ -368,7 +382,7 @@
         }
         let postFlag = gfnma_getTableElement("srchTable", "srch-", paramObj, "V_P_", ['taxSiteName', 'bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TAX_SITE_CODE;
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow() - 1].TX_SITE_CD;
  
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2330.do", {
             getType: 'json',

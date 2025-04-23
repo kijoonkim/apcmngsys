@@ -67,9 +67,10 @@
         .tpgTd {
             text-align: right !important;
             background-color: white !important;
-            font-size: 15px !important;
+            font-size: 12px !important;
             border: 0 !important;
         }
+        
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -120,7 +121,8 @@
                         <td colspan="3" class="td_input" style="border-right: hidden;">
                             <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
                                              date-format="yyyy" class="table-datepicker-ma"
-                                             onchange="fn_setMultSelect(srch-dtp-yyyy)">
+                                             onchange="fn_setMultSelect(srch-dtp-yyyy)"
+                                             style="height: 28px;">
                             </sbux-datepicker>
                         </td>
                         <td></td>
@@ -466,12 +468,12 @@
             ,compCode		: gv_ma_selectedCorpCd
             ,clientCode		: gv_ma_selectedClntCd
             ,bizcompId		: 'L_FIT030'
-            ,whereClause	: ''
+            ,whereClause	: "AND A.YR = '" + yyyy + "'"
             ,formId			: p_formId
             ,menuId			: p_menuId
             ,selectValue	: ''
             ,dropType		: 'down' 	// up, down
-            ,dropAlign		: 'right' 	// left, right
+            ,dropAlign		: 'left' 	// left, right
             ,colValue		: 'SEQ'
             ,colLabel		: 'VAT_TMPLT_NM'
             ,columns		:[
@@ -551,7 +553,7 @@
                 $("#TPBIZ").val(resultData.TPBIZ);
  
                 grdListGrid.setRow(1);
-                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
+                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TX_SITE_CD;
  
                 const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
                     getType: 'json',
@@ -688,7 +690,7 @@
         }
         let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
         paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TAX_SITE_CODE;
+        paramObj.V_P_TAX_SITE_CODE = jsonGrdList[grdListGrid.getRow()-1].TX_SITE_CD;
  
         const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2150.do", {
             getType: 'json',
@@ -703,10 +705,10 @@
             let bottomData = data1.cv_3[0];
  
             for(let key in middleData){
-                $(`#${'${key}'}`).val(middleData[key]);
+            	$(`#${key}`).val(middleData[key]);
             }
             for(let key in bottomData){
-                $(`#${'${key}'}`).val(bottomData[key]);
+            	$(`#${key}`).val(bottomData[key]);
             }
         }
     }

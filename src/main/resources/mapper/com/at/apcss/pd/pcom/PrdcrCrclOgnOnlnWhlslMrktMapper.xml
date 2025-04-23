@@ -393,7 +393,7 @@
 			,OWM.BRNO
 			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = OWM.BRNO) AS CORP_NM
 			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = OWM.BRNO) AS APRV
-			,FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = OWM.BRNO)) AS APRV_NM
+			,(SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = OWM.BRNO)) FROM DUAL) AS APRV_NM
 			,OWM.TRGT_TRMT_AMT
 			,OWM.CONSIGN_TRGT_AMT
 			,OWM.CONSIGN_CRTD_TRGT_AMT
@@ -444,54 +444,55 @@
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
 	<!-- 2025.02.05  	ljw        		Initial Creation                            -->
+	<!-- 2025.04.16  	유민지        	컬럼오류수정		                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectRawDataOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectItemList */
+		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl */
 			WMD.YR
-			,DECODE(WMD.BRNO,WMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
-			,WMD.BRNO
-			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.BRNO) AS CORP_NM
-			,WMD.UO_BRNO
-			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS APRV
-			,FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO)) AS APRV_NM
+			 ,DECODE(WMD.BRNO,WMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
+			 ,WMD.BRNO
+			 ,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.BRNO) AS CORP_NM
+			 ,WMD.UO_BRNO
+			 ,(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS APRV
+			 ,(SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO)) FROM DUAL) AS APRV_NM
 
-			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS UO_CORP_NM
+			 ,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS UO_CORP_NM
 
-			,WMD.ITEM_CD
-			,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = WMD.ITEM_CD) AS ITEM_NM
+			 ,WMD.ITEM_CD
+			 ,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = WMD.ITEM_CD) AS ITEM_NM
 
-			,WMD.CTGRY_CD
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = WMD.CTGRY_CD) AS CTGRY_NM
+			 ,WMD.CTGRY_CD
+			 ,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = WMD.CTGRY_CD) AS CTGRY_NM
 
-			,WMD.CLSF_CD
-			,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = WMD.CLSF_CD) AS CLSF_NM
+			 ,WMD.CLSF_CD
+			 ,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = WMD.CLSF_CD) AS CLSF_NM
 
-			,WMD.TRMT_AMT
-			,WMD.CONSIGN_TRMT_AMT
+			 ,WMD.TRMT_AMT
+			 ,WMD.CONSIGN_TRMT_AMT
 
-			,(NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0)) AS TRMT_AMT_TOT
+			 ,(NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0)) AS TRMT_AMT_TOT
 
-			,DECODE(WMD.RCGN_YN
-					, 'Y', (NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) )
-					, ''
+			 ,DECODE(WMD.RCGN_YN
+			, 'Y', (NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) )
+			, ''
 			) AS CONSIGN_TRMT_AMT_TOT
 
-			,WMD.DEL_YN
-			,WMD.RCGN_YN
-			,WMD.RMRK
+			 ,WMD.DEL_YN
+			 ,WMD.RCGN_YN
+			 ,WMD.RMRK
 
-			,DECODE(WMD.RCGN_YN
-					, 'Y', (NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0))
-					, ''
+			 ,DECODE(WMD.RCGN_YN
+			, 'Y', (NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0))
+			, ''
 			) AS RCGN_TRMT_AMT_TOT
 
 		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
 		WHERE 1=1
-		  AND WMD.YR = #{yr}
+		  AND WMD.YR =  #{yr}
 		  AND BRNO NOT IN (SELECT BRNO
-							FROM TB_COM_USER
-							WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
-							)
+						   FROM TB_COM_USER
+						   WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
+		)
 		ORDER BY DECODE(BRNO,UO_BRNO,'1','2'), BRNO, ITEM_CD
 	</select>
 </mapper>

@@ -584,10 +584,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+            {caption: ["출근시각"],        ref: 'WORK_ON_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+            {caption: ["퇴근시각"],        ref: 'WORK_OFF_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무시작유형"], 		ref: 'NORMAL_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '89px',
@@ -598,7 +598,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'input',  	width:'91px',  	style:'text-align:left',
+            {caption: ["정상근무시작시각"],        ref: 'NORMAL_START_HHMM', 		         type:'input',  	width:'91px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["정상근무종료유형"], 		ref: 'NORMAL_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '94px',
@@ -609,7 +609,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'input',  	width:'89px',  	style:'text-align:left',
+            {caption: ["정상근무종료시각"],        ref: 'NORMAL_END_HHMM', 		         type:'input',  	width:'89px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["공휴일여부"],         ref: 'HOLIDAY_YN',    type:'checkbox',  	width:'75px',  style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}},
@@ -1101,17 +1101,17 @@
                         SHIFT_CODE : item.SHWORK_CD,
                         DEPT_CODE : item.DEPT_CD,
                         WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
-                        WORK_ON_HHMM : item.GTWK_TM,
-                        WORK_OFF_HHMM : item.LVWK_TM,
+                        WORK_ON_HHMM : gfnma_nvl2(item.GTWK_TM).length == 3 ? "0" + item.GTWK_TM : gfnma_nvl2(item.GTWK_TM),
+                        WORK_OFF_HHMM : gfnma_nvl2(item.LVWK_TM).length == 3 ? "0" + item.LVWK_TM : gfnma_nvl2(item.LVWK_TM),
                         NORMAL_START_DAY_TYPE : item.NML_BGNG_DAY_TYPE,
-                        NORMAL_START_HHMM : item.NML_WORK_BGNG_TM,
+                        NORMAL_START_HHMM : gfnma_nvl2(item.NML_WORK_BGNG_TM).length == 3 ? "0" + item.NML_WORK_BGNG_TM : gfnma_nvl2(item.NML_WORK_BGNG_TM),
                         NORMAL_END_DAY_TYPE : item.NML_END_DAY_TYPE,
-                        NORMAL_END_HHMM : item.NML_WORK_END_TM,
+                        NORMAL_END_HHMM : gfnma_nvl2(item.NML_WORK_END_TM).length == 3 ? "0" + item.NML_WORK_END_TM : gfnma_nvl2(item.NML_WORK_END_TM),
                         BREAK_APPLY_YN : item.BRTM_APLY_YN,
                         NORMAL_START_DAY_TYPE_ORIG : item.NML_BGNG_DAY_TYPE_ORGNL,
-                        NORMAL_START_HHMM_ORIG : item.NML_WORK_BGNG_TM_ORGNL,
+                        NORMAL_START_HHMM_ORIG : gfnma_nvl2(item.NML_WORK_BGNG_TM_ORGNL).length == 3 ? "0" + item.NML_WORK_BGNG_TM_ORGNL : gfnma_nvl2(item.NML_WORK_BGNG_TM_ORGNL),
                         NORMAL_END_DAY_TYPE_ORIG : item.NML_END_DAY_TYPE_ORGNL,
-                        NORMAL_END_HHMM_ORIG : item.NML_WORK_END_TM_ORGNL,
+                        NORMAL_END_HHMM_ORIG :  gfnma_nvl2(item.NML_WORK_END_TM_ORGNL).length == 3 ? "0" + item.NML_WORK_END_TM_ORGNL : gfnma_nvl2(item.NML_WORK_END_TM_ORGNL),
                         BREAK_APPLY_YN_ORIG : item.BRTM_APLY_YN_ORGNLY,
                         DATA_SOURCE : item.DATA_SRC,
                         CONFIRM_FLAG : item.CFMTN_FLAG,

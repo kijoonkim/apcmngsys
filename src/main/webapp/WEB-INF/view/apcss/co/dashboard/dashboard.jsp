@@ -688,7 +688,8 @@
 		let itemList = await gfn_getApcItem(gv_selectedApcCd);
 		let itemNames = itemList
 				.filter(item => item.itemNm)
-				.map(item => item.itemNm);
+				.map(item => item.itemNm)
+				.slice(0, 5);
 
 		let items = itemNames.join(', ');
 

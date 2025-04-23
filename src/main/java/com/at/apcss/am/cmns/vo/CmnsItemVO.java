@@ -112,4 +112,32 @@ public class CmnsItemVO extends ComVO {
 	 * 사용여부
 	 */
 	private String useYn;
+	/**
+	 * 품목상세코드
+	 */
+	private String itemDtlCd;
+	/**
+	 * 품목상세명
+	 */
+	private String itemDtlNm;
+	/**
+	 * 표시순서
+	 */
+	private String indctSeq;
+	/**
+	 * 등급관리코드
+	 */
+	private String grdMngCd;
+	/**
+	 * 품종코드
+	 */
+	private String vrtyCd;
+	/**
+	 * 품종명
+	 */
+	private String vrtyNm;
+	/**
+	 * 일련번호
+	 */
+	private String sn;
 }
