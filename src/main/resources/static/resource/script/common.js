@@ -1284,6 +1284,29 @@ const gfn_filterFrst = function(_prdcrNm, _jsonSource) {
 
 	return _jsonTarget;
 }
+/**
+ * @name gfn_filterFrst
+ * @description 초성검색 순서보장
+ * @function
+ * @param {string} _prdcrNm		생산자이름
+ * @param {any[]} _jsonSource
+ * @returns {any[]}
+ */
+const gfn_filterFrstStartsWith = function(_prdcrNm, _jsonSource) {
+	var _jsonTarget = [];
+	var result = Hangul.disassemble(_prdcrNm).join("");  // ㄺ=>ㄹㄱ
+
+	_jsonSource.filter(function (item) {
+		return item.name.startsWith(_prdcrNm) || item.diassembled.startsWith(result);
+	}).forEach(function (item) {
+		_jsonTarget.push({
+			'name': item.name,
+			'value': item.value
+		});
+	});
+
+	return _jsonTarget;
+}
 
 /**
  * @name gfn_setPrdcrSBSelect
