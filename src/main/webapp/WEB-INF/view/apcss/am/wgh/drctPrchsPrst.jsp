@@ -117,11 +117,8 @@
                                         class="form-control input-sm input-sm-ast"
                                         wrap-style="flex:2"
                                         placeholder="초성검색 가능"
-                                        autocomplete-ref="jsonPrdcrAutocomplete"
+                                        autocomplete-ref="autocompleteRef"
                                         autocomplete-text="name"
-                                        autocomplete-height="270px"
-                                        oninput="fn_onInputPrdcrNm(event)"
-                                        autocomplete-select-callback="fn_onSelectPrdcrNm"
                                 ></sbux-input>
                                 <sbux-input
                                         uitype="text"
@@ -131,7 +128,6 @@
                                         class="form-control input-sm"
                                         maxlength="2"
                                         autocomplete="off"
-                                        onchange="fn_onChangeSrchPrdcrIdentno(this)"
                                 ></sbux-input>
                                 <sbux-button
                                         id="btn-srch-prdcr"
@@ -139,7 +135,6 @@
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
                                         target-id="modal-prdcr"
-                                        onclick="fn_choicePrdcr"
                                 ></sbux-button>
                                 <sbux-input
                                         id="srch-inp-prdcrCd"
@@ -361,6 +356,10 @@
         await fn_setSbSelect();
         /** SbGrid create **/
         await fn_createDrctPrchsPrst();
+    }
+
+    let test = function(){
+        prdcrFunction.init(gv_selectedApcCd,'srch-inp-prdcrNm','srch-inp-prdcrCd','srch-inp-prdcrIdentno','btn-srch-prdcr');
     }
 
     const fn_setSbSelect = async function(){}
