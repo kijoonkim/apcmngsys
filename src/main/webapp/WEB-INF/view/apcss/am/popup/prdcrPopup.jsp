@@ -908,6 +908,76 @@
 				autocompleteSelectCallback: this.autocompleteSelectCallback,
 			});
 			console.log(this.autocompleteRef);
+		autocompleteRefOrigin: [],
+		autocompleteRef: [],
+		autocompleteText: 'name',
+		autocompleteHeight: '270px',
+		apcCd: '',
+		prdcrNmId: '',
+		prdcrCdId: '',
+		identnoId: '',
+		btnId: '',
+		oninputNm: pfn_prdcrNm_oninput,
+		autocompleteSelectCallback: pfn_prdcr_autocomplete_select_callback,
+		onchangeIdentno: pfn_prdcrIdentno_onchange,
+		clear: pfn_prdcr_clear,
+		init: async function (_apcCd, _prdcrNmId, _prdcrCdId, _identnoId, _btnId, _customFn = {}) {
+			this.apcCd = _apcCd;
+			this.prdcrNmId = _prdcrNmId;
+			this.prdcrCdId = _prdcrCdId;
+			this.identnoId = _identnoId;
+			this.btnId = _btnId;
+			const postJsonPromise = gfn_postJSON("/am/cmns/prdcrInfos", {apcCd: _apcCd, delYn: "N"}, null, true);
+			const data = await postJsonPromise;
+			this.autocompleteRefOrigin = data.resultList.map(item => {
+				return {
+					prdcrCd: item.prdcrCd,
+					prdcrNm: item.prdcrNm,
+					prdcrFrstNm: item.prdcrFrstNm,
+					rprsItemCd: item.rprsItemCd,
+					rprsVrtyCd: item.rprsVrtyCd,
+					rprsItemNm: item.rprsItemNm,
+					rprsVrtyNm: item.rprsVrtyNm,
+					wrhsSeCd: item.wrhsSeCd,
+					gdsSeCd: item.gdsSeCd,
+					trsprtSeCd: item.trsprtSeCd,
+					vhclno: item.vhclno,
+					prdcrLinkCd: item.prdcrLinkCd,
+					prdcrIdentno: item.prdcrIdentno,
+					name: item.prdcrNm,
+					value: item.prdcrCd,
+					frmhsTelno: item.frmhsTelno,
+					frmhsCtpv: item.frmhsCtpv,
+					frmhsAddr: item.frmhsAddr,
+					crtrPrcl: item.crtrPrcl,
+					plntngPrcl: item.plntngPrcl,
+					landCrtrArea: item.landCrtrArea,
+					landPlntngArea: item.landPlntngArea,
+					prchsQntt: item.prchsQntt,
+					prchsAmt: item.prchsAmt,
+					frmerno: item.frmerno,
+				}
+			});
+			this.autocompleteRef = gfn_setFrst(this.autocompleteRefOrigin);
+			/** custom fn **/
+			let customCnt = Object.keys(_customFn).length;
+			if (customCnt > 0) {
+				for (let key in _customFn) {
+					if (typeof _customFn[key] === 'function') {
+						this[key] = _customFn[key].bind(this);
+					}
+				}
+			}
+			/** sb refresh **/
+			/** prdcrNm **/
+			SBUxMethod.refresh(this.prdcrNmId, {
+				autocompleteRef: this.autocompleteRef,
+				autocompleteText: this.autocompleteText,
+				autocompleteHeight: this.autocompleteHeight,
+				oninput: this.oninputNm,
+				autocompleteSelectCallback: this.autocompleteSelectCallback,
+			});
+			console.log(this.autocompleteRef);
 
 			/** identno **/
 			SBUxMethod.refresh(this.identnoId, {
