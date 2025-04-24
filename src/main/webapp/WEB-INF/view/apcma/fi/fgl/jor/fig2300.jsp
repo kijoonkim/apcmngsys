@@ -458,9 +458,10 @@
     var jsonfiOrgCode 		= []; // APC
     var jsonSiteCode 		= []; // 사업장
     var jsonHoldFlag 		= []; // 보류여부
-    var jsonDocStatus 		= []; // 전표상태
+    var jsonDocStatus 		= []; // 전표상태(미전기, 전기)
     var jsonDocType 		= []; // 전표구분
     var jsonAcctRuleCode 	= []; // 회계기준
+    var jsonDocStatusAll	= []; // 전표상태(미작성, 미승인, 취소, 승인중, 반려, 승인완료, 최종완료)
 	
 	var pp_strDocList			= ""; // 복수전표 파라미터
 	
@@ -489,13 +490,14 @@
             gfnma_setComSelect(['SCH_SITE_CODE'], 		jsonSiteCode, 		'L_ORG001', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 보류여부
             gfnma_setComSelect(['SCH_HOLD_FLAG'], 		jsonHoldFlag, 		'L_COM036', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            // 전표상태
+            // 전표상태(미전기, 전기)
             gfnma_setComSelect(['SCH_DOC_STATUS'],		jsonDocStatus, 		'L_FIG002_1', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표구분
             gfnma_setComSelect(['SCH_DOC_TYPE'],		jsonDocType, 		'L_FIM051_CLR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 회계기준
             gfnma_setComSelect(['SCH_ACCT_RULE_CODE'],	jsonAcctRuleCode, 	'L_FIM054', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', '2'),
-			
+            // 전표상태(미작성, 미승인, 취소, 승인중, 반려, 승인완료, 최종완료)
+            gfnma_setComSelect([],		jsonDocStatusAll, 		'L_FIG002', 	'', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 		]);
 	}	
  
@@ -996,6 +998,33 @@
  
   	        	jsonFig2300.length = 0;
   	        	data.cv_2.forEach((item, index) => {
+  	        		//APC
+  	        		for(let apcObj of jsonfiOrgCode){
+  	  	        		if(apcObj.ACNTG_OGNZ_CD == item.ACNTG_OGNZ_CD){
+  	  	        			item.ACNTG_OGNZ_NM = apcObj.ACNTG_OGNZ_NM;
+  	  	        		}
+  	  	        	}
+  	        		//사업장
+  	        		for(let siteObj of jsonSiteCode){
+  	  	        		if(siteObj.SITE_CD == item.SITE_CD){
+  	  	        			item.SITE_NM = siteObj.SITE_NM;
+  	  	        		}
+  	  	        	}
+  	        		//전표상태
+  	        		for(let statusObj of jsonDocStatus){
+  	  	        		if(statusObj.SBSD_CD == item.SLIP_STTS){
+  	  	        			item.DOC_STATUS_NAME = statusObj.CD_NM;
+  	  	        		}
+  	  	        	}
+  	        		//전표구분
+  	        		for(let docTypeObj of jsonDocType){
+  	  	        		if(docTypeObj.SBSD_CD == item.SLIP_TYPE){
+  	  	        			item.DOC_TYPE_NAME = docTypeObj.CD_NM;
+  	  	        		}
+  	  	        	}
+  	        		
+  	        		
+  	        	
   					const msg = {
   						ACCT_RULE_CODE			: gfnma_nvl2(item.GAAP_CD),
   						APPROVE_DATE			: gfnma_date5(gfnma_nvl2(item.APRV_YMD)),
@@ -1035,11 +1064,11 @@
   						INSERT_PC				: gfnma_nvl2(item.WRT_PC),
   						INSERT_TIME				: gfnma_nvl2(item.WRT_DT),
   						INSERT_USERID			: gfnma_nvl2(item.WRT_USER_ID),
-  						INSERT_USER_NAME		: gfnma_nvl2(item.INSERT_USER_NAME),
+  						INSERT_USER_NAME		: gfnma_nvl2(item.INSERT_USER_NM),
   						MANUAL_DOC_WRITE_YN		: gfnma_nvl2(item.HWRT_SLIP_YN),
   						NULTI_AP_WRITE_YN		: gfnma_nvl2(item.NULTI_AP_WRITE_YN),
   						NEXT_APPR_EMP			: gfnma_nvl2(item.NEXT_APPR_EMP),
-  						NEXTE_PROXY_EMP			: gfnma_nvl2(item.NEXT_PROXY_EMP),
+  						NEXT_PROXY_EMP			: gfnma_nvl2(item.NEXT_PROXY_EMP),
   						POSTING_DATE			: gfnma_date5(gfnma_nvl2(item.PSTG_YMD)),
   						POSTING_USER			: gfnma_nvl2(item.PSTG_PIC),
   						PROXY_EMP_CODE			: gfnma_nvl2(item.DLGT_EMP_CD),
@@ -1065,9 +1094,10 @@
   					jsonFig2300.push(msg);
   					totalRecordCount ++;
   				});
- 
+  	        	document.querySelector('#listCount1').innerText = jsonFig2300.length;
+  	        	console.log('listcount', jsonFig2300.length);
         		Fig2300Grid.rebuild();
-  	        	document.querySelector('#listCount1').innerText = totalRecordCount;
+  	        	
   	        	
   	        	//deatil grid 첫번째 행 선택
 				if(jsonFig2300.length>0){

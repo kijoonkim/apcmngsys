@@ -207,13 +207,13 @@
                             </li>
                         </ul>
                         <div style="margin-left: auto;">
-                            <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button>
-                            <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button>
-                            <sbux-button id="btnCopyDown" name="btnCopyDown" uitype="normal" text="아래로복사" class="btn btn-sm btn-outline-danger" onclick="fn_copyDown" style="float: right;"></sbux-button>
-                            <sbux-button id="btnCopyUp" name="btnCopyUp" uitype="normal" text="위로복사" class="btn btn-sm btn-outline-danger" onclick="fn_copyUp" style="float: right;"></sbux-button>
-                            <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button>
-                            <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button>
-                            <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button>
+<!--                             <sbux-button id="btnDeleteRow" name="btnDeleteRow" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_deleteRow" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnAddRow" name="btnAddRow" uitype="normal" text="행추가" class="btn btn-sm btn-outline-danger" onclick="fn_addRow" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnCopyDown" name="btnCopyDown" uitype="normal" text="아래로복사" class="btn btn-sm btn-outline-danger" onclick="fn_copyDown" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnCopyUp" name="btnCopyUp" uitype="normal" text="위로복사" class="btn btn-sm btn-outline-danger" onclick="fn_copyUp" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnClearMode" name="btnClearMode" uitype="normal" text="복사해제모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('clear')" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnLineCopyMode" name="btnLineCopyMode" uitype="normal" text="행복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('line')" style="float: right;"></sbux-button> -->
+<!--                             <sbux-button id="btnCellCopyMode" name="btnCellCopyMode" uitype="normal" text="셀복사모드" class="btn btn-sm btn-outline-danger" onclick="fn_toggleMode('cell')" style="float: right;"></sbux-button> -->
                         </div>
                     </div>
                     <div class="table-responsive tbl_scroll_sm">
@@ -338,7 +338,7 @@
             },
             {caption: ["사번"],         ref: 'EMP_CODE',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["이름"],         ref: 'EMP_NAME',    type:'output',  	width:'92px',  style:'text-align:left'},
-            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
+            {caption: ["입사일"],       ref: 'ENTER_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -411,7 +411,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["", ""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
+            {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -913,6 +913,8 @@
         let rowVal = bandgvwInfo.getRow();
 
         var data = {
+        	STATUS_CODE : "0",
+        	CONFIRM_YN : "N",
             WORK_DATA_SOURCE : 'B',
             CHK_YN : 'N',
             HOLIDAY2_YN : 'N',
@@ -928,7 +930,7 @@
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             bandgvwInfo.addRow(true, data);
         }else{
-            bandgvwInfo.insertRow(rowVal, data);
+            bandgvwInfo.insertRow(rowVal,'below', data);
         }
 
         bandgvwInfo.refresh();
@@ -1045,7 +1047,7 @@
 
     // 저장
     function cfn_save() {
-        fn_save();
+    	fn_checkSave();
     }
 
     // 삭제
@@ -1057,67 +1059,78 @@
     function cfn_search() {
         fn_search();
     }
-
-    const fn_save = async function () {
-        let updatedData = bandgvwInfo.getUpdateData(true, 'all');
-        let returnData = [];
-
-        updatedData.forEach((item, index) => {
+    const fn_checkSave = async function(){
+    	let checkedRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+    	if(checkedRows.length ==0){
+    		alert('선택된 사원이 없습니다.');
+    		return;
+    	}
+    	let grdAll = bandgvwInfo.getGridDataAll();
+    	
+    	console.log('grdAll', grdAll);
+    	
+    	
+    	let returnData = [];
+    	
+    	grdAll.forEach((item, index) => {
+        	if(item.STATUS_CODE =='5'){
+        		return;
+        	}
             const param = {
                 cv_count : '0',
                 getType : 'json',
-                rownum: item.rownum,
-                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                rownum: index,
+                workType : 'U',
                 params: gfnma_objectToString({
                     V_P_DEBUG_MODE_YN : '',
                     V_P_LANG_ID	: '',
                     V_P_COMP_CODE : gv_ma_selectedCorpCd,
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
-                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == "" ? 0 : parseInt(item.data.TXN_ID),
-                    V_P_SEQ_NO : gfn_nvl(item.data.SEQ_NO) == "" ? 0 : parseInt(item.data.SEQ_NO),
-                    V_P_SITE_CODE : gfnma_nvl(item.data.SITE_CODE),
-                    V_P_DEPT_CODE : gfnma_nvl(item.data.DEPT_CODE),
-                    V_P_POSITION_CODE : gfnma_nvl(item.data.POSITION_CODE),
-                    V_P_WORK_PATTERN_CODE : gfnma_nvl(item.data.WORK_PATTERN_CODE),
-                    V_P_SHIFT_CODE : gfnma_nvl(item.data.SHIFT_CODE),
-                    V_P_EMP_CODE : gfnma_nvl(item.data.EMP_CODE),
-                    V_P_BASE_YYYYMMDD : gfnma_nvl(item.data.BASE_YYYYMMDD),
-                    V_P_WORK_YYYYMMDD : gfnma_nvl(item.data.WORK_YYYYMMDD),
-                    V_P_ACCT_YYYYMMDD : gfnma_nvl(item.data.ACCT_YYYYMMDD),
-                    V_P_HOLIDAY_YN : gfnma_nvl(item.data.HOLIDAY_YN),
-                    V_P_HOLIDAY2_YN : gfnma_nvl(item.data.HOLIDAY2_YN),
-                    V_P_WORK_DAY_TYPE : gfnma_nvl(item.data.WORK_DAY_TYPE),
-                    V_P_TIME_ITEM_CODE : gfnma_nvl(item.data.TIME_ITEM_CODE),
-                    V_P_TIME_ITEM_CODE_ORIG : gfnma_nvl(item.data.TIME_ITEM_CODE_ORIG),
-                    V_P_START_DAY_TYPE : gfnma_nvl(item.data.START_DAY_TYPE),
-                    V_P_TIME_START_HHMM : gfnma_nvl(item.data.TIME_START_HHMM).replace(":", ""),
-                    V_P_END_DAY_TYPE : gfnma_nvl(item.data.END_DAY_TYPE),
-                    V_P_TIME_END_HHMM : gfnma_nvl(item.data.TIME_END_HHMM),
-                    V_P_CONFIRM_TIME : gfnma_nvl(item.data.CONFIRM_TIME),
-                    V_P_CONFIRM_YN : gfnma_nvl(item.data.CONFIRM_YN),
-                    V_P_MEMO : gfnma_nvl(item.data.MEMO),
-                    V_P_CAUSE : gfnma_nvl(item.data.CAUSE),
-                    V_P_STATUS_CODE : gfnma_nvl(item.data.STATUS_CODE),
-                    V_P_APPROVE_DATE : gfnma_nvl(item.data.APPROVE_DATE),
-                    V_P_SOURCE_TYPE : gfnma_nvl(item.data.SOURCE_TYPE),
-                    V_P_SOURCE_CODE : gfnma_nvl(item.data.SOURCE_CODE),
-                    V_P_NIGHT_TIME_ITEM_CODE : gfnma_nvl(item.data.NIGHT_TIME_ITEM_CODE),
-                    V_P_NIGHT_START_DAY_TYPE : gfnma_nvl(item.data.NIGHT_START_DAY_TYPE),
-                    V_P_NIGHT_START_HHMM : gfnma_nvl(item.data.NIGHT_START_HHMM).replace(":", ""),
-                    V_P_NIGHT_END_DAY_TYPE : gfnma_nvl(item.data.NIGHT_END_DAY_TYPE),
-                    V_P_NIGHT_END_HHMM : gfnma_nvl(item.data.NIGHT_END_HHMM).replace(":", ""),
-                    V_P_WORK_DATA_SOURCE : gfnma_nvl(item.data.WORK_DATA_SOURCE),
+                    V_P_TXN_ID : gfn_nvl(item.TXN_ID) == "" ? 0 : parseInt(item.TXN_ID),
+                    V_P_SEQ_NO : gfn_nvl(item.SEQ_NO) == "" ? 0 : parseInt(item.SEQ_NO),
+                    V_P_SITE_CODE : gfnma_nvl(item.SITE_CODE),
+                    V_P_DEPT_CODE : gfnma_nvl(item.DEPT_CODE),
+                    V_P_POSITION_CODE : gfnma_nvl(item.POSITION_CODE),
+                    V_P_WORK_PATTERN_CODE : gfnma_nvl(item.WORK_PATTERN_CODE),
+                    V_P_SHIFT_CODE : gfnma_nvl(item.SHIFT_CODE),
+                    V_P_EMP_CODE : gfnma_nvl(item.EMP_CODE),
+                    V_P_BASE_YYYYMMDD : gfnma_nvl(item.BASE_YYYYMMDD),
+                    V_P_WORK_YYYYMMDD : gfnma_nvl(item.WORK_YYYYMMDD),
+                    V_P_ACCT_YYYYMMDD : gfnma_nvl(item.ACCT_YYYYMMDD),
+                    V_P_HOLIDAY_YN : gfnma_nvl(item.HOLIDAY_YN),
+                    V_P_HOLIDAY2_YN : gfnma_nvl(item.HOLIDAY2_YN),
+                    V_P_WORK_DAY_TYPE : gfnma_nvl(item.WORK_DAY_TYPE),
+                    V_P_TIME_ITEM_CODE : gfnma_nvl(item.TIME_ITEM_CODE),
+                    V_P_TIME_ITEM_CODE_ORIG : gfnma_nvl(item.TIME_ITEM_CODE_ORIG),
+                    V_P_START_DAY_TYPE : gfnma_nvl(item.START_DAY_TYPE),
+                    V_P_TIME_START_HHMM : gfnma_nvl(item.TIME_START_HHMM).replace(":", ""),
+                    V_P_END_DAY_TYPE : gfnma_nvl(item.END_DAY_TYPE),
+                    V_P_TIME_END_HHMM : gfnma_nvl(item.TIME_END_HHMM),
+                    V_P_CONFIRM_TIME : gfnma_nvl(item.CONFIRM_TIME),
+                    V_P_CONFIRM_YN : gfnma_nvl(item.CONFIRM_YN),
+                    V_P_MEMO : gfnma_nvl(item.MEMO),
+                    V_P_CAUSE : gfnma_nvl(item.CAUSE),
+                    V_P_STATUS_CODE : gfnma_nvl(item.STATUS_CODE),
+                    V_P_APPROVE_DATE : gfnma_nvl(item.APPROVE_DATE),
+                    V_P_SOURCE_TYPE : gfnma_nvl(item.SOURCE_TYPE),
+                    V_P_SOURCE_CODE : gfnma_nvl(item.SOURCE_CODE),
+                    V_P_NIGHT_TIME_ITEM_CODE : gfnma_nvl(item.NIGHT_TIME_ITEM_CODE),
+                    V_P_NIGHT_START_DAY_TYPE : gfnma_nvl(item.NIGHT_START_DAY_TYPE),
+                    V_P_NIGHT_START_HHMM : gfnma_nvl(item.NIGHT_START_HHMM).replace(":", ""),
+                    V_P_NIGHT_END_DAY_TYPE : gfnma_nvl(item.NIGHT_END_DAY_TYPE),
+                    V_P_NIGHT_END_HHMM : gfnma_nvl(item.NIGHT_END_HHMM).replace(":", ""),
+                    V_P_WORK_DATA_SOURCE : gfnma_nvl(item.WORK_DATA_SOURCE),
                     V_P_TXN_ID_D : '',
-                    V_P_VACCINE_WORK_YN : gfnma_nvl(item.data.VACCINE_WORK_YN),
-                    V_P_BREAK_APPLY_YN : gfnma_nvl(item.data.BREAK_APPLY_YN),
-                    V_P_ALTER_WORK_YN : gfnma_nvl(item.data.ALTER_WORK_YN),
-                    V_P_ALTER_REQ_YN : gfnma_nvl(item.data.ALTER_REQ_YN),
-                    V_P_SHIFT_WORK_YN : gfnma_nvl(item.data.SHIFT_WORK_YN),
-                    V_P_BREAK_START_DAY_TYPE1 : gfnma_nvl(item.data.BREAK_START_DAY_TYPE1),
-                    V_P_BREAK_START_HHMM1 : gfnma_nvl(item.data.BREAK_START_HHMM1),
-                    V_P_BREAK_END_DAY_TYPE1 : gfnma_nvl(item.data.BREAK_END_DAY_TYPE1),
-                    V_P_BREAK_END_HHMM1 : gfnma_nvl(item.data.BREAK_END_HHMM1),
-                    V_P_DINNER_YN : gfnma_nvl(item.data.DINNER_YN),
+                    V_P_VACCINE_WORK_YN : gfnma_nvl(item.VACCINE_WORK_YN),
+                    V_P_BREAK_APPLY_YN : gfnma_nvl(item.BREAK_APPLY_YN),
+                    V_P_ALTER_WORK_YN : gfnma_nvl(item.ALTER_WORK_YN),
+                    V_P_ALTER_REQ_YN : gfnma_nvl(item.ALTER_REQ_YN),
+                    V_P_SHIFT_WORK_YN : gfnma_nvl(item.SHIFT_WORK_YN),
+                    V_P_BREAK_START_DAY_TYPE1 : gfnma_nvl(item.BREAK_START_DAY_TYPE1),
+                    V_P_BREAK_START_HHMM1 : gfnma_nvl(item.BREAK_START_HHMM1),
+                    V_P_BREAK_END_DAY_TYPE1 : gfnma_nvl(item.BREAK_END_DAY_TYPE1),
+                    V_P_BREAK_END_HHMM1 : gfnma_nvl(item.BREAK_END_HHMM1),
+                    V_P_DINNER_YN : gfnma_nvl(item.DINNER_YN),
                     V_P_FORM_ID : p_formId.toUpperCase(),
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -1149,11 +1162,170 @@
         }
     }
 
-    const fn_allSave = async function () {
-        if (jsonEmpList.length > 0) {
-            if (gfn_comConfirm("Q0000", "일괄저장하시겠습니까?")) {
-                fn_save();
+    const fn_saveData = async function(){
+    	
+    	let checkedRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+    	let gridAllData = bandgvwInfo.getGridDataAll();
+    	let returnData = [];
+
+
+    	if (checkedRows.length > 0) {
+            for(var i = 0; i < checkedRows.length; i++) {
+                let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
+                let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
+                let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
+                let DEPT_CODE = gfn_nvl(gvwShift.getRowData(checkedRows[i]).DEPT_CODE);
+                let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
+                let EMP_CODE = gfn_nvl(gvwShift.getRowData(checkedRows[i]).EMP_CODE);
+                let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
+
+                var paramObj = {
+                    V_P_DEBUG_MODE_YN	: '',
+                    V_P_LANG_ID		: '',
+                    V_P_COMP_CODE		: gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_YYYYMMDD_FR : YYYYMMDD_FR,
+                    V_P_YYYYMMDD_TO : YYYYMMDD_TO,
+                    V_P_SITE_CODE : SITE_CODE,
+                    V_P_DEPT_CODE : DEPT_CODE,
+                    V_P_JOB_GROUP : JOB_GROUP,
+                    V_P_EMP_CODE : EMP_CODE,
+                    V_P_EMP_STATE : EMP_STATE,
+                    V_P_LOGIN_DEPT_CODE : '',
+                    V_P_HR_MANAGER_YN : '',
+                    V_P_FORMID : "HRT2320",
+                    V_P_FORM_ID		: p_formId,
+                    V_P_MENU_ID		: p_menuId,
+                    V_P_PROC_ID		: '',
+                    V_P_USERID			: '',
+                    V_P_PC				: ''
+                };
+
+                const postJsonPromiseForList = await gfn_postJSON("/hr/hrt/hrt/selectHrt2320List.do", {
+                    getType				: 'json',
+                    workType			: 'DETAIL',
+                    cv_count			: '2',
+                    params				: gfnma_objectToString(paramObj)
+                });
+
+                const listData = await postJsonPromiseForList;
+                
+                console.log('listData',listData);
+                
+                listData.cv_2.forEach((item, index)=>{
+                	console.log('item', item);
+                	const param = {
+                         cv_count : '0',
+                         getType : 'json',
+                         rownum: index,
+                         workType : 'U',
+                         params: gfnma_objectToString({
+                             V_P_DEBUG_MODE_YN : '',
+                             V_P_LANG_ID	: '',
+                             V_P_COMP_CODE : gv_ma_selectedCorpCd,
+                             V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                             V_P_TXN_ID : gfn_nvl(item.TRSC_ID) == "" ? 0 : parseInt(item.TRSC_ID),
+                             V_P_SEQ_NO : gfn_nvl(item.SEQ_NO) == "" ? 0 : parseInt(item.SEQ_NO),
+                             V_P_SITE_CODE : gfnma_nvl(item.SITE_CD),
+                             V_P_DEPT_CODE : gfnma_nvl(item.DEPT_CD),
+                             V_P_POSITION_CODE : gfnma_nvl(item.JBPS_CD),
+                             V_P_WORK_PATTERN_CODE : gfnma_nvl(item.WORK_TYPE_CD),
+                             V_P_SHIFT_CODE : gfnma_nvl(item.SHWORK_CD),
+                             V_P_EMP_CODE : gfnma_nvl(item.EMP_CD),
+                             V_P_BASE_YYYYMMDD : gfnma_nvl(item.CRTR_YMD),
+                             V_P_WORK_YYYYMMDD : gfnma_nvl(item.WORK_YMD),
+                             V_P_ACCT_YYYYMMDD : gfnma_nvl(item.RETRA_YMD),
+                             V_P_HOLIDAY_YN : gfnma_nvl(item.HLDY_YN),
+                             V_P_HOLIDAY2_YN : gfnma_nvl(item.HLDY2_YN),
+                             V_P_WORK_DAY_TYPE : gfnma_nvl(item.WORK_DAY_TYPE),
+                             V_P_TIME_ITEM_CODE : gfnma_nvl(item.ATDNC_ITEM_CD),
+                             V_P_TIME_ITEM_CODE_ORIG : gfnma_nvl(item.ATDNC_ITEM_CD_ORGNL),
+                             V_P_START_DAY_TYPE : gfnma_nvl(item.BGNG_DAY_TYPE),
+                             V_P_TIME_START_HHMM : gfnma_nvl(item.WRKDY_BGNG_HM).replace(":", ""),
+                             V_P_END_DAY_TYPE : gfnma_nvl(item.END_DAY_TYPE),
+                             V_P_TIME_END_HHMM : gfnma_nvl(item.END_TM),
+                             V_P_CONFIRM_TIME : gfnma_nvl(item.CFMTN_TM),
+                             V_P_CONFIRM_YN : gfnma_nvl(item.CFMTN_YN),
+                             V_P_MEMO : gfnma_nvl(item.MEMO),
+                             V_P_CAUSE : gfnma_nvl(item.RSN),
+                             V_P_STATUS_CODE : gfnma_nvl(item.STTS_CD),
+                             V_P_APPROVE_DATE : gfnma_nvl(item.APRV_YMD),
+                             V_P_SOURCE_TYPE : gfnma_nvl(item.SRC_TYPE),
+                             V_P_SOURCE_CODE : gfnma_nvl(item.SRC_CD),
+                             V_P_NIGHT_TIME_ITEM_CODE : gfnma_nvl(item.NGHT_WORK_ITEM_CD),
+                             V_P_NIGHT_START_DAY_TYPE : gfnma_nvl(item.NGHT_BGNG_DAY_TYPE),
+                             V_P_NIGHT_START_HHMM : gfnma_nvl(item.NGHT_BGNG_TM).replace(":", ""),
+                             V_P_NIGHT_END_DAY_TYPE : gfnma_nvl(item.NGHT_END_DAY_TYPE),
+                             V_P_NIGHT_END_HHMM : gfnma_nvl(item.NGHT_END_TM).replace(":", ""),
+                             V_P_WORK_DATA_SOURCE : gfnma_nvl(item.WORK_DATA_SOURCE),
+                             V_P_TXN_ID_D : '',
+                             V_P_VACCINE_WORK_YN : gfnma_nvl(item.VCNE_WORK_YN),
+                             V_P_BREAK_APPLY_YN : gfnma_nvl(item.BRTM_APLY_YN),
+                             V_P_ALTER_WORK_YN : gfnma_nvl(item.RPLCMT_WORK_YN),
+                             V_P_ALTER_REQ_YN : gfnma_nvl(item.RPLCMT_WORK_RQST_YN),
+                             V_P_SHIFT_WORK_YN : gfnma_nvl(item.SHWORK_YN),
+                             V_P_BREAK_START_DAY_TYPE1 : gfnma_nvl(item.BRTM_BGNG_DAY_TYPE1),
+                             V_P_BREAK_START_HHMM1 : gfnma_nvl(item.BRTM_BGNG_TM1),
+                             V_P_BREAK_END_DAY_TYPE1 : gfnma_nvl(item.BRTM_END_DAY_TYPE1),
+                             V_P_BREAK_END_HHMM1 : gfnma_nvl(item.BRTM_END_TM1),
+                             V_P_DINNER_YN : gfnma_nvl(item.DINR_YN),
+                             V_P_FORM_ID : p_formId.toUpperCase(),
+                             V_P_MENU_ID : p_menuId,
+                             V_P_PROC_ID : '',
+                             V_P_USERID : '',
+                             V_P_PC : ''
+                         })
+                     }
+                     returnData.push(param);
+                });
             }
+        }
+    	
+    	return returnData;
+    	
+    }
+    
+    
+    const fn_save = async function () {
+    	
+    	const returnData = await fn_saveData();
+    	
+    	
+    	if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    await fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_allSave = async function () {
+    	
+    	
+    	let checkedRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+
+    	if(checkedRows.length ==0){
+    		alert('선택한 데이터가 없습니다.');
+    		return;
+    	}
+    	
+    	
+	
+        if (gfn_comConfirm("Q0000", "일괄저장하시겠습니까?")) {
+            await fn_save();
         }
     }
 
@@ -1166,6 +1338,7 @@
         let bandgvwInfoCheckedList = bandgvwInfo.getCheckedRows(bandgvwInfo.getColRef("CHK_YN"), true);
 
         if(gvwShiftCheckedList.length == 0 && bandgvwInfoCheckedList.length == 0) {
+        	alert('선택된 사원이 없습니다.');
             return;
         }
 
@@ -1175,9 +1348,9 @@
                     let YYYYMMDD_FR = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_FR"));
                     let YYYYMMDD_TO = gfn_nvl(SBUxMethod.get("SRCH_YYYYMMDD_TO"));
                     let SITE_CODE = gfn_nvl(gfnma_multiSelectGet('#SRCH_SITE_CODE'));
-                    let DEPT_CODE = gfn_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("DEPT_CODE")));
+                    let DEPT_CODE = gfn_nvl(gvwShift.getCellData(gvwShiftCheckedList[i], gvwShift.getColRef("DEPT_CODE")));
                     let JOB_GROUP = gfn_nvl(SBUxMethod.get("SRCH_JOB_GROUP"));
-                    let EMP_CODE = gfn_nvl(bandgvwInfo.getCellData(gvwShiftCheckedList[i], bandgvwInfo.getColRef("EMP_CODE")));
+                    let EMP_CODE = gfn_nvl(gvwShift.getCellData(gvwShiftCheckedList[i], gvwShift.getColRef("EMP_CODE")));
                     let EMP_STATE = gfn_nvl(SBUxMethod.get("SRCH_EMP_STATE"));
 
                     var paramObj = {
@@ -1217,7 +1390,7 @@
 
                             if(listData.cv_2.length > 0) {
                                 listData.cv_2.forEach((item, index) => {
-                                    strtxn_id += item.TXN_ID + "|";
+                                    strtxn_id += item.TRSC_ID + "|";
                                 });
 
                                 var paramObj = {
@@ -1552,13 +1725,13 @@
                     const msg = {
                         CHK_YN : item.CHK_YN,
                         TXN_ID : item.TRSC_ID,
-                        SEQ_NO : item.SEQ_NO,
+                        HISTORY_SEQ : item.SEQ_NO,
                         STATUS_CODE : item.STTS_CD,
                         APPROVE_DATE : item.APRV_YMD,
                         SITE_CODE : item.SITE_CD,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         POSITION_CODE : item.JBPS_CD,
                         EMP_CODE : item.EMP_CD,
@@ -1622,7 +1795,7 @@
                         BREAK_START_HHMM1 : item.BRTM_BGNG_TM1,
                         BREAK_END_DAY_TYPE1 : item.BRTM_END_DAY_TYPE1,
                         BREAK_END_HHMM1 : item.BRTM_END_TM1,
-                        DINNER_YN : item.DINR_YN
+                        DINNER_YN : item.DINR_YN,
                     }
                     jsonDayShiftList.push(msg);
                 });
@@ -1794,7 +1967,7 @@
                             temp_txn_id += item.TRSC_ID + "|";
                         });
 
-                        if(temp_txn_idl.length > 0) {
+                        if(temp_txn_id.length > 0) {
                             temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
 
                             var paramObj = {
@@ -2037,7 +2210,7 @@
                             temp_txn_id += item.TRSC_ID + "|";
                         });
 
-                        if(temp_txn_idl.length > 0) {
+                        if(temp_txn_id.length > 0) {
                             temp_txn_id = temp_txn_id.substring(0, temp_txn_id.length - 1);
 
                             var paramObj = {
