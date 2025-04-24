@@ -2944,7 +2944,7 @@
 		<div class="box-body srch-keyup-area">
 			<sbux-tabs id="tab_norm" name="tab_norm"
 					   uitype="normal"
-					   is-scrollable="false"
+					   is-scrollable=:Q
 					   title-target-id-array="tab_rawMtrWrhsStdReg^tab_rawMtrSortStdReg^tab_rawMtrPckgStdReg^tab_rawMtrSpmtStdReg"
 					   title-text-array="입고등록^선별등록^포장등록^출하등록" onclick="fn_changeTab()">
 			</sbux-tabs>
