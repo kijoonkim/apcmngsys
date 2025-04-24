@@ -287,15 +287,15 @@
 			let gridNm = $("#" + item.body).find("div[id^='sb-area-']").get();
 			gridNm.forEach(function(iner,idx){
 				cnt++;
-				if(cnt === 1){
-					first = iner;
-				}else{
+				// if(cnt === 1){
+				// 	first = iner;
+				// }else{
 					let title = $(iner).prev().find("span").map(function () {
 						return $(this).text();
 					}).get().join(" ");
 					seetArr.push({seetName: item.text, gridNm: iner, title: title});
 					// seetArr.push({seetName: item.text + idx, gridNm: iner, title: title});
-				}
+				// }
 			});
 		});
 
@@ -308,9 +308,9 @@
 		var objExcelInfo = {
 			strFileName : '전수조사현황.xlsx',
 			strAction : "/am/excel/saveMultiGridExcel",
-			objTitleInfo : [{
-				"title":"전수조사 집계현황",
-			}],
+			// objTitleInfo : [{
+			// 	"title":" ",
+			// }],
 			bIsStyle: true,
 			bIsMerge: true,
 			bUseFormat: false,
@@ -331,7 +331,7 @@
 					return data;
 				});
 
-		first = first.id.replace("sb-area-","");
+		// first = first.id.replace("sb-area-","");
 		console.log(dataList);
 
 		arrAdditionalData.push(
@@ -340,10 +340,38 @@
 				{"name": "arrTitle", "value": JSON.stringify(titleList)},
 				{"name": "arrUnit", "value": JSON.stringify(unitList)}
 		);
+		console.log(arrAdditionalData);
+		submitExcelDownload(dataList, sheetNameList, titleList,'전수조사현황.xlsx');
 
-		objExcelInfo.arrAdditionalData = arrAdditionalData;
-		window[first].exportExcel(objExcelInfo);
+		return;
+		// objExcelInfo.arrAdditionalData = arrAdditionalData;
+		// window[first].exportExcel(objExcelInfo);
 	}
+
+	function submitExcelDownload(dataList, sheetNameList, titleList, fileName) {
+		const form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '/am/excel/saveMultiGridExcel';
+		form.style.display = 'none';
+
+		const addInput = (name, value) => {
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = name;
+			input.value = encodeURIComponent(JSON.stringify(value));
+			form.appendChild(input);
+		};
+
+		addInput('arrSheetData', dataList);
+		addInput('arrSheetName', sheetNameList);
+		addInput('arrTitle', titleList);
+		addInput('fileName', encodeURIComponent(fileName));
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+	}
+
 
 </script>
 </html>
