@@ -378,7 +378,7 @@
                                                     id="spinner_normal_0"
                                                     name="spinner_normal_0"
                                                     wrap-style="flex-basis:40%;"
-                                                    style="height:100%;text-align:center;background-color:white!important;font-size: 5rem"
+                                                    style="height:100%;text-align:center;background-color:white!important;font-size: 1.5vw"
                                                     readonly
                                             ></sbux-input>
                                         </div>
