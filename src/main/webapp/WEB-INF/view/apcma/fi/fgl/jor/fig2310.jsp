@@ -705,6 +705,7 @@
     var jsonZeroReportYn		= []; // 영세율첨부서류여부
     var jsonExcludeAmtYn		= []; // 수입금액제외
     var jsonZeroType			= []; // 영세율구분
+    var jsonPayMethod			= []; // 지급방법
  
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
@@ -754,6 +755,8 @@
             gfnma_setComSelect(['EXCLUDE_REVENUE_AMT_YN'],		jsonExcludeAmtYn,	'L_FIT008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 영세율구분
             gfnma_setComSelect(['ZERO_TYPE'],					jsonZeroType,		'L_FIT010', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 지급방법
+            gfnma_setComSelect([],								jsonPayMethod,		'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			
 			//전표템플릿
 			gfnma_multiSelectInit({
@@ -1766,7 +1769,7 @@
      * 그리드내 팝업(지급방법) 조회
      */
 	function fn_gridPopup8(event, row, col) {
-		event.stopPropagation();	
+		event.stopPropagation();
         let cellData1 = Fig2310Grid.getCellData(row, 32) 
         let cellData2 = Fig2310Grid.getCellData(row, 30) 
     	fn_gridPopup8Show(row, col, cellData1, cellData2);
@@ -1885,7 +1888,7 @@
     	cellData2			= cellData2.replace(/-/gi, "");
         var replaceText0 	= "_" + pg_colcs_code_field1 + "_";
         var replaceText1 	= "_PAY_PRNMNT_YMD_"; 
-        var strWhereClause 	= "AND A." + pg_colcs_code_field1 + " LIKE '%" + replaceText0 + "%' AND '" + replaceText1 + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFFECT_END_DATE";
+        var strWhereClause 	= "AND A." + pg_colcs_code_field1 + " LIKE '%" + replaceText0 + "%' AND '" + replaceText1 + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD";
         //"AND A.CNPT_CD LIKE '%100004%' AND '20240802' BETWEEN A.EFCT_BGNG_YMD AND A.EFFECT_END_DATE"        
         
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계좌행번');
@@ -2071,6 +2074,12 @@
         		}
         		
         		list.forEach((item, index) => {
+        			for(let payMethodObj of jsonPayMethod){
+        				if(payMethodObj.SBSD_CD == item.PAY_MTHD){
+        					item.PAY_MTHD_NAME = payMethodObj.CD_NM;
+        				}
+        			}
+        			
   					const msg = {
   						CHECK_YN				: gfnma_nvl(item.CHECK_YN),			
   						
@@ -2181,13 +2190,14 @@
   						DESCRIPTION				: gfnma_nvl(item.DSCTN),
   						VAT_TYPE				: gfnma_nvl(item.VAT_TYPE),
   						PROJECT_YN				: gfnma_nvl(item.PJT_YN),
-  						CS_CODE					: gfnma_nvl(item.CNPT_CD),
-  						CS_NAME					: gfnma_nvl(item.CNPT_NM),
+  						CNPT_CD					: gfnma_nvl(item.CNPT_CD),
+  						CNPT_NM					: gfnma_nvl(item.CNPT_NM),
   						CURRENCY_CODE			: gfnma_nvl(item.CRN_CD),
   						EXCHANGE_RATE			: gfnma_nvl(item.EXCHRT),
   						BASE_SCALE				: gfnma_nvl(item.BASE_SCALE),
   						EXCHANGE_TYPE			: gfnma_nvl(item.EXCHRT_TYPE),
   						PAY_METHOD				: gfnma_nvl(item.PAY_MTHD),
+  						PAY_METHOD_NAME			: gfnma_nvl(item.PAY_MTHD_NAME),
   						EXPECTED_PAY_DATE		: gfnma_date5(gfnma_nvl(item.PAY_PRNMNT_YMD)),
   						PAY_TERM_CODE			: gfnma_nvl(item.PAY_TERM_CD),
   						PAY_TERM_NAME			: gfnma_nvl(item.PAY_TERM_NM),
@@ -2211,7 +2221,7 @@
   						APPLY_COMPLETE_DATE		: gfnma_nvl(item.REVE_CMPTN_YMD),
   						SALES_CS_CODE			: gfnma_nvl(item.SLL_CNPT_CD),
   						HOLD_FLAG				: gfnma_nvl(item.HLDOF_FLAG),
-  						RELEASE_DATE			: gfnma_nvl(item.RLS_YMD),
+  						RELEASE_DATE			: gfnma_nvl(item.RMV_YMD),
   						RELEASE_USER			: gfnma_nvl(item.RMV_USER),
   						HOLD_DATE				: gfnma_nvl(item.HLDOF_YMD),
   						HOLD_USER				: gfnma_nvl(item.HLDOF_USER),
