@@ -390,7 +390,7 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 			sortBffaVO.setInptYmdFrom(inptYmd);
 			sortBffaVO.setInptYmdTo(inptYmd);
 			resultList = selectSortBffaListBySortno(sortBffaVO);
-			if(resultList == null){
+			if(resultList.isEmpty()){
 				bffaWrhsno = cmnsTaskNoService.selectBffaWrhsno(sortBffaListVO.get(0).getApcCd(), sortBffaListVO.get(0).getYmd());
 			}else{
 				bffaWrhsno = resultList.get(0).getBffaWrhsno();
