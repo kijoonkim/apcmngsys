@@ -411,8 +411,8 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["", ""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
-            {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
+            {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'inputdate',  	width:'90px',  	style:'text-align:center',
+                typeinfo: {dateformat: 'yyyy-mm-dd', displayui :false },
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
             },
@@ -424,7 +424,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["진행상황", "확정"], 		ref: 'CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '77px',
+            {caption: ["진행상황", "확정"], 		ref: 'CONFIRM_YN',   	    type:'combo', style:'text-align:center' ,width: '77px',
                 typeinfo: {
                     ref			: 'jsonConfirmYn',
                     label		: 'label',
@@ -433,7 +433,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["진행상황", "확정일자"],        ref: 'CONFIRM_TIME', 		         type:'input',  	width:'80px',  	style:'text-align:left',
+            {caption: ["진행상황", "확정일자"],        ref: 'CONFIRM_TIME', 		         type:'input',  	width:'80px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["근무일정보", "근무패턴"],         ref: 'WORK_PATTERN_CODE',    type:'input',  	width:'83px',  style:'text-align:left'},
@@ -445,7 +445,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무일정보", "휴일"], 		ref: 'HOLIDAY_YN',   	    type:'combo', style:'text-align:left' ,width: '65px',
+            {caption: ["근무일정보", "휴일"], 		ref: 'HOLIDAY_YN',   	    type:'combo', style:'text-align:center' ,width: '65px',
                 typeinfo: {
                     ref			: 'jsonHolidayYn',
                     label		: 'label',
@@ -454,7 +454,7 @@
                 }
             },
             {caption: ["근무일정보", "명절"],        ref: 'HOLIDAY2_YN', 		     type:'checkbox',  	width:'60px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["근무일정보", "근무일"], 		ref: 'WORK_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["근무일정보", "근무일"], 		ref: 'WORK_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonWorkDayType',
                     label		: 'label',
@@ -462,9 +462,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무일정보", "정상근무시간"],         ref: 'WORK_TIMES',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["근무일정보", "정상근무시간"],         ref: 'WORK_TIMES',    type:'output',  	width:'100px',  style:'text-align:center'},
             {caption: ["근태항목", "순번"],         ref: 'HISTORY_SEQ',    type:'output',  	width:'50px',  style:'text-align:left'},
-            {caption: ["근태항목", "구분"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["근태항목", "구분"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonTimeCategory',
                     label		: 'label',
@@ -472,9 +472,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근태항목", "항목"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'86px',  style:'text-align:left'},
-            {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'117px',  style:'text-align:left'},
-            {caption: ["근태항목", "당초근태"], 		ref: 'TIME_ITEM_CODE_ORIG',   	    type:'combo', style:'text-align:left' ,width: '118px',
+            {caption: ["근태항목", "항목"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'86px',  style:'text-align:center'},
+            {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'117px',  style:'text-align:center'},
+            {caption: ["근태항목", "당초근태"], 		ref: 'TIME_ITEM_CODE_ORIG',   	    type:'combo', style:'text-align:center' ,width: '118px',
                 typeinfo: {
                     ref			: 'jsonTimeItemCode',
                     label		: 'label',
@@ -483,7 +483,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["시작", "구분"], 		ref: 'START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '65px',
+            {caption: ["시작", "구분"], 		ref: 'START_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '65px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -491,10 +491,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["시작", "시각"],        ref: 'TIME_START_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+            {caption: ["시작", "시각"],        ref: 'TIME_START_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["종료", "구분"], 		ref: 'END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '60px',
+            {caption: ["종료", "구분"], 		ref: 'END_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '60px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -502,7 +502,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["종료", "시각"],        ref: 'TIME_END_HHMM', 		         type:'input',  	width:'60px',  	style:'text-align:left',
+            {caption: ["종료", "시각"],        ref: 'TIME_END_HHMM', 		         type:'input',  	width:'60px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["종료", "휴게적용여부"],        ref: 'BREAK_APPLY_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
@@ -533,12 +533,12 @@
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["백신수당", "백신수당"],        ref: 'VACCINE_WORK_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'94px',  	style:'text-align:left',
+            {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'94px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["내역", "비고"],         ref: 'MEMO',    type:'input',  	width:'137px',  style:'text-align:left'},
             {caption: ["내역", "사유"],         ref: 'CAUSE',    type:'input',  	width:'106px',  style:'text-align:left'},
-            {caption: ["야간시간", "근태항목"], 		ref: 'NIGHT_TIME_ITEM_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "근태항목"], 		ref: 'NIGHT_TIME_ITEM_CODE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonTimeItemCode',
                     label		: 'label',
@@ -548,7 +548,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["야간시간", "시작유형"], 		ref: 'NIGHT_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "시작유형"], 		ref: 'NIGHT_START_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -556,10 +556,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["야간시간", "시작시각"],        ref: 'NIGHT_START_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "시작시각"],        ref: 'NIGHT_START_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["야간시간", "종료유형"], 		ref: 'NIGHT_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "종료유형"], 		ref: 'NIGHT_END_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -567,10 +567,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["야간시간", "종료시각"],        ref: 'NIGHT_END_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "종료시각"],        ref: 'NIGHT_END_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["야간시간", "종료시간"],        ref: 'NIGHT_HOURS', 		         type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "종료시간"],        ref: 'NIGHT_HOURS', 		         type:'output',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'60px',  style:'text-align:left', hidden: true},
@@ -928,7 +928,7 @@
         if (rowVal == -1){ //데이터가 없고 행선택이 없을경우.
             bandgvwInfo.addRow(true, data);
         }else{
-            bandgvwInfo.insertRow(rowVal, data);
+            bandgvwInfo.insertRow(rowVal,'below', data);
         }
 
         bandgvwInfo.refresh();
@@ -1058,10 +1058,156 @@
         fn_search();
     }
 
-    const fn_save = async function () {
-        let updatedData = bandgvwInfo.getUpdateData(true, 'all');
+    //일괄저장
+    const fn_saveAll = async function () {
+    	
         let returnData = [];
 
+        let gvwShiftCheckedList = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
+        let updatedData = bandgvwInfo.getGridStatusAll();
+        let updatedData_2 = bandgvwInfo.getCheckedRowData(gvwShift.getColRef("CHK_YN"), true);
+        let updatedData_3 = bandgvwInfo.getUpdateData(true, 'all');
+        let updatedData_4 = bandgvwInfo.getDisplayGridDataAll(true);
+        let updatedData_5 = bandgvwInfo.getDisplayGridDataAll(false);
+        let updatedData_6 = bandgvwInfo.getGridDataAll(true);
+        let updatedData_7 = bandgvwInfo.getGridDataAll(false);
+        
+        console.log('gvwShiftCheckedList ==>', gvwShiftCheckedList);
+        console.log('updatedData ==>', updatedData);
+        console.log('updatedData_2 ==>', updatedData_2);
+        console.log('updatedData_3 ==>', updatedData_3);
+        console.log('updatedData_4 ==>', updatedData_4);
+        console.log('updatedData_5 ==>', updatedData_5);
+        console.log('updatedData_6 ==>', updatedData_6);
+        console.log('updatedData_7 ==>', updatedData_7);
+        
+        
+        function getKey(inputString) {
+        	var delimiter = 'WORK_DATA_SOURCE|^';
+            var index = inputString.indexOf(delimiter);
+            if (index !== -1) {
+                return inputString.substring(2, index+1).replaceAll("|");
+            }
+            return ''; // 구분자가 없으면 빈 문자열 반환
+        }
+        
+        function getData(inputString) {
+        	var delimiter = 'WORK_DATA_SOURCE|^';
+            var index = inputString.indexOf(delimiter);
+            if (index !== -1) {
+                return inputString.substring(index + delimiter.length);
+            }
+            return ''; // 구분자가 없으면 빈 문자열 반환
+        }
+        
+        let key = getKey(updatedData);
+        let data = getData(updatedData);
+        console.log('key==>', key.split('^') );
+        console.log('data==>', data.split('^') );
+        
+        return;
+        
+        
+        if(gvwShiftCheckedList.length != 1 || gfn_isEmpty(updatedData) ){
+        	gfn_comAlert("E0000", "사원리스트 한건만 체크하십시오.");
+        	return;
+        }
+        
+
+        
+        updatedData.forEach((item, index) => {
+            const param = {
+                cv_count : '0',
+                getType : 'json',
+                rownum: item.rownum,
+                workType : item.status == 'i' ? 'N' : (item.status == 'u' ? 'U' : 'D'),
+                params: gfnma_objectToString({
+                    V_P_DEBUG_MODE_YN : '',
+                    V_P_LANG_ID	: '',
+                    V_P_COMP_CODE : gv_ma_selectedCorpCd,
+                    V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
+                    V_P_TXN_ID : gfn_nvl(item.data.TXN_ID) == "" ? 0 : parseInt(item.data.TXN_ID),
+                    V_P_SEQ_NO : gfn_nvl(item.data.SEQ_NO) == "" ? 0 : parseInt(item.data.SEQ_NO),
+                    V_P_SITE_CODE : gfnma_nvl(item.data.SITE_CODE),
+                    V_P_DEPT_CODE : gfnma_nvl(item.data.DEPT_CODE),
+                    V_P_POSITION_CODE : gfnma_nvl(item.data.POSITION_CODE),
+                    V_P_WORK_PATTERN_CODE : gfnma_nvl(item.data.WORK_PATTERN_CODE),
+                    V_P_SHIFT_CODE : gfnma_nvl(item.data.SHIFT_CODE),
+                    V_P_EMP_CODE : gfnma_nvl(item.data.EMP_CODE),
+                    V_P_BASE_YYYYMMDD : gfnma_nvl(item.data.BASE_YYYYMMDD),
+                    V_P_WORK_YYYYMMDD : gfnma_nvl(item.data.WORK_YYYYMMDD),
+                    V_P_ACCT_YYYYMMDD : gfnma_nvl(item.data.ACCT_YYYYMMDD),
+                    V_P_HOLIDAY_YN : gfnma_nvl(item.data.HOLIDAY_YN),
+                    V_P_HOLIDAY2_YN : gfnma_nvl(item.data.HOLIDAY2_YN),
+                    V_P_WORK_DAY_TYPE : gfnma_nvl(item.data.WORK_DAY_TYPE),
+                    V_P_TIME_ITEM_CODE : gfnma_nvl(item.data.TIME_ITEM_CODE),
+                    V_P_TIME_ITEM_CODE_ORIG : gfnma_nvl(item.data.TIME_ITEM_CODE_ORIG),
+                    V_P_START_DAY_TYPE : gfnma_nvl(item.data.START_DAY_TYPE),
+                    V_P_TIME_START_HHMM : gfnma_nvl(item.data.TIME_START_HHMM).replace(":", ""),
+                    V_P_END_DAY_TYPE : gfnma_nvl(item.data.END_DAY_TYPE),
+                    V_P_TIME_END_HHMM : gfnma_nvl(item.data.TIME_END_HHMM),
+                    V_P_CONFIRM_TIME : gfnma_nvl(item.data.CONFIRM_TIME),
+                    V_P_CONFIRM_YN : gfnma_nvl(item.data.CONFIRM_YN),
+                    V_P_MEMO : gfnma_nvl(item.data.MEMO),
+                    V_P_CAUSE : gfnma_nvl(item.data.CAUSE),
+                    V_P_STATUS_CODE : gfnma_nvl(item.data.STATUS_CODE),
+                    V_P_APPROVE_DATE : gfnma_nvl(item.data.APPROVE_DATE),
+                    V_P_SOURCE_TYPE : gfnma_nvl(item.data.SOURCE_TYPE),
+                    V_P_SOURCE_CODE : gfnma_nvl(item.data.SOURCE_CODE),
+                    V_P_NIGHT_TIME_ITEM_CODE : gfnma_nvl(item.data.NIGHT_TIME_ITEM_CODE),
+                    V_P_NIGHT_START_DAY_TYPE : gfnma_nvl(item.data.NIGHT_START_DAY_TYPE),
+                    V_P_NIGHT_START_HHMM : gfnma_nvl(item.data.NIGHT_START_HHMM).replace(":", ""),
+                    V_P_NIGHT_END_DAY_TYPE : gfnma_nvl(item.data.NIGHT_END_DAY_TYPE),
+                    V_P_NIGHT_END_HHMM : gfnma_nvl(item.data.NIGHT_END_HHMM).replace(":", ""),
+                    V_P_WORK_DATA_SOURCE : gfnma_nvl(item.data.WORK_DATA_SOURCE),
+                    V_P_TXN_ID_D : '',
+                    V_P_VACCINE_WORK_YN : gfnma_nvl(item.data.VACCINE_WORK_YN),
+                    V_P_BREAK_APPLY_YN : gfnma_nvl(item.data.BREAK_APPLY_YN),
+                    V_P_ALTER_WORK_YN : gfnma_nvl(item.data.ALTER_WORK_YN),
+                    V_P_ALTER_REQ_YN : gfnma_nvl(item.data.ALTER_REQ_YN),
+                    V_P_SHIFT_WORK_YN : gfnma_nvl(item.data.SHIFT_WORK_YN),
+                    V_P_BREAK_START_DAY_TYPE1 : gfnma_nvl(item.data.BREAK_START_DAY_TYPE1),
+                    V_P_BREAK_START_HHMM1 : gfnma_nvl(item.data.BREAK_START_HHMM1),
+                    V_P_BREAK_END_DAY_TYPE1 : gfnma_nvl(item.data.BREAK_END_DAY_TYPE1),
+                    V_P_BREAK_END_HHMM1 : gfnma_nvl(item.data.BREAK_END_HHMM1),
+                    V_P_DINNER_YN : gfnma_nvl(item.data.DINNER_YN),
+                    V_P_FORM_ID : p_formId.toUpperCase(),
+                    V_P_MENU_ID : p_menuId,
+                    V_P_PROC_ID : '',
+                    V_P_USERID : '',
+                    V_P_PC : ''
+                })
+            }
+            returnData.push(param);
+        });
+
+        if(returnData.length > 0) {
+            const postJsonPromise = gfn_postJSON("/hr/hrt/hrt/insertHrt2310List.do", {listData: returnData});
+            const data = await postJsonPromise;
+
+            try {
+                if (_.isEqual("S", data.resultStatus)) {
+                    gfn_comAlert("I0001");
+                    await fn_search();
+                } else {
+                    alert(data.resultMessage);
+                }
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+        }
+    }
+
+    const fn_save = async function () {
+        
+    	let returnData = [];
+
+        let updatedData = bandgvwInfo.getUpdateData(true, 'all');
+        
         updatedData.forEach((item, index) => {
             const param = {
                 cv_count : '0',
@@ -1152,7 +1298,7 @@
     const fn_allSave = async function () {
         if (jsonEmpList.length > 0) {
             if (gfn_comConfirm("Q0000", "일괄저장하시겠습니까?")) {
-                fn_save();
+                fn_saveAll();
             }
         }
     }
@@ -1558,7 +1704,7 @@
                         SITE_CODE : item.SITE_CD,
                         DEPT_CODE : item.DEPT_CD,
                         DEPT_NAME : item.DEPT_NM,
-                        WORK_PATTERN_CODE : item.WORK_PTTRN_CD,
+                        WORK_PATTERN_CODE : item.WORK_TYPE_CD,
                         SHIFT_CODE : item.SHWORK_CD,
                         POSITION_CODE : item.JBPS_CD,
                         EMP_CODE : item.EMP_CD,
