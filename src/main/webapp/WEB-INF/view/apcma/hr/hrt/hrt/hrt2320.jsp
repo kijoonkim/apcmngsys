@@ -411,6 +411,7 @@
         SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["", ""],			    ref: 'CHK_YN', 			        type:'checkbox',  	width:'45px',  	style:'text-align:center', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true}},
+
             {caption: ["진행상황", "근무일"],       ref: 'BASE_YYYYMMDD', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
@@ -424,7 +425,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["진행상황", "확정"], 		ref: 'CONFIRM_YN',   	    type:'combo', style:'text-align:left' ,width: '77px',
+            {caption: ["진행상황", "확정"], 		ref: 'CONFIRM_YN',   	    type:'combo', style:'text-align:center' ,width: '77px',
                 typeinfo: {
                     ref			: 'jsonConfirmYn',
                     label		: 'label',
@@ -433,7 +434,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["진행상황", "확정일자"],        ref: 'CONFIRM_TIME', 		         type:'input',  	width:'80px',  	style:'text-align:left',
+            {caption: ["진행상황", "확정일자"],        ref: 'CONFIRM_TIME', 		         type:'input',  	width:'80px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["근무일정보", "근무패턴"],         ref: 'WORK_PATTERN_CODE',    type:'input',  	width:'83px',  style:'text-align:left'},
@@ -445,7 +446,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무일정보", "휴일"], 		ref: 'HOLIDAY_YN',   	    type:'combo', style:'text-align:left' ,width: '65px',
+            {caption: ["근무일정보", "휴일"], 		ref: 'HOLIDAY_YN',   	    type:'combo', style:'text-align:center' ,width: '65px',
                 typeinfo: {
                     ref			: 'jsonHolidayYn',
                     label		: 'label',
@@ -454,7 +455,7 @@
                 }
             },
             {caption: ["근무일정보", "명절"],        ref: 'HOLIDAY2_YN', 		     type:'checkbox',  	width:'60px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["근무일정보", "근무일"], 		ref: 'WORK_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["근무일정보", "근무일"], 		ref: 'WORK_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonWorkDayType',
                     label		: 'label',
@@ -462,9 +463,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근무일정보", "정상근무시간"],         ref: 'WORK_TIMES',    type:'output',  	width:'100px',  style:'text-align:left'},
+            {caption: ["근무일정보", "정상근무시간"],         ref: 'WORK_TIMES',    type:'output',  	width:'100px',  style:'text-align:center'},
             {caption: ["근태항목", "순번"],         ref: 'HISTORY_SEQ',    type:'output',  	width:'50px',  style:'text-align:left'},
-            {caption: ["근태항목", "구분"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["근태항목", "구분"], 		ref: 'TIME_CATEGORY',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonTimeCategory',
                     label		: 'label',
@@ -472,9 +473,9 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["근태항목", "항목"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'86px',  style:'text-align:left'},
-            {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'117px',  style:'text-align:left'},
-            {caption: ["근태항목", "당초근태"], 		ref: 'TIME_ITEM_CODE_ORIG',   	    type:'combo', style:'text-align:left' ,width: '118px',
+            {caption: ["근태항목", "항목"],         ref: 'TIME_ITEM_CODE',    type:'output',  	width:'86px',  style:'text-align:center'},
+            {caption: ["근태항목", "명칭"],         ref: 'TIME_ITEM_NAME',    type:'output',  	width:'117px',  style:'text-align:center'},
+            {caption: ["근태항목", "당초근태"], 		ref: 'TIME_ITEM_CODE_ORIG',   	    type:'combo', style:'text-align:center' ,width: '118px',
                 typeinfo: {
                     ref			: 'jsonTimeItemCode',
                     label		: 'label',
@@ -483,7 +484,7 @@
                 }
                 , disabled: true
             },
-            {caption: ["시작", "구분"], 		ref: 'START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '65px',
+            {caption: ["시작", "구분"], 		ref: 'START_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '65px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -491,10 +492,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["시작", "시각"],        ref: 'TIME_START_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:left',
+            {caption: ["시작", "시각"],        ref: 'TIME_START_HHMM', 		         type:'input',  	width:'70px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["종료", "구분"], 		ref: 'END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '60px',
+            {caption: ["종료", "구분"], 		ref: 'END_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '60px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -502,7 +503,7 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["종료", "시각"],        ref: 'TIME_END_HHMM', 		         type:'input',  	width:'60px',  	style:'text-align:left',
+            {caption: ["종료", "시각"],        ref: 'TIME_END_HHMM', 		         type:'input',  	width:'60px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["종료", "휴게적용여부"],        ref: 'BREAK_APPLY_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}},
@@ -533,12 +534,12 @@
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["백신수당", "백신수당"],        ref: 'VACCINE_WORK_YN', 		     type:'checkbox',  	width:'75px',  	style:'text-align:center', typeinfo: {checkedvalue : 'Y', uncheckedvalue : 'N'}, disabled: true},
-            {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'94px',  	style:'text-align:left',
+            {caption: ["내역", "시간"],        ref: 'TIME_HOURS', 		         type:'output',  	width:'94px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["내역", "비고"],         ref: 'MEMO',    type:'input',  	width:'137px',  style:'text-align:left'},
             {caption: ["내역", "사유"],         ref: 'CAUSE',    type:'input',  	width:'106px',  style:'text-align:left'},
-            {caption: ["야간시간", "근태항목"], 		ref: 'NIGHT_TIME_ITEM_CODE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "근태항목"], 		ref: 'NIGHT_TIME_ITEM_CODE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonTimeItemCode',
                     label		: 'label',
@@ -548,7 +549,7 @@
                 , disabled: true
                 , hidden: true
             },
-            {caption: ["야간시간", "시작유형"], 		ref: 'NIGHT_START_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "시작유형"], 		ref: 'NIGHT_START_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -556,10 +557,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["야간시간", "시작시각"],        ref: 'NIGHT_START_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "시작시각"],        ref: 'NIGHT_START_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["야간시간", "종료유형"], 		ref: 'NIGHT_END_DAY_TYPE',   	    type:'combo', style:'text-align:left' ,width: '75px',
+            {caption: ["야간시간", "종료유형"], 		ref: 'NIGHT_END_DAY_TYPE',   	    type:'combo', style:'text-align:center' ,width: '75px',
                 typeinfo: {
                     ref			: 'jsonStartEndDayType',
                     label		: 'label',
@@ -567,10 +568,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["야간시간", "종료시각"],        ref: 'NIGHT_END_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "종료시각"],        ref: 'NIGHT_END_HHMM', 		         type:'input',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
-            {caption: ["야간시간", "종료시간"],        ref: 'NIGHT_HOURS', 		         type:'output',  	width:'75px',  	style:'text-align:left',
+            {caption: ["야간시간", "종료시간"],        ref: 'NIGHT_HOURS', 		         type:'output',  	width:'75px',  	style:'text-align:center',
                 format : {type : 'date', rule : 'HH:mm', origin : 'HHmm'}
             },
             {caption: ["TXN_ID"],         ref: 'TXN_ID',    type:'output',  	width:'60px',  style:'text-align:left', hidden: true},
@@ -1059,6 +1060,7 @@
     function cfn_search() {
         fn_search();
     }
+
     const fn_checkSave = async function(){
     	let checkedRows = gvwShift.getCheckedRows(gvwShift.getColRef("CHK_YN"), true);
     	if(checkedRows.length ==0){
@@ -1161,6 +1163,7 @@
             }
         }
     }
+
 
     const fn_saveData = async function(){
     	
