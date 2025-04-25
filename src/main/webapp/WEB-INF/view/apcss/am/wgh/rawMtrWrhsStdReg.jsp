@@ -24,355 +24,388 @@
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
   <%@ include file="../../../frame/inc/clipreport.jsp" %>
   <style>
-    .displayFlex > .sbux-pik-wrap {
+    .displayFlex {
       display: flex;
       gap: 10px;
     }
   </style>
 </head>
-<body>
-<p>입고등록페이지</p>
-</body>
 <body oncontextmenu="return false">
 <section class="content container-fluid">
   <div class="box box-solid">
+    <div class="box-header" style="display:flex; justify-content: flex-start;">
+      <div>
+        <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
+        <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 -->
+        <sbux-label id="lbl-wrhsno" name="lbl-wrhsno" uitype="normal" text="">
+        </sbux-label>
+      </div>
+      <div style="margin-left: auto;">
+        <sbux-button
+                id="btnCmndDocPckg"
+                name="btnCmndDocPckg"
+                uitype="normal"
+                class="btn btn-sm btn-primary"
+                onclick="fn_docRawMtrWrhs"
+                text="원물인식표"
+        ></sbux-button>
+        <sbux-button
+                id="btnReset"
+                name="btnReset"
+                uitype="normal"
+                class="btn btn-sm btn-outline-danger"
+                onclick="fn_reset"
+                text="초기화"
+        ></sbux-button>
+        <sbux-button
+                id="btnCreate"
+                name="btnCreate"
+                uitype="normal"
+                class="btn btn-sm btn-outline-danger"
+                onclick="fn_create"
+                text="신규"
+        ></sbux-button>
+        <sbux-button
+                id="btnSave"
+                name="btnSave"
+                uitype="normal"
+                class="btn btn-sm btn-outline-danger"
+                onclick="fn_save"
+                text="저장"
+        ></sbux-button>
+        <sbux-button
+                id="btnDelete"
+                name="btnDelete"
+                uitype="normal"
+                class="btn btn-sm btn-outline-danger"
+                onclick="fn_delete"
+                text="삭제"
+        ></sbux-button>
+        <sbux-button
+                id="btnSearch"
+                name="btnSearch"
+                uitype="normal"
+                class="btn btn-sm btn-outline-danger"
+                onclick="fn_search"
+                text="조회"
+        ></sbux-button>
+      </div>
+    </div>
     <div class="box-body" id="progArea">
+      <!--[APC] START -->
+<%--      <%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
+      <!--[APC] END -->
       <!--[pp] 검색 -->
-      <sbux-input id="srch-inp-wrhsno" name="srch-inp-wrhsno" uitype="hidden"></sbux-input>
-      <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
-      <sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>
-      <table id="rawMtrWrhsStdTable" class="table table-bordered tbl_fixed">
+<%--      <sbux-input id="srch-inp-wrhsno" name="srch-inp-wrhsno" uitype="hidden"></sbux-input>--%>
+<%--      <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>--%>
+<%--      <sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>--%>
+      <table id="rawMtrWrhsTable" class="table table-bordered tbl_fixed">
         <caption>검색 조건 설정</caption>
         <colgroup>
-          <col style="width: 7%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
+          <col style="width: 11%">
+          <col style="width: 22%">
+          <col style="width: 11%">
+          <col style="width: 22%">
+          <col style="width: 11%">
+          <col style="width: 22%">
 
-          <col style="width: 7%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-          <col style="width: 1%">
-
-          <col style="width: 7%">
-          <col style="width: 6%">
-          <col style="width: 6%">
-          <col style="width: 3%">
         </colgroup>
         <tbody>
         <tr>
           <th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
-          <td colspan="15" class="td_input" style="border-right: hidden;">
-            <div id="inp-area" style="display: none;">
-              <sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"/>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <sbux-datepicker uitype="popup" id="srch-dtp-wrhsYmd" name="srch-dtp-wrhsYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
             </div>
-            <div id="srch-area">
-              <sbux-datepicker uitype="range" id="search-dtp-wrhsYmd" name="search-dtp-wrhsYmd"
-                               date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-                               wrap-class="displayFlex" wrap-style="border:0;padding:0;"
-              />
-            </div>
-
           </td>
-          <%--							<td colspan="9" style="border-right: hidden;">&nbsp;</td>--%>
           <th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>
-          <td colspan="5" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-prdcrNm"
-                    name="srch-inp-prdcrNm"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    placeholder="초성검색 가능"
-                    autocomplete-ref="jsonPrdcrAutocomplete"
-                    autocomplete-text="name"
-                    autocomplete-height="270px"
-                    oninput="fn_onInputPrdcrNm(event)"
-                    autocomplete-select-callback="fn_onSelectPrdcrNm"
-            ></sbux-input>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <div style="flex: 1">
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-prdcrNm"
+                        name="srch-inp-prdcrNm"
+                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        placeholder="초성검색 가능"
+                        autocomplete-ref="jsonPrdcrAutocomplete"
+                        autocomplete-text="name"
+                        autocomplete-height="270px"
+                        oninput="fn_onInputPrdcrNm(event)"
+                        autocomplete-select-callback="fn_onSelectPrdcrNm"
+                ></sbux-input>
+              </div>
+              <div style="flex: 1">
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-prdcrIdentno"
+                        name="srch-inp-prdcrIdentno"
+                        class="form-control input-sm"
+                        maxlength="2"
+                        autocomplete="off"
+                        onchange="fn_onChangeSrchPrdcrIdentno(this)"
+                ></sbux-input>
+              </div>
+              <div style="flex-grow: 0">
+                <sbux-button
+                        id="btn-srch-prdcr"
+                        name="btn-srch-prdcr"
+                        class="btn btn-xs btn-outline-dark"
+                        text="찾기" uitype="modal"
+                        target-id="modal-prdcr"
+                        onclick="fn_choicePrdcr"
+                ></sbux-button>
+              </div>
+            </div>
           </td>
-          <td colspan="4" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-prdcrIdentno"
-                    name="srch-inp-prdcrIdentno"
-                    class="form-control input-sm"
-                    maxlength="2"
-                    autocomplete="off"
-                    onchange="fn_onChangeSrchPrdcrIdentno(this)"
-            ></sbux-input>
-          </td>
-          <td colspan="3" class="td_input" style="border-right: hidden;">
-            <sbux-button
-                    id="btn-srch-prdcr"
-                    name="btn-srch-prdcr"
-                    class="btn btn-xs btn-outline-dark"
-                    text="찾기" uitype="modal"
-                    target-id="modal-prdcr"
-                    onclick="fn_choicePrdcr"
-            ></sbux-button>
-          </td>
-<%--          <td colspan="1"></td>--%>
           <th scope="row" class="th_bg"><span class="data_required" ></span>품목/품종</th>
-          <td colspan="3" class="td_input" style="border-right: hidden;">
-            <sbux-select
-                    unselected-text="전체"
-                    uitype="single"
-                    id="srch-slt-itemCd"
-                    name="srch-slt-itemCd"
-                    class="form-control input-sm input-sm-ast"
-                    jsondata-ref="jsonApcItem"
-                    onchange="fn_onChangeSrchItemCd(this)">
-            </sbux-select>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <div>
+                <sbux-select
+                        unselected-text="전체"
+                        uitype="single"
+                        id="srch-slt-itemCd"
+                        name="srch-slt-itemCd"
+                        class="form-control input-sm input-sm-ast"
+                        jsondata-ref="jsonApcItem"
+                        onchange="fn_onChangeSrchItemCd(this)">
+                </sbux-select>
+              </div>
+              <div>
+                <sbux-select
+                        unselected-text="선택"
+                        uitype="single"
+                        id="srch-slt-vrtyCd"
+                        name="srch-slt-vrtyCd"
+                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        jsondata-ref="jsonApcVrty"
+                        jsondata-value="itemVrtyCd"
+                        onchange="fn_onChangeSrchVrtyCd(this)">
+                </sbux-select>
+              </div>
+            </div>
           </td>
-          <td colspan="3" class="td_input" style="border-right: hidden;">
-            <sbux-select
-                    unselected-text="선택"
-                    uitype="single"
-                    id="srch-slt-vrtyCd"
-                    name="srch-slt-vrtyCd"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    jsondata-ref="jsonApcVrty"
-                    jsondata-value="itemVrtyCd"
-                    onchange="fn_onChangeSrchVrtyCd(this)">
-            </sbux-select>
-          </td>
-<%--          <td colspan="10">&nbsp</td>--%>
-
         <tr>
           <th scope="row" class="th_bg">수량/<span class="data_required" ></span>중량</th>
-          <td colspan="3" class="td_input"style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-bxQntt"
-                    name="srch-inp-bxQntt"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    maxlength="10"
-                    autocomplete="off"
-                    mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-                    onchange="fn_onChangeBxQntt(this)"
-            ></sbux-input>
+          <td class="td_input"style="border-right: hidden;">
+            <div class="displayFlex">
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-bxQntt"
+                        name="srch-inp-bxQntt"
+                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        maxlength="10"
+                        autocomplete="off"
+                        mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+                        onchange="fn_onChangeBxQntt(this)"
+                ></sbux-input>
+              </div>
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-wghtAvg"
+                        name="srch-inp-wghtAvg"
+                        class="form-control input-sm"
+                        placeholder="평균"
+                        maxlength="6"
+                        autocomplete="off"
+                        mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+                        onchange="fn_onChangeWghtAvg(this)"
+                ></sbux-input>
+              </div>
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-wrhsWght"
+                        name="srch-inp-wrhsWght"
+                        class="form-control input-sm input-sm-ast inpt_data_reqed"
+                        maxlength="10"
+                        autocomplete="off"
+                        mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+                        onchange="fn_onChangeWrhsWght(this)"
+                ></sbux-input>
+              </div>
+              <div>
+                <sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"></sbux-label>
+              </div>
+            </div>
           </td>
-          <td colspan="3" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-wghtAvg"
-                    name="srch-inp-wghtAvg"
-                    class="form-control input-sm"
-                    placeholder="평균"
-                    maxlength="6"
-                    autocomplete="off"
-                    mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-                    onchange="fn_onChangeWghtAvg(this)"
-            ></sbux-input>
+          <th scope="row" class="th_bg">박스/팔레트</th>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <div>
+                <sbux-select
+                        unselected-text="전체"
+                        uitype="single"
+                        id="srch-slt-bxKnd"
+                        name="srch-slt-bxKnd"
+                        class="form-control input-sm"
+                        jsondata-ref="jsonApcBx"
+                ></sbux-select>
+              </div>
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-pltno"
+                        name="srch-inp-pltno"
+                        class="form-control input-sm"
+                        autocomplete="off"
+                ></sbux-input>
+              </div>
+            </div>
           </td>
-          <td colspan="4" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-wrhsWght"
-                    name="srch-inp-wrhsWght"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    maxlength="10"
-                    autocomplete="off"
-                    mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-                    onchange="fn_onChangeWrhsWght(this)"
-            ></sbux-input>
-          </td>
-          <td colspan="5">
-            <sbux-label uitype="normal" id="lbl-chc" name="lbl-chc" class="blod" text="Kg"/>
-          </td>
-
-          <th scope="row" class="th_bg">박스종류</th>
-          <td colspan="2" class="td_input" style="border-right: hidden;">
-            <sbux-select
-                    unselected-text="전체"
-                    uitype="single"
-                    id="srch-slt-bxKnd"
-                    name="srch-slt-bxKnd"
-                    class="form-control input-sm"
-                    jsondata-ref="jsonApcBx"
-            ></sbux-select>
-          </td>
-          <td colspan="10">&nbsp;</td>
           <th scope="row" class="th_bg">차량/운임</th>
-          <td colspan="2" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-vhclno"
-                    name="srch-inp-vhclno"
-                    class="form-control input-sm"
-                    autocomplete="off"
-                    readonly
-            ></sbux-input>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-vhclno"
+                        name="srch-inp-vhclno"
+                        class="form-control input-sm"
+                        autocomplete="off"
+                        readonly
+                ></sbux-input>
+              </div>
+              <div>
+                <sbux-button
+                      id="srch-btn-vhcl"
+                      name="srch-btn-vhcl"
+                      class="btn btn-xs btn-outline-dark"
+                      text="찾기"
+                      uitype="modal"
+                      target-id="modal-vhcl"
+                      onclick="fn_choiceVhcl"
+                ></sbux-button>
+              </div>
+              <div>
+                <sbux-input
+                        uitype="text"
+                        id="srch-inp-trsprtCst"
+                        name="srch-inp-trsprtCst"
+                        class="form-control input-sm"
+                        maxlength="6"
+                        autocomplete="off"
+                        mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true }"
+                        readonly
+                ></sbux-input>
+              </div>
+              <div>
+                <sbux-button
+                        id="srch-btn-trsprtCst"
+                        name="srch-btn-trsprtCst"
+                        class="btn btn-xs btn-outline-dark"
+                        text="등록" uitype="modal"
+                        target-id="modal-trsprtCst"
+                        onclick="fn_choiceTrsprtCst"
+                ></sbux-button>
+              </div>
+            </div>
           </td>
-<%--          <td colspan="1" class="td_input" style="border-right: hidden;">--%>
-            <sbux-button
-                    id="srch-btn-vhcl"
-                    name="srch-btn-vhcl"
-                    class="btn btn-xs btn-outline-dark"
-                    text="찾기"
-                    uitype="modal"
-                    target-id="modal-vhcl"
-                    onclick="fn_choiceVhcl"
-            ></sbux-button>
-          </td>
-          <td style="border-right: hidden;">&nbsp;</td>
-          <td colspan="2" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-trsprtCst"
-                    name="srch-inp-trsprtCst"
-                    class="form-control input-sm"
-                    maxlength="6"
-                    autocomplete="off"
-                    mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true }"
-                    readonly
-            ></sbux-input>
-          </td>
-          <td colspan="1" class="td_input" style="border-right: hidden;">
-            <sbux-button
-                    id="srch-btn-trsprtCst"
-                    name="srch-btn-trsprtCst"
-                    class="btn btn-xs btn-outline-dark"
-                    text="등록" uitype="modal"
-                    target-id="modal-trsprtCst"
-                    onclick="fn_choiceTrsprtCst"
-            ></sbux-button>
-          </td>
-<%--          <td style="border-right: hidden;">&nbsp;</td>--%>
         </tr>
-
         <tr>
           <th scope="row" class="th_bg"><span class="data_required" ></span>창고</th>
-          <td colspan="6" class="td_input" style="border-right: hidden;">
-            <sbux-select
-                    unselected-text="선택"
-                    uitype="single"
-                    id="srch-slt-warehouseSeCd"
-                    name="srch-slt-warehouseSeCd"
-                    class="form-control input-sm input-sm-ast inpt_data_reqed"
-                    jsondata-ref="jsonComWarehouse"
-            ></sbux-select>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <sbux-select
+                      unselected-text="선택"
+                      uitype="single"
+                      id="srch-slt-warehouseSeCd"
+                      name="srch-slt-warehouseSeCd"
+                      class="form-control input-sm input-sm-ast inpt_data_reqed"
+                      jsondata-ref="jsonComWarehouse"
+              ></sbux-select>
+            </div>
           </td>
-          <td colspan="9" style="border-right: hidden;">&nbsp;</td>
-
-          <th scope="row" class="th_bg">팔레트번호</th>
-          <td colspan= "6" class="td_input" style="border-right: hidden;">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-pltno"
-                    name="srch-inp-pltno"
-                    class="form-control input-sm"
-                    autocomplete="off"
-            ></sbux-input>
-          </td>
-          <td colspan="9" style="border-right: hidden;">&nbsp;</td>
-          <th scope="row" class="th_bg">비고</th>
+          <th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
           <td colspan="3" class="td_input">
-            <sbux-input
-                    uitype="text"
-                    id="srch-inp-rmrk"
-                    name="srch-inp-rmrk"
-                    class="form-control input-sm"
-                    autocomplete="off"
-            ></sbux-input>
+            <div class="displayFlex">
+              <jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
+            </div>
           </td>
         </tr>
-
         <tr>
           <th scope="row" class="th_bg"><span class="data_required" ></span>생산연도</th>
-          <td colspan="6" class="td_input" style="border-right: hidden;">
-            <sbux-datepicker
-                    uitype="popup"
-                    id="srch-dtp-prdctnYr"
-                    name="srch-dtp-prdctnYr"
-                    date-format="yyyy"
-                    datepicker-mode="year"
-                    class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-            ></sbux-datepicker>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <sbux-datepicker
+                      uitype="popup"
+                      id="srch-dtp-prdctnYr"
+                      name="srch-dtp-prdctnYr"
+                      date-format="yyyy"
+                      datepicker-mode="year"
+                      class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
+              ></sbux-datepicker>
+            </div>
           </td>
-          <td colspan="9" style="border-right: hidden;">&nbsp;</td>
-          <th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
-          <td colspan="19" class="td_input">
-            <jsp:include page="../../am/popup/apcStdGrdSelect.jsp"></jsp:include>
+          <th scope="row" class="th_bg">비고</th>
+          <td colspan="3" class="td_input">
+            <div class="displayFlex" style="flex-grow: 1">
+              <sbux-input
+                      uitype="text"
+                      id="srch-inp-rmrk"
+                      name="srch-inp-rmrk"
+                      class="form-control input-sm"
+                      autocomplete="off"
+              ></sbux-input>
+            </div>
           </td>
         </tr>
-
-
-
-
-
         <tr>
           <th scope="row" class="th_bg">입고구분</th>
-          <td colspan="15" class="td_input" style="border-right: hidden;">
-            <p class="ad_input_row">
-              <sbux-radio
-                      id="srch-rdo-wrhsSeCd"
-                      name="srch-rdo-wrhsSeCd"
-                      uitype="normal"
-                      class="radio_label"
-                      text-right-padding="10px"
-                      jsondata-ref="jsonComWrhsSeCd"
-                      jsondata-text="cdVlNm"
-                      jsondata-value="cdVl"
-              ></sbux-radio>
-            </p>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <p class="ad_input_row">
+                <sbux-radio
+                        id="srch-rdo-wrhsSeCd"
+                        name="srch-rdo-wrhsSeCd"
+                        uitype="normal"
+                        class="radio_label"
+                        text-right-padding="10px"
+                        jsondata-ref="jsonComWrhsSeCd"
+                        jsondata-text="cdVlNm"
+                        jsondata-value="cdVl"
+                ></sbux-radio>
+              </p>
+            </div>
           </td>
           <th scope="row" class="th_bg">상품구분</th>
-          <td colspan="15" class="td_input" style="border-right: hidden;">
-            <p class="ad_input_row">
-              <sbux-radio
-                      id="srch-rdo-gdsSeCd"
-                      name="srch-rdo-gdsSeCd"
-                      uitype="normal"
-                      class="radio_label"
-                      text-right-padding="10px"
-                      jsondata-ref="jsonComGdsSeCd"
-                      jsondata-text="cdVlNm"
-                      jsondata-value="cdVl"
-              ></sbux-radio>
-            </p>
+          <td class="td_input" style="border-right: hidden;">
+            <div class="displayFlex">
+              <p class="ad_input_row">
+                <sbux-radio
+                        id="srch-rdo-gdsSeCd"
+                        name="srch-rdo-gdsSeCd"
+                        uitype="normal"
+                        class="radio_label"
+                        text-right-padding="10px"
+                        jsondata-ref="jsonComGdsSeCd"
+                        jsondata-text="cdVlNm"
+                        jsondata-value="cdVl"
+                ></sbux-radio>
+              </p>
+            </div>
           </td>
           <th scope="row" class="th_bg">운송구분</th>
-          <td colspan="3" class="td_input">
-            <p class="ad_input_row">
-              <sbux-radio
-                      id="srch-rdo-trsprtSeCd"
-                      name="srch-rdo-trsprtSeCd"
-                      uitype="normal"
-                      class="radio_label"
-                      text-right-padding="10px"
-                      jsondata-ref="jsonComTrsprtSeCd"
-                      jsondata-text="cdVlNm"
-                      jsondata-value="cdVl"
-              ></sbux-radio>
-            </p>
+          <td class="td_input">
+            <div class="displayFlex">
+              <p class="ad_input_row">
+                <sbux-radio
+                        id="srch-rdo-trsprtSeCd"
+                        name="srch-rdo-trsprtSeCd"
+                        uitype="normal"
+                        class="radio_label"
+                        text-right-padding="10px"
+                        jsondata-ref="jsonComTrsprtSeCd"
+                        jsondata-text="cdVlNm"
+                        jsondata-value="cdVl"
+                ></sbux-radio>
+              </p>
+            </div>
           </td>
         </tr>
-
         </tbody>
       </table>
 
@@ -469,7 +502,7 @@
 <!-- clip report direct print area  -->
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
-
+<%--
 <script type="text/javascript">
 
   /**
@@ -2815,7 +2848,7 @@
     $("#srch-area").css("display","none");
     $("#inp-area").css("display","");
 
-    const rows = document.querySelectorAll('#rawMtrWrhsStdTable tr');
+    const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
     rows.forEach((row, index) => {
       if(index == 3){
         row.cells[6].style.display = 'table-cell'
@@ -2830,7 +2863,7 @@
     $("#srch-area").css("display","");
     $("#inp-area").css("display","none");
 
-    const rows = document.querySelectorAll('#rawMtrWrhsStdTable tr');
+    const rows = document.querySelectorAll('#rawMtrWrhsTable tr');
 
     rows.forEach((row, index) => {
       if ((index == 0)) {
@@ -2847,6 +2880,6 @@
 
 
 
-</script>
+</script>--%>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
