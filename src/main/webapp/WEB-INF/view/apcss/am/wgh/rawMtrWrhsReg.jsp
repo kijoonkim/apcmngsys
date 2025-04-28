@@ -2926,6 +2926,15 @@
 	<title>title : 원물입고등록</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
+
+	<style>
+		.displayFlex {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+		}
+	</style>
 </head>
 <body oncontextmenu="return false">
 <section class="content container-fluid">
@@ -2936,8 +2945,8 @@
 				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 -->
 			</div>
 			<div style="margin-left: auto;">
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick=""></sbux-button>
-				<sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_create()"></sbux-button>
+				<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset"></sbux-button>
+				<sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_add"></sbux-button>
 			</div>
 		</div>
 
@@ -2975,6 +2984,17 @@
 </body>
 
 <script type="text/javascript">
+
+	const fn_reset = function () {
+		console.log("fn_reset");
+		console.log(SBUxMethod.get("tab_norm"));
+	}
+
+	const fn_add = function () {
+		console.log("fn_add");
+		console.log(SBUxMethod.get("tab_norm"));
+	}
+
 	const fn_changeTab = function() {
 		console.log("fn_changeTab()")
 	}
