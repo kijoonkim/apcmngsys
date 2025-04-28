@@ -751,7 +751,7 @@
             // 교대유형
             gfnma_setComSelect(['SHIFT_CATEGORY'], jsonShiftCategory, 'L_HRT034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 바탕색상
-            gfnma_setComSelect(['BACK_COLOR'], jsonBackColor, 'L_COLOR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COLOR_CODE', 'COLOR_NAME', 'Y', ''),
+            gfnma_setComSelect([''], jsonBackColor, 'L_COLOR', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'COLOR_CODE', 'COLOR_NAME', 'Y', ''),
             // 13유휴대상
             gfnma_setComSelect(['PAY_ALLOWANCE_FLAG'], jsonPayAllowanceFlag, 'L_HRT052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 근무구분
@@ -809,6 +809,17 @@
                 , 'BREAK5_TIME_ITEM_CODE']
                 , jsonTimeItemCode, 'L_HRT004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ATDNC_ITEM_CD', 'ATDNC_ITEM_NM', 'Y', ''),
         ]);
+        
+        
+        if(!gfn_isEmpty(jsonBackColor)){
+        	jsonBackColor = _.map(jsonBackColor, item => ({
+	            text: item.COLOR_NAME,
+	            value: item.COLOR_CODE,
+	            style: "background-color:" + item.COLOR_CODE + ";"
+	        }));
+	        SBUxMethod.refresh("BACK_COLOR");
+        }
+        
     }
 
     function fn_createBandgvwInfoGrid() {

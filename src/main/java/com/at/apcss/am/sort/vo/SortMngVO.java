@@ -1,5 +1,6 @@
 package com.at.apcss.am.sort.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,11 @@ public class SortMngVO extends ComVO {
 	private List<RawMtrInvntrVO> rawMtrInvntrList;
 
 	/**
+	 * 원물 투입 목록
+	 */
+	private List<RawMtrInvntrVO> rawMtrInptList;
+
+	/**
 	 * 선별지시 목록
 	 */
 	private List<SortCmndVO> sortCmndList;
@@ -89,10 +95,10 @@ public class SortMngVO extends ComVO {
 	private List<String> sortSnList;
 
 	public List<String> getSortSnList() {
-		return sortSnList == null ? null : sortSnList.stream().collect(Collectors.toList());
+		return sortSnList == null ? null : new ArrayList<>(sortSnList);
 	}
 	public void setSortSnList(List<String> sortSnList) {
-		this.sortSnList = sortSnList == null ? null : sortSnList.stream().collect(Collectors.toList());
+		this.sortSnList = sortSnList == null ? null : new ArrayList<>(sortSnList);
 	}
 
 	/**
@@ -100,30 +106,40 @@ public class SortMngVO extends ComVO {
 	 * @return
 	 */
 	public List<SortCmndVO> getSortCmndList() {
-		return sortCmndList == null ? null : sortCmndList.stream().collect(Collectors.toList());
+		return sortCmndList == null ? null : new ArrayList<>(sortCmndList);
 	}
 	public void setSortCmndList(List<SortCmndVO> sortCmndList) {
-		this.sortCmndList = sortCmndList == null ? null : sortCmndList.stream().collect(Collectors.toList());
+		this.sortCmndList = sortCmndList == null ? null : new ArrayList<>(sortCmndList);
 	}
 
 	public List<SortInptPrfmncVO> getSortInptPrfmncList() {
-		return sortInptPrfmncList == null ? null : sortInptPrfmncList.stream().collect(Collectors.toList());
+		return sortInptPrfmncList == null ? null : new ArrayList<>(sortInptPrfmncList);
 	}
 	public void setSortInptPrfmncList(List<SortInptPrfmncVO> sortInptPrfmncList) {
-		this.sortInptPrfmncList = sortInptPrfmncList == null ? null : sortInptPrfmncList.stream().collect(Collectors.toList());
+		this.sortInptPrfmncList = sortInptPrfmncList == null ? null : new ArrayList<>(sortInptPrfmncList);
 	}
 
 	public List<SortPrfmncVO> getSortPrfmncList() {
-		return sortPrfmncList == null ? null : sortPrfmncList.stream().collect(Collectors.toList());
+		return sortPrfmncList == null ? null : new ArrayList<>(sortPrfmncList);
 	}
 	public void setSortPrfmncList(List<SortPrfmncVO> sortPrfmncList) {
-		this.sortPrfmncList = sortPrfmncList == null ? null : sortPrfmncList.stream().collect(Collectors.toList());
+		this.sortPrfmncList = sortPrfmncList == null ? null : new ArrayList<>(sortPrfmncList);
 	}
 	public List<RawMtrInvntrVO> getRawMtrInvntrList() {
-		return rawMtrInvntrList == null ? null : rawMtrInvntrList.stream().collect(Collectors.toList());
+		return rawMtrInvntrList == null ? null : new ArrayList<>(rawMtrInvntrList);
 	}
 	public void setRawMtrInvntrList(List<RawMtrInvntrVO> rawMtrInvntrList) {
-		this.rawMtrInvntrList = rawMtrInvntrList == null ? null : rawMtrInvntrList.stream().collect(Collectors.toList());
+		this.rawMtrInvntrList = rawMtrInvntrList == null ? null : new ArrayList<>(rawMtrInvntrList);
 	}
+
+	public List<RawMtrInvntrVO> getRawMtrInptList() {
+		return rawMtrInptList == null ? null : new ArrayList<>(rawMtrInptList);
+	}
+
+	public void setRawMtrInptList(List<RawMtrInvntrVO> rawMtrInptList) {
+		this.rawMtrInptList = rawMtrInptList == null ? null : new ArrayList<>(rawMtrInptList);
+	}
+
+
 
 }

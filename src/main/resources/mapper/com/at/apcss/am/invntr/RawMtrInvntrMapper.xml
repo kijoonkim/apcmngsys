@@ -800,6 +800,9 @@
 		<if test='warehouseSeCd != null and warehouseSeCd != ""'>
 			   AND RI.WAREHOUSE_SE_CD = #{warehouseSeCd}
 		</if>
+		<if test='wrhsYmd != null and wrhsYmd != ""'>
+			AND RI.WRHS_YMD = #{wrhsYmd}
+		</if>
 		<if test='excldWrhsnoList != null and !excldWrhsnoList.isEmpty()'>
 			   AND RI.WRHSNO NOT IN
 				<foreach collection="excldWrhsnoList" item="item" index="index" separator="," open="(" close=")">

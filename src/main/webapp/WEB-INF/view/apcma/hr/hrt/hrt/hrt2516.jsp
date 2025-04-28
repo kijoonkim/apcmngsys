@@ -129,6 +129,7 @@
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
+                                placement="bottomRight"
                         />
                     </td>
                     <td></td>

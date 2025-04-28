@@ -19,7 +19,13 @@ public class AmConstants {
 
 
 	public final static String PROP_VRTY_LIST		= "vrtyList";
-	
+
+
+    public final static String CON_APC_ATRB         = "APC_ATRB";
+    public final static String CON_BSC_WRHS_SE_CD   = "BSC_WRHS_SE_CD";
+    public final static String CON_BSC_GDS_SE_CD    = "BSC_GDS_SE_CD";
+
+
     /**
      *  팔레트/박스 구분 - P:팔레트
      */
@@ -326,5 +332,6 @@ public class AmConstants {
     public final static String CON_INVNTR_STTS_CD_FRCS_SORT = "S1";		// 선별 강제 생성
     public final static String CON_INVNTR_STTS_CD_CHNG_SPMT = "D2";		// 출하 변경
     public final static String CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO = "D3";		// 출하 강제 변경 (마이너스허용)
+    public final static String CON_INVNTR_STTS_CD_FRCS_SORT_CREDIT = "S3";		// 선별 강제 생성 (신용)
 
 }

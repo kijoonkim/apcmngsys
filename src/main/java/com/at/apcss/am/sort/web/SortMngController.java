@@ -312,8 +312,8 @@ public class SortMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	@PostMapping(value = "/am/sort/insertSortRsltSimple.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-	public ResponseEntity<HashMap<String, Object>> insertSortRsltSimple(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
+	@PostMapping(value = "/am/sort/insertSortRsltSimply.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSortRsltSimply(@RequestBody SortMngVO sortMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -323,7 +323,9 @@ public class SortMngController extends BaseController {
 			sortMngVO.setSysLastChgUserId(getUserId());
 			sortMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
-			HashMap<String, Object> rtnObj = sortMngService.insertSortRslt(sortMngVO);
+			sortMngVO.setNeedsVrInvntrRegYn(ComConstants.CON_YES);
+
+			HashMap<String, Object> rtnObj = sortMngService.insertSortRsltSimply(sortMngVO);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}

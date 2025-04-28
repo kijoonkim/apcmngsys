@@ -83,6 +83,16 @@ public interface SortMngService {
 
 
 	/**
+	 * 선별실적 등록 : 선 선별등록, 후 투입재고차감
+	 * @param sortMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> insertSortRsltSimply(SortMngVO sortMngVO) throws Exception;
+
+
+
+	/**
 	 * 선별지시 변경
 	 * @param sortMngVO
 	 * @return

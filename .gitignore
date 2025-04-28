@@ -14,6 +14,7 @@ local.properties
 .loadpath
 .recommenders
 .idea/
+.scripts/
 
 # External tool builders
 .externalToolBuilders/
@@ -290,3 +291,9 @@ $RECYCLE.BIN/
 # ezFilter
 #!EzFilter.jar
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,maven,intellij,eclipse,windows
+
+# Node.js, Webpack 관련
+node_modules/
+src/main/resources/static/js/out/
+dist/
+out/

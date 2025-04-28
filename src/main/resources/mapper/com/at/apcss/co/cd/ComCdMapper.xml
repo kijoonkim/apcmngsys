@@ -448,6 +448,7 @@
 			     , CD.CD_CHR_VL		AS CD_CHR_VL
 			     , CD.DEL_YN		AS DEL_YN
 			     , CD.EXTRNL_LNKG_CD	AS EXTRNL_LNKG_CD
+				, CD.USE_YN			AS USE_YN
 			  FROM
 			  	  TB_COM_CD CC
 			  	, TB_COM_CD_DTL CD

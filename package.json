@@ -1,0 +1,35 @@
+{
+  "name": "apcss",
+  "version": "1.0.0",
+  "description": "...",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dlgkfn4@github.com/workJohn/apcss.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/workJohn/apcss/issues"
+  },
+  "homepage": "https://github.com/workJohn/apcss#readme",
+  "dependencies": {
+    "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "babel-loader": "^10.0.0",
+    "webpack": "5.90.3",
+    "webpack-cli": "5.1.4"
+  }
+}

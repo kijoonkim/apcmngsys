@@ -479,7 +479,7 @@ public class ComAuthrtController extends BaseController{
 
 	/**
 	 * 화면UI 권한 목록 조회
-	 * @param comAuthrtUserVO
+	 * @param comAuthrtUiVO
 	 * @param request
 	 * @return
 	 * @throws Exception
@@ -502,6 +502,31 @@ public class ComAuthrtController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 화면UI 권한 목록 조회
+	 * @param comAuthrtUiVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/co/authrt/selectLoginUserAuthrtCmnsBtnList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectLoginUserAuthrtCmnsBtnList(@RequestBody ComAuthrtUiVO comAuthrtUiVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		List<ComAuthrtUiVO> resultList;
+		comAuthrtUiVO.setUserId(getUserId());
+
+		try {
+			resultList = comAuthrtService.selectUserAuthrtCmnsBtnList(comAuthrtUiVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
 
 	/**
 	 * 화면UI권한 등록

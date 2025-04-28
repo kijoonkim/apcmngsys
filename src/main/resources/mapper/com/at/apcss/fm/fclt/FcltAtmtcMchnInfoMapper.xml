@@ -159,7 +159,24 @@
 			)
 		WHEN MATCHED THEN
 		  UPDATE SET
-				  DPTZ							= #{dptz}
+					ITEM_CD 					= (SELECT
+													  ITEM_CD
+												  FROM  TB_TE_APC_OPER_TRMT_ITEM
+												  WHERE 1=1
+													AND APC_CD = #{apcCd}
+													AND CRTR_YR = #{crtrYr}
+													AND SN = #{sn}
+													AND OGNZ_SE_CD = '2')
+				  , ITEM_NM 					= (SELECT
+													  ITEM_NM
+												  FROM  TB_TE_APC_OPER_TRMT_ITEM
+												  WHERE 1=1
+													AND APC_CD = #{apcCd}
+													AND CRTR_YR = #{crtrYr}
+													AND SN = #{sn}
+													AND OGNZ_SE_CD = '2')
+
+				  , DPTZ						= #{dptz}
 				  , APM							= #{apm}
 				  , ELCTRN_WGHT_SORT_MCHN		= #{elctrnWghtSortMchn}
 				  , NDST_BRCK_SORT_MCHN			= #{ndstBrckSortMchn}
