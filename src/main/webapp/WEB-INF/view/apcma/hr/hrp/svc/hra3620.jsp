@@ -1188,8 +1188,6 @@
         SBUxMethod.set("SRCH_SITE_CODE", p_siteCode);
         SBUxMethod.set("SRCH_JOB_YYYYMM_FR", gfn_dateToYmd(new Date()));
         SBUxMethod.set("SRCH_JOB_YYYYMM_TO", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("SRCH_PAY_DATE_FR", gfn_dateToYmd(new Date()));
-        SBUxMethod.set("SRCH_PAY_DATE_TO", gfn_dateToYmd(new Date()));
     }
 
     const fn_save = async function () {

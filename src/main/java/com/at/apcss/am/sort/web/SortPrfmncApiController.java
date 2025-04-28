@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.sort.service.SortMngService;
+import com.at.apcss.am.sort.vo.SortBffaList;
 import com.at.apcss.am.sort.vo.SortBffaVO;
+import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -132,6 +134,57 @@ public class SortPrfmncApiController extends BaseController {
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 모바일 육안선별 등록 API
+    @PostMapping(value = "/api/mobile/am/sort/insertSortBffaSpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> insertSortBffaSpt(@RequestBody List<SortBffaList> sortBffaListVO, HttpServletRequest request) throws Exception {
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            HashMap<String, Object> rtnObj = sortPrfmncService.insertSortBffaSpt(sortBffaListVO);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch(Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_MAP, sortBffaListVO);
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    // 모바일 육안선별 삭제 API
+    @PostMapping(value = "/api/mobile/am/sort/deleteSortBffaSpt.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteSortBffaSpt(@RequestBody WrhsSortGrdVO wrhsSortGrdVO, HttpServletRequest request) throws Exception {
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+        try {
+            wrhsSortGrdVO.setSysFrstInptUserId(getUserId());
+            wrhsSortGrdVO.setSysFrstInptPrgrmId(getPrgrmId());
+            wrhsSortGrdVO.setSysLastChgUserId(getUserId());
+            wrhsSortGrdVO.setSysLastChgPrgrmId(getPrgrmId());
+
+            HashMap<String, Object> rtnObj = sortPrfmncService.deleteSortBffaSpt(wrhsSortGrdVO);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        } catch(Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
 
         return getSuccessResponseEntity(resultMap);
     }

@@ -75,7 +75,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma inpt_data_reqed"
+                                class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                                 onchange="fn_ymPay"
                         ></sbux-datepicker>
                     </td>
@@ -88,7 +88,7 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma input-sm-ast"
+                                class="form-control sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                         <%--onchange="fn_payDate"--%>>
                         </sbux-datepicker>
                     </td>
@@ -114,7 +114,7 @@
                                 name="SRCH_PAY_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
-                                class="table-datepicker-ma inpt_data_reqed"
+                                class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                         >
                         </sbux-datepicker>
                     </td>
@@ -126,7 +126,7 @@
                                 name="SRCH_EXPECTED_PAY_DATE"
                                 uitype="popup"
                                 date-format="yyyy-mm-dd"
-                                class="table-datepicker-ma inpt_data_reqed"
+                                class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed table-datepicker-ma"
                         >
                         </sbux-datepicker>
                     </td>
@@ -138,7 +138,7 @@
                                 jsondata-ref="jsonPayCalculateType"
                                 unselected-text="선택"
                                 class="form-control input-sm"
-                                onchange="fn_payCalType"
+                                <!--onchange="fn_payCalType"  -->
                         ></sbux-select>
                     </td>
                     <td style="border-right: hidden;">&nbsp;</td>
@@ -590,14 +590,14 @@
 </section>
 <div>
     <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title=""
-                body-html-id="body-modal-compopup1" header-is-close-button="false"
-                footer-is-close-button="false"></sbux-modal>
+                body-html-id="body-modal-compopup1" header-is-close-button="true"
+                footer-is-close-button="true"></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
 <div>
-    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="false" footer-is-close-button="false" ></sbux-modal>
+    <sbux-modal style="width:700px" id="modal-compopup3" name="modal-compopup3" uitype="middle" header-title="" body-html-id="body-modal-compopup3" header-is-close-button="true" footer-is-close-button="true" ></sbux-modal>
 </div>
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
@@ -947,10 +947,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-
-
                 if (strWorkType == "Q"){
-
+                	
                     jsonExceptionList.length = 0;
                     data.cv_3.forEach((item, index) => {
                         const msg = {
@@ -961,7 +959,6 @@
                         jsonExceptionList.push(msg);
                         //totalRecordCount ++;
                     });
-
                     gvwExceptionGrid.rebuild();
 
                     jsonBonusList.length = 0;
@@ -1004,15 +1001,11 @@
                     gvwLogGrid.rebuild();
 
                 } else if (strWorkType == "PAYDATE") {
-
-                    data.cv_1.forEach((item, index) => {
-
-                        SBUxMethod.set("SRCH_PAY_DATE"          , gfn_nvl(item.PAY_YMD));
-                        SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , gfn_nvl(item.PAY_PRNMNT_YMD));
-
-                    });
-
-
+                    for (const item of data.cv_1) {
+                        await SBUxMethod.set("SRCH_PAY_DATE"          , gfn_nvl(item.PAY_YMD));
+                        await SBUxMethod.set("SRCH_EXPECTED_PAY_DATE" , gfn_nvl(item.PAY_PRNMNT_YMD));
+                    }
+                    
                     jsonGvwLogList.length = 0;
                     data.cv_2.forEach((item, index) => {
                         const msg = {
@@ -1187,8 +1180,7 @@
         let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); // 귀속년월
         let PAY_CALCULATE_TYPE  = gfn_nvl(SBUxMethod.get("SRCH_PAY_CALCULATE_TYPE")); // 급상여구분
         let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); // 지급구분
-        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); // 지급일
-
+        
         if(PAY_YYYYMM != '') {
 
             SBUxMethod.set("SRCH_BASE_YYYYMM", 			PAY_YYYYMM);
@@ -1198,7 +1190,9 @@
         {
             await fn_search("PAYDATE");
         }
-
+        
+        
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); // 지급일
         if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '' && PAY_DATE != '')
         {
             if (PAY_CALCULATE_TYPE == "PAY"){
@@ -1214,38 +1208,38 @@
     }
 
     // 급상여구분 EditValueChanged
-    const fn_payCalType = async function () {
+//     const fn_payCalType = async function () {
 
-        if (cbopay_calculate_type.EditValue.ToString() == "")
-            return;
+//         if (cbopay_calculate_type.EditValue.ToString() == "")
+//             return;
 
-        // ALL : 급상여, BONUS : 상여
-        if (cbopay_calculate_type.EditValue.ToString() == "ALL" || cbopay_calculate_type.EditValue.ToString() == "BONUS")
-        {
-            grpBonus.Enabled = true;
-            grpBonusCriteria.Enabled = true;
-            cbobonus_calculate_type.SelectedIndex = 1;
+//         // ALL : 급상여, BONUS : 상여
+//         if (cbopay_calculate_type.EditValue.ToString() == "ALL" || cbopay_calculate_type.EditValue.ToString() == "BONUS")
+//         {
+//             grpBonus.Enabled = true;
+//             grpBonusCriteria.Enabled = true;
+//             cbobonus_calculate_type.SelectedIndex = 1;
 
-            if (ymdpay_yyyymm.Text != "" && cbopay_calculate_type.EditValue.ToString() != ""
-                && cbopay_type.EditValue.ToString() != "" && ymdpay_date.Text != "")
-            {
-                QueryClick();
+//             if (ymdpay_yyyymm.Text != "" && cbopay_calculate_type.EditValue.ToString() != ""
+//                 && cbopay_type.EditValue.ToString() != "" && ymdpay_date.Text != "")
+//             {
+//                 QueryClick();
 
-                // 상여율 조회
-                fnQRY_P_HRP2320_Q("BONUS");
-            }
-        }
-        else
-        {
-            grpBonus.Enabled = false;
-            grpBonusCriteria.Enabled = false;
+//                 // 상여율 조회
+//                 fnQRY_P_HRP2320_Q("BONUS");
+//             }
+//         }
+//         else
+//         {
+//             grpBonus.Enabled = false;
+//             grpBonusCriteria.Enabled = false;
 
-            InitControls(grpBonus);
-            InitControls(grpBonusCriteria);
-            InitControls(grdBonus);
-        }
+//             InitControls(grpBonus);
+//             InitControls(grpBonusCriteria);
+//             InitControls(grdBonus);
+//         }
 
-    }
+//     }
 
     // 지급일자 가져오기
     const fn_payType = async function () {
@@ -1253,16 +1247,16 @@
         let PAY_YYYYMM          = gfn_nvl(SBUxMethod.get("SRCH_PAY_YYYYMM")); // 귀속년월
         let PAY_CALCULATE_TYPE  = gfn_nvl(SBUxMethod.get("SRCH_PAY_CALCULATE_TYPE")); // 급상여구분
         let PAY_TYPE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_TYPE")); // 지급구분
-        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); // 지급일
-
         let PAY_AREA_TYPE       = gfn_nvl(SBUxMethod.get("PAY_AREA_TYPE")); // 지급일
-
+        
         // 지급일 조회
-        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '')
-        {
+        if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != ''){
             await fn_search('PAYDATE');
         }
-
+        
+        let PAY_DATE            = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE")); // 지급일
+        
+        console.log(" after ", { PAY_YYYYMM : PAY_YYYYMM, PAY_CALCULATE_TYPE: PAY_CALCULATE_TYPE, PAY_TYPE: PAY_TYPE, PAY_DATE : PAY_DATE});
         if (PAY_YYYYMM != '' && PAY_CALCULATE_TYPE != '' && PAY_TYPE != '' && PAY_DATE != ''){
             if (PAY_CALCULATE_TYPE == "PAY"){
                 return;
@@ -1274,6 +1268,7 @@
             await fn_search('BONUS');
 
         }
+        
     }
 
     //소급계산제외 여부
@@ -1347,7 +1342,6 @@
         let EXPECTED_PAY_DATE    = gfn_nvl(SBUxMethod.get("SRCH_EXPECTED_PAY_DATE")); // 퇴사일
         let PAY_CALCULATE_TYPE   = gfn_nvl(SBUxMethod.get("SRCH_PAY_CALCULATE_TYPE")); // 급상여구분
 
-
         let SITE_CODE               = gfn_nvl(SBUxMethod.get("SITE_CODE")); // 사업장
         let BONUS_CALCULATE_TYPE    = gfn_nvl(SBUxMethod.get("BONUS_CALCULATE_TYPE"));
         let BONUS_RATE              = gfn_nvl(SBUxMethod.get("BONUS_RATE"));
@@ -1380,12 +1374,21 @@
             return;
         }
 
-        let gridBonus =gvwBonusGrid.getGridDataAll();
-        let gridException =gvwExceptionGrid.getGridDataAll();
+        let gridBonus = gvwBonusGrid.getGridDataAll();
+        let gridException = gvwExceptionGrid.getGridDataAll();
 
-        if (_.isEmpty(gridBonus) ||  _.isEmpty(gridException)){
+        console.log('gvwBonusGrid ==> ', gvwBonusGrid);
+        console.log('gvwExceptionGrid ==> ', gvwExceptionGrid);
+        
+        if (_.isEmpty(gvwBonusGrid) ||  _.isEmpty(gvwExceptionGrid)){
             return false;
         }
+        
+        //현재 사용하지 않는 기능
+//         if (_.isEmpty(gridBonus) ||  _.isEmpty(gridException)){
+//             return false;
+//         }
+        
 
         //귀속연월 예외 정보
         let strpay_item_code        = '';
@@ -1485,31 +1488,22 @@
             ,V_P_PC: ''
         };
 
-        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/selectHrp2320List.do", {
+        const postJsonPromise = gfn_postJSON("/hr/hrp/pay/insertHrp2320CHK.do", {
             getType: 'json',
             workType: strWorkType,
             cv_count: '0',
-            params: gfnma_objectToString(paramObj)
+            params: gfnma_objectToString(paramObj, true)
         });
 
         const data = await postJsonPromise;
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
-
-                if (data.resultMessage) {
-                    await alert(data.resultMessage);
-                    return true;
-                }else{
-                    await gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-                    return true;
-                }
-
+                return true;
             } else {
                 alert(data.resultMessage);
                 return false;
             }
-
         } catch (e) {
             if (!(e instanceof Error)) {
                 e = new Error(e);
@@ -1517,8 +1511,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
-
     }
 
     //급여계산
@@ -1531,9 +1523,8 @@
             gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");		//	W0001	{0}
             return;
         }
-        gfn_comAlert("I0002", "급여계산버튼을","실행");		//	W0001	{0}
 
-        if (fn_P_HRP2320_CHECK('CHECK', 'N')){
+        if (await fn_P_HRP2320_CHECK('CHECK', 'N')){
             gfn_comAlert("I0001"); // I0001	처리 되었습니다.
             fn_search('Q');
         }
@@ -1548,8 +1539,9 @@
 
         gfn_comAlert("E0000", "소급분임금 계산은 [급상여 소급처리] 화면에서 수행하십시오.");
 
-        if (fn_P_HRP2320_CHECK('CANCEL', 'N')){
-            gfn_comAlert("I0001"); // I0001	처리 되었습니다.
+            
+        if (await fn_P_HRP2320_CHECK('CANCEL', 'N')){
+        	gfn_comAlert("I0001"); // I0001	처리 되었습니다.
             fn_search('Q');
         }
 

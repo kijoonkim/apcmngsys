@@ -117,6 +117,13 @@
                         />
                     </td>
                     <td></td>
+<!--                     <th scope="row" class="th_bg_search">지급회차</th> -->
+<!--                     <td colspan="3" class="td_input" style="border-right: hidden;"> -->
+<!-- 						<sbux-spinner id="SRCH_SEQ" name="SRCH_SEQ" uitype="normal" class="form-control input-sm" -->
+<!-- 										data-type="number" number-min-value="0" init="1"> -->
+<!-- 						</sbux-spinner> -->
+<!--                     </td> -->
+<!--                     <td></td> -->
                     <th scope="row" class="th_bg_search">소득자명</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-input id="SRCH_EARNER_NAME" uitype="text" placeholder="" class="form-control input-sm"></sbux-input>
@@ -318,8 +325,8 @@
             type 		: 'grand',
             position	: 'bottom',
             columns		: {
-                standard : [2, 7],
-                sum : [8,9,10],
+                standard : [3, 8],
+                sum : [9,10,11],
             },
             grandtotalrow : {
                 titlecol: 0,
@@ -336,6 +343,7 @@
                 , typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 1 , deletecaption : false }, checkedvalue: 'Y', uncheckedvalue: 'N'}
                 , disabled: true
             },
+            {caption: ["지급회차"],         ref: 'SEQ',    type:'output',  	width:'50px',  style:'text-align:center', hidden: true},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["근무지역"], 		ref: 'WORK_REGION',   	    type:'combo', style:'text-align:left' ,width: '60px',
@@ -599,14 +607,22 @@
         if (!SBUxMethod.validateRequired({group_id:'panHeader'})) {
             return false;
         }
-
+        
+        if(rowData.PAY_CONFIRM_YN == 'Y' && ( !gfn_isEmpty(rowData.MAIL_SEND_TM) || !gfn_isEmpty(rowData.SMS_SNDNG_DT) ) ){
+        	SBUxMethod.attr('btnCancel', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정취소 버튼 비활성화
+        	SBUxMethod.attr('btnConfirm', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정 버튼 비활성화
+        }else{
+        	SBUxMethod.attr('btnCancel', 'disabled', 'false');
+        	SBUxMethod.attr('btnConfirm', 'disabled', 'false');
+        }
+        
         let PAY_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_FR"));
         let PAY_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_TO"));
         let SITE_CODE = gfn_nvl(gfnma_multiSelectGet("SRCH_SITE_CODE"));
         let EARNER_NAME = gfn_nvl(rowData.EARNER_NAME);
         let PAY_DATE = gfn_nvl(rowData.PAY_DATE);
         let EARNER_CODE = gfn_nvl(rowData.EARNER_CODE);
-
+        let SEQ = gfnma_nvl2(rowData.SEQ);
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
@@ -618,6 +634,7 @@
             V_P_EARNER_NAME : EARNER_NAME,
             V_P_PAY_DATE : PAY_DATE,
             V_P_EARNER_CODE : EARNER_CODE,
+            V_P_SEQ : SEQ,
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
@@ -684,7 +701,8 @@
                         ADJUSTMENT_AMT : gfn_nvl(item.AJMT_AMT, 0),
                         FUAL_AMT : gfn_nvl(item.OL_AMT, 0),
                         ETC_COST : gfn_nvl(item.ETC_CST, 0),
-                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
+                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0),
+                        SEQ : gfnma_nvl2(item.SEQ)
                     }
                     jsonServiceFeeList.push(msg);
                 });
@@ -869,7 +887,8 @@
         let PAY_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_TO"));
         let SITE_CODE = gfn_nvl(gfnma_multiSelectGet("SRCH_SITE_CODE"));
         let EARNER_NAME = gfn_nvl(SBUxMethod.get("SRCH_EARNER_NAME"));
-
+        let SEQ = "";
+//         let SEQ = gfn_nvl(SBUxMethod.get("SRCH_SEQ"));
         var paramObj = {
             V_P_DEBUG_MODE_YN	: '',
             V_P_LANG_ID		: '',
@@ -881,6 +900,7 @@
             V_P_EARNER_NAME : EARNER_NAME,
             V_P_PAY_DATE : '',
             V_P_EARNER_CODE : '',
+            V_P_SEQ : SEQ,
             V_P_FORM_ID		: p_formId,
             V_P_MENU_ID		: p_menuId,
             V_P_PROC_ID		: '',
@@ -922,7 +942,9 @@
                         SMS_SNDNG_DT : gfn_nvl(item.SMS_SNDNG_DT),
                         MEMO : gfn_nvl(item.MEMO),
                         MAIL_SEND_TM : gfn_nvl(item.MAIL_SEND_TM),
-                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0)
+                        TOT_AMOUNT : gfn_nvl(item.TOT_AMT, 0),
+                        SEQ : gfnma_nvl2(item.SEQ)
+                        
                     }
                     jsonServiceFeePayList.push(msg);
                 });
@@ -985,8 +1007,9 @@
                 ,V_P_PAY_DATE_TO : ''
                 ,V_P_SITE_CODE : ''
                 ,V_P_EARNER_NAME : ''
-                ,V_P_PAY_DATE : obj.PAY_DATE
-                ,V_P_EARNER_CODE : obj.EARNER_CODE
+                ,V_P_PAY_DATE : gfn_nvl(obj.PAY_DATE)
+                ,V_P_EARNER_CODE : gfn_nvl(obj.EARNER_CODE)
+                ,V_P_SEQ : gfnma_nvl2(obj.SEQ)
 				,V_P_FORM_ID			: p_formId
 				,V_P_MENU_ID			: p_menuId
 				,V_P_PROC_ID			: ''
@@ -998,7 +1021,7 @@
 	        workType			: 'REPORT',
 	        userId				: p_userId,
 	        cv_count			: '2',
-	        params				: gfnma_objectToString(paramObj, true)
+	        params				: gfnma_objectToString(paramObj)
 	    });
 	    const data = await postJsonPromise;
 
@@ -1074,11 +1097,17 @@
         }
         let paramObj = {};
         let listData = [];
-        
+        let checkConfirm = '';
+
         checkData.forEach((item, index) => {
 			if(gfn_isEmpty(gfn_nvl(item.data.EMAIL))){
 				return;
 			};
+			
+        	if(item.data.PAY_CONFIRM_YN == "N"){
+        		checkConfirm += item.rownum + ',';
+        		return;
+        	}
             paramObj = {
                 V_P_DEBUG_MODE_YN		: ''
                 ,V_P_LANG_ID			: ''
@@ -1090,6 +1119,7 @@
                 ,V_P_EARNER_NAME        : ''
                 ,V_P_PAY_DATE           : gfn_nvl(item.data.PAY_DATE)
                 ,V_P_EARNER_CODE        : gfn_nvl(item.data.EARNER_CODE)
+                ,V_P_SEQ		        : gfn_nvl(item.data.SEQ)
                 ,V_P_FORM_ID			: p_formId
                 ,V_P_MENU_ID			: p_menuId
                 ,V_P_PROC_ID			: ''
@@ -1135,6 +1165,10 @@
             };
             listData.push(param);
         });
+        
+        if( !gfn_isEmpty(checkConfirm) ) alert('EMAIL발송은 지급확정된 건만 가능합니다. \n\n 지급확정 되지 않은 행 (' +  checkConfirm.slice(0, -1) + ')');
+        if( !gfn_isEmpty(checkConfirm) && gfn_isEmpty(listData)) return;
+        
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendEmail.do", {listData: listData});
         const data = await postJsonPromise;
 
@@ -1170,11 +1204,17 @@
         } 
         
         
+        
         let paramObj = {};
         let listData = [];
-        
+        let checkConfirm = '';
         checkData.forEach((item, index) => {
 
+        	if(item.data.PAY_CONFIRM_YN == "N"){
+        		checkConfirm += item.rownum + ',';
+        		return;
+        	}
+        	
             paramObj = {
                 V_P_DEBUG_MODE_YN		: ''
                 ,V_P_LANG_ID			: ''
@@ -1186,6 +1226,7 @@
                 ,V_P_EARNER_NAME        : ''
                 ,V_P_PAY_DATE           : gfn_nvl(item.data.PAY_DATE)
                 ,V_P_EARNER_CODE        : gfn_nvl(item.data.EARNER_CODE)
+                ,V_P_SEQ		        : gfn_nvl(item.data.SEQ)
                 ,V_P_FORM_ID			: p_formId
                 ,V_P_MENU_ID			: p_menuId
                 ,V_P_PROC_ID			: ''
@@ -1227,10 +1268,15 @@
                     ,V_P_PROC_ID           : ''
                     ,V_P_USERID            : p_userId
                     ,V_P_PC                : ''
-                }, true)
+                })
             };
             listData.push(param);
         });
+        
+        
+        if( !gfn_isEmpty(checkConfirm) ) alert('SMS발송은 지급확정된 건만 가능합니다. \n\n 지급확정 되지 않은 행 (' +  checkConfirm.slice(0, -1) + ')');
+        if( !gfn_isEmpty(checkConfirm) && gfn_isEmpty(listData)) return;
+        
         const postJsonPromise = gfn_postJSON("/hr/hrp/svc/insertHra3630ForSendSms.do", {listData: listData});
         const data = await postJsonPromise;
 
@@ -1275,6 +1321,7 @@
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_PAY_DATE : gfn_nvl(data.PAY_DATE),
+                    V_P_SEQ : gfnma_nvl2(data.SEQ),
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',
@@ -1329,6 +1376,7 @@
                     V_P_CLIENT_CODE	: gv_ma_selectedClntCd,
                     V_P_EARNER_CODE : gfn_nvl(data.EARNER_CODE),
                     V_P_PAY_DATE : gfn_nvl(data.PAY_DATE),
+                    V_P_SEQ : gfnma_nvl2(data.SEQ),
                     V_P_FORM_ID : p_formId,
                     V_P_MENU_ID : p_menuId,
                     V_P_PROC_ID : '',

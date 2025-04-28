@@ -41,7 +41,7 @@
 										<sbux-radio id="rdo_json" name="rdo_json" uitype="hidden" jsondata-ref="radioJsonData" >
 										</sbux-radio>
 								</div>
-									<div id="sb-area-apcTotList" style="width:97.5%;height:310px;"></div>
+									<div id="sb-area-grdApcTotList" style="width:97.5%;height:310px;"></div>
 							</div>
 	  						<div class="box2">
 	  							<div class="ad_tbl_top">
@@ -49,7 +49,7 @@
 										<li><span>지역별현황</span></li>
 									</ul>
 								</div>
-								<div id="sb-area-apcLocSttnList" style="width:97.5%;height:310px;"></div>
+								<div id="sb-area-grdApcLocSttnList" style="width:97.5%;height:310px;"></div>
 	  						</div>
 						</div>
 					</div>
@@ -70,9 +70,7 @@
 									<li><span>APC지역현황</span></li>
 								</ul>
 							</div>
-							<div class ="row">
-								<div id="sb-area-apcAreaList" style="width:95%;height:610px;"></div>
-							</div>
+							<div id="sb-area-grdApcAreaList" style="width:95%;height:610px;"></div>
 						</div>
 					</div>
 				</div>
@@ -85,6 +83,10 @@
 	var jsonApcAreaList = [];
 	var jsonApcTotList = [];
 	var jsonApcLocSttnList = [];
+
+	var grdApcAreaList;
+	var grdApcTotList;
+	var grdApcLocSttnList;
 
 	var radioJsonData = [
 		{ text : "개소"  , value : "01", checked : "checked"},
@@ -105,7 +107,7 @@
 
 	const fn_createGrid = function(){
 		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-apcAreaList';
+	    SBGridProperties.parentid = 'sb-area-grdApcAreaList';
 	    SBGridProperties.id = 'grdApcAreaList';
 	    SBGridProperties.jsonref = 'jsonApcAreaList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -312,7 +314,7 @@
 
 	const fn_createGrid2 = function(){
 		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-apcTotList';
+	    SBGridProperties.parentid = 'sb-area-grdApcTotList';
 	    SBGridProperties.id = 'grdApcTotList';
 	    SBGridProperties.jsonref = 'jsonApcTotList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -338,7 +340,7 @@
 	// 부산,울산, 대구 , 광주, 세종,대전, 서울 -> 10
 	const fn_createGrid3 = function(){
 		var SBGridProperties = {};
-	    SBGridProperties.parentid = 'sb-area-apcLocSttnList';
+	    SBGridProperties.parentid = 'sb-area-grdApcLocSttnList';
 	    SBGridProperties.id = 'grdApcLocSttnList';
 	    SBGridProperties.jsonref = 'jsonApcLocSttnList';
 	    SBGridProperties.emptyrecords = '데이터가 없습니다.';
@@ -397,5 +399,6 @@
 		jsonApcLocSttnList.push({'01':'합계','02':sum});
 		grdApcLocSttnList.refresh();
 	};
+
 </script>
 </html>

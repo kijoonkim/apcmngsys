@@ -98,9 +98,11 @@ public class SysComController extends BaseController {
 			comLogVo.setUserId(userId);
 			comLogVo.setUserType(userType);
 			comLogVo.setUserIp(getUserIp(request));
+			comLogVo.setUserNm(getUserNm());
+			comLogVo.setApcCd(getApcCd());
 
 			if (getUserId() != null) {
-				comLogVo.setLgnScsYn("Y");
+				comLogVo.setLgnScsYn(ComConstants.CON_YES);
 			}
 
 			comLogVo.setSysFrstInptUserId(userId);

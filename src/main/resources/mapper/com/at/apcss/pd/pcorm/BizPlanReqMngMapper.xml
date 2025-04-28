@@ -109,6 +109,16 @@
 					)
 				   AND CU.BRNO = EAM.BRNO
 			  )
+			  AND (
+			 	NOT EXISTS (
+					SELECT 1
+					  FROM TB_COM_CD_DTL X
+					 WHERE X.CD_ID = 'SYS_PD_ATRB_CD'
+					   AND X.CD_VL = 'HIDE_BSPN_STBLT_N'
+					   AND X.DEL_YN = 'N'
+					   AND X.USE_YN = 'Y'
+			 	) OR RR.STBLT_YN = 'Y'
+			 )
 		]]>
 			<if test='yr != null and yr != ""'>
 			  AND EAM.YR = #{yr}

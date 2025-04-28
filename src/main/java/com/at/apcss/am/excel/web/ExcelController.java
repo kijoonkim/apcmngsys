@@ -575,6 +575,8 @@ public class ExcelController extends BaseConstructor{
 	        HashMap<String, Object> sheetData = null;
 
 			SBExcel excel = new SBExcel();
+			excel.setMergeDebugMode(true);
+			excel.setDebugMode(true);
 			//그리드 기본스타일 지정부분
 			float[] hsbHeader = new float[3];
 	        float[] hsbHeaderBG = new float[3];
@@ -604,6 +606,9 @@ public class ExcelController extends BaseConstructor{
 			excel.init(sheetData);
 
 			SXSSFWorkbook workbook = excel.save();
+
+			excel.setDebugMode(false);
+			excel.setMergeDebugMode(false);
 
 			//ex) arrListSheetName = ["grid1","grid2","grid3","grid4","grid5"]
 			//0번째 그리드의 시트이름을 지정
@@ -859,553 +864,6 @@ public class ExcelController extends BaseConstructor{
 		}
 	};
 
-	@RequestMapping(value = "/am/excel/saveMultiGridExcel",method = RequestMethod.POST)
-	public void saveMultiGridExcel(HttpServletRequest request, HttpServletResponse response) throws Exception{
-
-		/**
-		 * strRequestData 는 view 에서 exportExcel 된 그리드 객체의 정보
-		 * arrSheetData 는 arrAdditionalData로 담은 이외 그리드 데이터의 정보
-		 * typeof >> strRequestData === arrSheetData[i]
-		 * **/
-
-		boolean bCompressMode = false;
-
-		request.setCharacterEncoding("UTF-8");
-		String strRequestData = request.getParameter("SBHE___SB_ExcelDownload_Data");
-		String strCompressMode = request.getParameter("SBHE___SB_ExcelDownload_CompressMode");
-
-		/*arrAdditionalData 를 통해 그리드 데이터와 시트이름을 전달받음*/
-		String arrSheetData = request.getParameter("arrSheetData");		//엑셀파일 정보
-		String arrSheetName = request.getParameter("arrSheetName");		//그리드별 시트이름
-
-		String arrTitle = null;		//그리드별 그리드 타이틀
-		String arrUnit = null;		//그리드별 그리드 소타이틀
-
-		if (request.getParameter("arrTitle") != null) {
-			arrTitle = request.getParameter("arrTitle");		//엑셀 내 그리드별 타이틀 (optional)
-		}
-
-		if (request.getParameter("arrUnit") != null) {
-			arrUnit = request.getParameter("arrUnit");		//엑셀 내 그리드별 소타이틀 (optional)
-		}
-
-		//구문추가
-		if(strCompressMode != null){
-			strCompressMode = URLDecoder.decode(strCompressMode, "UTF-8");
-			bCompressMode = Boolean.parseBoolean(strCompressMode);
-		}
-
-		try {
-
-			logger.debug("====================== 다중시트 엑셀 다운로드 시작 ======================");
-
-			arrSheetData = URLDecoder.decode(arrSheetData, "UTF-8");		//엑셀파일 정보 - decoding
-			arrSheetName = URLDecoder.decode(arrSheetName, "UTF-8");	//그리드별 시트이름 - decoding
-
-			arrTitle = URLDecoder.decode(arrTitle, "UTF-8");//그리드별 그리드 타이틀 - decoding
-			arrUnit = URLDecoder.decode(arrUnit, "UTF-8");//그리드별 그리드 소타이틀 - decoding
-
-			strRequestData = URLDecoder.decode(strRequestData, "UTF-8");
-
-			int bufferSize = 600;  // buffer size 설정
-
-			String strRequestDataAfter = strRequestData.substring(strRequestData.indexOf("rowmemorysize"));	//그리드 행의 정보만 추출
-			strRequestData = strRequestData.substring(0,strRequestData.length()-1);
-			strRequestData = strRequestData.substring(0, strRequestData.indexOf("rowmemorysize")-1);
-			strRequestData +=  "\"rowmemorysize\":" + bufferSize + strRequestDataAfter.substring(strRequestDataAfter.indexOf(","));
-
-			if(bCompressMode){
-				strRequestData = LZString.decompressFromEncodedURIComponent(strRequestData);
-			}
-
-			ContainerFactory containerFactory = new ContainerFactory(){
-				public List<HashMap<String, Object>> creatArrayContainer() {
-					return new ArrayList<HashMap<String, Object>>();
-				}
-				public Map<String, Object> createObjectContainer() {
-					return new LinkedHashMap();
-				}
-			};
-
-			JSONParser JSONdataParser = new JSONParser();
-
-			ArrayList<HashMap<String, Object>> arrListSheetData = (ArrayList<HashMap<String, Object>>)(JSONdataParser.parse(arrSheetData, containerFactory));
-			ArrayList<String> arrListSheetName = (ArrayList<String>)(JSONdataParser.parse(arrSheetName, containerFactory));
-			ArrayList<String> arrListTitle = null;
-			ArrayList<String> arrListUnit = null;
-
-			if (arrTitle != null){
-				arrListTitle = (ArrayList<String>)(JSONdataParser.parse(arrTitle, containerFactory));
-			}
-			if (arrUnit != null){
-				arrListUnit = (ArrayList<String>)(JSONdataParser.parse(arrUnit, containerFactory));
-			}
-
-			HashMap<String, Object> sheetData = null;
-
-			SBExcel excel = new SBExcel();
-			excel.setDebugMode(true);
-			float[] hsbHeader = new float[3];
-			float[] hsbHeaderBG = new float[3];
-			float[] hsbBorder = new float[3];
-			float[] hsbBlack = new float[3];
-			Color.RGBtoHSB(76, 99, 163, hsbHeader);
-			Color.RGBtoHSB(244, 249, 253, hsbHeaderBG);
-			Color.RGBtoHSB(201, 209, 233, hsbBorder);
-			Color.RGBtoHSB(0, 0, 0, hsbBlack);
-			XSSFColor cHeader = new XSSFColor(Color.getHSBColor(hsbHeader[0], hsbHeader[1], hsbHeader[2]));
-			XSSFColor cHeaderBG  = new XSSFColor(Color.getHSBColor(hsbHeaderBG[0], hsbHeaderBG[1], hsbHeaderBG[2]));
-			XSSFColor cBorder = new XSSFColor(Color.getHSBColor(hsbBorder[0], hsbBorder[1], hsbBorder[2]));
-
-			sheetData = (HashMap<String, Object>)(JSONdataParser.parse(strRequestData, containerFactory));
-			sheetData.put("rowmemorysize", bufferSize);
-
-			excel.init(sheetData);
-			SXSSFWorkbook workbook = excel.save();
-
-			//ex) arrListSheetName = ["grid1","grid2","grid3","grid4","grid5"]
-			//0번째 그리드의 시트이름을 지정
-			workbook.setSheetName(0, arrListSheetName.get(0));
-
-			logger.debug("===arrListSheetName.get(0) === {} ", arrListSheetName.get(0));
-
-			String fontName = "";
-			Sheet sheet0 = workbook.getSheetAt(0);
-			sheet0.setColumnWidth(1, 256*20);
-			int frn0 = sheet0.getFirstRowNum();		//첫번째 그리드 행 인덱스
-			int lrn0 = sheet0.getLastRowNum();		//마지막 그리드 행 인덱스
-			int fcn0 = sheet0.getRow(lrn0).getFirstCellNum(); //왼쪽위 꼭지점
-			int lcn0 = sheet0.getRow(lrn0).getLastCellNum(); // 오른쪽아래 꼭지점
-
-			String title = arrListTitle.get(0);
-			String unit = arrListUnit.get(0);
-
-			appendToSameSheetWithMultipleBlocks(workbook, arrListSheetData, arrListSheetName, arrListTitle,bufferSize);
-
-			String strFileName = excel.getFileName();
-			String header = getBrowser(request);
-
-			// ie MSIE : 10버전 이하, Trident : 11버전, else : 타 브라우저
-			if(header.contains("MSIE") || header.contains("Trident") || header.contains("Chrome")) {
-				strFileName = URLEncoder.encode(strFileName, "UTF-8").replace("\\+", "%20");
-				response.setHeader("Content-Disposition", "attachment;filename=" + strFileName + ";");
-			} else {
-				response.setHeader("Content-Type", "application/vnd.ms-excel;charset=UTF-8");
-				response.setHeader("Content-Disposition", "attachment;filename=" + strFileName + "");
-			}
-
-			workbook.write(response.getOutputStream());
-			workbook.dispose();
-
-			excel.clear();
-
-		} catch (ParseException e) {
-			//e.printStackTrace();
-			logger.error(e.getMessage());
-		} catch (UnsupportedEncodingException e) {
-			//e.printStackTrace();
-			logger.error(e.getMessage());
-		} catch (IOException e){
-			//e.printStackTrace();
-			logger.error(e.getMessage());
-		}
-	};
-
-	private void mergeSameSheetNames(
-			SXSSFWorkbook workbook,
-			ArrayList<HashMap<String, Object>> arrListSheetData,
-			ArrayList<String> arrListSheetName,
-			int bufferSize
-	) throws Exception {
-
-		// 자료 순서 보장 + pop 방식으로 사용
-		Queue<HashMap<String, Object>> dataQueue = new LinkedList<>(arrListSheetData);
-		Queue<String> nameQueue = new LinkedList<>(arrListSheetName);
-
-		// 시트명 기준 그룹핑
-		Map<String, List<HashMap<String, Object>>> groupedData = new LinkedHashMap<>();
-
-		while (!dataQueue.isEmpty() && !nameQueue.isEmpty()) {
-			String sheetName = nameQueue.poll();
-			HashMap<String, Object> data = dataQueue.poll();
-
-			groupedData.computeIfAbsent(sheetName, k -> new ArrayList<>()).add(data);
-		}
-
-		for (Map.Entry<String, List<HashMap<String, Object>>> entry : groupedData.entrySet()) {
-			String sheetName = entry.getKey();
-			List<HashMap<String, Object>> dataList = entry.getValue();
-
-			// 시트가 이미 존재하면 → append
-			if (workbook.getSheet(sheetName) != null) {
-				Sheet sheet = workbook.getSheet(sheetName);
-
-				JSONObject multiSheetJson = new JSONObject();
-				JSONArray startRowList = new JSONArray();
-				JSONObject gridsObj = new JSONObject();
-
-				int totalRows = sheet.getLastRowNum() + 1;
-
-				for (int i = 1; i < dataList.size(); i++) {
-					HashMap<String, Object> data = dataList.get(i);
-					data.put("rowmemorysize", bufferSize);
-					data.put("bIsStyle", true);
-
-					startRowList.add(totalRows);
-					gridsObj.put("GRID_" + i, data);
-
-					int dataSize = ((List<?>) data.get("data")).size();
-					totalRows += dataSize;
-				}
-
-				if (gridsObj.size() == 0) continue;
-
-				multiSheetJson.put("type", "multi");
-				multiSheetJson.put("startrow", startRowList);
-				multiSheetJson.put("grids", gridsObj);
-
-				SBExcel multiExcel = new SBExcel(multiSheetJson.toJSONString(), false);
-				Method method = SBExcel.class.getDeclaredMethod("makeMultiGridSheet", Sheet.class, int.class);
-				method.setAccessible(true);
-
-				Object rawStartRow = startRowList.get(0);
-				int startRow = (rawStartRow instanceof Number) ? ((Number) rawStartRow).intValue() : 0;
-
-				method.invoke(multiExcel, sheet, startRow);
-
-			} else {
-				// 시트가 없으면 → 첫 개별 데이터로 새로 생성
-				HashMap<String, Object> data = dataList.get(0);
-				data.put("rowmemorysize", bufferSize);
-				data.put("bIsStyle", true);
-
-				SBExcel excel = new SBExcel();
-				excel.init(data);
-				SXSSFWorkbook tmpWorkbook = excel.save();
-				Sheet newSheet = tmpWorkbook.getSheetAt(0);
-				workbook.createSheet(sheetName);
-				Sheet targetSheet = workbook.getSheet(sheetName);
-
-				for (int i = 0; i <= newSheet.getLastRowNum(); i++) {
-					Row srcRow = newSheet.getRow(i);
-					if (srcRow == null) continue;
-					Row destRow = targetSheet.createRow(i);
-					for (int j = srcRow.getFirstCellNum(); j < srcRow.getLastCellNum(); j++) {
-						Cell srcCell = srcRow.getCell(j);
-						if (srcCell == null) continue;
-						Cell destCell = destRow.createCell(j);
-						destCell.setCellValue(srcCell.toString());
-						destCell.setCellStyle(srcCell.getCellStyle());
-					}
-				}
-
-				// 그 외 추가 데이터는 append 방식으로 처리
-				if (dataList.size() > 1) {
-					List<HashMap<String, Object>> remaining = dataList.subList(1, dataList.size());
-
-					JSONObject multiSheetJson = new JSONObject();
-					JSONArray startRowList = new JSONArray();
-					JSONObject gridsObj = new JSONObject();
-
-					int totalRows = targetSheet.getLastRowNum() + 1;
-
-					for (int i = 0; i < remaining.size(); i++) {
-						HashMap<String, Object> rData = remaining.get(i);
-						rData.put("rowmemorysize", bufferSize);
-						rData.put("bIsStyle", true);
-
-						startRowList.add(totalRows);
-						gridsObj.put("GRID_" + (i + 1), rData);
-
-						int dataSize = ((List<?>) rData.get("data")).size();
-						totalRows += dataSize;
-					}
-
-					multiSheetJson.put("type", "multi");
-					multiSheetJson.put("startrow", startRowList);
-					multiSheetJson.put("grids", gridsObj);
-
-					SBExcel multiExcel = new SBExcel(multiSheetJson.toJSONString(), false);
-					Method method = SBExcel.class.getDeclaredMethod("makeMultiGridSheet", Sheet.class, int.class);
-					method.setAccessible(true);
-
-					Object rawStartRow = startRowList.get(0);
-					int startRow = (rawStartRow instanceof Number) ? ((Number) rawStartRow).intValue() : 0;
-					System.out.println("▶▶ sheetName = " + sheetName);
-					System.out.println("▶▶ startRowList = " + startRowList);
-					System.out.println("▶▶ grids size = " + gridsObj.size());
-					method.invoke(multiExcel, targetSheet, startRow);
-				}
-			}
-		}
-	}
-
-	private void appendToSameSheetWithMultipleBlocks(
-			SXSSFWorkbook workbook,
-			ArrayList<HashMap<String, Object>> arrListSheetData,
-			ArrayList<String> arrListSheetName,
-			ArrayList<String> arrListTitle,
-			int bufferSize
-	) throws Exception {
-
-		// 1. 시트명 기준으로 인덱스 그룹핑
-		Map<String, List<Integer>> grouped = new LinkedHashMap<>();
-		for (int i = 0; i < arrListSheetName.size(); i++) {
-			String sheetName = arrListSheetName.get(i);
-			grouped.computeIfAbsent(sheetName, k -> new ArrayList<>()).add(i);
-		}
-
-		// 2. 그룹별로 시트 이어붙이기
-		for (Map.Entry<String, List<Integer>> entry : grouped.entrySet()) {
-			String sheetName = entry.getKey();
-			List<Integer> indexes = entry.getValue();
-
-			if (indexes.isEmpty()) continue;
-
-			// 시트 가져오기 (0번 인덱스면 이미 생성되었음)
-			boolean alreadyCreated = indexes.get(0) == 0;
-			Sheet sheet = workbook.getSheet(sheetName);
-			int startRow = (sheet != null) ? sheet.getLastRowNum() + 2 : 0;
-
-			// 0번은 이미 시트 생성했으니 1부터 처리
-			for (int i = (alreadyCreated ? 1 : 0); i < indexes.size(); i++) {
-				int idx = indexes.get(i);
-				HashMap<String, Object> block = arrListSheetData.get(idx);
-				block.put("rowmemorysize", bufferSize);
-				block.put("bIsStyle", true);
-
-				// SBExcel 생성 및 저장
-				SBExcel excel = new SBExcel();
-//				excel.setDebugMode(true);
-				excel.init(block);
-				SXSSFWorkbook tempWb = excel.save();
-				Sheet tempSheet = tempWb.getSheetAt(0);
-
-				// 💡 병합 먼저 (원본 시트 기준)
-				SBMerge merger = new SBMerge(excel);
-				merger.setDebugMode(true);
-				merger.setMergeSheet(tempSheet);
-				merger.setMergeCells("bycolrec");
-				merger.mergeFromData((short)2, (short)3, 0); // 항상 tempSheet는 시작이 0
-
-				// 시트가 없으면 새로 생성
-				if (sheet == null) {
-					sheet = workbook.createSheet(sheetName);
-				}
-				if (arrListTitle != null && idx < arrListTitle.size()) {
-					setTitleToBlock(sheet, startRow, arrListTitle.get(idx));
-					startRow++;
-				}
-
-				// 📌 Row 복사 (tempSheet → sheet)
-				for (int r = 0; r <= tempSheet.getLastRowNum(); r++) {
-					Row srcRow = tempSheet.getRow(r);
-					if (srcRow == null) continue;
-					Row destRow = sheet.createRow(startRow + r);
-
-					for (int c = srcRow.getFirstCellNum(); c < srcRow.getLastCellNum(); c++) {
-						Cell srcCell = srcRow.getCell(c);
-						if (srcCell == null) continue;
-						Cell destCell = destRow.createCell(c);
-
-						// 복사: 값 + 스타일
-						switch (srcCell.getCellType()) {
-							case Cell.CELL_TYPE_STRING:
-								destCell.setCellValue(srcCell.getStringCellValue());
-								break;
-							case Cell.CELL_TYPE_NUMERIC:
-								destCell.setCellValue(srcCell.getNumericCellValue());
-								break;
-							case Cell.CELL_TYPE_BOOLEAN:
-								destCell.setCellValue(srcCell.getBooleanCellValue());
-								break;
-							case Cell.CELL_TYPE_FORMULA:
-								destCell.setCellFormula(srcCell.getCellFormula());
-								break;
-							default:
-								destCell.setCellValue(srcCell.toString());
-								break;
-						}
-						destCell.setCellStyle(srcCell.getCellStyle());
-					}
-				}
-				appendToSameSheetWithMultipleBlocks(sheet, block, startRow, workbook);
-
-				// 다음 블럭을 위해 시작 row 업데이트
-				List<?> dataList = (List<?>) block.get("data");
-				int dataSize = dataList != null ? dataList.size() : 0;
-				startRow += dataSize + 3; // title + header 고려
-			}
-		}
-	}
-
-	private void setTitleToBlock(Sheet sheet, int startRow, String title) {
-		if (sheet == null || title == null) return;
-
-		Row titleRow = sheet.getRow(startRow);
-		if (titleRow == null) titleRow = sheet.createRow(startRow);
-
-		Cell titleCell = titleRow.createCell(0);
-		titleCell.setCellValue(title);
-
-		// 시트 스타일 병합 (예: A1 ~ E1)
-		sheet.addMergedRegion(new CellRangeAddress(startRow, startRow, 0, 4));
-	}
-
-	// 완전한 분석 기반으로 SBExcel + SBMerge의 실제 기능을 반영한 appendToSameSheetWithMultipleBlocks 구현
-
-	public void appendToSameSheetWithMultipleBlocks(Sheet sheet, Map<String, Object> sheetData, int startRow, Workbook wb) {
-		List<Map<String, String>> captions = (List<Map<String, String>>) sheetData.get("captions");
-		List<String> colseq = (List<String>) sheetData.get("colseq");
-		Map<String, Map<String, Object>> colsinfo = (Map<String, Map<String, Object>>) sheetData.get("colsinfo");
-		Map<String, String> fixedRowStyle = (Map<String, String>) sheetData.get("fixedrowstyle");
-		String mergeStrategy = (String) sheetData.get("mergecellsfixedrows");
-		String title = (String) sheetData.get("title");
-
-		int rowCount = captions.size();
-		int colCount = colseq.size();
-
-		// 0. 블록 타이틀 삽입
-		if (title != null && !title.isEmpty()) {
-			Row titleRow = sheet.createRow(startRow);
-			Cell titleCell = titleRow.createCell(0);
-			titleCell.setCellValue(title);
-
-			CellStyle titleStyle = wb.createCellStyle();
-			Font titleFont = wb.createFont();
-			titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-			titleFont.setFontHeightInPoints((short) 14);
-			titleStyle.setFont(titleFont);
-			titleStyle.setAlignment(CellStyle.ALIGN_CENTER);
-			titleStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-			titleCell.setCellStyle(titleStyle);
-
-			sheet.addMergedRegion(new CellRangeAddress(startRow, startRow, 0, colCount - 1));
-			startRow++; // 타이틀 한 줄 차지함
-		}
-
-		// 열 너비 설정
-		for (int i = 0; i < colseq.size(); i++) {
-			String colKey = colseq.get(i);
-			Map<String, Object> colInfo = colsinfo.get(colKey);
-			if (colInfo != null && colInfo.get("width") != null) {
-				try {
-					double width = Double.parseDouble(colInfo.get("width").toString());
-					sheet.setColumnWidth(i, (int) (width * 64));
-				} catch (Exception ignored) {}
-			}
-		}
-
-		// 기본 스타일 생성
-		CellStyle baseStyle = createCellStyle(wb, fixedRowStyle);
-
-		// 헤더 생성 및 스타일 적용
-		for (int i = 0; i < rowCount; i++) {
-			Row row = sheet.createRow(startRow + i);
-			row.setHeightInPoints(30);
-			Map<String, String> rowCaption = captions.get(i);
-
-			for (int j = 0; j < colCount; j++) {
-				String colKey = colseq.get(j);
-				String text = rowCaption.getOrDefault(colKey, "").replace("<br/>", "\n");
-				Cell cell = row.createCell(j);
-				cell.setCellValue(text);
-
-				Map<String, Object> colInfo = colsinfo.get(colKey);
-				Map<String, String> colStyleMap = colInfo != null ? (Map<String, String>) colInfo.get("style") : null;
-				CellStyle finalStyle = colStyleMap != null ? mergeStyle(wb, baseStyle, colStyleMap) : baseStyle;
-				finalStyle.setWrapText(true);
-				cell.setCellStyle(finalStyle);
-			}
-		}
-
-		// 병합 적용: SBMerge 로직 재현
-		if ("bycolrec".equalsIgnoreCase(mergeStrategy)) {
-			for (int colIdx = 0; colIdx < colCount; colIdx++) {
-				String colKey = colseq.get(colIdx);
-				String prev = null;
-				int mergeStart = startRow;
-
-				for (int rowIdx = 0; rowIdx < rowCount; rowIdx++) {
-					String value = captions.get(rowIdx).getOrDefault(colKey, "");
-					int curRow = startRow + rowIdx;
-					boolean isLast = (rowIdx == rowCount - 1);
-
-					if (!value.equals(prev) || isLast) {
-						int mergeEnd = (isLast && value.equals(prev)) ? curRow : curRow - 1;
-						if (prev != null && mergeEnd > mergeStart) {
-							sheet.addMergedRegion(new CellRangeAddress(mergeStart, mergeEnd, colIdx, colIdx));
-						}
-						mergeStart = curRow;
-					}
-					prev = value;
-				}
-			}
-		}
-	}
-
-	private CellStyle createCellStyle(Workbook wb, Map<String, String> styleMap) {
-		CellStyle style = wb.createCellStyle();
-		Font font = wb.createFont();
-
-		if (styleMap != null) {
-			for (Map.Entry<String, String> entry : styleMap.entrySet()) {
-				String key = entry.getKey();
-				String val = entry.getValue();
-
-				if ("text-align".equals(key)) {
-					if ("center".equals(val)) style.setAlignment(CellStyle.ALIGN_CENTER);
-					else if ("right".equals(val)) style.setAlignment(CellStyle.ALIGN_RIGHT);
-					else if ("left".equals(val)) style.setAlignment(CellStyle.ALIGN_LEFT);
-				} else if ("vertical-align".equals(key)) {
-					if ("middle".equals(val)) style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-					else if ("top".equals(val)) style.setVerticalAlignment(CellStyle.VERTICAL_TOP);
-					else if ("bottom".equals(val)) style.setVerticalAlignment(CellStyle.VERTICAL_BOTTOM);
-				} else if ("font-weight".equals(key)) {
-					if ("bold".equals(val)) font.setBoldweight(Font.BOLDWEIGHT_BOLD);
-				} else if ("font-family".equals(key)) {
-					font.setFontName(val);
-				}
-			}
-		}
-
-		style.setFont(font);
-		return style;
-	}
-
-	private CellStyle mergeStyle(Workbook wb, CellStyle base, Map<String, String> overrideStyleMap) {
-		CellStyle newStyle = wb.createCellStyle();
-		newStyle.cloneStyleFrom(base);
-
-		Font baseFont = wb.getFontAt(base.getFontIndex());
-		Font font = wb.createFont();
-		font.setFontName(baseFont.getFontName());
-		font.setFontHeight(baseFont.getFontHeight());
-		font.setBoldweight(baseFont.getBoldweight());
-
-		for (Map.Entry<String, String> entry : overrideStyleMap.entrySet()) {
-			String key = entry.getKey();
-			String val = entry.getValue();
-
-			if ("text-align".equals(key)) {
-				if ("center".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_CENTER);
-				else if ("right".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_RIGHT);
-				else if ("left".equals(val)) newStyle.setAlignment(CellStyle.ALIGN_LEFT);
-			} else if ("vertical-align".equals(key)) {
-				if ("middle".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-				else if ("top".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
-				else if ("bottom".equals(val)) newStyle.setVerticalAlignment(CellStyle.VERTICAL_BOTTOM);
-			} else if ("font-weight".equals(key)) {
-				if ("bold".equals(val)) font.setBoldweight(Font.BOLDWEIGHT_BOLD);
-			} else if ("font-family".equals(key)) {
-				font.setFontName(val);
-			}
-		}
-
-		newStyle.setFont(font);
-		return newStyle;
-	}
-
 	private String getBrowser(HttpServletRequest request){
 		String header = request.getHeader("User-Agent");
 		if(header.contains("MSIE")){
@@ -1422,4 +880,185 @@ public class ExcelController extends BaseConstructor{
 			return "MSIE";
 		}
 	};
+
+	@RequestMapping(value = "/am/excel/saveMultiGridExcel", method = RequestMethod.POST)
+	public void saveMultiGridExcel(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			String arrSheetData = URLDecoder.decode(request.getParameter("arrSheetData"), "UTF-8");
+			String arrSheetName = URLDecoder.decode(request.getParameter("arrSheetName"), "UTF-8");
+			String arrTitle = URLDecoder.decode(request.getParameter("arrTitle"), "UTF-8");
+			String fileName = URLDecoder.decode(request.getParameter("fileName"), "UTF-8");
+			if (fileName.startsWith("\"") && fileName.endsWith("\"")) {
+				fileName = fileName.substring(1, fileName.length() - 1);
+			}
+			int bufferSize = 600;
+
+			ContainerFactory containerFactory = new ContainerFactory() {
+				public List<HashMap<String, Object>> creatArrayContainer() { return new ArrayList<>(); }
+				public Map<String, Object> createObjectContainer() { return new LinkedHashMap<>(); }
+			};
+
+			JSONParser parser = new JSONParser();
+			ArrayList<HashMap<String, Object>> arrListSheetData =
+					(ArrayList<HashMap<String, Object>>) parser.parse(arrSheetData, containerFactory);
+			ArrayList<String> arrListSheetName =
+					(ArrayList<String>) parser.parse(arrSheetName, containerFactory);
+			ArrayList<String> arrListTitle =
+					(arrTitle != null) ? (ArrayList<String>) parser.parse(arrTitle, containerFactory) : new ArrayList<>();
+
+			Map<String, List<Integer>> sheetGroups = new LinkedHashMap<>();
+			for (int i = 0; i < arrListSheetName.size(); i++) {
+				sheetGroups.computeIfAbsent(arrListSheetName.get(i), k -> new ArrayList<>()).add(i);
+			}
+
+			SXSSFWorkbook workbook = new SXSSFWorkbook();
+			for (Map.Entry<String, List<Integer>> entry : sheetGroups.entrySet()) {
+				String sheetName = entry.getKey();
+				List<Integer> blockIndices = entry.getValue();
+				Sheet targetSheet = workbook.createSheet(sheetName);
+
+				int currentRow = 0;
+				for (int index : blockIndices) {
+					SBExcel excel = new SBExcel();
+					HashMap<String, Object> sheetData = arrListSheetData.get(index);
+					sheetData.put("rowmemorysize", bufferSize);
+					excel.init(sheetData);
+
+					SXSSFWorkbook blockWb = excel.save();
+					Sheet blockSheet = blockWb.getSheetAt(0);
+
+					String title = (arrListTitle != null && index < arrListTitle.size()) ? arrListTitle.get(index) : "";
+					if (currentRow != 0) currentRow++; // blank line
+
+					insertSheetBlock(targetSheet, blockSheet, currentRow, title, workbook);
+
+					int frn = blockSheet.getFirstRowNum();
+					int lrn = blockSheet.getLastRowNum();
+					int fcn = blockSheet.getRow(frn).getFirstCellNum();
+					int lcn = blockSheet.getRow(frn).getLastCellNum();
+
+					int offset = currentRow + 1; // 타이틀 포함한 offset
+					if(index < 3){
+						System.out.println(offset + ":: offset");
+						System.out.println(frn + ":: frn");
+						System.out.println(lrn + ":: lrn");
+						System.out.println(fcn + ":: fcn");
+						System.out.println(lcn + ":: lcn");
+					}
+					applyDataCellStyles(targetSheet, offset, offset + (lrn - frn), fcn, lcn, workbook);
+
+					currentRow = targetSheet.getLastRowNum() + 1;
+				}
+			}
+
+			String header = getBrowser(request);
+			if (header.contains("MSIE") || header.contains("Trident") || header.contains("Chrome")) {
+//				fileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+				response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ";");
+			} else {
+				response.setHeader("Content-Type", "application/vnd.ms-excel;charset=UTF-8");
+				response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+			}
+
+			System.out.println("엑셀 생성 완료, 응답 스트림에 쓰기 시작");
+			workbook.write(response.getOutputStream());
+			System.out.println("엑셀 파일 응답 완료");
+			workbook.dispose();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void insertSheetBlock(Sheet target, Sheet source, int startRow, String title, Workbook workbook) {
+		// 1. 타이틀 한 줄 삽입 및 병합 (0열 ~ 마지막 열까지)
+		Row titleRow = target.createRow(startRow);
+		Cell titleCell = titleRow.createCell(0);
+		titleCell.setCellValue(title);
+
+		// 타이틀 셀 병합 (source의 첫 번째 row 기준으로 마지막 column까지 병합)
+		int lastCol = source.getRow(0).getLastCellNum() - 1;
+		CellRangeAddress mergedTitle = new CellRangeAddress(startRow, startRow, 0, lastCol);
+		target.addMergedRegion(mergedTitle);
+		startRow++; // 실제 데이터는 다음 줄부터 시작
+
+		// 2. source 시트의 행 복사
+		for (int i = source.getFirstRowNum(); i <= source.getLastRowNum(); i++) {
+			Row srcRow = source.getRow(i);
+			if (srcRow == null) continue;
+
+			Row tgtRow = target.createRow(startRow + i);
+			for (short j = srcRow.getFirstCellNum(); j < srcRow.getLastCellNum(); j++) {
+				Cell srcCell = srcRow.getCell(j);
+				if (srcCell == null) continue;
+
+				Cell tgtCell = tgtRow.createCell(j);
+				// 값 복사
+				switch (srcCell.getCellType()) {
+					case Cell.CELL_TYPE_STRING:
+						tgtCell.setCellValue(srcCell.getStringCellValue()); break;
+					case Cell.CELL_TYPE_NUMERIC:
+						tgtCell.setCellValue(srcCell.getNumericCellValue()); break;
+					case Cell.CELL_TYPE_BOOLEAN:
+						tgtCell.setCellValue(srcCell.getBooleanCellValue()); break;
+					case Cell.CELL_TYPE_FORMULA:
+						tgtCell.setCellFormula(srcCell.getCellFormula()); break;
+				}
+				// 스타일 복사 (기존 셀 스타일 직접 사용)
+				tgtCell.setCellStyle(srcCell.getCellStyle());
+			}
+		}
+
+		// 3. 병합 셀 복사
+		for (int i = 0; i < source.getNumMergedRegions(); i++) {
+			CellRangeAddress region = source.getMergedRegion(i);
+			CellRangeAddress newRegion = new CellRangeAddress(
+					region.getFirstRow() + startRow,
+					region.getLastRow() + startRow,
+					region.getFirstColumn(),
+					region.getLastColumn()
+			);
+			target.addMergedRegion(newRegion);
+		}
+	}
+
+	public void applyDataCellStyles(Sheet sheet, int frn, int lrn, int fcn, int lcn, SXSSFWorkbook workbook) {
+		// 헤더 스타일만 별도로 지정
+		CellStyle headerStyle = workbook.createCellStyle();
+		headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+		headerStyle.setFillPattern(CellStyle.SOLID_FOREGROUND); // ← short 상수
+		headerStyle.setAlignment(CellStyle.ALIGN_CENTER);       // ← short 상수
+		headerStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+		headerStyle.setBorderTop(CellStyle.BORDER_THIN);
+		headerStyle.setBorderBottom(CellStyle.BORDER_THIN);
+		headerStyle.setBorderLeft(CellStyle.BORDER_THIN);
+		headerStyle.setBorderRight(CellStyle.BORDER_THIN);
+
+		// 3번째 행만 헤더 스타일 덮어쓰기
+		if (lrn >= frn + 2 && sheet.getRow(frn + 2) != null) {
+			Row row = sheet.getRow(frn + 2);
+			for (int j = fcn; j < lcn; j++) {
+				Cell cell = row.getCell(j);
+				if (cell != null) {
+					cell.setCellStyle(headerStyle);
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

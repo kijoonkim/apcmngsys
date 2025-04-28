@@ -169,6 +169,38 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 	}
 
 	@Override
+	public HashMap<String, Object> insertRawMtrWrhsForCredit(RawMtrWrhsVO rawMtrWrhsVO) throws Exception {
+
+		String wrhsno = rawMtrWrhsVO.getWrhsno();
+
+		if (!StringUtils.hasText(wrhsno)) {
+			wrhsno = cmnsTaskNoService.selectWrhsno(rawMtrWrhsVO.getApcCd(), rawMtrWrhsVO.getWrhsYmd());
+			rawMtrWrhsVO.setWrhsno(wrhsno);
+		}
+
+		if (!StringUtils.hasText(rawMtrWrhsVO.getPltno())) {
+			String pltno = cmnsTaskNoService.selectFnGetPltNo(rawMtrWrhsVO);
+			rawMtrWrhsVO.setPltno(pltno);
+		}
+
+		RawMtrInvntrVO rawMtrInvntrVO = new RawMtrInvntrVO();
+		BeanUtils.copyProperties(rawMtrWrhsVO, rawMtrInvntrVO);
+		rawMtrInvntrVO.setWrhsQntt(rawMtrWrhsVO.getWrhsQntt());
+		rawMtrInvntrVO.setWrhsWght(rawMtrWrhsVO.getWrhsWght());
+		rawMtrInvntrVO.setInvntrQntt(rawMtrWrhsVO.getInvntrQntt());
+		rawMtrInvntrVO.setInvntrWght(rawMtrWrhsVO.getInvntrWght());
+		rawMtrInvntrVO.setInptQntt(rawMtrWrhsVO.getInptQntt());
+		rawMtrInvntrVO.setInptWght(rawMtrWrhsVO.getInptWght());
+
+		HashMap<String, Object> rtnObj = rawMtrInvntrService.insertRawMtrInvntr(rawMtrInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
 	public HashMap<String, Object> insertRawMtrWrhsList(List<RawMtrWrhsVO> rawMtrWrhsList) throws Exception {
 
 		HashMap<String, Object> rtnObj;
