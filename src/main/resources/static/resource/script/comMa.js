@@ -218,23 +218,23 @@ const gfnma_date8 = function(str) {
 const gfnma_date9 = function(val) {
 	
 	// 1자리면 0 붙이기
-	var pad = function(n) {
-		return n < 10 ? '0' + n : '' + n
+	var pad = function(n){
+		return n < 10 ? '0' + n : '' + n
 	}
 	// 윤년인지여부
-	var isLeapYear = function(year) { 
-		return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)); 
+	var isLeapYear = function(year) {
+		return (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0));
 	}
 	// 해당년월의 말일 구하기
-	var getLastDate = function (year, month) {    
-		return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
+	var getLastDate = function (year, month) {
+		return [31, (isLeapYear(year) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
 	}
 	
-    var d = new Date();    
+	var d=new Date();
 	var date = d.getDate();
-	d.setDate(1); 					// 1일로 설정    
-	d.setMonth(d.getMonth() + val); // 개월수 더하기(빼기)    
-	return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(Math.min(date, getLastDate(d.getYear(), d.getMonth())));    
+	d.setDate(1);					//1일로 설정
+	d.setMonth(d.getMonth() + val); //개월수 더하기(빼기)
+	return d.getFullYear()+ '-' + pad(d.getMonth()+1) + '-' + pad(Math.min(date, getLastDate(d.getYear(), d.getMonth())));
 }
 
 /**
@@ -264,7 +264,7 @@ const gfnma_nvl = function (val) {
  */
 const gfnma_nvl2 = function (val) {
 	var str = '';
-	if(val==='' || val===null || val===undefined || val==='undefined' || val==='NaN'){
+	if(val==='' || val===null ||  val==="null" || val===undefined || val==='undefined' || val==='NaN'){
 		str = '';
 	} else {
 		return val;

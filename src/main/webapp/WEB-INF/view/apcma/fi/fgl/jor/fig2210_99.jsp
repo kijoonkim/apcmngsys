@@ -364,9 +364,16 @@
 	                            <th scope="row" class="th_bg">통화</th>
 	                            <td colspan="5" class="td_input" >
 	                            	<div style="display:flex;float:left;vertical-align:middle;width:100%">
-		                                <sbux-select onchange="fn_currencyCodeChange(sch-currency-code)"  style="width:150px" id="sch-currency-code" name="sch-currency-code" uitype="single" jsondata-ref="jsonCurrencyCode" unselected-text="선택" class="form-control input-sm inpt_data_reqed"
-											group-id="frmBody" 
-											required                                       
+		                                <sbux-select onchange="fn_currencyCodeChange(sch-currency-code)"
+													 style="width:150px"
+													 id="sch-currency-code"
+													 name="sch-currency-code"
+													 uitype="single"
+													 jsondata-ref="jsonCurrencyCode"
+													 unselected-text="선택"
+													 class="form-control input-sm inpt_data_reqed"
+													 group-id="frmBody"
+													 required
 		                                ></sbux-select>
 		                                <font style="padding-left:5px"></font>
 		   								<sbux-input uitype="text" id="sch-exchange-type" class="form-control input-sm" ></sbux-input>
@@ -813,7 +820,18 @@
             gfnma_setComSelect(['sch-doc-type'],				jsonDocType, 		pg_doc_type_bizId, pg_doc_type_where, gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['sch-doc-status'],				jsonDocStatus, 		'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 통화
-            gfnma_setComSelect(['sch-currency-code'],			jsonCurrencyCode, 	'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
+            gfnma_setComSelect(
+					['sch-currency-code'],
+					jsonCurrencyCode,
+					'L_COM001',
+					"AND USE_YN = 'Y'",
+					gv_ma_selectedCorpCd,
+					gv_ma_selectedClntCd,
+					'CRN_CD',
+					'CRN_NM',
+					'Y',
+					''
+			),
             
             // 그리드내 라인유형
 			gfnma_setComSelect([], 								jsonLineType, 		'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
@@ -871,7 +889,6 @@
 		            {caption: "ar_doc_yn", 		ref: 'AR_SLIP_YN',    		width:'100px',  	style:'text-align:left'},
 				]
 				,callback		: function(data){
-					console.log('data:', data);
 		    		//fn_setFig2210Grid('RULE');
 		    		cfn_sub_add('rule');
 				}
