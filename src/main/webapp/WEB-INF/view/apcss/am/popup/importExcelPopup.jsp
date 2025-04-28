@@ -15,6 +15,8 @@
   */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="${pageContext.request.contextPath}/js/out/bundle.js"></script>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -65,7 +67,6 @@
 		</div>
 	</section>
 </body>
-<script src="https://cdn.sheetjs.com/xlsx-0.17.0/package/dist/xlsx.full.min.js"></script>
 <script type="text/javascript">
 
 	var grdImpPop = null;
