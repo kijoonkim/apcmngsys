@@ -1,7 +1,7 @@
 ---
 title: "Frontend Build Guide"
 description: "APCSS 프로젝트 프론트엔드 빌드 및 모듈 추가 가이드"
-author: "작성자 이름"
+author: "손민성"
 date: 2025-04-28
 tags: ["node.js", "npm", "webpack", "frontend"]
 ---
