@@ -812,17 +812,108 @@
 			grdPrdcrPop.rebuild();
 	    }
 	}
+
+	//region 팝업 관련 함수
+	const pfn_prdcrNm_oninput = function(_event){
+		let prdcrNm = _event.that.value;
+		prdcrFunction.autocompleteRef = gfn_filterFrst(prdcrNm, prdcrFunction.autocompleteRefOrigin);
+		SBUxMethod.changeAutocompleteData(prdcrFunction.prdcrNmId, true);
+	}
+	const pfn_prdcr_autocomplete_select_callback = function(){
+
+	}
+	const pfn_prdcrIdentno_onchange = function(){
+
+	}
+	const pfn_prdcr_clear = function(){
+		SBUxMethod.set(prdcrFunction.prdcrNmId, "");
+		SBUxMethod.attr(prdcrFunction.prdcrNmId, "style", "background-color:''");
+		SBUxMethod.set(prdcrFunction.prdcrCdId, "");
+		SBUxMethod.set(prdcrFunction.identnoId, "");
+		SBUxMethod.set(prdcrFunction.btnId, "");
+	}
+
 	const prdcrFunction = {
+		autocompleteRefOrigin: [],
+		autocompleteRef: [],
+		autocompleteText: 'name',
+		autocompleteHeight: '270px',
+		apcCd: '',
+		prdcrNmId: '',
+		prdcrCdId: '',
+		identnoId: '',
+		btnId: '',
+		oninputNm: pfn_prdcrNm_oninput,
+		autocompleteSelectCallback: pfn_prdcr_autocomplete_select_callback,
+		onchangeIdentno: pfn_prdcrIdentno_onchange,
+		clear: pfn_prdcr_clear,
+		init: async function (_apcCd, _prdcrNmId, _prdcrCdId, _identnoId, _btnId, _customFn = {}) {
+			this.apcCd = _apcCd;
+			this.prdcrNmId = _prdcrNmId;
+			this.prdcrCdId = _prdcrCdId;
+			this.identnoId = _identnoId;
+			this.btnId = _btnId;
+			const postJsonPromise = gfn_postJSON("/am/cmns/prdcrInfos", {apcCd: _apcCd, delYn: "N"}, null, true);
+			const data = await postJsonPromise;
+			this.autocompleteRefOrigin = data.resultList.map(item => {
+				return {
+					prdcrCd: item.prdcrCd,
+					prdcrNm: item.prdcrNm,
+					prdcrFrstNm: item.prdcrFrstNm,
+					rprsItemCd: item.rprsItemCd,
+					rprsVrtyCd: item.rprsVrtyCd,
+					rprsItemNm: item.rprsItemNm,
+					rprsVrtyNm: item.rprsVrtyNm,
+					wrhsSeCd: item.wrhsSeCd,
+					gdsSeCd: item.gdsSeCd,
+					trsprtSeCd: item.trsprtSeCd,
+					vhclno: item.vhclno,
+					prdcrLinkCd: item.prdcrLinkCd,
+					prdcrIdentno: item.prdcrIdentno,
+					name: item.prdcrNm,
+					value: item.prdcrCd,
+					frmhsTelno: item.frmhsTelno,
+					frmhsCtpv: item.frmhsCtpv,
+					frmhsAddr: item.frmhsAddr,
+					crtrPrcl: item.crtrPrcl,
+					plntngPrcl: item.plntngPrcl,
+					landCrtrArea: item.landCrtrArea,
+					landPlntngArea: item.landPlntngArea,
+					prchsQntt: item.prchsQntt,
+					prchsAmt: item.prchsAmt,
+					frmerno: item.frmerno,
+				}
+			});
+			this.autocompleteRef = gfn_setFrst(this.autocompleteRefOrigin);
+			/** custom fn **/
+			let customCnt = Object.keys(_customFn).length;
+			if (customCnt > 0) {
+				for (let key in _customFn) {
+					if (typeof _customFn[key] === 'function') {
+						this[key] = _customFn[key].bind(this);
+					}
+				}
+			}
+			/** sb refresh **/
+			/** prdcrNm **/
+			SBUxMethod.refresh(this.prdcrNmId, {
+				autocompleteRef: this.autocompleteRef,
+				autocompleteText: this.autocompleteText,
+				autocompleteHeight: this.autocompleteHeight,
+				oninput: this.oninputNm,
+				autocompleteSelectCallback: this.autocompleteSelectCallback,
+			});
+			console.log(this.autocompleteRef);
 
-
+			/** identno **/
+			SBUxMethod.refresh(this.identnoId, {
+				onchange: this.onchangeIdentno
+			})
+		}
 	}
+	//endregion
 
-	/** test fn **/
-	function test(){
-		console.log("너 호출은되는거지?");
-	}
-	// 엑셀다운로드
-	// exp combo
+	// region excel 함수 val
 	var jsonExpSltItem 			= [];	// 품목
 	var jsonExpSltVrty 			= [];	// 품종
 	var jsonExpSltSpcfct 		= [];	// 규격
@@ -846,6 +937,6 @@
 	var jsonExpWrhsSeCd 		= [];	// 엑셀 입고구분Json
 	var jsonExpTrsprtSeCd 		= [];	// 엑셀 운송구분Json
 	var jsonExpClclnCrtrCd 		= [];	// 엑셀 정산구분Json
-
+	// endregion
 </script>
 </html>
