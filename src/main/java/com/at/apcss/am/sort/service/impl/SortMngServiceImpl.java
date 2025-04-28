@@ -2074,6 +2074,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 		// 선별실적 등록 시 투입실적도 함께 등록 (투입실적 여부 확인 후 등록)
 		List<SortInptPrfmncVO> sortInptPrfmncVOList = new ArrayList<>();
 
+		logger.debug("@@@@rawMtr");
 		// 원물재고정보 update
 		for ( RawMtrInvntrVO inv : rawMtrInvntrVOList ) {
 			rtnObj = rawMtrInvntrService.updateInvntrSortPrfmnc(inv);
@@ -2091,7 +2092,7 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 			// 투입실적 항목 set
 			sortInptPrfmncVOList.add(sortInptVO);
 		}
-
+		logger.debug("@@@@vrInvntrVOList");
 		for ( RawMtrInvntrVO inv : vrInvntrVOList ) {
 
 			// negative 재고 등록
@@ -2124,12 +2125,16 @@ public class SortMngServiceImpl extends BaseServiceImpl implements SortMngServic
 				throw new EgovBizException(getMessageForMap(rtnObj));
 			}
 
+			inv.setWrhsno(rawMtrWrhsVO.getWrhsno());
+
 			SortInptPrfmncVO sortInptVO = new SortInptPrfmncVO();
 			BeanUtils.copyProperties(inv, sortInptVO);
 			sortInptVO.setSortno(sortno);
 
 			sortInptVO.setQntt((int) inv.getInptQntt());
 			sortInptVO.setWght(inv.getInptWght());
+
+			logger.debug("@@@@inv wrhsno {}", inv.getWrhsno());
 
 			// 투입실적 항목 set
 			sortInptPrfmncVOList.add(sortInptVO);
