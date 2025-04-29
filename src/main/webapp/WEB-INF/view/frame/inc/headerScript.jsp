@@ -134,3 +134,4 @@
 	</script>
 
 <sbux-progress name="main-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>
+<sbux-progress name="sub-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>
