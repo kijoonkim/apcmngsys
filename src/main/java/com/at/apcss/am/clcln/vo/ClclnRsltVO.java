@@ -70,6 +70,8 @@ public class ClclnRsltVO extends ComVO {
 	private String plorCd;
 	private String ctrtArea;
 	private String ctrtAreaM;
+	private String ctrtar;
+	private String ctrtarM;
 	private String plntngArea;
 
 	// 추가지급금
