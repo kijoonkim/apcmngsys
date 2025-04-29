@@ -55,6 +55,7 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * 계약면적
 	 * */
 	private int crtrArea;
+	private int ctrtar;
 	/*
 	 * 정식면적
 	 * */

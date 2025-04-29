@@ -90,6 +90,9 @@ public class CmnsVrtyVO extends CmnsItemVO {
 	 * 사용여부
 	 */
 	private String useYn;
-	
-	
+
+	/**
+	 * 품목상세코드
+	 */
+	private String itemDtlCd;
 }

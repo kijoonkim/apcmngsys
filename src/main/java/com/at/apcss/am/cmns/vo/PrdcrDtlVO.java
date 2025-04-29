@@ -52,6 +52,9 @@ public class PrdcrDtlVO extends ComVO {
 	 * 계약면적
 	 */
 	private double ctrtArea;
+	private double ctrtar;
+
+
 	/**
 	 * 품종1
 	 */

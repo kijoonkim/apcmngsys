@@ -163,11 +163,14 @@
 	</section>
 </body>
 <script type="text/javascript">
+
 	var jsonVrtyWghtRkngSeCd	= [];
 	var jsonApcVrtyWghtRkngSeCd	= [];
 	var jsonSortInptVlType = [];
 	var jsonIndctArtclType = [];
 	var jsonItemInvntrInqAuCd = [];
+	var jsonItemDtlCd = [];
+
 	const fn_initSBSelectItemVrty = async function() {
 
 		let rst = await Promise.all([
@@ -191,8 +194,21 @@
 	var jsonApcItem = []; // APC품목 그리드의 참조 데이터 주소 선언
 	var jsonVrty 	= []; // 품종 그리드의 참조 데이터 주소 선언
 	var jsonApcVrty = []; // APC품종 그리드의 참조 데이터 주소 선언
+
+	var grdItem;
+	var grdApcItem;
+	var grdVrty;
+	var grdApcVrty;
+
+
+	/**
+	 * @name fn_createGridItemVrty
+	 * @description 품목/품종 그리드 생성
+	 * @type {object}
+	 */
 	const fn_createGridItemVrty = async function() {
-		SBUxMethod.set("item-inp-apcNm", gv_apcNm);
+
+		SBUxMethod.set("item-inp-apcNm", gv_selectedApcNm);
 
 		// 마스터 품목
 		let SBGridPropertiesItem = {};
@@ -341,9 +357,46 @@
     				maxlength : 10},
     				format : {type:'number', rule:'#,###.##'}
     		},
-			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
-	        {caption: ["처리기준"],     ref: 'wghtRkngSeCd',  type:'combo',  width:'80px',    style:'text-align:center;',
-					typeinfo : {ref:'jsonVrtyWghtRkngSeCd', displayui : false,	itemcount: 10, label:'label', value:'value'}},
+			{
+				caption : ['사용여부'],
+				ref : 'useYn',
+				width : '100px',
+				style : 'text-align:center',
+				type : 'multiradio',
+				typeinfo : {
+					radiolabel : ['사용', '미사용'],
+					radiovalue : ['Y', 'N']
+				}
+			},
+			{
+				caption: ["품목그룹"],
+				ref: 'itemDtlCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonItemDtlCd',
+					displayui : false,
+					itemcount: 10,
+					label:'itemDtlNm',
+					value:'itemDtlCd',
+					unselect: {label: '', value: ''}
+				}
+			},
+			{
+				caption: ["처리기준"],
+				ref: 'wghtRkngSeCd',
+				type:'combo',
+				width:'80px',
+				style:'text-align:center;',
+				typeinfo : {
+					ref:'jsonVrtyWghtRkngSeCd',
+					displayui : false,
+					itemcount: 10,
+					label:'label',
+					value:'value'
+				}
+			},
 			{caption: ["순번"],     ref: 'sn',  type:'input',  	width:'60px',    style:'text-align:center',
 						typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}, maxlength : 4}},
 			{caption: ["설비연계"],     ref: 'extrnlLnkgCd',  type:'input',  width:'80px',    style:'text-align:center'},
@@ -384,7 +437,7 @@
 	    ];
 	    grdApcVrty = _SBGrid.create(SBGridPropertiesApcVrty);
 
-	    fn_initSBSelectItemVrty();
+	    await fn_initSBSelectItemVrty();
 	}
 
 	/**
@@ -453,9 +506,8 @@
 
 
 	const fn_searchItemList = async function(){
-		let apcCd = SBUxMethod.get("inp-apcCd");
 		let itemNm = SBUxMethod.get("item-inp-itemNm");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsItemList.do", {apcCd : apcCd, itemNm : itemNm});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsItemList.do", {apcCd : gv_selectedApcCd, itemNm : itemNm});
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -465,7 +517,7 @@
 
   					    itemCd 		: item.itemCd
   					  , itemNm 		: item.itemNm
-  					  , apcCd		: apcCd
+  					  , apcCd		: gv_selectedApcCd
   					  , clsNm		: item.clsNm
   					}
   					jsonItem.push(itemVO);
@@ -485,8 +537,7 @@
 
 	const fn_searchApcItemList = async function(){
 
-		let apcCd = SBUxMethod.get("inp-apcCd");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsItemList.do", {apcCd : apcCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcCmnsItemList.do", {apcCd : gv_selectedApcCd});
         let data = await postJsonPromise;
         try{
   			if (_.isEqual("S", data.resultStatus)) {
@@ -495,7 +546,7 @@
   					let itemVO = {
   						itemCd 			: item.itemCd
   					  , itemNm 			: item.itemNm
-  					  , apcCd			: apcCd
+  					  , apcCd			: gv_selectedApcCd
   					  , vrtrCnt 		: item.vrtrCnt
   					  , spcfctCnt		: item.spcfctCnt
   					  , grdCnt			: item.grdCnt
@@ -529,12 +580,30 @@
 
 	const fn_searchVrtyAll = async function(){
 		let nCol = grdApcItem.getCol();
+
+		switch (nCol) {
+			case 7:
+			case 8:
+			case 9:
+				return;
+		}
+
+		await fn_searchItemDtlList();
+		await Promise.all([
+			fn_searchVrtyList(),
+			fn_searchApcVrtyList(),
+		]);
+
+		/**
 		if(!(nCol == 7 || nCol == 8 || nCol == 9)){
-			let rst = await Promise.all([
+
+			await fn_searchItemDtlList();
+			await Promise.all([
 				fn_searchVrtyList(),
-				fn_searchApcVrtyList()
+				fn_searchApcVrtyList(),
 			]);
 		}
+		 */
 	}
 
 	const fn_searchVrtyList = async function(){
@@ -552,9 +621,9 @@
 			SBUxMethod.set("vrty-inp-itemNm", rowData.itemNm);
 			SBUxMethod.set("vrty-inp-itemCd", rowData.itemCd);
 		}
-		let apcCd = gv_apcCd;
+
 		let vrtyNm = SBUxMethod.get("vrty-inp-vrtyNm");
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsVrtyList.do", {apcCd : apcCd, itemCd : itemCd, vrtyNm : vrtyNm});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectCmnsVrtyList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, vrtyNm : vrtyNm});
         let data = await postJsonPromise;
         let newJsonVrty = [];
         try{
@@ -563,7 +632,7 @@
   					let vrtyVO = {
   						vrtyCd 		: item.vrtyCd
   					  , vrtyNm 		: item.vrtyNm
-  					  , apcCd		: apcCd
+  					  , apcCd		: gv_selectedApcCd
   					  , itemCd		: item.itemCd
   					}
   					newJsonVrty.push(vrtyVO);
@@ -601,9 +670,8 @@
 		}else{
 			itemCd = rowData.itemCd
 		}
-		let apcCd = gv_apcCd;
 
-    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : apcCd, itemCd : itemCd});
+    	let postJsonPromise = gfn_postJSON("/am/cmns/selectApcVrtyList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd});
         let data = await postJsonPromise;
         let newJsonApcVrty = [];
         try{
@@ -612,7 +680,7 @@
   					let vrtyVO = {
   						vrtyCd 			: item.vrtyCd
   					  , vrtyNm 			: item.vrtyNm
-  					  , apcCd			: apcCd
+  					  , apcCd			: gv_selectedApcCd
   					  , delYn 			: item.delYn
   					  , itemCd			: item.itemCd
   					  , unitWght		: item.unitWght
@@ -621,6 +689,7 @@
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
 					  , sortInptVlType  : item.sortInptVlType
 					  , indctArtclType  : item.indctArtclType
+					  , itemDtlCd  		: item.itemDtlCd
 					  , useYn			: item.useYn
   					}
   					newJsonApcVrty.push(vrtyVO);
@@ -640,6 +709,58 @@
     		}
     		console.error("failed", e.message);
         }
+	}
+
+	/**
+	 * @name fn_searchItemDtlList
+	 * @description 품목별 상세정보 조회
+	 * @function
+	 */
+	const fn_searchItemDtlList = async function() {
+		const itemCol = grdApcItem.getCol();
+		const emptyCol = grdApcItem.getColRef("empty")
+		if (_.isEqual(itemCol, emptyCol)){
+			return;
+		}
+
+		let nRow = grdApcItem.getRow();
+		if (nRow < 1) {
+			return;
+		}
+
+		let rowData = grdApcItem.getRowData(nRow);
+
+		if (gfn_isEmpty(rowData)) {
+			return;
+		}
+
+		const itemCd = rowData.itemCd;
+
+		try {
+			jsonItemDtlCd.length = 0;
+
+			const postJsonPromise = gfn_postJSON(
+					"/am/cmns/selectApcItemCrtrDtlList.do",
+					{apcCd: gv_selectedApcCd, itemCd: itemCd}
+			);
+			const data = await postJsonPromise;
+
+			if (!_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert(data.resultCode, data.resultMessage);
+				return;
+			}
+
+			if (!gfn_isEmpty(data.resultList)) {
+				data.resultList.forEach(item => {
+					jsonItemDtlCd.push(item);
+				});
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
 	}
 
 	const fn_addItem = async function (nRow){
@@ -811,7 +932,7 @@
 	        	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001") 			// I0001 	처리 되었습니다.
 	        		await fn_searchAll();
-	        		fn_searchVrtyAll();
+	        		await fn_searchVrtyAll();
 	        	} else {
 	        		gfn_comAlert(data.resultCode, data.resultMessage);
 	        	}
