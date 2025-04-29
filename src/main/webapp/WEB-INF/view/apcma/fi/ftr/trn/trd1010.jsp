@@ -137,7 +137,7 @@
                                 <font>선택</font>
                                 <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="SRCH_TXN_TYPE" style="width:730px;height:150px;padding-top:0px;overflow:auto">
+                            <div class="dropdown-menu" aria-labelledby="SRCH_TXN_TYPE" style="width:200px;height:150px;padding-top:0px;overflow:auto">
                             </div>
                         </div>
                     </td>
@@ -348,7 +348,7 @@
             // 전표상태
             gfnma_setComSelect(['gvwDetail', 'gvwAccount'], jsonDocStatus, 'L_FIG002', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 지급방식
-            gfnma_setComSelect(['gvwDetail'], jsonTrPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'PAY_TERM_CD', 'PAY_TERM_NM', 'Y', ''),
+            gfnma_setComSelect(['gvwDetail'], jsonTrPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 지급방법
             gfnma_setComSelect(['gvwDetail'], jsonPayMethod, 'L_FIM081', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 상태코드
@@ -448,7 +448,7 @@
             {caption: ["입금계좌번호"],         ref: 'IN_ACCOUNT_NO',    type:'output',  	width:'119px',  style:'text-align:left'},
             {caption: ["입금계좌번호"], 						ref: 'IN_ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 11)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 11)'>…</button>";
                 }
             },
             {caption: ["입금은행"],         ref: 'IN_BANK_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
@@ -457,7 +457,7 @@
             {caption: ["출금계좌번호"],         ref: 'OUT_ACCOUNT_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["출금계좌번호"], 						ref: 'OUT_ACCOUNT_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 16)'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findAccountNoForGvwList(" + nRow + ", 16)'>…</button>";
                 }
             },
             {caption: ["출금은행"],         ref: 'OUT_BANK_NAME',    type:'input',  	width:'75px',  style:'text-align:left'},
@@ -480,11 +480,11 @@
             },
             {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'input',  	width:'67px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이체금액(통화)"],         ref: 'ORIGINAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이체금액(전표)"],         ref: 'FUNCTIONAL_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -492,7 +492,7 @@
             },
             {caption: ["이자율"],         ref: 'INTEREST_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
+                , format : {type:'number', rule:'#,##0.000', emptyvalue:'0.000'}
             },
             {caption: ["이자수익"],         ref: 'INTEREST_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -500,7 +500,7 @@
             },
             {caption: ["법인세율"],         ref: 'CTAX_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
+                , format : {type:'number', rule:'#,##0.000', emptyvalue:'0.000'}
             },
             {caption: ["법인세원천징수"],         ref: 'CTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -508,7 +508,7 @@
             },
             {caption: ["지방소득세율"],         ref: 'PTAX_RATE',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.000', emptyvalue:'0.000'}
+                , format : {type:'number', rule:'#,##0.000', emptyvalue:'0.000'}
             },
             {caption: ["지방소득세원천징수"],         ref: 'PTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -641,7 +641,7 @@
             {caption: ["ID"],         ref: 'TREASURY_ID',    type:'output',  	width:'52px',  style:'text-align:left'},
             {caption: ["자금배치번호"],         ref: 'TREASURY_BATCH_NO',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["순번"],         ref: 'TREASURY_LINE_NUM',    type:'output',  	width:'42px',  style:'text-align:left'},
-            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
+            {caption: ["지급일"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -729,8 +729,10 @@
             {caption: ["통화"],         ref: 'CURRENCY_CODE',    type:'output',  	width:'63px',  style:'text-align:left'},
             {caption: ["환산유형"],         ref: 'EXCHANGE_TYPE',    type:'output',  	width:'63px',  style:'text-align:left'},
             {caption: ["환율"],         ref: 'EXCHANGE_RATE',    type:'output',  	width:'68px',  style:'text-align:left'},
-            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left'},
-            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left'},
+            {caption: ["통화금액"],         ref: 'ORIGINAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left'
+            	, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
+            {caption: ["전표금액"],         ref: 'FUNCTIONAL_AMOUNT',    type:'output',  	width:'160px',  style:'text-align:left'
+            	, format : {type:'number', rule:'#,###', emptyvalue:'0'}},
         ];
 
         gvwDetail = _SBGrid.create(SBGridProperties);
@@ -1250,7 +1252,7 @@
                             CHECK_YN: item.CHECK_YN,
                             TXN_ID: item.TRSC_ID,
                             TXN_TYPE: item.TRSC_TYPE,
-                            TXN_DATE: item.TRSC_DT,
+                            TXN_DATE: gfnma_date5(item.TRSC_YMD),
                             OUT_DEPOSIT_CODE: item.TKMNY_DPMNY_CD,
                             OUT_BANK_NAME: item.OUT_BANK_NAME,
                             OUT_ACCOUNT_NO: item.OUT_ACCOUNT_NO,
@@ -1263,13 +1265,13 @@
                             IN_CURRENCY_CODE: item.DPST_CRN_CD,
                             EXCHANGE_TYPE: item.EXCHRT_TYPE,
                             EXCHANGE_RATE: item.EXCHRT,
-                            ORIGINAL_AMOUNT: item.ORGNL_AMT,
+                            ORIGINAL_AMOUNT: gfnma_nvl2(item.ORGNL_AMT),
                             FUNCTIONAL_AMOUNT: item.CNVS_AMT,
                             INTEREST_RATE: item.INT_RT,
                             INTEREST_AMOUNT: item.INTEREST_AMOUNT,
-                            CTAX_RATE: item.COTX_RT,
+                            CTAX_RATE: gfnma_nvl2(item.COTX_RT),
                             CTAX_WITHHOLD_AMOUNT: item.COTX_WTHD_AMT,
-                            PTAX_RATE: item.LCLTX_RT,
+                            PTAX_RATE: gfnma_nvl2(item.LCLTX_RT),
                             PTAX_WITHHOLD_AMOUNT: item.LCLTX_WTHD_AMT,
                             CONFIRM_FLAG: item.CFMTN_FLAG,
                             FI_ORG_CODE: item.ACNTG_OGNZ_CD,

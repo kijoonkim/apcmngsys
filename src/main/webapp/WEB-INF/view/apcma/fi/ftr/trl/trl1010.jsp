@@ -24,7 +24,7 @@
 <head>
 	<title>title : 차입금원장등록</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+<%-- 	<%@ include file="../../../../frame/inc/headerScript.jsp" %> --%>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -724,7 +724,7 @@
 														<font>선택</font>
 														<i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
 													</button>
-													<div class="dropdown-menu" aria-labelledby="FM_REPAY_SEQ" style="width:300px;height:150px;padding-top:0px;overflow:auto">
+													<div class="dropdown-menu" aria-labelledby="FM_REPAY_SEQ" style="width:1010px;height:150px;padding-top:0px;overflow:auto">
 													</div>
 												</div>
 												<font style="width:5px"></font>
@@ -1277,13 +1277,14 @@
 
 			// 계좌정보
 			gfnma_setComSelect([''], jsonBankAccountSeq, 'L_CS_ACCOUNT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BACNT_SEQ', 'SEQ_NAME', 'Y', ''),
-
+			
 			gfnma_multiSelectInit({
 				target: ['#FM_REPAY_SEQ']
 				, compCode: gv_ma_selectedCorpCd
 				, clientCode: gv_ma_selectedClntCd
 				, bizcompId: 'L_CS_ACCOUNT'
-				, whereClause: "AND a.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("FM_LOAN_DATE")) + "' BETWEEN a.EFCT_BGNG_YMD AND a.EFCT_END_YMD"
+				//, whereClause: "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("FM_LOAN_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
+				, whereClause: "AND A.CNPT_CD like '%" + gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CODE")) + "%' "
 				, formId: p_formId
 				, menuId: p_menuId
 				, selectValue: ''
@@ -1643,7 +1644,7 @@
 
 		var replaceText0 	= "_CNPT_CD_";
 		var replaceText1 	= "_CNPT_NM_";
-		var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' ";
+		var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
 		compopup1({
@@ -1944,7 +1945,7 @@
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["계정코드", 			"계정명",			"계정(한국어)"]
-			,tableColumnNames		: ["APLY_ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]
+			,tableColumnNames		: ["ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]
 			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				if(type=='1'){
@@ -1994,7 +1995,7 @@
 		var searchName 		    = gfn_nvl(SBUxMethod.get("FM_REPAY_BANK_CS_NAME"));
 		var replaceText0 		= "_CNPT_CD_";
 		var replaceText1 		= "_CNPT_NM_";
-		var strWhereClause 	    = "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%'";
+		var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
 		compopup1({
@@ -2097,7 +2098,7 @@
 			,width					: '700px'
 			,height					: '400px'
 			,tableHeader			: ["계정코드", 			"계정명",			"계정(한국어)"]
-			,tableColumnNames		: ["APLY_ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]
+			,tableColumnNames		: ["ACNTL_CD", 		"ACNT_NM",		"ACNT_NM_CHN"]
 			,tableColumnWidths		: ["100px", 			"250px",			"250px"]
 			,itemSelectEvent		: function (data){
 				if(type=='1'){
@@ -2206,7 +2207,7 @@
 			, compCode: gv_ma_selectedCorpCd
 			, clientCode: gv_ma_selectedClntCd
 			, bizcompId: 'L_CS_ACCOUNT'
-			, whereClause: "AND a.CNPT_CD = '" + tmpBankCsCode + "' AND '" + tmpLoanDate + "' BETWEEN a.EFCT_BGNG_YMD AND a.EFCT_END_YMD"
+			, whereClause: "AND A.CNPT_CD = '" + tmpBankCsCode + "' AND '" + tmpLoanDate + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
 			, formId: p_formId
 			, menuId: p_menuId
 			, selectValue: ''
@@ -2464,7 +2465,7 @@
 					SBUxMethod.set("FM_DEPOSIT_NAME"      					, gfn_nvl(item.DEPT_NM));
 					SBUxMethod.set("FM_COST_CENTER_CODE"      				, gfn_nvl(item.CSTCT_CD));
 					SBUxMethod.set("FM_COST_CENTER_NAME"      				, gfn_nvl(item.CSTCT_NM));
-					SBUxMethod.set("FM_LOAN_ACCOUNT"      					, gfn_nvl(item.LOAN_ACNT_CD));
+					SBUxMethod.set("FM_LOAN_ACCOUNT_CODE"      				, gfn_nvl(item.LOAN_ACNT_CD));
 					SBUxMethod.set("FM_LOAN_ACCOUNT_NAME"      				, gfn_nvl(item.LOAN_ACCOUNT_NAME));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_CODE"      	, gfn_nvl(item.INT_CST_ACNT_CD));
 					SBUxMethod.set("FM_INTEREST_EXPENSE_ACCOUNT_NAME"      	, gfn_nvl(item.INTEREST_EXPENSE_ACCOUNT_NAME));
@@ -2492,6 +2493,7 @@
 					SBUxMethod.set("FM_VAL_LOSS_ACC_NAME"      				, gfn_nvl(item.VAL_LOSS_ACC_NAME));
 					SBUxMethod.set("FM_PRESENT_VALUE_LIQUID_ACCT_CD"      	, gfn_nvl(item.PRSTVL_DSCNT_LQRPLCMT_ACNT_CD)); //-- 현재가치할인차금유동성계정 20170908AD)D
 					SBUxMethod.set("FM_PRESENT_VALUE_LIQUID_ACCT_NM"      	, gfn_nvl(item.PRESENT_VALUE_LIQUID_ACCT_NM));
+					
 
 
 					/**************************** 상환 정보 **********************************/
@@ -2518,8 +2520,8 @@
 					SBUxMethod.set("FM_INTEREST_REPAY_CYCLE_MM"      			, gfn_nvl(item.INT_RPMT_INTRVL_MM));
 					SBUxMethod.set("FM_INTEREST_REPAY_START_DATE"      			, gfn_nvl(item.INT_RPMT_FRST_YMD));
 					SBUxMethod.set("FM_INTEREST_PAY_DD"      					, gfn_nvl(item.INT_CAL_BRW_PRNCPL_BLNC));
-					SBUxMethod.set("FM_EFFECTIVE_INTEREST_RATE"      			, gfn_nvl(item.EFTINT_RT));
-					SBUxMethod.set("FM_LOAN_DISCOUNT_AMT"      					, gfn_nvl(item.PRSTVL_DSCNT_AMT));
+					SBUxMethod.set("FM_EFFECTIVE_INTEREST_RATE"      			, gfnma_nvl2(item.EFTINT_RT));
+					SBUxMethod.set("FM_LOAN_DISCOUNT_AMT"      					, gfnma_nvl2(item.PRSTVL_DSCNT_AMT));
 					SBUxMethod.set("FM_DOC_DATE"      							, gfn_nvl(item.SLIP_YMD));
 					SBUxMethod.set("FM_DOC_NUM"      							, gfn_nvl(item.SLIP_NO));
 					SBUxMethod.set("FM_DOC_SEQ"      							, gfn_nvl(item.SLIP_SEQ));
@@ -2531,7 +2533,7 @@
 					gfnma_multiSelectSet('#FM_REPAY_SEQ', 'SUB_CODE', 'CODE_NAME', gfn_nvl(item.RPMT_SEQ));
 					SBUxMethod.set("FM_REPAY_PREAUTH_PAY_YN"      				, gfn_nvl(item.PRN_RPMT_ATTR_YN));
 					SBUxMethod.set("FM_INTEREST_PREAUTH_PAY_YN"      			, gfn_nvl(item.INT_ATTR_YN));
-					SBUxMethod.set("FM_AMORTIZE_REPAY_CYCLE_MM"      			, gfn_nvl(item.AMTZ_REPT_CYCL));
+					SBUxMethod.set("FM_AMORTIZE_REPAY_CYCLE_MM"      			, gfnma_nvl2(item.AMTZ_REPT_CYCL));
 					SBUxMethod.set("FM_PRESENT_VALUE_INTEREST_ACCT_CD"      	, gfn_nvl(item.PRSTVL_DSCNT_INT_ACNT_CD)); // --  사채할인차금이자비용 20190320 LJ)E LJ)E
 					SBUxMethod.set("FM_PRESENT_VALUE_INTEREST_ACCT_NM"      	, gfn_nvl(item.PRESENT_VALUE_INTEREST_ACCT_NM)); // --  사채할인차금이자비용 20190320 LJ)E LJ)E
 					SBUxMethod.set("FM_HDG_FLAG"      							, gfn_nvl(item.DRSEC_FLAG));

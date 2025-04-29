@@ -1295,7 +1295,7 @@
                 ,compCode		: gv_ma_selectedCorpCd
                 ,clientCode		: gv_ma_selectedClntCd
                 ,bizcompId		: 'L_FIF040'
-                ,whereClause	: ''
+                ,whereClause	: " AND CO_CD = '" + gv_ma_selectedCorpCd + "'"
                 ,formId			: p_formId
                 ,menuId			: p_menuId
                 ,selectValue	: ''
@@ -1366,7 +1366,8 @@
                 , compCode: gv_ma_selectedCorpCd
                 , clientCode: gv_ma_selectedClntCd
                 , bizcompId: 'L_CS_ACCOUNT'
-                , whereClause: "AND a.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("BANK_CD")) + "' AND '" + gfn_nvl(SBUxMethod.get("DPMNY_YMD")) + "' BETWEEN a.EFCT_BGNG_YMD AND a.EFFECT_END_DATE"
+                //, whereClause: "AND A.BANK_CD LIKE '%" + gfn_nvl(SBUxMethod.get("BANK_CODE")) + "%' AND '" + gfn_nvl(SBUxMethod.get("DPMNY_YMD")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
+                , whereClause:''
                 , formId: p_formId
                 , menuId: p_menuId
                 , selectValue: ''
@@ -1396,7 +1397,7 @@
                 }
             }),
             // 은행코드
-            gfnma_setComSelect(['BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CODE', 'BANK_NAME', 'Y', ''),
+            gfnma_setComSelect(['#BANK_CODE'], jsonBankCode, 'L_BANK_CODE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'BANK_CD', 'BANK_NM', 'Y', ''),
             // 통화
             gfnma_multiSelectInit({
                 target: ['#CURRENCY_CODE']
@@ -1987,7 +1988,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -2043,7 +2044,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get(inOrOut + "_DEPOSIT_NAME"));
         var replaceText0 	= "_DPMNY_CD_";
         var replaceText1 	= "_DPMNY_NM_";
-        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '예적금 정보');
         compopup1({
@@ -2087,7 +2088,7 @@
             ,searchInputValues		: [searchCode, searchName]
             ,height					: '400px'
             ,tableHeader			: ["계정코드", "계정명", "계정(한국어)"]
-            ,tableColumnNames		: ["APLY_ACNTL_CD", "ACNT_NM", "ACNT_NM_CHN"]
+            ,tableColumnNames		: ["ACNTL_CD", "ACNT_NM", "ACNT_NM_CHN"]
             ,tableColumnWidths		: ["100px", "200px", "200px"]
             ,itemSelectEvent		: function (data){
                 SBUxMethod.set(section + '_NAME', data.ACNT_NM);
@@ -2252,6 +2253,7 @@
                             INTEREST_RATE : item.INT_RT,
                             DEPOSIT_TYPE : item.DPMNY_TYPE,
                             INTEREST_CALC_METHOD : item.INT_CAL_MTHD,
+                            DEPOSIT_DAY : fn_getDay(gfnma_date5(item.DPMNY_YMD), gfnma_date5(item.MTRY_YMD)),
                         }
                         jsonDepositList.push(msg);
                     });
@@ -2270,19 +2272,143 @@
                     jsonPaymentPlanList.length = 0;
 
                     var rs = data.cv_2[0];
+                    
+                    
 
-                    gfnma_uxDataSet("#tabBase", rs);
-                    gfnma_uxDataSet("#tabAccount", rs);
-                    gfnma_uxDataSet("#tabInfo", rs);
-                    gfnma_uxDataSet("#tabPL", rs);
-                    gfnma_uxDataSet("#tabTR", rs);
-                    gfnma_uxDataSet("#tabTreasury", rs);
-                    gfnma_uxDataSet("#tabDept", rs);
+                    SBUxMethod.set('INSERT_USERID', gfnma_nvl2(rs.WRT_USER_ID));
+                    SBUxMethod.set('DESCR', gfnma_nvl2(rs.DSCTN));
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC', gfnma_nvl2(rs.EXCHRT_PRF_ACNT));
+                    SBUxMethod.set('EXCHANGE_GAIN_ACC_NAME', gfnma_nvl2(rs.EXCHANGE_GAIN_ACC_NAME));
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC', gfnma_nvl2(rs.EXCHRT_LOSS_ACNT));
+                    SBUxMethod.set('EXCHANGE_LOSS_ACC_NAME', gfnma_nvl2(rs.EXCHANGE_LOSS_ACC_NAME));
+                    SBUxMethod.set('VAL_GAIN_ACC', gfnma_nvl2(rs.CNVRT_PRF_ACNT_CD));
+                    SBUxMethod.set('VAL_GAIN_ACC_NAME', gfnma_nvl2(rs.VAL_GAIN_ACC_NAME));
+                    SBUxMethod.set('VAL_LOSS_ACC', gfnma_nvl2(rs.CNVRT_LOSS_ACNT_CD));
+                    SBUxMethod.set('VAL_LOSS_ACC_NAME', gfnma_nvl2(rs.VAL_LOSS_ACC_NAME));
+                    SBUxMethod.set('DESCRIPTION', gfnma_nvl2(rs.DSCTN));
+                    SBUxMethod.set('BANK_CODE', gfnma_nvl2(rs.BANK_CD));
+                    SBUxMethod.set('CURRENCY_CODE', gfnma_nvl2(rs.CRN_CD));
+                    SBUxMethod.set('BANK_NO', gfnma_nvl2(rs.BANK_CD));
+                    SBUxMethod.set('CURRENCY', gfnma_nvl2(rs.CRN_CD));
+                    SBUxMethod.set('FI_ORG_CODE', gfnma_nvl2(rs.ACNTG_OGNZ_CD));
+                    SBUxMethod.set('DEPT_CODE', gfnma_nvl2(rs.DEPT_CD));
+                    SBUxMethod.set('EX_RATE', gfnma_nvl2(rs.EXCHRT));
+                    SBUxMethod.set('ZDESC', gfnma_nvl2(rs.DSCTN));
+                    SBUxMethod.set('ACCOUNT_NUM', gfnma_nvl2(rs.ACTNO));
+                    SBUxMethod.set('EXCHANGE_RATE', gfnma_nvl2(rs.EXCHRT));
+                    SBUxMethod.set('PAY_BANK_ACCOUNT', gfnma_nvl2(rs.PAY_ACTNO));
+                    SBUxMethod.set('DUE_DATE', gfnma_nvl2(rs.MTRY_YMD));
+                    SBUxMethod.set('PAY_SEQ', gfnma_nvl2(rs.SLRY_SEQ));
+                    SBUxMethod.set('INVOICE_SEQ', gfnma_nvl2(rs.SLIP_SEQ));
+                    SBUxMethod.set('IN_AMOUNT', gfnma_nvl2(rs.INCRS_AMT));
+                    SBUxMethod.set('IN_DEPOSIT_CODE', gfnma_nvl2(rs.DPST_SVG_CD));
+                    SBUxMethod.set('IN_DEPOSIT_NAME', gfnma_nvl2(rs.IN_DEPOSIT_NAME));
+                    SBUxMethod.set('REMAIN_DEPOSIT_AMT', gfnma_nvl2(rs.DPMNY_BLNC));
+                    SBUxMethod.set('INTEREST_RATE', gfnma_nvl2(rs.INT_RT));
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT', gfnma_nvl2(rs.INTRV_ACNT_CD));
+                    SBUxMethod.set('INTEREST_INCOME_ACCOUNT_NAME', gfnma_nvl2(rs.INTEREST_INCOME_ACCOUNT_NAME));
+                    SBUxMethod.set('DEPOSIT_NUM', gfnma_nvl2(rs.DPMNY_NO));
+                    SBUxMethod.set('DEPOSIT_AMT', gfnma_nvl2(rs.DPMNY_AMT));
+                    SBUxMethod.set('DEPOSIT_NAME', gfnma_nvl2(rs.DPMNY_NM));
+                    SBUxMethod.set('DEPOSIT_TYPE', gfnma_nvl2(rs.DPMNY_TYPE));
+                    SBUxMethod.set('DEPOSIT_CATEGORY1', gfnma_nvl2(rs.DPMNY_CTGRY1));
+                    SBUxMethod.set('DEPOSIT_CATEGORY2', gfnma_nvl2(rs.DPMNY_CTGRY2));
+                    SBUxMethod.set('DEPOSIT_CATEGORY3', gfnma_nvl2(rs.DPMNY_CTGRY3));
+                    SBUxMethod.set('PRESENT_VALUE_ACCOUNT', gfnma_nvl2(rs.PRESENT_VALUE_ACCOUNT));
+                    SBUxMethod.set('DEPOSIT_DATE', gfnma_nvl2(rs.DPMNY_YMD));
+                    SBUxMethod.set('DEPOSIT_STATUS', gfnma_nvl2(rs.DPMNY_STTS));
+                    SBUxMethod.set('IN_AMT', gfnma_nvl2(rs.INCRS_AMT));
+                    SBUxMethod.set('IN_TERM', gfnma_nvl2(rs.PRN_RPMT_CND));
+                    SBUxMethod.set('DEFERRED_MM', gfnma_nvl2(rs.DFRMNT_MM));
+                    SBUxMethod.set('IN_CYCLE_MM', gfnma_nvl2(rs.PRNCPL_RPMT_CYCL));
+                    SBUxMethod.set('INTEREST_IN_CYCLE_MM', gfnma_nvl2(rs.INT_RPMT_INTRVL_MM));
+                    SBUxMethod.set('INTEREST_IN_START_DATE', gfnma_nvl2(rs.INT_RPMT_FRST_YMD));
+                    SBUxMethod.set('IN_START_DATE', gfnma_nvl2(rs.DPST_STRT_YMD));
+                    SBUxMethod.set('IN_PER_AMT', gfnma_nvl2(rs.PRN_RPMT_PONE_AMT));
+                    SBUxMethod.set('IN_FIRST_AMT', gfnma_nvl2(rs.FRST_PRN_RPMT_AMT));
+                    SBUxMethod.set('IN_DD', gfnma_nvl2(rs.PRNCPL_RPMT_YMD));
+                    SBUxMethod.set('IN_BASE', gfnma_nvl2(rs.DPST_BASE));
+                    SBUxMethod.set('INTEREST_TYPE', gfnma_nvl2(rs.INT_RT_TYPE));
+                    SBUxMethod.set('EFFECTIVE_INTEREST_RATE', gfnma_nvl2(rs.EFTINT_RT));
+                    SBUxMethod.set('DEPOSIT_DISCOUNT_AMT', gfnma_nvl2(rs.DPMNY_PRSTVL_DSCNT_AMT));
+                    SBUxMethod.set('DOC_DATE', gfnma_nvl2(rs.SLIP_YMD));
+                    SBUxMethod.set('DOC_NUM', gfnma_nvl2(rs.SLIP_NO));
+                    SBUxMethod.set('DOC_SEQ', gfnma_nvl2(rs.SLIP_SEQ));
+                    SBUxMethod.set('OUT_DEPOSIT_CODE', gfnma_nvl2(rs.TKMNY_DPMNY_CD));
+                    SBUxMethod.set('OUT_DEPOSIT_NAME', gfnma_nvl2(rs.OUT_DEPOSIT_NAME));
+                    SBUxMethod.set('OUT_ACCOUNT_NUM', gfnma_nvl2(rs.OUT_ACCOUNT_NUM));
+                    SBUxMethod.set('CTAX_RATE', gfnma_nvl2(rs.COTX_RT));
+                    SBUxMethod.set('PTAX_RATE', gfnma_nvl2(rs.LCLTX_RT));
+                    SBUxMethod.set('EXPIRE_DATE', gfnma_nvl2(rs.MTRY_YMD));
+                    SBUxMethod.set('BANK_CS_CODE', gfnma_nvl2(rs.BANK_CNPT_CD));
+                    SBUxMethod.set('BANK_CS_NAME', gfnma_nvl2(rs.BANK_CS_NAME));
+                    SBUxMethod.set('DEPOSIT_ACCOUNT', gfnma_nvl2(rs.DPMNY_ACNT));
+                    SBUxMethod.set('DEPOSIT_ACCOUNT_NAME', gfnma_nvl2(rs.DEPOSIT_ACCOUNT_NAME));
+                    SBUxMethod.set('ADVANCE_INCOME_ACCOUNT', gfnma_nvl2(rs.UNRV_ACNTL_CD));
+                    SBUxMethod.set("ADVANCE_INCOME_ACCOUNT_NAME", gfnma_nvl2(rs.ADVANCE_ACC_NAME));
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT', gfnma_nvl2(rs.UCRV_ACNTL_CD));
+                    SBUxMethod.set('ACCRUED_INCOME_ACCOUNT_NAME', gfnma_nvl2(rs.ACCRUED_INCOME_ACCOUNT_NAME));
+                    SBUxMethod.set('DEPOSIT_LIQUID_ACCOUNT', gfnma_nvl2(rs.DPMNY_PRD_RPLCMT_ACNT));
+                    SBUxMethod.set('INTEREST_IN_TR_TYPE', gfnma_nvl2(rs.SVG_MTRY_FUND_TYPE));
+                    SBUxMethod.set('INTEREST_IN_TR_NAME', gfnma_nvl2(rs.SVG_MTRY_FUND_TYPE));
+                    SBUxMethod.set('DEPOSIT_IN_TR_TYPE', gfnma_nvl2(rs.DPMNY_INT_MTRY_FUND_TYPE));
+                    SBUxMethod.set('DEPOSIT_IN_TR_NAME', gfnma_nvl2(rs.DEPOSIT_IN_TR_NAME));
+                    SBUxMethod.set('DEPOSIT_AMT_KRW', gfnma_nvl2(rs.DPMNY_AMT_KRW));
+                    SBUxMethod.set('IN_BANK_CODE', gfnma_nvl2(rs.DPST_BANK_CD));
+                    SBUxMethod.set('IN_ACCOUNT_NUM', gfnma_nvl2(rs.RPMT_ACTNO));
+                    SBUxMethod.set('IN_ACCOUNT_OWNER', gfnma_nvl2(rs.RPMT_ACTNO_OWNR));
+                    SBUxMethod.set('INTEREST_IN_TYPE', gfnma_nvl2(rs.INT_OCRN_TYPE));
+                    SBUxMethod.set('INTEREST_CALC_DAYS_TYPE', gfnma_nvl2(rs.INT_CAL_DCNT_TYPE));
+                    SBUxMethod.set('INTEREST_DEFERRED_MM', gfnma_nvl2(rs.INT_DFMT_MM));
+                    SBUxMethod.set('INTEREST_IN_DD', gfnma_nvl2(rs.INT_OCRN_YMD));
+                    SBUxMethod.set('DEPOSIT_START_TR_TYPE', gfnma_nvl2(rs.DPMNY_DPST_FUND_TYPE));
+                    SBUxMethod.set('DEPOSIT_START_TR_NAME', gfnma_nvl2(rs.DEPOSIT_START_TR_NAME));
+                    SBUxMethod.set('INTEREST_CALC_YEAR_TYPE', gfnma_nvl2(rs.INT_CAL_YR_TYPE));
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT', gfnma_nvl2(rs.ADPY_COTX_ACNTL_CD));
+                    SBUxMethod.set('CTAX_WITHHOLD_ACCOUNT_NAME', gfnma_nvl2(rs.CTAX_WITHHOLD_ACCOUNT_NAME));
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT', gfnma_nvl2(rs.LCLTX_WTHD_ACNT_CD));
+                    SBUxMethod.set('PTAX_WITHHOLD_ACCOUNT_NAME', gfnma_nvl2(rs.PTAX_WITHHOLD_ACCOUNT_NAME));
+                    SBUxMethod.set('CTAX_WITHHOLD_TR_TYPE', gfnma_nvl2(rs.COTX_WTHD_FUND_TYPE));
+                    SBUxMethod.set('CTAX_WITHHOLD_TR_NAME', gfnma_nvl2(rs.COTX_WTHD_FUND_TYPE));
+                    SBUxMethod.set('PTAX_WITHHOLD_TR_TYPE', gfnma_nvl2(rs.RSDTX_WTHD_FUND_TYPE));
+                    SBUxMethod.set('PTAX_WITHHOLD_TR_NAME', gfnma_nvl2(rs.PTAX_WITHHOLD_TR_NAME));
+                    SBUxMethod.set('EXCHANGE_GAIN_TR_TYPE', gfnma_nvl2(rs.EXCHRT_PRF_FUND_TYPE));
+                    SBUxMethod.set('EXCHANGE_GAIN_TR_NAME', gfnma_nvl2(rs.EXCHANGE_GAIN_TR_NAME));
+                    SBUxMethod.set('EXCHANGE_LOSS_TR_TYPE', gfnma_nvl2(rs.EXCHRT_LOSS_FUND_TYPE));
+                    SBUxMethod.set('EXCHANGE_LOSS_TR_NAME', gfnma_nvl2(rs.EXCHANGE_LOSS_TR_NAME));
+                    SBUxMethod.set('INTEREST_CALC_METHOD', gfnma_nvl2(rs.INT_CAL_MTHD));
+                    SBUxMethod.set('IN_PREAUTH_PAY_YN', gfnma_nvl2(rs.PRN_PMT_ATTR_YN));
+                    SBUxMethod.set('PAY_DEPOSIT_CODE', gfnma_nvl2(rs.SLRY_SVG_CD));
+                    SBUxMethod.set('PAY_ACCOUNT_NUM', gfnma_nvl2(rs.PAY_ACTNO));
+                    SBUxMethod.set('PAY_DEPOSIT_NAME', gfnma_nvl2(rs.SLRY_SVG_NM));
+                    SBUxMethod.set('ACCOUNT_OWNER', gfnma_nvl2(rs.DPSTR_NM));
+                    SBUxMethod.set('INTEREST_REPAY_CYCLE_MM', gfnma_nvl2(rs.INT_RPMT_INTRVL_MM));
+                    SBUxMethod.set('INTEREST_REPAY_START_DATE', gfnma_nvl2(rs.INT_RPMT_FRST_YMD));
+                    SBUxMethod.set('REPAY_ACCOUNT_NUM', gfnma_nvl2(rs.RPMT_ACTNO));
+                    SBUxMethod.set('ADVANCED_INCOME_ACCOUNT', gfnma_nvl2(rs.UNRV_ACNTL_CD));
+                    SBUxMethod.set('CURR_CODE', gfnma_nvl2(rs.CRN_CD));
+                    SBUxMethod.set('POST_NAME', gfnma_nvl2(rs.DEPT_NM));
+                    SBUxMethod.set('DOC_NO', gfnma_nvl2(rs.SLIP_NO));
+                    SBUxMethod.set('ACCOUNT_NO', gfnma_nvl2(rs.ACTNO));
+                    SBUxMethod.set('BANK_ACCOUNT_NO', gfnma_nvl2(rs.PAY_ACTNO));
+                    SBUxMethod.set('EXCHAGE_GAIN_ACC', gfnma_nvl2(rs.EXCHRT_PRF_ACNT));
+                    SBUxMethod.set('EXCHAGE_LOSS_ACC', gfnma_nvl2(rs.EXCHRT_LOSS_ACNT));
+                    SBUxMethod.set('BANK_NAME', gfnma_nvl2(rs.BANK_NM));
+                    SBUxMethod.set('DEPT_NAME', gfnma_nvl2(rs.DEPT_NM));
+                    SBUxMethod.set('DEFER_MONTHS', gfnma_nvl2(rs.DFRMNT_MM));
+                    SBUxMethod.set('EXCH_RATE', gfnma_nvl2(rs.EXCHRT));
+                    SBUxMethod.set('EX_RAT', gfnma_nvl2(rs.EXCHRT));
+                    SBUxMethod.set('EFFECTIVE_RATE', gfnma_nvl2(rs.EFTINT_RT));
+                    SBUxMethod.set('DEPOSIT_AMOUNT', gfnma_nvl2(rs.DPMNY_AMT));
+                    SBUxMethod.set('COST_CENTER_NAME', gfnma_nvl2(rs.CSTCT_NM));
+                    SBUxMethod.set('COST_CENTER_CODE', gfnma_nvl2(rs.CSTCT_CD));
+                    SBUxMethod.set('DEPOSIT_DAY', fn_getDay(gfnma_date5(rs.DPMNY_YMD), gfnma_date5(rs.MTRY_YMD)));
+                    
                     gfnma_multiSelectSet('#FI_ORG_CODE', 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', rs.ACNTG_OGNZ_CD);
                     gfnma_multiSelectSet('#DEPOSIT_TYPE', 'SBSD_CD', 'CD_NM', rs.DPMNY_TYPE);
                     gfnma_multiSelectSet('#CURRENCY_CODE', 'CRN_CD', 'CRN_NM', rs.CRN_CD);
                     gfnma_multiSelectSet('#DEPOSIT_STATUS', 'SBSD_CD', 'CD_NM', rs.DPMNY_STTS);
-                    gfnma_multiSelectSet('#PAY_SEQ', 'BACNT_SEQ', 'SEQ_NAME', rs.DPMNY_STTS);
+                    gfnma_multiSelectSet('#PAY_SEQ', 'BACK_CODE', 'BACNT_OWNR', rs.DPMNY_STTS);
                     gfnma_multiSelectSet('#IN_TERM', 'SBSD_CD', 'CD_NM', rs.PRN_RPMT_CND);
                     gfnma_multiSelectSet('#IN_DD', 'SBSD_CD', 'CD_NM', rs.PRNCPL_RPMT_YMD);
                     gfnma_multiSelectSet('#IN_BASE', 'SBSD_CD', 'CD_NM', rs.DPST_BASE);
@@ -2294,8 +2420,9 @@
                     gfnma_multiSelectSet('#INTEREST_CALC_YEAR_TYPE', 'SBSD_CD', 'CD_NM', rs.INT_CAL_YR_TYPE);
                     gfnma_multiSelectSet('#CTAX_RATE', 'SBSD_CD', 'CD_NM', rs.COTX_RT);
                     gfnma_multiSelectSet('#PTAX_RATE', 'SBSD_CD', 'CD_NM', rs.LCLTX_RT);
+                    gfnma_multiSelectSet('#BANK_CODE', 'SBSD_CD', 'CD_NM', rs.BANK_CD);
 
-                    /*SBUxMethod.set("IN_BANK_CODE", gfn_nvl(rs.DPST_BANK_CD));
+                    SBUxMethod.set("IN_BANK_CODE", gfn_nvl(rs.DPST_BANK_CD));
                     SBUxMethod.set("IN_BANK_NAME", gfn_nvl(rs.IN_BANK_NAME));
                     SBUxMethod.set("PAY_ACCOUNT_OWNER", gfn_nvl(rs.PAY_ACCOUNT_OWNER));
                     SBUxMethod.set("IN_AMT", gfn_nvl(rs.INCRS_AMT));
@@ -2305,7 +2432,7 @@
                     SBUxMethod.set("DOC_DATE", gfn_nvl(rs.SLIP_YMD));
                     SBUxMethod.set("DOC_NUM", gfn_nvl(rs.SLIP_NO));
                     SBUxMethod.set("DOC_SEQ", gfn_nvl(rs.SLIP_SEQ));
-                    SBUxMethod.set("INSERT_USERID", gfn_nvl(rs.WRT_USER_ID));*/
+                    SBUxMethod.set("INSERT_USERID", gfn_nvl(rs.WRT_USER_ID));
 
                     data.cv_3.forEach((item, index) => {
                         const msg = {
@@ -2891,6 +3018,14 @@
     const fn_amRecalc = async function () {}
 
     const fn_amortize = async function () {}
+    const fn_getDay = function(start, end){
+    	let startDate = new Date(start);
+    	let endDate = new Date(end);
+    	
+    	let diffDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+    	
+    	return diffDays;
+    }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
         let initObject = localStorage.getItem("callMain");
@@ -2918,6 +3053,7 @@
             await fn_onload();
         }
     });
+	
 </script>
 <!-- inline scripts related to this page -->
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

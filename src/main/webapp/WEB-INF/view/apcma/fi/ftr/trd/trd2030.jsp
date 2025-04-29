@@ -1020,7 +1020,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -1048,7 +1048,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_OUT_ACCOUNT_NO"));
         var replaceText0 	= "_DPMNY_CD_";
         var replaceText1 	= "_DPMNY_NM_";
-        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
         compopup1({

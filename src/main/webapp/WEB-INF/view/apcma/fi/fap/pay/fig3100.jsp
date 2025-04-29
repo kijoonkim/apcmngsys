@@ -1645,7 +1645,7 @@
             {caption: ["공급사코드"], ref: 'CS_CODE', type: 'input', width: '140px', style: 'text-align:left'},
             {caption: ["공급사코드 조회"], 			ref: 'CS_CODE_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
             {caption: ["상호"], ref: 'SELLER_NAME', type: 'input', width: '140px', style: 'text-align:left'},
@@ -1711,7 +1711,7 @@
             {caption: ["전표담당자코드"],         ref: 'ACCOUNT_EMP_CODE',    type:'input',  	width:'100px',  style:'text-align:left'},
             {caption: ["전표담당자 조회"], 			ref: 'ACCOUNT_EMP_POP_BTN',    type:'button',  	width:'100px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
-                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
+                    return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridAccountEmpPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
             {caption: ["전표담당자"],         ref: 'ACCOUNT_EMP_NAME',    type:'input',  	width:'100px',  style:'text-align:left'},

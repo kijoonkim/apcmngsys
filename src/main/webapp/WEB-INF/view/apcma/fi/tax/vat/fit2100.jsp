@@ -2687,8 +2687,8 @@
         var searchCode      = gfnma_nvl(SBUxMethod.get("srch-pop-subCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-pop-subName"));
         var replaceText0 	= "_SBSD_CD_";
-        var replaceText1 	= "_SUB_NAME_";
-        var strWhereClause 	= "AND A.SBSD_CD LIKE '%" + replaceText0 + "%' AND A.SUB_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
@@ -2698,7 +2698,7 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", 	"은행명"]
-            ,searchInputFields		: ["SBSD_CD", 	"SUB_NAME"]
+            ,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
             ,searchInputValues		: [searchCode,	searchName]
             ,width					: '600px'
             ,height					: '400px'

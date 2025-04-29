@@ -24,7 +24,7 @@
 <head>
     <title>title : 차입금거래전표생성</title>
     <%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-    <%@ include file="../../../../frame/inc/headerScript.jsp" %>
+<%--     <%@ include file="../../../../frame/inc/headerScript.jsp" %> --%>
     <%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -309,10 +309,8 @@
         fn_createTrl2010GridTab1();
         fn_createTrl2010GridTab2();
         //cfn_search();
-
-        let openDate = gfn_dateToYm(new Date());
-
-        SBUxMethod.set('SCH_PERIOD_YYYYMM_P', openDate);
+        SBUxMethod.set('SCH_PERIOD_YYYYMM_P', gfn_dateToYm(new Date()));
+        cfn_search();
     }
 
     // only document
@@ -324,8 +322,8 @@
     /**
      * 목록 조회
      */
-    function cfn_search() {
-        fn_P_TRL2010_Q_LIST('Q', 1);
+    async function cfn_search() {
+    	await fn_P_TRL2010_Q_LIST('Q', 1);
     }
 
     /**
@@ -394,7 +392,7 @@
             {caption : ["금융기관"], ref : 'BANK_CS_CODE', width : '100px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonBankCsCode',  label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ["기간"], 		ref: 'PERIOD_CODE', 		   	type:'input',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["기간"], 		ref: 'PERIOD_CODE', 		   	type:'input',  	width:'100px',  	style:'text-align:center'},
             {caption: ["차입금번호"],	ref: 'LOAN_NUM',				type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ["차입금명"],	ref: 'LOAN_NAME',				type:'input',  	width:'100px',  	style:'text-align:left'},
             {caption: ['상환예정일'], ref: 'REPAY_PLAN_DATE', 	    type: 'inputdate', width:'100px',	 style: 'text-align: center', sortable: false,
@@ -409,7 +407,7 @@
                 typeinfo: {ignoreupdate: false, fixedcellcheckbox: {usemode: true, rowindex: 1, deletecaption: false},
                     checkedvalue: 'Y', uncheckedvalue: 'N'}
             },
-            {caption: ["통화"],	ref: 'CURRENCY_CODE',  		type:'input',  	width:'250px',  	style:'text-align:right'},
+            {caption: ["통화"],	ref: 'CURRENCY_CODE',  		type:'input',  	width:'50px',  	style:'text-align:right'},
 
 
             {caption : ["지급방법"], ref : 'PAY_METHOD', width : '200px', style : 'text-align:center', type : 'combo',
@@ -426,12 +424,12 @@
             {caption : ["원가중심점"], ref : 'COST_CENTER_CODE', width : '200px', style : 'text-align:center', type : 'combo',
                 typeinfo : {ref : 'jsonCostCenterCode',  label : 'label', value : 'value'}/*, disabled: true*/
             },
-            {caption: ["차입금(원래)"],	ref: 'LOAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
+            {caption: ["차입금(원래)"],	ref: 'LOAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
             {caption: ["차입금(환산)"],	ref: 'LOAN_AMT_F',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
-            {caption: ["상환원금"],	ref: 'REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
-            {caption: ["상환후 잔액"],	ref: 'REMAIN_LOAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
-            {caption: ["이자금액"],	ref: 'INTEREST_REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
-            {caption: ["총상환액"],	ref: 'TOTAL_REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0,00', emptyvalue:'0'}},
+            {caption: ["상환원금"],	ref: 'REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
+            {caption: ["상환후 잔액"],	ref: 'REMAIN_LOAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
+            {caption: ["이자금액"],	ref: 'INTEREST_REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
+            {caption: ["총상환액"],	ref: 'TOTAL_REPAY_PLAN_AMT_O',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
             {caption: ["상환원금(환산)"],	ref: 'REPAY_PLAN_AMT_F',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
             {caption: ["상환원금(환산전)"],	ref: 'REPAY_PLAN_AMT_BEFORE',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,##0.00', emptyvalue:'0'}},
             {caption: ["상환후잔액(환산)"],	ref: 'REMAIN_LOAN_AMT_F',  type:'input',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -609,7 +607,7 @@
 
         var replaceText0 		= "_CNPT_CD_";
         var replaceText1 		= "_CNPT_NM_";
-        var strWhereClause 	    = "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
         compopup1({
@@ -764,15 +762,15 @@
 
     const fn_keyup = async function(event) {
         if(event.keyCode == 38 || event.keyCode == 40) {
-            fn_view();
+            await fn_view();
         }
     }
 
     //상세정보 보기
-    async function fn_view() {
+    const fn_view = async function(event) {
         var nCol = Trl2010GridTop.getCol();
         var nRow = Trl2010GridTop.getRow();
-
+		
         if (nCol == -1) {
             return;
         }
@@ -782,15 +780,14 @@
         }
 
         let gridData = Trl2010GridTop.getRowData(nRow);
-
+        
         if (_.isEmpty(gridData)){
             return;
         }
-
-        if (_.isEqual(p_sel_tab, 1)){
-            fn_P_TRL2010_Q('DETAIL', gridData);
-        }else if (_.isEqual(p_sel_tab, 2)){
-            fn_P_TRL2010_Q('ACCOUNT', gridData);
+        if (p_sel_tab == 1){
+            await fn_P_TRL2010_Q('DETAIL', gridData);
+        }else if (p_sel_tab == 2){
+            await fn_P_TRL2010_Q('ACCOUNT', gridData);
         }
 
     }
@@ -815,7 +812,7 @@
             ,V_P_PERIOD_CODE    : PERIOD_YYYYMM_P
             ,V_P_BANK_CS_CODE   : gfn_nvl(grdData.BANK_CS_CODE)
             ,V_P_LOAN_NUM       : gfn_nvl(grdData.LOAN_NUM)
-            ,V_P_TXN_TYPE       : SCH_TXN_TYPE
+            ,V_P_TXN_TYPE       : TXN_TYPE
             ,V_P_TXN_ID         : gfn_nvl(grdData.TXN_ID)
 
             ,V_P_FORM_ID: p_formId
@@ -1043,10 +1040,10 @@
             return;
         }
 
-        if (fn_P_TRL2010_S1("CONFIRM")) {
+        if (await fn_P_TRL2010_S1("CONFIRM")) {
             //Allcheck1 = "N";
             //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-            fn_P_TRL2010_Q_LIST('Q', nRow);
+            await fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
     }
@@ -1073,10 +1070,10 @@
             return;
         }
 
-        if (fn_P_TRL2010_S1("UNCONFIRM")) {
+        if (await fn_P_TRL2010_S1("UNCONFIRM")) {
             //Allcheck1 = "N";
             //gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-            fn_P_TRL2010_Q_LIST('Q', nRow);
+            await fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
 
@@ -1103,10 +1100,10 @@
             return;
         }
 
-        if (fn_P_TRL2010_S1("ACCOUNT")) {
+        if (await fn_P_TRL2010_S1("ACCOUNT")) {
             //Allcheck1 = "N";
             gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-            fn_P_TRL2010_Q_LIST('Q', nRow);
+            await fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
     }
@@ -1133,10 +1130,10 @@
             return;
         }
 
-        if (fn_P_TRL2010_S1("CANCEL")) {
+        if (await fn_P_TRL2010_S1("CANCEL")) {
             //Allcheck1 = "N";
             gfn_comAlert("I0001"); // I0001	처리 되었습니다.
-            fn_P_TRL2010_Q_LIST('Q', nRow);
+            await fn_P_TRL2010_Q_LIST('Q', nRow);
 
         }
 
