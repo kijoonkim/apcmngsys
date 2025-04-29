@@ -223,17 +223,53 @@
     /** 품목상세 항목 merge **/
     const fn_vrtyDtlSave = async function(){
         /** 품목이 살아있는가 검증 **/
-        let itemCd = SBUxMethod.get("srch-slt-vrtyDtl");
-        if(gfn_isEmpty(itemCd)){
-            gfn_comAlert("W0001","품목");
+        const itemCd = SBUxMethod.get("srch-slt-vrtyDtl");
+        if (gfn_isEmpty(itemCd)) {
+            gfn_comAlert("W0001", "품목");
             return;
         }
+
+        const itemDtlList = fn_getChangedList(grdVrtyDtl, itemCd);
+        if (hasDuplicateByKey(itemDtlList, 'itemDtlCd')) {
+            gfn_comAlert("E0000","중복된 상세코드가 있습니다.");
+            return;
+        }
+
+        const seedList = fn_getChangedList(grdSeed, itemCd);
+        if (hasDuplicateByKey(seedList, 'seedCd')) {
+            gfn_comAlert("W0026", "중복", "종자코드");    // W0026    {0}된 {1}이/가 있습니다.
+            return;
+        }
+
+        if (itemDtlList.length === 0 && seedList === 0) {
+            gfn_comAlert("W0003", "저장");    //  W0003	{0}할 대상이 없습니다.
+            return;
+        }
+
+        if(!gfn_comConfirm("Q0001", "저장")) {
+            return;
+        }
+
         /** 상세목록 저장 **/
-        await fn_saveVrtyDtl(itemCd);
-        await fn_saveSeed(itemCd);
+        let isSuccess = true;
+
+        if (itemDtlList.length > 0) {
+            isSuccess = await fn_saveVrtyDtl(itemDtlList);
+        }
+
+        if (isSuccess && seedList.length > 0) {
+            isSuccess = await fn_saveSeed(seedList);
+        }
+
+        if (!isSuccess) {
+            return;
+        }
+
+        gfn_comAlert("I0001");
 
         await fn_searchVrtyDtlData(itemCd);
     }
+
     /** 품목상세 항목 삭제 **/
     async function fn_deleteVrtyDtl(_delVO){
         _delVO.apcCd = gv_selectedApcCd;
@@ -243,73 +279,95 @@
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
-        }else{
-            gfn_comAlert("I0001");
-            await fn_searchVrtyDtl(_delVO.itemCd);
         }
+
+        gfn_comAlert("I0001");
+        await fn_searchVrtyDtl(_delVO.itemCd);
     }
+
     async function fn_deleteSeed(_delVO){
+
         _delVO.apcCd = gv_selectedApcCd;
+
         const postJsonPromise = gfn_postJSON("/am/cmns/deleteSeedCrtr.do",_delVO);
         const data = await postJsonPromise;
 
         if (!_.isEqual("S", data.resultStatus)) {
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
-        }else{
-            gfn_comAlert("I0001");
-            await fn_searchSeedList(_delVO.itemCd);
-        }
-    }
-
-    const fn_saveVrtyDtl = async function(itemCd){
-        let vrtyDtlList = grdVrtyDtl.getGridDataAll();
-        vrtyDtlList = vrtyDtlList.filter((item,idx) => {
-            if(item.apcCd === ""){
-                return false;
-            }
-            item.apcCd = gv_selectedApcCd;
-            item.itemCd = itemCd;
-            let status = grdVrtyDtl.getRowStatus(idx +1);
-            return status != null;
-        });
-        if(hasDuplicateByKey(vrtyDtlList,'itemDtlCd')){
-            gfn_comAlert("E0000","중복된 상세코드가 있습니다.");
-            return;
-        }
-        const postJsonPromise = gfn_postJSON("/am/cmns/mergeApcItemCrtrDtlList.do",vrtyDtlList);
-        const data = await postJsonPromise;
-
-        if (!_.isEqual("S", data.resultStatus)) {
-            gfn_comAlert(data.resultCode, data.resultMessage);
-            return;
-        }
-    }
-    const fn_saveSeed = async function(itemCd){
-        let seedList = grdSeed.getGridDataAll();
-        seedList = seedList.filter((item, idx) => {
-            if(item.apcCd === ""){
-                return false;
-            }
-            item.apcCd = gv_selectedApcCd;
-            item.itemCd = itemCd;
-            let status = grdSeed.getRowStatus(idx +1);
-            return status != null;
-        });
-        if(hasDuplicateByKey(seedList,'seedCd')){
-            gfn_comAlert("E0000","중복된 종자코드 있습니다.");
-            return;
         }
 
-        const postJsonPromise = gfn_postJSON("/am/cmns/mergeSeedCrtrList.do",seedList);
-        const data = await postJsonPromise;
-
-        if (!_.isEqual("S", data.resultStatus)) {
-            gfn_comAlert(data.resultCode, data.resultMessage);
-            return;
-        }
         gfn_comAlert("I0001");
+        await fn_searchSeedList(_delVO.itemCd);
     }
+
+    /**
+     * @name fn_getChangedVrtyDtl
+     * @description 품목/품종 그리드 생성
+     * @param {Object} _gridObj
+     * @param {String} _itemCd
+     * @return {Array}
+     */
+    const fn_getChangedList = function(_gridObj, _itemCd) {
+        const allData = _gridObj.getGridDataAll();
+        return allData.filter((item, idx) => {
+            if (gfn_isEmpty(item.apcCd)) {
+                return false;
+            }
+            item.apcCd = gv_selectedApcCd;
+            item.itemCd = _itemCd;
+            let status = _gridObj.getRowStatus(idx + 1);
+            return !gfn_isEmpty(status);
+        });
+    }
+
+    const fn_saveVrtyDtl = async function(_changedList){
+
+        let isSuccess = false;
+        try {
+            const postJsonPromise = gfn_postJSON("/am/cmns/mergeApcItemCrtrDtlList.do", _changedList);
+            const data = await postJsonPromise;
+
+            if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            } else {
+                isSuccess = true;
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        return isSuccess;
+    }
+
+    const fn_saveSeed = async function(_changedList) {
+
+        let isSuccess = false;
+        try {
+            const postJsonPromise = gfn_postJSON("/am/cmns/mergeSeedCrtrList.do", _changedList);
+            const data = await postJsonPromise;
+
+            if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            } else {
+                isSuccess = true;
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        return isSuccess;
+    }
+
     function hasDuplicateByKey(arr, key) {
         const seen = new Set();
         for (const obj of arr) {
