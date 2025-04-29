@@ -453,16 +453,16 @@
 			let gridNm = $("#" + item.body).find("div[id^='sb-area-']").get();
 			gridNm.forEach(function(iner,idx){
 				cnt++;
-				if (cnt === 1){
-					first = iner;
-				} else {
+				// if (cnt === 1){
+				// 	first = iner;
+				// } else {
 					let title = $(iner).prev().find("span").map(function () {
 						return $(this).text();
 					}).get().join(" ");
 
 					seetArr.push({seetName: item.text, gridNm: iner, title: title});
 					// seetArr.push({seetName: item.text + idx, gridNm: iner, title: title});
-				}
+				// }
 			});
 		});
 
@@ -475,9 +475,9 @@
 		var objExcelInfo = {
 			strFileName : 'APC전수조사현황.xlsx',
 			strAction : "/am/excel/saveMultiGridExcel",
-			objTitleInfo : [{
-				"title":"전수조사 집계현황",
-			}],
+			// objTitleInfo : [{
+			// 	"title":"전수조사 집계현황",
+			// }],
 			bIsStyle: true,
 			bIsMerge: true,
 			bUseFormat: false,
@@ -488,15 +488,13 @@
 		dataList = seetArr
 				// .filter((_, idx) => idx > 0)
 				.map(item => {
-					console.log("item", item);
 					let grid = item.gridNm.id;
-					console.log("grid", grid);
 					let converted = grid.replace("sb-area-", "");
 					let data = window[converted].exportExcel(objExcelInfo, "return");
 					return data;
 				});
 
-		first = first.id.replace("sb-area-","");
+		// first = first.id.replace("sb-area-","");
 
 		arrAdditionalData.push(
 				{"name": "arrSheetData", "value": JSON.stringify(dataList)},
@@ -505,9 +503,37 @@
 				{"name": "arrUnit", "value": JSON.stringify(unitList)}
 		);
 
+		submitExcelDownload(dataList, sheetNameList, titleList,'APC전수조사현황.xlsx');
+
+
 		objExcelInfo.arrAdditionalData = arrAdditionalData;
 		window[first].exportExcel(objExcelInfo);
 	}
+
+	const submitExcelDownload = function (dataList, sheetNameList, titleList, fileName) {
+		const form = document.createElement('form');
+		form.method = 'POST';
+		form.action = '/am/excel/saveMultiGridExcel';
+		form.style.display = 'none';
+
+		const addInput = (name, value) => {
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = name;
+			input.value = encodeURIComponent(JSON.stringify(value));
+			form.appendChild(input);
+		};
+
+		addInput('arrSheetData', dataList);
+		addInput('arrSheetName', sheetNameList);
+		addInput('arrTitle', titleList);
+		addInput('fileName', encodeURIComponent(fileName));
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+	}
+
 
 </script>
 </html>
