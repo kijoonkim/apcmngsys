@@ -1,4 +1,3 @@
-<%--
 <%
 	/**
 	 * @Class Name : rawMtrWrhsReg.jsp
@@ -157,7 +156,7 @@
 						</div>
 
 					</td>
-					&lt;%&ndash;							<td colspan="9" style="border-right: hidden;">&nbsp;</td>&ndash;%&gt;
+					<%--							<td colspan="9" style="border-right: hidden;">&nbsp;</td>--%>
 					<th scope="row" class="th_bg"><span class="data_required" ></span>생산자</th>
 					<td colspan="4" class="td_input" style="border-right: hidden;">
 						<sbux-input
@@ -433,16 +432,16 @@
 				<ul class="ad_tbl_count">
 					<li>
 						<span>원물입고 내역</span>
-						&lt;%&ndash;							<span style="font-size:12px">(기준일자 :&ndash;%&gt;
-						&lt;%&ndash;								<sbux-label&ndash;%&gt;
-						&lt;%&ndash;									id="crtr-ymd"&ndash;%&gt;
-						&lt;%&ndash;									name="crtr-ymd"&ndash;%&gt;
-						&lt;%&ndash;									uitype="normal"&ndash;%&gt;
-						&lt;%&ndash;									text=""&ndash;%&gt;
-						&lt;%&ndash;									class="bold"&ndash;%&gt;
-						&lt;%&ndash;									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"&ndash;%&gt;
-						&lt;%&ndash;								></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)&ndash;%&gt;
-						&lt;%&ndash;							</span>&ndash;%&gt;
+						<%--							<span style="font-size:12px">(기준일자 :--%>
+						<%--								<sbux-label--%>
+						<%--									id="crtr-ymd"--%>
+						<%--									name="crtr-ymd"--%>
+						<%--									uitype="normal"--%>
+						<%--									text=""--%>
+						<%--									class="bold"--%>
+						<%--									mask = "{'alias': 'yyyy-mm-dd', 'autoUnmask': true}"--%>
+						<%--								></sbux-label> , 조회건수 <span id="cnt-wrhs">0</span>건)--%>
+						<%--							</span>--%>
 					</li>
 				</ul>
 				<div class="ad_tbl_toplist">
@@ -698,6 +697,7 @@
 			{caption: ["생산자"],		ref: 'prdcrNm',     type:'output',  width:'100px',    style:'text-align:center'},
 			{caption: ["품목"],		ref: 'itemNm',      type:'output',  width:'80px',    style:'text-align:center'},
 			{caption: ["품종"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center'},
+
 			{caption: ["상품구분"],		ref: 'gdsSeNm',     type:'output',  width:'80px',    style:'text-align:center', sortable: false},
 			{caption: ["입고구분"],		ref: 'wrhsSeNm',    type:'output',  width:'80px',    style:'text-align:center', sortable: false},
 			{caption: ["운송구분"],		ref: 'trsprtSeNm',  type:'output',  width:'80px',    style:'text-align:center', sortable: false},
@@ -2897,107 +2897,6 @@
 
 
 
-</script>
-<%@ include file="../../../frame/inc/bottomScript.jsp" %>
-</html>--%>
-
-<%
-	/**
-	 * @Class Name : rawMtrWrhsReg.jsp
-	 * @Description : 원물입고 실적등록 화면
-	 * @author SI개발부
-	 * @since 2023.08.31
-	 * @version 1.0
-	 * @Modification Information
-	 * @
-	 * @ 수정일       	수정자      	수정내용
-	 * @ ----------	----------	---------------------------
-	 * @ 2023.08.31	정희운		최초 생성
-	 * @ 2025.04.24	김은총		입고등록/선별등록/포장등록/출하등록 탭 및 페이지 생성
-	 * @see
-	 *
-	 */
-%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-	<title>title : 원물입고등록</title>
-	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../frame/inc/headerScript.jsp" %>
-
-	<style>
-		.displayFlex {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			align-items: center;
-		}
-	</style>
-</head>
-<body oncontextmenu="return false">
-<section class="content container-fluid">
-	<div class="box box-solid">
-		<div class="box-header" style="display:flex; justify-content: flex-start;" >
-			<div>
-				<c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
-				<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 원물입고등록 -->
-			</div>
-			<div style="margin-left: auto;">
-				<sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset"></sbux-button>
-				<sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_add"></sbux-button>
-			</div>
-		</div>
-
-		<div class="box-body srch-keyup-area">
-			<sbux-tabs id="tab_norm" name="tab_norm"
-					   uitype="normal"
-					   is-scrollable=:Q
-					   title-target-id-array="tab_rawMtrWrhsStdReg^tab_rawMtrSortStdReg^tab_rawMtrPckgStdReg^tab_rawMtrSpmtStdReg"
-					   title-text-array="입고등록^선별등록^포장등록^출하등록" onclick="fn_changeTab()">
-			</sbux-tabs>
-
-			<div>
-				<div class="tab-content">
-					<!-- 입고등록 탭 화면 -->
-					<div id="tab_rawMtrWrhsStdReg">
-						<jsp:include page="../../am/wgh/rawMtrWrhsStdReg.jsp"></jsp:include>
-					</div>
-					<!-- 선별등록 탭 화면 -->
-					<div id="tab_rawMtrSortStdReg">
-						<jsp:include page="../../am/wgh/rawMtrSortStdReg.jsp"></jsp:include>
-					</div>
-					<!-- 포장등록 탭 화면 -->
-					<div id="tab_rawMtrPckgStdReg">
-						<jsp:include page="../../am/wgh/rawMtrPckgStdReg.jsp"></jsp:include>
-					</div>
-					<!-- 출하등록 탭 화면 -->
-					<div id="tab_rawMtrSpmtStdReg">
-						<jsp:include page="../../am/wgh/rawMtrSpmtStdReg.jsp"></jsp:include>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-</body>
-
-<script type="text/javascript">
-
-	const fn_reset = function () {
-		console.log("fn_reset");
-		console.log(SBUxMethod.get("tab_norm"));
-	}
-
-	const fn_add = function () {
-		console.log("fn_add");
-		console.log(SBUxMethod.get("tab_norm"));
-	}
-
-	const fn_changeTab = function() {
-		console.log("fn_changeTab()")
-	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>

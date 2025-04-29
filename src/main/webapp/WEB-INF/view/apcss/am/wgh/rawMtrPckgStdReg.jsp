@@ -23,6 +23,12 @@
 <body oncontextmenu="return false">
 <section class="content container-fluid">
   <div class="box box-solid">
+    <div class="box-header" style="display:flex; justify-content: flex-start;" >
+      <div style="margin-left: auto;">
+        <sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset"></sbux-button>
+        <sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_add"></sbux-button>
+      </div>
+    </div>
     <div class="box-body">
       <table id="rawMtrPckgTable" class="table table-bordered tbl_fixed">
         <caption>포장 등록 조건 설정</caption>
