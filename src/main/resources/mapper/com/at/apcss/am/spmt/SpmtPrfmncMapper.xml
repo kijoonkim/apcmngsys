@@ -896,6 +896,8 @@
     		  , ORGN_PCKGNO
     		  , ORGN_PCKG_SN
 			  , SPMT_SN
+			  , NTSL_AMT
+			  , DUDT_YMD
     		  , SYS_FRST_INPT_DT
     		  , SYS_FRST_INPT_USER_ID
     		  , SYS_FRST_INPT_PRGRM_ID
@@ -926,6 +928,8 @@
     		  , #{orgnPckgno}
     		  , #{orgnPckgSn}
 			  , #{spmtSn}
+			  , #{ntslAmt}
+			  , #{dudtYmd}
     		  , SYSDATE
     		  , #{sysFrstInptUserId}
     		  , #{sysFrstInptPrgrmId}

@@ -195,6 +195,9 @@ public class SpmtPrfmncComVO extends ComVO {
 	 */
 	private String spmtFrcdPrcsYn;
 
+	private String needsPckgYn;
+	private String needsSortYn;
+
 	/**
 	 * 계량번호
 	 */
