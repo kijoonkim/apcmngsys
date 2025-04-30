@@ -231,7 +231,7 @@ async function comPopupCs(options, selectRowVal) {
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
     	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
-        }else if(settings.bizcompId == 'P_COM008'){
+        }else if(settings.bizcompId == 'P_COM008' || settings.bizcompId == 'P_CS_PURCHASE'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%'";
         }
         
@@ -267,7 +267,7 @@ async function comPopupCs(options, selectRowVal) {
     	try {
 	    	if (_.isEqual("S", data.resultStatus)) {
 	    		gridComPopCsList.length = 0;
-	    		if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC'){
+	    		if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC' || settings.bizcompId == 'P_CS_PURCHASE'){
 		    	   	data.cv_1.forEach((item, index) => {
 			    		const msg = {
 			    				ADDR			: item.ADDR,
@@ -379,7 +379,7 @@ async function comPopupCs(options, selectRowVal) {
 		}
 	});
 	
-	if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC'){
+	if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC' || settings.bizcompId == "P_CS_PURCHASE"){
 		setCsGridFig3510();
 	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
 		setCsGridFig2210_99();

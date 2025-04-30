@@ -122,7 +122,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="th_bg_search">지급조건</th>
-                            <td colspan="3" class="td_input"">
+                            <td colspan="3" class="td_input">
                                 <div class="dropdown">
 									<button 
 										style="width:100%;text-align:left" 
@@ -641,7 +641,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonTxnType',
-                displayui : true,
+                displayui : false,
                 label : 'label',
                 value : 'value'
             }
@@ -679,7 +679,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonBasisType',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -693,7 +693,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPeriodType',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -707,7 +707,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonStartRule',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -737,7 +737,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -750,7 +750,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -763,7 +763,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -793,7 +793,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -823,7 +823,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -853,7 +853,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -883,7 +883,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayRckDay',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -913,7 +913,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonStdType',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -927,7 +927,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonPayMethod',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -956,7 +956,7 @@
             type : 'combo',
             typeinfo : {
                 ref : 'jsonStdType',
-                displayui : true,
+                displayui : false,
                 unselect: {label: '', value: ''},
                 label : 'label',
                 value : 'value'
@@ -979,7 +979,9 @@
         SBGridProperties.id = 'grdPayDate';
         SBGridProperties.jsonref = 'jsonPayDate';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheader = ['update','select'];
+		SBGridProperties.rowheader 			= ['seq'];
+		SBGridProperties.rowheadercaption 	= {seq: 'No'};
+		SBGridProperties.rowheaderwidth 	= {seq: '40'};
         SBGridProperties.allowcopy = true; //복사
         SBGridProperties.selectmode = 'free';
  
