@@ -211,7 +211,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span>감가상각 일시정지 리스트</span>
+								<span>감가상각 일시중지 리스트</span>
 							</li>
 						</ul>
 					</div>
@@ -224,7 +224,7 @@
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
-								<span>감가상각 일시정지 내역 편집</span>
+								<span>감가상각 일시중지 내역 편집</span>
 							</li>
 						</ul>
 						<div style="margin-left: auto;">
@@ -458,8 +458,8 @@
 	var saveButton = true;
 
 	//조회
-	function cfn_search(){
-		fnQRY_P_FIA5100_Q("LIST");
+	async function cfn_search(){
+		await fnQRY_P_FIA5100_Q("LIST");
 	}
 	//저장
 	function cfn_save(){
@@ -504,42 +504,24 @@
 				]
 			}),
 			//회계기준
-			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+			gfnma_setComSelect(['srch-slt-acntgCrtr1','srch-slt-acntgCrtr2'], jsonAcntgCrtr, 'L_FIM054', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', p_ss_defaultAcctRule),
 			//사업단위
-			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', '1100'),
+			gfnma_setComSelect(['srch-slt-bizUnit'], jsonBizUnit, 'L_FIM022', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'ACNTG_OGNZ_CD', 'ACNTG_OGNZ_NM', 'Y', p_ss_fiOrgCode),
 
 			gfnma_setComSelect(['grdDprcDtStopList'], jsonSiteCd, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
-
-
-
-
 		]);
-		//초기값 IFRS
-		SBUxMethod.set("srch-slt-acntgCrtr1",p_ss_defaultAcctRule);
-		SBUxMethod.set("srch-slt-acntgCrtr2",p_ss_defaultAcctRule);
-		SBUxMethod.set("srch-slt-bizUnit",p_ss_fiOrgCode);
-
-
-
 	}
 
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-
-    	fn_initSBSelect();
-    	fn_createGrid1();
-
-    	//fn_search();
-
-		//재직상태
-		//gfnma_getComSelectList('L_HRI009', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM',
-		//	function(list){
-		//		$('#SRCH_EMP_BTN').click(function(){
-		//			fn_compopup1(list);
-		//		});
-		//	}
-		//)
+		fn_init();
     });
+
+	const fn_init = async function(){
+		await fn_initSBSelect();
+		await fn_createGrid1();
+		await cfn_search();
+	}
 
     //grid 초기화
     var grdDprcDtStopList; 			// 그리드를 담기위한 객체 선언
@@ -556,7 +538,7 @@
 	var jsonSiteCd = []; //사업장
 
 
-    function fn_createGrid1() {
+    async function fn_createGrid1() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdDprcDtStopList';
 	    SBGridProperties.id 				= 'grdDprcDtStopList';
@@ -566,15 +548,22 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-            {caption: ["중지처리일"],		ref: 'holdingDate', 			type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["중지처리일"],		ref: 'holdingDate',
+				type:'output',  	width:'100px',  	style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}
+			},
             {caption: ["사업단위"], 	ref: 'acctRuleCode',    	type:'combo', typeinfo : {ref:'jsonAcntgCrtr', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
             {caption: ["사업장"],  		ref: 'siteCode',    			type:'combo', typeinfo : {ref:'jsonSiteCd', label:'label', value:'value'},  	width:'100px',  	style:'text-align:left'},
             {caption: ["자산번호"],    	ref: 'assetNo', 		type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["자산명"],		ref: 'assetName',	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["담당부서"], 		ref: 'deptName', 				type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["자산명"],		ref: 'assetName',	type:'output',  	width:'500px',  	style:'text-align:left'},
+            {caption: ["담당부서"], 		ref: 'deptName', 				type:'output',  	width:'150px',  	style:'text-align:left'},
             {caption: ["담당자"], 		ref: 'empName',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["중지시작년월"], 	ref: 'holdingStartYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-            {caption: ["중지종료년월"], 		ref: 'holdingEndYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["중지시작년월"], 	ref: 'holdingStartYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}
+			},
+            {caption: ["중지종료년월"], 		ref: 'holdingEndYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}
+			},
             {caption: ["취득금액"], 		ref: 'acquireAmount', 				type:'output',		width:'80px',		style:'text-align:center'}
         ];
 
@@ -665,21 +654,24 @@
 
        	const data = await postJsonPromise;
          // 비즈니스 로직 정보
-          try {
-         if (_.isEqual("S", data.resultStatus)) {
-             gfn_comAlert("I0001");
-             //fn_search();
-         } else {
-             alert(data.resultMessage);
-         }
+		try {
+			 if (_.isEqual("S", data.resultStatus)) {
+				 gfn_comAlert("I0001");
+				 return true;
+				 //fn_search();
+			 } else {
+				 alert(data.resultMessage);
+				 return false;
+			 }
 
-	        } catch (e) {
-	            if (!(e instanceof Error)) {
-	                e = new Error(e);
-	            }
-	            console.error("failed", e.message);
-	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
+	    } catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			return false;
+		}
     }
 
   	//paramObj 수정해야함 20240919
@@ -690,7 +682,7 @@
          let corp = gfnma_multiSelectGet("#srch-slt-comp")//법인
          let bizUnit = SBUxMethod.get("srch-slt-bizUnit")//회계단위 fi_org_code
          let bplc = gfnma_multiSelectGet("#srch-slt-bplc1")//사업장,site_code
-         let acntgCrtr = SBUxMethod.get("srch-slt-acntgCrtr1");//회계기준, acct_rule_code
+         let acntgCrtr = await SBUxMethod.get("srch-slt-acntgCrtr1");//회계기준, acct_rule_code
          let stopBgngYmdFrom = SBUxMethod.get("srch-dtp-stopBgngYmdFrom"); //중지시작년월From
          let stopBgngYmdTo = SBUxMethod.get("srch-dtp-stopBgngYmdTo"); //중지시작년월To
          let stopEndYmdFrom = SBUxMethod.get("srch-dtp-stopEndYmdFrom"); //중지종료년월From
@@ -734,48 +726,45 @@
 
        	const data = await postJsonPromise;
          // 비즈니스 로직 정보
-          try {
-         if (_.isEqual("S", data.resultStatus)) {
-             gfn_comAlert("I0001");
-             jsonDprcDtStopList.length = 0;
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				jsonDprcDtStopList.length = 0;
 
-             data.cv_1.forEach(item=>{
-     			var obj = {
-     					focus : item.FOCUS
-     					, assetNo : item.ASST_NO
-     					, assetName : item.ASST_NM
-     					, holdingDate : item.HLDOF_YMD
-     					, holdingStartYyyymm : item.HLDOF_BGNG_YMD
-     					, holdingEndYyyymm : item.HLDOF_END_YMD
-     					, memo : item.MEMO
-     					, deptCode : item.DEPT_CD
-     					, deptName : item.DEPT_NM
-     					, deptName : item.DEPT_NM
-     					, empCode : item.EMP_CD
-     					, empName : item.EMP_NM
-     					, acquireAmount : item.ACQS_AMT
-     					, subsidiesAmount : item.GVSBS_AMT
-     					, compCode : item.CO_CD
-     					, fiOrgCode : item.ACNTG_OGNZ_CD
-     					, siteCode : item.SITE_CD
-     					, acctRuleCode : item.GAAP_CD
-     			}
-     			jsonDprcDtStopList.push(obj);
-     		})
-             //jsonDprcDtStopList = convertArrayToCamelCase(data.cv_1);
+				data.cv_1.forEach(item=>{
+					var obj = {
+							focus : item.FOCUS
+							, assetNo : item.ASST_NO
+							, assetName : item.ASST_NM
+							, holdingDate : item.HLDOF_YMD
+							, holdingStartYyyymm : item.HLDOF_BGNG_YMD
+							, holdingEndYyyymm : item.HLDOF_END_YMD
+							, memo : item.MEMO
+							, deptCode : item.DEPT_CD
+							, deptName : item.DEPT_NM
+							, empCode : item.EMP_CD
+							, empName : item.EMP_NM
+							, acquireAmount : item.ACQS_AMT
+							, subsidiesAmount : item.GVSBS_AMT
+							, compCode : item.CO_CD
+							, fiOrgCode : item.ACNTG_OGNZ_CD
+							, siteCode : item.SITE_CD
+							, acctRuleCode : item.GAAP_CD
+					}
+					jsonDprcDtStopList.push(obj);
+				})
+        		grdDprcDtStopList.rebuild();
 
-        	grdDprcDtStopList.rebuild();
-         } else {
-             alert(data.resultMessage);
-         }
+			 } else {
+				 alert(data.resultMessage);
+			 }
 
-	        } catch (e) {
-	            if (!(e instanceof Error)) {
-	                e = new Error(e);
-	            }
-	            console.error("failed", e.message);
-	            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-	        }
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
     }
 
 
@@ -972,7 +961,7 @@
         deleteButton = false;
      }
 
-     const saveClick = function(){
+     const saveClick = async function(){
      		//panDetail -> 하단 검색조건 validationg check
             if (!fnDataValidation("group2")){
 
@@ -987,7 +976,7 @@
             else
                 strStatus = "U";
 
-            if (fnSET_P_FIA5100_S(strStatus))
+            if (await fnSET_P_FIA5100_S(strStatus))
             {
                 // 자산번호, 중지처리일 |로 나눠서 strFocus index 찾은 뒤에 포커스
                 let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
@@ -1001,12 +990,12 @@
             }
  		}
 
- 	const deleteClick = function(){
+ 	const deleteClick = async function(){
             //DialogResult dr = SetYesNoMessageBox("[" + txtasset_name.Text + "-" + ymdholding_date.yyyymmdd + "]" + GetFormMessage("FIA5100_001")); // 감가상각 일시중지 내역을 삭제하시겠습니까?
 
 			//Q0001 {0} 하시겠습니까?
             if (gfn_comConfirm("Q0001", "삭제")){
-                if (fnSET_P_FIA5100_S("D")){
+                if (await fnSET_P_FIA5100_S("D")){
                     queryClick();
                 }
             }

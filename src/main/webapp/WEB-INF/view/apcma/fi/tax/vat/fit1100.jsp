@@ -116,7 +116,8 @@
                                     uitype="popup"
                                     datepicker-mode="year"
                                     date-format="yyyy"
-                                    class="form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    class="table-datepicker-ma form-control sbux-pik-group-apc input-sm input-sm-ast inpt_data_reqed"
+                                    onchange = "fn_changeYyyy(srch-dtp-yyyy)"
                             ></sbux-datepicker>
                         </td>
                         <td colspan="3" ></td>
@@ -203,15 +204,11 @@
                         <th scope="row" >거래처</th>
                         <td class="td_input" style="border-right: hidden;">
                             <sbux-input
-                                    uitype="search"
+                                    uitype="text"
+<%--                                    uitype="search"--%>
                                     id="srch-inp-csCode"
                                     name="srch-inp-csCode"
                                     class="form-control input-sm"
-                                    button-back-text=""
-                                    button-back-class="glyphicon glyphicon-remove"
-                                    button-back-event="fn_clearSrchCsCode"
-                                    event-ignore-readonly="true"
-                                    readonly
                             ></sbux-input>
                         </td>
                         <td colspan="2" class="td_input" style="border-right: hidden;">
@@ -225,10 +222,10 @@
                         <td class="td_input" style="border-right: hidden;">
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
-                                    image-src="../../../resource/images/find2.png" image-style="width:25px;height:15px;" uitype="modal"
+                                    text="…" uitype="modal"
                                     uitype="modal"
-                                    target-id="modal-compopup1"
-                                    onclick="fn_popSrchCsCode"
+                                    target-id="modal-compopupcs"
+                                    onclick="fn_srchcompopupCsCode(srch-inp-csName)"
                             ></sbux-button>
                         </td>
                         <td colspan="5"></td>
@@ -374,7 +371,15 @@
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
 </div>
- 
+
+ 	<!-- 팝업 Modal -->
+	<div>
+	    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+	</div>
+	<div id="body-modal-compopupcs">
+	    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
+	</div>
+
 </body>
 <script type="text/javascript">
  
@@ -586,7 +591,36 @@
         
         SBUxMethod.closeProgress(gv_loadingOptions);
     }
- 
+
+
+    const fn_changeYyyy = function(yyyy){
+        gfnma_multiSelectInit({
+            target			: ['#srch-ddm-seq']
+            ,compCode		: gv_ma_selectedCorpCd
+            ,clientCode		: gv_ma_selectedClntCd
+            ,bizcompId		: 'L_FIT030'
+            ,whereClause	: "AND A.YR = '" + yyyy + "'"
+            ,formId			: p_formId
+            ,menuId			: p_menuId
+            ,selectValue	: ''
+            ,dropType		: 'down' 	// up, down
+            ,dropAlign		: 'right' 	// left, right
+            ,colValue		: 'SEQ'
+            ,colLabel		: 'VAT_TMPLT_NM'
+            ,columns		:[
+                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
+                {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
+                {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
+                {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
+                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
+                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
+                {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
+            ]
+            ,callback       : function(_seq) {
+                fn_setSrchSeq(_seq);
+            }
+        });
+    }
 	/**
      * @name fn_initSBSelect
      * @description 화면 초기 호출
@@ -604,7 +638,7 @@
 		            ,compCode		: gv_ma_selectedCorpCd
 		            ,clientCode		: gv_ma_selectedClntCd
 		            ,bizcompId		: 'L_FIT030'
-		            ,whereClause	: ''
+		            ,whereClause	: "AND A.YR = '" + gfn_dateToYear(new Date()) + "'"
 		            ,formId			: p_formId
 		            ,menuId			: p_menuId
 		            ,selectValue	: ''
@@ -733,12 +767,12 @@
 		
 		if (gfn_isEmpty(yyyy)){
             gfn_comAlert("W0002", "기준연도");
-            return;
+            return isSuccess;
         }
 		
         if (gfn_isEmpty(seq)){
             gfn_comAlert("W0002", "신고구분명");
-            return;
+            return isSuccess;
         }
 		
         const paramObj = {
@@ -5801,11 +5835,10 @@
      * @name fn_popSrchCsCode
      * @description 거래처 팝업 (조회)
      */
-    const fn_popSrchCsCode = function() {
+    const fn_popSrchCsCode = function(csName) {
     	
     	const csCode = SBUxMethod.get('srch-inp-csCode');
-    	const csName = SBUxMethod.get('srch-inp-csName');
-    	
+
     	fn_compopupCsCode(
     			csCode, 
     			csName,
@@ -5825,15 +5858,16 @@
      * @name fn_compopupCsCode
      * @description 거래처 팝업
      */
-    const fn_compopupCsCode = function(_code, _name, _callbackFnc) {
+    const fn_compopupCsCode = async function(_code, _name, _callbackFnc) {
  
         var searchCode 		= "";
         var searchName 		= gfn_nvl(_name);
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
         var replaceText2 	= "_BRNO_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
- 
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%"+ replaceText2 + "%'";
+
+
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
             compCode				: gv_ma_selectedCorpCd
@@ -5855,9 +5889,31 @@
 			}
         });
     }
- 
-    
-    
+
+    const fn_srchcompopupCsCode = async function(_name){
+        var searchCode 		= gfnma_nvl(SBUxMethod.get('srch-inp-csCode'));
+        var searchName 		= gfnma_nvl(_name);
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + searchCode + "%' AND CNPT_NM LIKE '%" + searchName + "%' ";
+
+        SBUxMethod.attr('modal-compopupcs', 'header-title', '거래처정보');
+        await comPopupCs({
+            compCode				: gv_ma_selectedCorpCd
+            ,clientCode				: gv_ma_selectedClntCd
+            ,inputData: {
+                "CS_CODE" : gfnma_nvl2(searchCode),
+                "CS_NAME" : gfnma_nvl2(searchName),
+                "BIZ_REGNO" : ''
+            }
+            ,bizcompId				: 'P_CS_PURCHASE'
+            ,whereClause			: strWhereClause
+            ,itemSelectEvent		: function (data){
+                SBUxMethod.set("srch-inp-csCode", 		data.CNPT_CD);
+                SBUxMethod.set("srch-inp-csName",		data.CNPT_NM);
+            },
+        });
+        SBUxMethod.setModalCss('modal-compopupcs', {width:'800px'});
+        SBUxMethod.openModal('modal-compopupcs');
+    }
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

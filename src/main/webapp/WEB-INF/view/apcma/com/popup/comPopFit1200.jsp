@@ -87,7 +87,7 @@
                 ]
             };
             grdTaxSite = _SBGrid.create(gridProperties);
-            grdTaxSite.bind('dblclick', this.fn_callBack);
+            grdTaxSite.bind('click', this.fn_callBack);
         }
     };
 </script>
