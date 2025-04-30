@@ -1,6 +1,6 @@
 <%
   /**
-   * @Class Name : rawMtrSortStdReg.jsp
+   * @Class Name : mmSortStdReg.jsp
    * @Description : 원물입고등록 - 선별등록 화면
    * @author SI개발부
    * @since 2025.04.25
@@ -15,6 +15,89 @@
    */
 %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script type="text/javascript">
+
+  /* Grid 생성 */
+  var grdSortRegList;
+  var jsonSortRegList = [];
+
+  /**
+   * @name fn_createGridSortReg
+   * @description 입고등록목록 그리드 생성
+   */
+  const fn_createGridSortReg = function() {
+    var SBGridProperties = {};
+    SBGridProperties.parentid = 'sb-area-grdSortRegList';
+    SBGridProperties.id = 'grdSortRegList';
+    SBGridProperties.jsonref = 'jsonSortRegList';
+    SBGridProperties.emptyrecords = '데이터가 없습니다.';
+    SBGridProperties.extendlastcol = 'none';
+    SBGridProperties.explorerbar = 'sort';
+    // SBGridProperties.allowcopy = true;
+
+    SBGridProperties.columns = [
+      {caption: ["선택", "선택"],	ref: 'chc',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
+      {caption: ["그룹", "그룹"],		ref: 'group',     type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+      {caption: ["선별일자", "선별일자"],		ref: 'wrhsYmd',      type:'output',  width:'100px',    style:'text-align:center'},
+      {caption: ["선별설비", "선별설비"],		ref: 'prdcrNm',  type:'output',  width:'100px',    style:'text-align:center', sortable: true},
+      {caption: ["투입", "투입창고"],		ref: 'pltChck',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
+      {caption: ["투입", "수량"],		ref: 'pltno',     type:'output',  width:'120px',    style:'text-align:center', sortable: true},
+      {caption: ["투입", "중량"],		ref: 'pltKnd',    type:'output',  width:'100px',    style:'text-align:center', sortable: false},
+      {caption: ["선별", "저장창고"],		ref: 'bxKnd',	type:'output',  width:'100px',    style:'text-align:center'},
+      {caption: ["선별", "수량"],	ref: 'bxQntt',    type:'output',  width:'60px',    style:'text-align:right', sortable: false, format : {type:'number', rule:'#,###'}},
+      {caption: ["선별", "중량"],		ref: 'wrhsWght',     type:'output',  width:'60px',    style:'text-align:right', sortable: false, format : {type:'number', rule:'#.###'}},
+      {caption: ["규격", "규격"],		ref: 'warehouseSeNm',      	type:'output',  width:'100px',    style:'text-align:center', sortable: true},
+      {caption: ["등급", "등급"],		ref: 'grdNm',    type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+      {caption: ["포장등록", "포장"],		ref: 'itemNm',      	type:'output',  width:'80px',    style:'text-align:center', sortable: true},
+      {caption: ["포장등록", "상품명"],		ref: 'vrtyNm',      type:'output',  width:'80px',    style:'text-align:center', sortable: true},
+      {caption: ["생산자", "생산자"],		ref: 'vhclno',      type:'output',  width:'120px',    style:'text-align:center', sortable: false},
+      {caption: ["입고구분", "입고구분"],		ref: 'wrhsSeNm',    	type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+      {caption: ["상품구분", "상품구분"],		ref: 'gdsSeNm',      	type:'output',  width:'80px',    style:'text-align:center', sortable: false},
+      {caption: ["운송구분", "운송구분"],	ref: 'trsprtSeNm',     	type:'output',  width:'80px', style:'text-align:center'},
+      {caption: ["등급상세", "등급상세"],		ref: 'grdStd',  type:'output',  width:'100px',    style:'text-align:center', sortable: false},
+      {caption: ["비고", "비고"],		ref: 'rmrk',     	type:'output',  width:'200px', style:'text-align:left'},
+
+      {caption: ["APC코드"], ref: 'apcCd', type: 'output', hidden: true},
+      {caption: ["입고번호"], ref: 'wrhsno', type: 'output', hidden: true},
+      {caption: ["생산자코드"], ref: 'prdcrCd', type: 'output', hidden: true},
+      {caption: ["품목코드"], ref: 'itemCd', type: 'output', hidden: true},
+      {caption: ["품종코드"], ref: 'vrtyCd', type: 'output', hidden: true},
+      {caption: ["상품구분코드"], ref: 'gdsSeCd', type: 'output', hidden: true},
+      {caption: ["입고구분코드"], ref: 'wrhsSeCd', type: 'output', hidden: true},
+      {caption: ["운송구분코드"], ref: 'trsprtSeCd', type: 'output', hidden: true},
+      {caption: ["등급코드"], ref: 'grdCd', type: 'output', hidden: true},
+      {caption: ["박스종류코드"], ref: 'bxKnd', type: 'output', hidden: true},
+      {caption: ["보관창고코드"], ref: 'warehouseSeCd', type: 'output', hidden: true},
+      {caption: ["상세등급코드"], ref: 'stdGrdCd', type: 'output', hidden: true},
+      {caption: ["등급유형"], ref: 'stdGrdType', type: 'output', hidden: true},
+      {caption: ["처리구분"], ref: 'prcsType', type: 'output', hidden: true},
+    ];
+
+    grdSortRegList = _SBGrid.create(SBGridProperties);
+    // grdSortRegList.bind('click', fn_view);
+  }
+
+  /**
+   * @name fn_initSortReg
+   * @description form init
+   */
+  const fn_initSortReg = async function() {
+    fn_createGridSortReg();
+
+    /*SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
+    SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
+
+
+    let result = await Promise.all([
+      fn_initSBSelect(),
+      fn_initSBRadio(),
+      fn_getPrdcrs()
+    ]);
+
+    fn_clearForm();*/
+  }
+
+</script>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -139,24 +222,24 @@
           <th scope="row" class="th_bg">투입량</th>
           <td class="td_input"style="border-right: hidden;">
             <div class="displayFlex">
-                <sbux-input
-                        uitype="text"
-                        id="srch-inp-inputQntt"
-                        name="srch-inp-inputQntt"
-                        class="form-control input-sm input-sm-ast"
-                        autocomplete="off"
-                        mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-                        onchange=""
-                ></sbux-input>
-                <sbux-input
-                        uitype="text"
-                        id="srch-inp-inputAvg"
-                        name="srch-inp-inputAvg"
-                        class="form-control input-sm"
-                        autocomplete="off"
-                        mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
-                        onchange=""
-                ></sbux-input>
+              <sbux-input
+                      uitype="text"
+                      id="srch-inp-inputQntt"
+                      name="srch-inp-inputQntt"
+                      class="form-control input-sm input-sm-ast"
+                      autocomplete="off"
+                      mask="{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+                      onchange=""
+              ></sbux-input>
+              <sbux-input
+                      uitype="text"
+                      id="srch-inp-inputAvg"
+                      name="srch-inp-inputAvg"
+                      class="form-control input-sm"
+                      autocomplete="off"
+                      mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true}"
+                      onchange=""
+              ></sbux-input>
             </div>
           </td>
           <th scope="row" class="th_bg">등급</th>
@@ -307,6 +390,40 @@
         </tr>
         </tbody>
       </table>
+
+      <!--[pp] //등록 -->
+      <!--[pp] 등록목록 -->
+      <div class="ad_tbl_top2">
+        <ul class="ad_tbl_count">
+          <li>
+            <span>선별 등록 목록</span>
+          </li>
+        </ul>
+        <div class="ad_tbl_toplist">
+          <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger" onclick="fn_delRow"></sbux-button>
+        </div>
+      </div>
+      <div class="table-responsive tbl_scroll_sm">
+        <div id="sb-area-grdSortRegList" style="height: 430px"></div>
+      </div>
+      <%--<!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
+      <div class="exp-div-excel" style="display: none;width: 1000px;">
+        <div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpVrty" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpPrdcr" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpWrhsSeCd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpGdsSeCd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpTrsprtSeCd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpWarehouseSeCd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpBxKnd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpStdGrd" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpStdGrdDtl" style="height:1px; width: 100%;"></div>
+        <div id="sbexp-area-grdExpStdGrdJgmt" style="height:1px; width: 100%;"></div>
+        <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
+      </div>
+      <!-- 엑셀 시트별 데이터 영역 -->--%>
+
     </div>
   </div>
 </section>

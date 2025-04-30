@@ -1,6 +1,6 @@
 <%
     /**
-     * @Class Name : rawMtrWrhsReg.jsp
+     * @Class Name : mmSnthsStdReg.jsp
      * @Description : 월별종합표준등록 화면
      * @author SI개발부
      * @since 2023.08.31
@@ -39,13 +39,23 @@
                 <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                 <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 월별종합표준등록 -->
             </div>
+            <div style="margin-left: auto;">
+                <sbux-button
+                        id="btnSave"
+                        name="btnSave"
+                        uitype="normal"
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="fn_save"
+                        text="저장"
+                ></sbux-button>
+            </div>
         </div>
 
         <div class="box-body srch-keyup-area">
             <sbux-tabs id="tab_norm" name="tab_norm"
                        uitype="normal"
                        is-scrollable=:Q
-                       title-target-id-array="tab_rawMtrWrhsStdReg^tab_rawMtrSortStdReg^tab_rawMtrPckgStdReg^tab_rawMtrSpmtStdReg"
+                       title-target-id-array="tab_wrhsStdReg^tab_sortStdReg^tab_pckgStdReg^tab_spmtStdReg"
                        title-text-array="입고등록^선별등록^포장등록^출하등록" onclick="fn_changeTab()">
             </sbux-tabs>
 
@@ -55,20 +65,20 @@
                 <!--[APC] END -->
                 <div class="tab-content">
                     <!-- 입고등록 탭 화면 -->
-                    <div id="tab_rawMtrWrhsStdReg">
-                        <jsp:include page="../../am/wgh/rawMtrWrhsStdReg.jsp"></jsp:include>
+                    <div id="tab_wrhsStdReg">
+                        <jsp:include page="../../am/wgh/mmWrhsStdReg.jsp"></jsp:include>
                     </div>
                     <!-- 선별등록 탭 화면 -->
-                    <div id="tab_rawMtrSortStdReg">
-                        <jsp:include page="../../am/wgh/rawMtrSortStdReg.jsp"></jsp:include>
+                    <div id="tab_sortStdReg">
+                        <jsp:include page="../../am/wgh/mmSortStdReg.jsp"></jsp:include>
                     </div>
                     <!-- 포장등록 탭 화면 -->
-                    <div id="tab_rawMtrPckgStdReg">
-                        <jsp:include page="../../am/wgh/rawMtrPckgStdReg.jsp"></jsp:include>
+                    <div id="tab_pckgStdReg">
+                        <jsp:include page="../../am/wgh/mmPckgStdReg.jsp"></jsp:include>
                     </div>
                     <!-- 출하등록 탭 화면 -->
-                    <div id="tab_rawMtrSpmtStdReg">
-                        <jsp:include page="../../am/wgh/rawMtrSpmtStdReg.jsp"></jsp:include>
+                    <div id="tab_spmtStdReg">
+                        <jsp:include page="../../am/wgh/mmSpmtStdReg.jsp"></jsp:include>
                     </div>
                 </div>
             </div>
@@ -76,23 +86,9 @@
     </div>
 </section>
 
-<div>
-    <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
-</div>
-<div id="body-modal-prdcr">
-    <jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
-</div>
-
 </body>
 
 <script type="text/javascript">
-    /**
-     * @name fn_choicePrdcr
-     * @description 생산자 선택 popup 호출
-     */
-    const fn_choicePrdcr = function() {
-        popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
-    }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
