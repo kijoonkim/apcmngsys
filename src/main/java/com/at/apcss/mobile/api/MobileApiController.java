@@ -115,6 +115,12 @@ public class MobileApiController extends BaseController{
 	@Autowired
     private EgovJwtTokenUtil jwtTokenUtil;
 
+	@GetMapping(value="/dashboard.do")
+	public String dashboard(Model model, HttpServletRequest request) throws Exception {
+
+		return "main/dashboard";
+	}
+
 	@PostMapping(value = "/authenticate.do")
 	@ResponseBody
 	public JSONObject authenticate(
