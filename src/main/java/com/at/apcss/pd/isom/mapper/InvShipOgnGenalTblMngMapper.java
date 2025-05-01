@@ -59,6 +59,15 @@ public interface InvShipOgnGenalTblMngMapper {
 	 */
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
 
+
+	/**
+	 * 출자출하조직 구 총괄표 로우데이터를 조회 한다
+	 * @param InvShipOgnGenalTblMngVO
+	 * @return List<InvShipOgnGenalTblMngVO>
+	 */
+	public List<InvShipOgnGenalTblMngVO> selectInvstSpmtOgnzOvsTableRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO);
+
+
 	/**
 	 * 총괄표 리스트를 조회 한다
 	 * @param InvShipOgnGenalTblMngVO

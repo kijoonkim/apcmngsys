@@ -34,65 +34,56 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 	@Override
 	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		InvShipOgnGenalTblMngVO resultVO = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
-
-		return resultVO;
+		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO);
-		return resultList;
+		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
-		return resultList;
+		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-		int updatedCnt = InvShipOgnGenalTblMngMapper.updateStbltYn(InvShipOgnGenalTblMngVO);
 
-		return updatedCnt;
+		return InvShipOgnGenalTblMngMapper.updateStbltYn(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList(InvShipOgnGenalTblMngVO);
-		return resultList;
+		//List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList(InvShipOgnGenalTblMngVO);
+		return InvShipOgnGenalTblMngMapper.selectInvstSpmtOgnzOvsTableRawDataList(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
-		return resultList;
+		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList2025(InvShipOgnGenalTblMngVO);
-		return resultList;
+		return InvShipOgnGenalTblMngMapper.selectRawDataList2025(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
 
-		List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectIsoClsfTot(InvShipOgnGenalTblMngVO);
-		return resultList;
+		return InvShipOgnGenalTblMngMapper.selectIsoClsfTot(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-		int updatedCnt = InvShipOgnGenalTblMngMapper.updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
 
-		return updatedCnt;
+		return InvShipOgnGenalTblMngMapper.updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
 	}
 
 	@Override
