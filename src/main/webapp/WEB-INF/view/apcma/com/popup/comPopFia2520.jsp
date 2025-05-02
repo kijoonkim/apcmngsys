@@ -60,14 +60,15 @@
 									            id="POP_SCH_ACQUIRE_DATE_FR"
 									            uitype="popup"
 									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed">
 									    </sbux-datepicker>
 									    <font style="padding-left:5px;padding-right:5px" >-</font>                          
 									    <sbux-datepicker
 									            id="POP_SCH_ACQUIRE_DATE_TO"
 									            uitype="popup"
 									            date-format="yyyy-mm-dd"
-									            class="form-control input-sm input-sm-ast inpt_data_reqed">
+												class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed">
+
 									    </sbux-datepicker>                          
 	                            	</div>
 	                            </td>				

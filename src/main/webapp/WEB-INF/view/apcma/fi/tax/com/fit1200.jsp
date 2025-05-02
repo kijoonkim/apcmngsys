@@ -134,7 +134,7 @@
                             </td>
                             <th scope="row" class="th_bg">사업장 코드</th>
                             <td class="td_input" style="border-right: hidden;">
-                                <sbux-input id="OVS_BPLC_CD" name="OVS_BPLC_CD" uitype="text" class="form-control input-sm"></sbux-input>
+                                <sbux-input id="OVS_BPLC_CD" name="OVS_BPLC_CD" uitype="text" class="form-control input-sm inpt_data_reqed" readonly></sbux-input>
                             </td>
                             <td class="td_input">
                                 <sbux-input id="OVS_BPLC_NM" name="OVS_BPLC_NM" uitype="text" class="form-control input-sm"></sbux-input>
@@ -357,10 +357,14 @@
         let V_P_DEEM_LIMIT_DENOM = SBUxMethod.get("DMINPT_DNMNTR_LMT"); //한도율(분모)
 
         if(!gfn_comConfirm("Q0001","저장")){
-           return;
+            return;
         }
         if(gfn_isEmpty(V_P_SEQ)){
             gfn_comAlert("Q0000", "신고구분명을 선택하십시오.");
+            return;ㄹ
+        }
+        if(gfn_isEmpty(V_P_WHOLE_PAY_SITE_CODE)){
+            gfn_comAlert("Q0000", "사업장 코드를 선택하십시오.");
             return;
         }
 
