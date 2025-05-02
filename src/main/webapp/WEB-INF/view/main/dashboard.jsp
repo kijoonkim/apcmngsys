@@ -32,6 +32,12 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+  <style>
+  svg > circle:hover {
+    fill: red;
+  }
+  </style>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -149,7 +155,7 @@
             </div>
             <div class="box-body">
               <!--<div id="world-map" style="height: 600px; width: 100%;"></div>-->
-              <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg2" sodipodi:version="0.32" inkscape:version="0.48.4 r9939" sodipodi:docname="Map_of_South_Korea-blank.svg" inkscape:output_extension="org.inkscape.output.svg.inkscape" x="0px" y="0px" width="800px" height="1200px" viewBox="0 0 800 1200" enable-background="new 0 0 800 1200" xml:space="preserve"><metadata id="metadata3075"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata>
+              <svg id="map" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg2" sodipodi:version="0.32" inkscape:version="0.48.4 r9939" sodipodi:docname="Map_of_South_Korea-blank.svg" inkscape:output_extension="org.inkscape.output.svg.inkscape" x="0px" y="0px" width="800px" height="1200px" viewBox="0 0 800 1200" enable-background="new 0 0 800 1200" xml:space="preserve"><metadata id="metadata3075"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata>
                   <sodipodi:namedview id="base" inkscape:current-layer="svg2" inkscape:window-y="-8" inkscape:window-x="-8" inkscape:window-width="1440" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="838" pagecolor="#ffffff" bordercolor="#666666" inkscape:cy="677.51575" borderopacity="1.0" objecttolerance="10.0" gridtolerance="10.0" inkscape:cx="407.08022" guidetolerance="10.0" inkscape:zoom="0.53748318" showgrid="false" inkscape:window-maximized="1">
                     </sodipodi:namedview>
                   <defs id="defs3055">
@@ -175,18 +181,20 @@
                   <path id="sejong" d="m 309.28023,486.01769 -7.03,-4.811 -3.025,-4.724 -1.554,-6.834 0.817,-7.381 0.736,-8.568 -5.314,-2.874 -6.213,-8.321 1.799,-5.547 -0.817,-7.454 -3.434,-3.467 2.289,-4.507 6.049,-0.347 11.608,7.281 5.722,-0.173 0.654,2.947 h 2.126 l -0.654,5.374 -3.597,2.6 1.635,4.161 2.616,3.294 v 5.547 l 4.414,1.907 5.632,2.508 2.271,2.85 -1.199,7.167 1.199,2.773 -2.734,1.624 0.676,5.695 -2.247,5.813 -4.905,5.374 -5.068,0.173 -2.452,-2.08 z" inkscape:connector-curvature="0" style="fill:#cdcccc;stroke:#ffffff"/>
                   <defs>
                       <filter id="f1" x="0" y="0" width="500%" height="500%">
-                          <feOffset result="offOut" in="SourceGraphic" dx="3" dy="3"/>
-                          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="2"/>
+                          <feOffset result="offOut" in="SourceGraphic" dx="4" dy="4"/>
+                          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3"/>
                           <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
                       </filter>
                   </defs>
-                  <circle cx="270" cy="300" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="450" cy="600" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="550" cy="550" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="350" cy="300" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="270" cy="750" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="350" cy="750" r="10" style="fill:blue;" filter="url(#f1)"/>
-                  <circle cx="220" cy="1120" r="10" style="fill:blue;" filter="url(#f1)"/>
+                  <circle cx="550" cy="250" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="270" cy="300" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="300" cy="400" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="450" cy="600" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="550" cy="550" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="350" cy="300" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="270" cy="750" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="350" cy="750" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+                  <circle cx="220" cy="1120" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
               </svg>
             </div>
             <!-- /.box-body-->
@@ -349,9 +357,7 @@
 <script src="plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
 <script src="dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
 </body>
 </html>
