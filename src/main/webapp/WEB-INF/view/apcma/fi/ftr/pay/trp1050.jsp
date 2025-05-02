@@ -789,7 +789,7 @@
             {caption: ["거래처 지급보류"],         ref: 'DEFER_YN',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["지급가능여부"],         ref: 'TR_ABLE_YN',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["지급불가사유"],         ref: 'TR_UNABLE_REASON',    type:'output',  	width:'200px',  style:'text-align:left'},
-            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
+            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true

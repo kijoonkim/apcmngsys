@@ -1103,7 +1103,7 @@
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
         var replaceText2 	= "_BRNO_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%' AND BIZ_REGNO LIKE '%"+ replaceText2 + "%'";
+        var strWhereClause 	= "AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' AND BRNO LIKE '%"+ replaceText2 + "%'";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
