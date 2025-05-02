@@ -326,6 +326,8 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
                 gdsParam.setSpcfctCd(spcfctCd);
                 gdsParam.setGdsGrd(gdsGrd);
                 gdsParam.setWarehouseSeCd(warehouseSeCd);
+                gdsParam.setSpmtPckgUnitCd(spmtPckgUnitCd);
+
 
                 List<GdsInvntrVO> gdsInvntrList = gdsInvntrService.selectSpmtGdsInvntrListBySpec(gdsParam);
 

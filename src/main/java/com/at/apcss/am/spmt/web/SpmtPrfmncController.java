@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
 import com.at.apcss.am.invntr.vo.SortInvntrVO;
+import com.at.apcss.am.spmt.service.SpmtMngService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
@@ -45,6 +46,9 @@ public class SpmtPrfmncController extends BaseController {
 
 	@Resource(name= "spmtPrfmncService")
 	private SpmtPrfmncService spmtPrfmncService;
+
+	@Resource(name= "spmtMngService")
+	private SpmtMngService spmtMngService;
 
 	// 출하실적 조회
 	@PostMapping(value = "/am/spmt/selectSpmtPrfmncList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
@@ -584,4 +588,54 @@ public class SpmtPrfmncController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	//출하실적간편조회
+	@PostMapping(value = "/am/spmt/selectSpmtPrfmncReg.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectSpmtPrfmncReg(@RequestBody SpmtPrfmncVO spmtPrfmncVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try{
+			List<SpmtPrfmncVO> list = spmtPrfmncService.selectSpmtPrfmncReg(spmtPrfmncVO);
+			resultMap.put(ComConstants.PROP_RESULT_LIST,list);
+
+		}catch (Exception e){
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		}finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/spmt/insertSpmtPrfmnWithList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSpmtPrfmnWithList(@RequestBody List<SpmtPrfmncComVO> spmtPrfmncComList, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+
+			for (SpmtPrfmncComVO spmtPrfmncComVO : spmtPrfmncComList) {
+				spmtPrfmncComVO.setSysFrstInptUserId(getUserId());
+				spmtPrfmncComVO.setSysFrstInptPrgrmId(getPrgrmId());
+				spmtPrfmncComVO.setSysLastChgUserId(getUserId());
+				spmtPrfmncComVO.setSysLastChgPrgrmId(getPrgrmId());
+			}
+
+			HashMap<String, Object> rtnObj = spmtMngService.insertSpmtPrfmncWithList(spmtPrfmncComList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+//		resultMap.put(ComConstants.PROP_RESULT_MAP,spmtPrfmncComList.get(0));
+		return getSuccessResponseEntity(resultMap);
+	}
 }
