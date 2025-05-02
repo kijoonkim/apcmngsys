@@ -200,5 +200,11 @@ public interface SpmtPrfmncMapper {
 	 */
 	public int updateSpmtForCryn(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 
-
+	/**
+	 * 출하실적조회
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }

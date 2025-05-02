@@ -1605,6 +1605,67 @@
 		]]>
 	</update>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectSpmtPrfmncReg	-->
+	<!-- DESC : 출하실적조회               	             	 						-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.30  	유민지        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectSpmtPrfmncReg" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+
+		SELECT
+			pt0.*
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) 						AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) 			AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) 		AS SPCFCT_NM
+			 , (SELECT FN_GET_GRD_NM_GDS(pt0.APC_CD, pt0.ITEM_CD, pt0.GDS_GRD) FROM DUAL) 		AS GDS_GRD_NM
+			 , (SELECT FN_GET_SPMT_PCKG_UNIT_NM(pt0.SPMT_PCKG_UNIT_CD, pt0.APC_CD) FROM DUAL)   AS SPMT_PCKG_UNIT_NM
+			 , (SELECT FN_GET_CNPT_NM(pt0.CNPT_CD, pt0.APC_CD) FROM DUAL) 						AS CNPT_NM
+		FROM (SELECT SPD.APC_CD            AS APC_CD
+		           , SPD.SPMTNO            AS SPMTNO
+           		   , SPC.SPMT_YMD          AS SPMT_YMD
+				   , SPD.ITEM_CD           AS ITEM_CD
+				   , SPD.VRTY_CD           AS VRTY_CD
+				   , SPD.GDS_GRD           AS GDS_GRD
+				   , SPD.SPCFCT_CD         AS SPCFCT_CD
+				   , SPD.SPMT_PCKG_UNIT_CD AS SPMT_PCKG_UNIT_CD
+				   , SPD.NTSL_AMT          AS NTSL_AMT
+				   , SPD.DUDT_YMD          AS DUDT_YMD
+				   , SPC.CNPT_CD           AS CNPT_CD
+				   , SPD.SPMT_QNTT         AS SPMT_QNTT
+				   , SPD.SPMT_WGHT         AS SPMT_WGHT
+		           , SPD.DEL_YN			   AS DEL_YN
+				   , (SELECT WGHT
+					  FROM TB_APC_SPCFCT_CRTR X
+					  WHERE X.APC_CD = SPD.APC_CD
+						AND X.ITEM_CD = SPD.ITEM_CD
+						AND X.SPCFCT_CD = SPD.SPCFCT_CD
+					 ) AS SPCFCT_WGHT
+
+			  FROM TB_SPMT_PRFMNC_DTL SPD,
+				   TB_SPMT_PRFMNC_COM SPC
+			  WHERE SPD.APC_CD = SPC.APC_CD
+				AND SPD.SPMTNO = SPC.SPMTNO
+				AND SPD.DEL_YN = 'N'
+				AND SPC.DEL_YN = 'N'
+				  ]]>
+				<if test='apcCd != null and apcCd != ""'>
+					AND SPD.APC_CD = #{apcCd}
+				</if>
+				<if test='spmtYmd != null and spmtYmd != ""'>
+					AND SPC.SPMT_YMD = #{spmtYmd}
+				</if>
+				<if test='cnptCd != null and cnptCd != ""'>
+					AND SPC.CNPT_CD = #{cnptCd}
+				</if>
+				<![CDATA[
+			  ORDER BY SPMT_YMD,SPMTNO
+			 ) pt0
+			]]>
+	</select>
 </mapper>
 
 

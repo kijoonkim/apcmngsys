@@ -293,4 +293,12 @@ public interface SpmtPrfmncService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSpmtPrfmncByWgh(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
+
+	/**
+	 * 출고실적조회
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
 }
