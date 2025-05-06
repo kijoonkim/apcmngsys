@@ -846,7 +846,16 @@
     // 등급상세
     stdGrd.stdGrdList.forEach((item, idx) => {
 
-        grdStd += item.grdKndNm + ": " + item.grdNm + ", " + item.grdNv;
+      switch (item.stdGrdType) {
+        case "RT":
+          grdStd += item.grdKndNm + ": " + item.grdNv + "%";
+          break;
+        case "QT":
+          grdStd += item.grdKndNm + ": " + item.grdNv + "kg";
+          break;
+        default:
+          grdStd += item.grdKndNm + ": " + item.grdNm;
+      }
 
       if (idx < stdGrd.stdGrdList.length - 1) {
         grdStd += " / ";
