@@ -230,6 +230,9 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
 
             String rmrk = spmt.getRmrk();
 
+            long ntslAmt = spmt.getNtslAmt();
+            String dudtYmd = spmt.getDudtYmd();
+
             double spmtWght = 0;
 
             SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
@@ -572,6 +575,9 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
             gdsInvntrVO.setSpmtQntt(spmtQntt);
             gdsInvntrVO.setSpmtWght(spmtWght);
             gdsInvntrVO.setInvntrSttsCd(AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO);
+
+            gdsInvntrVO.setNtslAmt(ntslAmt);
+            gdsInvntrVO.setDudtYmd(dudtYmd);
 
             invntrList.add(gdsInvntrVO);
         }

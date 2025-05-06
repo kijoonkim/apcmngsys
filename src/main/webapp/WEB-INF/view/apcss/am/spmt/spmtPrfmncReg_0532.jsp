@@ -257,10 +257,6 @@
     }
 
 
-    function fn_deleteSpmtPrfmnc() {
-        console.log("행삭제함수");
-    }
-
     /**
      * @name fn_search
      * @description 조회
@@ -301,7 +297,8 @@
                        itemCd : item.itemCd,
                        vrtyCd : item.vrtyCd,
                        spcfctCd : item.spcfctCd,
-                       delYn : 'N'
+                       delYn : 'N',
+                       dudtYmd : item.dudtYmd
                    }
                    jsonSpmtPrfmncReg.push(spmt);
                 });
@@ -319,7 +316,6 @@
             console.error("failed", e.message);
             gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
         }
-
     }
 
     /**
@@ -336,8 +332,9 @@
 
         const rowData = gridSpmtPrfmncReg.getRowData(nRow, false);
         rowData.spmtYmd = spmtYmd;
-        rowData.apcCd = "N";
+        // rowData.apcCd = "N";
         rowData.gubun = "insert";
+        rowData.delYn = "N"
         gridSpmtPrfmncReg.rebuild();
 
         gridSpmtPrfmncReg.addRow(true);
@@ -347,6 +344,44 @@
         /** 마지막행 disabled **/
         gridSpmtPrfmncReg.setCellDisabled(gridSpmtPrfmncReg.getRows() -1, 0, gridSpmtPrfmncReg.getRows() -1, gridSpmtPrfmncReg.getCols() -1, true);
     }
+
+
+    const fn_delRow = function(nRow) {
+        let rowIndex = gridSpmtPrfmncReg.getRow();
+        let status = gridSpmtPrfmncReg.getRowStatus(rowIndex);
+        if(status === 0){
+            fn_deleteSpmtPrfmnc(rowIndex);
+        }else{
+            gridSpmtPrfmncReg.deleteRow(nRow);
+        }
+    }
+
+    /*const fn_deleteSpmtPrfmnc = async function(rowIndex) {
+        const rowData = gridSpmtPrfmncReg.getRowData(rowIndex);
+
+        if(!gfn_comConfirm("Q0001", "출하취소")) {    // 출하취소 하시겠습니까?
+            return;
+        }
+
+        try {
+            const postJsonPromise = gfn_postJSON("/am/wgh/deleteSpmtPrfmncList.do", );
+            const data = await postJsonPromise;
+
+            if (_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+                await fn_search();
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }*/
 
     /**
      * @name fn_gridSpmtValueChanged
@@ -457,8 +492,8 @@
                 spmtQntt: nowData.spmtQntt,
                 warehouseSeCd: nowData.warehouseSeCd,
                 dudtYmd: nowData.dudtYmd,
-                nstlAmt: nowData.ntslAmt,
-                gdsGrd: "X0"
+                ntslAmt: nowData.ntslAmt,
+                gdsGrd: "X0",
             };
 
             let found = false;
@@ -477,6 +512,7 @@
                     apcCd: item.apcCd,
                     cnptCd: item.cnptCd,
                     spmtYmd: item.spmtYmd,
+                    spmtFrcdPrcsYn : "Y",
                     spmtPrfmncList: [item]
                 });
             }
@@ -494,7 +530,7 @@
             return;
         }
 
-        return;
+        // return;
 
         try {
             const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmnWithList.do",saveList);
