@@ -359,6 +359,14 @@ public class GdsInvntrVO extends ComVO {
 	 * 본수
 	 * */
 	private String bxGdsQntt;
+	/**
+	 * 판매금액
+	 */
+	private long ntslAmt;
+	/**
+	 * 납기일자
+	 */
+	private String dudtYmd;
 
 
 	private List<SpmtGdsVO> spmtGdsList;
