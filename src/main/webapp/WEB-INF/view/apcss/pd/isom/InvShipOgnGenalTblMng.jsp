@@ -1237,6 +1237,11 @@
 
 	}
 	const fn_hiddenGrdSelect = async function(){
+
+		if (!gfn_comConfirm("Q0001", "다운로드")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
 		await fn_hiddenGrd();
 		let yr = SBUxMethod.get("srch-input-yr");
 		if (gfn_isEmpty(yr)) {
