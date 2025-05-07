@@ -115,7 +115,7 @@
                         <sbux-datepicker
                                 uitype="popup"
                                 id="SRCH_PAY_DATE_FR"
-                                name=""SRCH_PAY_DATE_FR""
+                                name="SRCH_PAY_DATE_FR"
                                 date-format="yyyy-mm-dd"
                                 class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                 style="width:100%;"
@@ -307,8 +307,8 @@
                 }
                 , hidden: true
             },
-            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
-            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
+            {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left', userattr : {required : true} },
+            {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left', userattr : {required : true} },
             {caption: ["소득자 성명"], 						ref: 'EARNER_BTN',    				type:'button',  	width:'30px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='ma-btn1' style='width:20px' onClick='fn_findEarnerCode(" + nRow + ")'><img src='../../../resource/images/find2.png' width='12px' /></button>";
@@ -316,15 +316,19 @@
             },
             {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm', calendartype: 'yearmonth'},
-                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'}
+                format : {type:'date', rule:'yyyy-mm', origin:'YYYYMM'},
+                userattr : {required : true}
+
             },
             {caption: ["근무시작일"],       ref: 'WORK_ST_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                userattr : {required : true}
             },
             {caption: ["근무종료일"],       ref: 'WORK_END_DAT', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'},
+                userattr : {required : true}
             },
             {caption: ["근로일수"],         ref: 'WORK_DAY',    type:'output',  	width:'69px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -333,10 +337,12 @@
             {caption: ["인원수"],         ref: 'WORK_CNT',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+                , userattr : {required : true}
             },
             {caption: ["일당"],         ref: 'DAILY_PAY_AMT',    type:'input',  	width:'60px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
                 , format : {type:'number', rule:'#,###', emptyvalue:'0'}
+                , userattr : {required : true}
             },
             {caption: ["조정금액"],         ref: 'ADJUSTMENT_AMT',    type:'input',  	width:'60px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -361,6 +367,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , userattr : {required : true}
             },
             {caption: ["작업장소"], 		ref: 'WORK_PLACE',   	    type:'combo', style:'text-align:left' ,width: '91px',
                 typeinfo: {
@@ -369,6 +376,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , userattr : {required : true}
             },
             {caption: ["작업명"], 		ref: 'WORK_NAME',   	    type:'combo', style:'text-align:left' ,width: '138px',
                 typeinfo: {
@@ -377,6 +385,7 @@
                     value		: 'value',
                     itemcount	: 10
                 }
+                , userattr : {required : true}
             },
             {caption: ["작업세부명"], 		ref: 'WORK_DTL_NAME',   	    type:'combo', style:'text-align:left' ,width: '118px',
                 typeinfo: {
@@ -394,9 +403,10 @@
                     itemcount	: 10
                 }
             },
-            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'85px',  	style:'text-align:left',
-                typeinfo: {dateformat: 'yyyy-mm-dd'},
-                format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+            {caption: ["지급일자"],       ref: 'PAY_DATE', 		type:'inputdate',  	width:'85px',  	style:'text-align:left'
+                , typeinfo: {dateformat: 'yyyy-mm-dd'}
+                , format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
+                , userattr : {required : true}
             },
             {caption: ["비과세소득"],         ref: 'NON_TXABLE_AMT',    type:'input',  	width:'110px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
@@ -1019,20 +1029,22 @@
     	fn_createGvwInfoGrid();
     	await fn_onload();
 
-    	document.getElementById('excelFile').addEventListener('change', function (event) {
+    	document.getElementById('excelFile').addEventListener('change',async function (event) {
     		if (!window.FileReader) return;
 
+
     		try {
+
+                await gfnma_setComSelect([''], jsonEarnerCode, 'P_HRA021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'EARNR_CD', 'EARNR_NM', 'Y', '');
+
     			const reader = new FileReader();
     			reader.addEventListener(
     				"load",
     				() => {
     					const workBook = XLSX.read(reader.result, { type: 'binary' });
-    					
-						//총 금액
-						let TOT_AMOUNT = 0;
-						//총 지급액
-						let TOT_PAY_AMT = 0;
+
+						let TOT_AMOUNT = 0; //총 금액
+						let TOT_PAY_AMT = 0; //총 지급액
 
     					workBook.SheetNames.forEach(function (sheetName) {
     						const list = XLSX.utils.sheet_to_json(workBook.Sheets[sheetName], {
@@ -1176,6 +1188,10 @@
 
     // 저장
     function cfn_save() {
+
+        if (!gfnma_gridValidateCheck()) {
+            return false;
+        }
         fn_save();
     }
 
@@ -1191,6 +1207,7 @@
     }
 
     const fn_save = async function () {
+
         let updatedData = gvwInfo.getUpdateData(true, 'all');
         let returnData = [];
         updatedData.forEach((item, index) => {
