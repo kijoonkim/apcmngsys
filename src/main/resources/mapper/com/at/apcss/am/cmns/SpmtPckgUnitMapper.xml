@@ -40,7 +40,10 @@
                        AND X.SPCFCT_CD = SPU.SPCFCT_CD
                        AND X.DEL_YN = 'N'
 					)	AS SPCFCT_WGHT
-			  FROM TB_SPMT_PCKG_UNIT SPU
+				, SPU.SORT_GRD_CD			AS SORT_GRD_CD
+				, SPU.PCKG_GRD_CD			AS PCKG_GRD_CD
+
+			FROM TB_SPMT_PCKG_UNIT SPU
 		     WHERE SPU.APC_CD = #{apcCd}
 		       AND SPU.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
 		       AND SPU.DEL_YN = 'N'
@@ -71,6 +74,8 @@
 	    	    , SPU.STD_UNIT_CD 			AS STD_UNIT_CD
 	    	    , SPU.STD_ECFRD_CD 			AS STD_ECFRD_CD
 	    	    , SPU.STD_GRD_CD 			AS STD_GRD_CD
+				, SPU.SORT_GRD_CD			AS SORT_GRD_CD
+				, SPU.PCKG_GRD_CD			AS PCKG_GRD_CD
 				, SPU.DEL_YN               	AS DEL_YN
 			    , SPU.GDS_GRD				AS GDS_GRD
                 , SC.WGHT                  	AS SPCFCT_WGHT
@@ -158,6 +163,8 @@
 					           AND X.APLCN_CRTR_YMD <= TO_CHAR(SYSDATE, 'YYYYMMDD')) AS NTSL_UNTPRC
 					     , SPU.DEL_YN               AS DEL_YN
 					     , SPU.GDS_GRD				AS GDS_GRD
+						, SPU.SORT_GRD_CD		AS SORT_GRD_CD
+						, SPU.PCKG_GRD_CD		AS PCKG_GRD_CD
                          , SC.WGHT                  AS SPCFCT_WGHT
                          , SC.BX_GDS_QNTT           AS BX_GDS_QNTT
                          , (SELECT AFTR_GRD_CD
@@ -165,7 +172,7 @@
                              WHERE X.APC_CD = SPU.APC_CD
                                AND X.ITEM_CD = SPU.ITEM_CD
                                AND X.GRD_SE_CD = '02'
-                               AND X.GRD_CD = SPU.GDS_GRD
+                               AND X.GRD_CD = SPU.SORT_GRD_CD
                            ) AFTR_GRD_CD
 					  FROM TB_SPMT_PCKG_UNIT SPU
                          , TB_APC_SPCFCT_CRTR SC
@@ -238,11 +245,13 @@
 		    		, SYS_LAST_CHG_USER_ID
 		    		, SYS_LAST_CHG_PRGRM_ID
 		    		, PLOR_CD
-		    		, std_pckg_cd
-		    		, std_unit_cd
-		    		, std_ecfrd_cd
-		    		, std_grd_cd
-	    		)
+		    		, STD_PCKG_CD
+		    		, STD_UNIT_CD
+		    		, STD_ECFRD_CD
+		    		, STD_GRD_CD
+					, SORT_GRD_CD
+					, PCKG_GRD_CD
+				)
 	   		VALUES
 	   			(
 	   				  #{apcCd}
@@ -267,6 +276,8 @@
 		    		, #{stdUnitCd}
 		    		, #{stdEcfrdCd}
 		    		, #{stdGrdCd}
+					, #{sortGrdCd}
+					, #{pckgGrdCd}
 	   			)
     	]]>
     </insert>
@@ -301,6 +312,8 @@
 	    		, STD_UNIT_CD				= #{stdUnitCd}
 	    		, STD_ECFRD_CD				= #{stdEcfrdCd}
 	    		, STD_GRD_CD				= #{stdGrdCd}
+				 , SORT_GRD_CD				= #{sortGrdCd}
+				 , PCKG_GRD_CD				= #{pckgGrdCd}
 			 WHERE SPMT_PCKG_UNIT_CD 		= #{spmtPckgUnitCd}
 			   AND APC_CD					= #{apcCd}
 		]]>
