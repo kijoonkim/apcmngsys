@@ -1249,15 +1249,18 @@
 
         // 공지사항 등록
         await fn_openNoticeTab();
-        // 생산관리 대시보드
-        await fn_openMainTab();
 
+
+        // 생산관리 대시보드
+        if (gfn_isEmpty(initMenuId)) {
+            await fn_openMainTab();
+        }
 
         const jsonSysId = menuJson.filter((item, index, arr) => {
             return gfn_isEmpty(item.pid);
         });
 
-        console.log(jsonSysId);
+        //console.log(jsonSysId);
 
 
         // 여기서 분기
