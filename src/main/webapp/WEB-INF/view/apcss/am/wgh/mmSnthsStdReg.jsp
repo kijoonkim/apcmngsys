@@ -56,12 +56,12 @@
                        uitype="normal"
                        is-scrollable=:Q
                        title-target-id-array="tab_wrhsStdReg^tab_sortStdReg^tab_pckgStdReg^tab_spmtStdReg"
-                       title-text-array="입고등록^선별등록^포장등록^출하등록" onclick="fn_changeTab()">
+                       title-text-array="입고등록^선별등록^포장등록^출하등록" onclick="/*fn_changeTab()*/">
             </sbux-tabs>
 
             <div>
                 <!--[APC] START -->
-                <%@ include file="../../../frame/inc/apcSelect.jsp" %>
+<%--                <%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
                 <!--[APC] END -->
                 <div class="tab-content">
                     <!-- 입고등록 탭 화면 -->
@@ -70,15 +70,15 @@
                     </div>
                     <!-- 선별등록 탭 화면 -->
                     <div id="tab_sortStdReg">
-                        <jsp:include page="../../am/wgh/mmSortStdReg.jsp"></jsp:include>
+<%--                        <jsp:include page="../../am/wgh/mmSortStdReg.jsp"></jsp:include>--%>
                     </div>
                     <!-- 포장등록 탭 화면 -->
                     <div id="tab_pckgStdReg">
-                        <jsp:include page="../../am/wgh/mmPckgStdReg.jsp"></jsp:include>
+<%--                        <jsp:include page="../../am/wgh/mmPckgStdReg.jsp"></jsp:include>--%>
                     </div>
                     <!-- 출하등록 탭 화면 -->
                     <div id="tab_spmtStdReg">
-                        <jsp:include page="../../am/wgh/mmSpmtStdReg.jsp"></jsp:include>
+<%--                        <jsp:include page="../../am/wgh/mmSpmtStdReg.jsp"></jsp:include>--%>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,27 @@
 </body>
 
 <script type="text/javascript">
+
+    const fn_save = async function () {
+
+        let choiceTab = SBUxMethod.get("tab_norm");
+
+        if (choiceTab == "tab_wrhsStdReg") {
+            fn_saveWrhsInfo();
+        }
+
+        /*if (choiceTab == "frmhsQltTab") {
+            fn_saveFrmhsQlt();
+        }
+
+        if (choiceTab == "frmhsExpctWrhsTab") {
+            fn_saveFrmhsExpctWrhs();
+        }
+
+        if (choiceTab == "landInfoTab") {
+            fn_saveLandInfo();
+        }*/
+    }
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

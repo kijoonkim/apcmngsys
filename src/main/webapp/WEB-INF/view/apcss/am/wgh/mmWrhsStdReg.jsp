@@ -15,11 +15,14 @@
    */
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
   <title>title : 입고등록</title>
+<%--  <%@ include file="../../../frame/inc/headerMeta.jsp" %>--%>
+<%--  <%@ include file="../../../frame/inc/headerScript.jsp" %>--%>
+<%--  <%@ include file="../../../frame/inc/clipreport.jsp" %>--%>
 </head>
 <body oncontextmenu="return false">
 <section class="content container-fluid">
@@ -32,7 +35,7 @@
     </div>
     <div class="box-body" id="progArea">
       <!--[APC] START -->
-<%--      <%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
+      <%@ include file="../../../frame/inc/apcSelect.jsp" %>
       <!--[APC] END -->
       <!--[pp] 등록 -->
       <%--입고구분--%>
@@ -371,7 +374,7 @@
       <div class="table-responsive tbl_scroll_sm">
         <div id="sb-area-grdWrhsRegList" style="height: 430px"></div>
       </div>
-      <%--<!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
+      <!-- <div class="exp-div-excel" style="display: none;width: 2000px;"> none block-->
       <div class="exp-div-excel" style="display: none;width: 1000px;">
         <div id="sbexp-area-grdExpRawMtrWrhs" style="height:1px; width: 100%;"></div>
         <div id="sbexp-area-grdExpItem" style="height:1px; width: 100%;"></div>
@@ -387,7 +390,7 @@
         <div id="sbexp-area-grdExpStdGrdJgmt" style="height:1px; width: 100%;"></div>
         <input type="file" id="btnFileUpload" name="btnFileUpload" style="visibility: hidden;" onchange="importExcelData(event)">
       </div>
-      <!-- 엑셀 시트별 데이터 영역 -->--%>
+      <!-- 엑셀 시트별 데이터 영역 -->
     </div>
   </div>
   <sbux-progress id="idxProg" name="progNm" uitype="loading" show-openlayer="true">
@@ -418,7 +421,7 @@
 </div>
 
 <!-- 원물입고 엑셀 등록 Modal -->
-<%--<div>
+<div>
   <sbux-modal
           id="modal-imp"
           name="modal-imp"
@@ -429,7 +432,7 @@
           header-is-close-button="false"
           style="width:1000px"
   ></sbux-modal>
-</div>--%>
+</div>
 <div id="body-modal-imp">
   <jsp:include page="../../am/popup/importExcelPopup.jsp"></jsp:include>
 </div>
@@ -437,8 +440,8 @@
 <!-- clip report direct print area  -->
 <div id="div-rpt-clipReportPrint" style="display:none;"></div>
 </body>
-<%@ include file="../../../frame/inc/bottomScript.jsp" %>
 <script type="text/javascript">
+
 
   /* SBGrid */
   var grdWrhsRegList;
@@ -455,15 +458,25 @@
 
   var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
   var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
-  var jsonComTrsprtSeCd	= [];	// 운송구분		TRSPRT_SE_CD
+  var jsonComTrsprtSeCd	    = [];	// 운송구분		TRSPRT_SE_CD
 
   /* 생산자 자동완성 */
   var jsonPrdcr			= [];
   var jsonPrdcrAutocomplete = [];
 
+  let vhclData = {vhclno : null, drvrNm : null, bankNm : null, bankCd : null, actno : null, dpstrNm : null};
+
   var options = {
     modelNm : 'progNm',opacity : '0.2'
   };
+
+  /*const lv_paging = {
+    'type' : 'page',
+    'count' : 5,
+    'size' : 20,
+    'sorttype' : 'page',
+    'showgoalpageui' : true
+  };*/
 
   /**
    * @name fn_createGridWrhsReg
@@ -585,6 +598,14 @@
     ]);
     SBUxMethod.closeProgress(options);
 
+    /* modal 호출 후 포커스를 잃어 임시로 이벤트 리스너 생성 */
+    // document.getElementById("btn-srch-prdcr").addEventListener("click", fn_choicePrdcr);
+    // document.getElementById("srch-slt-itemCd").addEventListener("change", fn_onChangeSrchItemCd(this));
+    // document.getElementById("btn-srch-prdcr").addEventListener("change", fn_onChangeSrchVrtyCd(this));
+    // document.getElementById("btn-srch-prdcr").addEventListener("click", fn_choiceVhcl);
+
+
+
     /** main으로부터 호출되어 생성될때 localStorage통해 VO 즉시 검색 확인 **/
     let initObject = localStorage.getItem("callMain");
     if(!gfn_isEmpty(initObject)){
@@ -593,6 +614,17 @@
       await SBUxMethod.set("srch-inp-pltno",initObject.pltno);
       await SBUxMethod.set("srch-dtp-wrhsYmd",initObject.wrhsYmd);
       // await fn_search()
+    }
+
+  });
+
+  /** main으로 부터 message 전달받는 핸들러 **/
+  window.addEventListener('message',function(event){
+    let obj = event.data;
+    if(!gfn_isEmpty(obj)){
+      SBUxMethod.set("srch-inp-pltno",obj.pltno);
+      SBUxMethod.set("srch-dtp-wrhsYmd",obj.wrhsYmd);
+      fn_search();
     }
 
   });
@@ -802,8 +834,11 @@
     let grdCd = stdGrd.grdJgmt.grdCd;
     let grdStd = "";
 
-    console.log("stdGrd");
-    console.log(stdGrd);
+    // console.log("stdGrd");
+    // console.log(stdGrd);
+
+    const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
+    pltno = data.pltno;
 
     // 품목, 품종 이름
     jsonApcVrty.forEach((item) => {
@@ -851,7 +886,7 @@
           grdStd += item.grdKndNm + ": " + item.grdNv + "%";
           break;
         case "QT":
-          grdStd += item.grdKndNm + ": " + item.grdNv + "kg";
+          grdStd += item.grdKndNm + ": " + item.grdNv;
           break;
         default:
           grdStd += item.grdKndNm + ": " + item.grdNm;
@@ -904,7 +939,7 @@
       prcsType: prcsType
     }
 
-    console.log(wrhsRegInfoVO);
+    // console.log(wrhsRegInfoVO);
 
 
     // jsonWrhsRegList.length = 0;
@@ -930,7 +965,6 @@
         grdWrhsRegList.deleteRow(row);
       }*/
       grdWrhsRegList.deleteRow(row);
-
     });
   }
 
@@ -939,7 +973,12 @@
    * @description 저장 버튼
    */
   const fn_saveWrhsInfo = function () {
+    const wrhsRegList = [];
 
+
+    let wrhsRegData = grdWrhsRegList.getGridDataAll();
+    console.log("fn_saveWrhsInfo");
+    console.log(wrhsRegData);
   }
 
   /**
@@ -990,6 +1029,11 @@
    * @description 생산자 autocomplete 선택 callback
    */
   function fn_onSelectPrdcrNm(value, label, item) {
+
+    console.log("fn_onSelectPrdcrNm");
+    console.log(value);
+    console.log(label);
+    console.log(item);
     // 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
     if(jsonPrdcr.filter(e => e.prdcrNm === label).length > 1){
       document.getElementById('btn-srch-prdcr').click();
@@ -1004,14 +1048,45 @@
     }
   }
 
+  const fn_onChangeSrchPrdcrIdentno = function(obj) {
+
+    if (gfn_isEmpty(SBUxMethod.get("srch-inp-prdcrIdentno"))) {
+      return;
+    }
+
+    SBUxMethod.set("srch-inp-prdcrCd", "");
+    SBUxMethod.set("srch-inp-prdcrNm", "");
+    SBUxMethod.attr("srch-inp-prdcrNm", "style", "");	//skyblue
+
+    let prdcrIdentno = parseInt(SBUxMethod.get("srch-inp-prdcrIdentno")) || 0;
+
+    if (prdcrIdentno < 1) {
+      return;
+    }
+
+    const prdcrInfo = _.find(jsonPrdcr, {prdcrIdentno: prdcrIdentno});
+    if (gfn_isEmpty(prdcrInfo)) {
+      return;
+    }
+
+    SBUxMethod.set("srch-inp-prdcrCd", prdcrInfo.prdcrCd);
+    SBUxMethod.set("srch-inp-prdcrNm", prdcrInfo.prdcrNm);
+    SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+    fn_setPrdcrForm(prdcrInfo);
+
+  }
+
   /**
-   * @name fn_choicePrdcr
+   * @name fn_choicerdcr
    * @description 생산자 선택 popup 호출
    */
   const fn_choicePrdcr = function() {
-    popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
     console.log("fn_choicePrdcr");
     console.log(SBUxMethod.get("srch-dtp-wrhsYmd"))
+    console.log(SBUxMethod.get("srch-inp-prdcrNm"))
+    console.log(gv_selectedApcCd + " " + gv_selectedApcNm);
+    popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
   }
 
   /**
@@ -1019,8 +1094,8 @@
    * @description 생산자 선택 popup callback 처리
    */
   const fn_setPrdcr = async function(prdcr) {
-    console.log("fn_setPrdcr");
-    console.log(SBUxMethod.get("srch-dtp-wrhsYmd"))
+    // console.log("fn_setPrdcr");
+    // console.log(SBUxMethod.get("srch-dtp-wrhsYmd"))
 
     await fn_getPrdcrs();
 
@@ -1031,21 +1106,25 @@
 
       await fn_setPrdcrForm(prdcr);
     }
-    console.log(SBUxMethod.get("srch-dtp-wrhsYmd"))
+    // console.log(SBUxMethod.get("srch-dtp-wrhsYmd"))
   }
 
   const fn_setPrdcrForm = async function(prdcr) {
+    console.log(prdcr);
 
     if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
+      console.log(jsonApcVrty)
       await gfn_setApcVrtySBSelect('srch-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
       SBUxMethod.set("srch-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
-      fn_onChangeSrchVrtyCd({value : prdcr.rprsItemCd + prdcr.rprsVrtyCd});
+      await fn_onChangeSrchVrtyCd({value: prdcr.rprsItemCd + prdcr.rprsVrtyCd});
+      console.log("fn_onChangeSrchVrtyCd")
     } else {
       if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
         const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
         if (prvItemCd != prdcr.rprsItemCd) {
           SBUxMethod.set("srch-slt-itemCd", prdcr.rprsItemCd);
-          fn_onChangeSrchItemCd({value:prdcr.rprsItemCd});
+          await fn_onChangeSrchItemCd({value: prdcr.rprsItemCd});
+          console.log("fn_onChangeSrchItemCd");
         }
       }
     }
@@ -1080,9 +1159,12 @@
    * @description 품목 선택 변경 event
    */
   const fn_onChangeSrchItemCd = async function(obj) {
+    console.log(":??")
 
     let itemCd = obj.value;
     const itemInfo = _.find(jsonApcItem, {value: itemCd});
+    console.log(itemInfo);
+    console.log(itemCd);
     if(gfn_isEmpty(itemCd)) {
       SBUxMethod.set("srch-inp-wghtAvg", "");
     }
@@ -1101,6 +1183,8 @@
   const fn_onChangeSrchVrtyCd = async function(obj) {
     let vrtyCd = obj.value;
     const itemCd = vrtyCd.substring(0,4);
+
+    console.log("--fn_onChangeSrchVrtyCd--");
 
     const prvItemCd = SBUxMethod.get("srch-slt-itemCd");
     if(!gfn_isEmpty(vrtyCd)){
@@ -1226,5 +1310,8 @@
   }
 
 
+
+
 </script>
+<%--<%@ include file="../../../frame/inc/bottomScript.jsp" %>--%>
 </html>
