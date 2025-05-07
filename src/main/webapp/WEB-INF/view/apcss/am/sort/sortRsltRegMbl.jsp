@@ -3948,7 +3948,7 @@ input::-webkit-inner-spin-button {
     var jsonComFclt = [];	// 설비 		SORT_FCLT_CD
     var jsonApcSpcfct = [];	// 규격 		spcfctCd
     var jsonComWarehouse = [];	// 창고			WAREHOUSE_SE_CD
-    var jsonSpmtPckgUnit = [];	// 출하포장단위
+    //var jsonSpmtPckgUnit = [];	// 출하포장단위
     // jsonSpmtPckgUnit = await gfn_getSpmtPckgUnits(gv_selectedApcCd, itemCd, vrtyCd);
     var jsonSpmtPckgUnit = [];	// 출하포장단위
 
@@ -4495,7 +4495,8 @@ input::-webkit-inner-spin-button {
         const pckgId = "dtl-slt-spmtPckgUnitCdEx" + grdList[idx];
         const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[idx]);
 
-        let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+        //let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+        let chkInfo = _.find(jsonSpmtPckgUnit, {sortGrdCd: grdCd});
         if (!gfn_isEmpty(chkInfo)) {
             SBUxMethod.set(pckgId, chkInfo.spmtPckgUnitCd);
 
@@ -4672,7 +4673,7 @@ input::-webkit-inner-spin-button {
 
                     if (i < jsonFxngGrd.length && jsonSpmtPckgUnit.length > 0) {
                         const grdCd = jsonFxngGrd[i].grdCd;
-                        let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+                        let chkInfo = _.find(jsonSpmtPckgUnit, {sortGrdCd: grdCd});
 
 						if(!gfn_isEmpty(_indctArtclType)){
 						switch(_indctArtclType[0].cdVl){
@@ -4708,7 +4709,8 @@ input::-webkit-inner-spin-button {
 
                 if (jsonSpmtPckgUnit.length > 0) {
                     const grdCd = SBUxMethod.get("dtl-slt-grdEx" + grdList[i]);
-                    let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+                    //let chkInfo = _.find(jsonSpmtPckgUnit, {gdsGrd: grdCd});
+                    let chkInfo = _.find(jsonSpmtPckgUnit, {sortGrdCd: grdCd});
                     if (gfn_isEmpty(chkInfo)) {
                         SBUxMethod.set(sltId, jsonSpmtPckgUnit[0].spmtPckgUnitCd);
                     } else {

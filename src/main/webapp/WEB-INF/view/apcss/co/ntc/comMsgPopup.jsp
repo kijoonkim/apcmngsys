@@ -201,7 +201,7 @@
             }
         },
         search: async function(_userId){
-            const postJsonPromise = gfn_postJSON("/co/ntc/selectMsgPopupList",{userId:_userId});
+            const postJsonPromise = gfn_postJSON("/co/ntc/selectUserMsgPopupList",{userId:_userId});
             const data = await postJsonPromise;
             return data;
         },

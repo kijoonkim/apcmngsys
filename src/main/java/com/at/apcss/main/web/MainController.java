@@ -37,12 +37,39 @@ public class MainController extends BaseController {
 	ComLogService comLogService;
 
 
+	private enum SystemId {
+		NONE, AM, FM, MA, PD, CS, PT
+	}
+
 	@GetMapping("/main.do")
 	public String doMain(Model model, HttpServletRequest request) {
+		return doMainForSystemId(model, request, SystemId.NONE);
+	}
+	@GetMapping("/mainApc.do")
+	public String doMainApc(Model model, HttpServletRequest request) {
+		return doMainForSystemId(model, request, SystemId.FM);
+	}
+	@GetMapping("/mainApcIns.do")
+	public String doMainApcIns(Model model, HttpServletRequest request) {
+		return doMainForSystemId(model, request, SystemId.PD);
+	}
+	@GetMapping("/mainApcInsReq.do")
+	public String doMainApcInsReq(Model model, HttpServletRequest request) {
+		return doMainForSystemId(model, request, SystemId.CS);
+	}
+
+	@GetMapping("/mainApcPt.do")
+	public String doMainApcPt(Model model, HttpServletRequest request) {
+		return doMainForSystemId(model, request, SystemId.CS);
+	}
+
+
+	public String doMainForSystemId (Model model, HttpServletRequest request, SystemId systemId) {
+
+		String mainPage = "main/main";
 
 		List<String> menuList = new ArrayList<>();
 		try {
-
 			LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
 
 			String menuId = "main";
@@ -61,7 +88,6 @@ public class MainController extends BaseController {
 
 			ComAuthrtMenuVO paramVO = new ComAuthrtMenuVO();
 			paramVO.setUserId(loginVO.getUserId());
-
 
 			List<ComAuthrtMenuVO> resultList = comAuthrtService.selectTopMenuTreeList(paramVO);
 			if (resultList != null && !resultList.isEmpty()) {
@@ -88,17 +114,40 @@ public class MainController extends BaseController {
 			logger.error(e.getLocalizedMessage());
 		}
 
-		logger.debug("serverId: {}", getServerId());
-		logger.debug("serverType: {}", getServerType());
-		
 		model.addAttribute("serverType", getServerType());
-		
+
 		model.addAttribute("topMenuList", menuList);
 		model.addAttribute("reportDbName", getReportDbName());
 		model.addAttribute("reportUrl", getReportUrl());
 		model.addAttribute("reportType", getReportType());
 		model.addAttribute("reportPath", getReportPath());
 
-		return "main/main";
+		String initMenuId = "";
+		switch (systemId) {
+			case AM:
+				initMenuId = SystemId.AM.name();
+				break;
+			case FM:
+				initMenuId = SystemId.FM.name();
+				break;
+			case MA:
+				initMenuId = SystemId.MA.name();
+				break;
+			case PD:
+				initMenuId = SystemId.PD.name();
+				break;
+			case CS:
+				initMenuId = SystemId.CS.name();
+				break;
+			case PT:
+				initMenuId = SystemId.PT.name();
+				break;
+		}
+
+		model.addAttribute("initMenuId", initMenuId);
+
+		return mainPage;
 	}
+
+
 }

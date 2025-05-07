@@ -103,7 +103,7 @@
 			//gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonSPUGdsGrd, 		"GDS_GRD"),	// 상품등급(출하)
 			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdPckgCd, 		"STD_PCKG_CD"),	// 표준포장코드
 			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdGrdCd, 		"STD_GRD_CD"),	// 표준등급코드
-			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdEcfrdCd, 		"STD_ECFRD_CD"),	// 표준친환경코드
+			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdEcfrdCd, 	"STD_ECFRD_CD"),	// 표준친환경코드
 			gfn_setComCdSBSelect("grdSpmtPckgUnit", 			jsonStdUnitCd, 		"STD_UNIT_CD"),	// 표준단위코드
 		]);
 		jsonSpmtPckgUnit.length = 0;
@@ -164,10 +164,11 @@
 	        {caption: ["품종"], 			ref: 'vrtyCd',   	type:'combo',  width:'100px',    style:'text-align:center',
 				typeinfo : {ref:'jsonSPUGrdVrtyCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 	        {caption: ["규격"], 			ref: 'spcfctCd',   	type:'combo',  width:'100px',    style:'text-align:center',
-				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}},
+				typeinfo : {ref:'jsonSPUGrdSpcfctCd', 	displayui : false, 	itemcount: 10, label:'label', value:'value'}
+			},
  	        {
 				caption: ["선별등급"],
-				ref: 'gdsGrd',
+				ref: 'sortGrdCd',
 				type:'combo',
 				width:'100px',
 				style:'text-align:center',
@@ -176,13 +177,29 @@
  					displayui : false,
  					itemcount: 10,
  					label:'grdNm',
- 					value:'grdCd'
+ 					value:'grdCd',
+					unselect: {label : '', value: ''}
  				}
 			},
 	        {caption: ["상품명"], 			ref: 'spmtPckgUnitNm',  type:'input',  width:'160px',    style:'text-align:center',
 				typeinfo : {maxlength : 30}},
 	        {caption: ["브랜드명"], 		ref: 'brndNm',  type:'input',  width:'140px',    style:'text-align:center', typeinfo : {maxlength : 33}},
-	        {caption: ["순서"], 			ref: 'sn',  	type:'input',  width:'60px',    style:'text-align:center', typeinfo : {maxlength : 4}, format : {type:'number'}},
+			{
+				caption: ["상품등급"],
+				ref: 'gdsGrd',
+				type:'combo',
+				width:'100px',
+				style:'text-align:center',
+				typeinfo : {
+					ref:'gjsonExtGrdObj_1',
+					displayui : false,
+					itemcount: 10,
+					label:'grdNm',
+					value:'grdCd',
+					unselect: {label : '', value: ''}
+				}
+			},
+			{caption: ["순서"], 			ref: 'sn',  	type:'input',  width:'60px',    style:'text-align:center', typeinfo : {maxlength : 4}, format : {type:'number'}},
 	        {caption: ["원산지코드"], ref: 'plorCd',  	type:'outputbutton',  width:'70px',    style:'text-align:center',
 	        	typeinfo : {callback: fn_grdChoicePlor}
 	        },
@@ -304,28 +321,30 @@
   		    	jsonSpmtPckgUnit.length = 0;
   		    	data.resultList.forEach((item, index) => {
   					let spmtPckgUnitVO = {
-  						itemCd 			: item.itemCd
-  					  , vrtyCd 			: item.vrtyCd
-  					  , spcfctCd		: item.spcfctCd
-  					  , spmtPckgUnitNm	: item.spmtPckgUnitNm
-  					  , ntslUntprc		: item.ntslUntprc
-  					  , brndNm			: item.brndNm
-  					  , delYn			: item.delYn
-  					  , apcCd			: item.apcCd
-  					  , spmtPckgUnitCd	: item.spmtPckgUnitCd
-  					  , itemNm			: item.itemNm
-  					  , vrtyNm			: item.vrtyNm
-  					  , spcfctNm		: item.spcfctNm
-  					  , gdsGrd			: item.gdsGrd
-  					  , gdsGrdNm		: item.gdsGrdNm
-					  , extrnlLnkgCd	: item.extrnlLnkgCd
-					  , plorCd			: item.plorCd
-					  , addRow			: "N"
-					  , stdPckgCd      	: item.stdPckgCd
-					  , stdGrdCd      	: item.stdGrdCd
-					  , stdUnitCd      	: item.stdUnitCd
-					  , stdEcfrdCd      : item.stdEcfrdCd
-					  , sn				: item.sn
+  						itemCd 			: item.itemCd,
+  					  	vrtyCd 			: item.vrtyCd,
+  					  	spcfctCd		: item.spcfctCd,
+  					  	spmtPckgUnitNm	: item.spmtPckgUnitNm,
+  					  	ntslUntprc		: item.ntslUntprc,
+  					  	brndNm			: item.brndNm,
+  					  	delYn			: item.delYn,
+  					  	apcCd			: item.apcCd,
+  					  	spmtPckgUnitCd	: item.spmtPckgUnitCd,
+  					  	itemNm			: item.itemNm,
+  					  	vrtyNm			: item.vrtyNm,
+  					  	spcfctNm		: item.spcfctNm,
+  					  	gdsGrd			: item.gdsGrd,
+  					  	gdsGrdNm		: item.gdsGrdNm,
+					  	extrnlLnkgCd	: item.extrnlLnkgCd,
+					  	plorCd			: item.plorCd,
+					  	addRow			: "N",
+					  	stdPckgCd      	: item.stdPckgCd,
+					  	stdGrdCd      	: item.stdGrdCd,
+					  	stdUnitCd      	: item.stdUnitCd,
+					  	stdEcfrdCd      : item.stdEcfrdCd,
+					  	sn				: item.sn,
+						sortGrdCd		: item.sortGrdCd,
+						pckgGrdCd		: item.pckgGrdCd
   					}
   					jsonSpmtPckgUnit.push(spmtPckgUnitVO);
   				});
@@ -358,6 +377,7 @@
 			let spcfctCd = rowData.spcfctCd;
 			let spmtPckgUnitNm = rowData.spmtPckgUnitNm;
 			let gdsGrd = rowData.gdsGrd;
+			let sortGrdCd = rowData.sortGrdCd;
 			let ntslUntprc = rowData.ntslUntprc;
 			let brndNm  = rowData.brndNm;
 			if(delYn == 'N'){

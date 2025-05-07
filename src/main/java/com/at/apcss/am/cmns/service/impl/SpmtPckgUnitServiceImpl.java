@@ -53,37 +53,32 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 
 	@Override
 	public SpmtPckgUnitVO selectSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		SpmtPckgUnitVO resultVO = spmtPckgUnitMapper.selectSpmtPckgUnit(spmtPckgUnitVO);
 
-		return resultVO;
+		return spmtPckgUnitMapper.selectSpmtPckgUnit(spmtPckgUnitVO);
 	}
 
 	@Override
 	public List<SpmtPckgUnitVO> selectSpmtPckgUnitListBySpec(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		List<SpmtPckgUnitVO> resultList = spmtPckgUnitMapper.selectSpmtPckgUnitListBySpec(spmtPckgUnitVO);
 
-		return resultList;
+		return spmtPckgUnitMapper.selectSpmtPckgUnitListBySpec(spmtPckgUnitVO);
 	}
 
 	
 	@Override
 	public List<SpmtPckgUnitVO> selectSpmtPckgUnitList(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		 List<SpmtPckgUnitVO> resultList = spmtPckgUnitMapper.selectSpmtPckgUnitList(spmtPckgUnitVO);
-		return resultList;
+		return spmtPckgUnitMapper.selectSpmtPckgUnitList(spmtPckgUnitVO);
 	}
 
 	@Override
 	public int insertSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		int insertedCnt = spmtPckgUnitMapper.insertSpmtPckgUnit(spmtPckgUnitVO);
 
-		return insertedCnt;
+		return spmtPckgUnitMapper.insertSpmtPckgUnit(spmtPckgUnitVO);
 	}
 
 	@Override
 	public int updateSpmtPckgUnit(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		int updatedCnt = spmtPckgUnitMapper.updateSpmtPckgUnit(spmtPckgUnitVO);
 
-		return updatedCnt;
+		return spmtPckgUnitMapper.updateSpmtPckgUnit(spmtPckgUnitVO);
 	}
 
 	@Override
@@ -118,9 +113,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 
 	@Override
 	public SpmtPckgUnitVO getSpmtPckgUnitCd(SpmtPckgUnitVO spmtPckgUnitVO) throws Exception {
-		SpmtPckgUnitVO resultVO = spmtPckgUnitMapper.getSpmtPckgUnitCd(spmtPckgUnitVO);
-
-		return resultVO;
+		return spmtPckgUnitMapper.getSpmtPckgUnitCd(spmtPckgUnitVO);
 	}
 
 	@Override
@@ -196,8 +189,7 @@ public class SpmtPckgUnitServiceImpl extends BaseServiceImpl implements SpmtPckg
 
 	@Override
 	public int updateSpmtPckgUnits(SpmtPckgUnitVO SpmtPckgUnitVO) throws Exception {
-		int updatedCnt = spmtPckgUnitMapper.updateSpmtPckgUnits(SpmtPckgUnitVO);
-		return updatedCnt;
+		return spmtPckgUnitMapper.updateSpmtPckgUnits(SpmtPckgUnitVO);
 	}
 
 	@Override

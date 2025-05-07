@@ -779,14 +779,11 @@ public class LoginController extends BaseController {
 			String errorCode = apiUserService.executeUserData(pniToken, localIp);
 
 			if (StringUtils.hasText(errorCode)) {
-				logger.error("@@@@ SSO 에이전트 오류 : {}", errorCode);
 				return "redirect:/login.do";
 			} else {
 				String userData = apiUserService.getUserData();
 
 				if (StringUtils.hasText(userData)) {
-
-					logger.error("@@@@ SSO 사용자 정보 : {}", userData);
 					try {
 				        JSONParser jsonParser = new JSONParser();
 				        Object objUser = jsonParser.parse(userData);
@@ -930,7 +927,6 @@ public class LoginController extends BaseController {
 		// 1. Spring Security 사용자 권한처리
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		if (!isAuthenticated) {
-			logger.debug("1");
 			//model.addAttribute("loginMessage", message.getMessage("fail.common.login"));
 			return "redirect:/login.do";
 		}
