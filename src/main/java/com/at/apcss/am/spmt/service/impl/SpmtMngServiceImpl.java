@@ -216,7 +216,7 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
             String vrtyCd = ComUtil.nullToEmpty(spmt.getVrtyCd());
             String spcfctCd = ComUtil.nullToEmpty(spmt.getSpcfctCd());
 
-            String gdsGrd = ComUtil.nullToEmpty(spmt.getGdsGrd());
+            String gdsGrd = ComUtil.nullToDefault(spmt.getGdsGrd(),"X0");
             String gdsCd = ComUtil.nullToEmpty(spmt.getGdsCd());
 
             String spmtPckgUnitCd = ComUtil.nullToEmpty(spmt.getSpmtPckgUnitCd());
@@ -233,7 +233,8 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
             long ntslAmt = spmt.getNtslAmt();
             String dudtYmd = spmt.getDudtYmd();
 
-            double spmtWght = 0;
+//            double spmtWght = 0;
+            double spmtWght = spmt.getSpmtWght();
 
             SpmtPckgUnitVO pckgUnitParam = new SpmtPckgUnitVO();
             pckgUnitParam.setApcCd(apcCd);
