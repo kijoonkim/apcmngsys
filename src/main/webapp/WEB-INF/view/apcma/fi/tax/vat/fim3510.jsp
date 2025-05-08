@@ -163,12 +163,7 @@
  
 	//초기화
 	function cfn_init() {
- 
-		if (!gfn_comConfirm("Q0001", "초기화")) {	// Q0001	{0} 하시겠습니까?
-			return;
-		}
- 
-		fn_init();
+		gfnma_uxDataClear('#srchTable');
 	}
 	
 	// 신규
@@ -187,8 +182,8 @@
 	}
 	
 	// 조회
-	function cfn_search() {
-	    fn_search();
+	async function cfn_search() {
+	    await fn_search();
 	}
 	
 	
@@ -204,6 +199,8 @@
  
     window.addEventListener("DOMContentLoaded",function(){
 		fn_init();
+		fn_createGrid();
+		cfn_search();
     });
  
     lv_mode = "none";
@@ -269,9 +266,6 @@
  
     	await fn_initSBSelect();
  
-		jsonVat.length = 0;
-    	fn_createGrid();
-    	
     }
     
     /**
@@ -299,8 +293,11 @@
         SBGridProperties.id = 'grdVat';
         SBGridProperties.jsonref = 'jsonVat';
         SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.rowheader = ['update'];
+        SBGridProperties.rowheader = ['seq'];
+		SBGridProperties.rowheadercaption 	= {seq: 'No'};
+		SBGridProperties.rowheaderwidth 	= {seq: '60'};
         SBGridProperties.allowcopy = true; //복사
+		SBGridProperties.explorerbar = 'sortmove';
         SBGridProperties.selectmode = 'free';
         
         switch (_mode) {
@@ -323,21 +320,21 @@
             {
             	caption : ['부가세코드'], 
             	ref : 'VAT_CD',
-            	width : '100px', 
+            	width : '80px',
             	style : 'text-align:left',    
             	type : 'input',
             },
             {
             	caption : ['부가세코드명'], 
             	ref : 'VAT_NM', 
-            	width : '120px',
+            	width : '150px',
             	style : 'text-align:left',
             	type : 'input'
             },
             {
             	caption : ['부가세유형'], 
             	ref : 'VAT_TYPE_CD', 
-            	width : '120px',
+            	width : '150px',
             	style : 'text-align:left', 
             	type : 'combo', 
             	typeinfo : {
@@ -351,7 +348,7 @@
            		caption : ['부가세율(%)'], 
            		ref : 'VAT_RT', 
             	datatype: 'number',
-           		width : '100px',
+           		width : '90px',
            		style : 'text-align:right',    
            		type : 'input',
            		format : {type:'number', rule:'#,##0.000'}
@@ -377,7 +374,7 @@
             {
            		caption : ['불공제 여부'], 
            		ref : 'NDDC_YN', 
-           		width : '100px',
+           		width : '80px',
            		style : 'text-align:center',    
            		type : 'checkbox',
            		typeinfo : {
@@ -449,7 +446,7 @@
             {
             	caption : ['메모'], 
             	ref : 'MEMO', 
-            	width : '200px',
+            	width : '150px',
             	style : 'text-align:left',    
             	type : 'input'
             },
@@ -507,7 +504,7 @@
      */
     const fn_search = async function(){
  
-    	const vatCode = gfn_nvl(SBUxMethod.get("srch-inp-vatCode"));
+    	const vatCode = gfn_nvl(await SBUxMethod.get("srch-inp-vatCode"));
     	
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
@@ -731,9 +728,8 @@
         var replaceText1 	= "_ACNT_NM_"; 
         var searchText0		= gfn_nvl(_code);
         var searchText1		= gfn_nvl(_name);
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'" ;
-		//var strWhereClause 	= "AND A.ACNTL_CD LIKE '%" + replaceText0 + "%' AND A.ACNT_NM  LIKE '%" + replaceText1 + "%' AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' AND A.CLNT_CD = '" + gv_ma_selectedClntCd +  "'";
- 
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' AND CO_CD = '" + gv_ma_selectedCorpCd + "'" ;
+
 		SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
     		compCode				: gv_ma_selectedCorpCd
