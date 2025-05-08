@@ -388,6 +388,12 @@ public class SpmtPrfmncVO extends ComVO {
 	 */
 	private String wghno;
 
+	/**
+	 * 단가
+	 */
+	private String spmtSlsUntprc;
+
+
 	private List<SpmtGdsVO> spmtGdsList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
