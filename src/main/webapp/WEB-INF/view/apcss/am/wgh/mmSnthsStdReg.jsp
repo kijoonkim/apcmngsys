@@ -61,9 +61,11 @@
 
             <div>
                 <!--[APC] START -->
-<%--                <%@ include file="../../../frame/inc/apcSelect.jsp" %>--%>
+                <div style="display: none;">
+                    <%@ include file="../../../frame/inc/apcSelect.jsp" %>
+                </div>
                 <!--[APC] END -->
-                <div class="tab-content">
+                <div class="tab-content" style="padding: 0px 0px;">
                     <!-- 입고등록 탭 화면 -->
                     <div id="tab_wrhsStdReg">
                         <jsp:include page="../../am/wgh/mmWrhsStdReg.jsp"></jsp:include>
