@@ -702,12 +702,13 @@ const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
-	const sourceJson = [];
+	let sourceJson = [];
 	data.resultList.forEach((item) => {
 			item.cmnsCd = item.itemCd;
 			item.cmnsNm = item.itemNm;
 			sourceJson.push(item);
 		});
+	sourceJson = sourceJson.sort((a, b) => a.itemNm.localeCompare(b.itemNm, 'ko'));
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
@@ -739,13 +740,14 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
-	const sourceJson = [];
+	let sourceJson = [];
 	data.resultList.forEach((item) => {
 			item.cmnsCd 		= item.vrtyCd;
 			item.cmnsNm 		= item.vrtyNm;
 			item.mastervalue 	= item.itemCd;
 			sourceJson.push(item);
 		});
+	sourceJson = sourceJson.sort((a, b) => a.vrtyNm.localeCompare(b.vrtyNm,'ko'));
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
