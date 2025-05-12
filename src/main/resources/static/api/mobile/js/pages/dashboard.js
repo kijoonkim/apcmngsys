@@ -8,13 +8,6 @@
 $(function () {
 
   "use strict";
-  $('#map circle')
-  .on('mouseover', function(e) {
-      $(this).css('fill', 'red');
-  })
-  .on('mouseout', function(e) {
-      $(this).css('fill', 'blue');
-  });
 
   var apcInfo = {
     apcLists: [
@@ -269,6 +262,7 @@ $(function () {
     var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
     $('#apc_infos').append(apcInfo);
     var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name">'+el.name+'</div>');
+    if(el.nh)apcName.addClass('nh');
     apcInfo.append(apcName);
     var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
     $.each(el.kinds, function (index, el) {
