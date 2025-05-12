@@ -28,15 +28,16 @@
           <sbux-button id="btnSearch" name="btnSearch" uitype="normal" class="btn btn-sm btn-outline-danger" text="조회" onclick="fn_search()"></sbux-button>
         </div>
       </div>
-      <div>
-        <table class="table table-bordered tbl_fixed">
-          <caption>검색 조건 설정</caption>
-          <colgroup>
-            <col style="width: 10%">
-            <col style="width: 15%">
-            <col style="width: 70%">
-          </colgroup>
-          <tbody>
+      <div class="box-body">
+        <div>
+          <table class="table table-bordered tbl_fixed">
+            <caption>검색 조건 설정</caption>
+            <colgroup>
+              <col style="width: 10%">
+              <col style="width: 15%">
+              <col style="width: 70%">
+            </colgroup>
+            <tbody>
             <tr>
               <th scope="row" class="th_bg" style="border-bottom:1px solid white"><span class="data_required"></span>기준일자</th>
               <td class="td_input" style="border-right: hidden;">
@@ -44,19 +45,19 @@
               </td>
               <td></td>
             </tr>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
         </div>
-      <div class="box-header" style="display:flex; justify-content: flex-start;">
-        <div>
-          <h3 class="box-title"> ➡️ 웹 시스템 사용 현황</h3><!-- 웹 시스템 사용자 현황 -->
+        <div class="box-header" style="display:flex; justify-content: flex-start;">
+          <div>
+            <h3 class="box-title"> ➡️ 웹 시스템 사용 현황</h3><!-- 웹 시스템 사용자 현황 -->
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <h4> ▶ 사용자 및 트래픽</h4>
-        <table class="table table-bordered tbl_fixed">
-          <thead style="background-color: #e8f1f9">
+        <div class="col-md-6">
+          <h4> ▶ 사용자 및 트래픽</h4>
+          <table class="table table-bordered tbl_fixed">
+            <thead style="background-color: #e8f1f9">
             <tr style="text-align: center">
               <th scope="row" rowspan="2" style="text-align: center">항목</th>
               <th scope="row" rowspan="2" style="text-align: center">금일</th>
@@ -68,8 +69,8 @@
               <th style="text-align: center">건수</th>
               <th style="text-align: center">증감(%)</th>
             </tr>
-          </thead>
-          <tbody style="text-align: center">
+            </thead>
+            <tbody style="text-align: center">
             <tr>
               <td>총 방문자</td>
               <td id="userTrfc-tsDayVstr" name="userTrfc-tsDayVstr" style="text-align: center">-</td>
@@ -94,14 +95,14 @@
               <td id="userTrfc-totPVDiff" name="userTrfc-totPVDiff">-</td>
               <td id="userTrfc-totPVIcdc" name="userTrfc-totPVIcdc">-</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="col-md-6">
-        <h4> ▶ 회원 현황</h4>
-        <table class="table table-bordered tbl_fixed" >
-          <thead style="background-color: #e8f1f9">
+        <div class="col-md-6">
+          <h4> ▶ 회원 현황</h4>
+          <table class="table table-bordered tbl_fixed" >
+            <thead style="background-color: #e8f1f9">
             <tr style="text-align: center">
               <th scope="row" rowspan="2" style="text-align: center">항목</th>
               <th scope="row" rowspan="2" style="text-align: center">금일</th>
@@ -113,8 +114,8 @@
               <th style="text-align: center">건수</th>
               <th style="text-align: center">증감(%)</th>
             </tr>
-          </thead>
-          <tbody style="text-align: center">
+            </thead>
+            <tbody style="text-align: center">
             <tr>
               <td>총 회원</td>
               <td id="mbrPrst-tsDayTotMbr" name="mbrPrst-tsDayTotMbr">-</td>
@@ -139,134 +140,136 @@
               <td id="mbrPrst-actvtnMbrDiff" name="mbrPrst-actvtnMbrDiff">-</td>
               <td id="mbrPrst-actvtnMbrIcdc" name="mbrPrst-actvtnMbrIcdc">-</td>
             </tr>
-          </tbody>
-        </table>
-        <sup>1) 활성회원 : 월 1회 이상 접속</sup>
-      </div>
-    </div>
+            </tbody>
+          </table>
+          <sup>1) 활성회원 : 월 1회 이상 접속</sup>
+        </div>
 
-    <div>
-      <div class="box-header" style="display:flex; justify-content: flex-start;">
-        <h3 class="box-title"> ➡️ 회원 상세 현황</h3>
-      </div>
-      <div class="col-md-6">
-        <h4> ▶ 조직 현황</h4>
-        <table id="ognzPrstTbl" class="table table-bordered tbl_fixed">
-          <thead style="background-color: #e8f1f9">
-            <tr>
-              <th scope="row" style="text-align: center">유형</th>
-              <th scope="row" style="text-align: center">구분</th>
-              <th scope="row" style="text-align: center">조직 수</th>
-              <th scope="row" style="text-align: center">구분 합</th>
-            </tr>
-          </thead>
-          <tbody style="text-align: center">
-            <tr>
-              <td rowspan="2">법인</td>
-              <td>농협</td>
-              <td id="ognzPrst-cntMB" name="ognzPrst-cntMB">-</td>
-              <td rowspan="2" id="ognzPrst-sumCorp" name="ognzPrst-sumCorp">-</td>
-            </tr>
-            <tr>
-              <td>농업법인</td>
-              <td id="ognzPrst-cntNotMB" name="ognzPrst-cntNotMB">-</td>
-            </tr>
-            <tr>
-              <td rowspan="2">지자체</td>
-              <td>시도</td>
-              <td id="ognzPrst-cntCtPv" name="ognzPrst-cntCtPv">-</td>
-              <td rowspan="2" id="ognzPrst-sumLclGv" name="ognzPrst-sumLclGv">-</td>
-            </tr>
-            <tr>
-              <td>시군구</td>
-              <td id="ognzPrst-cntSGG" name="ognzPrst-cntSGG">-</td>
-            </tr>
-            <tr style="background-color: #FFF8DC">
-              <td colspan="2">합계</td>
-              <td colspan="2" id="ognzPrst-totSum" name="ognzPrst-totSum">-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-6">
-        <h4> ▶ 조직별 회원 현황</h4>
-        <table id="ognzMbrTbl" class="table table-bordered tbl_fixed">
-          <thead style="background-color: #e8f1f9">
-            <tr>
-              <th scope="row" style="text-align: center">구분</th>
-              <th scope="row" style="text-align: center">회원 수</th>
-              <th scope="row" style="text-align: center">구분별 합</th>
-            </tr>
-          </thead>
-          <tbody style="text-align: center">
-            <tr>
-              <td>농협</td>
-              <td id="ognzMbr-cntOgnzMB" name="ognzMbr-cntOgnzMB">-</td>
-              <td id="ognzMbr-sumOgnzCorp" name="ognzMbr-sumOgnzCorp"rowspan="2">-</td>
-            </tr>
-            <tr>
-              <td>농업법인</td>
-              <td id="ognzMbr-cntOgnzNotMB" name="ognzMbr-cntOgnzNotMB">-</td>
-            </tr>
-            <tr>
-              <td>지자체</td>
-              <td id="ognzMbr-cntOgnzCtPv" name="ognzMbr-cntOgnzCtPv">-</td>
-              <td id="ognzMbr-sumOgnzCtPv" name="ognzMbr-sumOgnzCtPv">-</td>
-            </tr>
-            <tr>
-              <td>개인(농가)</td>
-              <td id="ognzMbr-cntindvFrmhs" name="ognzMbr-cntindvFrmhs">-</td>
-              <td id="ognzMbr-sumindvFrmhs" name="ognzMbr-sumindvFrmhs">-</td>
-            </tr>
-            <tr style="background-color: #FFF8DC">
-              <td>합계</td>
-              <td id="ognzMbr-sumTotMbr" name="ognzMbr-sumTotMbr">-</td>
-              <td id="ognzMbr-sumTotSe" name="ognzMbr-sumTotSe">-</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <div class="box-header" style="display:flex; justify-content: flex-start;">
+            <h3 class="box-title"> ➡️ 회원 상세 현황</h3>
+          </div>
+          <div class="col-md-6">
+            <h4> ▶ 조직 현황</h4>
+            <table id="ognzPrstTbl" class="table table-bordered tbl_fixed">
+              <thead style="background-color: #e8f1f9">
+              <tr>
+                <th scope="row" style="text-align: center">유형</th>
+                <th scope="row" style="text-align: center">구분</th>
+                <th scope="row" style="text-align: center">조직 수</th>
+                <th scope="row" style="text-align: center">구분 합</th>
+              </tr>
+              </thead>
+              <tbody style="text-align: center">
+              <tr>
+                <td rowspan="2">법인</td>
+                <td>농협</td>
+                <td id="ognzPrst-cntMB" name="ognzPrst-cntMB">-</td>
+                <td rowspan="2" id="ognzPrst-sumCorp" name="ognzPrst-sumCorp">-</td>
+              </tr>
+              <tr>
+                <td>농업법인</td>
+                <td id="ognzPrst-cntNotMB" name="ognzPrst-cntNotMB">-</td>
+              </tr>
+              <tr>
+                <td rowspan="2">지자체</td>
+                <td>시도</td>
+                <td id="ognzPrst-cntCtPv" name="ognzPrst-cntCtPv">-</td>
+                <td rowspan="2" id="ognzPrst-sumLclGv" name="ognzPrst-sumLclGv">-</td>
+              </tr>
+              <tr>
+                <td>시군구</td>
+                <td id="ognzPrst-cntSGG" name="ognzPrst-cntSGG">-</td>
+              </tr>
+              <tr style="background-color: #FFF8DC">
+                <td colspan="2">합계</td>
+                <td colspan="2" id="ognzPrst-totSum" name="ognzPrst-totSum">-</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h4> ▶ 조직별 회원 현황</h4>
+            <table id="ognzMbrTbl" class="table table-bordered tbl_fixed">
+              <thead style="background-color: #e8f1f9">
+              <tr>
+                <th scope="row" style="text-align: center">구분</th>
+                <th scope="row" style="text-align: center">회원 수</th>
+                <th scope="row" style="text-align: center">구분별 합</th>
+              </tr>
+              </thead>
+              <tbody style="text-align: center">
+              <tr>
+                <td>농협</td>
+                <td id="ognzMbr-cntOgnzMB" name="ognzMbr-cntOgnzMB">-</td>
+                <td id="ognzMbr-sumOgnzCorp" name="ognzMbr-sumOgnzCorp"rowspan="2">-</td>
+              </tr>
+              <tr>
+                <td>농업법인</td>
+                <td id="ognzMbr-cntOgnzNotMB" name="ognzMbr-cntOgnzNotMB">-</td>
+              </tr>
+              <tr>
+                <td>지자체</td>
+                <td id="ognzMbr-cntOgnzCtPv" name="ognzMbr-cntOgnzCtPv">-</td>
+                <td id="ognzMbr-sumOgnzCtPv" name="ognzMbr-sumOgnzCtPv">-</td>
+              </tr>
+              <tr>
+                <td>개인(농가)</td>
+                <td id="ognzMbr-cntindvFrmhs" name="ognzMbr-cntindvFrmhs">-</td>
+                <td id="ognzMbr-sumindvFrmhs" name="ognzMbr-sumindvFrmhs">-</td>
+              </tr>
+              <tr style="background-color: #FFF8DC">
+                <td>합계</td>
+                <td id="ognzMbr-sumTotMbr" name="ognzMbr-sumTotMbr">-</td>
+                <td id="ognzMbr-sumTotSe" name="ognzMbr-sumTotSe">-</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6">
+            <h4> ▶ 업무별 사용 현황</h4>
+            <table id="taskUseTbl" class="table table-bordered tbl_fixed">
+              <thead style="background-color: #e8f1f9">
+              <tr>
+                <th scope="row" rowspan="2" style="text-align: center">업무 구분</th>
+                <th scope="row" colspan="4" style="text-align: center">업무별 사용 회원 수</th>
+              </tr>
+              <tr>
+                <th scope="row" style="text-align: center">농협</th>
+                <th scope="row" style="text-align: center">농업법인</th>
+                <th scope="row" style="text-align: center">지자체</th>
+                <th scope="row" style="text-align: center">합계</th>
+              </tr>
+              </thead>
+              <tbody style="text-align: center">
+              <tr>
+                <td>생산관리</td>
+                <td id="taskUse-cntAMMB" name="taskUse-cntAMMB">-</td>
+                <td id="taskUse-cntAMNotMB" name="taskUse-cntAMNotMB">-</td>
+                <td id="taskUse-cntAMCtPv" name="taskUse-cntAMCtPv">-</td>
+                <td id="taskUse-cntAMSum" name="taskUse-cntAMSum">-</td>
+              </tr>
+              <tr>
+                <td>생산유통통합조직</td>
+                <td id="taskUse-cntPDMB" name="taskUse-cntPDMB">-</td>
+                <td id="taskUse-cntPDNotMB" name="taskUse-cntPDNotMB">-</td>
+                <td id="taskUse-cntPDCtPv" name="taskUse-cntPDCtPv">-</td>
+                <td id="taskUse-cntPDSum" name="taskUse-cntPDSum">-</td>
+              </tr>
+              <tr>
+                <td>APC전수조사</td>
+                <td id="taskUse-cntCSMB" name="taskUse-cntCSMB">-</td>
+                <td id="taskUse-cntCSNotMB" name="taskUse-cntCSNotMB">-</td>
+                <td id="taskUse-cntCSCtPv" name="taskUse-cntCSCtPv">-</td>
+                <td id="taskUse-cntCSSum" name="taskUse-cntCSSum">-</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <h4> ▶ 업무별 사용 현황</h4>
-        <table id="taskUseTbl" class="table table-bordered tbl_fixed">
-          <thead style="background-color: #e8f1f9">
-            <tr>
-              <th scope="row" rowspan="2" style="text-align: center">업무 구분</th>
-              <th scope="row" colspan="4" style="text-align: center">업무별 사용 회원 수</th>
-            </tr>
-            <tr>
-              <th scope="row" style="text-align: center">농협</th>
-              <th scope="row" style="text-align: center">농업법인</th>
-              <th scope="row" style="text-align: center">지자체</th>
-              <th scope="row" style="text-align: center">합계</th>
-            </tr>
-          </thead>
-          <tbody style="text-align: center">
-            <tr>
-              <td>생산관리</td>
-              <td id="taskUse-cntAMMB" name="taskUse-cntAMMB">-</td>
-              <td id="taskUse-cntAMNotMB" name="taskUse-cntAMNotMB">-</td>
-              <td id="taskUse-cntAMCtPv" name="taskUse-cntAMCtPv">-</td>
-              <td id="taskUse-cntAMSum" name="taskUse-cntAMSum">-</td>
-            </tr>
-            <tr>
-              <td>생산유통통합조직</td>
-              <td id="taskUse-cntPDMB" name="taskUse-cntPDMB">-</td>
-              <td id="taskUse-cntPDNotMB" name="taskUse-cntPDNotMB">-</td>
-              <td id="taskUse-cntPDCtPv" name="taskUse-cntPDCtPv">-</td>
-              <td id="taskUse-cntPDSum" name="taskUse-cntPDSum">-</td>
-            </tr>
-            <tr>
-              <td>APC전수조사</td>
-              <td id="taskUse-cntCSMB" name="taskUse-cntCSMB">-</td>
-              <td id="taskUse-cntCSNotMB" name="taskUse-cntCSNotMB">-</td>
-              <td id="taskUse-cntCSCtPv" name="taskUse-cntCSCtPv">-</td>
-              <td id="taskUse-cntCSSum" name="taskUse-cntCSSum">-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
     </div>
   </section>
@@ -541,9 +544,6 @@
           statObjVisits.activeUsersDay = tsDayCntUser;
         }
 
-        console.log("tsDate.resultList", tsDate.resultList);
-        console.log("data.resultList", data.resultList);
-
         if (data.resultList.length == 0) {
           tsMmCntUser = 0;
           prvMmCntUser = 0;
@@ -582,8 +582,8 @@
           prvYr = parseInt(data.resultList[0].ym.substr(0,4));
           prvMm = parseInt(data.resultList[0].ym.substr(4,2));
 
-          tsMmLastDate = new Date(tsYr, tsMm + 1, 0).getDate();
-          prvMmLastDate = new Date(prvYr, prvMm + 1, 0).getDate();
+          tsMmLastDate = new Date(tsYr, tsMm, 0).getDate();
+          prvMmLastDate = new Date(prvYr, prvMm, 0).getDate();
 
           tsMmAvg = parseInt((tsMmVstrCnt / tsMmLastDate).toFixed(0));
           prvMmAvg = parseInt((prvMmVstrCnt / prvMmLastDate).toFixed(0));
