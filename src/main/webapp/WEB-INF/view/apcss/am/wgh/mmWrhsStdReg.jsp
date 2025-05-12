@@ -496,7 +496,7 @@
     // SBGridProperties.allowcopy = true;
 
     SBGridProperties.columns = [
-      {caption: ["선택", "선택"],	ref: 'checkedYn',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 0}, checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
+      {caption: ["선택", "선택"],	ref: 'checkedYn',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 0, deletecaption : false}, checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
       {caption: ["그룹", "그룹"],		ref: 'group',     type:'output',  width:'60px',    style:'text-align:center', sortable: false},
       {caption: ["입고일자", "입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'100px',    style:'text-align:center'},
       {caption: ["팔레트", ""],		ref: 'pltChck',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
@@ -551,6 +551,7 @@
     let result = await Promise.all([
       gfn_setComCdSBSelect('srch-slt-warehouseSeCd',	jsonComWarehouse, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 창고
       gfn_setPltBxSBSelect('srch-slt-bxKnd', 			jsonApcBx, gv_selectedApcCd, 'B'),	// 박스
+      // gfn_setPltBxSBSelect('srch-slt-bxKnd', 			jsonApcBx, gv_selectedApcCd),	// 박스
       gfn_setApcItemSBSelect('srch-slt-itemCd', 		jsonApcItem, gv_selectedApcCd),		// 품목
       gfn_setApcVrtySBSelect('srch-slt-vrtyCd', 		jsonApcVrty, gv_selectedApcCd),		// 품종
     ]);
@@ -768,13 +769,11 @@
     let pltno = SBUxMethod.get("srch-inp-pltno");			// 팔레트번호
     let prdcrNm = SBUxMethod.get("srch-inp-prdcrNm");		// 생산자
 
-    let itemNm = "";
-    let vrtyNm = "";
     let itemCd = SBUxMethod.get("srch-slt-itemCd");			// 품목
     let vrtyCd = SBUxMethod.get("srch-slt-vrtyCd");			// 품종
     let bxQntt = SBUxMethod.get("srch-inp-bxQntt");			// 수량
     let wrhsWght = SBUxMethod.get("srch-inp-wrhsWght");		// 중량
-    let bxKnd = SBUxMethod.get("srch-slt-bxKnd");			// 박스종류
+    let pltBxNm = SBUxMethod.getText("srch-slt-bxKnd");			// 박스/팔레트 종류
     let vhclno = gfn_nvl(SBUxMethod.get("srch-inp-vhclno"));			// 차량번호
     let trsprtCst = SBUxMethod.get("srch-inp-trsprtCst");	// 운임비용
     let warehouseSeCd = SBUxMethod.get("srch-slt-warehouseSeCd");	// 창고
@@ -784,6 +783,12 @@
     let wrhsSeCd = SBUxMethod.get("srch-rdo-wrhsSeCd");		// 입고구분
     let gdsSeCd = SBUxMethod.get("srch-rdo-gdsSeCd");		// 상품구분
     let trsprtSeCd = SBUxMethod.get("srch-rdo-trsprtSeCd");	// 운송구분
+
+    let itemNm = "";
+    let vrtyNm = "";
+    let pltChck = "";
+    let pltKnd = "";
+    let bxKnd = "";
 
     let wrhsRegList = jsonWrhsRegList;
     let inptPltNoSE = '';
@@ -841,47 +846,30 @@
 
     let prvWrhsReg = jsonWrhsRegList.slice(-1)[0];
 
-    /*
-    *
-    * pltchk true / pltno null
-    * pltchk true / pltno not null
-    * pltchk false / pltno null
-    * pltchk false / pltno not null
-    *
-    * */
-    if (!gfn_isEmpty(prvWrhsReg)){
-      console.log(prvWrhsReg);
-      if (prvWrhsReg.pltChck == "T" && gfn_isEmpty(pltno)) {
-        console.log("pltchk true / pltno null");
-      } else if (prvWrhsReg.pltChck == "T" && !gfn_isEmpty(pltno)) {
-        console.log("pltchk true / pltno not null");
-      } else if (prvWrhsReg.pltChck != "T" && gfn_isEmpty(pltno)) {
-        console.log("pltchk false / pltno null");
-      } else if (prvWrhsReg.pltChck != "T" && !gfn_isEmpty(pltno)) {
-        console.log("pltchk false / pltno not null");
-      }
-    }
+    pltChck = gfn_isEmpty(prvWrhsReg) ? "T" : prvWrhsReg.pltChck;
+    pltno = await fn_setPltNo(prvWrhsReg, wrhsYmd, pltno);
 
-    let pltChck = prvWrhsReg.pltChck == "T"
-
-
-    // const data = await gfn_postJSON("/am/wrhs/selectWrhsno.do",{apcCd:gv_selectedApcCd,wrhsYmd:wrhsYmd});
-    // pltno = data.pltno;
-
-    // 품목, 품종 이름
+    // 품목, 품종
     jsonApcVrty.forEach((item) => {
       if (item.itemVrtyCd == vrtyCd) {
         itemNm = item.itemNm;
         vrtyNm = item.label;
       }
     });
-    // 박스종류 이름
+    // 박스/팔레트 종류 (일단 박스종류만 선택 및 저장 / "P" 미사용)
     jsonApcBx.forEach((item) => {
-      if (item.pltBxCd == bxKnd) {
-        bxKnd = item.pltBxNm;
+      if (item.pltBxNm == pltBxNm) {
+        switch (item.pltBxSeCd) {
+          case "B":
+            bxKnd = item.pltBxNm;
+            break;
+          case "P":
+            pltKnd = item.pltBxNm;
+            break;
+        }
       }
     });
-    // 창고 이름
+    // 창고
     jsonComWarehouse.forEach((item) => {
       if (item.value == warehouseSeCd) {
         warehouseSeNm = item.text;
@@ -925,16 +913,12 @@
       }
     });
 
-    // 팔레트번호 입력값 체크
-    if (!gfn_isEmpty(pltno)) {
-      inptPltNoSE = pltno;
-    }
-
     const wrhsRegInfoVO = {
       // group: group,
       wrhsYmd: wrhsYmd,
+      pltChck: pltChck,
       pltno: pltno,
-      // pltKnd: pltKnd,
+      pltKnd: pltKnd,
       prdcrNm: prdcrNm,
       itemNm: itemNm,
       vrtyNm: vrtyNm,
@@ -977,6 +961,8 @@
 
     // jsonWrhsRegList.length = 0;
     jsonWrhsRegList.push(wrhsRegInfoVO);
+    console.log(jsonWrhsRegList);
+
     grdWrhsRegList.rebuild();
 
   }
@@ -1020,47 +1006,66 @@
    * @name fn_setPltNo
    * @description 팔레트
    */
-  /*const fn_setPltNo = async function () {
+  const fn_setPltNo = async function (obj, ymd, num) {
 
-    let nRow = grdWrhsRegList.getRow();
-    let nCol = grdWrhsRegList.getColRef("pltChck");
+    let pltno = "RT" + ymd;
 
-    let rowData = grdWrhsRegList.getRowData(nRow);
-
-    console.log(rowData)
-
-    const rows = grdWrhsRegList.getCheckedRows(nCol);
-    console.log(rows)
-
-    if (rows.length == 1) {
-      if (gfn_isEmpty(rowData.pltno)) {
-        data = await gfn_postJSON("/am/wrhs/selectWrhsno.do", {
-          apcCd : gv_selectedApcCd,
-          wrhsYmd : rowData.wrhsYmd
-        });
-
-        try {
-          if (_.isEqual("S", data.resultStatus)) {
-            console.log(data);
-            chkPltNo = data.pltno;
-          } else {
-            gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
-          }
-        } catch (e) {
-          if (!(e instanceof Error)) {
-            e = new Error(e);
-          }
-          console.error("failed", e.message);
-          gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-        }
-      } else {
-        chkPltNo = rowData.pltno;
-      }
+    if (!gfn_isEmpty(num)) {
+      console.log("pltno is not null")
+      return num;
     }
 
-    grdWrhsRegList.setCellData(nRow, nCol+1, chkPltNo);
+    data = await gfn_postJSON("/am/wrhs/selectWrhsno.do", {
+      apcCd : gv_selectedApcCd,
+      wrhsYmd : ymd
+    });
 
-  }*/
+    /*
+    * pltno 빈값이 들어왔을때
+    * pltno 비교 후 +1 (1. 날짜 2. pltno)
+    * pltno
+    *   - 'RTYYYYMMDD + 0000'
+    *   - apc_cd (0503) : YYMMDD + 000
+    * */
+
+    // 입고날짜 모든 pltno
+    let chckPltno = Array.from(new Set(
+            jsonWrhsRegList
+                    .filter(item => item['wrhsYmd'] == ymd)
+                    .map(item => item['pltno'])
+                    .filter(pltno => pltno.includes("RT" + ymd))
+    ));
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        if (gfn_isEmpty(obj)) {
+          return data.pltno;
+        } else {
+          if (obj.pltChck == "T") {
+            return obj.pltno
+          } else {
+            if (gfn_isEmpty(num)) {
+              let maxNum = 1;
+              for (const value of chckPltno) {
+                let prvNum = parseInt(value.slice(-4));
+                maxNum = maxNum > prvNum ? maxNum : prvNum;
+              }
+              pltno += String(maxNum + 1).padStart(4, '0');
+              return pltno;
+            }
+          }
+        }
+      } else {
+        gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+      }
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
 
   /**
    * @name fn_delPltNo
