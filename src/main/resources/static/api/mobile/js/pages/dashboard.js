@@ -8,13 +8,6 @@
 $(function () {
 
   "use strict";
-  $('#map circle')
-  .on('mouseover', function(e) {
-      $(this).css('fill', 'red');
-  })
-  .on('mouseout', function(e) {
-      $(this).css('fill', 'blue');
-  });
 
   var apcInfo = {
     apcLists: [

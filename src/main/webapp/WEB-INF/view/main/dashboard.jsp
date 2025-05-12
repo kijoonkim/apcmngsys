@@ -34,6 +34,12 @@
 
   <link rel="stylesheet" href="css/dashboard.css">
 
+  <style>
+    svg > circle {
+      stroke: white;
+    }
+  </style>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -182,15 +188,49 @@
                           <feBlend in="SourceGraphic" in2="blurOut" mode="normal"/>
                       </filter>
                   </defs>
-                  <circle cx="550" cy="250" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="270" cy="300" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="300" cy="400" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="450" cy="600" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="550" cy="550" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="350" cy="300" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="270" cy="750" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="350" cy="750" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
-                  <circle cx="220" cy="1120" r="10" style="fill:blue;stroke:white;" stroke-width="1" filter="url(#f1)"/>
+
+                  <defs>
+                      <radialGradient id="hoverCircle" cx="50%" cy="50%" r="0%" fx="50%" fy="50%">
+                          <stop offset="0%" stop-color="red" stop-opacity="1" />
+                          <stop offset="100%" stop-color="red" stop-opacity="0" />
+                          <animate attributeName="r" from="0%" to="100%" dur="0.4s" begin="hover.start" fill="freeze" />
+                      </radialGradient>
+
+                      <radialGradient id="enableApc" cx="50%" cy="50%" r="100%">
+                          <stop offset="100%" stop-color="blue" />
+                      </radialGradient>
+
+                      <radialGradient id="disableApc" cx="50%" cy="50%" r="100%">
+                          <stop offset="100%" stop-color="grey" />
+                      </radialGradient>
+                  </defs>
+
+                  <text x="550" y="235" text-anchor="middle" font-size="15" fill="black">신미네유통사업단(영)</text>
+                  <circle cx="550" cy="250" r="10" stroke-width="1" filter="url(#f1)" fill="url(#enableApc)" data-original-fill="url(#enableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="270" y="285" text-anchor="middle" font-size="15" fill="black">운봉농협</text>
+                  <circle cx="270" cy="300" r="10" stroke-width="1" filter="url(#f1)" fill="url(#enableApc)" data-original-fill="url(#enableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="300" y="385" text-anchor="middle" font-size="15" fill="black">성주참외원예농협</text>
+                  <circle cx="300" cy="400" r="10" stroke-width="1" filter="url(#f1)" fill="url(#disableApc)" data-original-fill="url(#disableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="450" y="585" text-anchor="middle" font-size="15" fill="black">진주중부농협</text>
+                  <circle cx="450" cy="600" r="10" stroke-width="1" filter="url(#f1)" fill="url(#disableApc)" data-original-fill="url(#disableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="550" y="535" text-anchor="middle" font-size="15" fill="black">나주농업법인</text>
+                  <circle cx="550" cy="550" r="10" stroke-width="1" filter="url(#f1)" fill="url(#enableApc)" data-original-fill="url(#enableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="350" y="285" text-anchor="middle" font-size="15" fill="black">월항농협</text>
+                  <circle cx="350" cy="300" r="10" stroke-width="1" filter="url(#f1)" fill="url(#disableApc)" data-original-fill="url(#disableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="270" y="735" text-anchor="middle" font-size="15" fill="black">신선미세상(주)</text>
+                  <circle cx="270" cy="750" r="10" stroke-width="1" filter="url(#f1)" fill="url(#enableApc)" data-original-fill="url(#enableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="350" y="735" text-anchor="middle" font-size="15" fill="black">남밀양농협</text>
+                  <circle cx="350" cy="750" r="10" stroke-width="1" filter="url(#f1)" fill="url(#disableApc)" data-original-fill="url(#disableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
+
+                  <text x="220" y="1105" text-anchor="middle" font-size="15" fill="black">선남농협</text>
+                  <circle cx="220" cy="1120" r="10" stroke-width="1" filter="url(#f1)" fill="url(#disableApc)" data-original-fill="url(#disableApc)" onmouseover="startHover(evt, this)" onmouseout="endHover(evt, this)" />
               </svg>
             </div>
             <!-- /.box-body-->
@@ -355,5 +395,22 @@
 <script src="js/app.min.js"></script>
 
 <script src="js/pages/dashboard.js"></script>
+
+<script>
+    // <circle>에 마우스 올렸을 시
+    function startHover(evt, el) {
+        el.setAttribute("fill", "url(#hoverCircle)");
+        const anim = document.querySelector('#hoverCircle animate');
+        anim.beginElement();
+    }
+
+    // <circle>에 마우스 내렸을 시
+    function endHover(evt, el) {
+        const originalFill = el.getAttribute("data-original-fill");
+        if(originalFill) {
+            el.setAttribute("fill", originalFill);
+        }
+    }
+</script>
 </body>
 </html>
