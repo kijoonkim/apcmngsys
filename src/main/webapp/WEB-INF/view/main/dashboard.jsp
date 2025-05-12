@@ -205,7 +205,7 @@
             <div class="nav-tabs-custom">
               <!-- Tabs within a box -->
               <ul class="nav nav-tabs pull-right">
-                <li><a href="#">Refresh</a></li>
+                <li><a href="#">새로고침</a></li>
                 <li class="pull-left header"><i class="fa fa-inbox"></i> APC 현황</li>
               </ul>
               <div id="apc_infos" class="tab-content no-padding" style="height: 600px;">
@@ -267,7 +267,7 @@
                 <div class="col-sm-6">
                   <!-- Progress bars -->
                   <div class="clearfix">
-                    <span class="pull-left">Task #1</span>
+                    <span class="pull-left">신미네</span>
                     <small class="pull-right">90%</small>
                   </div>
                   <div class="progress xs">
@@ -275,7 +275,7 @@
                   </div>
 
                   <div class="clearfix">
-                    <span class="pull-left">Task #2</span>
+                    <span class="pull-left">영흥농산</span>
                     <small class="pull-right">70%</small>
                   </div>
                   <div class="progress xs">
@@ -285,7 +285,7 @@
                 <!-- /.col -->
                 <div class="col-sm-6">
                   <div class="clearfix">
-                    <span class="pull-left">Task #3</span>
+                    <span class="pull-left">거산(여주)</span>
                     <small class="pull-right">60%</small>
                   </div>
                   <div class="progress xs">
@@ -293,7 +293,7 @@
                   </div>
 
                   <div class="clearfix">
-                    <span class="pull-left">Task #4</span>
+                    <span class="pull-left">한우리</span>
                     <small class="pull-right">40%</small>
                   </div>
                   <div class="progress xs">
