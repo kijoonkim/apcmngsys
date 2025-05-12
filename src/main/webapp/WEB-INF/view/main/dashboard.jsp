@@ -32,11 +32,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-  <style>
-  svg > circle:hover {
-    fill: red;
-  }
-  </style>
+  <link rel="stylesheet" href="dist/css/dashboard.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,7 +52,7 @@
     <section class="content-header">
       <h1>
         APC 에이전트 상황판
-        <small>APC Agent Status Panel</small>
+        <small>APC Agent Status Dashboard</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -212,8 +208,8 @@
                 <li><a href="#">Refresh</a></li>
                 <li class="pull-left header"><i class="fa fa-inbox"></i> APC 현황</li>
               </ul>
-              <div class="tab-content no-padding">
-                <div></div>
+              <div id="apc_infos" class="tab-content no-padding" style="height: 600px;">
+
               </div>
             </div>
             <!-- /.nav-tabs-custom -->
