@@ -1350,6 +1350,7 @@
                     await fn_search();
                     gvwNonresident.clickRow(jsonNonResidentList.findIndex(item => item.EARNER_CODE == strFocus) + 1);
                 }
+                gfn_comAlert("I0001");
             } else {
                 alert(data.resultMessage);
             }

@@ -2627,7 +2627,8 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngSelectRawDataList.do", {
+		// let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngSelectRawDataList.do", {
+		let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do", {
 			yr : yr
 			});
 

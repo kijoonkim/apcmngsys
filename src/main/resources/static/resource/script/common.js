@@ -72,6 +72,7 @@ let gv_selectedApcNm = null;
 let gv_selectedApcSeCd = null;
 
 const gv_loadingOptions = {modelNm : "main-loading"};
+const gv_loadingOptionsSub = {modelNm : "sub-loading"};
 
 
 let gv_paging = {
@@ -701,12 +702,13 @@ const gfn_setApcItemSBSelect = async function (_targetIds, _jsondataRef, _apcCd)
 	const postJsonPromise = gfn_postJSON(URL_APC_ITEMS, {apcCd: _apcCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
-	const sourceJson = [];
+	let sourceJson = [];
 	data.resultList.forEach((item) => {
 			item.cmnsCd = item.itemCd;
 			item.cmnsNm = item.itemNm;
 			sourceJson.push(item);
 		});
+	sourceJson = sourceJson.sort((a, b) => a.itemNm.localeCompare(b.itemNm, 'ko'));
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
@@ -738,13 +740,14 @@ const gfn_setApcVrtySBSelect = async function (_targetIds, _jsondataRef, _apcCd,
 	const postJsonPromise = gfn_postJSON(URL_APC_VRTYS, {apcCd: _apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
 	const data = await postJsonPromise;
 
-	const sourceJson = [];
+	let sourceJson = [];
 	data.resultList.forEach((item) => {
 			item.cmnsCd 		= item.vrtyCd;
 			item.cmnsNm 		= item.vrtyNm;
 			item.mastervalue 	= item.itemCd;
 			sourceJson.push(item);
 		});
+	sourceJson = sourceJson.sort((a, b) => a.vrtyNm.localeCompare(b.vrtyNm,'ko'));
 
 	gfn_setSBSelectJson(_targetIds, _jsondataRef, sourceJson);
 }
@@ -1127,33 +1130,43 @@ const gfn_setApcInfoSBSelect = async function (_targetIds, _jsondataRef, _exclAp
  * @param {string} _apcCd
  */
 const gfn_setCrtrYr = async function (_targetIds, _jsondataRef, _apcCd) {
+
+	_jsondataRef.length = 0;
 	const postJsonPromise = gfn_postJSON(URL_CRTR_YR, {apcCd: _apcCd}, null, true);
 	const data = await postJsonPromise;
+	try {
+		data.resultList.forEach((item) => {
+			const crtrYr = {
+				text: item.crtrYr,
+				label: item.crtrYr,
+				value: item.crtrYr
+			}
+			_jsondataRef.push(crtrYr);
+		});
+		if (Array.isArray(_targetIds)) {
+				_targetIds.forEach((_targetId) => {
+					SBUxMethod.refresh(_targetId);
+				});
+			} else {
+				SBUxMethod.refresh(_targetIds);
+			}
+	} catch(e) {
+		if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e);
+			console.error("failed", e.message);
+	}
 
-try{
-	_jsondataRef.length = 0;
-	data.resultList.forEach((item) => {
-		const crtrYr = {
-			text: item.crtrYr,
-			label: item.crtrYr,
-			value: item.crtrYr
-		}
-		_jsondataRef.push(crtrYr);
-	});
-	if (Array.isArray(_targetIds)) {
-			_targetIds.forEach((_targetId) => {
-				SBUxMethod.refresh(_targetId);
-			});
-		} else {
-			SBUxMethod.refresh(_targetIds);
-		}
-}catch(e) {
-	if (!(e instanceof Error)) {
-			e = new Error(e);
-		}
-		console.error("failed", e);
-		console.error("failed", e.message);
-}
+	if (_jsondataRef.length === 0) {
+		const nowYr = gfn_dateToYear(new Date());
+		_jsondataRef.push({
+			text: nowYr,
+			label: nowYr,
+			value: nowYr
+		});
+	}
+
 }
 /** 생산자정보 */
 /**

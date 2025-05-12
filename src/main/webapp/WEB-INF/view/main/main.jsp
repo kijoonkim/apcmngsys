@@ -261,6 +261,8 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
 
+    const __TAB_PRFX__ = "TAB_";
+    const __BOOKMARK_PRFX__ = "BMK_"
     const lv_tabPrefix = "idxfrmJson_TAB_";
     let lv_frmId = "";
     let prvTabMenuId = "";
@@ -276,15 +278,39 @@
 
     const jsonCommonBtn = [];
 
-    var menuJson = ${topMenuList};
+    <c:choose>
+        <c:when test="${initMenuId != null}">
+            <c:set scope="request" var="initMenuId" value="${initMenuId}"></c:set>
+            const initMenuId = '<c:out value='${initMenuId}' escapeXml="false"></c:out>';
+        </c:when>
+        <c:otherwise>
+            const initMenuId = '';
+        </c:otherwise>
+    </c:choose>
+
+
+    console.log("initMenuId", initMenuId);
+
+    <c:set scope="request" var="topMenuList" value="${topMenuList}"></c:set>
+    var menuJson = <c:out value='${topMenuList}' escapeXml="false"></c:out>;
+    //var menuJson = ${topMenuList};
+
 
     //SBUx sidemenu 컴포넌트의 json 데이터
     var sideJsonData = [];
     //
     var menuJsonB = [
-        {"order": "0", "id": "empty", "pid": "0", "text": ""},
+        /*
+        {
+            "order": 10,
+            "id": "id_1",
+            "pid": "",
+            "text": "홈"
+        },
+         */
     ];
-    //텝메뉴 빈 값 설정
+
+    // 탭 메뉴 빈 값 설정
     var tabJsonData = [{
         'id': 'blank'
         , 'pid': '-1'
@@ -303,65 +329,29 @@
      */
     const fn_selectTopMenu = async (_id) => {
 
-        var data = SBUxMethod.get(_id);
+        const data = SBUxMethod.get(_id);
 
-        var url = data.customData == undefined ? "" : data.customData.url;
-        if (url == undefined) {
-            return;
-        }
+        const url = data.customData === undefined ? "" : data.customData.url;
 
         await fn_setLeftMenu(data.id);
 
-        var noticeTab = SBUxMethod.getTab('tab_menu', 'TAB_PD_009');
-
-    	if(noticeTab == null || noticeTab == undefined){
-			
-    		var tabName = "TAB_PD_009";
-            var menuNo = "PD_009";
-            var jsonTabSelect = {
-                  'id': tabName
-                , 'pid': '-1'
-                , 'text': '공지사항'	//'대시보드'
-                , 'targetid': tabName
-                //, 'targetvalue': tabName + '_value'
-                , 'targetvalue': tabName
-                , 'targetname': 'frmJson'
-                , 'link': '/co/menu/openPage.do/' + menuNo	// _url
-                , 'closeicon': false
-            };
-            SBUxMethod.addTab('tab_menu', jsonTabSelect);
-            //화면이력관리용 data
-            var data = {
-            		customData : {prsnaYn : null},
-            		id : tabName,
-            		text : "공지사항",
-            		prslType: "M1"
-            }
-
-            insertComLog(data);
-
-            //await fn_afterAddTab(menuNo);
-
-    	} else {
-    		/*
-    		if(data.id == "PD" || data.id == "FM" || data.id == "CS"){
-           		SBUxMethod.showTab('tab_menu','TAB_PD_009');
-            }else{
-            	SBUxMethod.hideTab('tab_menu','TAB_PD_009');
-            }
-    		*/
-    	}
     }
 
     /**
-     * Set LEFT MENU
-     * menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
+     * @name fn_setLeftMenu
+     * @description Set LEFT MENU : menuNo 값으로 (비동기식으로)서버로 부터 데이터를 요청
+     * @param {String} _menuNo
+     * @param {String} _menuId
+     * @function
      */
-    async function fn_setLeftMenu(_menuNo, _menuId) {
-    	
-        var menuInfo = _.find(menuJson, {id: _menuNo});
-        var pMenuId = menuInfo.pid;
-        var pMenuNm = menuInfo.value;
+    async function fn_setLeftMenu(_menuNo, _menuId = null) {
+
+        console.log("_menuNo", _menuNo);
+        console.log("_menuId", _menuId);
+
+        const menuInfo = _.find(menuJson, {id: _menuNo});
+        let pMenuId = menuInfo.pid;
+        let pMenuNm = menuInfo.value;
 
         if (gfn_isEmpty(pMenuId)) {
             pMenuId = _menuNo;
@@ -374,14 +364,16 @@
         if (idxSideTemp > -1) {
         	jsonSideTempData.splice(idxSideTemp, 1)
         }
-        
-        //const postJsonPromise = gfn_postJSON("/co/menu/leftMenu", {upMenuId: pMenuId});
-        const postJsonPromise = gfn_postJSON("/co/authrt/selectSideMenuTreeList.do", {upMenuId: pMenuId}, "main", true);
-
-        const data = await postJsonPromise;
 
         try {
-        	
+            const postJsonPromise = gfn_postJSON(
+                    "/co/authrt/selectSideMenuTreeList.do",
+                    {upMenuId: pMenuId},
+                    "main",
+                    true
+                );
+            const data = await postJsonPromise;
+
         	const list = [];
             sideJsonData.length = 0;
             data.resultList.forEach((item, index) => {
@@ -411,12 +403,12 @@
                 }
             }
 
-            if (_menuId != undefined) {
+            if (!gfn_isEmpty(_menuId)) {
                 _menuNo = _menuId;
             }
 
-            var idx = _.findLastIndex(sideJsonData, {id: _menuNo});
-            var expndPid;
+            const idx = _.findLastIndex(sideJsonData, {id: _menuNo});
+            let expndPid;
             if (idx >= 0) {
                 //sideJsonData[idx].class = "active";
                 
@@ -428,43 +420,28 @@
             if (!gfn_isEmpty(expndPid)) {            	
                 //SBUxMethod.expandSideMenu("side_menu", expndPid, true);
             }
-            
-            /*
-            SBUxMethod.expandSideMenu("side_menu", findMenu.pid, true);
-            
-            let findMenu = _.find(sideJsonData, {id: _menuNo});
-            
-            if (!gfn_isEmpty(findMenu) && gfn_nvl(findMenu.pid).length > 2) {
 
-            	SBUxMethod.expandSideMenu("side_menu", findMenu.pid, true);
-            }
-            
-            if (!gfn_isEmpty(menuInfo.pid)) {            	
-                SBUxMethod.expandSideMenu("side_menu");
-            }
-            */
-            
-
-            var title = pMenuNm;
+            const title = pMenuNm;
             //document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
-            var titleEl = document.querySelector('.sbux-sidemeu-title-wrap>div>span');
+            const titleEl = document.querySelector('.sbux-sidemeu-title-wrap>div>span');
             titleEl.innerText = title;
             //document.querySelector('.sbux-sidemeu-title-wrap>div').innerHTML = '<div style="font-size:18px; text-align: center">'+title+'<div>';
             if (idx >= 0 && _menuId == undefined && !gfn_isEmpty(sideJsonData[idx].url)) {
                 
-            	fn_actionGoPage(
-                    sideJsonData[idx].url
-                    , "LEFT"
-                    , sideJsonData[idx].id
-                    , sideJsonData[idx].text
-                    , sideJsonData[idx].pid
-                );
+            	await fn_actionGoPage(
+                        sideJsonData[idx].url
+                        , "LEFT"
+                        , sideJsonData[idx].id
+                        , sideJsonData[idx].text
+                        , sideJsonData[idx].pid
+                    );
             }
+
+            /*
             if (gv_userType === "00" || gv_userType ==="01") {
-            	//document.querySelector("#idxSide_menu > div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
-            	//document.querySelector("#idxSide_menu div.sbux-sidemeu-title-wrap > div").innerHTML += '<div style="font-size:18px; text-align: center">관리 시스템<div>';
-                titleEl.innerText = "관리 시스템";
+            	titleEl.innerText = "관리 시스템";
             }
+             */
 
         } catch (e) {
             if (!(e instanceof Error)) {
@@ -477,44 +454,71 @@
 
     /**
      * @name fn_selectMenu
-     * @description 메뉴 선택
+     * @description 좌측 메뉴 선택
      * @function
      */
-    function fn_selectMenu(_target, _id) {
+    async function fn_selectMenu(_target, _id) {
 
-    	var data = SBUxMethod.get(_id);
+        let data = SBUxMethod.get(_id);
+        if (gfn_isEmpty(data)) {
+            return;
+        }
 
         if (_target === "TOP" && gfn_isEmpty(data.pid)) {
             return;
         }
 
-        var url = data.customData == undefined ? "" : data.customData.url;
-        if (url == undefined) {
+        let url = data.customData === undefined ? "" : data.customData.url;
+
+        if (gfn_isEmpty(url)) {
             return;
         }
 
-		fn_actionGoPage(
-            url
-            , _target
-            , data.id
-            , data.text
-            , data.pid
-        );
-
+		await fn_actionGoPage(
+                url
+                , _target
+                , data.id
+                , data.text
+                , data.pid
+            );
+        /*
         try {
-            insertComLog(data);
+            await insertComLog(data);
         } catch (err){
             console.log(err);
         }
-
+         */
     }
 
-    //로그
-    function insertComLog(data){
-    	var userName = "${loginVO.name}";
-    	var apc_cd = "${loginVO.apcCd}";
-    	var prsnaYn = data.customData.prsnaYn;
 
+    /**
+     * @name insertComLog
+     * @description 화면 접근 로그 등록
+     * @function
+     */
+    const insertComLog = async function (obj){
+
+        const postJsonPromise = gfn_postJSON("/sys/insertComLog.do", {
+            menuId : obj.id,
+            menuNm : obj.text,
+            flfmtTaskSeCd : obj.customData.prsnaYn,
+            prslType : "M1"
+        });
+
+        try {
+            const data = await postJsonPromise;
+            // if (_.isEqual("S", data.resultStatus)) {
+            //
+            // }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            // gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+
+        /*
         fetch("/sys/insertComLog.do",{
             method: "POST",
             headers: {
@@ -531,24 +535,81 @@
         })
             .then((response) => response.json())
             .catch((err) => console.log(err))
-
+        */
     }
 
-    //화면 이동
-    const maxTebMenuCnt = 11;//메뉴탭 최대 허용 개수(10)
-    const fn_actionGoPage = function (_url, _menuGubun, _menuNo, _menuNm, _topMenuNo) {
-        if (_menuGubun === "TOP") {
-            fn_setLeftMenu(_menuNo);
-        } else if (_menuGubun === "LEFT") {
+    // 탭 화면 이동
+    const __MAX_TAB_MENU_COUNT__ = 11;//메뉴탭 최대 허용 개수(10)
+    const __FIXED_TAB_PAGES__ = [
+        "TAB_CO_014",
+        "TAB_PD_009"
+    ];
+
+    /**
+     * @name fn_actionGoPage
+     * @description page open action
+     * @param {String} _url         페이지 경로
+     * @param {String} _menuType    메뉴 유형
+     * @param {String} _menuNo      메뉴 번호
+     * @param {String} _menuNm      메뉴 명
+     * @param {String} _topMenuNo   상단 메뉴 번호
+     * @function
+     */
+    const fn_actionGoPage = async function (_url, _menuType, _menuNo, _menuNm, _topMenuNo) {
+
+        if (_menuType === "TOP") {
+            await fn_setLeftMenu(_menuNo);
+        } else if (_menuType === "LEFT") {
 
             //Set 브레드크럼 내비게이션
-            fn_setBreadcrumbs(_menuNo, _menuNm);
+            fn_setBreadcrumbs(_menuNo);
 
             //메뉴탭 생성 및 화면 요청
-            var tabName = "TAB_" + _menuNo;
+            let tabName = __TAB_PRFX__ + _menuNo;
 
+            const tabPage = document.getElementById(tabName);
+            if (gfn_isEmpty(tabPage)) {
+                const tabCount = SBUxMethod.getTabsCount('tab_menu');
+
+                if (tabCount >= __MAX_TAB_MENU_COUNT__) {
+                    if (!gfn_comConfirm("Q0000", "탭 허용개수 초과. 가장 오래된 페이지를 닫으시겠습니까?")) {
+                        return;
+                    }
+
+                    const tabList = SBUxMethod.getTabsChangedOrderData('tab_menu').data;
+                    let target = "";
+                    for ( let i=0; i<tabList.length; i++ ) {
+                        const tabData = tabList[i];
+                        if (__FIXED_TAB_PAGES__.indexOf(tabData.targetid) < 0) {
+                            target = tabData.targetid;
+                            break;
+                        }
+                    }
+                    SBUxMethod.removeTab('tab_menu', target);
+                }
+
+                const tabObj = {
+                        'id': tabName,
+                        'pid': '-1',
+                        'text': _menuNm,
+                        'targetid': tabName,
+                        'targetvalue': tabName,
+                        'targetname': 'frmJson',
+                        'link': '/co/menu/openPage.do/' + _menuNo,	// _url
+                        'closeicon': true,
+                        callbackCompleteAddTab : fn_afterCompleteAddTab
+                };
+
+                lv_isNewTab = true;
+                SBUxMethod.addTab('tab_menu', tabObj);
+            } else {
+                lv_isNewTab = false;
+                SBUxMethod.selectTab(tabName);
+            }
+
+            /*
             if ( $('#' + tabName).length == 0 ) {
-                if (SBUxMethod.getTabsCount('tab_menu') == maxTebMenuCnt+1) {
+                if (SBUxMethod.getTabsCount('tab_menu') == __MAX_TAB_MENU_COUNT__+1) {
                     if(gfn_comConfirm("Q0000","가장 오래된 탭을 삭제하시겠습니까?")){
                         let target =SBUxMethod.getTabsChangedOrderData('tab_menu').data[2].targetid;
                         SBUxMethod.removeTab('tab_menu',target);
@@ -573,13 +634,26 @@
             	lv_isNewTab = false;
                 SBUxMethod.selectTab(tabName);
             }
+             */
         }
     }
 
+
+    const fn_afterCompleteAddTab = async function(_tabObj) {
+        /*
+        if (!gfn_isEmpty(_tabObj)) {
+            await fn_afterAddTab(_tabObj.id.replace(__TAB_PRFX__, ""));
+        }
+         */
+    }
+
     /**
-     * @param {string} _menuId
+     * @name fn_afterAddTab
+     * @description tab 추가 후 처리
+     * @param {String} _menuId
+     * @function
      */
-    async function fn_afterAddTab(_menuId) {
+    const fn_afterAddTab = async function(_menuId) {
 
         prvTabMenuId = _menuId;
 
@@ -610,7 +684,10 @@
     }
 
     /**
-     * @param {string} menuNo
+     * @name fn_afterSeletTab
+     * @description tab 선택 후 처리
+     * @param {String} _menuId
+     * @function
      */
     async function fn_afterSeletTab(_menuId) {
 
@@ -622,10 +699,8 @@
         	lv_frmId = lv_tabPrefix + _menuId;
         }
 
-
         // TODO
         // set page info and common button 설정
-
         // 공통버튼 설정
         await fn_setTabInfo(_menuId);
 
@@ -646,49 +721,98 @@
         );
     }
 
-    //Set breadcrumbs
-    function fn_setBreadcrumbs(menuNo, menuNm) {
 
+    /**
+     * @name fn_setBreadcrumbs
+     * @description Breadcrumbs 설정
+     * @function
+     */
+    function fn_setBreadcrumbs(menuNo) {
         menuJsonB.length = 0;
-        menuJsonB.push(
-            {"order": 10, "id": "id_1", "pid": "", "text": "홈"}
-        );
+        menuJsonB.push({
+                "order": 10,
+                "id": "id_1",
+                "pid": "",
+                "text": "홈"
+            });
+        const menuInfo = _.find(menuJson, {id: menuNo});
+        const upMenuNo = menuInfo.pid;
+        let upMenuNm = "";
 
-        //부모메뉴정보
-        var menuInfo = _.find(sideJsonData, {id: menuNo});
-        var upMenuNo = menuInfo.pid;
-        var upMenuInfo = _.find(menuJson, {id: upMenuNo});
-        if (!gfn_isEmpty(upMenuInfo.pid)) {
-            var topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
+        if (!gfn_isEmpty(upMenuNo)) {
+            const upMenuInfo = _.find(menuJson, {id: upMenuNo});
+            if (!gfn_isEmpty(upMenuInfo.pid)) {
+                const topMenuInfo = _.find(menuJson, {id: upMenuInfo.pid});
+                menuJsonB.push({
+                        "order": 20,
+                        "id": topMenuInfo.id,
+                        "pid": "",
+                        "text": topMenuInfo.text,
+                        "url": topMenuInfo.url
+                    });
+            }
 
-            menuJsonB.push(
-                {"order": 20, "id": topMenuInfo.id, "pid": "", "text": topMenuInfo.text, "url": topMenuInfo.url}
-            );
-
+            upMenuNm = upMenuInfo.text;
+            menuJsonB.push({
+                    "order": 30,
+                    "id": upMenuInfo.id,
+                    "pid": upMenuInfo.pid,
+                    "text": upMenuInfo.text,
+                    "url": upMenuInfo.url
+                });
         }
-        menuJsonB.push(
-            {"order": 30, "id": upMenuInfo.id, "pid": upMenuInfo.pid, "text": upMenuInfo.text, "url": upMenuInfo.url}
-        );
-        menuJsonB.push(
-            {"order": 40, "id": menuNo, "pid": upMenuNo, "text": menuNm, "url": menuInfo.url}
-        );
-        if (menuInfo.bmkYn == "Y"){
-        	menuJsonB.push(
-                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '⭐', "value" : "Y"}
-                );
-        }else if(menuInfo.bmkYn == "N"){
-        	menuJsonB.push(
-                    {"order": 50, "id": menuNo, "pid": upMenuNo, "text": '☆', "value" : "N"}
-                );
+
+        menuJsonB.push({
+                "order": 40,
+                "id": menuNo,
+                "pid": upMenuNo,
+                "text": menuInfo.text,
+                "url": menuInfo.url,
+                "menuNo": menuNo,
+                "upMenuNm": upMenuNm
+            });
+
+        const bmkId = __BOOKMARK_PRFX__ + menuNo;
+
+        switch (menuInfo.bmkYn) {
+            case "Y":
+                menuJsonB.push({
+                    "order": 50,
+                    "id": bmkId,
+                    "pid": menuNo,
+                    "text": '⭐',
+                    "value" : menuInfo.bmkYn
+                });
+                break;
+            case "N":
+                menuJsonB.push({
+                    "order": 50,
+                    "id": bmkId,
+                    "pid": menuNo,
+                    "text": '☆',
+                    "value" : menuInfo.bmkYn
+                });
+                break;
+            default:
+                break;
         }
+
         SBUxMethod.refresh('breadcrumb');
     }
 
+    /**
+     * @name fn_setBreadcrumbsHome
+     * @description Breadcrumbs 설정 (홈)
+     * @function
+     */
     const fn_setBreadcrumbsHome = function() {
     	menuJsonB.length = 0;
-    	menuJsonB.push(
-            {"order": "10", "id": "id_1", "pid": "", "text": "홈"}
-        );
+    	menuJsonB.push({
+            "order": 10,
+            "id": "id_1",
+            "pid": "",
+            "text": "홈"
+        });
     	SBUxMethod.refresh('breadcrumb');
     }
 
@@ -696,12 +820,12 @@
     //선택한 탭메뉴의 정보를 가져와 메뉴정보 설정
     function fn_setMenuInfo(args) {
 
-        var idx = _.findLastIndex(tabJsonData, {text: args});
-        var tabObj = tabJsonData[idx];
-        var tabId = tabObj.targetid;
-        var menuId = tabId.substring(tabId.indexOf("_")+1);
+        let idx = _.findLastIndex(tabJsonData, {text: args});
+        let tabObj = tabJsonData[idx];
+        let tabId = tabObj.targetid;
+        let menuId = tabId.substring(tabId.indexOf("_")+1);
 
-        var menuInfo = _.find(sideJsonData, {id: menuId});
+        let menuInfo = _.find(sideJsonData, {id: menuId});
 
         if (gfn_isEmpty(menuInfo)) {
         	// home
@@ -711,10 +835,10 @@
         	return;
         }
 
-        var upMenuNo = menuInfo.pid;
-        var upMenuInfo = _.find(menuJson, {id: upMenuNo});
+        let upMenuNo = menuInfo.pid;
+        let upMenuInfo = _.find(menuJson, {id: upMenuNo});
         //var topMenuNo = upMenuInfo.pid;
-        var topMenuNo = menuId.substr(0, 2);	// topMenu 고정
+        let topMenuNo = menuId.substring(0, 2);	// topMenu 고정
         if (gfn_isEmpty(topMenuNo)) {
             topMenuNo = upMenuNo;
         }
@@ -724,11 +848,11 @@
             //fn_setLeftMenu(topMenuNo, menuId); // 2023-07-26 추가
         }
 
-        fn_setBreadcrumbs(menuId, tabObj.text);
+        // fn_setBreadcrumbs(menuId, tabObj.text);
 
         if (prvTabMenuId !== menuId) {
             fn_afterSeletTab(menuId);
-        }else{
+        } else {
             /** 해당페이지는 그대로 다른 탭만 닫힐경우 공통버튼 사라짐 24.11.27 **/
             fn_setTabInfo(menuId);
         }
@@ -748,21 +872,37 @@
         }
     }
 
+
+    /**
+     * @name fn_selectTabMenu
+     * @description 탭 페이지 선택 후 CALLBACK
+     * @param _selectId
+     * @param _selectJson
+     * @function
+     */
     async function fn_selectTabMenu(_selectId, _selectJson) {
-		
-		await fn_afterAddTab(_selectId.substring(_selectId.indexOf("_")+1));	
-		
-		const _menuNo = _selectId.substring(_selectId.indexOf("_")+1);
-		const topId = _menuNo.substr(0, 2);
-		
+
+        const _menuNo = _selectId.substring(_selectId.indexOf("_")+1);
+
+		await fn_afterAddTab(_menuNo);
+
+		const topId = _menuNo.substring(0, 2); //substr(0, 2);
+
+        if (__FIXED_TAB_PAGES__.indexOf(_selectId) >= 0) {
+            fn_setBreadcrumbsHome();
+            return;
+        }
+
+
+
+        /*
 		if (_.isEqual(_menuNo, "PD_009") || _.isEqual(_menuNo, "CO_014")) {
 			return;
 		}
-		
+         */
+
 		if (!_.isEqual(topId, lv_sysId)) {
-			
 			const sideData = _.find(jsonSideTempData, {id: topId});
-			
 			if (gfn_isEmpty(sideData)) {
 				return;
 			}
@@ -793,7 +933,15 @@
         }
 
 		SBUxMethod.refresh("side_menu");
-		
+        const titleEl = document.querySelector('.sbux-sidemeu-title-wrap>div>span');
+        const topMenu = _.find(menuJson, {id: lv_sysId});
+
+        if (!gfn_isEmpty(topMenu)) {
+            titleEl.innerText = topMenu.text;
+        }
+
+        fn_setBreadcrumbs(_menuNo);
+
 		if (!lv_needExpand) {
 			lv_needExpand = true;
 			return;
@@ -802,42 +950,36 @@
 		let findMenu = _.find(sideJsonData, {id: _menuNo});
 		if (!gfn_isEmpty(findMenu)) {
 			SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
-			/*
-			if (!gfn_isEmpty(findMenu.pid)) {
-				SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
-			}
-			*/
 		}
-
-		//SBUxMethod.expandSideMenu("side_menu", _menuNo, false);
 	}
 
-    //메뉴탭을 모두 닫으면 업무 영역 숨김 처리
-    function fn_chkTabList() {
 
-    	if (gfn_isEmpty()) {
-    		fn_clearPrvTabInfo();
-    	}
+    /**
+     * @name fn_chkTabList
+     * @description 메뉴탭을 모두 닫으면 업무 영역 숨김 처리
+     * @function
+     */
+    async function fn_chkTabList() {
+
+   		fn_clearPrvTabInfo();
+
+        const tabCount = SBUxMethod.getTabsCount('tab_menu');
         let tabs = SBUxMethod.getTabsChangedOrderData('tab_menu');
         tabJsonData = tabs.data;
 
-        if (SBUxMethod.getTabsCount('tab_menu') == 1) {
-            $('.tab-content').hide();
-            //side menu init
-            //document.querySelector('.sbux-sidemeu-title-wrap>div>span').innerHTML = "메뉴";
-            //sideJsonData = [];
-            //SBUxMethod.refresh("side_menu");
-            //breadCrumbs init
-            //menuJsonB = [];
+        if (tabCount === 1) {
+            //$('.tab-content').hide();
+            document.querySelectorAll(".tab-content").forEach(tab => { tab.style.display = "none" });
             menuJsonB.length = 0;
-            menuJsonB.push(
-                {"order": "10", "id": "id_1", "pid": "", "text": "홈"}
-            );
+            menuJsonB.push({
+                    "order": 10,
+                    "id": "id_1",
+                    "pid": "",
+                    "text": "홈"
+                });
             SBUxMethod.refresh('breadcrumb');
-
-            fn_afterSeletTab("main");
-        }
-        else {
+            await fn_afterSeletTab("main");
+        } else {
             fn_setMenuInfo(SBUxMethod.get('tab_menu'));
         }
     }
@@ -868,7 +1010,7 @@
             </div>
             <c:if test="${loginVO != null && loginVO.id != null}">
             	<c:set scope="request" var="userName" value="${loginVO.name}"></c:set>
-                <span class="name-t" style="margin-left: 5px"><c:out value='${userName}'></c:out></span>
+                <span class="name-t" style="margin-left: 5px"><c:out value='${userName}' escapeXml="false"></c:out></span>
 				<span style="cursor: pointer;font-size:20px;margin-left:5px;" id="lbl-autoRefresh" onclick="fn_setAutoRefresh()">🔒</span>
                 <ul class="user-login-menu">
                     <li style="padding: 0!important;">
@@ -919,7 +1061,8 @@
 		                    jsondata-ref="menuJsonB"
 		                    show-tooltip="true"
 		                    tooltip-key="url"
-		                    onclick="fn_bmkYn()"
+		                    onclick="fn_onClickNavigator()"
+                            home-icon="home"
 		            ></sbux-breadcrumb>
         		</div>
         		<div class="col-sm-6">
@@ -980,6 +1123,22 @@
 </div>
 <div id="body-modal-msgAlarm">
     <jsp:include page="../apcss/co/ntc/comMsgPopup.jsp"></jsp:include>
+</div>
+<div>
+    <sbux-modal
+        id="modal-menuInfo"
+        name="modal-menuInfo"
+        uitype="middle"
+        header-title="메뉴상세정보"
+        body-html-id="body-modal-menuInfo"
+        footer-is-close-button="false"
+        header-is-close-button="true"
+        callback-after-close=""
+        style="width:500px;margin-top: 20vh"
+    ></sbux-modal>
+</div>
+<div id="body-modal-menuInfo">
+    <jsp:include page="../apcss/co/ntc/menuInfoPopup.jsp"></jsp:include>
 </div>
 
 </body>
@@ -1077,19 +1236,56 @@
 
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
+        fn_init();
+    });
 
-    	document.querySelector("#lbl-autoRefresh").style.display = "none";
-        initMain();
-        var iframe = document.getElementById('idxfrmJson');
+    /**
+     * @name fn_init
+     * @description 초기 화면 로드 후
+     * @function
+     */
+    const fn_init = async function() {
+        document.querySelector("#lbl-autoRefresh").style.display = "none";
+
+        // 공지사항 등록
+        await fn_openNoticeTab();
+
+
+        // 생산관리 대시보드
+        if (gfn_isEmpty(initMenuId)) {
+            await fn_openMainTab();
+        }
+
+        const jsonSysId = menuJson.filter((item, index, arr) => {
+            return gfn_isEmpty(item.pid);
+        });
+
+        //console.log(jsonSysId);
+
+
+        // 여기서 분기
+        let menuId = menuJson[0].id;
+        if (!gfn_isEmpty(initMenuId)) {
+            menuId = initMenuId;
+        }
+
+        //await fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+        await fn_setLeftMenu(menuId);
+
+        await fn_getSysInfo();
+
+        const iframe = document.getElementById('idxfrmJson');
         iframe.scrolling = 'auto';
 
         mfn_displayButton();
-        fn_topMenuSet();
 
-    });
+        await fn_topMenuSet();
+    }
+
+
     /** 각각 탭끼리 소통 관제탑 메인
      *  send Tab > main > receive Tab **/
-    window.addEventListener('message',function(event){
+    window.addEventListener('message', function(event){
         try{
             let object = JSON.parse(event.data);
             if(!gfn_isEmpty(object)){
@@ -1151,11 +1347,142 @@
 
     }
 
+    /**
+     * @name fn_naviOnClick
+     * @description navigator click event
+     */
+    const fn_onClickNavigator = async function() {
+
+        let navi = SBUxMethod.getBreadcrumb("breadcrumb");
+        if (gfn_isEmpty(navi)) {
+            return;
+        }
+
+        const order = navi.order;
+        const idx = parseInt(navi['sbux_index']) || 0;
+        let result = false;
+        /*
+        const idx = menuJsonB.findIndex(menu => {
+           if (menu.order === order) {
+               return true;
+           }
+        });
+         */
+
+        const menu = menuJsonB[idx];
+        if (gfn_isEmpty(menu)) {
+            return;
+        }
+
+        switch (menu.order) {
+            case 40:
+                popMenuInfo.init({
+                        menuId: menu.id,
+                        menuNm: menu.text,
+                        sysNm: "",
+                        upMenuId: menu.pid,
+                        upMenuNm: menu.upMenuNm,
+                        url: menu.url,
+                    });
+                SBUxMethod.openModal(popMenuInfo.modalId);
+                break;
+
+            case 50:    // BOOKMARK ACTION
+                SBUxMethod.refresh('breadcrumb');
+                const menuId = menu.id.replace(__BOOKMARK_PRFX__, "");
+                const bmkYn = menu.value;
+
+                switch (bmkYn) {
+                    case "Y":
+                        result = await fn_deleteBookmark({menuId : menuId});
+
+                        if (result) {
+                            menuJsonB[idx].text = '☆';
+                            menuJsonB[idx].value = "N";
+                            for ( let i; i<menuJson.length; i++) {
+                                const checkId = menuJson[i].id;
+                                if (_.isEqual(checkId, menuId)) {
+                                    menuJson[i].bmkYn = "N"
+                                    break;
+                                }
+                            }
+                        }
+                        SBUxMethod.refresh('breadcrumb');
+                        break;
+
+                    case "N":
+                        result = await fn_insertBookmark({menuId : menuId});
+                        if (result) {
+                            menuJsonB[idx].text = '⭐';
+                            menuJsonB[idx].value = "Y";
+                            for ( let i; i<menuJson.length; i++) {
+                                const checkId = menuJson[i].id;
+                                if (_.isEqual(checkId, menuId)) {
+                                    menuJson[i].bmkYn = "Y";
+                                    break;
+                                }
+                            }
+                        }
+                        SBUxMethod.refresh('breadcrumb');
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    /**
+     * @name fn_deleteBookmark
+     * @description delete bookmark
+     */
+    const fn_deleteBookmark = async function(objMenu) {
+        const postJsonPromise = gfn_postJSON("/co/authrt/deleteBmk.do", objMenu);
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                return true;
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+        }
+
+        return false;
+    }
+    /**
+     * @name fn_insertBookmark
+     * @description insert bookmark
+     */
+    const fn_insertBookmark = async function(objMenu) {
+        const postJsonPromise = gfn_postJSON("/co/authrt/insertBmk.do", objMenu);
+        const data = await postJsonPromise;
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                return true;
+            } else {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+            }
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+        }
+
+        return false;
+    }
+
+
     const fn_bmkYn = async function(){
 
     	let breadcrumb = SBUxMethod.getBreadcrumb("breadcrumb");
     	let order = breadcrumb.order;
-    	if(order == "50"){
+
+    	if (order == "50"){
 
     		let menuId = menuJsonB[menuJsonB.length-1].id;
     		let bmkYn = menuJsonB[menuJsonB.length-1].value;
@@ -1219,41 +1546,83 @@
     			}
     			SBUxMethod.refresh('breadcrumb');
     		}
-
     	}
     }
+
     const getHomeSvg = function(){
         return `<?xml version="1.0" encoding="iso-8859-1"?><!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="13px" viewBox="0 0 612.008 612.008" style="enable-background:new 0 0 612.008 612.008;" xml:space="preserve"><g><g id="Shape_379_1_"><g><path d="M609.208,298.575L313.306,3.815c-3.987-3.988-10.445-3.988-14.433,0L2.961,298.575c-3.988,3.988-3.907,10.353,0,14.393c1.999,2.06,4.61,3.11,7.201,3.131v0.041h71.441v284.865c0,2.815,1.142,5.335,2.988,7.171c1.846,1.856,4.396,3.009,7.211,3.009h142.8c5.63,0,10.2-4.569,10.2-10.18V397.556h122.401v203.449c0,5.6,4.569,10.18,10.2,10.18h142.8c5.63,0,10.2-4.569,10.2-10.18V316.14h71.899c2.673,0.051,5.191-1,6.905-3.162C612.676,308.541,613.197,302.563,609.208,298.575z" fill="#FFFFFF"/></g></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`;
     }
 
-    const initMain = async function() {
-        var tabName = "TAB_CO_014";
-        var menuNo = "CO_014";
-        let svg = getHomeSvg();
-        var jsonTabSelect = {
-            'id': tabName
-            , 'pid': '-1'
-            , 'text': svg	//'대시보드'
-            , 'targetid': tabName
-            , 'targetvalue': tabName
-            , 'targetname': 'frmJson'
-            , 'link': '/co/menu/openPage.do/' + menuNo	// _url
-            , 'closeicon': false
-        };
-        SBUxMethod.addTab('tab_menu', jsonTabSelect);
-        //화면이력관리용 data
-        var data = {
-        		customData : {prsnaYn : null},
-        		id : tabName,
-        		text : "대시보드",
-        		prslType: "M1"
+    /**
+     * @name fn_openNoticeTab
+     * @description 공지사항
+     */
+    const fn_openNoticeTab = async function() {
+        // 공지사항
+        const tabName = "TAB_PD_009";
+        const menuNo = "PD_009";
+
+        const noticeTab = SBUxMethod.getTab('tab_menu', tabName);
+        if (!gfn_isEmpty(noticeTab)) {
+            return;
         }
 
-       	insertComLog(data);
+        const jsonTabSelect = {
+            'id': tabName,
+            'pid': '-1',
+            'text': '📢',	//'공지사항'📣
+            'targetid': tabName,
+            'targetvalue': tabName,
+            'targetname': 'frmJson',
+            'link': '/co/menu/openPage.do/' + menuNo,	// _url
+            'closeicon': false,
+        };
 
-        fn_setLeftMenu(menuJson[0].id, menuJson[0].text);
+        SBUxMethod.addTab('tab_menu', jsonTabSelect);
+        //화면이력관리용 data
+        await insertComLog({
+            customData : {prsnaYn : null},
+            id : menuNo,
+            text : "공지사항",
+            prslType: "M1"
+        });
+    }
 
-        fn_getSysInfo();
+    /**
+     * @name fn_openMainTab
+     * @description 생산관리 대시보드
+     */
+    const fn_openMainTab = async function() {
+        const tabName = "TAB_CO_014";
+        const menuNo = "CO_014";
+
+        const mainTab = SBUxMethod.getTab('tab_menu', tabName);
+        if (!gfn_isEmpty(mainTab)) {
+            return;
+        }
+
+        const svg = '📊'; //getHomeSvg();
+        const jsonTabSelect = {
+                'id': tabName,
+                'pid': '-1',
+                'text': svg,	//'대시보드'
+                'targetid': tabName,
+                'targetvalue': tabName,
+                'targetname': 'frmJson',
+                'link': '/co/menu/openPage.do/' + menuNo,	// _url
+                'closeicon': false,
+            };
+
+        SBUxMethod.addTab('tab_menu', jsonTabSelect);
+        //화면이력관리용 data
+        const data = {
+                customData : {prsnaYn : null},
+                id : menuNo,
+                text : "대시보드",
+                prslType: "M1"
+            }
+        await insertComLog(data);
+
     }
 
     function gfn_tabClose(_menuId) {
@@ -1493,19 +1862,23 @@
     }
 
 	const fn_clearPrvTabInfo = function() {
-
-		if (gfn_isEmpty(prvTabMenuId)) {
+        if (gfn_isEmpty(prvTabMenuId)) {
 			return;
 		}
 
 		mfn_displayButton(null);
-
 		const idx = jsonTabPage.findIndex(function(item) {return item.menuId === prvTabMenuId});
 		if (idx >= 0) {
 			jsonTabPage.splice(idx, 1);
 		}
 	}
 
+    /**
+     * @name fn_setTabInfo
+     * @description tab page 정보 설정 : 공통버튼 설정
+     * @param {String} _menuId
+     * @function
+     */
 	const fn_setTabInfo = async function(_menuId) {
 
 		let uiInfo;
@@ -1555,114 +1928,119 @@
                 }
 			}
 
-			let _userId;
-       		<c:set scope="request" var="userId" value="${loginVO.id}"></c:set>
-       		_userId = '<c:out value='${userId}'></c:out>';
+            try {
+                const postJsonPromise = gfn_postJSON(
+                        "/co/authrt/selectLoginUserAuthrtCmnsBtnList.do",
+                        {menuId: _menuId},
+                        "main",
+                        true
+                    );
 
-           	if (!gfn_isEmpty(_userId)) {
-           		const postJsonPromise = gfn_postJSON(
-						"/co/authrt/selectUserAuthrtCmnsBtnList.do",
-						{menuId: _menuId, userId: _userId},
-						"main",
-						true
-					);
-		        const data = await postJsonPromise;
-		        try {
-		        	data.resultList.forEach((item, index) => {
+                const data = await postJsonPromise;
+                data.resultList.forEach((item, index) => {
 
-		                const hasButton = _.isEqual(item.delYn, 'N');
-		        		const disabled = _.isEqual(item.accessUseYn, 'Y') && _.isEqual(item.accessYn, 'N');
-		        		const visible = !(_.isEqual(item.indctUseYn, 'Y') && _.isEqual(item.indctYn, 'N'));
+                    const hasButton = _.isEqual(item.delYn, 'N');
+                    const disabled = _.isEqual(item.accessUseYn, 'Y') && _.isEqual(item.accessYn, 'N');
+                    const visible = !(_.isEqual(item.indctUseYn, 'Y') && _.isEqual(item.indctYn, 'N'));
 
-		        		switch (item.entyId) {
-		                	case "CMNS_INIT":
-		                		uiInfo.cmnsInit.button = hasButton;
-		                		uiInfo.cmnsInit.disabled = disabled;
-		                		uiInfo.cmnsInit.visible = visible;
-		                		break;
-		                	case "CMNS_ADD":
-		                		uiInfo.cmnsAdd.button = hasButton;
-		                		uiInfo.cmnsAdd.disabled = disabled;
-		                		uiInfo.cmnsAdd.visible = visible;
-		                		break;
-		                	case "CMNS_DEL":
-		                		uiInfo.cmnsDel.button = hasButton;
-		                		uiInfo.cmnsDel.disabled = disabled;
-		                		uiInfo.cmnsDel.visible = visible;
-		                		break;
-		                	case "CMNS_SAVE":
-		                		uiInfo.cmnsSave.button = hasButton;
-		                		uiInfo.cmnsSave.disabled = disabled;
-		                		uiInfo.cmnsSave.visible = visible;
-		                		break;
-		                	case "CMNS_SEARCH":
-		                		uiInfo.cmnsSearch.button = hasButton;
-		                		uiInfo.cmnsSearch.disabled = disabled;
-		                		uiInfo.cmnsSearch.visible = visible;
-		                		break;
-                            case "CMNS_UPLOAD":
-                                uiInfo.cmnsUpload.button = hasButton;
-                                uiInfo.cmnsUpload.disabled = disabled;
-                                uiInfo.cmnsUpload.visible = visible;
-                                break;
-                            case "CMNS_APPR":
-                                uiInfo.cmnsAppr.button = hasButton;
-                                uiInfo.cmnsAppr.disabled = disabled;
-                                uiInfo.cmnsAppr.visible = visible;
-                                break;
-		                }
-		            });
+                    switch (item.entyId) {
+                        case "CMNS_INIT":
+                            uiInfo.cmnsInit.button = hasButton;
+                            uiInfo.cmnsInit.disabled = disabled;
+                            uiInfo.cmnsInit.visible = visible;
+                            break;
+                        case "CMNS_ADD":
+                            uiInfo.cmnsAdd.button = hasButton;
+                            uiInfo.cmnsAdd.disabled = disabled;
+                            uiInfo.cmnsAdd.visible = visible;
+                            break;
+                        case "CMNS_DEL":
+                            uiInfo.cmnsDel.button = hasButton;
+                            uiInfo.cmnsDel.disabled = disabled;
+                            uiInfo.cmnsDel.visible = visible;
+                            break;
+                        case "CMNS_SAVE":
+                            uiInfo.cmnsSave.button = hasButton;
+                            uiInfo.cmnsSave.disabled = disabled;
+                            uiInfo.cmnsSave.visible = visible;
+                            break;
+                        case "CMNS_SEARCH":
+                            uiInfo.cmnsSearch.button = hasButton;
+                            uiInfo.cmnsSearch.disabled = disabled;
+                            uiInfo.cmnsSearch.visible = visible;
+                            break;
+                        case "CMNS_UPLOAD":
+                            uiInfo.cmnsUpload.button = hasButton;
+                            uiInfo.cmnsUpload.disabled = disabled;
+                            uiInfo.cmnsUpload.visible = visible;
+                            break;
+                        case "CMNS_APPR":
+                            uiInfo.cmnsAppr.button = hasButton;
+                            uiInfo.cmnsAppr.disabled = disabled;
+                            uiInfo.cmnsAppr.visible = visible;
+                            break;
+                    }
+                });
 
-		        	jsonTabPage.push(uiInfo);
+                jsonTabPage.push(uiInfo);
 
-		        } catch (e) {
-		            if (!(e instanceof Error)) {
-		                e = new Error(e);
-		            }
-		            console.error("failed", e.message);
-		        }
-			}
-
+            } catch (e) {
+                if (!(e instanceof Error)) {
+                    e = new Error(e);
+                }
+                console.error("failed", e.message);
+            }
 		}
 
 		mfn_displayButton(uiInfo);
-
 	}
-    const fn_fullScreen = function(){
-            let el = $(".tab-content > div.active").children().attr('id');
-            let iframe = document.getElementById(el);
-            let dc =iframe.contentDocument || iframe.contentWindow.document;
 
-        if(!dc.fullscreenElement){
-            if(dc.documentElement.requestFullscreen){
+    /**
+     * @name fn_fullScreen
+     * @description 페이지 Full 스크린 처리
+     * @function
+     */
+    const fn_fullScreen = function(){
+
+        let el = $(".tab-content > div.active").children().attr('id');
+        let iframe = document.getElementById(el);
+        let dc =iframe.contentDocument || iframe.contentWindow.document;
+
+        if (!dc.fullscreenElement){
+            if (dc.documentElement.requestFullscreen){
                 dc.documentElement.requestFullscreen();
-            }else if(dc.documentElement.webkitRequestFullscreen){
+            } else if (dc.documentElement.webkitRequestFullscreen){
                 dc.documentElement.webkitRequestFullscreen()
-            }else if(dc.documentElement.msRequestFullscreen){
+            } else if (dc.documentElement.msRequestFullscreen){
                 dc.documentElement.msRequestFullscreen();
             }
-        }else{
-            if(dc.exitFullscreen){
+        } else {
+            if (dc.exitFullscreen){
                 dc.exitFullscreen();
-            }else if(dc.webkitExitFullscreen){
+            } else if (dc.webkitExitFullscreen){
                 dc.webkitExitFullscreen();
-            }else if(dc.msExitFullscreen){
+            } else if (dc.msExitFullscreen){
                 dc.msExitFullscreen();
             }
         }
     }
 
+    /**
+     * @name cfn_openTabSearch
+     * @description 공통버튼 Action : 조회
+     * @function
+     */
     function cfn_openTabSearch (obj){
-        try{
+        try {
             let object = JSON.parse(obj);
-            if(!gfn_isEmpty(object)){
+            if (!gfn_isEmpty(object)) {
                 let target = object.target;
                 /** left Menu에서 넘어온 해당 Tab의 대한 정보로 필터링 **/
                 let data = sideJsonData.filter((item) => item.id == target);
                 /** 현재 열려있는 탭인지 확인 **/
                 let openFlag = tabJsonData.some((item) => item.targetid.replace("TAB_","") == target);
 
-                if(openFlag){
+                if (openFlag) {
                     /** receive Tab이 열려 있는 상태에선 msg를 전달하여 VO 전달 **/
                     let iframe = "idxfrmJson_TAB_" + target;
                     let el = document.getElementById(iframe);
@@ -1670,7 +2048,7 @@
                     SBUxMethod.set("tab_menu","TAB_"+target);
                     /** main > receive 로 parameter 전달 **/
                     el.contentWindow.postMessage(object);
-                }else{
+                } else {
                     localStorage.setItem("callMain",JSON.stringify(object));
                     /** 현재 receive Tab이 없는경우 새로 오픈하며 중간에 로직을 위해서
                      * 직접 전달하지않고 localStorage를 사용하여 param 전달 **/
@@ -1683,12 +2061,17 @@
                     );
                 }
             }
-        }catch (e){
+        } catch (e) {
             /** 전달인자가 비어있을경우 json parse exception **/
             console.error(e.toString());
         }
     }
 
+    /**
+     * @name fn_topMenuSet
+     * @description 상단 메뉴 설정
+     * @function
+     */
     const fn_topMenuSet = async function () {
         let width = $("body > div.sbt-A-wrap > div.sbt-all-header > div").css("width");
         $("#idxTop_json > div").css({
@@ -1734,33 +2117,50 @@
             isDragging = true;
         });
 
-        let data = await popMsg.search('${loginVO.id}');
-        if(data.resultList.length > 0){
+        let data = await popMsg.search('');
+        if (data.resultList.length > 0){
             $("#pop_cnt").text(data.resultList.length);
             fn_msgPopup();
-        }else{
+        } else {
             $("#pop_wrap").css("display","none");
         }
-
     }
 
+    /**
+     * @name cfn_closeTab
+     * @description 탭 메뉴 닫기
+     * @param {String} _menuId
+     * @function
+     */
     function cfn_closeTab(_menuId){
         let menuId = 'TAB_' + _menuId;
         SBUxMethod.removeTab("tab_menu", menuId);
     }
 
+    /**
+     * @name fn_msgPopup
+     * @description 사용자 알림 팝업
+     * @function
+     */
     const fn_msgPopup = function(){
         SBUxMethod.openModal('modal-msgAlarm');
-        popMsg.init('${loginVO.id}');
+        popMsg.init('');
     }
+
+    /**
+     * @name fn_popMsgRefresh
+     * @description 사용자 알림 새로고침
+     * @function
+     */
     async function fn_popMsgRefresh(){
-        let data = await popMsg.search('${loginVO.id}');
+        let data = await popMsg.search('');
         if(data.resultList.length > 0){
             $("#pop_cnt").text(data.resultList.length);
         }else{
             $("#pop_wrap").css("display","none");
         }
     }
+
     /** 공통버튼 활성유무
      *  호출하는 innerframe :> window.parent.fn_toggleButtonDisable('save',true);
      * **/

@@ -118,8 +118,8 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma inpt_data_reqed">
-                        </sbux-datepicker>
+                                class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+                        ></sbux-datepicker>
                     </td>
                     <th>~</th>
                     <td class="td_input" style="border-right: hidden;">
@@ -129,8 +129,8 @@
                                 uitype="popup"
                                 datepicker-mode="month"
                                 date-format="yyyy-mm"
-                                class="table-datepicker-ma inpt_data_reqed">
-                        </sbux-datepicker>
+                                class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
+                        ></sbux-datepicker>
                     </td>
                     <td style="border-right: hidden;">&nbsp;</td>
                     <th scope="row" class="th_bg_search">급여항목</th>
@@ -246,8 +246,8 @@
 </section>
 <div>
     <sbux-modal style="width:600px" id="modal-compopup1" name="modal-compopup1" uitype="middle" header-title=""
-                body-html-id="body-modal-compopup1" header-is-close-button="false"
-                footer-is-close-button="false"></sbux-modal>
+                body-html-id="body-modal-compopup1" header-is-close-button="true"
+                footer-is-close-button="true"></sbux-modal>
 </div>
 <div id="body-modal-compopup1">
     <jsp:include page="../../../com/popup/comPopup1.jsp"></jsp:include>
@@ -275,7 +275,7 @@
 
             gfnma_setComSelect(['grdExceptionList', 'SRCH_PAY_TYPE'], jsonPayType, 'L_HRB008', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             gfnma_setComSelect(['grdExceptionList'], jsonApplyType, 'L_HRP021', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
+            gfnma_setComSelect(['grdExceptionList'], jsonPayItemCode, 'L_HRP004', "AND CO_CD = '" + gv_ma_selectedCorpCd + "' AND CLNT_CD = '" + gv_ma_selectedClntCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SLRY_ITEM_CD', 'SLRY_ITEM_NM', 'Y', ''),
 
             //사업장
             gfnma_multiSelectInit({
@@ -358,9 +358,12 @@
      */
     var fn_compopup2 = function(row, col, searchTt) {
 
+        console.log('row', row, "col", col, "searchTt", searchTt);
+
         var searchText 		= searchTt;
         var replaceText0 	= "_EMP_CD_";
-        var replaceText1 	= searchText;
+        var replaceText1 	= "_EMP_NM_";
+        // var replaceText1 	= searchText;
         var strWhereClause 	= "AND X.EMP_CD LIKE '%" + replaceText0 + "%' AND X.EMP_NM LIKE '%" + replaceText1 + "%' AND X.EMP_STTS = 'WORK'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '사원 조회');
@@ -381,8 +384,8 @@
             ,tableColumnWidths		: ["80px", "80px", "80px", "120px", "120px", "100px"]
             ,itemSelectEvent		: function (data){
                 //그리드내 원하는 위치에 값 셋팅하기
-                grdExceptionList.setCellData(row, (col-1), data['EMP_CD']);
-                grdExceptionList.setCellData(row, (col+1), data['EMP_NM']);
+                grdExceptionList.setCellData(row, grdExceptionList.getColRef('EMP_CODE'), data['EMP_CD'], true, true);
+                grdExceptionList.setCellData(row, grdExceptionList.getColRef('EMP_NAME'), data['EMP_NM'], true, true);
             }
         });
     }
@@ -515,30 +518,44 @@
         SBGridProperties.extendlastcol = 'scroll';
         SBGridProperties.useinitsorting = true;
         SBGridProperties.columns = [
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' ,/* isvalidatecheck: true,	validate : 'fnValidate',*/
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '150px', style : 'text-align:center', type : 'combo' ,/* isvalidatecheck: true,	validate : 'fnValidate',*/
                 typeinfo : {ref : 'jsonPayType', displayui : true,  label : 'label', value : 'value'}
             },
-            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/, isvalidatecheck: true,	validate : 'fnValidate'},
-            {caption: ["사원검색"], 			ref: 'POP_BTN',    				type:'button',  	width:'150px',  		style:'text-align:center',
+
+            {caption: ["사번"], ref: 'EMP_CODE', type: 'input', width: '150px', style: 'text-align:left'/*, disabled: true*/, isvalidatecheck: true,	validate : 'fnValidate'},
+
+            {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '100px', style: 'text-align:left'/*, disabled: true*/},
+
+            {caption: ["이름"], 			ref: 'POP_BTN',    				type:'button',  	width:'50px',  		style:'text-align:center',
                 renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
                     return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_gridPopup(event, " + nRow + ", " + nCol + ")'>…</button>";
                 }
             },
-            {caption: ["이름"], ref: 'EMP_NAME', type: 'input', width: '200px', style: 'text-align:left'/*, disabled: true*/},
-            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
-                typeinfo : {ref : 'jsonPayItemCode',  displayui : true, label : 'label', value : 'value'}
+
+            {caption : ["급여항목"], ref : 'PAY_ITEM_CODE', width : '200px', style : 'text-align:left', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
+                typeinfo : {ref : 'jsonPayItemCode',  displayui : false, label : 'label', value : 'value'}
             },
-            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}/*, disabled: true*/},
-            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'200px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
-                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
-            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '200px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
-                typeinfo : {ref : 'jsonApplyType',  displayui : true, label : 'label', value : 'value'}
+
+            {caption: ['귀속년월(FROM)'], ref: 'PAY_YYYYMM_FR', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
+                typeinfo : {calendartype:"yearmonth"},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}
             },
-            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '200px', style: 'text-align:right',
+
+            {caption: ['귀속년월(TO)'], ref: 'PAY_YYYYMM_TO', 	width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false , isvalidatecheck: true,	validate : 'fnValidate',
+                typeinfo : {calendartype:"yearmonth"},
+                format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}
+            },
+
+            {caption : ["적용구분"], ref : 'PAY_APPLY_TYPE', width : '100px', style : 'text-align:center', type : 'combo' , /*isvalidatecheck: true,	validate : 'fnValidate',*/
+                typeinfo : {ref : 'jsonApplyType',  displayui : false, label : 'label', value : 'value'}
+            },
+
+            {caption: ["적용비율"], ref: 'PAY_APPLY_RATE', type: 'input', width: '100px', style: 'text-align:right',
                 format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}},
-            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '200px', style: 'text-align:right'
+
+            {caption: ["적용금액"], ref: 'PAY_APPLY_AMT', type: 'input', width: '150px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###' , emptyvalue:'0'}},
+
             {caption: ["비고"], ref: 'MEMO', type: 'input', width: '100px', style: 'text-align:left'}
 
         ];
@@ -596,29 +613,14 @@
      */
     function fn_gridPopup(event, row, col) {
 
-        /*  if (!_.isEmpty(row)){
-              grdExceptionList.setRowStatus(row, 'u', true);
-          }*/
-
         let rowData = grdExceptionList.getRowData(row);
         let rowStatus = grdExceptionList.getRowStatus(row);
-
-
-        /*  if (_.isEqual(rowStatus, 1) || _.isEqual(rowStatus, 3)){*/
-
         let searchText = '';
         if (!_.isEmpty(rowData)){
             searchText = rowData.EMP_NAME;
         }
-
         event.stopPropagation();	//이벤트가 그리드에 전파되는것 중지
         fn_compopup2(row, col, searchText);
-
-        /* }else{
-             return false;
-         }*/
-
-
     }
 
 
@@ -817,6 +819,7 @@
 
             let listData = [];
             listData =  await getParamForm('u');
+            console.log("listData ==> ", listData);
             /* var paramObj = {
                  P_HRP1170_S: await getParamForm('u')
              }*/
@@ -853,19 +856,18 @@
 
     const getParamForm = async function (typeData) {
 
-        let updateData;
+        let updateData = [];
         let returnData = [];
 
         if (_.isEqual(typeData, 'u')) { //업데이트
 
             updateData = grdExceptionList.getUpdateData(true, 'all');
 
-        } else if (_.isEqual(typeData, 'd')) {
+        } else if (_.isEqual(typeData, 'd')) { //삭제
 
             updateData = grdExceptionList.getUpdateData(true, 'd');
 
         }
-
         if (!_.isEmpty(updateData)) {
 
             updateData.forEach((item, index) => {
@@ -896,7 +898,7 @@
                         , V_P_PROC_ID: ''
                         , V_P_USERID: ''
                         , V_P_PC: ''
-                    })
+                    }, true)
                 }
 
                 returnData.push(param);
@@ -1115,9 +1117,9 @@
             let strType = gridData.PAY_APPLY_TYPE;
 
             if (strType == 'AMOUNT'){
-                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),0,true);
+                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_RATE'),0,true, true);
             } else if (strType == 'RATE'){
-                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),0,true);
+                grdExceptionList.setCellData(nRow,grdExceptionList.getColRef('PAY_APPLY_AMT'),0,true, true);
             }
 
             fn_ColumnSetting(nRow,strType);

@@ -112,10 +112,10 @@
 	                        <sbux-select
 	                        	unselected-text="전체"
 	                            uitype="single"
-	                            id="srch-slt-payMethod"
-	                            name="srch-slt-payMethod"
+	                            id="srch-slt-rcptType"
+	                            name="srch-slt-rcptType"
 	                            class="form-control input-sm"
-	                            jsondata-ref="jsonPayMethod"
+	                            jsondata-ref="jsonRcptType"
 							/>
 	                    </td>
 	                    <td></td>
@@ -324,7 +324,8 @@
 	// 공통요소
 	var jsonFiOrgCode = [];			// 사업단위
 	var jsonCurrencyCode = [];		// 통화
-	var jsonPayMethod = []; 		// 수금방법
+	var jsonRcptType = []; 		// 수금방법
+	var jsonPayMethod = [];		//지급방법
 	var jsonBankCode = [];			// 은행코드
 	var jsonTxnGroupCode = [];		// 거래유형
 	var jsonDocType = [];			// 전표유형
@@ -338,6 +339,7 @@
     var jsonAccItemCode = []; 		// 관리항목코드
     var jsonVoucherType = [];		// 증빙유형
 	var jsonRegType = [];			// 등록유형
+
 	
 	// 예금입금내역
 	var grdSvg;
@@ -358,7 +360,7 @@
  
  
 	const srchElements = [
-		{"id": "srch-slt-payMethod", "default": ""},
+		{"id": "srch-slt-rcptType", "default": ""},
 		{"id": "srch-inp-payerCode", "default": ""},
 		{"id": "srch-inp-payerName", "default": ""},
 		{"id": "srch-inp-costCenterCode", "default": ""},
@@ -455,7 +457,7 @@
 					]
 				}),
 				// 수금방법
-				gfnma_setComSelect(['srch-slt-payMethod'], jsonPayMethod, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+				gfnma_setComSelect(['srch-slt-rcptType'], jsonRcptType, 'L_FBS029', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				// 등록구분
 				//gfnma_setComSelect(['srch-slt-svgMethod'], jsonSvgMethod, 'L_FIF015', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 				//gfnma_setComSelect(['srch-slt-regType'], jsonRegType, 'L_FBS017', "AND COMP_CODE = '" + gv_ma_selectedCorpCd + "'", gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
@@ -473,12 +475,14 @@
 	            gfnma_setComSelect(['grdFund'], jsonExchangeType, 'L_COM034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	         	// 상태코드
 	            gfnma_setComSelect(['grdFund'], jsonStatusCode, 'L_FIM074', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+	            // 지급방법
+				gfnma_setComSelect(['grdFund'], jsonPayMethod, 'L_FIM073', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	         	// LINE
 	            gfnma_setComSelect(['grdAcntg'], jsonLineType, 'L_FIM052', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	         	// 차/대
 	            gfnma_setComSelect(['grdAcntg'], jsonDebitCredit, 'L_FIG003', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	         	// 원가중심점코드
-	            gfnma_setComSelect(['grdAcntg'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCD_CD', 'CSTCD_NM', 'Y', ''),
+	            gfnma_setComSelect(['grdAcntg'], jsonCostCenterCode, 'L_CC_INPUT', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CSTCT_CD', 'CSTCT_NM', 'Y', ''),
 	         	// 증빙유형
 	            gfnma_setComSelect(['grdAcntg'], jsonVoucherType, 'L_FIG005', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 	            
@@ -513,7 +517,7 @@
             },
             {
             	caption : ['거래일'],          
-            	ref : 'TRSC_DT',      
+            	ref : 'TRSC_YMD',
             	width : '120px',   
             	style : 'text-align:center',    
             	type : 'datepicker',
@@ -582,12 +586,12 @@
             },
             {
             	caption : ["수금유형"],
-            	ref : 'PAY_MTHD', 
+            	ref : 'RCPT_TYPE',
             	width : '150px', 
             	style : 'text-align:center', 
             	type : 'combo',
                 typeinfo : {
-                    ref : 'jsonPayMethod',
+                    ref : 'jsonRcptType',
                     displayui : true,
                     oneclickedit:true,
                     label : 'label',
@@ -715,7 +719,7 @@
             	ref: 'FUND_ID',		
             	type:'output',  	
             	width:'80px',  	
-            	style:'text-align:right',  
+            	style:'text-align:center',
             },
             {
             	caption : ["자금배치번호"],				
@@ -759,7 +763,7 @@
             	caption: ["거래유형"], 		
             	ref: 'TRSC_GROUP_CD',   	    
             	type:'combo', 
-            	style:'text-align:left',
+            	style:'text-align:center',
             	width: '98px',
                 typeinfo: {
                     ref			: 'jsonTxnGroupCode',
@@ -788,13 +792,13 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left',
+            	style:'text-align:center',
             },
             {
             	caption: ["전표상태"],
             	ref: 'SLIP_STTS',
             	type:'combo', 
-            	style:'text-align:left',
+            	style:'text-align:center',
             	width: '79px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
@@ -824,7 +828,7 @@
             	width : '50px',
             	style : 'text-align:right',
             	type : 'output',
-                format : {type:'number', rule:'0,000.00'}
+                format : {type:'number', rule:'0.00'}
             },
             {
             	caption : ["환산유형"],
@@ -876,14 +880,14 @@
             	ref: 'PMPL_ID',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left',
+            	style:'text-align:center',
             },
             {
             	caption : ["계좌번호"],				
             	ref: 'ACTNO',		
             	type:'input',  	
             	width:'150px',  	
-            	style:'text-align:left', 
+            	style:'text-align:center',
             },
             {
             	caption : ["지급방법"],
@@ -948,13 +952,13 @@
             	ref: 'SLIP_NM',		
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left',
+            	style:'text-align:center',
             },
             {
             	caption: ["전표상태"],
             	ref: 'SLIP_STTS',
             	type:'combo', 
-            	style:'text-align:left',
+            	style:'text-align:center',
             	width: '79px',
                 typeinfo: {
                     ref			: 'jsonDocStatus',
@@ -975,7 +979,7 @@
             	ref: 'LINE_TYPE', 		        
             	type:'combo',  	
             	width:'80px', 
-            	style:'text-align:left',
+            	style:'text-align:center',
                 typeinfo: {
                     ref			: 'jsonLineType',
                     label		: 'label',
@@ -1010,14 +1014,14 @@
             	ref: 'ACNTL_CD',       
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left'
+            	style:'text-align:center'
             },  
             {
             	caption: ["계정과목명"], 	    
             	ref: 'ACNT_NM',       
             	type:'output',  	
             	width:'200px',  	
-            	style:'text-align:left'
+            	style:'text-align:center'
             },
             {
             	caption: ["차변(통화)"],        
@@ -1084,14 +1088,14 @@
             	ref: 'DEPT_NM',    	        
             	type:'output',  	
             	width:'100px',  	
-            	style:'text-align:left'
+            	style:'text-align:center'
             },
             {
             	caption: ["원가중심점"],           
-            	ref: 'CSTCD_CD', 		        
+            	ref: 'CSTCT_CD',
             	type:'combo',  	
             	width:'100px', 
-            	style:'text-align:left',
+            	style:'text-align:center',
                 typeinfo: {
                     ref			: 'jsonCostCenterCode',
                     label		: 'label',
@@ -1329,7 +1333,7 @@
         const txnDateFrom = SBUxMethod.get('srch-dtp-txnDateFrom');
         const txnDateTo = SBUxMethod.get('srch-dtp-txnDateTo');
         const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
-        const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+        const rcptType = gfn_nvl(SBUxMethod.get('srch-slt-rcptType'));
         const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
         const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
         const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));
@@ -1348,7 +1352,7 @@
                 V_P_IN_CURRENCY_CODE: currencyCode,
                 V_P_BANK_CS_CODE	: '',
                 V_P_IN_DEPOSIT_CODE	: '',
-                V_P_IN_PAY_METHOD	: payMethod,
+                V_P_IN_PAY_METHOD	: rcptType,
                 V_P_TXN_ID			: '',
                 V_P_REG_TYPE		: '',
                 
@@ -1477,7 +1481,7 @@
          const txnDateFrom = SBUxMethod.get('srch-dtp-txnDateFrom');
          const txnDateTo = SBUxMethod.get('srch-dtp-txnDateTo');
          const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
-         const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+         const rcptType = gfn_nvl(SBUxMethod.get('srch-slt-rcptType'));
          const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
          const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
          const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));
@@ -1496,7 +1500,7 @@
                  V_P_IN_CURRENCY_CODE: currencyCode,
                  V_P_BANK_CS_CODE	: '',
                  V_P_IN_DEPOSIT_CODE	: '',
-                 V_P_IN_PAY_METHOD	: payMethod,
+                 V_P_IN_PAY_METHOD	: rcptType,
                  V_P_TXN_ID			: _txnId,
                  V_P_REG_TYPE		: '',
                  
@@ -1577,7 +1581,7 @@
          const txnDateFrom = SBUxMethod.get('srch-dtp-txnDateFrom');
          const txnDateTo = SBUxMethod.get('srch-dtp-txnDateTo');
          const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
-         const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+         const rcptType = gfn_nvl(SBUxMethod.get('srch-slt-rcptType'));
          const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
          const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
          const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));
@@ -1596,7 +1600,7 @@
                  V_P_IN_CURRENCY_CODE: currencyCode,
                  V_P_BANK_CS_CODE	: '',
                  V_P_IN_DEPOSIT_CODE	: '',
-                 V_P_IN_PAY_METHOD	: payMethod,
+                 V_P_IN_PAY_METHOD	: rcptType,
                  V_P_TXN_ID			: _txnId,
                  V_P_REG_TYPE		: '',
                  
@@ -1609,7 +1613,7 @@
          	console.log("paramObj", paramObj);
          const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1020List.do", {
              getType			: 'json',
-             workType			: 'APPLY',
+             workType			: 'ACCOUNT',
              cv_count			: '1',
              params				: gfnma_objectToString(paramObj)
          });
@@ -1756,7 +1760,7 @@
     	 const txnDateFrom = SBUxMethod.get('srch-dtp-txnDateFrom');
          const txnDateTo = SBUxMethod.get('srch-dtp-txnDateTo');
          const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
-         const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+         const rcptType = gfn_nvl(SBUxMethod.get('srch-slt-rcptType'));
          const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
          const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
          const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));
@@ -1775,7 +1779,7 @@
                  V_P_IN_CURRENCY_CODE: currencyCode,
                  V_P_BANK_CS_CODE	: '',
                  V_P_IN_DEPOSIT_CODE	: '',
-                 V_P_IN_PAY_METHOD	: payMethod,
+                 V_P_IN_PAY_METHOD	: rcptType,
                  V_P_TXN_ID			: _txnId,
                  V_P_REG_TYPE		: '',
                  
@@ -1790,7 +1794,7 @@
 		
         const postJsonPromiseForList = gfn_postJSON("/fi/ftr/rec/selectTra1020List.do", {
              getType			: 'json',
-             workType			: 'ACCOUNT',
+             workType			: 'APPLY',
              cv_count			: '1',
              params				: gfnma_objectToString(paramObj)
 		});
@@ -1864,7 +1868,7 @@
 	const fn_save = async function() {
  
         const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
-        const payMethod = gfn_nvl(SBUxMethod.get('srch-slt-payMethod'));
+        const rcptType = gfn_nvl(SBUxMethod.get('srch-slt-rcptType'));
         const currencyCode = gfn_nvl(gfnma_multiSelectGet("#srch-currencyCode"));
         const receiptNo = gfn_nvl(SBUxMethod.get('srch-inp-receiptNo'));
         const regType = gfn_nvl(SBUxMethod.get('srch-slt-regType'));

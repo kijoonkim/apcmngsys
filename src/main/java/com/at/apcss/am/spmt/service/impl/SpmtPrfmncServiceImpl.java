@@ -2651,4 +2651,9 @@ public class SpmtPrfmncServiceImpl extends BaseServiceImpl implements SpmtPrfmnc
 
 		return null;
 	}
+
+	@Override
+	public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+		return spmtPrfmncMapper.selectSpmtPrfmncReg(spmtPrfmncVO);
+	}
 }

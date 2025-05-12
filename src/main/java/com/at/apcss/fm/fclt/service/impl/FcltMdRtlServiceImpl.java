@@ -19,20 +19,17 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 
 	@Override
 	public List<FcltMdRtlVO> selectCrtrYnList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectCrtrYnList(fcltMdRtlVO);
-		return resultList;
+		return fcltMdRtlMapper.selectCrtrYnList(fcltMdRtlVO);
 	}
 
 	@Override
 	public List<FcltMdRtlVO> selectMapSttn(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectMapSttn(fcltMdRtlVO);
-		return resultList;
+		return fcltMdRtlMapper.selectMapSttn(fcltMdRtlVO);
 	}
 
 	@Override
 	public List<FcltMdRtlVO> selectCtpvAreaList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
-		List<FcltMdRtlVO> resultList = fcltMdRtlMapper.selectCtpvAreaList(fcltMdRtlVO);
-		return resultList;
+		return fcltMdRtlMapper.selectCtpvAreaList(fcltMdRtlVO);
 	}
 
 	@Override
@@ -283,10 +280,83 @@ public class FcltMdRtlServiceImpl extends BaseServiceImpl implements FcltMdRtlSe
 
 	}
 
+
 	@Override
 	public List<HashMap<String, Object>> selectApcTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
 		List<HashMap<String,Object>> resultList = fcltMdRtlMapper.selectApcTotList(fcltMdRtlVO);
 		return resultList;
 	}
+
+
+	@Override
+	public List<FcltMdRtlVO> selectApcTotSmmryList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcTotSmmryList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcTotSmmryListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcTotSmmryListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcSpotTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcSpotTotList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcSpotTotListByOwnerOper(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcSpotTotListByOwnerOper(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcSpotTotListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcSpotTotListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcFcltAreaSizeTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcFcltAreaSizeTotList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcFcltAreaSizeTotListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcFcltAreaSizeTotListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcInstalledEquipmentTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcInstalledEquipmentTotList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcInstalledEquipmentTotListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcInstalledEquipmentTotListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcInvestmentTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcInvestmentTotList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcInvestmentTotListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcInvestmentTotListByCtpv(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcOperPrfmncTotList(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcOperPrfmncTotList(fcltMdRtlVO);
+	}
+
+	@Override
+	public List<FcltMdRtlVO> selectApcOperPrfmncTotListByCtpv(FcltMdRtlVO fcltMdRtlVO) throws Exception {
+		return fcltMdRtlMapper.selectApcOperPrfmncTotListByCtpv(fcltMdRtlVO);
+	}
+
 
 }

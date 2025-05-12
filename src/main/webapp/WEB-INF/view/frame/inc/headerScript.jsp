@@ -111,18 +111,19 @@
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
 		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
 		
-		const gv_apcCd = '${apcCd}';
-		const gv_apcNm = '${apcNm}';
-		const gv_apcSeCd = '${apcSeCd}';
+		let gv_apcCd = '${apcCd}';
+		let gv_apcNm = '${apcNm}';
+		let gv_apcSeCd = '${apcSeCd}';
 		const gv_userType = '${userType}';
 		const gv_userNm = '${userNm}';
 		
 		</c:when>
 		<c:otherwise>
-		const gv_apcCd = '';
-		const gv_apcNm = '';
-		const gv_apcSeCd = '';
+		let gv_apcCd = '';
+		let gv_apcNm = '';
+		let gv_apcSeCd = '';
 		const gv_userType = '';
+		const gv_userNm = '${userNm}';
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정
@@ -134,3 +135,4 @@
 	</script>
 
 <sbux-progress name="main-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>
+<sbux-progress name="sub-loading" uitype="loading" openlayer-title="Loading..." show-openlayer="true" animation="true" animation-type="fadeOut" ></sbux-progress>

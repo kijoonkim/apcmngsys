@@ -294,6 +294,5 @@ $RECYCLE.BIN/
 
 # Node.js, Webpack 관련
 node_modules/
-src/main/resources/static/js/out/
 dist/
 out/
