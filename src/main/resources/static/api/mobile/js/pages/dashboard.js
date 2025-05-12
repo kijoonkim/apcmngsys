@@ -251,6 +251,36 @@ $(function () {
             {name: '정산', value: ''},
         ]
       },
+      {name: '한우리',
+        nh: false,
+        kinds: [
+            {name: '계량', value: 'active'},
+            {name: '선별', value: ''}
+        ],
+        status: [
+            {name: '입고', value: 'active'},
+            {name: '선별', value: ''},
+            {name: '출고', value: 'active'},
+            {name: '재고', value: 'active'},
+            {name: '영농', value: ''},
+            {name: '정산', value: ''},
+        ]
+      },
+      {name: '신선미세상',
+        nh: false,
+        kinds: [
+            {name: '계량', value: ''},
+            {name: '선별', value: ''}
+        ],
+        status: [
+            {name: '입고', value: 'active'},
+            {name: '선별', value: 'active'},
+            {name: '출고', value: 'active'},
+            {name: '재고', value: 'active'},
+            {name: '영농', value: ''},
+            {name: '정산', value: ''},
+        ]
+      },
     ]
   };
 

@@ -248,7 +248,7 @@
                 <li><a href="#">새로고침</a></li>
                 <li class="pull-left header"><i class="fa fa-inbox"></i> APC 현황</li>
               </ul>
-              <div id="apc_infos" class="tab-content no-padding" style="height: 600px;">
+              <div id="apc_infos" class="tab-content no-padding" style="min-height: 560px;">
 
               </div>
             </div>
