@@ -109,7 +109,11 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/api/mobile/**/*")
 			.excludePathPatterns(
 				"/api/mobile/authenticate.do",
-				"/api/mobile/refreshToken.do");
+				"/api/mobile/refreshToken.do",
+				"/api/mobile/dashboard.do",
+				"/api/mobile/dist/**",
+				"/api/mobile/plugins/**",
+				"/api/mobile/bootstrap/**");
 		registry.addInterceptor(new HttpInterceptor())
 			.addPathPatterns(
 					"/**");
