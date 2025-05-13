@@ -1,5 +1,6 @@
 package com.at.apcss.fm.fclt.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.at.apcss.fm.fclt.vo.FcltApcVO;
@@ -55,6 +56,16 @@ public interface FcltOperInfoService {
 	 * @throws Exception
 	 */
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+	/**
+	 * APC전수조사 - 1.운영자개요 : 등록
+	 * @param fcltOperInfoVO
+	 * @return
+	 * @throws Exception
+	 */
+	HashMap<String, Object> insertOperOgnz(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+
 
 	/**
 	 * 운영자개요정보를 변경한다.

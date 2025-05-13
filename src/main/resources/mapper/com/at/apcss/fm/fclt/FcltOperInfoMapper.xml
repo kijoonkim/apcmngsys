@@ -12,6 +12,7 @@
 
 <mapper namespace="com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper">
 
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectFcltOperInfo				-->
 	<!-- DESC : 운영자개요 테이블 단건조회.                                             		-->
@@ -281,6 +282,342 @@
 				  , #{sysLastChgPrgrmId}
 				)
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln	-->
+	<!-- DESC : APC전수조사-운영자개요 단건 조회                               				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO" resultType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperPrsnOtln */
+				  OP.CRTR_YR		AS CRTR_YR
+				, OP.OPER_OGNZ_NM	AS OPER_OGNZ_NM
+				, OP.RPRSV			AS RPRSV
+				, OP.OPER_OGNZ_BRNO	AS OPER_OGNZ_BRNO
+				, OP.OPER_OGNZ_CRNO	AS OPER_OGNZ_CRNO
+				, OP.APC_CD			AS APC_CD
+				, OP.APC_NM			AS APC_NM
+				, OP.APC_BRNO		AS APC_BRNO
+				, OP.APC_CRNO		AS APC_CRNO
+				, OP.RPRSV			AS RPRSV
+				, OP.LOCTN			AS LOCTN
+				, OP.LOCTN_DTL		AS LOCTN_DTL
+				, OP.OPER_OGNZ_BMNO	AS OPER_OGNZ_BMNO
+				, OP.OPER_OGNZ_SLNO	AS OPER_OGNZ_SLNO
+				, OP.OPER_OGNZ_ROAD_NM_CD	AS OPER_OGNZ_ROAD_NM_CD
+				, OP.OPER_OGNZ_ADM_CD		AS OPER_OGNZ_ADM_CD
+				, OP.OPER_OGNZ_ZIP	AS OPER_OGNZ_ZIP
+				, OP.APC_LOCTN		AS APC_LOCTN
+				, OP.APC_LOCTN_DTL	AS APC_LOCTN_DTL
+				, OP.APC_BMNO		AS APC_BMNO
+				, OP.APC_SLNO		AS APC_SLNO
+				, OP.APC_ROAD_NM_CD	AS APC_ROAD_NM_CD
+				, OP.APC_ADM_CD		AS APC_ADM_CD
+				, OP.APC_ZIP		AS APC_ZIP
+				, OP.CTPV_CD		AS CTPV_CD
+				, OP.SIGUN_CD		AS SIGUN_CD
+				, OP.OGNZ_TYPE_CD	AS OGNZ_TYPE_CD
+				, OP.DEL_YN			AS DEL_YN
+			FROM TB_TE_APC_OPER_PRSN_OTLN OP
+			WHERE OP.CRTR_YR =#{crtrYr}
+			  AND OP.APC_CD = #{apcCd}
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList	-->
+	<!-- DESC : APC전수조사-운영자개요 품목 목록 조회                      				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcOperTrmtItemList" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO" resultType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.selectApcOperTrmtItemList */
+				  TI.CRTR_YR		AS CRTR_YR
+				, TI.APC_CD			AS APC_CD
+				, TI.SN				AS SN
+				, TI.APC_NM			AS APC_NM
+				, TI.ITEM_CD		AS ITEM_CD
+				, TI.ITEM_NM		AS ITEM_NM
+				, TI.ITEM_DTL_NM	AS ITEM_DTL_NM
+				, TI.TRMT_AMT		AS TRMT_AMT
+				, TI.ETC_CTGRY_CD	AS ETC_CTGRY_CD
+				, TI.OGNZ_SE_CD		AS OGNZ_SE_CD
+				, TI.DEL_YN			AS DEL_YN
+
+			FROM TB_TE_APC_OPER_TRMT_ITEM TI
+			WHERE TI.CRTR_YR = #{crtrYr}
+			AND TI.APC_CD = #{apcCd}
+			ORDER BY SN
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln	-->
+	<!-- DESC : APC전수조사-운영자개요 등록                               				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtln */
+			INTO TB_TE_APC_OPER_PRSN_OTLN (
+				  CRTR_YR
+				, OPER_OGNZ_NM
+				, OPER_OGNZ_BRNO
+				, OPER_OGNZ_CRNO
+				, APC_CD
+				, APC_NM
+				, APC_BRNO
+				, APC_CRNO
+				, RPRSV
+				, LOCTN
+				, LOCTN_DTL
+				, OPER_OGNZ_BMNO
+				, OPER_OGNZ_SLNO
+				, OPER_OGNZ_ROAD_NM_CD
+				, OPER_OGNZ_ADM_CD
+				, OPER_OGNZ_ZIP
+				, APC_LOCTN
+				, APC_LOCTN_DTL
+				, APC_BMNO
+				, APC_SLNO
+				, APC_ROAD_NM_CD
+				, APC_ADM_CD
+				, APC_ZIP
+				, CTPV_CD
+				, SIGUN_CD
+				, OGNZ_TYPE_CD
+
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			) VALUES (
+				  #{crtrYr}
+				, #{operOgnzNm}
+				, #{operOgnzBrno}
+				, #{operOgnzCrno}
+
+				, #{apcCd}
+				, (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
+				, #{apcBrno}
+				, #{apcCrno}
+
+				, #{rprsv}
+				, #{loctn}
+				, #{loctnDtl}
+				, #{operOgnzBmno}
+				, #{operOgnzSlno}
+				, #{operOgnzRoadNmCd}
+				, #{operOgnzAdmCd}
+				, #{operOgnzZip}
+
+				, #{apcLoctn}
+				, #{apcLoctnDtl}
+				, #{apcBmno}
+				, #{apcSlno}
+				, #{apcRoadNmCd}
+				, #{apcAdmCd}
+				, #{apcZip}
+
+				, #{ctpvCd}
+				, #{sigunCd}
+				, #{ognzTypeCd}
+
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			 )
+		]]>
+	</insert>
+
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln-->
+	<!-- DESC : 운영자개요 변경                                             			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateApcOperPrsnOtln" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateApcOperPrsnOtln */
+				TB_TE_APC_OPER_PRSN_OTLN AOPO
+			  SET
+				OPER_OGNZ_NM			=  #{operOgnzNm}
+				, OPER_OGNZ_BRNO		=  #{operOgnzBrno}
+				, OPER_OGNZ_CRNO		=  #{operOgnzCrno}
+				, APC_NM				=  (SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = #{apcCd})
+				, APC_BRNO				=  #{apcBrno}
+				, APC_CRNO				=  #{apcCrno}
+
+				, RPRSV					=  #{rprsv}
+				, LOCTN					=  #{loctn}
+				, LOCTN_DTL				=  #{loctnDtl}
+
+				, OPER_OGNZ_BMNO		=  #{operOgnzBmno}
+				, OPER_OGNZ_SLNO		=  #{operOgnzSlno}
+				, OPER_OGNZ_ROAD_NM_CD	=  #{operOgnzRoadNmCd}
+				, OPER_OGNZ_ADM_CD		=  #{operOgnzAdmCd}
+				, OPER_OGNZ_ZIP			=  #{operOgnzZip}
+
+				, APC_LOCTN				=  #{apcLoctn}
+				, APC_LOCTN_DTL			=  #{apcLoctnDtl}
+
+				, APC_BMNO				=  #{apcBmno}
+				, APC_SLNO				=  #{apcSlno}
+				, APC_ROAD_NM_CD		=  #{apcRoadNmCd}
+				, APC_ADM_CD			=  #{apcAdmCd}
+				, APC_ZIP				=  #{apcZip}
+
+				, CTPV_CD				=  #{ctpvCd}
+				, SIGUN_CD				=  #{sigunCd}
+				, OGNZ_TYPE_CD			=  #{ognzTypeCd}
+				, SYS_LAST_CHG_DT		= SYSDATE
+				, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+				, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+
+			WHERE CRTR_YR = #{crtrYr}
+			  AND APC_CD  = #{apcCd}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem-->
+	<!-- DESC : APC전수조사-운영자개요 품목 등록                               			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertApcOperTrmtItem" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItem */
+				INTO TB_TE_APC_OPER_TRMT_ITEM (
+					  CRTR_YR
+					, APC_CD
+					, SN
+					, APC_NM
+					, ITEM_CD
+					, ITEM_NM
+					, ETC_CTGRY_CD
+					, OGNZ_SE_CD
+					, ITEM_DTL_NM
+					, TRMT_AMT
+
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+				) VALUES (
+					  #{crtrYr}
+					, #{apcCd}
+					, #{sn}
+					, #{apcNm}
+					, #{itemCd}
+					, #{itemNm}
+					, #{etcCtgryCd}
+					, #{ognzSeCd}
+					, #{itemDtlNm}
+					, #{trmtAmt}
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				)
+		]]>
+	</insert>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem-->
+	<!-- DESC : APC전수조사-운영자개요 품목 삭제                               			-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deleteApcOperTrmtItem" parameterType="com.at.apcss.fm.fclt.vo.FcltItemVO">
+		<![CDATA[
+			DELETE /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.deleteApcOperTrmtItem */
+				TB_TE_APC_OPER_TRMT_ITEM
+			WHERE CRTR_YR = #{crtrYr}
+			AND APC_CD  = #{apcCd}
+			AND SN = #{sn}
+		]]>
+	</delete>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry-->
+	<!-- DESC : 운영자개요 이력 등록                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertApcOperPrsnOtlnHstry" statementType="CALLABLE" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+			{call /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperPrsnOtlnHstry */
+				SP_CMSU_OPER_OTLN_HSTRY (
+					  #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+					, #{crtrYr}
+					, #{apcCd}
+					, #{hstryPrcsKnd}
+					, #{hstrySn, jdbcType=BIGINT, mode=OUT}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry-->
+	<!-- DESC : 운영자 품목 이력 등록                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.05.02  	SHIN.J.C.     	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertApcOperTrmtItemHstry" statementType="CALLABLE" parameterType="com.at.apcss.fm.fclt.vo.FcltOperInfoVO">
+		<![CDATA[
+		{call /* com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.insertApcOperTrmtItemHstry */
+			SP_CMSU_OPER_TRMT_ITEM_HSTRY (
+				  #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+				, #{crtrYr}
+				, #{apcCd}
+				, #{hstryPrcsKnd}
+				, #{hstrySn}
+				, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+				, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+	</insert>
+
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.fm.fclt.mapper.FcltOperInfoMapper.updateFcltOperInfo				-->
@@ -733,4 +1070,5 @@
 		WHERE 1=1
 		  AND USER_ID = #{userId}
 	</select>
+
 </mapper>
