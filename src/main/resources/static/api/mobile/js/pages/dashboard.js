@@ -325,17 +325,17 @@ $(function () {
     console.log(el.status);
     var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
     $('#apc_infos').append(apcInfo);
-    var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name">'+el.name+'</div>');
+    var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding">'+el.name+'</div>');
     if(el.nh)apcName.addClass('nh');
     apcInfo.append(apcName);
     var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
     $.each(el.kinds, function (index, el) {
-        apcKinds.append($('<div class="apc_item apc_kind '+el.value+'">'+el.name+'</div>'));
+        apcKinds.append($('<div class="apc_item apc_kind no-padding '+el.value+'">'+el.name+'</div>'));
     });
     apcInfo.append(apcKinds);
     var apcStatus = $('<div class="col-lg-6 apc_status_wrapper"></div>');
     $.each(el.status, function (index, el) {
-        apcStatus.append($('<div class="col-lg-4 apc_item apc_status '+el.value+'">'+el.name+'</div>'));
+        apcStatus.append($('<div class="col-lg-4 apc_item apc_status no-padding '+el.value+'">'+el.name+'</div>'));
     });
     apcInfo.append(apcStatus);
   });
