@@ -318,6 +318,18 @@ $(function () {
     ]
   };
 
+  const svg = document.querySelector("#map");
+  apcInfo.apcLists.forEach(apc => {
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", apc.cx);
+    text.setAttribute("y", parseInt(apc.cy) - 15);
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("font-size", "15");
+    text.setAttribute("fill", "black");
+    text.textContent = apc.name;
+    svg.appendChild(text);
+  });
+
   $.each(apcInfo.apcLists, function (index, el) {
     console.log('element', index, el);
     console.log(el.name);
