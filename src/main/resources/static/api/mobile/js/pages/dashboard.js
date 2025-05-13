@@ -86,7 +86,7 @@ $(function () {
                 name: '상주원예영농',
                 nh: false,
                 cx: '550',
-                cy: '550',
+                cy: '450',
                 kinds: [
                     {name: '계량', value: ''},
                     {name: '선별', value: ''}
@@ -139,7 +139,7 @@ $(function () {
             {
                 name: '참영농',
                 nh: false,
-                cx: '350',
+                cx: '550',
                 cy: '750',
                 kinds: [
                     {name: '발주', value: 'active'},
@@ -158,7 +158,7 @@ $(function () {
                 name: '부안마케팅',
                 nh: false,
                 cx: '220',
-                cy: '1120',
+                cy: '650',
                 kinds: [
                     {name: '계량', value: 'active'},
                     {name: '선별', value: 'active'}
@@ -175,6 +175,8 @@ $(function () {
             {
                 name: '청일농산',
                 nh: false,
+                cx: '350',
+                cy: '550',
                 kinds: [
                     {name: '계량', value: 'active'},
                     {name: '선별', value: ''}
@@ -227,8 +229,8 @@ $(function () {
             {
                 name: '거산(태안)',
                 nh: false,
-                cx: '550',
-                cy: '250',
+                cx: '150',
+                cy: '450',
                 kinds: [
                     {name: '계량', value: 'active'},
                     {name: '선별', value: ''}
@@ -246,7 +248,7 @@ $(function () {
                 name: '월항농협',
                 nh: true,
                 cx: '600',
-                cy: '780',
+                cy: '580',
                 kinds: [
                     {name: '계량', value: ''},
                     {name: '선별', value: 'active'}
@@ -263,8 +265,8 @@ $(function () {
             {
                 name: '거산(영암)',
                 nh: false,
-                cx: '150',
-                cy: '800',
+                cx: '200',
+                cy: '820',
                 kinds: [
                     {name: '계량', value: 'active'},
                     {name: '선별', value: ''}
@@ -282,7 +284,7 @@ $(function () {
                 name: '성주참외농협',
                 nh: true,
                 cx: '600',
-                cy: '800',
+                cy: '550',
                 kinds: [
                     {name: '계량', value: ''},
                     {name: '선별', value: 'active'}
@@ -317,8 +319,8 @@ $(function () {
             {
                 name: '신선미세상',
                 nh: false,
-                cx: '650',
-                cy: '900',
+                cx: '350',
+                cy: '400',
                 kinds: [
                     {name: '계량', value: ''},
                     {name: '선별', value: ''}
@@ -510,34 +512,36 @@ $(function () {
         height: '250px'
     });
 
-    /* Morris.js Charts */
-    // Sales chart
-    var area = new Morris.Area({
-        element: 'revenue-chart',
-        resize: true,
-        data: [
-            {y: '2021 Q1', store: 2666, selection: 2666},
-            {y: '2021 Q2', store: 2778, selection: 2294},
-            {y: '2021 Q3', store: 4912, selection: 1969},
-            {y: '2021 Q4', store: 3767, selection: 3597},
-            {y: '2022 Q1', store: 6810, selection: 1914},
-            {y: '2022 Q2', store: 5670, selection: 4293},
-            {y: '2022 Q3', store: 4820, selection: 3795},
-            {y: '2022 Q4', store: 6073, selection: 3967},
-            {y: '2023 Q1', store: 9087, selection: 6460},
-            {y: '2023 Q2', store: 8432, selection: 5713},
-            {y: '2023 Q3', store: 4820, selection: 3795},
-            {y: '2023 Q4', store: 12073, selection: 4567},
-            {y: '2024 Q1', store: 10687, selection: 4460},
-            {y: '2024 Q2', store: 8432, selection: 5713},
-            {y: '2024 Q3', store: 4820, selection: 3795},
-            {y: '2024 Q4', store: 15073, selection: 5967},
-            {y: '2025 Q1', store: 10687, selection: 4460}
-        ],
-        xkey: 'y',
-        ykeys: ['store', 'selection'],
-        labels: ['입고', '선별'],
-        lineColors: ['#a0d0e0', '#3c8dbc'],
-        hideHover: 'auto'
-    });
+  /* Morris.js Charts */
+  // Sales chart
+  var area = new Morris.Area({
+    element: 'revenue-chart',
+    resize: true,
+    data: [
+      {y: '2025-04-27', store: 2666, selection: 2666},
+      {y: '2025-04-28', store: 2778, selection: 2294},
+      {y: '2025-04-29', store: 4912, selection: 1969},
+      {y: '2025-04-30', store: 3767, selection: 3597},
+      {y: '2025-05-01', store: 6810, selection: 1914},
+      {y: '2025-05-02', store: 5670, selection: 4293},
+      {y: '2025-05-03', store: 4820, selection: 3795},
+      {y: '2025-05-04', store: 6073, selection: 3967},
+      {y: '2025-05-05', store: 9087, selection: 6460},
+      {y: '2025-05-06', store: 8432, selection: 5713},
+      {y: '2025-05-07', store: 4820, selection: 3795},
+      {y: '2025-05-08', store: 12073, selection: 4567},
+      {y: '2025-05-09', store: 10687, selection: 4460},
+      {y: '2025-05-10', store: 8432, selection: 5713},
+      {y: '2025-05-11', store: 4820, selection: 3795},
+      {y: '2025-05-12', store: 15073, selection: 5967},
+      {y: '2025-05-13', store: 10687, selection: 4460},
+    ],
+    xkey: 'y',
+    ykeys: ['store', 'selection'],
+    labels: ['입고', '선별'],
+    lineColors: ['#a0d0e0', '#3c8dbc'],
+    hideHover: 'auto'
+  });
+
+
 });
