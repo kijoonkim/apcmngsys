@@ -298,6 +298,15 @@
                     onclick="fn_printPage()"
             >
             </sbux-button>
+            <sbux-button
+                    id="itemVrtyButton"
+                    name="itemVrtyButton"
+                    uitype="normal"
+                    text="품종선택"
+                    class="no-print"
+                    onclick="fn_changeVrty()"
+            >
+            </sbux-button>
         </div>
         <table id="sortTable" style="border-collapse: separate">
             <colgroup>
@@ -320,6 +329,13 @@
     <div id="sb-area-rawMtrInvntr" style="width: 100%;height: 450px"></div>
 </div>
 <div id="cnpt" class="modal">
+    <div class="closeModal">
+        <p class="close" onclick="fn_closeCnptModal()">&times;</p>
+    </div>
+    <div class="grd_container">
+    </div>
+</div>
+<div id="itemVrty" class="modal">
     <div class="closeModal">
         <p class="close" onclick="fn_closeCnptModal()">&times;</p>
     </div>
@@ -364,6 +380,10 @@
     var spmtSaveList = [];
     //현재 colIndex
     let nowColIdx = 0;
+    //itemCd
+    let itemCd;
+    //vrtyCd
+    let vrtyCd;
 
     //endregion var
     //region utill
@@ -545,7 +565,10 @@
                 /** 화면내 사용할 필드 추후 간섭여부 확인해야함 **/
                 vo.prdcrIdentno = rowData.prdcrIdentno;
                 vo.vrtyCd = rowData.vrtyCd;
-                sortSaveList.push(vo);
+                /** 여백 등록 처리 **/
+                let index = $(input).closest("tr").index();
+                vo.rmrk = index;
+                sortSaveList[index] = vo;
 
                 /** btn 재사용 **/
                 $(_this).text("저장");
@@ -566,6 +589,9 @@
         /** 출하 저장내역 삭제 **/
         spmtSaveList.length = 0;
         $("#cnpt").css("display","none");
+    }
+    const fn_closeItemVrtyModal = function(){
+        $("#itemVrty").css("display","none");
     }
     let fn_setPltno = () => {
     };
@@ -634,9 +660,13 @@
         grdList.forEach(function (item) {
             //colgroup set
             let col = document.createElement("col");
+            let col2 = document.createElement("col");
+
             col.style.width = `${'${ratio/2}'}%`;
+            col2.style.width = `${'${ratio/2}'}%`;
+
             colgroup.appendChild(col);
-            colgroup.appendChild(col);
+            colgroup.appendChild(col2);
             //thead set
             let th = document.createElement("th");
             th.innerHTML = item.grdNm;
@@ -796,6 +826,7 @@
                     gdsGrd: spmtVO.gdsGrd,
                     sortQntt: qntt,
                     sortWght: wght,
+                    rmrk: rowIndex,
                     gdsStdGrdList: [{
                         grdSeCd: '03',
                         itemCd: rowVO.itemCd,
@@ -820,7 +851,6 @@
     /** 선별등급 목록조회**/
     const fn_selectGrdList = async function () {
         let apcCd = gv_selectedApcCd;
-        let itemCd = '0901';
         let grdSeCd = '02';
         let grdKnd = '01';
 
@@ -849,6 +879,7 @@
             return;
         }
         let $container = $("#cnpt div.grd_container");
+        $container.empty();
 
         data.resultList.forEach(function(item,idx){
             $container.append(`<div onclick="fn_selectCnpt(this)" class="cell" data-idx="${'${idx}'}" data-cnpt-cd="${'${item.cnptCd}'}">${'${item.cnptNm}'}</div>`);
@@ -885,7 +916,7 @@
                    'success'
                );
                /** 등록 이후 원복처리 **/
-               fn_reset();
+               await fn_reset();
            }else{
                fn_closeCnptModal();
            }
@@ -903,12 +934,76 @@
     const fn_selectWarehouse = async function () {
         jsonComWarehouse = await gfn_getComCdDtls("WAREHOUSE_SE_CD", gv_selectedApcCd);
         const select = document.getElementById("warehouse");
+        select.innerText = '';
+
         jsonComWarehouse.forEach(function (item) {
             const option = document.createElement("option");
             option.value = item.cdVl;
             option.textContent = item.cdVlNm;
             select.appendChild(option);
         });
+    }
+    /** 품목, 품종 선택 **/
+    const fn_selectItemVrty = function(){
+        return new Promise(async resolve => {
+            $("#itemVrty").css('display', 'block');
+            let vrtyCd = await gfn_getApcVrty(gv_selectedApcCd);
+            let $container = $("#itemVrty div.grd_container");
+
+            /** main display:none **/
+            $(".area-wrap").css("display","none");
+
+            /** 기존 내용 비우기 (필요 시) **/
+            $container.empty();
+
+            vrtyCd.forEach(function(item){
+                $container.append(`<div class="cell" data-vrty-cd="${'${item.vrtyCd}'}" data-item-cd="${'${item.itemCd}'}">${'${item.itemNm}/${item.vrtyNm}'}</div>`);
+            });
+
+            /** 동적 생성된 .cell 요소에 클릭 이벤트 **/
+            $container.off('click', '.cell').on('click', '.cell', function(){
+                // 예: 선택된 데이터 가져오기
+                const vrtyCd = $(this).data('vrty-cd');
+                const itemCd = $(this).data('item-cd');
+                const text = $(this).text();
+
+                $("#itemVrty").css('display', 'none');  // 선택 후 숨기기
+                $(".area-wrap").css("display","block");
+                resolve({ vrtyCd, itemCd, text });      // 원하는 값 resolve로 넘김
+            });
+
+        });
+    }
+    const fn_changeVrty = async function(){
+        /** 기존 테이블 정리 **/
+        const table = document.getElementById("sortTable");
+
+        // 기존 내용 싹 비우기
+        table.innerHTML = '';
+
+        // 새 내용 추가
+        table.innerHTML = `
+        <colgroup>
+            <col style="width: 9%">
+        </colgroup>
+        <thead style="border-bottom: 2px double black !important;">
+            <tr>
+                <th style="letter-spacing: 3vw; font-size: larger!important; line-height: 1.5!important;">작업량</th>
+            </tr>
+            <tr>
+                <th rowspan="2">생산자</th>
+            </tr>
+        </thead>
+    `;
+
+        let itemVrty = await fn_selectItemVrty();
+        itemCd = itemVrty.itemCd;
+        vrtyCd = itemVrty.vrtyCd;
+
+        await fn_init();
+        await fn_searchSortPrfmnc();
+        await fn_searchGdsInvntr();
+        await fn_searchSpmtPrfmncList();
     }
 
     /** 전체 초기화 **/
@@ -1020,6 +1115,13 @@
 
     /** td 선택 eventListener **/
     function fn_pointerDownSeleted(event) {
+        /** 선별내역이 없을때 **/
+        let $target = $(event.target);
+        const colIdx = fn_getLogicalIndex(event.target);  // 현재 td가 속한 열의 인덱스
+        const inputValue = $target.find('input').val();
+        if (!inputValue) {
+            return;
+        };
 
         /** 총량 표시가 있다면 삭제 **/
         // $target.find("span").remove();
@@ -1029,14 +1131,6 @@
             return;
         }
         event.preventDefault();
-        const $target = $(event.target);
-        const colIdx = fn_getLogicalIndex(event.target);  // 현재 td가 속한 열의 인덱스
-        const inputValue = $target.find('input').val();
-
-        /** 선별내역이 없을때 **/
-        if (!inputValue) {
-            return;
-        };
 
         /** 열을 등급별로 움직였을떄 **/
         if (nowColIdx > 0) {
@@ -1049,21 +1143,192 @@
 
         if ($target.hasClass("selected")) {
             $target.removeClass("selected first end mid");
-            /** 마지막 셀이였다면 ? **/
-            let selecteds = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-                return fn_getLogicalIndex(item) === nowColIdx;
-            }).length;
-            if (selecteds == 0) {
-                nowColIdx = 0;
+
+            const $input = $target.find('input');
+            const isSplit = $input.hasClass('left') || $input.hasClass('right');
+            const isLeft = $input.hasClass('left');
+            const $pairTd = isLeft ? $target.next() : $target.prev();
+            const pairInput = $pairTd.find('input');
+
+            //  [1] 현재 선택 셀이 분리된 경우
+            if (isSplit && !pairInput.data('spmt')) {
+                let mergeTd = fn_mergeCell($target, false); // selected 제거
+                mergeTd.off('pointerdown').on('pointerdown', function (event) {
+                   fn_pointerDownSeleted(event);
+               });
             }
+
+            //  [2] 같은 colIdx에 남은 selected들 추림
+            const sameColSelecteds = Array.from($("#sortTable tbody td.selected")).filter(item => {
+                return fn_getLogicalIndex(item) === nowColIdx;
+            });
+
+            if (sameColSelecteds.length === 0) {
+                nowColIdx = 0;
+                return;
+            }
+
+            //  [2-1] 중간 병합 조건 확인 + 예외 체크
+            let safeSelecteds = [];
+            let shouldAbort = false;
+
+            sameColSelecteds.forEach(td => {
+                const $td = $(td);
+                const $input = $td.find('input');
+                const val = $input.val();
+                $td.removeClass("selected first end mid");
+
+                if (val && val.trim() !== '') {
+                    $td.addClass('selected');
+                    safeSelecteds.push($td);
+                } else if ($td.prop("colspan") === 1) {
+                    const isLeft = $input.hasClass('left');
+                    const $pair = isLeft ? $td.next() : $td.prev();
+                    const pairInput = $pair.find('input');
+
+                    if (!pairInput.data('spmt')) {
+                        // 병합 가능한 빈 셀은 merge
+                        fn_mergeCell($td, false);
+
+                        //  2-1: 예외 상황 → 병합 불가능 상태인데 지나침
+                        // shouldAbort = true;
+                        // Swal.fire({
+                        //     icon: 'warning',
+                        //     title: '중간에 선택되지 않은 셀이 있습니다.',
+                        //     text: '빈 셀 중 병합 가능한 셀이 누락되었습니다.',
+                        // });
+                    }
+                }
+            });
+            /** 이미 클릭된 cell은 제거되고 정리되었으며 남은 safeSelecteds 를 기준으로 범위 지정 및 UI정리 **/
+            // safeSelecteds 기준으로 영역 재계산
+            const rebuiltRange = safeSelecteds.map(td => {
+                return {
+                    cell: $(td),
+                    rowIndex: $(td).closest("tr").index(),
+                    colIndex: fn_getLogicalIndex(td)
+                };
+            });
+
+            // 중간 셀 포함한 범위 채움
+            let filledRange = fillObjectRange(rebuiltRange);
+            // split 방향 결정 (기존 split 판단 함수 활용 가능)
+            let split = '';
+            safeSelecteds.forEach($td => {
+                const $input = $td.find('input');
+                if ($input.hasClass('left')) split = 'left';
+                else if ($input.hasClass('right')) split = 'right';
+            });
+            const splitDirection = split || 'left';
+
+            // 중간 셀에 대해 split 및 재선택
+            filledRange.forEach((item, idx, arr) => {
+                let $td = $(item.cell);
+                const $input = $td.find('input');
+                const isSelected = $td.hasClass("selected");
+                const isMerged = $td.prop("colSpan") === 2;
+
+                // 분리 필요 조건: splitDirection이 있고 머지 상태
+                if (splitDirection !== 'merge' && isMerged) {
+                    const originalValue = parseInt($input.val()) || 0;
+                    const splitResult = fn_splitCell($td, splitDirection);
+                    const resultTd = splitDirection === 'left' ? splitResult.leftInput.closest('td') : splitResult.rightInput.closest('td');
+
+                    if (originalValue > 0) {
+                        if (isSelected) {
+                            // 선택된 셀이라면 자기쪽 유지
+                            if (splitDirection === 'left') splitResult.leftInput.val(originalValue);
+                            else splitResult.rightInput.val(originalValue);
+                        } else {
+                            // 미선택 셀이면 반대쪽에 잔량
+                            if (splitDirection === 'left') splitResult.rightInput.val(originalValue);
+                            else splitResult.leftInput.val(originalValue);
+                        }
+                    }
+                    resultTd.off('pointerdown').on('pointerdown', function (event) {
+                        fn_pointerDownSeleted(event);
+                    });
+                    resultTd.addClass('selected');
+                    arr[idx].cell = resultTd;
+                }else{
+                    /** 선택이 1개 남을때 merge 판단 **/
+                    if(arr.length === 1){
+                        const $input = $td.find('input');
+                        const isSplit = $input.hasClass('left') || $input.hasClass('right');
+                        const isLeft = $input.hasClass('left');
+                        const $pairTd = isLeft ? $td.next() : $td.prev();
+                        const pairInput = $pairTd.find('input');
+
+                        if (isSplit && !pairInput.data('spmt')) {
+                            // 병합 조건 충족 → merge 처리
+                            $td = fn_mergeCell($td,true);
+                        }
+                    }
+                    $td.off('pointerdown').on('pointerdown',function (event) {
+                        fn_pointerDownSeleted(event);
+                    });
+                }
+            });
         } else {
             $target.addClass("selected");
         }
 
-        /** UI 정리 **/
-        Array.from($("#sortTable tbody td.selected")).filter(function (item) {
+        /**
+         * 25.05.10 출하실적 대상 선택시 check
+         * T. 출하실적이있는 열이라면 ?  >> 이미 최초 등록시 분리가 된 실적임을 보장함.
+         * 1. 분리된 재고인가.
+         * 1-1. 분리된 재고가 선택되지 않은 중간에 있다면 선택강요 alert
+         * 2. 선택된 재고들 사이에 값이있는 영역이 있는가.
+         * 2-1.
+         * **/
+        let selecteds = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
             return fn_getLogicalIndex(item) === nowColIdx && $(item).css('pointer-events') !== 'none';
-        }).forEach(function (item, idx, arr) {
+        });
+
+        /** 선택된 재고들중에 분리가 있다면 하나로 통합 및 방향성 validation **/
+        // TODO: 25.05.11 분리가안된 재고도 중간 영역에 껴있는 재고를 분리 이후 중간 재고 사용해야함
+        let selectedsSplit = '';
+        selecteds.forEach(function(item, idx, arr){
+            let $target = $(item).find('input');
+            let split = '';
+            if($target.hasClass('left')){
+                split = 'left';
+            }else if($target.hasClass('right')){
+                split = 'right';
+            }
+            /** 전체 공통 idx 순서대로 set **/
+            if(selectedsSplit == ''){
+                selectedsSplit = split;
+            }else {
+                /** 불일치 **/
+                if (selectedsSplit !== split) {
+                    if (split !== '') {
+                        Swal.fire({
+                            title: '분리된 재고를 확인해주세요.',
+                            icon: 'warning',
+                        });
+                        $(item).removeClass("selected first end mid");
+                        return;
+                    } else {
+                        /** merge된 셀인 경우 분리후 selectedsSplit 방향에 맞춰 set **/
+                        let value = $(item).find('input').val() || 0;
+                        let splitResult = fn_splitCell($(item), selectedsSplit);
+
+                        if(selectedsSplit == 'left'){
+                            fn_applySplitState(splitResult, 'left', value, arr, idx);
+                        }else{
+                            fn_applySplitState(splitResult, 'right', value, arr, idx);
+                        }
+                        splitResult.leftInput.prop('disabled', true);
+                        splitResult.rightInput.prop('disabled', true);
+                    }
+                }
+            }
+        });
+
+        /** 범위내에 재고 위치 정리 및 UI정리 **/
+        let uiTarget = fn_checkSplitRange(selecteds).map(item => item.cell);
+        uiTarget.forEach(function(item, idx, arr){
             /* 초기화 */
             $(item).removeClass("first end mid");
             /* 한개뿐이면 생략 */
@@ -1265,7 +1530,8 @@
             SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
             return;
         }
-       saveList.forEach(function (item, idx, arr) {
+        /** 출하량 표시 **/
+        saveList.forEach(function (item, idx, arr) {
             if ($(item).hasClass("end")) {
                 const span = document.createElement("span");
                 span.innerText = sum + "";
@@ -1291,21 +1557,40 @@
         /** 출하일자 **/
         let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
 
+        /** split check **/
+        const splitRmrk = saveList.find(item => {
+            const $input = $(item).find('input');
+            const isEmpty = !$input.val() || $input.val().trim() === '';
+            const isSplit = $input.hasClass('left') || $input.hasClass('right');
+            return isEmpty && isSplit;
+        });
+        const defaultRmrk = splitRmrk
+            ? ($(splitRmrk).find('input').hasClass('left') ? 'left' : 'right')
+            : 'merge';
+
         /** 출하실적 saveObj 포맷팅 **/
         saveList.forEach(function(item){
-           let $tr = $(item).closest('tr');
-           let $identno = $tr.find('td:first').find('input').val();
-           let $qntt = $(item).find('input').val();
+            const $td = $(item);
+            const $input = $td.find('input');
+            const $qntt = parseInt($input.val()) || 0;
 
-           let nGdsInfo = gdsList.filter(item => item.prdcrIdentno == $identno);
-           let unitWght = nGdsInfo[0].invntrWght / nGdsInfo[0].invntrQntt;
+            if ($qntt <= 0) return;
 
-            let vo = JSON.parse(JSON.stringify(nGdsInfo[0]));
+            const $tr = $td.closest('tr');
+            const $identno = $tr.find('td:first input').val();
+
+            const nGdsInfo = gdsList.filter(it => it.prdcrIdentno == $identno);
+            const unitWght = nGdsInfo[0].invntrWght / nGdsInfo[0].invntrQntt;
+
+            const vo = JSON.parse(JSON.stringify(nGdsInfo[0]));
             vo.spmtQntt = $qntt;
             vo.spmtWght = $qntt * unitWght;
             vo.spmtYmd = spmtYmd;
             vo.prdcrCd = vo.rprsPrdcrCd;
             vo.cnptCd = '';
+
+            vo.rmrk = defaultRmrk;
+
             spmtSaveList.push(vo);
         });
         /** 거래처 선택 팝업 **/
@@ -1329,6 +1614,7 @@
                 let saveObj = sortSaveList[rowIndex];
                 let sortno = saveObj.sortno;
                 let warehouseSeCd = $("#warehouse").val();
+                // saveObj.sortPrfmncList[0].rmrk = rowIndex;
 
                 const postUrl = gfn_isEmpty(sortno) ?
                     "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
@@ -1412,6 +1698,8 @@
             apcCd: gv_selectedApcCd,
             inptYmd: ymd,
             warehouseSeCd: warehouseSeCd,
+            itemCd: itemCd,
+            vrtyCd: vrtyCd
         });
         const data = await postJsonPromise;
         if (!_.isEqual("S", data.resultStatus)) {
@@ -1430,10 +1718,11 @@
         /** table tbody get **/
         let trs = $("#sortTable > tbody tr");
 
-        /** 조회결과 idx 로 table set (order by sortno 보장 O) **/
-        data.resultList.forEach(function (item, idx) {
+        /** 2025.05.07 순서보장 X => 등록한 인덱스체크 **/
+        data.resultList.forEach(function (item) {
             /** 기존 fn_setPltno 와 같은 셋팅 **/
             let vo = JSON.parse(JSON.stringify(sortPrfmncVO));
+            let idx = item.RMRK;
             vo.sortYmd = ymd;
             vo.rawMtrInvntrList.push({
                 inptQntt: item.QNTT,
@@ -1445,7 +1734,7 @@
             vo.prdcrIdentno = item.PRDCR_IDENTNO;
             /** 수정조건 선별번호 **/
             vo.sortno = item.SORTNO;
-            sortSaveList.push(vo);
+            sortSaveList[idx] = vo;
             /** idx 선별 실적 이력으로 table tr 추적 **/
             let tr = trs[idx];
             $(tr).find("td:first").find("button").text("수정");
@@ -1468,8 +1757,6 @@
     async function fn_searchGdsInvntr(){
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
         let warehouseSeCd = $("#warehouse").val();
-        let itemCd = '0901';
-        let vrtyCd = '0200';
         let gdsSeCd = '1';
 
         const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
@@ -1498,8 +1785,6 @@
     async function fn_searchSpmtPrfmncList(){
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
         let warehouseSeCd = $("#warehouse").val();
-        let itemCd = '0901';
-        let vrtyCd = '0200';
 
         let SpmtPrfmncVO = {
             apcCd: gv_selectedApcCd
@@ -1522,79 +1807,125 @@
             (acc[key] = acc[key] || []).push(item);
             return acc;
         }, {});
+
         Object.values(groupedData).forEach(arr => {
             nowColIdx = parseInt(arr[0].gdsGrd, 10);
+            let split = arr[0].rmrk || 'merge';
             /** UI 정리용 **/
             let nArr = [];
             /** thead 출하 수량 **/
             let spmtTotal = 0;
+            let rows = [];
 
-            arr.forEach((item,idx) => {
+            arr.forEach((item, idx, arr) => {
+                /** 그룹된 실적에 대해서 열과 행 위치 **/
                 let col = parseInt(item.gdsGrd,10);
                 let row = Array.from($("tbody td:first-child input")).filter(inner => {
                     return $(inner).val() == item.prdcrIdentno;
                 }).map(inner => $(inner).closest("tr").index());
-                let cell = $("#sortTable tbody tr").eq(row).find("td").eq(col);
+
+                /** UI 정리용 rows **/
+                rows.push(row[0]);
+                /** 열과행으로 현재 셀에 대해서 지명 **/
+                let logicalCol = fn_getTdIndexByLogicalCol(row[0],col);
+                let cell = $("#sortTable tbody tr").eq(row).find("td").eq(logicalCol);
+                let $target = $(cell);
+
+                /** 재고 잔량을 위한 현재 수량 **/
                 let spmtQntt = parseInt($(cell).find('input').val());
+                /** 현재 조회된 출하 총량 **/
                 spmtTotal += item.spmtQntt;
-                if(spmtQntt !== item.spmtQntt){
-                    //TODO:: 근데 또 이미 분해되어있는데 하나 더 들어간다 ? colspan으로 계산해서 반대쪽에 set
-                    let $target = $(cell);
-                    if ($target.attr('colspan') === '2') {
-                        let $firstTd = $('<td>');
-                        let $secondTd = $('<td>');
-                        const $inputLeft = $('<input>')
-                            .attr('type', 'number')
-                            .css("width", "100%")
-                            .addClass('left');
-                        $inputLeft.val(parseInt(item.spmtQntt));
 
-                        const $inputRight = $('<input>')
-                            .attr('type', 'number')
-                            .css("width", "100%")
-                            .addClass('right');
-                        $inputRight.val(spmtQntt - parseInt(item.spmtQntt));
+                /** 해당 실적 공통에 비고란에 left,right으로 판단 **/
+                let splitResult;
+                switch(split){
+                    case "merge":
+                        $target.addClass("selected");
+                        break;
+                    case "left":
+                        splitResult = fn_splitCell($target,'left');
+                        if(splitResult){
+                            /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
+                            let spmtFlag = splitResult.rightInput.data('spmt') === true;
+                            /** 출하실적 자리엔 셋팅 **/
+                            splitResult.leftInput.val(parseInt(item.spmtQntt));
+                            /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
+                            if(!spmtFlag){
+                                splitResult.rightInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
+                            }
 
-                        $firstTd.append($inputLeft)
-                        $secondTd.append($inputRight);
-                        $target.replaceWith($firstTd);
-                        $firstTd.after($secondTd);
-                        /** 첫 실적일때 왼쪽이 기준이됨 **/
-                        cell = $firstTd;
-                    }else{ //이미 분해된 경우 right에 삽입
-                        /** 조회시에 분해되어있는건 좌항에 이미 값이 있을떄 **/
-                        if($target.find('input').val() > 0){
-                            $target.next().find('input').val(item.spmtQntt);
-                            cell = $target.next();
+                            cell = splitResult.leftInput.closest('td');
+                            cell.addClass('selected');
                         }
-                    }
+                        break;
+                    case "right":
+                        splitResult = fn_splitCell($target,'left');
+                        if(splitResult){
+                            /** 출하실적은 disabled 처리 되며 요소대체 불가능 => css 체크보장 **/
+                            let spmtFlag = splitResult.leftInput.data('spmt') === true;
+                            /** 출하실적 자리엔 셋팅 **/
+                            splitResult.rightInput.val(parseInt(item.spmtQntt));
+                            /** 기존 반대편이 출하실적이 없는 경우 재고에서 차감한 수량 세팅 **/
+                            if(!spmtFlag){
+                                splitResult.leftInput.val((spmtQntt - parseInt(item.spmtQntt)) || '');
+                            }
+
+                            cell = splitResult.rightInput.closest('td');
+                            cell.addClass('selected');
+                        }
+                        break;
                 }
-                $(cell).find("input").attr("readonly",true);
-                $(cell).addClass("selected");
-                $(cell).css("pointer-events","none");
-                nArr.push($(cell));
+                nArr.push({cell : $(cell), rowIndex : row[0], colIndex : col});
             });
             /** UI 정리 **/
             let sum = 0;
-            nArr.forEach(function (item, idx, arr) {
-                /* 초기화 */
-                $(item).removeClass("first end mid");
-                /* 한개뿐이면 생략 */
-                if (arr.length == 1) {
-                    return;
-                }
+            nArr = fillObjectRange(nArr);
+            let cellArray = nArr.map(item => item.cell);
 
+            cellArray.forEach(function (item, idx, arr) {
+                if($(item).hasClass('selected'))return;
+
+                if(split !== 'merge'){
+                    let prevValue = $(item).find('input').val() || 0;
+                    let splitResult = fn_splitCell($(item),split);
+
+                    if(splitResult){
+                        if(split == 'left'){
+                            arr[idx] = splitResult.leftInput.closest('td');
+                            if(prevValue > 0){
+                                splitResult.rightInput.val(prevValue);
+                            }
+                        }else{
+                            arr[idx] = splitResult.rightInput.closest('td');
+                            if(prevValue > 0){
+                                splitResult.leftInput.val(prevValue);
+                            }
+                        }
+                    }
+                }
+            });
+
+            cellArray.forEach(function(item, idx, arr){
+                /** 출하실적 disable 처리 **/
+                $(item).find("input").attr("readonly",true);
+                $(item).addClass("selected");
+                /** 2025.05.12 $data로 대체 **/
+                // $(item).css("pointer-events","none");
+                $(item).find("input").data('spmt',true);
+
+                /** 초기화 **/
+                $(item).removeClass("first end mid");
                 if (idx == 0) {
                     $(item).addClass("first");
-                    sum += parseInt($(item).find('input').val());
+                    sum += parseInt($(item).find('input').val()) || 0;
                 } else if (idx != arr.length - 1) {
                     $(item).addClass("mid");
-                    sum += parseInt($(item).find('input').val());
+                    sum += parseInt($(item).find('input').val()) || 0;
                 } else {
                     $(item).addClass("end");
-                    sum += parseInt($(item).find('input').val());
-                    /** 마지막 지정 **/
+                    sum += parseInt($(item).find('input').val()) || 0;
 
+                    /** 마지막 지정 **/
                     const span = document.createElement("span");
                     span.innerText = sum + "";
                     Object.assign(span.style, {
@@ -1642,15 +1973,270 @@
         });
 
         result = target.index() - (result / 2);
-        return result;
+        return Math.floor(result);
     };
     function fn_printPage() {
         window.focus();
         window.print();
     }
+    function fn_createTotal (target,sum) {
+        const span = document.createElement("span");
+        span.innerText = sum + "";
+        Object.assign(span.style, {
+            position: "absolute",
+            right: 0,
+            top: 0,
+            zIndex: "1000",
+            border: "1px solid black",
+            borderRadius: "50%",
+            width: "20px",
+            height: "20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center"
+        });
+        $(target).append(span);
+    }
+    function fn_splitCell ($target,type){
+        if ($target.attr('colspan') === '2') {
+            let $firstTd = $('<td>');
+            let $secondTd = $('<td>');
+            const $inputLeft = $('<input>')
+                .attr('type', 'number')
+                .css("width", "100%")
+                .prop('disabled', true)
+                .addClass('left');
+            const $inputRight = $('<input>')
+                .attr('type', 'number')
+                .css("width", "100%")
+                .prop('disabled', true)
+                .addClass('right');
+            $firstTd.append($inputLeft)
+            $secondTd.append($inputRight);
+            $target.replaceWith($firstTd);
+            $firstTd.after($secondTd);
+            if(type == 'merge'){
+                return;
+            }else{
+                return {leftInput : $inputLeft, rightInput : $inputRight};
+            }
+        }else{
+            /** 이미 분리된 경우 **/
+            if ($target.find('input').hasClass('left')) {
+                let $pair = $target.next().find('input');
+                return {leftInput: $target.find('input'), rightInput: $pair};
+            } else if ($target.find('input').hasClass('right')) {
+                let $pair = $target.prev().find('input');
+                return {leftInput: $pair, rightInput: $target.find('input')}
+            }
+        }
+    }
+    function fillObjectRange(arr) {
+        // colIndex는 전부 동일하다고 가정
+        let colIndex = arr[0].colIndex;
 
+        // 현재 rowIndex만 모음
+        let rowIndexes = arr.map(item => item.rowIndex);
+
+        // 최소/최대
+        let minRow = Math.min(...rowIndexes);
+        let maxRow = Math.max(...rowIndexes);
+
+        let fullRowIndexes = [];
+        for (let i = minRow; i <= maxRow; i++) {
+            fullRowIndexes.push(i);
+        }
+
+        // 결과 객체배열 시작은 원본 복제
+        let result = [...arr];
+
+        // 없는 rowIndex 찾고 추가
+        fullRowIndexes.forEach(rowIdx => {
+            let exists = arr.some(item => item.rowIndex === rowIdx);
+            if (!exists) {
+                // cell 찾아서 새 객체 생성
+                let logicalCol = fn_getTdIndexByLogicalCol(rowIdx,colIndex);
+                let $cell = $("#sortTable tbody tr").eq(rowIdx).children("td").eq(logicalCol);
+
+                if ($cell.length) { // 셀 존재하면 추가
+                    result.push({
+                        cell: $cell,
+                        colIndex: colIndex,
+                        rowIndex: rowIdx
+                    });
+                }
+            }
+        });
+
+        // rowIndex 순으로 정렬 (필요 시)
+        result.sort((a, b) => a.rowIndex - b.rowIndex);
+
+        return result;
+    }
+    function fn_checkSplitRange(target){
+        /** 1. target 내부 분리 확인 **/
+        let split = '';
+        let cellRange = [];
+        target.forEach(item => {
+            const $input = $(item).find('input');
+            if ($input.hasClass('left')) {
+                split = 'left';
+            }else if($input.hasClass('right')){
+                split = 'right';
+            }
+            /** 2. data push **/
+            let rowIndex = $(item).closest("tr").index();
+            let colIndex = fn_getLogicalIndex(item);
+            cellRange.push({cell : $(item), rowIndex :rowIndex, colIndex : colIndex});
+        });
+        /** 2. target 범위 판단 및 중간 cell 특정 **/
+        cellRange = fillObjectRange(cellRange);
+        // 3. split 방향 없으면 기본 'left' (case 1, 2)
+        const splitDirection = split || 'left';
+
+        // 4. 분리 및 값 처리
+        cellRange.forEach(function(item, idx, arr){
+            if (item.cell.hasClass('selected')) return;
+
+            const value = parseInt(item.cell.find('input').val()) || 0;
+            const splitResult = fn_splitCell(item.cell, splitDirection);
+
+            if (split === 'left') {
+                if (value > 0) splitResult.rightInput.val(value);
+                arr[idx].cell = splitResult.leftInput.closest('td');
+                arr[idx].cell.addClass('selected');
+            } else if (split === 'right') {
+                if (value > 0) splitResult.leftInput.val(value);
+                arr[idx].cell = splitResult.rightInput.closest('td');
+                arr[idx].cell.addClass('selected');
+            } else { // split = merge
+                if (value > 0) {
+                    splitResult.rightInput.val(value);
+                    arr[idx].cell = splitResult.leftInput.closest('td');
+                    arr[idx].cell.addClass('selected');
+                } else {
+                    arr[idx].cell = fn_mergeCell(splitResult.leftInput.closest('td'), true);
+                }
+            }
+        });
+        // 5. 기존 선택된 cell도 방향 처리 이후 재고 재사용 대비
+        cellRange.forEach((item, idx, arr) => {
+            if(arr.length === 1) return;
+            const $td = $(item.cell);
+            const isMerged = $td.attr("colspan") === "2";
+
+            if (splitDirection !== 'merge' && isMerged) {
+                const originalValue = parseInt($td.find('input').val()) || 0;
+                const splitResult = fn_splitCell($td, splitDirection);
+
+                if (originalValue > 0) {
+                    if (splitDirection === 'left') {
+                        splitResult.leftInput.val(originalValue);
+                        arr[idx].cell = splitResult.leftInput.closest('td');
+                    } else {
+                        splitResult.rightInput.val(originalValue);
+                        arr[idx].cell = splitResult.rightInput.closest('td');
+                    }
+                } else {
+                    // 값 없는 경우 위치만 지정
+                    arr[idx].cell = (splitDirection === 'left' ? splitResult.leftInput : splitResult.rightInput).closest('td');
+                }
+                arr[idx].cell.addClass('selected');
+            }
+        });
+        return cellRange;
+    }
+    /** row, col 인덱스로 논리적 객체[td] 특정 **/
+    function fn_getTdIndexByLogicalCol(row, logicalCol) {
+        const $tr = $("#sortTable tbody tr").eq(row);
+        const $tds = $tr.children("td");
+        let index = logicalCol;
+
+        for (let i = 1; i < $tds.length && i < index; i++) {
+            const $td = $tds.eq(i);
+            const colspan = parseInt($td.attr("colspan") || "1");
+
+            if (colspan === 1) {
+                index++; // 분리된 셀이 있으므로 논리 col보다 실제 index는 뒤로 밀림
+                i++;     // split된 셀 건너뛰기
+            }
+        }
+
+        return index; // 실제 .eq(index)로 쓸 수 있는 td 위치
+    }
+    /** 분리된 td에 대해서 value 세팅, selected class, 이벤트 바인딩 **/
+    function fn_applySplitState(splitResult, direction, value, arr, idx) {
+        const input = direction === 'left' ? splitResult.leftInput : splitResult.rightInput;
+        const td = input.closest('td');
+
+        input.val(value);
+        td.addClass('selected');
+
+        // pointerdown 이벤트 바인딩
+        td.off('pointerdown').on('pointerdown', function (event) {
+            fn_pointerDownSeleted(event);
+        });
+
+        // 이후 로직에서 참조할 수 있도록 원본 배열 갱신
+        arr[idx] = td.get(0);
+    }
+    /** 분리된 셀 merge 함수 **/
+    function fn_mergeCell($td, shouldSelect = false) {
+        if ($td.attr('colspan') === '2') return;
+
+        const $input = $td.find('input');
+        const isLeft = $input.hasClass('left');
+        const isRight = $input.hasClass('right');
+
+        if (!isLeft && !isRight) return;
+
+        const $pairTd = isLeft ? $td.next() : $td.prev();
+        const $pairInput = $pairTd.find('input');
+
+        const thisVal = parseInt($input.val()) || 0;
+        const pairVal = parseInt($pairInput.val()) || 0;
+        const total = thisVal + pairVal;
+
+        const $mergedTd = isLeft ? $td : $pairTd;
+
+        const $mergedInput = $('<input type="number">')
+            .css('width', '100%')
+            .prop('disabled', true);
+        // 0이면 비우고, 그 외엔 값 할당
+        if (total > 0) {
+            $mergedInput.val(total);
+        }
+
+        $mergedTd
+            .html('')
+            .append($mergedInput)
+            .attr('colspan', 2)
+            .off('pointerdown')
+            .on('pointerdown', function (event) {
+                fn_pointerDownSeleted(event);
+            });
+
+        if (shouldSelect) {
+            $mergedTd.addClass('selected');
+        } else {
+            $mergedTd.removeClass('selected');
+        }
+
+        if (isLeft) {
+            $pairTd.remove();
+        } else {
+            $td.remove();
+        }
+        return $td;
+    }
 
     window.addEventListener("DOMContentLoaded", async function () {
+        /** 품목 품종 선택 **/
+        let itemVrty = await fn_selectItemVrty();
+        itemCd = itemVrty.itemCd;
+        vrtyCd = itemVrty.vrtyCd;
+
         await SBUxMethod.set("srch-dtp-ymd",gfn_dateToYmd(new Date()));
         await fn_modalDrag();
         await fn_createRawMtrInvntrGrid();
