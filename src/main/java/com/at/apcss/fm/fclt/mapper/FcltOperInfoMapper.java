@@ -33,6 +33,8 @@ public interface FcltOperInfoMapper {
 	 */
 	public FcltOperInfoVO selectFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
 
+
+
 	/**
 	 * 운영자개요 목록을 조회한다.
 	 * @param fcltOperInfoVO
@@ -46,6 +48,64 @@ public interface FcltOperInfoMapper {
 	 * @return
 	 */
 	public int insertFcltOperInfo(FcltOperInfoVO fcltOperInfoVO);
+
+
+	/**
+	 * APC전수조사-운영자개요 단건 조회
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public FcltOperInfoVO selectApcOperPrsnOtln(FcltOperInfoVO fcltOperInfoVO);
+
+	/**
+	 * APC전수조사-운영자개요 품목 목록 조회
+	 * @param fcltItemVO
+	 * @return
+	 */
+	public List<FcltItemVO> selectApcOperTrmtItemList(FcltItemVO fcltItemVO);
+
+
+	/**
+	 * APC전수조사-운영자개요 등록
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int insertApcOperPrsnOtln(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+	/**
+	 * APC전수조사-운영자개요 변경
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int updateApcOperPrsnOtln(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+	/**
+	 * APC전수조사-운영자개요 취급품목 등록
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int insertApcOperTrmtItem(FcltItemVO fcltItemVO) throws Exception;
+
+	/**
+	 * APC전수조사-운영자개요 취급품목 삭제
+	 * @param fcltItemVO
+	 * @return
+	 */
+	public int deleteApcOperTrmtItem(FcltItemVO fcltItemVO) throws Exception;
+
+	/**
+	 * APC전수조사-운영자개요 이력 등록
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+	public int insertApcOperPrsnOtlnHstry(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+	/**
+	 * APC전수조사-운영자개요 취급품목 이력 등록
+	 * @param fcltItemVO
+	 * @return
+	 */
+	public int insertApcOperTrmtItemHstry(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 
 	/**
 	 * 운영자개요정보를 변경한다.
@@ -67,6 +127,8 @@ public interface FcltOperInfoMapper {
 	 * @return
 	 */
 	public List<FcltItemVO> selectFcltOperInfoItemList(FcltItemVO fcltItemVO);
+
+
 
 	/**
 	 * 운영자개요 품목정보를 등록한다.
@@ -111,34 +173,3 @@ public interface FcltOperInfoMapper {
 	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltApcVO);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
