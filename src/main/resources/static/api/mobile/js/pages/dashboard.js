@@ -338,34 +338,41 @@ $(function () {
     };
 
     const svg = document.querySelector("#map");
-    const circles = [];
+    const locationPins = [];
     apcInfo.apcLists.forEach(apc => {
-        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("x", apc.cx);
-        text.setAttribute("y", parseInt(apc.cy) - 15);
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("font-size", "15");
-        text.setAttribute("fill", "black");
-        text.textContent = apc.name;
-        svg.appendChild(text);
+        if(apc.cx != null && apc.cy != null) {
+            const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            text.setAttribute("x", apc.cx);
+            text.setAttribute("y", parseInt(apc.cy) - 30);
+            text.setAttribute("text-anchor", "middle");
+            text.setAttribute("font-size", "15");
+            text.setAttribute("fill", "black");
+            text.textContent = apc.name;
+            svg.appendChild(text);
 
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", apc.cx);
-        circle.setAttribute("cy", apc.cy);
-        circle.setAttribute("r", "10");
-        circle.setAttribute("stroke-width", "1");
-        circle.setAttribute("fill", "blue");
-        svg.appendChild(circle);
-        circles.push(circle);
+            const dataKindActive = apc.kinds.some(kind => kind.value.trim() !== '');
+            const locationPin = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            locationPin.setAttribute("transform", `translate(${parseInt(apc.cx) - 9.5}, ${parseInt(apc.cy) - 26}) scale(0.05)`);
+            locationPin.setAttribute("fill", dataKindActive ? "blue" : "grey");
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M192 0C86 0 0 86 0 192c0 112 192 320 192 320s192-208 192-320C384 86 298 0 192 0zm0 272a80 80 0 1 1 0-160 80 80 0 0 1 0 160z");
+            locationPin.appendChild(path);
+
+            svg.appendChild(locationPin);
+            if(dataKindActive) {
+                locationPins.push(locationPin);
+            }
+        }
     });
 
     let isRed = false;
     setInterval(() => {
         isRed = !isRed;
-        circles.forEach(circle => {
-            const currentFill = circle.getAttribute("fill");
+        locationPins.forEach(locationPin => {
+            const currentFill = locationPin.getAttribute("fill");
             if(currentFill === "blue" || currentFill === "red") {
-                circle.setAttribute("fill", isRed ? "red" : "blue");
+                locationPin.setAttribute("fill", isRed ? "red" : "blue");
             }
         });
     }, 700);
