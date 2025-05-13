@@ -361,6 +361,8 @@
     let lv_rawMtrVlType;
     //출하포장단위
     var jsonSpmtPckgUnit = [];
+    //거래처목록
+    var jsonCnptList = [];
 
     //TABLE JSON
     var sortSaveList = [];
@@ -384,6 +386,20 @@
     let itemCd;
     //vrtyCd
     let vrtyCd;
+    //border color
+    const colorList = [
+        'tomato',
+        'gold',
+        'skyblue',
+        'salmon',
+        'mediumseagreen',
+        'orchid',
+        'khaki',
+        'cornflowerblue',
+        'lightcoral',
+        'palegreen',
+        'plum'
+    ];
 
     //endregion var
     //region utill
@@ -707,39 +723,85 @@
             table.appendChild(tbody);
         }
         /** foot word **/
-        let words = ["강서", "영진", "상주", "한국", "서운", "시판", "이월"];
         let tfoot = document.createElement("tfoot");
         let tr = document.createElement("tr");
         tr.style.borderTop = '2px double black';
+        let initSelectes = jsonCnptList.map(item => item.cnptCd);
+
         for (let k = 0; k <= size; k++) {
             let td = document.createElement("td");
             td.colSpan = k == 0 ? 1 : 2;
-            let input = document.createElement("input");
-            input.style.width = "100%";
-            if (k % 2 > 0) {
-                let word = words.shift() || '';
-                input.value = word;
-                input.readOnly = true;
-                input.style.textAlign = 'center';
-            }
-            td.appendChild(input);
+            td.style.position = 'relative';
+
+            let select = document.createElement("select");
+            const emptyOption = document.createElement('option');
+            emptyOption.value = '';
+            emptyOption.textContent = '';  // 또는 '선택하세요'
+            select.appendChild(emptyOption);
+
+            jsonCnptList.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.cnptCd;
+                option.textContent = item.cnptNm;
+                select.appendChild(option);
+            });
+            /** 거래처별 색상 안내 **/
+            const colorBox = document.createElement('div');
+            Object.assign(colorBox.style, {
+                width: '1vw',
+                height: '1vw',
+                position: 'absolute',
+                top: '4px',
+                right: '4px',
+                border: '1px solid white',
+                borderRadius: '2px'
+            });
+
+            td.appendChild(colorBox);
+            select.style.width = "100%";
+            select.style.textAlign = 'center';
+            select.style.border = 'none';
+
+            /** select onchang **/
+            select.onchange = function(event){
+                let select = event.target;
+                let cnptCd = event.target.value;
+                let background = jsonCnptList.find(item => item.cnptCd === cnptCd).color;
+                let colorbox = $(select).prev();
+                colorbox.css('backgroundColor',background);
+            };
+
+            td.appendChild(select);
             tr.append(td);
         }
+
+        Array.from($(tr).find('td')).forEach(function(item, idx) {
+            const $td = $(item);
+            const $select = $td.find('select');
+
+            if ($select.length && initSelectes[idx]) {
+                $select.val(initSelectes[idx]);
+                $select.trigger('change');
+            }
+        });
+
         tfoot.appendChild(tr);
         tr = document.createElement("tr");
-        for (let l = 0; l <= size; l++) {
+        Array.from($(tfoot).find('select')).forEach(function(selectEl, idx) {
             let td = document.createElement("td");
-            td.colSpan = l == 0 ? 1 : 2;
+            td.colSpan = idx === 0 ? 1 : 2;
+
             let input = document.createElement("input");
             input.style.width = "100%";
-            if (l === 13) {
-                input.value = '총계';
-                input.readOnly = true;
-                input.style.textAlign = 'center';
-            }
+            input.style.textAlign = 'center';
+
+            const selectedCnptCd = $(selectEl).val();
+            $(input).data('cnptCd', selectedCnptCd);
+
             td.appendChild(input);
             tr.append(td);
-        }
+        });
+
         tfoot.appendChild(tr);
         table.appendChild(tfoot);
 
@@ -880,6 +942,11 @@
         }
         let $container = $("#cnpt div.grd_container");
         $container.empty();
+        jsonCnptList = data.resultList.map((item, idx) => ({
+            cnptCd: item.cnptCd,
+            cnptNm: item.cnptNm,
+            color: colorList[idx % colorList.length]
+        }));
 
         data.resultList.forEach(function(item,idx){
             $container.append(`<div onclick="fn_selectCnpt(this)" class="cell" data-idx="${'${idx}'}" data-cnpt-cd="${'${item.cnptCd}'}">${'${item.cnptNm}'}</div>`);
@@ -1000,6 +1067,8 @@
         itemCd = itemVrty.itemCd;
         vrtyCd = itemVrty.vrtyCd;
 
+
+        await SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
         await fn_init();
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();
@@ -1282,7 +1351,7 @@
          * 2-1.
          * **/
         let selecteds = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-            return fn_getLogicalIndex(item) === nowColIdx && $(item).css('pointer-events') !== 'none';
+            return fn_getLogicalIndex(item) === nowColIdx && (!$(item).find('input').data('spmt'));
         });
 
         /** 선택된 재고들중에 분리가 있다면 하나로 통합 및 방향성 validation **/
@@ -1513,7 +1582,7 @@
     /** 출하실적 저장 **/
     async function fn_saveSpmt() {
         let saveList = Array.from($("#sortTable tbody td.selected")).filter(function (item) {
-            return fn_getLogicalIndex(item) === nowColIdx && $(item).css('pointer-events') !== 'none';
+            return fn_getLogicalIndex(item) === nowColIdx && (!$(item).find('input').data('spmt'));
         });
         const sum = saveList.reduce((total, item) => {
             const inputValue = $(item).find("input").val();
@@ -1808,6 +1877,25 @@
             return acc;
         }, {});
 
+        /** 하단 거래처별 출하수량 입력 **/
+        const cnptData = data.resultList.reduce((acc, item) => {
+            const key = item.cnptCd;
+            const value = Number(item.spmtQntt) || 0;
+            acc[key] = (acc[key] || 0) + value;
+            return acc;
+        }, {});
+        const $cnptTr = $('#sortTable').find('tfoot tr').eq(1);
+        $cnptTr.find('td').each(function () {
+            const $td = $(this);
+            const $input = $td.find('input');
+            const cnptCd = $input.data('cnptCd');  // input의 data-cnpt-cd 값
+
+            if (cnptCd && cnptData.hasOwnProperty(cnptCd)) {
+                $input.val(cnptData[cnptCd]);  // 누적값 삽입
+            }
+        });
+
+
         Object.values(groupedData).forEach(arr => {
             nowColIdx = parseInt(arr[0].gdsGrd, 10);
             let split = arr[0].rmrk || 'merge';
@@ -1875,6 +1963,9 @@
                         }
                         break;
                 }
+                /** cell <- data.cnptCd **/
+                const $cell = $(cell);
+                $cell.data('cnptCd',item.cnptCd);
                 nArr.push({cell : $(cell), rowIndex : row[0], colIndex : col});
             });
             /** UI 정리 **/
@@ -1904,6 +1995,14 @@
                     }
                 }
             });
+            console.log(cellArray);
+            const $found = cellArray.find(function(item) {
+                return $(item).data('cnptCd');
+            });
+            let cnptCd = $found.data('cnptCd');
+
+            const match = jsonCnptList.find(item => item.cnptCd === cnptCd);
+            const color = match ? match.color : null;
 
             cellArray.forEach(function(item, idx, arr){
                 /** 출하실적 disable 처리 **/
@@ -1915,14 +2014,18 @@
 
                 /** 초기화 **/
                 $(item).removeClass("first end mid");
+
                 if (idx == 0) {
                     $(item).addClass("first");
+                    $(item).get(0).style.setProperty('border-color', color, 'important');
                     sum += parseInt($(item).find('input').val()) || 0;
                 } else if (idx != arr.length - 1) {
                     $(item).addClass("mid");
+                    $(item).get(0).style.setProperty('border-color', color, 'important');
                     sum += parseInt($(item).find('input').val()) || 0;
                 } else {
                     $(item).addClass("end");
+                    $(item).get(0).style.setProperty('border-color', color, 'important');
                     sum += parseInt($(item).find('input').val()) || 0;
 
                     /** 마지막 지정 **/
@@ -2058,6 +2161,11 @@
                 // cell 찾아서 새 객체 생성
                 let logicalCol = fn_getTdIndexByLogicalCol(rowIdx,colIndex);
                 let $cell = $("#sortTable tbody tr").eq(rowIdx).children("td").eq(logicalCol);
+
+                const $input = $cell.find('input');
+                if ($input.hasClass('left') && $input.data('spmt')) {
+                    $cell = $cell.next();
+                }
 
                 if ($cell.length) { // 셀 존재하면 추가
                     result.push({
