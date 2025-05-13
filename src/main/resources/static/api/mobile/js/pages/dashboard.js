@@ -7,7 +7,7 @@
 
 $(function () {
     "use strict";
-
+    /* APC 현황 시작 */
     var apcInfo = {
         apcLists: [
             {
@@ -395,6 +395,7 @@ $(function () {
         });
         apcInfo.append(apcStatus);
     });
+    /* APC 현황 끝 */
 
     //Make the dashboard widgets sortable Using jquery UI
     $(".connectedSortable").sortable({
@@ -476,72 +477,39 @@ $(function () {
         }
     });
 
-    //Sparkline charts
-    var myvalues = [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021];
-    $('#sparkline-1').sparkline(myvalues, {
-        type: 'line',
-        lineColor: '#92c1dc',
-        fillColor: "#ebf4f9",
-        height: '50',
-        width: '80'
-    });
-
-    myvalues = [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921];
-    $('#sparkline-2').sparkline(myvalues, {
-        type: 'line',
-        lineColor: '#92c1dc',
-        fillColor: "#ebf4f9",
-        height: '50',
-        width: '80'
-    });
-
-    myvalues = [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21];
-    $('#sparkline-3').sparkline(myvalues, {
-        type: 'line',
-        lineColor: '#92c1dc',
-        fillColor: "#ebf4f9",
-        height: '50',
-        width: '80'
-    });
-
     //The Calender
     $("#calendar").datepicker();
 
-    //SLIMSCROLL FOR CHAT WIDGET
-    $('#chat-box').slimScroll({
-        height: '250px'
+
+    /* 일일데이터 수집 현황 차트 시작 */
+    var area = new Morris.Area({
+        element: 'revenue-chart',
+        resize: true,
+        data: [
+            {y: '2025-04-27', store: 2666, selection: 2666},
+            {y: '2025-04-28', store: 2778, selection: 2294},
+            {y: '2025-04-29', store: 4912, selection: 1969},
+            {y: '2025-04-30', store: 3767, selection: 3597},
+            {y: '2025-05-01', store: 6810, selection: 1914},
+            {y: '2025-05-02', store: 5670, selection: 4293},
+            {y: '2025-05-03', store: 4820, selection: 3795},
+            {y: '2025-05-04', store: 6073, selection: 3967},
+            {y: '2025-05-05', store: 9087, selection: 6460},
+            {y: '2025-05-06', store: 8432, selection: 5713},
+            {y: '2025-05-07', store: 4820, selection: 3795},
+            {y: '2025-05-08', store: 12073, selection: 4567},
+            {y: '2025-05-09', store: 10687, selection: 4460},
+            {y: '2025-05-10', store: 8432, selection: 5713},
+            {y: '2025-05-11', store: 4820, selection: 3795},
+            {y: '2025-05-12', store: 15073, selection: 5967},
+            {y: '2025-05-13', store: 10687, selection: 4460},
+        ],
+        xkey: 'y',
+        ykeys: ['store', 'selection'],
+        labels: ['입고', '선별'],
+        lineColors: ['#a0d0e0', '#3c8dbc'],
+        hideHover: 'auto'
     });
-
-  /* Morris.js Charts */
-  // Sales chart
-  var area = new Morris.Area({
-    element: 'revenue-chart',
-    resize: true,
-    data: [
-      {y: '2025-04-27', store: 2666, selection: 2666},
-      {y: '2025-04-28', store: 2778, selection: 2294},
-      {y: '2025-04-29', store: 4912, selection: 1969},
-      {y: '2025-04-30', store: 3767, selection: 3597},
-      {y: '2025-05-01', store: 6810, selection: 1914},
-      {y: '2025-05-02', store: 5670, selection: 4293},
-      {y: '2025-05-03', store: 4820, selection: 3795},
-      {y: '2025-05-04', store: 6073, selection: 3967},
-      {y: '2025-05-05', store: 9087, selection: 6460},
-      {y: '2025-05-06', store: 8432, selection: 5713},
-      {y: '2025-05-07', store: 4820, selection: 3795},
-      {y: '2025-05-08', store: 12073, selection: 4567},
-      {y: '2025-05-09', store: 10687, selection: 4460},
-      {y: '2025-05-10', store: 8432, selection: 5713},
-      {y: '2025-05-11', store: 4820, selection: 3795},
-      {y: '2025-05-12', store: 15073, selection: 5967},
-      {y: '2025-05-13', store: 10687, selection: 4460},
-    ],
-    xkey: 'y',
-    ykeys: ['store', 'selection'],
-    labels: ['입고', '선별'],
-    lineColors: ['#a0d0e0', '#3c8dbc'],
-    hideHover: 'auto'
-  });
-
+    /* 일일데이터 수집 현황 차트 끝 */
 
 });

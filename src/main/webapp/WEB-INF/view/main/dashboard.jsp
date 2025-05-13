@@ -339,9 +339,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="plugins/morris/morris.min.js"></script>
 
-    <!-- Sparkline -->
-    <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
-
     <!-- jvectormap -->
     <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
