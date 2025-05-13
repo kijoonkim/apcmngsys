@@ -1,3 +1,4 @@
+#apc_infos {overflow: hidden; height: auto; min-height: 550px;}
 .apc_info {padding: 10px}
 .apc_status_wrapper {padding-left: 0px; padding-right: 0px;}
 .apc_item {background-color: #d9d9d9; color: #fff; text-align: center; border-radius: 3px; display: flex; justify-content: center; align-items: center; margin: 1px;}
