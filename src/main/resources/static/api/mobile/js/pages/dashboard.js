@@ -13,6 +13,8 @@ $(function () {
     apcLists: [
       {name: '신미네',
         nh: false,
+        cx: '550',
+        cy: '250',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -28,6 +30,8 @@ $(function () {
       },
       {name: '영흥농산',
         nh: false,
+        cx: '270',
+        cy: '300',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -43,6 +47,8 @@ $(function () {
       },
       {name: '해도지',
         nh: false,
+        cx: '300',
+        cy: '400',
         kinds: [
             {name: '발주', value: 'active'},
             {name: '선별', value: ''}
@@ -58,6 +64,8 @@ $(function () {
       },
       {name: '지우',
         nh: false,
+        cx: '450',
+        cy: '600',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: ''}
@@ -73,6 +81,8 @@ $(function () {
       },
       {name: '상주원예영농',
         nh: false,
+        cx: '550',
+        cy: '550',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: ''}
@@ -88,6 +98,8 @@ $(function () {
       },
       {name: '모두유통',
         nh: false,
+        cx: '350',
+        cy: '300',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: 'active'}
@@ -103,6 +115,8 @@ $(function () {
       },
       {name: '로즈피아',
         nh: false,
+        cx: '270',
+        cy: '750',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: ''}
@@ -118,6 +132,8 @@ $(function () {
       },
       {name: '참영농',
         nh: false,
+        cx: '350',
+        cy: '750',
         kinds: [
             {name: '발주', value: 'active'},
             {name: '선별', value: 'active'}
@@ -133,6 +149,8 @@ $(function () {
       },
       {name: '부안마케팅',
         nh: false,
+        cx: '220',
+        cy: '1120',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: 'active'}
@@ -163,6 +181,8 @@ $(function () {
       },
       {name: '거산(여주)',
         nh: false,
+        cx: '450',
+        cy: '250',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -178,6 +198,8 @@ $(function () {
       },
       {name: '버들농산',
         nh: false,
+        cx: '600',
+        cy: '250',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -193,6 +215,8 @@ $(function () {
       },
       {name: '거산(태안)',
         nh: false,
+        cx: '550',
+        cy: '250',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -208,6 +232,8 @@ $(function () {
       },
       {name: '월항농협',
         nh: true,
+        cx: '600',
+        cy: '780',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: 'active'}
@@ -223,6 +249,8 @@ $(function () {
       },
       {name: '거산(영암)',
         nh: false,
+        cx: '150',
+        cy: '800',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -238,6 +266,8 @@ $(function () {
       },
       {name: '성주참외농협',
         nh: true,
+        cx: '600',
+        cy: '800',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: 'active'}
@@ -253,6 +283,8 @@ $(function () {
       },
       {name: '한우리',
         nh: false,
+        cx: '500',
+        cy: '500',
         kinds: [
             {name: '계량', value: 'active'},
             {name: '선별', value: ''}
@@ -268,6 +300,8 @@ $(function () {
       },
       {name: '신선미세상',
         nh: false,
+        cx: '650',
+        cy: '900',
         kinds: [
             {name: '계량', value: ''},
             {name: '선별', value: ''}
