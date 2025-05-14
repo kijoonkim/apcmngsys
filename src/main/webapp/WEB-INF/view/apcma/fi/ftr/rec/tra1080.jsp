@@ -1082,9 +1082,9 @@
     	
         var searchCode 		= gfn_nvl(SBUxMethod.get("srch-inp-costCenterCode"));
         var searchName 		= gfn_nvl(SBUxMethod.get("srch-inp-costCenterName"));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND A.CSTCD_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM  LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND A.CSTCT_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCT_NM  LIKE '%" + replaceText1 + "%'";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점 팝업');
     	compopup1({
@@ -1094,15 +1094,15 @@
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
    			,searchCaptions			: ["계정코드", 			"계정명"]
-   			,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+   			,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
    			,searchInputValues		: [searchCode, 			searchName]
     		,height					: '400px'
    			,tableHeader			: ["코드", 				"명칭", 				"부서코드", 		"부서명", 			"원가유형", 		"사업장", 		"여신영역"]
-   			,tableColumnNames		: ["CSTCD_CD",	"CSTCD_NM",	"DEPT_CD",	"CSTCD_NM",	"CST_CLSF",	"SITE_CD",	"CRDT_SECT"]
+   			,tableColumnNames		: ["CSTCT_CD",	"CSTCT_NM",	"DEPT_CD",	"CSTCT_NM",	"CST_CLSF",	"SITE_CD",	"CRDT_SECT"]
    			,tableColumnWidths		: ["80px", 				"80px", 			"80px", 		"80px", 			"80px", 		"80px", 		"80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set('srch-inp-costCenterCode', data.CSTCD_CD);
-				SBUxMethod.set('srch-inp-costCenterName', data.CSTCD_NM);
+				SBUxMethod.set('srch-inp-costCenterCode', data.CSTCT_CD);
+				SBUxMethod.set('srch-inp-costCenterName', data.CSTCT_NM);
 			},
     	});
   	}
