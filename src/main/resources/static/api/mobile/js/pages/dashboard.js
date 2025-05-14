@@ -350,7 +350,7 @@ $(function () {
             text.textContent = apc.name;
             svg.appendChild(text);
 
-            const dataKindActive = apc.kinds.some(kind => kind.value.trim() !== '');
+            const dataKindActive = apc.kinds.some(kind => kind.value.trim() !== "");
             const locationPin = document.createElementNS("http://www.w3.org/2000/svg", "g");
             locationPin.setAttribute("transform", `translate(${parseInt(apc.cx) - 9.5}, ${parseInt(apc.cy) - 26}) scale(0.05)`);
             locationPin.setAttribute("fill", dataKindActive ? "blue" : "grey");

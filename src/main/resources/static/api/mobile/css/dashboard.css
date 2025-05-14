@@ -10,3 +10,15 @@
 .apc_status.active {background-color: green;}
 .apc_status_wrapper.col-lg-6 {width: 49%;}
 .apc_status.col-lg-4 {width: 32%;}
+
+svg > polyline,
+svg > path {
+    fill: #CDCCCC;
+    stroke: #FFFFFF;
+    stroke-miterlimit: 1;
+}
+
+.tab-pane {
+    position: relative;
+    height: 300px;
+}
