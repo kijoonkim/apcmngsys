@@ -294,7 +294,8 @@
                                 date-format="yyyy-mm-dd"
                                 class="pull-right sbux-pik-group-apc inpt-mbl inpt_data_reqed input-sm-ast"
                                 style="width:100%;"
-                        />
+                                onchange="fn_setLatestInfo()"
+                        ></sbux-datepicker>
                     </td>
                     <td colspan="5" style="border-left: hidden;">&nbsp;</td>
                 </tr>
@@ -430,7 +431,8 @@
                                 name="srch-slt-warehouseSeCd"
                                 class="input-sm-ast inpt_data_reqed inpt-mbl"
                                 jsondata-ref="jsonComWarehouse"
-                        />
+                                onchange="fn_setLatestInfo()"
+                        ></sbux-select>
                     </td>
                     <td colspan="2" class="td_input" style="border-right: hidden;">
                         <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
@@ -464,7 +466,14 @@
                 <tr>
                     <th scope="row" class="th_bg th-mbl">팔레트번호</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
-                        <sbux-input uitype="text" id="srch-inp-pltno" name="srch-inp-pltno" class="inpt-mbl dsp-wght" style="border-right: hidden;" readonly></sbux-input>
+                        <sbux-input
+                                uitype="text"
+                                id="srch-inp-pltno"
+                                name="srch-inp-pltno"
+                                class="inpt-mbl dsp-wght"
+                                style="border-right: hidden;"
+                                readonly>
+                        </sbux-input>
                     </td>
                 </tr>
                 </tbody>
@@ -936,8 +945,6 @@
                 if(autoPrint){
                     fn_autoPrint(data.resultMap);
                 }
-
-
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }
@@ -1394,9 +1401,12 @@
         PrdcrLatestInfo.length = 0;
         $("#latestInfoBody").empty();
         let wrhsYmd = SBUxMethod.get("srch-dtp-wrhsYmd");	// 입고일자
+        let warehouseSeCd = SBUxMethod.get('srch-slt-warehouseSeCd'); //입고창고
+
         const postJsonPromise = gfn_postJSON("/am/wrhs/selectRawMtrWrhsLatestInfoList.do", {
             apcCd: gv_selectedApcCd,
             wrhsYmd: wrhsYmd,
+            warehouseSeCd : warehouseSeCd,
             pagingYn : 'N',
         });
         try {
@@ -1407,6 +1417,7 @@
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
             }
+            // data.resultList = data.resultList.sort((a,b) => a.pltno - b.pltno);
             data.resultList.forEach((item, index) => {
                 const rawMtrWrhs = {
                     rowSeq: item.rowSeq,
@@ -1479,7 +1490,8 @@
     const selectLatestInfo = async function (element) {
         var cells = element.querySelectorAll('td');
         var rowData = Array.from(cells).map(cell => cell.innerText);
-        rawMtrWrhs = await PrdcrLatestInfo.filter(el => el.wrhsno == rowData[1]);
+        rawMtrWrhs = PrdcrLatestInfo.filter(el => el.wrhsno === rowData[1]);
+
         // 등록 상태 세팅
         SBUxMethod.set("srch-inp-prdcrCd", rawMtrWrhs[0].prdcrCd);
         SBUxMethod.set("srch-inp-prdcrNm", rawMtrWrhs[0].prdcrNm);
@@ -1487,6 +1499,7 @@
         // SBUxMethod.set("srch-inp-bxQntt", rawMtrWrhs[0].bxQntt);
         $("#srch-inp-bxQntt").val(rawMtrWrhs[0].bxQntt);
         SBUxMethod.set("srch-inp-wrhsno", rawMtrWrhs[0].wrhsno);
+        $('#srch-inp-pltno').css('display','block');
         SBUxMethod.set("srch-inp-pltno",rawMtrWrhs[0].pltno);
         SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");
         //품목 품종 세팅 필요값 설정
