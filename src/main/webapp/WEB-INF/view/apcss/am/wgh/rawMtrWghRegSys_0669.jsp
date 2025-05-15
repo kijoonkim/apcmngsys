@@ -1148,12 +1148,13 @@
 			}
 
 			SBGridProperties.columns = columns;
+			console.log(columns,"여기를 초기화를 해야해");
 
 	        grdVrty = _SBGrid.create(SBGridProperties);
 			delete SBGridProperties.total;
 
 	        grdVrty.bind('valuechanged', 'fn_grdQnttChanged');
-			fn_addRow();
+			await fn_addRow();
 			/** 검품 등급종류 set **/
 			let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {apcCd : gv_selectedApcCd, itemCd : itemCd, grdSeCd : '04', grdKnd : '01'});
 			let data = await postJsonPromise;
@@ -2160,7 +2161,18 @@
 		});
 	}
 	const fn_addRow = async function(){
-		jsonVrty = jsonGrdCd.map((item) => ({'grdCd' : item.grdCd}));
+		let columns = grdVrty.getColumns();
+		let initJson = [];
+		jsonGrdCd.forEach(function(item) {
+			let rowVo = {'grdCd' : item.grdCd};
+
+			columns.forEach(function (item) {
+				rowVo[item.ref] = '';
+			});
+			initJson.push(rowVo);
+		});
+
+		jsonVrty = [...initJson];
 		grdVrty.rebuild();
 	}
 </script>
