@@ -663,6 +663,10 @@
 		 	gfn_setComCdSBSelect('dtl-slt-wrhsSpmtType',	jsonComWrhsSpmtType, 	'WRHS_SPMT_TYPE'),	// 입고출고유형
 			gfn_getComCdDtls('WGH_SE_CD'),	// 입고출고유형
 		]);
+		/** sn 순서보장 **/
+		jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
+		SBUxMethod.refresh('dtl-slt-vrtyCd');
+
 		jsonWghSeCd = rst[6];
 
 		jsonComWrhsSpmtType = jsonComWrhsSpmtType.filter(item => item.value !== 'TF');
@@ -1102,8 +1106,10 @@
 			gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', 	jsonApcVrty, 	gv_selectedApcCd, itemCd),			// 품종
 			gfn_setApcGdsGrdSBSelect('grdVrty', 		jsonGrdCd, 		gv_selectedApcCd, itemCd, "01"),	// 등급
 		]);
+		/** sn 순서보장 **/
+		jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
+		SBUxMethod.refresh('dtl-slt-vrtyCd');
 		jsonApcVrty = jsonApcVrty.filter(item => item.useYn === 'Y');
-
 		jsonVrty.length = 0;
 
 		if (!gfn_isEmpty(itemCd)) {
@@ -1122,7 +1128,7 @@
 
 	        for(var i=0; i<jsonApcVrty.length; i++) {
 	        	columns.push(
-	        			{caption: [jsonApcVrty[i].vrtyNm], ref: jsonApcVrty[i].vrtyCd, width: '100px', type: 'input', style:'text-align:right', format : {type:'number', rule:'###.## '}},
+	        			{caption: [jsonApcVrty[i].vrtyNm], ref: jsonApcVrty[i].vrtyCd, width: '100px', datatype : 'number',type: 'input', style:'text-align:right', format : {type:'number', rule:'###.## '}},
 	        		);
 	        }
 			/** total 추가 **/
@@ -1824,6 +1830,9 @@
 
 		if (!gfn_isEmpty(prdcr.rprsVrtyCd)) {	// 대표품종
 			await gfn_setApcVrtySBSelect('dtl-slt-vrtyCd', jsonApcVrty, gv_selectedApcCd);
+			/** sn 순서보장 **/
+			jsonApcVrty = jsonApcVrty.sort((a, b) => a.sn - b.sn);
+			SBUxMethod.refresh('dtl-slt-vrtyCd');
 			SBUxMethod.set("dtl-slt-vrtyCd", prdcr.rprsItemCd + prdcr.rprsVrtyCd);
 
 		} else {
