@@ -312,7 +312,7 @@
                                     jsondata-ref="jsonSpcfctCd"
                                     unselected-text="선택"
                                     jsondata-text="spmtPckgUnitNm"
-                                    jsondata-value="spmtPckgUnitCd">
+                                    jsondata-value="spcfctCd">
                             </sbux-select>
                             <sbux-input
                                     id="dtl-inp-sortQntt"

@@ -918,6 +918,9 @@
     }
 
     var fn_findPayTermCodeForGvwList = function (row) {
+        var searchCode 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("PAY_TERM_CODE")));
+        var searchName 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("PAY_TERM_NAME")));
+
         var replaceText0 = "_PAY_TERM_CD_";
         var replaceText1 = "_PAY_TERM_NM_";
         var strWhereClause = "AND A.PAY_TERM_CD LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NM LIKE '%" + replaceText1 + "%'";
@@ -931,7 +934,7 @@
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
             , searchInputFields: ["PAY_TERM_CD", "PAY_TERM_NM"]
-            , searchInputValues: ['', '']
+            , searchInputValues: [searchCode, searchName]
             , height: '400px'
             , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
             , tableColumnNames: ["PAY_TERM_CD", "PAY_TERM_NM", "PAY_METHOD_NAME"]
@@ -948,6 +951,8 @@
     }
 
     var fn_findAccountForGvwList = function (row) {
+
+        var searchCode 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("ACCOUNT_NUM")));
         var replaceText0 = "_BACNT_NO_";
         var replaceText1 = "_BACNT_OWNR_";
         var strWhereClause = "AND BACNT_NO LIKE '%" + replaceText0 + "%' AND BACNT_OWNR LIKE '%" + replaceText1 + "%'";
@@ -961,7 +966,7 @@
             , whereClause: strWhereClause
             , searchCaptions: ["계좌번호", "예금주"]
             , searchInputFields: ["BACNT_NO", "BACNT_OWNR"]
-            , searchInputValues: ['', '']
+            , searchInputValues: [searchCode, '']
             , height: '400px'
             , tableHeader: ["계좌순번", "기본계좌여부", "은행코드", "은행명", "계좌번호", "비고", "예금주명", "어음구분", "B2B코드", "거래처코드", "시작일", "종료일"]
             , tableColumnNames: ["SEQ_NAME", "MN_YN", "BANK_CD", "BANK_NM", "BACNT_NO", "DSCTN",

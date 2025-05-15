@@ -1437,13 +1437,12 @@
 			   AND WP.DEL_YN = 'N'
 			   AND INV.DEL_YN = 'N'
 			   AND PIF.DEL_YN = 'N'
-		]]>
+]]>
 
 		<if test='apcCd != null and apcCd != ""'>
 			AND WP.APC_CD = #{apcCd}
 		</if>
-		<if test='wrhsno != null and wrhsno != ""'>
-			AND WP.WRHSNO = #{wrhsno}
+		<if test='wrhsno != null and wrhsno != ""'>AND WP.WRHSNO = #{wrhsno}
 		</if>
 		<if test='pltno != null and pltno != ""'>
 			AND WP.PLTNO = #{pltno}
@@ -1492,8 +1491,7 @@
 		</if>
 
 		<![CDATA[
-		 	 ORDER BY WP.SYS_LAST_CHG_DT DESC
-		 	 LIMIT 3
+			 ORDER BY WP.PLTNO DESC
     		  ) pt0
 		]]>
 

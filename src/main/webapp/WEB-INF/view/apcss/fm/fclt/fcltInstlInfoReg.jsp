@@ -432,6 +432,19 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		/*
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
@@ -483,6 +496,20 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -609,32 +636,45 @@
 	function fn_addRow(){
 		grdFcltInstlInfo.addRow(true, {addYn:'Y'});
 	}
-	function fn_deleteRow(){
+	async function fn_deleteRow() {
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		let delList = [];
 		let delCnt = 0;
 		let gridList = grdFcltInstlInfo.getGridDataAll();
-		for (let i=gridList.length-1; i>-1; i--) {
+		for (let i = gridList.length - 1; i > -1; i--) {
 			if (gridList[i].checked === "true") {
 				if (gridList[i].addYn == 'N') {
-					gridList[i].rowNum = i+2;
+					gridList[i].rowNum = i + 2;
 					delList.push(gridList[i]);
 					delCnt++;
-				}else{
-					grdFcltInstlInfo.deleteRow(i+2);//테이블 해더가 2줄이면 +2
+				} else {
+					grdFcltInstlInfo.deleteRow(i + 2);//테이블 해더가 2줄이면 +2
 					delCnt++;
 				}
 			}
 		}
-		if(delList.length > 0){
+		if (delList.length > 0) {
 			let rowStr = "";
 			for (var i = 0; i < delList.length; i++) {
-				rowStr += (delList[i].rowNum-1);
-				if(delList.length != i+1){
+				rowStr += (delList[i].rowNum - 1);
+				if (delList.length != i + 1) {
 					rowStr += ", ";
 				}
 			}
 			let delMsg = rowStr + " 행은 기존 데이터 입니다. 삭제 하시겠습니까?";
-			if(confirm(delMsg)){
+			if (confirm(delMsg)) {
 				fn_deleteRsrc(delList);
 				for (var i = 0; i < delList.length; i++) {
 					grdFcltInstlInfo.deleteRow(delList[i].rowNum);
@@ -742,6 +782,18 @@
 
 		if (gfn_isEmpty(apcCd)) {
 			gfn_comAlert("W0001", "APC");		//	W0002	{0}을/를 선택하세요.
+			return;
+		}
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
 			return;
 		}
 

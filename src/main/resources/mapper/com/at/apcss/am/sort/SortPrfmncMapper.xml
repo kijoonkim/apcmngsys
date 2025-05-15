@@ -3893,7 +3893,8 @@
 		FROM (
 				 SELECT
 					 MAX(SP.APC_CD) AS APC_CD
-				   , SP.SORTNO
+				   , SP.SORTNO AS SORTNO
+				   , MAX(SP.RMRK) AS RMRK
 				   , MAX(WP.WRHSNO) AS WRHSNO
 				   , '[' || LISTAGG('{"GRD_CD": "' || SI.GRD_CD || '", "SORT_QNTT": ' || SI.SORT_QNTT || '}', ', ') WITHIN GROUP (ORDER BY SI.GRD_CD) || ']' AS GRD_JSON
 				   , SUM(SI.SORT_QNTT) AS QNTT

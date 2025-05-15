@@ -1,5 +1,6 @@
 package com.at.apcss.fm.fclt.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.at.apcss.co.sys.vo.ComVO;
@@ -104,8 +105,33 @@ public class FcltOperInfoVO extends ComVO{
 	private String userType;//계정 정보 확인 용도
 	private String memberInfoYn;//회원정보 여부
 
-	/*품목리스트*/
+	/**
+	 * 처리종류 : 이력용
+	 */
+	private String hstryPrcsKnd;
+
+	/**
+	 * 이력 순번
+	 */
+	private int hstrySn;
+
+	private String rtnCd;
+	private String rtnMsg;
+
+	/**
+	 * 품목리스트
+	 */
 	private List<FcltItemVO> itemList;
+
+
+	public List<FcltItemVO> getItemList() {
+		return itemList = itemList == null ? null : new ArrayList<>(itemList);
+	}
+
+	public void setItemList(List<FcltItemVO> itemList) {
+		this.itemList = itemList == null ? null : new ArrayList<>(itemList);
+	}
+
 }
 
 
