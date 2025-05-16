@@ -23,7 +23,7 @@
 <body oncontextmenu="return false">
 <section class="content container-fluid">
   <div class="box box-solid">
-    <div class="box-header" style="display:flex; justify-content: flex-start;" >
+    <div class="box-header" style="display:flex; justify-content: flex-start; padding: 10px 15px 5px;" >
       <div style="margin-left: auto;">
         <sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset"></sbux-button>
         <sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_add"></sbux-button>
