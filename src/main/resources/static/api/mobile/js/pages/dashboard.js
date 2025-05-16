@@ -5,6 +5,16 @@
  *      This is a demo file used only for the main dashboard (index.html)
  **/
 
+function showLoginForm(isShow) {
+    if(isShow) {
+        $('#dashboard').css('display', 'none');
+        $('#login_form').css('display', 'block');
+    } else {
+        $('#dashboard').css('display', 'block');
+        $('#login_form').css('display', 'none');
+    }
+}
+
 function login() {
     $.ajax({
         type : 'post',
@@ -29,14 +39,12 @@ function login() {
         },
         error: function(xhr, status, error){
             if(status == '401') {
-                $('#dashboard').css('display', 'none');
-                $('#login_form').css('display', 'block');
+                showLoginForm(true);
             }
         },
         complete: function(xhr, textStatus) {
             if(xhr.status == '401') {
-                $('#dashboard').css('display', 'none');
-                $('#login_form').css('display', 'block');
+                showLoginForm(true);
             }
         }
     });
@@ -64,14 +72,13 @@ $(function () {
         beforeSend : function(xhr){
             xhr.setRequestHeader("Content-type","application/json");
 
-            if(userInfo.accessToken !== 'undefined' && userInfo.accessToken != null)
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null)
                 xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
 
-            $('#dashboard').css('display', 'block');
-            $('#login_form').css('display', 'none');
+            showLoginForm(false);
 
             /* APC 현황 시작 */
             apcInfo = {
@@ -405,14 +412,12 @@ $(function () {
         },
         error: function(xhr, status, error){
             if(status == '401') {
-                $('#dashboard').css('display', 'none');
-                $('#login_form').css('display', 'block');
+                showLoginForm(true);
             }
         },
         complete: function(xhr, textStatus) {
             if(xhr.status == '401') {
-                $('#dashboard').css('display', 'none');
-                $('#login_form').css('display', 'block');
+                showLoginForm(true);
             }
         }
     });
