@@ -55,5 +55,36 @@ public interface MobileApiMapper {
 	 * @throws Exception
 	 */
 	public Map<String, Object> findRefreshToken(String userId) throws Exception;
-	
+
+	/**
+	 * 1년 동안 APC 월단위 입고량
+	 * @param map:Map<String, Object> map
+	 * @return Map<String, Object>
+	 * @throws Exception
+	 */
+	public Map<String, Object> getWrhsValuesForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 1년 동안 APC 월단위 선별량
+	 * @param map:Map<String, Object> map
+	 * @return Map<String, Object>
+	 * @throws Exception
+	 */
+	public Map<String, Object> getSortValuesForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 1년 동안 APC 월단위 출고량
+	 * @param map:Map<String, Object> map
+	 * @return Map<String, Object>
+	 * @throws Exception
+	 */
+	public Map<String, Object> getSpmtValuesForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 1년 동안 APC 월단위 입고,선별,출고량
+	 * @param map:Map<String, Object> map
+	 * @return List<Map<String, Object>>
+	 * @throws Exception
+	 */
+	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
 }

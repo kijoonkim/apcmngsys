@@ -47,4 +47,12 @@ public interface MobileApiService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> findRefreshToken(String userId) throws Exception;
+
+	/**
+	 * 1년 동안 APC 월단위 입고,선별,출고량
+	 * @param searchYmd:String
+	 * @return List<Map<String, Object>>
+	 * @throws Exception
+	 */
+	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(String searchYmd) throws Exception;
 }
