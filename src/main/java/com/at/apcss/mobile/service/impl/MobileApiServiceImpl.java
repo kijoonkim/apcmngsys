@@ -1,7 +1,7 @@
 package com.at.apcss.mobile.service.impl;
 
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,4 +58,28 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 		return mobileApiMapper.findRefreshToken(userId);
 	}
 
+	@Override
+	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(String searchYmd) throws Exception {
+		// TODO Auto-generated method stub
+		Calendar cal = Calendar.getInstance();
+		// searchYmd = "20011021";
+		cal.set(Calendar.YEAR, Integer.parseInt(searchYmd.substring(0, 4)));
+		cal.set(Calendar.MONTH, Integer.parseInt(searchYmd.substring(4, 6)) - 1);
+		//1년 전
+		cal.add(Calendar.MONTH, -11);
+		cal.set(Calendar.DATE, Integer.parseInt(searchYmd.substring(6, 8)));
+
+		long writeTime = cal.getTimeInMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		String searchYmdFrom = sdf.format(new Date(writeTime));
+		searchYmdFrom = searchYmdFrom.substring(0, 6)+"01";
+		String searchYmdTo = searchYmd.substring(0, 6)+"31";;
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("SEARCH_YMD", searchYmd);
+		map.put("SEARCH_YMD_FROM", searchYmdFrom);
+		map.put("SEARCH_YMD_TO", searchYmdTo);
+		return mobileApiMapper.getStatsForOneYearBySearchYmd(map);
+	}
 }

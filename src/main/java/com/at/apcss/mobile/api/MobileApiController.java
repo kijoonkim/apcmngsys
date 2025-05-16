@@ -615,4 +615,31 @@ public class MobileApiController extends BaseController{
  */
 		return "/apcss/am/popup/framldMapPopupMobile";
 	}
+
+	@GetMapping("/getApcInfoList.do")
+	@ResponseBody
+	public JSONObject getApcInfoList(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+		List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(new ApcInfoVO());
+		resultJson.put("list", apcInfoList);
+		return resultJson;
+	}
+
+	@PostMapping("/getStatsForOneYearBySearchYmd.do")
+	@ResponseBody
+	public JSONObject getStatsForOneYearBySearchYmd(@RequestBody Map<String, String> param,
+									Locale locale,
+									HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			List<Map<String, Object>> list = mobileApiService.getStatsForOneYearBySearchYmd(param.get("searchYmd"));
+			resultJson.put("success", true);
+			resultJson.put("message", "성공");
+			resultJson.put("results", list);
+		} catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultJson;
+	}
 }
