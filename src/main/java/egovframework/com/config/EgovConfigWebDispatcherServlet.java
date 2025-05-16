@@ -110,7 +110,7 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 			.excludePathPatterns(
 				"/api/mobile/authenticate.do",
 				"/api/mobile/refreshToken.do",
-				"/api/mobile/dashboard.do",
+				"/api/mobile/dashboard.html",
 				"/api/mobile/css/**",
 				"/api/mobile/js/**",
 				"/api/mobile/plugins/**",
