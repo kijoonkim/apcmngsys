@@ -59,8 +59,11 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 	}
 
 	@Override
-	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(String searchYmd) throws Exception {
+	public Map<String, Object> getStatsForOneYearBySearchYmd() throws Exception {
 		// TODO Auto-generated method stub
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String searchYmd = sdf.format(new Date());
+
 		Calendar cal = Calendar.getInstance();
 		// searchYmd = "20011021";
 		cal.set(Calendar.YEAR, Integer.parseInt(searchYmd.substring(0, 4)));
@@ -70,7 +73,6 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 		cal.set(Calendar.DATE, Integer.parseInt(searchYmd.substring(6, 8)));
 
 		long writeTime = cal.getTimeInMillis();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
 		String searchYmdFrom = sdf.format(new Date(writeTime));
 		searchYmdFrom = searchYmdFrom.substring(0, 6)+"01";
@@ -80,6 +82,8 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 		map.put("SEARCH_YMD", searchYmd);
 		map.put("SEARCH_YMD_FROM", searchYmdFrom);
 		map.put("SEARCH_YMD_TO", searchYmdTo);
-		return mobileApiMapper.getStatsForOneYearBySearchYmd(map);
+		map.put("RESULTS", mobileApiMapper.getStatsForOneYearBySearchYmd(map));
+
+		return map;
 	}
 }

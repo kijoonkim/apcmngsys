@@ -61,7 +61,14 @@ $(function () {
         ? JSON.parse(localStorage.getItem('userInfo'))
         : {};
 
-    console.log('userInfo', userInfo);
+    //console.log('userInfo', userInfo);
+
+    //로그인 여부 체크
+    if(userInfo.accessToken === undefined || userInfo.accessToken == null) {
+        showLoginForm(true);
+        return;
+    } else
+        showLoginForm(false);
 
     var apcInfo;
 
@@ -77,8 +84,6 @@ $(function () {
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
-
-            showLoginForm(false);
 
             /* APC 현황 시작 */
             apcInfo = {
@@ -576,10 +581,36 @@ $(function () {
 
 
     /* 일일데이터 수집 현황 차트 시작 */
-    var area = new Morris.Area({
-        element: 'revenue-chart',
-        resize: true,
-        data: [
+    $.ajax({
+        type : 'get',
+        url: './getStatsForOneYearBySearchYmd.do',
+        beforeSend : function(xhr){
+            xhr.setRequestHeader("Content-type","application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null)
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('stats', data);
+
+            let values = [];
+            let fromYear = parseInt(data.result.SEARCH_YMD_FROM.substring(0, 4));
+            let toYear = parseInt(data.result.SEARCH_YMD_TO.substring(0, 4));
+            let fromMonth = parseInt(data.result.SEARCH_YMD_FROM.substring(4, 6));
+            let toMonth = parseInt(data.result.SEARCH_YMD_TO.substring(4, 6));
+            let year = fromYear;
+            for(let i = fromMonth; year < toYear || i <= toMonth; i++) {
+                if(i == 13) {
+                    i = 1;
+                    year++;
+                }
+                let m = i < 10 ? '0'+i : i;
+                values.push({'y': year + '-' + m});
+            }
+
+            /*
+            {y: '2025-04-27', store: 2666, selection: 2666}
             {y: '2025-04-27', store: 2666, selection: 2666},
             {y: '2025-04-28', store: 2778, selection: 2294},
             {y: '2025-04-29', store: 4912, selection: 1969},
@@ -597,13 +628,47 @@ $(function () {
             {y: '2025-05-11', store: 4820, selection: 3795},
             {y: '2025-05-12', store: 15073, selection: 5967},
             {y: '2025-05-13', store: 10687, selection: 4460},
-        ],
-        xkey: 'y',
-        ykeys: ['store', 'selection'],
-        labels: ['입고', '선별'],
-        lineColors: ['#a0d0e0', '#3c8dbc'],
-        hideHover: 'auto'
+*/
+
+            $.each(data.result.RESULTS, function (index, el) {
+                console.log('element', index, el);
+
+                if(el.RS_TYPE == 'WRHS') {
+                    for(let i = 0; i < values.length; i++)
+                        values[values.length - (i + 1)].store = eval("el.Q_" + i);
+                }else if(el.RS_TYPE == 'SORT') {
+                    for(let i = 0; i < values.length; i++)
+                        values[values.length - (i + 1)].sort = eval("el.Q_" + i);
+                }else if(el.RS_TYPE == 'SPMT') {
+                    for(let i = 0; i < values.length; i++)
+                        values[values.length - (i + 1)].release = eval("el.Q_" + i);
+                }
+            });
+
+            var area = new Morris.Area({
+                element: 'revenue-chart',
+                resize: true,
+                data: values,
+                xkey: 'y',
+                ykeys: ['store', 'sort', 'release'],
+                labels: ['입고', '선별', '출고'],
+                lineColors: ['#a0d0e0', '#3c8dbc', '#047630'],
+                hideHover: 'auto'
+            });
+
+        },
+        error: function(xhr, status, error){
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
     });
+
     /* 일일데이터 수집 현황 차트 끝 */
 
 });

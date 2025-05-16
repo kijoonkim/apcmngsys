@@ -625,17 +625,15 @@ public class MobileApiController extends BaseController{
 		return resultJson;
 	}
 
-	@PostMapping("/getStatsForOneYearBySearchYmd.do")
+	@GetMapping("/getStatsForOneYearBySearchYmd.do")
 	@ResponseBody
-	public JSONObject getStatsForOneYearBySearchYmd(@RequestBody Map<String, String> param,
-									Locale locale,
-									HttpServletRequest request) throws IOException {
+	public JSONObject getStatsForOneYearBySearchYmd(HttpServletRequest request) throws IOException {
 		JSONObject resultJson = new JSONObject();
 		try {
-			List<Map<String, Object>> list = mobileApiService.getStatsForOneYearBySearchYmd(param.get("searchYmd"));
+			Map<String, Object> result = mobileApiService.getStatsForOneYearBySearchYmd();
 			resultJson.put("success", true);
 			resultJson.put("message", "성공");
-			resultJson.put("results", list);
+			resultJson.put("result", result);
 		} catch (Exception e) {
             throw new RuntimeException(e);
         }
