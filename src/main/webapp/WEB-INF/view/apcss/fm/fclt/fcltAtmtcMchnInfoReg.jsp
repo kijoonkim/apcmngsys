@@ -1073,12 +1073,23 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
-		//alert('준비중');
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
@@ -1088,6 +1099,19 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 

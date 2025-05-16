@@ -432,6 +432,8 @@
 			return;
 		}
 
+		await fn_print();
+
 		let btns = $(".btn_list")
 				.find("button")
 				// .find("span")

@@ -553,7 +553,7 @@
 	  	  	        			, ACQ_DEPR_AMT_10 : item.ACQ_DEPR_AMT_10
 	  	  	        			, ACQ_DEPR_AMT_11 : item.ACQ_DEPR_AMT_11
 	  	  	        			, ACQ_DEPR_AMT_12 : item.ACQ_DEPR_AMT_12
-	  	  	        			, ACQS_FRST_YMD : item.ACQS_FRST_YMD
+	  	  	        			, ACQS_FRST_YMD : item.ACQS_YMD
 	  	  	        			, ASST_ACNT_CD : item.ASST_ACNT_CD
 	  	  	        			, ASST_CTGRY : item.ASST_CTGRY
 	  	  	        			, ASST_MCLSF : item.ASST_MCLSF
@@ -562,7 +562,7 @@
 	  	  	        			, ASST_NO : item.ASST_NO
 	  	  	        			, AST_DSPSL_QTY : item.AST_DSPSL_QTY
 	  	  	        			, BSC_ACML_DPRC_AMT : item.BSC_ACML_DPRC_AMT
-	  	  	        			, BSC_ACQS_AMT : item.BSC_ACQS_AMT
+	  	  	        			, BSC_ACQS_AMT : gfnma_nvl2(item.BSC_ACQS_AMT)
 	  	  	        			, BEGIN_NET_BALANCE : item.BEGIN_NET_BALANCE
 	  	  	        			, BSS_GVSBS_DPRC_ACML_AMT : item.BSS_GVSBS_DPRC_ACML_AMT
 	  	  	        			, BSS_GVSBS_AMT : item.BSS_GVSBS_AMT
@@ -586,8 +586,8 @@
 	  	  	        			, ORGNL_AMT : item.ORGNL_AMT
 	  	  	        			, DSPSL_ACML_DPRC : item.DSPSL_ACML_DPRC
 	  	  	        			, DSPSL_ACQS_AMT : item.DSPSL_ACQS_AMT
-	  	  	        			, DSPSL_GVSBS_ACML_DPRC_AMT : item.DSPSL_GVSBS_ACML_DPRC_AMT
-	  	  	        			, DSPSL_GVSBS_AMT : item.DSPSL_GVSBS_AMT
+	  	  	        			, DSPSL_GVSBS_ACML_DPRC_AMT : item.DSPSL_SBS_ACML_DPRC_AMT
+								, DSPSL_GVSBS_AMT : item.DSPSL_GVSBS_AMT
 	  	  	        			, PJT_NM : item.PJT_NM
 	  	  	        			, SITE_CD : item.SITE_CD
 	  	  	        			, GVSBS_DPCO_AMT : item.GVSBS_DPCO_AMT

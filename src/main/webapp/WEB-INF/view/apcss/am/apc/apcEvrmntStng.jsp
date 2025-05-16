@@ -1001,8 +1001,8 @@
 				fn_lgszMrktMngCreateGrid();
 				break;
 			case "btnOprtr":			// 생산작업자 등록
-				fn_cnptMngCreateGrid();
-				fn_lgszMrktMngCreateGrid();
+				fn_initSBSelectOprtr();
+				fn_oprtrMngCreateGrid();
 				break;
 			case "btnPlor":			// 원산지관리
 				fn_plorStdMngCreateGrid();

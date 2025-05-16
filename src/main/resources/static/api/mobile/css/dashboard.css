@@ -18,6 +18,10 @@ svg > path {
     stroke-miterlimit: 1;
 }
 
+svg > polyline {
+    transform: translate(106.95522px, 19.462687px);
+}
+
 .tab-pane {
     position: relative;
     height: 300px;

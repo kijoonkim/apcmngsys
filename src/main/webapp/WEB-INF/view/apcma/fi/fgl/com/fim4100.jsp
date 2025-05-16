@@ -368,8 +368,8 @@
         SBUxMethod.set("srch-lblacct-rule-code",	rowData.ACCT_RULE_CODE);
         SBUxMethod.set("srch-chksystem-yn",			rowData.SYSTEM_YN);
         SBUxMethod.set("srch-memomemo",				rowData.MEMO);
-        gfnma_multiSelectSet('#srch-cbocurrency-code', 	'CRN_CD', 'CRN_NM', rowData.CRN_CD);
-        gfnma_multiSelectSet('#srch-cbodoc-type', 		'SBSD_CD', 'CD_NM', rowData.SLIP_TYPE);
+        gfnma_multiSelectSet('#srch-cbocurrency-code', 	'CRN_CD', 'CRN_NM', rowData.CURRENCY_CODE);
+        gfnma_multiSelectSet('#srch-cbodoc-type', 		'SBSD_CD', 'CD_NM', rowData.DOC_TYPE);
 		fn_setFim4100GridDetail('ITEM');
     }
     

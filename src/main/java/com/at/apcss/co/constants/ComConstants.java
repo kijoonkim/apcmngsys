@@ -127,6 +127,7 @@ public class ComConstants {
 
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
+	public final static String CON_T = "T";
 	public final static String CON_X = "X";
 
 	public final static String CON_XSDENY_CHAR = "----==_dummy_part_66f108b0c681a_bf1d241437c4";
@@ -349,6 +350,12 @@ public class ComConstants {
 	 */
 	public final static String CON_DPCN_LGN = "DPCN_LGN";
 	public final static String CON_DPCN_LGN_PSBLTY = "PSBLTY";
+
+	/**
+	 * 이력처리종류
+	 */
+	public final static String CON_HSTRY_PRCS_KND_UPDATE = "U";
+	public final static String CON_HSTRY_PRCS_KND_DELETE = "D";
 
 	/* 재고구분 */
 	public final static String INVNTR_SE_CD_RAWMTR = "1";
