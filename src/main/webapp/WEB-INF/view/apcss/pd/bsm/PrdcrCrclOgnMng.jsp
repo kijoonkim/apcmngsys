@@ -1341,12 +1341,12 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02'}">
 		var nRow = grdPrdcrCrclOgnMng.getRow();
 		if (nRow < 1) {
+			gfn_comAlert("W0001","출력할 조직"); // W0003  {0}을/를 선택하세요.
 			return;
 		}
 		if(nRow == null){
 			nRow = 1;
 		}
-
 		//서치폼에서 클릭시 디테일폼에 데이터출력
 		let rowData = grdPrdcrCrclOgnMng.getRowData(nRow);
 

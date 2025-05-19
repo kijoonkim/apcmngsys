@@ -677,7 +677,7 @@
 		SBUxMethod.refresh('dtl-slt-wrhsSpmtType');
 
 		if (jsonApcItem.length > 0) {
-			fn_onChangeSrchItemCd({value: jsonApcItem[0].itemCd});
+			await fn_onChangeSrchItemCd({value: jsonApcItem[0].itemCd});
 			SBUxMethod.set("dtl-slt-itemCd", jsonApcItem[0].itemCd);
 		}
 
@@ -703,7 +703,7 @@
 
 	const fn_init = async function() {
 		//fn_reset();
-		fn_createWghPrfmncGrid();
+		await fn_createWghPrfmncGrid();
 		await fn_initSBSelect();
 		await fn_getPrdcrs();
 		/** 팔레트 박스 select **/
@@ -723,7 +723,7 @@
 		ws.init();
 
 		/** addRow 대체 **/
-		await fn_addRow();
+		// await fn_addRow();
 	}
 
 	const fn_selectPltBxList = async function(){
@@ -1148,9 +1148,8 @@
 			}
 
 			SBGridProperties.columns = columns;
-			console.log(columns,"여기를 초기화를 해야해");
 
-	        grdVrty = _SBGrid.create(SBGridProperties);
+	        grdVrty = await _SBGrid.create(SBGridProperties);
 			delete SBGridProperties.total;
 
 	        grdVrty.bind('valuechanged', 'fn_grdQnttChanged');
@@ -2167,13 +2166,17 @@
 			let rowVo = {'grdCd' : item.grdCd};
 
 			columns.forEach(function (item) {
-				rowVo[item.ref] = '';
+				if(item.ref !== 'grdCd'){
+					rowVo[item.ref] = '';
+				}
 			});
 			initJson.push(rowVo);
 		});
 
 		jsonVrty = [...initJson];
 		grdVrty.rebuild();
+		// jsonVrty = jsonGrdCd.map((item) => ({'grdCd' : item.grdCd}));
+		// grdVrty.rebuild();
 	}
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
