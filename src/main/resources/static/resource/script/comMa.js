@@ -1235,6 +1235,11 @@ const gfnma_uxDataClear = function (target) {
 		SBUxMethod.set(id, '');
 	});
 	tar.find('input[type=checkbox]').prop('checked', false);
+	tar.find('textarea').val('');
+	tar.find('textarea').each(function(){
+		var id = $(this).attr('id');
+		SBUxMethod.set(id, '');
+	});
 	tar.find('select').val('');
 	tar.find('select').each(function(){
 		var id = $(this).attr('id');
