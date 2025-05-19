@@ -91,6 +91,7 @@
 	                        	datepicker-mode="year"
 	                        	date-format="yyyy"
 	                        	class="table-datepicker-ma inpt_data_reqed"
+								onchange="fn_setMultSelect(srch-dtp-yyyy)">
 	                        ></sbux-datepicker>
 	                    </td>
 						<td></td>
@@ -229,7 +230,12 @@
 	
 	//초기화
 	function cfn_init() {
-		fn_init();
+		// fn_init();
+		jsonSmmry.length = 0;
+		fn_setVatTable();
+
+		/*조회 테이블 초기화*/
+		gfnma_uxDataClear('#srchTable');
 	}
 	
 	// 신규
@@ -279,16 +285,62 @@
      */
     const fn_init = async function() {
     	
-        /** 기준연도 **/
-        SBUxMethod.set('srch-dtp-yyyy', gfn_dateToYear(new Date()));
+		/** 기준연도 **/
+		let yyyy = gfn_dateToYear(new Date());
+		SBUxMethod.set('srch-dtp-yyyy', yyyy);
         
         await fn_initSBSelect();
- 
+		await fn_setMultSelect(yyyy);
 		jsonSmmry.length = 0;
 		fn_setVatTable();
- 
     }
-    
+
+	async function fn_setMultSelect(yyyy){
+		let L_FIT030;
+		SBUxMethod.set("srch-dtp-ymdstandardTermFr", "");
+		SBUxMethod.set("srch-dtp-ymdstandardTermTo", "");
+
+		gfnma_multiSelectInit({
+			target: ['#srch-ddm-seq']
+			, compCode: gv_ma_selectedCorpCd
+			, clientCode: gv_ma_selectedClntCd
+			, bizcompId: 'L_FIT030'
+			, whereClause: 'AND A.YR = ' + "'" + yyyy + "'"
+			, formId: p_formId
+			, menuId: p_menuId
+			, selectValue: ''
+			, dropType: 'down' 	// up, down
+			, dropAlign: '' 	// left, right
+			, colValue: 'SEQ'
+			, colLabel: 'VAT_TMPLT_NM'
+			, columns: [
+				{caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '200px', style: 'text-align:left'},
+				{caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
+				{caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
+				{caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
+				{caption: "단위과세번호", ref: 'OVS_BPLC_NO', width: '150px', style: 'text-align:left'},
+				{caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
+				{caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
+			]
+			, returnData: function(data){
+				L_FIT030 = data.cv_1;
+			}
+			, callback : function(data){
+				console.log(data)
+				console.log(L_FIT030)
+				let selectData = L_FIT030.filter(
+						function(d){
+							return d.SEQ == data;
+						}
+				)
+				SBUxMethod.set("srch-dtp-termFr", selectData[0].STANDARD_TERM_FR);
+				SBUxMethod.set("srch-dtp-termTo", selectData[0].STANDARD_TERM_TO);
+
+				// fn_setSrchSeq(_seq);
+			}
+		});
+	}
+
 	/**
      * @name fn_initSBSelect
      * @description 화면 초기 호출
@@ -300,59 +352,59 @@
 		let result = await Promise.all([
  
 	    	gfnma_setComSelect(['_'], jsonVatDclr, 'L_FIT030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SEQ', 'VAT_TMPLT_NM', 'Y', ''),
- 
+
 			/** 신고구분명 select **/
-			gfnma_multiSelectInit({
-		            target			: ['#srch-ddm-seq']
-		            ,compCode		: gv_ma_selectedCorpCd
-		            ,clientCode		: gv_ma_selectedClntCd
-		            ,bizcompId		: 'L_FIT030'
-		            ,whereClause	: ''
-		            ,formId			: p_formId
-		            ,menuId			: p_menuId
-		            ,selectValue	: ''
-		            ,dropType		: 'down' 	// up, down
-		            ,dropAlign		: 'right' 	// left, right
-		            ,colValue		: 'SEQ'
-		            ,colLabel		: 'VAT_TMPLT_NM'
-		            ,columns		:[
-		                {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
-		                {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
-		                {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
-		                {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
-		                {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
-		                {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
-		                {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
-		            ]
-		            ,callback       : function(_seq) {
-		            	fn_setSrchSeq(_seq);
-		            }
-		        })			
-			
+			// gfnma_multiSelectInit({
+		    //         target			: ['#srch-ddm-seq']
+		    //         ,compCode		: gv_ma_selectedCorpCd
+		    //         ,clientCode		: gv_ma_selectedClntCd
+		    //         ,bizcompId		: 'L_FIT030'
+		    //         ,whereClause	: ''
+		    //         ,formId			: p_formId
+		    //         ,menuId			: p_menuId
+		    //         ,selectValue	: ''
+		    //         ,dropType		: 'down' 	// up, down
+		    //         ,dropAlign		: 'right' 	// left, right
+		    //         ,colValue		: 'SEQ'
+		    //         ,colLabel		: 'VAT_TMPLT_NM'
+		    //         ,columns		:[
+		    //             {caption: "부가세유형",			ref: 'VAT_TMPLT_NM', 		width:'180px',  	style:'text-align:left'},
+		    //             {caption: "신고기준시작월", 	ref: 'STANDARD_TERM_FR',    width:'150px',  	style:'text-align:left'},
+		    //             {caption: "신고기준종료월", 	ref: 'STANDARD_TERM_TO',    width:'150px',  	style:'text-align:left'},
+		    //             {caption: "총괄납부사업장번호", ref: 'UNIT_NO',    			width:'180px',  	style:'text-align:left'},
+		    //             {caption: "단위과세번호", 		ref: 'OVS_BPLC_NO',   width:'150px',  	style:'text-align:left'},
+		    //             {caption: "확정여부", 			ref: 'CFMTN_YN',    		width:'150px',  	style:'text-align:left'},
+		    //             {caption: "SEQ", 				ref: 'SEQ',    				width:'150px',  	style:'text-align:left;display:none',}
+		    //         ]
+		    //         ,callback       : function(_seq) {
+		    //         	fn_setSrchSeq(_seq);
+		    //         }
+		    //     })
+
 			]);
  
 	}
     
 	
-	const fn_setSrchSeq = async function(_seq) {
-		
-		if (gfn_isEmpty(_seq)) {
-			SBUxMethod.set('srch-inp-termFr', '');
-			SBUxMethod.set('srch-inp-termTo', '');
-		} else {
-			const vatType = _.find(jsonVatDclr, {SEQ: _seq});
-			
-			if (!gfn_isEmpty(vatType)) {
-				SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
-				SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
- 
-				let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
-				SBUxMethod.set('srch-dtp-yyyy', year);
-			}
-			
-			fn_search();	
-		}
-	}
+	// const fn_setSrchSeq = async function(_seq) {
+	//
+	// 	if (gfn_isEmpty(_seq)) {
+	// 		SBUxMethod.set('srch-inp-termFr', '');
+	// 		SBUxMethod.set('srch-inp-termTo', '');
+	// 	} else {
+	// 		const vatType = _.find(jsonVatDclr, {SEQ: _seq});
+	//
+	// 		if (!gfn_isEmpty(vatType)) {
+	// 			SBUxMethod.set('srch-inp-termFr', vatType['STANDARD_TERM_FR']);
+	// 			SBUxMethod.set('srch-inp-termTo', vatType['STANDARD_TERM_TO']);
+	//
+	// 			let year = SBUxMethod.get('srch-inp-termFr').substr(0, 4);
+	// 			SBUxMethod.set('srch-dtp-yyyy', year);
+	// 		}
+	//
+	// 		fn_search();
+	// 	}
+	// }
 	
 	
 	/**
@@ -367,7 +419,10 @@
         if (gfn_isEmpty(seq)){
             gfn_comAlert("W0002", "신고구분명");
             return;
-        }
+        }else if(gfn_isEmpty(yyyy)){
+			gfn_comAlert("W0002", "기준연도");
+			return;
+		}
         
         jsonSmmry.length = 0;
         
@@ -509,7 +564,8 @@
 		tbody = document.createElement("tbody");
 		
 		jsonSmmry.forEach(function(item){
-			
+
+			item = gfnma_nvl2(item);
 			let tr = document.createElement("tr");
 			tr.style.textAlign = "center";
 			
@@ -525,17 +581,17 @@
 			
 			td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.TOT_SPLY_AMT.toLocaleString();
+			td.innerText = gfnma_nvl2(item.TOT_SPLY_AMT).toLocaleString();
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.TOT_VAT_AMT.toLocaleString();
+			td.innerText = gfnma_nvl2(item.TOT_VAT_AMT).toLocaleString();
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
 			td.rowSpan = 3;
-			td.innerText = item.PAY_VAT_AMT.toLocaleString();
+			td.innerText = gfnma_nvl2(item.PAY_VAT_AMT).toLocaleString();
 			tr.appendChild(td);
 			
 			td = document.createElement("td");
@@ -694,6 +750,7 @@
         console.log(data,"디테일");
         if(data.resultStatus === 'S'){
             data.cv_1.forEach(function(item){
+				item = gfnma_nvl2(item);
                 let el = `
               <tr style="text-align:center">
                 <td rowspan="3">${'${item.TAX_SITE_NAME}'}</td>
