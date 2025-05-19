@@ -1039,32 +1039,32 @@
     console.log("fn_saveWrhsInfo");
     console.log(wrhsRegData);
 
-    for (const wrhsData of wrhsRegData) {
-      console.log(wrhsData)
+    for (const wrhsDataVO of wrhsRegData) {
+      console.log(wrhsDataVO)
 
       const wrhsReg = {
-        apcCd: wrhsData.apcCd,
+        apcCd: wrhsDataVO.apcCd,
         wrhsno: null,
-        wrhsYmd: wrhsData.wrhsYmd,
-        wrhsSeCd: wrhsData.wrhsSeCd,
-        gdsSeCd: wrhsData.gdsSeCd,
-        trsprtSeCd: wrhsData.trsprtSeCd,
-        itemCd: wrhsData.itemCd,
-        vrtyCd: wrhsData.vrtyCd,
-        prdcrCd: wrhsData.prdcrCd,
-        bxQntt: wrhsData.bxQntt,
-        wrhsQntt: wrhsData.bxQntt,
-        wrhsWght: wrhsData.wrhsWght,
-        pltno: wrhsData.pltno,
-        bxKnd: wrhsData.pltBxCd,
-        warehouseSeCd: wrhsData.warehouseSeCd,
-        vhclno: wrhsData.vhclno,
-        trsprtCst: wrhsData.trsprtCst,
-        rmrk: wrhsData.rmrk,
-        grdCd: wrhsData.grdCd,
+        wrhsYmd: wrhsDataVO.wrhsYmd,
+        wrhsSeCd: wrhsDataVO.wrhsSeCd,
+        gdsSeCd: wrhsDataVO.gdsSeCd,
+        trsprtSeCd: wrhsDataVO.trsprtSeCd,
+        itemCd: wrhsDataVO.itemCd,
+        vrtyCd: wrhsDataVO.vrtyCd,
+        prdcrCd: wrhsDataVO.prdcrCd,
+        bxQntt: wrhsDataVO.bxQntt,
+        wrhsQntt: wrhsDataVO.bxQntt,
+        wrhsWght: wrhsDataVO.wrhsWght,
+        pltno: wrhsDataVO.pltno,
+        bxKnd: wrhsDataVO.pltBxCd,
+        warehouseSeCd: wrhsDataVO.warehouseSeCd,
+        vhclno: wrhsDataVO.vhclno,
+        trsprtCst: wrhsDataVO.trsprtCst,
+        rmrk: wrhsDataVO.rmrk,
+        grdCd: wrhsDataVO.grdCd,
         wghno: null,
-        prdctnYr: wrhsData.prdctnYr,
-        stdGrdList: wrhsData.stdGrdList,
+        prdctnYr: wrhsDataVO.prdctnYr,
+        stdGrdList: wrhsDataVO.stdGrdList,
       }
 
       wrhsRegList.push(wrhsReg);
@@ -1169,24 +1169,6 @@
       gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
   }
-
-  /**
-   * @name getByteLengthOfString
-   * @description 글자 byte 크기 계산
-   */
-  /*const getByteLengthOfString = function (s, b, i, c) {
-    for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
-    return b;
-  }
-*/
-  /**
-   * @name fn_getPrdcrs
-   * @description 생산자 자동완성 JSON 설정
-   */
-  /*const fn_getPrdcrs = async function() {
-    jsonPrdcr = await gfn_getPrdcrs(gv_selectedApcCd);
-    jsonPrdcr = gfn_setFrst(jsonPrdcr);
-  }*/
 
   /**
    * @name fn_clearPrdcr

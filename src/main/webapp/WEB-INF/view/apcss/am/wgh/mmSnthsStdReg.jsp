@@ -110,6 +110,7 @@
     var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
     var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
     var jsonComTrsprtSeCd	= [];	// 운송구분		TRSPRT_SE_CD
+    var jsonApcGrdDtl		= [];	// 등급 	grdCd			그리드헤더
 
 
     /* 생산자 자동완성 */
@@ -146,7 +147,8 @@
         }
 
         if (choiceTab == "tab_sortStdReg") {
-            // fn_saveFrmhsQlt();
+            console.log("fn_saveSortInfo")
+            fn_saveSortInfo();
         }
 
         if (choiceTab == "tab_pckgStdReg") {
