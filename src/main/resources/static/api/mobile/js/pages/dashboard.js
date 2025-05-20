@@ -17,14 +17,14 @@ function showLoginForm(isShow) {
 
 function login() {
     $.ajax({
-        type : 'post',
+        type: 'post',
         url: './authenticate.do',
         data: JSON.stringify({
             'id': $('#userId').val(),
             'password': $('#password').val(),
         }),
-        beforeSend : function(xhr){
-            xhr.setRequestHeader("Content-type","application/json");
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
@@ -37,7 +37,7 @@ function login() {
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
             location.reload();
         },
-        error: function(xhr, status, error){
+        error: function(xhr, status, error) {
             if(status == '401') {
                 showLoginForm(true);
             }
@@ -50,7 +50,7 @@ function login() {
     });
 }
 
-$(function () {
+$(function() {
     "use strict";
 
     $('.login_btn').on('click', function(e) {
@@ -67,352 +67,378 @@ $(function () {
     if(userInfo.accessToken === undefined || userInfo.accessToken == null) {
         showLoginForm(true);
         return;
-    } else
+    } else {
         showLoginForm(false);
+    }
 
     var apcInfo;
 
     $.ajax({
-        type : 'get',
-        url: './getApcInfoList.do',
+        type: 'get',
+        url: './getApcAgtStats.do',
         async: false,
-        beforeSend : function(xhr){
-            xhr.setRequestHeader("Content-type","application/json");
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
 
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null)
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
                 xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
 
             /* APC 현황 시작 */
             apcInfo = {
-                apcLists: [
-                    {
-                        name: '신미네',
-                        nh: false,
-                        cx: '550',
-                        cy: '250',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
+                apcLists: data.result.resultLists.map(function(item) {
+                    const kinds = [];
+
+                    if(item.KINDS_WRHS != null) kinds.push({name: '계량', value: item.KINDS_WRHS === 'Y' ? 'active' : ''});
+                    if(item.KINDS_SORT != null) kinds.push({name: '선별', value: item.KINDS_SORT === 'Y' ? 'active' : ''});
+                    if(item.KINDS_SPMT != null) kinds.push({name: '발주', value: item.KINDS_SPMT === 'Y' ? 'active' : ''});
+
+                    return {
+                        name: item.APC_NM,
+                        value: item.APC_CD,
+                        nh: item.NH === 'Y' ? true : false,
+                        cx: item.CX,
+                        cy: item.CY,
+                        kinds: kinds,
                         status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: 'active'},
-                            {name: '정산', value: 'active'}
+                            {name: '입고', value: item.STATUS_IN === 'Y' ? 'active' : ''},
+                            {name: '선별', value: item.STATUS_SORT === 'Y' ? 'active' : ''},
+                            {name: '출고', value: item.STATUS_OUT === 'Y' ? 'active' : ''},
+                            {name: '재고', value: item.STATUS_STOCK === 'Y' ? 'active' : ''},
+                            {name: '영농', value: item.STATUS_FARM === 'Y' ? 'active' : ''},
+                            {name: '정산', value: item.STATUS_SETTLE === 'Y' ? 'active' : ''}
                         ]
-                    },
-                    {
-                        name: '영흥농산',
-                        nh: false,
-                        cx: '270',
-                        cy: '300',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: 'active'},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '해도지',
-                        nh: false,
-                        cx: '300',
-                        cy: '400',
-                        kinds: [
-                            {name: '발주', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: ''},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '지우',
-                        nh: false,
-                        cx: '450',
-                        cy: '600',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '상주원예영농',
-                        nh: false,
-                        cx: '550',
-                        cy: '450',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: 'active'}
-                        ]
-                    },
-                    {
-                        name: '모두유통',
-                        nh: false,
-                        cx: '350',
-                        cy: '300',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: 'active'}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '로즈피아',
-                        nh: false,
-                        cx: '270',
-                        cy: '750',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '참영농',
-                        nh: false,
-                        cx: '550',
-                        cy: '750',
-                        kinds: [
-                            {name: '발주', value: 'active'},
-                            {name: '선별', value: 'active'}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '부안마케팅',
-                        nh: false,
-                        cx: '220',
-                        cy: '650',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: 'active'}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '청일농산',
-                        nh: false,
-                        cx: '350',
-                        cy: '550',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '거산(여주)',
-                        nh: false,
-                        cx: '450',
-                        cy: '250',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '버들농산',
-                        nh: false,
-                        cx: '600',
-                        cy: '250',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '거산(태안)',
-                        nh: false,
-                        cx: '150',
-                        cy: '450',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '월항농협',
-                        nh: true,
-                        cx: '600',
-                        cy: '580',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: 'active'}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: 'active'}
-                        ]
-                    },
-                    {
-                        name: '거산(영암)',
-                        nh: false,
-                        cx: '200',
-                        cy: '820',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '성주참외농협',
-                        nh: true,
-                        cx: '600',
-                        cy: '550',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: 'active'}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: ''},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '한우리',
-                        nh: false,
-                        cx: '500',
-                        cy: '500',
-                        kinds: [
-                            {name: '계량', value: 'active'},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: ''},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    },
-                    {
-                        name: '신선미세상',
-                        nh: false,
-                        cx: '350',
-                        cy: '400',
-                        kinds: [
-                            {name: '계량', value: ''},
-                            {name: '선별', value: ''}
-                        ],
-                        status: [
-                            {name: '입고', value: 'active'},
-                            {name: '선별', value: 'active'},
-                            {name: '출고', value: 'active'},
-                            {name: '재고', value: 'active'},
-                            {name: '영농', value: ''},
-                            {name: '정산', value: ''}
-                        ]
-                    }
-                ]
+                    };
+                })
+                // apcLists: [
+                //     {
+                //         name: '신미네',
+                //         nh: false,
+                //         cx: '550',
+                //         cy: '250',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: 'active'},
+                //             {name: '정산', value: 'active'}
+                //         ]
+                //     },
+                //     {
+                //         name: '영흥농산',
+                //         nh: false,
+                //         cx: '270',
+                //         cy: '300',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: 'active'},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '해도지',
+                //         nh: false,
+                //         cx: '300',
+                //         cy: '400',
+                //         kinds: [
+                //             {name: '발주', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: ''},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '지우',
+                //         nh: false,
+                //         cx: '450',
+                //         cy: '600',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '상주원예영농',
+                //         nh: false,
+                //         cx: '550',
+                //         cy: '450',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: 'active'}
+                //         ]
+                //     },
+                //     {
+                //         name: '모두유통',
+                //         nh: false,
+                //         cx: '350',
+                //         cy: '300',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: 'active'}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '로즈피아',
+                //         nh: false,
+                //         cx: '270',
+                //         cy: '750',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '참영농',
+                //         nh: false,
+                //         cx: '550',
+                //         cy: '750',
+                //         kinds: [
+                //             {name: '발주', value: 'active'},
+                //             {name: '선별', value: 'active'}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '부안마케팅',
+                //         nh: false,
+                //         cx: '220',
+                //         cy: '650',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: 'active'}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '청일농산',
+                //         nh: false,
+                //         cx: '350',
+                //         cy: '550',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '거산(여주)',
+                //         nh: false,
+                //         cx: '450',
+                //         cy: '250',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '버들농산',
+                //         nh: false,
+                //         cx: '600',
+                //         cy: '250',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '거산(태안)',
+                //         nh: false,
+                //         cx: '150',
+                //         cy: '450',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '월항농협',
+                //         nh: true,
+                //         cx: '600',
+                //         cy: '580',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: 'active'}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: 'active'}
+                //         ]
+                //     },
+                //     {
+                //         name: '거산(영암)',
+                //         nh: false,
+                //         cx: '200',
+                //         cy: '820',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '성주참외농협',
+                //         nh: true,
+                //         cx: '600',
+                //         cy: '550',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: 'active'}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: ''},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '한우리',
+                //         nh: false,
+                //         cx: '500',
+                //         cy: '500',
+                //         kinds: [
+                //             {name: '계량', value: 'active'},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: ''},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     },
+                //     {
+                //         name: '신선미세상',
+                //         nh: false,
+                //         cx: '350',
+                //         cy: '400',
+                //         kinds: [
+                //             {name: '계량', value: ''},
+                //             {name: '선별', value: ''}
+                //         ],
+                //         status: [
+                //             {name: '입고', value: 'active'},
+                //             {name: '선별', value: 'active'},
+                //             {name: '출고', value: 'active'},
+                //             {name: '재고', value: 'active'},
+                //             {name: '영농', value: ''},
+                //             {name: '정산', value: ''}
+                //         ]
+                //     }
+                // ]
             };
         },
         error: function(xhr, status, error){
@@ -468,7 +494,7 @@ $(function () {
             });
         }, 700);
 
-        $.each(apcInfo.apcLists, function (index, el) {
+        $.each(apcInfo.apcLists, function(index, el) {
             console.log('element', index, el);
             console.log(el.name);
             console.log(el.kinds);
@@ -477,19 +503,19 @@ $(function () {
             var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
             $('#apc_infos').append(apcInfo);
 
-            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding">'+el.name+'</div>');
+            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding">' + el.name + '</div>');
             if(el.nh)apcName.addClass('nh');
             apcInfo.append(apcName);
 
             var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
-            $.each(el.kinds, function (index, el) {
-                apcKinds.append($('<div class="apc_item apc_kind no-padding '+el.value+'">'+el.name+'</div>'));
+            $.each(el.kinds, function(index, el) {
+                apcKinds.append($('<div class="apc_item apc_kind no-padding ' + el.value + '">' + el.name + '</div>'));
             });
             apcInfo.append(apcKinds);
 
             var apcStatus = $('<div class="col-lg-6 apc_status_wrapper"></div>');
             $.each(el.status, function (index, el) {
-                apcStatus.append($('<div class="col-lg-4 apc_item apc_status no-padding '+el.value+'">'+el.name+'</div>'));
+                apcStatus.append($('<div class="col-lg-4 apc_item apc_status no-padding ' + el.value + '">' + el.name + '</div>'));
             });
             apcInfo.append(apcStatus);
         });
@@ -528,7 +554,7 @@ $(function () {
         },
         startDate: moment().subtract(29, 'days'),
         endDate: moment()
-    }, function (start, end) {
+    }, function(start, end) {
         window.alert("You chose: " + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     });
 
@@ -570,9 +596,10 @@ $(function () {
                 normalizeFunction: 'polynomial'
             }]
         },
-        onRegionLabelShow: function (e, el, code) {
-            if(typeof visitorsData[code] != "undefined")
+        onRegionLabelShow: function(e, el, code) {
+            if(typeof visitorsData[code] != "undefined") {
                 el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
+            }
         }
     });
 
@@ -582,13 +609,14 @@ $(function () {
 
     /* 일일데이터 수집 현황 차트 시작 */
     $.ajax({
-        type : 'get',
+        type: 'get',
         url: './getStatsForOneYearBySearchYmd.do',
-        beforeSend : function(xhr){
-            xhr.setRequestHeader("Content-type","application/json");
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
 
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null)
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
                 xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
@@ -605,7 +633,7 @@ $(function () {
                     i = 1;
                     year++;
                 }
-                let m = i < 10 ? '0'+i : i;
+                let m = i < 10 ? '0' + i : i;
                 values.push({'y': year + '-' + m});
             }
 
@@ -628,20 +656,23 @@ $(function () {
             {y: '2025-05-11', store: 4820, selection: 3795},
             {y: '2025-05-12', store: 15073, selection: 5967},
             {y: '2025-05-13', store: 10687, selection: 4460},
-*/
+            */
 
-            $.each(data.result.RESULTS, function (index, el) {
+            $.each(data.result.RESULTS, function(index, el) {
                 console.log('element', index, el);
 
                 if(el.RS_TYPE == 'WRHS') {
-                    for(let i = 0; i < values.length; i++)
+                    for(let i = 0; i < values.length; i++) {
                         values[values.length - (i + 1)].store = eval("el.Q_" + i);
-                }else if(el.RS_TYPE == 'SORT') {
-                    for(let i = 0; i < values.length; i++)
+                    }
+                } else if(el.RS_TYPE == 'SORT') {
+                    for(let i = 0; i < values.length; i++) {
                         values[values.length - (i + 1)].sort = eval("el.Q_" + i);
-                }else if(el.RS_TYPE == 'SPMT') {
-                    for(let i = 0; i < values.length; i++)
+                    }
+                } else if(el.RS_TYPE == 'SPMT') {
+                    for(let i = 0; i < values.length; i++) {
                         values[values.length - (i + 1)].release = eval("el.Q_" + i);
+                    }
                 }
             });
 
@@ -652,7 +683,7 @@ $(function () {
                 xkey: 'y',
                 ykeys: ['store', 'sort', 'release'],
                 labels: ['입고', '선별', '출고'],
-                lineColors: ['#a0d0e0', '#3c8dbc', '#047630'],
+                lineColors: ['#A0D0E0', '#3C8DBC', '#047630'],
                 hideHover: 'auto'
             });
 
@@ -668,7 +699,5 @@ $(function () {
             }
         }
     });
-
     /* 일일데이터 수집 현황 차트 끝 */
-
 });

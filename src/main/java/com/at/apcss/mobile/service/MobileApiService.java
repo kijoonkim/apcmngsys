@@ -1,13 +1,8 @@
 package com.at.apcss.mobile.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
-import com.at.apcss.mobile.vo.FacilityMngVO;
-import com.at.apcss.mobile.vo.WarehouseInfoVO;
+import java.util.Map;
 
 /**
  * 모바일 입고 관리 Service
@@ -54,4 +49,11 @@ public interface MobileApiService {
 	 * @throws Exception
 	 */
 	public Map<String, Object> getStatsForOneYearBySearchYmd() throws Exception;
+
+    /**
+     * APC 에이전트 통계 데이터
+     * @return Map<String, Object>
+     * @throws Exception
+     */
+    public Map<String, Object> getApcAgtStats() throws Exception;
 }

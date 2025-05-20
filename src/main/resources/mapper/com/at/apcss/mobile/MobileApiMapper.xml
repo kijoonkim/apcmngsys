@@ -406,5 +406,34 @@
 			) RS
 		]]>
 	</select>
-	
+
+    <select id="getApcAgtStats" parameterType="map" resultType="map">
+        <![CDATA[
+            SELECT
+                  TAAS.ID
+                , (SELECT X.APC_NM FROM USRAM.TB_APC_INFO X WHERE X.APC_CD = TAAS.APC_CD) AS APC_NM
+                , TAAS.APC_CD AS APC_CD
+                , TAAS.NH_FLAG AS NH
+                , TAAS.CX AS CX
+                , TAAS.CY AS CY
+                , TAAS.KINDS_WRHS AS KINDS_WRHS
+                , TAAS.KINDS_SORT AS KINDS_SORT
+                , TAAS.KINDS_SPMT AS KINDS_SPMT
+                , TAAS.STATUS_IN AS STATUS_IN
+                , TAAS.STATUS_SORT AS STATUS_SORT
+                , TAAS.STATUS_OUT AS STATUS_OUT
+                , TAAS.STATUS_STOCK AS STATUS_STOCK
+                , TAAS.STATUS_FARM AS STATUS_FARM
+                , TAAS.STATUS_SETTLE AS STATUS_SETTLE
+                , TAAS.DEL_YN AS DEL_YN
+                , TAAS.SYS_FRST_INPT_DT AS SYS_FRST_INPT_DT
+                , TAAS.SYS_FRST_INPT_USER_ID AS SYS_FRST_INPT_USER_ID
+                , TAAS.SYS_FRST_INPT_PRGRM_ID AS SYS_FRST_INPT_PRGRM_ID
+                , TAAS.SYS_LAST_CHG_DT AS SYS_LAST_CHG_DT
+                , TAAS.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
+                , TAAS.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
+            FROM TB_APC_AGT_STATS TAAS
+            WHERE TAAS.DEL_YN = 'Y'
+        ]]>
+    </select>
 </mapper>
