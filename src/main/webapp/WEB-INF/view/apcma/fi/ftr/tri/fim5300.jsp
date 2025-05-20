@@ -660,7 +660,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -677,7 +677,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -692,7 +692,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -737,7 +737,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -752,7 +752,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -769,7 +769,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -784,7 +784,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -897,7 +897,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -916,7 +916,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -931,7 +931,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -948,7 +948,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -963,7 +963,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
