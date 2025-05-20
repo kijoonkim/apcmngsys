@@ -2018,7 +2018,10 @@
             const $found = cellArray.find(function(item) {
                 return $(item).data('cnptCd');
             });
-            let cnptCd = $found.data('cnptCd');
+            let cnptCd = '';
+            if(!gfn_isEmpty($found)){
+                cnptCd = $found.data('cnptCd');
+            }
 
             const match = jsonCnptList.find(item => item.cnptCd === cnptCd);
             const color = match ? match.color : null;
@@ -2182,16 +2185,17 @@
                 // cell 찾아서 새 객체 생성
                 let logicalCol = fn_getTdIndexByLogicalCol(rowIdx,colIndex);
                 let $cell = $("#sortTable tbody tr").eq(rowIdx).children("td").eq(logicalCol);
+                let pushFlag = $cell.find('input').data('spmt');
 
                 const $input = $cell.find('input');
                 if ($input.hasClass('left') && $input.data('spmt')) {
                     $cell = $cell.next();
                 }
 
-                if ($cell.length) { // 셀 존재하면 추가
+                if ($cell.length && !pushFlag) { // 셀 존재하면 추가
                     result.push({
                         cell: $cell,
-                        colIndex: colIndex,
+                        colIndex: colIzndex,
                         rowIndex: rowIdx
                     });
                 }
