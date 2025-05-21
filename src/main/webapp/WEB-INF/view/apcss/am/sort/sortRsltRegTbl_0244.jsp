@@ -129,6 +129,7 @@
             border: 3px solid black !important;
             border-collapse: separate;
             border-spacing: 0;
+            position: relative;
         }
 
         td.selected.first {
@@ -137,7 +138,6 @@
 
         td.selected.end {
             border-top-width: 1px !important;
-            position: relative;
         }
 
         td.selected.mid {
@@ -1097,6 +1097,7 @@
                 tds.forEach(function(item){
                    $(item).closest("td").attr("colspan","2");
                    $(item).closest("td").next().remove();
+                   $(item).closest("td").get(0).style.removeProperty('border-color');
                 });
             }
             $(item).find("input").removeClass("left right");
@@ -1161,9 +1162,7 @@
         document.querySelectorAll('#sortTable tbody input').forEach(input => {
             input.disabled = true;
         });
-        /** 출하등록 disabled **/
-        SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
-        SBUxMethod.attr('spmtMode', 'disabled', 'true');
+
 
         let flag = SBUxMethod.get("decompositionMode");
         if(flag == '재고분리 ON'){
@@ -1171,8 +1170,14 @@
             $("#sortTable tbody td").off('pointerdown'); //이벤트 해제
             SBUxMethod.set("decompositionMode","재고분리 OFF");
             $("#decompositionMode").removeClass("btn_on");
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'false');
             return;
         }else{
+            /** 출하등록 disabled **/
+            SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
+            SBUxMethod.attr('spmtMode', 'disabled', 'true');
             SBUxMethod.set("decompositionMode","재고분리 ON");
             $("#decompositionMode").addClass("btn_on");
         }
@@ -1601,7 +1606,7 @@
         }
         /** 출하량 표시 **/
         saveList.forEach(function (item, idx, arr) {
-            if ($(item).hasClass("end")) {
+            if ($(item).hasClass("end") || arr.length === 1) {
                 const span = document.createElement("span");
                 span.innerText = sum + "";
                 Object.assign(span.style, {
@@ -1631,7 +1636,11 @@
             const $input = $(item).find('input');
             const isEmpty = !$input.val() || $input.val().trim() === '';
             const isSplit = $input.hasClass('left') || $input.hasClass('right');
-            return isEmpty && isSplit;
+            if(saveList.length === 1){
+                return true;
+            }else{
+                return isEmpty && isSplit;
+            }
         });
         const defaultRmrk = splitRmrk
             ? ($(splitRmrk).find('input').hasClass('left') ? 'left' : 'right')
@@ -1683,7 +1692,18 @@
                 let saveObj = sortSaveList[rowIndex];
                 let sortno = saveObj.sortno;
                 let warehouseSeCd = $("#warehouse").val();
+
                 // saveObj.sortPrfmncList[0].rmrk = rowIndex;
+
+                /** 선별실적 미입력 **/
+                if(saveObj.sortPrfmncList.length === 0){
+                    Swal.fire(
+                        '선별실적 대상이 없습니다.',
+                        '',
+                        'error'
+                    );
+                    return;
+                }
 
                 const postUrl = gfn_isEmpty(sortno) ?
                     "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
@@ -1995,7 +2015,6 @@
                     }
                 }
             });
-            console.log(cellArray);
             const $found = cellArray.find(function(item) {
                 return $(item).data('cnptCd');
             });
@@ -2027,8 +2046,10 @@
                     $(item).addClass("end");
                     $(item).get(0).style.setProperty('border-color', color, 'important');
                     sum += parseInt($(item).find('input').val()) || 0;
+                }
 
-                    /** 마지막 지정 **/
+                if($(item).hasClass('end') || arr.length === 1){
+                    /** 마지막 혹은 혼자인 cell **/
                     const span = document.createElement("span");
                     span.innerText = sum + "";
                     Object.assign(span.style, {
@@ -2242,9 +2263,15 @@
                     if (splitDirection === 'left') {
                         splitResult.leftInput.val(originalValue);
                         arr[idx].cell = splitResult.leftInput.closest('td');
+                        arr[idx].cell.off('pointerdown').on('pointerdown', function (event) {
+                            fn_pointerDownSeleted(event);
+                        });
                     } else {
                         splitResult.rightInput.val(originalValue);
                         arr[idx].cell = splitResult.rightInput.closest('td');
+                        arr[idx].cell.off('pointerdown').on('pointerdown', function (event) {
+                            fn_pointerDownSeleted(event);
+                        });
                     }
                 } else {
                     // 값 없는 경우 위치만 지정
