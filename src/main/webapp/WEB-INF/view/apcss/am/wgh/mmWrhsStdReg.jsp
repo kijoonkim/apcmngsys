@@ -203,7 +203,7 @@
           <th scope="row" class="th_bg">차량/운임</th>
           <td class="td_input">
             <div class="displayFlex">
-              <div style="display: flex;gap: 3px">
+              <div style="display: flex;gap: 3px;flex:1 10ch">
                 <sbux-input
                         uitype="text"
                         id="srch-inp-vhclno"
@@ -222,7 +222,7 @@
                         onclick="fn_choiceVhcl"
                 ></sbux-button>
               </div>
-              <div style="display: flex;gap: 3px">
+              <div style="display: flex;gap: 3px;flex:1 10ch">
                 <sbux-input
                         uitype="text"
                         id="srch-inp-trsprtCst"
@@ -793,6 +793,19 @@
 
     let wrhsRegList = jsonWrhsRegList;
 
+    // 등급
+    const stdGrd = stdGrdSelect.getStdGrd();
+    let grdCd = stdGrd.grdJgmt.grdCd;
+
+    // 수량별 입고등록시 입고수량과 등급별 수량 합계 0 체크
+    let totalQntt = 0;
+    let regQntt = SBUxMethod.get("srch-inp-bxQntt");
+    if(stdGrd.stdGrdList[0].stdGrdType == "QT"){
+      stdGrd.stdGrdList.forEach(function(item){
+        totalQntt += item.grdNv||0;
+      });
+    }
+
     // validation check
     if (gfn_isEmpty(wrhsYmd)) {
       gfn_comAlert("W0001", "입고일자");		//	W0002	{0}을/를 선택하세요.
@@ -834,38 +847,22 @@
       gfn_comAlert("W0001", "창고");		//	W0002	{0}을/를 선택하세요.
       return;
     }
-
     if (gfn_isEmpty(prdctnYr)) {
       gfn_comAlert("W0001", "생산연도");		//	W0002	{0}을/를 선택하세요.
       return;
-    }
-
-    // 등급
-    const stdGrd = stdGrdSelect.getStdGrd();
-
-    /** 수량별 입고등록시 입고수량과 등급별 수량 합계 0 체크 **/
-    let totalQntt = 0;
-    let regQntt = SBUxMethod.get("srch-inp-bxQntt");
-    if(stdGrd.stdGrdList[0].stdGrdType == "QT"){
-      stdGrd.stdGrdList.forEach(function(item){
-        totalQntt += item.grdNv||0;
-      });
     }
     if(totalQntt > regQntt){
       gfn_comAlert("W0008","입고수량","등급수량");
       return;
     }
-
     if (gfn_isEmpty(stdGrd)) {
       gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
       return;
     }
-
     if (stdGrd.isOmit) {
       gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
       return;
     }
-
     if (stdGrd.isWght) {
       if (stdGrd.grdWght > wrhsWght) {
         gfn_comAlert("W0014", "등급중량", "입고중량");		//	W0014	{0}이/가 {1} 보다 큽니다.
@@ -875,13 +872,13 @@
         return;
       } else {}
     }
-
-    let grdCd = stdGrd.grdJgmt.grdCd;
-
     if (gfn_isEmpty(grdCd)) {
       gfn_comAlert("W0001", "등급");		//	W0002	{0}을/를 선택하세요.
       return;
     }
+
+
+
 
     let prvWrhsReg = wrhsRegList.slice(-1)[0];
 
@@ -1127,7 +1124,7 @@
     * pltno 비교 후 +1 (1. 날짜 2. pltno)
     * pltno
     *   - 'RTYYYYMMDD + 0000'
-    *   - apc_cd (0503) : YYMMDD + 000
+    *   - apc_cd (0503) : YYMMDD + 000  // 구현X
     * */
 
     // 입고날짜 모든 pltno

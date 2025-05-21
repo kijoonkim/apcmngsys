@@ -111,6 +111,7 @@
     var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
     var jsonComTrsprtSeCd	= [];	// 운송구분		TRSPRT_SE_CD
     var jsonApcGrdDtl		= [];	// 등급 	grdCd			그리드헤더
+    var jsonComPckgGrdSeCd  = [];   // 포장상품등급
 
 
     /* 생산자 자동완성 */
