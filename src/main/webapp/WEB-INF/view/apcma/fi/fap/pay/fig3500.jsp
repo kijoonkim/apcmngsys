@@ -166,7 +166,7 @@
                             <sbux-button
                                     class="btn btn-xs btn-outline-dark"
                                     uitype="modal"
-                                    target-id="modal-compopup1"
+                                    target-id="modal-compopupcs"
                                     onclick="fn_findPayerName"
                                     text="…"
                             ></sbux-button>
@@ -507,6 +507,15 @@
 <div id="body-modal-compopup3">
     <jsp:include page="../../../com/popup/comPopup3.jsp"></jsp:include>
 </div>
+
+<!-- 팝업 Modal -->
+<div>
+    <sbux-modal id="modal-compopupcs" name="modal-compopupcs" uitype="middle" header-title="" body-html-id="body-modal-compopupcs" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
+</div>
+<div id="body-modal-compopupcs">
+    <jsp:include page="../../../com/popup/comPopupCs.jsp"></jsp:include>
+</div>
+
 <!-- 리포트 출력 팝업 -->
 <div>
     <sbux-modal style="width:600px" id="modal-comPopFig1000Report" name="modal-comPopFig1000Report" uitype="middle" header-title="" body-html-id="body-modal-comPopFig1000Report" header-is-close-button="true" footer-is-close-button="false" ></sbux-modal>
@@ -701,35 +710,24 @@
         ]);
     }
 
-    const fn_findPayerName = function() {
-        var searchText 		= gfnma_nvl(SBUxMethod.get("SRCH_PAYER_NAME"));
-        var replaceText0 	= "_CNPT_CD_";
-        var replaceText1 	= "_CNPT_NM_";
-        var replaceText2 	= "_BRNO_";
-        var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' AND A.BRNO LIKE '%" + replaceText2 + "%'";
+    //거래처 정보 조회
+    const fn_findPayerName = async function() {
 
-        SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 조회');
-        compopup1({
-            compCode				: gv_ma_selectedCorpCd
-            ,clientCode				: gv_ma_selectedClntCd
-            ,bizcompId				: 'P_CS_SALE'
-            ,popupType				: 'A'
-            ,whereClause			: strWhereClause
-            ,searchCaptions			: ["고객사코드",		"사업자번호", 		"고객사명"]
-            ,searchInputFields		: ["CNPT_CD",	"BRNO", 	"CNPT_NM"]
-            ,searchInputValues		: ["", 			"",		searchText]
-            ,searchInputTypes		: ["input", 	"input",		"input"]			//input, select가 있는 경우
-            ,searchInputTypeValues	: ["", 			"",				""]				//select 경우
-            ,height					: '400px'
-            ,tableHeader			: ["거래처코드", "거래처명", "사업자번호", "대표자", "업태", "종목", "주소"
-                , "전화", "팩스", "채권계정", "채권계정명", "선수금계정", "선수금계정명", "수금기준", "수금기준명", "수금방법", "통화"]
-            ,tableColumnNames		: ["CNPT_CD", "CNPT_NM",  "BRNO", "CEO_NM", "BZSTAT", "TPBIZ", "ADDR"
-                , "TELNO", "FX_NO", "AR_ACNT_CD", "AR_ACC_NAME", "ADPYR_ACNTL_CD", "ADVANCE_ACC_NAME", "PAY_TERM_CD", "PAY_TERM_NM", "PAY_MTHD", "CRN_CD"]
-            ,tableColumnWidths		: ["90px", "150px", "130px", "80px", "100px", "100px", "200px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px", "100px"]
-            ,itemSelectEvent		: function (data){
+        SBUxMethod.attr('modal-compopupcs', 'header-title',  '거래처 정보 조회');
+        await comPopupCs({
+            compCode: gv_ma_selectedCorpCd
+            , clientCode: gv_ma_selectedClntCd
+            , inputData: {
+                "CS_CODE" : gfnma_nvl2(SBUxMethod.get('SRCH_PAYER_CODE')) ,
+                "CS_NAME" : gfnma_nvl2(SBUxMethod.get('SRCH_PAYER_NAME')),
+                "BIZ_REGNO" : ""
+            }
+            , bizcompId: "P_CS_PURCHASE"
+            , whereClause: ""
+            , itemSelectEvent: function (data) {
                 SBUxMethod.set('SRCH_PAYER_CODE', data.CNPT_CD);
                 SBUxMethod.set('SRCH_PAYER_NAME', data.CNPT_NM);
-            },
+            }
         });
     }
 

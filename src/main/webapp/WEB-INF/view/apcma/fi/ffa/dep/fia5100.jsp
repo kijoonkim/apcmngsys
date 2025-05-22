@@ -234,7 +234,7 @@
                     		-->
 						</div>
 					</div>
-					<table class="table table-bordered tbl_fixed">
+					<table class="table table-bordered tbl_fixed" id="queryTable">
 		                    <caption>자산내역</caption>
 		                    <colgroup>
 								<col style="width: 8%">
@@ -273,6 +273,7 @@
 											class="form-control input-sm input-sm-ast table-datepicker-ma inpt_data_reqed"
 											onchange="fn_dtpChange(srch-dtp-stopPrcsYmd)"
 											group-id="group2"
+											readonly
 										></sbux-datepicker>
 		                            </td>
 		                            <td></td>
@@ -475,9 +476,8 @@
 	}
 	//초기화
 	function cfn_init(){
-		//SBUxMethod.clearGroupData('group1');
-		SBUxMethod.clearGroupData('group2');
-		//SBUxMethod.refreshAll();
+		// SBUxMethod.clearGroupData('group2');
+		gfnma_uxDataClear('#queryTable');
 	}
 
 	const fn_initSBSelect = async function() {
@@ -527,8 +527,6 @@
     var grdDprcDtStopList; 			// 그리드를 담기위한 객체 선언
     var jsonDprcDtStopList= []; 	// 그리드의 참조 데이터 주소 선언
 
-
-
     //json
     var jsonCorp = []; //법인
     var jsonBizUnit = []; //사업단위
@@ -568,36 +566,45 @@
         ];
 
         grdDprcDtStopList = _SBGrid.create(SBGridProperties);
-        //NationInGrid.bind('click', 'fn_view');
+		grdDprcDtStopList.bind('click', 'fn_view');
     }
 
-    const queryClick = function()
-	{
-    	let saveButton = true;
-    	//saveButton 확인 필요
-        if (saveButton){
-            //let dr = SetYesNoMessageBox(GetFormMessage("FIA5100_002")); // 작업중 저장하지 않은 데이터가 존재합니다. 저장하시겠습니까?
+	const fn_view = async function(){
+		let nRow = grdDprcDtStopList.getRow();
+		if(nRow < 1){
+			return;
+		}
+		let rowData = grdDprcDtStopList.getRowData(nRow);
 
-            if (!gfn_comConfirm("Q0001", "작업중 저장하지 않은 데이터가 존재합니다. 저장")) {	//	Q0001	{0} 하시겠습니까?
-            	if (fnDataValidation("group2")){
-            		saveClick();
-            	}else{
-                	return;
-                }
-            }
-        }
+		console.log("nRow : ", nRow);
+		console.log("rowData : ", rowData);
+		await queryClick(rowData)
+	}
 
-        //let iBeforeFocus = gvwMaster.FocusedRowHandle; gvwMaster의 이전 focusedRow 정보를 저장해두는듯
+    const queryClick = async function(rowData){
 
-		fnQRY_P_FIA5100_Q("LIST");
+		if(gfn_isEmpty(rowData)) return;
 
-        //if (iBeforeFocus == 0 && gvwMaster.FocusedRowHandle == 0)
-        //    fnFocusedRowChanged();
+		SBUxMethod.attr("srch-dtp-stopPrcsYmd","readonly","true"); //중지처리일 readonly
+		//감가상각 일시중지 내역 편집 초기화
+		gfnma_uxDataClear('#queryTable');
 
-        //if ()
-        //    newClick();
-        //else
-        //    deleteButton = true;
+		SBUxMethod.set('srch-dtp-stopPrcsYmd', gfnma_nvl2(rowData.holdingDate)) //중지처리일
+		gfnma_multiSelectSet('#srch-slt-bplc2', 'SITE_CD', 'SITE_NM', gfnma_nvl2(rowData.siteCode) ); //사업장
+		SBUxMethod.set('srch-inp-astNo1', gfnma_nvl2(rowData.assetNo)) //자산번호
+		SBUxMethod.set('srch-inp-astNo2', gfnma_nvl2(rowData.assetName)) //자산명
+		SBUxMethod.set('srch-slt-acntgCrtr2', gfnma_nvl2(rowData.acctRuleCode)) //회계기준
+		SBUxMethod.set('srch-dtp-stopBgngYmd', gfnma_nvl2(rowData.holdingStartYyyymm)) //중지시작년월
+		SBUxMethod.set('srch-dtp-stopEndYmd', gfnma_nvl2(rowData.holdingEndYyyymm)) //중지종료년월
+		SBUxMethod.set('srch-inp-tckgDept3', gfnma_nvl2(rowData.deptCode)) //담당부서코드
+		SBUxMethod.set('srch-inp-tckgDept4', gfnma_nvl2(rowData.deptName)) //담당부서명
+		SBUxMethod.set('srch-inp-pic1', gfnma_nvl2(rowData.empCode)) //담당자명코드
+		SBUxMethod.set('srch-inp-pic2', gfnma_nvl2(rowData.empName)) //담당자명
+
+		SBUxMethod.set('srch-inp-acqsAmt', gfnma_nvl2(rowData.acquireAmount)) //취득금액
+		SBUxMethod.set('srch-inp-asstncAmt', gfnma_nvl2(rowData.subsidiesAmount)) //보조금금액
+		SBUxMethod.set('srch-inp-rmrk', gfnma_nvl2(rowData.memo)) //비고
+
 	}
 
 
@@ -613,7 +620,7 @@
         let stopBgngYmd = SBUxMethod.get("srch-dtp-stopBgngYmd"); //중지시작년월
         let stopEndYmd = SBUxMethod.get("srch-dtp-stopEndYmd"); //중지종료년월
         let tckgDept = SBUxMethod.get("srch-inp-tckgDept3"); //담당부서
-        let pic = SBUxMethod.get("srch-inp-pic2"); //담당자
+        let pic = SBUxMethod.get("srch-inp-pic1"); //담당자
         let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");//중지처리일, holding_Date
         let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
         let rmrk = SBUxMethod.get("srch-inp-rmrk");//비고
@@ -643,14 +650,14 @@
      			,V_P_PROC_ID		: ''
      			,V_P_USERID			: ''
      			,V_P_PC				: ''
-     	    };
+		 };
 
          const postJsonPromise = gfn_postJSON("/fi/fia/insertFia5100.do", {
           	getType				: 'json',
           	workType			:  strStauts,
           	cv_count			: '0',
-          	params				: gfnma_objectToString(paramObj)
-  			});
+          	params				: gfnma_objectToString(paramObj, true)
+		 });
 
        	const data = await postJsonPromise;
          // 비즈니스 로직 정보
@@ -753,6 +760,10 @@
 					jsonDprcDtStopList.push(obj);
 				})
         		grdDprcDtStopList.rebuild();
+
+				if(jsonDprcDtStopList.length > 0) {
+					grdDprcDtStopList.clickRow(1);
+				}
 
 			 } else {
 				 alert(data.resultMessage);
@@ -863,13 +874,13 @@
     		,bizcompId				: 'P_HRI001'
         	,popupType				: 'A'
     		,whereClause			: strWhereClause
-   			,searchCaptions			: ["코드", 				"명칭"]
+   			,searchCaptions			: ["코드", 		"명칭"]
    			,searchInputFields		: ["EMP_CD", 	"EMP_NM"]
-   			,searchInputValues		: [searchCode, 			searchName]
+   			,searchInputValues		: [searchCode, 	searchName]
     		,height					: '400px'
    			,tableHeader			: ["담당자코드", 	"담당자명"]
    			,tableColumnNames		: ["EMP_CD",	"EMP_NM"]
-   			,tableColumnWidths		: ["80px", 	"80px"]
+   			,tableColumnWidths		: ["80px", 		"80px"]
 			,itemSelectEvent		: function (data){
 				SBUxMethod.set(cdId, 		data.EMP_CD);
 				SBUxMethod.set(nmId,		data.EMP_NM);
@@ -915,25 +926,10 @@
     	SBUxMethod.openModal('modal-compopup1');
   	}
 
-    const fnFocusedRowChanged = function(){
-    	// 뭔가 그리드 패널 설정하는거?
-    	// grdMaster -> 감가상각일시정지 그리드
-    	// panDetail -> 감가상각일시정지 내역 편집
-        //SetPanelFromGrid(grdMaster, panDetail);
-
-        //중지처리일 readonly 처리ymdholding_date.Properties.ReadOnly = true;
-        SBUxMethod.attr("srch-dtp-stopPrcsYmd","readonly","true");
-        stopPrcsYmdChk = true;
-        //자산번호 readonly
-        //txtasset_no.Properties.ReadOnly = true;
-        //txtasset_no.Properties.Popup.BizComponentID = ""; -> 이건 뭔지 모르겠다
-        SBUxMethod.attr("srch-inp-astNo1","readonly","true");
-        SBUxMethod.attr("srch-inp-astNo2","readonly","true"); // 자산명 readonly
-        //txtasset_name.Properties.ReadOnly = true;
-        //txtasset_name.Properties.Popup.BizComponentID = "";
-    }
-
 	 const newClick = function(){
+
+		 //감가상각 일시중지 내역 편집 초기화
+		 gfnma_uxDataClear('#queryTable');
 
         //InitControls(panDetail);
 		SBUxMethod.refreshGroup("group1");
@@ -947,48 +943,34 @@
 
         //ymdholding_date.Properties.ReadOnly = false;
         SBUxMethod.attr("srch-dtp-stopPrcsYmd","readonly","false");
-        stopPrcsYmdChk = false;
 
         SBUxMethod.attr("srch-inp-astNo1","readonly","false");
         SBUxMethod.attr("srch-inp-astNo2","readonly","false"); // 자산명 readonly
-        //txtasset_no.Properties.ReadOnly = false;
-        //txtasset_no.Properties.Popup.BizComponentID = "P_FIA001";
-        //txtasset_name.Properties.ReadOnly = false;
-        //txtasset_name.Properties.Popup.BizComponentID = "P_FIA001";
 
-		//저장, 삭제 버튼 false 처리
-        saveButton = false;
-        deleteButton = false;
+
      }
 
      const saveClick = async function(){
-     		//panDetail -> 하단 검색조건 validationg check
-            if (!fnDataValidation("group2")){
+		//panDetail -> 하단 검색조건 validationg check
+		if (!fnDataValidation("group2")){
 
-            }
-            //    return;
+		}
+		//    return;
 
-            let strStatus = "";
+		 //중지처리일 readonly 속성값 따로 저장해두기 stopPrcsYmdChk
+		 let strStatus = "";
+		 if($("#srch-dtp-stopPrcsYmd").attr("readonly") === "readonly"){
+			 strStatus = "U";
+		 } else {
+			 strStatus = "N";
+		 }
 
-			//중지처리일 readonly 속성값 따로 저장해두기 stopPrcsYmdChk
-            if (!stopPrcsYmdChk)
-                strStatus = "N";
-            else
-                strStatus = "U";
 
-            if (await fnSET_P_FIA5100_S(strStatus))
-            {
-                // 자산번호, 중지처리일 |로 나눠서 strFocus index 찾은 뒤에 포커스
-                let astNo = SBUxMethod.get("srch-inp-astNo1");//자산번호
-                let stopPrcsymd = SBUxMethod.get("srch-dtp-stopPrcsYmd");
 
-                let strFocus = astNo + "|" + stopPrcsymd;
-
-                queryClick();
-
-                //gvwMaster.FocusedRowHandle = GetGridRowIndex(grdMaster, "focus", strFocus);
-            }
- 		}
+		if (await fnSET_P_FIA5100_S(strStatus)){
+			await fnQRY_P_FIA5100_Q("LIST");
+		}
+	}
 
  	const deleteClick = async function(){
             //DialogResult dr = SetYesNoMessageBox("[" + txtasset_name.Text + "-" + ymdholding_date.yyyymmdd + "]" + GetFormMessage("FIA5100_001")); // 감가상각 일시중지 내역을 삭제하시겠습니까?
@@ -996,7 +978,7 @@
 			//Q0001 {0} 하시겠습니까?
             if (gfn_comConfirm("Q0001", "삭제")){
                 if (await fnSET_P_FIA5100_S("D")){
-                    queryClick();
+					await fnQRY_P_FIA5100_Q("LIST");
                 }
             }
 		}
