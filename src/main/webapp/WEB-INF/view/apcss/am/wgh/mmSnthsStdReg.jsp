@@ -76,7 +76,7 @@
                     </div>
                     <!-- 포장등록 탭 화면 -->
                     <div id="tab_pckgStdReg">
-<%--                        <jsp:include page="../../am/wgh/mmPckgStdReg.jsp"></jsp:include>--%>
+                        <jsp:include page="../../am/wgh/mmPckgStdReg.jsp"></jsp:include>
                     </div>
                     <!-- 출하등록 탭 화면 -->
                     <div id="tab_spmtStdReg">

@@ -27,8 +27,8 @@
   <div class="box box-solid">
     <div class="box-header" style="display:flex; justify-content: flex-start; padding: 10px 15px 5px;" >
       <div style="margin-left: auto;">
-        <sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_resetSort"></sbux-button>
-        <sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_addSort"></sbux-button>
+        <sbux-button id="btnResetSort" name="btnResetSort" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_resetSort"></sbux-button>
+        <sbux-button id="btnAddSort" name="btnAddSort" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_addSort"></sbux-button>
       </div>
     </div>
     <div class="box-body">
@@ -379,7 +379,6 @@
   var grdSortRegList;
   var jsonSortRegList = [];
 
-  var jsonTest = [];
 
   window.addEventListener('DOMContentLoaded', async function(e) {
     fn_initSortReg();
@@ -760,7 +759,7 @@
 
     let totSortWght = 0;  // 그룹별 선별중량 합
 
-    if (gfn_isEmpty(sortYmd)) {
+    /*if (gfn_isEmpty(sortYmd)) {
       gfn_comAlert("W0005", "선별일자");		//	W0005	{0}이/가 없습니다.
       return;
     }
@@ -821,7 +820,7 @@
     if (gfn_isEmpty(sortInputQntt) || gfn_isEmpty(sortInputWght)) {
       sortInputQntt = '';
       sortInputWght = '';
-    }
+    }*/
 
     jsonComSortFclt.forEach((item) => {
       if (item.value == sortFcltCd){
@@ -929,7 +928,7 @@
     // group 설정 (품종/품목, 투입창고, 투입수량/중량, 생산자, 입고구분, 상품구분 동일하면 같은 그룹)
     let prvSortRegInfo = jsonSortRegList.slice(-1)[0];  // 직전 선별등록 데이터
 
-    const keysToCompare = ['itemCd', 'vrtyCd', 'inputWrhusSeCd', 'inputQntt', 'inputWght', 'inputWrhus', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
+    const keysToCompare = ['sortYmd', 'itemCd', 'vrtyCd', 'inputWrhusSeCd', 'inputQntt', 'inputWght', 'inputWrhus', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
     const prvSortData = _.pick(prvSortRegInfo, keysToCompare);
     const curSortData = _.pick(sortRegInfoVO, keysToCompare);
 
@@ -955,8 +954,11 @@
     console.log(sortRegInfoVO.totSortWght + " " + sortRegInfoVO.inputWght);
     // 그룹별 투입중량 < 선별중량 error
     if (sortRegInfoVO.totSortWght > sortRegInfoVO.inputWght && !gfn_isEmpty(sortRegInfoVO.inputWght)) {
-      gfn_comAlert("W0008", "투입량", "선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
-      return;
+      // gfn_comAlert("W0008", "투입량", "선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+      // return;
+
+      sortRegInfoVO.group = prvSortRegInfo.group + 1;
+      sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
     }
 
 
@@ -974,10 +976,9 @@
 
     // 투입창고/품종/품목에 따른 원물재고수량
     const rawMtrQntt = [];
+    let checkItemList = [];
 
-    let tempWarehouseSeCd;
-    let tempItemCd;
-    let tempVrtyCd;
+    let groupChck = 1;  // 그룹번호 체크
 
     let invntrQntt = 0;
     let invntrWght = 0;
@@ -988,10 +989,11 @@
     let sortQntt = 0;
     let sortWght = 0;
 
+    const setItem = new Set(checkItemList);
+
     let sortRegData = grdSortRegList.getGridDataAll();
 
-    for (const sortDataVO of sortRegData) {
-
+    sortRegData.forEach((sortDataVO, idx) => {
       const stdGrdList = [];  // 선별등급
       const gdsStdGrdList = []; // 포장상품등급
 
@@ -1034,21 +1036,31 @@
         gdsStdGrdList: gdsStdGrdList,
       }
 
-      // 조건 추가 필요(품종/품목별로 수량 합)
-      inptQntt += parseInt(sortDataVO.inputQntt) || 0;
-      inptWght += parseInt(sortDataVO.inputWght) || 0;
+      const checkItem = sortDataVO.itemCd + sortDataVO.vrtyCd;
 
-      sortQntt += sortDataVO.sortQntt;
-      sortWght += sortDataVO.sortWght;
+      if (!setItem.has(checkItem)) {
+        setItem.add(checkItem);
+        checkItemList.push(checkItem);
+      }
 
-      const checkItem = sortDataVO.inputWrhusSeCd + sortDataVO.itemCd + sortDataVO.vrtyCd;
-      console.log(checkItem);
+      sortRegList.push(sortReg);
+
+      /*rawMtrQntt.push({
+        checkItem: checkItem,
+        inputWrhusSeCd: sortDataVO.inputWrhusSeCd,
+        itemCd: sortDataVO.itemCd,
+        vrtyCd: sortDataVO.vrtyCd,
+        prdcrCd: sortDataVO.prdcrCd,
+        wrhsSeCd: sortDataVO.sortWrhsSeCd,
+        gdsSeCd: sortDataVO.sortGdsSeCd,
+        inptQntt: sortDataVO.inputQntt,
+        inptWght: sortDataVO.inputWght,
+      });
+
 
       if (sortRegList.length == 0) {
         rawMtrQntt.push({
-          rawMtrNm: checkItem,
-          inptQntt: sortDataVO.inptQntt,
-          inptWght: sortDataVO.inptWght,
+
         });
       } else {
         // checkItem과 동일한 rawMtrNm을 가진 항목
@@ -1068,21 +1080,19 @@
         }
       }
 
-
-
-
       sortRegList.push(sortReg);
+
       tempWarehouseSeCd = sortDataVO.inputWrhusSeCd;
       tempItemCd = sortDataVO.itemCd;
-      tempVrtyCd = sortDataVO.vrtyCd;
+      tempVrtyCd = sortDataVO.vrtyCd;*/
+
+    });
 
 
-    }
-
-    console.log(inptQntt + " / " + inptWght);
+    /*console.log(inptQntt + " / " + inptWght);
     console.log(sortQntt + " / " + sortWght);
 
-    /*if(gfn_diffDate(wrhsYmd, inptYmd) < 0){
+    if(gfn_diffDate(wrhsYmd, inptYmd) < 0){
       gfn_comAlert("W0015", "선별일자", "원물재고의 입고일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
       return;
     }
@@ -1108,10 +1118,55 @@
     * 5개 arrObj - 재고조회
     *
     * */
-    try {
+
+    console.log("checkItemList: " + checkItemList);
+
+    for (const item of checkItemList) {
+      try {
+        const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForRslt.do", {
+          apcCd: gv_selectedApcCd,
+          itemCd: item.substring(0, 4),
+          vrtyCd: item.substring(4),
+          wrhsYmdFrom: '20250101',    // 테스트 일자
+        });
+        const data = await postJsonPromise;
+
+        if (_.isEqual("S", data.resultStatus)) {
+          // gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+
+          console.log(data);
+
+          // 투입창고, 생산자, 입고구분, 상품구분
+          // data.warehouseSeCd, data.prdcrCd, data.wrhsSeCd, data.gdsSeCd
+          const chkKey = [data.warehouseSeCd, data.prdcrCd, data.wrhsSeCd, data.gdsSeCd];
+
+
+
+          rawMtrInvntrList.push({
+            wrhsno: data.wrhsno,
+            sortCmndno: data.sortCmndno,
+            inptPrgrsYn: data.inptPrgrsYn,
+            inptQntt: data.invntrQntt,  // 원물재고수량 전부
+            inptWght: data.invntrWght,  // 원물재고중량 전부
+          });
+
+        } else {
+          gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
+        }
+      } catch(e) {
+        if (!(e instanceof Error)) {
+          e = new Error(e);
+        }
+        console.error("failed", e.message);
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+    }
+
+
+    /*try {
       const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForRslt.do", {
         apcCd: gv_selectedApcCd,
-        // prdcrCd: prdcrCd,
+        prdcrCd: prdcrCd,
         itemCd: tempItemCd,
         vrtyCd: tempVrtyCd,
         // pltno: pltno,
@@ -1123,11 +1178,11 @@
       if (_.isEqual("S", data.resultStatus)) {
         // gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 
-        // console.log(data);
+        console.log(data);
 
         data.resultList.forEach((item, idx) => {
 
-          /*invntrQntt += item.invntrQntt;
+          invntrQntt += item.invntrQntt;
           invntrWght += item.invntrWght;
 
           if (inptQntt > invntrQntt || inptWght > invntrWght) {
@@ -1138,7 +1193,7 @@
           /!*
           * 투입수량 <-
           * 전체 투입수량/중량 : inptQntt / inptWght
-          * *!/*/
+          * *!/
 
           if (parseFloat(item.inptPrgrsWght) || 0 > 0) {
             item.inptPrgrsYn = "Y";
@@ -1182,7 +1237,7 @@
       sortPrfmncList: sortRegList,
     }
 
-    console.log(sortMng)
+    console.log(sortMng)*/
 
 
     /*try {
