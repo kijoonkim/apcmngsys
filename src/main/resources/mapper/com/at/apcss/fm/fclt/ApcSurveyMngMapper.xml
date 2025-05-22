@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : ApcSurveyMngMapper.xml                                    			-->
+<!-- DESC : APC전수조사관리 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.05.12  	jcshin        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster-->
+    <!-- DESC : APC전수조사 마스터 테이블 단건조회.                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.05.12  	jcshin        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectApcSurveyMaster" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+        <![CDATA[
+            SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMaster */
+                  CM.CRTR_YR		AS CRTR_YR
+                , CM.INDCT_NM		AS INDCT_NM
+                , CM.CMPTN_YN		AS CMPTN_YN
+                , CM.DDLN_STTS_CD	AS DDLN_STTS_CD
+                , CM.BGNG_YMD		AS BGNG_YMD
+                , CM.END_YMD		AS END_YMD
+                , CM.DEL_YN					AS DEL_YN
+                , CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+                , CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+                , CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+                , CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+                , CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+                , CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+
+              FROM TB_TE_APC_CMSU_MST CM
+             WHERE CM.CRTR_YR = #{crtrYr}
+        ]]>
+    </select>
+</mapper>

@@ -717,12 +717,12 @@
             {caption: ["사번"], ref: 'EMP_CODE', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["이름"], ref: 'EMP_NAME', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["사내이메일"], ref: 'IN_EMAIL', type: 'output', width: '140px', style: 'text-align:left'},
-            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['귀속년월'], ref: 'PAY_YYYYMM', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}, disabled: true},
-            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '140px', style : 'text-align:center', type : 'combo', disabled: true,
+            {caption : ["지급구분"], ref : 'PAY_TYPE', width : '100px', style : 'text-align:center', type : 'combo', disabled: true,
                 typeinfo : {ref : 'jsonPayType',  label : 'label', value : 'value'}
             },
-            {caption: ['지급일'], ref: 'PAY_DATE', width:'140px',	type: 'inputdate', style: 'text-align: center', sortable: false,
+            {caption: ['지급일'], ref: 'PAY_DATE', width:'100px',	type: 'inputdate', style: 'text-align: center', sortable: false,
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, disabled: true},
             {caption: ["지급총액"], ref: 'PAY_TOTAL_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
@@ -732,6 +732,7 @@
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
             {caption: ["실지급액"], ref: 'PAY_NET_AMT', type: 'output', width: '140px', style: 'text-align:right'
                 , typeinfo : { mask : {alias : 'numeric', unmaskvalue : false}/*, maxlength : 10*/},  format : { type:'number' , rule:'#,###', emptyvalue:'0' }},
+            {caption: ["SMS 발송시간"], ref: 'SMS_SEND_TIME', type: 'output', width: '140px', style: 'text-align:center'},
             {caption: ["메일전송결과(급여명세)"], ref: 'MAIL_SEND_MSG', type: 'output', width: '140px', style: 'text-align:left'},
             {caption: ["메일전송결과(근태현황)"], ref: 'MAIL_SEND_MSG1', type: 'output', width: '140px', style: 'text-align:left'}
 
@@ -848,8 +849,8 @@
                         PAY_NET_AMT		    : gfn_nvl(item.PAY_ACTL_AMT),
                         DEPT_CODE_SEQ		: gfn_nvl(item.DEPT_CODE_SEQ),
                         POSITION_CODE_SEQ   : gfn_nvl(item.POSITION_CODE_SEQ),
-                        MOBILE_NUMBER   	: gfn_nvl(item.MOBL_NO)
-
+                        MOBILE_NUMBER   	: gfn_nvl(item.MOBL_NO),
+                        SMS_SEND_TIME       : gfn_nvl(item.SMS_SNDNG_DT)
                     }
                     jsonInfoList.push(msg);
                     totalRecordCount ++;

@@ -526,22 +526,27 @@
 	<!-- 2025.04.8  	손민성        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectApcItemCrtrDtlList" resultType="com.at.apcss.am.cmns.vo.ApcItemCrtrDtlVO">
-		SELECT
-			 APC_CD 		AS APC_CD
-			,ITEM_CD 		AS ITEM_CD
-			,ITEM_DTL_CD 	AS ITEM_DTL_CD
-			,ITEM_DTL_NM 	AS ITEM_DTL_NM
-			,INDCT_SEQ 		AS INDCT_SEQ
-			,USE_YN			AS USE_YN
-			,GRD_MNG_CD		AS GRD_MNG_CD
-		FROM
-			TB_APC_ITEM_CRTR_DTL
-		WHERE
-			APC_CD = #{apcCd}
-		AND
-			ITEM_CD = #{itemCd}
-		AND
-			DEL_YN = 'N'
+		<![CDATA[
+			SELECT
+				 APC_CD 		AS APC_CD
+				,ITEM_CD 		AS ITEM_CD
+				,ITEM_DTL_CD 	AS ITEM_DTL_CD
+				,ITEM_DTL_NM 	AS ITEM_DTL_NM
+				,INDCT_SEQ 		AS INDCT_SEQ
+				,USE_YN			AS USE_YN
+				,GRD_MNG_CD		AS GRD_MNG_CD
+			FROM
+				TB_APC_ITEM_CRTR_DTL
+			WHERE APC_CD = #{apcCd}
+			AND ITEM_CD = #{itemCd}
+			AND DEL_YN = 'N'
+		]]>
+		<if test='useYn != null and useYn != ""'>
+			AND USE_YN = #{useYn}
+		</if>
+		<![CDATA[
+			ORDER BY INDCT_SEQ, ITEM_DTL_CD
+		]]>
 	</select>
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectApcSeedCrtrList	-->
@@ -568,6 +573,7 @@
 			ITEM_CD = #{itemCd}
 		AND
 			DEL_YN = 'N'
+		ORDER BY INDCT_SEQ, SEED_CD
 	</select>
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.mergeApcItemCrtrDtlList	-->
@@ -764,6 +770,7 @@
 		  AND
 		    SEED_CD = #{seedCd}
 	</update>
+	<update id="updateCmnsItem"></update>
 
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.CmnsItemMapper.selectItemVrtyDtlList	    -->
@@ -858,6 +865,7 @@
 
 		ORDER BY APC_CD, ITEM_CD, INDCT_SEQ, ITEM_DTL_CD, SN, VRTY_CD
 	</select>
+	<select id="selectCmnsItem" resultType="com.at.apcss.am.cmns.vo.CmnsItemVO"></select>
 </mapper>
 
 

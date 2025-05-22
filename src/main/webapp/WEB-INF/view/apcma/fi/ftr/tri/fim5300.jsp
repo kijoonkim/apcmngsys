@@ -660,7 +660,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -677,7 +677,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -692,7 +692,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -737,7 +737,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -752,7 +752,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -769,7 +769,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -784,7 +784,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-estbl"
@@ -897,7 +897,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -916,7 +916,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -931,7 +931,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -948,7 +948,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -963,7 +963,7 @@
 												class="form-control input-sm" 			
 												style="width:120px;
 												margin-right:5px"
-												maxlength="10"
+												maxlength="20"
 												autocomplete="off"
 												mask = "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}"
 												group-id="pan-cncl"
@@ -1944,7 +1944,7 @@
 		{"type": "number", "id": "cancelAmt", "col": "CNCL_AMT", "elmt": "cncl-inp-cancelAmt"},
 		{"type": "number", "id": "cancelAmtKrw", "col": "CNCL_AMT_KRW", "elmt": "cncl-inp-cancelAmtKrw"},
 		{"type": "number", "id": "cancelInterestAmt", "col": "CNCL_INT", "elmt": "cncl-inp-cancelInterestAmt"},
-		{"type": "string", "id": "cancelInterestAmtKrw", "col": "CNCL_INT_KRW", "elmt": "cncl-inp-cancelInterestAmtKrw"},
+		{"type": "number", "id": "cancelInterestAmtKrw", "col": "CNCL_INT_KRW", "elmt": "cncl-inp-cancelInterestAmtKrw"},
 		{"type": "string", "id": "depositAccount", "col": "DPMNY_ACNT", "elmt": "acnt-inp-depositAccount"},
 		{"type": "string", "id": "depositAccountName", "col": "DEPOSIT_ACCOUNT_NAME", "elmt": "acnt-inp-depositAccountName"},
 		{"type": "string", "id": "interestIncomeAccount", "col": "INTRV_ACNT_CD", "elmt": "acnt-inp-interestIncomeAccount"},
@@ -1985,8 +1985,8 @@
 		{"type": "string", "id": "billOutTrName", "col": "BILL_OUT_TR_NAME", "elmt": "fund-inp-billOutTrName"},
 		{"type": "string", "id": "deptCode", "col": "DEPT_CD", "elmt": "ognz-inp-deptCode"},
 		{"type": "string", "id": "deptName", "col": "DEPT_NM", "elmt": "ognz-inp-deptName"},
-		{"type": "string", "id": "costCenterCode", "col": "CSTCD_CD", "elmt": "ognz-inp-costCenterCode"},
-		{"type": "string", "id": "costCenterName", "col": "CSTCD_NM", "elmt": "ognz-inp-costCenterName"},
+		{"type": "string", "id": "costCenterCode", "col": "CSTCT_CD", "elmt": "ognz-inp-costCenterCode"},
+		{"type": "string", "id": "costCenterName", "col": "CSTCT_NM", "elmt": "ognz-inp-costCenterName"},
 		
 		{"type": "string", "id": "advancedIncomeAccount", "col": "UNRV_ACNTL_CD", "elmt": "acnt-inp-advancedIncomeAccount"},
 		{"type": "string", "id": "advancedIncomeAccountName", "col": "ADVANCED_INCOME_ACCOUNT_NAME", "elmt": "acnt-inp-advancedIncomeAccountName"},
@@ -2094,6 +2094,9 @@
     	
 		fn_setElmtDisabled(true);
 		fn_clearDetail();
+
+		await fn_search()
+
     }
     
     
@@ -2132,7 +2135,7 @@
         // 사업단위
         const fiOrgCode = gfn_nvl(gfnma_multiSelectGet("#srch-fiOrgCode"));
         // 금융기관
-        const bankCsCode = gfn_nvl(SBUxMethod.get('srch-dtp-bankCsCode'));;
+        const bankCsCode = gfn_nvl(SBUxMethod.get('srch-inp-bankCsCode'));;
         // 조회기준일자
         const txnDate = SBUxMethod.get('srch-dtp-txnDate');
         // 예적금유형
@@ -2208,12 +2211,13 @@
 					jsonSvgGnlgr.push(item);
                 });
 
-				console.log(jsonSvgGnlgr);
-
                 grdSvgGnlgr.rebuild();
                 
                 fn_clearDetail();
-                
+
+				if(jsonSvgGnlgr.length > 0) {
+					grdSvgGnlgr.clickRow(1);
+				}
             } else {
                 alert(listData.resultMessage);
             }
@@ -2772,7 +2776,7 @@
             },
         ];
         grdSvgGnlgr = _SBGrid.create(SBGridProperties);
-        grdSvgGnlgr.bind('rowchanged', fn_grdSvgGnlgrRowChanged);
+        grdSvgGnlgr.bind('click', fn_grdSvgGnlgrRowChanged);
 	}
     
 	const fn_grdSvgGnlgrRowChanged = async function() {
@@ -2999,7 +3003,7 @@
 			fn_setElmtDisabled(false);
 		}
 		
-		SBUxMethod.set("dtl-inp-depositId", gfn_nvl(_data["depositCode"]));
+		SBUxMethod.set("dtl-inp-depositId", gfn_nvl(_data["DPMNY_CD"]));
 		
 		elements.forEach((el) => {
 			const elType = el.type;
@@ -3331,28 +3335,28 @@
 	const fn_compopupComBank = function(_codeObj, _nameObj) {
 	    var searchCode 		= gfn_nvl(SBUxMethod.get(_codeObj));
 	    var searchName 		= gfn_nvl(SBUxMethod.get(_nameObj));
-	    var replaceText0 	= "_SBSD_CD_";
-	    var replaceText1 	= "_CD_NM_";
-	    var strWhereClause 	= "AND SUB_CODE LIKE '%" + replaceText0 + "%' AND CODE_NAME LIKE '%" + replaceText1 + "%' ";
+	    var replaceText0 	= "_CNPT_CD_";
+	    var replaceText1 	= "_CNPT_NM_";
+	    var strWhereClause 	= " AND A.CO_CD LIKE  '%" + gv_ma_selectedCorpCd + "%' AND CNPT_CD LIKE '%" + replaceText0 + "%' AND CNPT_NM LIKE '%" + replaceText1 + "%' ";
 		
 		SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보 조회');
 		compopup1({
 			compCode				: gv_ma_selectedCorpCd
 			,clientCode				: gv_ma_selectedClntCd
-			,bizcompId				: 'P_COM027'
+			,bizcompId				: 'P_CS_BANK'
 	    	,popupType				: 'A'
 			,whereClause			: strWhereClause
 				,searchCaptions			: ["코드", 	"명칭"]
-				,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
+				,searchInputFields		: ["CNPT_CD", 	"CNPT_NM"]
 				,searchInputValues		: [searchCode, 	searchName]
 			,width					: '500px'
 			,height					: '400px'
 				,tableHeader			: ["코드", 		 "명칭"]
-				,tableColumnNames		: ["SBSD_CD", 	 "CD_NM"]
+				,tableColumnNames		: ["CNPT_CD", 	 "CNPT_NM"]
 				,tableColumnWidths		: ["80px", 		 "80px"]
 			,itemSelectEvent		: function (data){
-				SBUxMethod.set(_codeObj,	data.SBSD_CD);
-				SBUxMethod.set(_nameObj, 	data.CD_NM);
+				SBUxMethod.set(_codeObj,	data.CNPT_CD);
+				SBUxMethod.set(_nameObj, 	data.CNPT_NM);
 			},
 		});
 	}
@@ -3405,10 +3409,10 @@
     	
         var replaceText0 	= "_ACNTL_CD_";
         var replaceText1 	= "_ACNT_NM_"; 
-        var searchText0		= gfn_nvl(SBUxMethod.get("APS_ACNT_CD"));
-        var searchText1		= gfn_nvl(SBUxMethod.get("AP_ACC_NAME"));
+        var searchText0		= gfn_nvl(SBUxMethod.get(_codeObj));
+        var searchText1		= gfn_nvl(SBUxMethod.get(_nameObj));
         
-        var strWhereClause 	= "AND ACCOUNT_CODE LIKE '%" + replaceText0 + "%' AND ACCOUNT_NAME LIKE '%" + replaceText1 + "%' ";
+        var strWhereClause 	= "AND ACNTL_CD LIKE '%" + replaceText0 + "%' AND ACNT_NM LIKE '%" + replaceText1 + "%' ";
     	
     	SBUxMethod.attr('modal-compopup1', 'header-title', '계정 과목');
     	compopup1({
@@ -3473,9 +3477,9 @@
     const fn_compopupCostCenterCode = function(_codeObj, _nameObj) {
         var searchCode 		= gfn_nvl(SBUxMethod.get(_codeObj));
         var searchName 		= gfn_nvl(SBUxMethod.get(_nameObj));
-        var replaceText0 	= "_CSTCD_CD_";
-        var replaceText1 	= "_CSTCD_NM_";
-        var strWhereClause 	= "AND A.CSTCD_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCD_NM  LIKE '%" + replaceText1 + "%'";
+        var replaceText0 	= "_CSTCT_CD_";
+        var replaceText1 	= "_CSTCT_NM_";
+        var strWhereClause 	= "AND A.CSTCT_CD  LIKE '%" + replaceText0 + "%' AND A.CSTCT_NM  LIKE '%" + replaceText1 + "%'";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '원가중심점');
         compopup1({
@@ -3485,16 +3489,16 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["계정코드", "계정명"]
-            ,searchInputFields		: ["CSTCD_CD", 	"CSTCD_NM"]
+            ,searchInputFields		: ["CSTCT_CD", 	"CSTCT_NM"]
             ,searchInputValues		: [searchCode, searchName]
             ,width					: '800px'
         	,height					: '400px'
-            ,tableHeader			: ["코드", "명칭", "부서코드", "부서명", "원가유형", "사업장", "여신영역"]
-            ,tableColumnNames		: ["CSTCD_CD", "CSTCD_NM", "DEPT_CD", "CSTCD_NM", "CST_CLSF", "SITE_CD", "CRDT_SECT"]
+            ,tableHeader			: ["코드", 		"명칭", 		"부서코드", "부서명", 		"원가유형", 	"사업장", "여신영역"]
+            ,tableColumnNames		: ["CSTCT_CD", 	"CSTCT_NM", "DEPT_CD", "DEPT_NM", 	"CST_CLSF", "SITE_CD", "CRDT_SECT"]
             ,tableColumnWidths		: ["80px", "120px", "80px", "120px", "80px", "80px","80px"]
             ,itemSelectEvent		: function (data){
-                SBUxMethod.set(_codeObj, data.CSTCD_CD);
-                SBUxMethod.set(_nameObj, data.CSTCD_NM);
+                SBUxMethod.set(_codeObj, data.CSTCT_CD);
+                SBUxMethod.set(_nameObj, data.CSTCT_NM);
             },
         });
     }

@@ -612,7 +612,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND FAM_NM LIKE '%" + replaceText1 + "%'";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
@@ -756,7 +756,7 @@
                             const msg = {
                                 SITE_CODE : item.SITE_CD,
                                 SEQ : item.SEQ,
-                                TXN_DATE : item.TRSC_DT,
+                                TXN_DATE : gfnma_date5(item.TRSC_YMD),
                                 TXN_DATE_DSP : item.TXN_DATE_DSP,
                                 TXN_TIME : item.TRSC_TM,
                                 TXN_TIME_RAW : item.TXN_TIME_RAW,

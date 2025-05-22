@@ -270,6 +270,7 @@
 	let files = [];
 
 	var jsonRegionCode		= [];	// 지역
+	var jsonForeiYnCode		= [];   // 내/외국인
 	var tabJsonData = [
 		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "간이지급명세서", "targetid" : "simpleTab", "targetvalue" : "간이지급명세서" },
 		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "근로소득지급명세서", "targetid" : "lbrTab", "targetvalue" : "근로소득지급명세서" }
@@ -311,16 +312,16 @@
 
 	const fn_initSBSelect = async function() {
 		let rst = await Promise.all([
+			// 급여영역
+			gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
 			//법인
 			gfnma_setComSelect(['srch-slt-compCode'], jsonCorp, 'L_HRA014', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-			// 급여영역
-            gfnma_setComSelect(['srch-slt-payAreaType'], jsonPayAreaType, 'L_HRP034', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-
-         // 급여영역
+         	// 근무시기
             gfnma_setComSelect(['srch-slt-harfyearlyType'], jsonWorkEr, 'L_HRA068', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             //사업장
             gfnma_setComSelect(['srch-slt-taxSiteCode'], jsonTaxSite, 'P_TAXSITE', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'TAX_SITE_CODE', 'TAX_SITE_NAME', 'Y', ''),
-
+			//내/외국인
+            gfnma_setComSelect([], jsonForeiYnCode, 'L_HRA006', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd,'SBSD_CD', 'CD_NM', 'Y', '')
 
 		]);
 
@@ -330,9 +331,20 @@
 
 		let yyyy = gfn_dateToYear(new Date()).toString();
 		SBUxMethod.set("srch-dtp-jobYyyy",yyyy);
-		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
-    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
+		SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "01");
+    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "06");
     	SBUxMethod.set("srch-inp-submitDate",gfnma_date2());
+		$('#srch-slt-harfyearlyType').change(function(){
+			let year = SBUxMethod.get("srch-dtp-jobYyyy");
+			if(this.value == 1){
+				SBUxMethod.set("srch-dtp-jobYyyymmFr",year + "01");
+				SBUxMethod.set("srch-dtp-jobYyyymmTo",year + "06");
+			}
+			else{
+				SBUxMethod.set("srch-dtp-jobYyyymmFr",year + "07");
+				SBUxMethod.set("srch-dtp-jobYyyymmTo",year + "12");
+			}
+		});
     	await fnQRY_P_HRA8400_Q("INFO");
 
 //     	grdSimpleGiveSpcfct.rebuild();
@@ -341,14 +353,14 @@
 	}
 
     // only document
-    window.addEventListener('DOMContentLoaded', function(e) {
+    window.addEventListener('DOMContentLoaded', async function(e) {
 
     	
     	fn_createGrid1();
     	fn_createGrid2();
     	fn_createGrid3();
     	
-    	fn_initSBSelect();
+    	await fn_initSBSelect();
     	
     	fn_queryClick();
     });
@@ -390,9 +402,12 @@
 	    SBGridProperties.explorerbar 		= 'sortmove';
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
-        	{caption: ["귀속연월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급연월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["제출연월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속연월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["지급연월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["제출연월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
         	{caption: ["일반직 확정"], ref: 'defYn_1', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["기술직 확정"], ref: 'defYn_2', 				type:'output',		width:'80px',		style:'text-align:center'}
 
@@ -402,6 +417,7 @@
         grdDclrList.bind('click', 'grdDclrListClick');
     }
 
+	//간이지급명세서
     function fn_createGrid2() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdSimpleGiveSpcfct';
@@ -454,16 +470,18 @@
 		};
 
         SBGridProperties.columns = [
-        	{caption: ["귀속년도"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속년도"], ref: 'jobYyyy', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy', origin:'yyyy'}},
         	{caption: ["근무시기"], ref: 'halfyearlyType', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["급여영역"], ref: 'payAreaType', 				type:'combo',	typeinfo : {ref:'jsonPayAreaType', label:'label', value:'value', oneclickedit: true},	width:'80px',		style:'text-align:center', disable:true},
-        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'combo',	typeinfo : {ref:'jsonTaxSite', label:'TX_SITE_NM', value:'TX_SITE_CD', oneclickedit: true},		width:'80px',		style:'text-align:center'},
+        	{caption: ["급여영역"], ref: 'payAreaType', 				type:'output',	width:'80px',		style:'text-align:center', disable:true},
+        	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: [""], ref: 'socialNum', 				type:'output',		width:'0px',		style:'text-align:center'},
         	{caption: ["부서"], ref: 'deptName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["전화번호"], ref: 'telno', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["내/외국인"], ref: 'familyForeiYn', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["내/외국인"], ref: 'familyForeiYn', 				type:'output',		width:'80px',		style:'text-align:center',
+				typeinfo : {ref:'jsonForeiYnCode', label:'CD_NM', value:'SBSD_CD'}},
         	{caption: ["거주지국코드"], ref: 'resdncNtnCd', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["원천신고대상"], ref: 'payTotAmt', 				type:'output',		width:'80px', format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["사업소세과세대상"], ref: 'payTotAmt2', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
@@ -495,6 +513,7 @@
         //NationInGrid.bind('click', 'fn_view');
     }
 
+	//근로소득지급명세서
     function fn_createGrid3() {
         var SBGridProperties 				= {};
 	    SBGridProperties.parentid 			= 'sb-area-grdEricmGiveSpcfct';
@@ -547,9 +566,12 @@
 			}
 		};
         SBGridProperties.columns = [
-        	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
         	{caption: ["근무지"], ref: 'taxSiteCode', 				type:'combo',	typeinfo : {ref:'jsonTaxSite', label:'TX_SITE_NM', value:'TX_SITE_CD', oneclickedit: true},		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -586,7 +608,7 @@
         	{caption: ["주민세 조정액"], ref: 'whLocalTax3', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["주민세 납부액"], ref: 'whLocalTax4', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
         	{caption: ["총납부액"], ref: 'totTax', 				type:'output',		width:'80px',format : {type:'number', rule:'#,###'},		style:'text-align:center'},
-        	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center', hidden: true},
 
         ];
 
@@ -633,7 +655,7 @@
 			,V_P_PAY_YYYYMM     : workType == "DETAIL" ? dclrRow.payYyyymm : ""
 			,V_P_PAY_AREA_TYPE  : ''
 			,V_P_JOB_YYYY        : ''
-			,V_P_HALFYEARLY_TYPE : ''
+			,V_P_HALFYEARLY_TYPE : SBUxMethod.get("srch-slt-harfyearlyType")
 			,V_P_FORM_ID		: p_formId
 			,V_P_MENU_ID		: p_menuId
 			,V_P_PROC_ID		: ''
@@ -685,68 +707,130 @@
 
   						}
   						jsonDclrList.push(obj);
-  					})
+  					});
+					grdDclrList.rebuild();
 
-  					//jsonDclrList = convertArrayToCamelCase(data.cv_1);
-  					grdDclrList.rebuild();
-  					
 					if(jsonDclrList.length > 0) {
 						grdDclrList.clickRow(1);
 					}
+
+
+
+					jsonSimpleGiveSpcfct.length = 0;
+					console.log("jsonForeiYnCode", jsonForeiYnCode);
+					data.cv_2.forEach(item=>{
+
+						for(let i=0;i <jsonForeiYnCode.length;i++){
+							if(item.FAM_FRGNR_YN == jsonForeiYnCode[i].SBSD_CD){
+								item.FAM_FRGNR_YN_NM = jsonForeiYnCode[i].CD_NM
+							}
+						}
+						let obj = {
+							jobYyyy : item.BLN_YR
+							, submitYyyymm : item.SBMSN_YM
+							, halfyearlyType : item.HLTM_TYPE
+							, payAreaType : item.SLRY_AREA_TYPE
+							, taxSiteCode : item.TX_SITE_NM
+							, empCode : item.EMP_CD
+							, empName : item.EMP_NM
+							, deptName : item.DEPT_NM
+							, telno : item.MOBL_NO
+							, familyForeiYn : item.FAM_FRGNR_YN_NM
+							, resdncNtnCd : item.NTN_CD
+							, payTotAmt : item.EARN_TOT_AMT
+							, payTotAmt2 : item.EARN_TOT_AMT2
+							, taxFreeAmt : item.TX_TXFR_AMT
+							, payTotAmt3 : item.EARN_TOT_AMT3
+							, payTotAmt4 : item.EARN_TOT_AMT4
+							, payTotAmt5 : item.EARN_TOT_AMT5
+							, payTotAmt6 : item.EARN_TOT_AMT6
+							, payTotAmt7 : item.EARN_TOT_AMT7
+							, payTotAmt8 : item.EARN_TOT_AMT8
+							, payTotAmt9 : item.EARN_TOT_AMT9
+							, payTotAmt10 : item.TXFR_ALWNC_AMT10
+							, payTotAmt11 : item.TXFR_ALWNC_AMT11
+							, payTotAmt12 : item.TXFR_ALWNC_AMT12
+							, payTotAmt13 : item.TXFR_ALWNC_AMT13
+							, whIncomeTax1 : item.WTHD_INCTX_AMT
+							, whIncomeTax2 : item.WTHD_INCTX_RMBR_AMT
+							, whIncomeTax3 : item.WTHD_INCTX_AJMT_AMT
+							, whIncomeTax4 : item.WTHD_INCTX_PAY_AMT
+							, whLocalTax1 : item.WTHD_RSDTX_AMT
+							, whLocalTax2 : item.WTHD_RSDTX_RMBR_AMT
+							, whLocalTax3 : item.WTHD_RSDTX_AJMT_AMT
+							, whLocalTax4 : item.WTHD_RSDTX_PAY_AMT
+							, totTax : item.TOT_PAY_TXAMT
+							, docName : item.SLIP_NM
+							, docDesc : item.SLIP_DSCTN
+							, txnId : item.TRSC_ID
+						}
+
+						jsonSimpleGiveSpcfct.push(obj);
+					});
+					grdSimpleGiveSpcfct.rebuild();
+
+
+  					//jsonDclrList = convertArrayToCamelCase(data.cv_1);
+
   				}else if(workType === "DETAIL"){
   					//let detailData = convertArrayToCamelCase(data.cv_2);
-  					jsonSimpleGiveSpcfct.length = 0;
  					jsonEricmGiveSpcfct.length = 0;
   					data.cv_2.forEach(item=>{
   						let obj = {
-  								jobYyyymm : item.BLN_YM
-  								, payYyyymm : item.SLRY_YM
-  								, submitYyyymm : item.SBMSN_YM
-  								, halfyearlyType : item.HLTM_TYPE
-  								, payAreaType : item.SLRY_AREA_TYPE
-  								, taxSiteCode : item.TX_SITE_CD
-  								, empCode : item.EMP_CD
-  								, empName : item.EMP_NM
-  								//, socialNum : item.RRNO_ENCPT
-  								//, socialNumReal : item.SOCIAL_NUM_REAL
-  								, deptName : item.DEPT_NM
-  								, cellphoneNum : item.MOBL_NO
-  								, familyForeiYn : item.FAM_FRGNR_YN
-  								, nationCode : item.NTN_CD
-  								, payTotAmt : item.EARN_TOT_AMT
-  								, payTotAmt2 : item.EARN_TOT_AMT2
-  								, taxFreeAmt : item.TX_TXFR_AMT
-  								, payTotAmt3 : item.EARN_TOT_AMT3
-  								, payTotAmt4 : item.EARN_TOT_AMT4
-  								, payTotAmt5 : item.EARN_TOT_AMT5
-  								, payTotAmt6 : item.EARN_TOT_AMT6
-  								, payTotAmt7 : item.EARN_TOT_AMT7
-  								, payTotAmt8 : item.EARN_TOT_AMT8
-  								, payTotAmt9 : item.EARN_TOT_AMT9
-  								, payTotAmt10 : item.TXFR_ALWNC_AMT10
-  								, payTotAmt11 : item.TXFR_ALWNC_AMT11
-  								, payTotAmt12 : item.TXFR_ALWNC_AMT12
-  								, payTotAmt13 : item.TXFR_ALWNC_AMT13
-  								, whIncomeTax1 : item.WTHD_INCTX_AMT
-  								, whIncomeTax2 : item.WTHD_INCTX_RMBR_AMT
-  								, whIncomeTax3 : item.WTHD_INCTX_AJMT_AMT
-  								, whIncomeTax4 : item.WTHD_INCTX_PAY_AMT
-  								, whLocalTax1 : item.WTHD_RSDTX_AMT
-  								, whLocalTax2 : item.WTHD_RSDTX_RMBR_AMT
-  								, whLocalTax3 : item.WTHD_RSDTX_AJMT_AMT
-  								, whLocalTax4 : item.WTHD_RSDTX_PAY_AMT
-  								, totTax : item.TOT_PAY_TXAMT
+							jobYyyymm : item.BLN_YM
+							, payYyyymm : item.SLRY_YM
+							, submitYyyymm : item.SBMSN_YM
+							, halfyearlyType : item.HLTM_TYPE
+							, payAreaType : item.SLRY_AREA_TYPE
+							, taxSiteCode : item.TX_SITE_CD
+							, empCode : item.EMP_CD
+							, empName : item.EMP_NM
+							//, socialNum : item.RRNO_ENCPT
+							//, socialNumReal : item.SOCIAL_NUM_REAL
+							, deptName : item.DEPT_NM
+							, nationCode : item.NTN_CD
+							, payTotAmt : item.EARN_TOT_AMT
+							, payTotAmt2 : item.EARN_TOT_AMT2
+							, taxFreeAmt : item.TX_TXFR_AMT
+							, payTotAmt3 : item.EARN_TOT_AMT3
+							, payTotAmt4 : item.EARN_TOT_AMT4
+							, payTotAmt5 : item.EARN_TOT_AMT5
+							, payTotAmt6 : item.EARN_TOT_AMT6
+							, payTotAmt7 : item.EARN_TOT_AMT7
+							, payTotAmt8 : item.EARN_TOT_AMT8
+							, payTotAmt9 : item.EARN_TOT_AMT9
+							, payTotAmt10 : item.TXFR_ALWNC_AMT10
+							, payTotAmt11 : item.TXFR_ALWNC_AMT11
+							, payTotAmt12 : item.TXFR_ALWNC_AMT12
+							, payTotAmt13 : item.TXFR_ALWNC_AMT13
+							, whIncomeTax1 : item.WTHD_INCTX_AMT
+							, whIncomeTax2 : item.WTHD_INCTX_RMBR_AMT
+							, whIncomeTax3 : item.WTHD_INCTX_AJMT_AMT
+							, whIncomeTax4 : item.WTHD_INCTX_PAY_AMT
+							, whLocalTax1 : item.WTHD_RSDTX_AMT
+							, whLocalTax2 : item.WTHD_RSDTX_RMBR_AMT
+							, whLocalTax3 : item.WTHD_RSDTX_AJMT_AMT
+							, whLocalTax4 : item.WTHD_RSDTX_PAY_AMT
+							, totTax : item.TOT_PAY_TXAMT
+							, docName : item.SLIP_NM
+							, docDesc : item.SLIP_DSCTN
+							, reasonCode : item.RSN_CD
+							, reasonName : item.RSN_NM
+							, gubunCode : item.SE_CD
+							, gubunName : item.SE_NM
+							, socialNumDate : item.RRNO_BRDT
+							, txnId : item.TRSC_ID
+							, payDate : gfnma_date5(item.PAY_YMD)
 
-  						}
-  						jsonSimpleGiveSpcfct.push(obj);
+
+						}
+  						//jsonSimpleGiveSpcfct.push(obj);
   						jsonEricmGiveSpcfct.push(obj);
   					})
 					//jsonSimpleGiveSpcfct = detailData;
 					//jsonEricmGiveSpcfct = detailData;
-	        		
-					grdSimpleGiveSpcfct.rebuild();
+
 	        		grdEricmGiveSpcfct.rebuild();
-					console.log('jsonSimpleGiveSpcfct ==>', jsonSimpleGiveSpcfct);
 					console.log('jsonEricmGiveSpcfct ==>', jsonEricmGiveSpcfct);
   				}
 
@@ -1106,8 +1190,10 @@
     }
 
     const fn_dtpChange = async function(yyyy){
-    	SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + "07");
-    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + "12");
+		let monthFr = SBUxMethod.get("srch-dtp-jobYyyymmFr").substring(4);
+		let monthTo = SBUxMethod.get("srch-dtp-jobYyyymmTo").substring(4);
+    	SBUxMethod.set("srch-dtp-jobYyyymmFr",yyyy + monthFr);
+    	SBUxMethod.set("srch-dtp-jobYyyymmTo",yyyy + monthTo);
      }
 
 

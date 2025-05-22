@@ -124,7 +124,8 @@
                     <th scope="row" >기준연도</th>
                     <td colspan="3" class="td_input" style="border-right: hidden;">
                         <sbux-datepicker id="srch-dtp-yyyy" name="srch-dtp-yyyy" uitype="popup" datepicker-mode="year"
-                                         date-format="yyyy" class="table-datepicker-ma"
+                                         date-format="yyyy"
+                                         class="form-control pull-right sbux-pik-group-apc input-sm input-sm-ast table-datepicker-ma"
                                          onchange="fn_setMultSelect(srch-dtp-yyyy)">
                         </sbux-datepicker>
                     </td>
@@ -133,7 +134,9 @@
                     <td colspan="8" class="td_input">
                         <div style="display: flex;gap: 5px">
                             <div class="dropdown">
-                                <button style="width:160px;text-align:left" class="btn btn-sm btn-light dropdown-toggle" type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button style="width:160px;text-align:left"
+                                        class="btn btn-sm btn-light dropdown-toggle inpt_data_reqed"
+                                        type="button" id="src-btn-currencyCode" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <font>선택</font>
                                     <i style="padding-left:10px" class="sbux-sidemeu-ico fas fa-angle-down"></i>
                                 </button>
@@ -2324,20 +2327,13 @@
     var jsonGrdList = [];
     var grdListGrid;
  
-    var jsonGrdFarmer = [];
-    var grdFarmer;
- 
     window.addEventListener("DOMContentLoaded",function(e){
         fn_createGrid();
-        fn_createFarmerGrid();
         fn_init();
     });
- 
+
+
     const fn_init = async function(){
-        /** 법인 select **/
-        jsonCorpNm = await gfnma_getComSelectList('L_ORG000','','','','CO_CD',"CORP_NM");
-        SBUxMethod.refresh('srch-slt-corpNm');
-        SBUxMethod.setValue('srch-slt-corpNm',gv_ma_selectedCorpCd);
         /** 기준연도 **/
         let yyyy = gfn_dateToYear(new Date());
         SBUxMethod.set('srch-dtp-yyyy', yyyy);
@@ -2349,12 +2345,16 @@
         SBUxMethod.refresh('LMT_RT');
         SBUxMethod.set('LMT_RT','3');
         /** 신고구분명 select **/
+        /** 신고구분명 select **/
         await fn_setMultSelect(yyyy);
     }
-    async function fn_setMultSelect(yyyy) {
-        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
-        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
-        /** 신고구분명 select **/
+
+
+    async function fn_setMultSelect(yyyy){
+        let L_FIT030;
+        SBUxMethod.set("srch-dtp-ymdstandardTermFr", "");
+        SBUxMethod.set("srch-dtp-ymdstandardTermTo", "");
+
         gfnma_multiSelectInit({
             target: ['#src-btn-currencyCode']
             , compCode: gv_ma_selectedCorpCd
@@ -2369,7 +2369,7 @@
             , colValue: 'SEQ'
             , colLabel: 'VAT_TMPLT_NM'
             , columns: [
-                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '120px', style: 'text-align:left'},
+                {caption: "부가세유형", ref: 'VAT_TMPLT_NM', width: '200px', style: 'text-align:left'},
                 {caption: "신고기준시작월", ref: 'STANDARD_TERM_FR', width: '150px', style: 'text-align:left'},
                 {caption: "신고기준종료월", ref: 'STANDARD_TERM_TO', width: '150px', style: 'text-align:left'},
                 {caption: "총괄납부사업장번호", ref: 'UNIT_NO', width: '180px', style: 'text-align:left'},
@@ -2377,85 +2377,118 @@
                 {caption: "확정여부", ref: 'CFMTN_YN', width: '150px', style: 'text-align:left'},
                 {caption: "SEQ", ref: 'SEQ', width: '150px', style: 'text-align:left;display:none',}
             ]
-            , callback: fn_choice
+            , returnData: function(data){
+                L_FIT030 = data.cv_1;
+            }
+            , callback : function(data){
+                let selectData = L_FIT030.filter(
+                    function(d){
+                        return d.SEQ == data;
+                    }
+                )
+                SBUxMethod.set("srch-dtp-ymdstandardTermFr", selectData[0].STANDARD_TERM_FR);
+                SBUxMethod.set("srch-dtp-ymdstandardTermTo", selectData[0].STANDARD_TERM_TO);
+            }
         });
     }
-    async function fn_choice(_value){
+
+    const fn_search =  async function(SEQ){
         /** reset **/
         /** 여기는 좀 다름**/
- 
-        let tr = $('#src-btn-currencyCode').siblings().find('tr.clickable-row.active');
-        if (tr.length) {
-            let termFr = tr.find('td[cu-code="STANDARD_TERM_FR"]');
-            if (termFr.length) {
-                SBUxMethod.set("srch-dtp-ymdstandardTermFr", termFr.text());
-                SBUxMethod.set('srch-dtp-yyyy',termFr.text().split('-')[0]);
-            }
- 
-            let termTo = tr.find('td[cu-code="STANDARD_TERM_TO"]');
-            if (termTo.length) {
-                SBUxMethod.set('srch-dtp-ymdstandardTermTo', termTo.text());
-            }
-        }
+
+        const YYYY              = gfnma_nvl2(SBUxMethod.get('srch-dtp-yyyy'));
+        const TAX_SITE_CODE     = gfnma_nvl2(SBUxMethod.get('srch-inp-taxSiteCode'));
+        const TAX_SITE_NAME     = gfnma_nvl2(SBUxMethod.get('srch-inp-taxSiteName'));
+        const BIZ_REGNO         = gfnma_nvl2(SBUxMethod.get('srch-inp-bizRegno'));
+
         var paramObj = {
             V_P_DEBUG_MODE_YN      : ''
             ,V_P_LANG_ID            : ''
             ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
             ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
+
+            ,V_P_YYYY               : YYYY
+            ,V_P_SEQ                : gfnma_nvl2(SEQ)
+            ,V_P_TAX_SITE_CODE      : TAX_SITE_CODE
+            ,V_P_TAX_SITE_NAME      : TAX_SITE_NAME
+            ,V_P_BIZ_REGNO          : BIZ_REGNO
+
             ,V_P_FORM_ID            : p_formId
             ,V_P_MENU_ID            : p_menuId
             ,V_P_PROC_ID            : ''
             ,V_P_USERID             : ''
             ,V_P_PC                 : ''
         }
- 
-        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
-        paramObj.V_P_SEQ = _value;
- 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2200.do", {
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2100.do", {
             getType				: 'json',
-            cv_count			: '11',
-            workType            : 'LIST',
+            cv_count			: '7',
+            workType            : "LIST",
             params				: gfnma_objectToString(paramObj)
         });
         const data = await postJsonPromise;
         if(data.resultStatus === 'S'){
+
             jsonGrdList = data.cv_1;
             grdListGrid.rebuild();
-            if(grdListGrid.getRows() === 2){
-                grdListGrid.setRow(1);
-                paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(1).TAX_SITE_CODE;
-                const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2200.do", {
-                    getType				: 'json',
-                    cv_count			: '11',
-                    workType            : 'DETAIL',
-                    params				: gfnma_objectToString(paramObj)
-                });
-                const data = await postJsonPromise;
- 
-                if(data.resultStatus === 'S'){
-                    if(workType === 'Q'){
-                        let resultObj = data.cv_2[0];
-                        for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
-                        }
-                    }else{
-                        let resultObj = data.cv_3[0];
-                        for(let key in resultObj){
-                            let elId = "#" + gfnma_snakeToCamel(key);
-                            $(elId).val(parseInt(resultObj[key]));
-                        }
-                    }
-                }
+
+            if(jsonGrdList.length > 0) {
+                grdListGrid.clickRow(1);
             }
         }
     }
+    const fn_subSearch = async function(){
+
+        const NROW = grdListGrid.getRow();
+        const ROW_DATA = grdListGrid.getRowData(NROW);
+
+        const SEQ               = gfnma_multiSelectGet('#src-btn-currencyCode');
+        const YYYY              = gfnma_nvl2(SBUxMethod.get('srch-dtp-yyyy'));
+        const TAX_SITE_CODE     = gfnma_nvl2(ROW_DATA.TX_SITE_CD);
+
+        var paramObj = {
+            V_P_DEBUG_MODE_YN      : ''
+            ,V_P_LANG_ID            : ''
+            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
+            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
+
+            ,V_P_YYYY               : YYYY
+            ,V_P_SEQ                : gfnma_nvl2(SEQ)
+            ,V_P_TAX_SITE_CODE      : TAX_SITE_CODE
+            ,V_P_TAX_SITE_NAME      : ''
+            ,V_P_BIZ_REGNO          : ''
+
+            ,V_P_FORM_ID            : p_formId
+            ,V_P_MENU_ID            : p_menuId
+            ,V_P_PROC_ID            : ''
+            ,V_P_USERID             : ''
+            ,V_P_PC                 : ''
+        }
+
+        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2100.do", {
+            getType				: 'json',
+            cv_count			: '7',
+            workType            : "DETAIL",
+            params				: gfnma_objectToString(paramObj)
+        });
+        const data = await postJsonPromise;
+        try {
+            if(data.resultStatus === 'S'){
+
+                let cv_list = [data.cv_2[0] ,data.cv_3[0] ,data.cv_4[0]];
+                for(i = 0; cv_list.length > i; i++){
+                    for(let key in cv_list[i]){
+                        SBUxMethod.set(key, cv_list[i][key])
+                    }
+                }
+            }
+        }catch (e) {
+
+        }
+
+    }
+
+
     const fn_createGrid = function(){
         var SBGridProperties = {};
         SBGridProperties.parentid = 'sb-area-grdListGrid';
@@ -2467,25 +2500,7 @@
             {caption : ['사업자번호'],          ref : 'BRNO',      width : '50%',   style : 'text-align:center',    type : 'output'},
         ];
         grdListGrid = _SBGrid.create(SBGridProperties);
-        grdListGrid.bind("click","fn_setSiteCode");
-    }
- 
-    const fn_createFarmerGrid = function(){
-        var SBGridProperties = {};
-        SBGridProperties.parentid = 'sb-area-grdFarmer';
-        SBGridProperties.id = 'grdFarmer';
-        SBGridProperties.jsonref = 'jsonGrdFarmer';
-        SBGridProperties.emptyrecords = '데이터가 없습니다.';
-        SBGridProperties.columns = [
-            {caption : ['일련번호','일련번호'],               ref : 'DEEMED_SEQ',        width : '10%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['면세농산물등을 공급한 농어민 등','성명'],          ref : 'DMINPT_NM',      width : '15%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['면세농산물등을 공급한 농어민 등','주민등록번호'],          ref : 'DMINPT_RRNO',      width : '15%',   style : 'text-align:center',    type : 'output'},
-            {caption : ['건수','건수'],               ref : 'DMINPT_CNT',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['품명','품명'],               ref : 'DMINPT_GDS_NM',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['수량','수량'],               ref : 'DMINPT_QNTT',        width : '15%',    style : 'text-align:center',    type : 'output'},
-            {caption : ['매입가액','매입가액'],               ref : 'DMINPT_AMT',        width : '15%',    style : 'text-align:center',    type : 'output'},
-        ];
-        grdFarmer = _SBGrid.create(SBGridProperties);
+        grdListGrid.bind("click","fn_subSearch");
     }
  
     const resizer = document.getElementById('resizer');
@@ -2549,137 +2564,20 @@
     function cfn_del() {
         fn_delete();
     }
-    function cfn_search() {
-        fn_search();
-    }
-    function cfn_init(){
-        fn_reset();
-    }
-    function fn_reset(){
-        gfnma_multiSelectSet('#src-btn-currencyCode','', '', '');
-        SBUxMethod.set("srch-dtp-ymdstandardTermFr","");
-        SBUxMethod.set("srch-dtp-ymdstandardTermTo","");
- 
-    }
-    const fn_search = async function(){
-        let _value = gfnma_multiSelectGet('#src-btn-currencyCode');
-        if(gfn_isEmpty(_value)){
+    async function cfn_search() {
+
+        let SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
+        if(gfn_isEmpty(SEQ)){
             gfn_comAlert("W0002", "신고구분명");
             return;
         }
-        await fn_choice(_value);
+
+        await fn_search(SEQ);
+    }
+    function cfn_init(){
+        gfnma_uxDataClear('#srchTable');
     }
  
-    async function fn_afterSelectTab(_id){
-        var paramObj = {
-            V_P_DEBUG_MODE_YN      : ''
-            ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
-            ,V_P_AR_AP_TYPE         : ''
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-        }
-        gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno','ymdstandardTermFr','ymdstandardTermTo']);
-        let seq = gfnma_multiSelectGet("#src-btn-currencyCode");
-        let workType = _id === 'tpgAR'? 'Q':'Q1';
- 
-        paramObj.V_P_SEQ = seq;
- 
-        /** 사업장 리스트 chk **/
-        let gridIdx = grdListGrid.getRow();
-        if(gridIdx < 0){
-            return;
-        }
- 
-        paramObj.V_P_TAX_SITE_CODE = grdListGrid.getRowData(gridIdx).TAX_SITE_CODE;
- 
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2200.do", {
-            getType				: 'json',
-            cv_count			: '11',
-            workType            : 'DETAIL',
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-        if(data.resultStatus === 'S'){
-            if(workType === 'Q'){
-                let resultObj = data.cv_2[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-                jsonGrdAr = data.cv_3;
-                grdAr.rebuild();
-            }else{
-                let resultObj = data.cv_4[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key) + '2';
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-                jsonGrdAp = data.cv_5;
-                grdAp.rebuild();
-            }
-        }
-    }
-    async function fn_setSiteCode(){
-        var paramObj = {
-            V_P_DEBUG_MODE_YN      : ''
-            ,V_P_LANG_ID            : ''
-            ,V_P_COMP_CODE          : gv_ma_selectedCorpCd
-            ,V_P_CLIENT_CODE        : gv_ma_selectedClntCd
-            ,V_P_YYYY               : ''
-            ,V_P_SEQ                : ''
-            ,V_P_TAX_SITE_CODE      : ''
-            ,V_P_TAX_SITE_NAME      : ''
-            ,V_P_BIZ_REGNO          : ''
-            ,V_P_AR_AP_TYPE         : ''
-            ,V_P_FORM_ID            : p_formId
-            ,V_P_MENU_ID            : p_menuId
-            ,V_P_PROC_ID            : ''
-            ,V_P_USERID             : ''
-            ,V_P_PC                 : ''
-        }
- 
-        let postFlag = gfnma_getTableElement("srchTable","srch-",paramObj,"V_P_",['taxSiteName','bizRegno']);
-        paramObj.V_P_SEQ = gfnma_multiSelectGet('#src-btn-currencyCode');
-        let arapType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'AR_TAX_BILL':'AP_TAX_BILL';
-        paramObj.V_P_AR_AP_TYPE = arapType;
-        let workType = SBUxMethod.get('tabVATtax') === 'tpgAR'? 'Q':'Q1';
-        const postJsonPromise = gfn_postJSON("/fi/tax/vat/selectFit2110.do", {
-            getType				: 'json',
-            cv_count			: '13',
-            workType            : workType,
-            params				: gfnma_objectToString(paramObj)
-        });
-        const data = await postJsonPromise;
-        if(data.resultStatus === 'S'){
-            if(workType === 'Q'){
-                let resultObj = data.cv_2[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-            }else{
-                let resultObj = data.cv_3[0];
-                for(let key in resultObj){
-                    let elId = "#" + gfnma_snakeToCamel(key);
-                    $(elId).val(parseInt(resultObj[key]));
-                }
-            }
-        }
-    }
-    const fn_openPopup = function(){
-        SBUxMethod.openModal('wholePaySitePopup');
-        popFit2100.fn_init(dblclick);
-    }
     var fn_compopup1 = function() {
  
         //type A 형 팝업
@@ -2687,8 +2585,8 @@
         var searchCode      = gfnma_nvl(SBUxMethod.get("srch-pop-subCode"));
         var searchName 		= gfnma_nvl(SBUxMethod.get("srch-pop-subName"));
         var replaceText0 	= "_SBSD_CD_";
-        var replaceText1 	= "_SUB_NAME_";
-        var strWhereClause 	= "AND A.SBSD_CD LIKE '%" + replaceText0 + "%' AND A.SUB_NAME LIKE '%" + replaceText1 + "%' ";
+        var replaceText1 	= "_CD_NM_";
+        var strWhereClause 	= "AND SBSD_CD LIKE '%" + replaceText0 + "%' AND CD_NM LIKE '%" + replaceText1 + "%' ";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '공통은행정보');
         compopup1({
@@ -2698,7 +2596,7 @@
             ,popupType				: 'A'
             ,whereClause			: strWhereClause
             ,searchCaptions			: ["코드", 	"은행명"]
-            ,searchInputFields		: ["SBSD_CD", 	"SUB_NAME"]
+            ,searchInputFields		: ["SBSD_CD", 	"CD_NM"]
             ,searchInputValues		: [searchCode,	searchName]
             ,width					: '600px'
             ,height					: '400px'

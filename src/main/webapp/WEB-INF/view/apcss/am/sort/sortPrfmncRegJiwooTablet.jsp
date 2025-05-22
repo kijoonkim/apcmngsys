@@ -73,9 +73,15 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별실적등록 -->
 					<sbux-label id="lbl-wrhsno" name="lbl-wrhsno" uitype="normal" text=""></sbux-label>
 				</div>
-			</div>
-			<div class="box-header" style="display:flex; justify-content: flex-start;">
 				<div style="margin-left: auto;">
+					<sbux-button
+							id="btnClear"
+							name="btnClear"
+							uitype="normal"
+							class="btn btn-outline-danger btn-mbl"
+							onclick="fn_reset"
+							text="초기화"
+					></sbux-button>
 					<sbux-button
 							id="btnSearch"
 							name="btnSearch"
@@ -93,17 +99,16 @@
 							text="저장"
 					></sbux-button>
 					<sbux-button
-						id="btnReset"
-						name="btnReset"
-						uitype="normal"
-						class="btn btn-outline-danger btn-mbl"
-						onclick="fn_reset"
-						text="종료"
+							id="btnReset"
+							name="btnReset"
+							uitype="normal"
+							class="btn btn-outline-danger btn-mbl"
+							onclick="fn_close()"
+							text="종료"
 					></sbux-button>
-
-
 				</div>
 			</div>
+
 			<div class="box-body">
 				<!--[APC] START -->
 				<!--[APC] END -->
@@ -201,11 +206,12 @@
 						uitype="normal"
 						jsondata-ref="tabJsonData"
 						jsondata-css-style="cssstyleKey"
-						onclick="fn_clickTab()"
+<%--						onclick="fn_clickTab()"--%>
+						onclick="fn_changeTab()"
 				></sbux-tabs>
 
 				<div class="tab-content">
-					<div id="tab_inptReg">
+					<%--<div id="tab_inptReg">
 						<div class="ad_tbl_top">
 							<ul class="ad_tbl_count">
 								<li><span>투입</span></li>
@@ -236,7 +242,7 @@
 							</div>
 						</div>
 						<div id="sb-area-inptReg" style="height: 300px"></div>
-					</div>
+					</div>--%>
 
 					<div id="tab_prfmncReg" style="display: flex; gap: 10px">
 						<div style="flex: 4">
@@ -350,9 +356,9 @@
 	var jsonApcSpcfct = [];
 	/** tab **/
 	var tabJsonData  = [
-		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "투입", "targetid" : "tab_inptReg" , "targetvalue" : "inptReg" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"},
-		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "등록", "targetid" : "tab_prfmncReg" , "targetvalue" : "prfmncReg" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"},
-		{ "id" : "2", "pid" : "-1", "order" : "3", "text" : "집계", "targetid" : "tab_sortTot" , "targetvalue" : "tot" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"}]
+		// { "id" : "0", "pid" : "-1", "order" : "1", "text" : "투입", "targetid" : "tab_inptReg" , "targetvalue" : "inptReg" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"},
+		{ "id" : "0", "pid" : "-1", "order" : "1", "text" : "등록", "targetid" : "tab_prfmncReg" , "targetvalue" : "prfmncReg" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"},
+		{ "id" : "1", "pid" : "-1", "order" : "2", "text" : "집계", "targetid" : "tab_sortTot" , "targetvalue" : "tot" , "cssstyleKey" : "{margin-right: 5px;width: 8vw;text-align: center;font-weight: bold;border-radius:0}"}]
 
 	/** 선별기 **/
 	var jsonComFclt = [];
@@ -418,7 +424,7 @@
 		jsonApcSpcfct = await gfn_getApcSpcfcts(gv_selectedApcCd, SBUxMethod.get('srch-slt-itemCd'));
 		SBUxMethod.refresh('dtl-slt-spcfctCd');
 
-		await fn_createInptGrid(); // 투입
+		// await fn_createInptGrid(); // 투입
 		await fn_createGrid(); // 등록
 		await fn_createTotGrid(); // 집계
 
@@ -429,7 +435,7 @@
 		gridSpcfct.resize();
 
 		/** init 등록영역 숨기기**/
-		document.getElementById('tab_prfmncReg').style.display = 'none';
+		// document.getElementById('tab_prfmncReg').style.display = 'none';
 	}
 
 
@@ -599,8 +605,8 @@
 		if (gfn_isEmpty(itemCd)) {
 			return;
 		}
-		let grdSeCd = '02';
-		let grdKnd = '01';
+		let grdSeCd = '02'; // 등급구분코드 : 선별
+		let grdKnd = '01'; //
 
 		let postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {
 			apcCd: gv_selectedApcCd,
@@ -849,7 +855,11 @@
 			return;
 		}
 
-		for (let i = 0; i< jsonItemDtl.length ; i++){
+		// 등록 그리드는 5개만 생성
+		for (let i = 0; i < 5 ; i++){
+			if (gfn_isEmpty(jsonItemDtl[i])) {
+				return;
+			}
 			const grdMngCd = jsonItemDtl[i].grdMngCd;
 			const itemDtlCd = jsonItemDtl[i].itemDtlCd;
 
@@ -873,6 +883,11 @@
 					}
 				}
 				window[`gridReg${'${i}'}`] = fn_createGridForSort(parentId,gridId,jsonRef,window[`gridReg${'${i}'}`]);
+				// 등록 그리드 높이 동적으로 지정
+				const height = 32 + 25*jsonItemDtlTypes[i].length;
+				$(`#sb-area-itemDtlType${'${i}'}`).css('height', height + 'px');
+				window[`gridReg${'${i}'}`].resize();
+
 			} else if (_.isEqual(secondNum,"0")) { //선별등급없음
 				for (let j = 0; j < jsonVrtyList.length; j++){
 					if (_.isEqual(itemDtlCd,jsonVrtyList[j].itemDtlCd)) {
@@ -880,6 +895,10 @@
 					}
 				}
 				window[`gridReg${'${i}'}`] = fn_createGridForSimpleSort(parentId,gridId,jsonRef,window[`gridReg${'${i}'}`]);
+				// 등록 그리드 높이 동적으로 지정
+				const height = 62 + 25;
+				$(`#sb-area-itemDtlType${'${i}'}`).css('height', height + 'px');
+				window[`gridReg${'${i}'}`].resize();
 			}
 
 		}
@@ -917,7 +936,7 @@
 
 	/**
 	 * @name fn_clickTab
-	 * @description 탭 클릭
+	 * @description 탭 클릭 (투입탭있을때 사용)
 	 */
 	const fn_clickTab = function() {
 		const tabModel = SBUxMethod.get("idxtabTopJson");
@@ -938,6 +957,20 @@
 		}
 	}
 
+	/**
+	 * @name fn_changeTab
+	 * @description 탭 변경(투입탭 없을 때)
+	 */
+	const fn_changeTab = function() {
+		const tabModel = SBUxMethod.get("idxtabTopJson");
+		if (!tabModel) return;
+
+		if (!_.isEqual(tabModel,"tab_prfmncReg")) {
+			document.getElementById('tab_prfmncReg').style.display = 'none';
+		} else {
+			document.getElementById('tab_prfmncReg').style.display = 'flex';
+		}
+	}
 
 	/**
 	 * @name fn_save
@@ -971,6 +1004,9 @@
 			return;
 		}
 
+		/** 투입 **/
+/*
+
 		// 투입실적등록
 		let inptList = [];
 
@@ -999,6 +1035,7 @@
 				})
 			}
 		}
+*/
 
 
 		// 선별실적등록
@@ -1114,12 +1151,11 @@
 			}
 		}
 
-		// console.log("저장리스트",sortPrfmncList,"투입",inptList);
 
-		if (gfn_isEmpty(inptList)) {
+		/*if (gfn_isEmpty(inptList)) {
 			gfn_comAlert("W0005", "투입");		//	W0005	{0}이/가 없습니다.
 			return;
-		}
+		}*/
 		if (gfn_isEmpty(sortPrfmncList)) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 			return;
@@ -1132,8 +1168,9 @@
 			apcCd: gv_selectedApcCd,
 			sortYmd: sortYmd,
 			sortPrfmncList: sortPrfmncList,
-			rawMtrInptList : inptList
+			// rawMtrInptList : inptList
 		}
+		console.log("저장할때",sortMng);
 
 		try {
 			const postJsonPromise = gfn_postJSON("/am/sort/insertSortRsltSimply.do", sortMng);
@@ -1357,8 +1394,10 @@
 							totWght = spcfct * totQntt;
 							break;
 					}
-					rowData.sortQntt = totQntt;
-					rowData.sortWght = totWght;
+					if ( sortQntt > 0 ){
+						rowData.sortQntt = totQntt;
+						rowData.sortWght = totWght;
+					}
 				}
 				window[`gridReg${'${i}'}`].refresh();
 			}
@@ -1454,7 +1493,7 @@
 	}
 	/**
 	 * @name fn_reset
-	 * @description 종료버튼 - clear
+	 * @description 초기화
 	 */
 	const fn_reset = async function () {
 		SBUxMethod.set("srch-dtp-sortYmd", gfn_dateToYmd(new Date()));
@@ -1462,9 +1501,7 @@
 		SBUxMethod.refresh('dtl-slt-spcfctCd');
 		SBUxMethod.refresh('dtl-slt-fcltCd');
 		SBUxMethod.refresh('srch-slt-warehouseSeCd');
-		/** 투입 **/
-		jsonInpt.length = 0;
-		gridInpt.rebuild();
+
 		/** 등록 **/
 		for (let i = 0; i < 5; i++) {
 			jsonItemDtlTypes[i].length = 0;
@@ -1474,10 +1511,19 @@
 		/** 예외 규격 **/
 		jsonSpcfct.length = 0;
 		gridSpcfct.rebuild();
+
 		/** 집계 **/
-		fn_search();
-		/*jsonTot.length = 0;
-		gridTot.rebuild();*/
+		// fn_search();
+		jsonTot.length = 0;
+		gridTot.rebuild();
+	}
+
+	/**
+	 * @name fn_close
+	 * @description 종료
+	 */
+	const fn_close = function() {
+		parent.gfn_tabClose("TAB_AM_003_026");
 	}
 
 

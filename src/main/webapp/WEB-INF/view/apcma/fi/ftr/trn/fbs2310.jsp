@@ -318,7 +318,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_NAME"));
         var replaceText0 	= "_CODE_";
         var replaceText1 	= "_FAM_NM_";
-        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND CODE LIKE '%" + replaceText0 + "%' AND FAM_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행코드 정보');
         compopup1({
@@ -345,7 +345,7 @@
         var searchText 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_ACCOUNT_NAME"));
         var replaceText0 	= "_BANK_CD_";
         var replaceText1 	= "_BANK_NM_";
-        var strWhereClause 	= "AND BANK_CODE LIKE '%" + replaceText0 + "%' AND BANK_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND BANK_CD LIKE '%" + replaceText0 + "%' AND BANK_NM LIKE '%" + replaceText1 + "%'";
  
         SBUxMethod.attr('modal-compopup1', 'header-title', '은행계좌 정보');
         compopup1({
@@ -410,31 +410,31 @@
             {caption: ["통화"],         ref: 'CURRENCY_CODE',    type:'output',  	width:'40px',  style:'text-align:left'},
             {caption: ["계정잔액"],         ref: 'BALANCE_AMT_NOW',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["인출가능잔액(펌뱅킹)"],         ref: 'USABLE_BALANCE_AMT_NOW',    type:'output',  	width:'155px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["차이금액[장부-가용]"],         ref: 'DIFF_BALANCE_AMT',    type:'output',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["기초"],         ref: 'BEGIN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["입금"],         ref: 'IN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["출금"],         ref: 'OUT_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["예금잔액"],         ref: 'BALANCE_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["소스"],         ref: 'DATA_SOURCE',    type:'output',  	width:'40px',  style:'text-align:left'},
         ];
@@ -529,19 +529,19 @@
             {caption: ["입출금자성명"],         ref: 'TRAN_NAME',    type:'output',  	width:'150px',  style:'text-align:left'},
             {caption: ["거래금액"],         ref: 'TRAN_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["입금액"],         ref: 'IN_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["출금액"],         ref: 'OUT_AMOUNT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["잔액"],         ref: 'BALANCE_AMT',    type:'output',  	width:'140px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["통지전문번호"],         ref: 'NOTICE_TRF_NO',    type:'output',  	width:'90px',  style:'text-align:left'},
             {caption: ["입금지점"],         ref: 'IN_BRANCH_CODE',    type:'output',  	width:'100px',  style:'text-align:left'},
@@ -955,16 +955,16 @@
                             ACCOUNT_NUM : item.ACTNO,
                             CURRENCY_CODE : item.CRN_CD,
                             BEGIN_AMT : item.BSC_AMT,
-                            IN_AMT : item.INCRS_AMT,
-                            OUT_AMT : item.DCRS_AMT,
-                            BALANCE_AMT : item.BLNC_AMT,
+                            IN_AMT : gfnma_nvl2(item.INCRS_AMT),
+                            OUT_AMT : gfnma_nvl2(item.DCRS_AMT),
+                            BALANCE_AMT : gfnma_nvl2(item.BLNC_AMT),
                             DATA_SOURCE : item.DATA_SRC,
                             FI_ORG_CODE : item.ACNTG_OGNZ_CD,
-                            BALANCE_AMT_NOW : item.BLNC_AMT_NOW,
-                            USABLE_BALANCE_AMT_NOW : item.USE_PSBLTY_BLNC,
+                            BALANCE_AMT_NOW : gfnma_nvl2(item.BLNC_AMT_NOW),
+                            USABLE_BALANCE_AMT_NOW : gfnma_nvl2(item.USE_PSBLTY_BLNC),
                             FBS_STATUS : item.FBS_STTS,
                             QUERY_TIME : item.INQ_TM,
-                            DIFF_BALANCE_AMT : item.DIFF_BALANCE_AMT,
+                            DIFF_BALANCE_AMT : gfnma_nvl2(item.DIFF_BALANCE_AMT),
                         }
                         jsonBalanceStatusList.push(msg);
                     });

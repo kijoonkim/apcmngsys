@@ -24,7 +24,7 @@
 <head>
 	<title>title : 차입금상환스케줄</title>
 	<%@ include file="../../../../frame/inc/headerMeta.jsp" %>
-	<%@ include file="../../../../frame/inc/headerScript.jsp" %>
+<%-- 	<%@ include file="../../../../frame/inc/headerScript.jsp" %> --%>
 	<%@ include file="../../../../frame/inc/headerScriptMa.jsp" %>
 </head>
 <body oncontextmenu="return false">
@@ -426,7 +426,7 @@
 				typeinfo : {ref : 'jsonLoanType',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption: ["차입금명"],	ref: 'LOAN_NAME',	type:'output',  	width:'250px',  	style:'text-align:left'}, //P_FIM002 DBOBIZCOMPONENT 에 값이 없음.
-			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '200px', style : 'text-align:center', type : 'combo',
+			{caption : ["통화"], ref : 'CURRENCY_CODE', width : '100px', style : 'text-align:center', type : 'combo',
 				typeinfo : {ref : 'jsonCurrencyCode',  label : 'label', value : 'value'}, disabled: true
 			},
 			{caption: ["차입금액(통화)"],	ref: 'LOAN_AMT',  		type:'output',  	width:'250px',  	style:'text-align:right', format : {type:'number', rule:'#,###', emptyvalue:'0'}},
@@ -517,7 +517,7 @@
 
 		var replaceText0 	= "_CNPT_CD_";
 		var replaceText1 	= "_CNPT_NM_";
-		var strWhereClause 	= "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%' ";
+		var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
 		SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 팝업');
 		compopup1({
@@ -615,8 +615,7 @@
 						LOAN_NUM        	: gfn_nvl(item.BRW_NO),
 						FI_ORG_CODE        	: gfn_nvl(item.ACNTG_OGNZ_CD),
 						SITE_CODE        	: gfn_nvl(item.SITE_CD),
-						BANK_CODE        	: gfn_nvl(item.BANK_CD),
-						BANK_CS_CODE        : gfn_nvl(item.BANK_CNPT_CD),
+						BANK_CS_CODE        : gfn_nvl(item.BANK_CD),
 						LOAN_CATEGORY1      : gfn_nvl(item.LOAN_CTGRY1),
 						LOAN_CATEGORY2      : gfn_nvl(item.LOAN_CTGRY2),
 						LOAN_CATEGORY3      : gfn_nvl(item.LOAN_CTGRY3),
@@ -638,7 +637,6 @@
 					jsonTrl1030Top.push(msg);
 					totalRecordCount++;
 				});
-
 				Trl1030GridTop.rebuild();
 
 				if(jsonTrl1030Top.length > 0) {
@@ -729,13 +727,14 @@
 					const msg = {
 						TXN_ID        				: gfn_nvl(item.TRSC_ID),
 						LOAN_NUM        			: gfn_nvl(item.BRW_NO),
-						PLAN_SEQ        			: gfn_nvl(item.PLAN_SEQ),
+						PLAN_SEQ        			: gfnma_nvl2(item.PLAN_SEQ),
 						CURRENCY_CODE        		: gfn_nvl(item.CRN_CD),
 						REPAY_PLAN_DATE        		: gfn_nvl(item.RPMT_PLAN_YMD),
 						REPAY_TRANSFER_AMT        	: gfn_nvl(item.BRW_RPLCMT_AMT),
 						REMAIN_LOAN_AMT        		: gfn_nvl(item.NRPY_AMT),
-						INTEREST_DAY        		: gfn_nvl(item.INT_DCNT),
+						INTEREST_DAY        		: gfnma_nvl2(item.INT_DCNT),
 						INTEREST_REPAY_PLAN_AMT     : gfn_nvl(item.INT_PRNMNT_AMT),
+						REPAY_PLAN_AMT				: gfnma_nvl2(item.RPMT_PLAN_AMT),
 						REPAY_TOTAL_AMT        		: gfn_nvl(item.REPAY_TOTAL_AMT),
 						INTEREST_FROM_DATE        	: gfn_nvl(item.INT_BGNG_YMD),
 						INTEREST_TO_DATE        	: gfn_nvl(item.INT_END_YMD),

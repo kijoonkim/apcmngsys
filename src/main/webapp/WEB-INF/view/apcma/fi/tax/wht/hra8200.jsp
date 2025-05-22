@@ -263,9 +263,12 @@ var p_userId = '${loginVO.id}';
  					uncheckedvalue : 'N'
  				}
         	},
-            {caption: ["귀속연월"],		ref: 'jobYyyymm', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["지급연월"], 	ref: 'payYyyymm',    	type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["제출연월"],  		ref: 'submitYyyymm',    			type:'output',  	width:'100px',  	style:'text-align:left'}
+            {caption: ["귀속연월"],		ref: 'jobYyyymm', 			type:'output',  	width:'100px',  	style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+            {caption: ["지급연월"], 	ref: 'payYyyymm',    	type:'output',  	width:'100px',  	style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+            {caption: ["제출연월"],  		ref: 'submitYyyymm',    			type:'output',  	width:'100px',  	style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}}
         ];
 
         grdDclrList = _SBGrid.create(SBGridProperties);
@@ -334,9 +337,12 @@ var p_userId = '${loginVO.id}';
  					checkedvalue : 'Y',
  					uncheckedvalue : 'N'
  				},	width:'80px',		style:'text-align:center'},
-        	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
-        	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["귀속월"], ref: 'jobYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["지급월"], ref: 'payYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
+        	{caption: ["신고월"], ref: 'submitYyyymm', 				type:'output',		width:'80px',		style:'text-align:center',
+				format : {type:'date', rule:'yyyy-mm', origin:'yyyymm'}},
         	{caption: ["근무지"], ref: 'workRegionName', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사번"], ref: 'empCode', 				type:'output',		width:'80px',		style:'text-align:center'},
         	{caption: ["사원명"], ref: 'empName', 				type:'output',		width:'80px',		style:'text-align:center'},
@@ -372,7 +378,7 @@ var p_userId = '${loginVO.id}';
         	{caption: ["주민세 조정액"], ref: 'whLocalTax3', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
         	{caption: ["주민세 납부액"], ref: 'whLocalTax4', format : {type:'number', rule:'#,###'},				type:'output',		width:'80px',		style:'text-align:right'},
         	{caption: ["총납부액"], ref: 'totTax', 	format : {type:'number', rule:'#,###'},			type:'output',		width:'80px',		style:'text-align:right'},
-        	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center'},
+        	{caption: ["번호"], ref: 'txnId', 				type:'output',		width:'80px',		style:'text-align:center', hidden: true},
 
         ];
 
@@ -500,7 +506,7 @@ var p_userId = '${loginVO.id}';
         						   , reasonCode : item.RSN_CD
         						   , reasonName : item.RSN_NM
         						   , socialNumDate : item.RRNO_BRDT
-        						   , payDate : item.PAY_YMD
+        						   , payDate : gfnma_date5(item.PAY_YMD)
         						   , docDate : item.SLIP_YMD
         						   , docName : item.SLIP_NM
         						   , docDesc : item.SLIP_DSCTN
@@ -529,7 +535,7 @@ var p_userId = '${loginVO.id}';
         						   , totTax : item.TOT_PAY_TXAMT
         						   , costDeptCode : item.CSTCT_CD
         						   , costDeptName : item.CSTCT_NM
-
+							   		, txnId		  : item.TRSC_ID
 
         				   }
         				   jsonDclrDtlInfo.push(obj);
@@ -585,6 +591,7 @@ var p_userId = '${loginVO.id}';
         						   , totTax : item.TOT_PAY_TXAMT
         						   , costDeptCode : item.CSTCT_CD
         						   , costDeptName : item.CSTCT_NM
+
 
 
         				   }

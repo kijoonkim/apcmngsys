@@ -81,8 +81,8 @@
 
 	const fn_initSBSelectOprtr = async function() {
 		let rst = await Promise.all([
-			gfn_setComCdGridSelect('grdOprtr', jsonGrdJobClsfCd, "JOB_CLSF_CD", gv_apcCd),
-			gfn_setComCdSBSelect('oprtr-slt-jobClsfCd', jsonApcJobClsfCd, "JOB_CLSF_CD", gv_apcCd),
+			gfn_setComCdGridSelect('grdOprtr', jsonGrdJobClsfCd, "JOB_CLSF_CD", gv_selectedApcCd),
+			gfn_setComCdSBSelect('oprtr-slt-jobClsfCd', jsonApcJobClsfCd, "JOB_CLSF_CD", gv_selectedApcCd),
 		])
 	}
 
@@ -298,7 +298,7 @@
 			let apcCdCol 	= grdOprtr.getColRef("apcCd");
 			let addRowYnCol = grdOprtr.getColRef("addRowYn");
         	grdOprtr.setCellData(nRow, nCol, "N", true);
-        	grdOprtr.setCellData(nRow, apcCdCol, gv_apcCd, true);
+        	grdOprtr.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
         	grdOprtr.setCellData(nRow, addRowYnCol, true, true);
         	grdOprtr.addRow(true);
 

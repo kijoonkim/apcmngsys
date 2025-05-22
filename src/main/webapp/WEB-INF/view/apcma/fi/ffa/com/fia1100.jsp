@@ -146,12 +146,20 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">분류구분</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-select id="FM_ASST_LVL_TYPE" jsondata-ref="jsonAssetLevelType" style="width:150px" uitype="single" unselected-text="선택" class="form-control input-sm"></sbux-select>
+	                                        <sbux-select
+													id="FM_ASST_LVL_TYPE"
+													jsondata-ref="jsonAssetLevelType"
+													style="width:150px"
+													uitype="single"
+													unselected-text="선택"
+													class="form-control input-sm"
+													onchange="fn_changeLvlType(FM_ASST_LVL_TYPE)"
+											></sbux-select>
 	                                    </td>
 	
 	                                    <th scope="row" class="th_bg">자산분류코드</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-input id="FM_ASST_GROUP_CD" class="form-control input-sm" style="width:150px" uitype="text"></sbux-input>
+	                                        <sbux-input id="FM_ASST_GROUP_CD" name="FM_ASST_GROUP_CD" class="form-control input-sm" style="width:150px" uitype="text"></sbux-input>
 	                                    </td>
 	                                </tr>
 	
@@ -192,10 +200,10 @@
 	
 	                                <tr>
 	                                    <th scope="row" class="th_bg ">
-	                                        <font id="LA_PARENT_ASSET_LABEL">중분류</font>
+	                                        <font id="LA_PARENT_ASSET_LABEL" class="hide-th">중분류</font>
 	                                    </th>
 	                                    <td colspan="5" class="td_input">
-	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%" class="hide-asset-label">
+	                                        <div style="display:flex;float:left;vertical-align:middle;width:100%" class="hide-td">
 	                                            <sbux-input style="width:100px" id="FM_PRNT_ACNT_GRP" uitype="text" class="form-control input-sm"></sbux-input>
 	                                            <font style="width:5px"></font>
 	                                            <sbux-button id="BTN_POP1" class="btn btn-xs btn-outline-dark" text="..." uitype="modal" target-id="modal-compopup1" onclick="fn_compopup1()"></sbux-button>
@@ -443,10 +451,10 @@
 	                                <tr>
 	                                    <th scope="row" class="th_bg">비고</th>
 	                                    <td colspan="5" class="td_input">
-	                                        <sbux-textarea id="FM_MEMO" class="form-control input-sm" uitype="normal" style="width:100%; height:50px;""></sbux-textarea>
+	                                        <sbux-textarea id="FM_MEMO" class="form-control input-sm" uitype="normal" style="width:100%;"></sbux-textarea>
 										</td>		                                	
 							
-	                                 <th scope=" row" class="th_bg">정렬순서</th>
+	                                 <th scope="row" class="th_bg">정렬순서</th>
 	                                    <td colspan="5" class="td_input">
 	                                        <sbux-input id="FM_SORT_SEQ" class="form-control input-sm" style="width:100px" uitype="text"></sbux-input>
 	                                    </td>
@@ -556,13 +564,16 @@
     	fn_state();
   		
   		fn_createFia1100Grid();
-		cfn_search();
+
+		p_sel_rowData = null;
+		await fn_setFia1100Grid('LIST');
 	} 
 	
     // only document
     window.addEventListener('DOMContentLoaded', function(e) {
-		
     	fn_init();
+		$('.hide-th').hide();
+		$('.hide-td').hide();
     });
  
     /**
@@ -618,10 +629,12 @@
         Fia1100Grid.bind('click', 'fn_viewFia1100GridEvent');
     }
     //상세정보 보기
-    function fn_viewFia1100GridEvent() {
-    	
+	const fn_viewFia1100GridEvent = async function () {
+
+
     	let nRow = Fia1100Grid.getRow();
     	let nCol = Fia1100Grid.getCol();
+		console.log(' fn_viewFia1100GridEvent nRow ==> ', nRow);
 		if (nRow < 1) {
             return;
 		}
@@ -629,18 +642,25 @@
         p_sel_rowData = rowData;
         console.log('rowData:', rowData);
 		
-		if(rowData.ASST_LVL_TYPE == 'LEVEL1'){
+		if(rowData.ASST_LVL_TYPE === 'LEVEL1'){
 			$('#main-btn-save', parent.document).attr('disabled', true);
 			$('#main-btn-del', 	parent.document).attr('disabled', true);
-			$('.hide-asset-label').prop('disabled', true);
 			fn_fmDisabled(true);
+			$('.hide-th').hide();
+			$('.hide-td').hide();
 		} else {
 			$('#main-btn-save', parent.document).attr('disabled', false);
 			$('#main-btn-del', 	parent.document).attr('disabled', false);
-			$('.hide-asset-label').prop('disabled', false);
 			fn_fmDisabled(false);
+			if(rowData.ASST_LVL_TYPE === 'LEVEL2'){
+				$('.hide-th').hide();
+				$('.hide-td').hide();
+			}else{
+				$('.hide-th').show();
+				$('.hide-td').show();
+			}
 		}
-		fn_setFia1100Detail('Q1', rowData);
+		await fn_setFia1100Detail('Q1', rowData);
     }  
     
     /**
@@ -648,11 +668,11 @@
      */
     function fn_fmDisabled(type) {
 		SBUxMethod.attr('FM_ASST_LVL_TYPE', 		'readonly', type);
-		SBUxMethod.attr('FM_ASST_GROUP_CD', 		'readonly', type);
+		SBUxMethod.attr('FM_ASST_GROUP_CD', 		'readonly', "true");
 		SBUxMethod.attr('FM_EPS_TYPE', 			'readonly', type);
 		SBUxMethod.attr('FM_ASST_GROUP_NM', 		'readonly', type);
 		SBUxMethod.attr('FM_ASST_CTGRY', 		'readonly', type);
-		
+
 		SBUxMethod.attr('FM_AST_YN', 			'readonly', type);
 		SBUxMethod.attr('FM_DPRC_YN', 		'readonly', type);
 		SBUxMethod.attr('FM_USE_YN', 				'readonly', type);
@@ -718,6 +738,7 @@
 		
 		SBUxMethod.attr('FM_MEMO',			'readonly', type);
 		SBUxMethod.attr('FM_SORT_SEQ',		'readonly', type);
+
     }
     
     /**
@@ -756,7 +777,6 @@
 			,V_P_USERID				: p_userId
 			,V_P_PC					: '' 
 	    };		
-		console.log('paramObj:', paramObj);
         const postJsonPromise = gfn_postJSON("/fi/ffa/com/selectFia1100List.do", {
         	getType				: 'json',
         	workType			: wtype,
@@ -774,33 +794,42 @@
  
   	        	jsonFia1100Grid.length = 0;
   	        	data.cv_1.forEach((item, index) => {
-  					const msg = {
-  						LVL							: gfnma_nvl(item.LVL),	
-  						
-  						ASST_CTGRY				: gfnma_nvl(item.ASST_CTGRY),
-  						ASST_GROUP_CD			: gfnma_nvl(item.ASST_GROUP_CD),
-  						ASST_GROUP_NM			: gfnma_nvl(item.ASST_GROUP_NM),
-  						ASST_LVL_TYPE			: gfnma_nvl(item.ASST_LVL_TYPE),
-  						CO_CD					: gfnma_nvl(item.CO_CD),
-  						
-  						DPRC_YN				: gfnma_nvl(item.DPRC_YN),
-  						DPRC_MTHD_GAAP	: gfnma_nvl(item.DPRC_MTHD_GAAP),
-  						DPRC_MTHD_IFRS	: gfnma_nvl(item.DPRC_MTHD_IFRS),
-  						DPRC_MTHD_TAX		: gfnma_nvl(item.DPRC_MTHD_TAX),
-  						
-  						EPS_TYPE				: gfnma_nvl(item.EPS_TYPE),
-  						KEY_ID						: gfnma_nvl(item.KEY_ID),
-  						UP_KEY_ID					: gfnma_nvl(item.UP_KEY_ID),
-  						PRNT_ACNT_GRP			: gfnma_nvl(item.PRNT_ACNT_GRP),
-  						
-  						ETC							: gfnma_nvl(item.ETC),
-  					}
-  					jsonFia1100Grid.push(msg);
-  					totalRecordCount ++;
+					/*
+                    const msg = {
+                     /*
+                        LVL							: gfnma_nvl(item.LVL),
+
+                        ASST_CTGRY				: gfnma_nvl(item.ASST_CTGRY),
+                        ASST_GROUP_CD			: gfnma_nvl(item.ASST_GROUP_CD),
+                        ASST_GROUP_NM			: gfnma_nvl(item.ASST_GROUP_NM),
+                        ASST_LVL_TYPE			: gfnma_nvl(item.ASST_LVL_TYPE),
+                        CO_CD					: gfnma_nvl(item.CO_CD),
+
+                        DPRC_YN				: gfnma_nvl(item.DPRC_YN),
+                        DPRC_MTHD_GAAP	: gfnma_nvl(item.DPRC_MTHD_GAAP),
+                        DPRC_MTHD_IFRS	: gfnma_nvl(item.DPRC_MTHD_IFRS),
+                        DPRC_MTHD_TAX		: gfnma_nvl(item.DPRC_MTHD_TAX),
+
+                        EPS_TYPE				: gfnma_nvl(item.EPS_TYPE),
+                        KEY_ID						: gfnma_nvl(item.KEY_ID),
+                        UP_KEY_ID					: gfnma_nvl(item.UP_KEY_ID),
+                        PRNT_ACNT_GRP			: gfnma_nvl(item.PRNT_ACNT_GRP),
+
+                        ETC							: gfnma_nvl(item.ETC),
+                    }
+                    jsonFia1100Grid.push(msg);
+                     */
+
+					jsonFia1100Grid.push(item);
+					totalRecordCount ++;
   				});
- 
         		Fia1100Grid.rebuild();
-        	} else {
+				console.log('jsonFia1100Grid search ==> ', jsonFia1100Grid);
+
+				if(jsonFia1100Grid.length > 0){
+					Fia1100Grid.clickRow(1);
+				}
+			} else {
           		alert(data.resultMessage);
         	}
  
@@ -850,7 +879,7 @@
 		});
  
         const data = await postJsonPromise;
-		console.log('data:', data);
+		console.log('fn_setFia1100Detail data : ', data);
         try {
   			if (_.isEqual("S", data.resultStatus)) {
   				
@@ -884,9 +913,9 @@
     	var p_find3	= p_ss_languageID;
     	var p_find4	= gv_ma_selectedCorpCd;
     	var p_find5	= gv_ma_selectedClntCd;
-    	var p_find6	= gfnma_nvl(SBUxMethod.get("FM_ASST_CTGRY"));
-   		var p_find7	= gfnma_nvl(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
-		var p_find8	= gfnma_nvl(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
+    	var p_find6	= gfnma_nvl2(SBUxMethod.get("FM_ASST_CTGRY"));
+   		var p_find7	= gfnma_nvl2(SBUxMethod.get("FM_PRNT_ACNT_GRP"));
+		var p_find8	= gfnma_nvl2(SBUxMethod.get("FM_PARENT_ASSET_GROUP_NAME"));
 		var p_find9 = '';
 		var p_find10 = '';
 		var p_find11 = '';
@@ -918,6 +947,46 @@
 				console.log('callback data:', data);
 				SBUxMethod.set('FM_PRNT_ACNT_GRP', 				data.ASST_MCLSF);
 				SBUxMethod.set('FM_PARENT_ASSET_GROUP_NAME', 	data.ASSET_LEVEL2_NAME);
+
+				SBUxMethod.set("FM_ASST_MCLSF", gfnma_nvl2(data.ASST_MCLSF) );
+				SBUxMethod.set("FM_ASSET_LEVEL2_NAME", gfnma_nvl2(data.ASSET_LEVEL2_NAME) );
+				SBUxMethod.set("FM_ASST_CTGRY", gfnma_nvl2(data.ASST_CTGRY) );
+				SBUxMethod.set("FM_ASSET_CATEGORY_NAME", gfnma_nvl2(data.ASSET_CATEGORY_NAME) );
+				SBUxMethod.set("FM_ASST_ACNT_CD", gfnma_nvl2(data.ASST_ACNT_CD) );
+				SBUxMethod.set("FM_ASSET_ACCOUNT_NAME", gfnma_nvl2(data.ASSET_ACCOUNT_NAME) );
+				SBUxMethod.set("FM_DPCO_ACNT", gfnma_nvl2(data.DPCO_ACNT) );
+				SBUxMethod.set("FM_DEPR_EXP_ACC_NAME", gfnma_nvl2(data.DEPR_EXP_ACC_NAME) );
+				SBUxMethod.set("FM_ACML_DPRC_ACNT", gfnma_nvl2(data.ACML_DPRC_ACNT) );
+				SBUxMethod.set("FM_ACCUM_DEPR_ACC_NAME", gfnma_nvl2(data.ACCUM_DEPR_ACC_NAME) );
+				SBUxMethod.set("FM_GVSBS_ACNT", gfnma_nvl2(data.GVSBS_ACNT) );
+				SBUxMethod.set("FM_SUBSIDIES_ACCOUNT_NAME", gfnma_nvl2(data.SUBSIDIES_ACCOUNT_NAME) );
+				SBUxMethod.set("FM_GVSBS_DPCO_ACNT", gfnma_nvl2(data.GVSBS_DPCO_ACNT) );
+				SBUxMethod.set("FM_SUBSIDIES_DEPR_ACC_NAME", gfnma_nvl2(data.SUBSIDIES_DEPR_ACC_NAME) );
+				SBUxMethod.set("FM_GVSBS_DPRC_AT_ACNT", gfnma_nvl2(data.GVSBS_DPRC_AT_ACNT) );
+				SBUxMethod.set("FM_SUBSIDIES_ACCUM_DEPR_ACC_NAME", gfnma_nvl2(data.SUBSIDIES_ACCUM_DEPR_ACC_NAME) );
+				SBUxMethod.set("FM_DPRC_PRD_GAAP", gfnma_nvl2(data.DPRC_PRD_GAAP) );
+				SBUxMethod.set("FM_DPRC_PRD_IFRS", gfnma_nvl2(data.DPRC_PRD_IFRS) );
+				SBUxMethod.set("FM_DPRC_PRD_TAX", gfnma_nvl2(data.DPRC_PRD_TAX) );
+				SBUxMethod.set("FM_DPRC_MTHD_GAAP", gfnma_nvl2(data.DPRC_MTHD_GAAP) );
+				SBUxMethod.set("FM_DPRC_MTHD_IFRS", gfnma_nvl2(data.DPRC_MTHD_IFRS) );
+				SBUxMethod.set("FM_DPRC_MTHD_TAX", gfnma_nvl2(data.DPRC_MTHD_TAX) );
+				SBUxMethod.set("FM_RMN_RT_GAAP", gfnma_nvl2(data.RMN_RT_GAAP) );
+				SBUxMethod.set("FM_RMN_RT_IFRS", gfnma_nvl2(data.RMN_RT_IFRS) );
+				SBUxMethod.set("FM_RMN_RT_TAX", gfnma_nvl2(data.RMN_RT_TAX) );
+				SBUxMethod.set("FM_RMN_AMT_GAAP", gfnma_nvl2(data.RMN_AMT_GAAP) );
+				SBUxMethod.set("FM_RMN_AMT_IFRS", gfnma_nvl2(data.RMN_AMT_IFRS) );
+				SBUxMethod.set("FM_RMN_AMT_TAX", gfnma_nvl2(data.RMN_AMT_TAX) );
+				SBUxMethod.set("FM_SVLF_GAAP", gfnma_nvl2(data.SVLF_GAAP) );
+				SBUxMethod.set("FM_SVLF_IFRS", gfnma_nvl2(data.SVLF_IFRS) );
+				SBUxMethod.set("FM_SVLF_TAX", gfnma_nvl2(data.SVLF_TAX) );
+				SBUxMethod.set("FM_AST_YN", gfnma_nvl2(data.AST_YN) );
+				SBUxMethod.set("FM_DPRC_YN", gfnma_nvl2(data.DPRC_YN) );
+				SBUxMethod.set("FM_USE_YN", gfnma_nvl2(data.USE_YN) );
+				SBUxMethod.set("FM_INVT_MNG_YN", gfnma_nvl2(data.INVT_MNG_YN) );
+				SBUxMethod.set("FM_LEASE_YN", gfnma_nvl2(data.LEASE_YN) );
+				SBUxMethod.set("FM_HLD_YN", gfnma_nvl2(data.HLD_YN) );
+
+
 			},
     	});
     }    
@@ -1017,45 +1086,42 @@
      * 신규
      */
  	function cfn_add() {
-    	
-		SBUxMethod.set('"FM_USE_YN"', 'Y');
-    	
-		$('#LA_PARENT_ASSET_LABEL').hide();
-		SBUxMethod.hide('FM_PRNT_ACNT_GRP');
-		SBUxMethod.hide('BTN_POP1');
-		SBUxMethod.hide('FM_PARENT_ASSET_GROUP_NAME');
-		
+
+		gfnma_uxDataClear('#dataArea1');
+
+		SBUxMethod.set('FM_USE_YN', 'Y');
+
 		fn_fmDisabled(false);
     	
 		$('#main-btn-save', parent.document).attr('disabled', false);
 		$('#main-btn-del', 	parent.document).attr('disabled', true);
-		
+
+		//자산분류코드 의 readonly로 워크타입 부여하기 때문에 신규인 경우 fn_fmDisabled 함수에서 해당 엘리먼트만 readonly false처리
+		SBUxMethod.attr('FM_ASST_GROUP_CD', 'readonly', "false");
 		SBUxMethod.set('FM_ASST_GROUP_CD', '');
     }
     
     /**
      * 저장
      */
-    function cfn_save() {
+    async function cfn_save() {
     	
 		//자산분류코드
-		var p_group_code = SBUxMethod.getAttr('FM_ASST_GROUP_CD');
-		console.log(p_group_code);
 		var p_strStatus = '';
-    	if(p_group_code.readonly == 'true'){
-            strStatus = "U";
+    	if($('#FM_ASST_GROUP_CD').attr("readonly") === 'readonly'){
+			p_strStatus = "U";
     	} else {
-            strStatus = "N";
+			p_strStatus = "N";
     	}
     	
-    	fn_saveFia1100(strStatus, function(){
+    	await fn_saveFia1100(p_strStatus, async function(){
     		
     		$('#main-btn-new', 	parent.document).attr('disabled', false);
     		$('#main-btn-save', parent.document).attr('disabled', true);
     		$('#main-btn-del', 	parent.document).attr('disabled', false);
     		fn_fmDisabled(true);
-    		
-    		cfn_search();
+
+			await cfn_search();
     	});
     }
     
@@ -1063,7 +1129,7 @@
      * 저장 처리
      */
     const fn_saveFia1100 = async function(status, callbackFn) {
-		
+
 		let p_asset_group_name		= gfnma_nvl(SBUxMethod.get("SCH_ASST_GROUP_NM"));
     	
 		let p_asset_group_code		= gfnma_nvl(SBUxMethod.get("FM_ASST_GROUP_CD"));
@@ -1113,7 +1179,7 @@
 		let p_depreciate_yn				= gfnma_nvl(SBUxMethod.get("FM_DPRC_YN")['FM_DPRC_YN']);
 		let p_use_yn					= gfnma_nvl(SBUxMethod.get("FM_USE_YN")['FM_USE_YN']);
 		
-    	if(status=='N' || status=='U'){
+    	if(status === 'N' || status === 'U'){
 	    	if(!p_asset_level_type){
 	    		gfn_comAlert("E0000","분류구분을 등록하세요");
 	    		return;
@@ -1240,26 +1306,34 @@
     /**
      * 삭제
      */
-    function cfn_del() {
+    async function cfn_del() {
     	
     	if(p_sel_rowData['PRNT_ACNT_GRP']){
       		gfn_comAlert("E0000","소분류가 존재하여 삭제할 수 없습니다. 소분류를 먼저 삭제해주세요.");
 			return;      		 
-    		
     	}
     	
 		var p_strStatus = 'D';
-    	fn_saveFia1100(strStatus, function(){
+    	await fn_saveFia1100(p_strStatus, async function(){
     		
     		$('#main-btn-new', 	parent.document).attr('disabled', false);
     		$('#main-btn-save', parent.document).attr('disabled', true);
     		$('#main-btn-del', 	parent.document).attr('disabled', false);
     		fn_fmDisabled(true);
     		
-    		cfn_search();
+    		await cfn_search();
     	});
     }
-    
+
+	const fn_changeLvlType = function(type){
+		if(type === "LEVEL3"){
+			$('.hide-td').show();
+			$('.hide-th').show();
+		}else{
+			$('.hide-td').hide();
+			$('.hide-th').hide();
+		}
+	}
     
 </script>
 <%@ include file="../../../../frame/inc/bottomScript.jsp" %>

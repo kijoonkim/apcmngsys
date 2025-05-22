@@ -373,10 +373,26 @@ public class SpmtPrfmncVO extends ComVO {
 	private double crynWght;
 	private String crynYn;
 
+
+	/**
+	 * 판매금액
+	 */
+	private long ntslAmt;
+	/**
+	 * 납기일자
+	 */
+	private String dudtYmd;
+
 	/**
 	 * 계량번호
 	 */
 	private String wghno;
+
+	/**
+	 * 단가
+	 */
+	private String spmtSlsUntprc;
+
 
 	private List<SpmtGdsVO> spmtGdsList;
 

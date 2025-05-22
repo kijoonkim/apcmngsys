@@ -208,18 +208,21 @@
 		</if>
 		<![CDATA[
                  , PR.CRTR_AREA         AS CRTR_AREA
+                 --, PR.CTRTAR         	AS CTRTAR
                  , PR.PLNTNG_AREA       AS PLNTNG_AREA
                  , PR.PRCHS_QNTT        AS PRCHS_QNTT
                  , PR.PRCHS_AMT         AS PRCHS_AMT
                  , FI.FRMERNO           AS FRMERNO
                  , NVL(PR.AGRC_YN, 'N')			AS AGRC_YN
 	    		 , PR.USE_YN			AS USE_YN
-	    		 , (SELECT SUM(CRTR_AREA)
+                 , (SELECT SUM(CRTR_AREA)
+	    		 --, (SELECT SUM(CTRTAR)
                       FROM TB_PRDCR_LAND_INFO X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
                        AND X.DEL_YN = 'N'
                    ) AS LAND_CRTR_AREA
+                 --) AS LAND_CTRTAR
                  , (SELECT SUM(PLNTNG_AREA)
                       FROM TB_PRDCR_LAND_INFO X
                      WHERE X.APC_CD = PR.APC_CD

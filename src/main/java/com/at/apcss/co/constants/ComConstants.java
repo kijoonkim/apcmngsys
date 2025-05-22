@@ -77,6 +77,13 @@ public class ComConstants {
 	public final static String PROP_RESULT_MESSAGE = "resultMessage";
 	public final static String PROP_RESULT_MAP = "resultMap";
 	public final static String PROP_RESULT_LIST = "resultList";
+	public final static String PROP_RESULT_LIST_1 = "resultList1";
+	public final static String PROP_RESULT_LIST_2 = "resultList2";
+	public final static String PROP_RESULT_LIST_3 = "resultList3";
+	public final static String PROP_RESULT_LIST_4 = "resultList4";
+	public final static String PROP_RESULT_LIST_5 = "resultList5";
+
+
 	public final static String PROP_RESULT_JSON = "resultJson";
 	public final static String PROP_RESULT_CNT = "resultCnt";
 
@@ -120,6 +127,7 @@ public class ComConstants {
 
 	public final static String CON_YES = "Y";
 	public final static String CON_NONE = "N";
+	public final static String CON_T = "T";
 	public final static String CON_X = "X";
 
 	public final static String CON_XSDENY_CHAR = "----==_dummy_part_66f108b0c681a_bf1d241437c4";
@@ -342,6 +350,12 @@ public class ComConstants {
 	 */
 	public final static String CON_DPCN_LGN = "DPCN_LGN";
 	public final static String CON_DPCN_LGN_PSBLTY = "PSBLTY";
+
+	/**
+	 * 이력처리종류
+	 */
+	public final static String CON_HSTRY_PRCS_KND_UPDATE = "U";
+	public final static String CON_HSTRY_PRCS_KND_DELETE = "D";
 
 	/* 재고구분 */
 	public final static String INVNTR_SE_CD_RAWMTR = "1";

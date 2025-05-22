@@ -130,4 +130,8 @@ public class SpmtPckgUnitVO extends ComVO{
 	 */
 	private int sn;
 
+	private String sortGrdCd;
+
+	private String pckgGrdCd;
+
 }

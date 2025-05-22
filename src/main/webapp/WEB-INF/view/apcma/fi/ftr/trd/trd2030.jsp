@@ -398,95 +398,95 @@
             },
             {caption: ["예적금(원래)"],         ref: 'DEPOSIT_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["예적금(환산)"],         ref: 'DEPOSIT_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자금액"],         ref: 'PRETAX_INTEREST_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자금액(환산)"],         ref: 'PRETAX_INTEREST_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["세후이자금액"],         ref: 'INTEREST_IN_PLAN_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["세후이자금액(환산)"],         ref: 'INTEREST_IN_PLAN_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["법인세율"],         ref: 'CTAX_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["법인세(원래)"],         ref: 'CTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["법인세(환산)"],         ref: 'CTAX_WITHHOLD_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["지방소득세율"],         ref: 'PTAX_RATE',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["지방세(원래)"],         ref: 'PTAX_WITHHOLD_AMOUNT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["지방세(환산)"],         ref: 'PTAX_WITHHOLD_AMT_F',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자율"],         ref: 'INTEREST_RATE',    type:'input',  	width:'75px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
-            {caption: ["시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
+            {caption: ["시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
-            {caption: ["종료일"],       ref: 'INTEREST_TO_DATE', 		type:'inputdate',  	width:'80px',  	style:'text-align:left',
+            {caption: ["종료일"],       ref: 'INTEREST_TO_DATE', 		type:'inputdate',  	width:'87px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
             },
             {caption: ["불입원금"],         ref: 'IN_PLAN_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["불입원금(환산)"],         ref: 'IN_PLAN_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["불입후 잔액"],         ref: 'REMAIN_DEPOSIT_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["불입후잔액(환산)"],         ref: 'REMAIN_DEPOSIT_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["불입원금(환산전)"],         ref: 'IN_PLAN_AMT_BEFORE',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["총불입액"],         ref: 'TOTAL_IN_PLAN_AMT_O',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["총불입액(환산)"],         ref: 'TOTAL_IN_PLAN_AMT_F',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["환차손익"],         ref: 'FOREIGN_EXCHANGE_PL',    type:'input',  	width:'160px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["APC"], 		ref: 'FI_ORG_CODE',   	    type:'combo', style:'text-align:left' ,width: '80px',
                 typeinfo: {
@@ -1020,7 +1020,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_BANK_CS_NAME"));
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -1048,7 +1048,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get("SRCH_OUT_ACCOUNT_NO"));
         var replaceText0 	= "_DPMNY_CD_";
         var replaceText1 	= "_DPMNY_NM_";
-        var strWhereClause 	= "AND DEPOSIT_CODE LIKE '%" + replaceText0 + "%' AND DEPOSIT_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND DPMNY_CD LIKE '%" + replaceText0 + "%' AND DPMNY_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '계좌정보(예적금원장) 정보');
         compopup1({
@@ -1137,18 +1137,18 @@
                             DEPT_CODE : item.DEPT_CD,
                             COST_CENTER_CODE : item.CSTCT_CD,
                             DEPOSIT_AMT_O : item.DEPOSIT_AMT_O,
-                            DEPOSIT_AMT_F : item.DEPOSIT_AMT_F,
-                            IN_PLAN_AMT_O : item.IN_PLAN_AMT_O,
-                            REMAIN_DEPOSIT_AMT_O : item.REMAIN_DEPOSIT_AMT_O,
-                            IN_PLAN_AMT_BEFORE : item.PRN_RPMT_AMT_BFR,
+                            DEPOSIT_AMT_F : gfnma_nvl2(item.DEPOSIT_AMT_F),
+                            IN_PLAN_AMT_O : gfnma_nvl2(item.IN_PLAN_AMT_O),
+                            REMAIN_DEPOSIT_AMT_O : gfnma_nvl2(item.REMAIN_DEPOSIT_AMT_O),
+                            IN_PLAN_AMT_BEFORE : gfnma_nvl2(item.PRN_RPMT_AMT_BFR),
                             FOREIGN_EXCHANGE_PL : item.EXCHRT_GNLS,
                             INTEREST_DAY : item.INT_DCNT,
-                            INTEREST_IN_PLAN_AMT_O : item.INTEREST_IN_PLAN_AMT_O,
-                            TOTAL_IN_PLAN_AMT_O : item.TOTAL_IN_PLAN_AMT_O,
-                            IN_PLAN_AMT_F : item.PRN_RPMT_AMT_CNVS,
-                            REMAIN_DEPOSIT_AMT_F : item.DPMNY_BLNC_CNVS,
-                            INTEREST_IN_PLAN_AMT_F : item.INT_RPMT_PRNMNT_AMT_CNVS,
-                            TOTAL_IN_PLAN_AMT_F : item.TOTAL_IN_PLAN_AMT_F,
+                            INTEREST_IN_PLAN_AMT_O : gfnma_nvl2(item.INTEREST_IN_PLAN_AMT_O),
+                            TOTAL_IN_PLAN_AMT_O : gfnma_nvl2(item.TOTAL_IN_PLAN_AMT_O),
+                            IN_PLAN_AMT_F : gfnma_nvl2(item.PRN_RPMT_AMT_CNVS),
+                            REMAIN_DEPOSIT_AMT_F : gfnma_nvl2(item.DPMNY_BLNC_CNVS),
+                            INTEREST_IN_PLAN_AMT_F : gfnma_nvl2(item.INT_RPMT_PRNMNT_AMT_CNVS),
+                            TOTAL_IN_PLAN_AMT_F : gfnma_nvl2(item.TOTAL_IN_PLAN_AMT_F),
                             INTEREST_FROM_DATE : item.INT_BGNG_YMD,
                             INTEREST_TO_DATE : item.INT_END_YMD,
                             INTEREST_RATE : item.INT_RT,
@@ -1156,15 +1156,15 @@
                             INTERFACE_FLAG : item.IF_FLAG,
                             COMPLETE_FLAG : item.CFMTN_FLAG,
                             FI_ORG_CODE : item.ACNTG_OGNZ_CD,
-                            PRETAX_INTEREST_AMT_O : item.PRETAX_INTEREST_AMT_O,
-                            PRETAX_INTEREST_AMT_F : item.PRTX_INT_AMT_CNVS,
+                            PRETAX_INTEREST_AMT_O : gfnma_nvl2(item.PRETAX_INTEREST_AMT_O),
+                            PRETAX_INTEREST_AMT_F : gfnma_nvl2(item.PRTX_INT_AMT_CNVS),
                             ACCOUNT_COMPLETE_FLAG : item.ACCOUNT_COMPLETE_FLAG,
                             CTAX_RATE : item.COTX_RT,
-                            CTAX_WITHHOLD_AMOUNT : item.COTX_WTHD_AMT,
+                            CTAX_WITHHOLD_AMOUNT : gfnma_nvl2(item.COTX_WTHD_AMT),
                             PTAX_RATE : item.LCLTX_RT,
-                            PTAX_WITHHOLD_AMOUNT : item.LCLTX_WTHD_AMT,
-                            CTAX_WITHHOLD_AMT_F : item.COTX_WTHD_AMT_SUM,
-                            PTAX_WITHHOLD_AMT_F : item.LCLTX_WTHD_AMT_SUM,
+                            PTAX_WITHHOLD_AMOUNT : gfnma_nvl2(item.LCLTX_WTHD_AMT),
+                            CTAX_WITHHOLD_AMT_F : gfnma_nvl2(item.COTX_WTHD_AMT_SUM),
+                            PTAX_WITHHOLD_AMT_F : gfnma_nvl2(item.LCLTX_WTHD_AMT_SUM),
                             IN_PREAUTH_PAY_YN : item.PRN_PMT_ATTR_YN,
                             PAY_METHOD : item.PAY_MTHD,
                         }

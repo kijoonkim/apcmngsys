@@ -1882,31 +1882,31 @@
             },
             {caption: ["총불입액"],         ref: 'IN_TOTAL_AMT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["예적금대체"],         ref: 'IN_TRANSFER_AMT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["예적금불입예정액"],         ref: 'IN_PLAN_AMT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["예적금잔액"],         ref: 'REMAIN_DEPOSIT_AMT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자발생예정액"],         ref: 'INTEREST_IN_PLAN_AMT',    type:'input',  	width:'120px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자율"],         ref: 'INTEREST_RATE',    type:'input',  	width:'70px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["이자일수"],         ref: 'INTEREST_DAY',    type:'input',  	width:'70px',  style:'text-align:right',
                 typeinfo : {mask : {alias : 'numeric'}, maxlength : 24}
-                , format : {type:'number', rule:'#,###.00', emptyvalue:'0.00'}
+                , format : {type:'number', rule:'#,##0.00', emptyvalue:'0.00'}
             },
             {caption: ["적용시작일"],       ref: 'INTEREST_FROM_DATE', 		type:'inputdate',  	width:'100px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
@@ -2044,7 +2044,7 @@
         var searchName 		= gfn_nvl(SBUxMethod.get(elementId+"BANK_CS_NAME"));
         var replaceText0 	= "_CNPT_CD_";
         var replaceText1 	= "_CNPT_NM_";
-        var strWhereClause 	= "AND CS_CODE LIKE '%" + replaceText0 + "%' AND CS_NAME LIKE '%" + replaceText1 + "%'";
+        var strWhereClause 	= "AND A.CO_CD = '" + gv_ma_selectedCorpCd + "' " +  "AND A.CNPT_CD LIKE '%" + replaceText0 + "%' AND A.CNPT_NM LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 정보');
         compopup1({
@@ -2305,6 +2305,7 @@
                             IN_AMT : item.INCRS_AMT,
                             REMAIN_AMT : item.REMAIN_AMT,
                             DUE_DATE : item.MTRY_YMD,
+                            DEPOSIT_DAY : fn_getDay(gfnma_date5(item.DPMNY_YMD), gfnma_date5(item.MTRY_YMD)),
                             CURRENCY_CODE : item.CRN_CD,
                             INTEREST_RATE : item.INT_RT,
                             DEPOSIT_TYPE : item.DPMNY_TYPE,
@@ -3008,6 +3009,15 @@
     const fn_amRecalc = async function () {}
 
     const fn_amortize = async function () {}
+    
+    const fn_getDay = function(start, end){
+    	let startDate = new Date(start);
+    	let endDate = new Date(end);
+    	
+    	let diffDays = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+    	
+    	return diffDays;
+    }
 
     window.addEventListener('DOMContentLoaded', async function(e) {
         let initObject = localStorage.getItem("callMain");

@@ -60,9 +60,9 @@
 					<tbody>
 						<tr>
 							<th class="ta_r th_bg" rowspan="6">APC정보</th>
-							<td scope="row" align="right">코드</td>
+							<td scope="row" align="right">선택 APC</td>
 							<td scope="row">
-								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
+								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
 							</td>
 							<td scope="row" align="right">업태</td>
 							<td scope="row">
@@ -78,9 +78,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right"><span class="data_required"></span>명칭</td>
+							<td scope="row" align="right"><span class="data_required"></span>코드</td>
 							<td scope="row" >
-								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast" maxlength="33"></sbux-input>
+								<sbux-input id="inp-apcCd" name="inp-apcCd" uitype="text" class="form-control input-sm" readonly></sbux-input>
 							</td>
 							<td scope="row" align="right">주소</td>
 							<td scope="row">
@@ -100,11 +100,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right">사업번호</td>
+							<td scope="row" align="right">명칭</td>
 							<td scope="row">
-								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"
-								mask = "{ 'mask': '999-99-99999', 'clearIncomplete': true, 'autoUnmask': true }"
-								></sbux-input>
+								<sbux-input id="inp-apcNm" name="inp-apcNm" uitype="text" class="form-control input-sm input-sm-ast" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">
 								<sbux-label
@@ -140,9 +138,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right">출력명칭</td>
+							<td scope="row" align="right">사업번호</td>
 							<td scope="row">
-								<sbux-input id="inp-otptApcNm" name="inp-otptApcNm" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
+								<sbux-input id="inp-brno" name="inp-brno" uitype="text" class="form-control input-sm"
+											mask = "{ 'mask': '999-99-99999', 'clearIncomplete': true, 'autoUnmask': true }"
+								></sbux-input>
 							</td>
 							<td scope="row"  align="right">원물값유형</td>
 							<td>
@@ -179,16 +179,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td scope="row" align="right">구분</td>
+							<td scope="row" align="right">출력명칭</td>
 							<td class="td_input">
-								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd1" name="rdo-apcSeCd" uitype="normal" value="1" class="radio_label"></sbux-radio>
-									<label class="radio_label" for="radio1">농협</label>
-								</p>
-								<p class="ad_input_row">
-									<sbux-radio id="rdo-apcSeCd2" name="rdo-apcSeCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
-									<label class="radio_label" for="radio1">법인</label>
-								</p>
+								<sbux-input id="inp-otptApcNm" name="inp-otptApcNm" uitype="text" class="form-control input-sm" maxlength="33"></sbux-input>
 							</td>
 							<td scope="row" align="right">정산기준</td>
 							<td class="td_input">
@@ -217,6 +210,17 @@
 							</td>
 						</tr>
 						<tr>
+							<td scope="row" align="right">구분</td>
+							<td class="td_input" style="border-right: hidden;">
+								<p class="ad_input_row">
+									<sbux-radio id="rdo-apcSeCd1" name="rdo-apcSeCd" uitype="normal" value="1" class="radio_label"></sbux-radio>
+									<label class="radio_label" for="radio1">농협</label>
+								</p>
+								<p class="ad_input_row">
+									<sbux-radio id="rdo-apcSeCd2" name="rdo-apcSeCd" uitype="normal" value="2" class="radio_label" checked></sbux-radio>
+									<label class="radio_label" for="radio1">법인</label>
+								</p>
+							</td>
 							<td scope="row" align="right">출하자신고번호</td>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input
@@ -227,7 +231,7 @@
 									mask = "999999-999999"
 								></sbux-input>
 							</td>
-							<td colspan="6"></td>
+							<td colspan="4"></td>
 						</tr>
 						<tr>
 							<th class="ta_r th_bg" scope="row">APC사용자 관리</th>
@@ -352,7 +356,7 @@
 								<sbux-button id="btnBffaGrd" name="btnBffaGrd" uitype="modal" text="육안선별등록" style="width:100%;" class="btn btn-sm btn-outline-dark" target-id="modal-bffaSortReg" onclick="fn_modal('btnBffaSort')"></sbux-button>
 							</td>
 							<td colspan="6" style="color:#999">
-								품목별 육안선별실적을 관리할 수 있습니다.
+								품목별 육안선별 기준을 등록하세요. (입고 시 육안선별등록이 필요한 경우 사용됩니다)
 							</td>
 						</tr>
 
@@ -794,12 +798,44 @@
 	var jsonComGdsSeCd = [];
 	var jsonComApcGdsSeCd = [];
 
+	window.addEventListener('DOMContentLoaded', async function(e) {
+		//SBUxMethod.set("inp-apcCd", gv_apcCd);
+		await fn_init();
+	})
+
+	/**
+	 * @name fn_init
+	 * @description 화면 초기 설정
+	 * @function
+	 */
+	const fn_init = async function() {
+		gv_apcCd = gv_selectedApcCd;
+		SBUxMethod.set("inp-apcCd", gv_selectedApcCd);
+		await fn_initSBSelect();
+	}
+
+	/**
+	 * @name fn_onChangeApc
+	 * @description APC 변경 후 처리
+	 * @function
+	 */
+	const fn_onChangeApc = async function() {
+		gv_apcCd = gv_selectedApcCd;
+		SBUxMethod.set("inp-apcCd", gv_selectedApcCd);
+		await fn_initSBSelect();
+	}
+
+	/**
+	 * @name fn_initSBSelect
+	 * @description 기준코드 정보 조회
+	 * @function
+	 */
 	const fn_initSBSelect = async function() {
 
-		let rst = await Promise.all([
+		await Promise.all([
 			gfn_setComCdSBSelect('slt-bankCd', jsonComboBankNm ,	'BANK_CD', '0000'),
 			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComGdsSeCd ,	'GDS_SE_CD', '0000'),
-			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_apcCd),
+			gfn_setComCdSBSelect('chk-gdsSeCd', jsonComApcGdsSeCd ,	'GDS_SE_CD', gv_selectedApcCd),
 			gfn_setComCdSBSelect('slt-prdcrMngType', jsonComboPrdcrMngType, 'PRDCR_MNG_TYPE'),
 
 			gfn_setComCdGridSelect('userAuthMngDatagrid', comboUesYnJsData, "USE_YN", "0000"),
@@ -807,39 +843,31 @@
 			gfn_setComCdGridSelect('pckgMngDatagrid', comboReverseYnJsData, "REVERSE_YN", "0000"),
 			gfn_setComCdGridSelect('wrhsVhclMngDatagrid', comboGridBankCdJsData, "BANK_CD", "0000"),
 			gfn_setComCdGridSelect('cnptMngDatagrid', comboGridCnptTypeJsData, "CNPT_TYPE", "0000"),
-            gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
+			gfn_setComCdGridSelect('grdPlt', comboGridPltCnptJsData, "PLT_CNPT", "0000"),
 		])
 
-		selectApcEvrmntStng();
+		await selectApcEvrmntStng();
 
 		jsonComGdsSeCd.forEach((item) => {
-			let value = item.value;
-
 			jsonComApcGdsSeCd.forEach((apcItem) => {
-				let apcValue = apcItem.value;
-				if(value==apcValue){
+				if (_.isEqual(item.value, apcItem.value)){
 					item.checked = "checked";
 				}
 			});
 		});
 
 		SBUxMethod.refresh("chk-gdsSeCd");
-
 	}
 
-	window.addEventListener('DOMContentLoaded', function(e) {
-		SBUxMethod.set("inp-apcCd", gv_apcCd);
-		fn_initSBSelect();
-	})
 
-
-	// const fn_search = async function() {
-	// 	await fn_initSBSelect();
-	// }
-
-	const selectApcEvrmntStng = async function(){
-		let apcCd = gv_apcCd;
-    	let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : apcCd});
+	/**
+	 * @name selectApcEvrmntStng
+	 * @description APC환경설정 정보 조회
+	 * @function
+	 */
+	const selectApcEvrmntStng = async function() {
+		//let apcCd = gv_apcCd;
+		let postJsonPromise = gfn_postJSON("/am/apc/selectApcEvrmntStng.do", {apcCd : gv_selectedApcCd});
         let data = await postJsonPromise;
 		let resultVO = data.resultVO;
         try{
@@ -916,55 +944,74 @@
         }
 	}
 
+	/**
+	 * @name fn_closeModal
+	 * @description Modal 닫기
+	 * @function
+	 */
 	function fn_closeModal(modalId){
 		SBUxMethod.closeModal(modalId);
 	}
 
+	/**
+	 * @name fn_modal
+	 * @description Modal 팝업 열기
+	 * @function
+	 */
 	function fn_modal(targetName){
-		if(targetName == "btnUserAuth"){
-			fn_createUserAuthGrid();
+
+		switch (targetName) {
+			case "btnUserAuth":			// 사용자권한 설정
+				fn_createUserAuthGrid();
+				break;
+			case "btnFclt":				// 설비 등록
+				fn_fcltMngCreateGrid();
+				break;
+			case "btnWarehouse":		// 창고 등록
+				fn_warehouseMngCreateGrid();
+				break;
+			case "btnItem":				// 품목/품종 등록
+				fn_createGridItemVrty();
+				break;
+			case "btnSpcfct":				// 품목별 규격/감량률 등록
+				fn_createSpcfct();
+				break;
+			case "btnStdGrd":				// 품목별 등급 등록
+				fn_createGrdGrid();
+				break;
+			case "btnSpmtPckgUnit":				// 품목별 상품 등록
+				fn_createSpmtPckgUnitGrid();
+				break;
+			case "btnVrtyDtl":				// 품목별 상세항목 등록
+				fn_initVrtyDtl();
+				break;
+			case "btnPltBx":			// 팔레트/박스 등록
+				fn_pltMngCreateGrid();
+				fn_bxMngCreateGrid();
+				break;
+			case "btnWrhsVhcl":			// 입고차량/운임 등록
+				fn_wrhsVhclMngCreateGrid();
+				fn_rgnTrsprtCstMngCreateGrid();
+				break;
+			case "btnSpmtTrsprt":			// 출하 운송회사 등록
+				fn_spmtTrsprtMngCreateGrid();
+				break;
+			case "btnCnpt":			// 거래처/발주수신 등록
+				fn_cnptMngCreateGrid();
+				fn_lgszMrktMngCreateGrid();
+				break;
+			case "btnOprtr":			// 생산작업자 등록
+				fn_initSBSelectOprtr();
+				fn_oprtrMngCreateGrid();
+				break;
+			case "btnPlor":			// 원산지관리
+				fn_plorStdMngCreateGrid();
+				break;
+			case "btnBffaSort":			// 육안선별등급 등록
+				fn_createBffaGrdGrid();
+				break;
 		}
-		if(targetName == 'btnFclt'){
-			fn_fcltMngCreateGrid();
-		}
-		if(targetName == 'btnWarehouse'){
-			fn_warehouseMngCreateGrid();
-		}
-		if(targetName == 'btnItem'){
-			fn_createGridItemVrty();
-		}
-		if(targetName == 'btnPltBx'){
-			fn_pltMngCreateGrid();
-			fn_bxMngCreateGrid();
-		}
-		if(targetName == 'btnSpcfct'){
-			fn_createSpcfct();
-		}
-		if(targetName == 'btnStdGrd'){
-			fn_createGrdGrid();
-		}
-		if(targetName == 'btnWrhsVhcl'){
-			fn_wrhsVhclMngCreateGrid();
-			fn_rgnTrsprtCstMngCreateGrid();
-		}
-		if(targetName == 'btnSpmtTrsprt'){
-			fn_spmtTrsprtMngCreateGrid();
-		}if(targetName == 'btnCnpt'){
-			fn_cnptMngCreateGrid();
-			fn_lgszMrktMngCreateGrid();
-		}if(targetName == 'btnOprtr'){
-			fn_initSBSelectOprtr();
-			fn_oprtrMngCreateGrid();
-		}if(targetName == 'btnPlor'){
-			fn_plorStdMngCreateGrid();
-		}if(targetName == 'btnSpmtPckgUnit'){
-			fn_createSpmtPckgUnitGrid();
-		}if(targetName == 'btnBffaSort'){
-			fn_createBffaGrdGrid();
-		}
-		if(targetName == 'btnVrtyDtl'){
-			fn_initVrtyDtl();
-		}
+
 	}
 
 	async function fn_deleteRsrc(comCdVO, nRow){
@@ -1000,7 +1047,7 @@
 
             	let apcCdCol = grdCnpt.getColRef("apcCd");
             	grdCnpt.setCellData(nRow, nCol, "N", true);
-            	grdCnpt.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdCnpt.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdCnpt.addRow(true);
 
             	grdCnpt.setCellDisabled(0, 0, grdCnpt.getRows() -1, grdCnpt.getCols() -1, false);
@@ -1009,7 +1056,7 @@
             }else if (grid === "grdFclt") {
             	let apcCdCol = grdFclt.getColRef("apcCd");
             	grdFclt.setCellData(nRow, nCol, "N", true);
-            	grdFclt.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdFclt.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdFclt.addRow(true);
 
             	grdFclt.setCellDisabled(0, 0, grdFclt.getRows() -1, grdFclt.getCols() -1, false);
@@ -1020,7 +1067,7 @@
             	let warehouseSeCdCol = grdWarehouse.getColRef("cdId");
 
             	grdWarehouse.setCellData(nRow, nCol, "N", true);
-            	grdWarehouse.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdWarehouse.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdWarehouse.setCellData(nRow, warehouseSeCdCol, "WAREHOUSE_SE_CD", true);
             	grdWarehouse.addRow(true);
 
@@ -1037,7 +1084,7 @@
             	grdPlt.setCellData(nRow, unitCdCol, "2", true);
             	grdPlt.setCellData(nRow, useYnCol, "Y", true);
             	grdPlt.setCellData(nRow, pltBxSeCdCol, "P", true);
-            	grdPlt.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdPlt.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdPlt.addRow(true);
             	grdPlt.setCellDisabled(0, 0, grdPlt.getRows() -1, grdPlt.getCols() -1, false);
             	grdPlt.setCellDisabled(grdPlt.getRows() -1, 0, grdPlt.getRows() -1, grdPlt.getCols() -1, true);
@@ -1052,14 +1099,14 @@
             	grdBx.setCellData(nRow, unitCdCol, "2", true);
             	grdBx.setCellData(nRow, useYnCol, "Y", true);
             	grdBx.setCellData(nRow, pltBxSeCdCol, "B", true);
-            	grdBx.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdBx.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdBx.addRow(true);
 
             	grdBx.setCellDisabled(0, 0, grdBx.getRows() -1, grdBx.getCols() -1, false);
             	grdBx.setCellDisabled(grdBx.getRows() -1, 0, grdBx.getRows() -1, grdBx.getCols() -1, true);
             }else if(grid === "grdPckg"){
             	grdPckg.setCellData(nRow, nCol, "N", true);
-            	grdPckg.setCellData(nRow, 5, gv_apcCd, true);
+            	grdPckg.setCellData(nRow, 5, gv_selectedApcCd, true);
             	grdPckg.setCellData(nRow, 6, "PCKG_SE_CD", true);
             	grdPckg.addRow(true);
             }else if(grid === "grdRgnTrsprtCst"){
@@ -1067,7 +1114,7 @@
             	let apcCdCol = grdRgnTrsprtCst.getColRef("apcCd");
 
             	grdRgnTrsprtCst.setCellData(nRow, nCol, "N", true);
-            	grdRgnTrsprtCst.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdRgnTrsprtCst.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdRgnTrsprtCst.addRow(true);
             	grdRgnTrsprtCst.setCellDisabled(0, 0, grdRgnTrsprtCst.getRows() -1, grdRgnTrsprtCst.getCols() -1, false);
             	grdRgnTrsprtCst.setCellDisabled(grdRgnTrsprtCst.getRows() -1, 0, grdRgnTrsprtCst.getRows() -1, grdRgnTrsprtCst.getCols() -1, true);
@@ -1076,7 +1123,7 @@
             	let apcCdCol = grdWrhsVhcl.getColRef("apcCd");
 
             	grdWrhsVhcl.setCellData(nRow, nCol, "N", true);
-            	grdWrhsVhcl.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdWrhsVhcl.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdWrhsVhcl.addRow(true);
             	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -2, 0, grdWrhsVhcl.getRows() -2, grdWrhsVhcl.getCols() -1, false);
             	grdWrhsVhcl.setCellDisabled(grdWrhsVhcl.getRows() -1, 0, grdWrhsVhcl.getRows() -1, grdWrhsVhcl.getCols() -1, true);
@@ -1084,7 +1131,7 @@
 
             	let apcCdCol = grdSpmtTrsprtCo.getColRef("apcCd");
             	grdSpmtTrsprtCo.setCellData(nRow, nCol, "N", true);
-            	grdSpmtTrsprtCo.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdSpmtTrsprtCo.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdSpmtTrsprtCo.addRow(true);
 
             	grdSpmtTrsprtCo.setCellDisabled(0, 0, grdSpmtTrsprtCo.getRows() -1, grdSpmtTrsprtCo.getCols() -1, false);
@@ -1093,7 +1140,7 @@
 
             	let apcCdCol = grdOprtr.getColRef("apcCd");
             	grdOprtr.setCellData(nRow, nCol, "N", true);
-            	grdOprtr.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdOprtr.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdOprtr.addRow(true);
 
             	grdOprtr.setCellDisabled(0, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, false);
@@ -1106,7 +1153,7 @@
             	let itemCdCol = grdApcVrty.getColRef("itemCd");
 
             	grdApcVrty.setCellData(nRow, nCol, "N", true);
-            	grdApcVrty.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdApcVrty.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdApcVrty.setCellData(nRow, itemCdCol, SBUxMethod.get("vrty-inp-itemCd"), true);
             	grdApcVrty.addRow(true);
 
@@ -1120,7 +1167,7 @@
                 	let grdSeCdCol = grdStdGrd.getColRef("grdSeCd");
 
             		grdStdGrd.setCellData(nRow, nCol, "N", true);
-            		grdStdGrd.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdStdGrd.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             		grdStdGrd.setCellData(nRow, itemCdCol, SBUxMethod.get("grd-slt-itemCd"), true);
             		grdStdGrd.setCellData(nRow, grdSeCdCol, SBUxMethod.get("grd-rdo-grdSeCd"), true);
             		grdStdGrd.addRow(true);
@@ -1140,7 +1187,7 @@
 
 					let rowData = grdStdGrd.getRowData(grdStdGrd.getRow());
             		grdStdGrdDtl.setCellData(nRow, nCol, "N", true);
-            		grdStdGrdDtl.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdStdGrdDtl.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             		grdStdGrdDtl.setCellData(nRow, itemCdCol, rowData.itemCd, true);
             		grdStdGrdDtl.setCellData(nRow, grdSeCdCol, rowData.grdSeCd, true);
             		grdStdGrdDtl.setCellData(nRow, grdKndCol, rowData.grdKnd, true);
@@ -1159,7 +1206,7 @@
                 	let grdSeCdCol = grdStdGrdJgmt.getColRef("grdSeCd");
 
 					grdStdGrdJgmt.setCellData(nRow, nCol, "N", true);
-					grdStdGrdJgmt.setCellData(nRow, apcCdCol, gv_apcCd, true);
+					grdStdGrdJgmt.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
 					grdStdGrdJgmt.setCellData(nRow, itemCdCol, SBUxMethod.get("grd-slt-itemCd"), true);
 					grdStdGrdJgmt.setCellData(nRow, grdSeCdCol, SBUxMethod.get("grd-rdo-grdSeCd"), true);
 					grdStdGrdJgmt.addRow(true);
@@ -1177,7 +1224,7 @@
                 	let itemCdCol = grdApcSpcfct.getColRef("itemCd");
 
             		grdApcSpcfct.setCellData(nRow, nCol, "N", true);
-            		grdApcSpcfct.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            		grdApcSpcfct.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             		grdApcSpcfct.setCellData(nRow, itemCdCol, SBUxMethod.get("spcfct-slt-itemCd"), true);
             		grdApcSpcfct.addRow(true);
             		grdApcSpcfct.setCellDisabled(0, 0, grdApcSpcfct.getRows() -1, grdApcSpcfct.getCols() -1, false);
@@ -1192,7 +1239,7 @@
 
            		grdSpmtPckgUnit.setCellData(nRow, nCol, "N", true);
            		grdSpmtPckgUnit.setCellData(nRow, 18, "Y", true);
-           		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_apcCd, true);
+           		grdSpmtPckgUnit.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
            		grdSpmtPckgUnit.setCellData(nRow, itemCdCol, SBUxMethod.get("spmtPckgUnit-slt-itemCd"), true);
            		grdSpmtPckgUnit.addRow(true);
            		grdSpmtPckgUnit.setCellDisabled(0, 0, grdSpmtPckgUnit.getRows() -1, grdSpmtPckgUnit.getCols() -1, false);
@@ -1203,7 +1250,7 @@
             	let spmtPckgUnitCdCol = grdSpmtSlsUntprcReg.getColRef("spmtPckgUnitCd");
             	grdSpmtSlsUntprcReg.setCellData(nRow, nCol, "N", true);
             	grdSpmtSlsUntprcReg.setCellData(nRow, spmtPckgUnitCdCol, SBUxMethod.get("spmtSlsUntprcReg-inp-spmtPckgUnitCd"), true);
-            	grdSpmtSlsUntprcReg.setCellData(nRow, apcCdCol, gv_apcCd, true);
+            	grdSpmtSlsUntprcReg.setCellData(nRow, apcCdCol, gv_selectedApcCd, true);
             	grdSpmtSlsUntprcReg.addRow(true);
             	grdSpmtSlsUntprcReg.setCellDisabled(0, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, false);
             	grdSpmtSlsUntprcReg.setCellDisabled(grdSpmtSlsUntprcReg.getRows() -1, 0, grdSpmtSlsUntprcReg.getRows() -1, grdSpmtSlsUntprcReg.getCols() -1, true);
@@ -1463,7 +1510,7 @@
 	const fn_saveMenu = async function(){
 
 		let apcEvrmntStng = {
-			apcCd 					: gv_apcCd
+			apcCd 					: gv_selectedApcCd
 		  , wghMngYn 				: SBUxMethod.get("chk-wghMngYn")["chk-wghMngYn"]
 		  , wghMblUseYn 			: SBUxMethod.get("chk-wghMblUseYn")["chk-wghMblUseYn"]
 	  	  , wghIdntyDocPblcnYn 		: SBUxMethod.get("chk-wghIdntyDocPblcnYn")["chk-wghIdntyDocPblcnYn"]

@@ -6696,11 +6696,11 @@
     	
     	let componentList_1 = {
     		    'L_FIG005' : ''
-    		    , 'L_FIM051' : ''
+    		    , 'L_FIM051' : (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE like '91%'" : "AND AR_SLIP_WRT_YN = 'Y'"))
     		    , 'L_BANK_CODE' : ''
     		    , 'L_VAT_INFO' : "AND A.USE_YN = 'Y' AND B.AR_AP_TYPE = '" + strsourceType + "'"
     		    , 'L_FIT010' : ''
-    		    , 'L_CS_ACCOUNT' : ''
+    		    , 'L_CS_ACCOUNT' : "AND A.CNPT_CD = '" + gfn_nvl(SBUxMethod.get("CS_CODE")) + "' AND '" + gfn_nvl(SBUxMethod.get("EXPECTED_PAY_DATE")) + "' BETWEEN A.EFCT_BGNG_YMD AND A.EFCT_END_YMD"
     		    , 'L_FIM052' : ''
     		    , 'L_FIG003' : ''
     		    , 'L_COM001' : "AND USE_YN = 'Y'"
@@ -6710,8 +6710,8 @@
     		    , 'L_FIM081' : ''
     		    , 'L_FIG002' : ''
     		    , 'L_ORG003' : ''
-    		    , 'L_USER' : ''
-    		    , 'L_RULE' : ''
+    		    , 'L_USER' : "AND a.USER_ID IN (SELECT CASE WHEN b.ACNTG_MNGR_YN = 'Y' THEN a.USER_ID ELSE b.USER_ID END FROM TB_COM_USER b WHERE b.USER_ID = '" + p_userId + "')"
+    		    , 'L_RULE' : (strsourceType == "AP" ? "AND APS_SLIP_WRT_YN = 'Y'" : (strsourceType == "BAD" ? "AND SLIP_TYPE LIKE '91%'" : "AND AR_SLIP_WRT_YN = 'Y'"))
     		    , 'L_FIT005' : ''
     		    , 'L_FIT012' : ''
     		    , 'L_FIT011' : ''
@@ -6723,7 +6723,6 @@
     		    , 'L_FIT019' : ''
     		    , 'L_FIT008' : ''
     		    , 'L_FIT010' : ''
-    		    , 'L_CS_ACCOUNT' : '' 
     		}
     	
     	let BIZCOMP_ID_LIST_1 = '';

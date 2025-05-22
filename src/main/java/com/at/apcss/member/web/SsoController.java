@@ -204,11 +204,7 @@ public class SsoController extends BaseController {
 		//String mainPage = Globals.MAIN_PAGE;
 		String mainPage = "/mainApc.do";
 
-		if (mainPage.startsWith("/")) {
-			return "forward:" + mainPage;
-		} else {
-			return mainPage;
-		}
+		return "forward:" + mainPage;
 	}
 
 	@GetMapping(value = "/actionLogoutApc.do")
@@ -226,7 +222,7 @@ public class SsoController extends BaseController {
 
 
 
-	@GetMapping("/mainApc.do")
+	//@GetMapping("/mainApc.do")
 	public String mainApc(Model model, HttpServletRequest request) {
 
 		List<String> menuList = new ArrayList<>();
@@ -478,7 +474,7 @@ public class SsoController extends BaseController {
 
 
 
-	@GetMapping("/mainApcIns.do")
+	//@GetMapping("/mainApcIns.do")
 	public String mainApcIns(Model model, HttpServletRequest request) {
 
 		List<String> menuList = new ArrayList<>();
@@ -700,11 +696,7 @@ public class SsoController extends BaseController {
 		//String mainPage = Globals.MAIN_PAGE;
 		String mainPage = "/mainApcInsReq.do";
 
-		if (mainPage.startsWith("/")) {
-			return "forward:" + mainPage;
-		} else {
-			return mainPage;
-		}
+		return "forward:" + mainPage;
 	}
 
 	@GetMapping(value = "/actionLogoutApcInsReq.do")
@@ -722,7 +714,7 @@ public class SsoController extends BaseController {
 
 
 
-	@GetMapping("/mainApcInsReq.do")
+	//@GetMapping("/mainApcInsReq.do")
 	public String mainApcInsReq(Model model, HttpServletRequest request) {
 
 		List<String> menuList = new ArrayList<>();
@@ -946,11 +938,7 @@ public class SsoController extends BaseController {
 		//String mainPage = Globals.MAIN_PAGE;
 		String mainPage = "/mainApcPt.do";
 
-		if (mainPage.startsWith("/")) {
-			return "forward:" + mainPage;
-		} else {
-			return mainPage;
-		}
+		return "forward:" + mainPage;
 	}
 
 	@GetMapping(value = "/actionLogoutApcPt.do")
@@ -968,7 +956,7 @@ public class SsoController extends BaseController {
 
 
 
-	@GetMapping("/mainApcPt.do")
+	//@GetMapping("/mainApcPt.do")
 	public String mainApcPt(Model model, HttpServletRequest request) {
 
 		List<String> menuList = new ArrayList<>();

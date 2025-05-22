@@ -641,8 +641,8 @@
             gfnma_setComSelect(['gvwList'], jsonComType, 'L_COM030', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
             // 전표구분
             gfnma_setComSelect(['gvwList'], jsonDocType, 'L_FIM051', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
-            // 전표구분
-            gfnma_setComSelect(['gvwList'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SBSD_CD', 'CD_NM', 'Y', ''),
+            // 통화코드
+            gfnma_setComSelect(['gvwList'], jsonCurrencyCode, 'L_COM001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'CRN_CD', 'CRN_NM', 'Y', ''),
             // 사업장
             gfnma_setComSelect(['gvwList'], jsonSiteCode, 'L_ORG001', '', gv_ma_selectedCorpCd, gv_ma_selectedClntCd, 'SITE_CD', 'SITE_NM', 'Y', ''),
             // 구분
@@ -834,7 +834,7 @@
             {caption: ["APC"],         ref: 'FI_ORG_CODE',    type:'output',  	width:'75px',  style:'text-align:left', hidden: true},
             {caption: ["작성자"],         ref: 'USER_NAME',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["법인번호"],         ref: 'COMP_REGNO',    type:'output',  	width:'110px',  style:'text-align:left'},
-            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'75px',  	style:'text-align:left',
+            {caption: ["증빙일자"],       ref: 'VOUCHER_RECEIPT_DATE', 		type:'inputdate',  	width:'90px',  	style:'text-align:left',
                 typeinfo: {dateformat: 'yyyy-mm-dd'},
                 format : {type:'date', rule:'yyyy-mm-dd', origin:'YYYYMMDD'}
                 , disabled: true
@@ -918,6 +918,9 @@
     }
 
     var fn_findPayTermCodeForGvwList = function (row) {
+        var searchCode 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("PAY_TERM_CODE")));
+        var searchName 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("PAY_TERM_NAME")));
+
         var replaceText0 = "_PAY_TERM_CD_";
         var replaceText1 = "_PAY_TERM_NM_";
         var strWhereClause = "AND A.PAY_TERM_CD LIKE '%" + replaceText0 + "%' AND A.PAY_TERM_NM LIKE '%" + replaceText1 + "%'";
@@ -931,7 +934,7 @@
             , whereClause: strWhereClause
             , searchCaptions: ["코드", "명칭"]
             , searchInputFields: ["PAY_TERM_CD", "PAY_TERM_NM"]
-            , searchInputValues: ['', '']
+            , searchInputValues: [searchCode, searchName]
             , height: '400px'
             , tableHeader: ["지급기일코드", "지급기일명", "지급기준"]
             , tableColumnNames: ["PAY_TERM_CD", "PAY_TERM_NM", "PAY_METHOD_NAME"]
@@ -948,9 +951,11 @@
     }
 
     var fn_findAccountForGvwList = function (row) {
+
+        var searchCode 		= gfn_nvl(gvwList.getCellData(row, gvwList.getColRef("ACCOUNT_NUM")));
         var replaceText0 = "_BACNT_NO_";
         var replaceText1 = "_BACNT_OWNR_";
-        var strWhereClause = "AND BANK_ACCOUNT_NO LIKE '%" + replaceText0 + "%' AND BANK_ACCOUNT_OWNER LIKE '%" + replaceText1 + "%'";
+        var strWhereClause = "AND BACNT_NO LIKE '%" + replaceText0 + "%' AND BACNT_OWNR LIKE '%" + replaceText1 + "%'";
 
         SBUxMethod.attr('modal-compopup1', 'header-title', '거래처 계좌 정보');
         compopup1({
@@ -961,7 +966,7 @@
             , whereClause: strWhereClause
             , searchCaptions: ["계좌번호", "예금주"]
             , searchInputFields: ["BACNT_NO", "BACNT_OWNR"]
-            , searchInputValues: ['', '']
+            , searchInputValues: [searchCode, '']
             , height: '400px'
             , tableHeader: ["계좌순번", "기본계좌여부", "은행코드", "은행명", "계좌번호", "비고", "예금주명", "어음구분", "B2B코드", "거래처코드", "시작일", "종료일"]
             , tableColumnNames: ["SEQ_NAME", "MN_YN", "BANK_CD", "BANK_NM", "BACNT_NO", "DSCTN",
