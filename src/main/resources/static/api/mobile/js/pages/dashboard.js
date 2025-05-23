@@ -103,7 +103,8 @@ $(function() {
                             {name: '재고', value: item.STATUS_STOCK === 'Y' ? 'active' : ''},
                             {name: '영농', value: item.STATUS_FARM === 'Y' ? 'active' : ''},
                             {name: '정산', value: item.STATUS_SETTLE === 'Y' ? 'active' : ''}
-                        ]
+                        ],
+                        delYn: item.DEL_YN
                     };
                 })
             };
@@ -121,6 +122,27 @@ $(function() {
     });
 
     if(apcInfo !== undefined && apcInfo != null) {
+        let fcltCount = 0;
+        let oprtngFcltCount = 0;
+        let apcCount = 0;
+
+        apcInfo.apcLists.forEach(function(item) {
+            fcltCount += item.kinds.length;
+
+            oprtngFcltCount += item.kinds.filter(k => k.value === 'active').length;
+
+            if(item.delYn === 'Y') {
+                apcCount++;
+            }
+        });
+
+        $('#wholInstlStts').text(fcltCount);
+
+        let oprtngRate = fcltCount > 0 ? ((oprtngFcltCount / fcltCount) * 100).toFixed(1) : '0.0';
+        $('#oprtngRate').html(oprtngRate + '<sup style="font-size: 20px;">%</sup>');
+
+        $('#fcltLinkApc').text(apcCount);
+
         const svg = document.querySelector("#map");
         const locationPins = [];
         apcInfo.apcLists.forEach(apc => {
