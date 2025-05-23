@@ -982,6 +982,7 @@
                    '',
                    'success'
                );
+               $(_el).siblings().removeClass("active");
                /** 등록 이후 원복처리 **/
                await fn_reset();
            }else{
@@ -1163,7 +1164,6 @@
             input.disabled = true;
         });
 
-
         let flag = SBUxMethod.get("decompositionMode");
         if(flag == '재고분리 ON'){
             /** 재고분리는 1회성인데 아직 처리 안한채로 취소할경우 **/
@@ -1223,9 +1223,10 @@
             const isLeft = $input.hasClass('left');
             const $pairTd = isLeft ? $target.next() : $target.prev();
             const pairInput = $pairTd.find('input');
+            const merge = $target.data('decomposition');
 
             //  [1] 현재 선택 셀이 분리된 경우
-            if (isSplit && !pairInput.data('spmt')) {
+            if (isSplit && !pairInput.data('spmt') && !merge) {
                 let mergeTd = fn_mergeCell($target, false); // selected 제거
                 mergeTd.off('pointerdown').on('pointerdown', function (event) {
                    fn_pointerDownSeleted(event);
@@ -1234,7 +1235,7 @@
 
             //  [2] 같은 colIdx에 남은 selected들 추림
             const sameColSelecteds = Array.from($("#sortTable tbody td.selected")).filter(item => {
-                return fn_getLogicalIndex(item) === nowColIdx;
+                return fn_getLogicalIndex(item) === nowColIdx && (!$(item).find('input').data('spmt'));
             });
 
             if (sameColSelecteds.length === 0) {
@@ -1288,13 +1289,36 @@
             let filledRange = fillObjectRange(rebuiltRange);
             // split 방향 결정 (기존 split 판단 함수 활용 가능)
             let split = '';
-            safeSelecteds.forEach($td => {
-                const $input = $td.find('input');
-                if ($input.hasClass('left')) split = 'left';
-                else if ($input.hasClass('right')) split = 'right';
-            });
-            const splitDirection = split || 'left';
+            let mergeFlag = false;
 
+            safeSelecteds.some($td => {
+                const $input = $td.find('input');
+                if ($input.hasClass('left')){
+                    let $pair = $td.next();
+                    let $pairVal = $pair.find('input').val();
+                    let $pairSpmt = $pair.data('spmt');
+                    if($pairVal > 0 || $pairSpmt){
+                        split = 'left';
+                        return true;
+                    }else{
+                        split = 'merge';
+                    }
+                }else if ($input.hasClass('right')) {
+                    let $pair = $td.prev();
+                    let $pairVal = $pair.find('input').val();
+                    let $pairSpmt = $pair.data('spmt');
+                    if($pairVal > 0 || $pairSpmt){
+                        split = 'right';
+                        return true;
+                    }else{
+                        split = 'merge';
+                    }
+                }
+            });
+            const splitDirection = split || 'merge';
+
+            /** 재고이동, 실적이동에 의한 분리가 아닌 직접 선택한 분리 flag **/
+            const decomposition = filledRange.some(item => $(item.cell).data('decomposition'));
             // 중간 셀에 대해 split 및 재선택
             filledRange.forEach((item, idx, arr) => {
                 let $td = $(item.cell);
@@ -1326,17 +1350,15 @@
                     arr[idx].cell = resultTd;
                 }else{
                     /** 선택이 1개 남을때 merge 판단 **/
-                    if(arr.length === 1){
-                        const $input = $td.find('input');
-                        const isSplit = $input.hasClass('left') || $input.hasClass('right');
-                        const isLeft = $input.hasClass('left');
-                        const $pairTd = isLeft ? $td.next() : $td.prev();
-                        const pairInput = $pairTd.find('input');
+                    const $input = $td.find('input');
+                    const isSplit = $input.hasClass('left') || $input.hasClass('right');
+                    const isLeft = $input.hasClass('left');
+                    const $pairTd = isLeft ? $td.next() : $td.prev();
+                    const pairInput = $pairTd.find('input');
 
-                        if (isSplit && !pairInput.data('spmt')) {
-                            // 병합 조건 충족 → merge 처리
-                            $td = fn_mergeCell($td,true);
-                        }
+                    if (isSplit && !pairInput.data('spmt') && !decomposition) {
+                        // 병합 조건 충족 → merge 처리
+                        $td = fn_mergeCell($td,true);
                     }
                     $td.off('pointerdown').on('pointerdown',function (event) {
                         fn_pointerDownSeleted(event);
@@ -1446,8 +1468,8 @@
 
             const inputValue = $target.find('input').val();
 
-            let $firstTd = $('<td>').css("position", "relative");
-            let $secondTd = $('<td>');
+            let $firstTd = $('<td>').css("position", "relative").data('decomposition',true);
+            let $secondTd = $('<td>').data('decomposition',true);
 
             const $inputLeft = $('<input>')
                 .attr('type', 'number')
@@ -1469,7 +1491,6 @@
 
             $target.replaceWith($firstTd);
             $firstTd.after($secondTd);
-
 
             $inputLeft.focus();
             $inputLeft.on('focusout', function (event) {
@@ -1704,6 +1725,11 @@
                     );
                     return;
                 }
+                /** 2025.05.20 재고 남김처리 **/
+                let unit = parseInt(saveObj.rawMtrInvntrList[0].inptWght) / parseInt(saveObj.rawMtrInvntrList[0].inptQntt);
+                let total = parseInt($("#sortTable tbody tr").eq(rowIndex).children('td:last').find('input').val());
+                saveObj.rawMtrInvntrList[0].inptWght = total * unit;
+                saveObj.rawMtrInvntrList[0].inptQntt = total;
 
                 const postUrl = gfn_isEmpty(sortno) ?
                     "/am/sort/insertSortPrfmnc.do" : "/am/sort/updateSortPrfmnc.do";
@@ -2018,7 +2044,10 @@
             const $found = cellArray.find(function(item) {
                 return $(item).data('cnptCd');
             });
-            let cnptCd = $found.data('cnptCd');
+            let cnptCd = '';
+            if(!gfn_isEmpty($found)){
+                cnptCd = $found.data('cnptCd');
+            }
 
             const match = jsonCnptList.find(item => item.cnptCd === cnptCd);
             const color = match ? match.color : null;
@@ -2140,11 +2169,8 @@
             $secondTd.append($inputRight);
             $target.replaceWith($firstTd);
             $firstTd.after($secondTd);
-            if(type == 'merge'){
-                return;
-            }else{
-                return {leftInput : $inputLeft, rightInput : $inputRight};
-            }
+
+            return {leftInput : $inputLeft, rightInput : $inputRight};
         }else{
             /** 이미 분리된 경우 **/
             if ($target.find('input').hasClass('left')) {
@@ -2182,13 +2208,14 @@
                 // cell 찾아서 새 객체 생성
                 let logicalCol = fn_getTdIndexByLogicalCol(rowIdx,colIndex);
                 let $cell = $("#sortTable tbody tr").eq(rowIdx).children("td").eq(logicalCol);
+                let pushFlag = $cell.find('input').data('spmt');
 
                 const $input = $cell.find('input');
                 if ($input.hasClass('left') && $input.data('spmt')) {
                     $cell = $cell.next();
                 }
 
-                if ($cell.length) { // 셀 존재하면 추가
+                if ($cell.length && !pushFlag) { // 셀 존재하면 추가
                     result.push({
                         cell: $cell,
                         colIndex: colIndex,
@@ -2222,7 +2249,7 @@
         /** 2. target 범위 판단 및 중간 cell 특정 **/
         cellRange = fillObjectRange(cellRange);
         // 3. split 방향 없으면 기본 'left' (case 1, 2)
-        const splitDirection = split || 'left';
+        let splitDirection = split || 'merge';
 
         // 4. 분리 및 값 처리
         cellRange.forEach(function(item, idx, arr){
@@ -2244,6 +2271,8 @@
                     splitResult.rightInput.val(value);
                     arr[idx].cell = splitResult.leftInput.closest('td');
                     arr[idx].cell.addClass('selected');
+                    /** merge인데 재고가 남아있어서 분리한 상황엔 방향을 지정해줘야함. **/
+                    splitDirection = 'left';
                 } else {
                     arr[idx].cell = fn_mergeCell(splitResult.leftInput.closest('td'), true);
                 }
