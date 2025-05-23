@@ -1,20 +1,17 @@
 package com.at.apcss.mobile.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
-import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsVO;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.mobile.mapper.MobileApiMapper;
 import com.at.apcss.mobile.service.MobileApiService;
-import com.at.apcss.mobile.vo.FacilityMngVO;
-import com.at.apcss.mobile.vo.WarehouseInfoVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -86,4 +83,12 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 
 		return map;
 	}
+
+    @Override
+    public Map<String, Object> getApcAgtStats() throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        map.put("resultLists", mobileApiMapper.getApcAgtStats(map));
+
+        return map;
+    }
 }
