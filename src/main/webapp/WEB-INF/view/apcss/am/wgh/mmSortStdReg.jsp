@@ -727,14 +727,14 @@
     let sortSpcfctCd = SBUxMethod.get("srch-slt-sortSpcfctCd");  // 규격
     let sortStrgWrhusSeCd = SBUxMethod.get("srch-slt-sortStrgWrhusSeCd"); // 저장창고
     let sortInptWrhusSeCd = SBUxMethod.get("srch-slt-sortInptWrhusSeCd"); // 투입창고
-    let sortInputQntt = SBUxMethod.get("srch-inp-sortInputQntt"); // 투입수량
-    let sortInputWght = SBUxMethod.get("srch-inp-sortInputWght"); // 투입중량
+    let sortInputQntt = Number(SBUxMethod.get("srch-inp-sortInputQntt")); // 투입수량
+    let sortInputWght = Number(SBUxMethod.get("srch-inp-sortInputWght")); // 투입중량
     let sortGrdCd = SBUxMethod.get("srch-slt-sortGrdCd"); // 등급
     let sortPckg = SBUxMethod.get("srch-chk-sortPckg"); // 포장
     let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd"); // 포장상품명
     let spmtPckgGrdCd = SBUxMethod.get("srch-slt-spmtPckgGrdCd"); // 포장상품등급
-    let sortQntt = SBUxMethod.get("srch-inp-sortQntt"); // 선별수량
-    let sortWght = SBUxMethod.get("srch-inp-sortWght"); // 선별중량
+    let sortQntt = Number(SBUxMethod.get("srch-inp-sortQntt")); // 선별수량
+    let sortWght = Number(SBUxMethod.get("srch-inp-sortWght")); // 선별중량
     let sortRmrk = SBUxMethod.get("srch-inp-sortRmrk"); // 비고
     let sortPrdcrNm = SBUxMethod.get("srch-inp-sortPrdcrNm"); // 생산자
 
@@ -759,7 +759,7 @@
 
     let totSortWght = 0;  // 그룹별 선별중량 합
 
-    /*if (gfn_isEmpty(sortYmd)) {
+    if (gfn_isEmpty(sortYmd)) {
       gfn_comAlert("W0005", "선별일자");		//	W0005	{0}이/가 없습니다.
       return;
     }
@@ -817,10 +817,32 @@
         return;
       }
     }
-    if (gfn_isEmpty(sortInputQntt) || gfn_isEmpty(sortInputWght)) {
+    if (sortPrdcrCd <= 0) {
+      gfn_comAlert("W0005", "생산자");		//	W0005	{0}이/가 없습니다.
+      return;
+    }
+    if (sortWrhsSeCd <= 0) {
+      gfn_comAlert("W0005", "입고구분");		//	W0005	{0}이/가 없습니다.
+      return;
+    }
+    if (sortGdsSeCd <= 0) {
+      gfn_comAlert("W0005", "상품구분");		//	W0005	{0}이/가 없습니다.
+      return;
+    }
+    /*if (gfn_isEmpty(sortInputQntt) || gfn_isEmpty(sortInputWght)) {
       sortInputQntt = '';
       sortInputWght = '';
     }*/
+
+    console.log(sortWght + " " + sortInputWght);
+    console.log(typeof sortWght)
+    console.log(typeof sortInputWght)
+
+    if (sortWght > sortInputWght) {
+      gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+
+      return;
+    }
 
     jsonComSortFclt.forEach((item) => {
       if (item.value == sortFcltCd){
@@ -949,17 +971,19 @@
         // 투입그룹 선별중량 합 초기화
         sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
       }
+
+      console.log(sortRegInfoVO.totSortWght + " " + sortRegInfoVO.inputWght);
+      // 그룹별 투입중량 < 선별중량 error
+      if (sortRegInfoVO.totSortWght > sortRegInfoVO.inputWght && !gfn_isEmpty(sortRegInfoVO.inputWght)) {
+        // gfn_comAlert("W0008", "투입량", "선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
+        // return;
+
+        sortRegInfoVO.group = prvSortRegInfo.group + 1;
+        sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
+      }
     }
 
-    console.log(sortRegInfoVO.totSortWght + " " + sortRegInfoVO.inputWght);
-    // 그룹별 투입중량 < 선별중량 error
-    if (sortRegInfoVO.totSortWght > sortRegInfoVO.inputWght && !gfn_isEmpty(sortRegInfoVO.inputWght)) {
-      // gfn_comAlert("W0008", "투입량", "선별량");		// W0008	{0} 보다 {1}이/가 큽니다.
-      // return;
 
-      sortRegInfoVO.group = prvSortRegInfo.group + 1;
-      sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
-    }
 
 
     jsonSortRegList.push(sortRegInfoVO);
@@ -1140,14 +1164,23 @@
           // data.warehouseSeCd, data.prdcrCd, data.wrhsSeCd, data.gdsSeCd
           const chkKey = [data.warehouseSeCd, data.prdcrCd, data.wrhsSeCd, data.gdsSeCd];
 
+          const  = _.pick(data.resultList, keysToCompare);
+          const curSortData = _.pick(sortRegInfoVO, keysToCompare);
+          sortRegList.forEach((item, index) => {
+
+          });
 
 
           rawMtrInvntrList.push({
             wrhsno: data.wrhsno,
             sortCmndno: data.sortCmndno,
             inptPrgrsYn: data.inptPrgrsYn,
-            inptQntt: data.invntrQntt,  // 원물재고수량 전부
-            inptWght: data.invntrWght,  // 원물재고중량 전부
+
+            inptQntt: data.inptQntt,  // 투입수량(입력 투입수량 아님) > 입력투입수량으로 변경해야함
+            inptWght: data.inptWght,  // 투입중량(입력 투입중량 아님) > 입력투입중량으로 변경해야함
+
+            invntrQntt: data.invntrQntt,  // 원물재고수량
+            invntrWght: data.invntrWght,  // 원물재고중량
           });
 
         } else {
