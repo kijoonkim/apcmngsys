@@ -632,4 +632,18 @@ public class MobileApiController extends BaseController{
 
         return resultJson;
     }
+
+	@GetMapping("/getCountAllPrdcr.do")
+	@ResponseBody
+	public JSONObject getCountAllPrdcr(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+
+		try {
+			resultJson.put("result", mobileApiService.getCountAllPrdcr());
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}
 }

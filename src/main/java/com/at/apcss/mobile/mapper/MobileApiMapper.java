@@ -85,4 +85,11 @@ public interface MobileApiMapper {
      * @throws Exception
      */
     public List<Map<String, Object>> getApcAgtStats(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 생산자 수량
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getCountAllPrdcr() throws Exception;
 }

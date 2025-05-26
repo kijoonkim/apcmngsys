@@ -56,4 +56,11 @@ public interface MobileApiService {
      * @throws Exception
      */
     public Map<String, Object> getApcAgtStats() throws Exception;
+
+	/**
+	 * 생산자 수량
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getCountAllPrdcr() throws Exception;
 }

@@ -211,6 +211,36 @@ $(function() {
         /* APC 현황 끝 */
     }
 
+    /* 생산자 현황 조회 시작 */
+    $.ajax({
+        type: 'get',
+        url: './getCountAllPrdcr.do',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('stats', data);
+
+            $('#prdcrCount').text(data.result);
+        },
+        error: function(xhr, status, error){
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+    /* 생산자 현황 조회 끝 */
+
     //Make the dashboard widgets sortable Using jquery UI
     $(".connectedSortable").sortable({
         placeholder: "sort-highlight",
