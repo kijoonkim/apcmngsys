@@ -292,10 +292,6 @@ $(function() {
         }
     });
 
-    //The Calender
-    $("#calendar").datepicker();
-
-
     /* 일일데이터 수집 현황 차트 시작 */
     $.ajax({
         type: 'get',
