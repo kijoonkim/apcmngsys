@@ -326,8 +326,8 @@
 			const data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
-	        		//gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		// gfn_comAlert(data.resultCode, data.resultMessage);
 	        		this.searchInEdit();
 	        	} else {
 	        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
