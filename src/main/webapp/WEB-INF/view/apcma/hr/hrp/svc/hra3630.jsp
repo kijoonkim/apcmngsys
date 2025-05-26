@@ -459,7 +459,7 @@
                 }
                 , hidden: true
             },
-            {caption: ["일련번호"],         ref: 'TXN_ID',    type:'output',  	width:'75px',  style:'text-align:left'},
+            {caption: ["거래 ID"],         ref: 'TXN_ID',    type:'output',  	width:'65px',  style:'text-align:left'},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
