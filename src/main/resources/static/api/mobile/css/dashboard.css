@@ -81,14 +81,14 @@
     color: #000;
 }
 
-svg > polyline,
-svg > path {
+#map > polyline,
+#map > path {
     fill: #CDCCCC;
     stroke: #FFFFFF;
     stroke-miterlimit: 1;
 }
 
-svg > polyline {
+#map > polyline {
     transform: translate(106.95522px, 19.462687px);
 }
 

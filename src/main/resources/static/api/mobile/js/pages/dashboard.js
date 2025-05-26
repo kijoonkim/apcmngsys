@@ -352,41 +352,20 @@ $(function() {
                 values.push({'y': year + '-' + m});
             }
 
-            /*
-            {y: '2025-04-27', store: 2666, selection: 2666}
-            {y: '2025-04-27', store: 2666, selection: 2666},
-            {y: '2025-04-28', store: 2778, selection: 2294},
-            {y: '2025-04-29', store: 4912, selection: 1969},
-            {y: '2025-04-30', store: 3767, selection: 3597},
-            {y: '2025-05-01', store: 6810, selection: 1914},
-            {y: '2025-05-02', store: 5670, selection: 4293},
-            {y: '2025-05-03', store: 4820, selection: 3795},
-            {y: '2025-05-04', store: 6073, selection: 3967},
-            {y: '2025-05-05', store: 9087, selection: 6460},
-            {y: '2025-05-06', store: 8432, selection: 5713},
-            {y: '2025-05-07', store: 4820, selection: 3795},
-            {y: '2025-05-08', store: 12073, selection: 4567},
-            {y: '2025-05-09', store: 10687, selection: 4460},
-            {y: '2025-05-10', store: 8432, selection: 5713},
-            {y: '2025-05-11', store: 4820, selection: 3795},
-            {y: '2025-05-12', store: 15073, selection: 5967},
-            {y: '2025-05-13', store: 10687, selection: 4460},
-            */
-
             $.each(data.result.RESULTS, function(index, el) {
                 console.log('element', index, el);
 
                 if(el.RS_TYPE == 'WRHS') {
                     for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].store = eval("el.Q_" + i);
+                        values[values.length - (i + 1)].wrhs = eval("el.C_" + i);
                     }
                 } else if(el.RS_TYPE == 'SORT') {
                     for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].sort = eval("el.Q_" + i);
+                        values[values.length - (i + 1)].sort = eval("el.C_" + i);
                     }
-                } else if(el.RS_TYPE == 'SPMT') {
+                } else if(el.RS_TYPE == 'WGH') {
                     for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].release = eval("el.Q_" + i);
+                        values[values.length - (i + 1)].wgh = eval("el.C_" + i);
                     }
                 }
             });
@@ -396,8 +375,8 @@ $(function() {
                 resize: true,
                 data: values,
                 xkey: 'y',
-                ykeys: ['store', 'sort', 'release'],
-                labels: ['입고', '선별', '출고'],
+                ykeys: ['wrhs', 'sort', 'wgh'],
+                labels: ['입고', '선별', '계량'],
                 lineColors: ['#A0D0E0', '#3C8DBC', '#047630'],
                 hideHover: 'auto'
             });
