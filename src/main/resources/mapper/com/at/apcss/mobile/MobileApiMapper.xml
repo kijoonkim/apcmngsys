@@ -269,7 +269,7 @@
                 , TAAS.SYS_LAST_CHG_USER_ID AS SYS_LAST_CHG_USER_ID
                 , TAAS.SYS_LAST_CHG_PRGRM_ID AS SYS_LAST_CHG_PRGRM_ID
             FROM TB_APC_AGT_STATS TAAS
-            WHERE TAAS.DEL_YN = 'Y'
+            WHERE TAAS.DEL_YN = 'N'
         ]]>
     </select>
 
