@@ -131,7 +131,7 @@ $(function() {
 
             oprtngFcltCount += item.kinds.filter(k => k.value === 'active').length;
 
-            if(item.delYn === 'Y') {
+            if(item.delYn === 'N') {
                 apcCount++;
             }
         });
