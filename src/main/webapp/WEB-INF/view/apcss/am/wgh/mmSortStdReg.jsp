@@ -34,7 +34,6 @@
     <div class="box-body">
       <%--생산자 코드--%>
       <sbux-input id="srch-inp-sortPrdcrCd" name="srch-inp-sortPrdcrCd" uitype="hidden"></sbux-input>
-
       <table id="rawMtrSortTable" class="table table-bordered tbl_fixed">
         <caption>선별 등록 조건 설정</caption>
         <colgroup>
@@ -192,8 +191,8 @@
                       style="flex:1"
                       unselected-text="전체"
                       uitype="single"
-                      id="srch-slt-spmtPckgUnitCd"
-                      name="srch-slt-spmtPckgUnitCd"
+                      id="srch-slt-sortPckgUnitCd"
+                      name="srch-slt-sortPckgUnitCd"
                       class="form-control input-sm input-sm-ast"
                       jsondata-ref="jsonSpmtPckgUnit"
                       onchange=""
@@ -202,8 +201,8 @@
                       style="flex:1"
                       unselected-text="전체"
                       uitype="single"
-                      id="srch-slt-spmtPckgGrdCd"
-                      name="srch-slt-spmtPckgGrdCd"
+                      id="srch-slt-sortPckgGrdSeCd"
+                      name="srch-slt-sortPckgGrdSeCd"
                       class="form-control input-sm input-sm-ast"
                       jsondata-ref="jsonComPckgGrdSeCd"
                       onchange=""
@@ -265,7 +264,7 @@
                         autocomplete-ref="jsonPrdcrAutocomplete"
                         autocomplete-text="name"
                         autocomplete-height="270px"
-                        oninput="fn_sortOnInputPrdcrNm(event)"
+                        oninput="fn_OnInputSortPrdcrNm(event)"
                         autocomplete-select-callback="fn_onSelectSortPrdcrNm"
                 ></sbux-input>
               </div>
@@ -491,10 +490,10 @@
   }
 
   /**
-   * @name fn_sortOnInputPrdcrNm
+   * @name fn_OnInputSortPrdcrNm
    * @description 생산자명 입력 시 event : autocomplete
    */
-  const fn_sortOnInputPrdcrNm = function(prdcrNm){
+  const fn_OnInputSortPrdcrNm = function(prdcrNm){
     fn_clearSortPrdcr();
     if(getByteLengthOfString(prdcrNm.target.value) > 100){
       SBUxMethod.set("srch-inp-sortPrdcrNm", "");
@@ -567,8 +566,8 @@
       jsonComPckgGrdSeCd.length = 0;
 
       SBUxMethod.refresh('srch-slt-sortGrdCd');
-      SBUxMethod.refresh('srch-slt-spmtPckgUnitCd');
-      SBUxMethod.refresh('srch-slt-spmtPckgGrdCd');
+      SBUxMethod.refresh('srch-slt-sortPckgUnitCd');
+      SBUxMethod.refresh('srch-slt-sortPckgGrdSeCd');
 
     } else {
       let result = await Promise.all([
@@ -592,14 +591,15 @@
       SBUxMethod.set("srch-slt-sortItemCd", itemCd);
       await fn_onChangeSortSrchItemCd({value: itemCd});
       SBUxMethod.set("srch-slt-sortVrtyCd", vrtyCd);
-      await gfn_setSpmtPckgUnitSBSelect("srch-slt-spmtPckgUnitCd", jsonSpmtPckgUnit, gv_selectedApcCd, itemCd, vrtyCd.substring(4));
-      await gfn_setApcGdsGrdSBSelect('srch-slt-spmtPckgGrdCd', 	jsonComPckgGrdSeCd, 	gv_selectedApcCd, itemCd, _GRD_SE_CD_GDS);	// 포장상품등급
+      await gfn_setSpmtPckgUnitSBSelect("srch-slt-sortPckgUnitCd", jsonSpmtPckgUnit, gv_selectedApcCd, itemCd, vrtyCd.substring(4));
+      await gfn_setApcGdsGrdSBSelect('srch-slt-sortPckgGrdSeCd', 	jsonComPckgGrdSeCd, 	gv_selectedApcCd, itemCd, _GRD_SE_CD_GDS);	// 포장상품등급
 
     } else {
       await fn_onChangeSortSrchItemCd({value: null});
     }
     fn_onChangeInptQntt();
   }
+
   /**
    * @name fn_onChangeSortSpcfctCd
    * @description 규격 선택 변경 event
@@ -735,8 +735,8 @@
     let sortInputWght = Number(SBUxMethod.get("srch-inp-sortInputWght")); // 투입중량
     let sortGrdCd = SBUxMethod.get("srch-slt-sortGrdCd"); // 등급
     let sortPckg = SBUxMethod.get("srch-chk-sortPckg"); // 포장
-    let spmtPckgUnitCd = SBUxMethod.get("srch-slt-spmtPckgUnitCd"); // 포장상품명
-    let spmtPckgGrdCd = SBUxMethod.get("srch-slt-spmtPckgGrdCd"); // 포장상품등급
+    let spmtPckgUnitCd = SBUxMethod.get("srch-slt-sortPckgUnitCd"); // 포장상품명
+    let spmtPckgGrdCd = SBUxMethod.get("srch-slt-sortPckgGrdSeCd"); // 포장상품등급
     let sortQntt = Number(SBUxMethod.get("srch-inp-sortQntt")); // 선별수량
     let sortWght = Number(SBUxMethod.get("srch-inp-sortWght")); // 선별중량
     let sortRmrk = SBUxMethod.get("srch-inp-sortRmrk"); // 비고
@@ -839,7 +839,8 @@
     }*/
 
     if (sortWght > sortInputWght) {
-      gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
+      console.log("////////////////")
+      gfn_comAlert("W0008", "투입중량", "선별중량");		//	W0008	{0} 보다 {1}이/가 큽니다.
       return;
     }
 
@@ -981,9 +982,6 @@
       }
     }
 
-
-
-
     jsonSortRegList.push(sortRegInfoVO);
 
     grdSortRegList.refresh();
@@ -998,28 +996,19 @@
     const sortPrfmncList = [];
     // let hasError = false;
 
-    // 투입창고/품종/품목에 따른 원물재고수량
-    const rawMtrQntt = [];
     const cmprSortData = []; // 선별등록 데이터 비교용
     let checkItemList = [];
 
     let groupChck = 0;  // 그룹번호 체크
 
-    let invntrQntt = 0;
-    let invntrWght = 0;
-
     let inptQntt = 0;
     let inptWght = 0;
-
-    let sortQntt = 0;
-    let sortWght = 0;
 
     const setItem = new Set(checkItemList);
 
     let sortRegData = grdSortRegList.getGridDataAll();
 
     for (const sortDataVO of sortRegData) {
-      const idx = sortRegData.indexOf(sortDataVO);
       const stdGrdList = [];  // 선별등급
       const gdsStdGrdList = []; // 포장상품등급
 
@@ -1083,15 +1072,7 @@
       sortRegList.push(sortReg);
     }
 
-    // 원물재고내역조회 (투입창고, 품종, 품목)
-    /*
-    * 같은 재고창고에서 품종 품목을 기준으로 원물재고 조회
-    * 그러면 투입창고별로 중복을 제거한 품종/품목 배열을 만들어서 수량 저장?
-    * ex. 재고창고 - 사과/희상, 사과/부사, 감자/깐감자
-    *     원물창고 - 사과/부사, 벼/햇일반계
-    * 5개 arrObj - 재고조회
-    *
-    * */
+    // 원물재고내역조회 (품종/품목 별)
     for (const item of checkItemList) {
       try {
         const postJsonPromise = gfn_postJSON("/am/invntr/selectRawMtrInvntrListForRslt.do", {
@@ -1108,13 +1089,12 @@
           let idx = 0;
           for (const sortRegInfo of cmprSortData) {
             for (const obj of rawMtrInvntr) {
-              /*if(gfn_diffDate(obj.wrhsYmd, sortRegInfo.inptYmd) < 0){
+              if(gfn_diffDate(obj.wrhsYmd, sortRegInfo.inptYmd) < 0){
                 gfn_comAlert("W0015", "선별일자", "원물재고의 입고일자");		//	W0014	{0}이/가 {1} 보다 작습니다.
-                continue;
-              }*/
-              // 투입창고, 품종, 품목, 생산자, 입고구분, 상품구분이 동일한지 확인
-              // 투입창고, 생산자, 입고구분, 상품구분
-              // data.warehouseSeCd, data.prdcrCd, data.wrhsSeCd, data.gdsSeCd
+                SBUxMethod.set("srch-dtp-sortYmd", gfn_dateToYmd(new Date()));
+                return;
+              }
+              // 투입창고, 생산자, 입고구분, 상품구분이 동일한지 확인
               const chkKey = ['warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
               const curSortData = _.pick(sortRegInfo, chkKey);
               const invntrData = _.pick(obj, chkKey);
@@ -1137,27 +1117,22 @@
                   inptWght += sortRegInfo.inputWght;  // 선별투입중량 합
 
                   // 재고목록 제외 - 중복저장 방지
+                  console.log(obj, "원물재고내역조회 결과");
                   rawMtrInvntr = rawMtrInvntr.filter(item => !_.isEqual(item, obj));
-
-                  // 재고량 < 투입량인 경우
-                  // if (inptWght > obj.cmndWght) {
-                  //   gfn_comAlert("W0008", "재고량", "투입량");		// W0008	{0} 보다 {1}이/가 큽니다.
-                  //   return;
-                  // }
+                  console.log(rawMtrInvntr)
                 }
-
                 inptQntt = 0;
                 inptWght = 0;
               }
 
               if (parseFloat(obj.inptPrgrsWght) || 0 > 0) {
                 rawMtrInvntrList.inptPrgrsYn = "Y";
-                // rawMtrInvntrList.invntrQntt = obj.inptPrgrsQntt;
-                // rawMtrInvntrList.invntrWght = obj.inptPrgrsWght;
               }
             }
             sortPrfmncList.push(sortRegList[idx++]);
           }
+          console.log(rawMtrInvntrList, "원물재고내역조회 결과");
+          console.log(sortPrfmncList, "선별등록 데이터");
 
           const sortMng = {
             apcCd: gv_selectedApcCd,
@@ -1219,8 +1194,8 @@
     SBUxMethod.set("srch-inp-sortInputWght", rowData.inputWght); // 투입중량
     SBUxMethod.set("srch-slt-sortGrdCd", rowData.grdCd); // 등급
     SBUxMethod.set("srch-chk-sortPckg", rowData.pckgChck); // 포장
-    SBUxMethod.set("srch-slt-spmtPckgUnitCd", rowData.spmtPckgUnitCd); // 포장상품명
-    SBUxMethod.set("srch-slt-spmtPckgGrdCd", rowData.spmtPckgGrdCd); // 포장상품등급
+    SBUxMethod.set("srch-slt-sortPckgUnitCd", rowData.spmtPckgUnitCd); // 포장상품명
+    SBUxMethod.set("srch-slt-sortPckgGrdSeCd", rowData.spmtPckgGrdCd); // 포장상품등급
     SBUxMethod.set("srch-inp-sortQntt", rowData.sortQntt); // 선별수량
     SBUxMethod.set("srch-inp-sortWght", rowData.sortWght); // 선별중량
     SBUxMethod.set("srch-inp-sortRmrk", rowData.rmrk); // 비고
