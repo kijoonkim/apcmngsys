@@ -10,10 +10,7 @@ import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper;
 import com.at.apcss.fm.fclt.service.ApcSurveyMngService;
 import com.at.apcss.fm.fclt.service.FcltOperInfoService;
-import com.at.apcss.fm.fclt.vo.ApcSurveyMstVO;
-import com.at.apcss.fm.fclt.vo.FcltItemVO;
-import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
-import com.at.apcss.fm.fclt.vo.FcltPrgrsVO;
+import com.at.apcss.fm.fclt.vo.*;
 import com.at.apcss.main.web.MainController;
 import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -168,6 +165,88 @@ public class ApcSurveyMngServiceImpl extends BaseServiceImpl implements ApcSurve
         }
 
         rtnObj = fcltOperInfoService.insertOperOgnz(fcltOperInfoVO);
+        if (rtnObj != null) {
+            throw new EgovBizException(getMessageForMap(rtnObj));
+        }
+
+        return null;
+    }
+
+    /**
+     * APC전수조사 마스터 리스트 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ApcSurveyMstVO> selectApcSurveyMasterList(ApcSurveyMstVO apcSurveyMstVO) throws Exception {
+
+        List<ApcSurveyMstVO> resultList = apcSurveyMngMapper.selectApcSurveyMasterList(apcSurveyMstVO);
+
+        return resultList;
+    }
+
+    /**
+     * APC전수조사 운영자개요 목록 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<FcltOperInfoVO> selectOperPrsnInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+        List<FcltOperInfoVO> resultList = fcltOperInfoService.selectOperPrsnInfoList(fcltOperInfoVO);
+
+        return resultList;
+    }
+
+    @Override
+    public HashMap<String, Object> updateApcCmsuMst(List<ApcSurveyMstVO> apcSurveyMstList) throws Exception {
+
+        for (ApcSurveyMstVO apcSurveyMstVO : apcSurveyMstList) {
+
+            String crtrYr = apcSurveyMstVO.getCrtrYr();
+            if (!StringUtils.hasText(crtrYr)) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준연도");
+            }
+
+            ApcSurveyMstVO mstInfo = apcSurveyMngMapper.selectApcSurveyMaster(apcSurveyMstVO);
+            if (mstInfo == null || !StringUtils.hasText(mstInfo.getCrtrYr()) || ComConstants.CON_YES.equals(mstInfo.getDelYn())) {
+                return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "조사연도 관리 대상");	// W0005	{0}이/가 없습니다.
+            }
+
+            // APC전수조사마스터 저장
+            if ( 0 == apcSurveyMngMapper.updateApcCmsuMst(apcSurveyMstVO)){
+                throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "조사연도 관리 저장"))); // E0003	{0} 시 오류가 발생하였습니다.
+            }
+        }
+
+        return null;
+    }
+
+
+    /**
+     * APC전수조사 운영자정보 수정
+     * @param fcltOperInfoVO
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public HashMap<String, Object> updateOperPrsnInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+        HashMap<String, Object> rtnObj = null;
+
+        String crtrYr = fcltOperInfoVO.getCrtrYr();
+        if (!StringUtils.hasText(crtrYr)) {
+            return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준연도");
+        }
+
+        String apcCd = fcltOperInfoVO.getApcCd();
+        if (!StringUtils.hasText(apcCd)) {
+            return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND,"APC코드");
+        }
+
+        rtnObj = fcltOperInfoService.updateOperPrsnInfo(fcltOperInfoVO);
         if (rtnObj != null) {
             throw new EgovBizException(getMessageForMap(rtnObj));
         }
