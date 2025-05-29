@@ -84,4 +84,9 @@ public class PrdcrCrclOgnMngVO extends ComVO{
 	private String sysLastChgUserNm;		//시스템최종변경사용자이름
 	private String sysLastChgDtYmd;			//시스템최종변경일시ymd
 
+	/**
+	 * 기준연도
+	 */
+	private String crtrYr;
+
 }
