@@ -153,7 +153,7 @@
         }
 
         if (choiceTab == "tab_pckgStdReg") {
-            // fn_saveFrmhsExpctWrhs();
+            fn_savePckgInfo();
         }
 
         if (choiceTab == "tab_spmtStdReg") {

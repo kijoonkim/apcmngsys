@@ -249,7 +249,6 @@
           <th scope="row" class="th_bg"><span class="data_required" ></span>창고</th>
           <td class="td_input" style="border-right: hidden;">
             <div class="displayFlex">
-              <div style="flex-basis: 18rem">
                 <sbux-select
                         unselected-text="선택"
                         uitype="single"
@@ -258,7 +257,6 @@
                         class="form-control input-sm input-sm-ast inpt_data_reqed"
                         jsondata-ref="jsonComWarehouse"
                 ></sbux-select>
-              </div>
             </div>
           </td>
           <th scope="row" class="th_bg"><span class="data_required" ></span>등급</th>
