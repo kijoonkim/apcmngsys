@@ -44,14 +44,14 @@
 						ELSE '미제출'
 					END) AS BIZ_PLAN_SBMSN_YN,
 
-					DECODE(BPSD.STTS, '1', '미승인', '2', '승인', '3', '반려') AS BIZ_PLAN_APRV_YN,
+					DECODE(BPSD.STTS, '1', '미확인', '2', '확인', '3', '반려') AS BIZ_PLAN_APRV_YN,
 
 					(CASE
 						WHEN SSD.FILE_SN IS NOT NULL THEN '제출'
 						ELSE '미제출'
 					END) AS SGNTR_SBMSN_YN,
 
-					DECODE(SSD.STTS, '1', '미승인', '2', '승인', '3', '반려') AS SGNTR_APRV_YN,
+					DECODE(SSD.STTS, '1', '미확인', '2', '확인', '3', '반려') AS SGNTR_APRV_YN,
 
 					BPSD.RMRK AS BIZ_PLAN_RMRK,
 					SSD.RMRK AS SGNTR_RMRK,

@@ -297,4 +297,42 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 		return resultVO;
 	}
 
+	/**
+	 * APC전수조사 - 운영자정보 목록 조회
+	 * @param fcltOperInfoVO
+	 * @return List<FcltOperInfoVO>
+	 */
+	@Override
+	public List<FcltOperInfoVO> selectOperPrsnInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+		List<FcltOperInfoVO> resultList = fcltOperInfoMapper.selectOperPrsnInfoList(fcltOperInfoVO);
+
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> updateOperPrsnInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+		String crtrYr = fcltOperInfoVO.getCrtrYr();
+		if (!StringUtils.hasText(crtrYr)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준연도");
+		}
+
+		String apcCd = fcltOperInfoVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND,"APC코드");
+		}
+
+		FcltOperInfoVO apcOperPrsnVO = fcltOperInfoMapper.selectApcOperPrsnOtln(fcltOperInfoVO);
+		if (apcOperPrsnVO == null || !StringUtils.hasText(apcOperPrsnVO.getCrtrYr())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "운영자정보 저장대상"); // W0005	{0}이/가 없습니다.
+		}
+
+		if (0 == fcltOperInfoMapper.updateOperPrsnInfo(fcltOperInfoVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "운영자정보 저장"))); // E0003	{0} 시 오류가 발생하였습니다.
+		}
+
+		return null;
+	}
+
 }
