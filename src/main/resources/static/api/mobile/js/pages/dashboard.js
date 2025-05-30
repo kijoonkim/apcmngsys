@@ -192,7 +192,12 @@ $(function() {
             var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
             $('#apc_infos').append(apcInfo);
 
-            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding">' + el.name + '</div>');
+            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding"></div>');
+            var apcimg = $('<img src="./img/logo_btn_' + el.value + '.png"/>');
+            apcName.append(apcimg);
+            apcimg.error(function(){
+                apcName.text(el.name);
+            });
             if(el.nh)apcName.addClass('nh');
             apcInfo.append(apcName);
 
