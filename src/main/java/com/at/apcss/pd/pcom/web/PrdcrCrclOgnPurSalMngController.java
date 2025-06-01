@@ -24,7 +24,7 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnPurSalMngVO;
 public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	@Resource(name= "PrdcrCrclOgnPurSalMngService")
-	private PrdcrCrclOgnPurSalMngService PrdcrCrclOgnPurSalMngService;
+	private PrdcrCrclOgnPurSalMngService prdcrCrclOgnPurSalMngService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/pcom/PrdcrCrclOgnPurSalMng.do")
@@ -34,11 +34,11 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngList(PrdcrCrclOgnPurSalMngVO);
+			 resultList = prdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngList(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -51,21 +51,21 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	//등록
 	@PostMapping(value = "/pd/pcom/insertPrdcrCrclOgnPurSalMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnPurSalMng(@RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest requset) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnPurSalMng(@RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
 		// audit 항목
-		PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
-		PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-		PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
-		PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+		prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+		prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = PrdcrCrclOgnPurSalMngService.insertPrdcrCrclOgnPurSalMng01(PrdcrCrclOgnPurSalMngVO);
+			insertedCnt = prdcrCrclOgnPurSalMngService.insertPrdcrCrclOgnPurSalMng01(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -78,20 +78,20 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	//매입 저장
 	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList01.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList01(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList01(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int savedCnt = 0;
 		try {
-			for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+			for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngVOList) {
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList01(PrdcrCrclOgnPurSalMngVOList);
+			savedCnt = prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList01(prdcrCrclOgnPurSalMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -102,20 +102,20 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	//매출 저장
 	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList02.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList02(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList02(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
-			for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+			for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngVOList) {
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList02(PrdcrCrclOgnPurSalMngVOList);
+			savedCnt = prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList02(prdcrCrclOgnPurSalMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -126,20 +126,20 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	//매출 저장
 	@PostMapping(value = "/pd/pcom/multiSavePrdcrCrclOgnPurSalMngList03.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList03(@RequestBody List<PrdcrCrclOgnPurSalMngVO> PrdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSavePrdcrCrclOgnPurSalMngList03(@RequestBody List<PrdcrCrclOgnPurSalMngVO> prdcrCrclOgnPurSalMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
-			for (PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO : PrdcrCrclOgnPurSalMngVOList) {
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				PrdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
+			for (PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO : prdcrCrclOgnPurSalMngVOList) {
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysFrstInptUserId(getUserId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				prdcrCrclOgnPurSalMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = PrdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList03(PrdcrCrclOgnPurSalMngVOList);
+			savedCnt = prdcrCrclOgnPurSalMngService.multiSavePrdcrCrclOgnPurSalMngList03(prdcrCrclOgnPurSalMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -154,23 +154,23 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result = PrdcrCrclOgnPurSalMngService.deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
+			result = prdcrCrclOgnPurSalMngService.deletePrdcrCrclOgnPurSalMng(PrdcrCrclOgnPurSalMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 로우데이터 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnPurSalMngService.selectRawDataList(PrdcrCrclOgnPurSalMngVO);
+			 resultList = prdcrCrclOgnPurSalMngService.selectRawDataList(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -181,11 +181,11 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 
 	// 로우데이터 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnPurSalMngService.selectRawDataList2025(PrdcrCrclOgnPurSalMngVO);
+			 resultList = prdcrCrclOgnPurSalMngService.selectRawDataList2025(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -194,20 +194,69 @@ public class PrdcrCrclOgnPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	/**
+	 * 통합조직 총 매입매출 Raw Data 목록 조회
+	 * @param model
+	 * @param prdcrCrclOgnPurSalMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pcom/selectUoTotalPurchaseRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoTotalPurchaseRawDataList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnPurSalMngVO> resultList;
+		try {
+			resultList = prdcrCrclOgnPurSalMngService.selectUoTotalPurchaseRawDataList(prdcrCrclOgnPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/pd/pcom/selectUoTotalPurchaseSaleList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoTotalPurchaseSaleList(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<PrdcrCrclOgnPurSalMngVO> resultPrchsList;
+		List<PrdcrCrclOgnPurSalMngVO> resultSlsList;
+		PrdcrCrclOgnPurSalMngVO result;
+
+		try {
+			//매입 리스트
+			resultPrchsList = prdcrCrclOgnPurSalMngService.selectUoTotalPurchaseList(prdcrCrclOgnPurSalMngVO);
+			//매출 리스트
+			resultSlsList = prdcrCrclOgnPurSalMngService.selectUoTotalSaleList(prdcrCrclOgnPurSalMngVO);
+			//임시저장 정보
+			result = prdcrCrclOgnPurSalMngService.selectTempSaveUoAps(prdcrCrclOgnPurSalMngVO);
+
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put("resultPrchsList", resultPrchsList);
+		resultMap.put("resultSlsList", resultSlsList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 	// 매입, 매출 리스트 조회
 	@PostMapping(value = "/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngListNew(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO PrdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnPurSalMngListNew(Model model, @RequestBody PrdcrCrclOgnPurSalMngVO prdcrCrclOgnPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultPrchsList = new ArrayList<>();
 		List<PrdcrCrclOgnPurSalMngVO> resultSlsList = new ArrayList<>();
 		PrdcrCrclOgnPurSalMngVO result = new PrdcrCrclOgnPurSalMngVO();
 		try {
 			//매입 리스트
-			resultPrchsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngPrchsList(PrdcrCrclOgnPurSalMngVO);
+			resultPrchsList = prdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngPrchsList(prdcrCrclOgnPurSalMngVO);
 			//매출 리스트
-			resultSlsList = PrdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngSlsList(PrdcrCrclOgnPurSalMngVO);
+			resultSlsList = prdcrCrclOgnPurSalMngService.selectPrdcrCrclOgnPurSalMngSlsList(prdcrCrclOgnPurSalMngVO);
 			//임시저장 정보
-			result = PrdcrCrclOgnPurSalMngService.selectTempSaveUoAps(PrdcrCrclOgnPurSalMngVO);
+			result = prdcrCrclOgnPurSalMngService.selectTempSaveUoAps(prdcrCrclOgnPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);

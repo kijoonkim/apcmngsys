@@ -28,7 +28,7 @@ import com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO;
 public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	@Resource(name= "PrdcrCrclOgnReqMngService")
-	private PrdcrCrclOgnReqMngService PrdcrCrclOgnReqMngService;
+	private PrdcrCrclOgnReqMngService prdcrCrclOgnReqMngService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/aom/PrdcrCrclOgnReqMng.do")
@@ -38,12 +38,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/aom/selectPrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMng(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMng(Model model, @RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		PrdcrCrclOgnReqMngVO result = new PrdcrCrclOgnReqMngVO();
 		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
 		try {
-			 result = PrdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+			 result = prdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -54,12 +54,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/aom/selectPrdcrCrclOgnReqMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMngList(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectPrdcrCrclOgnReqMngList(Model model, @RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnReqMngVO> resultList = new ArrayList<>();
 		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
 		try {
-			 resultList = PrdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO);
+			 resultList = prdcrCrclOgnReqMngService.selectPrdcrCrclOgnReqMngList(prdcrCrclOgnReqMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -68,23 +68,48 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	/**
+	 * 통합+출자출하 조직 목록 조회
+	 * @param model
+	 * @param prdcrCrclOgnReqMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/aom/selectUoIsoOgnzList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoIsoOgnzList(Model model, @RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnReqMngVO> resultList = new ArrayList<>();
+		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
+		try {
+			resultList = prdcrCrclOgnReqMngService.selectUoIsoOgnzList(prdcrCrclOgnReqMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
 	//등록
 	@PostMapping(value = "/pd/aom/insertPrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> insertPrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		PrdcrCrclOgnReqMngVO.setSysFrstInptUserId(getUserId());
-		PrdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-		PrdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
-		PrdcrCrclOgnReqMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		prdcrCrclOgnReqMngVO.setSysFrstInptUserId(getUserId());
+		prdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		prdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
+		prdcrCrclOgnReqMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = PrdcrCrclOgnReqMngService.insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+			insertedCnt = prdcrCrclOgnReqMngService.insertPrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -97,20 +122,20 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	//저장
 	@PostMapping(value = "/pd/aom/updatePrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updatePrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updatePrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// audit 항목
-		PrdcrCrclOgnReqMngVO.setSysFrstInptUserId(getUserId());
-		PrdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-		PrdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
+		prdcrCrclOgnReqMngVO.setSysFrstInptUserId(getUserId());
+		prdcrCrclOgnReqMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		prdcrCrclOgnReqMngVO.setSysLastChgUserId(getUserId());
 
 		//System.out.println(PrdcrCrclOgnReqMngVO.toString());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = PrdcrCrclOgnReqMngService.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+			insertedCnt = prdcrCrclOgnReqMngService.updatePrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 
 			if(insertedCnt > 0) {
 				LoginVO sessionLoginVo =(LoginVO) requset.getSession().getAttribute("loginVO");
@@ -122,7 +147,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 				}
 			}
 
-			List<GpcVO> GpcVoList = PrdcrCrclOgnReqMngVO.getGpcList();
+			List<GpcVO> GpcVoList = prdcrCrclOgnReqMngVO.getGpcList();
 			for (GpcVO gpcVO : GpcVoList) {
 				gpcVO.setSysFrstInptPrgrmId(getPrgrmId());
 				gpcVO.setSysFrstInptUserId(getUserId());
@@ -130,7 +155,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 				gpcVO.setSysLastChgUserId(getUserId());
 			}
 
-			insertedCnt += PrdcrCrclOgnReqMngService.multiSaveGpcList(GpcVoList);
+			insertedCnt += prdcrCrclOgnReqMngService.multiSaveGpcList(GpcVoList);
 
 
 		} catch (Exception e) {
@@ -171,15 +196,15 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	//통합조직 신청 정보 삭제
 	@PostMapping(value = "/pd/aom/deletePrdcrCrclOgnReqMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> deletePrdcrCrclOgnReqMng(@RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
 		logger.debug("/pd/aom/deletePrdcrCrclOgnReqMng >>> 호출 >>> ");
 
 		int resultCnt = 0;
 		try {
-			resultCnt += PrdcrCrclOgnReqMngService.deleteUoAply(PrdcrCrclOgnReqMngVO);
-			resultCnt += PrdcrCrclOgnReqMngService.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
-			resultCnt += PrdcrCrclOgnReqMngService.deleteUoItem(PrdcrCrclOgnReqMngVO);
-			resultCnt += PrdcrCrclOgnReqMngService.updateUoApoSe(PrdcrCrclOgnReqMngVO);//조직구분 변경
+			resultCnt += prdcrCrclOgnReqMngService.deleteUoAply(prdcrCrclOgnReqMngVO);
+			resultCnt += prdcrCrclOgnReqMngService.deleteUoUoCd(prdcrCrclOgnReqMngVO);
+			resultCnt += prdcrCrclOgnReqMngService.deleteUoItem(prdcrCrclOgnReqMngVO);
+			resultCnt += prdcrCrclOgnReqMngService.updateUoApoSe(prdcrCrclOgnReqMngVO);//조직구분 변경
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -198,7 +223,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<GpcVO> resultList = new ArrayList<>();
 		try {
-			 resultList = PrdcrCrclOgnReqMngService.selectGpcList(gpcVO);
+			 resultList = prdcrCrclOgnReqMngService.selectGpcList(gpcVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -213,7 +238,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 		int result = 0;
 		try {
-			result = PrdcrCrclOgnReqMngService.deleteGpc(gpcVO);
+			result = prdcrCrclOgnReqMngService.deleteGpc(gpcVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -225,12 +250,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	//법인체 마감
 	@PostMapping(value = "/pd/aom/updateCorpDdlnSeCd.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateCorpDdlnSeCd(@RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateCorpDdlnSeCd(@RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception {
 		logger.debug("/pd/aom/updateCorpDdlnSeCd >>> 호출 >>> ");
 
 		int result = 0;
 		try {
-			result = PrdcrCrclOgnReqMngService.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
+			result = prdcrCrclOgnReqMngService.updateCorpDdlnSeCd(prdcrCrclOgnReqMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -242,12 +267,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	/* 로우데이터 요청 */
 	@PostMapping(value = "/pd/aom/hiddenGrdUoSelectList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> hiddenGrdUoSelectList(Model model, @RequestBody PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> hiddenGrdUoSelectList(Model model, @RequestBody PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnReqMngVO> resultList = new ArrayList<>();
 
 		try {
-			 resultList = PrdcrCrclOgnReqMngService.hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO);
+			 resultList = prdcrCrclOgnReqMngService.hiddenGrdUoSelectList(prdcrCrclOgnReqMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -263,7 +288,7 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 		List<ApcInfoVO> resultList = new ArrayList<>();
 
 		try {
-			 resultList = PrdcrCrclOgnReqMngService.SelectApcInfoList(apcInfoVO);
+			 resultList = prdcrCrclOgnReqMngService.SelectApcInfoList(apcInfoVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -275,12 +300,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	// 대출잔액 현황 조회
 	@PostMapping(value = "/pd/aom/selectLoanList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectLoanList(Model model, @RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectLoanList(Model model, @RequestBody LoanVO loanVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<LoanVO> resultList = new ArrayList<>();
 		//PrdcrCrclOgnReqMngVO.setUserType(getUserType());
 		try {
-			 resultList = PrdcrCrclOgnReqMngService.selectLoanList(LoanVO);
+			 resultList = prdcrCrclOgnReqMngService.selectLoanList(loanVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -291,12 +316,12 @@ public class PrdcrCrclOgnReqMngController extends BaseController{
 
 	// 대출잔액 현황 확인 여부 업데이트
 	@PostMapping(value = "/pd/aom/updateLoanChk.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateLoanChk(@RequestBody LoanVO LoanVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> updateLoanChk(@RequestBody LoanVO loanVO, HttpServletRequest request) throws Exception {
 		logger.debug("/pd/aom/updateLoanChk >>> 호출 >>> ");
 
 		int result = 0;
 		try {
-			result = PrdcrCrclOgnReqMngService.updateLoanChk(LoanVO);
+			result = prdcrCrclOgnReqMngService.updateLoanChk(loanVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

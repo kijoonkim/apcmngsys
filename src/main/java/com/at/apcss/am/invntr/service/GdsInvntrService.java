@@ -268,4 +268,14 @@ public interface GdsInvntrService {
 	 * @throws Exception
 	 */
 	public String selectPckgno(String apcCd, String pckgYmd) throws Exception;
+
+
+	/**
+	 * 출하상품재고 대상 조회 (for 상품대사)
+	 * @param gdsInvntrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListForCompare(GdsInvntrVO gdsInvntrVO) throws Exception;
+
 }

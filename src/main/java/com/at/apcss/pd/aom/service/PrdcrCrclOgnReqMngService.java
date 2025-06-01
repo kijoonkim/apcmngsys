@@ -40,6 +40,16 @@ public interface PrdcrCrclOgnReqMngService {
 	 */
 	public List<PrdcrCrclOgnReqMngVO> selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception;
 
+
+	/**
+	 * 통합+출자출하 조직 목록 조회
+	 * @param prdcrCrclOgnReqMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnReqMngVO> selectUoIsoOgnzList(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception;
+
+
 	/**
 	 * 통합조직 조직정보를 등록한다.
 	 * @param PrdcrCrclOgnReqMngVO

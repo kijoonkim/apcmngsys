@@ -1,6 +1,9 @@
 package com.at.apcss.pd.isom.service.impl;
 
 import java.util.List;
+
+import com.at.apcss.am.constants.PdConstants;
+import com.at.apcss.co.constants.ComConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +14,10 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 
 
 /**
- * @Class Name : BbsServiceImpl.java
- * @Description : 게시판 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 정연두
- * @since 2023.06.21
+ * @Class Name : InvShipOgnPurSalMngServiceImpl.java
+ * @Description : 출자출하조직 매임매출 서비스를 정의하기 위한 서비스 구현 클래스
+ * @author 유민지
+ * @since 2025.04.21
  * @version 1.0
  * @see
  *
@@ -29,162 +32,176 @@ import com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO;
 public class InvShipOgnPurSalMngServiceImpl extends BaseServiceImpl implements InvShipOgnPurSalMngService{
 
 	@Autowired
-	private InvShipOgnPurSalMngMapper InvShipOgnPurSalMngMapper;
+	private InvShipOgnPurSalMngMapper invShipOgnPurSalMngMapper;
 
 	@Override
-	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		InvShipOgnPurSalMngVO resultVO = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
-
-		return resultVO;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMng(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngPrchsListNew(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectInvShipOgnPurSalMngSlsListNew(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		int insertedCnt = InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
-
-		return insertedCnt;
+		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng01(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		int insertedCnt = InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO);
-
-		return insertedCnt;
+		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng02(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		int insertedCnt = InvShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO);
-
-		return insertedCnt;
+		return invShipOgnPurSalMngMapper.insertInvShipOgnPurSalMng03(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
+	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//출자출하조직 사업자번호
 		String tmprStrgYnVal = null;//임시저장 여부
-		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
-			yrVal = InvShipOgnPurSalMngVO.getYr();
-			brnoVal = InvShipOgnPurSalMngVO.getBrno();
-			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
-			savedCnt += insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO);
+		for (InvShipOgnPurSalMngVO invShipOgnPurSalMngVO : invShipOgnPurSalMngVOList) {
+			yrVal = invShipOgnPurSalMngVO.getYr();
+			brnoVal = invShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = invShipOgnPurSalMngVO.getTmprStrgYn();
+			savedCnt += insertInvShipOgnPurSalMng01(invShipOgnPurSalMngVO);
 		}
 		//임시저장 변경
 		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
 		tmprStrgVo.setYr(yrVal);
 		tmprStrgVo.setBrno(brnoVal);
 		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
-		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
+		invShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
-	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
+	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//출자출하조직 사업자번호
 		String tmprStrgYnVal = null;//임시저장 여부
-		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
-			yrVal = InvShipOgnPurSalMngVO.getYr();
-			brnoVal = InvShipOgnPurSalMngVO.getBrno();
-			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
-			savedCnt += insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO);
+		for (InvShipOgnPurSalMngVO invShipOgnPurSalMngVO : invShipOgnPurSalMngVOList) {
+			yrVal = invShipOgnPurSalMngVO.getYr();
+			brnoVal = invShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = invShipOgnPurSalMngVO.getTmprStrgYn();
+			savedCnt += insertInvShipOgnPurSalMng02(invShipOgnPurSalMngVO);
 		}
 		//임시저장 변경
 		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
 		tmprStrgVo.setYr(yrVal);
 		tmprStrgVo.setBrno(brnoVal);
 		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
-		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
+		invShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
-	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception {
+	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception {
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//출자출하조직 사업자번호
 		String tmprStrgYnVal = null;//임시저장 여부
-		for (InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO : InvShipOgnPurSalMngVOList) {
-			yrVal = InvShipOgnPurSalMngVO.getYr();
-			brnoVal = InvShipOgnPurSalMngVO.getBrno();
-			tmprStrgYnVal = InvShipOgnPurSalMngVO.getTmprStrgYn();
-			savedCnt += insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO);
+		for (InvShipOgnPurSalMngVO invShipOgnPurSalMngVO : invShipOgnPurSalMngVOList) {
+			yrVal = invShipOgnPurSalMngVO.getYr();
+			brnoVal = invShipOgnPurSalMngVO.getBrno();
+			tmprStrgYnVal = invShipOgnPurSalMngVO.getTmprStrgYn();
+			savedCnt += insertInvShipOgnPurSalMng03(invShipOgnPurSalMngVO);
 		}
 		//임시저장 변경
 		InvShipOgnPurSalMngVO tmprStrgVo = new InvShipOgnPurSalMngVO();
 		tmprStrgVo.setYr(yrVal);
 		tmprStrgVo.setBrno(brnoVal);
 		tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
-		InvShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
+		invShipOgnPurSalMngMapper.updateTempSaveIsoAps(tmprStrgVo);
 		return savedCnt;
 	}
 
 	@Override
-	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
-		return InvShipOgnPurSalMngMapper.deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO);
+	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+		return invShipOgnPurSalMngMapper.deleteInvShipOgnPurSalMng(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectRawDataList(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectRawDataList(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		List<InvShipOgnPurSalMngVO> resultList = InvShipOgnPurSalMngMapper.selectRawDataList2025(InvShipOgnPurSalMngVO);
-		return resultList;
+		return invShipOgnPurSalMngMapper.selectRawDataList2025(invShipOgnPurSalMngVO);
 	}
 
 	@Override
-	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception {
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
 
-		InvShipOgnPurSalMngVO resultVO = InvShipOgnPurSalMngMapper.selectTempSaveIsoAps(InvShipOgnPurSalMngVO);
+		return invShipOgnPurSalMngMapper.selectTempSaveIsoAps(invShipOgnPurSalMngVO);
+	}
 
-		return resultVO;
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+
+		int yr = Integer.parseInt(invShipOgnPurSalMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnPurSalMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleRawDataList(invShipOgnPurSalMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+		int yr = Integer.parseInt(invShipOgnPurSalMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnPurSalMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		invShipOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_PRCHS);
+		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList(invShipOgnPurSalMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception {
+		int yr = Integer.parseInt(invShipOgnPurSalMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnPurSalMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		invShipOgnPurSalMngVO.setPrchsSlsSe(PdConstants.CON_PRCHS_SLS_SE_SLS);
+		return invShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList(invShipOgnPurSalMngVO);
+		//return invShipOgnPurSalMngMapper.selectIsoTotalSaleList(invShipOgnPurSalMngVO);
 	}
 }

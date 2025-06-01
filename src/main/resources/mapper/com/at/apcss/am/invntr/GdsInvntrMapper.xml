@@ -1996,4 +1996,84 @@
 			AND SPCFCT_CD = #{spcfctCd}
 		</if>
 	</select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectSpmtPrfmncForUnsettled -->
+	<!-- DESC : 미처리 출하실적 조회            			    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.04.26  	유민지      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectSpmtPrfmncForUnsettled" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		SELECT pt0.*
+			 , (SELECT FN_GET_PRDCR_NM(pt0.RPRS_PRDCR_CD, pt0.APC_CD) FROM DUAL) AS RPRS_PRDCR_NM
+			 , (SELECT FN_GET_ITEM_NM(pt0.ITEM_CD, pt0.APC_CD) FROM DUAL) AS ITEM_NM
+			 , (SELECT FN_GET_VRTY_NM(pt0.ITEM_CD, pt0.VRTY_CD, pt0.APC_CD) FROM DUAL) AS VRTY_NM
+			 , (SELECT FN_GET_SPCFCT_NM(pt0.ITEM_CD, pt0.SPCFCT_CD, pt0.APC_CD) FROM DUAL) AS SPCFCT_NM
+			 , (SELECT FN_GET_GRD_NM_SORT(pt0.APC_CD, pt0.ITEM_CD, pt0.GRD_CD) FROM DUAL) AS SORT_GRD_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', pt0.FCLT_CD, pt0.APC_CD) FROM DUAL) AS FCLT_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WAREHOUSE_SE_CD', pt0.WAREHOUSE_SE_CD, pt0.APC_CD) FROM DUAL) AS WAREHOUSE_SE_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('GDS_SE_CD', pt0.GDS_SE_CD) FROM DUAL) AS GDS_SE_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('WRHS_SE_CD', pt0.WRHS_SE_CD) FROM DUAL) AS WRHS_SE_NM
+		FROM
+			(SELECT
+				 GI.APC_CD			AS APC_CD
+				  , GI.PCKGNO			AS PCKGNO
+				  , GI.PCKG_SN		AS PCKG_SN
+				  , GI.PCKG_YMD		AS PCKG_YMD
+				  , GI.FCLT_CD		AS FCLT_CD
+				  , GI.RPRS_PRDCR_CD	AS RPRS_PRDCR_CD
+				  , GI.ITEM_CD		AS ITEM_CD
+				  , GI.VRTY_CD		AS VRTY_CD
+				  , GI.SPCFCT_CD		AS SPCFCT_CD
+				  , GI.GDS_CD			AS GDS_CD
+				  , GI.GDS_GRD		AS GDS_GRD
+				  , GI.PCKG_SE_CD		AS PCKG_SE_CD
+				  , GI.GDS_SE_CD		AS GDS_SE_CD
+				  , GI.WAREHOUSE_SE_CD	AS WAREHOUSE_SE_CD
+				  , GI.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				  , GI.PCKG_QNTT		AS PCKG_QNTT
+				  , GI.PCKG_WGHT		AS PCKG_WGHT
+				  , GI.SPMT_QNTT		AS SPMT_QNTT
+				  , GI.SPMT_WGHT		AS SPMT_WGHT
+				  , GI.INVNTR_QNTT	AS INVNTR_QNTT
+				  , GI.INVNTR_WGHT	AS INVNTR_WGHT
+				  , GI.TRNSF_QNTT		AS TRNSF_QNTT
+				  , GI.TRNSF_WGHT		AS TRNSF_WGHT
+				  , GI.RTN_GDS_QNTT	AS RTN_GDS_QNTT
+				  , GI.RTN_GDS_WGHT	AS RTN_GDS_WGHT
+				  , GI.DEL_YN			AS DEL_YN
+				  , GI.INVNTR_STTS_CD 	AS INVNTR_STTS_CD
+				  , GI.PCKG_SORTNO		AS PCKG_SORTNO
+				  , GI.PCKG_SORT_SN 	AS PCKG_SORT_SN
+				  , SP.GRD_CD				AS GRD_CD
+				  , SI.WRHS_SE_CD		AS WRHS_SE_CD
+			FROM
+
+			JOIN TB_GDS_INVNTR AS GI
+
+						   ON GI.APC_CD = SI.APC_CD
+							   AND GI.PCKG_SORTNO = SI.SORTNO
+							   AND GI.PCKG_SORT_SN = SI.SORT_SN
+							   AND GI.SPMT_PCKG_UNIT_CD = SI.SPMT_PCKG_UNIT_CD
+							   AND GI.ITEM_CD = SI.ITEM_CD
+							   AND GI.VRTY_CD = SI.VRTY_CD
+							   AND GI.DEL_YN = 'N'
+			) AS pt0
+	</select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.invntr.mapper.GdsInvntrMapper.selectSpmtGdsInvntrListForCompare -->
+	<!-- DESC : 출하재고 조회 for 상품재고 대사  			    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.04.26  	유민지      		Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectSpmtGdsInvntrListForCompare" parameterType="com.at.apcss.am.invntr.vo.GdsInvntrVO" resultType="com.at.apcss.am.invntr.vo.GdsInvntrVO">
+		<![CDATA[
+
+		]]>
+	</select>
 </mapper>
