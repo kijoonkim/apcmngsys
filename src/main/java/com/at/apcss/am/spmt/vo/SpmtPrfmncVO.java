@@ -393,8 +393,15 @@ public class SpmtPrfmncVO extends ComVO {
 	 */
 	private String spmtSlsUntprc;
 
-
+	/**
+	 * 출하상품목록
+	 */
 	private List<SpmtGdsVO> spmtGdsList;
+
+	/**
+	 * 재고상태코드목록
+	 */
+	private List<String> invntrSttsCdList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
 		return spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
@@ -404,5 +411,13 @@ public class SpmtPrfmncVO extends ComVO {
 		this.spmtGdsList = spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
 
+
+	public List<String> getInvntrSttsCdList() {
+		return invntrSttsCdList == null ? null : new ArrayList<>(invntrSttsCdList);
+	}
+
+	public void setInvntrSttsCdList(List<String> invntrSttsCdList) {
+		this.invntrSttsCdList = invntrSttsCdList == null ? null : new ArrayList<>(invntrSttsCdList);
+	}
 
 }
