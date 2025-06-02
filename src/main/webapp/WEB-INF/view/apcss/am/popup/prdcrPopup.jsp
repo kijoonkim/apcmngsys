@@ -103,6 +103,9 @@
 	var jsonComWrhsSeCdPrdcrPop		= [];	// 입고구분 wrhsSeCd	Grid
 	var jsonComTrsprtSeCdPrdcrPop	= [];	// 운송구분 trsprtSeCd	Grid
 	var jsonComClclnCrtrCdPrdcrPop	= [];	// 정산기준 clclnCrtr	Grid
+	/** prdcrPopup 내 autoComplete val **/
+	var jsonAutoCompletePrdcr = [];
+	var jsonAutoCompletePrdcrOrigin = [];
 
 	var grdPrdcrPop = null;
 	var jsonPrdcrPop = [];
@@ -816,10 +819,27 @@
 	//region 팝업 관련 함수
 	const pfn_prdcrNm_oninput = function(_event){
 		let prdcrNm = _event.that.value;
-		prdcrFunction.autocompleteRef = gfn_filterFrst(prdcrNm, prdcrFunction.autocompleteRefOrigin);
-		SBUxMethod.changeAutocompleteData(prdcrFunction.prdcrNmId, true);
+		jsonAutoCompletePrdcr = gfn_filterFrst(prdcrNm, jsonAutoCompletePrdcrOrigin);
+		/** 20240425 시점 이슈로 딜레이 0.1 **/
+		setTimeout(function (){
+			SBUxMethod.changeAutocompleteData(prdcrFunction.prdcrNmId, true);
+		},100);
 	}
-	const pfn_prdcr_autocomplete_select_callback = function(){
+	const pfn_prdcr_autocomplete_select_callback = function(_value, _label){
+		console.log("왜 바로 호출되는지좀;;");
+		console.trace(); // 추가
+		// 생산자 명 중복 체크. 중복일 경우 팝업 활성화.
+		console.log(_value,_label);
+		if(gfn_isEmpty(_label))return;
+		if(jsonAutoCompletePrdcrOrigin.filter(e => e.prdcrNm === _label).length > 1){
+			document.getElementById(prdcrFunction.btnId).click();
+		} else{
+			SBUxMethod.set(prdcrFunction.prdcrCdId, _value);
+			SBUxMethod.attr(prdcrFunction.prdcrNmId, "style", "background-color:aquamarine");	//skyblue
+			let prdcr = _.find(jsonAutoCompletePrdcrOrigin, {prdcrCd: _value});
+			SBUxMethod.set(prdcrFunction.identnoId,prdcr.prdcrIdentno);
+			prdcr.itemVrtyCd = prdcr.rprsItemCd + prdcr.rprsVrtyCd;
+		}
 
 	}
 	const pfn_prdcrIdentno_onchange = function(){
@@ -832,10 +852,20 @@
 		SBUxMethod.set(prdcrFunction.identnoId, "");
 		SBUxMethod.set(prdcrFunction.btnId, "");
 	}
-
+	/**
+	 * @description 생산자 팝업 및 생산자 컴포넌트 공통 함수 init
+	 * @param _apcCd
+	 * @param _prdcrNmId
+	 * @param _prdcrCdId
+	 * @param _identnoId
+	 * @param _btnId
+	 * @param _customFn
+	 * 각각 함수의 대상이 되는 컴포넌트 요소들의 ID
+	 * 표준 가이드 컨벤션 기준 기본값 => [srch, dtl, inpt] 중 search - [componentType] - [식별코드]
+	 * _customFn => prdcrFunction의 key값과 동일한 customFn을 객체형태로 제공할시 기본 fn 대체
+	 * ex) prdcrFunction(,,,,,, { oninputNm: customFn[typeof function] });
+	 */
 	const prdcrFunction = {
-		autocompleteRefOrigin: [],
-		autocompleteRef: [],
 		autocompleteText: 'name',
 		autocompleteHeight: '270px',
 		apcCd: '',
@@ -847,7 +877,7 @@
 		autocompleteSelectCallback: pfn_prdcr_autocomplete_select_callback,
 		onchangeIdentno: pfn_prdcrIdentno_onchange,
 		clear: pfn_prdcr_clear,
-		init: async function (_apcCd, _prdcrNmId, _prdcrCdId, _identnoId, _btnId, _customFn = {}) {
+		init: async function (_apcCd = gv_selectedApcCd, _prdcrNmId = 'srch-inp-prdcrNm', _prdcrCdId = 'srch-inp-prdcrCd', _identnoId = 'srch-inp-prdcrIdentno', _btnId = 'srch-btn-prdcr', _customFn = {}) {
 			this.apcCd = _apcCd;
 			this.prdcrNmId = _prdcrNmId;
 			this.prdcrCdId = _prdcrCdId;
@@ -855,7 +885,7 @@
 			this.btnId = _btnId;
 			const postJsonPromise = gfn_postJSON("/am/cmns/prdcrInfos", {apcCd: _apcCd, delYn: "N"}, null, true);
 			const data = await postJsonPromise;
-			this.autocompleteRefOrigin = data.resultList.map(item => {
+			jsonAutoCompletePrdcrOrigin = data.resultList.map(item => {
 				return {
 					prdcrCd: item.prdcrCd,
 					prdcrNm: item.prdcrNm,
@@ -884,9 +914,11 @@
 					frmerno: item.frmerno,
 				}
 			});
-			this.autocompleteRef = gfn_setFrst(this.autocompleteRefOrigin);
+			jsonAutoCompletePrdcr = gfn_setFrst(jsonAutoCompletePrdcrOrigin);
 			/** custom fn **/
 			let customCnt = Object.keys(_customFn).length;
+			console.log(_customFn);
+			console.log(customCnt,"있을건데?");
 			if (customCnt > 0) {
 				for (let key in _customFn) {
 					if (typeof _customFn[key] === 'function') {
@@ -897,7 +929,7 @@
 			/** sb refresh **/
 			/** prdcrNm **/
 			SBUxMethod.refresh(this.prdcrNmId, {
-				autocompleteRef: this.autocompleteRef,
+				autocompleteRef: 'jsonAutoCompletePrdcr',
 				autocompleteText: this.autocompleteText,
 				autocompleteHeight: this.autocompleteHeight,
 				oninput: this.oninputNm,

@@ -130,8 +130,8 @@
                                         autocomplete="off"
                                 ></sbux-input>
                                 <sbux-button
-                                        id="btn-srch-prdcr"
-                                        name="btn-srch-prdcr"
+                                        id="srch-btn-prdcr"
+                                        name="srch-btn-prdcr"
                                         class="btn btn-xs btn-outline-dark"
                                         text="찾기" uitype="modal"
                                         target-id="modal-prdcr"
@@ -350,16 +350,19 @@
 
     window.addEventListener("DOMContentLoaded",function(){
        fn_init();
+
     });
     const fn_init = async function(){
         /** SbSelect json **/
         await fn_setSbSelect();
         /** SbGrid create **/
         await fn_createDrctPrchsPrst();
+        /** popup function init **/
+        await prdcrFunction.init();
     }
 
     let test = function(){
-        prdcrFunction.init(gv_selectedApcCd,'srch-inp-prdcrNm','srch-inp-prdcrCd','srch-inp-prdcrIdentno','btn-srch-prdcr');
+        prdcrFunction.init(gv_selectedApcCd,'srch-inp-prdcrNm','srch-inp-prdcrCd','srch-inp-prdcrIdentno','srch-btn-prdcr',{autocompleteSelectCallback: () => {console.log("커스텀")}});
     }
 
     const fn_setSbSelect = async function(){}

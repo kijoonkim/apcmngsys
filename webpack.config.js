@@ -25,6 +25,10 @@ export default {
                     },
                 },
             },
+            {
+                test: /\.css$/, // CSS 처리
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
 };

@@ -1420,6 +1420,7 @@
      * @description 저장 버튼
      */
 	const fn_save = async function() {
+		console.log("씨발롬아");
 
 		if (gjsonStdGrdObjKnd.length == 0) {
   			gfn_comAlert("W0005", "품목별 등급정보");		//	W0005	{0}이/가 없습니다.
@@ -1705,6 +1706,8 @@
     		rawMtrInvntrList: rawMtrInvntrList,
     		sortPrfmncList: sortPrfmncList
     	}
+		console.log(sortMng, "저장전");
+		return;
 
         try {
     		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);
