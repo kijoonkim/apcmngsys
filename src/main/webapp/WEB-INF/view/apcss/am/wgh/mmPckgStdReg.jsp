@@ -235,7 +235,7 @@
                       name="srch-slt-pckgSpcfctCd"
                       class="form-control input-sm input-sm-ast"
                       jsondata-ref="jsonApcSpcfct"
-                      onchange="/*fn_onChangePckgSortQntt(this)*/">
+                      onchange="fn_onChangePckgSortQntt()">
               </sbux-select>
             </div>
           </td>
@@ -377,10 +377,10 @@
   var grdPckgRegList;
   var jsonPckgRegList = [];
 
-  window.addEventListener('DOMContentLoaded', async function(e) {
+  /*window.addEventListener('DOMContentLoaded', async function(e) {
     fn_initPckgReg();
     fn_createGridPckgReg();
-  });
+  });*/
 
   /**
    * @name fn_createGridPckgReg
@@ -443,9 +443,7 @@
    */
   const fn_initPckgReg = async function() {
     SBUxMethod.set("srch-dtp-pckgYmd", gfn_dateToYmd(new Date()));
-    SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
-    SBUxMethod.set("srch-dtp-prdctnYr", gfn_dateToYear(new Date()));
-
+    fn_createGridPckgReg();
 
     let result = await Promise.all([
       fn_initPckgSBSelect(),
@@ -731,7 +729,7 @@
 
     let totSortWght = 0;  // 그룹별 선별중량 합
 
-    /*if (gfn_isEmpty(pckgYmd)) {
+    if (gfn_isEmpty(pckgYmd)) {
       gfn_comAlert("W0005", "선별일자");		//	W0005	{0}이/가 없습니다.
       return;
     }
@@ -795,15 +793,15 @@
       gfn_comAlert("W0005", "상품구분");		//	W0005	{0}이/가 없습니다.
       return;
     }
-    /!*if (gfn_isEmpty(pckgInputQntt) || gfn_isEmpty(pckgInputWght)) {
+    /*if (gfn_isEmpty(pckgInputQntt) || gfn_isEmpty(pckgInputWght)) {
       pckgInputQntt = '';
       pckgInputWght = '';
-    }*!/
+    }*/
 
-    if (pckgWght > pckgInputWght) {
+    if (pckgSortWght > pckgInputWght) {
       gfn_comAlert("W0008", "재고수량", "투입수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
       return;
-    }*/
+    }
 
     jsonComPckgFclt.forEach((item) => {
       if (item.value == pckgFcltCd){
@@ -1030,11 +1028,26 @@
 
           for (const pckgRegInfo of cmprPckgData) {
             for(const obj of sortInvntr) {
+              // obj 키값 변경 rprsPrdcrCd -> prdcrCd
+              obj.prdcrCd = obj.rprsPrdcrCd;
+              delete obj.rprsPrdcrCd;
+
               const chkKey = ['warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
-              const curPckgData = _.pick(pckgRegInfo, chkKey);
-              const invntrData = _.pick(obj, chkKey);
+              let curPckgData = _.pick(pckgRegInfo, chkKey);
+              let invntrData = _.pick(obj, chkKey);
 
               if (_.isEqual(curPckgData, invntrData)) {
+                console.log("pckgRegInfo", pckgRegInfo);
+                console.log("obj", obj);
+
+                // 선별재고 수량 확인
+                if (pckgRegInfo.inputWght > obj.invntrWght) {
+                  console.log("투입중량 > 선별재고중량.");
+                  continue;
+                }  // 선별재고 중량보다 투입중량이 크면 skip
+
+                console.log("투입중량 <= 선별재고중량");
+
                 // 그룹번호가 다르면 선별재고내역 추가, 같으면 선별 수량 합산
                 // 선별재고는 입고된 순서로 처리. 투입 순서 주의
                 if (groupChck != pckgRegInfo.group) {
@@ -1073,7 +1086,17 @@
           console.log(pckgMng, "저장전");
           return;
 
+          const postJsonPromise = gfn_postJSON("/am/pckg/insertPckgPrfmnc.do", pckgMng);
+          const pckgData = await postJsonPromise;
 
+          if (_.isEqual("S", pckgData.resultStatus)) {
+            gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+          } else {
+            gfn_comAlert(pckgData.resultCode, pckgData.resultMessage);	//	E0001	오류가 발생하였습니다.
+            //gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          }
+
+          pckgPrfmncList.length = 0;  // 포장실적 목록 초기화
         } else {
           gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
         }
@@ -1085,8 +1108,6 @@
         gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
       }
     }
-
-
   }
 
   /**

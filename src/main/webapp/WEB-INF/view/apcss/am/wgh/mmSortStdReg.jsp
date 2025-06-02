@@ -379,10 +379,10 @@
   var jsonSortRegList = [];
 
 
-  window.addEventListener('DOMContentLoaded', async function(e) {
+  /*window.addEventListener('DOMContentLoaded', async function(e) {
     fn_initSortReg();
     fn_createGridSortReg();
-  });
+  });*/
 
   /**
    * @name fn_createGridSortReg
@@ -455,6 +455,7 @@
    */
   const fn_initSortReg = async function() {
     SBUxMethod.set("srch-dtp-sortYmd", gfn_dateToYmd(new Date()));
+    fn_createGridSortReg();
 
     let result = await Promise.all([
       fn_initSortSBSelect(),

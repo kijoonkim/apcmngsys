@@ -80,7 +80,7 @@
                     </div>
                     <!-- 출하등록 탭 화면 -->
                     <div id="tab_spmtStdReg">
-<%--                        <jsp:include page="../../am/wgh/mmSpmtStdReg.jsp"></jsp:include>--%>
+                        <jsp:include page="../../am/wgh/mmSpmtStdReg.jsp"></jsp:include>
                     </div>
                 </div>
             </div>
@@ -135,7 +135,7 @@
         }
 
         if (choiceTab == "tab_spmtStdReg") {
-            // fn_saveLandInfo();
+            fn_initSpmtReg();
         }
     }
 
