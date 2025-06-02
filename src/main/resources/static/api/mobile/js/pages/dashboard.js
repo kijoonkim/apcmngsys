@@ -43,16 +43,85 @@ function login() {
     });
 }
 
+function openPopApcInfo(apcCd) {
+    $.ajax({
+        type: 'post',
+        url: '/api/mobile/am/apc/selectApcEvrmntStng.do',
+        data: JSON.stringify({
+            'apcCd': apcCd
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('apc info=', data);
+
+            if(data!=null && data.resultStatus == 'S') {
+                // 팝업 열기
+                $('#popup').fadeIn(300);
+
+
+
+                var result = data.resultMap;
+                var apcimg = $('<img src="./img/logo_btn_' + result.apcCd + '.png"/>');
+                $('#apcLogo').empty();
+                $('#apcLogo').append(apcimg);
+                apcimg.error(function(){
+                    $('#apcLogo').text(result.apcNm);
+                });
+
+                $('#apcNm').text(result.apcNm);
+                $('#cls').text(result.cls);
+                $('#apcRprsvNm').text(result.apcRprsvNm);
+                $('#brno').text(result.brno);
+                $('#telno').text(result.telno);
+                $('#fxno').text(result.fxno);
+                $('#addr').text(result.addr);
+                $('#brno').text(result.brno);
+                $('#itemNm').text(result.itemNm);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
+const userInfo = localStorage.getItem('userInfo') !== undefined && localStorage.getItem('userInfo') != null
+        ? JSON.parse(localStorage.getItem('userInfo'))
+        : {};
+
 $(function() {
     "use strict";
+
+    // 팝업 닫기
+    $('#closePopup').click(function() {
+        $('#popup').fadeOut(300);
+    });
+
+    // 팝업 외부 클릭시 닫기
+    $(document).on('click', function(e) {
+        if ($(e.target).hasClass('popup')) {
+            $('#popup').fadeOut(300);
+        }
+    });
 
     $('.login_btn').on('click', function(e) {
         login();
     });
-
-    const userInfo = localStorage.getItem('userInfo') !== undefined && localStorage.getItem('userInfo') != null
-        ? JSON.parse(localStorage.getItem('userInfo'))
-        : {};
 
     //console.log('userInfo', userInfo);
 
@@ -192,14 +261,22 @@ $(function() {
             var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
             $('#apc_infos').append(apcInfo);
 
-            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding"></div>');
+            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding" apc_cd="'+el.value+'"></div>');
             var apcimg = $('<img src="./img/logo_btn_' + el.value + '.png"/>');
             apcName.append(apcimg);
             apcimg.error(function(){
                 apcName.text(el.name);
+                if(el.nh)
+                    apcName.addClass('nh');
+                else
+                    apcName.addClass('corp');
             });
-            if(el.nh)apcName.addClass('nh');
+
             apcInfo.append(apcName);
+
+            apcName.on('click', function(e) {
+                openPopApcInfo($(this).attr('apc_cd'));
+            });
 
             var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
             $.each(el.kinds, function(index, el) {
