@@ -68,4 +68,5 @@ public class InvShipOgnSpeczItmPurSalMngVO extends ComVO{
 	private String tmprStrgRsn;
 	private String tmprStrgDt;
 
+	private String oldDataYn;
 }

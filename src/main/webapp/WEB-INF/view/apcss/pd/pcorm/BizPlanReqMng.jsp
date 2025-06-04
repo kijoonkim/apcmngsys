@@ -282,9 +282,9 @@
 			{caption: ["법인번호","법인번호"], 		ref: 'crno',			type:'output',  width:'96px',	style:'text-align:center'},
 			{caption: ["최종업로드시간","최종업로드시간"], 	ref: 'lastUldDt',		type:'output',  width:'150px',	style:'text-align:center'},
 			{caption: ["사업계획서/전환서","제출여부"], 	ref: 'bizPlanSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["사업계획서/전환서","승인여부"], 	ref: 'bizPlanAprvYn',	type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["사업계획서/전환서","확인여부"], 	ref: 'bizPlanAprvYn',	type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["서명 포함 스캔본","제출여부"], 	ref: 'sgntrSbmsnYn',	type:'output',  width:'80px',	style:'text-align:center'},
-			{caption: ["서명 포함 스캔본","승인여부"], 	ref: 'sgntrAprvYn',		type:'output',  width:'80px',	style:'text-align:center'},
+			{caption: ["서명 포함 스캔본","확인여부"], 	ref: 'sgntrAprvYn',		type:'output',  width:'80px',	style:'text-align:center'},
 			{caption: ["미리보기","미리보기"], 		ref: 'prvwBtn',			type:'button',  width:'80px',	style:'text-align:center'
 				,typeinfo : {buttonvalue: '팝업 열기', callback: fn_openMaodalPdfViewer}
 			},

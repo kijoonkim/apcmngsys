@@ -40,4 +40,63 @@
              WHERE CM.CRTR_YR = #{crtrYr}
         ]]>
     </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList-->
+    <!-- DESC : APC전수조사 마스터 테이블 목록 조회.                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.05.20  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectApcSurveyMasterList" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO" resultType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+        <![CDATA[
+        SELECT /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.selectApcSurveyMasterList */
+            CM.CRTR_YR		AS CRTR_YR
+             , CM.INDCT_NM		AS INDCT_NM
+             , CM.CMPTN_YN		AS CMPTN_YN
+             , CM.DDLN_STTS_CD	AS DDLN_STTS_CD
+             , CM.BGNG_YMD		AS BGNG_YMD
+             , CM.END_YMD		AS END_YMD
+             , CM.DEL_YN					AS DEL_YN
+             , CM.SYS_FRST_INPT_DT		AS SYS_FRST_INPT_DT
+             , CM.SYS_FRST_INPT_USER_ID	AS SYS_FRST_INPT_USER_ID
+             , CM.SYS_FRST_INPT_PRGRM_ID	AS SYS_FRST_INPT_PRGRM_ID
+             , CM.SYS_LAST_CHG_DT		AS SYS_LAST_CHG_DT
+             , CM.SYS_LAST_CHG_USER_ID	AS SYS_LAST_CHG_USER_ID
+             , CM.SYS_LAST_CHG_PRGRM_ID	AS SYS_LAST_CHG_PRGRM_ID
+        FROM TB_TE_APC_CMSU_MST CM
+        WHERE CM.DEL_YN = 'N'
+         ]]>
+        <if test='crtrYr != null and crtrYr != ""'>
+          AND CM.CRTR_YR = #{crtrYr}
+        </if>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst-->
+    <!-- DESC : APC전수조사 마스터 저장                                                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.05.20  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateApcCmsuMst" parameterType="com.at.apcss.fm.fclt.vo.ApcSurveyMstVO">
+    <![CDATA[
+        UPDATE /* com.at.apcss.fm.fclt.mapper.ApcSurveyMngMapper.updateApcCmsuMst */
+            TB_TE_APC_CMSU_MST
+        SET
+            INDCT_NM        = #{indctNm}
+          , CMPTN_YN        = #{cmptnYn}
+          , DDLN_STTS_CD    = #{ddlnSttsCd}
+          , BGNG_YMD        = #{bgngYmd}
+          , END_YMD         = #{endYmd}
+
+          , SYS_LAST_CHG_DT = SYSDATE
+          , SYS_LAST_CHG_USER_ID  = #{sysLastChgUserId}
+          , SYS_LAST_CHG_PRGRM_ID = #{sysLastChgPrgrmId}
+
+        WHERE CRTR_YR = #{crtrYr}
+    ]]>
+    </update>
 </mapper>

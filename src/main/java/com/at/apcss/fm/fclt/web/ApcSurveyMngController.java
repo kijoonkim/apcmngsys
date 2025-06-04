@@ -4,6 +4,7 @@ import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 import com.at.apcss.fm.fclt.service.ApcSurveyMngService;
 import com.at.apcss.fm.fclt.service.FcltOperInfoService;
+import com.at.apcss.fm.fclt.vo.ApcSurveyMstVO;
 import com.at.apcss.fm.fclt.vo.FcltApcVO;
 import com.at.apcss.fm.fclt.vo.FcltItemVO;
 import com.at.apcss.fm.fclt.vo.FcltOperInfoVO;
@@ -92,4 +93,107 @@ public class ApcSurveyMngController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+	// APC전수조사마스터 목록 조회
+	@PostMapping(value = "/fm/fclt/selectApcSurveyMasterList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectApcSurveyMasterList (@RequestBody ApcSurveyMstVO apcSurveyMstVO , HttpServletRequest request) throws Exception{
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		List<ApcSurveyMstVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = apcSurveyMngService.selectApcSurveyMasterList(apcSurveyMstVO);
+		}  catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC전수조사 운영자정보 조회
+	@PostMapping(value = "/fm/fclt/selectOperPrsnInfoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectOperPrsnInfoList (@RequestBody FcltOperInfoVO fcltOperInfoVO , HttpServletRequest request) throws Exception{
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+		List<FcltOperInfoVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = apcSurveyMngService.selectOperPrsnInfoList(fcltOperInfoVO);
+		}  catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC전수조사마스터 수정
+	@PostMapping(value = "/fm/fclt/updateApcCmsuMst.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateApcCmsuMst(@RequestBody List<ApcSurveyMstVO> apcSurveyMstList, HttpServletRequest request) throws Exception{
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		// audit 항목
+		for (ApcSurveyMstVO apcSurveyMstVO:apcSurveyMstList) {
+			apcSurveyMstVO.setSysFrstInptUserId(getUserId());
+			apcSurveyMstVO.setSysFrstInptPrgrmId(getPrgrmId());
+			apcSurveyMstVO.setSysLastChgUserId(getUserId());
+			apcSurveyMstVO.setSysLastChgPrgrmId(getPrgrmId());
+		}
+
+		try {
+			HashMap<String, Object> rtnObj = apcSurveyMngService.updateApcCmsuMst(apcSurveyMstList);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}  catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			setMenuComLog(request);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// APC전수조사 운영자정보 수정
+	@PostMapping(value = "/fm/fclt/updateOperPrsnInfo.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> updateOperPrsnInfo(@RequestBody FcltOperInfoVO fcltOperInfoVO, HttpServletRequest request) throws Exception{
+
+		HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+		// audit 항목
+		fcltOperInfoVO.setSysFrstInptUserId(getUserId());
+		fcltOperInfoVO.setSysFrstInptPrgrmId(getPrgrmId());
+		fcltOperInfoVO.setSysLastChgUserId(getUserId());
+		fcltOperInfoVO.setSysLastChgPrgrmId(getPrgrmId());
+
+		try {
+			HashMap<String, Object> rtnObj = apcSurveyMngService.updateOperPrsnInfo(fcltOperInfoVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}  catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			setMenuComLog(request);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }

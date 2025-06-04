@@ -23,115 +23,137 @@ public interface InvShipOgnPurSalMngService {
 
 	/**
 	 * 출자출하조직 총 매입 매출 정보를 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return InvShipOgnPurSalMngVO
 	 * @throws Exception
 	 */
-	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출의 매입 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출의 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출의 매입 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출의 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입현황을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 * @throws Exception
 	 */
-	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 * @throws Exception
 	 */
-	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 * @throws Exception
 	 */
-	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입현황 리스트를 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVOList
 	 * @return int
 	 * @throws Exception
 	 */
-	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
+	public int multiSaveInvShipOgnPurSalMngList01(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적 리스트를 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVOList
 	 * @return int
 	 * @throws Exception
 	 */
-	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
+	public int multiSaveInvShipOgnPurSalMngList02(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception;
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적 리스트를 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVOList
 	 * @return int
 	 * @throws Exception
 	 */
-	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> InvShipOgnPurSalMngVOList) throws Exception;
+	public int multiSaveInvShipOgnPurSalMngList03(List<InvShipOgnPurSalMngVO> invShipOgnPurSalMngVOList) throws Exception;
 
-	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다.2024년
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다.2025년
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 * @throws Exception
 	 */
-	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총 매입 매출 임시저장 정보를 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return InvShipOgnPurSalMngVO
-	 * @throws Exception
 	 */
-	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
+
+	/**
+	 * 출자출하조직 총 매입 매출 로우데이터를 조회 한다.
+	 * @param invShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매입 매출 목록 조회 한다.
+	 * @param invShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
+	/**
+	 * 출자출하조직 총 매출 목록 조회 한다.
+	 * @param invShipOgnPurSalMngVO
+	 * @return List<InvShipOgnPurSalMngVO>
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
+
 
 }

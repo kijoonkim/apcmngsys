@@ -207,4 +207,13 @@ public interface SpmtPrfmncMapper {
 	 * @throws Exception
 	 */
 	public List<SpmtPrfmncVO> selectSpmtPrfmncReg(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+	/**
+	 * 강제출하 목록 조회 (상품재고 대사)
+	 * @param spmtPrfmncVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<SpmtPrfmncVO> selectForcedShipmentListForCompare(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
 }

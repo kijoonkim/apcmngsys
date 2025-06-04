@@ -117,6 +117,15 @@
                         />
                     </td>
                     <td></td>
+                    <th scope="row" class="th_bg_search">확정여부</th>
+                    <td colspan="3" class="td_input" style="border-right:hidden;">
+                        <sbux-select id="SRCH_CONFIRM_PAY_YN" uitype="single" class="form-control input-sm">
+                            <option-item value="ALL" >전체</option-item>
+                            <option-item value="Y" >확정</option-item>
+                            <option-item value="N" >미확정</option-item>
+                        </sbux-select>
+                    </td>
+                    <td></td>
 <!--                     <th scope="row" class="th_bg_search">지급회차</th> -->
 <!--                     <td colspan="3" class="td_input" style="border-right: hidden;"> -->
 <!-- 						<sbux-spinner id="SRCH_SEQ" name="SRCH_SEQ" uitype="normal" class="form-control input-sm" -->
@@ -450,6 +459,7 @@
                 }
                 , hidden: true
             },
+            {caption: ["거래 ID"],         ref: 'TXN_ID',    type:'output',  	width:'65px',  style:'text-align:left'},
             {caption: ["소득자코드"],         ref: 'EARNER_CODE',    type:'output',  	width:'75px',  style:'text-align:left'},
             {caption: ["소득자 성명"],         ref: 'EARNER_NAME',    type:'output',  	width:'70px',  style:'text-align:left'},
             {caption: ["귀속연월"],       ref: 'JOB_YYYYMM', 		type:'inputdate',  	width:'67px',  	style:'text-align:left',
@@ -947,7 +957,19 @@
                         
                     }
                     jsonServiceFeePayList.push(msg);
+
                 });
+
+                const checkConfirm = (arr, value) => {
+                    return arr.filter((element) => {
+                        return element.PAY_CONFIRM_YN  == value;
+                    });
+                };
+                let SRCH_CONFIRM_PAY_YN =  gfn_nvl(SBUxMethod.get("SRCH_CONFIRM_PAY_YN"));
+                if( SRCH_CONFIRM_PAY_YN  != 'ALL'){
+                    jsonServiceFeePayList = checkConfirm(jsonServiceFeePayList, SRCH_CONFIRM_PAY_YN);
+                }
+
                 gvwInfo.rebuild();
 
                 if(jsonServiceFeePayList.length > 0) {

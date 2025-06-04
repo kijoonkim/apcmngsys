@@ -292,10 +292,10 @@
 						gfn_comAlert("W0002", "차량번호");		//	W0002	{0}을/를 입력하세요.
 			            return;
 					} else {
-			    		if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
-				    		gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
-			    			return;
-			    		}
+			    		// if(!(/^\d{2,3}[가-힣]\d{4}/.exec(rowData.vhclno))){
+				    	// 	gfn_comAlert("W0011", "차량번호");			//	W0001	{0}이/가 아닙니다.
+			    		// 	return;
+			    		// }
 			    	}
 
 					if (rowSts === 3){
@@ -326,8 +326,8 @@
 			const data = await postJsonPromise;
 	        try {
 	        	if (_.isEqual("S", data.resultStatus)) {
-	        		//gfn_comAlert("I0001");	// I0001	처리 되었습니다.
-	        		gfn_comAlert(data.resultCode, data.resultMessage);
+	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+	        		// gfn_comAlert(data.resultCode, data.resultMessage);
 	        		this.searchInEdit();
 	        	} else {
 	        		//gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.

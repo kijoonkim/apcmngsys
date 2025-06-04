@@ -702,4 +702,9 @@ public class GdsInvntrServiceImpl extends BaseServiceImpl implements GdsInvntrSe
 	public String selectPckgno(String apcCd, String pckgYmd) throws Exception {
 		return cmnsTaskNoService.selectPckgno(apcCd, pckgYmd);
 	}
+
+	@Override
+	public List<GdsInvntrVO> selectSpmtGdsInvntrListForCompare(GdsInvntrVO gdsInvntrVO) throws Exception {
+		return gdsInvntrMapper.selectSpmtGdsInvntrListForCompare(gdsInvntrVO);
+	}
 }
