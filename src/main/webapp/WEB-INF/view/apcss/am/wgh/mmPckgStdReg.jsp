@@ -949,6 +949,10 @@
 
   }
 
+  /**
+   * @name fn_savePckgInfo
+   * @description 포장등록 정보 저장 버튼
+   */
   const fn_savePckgInfo = async function () {
     const sortInvntrList = [];  // 재고량
     const pckgPrfmncList = [];

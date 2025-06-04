@@ -360,8 +360,8 @@
           </li>
         </ul>
         <div class="ad_tbl_toplist">
-          <sbux-button id="btnDel" name="btnDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger"
-                       onclick="fn_delRow"
+          <sbux-button id="btnWrhsDel" name="btnWrhsDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger"
+                       onclick="fn_delWrhsDel"
                        style="margin-right:5px"
                        image-src="/resource/svg/grdMinus.svg"
                        image-style="width:3rem;height:20px"
@@ -452,7 +452,7 @@
   var jsonApcGrd			= [];	// 등급 		grdCd		검색
   var jsonApcSpcfct		= [];	// 규격 		spcfcCd		검색
   // var jsonComWarehouse	= [];	// 창고 		warehouse	검색
-  var jsonApcBx			= [];	// 팔레트/박스 	검색
+  // var jsonApcBx			= [];	// 팔레트/박스 	검색
 
   // var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
   // var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
@@ -1002,10 +1002,10 @@
   }
 
   /**
-   * @name fn_delRow
+   * @name fn_delWrhsDel
    * @description 행삭제 버튼
    */
-  const fn_delRow = function () {
+  const fn_delWrhsDel = function () {
     const chkCol = grdWrhsRegList.getColRef("checkedYn");
 
     if (chkCol < 0) {

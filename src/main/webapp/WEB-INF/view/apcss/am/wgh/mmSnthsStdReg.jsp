@@ -102,6 +102,7 @@
 
 
     /* SB Select */
+    var jsonApcBx			= [];	// 팔레트/박스 	검색
     var jsonApcItem			= [];	// 품목 		itemCd		검색
     var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
     var jsonApcSpcfct		= [];	// 규격 		spcfctCd
@@ -157,7 +158,7 @@
         }
 
         if (choiceTab == "tab_spmtStdReg") {
-            // fn_saveLandInfo();
+            fn_saveSpmtInfo();
         }
     }
 
