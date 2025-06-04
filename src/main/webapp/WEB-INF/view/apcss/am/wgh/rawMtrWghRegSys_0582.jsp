@@ -1240,7 +1240,7 @@
 			  , wghYmd			: wghYmd
 			  , itemCd 			: itemCd
 			  , wrhsSpmtType 	: wrhsSpmtType
-  		});
+  		});gi
 
   		try {
 
