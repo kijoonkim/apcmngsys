@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,21 +35,21 @@ public class InvntrVO extends ComVO {
 	private List<SortInvntrVO> sortInvntrList;
 
 	public List<SortInvntrVO> getSortInvntrList() {
-		return sortInvntrList == null ? null : sortInvntrList.stream().collect(Collectors.toList());
+		return sortInvntrList == null ? null : new ArrayList<>(sortInvntrList);
 	}
 
 	public void setSortInvntrList(List<SortInvntrVO> sortInvntrList) {
-		this.sortInvntrList = sortInvntrList == null ? null : sortInvntrList.stream().collect(Collectors.toList());;
+		this.sortInvntrList = sortInvntrList == null ? null : new ArrayList<>(sortInvntrList);;
 	}
 	
 	private List<GdsInvntrVO> gdsInvntrList;
 
 	public List<GdsInvntrVO> getGdsInvntrList() {
-		return gdsInvntrList == null ? null : gdsInvntrList.stream().collect(Collectors.toList());
+		return gdsInvntrList == null ? null : new ArrayList<>(gdsInvntrList);
 	}
 
 	public void setGdsInvntrList(List<GdsInvntrVO> gdsInvntrList) {
-		this.gdsInvntrList = gdsInvntrList == null ? null : gdsInvntrList.stream().collect(Collectors.toList());;
+		this.gdsInvntrList = gdsInvntrList == null ? null : new ArrayList<>(gdsInvntrList);;
 	}
 	
 }

@@ -369,7 +369,8 @@
 					</div>
 				</c:if>
 				</div>
-				<div class="ad_section_top">
+				<%--요약 - 부류별 합계 화면에서 안보이게 처리 2025.05.28 --%>
+				<%--<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -379,7 +380,7 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdClsfTot" style="height:300px; width: 100%;"></div>
-				</div>
+				</div>--%>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
@@ -409,7 +410,7 @@
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
-		await fn_createGridClsfTot();
+		// await fn_createGridClsfTot(); // 요약 - 부류별합계
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 		await fn_fcltMngCreateGrid();
 		await fn_search();
@@ -780,7 +781,8 @@
 			yr = year;
 		}
 
-		fn_createGridClsfTot();
+		// 요약 - 부류별합계
+		// fn_createGridClsfTot();
 
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
 		let ctpv = SBUxMethod.get("srch-input-ctpv");//
@@ -956,7 +958,7 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonClsfTot.length= 0;
-		grdClsfTot.rebuild();
+		// grdClsfTot.rebuild(); // 요약 - 부류별 합계
 		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명
@@ -1074,7 +1076,7 @@
 			});
 			grdPrdcrOgnCurntMng01.rebuild();
 			//fn_gridCustom();
-			fn_dtlSearchClsfTot();
+			// fn_dtlSearchClsfTot(); // 요약 - 부류별합계
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);

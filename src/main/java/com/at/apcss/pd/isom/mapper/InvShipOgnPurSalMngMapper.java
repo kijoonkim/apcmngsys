@@ -26,88 +26,110 @@ public interface InvShipOgnPurSalMngMapper {
 
 	/**
 	 * 출자출하조직 총 매입 매출을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return InvShipOgnPurSalMngVO
 	 */
-	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public InvShipOgnPurSalMngVO selectInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngPrchsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출 리스트을 조회한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectInvShipOgnPurSalMngSlsListNew(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총 매입 매출 의 매입현황을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 */
-	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public int insertInvShipOgnPurSalMng01(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-취급실적을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 */
-	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public int insertInvShipOgnPurSalMng02(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 	/**
 	 * 출자출하조직 총 매입 매출 의 매출현황-통합조직 출하실적을 저장한다.
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 */
-	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public int insertInvShipOgnPurSalMng03(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
-	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO) throws Exception;
+	public int deleteInvShipOgnPurSalMng(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO) throws Exception;
 
 	/**
 	 * 출자출하조직 총매입매출 로우데이터를 조회 한다.2024년
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총매입매출 로우데이터를 조회 한다.2025년
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return List<InvShipOgnPurSalMngVO>
 	 */
-	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public List<InvShipOgnPurSalMngVO> selectRawDataList2025(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총매입매출 입시저장
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return int
 	 */
-	public int updateTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public int updateTempSaveIsoAps(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
 
 	/**
 	 * 출자출하조직 총 매입 매출 임시저장 정보
-	 * @param InvShipOgnPurSalMngVO
+	 * @param invShipOgnPurSalMngVO
 	 * @return InvShipOgnPurSalMngVO
 	 */
-	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO InvShipOgnPurSalMngVO);
+	public InvShipOgnPurSalMngVO selectTempSaveIsoAps(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
+
+	/**
+	 *
+	 * @param invShipOgnPurSalMngVO
+	 * @return
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleRawDataList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
+
+	/**
+	 *
+	 * @param invShipOgnPurSalMngVO
+	 * @return
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalPurchaseSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
+
+	/**
+	 *
+	 * @param invShipOgnPurSalMngVO
+	 * @return
+	 */
+	public List<InvShipOgnPurSalMngVO> selectIsoTotalSaleList(InvShipOgnPurSalMngVO invShipOgnPurSalMngVO);
+
 }

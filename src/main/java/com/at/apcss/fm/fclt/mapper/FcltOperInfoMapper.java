@@ -172,4 +172,17 @@ public interface FcltOperInfoMapper {
 	 */
 	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltApcVO);
 
+	/**
+	 * APC전수조사 - 운영자정보 목록 조회
+	 * @param fcltOperInfoVO
+	 * @return List<FcltOperInfoVO>
+	 */
+	public List<FcltOperInfoVO> selectOperPrsnInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+	/**
+	 * APC전수조사 - 운영자정보 수정
+	 * @param fcltOperInfoVO
+	 * @return
+	 */
+    public int updateOperPrsnInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
 }

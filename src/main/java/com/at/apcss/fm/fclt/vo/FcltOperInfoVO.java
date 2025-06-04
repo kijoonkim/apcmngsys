@@ -119,6 +119,149 @@ public class FcltOperInfoVO extends ComVO{
 	private String rtnMsg;
 
 	/**
+	 * 전년도
+	 */
+	private String py;
+
+	/**
+	 * 주체
+	 */
+	private String mb;
+
+	/**
+	 * 전년도 주체
+	 */
+	private String pyMb;
+
+	/**
+	 * 전년도 조직유형 코드
+	 */
+	private String pyOgnzTypeCd;
+
+	/**
+	 * 전년도 조직유형 코드
+	 */
+	private String pyOgnzTypeNm;
+
+	/**
+	 * 유형코드
+	 */
+	private String typeCd;
+
+	/**
+	 * 전년도 유형코드
+	 */
+	private String pyTypeCd;
+
+	/**
+	 * 전년도 유형코드
+	 */
+	private String pyTypeNm;
+
+	/**
+	 * 유형명
+	 */
+	private String typeNm;
+
+	/**
+	 * 소유자
+	 */
+	private String ownr;
+
+	/**
+	 * 담당자
+	 */
+	private String pic;
+
+	/**
+	 * 담당자직위
+	 */
+	private String picJbps;
+
+	/**
+	 * 연락처
+	 */
+	private String cttpc;
+
+	/**
+	 * 이메일
+	 */
+	private String eml;
+
+	/**
+	 * 총취급액
+	 */
+	private String totTrmtAmt;
+
+	/**
+	 * 정부지원유무
+	 */
+	private String gvrmntSprtYn;
+
+	/**
+	 * 비고
+	 */
+	private String rmrk;
+
+	/**
+	 * 집계현황여부
+	 */
+	private String totSttnYn;
+
+	/**
+	 * 통합조직선정여부
+	 */
+	private String uoSlctnYn;
+
+	/**
+	 * 출자출하조직선정여부
+	 */
+	private String isoSlctnYn;
+
+	/**
+	 * 출하출하조직여부
+	 */
+	private String isoYn;
+
+	/**
+	 * 통합조직명
+	 */
+	private String uoNm;
+
+	/**
+	 * 통합조직사업자번호
+	 */
+	private String uoBrno;
+
+	/**
+	 * 엑셀 조직 유형
+	 */
+	private String excelOgnzType;
+
+	/**
+	 * 입력조직유형코드
+	 */
+	private String oldOgnzTypeCd;
+
+	/**
+	 * 입력조직유형
+	 */
+	private String oldOgnzType;
+
+	/**
+	 * 중복 여부
+	 */
+	private String dupYn;
+
+	/**
+	 * 통합조직여부(탈락여부포함)
+	 */
+	private String uoFailInclYn;
+
+
+
+
+	/**
 	 * 품목리스트
 	 */
 	private List<FcltItemVO> itemList;

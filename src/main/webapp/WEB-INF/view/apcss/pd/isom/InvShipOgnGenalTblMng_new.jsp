@@ -378,7 +378,8 @@
 					</div>
 				</c:if>
 				</div>
-				<div class="ad_section_top">
+				<%--요약 - 부류별 합계 화면에서 안보이게 처리 2025.05.28 --%>
+				<%--<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -388,7 +389,7 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdClsfTot" style="height:300px; width: 100%;"></div>
-				</div>
+				</div>--%>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
@@ -419,7 +420,7 @@
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
-		await fn_createGridClsfTot();//부류별 합계
+		// await fn_createGridClsfTot();//부류별 합계
 
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91' || loginVO.apoSe eq '1'}">
 		await fn_fcltMngCreateGrid();
@@ -772,7 +773,8 @@
 			yr = year;
 		}
 
-		fn_createGridClsfTot();
+		// 요약 - 부류별 합계
+		// fn_createGridClsfTot();
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
@@ -1032,7 +1034,7 @@
 
 			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
 
-			fn_dtlSearchClsfTot();
+			// fn_dtlSearchClsfTot(); // 요약 - 부류별합계
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1124,7 +1126,7 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonClsfTot.length= 0;
-		grdClsfTot.rebuild();
+		//grdClsfTot.rebuild();
 	}
 
 	var comUoBrno = [];//통합조직 선택
@@ -1305,7 +1307,7 @@
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		console.log(saveList);
+		// console.log(saveList);
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){

@@ -1404,6 +1404,10 @@
  		let wrhsSpmtType 	= SBUxMethod.get('dtl-slt-wrhsSpmtType');
  		let bxQntt 			= SBUxMethod.get('dtl-inp-bxQntt');
  		let pltQntt 		= SBUxMethod.get('dtl-inp-pltQntt');
+		 /** 계량 시각 **/
+		 let emptyTime = SBUxMethod.get("dtl-inp-emptVhclWghtTime");
+		 let wholTime = SBUxMethod.get("dtl-inp-wholWghtTime");
+		 let wghDt = SBUxMethod.get("dtl-spi-wghDt");
 
  		if (gfn_isEmpty(wghYmd)) {
     		gfn_comAlert("W0001", "계량일자");					//	W0001	{0}을/를 선택하세요.
@@ -1414,6 +1418,21 @@
     		gfn_comAlert("W0002", "차량번호");					//	W0002	{0}을/를 입력하세요.
             return;
     	}
+
+		 if (gfn_isEmpty(wrhsSpmtType)) {
+			 gfn_comAlert("W0002", "계량대/구분");					//	W0002	{0}을/를 입력하세요.
+			 return;
+		 }
+
+		 if (gfn_isEmpty(wholTime)) {
+			 gfn_comAlert("W0002", "전체중량/시간");					//	W0002	{0}을/를 입력하세요.
+			 return;
+		 }
+
+		 if (gfn_isEmpty(emptyTime)) {
+			 gfn_comAlert("W0002", "공차중량/시간");					//	W0002	{0}을/를 입력하세요.
+			 return;
+		 }
 
 		 let sumBqntt; // 팔레트 불출관리 상자 합계
 		 for(let i =0; i<jsonPltBox.length; i++){
@@ -1633,10 +1652,7 @@
 			wghRmrk : '',
 			fcltCd : fcltCd,
 		}
-		/** 계량 시각 **/
-		let emptyTime = SBUxMethod.get("dtl-inp-emptVhclWghtTime");
-		let wholTime = SBUxMethod.get("dtl-inp-wholWghtTime");
-		let wghDt = SBUxMethod.get("dtl-spi-wghDt");
+
 		/** 계량구분 코드**/
 		let wghSeCd = jsonWghSeCd.filter(item => item.cdChrVl === wrhsSpmtType);
 		let wghHstryList = [];

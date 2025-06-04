@@ -121,4 +121,6 @@ public class PrdcrCrclOgnPurSalMngVO extends ComVO{
 	private String tmprStrgRsn;
 	private String tmprStrgDt;
 
+
+	private String oldDataYn;
 }

@@ -106,5 +106,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 
 	private String trgtTrmtAmt;		//취급액 목표
 	private String trgtTrmtRt;		//취급률 목표
+
+
+	private String oldDataYn;
 }
 
