@@ -55,7 +55,7 @@ public interface MobileApiMapper {
 	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
 
     /**
-     * APC 에이전트 통계 데이터
+     * APC 에이전트(계량대, 선별기) 상태 정보 조회
      * @param map:Map<String, Object> map
      * @return List<Map<String, Object>>
      * @throws Exception
@@ -68,4 +68,11 @@ public interface MobileApiMapper {
 	 * @throws Exception
 	 */
 	public int getCountAllPrdcr() throws Exception;
+
+	/**
+	 * APC 에이전트 상태 업데이트 SP 호출
+	 * @return int
+	 * @throws Exception
+	 */
+	public int callSpApcAgtStatsUpdate() throws Exception;
 }

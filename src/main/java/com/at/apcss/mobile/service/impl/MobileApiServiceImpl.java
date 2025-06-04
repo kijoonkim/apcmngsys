@@ -96,4 +96,9 @@ public class MobileApiServiceImpl extends BaseServiceImpl implements MobileApiSe
 	public int getCountAllPrdcr() throws Exception {
 		return mobileApiMapper.getCountAllPrdcr();
 	}
+
+	@Override
+	public int callSpApcAgtStatsUpdate() throws Exception {
+		return mobileApiMapper.callSpApcAgtStatsUpdate();
+	}
 }

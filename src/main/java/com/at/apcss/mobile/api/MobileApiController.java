@@ -624,6 +624,9 @@ public class MobileApiController extends BaseController{
         JSONObject resultJson = new JSONObject();
 
         try {
+			//APC에이전트상태 업데이트 SP호출
+			mobileApiService.callSpApcAgtStatsUpdate();
+
             Map<String, Object> result = mobileApiService.getApcAgtStats();
             resultJson.put("result", result);
         } catch(Exception e) {
@@ -646,4 +649,18 @@ public class MobileApiController extends BaseController{
 
 		return resultJson;
 	}
+	/*
+	@GetMapping("/callSpApcAgtStatsUpdate.do")
+	@ResponseBody
+	public JSONObject callSpApcAgtStatsUpdate(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+
+		try {
+			resultJson.put("result", mobileApiService.callSpApcAgtStatsUpdate());
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}*/
 }

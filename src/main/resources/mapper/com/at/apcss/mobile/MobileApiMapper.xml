@@ -305,4 +305,12 @@
 			GROUP BY T1.APC_CD, T1.PRDCR_CD
 		)
 	</select>
+
+	<update id="callSpApcAgtStatsUpdate" statementType="CALLABLE">
+		<![CDATA[
+			{call /* com.at.apcss.mobile.mapper.MobileApiMapper.callSpApcAgtStatsUpdate */
+                SP_APC_AGT_STATS_UPDT()
+            }
+		]]>
+	</update>
 </mapper>
