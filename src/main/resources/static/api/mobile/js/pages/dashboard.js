@@ -61,11 +61,9 @@ function openPopApcInfo(apcCd) {
             console.log(xhr.status);
             console.log('apc info=', data);
 
-            if(data!=null && data.resultStatus == 'S') {
+            if(data!=null && data.resultStatus == 'S' && data.resultMap != null) {
                 // 팝업 열기
                 $('#popup').fadeIn(300);
-
-
 
                 var result = data.resultMap;
                 var apcimg = $('<img src="./img/logo_btn_' + result.apcCd + '.png"/>');
@@ -84,8 +82,9 @@ function openPopApcInfo(apcCd) {
                 $('#addr').text(result.addr);
                 $('#brno').text(result.brno);
                 $('#itemNm').text(result.itemNm);
+            } else {
+                alert('해당 정보가 없습니다. 시스템 관리자에게 문의하세요!');
             }
-
         },
         error: function(xhr, status, error) {
             if(status == '401') {
