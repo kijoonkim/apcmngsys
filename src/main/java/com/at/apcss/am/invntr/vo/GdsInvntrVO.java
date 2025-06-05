@@ -1,5 +1,6 @@
 package com.at.apcss.am.invntr.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -368,15 +369,22 @@ public class GdsInvntrVO extends ComVO {
 	 */
 	private String dudtYmd;
 
+	/**
+	 * 출고일자
+	 */
+	private String spmtYmd;
+
+	private List<String> invntrSttsCdList;
+
 
 	private List<SpmtGdsVO> spmtGdsList;
 
 	public List<SpmtGdsVO> getSpmtGdsList() {
-		return spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+		return spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
 
 	public void setSpmtGdsList(List<SpmtGdsVO> spmtGdsList) {
-		this.spmtGdsList = spmtGdsList == null ? null : spmtGdsList.stream().collect(Collectors.toList());
+		this.spmtGdsList = spmtGdsList == null ? null : new ArrayList<>(spmtGdsList);
 	}
 
 	/**
@@ -385,11 +393,18 @@ public class GdsInvntrVO extends ComVO {
 	private List<GdsStdGrdVO> stdGrdList;
 
 	public List<GdsStdGrdVO> getStdGrdList() {
-		return stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+		return stdGrdList == null ? null : new ArrayList<>(stdGrdList);
 	}
 
 	public void setStdGrdList(List<GdsStdGrdVO> stdGrdList) {
-		this.stdGrdList = stdGrdList == null ? null : stdGrdList.stream().collect(Collectors.toList());
+		this.stdGrdList = stdGrdList == null ? null : new ArrayList<>(stdGrdList);
 	}
 
+	public List<String> getInvntrSttsCdList() {
+		return invntrSttsCdList == null ? null : new ArrayList<>(invntrSttsCdList);
+	}
+
+	public void setInvntrSttsCdList(List<String> invntrSttsCdList) {
+		this.invntrSttsCdList = invntrSttsCdList == null ? null : new ArrayList<>(invntrSttsCdList);
+	}
 }

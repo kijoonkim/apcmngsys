@@ -660,4 +660,9 @@ public class SpmtMngServiceImpl extends BaseServiceImpl implements SpmtMngServic
 
         return null;
     }
+
+    @Override
+    public List<SpmtPrfmncVO> selectForcedShipmentListForCompare(SpmtPrfmncVO spmtPrfmncVO) throws Exception {
+        return null;
+    }
 }

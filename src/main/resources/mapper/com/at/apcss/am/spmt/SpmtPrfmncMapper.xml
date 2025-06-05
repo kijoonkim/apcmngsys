@@ -1677,6 +1677,100 @@
 			 ) pt0
 			]]>
 	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectForcedShipmentListForCompare	-->
+	<!-- DESC : 강제출하 목록 조회 (상품재고 대사)               	             	 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.30  	유민지        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectForcedShipmentListForCompare" parameterType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO" resultType="com.at.apcss.am.spmt.vo.SpmtPrfmncVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.am.spmt.mapper.SpmtPrfmncMapper.selectForcedShipmentListForCompare */
+				  SC.APC_CD				AS APC_CD
+				, SC.SPMTNO				AS SPMTNO
+				, SC.SPMT_YMD			AS SPMT_YMD
+				, SC.CNPT_CD			AS CNPT_CD
+				, SC.TRSPRT_CO_CD		AS TRSPRT_CO_CD
+				, SC.RMRK				AS RMRK
+				, SD.PCKGNO				AS PCKGNO
+				, SD.PCKG_SN			AS PCKG_SN
+				, SD.ITEM_CD			AS ITEM_CD
+				, SD.VRTY_CD			AS VRTY_CD
+				, SD.SPCFCT_CD			AS SPCFCT_CD
+				, SD.SPMT_PCKG_UNIT_CD	AS SPMT_PCKG_UNIT_CD
+				, SD.GDS_GRD			AS GDS_GRD
+				, SPU.SORT_GRD_CD		AS SORT_GRD_CD
+				, SPU.SN				AS SEQ
+				, (SELECT FN_GET_ITEM_NM(SD.ITEM_CD, SD.APC_CD) FROM DUAL) AS ITEM_NM
+				, (SELECT FN_GET_VRTY_NM(SD.ITEM_CD, SD.VRTY_CD, SD.APC_CD) FROM DUAL) AS VRTY_NM
+				, (SELECT FN_GET_SPCFCT_NM(SD.ITEM_CD, SD.SPCFCT_CD, SD.APC_CD) FROM DUAL) AS SPCFCT_NM
+				, SPU.SPMT_PCKG_UNIT_NM	AS SPMT_PCKG_UNIT_NM
+				, (SELECT FN_GET_GRD_NM_GDS(SD.APC_CD, SD.ITEM_CD, SD.GDS_GRD) FROM DUAL) AS GDS_GRD_NM
+				, (SELECT FN_GET_GRD_NM_SORT(SD.APC_CD, SD.ITEM_CD, SPU.SORT_GRD_CD) FROM DUAL) AS SORT_GRD_NM
+
+				, SD.SPMT_QNTT		AS SPMT_QNTT
+				, SD.SPMT_WGHT		AS SPMT_WGHT
+				, GI.INVNTR_QNTT	AS INVNTR_QNTT
+				, GI.INVNTR_WGHT	AS INVNTR_WGHT
+				, GI.SPMT_QNTT		AS INVNTR_SPMT_QNTT
+				, GI.SPMT_WGHT		AS INVNTR_SPMT_WGHT
+
+				, SD.ORGN_PCKGNO	AS ORGN_PCKGNO
+				, SD.ORGN_PCKG_SN	AS ORGN_PCKG_SN
+
+			  FROM TB_SPMT_PRFMNC_COM SC
+
+			  JOIN TB_SPMT_PRFMNC_DTL SD
+				ON SD.APC_CD = SC.APC_CD
+			   AND SD.SPMTNO = SC.SPMTNO
+			   AND SD.DEL_YN = 'N'
+
+			  JOIN TB_GDS_INVNTR GI
+				ON GI.APC_CD = SD.APC_CD
+			   AND GI.PCKGNO = SD.PCKGNO
+			   AND GI.PCKG_SN = SD.PCKG_SN
+			   AND GI.DEL_YN = 'N'
+
+			  LEFT JOIN TB_SPMT_PCKG_UNIT SPU
+				ON SPU.APC_CD = SD.APC_CD
+			   AND SPU.SPMT_PCKG_UNIT_CD = SD.SPMT_PCKG_UNIT_CD
+			   AND SPU.DEL_YN = 'N'
+
+			 WHERE SC.APC_CD = #{apcCd}
+			   AND SC.DEL_YN = 'N'
+			   AND SC.SPMT_YMD = #{spmtYmd}
+		]]>
+		<if test='cnptCd != null and cnptCd != ""'>
+			AND SC.CNPT_CD = #{cnptCd}
+		</if>
+		<if test='itemCd != null and itemCd != ""'>
+			AND SD.ITEM_CD = #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != ""'>
+			AND SD.VRTY_CD = #{vrtyCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != ""'>
+			AND SD.SPCFCT_CD = #{spcfctCd}
+		</if>
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != ""'>
+			AND SD.SPMT_PCKG_UNIT_CD = #{spmtPckgUnitCd}
+		</if>
+		<if test='gdsGrd != null and gdsGrd != ""'>
+			AND SD.GDS_GRD = #{gdsGrd}
+		</if>
+		<if test='invntrSttsCdList != null and !invntrSttsCdList.isEmpty()'>
+			AND GI.INVNTR_STTS_CD IN
+			<foreach collection="invntrSttsCdList" item="sttsCd" index="index" separator="," open="(" close=")">
+				#{sttsCd}
+			</foreach>
+		</if>
+		<![CDATA[
+			 ORDER BY SPMT_YMD, SPMTNO, ITEM_CD, VRTY_CD, SEQ
+		]]>
+	</select>
 </mapper>
 
 
