@@ -576,7 +576,7 @@
       let spmtQntt = parseInt(SBUxMethod.get("srch-inp-spmtQntt")) || 0;
       const spmtPckgUnitInfo = _.find(jsonSpmtPckgUnit, {spmtPckgUnitCd: spmtPckgUnitCd});
       const spmtSpcfctWght = parseFloat(spmtPckgUnitInfo.spcfctWght) || 0;
-      console.log("spmtPckgUnitInfo", spmtPckgUnitInfo);
+      // console.log("spmtPckgUnitInfo", spmtPckgUnitInfo);
 
       if (spmtSpcfctWght > 0) {
         let spmtWght = gfn_apcEstmtWght(spmtQntt * spmtSpcfctWght, gv_selectedApcCd);
@@ -754,7 +754,6 @@
       gfn_comAlert("W0005", "거래처");		//	W0005	{0}이/가 없습니다.
       return;
     } else {
-      console.log("jsonComCnptCd", jsonComCnptCd);
       cnptNm = _.find(jsonComCnptCd, {cnptCd: cnptCd}).cnptNm;
     }
     if (gfn_isEmpty(spmtPckgUnitCd)) {
@@ -864,10 +863,10 @@
 
     }
 
-    // 그룹설정(출하일자, 거래처별로 그룹)
+    // 그룹설정(출하일자, 거래처, 운송회사, 차량번호, 배송처, 운임비용, 팔레트불출 그룹)
     let prvSpmtRegInfo = jsonSpmtRegList.slice(-1)[0];  // 직전 선별등록 데이터
 
-    const keysToCompare = ['spmtYmd', 'cnptCd'];
+    const keysToCompare = ['spmtYmd', 'cnptCd', 'trsprtCoCd', '차량번호', 'dldtn', 'trsprtCst', 'pltBxCd', 'pltQntt'];
     const prvSpmtData = _.pick(prvSpmtRegInfo, keysToCompare);
     const curSpmtData = _.pick(spmtRegInfoVO, keysToCompare);
 
@@ -919,7 +918,6 @@
     }*/
 
     jsonSpmtRegList.push(spmtRegInfoVO);
-    console.log("jsonSpmtRegList", jsonSpmtRegList);
     grdSpmtRegList.refresh();
 
 
@@ -942,54 +940,123 @@
 
     let spmtRegData = grdSpmtRegList.getGridDataAll();  // 출하등록 데이터
 
+    if (spmtRegData.length < 1) {
+      gfn_comAlert("W0003", "출하등록");		//	W0003	{0}할 대상이 없습니다.
+      return;
+    }
+
+    groupChck = spmtRegData.at(-1).group;  // 마지막 그룹번호 확인
+
+    // 정렬 키 정의
+    const sortKey = ['group', 'spmtPckgUnitCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd', 'spmtYmd'];
+
+    // spmtRegData를 sortKey 순서대로 정렬
+    // jsonSpmtRegList.sort((a, b) => {
+    spmtRegData.sort((a, b) => {
+      for (const key of sortKey) {
+        // 입고, 상품구분은 내림차순(null 값 내리기 위해
+        if (key === 'wrhsSeCd' || key === 'gdsSeCd') {
+          if (a[key] > b[key]) return -1;
+          if (a[key] < b[key]) return 1;
+        } else { // 나마지 오름차순
+          if (a[key] < b[key]) return -1;
+          if (a[key] > b[key]) return 1;
+        }
+      }
+      return 0; // 모든 키가 동일한 경우
+    });
+
+    // grdSpmtRegList.refresh();  // 그리드 새로고침
+    // return;
+
     /*
     * 품종/품목별로 재고정보 조회 후, 품종/품목별로 재고량을 합산하여 pckgInvntrList에 추가
     * (입고, 상품구분은 선별이나 재고 합산시 등록 마지막 재고목록으로 일괄 저장됨)
     * 2025.06.04 todo
-    * 출고일자 기준으로 정렬 필요(1. 그룹(거래처별) 2. 품종/품목 3. 출고일자 정렬(오름차순)
-    * 그룹 구분 로직 분리 필요 - 선별, 포장
-    * 투입 수량/중량 미입력시 재고량 전부 추가하는 로직 추가 필요
+    * 1. 그룹 2.chkKey  3. 출고일자 정렬(오름차순)
     * 월별 - 선별, 포장, 출하 등록시 입고/상품구분 조건 있을때와 없을때 재고 합산 로직 분리 필요
-    * 투입창고 로직 분리 필요
     * */
-    for (const spmtDataVO of spmtRegData) {
-      // 재고목록 조회용 품목/품종 리스트
-      const checkItem = spmtDataVO.itemCd + spmtDataVO.vrtyCd;
-      if (!setItem.has(checkItem)) {
-        setItem.add(checkItem);
-        checkItemList.push(checkItem);
-      }
-    }
 
-    // 상품재고 내역
-    for (const item of checkItemList) {
-      try {
-        const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
-          apcCd: gv_selectedApcCd,
-          itemCd: item.substring(0, 4),
-          vrtyCd: item.substring(4),
-        });
+    let curGroup = 1;  // 현재 그룹번호
+    while (curGroup <= groupChck) {
 
-        const data = await postJsonPromise;
-        if (_.isEqual("S", data.resultStatus)) {
-          let spmtInvntr = data.resultList;
-          console.log("data.resultList", data.resultList);
+      let checkItem = "";  // 품목/품종 체크용
 
-          for (const item of spmtInvntr) {
-            const chkKey = ['warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
-            // let curSpmtData = _.pick(spmtRegInfo, chkKey);
-            // let pckgInvntrData = _.pick(obj, chkKey)
+      for (const spmtDataVO of spmtRegData) {
+        if (_.isEqual(curGroup, Number(spmtDataVO.group))) {
+          // 재고목록 조회용 품목/품종 리스트
+          checkItem = spmtDataVO.itemCd + spmtDataVO.vrtyCd;
+          if (!setItem.has(checkItem)) {
+            setItem.add(checkItem);
+            checkItemList.push(checkItem);
           }
+        } else {
+          // 현재 그룹과 다른 그룹이면 다음 그룹으로 이동
+          break;
         }
+      }
 
-      } catch (e) {
-        if (!(e instanceof Error)) {
-          e = new Error(e);
+      // 상품재고 내역
+      for (const item of checkItemList) {
+        try {
+          const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
+            apcCd: gv_selectedApcCd,
+            itemCd: item.substring(0, 4),
+            vrtyCd: item.substring(4),
+          });
+
+          const data = await postJsonPromise;
+          if (_.isEqual("S", data.resultStatus)) {
+            let pckgInvntr = data.resultList;
+            // console.log("pckgInvntr", pckgInvntr);
+
+            for (const spmtItem of spmtRegData) {
+              if (_.isEqual(curGroup, Number(spmtItem.group))) {
+                for (const invntrItem of pckgInvntr) {
+                  // 상품코드, 상품등급, 창고, 생산자, 입고구분, 상품구분
+                  const chkKey = ['spmtPckgUnitCd', 'gdsGrdCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
+                  let pickSpmtItem = _.pick(spmtItem, chkKey);
+                  let pickInvntrItem = _.pick(invntrItem, chkKey)
+                  // 출하일자(spmtYmd) >= 포장일자 (pckgYmd)
+
+                  const cmprData = _.isEqualWith(pickSpmtItem, pickInvntrItem, (spmtValue, invntrValue, key) => {
+                    // spmtItem의 값이 비어있으면 해당 키는 비교하지 않음
+                    if (_.isEmpty(spmtValue)) {
+                      return true;
+                    }
+                    // 기본 비교 로직
+                    return undefined; // undefined를 반환하면 기본 비교 로직이 실행됨
+                  });
+
+                  if (cmprData) {
+                    console.log("cmprData", cmprData)
+                    console.log("spmtItem", spmtItem)
+                    console.log("invntrItem", invntrItem)
+                  }
+                }
+                  console.log("===")
+                  return ;
+              } else {
+                // 현재 그룹과 다른 그룹이면 다음 그룹으로 이동
+                curGroup++;
+                break;
+              }
+            }
+          }
+
+        } catch (e) {
+          if (!(e instanceof Error)) {
+            e = new Error(e);
+          }
+          console.error("failed", e.message);
+          gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+          return;
         }
-        console.error("failed", e.message);
-        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
       }
     }
+
+
+
 
 
   }
