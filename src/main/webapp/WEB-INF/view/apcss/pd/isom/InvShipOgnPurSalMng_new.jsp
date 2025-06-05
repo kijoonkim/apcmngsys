@@ -779,6 +779,15 @@
 			{caption: ["매취","매취소계","금액(천원)"], ref: 'prchsEmspapAmt',   type:'output',  width:'80px',    style:'text-align:right;border-right-color: black !important;'
 				,calc : 'fn_emspapAmtSum'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
+			/*= 기타 =*/
+			{	caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'output',  width:'90px',    style:'text-align:right',
+				// typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},
+				format : {type:'number', rule:'#,###'}
+			},
+			{	caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'output',  width:'100px',    style:'text-align:right',
+				// typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},
+				format : {type:'number', rule:'#,###'}
+			},
 
 			/*= 매입 합계 =*/
 			{caption: ["합계","합계","물량(톤)"], 	ref: 'prchsTotVlm',   		type:'output',  width:'50px',    style:'text-align:right'
@@ -793,13 +802,8 @@
 			{caption: ["합계","합계","차이"], 		ref: 'prchsTotAmtDiff',   		type:'output',  width:'80px',    style:'text-align:right; background-color: lightgray'
 				, calc : 'fn_prchsAmtDiff'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : false}}, format : {type:'number', rule:'#,###'}, datatype : 'number'},
-			/*= 기타 =*/
-			/*
-			{caption: ["기타","물량(톤)"], 		ref: 'etcVlm',   type:'input',  width:'90px',    style:'text-align:right'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			{caption: ["기타","금액(천원)"], 		ref: 'etcAmt',   type:'input',  width:'100px',    style:'text-align:right'
-				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10}, format : {type:'number', rule:'#,###'}},
-			*/
+
+
 			{caption: ["상세내역"], 	ref: 'prchsSlsSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'sttgUpbrItemSe',  hidden : true},
 			{caption: ["상세내역"], 	ref: 'clsfCd',  	hidden : true},
@@ -905,7 +909,7 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if (objGrid.getRowStatus(Number(nRow)) < 2) {
-			sumVal = rowData.prchsTrstVlm;
+			sumVal = rowData.prchsTotVlm;
 		} else {
 			if (rowData.sttgUpbrItemSe == '3'){
 				sumVal = Number(gfn_nvl(rowData.prchsSortTrstVlm))
@@ -913,6 +917,7 @@
 						+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
 						+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
 						+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm));
+						+ Number(gfn_nvl(rowData.etcVlm))
 			}else{
 				sumVal = rowData.prchsTotVlm;
 			}
@@ -929,7 +934,7 @@
 		let sumVal = 0;
 
 		if (objGrid.getRowStatus(Number(nRow)) < 2) {
-			sumVal = Number(gfn_nvl(rowData.prchsTotVlm)) - Number(gfn_nvl(rowData.prchsTrstVlm));
+			sumVal = Number(gfn_nvl(rowData.prchsTotVlm)) - Number(gfn_nvl(rowData.prchsTrstVlm)) - Number(gfn_nvl(rowData.prchsEmspapVlm)) - Number(gfn_nvl(rowData.etcVlm));
 		} else {
 			if (rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
 				sumVal = Number(gfn_nvl(rowData.prchsTotVlm)) -
@@ -939,6 +944,8 @@
 								+ Number(gfn_nvl(rowData.prchsSmplTrstVlm))
 								+ Number(gfn_nvl(rowData.prchsSortEmspapVlm))
 								+ Number(gfn_nvl(rowData.prchsSmplEmspapVlm))
+
+								+ Number(gfn_nvl(rowData.etcVlm))
 						);
 				if(sumVal === 0){
 					objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
@@ -960,7 +967,7 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		if (objGrid.getRowStatus(Number(nRow)) < 2) {
-			sumVal = rowData.prchsTrstAmt;
+			sumVal = rowData.prchsTotAmt;
 		} else {
 			if (rowData.sttgUpbrItemSe == '3') {
 				sumVal = Number(gfn_nvl(rowData.prchsSortTrstAmt))
@@ -968,6 +975,8 @@
 						+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
 						+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
 						+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt));
+
+						+ Number(gfn_nvl(rowData.etcAmt))
 			} else {
 				sumVal = rowData.prchsTotAmt;
 			}
@@ -984,7 +993,7 @@
 		let sumVal = 0;
 
 		if (objGrid.getRowStatus(Number(nRow)) < 2) {
-			sumVal = Number(gfn_nvl(rowData.prchsTotAmt)) - Number(gfn_nvl(rowData.prchsTrstAmt));
+			sumVal = Number(gfn_nvl(rowData.prchsTotAmt)) - Number(gfn_nvl(rowData.prchsTrstAmt)) - Number(gfn_nvl(rowData.prchsEmspapAmt)) - Number(gfn_nvl(rowData.etcAmt));
 		} else {
 			//금액의 경우 기타인 경우만 합산 처리
 			if (rowData.sttgUpbrItemSe != '3' && rowData.delYn == 'N'){
@@ -995,6 +1004,8 @@
 								+ Number(gfn_nvl(rowData.prchsSmplTrstAmt))
 								+ Number(gfn_nvl(rowData.prchsSortEmspapAmt))
 								+ Number(gfn_nvl(rowData.prchsSmplEmspapAmt))
+
+								+ Number(gfn_nvl(rowData.etcAmt))
 						);
 				if (sumVal === 0){
 					objGrid.setCellStyle('background-color', nRow, nCol, nRow, nCol, 'lightgray');
@@ -1026,6 +1037,8 @@
 			,'prchsTrstVlm', 'prchsTrstAmt'
 			,'prchsEmspapVlm', 'prchsEmspapAmt'
 			,'prchsTotVlm', 'prchsTotAmt'
+			, 'etcVlm', 'etcAmt'
+
 		];
 		//그리드 추가 용 1줄 합계용 1줄
 		let objGrid = grdPrdcrOgnCurntMng01;
@@ -2325,8 +2338,8 @@
 
 					,prchsTotVlm: 			item.prchsTotVlm
 					,prchsTotAmt: 			item.prchsTotAmt
-					//,etcVlm: 				item.etcVlm
-					//,etcAmt: 				item.etcAmt
+					,etcVlm: 				item.etcVlm
+					,etcAmt: 				item.etcAmt
 				});
 			});
 
