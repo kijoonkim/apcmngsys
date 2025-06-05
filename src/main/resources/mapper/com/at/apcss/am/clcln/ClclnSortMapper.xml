@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- ==========================================================================	-->
+<!-- NAME : ClclnSortMapper.xml                                   			-->
+<!-- DESC : 선별정산 mapper                   				                 	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.06.02  	손민성        	Initial Creation                            -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.clcln.mapper.ClclnSortMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr	-->
+    <!-- DESC : 선별정산 마스터정보 생성	                       	             	     	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.02  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSortClclnMstr">
+        INSERT /* com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnMstr */
+        INTO TB_SORT_CLCLN_MSTR (
+             APC_CD
+            ,CLCLN_YMD
+            ,CLCLN_SN
+            ,PRDCR_CD
+            ,ITEM_CD
+            ,VRTY_CD
+            ,SPCFCT_CD
+            ,ACTL_WGHT
+            ,CAL_WGHT
+            ,DIFF_WGHT
+            ,DEL_YN
+            ,SYS_FRST_INPT_DT
+            ,SYS_FRST_INPT_USER_ID
+            ,SYS_FRST_INPT_PRGRM_ID
+            ,SYS_LAST_CHG_DT
+            ,SYS_LAST_CHG_USER_ID
+            ,SYS_LAST_CHG_PRGRM_ID
+        )
+        VALUES
+        <foreach collection="list" item="vo" separator=",">
+            (
+             #{vo.apcCd}
+            ,#{vo.clclnYmd}
+            ,#{vo.clclnSn}
+            ,#{vo.prdcrCd}
+            ,#{vo.itemCd}
+            ,#{vo.vrtyCd}
+            ,#{vo.spcfctCd}
+            ,#{vo.actlWght}
+            ,#{vo.calWght}
+            ,#{vo.diffWght}
+            ,#{vo.delYn}
+            ,SYSDATE
+            ,#{vo.sysFrstInptUserId}
+            ,#{vo.sysFrstInptPrgrmId}
+            ,SYSDATE
+            ,#{vo.sysLastChgUserId}
+            ,#{vo.sysLastChgPrgrmId}
+            )
+        </foreach>
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl 	-->
+    <!-- DESC : 선별정산 상세정보 생성	                      	             	     	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.02  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSortClclnDtl">
+        INSERT /* com.at.apcss.am.clcln.mapper.ClclnSortMapper.insertSortClclnDtl */
+        INTO TB_SORT_CLCLN_DTL (
+             APC_CD
+            ,CLCLN_YMD
+            ,CLCLN_SN
+            ,CLCLN_DTL_SN
+            ,CLCLN_DTL_KND
+            ,CLCLN_DTL_CD
+            ,SORT_QNTT
+            ,SORT_WGHT
+            ,CLCLN_QNTT
+            ,CLCLN_WGHT
+            ,CLCLN_YN
+            ,DEL_YN
+            ,SYS_FRST_INPT_DT
+            ,SYS_FRST_INPT_USER_ID
+            ,SYS_FRST_INPT_PRGRM_ID
+            ,SYS_LAST_CHG_DT
+            ,SYS_LAST_CHG_USER_ID
+            ,SYS_LAST_CHG_PRGRM_ID
+        )
+        VALUES
+        <foreach collection="list" item="vo" separator=",">
+            (
+             #{vo.apcCd}
+            ,#{vo.clclnYmd}
+            ,#{vo.clclnSn}
+            ,#{vo.clclnDtlSn}
+            ,#{vo.clclnDtlKnd}
+            ,#{vo.clclnDtlCd}
+            ,#{vo.sortQntt}
+            ,#{vo.sortWght}
+            ,#{vo.clclnQntt}
+            ,#{vo.clclnWght}
+            ,#{vo.clclnYn}
+            ,#{vo.delYn}
+            ,SYSDATE
+            ,#{vo.sysFrstInptUserId}
+            ,#{vo.sysFrstInptPrgrmId}
+            ,SYSDATE
+            ,#{vo.sysLastChgUserId}
+            ,#{vo.sysLastChgPrgrmId}
+            )
+        </foreach>
+    </insert>
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.clcln.mapper.ClclnSortMapper.selectSortClclnList 	-->
+    <!-- DESC : 선별정산 상세정보 조회	                      	             	     	-->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.02  	손민성        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSortClclnList" resultType="com.at.apcss.am.clcln.vo.ClclnDtlVO">
+
+    </select>
+</mapper>

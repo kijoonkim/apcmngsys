@@ -3,10 +3,16 @@ package com.at.apcss.am.clcln.web;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.clcln.service.ClclnSortService;
+import com.at.apcss.am.clcln.vo.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,9 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.at.apcss.am.clcln.service.ClclnCrtrService;
 import com.at.apcss.am.clcln.service.ClclnUntprcService;
-import com.at.apcss.am.clcln.vo.ClclnCrtrVO;
-import com.at.apcss.am.clcln.vo.ClclnMngVO;
-import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
 
@@ -46,6 +49,9 @@ public class ClclnMngController extends BaseController {
 	// 정산단가
 	@Resource(name = "clclnUntprcService")
 	private ClclnUntprcService clclnUntprcService;
+
+	@Resource(name = "clclnSortService")
+	private ClclnSortService clclnSortService;
 
 	
 	// APC 정산기준 조회
@@ -419,7 +425,59 @@ public class ClclnMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-/*		
+
+	//선별 정산저장
+	@PostMapping(value = "/am/clcln/insertSortClcln.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> insertSortClcln(@RequestBody Map<String, List<Map<String, Object>>> data, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int insertCnt = 0;
+
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	        try{
+				List<ClclnMstrVO> mstrList = data.get("clclnMstrList").stream()
+						.map(m -> mapper.convertValue(m, ClclnMstrVO.class))
+						.collect(Collectors.toList());
+				List<ClclnDtlVO> dtlList = data.get("clclnDtlList").stream()
+						.map(m -> mapper.convertValue(m, ClclnDtlVO.class))
+						.collect(Collectors.toList());
+				/** 공통정보 **/
+				setComVOFields(mstrList);
+				setComVOFields(dtlList);
+
+				insertCnt = clclnSortService.insertSortClcln(mstrList, dtlList);
+
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_INSERTED_CNT,insertCnt);
+	        return getSuccessResponseEntity(resultMap);
+	    }
+	/** 선별 정산 일괄조회 **/
+	@PostMapping(value = "/am/clcln/selectSortClclnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectSortClclnList(@RequestBody ClclnMstrVO clclnMstrVO, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<ClclnDtlVO> resultList = new ArrayList<>();
+	        try{
+				resultList = clclnSortService.selectSortClclnList(clclnMstrVO);
+
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+	        return getSuccessResponseEntity(resultMap);
+	    }
+/*
 	// 정산단가 변경
 	@PostMapping(value = "/am/clcln/updateClclnUntprcList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> updateClclnUntprcList(@RequestBody List<ClclnUntprcVO> clclnUntprcList, HttpServletRequest request) throws Exception {
