@@ -79,13 +79,11 @@
 	var jsonApcJobClsfCd = [];
 	var jsonGrdJobClsfCd = [];
 
-
 	const fn_initSBSelectOprtr = async function() {
 		let rst = await Promise.all([
 			gfn_setComCdGridSelect('grdOprtr', jsonGrdJobClsfCd, "JOB_CLSF_CD", gv_selectedApcCd),
 			gfn_setComCdSBSelect('oprtr-slt-jobClsfCd', jsonApcJobClsfCd, "JOB_CLSF_CD", gv_selectedApcCd),
 		])
-		console.log(jsonGrdJobClsfCd);
 	}
 
 	async function fn_oprtrMngCreateGrid() {
@@ -181,7 +179,7 @@
   				});
   	        	grdOprtr.rebuild();
   	        	grdOprtr.addRow(true);
-  	        	// grdOprtr.setCellDisabled(0, 1, grdOprtr.getRows() -1, 3, true);
+  	        	grdOprtr.setCellDisabled(0, 1, grdOprtr.getRows() -1, 3, true);
   	        	grdOprtr.setCellDisabled(grdOprtr.getRows() -1, 0, grdOprtr.getRows() -1, grdOprtr.getCols() -1, true);
 
         	} else {
@@ -244,7 +242,6 @@
 					}
 				}
 			}
-			console.log(saveList);
 
 			let postJsonPromise = gfn_postJSON("/am/cmns/multiSaveOprtrList.do", saveList);
 	        let data = await postJsonPromise;

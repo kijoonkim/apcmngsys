@@ -307,15 +307,6 @@
                     onclick="fn_changeVrty()"
             >
             </sbux-button>
-            <sbux-button
-                    id="addSoloSaleButton"
-                    name="addSoloSaleButton"
-                    uitype="normal"
-                    text="시판추가"
-                    class="no-print"
-                    onclick="fn_addSoloSale()"
-            >
-            </sbux-button>
         </div>
         <table id="sortTable" style="border-collapse: separate">
             <colgroup>
@@ -978,8 +969,6 @@
                $("#cnpt").css("display","none");
                let cnptCd = $(_el).data('cnptCd');
                spmtSaveList.forEach(item => item.cnptCd = cnptCd);
-               console.log(spmtSaveList,"저장전");
-
 
                const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", spmtSaveList);
                const data = await postJsonPromise;
@@ -1079,15 +1068,9 @@
         itemCd = itemVrty.itemCd;
         vrtyCd = itemVrty.vrtyCd;
 
+
         await SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
         await fn_init();
-
-        let warehouseSeCd = gfn_getCookie("warehouseSeCd");
-        console.log(warehouseSeCd);
-        if(warehouseSeCd) {
-            $("#warehouse").val(warehouseSeCd);
-        }
-
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();
         await fn_searchSpmtPrfmncList();
@@ -1670,14 +1653,14 @@
         let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
 
         /** split check **/
-        const splitRmrk = saveList.some(item => {
+        const splitRmrk = saveList.find(item => {
             const $input = $(item).find('input');
             const isEmpty = !$input.val() || $input.val().trim() === '';
             const isSplit = $input.hasClass('left') || $input.hasClass('right');
             if(saveList.length === 1){
                 return true;
             }else{
-                return !isEmpty && isSplit;
+                return isEmpty && isSplit;
             }
         });
         const defaultRmrk = splitRmrk
@@ -1939,8 +1922,6 @@
             (acc[key] = acc[key] || []).push(item);
             return acc;
         }, {});
-        console.log(groupedData,"시판정리");
-
 
         /** 하단 거래처별 출하수량 입력 **/
         const cnptData = data.resultList.reduce((acc, item) => {
@@ -2412,11 +2393,6 @@
             $td.remove();
         }
         return $td;
-    }
-    const fn_addSoloSale = async function(){
-        $("#sortTable tbody input").hover(function(){
-            $(this).css('backgroundColor','blue');
-        });
     }
 
     window.addEventListener("DOMContentLoaded", async function () {
