@@ -289,7 +289,7 @@
       gridSortRslt.refresh();
 
       /** 정산처리 행 체크 **/
-      fn_searchClclnList();
+      // fn_searchClclnList();
 
     }catch (e) {
 
