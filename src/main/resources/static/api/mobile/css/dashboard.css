@@ -177,6 +177,8 @@
 
 #sb-area-apcLinkPop > tbody > tr > td {
     text-align: center;
+    height: 30px;
+    line-height: 30px;
 }
 
 .table-wrapper {
