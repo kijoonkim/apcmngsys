@@ -124,7 +124,7 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
 
                 $('#cnt-apcLinkPop').text(data.resultList.length);
 
-                // $('#apcLinkInfoBody').empty();
+                $('#apcLinkInfoBody').empty();
 
                 $.each(data.resultList, function(index, result) {
                     var row = '<tr>';
