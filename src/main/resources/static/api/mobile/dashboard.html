@@ -90,7 +90,7 @@
                 </div>
 
                 <!--APC 정보 팝업-->
-                <div id="popup" class="popup">
+                <div id="apcPopup" class="popup">
                     <div class="popup-content">
                         <div class="col-lg-6" id="apcLogo"></div>
                         <div class="col-lg-6 title" id="apcNm"></div>
@@ -106,7 +106,55 @@
                         <div class="col-lg-10" id="addr"></div>
                         <div class="col-lg-2 title">품목</div>
                         <div class="col-lg-10" id="itemNm"></div>
-                        <div class="col-lg-12"><button id="closePopup">닫기</button></div>
+                        <div class="col-lg-12"><button class="closePopup">닫기</button></div>
+                    </div>
+                </div>
+
+                <!-- 연계기기 목록 팝업 -->
+                <div id="apcLinkPopup" class="popup">
+                    <div class="popup-content" style="width: 800px;">
+                        <div class="box-header" style="display: flex; justify-content: flex-start;">
+                            <div>
+                                <p>
+                                    <span style="font-size: 20px; color: black;">연계기기 목록</span>
+                                    <span style="font-size: 15px;">(조회건수 <span id="cnt-apcLinkPop">0</span>건)</span>
+                                </p>
+                            </div>
+
+                            <div style="margin-left: auto;">
+                                <div class="col-lg-12"><button class="closePopup" style="margin-left: 10px;">닫기</button></div>
+                            </div>
+                        </div>
+
+                        <div class="box-body table-wrapper">
+                            <table id="sb-area-apcLinkPop" class="table table-bordered tbl_row tbl_fixed">
+                                <colgroup>
+                                    <col style="width: 7%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 5%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 7%;">
+                                </colgroup>
+
+                                <thead>
+                                    <tr>
+                                        <th scope="row">기기ID</th>
+                                        <th scope="row">기기명</th>
+                                        <th scope="row">통신상태</th>
+                                        <th scope="row">구분</th>
+                                        <th scope="row">요청일시</th>
+                                        <th scope="row">완료일시</th>
+                                        <th scope="row">진행상태</th>
+                                        <th scope="row">처리</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="apcLinkInfoBody"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

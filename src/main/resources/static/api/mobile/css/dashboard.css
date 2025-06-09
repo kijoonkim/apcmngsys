@@ -156,8 +156,7 @@
     font-weight: 700;
 }
 
-#closePopup {
-    margin-top: 15px;
+.closePopup {
     padding: 8px 15px;
     background-color: #dc3545;
     color: white;
@@ -166,7 +165,34 @@
     cursor: pointer;
 }
 
-#closePopup:hover {
+.closePopup:hover {
     background-color: #c82333;
 }
 
+#sb-area-apcLinkPop > thead > tr > th {
+    text-align: center;
+    top: -12px;
+    background-color: #CAD4DF;
+}
+
+#sb-area-apcLinkPop > tbody > tr > td {
+    text-align: center;
+}
+
+.table-wrapper {
+    height: 300px;
+    overflow-y: auto;
+}
+
+#sb-area-apcLinkPop {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#sb-area-apcLinkPop thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 2;
+}

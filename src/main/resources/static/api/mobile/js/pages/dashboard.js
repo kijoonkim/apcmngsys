@@ -63,7 +63,7 @@ function openPopApcInfo(apcCd) {
 
             if(data!=null && data.resultStatus == 'S' && data.resultMap != null) {
                 // 팝업 열기
-                $('#popup').fadeIn(300);
+                $('#apcPopup').fadeIn(300);
 
                 var result = data.resultMap;
                 var apcimg = $('<img src="./img/logo_btn_' + result.apcCd + '.png"/>');
@@ -99,6 +99,162 @@ function openPopApcInfo(apcCd) {
     });
 }
 
+function openPopApcLinkInfo(apcCd, linkKnd) {
+    $.ajax({
+        type: 'post',
+        url: '/api/mobile/am/apc/selectApcLinkTrsmMatSttsList.do',
+        data: JSON.stringify({
+            'apcCd': apcCd,
+            'linkKnd': linkKnd
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('apc link info=', data);
+
+            if(data != null && data.resultStatus == 'S' && data.resultList != null) {
+                // 팝업 열기
+                $('#apcLinkPopup').fadeIn(300);
+
+                $('#cnt-apcLinkPop').text(data.resultList.length);
+
+                // $('#apcLinkInfoBody').empty();
+
+                $.each(data.resultList, function(index, result) {
+                    var row = '<tr>';
+                    row += '<td>' + (result.trsmMatId || '') + '</td>';
+                    row += '<td>' + (result.trsmMatNm || '') + '</td>';
+                    row += '<td style="color: ' + (result.trsmMatSttsColor || '#808080') + ';">' + (result.trsmMatSttsNm || '') + '</td>';
+                    row += '<td>' + (result.linkKndNm || '') + '</td>';
+                    row += '<td>' + (result.reqDt || '') + '</td>';
+                    row += '<td>' + (result.prcsCmptnDt || '') + '</td>';
+                    row += '<td style="color: ' + (result.linkSttsNmColor || '#808080') + ';">' + (result.linkSttsNm || '') + '</td>';
+                    row += '<td>';
+                    switch(result.linkStts) {
+                        case "P0":
+                            row += '<button type="button" id="btnReq" class="btn btn-outline-danger">요청</button>';
+                            break;
+                        case "R0":
+                            row += '<button type="button" id="btnReqCncl" class="btn btn-outline-danger">취소</button>';
+                            break;
+                        default:
+                            row += '';
+                    }
+                    row += '</td>';
+                    row += '<td style="display: none;">' + (result.apcCd || '') + '</td>';
+                    row += '<td style="display: none;">' + (result.linkKnd || '') + '</td>';
+                    row += '</tr>';
+                    $('#apcLinkInfoBody').append(row);
+                });
+            } else {
+                alert('해당 정보가 없습니다. 시스템 관리자에게 문의하세요!');
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
+function req(apcCd, trsmMatId, linkKnd) {
+    $.ajax({
+        type: 'post',
+        url: '/api/mobile/am/apc/updateLinkTrsmReq.do',
+        data: JSON.stringify({
+            'apcCd': apcCd,
+            'trsmMatId': trsmMatId,
+            'linkKnd': linkKnd,
+            'sysLastChgUserId': 'dashboard',
+            'sysLastChgPrgrmId': 'apcLinkPop',
+            'linkUseYn': 'Y'
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('apc link info=', data);
+
+            if(data.resultStatus == "S") {
+                alert("처리되었습니다.");
+                openPopApcLinkInfo(apcCd, linkKnd);
+            } else {
+                alert(data.resultCode, data.resultMessage);
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
+function reqCncl(apcCd, trsmMatId, linkKnd) {
+    $.ajax({
+        type: 'post',
+        url: '/api/mobile/am/apc/updateLinkTrsmReqCncl.do',
+        data: JSON.stringify({
+            'apcCd': apcCd,
+            'trsmMatId': trsmMatId,
+            'linkKnd': linkKnd,
+            'sysLastChgUserId': 'dashboard',
+            'sysLastChgPrgrmId': 'apcLinkPop',
+            'linkUseYn': 'Y'
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
+                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
+            }
+        },
+        success: function(data, textStatus, xhr) {
+            console.log(xhr.status);
+            console.log('apc link info=', data);
+
+            if(data.resultStatus == "S") {
+                alert("처리되었습니다.");
+                openPopApcLinkInfo(apcCd, linkKnd);
+            } else {
+                alert(data.resultCode, data.resultMessage);
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
 const userInfo = localStorage.getItem('userInfo') !== undefined && localStorage.getItem('userInfo') != null
         ? JSON.parse(localStorage.getItem('userInfo'))
         : {};
@@ -107,15 +263,33 @@ $(function() {
     "use strict";
 
     // 팝업 닫기
-    $('#closePopup').click(function() {
-        $('#popup').fadeOut(300);
+    $('.closePopup').click(function() {
+        $('#apcPopup').fadeOut(300);
+        $('#apcLinkPopup').fadeOut(300);
     });
 
     // 팝업 외부 클릭시 닫기
     $(document).on('click', function(e) {
-        if ($(e.target).hasClass('popup')) {
-            $('#popup').fadeOut(300);
+        if($(e.target).hasClass('popup')) {
+            $('#apcPopup').fadeOut(300);
+            $('#apcLinkPopup').fadeOut(300);
         }
+    });
+
+    $('#apcLinkInfoBody').on('click', '#btnReq', function() {
+        var apcCd = $(this).closest('tr').find('td:eq(8)').text().trim();
+        var trsmMatId = $(this).closest('tr').find('td:eq(0)').text().trim();
+        var linkKnd = $(this).closest('tr').find('td:eq(9)').text().trim();
+
+        req(apcCd, trsmMatId, linkKnd);
+    });
+
+    $('#apcLinkInfoBody').on('click', '#btnReqCncl', function() {
+        var apcCd = $(this).closest('tr').find('td:eq(8)').text().trim();
+        var trsmMatId = $(this).closest('tr').find('td:eq(0)').text().trim();
+        var linkKnd = $(this).closest('tr').find('td:eq(9)').text().trim();
+
+        reqCncl(apcCd, trsmMatId, linkKnd);
     });
 
     $('.login_btn').on('click', function(e) {
@@ -278,8 +452,21 @@ $(function() {
             });
 
             var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
-            $.each(el.kinds, function(index, el) {
-                apcKinds.append($('<div class="apc_item apc_kind no-padding ' + el.value + '">' + el.name + '</div>'));
+            $.each(el.kinds, function(index, kindsEl) {
+                var kindDiv = $('<div class="apc_item apc_kind no-padding ' + kindsEl.value + '">' + kindsEl.name + '</div>');
+
+                kindDiv.on("click", function() {
+                    console.log('클릭된 항목:', kindsEl.name, '| APC_CD:', el.value);
+                    if(kindsEl.name == "계량") {
+                        openPopApcLinkInfo(el.value, "W");
+                    } else if(kindsEl.name == "선별") {
+                        openPopApcLinkInfo(el.value, "S");
+                    } else if(kindsEl.name == "발주") {
+                        openPopApcLinkInfo(el.value, "R");
+                    }
+                });
+
+                apcKinds.append(kindDiv);
             });
             apcInfo.append(apcKinds);
 
