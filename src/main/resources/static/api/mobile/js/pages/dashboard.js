@@ -460,12 +460,8 @@ $(function() {
                         openPopApcLinkInfo(el.value, "W");
                     } else if(kindsEl.name == "선별") {
                         openPopApcLinkInfo(el.value, "S");
-                    } else if(kindsEl.name == "입고") {
+                    } else if(kindsEl.name == "발주") {
                         openPopApcLinkInfo(el.value, "R");
-                    } else if(kindsEl.name == "포장") {
-                        openPopApcLinkInfo(el.value, "P");
-                    } else if(kindsEl.name == "출하") {
-                        openPopApcLinkInfo(el.value, "D");
                     }
                 });
 
