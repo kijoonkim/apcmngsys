@@ -177,7 +177,7 @@ function req(apcCd, trsmMatId, linkKnd) {
             'apcCd': apcCd,
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
-            'sysLastChgUserId': 'dashboard',
+            'sysLastChgUserId': userInfo.userId,
             'sysLastChgPrgrmId': 'apcLinkPop',
             'linkUseYn': 'Y'
         }),
@@ -220,7 +220,7 @@ function reqCncl(apcCd, trsmMatId, linkKnd) {
             'apcCd': apcCd,
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
-            'sysLastChgUserId': 'dashboard',
+            'sysLastChgUserId': userInfo.userId,
             'sysLastChgPrgrmId': 'apcLinkPop',
             'linkUseYn': 'Y'
         }),
