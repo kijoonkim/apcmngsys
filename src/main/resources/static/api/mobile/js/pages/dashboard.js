@@ -107,7 +107,7 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
             'apcCd': apcCd,
             'linkKnd': linkKnd
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -178,10 +178,10 @@ function req(apcCd, trsmMatId, linkKnd) {
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
             'sysLastChgUserId': userInfo.userId,
-            'sysLastChgPrgrmId': 'apcLinkPop',
+            'sysLastChgPrgrmId': 'dashboard',
             'linkUseYn': 'Y'
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -190,7 +190,7 @@ function req(apcCd, trsmMatId, linkKnd) {
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
-            console.log('apc link info=', data);
+            console.log('req info=', data);
 
             if(data.resultStatus == "S") {
                 alert("처리되었습니다.");
@@ -221,10 +221,10 @@ function reqCncl(apcCd, trsmMatId, linkKnd) {
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
             'sysLastChgUserId': userInfo.userId,
-            'sysLastChgPrgrmId': 'apcLinkPop',
+            'sysLastChgPrgrmId': 'dashboard',
             'linkUseYn': 'Y'
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -456,13 +456,16 @@ $(function() {
                 var kindDiv = $('<div class="apc_item apc_kind no-padding ' + kindsEl.value + '">' + kindsEl.name + '</div>');
 
                 kindDiv.on("click", function() {
-                    console.log('클릭된 항목:', kindsEl.name, '| APC_CD:', el.value);
                     if(kindsEl.name == "계량") {
                         openPopApcLinkInfo(el.value, "W");
                     } else if(kindsEl.name == "선별") {
                         openPopApcLinkInfo(el.value, "S");
-                    } else if(kindsEl.name == "발주") {
+                    } else if(kindsEl.name == "입고") {
                         openPopApcLinkInfo(el.value, "R");
+                    } else if(kindsEl.name == "포장") {
+                        openPopApcLinkInfo(el.value, "P");
+                    } else if(kindsEl.name == "출하") {
+                        openPopApcLinkInfo(el.value, "D");
                     }
                 });
 
