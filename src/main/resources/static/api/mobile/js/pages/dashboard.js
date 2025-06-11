@@ -196,7 +196,7 @@ function req(apcCd, trsmMatId, linkKnd) {
                 alert("처리되었습니다.");
                 openPopApcLinkInfo(apcCd, linkKnd);
             } else {
-                alert(data.resultCode, data.resultMessage);
+                alert("현재 요청 진행중 입니다.");
             }
         },
         error: function(xhr, status, error) {
@@ -239,7 +239,7 @@ function reqCncl(apcCd, trsmMatId, linkKnd) {
                 alert("처리되었습니다.");
                 openPopApcLinkInfo(apcCd, linkKnd);
             } else {
-                alert(data.resultCode, data.resultMessage);
+                alert("현재 요청 대기 상태 입니다.");
             }
         },
         error: function(xhr, status, error) {
