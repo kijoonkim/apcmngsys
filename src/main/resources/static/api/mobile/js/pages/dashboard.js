@@ -107,7 +107,7 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
             'apcCd': apcCd,
             'linkKnd': linkKnd
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -177,11 +177,11 @@ function req(apcCd, trsmMatId, linkKnd) {
             'apcCd': apcCd,
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
-            'sysLastChgUserId': 'dashboard',
-            'sysLastChgPrgrmId': 'apcLinkPop',
+            'sysLastChgUserId': userInfo.userId,
+            'sysLastChgPrgrmId': 'dashboard',
             'linkUseYn': 'Y'
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -190,13 +190,13 @@ function req(apcCd, trsmMatId, linkKnd) {
         },
         success: function(data, textStatus, xhr) {
             console.log(xhr.status);
-            console.log('apc link info=', data);
+            console.log('req info=', data);
 
             if(data.resultStatus == "S") {
                 alert("처리되었습니다.");
                 openPopApcLinkInfo(apcCd, linkKnd);
             } else {
-                alert(data.resultCode, data.resultMessage);
+                alert("현재 요청 진행중 입니다.");
             }
         },
         error: function(xhr, status, error) {
@@ -220,11 +220,11 @@ function reqCncl(apcCd, trsmMatId, linkKnd) {
             'apcCd': apcCd,
             'trsmMatId': trsmMatId,
             'linkKnd': linkKnd,
-            'sysLastChgUserId': 'dashboard',
-            'sysLastChgPrgrmId': 'apcLinkPop',
+            'sysLastChgUserId': userInfo.userId,
+            'sysLastChgPrgrmId': 'dashboard',
             'linkUseYn': 'Y'
         }),
-        beforeSend: function(xhr){
+        beforeSend: function(xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
 
             if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
@@ -239,7 +239,7 @@ function reqCncl(apcCd, trsmMatId, linkKnd) {
                 alert("처리되었습니다.");
                 openPopApcLinkInfo(apcCd, linkKnd);
             } else {
-                alert(data.resultCode, data.resultMessage);
+                alert("현재 요청 대기 상태 입니다.");
             }
         },
         error: function(xhr, status, error) {
@@ -456,7 +456,6 @@ $(function() {
                 var kindDiv = $('<div class="apc_item apc_kind no-padding ' + kindsEl.value + '">' + kindsEl.name + '</div>');
 
                 kindDiv.on("click", function() {
-                    console.log('클릭된 항목:', kindsEl.name, '| APC_CD:', el.value);
                     if(kindsEl.name == "계량") {
                         openPopApcLinkInfo(el.value, "W");
                     } else if(kindsEl.name == "선별") {
