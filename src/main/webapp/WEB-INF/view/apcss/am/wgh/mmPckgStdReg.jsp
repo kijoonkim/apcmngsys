@@ -34,7 +34,7 @@
     <div class="box-body">
       <%--생산자 코드--%>
       <sbux-input id="srch-inp-pckgPrdcrCd" name="srch-inp-pckgPrdcrCd" uitype="hidden"></sbux-input>
-      <table id="rawMtrPckgTable" class="table table-bordered tbl_fixed">
+      <table id="pckgStdRegTable" class="table table-bordered tbl_fixed">
         <caption>포장 등록 조건 설정</caption>
         <colgroup>
           <col style="width: 11%">

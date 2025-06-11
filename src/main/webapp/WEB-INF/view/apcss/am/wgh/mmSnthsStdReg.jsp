@@ -121,45 +121,54 @@
 
     const fn_changeTab = function (obj) {
         let choiceTab = SBUxMethod.get("tab_norm");
-        console.log(choiceTab)
 
-        if (choiceTab == "tab_wrhsStdReg") {
-            fn_init();
-        }
-
-        if (choiceTab == "tab_sortStdReg") {
-            fn_initSortReg();
-        }
-
-        if (choiceTab == "tab_pckgStdReg") {
-            fn_initPckgReg();
-        }
-
-        if (choiceTab == "tab_spmtStdReg") {
-            fn_initSpmtReg();
+        switch (choiceTab) {
+            case "tab_wrhsStdReg":
+                fn_init();
+                break;
+            case "tab_sortStdReg":
+                fn_initSortReg();
+                break;
+            case "tab_pckgStdReg":
+                fn_initPckgReg();
+                break;
+            case "tab_spmtStdReg":
+                fn_initSpmtReg();
+                break;
         }
     }
 
     const fn_save = async function () {
-
         let choiceTab = SBUxMethod.get("tab_norm");
 
-        if (choiceTab == "tab_wrhsStdReg") {
-            fn_saveWrhsInfo();
+        switch (choiceTab) {
+            case "tab_wrhsStdReg":
+                fn_saveWrhsInfo();
+                break;
+            case "tab_sortStdReg":
+                fn_saveSortInfo();
+                break;
+            case "tab_pckgStdReg":
+                fn_savePckgInfo();
+                break;
+            case "tab_spmtStdReg":
+                fn_saveSpmtInfo();
+                break;
+        }
+    }
+
+    const fn_reset = function (_tabId) {
+        let table = document.getElementById(_tabId);
+        let elements = table.querySelectorAll(`[id^=${"dtl-"}]`);
+        elements = Array.from(elements);
+
+        for (let element of elements) {
+            SBUxMethod.set(element.id, "");
         }
 
-        if (choiceTab == "tab_sortStdReg") {
-            console.log("fn_saveSortInfo")
-            fn_saveSortInfo();
-        }
+        // 날짜 초기화
+        SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
 
-        if (choiceTab == "tab_pckgStdReg") {
-            fn_savePckgInfo();
-        }
-
-        if (choiceTab == "tab_spmtStdReg") {
-            fn_saveSpmtInfo();
-        }
     }
 
     /**

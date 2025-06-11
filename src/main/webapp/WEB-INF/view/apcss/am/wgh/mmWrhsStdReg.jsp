@@ -29,7 +29,7 @@
   <div class="box box-solid">
     <div class="box-header" style="display:flex; justify-content: flex-start; padding: 10px 15px 5px;" >
       <div style="margin-left: auto;">
-        <sbux-button id="btnResetWrhs" name="btnResetWrhs" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset"></sbux-button>
+        <sbux-button id="btnResetWrhs" name="btnResetWrhs" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset('wrhsStdRegTable')"></sbux-button>
         <sbux-button id="btnAddWrhs" name="btnAddWrhs" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_addRow"></sbux-button>
       </div>
     </div>
@@ -44,7 +44,7 @@
       <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
       <%--처리구분--%>
       <sbux-input id="srch-inp-prcsType" name="srch-inp-prcsType" uitype="hidden"></sbux-input>
-      <table id="rawMtrWrhsTable" class="table table-bordered tbl_fixed">
+      <table id="wrhsStdRegTable" class="table table-bordered tbl_fixed">
         <caption>입고 등록 조건 설정</caption>
         <colgroup>
           <col style="width: 11%">
@@ -711,7 +711,6 @@
    */
   const fn_clearForm = function() {
 
-    SBUxMethod.set("lbl-wrhsno", "");
     SBUxMethod.set("srch-inp-wrhsno", "");
     SBUxMethod.set("srch-inp-prcsType", "");
     SBUxMethod.set("srch-inp-pltno", "");
@@ -747,7 +746,7 @@
    * @name fn_reset
    * @description 초기화 버튼
    */
-  const fn_reset = async function() {
+  const fn_resetWrhs = async function() {
     fn_clearForm();
   }
 

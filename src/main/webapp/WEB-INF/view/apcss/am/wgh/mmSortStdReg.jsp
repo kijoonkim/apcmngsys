@@ -34,7 +34,7 @@
     <div class="box-body">
       <%--생산자 코드--%>
       <sbux-input id="srch-inp-sortPrdcrCd" name="srch-inp-sortPrdcrCd" uitype="hidden"></sbux-input>
-      <table id="rawMtrSortTable" class="table table-bordered tbl_fixed">
+      <table id="sortStdRegTable" class="table table-bordered tbl_fixed">
         <caption>선별 등록 조건 설정</caption>
         <colgroup>
           <col style="width: 11%">
@@ -984,13 +984,13 @@
     // let hasError = false;
 
     const cmprSortData = []; // 선별등록 데이터 비교용
-    let checkItemList = [];
 
     let groupChck = 0;  // 그룹번호 체크
 
     let inptQntt = 0;
     let inptWght = 0;
 
+    let checkItemList = [];
     const setItem = new Set(checkItemList);
 
     let sortRegData = grdSortRegList.getGridDataAll();
