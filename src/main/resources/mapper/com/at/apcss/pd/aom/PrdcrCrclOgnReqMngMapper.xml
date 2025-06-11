@@ -621,6 +621,7 @@
 								FROM TB_EV_APO_YR_GPC_CD X
 								WHERE X.YR = PS.YR
 								AND X.APO_SE = PS.APO_SE
+								AND X.BRNO = PS.BRNO
 								AND X.ITEM_CD = PS.ITEM_CD
 								AND X.STTG_UPBR_ITEM_SE = '1'
 								AND X.DEL_YN = 'N'
