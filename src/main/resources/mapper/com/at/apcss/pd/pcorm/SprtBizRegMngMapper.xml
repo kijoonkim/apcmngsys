@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SprtBizRegMngMapper.xml												-->
+<!-- DESC : 산지조직지원신청관리 mapper											 			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  				-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.06.10  	유민지			Initial Creation							-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper">
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectApoSprtAplyList-->
+    <!-- DESC : 산지조직지원신청관리 신청목록 조회                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectApoSprtAplyList" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+        SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectApoSprtAplyList*/
+             EUA.YR              AS YR
+            , EUA.APO_SE        AS APO_SE
+            , EUA.APRV        AS APRV
+            , EUA.APRV       AS APRV_NM
+            , EUA.APLY_DAY  AS APLY_DAY
+            , EUA.APO_CD    AS APO_CD
+            , EUA.CORP_NM   AS CORP_NM
+            , EUA.CRNO  AS CRNO
+            , EUA.BRNO  AS BRNO
+            , EUA.UO_BRNO   AS UO_BRNO
+
+            , SBO.SPRT_BIZ_YR   AS SPRT_BIZ_YR
+            , SBO.SPRT_BIZ_CD   AS SPRT_BIZ_CD
+            , SBO.SPRT_OGNZ_ID  AS SPRT_OGNZ_ID
+
+            , SBA.APLY_AMT_NE   AS APLY_AMT_NE
+            , SBA.APLY_AMT_SLF  AS APLY_AMT_SLF
+            , SBA.APLY_RMRK     AS APLY_RMRK
+            , SBA.RPN_AMT_NE    AS RPN_AMT_NE
+            , SBA.RPN_AMT_SLF   AS RPN_AMT_SLF
+            , SBA.STBLT_YN      AS STBLT_YN
+            , SBA.APRV_YN       AS APRV_YN
+            , SBA.RSN_CD        AS RSN_CD
+            , SBA.RSN_RMRK      AS RSN_RMRK
+
+            , APLY.APRV_YN AS BIZ_APLY_APRV_YN
+            , APLY.ATCH_FILE_SN    AS BIZ_APLY_ATCHFL_SN
+
+            , PLAN.APRV_YN AS BIZ_PLAN_APRV_YN
+            , PLAN.ATCH_FILE_SN AS BIZ_PLAN_ATCHFL_SN
+
+            , APAT.FILE_PATH_NM AS BIZ_APLY_FILE_PATH_NM
+            , APAT.LGC_FILE_NM AS BIZ_APLY_LGC_FILE_NM
+            , APAT.PHYS_FILE_NM AS BIZ_APLY_PHYS_FILE_NM
+            , APAT.FILE_EXTN_NM AS BIZ_APLY_FILE_EXTN_NM
+
+            , APPL.FILE_PATH_NM AS BIZ_PLAN_FILE_PATH_NM
+            , APPL.LGC_FILE_NM AS BIZ_PLAN_LGC_FILE_NM
+            , APPL.PHYS_FILE_NM AS BIZ_PLAN_PHYS_FILE_NM
+            , APPL.FILE_EXTN_NM AS BIZ_PLAN_FILE_EXTN_NM
+
+       FROM VW_EV_UO_APRV EUA
+
+        LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+            ON SBO.BRNO = EUA.BRNO
+            AND SBO.CRNO = EUA.CRNO
+            AND EUA.YR = SBO.SPRT_BIZ_YR
+            AND SBO.SPRT_BIZ_CD = 'SRPT_001'
+
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+            ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+            AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+            AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+            AND SBA.DEL_YN = 'N'
+
+        -- 사업신청서
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY_DOC APLY
+            ON APLY.SPRT_BIZ_YR = EUA.YR
+            AND APLY.SPRT_BIZ_CD = SBA.SPRT_BIZ_CD
+            AND APLY.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+            AND APLY.APLY_DOC_CD = 'BIZ_APLY'
+            AND APLY.DEL_YN = 'N'
+
+        -- 사업계획서
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY_DOC PLAN
+              ON PLAN.SPRT_BIZ_YR = EUA.YR
+              AND PLAN.SPRT_BIZ_CD = SBA.SPRT_BIZ_CD
+              AND PLAN.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+              AND PLAN.APLY_DOC_CD = 'BIZ_PLAN'
+              AND PLAN.DEL_YN = 'N'
+
+        -- 사업신청서첨부파일
+        LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL APAT
+            ON APAT.ATCH_FILE_SN = APLY.ATCH_FILE_SN
+            AND APAT.DEL_YN = 'N'
+
+        -- 사업계획서 첨부파일
+        LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL APPL
+            ON APPL.ATCH_FILE_SN = PLAN.ATCH_FILE_SN
+            AND APAT.DEL_YN = 'N'
+        WHERE 1=1
+        ]]>
+
+        <choose>
+            <when test='superUserYn != null and superUserYn.equals("Y")'>
+
+            </when>
+
+            <otherwise>
+             AND EUA.APO_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
+            </otherwise>
+        </choose>
+
+        <if test='yr != null and yr != ""'>
+            AND EUA.YR = #{yr}
+        </if>
+
+        <if test='brno != null and brno != ""'>
+            AND EUA.BRNO = #{brno}
+        </if>
+
+        <if test='corpNm != null and corpNm != ""'>
+            AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
+        </if>
+
+        <if test='aprv != null and aprv != ""'>
+            AND EUA.APRV = #{aprv}
+        </if>
+
+        <if test='bizAplyAprvYn != null and bizAplyAprvYn != ""'>
+            AND APLY.APRV_YN = #{bizAplyAprvYn}
+        </if>
+
+        <if test='bizPlanAprvYn != null and bizPlanAprvYn != ""'>
+            AND PLAN.APRV_YN = #{bizPlanAprvYn}
+        </if>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizMstr  -->
+    <!-- DESC : 지원사업마스터 조회                                                    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizMstr" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizMstr*/
+                SPRT_BIZ_YR
+                 , SPRT_BIZ_CD
+                 , SPRT_BIZ_NM
+                 , SPRT_BIZ_EXPLN
+                 , DEL_YN
+            FROM TB_EV_SPRT_BIZ_MSTR
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+                AND SPRT_BIZ_CD = #{sprtBizCd}
+                AND DEL_YN = 'N'
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSpSprtBizOgnzId  -->
+    <!-- DESC : 지원사업 - 조직아이디 조회 프로시저 호출                                  -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSpSprtBizOgnzId" statementType="CALLABLE" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            {call /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSpSprtBizOgnzId*/
+                SP_SPRT_BIZ_GET_OGNZ_ID (
+                     #{sysLastChgUserId}
+                    , #{sysLastChgPrgrmId}
+                    , #{sprtBizYr}
+                    , #{sprtBizCd}
+                    , #{sprtOgnzId}
+                    , #{crno}
+                    , #{brno}
+                    , #{upBrno}
+
+                    , #{rtnSprtOgnzId, mode=OUT, jdbcType=VARCHAR}
+                    , #{rtnCd, mode=OUT,  jdbcType=VARCHAR}
+                    , #{rtnMsg, mode=OUT, jdbcType=VARCHAR}
+                )
+            }
+        ]]>
+    </select>
+
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAply  -->
+    <!-- DESC : 지원사업신청 조회                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizAply" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAply*/
+            SPRT_BIZ_YR
+             , SPRT_BIZ_CD
+             , SPRT_OGNZ_ID
+             , APLY_AMT_NE
+             , APLY_AMT_SLF
+             , APLY_RMRK
+             , RPN_AMT_NE
+             , RPN_AMT_SLF
+             , STBLT_YN
+             , APRV_YN
+             , RSN_CD
+             , RSN_RMRK
+             , DEL_YN
+        FROM TB_EV_SPRT_BIZ_APLY
+        WHERE SPRT_BIZ_YR = #{sprtBizYr}
+            AND SPRT_BIZ_CD = #{sprtBizCd}
+            AND SPRT_OGNZ_ID = #{sprtOgnzId}
+            AND DEL_YN = 'N'
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtBizAply  -->
+    <!-- DESC : 지원사업신청 등록                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSprtBizAply" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+
+        INSERT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtBizAply*/
+        INTO TB_EV_SPRT_BIZ_APLY(
+            SPRT_BIZ_YR
+            , SPRT_BIZ_CD
+            , SPRT_OGNZ_ID
+            , APLY_AMT_NE
+            , APLY_AMT_SLF
+            , RPN_AMT_NE
+            , RPN_AMT_SLF
+            , DEL_YN
+
+            , SYS_FRST_INPT_DT
+            , SYS_FRST_INPT_USER_ID
+            , SYS_FRST_INPT_PRGRM_ID
+            , SYS_LAST_CHG_DT
+            , SYS_LAST_CHG_USER_ID
+            , SYS_LAST_CHG_PRGRM_ID
+        ) VALUES (
+              #{sprtBizYr}
+              , #{sprtBizCd}
+              , #{sprtOgnzId}
+              , #{aplyAmtNe}
+              , #{aplyAmtSlf}
+              , #{rpnAmtNe}
+              , #{rpnAmtSlf}
+              , 'N'
+
+              , SYSDATE
+              , #{sysFrstInptUserId}
+              , #{sysFrstInptPrgrmId}
+              , SYSDATE
+              , #{sysLastChgUserId}
+              , #{sysLastChgPrgrmId}
+        )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtBizAply  -->
+    <!-- DESC : 지원사업신청 수정                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateSprtBizAply" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtBizAply*/
+                TB_EV_SPRT_BIZ_APLY
+            SET
+                APLY_AMT_NE             = #{aplyAmtNe}
+              , APLY_AMT_SLF            = #{aplyAmtSlf}
+              , RPN_AMT_NE              = #{rpnAmtNe}
+              , RPN_AMT_SLF             = #{rpnAmtSlf}
+              , SYS_LAST_CHG_DT         = SYSDATE
+              , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+
+            WHERE
+                SPRT_BIZ_YR = #{sprtBizYr}
+                AND SPRT_BIZ_CD = #{sprtBizCd}
+                AND SPRT_OGNZ_ID = #{sprtOgnzId}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAplyDoc  -->
+    <!-- DESC : 지원사업신청문서 조회                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizAplyDoc" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAplyDoc*/
+                SPRT_BIZ_YR
+                 , SPRT_BIZ_CD
+                 , SPRT_OGNZ_ID
+                 , APLY_DOC_CD
+                 , ATCH_FILE_SN
+                 , RGTR
+                 , RGTR_ID
+                 , REG_DT
+                 , IDFR
+                 , IDFR_ID
+                 , IDFR_DT
+                 , IDFR_RMRK
+                 , APRV_YN
+                 , DEL_YN
+            FROM TB_EV_SPRT_BIZ_APLY_DOC
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+                AND SPRT_BIZ_CD = #{sprtBizCd}
+                AND SPRT_OGNZ_ID = #{sprtOgnzId}
+                AND APLY_DOC_CD = #{aplyDocCd}
+                AND DEL_YN = 'N'
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtAplyDoc  -->
+    <!-- DESC : 지원사업신청문서 등록                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSprtAplyDoc" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            INSERT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtAplyDoc*/
+            INTO TB_EV_SPRT_BIZ_APLY_DOC (
+                SPRT_BIZ_YR
+                , SPRT_BIZ_CD
+                , SPRT_OGNZ_ID
+                , APLY_DOC_CD
+                , ATCH_FILE_SN
+                , RGTR = (SELECT FN_GET_COM_USER_NM (#{sysLastChgUserId}) FROM DUAL)
+                , RGTR_ID = #{sysLastChgUserId}
+                , REG_DT = SYSDATE
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+
+            ) VALUES (
+                #{sprtBizYr}
+                , #{sprtBizCd}
+                , #{sprtOgnzId}
+                , #{aplyDocCd}
+                , #{atchFileSn}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtAplyDoc  -->
+    <!-- DESC : 지원사업신청문서 수정                                                      -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateSprtAplyDoc" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtAplyDoc*/
+                TB_EV_SPRT_BIZ_APLY_DOC
+            SET
+                ATCH_FILE_SN            = #{atchFileSn}
+              , RGTR = (SELECT FN_GET_COM_USER_NM (#{sysLastChgUserId}) FROM DUAL)
+              , RGTR_ID = #{sysLastChgUserId}
+              , REG_DT = SYSDATE
+              , SYS_LAST_CHG_DT         = SYSDATE
+              , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+                AND SPRT_BIZ_CD = #{sprtBizCd}
+                AND SPRT_OGNZ_ID = #{sprtOgnzId}
+                AND APLY_DOC_CD = #{aplyDocCd}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtAplyAtchfl  -->
+    <!-- DESC : 지원사업신청첨부파일 등록                                                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSprtAplyAtchfl" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            INSERT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.insertSprtAplyAtchfl*/
+            INTO TB_EV_SPRT_BIZ_ATCHFL (
+                ATCH_FILE_SN
+                , FILE_PATH_NM
+                , LGC_FILE_NM
+                , PHYS_FILE_NM
+                , FILE_SZ
+                , FILE_EXTN_NM
+                , INQ_CNT
+                , DWNLD_CNT
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                 #{atchFileSn}
+                , #{filePathNm}
+                , #{lgcFileNm}
+                , #{physFileNm}
+                , #{fileSz}
+                , #{fileExtnNm}
+                , #{inqCnt}
+                , #{dwnldCnt}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectNewSqEvSprtBizAtchflSn  -->
+    <!-- DESC : 지원사업 첨부파일일련번호                                                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.10  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectNewSqEvSprtBizAtchflSn" resultType="java.lang.Long">
+        SELECT SQ_EV_SPRT_BIZ_ATCHFL.NEXTVAL
+        FROM DUAL
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizFilePath  -->
+    <!-- DESC : 지원사업 첨부파일 경로 조회                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizFilePath" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+        SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizFilePath*/
+            BAD.SPRT_BIZ_YR AS SPRT_BIZ_YR
+             , BAD.SPRT_BIZ_CD AS SPRT_BIZ_CD
+             , BAD.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+             , BAD.APLY_DOC_CD AS APLY_DOC_CD
+             , BAD.ATCH_FILE_SN AS ATCH_FILE_SN
+             , BAD.RGTR AS RGTR
+             , BAD.RGTR_ID AS RGTR_ID
+             , BAD.REG_DT AS REG_DT
+             , BAD.IDFR AS IDFR
+             , BAD.IDFR_ID AS IDFR_ID
+             , BAD.IDFR_DT AS IDFR_DT
+             , BAD.IDFR_RMRK AS IDFR_RMRK
+             , BAD.APRV_YN AS APRV_YN
+             , BAD.SYS_LAST_CHG_DT AS LAST_ULD_DT
+
+             , BA.FILE_PATH_NM AS FILE_PATH_NM
+             , BA.LGC_FILE_NM AS LGC_FILE_NM
+             , BA.PHYS_FILE_NM AS PHYS_FILE_NM
+             , BA.FILE_SZ AS FILE_SZ
+             , BA.FILE_EXTN_NM AS FILE_EXTN_NM
+             , BA.INQ_CNT AS INQ_CNT
+             , BA.DWNLD_CNT AS DWNLD_CNT
+        FROM TB_EV_SPRT_BIZ_APLY_DOC BAD
+
+        LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL BA
+            ON BAD.ATCH_FILE_SN = BA.ATCH_FILE_SN
+            AND BA.DEL_YN = 'N'
+
+        WHERE BAD.DEL_YN = 'N'
+
+        AND BAD.SPRT_BIZ_YR = #{sprtBizYr}
+
+        AND BAD.SPRT_BIZ_CD = #{sprtBizCd}
+
+        AND BAD.SPRT_OGNZ_ID = #{sprtOgnzId}
+
+        AND BAD.APLY_DOC_CD = #{aplyDocCd}
+
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAplyDocForUpdate  -->
+    <!-- DESC : 지원사업 신청문서 단건 조회                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizAplyDocForUpdate" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAplyDocForUpdate*/
+                SPRT_BIZ_YR
+                 , SPRT_BIZ_CD
+                 , SPRT_OGNZ_ID
+                 , APLY_DOC_CD
+                 , ATCH_FILE_SN
+                 , RGTR
+                 , RGTR_ID
+                 , REG_DT
+                 , IDFR
+                 , IDFR_ID
+                 , IDFR_DT
+                 , IDFR_RMRK
+                 , APRV_YN
+                 , DEL_YN
+            FROM TB_EV_SPRT_BIZ_APLY_DOC
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+                AND SPRT_BIZ_CD = #{sprtBizCd}
+                AND SPRT_OGNZ_ID = #{sprtOgnzId}
+                AND APLY_DOC_CD = #{aplyDocCd}
+                AND ATCH_FILE_SN = #{atchFileSn}
+                AND DEL_YN = 'N'
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtBizAplyDoc  -->
+    <!-- DESC : 지원사업신청 팝업 - 확인/미확인 업데이트                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateSprtBizAplyDoc" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.updateSprtBizAplyDoc*/
+                TB_EV_SPRT_BIZ_APLY_DOC
+            SET
+                APRV_YN = #{aprvYn}
+                , IDFR = (SELECT FN_GET_COM_USER_NM (#{sysLastChgUserId}) FROM DUAL)
+                , IDFR_ID = #{sysLastChgUserId}
+                , IDFR_DT = SYSDATE
+                , SYS_LAST_CHG_DT         = SYSDATE
+                , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND APLY_DOC_CD = #{aplyDocCd}
+              AND ATCH_FILE_SN = #{atchFileSn}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAtchfl  -->
+    <!-- DESC : 지원사업신청 팝업 - 파일정보조회                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizAtchfl" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAtchfl*/
+                ATCH_FILE_SN
+                 , FILE_PATH_NM
+                 , LGC_FILE_NM
+                 , PHYS_FILE_NM
+                 , FILE_SZ
+                 , FILE_EXTN_NM
+                 , INQ_CNT
+                 , DWNLD_CNT
+            FROM TB_EV_SPRT_BIZ_ATCHFL
+            WHERE ATCH_FILE_SN = #{atchFileSn}
+                AND DEL_YN = 'N'
+        ]]>
+    </select>
+</mapper>
