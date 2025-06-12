@@ -127,17 +127,30 @@
             AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
         </if>
 
-        <if test='aprv != null and aprv != ""'>
-            AND EUA.APRV = #{aprv}
-        </if>
+        <choose>
+            <when test='bizAplySbmsnYn != null and bizAplySbmsnYn != ""'>
+                <if test='bizAplySbmsnYn.equals("Y")'>
+                    AND APLY.ATCH_FILE_SN IS NOT NULL
+                </if>
 
-        <if test='bizAplyAprvYn != null and bizAplyAprvYn != ""'>
-            AND APLY.APRV_YN = #{bizAplyAprvYn}
-        </if>
+                <if test='bizAplySbmsnYn.equals("N")'>
+                    AND APLY.ATCH_FILE_SN IS NULL
+                </if>
+            </when>
+        </choose>
 
-        <if test='bizPlanAprvYn != null and bizPlanAprvYn != ""'>
-            AND PLAN.APRV_YN = #{bizPlanAprvYn}
-        </if>
+        <choose>
+            <when test='bizPlanSbmsnYn != null and bizPlanSbmsnYn != ""'>
+                <if test='bizPlanSbmsnYn.equals("Y")'>
+                    AND PLAN.ATCH_FILE_SN IS NOT NULL
+                </if>
+
+                <if test='bizPlanSbmsnYn.equals("N")'>
+                    AND PLAN.ATCH_FILE_SN IS NULL
+                </if>
+            </when>
+        </choose>
+
     </select>
 
     <!-- ==========================================================================	-->
@@ -350,9 +363,9 @@
                 , SPRT_OGNZ_ID
                 , APLY_DOC_CD
                 , ATCH_FILE_SN
-                , RGTR = (SELECT FN_GET_COM_USER_NM (#{sysLastChgUserId}) FROM DUAL)
-                , RGTR_ID = #{sysLastChgUserId}
-                , REG_DT = SYSDATE
+                , RGTR
+                , RGTR_ID
+                , REG_DT
                 , DEL_YN
                 , SYS_FRST_INPT_DT
                 , SYS_FRST_INPT_USER_ID
@@ -367,6 +380,9 @@
                 , #{sprtOgnzId}
                 , #{aplyDocCd}
                 , #{atchFileSn}
+                , (SELECT FN_GET_COM_USER_NM (#{sysLastChgUserId}) FROM DUAL)
+                , #{sysLastChgUserId}
+                , SYSDATE
                 , 'N'
                 , SYSDATE
                 , #{sysFrstInptUserId}

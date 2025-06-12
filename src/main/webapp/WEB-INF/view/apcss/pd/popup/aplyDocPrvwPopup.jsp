@@ -151,12 +151,12 @@
                         ></sbux-button>
 
                         <sbux-button
-                                id="btnUnIdntyPop"
-                                name="btnUnIdntyPop"
+                                id="btnCancelPop"
+                                name="btnCancelPop"
                                 uitype="normal"
-                                text="미확인"
+                                text="확인취소"
                                 class="btn btn-sm btn-outline-danger"
-                                onclick="popBizPlanPdfViewer.fn_unIdnty()"
+                                onclick="popBizPlanPdfViewer.fn_cancel()"
                         ></sbux-button>
 
                         </c:if>
@@ -259,12 +259,10 @@
                             SBUxMethod.set('aplyPop-inp-regDay',item.lastUldDt); // 등록일
                             if (_.isEqual(item.aprvYn,"Y")){
                                 SBUxMethod.set('aplyPop-inp-stts', "확인"); // 확인여부
-                            } else if (_.isEqual(item.aprvYn, "N")) {
-                                SBUxMethod.set('aplyPop-inp-stts', "미확인"); // 확인여부
+                                SBUxMethod.set('aplyPop-inp-aprvNm',item.idfr); // 확인자
+                                SBUxMethod.set('aplyPop-inp-aprvDt',item.idfrDt); // 확인시간
                             }
 
-                            SBUxMethod.set('aplyPop-inp-aprvNm',item.idfr); // 확인자
-                            SBUxMethod.set('aplyPop-inp-aprvDt',item.idfrDt); // 확인시간
                             SBUxMethod.set('aplyPop-inp-atchFileSn',item.atchFileSn); // 파일순번
 
                             SBUxMethod.set('aplyPop-inp-sprtBizYr',item.sprtBizYr); // 지원사업연도
@@ -300,8 +298,8 @@
         fn_aprv: async function() { // 확인
             this.fn_update("aprv",confirm("확인 처리 하시겠습니까?"));
         },
-        fn_unIdnty: async function() { // 미확인
-            this.fn_update("unIdnty",confirm("미확인 처리 하시겠습니까?"));
+        fn_cancel: async function() { // 확인취소
+            this.fn_update("cancel",confirm("확인취소 처리 하시겠습니까?"));
         },
 
         fn_update: async function(/*String 업데이트구분*/ updtSeCd , /** {boolean} */ isConfirmed ) {
@@ -316,9 +314,9 @@
 
             let aprvYn;
             if (_.isEqual(updtSeCd,"aprv")) {// 확인
-                aprvYn = 'Y'
-            } else if (_.isEqual(updtSeCd,"unIdnty")){ // 미확인
-                aprvYn = 'N'
+                aprvYn = 'Y';
+            } else if (_.isEqual(updtSeCd,"cancel")){ // 확인 취소
+                aprvYn = null;
             }
 
             if (gfn_isEmpty(sprtBizYr)){

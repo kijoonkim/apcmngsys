@@ -59,16 +59,13 @@
                 <tr>
                     <th scope="row" class="th_bg">신청서첨부</th>
                     <td class="td_input">
-                        <sbux-select id="dtl-slt-aplyDocAtch" name="dtl-slt-aplyDocAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonIdntyYn"></sbux-select>
+                        <sbux-select id="dtl-slt-aplyDocAtch" name="dtl-slt-aplyDocAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonSbmsnYn"></sbux-select>
                     </td>
                     <th scope="row" class="th_bg">사업계획서첨부</th>
-                    <td class="td_input">
-                        <sbux-select id="dtl-slt-bspnDocAtch" name="dtl-slt-bspnDocAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonIdntyYn"></sbux-select>
+                    <td class="td_input" style="border-right: hidden">
+                        <sbux-select id="dtl-slt-bspnDocAtch" name="dtl-slt-bspnDocAtch" class="form-control input-sm" uitype="single" unselected-text="전체" jsondata-ref="jsonSbmsnYn"></sbux-select>
                     </td>
-                    <th scope="row" class="th_bg">조직구분</th>
-                    <td class="td_input">
-                        <sbux-select id="dtl-slt-ognzSe" name="dtl-slt-ognzSe" class="form-control input-sm" uitype="single" jsondata-ref="jsonOgnzSe"></sbux-select>
-                    </td>
+                    <td colspan="2"></td>
                 </tr>
 
                 </tbody>
@@ -146,7 +143,7 @@
                     </td>
                     <%--파일선택--%>
                     <td class="td_input">
-                        <input type="file" id="aplyDocFile">
+                        <input type="file" id="aplyDocFile" accept=".pdf, .hwp, .hwpx">
                     </td>
                 </tr>
                 <tr>
@@ -161,7 +158,7 @@
                     </td>
                     <%--파일선택--%>
                     <td class="td_input">
-                        <input type="file" id="bizPlanFile">
+                        <input type="file" id="bizPlanFile" accept=".pdf, .hwp, .hwpx">
                     </td>
                 </tr>
                 </tbody>
@@ -195,6 +192,12 @@
         {value : "N", text :"미확인"},
     ];
 
+    /** 제출 여부 **/
+    var jsonSbmsnYn = [
+        {value : "Y", text :"제출"},
+        {value : "N", text :"미제출"},
+    ];
+
     /** 조직구분 **/
     var jsonOgnzSe = [
         {value : "1", text :"승인형"},
@@ -210,7 +213,7 @@
      * @description
      */
     const fn_initSBSelect = async function() {
-        await gfn_setComCdSBSelect('dtl-slt-ognzSe',jsonOgnzSe,'APRV_UPBR_SE_CD'); // 조직구분
+        // await gfn_setComCdSBSelect('dtl-slt-ognzSe',jsonOgnzSe,'APRV_UPBR_SE_CD'); // 조직구분
     }
 
     /**
@@ -273,17 +276,15 @@
         const yr = SBUxMethod.get('dtl-spi-yr');
         const brno = SBUxMethod.get('dtl-inp-brno');
         const corpNm = SBUxMethod.get('dtl-inp-corpNm');
-        const bizAplyAprvYn = SBUxMethod.get('dtl-slt-aplyDocAtch');
-        const bizPlanAprvYn = SBUxMethod.get('dtl-slt-bspnDocAtch');
-        const ognzSe = SBUxMethod.get('dtl-slt-ognzSe');
+        const bizAplySbmsnYn = SBUxMethod.get('dtl-slt-aplyDocAtch');
+        const bizPlanSbmsnYn = SBUxMethod.get('dtl-slt-bspnDocAtch');
 
         const postJsonPromise = gfn_postJSON("/pd/pcorm/selectApoSprtAplyList.do", {
             yr : yr,
             brno : brno,
             corpNm : corpNm,
-            aprv : ognzSe,
-            bizAplyAprvYn : bizAplyAprvYn,
-            bizPlanAprvYn : bizPlanAprvYn
+            bizAplySbmsnYn : bizAplySbmsnYn,
+            bizPlanSbmsnYn : bizPlanSbmsnYn
         });
 
         const data = await postJsonPromise;
@@ -518,8 +519,6 @@
         let bizAplyAprvYn;
         if (_.isEqual(rowData.bizAplyAprvYn,"Y")) {
             bizAplyAprvYn = "확인"
-        } else if (_.isEqual(rowData.bizAplyAprvYn,"N")) {
-            bizAplyAprvYn = "미확인"
         }
 
         //사업계획서
@@ -529,8 +528,6 @@
         let bizPlanAprvYn;
         if (_.isEqual(rowData.bizPlanAprvYn,"Y")) {
             bizPlanAprvYn = "확인"
-        } else if (_.isEqual(rowData.bizPlanAprvYn,"N")) {
-            bizPlanAprvYn = "미확인"
         }
 
         SBUxMethod.set('dtl-inp-regCorpNm',corpNm); // 법인명
