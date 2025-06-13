@@ -416,7 +416,10 @@
 
 
 		if(gv_apcCd === "0203"){
-				SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+		}else if(gv_selectedApcCd === '0182'){
+			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+			SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
 		}
 
 		fn_selectSortBffaType();
