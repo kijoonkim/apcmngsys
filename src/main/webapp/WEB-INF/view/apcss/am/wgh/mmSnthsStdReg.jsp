@@ -114,7 +114,6 @@
     var jsonApcGrdDtl		= [];	// 등급 	grdCd			그리드헤더
     var jsonComPckgGrdSeCd  = [];   // 포장상품등급
 
-
     /* 생산자 자동완성 */
     var jsonPrdcr			= [];
     var jsonPrdcrAutocomplete = [];
@@ -124,7 +123,7 @@
 
         switch (choiceTab) {
             case "tab_wrhsStdReg":
-                fn_init();
+                fn_initWrhsReg();
                 break;
             case "tab_sortStdReg":
                 fn_initSortReg();
@@ -157,8 +156,8 @@
         }
     }
 
-    const fn_reset = function (_tabId) {
-        let table = document.getElementById(_tabId);
+    const fn_reset = function (tabId) {
+        let table = document.getElementById(tabId);
         let elements = table.querySelectorAll(`[id^=${"dtl-"}]`);
         elements = Array.from(elements);
 
@@ -166,10 +165,66 @@
             SBUxMethod.set(element.id, "");
         }
 
+        // checkbox 초기화
+        SBUxMethod.set("dtl-chk-sortPckg", false);
+        SBUxMethod.set("dtl-chk-stdGrdChck", false);
+
         // 날짜 초기화
+        SBUxMethod.set("dtl-dtp-sortYmd", gfn_dateToYmd(new Date()));
+        SBUxMethod.set("dtl-dtp-pckgYmd", gfn_dateToYmd(new Date()));
         SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
 
     }
+
+    // 조건이 많은 상품 먼저 재고 처리
+    // 정렬 키를 매개변수로 받아 처리
+    const fn_sortRegData = function (regData, sortKey) {
+
+        /*
+        * 1. 그룹/품종,품목 - 재고 조회
+        * 2. 선별/포장일자 오름차순 정렬 - 재고 선입선출
+        * 3. 조건이 많은 상품 먼저 재고 처리 위한 null값 포함된 등록 데이터 뒤로 보내기
+        * */
+
+        regData.sort((a, b) => {
+            for (const key of sortKey) {
+                // if (gfn_isEmpty(a[key])) return 1;
+                // if (gfn_isEmpty(b[key])) return -1;
+
+                if (gfn_isEmpty(a[key]) && !gfn_isEmpty(b[key])) return 1;
+                if (!gfn_isEmpty(a[key]) && gfn_isEmpty(b[key])) return -1;
+
+                if (a[key] < b[key]) return -1;
+                if (a[key] > b[key]) return 1;
+            }
+            return 0; // 모든 키가 동일한 경우
+        });
+
+        return regData;
+    };
+
+    /**
+     * @name fn_findInvntr
+     * @description 키값을 통한 객체 비교
+     */
+    function fn_findInvntr(obj1, obj2Array, keyMap) {
+        /*
+         * obj1의 키값을 기준으로 obj2Array에서 일치하는 객체를 찾는다.
+         * 필수입력값(itemCd, vrtyCd, strWrhusSeCd, prdcrCd)을 제외한 값이 비어있을시 obj2.key의 전체 값을 가져온다.
+         * */
+        return obj2Array
+            .map((obj2, index) => ({obj: obj2, index}))
+            .filter(({obj}) => {
+                return Object.keys(keyMap).every(key1 => {
+                    const key2 = keyMap[key1];
+                    if (!gfn_isEmpty(obj1[key1])) {
+                        return obj1[key1] === obj[key2];
+                    }
+                    return true;
+                });
+            });
+    }
+
 
     /**
      * @name getByteLengthOfString

@@ -575,10 +575,10 @@
   }
 
   /**
-   * @name fn_init
+   * @name fn_initWrhsReg
    * @description form init
    */
-  const fn_init = async function() {
+  const fn_initWrhsReg = async function() {
     // fn_createGridWrhsReg();
 
     SBUxMethod.set("srch-dtp-wrhsYmd", gfn_dateToYmd(new Date()));
@@ -598,7 +598,7 @@
   window.addEventListener('DOMContentLoaded', async function(e) {
     SBUxMethod.openProgress(options);//progArea
     let result = await Promise.all([
-      fn_init(),
+      fn_initWrhsReg(),
       stdGrdSelect.init(),
       fn_createGridWrhsReg(),
     ]);

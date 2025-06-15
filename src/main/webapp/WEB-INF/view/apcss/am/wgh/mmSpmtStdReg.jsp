@@ -44,7 +44,7 @@
         </colgroup>
         <tbody>
         <tr>
-          <th scope="row" class="th_bg">출하일자</th>
+          <th scope="row" class="th_bg"><span class="data_required"></span>출하일자</th>
           <td class="td_input" style="border-right: hidden;">
             <div class="displayFlex">
               <sbux-datepicker uitype="popup" id="dtl-dtp-spmtYmd" name="dtl-dtp-spmtYmd" date-format="yyyy-mm-dd" class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"></sbux-datepicker>
@@ -365,7 +365,7 @@
         </ul>
         <div class="ad_tbl_toplist">
           <sbux-button id="btnSpmtDel" name="btnSpmtDel" uitype="normal" text="행삭제" class="btn btn-sm btn-outline-danger"
-                       onclick="fn_delSpmtRow"
+                       onclick="fn_delSpmtRow()"
                        style="margin-right:5px"
                        image-src="/resource/svg/grdMinus.svg"
                        image-style="width:3rem;height:20px"
@@ -408,7 +408,7 @@
   var jsonDlngMthdCd = []; // 매매방법
 
   /* Grid 생성 */
-  var grdSpmtRegList;
+  // var grdSpmtRegList;
   var jsonSpmtRegList = [];
 
   /*window.addEventListener('DOMContentLoaded', async function(e) {
@@ -693,22 +693,6 @@
   }
 
   /**
-   * @name fn_resetSpmt
-   * @description 초기화 버튼
-   */
-  const fn_resetSpmt = async function() {
-    let table = document.getElementById("spmtStdRegTable");
-    let elements = table.querySelectorAll(`[id^=${"dtl-"}]`);
-    elements = Array.from(elements);
-
-    for (let element of elements) {
-      SBUxMethod.set(element.id, "");
-    }
-
-    SBUxMethod.set("dtl-dtp-spmtYmd", gfn_dateToYmd(new Date()));
-  }
-
-  /**
    * @name fn_addSpmt
    * @description 출하목록 추가 버튼
    */
@@ -732,7 +716,7 @@
     let gdsSeCd = SBUxMethod.get("dtl-slt-spmtGdsSeCd");   // 상품구분코드
     let rmrk = SBUxMethod.get("dtl-inp-rmrk");   // 비고
     let pltBxCd = SBUxMethod.get("dtl-slt-pltBxCd");   // 팔레트코드
-    let bssInvntrQntt = Number(SBUxMethod.get("dtl-inp-bssInvntrQntt"));   // 팔레트수량
+    let bssInvntrQntt = SBUxMethod.get("dtl-inp-bssInvntrQntt");   // 팔레트수량
 
     let prdcrCd = SBUxMethod.get("dtl-inp-spmtPrdcrCd");   // 생산자코드
 
@@ -881,6 +865,7 @@
     const prvSpmtData = _.pick(prvSpmtRegInfo, keysToCompare);
     const curSpmtData = _.pick(spmtRegInfoVO, keysToCompare);
 
+    // 직전선별등록 데이터와 그룹키값이 다르면 그룹 번호 +1
     spmtRegInfoVO.group = (jsonSpmtRegList.length === 0) ? 1
             : (_.isEqual(prvSpmtData, curSpmtData)
                     ? prvSpmtRegInfo.group
@@ -892,10 +877,10 @@
   }
 
   /**
-   * @name fn_compareObjects
+   * @name fn_findInvntr
    * @description 키값을 통한 객체 비교
    */
-  function fn_compareObjects(obj1, obj2Array) {
+  /*function fn_findInvntr(obj1, obj2Array) {
     const keyMap = {
       itemCd: 'itemCd',
       vrtyCd: 'vrtyCd',
@@ -906,6 +891,10 @@
       gdsSeCd: 'gdsSeCd'
     };
 
+    /!*
+     * obj1의 키값을 기준으로 obj2Array에서 일치하는 객체를 찾는다.
+     * 필수입력값(itemCd, vrtyCd, strWrhusSeCd, prdcrCd)을 제외한 값이 비어있을시 obj2.key의 전체 값을 가져온다.
+     * *!/
     return obj2Array
             .map((obj2, index) => ({obj: obj2, index}))
             .filter(({obj}) => {
@@ -917,7 +906,7 @@
                 return true;
               });
             });
-  }
+  }*/
 
   /**
    * @name fn_saveSpmtInfo
@@ -935,26 +924,15 @@
 
     // 그룹별로 조건이 많은 출하상품 먼저 재고 처리
     // 정렬 키 정의
-    const sortKey = ['group', 'spmtPckgUnitCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd', 'spmtYmd'];
-    // spmtRegData를 sortKey 순서대로 정렬
-    spmtRegData.sort((a, b) => {
-      for (const key of sortKey) {
-        // 입고, 상품구분은 내림차순(null 값 내리기 위해
-        if (key === 'wrhsSeCd' || key === 'gdsSeCd') {
-          if (a[key] > b[key]) return -1;
-          if (a[key] < b[key]) return 1;
-        } else { // 나마지 오름차순
-          if (a[key] < b[key]) return -1;
-          if (a[key] > b[key]) return 1;
-        }
-      }
-      return 0; // 모든 키가 동일한 경우
-    });
+    const sortKey = ['group', 'spmtYmd', 'spmtPckgUnitCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
+
+    spmtRegData = fn_sortRegData(spmtRegData, sortKey);
 
     // 품종/품목 별 재고 조회
     let checkItemList = [];
     const setItem = new Set(checkItemList);
 
+    // 품종/품목 중복제거
     for (const item of spmtRegData) {
       const checkItem = item.itemCd + item.vrtyCd;
       if (!setItem.has(checkItem)) {
@@ -963,6 +941,10 @@
       }
     }
 
+    /*
+    * 1. 품종 폼목별 재고조회
+    * 2. 출하등록데이터와 재고데이터 수량/중량 비교
+    * */
     for (const checkItem of checkItemList) {
       // 재고조회
       try {
@@ -986,7 +968,23 @@
             if (!_.isEqual(spmtItem.itemCd + spmtItem.vrtyCd, checkItem)) {
               continue; // 현재 품목/품종과 일치하지 않으면 건너뛰기
             }
-            invntrItemList = fn_compareObjects(spmtItem, pckgInvntr)
+
+            const keyMap = {
+              itemCd: 'itemCd',
+              vrtyCd: 'vrtyCd',
+              strgWrhusSeCd: 'warehouseSeCd',
+              prdcrCd: 'rprsPrdcrCd',
+              gdsGrdCd: 'gdsGrd',
+              wrhsSeCd: 'wrhsSeCd',
+              gdsSeCd: 'gdsSeCd'
+            };
+
+            const invntrItemList = fn_findInvntr(spmtItem, pckgInvntr, keyMap)
+
+            if (invntrItemList.length == 0) {
+              gfn_comAlert("W0004", "포장상품 재고");    // W0004  {0}이/가 없습니다.
+              return;
+            }
 
             let totInvntrQntt = 0;  // 재고수량 합계
             let totInvntrWght = 0;  // 재고중량 합계
@@ -1000,14 +998,13 @@
 
             // 출하등록 데이터와 비교하여 재고량이 부족한 경우
             if (spmtItem.spmtQntt > totInvntrQntt || spmtItem.spmtWght > totInvntrWght) {
-              console.log("재고량 부족", spmtItem.spmtQntt, totInvntrQntt, spmtItem.spmtWght, totInvntrWght);
               gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
               return;
             }
 
-            for (const item of invntrItemList) {
-              let invntrItem = item.obj;
-              let idx = item.index;
+            for (const { obj: invntrItem, index: idx } of invntrItemList) {
+              // let invntrItem = item.obj;
+              // let idx = item.index;
 
               if (gfn_diffDate(invntrItem.pckgYmd, spmtItem.spmtYmd) >= 0 ) {
                 // 출하수량/중량 & 재고수량/중량
