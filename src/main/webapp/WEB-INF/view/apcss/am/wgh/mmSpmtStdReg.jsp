@@ -925,7 +925,6 @@
     // 그룹별로 조건이 많은 출하상품 먼저 재고 처리
     // 정렬 키 정의
     const sortKey = ['group', 'spmtYmd', 'spmtPckgUnitCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
-
     spmtRegData = fn_sortRegData(spmtRegData, sortKey);
 
     // 품종/품목 별 재고 조회
@@ -981,7 +980,7 @@
 
             const invntrItemList = fn_findInvntr(spmtItem, pckgInvntr, keyMap)
 
-            if (invntrItemList.length == 0) {
+            if (invntrItemList.length < 1) {
               gfn_comAlert("W0004", "포장상품 재고");    // W0004  {0}이/가 없습니다.
               return;
             }
@@ -1002,9 +1001,8 @@
               return;
             }
 
+            // 재고 목록에서 출하등록 데이터와 일치하는 재고를 찾아서 출하실적 목록에 추가
             for (const { obj: invntrItem, index: idx } of invntrItemList) {
-              // let invntrItem = item.obj;
-              // let idx = item.index;
 
               if (gfn_diffDate(invntrItem.pckgYmd, spmtItem.spmtYmd) >= 0 ) {
                 // 출하수량/중량 & 재고수량/중량
@@ -1012,17 +1010,9 @@
                 let spmtWght = 0;
 
                 if (spmtItem.spmtQntt > 0 && spmtItem.spmtWght > 0) {
-                  if (spmtItem.spmtQntt > invntrItem.invntrQntt) {
-                    spmtQntt = invntrItem.invntrQntt;
-                  } else {
-                    spmtQntt = spmtItem.spmtQntt;
-                  }
 
-                  if (spmtItem.spmtWght > invntrItem.invntrWght) {
-                    spmtWght = invntrItem.invntrWght;
-                  } else {
-                    spmtWght = spmtItem.spmtWght;
-                  }
+                  spmtQntt = Math.min(spmtItem.spmtQntt, invntrItem.invntrQntt);
+                  spmtWght = Math.min(spmtItem.spmtWght, invntrItem.invntrWght);
 
                   spmtPrfmncList.push({
                     // 재고 데이터

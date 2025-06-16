@@ -218,8 +218,10 @@
                 return Object.keys(keyMap).every(key1 => {
                     const key2 = keyMap[key1];
                     if (!gfn_isEmpty(obj1[key1])) {
+                        // obj1의 key값이 비어있지 않을 경우 obj2의 key값과 비교
                         return obj1[key1] === obj[key2];
                     }
+                    // 비어있을 경우 obj2의 key값 전체를 반환
                     return true;
                 });
             });
