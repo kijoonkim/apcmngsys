@@ -489,7 +489,7 @@ async function cfn_search() {
 	      position	: 'bottom',
 	      columns		: {
 	          standard : [1,2],
-	          sum : [12,13,14,15,16,17]
+	          sum : [13,14,15,16,17,18]
 	      },
 	      grandtotalrow : {
 	          titlecol 	: 1,
