@@ -158,6 +158,15 @@
                                 onclick="popBizPlanPdfViewer.fn_cancel()"
                         ></sbux-button>
 
+                        <sbux-button
+                                id="btnMdfcnDmnd"
+                                name="btnMdfcnDmnd"
+                                uitype="normal"
+                                text="수정요청"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="popBizPlanPdfViewer.fn_mdfcnDmnd()"
+                        ></sbux-button>
+
                         </c:if>
                     </div>
                 </div>
@@ -260,6 +269,10 @@
                                 SBUxMethod.set('bizPlanPop-inp-stts', "확인"); // 확인여부
                                 SBUxMethod.set('bizPlanPop-inp-aprvNm',item.idfr); // 확인자
                                 SBUxMethod.set('bizPlanPop-inp-aprvDt',item.idfrDt); // 확인시간
+                            } else if (_.isEqual(item.aprvYn, "N")) {
+                                SBUxMethod.set('bizPlanPop-inp-stts', "수정요청"); // 확인여부
+                                SBUxMethod.set('bizPlanPop-inp-aprvNm',item.idfr); // 확인자
+                                SBUxMethod.set('bizPlanPop-inp-aprvDt',item.idfrDt); // 확인시간
                             }
 
                             SBUxMethod.set('bizPlanPop-inp-atchFileSn',item.atchFileSn); // 파일순번
@@ -303,6 +316,9 @@
         fn_cancel: async function() { // 확인취소
             this.fn_update("cancel",confirm("확인취소 처리 하시겠습니까?"));
         },
+        fn_mdfcnDmnd: async function() { // 수정요청
+            this.fn_update("mdfcn",confirm("수정요청 처리 하시겠습니까?"));
+        },
 
         fn_update: async function(/*String 업데이트구분*/ updtSeCd , /** {boolean} */ isConfirmed ) {
 
@@ -319,6 +335,8 @@
                 aprvYn = 'Y';
             } else if (_.isEqual(updtSeCd,"unIdnty")){ // 미확인
                 aprvYn = null;
+            } else if (_.isEqual(updtSeCd,"mdfcn")){ // 수정 요청
+                aprvYn = 'N';
             }
 
             if (gfn_isEmpty(sprtBizYr)){

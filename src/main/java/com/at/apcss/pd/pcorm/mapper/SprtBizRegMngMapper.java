@@ -144,4 +144,12 @@ public interface SprtBizRegMngMapper {
 	 * @throws Exception
 	 */
 	public SprtBizRegFileVO selectSprtBizAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
+
+	/**
+	 * 지원사업신청 - 제출서류일괄다운로드
+	 * @param sprtBizRegFileVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<SprtBizRegFileVO> selectSprtFileInfoList(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
 }

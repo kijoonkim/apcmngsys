@@ -98,5 +98,30 @@ public class SprtBizRegFileVO extends ComVO {
      */
     private String rtnSprtOgnzId;
 
+    /**
+     * 사업신청서 변경여부
+     */
+    private String bizAplyChgYn;
+
+    /**
+     * 사업계획서 변경여부
+     */
+    private String bizPlanChgYn;
+
+    /**
+     * 변경여부
+     */
+    private String chgYn;
+
+    /**
+     * 승인여부
+     */
+    private String aprvYn;
+
+    /**
+     * 법인명
+     */
+    private String corpNm;
+
 
 }

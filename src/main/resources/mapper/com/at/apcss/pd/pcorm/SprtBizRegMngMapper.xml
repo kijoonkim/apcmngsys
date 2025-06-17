@@ -47,11 +47,13 @@
             , SBA.RSN_CD        AS RSN_CD
             , SBA.RSN_RMRK      AS RSN_RMRK
 
-            , APLY.APRV_YN AS BIZ_APLY_APRV_YN
-            , APLY.ATCH_FILE_SN    AS BIZ_APLY_ATCHFL_SN
+            , APLY.APRV_YN      AS BIZ_APLY_APRV_YN
+            , APLY.ATCH_FILE_SN AS BIZ_APLY_ATCHFL_SN
+            , APLY.CHG_YN       AS BIZ_APLY_CHG_YN
 
             , PLAN.APRV_YN AS BIZ_PLAN_APRV_YN
             , PLAN.ATCH_FILE_SN AS BIZ_PLAN_ATCHFL_SN
+            , PLAN.CHG_YN       AS BIZ_PLAN_CHG_YN
 
             , APAT.FILE_PATH_NM AS BIZ_APLY_FILE_PATH_NM
             , APAT.LGC_FILE_NM AS BIZ_APLY_LGC_FILE_NM
@@ -136,6 +138,10 @@
                 <if test='bizAplySbmsnYn.equals("N")'>
                     AND APLY.ATCH_FILE_SN IS NULL
                 </if>
+
+                <if test='bizAplySbmsnYn.equals("U")'>
+                    AND APLY.CHG_YN = 'Y'
+                </if>
             </when>
         </choose>
 
@@ -147,6 +153,10 @@
 
                 <if test='bizPlanSbmsnYn.equals("N")'>
                     AND PLAN.ATCH_FILE_SN IS NULL
+                </if>
+
+                <if test='bizPlanSbmsnYn.equals("U")'>
+                    AND PLAN.CHG_YN = 'Y'
                 </if>
             </when>
         </choose>
@@ -337,6 +347,7 @@
                  , IDFR_RMRK
                  , APRV_YN
                  , DEL_YN
+                 , CHG_YN
             FROM TB_EV_SPRT_BIZ_APLY_DOC
             WHERE SPRT_BIZ_YR = #{sprtBizYr}
                 AND SPRT_BIZ_CD = #{sprtBizCd}
@@ -414,6 +425,7 @@
               , SYS_LAST_CHG_DT         = SYSDATE
               , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
               , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+              , CHG_YN = #{chgYn}
 
             WHERE SPRT_BIZ_YR = #{sprtBizYr}
                 AND SPRT_BIZ_CD = #{sprtBizCd}
@@ -609,17 +621,94 @@
     <select id="selectSprtBizAtchfl" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
         <![CDATA[
             SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizAtchfl*/
-                ATCH_FILE_SN
-                 , FILE_PATH_NM
-                 , LGC_FILE_NM
-                 , PHYS_FILE_NM
-                 , FILE_SZ
-                 , FILE_EXTN_NM
-                 , INQ_CNT
-                 , DWNLD_CNT
-            FROM TB_EV_SPRT_BIZ_ATCHFL
-            WHERE ATCH_FILE_SN = #{atchFileSn}
-                AND DEL_YN = 'N'
+                SBA.ATCH_FILE_SN
+                 , SBA.FILE_PATH_NM
+                 , SBA.LGC_FILE_NM
+                 , SBA.PHYS_FILE_NM
+                 , SBA.FILE_SZ
+                 , SBA.FILE_EXTN_NM
+                 , SBA.INQ_CNT
+                 , SBA.DWNLD_CNT
+
+                 , DOC.SPRT_BIZ_YR
+                 , DOC.SPRT_BIZ_CD
+                 , DOC.SPRT_OGNZ_ID
+                 , DOC.APLY_DOC_CD
+                 , DOC.ATCH_FILE_SN
+
+                 , SBO.BRNO
+                 , SBO.CRNO
+
+                 , EUA.CORP_NM
+
+            FROM TB_EV_SPRT_BIZ_ATCHFL SBA
+                JOIN TB_EV_SPRT_BIZ_APLY_DOC DOC
+                ON DOC.ATCH_FILE_SN = SBA.ATCH_FILE_SN
+                AND DOC.DEL_YN = 'N'
+
+            LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+                ON SBO.SPRT_BIZ_YR = DOC.SPRT_BIZ_YR
+                AND SBO.SPRT_BIZ_CD = DOC.SPRT_BIZ_CD
+                AND SBO.SPRT_OGNZ_ID = DOC.SPRT_OGNZ_ID
+
+            LEFT JOIN VW_EV_UO_APRV EUA
+                ON EUA.BRNO = SBO.BRNO
+                AND EUA.CRNO = SBO.CRNO
+
+            WHERE SBA.DEL_YN = 'N'
+              AND SBA.ATCH_FILE_SN = #{atchFileSn}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtFileInfoList  -->
+    <!-- DESC : 지원사업신청 - 제출서류일괄다운로드                                       -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.17  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtFileInfoList" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtFileInfoList*/
+                DOC.SPRT_BIZ_YR AS SPRT_BIZ_YR
+                 , DOC.SPRT_BIZ_CD AS SPRT_BIZ_CD
+                 , DOC.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+                 , DOC.APLY_DOC_CD AS APLY_DOC_CD
+                 , DOC.ATCH_FILE_SN AS ATCH_FILE_SN
+
+                 , SBA.FILE_PATH_NM AS FILE_PATH_NM
+                 , SBA.LGC_FILE_NM AS LGC_FILE_NM
+                 , SBA.PHYS_FILE_NM AS PHYS_FILE_NM
+                 , SBA.FILE_SZ AS FILE_SZ
+                 , SBA.FILE_EXTN_NM AS FILE_EXTN_NM
+                 , SBA.INQ_CNT AS INQ_CNT
+                 , SBA.DWNLD_CNT AS DWNLD_CNT
+
+                 , SBO.BRNO AS BRNO
+                 , SBO.CRNO AS CRNO
+
+                 , EUA.CORP_NM AS CORP_NM
+
+            FROM TB_EV_SPRT_BIZ_APLY_DOC DOC
+            LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL SBA
+                   ON SBA.ATCH_FILE_SN = DOC.ATCH_FILE_SN
+                       AND SBA.DEL_YN = 'N'
+
+            LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+                   ON SBO.SPRT_BIZ_YR = DOC.SPRT_BIZ_YR
+                       AND SBO.SPRT_BIZ_CD = DOC.SPRT_BIZ_CD
+                       AND SBO.SPRT_OGNZ_ID = DOC.SPRT_OGNZ_ID
+                       AND SBO.DEL_YN = 'N'
+
+            LEFT JOIN VW_EV_UO_APRV EUA
+                   ON EUA.YR = DOC.SPRT_BIZ_YR
+                       AND EUA.BRNO = SBO.BRNO
+                       AND EUA.CRNO = SBO.CRNO
+
+            WHERE DOC.SPRT_BIZ_YR = #{sprtBizYr}
+              AND DOC.SPRT_BIZ_CD = #{sprtBizCd}
+              AND DOC.DEL_YN = 'N'
         ]]>
     </select>
 </mapper>

@@ -99,7 +99,7 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
                 return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "지원사업연도"); // {0}이/가 없습니다.
             }
 
-            if (!StringUtils.hasText(sprtBizRegFile.getSprtBizYr())) {
+            if (!StringUtils.hasText(sprtBizRegFile.getSprtBizCd())) {
                 return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "지원사업코드"); // {0}이/가 없습니다.
             }
 
@@ -171,6 +171,9 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
             }
         } else {
             // 업데이트
+            if (ComConstants.CON_NONE.equals(sprtBizAplyDocInfo.getAprvYn())) {
+                sprtBizRegFile.setChgYn(ComConstants.CON_YES);
+            }
             if (0 == sprtBizRegMngMapper.updateSprtAplyDoc(sprtBizRegFile)){
                 throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "신청문서 업데이트"))); // E0003	{0} 시 오류가 발생하였습니다.
             }
@@ -236,5 +239,31 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
 
         return result;
 
+    }
+
+    @Override
+    public HashMap<String, Object> updateSprtBizAplyDocAllAprv(List<SprtBizRegMngVO> updateSprtBizAplyDocAllAprvList) throws Exception {
+
+        HashMap<String, Object> rtnObj;
+
+        for (SprtBizRegMngVO sprtBizRegMngVO : updateSprtBizAplyDocAllAprvList) {
+            sprtBizRegMngVO.setAprvYn(ComConstants.CON_YES);
+
+            rtnObj = updateSprtBizAplyDoc(sprtBizRegMngVO);
+
+            if (rtnObj != null) {
+                throw new EgovBizException(getMessageForMap(rtnObj));
+            }
+
+        }
+        return null;
+    }
+
+    @Override
+    public List<SprtBizRegFileVO> selectSprtFileInfoList(SprtBizRegFileVO sprtBizRegFileVO) throws Exception {
+
+        List<SprtBizRegFileVO> resultList = sprtBizRegMngMapper.selectSprtFileInfoList(sprtBizRegFileVO);
+
+        return resultList;
     }
 }
