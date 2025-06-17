@@ -1375,7 +1375,7 @@
     		sortPrfmncList: sortPrfmncList
     	}
 		console.log(sortMng,"저장전");
-		return;
+		// return;
 
         try {
     		const postJsonPromise = gfn_postJSON("/am/sort/insertSortPrfmnc.do", sortMng);

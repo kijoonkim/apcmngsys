@@ -911,7 +911,8 @@
     // (품종 / 품목)
     let prvPckgRegInfo = jsonPckgRegList.slice(-1)[0];  // 직전 선별등록 데이터
 
-    const keysToCompare = ['pckgYmd', 'itemCd', 'vrtyCd', 'inputWrhusSeCd', 'pckgInputQntt', 'pckgInputWght', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
+    // const keysToCompare = ['pckgYmd', 'itemCd', 'vrtyCd', 'inputWrhusSeCd', 'pckgInputQntt', 'pckgInputWght', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
+    const keysToCompare = ['pckgYmd', 'itemCd', 'vrtyCd', 'pckgInputQntt', 'pckgInputWght'];
     const prvPckgData = _.pick(prvPckgRegInfo, keysToCompare);
     const curPckgData = _.pick(pckgRegInfoVO, keysToCompare);
 

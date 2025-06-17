@@ -342,4 +342,37 @@ public class SortMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/sort/insertSortRsltMonthly.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> insertSortRsltMonthly(@RequestBody List<SortMngVO> sortMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			for(SortMngVO  sortVO : sortMngVO) {
+				sortVO.setSysFrstInptUserId(getUserId());
+				sortVO.setSysFrstInptPrgrmId(getPrgrmId());
+				sortVO.setSysLastChgUserId(getUserId());
+				sortVO.setSysLastChgPrgrmId(getPrgrmId());
+				sortVO.setNeedsVrInvntrRegYn(ComConstants.CON_YES);
+
+				HashMap<String, Object> rtnObj = sortMngService.insertSortRsltMonthly(sortVO);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
+			}
+
+		} catch (Exception e) {
+			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+
+	}
 }
