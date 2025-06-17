@@ -159,6 +159,15 @@
                                 onclick="popBizPlanPdfViewer.fn_cancel()"
                         ></sbux-button>
 
+                        <sbux-button
+                                id="btnMdfcnDmnd"
+                                name="btnMdfcnDmnd"
+                                uitype="normal"
+                                text="수정요청"
+                                class="btn btn-sm btn-outline-danger"
+                                onclick="popBizPlanPdfViewer.fn_mdfcnDmnd()"
+                        ></sbux-button>
+
                         </c:if>
                     </div>
                 </div>
@@ -261,6 +270,10 @@
                                 SBUxMethod.set('aplyPop-inp-stts', "확인"); // 확인여부
                                 SBUxMethod.set('aplyPop-inp-aprvNm',item.idfr); // 확인자
                                 SBUxMethod.set('aplyPop-inp-aprvDt',item.idfrDt); // 확인시간
+                            } else if (_.isEqual(item.aprvYn, "N")) {
+                                SBUxMethod.set('aplyPop-inp-stts', "수정요청"); // 확인여부
+                                SBUxMethod.set('aplyPop-inp-aprvNm',item.idfr); // 확인자
+                                SBUxMethod.set('aplyPop-inp-aprvDt',item.idfrDt); // 확인시간
                             }
 
                             SBUxMethod.set('aplyPop-inp-atchFileSn',item.atchFileSn); // 파일순번
@@ -301,6 +314,10 @@
         fn_cancel: async function() { // 확인취소
             this.fn_update("cancel",confirm("확인취소 처리 하시겠습니까?"));
         },
+        fn_mdfcnDmnd: async function() { // 수정요청
+            this.fn_update("mdfcn",confirm("수정요청 처리 하시겠습니까?"));
+        },
+
 
         fn_update: async function(/*String 업데이트구분*/ updtSeCd , /** {boolean} */ isConfirmed ) {
 
@@ -317,6 +334,8 @@
                 aprvYn = 'Y';
             } else if (_.isEqual(updtSeCd,"cancel")){ // 확인 취소
                 aprvYn = null;
+            } else if (_.isEqual(updtSeCd,"mdfcn")){ // 수정 요청
+                aprvYn = 'N';
             }
 
             if (gfn_isEmpty(sprtBizYr)){
@@ -328,6 +347,7 @@
                 gfn_comAlert("W0005", "지원사업코드"); // W0005 {0}이/가 없습니다.
                 return;
             }
+
 
             if (gfn_isEmpty(sprtOgnzId)){
                 gfn_comAlert("W0005", "지원사업조직아이디"); // W0005 {0}이/가 없습니다.

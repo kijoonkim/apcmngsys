@@ -358,6 +358,16 @@ public class SprtBizRegMngVO extends ComVO {
     private String untyOgnzCd;
 
     /**
+     * 사업신청서 변경여부
+     */
+    private String bizAplyChgYn;
+
+    /**
+     * 사업계획서 변경여부
+     */
+    private String bizPlanChgYn;
+
+    /**
      * 신청서 파일
      */
     private List<MultipartFile> sprtAplyFiles;
