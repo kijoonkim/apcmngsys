@@ -37,8 +37,8 @@
                 <sbux-button id="btnDownloadAll" name="btnDownloadAll" uitype="normal" text="제출서류 일괄 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadAll"></sbux-button>
                 <sbux-button id="btnBizAplyAllAprv" name="btnBizAplyAllAprv" uitype="normal" text="신청서 확인" class="btn btn-sm btn-outline-danger" onclick="fn_bizAplyAllAprv"></sbux-button>
                 <sbux-button id="btnBizPlanAllAprv" name="btnBizPlanAllAprv" uitype="normal" text="사업계획서 확인" class="btn btn-sm btn-outline-danger" onclick="fn_bizPlanAllAprv"></sbux-button>
-                </c:if>
                 <sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
+                </c:if>
                 <sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
             </div>
         </div>
@@ -79,7 +79,11 @@
 
             <div class="ad_tbl_top">
                 <ul class="ad_tbl_count">
-                    <li><span>신청 목록</span></li>
+                    <li>
+                        <span>신청 목록</span>
+                        <span style="font-size:12px">(조회건수 <span id="listCountTotal">0</span>건, 선택 목록 개수 <span id="listCountChecked">0</span>건)</span>
+                    </li>
+
                 </ul>
             </div>
             <div class="ad_tbl_toplist"></div>
@@ -245,11 +249,17 @@
         SBGridProperties.extendlastcol = 'scroll';
 
         SBGridProperties.columns = [
-
-            {caption : ['',''],	ref : 'checkedYn',	width : '3%',	style : 'text-align:center',	type : 'checkbox', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false}, ignoreupdate: true, checkedvalue : 'Y', uncheckedvalue : 'N'},userattr : {colNm :"checkedYn"}},
+            {
+                caption : ["<input type='checkbox' onchange='fn_checkAll(gridAplyList, this);'>","<input type='checkbox' onchange='fn_checkAll(gridAplyList, this);'>"],
+                ref: 'checkedYn', type: 'checkbox',  width:'3%',
+                style: 'text-align:center',
+                userattr: {colNm: "checkedYn"},
+                typeinfo : {checkedvalue: 'Y', uncheckedvalue: 'N', ignoreupdate : true, fixedcellcheckbox : {usemode : false, rowindex : 0}}
+            },
+            // {caption : ['',''],	ref : 'checkedYn',	width : '3%',	style : 'text-align:center',	type : 'checkbox', typeinfo : {fixedcellcheckbox : { usemode : true , rowindex : 0 , deletecaption : false}, ignoreupdate: true, checkedvalue : 'Y', uncheckedvalue : 'N'},userattr : {colNm :"checkedYn"}},
             {caption: ['연도','연도'],			ref: 'yr', 	    width: '5%', type: 'output',style: 'text-align:center'},
             {caption: ['조직구분','조직구분'],			ref: 'aprvNm', 	width: '5%', type: 'combo', 	style: 'text-align:center', typeinfo :{ref:'jsonOgnzSe', label:'text', value :'value'}, disabled: true},
-            {caption: ['법인명','법인명'], 			ref: 'corpNm', 	width: '11%', type: 'output', style: 'text-align:center'},
+            {caption: ['법인명','법인명'], 			ref: 'corpNm', 	width: '11%', type: 'output', style: 'text-align:left'},
             {caption: ['사업자번호','사업자번호'], 			ref: 'brno', 	width: '7%', type: 'output', style: 'text-align:center'},
             {caption: ['법인번호','법인번호'], 			ref: 'crno', 	width: '7%', type: 'output',	style: 'text-align:center'},
             {caption: ['신청서','제출여부'], 			ref: 'bizAplySbmsnYn', 		width: '5%', type: 'output', style: 'text-align:center'},
@@ -296,6 +306,8 @@
 
         try {
             if (_.isEqual("S", data.resultStatus)) {
+
+                let totalCount =0;
 
                 jsonAplyList.length = 0;
                 data.resultList.forEach(item => {
@@ -384,6 +396,8 @@
                     jsonAplyList.push(vo);
                 });
                 gridAplyList.clearFixedCellChecked(0,0);
+                totalCount = data.resultList.length;
+                document.querySelector('#listCountTotal').innerText = totalCount;
                 gridAplyList.refresh();
 
             } else {
@@ -735,6 +749,14 @@
                 rowData.checkedYn = "Y";
                 break;
         }
+        const allData = gridAplyList.getGridDataAll();
+        let checkedCount = 0;
+        for (let i = 0; i <allData.length; i++) {
+            if(_.isEqual(allData[i].checkedYn,"Y")) {
+                checkedCount++;
+            }
+        }
+        document.querySelector('#listCountChecked').innerText = checkedCount;
         gridAplyList.refresh();
     }
 
@@ -759,7 +781,6 @@
                 checkList.push(save);
             }
         }
-        console.log("신청서",checkList);
 
         if (gfn_isEmpty(checkList)) {
             gfn_comAlert("W0003", "신청서 확인"); // {0}할 대상이 없습니다.
@@ -813,7 +834,6 @@
                 checkList.push(save);
             }
         }
-        console.log("사업계획서",checkList);
 
         if (gfn_isEmpty(checkList)) {
             gfn_comAlert("W0003", "사업계획서 확인"); // {0}할 대상이 없습니다.
@@ -869,8 +889,17 @@
         //체크박스 열 index
         const getColRef = grid.getColRef("checkedYn");
         for (var i=0; i<grid.getGridDataAll().length; i++ ){
-            grid.setCellData(i+1, getColRef, checkedYn, true, false);
+            grid.setCellData(i+2, getColRef, checkedYn, true, false);
         }
+
+        const allData = grid.getGridDataAll();
+        let checkedCount = 0;
+        for (let i = 0; i <allData.length; i++) {
+            if(_.isEqual(allData[i].checkedYn,"Y")) {
+                checkedCount++;
+            }
+        }
+        document.querySelector('#listCountChecked').innerText = checkedCount;
         grid.refresh();
     }
 
