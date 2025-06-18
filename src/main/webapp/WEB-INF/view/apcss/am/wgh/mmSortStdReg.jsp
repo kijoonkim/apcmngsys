@@ -928,7 +928,7 @@
         sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
       }
     }
-
+    console.log("sortRegInfoVO", sortRegInfoVO);
     jsonSortRegList.push(sortRegInfoVO);
 
     grdSortRegList.refresh();
