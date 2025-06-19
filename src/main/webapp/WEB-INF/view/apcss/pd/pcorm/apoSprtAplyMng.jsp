@@ -96,7 +96,7 @@
                     <li><span>제출서류 등록</span></li>
                 </ul>
                 <div style="margin-left: auto;">
-                    <sbux-button id="btnSbmsn" name="btnSbmsn" uitype="normal" text="제출" class="btn btn-sm btn-primary" onclick="fn_sbmsn"></sbux-button>
+<%--                    <sbux-button id="btnSbmsn" name="btnSbmsn" uitype="normal" text="제출" class="btn btn-sm btn-primary" onclick="fn_sbmsn"></sbux-button>--%>
                 </div>
             </div>
 
@@ -131,7 +131,8 @@
                     <col style="width: 20%">
                     <col style="width: 30%">
                     <col style="width: 10%">
-                    <col style="width: 40%">
+                    <col style="width: 35%">
+                    <col style="width: 5%">
                 </colgroup>
                 <tbody>
                 <tr>
@@ -139,6 +140,7 @@
                     <th scope="row" class="th_bg text-center">기제출서류</th>
                     <th scope="row" class="th_bg text-center">확인여부</th>
                     <th scope="row" class="th_bg text-center">신규(변경) 제출서류</th>
+                    <th scope="row" class="th_bg text-center"></th>
                 </tr>
                 <tr>
                     <th scope="row" class="th_bg text-center">신청서(pdf/hwp/hwpx)</th>
@@ -152,8 +154,11 @@
                         <sbux-input id="dtl-inp-aplyDocIdntyYn" name="dtl-inp-aplyDocIdntyYn" uitype="hidden"></sbux-input>
                     </td>
                     <%--파일선택--%>
-                    <td class="td_input">
+                    <td class="td_input" style="border-right: hidden">
                         <input type="file" id="aplyDocFile" accept=".pdf, .hwp, .hwpx">
+                    </td>
+                    <td class="td_input text-center">
+                        <sbux-button id="btnSbmsnAply" name="btnSbmsnAply" uitype="normal" text="제출" class="btn btn-sm btn-primary" onclick="fn_sbmsn('aply')"></sbux-button>
                     </td>
                 </tr>
                 <tr>
@@ -168,8 +173,11 @@
                         <sbux-input id="dtl-inp-bizPlanDocIdntyYn" name="dtl-inp-bizPlanDocIdntyYn" uitype="hidden"></sbux-input>
                     </td>
                     <%--파일선택--%>
-                    <td class="td_input">
+                    <td class="td_input" style="border-right: hidden">
                         <input type="file" id="bizPlanFile" accept=".pdf, .hwp, .hwpx">
+                    </td>
+                    <td class="td_input text-center">
+                        <sbux-button id="btnSbmsnBizPlan" name="btnSbmsnBizPlan" uitype="normal" text="제출" class="btn btn-sm btn-primary" onclick="fn_sbmsn('bizPlan')"></sbux-button>
                     </td>
                 </tr>
                 </tbody>
@@ -231,7 +239,8 @@
         fn_createAplyList(); // 신청목록 그리드
         SBUxMethod.set('dtl-spi-yr',gfn_dateToYear(new Date())); // 연도
         fn_search();
-        SBUxMethod.attr('btnSbmsn','disabled','true');
+        SBUxMethod.attr('btnSbmsnAply','disabled','true');
+        SBUxMethod.attr('btnSbmsnBizPlan','disabled','true');
     }
 
     /**
@@ -278,15 +287,21 @@
         ];
         gridAplyList = _SBGrid.create(SBGridProperties);
         gridAplyList.bind('click','fn_clickAplyGrid');
-        gridAplyList.bind('valuechanged','fn_girdValuechanged')
+        gridAplyList.bind('valuechanged','fn_girdValuechanged');
+        // gridAplyList.bind('select',fn_gridselect);
     }
 
+    function fn_gridselect(){
+        alert("select");
+    }
     /**
      * @name fn_search
      * @description 조회
      */
     const fn_search = async function () {
         fn_clear();
+        var getColRef = gridAplyList.getColRef("checkedYn");
+        gridAplyList.setFixedcellcheckboxChecked(0, getColRef, false);
 
         const yr = SBUxMethod.get('dtl-spi-yr');
         const brno = SBUxMethod.get('dtl-inp-brno');
@@ -395,9 +410,10 @@
                     }
                     jsonAplyList.push(vo);
                 });
-                gridAplyList.clearFixedCellChecked(0,0);
+                // gridAplyList.clearFixedCellChecked(0,0);
                 totalCount = data.resultList.length;
                 document.querySelector('#listCountTotal').innerText = totalCount;
+                document.querySelector('#listCountChecked').innerText = 0;
                 gridAplyList.refresh();
 
             } else {
@@ -551,7 +567,6 @@
         if (gfn_isEmpty(rowData)){
             return;
         }
-        SBUxMethod.attr('btnSbmsn','disabled','false');
 
         const corpNm = rowData.corpNm;
         const brno = rowData.brno;
@@ -588,6 +603,18 @@
         SBUxMethod.set('dtl-inp-bizPlanDocIdntyYnNm',bizPlanAprvYnNm); // 사업계획서 확인여부명
         SBUxMethod.set('dtl-inp-bizPlanDocIdntyYn',bizPlanAprvYn); // 사업계획서 확인여부
 
+        if (!_.isEqual(bizAplyAprvYn,"Y") ) {
+            SBUxMethod.attr('btnSbmsnAply','disabled','false');
+        } else {
+            SBUxMethod.attr('btnSbmsnAply','disabled','true');
+        }
+
+        if (!_.isEqual(bizPlanAprvYn,"Y")) {
+            SBUxMethod.attr('btnSbmsnBizPlan','disabled','false');
+        } else {
+            SBUxMethod.attr('btnSbmsnBizPlan','disabled','true');
+        }
+
     }
 
 
@@ -595,7 +622,8 @@
      * @name fn_sbmsn
      * @description 제출
      */
-    const fn_sbmsn = function() {
+    const fn_sbmsn = function(type) {
+
         const corpNm = SBUxMethod.get('dtl-inp-regCorpNm');
         const brno = SBUxMethod.get('dtl-inp-regBrno');
         const crno = SBUxMethod.get('dtl-inp-crno');
@@ -617,7 +645,6 @@
             sprtBizCd = 'SRPT_001';
         }
 
-
         var formData = new FormData();
 
         const aplyDocIdntyYn = SBUxMethod.get('dtl-inp-aplyDocIdntyYn'); // 신청서 확인여부
@@ -626,42 +653,50 @@
         const aplyDocFile = $('#aplyDocFile')[0].files; // 신청서
         const bizPlanFile = $('#bizPlanFile')[0].files; // 사업계획서
 
-        //새로운 파일이 둘다 없으면
-        if(bizPlanFile.length == 0 && aplyDocFile.length == 0){
-            gfn_comAlert("W0005","제출할 파일"); // W0005  {0}이/가 없습니다.
-            return;
-        }
-
         // 제출서류 허용 확장자
         // 신청서
         const allowExtnAply = ['pdf', 'hwp' , 'hwpx'];
         // 사업계획서
         const allowExtnPlan = ['pdf', 'hwp' , 'hwpx'];
 
-        // 신청서
-        if (aplyDocFile.length > 0){
-            for (var i = 0; i < aplyDocFile.length; i++) {
-                const extension = aplyDocFile[i].name.split('.').pop().toLowerCase();
-                if (allowExtnAply.includes(extension)) {
-                    formData.append('sprtAplyFiles', aplyDocFile[i]);
-                } else {
-                    gfn_comAlert("W0021","신청서 확장자","hwp/hwpx/pdf"); // W0021 {0}은/는 {1}만 가능합니다.
+        switch (type) {
+            case "aply":
+                if (aplyDocFile.length == 0) {
+                    gfn_comAlert("W0005","신청서 제출할 파일"); // W0005  {0}이/가 없습니다.
                     return;
                 }
-            }
-        }
+                // 신청서
+                if (aplyDocFile.length > 0){
+                    for (var i = 0; i < aplyDocFile.length; i++) {
+                        const extension = aplyDocFile[i].name.split('.').pop().toLowerCase();
+                        if (allowExtnAply.includes(extension)) {
+                            formData.append('sprtAplyFiles', aplyDocFile[i]);
+                        } else {
+                            gfn_comAlert("W0021","신청서 확장자","hwp/hwpx/pdf"); // W0021 {0}은/는 {1}만 가능합니다.
+                            return;
+                        }
+                    }
+                }
+                break;
 
-        // 사업계획서
-        if (bizPlanFile.length > 0){
-            for (var i = 0; i < bizPlanFile.length; i++) {
-                const extension = bizPlanFile[i].name.split('.').pop().toLowerCase();
-                if (allowExtnPlan.includes(extension)) {
-                    formData.append('sprtBizPlanFiles', bizPlanFile[i]);
-                } else {
-                    gfn_comAlert("W0021","사업계획서 확장자","hwp/hwpx/pdf"); // W0021 {0}은/는 {1}만 가능합니다.
+            case "bizPlan":
+                if (bizPlanFile.length == 0) {
+                    gfn_comAlert("W0005","사업계획서 제출할 파일"); // W0005  {0}이/가 없습니다.
                     return;
                 }
-            }
+                // 사업계획서
+                if (bizPlanFile.length > 0){
+                    for (var i = 0; i < bizPlanFile.length; i++) {
+                        const extension = bizPlanFile[i].name.split('.').pop().toLowerCase();
+                        if (allowExtnPlan.includes(extension)) {
+                            formData.append('sprtBizPlanFiles', bizPlanFile[i]);
+                        } else {
+                            gfn_comAlert("W0021","사업계획서 확장자","hwp/hwpx/pdf"); // W0021 {0}은/는 {1}만 가능합니다.
+                            return;
+                        }
+                    }
+                }
+                break;
         }
 
         formData.append('sprtBizYr',gfn_nvl(sprtBizYr));
@@ -670,11 +705,10 @@
         formData.append('brno',gfn_nvl(brno));
         formData.append('crno',gfn_nvl(crno));
 
-        /*const obj = {};
+       /* const obj = {};
         formData.forEach((value,key) => {
             obj[key] = value;
-        });
-        console.log(obj);*/
+        });*/
 
         if (!gfn_comConfirm("Q0001", "제출서류 등록")) {	//	Q0001	{0} 하시겠습니까?
             return;
@@ -701,7 +735,8 @@
      * @description 초기화
      */
     const fn_clear = function (){
-        SBUxMethod.attr('btnSbmsn','disabled','true');
+        SBUxMethod.attr('btnSbmsnAply','disabled','true');
+        SBUxMethod.attr('btnSbmsnBizPlan','disabled','true');
 
         SBUxMethod.set('dtl-inp-regCorpNm',null); // 법인명
         SBUxMethod.set('dtl-inp-regBrno',null); // 사업자번호
