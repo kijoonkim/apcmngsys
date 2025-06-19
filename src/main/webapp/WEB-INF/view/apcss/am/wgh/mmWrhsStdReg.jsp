@@ -210,7 +210,6 @@
                         name="srch-inp-vhclno"
                         class="form-control input-sm"
                         autocomplete="off"
-                        readonly
                 ></sbux-input>
                 <sbux-button
                         id="srch-btn-vhcl"
@@ -231,7 +230,6 @@
                         maxlength="6"
                         autocomplete="off"
                         mask = "{'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true }"
-                        readonly
                 ></sbux-input>
                 <sbux-button
                         id="srch-btn-trsprtCst"
@@ -494,7 +492,7 @@
     // SBGridProperties.allowcopy = true;
 
     SBGridProperties.columns = [
-      {caption: ["선택", "선택"],	ref: 'checkedYn',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 0, deletecaption : false}, checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
+      {caption: ["선택", ""],	ref: 'checkedYn',      	type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 1, deletecaption : false}, checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
       {caption: ["그룹", "그룹"],		ref: 'group',     type:'output',  width:'60px',    style:'text-align:center', sortable: false},
       {caption: ["입고일자", "입고일자"],		ref: 'wrhsYmd',      type:'output',  width:'100px',    style:'text-align:center'},
       {caption: ["팔레트", ""],		ref: 'pltChck',      type:'checkbox',  width:'50px',    style:'text-align:center', typeinfo : {checkedvalue : 'T', uncheckedvalue : 'F'}, sortable: false},
@@ -539,8 +537,8 @@
   }
 
   /**
-   * @name fn_initSBSelect
-   * @description SBSelect JSON 불러오기
+   * @name fn_initSBSelect:q
+:qq   * @description SBSelect JSON 불러오기
    */
   const fn_initSBSelect = async function() {
     // 검색 SB select

@@ -940,10 +940,7 @@
 
     const sortYmd = SBUxMethod.get("dtl-dtp-sortYmd");
 
-    // const sortPrfmncList = [];
     const sortMngList = [];
-
-    let groupChck = 1;  // 그룹번호 체크
 
     let sortRegData = grdSortRegList.getGridDataAll();
 
@@ -955,10 +952,10 @@
     let sortDataGroupBy = _.groupBy(sortRegData, 'group');
 
     Object.keys(sortDataGroupBy).forEach((groupKey) => {
-      let groupItems = sortDataGroupBy[groupKey];
+      let groupData = sortDataGroupBy[groupKey];
       const sortPrfmncList = [];
 
-      groupItems.forEach((sortDataVO) => {
+      groupData.forEach((sortDataVO) => {
         const stdGrdList = [];  // 선별등급
         const gdsStdGrdList = []; // 포장상품등급
         jsonApcGrdDtl.forEach((item) => {

@@ -199,4 +199,31 @@ public class PckgMngController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/pckg/insertPckgRsltMonthly.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertPckgRsltMonthly(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+		try {
+			pckgMngVO.setSysFrstInptUserId(getUserId());
+			pckgMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+			pckgMngVO.setSysLastChgUserId(getUserId());
+			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			HashMap<String,Object> rtnObj = pckgMngService.insertPckgRsltMonthly(pckgMngVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
 }
