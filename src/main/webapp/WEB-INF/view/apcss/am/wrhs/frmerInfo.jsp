@@ -2937,6 +2937,10 @@
 						let qntt = rowData[ymdKey];
 
 						if (!gfn_isEmpty(qntt) && qntt > 0) {
+							if (gfn_isEmpty(rowData.crtrYm)) {
+								gfn_comAlert("W0005", "기준연월");		//	W0005	{0}이/가 없습니다.
+								return;
+							}
 
 							let frmhsExpctWrhsDtl = {
 								apcCd 		: gv_selectedApcCd
@@ -2972,6 +2976,11 @@
 
 						if (gfn_isEmpty(qntt)) {
 							qntt = 0;
+						}
+
+						if (gfn_isEmpty(rowData.crtrYm)) {
+							gfn_comAlert("W0005", "기준연월");		//	W0005	{0}이/가 없습니다.
+							return;
 						}
 
 						let frmhsExpctWrhsDtl = {
