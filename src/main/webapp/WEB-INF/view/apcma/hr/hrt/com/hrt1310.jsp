@@ -175,6 +175,9 @@
 </body>
 
 <!-- inline scripts related to this page -->
+<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
+
+
 <script type="text/javascript">
 
     // common ---------------------------------------------------
@@ -254,7 +257,7 @@
 
         bandgvwInfo = _SBGrid.create(SBGridProperties);
         bandgvwInfo.bind('afterrefresh', 'fn_bandgvwInfoAfterRefresh');
-        bandgvwInfo.bind('afterpaste', 'fn_bandgvwInfoValueChanged');
+        bandgvwInfo.bind('afterpaste', 'fn_bandgvwInfoValuePasted');
         bandgvwInfo.bind('valuechanged', 'fn_bandgvwInfoValueChanged');
     }
 
@@ -307,8 +310,7 @@
                 ref: 'HOLIDAY_YN',
                 type: 'checkbox',
                 width: '63px',
-                style: 'text-align:center'
-                ,
+                style: 'text-align:center',
                 typeinfo: {
                     fixedcellcheckbox: {usemode: true, rowindex: 2, deletecaption: false},
                     checkedvalue: 'Y',
@@ -344,6 +346,47 @@
 
     }
 
+    const fn_bandgvwInfoValuePasted = async function () {
+
+        let updateData = bandgvwInfo.getUpdateData(true, 'all');
+
+        for (let i = 0; i < updateData.length; i++) {
+            //updateData에서 D20으로 시작하는 키값만 가져옴
+            const updateDataKey = Object.keys(updateData[i].data).filter(key => key.startsWith('D20'));
+
+            for (let j = 0; j < updateDataKey.length; j++) {
+                const orgKey = updateDataKey[j];
+                //가져온 키값에서 맨 앞 D 삭제
+                const key = orgKey.replace("D", "");
+
+                let index = jsonPatternListOrigin.findIndex((value) => (
+                        value['YYYYMMDD'] == key &&
+                        value['WORK_PATTERN_CODE'] == updateData[i].data["WORK_PATTERN_CODE"]
+                    )
+                );
+
+                // if(!gfn_isEmpty(updateData[i].data[orgKey])){
+                if (!gfn_isEmpty(updateData[i].data[orgKey])) {
+                    if (index != -1) {
+                        jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
+                        jsonPatternListOrigin[index]['SHIFT_CODE'] = updateData[i].data[orgKey];
+
+                    } else {
+                        jsonPatternListOrigin.push({
+                            WORK_TYPE: "N",
+                            SHIFT_CODE: updateData[i].data[orgKey],
+                            WORK_PATTERN_CODE: updateData[i].data["WORK_PATTERN_CODE"],
+                            YYYYMMDD: key
+
+                        })
+                    }
+                }
+
+            }
+        }
+        bandgvwInfo.refresh();
+    }
+
     const fn_bandgvwInfoValueChanged = async function () {
         var nRow = bandgvwInfo.getRow();
         var nCol = bandgvwInfo.getCol();
@@ -354,7 +397,6 @@
                 nRow, nCol, colorList[bandgvwInfo.getCellData(nRow, nCol)]);
 
             let index = jsonPatternListOrigin.findIndex((value) => (value['YYYYMMDD'] == bandgvwInfo.getRefOfCol(nCol).replace("D", "") && value['WORK_PATTERN_CODE'] == bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"))));
-
             if (index != -1) {
                 jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
                 jsonPatternListOrigin[index]['SHIFT_CODE'] = bandgvwInfo.getCellData(nRow, nCol);
@@ -367,8 +409,18 @@
                 })
             }
         } else {
+            //캘린더에 데이터를 없애고 저장하는 경우
+            let index = jsonPatternListOrigin.findIndex((value) => (value['YYYYMMDD'] == bandgvwInfo.getRefOfCol(nCol).replace("D", "") && value['WORK_PATTERN_CODE'] == bandgvwInfo.getCellData(nRow, bandgvwInfo.getColRef("WORK_PATTERN_CODE"))));
+            if (index != -1) {
+                if (bandgvwInfo.getCellData(nRow, nCol) === "") {
+                    jsonPatternListOrigin[index]['WORK_TYPE'] = "U";
+                    jsonPatternListOrigin[index]['SHIFT_CODE'] = "";
+                }
+            }
             bandgvwInfo.removeCellStyle(nRow, nCol);
         }
+
+
     }
 
     const fn_gvwColorAfterRebuild = async function () {
@@ -397,19 +449,21 @@
     }
 
     const fn_save = async function () {
-        let updatedData = jsonPatternListOrigin.filter((value) => value['WORK_TYPE'] != "Q");
+        let updatedData = jsonPatternListOrigin.filter((value) =>
+            value['WORK_TYPE'] != "Q");
         let WORK_TYPE_D = "";
         let YYYYMMDD_D = "";
         let WORK_PATTERN_CODE_D = "";
         let SHIFT_CODE_D = "";
 
+
         updatedData.forEach((item, index) => {
-            if (colorList[item.SHIFT_CODE]) {
+            // if (colorList[item.SHIFT_CODE]) {
                 WORK_TYPE_D += gfnma_nvl2(item.WORK_TYPE) + "|";
                 YYYYMMDD_D += gfnma_nvl2(item.YYYYMMDD) + "|";
                 WORK_PATTERN_CODE_D += gfnma_nvl2(item.WORK_PATTERN_CODE) + "|";
                 SHIFT_CODE_D += gfnma_nvl2(item.SHIFT_CODE) + "|";
-            }
+            // }
         });
 
         if (WORK_TYPE_D.length > 0) {
@@ -440,10 +494,9 @@
                 getType: 'json',
                 workType: 'N',
                 cv_count: '0',
-                params: gfnma_objectToString(paramObj)
+                params: gfnma_objectToString(paramObj, true)
             });
             const data = await postJsonPromise;
-
             try {
                 if (_.isEqual("S", data.resultStatus)) {
                     gfn_comAlert("I0001");
@@ -609,14 +662,27 @@
                 fn_createBandgvwInfoGrid(await fn_makeDynamicColumn(listData.cv_1));
 
                 jsonPatternList.length = 0;
-                jsonPatternListOrigin.length = 0;
-
                 listData.cv_2.forEach((item, index) => {
                     item["WORK_PATTERN_CODE"] = item.WORK_PTTRN_CD;
                 });
-
                 jsonPatternList = listData.cv_2;
-                jsonPatternListOrigin = listData.cv_3;
+
+
+                jsonPatternListOrigin.length = 0;
+                listData.cv_3.forEach((item, index) => {
+                    const msg = {
+                        COMP_CODE: gfnma_nvl2(item.CO_CD),
+                        DATA_YN: gfnma_nvl2(item.DATA_YN),
+                        HOLIDAY_YN: gfnma_nvl2(item.HLDY_YN),
+                        SHIFT_CODE: gfnma_nvl2(item.SHIFT_CODE),
+                        WORK_PATTERN_CODE: gfnma_nvl2(item.WORK_PTTRN_CD),
+                        WORK_TYPE: gfnma_nvl2(item.WORK_TYPE),
+                        YYYYMMDD: gfnma_nvl2(item.YMD)
+                    }
+
+                    jsonPatternListOrigin.push(msg);
+                });
+
 
                 jsonColorList.length = 0;
                 listData.cv_4.forEach((item, index) => {
@@ -686,4 +752,3 @@
         await fn_onload();
     });
 </script>
-<%@ include file="../../../../frame/inc/bottomScript.jsp" %>
