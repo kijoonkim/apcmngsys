@@ -373,24 +373,15 @@
                                             <div class="tabBox_sm" onclick="fn_select_button(this)" data-cnt="10">10</div>
                                         </div>
                                     </div>
-<<<<<<< HEAD
-                                    <div style="display: flex; line-height: 2.5">
-                                        <div style="color: #3c6dbc; font-weight: 600;font-size: 2vw">수량</div>
-=======
                                     <div style="display: flex;">
                                         <div style="color: #3c6dbc; font-weight: 600;font-size: 1.5vw; align-self: center">수량</div>
->>>>>>> origin/main
                                         <div style="width: 30%; margin-left: 2vw">
                                             <sbux-input
                                                     uitype="text"
                                                     id="spinner_normal_0"
                                                     name="spinner_normal_0"
                                                     wrap-style="flex-basis:40%;"
-<<<<<<< HEAD
-                                                    style="height:100%;text-align:center;background-color:white!important;font-size: 1.5vw"
-=======
                                                     style="height:100%;text-align:center;background-color:white!important;font-size: 5rem"
->>>>>>> origin/main
                                                     readonly
                                             ></sbux-input>
                                         </div>
@@ -416,9 +407,6 @@
                                    			</span>
                                             <input type="hidden" name="spinner_normal" style="display:none;" value="">
                                         </div>--%>
-<<<<<<< HEAD
-                                        <div style="margin-left: 2vw; display: flex;gap: 1vw">
-=======
                                         <div style="display: flex;gap: 1vw;align-self: center; margin: 1vw">
                                             <sbux-button
                                                     id="btnRegDel"
@@ -428,7 +416,6 @@
                                                     text="지움"
                                                     onclick="fn_RegDel"
                                             ></sbux-button>
->>>>>>> origin/main
                                             <sbux-button
                                                     id="btnRegReset"
                                                     name="btnRegReset"
@@ -448,11 +435,7 @@
                                         </div>
                                     </div>
                                     <div class="carousel">
-<<<<<<< HEAD
-                                        <div style="display: flex;gap: 1.5vw">
-=======
                                         <div style="display: flex;gap: 1vw;">
->>>>>>> origin/main
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="0">0</div>
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="1">1</div>
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="2">2</div>
@@ -947,8 +930,6 @@
     const fn_RegReset = function(){
         // $("#spinner_normal_0").val(0);
         SBUxMethod.set("spinner_normal_0", "0");
-<<<<<<< HEAD
-=======
     }
     const fn_RegDel = function(){
         let prev = SBUxMethod.get("spinner_normal_0");
@@ -959,7 +940,6 @@
         }else{
             SBUxMethod.set("spinner_normal_0", result);
         }
->>>>>>> origin/main
     }
 
     const fn_addDragEvn = function(_id) {
