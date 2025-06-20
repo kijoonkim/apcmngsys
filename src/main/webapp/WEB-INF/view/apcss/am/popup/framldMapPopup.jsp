@@ -15,7 +15,7 @@
 
 	if ("133.186.212.16".equals(domain)) {
 		key = "NCfYZTYs0sp6X1s0lh5U";
-	} else if ("localhost".equals(domain)) {
+	} else if ("localhost".equals(domain) || "127.0.0.1".equals(domain)) {
 		key = "8AuulPFHOftqyHEmTdQK";
 	} else if ("apcss.smartapc.or.kr".equals(domain)) {
 		key = "NmdiNXbWcIWRYCX9O7jd";
