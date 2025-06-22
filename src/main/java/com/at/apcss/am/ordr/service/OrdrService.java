@@ -127,4 +127,12 @@ public interface OrdrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception;
+
+	/**
+	 * 발주정보 접수 취소 (대형마트)
+	 * @param mrktOrdrVO
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object> deleteOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception;
 }

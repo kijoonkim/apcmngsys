@@ -192,6 +192,8 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 			}
 		}
 
+		HashMap<String, Object> rtnObj;
+
 		for ( MrktOrdrDtlVO dtl : ordrList ) {
 			dtl.setSysFrstInptUserId(sysUserId);
 			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
@@ -199,7 +201,59 @@ public class OrdrServiceImpl extends BaseServiceImpl implements OrdrService {
 			dtl.setSysLastChgPrgrmId(sysPrgrmId);
 			dtl.setOrdrApcCd(apcCd);
 
-			ordrMapper.updateOutordrReceipt(dtl);
+			// ordrMapper.updateOutordrReceipt(dtl);
+
+			ordrMapper.insertSpMrktRcptOrdrCfmtn(dtl);
+
+			if (StringUtils.hasText(dtl.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(dtl.getRtnCd(), dtl.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Object> deleteOutordrReceipt(MrktOrdrVO mrktOrdrVO) throws Exception {
+
+		String apcCd = mrktOrdrVO.getOrdrApcCd();
+
+		if (!StringUtils.hasLength(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "APC코드");
+		}
+
+		List<MrktOrdrDtlVO> ordrList = mrktOrdrVO.getDtlList();
+		if (ordrList == null || ordrList.isEmpty()) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND_TARGET_TODO, "접수취소");
+		}
+
+		String sysUserId = mrktOrdrVO.getSysLastChgUserId();
+		String sysPrgrmId = mrktOrdrVO.getSysLastChgPrgrmId();
+
+		for ( MrktOrdrDtlVO dtl : ordrList ) {
+			if (!StringUtils.hasText(dtl.getApcOutordrno())) {
+				return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "발주번호");
+			}
+		}
+
+		HashMap<String, Object> rtnObj;
+
+		for ( MrktOrdrDtlVO dtl : ordrList ) {
+			dtl.setSysFrstInptUserId(sysUserId);
+			dtl.setSysFrstInptPrgrmId(sysPrgrmId);
+			dtl.setSysLastChgUserId(sysUserId);
+			dtl.setSysLastChgPrgrmId(sysPrgrmId);
+			dtl.setOrdrApcCd(apcCd);
+
+			// ordrMapper.updateOutordrReceipt(dtl);
+
+			ordrMapper.insertSpMrktRcptOrdrCncl(dtl);
+
+			if (StringUtils.hasText(dtl.getRtnCd())) {
+				rtnObj = ComUtil.getResultMap(dtl.getRtnCd(), dtl.getRtnMsg());
+				throw new EgovBizException(getMessageForMap(rtnObj));
+			}
 		}
 
 		return null;

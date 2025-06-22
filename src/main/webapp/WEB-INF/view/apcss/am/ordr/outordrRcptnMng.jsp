@@ -629,6 +629,7 @@
         } finally {
 			grdOutordr.refresh();
 			document.querySelector('#cnt-outordr').innerText = jsonOutordr.length;
+			grdOutordr.clearFixedCellChecked(0, 0);
 		}
 	}
 
@@ -684,6 +685,58 @@
 		}
 	}
 
+
+	/**
+	 * @name fn_receiptCncl
+	 * @description 발주정보 접수 취소
+	 */
+	const fn_receiptCncl = async function() {
+
+		const receiptList = [];
+
+		const allData = grdOutordr.getGridDataAll();
+
+		for ( let i=0; i<allData.length; i++ ){
+			const rowData = allData[i];
+
+			if (_.isEqual("Y", rowData.checkedYn) && _.isEqual("Y", rowData.receiptYn)) {
+				receiptList.push(rowData);
+			}
+		}
+
+		if (receiptList.length == 0) {
+			gfn_comAlert("W0003", "접수취소");		//	W0003	{0}할 대상이 없습니다.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "접수취소")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		const param = {
+			ordrApcCd: gv_selectedApcCd,
+			dtlList: receiptList
+		}
+
+		try {
+			const postJsonPromise = gfn_postJSON("/am/ordr/deleteOutordrReceipt.do", param);
+			const data = await postJsonPromise;
+
+			if (_.isEqual("S", data.resultStatus)) {
+				gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+				await fn_search();
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);
+			}
+
+		} catch(e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
 
 	/**
 	 * @name fn_ordrRcptn

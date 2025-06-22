@@ -339,8 +339,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		jsessionId = welcomeResponse.cookie("JSESSIONID");
 
 		Document welcomeDoc = Jsoup.parse(welcomeResponse.body());
-		logger.debug("@@@welcomeDoc");
-		logger.debug(welcomeDoc.toString());
+		//logger.debug("@@@welcomeDoc");
+		//logger.debug(welcomeDoc.toString());
 		
 		
 		//login 처리 후 진행
@@ -366,8 +366,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 		
 		Document loginDoc = Jsoup.parse(loginPageResponse.body());
-		logger.debug("@@@loginDoc");
-		logger.debug(loginDoc.toString());
+		//logger.debug("@@@loginDoc");
+		//logger.debug(loginDoc.toString());
 		
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
@@ -1096,8 +1096,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 
 		Document loginDoc = Jsoup.parse(loginResponse.body());
-		logger.debug("@@@loginDoc");
-		logger.debug(loginDoc.toString());
+		//logger.debug("@@@loginDoc");
+		//logger.debug(loginDoc.toString());
 		
 
 		//http://gs.escm21.net/escm21/ord/pod.do?method=list
@@ -1139,8 +1139,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 
 		Document ordListDoc = Jsoup.parse(ordListResponse.body());
-		logger.debug("@@@@@@@@@@@@@ordListDoc");
-		logger.debug(ordListDoc.toString());
+		//logger.debug("@@@@@@@@@@@@@ordListDoc");
+		//logger.debug(ordListDoc.toString());
 
 
 		Elements mtsidEls = ordListDoc.select("[name='mtsid']");
@@ -1152,14 +1152,14 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		Elements rsltEls = ordListDoc.select("[name='rslt']");
 		Elements docNameEls = ordListDoc.select("[name='docname']");
 		
-		logger.debug("mtsidEls size: {}", mtsidEls.size());
-		logger.debug("docCountEls size: {}", docCountEls.size());
-		logger.debug("tmpRcptEls size: {}", tmpRcptEls.size());
-		logger.debug("tmpOrgtEls size: {}", tmpOrgtEls.size());
-		logger.debug("sndSizeEls size: {}", sndSizeEls.size());
-		logger.debug("rcvSizeEls size: {}", rcvSizeEls.size());
-		logger.debug("rsltEls size: {}", rsltEls.size());
-		logger.debug("docNameEls size: {}", docNameEls.size());
+		//logger.debug("mtsidEls size: {}", mtsidEls.size());
+		//logger.debug("docCountEls size: {}", docCountEls.size());
+		//logger.debug("tmpRcptEls size: {}", tmpRcptEls.size());
+		//logger.debug("tmpOrgtEls size: {}", tmpOrgtEls.size());
+		//logger.debug("sndSizeEls size: {}", sndSizeEls.size());
+		//logger.debug("rcvSizeEls size: {}", rcvSizeEls.size());
+		//logger.debug("rsltEls size: {}", rsltEls.size());
+		//logger.debug("docNameEls size: {}", docNameEls.size());
 		
 		
 		Elements elements = ordListDoc.select("[name='mtsid']");
@@ -1168,7 +1168,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		} // for end
 		
 		
-		logger.debug("@@@@@@@@@@@@@ordExcel");
+		//logger.debug("@@@@@@@@@@@@@ordExcel");
 //		
 //		// 주문목록 excel download
 //		//http://gs.escm21.net/escm21/ord/pod.do?method=list&job=exc
@@ -1356,13 +1356,17 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	@Override
 	public HashMap<String, Object> insertMrktOrdrRcpt(OrdrRcvVO ordrRcvVO) throws Exception {
 
-
 		String apcCd = ordrRcvVO.getApcCd();
 		String lgszMrktCd = ordrRcvVO.getLgszMrktCd();
 
 		String crtrYmdFrom = ordrRcvVO.getCrtrYmdFrom();
 		String crtrYmdTo = ordrRcvVO.getCrtrYmdTo();
 		String crtrYmd = ordrRcvVO.getCrtrYmd();
+
+		//logger.debug("@@@lgszMrktCd {}", lgszMrktCd);
+		//logger.debug("@@@crtrYmdFrom {}", crtrYmdFrom);
+		//logger.debug("@@@crtrYmdTo {}", crtrYmdTo);
+
 
 		if (!StringUtils.hasText(crtrYmdFrom)) {
 			crtrYmdFrom = crtrYmd;			
@@ -1492,8 +1496,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 		
 		Document loginDoc = Jsoup.parse(loginPageResponse.body());
-		logger.debug("@@@loginDoc");
-		logger.debug(loginDoc.toString());
+		//logger.debug("@@@loginDoc");
+		//logger.debug(loginDoc.toString());
 		
 		//Object obj = jsonParser.parse(loginPageResponse.body());
 		//JSONObject jsonObj = (JSONObject) obj;
@@ -1572,7 +1576,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                                                .method(Connection.Method.POST)
 	                                                .execute();
 
-		logger.debug("@@@ordrResponse");
+		//logger.debug("@@@ordrResponse");
 		Object objOrdr = jsonParser.parse(ordrResponse.body());
 		JSONObject jsonObjOrdr = (JSONObject) objOrdr;
 
@@ -1894,8 +1898,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .execute();
 		
 		Document logoutDoc = Jsoup.parse(logoutResponse.body());
-		logger.debug("@@@logoutDoc");
-		logger.debug(logoutDoc.toString());
+		//logger.debug("@@@logoutDoc");
+		//logger.debug(logoutDoc.toString());
 	}
 
 	@Override
@@ -1925,12 +1929,17 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		String ordrApcCd = mrktOrdrDtlVO.getOrdrApcCd();
 		String wrhsYmd = mrktOrdrDtlVO.getWrhsYmd();
+		String receiptYn = mrktOrdrDtlVO.getReceiptYn();
 
 		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
 
 			HashMap<String, Object> dtl = new HashMap<>();
 
 			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
+
+				if (ComConstants.CON_YES.equals(receiptYn)) {
+					ordrRcvMapper.updateMrktLinkPrcsHomeplus(dtlVO);
+				}
 
 				if (dtlList.size() > 0) {
 					ordr.put("DTL_LIST", dtlList);
@@ -1939,7 +1948,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 				ordr = new HashMap<>();
 				ordr.put("APC_CD", ordrApcCd);
-				ordr.put("GR_DATE", wrhsYmd);
+				ordr.put("GR_DATE", dtlVO.getWrhsYmd());
 				ordr.put("UNI_KEY", dtlVO.getOutordrno());
 				ordr.put("PO_NO", dtlVO.getOutordrno());
 				ordr.put("PO_AMT_SUM", dtlVO.getTotOutordrAmt());
@@ -2028,14 +2037,25 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		String ordrApcCd = ordrRcvVO.getApcCd();
 		String wrhsYmd = ordrRcvVO.getCrtrYmd();
+		String wrhsYmdFrom = ordrRcvVO.getCrtrYmdFrom();
+		String wrhsYmdTo = ordrRcvVO.getCrtrYmdTo();
 		String lgszMrktCd = ordrRcvVO.getLgszMrktCd();
-		
+
+		//logger.debug("@@@@ordrApcCd {}", ordrApcCd);
+		//logger.debug("@@@@wrhsYmd {}", wrhsYmd);
+		//logger.debug("@@@@lgszMrktCd {}", lgszMrktCd);
+
 	    SimpleDateFormat frmtYmd = new SimpleDateFormat("yyyyMMdd");
 	    SimpleDateFormat frmtYmdDash = new SimpleDateFormat("yyyy-MM-dd");
 
-	    Date frmtDate = frmtYmd.parse(wrhsYmd);
+	    //Date frmtDate = frmtYmd.parse(wrhsYmd);
+	    //String wrhsYmdDash =  frmtYmdDash.format(frmtDate);
+		String wrhsYmdFromDash =  frmtYmdDash.format(frmtYmd.parse(wrhsYmdFrom));
+		String wrhsYmdToDash =  frmtYmdDash.format(frmtYmd.parse(wrhsYmdTo));
 
-	    String wrhsYmdDash =  frmtYmdDash.format(frmtDate);
+
+		//logger.debug("@@@@wrhsYmdFromDash {}", wrhsYmdFromDash);
+		//logger.debug("@@@@wrhsYmdToDash {}", wrhsYmdToDash);
 
 		JSONParser jsonParser = new JSONParser();
 
@@ -2085,14 +2105,14 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		jsessionId = indexResponse.cookie("JSESSIONID");
-		logger.debug("@@@jsessionId {}", jsessionId);
+		//logger.debug("@@@jsessionId {}", jsessionId);
 		
 		wmonId = indexResponse.cookie("WMONID");
-		logger.debug("@@@jsessionId", jsessionId);
+		//logger.debug("@@@jsessionId", jsessionId);
 		
 		Document indexDoc = Jsoup.parse(indexResponse.body());
-		logger.debug("@@@indexDoc");
-		logger.debug(indexDoc.toString());
+		//logger.debug("@@@indexDoc");
+		//logger.debug(indexDoc.toString());
 
 		
 		
@@ -2121,15 +2141,15 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		
 		jsessionId2 = loginPageResponse.cookie("JSESSIONID");
 		
-		logger.debug("@@@jsessionId2 : {}", jsessionId2);
+		//logger.debug("@@@jsessionId2 : {}", jsessionId2);
 		Document loginDoc = Jsoup.parse(loginPageResponse.body());
-		logger.debug("@@@loginDoc");
-		logger.debug(loginDoc.toString());
+		//logger.debug("@@@loginDoc");
+		//logger.debug(loginDoc.toString());
 		
 		Object obj = jsonParser.parse(loginPageResponse.body());
 		JSONObject jsonObj = (JSONObject) obj;
 
-		logger.debug("@@@jsonObj", jsonObj.toJSONString());
+		//logger.debug("@@@jsonObj", jsonObj.toJSONString());
 		
 		
 		params = new HashMap<>();
@@ -2155,12 +2175,12 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 		obj = jsonParser.parse(otpResponse.body());
 		jsonObj = (JSONObject) obj;
-		logger.debug("@@@otpObj");
-		logger.debug(jsonObj.toString());
+		//logger.debug("@@@otpObj");
+		//logger.debug(jsonObj.toString());
 		
 		String otpKey = (String)jsonObj.get("data");
-		logger.debug("@@@otpKey {}", otpKey);
-		logger.debug("@@@otp jess {}", otpResponse.cookie("JSESSIONID"));
+		//logger.debug("@@@otpKey {}", otpKey);
+		//logger.debug("@@@otp jess {}", otpResponse.cookie("JSESSIONID"));
 		
 		if (!StringUtils.hasText(otpKey)) {
 			// 
@@ -2200,15 +2220,15 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 		
 		Document ssoDoc = ssoResponse.parse();
-		logger.debug("@@@ssoDoc");
-		logger.debug(ssoDoc.toString());
+		//logger.debug("@@@ssoDoc");
+		//logger.debug(ssoDoc.toString());
 		
 		Element ssoEl = ssoDoc.select("input").first();
 		//Element ssoEl = ssoDoc.select("input[name='_'").first();
 		String ssoKey = ssoEl.attr("value");
 		
-		logger.debug("@@@ssoKey {}", ssoKey);
-		logger.debug("@@@ssoKey jess {}", ssoResponse.cookie("JSESSIONID"));
+		//logger.debug("@@@ssoKey {}", ssoKey);
+		//logger.debug("@@@ssoKey jess {}", ssoResponse.cookie("JSESSIONID"));
 		
 		
 		
@@ -2238,20 +2258,20 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		                                                .execute();
 		obj = jsonParser.parse(ssoChkResponse.body());
 		jsonObj = (JSONObject) obj;
-		logger.debug("@@@ssoChk");
-		logger.debug(jsonObj.toString());		
+		//logger.debug("@@@ssoChk");
+		//logger.debug(jsonObj.toString());
 		jsessionId3 = ssoChkResponse.cookie("JSESSIONID");
-		logger.debug("@@@ssoChk jsessionId3 {}", ssoChkResponse.cookie("JSESSIONID"));
+		//logger.debug("@@@ssoChk jsessionId3 {}", ssoChkResponse.cookie("JSESSIONID"));
 		
 		// main/main
 		
 		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
 		
 		url = originUrl + "scm/main/main";
-		logger.debug("@@@mainResponse {}", url);
+		//logger.debug("@@@mainResponse {}", url);
 		params = new HashMap<>();
 		params.put("_", Long.toString(currentUnixTime));
-		logger.debug("@@@_ {}", Long.toString(currentUnixTime));
+		//logger.debug("@@@_ {}", Long.toString(currentUnixTime));
 
 		Connection.Response mainResponse = Jsoup.connect(url)
 										                .timeout(3000)
@@ -2269,8 +2289,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 										                .method(Connection.Method.POST)
 										                .execute();
 		
-		logger.debug("@@@mainResponse {}", mainResponse.toString());
-		logger.debug("@@@mainResponse.body() {}", mainResponse.body());
+		//logger.debug("@@@mainResponse {}", mainResponse.toString());
+		//logger.debug("@@@mainResponse.body() {}", mainResponse.body());
 		
 		
 		currentUnixTime = System.currentTimeMillis() / 1000; // 초 단위로 변환
@@ -2296,8 +2316,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.POST)
                 .execute();
 		
-		logger.debug("@@@main2Response {}", main2Response.toString());
-		logger.debug("@@@main2Response.body() {}", main2Response.body());
+		//logger.debug("@@@main2Response {}", main2Response.toString());
+		//logger.debug("@@@main2Response.body() {}", main2Response.body());
 		
 		// ordr list
 		
@@ -2307,8 +2327,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		params = new HashMap<>();
 		params.put("_dc", Long.toString(currentUnixTime));
 		params.put("sender", "");
-		params.put("startDt", wrhsYmdDash);
-		params.put("endDt", wrhsYmdDash);
+		params.put("startDt", wrhsYmdFromDash);
+		params.put("endDt", wrhsYmdToDash);
 		params.put("docNm", "ORDERS");
 		params.put("searchDoc", "all");
 		params.put("orderGubn", "all");
@@ -2336,10 +2356,10 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .method(Connection.Method.GET)
                 .execute();
 		
-		logger.debug("@@@ordrDoc sid", ordrResponse.cookie("JSESSIONID"));
+		//logger.debug("@@@ordrDoc sid", ordrResponse.cookie("JSESSIONID"));
 		
-		logger.debug("@@@ordrResponse {}", ordrResponse.toString());
-		logger.debug("@@@ordrResponse.body() {}", ordrResponse.body());
+		//logger.debug("@@@ordrResponse {}", ordrResponse.toString());
+		//logger.debug("@@@ordrResponse.body() {}", ordrResponse.body());
 		
 		Object objOrdr = jsonParser.parse(ordrResponse.body());
 		JSONObject jsonObjOrdr = (JSONObject) objOrdr;
@@ -2349,7 +2369,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		if (hasError) {
 			
 			String errorMessage = (String)jsonObjOrdr.get("message");
-			logger.debug("@@@ errorMessage : {}", errorMessage);
+			//logger.debug("@@@ errorMessage : {}", errorMessage);
 			
 			rtnObj = ComUtil.getResultMap(ComConstants.MSGCD_ERR_CUSTOM, errorMessage);
 			
@@ -2502,18 +2522,18 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 	                .execute();
 			
 			Document dtlPopDoc = dtlPopResponse.parse();
-			logger.debug("@@@dtlPopDoc");
-			logger.debug(dtlPopDoc.toString());
+			//logger.debug("@@@dtlPopDoc");
+			//logger.debug(dtlPopDoc.toString());
 						
 			Elements ordrEls = dtlPopDoc.select(".basic_table_area table tr td");
-			logger.debug("@@@ordrEls");
-			logger.debug(ordrEls.toString());
+			//logger.debug("@@@ordrEls");
+			//logger.debug(ordrEls.toString());
 			
 			int iOrdr = -1;
 			for( Element ordrEl : ordrEls ) {
 				iOrdr++;
 				ordrMap.put(ordrCol[iOrdr], ordrEl.text());
-				logger.debug("iOrdr {}, text {}", iOrdr, ordrEl.text());
+				//logger.debug("iOrdr {}, text {}", iOrdr, ordrEl.text());
 			}
 			
 			ordrMap.put("TRSM_YMD", trsmYmd);
@@ -2590,12 +2610,12 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			String warehouseCd = ordr.get("WAREHOUSE_CD");
 			String warehouseNm = ordr.get("WAREHOUSE_NM");
 			String ordrDsctn = ordr.get("ORDR_DSCTN");
-			
+			String ymd = ComUtil.nullToEmpty(ordr.get("WRHS_YMD")).replace("-", "");
 			MrktOrdrVO ordrVO = new MrktOrdrVO();
 			List<MrktOrdrDtlVO> dtlList = new ArrayList<>();
 			
 			ordrVO.setOrdrApcCd(ordrApcCd);				// 주문APC코드
-			ordrVO.setWrhsYmd(wrhsYmd);
+			ordrVO.setWrhsYmd(ymd);
 			
 			ordrVO.setLgszMrktCd(lgszMrktCd);
 			
@@ -2684,8 +2704,9 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 				MrktOrdrDtlVO dtlVO = new MrktOrdrDtlVO();
 				
 				dtlVO.setOrdrApcCd(ordrApcCd);
-				dtlVO.setWrhsYmd(wrhsYmd);
-				dtlVO.setOutordrno(outordrno);	
+				//dtlVO.setWrhsYmd(wrhsYmd);
+				dtlVO.setWrhsYmd(ymd);
+				dtlVO.setOutordrno(outordrno);
 				dtlVO.setDtlSeq(dtlSeq);
 				dtlVO.setMrktGdsCd(mrktGdsCd);
 				dtlVO.setMrktGdsNm(mrktGdsNm);
@@ -2782,8 +2803,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
                 .execute();
 		
 		Document logoutDoc = Jsoup.parse(logoutResponse.body());
-		logger.debug("@@@logoutDoc");
-		logger.debug(logoutDoc.toString());
+		//logger.debug("@@@logoutDoc");
+		//logger.debug(logoutDoc.toString());
 	}
 
 	@Override
@@ -2798,6 +2819,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 		String ordrApcCd = mrktOrdrDtlVO.getOrdrApcCd();
 		String wrhsYmd = mrktOrdrDtlVO.getWrhsYmd();
+		String receiptYn = mrktOrdrDtlVO.getReceiptYn();
 
 		List<MrktOrdrDtlVO> ordrDtlList = ordrRcvMapper.selectOrglnOrdrLotteDtl(mrktOrdrDtlVO);
 
@@ -2812,6 +2834,10 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 			if (!ComUtil.nullToEmpty(outordrno).equals(dtlVO.getOutordrno())) {
 
+				if (ComConstants.CON_YES.equals(receiptYn)) {
+					ordrRcvMapper.updateMrktLinkPrcsLotte(dtlVO);
+				}
+
 				if (dtlList.size() > 0) {
 					ordr.put("DTL_LIST", dtlList);
 					ordrList.add(ordr);
@@ -2819,7 +2845,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 				ordr = new HashMap<>();
 				ordr.put("APC_CD", ordrApcCd);
-				ordr.put("WRHS_YMD", wrhsYmd);
+				ordr.put("WRHS_YMD", dtlVO.getWrhsYmd());
 				ordr.put("DOC_NO", dtlVO.getOutordrno());
 				ordr.put("OUTORDR_AMT", dtlVO.getTotOutordrAmt());
 				ordr.put("OUTORDR_YMD", dtlVO.getOutordrYmd());
