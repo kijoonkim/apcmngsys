@@ -119,6 +119,20 @@ public interface OrdrRcvMapper {
 	 * @throws Exception
 	 */
 	public List<MrktOrdrDtlVO> selectOrglnOrdrLotteDtl(MrktOrdrDtlVO mrktLotteDtlVO) throws Exception;
-	
-	
+
+	/**
+	 * 홈플러스 연계처리
+	 * @param mrktLotteDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateMrktLinkPrcsHomeplus(MrktOrdrDtlVO mrktLotteDtlVO) throws Exception;
+
+	/**
+	 * 롯데 연계처리
+	 * @param mrktLotteDtlVO
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateMrktLinkPrcsLotte(MrktOrdrDtlVO mrktLotteDtlVO) throws Exception;
 }

@@ -370,10 +370,13 @@
 			   AND MD.OUTORDRNO = MH.OUTORDRNO
 
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
-			   AND MH.WRHS_YMD = #{wrhsYmd}
 		]]>
+		<if test='wrhsYmd != null and wrhsYmd != ""'>
+				AND MH.WRHS_YMD = #{wrhsYmd}
+		</if>
 		<choose>
 			<when test='receiptYn != null and receiptYn.equals("Y")'>
+				AND MH.PRCS_SE_CD = 'N'
 				AND EXISTS (
 					SELECT 1
 					  FROM TB_OUTORDR_INFO OI
@@ -467,10 +470,13 @@
 			   AND MD.OUTORDRNO = MH.OUTORDRNO
 			   
 			 WHERE MH.ORDR_APC_CD = #{ordrApcCd}
-			   AND MH.WRHS_YMD = #{wrhsYmd}
 		]]>
+		<if test='wrhsYmd != null and wrhsYmd != ""'>
+			AND MH.WRHS_YMD = #{wrhsYmd}
+		</if>
 		<choose>
 			<when test='receiptYn != null and receiptYn.equals("Y")'>
+				AND MH.PRCS_SE_CD = 'N'
 				AND EXISTS (
 				SELECT 1
 				FROM TB_OUTORDR_INFO OI
@@ -605,6 +611,50 @@
     		}
 		]]>
 	</insert>
+
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus	-->
+	<!-- DESC : 연계처리-홈플러스                          	        				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateMrktLinkPrcsHomeplus" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsHomeplus */
+				TB_MRKT_ORDR_IF_HP
+			SET
+				  PRCS_SE_CD	= 'Y'
+				, LINK_PRCS_DT	= SYSDATE
+			 WHERE ORDR_APC_CD = #{ordrApcCd}
+			   AND WRHS_YMD = #{wrhsYmd}
+			   AND ORDR_SEQ = #{ordrSeq}
+		]]>
+	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte	-->
+	<!-- DESC : 연계처리-롯데                          	        				-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.08.24  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="updateMrktLinkPrcsLotte" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+    	<![CDATA[
+			UPDATE /* com.at.apcss.am.ordr.mapper.OrdrRcvMapper.updateMrktLinkPrcsLotte */
+				TB_MRKT_ORDR_IF_LT
+			SET
+				  PRCS_SE_CD	= 'Y'
+				, LINK_PRCS_DT	= SYSDATE
+			WHERE ORDR_APC_CD = #{ordrApcCd}
+			  AND WRHS_YMD = #{wrhsYmd}
+			  AND ORDR_SEQ = #{ordrSeq}
+		]]>
+	</update>
 
 
 </mapper>
