@@ -490,6 +490,7 @@
 	];
 	let choicePrdcrLandInfoNo = "";
 	var excelYn = "N";
+    var btnClick = "N";
 
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
@@ -721,7 +722,8 @@
                 typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
+                typeinfo : {callback: fn_modalStdgCd}},
 	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
 	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
         	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '55px', style: 'text-align:center',
@@ -1654,53 +1656,47 @@
 	    return nextMonthFirstDay.getDate();
 	}
 
-	const fn_search = async function () {
-
-
+	const fn_search = async function() {
 		let choiceTab = SBUxMethod.get("idxTab_norm");
-
 		let prdcrCdDtl = SBUxMethod.get("dtl-inp-prdcrCd");
 
 		choicePrdcrLandInfoNo = "";
 
+        if(choiceTab == 'frmerInfoTab') {
+            // 영농일지 재배 이력 grid clear
+            jsonCltvtnHstryPrdcr.length = 0;
+            grdCltvtnHstryPrdcr.refresh();
 
+            if(!gfn_isEmpty(prdcrCdDtl)) {
+                await Promise.all([
+                    fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl),
+                    fn_setPrdcrLandInfo(prdcrCdDtl)
+                ]);
 
-		switch (choiceTab) {
-			case "frmerInfoTab":
-				//영농일지 재배 이력 grid clear
-				jsonCltvtnHstryPrdcr.length = 0;
-				grdCltvtnHstryPrdcr.refresh();
-
-				if (!gfn_isEmpty(prdcrCdDtl)) {
-
-					await Promise.all([
-						fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl),
-						fn_setPrdcrLandInfo(prdcrCdDtl)
-					]);
-
-					if (!gfn_isEmpty(choicePrdcrLandInfoNo)) {
-						await fn_setCltvtnHstryPrdcr();
-					}
-				} else {
-					gfn_comAlert("W0001", "농가");				//	W0002	{0}을/를 선택하세요.
-					return;
-				}
-				break;
-			case "frmhsQltTab":
-				fn_setCltvtnFrmhsQlt(prdcrCdDtl);
-				break;
-			case "frmhsExpctWrhsTab":
-				fn_setFrmhsExpctWrhs();
-				break;
-			case "cltvtnHstryTab":
-				fn_setCltvtnHstry();
-				break;
-			case "landInfoTab":
-				fn_setLandInfo();
-				break;
-			default:
-				break;
-		}
+                if(!gfn_isEmpty(choicePrdcrLandInfoNo)) {
+                    await fn_setCltvtnHstryPrdcr();
+                }
+            } else {
+                gfn_comAlert("W0001", "농가");    // W0002    {0}을/를 선택하세요.
+                return;
+            }
+        } else if(choiceTab == 'frmhsQltTab') {
+            await Promise.all([
+                fn_setCltvtnFrmhsQlt(prdcrCdDtl)
+            ]);
+        } else if(choiceTab == 'frmhsExpctWrhsTab') {
+            await Promise.all([
+                fn_setFrmhsExpctWrhs()
+            ]);
+        } else if(choiceTab == 'cltvtnHstryTab') {
+            await Promise.all([
+                fn_setCltvtnHstry()
+            ]);
+        } else if(choiceTab == 'landInfoTab') {
+            await Promise.all([
+                fn_setLandInfo()
+            ]);
+        }
 	}
 
 	/**
@@ -2297,6 +2293,7 @@
     		let rowData = grdLandInfo.getRowData(nRow);
     		grdLandInfo.setCellData(nRow, nCol, "N", true);
 
+            btnClick = "Y";
     		grdLandInfo.addRow(true);
     		grdLandInfo.setCellDisabled(0, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, false);
     		grdLandInfo.setCellDisabled(grdLandInfo.getRows() -1, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, true);
@@ -2305,6 +2302,7 @@
 
     		let rowData = grdLandInfo.getRowData(nRow);
     		let prdcrLandInfoNo = rowData.prdcrLandInfoNo ;
+            btnClick = "N";
 
     		if (gfn_isEmpty(prdcrLandInfoNo)) {
     			grdLandInfo.deleteRow(nRow);
@@ -2349,6 +2347,7 @@
     		let rowData = grdPrdcrLandInfo.getRowData(nRow);
     		grdPrdcrLandInfo.setCellData(nRow, nCol, "N", true);
 
+            btnClick = "Y";
     		grdPrdcrLandInfo.addRow(true);
     		grdPrdcrLandInfo.setCellDisabled(0, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, false);
     		grdPrdcrLandInfo.setCellDisabled(grdPrdcrLandInfo.getRows() -1, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, true);
@@ -2357,6 +2356,7 @@
 
     		let rowData = grdPrdcrLandInfo.getRowData(nRow);
     		let prdcrLandInfoNo = rowData.prdcrLandInfoNo ;
+            btnClick = "N";
 
     		if (gfn_isEmpty(prdcrLandInfoNo)) {
     			grdPrdcrLandInfo.deleteRow(nRow);
@@ -2522,6 +2522,7 @@
 		}
 
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+            console.log("landInfoList: ", landInfoList);
     		return;
     	}
 
@@ -3168,19 +3169,57 @@
      * @description 법정동코드선택 callback
      */
     const fn_setStdg = function(stdg) {
-        let nRow = grdLandInfo.getRow();
-        let stdgCdCol = grdLandInfo.getColRef("stdgCd");
+        let choiceTab = SBUxMethod.get("idxTab_norm");
+        let nRow;
+        let stdgCdCol;
 
-        if(!gfn_isEmpty(stdg)) {
-            let gridData = grdLandInfo.getGridDataAll();
-            if(gridData.length > 2) {
-                grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
-                grdLandInfo.setRowStatus(nRow, 2);
-            } else {
-                grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
-            }
+        switch(choiceTab) {
+            case "frmerInfoTab":
+                nRow = grdPrdcrLandInfo.getRow();
+                stdgCdCol = grdPrdcrLandInfo.getColRef("stdgCd");
 
-            grdLandInfo.refresh();
+                if(!gfn_isEmpty(stdg)) {
+                    let gridData = grdPrdcrLandInfo.getGridDataAll();
+                    if(gridData.length > 2) {
+                        grdPrdcrLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+
+                        if(btnClick == "Y") {
+                            grdPrdcrLandInfo.setRowStatus(nRow, 3);
+                        } else {
+                            grdPrdcrLandInfo.setRowStatus(nRow, 2);
+                        }
+                    } else {
+                        grdPrdcrLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+                    }
+
+                    btnClick = "N"
+                    grdPrdcrLandInfo.refresh();
+                }
+                break;
+            case "landInfoTab":
+                nRow = grdLandInfo.getRow();
+                stdgCdCol = grdLandInfo.getColRef("stdgCd");
+
+                if(!gfn_isEmpty(stdg)) {
+                    let gridData = grdLandInfo.getGridDataAll();
+                    if(gridData.length > 2) {
+                        grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+
+                        if(btnClick == "Y") {
+                            grdLandInfo.setRowStatus(nRow, 3);
+                        } else {
+                            grdLandInfo.setRowStatus(nRow, 2);
+                        }
+                    } else {
+                        grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+                    }
+
+                    btnClick = "N"
+                    grdLandInfo.refresh();
+                }
+                break;
+            default:
+                break;
         }
     }
 
