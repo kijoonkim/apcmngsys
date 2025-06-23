@@ -724,8 +724,8 @@
                 typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
                 typeinfo : {callback: fn_modalStdgCd}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
         	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '55px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
 	    ];
@@ -1072,8 +1072,8 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
                 typeinfo : {callback: fn_modalStdgCd}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 	    	{caption : [''], 			ref: 'rmrk', 		type: 'output', width: '200px', },
 	    ];
 	    grdLandInfo = _SBGrid.create(SBGridProperties);
@@ -3540,8 +3540,8 @@
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '100px', style: 'text-align: right;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 		];
 		return _columns;
 
