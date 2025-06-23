@@ -1,13 +1,5 @@
 package com.at.apcss.am.wrhs.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
-import org.springframework.stereotype.Service;
-
 import com.at.apcss.am.cmns.service.ComAtchflService;
 import com.at.apcss.am.cmns.service.PrdcrService;
 import com.at.apcss.am.cmns.vo.ComAtchflVO;
@@ -15,17 +7,17 @@ import com.at.apcss.am.cmns.vo.PrdcrVO;
 import com.at.apcss.am.wrhs.mapper.FrmerInfoMapper;
 import com.at.apcss.am.wrhs.service.FrmerInfoService;
 import com.at.apcss.am.wrhs.service.PrdcrLandInfoService;
-import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
-import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.CltvtnListVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
-import com.at.apcss.am.wrhs.vo.PrdcrLandInfoVO;
+import com.at.apcss.am.wrhs.vo.*;
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.service.impl.BaseServiceImpl;
 import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Class Name : FrmerInfoServiceServiceImpl.java
@@ -695,4 +687,11 @@ public class FrmerInfoServiceImpl extends BaseServiceImpl implements FrmerInfoSe
 		}
 		return null;
 	}
+
+    @Override
+    public List<StdgVO> selectStdgList(StdgVO stdgVO) throws Exception {
+        List<StdgVO> resultList = new ArrayList<>();
+        resultList = frmerInfoMapper.selectStdgList(stdgVO);
+        return resultList;
+    }
 }
