@@ -134,5 +134,11 @@ public interface ApcEvrmntStngService {
 
 	public List<ApcEvrmntStngVO> selectApcEvrmntStngListForFarmUser(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 
-
+	/**
+	 * APC환경설정 정보 목록 조회
+	 * @param apcEvrmntStngVO
+	 * @return List
+	 * @throws Exception
+	 */
+    List<ApcEvrmntStngVO> selectApcEvrmntStngList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception;
 }

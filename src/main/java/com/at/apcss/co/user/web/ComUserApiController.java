@@ -1,14 +1,23 @@
 package com.at.apcss.co.user.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.am.apc.service.ApcEvrmntStngService;
+import com.at.apcss.am.apc.service.ApcLinkService;
+import com.at.apcss.am.apc.vo.ApcEvrmntStngVO;
+import com.at.apcss.am.apc.vo.ApcLinkVO;
+import com.at.apcss.am.constants.AmConstants;
+import com.at.apcss.mobile.service.MobileApiService;
 import org.egovframe.rte.fdl.cmmn.trace.LeaveaTrace;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,6 +71,16 @@ public class ComUserApiController extends BaseController {
 	/** TRACE */
 	@Resource(name = "leaveaTrace")
 	LeaveaTrace leaveaTrace;
+
+	@Resource(name= "mobileApiService")
+	private MobileApiService mobileApiService;
+
+	// APC 환경설정
+	@Resource(name = "apcEvrmntStngService")
+	private ApcEvrmntStngService apcEvrmntStngService;
+
+	@Resource(name = "apcLinkService")
+	private ApcLinkService apcLinkService;
 
 	/** JWT */
 	@Autowired
@@ -244,6 +263,140 @@ public class ComUserApiController extends BaseController {
 
 		resultMap.put(ComConstants.PROP_UPDATED_CNT, updatedCnt);
 		logger.info("=============updComUserPwd======end=======");
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@GetMapping(value = "/co/user/getApcAgtStats.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	@ResponseBody
+	public JSONObject getApcAgtStats(HttpServletRequest request) throws Exception {
+		 JSONObject resultJson = new JSONObject();
+
+		 try {
+			  //APC에이전트상태 업데이트 SP호출
+			  mobileApiService.callSpApcAgtStatsUpdate();
+
+			  Map<String, Object> result = mobileApiService.getApcAgtStats();
+			  resultJson.put("result", result);
+		 } catch(Exception e) {
+			  throw new RuntimeException(e);
+		 }
+
+		 return resultJson;
+	}
+	@PostMapping(value = "/co/user/selectApcEvrmntStngList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcEvrmntStngs(@RequestBody ApcEvrmntStngVO apcEvrmntStngVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		List<ApcEvrmntStngVO> resultList = new ArrayList<>();
+		try {
+			resultList = apcEvrmntStngService.selectApcEvrmntStngList(apcEvrmntStngVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put("resultList", resultList);
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	@GetMapping("/co/user/getCountAllPrdcr.do")
+	@ResponseBody
+	public JSONObject getCountAllPrdcr(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+
+		try {
+			resultJson.put("result", mobileApiService.getCountAllPrdcr());
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}
+	@GetMapping("/co/user/getStatsForOneYearBySearchYmd.do")
+	@ResponseBody
+	public JSONObject getStatsForOneYearBySearchYmd(HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			Map<String, Object> result = mobileApiService.getStatsForOneYearBySearchYmd();
+			resultJson.put("success", true);
+			resultJson.put("message", "성공");
+			resultJson.put("result", result);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}
+	@PostMapping(value = "/co/user/selectApcLinkTrsmMatSttsList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectApcLinkTrsmMatSttsList(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<ApcLinkVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = apcLinkService.selectApcLinkTrsmMatSttsList(apcLinkVO);
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC 연계기기 상태 update : 취소
+	@PostMapping(value = "/co/user/updateLinkTrsmReqCncl.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateLinkTrsmReqCncl(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			apcLinkVO.setLinkStts(AmConstants.CON_LINK_STTS_REQ_CNCL);
+
+			HashMap<String, Object> rtnObj = apcLinkService.updateLinkTrsmMatStts(apcLinkVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+	// APC 연계기기 상태 update : 요청
+	@PostMapping(value = "/co/user/updateLinkTrsmReq.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> updateLinkTrsmReq(@RequestBody ApcLinkVO apcLinkVO, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		try {
+			apcLinkVO.setLinkStts(AmConstants.CON_LINK_STTS_REQ_DONE);
+
+			HashMap<String, Object> rtnObj = apcLinkService.updateLinkTrsmMatStts(apcLinkVO);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch(Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if(rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+
 		return getSuccessResponseEntity(resultMap);
 	}
 }
