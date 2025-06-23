@@ -232,22 +232,14 @@
 						{apcCd: gv_selectedApcCd}
 					);
 	        const data = await postJsonPromise;
+			if (_.isEqual("S", data.resultStatus)) {
 
-	        if (_.isEqual("S", data.resultStatus)) {
+				const apcLink = data.resultMap;
+				fn_setApcLink(apcLink);
 
-	        	if (_.isEqual("S", data.resultStatus)) {
-
-		        	const apcLink = data.resultMap;
-					fn_setApcLink(apcLink);
-
-	        	} else {
-	        		fn_setApcLink(false);
-	        	}
-
-        	} else {
-        		fn_setApcLink(false);
-        	}
-
+			} else {
+				fn_setApcLink(false);
+			}
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
