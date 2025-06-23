@@ -447,6 +447,23 @@
     <div id="body-modal-ddln">
     	<jsp:include page="../../am/popup/frmhsExpctWrhsDdlnPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 법정동 선택 Modal -->
+    <div>
+        <sbux-modal
+            id="modal-stdgCd"
+            name="modal-stdgCd"
+            uitype="middle"
+            header-title="법정동코드 조회"
+            body-html-id="body-modal-stdgCd"
+            footer-is-close-button="false"
+            header-is-close-button="false"
+            style="width: 900px;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-stdgCd">
+        <jsp:include page="../../am/popup/stdgCdPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -1051,7 +1068,8 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '100px', style: 'text-align: right;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
+                typeinfo : {callback: fn_modalStdgCd}},
 	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
 	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
 	    	{caption : [''], 			ref: 'rmrk', 		type: 'output', width: '200px', },
@@ -3132,6 +3150,39 @@
 		}
 	}
 
+    /**
+     * @name fn_modalStdgCd
+     * @description 법정동코드선택팝업 호출
+     */
+    const fn_modalStdgCd = function() {
+        let nRow = grdLandInfo.getRow();
+        let stdgCd = nRow.stdgCd;
+
+        SBUxMethod.openModal('modal-stdgCd');
+
+        popStdgCd.init(gv_selectedApcCd, gv_selectedApcNm, stdgCd, fn_setStdg);
+    }
+
+    /**
+     * @name fn_setStdg
+     * @description 법정동코드선택 callback
+     */
+    const fn_setStdg = function(stdg) {
+        let nRow = grdLandInfo.getRow();
+        let stdgCdCol = grdLandInfo.getColRef("stdgCd");
+
+        if(!gfn_isEmpty(stdg)) {
+            let gridData = grdLandInfo.getGridDataAll();
+            if(gridData.length > 2) {
+                grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+                grdLandInfo.setRowStatus(nRow, 2);
+            } else {
+                grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+            }
+
+            grdLandInfo.refresh();
+        }
+    }
 
 	/*
 	* 상세 정보 생산자 팝업 관련 function
