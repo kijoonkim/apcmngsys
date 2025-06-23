@@ -12,6 +12,8 @@ import egovframework.let.utl.fcc.service.EgovFormBasedFileUtil;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -28,6 +31,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @Class Name : SprtBizRegMngController.java
@@ -227,14 +232,12 @@ public class SprtBizRegMngController extends BaseController {
                 sprtBizRegFile.setBrno(sprtBizRegMngVO.getBrno());
                 sprtBizRegFile.setCrno(sprtBizRegMngVO.getCrno());
 
-
                 sprtBizRegFile.setAplyDocCd("BIZ_PLAN");
                 sprtBizRegFile.setFilePathNm(folderPath);
                 sprtBizRegFile.setLgcFileNm(fileRealName);
                 sprtBizRegFile.setPhysFileNm(physicalFileName);
                 sprtBizRegFile.setFileSz(size);
                 sprtBizRegFile.setFileExtnNm(fileExtension);
-
 
                 sprtBizRegFile.setSysFrstInptPrgrmId("pdFileUpload");
                 sprtBizRegFile.setSysFrstInptUserId(getUserId());
@@ -326,15 +329,141 @@ public class SprtBizRegMngController extends BaseController {
         //파일 경로명
         String filePathNm = result.getFilePathNm();
         //원본 파일명
-        String orgFileNm = result.getLgcFileNm();
+        String lgcFileNm = result.getLgcFileNm();
+        //법인명
+        String corpNm = result.getCorpNm();
+        //사업자번호
+        String brno = result.getBrno();
 
-        String convertFileNm = URLEncoder.encode(orgFileNm, "utf-8").replaceAll("\\+", "%20");
+        String fileNm = corpNm + "_" + brno + "_" + lgcFileNm;
+        String convertFileNm = URLEncoder.encode(fileNm, "utf-8").replaceAll("\\+", "%20");
 
         //물리 파일명
         String filename = srvrFileNm + "_" + fileExtnNm;
 
         EgovFormBasedFileUtil.downloadFile(response, uploadPath, filePathNm, filename, convertFileNm);
 
+    }
+
+    // 신청서 일괄 확인
+    @PostMapping(value = "/pd/pcorm/updateSprtBizAplyDocAllAprv.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> updateSprtBizAplyDocAllAprv(@RequestBody List<SprtBizRegMngVO> updateSprtBizAplyDocAllAprvList, HttpServletRequest request) throws Exception{
+
+        HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+        for (SprtBizRegMngVO sprtBizRegMngVO : updateSprtBizAplyDocAllAprvList){
+            sprtBizRegMngVO.setSysFrstInptUserId(getUserId());
+            sprtBizRegMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+            sprtBizRegMngVO.setSysLastChgUserId(getUserId());
+            sprtBizRegMngVO.setSysLastChgPrgrmId(getPrgrmId());
+        }
+
+        try {
+            HashMap<String, Object> rtnObj = sprtBizRegMngService.updateSprtBizAplyDocAllAprv(updateSprtBizAplyDocAllAprvList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }  catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
+    @GetMapping("/pd/pcorm/sprtDownloadAll/{sprtBizYr}/{sprtBizCd}")
+    public void sprtDownloadAll(@PathVariable String sprtBizYr,@PathVariable String sprtBizCd, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        String zipFileNm = "산지조직지원 신청관리 제출 서류 일괄 다운로드.zip";
+        String convertFileNm = URLEncoder.encode(zipFileNm, "utf-8").replaceAll("\\+", "%20");
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/zip");
+        response.addHeader("Content-Disposition", "attachment; filename=\"" + convertFileNm +  "\";");
+
+        String uploadPath = getFilepathPd();
+
+        SprtBizRegFileVO sprtBizRegFileVO = new SprtBizRegFileVO();
+        sprtBizRegFileVO.setSprtBizYr(sprtBizYr);
+        sprtBizRegFileVO.setSprtBizCd(sprtBizCd);
+
+        List<SprtBizRegFileVO> resultList = sprtBizRegMngService.selectSprtFileInfoList(sprtBizRegFileVO);
+
+        if(resultList != null) {
+            ZipOutputStream zipOut = null;
+            FileInputStream fis = null;
+
+            try {
+
+                zipOut = new ZipOutputStream(response.getOutputStream());
+
+                for (SprtBizRegFileVO result : resultList) {
+                    //서버 저장 파일명
+                    String physFileNm = result.getPhysFileNm();
+                    //확장자명
+                    String fileExtnNm = result.getFileExtnNm();
+                    //파일 경로명
+                    String filePathNm = result.getFilePathNm();
+                    //원본 파일명
+                    String lgcFileNm = result.getLgcFileNm();
+                    //법인명
+                    String corpNm = result.getCorpNm();
+                    //사업자번호
+                    String brno = result.getBrno();
+                    //서류 종류
+                    String aplyDocCd = result.getAplyDocCd();
+
+                    String dcmntKndNm = "";
+                    if (aplyDocCd.equals("BIZ_APLY")) {
+                        dcmntKndNm = "신청서";
+                    } else if (aplyDocCd.equals("BIZ_PLAN")) {
+                        dcmntKndNm = "사업계획서";
+                    }
+                    //압축할 실제 파일명
+                    String realFileName = corpNm + "_" + brno + "_" + dcmntKndNm + "_" + lgcFileNm;
+                    //String convertFileNm = URLEncoder.encode(orgFileNm, "utf-8").replaceAll("\\+", "%20");
+
+                    //파일 경로
+                    String filePath = uploadPath + File.separator + filePathNm + File.separator;
+                    //물리 파일명
+                    String fileName = physFileNm + "_" + fileExtnNm;
+
+                    File newFile = new File(filePath + fileName);
+
+                    //파일 존재 여부 체크
+                    if(newFile.exists()) {
+                        zipOut.putNextEntry(new ZipEntry(realFileName));
+                        fis = new FileInputStream(newFile);
+
+                        StreamUtils.copy(fis, zipOut);
+                        fis.close();
+                        zipOut.closeEntry();
+                    }
+                }
+                zipOut.close();
+
+//			}
+//			catch (IOException e) {
+//				if (fis != null) {
+//					fis.close();
+//				}
+//				if (zipOut != null) {
+//					zipOut.closeEntry();
+//				}
+//				try { if(fis != null)fis.close(); } catch (IOException e1) {logger.debug(e1.getMessage());/*ignore*/}
+//				try { if(zipOut != null)zipOut.closeEntry();} catch (IOException e2) {logger.debug(e2.getMessage());/*ignore*/}
+//				try { if(zipOut != null)zipOut.close();} catch (IOException e3) {logger.debug(e3.getMessage());/*ignore*/}
+            } finally {
+                if (fis != null) {
+                    fis.close();
+                }
+                if (zipOut != null) {
+                    zipOut.close();
+                }
+            }
+        }
     }
 
     private String makeFolder(){

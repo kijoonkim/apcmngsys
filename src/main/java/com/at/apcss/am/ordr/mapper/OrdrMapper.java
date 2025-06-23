@@ -104,4 +104,18 @@ public interface OrdrMapper {
 	 * @throws Exception
 	 */
 	public int updateOutordrReceipt(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+
+	/**
+	 * 발주정보 접수처리 call sp
+	 * @param mrktOrdrDtlVO
+	 * @throws Exception
+	 */
+	public void insertSpMrktRcptOrdrCfmtn(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
+
+	/**
+	 * 발주정보 접수취소 call sp
+	 * @param mrktOrdrDtlVO
+	 * @throws Exception
+	 */
+	public void insertSpMrktRcptOrdrCncl(MrktOrdrDtlVO mrktOrdrDtlVO) throws Exception;
 }

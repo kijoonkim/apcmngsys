@@ -131,7 +131,7 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-button id="btnSrchCnpt" name="btnSrchCnpt" uitype="modal" target-id="modal-cnpt" onclick="fn_modalCnpt" text="찾기" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<th scope="row" class="th_bg">납기일자</th>
+							<th scope="row" class="th_bg">입고일자</th>
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-datepicker
 									id="srch-dtp-dudtYmd"
@@ -461,12 +461,13 @@
 		let day = new Date();
 		day.setHours(0, 0, 0, 0);
 		let tomorrow = new Date(day.setDate(day.getDate()+1))
-
+		/*
 		if (gfn_diffDate(crtrYmd, gfn_dateToYmd(tomorrow)) <= 0){
 			gfn_comAlert("W0014", "수신일자는", "금일");		//	W0014	{0}이/가 {1} 보다 큽니다.
 			SBUxMethod.set("dtp-crtrYmd", gfn_dateToYmd(new Date()));
 			return;
 		}
+		 */
 	}
 
 	/**
@@ -566,7 +567,7 @@
             {caption: ['발주번호'], 		ref: 'outordrno', 		width: '140px', 	type: 'output',			style:'text-align: center'},
             {caption: ['거래처명'], 		ref: 'apcCnptNm', 		width: '200px', 	type: 'output',			style:'text-align: center'},
             {
-            	caption: ['납기일자'],
+            	caption: ['입고일자'],
             	ref: 'wrhsYmd',
             	width: '100px',
             	type: 'output',

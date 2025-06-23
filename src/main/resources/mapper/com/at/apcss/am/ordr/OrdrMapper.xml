@@ -882,6 +882,55 @@
 			  AND OUTORDRNO 	= #{apcOutordrno}
 		]]>
 	</update>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.insertSpMrktRcptOrdrCfmtn	-->
+	<!-- DESC : 대형마트 발주수신 접수처리.	                         	        	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.04  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSpMrktRcptOrdrCfmtn" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+		<![CDATA[
+			{call /* com.at.apcss.am.ordr.mapper.OrdrMapper.insertSpMrktRcptOrdrCfmtn */
+				SP_MRKT_RCPT_ORDR_CFMTN (
+					  #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+					, #{ordrApcCd}
+					, #{apcSeCd}
+					, #{apcOutordrno}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+					)
+			}
+		]]>
+	</insert>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.ordr.mapper.OrdrMapper.insertSpMrktRcptOrdrCncl	-->
+	<!-- DESC : 대형마트 발주수신 접수취소.	                         	        	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2024.10.04  	김호        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<insert id="insertSpMrktRcptOrdrCncl" statementType="CALLABLE" parameterType="com.at.apcss.am.ordr.vo.MrktOrdrDtlVO">
+		<![CDATA[
+		{call /* com.at.apcss.am.ordr.mapper.OrdrMapper.insertSpMrktRcptOrdrCncl */
+			SP_MRKT_RCPT_ORDR_CNCL (
+					#{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+					, #{ordrApcCd}
+					, #{apcSeCd}
+					, #{apcOutordrno}
+					, #{rtnCd, jdbcType=VARCHAR, mode=OUT}
+					, #{rtnMsg, jdbcType=VARCHAR, mode=OUT}
+				)
+			}
+		]]>
+	</insert>
 </mapper>
 
 
