@@ -20,8 +20,8 @@
                 ></sbux-button>
                 <sbux-button
                     text="조회"
-                    id="btnSearch"
-                    name="btnSearch"
+                    id="btnSearchStdg"
+                    name="btnSearchStdg"
                     uitype="normal"
                     class="btn btn-sm btn-outline-danger"
                     onclick="popStdgCd.search"
@@ -32,7 +32,7 @@
                     name="btnEnd"
                     uitype="normal"
                     class="btn btn-sm btn-outline-danger"
-                    onclick="gfn_closeModal('modal-stdgCd')"
+                    onclick="popStdgCd.close"
                 ></sbux-button>
             </div>
         </div>
@@ -97,13 +97,13 @@
         objGrid: null,
         gridJson: [],
         callbackSelectFnc: function() {},
-        init: async function(_apcCd, _apcNm, _stdgCd, _callbackChoiceFnc) {
+        init: async function(_apcCd, _apcNm, _stdgCd, _callbackSelectFnc) {
             this.prvApcCd = _apcCd;
 
             SBUxMethod.set("stdgCd-inp-apcNm", _apcNm);
 
-            if(!gfn_isEmpty(_callbackChoiceFnc) && typeof _callbackChoiceFnc === 'function') {
-                this.callbackSelectFnc = _callbackChoiceFnc;
+            if(!gfn_isEmpty(_callbackSelectFnc) && typeof _callbackSelectFnc === 'function') {
+                this.callbackSelectFnc = _callbackSelectFnc;
             }
             this.createGrid();
             this.search();
@@ -148,7 +148,7 @@
                 return;
             } else {
                 let rowData = grdStdgCdPop.getRowData(nRow);
-                popStdgCd.close(rowData);
+                gfn_closeModal(popStdgCd.modalId, popStdgCd.callbackSelectFnc, rowData);
             }
         },
         search: function() {
