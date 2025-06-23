@@ -1,7 +1,7 @@
 <%
     /**
      * @Class Name 		: hrt2110.jsp
-     * @Description 	: 근태계획등록(일반) 화면
+     * @Description 	: 예외근태등록
      * @author 			: 인텔릭아이앤에스
      * @since 			: 2024.06.03
      * @version 		: 1.0

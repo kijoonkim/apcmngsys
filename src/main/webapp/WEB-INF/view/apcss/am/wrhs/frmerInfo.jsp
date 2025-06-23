@@ -547,6 +547,8 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
+		SBGridProperties.contextmenu = true;						// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListCltvtnHstry;	// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
 		    {caption : ['확인일자'], 		ref: 'cfmtnYmd', 	type : 'output', 	width: '100px', style:'text-align:center;',
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -569,6 +571,28 @@
 	    ];
 	    grdCltvtnHstry = _SBGrid.create(SBGridProperties);
 	    grdCltvtnHstry.bind('click', 'fn_setFrmerInfo');
+	}
+
+	/**
+	 * @description 메뉴트리그리드 컨텍스트메뉴 json 재배및수확후관리
+	 * @type {object}
+	 */
+	const objMenuListCltvtnHstry = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",					//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",						//단축키
+			"callback": fn_excelDwnldCltvtnHstry,	//콜백함수명
+		},
+	};
+
+	// 엑셀 다운로드 (재배및수확후관리)
+	function fn_excelDwnldCltvtnHstry() {
+
+		if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
+			grdCltvtnHstry.exportData("xlsx","재배및수확후관리",true, {arrRemoveCols: [6]});
+		} else {
+			grdCltvtnHstry.exportLocalExcel("재배및수확후관리", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		}
 	}
 
 	const fn_createCltvtnFrmhsQltPrdcr = function () {
@@ -2913,6 +2937,10 @@
 						let qntt = rowData[ymdKey];
 
 						if (!gfn_isEmpty(qntt) && qntt > 0) {
+							if (gfn_isEmpty(rowData.crtrYm)) {
+								gfn_comAlert("W0005", "기준연월");		//	W0005	{0}이/가 없습니다.
+								return;
+							}
 
 							let frmhsExpctWrhsDtl = {
 								apcCd 		: gv_selectedApcCd
@@ -2948,6 +2976,11 @@
 
 						if (gfn_isEmpty(qntt)) {
 							qntt = 0;
+						}
+
+						if (gfn_isEmpty(rowData.crtrYm)) {
+							gfn_comAlert("W0005", "기준연월");		//	W0005	{0}이/가 없습니다.
+							return;
 						}
 
 						let frmhsExpctWrhsDtl = {

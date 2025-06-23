@@ -416,7 +416,10 @@
 
 
 		if(gv_apcCd === "0203"){
-				SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+		}else if(gv_selectedApcCd === '0182'){
+			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
+			SBUxMethod.hideTab('idxTab_norm','grdDsctnTab');
 		}
 
 		fn_selectSortBffaType();
@@ -442,6 +445,7 @@
 
 	var jsonExhstColumnData = [];
 	var jsonGrdColumnData = [];
+	var jsonGrdDsctnColumnData = [];
 	var jsonSortBffa = [];
     var exhstDsctnColumns = [];
     var addSortRsltExhstCol = [];
@@ -537,12 +541,12 @@
 
         let addSortRsltGrdCol = [];
 
-        jsonGrdColumnData.forEach(function(item) {
+		jsonGrdDsctnColumnData.forEach(function(item) {
             addSortRsltGrdCol.push({
-                caption: [item.GRD_NM],
-                ref: 'grd' + item.GRD_SN,
+                caption: [item.grdNm],
+                ref: 'grd' + item.sn,
                 type: 'input',
-                width: '100px',
+                width: '80px',
                 style: 'text-align: right; padding-right: 5px;',
                 format: {
                     type: 'number',
@@ -553,6 +557,7 @@
                 disabled: true
             });
         })
+
 
         let originColumns = SBGridProperties.columns;
         originColumns.splice(4, 0, ...addSortRsltGrdCol);
@@ -959,6 +964,7 @@
 	const fn_search = async function () {
         await fn_setExhstDsctnCol(); // 배출구 컬럼
         await fn_setGrdDsctnCol(); // 등급별 컬럼
+		await fn_setGrdDsctnCol2(); // 등급별 탭 컬럼
         fn_createSortBffa();
         fn_createGrdDsctn();
         fn_createExhstDsctn();
@@ -1151,6 +1157,12 @@
             // gfn_comAlert("E0001");  // E0001    오류가 발생하였습니다.
         }
     }
+
+	const fn_setGrdDsctnCol2 = async function(){
+		 let itemCd = SBUxMethod.get('srch-slt-itemCd');
+		 jsonGrdDsctnColumnData.length = 0;
+		 jsonGrdDsctnColumnData = await gfn_getApcGdsGrd(gv_selectedApcCd,itemCd,'03');
+	}
 
 
  	/**

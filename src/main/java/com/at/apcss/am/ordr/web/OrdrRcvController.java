@@ -83,7 +83,7 @@ public class OrdrRcvController extends BaseController {
 			ordrRcvVO.setSysFrstInptPrgrmId(getPrgrmId());
 			ordrRcvVO.setSysLastChgUserId(getUserId());
 			ordrRcvVO.setSysLastChgPrgrmId(getPrgrmId());
-
+			logger.debug("@@@ordrRcvVO {}", ordrRcvVO.toString());
 			//HashMap<String,Object> rtnObj = ordrRcvService.insertOutordrRcpt(ordrRcvVO);
 			HashMap<String,Object> rtnObj = ordrRcvService.insertMrktOrdrRcpt(ordrRcvVO);
 			if (rtnObj != null) {
@@ -94,10 +94,7 @@ public class OrdrRcvController extends BaseController {
 			logger.debug("error: {}", e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
