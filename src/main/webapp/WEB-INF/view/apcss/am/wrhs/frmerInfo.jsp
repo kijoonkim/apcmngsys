@@ -1957,27 +1957,64 @@
       * @param {String} prdcrCdDtl
       */
 	const fn_setPrdcrLandInfo = async function(prdcrCdDtl) {
+		let yr = SBUxMethod.get("srch-dtp-yr");
 
-		let yr = SBUxMethod.get("srch-dtp-yr")
 		const param = {
-			apcCd		: gv_selectedApcCd
-		  , prdcrCd		: prdcrCdDtl
-		  , yr 			: yr
+			apcCd: gv_selectedApcCd,
+            prdcrCd: prdcrCdDtl,
+		    yr: yr
 		}
+
 		jsonPrdcrLandInfo.length = 0;
+
 		try {
-			const postJsonPromise = gfn_postJSON(
-						"/am/wrhs/selectPrdcrLandInfoList.do",
-						param,
-						null,
-						false
-					);
+			const postJsonPromise = gfn_postJSON("/am/wrhs/selectPrdcrLandInfoList.do", param, null, false);
 	        const data = await postJsonPromise;
 
 			let totalRecordCount = 0;
-	        data.resultList.forEach((item, index) => {
 
-	        	const prdcrLandInfoVO = item;
+	        data.resultList.forEach((item, index) => {
+                console.log("ㅇㅇ, item: ", item);
+	        	const prdcrLandInfoVO = {
+                    apcCd: item.apcCd,
+                    checkedYn: item.checkedYn,
+                    crtrArea: fn_zero(item.crtrArea),
+                    ctrtar: item.ctrtar,
+                    currentPageNo: item.currentPageNo,
+                    delYn: item.delYn,
+                    excelYn: item.excelYn,
+                    firstPageNoOnPageList: item.firstPageNoOnPageList,
+                    firstRecordIndex: item.firstRecordIndex,
+                    frlnAddr: item.frlnAddr,
+                    frlnMno: fn_zero(item.frlnMno),
+                    frlnSno: fn_zero(item.frlnSno),
+                    frmerno: item.frmerno,
+                    lastPageNoOnPageList: item.lastPageNoOnPageList,
+                    lastRecordIndex: item.lastRecordIndex,
+                    mngmstRegno: item.mngmstRegno,
+                    pageSize: item.pageSize,
+                    pagingYn: item.pagingYn,
+                    plntngArea: fn_zero(item.plntngArea),
+                    prdcrCd: item.prdcrCd,
+                    prdcrLandInfoNo: item.prdcrLandInfoNo,
+                    prdcrNm: item.prdcrNm,
+                    recordCountPerPage: item.recordCountPerPage,
+                    rowSeq: item.rowSeq,
+                    rowSts: item.rowSts,
+                    stdgCd: item.stdgCd,
+                    sysFrstInptDt: item.sysFrstInptDt,
+                    sysFrstInptPrgrmId: item.sysFrstInptPrgrmId,
+                    sysFrstInptUserId: item.sysFrstInptUserId,
+                    sysLastChgDt: item.sysLastChgDt,
+                    sysLastChgPrgrmId: item.sysLastChgPrgrmId,
+                    sysLastChgUserId: item.sysLastChgUserId,
+                    sysPrgrmId: item.sysPrgrmId,
+                    sysUserId: item.sysUserId,
+                    totalPageCount: item.totalPageCount,
+                    totalRecordCount: item.totalRecordCount,
+                    userIp: item.userIp,
+                    yr: item.yr
+                }
 
 	        	jsonPrdcrLandInfo.push(prdcrLandInfoVO);
 	        });
@@ -1990,8 +2027,8 @@
 	        grdPrdcrLandInfo.setCellDisabled(0, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, false);
     		grdPrdcrLandInfo.setCellDisabled(grdPrdcrLandInfo.getRows() -1, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, true);
 
-		} catch (e) {
-			if (!(e instanceof Error)) {
+		} catch(e) {
+			if(!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
@@ -2211,26 +2248,35 @@
 
 
     const fn_setLandInfo = async function () {
-    	let prdcrCd  	= SBUxMethod.get("srch-inp-prdcrCd");
-    	let yr		 	= SBUxMethod.get("srch-dtp-yr");
+    	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
+    	let yr = SBUxMethod.get("srch-dtp-yr");
+
 		const param = {
-			apcCd		: gv_selectedApcCd
-		  , prdcrCd		: prdcrCd
-		  , yr 			: yr
+		    apcCd: gv_selectedApcCd,
+            prdcrCd: prdcrCd,
+		    yr: yr
 		}
+
 		jsonLandInfo.length = 0;
+
 		try {
-			const postJsonPromise = gfn_postJSON(
-						"/am/wrhs/selectPrdcrLandInfoList.do",
-						param,
-						null,
-						false
-					);
+			const postJsonPromise = gfn_postJSON("/am/wrhs/selectPrdcrLandInfoList.do", param, null, false);
 	        const data = await postJsonPromise;
 
 	        data.resultList.forEach((item, index) => {
-
-	        	const landInfoVO = item;
+	        	const landInfoVO = {
+                    apcCd: item.apcCd,
+                    crtrArea: fn_zero(item.crtrArea),
+                    delYn: item.delYn,
+                    frlnAddr: item.frlnAddr,
+                    frlnMno: fn_zero(item.frlnMno),
+                    frlnSno: fn_zero(item.frlnSno),
+                    plntngArea: fn_zero(item.plntngArea),
+                    prdcrCd: item.prdcrCd,
+                    rowSts: item.rowSts,
+                    stdgCd: item.stdgCd,
+                    yr: item.yr
+                }
 
 	        	jsonLandInfo.push(landInfoVO);
 	        });
@@ -2240,14 +2286,13 @@
 	        grdLandInfo.setCellDisabled(0, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, false);
 	        grdLandInfo.setCellDisabled(grdLandInfo.getRows() -1, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, true);
 
-		} catch (e) {
-			if (!(e instanceof Error)) {
+		} catch(e) {
+			if(!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 		}
     }
-
 
     const fn_zero = function(val) {
 
