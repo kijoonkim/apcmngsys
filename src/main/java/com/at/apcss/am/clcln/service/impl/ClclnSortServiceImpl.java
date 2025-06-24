@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service("clclnSortService")
@@ -51,8 +52,8 @@ public class ClclnSortServiceImpl implements ClclnSortService {
      * @throws Exception
      */
     @Override
-    public List<ClclnDtlVO> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception {
-        List<ClclnDtlVO> resultList = new ArrayList<>();
+    public List<HashMap<String, Object>> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception {
+        List<HashMap<String, Object>> resultList = new ArrayList<>();
         try{
             resultList = clclnSortMapper.selectSortClclnList(clclnMstrVO);
         }catch (Exception e){

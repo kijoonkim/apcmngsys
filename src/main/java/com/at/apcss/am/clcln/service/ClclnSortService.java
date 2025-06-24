@@ -4,6 +4,7 @@ import com.at.apcss.am.clcln.vo.ClclnDtlVO;
 import com.at.apcss.am.clcln.vo.ClclnMstrVO;
 import com.at.apcss.am.clcln.vo.ClclnUntprcVO;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,5 +35,5 @@ public interface ClclnSortService {
      * @return List<ClclnDtlVO>
      * @throws Exception
      */
-    List<ClclnDtlVO> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception;
+    List<HashMap<String, Object>> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception;
 }

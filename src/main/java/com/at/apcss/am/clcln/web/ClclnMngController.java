@@ -462,7 +462,7 @@ public class ClclnMngController extends BaseController {
 	@PostMapping(value = "/am/clcln/selectSortClclnList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
 	    public ResponseEntity<HashMap<String, Object>> selectSortClclnList(@RequestBody ClclnMstrVO clclnMstrVO, HttpServletRequest request) throws Exception {
 	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
-			List<ClclnDtlVO> resultList = new ArrayList<>();
+			List<HashMap<String, Object>> resultList = new ArrayList<>();
 	        try{
 				resultList = clclnSortService.selectSortClclnList(clclnMstrVO);
 

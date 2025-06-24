@@ -1,27 +1,15 @@
-function showLoginForm(isShow) {
-    if(isShow) {
-        $('#dashboard').css('display', 'none');
-        $('#login_form').css('display', 'block');
-    } else {
-        $('#dashboard').css('display', 'block');
-        $('#login_form').css('display', 'none');
-    }
-}
-
 function login() {
     $.ajax({
         type: 'post',
         url: './authenticate.do',
         data: JSON.stringify({
-            'id': $('#userId').val(),
-            'password': $('#password').val(),
+            'id': 'admin',
+            'password':'1',
         }),
         beforeSend: function(xhr){
             xhr.setRequestHeader("Content-type", "application/json");
         },
         success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('login', data);
             const userInfo = {
                 'userId': data.data.userId,
                 'comApcList': data.data.comApcList,
@@ -43,47 +31,26 @@ function login() {
     });
 }
 
-function openPopApcInfo(apcCd) {
+function openPopApcInfo(apcCd = '') {
     $.ajax({
         type: 'post',
-        url: '/api/mobile/am/apc/selectApcEvrmntStng.do',
+        url: '/co/user/selectApcEvrmntStngList.do',
         data: JSON.stringify({
             'apcCd': apcCd
         }),
         beforeSend: function(xhr){
             xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
         },
         success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('apc info=', data);
 
-            if(data!=null && data.resultStatus == 'S' && data.resultMap != null) {
-                // 팝업 열기
-                $('#apcPopup').fadeIn(300);
-
-                var result = data.resultMap;
-                var apcimg = $('<img src="./img/logo_btn_' + result.apcCd + '.png"/>');
-                $('#apcLogo').empty();
-                $('#apcLogo').append(apcimg);
-                apcimg.error(function(){
-                    $('#apcLogo').text(result.apcNm);
+            if(data!=null && data.resultStatus == 'S' && data.resultList != null) {
+                apcInfoList = [...data.resultList];
+                data.resultList.forEach(function(item){
+                    let x = parseFloat(item.xcrd);
+                    let y = parseFloat(item.ycrd);
+                    let flag = apcInfo.apcLists.some(i => i.value === item.apcCd);
+                    addMarker(x,y,item.apcNm,flag);
                 });
-
-                $('#apcNm').text(result.apcNm);
-                $('#cls').text(result.cls);
-                $('#apcRprsvNm').text(result.apcRprsvNm);
-                $('#brno').text(result.brno);
-                $('#telno').text(result.telno);
-                $('#fxno').text(result.fxno);
-                $('#addr').text(result.addr);
-                $('#brno').text(result.brno);
-                $('#itemNm').text(result.itemNm);
-            } else {
-                alert('해당 정보가 없습니다. 시스템 관리자에게 문의하세요!');
             }
         },
         error: function(xhr, status, error) {
@@ -99,257 +66,133 @@ function openPopApcInfo(apcCd) {
     });
 }
 
-function openPopApcLinkInfo(apcCd, linkKnd) {
-    $.ajax({
-        type: 'post',
-        url: '/api/mobile/am/apc/selectApcLinkTrsmMatSttsList.do',
-        data: JSON.stringify({
-            'apcCd': apcCd,
-            'linkKnd': linkKnd
-        }),
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
-        },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('apc link info=', data);
-
-            if(data != null && data.resultStatus == 'S' && data.resultList != null) {
-                // 팝업 열기
-                $('#apcLinkPopup').fadeIn(300);
-
-                $('#cnt-apcLinkPop').text(data.resultList.length);
-
-                $('#apcLinkInfoBody').empty();
-
-                $.each(data.resultList, function(index, result) {
-                    var row = '<tr>';
-                    row += '<td>' + (result.trsmMatId || '') + '</td>';
-                    row += '<td>' + (result.trsmMatNm || '') + '</td>';
-                    row += '<td style="color: ' + (result.trsmMatSttsColor || '#808080') + ';">' + (result.trsmMatSttsNm || '') + '</td>';
-                    row += '<td>' + (result.linkKndNm || '') + '</td>';
-                    row += '<td>' + (result.reqDt || '') + '</td>';
-                    row += '<td>' + (result.prcsCmptnDt || '') + '</td>';
-                    row += '<td style="color: ' + (result.linkSttsNmColor || '#808080') + ';">' + (result.linkSttsNm || '') + '</td>';
-                    row += '<td>';
-                    switch(result.linkStts) {
-                        case "P0":
-                            row += '<button type="button" id="btnReq" class="btn btn-outline-danger">요청</button>';
-                            break;
-                        case "R0":
-                            row += '<button type="button" id="btnReqCncl" class="btn btn-outline-danger">취소</button>';
-                            break;
-                        default:
-                            row += '';
-                    }
-                    row += '</td>';
-                    row += '<td style="display: none;">' + (result.apcCd || '') + '</td>';
-                    row += '<td style="display: none;">' + (result.linkKnd || '') + '</td>';
-                    row += '</tr>';
-                    $('#apcLinkInfoBody').append(row);
-                });
-            } else {
-                alert('해당 정보가 없습니다. 시스템 관리자에게 문의하세요!');
-            }
-        },
-        error: function(xhr, status, error) {
-            if(status == '401') {
-                showLoginForm(true);
-            }
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status == '401') {
-                showLoginForm(true);
-            }
-        }
-    });
-}
-
-function req(apcCd, trsmMatId, linkKnd) {
-    $.ajax({
-        type: 'post',
-        url: '/api/mobile/am/apc/updateLinkTrsmReq.do',
-        data: JSON.stringify({
-            'apcCd': apcCd,
-            'trsmMatId': trsmMatId,
-            'linkKnd': linkKnd,
-            'sysLastChgUserId': userInfo.userId,
-            'sysLastChgPrgrmId': 'dashboard',
-            'linkUseYn': 'Y'
-        }),
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
-        },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('req info=', data);
-
-            if(data.resultStatus == "S") {
-                alert("처리되었습니다.");
-                openPopApcLinkInfo(apcCd, linkKnd);
-            } else {
-                alert("현재 요청 진행중 입니다.");
-            }
-        },
-        error: function(xhr, status, error) {
-            if(status == '401') {
-                showLoginForm(true);
-            }
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status == '401') {
-                showLoginForm(true);
-            }
-        }
-    });
-}
-
-function reqCncl(apcCd, trsmMatId, linkKnd) {
-    $.ajax({
-        type: 'post',
-        url: '/api/mobile/am/apc/updateLinkTrsmReqCncl.do',
-        data: JSON.stringify({
-            'apcCd': apcCd,
-            'trsmMatId': trsmMatId,
-            'linkKnd': linkKnd,
-            'sysLastChgUserId': userInfo.userId,
-            'sysLastChgPrgrmId': 'dashboard',
-            'linkUseYn': 'Y'
-        }),
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
-        },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('apc link info=', data);
-
-            if(data.resultStatus == "S") {
-                alert("처리되었습니다.");
-                openPopApcLinkInfo(apcCd, linkKnd);
-            } else {
-                alert("현재 요청 대기 상태 입니다.");
-            }
-        },
-        error: function(xhr, status, error) {
-            if(status == '401') {
-                showLoginForm(true);
-            }
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status == '401') {
-                showLoginForm(true);
-            }
-        }
-    });
-}
-
-const userInfo = localStorage.getItem('userInfo') !== undefined && localStorage.getItem('userInfo') != null
-        ? JSON.parse(localStorage.getItem('userInfo'))
-        : {};
-
-$(function() {
-    "use strict";
-
-    // 팝업 닫기
-    $('.closePopup').click(function() {
-        $('#apcPopup').fadeOut(300);
-        $('#apcLinkPopup').fadeOut(300);
-    });
-
-    // 팝업 외부 클릭시 닫기
-    $(document).on('click', function(e) {
-        if($(e.target).hasClass('popup')) {
-            $('#apcPopup').fadeOut(300);
-            $('#apcLinkPopup').fadeOut(300);
-        }
-    });
-
-    $('#apcLinkInfoBody').on('click', '#btnReq', function() {
-        var apcCd = $(this).closest('tr').find('td:eq(8)').text().trim();
-        var trsmMatId = $(this).closest('tr').find('td:eq(0)').text().trim();
-        var linkKnd = $(this).closest('tr').find('td:eq(9)').text().trim();
-
-        req(apcCd, trsmMatId, linkKnd);
-    });
-
-    $('#apcLinkInfoBody').on('click', '#btnReqCncl', function() {
-        var apcCd = $(this).closest('tr').find('td:eq(8)').text().trim();
-        var trsmMatId = $(this).closest('tr').find('td:eq(0)').text().trim();
-        var linkKnd = $(this).closest('tr').find('td:eq(9)').text().trim();
-
-        reqCncl(apcCd, trsmMatId, linkKnd);
-    });
-
-    $('.login_btn').on('click', function(e) {
-        login();
-    });
-
-    //console.log('userInfo', userInfo);
-
-    //로그인 여부 체크
-    if(userInfo.accessToken === undefined || userInfo.accessToken == null) {
-        showLoginForm(true);
+function addMarker(lat, lng, label, flag) {
+    if (!window.leafletMap) {
+        console.error('지도(map)가 아직 초기화되지 않았습니다.');
         return;
-    } else {
-        showLoginForm(false);
     }
 
-    var apcInfo;
+    let marker;
 
+    if (flag) {
+        // 깜빡이는 커스텀 SVG 마커 (색상: #59A1D5, 사이즈 조정)
+        const svgIcon = L.divIcon({
+            className: 'blinking-icon',
+            html: `
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 24 35">
+                    <path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 23 12 23s12-14 12-23C24 5.4 18.6 0 12 0z" fill="#59A1D5"/>
+                    <circle cx="12" cy="12" r="5" fill="white"/>
+                </svg>
+            `,
+            iconSize: [20, 30],     // 실제 렌더링 크기
+            iconAnchor: [7.5, 25]   // 기준점: 아래 중앙
+        });
+
+        marker = L.marker([parseFloat(lng), parseFloat(lat)], { icon: svgIcon }).addTo(window.leafletMap);
+    } else {
+        // 기존 PNG 마커
+        const customIcon = L.icon({
+            iconUrl: '/api/mobile/img/marker-icon-grey.png',
+            iconSize: [15, 25],
+            iconAnchor: [7.5, 25],
+            popupAnchor: [0, -25]
+        });
+
+        marker = L.marker([parseFloat(lng), parseFloat(lat)], { icon: customIcon }).addTo(window.leafletMap);
+    }
+
+    if (label) {
+        marker.bindPopup(label);
+    }
+}
+
+function getApcAgtStatus(){
     $.ajax({
         type: 'get',
-        url: './getApcAgtStats.do',
+        url: '/co/user/getApcAgtStats.do',
         async: false,
-        beforeSend: function(xhr){
+        beforeSend: function (xhr) {
             xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
         },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-
+        success: function (data, textStatus, xhr) {
             /* APC 현황 시작 */
             apcInfo = {
-                apcLists: data.result.resultLists.map(function(item) {
+                apcLists: data.result.resultLists.map(function (item) {
                     const kinds = [];
 
-                    if(item.KINDS_WRHS != null) kinds.push({name: '계량', value: item.KINDS_WRHS === 'Y' ? 'active' : ''});
-                    if(item.KINDS_SORT != null) kinds.push({name: '선별', value: item.KINDS_SORT === 'Y' ? 'active' : ''});
-                    if(item.KINDS_SPMT != null) kinds.push({name: '발주', value: item.KINDS_SPMT === 'Y' ? 'active' : ''});
+                    if (item.WGH_AGT_INSTL_YN != null) kinds.push({
+                        name: '계량',
+                        value: item.WGH_AGT_INSTL_YN === 'Y' ? 'active' : ''
+                    });
+                    if (item.SORT_AGT_INSTL_YN != null) kinds.push({
+                        name: '선별',
+                        value: item.SORT_AGT_INSTL_YN === 'Y' ? 'active' : ''
+                    });
 
                     return {
                         name: item.APC_NM,
                         value: item.APC_CD,
                         nh: item.NH === 'Y' ? true : false,
-                        cx: item.CX,
-                        cy: item.CY,
+                        cx: item.XCRD,
+                        cy: item.YCRD,
                         kinds: kinds,
                         status: [
-                            {name: '입고', value: item.STATUS_IN === 'Y' ? 'active' : ''},
-                            {name: '선별', value: item.STATUS_SORT === 'Y' ? 'active' : ''},
-                            {name: '출고', value: item.STATUS_OUT === 'Y' ? 'active' : ''},
-                            {name: '재고', value: item.STATUS_STOCK === 'Y' ? 'active' : ''},
-                            {name: '영농', value: item.STATUS_FARM === 'Y' ? 'active' : ''},
-                            {name: '정산', value: item.STATUS_SETTLE === 'Y' ? 'active' : ''}
+                            {name: '입고', value: item.WRHS_ACTVTN_YN === 'Y' ? 'active' : ''},
+                            {name: '선별', value: item.SORT_ACTVTN_YN === 'Y' ? 'active' : ''},
+                            {name: '출고', value: item.SPMT_ACTVTN_YN === 'Y' ? 'active' : ''},
+                            {name: '재고', value: item.INVNTR_ACTVTN_YN === 'Y' ? 'active' : ''},
+                            {name: '영농', value: item.AGRC_ACTVTN_YN === 'Y' ? 'active' : ''},
+                            {name: '정산', value: item.CLCLN_ACTVTN_YN === 'Y' ? 'active' : ''}
                         ],
-                        delYn: item.DEL_YN
+                        delYn: item.DEL_YN,
+                        rcntData : getLatestDate([
+                            item.WGH_LAST_USE_DT
+                            ,item.WRHS_LAST_USE_DT
+                            ,item.SORT_LAST_USE_DT
+                            ,item.PCKG_LAST_USE_DT
+                            ,item.PCKG_LAST_USE_DT
+                            ,item.SPMT_LAST_USE_DT
+                            ,item.ORDR_LAST_USE_DT
+                            ,item.CLCLN_LAST_USE_DT
+                            ,item.AGRC_LAST_USE_DT
+                            ,item.INVNTR_LAST_USE_DT
+                        ]),
+                        useData : [
+                            {name: 'wgh', value: item.WGH_LAST_USE_DT || '미사용'},
+                            {name: 'wrhs', value: item.WRHS_LAST_USE_DT || '미사용'},
+                            {name: 'sort', value: item.SORT_LAST_USE_DT || '미사용'},
+                            {name: 'pckg', value: item.PCKG_LAST_USE_DT || '미사용'},
+                            {name: 'spmt', value: item.SPMT_LAST_USE_DT || '미사용'},
+                            {name: 'ordr', value: item.ORDR_LAST_USE_DT || '미사용'},
+                            {name: 'clcln', value: item.CLCLN_LAST_USE_DT || '미사용'},
+                            {name: 'agrc', value: item.AGRC_LAST_USE_DT || '미사용'},
+                            {name: 'invntr', value: item.INVNTR_LAST_USE_DT || '미사용'},
+                        ]
                     };
                 })
             };
+        },
+        error: function (xhr, status, error) {
+            if (status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function (xhr, textStatus) {
+            if (xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+function getCountAllPrdcr(){
+    $.ajax({
+        type: 'get',
+        url: '/co/user/getCountAllPrdcr.do',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+        },
+        success: function(data, textStatus, xhr) {
+            $('#prdcrCount').text(data.result);
         },
         error: function(xhr, status, error){
             if(status == '401') {
@@ -362,6 +205,271 @@ $(function() {
             }
         }
     });
+}
+function getStatsForOneYearBySearchYmd(){
+    $.ajax({
+        type: 'get',
+        url: '/co/user/getStatsForOneYearBySearchYmd.do',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+        },
+        success: function(data, textStatus, xhr) {
+            let values = [];
+            let fromYear = parseInt(data.result.SEARCH_YMD_FROM.substring(0, 4));
+            let toYear = parseInt(data.result.SEARCH_YMD_TO.substring(0, 4));
+            let fromMonth = parseInt(data.result.SEARCH_YMD_FROM.substring(4, 6));
+            let toMonth = parseInt(data.result.SEARCH_YMD_TO.substring(4, 6));
+            let year = fromYear;
+            for(let i = fromMonth; year < toYear || i <= toMonth; i++) {
+                if(i == 13) {
+                    i = 1;
+                    year++;
+                }
+                let m = i < 10 ? '0' + i : i;
+                values.push({'y': year + '-' + m});
+            }
+
+            $.each(data.result.RESULTS, function(index, el) {
+                if(el.RS_TYPE == 'WRHS') {
+                    for(let i = 0; i < values.length; i++) {
+                        values[values.length - (i + 1)].wrhs = eval("el.C_" + i);
+                    }
+                } else if(el.RS_TYPE == 'SORT') {
+                    for(let i = 0; i < values.length; i++) {
+                        values[values.length - (i + 1)].sort = eval("el.C_" + i);
+                    }
+                } else if(el.RS_TYPE == 'WGH') {
+                    for(let i = 0; i < values.length; i++) {
+                        values[values.length - (i + 1)].wgh = eval("el.C_" + i);
+                    }
+                }
+            });
+            const series = [
+                {
+                    name: '입고',
+                    data: values.map(v => ({ x: v.y, y: v.wrhs }))
+                },
+                {
+                    name: '선별',
+                    data: values.map(v => ({ x: v.y, y: v.sort }))
+                },
+                {
+                    name: '계량',
+                    data: values.map(v => ({ x: v.y, y: v.wgh }))
+                }
+            ];
+
+            const options = {
+                chart: {
+                    type: 'area',
+                    height: 200,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                series: series,
+                xaxis: {
+                    type: 'category', // x값이 문자열일 경우
+                    labels: {
+                        rotate: -45
+                    }
+                },
+                colors: ['#A0D0E0', '#3C8DBC', '#047630'],
+                stroke: {
+                    curve: 'smooth'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                legend: { show: false },
+            };
+
+            const chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+            chart.render();
+        },
+        error: function(xhr, status, error){
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+function openPopApcLinkInfo(apcCd, linkKnd) {
+    $.ajax({
+        type: 'post',
+        url: '/co/user/selectApcLinkTrsmMatSttsList.do',
+        data: JSON.stringify({
+            'apcCd': apcCd
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+        },
+        success: function(data, textStatus, xhr) {
+            if(data != null && data.resultStatus == 'S' && data.resultList != null) {
+                let info = apcInfoList.filter(i => i.apcCd === apcCd)[0];
+                $("#apcNm").text(info.apcNm);
+                $("#apcRprsvNm").text(info.apcRprsvNm);
+                $("#brno").text(info.brno);
+                $("#telno").text(info.telno);
+                $("#fxno").text(info.fxno);
+                $("#addr").text(info.addr);
+                /** 최근사용일자 **/
+                let useData = apcInfo.apcLists.filter(i => i.value === apcCd)[0];
+                useData.useData.forEach(i => $(`#${i.name}`).text(`${i.value}`));
+                /** 기존 row empty **/
+                let tbody = $("#agentTable tbody");
+                tbody.empty();
+
+                data.resultList.forEach(item => {
+                    tbody.append(`<tr data-apc-cd="${item.apcCd}" data-trsm-mat-id="${item.trsmMatId}" data-link-knd="${item.linkKnd}">
+                    <td>${item.trsmMatId}</td>
+                    <td>${item.trsmMatNm}</td>
+                    <td>${item.trsmMatSttsNm}
+                    ${item.trsmMatSttsCd === "E1" ? "<span class='badge bg-red'></span>" :"<span class='badge bg-red'></span>"}
+                    </td>
+                    <td>${item.linkKndNm}</td>
+                    <td style="font-size: 0.8rem">${item.reqDt || ''}</td>
+                    <td style="font-size: 0.8rem">${item.prcsCmptnDt || ''}</td>
+                    <td style="color: ${item.linkSttsColor}">${item.linkSttsNm}</td>
+                    <td>
+                    ${item.linkStts === 'P0' ? '<button type="button" onclick="req(this)" class="btn btn-outline-danger">요청</button>' : item.linkStts === 'R0' ? '<button type="button" onclick="reqCncl(this)" class="btn btn-outline-danger">취소</button>':''}
+                    </td>
+                    </tr>`);
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
+var apcInfo;
+/** apc 환경설정 **/
+var apcInfoList = [];
+
+
+function fn_selectAgentStat(target){
+    let $target = $(target);
+    let $apcCd = $target.closest('div.card-body').attr('apc_cd') || '';
+    openPopApcLinkInfo($apcCd);
+}
+function req(target) {
+    let $dataEl = $(target).closest('tr');
+    let apcCd = $dataEl.data('apcCd');
+    let trsmMatId = $dataEl.data('trsmMatId');
+    let linkKnd = $dataEl.data('linkKnd');
+
+    $.ajax({
+        type: 'post',
+        url: '/co/user/updateLinkTrsmReq.do',
+        data: JSON.stringify({
+            'apcCd': apcCd,
+            'trsmMatId': trsmMatId,
+            'linkKnd': linkKnd,
+            'sysLastChgUserId': 'dashboard',
+            'sysLastChgPrgrmId': 'apcLinkPop',
+            'linkUseYn': 'Y'
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+        },
+        success: function(data, textStatus, xhr) {
+            if(data.resultStatus == "S") {
+                alert("처리되었습니다.");
+                openPopApcLinkInfo(apcCd, linkKnd);
+            } else {
+                alert(data.resultCode, data.resultMessage);
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+
+function reqCncl(target) {
+    let $dataEl = $(target).closest('tr');
+    let apcCd = $dataEl.data('apcCd');
+    let trsmMatId = $dataEl.data('trsmMatId');
+    let linkKnd = $dataEl.data('linkKnd');
+
+    $.ajax({
+        type: 'post',
+        url: '/co/user/updateLinkTrsmReqCncl.do',
+        data: JSON.stringify({
+            'apcCd': apcCd,
+            'trsmMatId': trsmMatId,
+            'linkKnd': linkKnd,
+            'sysLastChgUserId': 'dashboard',
+            'sysLastChgPrgrmId': 'apcLinkPop',
+            'linkUseYn': 'Y'
+        }),
+        beforeSend: function(xhr){
+            xhr.setRequestHeader("Content-type", "application/json");
+        },
+        success: function(data, textStatus, xhr) {
+            if(data.resultStatus == "S") {
+                alert("처리되었습니다.");
+                openPopApcLinkInfo(apcCd, linkKnd);
+            } else {
+                alert(data.resultCode, data.resultMessage);
+            }
+        },
+        error: function(xhr, status, error) {
+            if(status == '401') {
+                showLoginForm(true);
+            }
+        },
+        complete: function(xhr, textStatus) {
+            if(xhr.status == '401') {
+                showLoginForm(true);
+            }
+        }
+    });
+}
+function getLatestDate(dateList) {
+    const validDates = dateList
+        .filter(date => date) // null, undefined, '' 제거
+
+    if (validDates.length === 0) {
+        return "미사용";
+    }
+
+    return validDates
+        .map(date => new Date(date))
+        .reduce((latest, current) => current > latest ? current : latest)
+        .toISOString().slice(0, 10);
+}
+
+$(function() {
+    // login();
+    // const userInfo = localStorage.getItem('userInfo') !== undefined && localStorage.getItem('userInfo') != null
+    //     ? JSON.parse(localStorage.getItem('userInfo'))
+    //     : {};
+    getApcAgtStatus();
+    openPopApcInfo();
+    getCountAllPrdcr();
+    getStatsForOneYearBySearchYmd();
 
     if(apcInfo !== undefined && apcInfo != null) {
         let fcltCount = 0;
@@ -381,284 +489,131 @@ $(function() {
         $('#wholInstlStts').text(fcltCount);
 
         let oprtngRate = fcltCount > 0 ? ((oprtngFcltCount / fcltCount) * 100).toFixed(1) : '0.0';
-        $('#oprtngRate').html(oprtngRate + '<sup style="font-size: 20px;">%</sup>');
-
+        $('#oprtngRate').html(oprtngRate + "%");
         $('#fcltLinkApc').text(apcCount);
 
-        const svg = document.querySelector("#map");
-        const locationPins = [];
-        apcInfo.apcLists.forEach(apc => {
-            if(apc.cx != null && apc.cy != null) {
-                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                text.setAttribute("x", apc.cx);
-                text.setAttribute("y", parseInt(apc.cy) - 30);
-                text.setAttribute("text-anchor", "middle");
-                text.setAttribute("font-size", "15");
-                text.setAttribute("fill", "black");
-                text.textContent = apc.name;
-                svg.appendChild(text);
-
-                const dataKindActive = apc.kinds.some(kind => kind.value.trim() !== "");
-                const locationPin = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                locationPin.setAttribute("transform", `translate(${parseInt(apc.cx) - 9.5}, ${parseInt(apc.cy) - 26}) scale(0.05)`);
-                locationPin.setAttribute("fill", dataKindActive ? "blue" : "grey");
-
-                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                path.setAttribute("d", "M192 0C86 0 0 86 0 192c0 112 192 320 192 320s192-208 192-320C384 86 298 0 192 0zm0 272a80 80 0 1 1 0-160 80 80 0 0 1 0 160z");
-                locationPin.appendChild(path);
-
-                svg.appendChild(locationPin);
-                if(dataKindActive) {
-                    locationPins.push(locationPin);
-                }
-            }
-        });
-
-        let isRed = false;
-        setInterval(() => {
-            isRed = !isRed;
-            locationPins.forEach(locationPin => {
-                const currentFill = locationPin.getAttribute("fill");
-                if(currentFill === "blue" || currentFill === "red") {
-                    locationPin.setAttribute("fill", isRed ? "red" : "blue");
-                }
-            });
-        }, 700);
+        /** apc 현황 **/
+        var carouselWrap = $('<div id="carousel-apc" class="carousel slide carousel-fade" data-bs-ride="carousel"><div class="carousel-indicators carousel-indicators-dot" style="margin: 0!important;bottom: -0.8rem!important;"></div><div class="carousel-inner"></div></div>');
+        var carouselInner = carouselWrap.find('.carousel-inner');
+        var carouselIndicators = carouselWrap.find('.carousel-indicators');
 
         $.each(apcInfo.apcLists, function(index, el) {
-            console.log('element', index, el);
-            console.log(el.name);
-            console.log(el.kinds);
-            console.log(el.status);
+            if (index % 10 === 0) {
+                let slideIndex = index / 10;
+                let isActive = (index === 0) ? 'active' : '';
+                let carouselItem = $(`<div class="carousel-item ${isActive} d-block w-100"><div class="row row-cards"></div></div>`);
+                carouselInner.append(carouselItem);
+                let indicatorButton = $(`<button type="button" style="background-color: #609ebc!important;" data-bs-target="#carousel-apc" data-bs-slide-to="${slideIndex}" class="${isActive}" ${isActive ? 'aria-current="true"' : ''}></button>`);
+                carouselIndicators.append(indicatorButton);
+            }
 
-            var apcInfo = $('<div class="col-lg-6 apc_info"></div>');
-            $('#apc_infos').append(apcInfo);
+            var cardWrap = $('<div class="col-lg-6"></div>');
+            var apcInfo = $('<div class="apc_info card"></div>');
+            cardWrap.append(apcInfo);
+            carouselInner.children().last().find('.row').append(cardWrap);
+            $('#apc_infos').append(carouselWrap);
 
-            var apcName = $('<div class="col-lg-4 apc_status_wrapper apc_item apc_name no-padding" apc_cd="'+el.value+'"></div>');
-            var apcimg = $('<img src="./img/logo_btn_' + el.value + '.png"/>');
+            var apcName = $('<div class="card-body" apc_cd="'+el.value+'" apc_nm="'+el.name+'" style="display:flex;padding: 0.3rem!important;"></div>');
+            var apcimg = $('<img src="/api/mobile/img/logo_btn_' + el.value + '.png" data-bs-toggle="modal" data-bs-target="#exampleModal" style="cursor: pointer!important;"/>');
             apcName.append(apcimg);
-            apcimg.error(function(){
-                apcName.text(el.name);
-                if(el.nh)
-                    apcName.addClass('nh');
-                else
-                    apcName.addClass('corp');
+            apcimg.on('error', function() {
+                let apcNm = apcName.attr('apc_nm');
+                let apcCd = apcName.attr('apc_cd');
+                // const $newChild = $(`<div>${apcNm}</div>`); // 새 자식 요소 생성
+                const canvas = document.createElement('canvas');
+                canvas.width = 130;
+                canvas.height = 40;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // 둥근 테두리 함수
+                function roundRect(ctx, x, y, w, h, r) {
+                    ctx.beginPath();
+                    ctx.moveTo(x + r, y);
+                    ctx.lineTo(x + w - r, y);
+                    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+                    ctx.lineTo(x + w, y + h - r);
+                    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                    ctx.lineTo(x + r, y + h);
+                    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+                    ctx.lineTo(x, y + r);
+                    ctx.quadraticCurveTo(x, y, x + r, y);
+                    ctx.closePath();
+                    ctx.fillStyle = 'white';
+                    ctx.fill();
+                    ctx.strokeStyle = '#e5e7eb';
+                    ctx.stroke();
+                }
+                // 테두리
+                roundRect(ctx, 0.5, 0.5, canvas.width - 1, canvas.height - 1, 5);
+
+                // 폰트 크기 조절
+                let fontSize = 16;
+                ctx.font = `bold ${fontSize}px sans-serif`;
+                while (ctx.measureText(apcNm).width > canvas.width - 20 && fontSize > 8) {
+                    fontSize -= 1;
+                    ctx.font = `bold ${fontSize}px sans-serif`;
+                }
+
+                // 텍스트 중앙 정렬
+                ctx.fillStyle = 'black';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(apcNm, canvas.width / 2, canvas.height / 2);
+
+                const img = new Image();
+                img.src = canvas.toDataURL('image/png');
+                img.style.cursor = "pointer";  // !important는 JS에서 직접 지정 불가
+
+                img.setAttribute('data-bs-toggle', 'modal');
+                img.setAttribute('data-bs-target', '#exampleModal');
+
+                apcName.children().first().replaceWith(img);
+                apcName.children().first().on('click', function(e){
+                    const apcCd = $(this).closest('div.card-body').attr('apc_cd');
+                    openPopApcLinkInfo(apcCd);
+                });
             });
 
             apcInfo.append(apcName);
-
-            apcName.on('click', function(e) {
-                openPopApcInfo($(this).attr('apc_cd'));
+            $(apcName).children().first().on('click', function(e) {
+                const apcCd = $(this).closest('div.card-body').attr('apc_cd');
+                openPopApcLinkInfo(apcCd);
             });
+            /** 최근사용일자 하단 추가 **/
+            let lastUseDate = $('<div class="card-body" style="padding: 0!important;"><div class="card" style="border: 0!important;padding-left: 0.5rem">최근사용일자 :'+el.rcntData +'</div></div>');
+            apcInfo.append(lastUseDate);
 
-            var apcKinds = $('<div class="col-lg-2 apc_status_wrapper"></div>');
+            var apcKinds = $('<div class="col-lg-2 apc_status_wrapper" style="display: flex;gap:0.2rem;padding: 0 0.1rem;flex-direction: column;"></div>');
+
             $.each(el.kinds, function(index, kindsEl) {
-                var kindDiv = $('<div class="apc_item apc_kind no-padding ' + kindsEl.value + '">' + kindsEl.name + '</div>');
-
-                kindDiv.on("click", function() {
-                    if(kindsEl.name == "계량") {
-                        openPopApcLinkInfo(el.value, "W");
-                    } else if(kindsEl.name == "선별") {
-                        openPopApcLinkInfo(el.value, "S");
-                    } else if(kindsEl.name == "발주") {
-                        openPopApcLinkInfo(el.value, "R");
-                    }
-                });
+                let activeFlag = kindsEl.value === ''? false:true;
+                var kindDiv = $('<button class="btn position-relative" onclick="fn_selectAgentStat(this)" style="padding: 0!important;cursor: initial!important;">'+ kindsEl.name +'</button>');
+                let active = $('<span class="badge bg-blue badge-notification badge-blink"></span>');
+                if(activeFlag){
+                    kindDiv.append(active);
+                }else{
+                    kindDiv.addClass('disabled');
+                }
 
                 apcKinds.append(kindDiv);
             });
-            apcInfo.append(apcKinds);
+            apcName.append(apcKinds);
 
-            var apcStatus = $('<div class="col-lg-6 apc_status_wrapper"></div>');
+            var apcStatus = $('<div class="apc_status_wrapper" style="flex: 1;display: grid;grid-template-rows:repeat(2,1fr); grid-template-columns: repeat(3,1fr); gap: 0.2rem;"></div>');
+            // var apcStatus = $('<button class="btn position-relative" style="display: flex;flex-wrap: wrap;"><span class="badge bg-blue badge-notification badge-blink"></span></button>');
+
             $.each(el.status, function (index, el) {
-                apcStatus.append($('<div class="col-lg-4 apc_item apc_status no-padding ' + el.value + '">' + el.name + '</div>'));
+                // apcStatus.append($('<div class="col-lg-4 apc_item apc_status no-padding ' + el.value + '">' + el.name + '</div>'));
+                const badgeClass = el.value !== '' ? 'bg-teal' : 'bg-dark-lt';
+                apcStatus.append($(`<span class="badge ${badgeClass} text-teal-fg">${el.name}</span>`));
             });
-            apcInfo.append(apcStatus);
+            apcName.append(apcStatus);
         });
         /* APC 현황 끝 */
     }
-
-    /* 생산자 현황 조회 시작 */
-    $.ajax({
-        type: 'get',
-        url: './getCountAllPrdcr.do',
-        beforeSend: function(xhr){
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
-        },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('stats', data);
-
-            $('#prdcrCount').text(data.result);
-        },
-        error: function(xhr, status, error){
-            if(status == '401') {
-                showLoginForm(true);
-            }
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status == '401') {
-                showLoginForm(true);
-            }
-        }
-    });
-    /* 생산자 현황 조회 끝 */
-
-    //Make the dashboard widgets sortable Using jquery UI
-    $(".connectedSortable").sortable({
-        placeholder: "sort-highlight",
-        connectWith: ".connectedSortable",
-        handle: ".box-header, .nav-tabs",
-        forcePlaceholderSize: true,
-        zIndex: 999999
-    });
-    $(".connectedSortable .box-header, .connectedSortable .nav-tabs-custom").css("cursor", "move");
-
-    //jQuery UI sortable for the todo list
-    $(".todo-list").sortable({
-        placeholder: "sort-highlight",
-        handle: ".handle",
-        forcePlaceholderSize: true,
-        zIndex: 999999
-    });
-
-    //bootstrap WYSIHTML5 - text editor
-    $(".textarea").wysihtml5();
-
-    $('.daterange').daterangepicker({
-        ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate: moment()
-    }, function(start, end) {
-        window.alert("You chose: " + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    });
-
-    /* jQueryKnob */
-    $(".knob").knob();
-
-    //jvectormap data
-    var visitorsData = {
-        "US": 398, //USA
-        "SA": 400, //Saudi Arabia
-        "CA": 1000, //Canada
-        "DE": 500, //Germany
-        "FR": 760, //France
-        "CN": 300, //China
-        "AU": 700, //Australia
-        "BR": 600, //Brazil
-        "IN": 800, //India
-        "GB": 320, //Great Britain
-        "RU": 3000 //Russia
-    };
-
-    //World map by jvectormap
-    $('#world-map').vectorMap({
-        map: 'world_mill_en',
-        backgroundColor: "transparent",
-        regionStyle: {
-            initial: {
-                fill: '#e4e4e4',
-                "fill-opacity": 1,
-                stroke: 'none',
-                "stroke-width": 0,
-                "stroke-opacity": 1
-            }
-        },
-        series: {
-            regions: [{
-                values: visitorsData,
-                scale: ["#92c1dc", "#ebf4f9"],
-                normalizeFunction: 'polynomial'
-            }]
-        },
-        onRegionLabelShow: function(e, el, code) {
-            if(typeof visitorsData[code] != "undefined") {
-                el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
-            }
-        }
-    });
-
-    /* 일일데이터 수집 현황 차트 시작 */
-    $.ajax({
-        type: 'get',
-        url: './getStatsForOneYearBySearchYmd.do',
-        beforeSend: function(xhr){
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            if(userInfo.accessToken !== undefined && userInfo.accessToken != null) {
-                xhr.setRequestHeader("Authorization", "Bearer " + userInfo.accessToken);
-            }
-        },
-        success: function(data, textStatus, xhr) {
-            console.log(xhr.status);
-            console.log('stats', data);
-
-            let values = [];
-            let fromYear = parseInt(data.result.SEARCH_YMD_FROM.substring(0, 4));
-            let toYear = parseInt(data.result.SEARCH_YMD_TO.substring(0, 4));
-            let fromMonth = parseInt(data.result.SEARCH_YMD_FROM.substring(4, 6));
-            let toMonth = parseInt(data.result.SEARCH_YMD_TO.substring(4, 6));
-            let year = fromYear;
-            for(let i = fromMonth; year < toYear || i <= toMonth; i++) {
-                if(i == 13) {
-                    i = 1;
-                    year++;
-                }
-                let m = i < 10 ? '0' + i : i;
-                values.push({'y': year + '-' + m});
-            }
-
-            $.each(data.result.RESULTS, function(index, el) {
-                console.log('element', index, el);
-
-                if(el.RS_TYPE == 'WRHS') {
-                    for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].wrhs = eval("el.C_" + i);
-                    }
-                } else if(el.RS_TYPE == 'SORT') {
-                    for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].sort = eval("el.C_" + i);
-                    }
-                } else if(el.RS_TYPE == 'WGH') {
-                    for(let i = 0; i < values.length; i++) {
-                        values[values.length - (i + 1)].wgh = eval("el.C_" + i);
-                    }
-                }
-            });
-
-            var area = new Morris.Area({
-                element: 'revenue-chart',
-                resize: true,
-                data: values,
-                xkey: 'y',
-                ykeys: ['wrhs', 'sort', 'wgh'],
-                labels: ['입고', '선별', '계량'],
-                lineColors: ['#A0D0E0', '#3C8DBC', '#047630'],
-                hideHover: 'auto'
-            });
-
-        },
-        error: function(xhr, status, error){
-            if(status == '401') {
-                showLoginForm(true);
-            }
-        },
-        complete: function(xhr, textStatus) {
-            if(xhr.status == '401') {
-                showLoginForm(true);
-            }
-        }
-    });
-    /* 일일데이터 수집 현황 차트 끝 */
 });
+
+

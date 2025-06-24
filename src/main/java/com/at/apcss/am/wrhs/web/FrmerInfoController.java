@@ -1,11 +1,11 @@
 package com.at.apcss.am.wrhs.web;
 
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.at.apcss.am.cmns.service.ComAtchflService;
+import com.at.apcss.am.cmns.vo.ComAtchflVO;
+import com.at.apcss.am.wrhs.service.FrmerInfoService;
+import com.at.apcss.am.wrhs.vo.*;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,18 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.cmns.service.ComAtchflService;
-import com.at.apcss.am.cmns.vo.ComAtchflVO;
-import com.at.apcss.am.wrhs.service.FrmerInfoService;
-import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
-import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.CltvtnListVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
 /**
  * @Class Name : FrmerInfoController.java
  * @Description : 영농관리에 대한 Controller 클래스
@@ -498,4 +490,26 @@ public class FrmerInfoController extends BaseController{
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+    @PostMapping(value = "/am/wrhs/selectStdg.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectStdgList(@RequestBody StdgVO stdgVO, HttpServletRequest request) throws Exception {
+
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        List<StdgVO> resultList;
+
+        try {
+            resultList = frmerInfoService.selectStdgList(stdgVO);
+        } catch (Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
 }
