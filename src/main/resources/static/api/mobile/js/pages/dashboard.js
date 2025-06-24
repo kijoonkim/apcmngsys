@@ -45,12 +45,12 @@ function openPopApcInfo(apcCd = '') {
 
             if(data!=null && data.resultStatus == 'S' && data.resultList != null) {
                 apcInfoList = [...data.resultList];
-                // data.resultList.forEach(function(item){
-                //     let x = parseFloat(item.xcrd);
-                //     let y = parseFloat(item.ycrd);
-                //     let flag = apcInfo.apcLists.some(i => i.value === item.apcCd);
-                //     addMarker(x,y,item.apcNm,flag);
-                // });
+                data.resultList.forEach(function(item){
+                    let x = parseFloat(item.xcrd);
+                    let y = parseFloat(item.ycrd);
+                    let flag = apcInfo.apcLists.some(i => i.value === item.apcCd);
+                    addMarker(x,y,item.apcNm,flag);
+                });
             }
         },
         error: function(xhr, status, error) {
