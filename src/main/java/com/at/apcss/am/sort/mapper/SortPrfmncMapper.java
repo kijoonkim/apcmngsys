@@ -327,4 +327,11 @@ public interface SortPrfmncMapper {
 	 * @throws Exception
 	 */
     List<HashMap<String, Object>> selectSortPrfmnc0244(SortPrfmncVO sortPrfmncVO) throws Exception;
+	/**
+	 * 선별 결과표 등급별 집계 컬럼조회
+	 * @param paramMap
+	 * @return List
+	 * @throws Exception
+	 */
+	List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception;
 }

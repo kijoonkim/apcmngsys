@@ -23,29 +23,8 @@
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
   <style>
-    .th-mbl {
-      text-align: right;
-      font-weight: bold;
-      font-size: 28px;
-    }
-    .btn-mbl {
-      height: 50px;
-      font-size: 24px;
-      min-width: 100px;
-    }
-    .inpt-mbl {
-      height: 50px;
-      font-size: 28px;
-      line-height: 1.3;
-      color: #555;
-      width: 100%;
-    }
-    #gsb-slt-apcCd {
-      height: 50px;
-      font-size: 28px;
-      line-height: 1.5;
-      color: #555;
-      width: 100%;
+    .sbux-pik-icon-btn{
+      height: 30px!important;
     }
   </style>
 </head>
@@ -62,7 +41,7 @@
                 id="btnSearch"
                 name="btnSearch"
                 uitype="normal"
-                class="btn btn-sm btn-outline-danger btn-mbl"
+                class="btn btn-sm btn-outline-danger"
                 text="조회"
                 onclick="fn_search"
         ></sbux-button>
@@ -70,7 +49,7 @@
                 id="btnCacluate"
                 name="btnCacluate"
                 uitype="normal"
-                class="btn btn-sm btn-primary btn-mbl"
+                class="btn btn-sm btn-primary"
                 text="자동계산"
                 onclick="fn_cacluate"
                 disabled
@@ -79,7 +58,7 @@
                 id="btnSave"
                 name="btnSave"
                 uitype="normal"
-                class="btn btn-sm btn-outline-danger btn-mbl"
+                class="btn btn-sm btn-outline-danger"
                 text="저장"
                 onclick="fn_save"
         ></sbux-button>
@@ -87,7 +66,7 @@
                 id="btnPrint"
                 name="btnPrint"
                 uitype="normal"
-                class="btn btn-sm btn-primary btn-mbl"
+                class="btn btn-sm btn-primary"
                 text="발행"
                 onclick="fn_print"
                 disabled
@@ -96,7 +75,7 @@
                 id="btnExit"
                 name="btnExit"
                 uitype="normal"
-                class="btn btn-sm btn-outline-danger btn-mbl"
+                class="btn btn-sm btn-outline-danger"
                 text="종료"
                 onclick="fn_exit"
         ></sbux-button>
@@ -113,7 +92,7 @@
         </colgroup>
         <tbody>
         <tr>
-          <th scope="row" class="th_bg th-mbl">APC명</th>
+          <th scope="row" class="th_bg">APC명</th>
           <td class="td_input" style="border-right: hidden;">
             <div style="display: flex;">
               <%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
@@ -122,16 +101,15 @@
           <td colspan="2"></td>
         </tr>
         <tr>
-          <th scope="row" class="th_bg th-mbl"><span class="data_required"></span>정산일자</th>
+          <th scope="row" class="th_bg"><span class="data_required"></span>정산일자</th>
           <td class="td_input" style="border-right: hidden;">
             <div style="display:flex;">
               <sbux-datepicker
                       id="srch-dtp-sortYmd"
                       name="srch-dtp-sortYmd"
-                      wrap-style="width:330px"
                       date-format="yyyy-mm-dd"
-                      style="width:100%;"
-                      class="pull-right sbux-pik-group-apc inpt-mbl inpt_data_reqed input-sm-ast"
+<%--                      style="width:100%;"--%>
+                      class="sbux-pik-group-apc inpt_data_reqed input-sm-ast"
                       onchange="fn_searchSortRslt()"
               ></sbux-datepicker>
             </div>
@@ -163,7 +141,7 @@
     </div>
   </div>
 </section>
-<script src="${pageContext.request.contextPath}/js/out/bundle.js"></script>
+<script src="${pageContext.request.contextPath}/js/out/view.bundle.js"></script>
 </body>
 <script type="text/javascript">
   /** tab json **/
@@ -187,14 +165,10 @@
   /** col 구분 **/
   var jsonGrdColumnData = [];
 
+  /** 정산테이블 data **/
+  var jsonClclnData = [];
+
   window.addEventListener('DOMContentLoaded', async function(e) {
-    document.querySelectorAll(".sbux-pik-icon-btn").forEach((el) => {
-      el.style.width = "50px";
-      el.style.height = "50px";
-    });
-    document.querySelectorAll(".sbux-pik-icon").forEach((el) => {
-      el.style.fontSize = "24px";
-    });
     SBUxMethod.set('srch-dtp-sortYmd',gfn_dateToYmd(new Date()));
 
     await fn_init();
@@ -239,12 +213,10 @@
   const fn_searchSortRslt = async function(){
     let inptYmdFrom = SBUxMethod.get("srch-dtp-sortYmd");
     let inptYmdTo = SBUxMethod.get("srch-dtp-sortYmd");
-    let itemCd = '0802';
     const param = {
       apcCd: gv_selectedApcCd,
       inptYmdFrom: inptYmdFrom,
       inptYmdTo: inptYmdTo,
-      // itemCd: itemCd,
     }
     jsonSortRslt.length = 0;
     let totalRecordCount = 0;
@@ -256,7 +228,6 @@
               false
       );
       const data = await postJsonPromise;
-      console.log(data);
       data.resultList.forEach(item => {
         const sortRsltVo = {
           prdcrNm : item.PRDCR_NM
@@ -278,7 +249,8 @@
           ,grd16 : item.WGHT_16
           ,grd17 : item.WGHT_17
           ,prevTotal : item.SORT_WGHT
-          ,editTotal : item.SORT_WGHT
+          ,editTotal : item.RMRK
+          ,calTotal : parseInt(item.RMRK) ?(parseInt(item.SORT_WGHT) - parseInt(item.RMRK))||0 : ''
           ,itemCd : item.ITEM_CD
           ,vrtyCd : item.VRTY_CD
           ,prdcrCd : item.RPRS_PRDCR_CD
@@ -289,7 +261,7 @@
       gridSortRslt.refresh();
 
       /** 정산처리 행 체크 **/
-      // fn_searchClclnList();
+      // await fn_searchClclnList();
 
     }catch (e) {
 
@@ -307,9 +279,8 @@
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
     }
-
-    console.log(data);
-
+    jsonClclnData.length = 0;
+    jsonClclnData = [...data.resultList];
   }
 
   /** 탭별 grid 생성 **/
@@ -557,19 +528,19 @@
   const fn_search = async function(){
     let calTotalList = gridSortRslt.getGridDataAll().map(item => item.calTotal).filter(val => val != null);;
 
-    if (calTotalList.length > 0) {
-      const result = await Swal.fire({
-        title: '실중량 변경이 존재합니다.<br>재조회하시겠습니까?',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '조회',
-        cancelButtonText: '취소',
-      });
-
-      if (!result.isConfirmed) return;
-    }
+    // if (calTotalList.length > 0) {
+    //   const result = await Swal.fire({
+    //     title: '실중량 변경이 존재합니다.<br>재조회하시겠습니까?',
+    //     icon: 'question',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: '조회',
+    //     cancelButtonText: '취소',
+    //   });
+    //
+    //   if (!result.isConfirmed) return;
+    // }
     await fn_searchSortRslt();
   }
   /** 자동계산 버튼 **/
@@ -600,6 +571,10 @@
     fn_autoCal();
   }
   const fn_save = async function(){
+    let tabId = SBUxMethod.get('idxtabTopJson');
+
+    //tab_sortRslt 선별결과
+    //tab_rsltSrch 결과조회
     /** save vo list **/
     let saveClclnMstrVoList = [];
     let saveClclnDtlVoList = [];
@@ -607,48 +582,75 @@
     let clclnYmd = SBUxMethod.get('srch-dtp-sortYmd');
     let sortRsltList = gridSortRslt.getGridDataAll(true);
 
-    sortRsltList.forEach(function(item,idx,arr){
-      let mstrVo = {
-        apcCd : gv_selectedApcCd,
-        clclnYmd : clclnYmd,
-        clclnSn : idx,
-        prdcrCd : item.prdcrCd,
-        itemCd : item.itemCd,
-        vrtyCd : item.vrtyCd,
-        spcfctCd : item.spcfctCd,
-        actlWght : item.editTotal,
-        calWght : item.prevTotal,
-        diffWght : item.calTotal,
-      }
-      saveClclnMstrVoList.push(mstrVo);
-      /** dtl 용 각 grd push **/
-      Object.keys(item).forEach(key => {
-        if (/^grd\d+$/.test(key)) {
-          let dtlVo = {...mstrVo};
-          dtlVo.clclnDtlSn = parseInt(key.slice(3));
-          dtlVo.clclnDtlKnd = 'GGRD';
-          dtlVo.clclnDtlCd = key;
-          dtlVo.sortWght = item[key];
-          dtlVo.clclnYn = 'Y';
-          saveClclnDtlVoList.push(dtlVo);
+    if(tabId === 'tab_sortRslt'){
+      let paramList = [];
+
+      sortRsltList.forEach(function(item,idx){
+        if(gridSortRslt.getRowStatus(idx + 1) === 0 )return;
+
+        let sortVo = {
+          apcCd : gv_selectedApcCd,
+          itemCd : item.itemCd,
+          vrtyCd : item.vrtyCd,
+          prdcrCd : item.prdcrCd,
+          inptYmd : clclnYmd,
+          rmrk : item.editTotal || ''
+        }
+        for(const [key, value] of Object.entries(item)){
+          if(/grd/.test(key)){
+            sortVo.grdCd = key.replace('grd','');
+            paramList.push(sortVo);
+          }
         }
       });
-    });
-    console.log(saveClclnMstrVoList,"mstr");
-    console.log(saveClclnDtlVoList,"dtl");
+      const postJsonPromise = gfn_postJSON("/am/invntr/updateSortInvntrList.do",paramList);
+      const data = await postJsonPromise;
 
-    const postJsonPromise = gfn_postJSON("/am/clcln/insertSortClcln.do",{
-      clclnMstrList: saveClclnMstrVoList,
-      clclnDtlList: saveClclnDtlVoList
-    });
-    const data = await postJsonPromise;
+      if (!_.isEqual("S", data.resultStatus)) {
+              gfn_comAlert(data.resultCode, data.resultMessage);
+              return;
+      }
+      await fn_search();
 
-    if (!_.isEqual("S", data.resultStatus)) {
-            gfn_comAlert(data.resultCode, data.resultMessage);
-            return;
+    }else if(tabId === 'tab_rsltSrch'){
+      sortRsltList.forEach(function(item,idx,arr){
+        let mstrVo = {
+          apcCd : gv_selectedApcCd,
+          clclnYmd : clclnYmd,
+          clclnSn : idx,
+          prdcrCd : item.prdcrCd,
+          itemCd : item.itemCd,
+          vrtyCd : item.vrtyCd,
+          spcfctCd : item.spcfctCd,
+          actlWght : item.editTotal,
+          calWght : item.prevTotal,
+          diffWght : item.calTotal,
+        }
+        saveClclnMstrVoList.push(mstrVo);
+        /** dtl 용 각 grd push **/
+        Object.keys(item).forEach(key => {
+          if (/^grd\d+$/.test(key)) {
+            let dtlVo = {...mstrVo};
+            dtlVo.clclnDtlSn = parseInt(key.slice(3));
+            dtlVo.clclnDtlKnd = 'GGRD';
+            dtlVo.clclnDtlCd = key;
+            dtlVo.sortWght = item[key];
+            dtlVo.clclnYn = 'Y';
+            saveClclnDtlVoList.push(dtlVo);
+          }
+        });
+      });
+      const postJsonPromise = gfn_postJSON("/am/clcln/insertSortClcln.do",{
+        clclnMstrList: saveClclnMstrVoList,
+        clclnDtlList: saveClclnDtlVoList
+      });
+      const data = await postJsonPromise;
+
+      if (!_.isEqual("S", data.resultStatus)) {
+        gfn_comAlert(data.resultCode, data.resultMessage);
+        return;
+      }
     }
-    console.log(data);
-
   }
   //endregion
 </script>
