@@ -1,15 +1,9 @@
 package com.at.apcss.am.wrhs.service;
 
+import com.at.apcss.am.wrhs.vo.*;
+
 import java.util.HashMap;
 import java.util.List;
-
-import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
-import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.CltvtnListVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
 
 /**
  * 영농관리 Service 인터페이스
@@ -219,4 +213,11 @@ public interface FrmerInfoService {
 	 */
 	public HashMap<String, Object> updateFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
 
+    /**
+     * 법정동 목록 조회
+     * @param stdgVO
+     * @return
+     * @throws Exception
+     */
+    public List<StdgVO> selectStdgList(StdgVO stdgVO) throws Exception;
 }

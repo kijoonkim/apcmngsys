@@ -1,15 +1,10 @@
 package com.at.apcss.am.wrhs.mapper;
 
-import java.util.List;
-
+import com.at.apcss.am.wrhs.vo.*;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
-import com.at.apcss.am.wrhs.vo.CltvtnBscInfoVO;
-import com.at.apcss.am.wrhs.vo.CltvtnFrmhsQltVO;
-import com.at.apcss.am.wrhs.vo.CltvtnHstryVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDdlnVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsDtlVO;
-import com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO;
+import java.util.List;
+
 /**
  * 영농관리 Mapper 인터페이스
  * @author 김  호
@@ -218,4 +213,11 @@ public interface FrmerInfoMapper {
 	 * @throws Exception
 	 */
 	public int updateFrmhsExpctWrhsDdln(FrmhsExpctWrhsDdlnVO frmhsExpctWrhsDdlnVO) throws Exception;
+
+    /**
+     * 법정동 목록 조회
+     * @param stdgVO
+     * @return
+     */
+    public List<StdgVO> selectStdgList(StdgVO stdgVO) throws Exception;
 }
