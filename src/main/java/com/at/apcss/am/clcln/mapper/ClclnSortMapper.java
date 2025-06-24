@@ -5,6 +5,7 @@ import com.at.apcss.am.clcln.vo.ClclnMstrVO;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -30,5 +31,5 @@ public interface ClclnSortMapper {
      * @return List<ClclnDtlVO>
      * @throws Exception
      */
-    List<ClclnDtlVO> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception;
+    List<HashMap<String, Object>> selectSortClclnList(ClclnMstrVO clclnMstrVO) throws Exception;
 }
