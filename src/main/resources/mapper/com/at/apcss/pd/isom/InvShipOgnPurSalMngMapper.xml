@@ -9,7 +9,6 @@
 <!-- ===========  	============  	===========================================	-->
 <!-- 2023.06.29  	jcshin        	Initial Creation                            -->
 <!-- ==========================================================================	-->
-
 <mapper namespace="com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper">
 
 	<!-- ==========================================================================	-->
@@ -2326,5 +2325,992 @@
 		  AND ROWNUM = 1
 		  AND YR = #{yr}
 		  AND BRNO = #{brno}
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleRawDataList	-->
+	<!-- DESC : 출자출하조직 총 매입매출 rawdata 목록 조회                               -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectIsoTotalPurchaseSaleRawDataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+    	<![CDATA[
+			SELECT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleRawDataList */
+				  APO.YR		AS YR
+				, APO.BRNO		AS BRNO
+				, APO.CORP_NM	AS CORP_NM
+				, PS.UO_BRNO	AS UO_BRNO
+				, UO.CORP_NM	AS UO_CORP_NM
+				, UO.APRV		AS APRV
+				, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', UO.APRV) FROM DUAL) AS APRV_NM
+				, PS.PRCHS_SLS_SE	AS PRCHS_SLS_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('PRCHS_SLS_SE', PS.PRCHS_SLS_SE) FROM DUAL) AS PRCHS_SLS_SE_NM
+				, PS.ITEM_CD		AS ITEM_CD
+				, ITM.ITEM_NM		AS ITEM_NM
+				, ITM.CTGRY_CD		AS CTGRY_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				, PS.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', PS.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+
+				/* 매입 */
+				/* 매입-수탁 */
+				, PS.PRCHS_SORT_TRST_VLM	AS PRCHS_SORT_TRST_VLM
+				, PS.PRCHS_SORT_TRST_AMT	AS PRCHS_SORT_TRST_AMT
+				, PS.PRCHS_SPMT_TRST_VLM	AS PRCHS_SPMT_TRST_VLM
+				, PS.PRCHS_SPMT_TRST_AMT	AS PRCHS_SPMT_TRST_AMT
+				, PS.PRCHS_SMPL_TRST_VLM	AS PRCHS_SMPL_TRST_VLM
+				, PS.PRCHS_SMPL_TRST_AMT	AS PRCHS_SMPL_TRST_AMT
+			 	, NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+					+ NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+					+ NVL(PS.PRCHS_SMPL_TRST_VLM, 0)	AS PRCHS_TRST_VLM
+			 	, NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+					+ NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+					+ NVL(PS.PRCHS_SMPL_TRST_AMT, 0)	AS PRCHS_TRST_AMT
+			 	, CASE
+					WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_TRST_VLM, 0)
+					ELSE
+						   NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+						   + NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+						   + NVL(PS.PRCHS_SMPL_TRST_VLM, 0)
+			  	END			AS PRCHS_TRST_VLM
+			 	, CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_TRST_AMT, 0)
+					   ELSE
+							NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+							+ NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+							+ NVL(PS.PRCHS_SMPL_TRST_AMT, 0)
+				END			AS PRCHS_TRST_AMT
+
+				/* 매입-매취 */
+				 , PS.PRCHS_SORT_EMSPAP_VLM	AS PRCHS_SORT_EMSPAP_VLM
+				 , PS.PRCHS_SORT_EMSPAP_AMT	AS PRCHS_SORT_EMSPAP_AMT
+				 , PS.PRCHS_SMPL_EMSPAP_VLM	AS PRCHS_SMPL_EMSPAP_VLM
+				 , PS.PRCHS_SMPL_EMSPAP_AMT	AS PRCHS_SMPL_EMSPAP_AMT
+				 , NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0) + NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)	AS PRCHS_EMSPAP_VLM
+				 , NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0) + NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)	AS PRCHS_EMSPAP_AMT
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_EMSPAP_VLM, 0)
+					   ELSE
+							   NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0)
+							   + NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)
+				END			AS PRCHS_EMSPAP_VLM
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_EMSPAP_AMT, 0)
+					   ELSE
+							   NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0)
+							   + NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)
+				END			AS PRCHS_EMSPAP_AMT
+
+				/* 매입-합계 */
+				 , NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+				+ NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+				+ NVL(PS.PRCHS_SMPL_TRST_VLM, 0)
+				+ NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0)
+				+ NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)	AS PRCHS_TOT_VLM
+				 , NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+				+ NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+				+ NVL(PS.PRCHS_SMPL_TRST_AMT, 0)
+				+ NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0)
+				+ NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)	AS PRCHS_TOT_AMT
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_TRST_VLM, 0) + NVL(PS.PRCHS_EMSPAP_VLM, 0)
+					   ELSE
+							   NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+							   + NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+							   + NVL(PS.PRCHS_SMPL_TRST_VLM, 0)
+							   + NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0)
+							   + NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)
+				END			AS PRCHS_TOT_VLM
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.PRCHS_TRST_AMT, 0) + NVL(PS.PRCHS_EMSPAP_AMT, 0)
+					   ELSE
+							   NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+							   + NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+							   + NVL(PS.PRCHS_SMPL_TRST_AMT, 0)
+							   + NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0)
+							   + NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)
+				END			AS PRCHS_TOT_AMT
+
+
+				/* 매출 */
+				/* 매출-수탁 */
+				 , PS.SLS_CPRTN_TRST_VLM			AS SLS_CPRTN_TRST_VLM
+				 , PS.SLS_CPRTN_TRST_AMT			AS SLS_CPRTN_TRST_AMT
+				 , PS.SLS_CPRTN_SORT_TRST_VLM	AS SLS_CPRTN_SORT_TRST_VLM
+				 , PS.SLS_CPRTN_SORT_TRST_AMT	AS SLS_CPRTN_SORT_TRST_AMT
+				 , PS.SLS_SMPL_TRST_VLM			AS SLS_SMPL_TRST_VLM
+				 , PS.SLS_SMPL_TRST_AMT			AS SLS_SMPL_TRST_AMT
+
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_TRST_VLM, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_TRST_VLM, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_TRST_VLM, 0)
+							   + NVL(PS.SLS_SMPL_TRST_VLM, 0)
+				END			AS SLS_TRST_VLM
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_TRST_AMT, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_TRST_AMT, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_TRST_AMT, 0)
+							   + NVL(PS.SLS_SMPL_TRST_AMT, 0)
+				END			AS SLS_TRST_AMT
+
+				/* 매출-매취 */
+				 , PS.SLS_CPRTN_SORT_EMSPAP_VLM	AS SLS_CPRTN_SORT_EMSPAP_VLM
+				 , PS.SLS_CPRTN_SORT_EMSPAP_AMT	AS SLS_CPRTN_SORT_EMSPAP_AMT
+				 , PS.SLS_SMPL_EMSPAP_VLM		AS SLS_SMPL_EMSPAP_VLM
+				 , PS.SLS_SMPL_EMSPAP_AMT		AS SLS_SMPL_EMSPAP_AMT
+
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_EMSPAP_VLM, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+							   + NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)
+				END			AS SLS_EMSPAP_VLM
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_EMSPAP_AMT, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+							   + NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)
+				END			AS SLS_EMSPAP_AMT
+
+
+				 , PS.DDC_VLM	AS DDC_VLM
+				 , PS.DDC_AMT	AS DDC_AMT
+
+				/* 매출-합계 */
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_EMSPAP_VLM, 0) + NVL(PS.SLS_TRST_VLM, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_TRST_VLM, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_TRST_VLM, 0)
+							   + NVL(PS.SLS_SMPL_TRST_VLM, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+							   + NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)
+				END			AS SLS_TOT_VLM
+				 , CASE
+					   WHEN APO.YR < '2025' THEN NVL(PS.SLS_EMSPAP_AMT, 0) + NVL(PS.SLS_TRST_AMT, 0)
+					   ELSE
+							   NVL(PS.SLS_CPRTN_TRST_AMT, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_TRST_AMT, 0)
+							   + NVL(PS.SLS_SMPL_TRST_AMT, 0)
+							   + NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+							   + NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)
+				END			AS SLS_TOT_AMT
+
+
+				/* 공제 */
+				 , PS.DDC_EXPRT_VLM			AS DDC_EXPRT_VLM
+				 , PS.DDC_EXPRT_AMT			AS DDC_EXPRT_AMT
+				 , PS.DDC_VLM				AS DDC_VLM
+				 , PS.DDC_AMT				AS DDC_AMT
+				 , PS.DDC_ARMY_DLVGDS_VLM	AS DDC_ARMY_DLVGDS_VLM
+				 , PS.DDC_ARMY_DLVGDS_AMT	AS DDC_ARMY_DLVGDS_AMT
+				 , PS.DDC_MLSR_VLM			AS DDC_MLSR_VLM
+				 , PS.DDC_MLSR_AMT			AS DDC_MLSR_AMT
+
+				 , NVL(PS.DDC_EXPRT_VLM, 0)
+				+ NVL(PS.DDC_VLM, 0)
+				+ NVL(PS.DDC_ARMY_DLVGDS_VLM, 0)
+				+ NVL(PS.DDC_MLSR_VLM, 0)	AS DDC_VLM_TOT
+				 , NVL(PS.DDC_EXPRT_AMT, 0)
+				+ NVL(PS.DDC_AMT, 0)
+				+ NVL(PS.DDC_ARMY_DLVGDS_AMT, 0)
+				+ NVL(PS.DDC_MLSR_AMT, 0)	AS DDC_AMT_TOT
+
+				 , PS.SPMT_PRFMNC_VLM		AS SPMT_PRFMNC_VLM
+				 , PS.SPMT_PRFMNC_AMT		AS SPMT_PRFMNC_AMT
+				 , PS.SMPL_INPT_VLM			AS SMPL_INPT_VLM
+				 , PS.SMPL_INPT_AMT			AS SMPL_INPT_AMT
+
+				 , PS.AJMT_VLM				AS AJMT_VLM
+				 , PS.AJMT_AMT				AS AJMT_AMT
+
+				/* 총 실적 */
+				 , PS.TOT_TRMT_PRFMNC_VLM		AS TOT_TRMT_PRFMNC_VLM
+				 , PS.TOT_TRMT_PRFMNC_AMT		AS TOT_TRMT_PRFMNC_AMT
+				 , PS.TOT_SPMT_PRFMNC_VLM		AS TOT_SPMT_PRFMNC_VLM
+				 , PS.TOT_SPMT_PRFMNC_AMT		AS TOT_SPMT_PRFMNC_AMT
+
+			FROM (
+					 SELECT
+						 EAM.APO_SE		AS APO_SE
+						  , APO.APO_CD		AS APO_CD
+						  , APO.CORP_NM	AS CORP_NM
+						  , APO.CRNO		AS CRNO
+						  , APO.BRNO			AS BRNO
+						  , EAM.YR			AS YR
+						  , UC.UO_BRNO		AS UO_BRNO
+					 FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+					   ON APO.BRNO = EAM.BRNO
+					   AND APO.DEL_YN = 'N'
+
+					  JOIN VW_EV_APO_UO_CD UC
+					   ON UC.CRTR_YR = EAM.YR
+						--		 	AND UC.ISO_APO_CD = EAM.APO_CD
+					   AND UC.ISO_BRNO = EAM.BRNO
+
+					 WHERE EAM.APO_SE = '2'
+					   AND EAM.YR = #{yr}
+					   AND NOT EXISTS (
+						 SELECT 1
+						 FROM TB_COM_USER X
+						 WHERE X.USER_ID IN (
+							 SELECT CD.CD_VL
+							 FROM TB_COM_CD_DTL CD
+							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							   AND CD.USE_YN = 'Y'
+							   AND CD.DEL_YN = 'N'
+						 )
+						   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+					 )
+					 UNION ALL
+					 SELECT
+						 EAM.APO_SE		AS APO_SE
+						  , APO.APO_CD		AS APO_CD
+						  , APO.CORP_NM		AS CORP_NM
+						  , APO.CRNO			AS CRNO
+						  , APO.BRNO			AS BRNO
+						  , EAM.YR				AS YR
+						  , '0'						AS UO_BRNO
+					 FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+						   ON APO.BRNO = EAM.BRNO
+							   AND APO.DEL_YN = 'N'
+
+					 WHERE EAM.APO_SE = '2'
+					   AND EAM.YR = #{yr}
+					   AND NOT EXISTS (
+						 SELECT 1
+						 FROM TB_COM_USER X
+						 WHERE X.USER_ID IN (
+							 SELECT CD.CD_VL
+							 FROM TB_COM_CD_DTL CD
+							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							   AND CD.USE_YN = 'Y'
+							   AND CD.DEL_YN = 'N'
+						 )
+						   AND X.BRNO = EAM.BRNO
+					 )
+				 ) APO
+
+				 JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+				  ON PS.YR = APO.YR
+				  AND PS.APO_SE = APO.APO_SE
+				  AND PS.BRNO = APO.BRNO
+				  AND PS.APO_CD = APO.APO_CD
+				  AND PS.UO_BRNO = APO.UO_BRNO
+				  AND PS.DEL_YN = 'N'
+
+			 LEFT JOIN TB_EV_APO UO
+			   ON UO.BRNO = APO.UO_BRNO
+			   AND UO.DEL_YN = 'N'
+
+			 LEFT JOIN TB_ITEM_CRTR ITM
+			   ON ITM.ITEM_CD = PS.ITEM_CD
+			   AND ITM.DEL_YN = 'N'
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+			WHERE (
+			   		PS.STTG_UPBR_ITEM_SE = '3'
+					OR
+					(
+					    PS.STTG_UPBR_ITEM_SE IN ('1','2')
+					    AND EXISTS (
+					        	SELECT 1
+					        	FROM TB_EV_APO_YR_GPC_CD GC
+								WHERE GC.YR = APO.YR
+								AND GC.BRNO = APO.UO_BRNO
+								AND GC.DEL_YN = 'N'
+								AND GC.ITEM_CD = PS.ITEM_CD
+							)
+					)
+			    )
+			</when>
+			<otherwise>
+				JOIN TB_EV_APO_YR_GPC_CD GC
+				ON GC.YR = APO.YR
+				AND GC.BRNO = APO.BRNO
+				AND GC.ITEM_CD = PS.ITEM_CD
+				AND PS.CTGRY_CD = GC.CTGRY_CD
+				AND PS.STTG_UPBR_ITEM_SE = GC.STTG_UPBR_ITEM_SE
+				AND PS.ITEM_CD = GC.ITEM_CD
+				AND GC.DEL_YN = 'N'
+
+			WHERE (
+					PS.STTG_UPBR_ITEM_SE = '3'
+					OR
+					(
+						PS.STTG_UPBR_ITEM_SE IN ('1','2')
+						AND
+						GC.UO_BRNO = APO.UO_BRNO
+						AND
+						GC.ITEM_CD = PS.ITEM_CD
+					)
+				)
+			</otherwise>
+		</choose>
+		<![CDATA[
+			ORDER BY
+				BRNO , PRCHS_SLS_SE , STTG_UPBR_ITEM_SE , PS.ITEM_CD
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList	-->
+	<!-- DESC : 출자출하조직 총 매입매출 목록 조회                               -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectIsoTotalPurchaseSaleList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		<![CDATA[
+			SELECT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList */
+				  ITEM.YR						AS YR
+				, PS.UO_BRNO					AS UO_BRNO
+				, ITEM.BRNO						AS BRNO
+				, ITEM.CRNO						AS CRNO
+				, ITEM.CORP_NM					AS CORP_NM
+				, ITEM.APO_CD					AS APO_CD
+				, ITEM.APO_SE					AS APO_SE
+				, PS.ITEM_CD					AS ITEM_CD
+				, (SELECT X.ITEM_NM FROM TB_ITEM_CRTR X WHERE X.ITEM_CD = PS.ITEM_CD) AS ITEM_NM
+				, NVL(PS.CTGRY_CD, ITEM.CTGRY_CD)					AS CTGRY_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', NVL(PS.CTGRY_CD, ITEM.CTGRY_CD)) FROM DUAL) AS CTGRY_NM
+				, NVL(PS.CLSF_CD, ITEM.CLSF_CD)					AS CLSF_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', NVL(PS.CLSF_CD, ITEM.CLSF_CD)) FROM DUAL) AS CLSF_NM
+				, NVL(PS.STTG_UPBR_ITEM_SE, ITEM.STTG_UPBR_ITEM_SE)		AS STTG_UPBR_ITEM_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', NVL(PS.STTG_UPBR_ITEM_SE, ITEM.STTG_UPBR_ITEM_SE)) FROM DUAL) AS STTG_UPBR_ITEM_NM
+				, PS.PRCHS_SLS_SE				AS PRCHS_SLS_SE
+				/* 매입 */
+				/* 매입-수탁 */
+				, PS.PRCHS_SORT_TRST_VLM	AS PRCHS_SORT_TRST_VLM
+				, PS.PRCHS_SORT_TRST_AMT	AS PRCHS_SORT_TRST_AMT
+				, PS.PRCHS_SPMT_TRST_VLM	AS PRCHS_SPMT_TRST_VLM
+				, PS.PRCHS_SPMT_TRST_AMT	AS PRCHS_SPMT_TRST_AMT
+				, PS.PRCHS_SMPL_TRST_VLM	AS PRCHS_SMPL_TRST_VLM
+				, PS.PRCHS_SMPL_TRST_AMT	AS PRCHS_SMPL_TRST_AMT
+			 	, CASE
+			   		WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_TRST_VLM, 0)
+				   	ELSE
+				   		NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+					   		+ NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+					   		+ NVL(PS.PRCHS_SMPL_TRST_VLM, 0)
+				END			AS PRCHS_TRST_VLM
+			 	, CASE
+			   		WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_TRST_AMT, 0)
+				   	ELSE
+				   		NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+					   		+ NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+					   		+ NVL(PS.PRCHS_SMPL_TRST_AMT, 0)
+				END			AS PRCHS_TRST_AMT
+				/* 매입-매취 */
+				, PS.PRCHS_SORT_EMSPAP_VLM	AS PRCHS_SORT_EMSPAP_VLM
+				, PS.PRCHS_SORT_EMSPAP_AMT	AS PRCHS_SORT_EMSPAP_AMT
+				, PS.PRCHS_SMPL_EMSPAP_VLM	AS PRCHS_SMPL_EMSPAP_VLM
+				, PS.PRCHS_SMPL_EMSPAP_AMT	AS PRCHS_SMPL_EMSPAP_AMT
+			 	, CASE
+					WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_EMSPAP_VLM, 0)
+					ELSE
+				   		NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0)
+				   			+ NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)
+				END			AS PRCHS_EMSPAP_VLM
+			 	, CASE
+				   	WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_EMSPAP_AMT, 0)
+				   	ELSE
+				   		NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0)
+					   		+ NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)
+				END			AS PRCHS_EMSPAP_AMT
+				/* 매입 - 기타 */
+				, PS.ETC_VLM	AS ETC_VLM
+				, PS.ETC_AMT	AS ETC_AMT
+
+				/* 매입-합계 */
+			 	, CASE
+				   	WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_TRST_VLM, 0) + NVL(PS.PRCHS_EMSPAP_VLM, 0) + NVL(PS.ETC_VLM, 0)
+				   	ELSE
+				   		NVL(PS.PRCHS_SORT_TRST_VLM, 0)
+					   		+ NVL(PS.PRCHS_SPMT_TRST_VLM, 0)
+						   	+ NVL(PS.PRCHS_SMPL_TRST_VLM, 0)
+						   	+ NVL(PS.PRCHS_SORT_EMSPAP_VLM, 0)
+						   	+ NVL(PS.PRCHS_SMPL_EMSPAP_VLM, 0)
+				END			AS PRCHS_TOT_VLM
+			 	, CASE
+				   	WHEN ITEM.YR < '2025' THEN NVL(PS.PRCHS_TRST_AMT, 0) + NVL(PS.PRCHS_EMSPAP_AMT, 0) + NVL(PS.ETC_AMT, 0)
+				   	ELSE
+				   		NVL(PS.PRCHS_SORT_TRST_AMT, 0)
+					   		+ NVL(PS.PRCHS_SPMT_TRST_AMT, 0)
+					   		+ NVL(PS.PRCHS_SMPL_TRST_AMT, 0)
+						   	+ NVL(PS.PRCHS_SORT_EMSPAP_AMT, 0)
+						   	+ NVL(PS.PRCHS_SMPL_EMSPAP_AMT, 0)
+				END			AS PRCHS_TOT_AMT
+
+				/* 매출 */
+				, NVL(TOTA.SORT_TRST_VLM ,0) 		AS SLS_CPRTN_SORT_TRST_VLM
+				, NVL(TOTA.SORT_TRST_AMT ,0) 		AS SLS_CPRTN_SORT_TRST_AMT
+				, NVL(TOTA.TRST_VLM ,0) 					AS SLS_CPRTN_TRST_VLM
+				, NVL(TOTA.TRST_AMT ,0) 					AS SLS_CPRTN_TRST_AMT
+				, NVL(TOTA.SORT_EMSPAP_VLM ,0) 	AS SLS_CPRTN_SORT_EMSPAP_VLM
+				, NVL(TOTA.SORT_EMSPAP_AMT ,0) 	AS SLS_CPRTN_SORT_EMSPAP_AMT
+
+				, NVL(TOTA.TOT_VLM, 0)			AS SLS_CPRTN_TOT_VLM
+				, NVL(TOTA.TOT_AMT, 0)			AS SLS_CPRTN_TOT_AMT
+
+				, PS.SLS_SMPL_TRST_VLM		AS SLS_SMPL_TRST_VLM
+				, PS.SLS_SMPL_TRST_AMT		AS SLS_SMPL_TRST_AMT
+				, PS.SLS_SMPL_EMSPAP_VLM	AS SLS_SMPL_EMSPAP_VLM
+				, PS.SLS_SMPL_EMSPAP_AMT	AS SLS_SMPL_EMSPAP_AMT
+				, PS.SLS_TRST_VLM					AS SLS_TRST_VLM
+				, PS.SLS_TRST_AMT					AS SLS_TRST_AMT
+
+			 	, CASE
+			   		WHEN ITEM.YR < '2025' THEN NVL(PS.SLS_EMSPAP_VLM, 0)
+				   	ELSE
+				   		NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+					   		+ NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)
+				END			AS SLS_EMSPAP_VLM
+			 	, CASE
+			   		WHEN ITEM.YR < '2025' THEN NVL(PS.SLS_EMSPAP_AMT, 0)
+				   	ELSE
+				   		NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+					   		+ NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)
+				END			AS SLS_EMSPAP_AMT
+				/* 매출-합계 */
+			 	, CASE
+				   	WHEN ITEM.YR < '2025' THEN NVL(PS.SLS_EMSPAP_VLM, 0) + NVL(PS.SLS_TRST_VLM, 0)
+				   	ELSE
+					   	NVL(PS.SLS_CPRTN_TRST_VLM, 0)
+					   		+ NVL(PS.SLS_CPRTN_SORT_TRST_VLM, 0)
+					   		+ NVL(PS.SLS_SMPL_TRST_VLM, 0)
+					   		+ NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+					   		+ NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)
+				END			AS SLS_TOT_VLM
+			 	, CASE
+				   	WHEN ITEM.YR < '2025' THEN NVL(PS.SLS_EMSPAP_AMT, 0) + NVL(PS.SLS_TRST_AMT, 0)
+				   	ELSE
+					   	NVL(PS.SLS_CPRTN_TRST_AMT, 0)
+					   		+ NVL(PS.SLS_CPRTN_SORT_TRST_AMT, 0)
+					   		+ NVL(PS.SLS_SMPL_TRST_AMT, 0)
+					   		+ NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+					   		+ NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)
+				END			AS SLS_TOT_AMT
+
+				/*공제*/
+				, PS.DDC_EXPRT_VLM				AS DDC_EXPRT_VLM
+				, PS.DDC_EXPRT_AMT				AS DDC_EXPRT_AMT
+				, PS.DDC_VLM					AS DDC_VLM
+				, PS.DDC_AMT					AS DDC_AMT
+				, PS.DDC_ARMY_DLVGDS_VLM		AS DDC_ARMY_DLVGDS_VLM
+				, PS.DDC_ARMY_DLVGDS_AMT		AS DDC_ARMY_DLVGDS_AMT
+				, PS.DDC_MLSR_VLM				AS DDC_MLSR_VLM
+				, PS.DDC_MLSR_AMT				AS DDC_MLSR_AMT
+
+				, PS.SPMT_PRFMNC_VLM			AS SPMT_PRFMNC_VLM
+				, PS.SPMT_PRFMNC_AMT			AS SPMT_PRFMNC_AMT
+				, PS.SMPL_INPT_VLM				AS SMPL_INPT_VLM
+				, PS.SMPL_INPT_AMT				AS SMPL_INPT_AMT
+
+				, NVL(TOTA.TOT_VLM, 0) + NVL(TOTB.TOT_VLM, 0) 	AS AJMT_VLM
+				, NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0) 	AS AJMT_AMT
+
+				/* 총 실적 */
+				, PS.TOT_TRMT_PRFMNC_VLM	AS TOT_TRMT_PRFMNC_VLM
+				, PS.TOT_TRMT_PRFMNC_AMT	AS TOT_TRMT_PRFMNC_AMT
+
+			 	, CASE ITEM.STTG_UPBR_ITEM_SE
+				   	WHEN '3' THEN PS.TOT_SPMT_PRFMNC_VLM
+				   	ELSE NVL(TOTA.UO_SPMT_VLM, 0) + NVL(TOTB.UO_SPMT_VLM, 0)
+				END		AS TOT_SPMT_PRFMNC_VLM
+
+			 	, CASE ITEM.STTG_UPBR_ITEM_SE
+				   	WHEN '3' THEN PS.TOT_SPMT_PRFMNC_AMT
+				   	ELSE NVL(TOTA.UO_SPMT_AMT, 0) + NVL(TOTB.UO_SPMT_AMT, 0)
+				END		AS TOT_SPMT_PRFMNC_AMT
+
+			 	, PS.RMRK		AS RMRK
+			 	, 'N' 				AS DEL_YN
+
+			FROM (
+					 SELECT
+					 	EAM.APO_SE				AS APO_SE
+						, APO.APO_CD			AS APO_CD
+						, APO.CORP_NM			AS CORP_NM
+						, APO.CRNO				AS CRNO
+						, EAM.BRNO				AS BRNO
+						, EAM.YR				AS YR
+						, NVL(GC.UO_BRNO, UC.UO_BRNO)	AS ORGNL_UO_BRNO
+					    , NVL(GC.UO_BRNO, UC.UO_BRNO)	AS UO_BRNO
+						, GC.ITEM_CD			AS ITEM_CD
+						, 'Y'					AS ORG
+						  --, GC.CTGRY_CD					AS CTGRY_CD
+						  --, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+					  	, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.CTGRY_CD
+							ELSE UGC.CTGRY_CD
+					 	END		AS CTGRY_CD
+					  	, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.CLSF_CD
+							ELSE UGC.CLSF_CD
+					 	END		AS CLSF_CD
+						, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.STTG_UPBR_ITEM_SE
+							ELSE UGC.STTG_UPBR_ITEM_SE
+					 	END		AS STTG_UPBR_ITEM_SE
+
+					 FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+						   ON APO.BRNO = EAM.BRNO
+							   AND APO.DEL_YN = 'N'
+
+					  JOIN VW_EV_APO_UO_CD UC
+						   ON UC.CRTR_YR = EAM.YR
+							   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
+						   AND UC.ISO_BRNO = EAM.BRNO
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				JOIN TB_EV_APO_YR_GPC_CD GC
+				ON GC.YR = EAM.YR
+				AND GC.BRNO = UC.UO_BRNO
+				AND GC.DEL_YN = 'N'
+			</when>
+			<otherwise>
+				JOIN TB_EV_APO_YR_GPC_CD GC
+				ON GC.YR = EAM.YR
+				AND GC.BRNO = EAM.BRNO
+				AND GC.DEL_YN = 'N'
+			</otherwise>
+		</choose>
+		<![CDATA[
+				  LEFT JOIN TB_EV_APO_YR_GPC_CD UGC
+						ON UGC.YR = EAM.YR
+						AND UGC.BRNO = GC.UO_BRNO
+						AND UGC.ITEM_CD = GC.ITEM_CD
+						AND UGC.DEL_YN = 'N'
+
+					 WHERE EAM.APO_SE = '2'
+					   AND EAM.YR = #{yr}
+					   AND EAM.BRNO = #{brno}
+					   AND NOT EXISTS (
+						 SELECT 1
+						 FROM TB_COM_USER X
+						 WHERE X.USER_ID IN (
+							 SELECT CD.CD_VL
+							 FROM TB_COM_CD_DTL CD
+							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							   AND CD.USE_YN = 'Y'
+							   AND CD.DEL_YN = 'N'
+						 )
+					   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+					 )
+
+					UNION ALL
+					 SELECT
+					 	EAM.APO_SE				AS APO_SE
+						, APO.APO_CD			AS APO_CD
+						, APO.CORP_NM			AS CORP_NM
+						, APO.CRNO				AS CRNO
+						, EAM.BRNO				AS BRNO
+						, EAM.YR				AS YR
+						, UC.UO_BRNO			AS ORGNL_UO_BRNO
+					    , '0'					AS UO_BRNO
+						, NULL					AS ITEM_CD
+					    , 'X'					AS ORG
+					  	, NULL					AS CTGRY_CD
+					  	, NULL					AS CLSF_CD
+						, NULL					AS STTG_UPBR_ITEM_SE
+
+					 FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+						   ON APO.BRNO = EAM.BRNO
+							   AND APO.DEL_YN = 'N'
+
+					  JOIN VW_EV_APO_UO_CD UC
+						   ON UC.CRTR_YR = EAM.YR
+							   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
+						   AND UC.ISO_BRNO = EAM.BRNO
+					 WHERE EAM.APO_SE = '2'
+					   AND EAM.YR = #{yr}
+					   AND EAM.BRNO = #{brno}
+					   AND NOT EXISTS (
+						 SELECT 1
+						 FROM TB_COM_USER X
+						 WHERE X.USER_ID IN (
+							 SELECT CD.CD_VL
+							 FROM TB_COM_CD_DTL CD
+							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							   AND CD.USE_YN = 'Y'
+							   AND CD.DEL_YN = 'N'
+						 )
+					   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+					 )
+				 ) ITEM
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+				ON PS.APO_SE = ITEM.APO_SE
+				AND PS.BRNO = ITEM.BRNO
+				AND PS.UO_BRNO = ITEM.UO_BRNO
+				AND PS.YR = ITEM.YR
+				AND PS.PRCHS_SLS_SE = #{prchsSlsSe}
+				AND PS.DEL_YN = 'N'
+			</when>
+			<otherwise>
+				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+				ON PS.APO_SE = ITEM.APO_SE
+				AND PS.BRNO = ITEM.BRNO
+				AND PS.UO_BRNO = ITEM.UO_BRNO
+				AND PS.YR = ITEM.YR
+				AND PS.PRCHS_SLS_SE = #{prchsSlsSe}
+				AND PS.STTG_UPBR_ITEM_SE = ITEM.STTG_UPBR_ITEM_SE
+				AND PS.ITEM_CD = ITEM.ITEM_CD
+				AND PS.DEL_YN = 'N'
+			    AND ITEM.ORG = 'Y'
+			</otherwise>
+		</choose>
+		<![CDATA[
+			 LEFT JOIN (
+				SELECT
+					SLS.UO_BRNO		AS UO_BRNO
+					 , SLS.BRNO				AS BRNO
+					 , SLS.YR					AS YR
+					 , SLS.ITEM_CD			AS ITEM_CD
+
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+					 , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_TRST_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS SORT_TRST_AMT
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS TRST_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS TRST_AMT
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_EMSPAP_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_AMT ELSE 0 END)	AS SORT_EMSPAP_AMT
+
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+				WHERE SLS.APO_SE = '2'
+				  AND SLS.TYPE_SE_NO IN ('5')
+				  AND SLS.DEL_YN = 'N'
+				  AND SLS.PRDCR_OGNZ_SN IN (
+					SELECT X.PRDCR_OGNZ_SN
+					FROM TB_EV_FRMHS_APO X
+					WHERE X.APO_SE = SLS.APO_SE
+					  AND X.BRNO = SLS.BRNO
+					  AND X.YR = SLS.YR
+					  AND X.STBLT_YN = 'Y'
+					  AND NVL(X.EXCL_YN, 'N') <> 'Y'
+				)
+				GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+			) TOTA
+			   ON TOTA.YR = ITEM.YR
+			   AND TOTA.UO_BRNO = ITEM.UO_BRNO
+			   AND TOTA.BRNO = ITEM.BRNO
+			   AND TOTA.ITEM_CD = PS.ITEM_CD
+			   AND ITEM.ORG = 'Y'
+			 LEFT JOIN (
+				SELECT
+					SLS.UO_BRNO	AS UO_BRNO
+					 , SLS.BRNO			AS BRNO
+					 , SLS.YR				AS YR
+					 , SLS.ITEM_CD		AS ITEM_CD
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+					 , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+				WHERE SLS.APO_SE = '2'
+				  AND SLS.TYPE_SE_NO IN ('7')
+				  AND SLS.DEL_YN = 'N'
+				GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+			) TOTB
+			   ON TOTB.YR = ITEM.YR
+			   AND TOTB.UO_BRNO = ITEM.UO_BRNO
+			   AND TOTB.BRNO = ITEM.BRNO
+			   AND TOTB.ITEM_CD = PS.ITEM_CD
+			   AND ITEM.ORG = 'Y'
+
+			 LEFT JOIN TB_ITEM_CRTR IC
+			   ON IC.ITEM_CD = PS.ITEM_CD
+			   AND ITEM.ORG = 'Y'
+			   AND IC.DEL_YN = 'N'
+
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				WHERE (
+					(
+					    PS.STTG_UPBR_ITEM_SE = '3'
+					    AND
+					    ITEM.ORG = 'X'
+					)
+					OR
+					(
+						PS.STTG_UPBR_ITEM_SE IN ('1', '2')
+						AND
+						PS.ITEM_CD = ITEM.ITEM_CD
+						AND
+						PS.UO_BRNO = ITEM.ORGNL_UO_BRNO
+					    AND
+						ITEM.ORG = 'Y'
+					)
+				)
+			</when>
+			<otherwise>
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			</otherwise>
+		</choose>
+		<![CDATA[
+			ORDER BY STTG_UPBR_ITEM_SE, ITEM_CD, CASE ITEM.UO_BRNO WHEN '0' THEN 9 ELSE 0 END, UO_BRNO
+		]]>
+	</select>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalSaleList	-->
+	<!-- DESC : 출자출하조직 총 매출 목록 조회                               -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.02.18  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectIsoTotalSaleList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnPurSalMngVO">
+		<![CDATA[
+			SELECT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalSaleList */
+				ITEM.YR							AS YR
+				 , ITEM.UO_BRNO					AS UO_BRNO
+				 , ITEM.BRNO						AS BRNO
+				 , ITEM.CRNO						AS CRNO
+				 , ITEM.CORP_NM					AS CORP_NM
+				 , ITEM.APO_CD						AS APO_CD
+				 , ITEM.APO_SE						AS APO_SE
+				 , ITEM.ITEM_CD					AS ITEM_CD
+				 , (SELECT X.ITEM_NM FROM TB_ITEM_CRTR X WHERE X.ITEM_CD = ITEM.ITEM_CD) AS ITEM_NM
+				 , ITEM.CTGRY_CD					AS CTGRY_CD
+				 , (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITEM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				 , ITEM.CLSF_CD					AS CLSF_CD
+				 , (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', ITEM.CLSF_CD) FROM DUAL) AS CLSF_NM
+				 , ITEM.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+				 , (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', ITEM.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_SE_NM
+
+				 , '2' 		AS PRCHS_SLS_SE
+
+				/* 매출 */
+				 , NVL(TOTA.SORT_TRST_VLM ,0) 		AS SLS_CPRTN_SORT_TRST_VLM
+				 , NVL(TOTA.SORT_TRST_AMT ,0) 		AS SLS_CPRTN_SORT_TRST_AMT
+				 , NVL(TOTA.TRST_VLM ,0) 					AS SLS_CPRTN_TRST_VLM
+				 , NVL(TOTA.TRST_AMT ,0) 					AS SLS_CPRTN_TRST_AMT
+				 , NVL(TOTA.SORT_EMSPAP_VLM ,0) 	AS SLS_CPRTN_SORT_EMSPAP_VLM
+				 , NVL(TOTA.SORT_EMSPAP_AMT ,0) 	AS SLS_CPRTN_SORT_EMSPAP_AMT
+
+				 , NVL(TOTA.TOT_VLM, 0)			AS SLS_CPRTN_TOT_VLM
+				 , NVL(TOTA.TOT_AMT, 0)			AS SLS_CPRTN_TOT_AMT
+
+				 , CM.SLS_SMPL_TRST_VLM		AS SLS_SMPL_TRST_VLM
+				 , CM.SLS_SMPL_TRST_AMT		AS SLS_SMPL_TRST_AMT
+				 , CM.SLS_SMPL_EMSPAP_VLM	AS SLS_SMPL_EMSPAP_VLM
+				 , CM.SLS_SMPL_EMSPAP_AMT	AS SLS_SMPL_EMSPAP_AMT
+				 , CM.SLS_EMSPAP_VLM				AS SLS_EMSPAP_VLM
+				 , CM.SLS_EMSPAP_AMT				AS SLS_EMSPAP_AMT
+				 , CM.SLS_TRST_VLM					AS SLS_TRST_VLM
+				 , CM.SLS_TRST_AMT					AS SLS_TRST_AMT
+
+				/*공제*/
+				 , CM.DDC_EXPRT_VLM				AS DDC_EXPRT_VLM
+				 , CM.DDC_EXPRT_AMT				AS DDC_EXPRT_AMT
+				 , CM.DDC_VLM							AS DDC_VLM
+				 , CM.DDC_AMT							AS DDC_AMT
+				 , CM.DDC_ARMY_DLVGDS_VLM	AS DDC_ARMY_DLVGDS_VLM
+				 , CM.DDC_ARMY_DLVGDS_AMT	AS DDC_ARMY_DLVGDS_AMT
+				 , CM.DDC_MLSR_VLM				AS DDC_MLSR_VLM
+				 , CM.DDC_MLSR_AMT				AS DDC_MLSR_AMT
+
+				 , CM.SPMT_PRFMNC_VLM			AS SPMT_PRFMNC_VLM
+				 , CM.SPMT_PRFMNC_AMT			AS SPMT_PRFMNC_AMT
+				 , CM.SMPL_INPT_VLM				AS SMPL_INPT_VLM
+				 , CM.SMPL_INPT_AMT				AS SMPL_INPT_AMT
+
+				 , NVL(TOTA.TOT_VLM, 0) + NVL(TOTB.TOT_VLM, 0) 	AS AJMT_VLM
+				 , NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0) 	AS AJMT_AMT
+
+				/* 총 실적 */
+				 , CM.TOT_TRMT_PRFMNC_VLM	AS TOT_TRMT_PRFMNC_VLM
+				 , CM.TOT_TRMT_PRFMNC_AMT	AS TOT_TRMT_PRFMNC_AMT
+
+				 , CASE ITEM.STTG_UPBR_ITEM_SE
+					   WHEN '3' THEN CM.TOT_SPMT_PRFMNC_VLM
+					   ELSE NVL(TOTA.UO_SPMT_VLM, 0) + NVL(TOTB.UO_SPMT_VLM, 0)
+				END		AS TOT_SPMT_PRFMNC_VLM
+
+				 , CASE ITEM.STTG_UPBR_ITEM_SE
+					   WHEN '3' THEN CM.TOT_SPMT_PRFMNC_AMT
+					   ELSE NVL(TOTA.UO_SPMT_AMT, 0) + NVL(TOTB.UO_SPMT_AMT, 0)
+				END		AS TOT_SPMT_PRFMNC_AMT
+
+				 , CM.RMRK		AS RMRK
+				 , 'N' 				AS DEL_YN
+
+			FROM (
+					 SELECT
+						 EAM.APO_SE						AS APO_SE
+						  , APO.APO_CD						AS APO_CD
+						  , APO.CORP_NM					AS CORP_NM
+						  , APO.CRNO						AS CRNO
+						  , EAM.BRNO							AS BRNO
+						  , EAM.YR							AS YR
+						  , NVL(GC.UO_BRNO, '0')		AS UO_BRNO
+						  , GC.ITEM_CD						AS ITEM_CD
+						  --, GC.CTGRY_CD					AS CTGRY_CD
+						  --, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+						  , CASE GC.STTG_UPBR_ITEM_SE
+								WHEN '3' THEN GC.CTGRY_CD
+								ELSE UGC.CTGRY_CD
+						 END		AS CTGRY_CD
+						  , CASE GC.STTG_UPBR_ITEM_SE
+								WHEN '3' THEN GC.CLSF_CD
+								ELSE UGC.CLSF_CD
+						 END		AS CLSF_CD
+						  , CASE GC.STTG_UPBR_ITEM_SE
+								WHEN '3' THEN GC.STTG_UPBR_ITEM_SE
+								ELSE UGC.STTG_UPBR_ITEM_SE
+						 END		AS STTG_UPBR_ITEM_SE
+
+					 FROM TB_EV_APLY_MNG EAM
+
+							  JOIN TB_EV_APO APO
+								   ON APO.BRNO = EAM.BRNO
+									   AND APO.DEL_YN = 'N'
+
+							  JOIN VW_EV_APO_UO_CD UC
+								   ON UC.CRTR_YR = EAM.YR
+									   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
+									   AND UC.ISO_BRNO = EAM.BRNO
+
+							  JOIN TB_EV_APO_YR_GPC_CD GC
+								   ON GC.YR = EAM.YR
+									   AND GC.BRNO = EAM.BRNO	-- 2024, 2025 다름
+									   AND GC.DEL_YN = 'N'
+
+							  LEFT JOIN TB_EV_APO_YR_GPC_CD UGC
+										ON UGC.YR = EAM.YR
+											AND UGC.BRNO = GC.UO_BRNO
+											AND UGC.ITEM_CD = GC.ITEM_CD
+											AND UGC.DEL_YN = 'N'
+
+					 WHERE EAM.APO_SE = '2'
+					   AND EAM.YR = #{yr}
+					   AND EAM.BRNO = #{brno}
+					   AND NOT EXISTS (
+						 SELECT 1
+						 FROM TB_COM_USER X
+						 WHERE X.USER_ID IN (
+							 SELECT CD.CD_VL
+							 FROM TB_COM_CD_DTL CD
+							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							   AND CD.USE_YN = 'Y'
+							   AND CD.DEL_YN = 'N'
+						 )
+						   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+					 )
+				 ) ITEM
+
+					 LEFT JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS CM
+							   ON CM.APO_SE = ITEM.APO_SE
+								   AND CM.BRNO = ITEM.BRNO
+								   AND CM.UO_BRNO = ITEM.UO_BRNO
+								   AND CM.YR = ITEM.YR
+								   AND CM.PRCHS_SLS_SE = '2'
+								   AND CM.STTG_UPBR_ITEM_SE = ITEM.STTG_UPBR_ITEM_SE
+								   AND CM.DEL_YN = 'N'
+
+					 LEFT JOIN (
+				SELECT
+					SLS.UO_BRNO		AS UO_BRNO
+					 , SLS.BRNO				AS BRNO
+					 , SLS.YR					AS YR
+					 , SLS.ITEM_CD			AS ITEM_CD
+
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+					 , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_TRST_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS SORT_TRST_AMT
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS TRST_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS TRST_AMT
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_EMSPAP_VLM
+					 , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_AMT ELSE 0 END)	AS SORT_EMSPAP_AMT
+
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+				WHERE SLS.APO_SE = '2'
+				  AND SLS.TYPE_SE_NO IN ('5')
+				  AND SLS.DEL_YN = 'N'
+				  AND SLS.PRDCR_OGNZ_SN IN (
+					SELECT X.PRDCR_OGNZ_SN
+					FROM TB_EV_FRMHS_APO X
+					WHERE X.APO_SE = SLS.APO_SE
+					  AND X.BRNO = SLS.BRNO
+					  AND X.YR = SLS.YR
+					  AND X.STBLT_YN = 'Y'
+					  AND NVL(X.EXCL_YN, 'N') <> 'Y'
+				)
+				GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+			) TOTA
+							   ON TOTA.YR = ITEM.YR
+								   AND TOTA.UO_BRNO = ITEM.UO_BRNO
+								   AND TOTA.BRNO = ITEM.BRNO
+								   AND TOTA.ITEM_CD = ITEM.ITEM_CD
+
+					 LEFT JOIN (
+				SELECT
+					SLS.UO_BRNO	AS UO_BRNO
+					 , SLS.BRNO			AS BRNO
+					 , SLS.YR				AS YR
+					 , SLS.ITEM_CD		AS ITEM_CD
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+					 , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+					 , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+				WHERE SLS.APO_SE = '2'
+				  AND SLS.TYPE_SE_NO IN ('7')
+				  AND SLS.DEL_YN = 'N'
+				GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+			) TOTB
+							   ON TOTB.YR = ITEM.YR
+								   AND TOTB.UO_BRNO = ITEM.UO_BRNO
+								   AND TOTB.BRNO = ITEM.BRNO
+								   AND TOTB.ITEM_CD = ITEM.ITEM_CD
+
+					 LEFT JOIN TB_ITEM_CRTR IC
+							   ON IC.ITEM_CD = ITEM.ITEM_CD
+								   AND IC.DEL_YN = 'N'
+			WHERE ITEM.ITEM_CD IS NOT NULL
+			ORDER BY STTG_UPBR_ITEM_SE, ITEM_CD, CASE ITEM.UO_BRNO WHEN '0' THEN 9 ELSE 0 END, UO_BRNO
+		]]>
 	</select>
 </mapper>

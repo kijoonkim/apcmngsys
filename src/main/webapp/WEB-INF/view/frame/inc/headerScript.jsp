@@ -111,13 +111,15 @@
 		<c:set scope="request" var="apcSeCd" value="${loginVO.apcSeCd}"></c:set>
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
 		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
-		
+		<c:set scope="request" var="untyAuthrtType" value="${loginVO.untyAuthrtType}"></c:set>
+
 		let gv_apcCd = '${apcCd}';
 		let gv_apcNm = '${apcNm}';
 		let gv_apcSeCd = '${apcSeCd}';
 		const gv_userType = '${userType}';
 		const gv_userNm = '${userNm}';
-		
+		const gv_untyAuthrtType = '${untyAuthrtType}';
+
 		</c:when>
 		<c:otherwise>
 		let gv_apcCd = '';
@@ -125,6 +127,7 @@
 		let gv_apcSeCd = '';
 		const gv_userType = '';
 		const gv_userNm = '${userNm}';
+		const gv_untyAuthrtType = '';
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정

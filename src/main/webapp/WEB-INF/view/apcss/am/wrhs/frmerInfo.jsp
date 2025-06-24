@@ -447,6 +447,23 @@
     <div id="body-modal-ddln">
     	<jsp:include page="../../am/popup/frmhsExpctWrhsDdlnPopup.jsp"></jsp:include>
     </div>
+
+    <!-- 법정동 선택 Modal -->
+    <div>
+        <sbux-modal
+            id="modal-stdgCd"
+            name="modal-stdgCd"
+            uitype="middle"
+            header-title="법정동코드 조회"
+            body-html-id="body-modal-stdgCd"
+            footer-is-close-button="false"
+            header-is-close-button="false"
+            style="width: 900px;"
+        ></sbux-modal>
+    </div>
+    <div id="body-modal-stdgCd">
+        <jsp:include page="../../am/popup/stdgCdPopup.jsp"></jsp:include>
+    </div>
 </body>
 <script type="text/javascript">
 
@@ -473,6 +490,7 @@
 	];
 	let choicePrdcrLandInfoNo = "";
 	var excelYn = "N";
+    var btnClick = "N";
 
 	/**
      * @description 메뉴트리그리드 컨텍스트메뉴 json
@@ -547,6 +565,8 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.allowcopy = true;
 	    SBGridProperties.scrollbubbling = false;
+		SBGridProperties.contextmenu = true;						// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListCltvtnHstry;	// 우클릭 메뉴 리스트
 	    SBGridProperties.columns = [
 		    {caption : ['확인일자'], 		ref: 'cfmtnYmd', 	type : 'output', 	width: '100px', style:'text-align:center;',
 			    format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}},
@@ -569,6 +589,28 @@
 	    ];
 	    grdCltvtnHstry = _SBGrid.create(SBGridProperties);
 	    grdCltvtnHstry.bind('click', 'fn_setFrmerInfo');
+	}
+
+	/**
+	 * @description 메뉴트리그리드 컨텍스트메뉴 json 재배및수확후관리
+	 * @type {object}
+	 */
+	const objMenuListCltvtnHstry = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",					//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",						//단축키
+			"callback": fn_excelDwnldCltvtnHstry,	//콜백함수명
+		},
+	};
+
+	// 엑셀 다운로드 (재배및수확후관리)
+	function fn_excelDwnldCltvtnHstry() {
+
+		if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
+			grdCltvtnHstry.exportData("xlsx","재배및수확후관리",true, {arrRemoveCols: [6]});
+		} else {
+			grdCltvtnHstry.exportLocalExcel("재배및수확후관리", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		}
 	}
 
 	const fn_createCltvtnFrmhsQltPrdcr = function () {
@@ -680,9 +722,10 @@
                 typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '70px', style: 'text-align: right',
                 typeinfo : {mask : {alias : 'numeric'},  oneclickedit : false}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
+                typeinfo : {callback: fn_modalStdgCd}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
         	{caption : ['지도'], 		ref: 'map', 		type: 'button', 	width: '55px', style: 'text-align:center',
         		typeinfo : {buttonvalue: '보기', buttonclass:'btn btn-xs btn-outline-danger'}},
 	    ];
@@ -1027,9 +1070,10 @@
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '100px', style: 'text-align: right;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
-	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'inputbutton', 	width: '120px', style: 'text-align:center',
+                typeinfo : {callback: fn_modalStdgCd}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 	    	{caption : [''], 			ref: 'rmrk', 		type: 'output', width: '200px', },
 	    ];
 	    grdLandInfo = _SBGrid.create(SBGridProperties);
@@ -1612,53 +1656,47 @@
 	    return nextMonthFirstDay.getDate();
 	}
 
-	const fn_search = async function () {
-
-
+	const fn_search = async function() {
 		let choiceTab = SBUxMethod.get("idxTab_norm");
-
 		let prdcrCdDtl = SBUxMethod.get("dtl-inp-prdcrCd");
 
 		choicePrdcrLandInfoNo = "";
 
+        if(choiceTab == 'frmerInfoTab') {
+            // 영농일지 재배 이력 grid clear
+            jsonCltvtnHstryPrdcr.length = 0;
+            grdCltvtnHstryPrdcr.refresh();
 
+            if(!gfn_isEmpty(prdcrCdDtl)) {
+                await Promise.all([
+                    fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl),
+                    fn_setPrdcrLandInfo(prdcrCdDtl)
+                ]);
 
-		switch (choiceTab) {
-			case "frmerInfoTab":
-				//영농일지 재배 이력 grid clear
-				jsonCltvtnHstryPrdcr.length = 0;
-				grdCltvtnHstryPrdcr.refresh();
-
-				if (!gfn_isEmpty(prdcrCdDtl)) {
-
-					await Promise.all([
-						fn_setCltvtnFrmhsQltPrdcr(prdcrCdDtl),
-						fn_setPrdcrLandInfo(prdcrCdDtl)
-					]);
-
-					if (!gfn_isEmpty(choicePrdcrLandInfoNo)) {
-						await fn_setCltvtnHstryPrdcr();
-					}
-				} else {
-					gfn_comAlert("W0001", "농가");				//	W0002	{0}을/를 선택하세요.
-					return;
-				}
-				break;
-			case "frmhsQltTab":
-				fn_setCltvtnFrmhsQlt(prdcrCdDtl);
-				break;
-			case "frmhsExpctWrhsTab":
-				fn_setFrmhsExpctWrhs();
-				break;
-			case "cltvtnHstryTab":
-				fn_setCltvtnHstry();
-				break;
-			case "landInfoTab":
-				fn_setLandInfo();
-				break;
-			default:
-				break;
-		}
+                if(!gfn_isEmpty(choicePrdcrLandInfoNo)) {
+                    await fn_setCltvtnHstryPrdcr();
+                }
+            } else {
+                gfn_comAlert("W0001", "농가");    // W0002    {0}을/를 선택하세요.
+                return;
+            }
+        } else if(choiceTab == 'frmhsQltTab') {
+            await Promise.all([
+                fn_setCltvtnFrmhsQlt(prdcrCdDtl)
+            ]);
+        } else if(choiceTab == 'frmhsExpctWrhsTab') {
+            await Promise.all([
+                fn_setFrmhsExpctWrhs()
+            ]);
+        } else if(choiceTab == 'cltvtnHstryTab') {
+            await Promise.all([
+                fn_setCltvtnHstry()
+            ]);
+        } else if(choiceTab == 'landInfoTab') {
+            await Promise.all([
+                fn_setLandInfo()
+            ]);
+        }
 	}
 
 	/**
@@ -2255,6 +2293,7 @@
     		let rowData = grdLandInfo.getRowData(nRow);
     		grdLandInfo.setCellData(nRow, nCol, "N", true);
 
+            btnClick = "Y";
     		grdLandInfo.addRow(true);
     		grdLandInfo.setCellDisabled(0, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, false);
     		grdLandInfo.setCellDisabled(grdLandInfo.getRows() -1, 0, grdLandInfo.getRows() -1, grdLandInfo.getCols() -1, true);
@@ -2263,6 +2302,7 @@
 
     		let rowData = grdLandInfo.getRowData(nRow);
     		let prdcrLandInfoNo = rowData.prdcrLandInfoNo ;
+            btnClick = "N";
 
     		if (gfn_isEmpty(prdcrLandInfoNo)) {
     			grdLandInfo.deleteRow(nRow);
@@ -2307,6 +2347,7 @@
     		let rowData = grdPrdcrLandInfo.getRowData(nRow);
     		grdPrdcrLandInfo.setCellData(nRow, nCol, "N", true);
 
+            btnClick = "Y";
     		grdPrdcrLandInfo.addRow(true);
     		grdPrdcrLandInfo.setCellDisabled(0, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, false);
     		grdPrdcrLandInfo.setCellDisabled(grdPrdcrLandInfo.getRows() -1, 0, grdPrdcrLandInfo.getRows() -1, grdPrdcrLandInfo.getCols() -1, true);
@@ -2315,6 +2356,7 @@
 
     		let rowData = grdPrdcrLandInfo.getRowData(nRow);
     		let prdcrLandInfoNo = rowData.prdcrLandInfoNo ;
+            btnClick = "N";
 
     		if (gfn_isEmpty(prdcrLandInfoNo)) {
     			grdPrdcrLandInfo.deleteRow(nRow);
@@ -2480,6 +2522,7 @@
 		}
 
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
+            console.log("landInfoList: ", landInfoList);
     		return;
     	}
 
@@ -2954,7 +2997,7 @@
 							qntt = 0;
 						}
 
-						if (gfn_isEmpty(rowData.crstrYm)) {
+						if (gfn_isEmpty(rowData.crtrYm)) {
 							gfn_comAlert("W0005", "기준연월");		//	W0005	{0}이/가 없습니다.
 							return;
 						}
@@ -3108,6 +3151,77 @@
 		}
 	}
 
+    /**
+     * @name fn_modalStdgCd
+     * @description 법정동코드선택팝업 호출
+     */
+    const fn_modalStdgCd = function() {
+        let nRow = grdLandInfo.getRow();
+        let stdgCd = nRow.stdgCd;
+
+        SBUxMethod.openModal('modal-stdgCd');
+
+        popStdgCd.init(gv_selectedApcCd, gv_selectedApcNm, stdgCd, fn_setStdg);
+    }
+
+    /**
+     * @name fn_setStdg
+     * @description 법정동코드선택 callback
+     */
+    const fn_setStdg = function(stdg) {
+        let choiceTab = SBUxMethod.get("idxTab_norm");
+        let nRow;
+        let stdgCdCol;
+
+        switch(choiceTab) {
+            case "frmerInfoTab":
+                nRow = grdPrdcrLandInfo.getRow();
+                stdgCdCol = grdPrdcrLandInfo.getColRef("stdgCd");
+
+                if(!gfn_isEmpty(stdg)) {
+                    let gridData = grdPrdcrLandInfo.getGridDataAll();
+                    if(gridData.length > 2) {
+                        grdPrdcrLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+
+                        if(btnClick == "Y") {
+                            grdPrdcrLandInfo.setRowStatus(nRow, 3);
+                        } else {
+                            grdPrdcrLandInfo.setRowStatus(nRow, 2);
+                        }
+                    } else {
+                        grdPrdcrLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+                    }
+
+                    btnClick = "N"
+                    grdPrdcrLandInfo.refresh();
+                }
+                break;
+            case "landInfoTab":
+                nRow = grdLandInfo.getRow();
+                stdgCdCol = grdLandInfo.getColRef("stdgCd");
+
+                if(!gfn_isEmpty(stdg)) {
+                    let gridData = grdLandInfo.getGridDataAll();
+                    if(gridData.length > 2) {
+                        grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+
+                        if(btnClick == "Y") {
+                            grdLandInfo.setRowStatus(nRow, 3);
+                        } else {
+                            grdLandInfo.setRowStatus(nRow, 2);
+                        }
+                    } else {
+                        grdLandInfo.setCellData(nRow, stdgCdCol, stdg.stdgCd);
+                    }
+
+                    btnClick = "N"
+                    grdLandInfo.refresh();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
 	/*
 	* 상세 정보 생산자 팝업 관련 function
@@ -3426,8 +3540,8 @@
 	    	{caption : ['정식(평)'], 	ref: 'plntngArea', 	type: 'input', 	width: '100px', style: 'text-align: right;',
                 typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}, maxlength : 6},
 	    	{caption : ['법정동'], 		ref: 'stdgCd', 		type: 'input', 	width: '120px', style: 'text-align:center', typeinfo : {minlength : 10, maxlength : 10, mask : {alias : 'numeric'}}},
-	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
-	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 3, mask : {alias : 'numeric'}}},
+	    	{caption : ['본번'], 		ref: 'frlnMno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
+	    	{caption : ['부번'], 		ref: 'frlnSno', 	type: 'input', 	width: '80px', style: 'text-align:center', typeinfo : {maxlength : 4, mask : {alias : 'numeric'}}},
 		];
 		return _columns;
 

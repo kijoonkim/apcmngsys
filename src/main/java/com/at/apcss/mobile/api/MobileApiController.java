@@ -1,46 +1,5 @@
 package com.at.apcss.mobile.api;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.at.apcss.mobile.service.FcmService;
-import com.at.apcss.mobile.vo.FarmMapVO;
-import com.at.apcss.mobile.vo.FcmSendVO;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.TopicManagementResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
-import org.egovframe.rte.fdl.property.EgovPropertyService;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import com.at.apcss.am.invntr.mapper.RawMtrInvntrMapper;
 import com.at.apcss.am.spmt.service.SpmtCmndService;
 import com.at.apcss.am.wrhs.mapper.RawMtrWrhsMapper;
@@ -55,11 +14,29 @@ import com.at.apcss.co.sys.service.LoginService;
 import com.at.apcss.co.sys.vo.LoginVO;
 import com.at.apcss.co.user.service.ComUserService;
 import com.at.apcss.co.user.vo.ComUserVO;
+import com.at.apcss.mobile.service.FcmService;
 import com.at.apcss.mobile.service.MobileApiService;
+import com.at.apcss.mobile.vo.FarmMapVO;
+import com.at.apcss.mobile.vo.FcmSendVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.google.firebase.messaging.FirebaseMessagingException;
 import egovframework.com.jwt.config.EgovJwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.egovframe.rte.fdl.property.EgovPropertyService;
+import org.json.simple.JSONObject;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * 모바일 API 호출을 위한 Controller
@@ -615,4 +592,75 @@ public class MobileApiController extends BaseController{
  */
 		return "/apcss/am/popup/framldMapPopupMobile";
 	}
+
+	@GetMapping("/getApcInfoList.do")
+	@ResponseBody
+	public JSONObject getApcInfoList(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+		List<ApcInfoVO> apcInfoList = apcInfoService.selectApcMngList(new ApcInfoVO());
+		resultJson.put("list", apcInfoList);
+		return resultJson;
+	}
+
+	@GetMapping("/getStatsForOneYearBySearchYmd.do")
+	@ResponseBody
+	public JSONObject getStatsForOneYearBySearchYmd(HttpServletRequest request) throws IOException {
+		JSONObject resultJson = new JSONObject();
+		try {
+			Map<String, Object> result = mobileApiService.getStatsForOneYearBySearchYmd();
+			resultJson.put("success", true);
+			resultJson.put("message", "성공");
+			resultJson.put("result", result);
+		} catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultJson;
+	}
+
+    @GetMapping("/getApcAgtStats.do")
+    @ResponseBody
+    public JSONObject getApcAgtStats(HttpServletRequest request) throws Exception {
+        JSONObject resultJson = new JSONObject();
+
+        try {
+			//APC에이전트상태 업데이트 SP호출
+			mobileApiService.callSpApcAgtStatsUpdate();
+
+            Map<String, Object> result = mobileApiService.getApcAgtStats();
+            resultJson.put("result", result);
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultJson;
+    }
+
+	@GetMapping("/getCountAllPrdcr.do")
+	@ResponseBody
+	public JSONObject getCountAllPrdcr(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+
+		try {
+			resultJson.put("result", mobileApiService.getCountAllPrdcr());
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}
+	/*
+	@GetMapping("/callSpApcAgtStatsUpdate.do")
+	@ResponseBody
+	public JSONObject callSpApcAgtStatsUpdate(HttpServletRequest request) throws Exception {
+		JSONObject resultJson = new JSONObject();
+
+		try {
+			resultJson.put("result", mobileApiService.callSpApcAgtStatsUpdate());
+		} catch(Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return resultJson;
+	}*/
 }

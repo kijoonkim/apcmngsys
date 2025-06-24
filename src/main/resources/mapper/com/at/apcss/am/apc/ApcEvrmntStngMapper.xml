@@ -481,7 +481,7 @@
 				, APC.DEL_YN					AS DEL_YN
 			  FROM TB_APC_EVRMNT_STNG APC
 			 WHERE APC.APC_CD = #{apcCd}
-		]]>
+			 ]]>
     </select>
 
     	<!-- ==========================================================================	-->
@@ -629,5 +629,84 @@
 			}
 		]]>
     </update>
-
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStngList -->
+	<!-- DESC : APC 환경설정 정보 목록 조회.                                             	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.06.11  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectApcEvrmntStngList" resultType="com.at.apcss.am.apc.vo.ApcEvrmntStngVO">
+		<![CDATA[
+	    	SELECT /* com.at.apcss.am.apc.mapper.ApcEvrmntStngMapper.selectApcEvrmntStngList */
+				  APC.APC_CD					AS APC_CD
+				, APC.APC_NM					AS APC_NM
+				, APC.ADDR						AS ADDR
+				, APC.TELNO						AS TELNO
+				, APC.FXNO						AS FXNO
+				, APC.BRNO						AS BRNO
+				, APC.BANK_CD					AS BANK_CD
+				, (SELECT FN_UTL_DECRYPT_ARIA(APC.ACTNO) FROM DUAL)	AS ACTNO
+				, APC.DPSTR_NM					AS DPSTR_NM
+				, APC.APC_SE_CD					AS APC_SE_CD
+				, APC.CLCLN_CRTR_CD				AS CLCLN_CRTR_CD
+				, APC.BZSTAT					AS BZSTAT
+				, APC.CLS 						AS CLS
+				, APC.SPMT_PRSN_DCLR_NO			AS SPMT_PRSN_DCLR_NO
+				, APC.APC_RPRSV_NM 				AS APC_RPRSV_NM
+				, APC.WGH_MNG_YN				AS WGH_MNG_YN
+				, APC.WGH_MBL_USE_YN			AS WGH_MBL_USE_YN
+				, APC.WGH_IDNTY_DOC_PBLCN_YN	AS WGH_IDNTY_DOC_PBLCN_YN
+				, APC.RAW_MTR_WRHS_MNG_YN		AS RAW_MTR_WRHS_MNG_YN
+				, APC.RAW_MTR_WRHS_MBL_USE_YN	AS RAW_MTR_WRHS_MBL_USE_YN
+				, APC.RAW_MTR_IDENT_TAG_PBLCN_YN	AS RAW_MTR_IDENT_TAG_PBLCN_YN
+				, APC.PLT_BX_MNG_YN				AS PLT_BX_MNG_YN
+				, APC.RAW_MTR_WRHS_PLAN_MNG_YN	AS RAW_MTR_WRHS_PLAN_MNG_YN
+				, APC.GDS_WRHS_MNG_YN			AS GDS_WRHS_MNG_YN
+				, APC.RAW_MTR_WRHS_PRCS_MNG_YN	AS RAW_MTR_WRHS_PRCS_MNG_YN
+				, APC.SORT_CMND_MNG_YN			AS SORT_CMND_MNG_YN
+				, APC.SORT_CMND_DOC_PBLCN_YN	AS SORT_CMND_DOC_PBLCN_YN
+				, APC.PCKG_CMND_MNG_YN			AS PCKG_CMND_MNG_YN
+				, APC.PCKG_CMND_DOC_PBLCN_YN	AS PCKG_CMND_DOC_PBLCN_YN
+				, APC.SORT_MNG_YN				AS SORT_MNG_YN
+				, APC.SORT_MBL_USE_YN			AS SORT_MBL_USE_YN
+				, APC.SORT_LBL_PBLCN_YN			AS SORT_LBL_PBLCN_YN
+				, APC.SORT_IDNTY_DOC_PBLCN_YN	AS SORT_IDNTY_DOC_PBLCN_YN
+				, APC.PCKG_MNG_YN				AS PCKG_MNG_YN
+				, APC.PCKG_MBL_USE_YN			AS PCKG_MBL_USE_YN
+				, APC.GDS_LBL_PBLCN_YN			AS GDS_LBL_PBLCN_YN
+				, APC.SPMT_CMND_MNG_YN			AS SPMT_CMND_MNG_YN
+				, APC.SPMT_CMND_DOC_PBLCN_YN	AS SPMT_CMND_DOC_PBLCN_YN
+				, APC.SPMT_MNG_YN				AS SPMT_MNG_YN
+				, APC.SPMT_MBL_USE_YN			AS SPMT_MBL_USE_YN
+				, APC.SPMT_DOC_PBLCN_YN			AS SPMT_DOC_PBLCN_YN
+				, APC.CLCLN_MNG_YN				AS CLCLN_MNG_YN
+				, APC.OUTORDR_MNG_YN			AS OUTORDR_MNG_YN
+				, APC.OUTORDR_ATMTC_RCPTN_YN 	AS OUTORDR_ATMTC_RCPTN_YN
+				, APC.OUTORDR_PCKG_CMND_LNKG_YN	AS OUTORDR_PCKG_CMND_LNKG_YN
+				, APC.TRSM_MNG_YN				AS TRSM_MNG_YN
+				, APC.SORT_DATA_TRSM_YN			AS SORT_DATA_TRSM_YN
+				, APC.CLCLN_DATA_TRSM_YN		AS CLCLN_DATA_TRSM_YN
+				, APC.OPRTR_USE_YN				AS OPRTR_USE_YN
+				, APC.OPRTR_SORT_PRFMNC_TRSM_YN	AS OPRTR_SORT_PRFMNC_TRSM_YN
+				, APC.OPRTR_PCKG_PRFMNC_TRSM_YN	AS OPRTR_PCKG_PRFMNC_TRSM_YN
+				, APC.INVNTR_TRNSF_MNG_YN		AS INVNTR_TRNSF_MNG_YN
+				, APC.INVNTR_MNG_YN				AS INVNTR_MNG_YN
+				, APC.SLS_MNG_YN 				AS SLS_MNG_YN
+				, APC.RAW_MTR_IDENT_TAG_WGHT_YN AS RAW_MTR_IDENT_TAG_WGHT_YN
+				, APC.OTPT_APC_NM 			    AS OTPT_APC_NM
+				, APC.RAW_MTR_VL_TYPE			AS RAW_MTR_VL_TYPE
+				, APC.PRDCR_MNG_TYPE			AS PRDCR_MNG_TYPE
+				, APC.SESS_UPDT_USE_YN			AS SESS_UPDT_USE_YN
+				, APC.DEL_YN					AS DEL_YN
+	    		, APC.XCRD						AS XCRD
+				, APC.YCRD						AS YCRD
+			  FROM TB_APC_EVRMNT_STNG APC
+			  WHERE 1=1
+			 ]]>
+		<if test='apcCd != null and apcCd != ""'>
+			AND APC.APC_CD = #{apcCd}
+		</if>
+	</select>
 </mapper>

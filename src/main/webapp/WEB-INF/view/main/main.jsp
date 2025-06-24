@@ -1600,7 +1600,6 @@
         if (!gfn_isEmpty(mainTab)) {
             return;
         }
-
         const svg = '📊'; //getHomeSvg();
         const jsonTabSelect = {
                 'id': tabName,
@@ -1614,6 +1613,20 @@
             };
 
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
+
+        /** 관리자 00,10 type시 agent 대시보드 노출 **/
+        console.log(gv_untyAuthrtType,"untyAuthrtType");
+        if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
+            const jsonTabSelect = {
+                'text': 'Agent',	//'대시보드'
+                'targetid': "TAB_CO_DASH",
+                'targetvalue': "TAB_CO_DASH",
+                'targetname': 'frmJson',
+                'link': '/static/api/mobile/dashboard.html',	// _url
+                'closeicon': false,
+            };
+            SBUxMethod.addTab('tab_menu',jsonTabSelect);
+        }
         //화면이력관리용 data
         const data = {
                 customData : {prsnaYn : null},

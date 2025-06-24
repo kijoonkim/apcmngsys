@@ -1,20 +1,10 @@
 package com.at.apcss.mobile.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.dao.DataAccessException;
 
-import com.at.apcss.mobile.vo.FacilityMngVO;
-import com.at.apcss.mobile.vo.WarehouseInfoVO;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 모바일 입고 관리 Mapper
@@ -55,5 +45,34 @@ public interface MobileApiMapper {
 	 * @throws Exception
 	 */
 	public Map<String, Object> findRefreshToken(String userId) throws Exception;
-	
+
+	/**
+	 * 1년 동안 APC 월단위 입고,선별,출고량
+	 * @param map:Map<String, Object> map
+	 * @return List<Map<String, Object>>
+	 * @throws Exception
+	 */
+	public List<Map<String, Object>> getStatsForOneYearBySearchYmd(Map<String, Object> map) throws Exception;
+
+    /**
+     * APC 에이전트(계량대, 선별기) 상태 정보 조회
+     * @param map:Map<String, Object> map
+     * @return List<Map<String, Object>>
+     * @throws Exception
+     */
+    public List<Map<String, Object>> getApcAgtStats(Map<String, Object> map) throws Exception;
+
+	/**
+	 * 생산자 수량
+	 * @return int
+	 * @throws Exception
+	 */
+	public int getCountAllPrdcr() throws Exception;
+
+	/**
+	 * APC 에이전트 상태 업데이트 SP 호출
+	 * @return int
+	 * @throws Exception
+	 */
+	public int callSpApcAgtStatsUpdate() throws Exception;
 }

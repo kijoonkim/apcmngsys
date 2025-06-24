@@ -24,21 +24,21 @@ import com.at.apcss.pd.isom.vo.InvShipOgnSpeczItmPurSalMngVO;
 public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
 	@Resource(name= "InvShipOgnSpeczItmPurSalMngService")
-	private InvShipOgnSpeczItmPurSalMngService InvShipOgnSpeczItmPurSalMngService;
+	private InvShipOgnSpeczItmPurSalMngService invShipOgnSpeczItmPurSalMngService;
 
 	//화면이동
 	@RequestMapping(value = "/pd/isom/InvShipOgnSpeczItmPurSalMng.do")
-	public String InvShipOgnSpeczItmPurSalMng() {
+	public String invShipOgnSpeczItmPurSalMng() {
 		return "apcss/pd/isom/InvShipOgnSpeczItmPurSalMng";
 	}
 
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnSpeczItmPurSalMngList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnSpeczItmPurSalMngList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			resultList = InvShipOgnSpeczItmPurSalMngService.selectInvShipOgnSpeczItmPurSalMngList(InvShipOgnSpeczItmPurSalMngVO);
+			resultList = invShipOgnSpeczItmPurSalMngService.selectInvShipOgnSpeczItmPurSalMngList(invShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -49,21 +49,21 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
 	//등록
 	@PostMapping(value = "/pd/isom/insertInvShipOgnSpeczItmPurSalMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertInvShipOgnSpeczItmPurSalMng(@RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest requset) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> insertInvShipOgnSpeczItmPurSalMng(@RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest requset) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		// validation check
 
 		// audit 항목
-		InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
-		InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-		InvShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
-		InvShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		invShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
+		invShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		invShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
+		invShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = InvShipOgnSpeczItmPurSalMngService.insertInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
+			insertedCnt = invShipOgnSpeczItmPurSalMngService.insertInvShipOgnSpeczItmPurSalMng(invShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -76,20 +76,20 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
 
 	@PostMapping(value = "/pd/isom/multiSaveInvShipOgnSpeczItmPurSalMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnSpeczItmPurSalMngList(@RequestBody List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnSpeczItmPurSalMngList(@RequestBody List<InvShipOgnSpeczItmPurSalMngVO> invShipOgnSpeczItmPurSalMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
-			for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
-				InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
+			for (InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO : invShipOgnSpeczItmPurSalMngVOList) {
+				invShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				invShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
+				invShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				invShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = InvShipOgnSpeczItmPurSalMngService.multiSaveInvShipOgnSpeczItmPurSalMngList(InvShipOgnSpeczItmPurSalMngVOList);
+			savedCnt = invShipOgnSpeczItmPurSalMngService.multiSaveInvShipOgnSpeczItmPurSalMngList(invShipOgnSpeczItmPurSalMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -99,28 +99,27 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 	}
 
 	@PostMapping(value = "/pd/isom/deleteInvShipOgnSpeczItmPurSalMng.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> deleteInvShipOgnSpeczItmPurSalMng(@RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception {
-		logger.debug("/pd/isom/deleteInvShipOgnSpeczItmPurSalMng >>> 호출 >>> ");
+	public ResponseEntity<HashMap<String, Object>> deleteInvShipOgnSpeczItmPurSalMng(@RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception {
 
 		int result = 0;
 		try {
-			result = InvShipOgnSpeczItmPurSalMngService.deleteInvShipOgnSpeczItmPurSalMng(InvShipOgnSpeczItmPurSalMngVO);
+			result = invShipOgnSpeczItmPurSalMngService.deleteInvShipOgnSpeczItmPurSalMng(invShipOgnSpeczItmPurSalMngVO);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("result", result);
 		return getSuccessResponseEntity(resultMap);
 	}
 
 	// 로우데이터 조회 2024년
 	@PostMapping(value = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			resultList = InvShipOgnSpeczItmPurSalMngService.selectRawDataList(InvShipOgnSpeczItmPurSalMngVO);
+			resultList = invShipOgnSpeczItmPurSalMngService.selectRawDataList(invShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -131,11 +130,11 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 
 	// 로우데이터 조회 2025년
 	@PostMapping(value = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
 		try {
-			resultList = InvShipOgnSpeczItmPurSalMngService.selectRawDataList2025(InvShipOgnSpeczItmPurSalMngVO);
+			resultList = invShipOgnSpeczItmPurSalMngService.selectRawDataList2025(invShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -144,15 +143,38 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 출자출하조직 전문품목 매입매출 조회 2025년
-	@PostMapping(value = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnSpeczItmPurSalMngListNew(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+
+	/**
+	 * 출자출하조직 전문품목 매입매출 rawdata 목록조회
+	 * @param model
+	 * @param InvShipOgnSpeczItmPurSalMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoMajorItemPurchaseRawDataList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = invShipOgnSpeczItmPurSalMngService.selectIsoMajorItemPurchaseRawDataList(invShipOgnSpeczItmPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 출자출하조직 전문품목 매입매출 목록 조회
+	@PostMapping(value = "/pd/isom/selectIsoMajorItemPurchaseList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoMajorItemPurchaseList(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
 		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
 		InvShipOgnSpeczItmPurSalMngVO result = new InvShipOgnSpeczItmPurSalMngVO();
 		try {
-			resultList = InvShipOgnSpeczItmPurSalMngService.selectInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVO);
-			result = InvShipOgnSpeczItmPurSalMngService.selectTempSaveIsoPst(InvShipOgnSpeczItmPurSalMngVO);
+			resultList = invShipOgnSpeczItmPurSalMngService.selectIsoMajorItemPurchaseList(invShipOgnSpeczItmPurSalMngVO);
+			result = invShipOgnSpeczItmPurSalMngService.selectTempSaveIsoPst(invShipOgnSpeczItmPurSalMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -161,22 +183,41 @@ public class InvShipOgnSpeczItmPurSalMngController extends BaseController{
 		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	// 출자출하조직 전문품목 매입매출 조회 2025년
+	@PostMapping(value = "/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnSpeczItmPurSalMngListNew(Model model, @RequestBody InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<>();
+		List<InvShipOgnSpeczItmPurSalMngVO> resultList = new ArrayList<>();
+		InvShipOgnSpeczItmPurSalMngVO result = new InvShipOgnSpeczItmPurSalMngVO();
+		try {
+			resultList = invShipOgnSpeczItmPurSalMngService.selectInvShipOgnSpeczItmPurSalMngListNew(invShipOgnSpeczItmPurSalMngVO);
+			result = invShipOgnSpeczItmPurSalMngService.selectTempSaveIsoPst(invShipOgnSpeczItmPurSalMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	// 출자출하조직 전문품목 매입매출 리스트 저장 2025년
 	@PostMapping(value = "/pd/isom/multiSaveInvShipOgnSpeczItmPurSalMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnSpeczItmPurSalMngListNew(@RequestBody List<InvShipOgnSpeczItmPurSalMngVO> InvShipOgnSpeczItmPurSalMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSaveInvShipOgnSpeczItmPurSalMngListNew(@RequestBody List<InvShipOgnSpeczItmPurSalMngVO> invShipOgnSpeczItmPurSalMngVOList, HttpServletRequest request) throws Exception {
 
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		HashMap<String,Object> resultMap = new HashMap<>();
 
 		int savedCnt = 0;
 		try {
-			for (InvShipOgnSpeczItmPurSalMngVO InvShipOgnSpeczItmPurSalMngVO : InvShipOgnSpeczItmPurSalMngVOList) {
-				InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				InvShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
+			for (InvShipOgnSpeczItmPurSalMngVO invShipOgnSpeczItmPurSalMngVO : invShipOgnSpeczItmPurSalMngVOList) {
+				invShipOgnSpeczItmPurSalMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				invShipOgnSpeczItmPurSalMngVO.setSysFrstInptUserId(getUserId());
+				invShipOgnSpeczItmPurSalMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				invShipOgnSpeczItmPurSalMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = InvShipOgnSpeczItmPurSalMngService.multiSaveInvShipOgnSpeczItmPurSalMngListNew(InvShipOgnSpeczItmPurSalMngVOList);
+			savedCnt = invShipOgnSpeczItmPurSalMngService.multiSaveInvShipOgnSpeczItmPurSalMngListNew(invShipOgnSpeczItmPurSalMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

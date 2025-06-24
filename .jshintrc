@@ -1,3 +1,10 @@
 {
-  "esversion" : 6
+  "esversion": 6,
+  "unused": false,
+  "browser": true,
+  "globals": {
+    "XLSX": true,
+    "Swal": true,
+    "window": true
+  }
 }

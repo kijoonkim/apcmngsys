@@ -279,11 +279,13 @@ public class ApcLinkApiController extends BaseController {
 		if (!StringUtils.hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
-		
+
+		/*
 		if (!StringUtils.hasText(wrhsYmd)) {
 			return getErrorResponseEntity("E04", "입고일자 누락");
 		}
-		
+		*/
+
 		apcLinkVO.setApcKey(apcKey);
 		
 		try {
@@ -324,8 +326,9 @@ public class ApcLinkApiController extends BaseController {
 			}
 			*/
 
-			ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, wrhsYmd, ComConstants.CON_YES);
-			
+			//ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, wrhsYmd, ComConstants.CON_YES);
+			ordrItems = ordrRcvService.selectOrdrListForHomeplus(apcCd, null, ComConstants.CON_YES);
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}
@@ -356,10 +359,12 @@ public class ApcLinkApiController extends BaseController {
 		if (!StringUtils.hasText(apcCd)) {
 			return getErrorResponseEntity("E01", "APC코드 누락");
 		}
-		
+
+		/*
 		if (!StringUtils.hasText(wrhsYmd)) {
 			return getErrorResponseEntity("E04", "입고일자 누락");
 		}
+		 */
 		
 		apcLinkVO.setApcKey(apcKey);
 		
@@ -400,8 +405,9 @@ public class ApcLinkApiController extends BaseController {
 			}
 			 */
 			
-			ordrItems = ordrRcvService.selectOrdrListForLottesuper(apcCd, wrhsYmd); 
-			
+			//ordrItems = ordrRcvService.selectOrdrListForLottesuper(apcCd, wrhsYmd, ComConstants.CON_YES);
+			ordrItems = ordrRcvService.selectOrdrListForLottesuper(apcCd, null, ComConstants.CON_YES);
+
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

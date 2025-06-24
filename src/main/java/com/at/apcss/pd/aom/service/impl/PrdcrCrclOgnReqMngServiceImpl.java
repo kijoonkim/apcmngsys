@@ -33,48 +33,53 @@ import com.at.apcss.pd.aom.vo.LoanVO;
 public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnReqMngService{
 
 	@Autowired
-	private PrdcrCrclOgnReqMngMapper PrdcrCrclOgnReqMngMapper;
+	private PrdcrCrclOgnReqMngMapper prdcrCrclOgnReqMngMapper;
 
 	@Override
-	public PrdcrCrclOgnReqMngVO selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+	public PrdcrCrclOgnReqMngVO selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
 
-		PrdcrCrclOgnReqMngVO resultVO = PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
-
-		return resultVO;
+		return prdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public List<PrdcrCrclOgnReqMngVO> selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-
-		List<PrdcrCrclOgnReqMngVO> resultList = PrdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO);
-		return resultList;
+	public List<PrdcrCrclOgnReqMngVO> selectPrdcrCrclOgnReqMngList(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.selectPrdcrCrclOgnReqMngList(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public int insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+	public List<PrdcrCrclOgnReqMngVO> selectUoIsoOgnzList(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		int yr = Integer.parseInt(prdcrCrclOgnReqMngVO.getYr());
+		if (yr < 2025) {
+			prdcrCrclOgnReqMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return prdcrCrclOgnReqMngMapper.selectUoIsoOgnzList(prdcrCrclOgnReqMngVO);
+	}
 
-		int insertedCnt = PrdcrCrclOgnReqMngMapper.insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+	@Override
+	public int insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+
+		int insertedCnt = prdcrCrclOgnReqMngMapper.insertPrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		int updatedCnt = PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
-		PrdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry(PrdcrCrclOgnReqMngVO);
-		updatedCnt += PrdcrCrclOgnReqMngMapper.insertEvAplyMng(PrdcrCrclOgnReqMngVO);
+	public int updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		int updatedCnt = prdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
+		prdcrCrclOgnReqMngMapper.updatePrdcrCrclOgnReqMngHstry(prdcrCrclOgnReqMngVO);
+		updatedCnt += prdcrCrclOgnReqMngMapper.insertEvAplyMng(prdcrCrclOgnReqMngVO);
 		return updatedCnt;
 	}
 
 	@Override
-	public int multiSavePrdcrCrclOgnReqMngList(List<PrdcrCrclOgnReqMngVO> PrdcrCrclOgnReqMngVOList) throws Exception {
+	public int multiSavePrdcrCrclOgnReqMngList(List<PrdcrCrclOgnReqMngVO> prdcrCrclOgnReqMngVOList) throws Exception {
 		int savedCnt = 0;
-		for (PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO : PrdcrCrclOgnReqMngVOList) {
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrCrclOgnReqMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+		for (PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO : prdcrCrclOgnReqMngVOList) {
+			if(ComConstants.ROW_STS_INSERT.equals(prdcrCrclOgnReqMngVO.getRowSts())) {
+				savedCnt += insertPrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrCrclOgnReqMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnReqMng(PrdcrCrclOgnReqMngVO);
+			if(ComConstants.ROW_STS_UPDATE.equals(prdcrCrclOgnReqMngVO.getRowSts())) {
+				savedCnt += updatePrdcrCrclOgnReqMng(prdcrCrclOgnReqMngVO);
 			}
 		}
 		return savedCnt;
@@ -92,78 +97,72 @@ public class PrdcrCrclOgnReqMngServiceImpl extends BaseServiceImpl implements Pr
 	@Override
 	public int insertGpc(GpcVO gpcVO) throws Exception {
 
-		int insertedCnt = PrdcrCrclOgnReqMngMapper.insertGpc(gpcVO);
+		int insertedCnt = prdcrCrclOgnReqMngMapper.insertGpc(gpcVO);
 
 		return insertedCnt;
 	}
 
 	@Override
 	public List<GpcVO> selectGpcList(GpcVO gpcVO) throws Exception {
-		List<GpcVO> resultList = PrdcrCrclOgnReqMngMapper.selectGpcList(gpcVO);
+		List<GpcVO> resultList = prdcrCrclOgnReqMngMapper.selectGpcList(gpcVO);
 		return resultList;
 	}
 
 	@Override
 	public int deleteGpc(GpcVO gpcVO) throws Exception {
 
-		int insertedCnt = PrdcrCrclOgnReqMngMapper.deleteGpc(gpcVO);
+		int insertedCnt = prdcrCrclOgnReqMngMapper.deleteGpc(gpcVO);
 
 		return insertedCnt;
 	}
 
 	@Override
-	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		return PrdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO);
+	public int updateCorpDdlnSeCd(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.updateCorpDdlnSeCd(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
+	public List<PrdcrCrclOgnReqMngVO> hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
 
-		List<PrdcrCrclOgnReqMngVO> resultList = PrdcrCrclOgnReqMngMapper.hiddenGrdUoSelectList(PrdcrCrclOgnReqMngVO);
-		return resultList;
+		return prdcrCrclOgnReqMngMapper.hiddenGrdUoSelectList(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
 	public List<ApcInfoVO> SelectApcInfoList(ApcInfoVO apcInfoVO) throws Exception {
 
-		List<ApcInfoVO> resultList = PrdcrCrclOgnReqMngMapper.SelectApcInfoList(apcInfoVO);
+		List<ApcInfoVO> resultList = prdcrCrclOgnReqMngMapper.SelectApcInfoList(apcInfoVO);
 		return resultList;
 	}
 
 	@Override
-	public int deleteUoAply(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoAply(PrdcrCrclOgnReqMngVO);
-		return deletedCnt;
+	public int deleteUoAply(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.deleteUoAply(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public int deleteUoUoCd(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoUoCd(PrdcrCrclOgnReqMngVO);
-		return deletedCnt;
+	public int deleteUoUoCd(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.deleteUoUoCd(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public int deleteUoItem(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		int deletedCnt = PrdcrCrclOgnReqMngMapper.deleteUoItem(PrdcrCrclOgnReqMngVO);
-		return deletedCnt;
+	public int deleteUoItem(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.deleteUoItem(prdcrCrclOgnReqMngVO);
 	}
 
 	@Override
-	public int updateUoApoSe(PrdcrCrclOgnReqMngVO PrdcrCrclOgnReqMngVO) throws Exception {
-		int updatedCnt = PrdcrCrclOgnReqMngMapper.updateUoApoSe(PrdcrCrclOgnReqMngVO);
-		PrdcrCrclOgnReqMngMapper.updateUoApoSeHstry(PrdcrCrclOgnReqMngVO);
+	public int updateUoApoSe(PrdcrCrclOgnReqMngVO prdcrCrclOgnReqMngVO) throws Exception {
+		int updatedCnt = prdcrCrclOgnReqMngMapper.updateUoApoSe(prdcrCrclOgnReqMngVO);
+		prdcrCrclOgnReqMngMapper.updateUoApoSeHstry(prdcrCrclOgnReqMngVO);
 		return updatedCnt;
 	}
 
 	@Override
-	public List<LoanVO> selectLoanList(LoanVO LoanVO) throws Exception {
-		List<LoanVO> resultList = PrdcrCrclOgnReqMngMapper.selectLoanList(LoanVO);
-		return resultList;
+	public List<LoanVO> selectLoanList(LoanVO loanVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.selectLoanList(loanVO);
 	}
 
 	@Override
-	public int updateLoanChk(LoanVO LoanVO) throws Exception {
-		int updatedCnt = PrdcrCrclOgnReqMngMapper.updateLoanChk(LoanVO);
-		return updatedCnt;
+	public int updateLoanChk(LoanVO loanVO) throws Exception {
+		return prdcrCrclOgnReqMngMapper.updateLoanChk(loanVO);
 	}
 }

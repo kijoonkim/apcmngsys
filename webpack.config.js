@@ -1,15 +1,19 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import {CleanWebpackPlugin} from "clean-webpack-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default {
     mode: 'development',
-    entry: './src/index.js',
+    entry: {
+        view: './src/view/index.js',
+        dashboard: './src/dashboard/index.js',
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'src/main/resources/static/js/out'),
     },
     module: {
@@ -25,6 +29,16 @@ export default {
                     },
                 },
             },
+            {
+                test: /\.css$/, // CSS 처리
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
+    resolve: {
+        extensions: ['.js', '.json', '.css']
+    },
+    plugins:[
+        new CleanWebpackPlugin(),
+    ]
 };
