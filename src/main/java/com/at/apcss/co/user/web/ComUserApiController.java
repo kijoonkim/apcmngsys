@@ -273,7 +273,7 @@ public class ComUserApiController extends BaseController {
 
 		 try {
 			  //APC에이전트상태 업데이트 SP호출
-			  mobileApiService.callSpApcAgtStatsUpdate();
+//			  mobileApiService.callSpApcAgtStatsUpdate();
 
 			  Map<String, Object> result = mobileApiService.getApcAgtStats();
 			  resultJson.put("result", result);
