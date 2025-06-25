@@ -350,7 +350,7 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
                             <td>${item.apcNm}</td>
                             <td>${item.trsmMatId}</td>
                             <td>${item.trsmMatNm}</td>
-                            <td>${item.trsmMatSttsNm} ${item.trsmMatSttsCd === "E1" ? "<span class='badge bg-red'></span>" : "<span class='badge bg-red'></span>"}</td>
+                            <td>${item.trsmMatSttsNm} ${item.trsmMatSttsCd === "E1" ? "<span class='badge bg-red'></span>" : "<span class='badge bg-green'></span>"}</td>
                             <td>${item.linkKndNm}</td>
                             <td style="font-size: 0.8rem">${item.reqDt || ''}</td>
                             <td style="font-size: 0.8rem">${item.prcsCmptnDt || ''}</td>
