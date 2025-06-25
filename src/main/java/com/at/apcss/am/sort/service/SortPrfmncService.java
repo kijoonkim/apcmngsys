@@ -122,6 +122,9 @@ public interface SortPrfmncService {
 	 */
 	public HashMap<String, Object> insertSortPrfmnc(SortPrfmncVO sortPrfmncVO) throws Exception;
 
+	public HashMap<String, Object> insertSortPrfmncForCredit(SortPrfmncVO sortPrfmncVO) throws Exception;
+
+
 	/**
 	 * 선별실적 목록 등록
 	 * @param List<SortPrfmncVO> sortPrfmncList

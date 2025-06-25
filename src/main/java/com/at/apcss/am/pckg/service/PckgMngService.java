@@ -103,7 +103,7 @@ public interface PckgMngService {
 	public HashMap<String, Object> deletePckgPrfmncList(PckgMngVO pckgMngVO) throws Exception;
 
 	/**
-	 * 월별 포장실적 처리 - 선 포장등록, 후 투입재고 차감
+	 * 월별 포장실적 처리
 	 * @param pckgMngVO
 	 * @return
 	 * @throws Exception

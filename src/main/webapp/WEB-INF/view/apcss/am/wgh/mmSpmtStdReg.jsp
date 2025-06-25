@@ -249,8 +249,8 @@
               <sbux-select
                       unselected-text="전체"
                       uitype="single"
-                      id="dtl-slt-dlngMthCd"
-                      name="dtl-slt-dlngMthCd"
+                      id="dtl-slt-dlngMthdCd"
+                      name="dtl-slt-dlngMthdCd"
                       class="form-control input-sm input-sm-ast"
                       jsondata-ref="jsonDlngMthdCd"
                       onchange="">
@@ -436,7 +436,7 @@
       {caption: ["출하일자", "출하일자"],	ref: 'spmtYmd',         type:'output',    width:'80px',  style:'text-align:center'},
       {caption: ["거래처", "거래처"],	ref: 'cnptNm',        type:'output',    width:'80px',  style:'text-align:center', sortable: false},
       {caption: ["배송처", "배송처"],	ref: 'dldtn',        type:'output',    width:'80px',  style:'text-align:center', sortable: false},
-      {caption: ["운송정보", "차량번호"],		ref: 'vhclNo',          type:'output',    width:'80px',   style:'text-align:center', sortable: false},
+      {caption: ["운송정보", "차량번호"],		ref: 'vhclno',          type:'output',    width:'80px',   style:'text-align:center', sortable: false},
       {caption: ["운송정보", "운송사"],		ref: 'trsprtCoNm',          type:'output',    width:'80px',   style:'text-align:center', sortable: false},
       {caption: ["운송정보", "운임비(원)"],		ref: 'trsprtCst',          type:'output',    width:'80px',   style:'text-align:center', format : {type:'number', rule:'#,###.###'}, sortable: false},
       {caption: ["상품정보", "상품명"],	    ref: 'spmtPckgUnitNm',  type:'output',    width:'80px',   style:'text-align:center', sortable: false},
@@ -446,7 +446,7 @@
       {caption: ["출하정보", "수량"],	    ref: 'spmtQntt',        type:'output',    width:'70px',   style:'text-align:right', sortable: false, format : {type:'number', rule:'#,###.###'}},
       {caption: ["출하정보", "중량(kg)"],	ref: 'spmtWght',        type:'output',    width:'70px',   style:'text-align:right', sortable: false, format : {type:'number', rule:'#,###.###'}},
       {caption: ["거래형태", "거래형태"],		ref: 'dlngShapNm',      type:'output',  width:'50px',   style:'text-align:center', sortable: false},
-      {caption: ["매매방법", "매매방법"],	    ref: 'dlngMthNm',        type:'output',    width:'60px',   style:'text-align:center', sortable: false},
+      {caption: ["매매방법", "매매방법"],	    ref: 'dlngMthdNm',        type:'output',    width:'60px',   style:'text-align:center', sortable: false},
       {caption: ["생산자", "생산자"],		ref: 'prdcrNm',         type:'output',    width:'60px',  style:'text-align:center', sortable: false},
       {caption: ["입고구분", "입고구분"],	ref: 'wrhsSeNm',        type:'output',    width:'80px',   style:'text-align:center', sortable: false},
       {caption: ["상품구분", "상품구분"],	ref: 'gdsSeNm',         type:'output',    width:'80px',   style:'text-align:center', sortable: false},
@@ -463,7 +463,7 @@
       {caption: ["상품등급코드"], ref: 'gdsGrdCd',   type: 'output', hidden: true},
       {caption: ["투입창고코드"], ref: 'strgWrhusSeCd', type: 'output', hidden: true},
       {caption: ["거래형태코드"], ref: 'dlngShapCd', type: 'output', hidden: true},
-      {caption: ["매매방법코드"], ref: 'dlngMthCd', type: 'output', hidden: true},
+      {caption: ["매매방법코드"], ref: 'dlngMthdCd', type: 'output', hidden: true},
       {caption: ["생산자코드"],  ref: 'prdcrCd', type: 'output', hidden: true},
       {caption: ["입고구분코드"], ref: 'wrhsSeCd', type: 'output', hidden: true},
       {caption: ["상품구분코드"], ref: 'gdsSeCd', type: 'output', hidden: true},
@@ -507,7 +507,7 @@
       gfn_setComCdSBSelect('dtl-slt-spmtWrhsSeCd',       jsonComWrhsSeCd, 	'WRHS_SE_CD'),							// 입고구분
       gfn_setComCdSBSelect('dtl-slt-spmtGdsSeCd',        jsonComGdsSeCd, 	'GDS_SE_CD', gv_selectedApcCd),							// 상품구분
       gfn_setComCdSBSelect('dtl-slt-dlngShapCd', jsonDlngShapCd, 'DLNG_SHAP_CD'),		// 거래형태
-      gfn_setComCdSBSelect('dtl-slt-dlngMthCd',  jsonDlngMthdCd, 'DLNG_MTHD_CD'),		// 매매방법
+      gfn_setComCdSBSelect('dtl-slt-dlngMthdCd',  jsonDlngMthdCd, 'DLNG_MTHD_CD'),		// 매매방법
     ]);
 
     jsonSpmtPckgUnit.forEach((item) => {
@@ -700,17 +700,16 @@
     let spmtYmd = SBUxMethod.get("dtl-dtp-spmtYmd");   // 출하일자
     let cnptCd = SBUxMethod.get("dtl-slt-cnptCd");   // 거래처코드
     let dldtn = SBUxMethod.get("dtl-inp-dldtn");   // 배송처
-    let vhclNo = SBUxMethod.get("dtl-slt-vhclno");   // 차량번호
+    let vhclno = SBUxMethod.get("dtl-slt-vhclno");   // 차량번호
     let trsprtCoCd = SBUxMethod.get("dtl-slt-trsprtCoCd");   // 운송사코드
     let trsprtCst = SBUxMethod.get("dtl-inp-trsprtCst");   // 운임비
     let spmtPckgUnitCd = SBUxMethod.get("dtl-slt-spmtPckgUnitCd");   // 상품명코드
-    let spcfctCd = SBUxMethod.get("dtl-slt-spmtPckgUnitCd");   // 규격코드
     let gdsGrdCd = SBUxMethod.get("dtl-slt-spmtGdsGrdSeCd");   // 상품등급코드
     let strgWrhusSeCd = SBUxMethod.get("dtl-slt-spmtStrgWrhusSeCd");   // 저장창고코드
     let spmtQntt = Number(SBUxMethod.get("dtl-inp-spmtQntt"));   // 출하량
     let spmtWght = Number(SBUxMethod.get("dtl-inp-spmtWght"));   // 출하중량
     let dlngShapCd = SBUxMethod.get("dtl-slt-dlngShapCd");   // 거래형태코드
-    let dlngMthCd = SBUxMethod.get("dtl-slt-dlngMthCd");   // 매매방법코드
+    let dlngMthdCd = SBUxMethod.get("dtl-slt-dlngMthdCd");   // 매매방법코드
     let prdcrNm = SBUxMethod.get("dtl-inp-spmtPrdcrNm");   // 생산자명
     let wrhsSeCd = SBUxMethod.get("dtl-slt-spmtWrhsSeCd");   // 입고구분코드
     let gdsSeCd = SBUxMethod.get("dtl-slt-spmtGdsSeCd");   // 상품구분코드
@@ -727,10 +726,11 @@
     let vrtyCd = "";  // 품종코드
     let spmtPckgUnitNm = "";  // 상품명
     let spcfctNm = "";  // 상품규격
+    let spcfctCd = "";  // 상품규격코드
     let gdsGrdNm = "";  // 상품등급
     let strgWrhusSeNm = "";  // 저장창고
     let dlngShapNm = "";  // 거래형태
-    let dlngMthNm = "";  // 매매방법
+    let dlngMthdNm = "";  // 매매방법
     let wrhsSeNm = "";  // 입고구분
     let gdsSeNm = "";  // 상품구분
     let pltBxNm = "";  // 팔레트명
@@ -756,6 +756,7 @@
       vrtyCd = spmtPckgUnitInfo.vrtyCd;
       spmtPckgUnitNm = spmtPckgUnitInfo.spmtPckgUnitNm;
       spcfctNm = spmtPckgUnitInfo.spcfctNm;
+      spcfctCd = spmtPckgUnitInfo.spcfctCd;
     }
     if (gfn_isEmpty(gdsGrdCd)) {
       gfn_comAlert("W0005", "상품등급");		//	W0005	{0}이/가 없습니다.
@@ -787,8 +788,8 @@
     if (!gfn_isEmpty(dlngShapCd)) {
       dlngShapNm = _.find(jsonDlngShapCd, {value: dlngShapCd}).text;
     }
-    if (!gfn_isEmpty(dlngMthCd)) {
-      dlngMthNm = _.find(jsonDlngMthdCd, {value: dlngMthCd}).text;
+    if (!gfn_isEmpty(dlngMthdCd)) {
+      dlngMthdNm = _.find(jsonDlngMthdCd, {value: dlngMthdCd}).text;
     }
     if (!gfn_isEmpty(wrhsSeCd)) {
       wrhsSeNm = _.find(jsonComWrhsSeCd, {value: wrhsSeCd}).text;
@@ -822,7 +823,7 @@
       spmtYmd: spmtYmd,
       cnptNm: cnptNm,
       dldtn: dldtn,
-      vhclNo: vhclNo,
+      vhclno: vhclno,
       trsprtCoNm: trsprtCoNm,
       trsprtCst: trsprtCst,
       spmtPckgUnitNm: spmtPckgUnitNm,
@@ -832,7 +833,7 @@
       spmtQntt: spmtQntt,
       spmtWght: spmtWght,
       dlngShapNm: dlngShapNm,
-      dlngMthNm: dlngMthNm,
+      dlngMthdNm: dlngMthdNm,
       prdcrNm: prdcrNm,
       wrhsSeNm: wrhsSeNm,
       gdsSeNm: gdsSeNm,
@@ -846,7 +847,7 @@
       gdsGrdCd: gdsGrdCd,
       strgWrhusSeCd: strgWrhusSeCd,
       dlngShapCd: dlngShapCd,
-      dlngMthCd: dlngMthCd,
+      dlngMthdCd: dlngMthdCd,
       prdcrCd: prdcrCd,
       wrhsSeCd: wrhsSeCd,
       gdsSeCd: gdsSeCd,
@@ -861,7 +862,7 @@
     // 그룹설정(출하일자, 거래처, 운송회사, 차량번호, 배송처, 운임비용, 팔레트불출 그룹)
     let prvSpmtRegInfo = jsonSpmtRegList.slice(-1)[0];  // 직전 선별등록 데이터
 
-    const keysToCompare = ['spmtYmd', 'cnptCd', 'trsprtCoCd', 'vhclNo', 'dldtn', 'trsprtCst', 'pltBxCd', 'bssInvntrQntt'];
+    const keysToCompare = ['spmtYmd', 'cnptCd', 'trsprtCoCd', 'vhclno', 'dldtn', 'trsprtCst', 'pltBxCd', 'bssInvntrQntt'];
     const prvSpmtData = _.pick(prvSpmtRegInfo, keysToCompare);
     const curSpmtData = _.pick(spmtRegInfoVO, keysToCompare);
 
@@ -877,43 +878,11 @@
   }
 
   /**
-   * @name fn_findInvntr
-   * @description 키값을 통한 객체 비교
-   */
-  /*function fn_findInvntr(obj1, obj2Array) {
-    const keyMap = {
-      itemCd: 'itemCd',
-      vrtyCd: 'vrtyCd',
-      strgWrhusSeCd: 'warehouseSeCd',
-      prdcrCd: 'rprsPrdcrCd',
-      gdsGrdCd: 'gdsGrd',
-      wrhsSeCd: 'wrhsSeCd',
-      gdsSeCd: 'gdsSeCd'
-    };
-
-    /!*
-     * obj1의 키값을 기준으로 obj2Array에서 일치하는 객체를 찾는다.
-     * 필수입력값(itemCd, vrtyCd, strWrhusSeCd, prdcrCd)을 제외한 값이 비어있을시 obj2.key의 전체 값을 가져온다.
-     * *!/
-    return obj2Array
-            .map((obj2, index) => ({obj: obj2, index}))
-            .filter(({obj}) => {
-              return Object.keys(keyMap).every(key1 => {
-                const key2 = keyMap[key1];
-                if (!gfn_isEmpty(obj1[key1])) {
-                  return obj1[key1] === obj[key2];
-                }
-                return true;
-              });
-            });
-  }*/
-
-  /**
    * @name fn_saveSpmtInfo
    * @description 포장등록 정보 저장 버튼
    */
   const fn_saveSpmtInfo = async function () {
-    const spmtPrfmncList = [];    // 출하실적 목록
+    const spmtPrfmncComList = [];    // 출하실적 목록
 
     let spmtRegData = grdSpmtRegList.getGridDataAll();  // 출하등록 데이터
 
@@ -927,162 +896,62 @@
     const sortKey = ['group', 'spmtYmd', 'spmtPckgUnitCd', 'warehouseSeCd', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
     spmtRegData = fn_sortRegData(spmtRegData, sortKey);
 
-    // 품종/품목 별 재고 조회
-    let checkItemList = [];
-    const setItem = new Set(checkItemList);
+    let spmtRegDataGroupBy = _.groupBy(spmtRegData, 'group'); // 그룹별로 분리
 
-    // 품종/품목 중복제거
-    for (const item of spmtRegData) {
-      const checkItem = item.itemCd + item.vrtyCd;
-      if (!setItem.has(checkItem)) {
-        setItem.add(checkItem);
-        checkItemList.push(checkItem);
-      }
-    }
+    Object.keys(spmtRegDataGroupBy).forEach((groupKey) => {
+      let groupData = spmtRegDataGroupBy[groupKey];
+      const spmtPrfmncList = [];  // 출하상품 목록
 
-    /*
-    * 1. 품종 폼목별 재고조회
-    * 2. 출하등록데이터와 재고데이터 수량/중량 비교
-    * */
-    for (const checkItem of checkItemList) {
-      // 재고조회
-      try {
-        const postJsonPromise = gfn_postJSON("/am/invntr/selectGdsInvntrList.do", {
+      groupData.forEach((spmtItem, index) => {
+        const spmtPrfmncVO = {
+          // 포장재고 데이터 조회용
           apcCd: gv_selectedApcCd,
-          itemCd: checkItem.substring(0, 4),
-          vrtyCd: checkItem.substring(4),
-        });
+          itemCd: spmtItem.itemCd,
+          vrtyCd: spmtItem.vrtyCd,
+          spcfctCd: spmtItem.spcfctCd,
+          wrhsSeCd: spmtItem.wrhsSeCd,
+          gdsSeCd: spmtItem.gdsSeCd,
+          prdcrCd: spmtItem.prdcrCd,
+          gdsGrd: spmtItem.gdsGrdCd,
+          spmtPckgUnitCd: spmtItem.spmtPckgUnitCd,
+          warehouseSeCd: spmtItem.strgWrhusSeCd,
 
-        const data = await postJsonPromise;
-        if (_.isEqual("S", data.resultStatus)) {
-          let pckgInvntr = data.resultList;
-
-          if (pckgInvntr.length == 0) {
-            gfn_comAlert("W0004", "포장상품 재고");    // W0004  {0}이/가 없습니다.
-            return;
-          }
-
-          let spmtSn = 0; // 출하등록 순번
-          for (const spmtItem of spmtRegData) {
-            if (!_.isEqual(spmtItem.itemCd + spmtItem.vrtyCd, checkItem)) {
-              continue; // 현재 품목/품종과 일치하지 않으면 건너뛰기
-            }
-
-            const keyMap = {
-              itemCd: 'itemCd',
-              vrtyCd: 'vrtyCd',
-              strgWrhusSeCd: 'warehouseSeCd',
-              prdcrCd: 'rprsPrdcrCd',
-              gdsGrdCd: 'gdsGrd',
-              wrhsSeCd: 'wrhsSeCd',
-              gdsSeCd: 'gdsSeCd'
-            };
-
-            const invntrItemList = fn_findInvntr(spmtItem, pckgInvntr, keyMap)
-
-            if (invntrItemList.length < 1) {
-              gfn_comAlert("W0004", "포장상품 재고");    // W0004  {0}이/가 없습니다.
-              return;
-            }
-
-            let totInvntrQntt = 0;  // 재고수량 합계
-            let totInvntrWght = 0;  // 재고중량 합계
-
-            for (const invntrItem of invntrItemList) {
-              if (gfn_diffDate(invntrItem.obj.pckgYmd, spmtItem.spmtYmd) >= 0 ) {
-                totInvntrQntt += invntrItem.obj.invntrQntt;  // 재고수량 합계
-                totInvntrWght += invntrItem.obj.invntrWght;  // 재고중량 합계
-              }
-            }
-
-            // 출하등록 데이터와 비교하여 재고량이 부족한 경우
-            if (spmtItem.spmtQntt > totInvntrQntt || spmtItem.spmtWght > totInvntrWght) {
-              gfn_comAlert("W0008", "재고수량", "출하수량");		//	W0008	{0} 보다 {1}이/가 큽니다.
-              return;
-            }
-
-            // 재고 목록에서 출하등록 데이터와 일치하는 재고를 찾아서 출하실적 목록에 추가
-            for (const { obj: invntrItem, index: idx } of invntrItemList) {
-
-              if (gfn_diffDate(invntrItem.pckgYmd, spmtItem.spmtYmd) >= 0 ) {
-                // 출하수량/중량 & 재고수량/중량
-                let spmtQntt = 0;
-                let spmtWght = 0;
-
-                if (spmtItem.spmtQntt > 0 && spmtItem.spmtWght > 0) {
-
-                  spmtQntt = Math.min(spmtItem.spmtQntt, invntrItem.invntrQntt);
-                  spmtWght = Math.min(spmtItem.spmtWght, invntrItem.invntrWght);
-
-                  spmtPrfmncList.push({
-                    // 재고 데이터
-                    apcCd: invntrItem.apcCd,
-                    pckgno: invntrItem.pckgno,
-                    pckgSn: invntrItem.pckgSn,
-                    pckgYmd: invntrItem.pckgYmd,
-                    itemCd: invntrItem.itemCd,
-                    vrtyCd: invntrItem.vrtyCd,
-                    spcfctCd: invntrItem.spcfctCd,
-                    gdsSeCd: invntrItem.gdsSeCd,
-                    invntrQntt: invntrItem.invntrQntt,
-                    invntrWght: invntrItem.invntrWght,
-                    prdcrCd: invntrItem.rprsPrdcrCd,
-                    prdcrNm: invntrItem.prdcrNm,
-                    gdsGrd: invntrItem.gdsGrd,
-                    gdsCd: invntrItem.gdsCd,
-                    spmtPckgUnitCd: invntrItem.spmtPckgUnitCd,
-                    brndNm: invntrItem.brndNm,
-                    spmtSn: invntrItem.spmtSn,
-
-                    spmtQntt: spmtQntt,
-                    spmtWght: spmtWght,
-
-                    // 출하등록 데이터
-                    spmtYmd: spmtItem.spmtYmd,
-                    cnptCd: spmtItem.cnptCd,
-                    trsprtCoCd: spmtItem.trsprtCoCd,
-                    trsprtCoNm: spmtItem.trsprtCoNm,
-                    vhclno: spmtItem.vhclno,
-                    dldtn: spmtItem.dldtn,
-                    trsprtCst: spmtItem.trsprtCst,
-
-                    spmtCmndno: spmtItem.spmtCmndno,
-                    outordrno: spmtItem.outordrno,
-                    pltBxCd: spmtItem.pltBxCd,
-                    bssInvntrQntt: spmtItem.bssInvntrQntt,
-                    pltSpmtYn: spmtItem.pltSpmtYn,
-                    spmtPrsnDclrno: spmtItem.spmtPrsnDclrno,
-                    rmrk: spmtItem.rmrk,
-                  });
-
-                  spmtItem.spmtQntt -= spmtQntt;  // 출하수량 차감
-                  pckgInvntr[idx].invntrQntt -= spmtQntt;  // 재고수량 차감
-
-                  spmtItem.spmtWght -= spmtWght;  // 출하중량 차감
-                  pckgInvntr[idx].invntrWght -= spmtWght;  // 재고중량 차감
-
-                  // 출하순번
-                  pckgInvntr[idx].spmtSn++;
-                }
-              }
-            }
-          }
+          spmtQntt: spmtItem.spmtQntt,
+          spmtWght: spmtItem.spmtWght,
         }
-      } catch (e) {
-        if (!(e instanceof Error)) {
-          e = new Error(e);
-        }
-        console.error("failed", e.message);
-        gfn_comAlert("E0001");    // E0001  오류가 발생하였습니다.
-        return;
-      }
-    }
+        spmtPrfmncList.push(spmtPrfmncVO);
 
-    console.log(spmtPrfmncList)
+        const spmtVO = {
+          // 출하상품 목록
+          spmtPrfmncList: spmtPrfmncList,
+
+          // 출하등록 데이터
+          apcCd: gv_selectedApcCd,
+          spmtYmd: spmtItem.spmtYmd,
+          cnptCd: spmtItem.cnptCd,
+          trsprtCoCd: spmtItem.trsprtCoCd,
+          vhclno: spmtItem.vhclno,
+          dldtn: spmtItem.dldtn,
+          trsprtCst: spmtItem.trsprtCst,
+          dlngShapCd: spmtItem.dlngShapCd,
+          dlngMthdCd: spmtItem.dlngMthdCd,
+          pltBxCd: spmtItem.pltBxCd,
+          bssInvntrQntt: spmtItem.bssInvntrQntt,
+          pltSpmtYn: spmtItem.pltSpmtYn,
+          rmrk: spmtItem.rmrk,
+          // spmtCmndno: spmtItem.spmtCmndno,
+          // outordrno: spmtItem.outordrno,
+          // spmtPrsnDclrno: spmtItem.spmtPrsnDclrno,
+        }
+
+        spmtPrfmncComList.push(spmtVO);
+      });
+    });
+    console.log(spmtPrfmncComList)
     // return;
 
     if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
-      const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do", spmtPrfmncList);
+      const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtRsltMonthly.do", spmtPrfmncComList);
       const data = await postJsonPromise;
 
       try{

@@ -1,6 +1,7 @@
 package com.at.apcss.am.pckg.web;
 
 import java.util.HashMap;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -201,19 +202,22 @@ public class PckgMngController extends BaseController {
 	}
 
 	@PostMapping(value = "/am/pckg/insertPckgRsltMonthly.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> insertPckgRsltMonthly(@RequestBody PckgMngVO pckgMngVO, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> insertPckgRsltMonthly(@RequestBody List<PckgMngVO> pckgMngVO, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		try {
-			pckgMngVO.setSysFrstInptUserId(getUserId());
-			pckgMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-			pckgMngVO.setSysLastChgUserId(getUserId());
-			pckgMngVO.setSysLastChgPrgrmId(getPrgrmId());
+			for( PckgMngVO pckgVO : pckgMngVO ) {
+				pckgVO.setSysFrstInptUserId(getUserId());
+				pckgVO.setSysFrstInptPrgrmId(getPrgrmId());
+				pckgVO.setSysLastChgUserId(getUserId());
+				pckgVO.setSysLastChgPrgrmId(getPrgrmId());
+				pckgVO.setNeedsVrInvntrRegYn(ComConstants.CON_YES);
 
-			HashMap<String,Object> rtnObj = pckgMngService.insertPckgRsltMonthly(pckgMngVO);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
+				HashMap<String,Object> rtnObj = pckgMngService.insertPckgRsltMonthly(pckgVO);
+				if (rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
