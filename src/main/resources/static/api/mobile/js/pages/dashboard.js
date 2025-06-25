@@ -322,11 +322,11 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
                 let useData = apcInfo.apcLists.filter(i => i.value === apcCd)[0];
                 useData.useData.forEach(i => $(`#${i.name}`).text(`${i.value}`));
                 /** 기존 row empty **/
-                let tbody = $("#agentTable tbody");
-                tbody.empty();
+                let agentTbody = $("#agentTable tbody");
+                agentTbody.empty();
 
                 data.resultList.forEach(item => {
-                    tbody.append(`<tr data-apc-cd="${item.apcCd}" data-trsm-mat-id="${item.trsmMatId}" data-link-knd="${item.linkKnd}">
+                    agentTbody.append(`<tr data-apc-cd="${item.apcCd}" data-trsm-mat-id="${item.trsmMatId}" data-link-knd="${item.linkKnd}">
                     <td>${item.trsmMatId}</td>
                     <td>${item.trsmMatNm}</td>
                     <td>${item.trsmMatSttsNm}
@@ -340,6 +340,22 @@ function openPopApcLinkInfo(apcCd, linkKnd) {
                     ${item.linkStts === 'P0' ? '<button type="button" onclick="req(this)" class="btn btn-outline-danger">요청</button>' : item.linkStts === 'R0' ? '<button type="button" onclick="reqCncl(this)" class="btn btn-outline-danger">취소</button>':''}
                     </td>
                     </tr>`);
+                });
+
+                let linkInfoTbody = $("#linkInfoTable tbody");
+
+                data.resultList.forEach(item => {
+                    linkInfoTbody.append(`
+                        <tr>
+                            <td>${item.apcNm}</td>
+                            <td>${item.trsmMatId}</td>
+                            <td>${item.trsmMatNm}</td>
+                            <td>${item.trsmMatSttsNm} ${item.trsmMatSttsCd === "E1" ? "<span class='badge bg-red'></span>" : "<span class='badge bg-red'></span>"}</td>
+                            <td>${item.linkKndNm}</td>
+                            <td style="font-size: 0.8rem">${item.reqDt || ''}</td>
+                            <td style="font-size: 0.8rem">${item.prcsCmptnDt || ''}</td>
+                        </tr>
+                    `);
                 });
             }
         },
@@ -582,6 +598,15 @@ $(function() {
                 const apcCd = $(this).closest('div.card-body').attr('apc_cd');
                 openPopApcLinkInfo(apcCd);
             });
+
+            $('#linkInfoApc').on('click', function () {
+                let linkInfoTbody = $("#linkInfoTable tbody");
+                linkInfoTbody.empty();
+
+                let apcCd = el.value;
+                openPopApcLinkInfo(apcCd);
+            });
+
             /** 최근사용일자 하단 추가 **/
             let lastUseDate = $('<div class="card-body" style="padding: 0!important;"><div class="card" style="border: 0!important;padding-left: 0.5rem">최근사용일자 :'+el.rcntData +'</div></div>');
             apcInfo.append(lastUseDate);
