@@ -1928,7 +1928,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 		List<HashMap<String, Object>> dtlList = new ArrayList<>();
 
 		String ordrApcCd = mrktOrdrDtlVO.getOrdrApcCd();
-		String wrhsYmd = mrktOrdrDtlVO.getWrhsYmd();
+		String wrhsYmd = "";
 		String receiptYn = mrktOrdrDtlVO.getReceiptYn();
 
 		for ( MrktOrdrDtlVO dtlVO : ordrDtlList ) {
@@ -1978,7 +1978,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 			dtl.put("PO_NO", dtlVO.getOutordrno());
 			dtl.put("SEQ", dtlVO.getDtlSeq());
-			dtl.put("GR_DATE", wrhsYmd);
+			dtl.put("GR_DATE", dtlVO.getWrhsYmd());
 			dtl.put("ITEM_CODE", dtlVO.getMrktGdsCd());
 			dtl.put("ITEM_NM", dtlVO.getMrktGdsNm());
 			dtl.put("STORE_CODE", dtlVO.getStorCd());
@@ -2873,7 +2873,7 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 
 			dtl.put("DOC_NO", dtlVO.getOutordrno());
 			dtl.put("SEQ", dtlVO.getDtlSeq());
-			dtl.put("WRHS_YMD", wrhsYmd);
+			dtl.put("WRHS_YMD", dtlVO.getWrhsYmd());
 			dtl.put("GDS_CD", dtlVO.getMrktGdsCd());
 			dtl.put("GDS_NM", dtlVO.getMrktGdsNm());
 			dtl.put("NTSL_CD", dtlVO.getMrktNtslCd());
@@ -2890,7 +2890,8 @@ public class OrdrRcvServiceImpl extends BaseServiceImpl implements OrdrRcvServic
 			dtl.put("OUTORDR_AMT", dtlVO.getOutordrAmt());
 			dtl.put("OUTORDR_UNTPR", dtlVO.getOutordrUntprc());
 			dtl.put("WRHS_QNTT", dtlVO.getWrhsQntt());
-
+			dtl.put("TXAMT", dtlVO.getTxamt());
+			
 			dtlList.add(dtl);
 
 			outordrno = dtlVO.getOutordrno();

@@ -236,4 +236,24 @@ public class SortInvntrController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/invntr/updateSortInvntrList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> updateSortInvntrList(@RequestBody List<SortInvntrVO> sortInvntrList, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			int resultCnt = 0;
+	        try{
+				setComVOFields(sortInvntrList);
+				resultCnt = sortInvntrService.updateSortInvntrList(sortInvntrList);
+
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+	        return getSuccessResponseEntity(resultMap);
+	    }
+
 }

@@ -1974,7 +1974,6 @@
 			let totalRecordCount = 0;
 
 	        data.resultList.forEach((item, index) => {
-                console.log("ㅇㅇ, item: ", item);
 	        	const prdcrLandInfoVO = {
                     apcCd: item.apcCd,
                     checkedYn: item.checkedYn,
@@ -2273,6 +2272,7 @@
                     frlnSno: fn_zero(item.frlnSno),
                     plntngArea: fn_zero(item.plntngArea),
                     prdcrCd: item.prdcrCd,
+                    prdcrLandInfoNo: item.prdcrLandInfoNo,
                     rowSts: item.rowSts,
                     stdgCd: item.stdgCd,
                     yr: item.yr
@@ -2567,7 +2567,6 @@
 		}
 
 		if (!gfn_comConfirm("Q0001", "저장")) {	//	Q0001	{0} 하시겠습니까?
-            console.log("landInfoList: ", landInfoList);
     		return;
     	}
 
