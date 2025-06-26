@@ -283,7 +283,7 @@
           </td>
         </tr>
         <tr>
-          <th scope="row" class="th_bg"><span class="data_required"></span>생산자</th>
+          <th scope="row" class="th_bg">생산자</th>
           <td class="td_input" style="border-right: hidden;">
             <div class="displayFlex">
               <div style="flex: 1 0 8em">
@@ -431,7 +431,7 @@
     // SBGridProperties.allowcopy = true;
 
     SBGridProperties.columns = [
-      {caption: ["선택", "선택"],	    ref: 'checkedYn',       type:'checkbox',  width:'50px',   style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 0, deletecaption : false}, checkedvalue : 'Y', uncheckedvalue : 'N'}, sortable: false},
+      {caption: ["선택", ""],	    ref: 'checkedYn',       type:'checkbox',  width:'50px',   style:'text-align:center', typeinfo : {fixedcellcheckbox : {usemode : true, rowindex : 1, deletecaption : false}, checkedvalue : 'Y', uncheckedvalue : 'N'}, sortable: false},
       {caption: ["그룹", "그룹"],		ref: 'group',           type:'output',    width:'50px',   style:'text-align:center', sortable: false},
       {caption: ["출하일자", "출하일자"],	ref: 'spmtYmd',         type:'output',    width:'80px',  style:'text-align:center'},
       {caption: ["거래처", "거래처"],	ref: 'cnptNm',        type:'output',    width:'80px',  style:'text-align:center', sortable: false},
@@ -778,10 +778,10 @@
     } else {
       strgWrhusSeNm = _.find(jsonComWarehouse, {value: strgWrhusSeCd}).text;
     }
-    if (gfn_isEmpty(prdcrCd)) {
+    /*if (gfn_isEmpty(prdcrCd)) {
       gfn_comAlert("W0005", "생산자");		//	W0005	{0}이/가 없습니다.
       return;
-    }
+    }*/
     if (!gfn_isEmpty(trsprtCoCd)) {
       trsprtCoNm = _.find(jsonComTrsprtCoCd, {trsprtCoCd: trsprtCoCd}).trsprtCoNm;
     }

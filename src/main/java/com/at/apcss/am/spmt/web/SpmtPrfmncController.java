@@ -654,12 +654,13 @@ public class SpmtPrfmncController extends BaseController {
 				spmtPrfmncComVO.setSpmtFrcdPrcsYn(ComConstants.CON_YES);
 //				spmtPrfmncComVO.setNeedsPckgYn(ComConstants.CON_YES);
 //				spmtPrfmncComVO.setInvntrSttsCd(AmConstants.CON_INVNTR_STTS_CD_SPMT_BELOW_ZERO);
+
+				HashMap<String, Object> rtnObj = spmtMngService.insertSpmtRsltMonthly(spmtPrfmncComVO);
+				if(rtnObj != null) {
+					return getErrorResponseEntity(rtnObj);
+				}
 			}
 
-			HashMap<String, Object> rtnObj = spmtMngService.insertSpmtPrfmncWithList(spmtPrfmncComList);
-			if(rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
 
 		}catch (Exception e) {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
