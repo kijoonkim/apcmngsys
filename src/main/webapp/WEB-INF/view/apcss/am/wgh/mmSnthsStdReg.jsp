@@ -165,6 +165,16 @@
             SBUxMethod.set(element.id, "");
         }
 
+        // 버튼초기화
+        SBUxMethod.show("btnAddWrhs");
+        SBUxMethod.hide("btnUpdateWrhs");
+        SBUxMethod.show("btnAddSort");
+        SBUxMethod.hide("btnUpdateSort");
+        SBUxMethod.show("btnAddPckg");
+        SBUxMethod.hide("btnUpdatePckg");
+        SBUxMethod.show("btnAddSpmt");
+        SBUxMethod.hide("btnUpdateSpmt");
+
         // checkbox 초기화
         SBUxMethod.set("dtl-chk-sortPckg", false);
         SBUxMethod.set("dtl-chk-stdGrdChck", false);

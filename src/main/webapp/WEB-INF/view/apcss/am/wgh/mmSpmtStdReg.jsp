@@ -26,7 +26,7 @@
     <div class="box-header" style="display:flex; justify-content: flex-start; padding: 10px 15px 5px;" >
       <div style="margin-left: auto;">
         <sbux-button id="btnReset" name="btnReset" uitype="normal" class="btn btn-sm btn-outline-danger" text="초기화" onclick="fn_reset('spmtStdRegTable')"></sbux-button>
-        <sbux-button id="btnAdd" name="btnAdd" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_addSpmt"></sbux-button>
+        <sbux-button id="btnAddSpmt" name="btnAddSpmt" uitype="normal" class="btn btn-sm btn-outline-danger" text="추가" onclick="fn_addSpmt"></sbux-button>
       </div>
     </div>
     <div class="box-body">
@@ -427,7 +427,6 @@
     SBGridProperties.jsonref = 'jsonSpmtRegList';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.extendlastcol = 'none';
-    SBGridProperties.explorerbar = 'sort';
     // SBGridProperties.allowcopy = true;
 
     SBGridProperties.columns = [

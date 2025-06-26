@@ -408,7 +408,6 @@
     SBGridProperties.jsonref = 'jsonPckgRegList';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
     SBGridProperties.extendlastcol = 'none';
-    SBGridProperties.explorerbar = 'sort';
     // SBGridProperties.allowcopy = true;
 
     SBGridProperties.columns = [
