@@ -8,6 +8,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.co.log.service.ComLogService;
+import com.at.apcss.co.log.vo.ComLogVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,10 @@ public class ComMenuController extends BaseController {
 
 	@Resource(name = "comAuthrtService")
 	private ComAuthrtService comAuthrtService;
+
+	@Resource(name = "comLogService")
+	private ComLogService comLogService;
+
 
 	@RequestMapping(value = "/co/menu/openPage.do/{menuId}", method = RequestMethod.GET)
 	public String doOpenPage(Model model, @PathVariable String menuId, HttpServletRequest request) throws Exception {
@@ -84,6 +90,30 @@ public class ComMenuController extends BaseController {
 
 			String authrtUiList = objMapper.writeValueAsString(userAuthrtUiList);
 			request.getSession().setAttribute("authrtUiJson", authrtUiList);
+
+			// 화면 open log 넣기
+
+			ComLogVO comLogVO = new ComLogVO();
+			comLogVO.setMenuId(menuId);
+			comLogVO.setUserId(userId);
+			comLogVO.setUserType(getUserType());
+			comLogVO.setUserIp(getUserIp(request));
+			comLogVO.setUserNm(getUserNm());
+			comLogVO.setApcCd(getApcCd());
+			comLogVO.setLgnScsYn(ComConstants.CON_YES);
+			comLogVO.setSysFrstInptUserId(userId);
+			comLogVO.setSysLastChgUserId(userId);
+			comLogVO.setSysFrstInptPrgrmId(menuId);
+			comLogVO.setSysLastChgPrgrmId(menuId);
+			comLogVO.setMenuNm(pageVO.getMenuNm());
+			comLogVO.setPrslType(ComConstants.CON_PRSL_TYPE_MENU_OPEN);
+			if (ComConstants.CON_YES.equals(pageVO.getPrsnaInfoYn())) {
+				comLogVO.setFlfmtTaskSeCd(ComConstants.CON_FLFMT_TASK_SE_CD_READ);
+			} else {
+				comLogVO.setFlfmtTaskSeCd(ComConstants.CON_BLANK);
+			}
+
+			comLogService.insertMenuHstry(comLogVO);
 
 			//model.addAttribute("comApcList", request.getSession().getAttribute("comApcList"));
 
