@@ -489,4 +489,27 @@ public class SprtBizRegMngController extends BaseController {
         }
         return folderPath;
     }
+
+    @PostMapping(value = "/pd/pcorm/selectSprtBizRawData.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectSprtBizRawData (@RequestBody SprtBizRegMngVO sprtBizRegMngVO, HttpServletRequest request) throws Exception{
+
+        HashMap<String, Object> resultMap = new HashMap<String,Object>();
+        List<SprtBizRegMngVO> resultList = new ArrayList<>();
+
+        try {
+            resultList = sprtBizRegMngService.selectSprtBizRawData(sprtBizRegMngVO);
+        }  catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
 }

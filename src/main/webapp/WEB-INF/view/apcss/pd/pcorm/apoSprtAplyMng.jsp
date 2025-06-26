@@ -23,6 +23,16 @@
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
+    <style>
+        table.sub td {
+            background-color: #f5fafe;
+            color: black;
+            height: 24px;
+            border: 1px solid #e8f1f9;
+            text-align: center;
+            padding: 4px;
+        }
+    </style>
 </head>
 <body oncontextmenu="return false">
 <section>
@@ -34,6 +44,7 @@
             </div>
             <div style="margin-left: auto;">
                 <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+                <sbux-button id="btnRawData" name="btnRawData" uitype="normal" text="로우데이터다운" class="btn btn-sm btn-outline-danger" onclick="fn_rawData"></sbux-button>
                 <sbux-button id="btnDownloadAll" name="btnDownloadAll" uitype="normal" text="제출서류 일괄 다운로드" class="btn btn-sm btn-outline-danger" onclick="fn_downloadAll"></sbux-button>
                 <sbux-button id="btnBizAplyAllAprv" name="btnBizAplyAllAprv" uitype="normal" text="신청서 확인" class="btn btn-sm btn-outline-danger" onclick="fn_bizAplyAllAprv"></sbux-button>
                 <sbux-button id="btnBizPlanAllAprv" name="btnBizPlanAllAprv" uitype="normal" text="사업계획서 확인" class="btn btn-sm btn-outline-danger" onclick="fn_bizPlanAllAprv"></sbux-button>
@@ -83,11 +94,47 @@
                         <span>신청 목록</span>
                         <span style="font-size:12px">(조회건수 <span id="listCountTotal">0</span>건, 선택 목록 개수 <span id="listCountChecked">0</span>건)</span>
                     </li>
-
                 </ul>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-aplyMng" style="height: 300px"></div>
+
+            <table class="sub" style="width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; margin-top: 3px;">
+                <colgroup>
+                    <col style="width: 3%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 10.3%">
+                    <col style="width: 7%">
+                    <col style="width: 6.8%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 8%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                </colgroup>
+                <tr>
+                    <td>소계</td>
+                    <td colspan="5"></td>
+                    <td>제출 : <span id="subBizAplySbmsn">0</span> 개</td>
+                    <td>확인 : <span id="subBizAplyAprv">0</span> 개</td>
+                    <td></td>
+
+                    <td><span id="subAplyAmtNe">0</span></td>
+                    <td><span id="subAplyAmtSlf">0</span></td>
+                    <td><span id="subRpnAmtNe">0</span></td>
+                    <td><span id="subRpnAmtSlf">0</span></td>
+
+                    <td>제출 : <span id="subBizPlanSbmsn">0</span> 개</td>
+                    <td>확인 : <span id="subBizPlanAprv">0</span> 개</td>
+                    <td></td>
+                </tr>
+            </table>
 
             <div style="height: 10px"></div>
 
@@ -95,12 +142,10 @@
                 <ul class="ad_tbl_count">
                     <li><span>제출서류 등록</span></li>
                 </ul>
-                <div style="margin-left: auto;">
-<%--                    <sbux-button id="btnSbmsn" name="btnSbmsn" uitype="normal" text="제출" class="btn btn-sm btn-primary" onclick="fn_sbmsn"></sbux-button>--%>
-                </div>
             </div>
 
             <table class="table table-bordered tbl_fixed">
+
                 <caption>제출서류 등록</caption>
                 <tbody>
                 <tr>
@@ -184,16 +229,10 @@
             </table>
 
         </div>
+        <div id="sb-area-gridRawData" style="display: none"></div>
     </div>
 
 </section>
-<%-- 신청서 미리보기 Modal--%>
-<div>
-    <sbux-modal id="modal-aplyDocPrvw" name="modal-aplyDocPrvw" uitype="middle" header-title="신청서 미리보기" body-html-id="body-modal-aplyDocPrvw" footer-is-close-button="false" style="width:1000px; z-index: 10000;"></sbux-modal>
-</div>
-<div id="body-modal-aplyDocPrvw">
-<%--    <jsp:include page="/WEB-INF/view/apcss/pd/popup/aplyDocPrvwPopup.jsp"></jsp:include>--%>
-</div>
 
 </body>
 <script type="text/javascript">
@@ -217,6 +256,10 @@
         {value : "1", text :"승인형"},
         {value : "2", text :"육성형"},
     ];
+
+    /** 로우데이터 **/
+    var gridRawData;
+    var jsonRawData = [];
 
     window.addEventListener('DOMContentLoaded', async function(e) {
         await fn_init()
@@ -257,6 +300,38 @@
         SBGridProperties.allowcopy = true;
         SBGridProperties.extendlastcol = 'scroll';
 
+        /*SBGridProperties.frozenbottomrows = 1;
+
+        SBGridProperties.total={
+           type 		: 'sub',
+           position	: 'bottom',
+           columns :{
+               standard : [0],
+               // sum : [9,10,11,12],
+               // count : [6,7,13,14],
+               custom:[6,7,9,10,11,12,13,14],
+               coustomFunc: function(colId,row) {
+
+               }
+           },
+           subtotalrow :{
+               0 : {
+                   titlecol 	: 0,
+                   titlevalue	: '소계',
+                   style : 'background-color: rgb(146, 178, 197); font-weight: bold; color: rgb(255, 255, 255);',
+                   stylestartcol	: 0
+               }
+           },
+           datasorting	: true,
+           usedecimal : false,
+           totalformat : {
+               6 : '제출 : #,##0 개',
+               7 : '확인 : #,##0 개',
+               13 : '제출 : #,##0 개',
+               14 : '확인 : #,##0 개'
+           }
+        };*/
+
         SBGridProperties.columns = [
             {
                 caption : ["<input type='checkbox' onchange='fn_checkAll(gridAplyList, this);'>","<input type='checkbox' onchange='fn_checkAll(gridAplyList, this);'>"],
@@ -288,12 +363,8 @@
         gridAplyList = _SBGrid.create(SBGridProperties);
         gridAplyList.bind('click','fn_clickAplyGrid');
         gridAplyList.bind('valuechanged','fn_girdValuechanged');
-        // gridAplyList.bind('select',fn_gridselect);
     }
 
-    function fn_gridselect(){
-        alert("select");
-    }
     /**
      * @name fn_search
      * @description 조회
@@ -415,6 +486,7 @@
                 document.querySelector('#listCountTotal').innerText = totalCount;
                 document.querySelector('#listCountChecked').innerText = 0;
                 gridAplyList.refresh();
+                fn_setTotal();
 
             } else {
                 gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
@@ -786,13 +858,59 @@
         }
         const allData = gridAplyList.getGridDataAll();
         let checkedCount = 0;
+
+        let subBizAplySbmsn =0; // 신청서 제출
+        let subBizAplyAprv = 0; // 신청서 확인
+        let subAplyAmtNe = 0; // 신청액 국비
+        let subAplyAmtSlf = 0; // 신청액 자부담
+        let subRpnAmtNe = 0; // 배정액 국비
+        let subRpnAmtSlf = 0; // 배정액 자부담
+        let subBizPlanSbmsn = 0; // 사업계획서 제출
+        let subBizPlanAprv = 0; // 사업계획서 확인
         for (let i = 0; i <allData.length; i++) {
             if(_.isEqual(allData[i].checkedYn,"Y")) {
                 checkedCount++;
+
+                subAplyAmtNe += parseInt(allData[i].aplyAmtNe || 0);
+                subAplyAmtSlf += parseInt(allData[i].aplyAmtSlf || 0);
+                subRpnAmtNe += parseInt(allData[i].rpnAmtNe || 0);
+                subRpnAmtSlf += parseInt(allData[i].rpnAmtSlf || 0);
+
+                if (parseInt(allData[i].bizAplyAtchFileSn) > 0) {
+                    subBizAplySbmsn++
+                }
+                if (_.isEqual(allData[i].bizAplyAprvYn,"Y")) {
+                    subBizAplyAprv++
+                }
+                if (parseInt(allData[i].bizPlanAtchFileSn) > 0) {
+                    subBizPlanSbmsn++
+                }
+                if (_.isEqual(allData[i].bizPlanAprvYn,"Y")) {
+                    subBizPlanAprv++
+                }
+
             }
         }
+
+        // 선택 목록 개수
         document.querySelector('#listCountChecked').innerText = checkedCount;
+
+        document.querySelector('#subBizAplySbmsn').innerText = subBizAplySbmsn;
+        document.querySelector('#subBizAplyAprv').innerText = subBizAplyAprv;
+
+        document.querySelector('#subAplyAmtNe').innerText = subAplyAmtNe.toLocaleString();
+        document.querySelector('#subAplyAmtSlf').innerText = subAplyAmtSlf.toLocaleString();
+        document.querySelector('#subRpnAmtNe').innerText = subRpnAmtNe.toLocaleString();
+        document.querySelector('#subRpnAmtSlf').innerText = subRpnAmtSlf.toLocaleString();
+
+        document.querySelector('#subBizPlanSbmsn').innerText = subBizPlanSbmsn;
+        document.querySelector('#subBizPlanAprv').innerText = subBizPlanAprv;
+
         gridAplyList.refresh();
+
+        if (checkedCount === 0 ) {
+            fn_setTotal();
+        }
     }
 
 
@@ -936,6 +1054,234 @@
         }
         document.querySelector('#listCountChecked').innerText = checkedCount;
         grid.refresh();
+    }
+
+    const fn_createRawDataGrid = function() {
+        var SBGridProperties = {};
+        SBGridProperties.parentid = 'sb-area-gridRawData';
+        SBGridProperties.id = 'gridRawData';
+        SBGridProperties.jsonref = 'jsonRawData';
+        SBGridProperties.emptyrecords = '데이터가 없습니다.';
+        SBGridProperties.selectmode = 'free';
+        SBGridProperties.allowcopy = true;
+        SBGridProperties.extendlastcol = 'scroll';
+        SBGridProperties.rowheader="seq";
+
+        SBGridProperties.columns = [
+            {caption: ['연도'],			ref: 'yr', 	    width: '5%', type: 'output',style: 'text-align:center'},
+            {caption: ['조직구분'],			ref: 'aprvNm', 	width: '5%', type: 'combo', 	style: 'text-align:center', typeinfo :{ref:'jsonOgnzSe', label:'text', value :'value'}, disabled: true},
+            {caption: ['법인명'], 			ref: 'corpNm', 	width: '11%', type: 'output', style: 'text-align:left'},
+            {caption: ['사업자번호'], 			ref: 'brno', 	width: '7%', type: 'output', style: 'text-align:center'},
+            {caption: ['법인번호'], 			ref: 'crno', 	width: '7%', type: 'output',	style: 'text-align:center'},
+            {caption: ['신청서 제출여부'], 			ref: 'bizAplySbmsnYn', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['신청서 확인여부'], 			ref: 'bizAplyAprvYnNm', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['신청액 국비 (단위 : 천원)'], 			ref: 'aplyAmtNe', 		width: '8%', type: 'input', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}, userattr : {colNm :"aplyAmtNe"}},
+            {caption: ['신청액 자부담 (단위 : 천원)'], 			ref: 'aplyAmtSlf', 		width: '8%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+            {caption: ['배정액 국비 (단위 : 천원)'], 			ref: 'rpnAmtNe', 		width: '8%', type: 'input', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}, userattr : {colNm :"rpnAmtNe"}},
+            {caption: ['배정액 자부담 (단위 : 천원)'], 			ref: 'rpnAmtSlf', 		width: '8%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+            {caption: ['사업계획서 제출여부'], 			ref: 'bizPlanSbmsnYn', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['사업계획서 확인여부'], 			ref: 'bizPlanAprvYnNm', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['신청서 제출파일명'], 			ref: 'bizAplyLgcFileNm', 		width: '5%', type: 'output', style: 'text-align:center'},
+            {caption: ['사업계획서 제출파일명'], 			ref: 'bizPlanLgcFileNm', 		width: '5%', type: 'output', style: 'text-align:center'},
+        ];
+        gridRawData = _SBGrid.create(SBGridProperties);
+    }
+
+    /**
+     * @name fn_rawData
+     * @description 로우데이터 다운
+     */
+    const fn_rawData = async function () {
+
+        if (!gfn_comConfirm("Q0001", "로우데이터 다운")) {	//	Q0001	{0} 하시겠습니까?
+            return;
+        }
+
+        // 그리드 그리기 호출
+        await fn_createRawDataGrid();
+        const yr = SBUxMethod.get('dtl-spi-yr');
+        if (gfn_isEmpty(yr)) {
+            gfn_comAlert("W0002", "신청년도"); // W0002 {0}을/를 입력하세요.
+            return;
+        }
+
+        const postJsonPromise = gfn_postJSON("/pd/pcorm/selectSprtBizRawData.do", {
+            yr : yr
+        });
+        const data = await postJsonPromise;
+
+        try {
+            if (_.isEqual("S", data.resultStatus)) {
+                jsonRawData.length = 0;
+                data.resultList.forEach(item => {
+                    // 조직구분
+                    let aprvNm;
+                    if (_.isEqual(item.aprv,'1')) {
+                        aprvNm = '승인형'
+                    } else if(_.isEqual(item.aprv,'2')){
+                        aprvNm = '육성형'
+                    }
+
+                    let bizAplySbmsnYn;
+                    if (gfn_isEmpty(item.bizAplyAtchflSn) || _.isEqual(item.bizAplyAtchflSn,0)){
+                        bizAplySbmsnYn = "미제출";
+                    } else if (item.bizAplyAtchflSn > 0 && _.isEqual(item.bizAplyChgYn,"Y")) {
+                        bizAplySbmsnYn = "제출(변경)";
+                        // } else if (item.bizAplyAtchflSn > 0 || _.isEqual(item.bizAplyChgYn,"N") || gfn_isEmpty(item.bizAplyChgYn)) {
+                    } else {
+                        bizAplySbmsnYn = "제출";
+                    }
+
+                    let bizPlanSbmsnYn;
+                    if (gfn_isEmpty(item.bizPlanAtchflSn) || _.isEqual(item.bizPlanAtchflSn,0)){
+                        bizPlanSbmsnYn = "미제출";
+                    } else if (item.bizPlanAtchflSn > 0 && _.isEqual(item.bizPlanChgYn,"Y")) {
+                        bizPlanSbmsnYn = "제출(변경)";
+                    } else {
+                        bizPlanSbmsnYn = "제출";
+                    }
+
+                    // 신청서 확인 여부
+                    let bizAplyAprvYnNm;
+                    if (gfn_isEmpty(item.bizAplyAtchflSn) || _.isEqual(item.bizAplyAtchflSn,0)) {
+                        bizAplyAprvYnNm = null;
+                    } else if (item.bizAplyAtchflSn > 0 && gfn_isEmpty(item.bizAplyAprvYn)) {
+                        bizAplyAprvYnNm = "미확인";
+                    } else if (item.bizAplyAtchflSn > 0 &&_.isEqual(item.bizAplyAprvYn,"Y")) {
+                        bizAplyAprvYnNm = "확인";
+                    } else if (item.bizAplyAtchflSn > 0 && _.isEqual(item.bizAplyAprvYn,"N")) {
+                        bizAplyAprvYnNm = "수정요청";
+                    }
+                    // 사업계획서 확인 여부
+                    let bizPlanAprvYnNm;
+                    if (gfn_isEmpty(item.bizPlanAtchflSn) || _.isEqual(item.bizPlanAtchflSn,0)) {
+                        bizPlanAprvYnNm = null;
+                    } else if (item.bizPlanAtchflSn > 0 && gfn_isEmpty(item.bizPlanAprvYn)) {
+                        bizPlanAprvYnNm = "미확인";
+                    } else if (item.bizPlanAtchflSn > 0 &&_.isEqual(item.bizPlanAprvYn,"Y")) {
+                        bizPlanAprvYnNm = "확인";
+                    } else if (item.bizPlanAtchflSn > 0 && _.isEqual(item.bizPlanAprvYn,"N")) {
+                        bizPlanAprvYnNm = "수정요청";
+                    }
+                    const rawDataVO = {
+                        yr : item.yr,
+                        aprvNm : aprvNm,
+                        brno : item.brno,
+                        crno : item.crno,
+                        corpNm : item.corpNm,
+                        sprtBizYr : item.sprtBizYr,
+                        sprtBizCd : item.sprtBizCd,
+                        sprtBizOgnzId : item.sprtOgnzId,
+
+                        bizAplySbmsnYn : bizAplySbmsnYn, // 신청서 제출여부
+                        bizAplyAprvYn : item.bizAplyAprvYn, // 신청서 확인여부
+                        bizAplyAprvYnNm : bizAplyAprvYnNm, // 신청서 확인여부명
+                        aplyAmtNe : gfn_nvl(item.aplyAmtNe,null),
+                        aplyAmtSlf : gfn_nvl(item.aplyAmtSlf,null),
+                        rpnAmtNe : gfn_nvl(item.rpnAmtNe,null),
+                        rpnAmtSlf : gfn_nvl(item.rpnAmtSlf,null),
+                        bizPlanSbmsnYn : bizPlanSbmsnYn, // 사업계획서 제출여부
+                        bizPlanAprvYn : item.bizPlanAprvYn, // 사업계획서 확인여부
+                        bizPlanAprvYnNm : bizPlanAprvYnNm, // 사업계획서 확인여부
+
+                        bizAplyLgcFileNm : item.bizAplyLgcFileNm,
+                        bizPlanLgcFileNm : item.bizPlanLgcFileNm,
+
+                    }
+                    jsonRawData.push(rawDataVO);
+                });
+
+                gridRawData.rebuild();
+
+                await fn_excelDown();
+
+            } else {
+                gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+            }
+
+        } catch (e) {
+            if (!(e instanceof Error)) {
+                e = new Error(e);
+            }
+            console.error("failed", e.message);
+            gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+        }
+    }
+
+    //로우 데이터 엑셀 다운로드
+    function fn_excelDown(){
+        const currentDate = new Date();
+
+        const year = currentDate.getFullYear().toString().padStart(4, '0');
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        let formattedDate = year + month + day;
+
+        let fileName = formattedDate + "_산지조직지원신청관리_로우데이터";
+
+        /*
+        datagrid.exportData(param1, param2, param3, param4);
+        param1(필수)[string]: 다운 받을 파일 형식
+        param2(필수)[string]: 다운 받을 파일 제목
+        param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+        → true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+        → false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+        param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+        → arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+        → combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+        → true : label 값으로 저장
+        → false : value 값으로 저장
+        → sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+         */
+        //console.log(hiddenGrd.exportData);
+        gridRawData.exportData("xlsx" , fileName , true , true);
+    }
+
+    function fn_setTotal() {
+        const gridDataAll = gridAplyList.getGridDataAll();
+        if (gfn_isEmpty(gridDataAll)) {
+            return;
+        }
+
+        let subBizAplySbmsn =0; // 신청서 제출
+        let subBizAplyAprv = 0; // 신청서 확인
+        let subAplyAmtNe = 0; // 신청액 국비
+        let subAplyAmtSlf = 0; // 신청액 자부담
+        let subRpnAmtNe = 0; // 배정액 국비
+        let subRpnAmtSlf = 0; // 배정액 자부담
+        let subBizPlanSbmsn = 0; // 사업계획서 제출
+        let subBizPlanAprv = 0; // 사업계획서 확인
+
+        for (let i =0 ; i <gridDataAll.length; i++) {
+            subAplyAmtNe += parseInt(gridDataAll[i].aplyAmtNe || 0);
+            subAplyAmtSlf += parseInt(gridDataAll[i].aplyAmtSlf || 0);
+            subRpnAmtNe += parseInt(gridDataAll[i].rpnAmtNe || 0);
+            subRpnAmtSlf += parseInt(gridDataAll[i].rpnAmtSlf || 0);
+
+            if (parseInt(gridDataAll[i].bizAplyAtchFileSn) > 0) {
+                subBizAplySbmsn++
+            }
+            if (_.isEqual(gridDataAll[i].bizAplyAprvYn,"Y")) {
+                subBizAplyAprv++
+            }
+            if (parseInt(gridDataAll[i].bizPlanAtchFileSn) > 0) {
+                subBizPlanSbmsn++
+            }
+            if (_.isEqual(gridDataAll[i].bizPlanAprvYn,"Y")) {
+                subBizPlanAprv++
+            }
+        }
+
+        document.querySelector('#subBizAplySbmsn').innerText = subBizAplySbmsn;
+        document.querySelector('#subBizAplyAprv').innerText = subBizAplyAprv;
+
+        document.querySelector('#subAplyAmtNe').innerText = subAplyAmtNe.toLocaleString();
+        document.querySelector('#subAplyAmtSlf').innerText = subAplyAmtSlf.toLocaleString();
+        document.querySelector('#subRpnAmtNe').innerText = subRpnAmtNe.toLocaleString();
+        document.querySelector('#subRpnAmtSlf').innerText = subRpnAmtSlf.toLocaleString();
+
+        document.querySelector('#subBizPlanSbmsn').innerText = subBizPlanSbmsn;
+        document.querySelector('#subBizPlanAprv').innerText = subBizPlanAprv;
     }
 
 </script>
