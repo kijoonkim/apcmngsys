@@ -173,7 +173,10 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
             // 업데이트
             if (ComConstants.CON_NONE.equals(sprtBizAplyDocInfo.getAprvYn())) {
                 sprtBizRegFile.setChgYn(ComConstants.CON_YES);
+            } else if (ComConstants.CON_YES.equals(sprtBizAplyDocInfo.getAprvYn())) {
+                throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_TARGET_EXIST, "이미 확인된 서류"))); // W0009	{0}이/가 있습니다.
             }
+
             if (0 == sprtBizRegMngMapper.updateSprtAplyDoc(sprtBizRegFile)){
                 throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "신청문서 업데이트"))); // E0003	{0} 시 오류가 발생하였습니다.
             }
@@ -263,6 +266,14 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
     public List<SprtBizRegFileVO> selectSprtFileInfoList(SprtBizRegFileVO sprtBizRegFileVO) throws Exception {
 
         List<SprtBizRegFileVO> resultList = sprtBizRegMngMapper.selectSprtFileInfoList(sprtBizRegFileVO);
+
+        return resultList;
+    }
+
+    @Override
+    public List<SprtBizRegMngVO> selectSprtBizRawData(SprtBizRegMngVO sprtBizRegMngVO) throws Exception {
+
+        List<SprtBizRegMngVO> resultList = sprtBizRegMngMapper.selectSprtBizRawData(sprtBizRegMngVO);
 
         return resultList;
     }
