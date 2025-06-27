@@ -711,4 +711,86 @@
               AND DOC.DEL_YN = 'N'
         ]]>
     </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.pcorm.mapper.SprtBizRegMngMapper.selectSprtBizRawData  -->
+    <!-- DESC : 지원사업신청 - 로우데이터조회                                            -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.06.25  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtBizRawData" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+        SELECT
+            EUA.YR              AS YR
+             , EUA.APO_SE        AS APO_SE
+             , EUA.APRV        AS APRV
+             , EUA.APRV       AS APRV_NM
+             , EUA.APLY_DAY  AS APLY_DAY
+             , EUA.APO_CD    AS APO_CD
+             , EUA.CORP_NM   AS CORP_NM
+             , EUA.CRNO  AS CRNO
+             , EUA.BRNO  AS BRNO
+             , EUA.UO_BRNO   AS UO_BRNO
+
+             , SBO.SPRT_BIZ_YR   AS SPRT_BIZ_YR
+             , SBO.SPRT_BIZ_CD   AS SPRT_BIZ_CD
+             , SBO.SPRT_OGNZ_ID  AS SPRT_OGNZ_ID
+
+             , SBA.APLY_AMT_NE   AS APLY_AMT_NE
+             , SBA.APLY_AMT_SLF  AS APLY_AMT_SLF
+             , SBA.APLY_RMRK     AS APLY_RMRK
+             , SBA.RPN_AMT_NE    AS RPN_AMT_NE
+             , SBA.RPN_AMT_SLF   AS RPN_AMT_SLF
+             , SBA.STBLT_YN      AS STBLT_YN
+             , SBA.APRV_YN       AS APRV_YN
+             , SBA.RSN_CD        AS RSN_CD
+             , SBA.RSN_RMRK      AS RSN_RMRK
+
+             , APLY.APRV_YN      AS BIZ_APLY_APRV_YN
+             , APLY.ATCH_FILE_SN AS BIZ_APLY_ATCHFL_SN
+             , APLY.CHG_YN       AS BIZ_APLY_CHG_YN
+
+             , PLAN.APRV_YN AS BIZ_PLAN_APRV_YN
+             , PLAN.ATCH_FILE_SN AS BIZ_PLAN_ATCHFL_SN
+             , PLAN.CHG_YN       AS BIZ_PLAN_CHG_YN
+
+             , (SELECT LGC_FILE_NM FROM TB_EV_SPRT_BIZ_ATCHFL WHERE ATCH_FILE_SN = APLY.ATCH_FILE_SN) AS BIZ_APLY_LGC_FILE_NM
+             , (SELECT LGC_FILE_NM FROM TB_EV_SPRT_BIZ_ATCHFL WHERE ATCH_FILE_SN = PLAN.ATCH_FILE_SN) AS BIZ_PLAN_LGC_FILE_NM
+
+
+
+        FROM VW_EV_UO_APRV EUA
+
+        LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+            ON SBO.BRNO = EUA.BRNO
+            AND SBO.CRNO = EUA.CRNO
+            AND EUA.YR = SBO.SPRT_BIZ_YR
+
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+            ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+            AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+            AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+            AND SBA.DEL_YN = 'N'
+
+
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY_DOC APLY
+            ON APLY.SPRT_BIZ_YR = EUA.YR
+            AND APLY.SPRT_BIZ_CD = SBA.SPRT_BIZ_CD
+            AND APLY.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+            AND APLY.APLY_DOC_CD = 'BIZ_APLY'
+            AND APLY.DEL_YN = 'N'
+
+
+        LEFT JOIN TB_EV_SPRT_BIZ_APLY_DOC PLAN
+            ON PLAN.SPRT_BIZ_YR = EUA.YR
+            AND PLAN.SPRT_BIZ_CD = SBA.SPRT_BIZ_CD
+            AND PLAN.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+            AND PLAN.APLY_DOC_CD = 'BIZ_PLAN'
+            AND PLAN.DEL_YN = 'N'
+
+        WHERE EUA.YR = #{yr}
+        ]]>
+    </select>
 </mapper>
