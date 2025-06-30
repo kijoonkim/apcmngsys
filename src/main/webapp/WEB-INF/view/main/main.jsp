@@ -1619,10 +1619,10 @@
         if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
             const jsonTabSelect = {
                 'text': 'Agent',	//'대시보드'
-                'targetid': "TAB_CO_DASH",
-                'targetvalue': "TAB_CO_DASH",
+                'targetid': "TAB_CO_019",
+                'targetvalue': "TAB_CO_019",
                 'targetname': 'frmJson',
-                'link': '/static/api/mobile/dashboard.html',	// _url
+                'link': '/co/menu/openPage.do/CO_019',	// _url
                 'closeicon': false,
             };
             SBUxMethod.addTab('tab_menu',jsonTabSelect);
