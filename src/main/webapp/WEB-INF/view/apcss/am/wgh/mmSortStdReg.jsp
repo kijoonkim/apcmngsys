@@ -434,23 +434,10 @@
       {caption: ["생산자코드"],  ref: 'sortPrdcrCd', type: 'output', hidden: true},
       {caption: ["입고구분코드"], ref: 'sortWrhsSeCd', type: 'output', hidden: true},
       {caption: ["상품구분코드"], ref: 'sortGdsSeCd', type: 'output', hidden: true},
-
-      // {caption: ["선별설비코드"], ref: 'sortFcltCd', type: 'output', hidden: true},
-      // {caption: ["품목코드"], ref: 'itemCd', type: 'output', hidden: true},
-      // {caption: ["품종코드"], ref: 'vrtyCd', type: 'output', hidden: true},
-      // {caption: ["투입창고코드"], ref: 'inputWrhusSeCd', type: 'output', hidden: true},
-      // {caption: ["저장창고코드"], ref: 'strgWrhusSeCd', type: 'output', hidden: true},
-      // {caption: ["규격코드"], ref: 'spcfctCd', type: 'output', hidden: true},
-      // {caption: ["등급코드"], ref: 'grdCd',  type: 'output', hidden: true},
-      // {caption: ["포장상품코드"],  ref: 'spmtPckgUnitCd',  type: 'output', hidden: true},
-      // {caption: ["포장상품등급코드"], ref: 'spmtPckgGrdCd',   type: 'output', hidden: true},
-      // {caption: ["생산자코드"],  ref: 'prdcrCd', type: 'output', hidden: true},
-      // {caption: ["입고구분코드"], ref: 'wrhsSeCd', type: 'output', hidden: true},
-      // {caption: ["상품구분코드"], ref: 'gdsSeCd', type: 'output', hidden: true},
     ];
 
     grdSortRegList = _SBGrid.create(SBGridProperties);
-    grdSortRegList.bind('click', fn_view);
+    // grdSortRegList.bind('click', fn_view);
     
   }
 
@@ -876,7 +863,7 @@
       sortSpmtPckgGrdNm: spmtPckgGrdNm,
       sortPrdcrNm: sortPrdcrNm,
       sortWrhsSeNm: sortWrhsNm,
-      soirtGdsSeNm: sortGdsNm,
+      sortGdsSeNm: sortGdsNm,
       sortRmrk: sortRmrk,
 
       sortFcltCd: sortFcltCd,
@@ -893,10 +880,14 @@
       sortGdsSeCd: sortGdsSeCd,
 
       sortSpcfctWght: parseInt(sortSpcfctWght) || 0,
+      // sortQntt: parseInt(sortQntt) || 0,
+      // sortWght: parseInt(sortWght) || 0,
+
+      totSortWght: totSortWght,
     }
 
-    if(!gfn_isEmpty(sortRegInfoVO.vrtyCd)){
-      sortRegInfoVO.vrtyCd = sortRegInfoVO.vrtyCd.substring(4,8);
+    if(!gfn_isEmpty(sortRegInfoVO.sortVrtyCd)){
+      sortRegInfoVO.sortVrtyCd = sortRegInfoVO.sortVrtyCd.substring(4,8);
     }
 
     // group 설정 (품종/품목, 투입창고, 투입수량/중량, 생산자, 입고구분, 상품구분 동일하면 같은 그룹)
@@ -904,7 +895,7 @@
     let prvSortRegInfo = jsonSortRegList.slice(-1)[0];  // 직전 선별등록 데이터
 
     // const keysToCompare = ['itemCd', 'vrtyCd', 'inputWrhusSeCd', 'inputQntt', 'inputWght', 'prdcrCd', 'wrhsSeCd', 'gdsSeCd'];
-    const keysToCompare = ['itemCd', 'vrtyCd', 'inputQntt', 'inputWght'];
+    const keysToCompare = ['sortItemCd', 'sortVrtyCd', 'sortInputQntt', 'sortInputWght'];
     const prvSortData = _.pick(prvSortRegInfo, keysToCompare);
     const curSortData = _.pick(sortRegInfoVO, keysToCompare);
 
@@ -934,8 +925,7 @@
         sortRegInfoVO.totSortWght = sortRegInfoVO.sortWght;
       }
     }
-
-    console.log("sortRegInfoVO", sortRegInfoVO);
+    // console.log("sortRegInfoVO", sortRegInfoVO);
 
     jsonSortRegList.push(sortRegInfoVO);
 
@@ -1001,7 +991,7 @@
           itemCd: sortDataVO.sortItemCd,
           vrtyCd: sortDataVO.sortVrtyCd,
           spcfctCd: sortDataVO.sortSpcfctCd,
-          warehouseSeCdFrom: sortDataVO.sortInputWrhusSeCd,
+          warehouseSeCdFrom: sortDataVO.sortInptWrhusSeCd,
           warehouseSeCd: sortDataVO.sortStrgWrhusSeCd,
           grdCd: sortDataVO.sortGrdCd,
           sortQntt: sortDataVO.sortQntt,
@@ -1031,7 +1021,7 @@
     });
 
     console.log("sortMngList", sortMngList);
-    return;
+    // return;
 
     const postJsonPromise = gfn_postJSON("/am/sort/insertSortRsltMonthly.do", sortMngList);
     const sortData = await postJsonPromise;

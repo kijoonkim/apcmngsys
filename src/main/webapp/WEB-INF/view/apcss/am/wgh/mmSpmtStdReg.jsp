@@ -919,32 +919,30 @@
           spmtWght: spmtItem.spmtWght,
         }
         spmtPrfmncList.push(spmtPrfmncVO);
-
-        const spmtVO = {
-          // 출하상품 목록
-          spmtPrfmncList: spmtPrfmncList,
-
-          // 출하등록 데이터
-          apcCd: gv_selectedApcCd,
-          spmtYmd: spmtItem.spmtYmd,
-          cnptCd: spmtItem.cnptCd,
-          trsprtCoCd: spmtItem.trsprtCoCd,
-          vhclno: spmtItem.vhclno,
-          dldtn: spmtItem.dldtn,
-          trsprtCst: spmtItem.trsprtCst,
-          dlngShapCd: spmtItem.dlngShapCd,
-          dlngMthdCd: spmtItem.dlngMthdCd,
-          pltBxCd: spmtItem.pltBxCd,
-          bssInvntrQntt: spmtItem.bssInvntrQntt,
-          pltSpmtYn: spmtItem.pltSpmtYn,
-          rmrk: spmtItem.rmrk,
-          // spmtCmndno: spmtItem.spmtCmndno,
-          // outordrno: spmtItem.outordrno,
-          // spmtPrsnDclrno: spmtItem.spmtPrsnDclrno,
-        }
-
-        spmtPrfmncComList.push(spmtVO);
       });
+      const spmtVO = {
+        // 출하상품 목록
+        spmtPrfmncList: spmtPrfmncList,
+
+        // 출하등록 데이터
+        apcCd: gv_selectedApcCd,
+        spmtYmd: groupData[0].spmtYmd,
+        cnptCd: groupData[0].cnptCd,
+        trsprtCoCd: groupData[0].trsprtCoCd,
+        vhclno: groupData[0].vhclno,
+        dldtn: groupData[0].dldtn,
+        trsprtCst: groupData[0].trsprtCst,
+        dlngShapCd: groupData[0].dlngShapCd,
+        dlngMthdCd: groupData[0].dlngMthdCd,
+        pltBxCd: groupData[0].pltBxCd,
+        bssInvntrQntt: groupData[0].bssInvntrQntt,
+        pltSpmtYn: groupData[0].pltSpmtYn,
+        rmrk: groupData[0].rmrk,
+        // spmtCmndno: groupData[0]..spmtCmndno,
+        // outordrno: groupData[0]..outordrno,
+        // spmtPrsnDclrno: groupData[0]..spmtPrsnDclrno,
+      }
+      spmtPrfmncComList.push(spmtVO);
     });
     console.log(spmtPrfmncComList)
     // return;

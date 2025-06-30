@@ -1242,6 +1242,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 
 						vrInvntrVOList.add(sortInvntrVO);
 
+						pckg.setRprsPrdcrCd(prdcrCd);
+
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장가능재고");
 					}
@@ -1415,6 +1417,8 @@ public class PckgMngServiceImpl extends BaseServiceImpl implements PckgMngServic
 						sortInvntrVO.setInvntrWght(0);
 
 						vrInvntrVOList.add(sortInvntrVO);
+
+						pckg.setRprsPrdcrCd(prdcrCd);
 					} else {
 						return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "포장가능재고");
 					}

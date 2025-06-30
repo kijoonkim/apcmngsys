@@ -445,20 +445,8 @@
   var jsonWrhsRegList = [];
 
   /* SB Select */
-  // var jsonApcItem			= [];	// 품목 		itemCd		검색
-  // var jsonApcVrty			= [];	// 품종 		vrtyCd		검색
-  var jsonApcGrd			= [];	// 등급 		grdCd		검색
-  var jsonApcSpcfct		= [];	// 규격 		spcfcCd		검색
-  // var jsonComWarehouse	= [];	// 창고 		warehouse	검색
-  // var jsonApcBx			= [];	// 팔레트/박스 	검색
-
-  // var jsonComWrhsSeCd		= [];	// 입고구분		WRHS_SE_CD
-  // var jsonComGdsSeCd		= [];	// 상품구분		GDS_SE_CD
-  // var jsonComTrsprtSeCd	    = [];	// 운송구분		TRSPRT_SE_CD
-
-  /*/!* 생산자 자동완성 *!/
-  var jsonPrdcr			= [];
-  var jsonPrdcrAutocomplete = [];*/
+  var jsonApcGrd			= [];	// 등급
+  var jsonApcSpcfct		= [];	// 규격
 
   /* 팔레트 번호 */
   var chkPltNo = "";
@@ -1027,11 +1015,8 @@
     const wrhsRegList = [];
 
     let wrhsRegData = grdWrhsRegList.getGridDataAll();
-    console.log("fn_saveWrhsInfo");
-    console.log(wrhsRegData);
 
     for (const wrhsDataVO of wrhsRegData) {
-      console.log(wrhsDataVO)
 
       const wrhsReg = {
         apcCd: wrhsDataVO.apcCd,
@@ -1128,7 +1113,6 @@
                     .map(item => item['pltno'])
                     .filter(pltno => pltno.includes("RT" + ymd))
     ));
-    console.log(data)
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
@@ -1267,7 +1251,6 @@
       await fn_onChangeSrchVrtyCd({value: prdcr.rprsItemCd + prdcr.rprsVrtyCd});
     } else {
       if (!gfn_isEmpty(prdcr.rprsItemCd)) {	// 대표품목
-        console.log(prdcr)
         const prvItemCd = SBUxMethod.get("dtl-slt-itemCd");
         if (prvItemCd != prdcr.rprsItemCd) {
           SBUxMethod.set("dtl-slt-itemCd", prdcr.rprsItemCd);
