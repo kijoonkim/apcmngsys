@@ -328,7 +328,7 @@
 				     , MAX(PC.DLDTN)					        AS DLDTN
 				     , MAX(PC.TRSPRT_CO_CD)				    AS TRSPRT_CO_CD
 				     , MAX(PC.VHCLNO)					    AS VHCLNO
-				     , SUM(PC.TRSPRT_CST)				    AS TRSPRT_CST
+				     , MAX(PC.TRSPRT_CST)				    AS TRSPRT_CST
 				     , PD.GDS_GRD                       AS GDS_GRD
                      , PD.SPMT_PCKG_UNIT_CD             AS SPMT_PCKG_UNIT_CD
 				     , CASE WHEN MAX(PC.RTN_GDS_YN) = 'Y'

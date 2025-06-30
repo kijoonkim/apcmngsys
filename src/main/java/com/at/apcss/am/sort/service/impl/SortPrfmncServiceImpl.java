@@ -138,6 +138,35 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	}
 
 	@Override
+	public HashMap<String, Object> insertSortPrfmncForCredit(SortPrfmncVO sortPrfmncVO) throws Exception {
+
+		String sortno = sortPrfmncVO.getSortno();
+		if (!StringUtils.hasText(sortno)) {
+			sortno = cmnsTaskNoService.selectSortno(sortPrfmncVO.getApcCd(), sortPrfmncVO.getInptYmd());
+			sortPrfmncVO.setSortno(sortno);
+		}
+
+		if (!StringUtils.hasText(sortPrfmncVO.getRprsPrdcrCd())) {
+			sortPrfmncVO.setRprsPrdcrCd(sortPrfmncVO.getPrdcrCd());
+		}
+
+		SortInvntrVO sortInvntrVO = new SortInvntrVO();
+		BeanUtils.copyProperties(sortPrfmncVO, sortInvntrVO);
+		sortInvntrVO.setSortQntt(sortPrfmncVO.getSortQntt());
+		sortInvntrVO.setSortWght(sortPrfmncVO.getSortWght());
+		sortInvntrVO.setInvntrQntt(sortPrfmncVO.getSortQntt());
+		sortInvntrVO.setInvntrWght(sortPrfmncVO.getSortWght());
+
+		// 선별재고 생성
+		HashMap<String, Object> rtnObj = sortInvntrService.insertSortInvntr(sortInvntrVO);
+		if (rtnObj != null) {
+			throw new EgovBizException(getMessageForMap(rtnObj));
+		}
+
+		return null;
+	}
+
+	@Override
 	public HashMap<String, Object> insertSortPrfmncList(List<SortPrfmncVO> sortPrfmncList) throws Exception {
 
 		HashMap<String, Object> rtnObj = new HashMap<>();
