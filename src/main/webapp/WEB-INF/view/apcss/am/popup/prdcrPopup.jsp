@@ -493,6 +493,7 @@
 					    landPlntngArea	: item.landPlntngArea,
 					    prchsQntt 		: item.prchsQntt,
 					    prchsAmt 		: item.prchsAmt,
+						frmhsNm			: item.frmhsNm,
 					    frmhsAddr		: item.frmhsAddr,
 					    frmhsCtpv		: item.frmhsCtpv,
 					    frmhsTelno		: item.frmhsTelno,
