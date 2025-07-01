@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: sonminseong
+  Date: 6/30/25
+  Time: 2:30 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko" style="margin: 0!important;">
 <head>
@@ -30,7 +38,7 @@
             font-weight: bold!important;
         }
         .apc_info.card{
-           border: 0!important;
+            border: 0!important;
         }
         #apc_infos > div > div > div > img{
             cursor: pointer;
@@ -286,7 +294,7 @@
                                             </div>
                                         </div>
                                     </div>
-<!--                                    <span class="badge bg-red"></span>-->
+                                    <!--                                    <span class="badge bg-red"></span>-->
                                     <div class="card">
                                         <table id="agentTable" class="table table-vcenter card-table">
                                             <colgroup>
@@ -346,15 +354,15 @@
                                                 <col style="width: 15%;">
                                             </colgroup>
                                             <thead>
-                                                <tr>
-                                                    <th>APC</th>
-                                                    <th>기기ID</th>
-                                                    <th>기기명</th>
-                                                    <th>통신상태</th>
-                                                    <th>구분</th>
-                                                    <th>요청일시</th>
-                                                    <th>완료일시</th>
-                                                </tr>
+                                            <tr>
+                                                <th>APC</th>
+                                                <th>기기ID</th>
+                                                <th>기기명</th>
+                                                <th>통신상태</th>
+                                                <th>구분</th>
+                                                <th>요청일시</th>
+                                                <th>완료일시</th>
+                                            </tr>
                                             </thead>
                                             <tbody></tbody>
                                         </table>
@@ -369,6 +377,7 @@
     </div>
 </div>
 <script src="/js/out/dashboard.bundle.js"></script>
-<script src="js/pages/dashboard.js"></script>
+<script src="/api/mobile/js/pages/dashboard.js"></script>
 </body>
 </html>
+
