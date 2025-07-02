@@ -835,7 +835,6 @@
             SBUxMethod.set("srch-inp-wghtAvg", "");
         }
         /** 규격 입고시에 연계 코드가 원물인경우만 노출 **/
-        console.log(jsonSpcfctCd);
         jsonSpcfctCd = jsonSpcfctCd.filter(i => i.extrnlLnkgCd === '원물');
         SBUxMethod.refresh('srch-slt-spcfctCd');
     }
