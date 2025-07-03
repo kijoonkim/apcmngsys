@@ -102,8 +102,19 @@
 			cursor: pointer;
 			color: white;
 		}
+		#modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5); /* 어두운 배경 */
+			z-index: 999; /* 모달보다 뒤에 위치 */
+			display: none; /* 기본적으로 숨김 */
+		}
 		#warehouseModal{
 			display: none;
+			max-height: 600px;
 			height: auto;
 			width: 500px;
 			position: fixed;
@@ -585,10 +596,11 @@
 			</div>
 			<div id="sb-area-pltBx" style="width: 100%;"></div>
 		</div>
-		<div id="warehouseModal" style="width: 500px; max-height: 600px; height: auto">
+		<div id="modal-overlay"></div>
+		<div id="warehouseModal">
 
 				<div id="sb-area-warehouse" style="width: 100%; height: auto; border: hidden"></div>
-				<div style="display: flex; justify-content: center; gap: 10px; margin: 20px">
+				<div style="display: flex; justify-content: center; gap: 10px; margin: 10px; border: hidden">
 					<sbux-button
 							id="btnCancel"
 							name="btnCancel"
@@ -601,7 +613,7 @@
 							id="btnSetWarehouse"
 							name="btnSetWarehouse"
 							uitype="normal"
-							class="btn btn-sm btn-outline-danger"
+							class="btn btn-sm btn-primary"
 							onclick=""
 							text="저장"
 					></sbux-button>
@@ -972,6 +984,8 @@
 
       		jsonVrty.length = 0;
       		jsonWghDtlPrfmnc.length = 0;
+
+			console.log("data.resultList", data.resultList);
           	data.resultList.forEach((item, index) => {
 
           		let vrtyCd = item.vrtyCd
@@ -1775,9 +1789,6 @@
 		});
 
 		/** 저장창고 select **/
-		console.log(multiList,"multiList");
-		console.log(pltWrhsSpmt,"pltWrhsSpmt");
-		console.log(wghHstryList,"wghHstryList");
 		await fn_warehouseModal();
 		let warehouseJson = [];
 
@@ -1812,9 +1823,10 @@
 		jsonWarehouse = warehouseJson;
 
 		/** modal grid size **/
-		$("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
+		// $("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
 
 		grdWarehouse.rebuild();
+		return;
 		const btnSetWarehouse = document.getElementById('btnSetWarehouse');
 		const btnCancel = document.getElementById('btnCancel');
 
@@ -2405,9 +2417,22 @@
 		const displayValue = $('#warehouseModal').css('display');
 
 		if(displayValue === 'none'){
+			// 오버레이 생성
+			let overlay = document.getElementById('modal-overlay');
+			if (!overlay) {
+				overlay = document.createElement('div');
+				overlay.id = 'modal-overlay';
+				document.body.appendChild(overlay);
+			}
+			// 오버레이와 모달 표시
+			$("#modal-overlay").css("display","block");
 			$("#warehouseModal").css("display","block");
+
+			// 오버레이 클릭 방지
+			overlay.addEventListener('click', (e) => e.stopPropagation());
 		}else{
 			$("#warehouseModal").css("display","none");
+			$("#modal-overlay").css("display","none");
 		}
 	}
 	const fn_createWarehouseGrid = function(){
