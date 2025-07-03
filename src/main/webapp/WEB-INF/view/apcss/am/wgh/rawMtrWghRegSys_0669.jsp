@@ -114,7 +114,7 @@
 		}
 		#warehouseModal{
 			display: none;
-			max-height: 600px;
+			max-height: 800px;
 			height: auto;
 			width: 500px;
 			position: fixed;
@@ -122,7 +122,7 @@
 			left: 30%;
 			border: 2px solid black;
 			z-index: 9999;
-			background-color: white;
+			background-color: #367fa9;
 			cursor: grab;
 		}
 	</style>
@@ -598,9 +598,9 @@
 		</div>
 		<div id="modal-overlay"></div>
 		<div id="warehouseModal">
-
-				<div id="sb-area-warehouse" style="width: 100%; height: auto; border: hidden"></div>
-				<div style="display: flex; justify-content: center; gap: 10px; margin: 10px; border: hidden">
+			<div style="display: flex; flex-direction: column; align-items: stretch;">
+				<div id="sb-area-warehouse" style=" width: 100%; height: auto; border: hidden; min-height: 200px"></div>
+				<div style="display: flex; justify-content: center; gap: 10px; margin: 10px; border: hidden; ">
 					<sbux-button
 							id="btnCancel"
 							name="btnCancel"
@@ -618,7 +618,7 @@
 							text="저장"
 					></sbux-button>
 				</div>
-
+			</div>
 		</div>
 	</section>
     <!-- 생산자 선택 Modal -->
@@ -870,6 +870,7 @@
 			item.Pqntt = '';
 			item.Bsn = 0;
 			item.Psn = 0;
+			item.rmrk = '';
 		});
 		grdPltBox.rebuild();
 	}
@@ -985,7 +986,6 @@
       		jsonVrty.length = 0;
       		jsonWghDtlPrfmnc.length = 0;
 
-			console.log("data.resultList", data.resultList);
           	data.resultList.forEach((item, index) => {
 
           		let vrtyCd = item.vrtyCd
@@ -1052,6 +1052,7 @@
 			item.Pqntt = '';
 			item.Bsn = 0;
 			item.Psn = 0;
+			item.rmrk = '';
 		});
 
 		dataForPlt.resultList.forEach(function(item){
@@ -1141,6 +1142,7 @@
 			item.Pqntt = '';
 			item.Bsn = 0;
 			item.Psn = 0;
+			item.rmrk = '';
 		});
 		grdPltBox.rebuild();
 	}
@@ -1189,6 +1191,9 @@
   		SBUxMethod.set('dtl-inp-shpgotQntt', 0)
   		SBUxMethod.set('dtl-inp-shpgotPltQntt', 0);
   		SBUxMethod.set('dtl-inp-oprtrNm', '');
+
+		SBUxMethod.set('frmhsInfo', '');
+		SBUxMethod.set('vhclInfo', '');
 	}
 
 	/**
@@ -1617,6 +1622,7 @@
 		/** 사이즈 등급 그리드 ite **/
 		/** merge cell로 인해 첫번째 row에서 추출 **/
 		let warehouseSeCd = vrtyList[0].warehouseSeCd;
+		console.log(warehouseSeCd, "warehouseSeCd")
 		for (var i=1; i<=vrtyList.length; i++) {
 			let rowData = vrtyList[i-1];
 
@@ -1647,6 +1653,7 @@
 					wghPrfmncVO.vrtyCd = vrtyCdKey;
 					wghPrfmncVO.bxQntt = vrtyQntt;
 					wghPrfmncVO.grdCd = rowData.grdCd;
+					wghPrfmncVO.warehouseSeCd = warehouseSeCd;
 					/** 하단 그리드 grdSeCd Set **/
 					wghPrfmncVO.grdSeCd = rowData.grdSeCd;
 					wghPrfmncVO.groupId = 1;
@@ -1823,10 +1830,10 @@
 		jsonWarehouse = warehouseJson;
 
 		/** modal grid size **/
-		// $("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
+		$("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
 
 		grdWarehouse.rebuild();
-		return;
+		// return;
 		const btnSetWarehouse = document.getElementById('btnSetWarehouse');
 		const btnCancel = document.getElementById('btnCancel');
 
@@ -2440,6 +2447,7 @@
 		SBGridProperties.parentid = 'sb-area-warehouse';
 		SBGridProperties.id = 'grdWarehouse';
 		SBGridProperties.jsonref = 'jsonWarehouse';
+		SBGridProperties.rowheight = '30';
 		SBGridProperties.extendlastcol = 'scroll';
 		SBGridProperties.oneclickedit = true;
 
