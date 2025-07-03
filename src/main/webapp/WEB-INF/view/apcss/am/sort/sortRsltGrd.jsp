@@ -516,7 +516,7 @@
         SBGridProperties.mergecells = 'bycolrec';
         SBGridProperties.fixedrowheight = 50;
         SBGridProperties.allowcopy = true;
-        SBGridProperties.contextmenu = true;  // 우클린 메뉴 호출 여부
+        SBGridProperties.contextmenu = true;  // 우클릭 메뉴 호출 여부
         SBGridProperties.contextmenulist = objMenuList2;  // 우클릭 메뉴 리스트
         SBGridProperties.backcoloralternate = '#E0FFFF';
         SBGridProperties.clickeventarea = {fixed: false, empty: false};
@@ -524,8 +524,8 @@
             {caption: ["선별기"], ref: 'sortFclt', type: 'input', width: '100px', style: 'text-align: center; padding-right: 5px;', disabled: true},
             {caption: ["품종"], ref: 'vrtyNm', type: "input", width: '100px', style: 'text-align: center; padding-right: 5px;', disabled: true},
             {caption: ["회원정보"], ref: 'sortInfo', type: 'input', width: '100px', style: 'text-align: center; padding-right: 5px;', disabled: true},
-            {caption: ["등급"], ref: 'grd', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
-            {caption: ["소계"], ref: 'sbTot', type: 'input', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #E0FFFF;', format: {type: 'number', rule: '#,###', emptyvalue: '0'}, fixedstyle: 'background-color: #E0FFFF;', merge: false, disabled: true},
+            {caption: ["등급"], ref: 'grd', type: 'input', width: '50px', style: 'text-align: center;', disabled: true},
+            {caption: ["소계"], ref: 'sbTot', type: 'input', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #E0FFFF;', format: {type: 'number', rule: '#,###'}, fixedstyle: 'background-color: #E0FFFF;', merge: false, disabled: true},
             {caption: ["비고"], ref: 'rmrk', type: 'input',  width: '50px', style: 'text-align: right; padding-right: 5px;', disabled: true},
             {caption: ["생산자코드"],	ref: 'prdcrCd', type: 'input', hidden: true},
             {caption: ["선별번호"], ref: 'sortNo', type: 'input', hidden: true}
@@ -540,16 +540,10 @@
                 type: 'input',
                 width: '80px',
                 style: 'text-align: right; padding-right: 5px;',
-                format: {
-                    type: 'number',
-                    rule: '#,###',
-                    emptyvalue: '0'
-                },
                 merge: false,
                 disabled: true
             });
-        })
-
+        });
 
         let originColumns = SBGridProperties.columns;
         originColumns.splice(4, 0, ...addSortRsltGrdCol);
@@ -804,12 +798,50 @@
         let totalRecordCount = 0;
 
         try {
-            let sumTot1 = {grd1: 0, grd2: 0, grd3: 0, grd4: 0, grd5: 0, grd6: 0, grd7: 0, grd8: 0, grd9: 0, grd10: 0, grd11: 0, grd12: 0, grd13: 0, grd14: 0, grd15: 0, grd16: 0, grd17: 0};
-            let sumTot2 = {grd1: 0, grd2: 0, grd3: 0, grd4: 0, grd5: 0, grd6: 0, grd7: 0, grd8: 0, grd9: 0, grd10: 0, grd11: 0, grd12: 0, grd13: 0, grd14: 0, grd15: 0, grd16: 0, grd17: 0};
+            let sumTot1 = {grd1: 0, grd2: 0, grd3: 0, grd4: 0, grd5: 0, grd6: 0, grd7: 0, grd8: 0, grd9: 0, grd10: 0, grd11: 0, grd12: 0, grd13: 0, grd14: 0, grd15: 0, grd16: 0, grd17: 0, grd18: 0, grd19: 0, grd20: 0, grd21: 0, grd22: 0, grd23: 0, grd24: 0, grd25: 0, grd26: 0, grd27: 0, grd28: 0, grd29: 0, grd30: 0};
+            let sumTot2 = {grd1: 0, grd2: 0, grd3: 0, grd4: 0, grd5: 0, grd6: 0, grd7: 0, grd8: 0, grd9: 0, grd10: 0, grd11: 0, grd12: 0, grd13: 0, grd14: 0, grd15: 0, grd16: 0, grd17: 0, grd18: 0, grd19: 0, grd20: 0, grd21: 0, grd22: 0, grd23: 0, grd24: 0, grd25: 0, grd26: 0, grd27: 0, grd28: 0, grd29: 0, grd30: 0};
 
             const postJsonPromise = gfn_postJSON("/am/sort/selectGrdDsctn.do", param, null, false);
             const data = await postJsonPromise;
             data.resultList.forEach((item, index) => {
+                const orcDsctnTot = {
+                    sortFclt: item.FCLT_NM,
+                    sortInfo: item.PRDCR_NM,
+                    sbTot: "",
+                    vrtyNm: item.VRTY_NM,
+                    grd: "과수",
+                    grd1: item.RMRK_1,
+                    grd2: item.RMRK_2,
+                    grd3: item.RMRK_3,
+                    grd4: item.RMRK_4,
+                    grd5: item.RMRK_5,
+                    grd6: item.RMRK_6,
+                    grd7: item.RMRK_7,
+                    grd8: item.RMRK_8,
+                    grd9: item.RMRK_9,
+                    grd10: item.RMRK_10,
+                    grd11: item.RMRK_11,
+                    grd12: item.RMRK_12,
+                    grd13: item.RMRK_13,
+                    grd14: item.RMRK_14,
+                    grd15: item.RMRK_15,
+                    grd16: item.RMRK_16,
+                    grd17: item.RMRK_17,
+                    grd18: item.RMRK_18,
+                    grd19: item.RMRK_19,
+                    grd20: item.RMRK_20,
+                    grd21: item.RMRK_21,
+                    grd22: item.RMRK_22,
+                    grd23: item.RMRK_23,
+                    grd24: item.RMRK_24,
+                    grd25: item.RMRK_25,
+                    grd26: item.RMRK_26,
+                    grd27: item.RMRK_27,
+                    grd28: item.RMRK_28,
+                    grd29: item.RMRK_29,
+                    grd30: item.RMRK_30
+                };
+
                 const grdDsctnQnttTot = {
                     sortFclt: item.FCLT_NM,
                     sortInfo: item.PRDCR_NM,
@@ -832,7 +864,20 @@
                     grd14: item.QNTT_14,
                     grd15: item.QNTT_15,
                     grd16: item.QNTT_16,
-                    grd17: item.QNTT_17
+                    grd17: item.QNTT_17,
+                    grd18: item.QNTT_18,
+                    grd19: item.QNTT_19,
+                    grd20: item.QNTT_20,
+                    grd21: item.QNTT_21,
+                    grd22: item.QNTT_22,
+                    grd23: item.QNTT_23,
+                    grd24: item.QNTT_24,
+                    grd25: item.QNTT_25,
+                    grd26: item.QNTT_26,
+                    grd27: item.QNTT_27,
+                    grd28: item.QNTT_28,
+                    grd29: item.QNTT_29,
+                    grd30: item.QNTT_30
                 };
 
                 const grdDsctnWghtTot = {
@@ -857,9 +902,23 @@
                     grd14: item.WGHT_14,
                     grd15: item.WGHT_15,
                     grd16: item.WGHT_16,
-                    grd17: item.WGHT_17
+                    grd17: item.WGHT_17,
+                    grd18: item.WGHT_18,
+                    grd19: item.WGHT_19,
+                    grd20: item.WGHT_20,
+                    grd21: item.WGHT_21,
+                    grd22: item.WGHT_22,
+                    grd23: item.WGHT_23,
+                    grd24: item.WGHT_24,
+                    grd25: item.WGHT_25,
+                    grd26: item.WGHT_26,
+                    grd27: item.WGHT_27,
+                    grd28: item.WGHT_28,
+                    grd29: item.WGHT_29,
+                    grd30: item.WGHT_30
                 };
 
+                jsonGrdDsctn.push(orcDsctnTot);
                 jsonGrdDsctn.push(grdDsctnQnttTot);
                 jsonGrdDsctn.push(grdDsctnWghtTot);
 
@@ -868,13 +927,24 @@
             });
 
             sumTot1["sortFclt"] = "합계"; sumTot1["grd"] = "수량"; sumTot1["sortInfo"] = "합계"; sumTot1["vrtyNm"] = "합계";
-            sumTot1["sbTot"] = sumTot1.grd1 + sumTot1.grd2 + sumTot1.grd3 + sumTot1.grd4 + sumTot1.grd5 + sumTot1.grd6 + sumTot1.grd7 + sumTot1.grd8 + sumTot1.grd9 + sumTot1.grd10 + sumTot1.grd11 + sumTot1.grd12 + sumTot1.grd13 + sumTot1.grd14 + sumTot1.grd15 + sumTot1.grd16 + sumTot1.grd17;
+            sumTot1["sbTot"] = sumTot1.grd1 + sumTot1.grd2 + sumTot1.grd3 + sumTot1.grd4 + sumTot1.grd5 + sumTot1.grd6 + sumTot1.grd7 + sumTot1.grd8 + sumTot1.grd9 + sumTot1.grd10 + sumTot1.grd11 + sumTot1.grd12 + sumTot1.grd13 + sumTot1.grd14 + sumTot1.grd15 + sumTot1.grd16 + sumTot1.grd17 + sumTot1.grd18 + sumTot1.grd19 + sumTot1.grd20 + sumTot1.grd21 + sumTot1.grd22 + sumTot1.grd23 + sumTot1.grd24 + sumTot1.grd25 + sumTot1.grd26 + sumTot1.grd27 + sumTot1.grd28 + sumTot1.grd29 + sumTot1.grd30;
 
             sumTot2["sortFclt"] = "합계"; sumTot2["grd"] = "중량"; sumTot2["sortInfo"] = "합계"; sumTot2["vrtyNm"] = "합계";
-            sumTot2["sbTot"] = sumTot2.grd1 + sumTot2.grd2 + sumTot2.grd3 + sumTot2.grd4 + sumTot2.grd5 + sumTot2.grd6 + sumTot2.grd7 + sumTot2.grd8 + sumTot2.grd9 + sumTot2.grd10 + sumTot2.grd11 + sumTot2.grd12 + sumTot2.grd13 + sumTot2.grd14 + sumTot2.grd15 + sumTot2.grd16 + sumTot2.grd17;
+            sumTot2["sbTot"] = sumTot2.grd1 + sumTot2.grd2 + sumTot2.grd3 + sumTot2.grd4 + sumTot2.grd5 + sumTot2.grd6 + sumTot2.grd7 + sumTot2.grd8 + sumTot2.grd9 + sumTot2.grd10 + sumTot2.grd11 + sumTot2.grd12 + sumTot2.grd13 + sumTot2.grd14 + sumTot2.grd15 + sumTot2.grd16 + sumTot2.grd17 + sumTot2.grd18 + sumTot2.grd19 + sumTot2.grd20 + sumTot2.grd21 + sumTot2.grd22 + sumTot2.grd23 + sumTot2.grd24 + sumTot2.grd25 + sumTot2.grd26 + sumTot2.grd27 + sumTot2.grd28 + sumTot2.grd29 + sumTot2.grd30;
 
             jsonGrdDsctn.push(sumTot1);
             jsonGrdDsctn.push(sumTot2);
+
+            jsonGrdDsctn.forEach(row => {
+                if(row.grd === "수량" || row.grd === "중량") {
+                    for(let i = 1; i <= 30; i++) {
+                        const key = 'grd' + i;
+                        if(row[key] !== undefined && row[key] !== null) {
+                            row[key] = Math.round(row[key]).toLocaleString('ko-KR');
+                        }
+                    }
+                }
+            });
 
             // const allData = grdGrdDsctn.getGridDataAll();
 
@@ -1150,10 +1220,10 @@
         }
     }
 
-	const fn_setGrdDsctnCol2 = async function(){
+	const fn_setGrdDsctnCol2 = async function() {
 		 let itemCd = SBUxMethod.get('srch-slt-itemCd');
 		 jsonGrdDsctnColumnData.length = 0;
-		 jsonGrdDsctnColumnData = await gfn_getApcGdsGrd(gv_selectedApcCd,itemCd,'03');
+		 jsonGrdDsctnColumnData = await gfn_getApcGdsGrd(gv_selectedApcCd, itemCd, '02');
 	}
 
 
