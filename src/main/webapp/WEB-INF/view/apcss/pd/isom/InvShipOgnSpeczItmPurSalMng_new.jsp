@@ -1621,7 +1621,8 @@
 
 			{caption: ["통합조직 구분"],				ref:'aprv',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["구분"],						ref:'typeSeNo',			type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["구분명"],					ref:'typeSeNoNm',				type:'output',width:'70px',	style:'text-align:center'},
+			//{caption: ["구분명"],					ref:'typeSeNoNm',				type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["구분명"],					ref:'seNm',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["취급유형"],					ref:'trmtTypeNm',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["매입처"],					ref:'prchsNm',			type:'output',width:'70px',	style:'text-align:center'},
 
