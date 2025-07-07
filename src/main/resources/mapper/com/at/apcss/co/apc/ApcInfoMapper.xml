@@ -328,6 +328,9 @@
 			<if test='regApcNm != null and regApcNm != ""'>
 			   AND AI.REG_APC_NM LIKE '%' ||  #{regApcNm} || '%'
 			</if>
+			<if test='apcSpclMngCd != null and apcSpclMngCd != ""'>
+				AND AI.APC_SPCL_MNG_CD LIKE '%' ||  #{apcSpclMngCd} || '%'
+			</if>
 			<if test='delYn != null and delYn != ""'>
 			   AND AI.DEL_YN = #{delYn}
 			</if>
