@@ -2544,18 +2544,18 @@
 						  , APO.CRNO		AS CRNO
 						  , APO.BRNO			AS BRNO
 						  , EAM.YR			AS YR
-						  , UC.UO_BRNO		AS UO_BRNO
+						  , EAM.UO_BRNO		AS UO_BRNO
 					 FROM TB_EV_APLY_MNG EAM
 
 					  JOIN TB_EV_APO APO
 					   ON APO.BRNO = EAM.BRNO
 					   AND APO.DEL_YN = 'N'
-
+					/*
 					  JOIN VW_EV_APO_UO_CD UC
 					   ON UC.CRTR_YR = EAM.YR
 						--		 	AND UC.ISO_APO_CD = EAM.APO_CD
 					   AND UC.ISO_BRNO = EAM.BRNO
-
+					*/
 					 WHERE EAM.APO_SE = '2'
 					   AND EAM.YR = #{yr}
 					   AND NOT EXISTS (
@@ -2568,7 +2568,8 @@
 							   AND CD.USE_YN = 'Y'
 							   AND CD.DEL_YN = 'N'
 						 )
-						   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+						   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+						   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
 					 )
 					 UNION ALL
 					 SELECT
@@ -2638,6 +2639,7 @@
 			<otherwise>
 				JOIN TB_EV_APO_YR_GPC_CD GC
 				ON GC.YR = APO.YR
+				AND GC.UO_BRNO = APO.UO_BRNO
 				AND GC.BRNO = APO.BRNO
 				AND GC.ITEM_CD = PS.ITEM_CD
 				AND PS.CTGRY_CD = GC.CTGRY_CD
@@ -2847,8 +2849,13 @@
 						, APO.CRNO				AS CRNO
 						, EAM.BRNO				AS BRNO
 						, EAM.YR				AS YR
+
+					    , EAM.UO_BRNO			AS ORGNL_UO_BRNO
+					    , EAM.UO_BRNO			AS UO_BRNO
+					    /*
 						, NVL(GC.UO_BRNO, UC.UO_BRNO)	AS ORGNL_UO_BRNO
 					    , NVL(GC.UO_BRNO, UC.UO_BRNO)	AS UO_BRNO
+						 */
 						, GC.ITEM_CD			AS ITEM_CD
 						, 'Y'					AS ORG
 						  --, GC.CTGRY_CD					AS CTGRY_CD
@@ -2871,22 +2878,27 @@
 					  JOIN TB_EV_APO APO
 						   ON APO.BRNO = EAM.BRNO
 							   AND APO.DEL_YN = 'N'
-
+					/*
 					  JOIN VW_EV_APO_UO_CD UC
-						   ON UC.CRTR_YR = EAM.YR
-							   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
-						   AND UC.ISO_BRNO = EAM.BRNO
+				   		ON UC.CRTR_YR = EAM.YR
+				   		AND UC.ISO_BRNO = EAM.BRNO
+					 */
 		]]>
 		<choose>
 			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+
 				JOIN TB_EV_APO_YR_GPC_CD GC
 				ON GC.YR = EAM.YR
+				AND GC.BRNO = EAM.UO_BRNO
+				       /*
 				AND GC.BRNO = UC.UO_BRNO
+				        */
 				AND GC.DEL_YN = 'N'
 			</when>
 			<otherwise>
 				JOIN TB_EV_APO_YR_GPC_CD GC
 				ON GC.YR = EAM.YR
+				AND GC.UO_BRNO = EAM.UO_BRNO
 				AND GC.BRNO = EAM.BRNO
 				AND GC.DEL_YN = 'N'
 			</otherwise>
@@ -2911,7 +2923,8 @@
 							   AND CD.USE_YN = 'Y'
 							   AND CD.DEL_YN = 'N'
 						 )
-					   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+						   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+						   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
 					 )
 
 					UNION ALL
@@ -2922,7 +2935,10 @@
 						, APO.CRNO				AS CRNO
 						, EAM.BRNO				AS BRNO
 						, EAM.YR				AS YR
-						, UC.UO_BRNO			AS ORGNL_UO_BRNO
+						/*
+					    , UC.UO_BRNO			AS ORGNL_UO_BRNO
+						 */
+					    , '0'					AS ORGNL_UO_BRNO
 					    , '0'					AS UO_BRNO
 						, NULL					AS ITEM_CD
 					    , 'X'					AS ORG
@@ -2935,7 +2951,6 @@
 					  JOIN TB_EV_APO APO
 						   ON APO.BRNO = EAM.BRNO
 							   AND APO.DEL_YN = 'N'
-
 					  JOIN VW_EV_APO_UO_CD UC
 						   ON UC.CRTR_YR = EAM.YR
 							   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
@@ -2953,7 +2968,9 @@
 							   AND CD.USE_YN = 'Y'
 							   AND CD.DEL_YN = 'N'
 						 )
-					   AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+
+					   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+					   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
 					 )
 				 ) ITEM
 		]]>
