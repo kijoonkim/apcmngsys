@@ -2,6 +2,7 @@ package com.at.apcss.pd.pcom.mapper;
 
 import java.util.List;
 
+import com.at.apcss.pd.pcom.vo.PruoRegVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO;
@@ -94,4 +95,19 @@ public interface PrdcrCrclOgnOnlnWhlslMrktMapper {
 	 */
 	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO);
 
+	/**
+	 *생산유통통합조직등록마스터
+	 * @param pruoRegVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<PruoRegVO> selectPruoRegMst(PruoRegVO pruoRegVO) throws Exception;
+
+	/**
+	 *생산유통통합조직등록상세
+	 * @param pruoRegVO
+	 * @return
+	 * @throws Exception
+	 */
+	public PruoRegVO selectPruoRegDtl(PruoRegVO pruoRegVO) throws Exception;
 }
