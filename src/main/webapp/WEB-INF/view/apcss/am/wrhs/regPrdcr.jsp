@@ -371,7 +371,9 @@
 				validate : gfn_chkByte.bind({byteLimit: 17})},
 	        {caption: ['전화번호'], 		ref: 'telno', 			type: 'input', 	width: '110px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 11}), typeinfo : {mask : {alias : '#-', repeat: '*'}}},
-	        {caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
+			{caption: ["농가명"],    	ref: 'frmhsNm',    type: 'input',   width:'150px', style: 'text-align:center'},
+			{caption: ["농가주소"],    	ref: 'frmhsAddr',    type: 'input',   width:'200px', style: 'text-align:center'},
+			{caption: ['생산자연계코드'], 	ref: 'prdcrLinkCd', 	type: 'input', 	width: '120px', style: 'text-align:center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 20})},
 			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
 			{caption: ["산지코드"],    	ref: 'plorCd',        		type:'inputbutton',   width:'100px', style: 'text-align:center',
@@ -507,6 +509,7 @@
 				  , rmrk 			: item.rmrk
 				  , delYn 			: item.delYn
 				  , apcCd 			: item.apcCd
+				  , frmhsNm			: item.frmhsNm
 				  , frmhsTelno      : item.frmhsTelno
 				  , frmhsCtpv		: item.frmhsCtpv
 				  , frmhsAddr		: item.frmhsAddr
@@ -578,6 +581,8 @@
 			}
 
 		}
+
+		console.log(prdcrList, "prdcrList");
 
 		if (prdcrList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.

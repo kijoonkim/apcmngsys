@@ -317,6 +317,7 @@
 				, AI.FXNO              AS FXNO
 				, AI.CTPV				AS CTPV
 				, AI.SGG				AS SGG
+    		    , AI.APC_SPCL_MNG_CD	AS APC_SPCL_MNG_CD
 				, AI.DEL_YN			   AS DEL_YN
 		  FROM TB_APC_INFO AI
 		]]>
@@ -368,6 +369,7 @@
 			     , FXNO						= #{telno}
 			     , CTPV						= #{ctpv}
 			     , SGG						= #{sgg}
+			     , APC_SPCL_MNG_CD			= #{apcSpclMngCd}
 			     , DEL_YN					= #{delYn}
 			 WHERE APC_CD 		= #{apcCd}
 		]]>
@@ -399,6 +401,7 @@
 			      , FXNO
 			      , CTPV
 			      , SGG
+			      , APC_SPCL_MNG_CD
 			      , DEL_YN
 	    		  , SYS_FRST_INPT_DT
 	    		  , SYS_FRST_INPT_USER_ID
@@ -423,6 +426,7 @@
 	    		  , #{telno}
 	    		  , #{ctpv}
 	    		  , #{sgg}
+	    		  , #{apcSpclMngCd}
 	    		  , #{delYn}
 	    		  , SYSDATE
 	    		  , #{sysFrstInptUserId}
