@@ -98,6 +98,7 @@
 
 	var jsonComCtpv 			= [];	// 시/도
 	var jsonComSgg 				= [];	// 시/군/구
+	var jsonComApcSpclMng		= [];	// APC특수관리코드
 
 	var apcInfoMngData = [];
 
@@ -105,6 +106,7 @@
 		let result = await Promise.all([
 			gfn_getComCdDtls("UNTY_CTPV"),
 			gfn_getComCdDtls("UNTY_SGG"),
+			gfn_getComCdDtls("APC_SPCL_MNG_CD"),
 			gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd),
@@ -112,7 +114,7 @@
 
 		jsonComCtpv = result[0];
 		jsonComSgg = result[1];
-
+		jsonComApcSpclMng = result[2];
 
 	}
 
@@ -227,6 +229,21 @@
 				validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 11})},
+			{
+				caption: ['APC특수관리코드'],
+				ref: 'apcSpclMngCd',
+				width: '100px',
+				type: 'combo',
+				style: 'text-align: center',
+				typeinfo: {
+					ref: 'jsonComApcSpclMng',
+					label: 'cdVlExpln',
+					value: 'cdVl',
+					displayui: true,
+					itemcount: 4
+				},
+				sortable: false
+			},
             {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value'}}
         ];
@@ -299,6 +316,7 @@
   					  , telno 		: item.telno
   					  , ctpv		: item.ctpv
   					  , sgg			: item.sgg
+					  , apcSpclMngCd : item.apcSpclMngCd
   					  , delYn		: item.delYn
   					}
   					apcInfoMngData.push(Object.assign({}, apcDsctn));

@@ -525,6 +525,8 @@
 			     	, TELNO
 			     	, PRDCR_LINK_CD
 			     	, PRDCR_IDENTNO
+					, FRMHS_NM
+					, FRMHS_ADDR
 			     	, PLOR_CD
 					, RMRK
 					, EXTRNL_LNKG_CD
@@ -553,6 +555,8 @@
 					, #{telno}
 					, #{prdcrLinkCd}
 					, #{prdcrIdentno}
+					, #{frmhsNm}
+					, #{frmhsAddr}
 					, #{plorCd}
 					, #{rmrk}
 					, #{extrnlLnkgCd}
@@ -596,6 +600,8 @@
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}
 				, PRDCR_IDENTNO = #{prdcrIdentno}
+			    , FRMHS_NM = #{frmhsNm}
+			    , FRMHS_ADDR = #{frmhsAddr}
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
@@ -640,6 +646,8 @@
 				, TELNO = #{telno}
 				, PRDCR_LINK_CD = #{prdcrLinkCd}
 				, PRDCR_IDENTNO = #{prdcrIdentno}
+			    , FRMHS_NM = #{frmhsNm}
+			    , FRMHS_ADDR = #{frmhsAddr}
 				, PLOR_CD = #{plorCd}
 				, RMRK = #{rmrk}
 				, EXTRNL_LNKG_CD = #{extrnlLnkgCd}
