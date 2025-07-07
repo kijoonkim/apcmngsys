@@ -1331,8 +1331,6 @@
 		WHERE
 			APC_CD = #{apcCd}
 		AND
-			GRD_CD = #{grdCd}
-		AND
 		    INPT_YMD = #{inptYmd}
 		AND
 			RPRS_PRDCR_CD = #{prdcrCd}
@@ -1340,6 +1338,8 @@
 			ITEM_CD = #{itemCd}
 		AND
 			VRTY_CD = #{vrtyCd}
+		AND
+			SORTNO = #{sortno}
 	</update>
 
 
