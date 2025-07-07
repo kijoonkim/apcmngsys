@@ -229,8 +229,12 @@
       );
       const data = await postJsonPromise;
       data.resultList.forEach(item => {
+        /** 공상자 중량 및 실중량 **/
+        let epBoxWght = item.RMRK.split('|').shift();
+        let editTotal = item.RMRK.split('|').pop();
         const sortRsltVo = {
           prdcrNm : item.PRDCR_NM
+          ,sortno : new Set(item.SORTNO.split(','))
           ,grd1 : item.WGHT_1
           ,grd2 : item.WGHT_2
           ,grd3 : item.WGHT_3
@@ -249,12 +253,13 @@
           ,grd16 : item.WGHT_16
           ,grd17 : item.WGHT_17
           ,prevTotal : item.SORT_WGHT
-          ,editTotal : item.RMRK
-          ,calTotal : parseInt(item.RMRK) ?(parseInt(item.SORT_WGHT) - parseInt(item.RMRK))||0 : ''
+          ,editTotal : editTotal
+          ,calTotal : parseInt(editTotal) ?(parseInt(item.SORT_WGHT) - parseInt(editTotal))||0 : ''
           ,itemCd : item.ITEM_CD
           ,vrtyCd : item.VRTY_CD
           ,prdcrCd : item.RPRS_PRDCR_CD
           ,spcfctCd : item.SPCFCT_CD
+          ,epBoxWght : epBoxWght
         };
         jsonSortRslt.push(sortRsltVo);
       });
@@ -297,6 +302,8 @@
     SBGridProperties.id = 'gridSortRslt';
     SBGridProperties.jsonref = 'jsonSortRslt';
     SBGridProperties.emptyrecords = '데이터가 없습니다.';
+    SBGridProperties.explorerbar = 'sort';
+    SBGridProperties.useinitsorting = true;
     SBGridProperties.filtering = true;
     SBGridProperties.filteringtabname = {
       checklist: '체크리스트',
@@ -307,6 +314,7 @@
       {caption: ["실중량"], ref: 'editTotal',type: 'input', width:'100px', filtering: {displayui : false},style: 'text-align:center; background-color:#fff3cc'},
       {caption: ["세척중량"], ref: 'prevTotal',type: 'output', width:'100px',filtering: {displayui : false}, style: 'text-align:center'},
       {caption: ["오차"], ref: 'calTotal',type: 'output', width:'100px',filtering: {sort:'asc'}, style: 'text-align:center;color:red'},
+      {caption: ["공상차중량"], ref: 'epBoxWght',type: 'output',hidden:true},
     ];
     /** 상품등급별 컬럼 추가 **/
     let addSortRsltGrdCol = []
@@ -585,22 +593,33 @@
     if(tabId === 'tab_sortRslt'){
       let paramList = [];
 
-      sortRsltList.forEach(function(item,idx){
-        if(gridSortRslt.getRowStatus(idx + 1) === 0 )return;
-
+      sortRsltList.filter((i,idx) => gridSortRslt.getRowStatus(idx + 1) !== 0)
+                  .forEach(function(item,idx,arr){
+        /** 다중 선별번호가 중첩될시 **/
         let sortVo = {
           apcCd : gv_selectedApcCd,
           itemCd : item.itemCd,
           vrtyCd : item.vrtyCd,
           prdcrCd : item.prdcrCd,
           inptYmd : clclnYmd,
-          rmrk : item.editTotal || ''
+          rmrk : `${'${item.epBoxWght}'}|${'${item.editTotal}'}` || ''
         }
+
         for(const [key, value] of Object.entries(item)){
           if(/grd/.test(key)){
             sortVo.grdCd = key.replace('grd','');
-            paramList.push(sortVo);
           }
+        }
+
+        if(item.sortno.length > 1){
+          item.sortno.forEach(function(sortno){
+            let vo = JSON.parse(JSON.stringify(sortVo));
+            vo.sortno = sortno;
+            paramList.push(vo);
+          });
+        }else{
+          sortVo.sortno = item.sortno[0];
+          paramList.push(sortVo);
         }
       });
       const postJsonPromise = gfn_postJSON("/am/invntr/updateSortInvntrList.do",paramList);
@@ -610,6 +629,7 @@
               gfn_comAlert(data.resultCode, data.resultMessage);
               return;
       }
+      await gfn_comAlert("I0001");
       await fn_search();
 
     }else if(tabId === 'tab_rsltSrch'){
