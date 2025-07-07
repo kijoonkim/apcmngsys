@@ -3,6 +3,7 @@ package com.at.apcss.pd.pcom.service;
 import java.util.List;
 
 import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO;
+import com.at.apcss.pd.pcom.vo.PruoRegVO;
 
 
 /**
@@ -109,4 +110,13 @@ public interface PrdcrCrclOgnOnlnWhlslMrktService {
 	 */
 	public List<PrdcrCrclOgnOnlnWhlslMrktVO> selectRawDataOnlnDtl(PrdcrCrclOgnOnlnWhlslMrktVO PrdcrCrclOgnOnlnWhlslMrktVO) throws Exception;
 
+	/**
+	 *	생산유통통합조직등록마스터
+	 * @param pruoRegVO
+	 * @return
+	 * @throws Exception
+	 */
+    public List<PruoRegVO> selectPruoRegMst(PruoRegVO pruoRegVO) throws Exception;
+
+	public PruoRegVO selectPruoRegDtl(PruoRegVO pruoRegVO) throws Exception;
 }
