@@ -898,7 +898,7 @@
 	<!-- 2024.10.30  	김호        		Initial Creation                        -->
 	<!-- ==========================================================================	-->
 	<select id="selectWghRcptWrhsList" parameterType="com.at.apcss.am.wgh.vo.WghPrfmncVO" resultType="com.at.apcss.am.wgh.vo.WghPrfmncVO">
-		<![CDATA[
+		<![CDATA[	/* com.at.apcss.am.wgh.mapper.WghPrfmncMapper.selectWghRcptWrhsList */
 			 SELECT Y.APC_CD                AS APC_CD
 			      , Y.WGHNO                 AS WGHNO
 			      , Y.WGH_YMD               AS WGH_YMD
