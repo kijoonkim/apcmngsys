@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : PrchsMapper.xml                                   					-->
+<!-- DESC : 수매집계 mapper                                            			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.06.23  	김  호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wrhs.mapper.PrchsMapper">
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList			-->
+	<!-- DESC : 수매집계 - 담당자별 목록 조회.                    							-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+    <select id="selectPrchsPicTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicTotList */
+				   WP.APC_CD
+				 , NVL(WP.PIC, '영업부') AS PIC
+				 , MAX(WP.EXPCT_QNTT) AS EXPCT_QNTT
+				 , MAX(WP.WRHS_WGHT) AS WRHS_WGHT
+				 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(WP.EXPCT_QNTT), 0) AS RMND
+				 , CASE WHEN MAX(WP.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(WP.EXPCT_QNTT) * 100, 2) ELSE 0 END AS WRHS_RT
+				 , ROUND(SUM(YMD_1) * 21 / 1000) AS YMD_1_QNTT
+				 , ROUND(SUM(YMD_2) * 21 / 1000) AS YMD_2_QNTT
+				 , ROUND(SUM(YMD_3) * 21 / 1000) AS YMD_3_QNTT
+				 , ROUND(SUM(YMD_4) * 21 / 1000) AS YMD_4_QNTT
+				 , ROUND(SUM(YMD_5) * 21 / 1000) AS YMD_5_QNTT
+				 , ROUND(SUM(YMD_6) * 21 / 1000) AS YMD_6_QNTT
+				 , ROUND(SUM(YMD_7) * 21 / 1000) AS YMD_7_QNTT
+				 , ROUND(SUM(YMD_8) * 21 / 1000) AS YMD_8_QNTT
+				 , ROUND(SUM(YMD_9) * 21 / 1000) AS YMD_9_QNTT
+				 , ROUND(SUM(YMD_10) * 21 / 1000) AS YMD_10_QNTT
+				 , ROUND(SUM(YMD_11) * 21 / 1000) AS YMD_11_QNTT
+				 , ROUND(SUM(YMD_12) * 21 / 1000) AS YMD_12_QNTT
+				 , ROUND(SUM(YMD_13) * 21 / 1000) AS YMD_13_QNTT
+				 , ROUND(SUM(YMD_14) * 21 / 1000) AS YMD_14_QNTT
+				 , ROUND(SUM(YMD_15) * 21 / 1000) AS YMD_15_QNTT
+				 , ROUND(SUM(YMD_16) * 21 / 1000) AS YMD_16_QNTT
+				 , ROUND(SUM(YMD_17) * 21 / 1000) AS YMD_17_QNTT
+				 , ROUND(SUM(YMD_18) * 21 / 1000) AS YMD_18_QNTT
+				 , ROUND(SUM(YMD_19) * 21 / 1000) AS YMD_19_QNTT
+				 , ROUND(SUM(YMD_20) * 21 / 1000) AS YMD_20_QNTT
+				 , ROUND(SUM(YMD_21) * 21 / 1000) AS YMD_21_QNTT
+				 , ROUND(SUM(YMD_22) * 21 / 1000) AS YMD_22_QNTT
+				 , ROUND(SUM(YMD_23) * 21 / 1000) AS YMD_23_QNTT
+				 , ROUND(SUM(YMD_24) * 21 / 1000) AS YMD_24_QNTT
+				 , ROUND(SUM(YMD_25) * 21 / 1000) AS YMD_25_QNTT
+				 , ROUND(SUM(YMD_26) * 21 / 1000) AS YMD_26_QNTT
+				 , ROUND(SUM(YMD_27) * 21 / 1000) AS YMD_27_QNTT
+				 , ROUND(SUM(YMD_28) * 21 / 1000) AS YMD_28_QNTT
+				 , ROUND(SUM(YMD_29) * 21 / 1000) AS YMD_29_QNTT
+				 , ROUND(SUM(YMD_30) * 21 / 1000) AS YMD_30_QNTT
+				 , ROUND(SUM(YMD_31) * 21 / 1000) AS YMD_31_QNTT
+			 FROM  (SELECT
+						 PI.APC_CD                    AS APC_CD
+					   , PI.PRDCR_CD                  AS PRDCR_CD
+					   , PI.PRDCR_NM				  AS PRDCR_NM
+					   , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
+					   , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
+					   , PI.FRMHS_ADDR                AS FRMHS_ADDR
+					   , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
+					   , PI.FRMHS_CTPV                AS FRMHS_CTPV
+					   , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
+					   , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
+					   , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
+					   , FW.HRVST_YMD                 AS HRVST_YMD
+					   , FW.PRCHS_CMPTN_YN            AS PRCHS_CMPTN_YN
+					   , FW.RMRK                      AS RMRK
+					   , FWD.YMD                      AS YMD
+					   , FW.DEL_YN                    AS DEL_YN
+					   , CASE WHEN FWD.YMD = '1' THEN FWD.QNTT END AS YMD_1
+					   , CASE WHEN FWD.YMD = '2' THEN FWD.QNTT END AS YMD_2
+					   , CASE WHEN FWD.YMD = '3' THEN FWD.QNTT END AS YMD_3
+					   , CASE WHEN FWD.YMD = '4' THEN FWD.QNTT END AS YMD_4
+					   , CASE WHEN FWD.YMD = '5' THEN FWD.QNTT END AS YMD_5
+					   , CASE WHEN FWD.YMD = '6' THEN FWD.QNTT END AS YMD_6
+					   , CASE WHEN FWD.YMD = '7' THEN FWD.QNTT END AS YMD_7
+					   , CASE WHEN FWD.YMD = '8' THEN FWD.QNTT END AS YMD_8
+					   , CASE WHEN FWD.YMD = '9' THEN FWD.QNTT END AS YMD_9
+					   , CASE WHEN FWD.YMD = '10' THEN FWD.QNTT END AS YMD_10
+					   , CASE WHEN FWD.YMD = '11' THEN FWD.QNTT END AS YMD_11
+					   , CASE WHEN FWD.YMD = '12' THEN FWD.QNTT END AS YMD_12
+					   , CASE WHEN FWD.YMD = '13' THEN FWD.QNTT END AS YMD_13
+					   , CASE WHEN FWD.YMD = '14' THEN FWD.QNTT END AS YMD_14
+					   , CASE WHEN FWD.YMD = '15' THEN FWD.QNTT END AS YMD_15
+					   , CASE WHEN FWD.YMD = '16' THEN FWD.QNTT END AS YMD_16
+					   , CASE WHEN FWD.YMD = '17' THEN FWD.QNTT END AS YMD_17
+					   , CASE WHEN FWD.YMD = '18' THEN FWD.QNTT END AS YMD_18
+					   , CASE WHEN FWD.YMD = '19' THEN FWD.QNTT END AS YMD_19
+					   , CASE WHEN FWD.YMD = '20' THEN FWD.QNTT END AS YMD_20
+					   , CASE WHEN FWD.YMD = '21' THEN FWD.QNTT END AS YMD_21
+					   , CASE WHEN FWD.YMD = '22' THEN FWD.QNTT END AS YMD_22
+					   , CASE WHEN FWD.YMD = '23' THEN FWD.QNTT END AS YMD_23
+					   , CASE WHEN FWD.YMD = '24' THEN FWD.QNTT END AS YMD_24
+					   , CASE WHEN FWD.YMD = '25' THEN FWD.QNTT END AS YMD_25
+					   , CASE WHEN FWD.YMD = '26' THEN FWD.QNTT END AS YMD_26
+					   , CASE WHEN FWD.YMD = '27' THEN FWD.QNTT END AS YMD_27
+					   , CASE WHEN FWD.YMD = '28' THEN FWD.QNTT END AS YMD_28
+					   , CASE WHEN FWD.YMD = '29' THEN FWD.QNTT END AS YMD_29
+					   , CASE WHEN FWD.YMD = '30' THEN FWD.QNTT END AS YMD_30
+					   , CASE WHEN FWD.YMD = '31' THEN FWD.QNTT END AS YMD_31
+					   , FWD.CRTR_YR                  AS CRTR_YR
+					   , FWD.CRTR_MM                  AS CRTR_MM
+					   , FWD.CRTR_YR || FWD.CRTR_MM   AS CRTR_YM
+					   , FWD.QNTT                     AS QNTT
+					   , CFQ.PIC                      AS PIC
+				  FROM TB_PRDCR_INFO PI
+					 , TB_FRMHS_EXPCT_WRHS FW
+					 , TB_FRMHS_EXPCT_WRHS_DTL FWD
+					 , TB_CLTVTN_FRMHS_QLT CFQ
+				  WHERE PI.APC_CD = FW.APC_CD
+					AND PI.PRDCR_CD = FW.PRDCR_CD
+					AND FW.APC_CD = FWD.APC_CD
+					AND FW.PRDCR_CD = FWD.PRDCR_CD
+					AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
+					AND CFQ.APC_CD = FW.APC_CD
+					AND CFQ.PRDCR_CD = FW.PRDCR_CD
+					AND PI.DEL_YN = 'N'
+					AND FW.DEL_YN = 'N'
+					AND FWD.DEL_YN = 'N'
+					AND PI.AGRC_YN = 'Y'
+					AND FWD.QNTT != 0
+				    AND PI.APC_CD = #{apcCd}
+				    AND CRTR_YR = #{yr}
+				    AND CFQ.YR = #{yr}
+			) X
+				, ( SELECT PI.APC_CD
+						 , CFQ.PIC
+						 , SUM(WRHS_WGHT) AS WRHS_WGHT
+						 , ROUND(SUM(EXPCT_QNTT) * 21 / 1000) AS EXPCT_QNTT
+					FROM (SELECT CQ.APC_CD
+							   , CQ.PRDCR_CD
+							   , CQ.PIC
+							   , CQ.EXPCT_QNTT
+						  FROM TB_CLTVTN_FRMHS_QLT CQ
+							 , TB_PRDCR_INFO PI
+						  WHERE CQ.APC_CD = PI.APC_CD
+							AND CQ.PRDCR_CD = PI.PRDCR_CD
+							AND CQ.APC_CD = #{apcCd}
+							AND YR = #{yr}
+							AND CQ.DEL_YN = 'N'
+							AND PI.DEL_YN = 'N'
+					) CFQ
+					   , (SELECT PI.APC_CD
+							   , PI.PRDCR_CD
+							   , ROUND(SUM(WP.WRHS_WGHT) / 1000) AS WRHS_WGHT
+						  FROM TB_PRDCR_INFO PI
+							 , TB_RAW_MTR_WRHS_PRFMNC WP
+							 , TB_RAW_MTR_INVNTR RI
+						  WHERE PI.APC_CD = WP.APC_CD
+							AND PI.PRDCR_CD = WP.PRDCR_CD
+							AND WP.APC_CD = RI.APC_CD
+							AND WP.WRHSNO = RI.WRHSNO
+							AND PI.APC_CD = #{apcCd}
+							AND SUBSTR(WP.WRHS_YMD, 1, 4) = #{yr}
+							AND PI.DEL_YN = 'N'
+							AND WP.DEL_YN = 'N'
+							AND RI.PRCS_TYPE IS NULL
+						  GROUP BY PI.APC_CD, PI.PRDCR_CD, PI.FRMHS_CTPV
+					) PI
+					WHERE CFQ.APC_CD(+) = PI.APC_CD
+					  AND CFQ.PRDCR_CD(+) = PI.PRDCR_CD
+					  AND PI.APC_CD = #{apcCd}
+					GROUP BY PI.APC_CD, PIC
+					ORDER BY PI.APC_CD, PIC
+				) WP
+			WHERE X.APC_CD(+) = WP.APC_CD
+			  AND X.PIC(+) = WP.PIC
+			GROUP BY WP.APC_CD, WP.PIC
+			ORDER BY WP.APC_CD, WP.PIC
+		]]>
+    </select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList		-->
+	<!-- DESC : 수매집계 - 담당자별 지역별 목록 조회.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectPrchsPicCtpvTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+    	<![CDATA[
+		SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsPicCtpvTotList */
+		       WP.APC_CD
+			 , NVL(WP.PIC, '영업부') AS PIC
+			 , WP.FRMHS_CTPV        AS FRMHS_CTPV
+			 , MAX(WP.EXPCT_QNTT) AS EXPCT_QNTT
+			 , MAX(WP.WRHS_WGHT) AS WRHS_WGHT
+			 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(WP.EXPCT_QNTT), 0) AS RMND
+			 , CASE WHEN MAX(WP.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(WP.EXPCT_QNTT) * 100, 2) ELSE 0 END AS WRHS_RT
+			 , ROUND(SUM(YMD_1) * 21 / 1000) AS YMD_1_QNTT
+			 , ROUND(SUM(YMD_2) * 21 / 1000) AS YMD_2_QNTT
+			 , ROUND(SUM(YMD_3) * 21 / 1000) AS YMD_3_QNTT
+			 , ROUND(SUM(YMD_4) * 21 / 1000) AS YMD_4_QNTT
+			 , ROUND(SUM(YMD_5) * 21 / 1000) AS YMD_5_QNTT
+			 , ROUND(SUM(YMD_6) * 21 / 1000) AS YMD_6_QNTT
+			 , ROUND(SUM(YMD_7) * 21 / 1000) AS YMD_7_QNTT
+			 , ROUND(SUM(YMD_8) * 21 / 1000) AS YMD_8_QNTT
+			 , ROUND(SUM(YMD_9) * 21 / 1000) AS YMD_9_QNTT
+			 , ROUND(SUM(YMD_10) * 21 / 1000) AS YMD_10_QNTT
+			 , ROUND(SUM(YMD_11) * 21 / 1000) AS YMD_11_QNTT
+			 , ROUND(SUM(YMD_12) * 21 / 1000) AS YMD_12_QNTT
+			 , ROUND(SUM(YMD_13) * 21 / 1000) AS YMD_13_QNTT
+			 , ROUND(SUM(YMD_14) * 21 / 1000) AS YMD_14_QNTT
+			 , ROUND(SUM(YMD_15) * 21 / 1000) AS YMD_15_QNTT
+			 , ROUND(SUM(YMD_16) * 21 / 1000) AS YMD_16_QNTT
+			 , ROUND(SUM(YMD_17) * 21 / 1000) AS YMD_17_QNTT
+			 , ROUND(SUM(YMD_18) * 21 / 1000) AS YMD_18_QNTT
+			 , ROUND(SUM(YMD_19) * 21 / 1000) AS YMD_19_QNTT
+			 , ROUND(SUM(YMD_20) * 21 / 1000) AS YMD_20_QNTT
+			 , ROUND(SUM(YMD_21) * 21 / 1000) AS YMD_21_QNTT
+			 , ROUND(SUM(YMD_22) * 21 / 1000) AS YMD_22_QNTT
+			 , ROUND(SUM(YMD_23) * 21 / 1000) AS YMD_23_QNTT
+			 , ROUND(SUM(YMD_24) * 21 / 1000) AS YMD_24_QNTT
+			 , ROUND(SUM(YMD_25) * 21 / 1000) AS YMD_25_QNTT
+			 , ROUND(SUM(YMD_26) * 21 / 1000) AS YMD_26_QNTT
+			 , ROUND(SUM(YMD_27) * 21 / 1000) AS YMD_27_QNTT
+			 , ROUND(SUM(YMD_28) * 21 / 1000) AS YMD_28_QNTT
+			 , ROUND(SUM(YMD_29) * 21 / 1000) AS YMD_29_QNTT
+			 , ROUND(SUM(YMD_30) * 21 / 1000) AS YMD_30_QNTT
+			 , ROUND(SUM(YMD_31) * 21 / 1000) AS YMD_31_QNTT
+		FROM (SELECT
+				     PI.APC_CD                    AS APC_CD
+				   , PI.PRDCR_CD                  AS PRDCR_CD
+				   , PI.PRDCR_NM					AS PRDCR_NM
+				   , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
+				   , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
+				   , PI.FRMHS_ADDR                AS FRMHS_ADDR
+				   , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
+				   , PI.FRMHS_CTPV                AS FRMHS_CTPV
+				   , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
+				   , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
+				   , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
+				   , FW.HRVST_YMD                 AS HRVST_YMD
+				   , FW.PRCHS_CMPTN_YN            AS PRCHS_CMPTN_YN
+				   , FW.RMRK                      AS RMRK
+				   , FWD.YMD                      AS YMD
+				   , FW.DEL_YN                  	AS DEL_YN
+				   , CASE WHEN FWD.YMD = '1' THEN FWD.QNTT END AS YMD_1
+				   , CASE WHEN FWD.YMD = '2' THEN FWD.QNTT END AS YMD_2
+				   , CASE WHEN FWD.YMD = '3' THEN FWD.QNTT END AS YMD_3
+				   , CASE WHEN FWD.YMD = '4' THEN FWD.QNTT END AS YMD_4
+				   , CASE WHEN FWD.YMD = '5' THEN FWD.QNTT END AS YMD_5
+				   , CASE WHEN FWD.YMD = '6' THEN FWD.QNTT END AS YMD_6
+				   , CASE WHEN FWD.YMD = '7' THEN FWD.QNTT END AS YMD_7
+				   , CASE WHEN FWD.YMD = '8' THEN FWD.QNTT END AS YMD_8
+				   , CASE WHEN FWD.YMD = '9' THEN FWD.QNTT END AS YMD_9
+				   , CASE WHEN FWD.YMD = '10' THEN FWD.QNTT END AS YMD_10
+				   , CASE WHEN FWD.YMD = '11' THEN FWD.QNTT END AS YMD_11
+				   , CASE WHEN FWD.YMD = '12' THEN FWD.QNTT END AS YMD_12
+				   , CASE WHEN FWD.YMD = '13' THEN FWD.QNTT END AS YMD_13
+				   , CASE WHEN FWD.YMD = '14' THEN FWD.QNTT END AS YMD_14
+				   , CASE WHEN FWD.YMD = '15' THEN FWD.QNTT END AS YMD_15
+				   , CASE WHEN FWD.YMD = '16' THEN FWD.QNTT END AS YMD_16
+				   , CASE WHEN FWD.YMD = '17' THEN FWD.QNTT END AS YMD_17
+				   , CASE WHEN FWD.YMD = '18' THEN FWD.QNTT END AS YMD_18
+				   , CASE WHEN FWD.YMD = '19' THEN FWD.QNTT END AS YMD_19
+				   , CASE WHEN FWD.YMD = '20' THEN FWD.QNTT END AS YMD_20
+				   , CASE WHEN FWD.YMD = '21' THEN FWD.QNTT END AS YMD_21
+				   , CASE WHEN FWD.YMD = '22' THEN FWD.QNTT END AS YMD_22
+				   , CASE WHEN FWD.YMD = '23' THEN FWD.QNTT END AS YMD_23
+				   , CASE WHEN FWD.YMD = '24' THEN FWD.QNTT END AS YMD_24
+				   , CASE WHEN FWD.YMD = '25' THEN FWD.QNTT END AS YMD_25
+				   , CASE WHEN FWD.YMD = '26' THEN FWD.QNTT END AS YMD_26
+				   , CASE WHEN FWD.YMD = '27' THEN FWD.QNTT END AS YMD_27
+				   , CASE WHEN FWD.YMD = '28' THEN FWD.QNTT END AS YMD_28
+				   , CASE WHEN FWD.YMD = '29' THEN FWD.QNTT END AS YMD_29
+				   , CASE WHEN FWD.YMD = '30' THEN FWD.QNTT END AS YMD_30
+				   , CASE WHEN FWD.YMD = '31' THEN FWD.QNTT END AS YMD_31
+				   , FWD.CRTR_YR                  AS CRTR_YR
+				   , FWD.CRTR_MM                  AS CRTR_MM
+				   , FWD.CRTR_YR || FWD.CRTR_MM   AS CRTR_YM
+				   , FWD.QNTT                     AS QNTT
+				   , CFQ.PIC                      AS PIC
+			  FROM TB_PRDCR_INFO PI
+				 , TB_FRMHS_EXPCT_WRHS FW
+				 , TB_FRMHS_EXPCT_WRHS_DTL FWD
+				 , TB_CLTVTN_FRMHS_QLT CFQ
+			  WHERE PI.APC_CD = FW.APC_CD
+				AND PI.PRDCR_CD = FW.PRDCR_CD
+				AND FW.APC_CD = FWD.APC_CD
+				AND FW.PRDCR_CD = FWD.PRDCR_CD
+				AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
+				AND CFQ.APC_CD = FW.APC_CD
+				AND CFQ.PRDCR_CD = FW.PRDCR_CD
+				AND PI.DEL_YN = 'N'
+				AND FW.DEL_YN = 'N'
+				AND FWD.DEL_YN = 'N'
+				AND PI.AGRC_YN = 'Y'
+				AND FWD.QNTT != 0
+			    AND PI.APC_CD = #{apcCd}
+			    AND CRTR_YR = #{yr}
+			    AND CFQ.YR = #{yr}
+			) X
+		   , ( SELECT PI.APC_CD
+					, CFQ.PIC
+					, PI.FRMHS_CTPV
+					, SUM(WRHS_WGHT) AS WRHS_WGHT
+					, ROUND(SUM(EXPCT_QNTT) * 21 / 1000) AS EXPCT_QNTT
+			   FROM (SELECT CQ.APC_CD
+						  , CQ.PRDCR_CD
+						  , CQ.PIC
+						  , PI.FRMHS_CTPV
+						  , CQ.EXPCT_QNTT
+					 FROM TB_CLTVTN_FRMHS_QLT CQ
+						, TB_PRDCR_INFO PI
+					 WHERE CQ.APC_CD = PI.APC_CD
+					   AND CQ.PRDCR_CD = PI.PRDCR_CD
+					   AND CQ.APC_CD = #{apcCd}
+					   AND YR = #{yr}
+					   AND CQ.DEL_YN = 'N'
+					   AND PI.DEL_YN = 'N'
+			   ) CFQ
+				  , (SELECT PI.APC_CD
+						  , PI.PRDCR_CD
+						  , PI.FRMHS_CTPV
+						  , ROUND(SUM(WP.WRHS_WGHT) / 1000) AS WRHS_WGHT
+					 FROM TB_PRDCR_INFO PI
+						, TB_RAW_MTR_WRHS_PRFMNC WP
+						, TB_RAW_MTR_INVNTR RI
+					 WHERE PI.APC_CD = WP.APC_CD
+					   AND PI.PRDCR_CD = WP.PRDCR_CD
+					   AND WP.APC_CD = RI.APC_CD
+					   AND WP.WRHSNO = RI.WRHSNO
+					   AND PI.APC_CD = #{apcCd}
+					   AND SUBSTR(WP.WRHS_YMD, 1, 4) = #{yr}
+					   AND PI.DEL_YN = 'N'
+					   AND WP.DEL_YN = 'N'
+					   AND RI.PRCS_TYPE IS NULL
+					 GROUP BY PI.APC_CD, PI.PRDCR_CD, PI.FRMHS_CTPV
+			   ) PI
+			   WHERE CFQ.APC_CD(+) = PI.APC_CD
+				 AND CFQ.PRDCR_CD(+) = PI.PRDCR_CD
+				 AND PI.APC_CD = #{apcCd}
+			   GROUP BY PI.APC_CD, CFQ.PIC, PI.FRMHS_CTPV
+			   ORDER BY PI.APC_CD, CFQ.PIC, PI.FRMHS_CTPV
+			) WP
+		WHERE X.APC_CD(+) = WP.APC_CD
+		  AND X.PIC(+) = WP.PIC
+		  AND X.FRMHS_CTPV(+) = WP.FRMHS_CTPV
+		GROUP BY WP.APC_CD, WP.PIC, WP.FRMHS_CTPV
+		ORDER BY WP.APC_CD, WP.PIC, WP.FRMHS_CTPV
+		]]>
+    </select>
+
+	<!-- ==============================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList			-->
+	<!-- DESC : 수매집계 - 지역별 목록 조회.                    						-->
+	<!-- ==============================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+	<!-- ===========  	============  	===============================================	-->
+	<!-- 2025.06.23  	김  호        	Initial Creation                            	-->
+	<!-- ==============================================================================	-->
+	<select id="selectPrchsCtpvTotList" parameterType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO" resultType="com.at.apcss.am.wrhs.vo.FrmhsExpctWrhsVO">
+    	<![CDATA[
+		SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList */
+			WP.APC_CD
+			 , NVL(WP.FRMHS_CTPV, '미상')                               AS FRMHS_CTPV
+			 , MAX(WP.EXPCT_QNTT)                                     AS EXPCT_QNTT
+			 , MAX(WP.WRHS_WGHT)                                      AS WRHS_WGHT
+			 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(WP.EXPCT_QNTT), 0) AS RMND
+			 , CASE
+				   WHEN MAX(WP.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(WP.EXPCT_QNTT) * 100, 2)
+				   ELSE 0 END                                         AS WRHS_RT
+			 , ROUND(SUM(YMD_1) * 21 / 1000)                          AS YMD_1_QNTT
+			 , ROUND(SUM(YMD_2) * 21 / 1000)                          AS YMD_2_QNTT
+			 , ROUND(SUM(YMD_3) * 21 / 1000)                          AS YMD_3_QNTT
+			 , ROUND(SUM(YMD_4) * 21 / 1000)                          AS YMD_4_QNTT
+			 , ROUND(SUM(YMD_5) * 21 / 1000)                          AS YMD_5_QNTT
+			 , ROUND(SUM(YMD_6) * 21 / 1000)                          AS YMD_6_QNTT
+			 , ROUND(SUM(YMD_7) * 21 / 1000)                          AS YMD_7_QNTT
+			 , ROUND(SUM(YMD_8) * 21 / 1000)                          AS YMD_8_QNTT
+			 , ROUND(SUM(YMD_9) * 21 / 1000)                          AS YMD_9_QNTT
+			 , ROUND(SUM(YMD_10) * 21 / 1000)                         AS YMD_10_QNTT
+			 , ROUND(SUM(YMD_11) * 21 / 1000)                         AS YMD_11_QNTT
+			 , ROUND(SUM(YMD_12) * 21 / 1000)                         AS YMD_12_QNTT
+			 , ROUND(SUM(YMD_13) * 21 / 1000)                         AS YMD_13_QNTT
+			 , ROUND(SUM(YMD_14) * 21 / 1000)                         AS YMD_14_QNTT
+			 , ROUND(SUM(YMD_15) * 21 / 1000)                         AS YMD_15_QNTT
+			 , ROUND(SUM(YMD_16) * 21 / 1000)                         AS YMD_16_QNTT
+			 , ROUND(SUM(YMD_17) * 21 / 1000)                         AS YMD_17_QNTT
+			 , ROUND(SUM(YMD_18) * 21 / 1000)                         AS YMD_18_QNTT
+			 , ROUND(SUM(YMD_19) * 21 / 1000)                         AS YMD_19_QNTT
+			 , ROUND(SUM(YMD_20) * 21 / 1000)                         AS YMD_20_QNTT
+			 , ROUND(SUM(YMD_21) * 21 / 1000)                         AS YMD_21_QNTT
+			 , ROUND(SUM(YMD_22) * 21 / 1000)                         AS YMD_22_QNTT
+			 , ROUND(SUM(YMD_23) * 21 / 1000)                         AS YMD_23_QNTT
+			 , ROUND(SUM(YMD_24) * 21 / 1000)                         AS YMD_24_QNTT
+			 , ROUND(SUM(YMD_25) * 21 / 1000)                         AS YMD_25_QNTT
+			 , ROUND(SUM(YMD_26) * 21 / 1000)                         AS YMD_26_QNTT
+			 , ROUND(SUM(YMD_27) * 21 / 1000)                         AS YMD_27_QNTT
+			 , ROUND(SUM(YMD_28) * 21 / 1000)                         AS YMD_28_QNTT
+			 , ROUND(SUM(YMD_29) * 21 / 1000)                         AS YMD_29_QNTT
+			 , ROUND(SUM(YMD_30) * 21 / 1000)                         AS YMD_30_QNTT
+			 , ROUND(SUM(YMD_31) * 21 / 1000)                         AS YMD_31_QNTT
+		FROM (SELECT PI.APC_CD                                  AS APC_CD
+				   , PI.PRDCR_CD                                AS PRDCR_CD
+				   , PI.PRDCR_NM                                AS PRDCR_NM
+				   , PI.RPRS_ITEM_CD                            AS RPRS_ITEM_CD
+				   , PI.RPRS_VRTY_CD                            AS RPRS_VRTY_CD
+				   , PI.FRMHS_ADDR                              AS FRMHS_ADDR
+				   , NVL(PI.FRMHS_TELNO, PI.TELNO)              AS FRMHS_TELNO
+				   , PI.FRMHS_CTPV                              AS FRMHS_CTPV
+				   , FW.FRMHS_EXPCT_WRHS_NO                     AS FRMHS_EXPCT_WRHS_NO
+				   , FW.HDOFC_EXTRNL_SE_CD                      AS HDOFC_EXTRNL_SE_CD
+				   , FW.EXTRNL_WAREHOUSE_CD                     AS EXTRNL_WAREHOUSE_CD
+				   , FW.HRVST_YMD                               AS HRVST_YMD
+				   , FW.PRCHS_CMPTN_YN                          AS PRCHS_CMPTN_YN
+				   , FW.RMRK                                    AS RMRK
+				   , FWD.YMD                                    AS YMD
+				   , FW.DEL_YN                                  AS DEL_YN
+				   , CASE WHEN FWD.YMD = '1' THEN FWD.QNTT END  AS YMD_1
+				   , CASE WHEN FWD.YMD = '2' THEN FWD.QNTT END  AS YMD_2
+				   , CASE WHEN FWD.YMD = '3' THEN FWD.QNTT END  AS YMD_3
+				   , CASE WHEN FWD.YMD = '4' THEN FWD.QNTT END  AS YMD_4
+				   , CASE WHEN FWD.YMD = '5' THEN FWD.QNTT END  AS YMD_5
+				   , CASE WHEN FWD.YMD = '6' THEN FWD.QNTT END  AS YMD_6
+				   , CASE WHEN FWD.YMD = '7' THEN FWD.QNTT END  AS YMD_7
+				   , CASE WHEN FWD.YMD = '8' THEN FWD.QNTT END  AS YMD_8
+				   , CASE WHEN FWD.YMD = '9' THEN FWD.QNTT END  AS YMD_9
+				   , CASE WHEN FWD.YMD = '10' THEN FWD.QNTT END AS YMD_10
+				   , CASE WHEN FWD.YMD = '11' THEN FWD.QNTT END AS YMD_11
+				   , CASE WHEN FWD.YMD = '12' THEN FWD.QNTT END AS YMD_12
+				   , CASE WHEN FWD.YMD = '13' THEN FWD.QNTT END AS YMD_13
+				   , CASE WHEN FWD.YMD = '14' THEN FWD.QNTT END AS YMD_14
+				   , CASE WHEN FWD.YMD = '15' THEN FWD.QNTT END AS YMD_15
+				   , CASE WHEN FWD.YMD = '16' THEN FWD.QNTT END AS YMD_16
+				   , CASE WHEN FWD.YMD = '17' THEN FWD.QNTT END AS YMD_17
+				   , CASE WHEN FWD.YMD = '18' THEN FWD.QNTT END AS YMD_18
+				   , CASE WHEN FWD.YMD = '19' THEN FWD.QNTT END AS YMD_19
+				   , CASE WHEN FWD.YMD = '20' THEN FWD.QNTT END AS YMD_20
+				   , CASE WHEN FWD.YMD = '21' THEN FWD.QNTT END AS YMD_21
+				   , CASE WHEN FWD.YMD = '22' THEN FWD.QNTT END AS YMD_22
+				   , CASE WHEN FWD.YMD = '23' THEN FWD.QNTT END AS YMD_23
+				   , CASE WHEN FWD.YMD = '24' THEN FWD.QNTT END AS YMD_24
+				   , CASE WHEN FWD.YMD = '25' THEN FWD.QNTT END AS YMD_25
+				   , CASE WHEN FWD.YMD = '26' THEN FWD.QNTT END AS YMD_26
+				   , CASE WHEN FWD.YMD = '27' THEN FWD.QNTT END AS YMD_27
+				   , CASE WHEN FWD.YMD = '28' THEN FWD.QNTT END AS YMD_28
+				   , CASE WHEN FWD.YMD = '29' THEN FWD.QNTT END AS YMD_29
+				   , CASE WHEN FWD.YMD = '30' THEN FWD.QNTT END AS YMD_30
+				   , CASE WHEN FWD.YMD = '31' THEN FWD.QNTT END AS YMD_31
+				   , FWD.CRTR_YR                                AS CRTR_YR
+				   , FWD.CRTR_MM                                AS CRTR_MM
+				   , FWD.CRTR_YR || FWD.CRTR_MM                 AS CRTR_YM
+				   , FWD.QNTT                                   AS QNTT
+				   , CFQ.PIC                                    AS PIC
+			  FROM TB_PRDCR_INFO PI
+				 , TB_FRMHS_EXPCT_WRHS FW
+				 , TB_FRMHS_EXPCT_WRHS_DTL FWD
+				 , TB_CLTVTN_FRMHS_QLT CFQ
+			  WHERE PI.APC_CD = FW.APC_CD
+				AND PI.PRDCR_CD = FW.PRDCR_CD
+				AND FW.APC_CD = FWD.APC_CD
+				AND FW.PRDCR_CD = FWD.PRDCR_CD
+				AND FW.FRMHS_EXPCT_WRHS_NO = FWD.FRMHS_EXPCT_WRHS_NO
+				AND CFQ.APC_CD = FW.APC_CD
+				AND CFQ.PRDCR_CD = FW.PRDCR_CD
+				AND PI.DEL_YN = 'N'
+				AND FW.DEL_YN = 'N'
+				AND FWD.DEL_YN = 'N'
+				AND PI.AGRC_YN = 'Y'
+				AND FWD.QNTT != 0
+			    AND PI.APC_CD = #{apcCd}
+				AND CRTR_YR = #{yr}
+				AND CFQ.YR = #{yr}
+			) X
+		   , (SELECT PI.APC_CD
+				   , PI.FRMHS_CTPV
+				   , SUM(WRHS_WGHT)                     AS WRHS_WGHT
+				   , ROUND(SUM(EXPCT_QNTT) * 21 / 1000) AS EXPCT_QNTT
+			  FROM (SELECT CQ.APC_CD
+						 , CQ.PRDCR_CD
+						 , PI.FRMHS_CTPV
+						 , CQ.EXPCT_QNTT
+					FROM TB_CLTVTN_FRMHS_QLT CQ
+					   , TB_PRDCR_INFO PI
+					WHERE CQ.APC_CD = PI.APC_CD
+					  AND CQ.PRDCR_CD = PI.PRDCR_CD
+					  AND CQ.APC_CD = #{apcCd}
+					  AND YR = #{yr}
+					  AND CQ.DEL_YN = 'N'
+					  AND PI.DEL_YN = 'N') CFQ
+				 , (SELECT PI.APC_CD
+						 , PI.PRDCR_CD
+						 , PI.FRMHS_CTPV
+						 , ROUND(SUM(WP.WRHS_WGHT) / 1000) AS WRHS_WGHT
+					FROM TB_PRDCR_INFO PI
+					   , TB_RAW_MTR_WRHS_PRFMNC WP
+					   , TB_RAW_MTR_INVNTR RI
+					WHERE PI.APC_CD = WP.APC_CD
+					  AND PI.PRDCR_CD = WP.PRDCR_CD
+					  AND WP.APC_CD = RI.APC_CD
+					  AND WP.WRHSNO = RI.WRHSNO
+					  AND PI.APC_CD = #{apcCd}
+					  AND SUBSTR(WP.WRHS_YMD, 1, 4) = #{yr}
+					  AND PI.DEL_YN = 'N'
+					  AND WP.DEL_YN = 'N'
+					  AND RI.PRCS_TYPE IS NULL
+					GROUP BY PI.APC_CD, PI.PRDCR_CD, PI.FRMHS_CTPV) PI
+			  WHERE CFQ.APC_CD(+) = PI.APC_CD
+				AND CFQ.PRDCR_CD(+) = PI.PRDCR_CD
+				AND PI.APC_CD = #{apcCd}
+			  GROUP BY PI.APC_CD, PI.FRMHS_CTPV
+			  ORDER BY PI.APC_CD, PI.FRMHS_CTPV
+			) WP
+		WHERE X.APC_CD(+) = WP.APC_CD
+		  AND X.FRMHS_CTPV(+) = WP.FRMHS_CTPV
+		GROUP BY WP.APC_CD, WP.FRMHS_CTPV
+		]]>
+    </select>
+</mapper>
