@@ -140,6 +140,11 @@ public class FrmhsExpctWrhsVO extends ComVO {
     private int ymd31Qntt;
     private int tot;
 
+    private int wrhsWght;
+    private int rmnd;
+    private int minusRmnd;
+    private double wrhsRt;
+
     /*
      * 입고마감사용여부
      * */
@@ -162,5 +167,4 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	public void setFrmhsExpctWrhsDtlList(List<FrmhsExpctWrhsDtlVO> frmhsExpctWrhsDtlList) {
 		this.frmhsExpctWrhsDtlList = frmhsExpctWrhsDtlList == null ? null : frmhsExpctWrhsDtlList.stream().collect(Collectors.toList());
 	}
-
 }
