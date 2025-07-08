@@ -266,7 +266,15 @@
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
+		grdApcInfoMng.bind('valuechanged','fn_gridValueChanged');
     }
+
+	// value 변경시 check
+	async function fn_gridValueChanged() {
+		let row = grdApcInfoMng.getRow();
+
+		grdApcInfoMng.setCellData(row, 0, true);
+	}
 
 	// 행 삭제 및 추가
 	async function fn_procRowApcInfo(type){
