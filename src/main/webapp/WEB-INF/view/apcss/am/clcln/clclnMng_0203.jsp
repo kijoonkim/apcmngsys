@@ -22,6 +22,7 @@
   <title>title : 정산관리</title>
   <%@ include file="../../../frame/inc/headerMeta.jsp" %>
   <%@ include file="../../../frame/inc/headerScript.jsp" %>
+  <%@ include file="../../../frame/inc/clipreport.jsp" %>
   <style>
     .sbux-pik-icon-btn{
       height: 30px!important;
@@ -314,7 +315,7 @@
       {caption: ["실중량"], ref: 'editTotal',type: 'input', width:'100px', filtering: {displayui : false},style: 'text-align:center; background-color:#fff3cc'},
       {caption: ["세척중량"], ref: 'prevTotal',type: 'output', width:'100px',filtering: {displayui : false}, style: 'text-align:center'},
       {caption: ["오차"], ref: 'calTotal',type: 'output', width:'100px',filtering: {sort:'asc'}, style: 'text-align:center;color:red'},
-      {caption: ["공상차중량"], ref: 'epBoxWght',type: 'output',hidden:true},
+      // {caption: ["공상차중량"], ref: 'epBoxWght',type: 'output',hidden:true},
     ];
     /** 상품등급별 컬럼 추가 **/
     let addSortRsltGrdCol = []
@@ -671,6 +672,43 @@
         return;
       }
     }
+  }
+
+  const fn_print = async function () {
+    const chkCol = gridRsltSrch.getColRef("reportYn");
+    if (chkCol < 0) {
+      return;
+    }
+    const rows = gridRsltSrch.getCheckedRows(chkCol);
+    if (rows.length < 1) {
+      gfn_comAlert("W0003", "발행");		//	W0003	{0}할 대상이 없습니다.
+      return;
+    }
+
+    let jsonData = [];
+    let sortYmd = SBUxMethod.get('srch-dtp-sortYmd');
+
+    rows.forEach(idx => {
+      let rowData = gridRsltSrch.getRowData(idx);
+      rowData.sortYmd = sortYmd;
+      rowData.apcNm = gv_selectedApcNm;
+
+      jsonData.push(rowData);
+    });
+
+    let rstlData = {
+      data: {
+        "root": jsonData
+      },
+    }
+
+    const conn = [];
+    conn.push(rstlData);
+
+    console.log(conn, "conn")
+
+    gfn_popClipReportPost("출하자참외선별내역서", "am/clclnMng_0203.crf",null, conn);
+
   }
   //endregion
 </script>
