@@ -60,6 +60,8 @@
 						  AND APO_SE = '1'
 						  AND YR = #{yr}
 						  AND BRNO = TEA.BRNO
+						  /* 전문품목,육성품목만 나오도록 수정 요청(2025.07.10)*/
+						  AND STTG_UPBR_ITEM_SE IN ('1','2')
 						)
 			) AS ITEM_NM_LIST
 		FROM TB_EV_APO TEA
@@ -116,7 +118,7 @@
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 				WHERE 1=1
 				  AND APO_SE = '1'
-				  AND TYPE_SE_NO IN ('2','3','6','7')
+				  AND TYPE_SE_NO IN ('2','6','7')
 				  AND (
 						(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 											FROM TB_EV_FRMHS_APO
@@ -135,6 +137,7 @@
 				  AND BRNO = ITEM.BRNO
 				  AND YR = ITEM.YR
 				  AND ITEM_CD = ITEM.ITEM_CD
+				  AND DEL_YN = 'N'
 				GROUP BY  BRNO , ITEM_CD
 			) AS PREV_YR_PRFMNC_AMT
 			,EPC.EXPCT_PRFMNC_AMT

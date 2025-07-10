@@ -332,9 +332,9 @@
 			{caption: ["통합조직 총취급액(판매액)","누적 소계\n(백만원)"], 		ref: 'prfmncAmtTot',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				, calc : 'fn_prfmncAmtSum',	format : { type:'number' , rule:'#,###' }},
 
-			{caption: ["통합조직 총취급액(판매액)","23년말 실적\n(백만원)"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
+			{caption: ["통합조직 총취급액(판매액)","24년말 실적\n(백만원)"], 		ref: 'prevYrPrfmncAmt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				,format : { type:'number' , rule:'#,###' }},
-			{caption: ["통합조직 총취급액(판매액)","24년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'input',  width:'100px',	style:'text-align:center'
+			{caption: ["통합조직 총취급액(판매액)","25년말 기준\n(예상치)"], 		ref: 'expctPrfmncAmt',	type:'input',  width:'100px',	style:'text-align:center'
 				,typeinfo : {mask : {alias : 'numeric', unmaskvalue : true}, maxlength : 10},   format : { type:'number' , rule:'#,###' }},
 			{caption: ["통합조직 총취급액(판매액)","연말전망치 기준\n증감률(%)"], 	ref: 'prfmncAmtRt',	type:'output',  width:'80px',	style:'text-align:center; background-color: lightgray;'
 				, calc : 'fn_prfmncAmtRt',	format: {type: 'string', rule: '@" %"'}},
@@ -531,6 +531,7 @@
 		SBUxMethod.set('dtl-input-corpNm'	,gfn_nvl(rowData.corpNm))	//법인명
 		SBUxMethod.set('dtl-input-yr'		,gfn_nvl(rowData.yr))		//등록년도
 
+		fn_prfmncChckMngGrid();
 		fn_dtlSearch();
 	}
 
