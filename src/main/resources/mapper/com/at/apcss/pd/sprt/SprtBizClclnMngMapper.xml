@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SprtBizClclnMngMapper.xml												-->
+<!-- DESC : 산지조직지원 정산관리 mapper											 			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR			DESCRIPTION					  				-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.07.09  	유민지			Initial Creation							-->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper">
+
+    <select id="selectSprtBizDtbnMngList" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+            SELECT
+                SBO.SPRT_BIZ_YR AS SPRT_BIZ_YR
+                , SBO.SPRT_BIZ_CD AS SPRT_BIZ_CD
+                , SBO.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+                , SBO.CRNO AS CRNO
+                , SBO.BRNO AS BRNO
+                , SBO.BIZ_OGNZ_CD AS BIZ_OGNZ_CD
+                , SBO.UP_BIZ_OGNZ_CD AS UP_BIZ_OGNZ_CD
+
+                , EUA.APO_CD AS APO_CD
+                , EUA.CORP_NM AS CORP_NM
+
+                -- 교부신청서
+                , DOC.ATCH_FILE_SN AS ATCH_FILE_SN
+                , DOC.APRV_YN AS APRV_YN
+                , DOC.CHG_YN AS CHG_YN
+                , DOC.RGTR AS RGTR
+                , DOC.REG_DT AS REG_DT
+                , DOC.IDFR AS IDFR
+                , DOC.IDFR_DT AS IDFR_DT
+                , DOC.APLY_DOC_CD AS APLY_DOC_CD
+
+                -- 배정액 국비
+                , SBA.RPN_AMT_NE AS RPN_AMT_NE
+                , SBA.DTBN_RMRK AS DTBN_RMRK
+
+               -- 첨부파일
+                , ATCH.FILE_PATH_NM AS FILE_PATH_NM
+                , ATCH.LGC_FILE_NM AS LGC_FILE_NM
+                , ATCH.PHYS_FILE_NM AS PHYS_FILE_NM
+                , ATCH.FILE_EXTN_NM AS FILE_EXTN_NM
+
+            FROM TB_EV_SPRT_BIZ_OGNZ SBO
+
+                JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
+                    ON SBAD.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                    AND SBAD.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                    AND SBAD.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                    AND SBAD.APLY_DOC_CD = 'BIZ_APLY'
+                    AND SBAD.DEL_YN = 'N'
+                LEFT JOIN VW_EV_UO_APRV EUA
+                    ON EUA.YR = SBO.SPRT_BIZ_YR
+                    AND EUA.BRNO = SBO.BRNO
+                    AND EUA.CRNO = SBO.CRNO
+
+                LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+                    ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                    AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                    AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                    AND SBA.DEL_YN = 'N'
+
+                LEFT JOIN TB_EV_SPRT_BIZ_APLY_DOC DOC
+                    ON DOC.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                    AND DOC.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                    AND DOC.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                    AND DOC.APLY_DOC_CD = 'DTBN_APLY'
+                    AND DOC.DEL_YN = 'N'
+
+                LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL ATCH
+                    ON ATCH.ATCH_FILE_SN = DOC.ATCH_FILE_SN
+                    AND ATCH.DEL_YN = 'N'
+
+            WHERE SBO.DEL_YN = 'N'
+        ]]>
+        <choose>
+            <when test='superUserYn != null and superUserYn.equals("Y")'>
+
+            </when>
+
+            <otherwise>
+                AND EUA.APO_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
+            </otherwise>
+        </choose>
+            <if test='crtrYr != null and crtrYr != ""'>
+                AND SBO.SPRT_BIZ_YR = #{crtrYr}
+            </if>
+
+            <if test='brno != null and brno != ""'>
+                AND SBO.BRNO = #{brno}
+            </if>
+
+            <if test='corpNm != null and corpNm != ""'>
+                AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
+            </if>
+
+    </select>
+
+</mapper>

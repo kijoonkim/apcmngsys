@@ -577,7 +577,6 @@
                 AND SPRT_BIZ_CD = #{sprtBizCd}
                 AND SPRT_OGNZ_ID = #{sprtOgnzId}
                 AND APLY_DOC_CD = #{aplyDocCd}
-                AND ATCH_FILE_SN = #{atchFileSn}
                 AND DEL_YN = 'N'
         ]]>
     </select>
