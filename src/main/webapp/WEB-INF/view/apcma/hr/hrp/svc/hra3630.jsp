@@ -618,13 +618,13 @@
             return false;
         }
         
-        if(rowData.PAY_CONFIRM_YN == 'Y' && ( !gfn_isEmpty(rowData.MAIL_SEND_TM) || !gfn_isEmpty(rowData.SMS_SNDNG_DT) ) ){
-        	SBUxMethod.attr('btnCancel', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정취소 버튼 비활성화
-        	SBUxMethod.attr('btnConfirm', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정 버튼 비활성화
-        }else{
-        	SBUxMethod.attr('btnCancel', 'disabled', 'false');
-        	SBUxMethod.attr('btnConfirm', 'disabled', 'false');
-        }
+        // if(rowData.PAY_CONFIRM_YN == 'Y' && ( !gfn_isEmpty(rowData.MAIL_SEND_TM) || !gfn_isEmpty(rowData.SMS_SNDNG_DT) ) ){
+        // 	SBUxMethod.attr('btnCancel', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정취소 버튼 비활성화
+        // 	SBUxMethod.attr('btnConfirm', 'disabled', 'true');	//지급확정 이후 메일 or 이메일 전송한 경우 확정 버튼 비활성화
+        // }else{
+        // 	SBUxMethod.attr('btnCancel', 'disabled', 'false');
+        // 	SBUxMethod.attr('btnConfirm', 'disabled', 'false');
+        // }
         
         let PAY_DATE_FR = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_FR"));
         let PAY_DATE_TO = gfn_nvl(SBUxMethod.get("SRCH_PAY_DATE_TO"));

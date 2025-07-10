@@ -2343,7 +2343,10 @@
 				, APO.BRNO		AS BRNO
 				, APO.CORP_NM	AS CORP_NM
 				, PS.UO_BRNO	AS UO_BRNO
-				, UO.CORP_NM	AS UO_CORP_NM
+				, CASE
+				    WHEN PS.UO_BRNO = '0' THEN NULL
+				    ELSE UO.CORP_NM
+				  END			AS UO_CORP_NM
 				, UO.APRV		AS APRV
 				, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', UO.APRV) FROM DUAL) AS APRV_NM
 				, PS.PRCHS_SLS_SE	AS PRCHS_SLS_SE
@@ -2514,13 +2517,13 @@
 				 , PS.DDC_MLSR_AMT			AS DDC_MLSR_AMT
 
 				 , NVL(PS.DDC_EXPRT_VLM, 0)
-				+ NVL(PS.DDC_VLM, 0)
-				+ NVL(PS.DDC_ARMY_DLVGDS_VLM, 0)
-				+ NVL(PS.DDC_MLSR_VLM, 0)	AS DDC_VLM_TOT
+					+ NVL(PS.DDC_VLM, 0)
+					+ NVL(PS.DDC_ARMY_DLVGDS_VLM, 0)
+					+ NVL(PS.DDC_MLSR_VLM, 0)	AS DDC_VLM_TOT
 				 , NVL(PS.DDC_EXPRT_AMT, 0)
-				+ NVL(PS.DDC_AMT, 0)
-				+ NVL(PS.DDC_ARMY_DLVGDS_AMT, 0)
-				+ NVL(PS.DDC_MLSR_AMT, 0)	AS DDC_AMT_TOT
+					+ NVL(PS.DDC_AMT, 0)
+					+ NVL(PS.DDC_ARMY_DLVGDS_AMT, 0)
+					+ NVL(PS.DDC_MLSR_AMT, 0)	AS DDC_AMT_TOT
 
 				 , PS.SPMT_PRFMNC_VLM		AS SPMT_PRFMNC_VLM
 				 , PS.SPMT_PRFMNC_AMT		AS SPMT_PRFMNC_AMT
@@ -2531,8 +2534,28 @@
 				 , PS.AJMT_AMT				AS AJMT_AMT
 
 				/* 총 실적 */
-				 , PS.TOT_TRMT_PRFMNC_VLM		AS TOT_TRMT_PRFMNC_VLM
+				, CASE
+				    WHEN PS.TOT_TRMT_PRFMNC_VLM = 0 THEN
+				    	NVL(PS.DDC_EXPRT_VLM, 0)
+						+ NVL(PS.DDC_VLM, 0)
+						+ NVL(PS.DDC_ARMY_DLVGDS_VLM, 0)
+						+ NVL(PS.DDC_MLSR_VLM, 0)
+				    	+ NVL(PS.AJMT_VLM, 0)
+				    ELSE PS.TOT_TRMT_PRFMNC_VLM
+				  END	AS TOT_TRMT_PRFMNC_VLM
+				, CASE
+				    WHEN PS.TOT_TRMT_PRFMNC_AMT = 0 THEN
+				    	NVL(PS.DDC_EXPRT_AMT, 0)
+						+ NVL(PS.DDC_AMT, 0)
+						+ NVL(PS.DDC_ARMY_DLVGDS_AMT, 0)
+						+ NVL(PS.DDC_MLSR_AMT, 0)
+				    	+ NVL(PS.AJMT_AMT, 0)
+				    ELSE PS.TOT_TRMT_PRFMNC_AMT
+				  END	AS TOT_TRMT_PRFMNC_AMT
+				 /*
+			     , PS.TOT_TRMT_PRFMNC_VLM		AS TOT_TRMT_PRFMNC_VLM
 				 , PS.TOT_TRMT_PRFMNC_AMT		AS TOT_TRMT_PRFMNC_AMT
+				  */
 				 , PS.TOT_SPMT_PRFMNC_VLM		AS TOT_SPMT_PRFMNC_VLM
 				 , PS.TOT_SPMT_PRFMNC_AMT		AS TOT_SPMT_PRFMNC_AMT
 
@@ -2569,36 +2592,6 @@
 							   AND CD.DEL_YN = 'N'
 						 )
 						   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
-						   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
-					 )
-					 UNION ALL
-					 SELECT
-						 EAM.APO_SE		AS APO_SE
-						  , APO.APO_CD		AS APO_CD
-						  , APO.CORP_NM		AS CORP_NM
-						  , APO.CRNO			AS CRNO
-						  , APO.BRNO			AS BRNO
-						  , EAM.YR				AS YR
-						  , '0'						AS UO_BRNO
-					 FROM TB_EV_APLY_MNG EAM
-
-					  JOIN TB_EV_APO APO
-						   ON APO.BRNO = EAM.BRNO
-							   AND APO.DEL_YN = 'N'
-
-					 WHERE EAM.APO_SE = '2'
-					   AND EAM.YR = #{yr}
-					   AND NOT EXISTS (
-						 SELECT 1
-						 FROM TB_COM_USER X
-						 WHERE X.USER_ID IN (
-							 SELECT CD.CD_VL
-							 FROM TB_COM_CD_DTL CD
-							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
-							   AND CD.USE_YN = 'Y'
-							   AND CD.DEL_YN = 'N'
-						 )
-						   AND X.BRNO = EAM.BRNO
 					 )
 				 ) APO
 
@@ -2607,7 +2600,8 @@
 				  AND PS.APO_SE = APO.APO_SE
 				  AND PS.BRNO = APO.BRNO
 				  AND PS.APO_CD = APO.APO_CD
-				  AND PS.UO_BRNO = APO.UO_BRNO
+				  AND PS.UO_BRNO IN (APO.UO_BRNO, '0')
+				  /* AND PS.UO_BRNO = APO.UO_BRNO */
 				  AND PS.DEL_YN = 'N'
 
 			 LEFT JOIN TB_EV_APO UO
@@ -2639,7 +2633,6 @@
 			<otherwise>
 				JOIN TB_EV_APO_YR_GPC_CD GC
 				ON GC.YR = APO.YR
-				AND GC.UO_BRNO = APO.UO_BRNO
 				AND GC.BRNO = APO.BRNO
 				AND GC.ITEM_CD = PS.ITEM_CD
 				AND PS.CTGRY_CD = GC.CTGRY_CD
@@ -2654,8 +2647,6 @@
 						PS.STTG_UPBR_ITEM_SE IN ('1','2')
 						AND
 						GC.UO_BRNO = APO.UO_BRNO
-						AND
-						GC.ITEM_CD = PS.ITEM_CD
 					)
 				)
 			</otherwise>
@@ -2898,7 +2889,6 @@
 			<otherwise>
 				JOIN TB_EV_APO_YR_GPC_CD GC
 				ON GC.YR = EAM.YR
-				AND GC.UO_BRNO = EAM.UO_BRNO
 				AND GC.BRNO = EAM.BRNO
 				AND GC.DEL_YN = 'N'
 			</otherwise>
@@ -2925,53 +2915,7 @@
 						 )
 						   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
 						   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
-					 )
-
-					UNION ALL
-					 SELECT
-					 	EAM.APO_SE				AS APO_SE
-						, APO.APO_CD			AS APO_CD
-						, APO.CORP_NM			AS CORP_NM
-						, APO.CRNO				AS CRNO
-						, EAM.BRNO				AS BRNO
-						, EAM.YR				AS YR
-						/*
-					    , UC.UO_BRNO			AS ORGNL_UO_BRNO
-						 */
-					    , '0'					AS ORGNL_UO_BRNO
-					    , '0'					AS UO_BRNO
-						, NULL					AS ITEM_CD
-					    , 'X'					AS ORG
-					  	, NULL					AS CTGRY_CD
-					  	, NULL					AS CLSF_CD
-						, NULL					AS STTG_UPBR_ITEM_SE
-
-					 FROM TB_EV_APLY_MNG EAM
-
-					  JOIN TB_EV_APO APO
-						   ON APO.BRNO = EAM.BRNO
-							   AND APO.DEL_YN = 'N'
-					  JOIN VW_EV_APO_UO_CD UC
-						   ON UC.CRTR_YR = EAM.YR
-							   --		 	AND UC.ISO_APO_CD = EAM.APO_CD
-						   AND UC.ISO_BRNO = EAM.BRNO
-					 WHERE EAM.APO_SE = '2'
-					   AND EAM.YR = #{yr}
-					   AND EAM.BRNO = #{brno}
-					   AND NOT EXISTS (
-						 SELECT 1
-						 FROM TB_COM_USER X
-						 WHERE X.USER_ID IN (
-							 SELECT CD.CD_VL
-							 FROM TB_COM_CD_DTL CD
-							 WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
-							   AND CD.USE_YN = 'Y'
-							   AND CD.DEL_YN = 'N'
-						 )
-
-					   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
-					   /* AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO) */
-					 )
+					 	)
 				 ) ITEM
 		]]>
 		<choose>
@@ -2979,7 +2923,7 @@
 				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
 				ON PS.APO_SE = ITEM.APO_SE
 				AND PS.BRNO = ITEM.BRNO
-				AND PS.UO_BRNO = ITEM.UO_BRNO
+				AND PS.UO_BRNO IN ('0', ITEM.UO_BRNO)
 				AND PS.YR = ITEM.YR
 				AND PS.PRCHS_SLS_SE = #{prchsSlsSe}
 				AND PS.DEL_YN = 'N'
@@ -2988,7 +2932,7 @@
 				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
 				ON PS.APO_SE = ITEM.APO_SE
 				AND PS.BRNO = ITEM.BRNO
-				AND PS.UO_BRNO = ITEM.UO_BRNO
+				AND PS.UO_BRNO IN ('0', ITEM.UO_BRNO)
 				AND PS.YR = ITEM.YR
 				AND PS.PRCHS_SLS_SE = #{prchsSlsSe}
 				AND PS.STTG_UPBR_ITEM_SE = ITEM.STTG_UPBR_ITEM_SE
@@ -3074,20 +3018,14 @@
 		<choose>
 			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
 				WHERE (
-					(
 					    PS.STTG_UPBR_ITEM_SE = '3'
-					    AND
-					    ITEM.ORG = 'X'
-					)
 					OR
 					(
 						PS.STTG_UPBR_ITEM_SE IN ('1', '2')
 						AND
 						PS.ITEM_CD = ITEM.ITEM_CD
 						AND
-						PS.UO_BRNO = ITEM.ORGNL_UO_BRNO
-					    AND
-						ITEM.ORG = 'Y'
+						PS.UO_BRNO = ITEM.UO_BRNO
 					)
 				)
 			</when>

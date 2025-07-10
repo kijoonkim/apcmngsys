@@ -1000,7 +1000,7 @@
 <!-- //inline scripts related to this page -->
 <div class="sbt-A-wrap" style="display:flex; flex-direction: column">
     <!-- header (menu) -->
-    <div id="main_header" class="sbt-all-header">
+    <div id="main_header" class="sbt-all-header" style="position: relative">
         <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
                    jsondata-ref="menuJson"
                    is-fixed="false"
