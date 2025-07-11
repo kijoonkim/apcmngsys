@@ -737,7 +737,7 @@
 			{caption: ["부류","부류","부류"], 			ref: 'clsfNm',   	type:'output',  width:'70px',    style:'text-align:center'},
 			{caption: ["평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목"], 			ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
-			{caption: ["소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			/*= 수탁 =*/
@@ -1104,7 +1104,7 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 			/*총취급실적*/
 			{caption: ["출자출하조직 취급실적","총취급실적","총취급실적","물량(톤)"]
@@ -1211,13 +1211,13 @@
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+		if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
 			sumVal = Number(gfn_nvl(rowData.ddcExprtVlm))
 				+ Number(gfn_nvl(rowData.ddcVlm))
 				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
 				+ Number(gfn_nvl(rowData.ddcMlsrVlm))
 				+ Number(gfn_nvl(rowData.ajmtVlm));
-		}else{
+		} else {
 			sumVal = rowData.totTrmtPrfmncVlm;
 		}
 		return sumVal;
@@ -1225,13 +1225,13 @@
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+		if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
 			sumVal = Number(gfn_nvl(rowData.ddcExprtAmt))
 				+ Number(gfn_nvl(rowData.ddcAmt))
 				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
 				+ Number(gfn_nvl(rowData.ddcMlsrAmt))
 				+ Number(gfn_nvl(rowData.ajmtAmt));
-		}else{
+		} else {
 			sumVal = rowData.totTrmtPrfmncAmt;
 		}
 		return sumVal;
@@ -1364,7 +1364,7 @@
 			{caption: ["평가부류","평가부류","평가부류","평가부류"], 	ref: 'ctgryNm',   	type:'output',  width:'60px',    style:'text-align:center'},
 			{caption: ["품목","품목","품목","품목"], 		ref: 'itemNm',   	type:'output',  width:'80px',    style:'text-align:center'},
 
-			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'corpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["소속된 통합조직","소속된 통합조직","소속된 통합조직","사업자번호"], 		ref: 'uoBrno',   	type:'output',  width:'80px',    style:'text-align:center;border-right-color: black !important;'},
 
 			{caption: ["출자출하조직의 통합조직 출하실적","통합조직 총 출하실적","통합조직 총 출하실적","물량(톤)"]
@@ -2305,6 +2305,7 @@
 					,delYn: item.delYn
 					,yr: item.yr
 					,uoBrno: item.uoBrno
+					,uoCorpNm: item.uoCorpNm
 					,corpNm: item.corpNm
 
 					,sttgUpbrItemSe: item.sttgUpbrItemSe
@@ -2352,6 +2353,7 @@
 						,delYn: item.delYn
 						,yr: item.yr
 						,uoBrno: item.uoBrno
+						,uoCorpNm: item.uoCorpNm
 						,corpNm: item.corpNm
 						,sttgUpbrItemSe: item.sttgUpbrItemSe
 						,sttgUpbrItemNm: item.sttgUpbrItemNm
@@ -2399,6 +2401,7 @@
 						delYn: 	item.delYn,
 						yr: 	item.yr,
 						uoBrno: item.uoBrno,
+						uoCorpNm: item.uoCorpNm,
 						corpNm: item.corpNm,
 						sttgUpbrItemSe: item.sttgUpbrItemSe,
 						sttgUpbrItemNm: item.sttgUpbrItemNm,

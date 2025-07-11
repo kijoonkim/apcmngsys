@@ -2594,15 +2594,38 @@
 						   AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
 					 )
 				 ) APO
+		]]>
+		<choose>
+		<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+			JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+			ON PS.YR = APO.YR
+			AND PS.APO_SE = APO.APO_SE
+			AND PS.BRNO = APO.BRNO
+			AND PS.APO_CD = APO.APO_CD
+			AND PS.UO_BRNO IN (APO.UO_BRNO, '0')
+			/* AND PS.UO_BRNO = APO.UO_BRNO */
+			AND PS.DEL_YN = 'N'
+		</when>
+		<otherwise>
+			JOIN TB_EV_APO_YR_GPC_CD GC
+			ON GC.YR = APO.YR
+			AND GC.BRNO = APO.BRNO
+			AND GC.DEL_YN = 'N'
 
-				 JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
-				  ON PS.YR = APO.YR
-				  AND PS.APO_SE = APO.APO_SE
-				  AND PS.BRNO = APO.BRNO
-				  AND PS.APO_CD = APO.APO_CD
-				  AND PS.UO_BRNO IN (APO.UO_BRNO, '0')
-				  /* AND PS.UO_BRNO = APO.UO_BRNO */
-				  AND PS.DEL_YN = 'N'
+			JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+			ON PS.YR = APO.YR
+			AND PS.APO_SE = APO.APO_SE
+			AND PS.BRNO = APO.BRNO
+			AND PS.APO_CD = APO.APO_CD
+			AND PS.CTGRY_CD = GC.CTGRY_CD
+			AND PS.ITEM_CD = GC.ITEM_CD
+			AND PS.STTG_UPBR_ITEM_SE = GC.STTG_UPBR_ITEM_SE
+
+			/* AND PS.UO_BRNO = APO.UO_BRNO */
+			AND PS.DEL_YN = 'N'
+		</otherwise>
+		</choose>
+		<![CDATA[
 
 			 LEFT JOIN TB_EV_APO UO
 			   ON UO.BRNO = APO.UO_BRNO
@@ -2631,22 +2654,14 @@
 			    )
 			</when>
 			<otherwise>
-				JOIN TB_EV_APO_YR_GPC_CD GC
-				ON GC.YR = APO.YR
-				AND GC.BRNO = APO.BRNO
-				AND GC.ITEM_CD = PS.ITEM_CD
-				AND PS.CTGRY_CD = GC.CTGRY_CD
-				AND PS.STTG_UPBR_ITEM_SE = GC.STTG_UPBR_ITEM_SE
-				AND PS.ITEM_CD = GC.ITEM_CD
-				AND GC.DEL_YN = 'N'
-
 			WHERE (
 					PS.STTG_UPBR_ITEM_SE = '3'
 					OR
 					(
 						PS.STTG_UPBR_ITEM_SE IN ('1','2')
 						AND
-						GC.UO_BRNO = APO.UO_BRNO
+						/* GC.UO_BRNO = APO.UO_BRNO */
+						PS.UO_BRNO IN ('0', GC.UO_BRNO)
 					)
 				)
 			</otherwise>
@@ -2670,6 +2685,7 @@
 			SELECT  /* com.at.apcss.pd.isom.mapper.InvShipOgnPurSalMngMapper.selectIsoTotalPurchaseSaleList */
 				  ITEM.YR						AS YR
 				, PS.UO_BRNO					AS UO_BRNO
+			    , (SELECT MAX(X.CORP_NM) FROM TB_EV_APO X WHERE X.BRNO = PS.UO_BRNO)	AS UO_CORP_NM
 				, ITEM.BRNO						AS BRNO
 				, ITEM.CRNO						AS CRNO
 				, ITEM.CORP_NM					AS CORP_NM
@@ -2842,7 +2858,7 @@
 						, EAM.YR				AS YR
 
 					    , EAM.UO_BRNO			AS ORGNL_UO_BRNO
-					    , EAM.UO_BRNO			AS UO_BRNO
+					    , GC.UO_BRNO			AS UO_BRNO
 					    /*
 						, NVL(GC.UO_BRNO, UC.UO_BRNO)	AS ORGNL_UO_BRNO
 					    , NVL(GC.UO_BRNO, UC.UO_BRNO)	AS UO_BRNO
