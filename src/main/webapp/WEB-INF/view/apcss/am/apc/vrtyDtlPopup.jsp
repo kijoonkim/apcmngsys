@@ -359,7 +359,6 @@
 
     const fn_saveSeed = async function(_changedList) {
 
-        console.log(_changedList, "_changedList")
         let isSuccess = false;
         try {
             const postJsonPromise = gfn_postJSON("/am/cmns/insertSeedCrtrList.do", _changedList);
