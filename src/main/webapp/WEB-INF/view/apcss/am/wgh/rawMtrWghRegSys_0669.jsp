@@ -967,6 +967,8 @@
  		SBUxMethod.set('dtl-inp-shpgotPltQntt', rowData.shpgotPltQntt || "");
  		SBUxMethod.set('dtl-inp-oprtrNm', rowData.oprtrNm || "");
 
+		fn_onSelectPrdcrNm(rowData.prdcrCd);
+
  		if (wrhsSpmtType == "RT") {
  			url = "/am/wgh/selectWghRcptWrhsDtlList.do"
  		}
@@ -1040,6 +1042,7 @@
 			});
 		});
 		grdInsp.rebuild();
+		grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
 
 		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do",{apcCd: gv_selectedApcCd, prcsNo: rowData.wghno});
 		const dataForPlt = await postJsonPromiseForPlt;
@@ -1250,7 +1253,7 @@
 				position: 'bottom',
 				columns : {
 					standard : [0],
-					sum : [1,2,3,4,5,6,7,8,9,10,11],
+					sum : sum,
 				},
 				grandtotalrow : {
 					titlecol 	: 0,
@@ -1622,7 +1625,6 @@
 		/** 사이즈 등급 그리드 ite **/
 		/** merge cell로 인해 첫번째 row에서 추출 **/
 		let warehouseSeCd = vrtyList[0].warehouseSeCd;
-		console.log(warehouseSeCd, "warehouseSeCd")
 		for (var i=1; i<=vrtyList.length; i++) {
 			let rowData = vrtyList[i-1];
 
@@ -1839,7 +1841,6 @@
 
 		 try {
 			const checkBtn = await fn_setWarehouse(btnSetWarehouse, btnCancel);
-			console.log(checkBtn, "checkBtn");
 
 			if (!_.isEqual(checkBtn, "btnSetWarehouse")) {
 				return;
@@ -1850,7 +1851,6 @@
 				 item.warehouseSeCd = setWarehouseCd[idx].warehouseSeCd;
 			 });
 
-			 console.log("multiList", multiList);
 			 fn_warehouseModal();
 
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
