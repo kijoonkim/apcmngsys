@@ -99,7 +99,7 @@
 			prvItemCd = _itemCd;
 			SBUxMethod.set("ddln-dtp-yr", _yr);
 
-			if (!gfn_isEmpty(_callbackFnc) && typeof _callbackFnc === 'function') {
+			if (typeof _callbackFnc === 'function') {
 				this.callbackFnc = _callbackFnc;
 			}
 
@@ -154,7 +154,6 @@
 		    	if (_.isEqual("S", data.resultStatus)) {
 	        		gfn_comAlert("I0001");	// I0001	처리 되었습니다.
 					this.callbackFnc();
-					console.log(popDdln.callbackFnc(), "popDdln.callbackFnc()");
 	        	} else {
 	        		gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 	        	}

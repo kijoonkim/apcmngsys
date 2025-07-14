@@ -1088,7 +1088,7 @@
 	 * @name fn_onChangeSrchItemCd
 	 * @description 품목 선택 변경 event
 	 */
-	const fn_onChangeSrchItemCd = async function(obj) {
+	const fn_onChangeSrchItemCd = async function() {
 
 		jsonCltvtnFrmhsQltPrdcr.length = 0;
 		jsonCltvtnHstryPrdcr.length = 0;
@@ -1098,15 +1098,14 @@
 		jsonCltvtnFrmhsQlt.length = 0;
 		jsonFrmhsExpctWrhs.length = 0;
 
-		// grdCltvtnFrmhsQlt.rebuild();
+		grdCltvtnHstry.rebuild();
+		grdPrdcrLandInfo.rebuild();
+		grdLandInfo.rebuild();
+		grdCltvtnHstryPrdcr.rebuild();
+		grdFrmhsExpctWrhs.rebuild();
 
-		fn_createCltvtnHstry();
 		fn_createCltvtnFrmhsQltPrdcr();
-		fn_createPrdcrLandInfo();
-		fn_createLandInfo();
-		fn_createCltvtnHstryPrdcr();
 		fn_createCltvtnFrmhsQlt();
-		fn_frmhsExpctWrhs();
 		fn_clearPrdcrDtl();
 
 		SBUxMethod.set("dtl-inp-prdcrNm", "");
@@ -1585,8 +1584,6 @@
 	const fn_search = async function() {
 		let choiceTab = SBUxMethod.get("idxTab_norm");
 		let prdcrCdDtl = SBUxMethod.get("dtl-inp-prdcrCd");
-
-		console.log(choiceTab, "choiceTab")
 
 		choicePrdcrLandInfoNo = "";
 
@@ -2078,8 +2075,7 @@
  		}
  	}
 
-	 /** 마감설정 callback func 설정위해 param1 추가 */
-    const fn_setFrmhsExpctWrhs = async function (param1) {
+    const fn_setFrmhsExpctWrhs = async function () {
     	let prdcrCd = SBUxMethod.get("srch-inp-prdcrCd");
     	let itemCd = SBUxMethod.get("srch-slt-itemCd");
     	let yr = SBUxMethod.get("srch-dtp-yr");
