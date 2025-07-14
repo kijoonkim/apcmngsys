@@ -41,6 +41,7 @@
 			       PLI.APC_CD               AS APC_CD
 			     , PLI.PRDCR_CD             AS PRDCR_CD
 			     , PLI.PRDCR_LAND_INFO_NO   AS PRDCR_LAND_INFO_NO
+			     , PLI.ITEM_CD				AS ITEM_CD
 			     , PLI.FRLN_ADDR            AS FRLN_ADDR
 			     , PLI.STDG_CD              AS STDG_CD
 			     , PLI.FRLN_MNO             AS FRLN_MNO
@@ -59,6 +60,9 @@
 			</if>
 			<if test='prdcrCd != null and prdcrCd !=""'>
 			   AND PLI.PRDCR_CD = #{prdcrCd}
+			</if>
+			<if test='itemCd != null and itemCd !=""'>
+				AND PLI.ITEM_CD = #{itemCd}
 			</if>
 			<if test='yr != null and yr !=""'>
 			   AND PLI.YR		= #{yr}
@@ -83,6 +87,7 @@
 					  APC_CD
 					, PRDCR_CD
 					, PRDCR_LAND_INFO_NO
+					, ITEM_CD
 					, FRLN_ADDR
 					, STDG_CD
 					, FRLN_MNO
@@ -104,6 +109,7 @@
 					  #{apcCd}
 					, #{prdcrCd}
 					, #{prdcrLandInfoNo}
+					, #{itemCd}
 					, #{frlnAddr}
 					, #{stdgCd}
 					, #{frlnMno}
@@ -152,6 +158,9 @@
 			   AND PRDCR_CD             	= #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
 		]]>
+			<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+			</if>
 	</update>
 
 	<!-- =================================================================================	-->
@@ -174,6 +183,10 @@
 			   AND PRDCR_CD             	= #{prdcrCd}
 			   AND PRDCR_LAND_INFO_NO   	= #{prdcrLandInfoNo}
 		]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+		</if>
+
 	</update>
 
 </mapper>

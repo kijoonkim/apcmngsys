@@ -37,7 +37,11 @@ public class CltvtnHstryVO extends ComVO {
 	 * 생산자농지정보번호
 	 * */
 	private String prdcrLandInfoNo;
-
+	/*
+	 * 품목코드
+	 * */
+	private String itemCd;
+	private String itemNm;
 	/*
 	 * 농지주소
 	 * */

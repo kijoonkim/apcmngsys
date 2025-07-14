@@ -42,6 +42,11 @@ public class FrmhsExpctWrhsVO extends ComVO {
 	 * 대표품종코드
 	 * */
 	private String rprsVrtyCd;
+    /*
+     * 품목코드
+     * */
+    private String itemCd;
+    private String itemNm;
 	/*
 	 * 농가주소
 	 * */
