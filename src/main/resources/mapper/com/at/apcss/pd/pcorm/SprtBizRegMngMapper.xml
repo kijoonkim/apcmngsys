@@ -639,7 +639,7 @@
                  , SBO.CRNO
 
                  , EUA.CORP_NM
-
+                 , EUA.APO_CD
             FROM TB_EV_SPRT_BIZ_ATCHFL SBA
                 JOIN TB_EV_SPRT_BIZ_APLY_DOC DOC
                 ON DOC.ATCH_FILE_SN = SBA.ATCH_FILE_SN

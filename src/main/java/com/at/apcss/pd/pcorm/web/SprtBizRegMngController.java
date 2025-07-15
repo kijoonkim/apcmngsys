@@ -2,28 +2,28 @@ package com.at.apcss.pd.pcorm.web;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
+import com.at.apcss.co.sys.util.ComUtil;
 import com.at.apcss.pd.pcorm.service.SprtBizRegMngService;
-import com.at.apcss.pd.pcorm.vo.BizPlanRegFileVO;
-import com.at.apcss.pd.pcorm.vo.BizPlanReqMngVO;
 import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
 import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
 import egovframework.let.utl.fcc.service.EgovFileUploadUtil;
 import egovframework.let.utl.fcc.service.EgovFormBasedFileUtil;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 
 /**
  * @Class Name : SprtBizRegMngController.java
@@ -512,4 +513,257 @@ public class SprtBizRegMngController extends BaseController {
 
         return getSuccessResponseEntity(resultMap);
     }
+
+    @GetMapping("/pd/viewSrptAtchFile.do")
+    public ResponseEntity<?> viewSrptAtchFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileSn") long fileSn) throws Exception {
+
+        try {
+            // 0. 파일 정보 조회
+            SprtBizRegFileVO sprtBizRegFileVO = new SprtBizRegFileVO();
+            sprtBizRegFileVO.setAtchFileSn(fileSn);
+
+            SprtBizRegFileVO fileInfo = sprtBizRegMngService.selectSprtBizAtchfl(sprtBizRegFileVO);
+            logger.debug("0000");
+            logger.debug("fileInfo.getPhysFileNm() {}", fileInfo.getPhysFileNm());
+            logger.debug("fileInfo.getApoCd() {}", fileInfo.getApoCd());
+            if (fileInfo == null || !StringUtils.hasText(fileInfo.getPhysFileNm())) {
+                // 파일 없음
+                //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+                //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "파일정보"));
+            }
+            logger.debug("1111");
+            // 1. 권한 확인
+            String untyAuthrtType = getUntyAuthrtType();
+            String untyOgnzCd = getUntyOgnzCd();
+            // String untyAuthrtMngYn = getUntyAuthrtMngYn();
+            if (!ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)
+                &&
+                !ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+                // 관리자가 아니면 해당 조직 소속 여부를 확인한다.
+                if (!ComUtil.nullToEmpty(untyOgnzCd).equals(ComUtil.nullToEmpty("UO" + fileInfo.getApoCd()))) {
+                    //response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                    //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "접근권한"));
+                }
+            }
+            logger.debug("2222");
+            String uploadPath = getFilepathPd();
+
+            //서버 저장 파일명
+            String srvrFileNm = fileInfo.getPhysFileNm();
+            //확장자명
+            String fileExtnNm = fileInfo.getFileExtnNm();
+            //파일 경로명
+            String filePathNm = uploadPath + fileInfo.getFilePathNm();
+            //원본 파일명
+            String lgcFileNm = fileInfo.getLgcFileNm();
+            //법인명
+            String corpNm = fileInfo.getCorpNm();
+            //사업자번호
+            String brno = fileInfo.getBrno();
+
+            String fileNm = corpNm + "_" + brno + "_" + lgcFileNm;
+            String convertFileNm = URLEncoder.encode(fileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+            //"utf-8"
+
+            //물리 파일명
+            String filename = srvrFileNm + "_" + fileExtnNm;
+
+            logger.debug("3333");
+            logger.debug("filename {}", filename);
+            //EgovFormBasedFileUtil.downloadFile(response, uploadPath, filePathNm, filename, convertFileNm);
+
+            // 2. 경로 보안 처리 (예: 디렉토리 탈출 방지)
+            if (filePathNm.contains("..")) {
+                //response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+            }
+
+            // 3. 파일 확인
+            File atchFile = new File(filePathNm, filename);
+            logger.debug("filePathNm {}", filePathNm);
+            logger.debug("srvrFileNm {}", filename);
+
+            if (!atchFile.exists()) {
+                //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일을 찾을 수 없습니다.");
+            }
+
+            FileSystemResource resource = new FileSystemResource(atchFile);
+
+            logger.debug("4444");
+
+
+            // 4. 응담 설정
+            /*
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "inline; filename=\"" + fileNm + "\"");
+            response.setContentLengthLong(atchFile.length());
+             */
+
+            String contentDisposition = "inline; filename=\"" + convertFileNm + "\"";
+            //String contentDisposition = "attachment; filename=\"" + fileNm + "\"";
+
+            /*
+            // 4. 응답 반환
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDzisposition)
+                    .body(resource);
+             */
+            MediaType mediaType = ComUtil.getMediaType(convertFileNm); // 예: application/pdf, image/png 등
+
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .body(resource);
+
+        } catch (Exception e) {
+            // 5. 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("오류가 발생했습니다. 관리자에게 문의하세요.");
+        }
+
+        /*
+        // 5. 파일스트림 전송
+        try (
+            InputStream in = new FileInputStream(atchFile);
+            OutputStream out = response.getOutputStream()
+        ) {
+            byte[] buffer = new byte[4096];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+        }
+
+         */
+
+    }
+
+    @GetMapping("/pd/downloadSrptAtchFile.do")
+    public ResponseEntity<?> downloadSrptAtchFile(HttpServletRequest request, HttpServletResponse response, @RequestParam("fileSn") long fileSn) throws Exception {
+
+        try {
+            // 0. 파일 정보 조회
+            SprtBizRegFileVO sprtBizRegFileVO = new SprtBizRegFileVO();
+            sprtBizRegFileVO.setAtchFileSn(fileSn);
+
+            SprtBizRegFileVO fileInfo = sprtBizRegMngService.selectSprtBizAtchfl(sprtBizRegFileVO);
+            logger.debug("0000");
+            logger.debug("fileInfo.getPhysFileNm() {}", fileInfo.getPhysFileNm());
+            logger.debug("fileInfo.getApoCd() {}", fileInfo.getApoCd());
+            if (fileInfo == null || !StringUtils.hasText(fileInfo.getPhysFileNm())) {
+                // 파일 없음
+                //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+                //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "파일정보"));
+            }
+            logger.debug("1111");
+            // 1. 권한 확인
+            String untyAuthrtType = getUntyAuthrtType();
+            String untyOgnzCd = getUntyOgnzCd();
+            // String untyAuthrtMngYn = getUntyAuthrtMngYn();
+            if (!ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)
+                    &&
+                    !ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+                // 관리자가 아니면 해당 조직 소속 여부를 확인한다.
+                if (!ComUtil.nullToEmpty(untyOgnzCd).equals(ComUtil.nullToEmpty("UO" + fileInfo.getApoCd()))) {
+                    //response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                    //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "접근권한"));
+                }
+            }
+            logger.debug("2222");
+            String uploadPath = getFilepathPd();
+
+            //서버 저장 파일명
+            String srvrFileNm = fileInfo.getPhysFileNm();
+            //확장자명
+            String fileExtnNm = fileInfo.getFileExtnNm();
+            //파일 경로명
+            String filePathNm = uploadPath + fileInfo.getFilePathNm();
+            //원본 파일명
+            String lgcFileNm = fileInfo.getLgcFileNm();
+            //법인명
+            String corpNm = fileInfo.getCorpNm();
+            //사업자번호
+            String brno = fileInfo.getBrno();
+
+            String fileNm = corpNm + "_" + brno + "_" + lgcFileNm;
+            String convertFileNm = URLEncoder.encode(fileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+            //"utf-8"
+
+            //물리 파일명
+            String filename = srvrFileNm + "_" + fileExtnNm;
+
+            //EgovFormBasedFileUtil.downloadFile(response, uploadPath, filePathNm, filename, convertFileNm);
+
+            // 2. 경로 보안 처리 (예: 디렉토리 탈출 방지)
+            if (filePathNm.contains("..")) {
+                //response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+            }
+
+            // 3. 파일 확인
+            File atchFile = new File(filePathNm, filename);
+            logger.debug("filePathNm {}", filePathNm);
+            logger.debug("srvrFileNm {}", filename);
+
+            if (!atchFile.exists()) {
+                //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일을 찾을 수 없습니다.");
+            }
+
+            FileSystemResource resource = new FileSystemResource(atchFile);
+
+            // 4. 응담 설정
+            /*
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "inline; filename=\"" + fileNm + "\"");
+            response.setContentLengthLong(atchFile.length());
+             */
+
+            // String contentDisposition = "inline; filename=\"" + convertFileNm + "\"";
+            String contentDisposition = "attachment; filename=\"" + convertFileNm + "\"";
+
+            /*
+            // 4. 응답 반환
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDzisposition)
+                    .body(resource);
+             */
+            MediaType mediaType = ComUtil.getMediaType(fileNm); // 예: application/pdf, image/png 등
+
+            return ResponseEntity.ok()
+                    .contentType(mediaType)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .body(resource);
+
+        } catch (Exception e) {
+            // 5. 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("오류가 발생했습니다. 관리자에게 문의하세요.");
+        }
+
+        /*
+        // 5. 파일스트림 전송
+        try (
+            InputStream in = new FileInputStream(atchFile);
+            OutputStream out = response.getOutputStream()
+        ) {
+            byte[] buffer = new byte[4096];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+        }
+
+         */
+
+    }
+
+
 }
