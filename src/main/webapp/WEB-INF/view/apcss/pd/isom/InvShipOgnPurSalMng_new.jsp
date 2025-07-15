@@ -1211,29 +1211,42 @@
 	function fn_totTrmtPrfmncVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
-			sumVal = Number(gfn_nvl(rowData.ddcExprtVlm))
-				+ Number(gfn_nvl(rowData.ddcVlm))
-				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
-				+ Number(gfn_nvl(rowData.ddcMlsrVlm))
-				+ Number(gfn_nvl(rowData.ajmtVlm));
-		} else {
+
+		if (objGrid.getRowStatus(Number(nRow)) < 2) {
 			sumVal = rowData.totTrmtPrfmncVlm;
+		} else {
+			if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+				sumVal = Number(gfn_nvl(rowData.ddcExprtVlm))
+						+ Number(gfn_nvl(rowData.ddcVlm))
+						+ Number(gfn_nvl(rowData.ddcArmyDlvgdsVlm))
+						+ Number(gfn_nvl(rowData.ddcMlsrVlm))
+						+ Number(gfn_nvl(rowData.ajmtVlm));
+			} else {
+				sumVal = rowData.totTrmtPrfmncVlm;
+			}
 		}
+
 		return sumVal;
 	}
+
 	function fn_totTrmtPrfmncAmt(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
-			sumVal = Number(gfn_nvl(rowData.ddcExprtAmt))
-				+ Number(gfn_nvl(rowData.ddcAmt))
-				+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
-				+ Number(gfn_nvl(rowData.ddcMlsrAmt))
-				+ Number(gfn_nvl(rowData.ajmtAmt));
-		} else {
+
+		if (objGrid.getRowStatus(Number(nRow)) < 2) {
 			sumVal = rowData.totTrmtPrfmncAmt;
+		} else {
+			if (rowData.sttgUpbrItemSe == '1' || rowData.sttgUpbrItemSe == '2'){
+				sumVal = Number(gfn_nvl(rowData.ddcExprtAmt))
+						+ Number(gfn_nvl(rowData.ddcAmt))
+						+ Number(gfn_nvl(rowData.ddcArmyDlvgdsAmt))
+						+ Number(gfn_nvl(rowData.ddcMlsrAmt))
+						+ Number(gfn_nvl(rowData.ajmtAmt));
+			} else {
+				sumVal = rowData.totTrmtPrfmncAmt;
+			}
 		}
+
 		return sumVal;
 	}
 
@@ -1260,9 +1273,9 @@
 	function fn_ajmtVlm(objGrid, nRow, nCol){
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
-		if(rowData.sttgUpbrItemSe == '3'){
+		if (rowData.sttgUpbrItemSe == '3'){
 			sumVal = rowData.totTrmtPrfmncVlm;
-		}else{
+		} else{
 			sumVal = rowData.ajmtVlm;
 		}
 		return sumVal;
@@ -1272,11 +1285,12 @@
 		let rowData = objGrid.getRowData(Number(nRow));
 		let sumVal = 0;
 		//기타인 경우 총 취급실적 가져오기
-		if(rowData.sttgUpbrItemSe == '3'){
+		if (rowData.sttgUpbrItemSe == '3'){
 			sumVal = rowData.totTrmtPrfmncAmt;
-		}else{
+		} else{
 			sumVal = rowData.ajmtAmt;
 		}
+
 		return sumVal;
 	}
 
