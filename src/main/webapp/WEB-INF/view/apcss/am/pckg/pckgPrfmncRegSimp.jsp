@@ -24,13 +24,13 @@
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
     <!-- Smart Wizard CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" />
+<%--    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" />--%>
     <!-- Smart Wizard JS -->
-    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>
+<%--    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>--%>
+<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">--%>
+<%--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>--%>
+    <script src="${pageContext.request.contextPath}/js/out/view.bundle.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
             border: 0;
