@@ -22,6 +22,7 @@
 					</sbux-label>
 				</div>
 				<div style="margin-left: auto;">
+					<sbux-button id="btnRawData" name="btnRawData" uitype="normal" text="로우데이터 다운" class="btn btn-sm btn-outline-danger" onclick="fn_rawData"></sbux-button>
 					<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-outline-danger" onclick="fn_search"></sbux-button>
 					<sbux-button id="btnSave" name="btnSave" uitype="normal" text="저장" class="btn btn-sm btn-outline-danger" onclick="fn_save"></sbux-button>
 				</div>
@@ -45,7 +46,7 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th scope="row" class="th_bg" >신청년도</th>
+							<th scope="row" class="th_bg" >신청연도</th>
 							<td class="td_input" style="border-right:hidden;" >
 								<sbux-spinner
 									id="srch-input-yr"
@@ -182,6 +183,7 @@
 					<br>
 				</div>
 			</div>
+			<div id="sb-area-gridRawData" style="display: none"></div>
 		</div>
 	</section>
 </body>
@@ -244,6 +246,10 @@
 	//그리드 변수
 	var jsonUoAprv = []; // 그리드의 참조 데이터 주소 선언
 	var grdUoAprv;
+
+	/** 로우데이터 **/
+	var gridRawData;
+	var jsonRawData = [];
 
 	/* Grid 화면 그리기 기능*/
 	const fn_uoAprvGrid = async function() {
@@ -423,7 +429,6 @@
 		try{
 			jsonUoAprv.length = 0;
 			let totalRecordCount = 0;
-			console.log(data);
 			data.resultList.forEach((item, index) => {
 				let itemVO = {
 						yr			: yr
@@ -608,6 +613,153 @@
 			}
 			console.error("failed", e.message);
 		}
+	}
+
+	const fn_rawData = async function () {
+		const yr = SBUxMethod.get('srch-input-yr');
+		jsonRawData.length = 0;
+
+		if (gfn_isEmpty(yr)) {
+			gfn_comAlert("W0005", "신청연도"); // W0005 {0}이/가 없습니다.
+			return;
+		}
+
+		if (!gfn_comConfirm("Q0001", "로우데이터 다운")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
+		// 그리드
+		await fn_createRawDataGrid();
+
+		const postJsonPromise = gfn_postJSON("/pd/pcm/selectPrfmncChckRawData.do", { yr : yr });
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				data.resultList.forEach(item => {
+					let aprvNm;
+					if (_.isEqual(item.aprv, "1")) {
+						aprvNm = "승인형";
+					} else if (_.isEqual(item.aprv, "2")) {
+						aprvNm = "육성형";
+					}
+					const prfmncAmtHalfTot =  Number(item.prfmncAmt1) + Number(item.prfmncAmt2) + Number(item.prfmncAmt3)
+								+ Number(item.prfmncAmt4) + Number(item.prfmncAmt5) + Number(item.prfmncAmt6);
+					const prfmncVO = {
+						yr : item.yr,
+						corpNm : item.corpNm,
+						brno : item.brno,
+						crno : item.crno,
+						aprvNm : aprvNm,
+						itemNmList : item.itemNmList,
+						slctnYr : item.slctnYr,
+						sttgUpbrItemNm : item.sttgUpbrItemNm,
+						itemNm : item.itemNm,
+						prfmncAmt1 : item.prfmncAmt1,
+						prfmncAmt2 : item.prfmncAmt2,
+						prfmncAmt3 : item.prfmncAmt3,
+						prfmncAmt4 : item.prfmncAmt4,
+						prfmncAmt5 : item.prfmncAmt5,
+						prfmncAmt6 : item.prfmncAmt6,
+						prfmncAmt7 : item.prfmncAmt7,
+						prfmncAmt8 : item.prfmncAmt8,
+						prfmncAmt9 : item.prfmncAmt9,
+						prfmncAmt10 : item.prfmncAmt10,
+						prfmncAmt11 : item.prfmncAmt11,
+						prfmncAmt12 : item.prfmncAmt12,
+						prfmncAmtHalfTot : prfmncAmtHalfTot,
+						prfmncAmtTot : item.prfmncAmtTot,
+						prevYrPrfmncAmt : item.prevYrPrfmncAmt,
+						expctPrfmncAmt : item.expctPrfmncAmt,
+						prfmncAmtRt : item.prfmncAmtRt
+					}
+					jsonRawData.push(prfmncVO);
+				});
+				gridRawData.rebuild();
+
+				await fn_excelDown();
+
+			} else {
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+
+
+	}
+
+	const fn_createRawDataGrid = function() {
+		var SBGridProperties = {};
+		SBGridProperties.parentid = 'sb-area-gridRawData';
+		SBGridProperties.id = 'gridRawData';
+		SBGridProperties.jsonref = 'jsonRawData';
+		SBGridProperties.emptyrecords = '데이터가 없습니다.';
+		SBGridProperties.selectmode = 'free';
+		SBGridProperties.allowcopy = true;
+		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.rowheader="seq";
+
+		SBGridProperties.columns = [
+			{caption: ['연도'],			ref: 'yr', 	    width: '5%', type: 'output',style: 'text-align:center'},
+			{caption: ['법인명'], 			ref: 'corpNm', 	width: '11%', type: 'output', style: 'text-align:center'},
+			{caption: ['사업자번호'], 			ref: 'brno', 	width: '7%', type: 'output', style: 'text-align:center'},
+			{caption: ['법인번호'], 			ref: 'crno', 	width: '7%', type: 'output',	style: 'text-align:center'},
+			{caption: ['조직구분'],			ref: 'aprvNm', 	width: '5%', type: 'output', 	style: 'text-align:center'},
+			{caption: ['품목리스트'], 			ref: 'itemNmList', 		width: '5%', type: 'output', style: 'text-align:center'},
+			{caption: ['승인연도'], 			ref: 'slctnYr', 		width: '5%', type: 'output', style: 'text-align:center'},
+			{caption: ['품목구분'], 			ref: 'sttgUpbrItemNm', 		width: '8%', type: 'output', style: 'text-align:center'},
+			{caption: ['품목명'], 			ref: 'itemNm', 		width: '8%', type: 'output', style: 'text-align:center'},
+			{caption: ['1월 총취급액(판매액)'], 			ref: 'prfmncAmt1', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['2월 총취급액(판매액)'], 			ref: 'prfmncAmt2', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['3월 총취급액(판매액)'], 			ref: 'prfmncAmt3', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['4월 총취급액(판매액)'], 			ref: 'prfmncAmt4', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['5월 총취급액(판매액)'], 			ref: 'prfmncAmt5', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['6월 총취급액(판매액)'], 			ref: 'prfmncAmt6', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['상반기 누적 소계(백만원)'], 			ref: 'prfmncAmtHalfTot', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['7월 총취급액(판매액)'], 			ref: 'prfmncAmt7', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['8월 총취급액(판매액)'], 			ref: 'prfmncAmt8', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['9월 총취급액(판매액)'], 			ref: 'prfmncAmt9', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['10월 총취급액(판매액)'], 			ref: 'prfmncAmt10', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['11월 총취급액(판매액)'], 			ref: 'prfmncAmt11', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['12월 총취급액(판매액)'], 			ref: 'prfmncAmt12', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['누적소계(백만원)'], 			ref: 'prfmncAmtTot', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['전년도 말 실적 금액(백만원)'], 			ref: 'prevYrPrfmncAmt', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['올해 말 실적 금액(예상치)'], 			ref: 'expctPrfmncAmt', 		width: '8%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+			{caption: ['연말전망치 기준 증감률(%)'], 			ref: 'prfmncAmtRt', 		width: '8%', type: 'output', style: 'text-align:center'},
+		];
+		gridRawData = _SBGrid.create(SBGridProperties);
+	}
+
+	function fn_excelDown(){
+		const currentDate = new Date();
+
+		const year = currentDate.getFullYear().toString().padStart(4, '0');
+		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		const day = currentDate.getDate().toString().padStart(2, '0');
+		let formattedDate = year + month + day;
+
+		let fileName = formattedDate + "_승인형 실적점검_로우데이터";
+
+		/*
+        datagrid.exportData(param1, param2, param3, param4);
+        param1(필수)[string]: 다운 받을 파일 형식
+        param2(필수)[string]: 다운 받을 파일 제목
+        param3[boolean]: 다운 받을 그리드 데이터 기준 (default:'false')
+        → true : csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 다운로드
+        → false : csv/xls/xlsx 형식의 데이터 다운로드를 jsonref 기준으로 다운로드
+        param4[object]: 다운 받을 그리드 데이터 기준 (default:'false')
+        → arrRemoveCols(선택): csv/xls/xlsx 형식의 데이터 다운로드를 그리드에 보이는 기준으로 할 때 다운로드에서 제외할 열
+        → combolabel(선택) : csv/xls/xlsx combo/inputcombo 일 때 label 값으로 저장
+        → true : label 값으로 저장
+        → false : value 값으로 저장
+        → sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
+         */
+		gridRawData.exportData("xlsx" , fileName , true , true);
 	}
 
 </script>
