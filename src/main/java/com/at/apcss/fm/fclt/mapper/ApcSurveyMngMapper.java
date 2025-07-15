@@ -47,4 +47,12 @@ public interface ApcSurveyMngMapper {
      * @throws Exception
      */
     public int updateApcCmsuMst(ApcSurveyMstVO apcSurveyMstVO) throws Exception;
+
+    /**
+     * APC전수조사마스터 기준연도 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public List<ApcSurveyMstVO> selectApcCmsuCrtrYr() throws Exception;
 }
