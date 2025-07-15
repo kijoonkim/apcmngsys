@@ -51,5 +51,10 @@ public interface PrfmncChckMngMapper {
 	 */
 	public int insertPrfmncChckMng(PrfmncChckMngVO PrfmncChckMngVO);
 
-
+	/**
+	 * 승인형 실적점검 관리 로우데이터
+	 * @param prfmncChckMngVO
+	 * @return List<PrfmncChckMngVO>
+	 */
+    public List<PrfmncChckMngVO> selectPrfmncChckRawData(PrfmncChckMngVO prfmncChckMngVO);
 }

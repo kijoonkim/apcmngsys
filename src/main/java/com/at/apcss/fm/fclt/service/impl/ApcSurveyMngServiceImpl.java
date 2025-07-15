@@ -253,4 +253,12 @@ public class ApcSurveyMngServiceImpl extends BaseServiceImpl implements ApcSurve
 
         return null;
     }
+
+    @Override
+    public List<ApcSurveyMstVO> selectApcCmsuCrtrYr() throws Exception {
+
+        List<ApcSurveyMstVO> resultList = apcSurveyMngMapper.selectApcCmsuCrtrYr();
+
+        return resultList;
+    }
 }

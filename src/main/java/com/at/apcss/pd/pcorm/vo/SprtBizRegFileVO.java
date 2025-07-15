@@ -23,6 +23,9 @@ public class SprtBizRegFileVO extends ComVO {
      */
     private String sprtOgnzId;
 
+
+    private String apoCd;
+
     /**
      * 첨부파일일련번호
      */

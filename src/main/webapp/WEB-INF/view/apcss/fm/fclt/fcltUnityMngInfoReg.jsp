@@ -66,13 +66,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -203,6 +210,8 @@
 
 </body>
 <script type="text/javascript">
+	// 기준연도
+	var jsonCrtrYr = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -231,6 +240,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
@@ -242,6 +252,10 @@
 		//진척도
 		await cfn_selectPrgrs();
 
+	}
+
+	const fn_initSBSelect = async function() {
+		gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
 	}
 
 	/* 선택가능한 APC리스트 조회 */
@@ -294,6 +308,10 @@
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
 		await fn_selectUniMnIfList();
 	}
 
@@ -301,7 +319,7 @@
 		 console.log("******************fn_pagingUniMnIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
@@ -348,7 +366,7 @@
 	//등록
 	const fn_save = async function() {
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
@@ -374,7 +392,7 @@
 			return;
 		}
 
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		if (gfn_isEmpty(crtrYr)) {
 			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
@@ -395,7 +413,7 @@
 		if (!isConfirmed) return;
 		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltUnityMngInfo.do", {
-			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+			crtrYr : SBUxMethod.get('srch-slt-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부

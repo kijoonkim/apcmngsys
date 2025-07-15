@@ -78,4 +78,12 @@ public interface ApcSurveyMngService {
      * @throws Exception
      */
     public HashMap<String, Object> updateOperPrsnInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception;
+
+    /**
+     * APC전수조사 마스터 기준연도 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public List<ApcSurveyMstVO> selectApcCmsuCrtrYr() throws Exception;
 }

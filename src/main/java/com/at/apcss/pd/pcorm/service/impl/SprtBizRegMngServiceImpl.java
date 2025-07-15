@@ -238,9 +238,7 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
     @Override
     public SprtBizRegFileVO selectSprtBizAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception {
 
-        SprtBizRegFileVO result = sprtBizRegMngMapper.selectSprtBizAtchfl(sprtBizRegFileVO);
-
-        return result;
+        return sprtBizRegMngMapper.selectSprtBizAtchfl(sprtBizRegFileVO);
 
     }
 
@@ -277,4 +275,5 @@ public class SprtBizRegMngServiceImpl extends BaseServiceImpl implements SprtBiz
 
         return resultList;
     }
+
 }

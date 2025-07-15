@@ -285,8 +285,8 @@
 
                             if(item.fileExtnNm == '.pdf'){
                                 let newfilePathNm = item.filePathNm.replace(/\\/g, "/");
-                                let filepath = "/pdfPath/" + newfilePathNm + '/' + item.physFileNm + "_" + item.fileExtnNm;
-
+                                //let filepath = "/pdfPath/" + newfilePathNm + '/' + item.physFileNm + "_" + item.fileExtnNm;
+                                let filepath = "/pd/viewSrptAtchFile.do?fileSn=" + item.atchFileSn;
                                 const $iframe = $('<iframe>', {
                                     src: filepath,
                                     css: {
@@ -394,14 +394,13 @@
             }
         },
         fn_download: async function() {
-            let fileSnVal;
 
-            fileSnVal = SBUxMethod.get('aplyPop-inp-atchFileSn');
-
-            if(gfn_isEmpty(fileSnVal)){
+            let fileSnVal = SBUxMethod.get('aplyPop-inp-atchFileSn');
+            if (gfn_isEmpty(fileSnVal)){
                 return;
             }
-            var url = "/pd/pcorm/downloadSprtDoc/"+fileSnVal;
+            // var url = "/pd/pcorm/downloadSprtDoc/"+fileSnVal;
+            let url = "/pd/downloadSrptAtchFile.do?fileSn=" + fileSnVal;
             window.open(url);
         }
     }
