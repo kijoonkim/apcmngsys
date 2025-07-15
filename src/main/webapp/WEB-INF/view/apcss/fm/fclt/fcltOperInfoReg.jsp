@@ -54,7 +54,8 @@
 							<col style="width: 22%">
 							<col style="width: 50px">
 							<col style="width: 11%">
-							<col style="width: 187px">
+<%--							<col style="width: 187px">--%>
+							<col style="width: 22%">
 							<col style="width: 100px">
 						<tbody>
 							<tr>
@@ -68,13 +69,20 @@
 								</td>
 								<th scope="row">조사연도</th>
 								<td class="td_input" style="border-right: hidden;">
-									<sbux-spinner
+									<%--<sbux-spinner
 										id="srch-inp-crtrYr"
 										name="srch-inp-crtrYr"
 										uitype="normal"
 										step-value="1"
 										disabled
-									></sbux-spinner>
+									></sbux-spinner>--%>
+									<sbux-select
+											id="srch-slt-crtrYr"
+											name= "srch-slt-crtrYr"
+											uitype="single"
+											jsondata-ref="jsonCrtrYr"
+											class="form-control input-sm"
+									></sbux-select>
 								</td>
 								<td class="td_input" style="border-right: hidden;">
 									<!--
@@ -495,6 +503,9 @@
 	var jsonComEtcCtgryCd = [];//기타부류
 	var jsonComApcEtcCtgryCd = [];//APC기타부류
 
+	// 기준연도
+	var jsonCrtrYr = [];
+
 	/**
 	 * combo 설정
 	 */
@@ -505,7 +516,9 @@
 			//gfn_setComCdSBSelect('dtl-inp-ognzTypeCd', 	jsonComOgnzTypeCd, 	'OGNZ_TYPE_CD'), 	//조직유형
 			gfn_setComCdSBSelect('dtl-inp-operOgnzEtcCtgryCd', 		jsonComEtcCtgryCd, 	'ETC_CLS'), 	//운영조직 기타 부류
 			gfn_setComCdSBSelect('dtl-inp-apcEtcCtgryCd', 	jsonComApcEtcCtgryCd, 	'ETC_CLS'), 	//APC 기타 부류
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr) // 연도
 		]);
+
 	}
 
 	const fn_init = async function() {
@@ -568,7 +581,7 @@
 	const fn_selectFcltOperInfo = async function(){
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
 
 		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {
 			apcCd : apcCd
@@ -648,6 +661,7 @@
 
 				SBUxMethod.set("dtl-inp-apcNm", SBUxMethod.get("srch-inp-apcNm"));//apc명
 			}
+
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -714,7 +728,7 @@
 
 		console.log('************fn_copy********');
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
 		crtrYr = Number(crtrYr) - 1;
 
 		let postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperInfoList.do", {
@@ -812,7 +826,7 @@
 	const fn_save = async function() {
 
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			gfn_comAlert("W0001", "APC");	//	W0001	{0}을/를 선택하세요.
 			return;
@@ -907,7 +921,7 @@
 			return;
 		}
 
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		if (gfn_isEmpty(crtrYr)) {
 			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
@@ -935,7 +949,7 @@
 	const fn_subInsert = async function (tmpChk){
 
 		//등록년도는 항상 올해
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 
 		//품목 리스트
@@ -1153,7 +1167,7 @@
 
 		if(!confirm("품목을 삭제 하시겠습니까?")) return;
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 
 		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteItem.do", {
@@ -1326,5 +1340,30 @@
 		}
 	}
 
+	const fn_getCrtrYr = async function () {
+
+		const postJsonPromise = gfn_postJSON("/fm/fclt/selectApcCmsuCrtrYr.do");
+		const data = await postJsonPromise;
+
+		try {
+			if (_.isEqual("S", data.resultStatus)) {
+				console.log("기준연도조회",data.resultList);
+				data.resultList.forEach(item => {
+					jsonCrtrYr.push({
+						text : item.crtrYr,
+						value : item.crtrYr
+					});
+				});
+
+			}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+				console.error("failed", e.message);
+				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+			}
+		}
+	}
 </script>
 </html>

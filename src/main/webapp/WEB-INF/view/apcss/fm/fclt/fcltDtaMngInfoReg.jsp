@@ -66,13 +66,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -259,6 +266,8 @@
 	</div>
 </body>
 <script type="text/javascript">
+	// 기준연도
+	var jsonCrtrYr = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -283,7 +292,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -292,6 +301,8 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
+
 		await fn_setChkList();//체크박스 세팅
 
 		await fn_clearForm();
@@ -306,6 +317,10 @@
 		//진척도
 		await cfn_selectPrgrs();
 
+	}
+
+	const fn_initSBSelect = async function() {
+		gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
 	}
 
 	/* 선택가능한 APC리스트 조회 */
@@ -354,6 +369,10 @@
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
 		await fn_selectDtMnIfList();
 	}
 
@@ -361,7 +380,7 @@
 		 console.log("******************fn_pagingAtMcIfList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
 		if(!gfn_isEmpty(copy_chk)){
@@ -419,7 +438,7 @@
 	const fn_save = async function() {
 
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
@@ -482,7 +501,7 @@
 			return;
 		}
 
-		const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		if (gfn_isEmpty(crtrYr)) {
 			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
@@ -501,11 +520,11 @@
 	const fn_subInsert = async function (isConfirmed , tmpChk){
 		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
-		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
+		//console.log(SBUxMethod.get('srch-slt-crtrYr'));
 
 		let fcltDataMngVOList = [];
 
-		let crtrYr = SBUxMethod.get('srch-inp-crtrYr');
+		let crtrYr = SBUxMethod.get('srch-slt-crtrYr');
 		let apcCd = SBUxMethod.get('srch-inp-apcCd');
 
 		await jsonComDataMngTypeDtl.forEach((item) => {

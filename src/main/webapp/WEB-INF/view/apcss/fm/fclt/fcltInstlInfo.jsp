@@ -79,12 +79,19 @@
 					<tr>
 						<th scope="row" class="th_bg">조사연도</th>
 						<td colspan="2" class="td_input" style="border-right:hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td colspan="2" style="border-right: hidden;">&nbsp;</td>
 						<th scope="row" class="th_bg">시도</th>
@@ -291,7 +298,7 @@
 
 		<c:if test="${loginVO.userType eq '27' || loginVO.userType eq '28'}">
 		//지자체인경우 올해만 볼수 있게 수정
-		SBUxMethod.attr('srch-inp-crtrYr', 'readonly', 'true')
+		SBUxMethod.attr('srch-slt-crtrYr', 'readonly', 'true')
 		</c:if>
 
 		fn_init();
@@ -318,6 +325,9 @@
 	var jsonGrdComBizSprtCd = [];	//지원유형
 	var jsonComSrchLclsfCd = [];//조회용 부류
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
 	/**
 	 * combo 설정
 	 */
@@ -329,6 +339,7 @@
 			gfn_setComCdSBSelect('srch-inp-sgg', 	jsonComSgg, 	'UNTY_SGG'), 	//시군구
 			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD'), 	//지원 유형
 			gfn_setComCdSBSelect('srch-inp-srchLclsfCd', 	jsonComSrchLclsfCd, 	'SRCH_LCLSF_CD'), 	//조회용 부류
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
 		]);
 	}
 
@@ -407,7 +418,6 @@
      * @param {number} pageNo
 	*/
     const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
-		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("dtl-inp-apcCd");
 		//let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
@@ -429,7 +439,6 @@
 			jsonFcltInstlInfo.length = 0;
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
-				//console.log(item);
 				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
 				let itemVO = {
 						sn				:item.sn
@@ -457,6 +466,7 @@
 				}else{
 					grdFcltInstlInfo.refresh()
 				}
+				totalRecordCount = jsonFcltInstlInfo.length;
 			} else {
 				grdFcltInstlInfo.setPageTotalCount(totalRecordCount);
 				grdFcltInstlInfo.rebuild();
@@ -473,13 +483,15 @@
 
 	//그리드 초기화
 	const fn_clearForm = function() {
+		SBUxMethod.set("dtl-inp-apcCd",null);  // hidden apcCd
+		SBUxMethod.set("dtl-inp-crtrYr",null);  // hidden crtrYr
+
 		jsonFcltInstlInfo.length= 0;
 		grdFcltInstlInfo.rebuild();
 	}
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
 
 		if(gfn_isEmpty(SBUxMethod.get("dtl-inp-apcCd"))){
 			alert('APC를 선택해주세요');
@@ -506,7 +518,6 @@
 				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
 				return;
 			}
-			//console.log(rowData.bizYr,rowData.bizYr.length);
 
 			if (rowData.bizYr.length != 4) {
 				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
@@ -535,7 +546,6 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let gridData = grdFcltInstlInfo.getGridDataAll();
@@ -585,8 +595,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 
@@ -596,13 +604,10 @@
 	}
 	// apc 선택 팝업 콜백 함수
 	const fn_setApc = function(apc) {
-		//console.log("======fn_setApc=======");
-		//console.log(apc);
 		if (!gfn_isEmpty(apc)) {
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-		//console.log("======fn_setApc====end===");
 	}
 
 	//지원사업 관리 팝업 버튼
@@ -661,7 +666,6 @@
 	}
 
 	async function fn_deleteRsrc(delList){
-		//console.log(delList);
 		let targetArr = [];
 
 		for (var i = 0; i < delList.length; i++) {
@@ -674,7 +678,6 @@
 		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfoList.do", targetArr);
 		let data = await postJsonPromise;
 		try{
-			//console.log(data);
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("삭제 되었습니다.");
 			}else{
@@ -768,8 +771,6 @@
 
 		let impData = _grdImp.getGridDataAll();
 
-		console.log(impData);
-
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
 		}
@@ -790,7 +791,6 @@
 
 		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow);
-			console.log(rowData);
 			// validation check
 			if (gfn_isEmpty(rowData.bizYr)) {
 				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
@@ -798,7 +798,6 @@
 				_grdImp.setCol(_grdImp.getColRef("bizYr"));
 				return;
 			}
-			console.log(rowData.bizYr,rowData.bizYr.length);
 			if (rowData.bizYr.length != 4) {
 				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
 				_grdImp.setRow(iRow);
@@ -884,8 +883,6 @@
 	 * @description afterimportexcel 이벤트
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
-		//console.log("fn_setDataAfterImport");
-		//console.log(_grdImp);
 		let impData = _grdImp.getGridDataAll();
 
 		const today = gfn_dateToYmd(new Date());
@@ -897,7 +894,6 @@
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
 			const rowData = _grdImp.getRowData(iRow+1, false);	// deep copy
-			console.log(rowData);
 			if(typeof rowData == "undefined" || rowData == null || rowData == "" ){
 				continue;
 			}
@@ -992,7 +988,6 @@
 
 		// 정규 표현식 실행
 		const match = strValue.match(regex);
-		//console.log(match);
 
 		let resultVal = match ? match[0] : null;
 
@@ -1011,8 +1006,6 @@
      */
 	const fn_grdImpValueChanged = function(_grdImp) {
 		//valuechanged 이벤트
-		console.log("fn_grdImpValueChanged");
-		console.log(_grdImp);
 		var nRow = _grdImp.getRow();
 		var nCol = _grdImp.getCol();
 	}
@@ -1202,7 +1195,6 @@
      * 목록 조회
      */
 	const fn_search = async function() {
-		//console.log("fn_search");
 		// set pagination
 		let pageSize = grdFcltApcInfo.getPageSize();
 		let pageNo = 1;
@@ -1213,11 +1205,10 @@
 	}
 
 	const fn_searchApcList = async function(pageSize, pageNo) {
-		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		//let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let apcNm = SBUxMethod.get("srch-inp-apcNm");//
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		let ctpvCd = SBUxMethod.get("srch-inp-ctpv");//
 		let sigunCd = SBUxMethod.get("srch-inp-sgg");//
 		let itemNm = SBUxMethod.get("srch-inp-itemNm");//
@@ -1245,7 +1236,6 @@
 			jsonFcltApcInfo.length = 0;
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
-				//console.log(item);
 				let itemVO = {
 						apcCd			:item.apcCd
 						,apcNm			:item.apcNm
@@ -1301,7 +1291,6 @@
 
 	//그리드 클릭시 상세보기 이벤트
 	const fn_view = async function (){
-		console.log("******************fn_view**********************************");
 		fn_clearForm();
 		//데이터가 존재하는 그리드 범위 확인
 		var nCol = grdFcltApcInfo.getCol();
@@ -1322,8 +1311,6 @@
 		SBUxMethod.set('dtl-inp-apcCd',gfn_nvl(rowData.apcCd));
 		SBUxMethod.set('dtl-inp-apcNm',gfn_nvl(rowData.apcNm));
 		SBUxMethod.set('dtl-inp-crtrYr',gfn_nvl(rowData.crtrYr));
-		//console.log(SBUxMethod.get('dtl-inp-apcCd'));
-		//console.log(SBUxMethod.get('dtl-inp-crtrYr'));
 		fn_selectFcltInstlInfoList();//상세조회
 	}
 
@@ -1409,7 +1396,7 @@
 	const fn_hiddenGrdSelect = async function(){
 		await fn_hiddenGrd();//그리드 생성
 		//$('#sb-area-hiddenGrd').show();
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(crtrYr)) {
 			let now = new Date();
 			let year = now.getFullYear();
@@ -1424,7 +1411,6 @@
 		let data = await postJsonPromise;
 		try{
 			jsonHiddenGrd.length = 0;
-			console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
 
@@ -1484,7 +1470,6 @@
 		→ false : value 값으로 저장
 		→ sheetName(선택) : xls/xlsx 형식의 데이터 다운로드시 시트명을 설정
 		*/
-		//console.log(hiddenGrd.exportData);
 
 		//hiddenGrd.exportData("xlsx" , fileName , true , true);
 		fn_rowDataDownLoad(fileName);
