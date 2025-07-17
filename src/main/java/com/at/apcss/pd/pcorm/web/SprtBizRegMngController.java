@@ -523,16 +523,12 @@ public class SprtBizRegMngController extends BaseController {
             sprtBizRegFileVO.setAtchFileSn(fileSn);
 
             SprtBizRegFileVO fileInfo = sprtBizRegMngService.selectSprtBizAtchfl(sprtBizRegFileVO);
-            logger.debug("0000");
-            logger.debug("fileInfo.getPhysFileNm() {}", fileInfo.getPhysFileNm());
-            logger.debug("fileInfo.getApoCd() {}", fileInfo.getApoCd());
             if (fileInfo == null || !StringUtils.hasText(fileInfo.getPhysFileNm())) {
                 // 파일 없음
                 //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
                 //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "파일정보"));
             }
-            logger.debug("1111");
             // 1. 권한 확인
             String untyAuthrtType = getUntyAuthrtType();
             String untyOgnzCd = getUntyOgnzCd();
@@ -547,7 +543,6 @@ public class SprtBizRegMngController extends BaseController {
                     //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "접근권한"));
                 }
             }
-            logger.debug("2222");
             String uploadPath = getFilepathPd();
 
             //서버 저장 파일명
@@ -570,8 +565,6 @@ public class SprtBizRegMngController extends BaseController {
             //물리 파일명
             String filename = srvrFileNm + "_" + fileExtnNm;
 
-            logger.debug("3333");
-            logger.debug("filename {}", filename);
             //EgovFormBasedFileUtil.downloadFile(response, uploadPath, filePathNm, filename, convertFileNm);
 
             // 2. 경로 보안 처리 (예: 디렉토리 탈출 방지)
@@ -582,8 +575,6 @@ public class SprtBizRegMngController extends BaseController {
 
             // 3. 파일 확인
             File atchFile = new File(filePathNm, filename);
-            logger.debug("filePathNm {}", filePathNm);
-            logger.debug("srvrFileNm {}", filename);
 
             if (!atchFile.exists()) {
                 //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -591,8 +582,6 @@ public class SprtBizRegMngController extends BaseController {
             }
 
             FileSystemResource resource = new FileSystemResource(atchFile);
-
-            logger.debug("4444");
 
 
             // 4. 응담 설정
@@ -651,16 +640,12 @@ public class SprtBizRegMngController extends BaseController {
             sprtBizRegFileVO.setAtchFileSn(fileSn);
 
             SprtBizRegFileVO fileInfo = sprtBizRegMngService.selectSprtBizAtchfl(sprtBizRegFileVO);
-            logger.debug("0000");
-            logger.debug("fileInfo.getPhysFileNm() {}", fileInfo.getPhysFileNm());
-            logger.debug("fileInfo.getApoCd() {}", fileInfo.getApoCd());
             if (fileInfo == null || !StringUtils.hasText(fileInfo.getPhysFileNm())) {
                 // 파일 없음
                 //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
                 //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "파일정보"));
             }
-            logger.debug("1111");
             // 1. 권한 확인
             String untyAuthrtType = getUntyAuthrtType();
             String untyOgnzCd = getUntyOgnzCd();
@@ -675,7 +660,6 @@ public class SprtBizRegMngController extends BaseController {
                     //return getErrorResponseEntity(ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "접근권한"));
                 }
             }
-            logger.debug("2222");
             String uploadPath = getFilepathPd();
 
             //서버 저장 파일명
@@ -708,8 +692,6 @@ public class SprtBizRegMngController extends BaseController {
 
             // 3. 파일 확인
             File atchFile = new File(filePathNm, filename);
-            logger.debug("filePathNm {}", filePathNm);
-            logger.debug("srvrFileNm {}", filename);
 
             if (!atchFile.exists()) {
                 //response.setStatus(HttpServletResponse.SC_NOT_FOUND);
