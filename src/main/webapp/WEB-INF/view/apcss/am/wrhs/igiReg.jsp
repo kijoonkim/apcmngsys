@@ -59,18 +59,18 @@
 						<col style="width: 3%">
 						<col style="width: 7%">
 						<col style="width: 6%">
-						<col style="width: 6%">
 						<col style="width: 3%">
+						<col style="width: 6%">
 					</colgroup>
 					<tbody>
 						<tr>
 							<th class="ta_r th_bg">APC명</th>
-							<td colspan="2"  class="td_input">
+							<td colspan="2"  class="td_input" style="border-right: hidden">
 								<%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
 							</td>
 							<td></td>
 							<th class="ta_r th_bg">검수일자</th>
-							<td colspan="3"  class="td_input">
+							<td colspan="2"  class="td_input" style="border-right: hidden">
 								<div style="display: flex; gap: 3px">
 									<sbux-datepicker
 											id="srch-dtp-igiYmdFrom"
@@ -91,6 +91,45 @@
 											onchange="fn_dtpChange(srch-dtp-wghYmdTo)"
 									></sbux-datepicker>
 								</div>
+							</td>
+							<td style="border-right: hidden"></td>
+							<th class="ta_r th_bg">생산자</th>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
+								<sbux-input
+										uitype="text"
+										id="srch-inp-prdcrNm"
+										name="srch-inp-prdcrNm"
+										class="form-control input-sm"
+										placeholder="초성검색 가능"
+										autocomplete-ref="jsonPrdcrAutocomplete"
+										autocomplete-text="name"
+										oninput="fn_onInputPrdcrNm(event)"
+										autocomplete-select-callback="fn_onSelectPrdcrNm"
+										autocomplete-height="270px"
+								></sbux-input>
+							</td>
+							<td class="td_input" style="border-right: hidden;">
+								<sbux-input
+										uitype="text"
+										id="srch-inp-prdcrIdentno"
+										name="srch-inp-prdcrIdentno"
+										class="form-control input-sm"
+										maxlength="2"
+										autocomplete="off"
+										onchange="fn_onChangeSrchPrdcrIdentno(this)"
+								/>
+							</td>
+							<td class="td_input">
+								<sbux-button
+										id="btnSrchPrdcr"
+										name="btnSrchPrdcr"
+										class="btn btn-xs btn-outline-dark"
+										text="찾기"
+										uitype="modal"
+										target-id="modal-prdcr"
+										onclick="fn_choicePrdcr"
+								></sbux-button>
 							</td>
 						</tr>
 					</tbody>
@@ -117,12 +156,33 @@
 			</div>
 		</div>
 	</section>
+
+	<!-- 생산자 선택 Modal -->
+	<div>
+		<sbux-modal
+				id="modal-prdcr"
+				name="modal-prdcr"
+				uitype="middle"
+				header-title="생산자 선택"
+				body-html-id="body-modal-prdcr"
+				footer-is-close-button="false"
+				header-is-close-button="false"
+				style="width:1000px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-prdcr">
+		<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 
 	var jsonRawMtrWrhsIgi = [];
 	var grdRawMtrWrhsIgi;
 
+	var jsonPrdcr					= [];
+	var jsonPrdcrDtl				= [];
+	var jsonPrdcrAutocomplete 		= [];
+	var jsonPrdcrAutocompleteDtl 	= [];
 	var jsonStrgLoctnCd = [];
 	var jsonIgiJgmtCd = [];
 	var jsonRwArtclCd = [];
@@ -149,6 +209,8 @@
 	}
 
 	window.addEventListener('DOMContentLoaded', function(e) {
+
+		fn_getPrdcrs();
 		fn_initSBSelect();
 		fn_createRawMtrWrhsIgiGrid();
 	})
@@ -166,27 +228,31 @@
 		SBGridProperties.selectmode = 'free';
 		SBGridProperties.explorerbar = 'sort';
 		SBGridProperties.extendlastcol = 'scroll';
+		SBGridProperties.useinitsorting = true;
 		SBGridProperties.allowcopy = true;
 		SBGridProperties.scrollbubbling = false;
 		SBGridProperties.oneclickedit = true;
+		SBGridProperties.filtering = true;
+		SBGridProperties.contextmenu = true;					// 우클린 메뉴 호출 여부
+		SBGridProperties.contextmenulist = objMenuListRawMtrWrhsIgi;	// 우클릭 메뉴 리스트
 
 		let columns = [
-			{caption : ['처리', '처리'], 		ref: 'delYn',  type:'button',  width:'60px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+			{caption : ['처리', '처리'], 		ref: 'delYn',  type:'button',  width:'60px', filtering: { usemode: false },   style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 				if (gfn_isEmpty(strValue)) {
 					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRawMtrWrhsIgi(\"ADD\", " + nRow + ", " + nCol + ")'>추가</button>";
 				} else {
 					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRawMtrWrhsIgi(\"DEL\", " + nRow + ")'>삭제</button>";
 				}}},
-			{caption : ['일자', '일자'], 						ref: 'igiYmd', 		type : 'datepicker', 	width: '100px', style:'text-align:center; background:#FFF8DC;',
+			{caption : ['일자', '일자'], 						ref: 'igiYmd', 		type : 'datepicker', 	width: '100px', filtering: { usemode: false }, style:'text-align:center; background:#FFF8DC;',
 				format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
-			{caption: ['생산자', '생산자'], 						ref: 'prdcrCd', 		type:'inputcombo',  width: '120px', 	style:'text-align:center; background:#FFF8DC;',
+			{caption: ['생산자', '생산자'], 						ref: 'prdcrCd', 		type:'inputcombo',  width: '110px', filtering: {uitype : 'checklist^', listsearch: true, sort:'asc'},	style:'text-align:center; background:#FFF8DC;',
 				typeinfo : {ref:'jsonGrdPrdcr', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption : ['지역', '지역'], 						ref: 'frmhsNm', 		type: 'output', 	 style:'text-align:center;'},
-			{caption : ['검수판정', '검수판정'], 					ref: 'igiJgmtCd', 		type:'combo',  		width: '60px',style:'text-align:center;',
+			{caption : ['지역', '지역'], 						ref: 'frmhsNm', 		type: 'output', filtering: { usemode: false },	 style:'text-align:center;'},
+			{caption : ['검수<br>판정', '검수<br>판정'], 					ref: 'igiJgmtCd', 		type:'combo',  		width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center;',
 				typeinfo : {ref:'jsonIgiJgmtCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption : ['샘플링<br>여부', '샘플링<br>여부'], 		ref: 'smplYn', 			type:'combo',  		width: '60px',style:'text-align:center;',
+			{caption : ['샘플링<br>여부', '샘플링<br>여부'], 		ref: 'smplYn', 			type:'combo',  		width: '70px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center;',
 				typeinfo : {ref:'jsonComSmplYn', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-			{caption : ['입고<br>톤백수량', '입고<br>톤백수량'], 	ref: 'igiGrdQnttTot', 	type: 'output', 		width: '60px', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
+			{caption : ['입고<br>톤백수량', '입고<br>톤백수량'], 	ref: 'igiGrdQnttTot', 	type: 'output', 		width: '60px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 		];
 
 		let rst = await Promise.all([
@@ -204,6 +270,7 @@
 						ref: igiGrdQnttRef,
 						type: 'input',
 						width: '50px',
+						filtering: { usemode: false },
 						style:'text-align:right;',
 						format : {type:'number', rule:'#,###'}
 					},
@@ -220,6 +287,7 @@
 						ref: igiGrdRtRef,
 						type: 'input',
 						width: '50px',
+						filtering: { usemode: false },
 						style:'text-align:right;',
 						format : {type:'number', rule:'#,###'}
 					},
@@ -227,14 +295,14 @@
 		}
 
 		columns.push(
-				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type:'combo',  		width: '60px',style:'text-align:center;',
+				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type:'combo',  		width: '60px', filtering: { usemode: false }, style:'text-align:center;',
 					typeinfo : {ref:'jsonRwArtclCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
-				{caption : ['감량항목', '%'], 						ref: 'rwRt', 			type: 'input', 		width: '50px', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
-				{caption : ['회송<br>톤백수량', '회송<br>톤백수량'], 	ref: 'sndbkQntt', 		type: 'input', 		width: '60px', style:'text-align:right;', format : {type:'number', rule:'#,###'}},
-				{caption : ['검수내용', '검수내용'], 					ref: 'igiRmrk', 		type: 'input', 		width: '140px', style:'text-align:left;'},
-				{caption : ['톤백수량<br>매세지', '톤백수량<br>매세지'], ref: 'qnttRmrk', 		type: 'input', 		width: '120px', style:'text-align:left;'},
-				{caption : ['비율<br>메시지', '비율<br>메시지'], 		ref: 'rtRmrk', 			type: 'input', 		width: '120px', style:'text-align:left;'},
-				{caption : ['저장<br>구분', '저장<br>구분'], 			ref: 'strgLoctnCd', 	type:'combo',  		width: '60px',	style:'text-align:center; background:#FFF8DC;',
+				{caption : ['감량항목', '%'], 						ref: 'rwRt', 			type: 'input', 		width: '50px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
+				{caption : ['회송<br>톤백수량', '회송<br>톤백수량'], 	ref: 'sndbkQntt', 		type: 'input', 		width: '60px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
+				{caption : ['검수내용', '검수내용'], 					ref: 'igiRmrk', 		type: 'input', 		width: '140px', filtering: {uitype : 'text^', sort:'asc'}, style:'text-align:left;'},
+				{caption : ['톤백수량<br>매세지', '톤백수량<br>매세지'], ref: 'qnttRmrk', 		type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
+				{caption : ['비율<br>메시지', '비율<br>메시지'], 		ref: 'rtRmrk', 			type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
+				{caption : ['저장<br>구분', '저장<br>구분'], 			ref: 'strgLoctnCd', 	type:'combo',  		width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center; background:#FFF8DC;',
 					typeinfo : {ref:'jsonStrgLoctnCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
 		)
 
@@ -245,7 +313,27 @@
 
 	}
 
+	/**
+	 * @description 컨텍스트메뉴 json 검수등록 - 수기입력 대장
+	 * @type {object}
+	 */
+	const objMenuListRawMtrWrhsIgi = {
+		"excelDwnld": {
+			"name": "엑셀 다운로드",					//컨텍스트메뉴에 표시될 이름
+			"accesskey": "e",						//단축키
+			"callback": fn_excelDwnldRawMtrWrhsIgi,	//콜백함수명
+		},
+	};
 
+	// 엑셀 다운로드 (검수등록 - 수기입력 대장)
+	function fn_excelDwnldRawMtrWrhsIgi() {
+
+		if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
+			grdRawMtrWrhsIgi.exportData("xlsx","수기입력대장",true, {arrRemoveCols: [0]});
+		} else {
+			grdRawMtrWrhsIgi.exportLocalExcel("수기입력대장", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		}
+	}
 
 	const fn_search = async function () {
 
@@ -283,6 +371,8 @@
 				}
 			}
 		}
+
+		grdRawMtrWrhsIgi.initFiltering();
 	}
 
 	const gridValueChanged = function () {
@@ -333,6 +423,7 @@
 
 		let igiYmdFrom = SBUxMethod.get('srch-dtp-igiYmdFrom');
 		let igiYmdTo = SBUxMethod.get('srch-dtp-igiYmdTo');
+		let prdcrCd = SBUxMethod.get('srch-inp-prdcrCd');
 
 		if (gfn_isEmpty(igiYmdFrom)) {
 			gfn_comAlert("W0001", "검수시작일자");				//	W0002	{0}을/를 선택하세요.
@@ -347,6 +438,7 @@
 			  apcCd			: gv_selectedApcCd
 			, igiYmdFrom	: igiYmdFrom
 			, igiYmdTo		: igiYmdTo
+			, prdcrCd		: prdcrCd
 		}
 		jsonRawMtrWrhsIgi.length = 0;
 		try {
@@ -397,6 +489,7 @@
 			grdRawMtrWrhsIgi.addRow(true);
 			grdRawMtrWrhsIgi.setCellDisabled(0, 0, grdRawMtrWrhsIgi.getRows() -1, grdRawMtrWrhsIgi.getCols() -1, false);
 			grdRawMtrWrhsIgi.setCellDisabled(grdRawMtrWrhsIgi.getRows() -1, 0, grdRawMtrWrhsIgi.getRows() -1, grdRawMtrWrhsIgi.getCols() -1, true);
+			grdRawMtrWrhsIgi.initFiltering();
 
 		} catch (e) {
 			if (!(e instanceof Error)) {
@@ -486,6 +579,7 @@
 
 					}
 					rowData.rowSts = "I"
+					rowData.wrhsUnitCd = "3";
 					rowData.rawMtrWrhsIgiDtlList = rawMtrWrhsIgiDtlList;
 
 					rowMtrWrhsIgiList.push(rowData);
@@ -581,6 +675,102 @@
 			}
 			console.error("failed", e.message);
 			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+		}
+	}
+
+	/* 생산자 팝업 호출 필수 function  */
+	/* Start */
+	/**
+	 * @name fn_getPrdcrs
+	 * @description 생산자 리스트 호출
+	 */
+	const fn_getPrdcrs = async function() {
+		jsonPrdcr 		= await gfn_getPrdcrs(gv_selectedApcCd, gfn_dateToYear(new Date()));
+		jsonPrdcr 		= gfn_setFrst(jsonPrdcr);
+		jsonPrdcrDtl 	= await gfn_getPrdcrs(gv_selectedApcCd, gfn_dateToYear(new Date()));
+		jsonPrdcrDtl 	= gfn_setFrst(jsonPrdcrDtl);
+	}
+
+	/**
+	 * @name getByteLengthOfString
+	 * @description 글자 byte 크기 계산
+	 */
+	const getByteLengthOfString = function (s, b, i, c) {
+		for (b = i = 0; (c = s.charCodeAt(i++)); b += c >> 11 ? 3 : c >> 7 ? 2 : 1);
+		return b;
+	}
+
+	/**
+	 * @name fn_onInputPrdcrNm
+	 * @description 생산자명 입력 시 event : autocomplete
+	 */
+	const fn_onInputPrdcrNm = function(prdcrNm){
+
+		fn_clearPrdcr();
+		if(getByteLengthOfString(prdcrNm.target.value) > 100){
+			SBUxMethod.set("srch-inp-prdcrNm", "");
+			return;
+		}
+		jsonPrdcrAutocomplete = gfn_filterFrst(prdcrNm.target.value, jsonPrdcr);
+		SBUxMethod.changeAutocompleteData('srch-inp-prdcrNm', true);
+
+	}
+
+	/**
+	 * @name fn_onSelectPrdcrNm
+	 * @description 생산자 autocomplete 선택 callback
+	 */
+	function fn_onSelectPrdcrNm(value, label, item) {
+
+		SBUxMethod.set("srch-inp-prdcrCd", value);
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+		let prdcr = _.find(jsonPrdcr, {prdcrCd: value});
+		fn_setPrdcrForm(prdcr);
+	}
+
+	/**
+	 * @name fn_clearPrdcr
+	 * @description 생산자 폼 clear
+	 */
+	const fn_clearPrdcr = function() {
+		SBUxMethod.set("srch-inp-prdcrCd", "");
+		SBUxMethod.set("srch-inp-prdcrIdentno", "");
+		SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:''");
+	}
+
+	/**
+	 * @name fn_choicePrdcr
+	 * @description 생산자 선택 popup 호출
+	 */
+	const fn_choicePrdcr = function() {
+		popPrdcr.init(gv_selectedApcCd, gv_selectedApcNm, fn_setPrdcr, SBUxMethod.get("srch-inp-prdcrNm"));
+	}
+
+	/**
+	 * @name fn_setPrdcr
+	 * @description 생산자 선택 popup callback 처리
+	 */
+	const fn_setPrdcr = async function(prdcr) {
+		await fn_getPrdcrs();
+
+		if (!gfn_isEmpty(prdcr)) {
+			SBUxMethod.set("srch-inp-prdcrCd", prdcr.prdcrCd);
+			SBUxMethod.set("srch-inp-prdcrNm", prdcr.prdcrNm);
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+			SBUxMethod.attr("srch-inp-prdcrNm", "style", "background-color:aquamarine");	//skyblue
+
+			fn_setPrdcrForm(prdcr)
+		}
+	}
+
+
+
+	const fn_setPrdcrForm = async function(prdcr) {
+		if (!gfn_isEmpty(prdcr.prdcrIdentno)) {
+			SBUxMethod.set("srch-inp-prdcrIdentno", prdcr.prdcrIdentno);
+		} else {
+			SBUxMethod.set("srch-inp-prdcrIdentno", "");
 		}
 	}
 
