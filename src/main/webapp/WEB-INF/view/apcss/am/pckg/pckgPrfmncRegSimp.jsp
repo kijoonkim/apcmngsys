@@ -1129,9 +1129,9 @@
     const fn_delRow = async function(_nRow) {
 
         let delObj = {};
-        let saveFlag = SBUxMethod.get("tab_norm") === "tab_pckgPrfmncReg"? false : true;
+        let delFlag = SBUxMethod.get("tab_norm") === "tab_pckgPrfmncReg"? false : true;
 
-        if (saveFlag) {
+        if (delFlag) {
             delObj = gridPckgPrfmnc.getRowData(_nRow);
         } else {
             delObj = gridPckgPrfmncReg.getRowData(_nRow);
