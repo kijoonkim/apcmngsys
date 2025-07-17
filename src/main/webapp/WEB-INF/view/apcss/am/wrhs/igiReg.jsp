@@ -79,7 +79,7 @@
 											wrap-style="flex:1;"
 											date-format="yyyy-mm-dd"
 											class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-											onchange="fn_dtpChange(srch-dtp-wghYmdFrom)"
+											onchange="fn_dtpChange(srch-dtp-igiYmdFrom)"
 									></sbux-datepicker>
 									<sbux-datepicker
 											id="srch-dtp-igiYmdTo"
@@ -88,7 +88,7 @@
 											wrap-style="flex:1;"
 											date-format="yyyy-mm-dd"
 											class="form-control pull-right input-sm-ast inpt_data_reqed input-sm"
-											onchange="fn_dtpChange(srch-dtp-wghYmdTo)"
+											onchange="fn_dtpChange(srch-dtp-igiYmdTo)"
 									></sbux-datepicker>
 								</div>
 							</td>
@@ -332,6 +332,32 @@
 			grdRawMtrWrhsIgi.exportData("xlsx","수기입력대장",true, {arrRemoveCols: [0]});
 		} else {
 			grdRawMtrWrhsIgi.exportLocalExcel("수기입력대장", {bSaveLabelData: true, bNullToBlank: true, bSaveSubtotalValue: true, bCaptionConvertBr: true, arrSaveConvertText: true});
+		}
+	}
+
+	/**
+	 * @name fn_dtpChange
+	 * @description From ~ To 시작일보다 종료일보다 작을 수 없음
+	 */
+	const fn_dtpChange = function () {
+
+		let igiYmdFrom = SBUxMethod.get("srch-dtp-igiYmdFrom");
+		let igiYmdTo = SBUxMethod.get("srch-dtp-igiYmdTo");
+		var maxYmd = gfn_addDate(igiYmdFrom, 90);
+
+		if (maxYmd < igiYmdTo) {
+			SBUxMethod.set("srch-dtp-igiYmdTo", maxYmd);
+		}
+
+		if (gfn_diffDate(igiYmdFrom, igiYmdTo) < 0) {
+			gfn_comAlert("W0014", "시작일자", "종료일자");		//	W0014	{0}이/가 {1} 보다 큽니다.
+			SBUxMethod.set("srch-dtp-igiYmdFrom", gfn_dateFirstYmd(new Date()));
+			SBUxMethod.set("srch-dtp-igiYmdTo", gfn_dateToYmd(new Date()));
+			return;
+		}
+
+		if (maxYmd < igiYmdTo) {
+			SBUxMethod.set("srch-dtp-igiYmdTo", maxYmd);
 		}
 	}
 
