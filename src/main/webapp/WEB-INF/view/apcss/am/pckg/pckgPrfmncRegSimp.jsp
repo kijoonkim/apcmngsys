@@ -1065,7 +1065,6 @@
                                     'success'
                                 );
                             }
-                            fn_RegReset();
                         }
                     }catch (e) {
                         console.error(e);
@@ -1083,6 +1082,9 @@
             }
             await fn_search();
         }
+
+        fn_RegReset();
+
     }
 
     const fn_search = async function(){
@@ -1125,8 +1127,18 @@
     }
 
     const fn_delRow = async function(_nRow) {
+
+        let delObj = {};
+        let saveFlag = SBUxMethod.get("tab_norm") === "tab_pckgPrfmncReg"? false : true;
+
+        if (saveFlag) {
+            delObj = gridPckgPrfmnc.getRowData(_nRow);
+        } else {
+            delObj = gridPckgPrfmncReg.getRowData(_nRow);
+        }
+
         if (SBUxMethod.getSwitchStatus('switch_single') === 'on') {
-            Swal.fire({
+            await Swal.fire({
                 title: '삭제 하시겠습니까?',
                 icon: 'question',
                 showCancelButton: true,
@@ -1137,7 +1149,6 @@
                 width: '500px'
             }).then(async result => {
                 if (result.isConfirmed) {
-                    let delObj = gridPckgPrfmnc.getRowData(_nRow);
                     const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do", delObj);
                     const data = await postJsonPromise;
                     try {
@@ -1156,6 +1167,15 @@
                     await fn_search();
                 }
             })
+        } else {
+            const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do", delObj);
+            const data = await postJsonPromise;
+
+            if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+            }
+            await fn_search();
         }
     }
 
