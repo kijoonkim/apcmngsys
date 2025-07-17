@@ -93,6 +93,9 @@
 			<if test='igiYmdTo != null and igiYmdTo != ""'>
 					AND WI.IGI_YMD <![CDATA[<=]]> #{igiYmdTo}
 			</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+					AND WI.PRDCR_CD = #{prdcrCd}
+			</if>
 		<![CDATA[
 			) X
 			   , TB_PRDCR_INFO PI
