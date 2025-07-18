@@ -23,13 +23,7 @@
     <title>title : 포장 간편등록</title>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
-    <!-- Smart Wizard CSS -->
-<%--    <link href="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/css/smart_wizard_all.min.css" rel="stylesheet" />--%>
-    <!-- Smart Wizard JS -->
-<%--    <script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js"></script>--%>
-<%--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">--%>
-<%--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>--%>
-    <script src="${pageContext.request.contextPath}/js/out/view.bundle.js"></script>
+    <script src="/js/out/view.bundle.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         #tab_pckgPrfmncReg, #tab_pckgPrfmnc{
@@ -52,7 +46,7 @@
             background: white;
         }
 
-        .tabBox_sm, .tabBox_sm2{
+        .tabBox_sm, .tabBox_sm2, .tabBox_sm3{
             border: 1px solid black;
             font-size: 1.5vw;
             width: 15vw;
@@ -64,7 +58,7 @@
             background: white;
 
         }
-        .tabBox.active, .tabBox_sm.active{
+        .tabBox.active, .tabBox_sm.active, .tabBox_sm3.active{
             /*background-color: #fdbf01;*/
             background-color: #1c54a2;
             font-weight: bold;
@@ -236,8 +230,8 @@
                             <li><a class="nav-link" href="#step-2">생산자<br/><small></small></a></li>
                             <li><a class="nav-link" href="#step-3">품목<br/><small></small></a></li>
                             <li><a class="nav-link" href="#step-4">품종<br/><small></small></a></li>
-                            <li><a class="nav-link" href="#step-5">규격<br/><small></small></a></li>
-                            <li><a class="nav-link" href="#step-6">본수<br/><small></small></a></li>
+<%--                            <li><a class="nav-link" href="#step-5">규격<br/><small></small></a></li>--%>
+                            <li><a class="nav-link" href="#step-5">규격 & 본수<br/><small></small></a></li>
                         </ul>
 
                         <div class="tab-content" style="height: calc(100% - 100px)!important;">
@@ -347,7 +341,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="step-5" class="tab-pane" role="tabpanel">
+                            <%--<div id="step-5" class="tab-pane" role="tabpanel">
                                 <div id="spcfctInfoWrap">
                                     <div class="carousel_container" style="width: 100%; overflow: hidden">
                                         <div class="carousel" style="display: flex; width: 100%; transition: all 0.5s;">
@@ -355,9 +349,19 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="step-6" class="tab-pane" role="tabpanel">
+                            </div>--%>
+                            <div id="step-5" class="tab-pane" role="tabpanel">
                                 <div style="display: flex;flex-direction: column;gap: 1vh">
+                                    <div style="color: #3c6dbc; font-weight: 600;font-size: 1.5vw">규격</div>
+                                    <div id="spcfctInfoWrap">
+                                        <div class="carousel_container" style="width: 100%; overflow: hidden">
+                                            <div class="carousel" style="display: flex;gap: 1.5vw">
+                                                <div style="display: flex;gap: 1.5vw">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div style="color: #3c6dbc; font-weight: 600;font-size: 1.5vw">본수</div>
                                     <div class="carousel">
                                         <div style="display: flex;gap: 1.5vw">
@@ -435,7 +439,7 @@
                                         </div>
                                     </div>
                                     <div class="carousel">
-                                        <div style="display: flex;gap: 1vw;">
+                                        <div style="display: flex;gap: 1.5vw;">
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="0">0</div>
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="1">1</div>
                                             <div class="tabBox_sm2" onclick="fn_select_qntt_button(this)" data-cnt="2">2</div>
@@ -714,7 +718,15 @@
     const fn_search_spcfct = async function(_itemCd){
         const postJsonPromise = gfn_postJSON(URL_APC_SPCFCTS, {apcCd: gv_apcCd, itemCd: _itemCd, delYn: "N"}, null, true);
         const data = await postJsonPromise;
-        await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
+        // await fn_append_button(data,"spcfctInfoWrap","spcfctNm","spcfctCd",true);
+
+        for (let i = 0; i < data.resultList.length; i++) {
+            $(`#spcfctInfoWrap > .carousel_container> .carousel > :last-child`).append(`
+                    <div class="tabBox_sm3" onclick="fn_select_button(this)" data-${'${"spcfctCd"}'}="${'${data.resultList[i]["spcfctCd"]}'}">
+                        ${'${data.resultList[i]["spcfctNm"]}'}
+                    </div>
+            `);
+        }
     }
 
     const fn_append_button = async function(data, id, label, value, flag = false){
@@ -853,6 +865,11 @@
         let clickedText = $(_el).text();
         const stepIndex = $('#smartwizard .nav .nav-link.active').parent().index();
         const navSmall = $('#smartwizard .nav .nav-link').eq(stepIndex).find('small');
+
+        if(_.isEqual(stepIndex, 4)){
+            clickedText = $(".tabBox_sm3.active").text() + ", " + $(".tabBox_sm.active").text();
+        }
+
         navSmall.text(clickedText);
         $('#smartwizard').smartWizard("next");
 
@@ -899,14 +916,16 @@
                         delete pckgObj.vrtyNm;
                     }
                 }
-                /** 규격 **/
-                if(!$(`#spcfctInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
-                    $("#spcfctcd").html('');
-                    if(pckgObj.hasOwnProperty("spcfctCd")|| pckgObj.hasOwnProperty("spcfctNm")){
-                        delete pckgObj.spcfctCd;
-                        delete pckgObj.spcfctNm;
-                    }
-                }
+
+                // 규격, 본수 통합으로 미사용 처리
+                // /** 규격 **/
+                // if(!$(`#spcfctInfoWrap > .carousel_container > .carousel > .cell > .tabBox`).hasClass('active')){
+                //     $("#spcfctcd").html('');
+                //     if(pckgObj.hasOwnProperty("spcfctCd")|| pckgObj.hasOwnProperty("spcfctNm")){
+                //         delete pckgObj.spcfctCd;
+                //         delete pckgObj.spcfctNm;
+                //     }
+                // }
             }
             //if(key == 'prdcrcd'){
             	//nowPrdcrNm = _el.outerText;
@@ -1063,6 +1082,9 @@
             }
             await fn_search();
         }
+
+        fn_RegReset();
+
     }
 
     const fn_search = async function(){
@@ -1105,8 +1127,18 @@
     }
 
     const fn_delRow = async function(_nRow) {
+
+        let delObj = {};
+        let delFlag = SBUxMethod.get("tab_norm") === "tab_pckgPrfmncReg"? false : true;
+
+        if (delFlag) {
+            delObj = gridPckgPrfmnc.getRowData(_nRow);
+        } else {
+            delObj = gridPckgPrfmncReg.getRowData(_nRow);
+        }
+
         if (SBUxMethod.getSwitchStatus('switch_single') === 'on') {
-            Swal.fire({
+            await Swal.fire({
                 title: '삭제 하시겠습니까?',
                 icon: 'question',
                 showCancelButton: true,
@@ -1117,7 +1149,6 @@
                 width: '500px'
             }).then(async result => {
                 if (result.isConfirmed) {
-                    let delObj = gridPckgPrfmnc.getRowData(_nRow);
                     const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do", delObj);
                     const data = await postJsonPromise;
                     try {
@@ -1136,12 +1167,22 @@
                     await fn_search();
                 }
             })
+        } else {
+            const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/deletePckgPrfmncSc.do", delObj);
+            const data = await postJsonPromise;
+
+            if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+            }
+            await fn_search();
         }
     }
 
     const fn_reset = function(){
         $(".tabBox.active").removeClass('active');
         $(".tabBox_sm.active").removeClass('active');
+        $(".tabBox_sm3.active").removeClass('active');
         fn_RegReset();
     }
 
