@@ -32,6 +32,11 @@ public class PrdcrLandInfoVO extends ComVO {
 	 * */
 	private String apcCd;
 	/*
+	 * 품목코드
+	 * */
+	private String itemCd;
+	private String itemNm;
+	/*
 	 * 생산자농지정보번호
 	 * */
 	private String prdcrLandInfoNo;
