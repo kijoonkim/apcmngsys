@@ -1182,6 +1182,7 @@
     const fn_reset = function(){
         $(".tabBox.active").removeClass('active');
         $(".tabBox_sm.active").removeClass('active');
+        $(".tabBox_sm3.active").removeClass('active');
         fn_RegReset();
     }
 
