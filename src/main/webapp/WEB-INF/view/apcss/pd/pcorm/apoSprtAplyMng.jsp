@@ -72,6 +72,7 @@
                         <sbux-input id="dtl-inp-corpNm" name="dtl-inp-corpNm" uitype="text" class="form-control input-sm" ></sbux-input>
                     </td>
                 </tr>
+                <c:if test="${loginVO.userType eq '00' || loginVO.userType eq '01'}">
                 <tr>
                     <th scope="row" class="th_bg">신청서첨부</th>
                     <td class="td_input">
@@ -83,7 +84,7 @@
                     </td>
                     <td colspan="2"></td>
                 </tr>
-
+                </c:if>
                 </tbody>
             </table>
 
@@ -375,10 +376,14 @@
         gridAplyList.setFixedcellcheckboxChecked(0, getColRef, false);
 
         const yr = SBUxMethod.get('dtl-spi-yr');
-        const brno = SBUxMethod.get('dtl-inp-brno');
+        let brno = SBUxMethod.get('dtl-inp-brno');
         const corpNm = SBUxMethod.get('dtl-inp-corpNm');
         const bizAplySbmsnYn = SBUxMethod.get('dtl-slt-aplyDocAtch');
         const bizPlanSbmsnYn = SBUxMethod.get('dtl-slt-bspnDocAtch');
+
+        <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
+            brno = "${loginVO.brno}";
+        </c:if>
 
         const postJsonPromise = gfn_postJSON("/pd/pcorm/selectApoSprtAplyList.do", {
             yr : yr,
@@ -396,6 +401,16 @@
                 let totalCount =0;
 
                 jsonAplyList.length = 0;
+
+                <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
+                if (data.resultList.length == 1) {
+                    SBUxMethod.set('dtl-inp-brno',data.resultList[0].brno);
+                    SBUxMethod.set('dtl-inp-corpNm',data.resultList[0].corpNm);
+                    SBUxMethod.attr('dtl-inp-brno', 'disabled', 'true');
+                    SBUxMethod.attr('dtl-inp-corpNm', 'disabled', 'true');
+                }
+                </c:if>
+
                 data.resultList.forEach(item => {
                     let bizAplySbmsnYn;
                     if (gfn_isEmpty(item.bizAplyAtchflSn) || _.isEqual(item.bizAplyAtchflSn,0)){

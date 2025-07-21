@@ -232,6 +232,12 @@
   const fn_init = async function() {
     fn_createDtbnMng(); // 신청목록 그리드
     SBUxMethod.set('dtl-spi-yr',gfn_dateToYear(new Date())); // 연도
+<%--    <c:if test="${loginVO.userType eq '10' || loginVO.userType eq '21'}">--%>
+<%--      SBUxMethod.set('dtl-inp-brno',${loginVO.brno});--%>
+<%--      SBUxMethod.set('dtl-inp-corpNm',${loginVO.corpNm});--%>
+<%--      SBUxMethod.attr('dtl-inp-brno', 'disabled', 'true');--%>
+<%--      SBUxMethod.attr('dtl-inp-corpNm', 'disabled', 'true');--%>
+<%--    </c:if>--%>
     fn_search();
   }
 
@@ -340,12 +346,16 @@
    * @description 교부신청 조회
    */
   const fn_searchDtbnMng = async function () {
+    <%--console.log("untyAuthrtType","${loginVO.untyAuthrtType}","untyOgnzCd","${loginVO.untyOgnzCd}","apoSe","${loginVO.apoSe}", "userType", "${loginVO.userType}", "brno", "${loginVO.brno}","crno","${loginVO.crno}","corpNm","${loginVO.corpNm}");--%>
     fn_clear();
     jsonDtbnMng.length = 0;
+    let brno = SBUxMethod.get('dtl-inp-brno');
     const crtrYr = SBUxMethod.get('dtl-spi-yr');
-    const brno = SBUxMethod.get('dtl-inp-brno');
     const corpNm = SBUxMethod.get('dtl-inp-corpNm');
 
+    <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
+      brno = "${loginVO.brno}";
+    </c:if>
     const postJsonPromise = gfn_postJSON("/pd/sprt/selectSprtBizClclnList.do", {
       crtrYr: crtrYr,
       brno: brno,
@@ -356,6 +366,14 @@
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
+        <c:if test="${loginVO.userType ne '00' and loginVO.userType ne '01'}">
+          if (data.resultList.length == 1) {
+            SBUxMethod.set('dtl-inp-brno',data.resultList[0].brno);
+            SBUxMethod.set('dtl-inp-corpNm',data.resultList[0].corpNm);
+            SBUxMethod.attr('dtl-inp-brno', 'disabled', 'true');
+            SBUxMethod.attr('dtl-inp-corpNm', 'disabled', 'true');
+          }
+        </c:if>
         data.resultList.forEach(item => {
           // 제출
           let sbmsnYn;
