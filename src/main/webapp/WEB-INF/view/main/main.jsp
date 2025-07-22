@@ -1011,6 +1011,29 @@
             </brand-item>
         </sbux-menu>
         <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;position: absolute;right: 0">
+            <div id="pinToggle">
+                <svg id="icon-unpinned" xmlns="http://www.w3.org/2000/svg" style="display:none;"
+                     width="50" height="50" viewBox="0 0 24 24"
+                     fill="none" stroke="white" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icon-tabler-pin">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
+                    <path d="M9 15l-4.5 4.5" />
+                    <path d="M14.5 4l5.5 5.5" />
+                </svg>
+                <svg id="icon-pinned" xmlns="http://www.w3.org/2000/svg"
+                     width="50" height="50" viewBox="0 0 24 24"
+                     fill="none" stroke="white" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icon-tabler-pinned"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" />
+                    <path d="M12 16l0 5" />
+                    <path d="M8 4l8 0" />
+                </svg>
+            </div>
             <div style="width: 50px;margin-left: 5px;position: relative;cursor: pointer" onclick="fn_msgPopup();">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-bell-circle" width="100%" height="100%" viewBox="0 0 24 24">
                     <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M17,16V15L16,14V11.39C16,10.3 15.73,9.34 15.21,8.53C14.7,7.72 13.96,7.21 13,7V6.5A1,1 0 0,0 12,5.5A1,1 0 0,0 11,6.5V7C10.04,7.21 9.3,7.72 8.79,8.53C8.27,9.34 8,10.3 8,11.39V14L7,15V16H17M13.5,17H10.5A1.5,1.5 0 0,0 12,18.5A1.5,1.5 0 0,0 13.5,17Z" fill="#fff" />
@@ -1039,29 +1062,7 @@
                 </ul>
             </c:if>
         </div>
-        <div id="pinToggle" style="position: absolute;right: 15%;top: 5px;z-index:10000">
-            <svg id="icon-unpinned" xmlns="http://www.w3.org/2000/svg" style="display:none;"
-                 width="50" height="50" viewBox="0 0 30 30"
-                 fill="none" stroke="white" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round"
-                 class="icon icon-tabler icon-tabler-pin">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
-                <path d="M9 15l-4.5 4.5" />
-                <path d="M14.5 4l5.5 5.5" />
-            </svg>
-            <svg id="icon-pinned" xmlns="http://www.w3.org/2000/svg"
-                 width="50" height="50" viewBox="0 0 30 30"
-                 fill="none" stroke="white" stroke-width="2"
-                 stroke-linecap="round" stroke-linejoin="round"
-                 class="icon icon-tabler icon-tabler-pinned"
-                 >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" />
-                <path d="M12 16l0 5" />
-                <path d="M8 4l8 0" />
-            </svg>
-        </div>
+
     </div>
     <div class="main" style="flex: 1">
         <!--left (sidemenu) -->
