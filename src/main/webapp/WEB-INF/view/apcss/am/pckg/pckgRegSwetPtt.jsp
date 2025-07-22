@@ -21,15 +21,17 @@
 <html lang="ko">
 <head>
     <title>title : 포장 등록 (고구마)</title>
+    <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
 
     <style>
         .div_header {
-            background-color: #CCE0B5;
+            background-color: #236475;
             font-weight: bold;
             padding: 8px 12px;
             border-bottom: 1px solid #000;
+            color: white;
         }
 
         .div_body {
@@ -43,11 +45,18 @@
         }
 
         .carousel {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            display: grid;
             width: 100%;
             transition: all 0.5s;
+            grid-template-columns: repeat(5,1fr);
+            grid-gap: 5px;
+        }
+        .carousel.pckgGrd{
+            display: grid;
+            width: 100%;
+            transition: all 0.5s;
+            grid-template-columns: repeat(6,1fr);
+            grid-gap: 5px;
         }
 
         .control_panel {
@@ -58,12 +67,14 @@
             gap: 8px;
             margin-left: 16px;
             width: 80px;
+            flex-basis: 10%;
+            padding : 5px;
         }
 
         #btnUp {
             width: 100%;
             height: 80px;
-            background-color: red;
+            background-color: #e74c3c;
             color: white;
             font-size: 32px;
             border: 1px solid #000;
@@ -83,7 +94,7 @@
         #btnDown {
             width: 100%;
             height: 80px;
-            background-color: blue;
+            background-color: #3498db;
             color: white;
             font-size: 32px;
             border: 1px solid #000;
@@ -100,7 +111,7 @@
     <section>
         <div class="box box-solid">
             <div class="box-header" style="display: flex; justify-content: flex-start;">
-                <div>
+                <div ondblclick="fn_fullScreen()">
                     <c:set scope="request" var="menuNm" value="${comMenuVO.menuNm}"></c:set>
                     <h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 포장 등록 (고구마) -->
                 </div>
@@ -128,10 +139,12 @@
                 <table class="table table-bordered tbl_fixed">
                     <caption>검색 조건 설정</caption>
                     <colgroup>
-                        <col style="width: 20%;">
-                        <col style="width: 30%;">
-                        <col style="width: 20%;">
-                        <col style="width: 30%;">
+                        <col style="width: 11%;">
+                        <col style="width: 22%;">
+                        <col style="width: 11%;">
+                        <col style="width: 22%;">
+                        <col style="width: 11%;">
+                        <col style="width: 22%;">
                     </colgroup>
                     <tbody>
                         <tr>
@@ -161,13 +174,28 @@
                                     ></sbux-input>
                                 </div>
                             </td>
+                            <th scope="row" class="th_bg">규격</th>
+                            <td class="td_input">
+                                <div style="display: flex;">
+                                    <sbux-select
+                                            id="gsb-slt-spcfct"
+                                            name="gsb-slt-spcfct"
+                                            uitype="single"
+                                            class="form-control input-sm"
+                                            jsondata-ref="jsonSpcfctCd"
+                                            jsondata-value="spcfctCd"
+                                            jsondata-text="text"
+                                            style="flex-basis: 70%;"
+                                    ></sbux-select>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div style="border: 1px solid #000; width: 100%; box-sizing: border-box; margin-top: 10px">
                     <div class="div_header">거래처</div>
-                    <div class="div_body" style="padding: 12px;">
+                    <div class="div_body" style="padding: 5px;">
                         <div id="cnptInfoWrap">
                             <div class="carousel_container">
                                 <div class="carousel"></div>
@@ -176,10 +204,10 @@
                     </div>
 
                     <div class="div_header">포장 등급 선택</div>
-                    <div class="div_body" style="padding: 15px;">
+                    <div class="div_body" style="padding: 5px">
                         <div id="pckgGrdInfoWrap" style="display: flex; align-items: center; justify-content: space-between;">
                             <div class="carousel_container" style="flex: 1;">
-                                <div class="carousel" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+                                <div class="carousel pckgGrd"></div>
                             </div>
 
                             <div class="control_panel">
@@ -238,6 +266,13 @@
     let selectedCnpt = null;
     /** 선택된 포장 등급 **/
     let selectedPckgGrd = null;
+    /** 거래처 Json **/
+    let jsonCnptCd = [];
+    /** 거래처별 임시 저장 obj **/
+    var gv_cnptTemp = {};
+    /** 규격 **/
+    var jsonSpcfctCd = [];
+
 
     window.addEventListener("DOMContentLoaded", function() {
         fn_init();
@@ -255,13 +290,25 @@
 
         await fn_searchCnpt();
         await fn_searchPckgGrd();
+        await gfn_setApcSpcfctsSBSelect("gsb-slt-spcfct",jsonSpcfctCd, gv_selectedApcCd, '0502');
     }
 
     /**
      * 조회 버튼 클릭 시
      */
     const fn_search = async function() {
-        const pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
+        let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
+
+        const postJsonPromise = gfn_postJSON("/am/pckg/selectPckgPrfmnc.do",{
+            apcCd:gv_selectedApcCd,
+            pckgYmd: pckgYmd,
+            cnptCd: _cnptCd});
+        const data = await postJsonPromise;
+
+        if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+        }
     }
 
     /**
@@ -272,38 +319,81 @@
             gfn_comAlert("W0005", "선택된 거래처");    // W0005    {0}이/가 없습니다.
             return;
         }
+        /** 총합계 0인 경우 **/
+        let total = $("td.pckg_grd_sum").text();
+        if(total == 0){
+            gfn_comAlert("W0005", "포장대상");
+            return;
+        }
         
         if(!gfn_comConfirm("Q0001", "송장발행")) {    // Q0001    {0} 하시겠습니까?
             return;
         }
+        let saveTarget = gv_cnptTemp[selectedCnpt];
+        let pckgYmd = SBUxMethod.get("srch-dtp-pckgYmd");
+        let spcfctCd = SBUxMethod.get("gsb-slt-spcfct");
+        let gdsInvntrVO = [];
+        let pckgPrfmncVO = [];
 
-        // const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'DO_DOC');
+        const filtered = saveTarget.filter(obj => {
+            const [key,value] = Object.entries(obj)[0];
+            if(key === 'pckg_grd_sum') return false;
+            return parseInt(value) > 0;
+        }).forEach(function(i,idx){
+            const [key,value] = Object.entries(i)[0];
+            let data = $("td." + key).data();
+            let itemCd = data.itemCd;
+            let vrtyCd = data.vrtyCd;
+            let gdsGrd = data.grdCd;
 
-        const spmtTot = document.querySelector("td.pckg_grd_sum").innerText;
-        const tdList = document.querySelectorAll("td[class^='pckg_grd_']");
+            gdsInvntrVO.push({
+                apcCd : gv_selectedApcCd,
+                bxGdsQntt : value,
+                cnptCd : selectedCnpt,
+                invntrQntt : value,
+                itemCd : itemCd,
+                vrtyCd : vrtyCd,
+                pckgYmd : pckgYmd,
+                spcfctCd : spcfctCd,
+                pckgSn : idx,
+                gdsGrd : gdsGrd,
+            });
 
-        let totInfo = [];
-
-        tdList.forEach(td => {
-            const qntt = td.innerText;
-            const itemGrdCd = td.dataset.itemGrdCd;
-
-            if(itemGrdCd) {
-                totInfo.push({
-                    itemGrdCd: itemGrdCd,
-                    qntt: qntt
-                });
-            }
+            pckgPrfmncVO.push({
+               apcCd : gv_selectedApcCd,
+               pckgQntt : value,
+               pckgSn : idx,
+               pckgYmd : pckgYmd
+            });
         });
 
-        let obj = {
-            apcCd: gv_selectedApcCd,
-            cnptCd: selectedCnpt,
-            totInfo: totInfo,
-            spmtTot: spmtTot
-        };
+        let param = {
+            pckgPrfmncVO : pckgPrfmncVO,
+            gdsInvntrVO : gdsInvntrVO,
+        }
 
-        // await gfn_popClipReport("송장", rptUrl, obj);
+        const postJsonPromise = gfn_postJSON("/am/pckg/prfmnc/insertPckgPrfmncWithSpmt", param);
+        const data = await postJsonPromise;
+
+        if (!_.isEqual("S", data.resultStatus)) {
+                gfn_comAlert(data.resultCode, data.resultMessage);
+                return;
+        }
+
+        if(data.insertedCnt > 0){
+            gfn_comAlert("I0001");
+            let jsonData = {
+                cnptCd : selectedCnpt,
+                cnptNm : jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm,
+            }
+            gv_cnptTemp[selectedCnpt].forEach(obj => {
+                Object.assign(jsonData, obj);
+            });
+            let conn = [];
+            conn.push({data:jsonData});
+            await gfn_popClipReportPost("전표", "am/dlngDoc_0641.crf", null, conn );
+        }
+
 
         fn_searchCnpt();
         fn_searchPckgGrd();
@@ -321,7 +411,11 @@
             delYn: "N"
         }, null, true);
         const data = await postJsonPromise;
+        jsonCnptCd = data.resultList;
 
+        data.resultList.forEach((item,idx) => {
+           gv_cnptTemp[item.cnptCd] = {};
+        });
         data.resultList = data.resultList.filter((item) => item.useYn === 'Y');
 
         await fn_appendButton(data, "cnptInfoWrap", "cnptNm", "cnptCd");
@@ -333,7 +427,8 @@
     const fn_searchPckgGrd = async function() {
         const postJsonPromise = gfn_postJSON("/am/cmns/selectStdGrdDtlList.do", {
             apcCd: gv_apcCd,
-            grdSeCd: '03'
+            grdSeCd: '03',
+            itemCd: '0502'
         });
         const data = await postJsonPromise;
 
@@ -361,7 +456,9 @@
 
                 btn.style.border = "1px solid #1A4B80";
                 btn.style.borderRadius = "4px";
-                btn.style.width = "130px";
+                // btn.style.width = "19vw";
+                btn.style.fontSize = "3rem";
+                btn.style.height = "8vh";
                 btn.style.padding = "10px";
                 btn.style.backgroundColor = "#FFF";
                 btn.style.color = "#000";
@@ -383,9 +480,9 @@
                 btn.className = "pckg_grd_" + (++idx);
                 btn.style.border = "1px solid #1A4B80";
                 btn.style.borderRadius = "4px";
-                btn.style.width = "130px";
-                btn.style.padding = "12px";
-                btn.style.margin = "10px";
+                // btn.style.width = "14vw";
+                btn.style.fontSize = "3rem";
+                btn.style.height = "8vh";
                 btn.style.backgroundColor = "#FFF";
                 btn.style.color = "#000";
                 btn.style.cursor = "pointer";
@@ -422,14 +519,17 @@
             const th = document.createElement("th");
             th.innerText = item.grdNm;
             th.style.textAlign = "center";
-            th.style.backgroundColor = "#D9D9D9";
+            th.style.backgroundColor = "#3c84b7";
+            th.style.color = '#FFF';
             th.style.padding = "6px";
             th.style.width = "10%";
             headerRow.appendChild(th);
 
             const td = document.createElement("td");
             td.className = "pckg_grd_" + (++idx);
-            td.dataset.itemGrdCd = item.itemGrdCd;
+            td.dataset.itemCd = item.itemCd;
+            td.dataset.vrtyCd = item.vrtyCd;
+            td.dataset.grdCd = item.grdCd;
             td.innerText = 0;
             td.style.textAlign = "center";
             td.style.backgroundColor = "#FFF";
@@ -443,12 +543,14 @@
         if(count > 0) {
             for(let i = count + 2; i < 10; i++) {
                 const emptyTh = document.createElement("th");
-                emptyTh.style.backgroundColor = "#D9D9D9";
+                emptyTh.rowSpan = 2;
+                // emptyTh.borderBttom = none;
+                // emptyTh.style.backgroundColor = "#D9D9D9";
                 headerRow.appendChild(emptyTh);
 
-                const emptyTd = document.createElement("td");
-                emptyTd.style.backgroundColor = "#FFF";
-                bodyRow.appendChild(emptyTd);
+                // const emptyTd = document.createElement("td");
+                // emptyTd.style.backgroundColor = "#FFF";
+                // bodyRow.appendChild(emptyTd);
             }
 
             const sumTh = document.createElement("th");
@@ -490,8 +592,28 @@
 
         clickedBtn.style.backgroundColor = "#FFB600";
         clickedBtn.style.color = "#FFF";
+
+        /** 기존 합계정보 초기화 **/
+        $('#sumInfoTbody td[class^="pckg_grd_"]').each(function () {
+            this.innerText = '0';
+        });
         
         selectedCnpt = clickedBtn.value;
+        let prevData = gv_cnptTemp[selectedCnpt];
+        if(prevData.length > 0){
+            prevData.forEach(function(obj){
+                const [key, value] = Object.entries(obj)[0];
+                $('#sumInfoTbody td.' + key).text(value);
+            });
+        }
+        $("#grdQntt").val(0);
+
+        /** 색상으로 포장등급 선택된 요소 trigger (이렇게하면 안됨) **/
+        const $selected = $("#pckgGrdInfoWrap button[class^='pckg_grd_']").filter(function () {
+            const color = $(this).css("color");  // 또는 background-color
+            return color === "rgb(255, 255, 255)";  // 원하는 색 비교
+        });
+        $selected[0].click();
     }
 
     /**
@@ -507,11 +629,12 @@
             b.style.color = "#000";
         });
 
-        clickedBtn.style.backgroundColor = "#000";
+        clickedBtn.style.backgroundColor = "#2c3e50";
         clickedBtn.style.color = "#FFF";
 
         selectedPckgGrd = clickedBtn.className;
         const td = document.querySelector("td." + selectedPckgGrd);
+        // const td = $("#sumInfoTbody > td." + selectedPckgGrd);
         if(td) grdQntt.value = parseInt(td.innerText) || 0;
     }
 
@@ -524,6 +647,29 @@
         grdQntt.value = val;
 
         fn_updateGrdSum();
+    }
+    /**
+     * 전체 화면 모드
+     */
+    const fn_fullScreen =function(){
+
+        if(!document.fullscreenElement){
+            if(document.documentElement.requestFullscreen){
+                document.documentElement.requestFullscreen();
+            }else if(document.documentElement.webkitRequestFullscreen){
+                document.documentElement.webkitRequestFullscreen()
+            }else if(document.documentElement.msRequestFullscreen){
+                document.documentElement.msRequestFullscreen();
+            }
+        }else{
+            if(document.exitFullscreen){
+                document.exitFullscreen();
+            }else if(document.webkitExitFullscreen){
+                document.webkitExitFullscreen();
+            }else if(document.msExitFullscreen){
+                document.msExitFullscreen();
+            }
+        }
     }
 
     /**
@@ -557,6 +703,13 @@
         });
 
         document.querySelector("td.pckg_grd_sum").innerText = sum;
+        /** 거래처별 data Temp 반영 **/
+        let prevData = $('#sumInfoTbody td[class^="pckg_grd_"]').map(function () {
+            const className = Array.from(this.classList).find(cls => cls.startsWith('pckg_grd_'));
+            return { [className]: this.textContent.trim() };
+        }).get();
+
+        gv_cnptTemp[selectedCnpt] = prevData;
     }
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>

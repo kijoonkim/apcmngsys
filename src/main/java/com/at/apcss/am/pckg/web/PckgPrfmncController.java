@@ -85,6 +85,27 @@ public class PckgPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+	@PostMapping(value = "/am/pckg/prfmnc/insertPckgPrfmncWithSpmt", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> insertPckgPrfmncWithSpmt(@RequestBody HashMap<String, Object> param, HttpServletRequest request) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		int resultCnt = 0;
+		try{
+			param.put("userId",getUserId());
+			param.put("prgrmId",getPrgrmId());
+			resultCnt = pckgPrfmncService.insertPckgPrfmncWithSpmt(param);
+		}catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_INSERTED_CNT,resultCnt);
+		return getSuccessResponseEntity(resultMap);
+	}
+
 	@PostMapping(value = "/am/pckg/prfmnc/deletePckgPrfmncSc.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
 	public ResponseEntity<HashMap<String, Object>> deletePckgPrfmncSc(@RequestBody PckgPrfmncVO pckgPrfmncVO, HttpServletRequest request) throws Exception {
 
@@ -112,4 +133,6 @@ public class PckgPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
+	
+
 }
