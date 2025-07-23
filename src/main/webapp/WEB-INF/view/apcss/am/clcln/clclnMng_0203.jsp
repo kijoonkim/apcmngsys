@@ -212,6 +212,7 @@
 
   /** 선별결과 조회 **/
   const fn_searchSortRslt = async function(){
+
     let inptYmdFrom = SBUxMethod.get("srch-dtp-sortYmd");
     let inptYmdTo = SBUxMethod.get("srch-dtp-sortYmd");
     const param = {
@@ -219,7 +220,9 @@
       inptYmdFrom: inptYmdFrom,
       inptYmdTo: inptYmdTo,
     }
+    /** grid 초기화 **/
     jsonSortRslt.length = 0;
+    gridSortRslt.refresh();
     let totalRecordCount = 0;
     try {
       const postJsonPromise = gfn_postJSON(
@@ -705,9 +708,7 @@
     const conn = [];
     conn.push(rstlData);
 
-    console.log(conn, "conn")
-
-    gfn_popClipReportPost("출하자참외선별내역서", "am/clclnMng_0203.crf",null, conn);
+    gfn_popClipReportPost("정산관리(월항농협)", "am/clclnMng_0203.crf",null, conn);
 
   }
   //endregion
