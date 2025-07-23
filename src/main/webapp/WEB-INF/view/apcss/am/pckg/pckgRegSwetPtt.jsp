@@ -325,7 +325,7 @@
             gfn_comAlert("W0005", "포장대상");
             return;
         }
-        
+
         if(!gfn_comConfirm("Q0001", "송장발행")) {    // Q0001    {0} 하시겠습니까?
             return;
         }
@@ -382,15 +382,36 @@
 
         if(data.insertedCnt > 0){
             gfn_comAlert("I0001");
+            let colGrdNm = {}
             let jsonData = {
-                cnptCd : selectedCnpt,
-                cnptNm : jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm,
+                pckgYmd     : pckgYmd,
+                cnptCd      : selectedCnpt,
+                cnptNm      : jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm,
+                cnptAddr    : jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].addr,
+                cnptTelno   : jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].telno,
             }
             gv_cnptTemp[selectedCnpt].forEach(obj => {
                 Object.assign(jsonData, obj);
+                let [key, value] = Object.entries(obj);
+                let pckgGrdNm = document.querySelector("." + key[0]).innerText;
+                colGrdNm[key[0]] = pckgGrdNm;
             });
+
+            let rstlData = {
+                "jsonData": jsonData,
+                "colGrdNm": colGrdNm
+            }
+
             let conn = [];
-            conn.push({data:jsonData});
+
+            conn.push(
+                {
+                    data: {
+                        "root": [rstlData]
+                    }
+                }
+            );
+
             await gfn_popClipReportPost("전표", "am/dlngDoc_0641.crf", null, conn );
         }
 
@@ -597,7 +618,7 @@
         $('#sumInfoTbody td[class^="pckg_grd_"]').each(function () {
             this.innerText = '0';
         });
-        
+
         selectedCnpt = clickedBtn.value;
         let prevData = gv_cnptTemp[selectedCnpt];
         if(prevData.length > 0){
