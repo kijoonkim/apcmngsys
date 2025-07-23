@@ -169,9 +169,9 @@
                 ></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked/>
                         <label for="srch-chk-autoPrint">자동출력</label>
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" checked/>
                         <label for="srch-chk-exePrint">미리보기</label>
                     </p>
                 </div>
