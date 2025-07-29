@@ -590,10 +590,10 @@
             {caption: ["농가명"], ref: 'prdcrNm', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
             {caption: ["품종"], ref: 'vrtyNm', type: "input", width: '100px', style: 'text-align: center;', disabled: true},
             {caption: ["계약"], ref: 'ctrt', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
-            {caption: ["규격"], ref: 'spcfctNm', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
-            {caption: ["파렛트"], ref: 'plt', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
-            {caption: ["미달"], ref: 'lak', type: 'input', width: '100px', style: 'text-align: center;', disabled: true},
-            {caption: ["합계"], ref: 'sum', type: 'input', width: '100px', style: 'text-align: center;', disabled: true}
+            {caption: ["규격"], ref: 'spcfctNm', type: 'input', width: '100px', style: 'text-align: center;', merge: false, disabled: true},
+            {caption: ["파렛트"], ref: 'plt', type: 'input', width: '100px', style: 'text-align: center;', merge: false, disabled: true},
+            {caption: ["미달"], ref: 'lak', type: 'input', width: '100px', style: 'text-align: center;', merge: false, disabled: true},
+            {caption: ["합계"], ref: 'sum', type: 'input', width: '100px', style: 'text-align: center;', merge: false, disabled: true}
         ];
 
         let addSortRsltGrdCol = [];
