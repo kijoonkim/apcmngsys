@@ -503,4 +503,9 @@ public class SortPrfmncServiceImpl extends BaseServiceImpl implements SortPrfmnc
 	public List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception {
 		return sortPrfmncMapper.selectGrdDsctnColList(paramMap);
 	}
+
+    @Override
+    public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception {
+        return sortPrfmncMapper.selectSortInvntrList(sortInvntr);
+    }
 }
