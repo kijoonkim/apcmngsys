@@ -132,6 +132,23 @@ public class PrdcrCrclOgnMngController extends BaseController{
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
 		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 통합조직 리스트 조회
+	@PostMapping(value = "/pd/bsm/selectUoHstryList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoHstryList(Model model, @RequestBody UoListVO uoListVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<UoListVO> resultList = new ArrayList<>();
+
+		try {
+			resultList = PrdcrCrclOgnMngService.selectUoHstryList(uoListVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
 	}
