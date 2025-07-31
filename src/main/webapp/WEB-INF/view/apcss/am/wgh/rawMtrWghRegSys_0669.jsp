@@ -122,7 +122,8 @@
 			left: 30%;
 			border: 2px solid black;
 			z-index: 9999;
-			background-color: #367fa9;
+			/*background-color: #367fa9;*/
+			background-color: #FFFFFF;
 			cursor: grab;
 		}
 	</style>
@@ -558,7 +559,7 @@
 					</div>
 				</div>
 				<div class="table-responsive tbl_scroll_sm">
-					<div id="sb-area-grdVrty" style="width:100%;height:162px;"></div>
+					<div id="sb-area-grdVrty" style="width:100%;height:187px;"></div>
 					<div id="sb-area-grdVrty2" style="width:100%;height:110px;"></div>
 				</div>
 
@@ -599,8 +600,8 @@
 		<div id="modal-overlay"></div>
 		<div id="warehouseModal">
 			<div style="display: flex; flex-direction: column; align-items: stretch;">
-				<div id="sb-area-warehouse" style=" width: 100%; height: auto; border: hidden; min-height: 200px"></div>
-				<div style="display: flex; justify-content: center; gap: 10px; margin: 10px; border: hidden; ">
+				<div id="sb-area-warehouse" style=" width: 100%; height: auto; border: none; min-height: 200px"></div>
+				<div style="display: flex; justify-content: center; gap: 10px; margin: 10px; border: none; ">
 					<sbux-button
 							id="btnCancel"
 							name="btnCancel"
@@ -988,6 +989,8 @@
       		jsonVrty.length = 0;
       		jsonWghDtlPrfmnc.length = 0;
 
+			let warehouseSeCdCol = grdVrty.getColRef("warehouseSeCd")
+
           	data.resultList.forEach((item, index) => {
 
           		let vrtyCd = item.vrtyCd
@@ -998,8 +1001,14 @@
           			let grdCdKey = "grdCd" + i;
           			let grdQnttKey = "grdQntt" + i;
           			let grdCd = item[grdCdKey];
+					let warehouseSeCdKey = "warehouseSeCd" + i;
+					let prevWrhusSeCd = grdVrty.getCellData(i, warehouseSeCdCol);
 
          			grdVrty.setCellData(i, vrtyCdCol, item[grdQnttKey], true);
+
+					if (gfn_isEmpty(prevWrhusSeCd) && !gfn_isEmpty(item[warehouseSeCdKey])) {
+						grdVrty.setCellData(i, warehouseSeCdCol, item[warehouseSeCdKey], true);
+					}
           		}
 
           		jsonWghDtlPrfmnc.push(item);
@@ -1226,7 +1235,7 @@
 	        SBGridProperties.emptyrecords = '데이터가 없습니다.';
 		    SBGridProperties.selectmode = 'free';
 		    SBGridProperties.oneclickedit = true;
-			SBGridProperties.mergecells = 'bycolrec';
+			// SBGridProperties.mergecells = 'bycolrec';
 			SBGridProperties.datamergefalseskip = true;
 
 			/** total cnt **/
@@ -1242,7 +1251,6 @@
 
 			/** 저장창고컬럼 추가 **/
 			columns.push(
-					// merge를 위한 기준컬럼
 					{caption: ["apc코드"], ref: 'apcCd', type: 'output', hidden: true},
 					{caption: ["저장창고"], ref: 'warehouseSeCd', type: 'combo', width: '100px', style: 'text-align:center', typeinfo: {ref: 'jsonComWarehouse', label: 'label', value: 'value', oneclickedit: true, displayui: true}}
 			);
@@ -1623,11 +1631,9 @@
 		let wghSnArray = [];
 
 		/** 사이즈 등급 그리드 ite **/
-		/** merge cell로 인해 첫번째 row에서 추출 **/
-		let warehouseSeCd = vrtyList[0].warehouseSeCd;
 		for (var i=1; i<=vrtyList.length; i++) {
 			let rowData = vrtyList[i-1];
-
+			let warehouseSeCd = rowData.warehouseSeCd;
 			/** 품종 ref ite **/
 			for (var j=0; j<jsonApcVrty.length; j++) {
 				let vrtyCdKey = JSON.parse(JSON.stringify(jsonApcVrty[j])).vrtyCd;
@@ -1870,8 +1876,6 @@
 					 gfn_comAlert(data.resultCode, data.resultMessage);
 				 }
 			 }
-
-
 		 } catch (e) {
 			 if (!(e instanceof Error)) {
 				 e = new Error(e);
@@ -2457,7 +2461,7 @@
 
 		for(var i=0; i<jsonGrdCd.length; i++) {
 			columns.push(
-					{caption: [jsonGrdCd[i].grdNm], ref: jsonGrdCd[i].grdCd, width: '70px', datatype : 'number',type: 'output', style:'text-align:right', format : {type:'number', rule:'###.## '}, merge: false},
+					{caption: [jsonGrdCd[i].grdNm], ref: jsonGrdCd[i].grdCd, width: '60px', datatype : 'number',type: 'output', style:'text-align:center', format : {type:'number', rule:'###.## '}, merge: false},
 			);
 		}
 
