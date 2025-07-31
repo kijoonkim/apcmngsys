@@ -582,8 +582,6 @@
 
 		}
 
-		console.log(prdcrList, "prdcrList");
-
 		if (prdcrList.length == 0){
 			gfn_comAlert("W0003", "저장");		//	W0003	{0}할 대상이 없습니다.
             return;

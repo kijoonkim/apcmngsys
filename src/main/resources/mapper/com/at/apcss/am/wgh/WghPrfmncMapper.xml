@@ -1116,18 +1116,27 @@
 			      , SUM(GRD_QNTT_1)         AS GRD_QNTT_1
 			      , MAX(GRD_WRHSNO_1)       AS GRD_WRHSNO_1
 			      , MAX(GRD_WGH_SN_1)       AS GRD_WGH_SN_1
+			      , MAX(WAREHOUSE_SE_CD_1)  AS WAREHOUSE_SE_CD_1
 			      , MAX(GRD_CD_2)           AS GRD_CD_2
 			      , SUM(GRD_QNTT_2)         AS GRD_QNTT_2
 			      , MAX(GRD_WRHSNO_2)       AS GRD_WRHSNO_2
 			      , MAX(GRD_WGH_SN_2)       AS GRD_WGH_SN_2
+			      , MAX(WAREHOUSE_SE_CD_2)  AS WAREHOUSE_SE_CD_2
 			      , MAX(GRD_CD_3)           AS GRD_CD_3
 			      , SUM(GRD_QNTT_3)         AS GRD_QNTT_3
 			      , MAX(GRD_WRHSNO_3)       AS GRD_WRHSNO_3
 			      , MAX(GRD_WGH_SN_3)       AS GRD_WGH_SN_3
+			      , MAX(WAREHOUSE_SE_CD_3)  AS WAREHOUSE_SE_CD_3
 			      , MAX(GRD_CD_4)           AS GRD_CD_4
 			      , SUM(GRD_QNTT_4)         AS GRD_QNTT_4
 			      , MAX(GRD_WRHSNO_4)       AS GRD_WRHSNO_4
 			      , MAX(GRD_WGH_SN_4)       AS GRD_WGH_SN_4
+			      , MAX(WAREHOUSE_SE_CD_4)  AS WAREHOUSE_SE_CD_4
+	 			  , MAX(GRD_CD_5)           AS GRD_CD_5
+			      , SUM(GRD_QNTT_5)         AS GRD_QNTT_5
+			      , MAX(GRD_WRHSNO_5)       AS GRD_WRHSNO_5
+			      , MAX(GRD_WGH_SN_5)       AS GRD_WGH_SN_5
+			      , MAX(WAREHOUSE_SE_CD_5)  AS WAREHOUSE_SE_CD_5
 			   FROM (
 			        SELECT X.APC_CD             AS APC_CD
 			             , X.WGHNO              AS WGHNO
@@ -1140,6 +1149,7 @@
 			             , X.VRTY_CD            AS VRTY_CD
 			             , x.FCLT_CD		    AS FCLT_CD
 			             , x.WRHS_SPMT_TYPE     AS WRHS_SPMT_TYPE
+						 , X.WAREHOUSE_SE_CD    AS WAREHOUSE_SE_CD
 			             , X.GRD_CD             AS GRD_CD
 			             , X.PLT_QNTT           AS PLT_QNTT
 			             , X.BX_QNTT            AS BX_QNTT
@@ -1157,19 +1167,27 @@
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.BX_QNTT END AS GRD_QNTT_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.WRHSNO END AS GRD_WRHSNO_1
 			             , CASE WHEN X.GRD_RANK = 1 THEN X.WGH_SN END AS GRD_WGH_SN_1
+			             , CASE WHEN X.GRD_RANK = 1 THEN X.WAREHOUSE_SE_CD END AS WAREHOUSE_SE_CD_1
 			             , CASE WHEN X.GRD_RANK = 2 THEN X.GRD_CD END AS GRD_CD_2
 			             , CASE WHEN X.GRD_RANK = 2 THEN X.BX_QNTT END AS GRD_QNTT_2
 			             , CASE WHEN X.GRD_RANK = 2 THEN X.WRHSNO END AS GRD_WRHSNO_2
 			             , CASE WHEN X.GRD_RANK = 2 THEN X.WGH_SN END AS GRD_WGH_SN_2
+			             , CASE WHEN X.GRD_RANK = 2 THEN X.WAREHOUSE_SE_CD END AS WAREHOUSE_SE_CD_2
 			             , CASE WHEN X.GRD_RANK = 3 THEN X.GRD_CD END AS GRD_CD_3
 			             , CASE WHEN X.GRD_RANK = 3 THEN X.BX_QNTT END AS GRD_QNTT_3
 			             , CASE WHEN X.GRD_RANK = 3 THEN X.WRHSNO END AS GRD_WRHSNO_3
 			             , CASE WHEN X.GRD_RANK = 3 THEN X.WGH_SN END AS GRD_WGH_SN_3
+			             , CASE WHEN X.GRD_RANK = 3 THEN X.WAREHOUSE_SE_CD END AS WAREHOUSE_SE_CD_3
 			             , CASE WHEN X.GRD_RANK = 4 THEN X.GRD_CD END AS GRD_CD_4
 			             , CASE WHEN X.GRD_RANK = 4 THEN X.BX_QNTT END AS GRD_QNTT_4
 			             , CASE WHEN X.GRD_RANK = 4 THEN X.WRHSNO END AS GRD_WRHSNO_4
 			             , CASE WHEN X.GRD_RANK = 4 THEN X.WGH_SN END AS GRD_WGH_SN_4
-
+			             , CASE WHEN X.GRD_RANK = 4 THEN X.WAREHOUSE_SE_CD END AS WAREHOUSE_SE_CD_4
+						 , CASE WHEN X.GRD_RANK = 5 THEN X.GRD_CD END AS GRD_CD_5
+			             , CASE WHEN X.GRD_RANK = 5 THEN X.BX_QNTT END AS GRD_QNTT_5
+			             , CASE WHEN X.GRD_RANK = 5 THEN X.WRHSNO END AS GRD_WRHSNO_5
+			             , CASE WHEN X.GRD_RANK = 5 THEN X.WGH_SN END AS GRD_WGH_SN_5
+			             , CASE WHEN X.GRD_RANK = 5 THEN X.WAREHOUSE_SE_CD END AS WAREHOUSE_SE_CD_5
 			          FROM (
 			                SELECT WC.APC_CD
 			                     , WC.WGHNO
@@ -1187,6 +1205,7 @@
 			                     , WD.BX_QNTT
 			                     , INV.ITEM_CD
 			                     , INV.VRTY_CD
+			                     , INV.WAREHOUSE_SE_CD
 			                     , SG.GRD_RANK
 			                     , WP.PLTNO
                                  , WC.SHPGOT_QNTT
