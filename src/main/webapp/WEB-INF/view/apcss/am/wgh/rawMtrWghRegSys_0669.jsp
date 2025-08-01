@@ -1587,21 +1587,14 @@
 		let grdList = grdInsp.getGridDataAll();
 
 		/** 저장대상 없음 **/
+		// const even = (el) => Object.keys(el).filter(key => key !== 'warehouseSeCd').length > 1;
 		const even = (el) => Object.keys(el).length > 1;
 
-		console.log(grdList, "grdList")
-		console.log(even, "even")
-
-		if(grdList.length <= 0){
+		// console.log(vrtyList.some(even), "even")
+		if(!vrtyList.some(even)){
 			gfn_comAlert("W0002","실적 대상");
 			return;
 		}
-
-		// 저장창고 컬럼 추가로 해당 부분은 일단 주석처리
-		// if(!vrtyList.some(even)){
-		// 	gfn_comAlert("W0002","실적 대상");
-		// 	return;
-		// }
 
 		/** 검품등급 셋팅 **/
 		 const result = {};
