@@ -783,7 +783,7 @@
 		//fn_reset();
 		await fn_createWghPrfmncGrid();
 		/** 저장창고 select **/
-		await fn_createWarehouseGrid();
+		// await fn_createWarehouseGrid();
 		await fn_initSBSelect();
 		await fn_getPrdcrs();
 		/** 팔레트 박스 select **/
@@ -1085,7 +1085,7 @@
 			});
 		});
 		grdPltBox.rebuild();
-		grdWarehouse.rebuild();
+		// grdWarehouse.rebuild();
 
 		/** 계량이력 시간 **/
 		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
@@ -1306,7 +1306,7 @@
 
 			/** 저장창고 grid refresh*/
 			// console.log(jsonGrdCd, "jsonGrdCd");
-			await fn_createWarehouseGrid();
+			// await fn_createWarehouseGrid();
 		}
 
 	}
@@ -1589,10 +1589,19 @@
 		/** 저장대상 없음 **/
 		const even = (el) => Object.keys(el).length > 1;
 
-		if(!vrtyList.some(even)){
+		console.log(grdList, "grdList")
+		console.log(even, "even")
+
+		if(grdList.length <= 0){
 			gfn_comAlert("W0002","실적 대상");
 			return;
 		}
+
+		// 저장창고 컬럼 추가로 해당 부분은 일단 주석처리
+		// if(!vrtyList.some(even)){
+		// 	gfn_comAlert("W0002","실적 대상");
+		// 	return;
+		// }
 
 		/** 검품등급 셋팅 **/
 		 const result = {};
@@ -1807,6 +1816,8 @@
 			vo.wghSeq = idx;
 			wghHstryList.push(vo);
 		});
+
+		console.log(multiList.length, "multiList.length")
 
 		/** 저장창고 select **/
 		await fn_warehouseModal();
