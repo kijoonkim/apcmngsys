@@ -782,14 +782,14 @@
 	const fn_init = async function() {
 		//fn_reset();
 		await fn_createWghPrfmncGrid();
+		/** 저장창고 select **/
+		await fn_createWarehouseGrid();
 		await fn_initSBSelect();
 		await fn_getPrdcrs();
 		/** 팔레트 박스 select **/
 		await fn_createPltBxGrid();
 		await fn_selectPltBxList();
 		await fn_modalDrag();
-		/** 저장창고 select **/
-		await fn_createWarehouseGrid();
 		/** cookie Set **/
 		let addr = gfn_getCookie('addr');
 		let itemCd = gfn_getCookie('itemCd');
@@ -1085,6 +1085,7 @@
 			});
 		});
 		grdPltBox.rebuild();
+		grdWarehouse.rebuild();
 
 		/** 계량이력 시간 **/
 		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
@@ -1302,6 +1303,10 @@
 			grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
 			jsonInspCd.forEach(item => grdInsp.addRow(true, {'grdCd' : item.grdCd}));
 			grdInsp.refresh();
+
+			/** 저장창고 grid refresh*/
+			// console.log(jsonGrdCd, "jsonGrdCd");
+			await fn_createWarehouseGrid();
 		}
 
 	}
@@ -1840,7 +1845,10 @@
 		/** modal grid size **/
 		$("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
 
-		grdWarehouse.rebuild();
+		// console.log(jsonGrdCd, "jsonGrdCd");
+		// grdWarehouse.rebuild();
+		await fn_createWarehouseGrid();
+
 		// return;
 		const btnSetWarehouse = document.getElementById('btnSetWarehouse');
 		const btnCancel = document.getElementById('btnCancel');
