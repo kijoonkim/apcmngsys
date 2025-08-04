@@ -1,14 +1,9 @@
 package com.at.apcss.am.sort.service;
 
+import com.at.apcss.am.sort.vo.*;
+
 import java.util.HashMap;
 import java.util.List;
-
-import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortBffaList;
-import com.at.apcss.am.sort.vo.SortBffaVO;
-import com.at.apcss.am.sort.vo.SortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
 
 /**
  * 선별실적 Service 인터페이스
@@ -287,4 +282,12 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<HashMap> selectGrdDsctnColList(HashMap<String, Object> paramMap) throws Exception;
+
+    /**
+     * 선별내역 조회
+     * @param sortInvntr
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortInvntrList(HashMap<String, Object> sortInvntr) throws Exception;
 }
