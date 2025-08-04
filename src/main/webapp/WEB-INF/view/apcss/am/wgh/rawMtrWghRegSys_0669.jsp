@@ -782,8 +782,6 @@
 	const fn_init = async function() {
 		//fn_reset();
 		await fn_createWghPrfmncGrid();
-		/** 저장창고 select **/
-		// await fn_createWarehouseGrid();
 		await fn_initSBSelect();
 		await fn_getPrdcrs();
 		/** 팔레트 박스 select **/
@@ -968,7 +966,14 @@
  		SBUxMethod.set('dtl-inp-shpgotPltQntt', rowData.shpgotPltQntt || "");
  		SBUxMethod.set('dtl-inp-oprtrNm', rowData.oprtrNm || "");
 
-		fn_onSelectPrdcrNm(rowData.prdcrCd);
+		/** 생산자 정보, 기사정보 set */
+		await fn_onSelectPrdcrNm(rowData.prdcrCd);
+		await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, rowData.vhclno);
+		SBUxMethod.openModal('modal-vhcl');
+		if(grdVhclPop.getRows() == 2){
+			grdVhclPop.setRow(1);
+			popVhcl.choice();
+		}
 
  		if (wrhsSpmtType == "RT") {
  			url = "/am/wgh/selectWghRcptWrhsDtlList.do"
@@ -1002,11 +1007,11 @@
           			let grdQnttKey = "grdQntt" + i;
           			let grdCd = item[grdCdKey];
 					let warehouseSeCdKey = "warehouseSeCd" + i;
-					let prevWrhusSeCd = grdVrty.getCellData(i, warehouseSeCdCol);
+					let prevWarehouseSeCd = grdVrty.getCellData(i, warehouseSeCdCol);
 
          			grdVrty.setCellData(i, vrtyCdCol, item[grdQnttKey], true);
 
-					if (gfn_isEmpty(prevWrhusSeCd) && !gfn_isEmpty(item[warehouseSeCdKey])) {
+					if (gfn_isEmpty(prevWarehouseSeCd) && !gfn_isEmpty(item[warehouseSeCdKey])) {
 						grdVrty.setCellData(i, warehouseSeCdCol, item[warehouseSeCdKey], true);
 					}
           		}
@@ -1085,7 +1090,6 @@
 			});
 		});
 		grdPltBox.rebuild();
-		// grdWarehouse.rebuild();
 
 		/** 계량이력 시간 **/
 		const postJsonPromiseHstry = gfn_postJSON("/am/wgh/selectWghHstryList.do",{apcCd : gv_selectedApcCd, wghno : rowData.wghno});
@@ -1303,10 +1307,6 @@
 			grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
 			jsonInspCd.forEach(item => grdInsp.addRow(true, {'grdCd' : item.grdCd}));
 			grdInsp.refresh();
-
-			/** 저장창고 grid refresh*/
-			// console.log(jsonGrdCd, "jsonGrdCd");
-			// await fn_createWarehouseGrid();
 		}
 
 	}
@@ -1587,10 +1587,9 @@
 		let grdList = grdInsp.getGridDataAll();
 
 		/** 저장대상 없음 **/
-		// const even = (el) => Object.keys(el).filter(key => key !== 'warehouseSeCd').length > 1;
-		const even = (el) => Object.keys(el).length > 1;
-
-		// console.log(vrtyList.some(even), "even")
+		// const even = (el) => Object.keys(el).length > 1;
+		// 저장창고 컬럼 추가 후 조건 수정
+		const even = (el) => jsonApcVrty.some(vrty => el[vrty.vrtyCd]);
 		if(!vrtyList.some(even)){
 			gfn_comAlert("W0002","실적 대상");
 			return;
@@ -1674,7 +1673,7 @@
 					wghPrfmncVO.groupId = 1;
 					wghPrfmncVO.rowSts = 'U';
 
-					for (var k=1; k<=4; k++) {
+					for (var k=1; k<=jsonGrdCd.length; k++) {
 						let dtlGrdCdKey = 'grdCd' + k;
 						let dtlGrdWghSnKey = 'grdWghSn' + k;
 						let dtlGrdWrhsnoKey = 'grdWrhsno' + k;
@@ -1721,7 +1720,9 @@
 		let pltWrhsSpmt = [];
 		let pltGrd = grdPltBox.getGridDataAll();
 		/** merge cell로 인해 첫번째 row에서 추출 **/
-		let pltRmrk = pltGrd[0].rmrk;	// 입고,출고지
+		let wrhsPltRmrk = pltGrd.filter(item => item.type === '입고' && item.hasOwnProperty("rmrk"))[0].rmrk;	// 입고
+		let spmtPltRmrk = pltGrd.filter(item => item.type === '출고' && item.hasOwnProperty("rmrk"))[0].rmrk;	// 출고
+
 		pltGrd = pltGrd.filter(item => (item.Bqntt > 0 || item.Pqntt > 0) && !item.hasOwnProperty("subtotal"));
 		pltGrd.forEach(function(item){
 			if(item.Bqntt > 0){
@@ -1734,7 +1735,7 @@
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Bqntt),
 					sn : item.Bsn,
-					rmrk: pltRmrk
+					rmrk: item.type === '입고'? wrhsPltRmrk : spmtPltRmrk
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1747,7 +1748,7 @@
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Pqntt),
 					sn : item.Psn,
-					rmrk: pltRmrk
+					rmrk: item.type === '입고'? wrhsPltRmrk : spmtPltRmrk
 				})
 			}
 		});
@@ -1810,11 +1811,8 @@
 			wghHstryList.push(vo);
 		});
 
-		console.log(multiList.length, "multiList.length")
-
 		/** 저장창고 select **/
 		await fn_warehouseModal();
-		let warehouseJson = [];
 
 		/** jsonApcVrty 기준에 맞춰 정렬 **/
 		// vrtyCd 순서를 매핑하는 Map 생성
@@ -1830,27 +1828,18 @@
 			return indexA - indexB;
 		})
 
-		multiList.forEach(function(item,idx){
-			let vrtyNm = jsonApcVrty.filter(i => i.cmnsCd === item.vrtyCd)[0].vrtyNm;
-			let warehouseVO =item;
-			/*warehouseVO = {
-				vrtyCd: item.vrtyCd,
+		jsonWarehouse = multiList.map(item => {
+			const vrtyNm = jsonApcVrty.find(i => i.vrtyCd === item.vrtyCd)?.vrtyNm || '';
+			return {
+				...item,
 				vrtyNm: vrtyNm,
-				warehouseSeCd: item.warehouseSeCd
-			};*/
-
-			warehouseVO['vrtyNm'] = vrtyNm;
-			warehouseVO[item.grdCd] = item.bxQntt;
-			warehouseJson.push(warehouseVO);
+				[item.grdCd]: item.bxQntt
+			}
 		});
-
-		jsonWarehouse = warehouseJson;
 
 		/** modal grid size **/
 		$("#sb-area-warehouse").css("height",(multiList.length * 25) + 30 + 'px');
 
-		// console.log(jsonGrdCd, "jsonGrdCd");
-		// grdWarehouse.rebuild();
 		await fn_createWarehouseGrid();
 
 		// return;
@@ -1865,7 +1854,7 @@
 			}
 			let setWarehouseCd = grdWarehouse.getGridDataAll();
 
-			 multiList.forEach(function(item,idx){
+			 multiList.forEach(function(item, idx){
 				 item.warehouseSeCd = setWarehouseCd[idx].warehouseSeCd;
 			 });
 
@@ -2093,7 +2082,7 @@
 		if (!gfn_isEmpty(prdcr.trsprtSeCd)) {	// 운송구분
 			SBUxMethod.set("dtl-rdo-trsprtSeCd", prdcr.trsprtSeCd);
 		}
-		if (!gfn_isEmpty(prdcr.vhclno)) {	// 차량번호
+		if (!gfn_isEmpty(prdcr.vhclno) && gfn_isEmpty(SBUxMethod.get("dtl-inp-vhclno"))) {	// 차량번호
 			SBUxMethod.set("dtl-inp-vhclno", prdcr.vhclno);
 			await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, prdcr.vhclno);
 			SBUxMethod.openModal('modal-vhcl');
@@ -2428,8 +2417,6 @@
 
 		jsonVrty = [...initJson];
 		grdVrty.rebuild();
-		// jsonVrty = jsonGrdCd.map((item) => ({'grdCd' : item.grdCd}));
-		// grdVrty.rebuild();
 	}
 
 	/**
