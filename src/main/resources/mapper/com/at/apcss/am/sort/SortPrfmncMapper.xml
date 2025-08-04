@@ -4014,4 +4014,56 @@
 		AND
 			GD.DEL_YN = 'N'
 	</select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortInvntrList  	-->
+    <!-- DESC : 선별내역 조회	                                            -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.07.24  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSortInvntrList" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                  SI.APC_CD AS APC_CD
+                , SI.SORTNO AS SORTNO
+                , SI.FCLT_CD AS FCLT_CD
+                , SI.INPT_YMD AS INPT_YMD
+                , SI.RPRS_PRDCR_CD AS PRDCR_CD
+                , (SELECT FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) AS PRDCR_NM
+                , SI.ITEM_CD AS ITEM_CD
+	            , (SELECT FN_GET_ITEM_NM(SI.ITEM_CD, SI.APC_CD) FROM DUAL) AS ITEM_NM
+                , SI.VRTY_CD AS VRTY_CD
+                , (SELECT FN_GET_VRTY_NM(SI.ITEM_CD, SI.VRTY_CD, SI.APC_CD) FROM DUAL) AS VRTY_NM
+                , SI.GRD_CD AS GRD_CD
+                , SI.SPCFCT_CD AS SPCFCT_CD
+                , SI.SORT_QNTT AS SORT_QNTT
+                , SI.SORT_WGHT AS SORT_WGHT
+                , SI.RMRK AS RMRK
+            FROM TB_SORT_INVNTR SI
+            WHERE SI.DEL_YN = 'N'
+        ]]>
+        <if test='apcCd != null and apcCd !=""'>
+            AND SI.APC_CD = #{apcCd}
+        </if>
+        <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
+            AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+        </if>
+        <if test='prdcrCd != null and prdcrCd  !=""'>
+            AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+            AND SI.ITEM_CD = #{itemCd}
+        </if>
+        <![CDATA[
+            ORDER BY
+                  SI.APC_CD
+                , SI.FCLT_CD
+                , SI.INPT_YMD
+                , SI.RPRS_PRDCR_CD
+                , SI.ITEM_CD
+                , SI.GRD_CD
+	    ]]>
+    </select>
 </mapper>
