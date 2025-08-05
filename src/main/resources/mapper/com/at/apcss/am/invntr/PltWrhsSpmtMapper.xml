@@ -197,7 +197,8 @@
 				)
 		WHEN MATCHED THEN
 			UPDATE SET
-				QNTT = source.QNTT
+				QNTT = source.QNTT,
+		    	RMRK = source.RMRK
 		WHEN NOT MATCHED THEN
 			INSERT
 	    		(

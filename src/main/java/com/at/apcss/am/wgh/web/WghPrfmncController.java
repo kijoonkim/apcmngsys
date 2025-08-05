@@ -560,6 +560,7 @@ public class WghPrfmncController extends BaseController {
 		Object wghPrfmncListData = param.get("multiList");
 		Object pltWrhsSpmtVOData = param.get("pltWrhsSpmt");
 		Object wghHstryListData = param.get("wghHstryList");
+		Object inspDelListData = param.get("inspDelList");
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -577,6 +578,11 @@ public class WghPrfmncController extends BaseController {
 		List<WghHstryVO> wghHstryVOList = objectMapper.convertValue(
 				wghHstryListData,
 				new TypeReference<List<WghHstryVO>>() {
+				}
+		);
+		List<WghInspPrfmncVO> wghInspPrfmncVOList = objectMapper.convertValue(
+				inspDelListData,
+				new TypeReference<List<WghInspPrfmncVO>>() {
 				}
 		);
 
@@ -608,7 +614,7 @@ public class WghPrfmncController extends BaseController {
 				wghHstryVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
-			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList, pltWrhsSpmtList, wghHstryVOList);
+			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList, pltWrhsSpmtList, wghHstryVOList, wghInspPrfmncVOList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);
 			}
