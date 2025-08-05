@@ -2946,6 +2946,7 @@
 				AND PS.BRNO = ITEM.BRNO
 				/* AND PS.UO_BRNO IN ('0', ITEM.UO_BRNO) */
 				AND PS.YR = ITEM.YR
+				AND PS.ITEM_CD = ITEM.ITEM_CD
 				AND PS.PRCHS_SLS_SE = #{prchsSlsSe}
 				AND PS.DEL_YN = 'N'
 			</when>
