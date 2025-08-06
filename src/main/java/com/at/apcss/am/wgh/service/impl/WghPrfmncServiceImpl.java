@@ -593,11 +593,20 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList) throws Exception {
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList, List<WghInspPrfmncVO> wghInspPrfmncVOList) throws Exception {
 		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
 		if(rtnObj != null){
 			throw new EgovBizException();
 		}
+
+		/** 검품등급 삭제 **/
+		if(wghInspPrfmncVOList.size() > 0){
+			int delCnt = wghPrfmncMapper.deleteWghInspPrfmncList(wghInspPrfmncVOList);
+			if(delCnt != wghInspPrfmncVOList.size()){
+				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
+			}
+		}
+
 		String prcsNo = wghPrfmncList.get(0).getWghno();
 		if(pltWrhsSpmtList.size() > 0){
 			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
