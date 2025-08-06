@@ -169,19 +169,19 @@
                             <sbux-button
                                 id="btn-srch-type"
                                 name="btn-srch-type"
-                                class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btnCmndDocPckg btn-sm btn-primary"
+								class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btn-srch-apcLinkPop btn-sm btn-outline-danger"
                                 text="고당당도"
                                 uitype="normal"
-                                style="position: absolute; top: -31px; left: 315px;"
+                                style="position: absolute; top: -31px; left: 208px;"
                                 onclick="fn_toggleGridType"
                             ></sbux-button>
 							<sbux-button
 									id="btn-srch-typePrint"
 									name="btn-srch-typePrint"
-									class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btn-srch-apcLinkPop btn-sm btn-outline-danger"
+									class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btnCmndDocPckg btn-sm btn-primary"
 									text="출력"
 									uitype="normal"
-									style="position: absolute; top: -31px; left: 390px;"
+									style="position: absolute; top: -31px; left: 275px;"
 									onclick="fn_typePrint"
 									disabled
 							></sbux-button>
@@ -194,6 +194,8 @@
 			</div>
 		</div>
 	</section>
+<%--	<sbux-progress id="idxProg" name="progNm" uitype="loading" show-openlayer="true">--%>
+<%--	</sbux-progress>--%>
 	<!-- 사용자 선택 Modal -->
     <div>
         <sbux-modal id="modal-prdcr" name="modal-prdcr" uitype="middle" header-title="생산자 선택" body-html-id="body-modal-prdcr" header-is-close-button="false" footer-is-close-button="false" style="width:1000px"></sbux-modal>
@@ -448,7 +450,7 @@
 
 
 
-		if(gv_apcCd === "0203"){
+		if(gv_selectedApcCd === "0203" || gv_selectedApcCd === "0582"){
 			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
 		}else if(gv_selectedApcCd === '0182'){
 			SBUxMethod.hideTab('idxTab_norm','grdSortBffaTab');
@@ -1699,6 +1701,7 @@
 	}
 
 	const fn_initLuckySheet = async function(){
+		SBUxMethod.openProgress(gv_loadingOptions);
 		fetch('/doc/report2.xlsx')
 				.then(res => res.blob())
 				.then(blob => {
@@ -1891,7 +1894,10 @@
 
 											/** export Excel**/
 											// fn_downloadExcelWithStyleAndFormula_XPop();
-											fn_downloadExcelWithStyleAndFormula_ExcelJS();
+
+											fn_downloadExcelWithStyleAndFormula_ExcelJS().then(() => {
+												SBUxMethod.closeProgress(gv_loadingOptions);
+											});
 										},
 										sheetActivate: function (sheetIndex) {
 											// const sheetId = luckysheet.getAllSheets()[sheetIndex].id;
