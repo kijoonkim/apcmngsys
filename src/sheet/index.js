@@ -1,50 +1,29 @@
-import $ from 'jquery';
-window.$ = $;
-window.jQuery = $;
+// jQuery는 externals 처리됨
+import 'jquery-mousewheel';
+import 'malihu-custom-scrollbar-plugin';
 
-document.addEventListener("DOMContentLoaded", () => {
-    window.luckysheet.create({
-        container: "luckysheet",
-        lang: "en", // 공식적 ko 미지원 (수동 해킹해야 가능)
-        showinfobar: false,
-        showtoolbar: false,
-        showsheetbar: false,
-        showstatisticBar: false,
-        data: [{
-            name: "작업일지",
-            config: {
-                merge: {
-                    "0": { r: 0, c: 0, rs: 1, cs: 18 }
-                },
-                rowlen: { 0: 40 },
-                borderInfo: [{
-                    rangeType: "range",
-                    borderType: "all",
-                    style: 1,
-                    color: "#000000",
-                    range: [{ row: 2, column: 0, rowIndex: 25, columnIndex: 17 }]
-                }]
-            },
-            celldata: [
-                { r: 0, c: 0, v: { v: "2025년 공동선별작업일지(A동)", fs: 16, bl: 1, ht: 1, vt: 1 } },
-                { r: 1, c: 0, v: { v: "일자 :", bl: 1 } },
-                { r: 1, c: 1, v: { v: "2025년 07월 03일" } },
-                { r: 2, c: 0, v: { v: "생산자", bl: 1 } },
-                { r: 2, c: 1, v: { v: "가로적", bl: 1 } },
-                { r: 2, c: 2, v: { v: "적특상", bl: 1 } },
-                { r: 2, c: 3, v: { v: "성특상", bl: 1 } },
-                { r: 2, c: 4, v: { v: "특상", bl: 1 } },
-                { r: 2, c: 5, v: { v: "정특", bl: 1 } },
-                { r: 2, c: 6, v: { v: "검특", bl: 1 } },
-                { r: 2, c: 7, v: { v: "청상", bl: 1 } },
-                { r: 2, c: 8, v: { v: "검상", bl: 1 } },
-                { r: 2, c: 9, v: { v: "상(곡과)", bl: 1 } },
-                { r: 2, c:10, v: { v: "중", bl: 1 } },
-                { r: 2, c:11, v: { v: "중(곡과)", bl: 1 } },
-                { r: 2, c:12, v: { v: "하", bl: 1 } },
-                { r: 2, c:13, v: { v: "하(곡과)", bl: 1 } },
-                { r: 2, c:14, v: { v: "총계", bl: 1 } },
-            ]
-        }]
-    });
-});
+// luckysheet 기본/플러그인 스타일
+import 'luckysheet/dist/css/luckysheet.css';
+import 'luckysheet/dist/plugins/css/pluginsCss.css';
+
+// luckysheet 플러그인 스크립트
+import 'luckysheet/dist/plugins/js/plugin.js';
+
+// luckysheet 본체 UMD 번들
+import luckysheet from 'luckysheet';
+window.luckysheet = luckysheet;
+import LuckyExcel from 'luckyexcel';
+window.LuckyExcel = LuckyExcel;
+
+import XlsxPopulate from 'xlsx-populate/browser/xlsx-populate.js';
+
+import * as XLSX from 'xlsx-js-style';
+import { saveAs } from 'file-saver';
+window.XLSX = XLSX;
+window.saveAs = saveAs;
+window.XlsxPopulate = XlsxPopulate;
+import ExcelJS from "exceljs";
+
+window.ExcelJS = ExcelJS;
+
+// ⚠️ 실제 실행은 JSP에서 (이 index.js는 setup만 담당)

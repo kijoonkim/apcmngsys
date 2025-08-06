@@ -1957,9 +1957,15 @@
 	   		<if test='apcCd != null and apcCd !=""'>
 	      	       AND X.APC_CD = #{apcCd}
 			</if>
-			 <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
-	             	   AND X.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
-			 </if>
+		<if test="inptYmd != null and inptYmd != ''">
+			AND X.INPT_YMD = #{inptYmd}
+		</if>
+		<if test="inptYmdFrom != null and inptYmdFrom != ''">
+			AND X.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test="inptYmdTo != null and inptYmdTo != ''">
+			AND X.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
 			 <if test='prdcrCd != null and prdcrCd  !=""'>
 	      	       AND X.RPRS_PRDCR_CD = #{prdcrCd}
 			</if>
@@ -4047,9 +4053,15 @@
         <if test='apcCd != null and apcCd !=""'>
             AND SI.APC_CD = #{apcCd}
         </if>
-        <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
-            AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
-        </if>
+		<if test="inptYmd != null and inptYmd != ''">
+			AND SI.INPT_YMD = #{inptYmd}
+		</if>
+		<if test="inptYmdFrom != null and inptYmdFrom != ''">
+			AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test="inptYmdTo != null and inptYmdTo != ''">
+			AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
         <if test='prdcrCd != null and prdcrCd  !=""'>
             AND SI.RPRS_PRDCR_CD = #{prdcrCd}
         </if>
