@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@
 					<sbux-button
                             id="btn-srch-apcLinkPop"
                             name="btn-srch-apcLinkPop"
-                            class="btn btn-sm btn-outline-danger"
+                            class="btn-sm btn-outline-danger"
                             text="연계요청"
                             uitype="modal"
                             target-id="modal-apcLinkPop"
@@ -44,7 +45,7 @@
 						id="btnSearch"
 						name="btnSearch"
 						uitype="normal"
-						class="btn btn-sm btn-outline-danger"
+						class="btn-sm btn-outline-danger"
 						onclick="fn_search"
 						text="조회"
 					></sbux-button>
@@ -128,7 +129,7 @@
 								<sbux-button
 									id="btn-srch-prdcr"
 									name="btn-srch-prdcr"
-									class="btn btn-xs btn-outline-dark"
+									class="btn-xs btn-outline-dark"
 									text="찾기" uitype="modal"
 									target-id="modal-prdcr"
 									onclick="fn_choicePrdcr"
@@ -157,6 +158,7 @@
                         uitype="normal"
                         is-scrollable="false"
                         jsondata-ref="tabJsonData"
+						callback-after-select="fn_selectTab"
                     ></sbux-tabs>
                     <div class="tab-content" style="overflow: initial !important;">
                         <div id="exhstDsctnTab">
@@ -167,12 +169,22 @@
                             <sbux-button
                                 id="btn-srch-type"
                                 name="btn-srch-type"
-                                class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btnCmndDocPckg btn btn-sm btn-primary"
+                                class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btnCmndDocPckg btn-sm btn-primary"
                                 text="고당당도"
                                 uitype="normal"
                                 style="position: absolute; top: -31px; left: 315px;"
                                 onclick="fn_toggleGridType"
                             ></sbux-button>
+							<sbux-button
+									id="btn-srch-typePrint"
+									name="btn-srch-typePrint"
+									class="sbux-btn sbux-exist sbux-comp-root sbux-uuid-btn-srch-apcLinkPop btn-sm btn-outline-danger"
+									text="출력"
+									uitype="normal"
+									style="position: absolute; top: -31px; left: 390px;"
+									onclick="fn_typePrint"
+									disabled
+							></sbux-button>
                         </div>
                         <div id="grdSortBffaTab">
                             <div id="sb-area-sortBffa" style="height: 470px;"></div>
@@ -213,10 +225,11 @@
 	<div id="body-modal-regSort">
     	<jsp:include page="../../am/popup/regSortBffa.jsp"></jsp:include>
 	</div>
+	<div id="luckysheet" style="position: fixed;height: 100%;width: 100%; z-index: 10000;"></div>
 
 
 </body>
-
+<script src="${ctx}/js/out/sheet.bundle.js"></script>
 <script type="text/javascript">
 
 	let lv_interval = 3 * 60 * 1000;
@@ -232,6 +245,18 @@
 	let currApcLink;
 
     let gridToggle = false;
+	/** 등급별 집계 select **/
+	function fn_selectTab (){
+		let tab = SBUxMethod.get("idxTab_norm");
+		if(tab === 'grdDsctnTab'){
+			SBUxMethod.hide('srch-dtp-inptYmdTo');
+		}else{
+			SBUxMethod.show('srch-dtp-inptYmdTo');
+		}
+	}
+
+	/** excel 함수 수식 **/
+	let excelFx = [51,51,66,76,86,106,121,150,150];
 
     /**
      * @name fn_getApcLink
@@ -689,9 +714,11 @@
     const fn_toggleGridType = function() {
         if(gridToggle) {
             fn_createGrdDsctn();
+			SBUxMethod.attr('btn-srch-typePrint', 'disabled', 'true');
             gridToggle = false;
         } else {
             fn_createHghSwt();
+			SBUxMethod.attr('btn-srch-typePrint', 'disabled', 'false');
             gridToggle = true;
         }
     }
@@ -866,14 +893,19 @@
         let inptYmdTo = SBUxMethod.get("srch-dtp-inptYmdTo");
         let itemCd = SBUxMethod.get("srch-slt-itemCd");
         let prdcrCd = SBUxMethod.get('srch-inp-prdcrCd');
+		const param = {
+			apcCd: gv_selectedApcCd,
+			inptYmdFrom: inptYmdFrom,
+			inptYmdTo: inptYmdTo,
+			prdcrCd: prdcrCd,
+			itemCd: itemCd
+		}
+		if(SBUxMethod.isHide("srch-dtp-inptYmdTo")){
+			delete param.inptYmdFrom;
+			delete param.inptYmdTo;
+			param.inptYmd = inptYmdFrom;
+		}
 
-        const param = {
-            apcCd: gv_selectedApcCd,
-            inptYmdFrom: inptYmdFrom,
-            inptYmdTo: inptYmdTo,
-            prdcrCd: prdcrCd,
-            itemCd: itemCd
-        }
 
         jsonGrdDsctn.length = 0;
 
@@ -1494,6 +1526,11 @@
             prdcrCd: prdcrCd,
             itemCd: itemCd
         }
+		if(SBUxMethod.isHide("srch-dtp-inptYmdTo")){
+			delete param.inptYmdFrom;
+			delete param.inptYmdTo;
+			param.inptYmd = inptYmdFrom;
+		}
 
         jsonHghSwtColumnData.length = 0;
 
@@ -1654,8 +1691,578 @@
 		SBUxMethod.closeProgress(options);
 	};
 
+	/** 고당당도 해당 템플릿으로 출력 **/
+	const fn_typePrint = async function(){
+
+		await fn_initLuckySheet();
+
+	}
+
+	const fn_initLuckySheet = async function(){
+		fetch('/doc/report2.xlsx')
+				.then(res => res.blob())
+				.then(blob => {
+					// blob 을 File 객체로 래핑 (LuckyExcel.transformExcelToLucky은 File 인터페이스를 기대)
+					const file = new File([blob], 'data.xlsx', {type: blob.type});
+
+					LuckyExcel.transformExcelToLucky(
+							file,
+							(exportJson, luckysheetfile) => {
+								if (exportJson && exportJson.sheets && Array.isArray(exportJson.sheets)) {
+									exportJson.sheets.forEach(function(sheetData, index) {
+										// 시트에 id가 없거나 유효하지 않으면 새로운 ID를 할당합니다.
+										// 'sheet_0', 'sheet_1' 등으로 간단하게 할당합니다.
+										if (!sheetData.id || typeof sheetData.id !== 'string') {
+											sheetData.id = 'sheet_' + index + '_' + Date.now(); // 고유성을 위해 타임스탬프 추가
+										}
+									});
+								}
+
+								/** 50줄 제한 **/
+								const maxRow = 200;
+								exportJson.sheets = exportJson.sheets.map(sheet => {
+									// celldata 줄이기
+									if (sheet.celldata) {
+										sheet.celldata = sheet.celldata.filter(cell => cell.r < maxRow);
+									}
+
+									// row 수 강제 고정
+									sheet.row = maxRow;
+
+									// config 안에 row 관련 옵션 줄이기
+									if (sheet.config) {
+										if (sheet.config.rowlen) {
+											Object.keys(sheet.config.rowlen).forEach(k => {
+												if (parseInt(k) >= maxRow) delete sheet.config.rowlen[k];
+											});
+										}
+										if (sheet.config.customHeight) {
+											Object.keys(sheet.config.customHeight).forEach(k => {
+												if (parseInt(k) >= maxRow) delete sheet.config.customHeight[k];
+											});
+										}
+										if (sheet.config.rowhidden) {
+											Object.keys(sheet.config.rowhidden).forEach(k => {
+												if (parseInt(k) >= maxRow) delete sheet.config.rowhidden[k];
+											});
+										}
+									}
+
+									return sheet;
+								});
+
+								luckysheet.create({
+									container: 'luckysheet',
+									data: exportJson.sheets,
+									title: exportJson.info.name,
+									userInfo: exportJson.info.creator,
+									showinfobar: false,
+									showtoolbar: false,
+									showstatisticBar: false,
+									hook: {
+										// 워크북 전체(모든 시트)가 초기화된 직후에 호출됩니다
+										workbookCreateAfter: function () {
+											/** 문서일자 **/
+											let date = SBUxMethod.get("srch-dtp-inptYmdFrom");
+											const year = Number(date.slice(0, 4));
+											const month = Number(date.slice(4, 6)) - 1; // JS의 월은 0부터 시작
+											const day = Number(date.slice(6, 8));
+
+											luckysheet.setCellValue(1, 0, {
+												v: new Date(year, month, day).getTime(),
+												m: `${'${year}'}년 ${'${month + 1}'}월 ${'${day}'}일`,
+												ct: {
+													t: 'd',
+													fa: 'yyyy"년" mm"월" dd"일"',
+													s: 'yyyy-mm-dd',
+												}
+											});
+											/** caption 부분 **/
+											let captions = grdGrdDsctn.getCaption().split('^');
+											let headerRow = 3;
+											/** 실제 데이터 영역 갯수 **/
+											const regex = /\d[\d,\.]*\s*(kg)/i;
+											let dataCol = captions.filter(i => regex.test(i)).length;
+											captions.forEach(function(caption,idx){
+												luckysheet.setCellValue(headerRow,idx,caption);
+											});
+											const rmrkKeys = Array.from({ length: dataCol }, (_, i) => `rmrk${'${i + 1}'}`);
+											/** data 부분 **/
+											let dataJson = grdGrdDsctn.getGridDataAll().slice(0,-4);
+											let footJson = grdGrdDsctn.getGridDataAll().slice(-4);
+											/** 중복삽입 방지 농가명 분리지점 판단 **/
+											let switchFlag = false;
+											let nowPrdcrNm = '';
+											/** data 실제 구간 **/
+											let setRow = 4;
+											let setStartCol = 5;
+											/** 본문 영역 반복 **/
+											dataJson.forEach(function(data, idx){
+												/** 농가명 변경시 **/
+												if(data.prdcrNm !== nowPrdcrNm){
+													switchFlag = true;
+													nowPrdcrNm = data.prdcrNm;
+												}
+												/** merge cell 부분만 **/
+												if(idx % 4 === 0){
+													luckysheet.setCellValue(setRow,0,data.prdcrNm);
+													luckysheet.setCellFormat(setRow,0,"ht",0);
+													luckysheet.setCellFormat(setRow,0,"vt",0);
+
+													luckysheet.setCellValue(setRow,1,data.vrtyNm);
+													luckysheet.setCellFormat(setRow,1,"ht",0);
+													luckysheet.setCellFormat(setRow,1,"vt",0);
+													/** SUM **/
+													luckysheet.setCellValue(setRow,15,data.sum || 0);
+													luckysheet.setCellFormat(setRow,1,"ht",0);
+													luckysheet.setCellFormat(setRow,1,"vt",0);
+													mergeABCColumnsForGroup(setRow,false);
+												}
+												/** 실제 데이터 입고수량,당도 파괴, 비품 **/
+												const rmrkValues = rmrkKeys.map(k => data[k] ?? 0);
+												/** 규격 **/
+												luckysheet.setCellValue(setRow,3,data.spcfctNm);
+
+												/** 선별 데이터 **/ // 8,
+												if(setRow % 4 === 3){
+													/** row background color **/
+													for(let j = 3; j < 16; j++){
+														luckysheet.setCellFormat(setRow, j, "bg", "#E6F4E8");
+													}
+													/** 각 라인 합계 data **/
+													//TODO: 여기 함수 넣어야함.
+													rmrkValues.forEach(function(i,idx){
+														let setCol = Number(setStartCol + idx);
+														/** 선별수량 함수 **/
+														let cal = excelFx[idx];
+														let value = "=" + getCellRef(setRow - 3,setCol) + '/' + cal;
+														luckysheet.setCellValue(setRow,setCol,value);
+
+														luckysheet.setCellFormat(setRow, setCol, "fs", 10);
+														luckysheet.setCellFormat(setRow, setCol, "bl", 1);
+														luckysheet.setCellFormat(setRow, setCol, "ht", 0);
+														luckysheet.setCellFormat(setRow, setCol, "vt", 0);
+													});
+												}else{
+													rmrkValues.forEach(function(i,idx){
+														let setCol = Number(setStartCol + idx);
+														luckysheet.setCellValue(setRow,setCol,i);
+														luckysheet.setCellFormat(setRow, setCol, "fs", 8);
+														luckysheet.setCellFormat(setRow, setCol, "bl", 1);
+														luckysheet.setCellFormat(setRow, setCol, "ht", 0);
+														luckysheet.setCellFormat(setRow, setCol, "vt", 0);
+													});
+												}
+												setRow++;
+											});
+
+											/** 마지막 합계 **/
+											// luckysheet.setRangeFormat("bg","#DCE6F4",{range:["A13:P16"]});
+											footJson.forEach(function(data,idx){
+												/** 첫열 부분 **/
+												if(idx === 0){
+													luckysheet.setCellValue(setRow,0,data.prdcrNm);
+													luckysheet.setCellFormat(setRow,0,"bg","#DCE6F4");
+													luckysheet.setCellFormat(setRow,0,"ht",0);
+													luckysheet.setCellFormat(setRow,0,"vt",0);
+													mergeABCColumnsForGroup(setRow,true);
+												}
+
+												/** 규격 **/
+												luckysheet.setCellValue(setRow,3,data.spcfctNm);
+												/** 실제 데이터 입고수량,당도 파괴, 비품 **/
+												const rmrkValues = rmrkKeys.map(k => data[k] ?? 0);
+												rmrkValues.forEach(function(i,idx){
+													let setCol = Number(setStartCol + idx);
+													/** sum fx 생성 **/
+													let sumTarget = Array.from({ length: Math.floor(setRow / 4) -1 }, (_, i) => {
+														return getCellRef(setRow - (i + 1) * 4, setCol);
+													});
+													let cellFx = "=SUM(" + sumTarget.join('+') + ')';
+
+													luckysheet.setCellValue(setRow,setCol,cellFx);
+													luckysheet.setCellFormat(setRow, setCol, "fs", 10);
+													luckysheet.setCellFormat(setRow, setCol, "bl", 1);
+													luckysheet.setCellFormat(setRow, setCol, "ht", 0);
+													luckysheet.setCellFormat(setRow, setCol, "vt", 0);
+												});
+												setRow++;
+											});
+
+											/** export Excel**/
+											// fn_downloadExcelWithStyleAndFormula_XPop();
+											fn_downloadExcelWithStyleAndFormula_ExcelJS();
+										},
+										sheetActivate: function (sheetIndex) {
+											// const sheetId = luckysheet.getAllSheets()[sheetIndex].id;
+										},
+									},
+								});
+							},
+							err => console.error(err)
+					);
+				});
+	}
+
+	/** export excel **/
+	<%--async function fn_downloadExcelWithStyleAndFormula_XPop() {--%>
+	<%--	/** luckysheets data **/--%>
+	<%--	const initialSheets = luckysheet.getAllSheets();--%>
+	<%--	if (!initialSheets || initialSheets.length === 0) {--%>
+	<%--		alert("다운로드할 시트 데이터가 없습니다.");--%>
+	<%--		return;--%>
+	<%--	}--%>
+
+	<%--	/** xlsxpop workbook init **/--%>
+	<%--	const workbook = await XlsxPopulate.fromBlankAsync();--%>
+	<%--	/** 로고 이미지 set **/--%>
+	<%--	const imgBlob = await fetch("/static/doc/buan.png").then(res => res.blob());--%>
+	<%--	const imgBuf = await imgBlob.arrayBuffer();--%>
+	<%--	/** 현재 선택된시트 id **/--%>
+	<%--	const currentActiveSheetId = luckysheet.getSheet().id;--%>
+	<%--	/** luckySheet.borderStyle <==> xlsx **/--%>
+	<%--	const styleMap = {--%>
+	<%--		1: "thin", 2: "hair", 3: "dotted", 4: "dashed",--%>
+	<%--		5: "dashDot", 6: "dashDotDot", 7: "double",--%>
+	<%--		8: "medium", 9: "mediumDashed", 10: "mediumDashDot",--%>
+	<%--		11: "mediumDashDotDot", 12: "slantDashDot", 13: "thick"--%>
+	<%--	};--%>
+
+	<%--	/** 정렬값 **/--%>
+	<%--	const horizontalMap = ['center', 'left', 'right'];--%>
+	<%--	const verticalMap = ['center', 'top', 'bottom'];--%>
+
+	<%--	/** sheet 이동시 로드 대기 시간 **/--%>
+	<%--	const waitForSheetData = async (sheetId, timeout = 5000) => {--%>
+	<%--		const start = Date.now();--%>
+	<%--		while (Date.now() - start < timeout) {--%>
+	<%--			const sheet = luckysheet.getluckysheetfile().find(s => s.id === sheetId);--%>
+	<%--			if (sheet && sheet.data && sheet.data.length > 0) return sheet;--%>
+	<%--			await new Promise(r => setTimeout(r, 100));--%>
+	<%--		}--%>
+	<%--		return null;--%>
+	<%--	};--%>
+
+	<%--	/** 화면상 sheets 순회 **/--%>
+	<%--	for (let sheetIndex = 0; sheetIndex < initialSheets.length; sheetIndex++) {--%>
+	<%--		/** sheet data **/--%>
+	<%--		const sheetInfo = initialSheets[sheetIndex];--%>
+	<%--		/** sheet focus load **/--%>
+	<%--		luckysheet.setSheetActive(sheetIndex);--%>
+	<%--		/** sheet id로 active 성공 대기**/--%>
+	<%--		const sheet = await waitForSheetData(sheetInfo.id);--%>
+	<%--		if (!sheet) continue;--%>
+	<%--		/** xlsxpop에 luckysheet 정보로 addSheet **/--%>
+	<%--		const xSheet = sheetIndex === 0 ? workbook.sheet(0).name(sheetInfo.name) : workbook.addSheet(sheetInfo.name);--%>
+	<%--		/** luckysheet.config에서 border 값 Map format **/--%>
+	<%--		const borders = createBorderInfoMap(sheet.config.borderInfo || {});--%>
+	<%--		/** luckysheet.config 병합정보 **/--%>
+	<%--		const mergeMap = sheet.config?.merge || {};--%>
+
+	<%--		/** luckysheet data 1. row >> 2. col 순회 **/--%>
+	<%--		for (let r = 0; r < sheet.data.length; r++) {--%>
+	<%--			const row = sheet.data[r];--%>
+	<%--			if (!row) continue;--%>
+
+	<%--			for (let c = 0; c < row.length; c++) {--%>
+	<%--				const cell = row[c];--%>
+	<%--				/** cell 생성 **/--%>
+	<%--				const cellX = xSheet.cell(r + 1, c + 1);--%>
+	<%--				if (!cell) continue;--%>
+
+	<%--				/** 리치 텍스트 스타일 예외처리 **/--%>
+	<%--				if (cell.v != null) {--%>
+	<%--					cellX.value(cell.v);--%>
+	<%--				} else if (cell?.ct?.t === 'inlineStr' && Array.isArray(cell?.ct?.s)) {--%>
+	<%--					cellX.value(cell.ct.s.map(seg => seg.v).join(''));--%>
+	<%--				}--%>
+
+	<%--				/** cell 서식 지정 (백분율,일반,텍스트) **/--%>
+	<%--				if (cell.f != null) cellX.formula(cell.f.startsWith('=') ? cell.f : '=' + cell.f);--%>
+
+	<%--				/** cell style (font, align, background) **/--%>
+	<%--				const style = {};--%>
+
+	<%--				if (cell.bg && cell.bg !== '#FFFFFF') {--%>
+	<%--					style.fill = {--%>
+	<%--						type: "solid",--%>
+	<%--						color: cell.bg.replace("#",""),--%>
+	<%--					};--%>
+	<%--				}--%>
+	<%--				if (cell.ct?.fa) {--%>
+	<%--					cellX.style("numberFormat", cell.ct.fa);--%>
+	<%--				}--%>
+	<%--				if (cell.fc) style.fontColor = cell.fc;--%>
+	<%--				if (cell.fs) style.fontSize = cell.fs;--%>
+	<%--				if (cell.bl === 1) style.bold = true;--%>
+
+	<%--				if (cell.ht != null) style.horizontalAlignment = horizontalMap[cell.ht];--%>
+	<%--				if (cell.vt != null) style.verticalAlignment = verticalMap[cell.vt];--%>
+	<%--				if (cell.tb === 1 || cell.tb === 2) style.wrapText = true;--%>
+
+	<%--				cellX.style(style);--%>
+
+	<%--				/** border style **/--%>
+	<%--				const borderCell = borders?.get(r)?.get(c);--%>
+	<%--				if (borderCell?.value) {--%>
+	<%--					const b = borderCell.value;--%>
+	<%--					const borderObj = {};--%>
+	<%--					if (b.t) borderObj.top = { style: styleMap[b.t.style], color: (b.t.color || '#000000').replace('#', '') };--%>
+	<%--					if (b.b) borderObj.bottom = { style: styleMap[b.b.style], color: (b.b.color || '#000000').replace('#', '') };--%>
+	<%--					if (b.l) borderObj.left = { style: styleMap[b.l.style], color: (b.l.color || '#000000').replace('#', '') };--%>
+	<%--					if (b.r) borderObj.right = { style: styleMap[b.r.style], color: (b.r.color || '#000000').replace('#', '') };--%>
+	<%--					cellX.style("border", borderObj);--%>
+	<%--				}--%>
+	<%--			}--%>
+	<%--		}--%>
+
+	<%--		// Merge 적용--%>
+	<%--		for (const key in mergeMap) {--%>
+	<%--			const m = mergeMap[key];--%>
+	<%--			xSheet.range(m.r + 1, m.c + 1, m.r + m.rs, m.c + m.cs).merged(true);--%>
+	<%--		}--%>
+
+	<%--		// 행 높이 설정--%>
+	<%--		if (sheet.config.rowlen) {--%>
+	<%--			for (const r in sheet.config.rowlen) {--%>
+	<%--				xSheet.row(Number(r) + 1).height(sheet.config.rowlen[r]);--%>
+	<%--			}--%>
+	<%--		}--%>
+
+	<%--		// 열 너비 설정--%>
+	<%--		if (sheet.config.columnlen) {--%>
+	<%--			for (const c in sheet.config.columnlen) {--%>
+	<%--				xSheet.column(Number(c) + 1).width(sheet.config.columnlen[c] / 7); // px → width 보정--%>
+	<%--			}--%>
+	<%--		}--%>
+	<%--	}--%>
+
+	<%--	const originalIdx = initialSheets.findIndex(s => s.id === currentActiveSheetId);--%>
+	<%--	if (originalIdx !== -1) {--%>
+	<%--		luckysheet.setSheetActive(originalIdx);--%>
+	<%--		await new Promise(r => setTimeout(r, 50));--%>
+	<%--	}--%>
+
+	<%--	const blob = await workbook.outputAsync();--%>
+	<%--	workbook.sheet(0).addImage({--%>
+	<%--		image: imgBuf,--%>
+	<%--		tl: { col: 1, row: 1 },--%>
+	<%--		ext: { width: 372, height: 78 }--%>
+	<%--	});--%>
+
+	<%--	let date = SBUxMethod.get("srch-dtp-inptYmdFrom");--%>
+	<%--	saveAs(blob, `선별결과표_${'${date}'}.xlsx`);--%>
+	<%--}--%>
+	<%--const toHex = (hex) => {--%>
+	<%--	if (!hex) return null;  // 또는 undefined--%>
+	<%--	if (hex.length === 4) {--%>
+	<%--		hex = "#" + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];--%>
+	<%--	}--%>
+	<%--	return hex.toUpperCase();--%>
+	<%--};--%>
+	<%--function createBorderInfoMap(borderInfoArray) {--%>
+	<%--	const borderInfoMap = new Map();--%>
+	<%--	if (!borderInfoArray||Object.keys(borderInfoArray).length === 0	) return;--%>
+
+	<%--	for (const item of borderInfoArray) {--%>
+	<%--		const row = item?.value?.row_index;--%>
+	<%--		const col = item?.value?.col_index;--%>
+
+	<%--		if (row == null || col == null) continue;--%>
+
+	<%--		if (!borderInfoMap.has(row)) {--%>
+	<%--			borderInfoMap.set(row, new Map());--%>
+	<%--		}--%>
+
+	<%--		borderInfoMap.get(row).set(col, item);--%>
+	<%--	}--%>
+
+	<%--	return borderInfoMap;--%>
+	<%--}--%>
+
+	/** excelJs 용 다운로드 **/
+	async function fn_downloadExcelWithStyleAndFormula_ExcelJS() {
+		const initialSheets = luckysheet.getAllSheets();
+		if (!initialSheets || initialSheets.length === 0) {
+			alert("다운로드할 시트 데이터가 없습니다.");
+			return;
+		}
+
+		const workbook = new ExcelJS.Workbook();
+		const currentActiveSheetId = luckysheet.getSheet().id;
+
+		for (let sheetIndex = 0; sheetIndex < initialSheets.length; sheetIndex++) {
+			const sheetInfo = initialSheets[sheetIndex];
+			const data = sheetInfo.data || [];
+			const config = sheetInfo.config || {};
+			const ws = workbook.addWorksheet(sheetInfo.name);
+
+			// Freeze panes: C열(3), 4행(4)
+			ws.views = [{ state: 'frozen', xSplit: 3, ySplit: 4 }];
+
+			for (let r = 0; r < data.length; r++) {
+				const row = data[r];
+				if (!row) continue;
+
+				for (let c = 0; c < row.length; c++) {
+					const cell = row[c];
+					if (!cell) continue;
+
+					const excelCell = ws.getCell(r + 1, c + 1);
+
+					if (cell.f) {
+						excelCell.value = { formula: cell.f.startsWith('=') ? cell.f.slice(1) : cell.f };
+					}else if(cell.ct?.t === 'd' && typeof cell.v === 'number'){
+						const jsDate = new Date(cell.v); // timestamp → Date
+						// excelCell.value = jsDate; // serial date로 변환
+						excelCell.value = getExcelSerialDate(jsDate); // serial date로 변환
+						excelCell.numFmt = cell.ct.fa || 'yyyy-mm-dd';
+					}else if (cell.v != null) {
+						excelCell.value = cell.v;
+					}
+
+					applyCellStyle(cell, excelCell);
+				}
+			}
+
+			if (config.merge) {
+				for (const key in config.merge) {
+					const m = config.merge[key];
+					const startR = m.r + 1;
+					const startC = m.c + 1;
+					const endR = m.r + m.rs;
+					const endC = m.c + m.cs;
+
+					ws.mergeCells(startR, startC, endR, endC);
+
+					const startCell = ws.getCell(startR, startC);
+					if (startCell.alignment) {
+						applyAlignmentToMergeRange(ws, startR, startC, endR, endC, startCell.alignment);
+					}
+				}
+			}
+
+			if (config.columnlen) {
+				ws.columns = Array.from({ length: data[0]?.length || 10 }, (_, idx) => ({
+					width: config.columnlen[idx] ? config.columnlen[idx] / 7 : 10
+				}));
+			}
+
+			if (config.rowlen) {
+				for (const r in config.rowlen) {
+					ws.getRow(Number(r) + 1).height = config.rowlen[r] * 0.75;
+				}
+			}
+
+			if (sheetIndex === 0) {
+				try {
+					const imageUrl = "/static/doc/buan.png";
+					const imageBlob = await fetch(imageUrl).then(res => res.blob());
+					const arrayBuffer = await imageBlob.arrayBuffer();
+
+					const imageId = workbook.addImage({ buffer: arrayBuffer, extension: "png" });
+
+					ws.addImage(imageId, {
+						tl: { col: 5, row: 0 },
+						ext: { width: 372, height: 78 }
+					});
+				} catch (e) {
+					console.warn("이미지 삽입 실패:", e);
+				}
+			}
+		}
+
+		const originalIdx = initialSheets.findIndex(s => s.id === currentActiveSheetId);
+		if (originalIdx !== -1) {
+			workbook.views = [{ activeTab: originalIdx }];
+		}
+
+		const buffer = await workbook.xlsx.writeBuffer();
+		const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+		const date = SBUxMethod.get("srch-dtp-inptYmdFrom");
+		saveAs(blob, `선별결과표_${'${date}'}.xlsx`);
+	}
+
+	function applyCellStyle(cell, excelCell) {
+		if (!cell) return;
+
+		const hAlign = ['center', 'left', 'right'][cell.ht ?? -1];
+		const vAlign = ['middle', 'top', 'bottom'][cell.vt ?? -1];
+
+		excelCell.alignment = {
+			...(hAlign ? { horizontal: hAlign } : {}),
+			...(vAlign ? { vertical: vAlign } : {}),
+			...(cell.tb === 1 || cell.tb === 2 ? { wrapText: true } : {})
+		};
+
+		if (cell.bg && cell.bg !== "#FFFFFF") {
+			excelCell.fill = {
+				type: "pattern",
+				pattern: "solid",
+				fgColor: { argb: cell.bg.replace("#", "") }
+			};
+		}
+
+		if (cell.fc) {
+			excelCell.font = excelCell.font || {};
+			excelCell.font.color = { argb: cell.fc.replace("#", "") };
+		}
+
+		if (cell.fs) {
+			excelCell.font = excelCell.font || {};
+			excelCell.font.size = cell.fs;
+		}
+
+		if (cell.bl === 1) {
+			excelCell.font = excelCell.font || {};
+			excelCell.font.bold = true;
+		}
+	}
+
+	function applyAlignmentToMergeRange(ws, startRow, startCol, endRow, endCol, alignment) {
+		for (let r = startRow; r <= endRow; r++) {
+			for (let c = startCol; c <= endCol; c++) {
+				ws.getCell(r, c).alignment = { ...alignment };
+			}
+		}
+	}
 
 
+	/** merge cell **/
+	function mergeABCColumnsForGroup(baseRow, lastFlag = false) {
+		const range = [{ row: [baseRow, baseRow + 3], column: [0, 2] }]; // A~C, baseRow~baseRow+3
+
+		try {
+			// 병합 전에 기존 병합 해제
+			luckysheet.cancelRangeMerge({ range });
+
+			// 병합 실행
+			luckysheet.setRangeMerge(lastFlag ? 'all' : 'vertical', { range });
+		} catch (e) {
+			console.error('병합 실패:', e);
+		}
+	}
+	/** 날짜 보정 **/
+	function getExcelSerialDate(date) {
+		const utc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+		const epoch = Date.UTC(1899, 11, 30);
+		return (utc - epoch) / (1000 * 60 * 60 * 24);
+	}
+	/** row, col => excel Format **/
+	function getCellRef(row, col) {
+		const columnToLetter = (col) => {
+			let letter = '';
+			col++; // 0-based to 1-based
+			while (col > 0) {
+				let rem = (col - 1) % 26;
+				letter = String.fromCharCode(65 + rem) + letter;
+				col = Math.floor((col - 1) / 26);
+			}
+			return letter;
+		};
+
+		return columnToLetter(col) + (row + 1); // 행도 1부터 시작
+	}
 
 
 
