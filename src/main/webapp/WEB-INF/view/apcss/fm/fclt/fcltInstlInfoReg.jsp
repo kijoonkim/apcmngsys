@@ -582,7 +582,7 @@
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				cfn_allTabPrgrsRefrash();
 			} else {
-				alert(data.resultMessage);
+				gfn_comAlert(data.resultCode, data.resultMessage);
 			}
 		} catch(e) {
 		}
