@@ -1061,8 +1061,8 @@
 				}
 
 				if (isDuplicate) {
-					gfn_comAlert("W0009", "등록", "운영조직 품목"); //  W0010	이미 {0}된 {1} 입니다.
-					//gfn_comAlert("W0009", "이미 등록된 운영조직 품목")	W0009 {0}이/가 있습니다.
+					// gfn_comAlert("W0010", "등록", "운영조직 품목"); //  W0010	이미 {0}된 {1} 입니다.
+					gfn_comAlert("W0009", "중복 등록된 운영조직 품목");	// W0009 {0}이/가 있습니다.
 					return;
 				} else {
 					itemArr.push({
@@ -1098,8 +1098,8 @@
 				}
 
 				if (isDuplicate) {
-					gfn_comAlert("W0009", "등록", "APC 품목"); //  W0010	이미 {0}된 {1} 입니다.
-					//gfn_comAlert("W0009","이미 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
+					// gfn_comAlert("W0010", "등록", "APC 품목"); //  W0010	이미 {0}된 {1} 입니다.
+					gfn_comAlert("W0009","중복 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
 					return;
 				} else {
 					itemArr.push({
@@ -1196,45 +1196,59 @@
 	const fn_setItem = function(itemVal) {
 		if (!gfn_isEmpty(itemVal)) {
 			switch (itemVal.sn) {
-			case 1: case 2: case 3:
-				let operItemCdList = [];
-				for (let i = 1; i < 4 ; i++) {
-					let operOgnzItemCd = SBUxMethod.get("dtl-inp-operOgnzItemCd"+i);
-					operItemCdList.push(operOgnzItemCd);
-				}
-				for (let i = 0; i < operItemCdList.length; i++) {
-					if (_.isEqual(operItemCdList[i],itemVal.itemCd)) {
-						gfn_comAlert("W0009","이미 등록된 운영조직 품목"); // W0009 {0}이/가 있습니다.
-						return;
-					} else {
-						SBUxMethod.set('dtl-inp-operOgnzItemCd' + itemVal.sn , itemVal.itemCd);
-						SBUxMethod.set('dtl-inp-operOgnzItemNm' + itemVal.sn , itemVal.itemNm);
-						fn_checkItemDuplicate(); // 중복메세지
+				case 1: case 2: case 3:
+					let operItemCdList = [];
+					for (let i = 1; i < 4; i++) {
+						let operOgnzItemCd = SBUxMethod.get("dtl-inp-operOgnzItemCd" + i);
+						operItemCdList.push(operOgnzItemCd);
 					}
-				}
 
-				break;
-			case 4: case 5: case 6:
-				let apcItemCdList = [];
-				for (let i = 1; i < 4 ; i++) {
-					let apcItemCd = SBUxMethod.get("dtl-inp-apcItemCd"+i);
-					apcItemCdList.push(apcItemCd);
-				}
-				for (let i = 0; i < apcItemCdList.length; i++) {
-					if (_.isEqual(apcItemCdList[i],itemVal.itemCd)) {
-						gfn_comAlert("W0009","이미 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
-						return;
-					} else {
+					// 중복 체크
+					let isOperDuplicate = false;
+					for (let i = 0; i < operItemCdList.length; i++) {
+						if (_.isEqual(operItemCdList[i], itemVal.itemCd)) {
+							gfn_comAlert("W0009", "이미 등록된 운영조직 품목"); // W0009 {0}이/가 있습니다.
+							isOperDuplicate = true;
+							break;
+						}
+					}
+
+					// 중복이 없을 때만 set
+					if (!isOperDuplicate) {
+						SBUxMethod.set('dtl-inp-operOgnzItemCd' + itemVal.sn, itemVal.itemCd);
+						SBUxMethod.set('dtl-inp-operOgnzItemNm' + itemVal.sn, itemVal.itemNm);
+						fn_checkItemDuplicate();
+					}
+					break;
+
+				case 4: case 5: case 6:
+					let apcItemCdList = [];
+					for (let i = 1; i < 4; i++) {
+						let apcItemCd = SBUxMethod.get("dtl-inp-apcItemCd" + i);
+						apcItemCdList.push(apcItemCd);
+					}
+
+					// 중복 여부 체크
+					let isApcDuplicate = false;
+					for (let i = 0; i < apcItemCdList.length; i++) {
+						if (_.isEqual(apcItemCdList[i], itemVal.itemCd)) {
+							gfn_comAlert("W0009", "이미 등록된 APC 품목"); // W0009 {0}이/가 있습니다.
+							isApcDuplicate = true;
+							break;
+						}
+					}
+
+					// 중복이 때만 set
+					if (!isApcDuplicate) {
 						let sn = Number(itemVal.sn) - 3;
-						SBUxMethod.set('dtl-inp-apcItemCd' + sn , itemVal.itemCd);
-						SBUxMethod.set('dtl-inp-apcItemNm' + sn , itemVal.itemNm);
-						fn_checkItemDuplicate(); // 중복메세지
+						SBUxMethod.set('dtl-inp-apcItemCd' + sn, itemVal.itemCd);
+						SBUxMethod.set('dtl-inp-apcItemNm' + sn, itemVal.itemNm);
+						fn_checkItemDuplicate();
 					}
-				}
+					break;
 
-				break;
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 	}
@@ -1637,10 +1651,10 @@
 		let msg;
 		if (ognzSeCd === 1) {
 			inputEl = $(`#dtl-inp-operOgnzItemCd${'${sn}'}`);
-			msg = '중복으로 등록된 운영조직품목이 있습니다.'
+			msg = '중복으로 등록된 운영조직 품목입니다.'
 		} else if (ognzSeCd === 2) {
 			inputEl = $(`#dtl-inp-apcItemCd${'${sn}'}`);
-			msg = '중복으로 등록된 APC품목이 있습니다.'
+			msg = '중복으로 등록된 APC 품목입니다.'
 		}
 		const msgDiv = inputEl.closest('span').next();
 
