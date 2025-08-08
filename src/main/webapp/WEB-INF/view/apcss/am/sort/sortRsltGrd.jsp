@@ -587,7 +587,8 @@
                 width: '80px',
                 style: 'text-align: right; padding-right: 5px;',
                 merge: false,
-                disabled: true
+                disabled: true,
+				format:{type:'number',rule:'#.###'}
             });
         });
 
@@ -919,6 +920,7 @@
 
             const postJsonPromise = gfn_postJSON("/am/sort/selectGrdDsctn.do", param, null, false);
             const data = await postJsonPromise;
+			console.log(data,"여기 등급별 집계 소수점 ");
             data.resultList.forEach((item, index) => {
                 const orcDsctnTot = {
                     sortFclt: item.FCLT_NM,
@@ -1056,7 +1058,7 @@
                     for(let i = 1; i <= 30; i++) {
                         const key = 'grd' + i;
                         if(row[key] !== undefined && row[key] !== null) {
-                            row[key] = Math.round(row[key]).toLocaleString('ko-KR');
+                            row[key] = (row[key]).toLocaleString('ko-KR');
                         }
                     }
                 }
