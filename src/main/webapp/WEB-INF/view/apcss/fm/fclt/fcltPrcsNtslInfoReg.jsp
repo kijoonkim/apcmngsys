@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 산지유통판매처 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -340,7 +341,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtLgszRtl')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -352,7 +356,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtFoodMtrl')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -364,7 +371,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtWhlslMrkt')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -376,7 +386,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtOnlnWhlslMrkt')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -388,7 +401,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtBzenty')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -401,6 +417,7 @@
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									readonly
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 						</tr>
@@ -432,7 +449,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtExprt')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -444,7 +464,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtHmsp')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -456,7 +479,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtOnlnB2b')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -468,7 +494,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtOnlnB2c')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
@@ -480,7 +509,10 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									onkeyup="fn_cal(this)"
+									onchange="fn_changeValue('dtl-inp-apcNtslAmtEtc')"
+									autocomplete="off"
 								></sbux-input>
+								<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 							</td>
 							<td>(백만원)</td>
 							<td colspan="2" style="border-top: hidden !important;">
@@ -503,6 +535,10 @@
 <script type="text/javascript">
 	// 기준연도
 	var jsonCrtrYr = [];
+	// 전년도 데이터
+	var jsonPrevData = [];
+	// APC전수조사검증코드
+	var jsonApcCmsuVrfcCd = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -541,14 +577,15 @@
 			return;
 		}
 
-		await fn_search();
 		//진척도
 		await cfn_selectPrgrs();
 
+		await fn_search();
 	}
 
 	const fn_initSBSelect = async function() {
 		gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+		jsonApcCmsuVrfcCd =  await gfn_getComCdDtls('APC_CMSU_VRFC_CD'); // APC전수조사 검증 코드
 	}
 
 	/* 선택가능한 APC리스트 조회 */
@@ -560,9 +597,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -618,6 +653,15 @@
 		SBUxMethod.set('dtl-inp-apcTrmtAmt4',null);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',null);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',null);
+
+		// 데이터 검증 메세지 초기화
+		const msgDivs = document.getElementsByClassName('div-msg');
+		for (let i = 0; i < msgDivs.length; i++) {
+			msgDivs[i].style.visibility = 'hidden';
+			msgDivs[i].style.fontSize = '0rem';
+		}
+		const tr = $('.div-msg').closest('tr');
+		tr.find('td, th').css('vertical-align', 'middle');
 	}
 
 	const fn_search = async function() {
@@ -631,17 +675,19 @@
 		await cfn_selectPrgrs();
 
 		await fn_selectItmPrfList();
+		// 전년도
+		await fn_selectItmPrfList("Y");
 	}
 
-	const fn_selectItmPrfList = async function(copy_chk) {
-		 console.log("******************fn_pagingItmPrfList**********************************");
+	const fn_selectItmPrfList = async function(prevData) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
+		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltPrcsNtslInfoList.do", {
@@ -654,45 +700,77 @@
 
 		//예외처리
 		try {
-			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl',item.apcNtslAmtLgszRtl);
-				SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl',item.apcNtslAmtFoodMtrl);
-				SBUxMethod.set('dtl-inp-apcNtslAmtWhlslMrkt',item.apcNtslAmtWhlslMrkt);
-				SBUxMethod.set('dtl-inp-apcNtslAmtBzenty',item.apcNtslAmtBzenty);
-				SBUxMethod.set('dtl-inp-apcNtslAmtExprt',item.apcNtslAmtExprt);
+			if (_.isEqual(prevData,"Y")) {
+				data.resultList.forEach(item =>{
+					const vo = {
+						crtrYr : item.crtrYr
+						, apcCd : item.apcCd
+						, apcNm : item.apcNm
 
-				SBUxMethod.set('dtl-inp-apcNtslAmtHmsp',item.apcNtslAmtHmsp);
-				SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2b',item.apcNtslAmtOnlnB2b);
-				SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2c',item.apcNtslAmtOnlnB2c);
-				SBUxMethod.set('dtl-inp-apcNtslAmtEtc',item.apcNtslAmtEtc);
-				SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt',item.apcNtslAmtOnlnWhlslMrkt);
+						, apcNtslAmtLgszRtl : item.apcNtslAmtLgszRtl
+						, apcNtslAmtFoodMtrl : item.apcNtslAmtFoodMtrl
+						, apcNtslAmtWhlslMrkt : item.apcNtslAmtWhlslMrkt
+						, apcNtslAmtOnlnWhlslMrkt : item.apcNtslAmtOnlnWhlslMrkt
+						, apcNtslAmtBzenty : item.apcNtslAmtBzenty
+						, apcNtslAmtExprt : item.apcNtslAmtExprt
+						, apcNtslAmtHmsp : item.apcNtslAmtHmsp
+						, apcNtslAmtOnlnB2b :item.apcNtslAmtOnlnB2b
+						, apcNtslAmtOnlnB2c : item.apcNtslAmtOnlnB2c
+						, apcNtslAmtEtc : item.apcNtslAmtEtc
+						, apcNtslAmtTot :
+								Number(item.apcNtslAmtLgszRtl || 0) +
+								Number(item.apcNtslAmtFoodMtrl || 0) +
+								Number(item.apcNtslAmtWhlslMrkt || 0) +
+								Number(item.apcNtslAmtOnlnWhlslMrkt || 0) +
+								Number(item.apcNtslAmtBzenty || 0) +
+								Number(item.apcNtslAmtExprt || 0) +
+								Number(item.apcNtslAmtHmsp || 0) +
+								Number(item.apcNtslAmtOnlnB2b || 0) +
+								Number(item.apcNtslAmtOnlnB2c || 0) +
+								Number(item.apcNtslAmtEtc || 0)
+				}
+					jsonPrevData.push(vo);
+				});
+			} else {
+				data.resultList.forEach((item, index) => {
+					SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl', item.apcNtslAmtLgszRtl);
+					SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl', item.apcNtslAmtFoodMtrl);
+					SBUxMethod.set('dtl-inp-apcNtslAmtWhlslMrkt', item.apcNtslAmtWhlslMrkt);
+					SBUxMethod.set('dtl-inp-apcNtslAmtBzenty', item.apcNtslAmtBzenty);
+					SBUxMethod.set('dtl-inp-apcNtslAmtExprt', item.apcNtslAmtExprt);
 
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt1',item.rtlOgnzTotTrmtAmt1);
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt2',item.rtlOgnzTotTrmtAmt2);
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt3',item.rtlOgnzTotTrmtAmt3);
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt4',item.rtlOgnzTotTrmtAmt4);
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot',item.rtlOgnzTotTrmtAmtTot);
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean(item.rtlOgnzTotTrmtAmtTot));
+					SBUxMethod.set('dtl-inp-apcNtslAmtHmsp', item.apcNtslAmtHmsp);
+					SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2b', item.apcNtslAmtOnlnB2b);
+					SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2c', item.apcNtslAmtOnlnB2c);
+					SBUxMethod.set('dtl-inp-apcNtslAmtEtc', item.apcNtslAmtEtc);
+					SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt', item.apcNtslAmtOnlnWhlslMrkt);
 
-				SBUxMethod.set('dtl-inp-apcTrmtAmt1',item.apcTrmtAmt1);
-				SBUxMethod.set('dtl-inp-apcTrmtAmt2',item.apcTrmtAmt2);
-				SBUxMethod.set('dtl-inp-apcTrmtAmt3',item.apcTrmtAmt3);
-				SBUxMethod.set('dtl-inp-apcTrmtAmt4',item.apcTrmtAmt4);
-				SBUxMethod.set('dtl-inp-apcTrmtAmtTot',item.apcTrmtAmtTot);
-				SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',fn_numberToKorean(item.apcTrmtAmtTot));
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt1', item.rtlOgnzTotTrmtAmt1);
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt2', item.rtlOgnzTotTrmtAmt2);
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt3', item.rtlOgnzTotTrmtAmt3);
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt4', item.rtlOgnzTotTrmtAmt4);
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot', item.rtlOgnzTotTrmtAmtTot);
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1', fn_numberToKorean(item.rtlOgnzTotTrmtAmtTot));
 
-				$('#itemNm1').text("품목1:"+gfn_nvl(item.itemNm1));
-				$('#itemNm2').text("품목2:"+gfn_nvl(item.itemNm2));
-				$('#itemNm3').text("품목3:"+gfn_nvl(item.itemNm3));
-				$('#itemNm4').text("기타품목:"+gfn_nvl(item.itemNm4));
+					SBUxMethod.set('dtl-inp-apcTrmtAmt1', item.apcTrmtAmt1);
+					SBUxMethod.set('dtl-inp-apcTrmtAmt2', item.apcTrmtAmt2);
+					SBUxMethod.set('dtl-inp-apcTrmtAmt3', item.apcTrmtAmt3);
+					SBUxMethod.set('dtl-inp-apcTrmtAmt4', item.apcTrmtAmt4);
+					SBUxMethod.set('dtl-inp-apcTrmtAmtTot', item.apcTrmtAmtTot);
+					SBUxMethod.set('dtl-inp-apcTrmtAmtTot1', fn_numberToKorean(item.apcTrmtAmtTot));
 
-				$('#apcItemNm1').text("품목1:"+gfn_nvl(item.apcItemNm1));
-				$('#apcItemNm2').text("품목2:"+gfn_nvl(item.apcItemNm2));
-				$('#apcItemNm3').text("품목3:"+gfn_nvl(item.apcItemNm3));
-				$('#apcItemNm4').text("기타품목:"+gfn_nvl(item.apcItemNm4));
-			});
-			fn_cal();
+					$('#itemNm1').text("품목1:" + gfn_nvl(item.itemNm1));
+					$('#itemNm2').text("품목2:" + gfn_nvl(item.itemNm2));
+					$('#itemNm3').text("품목3:" + gfn_nvl(item.itemNm3));
+					$('#itemNm4').text("기타품목:" + gfn_nvl(item.itemNm4));
 
+					$('#apcItemNm1').text("품목1:" + gfn_nvl(item.apcItemNm1));
+					$('#apcItemNm2').text("품목2:" + gfn_nvl(item.apcItemNm2));
+					$('#apcItemNm3').text("품목3:" + gfn_nvl(item.apcItemNm3));
+					$('#apcItemNm4').text("기타품목:" + gfn_nvl(item.apcItemNm4));
+				});
+				fn_cal();
+			}
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -747,10 +825,8 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		let crtrYr = SBUxMethod.get('srch-slt-crtrYr')
 		let apcCd =  SBUxMethod.get('srch-inp-apcCd')
-		console.log(crtrYr , apcCd);
 		if (!isConfirmed) return;
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltPrcsNtslInfo.do", {
@@ -783,8 +859,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 
@@ -808,6 +882,7 @@
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot',sum);
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot1',fn_numberToKorean(sum));
 
+		fn_changeValue('dtl-inp-apcNtslAmtTot');
 	}
 
 
@@ -892,7 +967,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -905,6 +979,120 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	// 전년도 데이터 set
+	function fn_pySearch() {
+		// 데이터 검증 메세지 초기화
+		const msgDivs = document.getElementsByClassName('div-msg');
+		for (let i = 0; i < msgDivs.length; i++) {
+			msgDivs[i].style.visibility = 'hidden';
+			msgDivs[i].style.fontSize = '0rem';
+		}
+		const tr = $('.div-msg').closest('tr');
+		tr.find('td, th').css('vertical-align', 'middle');
+
+
+		// 입력 초기화
+		SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtWhlslMrkt',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtBzenty',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtExprt',null);
+
+		SBUxMethod.set('dtl-inp-apcNtslAmtHmsp',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2b',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2c',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtEtc',null);
+		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt',null);
+
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		jsonPrevData.forEach(item => {
+			SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl', item.apcNtslAmtLgszRtl);
+			SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl', item.apcNtslAmtFoodMtrl);
+			SBUxMethod.set('dtl-inp-apcNtslAmtWhlslMrkt', item.apcNtslAmtWhlslMrkt);
+			SBUxMethod.set('dtl-inp-apcNtslAmtBzenty', item.apcNtslAmtBzenty);
+			SBUxMethod.set('dtl-inp-apcNtslAmtExprt', item.apcNtslAmtExprt);
+
+			SBUxMethod.set('dtl-inp-apcNtslAmtHmsp', item.apcNtslAmtHmsp);
+			SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2b', item.apcNtslAmtOnlnB2b);
+			SBUxMethod.set('dtl-inp-apcNtslAmtOnlnB2c', item.apcNtslAmtOnlnB2c);
+			SBUxMethod.set('dtl-inp-apcNtslAmtEtc', item.apcNtslAmtEtc);
+			SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt', item.apcNtslAmtOnlnWhlslMrkt);
+		});
+
+		fn_cal();
+
+	}
+
+	function fn_changeValue(args) {
+		if (!args) return;
+
+		const inputEl = document.getElementById(args);
+		const name = inputEl.getAttribute("name");
+		const key = name.replace(/^dtl-inp-/, '').replace(/\d+$/, '');
+
+		// 초기화
+		const nextDiv = $(`#${'${name}'}`).closest('span').next();
+		nextDiv.text('');
+		nextDiv.css({
+			fontSize: '0rem',
+			visibility: 'hidden',
+		});
+
+		const tr = $(`#${'${name}'}`).closest('tr');
+		const divs = tr.find('div');
+		const noVisibleDiv = divs.length === 0 || divs.filter(function () {
+			return $(this).css('visibility') === 'visible';
+		}).length === 0;
+
+		if (noVisibleDiv) {
+			tr.find('td').css('vertical-align', 'middle');
+		}
+
+
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		const prevObj = jsonPrevData[0];
+
+		// 값 비교
+		const pyValue = Number(prevObj[key]);
+		const currValue = Number(SBUxMethod.get(name));
+
+		if (currValue === 0) return;
+
+		let msg = '';
+		let diff = 0;
+
+		if (pyValue === 0) {
+			msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PY_INPT').cdVlExpln;
+		} else {
+			diff = Math.abs((currValue - pyValue) / pyValue * 100);
+
+			if (diff >= 20 && diff < 50) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_20').cdVlExpln;
+			} else if (diff >= 50 && diff < 200) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_50').cdVlExpln;
+			} else if (diff >= 200) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_200').cdVlExpln;
+			}
+		}
+
+		// 안내 메시지가 있으면 출력
+		if (!gfn_isEmpty(msg)) {
+			nextDiv.text(msg);
+			nextDiv.css({
+				fontSize: "1.2rem",
+				visibility: "visible",
+				fontWeight: "bold",
+				color: "#be0000",
+				textAlign: "left"
+			});
+			tr.find('td').css('vertical-align', 'top');
+		}
+
+
 	}
 </script>
 </html>
