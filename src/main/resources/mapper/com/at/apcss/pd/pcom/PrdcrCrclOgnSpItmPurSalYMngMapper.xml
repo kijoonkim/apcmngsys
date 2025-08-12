@@ -1433,6 +1433,21 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 		ORDER BY UO_PST.BRNO , UO_PST.ITEM_CD , UO_PST.TYPE_SE_NO , UO_PST. ISO_BRNO , UO_PST.PRDCR_OGNZ_SN
 	</select>
 
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectUoSpcltItemPrchsSlsRawdataList	-->
+	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) Rawdata 조회                 	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.23  	john        	Initial Creation                            	-->
+	<!-- ==========================================================================	-->
+	<select id="selectUoSpcltItemPrchsSlsRawdataList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
+		SELECT	/* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectUoSpcltItemPrchsSlsRawdataList */
+
+	</select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025	-->
 	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) 로우데이터 조회 2025년                        	-->
@@ -1612,6 +1627,396 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 			, TRMT_TYPE
 			, TYPE_SE_NO
 	</select>
+
+
+
+	<!-- =======================================================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemPrchsSlsList			-->
+	<!-- DESC : 통합조직 전문품목 매입매출(출자출하조직o) 조회                                     						-->
+	<!-- =======================================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      											-->
+	<!-- ===========  	============  	========================================================================	-->
+	<!-- 2025.07.24  	niceyou        	Initial Creation                            								-->
+	<!-- =======================================================================================================	-->
+	<select id="selectUoMajorItemPrchsSlsList" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemPrchsSlsList */
+				  TOT.*
+				, CASE TOT.TYPE_SE_NO
+					WHEN 1 THEN 1
+					WHEN 2 THEN
+						CASE TOT.OGNZ_STBLT_YN
+							WHEN '0' THEN 4
+							ELSE 1
+						END
+					WHEN 6 THEN 5
+					ELSE TOT.TYPE_SE_NO
+				  END	AS SEQ_1
+				, CASE TOT.OGNZ_STBLT_YN
+					WHEN 'Y' THEN 1
+					WHEN 'N' THEN 2
+					ELSE 9
+				  END	AS SEQ_2
+				, CASE TOT.TRMT_TYPE
+					WHEN 1 THEN 3
+					WHEN 2 THEN 1
+					WHEN 3 THEN 2
+					ELSE 4
+				  END	AS SEQ_3
+				, (
+					SELECT FN_GET_COM_CD_VL_NM(
+							'PRUO_TOT_TYPE_SE',
+							CASE TOT.TYPE_SE_NO
+								WHEN 1 THEN 'U1'
+								WHEN 2 THEN 'U2'
+								WHEN 3 THEN 'U3'
+								WHEN 4 THEN 'U4'
+								WHEN 5 THEN 'U5'
+								WHEN 6 THEN 'U6'
+								WHEN 7 THEN 'U7'
+								WHEN 8 THEN 'U8'
+								ELSE NULL
+							END
+						) FROM DUAL
+					)	AS SE_NM
+
+				, (
+					SELECT FN_GET_COM_CD_VL_NM(
+							'PRUO_TOT_TYPE_SE',
+							CASE TOT.TYPE_SE_NO
+								WHEN 1 THEN 'U1' 	|| TOT.OGNZ_STBLT_YN
+								WHEN 2 THEN 'U2' 	|| TOT.OGNZ_STBLT_YN
+								WHEN 3 THEN 'U3X'
+								WHEN 4 THEN 'T1'
+								WHEN 5 THEN 'U5' 	|| TOT.OGNZ_STBLT_YN
+								WHEN 6 THEN 'U6' 	|| TOT.OGNZ_STBLT_YN
+								WHEN 7 THEN 'E0'
+								WHEN 8 THEN 'T0'
+								ELSE NULL
+							END
+						)
+					FROM DUAL
+				)		AS SE_DTL_NM
+			  FROM (
+				SELECT
+					  APO.YR				AS YR
+					, APO.BRNO			AS BRNO
+					, FA.UO_BRNO		AS UO_BRNO
+					, APO.CORP_NM		AS CORP_NM
+					, UO.APRV				AS APRV
+					, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', UO.APRV) FROM DUAL) AS APRV_NM
+					, UPS.TYPE_SE_NO		AS TYPE_SE_NO
+					, (SELECT FN_GET_COM_CD_VL_NM('TYPE_SE_NO', TRIM(TO_CHAR(UPS.TYPE_SE_NO))) FROM DUAL) AS TYPE_SE_NO_NM
+					, UPS.ITEM_CD			AS ITEM_CD
+					, ITM.ITEM_NM || '(' || (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', GC.STTG_UPBR_ITEM_SE) FROM DUAL) || ')'  AS ITEM_NM
+					, ITM.CTGRY_CD	AS CTGRY_CD
+					, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', ITM.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+					, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+					, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', GC.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_NM
+
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 1 THEN ISO1.ISO_BRNO
+						WHEN UPS.TYPE_SE_NO = 3 THEN ISO3.ISO_BRNO
+						ELSE '0'
+					  END	AS ISO_BRNO
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 5 THEN FA.PRDCR_OGNZ_SN
+						ELSE 0
+					  END	AS PRDCR_OGNZ_SN
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 5 THEN FA.TRMT_TYPE
+						ELSE '0'
+					  END	AS TRMT_TYPE
+					, CASE
+						WHEN UPS.TYPE_SE_NO = 1 THEN ISO1.STBLT_YN
+					    WHEN UPS.TYPE_SE_NO = 2 THEN UPS.OGNZ_STBLT_YN
+						WHEN UPS.TYPE_SE_NO = 5 THEN FA.STBLT_YN
+						WHEN UPS.TYPE_SE_NO = 6 THEN UPS.OGNZ_STBLT_YN
+						ELSE '0'
+					  END	AS OGNZ_STBLT_YN
+
+					, CASE UPS.TYPE_SE_NO
+						WHEN 2 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T1') FROM DUAL)
+						WHEN 4 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T0') FROM DUAL)
+						WHEN 5 THEN (SELECT FN_GET_COM_CD_VL_NM('TRMT_TYPE', FA.TRMT_TYPE) FROM DUAL)
+						WHEN 8 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T0') FROM DUAL)
+						ELSE NULL
+					  END		AS TRMT_TYPE_NM
+					, CASE UPS.TYPE_SE_NO
+						WHEN 1 THEN (SELECT X.CORP_NM FROM TB_EV_APO X WHERE X.BRNO = ISO1.ISO_BRNO AND APO_SE = '2')
+						WHEN 2 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T1') FROM DUAL)
+						WHEN 3 THEN (SELECT X.CORP_NM FROM TB_EV_APO X WHERE X.BRNO = ISO3.ISO_BRNO AND APO_SE = '2')
+						WHEN 4 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T0') FROM DUAL)
+						WHEN 5 THEN FA.PRDCR_OGNZ_NM
+						WHEN 6 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T1') FROM DUAL)
+						WHEN 6 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'TE') FROM DUAL)
+						WHEN 8 THEN (SELECT FN_GET_COM_CD_VL_NM('PRUO_TOT_TYPE_SE', 'T0') FROM DUAL)
+						ELSE NULL
+					  END		AS PRCHS_NM
+					, FA.PRDCR_OGNZ_NM		AS PRDCR_OGNZ_NM
+					, CASE UPS.TYPE_SE_NO
+						WHEN 1 THEN NVL(ISO1.SLS_CNSGN_PRCHS_VLM, 0)
+						WHEN 3 THEN NVL(ISO3.SLS_CNSGN_PRCHS_VLM, 0)
+						ELSE UPS.SLS_CNSGN_PRCHS_VLM
+					  END	AS SLS_CNSGN_PRCHS_VLM
+					, CASE UPS.TYPE_SE_NO
+						WHEN 1 THEN NVL(ISO1.SLS_CNSGN_PRCHS_AMT, 0)
+						WHEN 3 THEN NVL(ISO3.SLS_CNSGN_PRCHS_AMT, 0)
+						ELSE UPS.SLS_CNSGN_PRCHS_AMT
+					  END	AS SLS_CNSGN_PRCHS_AMT
+
+					, UPS.SLS_CNSGN_SLS_VLM	AS SLS_CNSGN_SLS_VLM
+					, UPS.SLS_CNSGN_SLS_AMT		AS SLS_CNSGN_SLS_AMT
+
+					, UPS.RMRK			AS RMRK
+					, UPS.STBLT_YN		AS STBLT_YN
+
+					FROM (
+						SELECT
+							  EAM.APO_SE			AS APO_SE
+							, APO.APO_CD		AS APO_CD
+							, APO.CORP_NM		AS CORP_NM
+							, APO.CRNO			AS CRNO
+							, APO.BRNO			AS BRNO
+							, EAM.YR				AS YR
+						FROM TB_EV_APLY_MNG EAM
+
+						JOIN TB_EV_APO APO
+						ON APO.BRNO = EAM.BRNO
+						AND APO.DEL_YN = 'N'
+
+						WHERE EAM.APO_SE = '1'
+						AND EAM.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+						AND EAM.BRNO = #{brno}
+		</if>
+		<![CDATA[
+						AND NOT EXISTS (
+									SELECT 1
+									FROM TB_COM_USER X
+									WHERE X.USER_ID IN (
+									SELECT CD.CD_VL
+									FROM TB_COM_CD_DTL CD
+									WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+									AND CD.USE_YN = 'Y'
+									AND CD.DEL_YN = 'N'
+								)
+							AND X.BRNO = EAM.BRNO
+						)
+					) APO
+
+					LEFT JOIN TB_EV_APO_HSTRY UO
+					ON UO.YR = APO.YR
+					AND UO.BRNO = APO.BRNO
+					AND UO.DEL_YN = 'N'
+
+					LEFT JOIN TB_EV_APO_YR_GPC_CD GC
+					  ON GC.YR = APO.YR
+					AND GC.BRNO = APO.BRNO
+					AND GC.APO_SE = '1'
+					AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+					AND GC.DEL_YN = 'N'
+
+					LEFT JOIN TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT UPS
+					ON UPS.YR = APO.YR
+					AND UPS.BRNO = APO.BRNO
+					AND UPS.APO_SE = '1'
+					AND UPS.ITEM_CD = GC.ITEM_CD
+					AND UPS.DEL_YN = 'N'
+
+					LEFT JOIN TB_EV_FRMHS_APO FA
+					ON FA.YR = UPS.YR
+					AND FA.BRNO = UPS.BRNO
+					AND FA.PRDCR_OGNZ_SN = UPS.PRDCR_OGNZ_SN
+					AND NVL(FA.EXCL_YN, 'N') <> 'Y'
+					AND FA.DEL_YN = 'N'
+					AND UPS.TYPE_SE_NO = 5
+
+					/*
+					LEFT JOIN (
+						SELECT 'Y' AS OGNZ_STBLT_YN FROM DUAL
+						UNION ALL
+						SELECT 'N' AS OGNZ_STBLT_YN FROM DUAL
+						UNION ALL
+						SELECT '0' AS OGNZ_STBLT_YN FROM DUAL
+					) STBLT
+					ON UPS.TYPE_SE_NO IN (1, 2, 5)
+					*/
+					LEFT JOIN (
+						SELECT
+							  PST.YR							AS YR
+							, PST.UO_BRNO					AS UO_BRNO
+							, PST.BRNO						AS ISO_BRNO
+							, PST.ITEM_CD					AS ITEM_CD
+							--, PST.TYPE_SE_NO				AS TYPE_SE_NO
+							--, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+							, PST.STBLT_YN					AS STBLT_YN
+							, NVL(
+									SUM(
+										CASE
+											WHEN PST.TMPR_STRG_YN = 'Y' THEN 0
+											ELSE PST.UO_SPMT_AMT
+										END
+									)
+								, 0)		AS SLS_CNSGN_PRCHS_AMT
+							, NVL(
+									SUM(
+										CASE
+											WHEN PST.TMPR_STRG_YN = 'Y' THEN 0
+											ELSE PST.UO_SPMT_VLM
+										END
+									)
+								, 0)		AS SLS_CNSGN_PRCHS_VLM
+						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+
+						JOIN TB_EV_APO_YR_GPC_CD GC
+						  ON GC.YR = PST.YR
+						AND GC.BRNO = PST.BRNO
+						AND GC.UO_BRNO = PST.UO_BRNO
+						AND GC.APO_SE = PST.APO_SE
+						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+						AND GC.DEL_YN = 'N'
+
+						WHERE PST.APO_SE = '2'
+						AND PST.TYPE_SE_NO IN (5)
+						AND PST.OGNZ_STBLT_YN = 'Y'
+						AND PST.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+						AND PST.UO_BRNO = #{brno}
+		</if>
+		<![CDATA[
+						AND (
+								PST.TMPR_STRG_YN = 'Y'
+								OR
+								(PST.TMPR_STRG_YN <> 'Y' AND NVL(PST.UO_SPMT_AMT, 0) > 0)
+							)
+
+						AND PST.DEL_YN = 'N'
+						AND EXISTS (
+								SELECT 1
+								FROM TB_EV_FRMHS_APO X
+								WHERE X.YR = PST.YR
+								AND X.BRNO = PST.BRNO
+								AND X.UO_BRNO = PST.UO_BRNO
+								AND X.PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN
+								AND X.APO_SE = PST.APO_SE
+								AND X.ITEM_CD = PST.ITEM_CD
+								AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								AND X.TRMT_TYPE = PST.TRMT_TYPE
+								AND X.DEL_YN = 'N'
+							)
+						GROUP BY
+							  PST.YR
+							, PST.UO_BRNO
+							, PST.BRNO
+							, PST.ITEM_CD
+							--, PST.TYPE_SE_NO
+							--, GC.STTG_UPBR_ITEM_SE
+							, PST.STBLT_YN
+					) ISO1
+					  ON ISO1.YR = APO.YR
+					 AND ISO1.UO_BRNO = APO.BRNO
+					 AND ISO1.ITEM_CD = GC.ITEM_CD
+					 AND ISO1.ISO_BRNO = UPS.ISO_BRNO
+					 AND ISO1.STBLT_YN = UPS.OGNZ_STBLT_YN
+					 AND UPS.TYPE_SE_NO = 1
+
+					LEFT JOIN (
+						SELECT
+							  PST.YR							AS YR
+							, PST.UO_BRNO					AS UO_BRNO
+							, PST.BRNO						AS ISO_BRNO
+							, PST.ITEM_CD					AS ITEM_CD
+							--, PST.TYPE_SE_NO				AS TYPE_SE_NO
+							--, GC.STTG_UPBR_ITEM_SE			AS STTG_UPBR_ITEM_SE
+							, PST.STBLT_YN					AS STBLT_YN
+							, NVL(
+									SUM(
+										CASE
+											WHEN PST.TMPR_STRG_YN = 'Y' THEN 0
+											ELSE PST.UO_SPMT_AMT
+										END
+									)
+								, 0)		AS SLS_CNSGN_PRCHS_AMT
+							, NVL(
+									SUM(
+										CASE
+											WHEN PST.TMPR_STRG_YN = 'Y' THEN 0
+											ELSE PST.UO_SPMT_VLM
+										END
+									)
+								, 0)		AS SLS_CNSGN_PRCHS_VLM
+
+						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+
+						JOIN TB_EV_APO_YR_GPC_CD GC
+						  ON GC.YR = PST.YR
+						AND GC.BRNO = PST.BRNO
+						AND GC.UO_BRNO = PST.UO_BRNO
+						AND GC.APO_SE = PST.APO_SE
+						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+						AND GC.DEL_YN = 'N'
+
+						WHERE PST.APO_SE = '2'
+						AND PST.TYPE_SE_NO IN (5, 7)
+						AND PST.OGNZ_STBLT_YN =
+										CASE PST.TYPE_SE_NO
+											WHEN 5 THEN 'N'
+											WHEN 7 THEN '0'
+											ELSE NULL
+										END
+						AND PST.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+						AND PST.UO_BRNO = #{brno}
+		</if>
+		<![CDATA[
+						AND (
+								PST.TMPR_STRG_YN = 'Y'
+								OR
+								NVL(PST.UO_SPMT_AMT, 0) > 0
+							)
+						AND PST.DEL_YN = 'N'
+						GROUP BY
+							  PST.YR
+							, PST.UO_BRNO
+							, PST.BRNO
+							, PST.ITEM_CD
+							--, PST.TYPE_SE_NO
+							--, GC.STTG_UPBR_ITEM_SE
+							, PST.STBLT_YN
+					) ISO3
+					  ON ISO3.YR = APO.YR
+					 AND ISO3.UO_BRNO = APO.BRNO
+					 AND ISO3.ITEM_CD = GC.ITEM_CD
+					 AND ISO3.ISO_BRNO = UPS.ISO_BRNO
+					 --AND ISO3.STBLT_YN = UPS.OGNZ_STBLT_YN
+					 AND UPS.TYPE_SE_NO = 3
+
+				LEFT JOIN TB_EV_APO UO
+				ON UO.BRNO = APO.BRNO
+				AND UO.DEL_YN = 'N'
+
+				LEFT JOIN TB_ITEM_CRTR ITM
+				ON ITM.ITEM_CD = GC.ITEM_CD
+				AND ITM.DEL_YN = 'N'
+
+				WHERE GC.ITEM_CD IS NOT NULL
+			) TOT
+				ORDER BY
+				  BRNO
+				, STTG_UPBR_ITEM_SE
+				, ITEM_CD
+				, SEQ_1
+				, SEQ_2
+				, SEQ_3
+				, TRMT_TYPE
+				, TYPE_SE_NO
+		]]>
+	</select>
+
 
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew	-->

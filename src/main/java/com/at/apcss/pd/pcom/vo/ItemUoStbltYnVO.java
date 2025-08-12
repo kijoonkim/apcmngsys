@@ -34,6 +34,7 @@ public class ItemUoStbltYnVO extends ComVO{
 
 	private String sttgUpbrItemSe;
 	private String sttgUpbrItemNm;
+	private String sttgUpbrItemSeNm;
 	private String aprv;
 	private String aprvNm;
 
@@ -84,8 +85,8 @@ public class ItemUoStbltYnVO extends ComVO{
 
 	private String stbltYn;
 	private String orgStbltYn;
-	private String lastStbltYn;//최종 선정여부
-
+	private String lastStbltYn;	//최종 선정여부
+	private String stbltYnNm;
 	private String actnMttr;
 
 	private String sysFrstInptUserIdNm;
@@ -96,4 +97,6 @@ public class ItemUoStbltYnVO extends ComVO{
 	/* 20250312 통합조직 신청의 품목별 취급목표액, 취급률 추가*/
 	private String trgtTrmtAmt;
 	private String trgtTrmtRt;
+
+	private String oldDataYn;
 }

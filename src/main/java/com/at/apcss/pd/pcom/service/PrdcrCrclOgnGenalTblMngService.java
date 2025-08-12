@@ -30,7 +30,7 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 */
 	public PrdcrCrclOgnGenalTblMngVO selectPrdcrCrclOgnGenalTblMng(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
-	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngList(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
 
 	public List<PrdcrCrclOgnGenalTblMngVO> selectPrdcrCrclOgnGenalTblMngUoList(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
@@ -41,19 +41,19 @@ public interface PrdcrCrclOgnGenalTblMngService {
 
 	/**
 	 * 총괄표 로우데이터 2024
-	 * @param ItemUoStbltYnVO
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
-	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+	public List<ItemUoStbltYnVO> selectRawDataList(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
 
 	/**
 	 * 총괄표 로우데이터 2025
-	 * @param ItemUoStbltYnVO
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
-	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+	public List<ItemUoStbltYnVO> selectRawDataList2025(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
 
 	public int updateItemUoActnMttr(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
@@ -107,13 +107,23 @@ public interface PrdcrCrclOgnGenalTblMngService {
 	 */
 	public List<PrdcrCrclOgnGenalTblMngVO> selectUoClsfTot(PrdcrCrclOgnGenalTblMngVO PrdcrCrclOgnGenalTblMngVO) throws Exception;
 
+
 	/**
-	 * 통합조직 신규 총괄표 조회
-	 * @param ItemUoStbltYnVO
+	 * 통합조직 총괄 목록 조회
+	 * @param itemUoStbltYnVO
 	 * @return List<ItemUoStbltYnVO>
 	 * @throws Exception
 	 */
-	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception;
+	public List<ItemUoStbltYnVO> selectUoPrchsSlsSummaryList(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
+
+
+	/**
+	 * 통합조직 신규 총괄표 조회
+	 * @param itemUoStbltYnVO
+	 * @return List<ItemUoStbltYnVO>
+	 * @throws Exception
+	 */
+	public List<ItemUoStbltYnVO> selectPrdcrCrclOgnGenalTblMngListNew(ItemUoStbltYnVO itemUoStbltYnVo) throws Exception;
 
 
 	/**

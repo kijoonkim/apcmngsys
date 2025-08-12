@@ -23,33 +23,43 @@ public interface InvShipOgnGenalTblMngService {
 
 	/**
 	 * 정보를 조회한다.
-	 * @param InvShipOgnGenalTblMngVO
+	 * @param invShipOgnGenalTblMngVO
 	 * @return InvShipOgnGenalTblMngVO
 	 * @throws Exception
 	 */
-	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public int updateStbltYn(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	/**
+	 * 통합조직 총괄표 목록 조회
+	 * @param invShipOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<InvShipOgnGenalTblMngVO> selectUoPrchsSlsSummaryList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
-	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
+	
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsRawdataList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
+
+	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
 	/**
 	 * 조치사항을 저장한다.
-	 * @param InvShipOgnGenalTblMngVO
+	 * @param invShipOgnGenalTblMngVO
 	 * @return int
 	 * @throws Exception
 	 */
-	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception;
+	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
 	/**
 	 * 조치사항을 저장한다.

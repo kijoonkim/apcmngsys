@@ -32,49 +32,45 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnSpItmPurSalYMngService{
 
 	@Autowired
-	private PrdcrCrclOgnSpItmPurSalYMngMapper PrdcrCrclOgnSpItmPurSalYMngMapper;
+	private PrdcrCrclOgnSpItmPurSalYMngMapper prdcrCrclOgnSpItmPurSalYMngMapper;
 
 	@Override
-	public PrdcrCrclOgnSpItmPurSalYMngVO selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		PrdcrCrclOgnSpItmPurSalYMngVO resultVO = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return resultVO;
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMng(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
 	@Override
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return resultList;
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngList(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
 	@Override
-	public int insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return insertedCnt;
+	public int insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMng(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
 	@Override
-	public int updatePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		int updatedCnt = 0;
-		return updatedCnt;
+	public int updatePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return 0;
 	}
 	@Override
-	public int deletePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+	public int deletePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
 		return 0;
 	}
 
 	@Override
-	public int multiSavePrdcrCrclOgnSpItmPurSalYMngList(List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList) throws Exception {
+	public int multiSavePrdcrCrclOgnSpItmPurSalYMngList(List<PrdcrCrclOgnSpItmPurSalYMngVO> prdcrCrclOgnSpItmPurSalYMngVOList) throws Exception {
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//통합조직 사업자번호
-		for (PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO : PrdcrCrclOgnSpItmPurSalYMngVOList) {
-			yrVal = PrdcrCrclOgnSpItmPurSalYMngVO.getYr();
-			brnoVal = PrdcrCrclOgnSpItmPurSalYMngVO.getBrno();
-			if(ComConstants.ROW_STS_INSERT.equals(PrdcrCrclOgnSpItmPurSalYMngVO.getRowSts())) {
-				savedCnt += insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
+		for (PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO : prdcrCrclOgnSpItmPurSalYMngVOList) {
+			yrVal = prdcrCrclOgnSpItmPurSalYMngVO.getYr();
+			brnoVal = prdcrCrclOgnSpItmPurSalYMngVO.getBrno();
+			if (ComConstants.ROW_STS_INSERT.equals(prdcrCrclOgnSpItmPurSalYMngVO.getRowSts())) {
+				savedCnt += insertPrdcrCrclOgnSpItmPurSalYMng(prdcrCrclOgnSpItmPurSalYMngVO);
 			}
-			if(ComConstants.ROW_STS_UPDATE.equals(PrdcrCrclOgnSpItmPurSalYMngVO.getRowSts())) {
-				savedCnt += updatePrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO);
+			if (ComConstants.ROW_STS_UPDATE.equals(prdcrCrclOgnSpItmPurSalYMngVO.getRowSts())) {
+				savedCnt += updatePrdcrCrclOgnSpItmPurSalYMng(prdcrCrclOgnSpItmPurSalYMngVO);
 			}
 		}
 		//전문품목 매입 매출 저장 완료 후 적합여부 체크
@@ -89,7 +85,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
 				//적합여부 초기화
-				PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
+				prdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
 				for (ItemUoStbltYnVO resultVo : resultVoList) {
 					updateItemUoStbltYn(resultVo);
 				}
@@ -101,57 +97,62 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	//품목별 적합여부 리스트
 	@Override
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnList(ItemUoStbltYnVo);
-		return resultList;
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnList(ItemUoStbltYnVo);
 	}
 	//적합여부 업데이트
 	@Override
 	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
-		return insertedCnt;
+		return prdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYn(ItemUoStbltYnVo);
 	}
 	//전문품목 매입매출 출자출하조직 보유 로우데이터 2024년
 	@Override
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return resultList;
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
 	//전문품목 매입매출 출자출하조직 보유 로우데이터 2025년
 	@Override
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return resultList;
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025(prdcrCrclOgnSpItmPurSalYMngVO);
+	}
+
+	/**
+	 * 통합조직 전문품목 매입매출 목록 조회
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemPrchsSlsList(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
 	/* 개발서버 신규화면 조회 */
 	@Override
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return resultList;
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectPrdcrCrclOgnSpItmPurSalYMngListNew(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 	/* 개발서버 신규화면 등록 */
 	@Override
-	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
-		int insertedCnt = PrdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO);
-		return insertedCnt;
+	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		return prdcrCrclOgnSpItmPurSalYMngMapper.insertPrdcrCrclOgnSpItmPurSalYMngNew(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 	/* 개발서버 신규화면 등록 */
 	@Override
-	public int multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(List<PrdcrCrclOgnSpItmPurSalYMngVO> PrdcrCrclOgnSpItmPurSalYMngVOList) throws Exception {
+	public int multiSavePrdcrCrclOgnSpItmPurSalYMngListNew(List<PrdcrCrclOgnSpItmPurSalYMngVO> prdcrCrclOgnSpItmPurSalYMngVOList) throws Exception {
 		int savedCnt = 0;
 		String yrVal = null;// 등록년도
 		String brnoVal = null;//통합조직 사업자번호
 		String tmprStrgYnVal = null;//임시저장 여부
 		int delYn = 0;
-		for (PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO : PrdcrCrclOgnSpItmPurSalYMngVOList) {
-			yrVal = PrdcrCrclOgnSpItmPurSalYMngVO.getYr();
-			brnoVal = PrdcrCrclOgnSpItmPurSalYMngVO.getBrno();
-			tmprStrgYnVal = PrdcrCrclOgnSpItmPurSalYMngVO.getTmprStrgYn();
+		for (PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO : prdcrCrclOgnSpItmPurSalYMngVOList) {
+			yrVal = prdcrCrclOgnSpItmPurSalYMngVO.getYr();
+			brnoVal = prdcrCrclOgnSpItmPurSalYMngVO.getBrno();
+			tmprStrgYnVal = prdcrCrclOgnSpItmPurSalYMngVO.getTmprStrgYn();
 			if(delYn == 0) {
-				delYn = PrdcrCrclOgnSpItmPurSalYMngMapper.updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO);
+				delYn = prdcrCrclOgnSpItmPurSalYMngMapper.updateDelYn(prdcrCrclOgnSpItmPurSalYMngVO);
 			}
-			savedCnt += insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO);
+			savedCnt += insertPrdcrCrclOgnSpItmPurSalYMngNew(prdcrCrclOgnSpItmPurSalYMngVO);
 		}
 
 		//임시저장인 경우 적합여부 체크 하지 않음
@@ -160,7 +161,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 			tmprStrgVo.setYr(yrVal);
 			tmprStrgVo.setBrno(brnoVal);
 			tmprStrgVo.setTmprStrgYn(tmprStrgYnVal);
-			PrdcrCrclOgnSpItmPurSalYMngMapper.updateTempSaveUoAps(tmprStrgVo);
+			prdcrCrclOgnSpItmPurSalYMngMapper.updateTempSaveUoAps(tmprStrgVo);
 			return savedCnt;
 		}
 
@@ -176,7 +177,7 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 			//조회 결과가 있을 경우에만 업데이트
 			if(resultVoList != null) {
 				//적합여부 초기화
-				PrdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
+				prdcrCrclOgnSpItmPurSalYMngMapper.updateItemUoStbltYnInit(ItemStbltYnVo);
 				for (ItemUoStbltYnVO resultVo : resultVoList) {
 					updateItemUoStbltYn(resultVo);
 				}
@@ -187,15 +188,12 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	/* 개발서버 신규화면 적합여부 체크 */
 	@Override
 	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo) throws Exception {
-		List<ItemUoStbltYnVO> resultList = PrdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnListNew(ItemUoStbltYnVo);
-		return resultList;
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectItemUoStbltYnListNew(ItemUoStbltYnVo);
 	}
 
 	@Override
-	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
 
-		PrdcrCrclOgnSpItmPurSalYMngVO resultVO = PrdcrCrclOgnSpItmPurSalYMngMapper.selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO);
-
-		return resultVO;
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectTempSaveUoPst(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 }
