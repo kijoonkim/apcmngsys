@@ -1275,6 +1275,541 @@
 			YR, BRNO
 	</select>
 
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList	-->
+	<!-- DESC : 통합조직 총괄표 조회                                             		-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUoPrchsSlsSummaryList" parameterType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO" resultType="com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList */
+				  TOT.YR				AS YR
+				, (SELECT X.SLCTN_YR FROM TB_EV_APO X WHERE X.BRNO = TOT.BRNO) 	AS SLCTN_YR
+
+				, TOT.ITEM_CD			AS ITEM_CD
+				, TOT.ITEM_NM			AS ITEM_NM
+				, TOT.BRNO				AS BRNO
+				, TOT.CRNO			AS CRNO
+				, TOT.CORP_NM		AS CORP_NM
+				, TOT.APRV				AS APRV
+				, (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', TOT.APRV) FROM DUAL) AS APRV_NM
+				, TOT.APO_CD			AS APO_CD
+				, TOT.APO_SE			AS APO_SE
+				, TOT.CTGRY_CD		AS CTGRY_CD
+				, (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', TOT.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				, TOT.STTG_UPBR_ITEM_SE			AS STTG_UPBR_ITEM_SE
+				, (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', TOT.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_SE_NM
+				, TOT.SLS_CNSGN_SLS_AMT			AS SLS_CNSGN_SLS_AMT
+				, TOT.SLS_CNSGN_SLS_AMT_TOT		AS SLS_CNSGN_SLS_AMT_TOT
+				, TOT.SLS_CNSGN_SLS_AMT_RT		AS SLS_CNSGN_SLS_AMT_RT
+				, TOT.SLS_CNSGN_SLS_VLM			AS SLS_CNSGN_SLS_VLM
+				, TOT.SLS_CNSGN_SLS_VLM_TOT		AS SLS_CNSGN_SLS_VLM_TOT
+
+				, TOT.TRGT_TRMT_AMT				AS TRGT_TRMT_AMT
+				, TOT.TRGT_TRMT_RT				AS TRGT_TRMT_RT
+
+				-- , TOT.CLSF_CD		AS CLSF_CD
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'IC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_ITEM_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SAC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_A_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SBC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_B_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'SCC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_AMT_TOT_C_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TAC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_A_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'TBC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_B_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RAA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_A_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RAB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_A_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RBA'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_B_A
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RBB'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_B_B
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_CHK_CD (
+						  TOT.YR
+						, 'RC'
+						, TOT.ITEM_CD
+						, TOT.SLS_CNSGN_SLS_AMT
+						, TOT.SLS_CNSGN_SLS_AMT_TOT
+						, TOT.SLS_CNSGN_SLS_AMT_RT
+						) FROM DUAL
+				)	AS CHK_RT_C
+				, (
+					SELECT
+						FN_GET_UO_CNSGN_STBLT_YN (
+								TOT.YR
+								, TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.CTGRY_CD
+								, TOT.ITEM_CD
+								, TOT.SLS_CNSGN_SLS_AMT
+								, TOT.SLS_CNSGN_SLS_AMT_TOT
+								, TOT.SLS_CNSGN_SLS_AMT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN
+
+				, CASE
+					WHEN TOT.ORG_STBLT_YN = 'Y' THEN NULL
+					ELSE (
+							SELECT
+								FN_GET_UO_CNSGN_STBLT_YN_NM (
+										TOT.YR
+										, TOT.APRV
+										, TOT.STTG_UPBR_ITEM_SE
+										, TOT.CTGRY_CD
+										, TOT.ITEM_CD
+										, TOT.SLS_CNSGN_SLS_AMT
+										, TOT.SLS_CNSGN_SLS_AMT_TOT
+										, TOT.SLS_CNSGN_SLS_AMT_RT
+									)
+							FROM DUAL
+						)
+				  END		AS STBLT_YN_NM
+
+				, (
+					SELECT X.ACTN_MTTR
+					  FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+					 WHERE X.BRNO = TOT.BRNO
+					   AND X.YR = TOT.YR
+					   AND X.APO_SE = '1'
+					   AND X.TYPE_SE_NO = 8
+					   AND X.ITEM_CD = TOT.ITEM_CD
+					   AND X.DEL_YN = 'N'
+				) AS ACTN_MTTR
+
+				, TOT.ORG_STBLT_YN		AS ORG_STBLT_YN
+
+			  FROM (
+				 SELECT
+					  ITEM.YR				AS YR
+					, ITEM.ITEM_CD		AS ITEM_CD
+					, IC.ITEM_NM			AS ITEM_NM
+					, ITEM.BRNO			AS BRNO
+					, ITEM.CRNO			AS CRNO
+					, ITEM.CORP_NM		AS CORP_NM
+					, ITEM.APRV			AS APRV
+					, ITEM.APO_CD			AS APO_CD
+					, ITEM.APO_SE			AS APO_SE
+					, ITEM.CTGRY_CD		AS CTGRY_CD
+					  --, ITEM.CLSF_CD		AS CLSF_CD
+					, ITEM.STTG_UPBR_ITEM_SE		AS STTG_UPBR_ITEM_SE
+
+					, TOTA.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT
+					, TOTB.SLS_CNSGN_SLS_AMT 			AS SLS_CNSGN_SLS_AMT_TOT
+					, TOTA.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM
+					, TOTB.SLS_CNSGN_SLS_VLM 			AS SLS_CNSGN_SLS_VLM_TOT
+
+					, ROUND(
+							 NVL(TOTA.SLS_CNSGN_SLS_AMT, 0)
+							 /
+							 NULLIF(NVL(TOTB.SLS_CNSGN_SLS_AMT, 0), 0)
+						 * 100
+					, 2)	AS SLS_CNSGN_SLS_AMT_RT
+					, ROUND(
+							 NVL(TOTA.SLS_CNSGN_SLS_VLM, 0)
+							 /
+							 NULLIF(NVL(TOTB.SLS_CNSGN_SLS_VLM, 0), 0)
+						 * 100
+					, 2)	AS SLS_CNSGN_SLS_VLM_RT
+					, (
+						 SELECT X.STBLT_YN
+						   FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+						  WHERE X.BRNO = ITEM.BRNO
+							AND X.YR = ITEM.YR
+							AND X.ITEM_CD = ITEM.ITEM_CD
+							AND X.APO_SE = '1'
+							AND X.TYPE_SE_NO = 8
+							AND NVL(X.TMPR_STRG_YN, 'N') = 'N'
+							AND X.DEL_YN = 'N'
+					)		AS ORG_STBLT_YN
+					, ITEM.TRGT_TRMT_AMT		AS TRGT_TRMT_AMT
+					, ITEM.TRGT_TRMT_RT		AS TRGT_TRMT_RT
+
+				 FROM (
+					  SELECT
+						  EAM.APO_SE			AS APO_SE
+						, APO.APO_CD			AS APO_CD
+						, APO.CORP_NM		AS CORP_NM
+						, APO.CRNO			AS CRNO
+						, APO.APRV				AS APRV
+						, EAM.BRNO				AS BRNO
+						, EAM.YR				AS YR
+						, GC.ITEM_CD			AS ITEM_CD
+						, GC.STTG_UPBR_ITEM_SE			AS STTG_UPBR_ITEM_SE
+						, GC.CTGRY_CD						AS CTGRY_CD
+						, GC.TRGT_TRMT_AMT				AS TRGT_TRMT_AMT
+						, GC.TRGT_TRMT_RT					AS TRGT_TRMT_RT
+
+					  FROM TB_EV_APLY_MNG EAM
+
+					  JOIN TB_EV_APO APO
+						ON APO.BRNO = EAM.BRNO
+					   AND APO.DEL_YN = 'N'
+
+					  JOIN TB_EV_APO_YR_GPC_CD GC
+						ON GC.YR = EAM.YR
+					   AND GC.BRNO = EAM.BRNO
+					   AND GC.DEL_YN = 'N'
+
+					  WHERE EAM.APO_SE = '1'
+						AND EAM.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+						AND EAM.BRNO = #{brno}
+		</if>
+		<![CDATA[
+						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+						AND NOT EXISTS (
+						  SELECT 1
+						  FROM TB_COM_USER X
+						  WHERE X.USER_ID IN (
+								  SELECT CD.CD_VL
+								  FROM TB_COM_CD_DTL CD
+								  WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+									AND CD.USE_YN = 'Y'
+									AND CD.DEL_YN = 'N'
+								)
+							AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+						)
+				  ) ITEM
+				  LEFT JOIN (
+					SELECT
+						  SLS.BRNO				AS BRNO
+						, SLS.YR					AS YR
+						, SLS.ITEM_CD			AS ITEM_CD
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_VLM), 0)	AS SLS_CNSGN_SLS_VLM
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_AMT), 0) 	AS SLS_CNSGN_SLS_AMT
+
+					 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+					 JOIN TB_EV_APO_YR_GPC_CD GC
+					   ON GC.YR = SLS.YR
+					  AND GC.BRNO = SLS.BRNO
+					  AND GC.APO_SE = SLS.APO_SE
+					  AND GC.ITEM_CD = SLS.ITEM_CD
+					  AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+					  AND GC.DEL_YN = 'N'
+					 WHERE SLS.APO_SE = '1'
+					   AND SLS.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+					   AND SLS.BRNO = #{brno}
+		</if>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+					   AND SLS.TYPE_SE_NO IN (2, 6)
+			</when>
+			<otherwise>
+					   AND SLS.TYPE_SE_NO IN (1, 5)
+			</otherwise>
+		</choose>
+		<![CDATA[
+					   AND SLS.DEL_YN = 'N'
+					   AND NVL(SLS.TMPR_STRG_YN, 'N') = 'N'
+					   AND SLS.OGNZ_STBLT_YN = 'Y'
+					   AND (
+							SLS.PRDCR_OGNZ_SN = 0
+							OR
+							SLS.PRDCR_OGNZ_SN IN (
+								 SELECT X.PRDCR_OGNZ_SN
+								 FROM TB_EV_FRMHS_APO X
+								 WHERE X.APO_SE = SLS.APO_SE
+								   AND X.BRNO = SLS.BRNO
+								   AND X.YR = SLS.YR
+								   AND X.STBLT_YN = 'Y'
+								   AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								   AND X.TRMT_TYPE = SLS.TRMT_TYPE
+							   )
+						)
+					 GROUP BY  SLS.BRNO, SLS.YR, SLS.ITEM_CD
+				 ) TOTA
+					ON TOTA.YR = ITEM.YR
+					AND TOTA.BRNO = ITEM.BRNO
+					AND TOTA.ITEM_CD = ITEM.ITEM_CD
+
+			  	LEFT JOIN (
+					 SELECT
+						  SLS.BRNO			AS BRNO
+						, SLS.YR				AS YR
+						, SLS.ITEM_CD		AS ITEM_CD
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_VLM), 0)	AS SLS_CNSGN_SLS_VLM
+						, NVL(SUM(SLS.SLS_CNSGN_SLS_AMT), 0) 	AS SLS_CNSGN_SLS_AMT
+
+					 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+					 JOIN TB_EV_APO_YR_GPC_CD GC
+					   ON GC.YR = SLS.YR
+					  AND GC.BRNO = SLS.BRNO
+					  AND GC.APO_SE = SLS.APO_SE
+					  AND GC.ITEM_CD = SLS.ITEM_CD
+					  AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
+					  AND GC.DEL_YN = 'N'
+					 WHERE SLS.APO_SE = '1'
+					   AND SLS.YR = #{yr}
+		]]>
+		<if test='brno != null and brno != ""'>
+					   AND SLS.BRNO = #{brno}
+		</if>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+					   AND SLS.TYPE_SE_NO IN (2, 3, 6, 7)
+			</when>
+			<otherwise>
+					   AND SLS.TYPE_SE_NO = 8
+			</otherwise>
+		</choose>
+		<![CDATA[
+					   AND NVL(SLS.TMPR_STRG_YN, 'N') = 'N'
+					   AND SLS.DEL_YN = 'N'
+
+					 GROUP BY  SLS.BRNO, SLS.YR, SLS.ITEM_CD
+				 ) TOTB
+					ON TOTB.YR = ITEM.YR
+					AND TOTB.BRNO = ITEM.BRNO
+					AND TOTB.ITEM_CD = ITEM.ITEM_CD
+
+				  LEFT JOIN TB_ITEM_CRTR IC
+					ON IC.ITEM_CD = ITEM.ITEM_CD
+					AND IC.DEL_YN = 'N'
+
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			 ) TOT
+			WHERE TOT.BRNO IS NOT NULL
+			ORDER BY BRNO, ITEM_CD, STBLT_YN
+		]]>
+	</select>
+
 	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnGenalTblMngMapper.selectPrdcrCrclOgnGenalTblMngListNe	-->
 	<!-- DESC : 총괄표 조회 2025년 기준                                             		-->

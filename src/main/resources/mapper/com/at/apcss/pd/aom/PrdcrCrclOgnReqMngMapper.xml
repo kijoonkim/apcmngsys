@@ -569,6 +569,8 @@
 					, APO.CRNO		AS CRNO
 					, APO.BRNO			AS BRNO
 					, UC.UO_BRNO		AS UO_BRNO
+					, UO.CORP_NM	AS UO_CORP_NM
+				    , UO.CRNO		AS UO_CRNO
 					, APO.PIC_FLNM	AS PIC_FLNM
 					, APO.ZIP	AS ZIP
 					, APO.LOTNO_ADDR	AS LOTNO_ADDR
@@ -596,6 +598,7 @@
 					, APO.STBLT_YN	AS STBLT_YN
 					, APO.MNGMST_YN	AS MNGMST_YN
 
+				     /*
 					, (
 						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
 						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
@@ -606,7 +609,18 @@
 						  AND PS.STBLT_YN = 'Y'
 						  AND PS.TYPE_SE_NO = 8
 					)	AS STBLT_YN_NM_LIST
-
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, NULL
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST
+				     /*
 			   		, (
 						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
 						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
@@ -627,6 +641,18 @@
 								AND X.DEL_YN = 'N'
 							)
 					)	AS STBLT_YN_NM_LIST_1
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, '1'
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST_1
+				     /*
 			   		, (
 						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
 						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
@@ -647,6 +673,18 @@
 							  AND X.DEL_YN = 'N'
 							)
 					)	AS STBLT_YN_NM_LIST_2
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, '2'
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST_2
+
 			   		, (
 						SELECT COUNT(*)
 						FROM TB_EV_FRMHS_APO X
