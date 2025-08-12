@@ -728,6 +728,8 @@
 	var jsonInspCd = [];
 	/** 검품등급 비교 */
 	var jsonInspCmpr = [];
+	/** 팔레트/박스 수량 비교**/
+	var jsonPltBoxCmpr = [];
     /**
      * 조회 조건 select combo 설정
      */
@@ -1088,10 +1090,44 @@
 					if(plt[keyNm] === pltBxCd){
 						plt[prefix + 'qntt'] = qntt;
 						plt[prefix + 'sn'] = item.sn;
+						plt.rmrk = rmrk;
+						plt.jobYmd = item.jobYmd;
+						plt.prcsNo = item.prcsNo;
+						plt.prdcrCd = item.prdcrCd;
 					}
-					plt.rmrk = rmrk;
 				}
 			});
+		});
+		let jsonPltBoxCmprTemp = JSON.parse(JSON.stringify(jsonPltBox.filter(i => i.Bqntt !== "" || i.Pqntt !== "")));
+		jsonPltBoxCmprTemp.forEach(function(item){
+			if(item.Bqntt > 0){
+				jsonPltBoxCmpr.push({
+					apcCd : gv_selectedApcCd,
+					jobYmd : item.jobYmd,
+					wrhsSpmtSeCd : item.type === '입고'? '1' : '2',
+					pltBxSeCd : 'B',
+					pltBxCd : item.BpltBxCd,
+					prdcrCd : item.prdcrCd,
+					qntt : parseInt(item.Bqntt),
+					unitWght : parseFloat(item.BunitWght),
+					sn : item.Bsn,
+					rmrk: item.rmrk
+				})
+			}
+			if(item.Pqntt > 0){
+				jsonPltBoxCmpr.push({
+					apcCd : gv_selectedApcCd,
+					jobYmd : item.jobYmd,
+					wrhsSpmtSeCd : item.type === '입고'? '1' : '2',
+					pltBxSeCd : 'P',
+					pltBxCd : item.PpltBxCd,
+					prdcrCd : item.prdcrCd,
+					qntt : parseInt(item.Pqntt),
+					unitWght : parseInt(item.PunitWght),
+					sn : item.Psn,
+					rmrk: item.rmrk
+				})
+			}
 		});
 		grdPltBox.rebuild();
 
@@ -1215,6 +1251,20 @@
 
 		SBUxMethod.set('frmhsInfo', '');
 		SBUxMethod.set('vhclInfo', '');
+
+		/** grid reset **/
+		jsonVrty.filter(i => i.grdCd !== '합계').forEach(item =>
+				Object.keys(item).forEach(k =>
+						!['apcCd', 'grdCd', 'warehouseSeCd'].includes(k) && (item[k] = "")
+				)
+		);
+		jsonInsp.forEach(item =>
+				Object.keys(item).forEach(k =>
+						!['apcCd', 'grdCd'].includes(k) && (item[k] = "")
+				)
+		);
+		grdVrty.rebuild();
+		grdInsp.rebuild();
 	}
 
 	/**
@@ -1536,7 +1586,7 @@
  		let itemCd 			= SBUxMethod.get('dtl-slt-itemCd');
  		let fcltCd 			= SBUxMethod.get('dtl-slt-fcltCd');
  		let wrhsSpmtType 	= SBUxMethod.get('dtl-slt-wrhsSpmtType');
- 		let bxQntt 			= SBUxMethod.get('dtl-inp-bxQntt');
+ 		let bxQntt 			= Number(SBUxMethod.get('dtl-inp-bxQntt'));
  		let pltQntt 		= SBUxMethod.get('dtl-inp-pltQntt');
 		 /** 계량 시각 **/
 		 let emptyTime = SBUxMethod.get("dtl-inp-emptVhclWghtTime");
@@ -1571,9 +1621,10 @@
 		 let sumBqntt; // 팔레트 불출관리 상자 합계
 		 for(let i =0; i<jsonPltBox.length; i++){
 			 if(jsonPltBox[i].BpltBxNm === "합계" && jsonPltBox[i].type === "입고"){
-				 sumBqntt = jsonPltBox[i].Bqntt;
+				 sumBqntt = Number(jsonPltBox[i].Bqntt);
 			 }
 		 }
+
 		 if(sumBqntt !== bxQntt && bxQntt){
 			 gfn_comAlert("W0006", "입고 가구 수","팔레트 불출관리 상자 합계"); // W0006 {0}와/과 {1}이/가 서로 다릅니다.
 			 return;
@@ -1743,9 +1794,6 @@
 		/** 팔레트 불출관리 **/
 		let pltWrhsSpmt = [];
 		let pltGrd = grdPltBox.getGridDataAll();
-		/** merge cell로 인해 첫번째 row에서 추출 **/
-		let wrhsPltRmrk = pltGrd.filter(item => item.type === '입고' && item.hasOwnProperty("rmrk"))[0].rmrk;	// 입고
-		let spmtPltRmrk = pltGrd.filter(item => item.type === '출고' && item.hasOwnProperty("rmrk"))[0].rmrk;	// 출고
 
 		pltGrd = pltGrd.filter(item => (item.Bqntt > 0 || item.Pqntt > 0) && !item.hasOwnProperty("subtotal"));
 		pltGrd.forEach(function(item){
@@ -1758,8 +1806,9 @@
 					pltBxCd : item.BpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Bqntt),
+					unitWght : parseFloat(item.BunitWght),
 					sn : item.Bsn,
-					rmrk: item.type === '입고'? wrhsPltRmrk : spmtPltRmrk
+					rmrk: item.rmrk
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1771,8 +1820,9 @@
 					pltBxCd : item.PpltBxCd,
 					prdcrCd : prdcrCd,
 					qntt : parseInt(item.Pqntt),
+					unitWght : parseInt(item.PunitWght),
 					sn : item.Psn,
-					rmrk: item.type === '입고'? wrhsPltRmrk : spmtPltRmrk
+					rmrk: item.rmrk
 				})
 			}
 		});
@@ -1882,7 +1932,12 @@
 				 item.warehouseSeCd = setWarehouseCd[idx].warehouseSeCd;
 			 });
 
-			 fn_warehouseModal();
+			 await fn_warehouseModal();
+
+			 /** 팔레트 0 삭제처리 **/
+			 const key = o => [o.jobYmd, o.pltBxCd, o.pltBxSeCd, o.wrhsSpmtSeCd].join('|');
+			 const base = new Set(pltWrhsSpmt.map(key));
+			 const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
 
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 				 const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",
@@ -1891,12 +1946,13 @@
 							 pltWrhsSpmt : pltWrhsSpmt,
 							 wghHstryList : wghHstryList,
 							 inspDelList : inspDelList,
+							 pltDelList : pltDelList,
 						 });
 				 const data = await postJsonPromise;
 
 				 if (_.isEqual("S", data.resultStatus)) {
-					 fn_search();
-					 fn_reset();
+					 await fn_search();
+					 await fn_reset();
 					 gfn_comAlert("I0001");					// I0001 처리 되었습니다.
 				 } else {
 					 gfn_comAlert(data.resultCode, data.resultMessage);
@@ -2381,7 +2437,7 @@
 			{caption: ['수량'], 	ref: 'Bqntt', width: '12%', type:'input',  	style:'text-align:center',merge : false},
 			{caption: ['팔레트종류'],	ref: 'PpltBxNm', width: '20%', type:'output',  	style:'text-align:center',merge : false},
 			{caption: ['수량'], 	ref: 'Pqntt', width: '12%', type:'input',  	style:'text-align:center',merge : false},
-			{caption: ['입고,출고지'],		ref: 'rmrk', width: '21%', type:'input',  	style:'text-align:center', /*merge : false*/},
+			{caption: ['입고,출고지'],		ref: 'rmrk', width: '21%', type:'input',  	style:'text-align:center', merge : false},
 		]
 		grdPltBox = _SBGrid.create(SBGridProperties);
 		grdPltBox.bind("beforeedit",'fn_qnttDisable');

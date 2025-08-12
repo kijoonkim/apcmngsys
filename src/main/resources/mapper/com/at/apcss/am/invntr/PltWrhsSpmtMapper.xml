@@ -460,4 +460,26 @@
 			AND PWS.SN = #{sn}
 		</if>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.deletePltWrhsSpmt			-->
+	<!-- DESC : 팔레트/박스 입출 삭제.			                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.08.11  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deletePltWrhsSpmt">
+		DELETE
+			TB_PLT_WRHS_SPMT
+		WHERE
+		<foreach collection="list" item="vo" open="(" separator="OR" close=")">
+			(APC_CD = #{vo.apcCd}
+			AND JOB_YMD = #{vo.jobYmd}
+			AND SN = #{vo.sn}
+			AND PLT_BX_CD = #{vo.pltBxCd}
+			AND PLT_BX_SE_CD = #{vo.pltBxSeCd}
+			AND PRDCR_CD = #{vo.prdcrCd})
+		</foreach>
+	</delete>
+
 </mapper>
