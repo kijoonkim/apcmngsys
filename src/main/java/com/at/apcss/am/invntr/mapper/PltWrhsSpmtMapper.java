@@ -103,4 +103,11 @@ public interface PltWrhsSpmtMapper {
 	void updatePltBxInfoBssInvntrQntt(PltWrhsSpmtVO pltWrhsSpmtVO)throws Exception;
 
 	int mergePltWrhsSpmt(PltWrhsSpmtVO pltWrhsSpmtVO) throws Exception;
+	/**
+	 * 팔레트 입출고실적 삭제
+	 * @param pltDelList
+	 * @return
+	 * @throws Exception
+	 */
+	int deletePltWrhsSpmt(List<PltWrhsSpmtVO> pltDelList) throws Exception;
 }

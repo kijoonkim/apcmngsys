@@ -593,7 +593,7 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 	}
 
 	@Override
-	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList, List<WghInspPrfmncVO> wghInspPrfmncVOList) throws Exception {
+	public HashMap<String, Object> multiWghPrfmncList(List<WghPrfmncVO> wghPrfmncList, List<PltWrhsSpmtVO> pltWrhsSpmtList, List<WghHstryVO> wghHstryVOList, List<WghInspPrfmncVO> wghInspPrfmncVOList, List<PltWrhsSpmtVO> pltDelList) throws Exception {
 		HashMap<String, Object> rtnObj = multiWghPrfmncList(wghPrfmncList);
 		if(rtnObj != null){
 			throw new EgovBizException();
@@ -605,6 +605,10 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 			if(delCnt != wghInspPrfmncVOList.size()){
 				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
 			}
+		}
+		/** plt/box 삭제 **/
+		if(pltDelList.size() > 0){
+			int delCnt = pltWrhsSpmtMapper.deletePltWrhsSpmt(pltDelList);
 		}
 
 		String prcsNo = wghPrfmncList.get(0).getWghno();
