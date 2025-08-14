@@ -824,8 +824,6 @@
 			return obj;
 		});
 
-		console.log(cleanedArray, "cleanedArray");
-
 		let pltList = cleanedArray.filter(item => item.pltBxSeCd === "P");
 		let boxList = cleanedArray.filter(item => item.pltBxSeCd === "B");
 		const maxLength = Math.max(pltList.length, boxList.length);
