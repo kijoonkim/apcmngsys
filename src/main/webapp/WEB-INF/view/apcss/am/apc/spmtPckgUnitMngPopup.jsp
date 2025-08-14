@@ -81,6 +81,7 @@
 		</div>
 	</section>
 	<sbux-button id="btnSpmtSlsUntprcReg" name="btnSpmtSlsUntprcReg" uitype="modal" text="거래처 등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-spmtSlsUntprcReg" onclick="fn_modal('btnSpmtSlsUntprcReg')"></sbux-button>
+<%--	<sbux-button id="btnSpmtGdsCnptReg" name="btnSpmtGdsCnptReg" uitype="modal" text="상품 거래처 등록" style="width:100%; display:none" class="btn btn-sm btn-outline-dark" target-id="modal-spmtGdsCnptReg" onclick="fn_modal('btnSpmtGdsCnptReg')"></sbux-button>--%>
 </body>
 <script type="text/javascript">
 
@@ -139,6 +140,24 @@
 		fn_selectSpmtSlsUntprcRegList(rowData);
 	}
 
+	const fn_modalCnptClick = async function (nRow){
+		console.log("fn_modalCnptClick")
+		SBUxMethod.openModal('modal-spmtGdsCnptReg');
+
+		let rowData = grdSpmtPckgUnit.getRowData(nRow);
+		SBUxMethod.set("spmtGdsCnptReg-inp-apcNm", SBUxMethod.get("inp-apcNm"));
+		SBUxMethod.set("spmtGdsCnptReg-inp-spmtPckgUnitNm", rowData.spmtPckgUnitNm);
+		SBUxMethod.set("spmtGdsCnptReg-inp-spmtPckgUnitCd", rowData.spmtPckgUnitCd);
+		SBUxMethod.set("spmtGdsCnptReg-inp-itemNm", rowData.itemNm);
+		SBUxMethod.set("spmtGdsCnptReg-hin-itemCd", rowData.itemCd);
+		SBUxMethod.set("spmtGdsCnptReg-inp-vrtyNm", rowData.vrtyNm);
+		SBUxMethod.set("spmtGdsCnptReg-hin-vrtyCd", rowData.vrtyCd);
+		SBUxMethod.set("spmtGdsCnptReg-inp-spcfctNm", rowData.spcfctNm);
+		SBUxMethod.set("spmtGdsCnptReg-hin-spcfctCd", rowData.spcfctCd);
+
+		fn_createSpmtGdsCnptRegGrid();
+		// fn_selectSpmtSlsUntprcRegList(rowData);
+	}
 
 	const fn_createSpmtPckgUnitGrid = async function() {
 		jsonSpmtPckgUnit = [];
@@ -212,6 +231,14 @@
 	        		return ;
 	        	}
 		    }},
+			{caption: ["거래처"],     	ref: 'cnptNm',  type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["변경"], 			ref: 'btnCnpt',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
+				if((grdSpmtPckgUnit.getRowStatus(nRow) == 0 || grdSpmtPckgUnit.getRowStatus(nRow) == 2)){
+					return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalCnptClick(" + nRow + ")'>변경</button>";
+				}else{
+					return ;
+				}
+			}},
 		    {caption: ["표준포장코드"], 			ref: 'stdPckgCd',  type:'combo',  width:'100px',    style:'text-align:center',
 		    	typeinfo : {ref:'jsonStdPckgCd', displayui : false, label:'label', value:'value'}},
 			{caption: ["표준등급코드"], 			ref: 'stdGrdCd',  type:'combo',  width:'100px',    style:'text-align:center',

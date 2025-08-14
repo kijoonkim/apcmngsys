@@ -737,6 +737,15 @@
     <div id="body-modal-spmtSlsUntprcReg">
     	<jsp:include page="../apc/spmtSlsUntprcRegMngPopup.jsp"></jsp:include>
     </div>
+
+	<!-- 상품별 거래처 등록 Modal -->
+	<div>
+		<sbux-modal id="modal-spmtGdsCnptReg" name="modal-spmtGdsCnptReg" uitype="middle" header-title="출하 매출단가 등록" body-html-id="body-modal-spmtGdsCnptReg" footer-is-close-button="false" header-is-close-button="false" style="width:1000px"></sbux-modal>
+	</div>
+	<div id="body-modal-spmtGdsCnptReg">
+		<jsp:include page="../apc/spmtGdsCnptRegMngPopup.jsp"></jsp:include>
+	</div>
+
     <!-- 원산지 등록 Modal -->
     <div>
         <sbux-modal id="modal-plor" name="modal-plor" uitype="middle" header-title="원산지 등록" body-html-id="body-modal-plor" footer-is-close-button="false" header-is-close-button="false" style="width:800px"></sbux-modal>
