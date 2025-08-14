@@ -824,6 +824,8 @@
 			return obj;
 		});
 
+		console.log(cleanedArray, "cleanedArray");
+
 		let pltList = cleanedArray.filter(item => item.pltBxSeCd === "P");
 		let boxList = cleanedArray.filter(item => item.pltBxSeCd === "B");
 		const maxLength = Math.max(pltList.length, boxList.length);
@@ -849,20 +851,6 @@
 			}
 			// 속성개수기준
 			// return Object.keys(b).length - Object.keys(a).length;
-
-			/**
-			 * 1. 속성개수기준
-			 * 2. pltBxCd 오름차순
-			 * **/
-			if (Object.keys(b).length !== Object.keys(a).length) {
-				return Object.keys(b).length - Object.keys(a).length;
-			}
-
-			if (pltList.length > boxList.length) {
-				return a.PpltBxCd - b.PpltBxCd;
-			} else {
-				return a.BpltBxCd - b.BpltBxCd;
-			}
 		});
 
 
