@@ -61,6 +61,7 @@
 			            , PBI.PLT_BX_SE_CD          AS PLT_BX_SE_CD
 			            , PBI.PLT_BX_CD             AS PLT_BX_CD
 			            , PBI.PLT_BX_NM             AS PLT_BX_NM
+			            , PBI.INDCT_SEQ				AS INDCT_SEQ
 			            , PBI.UNIT_WGHT             AS UNIT_WGHT
 			            , PBI.USE_YN                AS USE_YN
 			            , PBI.DEL_YN                AS DEL_YN
@@ -95,6 +96,7 @@
 				    	AND PBI.APC_CD 					= #{apcCd}
 				</if>
 		<![CDATA[
+			         ORDER BY PLT_BX_SE_CD, INDCT_SEQ, PLT_BX_CD
       			) pt0
 		]]>
     </select>
