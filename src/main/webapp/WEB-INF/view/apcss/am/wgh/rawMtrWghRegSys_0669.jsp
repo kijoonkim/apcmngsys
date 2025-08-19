@@ -1938,7 +1938,7 @@
 							 pltWrhsSpmt : pltWrhsSpmt,
 							 wghHstryList : wghHstryList,
 							 inspDelList : inspDelList,
-							 // pltDelList : pltDelList,
+							 pltDelList : pltDelList,
 						 });
 				 const data = await postJsonPromise;
 
