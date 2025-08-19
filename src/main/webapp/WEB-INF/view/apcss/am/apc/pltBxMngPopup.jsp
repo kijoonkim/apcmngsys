@@ -94,7 +94,8 @@
 	        {caption: ["팔레트 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridPltCnptJsData', displayui : false,	itemcount: 10, label:'label', value:'value', maxlength : 33}},
 			{caption: ["팔레트 정보","외부연계코드"], 	ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+			{caption: ["팔레트 정보","표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'80px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
+			{caption: ["팔레트 정보","단중"], 			ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["팔레트 정보","단위"], 			ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["팔레트 정보","기초재고수량"], 	ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
@@ -152,7 +153,8 @@
 	        {caption: ["박스 정보","대여업체"], 		ref: 'rmrk',  type:'inputcombo',  width:'150px',    style:'text-align:center',
     			typeinfo : {ref:'comboGridPltCnptJsData', displayui : false,	itemcount: 10, label:'label', value:'value', maxlength : 33}},
 			{caption: ["박스 정보","외부연계코드"], 	ref: 'extrnlLnkgCd',  	type:'input',  width:'80px',    style:'text-align:center'},
-	        {caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
+			{caption: ["팔레트 정보","표시순서"], 	ref: 'indctSeq',   		type:'input',  width:'80px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}, typeinfo : {maxlength : 10}},
+			{caption: ["박스 정보","단중"], 		ref: 'unitWght',   		type:'input',  width:'100px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
 	        {caption: ["박스 정보","단위"], 		ref: 'unitCd',   		type:'combo',  width:'130px',    style:'text-align:center',
 				typeinfo : {ref:'comboUnitCdJsData', label:'label', value:'value', displayui : false, itemcount: 10}},
 	        {caption: ["박스 정보","기초재고수량"], ref: 'bssInvntrQntt',  	type:'input',  width:'130px',    style:'text-align:center', typeinfo : {mask : {alias : 'numeric'}}},
@@ -203,6 +205,7 @@
   					  , apcCd 			: item.apcCd
   					  , rmrk			: item.rmrk
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					  , indctSeq		: item.indctSeq
   					}
   					jsonPlt.push(Object.assign({}, pltBxVO));
   				});
@@ -242,6 +245,7 @@
   					  , apcCd 			: item.apcCd
   					  , rmrk			: item.rmrk
 					  , extrnlLnkgCd	: item.extrnlLnkgCd
+					  , indctSeq		: item.indctSeq
 					}
   					jsonBx.push(Object.assign({}, pltBxVO));
   				});

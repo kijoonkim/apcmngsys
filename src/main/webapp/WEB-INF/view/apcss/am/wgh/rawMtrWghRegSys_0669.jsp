@@ -558,7 +558,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="table-responsive tbl_scroll_sm">
+				<div>
 					<div id="sb-area-grdVrty" style="width:100%;height:187px;"></div>
 					<div id="sb-area-grdVrty2" style="width:100%;height:110px;"></div>
 				</div>
@@ -848,7 +848,7 @@
 				return a.type === '입고' ? -1 : 1;
 			}
 			// 속성개수기준
-			// return Object.keys(b).length - Object.keys(a).length;
+			return Object.keys(b).length - Object.keys(a).length;
 		});
 
 
@@ -1251,6 +1251,7 @@
 		);
 		grdVrty.rebuild();
 		grdInsp.rebuild();
+		grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
 	}
 
 	/**
@@ -1536,23 +1537,24 @@
 			pltList : pltList,
 		}
 
-		const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncInspList.do", param);
-		const data = await postJsonPromise;
-		try {
-			if (_.isEqual("S", data.resultStatus)) {
-				fn_search();
-				fn_reset();
-				gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-			} else {
-				gfn_comAlert(data.resultCode, data.resultMessage);
+		if (gfn_comConfirm("Q0001", "삭제")) {	//	Q0001	{0} 하시겠습니까?
+			const postJsonPromise = gfn_postJSON("/am/wgh/deleteWghPrfmncInspList.do", param);
+			const data = await postJsonPromise;
+			try {
+				if (_.isEqual("S", data.resultStatus)) {
+					fn_search();
+					fn_reset();
+					gfn_comAlert("I0001");					// I0001 처리 되었습니다.
+				} else {
+					gfn_comAlert(data.resultCode, data.resultMessage);
+				}
+			} catch (e) {
+				if (!(e instanceof Error)) {
+					e = new Error(e);
+				}
+				console.error("failed", e.message);
 			}
-		} catch (e) {
-			if (!(e instanceof Error)) {
-				e = new Error(e);
-			}
-			console.error("failed", e.message);
 		}
-	}
 
 
      /**
@@ -1925,6 +1927,9 @@
 			 const base = new Set(pltWrhsSpmt.map(key));
 			 const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
 
+			 // 임시
+			 pltDelList.length = 0;
+
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 				 const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",
 						 {
@@ -1932,7 +1937,7 @@
 							 pltWrhsSpmt : pltWrhsSpmt,
 							 wghHstryList : wghHstryList,
 							 inspDelList : inspDelList,
-							 pltDelList : pltDelList,
+							 // pltDelList : pltDelList,
 						 });
 				 const data = await postJsonPromise;
 

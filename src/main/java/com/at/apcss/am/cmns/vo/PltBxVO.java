@@ -150,4 +150,8 @@ public class PltBxVO extends ComVO {
 	 * 연계코드
 	 * **/
 	private String extrnlLnkgCd;
+	/**
+	 * 표시순서
+	 * **/
+	private String indctSeq;
 }

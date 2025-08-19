@@ -123,4 +123,8 @@ public class PltWrhsSpmtVO extends ComVO {
 	 * 전일재고수량
 	 * **/
 	private int ystdBssInvntrQntt;
+	/**
+	 * 표시순서
+	 * **/
+	private String indctSeq;
 }
