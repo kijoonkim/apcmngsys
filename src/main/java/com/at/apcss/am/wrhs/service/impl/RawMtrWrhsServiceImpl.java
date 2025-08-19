@@ -331,7 +331,8 @@ public class RawMtrWrhsServiceImpl extends BaseServiceImpl implements RawMtrWrhs
 		param.setWghno(rawMtrWrhsVO.getWghno());
 		param.setApcCd(rawMtrWrhsVO.getApcCd());
 
-		List<RawMtrWrhsVO> wrhsList = rawMtrWrhsMapper.selectRawMtrWrhsList(rawMtrWrhsVO);
+//		List<RawMtrWrhsVO> wrhsList = rawMtrWrhsMapper.selectRawMtrWrhsList(rawMtrWrhsVO);
+		List<RawMtrWrhsVO> wrhsList = rawMtrWrhsMapper.selectRawMtrWrhsList(param);
 
 		List<RawMtrWrhsVO> voList = new ArrayList<>();
 

@@ -34,13 +34,25 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-						id="btnCmndDocPckg"
-						name="btnCmndDocPckg"
-						uitype="normal"
-						class="btn btn-sm btn-primary"
-						onclick="fn_docRawMtrWrhs"
-						text="원물인식표"
+							id="btnCmndDocPckg"
+							name="btnCmndDocPckg"
+							uitype="normal"
+							class="btn btn-sm btn-primary"
+							onclick="fn_docRawMtrWrhs(this)"
+							text="원물인식표"
+							is-change-text="true"
 					></sbux-button>
+					<%--거산APC(0669) 원물인식표v2 추가 START--%>
+					<sbux-button
+							id="btnCmndDocPckg2"
+							name="btnCmndDocPckg2"
+							uitype="normal"
+							class="btn btn-sm btn-primary"
+							onclick="fn_docRawMtrWrhs(this)"
+							text="원물인식표V2"
+							style="display:none;"
+					></sbux-button>
+					<%--거산APC(0669) 원물인식표v2 추가 START--%>
 					<sbux-button
 							id="btnCmndDocRaw"
 							name="btnCmndDocRaw"
@@ -441,6 +453,10 @@ async function cfn_search() {
 		if(gv_selectedApcCd === '0007'){
 			SBUxMethod.hide("btnCmndDocRaw");
 		}
+		if(gv_selectedApcCd === '0669'){
+			SBUxMethod.set("btnCmndDocPckg", "원물인식표V1");
+			SBUxMethod.show("btnCmndDocPckg2");
+		}
 	}
 
 	// only document
@@ -662,15 +678,28 @@ async function cfn_search() {
 	const fn_delete = async function() {
 
 		const allData = grdRawMtrWrhs.getGridDataAll();
-
 		const rawMtrInvntrList = [];
-		allData.forEach((item, index) => {
-			if (item.checkedYn === "Y") {
-				rawMtrInvntrList.push({
-						wrhsno: item.wrhsno
-	    			});
-    		}
+		const checkedItems = allData.filter(item => item.checkedYn === "Y");
+		const checkedWghnos = new Set(checkedItems.map(item => item.wghno).filter(wghno => !gfn_isEmpty(wghno)));
+
+		// 체크된 항목들로 삭제 리스트 구성
+		checkedItems.forEach(item => {
+			rawMtrInvntrList.push({ wrhsno: item.wrhsno });
 		});
+
+		// 거산 임시
+		if (checkedWghnos.size > 0 && gv_selectedApcCd === '0669') {
+			gfn_comAlert("E0000", "원물계량실적이 존재합니다. 원물계량시스템에서 삭제해주세요.");
+			return;
+		}
+
+		// 체크된 계량번호 중 하나라도 체크되지 않은 동일 계량번호가 있는지 확인
+		// for (const wghno of checkedWghnos) {
+		// 	if (allData.some(item => item.wghno === wghno && item.checkedYn !== "Y")) {
+		// 		gfn_comAlert("W0001", "동일 계량번호");		//	W0001	{0}을/를 선택하세요.
+		// 		return;
+		// 	}
+		// }
 
 		if (rawMtrInvntrList.length == 0) {
 			gfn_comAlert("W0005", "삭제대상");		//	W0005	{0}이/가 없습니다.
@@ -711,10 +740,18 @@ async function cfn_search() {
      * @name fn_docRawMtrWrhs
      * @description 원물확인서 발행 버튼
      */
-	const fn_docRawMtrWrhs = async function() {
+	const fn_docRawMtrWrhs = async function(obj) {
+
+		let rptCdVl = "";
+
+		if (gv_selectedApcCd === '0669') {
+			rptCdVl = obj.id === "btnCmndDocPckg" ? "RT_DOC_VER1" : "RT_DOC_VER2";
+		} else {
+			rptCdVl = "RT_DOC";
+		}
 
 		const rawMtrWrhsList = [];
-		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, 'RT_DOC');
+		const rptUrl = await gfn_getReportUrl(gv_selectedApcCd, rptCdVl);
 		const allData = grdRawMtrWrhs.getGridDataAll();
 		allData.forEach((item, index) => {
 			if (item.checkedYn === "Y") {
