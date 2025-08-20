@@ -848,7 +848,7 @@
 				return a.type === '입고' ? -1 : 1;
 			}
 			// 속성개수기준
-			return Object.keys(b).length - Object.keys(a).length;
+			// return Object.keys(b).length - Object.keys(a).length;
 		});
 
 
