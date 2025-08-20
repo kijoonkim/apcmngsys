@@ -608,7 +608,12 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 		}
 		/** plt/box 삭제 **/
 		if(pltDelList.size() > 0){
-			int delCnt = pltWrhsSpmtMapper.deletePltWrhsSpmt(pltDelList);
+			for(PltWrhsSpmtVO vo : pltDelList){
+				rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
+				if(rtnObj != null){
+					throw new EgovBizException(getMessageForMap(rtnObj));
+				}
+			}
 		}
 
 		String prcsNo = wghPrfmncList.get(0).getWghno();

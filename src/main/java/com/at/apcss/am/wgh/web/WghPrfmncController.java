@@ -620,6 +620,13 @@ public class WghPrfmncController extends BaseController {
 				wghHstryVO.setSysLastChgPrgrmId(getPrgrmId());
 			}
 
+			for(PltWrhsSpmtVO vo : pltDelList){
+				vo.setSysFrstInptPrgrmId(getPrgrmId());
+				vo.setSysFrstInptUserId(getUserId());
+				vo.setSysLastChgPrgrmId(getPrgrmId());
+				vo.setSysLastChgUserId(getUserId());
+			}
+
 			HashMap<String, Object> rtnObj = wghPrfmncService.multiWghPrfmncList(wghPrfmncList, pltWrhsSpmtList, wghHstryVOList, wghInspPrfmncVOList, pltDelList);
 			if (rtnObj != null) {
 				return getErrorResponseEntity(rtnObj);

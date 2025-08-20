@@ -311,10 +311,8 @@
 			              ) AS PLT_CNPT_CD
 			          FROM TB_PLT_WRHS_SPMT PWS
 			         WHERE 1=1
+			            AND PWS.DEL_YN 					= 'N'
 		]]>
-        <if test='delYn != null and delYn != ""'>
-				    	AND PWS.DEL_YN 					= #{delYn}
-		</if>
 		<if test='pltNm != null and pltNm != ""'>
 						AND PWS.PLT_NM 					= #{pltNm}
 		</if>
@@ -481,6 +479,7 @@
 			AND PLT_BX_CD = #{vo.pltBxCd}
 			AND PLT_BX_SE_CD = #{vo.pltBxSeCd}
 			AND PRDCR_CD = #{vo.prdcrCd})
+			AND PRCSNO = #{vo.prcsNo}
 		</foreach>
 	</delete>
 
