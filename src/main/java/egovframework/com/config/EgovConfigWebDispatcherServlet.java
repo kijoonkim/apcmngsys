@@ -93,7 +93,6 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/api/mobile/**/*",
 				"/hr/hrp/rep/selectHrp2436Report.do",
 				"/hr/hrp/svc/selectHra3630Report.do"
-
 				);
 		registry.addInterceptor(new CustomAuthenticInterceptor())
 			.addPathPatterns(
@@ -118,7 +117,8 @@ public class EgovConfigWebDispatcherServlet implements WebMvcConfigurer {
 				"/api/mobile/bootstrap/**");
 		registry.addInterceptor(new HttpInterceptor())
 			.addPathPatterns(
-					"/**");
+					"/**")
+			.excludePathPatterns("/ws/chat/**");
 	}
 
 	@Bean

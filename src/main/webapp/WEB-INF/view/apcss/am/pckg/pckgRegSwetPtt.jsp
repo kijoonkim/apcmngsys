@@ -24,6 +24,7 @@
     <%@ include file="../../../frame/inc/clipreport.jsp" %>
     <%@ include file="../../../frame/inc/headerMeta.jsp" %>
     <%@ include file="../../../frame/inc/headerScript.jsp" %>
+    <script src="/js/out/view.bundle.js"></script>
 
     <style>
         .div_header {
@@ -55,8 +56,10 @@
             display: grid;
             width: 100%;
             transition: all 0.5s;
-            grid-template-columns: repeat(6,1fr);
-            grid-gap: 5px;
+            grid-template-columns: repeat(10,1fr);
+            grid-template-rows: repeat(3,1fr);
+            row-gap: 1vh;
+            column-gap: 0.5vw;
         }
 
         .control_panel {
@@ -65,25 +68,25 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-left: 16px;
+            margin-left: 10px;
             width: 80px;
-            flex-basis: 10%;
+            flex-basis: 8%;
             padding : 5px;
+            align-self: stretch;
         }
 
         #btnUp {
             width: 100%;
-            height: 80px;
             background-color: #e74c3c;
             color: white;
             font-size: 32px;
             border: 1px solid #000;
             cursor: pointer;
+            flex: 1;
         }
 
         #grdQntt {
             width: 100%;
-            height: 80px;
             text-align: center;
             font-size: 32px;
             border: 1px solid #000;
@@ -93,18 +96,19 @@
 
         #btnDown {
             width: 100%;
-            height: 80px;
             background-color: #3498db;
             color: white;
             font-size: 32px;
             border: 1px solid #000;
             cursor: pointer;
+            flex: 1;
         }
 
         #sumInfoTbody > tr > th,
         #sumInfoTbody > tr > td {
             border: 1px solid #000 !important;
         }
+
     </style>
 </head>
 <body oncontextmenu="return false">
@@ -193,8 +197,8 @@
                     </tbody>
                 </table>
 
-                <div style="border: 1px solid #000; width: 100%; box-sizing: border-box; margin-top: 10px">
-                    <div class="div_header">거래처</div>
+                <div class="panel" style="border: 1px solid #000; width: 100%; box-sizing: border-box; margin-top: 10px">
+                    <div class="div_header" onclick="fn_folding(this)">거래처</div>
                     <div class="div_body" style="padding: 5px;">
                         <div id="cnptInfoWrap">
                             <div class="carousel_container">
@@ -223,6 +227,8 @@
                                     name="grdQntt"
                                     class="grd_qntt"
                                     uitype="text"
+                                    wrap-style="flex:1"
+                                    style="height: 100%"
                                     value="0"
                                     onblur="fn_updateGrdSum"
                                 ></sbux-input>
@@ -239,22 +245,24 @@
 
                     <div class="div_header">합계 정보</div>
                     <div id="sumInfoWrap">
-                        <table id="sumInfoTable" style="width: 100%;">
-                            <caption>검색 조건 설정</caption>
-                            <colgroup>
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                                <col style="width: 10%;">
-                            </colgroup>
-                            <tbody id="sumInfoTbody"></tbody>
-                        </table>
+                        <div class="table-scroller">
+                            <table id="sumInfoTable" style="width: 100%;">
+                                <caption>검색 조건 설정</caption>
+                                <colgroup>
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                    <col style="width: 10%;">
+                                </colgroup>
+                                <tbody id="sumInfoTbody"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,6 +280,19 @@
     var gv_cnptTemp = {};
     /** 규격 **/
     var jsonSpcfctCd = [];
+    /** web sokect **/
+    let ws;
+    /** ws msg obj **/
+    let patch = {
+        type : '',
+        code : gv_selectedApcCd,
+        tableId : 'sumInfoTable',
+        from : '',
+        data : {},
+        at : '',
+        by : ''
+    };
+
 
 
     window.addEventListener("DOMContentLoaded", function() {
@@ -291,6 +312,7 @@
         await fn_searchCnpt();
         await fn_searchPckgGrd();
         await gfn_setApcSpcfctsSBSelect("gsb-slt-spcfct",jsonSpcfctCd, gv_selectedApcCd, '0502');
+        await fn_socket();
     }
 
     /**
@@ -604,6 +626,13 @@
     const fn_selectButtonCnpt = async function(_el) {
         const clickedBtn = _el.currentTarget;
         const carouselEl = clickedBtn.parentElement;
+        const cnptNm = _el.currentTarget.textContent.trim();
+
+        /** 거래처 헤더에 표기 **/
+        let header = $(clickedBtn).closest("div.div_body").prev();
+        let appendText = " - " + cnptNm;
+
+        header.text("거래처" + appendText);
 
         const buttons = carouselEl.querySelectorAll("button");
         buttons.forEach(b => {
@@ -629,18 +658,37 @@
         }
         $("#grdQntt").val(0);
 
+        /** folding **/
+        fn_folding(header);
+
         /** 색상으로 포장등급 선택된 요소 trigger (이렇게하면 안됨) **/
         const $selected = $("#pckgGrdInfoWrap button[class^='pckg_grd_']").filter(function () {
             const color = $(this).css("color");  // 또는 background-color
             return color === "rgb(255, 255, 255)";  // 원하는 색 비교
         });
-        $selected[0].click();
+        $selected[0]?.click();
+
+        /** 현황판에 거래처 전달 **/
+        ws.send(JSON.stringify({
+            type: 'cell.patch_cnpt',
+            code: gv_selectedApcCd,
+            userId: gv_userId,
+            value: cnptNm
+        }));
     }
 
     /**
      * 포장 등급 버튼 클릭 시
      */
     const fn_selectButtonPckgGrd = async function(_el) {
+        if(!selectedCnpt){
+            await Swal.fire(
+                '거래처를 선택해주세요.',
+                '',
+                'error'
+            );
+            return;
+        }
         const clickedBtn = _el.currentTarget;
         const carouselEl = clickedBtn.parentElement;
 
@@ -668,6 +716,8 @@
         grdQntt.value = val;
 
         fn_updateGrdSum();
+        fn_patchQntt(val);
+
     }
     /**
      * 전체 화면 모드
@@ -732,6 +782,83 @@
 
         gv_cnptTemp[selectedCnpt] = prevData;
     }
+
+    /** 거래처 toggle **/
+    const fn_folding = (_el) => {
+        $(_el).next().slideToggle(200, function () {
+            const $target = $(this); // 애니메이션 끝난 후
+            if ($target.is(":visible")) {
+                // 작게
+                $("#sumInfoTbody").find("th, td").css('font-size', '2rem');
+            } else {
+                // 크게
+                $("#sumInfoTbody").find("th, td").css('font-size', '3rem');
+            }
+        });
+    };
+
+    /**
+     * 진입시 소켓 연결
+     */
+    const fn_socket = function(){
+        // const code = gv_selectedApcCd; // 4자리 코드
+        const code = encodeURIComponent(gv_selectedApcCd);
+        const userId = encodeURIComponent(gv_userId);
+        const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
+            + location.host + `/ws/chat?code=${'${code}'}&userId=${'${userId}'}`
+        ws = new WebSocket(url);
+        ws.onopen = () => {};
+
+        ws.onmessage = (e) => {
+            let msg;
+            try { msg = JSON.parse(e.data) } catch { return; }
+            if (msg.tableId !== 'sumInfoTable' || msg.code !== gv_selectedApcCd) return;
+
+            if (msg.type === 'init') {
+                /** 현재 상태를 전달함 **/
+                const snap = {};
+                document.querySelectorAll('#sumInfoTbody td[class^="pckg_grd_"]').forEach(td=>{
+                    const key = [...td.classList].find(c => c.startsWith('pckg_grd_'));
+                    if (key) snap[key] = td.textContent.trim();
+                });
+                /** 거래처 정보 전달 **/
+                let cnptNm = '';
+                if(selectedCnpt){
+                    cnptNm = jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm;
+                }
+                ws.send(JSON.stringify({
+                    type:'cell.snapshot', code: gv_selectedApcCd, from:'client',
+                    data:snap, at: Date.now(), userId: gv_userId || '', cnptNm: cnptNm
+                }));
+            }
+
+            // (원하면) 다른 사람이 보낸 patch도 반영
+            <%--if (msg.type === 'cell.patch') {--%>
+            <%--    Object.entries(msg.data || {}).forEach(([key, val]) => {--%>
+            <%--        const td = document.querySelector(`#sumInfoTable td.${'${key}'}`);--%>
+            <%--        if (td) td.textContent = val;--%>
+            <%--    });--%>
+            <%--}--%>
+        };
+
+        ws.onclose = (e) => {
+        };
+
+        ws.onerror = (err) => {
+            console.error('WS ERROR', err);
+        };
+    }
+    const fn_patchQntt = function(_qntt){
+        ws.send(JSON.stringify({
+            type: 'cell.patch',
+            code: gv_selectedApcCd,
+            userId: gv_userId,
+            patchTarget: selectedPckgGrd,
+            value: _qntt
+        }));
+    }
+
+
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
 </html>
