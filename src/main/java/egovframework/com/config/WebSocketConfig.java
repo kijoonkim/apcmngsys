@@ -8,6 +8,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @Configuration
 @EnableWebSocket
@@ -21,6 +22,11 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Bean
     public CustomHandshakeInterceptor customHandshakeInterceptor() {
         return new CustomHandshakeInterceptor();    // 빈으로 등록 권장 (로깅/설정 주입 용이)
+    }
+
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter(){
+        return new ServerEndpointExporter();
     }
 
     @Override
