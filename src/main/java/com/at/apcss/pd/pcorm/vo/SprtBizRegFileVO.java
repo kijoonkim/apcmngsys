@@ -126,5 +126,13 @@ public class SprtBizRegFileVO extends ComVO {
      */
     private String corpNm;
 
+    /**
+     * 정산순서
+     */
+    private int clclnSeq;
 
+    /**
+     * 문서순서
+     */
+    private int docSeq;
 }
