@@ -920,7 +920,6 @@
 
             const postJsonPromise = gfn_postJSON("/am/sort/selectGrdDsctn.do", param, null, false);
             const data = await postJsonPromise;
-			console.log(data,"여기 등급별 집계 소수점 ");
             data.resultList.forEach((item, index) => {
                 const orcDsctnTot = {
                     sortFclt: item.FCLT_NM,
@@ -1058,7 +1057,7 @@
                     for(let i = 1; i <= 30; i++) {
                         const key = 'grd' + i;
                         if(row[key] !== undefined && row[key] !== null) {
-                            row[key] = (row[key]).toLocaleString('ko-KR');
+                            row[key] = Number(row[key].toFixed(2)).toLocaleString('ko-KR');
                         }
                     }
                 }
@@ -1842,6 +1841,8 @@
 														let cal = excelFx[idx];
 														let value = "=" + getCellRef(setRow - 3,setCol) + '/' + cal;
 														luckysheet.setCellValue(setRow,setCol,value);
+														/** 소수점 2자리 표현 **/
+														luckysheet.setCellFormat(setRow, setCol, "numFmt", "0.00");
 
 														luckysheet.setCellFormat(setRow, setCol, "fs", 10);
 														luckysheet.setCellFormat(setRow, setCol, "bl", 1);
