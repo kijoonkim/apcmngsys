@@ -1048,6 +1048,7 @@
 		grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
 
 		// 검품등급 deep copy
+		jsonInspCmpr.length = 0;
 		jsonInspCmpr = JSON.parse(JSON.stringify(jsonInsp));
 
 		const postJsonPromiseForPlt = gfn_postJSON("/am/cmns/selectPltWrhsSpmtList.do",{apcCd: gv_selectedApcCd, prcsNo: rowData.wghno});
@@ -1084,6 +1085,8 @@
 				}
 			});
 		});
+
+		jsonPltBoxCmpr.length = 0;
 		let jsonPltBoxCmprTemp = JSON.parse(JSON.stringify(jsonPltBox.filter(i => i.Bqntt !== "" || i.Pqntt !== "")));
 		jsonPltBoxCmprTemp.forEach(function(item){
 			if(item.Bqntt > 0){
@@ -1924,12 +1927,11 @@
 			 await fn_warehouseModal();
 
 			 /** 팔레트 0 삭제처리 **/
-			 const key = o => [o.jobYmd, o.pltBxCd, o.pltBxSeCd, o.wrhsSpmtSeCd].join('|');
-			 const base = new Set(pltWrhsSpmt.map(key));
-			 const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
+			 // const key = o => [o.jobYmd, o.pltBxCd, o.pltBxSeCd, o.wrhsSpmtSeCd].join('|');
+			 // const base = new Set(pltWrhsSpmt.map(key));
+			 // const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
 
-			 // 임시
-			 pltDelList.length = 0;
+			 const pltDelList = JSON.parse(JSON.stringify(jsonPltBoxCmpr));
 
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 				 const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",
