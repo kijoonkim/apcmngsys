@@ -374,12 +374,17 @@
 		    <scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tmax.jeus</groupId>
+			<artifactId>spring-support</artifactId>
+			<version>4.2.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- 0830 -->
         <dependency>
