@@ -112,6 +112,7 @@
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
 		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
 		<c:set scope="request" var="untyAuthrtType" value="${loginVO.untyAuthrtType}"></c:set>
+		<c:set scope="request" var="userId" value="${loginVO.userId}"></c:set>
 
 		let gv_apcCd = '${apcCd}';
 		let gv_apcNm = '${apcNm}';
@@ -119,6 +120,7 @@
 		const gv_userType = '${userType}';
 		const gv_userNm = '${userNm}';
 		const gv_untyAuthrtType = '${untyAuthrtType}';
+		const gv_userId = '${userId}';
 
 		</c:when>
 		<c:otherwise>
