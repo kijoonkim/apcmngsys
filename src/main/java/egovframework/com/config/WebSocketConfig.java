@@ -24,11 +24,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
         return new CustomHandshakeInterceptor();    // 빈으로 등록 권장 (로깅/설정 주입 용이)
     }
 
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter(){
-        return new ServerEndpointExporter();
-    }
-
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(customWebSocketHandler(), "/ws/chat")
