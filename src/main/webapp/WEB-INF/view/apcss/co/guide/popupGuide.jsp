@@ -10,6 +10,31 @@
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
+
+	<!-- 엑셀 리포트 샘플 추가 -->
+	<script src="../../../../resource/script/co/guide/excelReport.js"></script>
+
+	<style>
+		.tableWrap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px}
+		.tableScroll{overflow:auto}
+		.tbl_doc{width:100%;border-collapse:separate;border-spacing:0;min-width:1100px}
+		.thd_doc th{position:sticky;top:0;background:#e6e6fa;border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;color:#0f172a;font-size:12px}
+		.tbd_doc td{border-bottom:1px solid var(--line);vertical-align:top;padding:10px 12px}
+		.tbd_doc tr:hover{background:#f5f5f5}
+		.pickCell{width:68px;text-align:center}
+		.evGroup{display:grid;gap:8px}
+		.evItem{border:1px dashed #263455;border-radius:10px;padding:8px;background:#f5f5f5}
+		.evHead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+		.evName{font-size:13px;color:#0f172a}
+		.badgeTiny{font-size:11px;padding:1px 6px;border-radius:999px;border:1px solid var(--line);}
+		.files{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+		.chip{border:1px solid #314064;border-radius:8px;padding:3px 8px;font-size:12px;color:#4169e1}
+		.sum{display:flex;justify-content:flex-end;gap:16px;align-items:center;margin-top:14px;color:#cbd5e1}
+		.sum strong{font-size:18px}
+		.hint{font-size:12px;color:#93c5fd;margin-top:10px}
+		.money{font-variant-numeric: tabular-nums}
+		.txa-resize{resize:both}
+	</style>
 </head>
 <body oncontextmenu="return false">
     <section>
@@ -255,8 +280,84 @@
 								></sbux-button>
 							</td>
 						</tr>
+						<tr>
+							<th scope="row" >엑셀리포트</th>
+							<td colspan="2">
+								<sbux-button
+										id="srch-btn-excelReport"
+										name="srch-btn-excelReport"
+										uitype="normal"
+										class="btn btn-sm btn-primary"
+										onclick="fn_exportExcelReport"
+										text="엑셀다운로드"
+								></sbux-button>
+							</td>
+							<td></td>
+							<td colspan="8"></td>
+
+						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="ad_tbl_top">
+				<ul class="ad_tbl_count">
+					<li>
+						<span>증빙서류</span>
+					</li>
+				</ul>
+				<div class="ad_tbl_toplist">
+					<sbux-button
+							id="doc-btn-newRow"
+							name="doc-btn-newRow"
+							uitype="normal"
+							text="➕추가"
+							class="btn btn-sm btn-primary"
+							onclick="fn_docNewRow"
+					></sbux-button>
+				</div>
+			</div>
+			<div class="tableWrap"><!-- table table-bordered tbl_fixed -->
+				<div class="tableScroll">
+					<table class="tbl_doc" id="doc-tbl-prufDoc"> <!--  class="table table-bordered tbl_fixed" -->
+						<caption>검색 조건 설정</caption>
+						<colgroup>
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<col style="width: 10%">
+							<col style="width: 10%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+						</colgroup>
+						<thead class="thd_doc">
+							<tr>
+								<th rowspan="2" scope="col">주요항목</th>
+								<th rowspan="2" scope="col">세부항목</th>
+								<th rowspan="2" scope="col">내용</th>
+								<th rowspan="2" scope="col">정산요청액</th>
+								<th colspan="2" scope="col">증빙서류</th>
+								<th rowspan="2" scope="col">비고</th>
+							</tr>
+							<tr>
+								<th scope="col">공통</th>
+								<th scope="col">세부항목별 증빙</th>
+							</tr>
+						</thead>
+						<tbody class="tbd_doc" id="doc-tbd-oldData">
+
+						</tbody>
+						<tbody class="tbd_doc" id="doc-tbd-newData">
+
+						</tbody>
+						<tfoot class="tft_doc">
+							<tr>
+								<th colspan="3" scope="row">합계</th>
+								<td></td>
+								<td colspan="3"></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
 			</div>
 				<!--[pp] //검색결과 -->
 		</div>
@@ -650,7 +751,7 @@
 	 * @description 거래처선택팝업 호출
 	 */
  	const fn_modalCnpt = function() {
-     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, SBUxMethod.get("srch-inp-cnpt"), fn_setCnpt);
+     	popCnpt.init(gv_selectedApcCd, gv_selectedApcNm, "", fn_setCnpt);
  	}
 
  	/**
@@ -659,9 +760,11 @@
 	 */
  	const fn_setCnpt = function(cnpt) {
  		if (!gfn_isEmpty(cnpt)) {
- 			SBUxMethod.set('srch-inp-cnptNm', cnpt.cnptNm);
+ 			SBUxMethod.set('srch-slt-cnptCd', cnpt.cnptCd);
+			SBUxMethod.refresh('srch-slt-cnptCd');
  		}
  	}
+
  	/* End */
 
 
@@ -934,6 +1037,679 @@
 
 	}
 
+
+	var jsonMajorArticle = [
+		{
+			value: "PRUF_OGNZ",
+			text: "조직화",
+		},
+		{
+			value: "PRUF_PRMT",
+			text: "홍보 및 마케팅",
+		},
+		{
+			value: "PRUF_DVLP",
+			text: "상품개발",
+		},
+		{
+			value: "PRUF_CMNS",
+			text: "공통",
+		},
+	];
+
+	var jsonArticle = [
+		{
+			mastervalue: "PRUF_OGNZ",
+			value: "FRMHS_EDUCO",
+			text: "1. 농가 교육비",
+		},
+		{
+			mastervalue: "PRUF_OGNZ",
+			value: "FRMHS_CNSLT",
+			text: "2. 농가 농가조직화 컨설팅",
+		},
+		{
+			mastervalue: "PRUF_PRMT",
+			value: "OM_PR_GDS",
+			text: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작",
+		},
+		{
+			mastervalue: "PRUF_PRMT",
+			value: "PRMT_GIFT",
+			text: "2. 각종 홍보물 제작",
+		},
+		{
+			mastervalue: "PRUF_DVLP",
+			value: "DVLP_LBSRVC",
+			text: "1. 상품개발 용역",
+		},
+		{
+			mastervalue: "PRUF_CMNS",
+			value: "MTG_CST",
+			text: "1. 각종 회의비용",
+		},
+	];
+
+	/**
+	 * 기본증빙문서
+	 * @type {[{text: string, value: string}]}
+	 */
+	var jsonPrufDocBsc = [
+		{
+			mastervalue: "PRUF_BSC",
+			value: "B102",
+			text: "영수증(또는 전자세금계산서)",
+		},
+		{
+			mastervalue: "PRUF_BSC",
+			value: "D203",
+			text: "(현급거래시) 계좌이체내역 및 통장입금확인증 사본",
+		},
+	]
+
+	/**
+	 *
+	 * @type {[{artclCd: string, text: string, artclNm: string, value: string}]}
+	 */
+	var jsonPrufDoc = [
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "A101", text: "계약서사본"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "C101", text: "사업자등록증"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "F101", text: "참석자명부"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "A201", text: "차량, 장소 임차계약서(해당시)"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "H101", text: "결과보고서"},
+		{artclCd: "FRMHS_EDUCO", artclNm: "1. 농가 교육비", value: "X101", text: "기타증빙(보완요청시)"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "A101", text: "계약서사본"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "C101", text: "사업자등록증"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "F101", text: "참석자명부"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "A201", text: "차량, 장소 임차계약서(해당시)"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "H101", text: "결과보고서"},
+		{artclCd: "FRMHS_CNSLT", artclNm: "2. 농가 농가조직화 컨설팅", value: "X101", text: "기타증빙(보완요청시)"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "A101", text: "계약서사본"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "C101", text: "사업자등록증"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "F101", text: "참석자명부"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "A201", text: "차량, 장소 임차계약서(해당시)"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "H101", text: "결과보고서"},
+		{artclCd: "FRMHS_ADV", artclNm: "3. 농가조직화 자문", value: "X101", text: "기타증빙(보완요청시)"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "A101", text: "계약서사본"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "C101", text: "사업자등록증"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "F101", text: "참석자명부"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "A201", text: "차량, 장소 임차계약서(해당시)"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "H101", text: "결과보고서"},
+		{artclCd: "CNSGN_EDUCO", artclNm: "4. 위탁교육비", value: "X101", text: "기타증빙(보완요청시)"},
+		{artclCd: "QLT_INSP", artclNm: "5. 산지 품질조사비 및 검사비", value: "E102", text: "검사확인증 사본"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "F101", text: "참석자명부"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "H101", text: "결과보고서"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "A202", text: "차량 임차계약서"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "B801", text: "(국외 선진지) 여행사 INVOICE"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "B802", text: "(국외 선진지) e-티켓 또는 탑승권"},
+		{artclCd: "VST_TRNG", artclNm: "6. 국내외 선진지 견학 등 연수", value: "C202", text: "(국외 선진지) 탑승자 재직증명서"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "D101", text: "급여내역서"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "C201", text: "재직증명서"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "J101", text: "업무분장표"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "D202", text: "급여이체내역"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "E301", text: "온라인도매시장 거래실적 확인서"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "B203", text: "갑종근로소득 원천징수영수증"},
+		{artclCd: "UOOM_LBRCO", artclNm: "7. 생산유통 통합조직 및 온라인도매시장 인건비", value: "F201", text: "4대 사회보험 사업장 가입자 명부"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "G101", text: "(샘플제공시) 온라인도매시장 견본상품 요청서(양식)"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "E203", text: "(샘플제공시) 원물단가 확인서"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "E401", text: "(샘플제공시) 택배운송장"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "B101", text: "(샘플제공시) 영수증"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "A101", text: "(상품소개페이지 제작시) 계약서사본"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "C101", text: "(상품소개페이지 제작시) 사업자등록증"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "X201", text: "(상품소개페이지 제작시) 온라인도매시장플랫폼 상품등록화면"},
+		{artclCd: "OM_PR_GDS", artclNm: "1. 온라인 도매시장 판매 상품 샘플 제공, 상품 소개 페이지 제작", value: "H201", text: "(상품소개페이지 제작시) 검인수 보고서"},
+		{artclCd: "PRMT_GIFT", artclNm: "2. 각종 홍보물 제작", value: "A101", text: "계약서사본"},
+		{artclCd: "PRMT_GIFT", artclNm: "2. 각종 홍보물 제작", value: "C101", text: "사업자등록증"},
+		{artclCd: "PRMT_GIFT", artclNm: "2. 각종 홍보물 제작", value: "H201", text: "검인수 보고서"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "A101", text: "계약서사본"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "F101", text: "참석자명부"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "C101", text: "사업자등록증"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "A201", text: "차량, 장소 임차계약서"},
+		{artclCd: "PRMT_CST", artclNm: "3. 광고 및 홍보비", value: "H101", text: "결과보고서"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "A101", text: "계약서사본"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "F101", text: "참석자명부"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "C101", text: "사업자등록증"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "B201", text: "강사수당 서명영수증"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "B202", text: "강사수당 원천징수영수증"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "A201", text: "차량, 장소 임차계약서"},
+		{artclCd: "NTSL_CNSTNG", artclNm: "4. 마케팅 관련 자문 및 컨설팅 ", value: "H101", text: "결과보고서"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "H101", text: "결과보고서"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "A201", text: "차량, 장소 임차계약서"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "E201", text: "(시식원물) 원물입출고 확인서(양식)"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "E202", text: "(시식원물) 원가 및 수량의 적정성 확인서"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "X301", text: "(홍보 및 증정품) 로고 등 확인 사진 2컷 이상"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "B801", text: "(국외 시장개척) 여행사 INVOICE"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "B802", text: "(국외 시장개척) e-티켓 또는 탑승권"},
+		{artclCd: "MKRT_EXTD", artclNm: "5. 국내외 시장개척", value: "C202", text: "(국외 시장개척) 탑승자 재직증명서"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "A101", text: "계약서사본"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "C101", text: "사업자등록증"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "H101", text: "결과보고서"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "A203", text: "장소 임차계약서"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "E801", text: "(도우미) 근무확인서"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "B301", text: "(도우미) 소모품영수증"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "C301", text: "(도우미) 통장입금확인증"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "E201", text: "(시식원물) 원물입출고 확인서(양식)"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "E202", text: "(시식원물) 원가 및 수량의 적정성 확인서(예 : 거래명세표)"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "X301", text: "(홍보 및 증정품) 로고 등 확인 사진 2컷 이상"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "B801", text: "(국외 판촉) 여행사 INVOICE"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "B802", text: "(국외 판촉) e-티켓 또는 탑승권"},
+		{artclCd: "PRMT_EVNT", artclNm: "6. 국내외 판촉행사", value: "C202", text: "(국외 판촉) 탑승자 재직증명서"},
+		{artclCd: "SEMINAR", artclNm: "7. 바이어 대상 사업 설명회 및 마케팅 협의회", value: "H101", text: "결과보고서"},
+		{artclCd: "SEMINAR", artclNm: "7. 바이어 대상 사업 설명회 및 마케팅 협의회", value: "A201", text: "차량, 장소 임차계약서"},
+		{artclCd: "BRND_APPL", artclNm: "8. 브랜드 개발 및 등록비용", value: "A101", text: "계약서사본"},
+		{artclCd: "BRND_APPL", artclNm: "8. 브랜드 개발 및 등록비용", value: "C101", text: "사업자등록증"},
+		{artclCd: "BRND_APPL", artclNm: "8. 브랜드 개발 및 등록비용", value: "E101", text: "등록 확인서"},
+		{artclCd: "DVLP_LBSRVC", artclNm: "1. 상품개발 용역", value: "A101", text: "계약서사본"},
+		{artclCd: 'DVLP_LBSRVC', artclNm: '1. 상품개발 용역', value: 'C101', text: '사업자등록증'},
+		{artclCd: 'DVLP_LBSRVC', artclNm: '1. 상품개발 용역', value: 'E101', text: '등록 확인서'},
+		{artclCd: 'GDS_DSGN', artclNm: '2. 포장 디자인, 도안, 용기 등 상품개발', value: 'A101', text: '계약서사본'},
+		{artclCd: 'GDS_DSGN', artclNm: '2. 포장 디자인, 도안, 용기 등 상품개발', value: 'C101', text: '사업자등록증'},
+		{artclCd: 'GDS_DSGN', artclNm: '2. 포장 디자인, 도안, 용기 등 상품개발', value: 'E101', text: '등록 확인서'},
+		{artclCd: 'DSGN_APPL', artclNm: '3. 특허, 실용신안, 디자인, 상표 등록', value: 'A101', text: '계약서사본'},
+		{artclCd: 'DSGN_APPL', artclNm: '3. 특허, 실용신안, 디자인, 상표 등록', value: 'C101', text: '사업자등록증'},
+		{artclCd: 'DSGN_APPL', artclNm: '3. 특허, 실용신안, 디자인, 상표 등록', value: 'E101', text: '등록 확인서'},
+		{artclCd: 'MTG_CST', artclNm: '1. 각종 회의비용', value: 'H101', text: '결과보고서'},
+		{artclCd: 'MTG_CST', artclNm: '1. 각종 회의비용', value: 'F101', text: '참석자명부'},
+		{artclCd: 'UO_CMNS', artclNm: '2. 통합조직', value: 'J102', text: '교육 참석자 업무분장표'},
+		{artclCd: 'UO_CMNS', artclNm: '2. 통합조직', value: 'E501', text: '교육 수료증'},
+		{artclCd: 'UO_CMNS', artclNm: '2. 통합조직', value: 'A501', text: '지급보증보험증권'},
+	];
+
+	const objDoc = {
+		maxSeq : -1,
+		prefix : "tbl-doc-",
+		getInitCol: function(_knd) {
+			let col = -1;
+			switch (_knd) {
+				case "MAJOR_ARTICLE":	// 주요항목
+					col = 0;
+					break;
+				case "ARTICLE":			// 세부항목
+					col = 1;
+					break;
+				case "DMND_CN":			// 요청내용
+					col = 2;
+					break;
+				case "DMND_AMT":		// 요청금액
+					col = 3;
+					break;
+				case "PRUF_DOC_BSC":	// 공통증빙
+					col = 4;
+					break;
+				case "PRUF_DOC":		// 증빙서류
+					col = 5;
+					break;
+				case "DMND_RMRK":		// 비고
+					col = 6;
+					break;
+			}
+			return col;
+		},
+		initList : [
+			// attribute default (id, name)
+			// 0 행 : 주요항목
+			{
+				isSBUx: true,
+				elementKey: "dmndArtclKnd",
+				type: "sbux-select",
+				id: "slt-majorArticle",
+				attributes: {
+						"uitype": "single",
+						"unselected-text": "선택",
+						"class": "form-control input-sm input-sm-ast",
+						"jsondata-ref": "jsonMajorArticle",
+					},
+				exAttributes: {
+
+				},
+				exEvents: [{
+					key: "onchange",
+					name: "fn_onChangeMajorArticle"
+				}],
+			},
+			// 1 행 : 세부항목
+			{
+				isSBUx: true,
+				elementKey: "dmndArtclCd",
+				type: "sbux-select",
+				id: "slt-article",
+				attributes: {
+					"uitype": "single",
+					//"unselected-text": "선택",
+					"class": "form-control input-sm input-sm-ast",
+					"jsondata-ref": "jsonArticle",
+					"jsondata-filter": "mastervalue"
+				},
+				exAttributes: {
+					"filter-source-name": "slt-majorArticle"
+				},
+				exEvents: [{
+					key: "onchange",
+					name: "fn_onChangeArticle"
+				}],
+			},
+			// 2 행 : 내용
+			{
+				isSBUx: true,
+				elementKey: "dmndCn",
+				type: "sbux-input",
+				id: "inp-dmndCn",
+				attributes: {
+					"uitype": "text",
+					"unselected-text": "선택",
+					"class": "form-control input-sm",
+				},
+				exAttributes: {
+				},
+				exEvents: [],
+			},
+			// 3 행 : 정산요청액
+			{
+				isSBUx: true,
+				elementKey: "dmndAmt",
+				type: "sbux-input",
+				id: "inp-dmndAmt",
+				attributes: {
+					"uitype": "text",
+					"unselected-text": "선택",
+					"class": "form-control input-sm input-sm-ast inpt_data_reqed",
+					"maxlength": "6",
+					"autocomplete": "off",
+					"mask": "{'alias': 'numeric' , 'autoGroup': 3 , 'groupSeparator': ',' , 'isShortcutChar': true, 'autoUnmask': true}",
+				},
+				exAttributes: {
+					"filter-source-name": "slt-majorArticle"
+				},
+				exEvents: [{
+					key: "onchange",
+					name: "fn_onChangeDmndAmt"
+				}],
+			},
+			// 4 행 : 공통증빙
+			{
+				isSBUx: false,
+				elementKey: "pfudDoc",
+				type: "div",
+				id: 'div-prufDocBsc',
+				attributes: {
+				},
+				contents: {
+					"classList": ["evGroup"]
+				}
+			},
+			// 5행 : 증빙서류
+			{
+				isSBUx: false,
+				elementKey: "pfudDoc",
+				type: "div",
+				id: 'div-prufDoc',
+				attributes: {
+				},
+				contents: {
+					"textContent": "세부항목 선택 시 표시",
+					"classList": ["evGroup"]
+				}
+			},
+			// 6 행 : 비고
+			{
+				isSBUx: true,
+				elementKey: "dmndRmrk",
+				type: "sbux-textarea",
+				id: "txa-dmndRmrk",
+				attributes: {
+					"uitype": "normal",
+					"class": "form-control input-sm input-sm-ast txa-resize",
+					"resize": "true",
+					//"auto-resize": "true",
+					"detect-attack": "true"
+				},
+				exAttributes: {
+
+				},
+				exEvents: [],
+			},
+		],
+	}
+
+	function ClclnDmndRow(_nRow) {
+		this.row = _nRow;
+		this.elementsId = {
+			dmndArtclKnd: {id: ""},
+			dmndArtclCd: {id: ""},
+			dmndCn: {id: ""},
+			dmndAmt: {id: ""},
+			dmndRmrk: {id: ""},
+			pfudDocBsc: {id: "", sub: []},
+			pfudDoc: {id: "", sub: []},
+		};
+		this.files = {};
+	}
+
+	/**
+	 *
+	 * @type ClclnDmndRow
+	 */
+	const objRows = [];
+
+	function DmndPrufDoc(_code, _id) {
+		this.code = _code;
+		this.id = _id;
+	}
+
+	const objPrufDoc = {
+
+	}
+
+	const __ACCEPT = ['pdf','jpg','jpeg','png','hwp','doc','docx'];
+
+	// FileList 재구성을 위한 helper
+	function buildFileList(files){
+		const dt = new DataTransfer();
+		files.forEach(f=> dt.items.add(f));
+		return dt.files;
+	}
+
+	const fn_renderPrufDocBsc = function(_row) {
+
+		if (_row < 0) {
+			return;
+		}
+
+		const parentId = "tbl-doc-div-prufDocBsc" + String(_row);
+		const parentEl = document.getElementById(parentId);
+
+		while (parentEl.firstChild) {
+			parentEl.removeChild(parentEl.lastChild);
+		}
+
+		const docs = jsonPrufDocBsc;
+		if (docs.length === 0) {
+			parentEl.style.color = '#94a3b8';
+		} else {
+			docs.forEach(doc => {
+
+				// id 넣어야함
+
+				const elBox = document.createElement('div');
+				elBox.className = 'evItem';
+				const elHead = document.createElement('div');
+				elHead.className = 'evHead';
+				const elName = document.createElement('div');
+				elName.className = 'evName';
+				elName.textContent = doc.text;
+				document.createElement('div');
+
+				const elFile = document.createElement('input');
+				elFile.type = 'file';
+				elFile.multiple = true;
+				elFile.accept = __ACCEPT.map(x=>'.'+x).join(',');
+
+				const elChips = document.createElement('div');
+				elChips.className = 'files';
+
+				elHead.append(elName);
+				elBox.append(elHead, elFile, elChips);
+
+				parentEl.appendChild(elBox);
+			});
+		}
+	}
+
+	const fn_renderPrufDoc = function(_row, _article) {
+		try {
+		if (_row < 0) {
+			return;
+		}
+		console.log("_row", _row);
+		console.log("objRows", objRows);
+		const row = objRows[_row];
+
+		const parentId = "tbl-doc-div-prufDoc" + String(_row);
+		const parentEl = document.getElementById(parentId);
+
+		while (parentEl.firstChild) {
+			parentEl.removeChild(parentEl.lastChild);
+		}
+
+		if (gfn_isEmpty(_article)) {
+			return;
+		}
+			console.log(111);
+		const docs = gfn_getJsonFilter(jsonPrufDoc, "artclCd", _article);
+
+		if (docs.length === 0) {
+			parentEl.style.color = '#94a3b8';
+			parentEl.textContent = '세부항목 선택 시 표시';
+		} else {
+			docs.forEach(doc => {
+
+				// id 넣어야함
+
+				const elBox = document.createElement('div');
+				elBox.className = 'evItem';
+				const elHead = document.createElement('div');
+				elHead.className = 'evHead';
+				const elName = document.createElement('div');
+				elName.className = 'evName';
+				elName.textContent = doc.text;
+				document.createElement('div');
+
+				const elFile = document.createElement('input');
+				elFile.type = 'file';
+				elFile.multiple = true;
+				elFile.accept = __ACCEPT.map(x=>'.'+x).join(',');
+
+				const elChips = document.createElement('div');
+				elChips.className='files';
+				console.log(1234);
+				console.log("row", row);
+				console.log("row.files", row.files);
+
+				console.log(1111);
+				function refreshChips(){
+					elChips.innerHTML = '';
+					const list = (row.files && row.files[doc.value]) ? row.files[doc.value] : [];
+					console.log(2222);
+					list.forEach((f, idx)=>{
+						const c = document.createElement('span');
+						c.className = 'chip';
+						c.textContent = f.name+' ';
+						const x = document.createElement('span');
+						x.className='x';
+						x.textContent='×';
+						x.title='이 파일 제거';
+						x.onclick=()=>{
+							const files = (row.files && row.files[doc.value]) ? row.files[doc.value].slice() : [];
+							files.splice(idx,1);
+							if (files.length>0){ row.files = files; } else { delete row.files[doc.value]; }
+							elFile.value = '';
+							if (files.length>0){ row.files = buildFileList(files); }
+							refreshChips();
+						};
+						c.appendChild(x);
+						elChips.appendChild(c);
+					});
+				}
+
+				elFile.onchange = (e)=>{
+					console.log(4444);
+					const files = Array.from(e.target.files||[]);
+					const safe = files.filter(f=> __ACCEPT.includes(f.name.split('.').pop().toLowerCase()));
+					row.files = row.files || {};
+					console.log(5555);
+					const prev = row.files[doc.value] ? row.files[doc.value].slice() : [];
+					const merged = prev.concat(safe);          // 기존 + 신규 (추가 업로드 지원)
+					row.files[doc.value] = merged;
+					elFile.files = buildFileList(merged);       // input과 상태 동기화
+
+					refreshChips();
+				};
+				console.log(7777);
+				if (row.files && row.files[doc.value]){
+					elFile.files = buildFileList(row.files[doc.value]);
+				}
+				refreshChips();
+
+				elHead.append(elName);
+				elBox.append(elHead, elFile, elChips);
+
+				parentEl.appendChild(elBox);
+			});
+		}
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
+
+	const fn_onChangeMajorArticle = function(_nRow) {
+		console.log("fn_onChangeMajorArticle");
+		const col = objDoc.getInitCol("MAJOR_ARTICLE");
+		if (col < 0) {
+			return;
+		}
+		const id = objDoc.prefix + objDoc.initList[col].id + String(_nRow);
+
+		//fn_clearArticle(_nRow);
+		fn_onChangeArticle(_nRow);
+	}
+
+	const fn_clearArticle = function(_nRow) {
+		const col = objDoc.getInitCol("ARTICLE");
+		if (col < 0) {
+			return;
+		}
+		const id = objDoc.prefix + objDoc.initList[col].id + String(_nRow);
+
+		SBUxMethod.set(id, "");
+		SBUxMethod.refresh(id);
+		fn_renderPrufDoc(_nRow);
+	}
+
+	const fn_onChangeArticle = function(_nRow) {
+
+		console.log("fn_onChangeArticle");
+
+		const col = objDoc.getInitCol("ARTICLE");
+		if (col < 0) {
+			return;
+		}
+
+		fn_renderPrufDocBsc(_nRow);
+
+		const id = objDoc.prefix + objDoc.initList[col].id + String(_nRow);
+		console.log("id", id);
+		const article = SBUxMethod.get(id);
+		fn_renderPrufDoc(_nRow, article);
+	}
+
+	const fn_onChangeDmndAmt = function(_nRow) {
+		const col = objDoc.getInitCol("DMND_AMT");
+		if (col < 0) {
+			return;
+		}
+		const id = objDoc.prefix + objDoc.initList[col].id + String(_nRow);
+	}
+	const fn_onChangePrufDocBsc = function(_nRow) {
+		const col = objDoc.getInitCol("PRUF_DOC_BSC");
+		if (col < 0) {
+			return;
+		}
+		const id = objDoc.prefix + objDoc.initList[col].id + String(_nRow);
+		alert(SBUxMethod.get(id));
+	}
+
+	const fn_docNewRow = function() {
+		try {
+
+			objDoc.maxSeq++;
+
+			const seq = objDoc.maxSeq;
+			const row = new ClclnDmndRow(seq);
+
+			const sbuxList = [];
+			const newRow = document.createElement("tr");
+			newRow.setAttribute("id", objDoc.prefix + "tr"  + String(seq));
+
+			objDoc.initList.forEach(item => {
+				const cell = document.createElement("td");
+
+				const id = objDoc.prefix + item.id + String(seq);
+				const element = document.createElement(item.type);
+				element.setAttribute("id", id);
+				element.setAttribute("name", id);
+
+				if (item.hasOwnProperty("elementKey")) {
+					row.elementsId[item.elementKey].id = id;
+				}
+
+				for (const key in item.attributes) {
+					if (item.attributes.hasOwnProperty(key)) { // 객체의 속성인지 확인 (상속받은 속성 제외)
+						element.setAttribute(key, item.attributes[key]);
+					}
+				}
+
+				if (item.isSBUx) {
+					for (const key in item.exAttributes) {
+						if (item.exAttributes.hasOwnProperty(key)) { // 객체의 속성인지 확인 (상속받은 속성 제외)
+							element.setAttribute(key, objDoc.prefix + item.exAttributes[key] + String(seq));
+						}
+					}
+
+					item.exEvents.forEach(evt => {
+						element.setAttribute(evt.key, evt.name + "(" + String(seq) + ")");
+					});
+					sbuxList.push(id);
+				} else {
+					for (const key in item.contents) {
+						if (item.contents.hasOwnProperty(key)) { // 객체의 속성인지 확인 (상속받은 속성 제외)
+							switch (key) {
+								case "textContent":
+									element.textContent = item.contents[key];
+									break;
+								case "classList":
+									if (Array.isArray(item.contents[key])) {
+										item.contents[key].forEach(clazz => {element.classList.add(clazz);});
+									}
+									break;
+							}
+						}
+					}
+				}
+
+				cell.append(element);
+				newRow.appendChild(cell);
+			});
+
+			const elTbody = document.getElementById("doc-tbd-newData");
+			elTbody.appendChild(newRow);
+
+			sbuxList.forEach(id => {
+				SBUxMethod.render("#" + id);
+			});
+
+			objRows.push(row);
+
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
+			}
+			console.error("failed", e.message);
+		}
+	}
 
 
 	/* End */
