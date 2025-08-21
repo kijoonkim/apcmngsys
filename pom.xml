@@ -386,6 +386,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-juli</artifactId>
+			<version>9.0.63</version>
+		</dependency>
+
 		<!-- 0830 -->
         <dependency>
         	<groupId>org.springframework.boot</groupId>
