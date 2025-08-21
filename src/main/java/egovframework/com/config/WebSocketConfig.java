@@ -29,7 +29,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(customWebSocketHandler(), "/ws/chat")
                 .addInterceptors(customHandshakeInterceptor())
-                .setAllowedOriginPatterns("*");
+                .setAllowedOriginPatterns("*"); // Spring 5.0+에서는 setAllowedOriginPatterns를 사용
     }
 
     @Bean
