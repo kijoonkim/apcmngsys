@@ -3,5 +3,4 @@
 	<webinf-first>
 		<enabled>true</enabled>
 	</webinf-first>
-	<library-directory>WEB-INF/lib</library-directory>
 </jeus-web-dd>
