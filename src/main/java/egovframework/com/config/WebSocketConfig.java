@@ -16,9 +16,6 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    @Value("${custom.server.vender:tomcat}")
-    private String serverType;
-
     @Bean
     public WebSocketHandler customWebSocketHandler() {
         return new CustomWebSocketHandler();
@@ -26,14 +23,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Bean
     public HandshakeHandler handshakeHandler() {
-        if ("jeus".equalsIgnoreCase(serverType)) {
-            try {
-                Class<?> jeusHandshakeHandlerClass = Class.forName("jeus.spring.websocket.JeusHandshakeHandler");
-                return (HandshakeHandler) jeusHandshakeHandlerClass.getDeclaredConstructor().newInstance();
-            } catch (Throwable e) {
-                throw new RuntimeException("JEUS 환경에 필요한 WebSocketHandler를 로드할 수 없습니다.", e);
-            }
-        }
         return new DefaultHandshakeHandler();
     }
 
