@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jeus-web-dd xmlns="http://www.tmaxsoft.com/xml/ns/jeus" version="8.0">
-	<web-module>
-		<class-loader>
-			<webinf-first>
-				<enabled>true</enabled>
-			</webinf-first>
-			<library-directory>WEB-INF/lib</library-directory>
-		</class-loader>
-	</web-module>
+	<webinf-first>
+		<enabled>true</enabled>
+	</webinf-first>
+	<class-loader>
+		<library-directory>WEB-INF/lib</library-directory>
+	</class-loader>
 </jeus-web-dd>
