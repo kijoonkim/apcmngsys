@@ -3,4 +3,7 @@
 	<webinf-first>
 		<enabled>true</enabled>
 	</webinf-first>
+	<library-ref>
+		<library-name>spring-support-4.2.0.RELEASE</library-name>
+	</library-ref>
 </jeus-web-dd>
