@@ -3,7 +3,5 @@
 	<webinf-first>
 		<enabled>true</enabled>
 	</webinf-first>
-	<class-loader>
-		<library-directory>WEB-INF/lib</library-directory>
-	</class-loader>
+	<library-directory>WEB-INF/lib</library-directory>
 </jeus-web-dd>
