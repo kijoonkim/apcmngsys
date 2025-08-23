@@ -3,7 +3,4 @@
 	<webinf-first>
 		<enabled>true</enabled>
 	</webinf-first>
-	<added-classpath>
-		<path>/home/tmax/jeus8/lib/shared/spring-support/4.2.0.RELEASE/spring-support-4.2.0.RELEASE.jar</path>
-	</added-classpath>
 </jeus-web-dd>
