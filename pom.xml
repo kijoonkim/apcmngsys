@@ -383,7 +383,6 @@
 			<groupId>com.tmax.jeus</groupId>
 			<artifactId>spring-support</artifactId>
 			<version>4.2.0.RELEASE</version>
-			<scope>compile</scope>
 		</dependency>
 
 		<!-- 0830 -->
