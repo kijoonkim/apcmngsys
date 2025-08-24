@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.egovframe.template</groupId>
 	<artifactId>apcss</artifactId>
-	<version>1.0.0</version>
 	<packaging>war</packaging>
+	<version>1.0.0</version>
 	<name>apcss</name>
 
 	<licenses>
@@ -18,24 +17,26 @@
 	</licenses>
 
 	<properties>
-		<java.version>11</java.version>
 		<spring.maven.artifact.version>5.3.20</spring.maven.artifact.version>
 		<org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<logback.version>1.2.11</logback.version>
+		<java.version>11</java.version>
 		<webapp.lib>${basedir}/src/main/webapp/WEB-INF/lib</webapp.lib>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<repositories>
 		<repository>
 			<id>mvn2s</id>
 			<url>https://repo1.maven.org/maven2/</url>
+			<releases><enabled>true</enabled></releases>
+			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
 		<repository>
 			<id>egovframe2</id>
 			<url>https://maven.egovframe.go.kr/maven/</url>
+			<releases><enabled>true</enabled></releases>
+			<snapshots><enabled>false</enabled></snapshots>
 		</repository>
-		<!-- 사내/로컬 바이너리 저장소 (필요 시 유지) -->
 		<repository>
 			<id>projectRepository</id>
 			<name>Project Repository</name>
@@ -48,7 +49,7 @@
 		</repository>
 	</repositories>
 
-	<!-- Spring Boot parent -->
+	<!-- spring Boot Parent 설정 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -56,86 +57,42 @@
 		<relativePath/>
 	</parent>
 
+	<!-- ======== [원본 의존성: 그대로 유지] ======== -->
 	<dependencies>
-		<!-- Web (임베디드 톰캣 스타터는 제외) -->
+		<!-- spring boot dependency start -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
+				<!-- 원본 그대로 (주석만 존재) -->
 			</exclusions>
 		</dependency>
 
-		<!-- 컨테이너 제공 톰캣: provided -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- WebSocket (임베디드 tomcat-embed-websocket 제외) -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.tomcat.embed</groupId>
-					<artifactId>tomcat-embed-websocket</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- 표준 JSR-356 API는 컨테이너가 제공하므로 provided -->
-		<dependency>
-			<groupId>javax.websocket</groupId>
-			<artifactId>javax.websocket-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- JEUS 전용 spring-support (WAR에 포함 필요) -->
-		<dependency>
-			<groupId>com.tmax.jeus</groupId>
-			<artifactId>spring-support</artifactId>
-			<version>4.2.0.RELEASE</version>
-		</dependency>
-
-		<!-- (선택) 개발 편의는 로컬 전용일 때만 쓰지만, 남겨두어도 무방 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<!-- JSP/JSTL: 외부 컨테이너 사용 시 보통 컨테이너가 제공. 필요 시만 유지 -->
+		<!-- tomcat-jasper (원본 유지) -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>9.0.63</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-websocket</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.3</version>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp.jstl</groupId>
-			<artifactId>jstl-api</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<!-- 톰캣 전용 Jasper는 컨테이너 톰캣에서 제공되므로 일반적으로 불필요
-             꼭 필요하면 scope=provided로 바꿔 사용 -->
-		<!--
-        <dependency>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>tomcat-jasper</artifactId>
-          <version>9.0.63</version>
-          <scope>provided</scope>
-        </dependency>
-        -->
+		<!-- spring boot dependency end -->
 
 		<!-- swagger -->
 		<dependency>
@@ -176,25 +133,47 @@
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
 
-		<!-- DB/유틸류 (네가 쓰던 것들 유지) -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.3</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 			<version>1.7</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springmodules</groupId>
 			<artifactId>spring-modules-validation</artifactId>
@@ -207,6 +186,7 @@
 			<version>1.2.5</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>taglibs</groupId>
 			<artifactId>standard</artifactId>
@@ -218,11 +198,13 @@
 			<artifactId>cglib</artifactId>
 			<version>3.3.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr</artifactId>
 			<version>3.5</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
@@ -234,11 +216,13 @@
 			<artifactId>hsqldb</artifactId>
 		</dependency>
 
-		<!-- drivers -->
+		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+
+		<!-- tibero (로컬 file repo) -->
 		<dependency>
 			<groupId>project</groupId>
 			<artifactId>tibero6</artifactId>
@@ -246,7 +230,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- validation -->
+		<!-- validator -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -260,56 +244,77 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- logging & log4jdbc -->
+		<!-- log4jdbc -->
 		<dependency>
 			<groupId>com.googlecode.log4jdbc</groupId>
 			<artifactId>log4jdbc</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.bgee.log4jdbc-log4j2</groupId>
-			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
-			<version>1.16</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-jul</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
 
-		<!-- 기타 유틸 -->
+		<!-- JWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.ibm.icu</groupId>
 			<artifactId>icu4j</artifactId>
 			<version>71.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jul</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>rhino</groupId>
 			<artifactId>js</artifactId>
 			<version>1.6R2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -325,34 +330,24 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.11</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.16.2</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.firebase</groupId>
-			<artifactId>firebase-admin</artifactId>
-			<version>9.2.0</version>
-		</dependency>
-		<!-- (주의) WebFlux는 반응형 서버(내장 Netty)를 끌고 들어올 수 있음.
-             꼭 필요한 곳에서만 사용. 필요 없으면 제거 권장 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-			<!-- 필요 없다면 통째로 삭제 권장 -->
-		</dependency>
 
-		<!-- 프로젝트 사내 라이브러리들 -->
 		<dependency>
 			<groupId>com.softbowl.poi</groupId>
 			<artifactId>sbexcel</artifactId>
@@ -363,6 +358,8 @@
 			<artifactId>sbloadexcel</artifactId>
 			<version>1.23</version>
 		</dependency>
+
+		<!-- SSO -->
 		<dependency>
 			<groupId>com.ubintis</groupId>
 			<artifactId>passni-sso-agent</artifactId>
@@ -379,64 +376,97 @@
 			<version>1.1</version>
 		</dependency>
 
+		<!-- EasyCerti -->
 		<dependency>
 			<groupId>com.easycerti</groupId>
 			<artifactId>EzFilter</artifactId>
 			<version>1.0</version>
 		</dependency>
 
-		<!-- 설정 프로세서 (옵션) -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>9.2.0</version>
 		</dependency>
 
-		<!-- 네트워크 유틸 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.11.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20230227</version>
-		</dependency>
 	</dependencies>
 
+	<!-- ======== [프로필만 추가] ======== -->
+	<profiles>
+		<!-- 로컬(임베디드 톰캣)에서 웹소켓 테스트용 -->
+		<profile>
+			<id>local-embed</id>
+			<dependencies>
+				<!-- 로컬에선 임베디드 톰캣 웹소켓 스타터를 그냥 추가해서 테스트 편하게 -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-websocket</artifactId>
+					<!-- 별도 exclusion 없음: tomcat-embed-websocket 자동 포함 -->
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<!-- JEUS/WAS 배포용 -->
+		<profile>
+			<id>jeus</id>
+			<dependencies>
+				<!-- JEUS 핸드쉐이크 지원 라이브러리 -->
+				<dependency>
+					<groupId>com.tmax.jeus</groupId>
+					<artifactId>spring-support</artifactId>
+					<version>4.2.0.RELEASE</version>
+				</dependency>
+
+				<!-- JEUS는 컨테이너가 WebSocket API 제공 → 표준 API만 provided로 가져감 -->
+				<dependency>
+					<groupId>javax.websocket</groupId>
+					<artifactId>javax.websocket-api</artifactId>
+					<scope>provided</scope>
+				</dependency>
+
+				<!-- 필요 시 스프링 웹소켓을 쓰되, JEUS에선 임베디드 톰캣 웹소켓 제외 -->
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-websocket</artifactId>
+					<exclusions>
+						<exclusion>
+							<groupId>org.apache.tomcat.embed</groupId>
+							<artifactId>tomcat-embed-websocket</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<directory>${basedir}/target</directory>
+		<finalName>${artifactId}</finalName>
 		<plugins>
-			<!-- (선택) 코드스캔 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.10.0.2594</version>
 			</plugin>
-
-			<!-- WAR 패키징 (기본 설정이면 생략 가능) -->
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.3.2</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-
-			<!-- Spring Boot plugin: WAR일 때 필수는 아님(원하면 유지) -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
-
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<excludes>
-					<exclude>**/*.map</exclude>
-				</excludes>
 			</resource>
 			<resource>
 				<directory>src/main/java</directory>
