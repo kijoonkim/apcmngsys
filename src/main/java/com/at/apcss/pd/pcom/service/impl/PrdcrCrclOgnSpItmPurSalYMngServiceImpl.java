@@ -116,6 +116,15 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 		return prdcrCrclOgnSpItmPurSalYMngMapper.selectRawDataList2025(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
+	@Override
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+		int yr = Integer.parseInt(prdcrCrclOgnSpItmPurSalYMngVO.getYr());
+		if (yr < 2025) {
+			prdcrCrclOgnSpItmPurSalYMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return prdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemPrchsSlsList(prdcrCrclOgnSpItmPurSalYMngVO);
+	}
+
 	/**
 	 * 통합조직 전문품목 매입매출 목록 조회
 	 * @param prdcrCrclOgnSpItmPurSalYMngVO
@@ -124,6 +133,12 @@ public class PrdcrCrclOgnSpItmPurSalYMngServiceImpl extends BaseServiceImpl impl
 	 */
 	@Override
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception {
+
+		int yr = Integer.parseInt(prdcrCrclOgnSpItmPurSalYMngVO.getYr());
+		if (yr < 2025) {
+			prdcrCrclOgnSpItmPurSalYMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+
 		return prdcrCrclOgnSpItmPurSalYMngMapper.selectUoMajorItemPrchsSlsList(prdcrCrclOgnSpItmPurSalYMngVO);
 	}
 
