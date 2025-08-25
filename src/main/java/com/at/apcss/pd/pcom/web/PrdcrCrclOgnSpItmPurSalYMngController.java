@@ -145,6 +145,34 @@ public class PrdcrCrclOgnSpItmPurSalYMngController extends BaseController{
 	}
 
 	/**
+	 * 통합조직 전문품목 매입매출 rawdata 목록
+	 * @param model
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping(value = "/pd/pcom/selectUoMajorItemPrchsSlsRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectUoMajorItemPrchsSlsRawDataList(
+				Model model,
+				@RequestBody PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO,
+				HttpServletRequest request) throws Exception{
+
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PrdcrCrclOgnSpItmPurSalYMngVO> resultList = new ArrayList<>();
+		try {
+			resultList = prdcrCrclOgnSpItmPurSalYMngService.selectUoMajorItemPrchsSlsRawDataList(prdcrCrclOgnSpItmPurSalYMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+	/**
 	 *
 	 * @param model
 	 * @param prdcrCrclOgnSpItmPurSalYMngVO
