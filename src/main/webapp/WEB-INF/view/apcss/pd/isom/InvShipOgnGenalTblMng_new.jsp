@@ -979,17 +979,21 @@
 			return;
 		}
 
-		let postJsonPromise01 = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngListNew.do", {
-			apoCd : apoCd
-			,apoSe : apoSe
-			,itemCd : itemCd
-			,ctgryCd : ctgryCd
-			,uoBrno : uoBrno
-			,brno : brno
-			,yr : yr
-		});
-		let data = await postJsonPromise01;
-		try{
+		try {
+			const param = {
+				apoCd: apoCd,
+				apoSe: apoSe,
+				itemCd: itemCd,
+				ctgryCd: ctgryCd,
+				uoBrno: uoBrno,
+				brno: brno,
+				yr : yr
+			}
+			//"/pd/isom/selectIsoPrchsSlsSummaryList.do";
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngListNew.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoPrchsSlsSummaryList.do", param);
+			const data = await postJsonPromise;
+
 			jsonPrdcrOgnCurntMng01.length = 0;
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
@@ -1045,7 +1049,7 @@
 			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
 
 			// fn_dtlSearchClsfTot(); // 요약 - 부류별합계
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1574,6 +1578,7 @@
 		hiddenGrd = _SBGrid.create(SBGridProperties);
 
 	}
+
 	const fn_hiddenGrdSelect = async function(){
 
 		if (!gfn_comConfirm("Q0001", "Rawdata 다운로드")) {	//	Q0001	{0} 하시겠습니까?
@@ -1590,8 +1595,8 @@
 
 
 		try {
-			//let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", {
-			let postJsonPromise = gfn_postJSON("/pd/isom/selectIsoPrchsSlsRawdataList.do", {
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", {
+			//let postJsonPromise = gfn_postJSON("/pd/isom/selectIsoPrchsSlsRawdataList.do", {
 				yr : yr
 			});
 
@@ -1638,8 +1643,8 @@
 					stbltYn					:item.stbltYn,
 					orgStbltYn				:item.orgStbltYn,
 					lastStbltYn				:item.lastStbltYn,
-					//,stbltYnNm				:fn_calStbltYn(item)
-					stbltYnNm				:item.stbltYnNm,
+					stbltYnNm				:fn_calStbltYn(item),
+					//stbltYnNm				:item.stbltYnNm,
 					actnMttr				:item.actnMttr,
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);

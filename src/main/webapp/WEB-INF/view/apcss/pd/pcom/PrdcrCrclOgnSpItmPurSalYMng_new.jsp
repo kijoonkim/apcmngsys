@@ -1383,7 +1383,8 @@
 			jsonPrdcrOgnCurntMng01.length = 0;
 			let totalRecordCount = 0;
 
-			const url = "/pd/pcom/selectUoMajorItemPrchsSlsList.do";
+			//const url = "/pd/pcom/selectUoMajorItemPrchsSlsList.do";
+			const url = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do";
 			// const postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngListNew.do", {
 
 			const param = {
@@ -1769,7 +1770,8 @@
 			// 	yr : yr
 			// });
 
-			const url = "/pd/pcom/selectUoMajorItemPrchsSlsRawDataList.do";
+			//const url = "/pd/pcom/selectUoMajorItemPrchsSlsRawDataList.do";
+			const url = "/pd/pcom/selectPrdcrCrclOgnSpItmPurSalYMngRawDataList2025.do";
 			const param = {
 				yr : yr
 			}

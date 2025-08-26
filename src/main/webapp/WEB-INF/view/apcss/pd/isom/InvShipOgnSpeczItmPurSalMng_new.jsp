@@ -1258,8 +1258,8 @@
 
 		try {
 
-			// const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
 			const data = await postJsonPromise;
 
 			let totalRecordCount = 0;
@@ -1693,8 +1693,8 @@
 
 		try {
 			const param = {yr : yr};
-			//const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", param);
-			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", param);
 
 			const data = await postJsonPromise;
 			//console.log("data==="+data);
@@ -1739,7 +1739,7 @@
 
 			await hiddenGrd.rebuild();
 
-			await fn_excelDown();
+			await fn_excelDown(yr);
 
 		}catch (e) {
 			if (!(e instanceof Error)) {
@@ -1749,15 +1749,16 @@
 	    }
 	}
 	//로우 데이터 엑셀 다운로드
-	function fn_excelDown(){
+	function fn_excelDown(yr){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear().toString().padStart(4, '0');
-		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate().toString().padStart(2, '0');
-		let formattedDate = year + month + day;
+		// const year = currentDate.getFullYear().toString().padStart(4, '0');
+		// const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		// const day = currentDate.getDate().toString().padStart(2, '0');
+		// let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_전문품목매입매출_출자출하조직_로우데이터";
+		//let fileName = formattedDate + "_전문품목매입매출_출자출하조직_로우데이터" + yr + "년";
+		let fileName = gfn_dateToYmd(currentDate) + "_전문품목매입매출_출자출하조직_로우데이터" + yr + "년";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

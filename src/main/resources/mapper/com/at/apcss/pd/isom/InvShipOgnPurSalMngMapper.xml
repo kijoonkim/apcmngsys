@@ -2941,7 +2941,7 @@
 		]]>
 		<choose>
 			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
-				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+				LEFT JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
 				ON PS.APO_SE = ITEM.APO_SE
 				AND PS.BRNO = ITEM.BRNO
 				/* AND PS.UO_BRNO IN ('0', ITEM.UO_BRNO) */
@@ -2951,7 +2951,7 @@
 				AND PS.DEL_YN = 'N'
 			</when>
 			<otherwise>
-				JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+				LEFT JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
 				ON PS.APO_SE = ITEM.APO_SE
 				AND PS.BRNO = ITEM.BRNO
 				AND PS.UO_BRNO IN ('0', ITEM.UO_BRNO)
