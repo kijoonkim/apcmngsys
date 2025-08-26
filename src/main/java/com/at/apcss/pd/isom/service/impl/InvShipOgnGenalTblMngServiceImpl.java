@@ -78,7 +78,11 @@ public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements
 
 	@Override
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
-		//return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
+	}
+
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsSummaryList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 		int yr = Integer.parseInt(invShipOgnGenalTblMngVO.getYr());
 		if (yr < 2025) {
 			invShipOgnGenalTblMngVO.setOldDataYn(ComConstants.CON_YES);
