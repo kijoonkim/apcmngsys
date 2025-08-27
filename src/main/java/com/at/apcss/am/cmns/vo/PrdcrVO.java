@@ -327,6 +327,10 @@ public class PrdcrVO extends ComVO {
 	private int crtrPrcl;
 	private int plntngPrcl;
 	private String yr;
+	/**
+	 * 품질정보
+	 * */
+	private String qltEvl;
 
 	private String prdcrCrtrType;
 	private String crtrDtlCd;
@@ -343,6 +347,5 @@ public class PrdcrVO extends ComVO {
 	public void setPrdcrList(List<PrdcrVO> prdcrVO) {
 		this.prdcrList = prdcrList == null ? null : prdcrList.stream().collect(Collectors.toList());
 	}
-
 
 }

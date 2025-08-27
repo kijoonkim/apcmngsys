@@ -87,4 +87,28 @@ public interface RawMtrWrhsIgiMapper {
 	 */
 	public int deleteRawMtrWrhsIgiDtl(RawMtrWrhsIgiDtlVO rawMtrWrhsIgiDtlVO) throws Exception;
 
+	/**
+	 * 검수등록 누계 조회
+	 * @param rawMtrWrhsIgiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsIgiVO> selectRawMtrWrhsIgiTot(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception;
+
+	/**
+	 * 생산자 검수 정보 조회
+	 * @param rawMtrWrhsIgiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public RawMtrWrhsIgiVO selectPrschsPrdcrInfo(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception;
+
+	/**
+	 * 입고 누계 조회
+	 * @param rawMtrWrhsIgiVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RawMtrWrhsIgiVO> selectRawMtrWghPrmncTotList(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception;
+
 }

@@ -205,6 +205,13 @@
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT
+	    	     , (SELECT QLT_EVL
+					  FROM TB_CLTVTN_FRMHS_QLT X
+                     WHERE X.APC_CD = PR.APC_CD
+                       AND X.PRDCR_CD = PR.PRDCR_CD
+                       AND X.DEL_YN = 'N'
+                       AND YR = #{yr}
+                   ) AS PRCHS_AMT
 		</if>
 		<![CDATA[
                  , PR.CRTR_AREA         AS CRTR_AREA
