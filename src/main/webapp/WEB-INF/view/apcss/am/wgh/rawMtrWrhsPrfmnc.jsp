@@ -342,7 +342,7 @@
 					name="dtl-inp-addDay"
 					uitype="normal"
 					data-type="number"
-					init="0"
+					init="4"
 					number-min-value="0"
 					number-radix-point="3"
 					number-suffix-text="일"
