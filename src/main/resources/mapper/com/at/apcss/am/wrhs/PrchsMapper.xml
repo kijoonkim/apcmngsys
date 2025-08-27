@@ -192,10 +192,10 @@
 				   WP.APC_CD
 				 , NVL(WP.PIC, '영업부') AS PIC
 				 , WP.FRMHS_CTPV        AS FRMHS_CTPV
-				 , MAX(WP.EXPCT_QNTT) AS EXPCT_QNTT
+				 , MAX(CQ.EXPCT_QNTT) AS EXPCT_QNTT
 				 , MAX(WP.WRHS_WGHT) AS WRHS_WGHT
-				 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(WP.EXPCT_QNTT), 0) AS RMND
-				 , CASE WHEN MAX(WP.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(WP.EXPCT_QNTT) * 100, 2) ELSE 0 END AS WRHS_RT
+				 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(CQ.EXPCT_QNTT), 0) AS RMND
+				 , CASE WHEN MAX(CQ.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(CQ.EXPCT_QNTT) * 100, 2) ELSE 0 END AS WRHS_RT
 				 , ROUND(SUM(YMD_1) * 21 / 1000) AS YMD_1_QNTT
 				 , ROUND(SUM(YMD_2) * 21 / 1000) AS YMD_2_QNTT
 				 , ROUND(SUM(YMD_3) * 21 / 1000) AS YMD_3_QNTT
@@ -362,10 +362,10 @@
 			SELECT /* com.at.apcss.am.wrhs.mapper.PrchsMapper.selectPrchsCtpvTotList */
 				   WP.APC_CD
 				 , NVL(WP.FRMHS_CTPV, '미상')                              AS FRMHS_CTPV
-				 , MAX(WP.EXPCT_QNTT)                                     AS EXPCT_QNTT
+				 , MAX(CQ.EXPCT_QNTT)                                     AS EXPCT_QNTT
 				 , MAX(WP.WRHS_WGHT)                                      AS WRHS_WGHT
-				 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(WP.EXPCT_QNTT), 0) AS RMND
-				 , CASE WHEN MAX(WP.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(WP.EXPCT_QNTT) * 100, 2) ELSE 0 END                                         AS WRHS_RT
+				 , NVL(MAX(WP.WRHS_WGHT), 0) - NVL(MAX(CQ.EXPCT_QNTT), 0) AS RMND
+				 , CASE WHEN MAX(CQ.EXPCT_QNTT) > 0 THEN ROUND(MAX(WP.WRHS_WGHT) / MAX(CQ.EXPCT_QNTT) * 100, 2) ELSE 0 END                                         AS WRHS_RT
 				 , ROUND(SUM(YMD_1) * 21 / 1000)                          AS YMD_1_QNTT
 				 , ROUND(SUM(YMD_2) * 21 / 1000)                          AS YMD_2_QNTT
 				 , ROUND(SUM(YMD_3) * 21 / 1000)                          AS YMD_3_QNTT

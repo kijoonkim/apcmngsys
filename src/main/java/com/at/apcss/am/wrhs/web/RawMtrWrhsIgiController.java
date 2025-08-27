@@ -1,8 +1,10 @@
 package com.at.apcss.am.wrhs.web;
 
 
+import com.at.apcss.am.wrhs.service.FrmerInfoService;
+import com.at.apcss.am.wrhs.service.RawMtrHrPrfmncService;
 import com.at.apcss.am.wrhs.service.RawMtrWrhsIgiService;
-import com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO;
+import com.at.apcss.am.wrhs.vo.*;
 
 import com.at.apcss.co.constants.ComConstants;
 import com.at.apcss.co.sys.controller.BaseController;
@@ -39,6 +41,12 @@ public class RawMtrWrhsIgiController extends BaseController {
 	
 	@Resource(name = "rawMtrWrhsIgiService")
 	private RawMtrWrhsIgiService rawMtrWrhsIgiService;
+
+	@Resource(name = "frmerInfoService")
+	private FrmerInfoService frmerInfoService;
+
+	@Resource(name = "rawMtrHrPrfmncService")
+	private RawMtrHrPrfmncService rawMtrHrPrfmncService;
 
 	@PostMapping(value = "/am/wrhs/selectRawMtrWrhsIgiList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectRawMtrWrhsIgiList(@RequestBody RawMtrWrhsIgiVO rawMtrWrhsIgiVO, HttpServletRequest request) throws Exception {
@@ -123,6 +131,55 @@ public class RawMtrWrhsIgiController extends BaseController {
 				return getErrorResponseEntity(rtnObj);
 			}
 		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	@PostMapping(value = "/am/wrhs/selectPrchsSttn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> selectPrchsSttn(@RequestBody RawMtrWrhsIgiVO rawMtrWrhsIgiVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<RawMtrWrhsIgiVO> resultList;
+		List<RawMtrWrhsIgiVO> resultList1;
+		List<CltvtnHstryVO> resultList2;
+		RawMtrWrhsIgiVO result;
+		List<RawMtrWrhsIgiVO> resultList3;
+		List<RawMtrHrPrfmncDtlVO> resultList4;
+		try {
+			resultList = rawMtrWrhsIgiService.selectRawMtrWrhsIgiList(rawMtrWrhsIgiVO);
+			resultList1 = rawMtrWrhsIgiService.selectRawMtrWrhsIgiTot(rawMtrWrhsIgiVO);
+			result = rawMtrWrhsIgiService.selectPrschsPrdcrInfo(rawMtrWrhsIgiVO);
+			resultList3 = rawMtrWrhsIgiService.selectRawMtrWghPrmncTotList(rawMtrWrhsIgiVO);
+
+			CltvtnHstryVO cltvtnHstryVO = new CltvtnHstryVO();
+			cltvtnHstryVO.setApcCd(rawMtrWrhsIgiVO.getApcCd());
+			cltvtnHstryVO.setYr(rawMtrWrhsIgiVO.getIgiYr());
+			cltvtnHstryVO.setItemCd(rawMtrWrhsIgiVO.getItemCd());
+			cltvtnHstryVO.setPrdcrCd(result.getPrdcrCd());
+
+			resultList2 = frmerInfoService.selectCltvtnHstryList(cltvtnHstryVO);
+
+			RawMtrHrPrfmncDtlVO rawMtrHrPrfmncDtlVO = new RawMtrHrPrfmncDtlVO();
+			rawMtrHrPrfmncDtlVO.setWrhsYmd(rawMtrWrhsIgiVO.getIgiYmd());
+			rawMtrHrPrfmncDtlVO.setApcCd(rawMtrWrhsIgiVO.getApcCd());
+			resultList4 = rawMtrHrPrfmncService.selectRawMtrHrPrfmncTot(rawMtrHrPrfmncDtlVO);
+
+		} catch (Exception e) {
+			logger.debug("error: {}", e.getMessage());
+			return getErrorResponseEntity(e);
+		} finally {
+			HashMap<String, Object> rtnObj = setMenuComLog(request);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		resultMap.put(ComConstants.PROP_RESULT_LIST_1, resultList1);
+		resultMap.put(ComConstants.PROP_RESULT_LIST_2, resultList2);
+		resultMap.put(ComConstants.PROP_RESULT_LIST_3, resultList3);
+		resultMap.put(ComConstants.PROP_RESULT_MAP, result);
+		resultMap.put(ComConstants.PROP_RESULT_LIST_4, resultList4);
 
 		return getSuccessResponseEntity(resultMap);
 	}
