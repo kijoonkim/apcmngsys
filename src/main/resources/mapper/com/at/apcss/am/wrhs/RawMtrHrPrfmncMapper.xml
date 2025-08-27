@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : RawMtrHrPrfmncMapper.xml                                   			-->
+<!-- DESC : 원물입고시간실적 mapper                                            	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.08.21  	김 호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper">
+
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.selectRawMtrHrPrfmncList	-->
+	<!-- DESC : 원물입고시간실적 목록 조회.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+    <select id="selectRawMtrHrPrfmncList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO">
+    	<![CDATA[
+			SELECT Z.*
+			  FROM (
+					SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.selectRawMtrHrPrfmncList */
+						   X.APC_CD             AS APC_CD
+						 , X.WRHS_YMD           AS WRHS_YMD
+						 , FN_GET_COM_CD_VL_NM('WRHS_HM_CD', X.WRHS_HM_CD, X.APC_CD) AS WRHS_HM_NM
+						 , X.WRHS_HM_CD			AS WRHS_HM_CD
+						 , MAX(X.RMRK)          AS RMRK
+						 , SUM(X.QNTT_1)        AS QNTT_1
+						 , SUM(X.QNTT_2)        AS QNTT_2
+						 , SUM(X.WGHT_1)        AS WGHT_1
+						 , SUM(X.WGHT_2)        AS WGHT_2
+						 , 'U'					AS ROW_STS
+					  FROM (
+							SELECT HC.APC_CD
+								 , HC.WRHS_YMD
+								 , HC.WRHS_HM_CD
+								 , HC.RMRK
+								 , HD.DTL_CD
+								 , HD.QNTT
+								 , HD.WGHT
+								 , CASE WHEN CD.RANK = 1 THEN HD.QNTT END QNTT_1
+								 , CASE WHEN CD.RANK = 2 THEN HD.QNTT END QNTT_2
+								 , CASE WHEN CD.RANK = 1 THEN HD.WGHT END WGHT_1
+								 , CASE WHEN CD.RANK = 2 THEN HD.WGHT END WGHT_2
+							  FROM TB_RAW_MTR_HR_PRFMNC_COM HC
+								 , TB_RAW_MTR_HR_PRFMNC_DTL HD
+								 , (SELECT CD_VL
+										 , RANK() OVER (ORDER BY CD_VL) AS RANK
+									  FROM TB_COM_CD_DTL CD
+									 WHERE CD_ID = 'HDOFC_EXTRNL_SE_CD'
+									   AND DEL_YN = 'N'
+								   ) CD
+							 WHERE HC.APC_CD = HD.APC_CD(+)
+							   AND HC.WRHS_YMD = HD.WRHS_YMD(+)
+							   AND HC.WRHS_HM_CD = HD.WRHS_HM_CD(+)
+							   AND CD.CD_VL = HD.DTL_CD
+							   AND HC.DEL_YN = 'N'
+							   AND HD.DEL_YN = 'N'
+							   AND HC.APC_CD = #{apcCd}
+							   AND HC.WRHS_YMD = #{wrhsYmd}
+							 ORDER BY HC.APC_CD, HC.WRHS_YMD, HC.WRHS_HM_CD
+							 ) X
+					 GROUP BY X.APC_CD, X.WRHS_YMD, X.WRHS_HM_CD
+					 UNION ALL
+					SELECT #{apcCd}     AS APC_CD
+						 , #{wrhsYmd}   AS WRHS_YMD
+						 , FN_GET_COM_CD_VL_NM('WRHS_HM_CD', CD.CD_VL , #{apcCd})  AS WRHS_HM_CD
+						 , CD.CD_VL		AS WRHS_HM_CD
+						 , ''           AS RMRK
+						 , ''           AS QNTT_1
+						 , ''           AS WGHT_1
+						 , ''           AS QNTT_2
+						 , ''           AS WGHT_2
+						 , 'I'			AS ROW_STS
+					  FROM TB_COM_CD_DTL CD
+					 WHERE CD.CD_ID = 'WRHS_HM_CD'
+					   AND CD.DEL_YN = 'N'
+					   AND APC_CD = #{apcCd}
+					   AND NOT EXISTS (
+										SELECT 1
+										  FROM TB_RAW_MTR_HR_PRFMNC_COM X
+										 WHERE X.WRHS_HM_CD = CD.CD_VL
+										   AND X.DEL_YN = 'N'
+										   AND X.WRHS_YMD = #{wrhsYmd}
+										   AND X.APC_CD = #{apcCd}
+									  )
+				) Z
+			ORDER BY WRHS_HM_CD
+		]]>
+    </select>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.selectRawMtrHrPrfmncTot	-->
+	<!-- DESC : 원물입고시간실적 토탈 조회.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<select id="selectRawMtrHrPrfmncTot" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.selectRawMtrHrPrfmncTot */
+			       T.APC_CD
+				 , T.DTL_CD
+				 , FN_GET_COM_CD_VL_NM('HDOFC_EXTRNL_SE_CD', T.DTL_CD) AS DTL_NM
+				 , NVL(MAX(T.WRHS_HM_1), '')    	AS WRHS_HM_1
+				 , SUM(T.WRHS_HM_QNTT_1)        	AS WRHS_HM_QNTT_1
+				 , SUM(T.WRHS_HM_WGHT_1)        	AS WRHS_HM_WGHT_1
+				 , NVL(MAX(T.WRHS_HM_2), '')    	AS WRHS_HM_2
+				 , SUM(T.WRHS_HM_QNTT_2)            AS WRHS_HM_QNTT_2
+				 , SUM(T.WRHS_HM_WGHT_2)            AS WRHS_HM_WGHT_2
+				 , NVL(MAX(T.WRHS_HM_3), '')    	AS WRHS_HM_3
+				 , SUM(T.WRHS_HM_QNTT_3)            AS WRHS_HM_QNTT_3
+				 , SUM(T.WRHS_HM_WGHT_3)            AS WRHS_HM_WGHT_3
+				 , NVL(MAX(T.WRHS_HM_4), '')    	AS WRHS_HM_4
+				 , SUM(T.WRHS_HM_QNTT_4)            AS WRHS_HM_QNTT_4
+				 , SUM(T.WRHS_HM_WGHT_4)            AS WRHS_HM_WGHT_4
+				 , NVL(MAX(T.WRHS_HM_5), '')    	AS WRHS_HM_5
+				 , SUM(T.WRHS_HM_QNTT_5)            AS WRHS_HM_QNTT_5
+				 , SUM(T.WRHS_HM_WGHT_5)            AS WRHS_HM_WGHT_5
+				 , NVL(MAX(T.WRHS_HM_6), '')    	AS WRHS_HM_6
+				 , SUM(T.WRHS_HM_QNTT_6)            AS WRHS_HM_QNTT_6
+				 , SUM(T.WRHS_HM_WGHT_6)            AS WRHS_HM_WGHT_6
+				 , NVL(MAX(T.WRHS_HM_7), '')    	AS WRHS_HM_7
+				 , SUM(T.WRHS_HM_QNTT_7)            AS WRHS_HM_QNTT_7
+				 , SUM(T.WRHS_HM_WGHT_7)            AS WRHS_HM_WGHT_7
+				 , NVL(MAX(T.WRHS_HM_8), '')    	AS WRHS_HM_8
+				 , SUM(T.WRHS_HM_QNTT_8)            AS WRHS_HM_QNTT_8
+				 , SUM(T.WRHS_HM_WGHT_8)            AS WRHS_HM_WGHT_8
+				 , NVL(MAX(T.WRHS_HM_9), '')    	AS WRHS_HM_9
+				 , SUM(T.WRHS_HM_QNTT_9)            AS WRHS_HM_QNTT_9
+				 , SUM(T.WRHS_HM_WGHT_9)            AS WRHS_HM_WGHT_9
+				 , NVL(MAX(T.WRHS_HM_10), '')   	AS WRHS_HM_10
+				 , SUM(T.WRHS_HM_QNTT_10)           AS WRHS_HM_QNTT_10
+				 , SUM(T.WRHS_HM_WGHT_10)           AS WRHS_HM_WGHT_10
+			  FROM (
+					SELECT Z.APC_CD
+						 , Z.DTL_CD
+						 , CASE WHEN Z.HM_RNAK = 1 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_1
+						 , CASE WHEN Z.HM_RNAK = 1 THEN Z.QNTT END 			AS WRHS_HM_QNTT_1
+						 , CASE WHEN Z.HM_RNAK = 1 THEN Z.WGHT END 			AS WRHS_HM_WGHT_1
+						 , CASE WHEN Z.HM_RNAK = 2 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_2
+						 , CASE WHEN Z.HM_RNAK = 2 THEN Z.QNTT END 			AS WRHS_HM_QNTT_2
+						 , CASE WHEN Z.HM_RNAK = 2 THEN Z.WGHT END 			AS WRHS_HM_WGHT_2
+						 , CASE WHEN Z.HM_RNAK = 3 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_3
+						 , CASE WHEN Z.HM_RNAK = 3 THEN Z.QNTT END 			AS WRHS_HM_QNTT_3
+						 , CASE WHEN Z.HM_RNAK = 3 THEN Z.WGHT END 			AS WRHS_HM_WGHT_3
+						 , CASE WHEN Z.HM_RNAK = 4 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_4
+						 , CASE WHEN Z.HM_RNAK = 4 THEN Z.QNTT END 			AS WRHS_HM_QNTT_4
+						 , CASE WHEN Z.HM_RNAK = 4 THEN Z.WGHT END 			AS WRHS_HM_WGHT_4
+						 , CASE WHEN Z.HM_RNAK = 5 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_5
+						 , CASE WHEN Z.HM_RNAK = 5 THEN Z.QNTT END 			AS WRHS_HM_QNTT_5
+						 , CASE WHEN Z.HM_RNAK = 5 THEN Z.WGHT END 			AS WRHS_HM_WGHT_5
+						 , CASE WHEN Z.HM_RNAK = 6 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_6
+						 , CASE WHEN Z.HM_RNAK = 6 THEN Z.QNTT END 			AS WRHS_HM_QNTT_6
+						 , CASE WHEN Z.HM_RNAK = 6 THEN Z.WGHT END 			AS WRHS_HM_WGHT_6
+						 , CASE WHEN Z.HM_RNAK = 7 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_7
+						 , CASE WHEN Z.HM_RNAK = 7 THEN Z.QNTT END 			AS WRHS_HM_QNTT_7
+						 , CASE WHEN Z.HM_RNAK = 7 THEN Z.WGHT END 			AS WRHS_HM_WGHT_7
+						 , CASE WHEN Z.HM_RNAK = 8 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_8
+						 , CASE WHEN Z.HM_RNAK = 8 THEN Z.QNTT END 			AS WRHS_HM_QNTT_8
+						 , CASE WHEN Z.HM_RNAK = 8 THEN Z.WGHT END 			AS WRHS_HM_WGHT_8
+						 , CASE WHEN Z.HM_RNAK = 9 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_9
+						 , CASE WHEN Z.HM_RNAK = 9 THEN Z.QNTT END 			AS WRHS_HM_QNTT_9
+						 , CASE WHEN Z.HM_RNAK = 9 THEN Z.WGHT END 			AS WRHS_HM_WGHT_9
+						 , CASE WHEN Z.HM_RNAK = 10 THEN Z.WRHS_HM_CD END 	AS WRHS_HM_10
+						 , CASE WHEN Z.HM_RNAK = 10 THEN Z.QNTT END 		AS WRHS_HM_QNTT_10
+						 , CASE WHEN Z.HM_RNAK = 10 THEN Z.WGHT END 		AS WRHS_HM_WGHT_10
+					  FROM (
+							SELECT Y.*
+								 , RANK() OVER(PARTITION BY WRHS_HM_CD ORDER BY DTL_CD) AS DTL_RNAK
+								 , DENSE_RANK() OVER(ORDER BY WRHS_HM_CD) AS HM_RNAK
+							  FROM (
+									SELECT X.APC_CD             AS APC_CD
+										 , X.WRHS_YMD           AS WRHS_YMD
+										 , X.WRHS_HM_CD         AS WRHS_HM_CD
+										 , X.DTL_CD             AS DTL_CD
+										 , X.QNTT               AS QNTT
+										 , X.WGHT               AS WGHT
+									  FROM (
+											SELECT HC.APC_CD
+												 , HC.WRHS_YMD
+												 , HC.WRHS_HM_CD
+												 , HC.RMRK
+												 , HD.DTL_CD
+												 , HD.QNTT
+												 , HD.WGHT
+											  FROM TB_RAW_MTR_HR_PRFMNC_COM HC
+												 , TB_RAW_MTR_HR_PRFMNC_DTL HD
+												 , (SELECT CD_VL
+														 , RANK() OVER (ORDER BY CD_VL) AS RANK
+													  FROM TB_COM_CD_DTL CD
+													 WHERE CD_ID = 'HDOFC_EXTRNL_SE_CD'
+													   AND DEL_YN = 'N'
+												   ) CD
+											 WHERE HC.APC_CD = HD.APC_CD(+)
+											   AND HC.WRHS_YMD = HD.WRHS_YMD(+)
+											   AND HC.WRHS_HM_CD = HD.WRHS_HM_CD(+)
+											   AND CD.CD_VL = HD.DTL_CD
+											   AND HC.DEL_YN = 'N'
+											   AND HD.DEL_YN = 'N'
+											   AND HC.APC_CD = #{apcCd}
+											   AND HC.WRHS_YMD = #{wrhsYmd}
+											) X
+											UNION ALL
+											SELECT #{apcCd}     AS APC_CD
+												 , #{wrhsYmd}   AS WRHS_YMD
+												 , CD.CD_VL		AS WRHS_HM_CD
+												 , CDS.CD_VL    AS DTL_CD
+												 , 0            AS QNTT
+												 , 0            AS WGHT
+											FROM TB_COM_CD_DTL CD
+											   , (SELECT #{apcCd}   AS APC_CD
+													   , CD_VL    AS CD_VL
+												    FROM TB_COM_CD_DTL
+												   WHERE CD_ID = 'HDOFC_EXTRNL_SE_CD'
+												     AND DEL_YN = 'N'
+											    ) CDS
+											WHERE CD.APC_CD = CDS.APC_CD
+											  AND CD.CD_ID = 'WRHS_HM_CD'
+											  AND CD.DEL_YN = 'N'
+											  AND CD.APC_CD = #{apcCd}
+											  AND NOT EXISTS (
+															  SELECT 1
+																FROM TB_RAW_MTR_HR_PRFMNC_COM X
+															   WHERE X.WRHS_HM_CD = CD.CD_VL
+																 AND X.DEL_YN = 'N'
+																 AND X.WRHS_YMD = #{wrhsYmd}
+																 AND X.APC_CD = #{apcCd}
+															)
+									) Y
+							) Z
+					) T
+			 GROUP BY T.APC_CD, T.DTL_CD
+		]]>
+    </select>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.insertRawMtrHrPrfmncCom	-->
+	<!-- DESC : 원물입고시간실적공통 등록.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<insert id="insertRawMtrHrPrfmncCom" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncComVO">
+		<![CDATA[
+			INSERT	/* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.insertRawMtrHrPrfmncCom */
+			  INTO TB_RAW_MTR_HR_PRFMNC_COM
+				 ( APC_CD
+				 , WRHS_YMD
+				 , WRHS_HM_CD
+				 , RMRK
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				 )
+			VALUES
+			     ( #{apcCd}
+				 , #{wrhsYmd}
+				 , #{wrhsHmCd}
+				 , #{rmrk}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				 )
+		]]>
+	</insert>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.insertRawMtrHrPrfmncCom	-->
+	<!-- DESC : 원물입고시간실적공통 등록.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="updateRawMtrHrPrfmncCom" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncComVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.updateRawMtrHrPrfmncCom */
+			       TB_RAW_MTR_HR_PRFMNC_COM
+			   SET RMRK 					= #{rmrk}
+			     , SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+			     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WRHS_YMD 				= #{wrhsYmd}
+			   AND WRHS_HM_CD				= #{wrhsHmCd}
+		]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.deleteRawMtrHrPrfmncCom	-->
+	<!-- DESC : 원물입고시간실적공통 삭제.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="deleteRawMtrHrPrfmncCom" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncComVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.deleteRawMtrHrPrfmncCom */
+			       TB_RAW_MTR_HR_PRFMNC_COM
+			   SET DEL_YN  					= 'Y'
+			     , SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+			     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WRHS_YMD 				= #{wrhsYmd}
+			   AND WRHS_HM_CD				= #{wrhsHmCd}
+		]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.insertRawMtrHrPrfmncDtl	-->
+	<!-- DESC : 원물입고시간실적상세 등록.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<insert id="insertRawMtrHrPrfmncDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.insertRawMtrHrPrfmncDtl */
+			  INTO TB_RAW_MTR_HR_PRFMNC_DTL
+				 ( APC_CD
+				 , WRHS_YMD
+				 , WRHS_HM_CD
+				 , DTL_CD
+				 , QNTT
+				 , WGHT
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				 )
+			VALUES
+			     ( #{apcCd}
+				 , #{wrhsYmd}
+				 , #{wrhsHmCd}
+				 , #{dtlCd}
+				 , #{qntt}
+				 , #{wght}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				 )
+		]]>
+	</insert>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.updateRawMtrHrPrfmncDtl	-->
+	<!-- DESC : 원물입고시간실적공상세 변경.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="updateRawMtrHrPrfmncDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO">
+		<![CDATA[
+			MERGE /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.updateRawMtrHrPrfmncDtl */
+			 INTO TB_RAW_MTR_HR_PRFMNC_DTL HPD
+			USING DUAL
+				ON (	      HPD.APC_CD      		= #{apcCd}
+						  AND HPD.WRHS_YMD  		= #{wrhsYmd}
+						  AND HPD.WRHS_HM_CD  		= #{wrhsHmCd}
+						  AND HPD.DTL_CD     		= #{dtlCd}
+					   )
+			WHEN MATCHED THEN
+					 UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.updateRawMtrHrPrfmncDtl */
+					 	SET QNTT 					= #{qntt}
+						  , WGHT					= #{wght}
+						  , SYS_LAST_CHG_DT			= SYSDATE
+						  , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+						  , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+					  WHERE 1=1
+					    AND APC_CD 					= #{apcCd}
+					    AND WRHS_YMD 				= #{wrhsYmd}
+					    AND WRHS_HM_CD				= #{wrhsHmCd}
+					    AND DTL_CD					= #{dtlCd}
+			WHEN NOT MATCHED THEN
+				 	 INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.updateRawMtrHrPrfmncDtl */
+						  (
+					        APC_CD
+						  , WRHS_YMD
+						  , WRHS_HM_CD
+						  , DTL_CD
+						  , QNTT
+						  , WGHT
+						  , SYS_FRST_INPT_DT
+						  , SYS_FRST_INPT_USER_ID
+						  , SYS_FRST_INPT_PRGRM_ID
+						  , SYS_LAST_CHG_DT
+						  , SYS_LAST_CHG_USER_ID
+						  , SYS_LAST_CHG_PRGRM_ID
+						  )
+					 VALUES
+						  (
+					        #{apcCd}
+						  , #{wrhsYmd}
+						  , #{wrhsHmCd}
+						  , #{dtlCd}
+						  , #{qntt}
+						  , #{wght}
+						  , SYSDATE
+						  , #{sysFrstInptUserId}
+						  , #{sysFrstInptPrgrmId}
+						  , SYSDATE
+						  , #{sysLastChgUserId}
+						  , #{sysLastChgPrgrmId}
+						  )
+    	]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.deleteRawMtrHrPrfmncCom	-->
+	<!-- DESC : 원물입고시간실적상세 삭제.	                                       				-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.21  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="deleteRawMtrHrPrfmncDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrHrPrfmncDtlVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrHrPrfmncMapper.deleteRawMtrHrPrfmncDtl */
+			       TB_RAW_MTR_HR_PRFMNC_DTL
+			   SET DEL_YN  					= 'Y'
+			     , SYS_LAST_CHG_DT			= SYSDATE
+			     , SYS_LAST_CHG_USER_ID 	= #{sysLastChgUserId}
+			     , SYS_LAST_CHG_PRGRM_ID 	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND WRHS_YMD 				= #{wrhsYmd}
+			   AND WRHS_HM_CD				= #{wrhsHmCd}
+			   AND DTL_CD					= #{dtlCd}
+		]]>
+	</update>
+
+</mapper>
