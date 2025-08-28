@@ -47,6 +47,14 @@ public interface InvShipOgnGenalTblMngService {
 
 	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 
+	/**
+	 * 출자출하조직총괄표 목록조회
+	 * @param invShipOgnGenalTblMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsSummaryList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
+
 	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;
 	
 	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsRawdataList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception;

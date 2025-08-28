@@ -54,11 +54,20 @@ public interface PrdcrCrclOgnSpItmPurSalYMngService {
 
 	/**
 	 * 통합조직 전문품목 매입매출 로우데이터 조회 2025년
-	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
 	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
 	 * @throws Exception
 	 */
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
+
+
+	/**
+	 * 통합조직 전문품목 매입매출 로우데이터 조회
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;
 
 
 	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO) throws Exception;

@@ -30,16 +30,18 @@
 				 , X.PRDCR_CD               AS PRDCR_CD
 				 , MAX(PI.PRDCR_NM)         AS PRDCR_NM
 				 , MAX(PI.FRMHS_NM)         AS FRMHS_NM
-				 , MAX(X.IGI_JGMT_CD)       AS IGI_JGMT_CD
+				 , MAX(FN_GET_COM_CD_VL_NM('IGI_JGMT_CD', X.IGI_JGMT_CD, X.APC_CD)) AS IGI_JGMT_NM
+			     , MAX(X.IGI_JGMT_CD)		AS IGI_JGMT_CD
 				 , MAX(X.SMPL_YN)           AS SMPL_YN
 				 , MAX(X.RW_ARTCL_CD)       AS RW_ARTCL_CD
+                 , MAX(FN_GET_COM_CD_VL_NM('RW_ARTCL_CD', X.RW_ARTCL_CD, X.APC_CD)) AS RW_ARTCL_NM
 				 , MAX(X.RW_RT)             AS RW_RT
 				 , MAX(X.WRHS_UNIT_CD)      AS WRHS_UNIT_CD
 				 , MAX(X.SNDBK_QNTT)        AS SNDBK_QNTT
 				 , MAX(X.IGI_RMRK)          AS IGI_RMRK
 				 , MAX(X.QNTT_RMRK)         AS QNTT_RMRK
 				 , MAX(X.RT_RMRK)           AS RT_RMRK
-				 , MAX(X.STRG_LOCTN_CD)     AS STRG_LOCTN_CD
+				 , MAX(CQ.QLT_EVL)          AS QLT_EVL
 				 , SUM(X.IGI_GRD_QNTT)      AS IGI_GRD_QNTT_TOT
 				 , SUM(X.IGI_GRD_QNTT_1)    AS IGI_GRD_QNTT_1
 				 , SUM(X.IGI_GRD_QNTT_2)    AS IGI_GRD_QNTT_2
@@ -65,7 +67,6 @@
 					   , WI.IGI_RMRK
 					   , WI.QNTT_RMRK
 					   , WI.RT_RMRK
-					   , WI.STRG_LOCTN_CD
 					   , WID.IGI_GRD_QNTT
 					   , CASE WHEN WID.IGI_GRD_CD = '0001' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_1
 					   , CASE WHEN WID.IGI_GRD_CD = '0002' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_2
@@ -83,9 +84,7 @@
 					AND WI.IGI_YMD = WID.IGI_YMD
 					AND WI.IGI_SEQ = WID.IGI_SEQ
 				    AND WI.DEL_YN = 'N'
-				    AND WID.DEL_YN = 'N'
 					AND WI.APC_CD = #{apcCd}
-
 		]]>
 			<if test='igiYmdFrom != null and igiYmdFrom != ""'>
 					AND WI.IGI_YMD <![CDATA[>=]]> #{igiYmdFrom}
@@ -96,12 +95,35 @@
 			<if test='prdcrCd != null and prdcrCd != ""'>
 					AND WI.PRDCR_CD = #{prdcrCd}
 			</if>
+			<if test='prchsSttnYn != null and prchsSttnYn != ""'>
+					AND WI.PRDCR_CD = (SELECT PRDCR_CD
+											  FROM TB_RAW_MTR_WRHS_IGI
+										WHERE DEL_YN = 'N'
+										  AND APC_CD = #{apcCd}
+										ORDER BY SYS_LAST_CHG_DT DESC
+										LIMIT 1
+										)
+			</if>
+			<if test='igiYr != null and igiYr != ""'>
+					AND SUBSTR(WI.IGI_YMD, 1, 4) = #{igiYr}
+			</if>
 		<![CDATA[
 			) X
 			   , TB_PRDCR_INFO PI
+               , TB_CLTVTN_FRMHS_QLT CQ
 			WHERE X.APC_CD = PI.APC_CD
 			  AND X.PRDCR_CD = PI.PRDCR_CD
-			  AND PI.DEL_YN = 'N'
+              AND X.APC_CD = CQ.APC_CD(+)
+              AND X.PRDCR_CD = CQ.PRDCR_CD(+)
+              AND CQ.DEL_YN(+) = 'N'
+		]]>
+		<if test='igiYr != null and igiYr != ""'>
+			  AND CQ.YR(+) = #{igiYr}
+		</if>
+		<if test='igiYmdFrom != null and igiYmdFrom != ""'>
+			  AND CQ.YR(+) = SUBSTR(#{igiYmdFrom}, 1, 4)
+		</if>
+		<![CDATA[
 			GROUP BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
 			ORDER BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
 		]]>
@@ -147,7 +169,6 @@
 					, IGI_RMRK
 					, QNTT_RMRK
 					, RT_RMRK
-					, STRG_LOCTN_CD
 					, DEL_YN
 					, SYS_FRST_INPT_DT
 					, SYS_FRST_INPT_USER_ID
@@ -171,7 +192,6 @@
 					, #{igiRmrk}
 					, #{qnttRmrk}
 					, #{rtRmrk}
-					, #{strgLoctnCd}
 					, 'N'
 					, SYSDATE
 					, #{sysFrstInptUserId}
@@ -205,7 +225,6 @@
 				 , IGI_RMRK					= #{igiRmrk}
 				 , QNTT_RMRK				= #{qnttRmrk}
 				 , RT_RMRK					= #{rtRmrk}
-				 , STRG_LOCTN_CD			= #{strgLoctnCd}
 				 , SYS_LAST_CHG_DT			= SYSDATE
 				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
 				 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -372,6 +391,284 @@
 		  AND IGI_SEQ					= #{igiSeq}
 		]]>
 	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiTot		-->
+	<!-- DESC : 검수 목록 조회.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<select id="selectRawMtrWrhsIgiTot" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+			SELECT APC_CD
+			     , IGI_JGMT_CD
+				 , NVL(FN_GET_COM_CD_VL_NM('IGI_JGMT_CD', IGI_JGMT_CD, APC_CD), '누락') AS IGI_JGMT_NM
+				 , ROUND(SUM(IGI_GRD_QNTT_1) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_1
+				 , ROUND(SUM(IGI_GRD_QNTT_2) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_2
+				 , ROUND(SUM(IGI_GRD_QNTT_3) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_3
+				 , ROUND(SUM(IGI_GRD_QNTT_4) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_4
+				 , ROUND(SUM(IGI_GRD_QNTT_5) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_5
+				 , ROUND((SUM(IGI_GRD_QNTT_1) + SUM(IGI_GRD_QNTT_2) + SUM(IGI_GRD_QNTT_3) + SUM(IGI_GRD_QNTT_4) + SUM(IGI_GRD_QNTT_5)) * MAX(WRHS_TON) / 1000) AS STRG_LOCTN_QNTT_TOT
+			  FROM
+				   (SELECT
+						   X.APC_CD                 AS APC_CD
+						 , X.IGI_YMD                AS IGI_YMD
+						 , X.IGI_SEQ                AS IGI_SEQ
+						 , MAX(X.IGI_JGMT_CD)       AS IGI_JGMT_CD
+						 , SUM(X.IGI_GRD_QNTT_1)    AS IGI_GRD_QNTT_1
+						 , SUM(X.IGI_GRD_QNTT_2)    AS IGI_GRD_QNTT_2
+						 , SUM(X.IGI_GRD_QNTT_3)    AS IGI_GRD_QNTT_3
+						 , SUM(X.IGI_GRD_QNTT_4)    AS IGI_GRD_QNTT_4
+						 , SUM(X.IGI_GRD_QNTT_5)    AS IGI_GRD_QNTT_5
+						 , (SELECT ROUND(SUM(WP.WRHS_WGHT) / SUM(WP.BX_QNTT), 1) AS WRHS_TON
+							  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+								 , TB_RAW_MTR_INVNTR RI
+							 WHERE WP.APC_CD = RI.APC_CD
+							   AND WP.WRHSNO = RI.WRHSNO
+							   AND RI.PRCS_TYPE IS NULL
+							   AND SUBSTR(WP.WRHS_YMD, 1, 4) = SUBSTR(#{igiYmd}, 1, 4)
+							   AND WP.DEL_YN = 'N'
+							   AND RI.DEL_YN = 'N'
+							   AND WP.APC_CD = #{apcCd}
+						   ) AS WRHS_TON
+					  FROM (SELECT
+								   WI.APC_CD
+								 , WI.IGI_YMD
+								 , WI.IGI_SEQ
+								 , WI.PRDCR_CD
+								 , WI.IGI_JGMT_CD
+								 , WI.STRG_LOCTN_CD
+								 , CASE WHEN WID.IGI_GRD_CD = '0001' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_1
+								 , CASE WHEN WID.IGI_GRD_CD = '0002' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_2
+								 , CASE WHEN WID.IGI_GRD_CD = '0003' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_3
+								 , CASE WHEN WID.IGI_GRD_CD = '0004' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_4
+								 , CASE WHEN WID.IGI_GRD_CD = '0005' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_5
+							  FROM TB_RAW_MTR_WRHS_IGI WI
+								 , TB_RAW_MTR_WRHS_IGI_DTL WID
+							 WHERE WI.APC_CD = WID.APC_CD
+							   AND WI.IGI_YMD = WID.IGI_YMD
+							   AND WI.IGI_SEQ = WID.IGI_SEQ
+							   AND WI.DEL_YN = 'N'
+							   AND WID. DEL_YN = 'N'
+							   AND WI.APC_CD = #{apcCd}
+						   ) X
+						  , TB_PRDCR_INFO PI
+					  WHERE X.APC_CD = PI.APC_CD
+						AND X.PRDCR_CD = PI.PRDCR_CD
+						AND PI.DEL_YN = 'N'
+					  GROUP BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
+					  ORDER BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
+				 ) Y
+			 GROUP BY Y.APC_CD, Y.IGI_JGMT_CD
+		]]>
+	</select>
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo		-->
+	<!-- DESC : 생산자 검수 정보 조회.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<select id="selectPrschsPrdcrInfo" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+		SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo */
+		       PI.PRDCR_CD
+			 , PI.PRDCR_NM
+			 , CQ.QLT_EVL
+			 , NVL(PI.FRMHS_TELNO, TELNO) TELNO
+			 , PI.FRMHS_CTPV
+			 , CQ.PLNTNG_PRCL
+			 , CQ.EXPCT_QNTT
+			 , CASE WHEN CQ.SD_QNTT_1 > 0
+					THEN (
+						  SELECT SEED_NM || ' : ' || CQ.SD_QNTT_1
+							FROM (SELECT RANK() OVER (ORDER BY SEED_CD ASC) AS SEED_RANK
+									   , SEED_CD
+									   , SEED_NM
+									FROM TB_APC_SEED_CRTR
+								   WHERE DEL_YN = 'N'
+									 AND APC_CD = #{apcCd}
+									 AND ITEM_CD = #{itemCd}
+								 )
+						   WHERE SEED_RANK = 1
+						 )
+			   END SD_1
+			 , CASE WHEN SD_QNTT_2 > 0
+					THEN (
+						  SELECT SEED_NM || ' : ' || CQ.SD_QNTT_2
+							FROM (SELECT RANK() OVER (ORDER BY SEED_CD ASC) AS SEED_RANK
+									   , SEED_CD
+									   , SEED_NM
+									FROM TB_APC_SEED_CRTR
+								   WHERE DEL_YN = 'N'
+									 AND APC_CD = #{apcCd}
+									 AND ITEM_CD = #{itemCd}
+								 )
+						   WHERE SEED_RANK = 2
+						 )
+			   END SD_2
+			 , CASE WHEN SD_QNTT_3 > 0
+					THEN (
+						  SELECT SEED_NM || ' : ' || CQ.SD_QNTT_3
+							FROM (SELECT RANK() OVER (ORDER BY SEED_CD ASC) AS SEED_RANK
+									   , SEED_CD
+									   , SEED_NM
+									FROM TB_APC_SEED_CRTR
+								   WHERE DEL_YN = 'N'
+									 AND APC_CD = #{apcCd}
+									 AND ITEM_CD = #{itemCd}
+								 )
+						   WHERE SEED_RANK = 3
+						 )
+			   END SD_3
+			 , CASE WHEN SD_QNTT_4 > 0
+					THEN (
+						  SELECT SEED_NM || ' : ' || CQ.SD_QNTT_4
+							FROM (SELECT RANK() OVER (ORDER BY SEED_CD ASC) AS SEED_RANK
+									   , SEED_CD
+									   , SEED_NM
+									FROM TB_APC_SEED_CRTR
+								   WHERE DEL_YN = 'N'
+									 AND APC_CD = #{apcCd}
+									 AND ITEM_CD = #{itemCd}
+								 )
+						   WHERE SEED_RANK = 4
+						 )
+			   END SD_4
+			 , CASE WHEN SD_QNTT_5 > 0
+					THEN (
+						  SELECT SEED_NM || ' : ' || CQ.SD_QNTT_5
+							FROM (SELECT RANK() OVER (ORDER BY SEED_CD ASC) AS SEED_RANK
+									   , SEED_CD
+									   , SEED_NM
+									FROM TB_APC_SEED_CRTR
+								   WHERE DEL_YN = 'N'
+							         AND APC_CD = #{apcCd}
+									 AND ITEM_CD = #{itemCd}
+								 )
+						   WHERE SEED_RANK = 5
+						 )
+			   END SD_5
+		  FROM TB_PRDCR_INFO PI
+			 , TB_CLTVTN_FRMHS_QLT CQ
+		 WHERE PI.APC_CD = CQ.APC_CD(+)
+		   AND PI.PRDCR_CD = CQ.PRDCR_CD(+)
+		   AND PI.DEL_YN = 'N'
+		   AND CQ.YR(+) = #{igiYr}
+		   AND CQ.DEL_YN(+) = 'N'
+		   AND PI.APC_CD = #{apcCd}
+		   AND PI.PRDCR_CD = (SELECT MAX(PRDCR_CD)
+								FROM TB_RAW_MTR_WRHS_IGI
+							   WHERE DEL_YN = 'N'
+							     AND APC_CD = #{apcCd}
+							   GROUP BY SYS_LAST_CHG_DT
+							   ORDER BY SYS_LAST_CHG_DT DESC
+							   LIMIT 1
+							 )
+
+		]]>
+	</select>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWghPrmncTotList	-->
+	<!-- DESC : 수매계량합계 정보 조회.	                                       					-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.08.07  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<select id="selectRawMtrWghPrmncTotList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+			SELECT X.APC_CD                 AS APC_CD
+				 , X.VRTY_CD                AS VRTY_CD
+				 , FN_GET_VRTY_NM(X.ITEM_CD, X.VRTY_CD, X.APC_CD) AS VRTY_NM
+				 , ROUND((SUM(GRD_WGHT_1) / 1000))          AS GRD_WGHT_1
+				 , ROUND((SUM(GRD_WGHT_2) / 1000))          AS GRD_WGHT_2
+				 , ROUND((SUM(GRD_WGHT_3) / 1000))          AS GRD_WGHT_3
+				 , ROUND((SUM(GRD_WGHT_4) / 1000))          AS GRD_WGHT_4
+				 , ROUND(((SUM(GRD_WGHT_1) + SUM(GRD_WGHT_2) + SUM(GRD_WGHT_3) + SUM(GRD_WGHT_4)) / 1000))      AS GRD_WGHT_TOT
+				 , 0 AS EXPCT_QNTT_TOT
+				 , (SELECT SUM(RSG.GRD_QNTT) AS GRD_QNTT_TOT
+					  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+						 , TB_RAW_MTR_STD_GRD RSG
+					 WHERE WP.APC_CD = RSG.APC_CD
+					   AND WP.WRHSNO = RSG.WRHSNO
+					   AND WP.DEL_YN = 'N'
+					   AND RSG.DEL_YN = 'N'
+					   AND WP.WRHS_YMD = #{igiYmd}
+					 GROUP BY WP.APC_CD
+					) AS TODAY_GRD_QNTT_TOT
+				  , (SELECT SUM(RSG.GRD_QNTT) AS GRD_QNTT_TOT
+					  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+						 , TB_RAW_MTR_STD_GRD RSG
+					 WHERE WP.APC_CD = RSG.APC_CD
+					   AND WP.WRHSNO = RSG.WRHSNO
+					   AND WP.WRHS_YMD = TO_CHAR(TO_DATE(#{igiYmd}, 'YYYYMMDD') - 1, 'YYYYMMDD')
+					   AND WP.DEL_YN = 'N'
+					   AND RSG.DEL_YN = 'N'
+					 GROUP BY WP.APC_CD
+					) AS YESTERDAY_GRD_QNTT_TOT
+			  FROM (
+					SELECT WP.APC_CD            AS APC_CD
+						 , WP.WRHSNO            AS WRHSNO
+						 , RSG.GRD_WGHT         AS GRD_WGHT
+						 , RSG.GRD_KND          AS GRD_KND
+						 , SG.GRD_KND_NM        AS GRD_KND_NM
+						 , SG.GRD_RANK          AS GRD_RANK
+						 , RI.ITEM_CD           AS ITEM_CD
+						 , RI.VRTY_CD           AS VRTY_CD
+						 , CASE WHEN GRD_RANK = 1 THEN SG.GRD_KND END AS GRD_1
+						 , CASE WHEN GRD_RANK = 2 THEN SG.GRD_KND END AS GRD_2
+						 , CASE WHEN GRD_RANK = 3 THEN SG.GRD_KND END AS GRD_3
+						 , CASE WHEN GRD_RANK = 4 THEN SG.GRD_KND END AS GRD_4
+						 , CASE WHEN GRD_RANK = 1 THEN RSG.GRD_WGHT END AS GRD_WGHT_1
+						 , CASE WHEN GRD_RANK = 2 THEN RSG.GRD_WGHT END AS GRD_WGHT_2
+						 , CASE WHEN GRD_RANK = 3 THEN RSG.GRD_WGHT END AS GRD_WGHT_3
+						 , CASE WHEN GRD_RANK = 4 THEN RSG.GRD_WGHT END AS GRD_WGHT_4
+					  FROM TB_RAW_MTR_WRHS_PRFMNC WP
+						 , TB_RAW_MTR_INVNTR RI
+						 , TB_RAW_MTR_STD_GRD RSG
+						 , ( SELECT GRD_KND
+								  , GRD_KND_NM
+								  , RANK() OVER (ORDER BY GRD_KND ASC) AS GRD_RANK
+								  , ITEM_CD
+							  FROM TB_APC_STD_GRD
+							 WHERE GRD_SE_CD = '01'
+							   AND DEL_YN = 'N'
+							   AND APC_CD = #{apcCd}
+							   AND ITEM_CD = #{itemCd}
+						   ) SG
+					 WHERE WP.APC_CD = RI.APC_CD
+					   AND WP.WRHSNO = RI.WRHSNO
+					   AND WP.APC_CD = RSG.APC_CD(+)
+					   AND WP.WRHSNO = RSG.WRHSNO(+)
+					   AND RSG.GRD_KND = SG.GRD_KND(+)
+					   AND WP.DEL_YN = 'N'
+					   AND RI.DEL_YN = 'N'
+					   AND RSG.DEL_YN(+) = 'N'
+					   AND RI.APC_CD = '0733'
+					   AND SUBSTR(WP.WRHS_YMD, 0, 4) = #{igiYr}
+					) X
+			 GROUP BY X.APC_CD, X.ITEM_CD, X.VRTY_CD
+			 UNION ALL
+			SELECT #{apcCd}         AS APC_CD
+				 , '9999'           AS VRVY_CD
+				 , '외부창고'         AS VRTY_NM
+				 , 0                AS GRD_WGHT_1
+				 , 0                AS GRD_WGHT_2
+				 , 0                AS GRD_WGHT_3
+				 , 0                AS GRD_WGHT_4
+				 , 0                AS GRD_WGHT_TOT
+				 , (SELECT SUM(EXPCT_QNTT) FROM TB_CLTVTN_FRMHS_QLT WHERE APC_CD = #{apcCd} AND YR = #{igiYr} GROUP BY APC_CD) AS EXPCT_QNTT_TOT
+				 , 0                AS TODDAY_GRD_QNTT_TOT
+				 , 0                AS YESTERDAY_GRD_QNTT_TOT
+			  FROM DUAL
+
+		]]>
+	</select>
 
 
 

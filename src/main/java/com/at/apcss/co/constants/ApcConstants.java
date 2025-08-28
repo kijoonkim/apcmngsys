@@ -71,4 +71,9 @@ public class ApcConstants {
     public final static String WRHS_SE_CD_BASIC = "3";
     public final static String TRSPRT_SE_CD_BASIC = "1";
 
+    /**
+     * 등급 기본 코드
+     * */
+    public final static String GRD_CD_BASIC = "01";
+
 }

@@ -1697,6 +1697,13 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 						)
 					FROM DUAL
 				)		AS SE_DTL_NM
+				, TOT.TRMT_TYPE_1_AMT	AS TRMT_TYPE_1
+				, TOT.TRMT_TYPE_2_AMT	AS TRMT_TYPE_2
+				, TOT.TRMT_TYPE_3_AMT	AS TRMT_TYPE_3
+				, ROUND(TOT.TRMT_TYPE_1_AMT / NULLIF(TOT.TRMT_TYPE_AMT, 0) * 100, 2)	AS TRMT_TYPE_RT_1
+				, ROUND(TOT.TRMT_TYPE_2_AMT / NULLIF(TOT.TRMT_TYPE_AMT, 0) * 100, 2)	AS TRMT_TYPE_RT_2
+				, ROUND(TOT.TRMT_TYPE_3_AMT / NULLIF(TOT.TRMT_TYPE_AMT, 0) * 100, 2)	AS TRMT_TYPE_RT_3
+
 			  FROM (
 				SELECT
 					  APO.YR				AS YR
@@ -1770,6 +1777,21 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 					, UPS.RMRK			AS RMRK
 					, UPS.STBLT_YN		AS STBLT_YN
+
+					, (
+						SELECT NVL(X.MNGR_STBLT_YN , X.STBLT_YN)
+						  FROM TB_EV_REG_RSLT X
+						 WHERE X.BRNO = APO.BRNO
+						   AND X.YR = APO.YR
+						   AND X.APO_SE = '1'
+						   AND X.DEL_YN = 'N'
+					)	AS LAST_STBLT_YN
+
+
+					, ISO1.TRMT_TYPE_1_AMT	AS TRMT_TYPE_1_AMT
+					, ISO1.TRMT_TYPE_2_AMT	AS TRMT_TYPE_2_AMT
+					, ISO1.TRMT_TYPE_3_AMT	AS TRMT_TYPE_3_AMT
+				    , ISO1.TRMT_TYPE_1_AMT + ISO1.TRMT_TYPE_2_AMT + ISO1.TRMT_TYPE_3_AMT	AS TRMT_TYPE_AMT
 
 					FROM (
 						SELECT
@@ -1868,13 +1890,68 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 										END
 									)
 								, 0)		AS SLS_CNSGN_PRCHS_VLM
+							, NVL(SUM(
+									CASE
+										WHEN EXISTS (
+												SELECT 1
+												  FROM TB_EV_FRMHS_APO X
+												 WHERE X.BRNO = PST.BRNO
+												   AND X.UO_BRNO = PST.UO_BRNO
+												   AND X.PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN
+												   AND X.ITEM_CD = PST.ITEM_CD
+												   AND X.TRMT_TYPE = '1'
+												   AND X.DEL_YN = 'N'
+											) THEN PST.SLS_CNSGN_PRCHS_AMT
+										ELSE 0
+								  	END
+								), 0)		AS TRMT_TYPE_1_AMT
+							, NVL(SUM(
+									CASE
+										WHEN EXISTS (
+												SELECT 1
+												  FROM TB_EV_FRMHS_APO X
+												 WHERE X.BRNO = PST.BRNO
+												   AND X.UO_BRNO = PST.UO_BRNO
+												   AND X.PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN
+												   AND X.ITEM_CD = PST.ITEM_CD
+												   AND X.TRMT_TYPE = '2'
+												   AND X.DEL_YN = 'N'
+											) THEN PST.SLS_CNSGN_PRCHS_AMT
+										ELSE 0
+								  	END
+								), 0)		AS TRMT_TYPE_2_AMT
+							, NVL(SUM(
+									CASE
+										WHEN EXISTS (
+												SELECT 1
+												  FROM TB_EV_FRMHS_APO X
+												 WHERE X.BRNO = PST.BRNO
+												   AND X.UO_BRNO = PST.UO_BRNO
+												   AND X.PRDCR_OGNZ_SN = PST.PRDCR_OGNZ_SN
+												   AND X.ITEM_CD = PST.ITEM_CD
+												   AND X.TRMT_TYPE = '3'
+												   AND X.DEL_YN = 'N'
+											) THEN PST.SLS_CNSGN_PRCHS_AMT
+										ELSE 0
+								  	END
+								), 0)		AS TRMT_TYPE_3_AMT
+
 						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
 
 						JOIN TB_EV_APO_YR_GPC_CD GC
 						  ON GC.YR = PST.YR
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+						AND GC.BRNO = PST.UO_BRNO
+			</when>
+			<otherwise>
 						AND GC.BRNO = PST.BRNO
 						AND GC.UO_BRNO = PST.UO_BRNO
 						AND GC.APO_SE = PST.APO_SE
+			</otherwise>
+		</choose>
+		<![CDATA[
 						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
 						AND GC.ITEM_CD = PST.ITEM_CD
 						AND GC.DEL_YN = 'N'
@@ -1954,9 +2031,19 @@ ORDER BY ITEM_CD , TYPE_SE_NO , SE_NM , SE_DTL_NM , STTG_UPBR_ITEM_SE , PRCHS_NM
 
 						JOIN TB_EV_APO_YR_GPC_CD GC
 						  ON GC.YR = PST.YR
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+						AND GC.BRNO = PST.UO_BRNO
+			</when>
+			<otherwise>
 						AND GC.BRNO = PST.BRNO
 						AND GC.UO_BRNO = PST.UO_BRNO
 						AND GC.APO_SE = PST.APO_SE
+			</otherwise>
+		</choose>
+		<![CDATA[
+						AND GC.ITEM_CD = PST.ITEM_CD
 						AND GC.STTG_UPBR_ITEM_SE IN ('1', '2')
 						AND GC.DEL_YN = 'N'
 
