@@ -955,6 +955,8 @@
  		SBUxMethod.set('dtl-inp-shpgotPltQntt', rowData.shpgotPltQntt || "");
  		SBUxMethod.set('dtl-inp-oprtrNm', rowData.oprtrNm || "");
 
+		await fn_onChangeSrchItemCd({value: rowData.itemCd});
+
 		/** 생산자 정보, 기사정보 set */
 		await fn_onSelectPrdcrNm(rowData.prdcrCd);
 		await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, rowData.vhclno);
@@ -1100,7 +1102,8 @@
 					qntt : parseInt(item.Bqntt),
 					unitWght : parseFloat(item.BunitWght),
 					sn : item.Bsn,
-					rmrk: item.rmrk
+					rmrk: item.rmrk,
+					prcsNo: rowData.wghno
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1114,7 +1117,8 @@
 					qntt : parseInt(item.Pqntt),
 					unitWght : parseInt(item.PunitWght),
 					sn : item.Psn,
-					rmrk: item.rmrk
+					rmrk: item.rmrk,
+					prcsNo: rowData.wghno
 				})
 			}
 		});
@@ -1252,6 +1256,11 @@
 						!['apcCd', 'grdCd'].includes(k) && (item[k] = "")
 				)
 		);
+
+		/** jsonDelList reset */
+		jsonInspCmpr = [];
+		jsonPltBoxCmpr = [];
+
 		grdVrty.rebuild();
 		grdInsp.rebuild();
 		grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
@@ -1633,26 +1642,32 @@
 		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let grdList = grdInsp.getGridDataAll();
 
-		/** 검품등급 비교하여 삭제 */
+		/** 검품등급 && 팔레트 수정을 위한 삭제리스트 */
 		let inspDelList = [];
+		let pltDelList = [];
 
-		grdList.forEach((objA, index) => {
-			const objB = jsonInspCmpr[index];
-			if (objB) {
-				Object.keys(objA).forEach(key => {
-					if (objA[key] === "" && objB[key] !== "") {
-						inspDelList.push({
-							apcCd: gv_selectedApcCd,
-							wghno: wghno,
-							itemCd: itemCd,
-							vrtyCd: key,
-							grdCd: objB.grdCd,
-							grdVl: objB[key],
-						});
-					}
-				});
-			}
-		});
+		if(!gfn_isEmpty(wghno)) {
+			grdList.forEach((objA, index) => {
+				const objB = jsonInspCmpr[index];
+				if (objB) {
+					Object.keys(objA).forEach(key => {
+						if (objA[key] === "" && objB[key] !== "") {
+							inspDelList.push({
+								apcCd: gv_selectedApcCd,
+								wghno: wghno,
+								itemCd: itemCd,
+								vrtyCd: key,
+								grdCd: objB.grdCd,
+								grdVl: objB[key],
+							});
+						}
+					});
+				}
+			});
+
+			pltDelList = JSON.parse(JSON.stringify(jsonPltBoxCmpr));
+		}
+
 		/** 저장대상 없음 **/
 		// const even = (el) => Object.keys(el).length > 1;
 		// 저장창고 컬럼 추가 후 조건 수정
@@ -1730,7 +1745,7 @@
 						multiList.push(wghPrfmncVO);
 					}
 				} else {
-
+					if(vrtyQntt == 0 || gfn_isEmpty(vrtyQntt)) continue;
 					wghPrfmncVO.vrtyCd = vrtyCdKey;
 					wghPrfmncVO.bxQntt = vrtyQntt;
 					wghPrfmncVO.grdCd = rowData.grdCd;
@@ -1930,8 +1945,6 @@
 			 // const key = o => [o.jobYmd, o.pltBxCd, o.pltBxSeCd, o.wrhsSpmtSeCd].join('|');
 			 // const base = new Set(pltWrhsSpmt.map(key));
 			 // const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
-
-			 const pltDelList = JSON.parse(JSON.stringify(jsonPltBoxCmpr));
 
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 				 const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",
