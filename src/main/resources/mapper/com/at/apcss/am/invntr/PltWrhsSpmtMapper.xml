@@ -200,7 +200,8 @@
 		WHEN MATCHED THEN
 			UPDATE SET
 				QNTT = source.QNTT,
-		    	RMRK = source.RMRK
+		    	RMRK = source.RMRK,
+			    DEL_YN = 'N'
 		WHEN NOT MATCHED THEN
 			INSERT
 	    		(
