@@ -272,7 +272,7 @@
 			   AND CH.APC_CD = PLI.APC_CD(+)
     		   AND CH.PRDCR_CD = PLI.PRDCR_CD(+)
     		   AND CH.PRDCR_LAND_INFO_NO = PLI.PRDCR_LAND_INFO_NO(+)
-			   AND PLI.DEL_YN = 'N'
+			   AND PLI.DEL_YN(+) = 'N'
 			   AND PI.DEL_YN = 'N'
 			   AND CH.DEL_YN = 'N'
 		]]>
@@ -295,7 +295,7 @@
 			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
 		<if test='itemCd != null and itemCd !=""'>
-			AND PLI.ITEM_CD = #{itemCd}
+			AND PLI.ITEM_CD(+) = #{itemCd}
 		</if>
 		<if test='yr != null and yr !=""'>
 			AND PLI.YR = #{yr}
@@ -604,7 +604,7 @@
     				   AND PI.PRDCR_CD  = #{prdcrCd}
     		</if>
     		<if test='itemCd != null and itemCd != ""'>
-    				   AND CQ.ITEM_CD  = #{itemCd}
+    				   AND CQ.ITEM_CD(+)  = #{itemCd}
     		</if>
 		<![CDATA[
 					   AND NOT EXISTS (
@@ -1110,7 +1110,7 @@
 					   AND PI.PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
-					   AND FW.ITEM_CD = #{itemCd}
+					   AND FW.ITEM_CD(+) = #{itemCd}
 		</if>
 		<![CDATA[
 					   AND NOT EXISTS (
