@@ -330,7 +330,8 @@ public class PrdcrVO extends ComVO {
 	/**
 	 * 품질정보
 	 * */
-	private String qltEvl;
+	private String qltEvlCd;
+	private String qltEvlNm;
 
 	private String prdcrCrtrType;
 	private String crtrDtlCd;

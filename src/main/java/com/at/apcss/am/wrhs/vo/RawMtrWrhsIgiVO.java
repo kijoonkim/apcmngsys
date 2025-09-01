@@ -213,7 +213,8 @@ public class RawMtrWrhsIgiVO extends ComVO {
 	/**
 	 * 품질정보
 	 * */
-	private String qltEvl;
+	private String qltEvlCd;
+	private String qltEvlNm;
 
 	/*
 	 * 농가예상입고상세
