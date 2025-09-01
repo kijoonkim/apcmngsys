@@ -35,7 +35,7 @@
                 <sbux-button
                         id="btnReset"
                         name="btnReset"
-                        uitype="normal"
+                        uitype="normal"Ï
                         class="btn btn-sm btn-outline-danger"
                         onclick="fn_reset"
                         text="초기화"
@@ -59,9 +59,6 @@
             </div>
         </div>
         <div class="box-body" style="padding: 10px 30px 15px;">
-            <!--[APC] START -->
-            <%@ include file="../../../frame/inc/apcSelect.jsp" %>
-            <!--[APC] END -->
             <sbux-input id="srch-inp-prdcrCd" name="srch-inp-prdcrCd" uitype="hidden"></sbux-input>
             <table id="srchTable" class="table table-bordered tbl_fixed">
                 <colgroup>
@@ -80,8 +77,29 @@
                 </colgroup>
                 <tbody>
                 <tr>
+                    <th class="th_bg">APC명</th>
+                    <!--[APC] START -->
+                    <td colspan="2" class="td_input" style="border-right: hidden">
+                        <%@ include file="../../../frame/inc/apcSelectComp.jsp" %>
+                    </td>
+                    <!--[APC] END -->
+                    <td colspan="1" style="border-right: hidden"></td>
+                    <th class="th_bg">기준</th>
+                    <td class="td_input" colspan="3" style="border-right: hidden">
+                        <p class="ad_input_row">
+                            <sbux-radio id="dtl-rdo-crtr_1" name="dtl-rdo-crtr" uitype="normal" class="radio_label" value="1"></sbux-radio>
+                            <sbux-label class="radio_label bold" for-id="dtl-rdo-crtr_1" text="거래처"></sbux-label>
+                        </p>
+                        <p class="ad_input_row">
+                            <sbux-radio id="dtl-rdo-crtr_2" name="dtl-rdo-crtr" uitype="normal" class="radio_label" value="2" checked></sbux-radio>
+                            <sbux-label class="radio_label bold" for-id="dtl-rdo-crtr_2" text="상품"></sbux-label>
+                        </p>
+                    </td>
+                    <td colspan="4"></td>
+                </tr>
+                <tr>
                     <th scope="row" class="th_bg">생산자</th>
-                    <td class="td_input" style="border-right: hidden;border-top: hidden;">
+                    <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
                                 id="srch-inp-prdcrNm"
@@ -95,7 +113,7 @@
                                 autocomplete-select-callback="fn_onSelectPrdcrNm"
                         ></sbux-input>
                     </td>
-                    <td class="td_input" style="border-right: hidden;border-top: hidden;">
+                    <td class="td_input" style="border-right: hidden;">
                         <sbux-input
                                 uitype="text"
                                 id="srch-inp-prdcrIdentno"
@@ -106,7 +124,7 @@
                                 onchange="fn_onChangeSrchPrdcrIdentno(this)"
                         />
                     </td>
-                    <td class="td_input" style="border-right: hidden;border-top: hidden;">
+                    <td class="td_input" style="border-right: hidden;">
                         <sbux-button
                                 id="btn-srch-prdcr"
                                 name="btn-srch-prdcr"
@@ -117,7 +135,7 @@
                         ></sbux-button>
                     </td>
                     <th scope="row" class="th_bg"><span class="data_required"></span>입고일자</th>
-                    <td class="td_input" colspan="3" style="border-right: hidden;border-top: hidden;">
+                    <td class="td_input" colspan="3" style="border-right: hidden;">
                         <sbux-datepicker
                                 id="srch-dtp-wrhsYmd"
                                 name="srch-dtp-wrhsYmd"
@@ -127,7 +145,7 @@
                                 onchange="fn_dtpChange(srch-dtp-wrhsYmdFrom)">
                         </sbux-datepicker>
                     </td>
-                    <td colspan="4" style="border-top: hidden;">
+                    <td colspan="4">
                     </td>
                 </tr>
 
@@ -313,7 +331,9 @@
                 /** 포장일자 merge */
                 grdSpmtPrfmnc.setMergeByFree(3, i, jsonSpmtPckgUnit.length + 2, i, true);
             }
-            /** 파지(중량) - 0015 수량 disabled */
+            /** 파지(중량) - 0015 수량 disabled
+             * 운영반영시 달라질수 있으므로 확인 필요
+             * */
             if (i % 3 === 1) {
                 let rowIndex = jsonSpmtPrfmnc.findIndex(item => item.spmtPckgUnitCd === '0015') + grdSpmtPrfmnc.getFixedRows();
 

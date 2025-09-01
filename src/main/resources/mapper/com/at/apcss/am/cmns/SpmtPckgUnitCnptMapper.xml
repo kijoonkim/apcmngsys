@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : SpmtPckgUnitCnptMapper.xml                                   		-->
+<!-- DESC : 출하매출단가 mapper                                             	-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2023.08.01  	김 호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper">
+
+	<!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnpt	-->
+	<!-- DESC : 출하매출단가 단건 조회.	                                       				-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
+	<!-- ==================================================================================	-->
+    <select id="selectSpmtPckgUnitCnpt" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnpt */
+				   SUR.APC_CD               AS APC_CD
+			  FROM TB_SPMT_PCKG_UNIT_CNPT SUR
+		     WHERE SPU.APC_CD = #{apcCd}
+		]]>
+    </select>
+
+	<!-- ====================================================================================== -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnptList	-->
+	<!-- DESC : 출하매출단가 목록 조회.	                                       					-->
+	<!-- ======================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
+	<!-- ===========  	============  	=======================================================	-->
+	<!-- 2023.08.01  	김 호        	Initial Creation                            			-->
+	<!-- ======================================================================================	-->
+    <select id="selectSpmtPckgUnitCnptList" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
+    	<![CDATA[
+	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnptList */
+		     	   SUR.APC_CD               AS APC_CD
+			     , SUR.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+	    	     , SUR.CNPT_CD				AS CNPT_CD
+	    	     , SUR.USE_YN				AS USE_YN
+			     , SUR.RMRK                 AS RMRK
+			     , SUR.DEL_YN               AS DEL_YN
+			  FROM TB_SPMT_PCKG_UNIT_CNPT   SUR
+			     , TB_SPMT_PCKG_UNIT        SPU
+			 WHERE SUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
+			   AND SUR.APC_CD = SPU.APC_CD
+			   AND SUR.DEL_YN = 'N'
+			   AND SPU.DEL_YN = 'N'
+			   AND SUR.APC_CD = #{apcCd}
+			   AND SPU.ITEM_CD	= #{itemCd}
+			   AND SPU.VRTY_CD	= #{vrtyCd}
+			   AND SPU.SPMT_PCKG_UNIT_CD= #{spmtPckgUnitCd}
+			   AND SPU.SPCFCT_CD= #{spcfctCd}
+		]]>
+
+    </select>
+
+	<!-- ==================================================================================	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.deleteSpmtPckgUnitCnpt	-->
+	<!-- DESC : 출하매출단가 삭제.	                                       					-->
+	<!-- ==================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	===================================================	-->
+	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
+	<!-- ==================================================================================	-->
+	<update id="deleteSpmtPckgUnitCnpt" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
+		<![CDATA[
+			UPDATE TB_SPMT_PCKG_UNIT_CNPT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.deleteSpmtPckgUnitCnpt */
+			   SET DEL_YN 				= 'Y'
+			 WHERE APC_CD				= #{apcCd}
+			   AND SPMT_PCKG_UNIT_CD 	= #{spmtPckgUnitCd}
+			   AND CNPT_CD	= #{cnptCd}
+		]]>
+	</update>
+
+	<!-- =========================================================================  -->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.mergeApcItemCrtrDtlList	-->
+	<!-- DESC : APC기준 품목 상세 merge  		              				          	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<update id="mergeSpmtPckgUnitCnptList" parameterType="list">
+		MERGE INTO TB_SPMT_PCKG_UNIT_CNPT SPUC
+		USING (
+		<foreach collection="list" item="item" separator="UNION ALL">
+			SELECT
+				#{item.apcCd}				AS APC_CD
+			  , #{item.spmtPckgUnitCd}      AS SPMT_PCKG_UNIT_CD
+			  , #{item.cnptCd}				AS CNPT_CD
+			  , #{item.rmrk}				AS RMRK
+			  , #{item.useYn}        		AS USE_YN
+			  , #{item.delYn}        		AS DEL_YN
+			  , #{item.sysFrstInptDt} 		AS SYS_FRST_INPT_DT
+			  , #{item.sysFrstInptUserId} 	AS SYS_FRST_INPT_USER_ID
+			  ,	#{item.sysFrstInptPrgrmId} 	AS SYS_FRST_INPT_PRGRM_ID
+			  ,	#{item.sysLastChgDt} 		AS SYS_LAST_CHG_DT
+			  ,	#{item.sysLastChgUserId} 	AS SYS_LAST_CHG_USER_ID
+			  ,	#{item.sysLastChgPrgrmId} 	AS SYS_LAST_CHG_PRGRM_ID
+			FROM DUAL
+		</foreach>
+		) source
+		ON (
+			SPUC.APC_CD = source.APC_CD
+			AND SPUC.SPMT_PCKG_UNIT_CD = source.SPMT_PCKG_UNIT_CD
+			AND SPUC.CNPT_CD = source.CNPT_CD
+		)
+		WHEN MATCHED THEN
+		UPDATE SET
+			SPUC.RMRK = source.RMRK
+		  ,	SPUC.USE_YN = source.USE_YN
+		  ,	SPUC.DEL_YN = source.DEL_YN
+		  ,	SPUC.SYS_LAST_CHG_DT = SYSDATE
+		  ,	SPUC.SYS_LAST_CHG_USER_ID = source.SYS_LAST_CHG_USER_ID
+		  ,	SPUC.SYS_LAST_CHG_PRGRM_ID = source.SYS_LAST_CHG_PRGRM_ID
+		WHEN NOT MATCHED THEN
+		INSERT (
+			APC_CD
+		  ,	SPMT_PCKG_UNIT_CD
+		  ,	CNPT_CD
+		  ,	RMRK
+		  ,	USE_YN
+		  ,	DEL_YN
+		  ,	SYS_FRST_INPT_DT
+		  ,	SYS_FRST_INPT_USER_ID
+		  ,	SYS_FRST_INPT_PRGRM_ID
+		  ,	SYS_LAST_CHG_DT
+		  ,	SYS_LAST_CHG_USER_ID
+		  ,	SYS_LAST_CHG_PRGRM_ID
+		)
+		VALUES (
+			source.APC_CD
+		  ,	source.SPMT_PCKG_UNIT_CD
+		  ,	source.CNPT_CD
+		  ,	source.RMRK
+		  ,	source.USE_YN
+		  ,	source.DEL_YN
+		  ,	SYSDATE
+		  ,	source.SYS_FRST_INPT_USER_ID
+		  ,	source.SYS_FRST_INPT_PRGRM_ID
+		  ,	SYSDATE
+		  ,	source.SYS_LAST_CHG_USER_ID
+		  ,	source.SYS_LAST_CHG_PRGRM_ID
+		);
+	</update>
+
+</mapper>
