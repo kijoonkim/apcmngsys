@@ -758,8 +758,10 @@
 		SBUxMethod.refresh('dtl-slt-wrhsSpmtType');
 
 		if (jsonApcItem.length > 0) {
-			await fn_onChangeSrchItemCd({value: jsonApcItem[0].itemCd});
-			SBUxMethod.set("dtl-slt-itemCd", jsonApcItem[0].itemCd);
+			let itemCd = jsonApcItem[0].itemCd;
+			jsonApcVrty = jsonApcVrty.filter(e => e.itemCd === itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("dtl-slt-itemCd", itemCd);
 		}
 
 		if (gv_selectedApcCd == '0669') {
@@ -1720,6 +1722,8 @@
 		let wghSnArray = [];
 
 		/** 사이즈 등급 그리드 ite **/
+		// vrtyCd 중복값이 존재하여 jsonApcVrty 필터
+		jsonApcVrty = jsonApcVrty.filter(e => e.itemCd === itemCd);
 		for (var i=1; i<=vrtyList.length; i++) {
 			let rowData = vrtyList[i-1];
 			let warehouseSeCd = rowData.warehouseSeCd;
@@ -1746,7 +1750,6 @@
 						multiList.push(wghPrfmncVO);
 					}
 				} else {
-					if(vrtyQntt == 0 || gfn_isEmpty(vrtyQntt)) continue;
 					wghPrfmncVO.vrtyCd = vrtyCdKey;
 					wghPrfmncVO.bxQntt = vrtyQntt;
 					wghPrfmncVO.grdCd = rowData.grdCd;
@@ -1910,7 +1913,7 @@
 			return indexA - indexB;
 		})
 
-		jsonWarehouse = multiList.map(item => {
+		jsonWarehouse = multiList.filter(item => item.dtlDelYn !== 'Y').map(item => {
 			const vrtyNm = jsonApcVrty.find(i => i.vrtyCd === item.vrtyCd)?.vrtyNm || '';
 			return {
 				...item,
@@ -1936,7 +1939,7 @@
 			}
 			let setWarehouseCd = grdWarehouse.getGridDataAll();
 
-			 multiList.forEach(function(item, idx){
+			 multiList.filter(item => item.dtlDelYn !== 'Y').forEach(function(item, idx){
 				 item.warehouseSeCd = setWarehouseCd[idx].warehouseSeCd;
 			 });
 
