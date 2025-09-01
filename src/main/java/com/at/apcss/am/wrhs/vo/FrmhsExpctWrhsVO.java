@@ -91,7 +91,8 @@ public class FrmhsExpctWrhsVO extends ComVO {
     /*
      * 최종저장구분
      * */
-    private String qltEvl;
+    private String qltEvlCd;
+    private String qltEvlNm;
     /*
      * 담당자
      * */

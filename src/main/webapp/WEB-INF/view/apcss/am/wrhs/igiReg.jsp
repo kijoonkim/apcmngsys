@@ -324,14 +324,14 @@
 		}
 
 		columns.push(
-				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type:'combo',  		width: '60px', filtering: { usemode: false }, style:'text-align:center;',
-					typeinfo : {ref:'jsonRwArtclCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type: 'combo',  		width: '60px', filtering: { usemode: false }, style:'text-align:center;',
+					typeinfo : {ref:'jsonRwArtclCd', 	displayui : false,	itemcount: 10, label: 'label', value:'value'}},
 				{caption : ['감량항목', '%'], 						ref: 'rwRt', 			type: 'input', 		width: '50px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 				{caption : ['회송<br>톤백수량', '회송<br>톤백수량'], 	ref: 'sndbkQntt', 		type: 'input', 		width: '60px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 				{caption : ['검수내용', '검수내용'], 					ref: 'igiRmrk', 		type: 'input', 		width: '140px', filtering: {uitype : 'text^', sort:'asc'}, style:'text-align:left;'},
 				{caption : ['톤백수량<br>매세지', '톤백수량<br>매세지'], ref: 'qnttRmrk', 		type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
 				{caption : ['비율<br>메시지', '비율<br>메시지'], 		ref: 'rtRmrk', 			type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
-				{caption : ['품질<br>평가', '품질<br>평가'], 			ref: 'qltEvl', 			type:'output',  	width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center;'},
+				{caption : ['품질<br>평가', '품질<br>평가'], 			ref: 'qltEvlNm', 		type: 'output',  	width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center;'},
 				{caption : ['검수순번', '검수순번'], 					ref: 'igiReq', 			type: 'output', 	width: '120px', filtering: { usemode: false }, style:'text-align:left;', hidden : true},
 		)
 
@@ -442,12 +442,12 @@
 			let prdcrCd = (grdRawMtrWrhsIgi.getRowData(nRow)).prdcrCd;
 			let prdcrVO = jsonGrdPrdcr.find(item => item.prdcrCd === prdcrCd);
 			let frmhsNmCol = grdRawMtrWrhsIgi.getColRef('frmhsNm');
-			let qltEvlCol = grdRawMtrWrhsIgi.getColRef('qltEvl');
+			let qltEvlNmCol = grdRawMtrWrhsIgi.getColRef('qltEvlNm');
 			let frmhsNm = prdcrVO.frmhsNm;
-			let qltEvl = prdcrVO.qltEvl;
+			let qltEvlNm = prdcrVO.qltEvlNm;
 
 			grdRawMtrWrhsIgi.setCellData(nRow, frmhsNmCol, frmhsNm, true);
-			grdRawMtrWrhsIgi.setCellData(nRow, qltEvlCol, qltEvl, true);
+			grdRawMtrWrhsIgi.setCellData(nRow, qltEvlNmCol, qltEvlNm, true);
 		}
 
 		for (let i=1; i<=jsonIgiGrdCd.length; i++) {
@@ -536,7 +536,8 @@
 					, igiRmrk           : item.igiRmrk
 					, qnttRmrk          : item.qnttRmrk
 					, rtRmrk            : item.rtRmrk
-					, qltEvl       		: item.qltEvl
+					, qltEvlNm       	: item.qltEvlNm
+					, qltEvlCd       	: item.qltEvlCd
 					, igiGrdQnttTot     : fn_zero(item.igiGrdQnttTot)
 					, igiGrdQntt1       : fn_zero(item.igiGrdQntt1)
 					, igiGrdQntt2       : fn_zero(item.igiGrdQntt2)

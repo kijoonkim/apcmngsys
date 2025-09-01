@@ -151,7 +151,7 @@
 									</td>
 									<th scope="row" class="ta_r th_bg" >품질정보</th>
 									<td colspan="2"  colspan="2" class="td_input">
-										<sbux-input id="dtl-inp-qltEvl" name="dtl-inp-qltEvl" class="form-control input-sm" uitype="text" readonly></sbux-input>
+										<sbux-input id="dtl-inp-qltEvlNm" name="dtl-inp-qltEvlNm" class="form-control input-sm" uitype="text" readonly></sbux-input>
 									</td>
 									<th scope="row" class="ta_r th_bg" >연락처</th>
 									<td colspan="2"  colspan="2" class="td_input">
@@ -699,7 +699,7 @@
 			SBUxMethod.set('dtl-inp-frmhsTelno', prdcrInfo.telno);
 			SBUxMethod.set('dtl-inp-frmhsCtpv', prdcrInfo.frmhsCtpv);
 			SBUxMethod.set('dtl-inp-plntngPrcl', prdcrInfo.plntngPrcl);
-			SBUxMethod.set('dtl-inp-qltEvl', prdcrInfo.qltEvl);
+			SBUxMethod.set('dtl-inp-qltEvlNm', prdcrInfo.qltEvlNm);
 			SBUxMethod.set('dtl-inp-prchsQntt', prchsQntt);
 
 			let seeds = [];
