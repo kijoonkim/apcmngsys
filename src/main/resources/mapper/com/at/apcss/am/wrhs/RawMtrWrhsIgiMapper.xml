@@ -41,7 +41,8 @@
 				 , MAX(X.IGI_RMRK)          AS IGI_RMRK
 				 , MAX(X.QNTT_RMRK)         AS QNTT_RMRK
 				 , MAX(X.RT_RMRK)           AS RT_RMRK
-				 , MAX(CQ.QLT_EVL)          AS QLT_EVL
+				 , MAX(CQ.QLT_EVL_CD)       AS QLT_EVL_CD
+				 , MAX((SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', CQ.QLT_EVL_CD, X.APC_CD) FROM DUAL)) AS QLT_EVL_NM
 				 , SUM(X.IGI_GRD_QNTT)      AS IGI_GRD_QNTT_TOT
 				 , SUM(X.IGI_GRD_QNTT_1)    AS IGI_GRD_QNTT_1
 				 , SUM(X.IGI_GRD_QNTT_2)    AS IGI_GRD_QNTT_2
@@ -477,7 +478,8 @@
 		SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectPrschsPrdcrInfo */
 		       PI.PRDCR_CD
 			 , PI.PRDCR_NM
-			 , CQ.QLT_EVL
+			 , CQ.QLT_EVL_CD
+			 , (SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', CQ.QLT_EVL_CD, PI.APC_CD) FROM DUAL) AS QLT_EVL_NM
 			 , NVL(PI.FRMHS_TELNO, TELNO) TELNO
 			 , PI.FRMHS_CTPV
 			 , CQ.PLNTNG_PRCL

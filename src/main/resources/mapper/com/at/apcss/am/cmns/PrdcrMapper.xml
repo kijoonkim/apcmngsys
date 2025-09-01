@@ -205,7 +205,7 @@
                        AND X.DEL_YN = 'N'
                        AND YR = #{yr}
                    ) AS PRCHS_AMT
-	    	     , (SELECT QLT_EVL
+	    	     , (SELECT (SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', X.QLT_EVL_CD, X.APC_CD) FROM DUAL) AS QLT_EVL_NM
 					  FROM TB_CLTVTN_FRMHS_QLT X
                      WHERE X.APC_CD = PR.APC_CD
                        AND X.PRDCR_CD = PR.PRDCR_CD
