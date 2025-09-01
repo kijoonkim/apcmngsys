@@ -1366,6 +1366,7 @@
 
 	const fn_grdQnttChanged = function () {
 
+		let itemCd = SBUxMethod.get('dtl-slt-itemCd');
 		let nRow = grdVrty.getRow();
 
 		if (nRow < 1) {
@@ -1373,13 +1374,13 @@
 		}
 
 		let vrtyList = grdVrty.getGridDataAllExceptTotal();
+		let getItemVrtyList = jsonApcVrty.filter(e => e.itemCd === itemCd);
 		let total = 0;
 		for (var i=1; i<=vrtyList.length; i++) {
 
 			let rowData = grdVrty.getRowData(i);
-
-			for (var j=0; j<jsonApcVrty.length; j++) {
-				let vrtyCdKey = jsonApcVrty[j].vrtyCd;
+			for (var j=0; j<getItemVrtyList.length; j++) {
+				let vrtyCdKey = getItemVrtyList[j].vrtyCd;
 				let vrtyQntt = rowData[vrtyCdKey] || 0;
 
 				if (vrtyQntt > 0) {
