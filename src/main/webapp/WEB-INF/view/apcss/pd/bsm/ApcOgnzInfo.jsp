@@ -158,17 +158,17 @@
 	    SBGridProperties.oneclickedit = true;
 	    SBGridProperties.explorerbar = 'sort';//정렬
 	    SBGridProperties.columns = [
-	    	{caption: ["조직코드"], 		ref: 'ognzCd',   	type:'output',  width:'15%', hidden : false},
-	        {caption: ["조직명"], 	ref: 'ognzNm',   	type:'input',   width:'15%',   style:'text-align:center'},
-	        {caption: ["사업자번호"], 	ref: 'brno',   	type:'input',   width:'15%',  style:'text-align:center'},
-	        {caption: ["법인등록번호"], 	ref: 'crno',   	type:'input',   width:'15%',  style:'text-align:center'},
-	        {caption: ["마지막변경시간"], 	ref: 'last',   	type:'output',   width:'16%',  style:'text-align:center'},
-	        {caption: ["조직구분코드"], 	ref: 'ognzSeCd',   	type:'input',  width:'15%',   style:'text-align:center'},
-	        {caption: ["조직구분명"], 	ref: 'ognzSeNm',   	type:'input',   width:'15%',  style:'text-align:center'},
-	        {caption: ["유형코드"], 	ref: 'typeCd',   	type:'input',  width:'15%',   style:'text-align:center'},
-	        {caption: ["유형명"], 	ref: 'typeNm',   	type:'input',  width:'15%',   style:'text-align:center'},
-	        {caption: ["APC보유수"], 	ref: 'apcHldCnt',   	type:'input',   width:'15%',  style:'text-align:center'},
-	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'10%',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
+	    	{caption: ["조직코드"], 		ref: 'ognzCd',   	type:'output',  width:'6%', hidden : false},
+	        {caption: ["조직명"], 	ref: 'ognzNm',   	type:'input',   width:'14%',   style:'text-align:center'},
+	        {caption: ["사업자번호"], 	ref: 'brno',   	type:'input',   width:'10%',  style:'text-align:center'},
+	        {caption: ["법인등록번호"], 	ref: 'crno',   	type:'input',   width:'10%',  style:'text-align:center'},
+	        {caption: ["마지막변경시간"], 	ref: 'last',   	type:'output',   width:'10%',  style:'text-align:center'},
+	        {caption: ["조직구분코드"], 	ref: 'ognzSeCd',   	type:'input',  width:'10%',   style:'text-align:center'},
+	        {caption: ["조직구분명"], 	ref: 'ognzSeNm',   	type:'input',   width:'10%',  style:'text-align:center'},
+	        {caption: ["유형코드"], 	ref: 'typeCd',   	type:'input',  width:'8%',   style:'text-align:center'},
+	        {caption: ["유형명"], 	ref: 'typeNm',   	type:'input',  width:'8%',   style:'text-align:center'},
+	        {caption: ["APC보유수"], 	ref: 'apcHldCnt',   	type:'input',   width:'8%',  style:'text-align:center'},
+	        {caption: ["처리"], 		ref: 'delYn',   	type:'button', width:'6%',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData){
 	        	if(strValue== null || strValue == ""){
 	        		return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_procRow(\"ADD\", \"grdApcOgnzInfo\", " + nRow + ", " + nCol + ")'>추가</button>";
 	        	}else{

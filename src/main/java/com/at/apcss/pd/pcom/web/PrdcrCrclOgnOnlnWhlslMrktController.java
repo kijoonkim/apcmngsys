@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.at.apcss.pd.pcom.vo.PruoRegVO;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -167,7 +168,7 @@ public class PrdcrCrclOgnOnlnWhlslMrktController extends BaseController{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<PrdcrCrclOgnOnlnWhlslMrktVO> resultList = new ArrayList<>();
 		try {
-			//온라인도매시장 출하실적
+			//온라인도매시장 판매목표
 			resultList = PrdcrCrclOgnOnlnWhlslMrktService.selectRawDataOnln(PrdcrCrclOgnOnlnWhlslMrktVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
@@ -191,6 +192,36 @@ public class PrdcrCrclOgnOnlnWhlslMrktController extends BaseController{
 			return getErrorResponseEntity(e);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 생산유통통합조직 등록 마스터 목록 조회
+	@PostMapping(value = "/pd/pcom/selectPruoRegMst.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPruoRegMst(Model model, @RequestBody PruoRegVO pruoRegVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<PruoRegVO> resultList = new ArrayList<>();
+		try {
+			resultList = PrdcrCrclOgnOnlnWhlslMrktService.selectPruoRegMst(pruoRegVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+	// 생산유통통합조직 등록 상세 조회
+	@PostMapping(value = "/pd/pcom/selectPruoRegDtl.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectPruoRegDtl(Model model, @RequestBody PruoRegVO pruoRegVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		PruoRegVO resultVO = new PruoRegVO();
+		try {
+			resultVO = PrdcrCrclOgnOnlnWhlslMrktService.selectPruoRegDtl(pruoRegVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
 		return getSuccessResponseEntity(resultMap);
 	}
 

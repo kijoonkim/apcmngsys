@@ -1,6 +1,9 @@
 package com.at.apcss.pd.isom.service.impl;
 
 import java.util.List;
+
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.pd.pcom.vo.ItemUoStbltYnVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,69 +32,91 @@ import com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO;
 public class InvShipOgnGenalTblMngServiceImpl extends BaseServiceImpl implements InvShipOgnGenalTblMngService{
 
 	@Autowired
-	private InvShipOgnGenalTblMngMapper InvShipOgnGenalTblMngMapper;
+	private InvShipOgnGenalTblMngMapper invShipOgnGenalTblMngMapper;
 
 	@Override
-	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public InvShipOgnGenalTblMngVO selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMng(InvShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMng(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngList(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngIsoList(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public int updateStbltYn(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public int updateStbltYn(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		return InvShipOgnGenalTblMngMapper.updateStbltYn(InvShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.updateStbltYn(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		//List<InvShipOgnGenalTblMngVO> resultList = InvShipOgnGenalTblMngMapper.selectRawDataList(InvShipOgnGenalTblMngVO);
-		//return InvShipOgnGenalTblMngMapper.selectInvstSpmtOgnzOvsTableRawDataList(InvShipOgnGenalTblMngVO);
-		return InvShipOgnGenalTblMngMapper.selectInvstOldSpmtOgnzOvsTableRawDataList(InvShipOgnGenalTblMngVO);
+		//List<InvShipOgnGenalTblMngVO> resultList = invShipOgnGenalTblMngMapper.selectRawDataList(invShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectInvstSpmtOgnzOvsTableRawDataList(invShipOgnGenalTblMngVO);
+		//return invShipOgnGenalTblMngMapper.selectInvstOldSpmtOgnzOvsTableRawDataList(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectUoPrchsSlsSummaryList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+		int yr = Integer.parseInt(invShipOgnGenalTblMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnGenalTblMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return invShipOgnGenalTblMngMapper.selectUoPrchsSlsSummaryList(invShipOgnGenalTblMngVO);
+	}
 
-		return InvShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
+
+	@Override
+	public List<InvShipOgnGenalTblMngVO> selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+		//return invShipOgnGenalTblMngMapper.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
+		int yr = Integer.parseInt(invShipOgnGenalTblMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnGenalTblMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return invShipOgnGenalTblMngMapper.selectIsoPrchsSlsSummaryList(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-
-		return InvShipOgnGenalTblMngMapper.selectRawDataList2025(InvShipOgnGenalTblMngVO);
+	public List<InvShipOgnGenalTblMngVO> selectRawDataList2025(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+		return invShipOgnGenalTblMngMapper.selectRawDataList2025(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
-
-		return InvShipOgnGenalTblMngMapper.selectIsoClsfTot(InvShipOgnGenalTblMngVO);
+	public List<InvShipOgnGenalTblMngVO> selectIsoPrchsSlsRawdataList(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+		int yr = Integer.parseInt(invShipOgnGenalTblMngVO.getYr());
+		if (yr < 2025) {
+			invShipOgnGenalTblMngVO.setOldDataYn(ComConstants.CON_YES);
+		}
+		return invShipOgnGenalTblMngMapper.selectIsoPrchsSlsRawdataList(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
-	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO) throws Exception {
+	public List<InvShipOgnGenalTblMngVO> selectIsoClsfTot(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
 
-		return InvShipOgnGenalTblMngMapper.updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
+		return invShipOgnGenalTblMngMapper.selectIsoClsfTot(invShipOgnGenalTblMngVO);
+	}
+
+	@Override
+	public int updateItemIsoActnMttr(InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO) throws Exception {
+
+		return invShipOgnGenalTblMngMapper.updateItemIsoActnMttr(invShipOgnGenalTblMngVO);
 	}
 
 	@Override
 	public int multiSaveItemIsoActnMttr(List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList) throws Exception {
 		int savedCnt = 0;
-		for (InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
-			savedCnt += updateItemIsoActnMttr(InvShipOgnGenalTblMngVO);
+		for (InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
+			savedCnt += updateItemIsoActnMttr(invShipOgnGenalTblMngVO);
 		}
 		return savedCnt;
 	}

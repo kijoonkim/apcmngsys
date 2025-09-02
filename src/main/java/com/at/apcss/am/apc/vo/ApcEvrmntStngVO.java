@@ -33,8 +33,9 @@ public class ApcEvrmntStngVO extends ComVO{
 	private String spmtPrsnDclrNo;
 	private String apcRprsvNm;
 	private String otptApcNm;
-
 	private String cdVls;
+	private double xcrd;
+	private double ycrd;
 
 	/**
 	 * case id : CASE1 ~ CASE10

@@ -53,6 +53,7 @@
 						<col style="width: 50px">
 						<col style="width: 11%">
 						<col style="width: 22%">
+						<col style="width: 100px">
 					<tbody>
 						<tr>
 							<th scope="row" style="border-bottom:1px solid white">APC명</th>
@@ -61,22 +62,27 @@
 								<sbux-input id="srch-inp-apcCd" name="srch-inp-apcCd" uitype="hidden" class="form-control input-sm" placeholder="" disabled></sbux-input>
 								<sbux-input id="srch-inp-apcNm" name="srch-inp-apcNm" uitype="text" class="form-control input-sm" placeholder="" disabled></sbux-input>
 							</td>
-							<td>
+							<td style="border-right:hidden;">
 								<sbux-button id="srch-btn-cnpt" name="srch-btn-cnpt" uitype="modal" target-id="modal-apcSelect" onclick="fn_modalApcSelect" text="찾기" style="font-size: x-small;" class="btn btn-xs btn-outline-dark"></sbux-button>
 							</td>
-							<!--
 							<th scope="row">조사연도</th>
 							<td class="td_input"  style="border-right: hidden;">
-								<sbux-spinner
+								<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+								<sbux-select
+										id="srch-slt-crtrYr"
+										name= "srch-slt-crtrYr"
+										uitype="single"
+										jsondata-ref="jsonCrtrYr"
+										class="form-control input-sm"
+								></sbux-select>
 							</td>
-							 -->
-							 <td></td>
+							<td class="td_input" style="border-right:hidden;"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -202,11 +208,13 @@
 		</c:if>
 
 		fn_init();
+
 	});
 
 	/* 초기화면 로딩 기능*/
 	const fn_init = async function() {
 		await fn_initSBSelect();
+
 		await fn_fcltInstlInfoCreateGrid();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
@@ -214,11 +222,14 @@
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			return;
 		}
+
 		await fn_search();
+
 		//진척도
 		await cfn_selectPrgrs();
 
 	}
+
 
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
@@ -229,9 +240,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -253,6 +262,10 @@
 
 	var jsonGrdComBizSprtCd = [];	//지원유형
 
+	// 조사연도
+	var jsonCrtrYr = [];
+
+
 	/**
 	 * combo 설정
 	 */
@@ -261,6 +274,7 @@
 		let rst = await Promise.all([
 			//검색조건
 			gfn_setComCdSBSelect('grdFcltInstlInfo', 	jsonGrdComBizSprtCd , 	'BIZ_SPRT_CD'), 	//지원 유형
+			gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr), // 연도
 		]);
 	}
 
@@ -344,6 +358,8 @@
 
 		let pageSize = grdFcltInstlInfo.getPageSize();
 		let pageNo = 1;
+		//진척도
+		await cfn_selectPrgrs();
 
 		fn_selectFcltInstlInfoList(pageSize, pageNo);
 	}
@@ -353,7 +369,6 @@
      * @param {number} pageNo
 	*/
 	const fn_selectFcltInstlInfoList = async function(pageSize, pageNo) {
-		console.log("******************fn_setGrdFcltInstlInfoList**********************************");
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		//let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
@@ -375,7 +390,6 @@
 			jsonFcltInstlInfo.length = 0;
 			let totalRecordCount = 0;
 			data.resultList.forEach((item, index) => {
-				//console.log(item);
 				let totVal = Number(item.ne) + Number(item.lcltExpndCtpv) + Number(item.lcltExpndSgg) + Number(item.slfBrdn);
 				let itemVO = {
 						sn				:item.sn
@@ -404,6 +418,7 @@
 				}else{
 					grdFcltInstlInfo.refresh()
 				}
+				totalRecordCount = jsonFcltInstlInfo.length;
 			} else {
 				grdFcltInstlInfo.setPageTotalCount(totalRecordCount);
 				grdFcltInstlInfo.rebuild();
@@ -426,12 +441,25 @@
 
 	//등록
 	const fn_save = async function() {
-		//console.log("******************fn_save**********************************");
 
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		// const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		/*
 		let yearArr = document.querySelectorAll("input[data-year='0']");
 		yearArr.forEach(e => {
@@ -445,14 +473,12 @@
 		let grdData = grdFcltInstlInfo.getGridDataAll();
 		for ( let iRow = 2; iRow <= grdData.length+1; iRow++ ) {
 			const rowData = grdFcltInstlInfo.getRowData(iRow);
-			//console.log(rowData);
 			if (gfn_isEmpty(rowData.bizYr)) {
 				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
 				grdFcltInstlInfo.setRow(iRow);
 				//grdFcltInstlInfo.setCol(grdFcltInstlInfo.getColRef("bizYr"));
 				return;
 			}
-			//console.log(rowData.bizYr,rowData.bizYr.length);
 
 			if (rowData.bizYr.length != 4) {
 				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
@@ -483,20 +509,35 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		// const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let gridData = grdFcltInstlInfo.getGridDataAll();
 		let saveList = [];
 
 		let apcCd = SBUxMethod.get('srch-inp-apcCd');
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		// let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");//진척도 갱신용
 
 
 		for(var i=2; i< gridData.length+2; i++ ){
@@ -541,18 +582,17 @@
 				//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
 				cfn_allTabPrgrsRefrash();
 			} else {
-				alert(data.resultMessage);
+				gfn_comAlert(data.resultCode, data.resultMessage);
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 	//진척도만 갱신
 	async function fn_updatePrgrs(){
 
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		// let crtrYr = SBUxMethod.get("srch-inp-crtrYr");//진척도 갱신용
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");//진척도 갱신용
 		let apcCd = SBUxMethod.get('srch-inp-apcCd');
 
 		let postJsonPromise = gfn_postJSON("/fm/fclt/updateFcltInstlInfoPrgrs.do", {
@@ -564,7 +604,6 @@
 		let data = await postJsonPromise;
 
 		try{
-			console.log(data);
 			alert("처리 되었습니다.");
 			fn_search();
 			//열려있는 탭이 APC전수조사 인 경우 진척도 갱신
@@ -609,32 +648,46 @@
 	function fn_addRow(){
 		grdFcltInstlInfo.addRow(true, {addYn:'Y'});
 	}
-	function fn_deleteRow(){
+	async function fn_deleteRow() {
+
+		// const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		let delList = [];
 		let delCnt = 0;
 		let gridList = grdFcltInstlInfo.getGridDataAll();
-		for (let i=gridList.length-1; i>-1; i--) {
+		for (let i = gridList.length - 1; i > -1; i--) {
 			if (gridList[i].checked === "true") {
 				if (gridList[i].addYn == 'N') {
-					gridList[i].rowNum = i+2;
+					gridList[i].rowNum = i + 2;
 					delList.push(gridList[i]);
 					delCnt++;
-				}else{
-					grdFcltInstlInfo.deleteRow(i+2);//테이블 해더가 2줄이면 +2
+				} else {
+					grdFcltInstlInfo.deleteRow(i + 2);//테이블 해더가 2줄이면 +2
 					delCnt++;
 				}
 			}
 		}
-		if(delList.length > 0){
+		if (delList.length > 0) {
 			let rowStr = "";
 			for (var i = 0; i < delList.length; i++) {
-				rowStr += (delList[i].rowNum-1);
-				if(delList.length != i+1){
+				rowStr += (delList[i].rowNum - 1);
+				if (delList.length != i + 1) {
 					rowStr += ", ";
 				}
 			}
 			let delMsg = rowStr + " 행은 기존 데이터 입니다. 삭제 하시겠습니까?";
-			if(confirm(delMsg)){
+			if (confirm(delMsg)) {
 				fn_deleteRsrc(delList);
 				for (var i = 0; i < delList.length; i++) {
 					grdFcltInstlInfo.deleteRow(delList[i].rowNum);
@@ -650,7 +703,6 @@
 	}
 
 	async function fn_deleteRsrc(delList){
-		//console.log(delList);
 		let targetArr = [];
 
 		for (var i = 0; i < delList.length; i++) {
@@ -663,7 +715,6 @@
 		let postJsonPromise = gfn_postJSON("/fm/fclt/deleteFcltInstlInfoList.do", targetArr);
 		let data = await postJsonPromise;
 		try{
-			//console.log(data);
 			if (_.isEqual("S", data.resultStatus)) {
 				alert("삭제 되었습니다.");
 			}else{
@@ -681,7 +732,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -745,6 +795,19 @@
 			return;
 		}
 
+		// const crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		popImp.init();
 
 		const impColumns = fn_getExpColumns();
@@ -785,7 +848,6 @@
 
 		let impData = _grdImp.getGridDataAll();
 
-		console.log(impData);
 
 		if (impData.length == 0) {
 			gfn_comAlert("W0005", "등록대상");		//	W0005	{0}이/가 없습니다.
@@ -807,7 +869,6 @@
 
 		for ( let iRow = 2; iRow <= impData.length+1; iRow++ ) {
 			const rowData = _grdImp.getRowData(iRow);
-			console.log(rowData);
 			// validation check
 			if (gfn_isEmpty(rowData.bizYr)) {
 				gfn_comAlert("W0002", "사업년도");		//	W0002	{0}을/를 입력하세요.
@@ -815,7 +876,6 @@
 				_grdImp.setCol(_grdImp.getColRef("bizYr"));
 				return;
 			}
-			console.log(rowData.bizYr,rowData.bizYr.length);
 			if (rowData.bizYr.length != 4) {
 				alert("사업년도 값은 4자리 여야 합니다");		//	W0002	{0}을/를 입력하세요.
 				_grdImp.setRow(iRow);
@@ -901,8 +961,6 @@
 	 * @description afterimportexcel 이벤트
 	 */
 	const fn_setDataAfterImport = function(_grdImp) {
-		//console.log("fn_setDataAfterImport");
-		//console.log(_grdImp);
 		let impData = _grdImp.getGridDataAll();
 
 		const today = gfn_dateToYmd(new Date());
@@ -914,7 +972,6 @@
 		for ( let iRow = 1; iRow <= impData.length; iRow++ ) {
 
 			const rowData = _grdImp.getRowData(iRow+1, false);	// deep copy
-			console.log(rowData);
 			if(typeof rowData == "undefined" || rowData == null || rowData == "" ){
 				continue;
 			}
@@ -1009,7 +1066,6 @@
 
 		// 정규 표현식 실행
 		const match = strValue.match(regex);
-		//console.log(match);
 
 		let resultVal = match ? match[0] : null;
 
@@ -1028,8 +1084,6 @@
      */
 	const fn_grdImpValueChanged = function(_grdImp) {
 		//valuechanged 이벤트
-		console.log("fn_grdImpValueChanged");
-		console.log(_grdImp);
 		var nRow = _grdImp.getRow();
 		var nCol = _grdImp.getCol();
 	}

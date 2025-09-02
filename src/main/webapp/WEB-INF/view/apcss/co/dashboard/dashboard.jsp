@@ -345,19 +345,19 @@
 						<div class="summary_box box_b">
 							<div>
 								<div style="font-size: 1.5rem">입고량</div>
-								<div class="box_aling"><span id="wrhsCard" class="color_b"></span>kg</div>
+								<div class="box_aling"><span id="wrhsCard" class="color_b"></span>ton</div>
 							</div>
 						</div>
 						<div class="summary_box box_g">
 							<div>
 								<div style="font-size: 1.5rem">선별량</div>
-								<div class="box_aling"><span id="sortCard" class="color_g"></span>kg</div>
+								<div class="box_aling"><span id="sortCard" class="color_g"></span>ton</div>
 							</div>
 						</div>
 						<div class="summary_box box_p">
 							<div>
 								<div style="font-size: 1.5rem">출하량</div>
-								<div class="box_aling"><span id="spmtCard" class="color_p"></span>kg</div>
+								<div class="box_aling"><span id="spmtCard" class="color_p"></span>ton</div>
 							</div>
 						</div>
 					</div>
@@ -481,7 +481,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value.toLocaleString() + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'ton';
 						}
 					},
 				}
@@ -501,7 +501,7 @@
 			},
 			data: {
 				type:'pie',
-				columns: columnWrhs,
+				columns: columnSort,
 				noData: "데이터가 없습니다."
 			},
 			legend: {
@@ -531,7 +531,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value.toLocaleString() + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'ton';
 						}
 					},
 				}
@@ -581,7 +581,7 @@
 							return ratio * 100 < 19;
 						},
 						format : function(value, ratio, id, data){
-							return data[0].id + ' ' + value.toLocaleString() + 'kg';
+							return data[0].id + ' ' + value.toLocaleString() + 'ton';
 						}
 					},
 				}

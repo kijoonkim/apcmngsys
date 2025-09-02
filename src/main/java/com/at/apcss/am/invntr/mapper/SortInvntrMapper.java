@@ -203,5 +203,11 @@ public interface SortInvntrMapper {
 	 * @throws Exception
 	 */
 	public int insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception;
-
+	/**
+	 * 선별재고 업데이트
+	 * @param sortInvntrList
+	 * @return
+	 * @throws Exception
+	 */
+    int updateSortInvntrList(SortInvntrVO sortInvntrList) throws Exception;
 }

@@ -60,6 +60,8 @@
 						  AND APO_SE = '1'
 						  AND YR = #{yr}
 						  AND BRNO = TEA.BRNO
+						  /* 전문품목,육성품목만 나오도록 수정 요청(2025.07.10)*/
+						  AND STTG_UPBR_ITEM_SE IN ('1','2')
 						)
 			) AS ITEM_NM_LIST
 		FROM TB_EV_APO TEA
@@ -116,7 +118,7 @@
 				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT
 				WHERE 1=1
 				  AND APO_SE = '1'
-				  AND TYPE_SE_NO IN ('2','3','6','7')
+				  AND TYPE_SE_NO IN ('2','6','7')
 				  AND (
 						(PRDCR_OGNZ_SN IN (SELECT PRDCR_OGNZ_SN
 											FROM TB_EV_FRMHS_APO
@@ -135,6 +137,7 @@
 				  AND BRNO = ITEM.BRNO
 				  AND YR = ITEM.YR
 				  AND ITEM_CD = ITEM.ITEM_CD
+				  AND DEL_YN = 'N'
 				GROUP BY  BRNO , ITEM_CD
 			) AS PREV_YR_PRFMNC_AMT
 			,EPC.EXPCT_PRFMNC_AMT
@@ -261,5 +264,121 @@
 						, #{sysLastChgPrgrmId}
 					)
 	</insert>
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectPrfmncChckRawData	-->
+	<!-- DESC : 승인형 실적점검 관리 로우데이터 조회                                      -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.15  	유민지				Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectPrfmncChckRawData" parameterType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO" resultType="com.at.apcss.pd.pcm.vo.PrfmncChckMngVO">
+		SELECT /*com.at.apcss.pd.pcm.mapper.PrfmncChckMngMapper.selectPrfmncChckRawData*/
+			EA.APO_CD
+			 , EA.APO_SE
+			 , EA.BRNO
+			 , EA.CRNO
+			 , EA.APRV
+			 , EA.CORP_NM
+			 , EA.SLCTN_YR
+			 , (SELECT LISTAGG(ITEM_NM, ' , ') WITHIN GROUP (ORDER BY ITEM_NM)
+				FROM (SELECT
+						(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = YGC.ITEM_CD) AS ITEM_NM
+							FROM TB_EV_APO_YR_GPC_CD YGC
+							WHERE 1=1
+							AND APO_SE = '1'
+							AND YR = #{yr}
+							AND BRNO = EA.BRNO
+							AND STTG_UPBR_ITEM_SE IN ('1','2')
+					)
+			 ) AS ITEM_NM_LIST
+
+			, ITEM.STTG_UPBR_ITEM_SE
+			, (SELECT FN_GET_COM_CD_VL_NM ('STTG_UPBR_ITEM_SE', ITEM.STTG_UPBR_ITEM_SE) FROM DUAL ) AS STTG_UPBR_ITEM_NM
+			, ITEM.CTGRY_CD
+			, (SELECT FN_GET_COM_CD_VL_NM ('CTGRY_CD',ITEM.CTGRY_CD) FROM DUAL ) AS CTGRY_NM
+			, ITEM.ITEM_CD
+			, ITEM.ITEM_NM
+			, ITEM.APO_CD
+			, ITEM.APO_SE
+			, ITEM.BRNO
+			, ITEM.CORP_NM
+
+			, PC.YR
+			, PC.PRFMNC_AMT_1
+			, PC.PRFMNC_AMT_2
+			, PC.PRFMNC_AMT_3
+			, PC.PRFMNC_AMT_4
+			, PC.PRFMNC_AMT_5
+			, PC.PRFMNC_AMT_6
+			, PC.PRFMNC_AMT_7
+			, PC.PRFMNC_AMT_8
+			, PC.PRFMNC_AMT_9
+			, PC.PRFMNC_AMT_10
+			, PC.PRFMNC_AMT_11
+			, PC.PRFMNC_AMT_12
+			, (NVL(PC.PRFMNC_AMT_1,0) + NVL(PC.PRFMNC_AMT_2,0) + NVL(PC.PRFMNC_AMT_3,0) + NVL(PC.PRFMNC_AMT_4,0) + NVL(PC.PRFMNC_AMT_5,0) + NVL(PC.PRFMNC_AMT_6,0)
+				+ NVL(PC.PRFMNC_AMT_7,0) + NVL(PC.PRFMNC_AMT_8,0) + NVL(PC.PRFMNC_AMT_9,0) + NVL(PC.PRFMNC_AMT_10,0) + NVL(PC.PRFMNC_AMT_11,0) + NVL(PC.PRFMNC_AMT_12,0)) AS PRFMNC_AMT_TOT
+
+			, PC.EXPCT_PRFMNC_AMT
+			, PREV.PREV_YR_PRFMNC_AMT AS PREV_YR_PRFMNC_AMT
+
+			-- 증감률 공식 = 올해 매출(1월~12월) - 전년도 매출 / 전년도 매출
+				, ROUND ((( (NVL(PC.PRFMNC_AMT_1,0) + NVL(PC.PRFMNC_AMT_2,0) + NVL(PC.PRFMNC_AMT_3,0) + NVL(PC.PRFMNC_AMT_4,0) + NVL(PC.PRFMNC_AMT_5,0) + NVL(PC.PRFMNC_AMT_6,0)
+					+ NVL(PC.PRFMNC_AMT_7,0) + NVL(PC.PRFMNC_AMT_8,0) + NVL(PC.PRFMNC_AMT_9,0) + NVL(PC.PRFMNC_AMT_10,0) + NVL(PC.PRFMNC_AMT_11,0) + NVL(PC.PRFMNC_AMT_12,0))
+					- NVL(PREV.PREV_YR_PRFMNC_AMT,0) ) / NVL(PREV.PREV_YR_PRFMNC_AMT,0))  * 100 , 2 ) AS PRFMNC_AMT_RT
+
+		FROM TB_EV_APO EA
+
+		LEFT JOIN TB_EV_APO_YR_GPC_CD ITEM
+			ON ITEM.BRNO = EA.BRNO
+			AND ITEM.YR = #{yr}
+			AND ITEM.APO_CD = EA.APO_CD
+			AND ITEM.DEL_YN = 'N'
+			AND ITEM.STTG_UPBR_ITEM_SE IN ('1','2')
+			AND ITEM.APO_SE = EA.APO_SE
+
+		LEFT JOIN TB_EV_PRFMNC_CHCK PC
+			ON PC.YR = ITEM.YR
+			AND PC.BRNO = EA.BRNO
+			AND PC.APO_CD = EA.APO_CD
+			AND PC.ITEM_CD = ITEM.ITEM_CD
+			AND PC.DEL_YN = 'N'
+
+		LEFT JOIN (
+				SELECT
+					TOT.BRNO,
+					TOT.ITEM_CD,
+					TOT.YR ,
+					FLOOR(SUM(NVL(TOT.SLS_CNSGN_SLS_AMT, 0) / 1000)) AS PREV_YR_PRFMNC_AMT
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT TOT
+				WHERE TOT.APO_SE = '1'
+					AND TOT.TYPE_SE_NO IN ('2','6','7')
+					AND TOT.DEL_YN = 'N'
+					AND (
+						TOT.PRDCR_OGNZ_SN IN (
+						SELECT EFA.PRDCR_OGNZ_SN
+						FROM TB_EV_FRMHS_APO EFA
+						WHERE EFA.STBLT_YN = 'Y'
+						AND NVL(EFA.EXCL_YN, 'N') != 'Y'
+						AND EFA.APO_SE = '1'
+						)
+					OR TOT.PRDCR_OGNZ_SN = '0'
+					)
+				GROUP BY TOT.BRNO, TOT.ITEM_CD, TOT.YR
+		) PREV
+		ON PREV.BRNO = ITEM.BRNO
+		AND PREV.ITEM_CD = ITEM.ITEM_CD
+		AND PREV.YR = ITEM.YR
+
+		WHERE EA.APRV = '1'
+		  AND EA.APO_SE = '1'
+		  AND EA.SLCTN_YR IS NOT NULL
+		  AND #{yr} >= EA.SLCTN_YR
+		  AND EA.DEL_YN = 'N'
+
+		ORDER BY EA.CORP_NM, ITEM.STTG_UPBR_ITEM_SE, ITEM.ITEM_NM
+	</select>
 
 </mapper>

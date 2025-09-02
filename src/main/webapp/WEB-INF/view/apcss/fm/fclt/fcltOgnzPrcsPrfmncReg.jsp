@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 유통조직처리실적 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -66,13 +67,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -137,6 +145,8 @@
 								<th class="text-center">
 									<span id="itemNm1">품목1</span>
 									<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
+									<sbux-input id="dtl-inp-itemCd1" name="dtl-inp-itemCd1" uitype="hidden"></sbux-input>
+									<div class="div-item-msg" id="div-item-msg1" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
@@ -148,6 +158,7 @@
 										style="text-align: right;"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -170,11 +181,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplTrst1')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -184,11 +198,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplEmspap1')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg"style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -211,11 +228,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCprtnSortTrst1')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -225,11 +245,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCtrtEmspap1')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -239,11 +262,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group1"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzTotTrmtVlm1')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>톤</td>
 							</tr>
@@ -251,6 +277,8 @@
 								<th class="text-center">
 									<span id="itemNm2">품목2</span>
 									<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
+									<sbux-input id="dtl-inp-itemCd2" name="dtl-inp-itemCd2" uitype="hidden"></sbux-input>
+									<div class="div-item-msg" id="div-item-msg2" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
@@ -262,6 +290,7 @@
 										style="text-align: right;"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -284,11 +313,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplTrst2')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -298,11 +330,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplEmspap2')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -325,11 +360,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCprtnSortTrst2')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -339,11 +377,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCtrtEmspap2')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -353,11 +394,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group2"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzTotTrmtVlm2')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>톤</td>
 							</tr>
@@ -365,6 +409,8 @@
 								<th class="text-center">
 									<span id="itemNm3">품목3</span>
 									<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
+									<sbux-input id="dtl-inp-itemCd3" name="dtl-inp-itemCd3" uitype="hidden"></sbux-input>
+									<div class="div-item-msg" id="div-item-msg3" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
@@ -376,6 +422,7 @@
 										style="text-align: right;"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -398,11 +445,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplTrst3')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -412,11 +462,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplEmspap3')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -439,11 +492,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCprtnSortTrst3')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -453,11 +509,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCtrtEmspap3')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -467,18 +526,24 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group3"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzTotTrmtVlm3')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>톤</td>
 							</tr>
+							<%--기타--%>
 							<tr>
 								<th class="text-center">
 									<span id="itemNm4">기타</span>
 									<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
+									<sbux-input id="dtl-inp-itemCd4" name="dtl-inp-itemCd4" uitype="hidden"></sbux-input>
+									<div class="div-item-msg" id="div-item-msg4" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
 									<sbux-input
@@ -490,6 +555,7 @@
 										style="text-align: right;"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -512,11 +578,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplTrst4')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -526,11 +595,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzGnrlSmplEmspap4')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -553,11 +625,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCprtnSortTrst4')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -567,11 +642,14 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzOgnzCtrtEmspap4')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>(백만원)</td>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -581,14 +659,18 @@
 										uitype="text"
 										class="form-control input-sm"
 										placeholder=""
-										onkeyup="fn_sum(this)"
+										onkeyup="fn_sum()"
 										style="text-align: right;"
 										group-id="group4"
 										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										onchange="fn_changeValue('dtl-inp-rtlOgnzTotTrmtVlm4')"
+										autocomplete="off"
 									></sbux-input>
+									<div class="div-msg" style="width:100%; font-size:0rem; text-wrap:nowrap;visibility:hidden"></div>
 								</td>
 								<td>톤</td>
 							</tr>
+							<%--계--%>
 							<tr>
 								<th class="text-center">계</th>
 								<td style="border-right:hidden; padding-right: 0px !important;">
@@ -695,6 +777,7 @@
 								</td>
 								<td>톤</td>
 							</tr>
+							<%--한글 단위 계--%>
 							<tr>
 								<th class="text-center">계</th>
 								<td colspan="2">
@@ -790,6 +873,13 @@
 	</div>
 </body>
 <script type="text/javascript">
+	// 기준연도
+	var jsonCrtrYr = [];
+	// 전년도 데이터
+	var jsonPrevData = [];
+	// APC전수조사검증코드
+	var jsonApcCmsuVrfcCd = [];
+
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -818,6 +908,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
@@ -831,6 +922,12 @@
 
 	}
 
+	const fn_initSBSelect = async function() {
+		gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+		jsonApcCmsuVrfcCd =  await gfn_getComCdDtls('APC_CMSU_VRFC_CD'); // APC전수조사 검증 코드
+	}
+
+
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
 
@@ -840,9 +937,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -873,12 +968,30 @@
 			SBUxMethod.changeGroupAttr('group'+sn,'disabled','true');
 			//그룹 초기화
 			SBUxMethod.clearGroupData('group'+sn);
+			// 아이템
+			SBUxMethod.set('dtl-inp-itemChk'+sn,null);
+			SBUxMethod.set('dtl-inp-itemCd'+sn,null);
 		}
 		fn_sum();
 		$('#itemNm1').text("품목1");
 		$('#itemNm2').text("품목2");
 		$('#itemNm3').text("품목3");
 		$('#itemNm4').text("기타");
+
+		// 데이터 검증 메세지 초기화
+		const msgDivs = document.getElementsByClassName('div-msg');
+		for (let i = 0; i < msgDivs.length; i++) {
+			msgDivs[i].style.visibility = 'hidden';
+			msgDivs[i].style.fontSize = '0rem';
+		}
+		const tr = $('.div-msg').closest('tr');
+		tr.find('td, th').css('vertical-align', 'middle');
+		// 품목메세지
+		const itemMsgDivs = document.getElementsByClassName('div-item-msg');
+		for (let i = 0; i < itemMsgDivs.length; i++) {
+			itemMsgDivs[i].style.visibility = 'hidden';
+			itemMsgDivs[i].style.fontSize = '0rem';
+		}
 	}
 
 	const fn_search = async function() {
@@ -887,18 +1000,24 @@
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
+		// 전년도
+		await fn_selectOgPcList("Y");
 		await fn_selectOgPcList();
 	}
 
-	const fn_selectOgPcList = async function(copy_chk) {
-		 console.log("******************fn_pagingOgPcList**********************************");
-
+	const fn_selectOgPcList = async function(prevData) {
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
 
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+			jsonPrevData.length = 0;
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOgnzPrcsPrfmncList.do", {
@@ -910,29 +1029,51 @@
 		//await 오류시 확인
 		//예외처리
 		try {
+			if (_.isEqual(prevData,"Y")) {
+				data.resultList.forEach(item => {
+					const vo = {
+						apcCd : item.apcCd
+						, apcNm : item.apcNm
+						, crtrYr : item.crtrYr
+						, sn : item.sn
+						, itemCd : item.itemCd
+						, itemNm : item.itemNm
+						, rtlOgnzTotTrmtAmt : item.rtlOgnzTotTrmtAmt
+						, rtlOgnzTotTrmtVlm : item.rtlOgnzTotTrmtVlm
+						, rtlOgnzGnrlSmplEmspap :item.rtlOgnzGnrlSmplEmspap
+						, rtlOgnzGnrlSmplTrst :item.rtlOgnzGnrlSmplTrst
+						, rtlOgnzGnrlSum : item.rtlOgnzGnrlSum
+						, rtlOgnzOGnzSum : item.rtlOgnzOGnzSum
+						, rtlOgnzOgnzCprtnSortTrst :item.rtlOgnzOgnzCprtnSortTrst
+						, rtlOgnzOgnzCtrtEmspap : item.rtlOgnzOgnzCtrtEmspap
+					}
+					jsonPrevData.push(vo);
+				});
+			} else {
+				data.resultList.forEach((item, index) => {
+					let sn = item.sn;
+					SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
+					if(sn == '4'){
+						$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemNm); //품목 명
+					}else{
+						$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemCd); // 품목코드
+					}
 
-			data.resultList.forEach((item, index) => {
-				let sn = item.sn;
+					//그룹 비활성화
+					SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
 
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
-				if(sn == '4'){
-					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
-				}else{
-					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
-				}
+					SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,item.rtlOgnzGnrlSmplTrst);
+					SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,item.rtlOgnzGnrlSmplEmspap);
+					SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,item.rtlOgnzOgnzCprtnSortTrst);
+					SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,item.rtlOgnzOgnzCtrtEmspap);
 
-				//그룹 비활성화
-				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
-
-				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst'+sn,item.rtlOgnzGnrlSmplTrst);
-				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap'+sn,item.rtlOgnzGnrlSmplEmspap);
-				SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+sn,item.rtlOgnzOgnzCprtnSortTrst);
-				SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap'+sn,item.rtlOgnzOgnzCtrtEmspap);
-
-				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,item.rtlOgnzTotTrmtVlm);
-			});
-			fn_sum();
-
+					SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm'+sn,item.rtlOgnzTotTrmtVlm);
+				});
+				fn_sum();
+				fn_itemChk();
+			}
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -944,16 +1085,20 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
-
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const apcCd = SBUxMethod.get("srch-inp-apcCd");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
+
 		if (gfn_isEmpty(crtrYr)) {
-			alert("조사연도를 작성해주세요");
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
 			return;
 		}
 
@@ -966,6 +1111,19 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
@@ -973,14 +1131,13 @@
 
 	//신규 등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		 console.log("******************fn_subInsert**********************************");
 		 if (!isConfirmed) return;
 
 		 let saveList = [];
 
 		 for (var i = 1; i < 5; i++) {
 			let item = {
-					crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+					crtrYr : SBUxMethod.get('srch-slt-crtrYr')
 					,apcCd : SBUxMethod.get('srch-inp-apcCd')
 					, prgrsYn : 'Y' //진척도 갱신 여부
 					, tmprStrgYn : tmpChk//임시저장 여부
@@ -1012,8 +1169,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 
@@ -1023,23 +1178,26 @@
 			extractNumbers2(e.name);
 		}
 
-
+		// 일반취급 단순수탁
 		let rtlOgnzGnrlSmplTrstArr = [];
+		// 일반취급 단순매취
 		let rtlOgnzGnrlSmplEmspapArr = [];
-
+		// 조직화 공선수탁
 		let rtlOgnzOgnzCprtnSortTrstArr = [];
+		// 조직화 계약매취
 		let rtlOgnzOgnzCtrtEmspapArr = [];
-
+		// 취급 물량
 		let rtlOgnzTotTrmtVlmArr = [];
 
+
 		for (var i = 0; i < 4; i++) {
-			rtlOgnzGnrlSmplTrstArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplTrst'+(i+1)));
-			rtlOgnzGnrlSmplEmspapArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplEmspap'+(i+1)));
+			rtlOgnzGnrlSmplTrstArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplTrst'+(i+1))); // 단순수탁
+			rtlOgnzGnrlSmplEmspapArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzGnrlSmplEmspap'+(i+1))); // 단순매취
 
-			rtlOgnzOgnzCprtnSortTrstArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+(i+1)));
-			rtlOgnzOgnzCtrtEmspapArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCtrtEmspap'+(i+1)));
+			rtlOgnzOgnzCprtnSortTrstArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCprtnSortTrst'+(i+1))); // 공선수탁
+			rtlOgnzOgnzCtrtEmspapArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzOgnzCtrtEmspap'+(i+1))); // 계약매취
 
-			rtlOgnzTotTrmtVlmArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtVlm'+(i+1)));
+			rtlOgnzTotTrmtVlmArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-rtlOgnzTotTrmtVlm'+(i+1))); // 취급물량
 		}
 
 		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrstTot',rtlOgnzGnrlSmplTrstArr.reduce((acc, cur) => {return acc + cur;}, 0));
@@ -1054,20 +1212,22 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrstTot1',fn_numberToKorean( rtlOgnzOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
 		SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspapTot1',fn_numberToKorean( rtlOgnzOgnzCtrtEmspapArr.reduce((acc, cur) => {return acc + cur;}, 0) ));
 
+		// 총 합계
 		let rtlOgnzTotTrmtAmt = [];
 		let rtlOgnzGnrlSum = [];
 		let rtlOgnzOGnzSum = [];
 
 		for (var i = 0; i < 4; i++) {
-			let sum1 = rtlOgnzGnrlSmplTrstArr[i] + rtlOgnzGnrlSmplEmspapArr[i];
-			let sum2 = rtlOgnzOgnzCprtnSortTrstArr[i] + rtlOgnzOgnzCtrtEmspapArr[i];
+			let sum1 = rtlOgnzGnrlSmplTrstArr[i] + rtlOgnzGnrlSmplEmspapArr[i]; // 일반 단순수탁 + 단순매취
+			let sum2 = rtlOgnzOgnzCprtnSortTrstArr[i] + rtlOgnzOgnzCtrtEmspapArr[i]; // 조직화 공선수탁 + 계약매취
 			let sum3 = sum1 + sum2;
 
-			rtlOgnzTotTrmtAmt[i] = sum3;
-			rtlOgnzGnrlSum[i] = sum1;
-			rtlOgnzOGnzSum[i] = sum2;
+			rtlOgnzTotTrmtAmt[i] = sum3; // 품목당 총 취급액
+			rtlOgnzGnrlSum[i] = sum1; // 품목당 일반취급
+			rtlOgnzOGnzSum[i] = sum2; // 품목당 조직화취급
 
 			SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmt'+(i+1),sum3);
+			fn_changeValue('dtl-inp-rtlOgnzTotTrmtAmt'+ (i+1)); // 총취급액
 			SBUxMethod.set('dtl-inp-rtlOgnzGnrlSum'+(i+1),sum1);
 			SBUxMethod.set('dtl-inp-rtlOgnzOGnzSum'+(i+1),sum2);
 		}
@@ -1080,6 +1240,7 @@
 		SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtAmtTot1',fn_numberToKorean( rtlOgnzTotTrmtAmt.reduce((acc, cur) => {return acc + cur;}, 0) ));
 		SBUxMethod.set('dtl-inp-rtlOgnzGnrlSumTot1',fn_numberToKorean( rtlOgnzGnrlSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
 		SBUxMethod.set('dtl-inp-rtlOgnzOGnzSumTot1',fn_numberToKorean( rtlOgnzOGnzSum.reduce((acc, cur) => {return acc + cur;}, 0) ));
+
 	}
 
 	// 숫자(소숫점 가능)만 입력
@@ -1124,7 +1285,7 @@
 			SBUxMethod.set('srch-inp-apcCd', apc.apcCd);
 			SBUxMethod.set('srch-inp-apcNm', apc.apcNm);
 		}
-		//진척도 갱신
+		//진척도
 		await cfn_selectPrgrs();
 		await fn_search();
 	}
@@ -1163,7 +1324,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -1176,6 +1336,163 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	// 전년도 데이터 set
+	function fn_pySearch() {
+
+		// 데이터 검증 메세지 초기화
+		const msgDivs = document.getElementsByClassName('div-msg');
+		for (let i = 0; i < msgDivs.length; i++) {
+			msgDivs[i].style.visibility = 'hidden';
+			msgDivs[i].style.fontSize = '0rem';
+		}
+		const tr = $('.div-msg').closest('tr');
+		tr.find('td, th').css('vertical-align', 'middle');
+
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		for (let i = 1; i <= 4; i++) {
+			SBUxMethod.clearGroupData('group'+i);
+			let isExist = false;
+			if (SBUxMethod.get('dtl-inp-itemChk' + i) === 'Y') {
+				isExist = true;
+			}
+			if (isExist) {
+				SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
+			}
+		}
+
+		jsonPrevData.forEach(item => {
+			const sn = item.sn;
+			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
+
+			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
+					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
+					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
+				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplTrst' + sn, item.rtlOgnzGnrlSmplTrst); // 일반취급 단순수탁
+				SBUxMethod.set('dtl-inp-rtlOgnzGnrlSmplEmspap' + sn, item.rtlOgnzGnrlSmplEmspap); //일반 단순매취
+				SBUxMethod.set('dtl-inp-rtlOgnzOgnzCprtnSortTrst' + sn, item.rtlOgnzOgnzCprtnSortTrst); // 조직 공선수탁
+				SBUxMethod.set('dtl-inp-rtlOgnzOgnzCtrtEmspap' + sn, item.rtlOgnzOgnzCtrtEmspap); // 조직 계약매취
+				SBUxMethod.set('dtl-inp-rtlOgnzTotTrmtVlm' + sn, item.rtlOgnzTotTrmtVlm); // 취급물량
+			}
+		});
+		fn_sum();
+	}
+
+	// 값변경
+	function fn_changeValue(args) {
+		if (!args) return;
+		const inputEl = document.getElementById(args);
+
+		const name = inputEl.getAttribute("name");
+		const sn = parseInt(name.charAt(name.length - 1));
+		const itemCd = SBUxMethod.get('dtl-inp-itemCd' + sn);
+		const key = name.replace(/^dtl-inp-/, '').replace(/\d+$/, '');
+
+		// 초기화 (경고 메시지 숨기기)
+		const nextDiv = $(`#${'${name}'}`).closest('span').next();
+		nextDiv.text('');
+		nextDiv.css({
+			fontSize: '0rem',
+			visibility: 'hidden',
+		});
+
+		// tr 내 div가 모두 안 보일 경우 vertical-align: middle
+		const tr = $(`#${'${name}'}`).closest('tr');
+		const divs = tr.find('div');
+		const noVisibleDiv = divs.length === 0 || divs.filter(function () {
+			return $(this).css('visibility') === 'visible';
+		}).length === 0;
+
+		if (noVisibleDiv) {
+			tr.find('td, th').css('vertical-align', 'middle');
+		}
+
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		// 전년도 데이터에서 일치하는 항목 찾기
+		const prevObj = jsonPrevData.find(item => item.sn === sn && item.itemCd === itemCd);
+
+		// 전년도에 없는 품목인 경우 메시지 표시
+		/*if (gfn_isEmpty(prevObj) && !gfn_isEmpty(itemCd)) {
+			const div = $(`#div-msg${'${sn}'}`);
+			div.text("전년도에 없는 품목입니다.");
+			div.css({
+				fontSize: "1.2rem",
+				visibility: "visible",
+				fontWeight: "bold",
+				color: "#be0000",
+				textAlign: "left"
+			});
+			return;
+		}*/
+		if (gfn_isEmpty(prevObj)) return;
+
+		// 값 비교
+		const pyValue = Number(prevObj[key]);
+		const currValue = Number(SBUxMethod.get(name));
+		if (currValue === 0) return;
+
+		let msg = '';
+		let diff = 0;
+
+		if (pyValue === 0) {
+			msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PY_INPT').cdVlExpln;
+		} else {
+			diff = Math.abs((currValue - pyValue) / pyValue * 100);
+
+			if (diff >= 20 && diff < 50) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_20').cdVlExpln;
+			} else if (diff >= 50 && diff < 200) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_50').cdVlExpln;
+			} else if (diff >= 200) {
+				msg = jsonApcCmsuVrfcCd.find(obj => obj.cdVl === 'PV_DIFF_RT_200').cdVlExpln;
+			}
+		}
+
+		// 안내 메시지가 있으면 출력
+		if (!gfn_isEmpty(msg)) {
+			nextDiv.text(msg);
+			nextDiv.css({
+				fontSize: "1.2rem",
+				visibility: "visible",
+				fontWeight: "bold",
+				color: "#be0000",
+				textAlign: "left"
+			});
+			tr.find('td, th').css('vertical-align', 'top');
+		}
+	}
+
+	// 품목확인
+	function fn_itemChk() {
+		const itemList = [];
+		for (let i = 1; i <5; i++) {
+			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+i);
+			itemList.push(itemCd);
+		}
+		if (gfn_isEmpty(itemList)) return;
+
+		for (let i = 0; i < itemList.length; i++) {
+			const currItemCd = itemList[i];
+			if (gfn_isEmpty(currItemCd)) continue;
+			const prevItemCd = jsonPrevData[i]?.itemCd;
+
+			const div = $(`#div-item-msg${'${i+1}'}`);
+
+			if (_.isEmpty(prevItemCd) || !_.isEqual(currItemCd, prevItemCd)) {
+				div.text("전년도에 없거나 다른 품목");
+				div.css({
+					fontSize: "1.2rem",
+					visibility: "visible",
+					fontWeight: "bold",
+					color: "#be0000",
+					textAlign: "center"
+				});
+			}
+		}
+
 	}
 </script>
 </html>

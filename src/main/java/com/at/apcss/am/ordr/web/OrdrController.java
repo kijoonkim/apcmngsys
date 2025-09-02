@@ -307,4 +307,35 @@ public class OrdrController extends BaseController {
 		return getSuccessResponseEntity(resultMap);
 	}
 
+
+	@PostMapping(value = "/am/ordr/deleteOutordrReceipt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+	public ResponseEntity<HashMap<String, Object>> deleteOutordrReceipt(@RequestBody MrktOrdrVO mrktOrdrVO, HttpServletRequest request) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> rtnObj = null;
+
+		try {
+
+			mrktOrdrVO.setSysFrstInptUserId(getUserId());
+			mrktOrdrVO.setSysFrstInptPrgrmId(getPrgrmId());
+			mrktOrdrVO.setSysLastChgUserId(getUserId());
+			mrktOrdrVO.setSysLastChgPrgrmId(getPrgrmId());
+
+			rtnObj = ordrService.deleteOutordrReceipt(mrktOrdrVO);
+			if (rtnObj != null) {
+				return getErrorResponseEntity(rtnObj);
+			}
+		} catch (Exception e) {
+			return getErrorResponseEntity(e);
+		} finally {
+			rtnObj = setMenuComLog(request);
+		}
+
+		if (rtnObj != null) {
+			return getErrorResponseEntity(rtnObj);
+		}
+
+		return getSuccessResponseEntity(resultMap);
+	}
+
 }

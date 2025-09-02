@@ -71,20 +71,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-<!--
-			    <exclusion>
-			      <groupId>org.springframework.boot</groupId>
-			      <artifactId>spring-boot-starter-logging</artifactId>
-			    </exclusion>
--->
-			<!--
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-			-->
-            </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -124,19 +110,6 @@
 		    <artifactId>tomcat-jasper</artifactId>
 		    <version>9.0.63</version>
 		</dependency>
-
-
-	    <dependency>
-	        <groupId>org.apache.tomcat.embed</groupId>
-	        <artifactId>tomcat-embed-websocket</artifactId>
-	        <scope>provided</scope>
-	    </dependency>
-
-	    <dependency>
-	        <groupId>org.apache.tomcat.embed</groupId>
-	        <artifactId>tomcat-embed-core</artifactId>
-	        <scope>provided</scope>
-	    </dependency>
 
 		<!-- -->
 		<!-- spring boot dependency end -->
@@ -401,13 +374,17 @@
 		    <scope>test</scope>
 		</dependency>
 
-
 		<dependency>
-		   <groupId>org.springframework.boot</groupId>
-		   <artifactId>spring-boot-starter-tomcat</artifactId>
-		   <scope>provided</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.tmax.jeus</groupId>
+			<artifactId>spring-support</artifactId>
+			<version>4.2.0.RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- 0830 -->
         <dependency>
@@ -549,7 +526,10 @@
 			<artifactId>json</artifactId>
 			<version>20230227</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

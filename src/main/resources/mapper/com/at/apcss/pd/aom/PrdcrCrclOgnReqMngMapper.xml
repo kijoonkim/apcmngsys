@@ -538,6 +538,351 @@
 		</if>
 	</select>
 
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList			-->
+	<!-- DESC : 통합+출자출하 조직 목록 조회.                                         	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2023.06.29  	jcshin        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectUoIsoOgnzList" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO" resultType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
+		<![CDATA[
+			SELECT /* com.at.apcss.pd.aom.mapper.PrdcrCrclOgnReqMngMapper.selectUoIsoOgnzList */
+		]]>
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			ROWNUM AS ROW_SEQ
+			, COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+			,
+		</if>
+		<![CDATA[
+				pt0.*
+			FROM (
+			SELECT A.*
+			FROM (
+				SELECT
+					EAM.APO_SE		AS APO_SE
+					, EAM.YR		AS YR
+					, EAM.APLY_DAY	AS APLY_DAY
+					, APO.APO_CD	AS APO_CD
+					, APO.CORP_NM	AS CORP_NM
+					, APO.CRNO		AS CRNO
+					, APO.BRNO			AS BRNO
+					, UC.UO_BRNO		AS UO_BRNO
+					, UO.CORP_NM	AS UO_CORP_NM
+				    , UO.CRNO		AS UO_CRNO
+					, APO.PIC_FLNM	AS PIC_FLNM
+					, APO.ZIP	AS ZIP
+					, APO.LOTNO_ADDR	AS LOTNO_ADDR
+					, APO.LOTNO_DTL_ADDR	AS LOTNO_DTL_ADDR
+					, APO.ROAD_NM_ADDR	AS ROAD_NM_ADDR
+					, APO.ROAD_NM_DTL_ADDR	AS ROAD_NM_DTL_ADDR
+					, APO.CORP_SE_CD	AS CORP_SE_CD
+					, APO.CORP_DTL_SE_CD	AS CORP_DTL_SE_CD
+					, APO.CORP_FNDN_DAY	AS CORP_FNDN_DAY
+					, APO.INVST_NOPE	AS INVST_NOPE
+					, APO.INVST_EXPND_FRMER_NOPE	AS INVST_EXPND_FRMER_NOPE
+					, APO.INVST_AMT	AS INVST_AMT
+					, APO.FRMER_INVST_AMT	AS FRMER_INVST_AMT
+					, APO.PRDCR_GRP_INVST_AMT	AS PRDCR_GRP_INVST_AMT
+					, APO.LOCGOV_INVST_AMT	AS LOCGOV_INVST_AMT
+					, APO.ETC_INVST_AMT	AS ETC_INVST_AMT
+					, APO.RGLLBR_NOPE	AS RGLLBR_NOPE
+					, APO.DW_NOPE	AS DW_NOPE
+					, APO.DLBRR_NOPE	AS DLBRR_NOPE
+					, APO.ISO_HLD_YN	AS ISO_HLD_YN
+					, APO.UNTY_YN	AS UNTY_YN
+					--, CM.UO_BRNO
+					, APO.UO_NM	AS UO_NM
+					, APO.UNTY_YR	AS UNTY_YR
+					, APO.STBLT_YN	AS STBLT_YN
+					, APO.MNGMST_YN	AS MNGMST_YN
+
+				     /*
+					, (
+						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
+						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
+							JOIN TB_ITEM_CRTR ITM
+						ON ITM.ITEM_CD = PS.ITEM_CD
+						WHERE PS.BRNO = EAM.BRNO
+						  AND PS.YR = EAM.YR
+						  AND PS.STBLT_YN = 'Y'
+						  AND PS.TYPE_SE_NO = 8
+					)	AS STBLT_YN_NM_LIST
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, NULL
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST
+				     /*
+			   		, (
+						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
+						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
+							JOIN TB_ITEM_CRTR ITM
+						ON ITM.ITEM_CD = PS.ITEM_CD
+						WHERE PS.BRNO = EAM.BRNO
+						  AND PS.YR = EAM.YR
+						  AND PS.STBLT_YN = 'Y'
+						  AND PS.TYPE_SE_NO = 8
+						  AND EXISTS (
+								SELECT 1
+								FROM TB_EV_APO_YR_GPC_CD X
+								WHERE X.YR = PS.YR
+								AND X.APO_SE = PS.APO_SE
+								AND X.BRNO = PS.BRNO
+								AND X.ITEM_CD = PS.ITEM_CD
+								AND X.STTG_UPBR_ITEM_SE = '1'
+								AND X.DEL_YN = 'N'
+							)
+					)	AS STBLT_YN_NM_LIST_1
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, '1'
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST_1
+				     /*
+			   		, (
+						SELECT LISTAGG(ITM.ITEM_NM, ', ') WITHIN GROUP (ORDER BY ITM.ITEM_NM) AS STBLT_YN_NM
+						FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PS
+							JOIN TB_ITEM_CRTR ITM
+						ON ITM.ITEM_CD = PS.ITEM_CD
+						WHERE PS.BRNO = EAM.BRNO
+						  AND PS.YR = EAM.YR
+						  AND PS.STBLT_YN = 'Y'
+						  AND PS.TYPE_SE_NO = 8
+						  AND EXISTS (
+								SELECT 1
+								FROM TB_EV_APO_YR_GPC_CD X
+								WHERE X.YR = PS.YR
+							  AND X.BRNO = PS.BRNO
+							  AND X.APO_SE = PS.APO_SE
+							  AND X.ITEM_CD = PS.ITEM_CD
+							  AND X.STTG_UPBR_ITEM_SE = '2'
+							  AND X.DEL_YN = 'N'
+							)
+					)	AS STBLT_YN_NM_LIST_2
+				      */
+					, (
+					    SELECT
+							FN_GET_ISO_STBLT_ITEM_NM_LIST (
+								  EAM.YR
+								, EAM.BRNO
+								, EAM.APO_CD
+								, '2'
+							)
+					      FROM DUAL
+					)	AS STBLT_YN_NM_LIST_2
+
+			   		, (
+						SELECT COUNT(*)
+						FROM TB_EV_FRMHS_APO X
+						WHERE X.YR = EAM.YR
+						  AND X.BRNO = EAM.BRNO
+						  AND X.DEL_YN = 'N'
+					)	AS FRMHS_CNT
+				   	, CASE EAM.APO_SE
+						WHEN '1' THEN APO.APRV
+						WHEN '2' THEN UO.APRV
+						ELSE NULL
+					END		AS APRV
+					, CASE EAM.APO_SE
+						WHEN '1' THEN EAM.CORP_DDLN_SE_CD
+						WHEN '2' THEN
+							CASE
+								WHEN EXISTS (
+										SELECT 1
+										  FROM TB_EV_APLY_MNG X
+										 WHERE X.APO_SE = '1'
+										   AND X.YR = EAM.YR
+										   AND X.CORP_DDLN_SE_CD = 'Y'
+										   AND X.BRNO = UC.UO_BRNO
+									) THEN 'Y'
+								ELSE 'N'
+							END
+						ELSE NULL
+					END		AS CORP_DDLN_SE_CD
+					, CASE EAM.APO_SE
+						WHEN '1' THEN EAM.PRFMNC_CORP_DDLN_YN
+						WHEN '2' THEN
+						CASE
+							WHEN EXISTS (
+								SELECT 1
+								  FROM TB_EV_APLY_MNG X
+								 WHERE X.APO_SE = '1'
+								   AND X.YR = EAM.YR
+								   AND X.PRFMNC_CORP_DDLN_YN = 'Y'
+								   AND X.BRNO = UC.UO_BRNO
+							) THEN 'Y'
+							ELSE 'N'
+						END
+					ELSE NULL
+				END		AS PRFMNC_CORP_DDLN_YN
+				, CASE
+					WHEN NVL(EAM.RAW_MTR_ENSR_SIGUN_CNT, 0) > 0 THEN '1'
+					WHEN NVL(EAM.RAW_MTR_ENSR_CTPV_CNT, 0) > 0 THEN '2'
+					ELSE NULL
+				END		AS RAW_MTR_ENSR
+
+				, NVL((
+					SELECT SUM(X.ISO_FUND_APLY_AMT)
+					  FROM TB_EV_APLY_MNG X
+					 WHERE X.YR = EAM.YR
+					   AND X.UO_BRNO = EAM.BRNO
+					   AND X.APO_SE = '2'
+					   AND EXISTS (
+							SELECT 1
+							  FROM VW_EV_APO_UO_CD AUC
+							 WHERE AUC.UO_BRNO = X.UO_BRNO
+							   AND AUC.ISO_BRNO = X.BRNO
+						)
+				), 0)	AS ISO_FUND_APLY_AMT
+				, EAM.RAW_MTR_ENSR_SIGUN_CNT	AS RAW_MTR_ENSR_SIGUN_CNT
+				, EAM.RAW_MTR_ENSR_CTPV_CNT		AS RAW_MTR_ENSR_CTPV_CNT
+				, EAM.CTPV_NM					AS CTPV_NM
+				, EAM.SIGUN_NM					AS SIGUN_NM
+				, EAM.PRUO_FUND_APLY_AMT		AS PRUO_FUND_APLY_AMT
+				, EAM.APLY_TRGT_SE				AS APLY_TRGT_SE
+				, (
+					SELECT MAX(X.LN_CHK_YN)
+					  FROM TB_EV_LN_BLNC_STTS X
+					 WHERE X.UO_BRNO = EAM.BRNO
+					   AND X.DEL_YN = 'N'
+				)	AS LN_CHK_YN
+
+				FROM TB_EV_APLY_MNG EAM
+
+				JOIN TB_EV_APO APO
+				ON APO.BRNO = EAM.BRNO
+	--			AND APO.YR = EAM.YR
+				AND APO.DEL_YN = 'N'
+
+				LEFT JOIN VW_EV_APO_UO_CD UC
+				ON UC.CRTR_YR = EAM.YR
+	--		 	AND UC.ISO_APO_CD = EAM.APO_CD
+				AND UC.ISO_BRNO = EAM.BRNO
+
+				LEFT JOIN TB_EV_APO UO
+				  ON UO.BRNO = UC.UO_BRNO
+				 AND UO.DEL_YN = 'N'
+
+			 	WHERE EAM.APO_SE = #{apoSe}
+			   	AND EAM.YR = #{yr}
+		]]>
+
+		<if test='brno != null and brno != ""'>
+			<if test='userType != "21"'>
+				AND EAM.BRNO = #{brno}
+			</if>
+			<if test='userType == "21"'>
+				AND (
+					EAM.BRNO  = #{brno}
+					OR
+					EAM.BRNO IN (
+				    	SELECT X.ISO_BRNO
+				    	FROM VW_EV_APO_UO_CD X
+				    	WHERE X.UO_BRNO = #{brno}
+				    	AND X.CRTR_YR = EAM.YR
+				    )
+				)
+			</if>
+		</if>
+		<if test='uoBrno != null and uoBrno != ""'>
+			AND EAM.BRNO IN (
+				SELECT X.ISO_BRNO
+				FROM VW_EV_APO_UO_CD X
+				WHERE X.UO_BRNO = #{uoBrno}
+				AND X.CRTR_YR = EAM.YR
+			)
+		</if>
+		<if test='uoBrnoUo != null and uoBrnoUo != ""'>
+			AND (
+				EAM.BRNO = #{uoBrnoUo}
+				OR
+				EAM.BRNO IN (
+					SELECT X.ISO_BRNO
+					FROM VW_EV_APO_UO_CD X
+					WHERE X.UO_BRNO = #{uoBrnoUo}
+					AND X.CRTR_YR = EAM.YR
+				)
+			)
+		</if>
+
+		<![CDATA[
+			 	AND NOT EXISTS (
+					   SELECT 1
+					   FROM TB_COM_USER X
+					   WHERE X.USER_ID IN (
+						   SELECT CD.CD_VL
+						   FROM TB_COM_CD_DTL CD
+						   WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+							 AND CD.USE_YN = 'Y'
+							 AND CD.DEL_YN = 'N'
+							)
+						 AND X.BRNO IN (EAM.BRNO, UC.UO_BRNO)
+				   )
+		]]>
+		<if test='cmptnInst != null and cmptnInst != ""'>
+					AND APO.CMPTN_INST = #{cmptnInst}
+		</if>
+		<if test='ctpv != null and ctpv != ""'>AND TRIM(APO.CTPV) = #{ctpv}
+		</if>
+		<if test='corpSeCd != null and corpSeCd != ""'>
+					AND APO.CORP_SE_CD = #{corpSeCd}
+		</if>
+		<if test='corpDtlSeCd != null and corpDtlSeCd != ""'>
+					AND APO.CORP_DTL_SE_CD = #{corpDtlSeCd}
+		</if>
+		<if test='corpNm != null and corpNm != ""'>
+					AND APO.CORP_NM LIKE '%' || #{corpNm} || '%'
+		</if>
+		<if test='corpDdlnSeCd != null and corpDdlnSeCd != ""'>
+					AND APO.CORP_DDLN_SE_CD = #{corpDdlnSeCd}
+		</if>
+		<![CDATA[
+			) A
+			WHERE A.YR IS NOT NULL
+		]]>
+		<if test='aprv != null and aprv != ""'>
+			AND A.APRV = #{aprv}
+		</if>
+		<if test='frmhsHldYn == "Y"'>
+			AND A.FRMHS_CNT > 0
+		</if>
+		<if test='frmhsHldYn == "N"'>
+			AND A.FRMHS_CNT = 0
+		</if>
+		<if test='stbltHldYn == "Y"'>
+			AND A.STBLT_YN_NM IS NOT NULL
+		</if>
+		<if test='stbltHldYn == "N"'>
+			AND A.STBLT_YN_NM_LIST IS NULL
+		</if>
+		<if test='prfmncCorpDdlnYn != null and prfmncCorpDdlnYn != ""'>
+			AND A.PRFMNC_CORP_DDLN_YN = #{prfmncCorpDdlnYn}
+		</if>
+		<![CDATA[
+			ORDER BY APO_SE, CORP_NM
+			) pt0
+		]]>
+		<!-- 페이징 -->
+		<if test='pagingYn != null and pagingYn.equals("Y")'>
+			OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+			FETCH FIRST #{recordCountPerPage} ROWS ONLY
+		</if>
+	</select>
+
 
 	<insert id="insertPrdcrCrclOgnReqMng" parameterType="com.at.apcss.pd.aom.vo.PrdcrCrclOgnReqMngVO">
 		<![CDATA[

@@ -1620,13 +1620,13 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn	-->
-	<!-- DESC : 배출구별 집계 조회.	                           		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2024.04.18  박승진        		Initial Creation                        -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn	    -->
+    <!-- DESC : 배출구별 집계 조회.	                           		                -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.04.18  박승진        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <select id="selectExhstDsctn" parameterType="hashmap" resultType="hashmap">
     	<![CDATA[
 			-- 배출구별
@@ -1822,22 +1822,57 @@
     </select>
 
     <!-- ==========================================================================	-->
-	<!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn	-->
-	<!-- DESC : 등급별 집계 조회.	                           		-->
-	<!-- ==========================================================================	-->
-	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
-	<!-- ===========  	============  	===========================================	-->
-	<!-- 2024.04.18  박승진        		Initial Creation                        -->
-	<!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectExhstDsctn	    -->
+    <!-- DESC : 등급별 집계 조회.	                           		                    -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2024.04.18  박승진        		Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <select id="selectGrdDsctn" parameterType="hashmap" resultType="hashmap">
     	<![CDATA[
     	SELECT
 		  SI.APC_CD						AS APC_CD
+    	, LISTAGG(SI.SORTNO, ',') WITHIN GROUP (ORDER BY SI.SORTNO) AS SORTNO
 		, SI.INPT_YMD					AS INPT_YMD
+		, SI.RPRS_PRDCR_CD				AS RPRS_PRDCR_CD
 		, (select FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) AS PRDCR_NM
 		, SI.ITEM_CD						AS ITEM_CD
+		, SI.VRTY_CD						AS VRTY_CD
 		, (SELECT FN_GET_COM_CD_VL_NM('SORT_FCLT_CD', SI.FCLT_CD , SI.APC_CD) FROM DUAL) AS FCLT_NM
-		, MAX(SI.RMRK)					AS RMRK
+    	, MAX(SI.SPCFCT_CD)		AS SPCFCT_CD
+		, MAX(SI.RMRK)			AS RMRK
+        , MAX(CASE WHEN GDS.GRD_SN = 1 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_1
+        , MAX(CASE WHEN GDS.GRD_SN = 2 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_2
+        , MAX(CASE WHEN GDS.GRD_SN = 3 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_3
+        , MAX(CASE WHEN GDS.GRD_SN = 4 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_4
+        , MAX(CASE WHEN GDS.GRD_SN = 5 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_5
+        , MAX(CASE WHEN GDS.GRD_SN = 6 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_6
+        , MAX(CASE WHEN GDS.GRD_SN = 7 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_7
+        , MAX(CASE WHEN GDS.GRD_SN = 8 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_8
+        , MAX(CASE WHEN GDS.GRD_SN = 9 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_9
+        , MAX(CASE WHEN GDS.GRD_SN = 10 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_10
+        , MAX(CASE WHEN GDS.GRD_SN = 11 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_11
+        , MAX(CASE WHEN GDS.GRD_SN = 12 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_12
+        , MAX(CASE WHEN GDS.GRD_SN = 13 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_13
+        , MAX(CASE WHEN GDS.GRD_SN = 14 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_14
+        , MAX(CASE WHEN GDS.GRD_SN = 15 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_15
+        , MAX(CASE WHEN GDS.GRD_SN = 16 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_16
+        , MAX(CASE WHEN GDS.GRD_SN = 17 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_17
+        , MAX(CASE WHEN GDS.GRD_SN = 18 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_18
+        , MAX(CASE WHEN GDS.GRD_SN = 19 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_19
+        , MAX(CASE WHEN GDS.GRD_SN = 20 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_20
+        , MAX(CASE WHEN GDS.GRD_SN = 21 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_21
+        , MAX(CASE WHEN GDS.GRD_SN = 22 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_22
+        , MAX(CASE WHEN GDS.GRD_SN = 23 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_23
+        , MAX(CASE WHEN GDS.GRD_SN = 24 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_24
+        , MAX(CASE WHEN GDS.GRD_SN = 25 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_25
+        , MAX(CASE WHEN GDS.GRD_SN = 26 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_26
+        , MAX(CASE WHEN GDS.GRD_SN = 27 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_27
+        , MAX(CASE WHEN GDS.GRD_SN = 28 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_28
+        , MAX(CASE WHEN GDS.GRD_SN = 29 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_29
+        , MAX(CASE WHEN GDS.GRD_SN = 30 THEN SUBSTR(SI.RMRK, 1, INSTR(SI.RMRK, '|') - 1) ELSE '' END) AS RMRK_30
+
 		, SUM(SI.SORT_QNTT)		AS SORT_QNTT
 		, SUM(SI.SORT_WGHT)		AS SORT_WGHT
 		, SUM(CASE WHEN GDS.GRD_SN = 1 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_1
@@ -1857,30 +1892,55 @@
 		, SUM(CASE WHEN GDS.GRD_SN = 15 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_15
 		, SUM(CASE WHEN GDS.GRD_SN = 16 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_16
 		, SUM(CASE WHEN GDS.GRD_SN = 17 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_17
+		, SUM(CASE WHEN GDS.GRD_SN = 18 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_18
+		, SUM(CASE WHEN GDS.GRD_SN = 19 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_19
+		, SUM(CASE WHEN GDS.GRD_SN = 20 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_20
+		, SUM(CASE WHEN GDS.GRD_SN = 21 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_21
+		, SUM(CASE WHEN GDS.GRD_SN = 22 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_22
+		, SUM(CASE WHEN GDS.GRD_SN = 23 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_23
+		, SUM(CASE WHEN GDS.GRD_SN = 24 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_24
+		, SUM(CASE WHEN GDS.GRD_SN = 25 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_25
+		, SUM(CASE WHEN GDS.GRD_SN = 26 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_26
+		, SUM(CASE WHEN GDS.GRD_SN = 27 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_27
+		, SUM(CASE WHEN GDS.GRD_SN = 28 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_28
+		, SUM(CASE WHEN GDS.GRD_SN = 29 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_29
+		, SUM(CASE WHEN GDS.GRD_SN = 30 THEN SI.SORT_QNTT ELSE 0 END) AS QNTT_30
 
-		, SUM(CASE WHEN GDS.GRD_SN = 1 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_1
-		, SUM(CASE WHEN GDS.GRD_SN = 2 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_2
-		, SUM(CASE WHEN GDS.GRD_SN = 3 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_3
-		, SUM(CASE WHEN GDS.GRD_SN = 4 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_4
-		, SUM(CASE WHEN GDS.GRD_SN = 5 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_5
-		, SUM(CASE WHEN GDS.GRD_SN = 6 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_6
-		, SUM(CASE WHEN GDS.GRD_SN = 7 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_7
-		, SUM(CASE WHEN GDS.GRD_SN = 8 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_8
-		, SUM(CASE WHEN GDS.GRD_SN = 9 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_9
-		, SUM(CASE WHEN GDS.GRD_SN = 10 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_10
-		, SUM(CASE WHEN GDS.GRD_SN = 11 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_11
-		, SUM(CASE WHEN GDS.GRD_SN = 12 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_12
-		, SUM(CASE WHEN GDS.GRD_SN = 13 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_13
-		, SUM(CASE WHEN GDS.GRD_SN = 14 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_14
-		, SUM(CASE WHEN GDS.GRD_SN = 15 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_15
-		, SUM(CASE WHEN GDS.GRD_SN = 16 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_16
-		, SUM(CASE WHEN GDS.GRD_SN = 17 THEN SI.SORT_WGHT ELSE 0 END) AS WGHT_17
-
-
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 1 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_1
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 2 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_2
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 3 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_3
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 4 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_4
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 5 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_5
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 6 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_6
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 7 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_7
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 8 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_8
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 9 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4)) AS WGHT_9
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 10 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_10
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 11 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_11
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 12 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_12
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 13 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_13
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 14 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_14
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 15 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_15
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 16 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_16
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 17 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_17
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 18 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_18
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 19 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_19
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 20 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_20
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 21 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_21
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 22 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_22
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 23 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_23
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 24 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_24
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 25 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_25
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 26 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_26
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 27 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_27
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 28 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_28
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 29 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_29
+		, CAST(SUM(CASE WHEN GDS.GRD_SN = 30 THEN SI.SORT_WGHT ELSE 0 END) AS NUMBER(13,4))  AS WGHT_30
   FROM
 	(
 		SELECT
 			  X.APC_CD
+			, X.SORTNO
 			, X.FCLT_CD
 			, X.INPT_YMD
 			, X.RPRS_PRDCR_CD
@@ -1890,15 +1950,22 @@
 			, X.SORT_QNTT
 			, X.SORT_WGHT
 			, X.RMRK
+			, X.SPCFCT_CD
 		  FROM TB_SORT_INVNTR X
 		 WHERE 1=1
 		  ]]>
 	   		<if test='apcCd != null and apcCd !=""'>
 	      	       AND X.APC_CD = #{apcCd}
 			</if>
-			 <if test=' inptYmdFrom != null and inptYmdFrom !="" and inptYmdTo != null and inptYmdTo !="" '>
-	             	   AND X.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
-			 </if>
+		<if test="inptYmd != null and inptYmd != ''">
+			AND X.INPT_YMD = #{inptYmd}
+		</if>
+		<if test="inptYmdFrom != null and inptYmdFrom != ''">
+			AND X.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test="inptYmdTo != null and inptYmdTo != ''">
+			AND X.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
 			 <if test='prdcrCd != null and prdcrCd  !=""'>
 	      	       AND X.RPRS_PRDCR_CD = #{prdcrCd}
 			</if>
@@ -1977,6 +2044,7 @@
 					, SI.INPT_YMD
 					, SI.RPRS_PRDCR_CD
 					, SI.ITEM_CD
+		 			, SI.VRTY_CD
 		 ORDER BY
 		 			  APC_CD
 					, FCLT_CD
@@ -2814,8 +2882,6 @@
                 <if test='grdSeCd != null and grdSeCd !=""'>
                      AND X.GRD_SE_CD = #{grdSeCd}
                 </if>
-
-
 
                    AND X.GRD_KND = (
                            SELECT MAX(KND.GRD_KND) KEEP (DENSE_RANK FIRST ORDER BY KND.SN) AS GRD_KND
@@ -3893,7 +3959,8 @@
 		FROM (
 				 SELECT
 					 MAX(SP.APC_CD) AS APC_CD
-				   , SP.SORTNO
+				   , SP.SORTNO AS SORTNO
+				   , MAX(SP.RMRK) AS RMRK
 				   , MAX(WP.WRHSNO) AS WRHSNO
 				   , '[' || LISTAGG('{"GRD_CD": "' || SI.GRD_CD || '", "SORT_QNTT": ' || SI.SORT_QNTT || '}', ', ') WITHIN GROUP (ORDER BY SI.GRD_CD) || ']' AS GRD_JSON
 				   , SUM(SI.SORT_QNTT) AS QNTT
@@ -3929,4 +3996,86 @@
 			  	ORDER BY SP.SORTNO
 			 ) pt0
 	</select>
+
+	<select id="selectGrdDsctnColList" resultType="java.util.HashMap">
+		SELECT
+			 GD.GRD_CD
+			,GD.GRD_NM
+			,GD.AFTR_GRD_CD
+			,SGD.GRD_CD
+			,SGD.GRD_NM
+		FROM
+			TB_APC_STD_GRD_DTL GD
+		JOIN
+			TB_APC_STD_GRD_DTL SGD
+		ON GD.GRD_SE_CD = '02'
+		AND SGD.GRD_SE_CD = '03'
+		AND GD.APC_CD = SGD.APC_CD
+		AND GD.AFTR_GRD_KND = SGD.GRD_KND
+		AND GD.AFTR_GRD_CD = SGD.GRD_CD
+		WHERE
+			GD.APC_CD = #{apcCd}
+		AND
+			GD.ITEM_CD = #{itemCd}
+		AND
+			GD.DEL_YN = 'N'
+	</select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.am.sort.mapper.SortPrfmncMapper.selectSortInvntrList  	-->
+    <!-- DESC : 선별내역 조회	                                            -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.07.24  	최지호        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSortInvntrList" parameterType="hashmap" resultType="hashmap">
+        <![CDATA[
+            SELECT
+                  SI.APC_CD AS APC_CD
+                , SI.SORTNO AS SORTNO
+                , SI.FCLT_CD AS FCLT_CD
+                , SI.INPT_YMD AS INPT_YMD
+                , SI.RPRS_PRDCR_CD AS PRDCR_CD
+                , (SELECT FN_GET_PRDCR_NM(SI.RPRS_PRDCR_CD, SI.APC_CD) FROM DUAL) AS PRDCR_NM
+                , SI.ITEM_CD AS ITEM_CD
+	            , (SELECT FN_GET_ITEM_NM(SI.ITEM_CD, SI.APC_CD) FROM DUAL) AS ITEM_NM
+                , SI.VRTY_CD AS VRTY_CD
+                , (SELECT FN_GET_VRTY_NM(SI.ITEM_CD, SI.VRTY_CD, SI.APC_CD) FROM DUAL) AS VRTY_NM
+                , SI.GRD_CD AS GRD_CD
+                , SI.SPCFCT_CD AS SPCFCT_CD
+                , SI.SORT_QNTT AS SORT_QNTT
+                , SI.SORT_WGHT AS SORT_WGHT
+                , SI.RMRK AS RMRK
+            FROM TB_SORT_INVNTR SI
+            WHERE SI.DEL_YN = 'N'
+        ]]>
+        <if test='apcCd != null and apcCd !=""'>
+            AND SI.APC_CD = #{apcCd}
+        </if>
+		<if test="inptYmd != null and inptYmd != ''">
+			AND SI.INPT_YMD = #{inptYmd}
+		</if>
+		<if test="inptYmdFrom != null and inptYmdFrom != ''">
+			AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+		</if>
+		<if test="inptYmdTo != null and inptYmdTo != ''">
+			AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
+		</if>
+        <if test='prdcrCd != null and prdcrCd  !=""'>
+            AND SI.RPRS_PRDCR_CD = #{prdcrCd}
+        </if>
+        <if test='itemCd != null and itemCd !=""'>
+            AND SI.ITEM_CD = #{itemCd}
+        </if>
+        <![CDATA[
+            ORDER BY
+                  SI.APC_CD
+                , SI.FCLT_CD
+                , SI.INPT_YMD
+                , SI.RPRS_PRDCR_CD
+                , SI.ITEM_CD
+                , SI.GRD_CD
+	    ]]>
+    </select>
 </mapper>

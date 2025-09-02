@@ -198,6 +198,15 @@ public class PckgPrfmncVO extends ComVO {
 	private double spmtWght;
 
 	/**
+	 * 투입수량
+	 */
+	private int inptQntt;
+	/**
+	 * 투입중량
+	 */
+	private double inptWght;
+
+	/**
 	 * 생산연도
 	 */
 	private String prdctnYr;

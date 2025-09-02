@@ -61,6 +61,7 @@
 			            , PBI.PLT_BX_SE_CD          AS PLT_BX_SE_CD
 			            , PBI.PLT_BX_CD             AS PLT_BX_CD
 			            , PBI.PLT_BX_NM             AS PLT_BX_NM
+			            , PBI.INDCT_SEQ				AS INDCT_SEQ
 			            , PBI.UNIT_WGHT             AS UNIT_WGHT
 			            , PBI.USE_YN                AS USE_YN
 			            , PBI.DEL_YN                AS DEL_YN
@@ -95,6 +96,7 @@
 				    	AND PBI.APC_CD 					= #{apcCd}
 				</if>
 		<![CDATA[
+			         ORDER BY PLT_BX_SE_CD, INDCT_SEQ, PLT_BX_CD
       			) pt0
 		]]>
     </select>
@@ -197,7 +199,8 @@
 				)
 		WHEN MATCHED THEN
 			UPDATE SET
-				QNTT = source.QNTT
+				QNTT = source.QNTT,
+		    	RMRK = source.RMRK
 		WHEN NOT MATCHED THEN
 			INSERT
 	    		(
@@ -308,10 +311,8 @@
 			              ) AS PLT_CNPT_CD
 			          FROM TB_PLT_WRHS_SPMT PWS
 			         WHERE 1=1
+			            AND PWS.DEL_YN 					= 'N'
 		]]>
-        <if test='delYn != null and delYn != ""'>
-				    	AND PWS.DEL_YN 					= #{delYn}
-		</if>
 		<if test='pltNm != null and pltNm != ""'>
 						AND PWS.PLT_NM 					= #{pltNm}
 		</if>
@@ -459,4 +460,27 @@
 			AND PWS.SN = #{sn}
 		</if>
 	</select>
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.PltWrhsMapper.deletePltWrhsSpmt			-->
+	<!-- DESC : 팔레트/박스 입출 삭제.			                                       	-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.08.11  	유민지        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<delete id="deletePltWrhsSpmt">
+		DELETE
+			TB_PLT_WRHS_SPMT
+		WHERE
+		<foreach collection="list" item="vo" open="(" separator="OR" close=")">
+			(APC_CD = #{vo.apcCd}
+			AND JOB_YMD = #{vo.jobYmd}
+			AND SN = #{vo.sn}
+			AND PLT_BX_CD = #{vo.pltBxCd}
+			AND PLT_BX_SE_CD = #{vo.pltBxSeCd}
+			AND PRDCR_CD = #{vo.prdcrCd})
+			AND PRCSNO = #{vo.prcsNo}
+		</foreach>
+	</delete>
+
 </mapper>

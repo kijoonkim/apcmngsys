@@ -21,6 +21,7 @@
     <script src="/resource/script/comAuthrt.js"></script>
     <script src="/resource/script/comApcUtil.js"></script>
     <script src="/resource/script/comApcGrd.js"></script>
+	<script src="/resource/script/comApcSurvey.js"></script>
     <script src="/resource/script/comMa.js?ver=1.0"></script>
 
     <script src="/resource/script/hangul.min.js"></script>
@@ -110,13 +111,17 @@
 		<c:set scope="request" var="apcSeCd" value="${loginVO.apcSeCd}"></c:set>
 		<c:set scope="request" var="userType" value="${loginVO.userType}"></c:set>
 		<c:set scope="request" var="userNm" value="${loginVO.name}"></c:set>
-		
+		<c:set scope="request" var="untyAuthrtType" value="${loginVO.untyAuthrtType}"></c:set>
+		<c:set scope="request" var="userId" value="${loginVO.userId}"></c:set>
+
 		let gv_apcCd = '${apcCd}';
 		let gv_apcNm = '${apcNm}';
 		let gv_apcSeCd = '${apcSeCd}';
 		const gv_userType = '${userType}';
 		const gv_userNm = '${userNm}';
-		
+		const gv_untyAuthrtType = '${untyAuthrtType}';
+		const gv_userId = '${userId}';
+
 		</c:when>
 		<c:otherwise>
 		let gv_apcCd = '';
@@ -124,6 +129,7 @@
 		let gv_apcSeCd = '';
 		const gv_userType = '';
 		const gv_userNm = '${userNm}';
+		const gv_untyAuthrtType = '';
 		</c:otherwise>
 	</c:choose>
 		// 선택 APC코드 설정

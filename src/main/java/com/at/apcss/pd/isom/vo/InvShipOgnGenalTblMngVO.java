@@ -17,6 +17,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String crno;
 	private String corpNm;
 	private String uoCorpNm;
+	private String uoApoCd;
 	private String ctpv;
 	private String sgg;
 	private String cmptnInst;
@@ -27,6 +28,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String itemCd;
 
 	private String sttgUpbrItemSe;
+	private String sttgUpbrItemSeNm;
 	private String sttgUpbrItemNm;
 	private String aprv;
 	private String aprvNm;
@@ -55,6 +57,8 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String lastStbltYn;//최종 선정여부
 	private String ognzStbltYn;//조직 적합여부
 
+	private String stbltYnNm;	// 적합여부명
+	
 	private String sysFrstInptUserIdNm;
 	private String sysLastChgUserIdNm;
 	private String sysFrstInptDtYmd;
@@ -83,5 +87,7 @@ public class InvShipOgnGenalTblMngVO extends ComVO{
 	private String uoSpmtVlmTot;
 	/* 20250306 조치사항 추가 */
 	private String actnMttr;
+
+	private String oldDataYn;
 
 }

@@ -1,20 +1,20 @@
 package com.at.apcss.am.apc.vo;
 
 import com.at.apcss.co.sys.vo.ComVO;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ApcLinkVO  extends ComVO{
+public class ApcLinkVO extends ComVO {
 
-	private String groupId;		// 연계그룹id
+	private String groupId;    // 연계그룹id
 	
 	private String rtnCd;
 	private String rtnMsg;
 	
 	private String apcCd;
+    private String apcNm;
 	private String apcKey;
 	
 	private String trsmMatId;
@@ -24,10 +24,10 @@ public class ApcLinkVO  extends ComVO{
 	
 	private String sttsColor;
 	
-	private String linkKnd;		// W: 계량, R:입고, S:선별, P:포장, D:출하
+	private String linkKnd;    // W: 계량, R: 입고, S: 선별, P: 포장, D: 출하
 	private String linkKndNm;
-	private String linkStts;	//  
-	private String linkSttsNm;	//
+	private String linkStts;
+	private String linkSttsNm;
 	private String linkSttsColor;
 	
 	private String linkUseYn;

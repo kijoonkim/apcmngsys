@@ -1,6 +1,7 @@
 package com.at.apcss.am.spmt.service;
 
 import com.at.apcss.am.spmt.vo.SpmtPrfmncComVO;
+import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,4 +38,20 @@ public interface SpmtMngService {
      */
     public HashMap<String, Object> insertSpmtPrfmncWithList(List<SpmtPrfmncComVO> spmtPrfmncComList) throws Exception;
 
+
+    /**
+     * 강제출하 목록 조회 (상품재고 대사)
+     * @param spmtPrfmncVO
+     * @return
+     * @throws Exception
+     */
+    public List<SpmtPrfmncVO> selectForcedShipmentListForCompare(SpmtPrfmncVO spmtPrfmncVO) throws Exception;
+
+    /**
+     * 통합 출하 목록 등록
+     * @param spmtPrfmncComVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertSpmtRsltMonthly(SpmtPrfmncComVO spmtPrfmncComVO) throws Exception;
 }

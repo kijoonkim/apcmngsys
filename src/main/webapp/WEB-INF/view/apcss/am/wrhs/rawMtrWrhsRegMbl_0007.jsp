@@ -169,9 +169,9 @@
                 ></sbux-button>
                 <div style="float:right;margin-left:10px;">
                     <p class="ad_input_row chk-mbl" style="vertical-align:middle;">
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked />
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-autoPrint" name="srch-chk-autoPrint" checked/>
                         <label for="srch-chk-autoPrint">자동출력</label>
-                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" />
+                        <input style="width:20px;height:20px;" type="checkbox" id="srch-chk-exePrint" name="srch-chk-exePrint" checked/>
                         <label for="srch-chk-exePrint">미리보기</label>
                     </p>
                 </div>
@@ -395,35 +395,35 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="box-body" id="latestInfo">
-            <table class="table table-bordered tbl_fixed tbl_mbl">
-                <colgroup>
-                    <col style="width: 6%">
-                    <col style="width: 10%">
-                    <col style="width: 20%">
-                    <col style="width: 10%">
-                    <col style="width: 10%">
-                    <col style="width: 5%">
-                    <col style="width: 10%">
-                    <col style="width: 19%">
-                </colgroup>
-                <thead>
-                <tr>
-                    <th>처리</th>
-                    <th>생산자</th>
-                    <th>팔레트 번호</th>
-                    <th>품목/품종</th>
-                    <th>규격</th>
-                    <th>수량</th>
-                    <th>입고일자</th>
-                    <th>등록일시</th>
-                </tr>
-                </thead>
-                <tbody id="latestInfoBody">
-                </tbody>
+            <div class="box-body" id="latestInfo">
+                <table class="table table-bordered tbl_fixed tbl_mbl">
+                    <colgroup>
+                        <col style="width: 6%">
+                        <col style="width: 10%">
+                        <col style="width: 20%">
+                        <col style="width: 10%">
+                        <col style="width: 10%">
+                        <col style="width: 5%">
+                        <col style="width: 10%">
+                        <col style="width: 19%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>처리</th>
+                        <th>생산자</th>
+                        <th>팔레트 번호</th>
+                        <th>품목/품종</th>
+                        <th>규격</th>
+                        <th>수량</th>
+                        <th>입고일자</th>
+                        <th>등록일시</th>
+                    </tr>
+                    </thead>
+                    <tbody id="latestInfoBody">
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </section>
@@ -580,11 +580,17 @@
                 //     // jsonSave[idx].wrhsno = item.wrhsno;
                 //     // updateCell(idx,2,item.pltno);
                 // });
+                let autoPrint = $("#srch-chk-autoPrint").is(':checked');
+                if(autoPrint){
+                    let wrhsno = data.returnList[0].pltno;
+                    SBUxMethod.set("srch-inp-pltno",wrhsno);
+
+                    await fn_autoPrint();
+                }
                 if(!gfn_isEmpty(jsonSave[0].wrhsno)){
                     SBUxMethod.attr("btnCmndDocPckg","disabled","false");
                 }
                 fn_reset();
-                // await fn_autoPrint(jsonSave);
             } else {
                 gfn_comAlert(data.resultCode, data.resultMessage);	//	E0001	오류가 발생하였습니다.
             }
@@ -828,6 +834,9 @@
         if (gfn_isEmpty(itemCd)) {
             SBUxMethod.set("srch-inp-wghtAvg", "");
         }
+        /** 규격 입고시에 연계 코드가 원물인경우만 노출 **/
+        jsonSpcfctCd = jsonSpcfctCd.filter(i => i.extrnlLnkgCd === '원물');
+        SBUxMethod.refresh('srch-slt-spcfctCd');
     }
 
     /**
@@ -852,6 +861,11 @@
         if (itemCd != prvItemCd) {
             SBUxMethod.set("srch-slt-itemCd", itemCd);
             await gfn_setApcSpcfctsSBSelect('srch-slt-spcfctCd', jsonSpcfctCd,gv_selectedApcCd,itemCd),			// 품종
+
+            /** 규격 입고시에 연계 코드가 원물인경우만 노출 **/
+            jsonSpcfctCd = jsonSpcfctCd.filter(i => i.extrnlLnkgCd === '원물');
+
+            SBUxMethod.refresh('srch-slt-spcfctCd');
             SBUxMethod.set("srch-slt-vrtyCd", vrtyCd);
         }
         const wghtRkngSeCd = vrtyInfo.wghtRkngSeCd;

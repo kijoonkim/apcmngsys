@@ -48,6 +48,9 @@
 						<col style="width: 7%">
 						<col style="width: 6%">
 						<col style="width: 9%">
+						<col style="width: 7%">
+						<col style="width: 6%">
+						<col style="width: 9%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -59,6 +62,15 @@
 							<td class="td_input" style="border-right: hidden;">
 								<sbux-input id="srch-inp-regApcNm" name="srch-inp-regApcNm" uitype="text" class="form-control input-sm" maxlength="33" onkeyenter="fn_search"></sbux-input>
 							</td>
+							<th class="ta_c">APC특수관리코드</th>
+							<td class="td_input" style="border-right: hidden;">
+								<div class="fl_group fl_rpgroup">
+									<div class="dp_inline wd_180 va_m">
+										<sbux-select id="srch-slt-apcSpclMngCd" name="srch-slt-apcSpclMngCd" uitype="single" jsondata-ref="jsonComApcSpclMng" unselected-text="전체" class="form-control input-sm"></sbux-select>
+									</div>
+								</div>
+							</td>
+							<td></td>
 							<th class="ta_c">사용유무</th>
 							<td class="td_input" style="border-right: hidden;">
 								<div class="fl_group fl_rpgroup">
@@ -98,6 +110,7 @@
 
 	var jsonComCtpv 			= [];	// 시/도
 	var jsonComSgg 				= [];	// 시/군/구
+	var jsonComApcSpclMng		= [];	// APC특수관리코드
 
 	var apcInfoMngData = [];
 
@@ -105,6 +118,8 @@
 		let result = await Promise.all([
 			gfn_getComCdDtls("UNTY_CTPV"),
 			gfn_getComCdDtls("UNTY_SGG"),
+			gfn_getComCdDtls("APC_SPCL_MNG_CD"),
+			gfn_setComCdSBSelect('srch-slt-apcSpclMngCd', jsonComApcSpclMng, 'APC_SPCL_MNG_CD'),
 			gfn_setComCdSBSelect('srch-slt-delYn', jsonComboDelYn, 'REVERSE_YN', gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboDelYnJsData, "REVERSE_YN", gv_apcCd),
 			gfn_setComCdGridSelect('grdApcInfoMng', comboMbCdJsData, "MB_CD", gv_apcCd),
@@ -112,7 +127,11 @@
 
 		jsonComCtpv = result[0];
 		jsonComSgg = result[1];
-
+		jsonComApcSpclMng = result[2];
+		jsonComApcSpclMng.unshift({
+			cdVlExpln: "",
+			cdVl: ""
+		});
 
 	}
 
@@ -227,12 +246,35 @@
 				validate : gfn_chkByte.bind({byteLimit: 20})},
             {caption: ['전화번호'], 	ref: 'telno',	 	width: '100px', 	type: 'input',		style:'text-align: center', sortable: false,
 				validate : gfn_chkByte.bind({byteLimit: 11})},
+			{
+				caption: ['APC특수관리코드'],
+				ref: 'apcSpclMngCd',
+				width: '100px',
+				type: 'combo',
+				style: 'text-align: center',
+				typeinfo: {
+					ref: 'jsonComApcSpclMng',
+					label: 'cdVlExpln',
+					value: 'cdVl',
+					displayui: true,
+					itemcount: 4
+				},
+				sortable: false
+			},
             {caption: ['사용유무'], 	ref: 'delYn', 	 	width: '70px', 		type: 'combo',		style:'text-align: center', sortable: false,
             	typeinfo : {ref:'comboDelYnJsData', label:'label', value:'value'}}
         ];
         grdApcInfoMng = _SBGrid.create(SBGridProperties);
         grdApcInfoMng.bind( "afterpagechanged" , "fn_pagingApcInfoMng" );
+		grdApcInfoMng.bind('valuechanged','fn_gridValueChanged');
     }
+
+	// value 변경시 check
+	async function fn_gridValueChanged() {
+		let row = grdApcInfoMng.getRow();
+
+		grdApcInfoMng.setCellData(row, 0, true);
+	}
 
 	// 행 삭제 및 추가
 	async function fn_procRowApcInfo(type){
@@ -276,8 +318,9 @@
 		apcInfoMngData = [];
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let regApcNm = SBUxMethod.get("srch-inp-regApcNm");
+		let apcSpclMngCd = SBUxMethod.get("srch-slt-apcSpclMngCd");
 		let delYn = SBUxMethod.get("srch-slt-delYn");
-		let ApcEvrmntStngVO = {apcCd : apcCd, regApcNm : regApcNm, delYn : delYn, pagingYn : 'Y', currentPageNo : currentPageNo, recordCountPerPage : recordCountPerPage};
+		let ApcEvrmntStngVO = {apcCd : apcCd, regApcNm : regApcNm, apcSpclMngCd : apcSpclMngCd, delYn : delYn, pagingYn : 'Y', currentPageNo : currentPageNo, recordCountPerPage : recordCountPerPage};
     	let postJsonPromise = gfn_postJSON("/co/apc/selectApcDsctnList.do", ApcEvrmntStngVO);
         let data = await postJsonPromise;
         newApcInfoMngData = [];
@@ -299,6 +342,7 @@
   					  , telno 		: item.telno
   					  , ctpv		: item.ctpv
   					  , sgg			: item.sgg
+					  , apcSpclMngCd : item.apcSpclMngCd
   					  , delYn		: item.delYn
   					}
   					apcInfoMngData.push(Object.assign({}, apcDsctn));

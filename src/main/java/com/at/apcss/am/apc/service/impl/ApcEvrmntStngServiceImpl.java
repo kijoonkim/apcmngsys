@@ -769,7 +769,9 @@ public class ApcEvrmntStngServiceImpl extends BaseServiceImpl implements ApcEvrm
 		return apcEvrmntStngMapper.selectApcEvrmntStngListForFarmUser(apcEvrmntStngVO);
 	}
 
+	@Override
+	public List<ApcEvrmntStngVO> selectApcEvrmntStngList(ApcEvrmntStngVO apcEvrmntStngVO) throws Exception {
+		return apcEvrmntStngMapper.selectApcEvrmntStngList(apcEvrmntStngVO);
 
-
-
+	}
 }

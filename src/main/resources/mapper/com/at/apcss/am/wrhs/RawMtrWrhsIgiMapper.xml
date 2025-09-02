@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- ==========================================================================	-->
+<!-- NAME : RawMtrWrhsIgiMapper.xml                                   			-->
+<!-- DESC : 검수등록 mapper                                            			-->
+<!-- ==========================================================================	-->
+<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+<!-- ===========  	============  	===========================================	-->
+<!-- 2025.07.10  	김 호        		Initial Creation                        -->
+<!-- ==========================================================================	-->
+
+<mapper namespace="com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper">
+
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList		-->
+	<!-- DESC : 검수 목록 조회.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+    <select id="selectRawMtrWrhsIgiList" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+    	<![CDATA[
+			SELECT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectRawMtrWrhsIgiList */
+				   X.APC_CD                 AS APC_CD
+				 , X.IGI_YMD                AS IGI_YMD
+				 , X.IGI_SEQ                AS IGI_SEQ
+				 , X.PRDCR_CD               AS PRDCR_CD
+				 , MAX(PI.PRDCR_NM)         AS PRDCR_NM
+				 , MAX(PI.FRMHS_NM)         AS FRMHS_NM
+				 , MAX(X.IGI_JGMT_CD)       AS IGI_JGMT_CD
+				 , MAX(X.SMPL_YN)           AS SMPL_YN
+				 , MAX(X.RW_ARTCL_CD)       AS RW_ARTCL_CD
+				 , MAX(X.RW_RT)             AS RW_RT
+				 , MAX(X.WRHS_UNIT_CD)      AS WRHS_UNIT_CD
+				 , MAX(X.SNDBK_QNTT)        AS SNDBK_QNTT
+				 , MAX(X.IGI_RMRK)          AS IGI_RMRK
+				 , MAX(X.QNTT_RMRK)         AS QNTT_RMRK
+				 , MAX(X.RT_RMRK)           AS RT_RMRK
+				 , MAX(X.STRG_LOCTN_CD)     AS STRG_LOCTN_CD
+				 , SUM(X.IGI_GRD_QNTT)      AS IGI_GRD_QNTT_TOT
+				 , SUM(X.IGI_GRD_QNTT_1)    AS IGI_GRD_QNTT_1
+				 , SUM(X.IGI_GRD_QNTT_2)    AS IGI_GRD_QNTT_2
+				 , SUM(X.IGI_GRD_QNTT_3)    AS IGI_GRD_QNTT_3
+				 , SUM(X.IGI_GRD_QNTT_4)    AS IGI_GRD_QNTT_4
+				 , SUM(X.IGI_GRD_QNTT_5)    AS IGI_GRD_QNTT_5
+				 , SUM(X.IGI_GRD_RT_1)      AS IGI_GRD_RT_1
+				 , SUM(X.IGI_GRD_RT_2)      AS IGI_GRD_RT_2
+				 , SUM(X.IGI_GRD_RT_3)      AS IGI_GRD_RT_3
+				 , SUM(X.IGI_GRD_RT_4)      AS IGI_GRD_RT_4
+				 , SUM(X.IGI_GRD_RT_5)      AS IGI_GRD_RT_5
+			FROM (SELECT
+					     WI.APC_CD
+					   , WI.IGI_YMD
+					   , WI.IGI_SEQ
+					   , WI.PRDCR_CD
+					   , WI.IGI_JGMT_CD
+					   , WI.SMPL_YN
+					   , WI.RW_ARTCL_CD
+					   , WI.RW_RT
+					   , WI.WRHS_UNIT_CD
+					   , WI.SNDBK_QNTT
+					   , WI.IGI_RMRK
+					   , WI.QNTT_RMRK
+					   , WI.RT_RMRK
+					   , WI.STRG_LOCTN_CD
+					   , WID.IGI_GRD_QNTT
+					   , CASE WHEN WID.IGI_GRD_CD = '0001' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_1
+					   , CASE WHEN WID.IGI_GRD_CD = '0002' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_2
+					   , CASE WHEN WID.IGI_GRD_CD = '0003' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_3
+					   , CASE WHEN WID.IGI_GRD_CD = '0004' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_4
+					   , CASE WHEN WID.IGI_GRD_CD = '0005' THEN WID.IGI_GRD_QNTT END IGI_GRD_QNTT_5
+					   , CASE WHEN WID.IGI_GRD_CD = '0001' THEN WID.IGI_GRD_RT END IGI_GRD_RT_1
+					   , CASE WHEN WID.IGI_GRD_CD = '0002' THEN WID.IGI_GRD_RT END IGI_GRD_RT_2
+					   , CASE WHEN WID.IGI_GRD_CD = '0003' THEN WID.IGI_GRD_RT END IGI_GRD_RT_3
+					   , CASE WHEN WID.IGI_GRD_CD = '0004' THEN WID.IGI_GRD_RT END IGI_GRD_RT_4
+					   , CASE WHEN WID.IGI_GRD_CD = '0005' THEN WID.IGI_GRD_RT END IGI_GRD_RT_5
+				  FROM TB_RAW_MTR_WRHS_IGI WI
+					 , TB_RAW_MTR_WRHS_IGI_DTL WID
+				  WHERE WI.APC_CD = WID.APC_CD
+					AND WI.IGI_YMD = WID.IGI_YMD
+					AND WI.IGI_SEQ = WID.IGI_SEQ
+				    AND WI.DEL_YN = 'N'
+				    AND WID.DEL_YN = 'N'
+					AND WI.APC_CD = #{apcCd}
+
+		]]>
+			<if test='igiYmdFrom != null and igiYmdFrom != ""'>
+					AND WI.IGI_YMD <![CDATA[>=]]> #{igiYmdFrom}
+			</if>
+			<if test='igiYmdTo != null and igiYmdTo != ""'>
+					AND WI.IGI_YMD <![CDATA[<=]]> #{igiYmdTo}
+			</if>
+			<if test='prdcrCd != null and prdcrCd != ""'>
+					AND WI.PRDCR_CD = #{prdcrCd}
+			</if>
+		<![CDATA[
+			) X
+			   , TB_PRDCR_INFO PI
+			WHERE X.APC_CD = PI.APC_CD
+			  AND X.PRDCR_CD = PI.PRDCR_CD
+			  AND PI.DEL_YN = 'N'
+			GROUP BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
+			ORDER BY X.APC_CD, X.IGI_YMD, X.IGI_SEQ, X.PRDCR_CD
+		]]>
+    </select>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.selectGetIgiSeq				-->
+	<!-- DESC : 검수이력번호 발번.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<select id="selectGetIgiSeq" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO" resultType="String">
+		SELECT NVL(MAX(IGI_SEQ), 0) +1 AS IGI_SEQ
+		  FROM TB_RAW_MTR_WRHS_IGI
+		 WHERE APC_CD = #{apcCd}
+		   AND IGI_YMD = #{igiYmd}
+	</select>
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi			-->
+	<!-- DESC : 검수 등록.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<insert id="insertRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgi */
+			  INTO TB_RAW_MTR_WRHS_IGI
+			   		(
+					  APC_CD
+					, IGI_YMD
+					, IGI_SEQ
+					, PRDCR_CD
+					, IGI_JGMT_CD
+					, SMPL_YN
+					, RW_ARTCL_CD
+					, RW_RT
+					, WRHS_UNIT_CD
+					, SNDBK_QNTT
+					, IGI_RMRK
+					, QNTT_RMRK
+					, RT_RMRK
+					, STRG_LOCTN_CD
+					, DEL_YN
+					, SYS_FRST_INPT_DT
+					, SYS_FRST_INPT_USER_ID
+					, SYS_FRST_INPT_PRGRM_ID
+					, SYS_LAST_CHG_DT
+					, SYS_LAST_CHG_USER_ID
+					, SYS_LAST_CHG_PRGRM_ID
+			  		)
+			 VALUES
+				   (
+					  #{apcCd}
+					, #{igiYmd}
+					, #{igiSeq}
+					, #{prdcrCd}
+					, #{igiJgmtCd}
+					, #{smplYn}
+					, #{rwArtclCd}
+					, #{rwRt}
+					, #{wrhsUnitCd}
+					, #{sndbkQntt}
+					, #{igiRmrk}
+					, #{qnttRmrk}
+					, #{rtRmrk}
+					, #{strgLoctnCd}
+					, 'N'
+					, SYSDATE
+					, #{sysFrstInptUserId}
+					, #{sysFrstInptPrgrmId}
+					, SYSDATE
+					, #{sysLastChgUserId}
+					, #{sysLastChgPrgrmId}
+				   )
+		]]>
+	</insert>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi			-->
+	<!-- DESC : 검수 수정.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="updateRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+			UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgi */
+			       TB_RAW_MTR_WRHS_IGI
+			   SET PRDCR_CD					= #{prdcrCd}
+				 , IGI_JGMT_CD				= #{igiJgmtCd}
+				 , SMPL_YN					= #{smplYn}
+				 , RW_ARTCL_CD				= #{rwArtclCd}
+				 , RW_RT					= #{rwRt}
+				 , WRHS_UNIT_CD				= #{wrhsUnitCd}
+				 , SNDBK_QNTT				= #{sndbkQntt}
+				 , IGI_RMRK					= #{igiRmrk}
+				 , QNTT_RMRK				= #{qnttRmrk}
+				 , RT_RMRK					= #{rtRmrk}
+				 , STRG_LOCTN_CD			= #{strgLoctnCd}
+				 , SYS_LAST_CHG_DT			= SYSDATE
+				 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+				 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			 WHERE APC_CD 					= #{apcCd}
+			   AND IGI_YMD					= #{igiYmd}
+			   AND IGI_SEQ					= #{igiSeq}
+		]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl		-->
+	<!-- DESC : 검수 상세 등록.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<insert id="insertRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+		<![CDATA[
+			INSERT /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.insertRawMtrWrhsIgiDtl */
+		      INTO TB_RAW_MTR_WRHS_IGI_DTL
+				(
+				   APC_CD
+				 , IGI_YMD
+				 , IGI_SEQ
+				 , IGI_GRD_CD
+				 , IGI_GRD_QNTT
+				 , IGI_GRD_RT
+			 	 , DEL_YN
+				 , SYS_FRST_INPT_DT
+				 , SYS_FRST_INPT_USER_ID
+				 , SYS_FRST_INPT_PRGRM_ID
+				 , SYS_LAST_CHG_DT
+				 , SYS_LAST_CHG_USER_ID
+				 , SYS_LAST_CHG_PRGRM_ID
+				)
+			VALUES
+				(
+				   #{apcCd}
+			     , #{igiYmd}
+				 , #{igiSeq}
+				 , #{igiGrdCd}
+				 , #{igiGrdQntt}
+				 , #{igiGrdRt}
+				 , #{delYn}
+				 , SYSDATE
+				 , #{sysFrstInptUserId}
+				 , #{sysFrstInptPrgrmId}
+				 , SYSDATE
+				 , #{sysLastChgUserId}
+				 , #{sysLastChgPrgrmId}
+				)
+		]]>
+	</insert>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl		-->
+	<!-- DESC : 검수 상세 수정.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.10  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="updateRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+		<![CDATA[
+		MERGE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
+		 INTO TB_RAW_MTR_WRHS_IGI_DTL A
+		USING DUAL
+		  ON (
+					A.APC_CD 				= #{apcCd}
+				AND A.IGI_YMD 				= #{igiYmd}
+				AND A.IGI_SEQ 				= #{igiSeq}
+				AND A.IGI_GRD_CD			= #{igiGrdCd}
+			 )
+		WHEN MATCHED THEN
+			UPDATE
+			   SET
+				   A.IGI_GRD_QNTT			= #{igiGrdQntt}
+				 , A.IGI_GRD_RT				= #{igiGrdRt}
+		    	 , A.DEL_YN					= #{delYn}
+				 , A.SYS_LAST_CHG_DT		= SYSDATE
+			     , A.SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
+			     , A.SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+			WHERE A.APC_CD 					= #{apcCd}
+			  AND A.IGI_YMD					= #{igiYmd}
+			  AND A.IGI_SEQ					= #{igiSeq}
+			  AND A.IGI_GRD_CD				= #{igiGrdCd}
+		WHEN NOT MATCHED THEN
+		INSERT
+			(
+				  APC_CD
+				, IGI_YMD
+				, IGI_SEQ
+				, IGI_GRD_CD
+				, IGI_GRD_QNTT
+				, IGI_GRD_RT
+				, DEL_YN
+				, SYS_FRST_INPT_DT
+				, SYS_FRST_INPT_USER_ID
+				, SYS_FRST_INPT_PRGRM_ID
+				, SYS_LAST_CHG_DT
+				, SYS_LAST_CHG_USER_ID
+				, SYS_LAST_CHG_PRGRM_ID
+			)
+		VALUES
+			(
+			      #{apcCd}
+				, #{igiYmd}
+				, #{igiSeq}
+				, #{igiGrdCd}
+				, #{igiGrdQntt}
+				, #{igiGrdRt}
+				, #{delYn}
+				, SYSDATE
+				, #{sysFrstInptUserId}
+				, #{sysFrstInptPrgrmId}
+				, SYSDATE
+				, #{sysLastChgUserId}
+				, #{sysLastChgPrgrmId}
+			)
+		]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgi			-->
+	<!-- DESC : 검수 삭제.	                                       							-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.15  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="deleteRawMtrWrhsIgi" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.updateRawMtrWrhsIgiDtl */
+			   TB_RAW_MTR_WRHS_IGI
+		   SET DEL_YN 					= 'Y'
+			 , SYS_LAST_CHG_DT			= SYSDATE
+			 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+			 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE APC_CD 					= #{apcCd}
+		  AND IGI_YMD					= #{igiYmd}
+		  AND IGI_SEQ					= #{igiSeq}
+		]]>
+	</update>
+
+	<!-- ================================================================================	-->
+	<!-- NAME : com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl		-->
+	<!-- DESC : 검수 상세 삭제.	                                       						-->
+	<!-- ================================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
+	<!-- ===========  	============  	=================================================	-->
+	<!-- 2025.07.15  	 김 호        		Initial Creation                        		-->
+	<!-- ================================================================================	-->
+	<update id="deleteRawMtrWrhsIgiDtl" parameterType="com.at.apcss.am.wrhs.vo.RawMtrWrhsIgiDtlVO">
+		<![CDATA[
+		UPDATE /* com.at.apcss.am.wrhs.mapper.RawMtrWrhsIgiMapper.deleteRawMtrWrhsIgiDtl */
+			   TB_RAW_MTR_WRHS_IGI_DTL
+		   SET DEL_YN 					= 'Y'
+		  	 , SYS_LAST_CHG_DT			= SYSDATE
+		  	 , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		  	 , SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
+		WHERE APC_CD 					= #{apcCd}
+		  AND IGI_YMD					= #{igiYmd}
+		  AND IGI_SEQ					= #{igiSeq}
+		]]>
+	</update>
+
+
+
+
+</mapper>

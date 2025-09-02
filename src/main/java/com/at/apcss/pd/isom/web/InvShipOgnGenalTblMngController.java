@@ -34,11 +34,11 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngList(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngList(InvShipOgnGenalTblMngVO);
+			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -49,11 +49,11 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngIsoList(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngIsoList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngIsoList(InvShipOgnGenalTblMngVO);
+			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngIsoList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -65,21 +65,21 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	//적합여부 업데이트
 	//예외적인 상황에 관리자가 임의로 적합여부 변경
 	@PostMapping(value = "/pd/isom/updateStbltYn.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> updateStbltYn(@RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> updateStbltYn(@RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest requset) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		// validation check
 
 		// audit 항목
-		InvShipOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
-		InvShipOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-		InvShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
-		InvShipOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
+		invShipOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+		invShipOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+		invShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+		invShipOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
 
 		int insertedCnt = 0;
 
 		try {
-			insertedCnt = InvShipOgnGenalTblMngService.updateStbltYn(InvShipOgnGenalTblMngVO);
+			insertedCnt = InvShipOgnGenalTblMngService.updateStbltYn(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -92,11 +92,11 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 
 	// 출자출하조직 총괄표 로우데이터 리스트 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectRawDataList(InvShipOgnGenalTblMngVO);
+			 resultList = InvShipOgnGenalTblMngService.selectRawDataList(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -107,11 +107,11 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 
 	// 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngListNew.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngListNew(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectInvShipOgnGenalTblMngListNew(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngListNew(InvShipOgnGenalTblMngVO);
+			 resultList = InvShipOgnGenalTblMngService.selectInvShipOgnGenalTblMngListNew(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -122,11 +122,11 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 
 	// 출자출하조직 총괄표 로우데이터 리스트 조회
 	@PostMapping(value = "/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	public ResponseEntity<HashMap<String, Object>> selectRawDataList2025(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectRawDataList2025(InvShipOgnGenalTblMngVO);
+			 resultList = InvShipOgnGenalTblMngService.selectRawDataList2025(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -135,13 +135,30 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 		return getSuccessResponseEntity(resultMap);
 	}
 
-	// 출자출하조직 총괄표 로우데이터 리스트 조회
-	@PostMapping(value = "/pd/isom/selectIsoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> selectIsoClsfTot(Model model, @RequestBody InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+	// 출자출하조직 총괄표 rawdata 리스트 조회
+	@PostMapping(value = "/pd/isom/selectIsoPrchsSlsRawdataList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoPrchsSlsRawdataList(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
 		try {
-			 resultList = InvShipOgnGenalTblMngService.selectIsoClsfTot(InvShipOgnGenalTblMngVO);
+			resultList = InvShipOgnGenalTblMngService.selectIsoPrchsSlsRawdataList(invShipOgnGenalTblMngVO);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+			return getErrorResponseEntity(e);
+		}
+		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+		return getSuccessResponseEntity(resultMap);
+	}
+
+
+
+	// 출자출하조직 총괄표 로우데이터 리스트 조회
+	@PostMapping(value = "/pd/isom/selectIsoClsfTot.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+	public ResponseEntity<HashMap<String, Object>> selectIsoClsfTot(Model model, @RequestBody InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO, HttpServletRequest request) throws Exception{
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		List<InvShipOgnGenalTblMngVO> resultList = new ArrayList<>();
+		try {
+			 resultList = InvShipOgnGenalTblMngService.selectIsoClsfTot(invShipOgnGenalTblMngVO);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 			return getErrorResponseEntity(e);
@@ -153,20 +170,20 @@ public class InvShipOgnGenalTblMngController extends BaseController{
 	//조치사항 업데이트
 	//예외적인 상황에 관리자가 임의로 조치사항 변경
 	@PostMapping(value = "/pd/isom/multiSaveItemIsoActnMttr.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
-	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<InvShipOgnGenalTblMngVO> InvShipOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
+	public ResponseEntity<HashMap<String, Object>> multiSaveItemUoActnMttr(@RequestBody List<InvShipOgnGenalTblMngVO> invShipOgnGenalTblMngVOList, HttpServletRequest request) throws Exception {
 
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 
 		int savedCnt = 0;
 		try {
-			for (InvShipOgnGenalTblMngVO InvShipOgnGenalTblMngVO : InvShipOgnGenalTblMngVOList) {
-				InvShipOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
-				InvShipOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
-				InvShipOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
-				InvShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
+			for (InvShipOgnGenalTblMngVO invShipOgnGenalTblMngVO : invShipOgnGenalTblMngVOList) {
+				invShipOgnGenalTblMngVO.setSysFrstInptPrgrmId(getPrgrmId());
+				invShipOgnGenalTblMngVO.setSysFrstInptUserId(getUserId());
+				invShipOgnGenalTblMngVO.setSysLastChgPrgrmId(getPrgrmId());
+				invShipOgnGenalTblMngVO.setSysLastChgUserId(getUserId());
 			}
 
-			savedCnt = InvShipOgnGenalTblMngService.multiSaveItemIsoActnMttr(InvShipOgnGenalTblMngVOList);
+			savedCnt = InvShipOgnGenalTblMngService.multiSaveItemIsoActnMttr(invShipOgnGenalTblMngVOList);
 		}catch (Exception e) {
 			return getErrorResponseEntity(e);
 		}

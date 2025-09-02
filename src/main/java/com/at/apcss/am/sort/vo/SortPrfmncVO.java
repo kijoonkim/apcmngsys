@@ -244,6 +244,10 @@ public class SortPrfmncVO extends ComVO {
 	 */
 	private String sortYmd;
 
+	/**
+	 * 재고상태코드
+	 */
+	private String invntrSttsCd;
 
 	/**
 	 * 재고수량

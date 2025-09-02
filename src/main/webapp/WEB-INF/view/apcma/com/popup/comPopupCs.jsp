@@ -148,7 +148,7 @@ async function comPopupCs(options, selectRowVal) {
 	        {caption: ["지급기준명"], 		ref: 'PAY_TERM_NM', 	type: 'output', width: '100px', style: 'text-align:left'},
 	        {caption: ["지급방법"], 			ref: 'PAY_MTHD', 	type: 'output', width: '100px', style: 'text-align:left'},
 	        {caption: ["통화"], 				ref: 'CRN_CD', 	type: 'output', width: '100px', style: 'text-align:left'},
-	        {caption: ["TXN_STOP_REASON"], 		ref: 'TRSC_HLT_RSN', 	type: 'output', width: '100px', style: 'text-align:left'}
+	        {caption: ["TXN_STOP_REASON"], 		ref: 'TRSC_HLT_RSN', 	type: 'output', width: '100px', style: 'text-align:left', hidden: true}
 	    ];
 	    gridComPopCs = _SBGrid.create(SBGridPropertiescomPopupCs);
 	    gridComPopCs.bind('click', 'clickPop');
@@ -226,10 +226,11 @@ async function comPopupCs(options, selectRowVal) {
         
         var strWhereClause = '';
         if(settings.bizcompId == 'P_CS_PURCHASE_DOC'){
-        	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%' AND '" + settings.whereClause[0] + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD ";
+        	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
+        	// strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%' AND '" + settings.whereClause[0] + "' BETWEEN EFCT_BGNG_YMD AND EFCT_END_YMD ";
         }else if(settings.bizcompId == 'P_CS_SALE_DOC'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
-    	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
+    	}else if(settings.bizcompId == 'P_CS_ALL' ||  settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%' AND BRNO LIKE '%" + SRCH_BRNO_POP + "%'";
         }else if(settings.bizcompId == 'P_COM008' || settings.bizcompId == 'P_CS_PURCHASE'){
         	strWhereClause = "AND CNPT_CD LIKE '%" + SRCH_CS_CODE_POP + "%' AND CNPT_NM LIKE '%" + SRCH_CS_NAME_POP + "%'";
@@ -296,7 +297,7 @@ async function comPopupCs(options, selectRowVal) {
 			    		}
 			    		gridComPopCsList.push(msg);
 			    	});
-	    		}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
+	    		}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
 		    	   	data.cv_1.forEach((item, index) => {
 			    		const msg = {
 			    				ADPYR_ACNTL_CD			: item.ADPYR_ACNTL_CD,
@@ -381,7 +382,7 @@ async function comPopupCs(options, selectRowVal) {
 	
 	if(settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_SALE_DOC' || settings.bizcompId == "P_CS_PURCHASE"){
 		setCsGridFig3510();
-	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
+	}else if(settings.bizcompId == 'P_CS_ALL' || settings.bizcompId == 'P_CS_PURCHASE_DOC_FOREIGN' || settings.bizcompId == 'P_CS_ALL_FOREIGN'){
 		setCsGridFig2210_99();
 	}else if(settings.bizcompId == 'P_COM008'){
 		setCsGridFia4300();

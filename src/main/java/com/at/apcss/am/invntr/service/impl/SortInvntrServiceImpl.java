@@ -616,5 +616,13 @@ public class SortInvntrServiceImpl extends BaseServiceImpl implements SortInvntr
 		return null;
 	}
 
+	@Override
+	public int updateSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception {
+		int resultCnt = 0;
+		for(SortInvntrVO vo : sortInvntrList){
+			resultCnt += sortInvntrMapper.updateSortInvntrList(vo);
+		}
 
+		return resultCnt;
+	}
 }

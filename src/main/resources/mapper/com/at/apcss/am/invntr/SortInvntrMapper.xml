@@ -1320,9 +1320,30 @@
 			   AND SORT_SN = #{sortSn}
 		]]>
 	</update>
+    <update id="updateSortInvntrList" parameterType="com.at.apcss.am.invntr.vo.SortInvntrVO">
+		UPDATE
+			TB_SORT_INVNTR
+		SET
+			SYS_LAST_CHG_DT 			= SYSDATE
+		  , SYS_LAST_CHG_USER_ID		= #{sysLastChgUserId}
+		  , SYS_LAST_CHG_PRGRM_ID 		= #{sysLastChgPrgrmId}
+		  , RMRK 						= #{rmrk}
+		WHERE
+			APC_CD = #{apcCd}
+		AND
+		    INPT_YMD = #{inptYmd}
+		AND
+			RPRS_PRDCR_CD = #{prdcrCd}
+		AND
+			ITEM_CD = #{itemCd}
+		AND
+			VRTY_CD = #{vrtyCd}
+		AND
+			SORTNO = #{sortno}
+	</update>
 
 
-	<!-- ==========================================================================	-->
+    <!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.am.invntr.mapper.SortInvntrMapper.insertSortChgHstry	-->
 	<!-- DESC : 선별재고 변경이력 등록.	                                       			-->
 	<!-- ==========================================================================	-->

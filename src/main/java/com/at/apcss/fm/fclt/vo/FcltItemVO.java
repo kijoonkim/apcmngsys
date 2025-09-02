@@ -21,6 +21,11 @@ public class FcltItemVO extends ComVO{
 	private String sn;//순번
 	private String ognzSeCd;//조직 구분
 	private String etcCtgryCd;//기타 부류
+
+	/**
+	 * 처리종류 : 이력용
+	 */
+	private String prcsKnd;
 }
 
 

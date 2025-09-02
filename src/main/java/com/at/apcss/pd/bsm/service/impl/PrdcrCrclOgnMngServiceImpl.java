@@ -31,27 +31,24 @@ import com.at.apcss.pd.bsm.vo.UoListVO;
 public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements PrdcrCrclOgnMngService{
 
 	@Autowired
-	private PrdcrCrclOgnMngMapper PrdcrCrclOgnMngMapper;
+	private PrdcrCrclOgnMngMapper prdcrCrclOgnMngMapper;
 
 	@Override
 	public PrdcrCrclOgnMngVO selectPrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
-		PrdcrCrclOgnMngVO resultVO = PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
-
-		return resultVO;
+		return prdcrCrclOgnMngMapper.selectPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
 	}
 
 	@Override
 	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
-		List<PrdcrCrclOgnMngVO> resultList = PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList(PrdcrCrclOgnMngVO);
-		return resultList;
+		return prdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngList(PrdcrCrclOgnMngVO);
 	}
 
 	@Override
 	public int insertPrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
-		int insertedCnt = PrdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+		int insertedCnt = prdcrCrclOgnMngMapper.insertPrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
 		updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
 		return insertedCnt;
 	}
@@ -59,7 +56,7 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	@Override
 	public int updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
-		int updatedCnt = PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+		int updatedCnt = prdcrCrclOgnMngMapper.updatePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
 		updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
 		return updatedCnt;
 	}
@@ -67,9 +64,7 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	@Override
 	public int updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
 
-		int updatedCnt = PrdcrCrclOgnMngMapper.updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
-
-		return updatedCnt;
+		return prdcrCrclOgnMngMapper.updatePrdcrCrclOgnMngHstry(PrdcrCrclOgnMngVO);
 	}
 
 	@Override
@@ -88,22 +83,25 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 
 	@Override
 	public int deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
-		return PrdcrCrclOgnMngMapper.deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
+		return prdcrCrclOgnMngMapper.deletePrdcrCrclOgnMng(PrdcrCrclOgnMngVO);
 	}
 
 
 
 	@Override
 	public UoListVO selectUo(UoListVO uoListVO) throws Exception {
-		UoListVO resultVO = PrdcrCrclOgnMngMapper.selectUo(uoListVO);
 
-		return resultVO;
+		return prdcrCrclOgnMngMapper.selectUo(uoListVO);
 	}
 
 	@Override
 	public List<UoListVO> selectUoList(UoListVO uoListVO) throws Exception {
-		List<UoListVO> resultList = PrdcrCrclOgnMngMapper.selectUoList(uoListVO);
-		return resultList;
+		return prdcrCrclOgnMngMapper.selectUoList(uoListVO);
+	}
+
+	@Override
+	public List<UoListVO> selectUoHstryList(UoListVO uoListVO) throws Exception {
+		return prdcrCrclOgnMngMapper.selectUoHstryList(uoListVO);
 	}
 
 	@Override
@@ -122,34 +120,28 @@ public class PrdcrCrclOgnMngServiceImpl extends BaseServiceImpl implements Prdcr
 	@Override
 	public int insertUo(UoListVO uoListVO) throws Exception {
 
-		int insertedCnt = PrdcrCrclOgnMngMapper.insertUo(uoListVO);
-
-		return insertedCnt;
+		return prdcrCrclOgnMngMapper.insertUo(uoListVO);
 	}
 
 	@Override
 	public int updateUo(UoListVO uoListVO) throws Exception {
 
-		int updatedCnt = PrdcrCrclOgnMngMapper.updateUo(uoListVO);
-
-		return updatedCnt;
+		return prdcrCrclOgnMngMapper.updateUo(uoListVO);
 	}
 
 	@Override
 	public int deleteUo(UoListVO uoListVO) throws Exception {
-		return PrdcrCrclOgnMngMapper.deleteUo(uoListVO);
+		return prdcrCrclOgnMngMapper.deleteUo(uoListVO);
 	}
 
 	@Override
 	public List<PrdcrCrclOgnMngVO> selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
-		List<PrdcrCrclOgnMngVO> resultList = PrdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO);
-		return resultList;
+		return prdcrCrclOgnMngMapper.selectPrdcrCrclOgnMngRowDataList(PrdcrCrclOgnMngVO);
 	}
 
 	@Override
 	public PrdcrCrclOgnMngVO selectSetYear(PrdcrCrclOgnMngVO PrdcrCrclOgnMngVO) throws Exception {
-		PrdcrCrclOgnMngVO result = PrdcrCrclOgnMngMapper.selectSetYear(PrdcrCrclOgnMngVO);
-		return result;
+		return prdcrCrclOgnMngMapper.selectSetYear(PrdcrCrclOgnMngVO);
 	}
 
 }

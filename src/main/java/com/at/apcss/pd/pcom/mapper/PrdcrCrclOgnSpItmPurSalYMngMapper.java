@@ -25,58 +25,67 @@ import com.at.apcss.pd.pcom.vo.PrdcrCrclOgnSpItmPurSalYMngVO;
 public interface PrdcrCrclOgnSpItmPurSalYMngMapper {
 
 
-	/**
-	 * 메시지정보를 조회한다.
-	 * @param bbsVO
-	 * @return
-	 */
-	public PrdcrCrclOgnSpItmPurSalYMngVO selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
 
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
-	public int insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
-	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public int insertPrdcrCrclOgnSpItmPurSalYMng(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
-	public int updateItemUoStbltYn(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnList(ItemUoStbltYnVO itemUoStbltYnVo);
 
-	public void updateItemUoStbltYnInit(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public int updateItemUoStbltYn(ItemUoStbltYnVO itemUoStbltYnVo);
+
+	public void updateItemUoStbltYnInit(ItemUoStbltYnVO itemUoStbltYnVo);
 
 	/**
 	 * 통합조직 전문품목 매입매출 로우데이터 조회 2024년
-	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
 	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
 	 */
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
 	/**
 	 * 통합조직 전문품목 매입매출 로우데이터 조회 2025년
-	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
 	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
 	 */
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectRawDataList2025(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
+	/**
+	 * 통합조직 전문품목 매입매출 Rawdata 조회
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return List<PrdcrCrclOgnSpItmPurSalYMngVO>
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoSpcltItemPrchsSlsRawdataList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
+
+	/**
+	 * 통합조직 전문품목 매입매출 목록 조회 (2025.07.24)
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
+	 * @return
+	 */
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectUoMajorItemPrchsSlsList(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
 	/* 개발서버 신규 화면 조회 */
-	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public List<PrdcrCrclOgnSpItmPurSalYMngVO> selectPrdcrCrclOgnSpItmPurSalYMngListNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 	/* 개발서버 신규 화면 등록 */
-	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public int insertPrdcrCrclOgnSpItmPurSalYMngNew(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 	/* 개발서버 신규 화면 적합여부 */
-	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO ItemUoStbltYnVo);
+	public List<ItemUoStbltYnVO> selectItemUoStbltYnListNew(ItemUoStbltYnVO itemUoStbltYnVo);
 	//저장전 기존 데이터 삭제 처리
-	public int updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public int updateDelYn(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
 	/**
 	 * 총매입매출 임시저장 처리.
-	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
 	 * @return int
 	 */
-	public int updateTempSaveUoAps(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public int updateTempSaveUoAps(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 
 	/**
 	 * 임시저장 정보를 조회한다.
-	 * @param PrdcrCrclOgnSpItmPurSalYMngVO
+	 * @param prdcrCrclOgnSpItmPurSalYMngVO
 	 * @return PrdcrCrclOgnSpItmPurSalYMngVO
 	 */
-	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO PrdcrCrclOgnSpItmPurSalYMngVO);
+	public PrdcrCrclOgnSpItmPurSalYMngVO selectTempSaveUoPst(PrdcrCrclOgnSpItmPurSalYMngVO prdcrCrclOgnSpItmPurSalYMngVO);
 }

@@ -96,6 +96,7 @@
 							)
 			)AS ITEM_NM_LIST
 			,(SELECT 'Y' FROM TB_EV_ONLN_WHLSL_MRKT WHERE YR = EAM.YR AND BRNO = EAM.BRNO)AS CHK
+			, EA.APRV AS APRV
 		FROM TB_EV_APLY_MNG EAM
 			,TB_EV_APO EA
 		WHERE 1=1
@@ -272,6 +273,11 @@
 
 			,(NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) ) AS CONSIGN_TRMT_AMT_TOT
 
+		     -- 물량 항목 추가
+			, TO_NUMBER(WMD.TRMT_VLM) AS TRMT_VLM
+			, TO_NUMBER(WMD.CNSGN_NTSL_TRMT_VLM) AS CNSGN_NTSL_TRMT_VLM
+			, (NVL(TO_NUMBER(WMD.TRMT_VLM),0) + NVL(TO_NUMBER(WMD.CNSGN_NTSL_TRMT_VLM),0)) AS TRMT_VLM_TOT
+
 			,WMD.DEL_YN
 			,WMD.RCGN_YN
 			,WMD.RMRK
@@ -315,6 +321,9 @@
 						, RCGN_YN			= #{rcgnYn}
 						, RMRK				= #{rmrk}
 
+					    , TRMT_VLM			= #{trmtVlm}
+					    , CNSGN_NTSL_TRMT_VLM = #{cnsgnNtslTrmtVlm}
+
 						, SYS_LAST_CHG_DT		= SYSDATE
 						, SYS_LAST_CHG_USER_ID	= #{sysLastChgUserId}
 						, SYS_LAST_CHG_PRGRM_ID	= #{sysLastChgPrgrmId}
@@ -334,6 +343,9 @@
 
 					  , RCGN_YN
 					  , RMRK
+
+					  , TRMT_VLM
+					  , CNSGN_NTSL_TRMT_VLM
 
 					  , SYS_FRST_INPT_DT
 					  , SYS_FRST_INPT_USER_ID
@@ -357,6 +369,9 @@
 
 					  , #{rcgnYn}
 					  , #{rmrk}
+
+					  , #{trmtVlm}
+					  , #{cnsgnNtslTrmtVlm}
 
 					  , SYSDATE
 					  , #{sysFrstInptUserId}
@@ -388,53 +403,78 @@
 	<!-- 2025.02.05  	ljw        		Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectRawDataOnln" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
+		<![CDATA[
 		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnln */
-			OWM.YR
-			,OWM.BRNO
-			,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = OWM.BRNO) AS CORP_NM
-			,(SELECT APRV FROM TB_EV_APO WHERE BRNO = OWM.BRNO) AS APRV
-			,(SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = OWM.BRNO)) FROM DUAL) AS APRV_NM
-			,OWM.TRGT_TRMT_AMT
-			,OWM.CONSIGN_TRGT_AMT
-			,OWM.CONSIGN_CRTD_TRGT_AMT
-			,OWM.TOT_TRGT_TRMT_AMT
-			,(SELECT SUM(SLS_CNSGN_SLS_AMT)
-				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
-				WHERE 1=1
-				  AND DEL_YN = 'N'
-				  AND YR = OWM.YR
-				  AND BRNO = OWM.BRNO
-				  AND TYPE_SE_NO = '8'
-				  AND NVL(TMPR_STRG_YN,'N') = 'N'
-				  AND ITEM_CD = (SELECT ITEM_CD
-				  					FROM TB_EV_APO_YR_GPC_CD
-				  					WHERE 1=1
-				  					  AND APO_SE = '1'
-				  					  AND YR = PST.YR
-				  					  AND BRNO = PST.BRNO
-				  					  AND ITEM_CD = PST.ITEM_CD
-				  					  AND STTG_UPBR_ITEM_SE IN ('1','2')
-				  					)
-				  AND APO_SE = '1'
-				  AND STBLT_YN = 'Y'
-			)UO_TOT_TRGT_TRMT_AMT
-			,OWM.CRTR_AMT
-			,OWM.TRGT_TRMT_RT
-			,(SELECT
-					SUM( NVL(TRMT_AMT,0) + ROUND( NVL(CONSIGN_TRMT_AMT, 0) * 0.8 , 0) )
-				FROM TB_EV_ONLN_WHLSL_MRKT_DTL
-				WHERE 1=1
-				  AND RCGN_YN = 'Y'
-				  AND YR = OWM.YR
-				  AND UO_BRNO = OWM.BRNO
-			) AS TRMT_AMT_TOT
+			OWM.YR  AS YR
+			 ,OWM.BRNO AS BRNO
+			 , EA.CORP_NM AS CORP_NM
+			 , EA.APRV AS APRV
+			 ,(SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',EA.APRV) FROM DUAL) AS APRV_NM
+			 , OWM.TRGT_TRMT_AMT AS TRGT_TRMT_AMT
+			 , OWM.CONSIGN_TRGT_AMT AS CONSIGN_TRGT_AMT
+			 , OWM.CONSIGN_CRTD_TRGT_AMT AS CONSIGN_CRTD_TRGT_AMT
+			 , OWM.TOT_TRGT_TRMT_AMT AS TOT_TRGT_TRMT_AMT
+			 , OWM.CRTR_AMT AS CRTR_AMT
+			 , PST.UO_TOT_TRGT_TRMT_AMT AS UO_TOT_TRGT_TRMT_AMT
+			 , DTL.TRMT_AMT_TOT AS TRMT_AMT_TOT
+			 -- 판매목표(%)
+			, (SELECT FN_CAL_TRGT_TRMT_RT( OWM.TRGT_TRMT_AMT, OWM.CONSIGN_CRTD_TRGT_AMT, PST.UO_TOT_TRGT_TRMT_AMT, DTL.TRMT_AMT_TOT, OWM.YR) FROM DUAL) AS TRGT_TRMT_RT
+
 		FROM TB_EV_ONLN_WHLSL_MRKT OWM
-		WHERE 1=1
-		  AND YR = #{yr}
-		  AND BRNO NOT IN (SELECT BRNO
-							FROM TB_COM_USER
-							WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
-							)
+
+		LEFT JOIN TB_EV_APO EA
+			ON EA.BRNO = OWM.BRNO
+			AND EA.DEL_YN = 'N'
+
+		LEFT JOIN (
+				SELECT
+					PST.YR,
+					PST.BRNO,
+					SUM(PST.SLS_CNSGN_SLS_AMT) AS UO_TOT_TRGT_TRMT_AMT
+				FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT PST
+						 JOIN TB_EV_APO_YR_GPC_CD GPC
+							  ON GPC.YR = PST.YR
+								  AND GPC.BRNO = PST.BRNO
+								  AND GPC.ITEM_CD = PST.ITEM_CD
+								  AND GPC.APO_SE = '1'
+								  AND GPC.STTG_UPBR_ITEM_SE IN ('1', '2')
+				WHERE PST.DEL_YN = 'N'
+				  AND PST.TYPE_SE_NO = '8'
+				  AND NVL(PST.TMPR_STRG_YN, 'N') = 'N'
+				  AND PST.APO_SE = '1'
+				  AND PST.STBLT_YN = 'Y'
+				GROUP BY PST.YR, PST.BRNO
+			) PST
+		ON PST.YR = OWM.YR
+		AND PST.BRNO = OWM.BRNO
+
+		LEFT JOIN (
+				SELECT
+					YR,
+					UO_BRNO,
+					SUM(NVL(TRMT_AMT, 0) + ROUND(NVL(CONSIGN_TRMT_AMT, 0) * 0.8, 0)) AS TRMT_AMT_TOT
+				FROM TB_EV_ONLN_WHLSL_MRKT_DTL
+				WHERE RCGN_YN = 'Y'
+				GROUP BY YR, UO_BRNO
+			) DTL
+			ON DTL.YR = OWM.YR
+			AND DTL.UO_BRNO = OWM.BRNO
+
+		WHERE OWM.DEL_YN = 'N'
+		  AND OWM.YR = #{yr}
+		  AND NOT EXISTS (
+			SELECT 1
+			FROM TB_COM_USER X
+			WHERE X.USER_ID IN (
+				SELECT CD.CD_VL
+				FROM TB_COM_CD_DTL CD
+				WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+				  AND CD.USE_YN = 'Y'
+				  AND CD.DEL_YN = 'N'
+			)
+			  AND X.BRNO = OWM.BRNO
+		)
+		]]>
 	</select>
 
 	<!-- ==========================================================================	-->
@@ -447,52 +487,164 @@
 	<!-- 2025.04.16  	유민지        	컬럼오류수정		                            -->
 	<!-- ==========================================================================	-->
 	<select id="selectRawDataOnlnDtl" parameterType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO" resultType="com.at.apcss.pd.pcom.vo.PrdcrCrclOgnOnlnWhlslMrktVO">
-		SELECT /* com.at.apcss.pd.pcom.mapper.PrdcrCrclOgnOnlnWhlslMrktMapper.selectRawDataOnlnDtl */
-			WMD.YR
-			 ,DECODE(WMD.BRNO,WMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
-			 ,WMD.BRNO
-			 ,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.BRNO) AS CORP_NM
-			 ,WMD.UO_BRNO
-			 ,(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS APRV
-			 ,(SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD',(SELECT APRV FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO)) FROM DUAL) AS APRV_NM
+		<![CDATA[
+		SELECT
+			OWMD.YR
+			 , OWMD.BRNO
+			 , EA.CORP_NM
+			 , OWMD.UO_BRNO
+			 , (SELECT CORP_NM FROM TB_EV_APO_HSTRY WHERE YR = OWMD.YR AND BRNO = OWMD.UO_BRNO) AS UO_CORP_NM
+			 , EA.APRV
+			 , EA.APO_CD
+			 , OWMD.ITEM_CD
+			 , (SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = OWMD.ITEM_CD) AS ITEM_NM
 
-			 ,(SELECT CORP_NM FROM TB_EV_APO WHERE BRNO = WMD.UO_BRNO) AS UO_CORP_NM
+			 , GC.STTG_UPBR_ITEM_SE
+			 , (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', GC.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_SE_NM
 
-			 ,WMD.ITEM_CD
-			 ,(SELECT ITEM_NM FROM TB_ITEM_CRTR WHERE ITEM_CD = WMD.ITEM_CD) AS ITEM_NM
+			 , OWMD.TRMT_AMT
+			 , OWMD.CONSIGN_TRMT_AMT
+			 , OWMD.CTGRY_CD
+			 , OWMD.CLSF_CD
+			 , OWMD.RCGN_YN
+			 , OWMD.RMRK
 
-			 ,WMD.CTGRY_CD
-			 ,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CTGRY_CD' AND CD_VL = WMD.CTGRY_CD) AS CTGRY_NM
+			 , OWMD.TRMT_VLM
+			 , OWMD.CNSGN_NTSL_TRMT_VLM
 
-			 ,WMD.CLSF_CD
-			 ,(SELECT CD_VL_NM FROM TB_COM_CD_DTL WHERE CD_ID = 'CLSF_CD' AND CD_VL = WMD.CLSF_CD) AS CLSF_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', EA.APRV) FROM DUAL) AS APRV_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', OWMD.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+			 , (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', OWMD.CLSF_CD) FROM DUAL) AS CLSF_NM
 
-			 ,WMD.TRMT_AMT
-			 ,WMD.CONSIGN_TRMT_AMT
+			 , DECODE(OWMD.BRNO,OWMD.UO_BRNO,'통합조직','출자출하조직')AS APO_SE_NM
+			 , EA.APO_SE
+			 -- 소계
+			 , NVL(OWMD.TRMT_AMT,0) + NVL(OWMD.CONSIGN_TRMT_AMT,0) AS TRMT_AMT_TOT
+			 , NVL(OWMD.TRMT_VLM,0) + NVL(OWMD.CNSGN_NTSL_TRMT_VLM,0) AS TRMT_VLM_TOT
 
-			 ,(NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0)) AS TRMT_AMT_TOT
+			 -- 인정실적
+			 ,DECODE(OWMD.RCGN_YN, 'Y', (NVL(OWMD.TRMT_AMT,0) + NVL(OWMD.CONSIGN_TRMT_AMT,0)), NULL) AS RCGN_TRMT_AMT_TOT
 
-			 ,DECODE(WMD.RCGN_YN
-			, 'Y', (NVL(WMD.TRMT_AMT,0) + ROUND( NVL(WMD.CONSIGN_TRMT_AMT, 0) * 0.8 , 0) )
-			, ''
-			) AS CONSIGN_TRMT_AMT_TOT
+			 --참고
+			 , CASE
+				   WHEN OWMD.RCGN_YN = 'Y'
+					   THEN (NVL(OWMD.TRMT_AMT,0) + ROUND(NVL(OWMD.CONSIGN_TRMT_AMT, 0) * NVL(PRD.DTL_NV, 1), 0))
+				   ELSE NULL
+			END AS CONSIGN_TRMT_AMT_TOT
 
-			 ,WMD.DEL_YN
-			 ,WMD.RCGN_YN
-			 ,WMD.RMRK
+			 -- 총 매입매출 - 통합조직 총 매출현황
+			 -- 물량
+			 , (NVL(PS.SLS_CPRTN_TRST_VLM, 0)
+				+ NVL(PS.SLS_CPRTN_SORT_TRST_VLM, 0)
+				+ NVL(PS.SLS_SMPL_TRST_VLM, 0)
+				+ NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+				+ NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)) AS SLS_TOT_VLM
+			 -- 금액
+			 , ( NVL(PS.SLS_CPRTN_TRST_AMT, 0)
+				+ NVL(PS.SLS_CPRTN_SORT_TRST_AMT, 0)
+				+ NVL(PS.SLS_SMPL_TRST_AMT, 0)
+				+ NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+				+ NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)) AS SLS_TOT_AMT
 
-			 ,DECODE(WMD.RCGN_YN
-			, 'Y', (NVL(WMD.TRMT_AMT,0) + NVL(WMD.CONSIGN_TRMT_AMT,0))
-			, ''
-			) AS RCGN_TRMT_AMT_TOT
+			 -- 총 취급실적 대비 온라인도매시장 취급률%
+			 -- 금액
+			 , ROUND(
+					( (NVL(OWMD.TRMT_AMT,0) + NVL(OWMD.CONSIGN_TRMT_AMT,0))
+						/
+					  NULLIF((
+									 NVL(PS.SLS_CPRTN_TRST_AMT, 0)
+									 + NVL(PS.SLS_CPRTN_SORT_TRST_AMT, 0)
+									 + NVL(PS.SLS_SMPL_TRST_AMT, 0)
+									 + NVL(PS.SLS_CPRTN_SORT_EMSPAP_AMT, 0)
+									 + NVL(PS.SLS_SMPL_EMSPAP_AMT, 0)
+								 ), 0)
+						) * 100
+					, 2) AS TRMT_AMT_RT
 
-		FROM TB_EV_ONLN_WHLSL_MRKT_DTL WMD
-		WHERE 1=1
-		  AND WMD.YR =  #{yr}
-		  AND BRNO NOT IN (SELECT BRNO
-						   FROM TB_COM_USER
-						   WHERE USER_ID IN ('at11','at12','at13','at14','at15','at16','at17','at51','beop01','beop02')
-		)
-		ORDER BY DECODE(BRNO,UO_BRNO,'1','2'), BRNO, ITEM_CD
+			 -- 물량
+			 , ROUND(
+					( (NVL(OWMD.TRMT_VLM,0) + NVL(OWMD.CNSGN_NTSL_TRMT_VLM,0))
+						/
+					  NULLIF((
+									 NVL(PS.SLS_CPRTN_TRST_VLM, 0)
+									 + NVL(PS.SLS_CPRTN_SORT_TRST_VLM, 0)
+									 + NVL(PS.SLS_SMPL_TRST_VLM, 0)
+									 + NVL(PS.SLS_CPRTN_SORT_EMSPAP_VLM, 0)
+									 + NVL(PS.SLS_SMPL_EMSPAP_VLM, 0)
+								 ), 0)
+						) * 100
+					, 2) AS TRMT_VLM_RT
+
+		FROM TB_EV_ONLN_WHLSL_MRKT_DTL OWMD
+
+		LEFT JOIN TB_EV_APO EA
+			ON EA.BRNO = OWMD.BRNO
+			AND EA.DEL_YN = 'N'
+
+		LEFT JOIN TB_EV_APO_YR_GPC_CD GC
+			   ON GC.YR = OWMD.YR
+			   AND GC.ITEM_CD = OWMD.ITEM_CD
+			   AND GC.BRNO = OWMD.BRNO
+			   AND GC.APO_SE = EA.APO_SE
+			   AND GC.DEL_YN = 'N'
+
+		LEFT JOIN TB_EV_UO_ISO_ALL_PRCHS_SLS PS
+			   ON PS.YR = OWMD.YR
+			   AND PS.BRNO = OWMD.UO_BRNO
+			   AND PS.DEL_YN = 'N'
+			   AND PS.PRCHS_SLS_SE = 2
+			   AND PS.ITEM_CD = GC.ITEM_CD
+			   AND PS.STTG_UPBR_ITEM_SE = GC.STTG_UPBR_ITEM_SE
+
+		LEFT JOIN TB_EV_PRUO_REG_DTL PRD
+			   ON PRD.CRTR_YR = OWMD.YR
+			   AND PRD.DTL_CD = 'CNSGN_NTSL_ACPT_RT'
+			   AND PRD.DEL_YN ='N'
+
+		WHERE OWMD.YR = #{yr}
+		  AND OWMD.DEL_YN = 'N'
+		  AND NOT EXISTS (
+			SELECT 1
+			FROM TB_COM_USER X
+			WHERE X.USER_ID IN (
+			SELECT CD.CD_VL
+			FROM TB_COM_CD_DTL CD
+			WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+		  AND CD.USE_YN = 'Y'
+		  AND CD.DEL_YN = 'N'
+			)
+		  AND X.BRNO = OWMD.BRNO
+			)
+		]]>
+	</select>
+
+	<select id="selectPruoRegMst" parameterType="com.at.apcss.pd.pcom.vo.PruoRegVO" resultType="com.at.apcss.pd.pcom.vo.PruoRegVO">
+		<![CDATA[
+			SELECT
+				CRTR_YR
+			     , INDCT_NM
+			     , CMPTN_YN
+			     , DDLN_STTS_CD
+			     , BGNG_YMD
+			     , END_YMD
+			FROM TB_EV_PRUO_REG_MST
+			WHERE DEL_YN = 'N'
+			ORDER BY CRTR_YR DESC
+		]]>
+	</select>
+
+	<select id="selectPruoRegDtl" resultType="com.at.apcss.pd.pcom.vo.PruoRegVO" parameterType="com.at.apcss.pd.pcom.vo.PruoRegVO">
+		SELECT
+			CRTR_YR
+			 , DTL_CD
+			 , DTL_NV
+			 , DTL_CHR
+			 , USE_YN
+			 , DEL_YN
+		FROM TB_EV_PRUO_REG_DTL
+		WHERE CRTR_YR = #{crtrYr}
+		  AND DTL_CD = #{dtlCd}
+		  AND DEL_YN = 'N'
+		  AND USE_YN = 'Y'
 	</select>
 </mapper>

@@ -11,7 +11,7 @@
     <script type="text/javascript" src="/resource/clip/js/UserConfig5.js"></script>
     <script type="text/javascript" src="/resource/clip/js/oof/OOFDocument.js"></script>
 
-    <script src="/resource/script/comReport.js"></script>
+    <script src="/resource/script/comReport.js?v=2.5.0630"></script>
 
 	<script type="text/javascript">
 

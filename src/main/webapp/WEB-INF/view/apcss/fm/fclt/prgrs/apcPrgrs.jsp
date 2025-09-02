@@ -287,7 +287,8 @@
 		const cfn_selectPrgrs = async function(){
 			console.log("*******cfn_selectPrgrs******");
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
-			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+			let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
+			console.log("진척도 조회",crtrYr);
 
 			let postJsonPromise = gfn_postJSON("/fm/fclt/selectPrgrs.do", {
 				apcCd : apcCd
@@ -381,7 +382,7 @@
 			if (!confirm(mngStr)) return;
 
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
-			let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+			let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 			console.log(apcCd,crtrYr);
 
 			let postJsonPromise = gfn_postJSON("/fm/fclt/updatePrgrsLast.do", {
@@ -425,7 +426,7 @@
 		//출력
 		const cfn_report = async function() {
 			let apcCd = SBUxMethod.get("srch-inp-apcCd");
-			let crtrYr  =  SBUxMethod.get("srch-inp-crtrYr");
+			let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
 			console.log(apcCd,crtrYr);
 			if(apcCd == null || apcCd == "" || apcCd === undefined){
 				return;

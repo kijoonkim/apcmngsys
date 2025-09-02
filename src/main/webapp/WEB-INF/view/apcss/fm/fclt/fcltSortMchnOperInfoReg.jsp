@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 선별기운영기간 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -66,13 +67,21 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -139,6 +148,7 @@
 						<th class="text-center">
 							<span id="itemNm1">품목1</span>
 							<sbux-input id="dtl-inp-itemChk1" name="dtl-inp-itemChk1" uitype="hidden"></sbux-input>
+							<sbux-input id="dtl-inp-itemCd1" name="dtl-inp-itemCd1" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
 							<p class="ad_input_row">
@@ -229,6 +239,7 @@
 						<th class="text-center">
 							<span id="itemNm2">품목2</span>
 							<sbux-input id="dtl-inp-itemChk2" name="dtl-inp-itemChk2" uitype="hidden"></sbux-input>
+							<sbux-input id="dtl-inp-itemCd2" name="dtl-inp-itemCd2" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
 							<p class="ad_input_row">
@@ -319,6 +330,7 @@
 						<th class="text-center">
 							<span id="itemNm3">품목3</span>
 							<sbux-input id="dtl-inp-itemChk3" name="dtl-inp-itemChk3" uitype="hidden"></sbux-input>
+							<sbux-input id="dtl-inp-itemCd3" name="dtl-inp-itemCd3" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
 							<p class="ad_input_row">
@@ -409,6 +421,7 @@
 						<th class="text-center">
 							<span id="itemNm4">기타품목</span>
 							<sbux-input id="dtl-inp-itemChk4" name="dtl-inp-itemChk4" uitype="hidden"></sbux-input>
+							<sbux-input id="dtl-inp-itemCd4" name="dtl-inp-itemCd4" uitype="hidden"></sbux-input>
 						</th>
 						<td class="text-center">
 							<p class="ad_input_row">
@@ -513,6 +526,11 @@
 </body>
 <script type="text/javascript">
 
+	// 기준연도
+	var jsonCrtrYr = [];
+	// 전년도
+	var jsonPrevData = [];
+
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
 		let year  = date.getFullYear();
@@ -539,6 +557,7 @@
 	});
 
 	const fn_init = async function() {
+		await fn_initSBSelect();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
@@ -553,6 +572,11 @@
 
 	}
 
+	const fn_initSBSelect = async function() {
+		await gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+	}
+
+
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
 
@@ -562,9 +586,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -593,19 +615,27 @@
 			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_1','N');
 			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_non','N');
 			SBUxMethod.set('dtl-inp-itemChk'+i,null);
+			SBUxMethod.set('dtl-inp-itemCd'+i,null);
 		}
 		$('#itemNm1').text("품목1");
 		$('#itemNm2').text("품목2");
 		$('#itemNm3').text("품목3");
 		$('#itemNm4').text("기타");
 	}
+
 	const fn_search = async function() {
 		if(gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))){
 			alert('APC를 선택해주세요');
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
 		await fn_selectStMcOpIfList();
+		// 전년도
+		await fn_selectStMcOpIfList("Y");
 	}
 
 
@@ -613,15 +643,15 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_selectStMcOpIfList = async function(copy_chk) {
-		console.log("******************fn_selectStMcOpIfList**********************************");
+	const fn_selectStMcOpIfList = async function(prevData) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
+		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltSortMchnOperInfoList.do", {
@@ -634,42 +664,46 @@
 
 		//예외처리
 		try {
-			//console.log(data);
-			data.resultList.forEach((item, index) => {
-				let sn = item.sn;
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');//품목 존재 여부 확인
-				if(sn == '4'){
-					$('#itemNm'+sn).text("기타품목 : "+item.itemNm);
-				}else{
-					$('#itemNm'+sn).text("품목"+sn+" : "+item.itemNm);
-				}
-				//$('#itemNm'+sn).text("품목 : "+item.itemNm);
+			if (_.isEqual(prevData,"Y")) {
+				jsonPrevData = data.resultList;
+			} else {
 
-				//품목이 있는 줄만 조회 됨
-				SBUxMethod.set('dtl-inp-itemChk'+sn,'Y');
-				SBUxMethod.changeGroupAttr('group'+sn,'disabled','false');
-				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_1','disabled','false');
-				SBUxMethod.attr('warehouseSeCd_chk_mon_'+sn+'_non','disabled','false');
+				data.resultList.forEach((item, index) => {
+					let sn = item.sn;
+					SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
+					if (sn == '4') {
+						$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd'+sn, item.itemNm);
+					} else {
+						$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
+						SBUxMethod.set('dtl-inp-itemCd'+sn, item.itemCd);
+					}
 
-				if(item.operYn == 'Y'){
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_2',item.operPeriodYn1);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_3',item.operPeriodYn2);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_4',item.operPeriodYn3);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_5',item.operPeriodYn4);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_6',item.operPeriodYn5);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_7',item.operPeriodYn6);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_8',item.operPeriodYn7);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_9',item.operPeriodYn8);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_10',item.operPeriodYn9);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_11',item.operPeriodYn10);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_12',item.operPeriodYn11);
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_13',item.operPeriodYn12);
-					fn_checkSelect(null,sn);
-				}else if(item.operYn == 'N'){
-					SBUxMethod.set('warehouseSeCd_chk_mon_'+sn+'_non','Y');
-				}
-			});
+					//품목이 있는 줄만 조회 됨
+					SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');
+					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
+					SBUxMethod.attr('warehouseSeCd_chk_mon_' + sn + '_1', 'disabled', 'false');
+					SBUxMethod.attr('warehouseSeCd_chk_mon_' + sn + '_non', 'disabled', 'false');
 
+					if (item.operYn == 'Y') {
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_2', item.operPeriodYn1);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_3', item.operPeriodYn2);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_4', item.operPeriodYn3);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_5', item.operPeriodYn4);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_6', item.operPeriodYn5);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_7', item.operPeriodYn6);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_8', item.operPeriodYn7);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_9', item.operPeriodYn8);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_10', item.operPeriodYn9);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_11', item.operPeriodYn10);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_12', item.operPeriodYn11);
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_13', item.operPeriodYn12);
+						fn_checkSelect(null, sn);
+					} else if (item.operYn == 'N') {
+						SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_non', 'Y');
+					}
+				});
+			}
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -680,19 +714,53 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
 
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const apcCd = SBUxMethod.get("srch-inp-apcCd");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
+
 		if (gfn_isEmpty(crtrYr)) {
-			alert("조사연도를 작성해주세요");
+			gfn_comAlert("W0001", "조사연도");	//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
+		// 선별기 운영기간 연중 미체크시 월별 체크 유무
+		for (let i =1; i < 5; i++) {
+			const itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
+			if (_.isEqual(itemChk,"Y")) {
+				const isOperNon = $(`#warehouseSeCd_chk_mon_${'${i}'}_non`).val();
+
+				if (isOperNon !== "Y"){
+					// 월 체크 유무
+					let hasAnyMonth = false;
+
+					for (let j = 2; j <= 13; j++) {
+						const val =  $(`#warehouseSeCd_chk_mon_${'${i}'}_${'${j}'}`).val();
+
+						if (val === 'Y') {
+							hasAnyMonth = true;
+							break;
+						}
+					}
+
+					if (!hasAnyMonth) {
+						gfn_comAlert("W0001", `품목${'${i}'} 선별기 운영기간`); // W0001  {0}을/를 선택하세요.
+						return ;
+					}
+				}
+
+			}
+		}
+
+		return;
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
@@ -702,16 +770,28 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		let saveList = [];
 		for (var i = 1; i < 5; i++) {
@@ -753,7 +833,6 @@
 				saveList.push(itemVo);
 			}
 		}
-		console.log(saveList);
 		const postJsonPromise = gfn_postJSON("/fm/fclt/multiSaveFcltSortMchnOperInfo.do", saveList);
 
 		const data = await postJsonPromise;
@@ -769,8 +848,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 	// 전체선택 체크박스
@@ -842,7 +919,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -855,6 +931,57 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	function fn_pySearch () {
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		for (let i = 1; i < 5; i++) {
+			// 초기화
+			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.clearGroupData('group'+i);
+
+			SBUxMethod.attr('warehouseSeCd_chk_mon_'+i+'_1','disabled','true');
+			SBUxMethod.attr('warehouseSeCd_chk_mon_'+i+'_non','disabled','true');
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_1','N');
+			SBUxMethod.set('warehouseSeCd_chk_mon_'+i+'_non','N');
+
+			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk'+i), "Y")) {
+				SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
+				SBUxMethod.attr('warehouseSeCd_chk_mon_' + i + '_1', 'disabled', 'false');
+				SBUxMethod.attr('warehouseSeCd_chk_mon_' + i + '_non', 'disabled', 'false');
+
+			}
+		}
+
+		jsonPrevData.forEach(item => {
+			let sn = item.sn;
+			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
+
+			// 해당 sn의 품목 체크가 "Y"일 경우에만 전년도 데이터 set
+			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
+					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
+					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
+				if (item.operYn == 'Y') {
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_2', item.operPeriodYn1);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_3', item.operPeriodYn2);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_4', item.operPeriodYn3);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_5', item.operPeriodYn4);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_6', item.operPeriodYn5);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_7', item.operPeriodYn6);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_8', item.operPeriodYn7);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_9', item.operPeriodYn8);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_10', item.operPeriodYn9);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_11', item.operPeriodYn10);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_12', item.operPeriodYn11);
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_13', item.operPeriodYn12);
+					fn_checkSelect(null, sn);
+				} else if (item.operYn == 'N') {
+					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_non', 'Y');
+				}
+			}
+		});
+
 	}
 
 </script>

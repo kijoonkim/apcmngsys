@@ -188,4 +188,11 @@ public interface SortInvntrService {
 	 * @throws Exception
 	 */
 	public HashMap<String, Object> insertSortChgHstry(SortInvntrVO sortInvntrVO) throws Exception;
+	/**
+	 * 선별재고 업데이트
+	 * @param sortInvntrList
+	 * @return
+	 * @throws Exception
+	 */
+    public int updateSortInvntrList(List<SortInvntrVO> sortInvntrList) throws Exception;
 }

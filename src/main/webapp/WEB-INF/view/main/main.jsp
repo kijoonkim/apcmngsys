@@ -106,6 +106,18 @@
     background-color : #C5E99B;
 }
 
+.header-hide {
+    position: fixed!important;
+    top: 0; left: 0; right: 0;
+    transform: translateY(-100%);   /* 화면 위로 가려두기 */
+    transition: transform 0.3s ease;
+    z-index: 1000;                   /* 다른 요소 위로 */
+}
+.header-hide.visible{
+    transform: translateY(0);
+}
+
+
 
 /*.button-green {*/
 /*  background-color: #04AA6D;*/
@@ -238,6 +250,11 @@
 /*}*/
 
 </style>
+<style id="dynamicStyle" disabled>
+    .sbux-bre-wrap > ul.sbux-bre-item-wrap li.sbux-bre-item > a.sbux-bre-link span.sbux-bre-item-txt{
+        color:white;
+    }
+</style>
 
 <%--<script language="JavaScript">--%>
 <%--	//head 태그 안에 스크립트 선언--%>
@@ -287,9 +304,6 @@
             const initMenuId = '';
         </c:otherwise>
     </c:choose>
-
-
-    console.log("initMenuId", initMenuId);
 
     <c:set scope="request" var="topMenuList" value="${topMenuList}"></c:set>
     var menuJson = <c:out value='${topMenuList}' escapeXml="false"></c:out>;
@@ -345,9 +359,6 @@
      * @function
      */
     async function fn_setLeftMenu(_menuNo, _menuId = null) {
-
-        console.log("_menuNo", _menuNo);
-        console.log("_menuId", _menuId);
 
         const menuInfo = _.find(menuJson, {id: _menuNo});
         let pMenuId = menuInfo.pid;
@@ -989,7 +1000,7 @@
 <!-- //inline scripts related to this page -->
 <div class="sbt-A-wrap" style="display:flex; flex-direction: column">
     <!-- header (menu) -->
-    <div class="sbt-all-header" style="position: relative">
+    <div id="main_header" class="sbt-all-header" style="position: relative">
         <sbux-menu id="idxTop_json" name="top_menu" uitype="normal"
                    jsondata-ref="menuJson"
                    is-fixed="false"
@@ -1000,6 +1011,29 @@
             </brand-item>
         </sbux-menu>
         <div class="user-info-wrap" style="z-index:9999;border-left: 5px solid white;position: absolute;right: 0">
+            <div id="pinToggle">
+                <svg id="icon-unpinned" xmlns="http://www.w3.org/2000/svg" style="display:none;"
+                     width="50" height="50" viewBox="0 0 24 24"
+                     fill="none" stroke="white" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icon-tabler-pin">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M15 4.5l-4 4l-4 1.5l-1.5 1.5l7 7l1.5 -1.5l1.5 -4l4 -4" />
+                    <path d="M9 15l-4.5 4.5" />
+                    <path d="M14.5 4l5.5 5.5" />
+                </svg>
+                <svg id="icon-pinned" xmlns="http://www.w3.org/2000/svg"
+                     width="50" height="50" viewBox="0 0 24 24"
+                     fill="none" stroke="white" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     class="icon icon-tabler icon-tabler-pinned"
+                >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M9 4v6l-2 4v2h10v-2l-2 -4v-6" />
+                    <path d="M12 16l0 5" />
+                    <path d="M8 4l8 0" />
+                </svg>
+            </div>
             <div style="width: 50px;margin-left: 5px;position: relative;cursor: pointer" onclick="fn_msgPopup();">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="mdi-bell-circle" width="100%" height="100%" viewBox="0 0 24 24">
                     <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M17,16V15L16,14V11.39C16,10.3 15.73,9.34 15.21,8.53C14.7,7.72 13.96,7.21 13,7V6.5A1,1 0 0,0 12,5.5A1,1 0 0,0 11,6.5V7C10.04,7.21 9.3,7.72 8.79,8.53C8.27,9.34 8,10.3 8,11.39V14L7,15V16H17M13.5,17H10.5A1.5,1.5 0 0,0 12,18.5A1.5,1.5 0 0,0 13.5,17Z" fill="#fff" />
@@ -1028,6 +1062,7 @@
                 </ul>
             </c:if>
         </div>
+
     </div>
     <div class="main" style="flex: 1">
         <!--left (sidemenu) -->
@@ -1237,6 +1272,40 @@
     //only document
     window.addEventListener('DOMContentLoaded', function(e) {
         fn_init();
+        const wrapper = document.getElementById('pinToggle');
+        const svgOff = document.getElementById('icon-unpinned');
+        const svgOn  = document.getElementById('icon-pinned');
+        const header = document.getElementById('main_header');
+        const style = document.getElementById('dynamicStyle');
+        const sheet = style.sheet;
+        style.disabled = true;
+        const showThreshold = 50;   // 위에서부터 50px 이내로 들어오면 보이기
+        const hideThreshold = 20;
+
+        wrapper.addEventListener('click', () => {
+            const isNowOn = svgOff.style.display !== 'none';
+            // 토글
+            svgOff.style.display = isNowOn ? 'none' : '';
+            svgOn .style.display = isNowOn ? ''   : 'none';
+            if(!isNowOn){
+                header.classList.add("header-hide");
+                $("#mainBody > div.sbt-A-wrap > div.main > div.content > div.row").css("background-color","#149fff");
+                sheet.disabled = false;
+            }else{
+                header.classList.remove("header-hide");
+                $("#mainBody > div.sbt-A-wrap > div.main > div.content > div.row").css("background-color","white");
+                sheet.disabled = true;
+            }
+        });
+
+        // 헤더 높이 + 여분 20px 밖으로 벗어나면 숨기기
+        document.addEventListener('mousemove', e => {
+            if (e.clientY < showThreshold) {
+                header.classList.add('visible');
+            } else if (e.clientY > hideThreshold) {
+                header.classList.remove('visible');
+            }
+        });
     });
 
     /**
@@ -1259,9 +1328,6 @@
         const jsonSysId = menuJson.filter((item, index, arr) => {
             return gfn_isEmpty(item.pid);
         });
-
-        //console.log(jsonSysId);
-
 
         // 여기서 분기
         let menuId = menuJson[0].id;
@@ -1600,7 +1666,6 @@
         if (!gfn_isEmpty(mainTab)) {
             return;
         }
-
         const svg = '📊'; //getHomeSvg();
         const jsonTabSelect = {
                 'id': tabName,
@@ -1614,6 +1679,19 @@
             };
 
         SBUxMethod.addTab('tab_menu', jsonTabSelect);
+
+        /** 관리자 00,10 type시 agent 대시보드 노출 **/
+        if(gv_untyAuthrtType === '00' || gv_untyAuthrtType === '10'){
+            const jsonTabSelect = {
+                'text': 'Agent',	//'대시보드'
+                'targetid': "TAB_CO_020",
+                'targetvalue': "TAB_CO_020",
+                'targetname': 'frmJson',
+                'link': '/co/menu/openPage.do/CO_020',	// _url
+                'closeicon': false,
+            };
+            SBUxMethod.addTab('tab_menu',jsonTabSelect);
+        }
         //화면이력관리용 data
         const data = {
                 customData : {prsnaYn : null},

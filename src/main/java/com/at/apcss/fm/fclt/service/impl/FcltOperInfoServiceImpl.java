@@ -1,6 +1,11 @@
 package com.at.apcss.fm.fclt.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.util.ComUtil;
+import org.egovframe.rte.fdl.cmmn.exception.EgovBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -132,6 +137,98 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	}
 
 	@Override
+	public HashMap<String, Object> insertOperOgnz(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+		String crtrYr = fcltOperInfoVO.getCrtrYr();
+		String apcCd = fcltOperInfoVO.getApcCd();
+
+		FcltOperInfoVO apcOperPrsnOtlnVO = fcltOperInfoMapper.selectApcOperPrsnOtln(fcltOperInfoVO);
+
+		boolean needsInsert;
+		if (apcOperPrsnOtlnVO == null || !StringUtils.hasText(apcOperPrsnOtlnVO.getApcCd())) {
+			needsInsert = true;
+		} else if (!ComConstants.CON_NONE.equals(apcOperPrsnOtlnVO.getDelYn())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_TGT_WRONG, "등록정보");
+		} else {
+			needsInsert = false;
+		}
+
+
+		// 운영자 개요 등록
+		if (needsInsert) {
+			fcltOperInfoMapper.insertApcOperPrsnOtln(fcltOperInfoVO);
+		} else {
+			fcltOperInfoVO.setHstryPrcsKnd(ComConstants.CON_HSTRY_PRCS_KND_UPDATE);
+			fcltOperInfoMapper.insertApcOperPrsnOtlnHstry(fcltOperInfoVO);
+
+			if (StringUtils.hasText(fcltOperInfoVO.getRtnCd())) {
+				throw new EgovBizException(
+						getMessageForMap(ComUtil.getResultMap(fcltOperInfoVO.getRtnCd(), fcltOperInfoVO.getRtnMsg()))
+				);
+			}
+			fcltOperInfoMapper.updateApcOperPrsnOtln(fcltOperInfoVO);
+		}
+
+		List<FcltItemVO> itemList = fcltOperInfoVO.getItemList();
+
+		// 삭제 후 등록 진행
+		FcltItemVO itemParamVO = new FcltItemVO();
+		itemParamVO.setCrtrYr(crtrYr);
+		itemParamVO.setApcCd(apcCd);
+
+		List<FcltItemVO> trmtItemList = fcltOperInfoMapper.selectApcOperTrmtItemList(itemParamVO);
+
+		if (trmtItemList != null && !trmtItemList.isEmpty()) {
+			// 이력등록
+			fcltOperInfoMapper.insertApcOperTrmtItemHstry(fcltOperInfoVO);
+			// 삭제
+			for (FcltItemVO itemVO : trmtItemList) {
+				itemVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+				itemVO.setApcCd(fcltOperInfoVO.getApcCd());
+				itemVO.setSysFrstInptUserId(fcltOperInfoVO.getSysFrstInptUserId());
+				itemVO.setSysFrstInptPrgrmId(fcltOperInfoVO.getSysFrstInptPrgrmId());
+				// delete
+				fcltOperInfoMapper.deleteApcOperTrmtItem(itemVO);
+			}
+		}
+
+		// 등록
+		for (FcltItemVO fcltItemVO : itemList) {
+			fcltItemVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+			fcltItemVO.setApcCd(fcltOperInfoVO.getApcCd());
+			fcltItemVO.setSysFrstInptUserId(fcltOperInfoVO.getSysFrstInptUserId());
+			fcltItemVO.setSysFrstInptPrgrmId(fcltOperInfoVO.getSysFrstInptPrgrmId());
+			fcltItemVO.setSysLastChgUserId(fcltOperInfoVO.getSysLastChgUserId());
+			fcltItemVO.setSysLastChgPrgrmId(fcltOperInfoVO.getSysLastChgPrgrmId());
+			fcltOperInfoMapper.insertApcOperTrmtItem(fcltItemVO);
+		}
+
+		String prgrsYn = ComUtil.nullToDefault(fcltOperInfoVO.getPrgrsYn(), ComConstants.CON_NONE);
+
+		if (ComConstants.CON_YES.equals(fcltOperInfoVO.getPrgrsYn())) {
+			FcltPrgrsVO fcltPrgrsVO = new FcltPrgrsVO();
+			fcltPrgrsVO.setApcCd(fcltOperInfoVO.getApcCd());
+			fcltPrgrsVO.setCrtrYr(fcltOperInfoVO.getCrtrYr());
+			fcltPrgrsVO.setSysFrstInptUserId(fcltOperInfoVO.getSysFrstInptUserId());
+			fcltPrgrsVO.setSysFrstInptPrgrmId(fcltOperInfoVO.getSysFrstInptPrgrmId());
+			fcltPrgrsVO.setSysLastChgUserId(fcltOperInfoVO.getSysLastChgUserId());
+			fcltPrgrsVO.setSysLastChgPrgrmId(fcltOperInfoVO.getSysLastChgPrgrmId());
+
+			fcltPrgrsVO.setPrgrsSel("1");
+
+			//임시저장
+			if (ComConstants.CON_YES.equals(fcltOperInfoVO.getTmprStrgYn())) {
+				fcltPrgrsVO.setPrgrsVal(ComConstants.CON_T);
+			} else {
+				fcltPrgrsVO.setPrgrsVal(ComConstants.CON_YES);
+			}
+			fcltPrgrsMapper.insertFcltPrgrs(fcltPrgrsVO);
+		}
+
+		return null;
+	}
+
+	@Override
 	public int updateFcltOperInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 
 		int updatedCnt = fcltOperInfoMapper.updateFcltOperInfo(fcltOperInfoVO);
@@ -198,6 +295,44 @@ public class FcltOperInfoServiceImpl extends BaseServiceImpl implements FcltOper
 	public FcltOperInfoVO selectUserInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
 		FcltOperInfoVO resultVO = fcltOperInfoMapper.selectUserInfo(fcltOperInfoVO);
 		return resultVO;
+	}
+
+	/**
+	 * APC전수조사 - 운영자정보 목록 조회
+	 * @param fcltOperInfoVO
+	 * @return List<FcltOperInfoVO>
+	 */
+	@Override
+	public List<FcltOperInfoVO> selectOperPrsnInfoList(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+		List<FcltOperInfoVO> resultList = fcltOperInfoMapper.selectOperPrsnInfoList(fcltOperInfoVO);
+
+		return resultList;
+	}
+
+	@Override
+	public HashMap<String, Object> updateOperPrsnInfo(FcltOperInfoVO fcltOperInfoVO) throws Exception {
+
+		String crtrYr = fcltOperInfoVO.getCrtrYr();
+		if (!StringUtils.hasText(crtrYr)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "기준연도");
+		}
+
+		String apcCd = fcltOperInfoVO.getApcCd();
+		if (!StringUtils.hasText(apcCd)) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND,"APC코드");
+		}
+
+		FcltOperInfoVO apcOperPrsnVO = fcltOperInfoMapper.selectApcOperPrsnOtln(fcltOperInfoVO);
+		if (apcOperPrsnVO == null || !StringUtils.hasText(apcOperPrsnVO.getCrtrYr())) {
+			return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "운영자정보 저장대상"); // W0005	{0}이/가 없습니다.
+		}
+
+		if (0 == fcltOperInfoMapper.updateOperPrsnInfo(fcltOperInfoVO)) {
+			throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "운영자정보 저장"))); // E0003	{0} 시 오류가 발생하였습니다.
+		}
+
+		return null;
 	}
 
 }

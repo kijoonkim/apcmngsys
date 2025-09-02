@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 출자출하조직 - 총괄표</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -378,7 +378,8 @@
 					</div>
 				</c:if>
 				</div>
-				<div class="ad_section_top">
+				<%--요약 - 부류별 합계 화면에서 안보이게 처리 2025.05.28 --%>
+				<%--<div class="ad_section_top">
 					<div class="ad_tbl_top">
 						<ul class="ad_tbl_count">
 							<li>
@@ -388,7 +389,7 @@
 					</div>
 					<!-- SBGrid를 호출합니다. -->
 					<div id="sb-area-grdClsfTot" style="height:300px; width: 100%;"></div>
-				</div>
+				</div>--%>
 			</div>
 			<div id="sb-area-hiddenGrd" style="height:400px; width: 100%; display: none;"></div>
 		</div>
@@ -419,7 +420,7 @@
 		await fn_initSBSelect();
 		await fn_fcltMngCreateGrid01();
 		//fn_fcltMngCreateGrid02();
-		await fn_createGridClsfTot();//부류별 합계
+		// await fn_createGridClsfTot();//부류별 합계
 
 	<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91' || loginVO.apoSe eq '1'}">
 		await fn_fcltMngCreateGrid();
@@ -546,13 +547,14 @@
 			};
 		SBGridProperties.columns = [
 			{caption: ["seq"], 			ref: 'apoCd',   	hidden : true},
-			{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'100px',    style:'text-align:center'},
+			{caption: ["등록년도"], 		ref: 'yr',   	type:'output',  width:'80px',    style:'text-align:center'},
+			{caption: ["통합조직명"], 		ref: 'uoCorpNm',   	type:'output',  width:'100px',    style:'text-align:left'},
 			{caption: ["통합조직여부"], 	ref: 'aprv',   type:'combo',  width:'80px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
-			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
-			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
-			{caption: ["적합품목(전문품목)"], 		ref: 'stbltYnNmList1',   	type:'output',  width:'200px',    style:'text-align:center'},
-			{caption: ["적합품목(육성품목)"], 		ref: 'stbltYnNmList2',   	type:'output',  width:'200px',    style:'text-align:center'},
+			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:left'},
+			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'150px',    style:'text-align:center'},
+			{caption: ["적합품목(전문품목)"], 		ref: 'stbltYnNmList1',   	type:'output',  width:'200px',    style:'text-align:left'},
+			{caption: ["적합품목(육성품목)"], 		ref: 'stbltYnNmList2',   	type:'output',  width:'200px',    style:'text-align:left'},
 			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
 				,typeinfo : {ref:'jsonGrdCorpSeCd', label:'label', value:'value', displayui : false}},
 			{caption: ["시도"], 			ref: 'ctpv',   	type:'combo',  width:'160px',    style:'text-align:center', disabled:true
@@ -772,7 +774,8 @@
 			yr = year;
 		}
 
-		fn_createGridClsfTot();
+		// 요약 - 부류별 합계
+		// fn_createGridClsfTot();
 
 		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
 		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
@@ -804,62 +807,67 @@
 		if(gfn_isEmpty(brno)) return;
 		</c:if>
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-			brno : brno
-			,apoSe : '2'
-			,yr : yr
-			,stbltYnNm:'Y'
+		const url = "/pd/aom/selectUoIsoOgnzList.do";
 
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
-			,cmptnInst : cmptnInst
-			,ctpv : ctpv
+		//let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
+		let postJsonPromise = gfn_postJSON(url, {
+				brno : brno
+				,apoSe : '2'
+				,yr : yr
+				,stbltYnNm:'Y'
 
-			,corpSeCd : corpSeCd
-			,corpDtlSeCd : corpDtlSeCd
+				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
+				,cmptnInst : cmptnInst
+				,ctpv : ctpv
 
-			,corpNm : corpNm
+				,corpSeCd : corpSeCd
+				,corpDtlSeCd : corpDtlSeCd
 
-			,aprv : aprv
-			//,apoSe : apoSe
-			,uoBrno : uoBrno
-			,yrChk : yrChkVal
-			,stbltHldYn : stbltHldYn //적합품목 보유 여부
-			</c:if>
+				,corpNm : corpNm
 
-			<c:if test="${loginVO.apoSe eq '1'}">
-			,userType : '21'
-			,stbltYnBrno : brno
-			</c:if>
+				,aprv : aprv
+				//,apoSe : apoSe
+				,uoBrno : uoBrno
+				,yrChk : yrChkVal
+				,stbltHldYn : stbltHldYn //적합품목 보유 여부
+				</c:if>
 
-			//페이징
-			,pagingYn : 'Y'
-			,currentPageNo : pageNo
-			,recordCountPerPage : pageSize
-		});
+				<c:if test="${loginVO.apoSe eq '1'}">
+				,userType : '21'
+				,stbltYnBrno : brno
+				</c:if>
+
+				//페이징
+				,pagingYn : 'Y'
+				,currentPageNo : pageNo
+				,recordCountPerPage : pageSize
+			});
 
 		let data = await postJsonPromise ;
-		try{
+		try {
 			jsonPrdcrOgnCurntMng.length = 0;
 			let totalRecordCount = 0;
-			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				let PrdcrOgnCurntMngVO = {
-						apoCd: item.apoCd
-						,apoSe: item.apoSe
-						,ctpv: item.ctpv
-						,aprv: item.aprv
-						,sgg: item.sgg
-						,corpNm: item.corpNm
-						,crno: item.crno
-						,brno: item.brno
-						,yr: item.yr
-						,corpSeCd: item.corpSeCd
-						,stbltYnNm: item.stbltYnNm
-						,stbltYnNmList: item.stbltYnNmList
-						,stbltYnNmList1: item.stbltYnNmList1
-						,stbltYnNmList2: item.stbltYnNmList2
-				}
-				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
+
+				jsonPrdcrOgnCurntMng.push({
+					apoCd: item.apoCd,
+					apoSe: item.apoSe,
+					ctpv: item.ctpv,
+					aprv: item.aprv,
+					sgg: item.sgg,
+					corpNm: item.corpNm,
+					crno: item.crno,
+					brno: item.brno,
+					uoCrno: item.uoCrno,
+					uoCorpNm: item.uoCorpNm,
+					yr: item.yr,
+					corpSeCd: item.corpSeCd,
+					stbltYnNm: item.stbltYnNm,
+					stbltYnNmList: item.stbltYnNmList,
+					stbltYnNmList1: item.stbltYnNmList1,
+					stbltYnNmList2: item.stbltYnNmList2,
+				});
+
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
@@ -867,10 +875,10 @@
 
 			if (jsonPrdcrOgnCurntMng.length > 0) {
 
-				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+				if (grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdPrdcrOgnCurntMng.rebuild();
-				}else{
+				} else {
 					grdPrdcrOgnCurntMng.refresh()
 				}
 			} else {
@@ -881,7 +889,7 @@
 
 			//grdPrdcrOgnCurntMng.rebuild();
 
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -895,13 +903,14 @@
 		if(gfn_isEmpty(brno)) return;
 		let yr = SBUxMethod.get("dtl-input-yr");//
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", {
-			brno : brno
-			,yr : yr
-		});
+		try {
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngIsoList.do", {
+				brno : brno,
+				yr : yr
+			});
 
-		let data = await postJsonPromise ;
-		try{
+			const data = await postJsonPromise ;
+
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
@@ -910,8 +919,10 @@
 				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
 				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
 			});
-			fn_searchUoList();
-		}catch (e) {
+
+			await fn_searchUoList(yr);
+
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1020,6 +1031,7 @@
 						,stbltYn: item.stbltYn//적합여부 기준 적용 결과
 						,orgStbltYn: item.orgStbltYn//적합여부 현재 적용 값
 						,stbltYnNm: fn_calStbltYn(item)
+						,stbltYnNm: item.stbltYnNm
 	   				<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
 						,actnMttr: 		item.actnMttr
 					</c:if>
@@ -1032,7 +1044,7 @@
 
 			let rowData = grdPrdcrOgnCurntMng01.getRowData(2);
 
-			fn_dtlSearchClsfTot();
+			// fn_dtlSearchClsfTot(); // 요약 - 부류별합계
 		}catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -1088,11 +1100,14 @@
 		if (nCol < 1) {
 			return;
 		}
+
 		var nRow = grdPrdcrOgnCurntMng.getRow();
+
 		if (nRow < 1) {
 			return;
 		}
-		if(nRow == null){
+
+		if (nRow == null) {
 			nRow = 1;
 		}
 
@@ -1107,11 +1122,11 @@
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//사업자등록번호
 		SBUxMethod.set('dtl-input-yr',gfn_nvl(rowData.yr))//등록년도
 
-		fn_searchUoList();
+		await fn_searchUoList(rowData.yr);
 	}
 
 	//총괄표 그리드 초기화
-	async function fn_clearForm() {
+	function fn_clearForm() {
 		SBUxMethod.set('dtl-input-apoCd',null)//통합조직 코드
 		SBUxMethod.set('dtl-input-apoSe',null)//통합조직 구분
 		SBUxMethod.set('dtl-input-corpNm',null)//법인명
@@ -1124,48 +1139,60 @@
 		jsonPrdcrOgnCurntMng01.length= 0;
 		grdPrdcrOgnCurntMng01.rebuild();
 		jsonClsfTot.length= 0;
-		grdClsfTot.rebuild();
+		//grdClsfTot.rebuild();
 	}
 
 	var comUoBrno = [];//통합조직 선택
 
 	/* 출자출하조직이 속한 통합조직 리스트 조회 */
-	const fn_searchUoList = async function(){
+	const fn_searchUoList = async function(yr) {
+
+		let brno;
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.apoSe ne '2'}">
-		let brno = SBUxMethod.get('dtl-input-brno');
+		brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
 		<c:if test="${loginVO.apoSe eq '2'}">
-		let brno = '${loginVO.brno}';
+		brno = '${loginVO.brno}';
 		</c:if>
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			brno : brno
-		});
-		let data = await postJsonPromise;
-		try{
+
+		try {
+			// let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			// 	brno : brno
+			// });
+			// let data = await postJsonPromise;
+
+			const postJsonPromise = gfn_postJSON("/pd/bsm/selectUoHstryList.do", {
+				brno: brno,
+				yr: yr
+			});
+
+			const data = await postJsonPromise;
+
 			comUoBrno = [];
 			let uoBrno;
 			data.resultList.forEach((item, index) => {
 				uoBrno = item.uoBrno;
 				let uoListVO = {
-						'text'		: item.uoCorpNm
-						, 'label'	: item.uoCorpNm
-						, 'value'	: item.uoBrno
-						, 'uoApoCd' : item.uoApoCd
-
+						'text': item.uoCorpNm,
+						'label': item.uoCorpNm,
+						'value': item.uoBrno,
+						'uoApoCd': item.uoApoCd
 				}
+
 				comUoBrno.push(uoListVO);
 			});
+
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
-			if(comUoBrno.length == 1){
+			if (comUoBrno.length == 1){
 				await SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
 				await SBUxMethod.set('dtl-input-uoBrno',uoBrno);
-				fn_dtlGridSearch();
+				await fn_dtlGridSearch();
 			}
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1180,12 +1207,11 @@
 		let selVal = SBUxMethod.get('dtl-input-selUoBrno');
 		let selCombo = _.find(comUoBrno, {value : selVal});
 		//console.log(selCombo);
-		if( typeof selCombo == "undefined" || selCombo == null || selCombo == "" ){
+
+		if (gfn_isEmpty(selCombo)) {
 			SBUxMethod.set('dtl-input-uoBrno' , null);
-			//SBUxMethod.set('dtl-input-uoCd' , null);
-		}else{
+		} else {
 			SBUxMethod.set('dtl-input-uoBrno',selCombo.value);
-			//SBUxMethod.set('dtl-input-uoCd',selCombo.uoApoCd);
 		}
 	}
 
@@ -1305,7 +1331,7 @@
 			gfn_comAlert("W0003", "저장");				//	W0003	{0}할 대상이 없습니다.
 			return;
 		}
-		console.log(saveList);
+		// console.log(saveList);
 
 		let regMsg = "저장 하시겠습니까?";
 		if(confirm(regMsg)){
@@ -1513,16 +1539,18 @@
 			{caption: ["신청년도"],			ref:'yr',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["사업자번호"],		ref:'brno',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["법인명"],			ref:'corpNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["조직코드"],			ref:'apoCd',		type:'output',width:'60px',style:'text-align:center'},
 			{caption: ["통합조직 사업자번호"],	ref:'uoBrno',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 법인명"],	ref:'uoCorpNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 구분"],		ref:'aprv',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 구분명"],	ref:'aprvNm',		type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["통합조직 조직코드"],	ref:'uoApoCd',		type:'output',width:'60px',style:'text-align:center'},
 			{caption: ["품목코드"],			ref:'itemCd',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["품목명"],			ref:'itemNm',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["분류코드"],			ref:'ctgryCd',		type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["분류명"],			ref:'ctgryNm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["전문/육성 구분코드"],	ref:'sttgUpbrItemSe',	type:'output',width:'70px',style:'text-align:center'},
-			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemNm',	type:'output',width:'70px',style:'text-align:center'},
+			{caption: ["전문/육성 구분"],	ref:'sttgUpbrItemSeNm',	type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 판매위임액 생산자조직 출하 물량(톤)"],			ref:'uoSpmtVlm',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["(A)통합조직 판매위임액 생산자조직 출하 금액(천원)"],	ref:'uoSpmtAmt',			type:'output',width:'70px',style:'text-align:center'},
 			{caption: ["통합조직 판매위임액 생산자조직 외 출하 물량(톤)"],		ref:'uoSpmtVlmOther',		type:'output',width:'70px',style:'text-align:center'},
@@ -1547,6 +1575,11 @@
 
 	}
 	const fn_hiddenGrdSelect = async function(){
+
+		if (!gfn_comConfirm("Q0001", "Rawdata 다운로드")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
 		await fn_hiddenGrd();
 		let yr = SBUxMethod.get("srch-input-yr");
 		if (gfn_isEmpty(yr)) {
@@ -1555,75 +1588,90 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", {
+
+		try {
+			//let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnGenalTblMngSelectRawDataList2025.do", {
+			let postJsonPromise = gfn_postJSON("/pd/isom/selectIsoPrchsSlsRawdataList.do", {
 				yr : yr
 			});
 
-			let data = await postJsonPromise;
-			try{
+			const data = await postJsonPromise;
 			jsonHiddenGrd.length = 0;
+
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
-					yr						:item.yr
-					,uoBrno					:item.uoBrno
-					,uoCorpNm				:item.uoCorpNm
-					,brno					:item.brno
-					,corpNm					:item.corpNm
-					,aprv					:item.aprv
-					,aprvNm					:item.aprvNm
-					,itemCd					:item.itemCd
-					,itemNm					:item.itemNm
-					,ctgryCd				:item.ctgryCd
-					,ctgryNm				:item.ctgryNm
-					,sttgUpbrItemSe			:item.sttgUpbrItemSe
-					,sttgUpbrItemNm			:item.sttgUpbrItemNm
+					yr						:item.yr,
+					uoBrno					:item.uoBrno,
+					uoCorpNm				:item.uoCorpNm,
+					uoApoCd					:gfn_nvl(item.uoApoCd),
+					brno					:item.brno,
+					corpNm					:item.corpNm,
+					apoCd					:gfn_nvl(item.apoCd),
+					uoCrno					:item.uoCrno,
+					uoCorpNm				:item.uoCorpNm,
+					aprv					:item.aprv,
+					aprvNm					:item.aprvNm,
+					itemCd					:item.itemCd,
+					itemNm					:item.itemNm,
+					ctgryCd					:item.ctgryCd,
+					ctgryNm					:item.ctgryNm,
+					sttgUpbrItemSe			:item.sttgUpbrItemSe,
+					sttgUpbrItemNm			:item.sttgUpbrItemNm,
+					sttgUpbrItemSeNm		:item.sttgUpbrItemSeNm,
 
-					,uoSpmtAmt				:Number(item.uoSpmtAmt)
-					,uoSpmtAmtOther			:Number(item.uoSpmtAmtOther)
-					,uoOtherSpmtAmt			:Number(item.uoOtherSpmtAmt)
-					,uoOtherSpmtAmtOther	:Number(item.uoOtherSpmtAmtOther)
+					uoSpmtAmt				:Number(item.uoSpmtAmt),
+					uoSpmtAmtOther			:Number(item.uoSpmtAmtOther),
+					uoOtherSpmtAmt			:Number(item.uoOtherSpmtAmt),
+					uoOtherSpmtAmtOther		:Number(item.uoOtherSpmtAmtOther),
 
-					,uoSpmtVlm				:Number(item.uoSpmtVlm)
-					,uoSpmtVlmOther			:Number(item.uoSpmtVlmOther)
-					,uoOtherSpmtVlm			:Number(item.uoOtherSpmtVlm)
-					,uoOtherSpmtVlmOther	:Number(item.uoOtherSpmtVlmOther)
+					uoSpmtVlm				:Number(item.uoSpmtVlm),
+					uoSpmtVlmOther			:Number(item.uoSpmtVlmOther),
+					uoOtherSpmtVlm			:Number(item.uoOtherSpmtVlm),
+					uoOtherSpmtVlmOther		:Number(item.uoOtherSpmtVlmOther),
 
-					,uoSpmtVlmTot			:Number(item.uoSpmtVlmTot)
-					,uoSpmtAmtTot			:Number(item.uoSpmtAmtTot)
-					,uoSpmtAmtRt			:Number(item.uoSpmtAmtRt)
-					,uoSpmtAmtTotRt			:Number(item.uoSpmtAmtTotRt)
+					uoSpmtVlmTot			:Number(item.uoSpmtVlmTot),
+					uoSpmtAmtTot			:Number(item.uoSpmtAmtTot),
+					uoSpmtAmtRt				:Number(item.uoSpmtAmtRt),
+					uoSpmtAmtTotRt			:Number(item.uoSpmtAmtTotRt),
 
-					,stbltYn				:item.stbltYn
-					,orgStbltYn				:item.orgStbltYn
-					,lastStbltYn			:item.lastStbltYn
-					,stbltYnNm				:fn_calStbltYn(item)
-					,actnMttr				:item.actnMttr
+					stbltYn					:item.stbltYn,
+					orgStbltYn				:item.orgStbltYn,
+					lastStbltYn				:item.lastStbltYn,
+					//,stbltYnNm				:fn_calStbltYn(item)
+					stbltYnNm				:item.stbltYnNm,
+					actnMttr				:item.actnMttr,
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);
 			});
 
 			await hiddenGrd.rebuild();
 
-			await fn_excelDown();
+			await fn_excelDown(yr);
 
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 	    }
 	}
+
 	//로우 데이터 엑셀 다운로드
-	function fn_excelDown(){
+	/**
+	 * @param yr
+	 */
+	function fn_excelDown(yr){
 		const currentDate = new Date();
 
-		const year = currentDate.getFullYear().toString().padStart(4, '0');
-		const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
-		const day = currentDate.getDate().toString().padStart(2, '0');
-		let formattedDate = year + month + day;
 
-		let fileName = formattedDate + "_총괄표_출자출하조직_로우데이터";
+		// const year = currentDate.getFullYear().toString().padStart(4, '0');
+		// const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');// 월은 0부터 시작하므로 1을 더합니다.
+		// const day = currentDate.getDate().toString().padStart(2, '0');
+		// let formattedDate = year + month + day;
+
+		// let fileName = formattedDate + "_총괄표_출자출하조직_로우데이터_" + yr + "년";
+		const fileName = gfn_dateToYmd(currentDate) + "_총괄표_출자출하조직_로우데이터_" + yr + "년";
 
 		/*
 		datagrid.exportData(param1, param2, param3, param4);

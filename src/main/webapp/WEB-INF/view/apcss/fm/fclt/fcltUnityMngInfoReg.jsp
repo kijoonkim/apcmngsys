@@ -1,7 +1,7 @@
 <%
  /**
   * @Class Name : fcltUnityMngInfoReg.jsp
-  * @Description : 4.3.통합고나리시스템 활용현황 화면
+  * @Description : 4.3.통합관리시스템 활용현황 화면
   * @author SI개발부
   * @since 2023.12.12
   * @version 1.0
@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 통합관리시스템 활용현황 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -66,13 +67,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -203,6 +211,8 @@
 
 </body>
 <script type="text/javascript">
+	// 기준연도
+	var jsonCrtrYr = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -231,6 +241,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
@@ -244,6 +255,10 @@
 
 	}
 
+	const fn_initSBSelect = async function() {
+		await gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+	}
+
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
 
@@ -253,9 +268,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -294,18 +307,21 @@
 			return;
 		}
 		await fn_clearForm();
+
+		//진척도
+		await cfn_selectPrgrs();
+
 		await fn_selectUniMnIfList();
 	}
 
-	const fn_selectUniMnIfList = async function(copy_chk) {
-		 console.log("******************fn_pagingUniMnIfList**********************************");
+	const fn_selectUniMnIfList = async function(prevData) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltUnityMngInfoList.do", {
@@ -347,16 +363,20 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
-
-		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const apcCd = SBUxMethod.get("srch-inp-apcCd");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
+
 		if (gfn_isEmpty(crtrYr)) {
-			alert("조사연도를 작성해주세요");
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
 			return;
 		}
 
@@ -369,16 +389,27 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
-		//console.log(SBUxMethod.get('srch-inp-crtrYr'));
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltUnityMngInfo.do", {
-			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+			crtrYr : SBUxMethod.get('srch-slt-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
@@ -406,8 +437,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 	// apc 선택 팝업 호출
@@ -426,7 +455,6 @@
 	}
 	//활용 여부에 따라 비활성화 처리
 	function fn_selectOnchange(e){
-		console.log(e);
 		if($(e).val() == 'Y'){
 			SBUxMethod.changeGroupAttr("group1",'disabled','false');
 		}else{
@@ -439,7 +467,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -452,6 +479,15 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	async function fn_pySearch() {
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))) {
+			alert('APC를 선택해주세요');
+			return;
+		}
+		await fn_clearForm();
+		await fn_selectUniMnIfList("Y");
 	}
 
 </script>

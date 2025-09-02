@@ -37,6 +37,7 @@
 					<h3 class="box-title"> ▶ <c:out value='${menuNm}'></c:out></h3><!-- 시설고용인력 -->
 			</div>
 			<div style="margin-left: auto;">
+				<sbux-button id="btnSearchPy" name="btnSearchPy" uitype="normal" text="전년도 데이터" class="btn btn-sm btn-outline-danger" onclick="fn_pySearch"></sbux-button>
 				<sbux-button id="btnSearch" name="btnSearch" uitype="normal" text="조회" class="btn btn-sm btn-primary" onclick="fn_search"></sbux-button>
 				<sbux-button id="btnTmprStrg" name="btnTmprStrg" uitype="normal" text="임시저장" class="btn btn-sm btn-outline-danger" onclick="fn_tmprStrg"></sbux-button>
 				<sbux-button id="btnInsert" name="btnInsert" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_save"></sbux-button>
@@ -66,13 +67,20 @@
 						</td>
 						<th scope="row">조사연도</th>
 						<td class="td_input"  style="border-right: hidden;">
-							<sbux-spinner
+							<%--<sbux-spinner
 									id="srch-inp-crtrYr"
 									name="srch-inp-crtrYr"
 									uitype="normal"
 									step-value="1"
 									disabled
-								></sbux-spinner>
+								></sbux-spinner>--%>
+							<sbux-select
+									id="srch-slt-crtrYr"
+									name= "srch-slt-crtrYr"
+									uitype="single"
+									jsondata-ref="jsonCrtrYr"
+									class="form-control input-sm"
+							></sbux-select>
 						</td>
 						<td class="td_input" style="border-right: hidden;">
 							<!--
@@ -134,6 +142,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -147,6 +156,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -159,6 +169,7 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>(천원)</td>
@@ -171,6 +182,7 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>(천원)</td>
@@ -184,6 +196,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -197,6 +210,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -240,6 +254,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -253,6 +268,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -266,6 +282,7 @@
 									maxlength="6"
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 1}"
 									style="text-align: right"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 							<td>명</td>
@@ -276,7 +293,8 @@
 									uitype="text"
 									class="form-control input-sm"
 									placeholder=""
-									style="text-align: right"
+									style="text-align: left"
+									autocomplete="off"
 								></sbux-input>
 							</td>
 						</tr>
@@ -296,6 +314,11 @@
 	</div>
 </body>
 <script type="text/javascript">
+
+	// 기준연도
+	var jsonCrtrYr = [];
+	// 전년도
+	var jsonPrevData = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -323,6 +346,7 @@
 
 	/* 초기세팅 */
 	const fn_init = async function() {
+		await fn_initSBSelect();
 
 		await fn_selectUserApcList();//선택가능한 APC리스트 조회
 
@@ -336,6 +360,10 @@
 		await cfn_selectPrgrs();
 	}
 
+	const fn_initSBSelect = async function() {
+		gfn_getApcSurveyCrtrYr('srch-slt-crtrYr',jsonCrtrYr); // 연도
+	}
+
 	/* 선택가능한 APC리스트 조회 */
 	const fn_selectUserApcList = async function(){
 
@@ -345,9 +373,7 @@
 
 		let data = await postJsonPromise;
 		try{
-			console.log(data);
 			let apcListLength = data.resultList.length;
-			console.log(apcListLength);
 			if(apcListLength == 1){
 				SBUxMethod.set("srch-inp-apcCd", data.resultList[0].apcCd);
 				SBUxMethod.set("srch-inp-apcNm", data.resultList[0].apcNm);
@@ -368,8 +394,8 @@
 
 	//입력폼 초기화
 	function fn_clearForm() {
-		SBUxMethod.set('dtl-inp-hireRgllbrCtzn',null);
-		SBUxMethod.set('dtl-inp-hireRgllbrFrgnr',null);
+		SBUxMethod.set('dtl-inp-hireRgllbrSpt',null);
+		SBUxMethod.set('dtl-inp-hireRgllbrOfc',null);
 
 		SBUxMethod.set('dtl-inp-hireTmprWgTotSum',null);
 		SBUxMethod.set('dtl-inp-hireTmprAvgWg',null);
@@ -393,17 +419,19 @@
 		await cfn_selectPrgrs();
 
 		await fn_selectGrdHireInfoList();
+		// 전년도 조회
+		await fn_selectGrdHireInfoList("Y");
 	}
 
-	const fn_selectGrdHireInfoList = async function(copy_chk) {
-		 console.log("******************fn_setGrdHireInfoList**********************************");
+	const fn_selectGrdHireInfoList = async function(prevData) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
+		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(copy_chk)){
-			crtrYr = parseFloat(crtrYr) - parseFloat(copy_chk);
+		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/selectFcltOperHfInfoList.do", {
@@ -417,27 +445,28 @@
 		});
 
 		const data = await postJsonPromise;
-		//await 오류시 확인
 
 		//예외처리
 		try {
+			if (_.isEqual(prevData,"Y")) {
+				jsonPrevData = data.resultList;
+			} else {
+				data.resultList.forEach((item, index) => {
+					SBUxMethod.set('dtl-inp-hireRgllbrSpt', gfn_nvl(item.hireRgllbrSpt));
+					SBUxMethod.set('dtl-inp-hireRgllbrOfc', gfn_nvl(item.hireRgllbrOfc));
 
-			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-inp-hireRgllbrSpt',gfn_nvl(item.hireRgllbrSpt));
-				SBUxMethod.set('dtl-inp-hireRgllbrOfc',gfn_nvl(item.hireRgllbrOfc));
+					SBUxMethod.set('dtl-inp-hireTmprWgTotSum', gfn_nvl(item.hireTmprWgTotSum));
+					SBUxMethod.set('dtl-inp-hireTmprAvgWg', gfn_nvl(item.hireTmprAvgWg));
 
-				SBUxMethod.set('dtl-inp-hireTmprWgTotSum',gfn_nvl(item.hireTmprWgTotSum));
-				SBUxMethod.set('dtl-inp-hireTmprAvgWg',gfn_nvl(item.hireTmprAvgWg));
+					SBUxMethod.set('dtl-inp-hireTmprMin', gfn_nvl(item.hireTmprMin));
+					SBUxMethod.set('dtl-inp-hireTmprMax', gfn_nvl(item.hireTmprMax));
 
-				SBUxMethod.set('dtl-inp-hireTmprMin',gfn_nvl(item.hireTmprMin));
-				SBUxMethod.set('dtl-inp-hireTmprMax',gfn_nvl(item.hireTmprMax));
-
-				SBUxMethod.set('dtl-inp-hireFrgnrMin',gfn_nvl(item.hireFrgnrMin));
-				SBUxMethod.set('dtl-inp-hireFrgnrMax',gfn_nvl(item.hireFrgnrMax));
-				SBUxMethod.set('dtl-inp-hireFrgnrAvg',gfn_nvl(item.hireFrgnrAvg));
-				SBUxMethod.set('dtl-inp-hireFrgnrTaskCn',gfn_nvl(item.hireFrgnrTaskCn));
-			});
-
+					SBUxMethod.set('dtl-inp-hireFrgnrMin', gfn_nvl(item.hireFrgnrMin));
+					SBUxMethod.set('dtl-inp-hireFrgnrMax', gfn_nvl(item.hireFrgnrMax));
+					SBUxMethod.set('dtl-inp-hireFrgnrAvg', gfn_nvl(item.hireFrgnrAvg));
+					SBUxMethod.set('dtl-inp-hireFrgnrTaskCn', gfn_nvl(item.hireFrgnrTaskCn));
+				});
+			}
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -448,15 +477,20 @@
 
 	//등록
 	const fn_save = async function() {
-		console.log("******************fn_save**********************************");
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
-		let crtrYr = SBUxMethod.get("srch-inp-crtrYr");
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
 			alert("apc를 선택해주세요");
 			return;
 		}
+
 		if (gfn_isEmpty(crtrYr)) {
-			alert("조사연도를 작성해주세요");
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
 			return;
 		}
 
@@ -469,16 +503,28 @@
 			alert('APC를 선택해주세요');
 			return;
 		}
+
+		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
+
+		if (gfn_isEmpty(crtrYr)) {
+			gfn_comAlert("W0002", "조사연도");	//	W0002	{0}을/를 입력하세요.
+			return;
+		}
+
+		const canInsert = await gfn_apcSurveyInsertCheck(crtrYr, true);
+		if (!canInsert) {
+			return;
+		}
+
 		fn_subInsert(confirm("임시저장 하시겠습니까?") , 'Y');
 	}
 
 	//신규등록
 	const fn_subInsert = async function (isConfirmed , tmpChk){
-		console.log("******************fn_subInsert**********************************");
 		if (!isConfirmed) return;
 
 		const postJsonPromise = gfn_postJSON("/fm/fclt/insertFcltOperHfInfo.do", {
-			crtrYr : SBUxMethod.get('srch-inp-crtrYr')
+			crtrYr : SBUxMethod.get('srch-slt-crtrYr')
 			,apcCd : SBUxMethod.get('srch-inp-apcCd')
 			, prgrsYn : 'Y' //진척도 갱신 여부
 			, tmprStrgYn : tmpChk//임시저장 여부
@@ -510,8 +556,6 @@
 			}
 		} catch(e) {
 		}
-		// 결과 확인 후 재조회
-		console.log("insert result", data);
 	}
 
 	// apc 선택 팝업 호출
@@ -534,7 +578,6 @@
 	function fn_prgrsLastChk(){
 		//최종제출 여부
 		let prgrsLast = SBUxMethod.get('dtl-inp-prgrsLast');
-		console.log("prgrsLast = " + prgrsLast);
 		if(prgrsLast  == 'Y'){
 			SBUxMethod.attr("btnInsert",'disabled','true'); // 저장버튼 비활성화
 			//SBUxMethod.attr("btnInsert1",'disabled','true'); // 저장버튼 비활성화
@@ -547,6 +590,30 @@
 
 			SBUxMethod.attr("btnTmprStrg",'disabled','false'); // 임시저장버튼 활성화
 		}
+	}
+
+	// 전년도 데이터
+	function fn_pySearch() {
+		if (gfn_isEmpty(jsonPrevData)) return;
+
+		fn_clearForm();
+
+		jsonPrevData.forEach(item => {
+			SBUxMethod.set('dtl-inp-hireRgllbrSpt', gfn_nvl(item.hireRgllbrSpt));
+			SBUxMethod.set('dtl-inp-hireRgllbrOfc', gfn_nvl(item.hireRgllbrOfc));
+
+			SBUxMethod.set('dtl-inp-hireTmprWgTotSum', gfn_nvl(item.hireTmprWgTotSum));
+			SBUxMethod.set('dtl-inp-hireTmprAvgWg', gfn_nvl(item.hireTmprAvgWg));
+
+			SBUxMethod.set('dtl-inp-hireTmprMin', gfn_nvl(item.hireTmprMin));
+			SBUxMethod.set('dtl-inp-hireTmprMax', gfn_nvl(item.hireTmprMax));
+
+			SBUxMethod.set('dtl-inp-hireFrgnrMin', gfn_nvl(item.hireFrgnrMin));
+			SBUxMethod.set('dtl-inp-hireFrgnrMax', gfn_nvl(item.hireFrgnrMax));
+			SBUxMethod.set('dtl-inp-hireFrgnrAvg', gfn_nvl(item.hireFrgnrAvg));
+			SBUxMethod.set('dtl-inp-hireFrgnrTaskCn', gfn_nvl(item.hireFrgnrTaskCn));
+		});
+
 	}
 
 </script>

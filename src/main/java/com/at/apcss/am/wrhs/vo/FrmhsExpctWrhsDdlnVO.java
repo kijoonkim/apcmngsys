@@ -28,6 +28,10 @@ public class FrmhsExpctWrhsDdlnVO extends ComVO {
 	 * */
 	private String apcCd;
 	/*
+	 * 품목코드
+	 * */
+	private String itemCd;
+	/*
 	 * 마감일자
 	 * */
 	private String ymd;

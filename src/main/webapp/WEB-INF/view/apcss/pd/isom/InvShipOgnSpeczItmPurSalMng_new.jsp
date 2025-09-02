@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>title : SBUx2.6</title>
+    <title>title : 출자출하조직 관리 전문품목 매입·매출</title>
 	<%@ include file="../../../frame/inc/headerMeta.jsp" %>
 	<%@ include file="../../../frame/inc/headerScript.jsp" %>
 	<%@ include file="../../../frame/inc/clipreport.jsp" %>
@@ -558,7 +558,7 @@
 		SBGridProperties.paging = {
 				'type' : 'page',
 				'count' : 5,
-				'size' : 20,
+				'size' : 50,
 				'sorttype' : 'page',
 				'showgoalpageui' : true
 			};
@@ -569,6 +569,7 @@
 				,typeinfo : {ref:'jsonComGrdAprv', label:'label', value:'value', displayui : false}},
 			{caption: ["법인명"], 		ref: 'corpNm',  type:'output',  width:'250px',    style:'text-align:center'},
 			{caption: ["사업자번호"], 		ref: 'brno',   	type:'output',  width:'250px',    style:'text-align:center'},
+			//{caption: ["적합품목"], 		ref: 'stbltYnNmList',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["적합품목(전문품목)"], 		ref: 'stbltYnNmList1',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["적합품목(육성품목)"], 		ref: 'stbltYnNmList2',   	type:'output',  width:'200px',    style:'text-align:center'},
 			{caption: ["법인구분"], 		ref: 'corpSeCd',type:'combo',  width:'100px',    style:'text-align:center', disabled:true
@@ -976,84 +977,70 @@
 		</c:if>
 	}
 
-	/* Grid Row 조회 기능*/
-	const fn_setGrdFcltList = async function(pageSize, pageNo){
-		let yr = SBUxMethod.get("srch-input-yr");//
-		//통합조직인 경우
-		if(gfn_isEmpty(yr)){
-			yr = SBUxMethod.get("dtl-input-yr");//
-		}
-		//년도 검색값이 없는 경우 최신년도
-		if(gfn_isEmpty(yr)){
-			let now = new Date();
-			let year = now.getFullYear();
-			yr = year;
-		}
-		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
-		let cmptnInst = SBUxMethod.get("srch-input-cmptnInst");//
-		let ctpv = SBUxMethod.get("srch-input-ctpv");//
 
-		let corpSeCd = SBUxMethod.get("srch-input-corpSeCd");//
-		let corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");//
-
-		let brno = SBUxMethod.get("srch-input-brno");//
-		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
-		let corpNm = SBUxMethod.get("srch-input-corpNm");//
-
-		let aprv = SBUxMethod.get("srch-input-aprv");//
-
-		//sbgrid 체크박스 값 사용
-		let yrChk = SBUxMethod.get("srch-input-yrChk");//
-		let keys = Object.getOwnPropertyNames(yrChk);
+	const fn_yrChkVal = function() {
+		const yrChk = SBUxMethod.get("srch-input-yrChk");//
+		const keys = Object.getOwnPropertyNames(yrChk);
 		let yrChkVal = null;
-		for(let i=0; i<keys.length; i++){
-			if(yrChk[keys[i]]){
+		for ( let i=0; i<keys.length; i++) {
+			if (yrChk[keys[i]]){
 				yrChkVal = yrChk[keys[i]];
 			}
 		}
-		let stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
+		return yrChkVal;
+	}
+
+	/* Grid Row 조회 기능*/
+	const fn_setGrdFcltList = async function(pageSize, pageNo){
+		let yr = SBUxMethod.get("srch-input-yr");//
+
+		//통합조직인 경우
+		if (gfn_isEmpty(yr)) {
+			yr = SBUxMethod.get("dtl-input-yr");//
+		}
+
+		//년도 검색값이 없는 경우 최신년도
+		if (gfn_isEmpty(yr)) {
+			let now = new Date();
+			yr = now.getFullYear();
+		}
+
+		const param = {
+			brno : null,
+			apoSe : '2',
+			yr : yr,
+			stbltYnNm:'Y',
+			//페이징
+			pagingYn : 'Y',
+			currentPageNo : pageNo,
+			recordCountPerPage : pageSize
+		};
+
+		<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
+		param.brno = SBUxMethod.get("srch-input-brno");
+		param.cmptnInst = SBUxMethod.get("srch-input-cmptnInst");
+		param.ctpv = SBUxMethod.get("srch-input-ctpv");
+		param.corpSeCd = SBUxMethod.get("srch-input-corpSeCd");
+		param.corpDtlSeCd = SBUxMethod.get("srch-input-corpDtlSeCd");
+		param.uoBrno = SBUxMethod.get("srch-input-uoBrno");
+		param.corpNm = SBUxMethod.get("srch-input-corpNm");
+		param.aprv = SBUxMethod.get("srch-input-aprv");
+		param.yrChk = fn_yrChkVal();
+		param.stbltHldYn = SBUxMethod.get("srch-input-stbltHldYn");//
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
-		let brno = '${loginVO.brno}';
-		if(gfn_isEmpty(brno)) return;
+		param.brno = '${loginVO.brno}';
+		if (gfn_isEmpty(param.brno)) return;
+		param.userType = "21";
+		param.stbltYnBrno = '${loginVO.brno}';
 		</c:if>
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-			brno : brno
-			,apoSe : '2'
-			,yr : yr
-			,stbltYnNm:'Y'
+		jsonPrdcrOgnCurntMng.length = 0;
+		let totalRecordCount = 0;
+		try {
+			const postJsonPromise = gfn_postJSON("/pd/aom/selectUoIsoOgnzList.do", param);
+			const data = await postJsonPromise ;
 
-			<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' || loginVO.userType eq '02' || loginVO.userType eq '91'}">
-			,cmptnInst : cmptnInst
-			,ctpv : ctpv
-
-			,corpSeCd : corpSeCd
-			,corpDtlSeCd : corpDtlSeCd
-
-			,corpNm : corpNm
-
-			,aprv : aprv
-			,uoBrno : uoBrno
-			,yrChk : yrChkVal
-			,stbltHldYn : stbltHldYn //적합품목 보유 여부
-			</c:if>
-
-			<c:if test="${loginVO.apoSe eq '1'}">
-			,userType : '21'
-			,stbltYnBrno : brno
-			</c:if>
-
-			//페이징
-			,pagingYn : 'Y'
-			,currentPageNo : pageNo
-			,recordCountPerPage : pageSize
-		});
-
-		let data = await postJsonPromise ;
-		try{
-			jsonPrdcrOgnCurntMng.length = 0;
-			let totalRecordCount = 0;
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
 				<c:if test="${loginVO.apoSe eq '1'}">
@@ -1067,51 +1054,50 @@
 					$('#btnTempSave2').hide();
 				}
 				</c:if>
-				let PrdcrOgnCurntMngVO = {
-						apoCd: item.apoCd
-						,apoSe: item.apoSe
-						,ctpv: item.ctpv
-						,aprv: item.aprv
-						,sgg: item.sgg
-						,corpNm: item.corpNm
-						,crno: item.crno
-						,brno: item.brno
-						,yr: item.yr
-						,stbltYnNm: item.stbltYnNm
-						,stbltYnNmList: item.stbltYnNmList
-						,stbltYnNmList1: item.stbltYnNmList1
-						,stbltYnNmList2: item.stbltYnNmList2
-						,corpSeCd: item.corpSeCd
-						,prfmncCorpDdlnYn : item.prfmncCorpDdlnYn
-				}
-				jsonPrdcrOgnCurntMng.push(PrdcrOgnCurntMngVO);
+
+				jsonPrdcrOgnCurntMng.push({
+					apoCd: item.apoCd,
+					apoSe: item.apoSe,
+					ctpv: item.ctpv,
+					aprv: item.aprv,
+					sgg: item.sgg,
+					corpNm: item.corpNm,
+					crno: item.crno,
+					brno: item.brno,
+					yr: item.yr,
+					stbltYnNm: item.stbltYnNm,
+					stbltYnNmList: item.stbltYnNmList,
+					stbltYnNmList1: item.stbltYnNmList1,
+					stbltYnNmList2: item.stbltYnNmList2,
+					corpSeCd: item.corpSeCd,
+					prfmncCorpDdlnYn : item.prfmncCorpDdlnYn,
+				});
+
 				if (index === 0) {
 					totalRecordCount = item.totalRecordCount;
 				}
 			});
 
 			if (jsonPrdcrOgnCurntMng.length > 0) {
-
-				if(grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount){   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
+				if (grdPrdcrOgnCurntMng.getPageTotalCount() != totalRecordCount) {   // TotalCount가 달라지면 rebuild, setPageTotalCount 해주는 부분입니다
 					grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount); 		// 데이터의 총 건수를 'setPageTotalCount' 메소드에 setting
 					grdPrdcrOgnCurntMng.rebuild();
-				}else{
+				} else {
 					grdPrdcrOgnCurntMng.refresh()
 				}
 			} else {
 				grdPrdcrOgnCurntMng.setPageTotalCount(totalRecordCount);
 				grdPrdcrOgnCurntMng.rebuild();
 			}
-			document.querySelector('#listCount').innerText = totalRecordCount;
 
-			//grdPrdcrOgnCurntMng.rebuild();
-
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
 			console.error("failed", e.message);
 		}
+
+		document.querySelector('#listCount').innerText = totalRecordCount;
 	}
 
 
@@ -1120,24 +1106,28 @@
 	const fn_dtlSearch = async function(){
 		let brno = '${loginVO.brno}';
 		let yr = SBUxMethod.get('dtl-input-yr');
-		if(gfn_isEmpty(brno)) return;
-		if(gfn_isEmpty(yr)) return;
+		if (gfn_isEmpty(brno)) return;
+		if (gfn_isEmpty(yr)) return;
 
-		let postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", {
-			brno : brno
-			,yr: yr
-		});
+		const param = {
+			brno: brno,
+			yr: yr
+		}
 
-		let data = await postJsonPromise ;
-		try{
+		try {
+
+			//const postJsonPromise = gfn_postJSON("/pd/aom/selectPrdcrCrclOgnReqMngList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/aom/selectUoIsoOgnzList.do", param);
+			const data = await postJsonPromise;
+
 			//console.log("data==="+data);
 			data.resultList.forEach((item, index) => {
-				SBUxMethod.set('dtl-input-apoCd',gfn_nvl(item.apoCd))//통합조직 코드
-				SBUxMethod.set('dtl-input-apoSe',gfn_nvl(item.apoSe))//통합조직 구분
-				SBUxMethod.set('dtl-input-corpNm',gfn_nvl(item.corpNm))//법인명
-				SBUxMethod.set('dtl-input-crno',gfn_nvl(item.crno))//법인등록번호
-				SBUxMethod.set('dtl-input-brno',gfn_nvl(item.brno))//사업자등록번호
-				if(gfn_isEmpty(item.yr)){
+				SBUxMethod.set('dtl-input-apoCd', gfn_nvl(item.apoCd));		//통합조직 코드
+				SBUxMethod.set('dtl-input-apoSe', gfn_nvl(item.apoSe));		//통합조직 구분
+				SBUxMethod.set('dtl-input-corpNm', gfn_nvl(item.corpNm));	//법인명
+				SBUxMethod.set('dtl-input-crno', gfn_nvl(item.crno));		//법인등록번호
+				SBUxMethod.set('dtl-input-brno', gfn_nvl(item.brno));		//사업자등록번호
+				if (gfn_isEmpty(item.yr)) {
 					//저장 버튼 숨김처리
 					$('#btnSaveFclt1').hide();
 					alert('신청정보가 없습니다');
@@ -1152,8 +1142,10 @@
 					$('#btnTempSave2').hide();
 				}
 			});
-			fn_searchUoList();
-		}catch (e) {
+
+			await fn_searchUoList(yr);
+
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1193,7 +1185,9 @@
 		SBUxMethod.set('dtl-input-selUoBrno' , null);
 		SBUxMethod.set('dtl-input-uoBrno' , null);
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',false);
-		fn_searchUoList();
+
+		await fn_searchUoList(rowData.yr);
+
 		</c:if>
 		<c:if test="${loginVO.apoSe eq '1'}">
 		let brno = '${loginVO.brno}';
@@ -1201,6 +1195,7 @@
 		SBUxMethod.attr('dtl-input-selUoBrno','readonly',true);
 		</c:if>
 	}
+
 	//그리드 초기화
 	async function fn_clearForm() {
 		jsonPrdcrOgnCurntMng01.length= 0;
@@ -1245,44 +1240,50 @@
 	//판매위임[매입] 및 출하[매출] 실적 그리드 조회
 	const fn_dtlGridSearch = async function(){
 
-		let brno = SBUxMethod.get("dtl-input-brno");//
-		if(gfn_isEmpty(brno)) return;
-		let uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
-		if(gfn_isEmpty(uoBrnoVal)){
+		const brno = SBUxMethod.get("dtl-input-brno");//
+		if (gfn_isEmpty(brno)) return;
+		const uoBrnoVal = SBUxMethod.get('dtl-input-uoBrno');
+		if (gfn_isEmpty(uoBrnoVal)){
 			alert("통합조직을 선택해 주세요");
 			return;
 		}
-		let yr = SBUxMethod.get("dtl-input-yr");//
+		const yr = SBUxMethod.get("dtl-input-yr");//
+		const param = {
+			brno : brno,
+			uoBrno : uoBrnoVal,
+			yr : yr
+		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", {
-			brno : brno
-			,uoBrno : uoBrnoVal
-			,yr : yr
-		});
+		jsonPrdcrOgnCurntMng01.length = 0;
 
-		let data = await postJsonPromise ;
-		try{
-			jsonPrdcrOgnCurntMng01.length = 0;
+		try {
+
+			// const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngListNew.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseList.do", param);
+			const data = await postJsonPromise;
+
 			let totalRecordCount = 0;
 			//console.log("data==="+data);
 			let tmprVo = data.resultMap;
-			if(tmprVo != null){
-				if(tmprVo.tmprStrgYn == 'Y'){
+			if (tmprVo != null){
+				if (tmprVo.tmprStrgYn == 'Y'){
 					$("#tmprArea").show();
 					$("#tmprStrgRsn").text(tmprVo.tmprStrgRsn);
-				}else{
+				} else {
 					$("#tmprArea").hide();
 					$("#tmprStrgRsn").text("");
 				}
 			}
 
 			data.resultList.forEach((item, index) => {
+				/*
 				let itemNm;
 				if(item.sttgUpbrItemSe == '1'){
 					itemNm = item.itemNm + '(전문)';
 				}else if(item.sttgUpbrItemSe == '2'){
 					itemNm = item.itemNm + '(육성)';
 				}
+				*/
 				let PrdcrOgnCurntMngVO = {
 						yr:				item.yr
 						,brno:			item.brno
@@ -1295,8 +1296,9 @@
 
 						,prdcrOgnzSn:	item.prdcrOgnzSn
 						,trmtType:		item.trmtType
+						,trmtTypeNm:		item.trmtTypeNm
 						,ognzStbltYn :	item.ognzStbltYn//조직 적합여부 (요건미달 조직 값을 위해 추가)
-
+						,typeSeNoNm:	item.typeSeNoNm
 						,seNm:			item.seNm
 						,seDtlNm:		item.seDtlNm
 						,prchsNm:		item.prchsNm
@@ -1325,7 +1327,7 @@
 			});
 
 			//생산자조직 외 인경우 disabled 해제
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1535,22 +1537,34 @@
 
 	var comUoBrno = [];//통합조직 선택
 
-	/* 출자출하조직이 속한 통합조직 리스트 조회 */
-	const fn_searchUoList = async function(){
+	/**
+	 * 출자출하조직이 속한 통합조직 리스트 조회
+	 * @param yr
+	 * @returns {Promise<void>}
+	 */
+	const fn_searchUoList = async function(yr){
+
+		let brno;
 		//출자출하조직이 아닌경우
 		<c:if test="${loginVO.apoSe ne '2'}">
-		let brno = SBUxMethod.get('dtl-input-brno');
+		brno = SBUxMethod.get('dtl-input-brno');
 		</c:if>
 		//출자출하조직인 경우
 		<c:if test="${loginVO.apoSe eq '2'}">
-		let brno = '${loginVO.brno}';
+		brno = '${loginVO.brno}';
 		</c:if>
 
-		let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
-			brno : brno
-		});
-		let data = await postJsonPromise;
-		try{
+
+		try {
+
+			//let postJsonPromise = gfn_postJSON("/pd/bsm/selectUoList.do", {
+			const postJsonPromise = gfn_postJSON("/pd/bsm/selectUoHstryList.do", {
+				brno: brno,
+				yr: yr
+			});
+
+			const data = await postJsonPromise;
+
 			comUoBrno = [];
 			let uoBrno;
 			data.resultList.forEach((item, index) => {
@@ -1566,11 +1580,11 @@
 			});
 			SBUxMethod.refresh('dtl-input-selUoBrno');
 			//console.log(comUoBrno);
-			if(comUoBrno.length == 1){
+			if (comUoBrno.length == 1){
 				SBUxMethod.set('dtl-input-selUoBrno' , uoBrno);
 				SBUxMethod.set('dtl-input-uoBrno',uoBrno);
 			}
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -1622,14 +1636,15 @@
 			{caption: ["통합조직 법인명"],			ref:'uoCorpNm',			type:'output',width:'70px',	style:'text-align:center'},
 
 			{caption: ["통합조직 구분"],				ref:'aprv',				type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["구분"],					ref:'typeSeNo',			type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["구분"],						ref:'typeSeNo',			type:'output',width:'70px',	style:'text-align:center'},
+			//{caption: ["구분명"],					ref:'typeSeNoNm',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["구분명"],					ref:'seNm',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["취급유형"],					ref:'trmtTypeNm',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["매입처"],					ref:'prchsNm',			type:'output',width:'70px',	style:'text-align:center'},
 
 			{caption: ["품목명"],					ref:'itemNm',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["분류명"],					ref:'ctgryNm',			type:'output',width:'70px',	style:'text-align:center'},
-			{caption: ["전문/육성 구분"],			ref:'sttgUpbrItemNm',	type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["전문/육성 구분"],				ref:'sttgUpbrItemNm',	type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["생산자조직 번호"],			ref:'prdcrOgnzSn',		type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["생산자조직명"],				ref:'prdcrOgnzNm',		type:'output',width:'70px',	style:'text-align:center'},
 
@@ -1645,7 +1660,7 @@
 			{caption: ["출하 매출 합계 물량"],			ref:'spmtVlmTot',	type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["출하 매출 합계 금액"],			ref:'spmtAmtTot',	type:'output',width:'70px',	style:'text-align:center'},
 
-			{caption: ["비고"],					ref:'rmrk',				type:'output',width:'70px',	style:'text-align:center'},
+			{caption: ["비고"],						ref:'rmrk',				type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["적합여부"],					ref:'stbltYn',			type:'output',width:'70px',	style:'text-align:center'},
 			{caption: ["선정여부"],					ref:'lastStbltYn',		type:'output',width:'70px',	style:'text-align:center'}
 		];
@@ -1653,8 +1668,20 @@
 		hiddenGrd = _SBGrid.create(SBGridProperties);
 
 	}
+
+	/**
+	 * @name fn_hiddenGrdSelect
+	 * @description rawdata 다운로드
+	 * @function
+	 */
 	const fn_hiddenGrdSelect = async function(){
+
+		if (!gfn_comConfirm("Q0001", "Rawdata 다운로드")) {	//	Q0001	{0} 하시겠습니까?
+			return;
+		}
+
 		await fn_hiddenGrd();
+
 		let yr = SBUxMethod.get("srch-input-yr");
 		if (gfn_isEmpty(yr)) {
 			let now = new Date();
@@ -1662,14 +1689,16 @@
 			yr = year;
 		}
 
-		let postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", {
-		    yr : yr
-			});
+		jsonHiddenGrd.length = 0;
 
-			let data = await postJsonPromise;
-			try{
-			jsonHiddenGrd.length = 0;
+		try {
+			const param = {yr : yr};
+			//const postJsonPromise = gfn_postJSON("/pd/isom/selectInvShipOgnSpeczItmPurSalMngRawDataList2025.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/isom/selectIsoMajorItemPurchaseRawDataList.do", param);
+
+			const data = await postJsonPromise;
 			//console.log("data==="+data);
+
 			data.resultList.forEach((item, index) => {
 				let hiddenGrdVO = {
 					yr					: item.yr
@@ -1680,6 +1709,7 @@
 					,itemNm				: item.itemNm
 					,aprv				: item.aprv
 					,typeSeNo			: item.typeSeNo
+					,typeSeNoNm			: item.typeSeNoNm
 					,seNm				: item.seNm
 					,ctgryNm			: item.ctgryNm
 					,sttgUpbrItemNm		: item.sttgUpbrItemNm
@@ -1701,6 +1731,7 @@
 
 					,rmrk				: item.rmrk
 					,stbltYn			: item.stbltYn
+					, stbltYnNm			: item.stbltYnNm
 					,lastStbltYn		: item.lastStbltYn
 				}
 				jsonHiddenGrd.push(hiddenGrdVO);

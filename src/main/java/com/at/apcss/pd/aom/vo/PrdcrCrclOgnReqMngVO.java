@@ -55,6 +55,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 	private String uoNm;
 	private String uoBrno;
 	private String uoBrnoUo;
+	private String uoCrno;
+	private String uoCorpNm;
 	private String untyYr;
 
 	private String isoHldYn;
@@ -106,5 +108,8 @@ public class PrdcrCrclOgnReqMngVO extends ComVO{
 
 	private String trgtTrmtAmt;		//취급액 목표
 	private String trgtTrmtRt;		//취급률 목표
+
+
+	private String oldDataYn;
 }
 

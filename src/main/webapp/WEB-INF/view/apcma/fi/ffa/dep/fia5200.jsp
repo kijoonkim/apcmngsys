@@ -336,7 +336,7 @@
             {caption: ["전표ID"],		ref: 'docId',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["데이터건수"], 		ref: 'recordCount', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["최종실행회수"], 		ref: 'lastRunCount',  			type:'output',  	width:'100px',  	style:'text-align:left'},
-        	{caption: ["처리자"], 	ref: 'insertUserId', 				type:'output',		width:'80px',		style:'text-align:center'},
+			{caption: ["처리자"],			ref: 'insertUserid',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["처리PC"], 		ref: 'insertPc', 				type:'output',		width:'80px',		style:'text-align:center'},
             {caption: ["비고"], 		ref: 'memo', 				type:'output',		width:'80px',		style:'text-align:center'},
 
@@ -357,8 +357,10 @@
 	    SBGridProperties.extendlastcol 		= 'scroll';
         SBGridProperties.columns = [
             {caption: ["연번"],			ref: 'runCount', 			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업단위"],  	ref: 'fiOrgCode',    			type:'output',  	width:'100px',  	style:'text-align:left'},
-            {caption: ["사업장"],      	ref: 'siteCode', 		type:'output',  	width:'100px',  	style:'text-align:left'},
+            {caption: ["사업단위"],  	ref: 'fiOrgCode',    			type:'combo',  	width:'100px',  	style:'text-align:left',
+				typeinfo:{ref:'jsonBizUnit', label:'label', value:'value'}, disabled:true},
+            {caption: ["사업장"],      	ref: 'siteCode', 		type:'combo',  	width:'100px',  	style:'text-align:left',
+				typeinfo : {ref:'jsonBplc', label:'label', value:'value'}, disabled:true,},
             {caption: ["처리자"],			ref: 'insertUserid',	type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["시작시간"], 			ref: 'actionStartTime', 				type:'output',  	width:'100px',  	style:'text-align:left'},
             {caption: ["종료시간"], 		ref: 'actionEndTime',  			type:'output',  	width:'100px',  	style:'text-align:left'},

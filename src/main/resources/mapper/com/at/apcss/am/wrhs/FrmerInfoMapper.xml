@@ -259,6 +259,7 @@
                       FROM TB_COM_USER X
                      WHERE CH.SYS_FRST_INPT_USER_ID = X.USER_ID
                    ) AS PIC
+			     , PLI.ITEM_CD				AS ITEM_CD
 				 , PLI.FRLN_ADDR            AS FRLN_ADDR
 				 , PLI.CRTR_AREA			AS CRTR_AREA
 				 , PLI.PLNTNG_AREA 			AS PLNTNG_AREA
@@ -293,9 +294,12 @@
 		<if test='cfmtnYmdTo != null and cfmtnYmdTo !=""'>
 			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
-        <if test='yr != null and yr !=""'>
-            AND PLI.YR = #{yr}
-        </if>
+		<if test='itemCd != null and itemCd !=""'>
+			AND PLI.ITEM_CD = #{itemCd}
+		</if>
+		<if test='yr != null and yr !=""'>
+			AND PLI.YR = #{yr}
+		</if>
 		<![CDATA[
 			 ORDER BY CH.CLTVTN_HSTRY_NO
 		]]>
@@ -436,6 +440,7 @@
 					     , CQ.STRG_RSLT			AS STRG_RSLT
 					     , CQ.YR                AS YR
 					     , CQ.CLTVTN_FRMHS_QLT_NO   AS CLTVTN_FRMHS_QLT_NO
+		                 , CQ.ITEM_CD			AS ITEM_CD
 					     , CQ.SD_QNTT_1         AS SD_QNTT_1
 					     , CQ.SD_QNTT_2         AS SD_QNTT_2
 					     , CQ.SD_QNTT_3         AS SD_QNTT_3
@@ -445,6 +450,7 @@
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
+                               AND X.ITEM_CD = CQ.ITEM_CD
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
@@ -452,6 +458,7 @@
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
+                               AND X.ITEM_CD = CQ.ITEM_CD
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
@@ -468,6 +475,7 @@
                              FROM TB_CLTVTN_FRMHS_QLT X
                             WHERE X.APC_CD = CQ.APC_CD
                               AND X.PRDCR_CD = CQ.PRDCR_CD
+                              AND X.ITEM_CD = CQ.ITEM_CD
                               AND X.YR = (#{yr} - 1)
                            ) AS LAST_YR_EVL
 					     , CQ.FLCTN_DFRNC       AS FLCTN_DFRNC
@@ -505,12 +513,12 @@
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
     		</if>
-    		<if test='itemCd != null and itemCd != ""'>
-    				   AND PI.RPRS_ITEM_CD  = #{itemCd}
-    		</if>
     		<if test='prdcrCd != null and prdcrCd != ""'>
     				   AND PI.PRDCR_CD  = #{prdcrCd}
     		</if>
+			<if test='itemCd != null and itemCd != ""'>
+					   AND CQ.ITEM_CD  	= #{itemCd}
+			</if>
     		<if test='yr != null and yr != ""'>
     				   AND CQ.YR  = #{yr}
     		</if>
@@ -525,6 +533,7 @@
 					     , ''   AS STRG_RSLT
 					     , ''   AS YR
 					     , ''   AS CLTVTN_FRMHS_QLT_NO
+					     , ''	AS ITEM_CD
 					     , ''   AS SD_QNTT_1
 					     , ''   AS SD_QNTT_2
 					     , ''   AS SD_QNTT_3
@@ -534,6 +543,7 @@
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
+                               AND X.ITEM_CD = CQ.ITEM_CD
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS PLNTNG_PRCL
@@ -541,6 +551,7 @@
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = CQ.APC_CD
                                AND X.YR = CQ.YR
+                               AND X.ITEM_CD = CQ.ITEM_CD
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
@@ -589,11 +600,11 @@
 			<if test='apcCd != null and apcCd != ""'>
     				   AND PI.APC_CD = #{apcCd}
     		</if>
-    		<if test='itemCd != null and itemCd != ""'>
-    				   AND PI.RPRS_ITEM_CD  = #{itemCd}
-    		</if>
     		<if test='prdcrCd != null and prdcrCd != ""'>
     				   AND PI.PRDCR_CD  = #{prdcrCd}
+    		</if>
+    		<if test='itemCd != null and itemCd != ""'>
+    				   AND CQ.ITEM_CD  = #{itemCd}
     		</if>
 		<![CDATA[
 					   AND NOT EXISTS (
@@ -608,6 +619,9 @@
     		<if test='yr != null and yr != ""'>
     				   					  AND X.YR  = #{yr}
     		</if>
+			<if test='itemCd != null and itemCd != ""'>
+										  AND X.ITEM_CD  = #{itemCd}
+			</if>
 		<![CDATA[
 					                  )
 
@@ -634,6 +648,7 @@
 				 ( APC_CD
 				 , PRDCR_CD
 				 , CLTVTN_FRMHS_QLT_NO
+				 , ITEM_CD
 				 , SD_QNTT_1
 				 , SD_QNTT_2
 				 , SD_QNTT_3
@@ -683,6 +698,7 @@
     			 ( #{apcCd}
 				 , #{prdcrCd}
 				 , #{cltvtnFrmhsQltNo}
+				 , #{itemCd}
 				 , #{sdQntt1}
 				 , #{sdQntt2}
 				 , #{sdQntt3}
@@ -788,6 +804,9 @@
 			   AND PRDCR_CD					= #{prdcrCd}
 			   AND CLTVTN_FRMHS_QLT_NO 		= #{cltvtnFrmhsQltNo}
     	]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+		</if>
     </update>
 
     <!-- ==============================================================================	-->
@@ -811,6 +830,9 @@
 			   AND PRDCR_CD					= #{prdcrCd}
 			   AND CLTVTN_FRMHS_QLT_NO 		= #{cltvtnFrmhsQltNo}
     	]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+		</if>
     </update>
 
     <!-- ==============================================================================	-->
@@ -830,8 +852,7 @@
 			     , MAX(pt0.CRTR_YM)					AS CRTR_YM
 			     , pt0.CRTR_YR						AS CRTR_YR
 			     , pt0.CRTR_MM						AS CRTR_MM
-			     , MAX(pt0.RPRS_ITEM_CD)            AS RPRS_ITEM_CD
-			     , MAX(pt0.RPRS_VRTY_CD)            AS RPRS_VRTY_CD
+			     , MAX(pt0.ITEM_CD)            		AS ITEM_CD
 			     , MAX(pt0.FRMHS_ADDR)              AS FRMHS_ADDR
 			     , MAX(pt0.FRMHS_CTPV)              AS FRMHS_CTPV
 			     , MAX(pt0.FRMHS_TELNO)             AS FRMHS_TELNO
@@ -840,7 +861,7 @@
                  , MAX(pt0.CRTR_PRCL)               AS CRTR_PRCL
 			     , MAX(CQ.PIC)                      AS PIC
 			     , MAX(CQ.QLT_EVL)                  AS QLT_EVL
-			     , SUM(QNTT) - MAX(CQ.EXPCT_QNTT)    AS EXPCT_VLM_VRSS
+			     , SUM(QNTT) - MAX(CQ.EXPCT_QNTT)   AS EXPCT_VLM_VRSS
 			     , pt0.FRMHS_EXPCT_WRHS_NO          AS FRMHS_EXPCT_WRHS_NO
 			     , MAX(pt0.HDOFC_EXTRNL_SE_CD)      AS HDOFC_EXTRNL_SE_CD
 			     , MAX(pt0.EXTRNL_WAREHOUSE_CD)     AS EXTRNL_WAREHOUSE_CD
@@ -883,24 +904,29 @@
 			     , (SELECT MAX(X.YMD)
                       FROM TB_FRMHS_EXPCT_WRHS_DDLN X
                      WHERE X.APC_CD = pt0.APC_CD
+                       AND X.ITEM_CD = pt0.ITEM_CD
                        AND X.YR = pt0.CRTR_YR
                    ) AS DDLN_YMD
                  , (SELECT MAX(X.USE_YN)
                       FROM TB_FRMHS_EXPCT_WRHS_DDLN X
                      WHERE X.APC_CD = pt0.APC_CD
+                       AND X.ITEM_CD = pt0.ITEM_CD
                        AND X.YR = pt0.CRTR_YR
                    ) AS USE_YN
 			  FROM (SELECT
 					       PI.APC_CD                    AS APC_CD
 					     , PI.PRDCR_CD                  AS PRDCR_CD
 					     , PI.PRDCR_NM					AS PRDCR_NM
-					     , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
-					     , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
 					     , PI.FRMHS_ADDR                AS FRMHS_ADDR
 					     , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
 					     , (SELECT SUM(PLNTNG_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
+					]]>
+						<if test='itemCd != null and itemCd != ""'>
+					   		   AND X.ITEM_CD = #{itemCd}
+						</if>
+					<![CDATA[
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
@@ -908,11 +934,17 @@
 					     , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
+                    ]]>
+						<if test='itemCd != null and itemCd != ""'>
+							   AND X.ITEM_CD = #{itemCd}
+						</if>
+					<![CDATA[
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
+			             , FW.ITEM_CD					AS ITEM_CD
 					     , FW.FRMHS_EXPCT_WRHS_NO       AS FRMHS_EXPCT_WRHS_NO
 					     , FW.HDOFC_EXTRNL_SE_CD        AS HDOFC_EXTRNL_SE_CD
 					     , FW.EXTRNL_WAREHOUSE_CD       AS EXTRNL_WAREHOUSE_CD
@@ -975,6 +1007,9 @@
 		<if test='prdcrCd != null and prdcrCd != ""'>
 					   AND PI.PRDCR_CD = #{prdcrCd}
 		</if>
+		<if test='itemCd != null and itemCd != ""'>
+					   AND FW.ITEM_CD = #{itemCd}
+		</if>
 		<if test='yr != null and yr != ""'>
 					   AND CRTR_YR = #{yr}
 		</if>
@@ -984,13 +1019,16 @@
 					       PI.APC_CD                    AS APC_CD
 					     , PI.PRDCR_CD                  AS PRDCR_CD
 					     , PI.PRDCR_NM					AS PRDCR_NM
-					     , PI.RPRS_ITEM_CD              AS RPRS_ITEM_CD
-					     , PI.RPRS_VRTY_CD              AS RPRS_VRTY_CD
 					     , PI.FRMHS_ADDR                AS FRMHS_ADDR
 					     , NVL(PI.FRMHS_TELNO, PI.TELNO)	AS FRMHS_TELNO
 					     , (SELECT SUM(PLNTNG_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
+                    ]]>
+						<if test='itemCd != null and itemCd != ""'>
+							   AND X.ITEM_CD = #{itemCd}
+						</if>
+					<![CDATA[
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
@@ -998,11 +1036,17 @@
 					     , (SELECT SUM(CRTR_AREA)
                               FROM TB_PRDCR_LAND_INFO X
                              WHERE X.APC_CD = PI.APC_CD
+                    ]]>
+						<if test='itemCd != null and itemCd != ""'>
+							   AND X.ITEM_CD = #{itemCd}
+						</if>
+					<![CDATA[
                                AND X.YR = #{yr}
                                AND X.PRDCR_CD = PI.PRDCR_CD
                                AND X.DEL_YN = 'N'
                            )                    AS CRTR_PRCL
 					     , PI.FRMHS_CTPV                AS FRMHS_CTPV
+					     , '' AS ITEM_CD
 					     , '' AS FRMHS_EXPCT_WRHS_NO
 					     , '' AS HDOFC_EXTRNL_SE_CD
 					     , '' AS EXTRNL_WAREHOUSE_CD
@@ -1065,6 +1109,9 @@
 		<if test='prdcrCd != null and prdcrCd != ""'>
 					   AND PI.PRDCR_CD = #{prdcrCd}
 		</if>
+		<if test='itemCd != null and itemCd != ""'>
+					   AND FW.ITEM_CD = #{itemCd}
+		</if>
 		<![CDATA[
 					   AND NOT EXISTS (
 					                    SELECT 1
@@ -1080,6 +1127,9 @@
 		<if test='apcCd != null and apcCd != ""'>
 					   					   AND X.APC_CD = #{apcCd}
 		</if>
+		<if test='itemCd != null and itemCd != ""'>
+										   AND X.ITEM_CD = #{itemCd}
+		</if>
 		<if test='yr != null and yr != ""'>
 					   					   AND Y.CRTR_YR = #{yr}
 		</if>
@@ -1091,11 +1141,14 @@
 			   AND CQ.PRDCR_CD(+) = pt0.PRDCR_CD
 			   AND CQ.DEL_YN(+) = 'N'
 		]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND CQ.ITEM_CD(+) = #{itemCd}
+		</if>
 		<if test='yr != null and yr != ""'>
 			   AND CQ.YR(+) = #{yr}
 		</if>
 		<![CDATA[
-			 GROUP BY pt0.APC_CD, pt0.PRDCR_CD, pt0.FRMHS_EXPCT_WRHS_NO, pt0.CRTR_YR, pt0.CRTR_MM
+			 GROUP BY pt0.APC_CD, pt0.PRDCR_CD, pt0.FRMHS_EXPCT_WRHS_NO, pt0.CRTR_YR, pt0.CRTR_MM, pt0.ITEM_CD
 			 ORDER BY pt0.PRDCR_CD
 		]]>
 
@@ -1115,6 +1168,7 @@
 			  INTO TB_FRMHS_EXPCT_WRHS
 			     ( APC_CD
 				 , PRDCR_CD
+				 , ITEM_CD
 				 , FRMHS_EXPCT_WRHS_NO
 				 , HDOFC_EXTRNL_SE_CD
 				 , EXTRNL_WAREHOUSE_CD
@@ -1131,6 +1185,7 @@
 			VALUES
 				 ( #{apcCd}
 				 , #{prdcrCd}
+				 , #{itemCd}
 				 , #{frmhsExpctWrhsNo}
 				 , #{hdofcExtrnlSeCd}
 				 , #{extrnlWarehouseCd}
@@ -1172,6 +1227,9 @@
 			   AND PRDCR_CD 				= #{prdcrCd}
 			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
 		]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+		</if>
 	</update>
 	<!-- ==============================================================================	-->
 	<!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.deleteFrmhsExpctWrhs		-->
@@ -1194,6 +1252,9 @@
 			   AND PRDCR_CD 				= #{prdcrCd}
 			   AND FRMHS_EXPCT_WRHS_NO 		= #{frmhsExpctWrhsNo}
 		]]>
+		<if test='itemCd != null and itemCd != ""'>
+			   AND ITEM_CD = #{itemCd}
+		</if>
 	</update>
 
 	<!-- ==============================================================================	-->
@@ -1349,6 +1410,7 @@
 			  FROM TB_FRMHS_EXPCT_WRHS_DDLN EWD
 			 WHERE APC_CD 		= #{apcCd}
 			   AND YR 			= #{yr}
+			   AND ITEM_CD		= #{itemCd}
 		]]>
 	</select>
 	<!-- ==============================================================================	-->
@@ -1366,6 +1428,7 @@
 			USING DUAL
 			   ON (
 			       	   A.APC_CD 					= #{apcCd}
+			       AND A.ITEM_CD					= #{itemCd}
 			       AND A.YR 						= #{yr}
 			      )
 			 WHEN MATCHED THEN
@@ -1377,11 +1440,13 @@
 						 , A.SYS_LAST_CHG_USER_ID   = #{sysLastChgUserId}
 						 , A.SYS_LAST_CHG_PRGRM_ID  = #{sysLastChgPrgrmId}
 					 WHERE A.APC_CD 				= #{apcCd}
+			    	   AND A.ITEM_CD				= #{itemCd}
 					   AND A.YR 					= #{yr}
 		     WHEN NOT MATCHED THEN
 		     		INSERT
 					     (
 					       APC_CD
+			    		 , ITEM_CD
 					     , YR
 					     , YMD
 					     , USE_YN
@@ -1395,6 +1460,7 @@
 					VALUES
 						 (
 						   #{apcCd}
+			    		 , #{itemCd}
 					     , #{yr}
 					     , #{ymd}
 					     , #{useYn}
@@ -1407,4 +1473,52 @@
 						 )
 		]]>
 	</update>
+
+    <!-- ==============================================================================	-->
+    <!-- NAME : com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList	            -->
+    <!-- DESC : 법정동 목록 조회.                    					                    -->
+    <!-- ==============================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      				-->
+    <!-- ===========  	============  	===============================================	-->
+    <!-- 2025.06.20  	최 지 호        	Initial Creation                            	-->
+    <!-- ==============================================================================	-->
+    <select id="selectStdgList" parameterType="com.at.apcss.am.wrhs.vo.StdgVO" resultType="com.at.apcss.am.wrhs.vo.StdgVO">
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+            SELECT
+                  ROWNUM AS ROW_SEQ
+                , COUNT(*) OVER() AS TOTAL_RECORD_COUNT
+                , pt0.*
+            FROM (
+        </if>
+
+        <![CDATA[
+                SELECT /* com.at.apcss.am.wrhs.mapper.FrmerInfoMapper.selectStdgList */
+                      SC.STDG_CD
+                    , SC.STDG
+                    , SC.STDG_CTPV
+                    , SC.STDG_SGG
+                    , SC.STDG_EMD
+                    , SC.STDG_LI
+                    , SC.DEL_YN
+                FROM TB_COM_STDG_CD SC
+                WHERE 1=1
+        ]]>
+
+        <if test='delYn != null and delYn != ""'>
+                AND SC.DEL_YN = #{delYn}
+        </if>
+        <if test='stdg != null and stdg !=""'>
+                AND SC.STDG LIKE '%' || #{stdg} ||'%'
+        </if>
+
+        <![CDATA[
+                ORDER BY SC.STDG_CD
+        ]]>
+
+        <if test='pagingYn != null and pagingYn.equals("Y")'>
+            ) pt0
+            OFFSET (#{currentPageNo} - 1) * #{recordCountPerPage} ROWS
+            FETCH FIRST #{recordCountPerPage} ROWS ONLY
+        </if>
+    </select>
 </mapper>

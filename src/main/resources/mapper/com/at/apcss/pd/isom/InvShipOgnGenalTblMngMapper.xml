@@ -1040,6 +1040,441 @@
 	</select>
 
 	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectIsoPrchsSlsSummaryList	-->
+	<!-- DESC : 출자출하조직 매입매출 총괄 목록 조회                                    -->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.16  	ljw        		Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectIsoPrchsSlsSummaryList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
+		<![CDATA[
+			SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectIsoPrchsSlsSummaryList */
+				   TOT.YR				AS YR
+				 , TOT.ITEM_CD			AS ITEM_CD
+				 , TOT.ITEM_NM			AS ITEM_NM
+				 , TOT.BRNO				AS BRNO
+				 , TOT.CRNO			AS CRNO
+				 , TOT.CORP_NM		AS CORP_NM
+				 , TOT.APRV				AS APRV
+				 , (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', TOT.APRV) FROM DUAL) AS APRV_NM
+				 , TOT.APO_CD			AS APO_CD
+				 , TOT.APO_SE			AS APO_SE
+				 , TOT.UO_BRNO		AS UO_BRNO
+				 , (SELECT MAX(X.CORP_NM) FROM TB_EV_APO X WHERE X.BRNO = TOT.UO_BRNO)	AS UO_CORP_NM
+				 , TOT.CTGRY_CD		AS CTGRY_CD
+				 , TOT.CLSF_CD		AS CLSF_CD
+				 , TOT.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+				 , TOT.UO_SPMT_AMT						AS UO_SPMT_AMT
+				 , TOT.UO_SPMT_AMT_OTHER				AS UO_SPMT_AMT_OTHER
+				 , TOT.UO_OTHER_SPMT_AMT				AS UO_OTHER_SPMT_AMT
+				 , TOT.UO_OTHER_SPMT_AMT_OTHER	AS UO_OTHER_SPMT_AMT_OTHER
+				 , TOT.UO_SPMT_VLM						AS UO_SPMT_VLM
+				 , TOT.UO_SPMT_VLM_OTHER				AS UO_SPMT_VLM_OTHER
+				 , TOT.UO_OTHER_SPMT_VLM				AS UO_OTHER_SPMT_VLM
+				 , TOT.UO_OTHER_SPMT_VLM_OTHER	AS UO_OTHER_SPMT_VLM_OTHER
+				 , TOT.UO_SPMT_VLM_TOT					AS UO_SPMT_VLM_TOT
+				 , TOT.UO_SPMT_AMT_TOT					AS UO_SPMT_AMT_TOT
+
+				 , TOT.UO_SPMT_AMT_RT			AS UO_SPMT_AMT_RT
+				 , TOT.UO_SPMT_AMT_TOT_RT		AS UO_SPMT_AMT_TOT_RT
+
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AA'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_A
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AB'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_B
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AC'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_C
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BA'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_A
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BB'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_B
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BC'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_C
+				 , TOT.ORG_STBLT_YN	AS ORG_STBLT_YN
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_STBLT_YN (
+								TOT.YR
+								, TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.UO_SPMT_AMT
+								, TOT.UO_SPMT_AMT_RT
+								, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_STBLT_NM (
+								TOT.YR
+								, TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.UO_SPMT_AMT
+								, TOT.UO_SPMT_AMT_RT
+								, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN_NM
+				, (
+					SELECT X.ACTN_MTTR
+					  FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+					 WHERE X.BRNO = TOT.BRNO
+						AND X.YR = TOT.YR
+						AND X.APO_SE = '2'
+						AND X.TYPE_SE_NO = '8'
+						AND X.ITEM_CD = TOT.ITEM_CD
+						AND X.UO_BRNO = TOT.UO_BRNO
+						AND X.DEL_YN = 'N'
+				) 	AS ACTN_MTTR
+			FROM (
+					 SELECT
+						 ITEM.YR				AS YR
+						  , ITEM.ITEM_CD		AS ITEM_CD
+						  , IC.ITEM_NM			AS ITEM_NM
+						  , ITEM.BRNO			AS BRNO
+						  , ITEM.CRNO			AS CRNO
+						  , ITEM.CORP_NM		AS CORP_NM
+						  , (SELECT X.APRV FROM TB_EV_APO X WHERE X.BRNO = ITEM.UO_BRNO)	AS APRV
+						  , ITEM.APO_CD			AS APO_CD
+						  , ITEM.APO_SE			AS APO_SE
+						  , ITEM.UO_BRNO		AS UO_BRNO
+						  , ITEM.CTGRY_CD		AS CTGRY_CD
+						  , ITEM.CLSF_CD		AS CLSF_CD
+						  , ITEM.STTG_UPBR_ITEM_SE		AS STTG_UPBR_ITEM_SE
+
+						  , TOTA.UO_SPMT_AMT 				AS UO_SPMT_AMT
+						  , TOTB.UO_SPMT_AMT 				AS UO_SPMT_AMT_OTHER
+
+						  , TOTA.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT
+						  , TOTB.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT_OTHER
+
+						  , TOTA.UO_SPMT_VLM 	AS UO_SPMT_VLM
+						  , TOTB.UO_SPMT_VLM 	AS UO_SPMT_VLM_OTHER
+
+						  , TOTA.UO_OTHER_SPMT_VLM 	AS UO_OTHER_SPMT_VLM
+						  , TOTB.UO_OTHER_SPMT_VLM 	AS UO_OTHER_SPMT_VLM_OTHER
+						  , NVL(TOTA.TOT_VLM, 0) + NVL(TOTB.TOT_VLM, 0)	AS UO_SPMT_VLM_TOT
+						  , NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0)	AS UO_SPMT_AMT_TOT
+
+						  , ROUND(
+									 NVL(TOTA.UO_SPMT_AMT, 0)
+									 /
+									 NULLIF(NVL(TOTA.TOT_AMT, 0), 0)
+								 * 100
+						 , 2)	AS UO_SPMT_AMT_RT
+						  , ROUND(
+									 (
+										 NVL(TOTA.UO_SPMT_AMT, 0) + NVL(TOTB.UO_SPMT_AMT, 0)
+										 )
+									 /
+									 NULLIF(NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0), 0)
+								 * 100
+						 , 2)	AS UO_SPMT_AMT_TOT_RT
+						  , (
+							 SELECT X.STBLT_YN
+							 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+							 WHERE X.BRNO = ITEM.BRNO
+							   AND X.UO_BRNO = ITEM.UO_BRNO
+							   AND X.YR = ITEM.YR
+							   AND X.ITEM_CD = ITEM.ITEM_CD
+							   AND X.APO_SE = '2'
+							   AND X.TYPE_SE_NO = '8'
+							   AND NVL(X.TMPR_STRG_YN, 'N') = 'N'
+							   AND X.DEL_YN = 'N'
+						 ) AS ORG_STBLT_YN
+
+					 FROM (
+							  SELECT
+								  EAM.APO_SE			AS APO_SE
+								   , APO.APO_CD			AS APO_CD
+								   , APO.CORP_NM		AS CORP_NM
+								   , APO.CRNO			AS CRNO
+								   , EAM.BRNO				AS BRNO
+								   , EAM.YR				AS YR
+								   , EAM.UO_BRNO		AS ORGNL_UO_BRNO
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+									, EAM.UO_BRNO		AS UO_BRNO
+			</when>
+			<otherwise>
+									, GC.UO_BRNO		AS UO_BRNO
+			</otherwise>
+		</choose>
+		<![CDATA[
+								   , GC.ITEM_CD			AS ITEM_CD
+								   , 'Y'						AS ORG
+
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+						, GC.CTGRY_CD			AS CTGRY_CD
+						, GC.CLSF_CD			AS CLSF_CD
+						, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+			</when>
+			<otherwise>
+						, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.CTGRY_CD
+							ELSE UGC.CTGRY_CD
+						END		AS CTGRY_CD
+						, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.CLSF_CD
+							ELSE UGC.CLSF_CD
+						END		AS CLSF_CD
+						, CASE GC.STTG_UPBR_ITEM_SE
+							WHEN '3' THEN GC.STTG_UPBR_ITEM_SE
+							ELSE UGC.STTG_UPBR_ITEM_SE
+						END		AS STTG_UPBR_ITEM_SE
+			</otherwise>
+		</choose>
+
+		<![CDATA[
+							  FROM TB_EV_APLY_MNG EAM
+
+							   JOIN TB_EV_APO APO
+								ON APO.BRNO = EAM.BRNO
+								AND APO.DEL_YN = 'N'
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+							   JOIN TB_EV_APO_YR_GPC_CD GC
+								ON GC.YR = EAM.YR
+								AND GC.BRNO = EAM.UO_BRNO
+								AND GC.DEL_YN = 'N'
+			</when>
+			<otherwise>
+							   JOIN TB_EV_APO_YR_GPC_CD GC
+								ON GC.YR = EAM.YR
+								AND GC.BRNO = EAM.BRNO
+								AND GC.DEL_YN = 'N'
+			</otherwise>
+		</choose>
+		<![CDATA[
+						   		LEFT JOIN TB_EV_APO_YR_GPC_CD UGC
+								 ON UGC.YR = EAM.YR
+								 AND UGC.BRNO = GC.UO_BRNO
+								 AND UGC.ITEM_CD = GC.ITEM_CD
+								 AND UGC.DEL_YN = 'N'
+
+							  WHERE EAM.APO_SE = '2'
+								AND EAM.YR = #{yr}
+								AND EAM.BRNO = #{brno}
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				<if test='uoBrno != null and uoBrno != ""'>
+					AND GC.BRNO = #{uoBrno}
+				</if>
+			</when>
+			<otherwise>
+				<if test='uoBrno != null and uoBrno != ""'>
+					AND GC.UO_BRNO = #{uoBrno}
+				</if>
+			</otherwise>
+		</choose>
+
+		<![CDATA[
+								AND NOT EXISTS (
+								  SELECT 1
+								  FROM TB_COM_USER X
+								  WHERE X.USER_ID IN (
+									  SELECT CD.CD_VL
+									  FROM TB_COM_CD_DTL CD
+									  WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+										AND CD.USE_YN = 'Y'
+										AND CD.DEL_YN = 'N'
+								  )
+									AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+							  )
+						  ) ITEM
+
+						  LEFT JOIN (
+						 	SELECT
+								 SLS.UO_BRNO		AS UO_BRNO
+								  , SLS.BRNO				AS BRNO
+								  , SLS.YR					AS YR
+								  , SLS.ITEM_CD			AS ITEM_CD
+
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+								  , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+								  , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+								  , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_TRST_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS SORT_TRST_AMT
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS TRST_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS TRST_AMT
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_EMSPAP_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_AMT ELSE 0 END)	AS SORT_EMSPAP_AMT
+
+							 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+							 WHERE SLS.APO_SE = '2'
+							   AND SLS.TYPE_SE_NO IN ('5')
+							   AND SLS.DEL_YN = 'N'
+							   AND NVL(SLS.TMPR_STRG_YN,'N') = 'N'
+							   AND SLS.OGNZ_STBLT_YN = 'Y'
+							   AND SLS.PRDCR_OGNZ_SN IN (
+								 SELECT X.PRDCR_OGNZ_SN
+								 FROM TB_EV_FRMHS_APO X
+								 WHERE X.APO_SE = SLS.APO_SE
+								   AND X.BRNO = SLS.BRNO
+								   AND X.YR = SLS.YR
+								   AND X.STBLT_YN = 'Y'
+								   AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								   AND X.UO_BRNO = SLS.UO_BRNO
+								   AND X.TRMT_TYPE = SLS.TRMT_TYPE
+						 	)
+						 GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+					 ) TOTA
+						ON TOTA.YR = ITEM.YR
+						AND TOTA.UO_BRNO = ITEM.UO_BRNO
+						AND TOTA.BRNO = ITEM.BRNO
+						AND TOTA.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+
+				  LEFT JOIN (
+						 SELECT
+							 SLS.UO_BRNO	AS UO_BRNO
+							  , SLS.BRNO			AS BRNO
+							  , SLS.YR				AS YR
+							  , SLS.ITEM_CD		AS ITEM_CD
+							  , NVL(SUM(SLS.UO_SPMT_AMT), 0)			AS UO_SPMT_AMT
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0)			AS UO_SPMT_VLM
+							  , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0)			AS UO_OTHER_SPMT_VLM
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+							  , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+						 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+						 WHERE SLS.APO_SE = '2'
+						   AND SLS.TYPE_SE_NO IN ('5', '7')
+						   AND NVL(SLS.TMPR_STRG_YN, 'N') = 'N'
+						   AND SLS.DEL_YN = 'N'
+						   AND SLS.OGNZ_STBLT_YN =
+							   CASE SLS.TYPE_SE_NO
+								   WHEN '5' THEN 'N'
+								   WHEN '7' THEN '0'
+								   ELSE NULL
+								   END
+						   AND SLS.PRDCR_OGNZ_SN IN (
+								 SELECT X.PRDCR_OGNZ_SN
+								 FROM TB_EV_FRMHS_APO X
+								 WHERE X.APO_SE = SLS.APO_SE
+								   AND X.BRNO = SLS.BRNO
+								   AND X.YR = SLS.YR
+								   AND X.STBLT_YN = 'N'
+								   AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								   AND X.UO_BRNO = SLS.UO_BRNO
+								   AND X.TRMT_TYPE = SLS.TRMT_TYPE
+								 UNION ALL
+								 SELECT 0
+								 FROM DUAL
+							 )
+						 GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+					 ) TOTB
+						ON TOTB.YR = ITEM.YR
+						AND TOTB.UO_BRNO = ITEM.UO_BRNO
+						AND TOTB.BRNO = ITEM.BRNO
+						AND TOTB.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+
+					  LEFT JOIN TB_ITEM_CRTR IC
+						ON IC.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+						AND IC.DEL_YN = 'N'
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				/*
+				WHERE (
+					ITEM.STTG_UPBR_ITEM_SE = '3'
+					OR
+					(
+					ITEM.STTG_UPBR_ITEM_SE IN ('1', '2')
+					AND EXISTS (
+							SELECT 1
+							FROM TB_EV_APO_YR_GPC_CD X
+							WHERE X.YR = PS.YR
+							AND X.BRNO = ITEM.UO_BRNO
+							AND X.ITEM_CD = ITEM.ITEM_CD
+							AND X.DEL_YN = 'N'
+						)
+					)
+				)
+				 */
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			</when>
+			<otherwise>
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			</otherwise>
+		</choose>
+		<![CDATA[
+				 ) TOT
+			WHERE TOT.UO_BRNO IS NOT NULL
+			ORDER BY STTG_UPBR_ITEM_SE, ITEM_CD, UO_BRNO
+		]]>
+	</select>
+
+
+	<!-- ==========================================================================	-->
 	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnSpeczItmPurSalMngMapper.selectInvShipOgnGenalTblMngListNew	-->
 	<!-- DESC : 2025 총괄표 조회                                             		-->
 	<!-- ==========================================================================	-->
@@ -1317,6 +1752,467 @@
 						AND ITEM.ITEM_CD = TOTB.ITEM_CD(+)
 				)TOT
 		)TOTAL
+	</select>
+
+
+	<!-- ==========================================================================	-->
+	<!-- NAME : com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectIsoPrchsSlsRawdataList	-->
+	<!-- DESC : 출자출하조직 총괄표 rawdata 목록을 조회 한다								-->
+	<!-- ==========================================================================	-->
+	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+	<!-- ===========  	============  	===========================================	-->
+	<!-- 2025.07.16  	신정철        	Initial Creation                            -->
+	<!-- ==========================================================================	-->
+	<select id="selectIsoPrchsSlsRawdataList" parameterType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO" resultType="com.at.apcss.pd.isom.vo.InvShipOgnGenalTblMngVO">
+		<![CDATA[
+			SELECT	/* com.at.apcss.pd.isom.mapper.InvShipOgnGenalTblMngMapper.selectIsoPrchsSlsRawdataList */
+				   TOT.YR				AS YR
+				 , TOT.ITEM_CD			AS ITEM_CD
+				 , TOT.ITEM_NM			AS ITEM_NM
+				 , TOT.BRNO				AS BRNO
+				 , TOT.CRNO				AS CRNO
+				 , TOT.CORP_NM			AS CORP_NM
+				 , TOT.APRV				AS APRV
+				 , (SELECT FN_GET_COM_CD_VL_NM('APRV_UPBR_SE_CD', TOT.APRV) FROM DUAL) AS APRV_NM
+				 , TOT.APO_CD			AS APO_CD
+				 , TOT.APO_SE			AS APO_SE
+				 , TOT.UO_BRNO			AS UO_BRNO
+				 , (SELECT MAX(X.CORP_NM) FROM TB_EV_APO X WHERE X.BRNO = TOT.UO_BRNO)	AS UO_CORP_NM
+			     , TOT.UO_APO_CD		AS UO_APO_CD
+				 , TOT.CTGRY_CD		AS CTGRY_CD
+			     , (SELECT FN_GET_COM_CD_VL_NM('CTGRY_CD', TOT.CTGRY_CD) FROM DUAL) AS CTGRY_NM
+				 , TOT.CLSF_CD		AS CLSF_CD
+			     , (SELECT FN_GET_COM_CD_VL_NM('CLSF_CD', TOT.CLSF_CD) FROM DUAL) AS CLSF_CD_NM
+				 , TOT.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+			     , (SELECT FN_GET_COM_CD_VL_NM('STTG_UPBR_ITEM_SE', TOT.STTG_UPBR_ITEM_SE) FROM DUAL) AS STTG_UPBR_ITEM_SE_NM
+				 , TOT.UO_SPMT_AMT						AS UO_SPMT_AMT
+				 , TOT.UO_SPMT_AMT_OTHER				AS UO_SPMT_AMT_OTHER
+				 , TOT.UO_OTHER_SPMT_AMT				AS UO_OTHER_SPMT_AMT
+				 , TOT.UO_OTHER_SPMT_AMT_OTHER	AS UO_OTHER_SPMT_AMT_OTHER
+				 , TOT.UO_SPMT_VLM						AS UO_SPMT_VLM
+				 , TOT.UO_SPMT_VLM_OTHER				AS UO_SPMT_VLM_OTHER
+				 , TOT.UO_OTHER_SPMT_VLM				AS UO_OTHER_SPMT_VLM
+				 , TOT.UO_OTHER_SPMT_VLM_OTHER	AS UO_OTHER_SPMT_VLM_OTHER
+				 , TOT.UO_SPMT_VLM_TOT					AS UO_SPMT_VLM_TOT
+				 , TOT.UO_SPMT_AMT_TOT					AS UO_SPMT_AMT_TOT
+
+				 , TOT.UO_SPMT_AMT_RT			AS UO_SPMT_AMT_RT
+				 , TOT.UO_SPMT_AMT_TOT_RT		AS UO_SPMT_AMT_TOT_RT
+
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AA'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_A
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AB'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_B
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'AC'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_A_C
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BA'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_A
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BB'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_B
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_CHK_YN (
+								TOT.YR
+							, 'BC'
+							, TOT.UO_SPMT_AMT
+							, TOT.UO_SPMT_AMT_RT
+							, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS CHK_B_C
+
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_STBLT_YN (
+								TOT.YR
+								, TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.UO_SPMT_AMT
+								, TOT.UO_SPMT_AMT_RT
+								, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN
+				, TOT.ORG_STBLT_YN	AS ORG_STBLT_YN
+				 , (
+					SELECT
+						FN_GET_ISO_SPMT_STBLT_NM (
+								TOT.YR
+								, TOT.APRV
+								, TOT.STTG_UPBR_ITEM_SE
+								, TOT.UO_SPMT_AMT
+								, TOT.UO_SPMT_AMT_RT
+								, TOT.UO_SPMT_AMT_TOT_RT
+							)
+					FROM DUAL
+				)	AS STBLT_YN_NM
+				, (
+					SELECT X.ACTN_MTTR
+					  FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+					 WHERE X.BRNO = TOT.BRNO
+						AND X.YR = TOT.YR
+						AND X.APO_SE = '2'
+						AND X.TYPE_SE_NO = '8'
+						AND X.ITEM_CD = TOT.ITEM_CD
+						AND X.UO_BRNO = TOT.UO_BRNO
+						AND X.DEL_YN = 'N'
+				) 	AS ACTN_MTTR
+			FROM (
+					 SELECT
+						 ITEM.YR				AS YR
+						  , ITEM.ITEM_CD		AS ITEM_CD
+						  , IC.ITEM_NM			AS ITEM_NM
+						  , ITEM.BRNO			AS BRNO
+						  , ITEM.CRNO			AS CRNO
+						  , ITEM.CORP_NM		AS CORP_NM
+						  , (SELECT X.APRV FROM TB_EV_APO X WHERE X.BRNO = ITEM.UO_BRNO)	AS APRV
+						  , ITEM.APO_CD			AS APO_CD
+						  , ITEM.APO_SE			AS APO_SE
+						  , ITEM.UO_BRNO		AS UO_BRNO
+					      , ITEM.UO_APO_CD		AS UO_APO_CD
+						  , ITEM.CTGRY_CD		AS CTGRY_CD
+						  , ITEM.CLSF_CD		AS CLSF_CD
+						  , ITEM.STTG_UPBR_ITEM_SE		AS STTG_UPBR_ITEM_SE
+
+						  , TOTA.UO_SPMT_AMT 				AS UO_SPMT_AMT
+						  , TOTB.UO_SPMT_AMT 				AS UO_SPMT_AMT_OTHER
+
+						  , TOTA.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT
+						  , TOTB.UO_OTHER_SPMT_AMT 	AS UO_OTHER_SPMT_AMT_OTHER
+
+						  , TOTA.UO_SPMT_VLM 	AS UO_SPMT_VLM
+						  , TOTB.UO_SPMT_VLM 	AS UO_SPMT_VLM_OTHER
+
+						  , TOTA.UO_OTHER_SPMT_VLM 	AS UO_OTHER_SPMT_VLM
+						  , TOTB.UO_OTHER_SPMT_VLM 	AS UO_OTHER_SPMT_VLM_OTHER
+						  , NVL(TOTA.TOT_VLM, 0) + NVL(TOTB.TOT_VLM, 0)	AS UO_SPMT_VLM_TOT
+						  , NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0)	AS UO_SPMT_AMT_TOT
+
+						  , ROUND(
+									 NVL(TOTA.UO_SPMT_AMT, 0)
+									 /
+									 NULLIF(NVL(TOTA.TOT_AMT, 0), 0)
+								 * 100
+						 , 2)	AS UO_SPMT_AMT_RT
+						  , ROUND(
+									 (
+										 NVL(TOTA.UO_SPMT_AMT, 0) + NVL(TOTB.UO_SPMT_AMT, 0)
+										 )
+									 /
+									 NULLIF(NVL(TOTA.TOT_AMT, 0) + NVL(TOTB.TOT_AMT, 0), 0)
+								 * 100
+						 , 2)	AS UO_SPMT_AMT_TOT_RT
+						  , (
+							 SELECT X.STBLT_YN
+							 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+							 WHERE X.BRNO = ITEM.BRNO
+							   AND X.UO_BRNO = ITEM.UO_BRNO
+							   AND X.YR = ITEM.YR
+							   AND X.ITEM_CD = ITEM.ITEM_CD
+							   AND X.APO_SE = '2'
+							   AND X.TYPE_SE_NO = '8'
+							   AND NVL(X.TMPR_STRG_YN, 'N') = 'N'
+							   AND X.DEL_YN = 'N'
+						 ) AS ORG_STBLT_YN
+
+					 FROM (
+							  SELECT
+								  EAM.APO_SE			AS APO_SE
+								   , APO.APO_CD			AS APO_CD
+								   , APO.CORP_NM		AS CORP_NM
+								   , APO.CRNO			AS CRNO
+								   , EAM.BRNO				AS BRNO
+								   , EAM.YR				AS YR
+								   , EAM.UO_BRNO		AS ORGNL_UO_BRNO
+							       , NVL(
+										EAM.UO_CD
+							        	, (
+							        	 	SELECT MAX(X.APO_CD)
+							        	 	  FROM TB_EV_APO X
+							        	 	 WHERE X.BRNO = EAM.UO_BRNO
+							        	)
+							        )	AS UO_APO_CD
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				, EAM.UO_BRNO		AS UO_BRNO
+			</when>
+			<otherwise>
+				, GC.UO_BRNO		AS UO_BRNO
+			</otherwise>
+		</choose>
+		<![CDATA[
+								   , GC.ITEM_CD			AS ITEM_CD
+								   , 'Y'						AS ORG
+
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				, GC.CTGRY_CD			AS CTGRY_CD
+				, GC.CLSF_CD			AS CLSF_CD
+				, GC.STTG_UPBR_ITEM_SE	AS STTG_UPBR_ITEM_SE
+			</when>
+			<otherwise>
+				, CASE GC.STTG_UPBR_ITEM_SE
+					WHEN '3' THEN GC.CTGRY_CD
+					ELSE UGC.CTGRY_CD
+				END		AS CTGRY_CD
+				, CASE GC.STTG_UPBR_ITEM_SE
+					WHEN '3' THEN GC.CLSF_CD
+					ELSE UGC.CLSF_CD
+				END		AS CLSF_CD
+				, CASE GC.STTG_UPBR_ITEM_SE
+					WHEN '3' THEN GC.STTG_UPBR_ITEM_SE
+					ELSE UGC.STTG_UPBR_ITEM_SE
+				END		AS STTG_UPBR_ITEM_SE
+			</otherwise>
+		</choose>
+
+		<![CDATA[
+							  FROM TB_EV_APLY_MNG EAM
+							   JOIN TB_EV_APO APO
+								ON APO.BRNO = EAM.BRNO
+								AND APO.DEL_YN = 'N'
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				JOIN TB_EV_APO_YR_GPC_CD GC
+				ON GC.YR = EAM.YR
+				AND GC.BRNO = EAM.UO_BRNO
+				AND GC.DEL_YN = 'N'
+			</when>
+			<otherwise>
+				JOIN TB_EV_APO_YR_GPC_CD GC
+				ON GC.YR = EAM.YR
+				AND GC.BRNO = EAM.BRNO
+				AND GC.DEL_YN = 'N'
+			</otherwise>
+		</choose>
+		<![CDATA[
+							LEFT JOIN TB_EV_APO_YR_GPC_CD UGC
+							 ON UGC.YR = EAM.YR
+							 AND UGC.BRNO = GC.UO_BRNO
+							 AND UGC.ITEM_CD = GC.ITEM_CD
+							 AND UGC.DEL_YN = 'N'
+
+							  WHERE EAM.APO_SE = '2'
+								AND EAM.YR = #{yr}
+								AND NOT EXISTS (
+								  SELECT 1
+								  FROM TB_COM_USER X
+								  WHERE X.USER_ID IN (
+										  SELECT CD.CD_VL
+										  FROM TB_COM_CD_DTL CD
+										  WHERE CD.CD_ID = 'SYS_EXCLD_USER_ID'
+											AND CD.USE_YN = 'Y'
+											AND CD.DEL_YN = 'N'
+								  		)
+									AND X.BRNO IN (EAM.BRNO, EAM.UO_BRNO)
+							  	)
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+			</when>
+			<otherwise>
+							    AND EXISTS (
+									SELECT 1
+									  FROM TB_EV_APO_YR_GPC_CD X
+									 WHERE X.YR = EAM.YR
+									   AND X.BRNO = GC.UO_BRNO
+									   AND X.APO_SE = '1'
+									   AND X.STTG_UPBR_ITEM_SE IN ('1', '2')
+									   AND X.ITEM_CD = GC.ITEM_CD
+									   AND X.DEL_YN = 'N'
+							    )
+			</otherwise>
+		</choose>
+		<![CDATA[
+						  ) ITEM
+
+						  LEFT JOIN (
+						 	SELECT
+								 SLS.UO_BRNO		AS UO_BRNO
+								  , SLS.BRNO				AS BRNO
+								  , SLS.YR					AS YR
+								  , SLS.ITEM_CD			AS ITEM_CD
+
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_SPMT_VLM
+								  , NVL(SUM(SLS.UO_SPMT_AMT), 0)				AS UO_SPMT_AMT
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0)				AS UO_OTHER_SPMT_VLM
+								  , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+
+								  , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+								  , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_TRST_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '2' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS SORT_TRST_AMT
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS TRST_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '1' THEN SLS.UO_SPMT_AMT ELSE 0 END) 	AS TRST_AMT
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_VLM ELSE 0 END) 	AS SORT_EMSPAP_VLM
+								  , SUM(CASE SLS.TRMT_TYPE WHEN '3' THEN SLS.UO_SPMT_AMT ELSE 0 END)	AS SORT_EMSPAP_AMT
+
+							 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+							 WHERE SLS.APO_SE = '2'
+							   AND SLS.TYPE_SE_NO IN (5)
+							   AND SLS.DEL_YN = 'N'
+							   AND NVL(SLS.TMPR_STRG_YN,'N') = 'N'
+							   AND SLS.OGNZ_STBLT_YN = 'Y'
+							   AND SLS.PRDCR_OGNZ_SN IN (
+								 SELECT X.PRDCR_OGNZ_SN
+								 FROM TB_EV_FRMHS_APO X
+								 WHERE X.APO_SE = SLS.APO_SE
+								   AND X.BRNO = SLS.BRNO
+								   AND X.YR = SLS.YR
+								   AND X.STBLT_YN = 'Y'
+								   AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								   AND X.UO_BRNO = SLS.UO_BRNO
+								   AND X.TRMT_TYPE = SLS.TRMT_TYPE
+						 	)
+						 GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+					 ) TOTA
+						ON TOTA.YR = ITEM.YR
+						AND TOTA.UO_BRNO = ITEM.UO_BRNO
+						AND TOTA.BRNO = ITEM.BRNO
+						AND TOTA.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+
+				  LEFT JOIN (
+						 SELECT
+							 SLS.UO_BRNO	AS UO_BRNO
+							  , SLS.BRNO			AS BRNO
+							  , SLS.YR				AS YR
+							  , SLS.ITEM_CD		AS ITEM_CD
+							  , NVL(SUM(SLS.UO_SPMT_AMT), 0)			AS UO_SPMT_AMT
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0)			AS UO_SPMT_VLM
+							  , NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0) 	AS UO_OTHER_SPMT_AMT
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0)			AS UO_OTHER_SPMT_VLM
+							  , NVL(SUM(SLS.UO_SPMT_VLM), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_VLM), 0)	AS TOT_VLM
+							  , NVL(SUM(SLS.UO_SPMT_AMT), 0) + NVL(SUM(SLS.UO_OTHER_SPMT_AMT), 0)	AS TOT_AMT
+
+						 FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT SLS
+						 WHERE SLS.APO_SE = '2'
+						   AND SLS.TYPE_SE_NO IN (5, 7)
+						   AND NVL(SLS.TMPR_STRG_YN, 'N') = 'N'
+						   AND SLS.DEL_YN = 'N'
+						   AND SLS.OGNZ_STBLT_YN =
+							   CASE SLS.TYPE_SE_NO
+								   WHEN '5' THEN 'N'
+								   WHEN '7' THEN '0'
+								   ELSE NULL
+								   END
+						   AND SLS.PRDCR_OGNZ_SN IN (
+								 SELECT X.PRDCR_OGNZ_SN
+								 FROM TB_EV_FRMHS_APO X
+								 WHERE X.APO_SE = SLS.APO_SE
+								   AND X.BRNO = SLS.BRNO
+								   AND X.YR = SLS.YR
+								   AND X.STBLT_YN = 'N'
+								   AND NVL(X.EXCL_YN, 'N') <> 'Y'
+								   AND X.UO_BRNO = SLS.UO_BRNO
+								   AND X.TRMT_TYPE = SLS.TRMT_TYPE
+								 UNION ALL
+								 SELECT 0
+								 FROM DUAL
+							 )
+						 GROUP BY  SLS.UO_BRNO, SLS.BRNO, SLS.YR, SLS.ITEM_CD
+					 ) TOTB
+						ON TOTB.YR = ITEM.YR
+						AND TOTB.UO_BRNO = ITEM.UO_BRNO
+						AND TOTB.BRNO = ITEM.BRNO
+						AND TOTB.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+
+					  LEFT JOIN TB_ITEM_CRTR IC
+						ON IC.ITEM_CD = ITEM.ITEM_CD
+						AND ITEM.ORG = 'Y'
+						AND IC.DEL_YN = 'N'
+		]]>
+		<choose>
+			<when test='oldDataYn != null and oldDataYn.equals("Y")'>
+				/*
+				WHERE (
+				ITEM.STTG_UPBR_ITEM_SE = '3'
+				OR
+				(
+				ITEM.STTG_UPBR_ITEM_SE IN ('1', '2')
+				AND EXISTS (
+				SELECT 1
+				FROM TB_EV_APO_YR_GPC_CD X
+				WHERE X.YR = PS.YR
+				AND X.BRNO = ITEM.UO_BRNO
+				AND X.ITEM_CD = ITEM.ITEM_CD
+				AND X.DEL_YN = 'N'
+				)
+				)
+				)
+				*/
+				WHERE ITEM.ITEM_CD IS NOT NULL
+				 AND EXISTS (
+						SELECT 1
+						  FROM TB_EV_UO_ISO_PRCHS_PRCHS_SLS_TOT X
+						 WHERE X.YR = ITEM.YR
+						   AND X.BRNO = ITEM.BRNO
+						   AND X.UO_BRNO = ITEM.UO_BRNO
+						   AND X.ITEM_CD = ITEM.ITEM_CD
+				  		   AND X.APO_SE = '2'
+						   AND X.TYPE_SE_NO = 8
+						   AND X.DEL_YN = 'N'
+					)
+			</when>
+			<otherwise>
+				WHERE ITEM.ITEM_CD IS NOT NULL
+			</otherwise>
+		</choose>
+		<![CDATA[
+				 ) TOT
+			WHERE TOT.UO_BRNO IS NOT NULL
+			ORDER BY UO_BRNO, BRNO, ITEM_CD, STBLT_YN
+		]]>
 	</select>
 
 	<!-- ==========================================================================	-->

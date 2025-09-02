@@ -62,4 +62,11 @@ public interface PrfmncChckMngService {
 	 */
 	public int multiSavePrfmncChckMngList (List<PrfmncChckMngVO> PrfmncChckMngVOList) throws Exception;
 
+	/**
+	 * 승인형 실적점검관리 로우데이터 조회
+	 * @param prfmncChckMngVO
+	 * @return List<PrfmncChckMngVO>
+	 * @throws Exception
+	 */
+    public List<PrfmncChckMngVO> selectPrfmncChckRawData(PrfmncChckMngVO prfmncChckMngVO);
 }

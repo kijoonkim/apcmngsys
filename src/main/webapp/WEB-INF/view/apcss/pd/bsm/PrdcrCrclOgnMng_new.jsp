@@ -68,15 +68,23 @@
 						<col style="width: 3%">
 
 						<col style="width: 7%">
-						<col style="width: 6%">
-						<col style="width: 3%">
-						<col style="width: 3%">
-						<col style="width: 3%">
+						<col style="width: 7.5%">
+						<col style="width: 7.5%">
 					</colgroup>
 					<tbody>
 						<tr>
+							<th scope="row" class="th_bg">기준연도</th>
+							<td colspan="4" class="td_input" style="border-right: hidden;">
+								<sbux-spinner
+										id="srch-inp-crtrYr"
+										name="srch-inp-crtrYr"
+										uitype="normal"
+										step-value="1"
+										wrap-style="width:100%;"
+								></sbux-spinner>
+							</td>
 							<th scope="row" class="th_bg" >관할기관</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;" >
+							<td colspan="5" class="td_input" style="border-right:hidden;" >
 								<sbux-select
 									id="srch-input-cmptnInst"
 									name="srch-input-cmptnInst"
@@ -86,40 +94,38 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="2" style="border-right: hidden;">&nbsp;</td>
-							<th scope="row" class="th_bg" >시도</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
-								<sbux-select
-									id="srch-input-ctpv"
-									name="srch-input-ctpv"
-									uitype="single"
-									jsondata-ref="jsonComCtpv"
-									unselected-text="전체"
-									class="form-control input-sm"
-									onchange="fn_ctpvChange"
-								></sbux-select>
-							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
-							</td>
-							<th scope="row" class="th_bg">시군구</th>
-							<td class="td_input" style="border-right: hidden;">
-								<sbux-select
-									id="srch-input-sgg"
-									name="srch-input-sgg"
-									uitype="single"
-									jsondata-ref="jsonComSgg"
-									unselected-text="전체"
-									class="form-control input-sm"
-									filter-source-name="srch-input-ctpv"
-									jsondata-filter="mastervalue"
-								></sbux-select>
-							</td>
-							<td colspan="3" class="td_input" style="border-right: hidden;" >
+							<th scope="row" class="th_bg" >시도/시군구</th>
+							<td colspan="2" class="td_input" >
+								<div style="display: flex; flex-direction: row; gap: 5px">
+									<div style="flex: 1">
+										<sbux-select
+												id="srch-input-ctpv"
+												name="srch-input-ctpv"
+												uitype="single"
+												jsondata-ref="jsonComCtpv"
+												unselected-text="전체"
+												class="form-control input-sm"
+												onchange="fn_ctpvChange"
+										></sbux-select>
+									</div>
+									<div style="flex: 1">
+										<sbux-select
+												id="srch-input-sgg"
+												name="srch-input-sgg"
+												uitype="single"
+												jsondata-ref="jsonComSgg"
+												unselected-text="전체"
+												class="form-control input-sm"
+												filter-source-name="srch-input-ctpv"
+												jsondata-filter="mastervalue"
+										></sbux-select>
+									</div>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">법인구분</th>
-							<td colspan="2" class="td_input" style="border-right:hidden;">
+							<td colspan="4" class="td_input" style="border-right:hidden;">
 								<sbux-select
 									id="srch-input-corpSeCd"
 									name="srch-input-corpSeCd"
@@ -129,10 +135,8 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
-							</td>
 							<th scope="row" class="th_bg">법인형태</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;">
+							<td colspan="5" class="td_input" style="border-right:hidden;">
 									<sbux-select
 									id="srch-input-corpDtlSeCd"
 									name="srch-input-corpDtlSeCd"
@@ -142,10 +146,8 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="2" class="td_input" style="border-right: hidden;" >
-							</td>
 							<th scope="row" class="th_bg">2차승인구분</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input" >
 								<sbux-select
 									id="srch-input-evCertYn"
 									name="srch-input-evCertYn"
@@ -155,12 +157,10 @@
 									class="form-control input-sm"
 								></sbux-select>
 							</td>
-							<td colspan="3" class="td_input">
-							</td>
 						</tr>
 						<tr>
 							<th scope="row" class="th_bg">사업자번호</th>
-							<td colspan="2" class="td_input" style="border-right: hidden;">
+							<td colspan="4" class="td_input" style="border-right: hidden;">
 								<sbux-input
 									uitype="text"
 									id="srch-input-brno"
@@ -170,10 +170,9 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input"  style="border-right: hidden;">
-							</td>
+
 							<th scope="row" class="th_bg">법인명</th>
-							<td colspan="3" class="td_input" style="border-right:hidden;" >
+							<td colspan=5" class="td_input" style="border-right:hidden;" >
 								<sbux-input
 									uitype="text"
 									id="srch-input-corpNm"
@@ -182,9 +181,8 @@
 									autocomplete="off"
 								></sbux-input>
 							</td>
-							<td colspan="2" class="td_input">
 							<th scope="row" class="th_bg">참여조직여부</th>
-							<td class="td_input" style="border-right: hidden;">
+							<td colspan="2" class="td_input">
 								<sbux-select
 									id="srch-input-apoSe"
 									name="srch-input-apoSe"
@@ -193,8 +191,6 @@
 									unselected-text="전체"
 									class="form-control input-sm"
 								></sbux-select>
-							</td>
-							<td colspan="3" class="td_input">
 							</td>
 						</tr>
 
@@ -241,6 +237,7 @@
 						<col style="width: 7%">
 					</colgroup>
 					<tbody>
+					<%--권한이 관리자인경우 출자출하조직의 통합조직 보이기--%>
 						<tr>
 							<th colspan="2" scope="row" class="th_bg"  style="text-align:center;">
 
@@ -252,6 +249,14 @@
 							<sbux-input uitype="hidden" id="dtl-input-corpDdlnSeCd" name="dtl-input-corpDdlnSeCd" class="form-control input-sm" autocomplete="off"></sbux-input>
 							<th colspan="13" scope="row" class="th_bg"  style="text-align:center;">업체정보</th>
 						</tr>
+					<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00' ||  loginVO.userType eq '02'}">
+						<tr>
+							<th colspan="2" scope="row" class="th_bg"></span>통합조직 법인명</th>
+							<td colspan="13" class="td_input" style="border-right:hidden;">
+								<sbux-input id="dtl-input-uoCorpNm" name="dtl-input-uoCorpNm" class="form-control input-sm" autocomplete="off" uitype="text" readonly></sbux-input>
+							</td>
+						</tr>
+					</c:if>
 						<tr>
 							<th colspan="2" scope="row" class="th_bg"><span class="data_required" ></span>법인명</th>
 							<td colspan="3" class="td_input" style="border-right:hidden;">
@@ -1035,6 +1040,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			gfn_setComCdSBSelect('dtl-input-corpSeCd', 		jsonComCorpSeCd, 	'CORP_SE_CD'), 		//법인구분
 			//gfn_setComCdSBSelect('srch-input-evCertYn', 	jsonCom, 	''), //2차승인구분
 			//gfn_setComCdSBSelect('srch-input-apoSe', 	jsonCom, 	''), //참여조직여부
+			SBUxMethod.set("srch-inp-crtrYr", 	gfn_dateToYear(new Date())) // 기준연도
 		]);
 	}
 
@@ -1225,6 +1231,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		let brno = SBUxMethod.get("srch-input-brno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 		let apoSe = SBUxMethod.get("srch-input-apoSe");//
+		const crtrYr = SBUxMethod.get("srch-inp-crtrYr"); // 기준연도
 
 		let postJsonPromise = gfn_postJSON("/pd/bsm/selectPrdcrCrclOgnMngList.do", {
 			cmptnInst : cmptnInst
@@ -1239,6 +1246,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 			,pagingYn : 'Y'
 			,currentPageNo : pageNo
  		  	,recordCountPerPage : pageSize
+			,crtrYr : crtrYr
 
 		});
 		let data = await postJsonPromise;
@@ -1295,6 +1303,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 						,slctnYr: item.slctnYr
 						,mno: item.mno
 						,sno: item.sno
+						,uoCorpNm: item.uoCorpNm
 				}
 				jsonPrdcrCrclOgnMng.push(PrdcrCrclOgnMngVO);
 				if (index === 0) {
@@ -1858,7 +1867,7 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		SBUxMethod.set('dtl-input-apoCd',gfn_nvl(rowData.apoCd))//
 		SBUxMethod.set('dtl-input-apoSe',gfn_nvl(rowData.apoSe))//
-		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(rowData.uoBrno))//
+
 		SBUxMethod.set('dtl-input-corpNm',gfn_nvl(rowData.corpNm))//
 		SBUxMethod.set('dtl-input-crno',gfn_nvl(rowData.crno))//
 		SBUxMethod.set('dtl-input-brno',gfn_nvl(rowData.brno))//
@@ -1912,6 +1921,10 @@ tps://sbgrid.co.kr/v2_5/document/guide
 
 		SBUxMethod.set('dtl-input-ctpv',gfn_nvl(rowData.ctpv).trim(), { isTriggerExt : true })
 		SBUxMethod.set('dtl-input-sgg',gfn_nvl(rowData.sgg).trim());
+
+		SBUxMethod.set('dtl-input-uoCorpNm',gfn_nvl(rowData.uoCorpNm)); //통합조직 법인명
+		SBUxMethod.set('dtl-input-uoBrno',gfn_nvl(rowData.uoBrno)); //통합조직 사업자번호
+		// SBUxMethod.set('dtl-input-uoApoCd',gfn_nvl(rowData.uoApoCd)); //통합조직 조직코드
 
 		fn_calInvstAmtTot();
 		fn_calTot();
@@ -2020,6 +2033,8 @@ tps://sbgrid.co.kr/v2_5/document/guide
 		SBUxMethod.set('dtl-input-mno',null)//
 		SBUxMethod.set('dtl-input-sno',null)//
 		</c:if>
+		SBUxMethod.set('dtl-input-uoCorpNm',null); // 통합조직 법인명
+		SBUxMethod.set('dtl-input-uoApoCd',null); // 통합조직 조직코드
 	}
 
 	/* 주소 팝업 */

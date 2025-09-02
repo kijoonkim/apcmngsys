@@ -720,6 +720,45 @@ public class SortPrfmncController extends BaseController {
 			resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 	        return getSuccessResponseEntity(resultMap); 
 	    }
+		
+	@PostMapping(value = "/am/sort/selectGrdDsctnColList.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+	    public ResponseEntity<HashMap<String, Object>> selectGrdDsctnColList(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
+	        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			List<HashMap> resultList = new ArrayList<>();
+
+	        try{
+				resultList = sortPrfmncService.selectGrdDsctnColList(paramMap);
+	            
+	        }catch (Exception e) {
+	            return getErrorResponseEntity(e);
+	        } finally {
+	            HashMap<String, Object> rtnObj = setMenuComLog(request);
+	            if (rtnObj != null) {
+	                return getErrorResponseEntity(rtnObj);
+	            }
+	        }
+	        return getSuccessResponseEntity(resultMap); 
+	    }
+
+    @PostMapping(value = "/am/sort/selectSortInvntrList.do", consumes = {MediaType.APPLICATION_JSON_VALUE , MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> selectSortInvntrList(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        List<HashMap<String,Object>> resultList;
+
+        try {
+            resultList = sortPrfmncService.selectSortInvntrList(paramMap);
+        } catch(Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            HashMap<String, Object> rtnObj = setMenuComLog(request);
+            if (rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 
 
+        return getSuccessResponseEntity(resultMap);
+    }
 }

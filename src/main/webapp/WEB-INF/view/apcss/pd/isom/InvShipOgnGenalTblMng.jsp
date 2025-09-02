@@ -664,7 +664,7 @@
 		let uoBrno = SBUxMethod.get("srch-input-uoBrno");//
 		let corpNm = SBUxMethod.get("srch-input-corpNm");//
 
-		let apoSe = SBUxMethod.get("srch-input-apoSe");//
+		// let apoSe = SBUxMethod.get("srch-input-apoSe"); //
 		let frmhsHldYn = SBUxMethod.get("srch-input-frmhsHldYn");//
 		let aprv = SBUxMethod.get("srch-input-aprv");//
 
@@ -695,7 +695,7 @@
 			,corpDtlSeCd 	: gfn_nvl(corpDtlSeCd)
 			,corpNm 		: gfn_nvl(corpNm)
 			,aprv 			: gfn_nvl(aprv)
-			,apoSe 			: gfn_nvl(apoSe)
+			,apoSe 			: "2"
 			,frmhsHldYn 	: gfn_nvl(frmhsHldYn)
 			,yrChk 			: gfn_nvl(yrChkVal)
 			,uoBrno 		: gfn_nvl(uoBrno)

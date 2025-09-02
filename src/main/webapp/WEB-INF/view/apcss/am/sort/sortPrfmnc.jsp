@@ -1239,6 +1239,7 @@
 				let sortQntt = parseInt(rowData.chgSortQntt) || 0;
 				let sortWght = sortQntt * spcfct;
 				grdSortPrfmnc.setCellData(nRow, inptWghtCol, sortWght,true);
+				console.log(sortWght)
 			}else if(attrUsr.colNm == "chgWght"){
 				grdSortPrfmnc.setCellData(nRow, inptWghtCol, rowData.chgSortWght,true);
 
@@ -1249,8 +1250,14 @@
 			}
 		}
 
+		let chgSortQntt = parseInt(grdSortPrfmnc.getCellData(nRow, inptQnttCol));
+		let chgSortWght = parseInt(grdSortPrfmnc.getCellData(nRow, inptWghtCol));
 
-		grdSortPrfmnc.setCellData(nRow, chkCol, "Y",true);
+		if (_.isEqual(rowData.sortQntt, chgSortQntt) && _.isEqual(rowData.sortWght, chgSortWght)) {
+			grdSortPrfmnc.setCellData(nRow, chkCol, "N",true);
+		} else {
+			grdSortPrfmnc.setCellData(nRow, chkCol, "Y",true);
+		}
 	}
 
 
