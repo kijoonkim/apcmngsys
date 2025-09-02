@@ -2530,7 +2530,7 @@
             // 파일 고유 식별자(UUID)
             const file = item.files[k];
             const originalFileName = file.name; // 기존 파일명
-            const uuid = self.crypto.randomUUID();
+            const uuid = fn_generateUUID();
             const extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
             const newFileNm = `${'${uuid}'}${'${extension}'}`;
             const newFile = new File([file], newFileNm, {type : file.type});
@@ -2557,7 +2557,7 @@
             // 파일 고유 식별자(UUID)
             const file = item.files[k];
             const originalFileName = file.name; // 기존 파일명
-            const uuid = self.crypto.randomUUID(); // 파일 식별자
+            const uuid = fn_generateUUID(); // 파일 식별자
             const extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
             const newFileNm = `${'${uuid}'}${'${extension}'}`;
             const newFile = new File([file], newFileNm, {type : file.type});
@@ -3276,6 +3276,19 @@
     }
   }
 
+  function fn_generateUUID() {
+    let uuid;
+    try {
+      uuid = self.crypto.randomUUID();
+    } catch (e) {
+      uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+  }
+
   /**
    * @name fn_addPrufSbmsn
    * @description 증빙서류 추가 제출
@@ -3357,7 +3370,7 @@
             // 파일 고유 식별자(UUID)
             const file = item.files[k];
             const originalFileName = file.name; // 기존 파일명
-            const uuid = self.crypto.randomUUID();
+            const uuid = fn_generateUUID();
             const extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
             const newFileNm = `${'${uuid}'}${'${extension}'}`;
             const newFile = new File([file], newFileNm, {type : file.type});
@@ -3384,7 +3397,7 @@
             // 파일 고유 식별자(UUID)
             const file = item.files[k];
             const originalFileName = file.name; // 기존 파일명
-            const uuid = self.crypto.randomUUID(); // 파일 식별자
+            const uuid = fn_generateUUID(); // 파일 식별자
             const extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
             const newFileNm = `${'${uuid}'}${'${extension}'}`;
             const newFile = new File([file], newFileNm, {type : file.type});
