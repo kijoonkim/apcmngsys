@@ -606,17 +606,20 @@ public class WghPrfmncServiceImpl extends BaseServiceImpl implements WghPrfmncSe
 				throw new EgovBizException(getMessage(ComConstants.RESULT_STATUS_ERROR));
 			}
 		}
+		String prcsNo = wghPrfmncList.get(0).getWghno();
+
 		/** plt/box 삭제 **/
 		if(pltDelList.size() > 0){
 			for(PltWrhsSpmtVO vo : pltDelList){
-				rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
+				if (prcsNo.equals(vo.getPrcsNo())) {
+					rtnObj = pltWrhsSpmtService.updateDelYnPltWrhsSpmt(vo);
+				}
 				if(rtnObj != null){
 					throw new EgovBizException(getMessageForMap(rtnObj));
 				}
 			}
 		}
 
-		String prcsNo = wghPrfmncList.get(0).getWghno();
 		if(pltWrhsSpmtList.size() > 0){
 			for(PltWrhsSpmtVO pltWrhsSpmtVO : pltWrhsSpmtList){
 				if(pltWrhsSpmtVO.getSn() == 0){

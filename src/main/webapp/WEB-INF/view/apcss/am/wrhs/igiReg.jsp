@@ -21,12 +21,12 @@
 				</div>
 				<div style="margin-left: auto;">
 					<sbux-button
-							id="btnSave"
-							name="btnSave"
+							id="btnWrhsHr"
+							name="btnWrhsHr"
 							uitype="normal"
 							class="btn btn-sm btn-outline-danger"
-							onclick="fn_save"
-							text="저장"
+							onclick="fn_rawMtrHr"
+							text="시간별입고"
 					></sbux-button>
                     <sbux-button
 						id="btnSearch"
@@ -173,6 +173,26 @@
 	<div id="body-modal-prdcr">
 		<jsp:include page="../../am/popup/prdcrPopup.jsp"></jsp:include>
 	</div>
+
+	<!-- 생산자 선택 Modal -->
+	<div>
+		<sbux-modal
+				id="modal-rawMtrHrPrfmnc"
+				name="modal-rawMtrHrPrfmnc"
+				uitype="middle"
+				header-title="시간별 입고"
+				body-html-id="body-modal-rawMtrHrPrfmnc"
+				footer-is-close-button="false"
+				header-is-close-button="false"
+				style="width:460px"
+		></sbux-modal>
+	</div>
+	<div id="body-modal-rawMtrHrPrfmnc">
+		<jsp:include page="../../am/popup/rawMtrHrPrfmncPopup.jsp"></jsp:include>
+	</div>
+
+
+
 </body>
 <script type="text/javascript">
 
@@ -214,6 +234,15 @@
 		fn_initSBSelect();
 		fn_createRawMtrWrhsIgiGrid();
 	})
+
+
+	const fn_rawMtrHr = async function () {
+
+		let itemCd = SBUxMethod.get("srch-slt-itemCd");
+		let yr = SBUxMethod.get("srch-dtp-yr");
+		SBUxMethod.openModal('modal-rawMtrHrPrfmnc');
+		await popRawMtrHrPrfmnc.init(gv_selectedApcCd);
+	}
 
 	/**
 	 * @name fn_createRawMtrWrhsIgiGrid
@@ -295,15 +324,15 @@
 		}
 
 		columns.push(
-				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type:'combo',  		width: '60px', filtering: { usemode: false }, style:'text-align:center;',
-					typeinfo : {ref:'jsonRwArtclCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				{caption : ['감량항목', '항목'], 						ref: 'rwArtclCd', 		type: 'combo',  		width: '60px', filtering: { usemode: false }, style:'text-align:center;',
+					typeinfo : {ref:'jsonRwArtclCd', 	displayui : false,	itemcount: 10, label: 'label', value:'value'}},
 				{caption : ['감량항목', '%'], 						ref: 'rwRt', 			type: 'input', 		width: '50px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 				{caption : ['회송<br>톤백수량', '회송<br>톤백수량'], 	ref: 'sndbkQntt', 		type: 'input', 		width: '60px', filtering: { usemode: false }, style:'text-align:right;', format : {type:'number', rule:'#,###'}},
 				{caption : ['검수내용', '검수내용'], 					ref: 'igiRmrk', 		type: 'input', 		width: '140px', filtering: {uitype : 'text^', sort:'asc'}, style:'text-align:left;'},
 				{caption : ['톤백수량<br>매세지', '톤백수량<br>매세지'], ref: 'qnttRmrk', 		type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
 				{caption : ['비율<br>메시지', '비율<br>메시지'], 		ref: 'rtRmrk', 			type: 'input', 		width: '120px', filtering: { usemode: false }, style:'text-align:left;'},
-				{caption : ['저장<br>구분', '저장<br>구분'], 			ref: 'strgLoctnCd', 	type:'combo',  		width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center; background:#FFF8DC;',
-					typeinfo : {ref:'jsonStrgLoctnCd', 	displayui : false,	itemcount: 10, label:'label', value:'value'}},
+				{caption : ['품질<br>평가', '품질<br>평가'], 			ref: 'qltEvlNm', 		type: 'output',  	width: '60px', filtering: {uitype : 'checklist^', sort:'asc'}, style:'text-align:center;'},
+				{caption : ['검수순번', '검수순번'], 					ref: 'igiReq', 			type: 'output', 	width: '120px', filtering: { usemode: false }, style:'text-align:left;', hidden : true},
 		)
 
 		SBGridProperties.columns = columns;
@@ -405,17 +434,20 @@
 
 		let nRow = grdRawMtrWrhsIgi.getRow();
 		let nCol = grdRawMtrWrhsIgi.getCol();
-		let frmhsNmCol = grdRawMtrWrhsIgi.getColRef('frmhsNm');
 		let prdcrCdCol = grdRawMtrWrhsIgi.getColRef('prdcrCd');
+
 
 		if (nCol == prdcrCdCol) {
 
 			let prdcrCd = (grdRawMtrWrhsIgi.getRowData(nRow)).prdcrCd;
 			let prdcrVO = jsonGrdPrdcr.find(item => item.prdcrCd === prdcrCd);
+			let frmhsNmCol = grdRawMtrWrhsIgi.getColRef('frmhsNm');
+			let qltEvlNmCol = grdRawMtrWrhsIgi.getColRef('qltEvlNm');
 			let frmhsNm = prdcrVO.frmhsNm;
+			let qltEvlNm = prdcrVO.qltEvlNm;
 
 			grdRawMtrWrhsIgi.setCellData(nRow, frmhsNmCol, frmhsNm, true);
-			return;
+			grdRawMtrWrhsIgi.setCellData(nRow, qltEvlNmCol, qltEvlNm, true);
 		}
 
 		for (let i=1; i<=jsonIgiGrdCd.length; i++) {
@@ -439,6 +471,16 @@
 				break;
 			}
 		}
+
+		let rowData = grdRawMtrWrhsIgi.getRowData(nRow);
+		let prdcrCd = rowData.prdcrCd;
+		let igiYmd = rowData.igiYmd;
+		rowData.apcCd = gv_selectedApcCd;
+
+		if (!gfn_isEmpty(prdcrCd) && !gfn_isEmpty(igiYmd)) {
+			fn_save(rowData, nRow);
+		}
+
 	}
 
 	/**
@@ -494,7 +536,8 @@
 					, igiRmrk           : item.igiRmrk
 					, qnttRmrk          : item.qnttRmrk
 					, rtRmrk            : item.rtRmrk
-					, strgLoctnCd       : item.strgLoctnCd
+					, qltEvlNm       	: item.qltEvlNm
+					, qltEvlCd       	: item.qltEvlCd
 					, igiGrdQnttTot     : fn_zero(item.igiGrdQnttTot)
 					, igiGrdQntt1       : fn_zero(item.igiGrdQntt1)
 					, igiGrdQntt2       : fn_zero(item.igiGrdQntt2)
@@ -548,133 +591,100 @@
 	 * @name fn_save
 	 * @description 검수 등록 저장
 	 */
-	const fn_save = async function () {
+	const fn_save = async function (rowData, nRow) {
 
-		let grdList = grdRawMtrWrhsIgi.getGridDataAll();
-
+		let igiSeq = rowData.igiSeq;
 		let rowMtrWrhsIgiList = [];
 
-		for(let i=2; i<=grdList.length; i++) {
-			let rowData = JSON.parse(JSON.stringify(jsonRawMtrWrhsIgi[i-2]));
-			let delYn = rowData.delYn;
-			rowData.apcCd = gv_selectedApcCd;
 
-			if (delYn == 'Y') {
-				let igiSeq = rowData.igiSeq;
+		if (gfn_isEmpty(igiSeq)) {
+
+			let rawMtrWrhsIgiDtlList = [];
+
+			for (let j=1; j<=jsonIgiGrdCd.length; j++) {
+
+				let igiGrdCdKey = "igiGrdQntt" + j;
+				let igiGrdRtKey = "igiGrdRt" + j;
+
+				let igiGrdCd = JSON.parse(JSON.stringify(jsonIgiGrdCd[j-1])).value;
+				let igiGrdQntt = rowData[igiGrdCdKey] || 0;
+				let igiGrdRt = rowData[igiGrdRtKey] || 0;
+				let rawMtrWrhsIgiDtl = JSON.parse(JSON.stringify(rowData));
+
+				rawMtrWrhsIgiDtl.igiGrdQntt = igiGrdQntt;
+				rawMtrWrhsIgiDtl.igiGrdCd = igiGrdCd;
+				rawMtrWrhsIgiDtl.igiGrdRt = igiGrdRt;
+
+				if (parseInt(igiGrdQntt) > 0 || parseInt(igiGrdRt) > 0) {
+					rawMtrWrhsIgiDtl.delYn = 'N'
+				}
+
+				if (parseInt(igiGrdQntt) == 0 && parseInt(igiGrdRt) == 0) {
+					rawMtrWrhsIgiDtl.delYn = 'Y'
+				}
+
+				rawMtrWrhsIgiDtlList.push(rawMtrWrhsIgiDtl);
+
+			}
+			rowData.rowSts = "I"
+			rowData.wrhsUnitCd = "3";
+			rowData.rawMtrWrhsIgiDtlList = rawMtrWrhsIgiDtlList;
+
+			rowMtrWrhsIgiList.push(rowData);
+		} else {
+			let rawMtrWrhsIgiDtlList = [];
+			let rowSts = grdRawMtrWrhsIgi.getRowStatus(nRow);
+			if (rowSts == "2" && !gfn_isEmpty(igiSeq)) {
+
+
+				for (let k=1; k<=jsonIgiGrdCd.length; k++) {
+
+					let igiGrdCdKey = "igiGrdQntt" + k;
+					let igiGrdRtKey = "igiGrdRt" + k;
+
+					let igiGrdCd = JSON.parse(JSON.stringify(jsonIgiGrdCd[k-1])).value;
+					let igiGrdQntt = rowData[igiGrdCdKey] || 0;
+					let igiGrdRt = rowData[igiGrdRtKey] || 0;
+					let rawMtrWrhsIgiDtl = JSON.parse(JSON.stringify(rowData));
+
+					rawMtrWrhsIgiDtl.igiGrdQntt = igiGrdQntt;
+					rawMtrWrhsIgiDtl.igiGrdCd = igiGrdCd;
+					rawMtrWrhsIgiDtl.igiGrdRt = igiGrdRt;
+
+					if (parseInt(igiGrdQntt) > 0 || parseInt(igiGrdRt) > 0) {
+						rawMtrWrhsIgiDtl.delYn = 'N'
+					}
+
+					if (parseInt(igiGrdQntt) == 0 && parseInt(igiGrdRt) == 0) {
+						rawMtrWrhsIgiDtl.delYn = 'Y'
+					}
+					rawMtrWrhsIgiDtlList.push(rawMtrWrhsIgiDtl);
+
+				}
+				rowData.rowSts = "U"
+				rowData.rawMtrWrhsIgiDtlList = rawMtrWrhsIgiDtlList;
+				rowMtrWrhsIgiList.push(rowData);
+			}
+		}
+
+		const postJsonPromise = gfn_postJSON("/am/wrhs/multiRawMtrWrhsIgiList.do", rowMtrWrhsIgiList);
+		const data = await postJsonPromise;
+		try{
+			if (_.isEqual("S", data.resultStatus)) {
 
 				if (gfn_isEmpty(igiSeq)) {
-
-					let igiYmd = rowData.igiYmd;
-					let prdcrCd = rowData.prdcrCd;
-
-					if (gfn_isEmpty(igiYmd)) {
-						gfn_comAlert("W0001", "날짜");		//	W0001	{0}을/를 선택하세요.
-						return;
-					}
-
-					if (gfn_isEmpty(prdcrCd)) {
-						gfn_comAlert("W0001", "생산자");		//	W0001	{0}을/를 선택하세요.
-						return;
-					}
-
-					let rawMtrWrhsIgiDtlList = [];
-
-					for (let j=1; j<=jsonIgiGrdCd.length; j++) {
-
-						let igiGrdCdKey = "igiGrdQntt" + j;
-						let igiGrdRtKey = "igiGrdRt" + j;
-
-						let igiGrdCd = JSON.parse(JSON.stringify(jsonIgiGrdCd[j-1])).value;
-						let igiGrdQntt = rowData[igiGrdCdKey] || 0;
-						let igiGrdRt = rowData[igiGrdRtKey] || 0;
-						let rawMtrWrhsIgiDtl = JSON.parse(JSON.stringify(rowData));
-
-						rawMtrWrhsIgiDtl.igiGrdQntt = igiGrdQntt;
-						rawMtrWrhsIgiDtl.igiGrdCd = igiGrdCd;
-						rawMtrWrhsIgiDtl.igiGrdRt = igiGrdRt;
-
-						if (parseInt(igiGrdQntt) > 0 || parseInt(igiGrdRt) > 0) {
-							rawMtrWrhsIgiDtl.delYn = 'N'
-						}
-
-						if (parseInt(igiGrdQntt) == 0 && parseInt(igiGrdRt) == 0) {
-							rawMtrWrhsIgiDtl.delYn = 'Y'
-						}
-
-						rawMtrWrhsIgiDtlList.push(rawMtrWrhsIgiDtl);
-
-					}
-					rowData.rowSts = "I"
-					rowData.wrhsUnitCd = "3";
-					rowData.rawMtrWrhsIgiDtlList = rawMtrWrhsIgiDtlList;
-
-					rowMtrWrhsIgiList.push(rowData);
+					await fn_search();
 				}
+
+			} else {
+				gfn_comAlert(data.resultCode, data.resultMessage);
 			}
-			if (delYn == 'N') {
-
-				let rowSts = grdRawMtrWrhsIgi.getRowStatus(i);
-				let igiSeq = rowData.igiSeq
-				let rawMtrWrhsIgiDtlList = [];
-
-				if (rowSts == "2" && !gfn_isEmpty(igiSeq)) {
-
-
-					for (let k=1; k<=jsonIgiGrdCd.length; k++) {
-
-						let igiGrdCdKey = "igiGrdQntt" + k;
-						let igiGrdRtKey = "igiGrdRt" + k;
-
-						let igiGrdCd = JSON.parse(JSON.stringify(jsonIgiGrdCd[k-1])).value;
-						let igiGrdQntt = rowData[igiGrdCdKey] || 0;
-						let igiGrdRt = rowData[igiGrdRtKey] || 0;
-						let rawMtrWrhsIgiDtl = JSON.parse(JSON.stringify(rowData));
-
-						rawMtrWrhsIgiDtl.igiGrdQntt = igiGrdQntt;
-						rawMtrWrhsIgiDtl.igiGrdCd = igiGrdCd;
-						rawMtrWrhsIgiDtl.igiGrdRt = igiGrdRt;
-
-						if (parseInt(igiGrdQntt) > 0 || parseInt(igiGrdRt) > 0) {
-							rawMtrWrhsIgiDtl.delYn = 'N'
-						}
-
-						if (parseInt(igiGrdQntt) == 0 && parseInt(igiGrdRt) == 0) {
-							rawMtrWrhsIgiDtl.delYn = 'Y'
-						}
-						rawMtrWrhsIgiDtlList.push(rawMtrWrhsIgiDtl);
-
-					}
-					rowData.rowSts = "U"
-					rowData.rawMtrWrhsIgiDtlList = rawMtrWrhsIgiDtlList;
-					rowMtrWrhsIgiList.push(rowData);
-				}
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				e = new Error(e);
 			}
-		}
-
-		if (rowMtrWrhsIgiList.length == 0) {
-			gfn_comAlert("W0003", "저장");			// W0003	{0}할 대상이 없습니다.
-			return;
-		}
-
-		if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
-
-			const postJsonPromise = gfn_postJSON("/am/wrhs/multiRawMtrWrhsIgiList.do", rowMtrWrhsIgiList);
-			const data = await postJsonPromise;
-			try{
-				if (_.isEqual("S", data.resultStatus)) {
-					fn_search();
-					gfn_comAlert("I0001");					// I0001 처리 되었습니다.
-
-				} else {
-					gfn_comAlert(data.resultCode, data.resultMessage);
-				}
-			} catch (e) {
-				if (!(e instanceof Error)) {
-					e = new Error(e);
-				}
-				console.error("failed", e.message);
-				gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
-			}
+			console.error("failed", e.message);
+			gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
 		}
 
 	}

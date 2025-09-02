@@ -758,8 +758,10 @@
 		SBUxMethod.refresh('dtl-slt-wrhsSpmtType');
 
 		if (jsonApcItem.length > 0) {
-			await fn_onChangeSrchItemCd({value: jsonApcItem[0].itemCd});
-			SBUxMethod.set("dtl-slt-itemCd", jsonApcItem[0].itemCd);
+			let itemCd = jsonApcItem[0].itemCd;
+			jsonApcVrty = jsonApcVrty.filter(e => e.itemCd === itemCd);
+			await fn_onChangeSrchItemCd({value: itemCd});
+			SBUxMethod.set("dtl-slt-itemCd", itemCd);
 		}
 
 		if (gv_selectedApcCd == '0669') {
@@ -955,6 +957,8 @@
  		SBUxMethod.set('dtl-inp-shpgotPltQntt', rowData.shpgotPltQntt || "");
  		SBUxMethod.set('dtl-inp-oprtrNm', rowData.oprtrNm || "");
 
+		await fn_onChangeSrchItemCd({value: rowData.itemCd});
+
 		/** 생산자 정보, 기사정보 set */
 		await fn_onSelectPrdcrNm(rowData.prdcrCd);
 		await popVhcl.init(gv_selectedApcCd, gv_selectedApcNm, fn_setVhcl, rowData.vhclno);
@@ -1100,7 +1104,8 @@
 					qntt : parseInt(item.Bqntt),
 					unitWght : parseFloat(item.BunitWght),
 					sn : item.Bsn,
-					rmrk: item.rmrk
+					rmrk: item.rmrk,
+					prcsNo: rowData.wghno
 				})
 			}
 			if(item.Pqntt > 0){
@@ -1114,7 +1119,8 @@
 					qntt : parseInt(item.Pqntt),
 					unitWght : parseInt(item.PunitWght),
 					sn : item.Psn,
-					rmrk: item.rmrk
+					rmrk: item.rmrk,
+					prcsNo: rowData.wghno
 				})
 			}
 		});
@@ -1252,6 +1258,11 @@
 						!['apcCd', 'grdCd'].includes(k) && (item[k] = "")
 				)
 		);
+
+		/** jsonDelList reset */
+		jsonInspCmpr = [];
+		jsonPltBoxCmpr = [];
+
 		grdVrty.rebuild();
 		grdInsp.rebuild();
 		grdInsp.removeColumn();	// 검품 grid 저장창고컬럼 삭제
@@ -1357,6 +1368,7 @@
 
 	const fn_grdQnttChanged = function () {
 
+		let itemCd = SBUxMethod.get('dtl-slt-itemCd');
 		let nRow = grdVrty.getRow();
 
 		if (nRow < 1) {
@@ -1364,13 +1376,13 @@
 		}
 
 		let vrtyList = grdVrty.getGridDataAllExceptTotal();
+		let getItemVrtyList = jsonApcVrty.filter(e => e.itemCd === itemCd);
 		let total = 0;
 		for (var i=1; i<=vrtyList.length; i++) {
 
 			let rowData = grdVrty.getRowData(i);
-
-			for (var j=0; j<jsonApcVrty.length; j++) {
-				let vrtyCdKey = jsonApcVrty[j].vrtyCd;
+			for (var j=0; j<getItemVrtyList.length; j++) {
+				let vrtyCdKey = getItemVrtyList[j].vrtyCd;
 				let vrtyQntt = rowData[vrtyCdKey] || 0;
 
 				if (vrtyQntt > 0) {
@@ -1633,26 +1645,32 @@
 		let vrtyList = grdVrty.getGridDataAllExceptTotal();
 		let grdList = grdInsp.getGridDataAll();
 
-		/** 검품등급 비교하여 삭제 */
+		/** 검품등급 && 팔레트 수정을 위한 삭제리스트 */
 		let inspDelList = [];
+		let pltDelList = [];
 
-		grdList.forEach((objA, index) => {
-			const objB = jsonInspCmpr[index];
-			if (objB) {
-				Object.keys(objA).forEach(key => {
-					if (objA[key] === "" && objB[key] !== "") {
-						inspDelList.push({
-							apcCd: gv_selectedApcCd,
-							wghno: wghno,
-							itemCd: itemCd,
-							vrtyCd: key,
-							grdCd: objB.grdCd,
-							grdVl: objB[key],
-						});
-					}
-				});
-			}
-		});
+		if(!gfn_isEmpty(wghno)) {
+			grdList.forEach((objA, index) => {
+				const objB = jsonInspCmpr[index];
+				if (objB) {
+					Object.keys(objA).forEach(key => {
+						if (objA[key] === "" && objB[key] !== "") {
+							inspDelList.push({
+								apcCd: gv_selectedApcCd,
+								wghno: wghno,
+								itemCd: itemCd,
+								vrtyCd: key,
+								grdCd: objB.grdCd,
+								grdVl: objB[key],
+							});
+						}
+					});
+				}
+			});
+
+			pltDelList = JSON.parse(JSON.stringify(jsonPltBoxCmpr));
+		}
+
 		/** 저장대상 없음 **/
 		// const even = (el) => Object.keys(el).length > 1;
 		// 저장창고 컬럼 추가 후 조건 수정
@@ -1704,6 +1722,8 @@
 		let wghSnArray = [];
 
 		/** 사이즈 등급 그리드 ite **/
+		// vrtyCd 중복값이 존재하여 jsonApcVrty 필터
+		jsonApcVrty = jsonApcVrty.filter(e => e.itemCd === itemCd);
 		for (var i=1; i<=vrtyList.length; i++) {
 			let rowData = vrtyList[i-1];
 			let warehouseSeCd = rowData.warehouseSeCd;
@@ -1730,7 +1750,6 @@
 						multiList.push(wghPrfmncVO);
 					}
 				} else {
-
 					wghPrfmncVO.vrtyCd = vrtyCdKey;
 					wghPrfmncVO.bxQntt = vrtyQntt;
 					wghPrfmncVO.grdCd = rowData.grdCd;
@@ -1894,7 +1913,7 @@
 			return indexA - indexB;
 		})
 
-		jsonWarehouse = multiList.map(item => {
+		jsonWarehouse = multiList.filter(item => item.dtlDelYn !== 'Y').map(item => {
 			const vrtyNm = jsonApcVrty.find(i => i.vrtyCd === item.vrtyCd)?.vrtyNm || '';
 			return {
 				...item,
@@ -1920,7 +1939,7 @@
 			}
 			let setWarehouseCd = grdWarehouse.getGridDataAll();
 
-			 multiList.forEach(function(item, idx){
+			 multiList.filter(item => item.dtlDelYn !== 'Y').forEach(function(item, idx){
 				 item.warehouseSeCd = setWarehouseCd[idx].warehouseSeCd;
 			 });
 
@@ -1930,8 +1949,6 @@
 			 // const key = o => [o.jobYmd, o.pltBxCd, o.pltBxSeCd, o.wrhsSpmtSeCd].join('|');
 			 // const base = new Set(pltWrhsSpmt.map(key));
 			 // const pltDelList = jsonPltBoxCmpr.filter(o => !base.has(key(o)));
-
-			 const pltDelList = JSON.parse(JSON.stringify(jsonPltBoxCmpr));
 
 			 if (gfn_comConfirm("Q0001", "저장")) {		//	Q0001	{0} 하시겠습니까?
 				 const postJsonPromise = gfn_postJSON("/am/wgh/multiWghPrfmncList0669.do",

@@ -503,11 +503,7 @@
 	var jsonGrdLastStrgSe			= [];
 	var jsonGrdPrchsCmptnYn			= [];
 	var jsonComYn 					= [];
-	var jsonQltEvl					= [
-		{value:"A", text:"A", label:"A"},
-		{value:"B", text:"B", label:"B"},
-		{value:"C", text:"C", label:"C"},
-	];
+	var jsonQltEvl					= [];
 	let choicePrdcrLandInfoNo = "";
 	var excelYn = "N";
     var btnClick = "N";
@@ -524,13 +520,18 @@
 
 	const fn_init = async function() {
 
+
+		/**
+		 * APC종자 정보만 마지막에 셋팅 해준다. 필히
+		 * */
 		let rst = await Promise.all([
 			gfn_setPrdcrSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPrdcr, 				gv_selectedApcCd),		// Grid 생산자
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdSdngStts,  			'SDNG_STTS_CD'),		// 파종상태
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdPlntngStts, 			'PLNTNG_STTS_CD'),		// 정식상태
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonGrdMeshSe, 				'MESH_SE_CD'),			// 망사구분
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdHdofcExtrnlSe, 		'HDOFC_EXTRNL_SE_CD'),	// 본사/외부구분코드
-			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdExtrnlWarehouseSe, 	'WAREHOUSE_SE_CD', gv_selectedApcCd),	// 외부창고코드
+			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdExtrnlWarehouseSe, 	'WAREHOUSE_SE_CD', 	gv_selectedApcCd),	// 외부창고코드
+			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonQltEvl, 				'QLT_EVL_CD', 		gv_selectedApcCd),	// 품질정보
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdLastStrgSe, 			'LAST_STRG_SE_CD'),		// 최종저장구분
 			gfn_setComCdSBSelect('grdFrmhsExpctWrhs', 	jsonGrdPrchsCmptnYn, 		'CLCTM_YN'),			// 수매완료여부
 			gfn_setComCdSBSelect('grdCltvtnFrmhsQlt', 	jsonComYn, 					'GBN_YN'),				// YN
@@ -538,7 +539,10 @@
 			gfn_getApcSeed(gv_selectedApcCd),																// 종자
     	])
 
-		jsonSeed = rst[10];
+		/**
+		 * 공통 코드 가져 올시 마지막 인덱스에 APC종자 정보를 가져온다.
+		 * */
+		jsonSeed = rst[rst.length-1];
 
 		fn_getPrdcrs();
 		fn_createCltvtnHstry();
@@ -804,6 +808,10 @@
 	    grdCltvtnHstryPrdcr = _SBGrid.create(SBGridProperties);
 	}
 
+	/**
+	 * @name fn_createCltvtnFrmhsQlt
+	 * @description 영농일지 - 재배농가품질
+	 */
 	const fn_createCltvtnFrmhsQlt = function () {
 		var SBGridProperties = {};
 	    SBGridProperties.parentid = "sb-area-cltvtnFrmhsQlt";
@@ -869,7 +877,7 @@
 					format : {type:'date', rule:'yyyy-mm-dd', origin:'yyyymmdd'}, typeinfo : {gotoCurrentClick: true, clearbutton: true}},
 				{caption : ['예상망', 	'예상망'], 		ref: 'expctQntt', 	type: 'output', 		width: '100px', style:'text-align: right',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
-				{caption : ['품질평가', '품질평가'], 	ref: 'qltEvl', 		type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
+				{caption : ['품질평가', '품질평가'], 	ref: 'qltEvlCd', 		type: 'combo', 	width: '80px', style: 'text-align:center; background:#FFF8DC;', sortable: false,
 					typeinfo: {ref:'jsonQltEvl', label:'label', value:'value', itemcount: 10}},
 				{caption : ['올해<br>평균망', '올해<br>평균망'], ref: 'tyEvl', 	type: 'input', 	width: '80px', style:'text-align: right; background:#FFF8DC;',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#.###'}},
@@ -910,6 +918,10 @@
 		grdCltvtnFrmhsQlt.bind('click', 'fn_setFrmerInfo');
 	}
 
+	/**
+	 * @name fn_frmhsExpctWrhs
+	 * @description 영농일지 - 농가예상입고
+	 */
 	const fn_frmhsExpctWrhs = function () {
 
 		var SBGridProperties = {};
@@ -966,7 +978,7 @@
 	    }
 
 	    columns.push(
-	    		{caption : ['최종저장구분'], 	ref: 'qltEvl', type: 'output', 	width: '100px', style: 'text-align:center;'},
+	    		{caption : ['최종저장구분'], 	ref: 'qltEvlNm', type: 'output', 	width: '100px', style: 'text-align:center;'},
 				{caption : ['담당자'], 			ref: 'pic', type: 'output', 	width: '100px', style: 'text-align:center;'},
 				{caption : ['예상량대비'], 	ref: 'expctVlmVrss', 	type: 'output', 	width: '80px', style:'text-align: right;',
 					typeinfo : {mask : {alias : 'numeric'}}, format : {type:'number', rule:'#,###'}},
@@ -982,6 +994,10 @@
 
 	}
 
+	/**
+	 * @name fn_createLandInfo
+	 * @description 영농일지 - 농지정보
+	 */
 	const fn_createLandInfo = async function () {
 		var SBGridProperties = {};
 	    SBGridProperties.parentid = "sb-area-landInfo";
@@ -1051,7 +1067,10 @@
         },
     };
 
-    // 엑셀 다운로드 (재배농가품질)
+	/**
+	 * @description 엑셀 다운로드 (재배농가품질)
+	 * @type {object}
+	 */
     function fn_excelDwnldFrmhsQlt() {
 
     	if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
@@ -1073,7 +1092,10 @@
         },
     };
 
-    // 엑셀 다운로드(농가예상입고)
+	/**
+	 * @description 엑셀 다운로드(농가예상입고)
+	 * @type {object}
+	 */
     function fn_excelDwnldExpctWrhs() {
 
     	if (gfn_comConfirm("Q0000","엑셀의 양식을 xlsx으로 다운로드 받으시겠습니까?\n (확인 클릭 시 xlsx, 취소 클릭 시 xls)")) {
@@ -1682,7 +1704,8 @@
 	   	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
 	   	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
 	   	        	  , expctQntt           : fn_zero(item.expctQntt)
-	   	        	  , qltEvl              : item.qltEvl
+	   	        	  , qltEvlCd            : item.qltEvlCd
+					  , qltEvlNm            : item.qltEvlNm
 	   	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
 	   	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
 	   	        	  , emptSort            : item.emptSort
@@ -2030,7 +2053,8 @@
  	        	  , cmptYmdCycl1        : item.cmptYmdCycl1
  	        	  , cmptYmdCycl2        : item.cmptYmdCycl2
  	        	  , expctQntt           : fn_zero(item.expctQntt)
- 	        	  , qltEvl              : item.qltEvl
+ 	        	  , qltEvlCd            : item.qltEvlCd
+				  , qltEvlNm            : item.qltEvlNm
  	        	  , tyEvl           	: fn_zero(item.tyEvl)
  	        	  , lastYrEvl           : fn_zero(item.lastYrEvl)
  	        	  , flctnDfrnc          : fn_zero(item.flctnDfrnc)
@@ -2118,7 +2142,8 @@
  	        		  , extrnlWarehouseCd   : item.extrnlWarehouseCd
  	        		  , hrvstYmd            : item.hrvstYmd
  	        		  , expctQntt           : fn_zero(item.expctQntt)
- 	        		  , qltEvl        		: item.qltEvl
+ 	        		  , qltEvlCd        	: item.qltEvlCd
+					  , qltEvlNm        	: item.qltEvlNm
  	        		  , pic                 : item.pic
  	        		  , expctVlmVrss        : fn_zero(item.expctVlmVrss)
  	        		  , prchsCmptnYn        : item.prchsCmptnYn

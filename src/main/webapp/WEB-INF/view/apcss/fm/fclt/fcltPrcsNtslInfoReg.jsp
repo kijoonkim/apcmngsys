@@ -123,6 +123,8 @@
 						<col style="width: 20%">
 						<col style="width: 60px">
 						<col style="width: 20%">
+						<col style="width: 60px">
+						<col style="width: 20%">
 					</colgroup>
 					<tbody>
 						<tr>
@@ -131,6 +133,7 @@
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm2">품목2</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm3">품목3</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNm4">기타</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="itemNmExtra">조정품목</span></th>
 							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
@@ -184,6 +187,9 @@
 							</td>
 							<td>(백만원)</td>
 							<td style="border-right:hidden; padding-right: 0px !important;">
+							</td>
+							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
 								<sbux-input
 									id="dtl-inp-rtlOgnzTotTrmtAmtTot"
 									name="dtl-inp-rtlOgnzTotTrmtAmtTot"
@@ -213,6 +219,7 @@
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm2">품목2</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm3">품목3</span></th>
 							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNm4">기타</span></th>
+							<th class="text-center" colspan="2" style="border-right: 1px solid white !important;"><span id="apcItemNmExtra">조정품목</span></th>
 							<th class="text-center" colspan="3">계</th>
 						</tr>
 						<tr>
@@ -262,6 +269,18 @@
 									placeholder=""
 									mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
 									readonly
+								></sbux-input>
+							</td>
+							<td>(백만원)</td>
+							<td style="border-right:hidden; padding-right: 0px !important;">
+								<sbux-input
+										id="dtl-inp-apcTrmtAmtExtra"
+										name="dtl-inp-apcTrmtAmtExtra"
+										uitype="text"
+										class="form-control input-sm"
+										placeholder=""
+										mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+										readonly
 								></sbux-input>
 							</td>
 							<td>(백만원)</td>
@@ -553,9 +572,9 @@
 
 		<c:if test="${loginVO.id eq 'admin'}">
 		/*테스트*/
-		let crtrYr = '2024';
-		let apcCd = '0861';
-		let apcNm = 'test';
+		// let crtrYr = '2024';
+		// let apcCd = '0861';
+		// let apcNm = 'test';
 		//SBUxMethod.set("srch-inp-crtrYr", crtrYr);
 		//SBUxMethod.set("srch-inp-apcCd", apcCd);
 		//SBUxMethod.set("srch-inp-apcNm", apcNm);
@@ -608,7 +627,7 @@
 			}
 
 
-		}catch (e) {
+		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
 			}
@@ -653,6 +672,8 @@
 		SBUxMethod.set('dtl-inp-apcTrmtAmt4',null);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',null);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot1',null);
+
+		SBUxMethod.set('dtl-inp-apcTrmtAmtExtra',null);
 
 		// 데이터 검증 메세지 초기화
 		const msgDivs = document.getElementsByClassName('div-msg');
@@ -756,6 +777,8 @@
 					SBUxMethod.set('dtl-inp-apcTrmtAmt2', item.apcTrmtAmt2);
 					SBUxMethod.set('dtl-inp-apcTrmtAmt3', item.apcTrmtAmt3);
 					SBUxMethod.set('dtl-inp-apcTrmtAmt4', item.apcTrmtAmt4);
+					SBUxMethod.set('dtl-inp-apcTrmtAmtExtra', item.apcTrmtAmtExtra);
+
 					SBUxMethod.set('dtl-inp-apcTrmtAmtTot', item.apcTrmtAmtTot);
 					SBUxMethod.set('dtl-inp-apcTrmtAmtTot1', fn_numberToKorean(item.apcTrmtAmtTot));
 
@@ -864,6 +887,7 @@
 
 	//자동계산
 	function fn_cal(e){
+
 		if(!gfn_isEmpty(e)){
 			//extractNumbers2(e.name);
 		}
@@ -879,6 +903,7 @@
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtOnlnB2b'))
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtOnlnB2c'))
 					+ convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcNtslAmtEtc'));
+
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot',sum);
 		SBUxMethod.set('dtl-inp-apcNtslAmtTot1',fn_numberToKorean(sum));
 

@@ -1062,7 +1062,8 @@
 		const yr = SBUxMethod.get("dtl-input-yr");//
 
 		try {
-			const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
+			//const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
+			const url = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do";
 			//let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngListNew.do", {
 			const postJsonPromise = gfn_postJSON(url, {
 				brno : brno,
@@ -1094,7 +1095,8 @@
 
 						stbltYn: 		item.stbltYn, 		//적합여부 기준 적용 결과
 						orgStbltYn: 	item.orgStbltYn, 	//적합여부 현재 적용 값
-						stbltYnNm: 		item.stbltYnNm,		//fn_calStbltYn(item)
+						//stbltYnNm: 		item.stbltYnNm,		//fn_calStbltYn(item)
+						stbltYnNm: 		fn_calStbltYn(item),		//fn_calStbltYn(item)
 						brno: 			item.brno,
 						yr: 			item.yr,
 						<c:if test="${loginVO.userType eq '01' || loginVO.userType eq '00'}">
@@ -1779,7 +1781,8 @@
 		}
 
 		try {
-			const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
+			//const url = "/pd/pcom/selectUoPrchsSlsSummaryList.do";
+			const url = "/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do";
 			//let postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnGenalTblMngRawDataList2025.do", {
 			const postJsonPromise = gfn_postJSON(url, {
 				yr : yr
@@ -1816,7 +1819,8 @@
 					stbltYn					:item.stbltYn,
 					orgStbltYn				:item.orgStbltYn,
 					lastStbltYn				:item.lastStbltYn,
-					stbltYnNm				:item.stbltYnNm,		//fn_calStbltYn(item)
+					//stbltYnNm				:item.stbltYnNm,		//fn_calStbltYn(item)
+					stbltYnNm				:fn_calStbltYn(item),
 
 					trgtTrmtAmt				:item.trgtTrmtAmt,
 					trgtTrmtRt				:item.trgtTrmtRt,

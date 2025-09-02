@@ -155,4 +155,19 @@ public class RawMtrWrhsIgiServiceImpl extends BaseServiceImpl implements RawMtrW
 		}
 		return null;
 	}
+
+	@Override
+	public List<RawMtrWrhsIgiVO> selectRawMtrWrhsIgiTot(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception {
+		return rawMtrWrhsIgiMapper.selectRawMtrWrhsIgiTot(rawMtrWrhsIgiVO);
+	}
+
+	@Override
+	public RawMtrWrhsIgiVO selectPrschsPrdcrInfo(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception {
+		return rawMtrWrhsIgiMapper.selectPrschsPrdcrInfo(rawMtrWrhsIgiVO);
+	}
+
+	@Override
+	public List<RawMtrWrhsIgiVO> selectRawMtrWghPrmncTotList(RawMtrWrhsIgiVO rawMtrWrhsIgiVO) throws Exception {
+		return rawMtrWrhsIgiMapper.selectRawMtrWghPrmncTotList(rawMtrWrhsIgiVO);
+	}
 }

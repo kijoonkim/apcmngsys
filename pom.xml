@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.egovframe.template</groupId>
 	<artifactId>apcss</artifactId>
@@ -17,12 +17,12 @@
 
 	<properties>
 		<spring.maven.artifact.version>5.3.20</spring.maven.artifact.version>
-        <org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
+		<org.egovframe.rte.version>4.1.0</org.egovframe.rte.version>
 		<logback.version>1.2.11</logback.version>
 		<java.version>11</java.version>
 		<webapp.lib>${basedir}/src/main/webapp/WEB-INF/lib</webapp.lib>
 		<!--<sonar.projectKey>apcss</sonar.projectKey>-->
-    	<!--<sonar.host.url>http://localhost:9000</sonar.host.url>-->
+		<!--<sonar.host.url>http://localhost:9000</sonar.host.url>-->
 	</properties>
 
 	<repositories>
@@ -47,14 +47,14 @@
 			</snapshots>
 		</repository>
 		<repository>
-		    <id>projectRepository</id>
-		    <name>Project Repository</name>
-		    <url>file://${basedir}/src/main/webapp/WEB-INF/lib</url>
+			<id>projectRepository</id>
+			<name>Project Repository</name>
+			<url>file://${basedir}/src/main/webapp/WEB-INF/lib</url>
 		</repository>
 		<repository>
-		    <id>localRepository</id>
-		    <name>Local Repository</name>
-		    <url>file://opt/local/maven_repository_4_1</url>
+			<id>localRepository</id>
+			<name>Local Repository</name>
+			<url>file://opt/local/maven_repository_4_1</url>
 		</repository>
 	</repositories>
 
@@ -62,8 +62,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-	    <version>2.7.0</version>
-	    <relativePath/>
+		<version>2.7.0</version>
+		<relativePath/>
 	</parent>
 
 	<dependencies>
@@ -71,6 +71,20 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!--
+                                <exclusion>
+                                  <groupId>org.springframework.boot</groupId>
+                                  <artifactId>spring-boot-starter-logging</artifactId>
+                                </exclusion>
+                -->
+				<!--
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                -->
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,14 +100,14 @@
 		</dependency>
 		-->
 
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-expression -->
-<!--
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-expression</artifactId>
-    <version>5.3.20</version>
-</dependency>
--->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-expression -->
+		<!--
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>5.3.20</version>
+        </dependency>
+        -->
 
 		<!-- war 배포 시 해당 주석 제거 -->
 		<!--
@@ -106,9 +120,22 @@
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
 
 		<dependency>
-		    <groupId>org.apache.tomcat</groupId>
-		    <artifactId>tomcat-jasper</artifactId>
-		    <version>9.0.63</version>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>9.0.63</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-websocket</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- -->
@@ -147,9 +174,9 @@
 			<version>${org.egovframe.rte.version}</version>
 		</dependency>
 		<dependency>
-    		<groupId>org.egovframe.rte</groupId>
-    		<artifactId>org.egovframe.rte.fdl.crypto</artifactId>
-    		<version>${org.egovframe.rte.version}</version>
+			<groupId>org.egovframe.rte</groupId>
+			<artifactId>org.egovframe.rte.fdl.crypto</artifactId>
+			<version>${org.egovframe.rte.version}</version>
 		</dependency>
 
 
@@ -160,10 +187,10 @@
 		</dependency>
 
 		<dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>1.2</version>
-        </dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
@@ -173,13 +200,13 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-dbcp2</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
 		</dependency>
 
 		<dependency>
-		    <groupId>commons-lang</groupId>
-		    <artifactId>commons-lang</artifactId>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
 			<version>2.2</version>
 		</dependency>
 
@@ -202,10 +229,10 @@
 
 		<!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
 		<dependency>
-		    <groupId>org.apache.taglibs</groupId>
-		    <artifactId>taglibs-standard-impl</artifactId>
-		    <version>1.2.5</version>
-		    <scope>runtime</scope>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+			<scope>runtime</scope>
 		</dependency>
 
 
@@ -241,9 +268,9 @@
 		<!-- mysql driver -->
 
 		<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-    		</dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
 
 
 		<!-- oracle 10g driver -->
@@ -290,32 +317,32 @@
 		<!-- validator -->
 		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
 		<dependency>
-		    <groupId>org.hibernate.validator</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-    		<version>7.0.5.Final</version>
-	    </dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>7.0.5.Final</version>
+		</dependency>
 
-<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-<!--
-<dependency>
-    <groupId>org.hibernate.validator</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>8.0.1.Final</version>
-</dependency>
--->
-<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator-annotation-processor -->
-<!--
-<dependency>
-    <groupId>org.hibernate.validator</groupId>
-    <artifactId>hibernate-validator-annotation-processor</artifactId>
-    <version>8.0.1.Final</version>
-</dependency>
--->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+		<!--
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
+        </dependency>
+        -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator-annotation-processor -->
+		<!--
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator-annotation-processor</artifactId>
+            <version>8.0.1.Final</version>
+        </dependency>
+        -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 
@@ -345,14 +372,14 @@
 
 		<!-- JWT 2022.07.27 -->
 		<dependency>
-    		<groupId>io.jsonwebtoken</groupId>
-    		<artifactId>jjwt</artifactId>
-    		<version>0.9.1</version>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 
-<!--
-		취약점 점검 조치중 2021.12.17
-		 -->
+		<!--
+                취약점 점검 조치중 2021.12.17
+                 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -369,101 +396,97 @@
 
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
-		    <scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.tmax.jeus</groupId>
-			<artifactId>spring-support</artifactId>
-			<version>4.2.0.RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
 
+
 		<!-- 0830 -->
-        <dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-configuration-processor</artifactId>
-        	<optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
-		<dependency>		
-		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
-		    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
-		    <version>1.16</version>
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.16</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-jul -->
 		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-jul</artifactId>
-		    </dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jul</artifactId>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
 
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-simple</artifactId>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-api</artifactId>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/rhino/js -->
 		<dependency>
-		    <groupId>rhino</groupId>
-		    <artifactId>js</artifactId>
-		    <version>1.6R2</version>
+			<groupId>rhino</groupId>
+			<artifactId>js</artifactId>
+			<version>1.6R2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi</artifactId>
-		    <version>3.11</version>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-schemas -->
 		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi-ooxml-schemas</artifactId>
-		    <version>3.11</version>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<version>3.11</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 		<dependency>
-		    <groupId>org.apache.poi</groupId>
-		    <artifactId>poi-ooxml</artifactId>
-		    <version>3.11</version>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.11</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-	    </dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
 		<dependency>
-		    <groupId>org.jsoup</groupId>
-		    <artifactId>jsoup</artifactId>
-		    <version>1.16.2</version>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.16.2</version>
 		</dependency>
 
 
@@ -495,8 +518,8 @@
 			<artifactId>PniccJNI</artifactId>
 			<version>1.1</version>
 		</dependency>
-		
-		
+
+
 		<!-- easycerti Repository -->
 		<dependency>
 			<groupId>com.easycerti</groupId>
@@ -526,10 +549,7 @@
 			<artifactId>json</artifactId>
 			<version>20230227</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -539,22 +559,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>com.tmax.jeus</groupId>
-							<artifactId>spring-support</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 
 			<plugin>
-	        	<groupId>org.sonarsource.scanner.maven</groupId>
-	        	<artifactId>sonar-maven-plugin</artifactId>
-	        	<version>3.10.0.2594</version>
-	        	<!--<version>3.7.0.1746</version>-->
-	      	</plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.10.0.2594</version>
+				<!--<version>3.7.0.1746</version>-->
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>

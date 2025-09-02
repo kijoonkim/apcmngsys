@@ -272,7 +272,7 @@
 			   AND CH.APC_CD = PLI.APC_CD(+)
     		   AND CH.PRDCR_CD = PLI.PRDCR_CD(+)
     		   AND CH.PRDCR_LAND_INFO_NO = PLI.PRDCR_LAND_INFO_NO(+)
-			   AND PLI.DEL_YN = 'N'
+			   AND PLI.DEL_YN(+) = 'N'
 			   AND PI.DEL_YN = 'N'
 			   AND CH.DEL_YN = 'N'
 		]]>
@@ -295,7 +295,7 @@
 			AND CH.CFMTN_YMD <![CDATA[<=]]> #{cfmtnYmdTo}
 		</if>
 		<if test='itemCd != null and itemCd !=""'>
-			AND PLI.ITEM_CD = #{itemCd}
+			AND PLI.ITEM_CD(+) = #{itemCd}
 		</if>
 		<if test='yr != null and yr !=""'>
 			AND PLI.YR = #{yr}
@@ -430,6 +430,7 @@
     		     , (SELECT FN_GET_COM_CD_VL_NM('PLNTNG_STTS_CD', pt0.PLNTNG_STTS_CD) FROM DUAL) 	AS PLNTNG_STTS_NM
 				 , (SELECT FN_GET_COM_CD_VL_NM('SDNG_STTS_CD', pt0.SDNG_STTS_CD) FROM DUAL) 		AS SDNG_STTS_NM
 				 , (SELECT FN_GET_COM_CD_VL_NM('MESH_SE_CD', pt0.MESH_SE_CD) FROM DUAL) 			AS MESH_SE_NM
+    			 , (SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', pt0.QLT_EVL_CD, pt0.APC_CD) FROM DUAL) AS QLT_EVL_NM
 		      FROM (SELECT
 					       PI.APC_CD			AS APC_CD
 					     , PI.PRDCR_CD          AS PRDCR_CD
@@ -469,7 +470,7 @@
 					     , CQ.CMPT_YMD_CYCL_1   AS CMPT_YMD_CYCL_1
 					     , CQ.CMPT_YMD_CYCL_2   AS CMPT_YMD_CYCL_2
 					     , CQ.EXPCT_QNTT 		AS EXPCT_QNTT
-					     , CQ.QLT_EVL           AS QLT_EVL
+					     , CQ.QLT_EVL_CD        AS QLT_EVL_CD
 					     , CQ.TY_EVL            AS TY_EVL
                          , (SELECT MAX(TY_EVL)
                              FROM TB_CLTVTN_FRMHS_QLT X
@@ -562,7 +563,7 @@
 					     , ''   AS CMPT_YMD_CYCL_1
 					     , ''   AS CMPT_YMD_CYCL_2
 					     , ''   AS EXPCT_QNTT
-					     , ''   AS QLT_EVL
+					     , ''   AS QLT_EVL_CD
 					     , ''   AS TY_EVL
 					     , ''   AS LAST_YR_EVL
 					     , ''   AS FLCTN_DFRNC
@@ -604,7 +605,7 @@
     				   AND PI.PRDCR_CD  = #{prdcrCd}
     		</if>
     		<if test='itemCd != null and itemCd != ""'>
-    				   AND CQ.ITEM_CD  = #{itemCd}
+    				   AND CQ.ITEM_CD(+)  = #{itemCd}
     		</if>
 		<![CDATA[
 					   AND NOT EXISTS (
@@ -661,7 +662,7 @@
 				 , CMPT_YMD_CYCL_1
 				 , CMPT_YMD_CYCL_2
 				 , EXPCT_QNTT
-				 , QLT_EVL
+				 , QLT_EVL_CD
 				 , TY_EVL
 				 , FLCTN_DFRNC
 				 , EMPT_SORT
@@ -711,7 +712,7 @@
 				 , #{cmptYmdCycl1}
 				 , #{cmptYmdCycl2}
 				 , #{expctQntt}
-				 , #{qltEvl}
+				 , #{qltEvlCd}
 				 , #{tyEvl}
 				 , #{flctnDfrnc}
 				 , #{emptSort}
@@ -772,7 +773,7 @@
 				 , CMPT_YMD_CYCL_1          = #{cmptYmdCycl1}
 				 , CMPT_YMD_CYCL_2          = #{cmptYmdCycl2}
 				 , EXPCT_QNTT				= #{expctQntt}
-				 , QLT_EVL                  = #{qltEvl}
+				 , QLT_EVL_CD               = #{qltEvlCd}
 				 , TY_EVL              		= #{tyEvl}
 				 , FLCTN_DFRNC              = #{flctnDfrnc}
 				 , EMPT_SORT                = #{emptSort}
@@ -860,7 +861,8 @@
 			     , MAX(pt0.PLNTNG_PRCL)             AS PLNTNG_PRCL
                  , MAX(pt0.CRTR_PRCL)               AS CRTR_PRCL
 			     , MAX(CQ.PIC)                      AS PIC
-			     , MAX(CQ.QLT_EVL)                  AS QLT_EVL
+			     , MAX(CQ.QLT_EVL_CD)               AS QLT_EVL_CD
+			     , MAX((SELECT FN_GET_COM_CD_VL_NM('QLT_EVL_CD', CQ.QLT_EVL_CD, pt0.APC_CD) FROM DUAL)) AS QLT_EVL_NM
 			     , SUM(QNTT) - MAX(CQ.EXPCT_QNTT)   AS EXPCT_VLM_VRSS
 			     , pt0.FRMHS_EXPCT_WRHS_NO          AS FRMHS_EXPCT_WRHS_NO
 			     , MAX(pt0.HDOFC_EXTRNL_SE_CD)      AS HDOFC_EXTRNL_SE_CD
@@ -1110,7 +1112,7 @@
 					   AND PI.PRDCR_CD = #{prdcrCd}
 		</if>
 		<if test='itemCd != null and itemCd != ""'>
-					   AND FW.ITEM_CD = #{itemCd}
+					   AND FW.ITEM_CD(+) = #{itemCd}
 		</if>
 		<![CDATA[
 					   AND NOT EXISTS (

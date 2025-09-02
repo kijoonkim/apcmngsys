@@ -2534,8 +2534,8 @@
 		jsonPrdcrOgnCurntMng03.length = 0;
 
 		try {
-			// const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", param);
-			const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectUoTotalPurchaseSaleList.do", param);
+			const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngPrchsSlsList.do", param);
+			//const postJsonPromise01 = gfn_postJSON("/pd/pcom/selectUoTotalPurchaseSaleList.do", param);
 			const data = await postJsonPromise01;
 
 			//console.log("data==="+data);
@@ -2919,7 +2919,8 @@
 
 		try {
 
-			const postJsonPromise = gfn_postJSON("/pd/pcom/selectUoTotalPurchaseRawDataList.do", param);
+			const postJsonPromise = gfn_postJSON("/pd/pcom/selectPrdcrCrclOgnPurSalMngRawDataList2025.do", param);
+			//const postJsonPromise = gfn_postJSON("/pd/pcom/selectUoTotalPurchaseRawDataList.do", param);
 			const data = await postJsonPromise;
 
 			data.resultList.forEach((item, index) => {
