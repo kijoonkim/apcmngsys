@@ -2,6 +2,7 @@ package com.at.apcss.pd.sprt.mapper;
 
 import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
 import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO;
 import com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
@@ -105,4 +106,108 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public int updateSprtClclnDoc(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 지원사업정산요청 요청순서
+     * @param clclnDmnd
+     * @return
+     * @throws Exception
+     */
+    public int selectClclnDmndSeq(SprtBizClclnDmndDtlVO clclnDmnd) throws Exception;
+
+    /**
+     * 지원사업정산요청 단건 조회
+     * @param clclnDmnd
+     * @return
+     * @throws Exception
+     */
+    public SprtBizClclnDmndDtlVO selectClclnDmnd(SprtBizClclnDmndDtlVO clclnDmnd) throws Exception;
+
+    /**
+     * 지원사업정산요청 등록
+     * @param clclnDmnd
+     * @return
+     * @throws Exception
+     */
+    public int insertClclnDmnd(SprtBizClclnDmndDtlVO clclnDmnd) throws Exception;
+
+    /**
+     * 지원사업정산요청문서 단건 조회
+     * @param docVO
+     * @return
+     * @throws Exception
+     */
+    public SprtBizClclnDmndDtlVO selectClclnDmndDoc(SprtBizClclnDmndDtlVO docVO) throws Exception;
+
+    /**
+     * 지원사업정산요청문서 등록
+     * @param docVO
+     * @return
+     * @throws Exception
+     */
+    public int insertClclnDmndDoc(SprtBizClclnDmndDtlVO docVO) throws Exception;
+
+    /**
+     * 지원사업 - 정산결과 목록 조회
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnMngVO> selectSprtClclnRsltList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 정산결과 정산인정액 수정
+     * @param clclnVO
+     * @return
+     * @throws Exception
+     */
+    public int updateClclnAprvAmt(SprtBizClclnMngVO clclnVO) throws Exception;
+
+    /**
+     * 정산신청 증빙조회
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnDmndDtlVO> selectClclnPrufList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO) throws Exception;
+
+    /**
+     * 지원사업정산요청 수정
+     * @param clclnDmnd
+     * @return
+     * @throws Exception
+     */
+    public int updateClclnDmnd(SprtBizClclnDmndDtlVO clclnDmnd) throws Exception;
+
+    /**
+     * 지원사업정산요청 문서순번
+     * @param clclnDmnd
+     * @return
+     * @throws Exception
+     */
+    public int selectDocSeq(SprtBizClclnDmndDtlVO clclnDmnd) throws Exception;
+
+    /**
+     * 지원사업정산요청문서 증빙서류 삭제
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    public int deleteClclnPrufDoc(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO) throws Exception;
+
+    /**
+     * 지원사업 첨부파일삭제
+     * @param dmndDocInfo
+     * @return
+     * @throws Exception
+     */
+    public int deleteSprtAtchFile(SprtBizClclnDmndDtlVO dmndDocInfo) throws Exception;
+
+    /**
+     * 지원사업정산 증빙서류 팝업 - 파일정보조회
+     * @param sprtBizRegFileVO
+     * @return
+     * @throws Exception
+     */
+    public SprtBizRegFileVO selectSprtClclnPrufAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
 }
