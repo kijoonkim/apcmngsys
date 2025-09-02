@@ -74,11 +74,11 @@
 		</if>
 		<!-- End 페이징 -->
 
-			<![CDATA[
+		<![CDATA[
 			SELECT /* com.at.apcss.fm.fclt.mapper.FcltPrcsPrfmncMapper.selectFcltPrcsPrfmncList */
-				OTI.CRTR_YR
+				  OTI.CRTR_YR
 				, OTI.APC_CD
-				,(SELECT APC_NM FROM TB_APC_INFO WHERE APC_CD = OTI.APC_CD) AS APC_NM
+				,(SELECT X.APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = OTI.APC_CD) AS APC_NM
 				, OTI.SN
 				, OTI.ITEM_CD
 				, OTI.ITEM_NM
@@ -91,21 +91,44 @@
 				, AOPD.APC_OGNZ_CPRTN_SORT_TRST
 				, AOPD.APC_CTRT_EMSPAP
 			FROM TB_TE_APC_OPER_TRMT_ITEM OTI
-				, TB_TE_APC_OPER_PRFMNC_DTL AOPD
-			WHERE 1=1
-			  AND OTI.APC_CD = AOPD.APC_CD(+)
-			  AND OTI.CRTR_YR = AOPD.CRTR_YR(+)
-			  AND OTI.SN = AOPD.SN(+)
+			LEFT JOIN TB_TE_APC_OPER_PRFMNC_DTL AOPD
+			  ON AOPD.APC_CD = OTI.APC_CD
+		     AND AOPD.CRTR_YR = OTI.CRTR_YR
+			 AND AOPD.SN = OTI.SN
+			 AND AOPD.DEL_YN = 'N'
+			WHERE OTI.CRTR_YR = #{crtrYr}
 			  AND OTI.OGNZ_SE_CD = '2'
 			  AND OTI.APC_CD IS NOT NULL
-			]]>
-			<if test='crtrYr != null and !crtrYr.equals("")'>
-			  AND  OTI.CRTR_YR = #{crtrYr}
-			</if>
+			  AND OTI.DEL_YN = 'N'
+		]]>
 			<if test='apcCd != null and !apcCd.equals("")'>
 			  AND  OTI.APC_CD = #{apcCd}
 			</if>
+		<![CDATA[
+			UNION ALL
+			SELECT
+				  AOPD.CRTR_YR
+				, AOPD.APC_CD
+				, (SELECT APC_NM FROM TB_APC_INFO X WHERE X.APC_CD = AOPD.APC_CD) AS APC_NM
+				, AOPD.SN
+				, AOPD.ITEM_CD
+				, AOPD.ITEM_NM
 
+				, AOPD.APC_TRMT_AMT
+				, AOPD.APC_TRMT_VLM
+				, AOPD.TM_SPMT_AMT
+				, AOPD.TM_SPMT_RT
+				, AOPD.APC_GNRL_TRMT_AMT
+				, AOPD.APC_OGNZ_CPRTN_SORT_TRST
+				, AOPD.APC_CTRT_EMSPAP
+			FROM TB_TE_APC_OPER_PRFMNC_DTL AOPD
+			WHERE AOPD.CRTR_YR = #{crtrYr}
+			  AND AOPD.ITEM_CD = 'XC01'
+			  AND AOPD.DEL_YN = 'N'
+		]]>
+		<if test='apcCd != null and !apcCd.equals("")'>
+			AND  AOPD.APC_CD = #{apcCd}
+		</if>
 		<!-- Start 페이징 -->
 		<if test='pagingYn != null and pagingYn.equals("Y")'>
 			  ) pt0

@@ -57,6 +57,8 @@ public class FcltPrcsNtslInfoVO extends ComVO{
 	private String apcTrmtAmt2;
 	private String apcTrmtAmt3;
 	private String apcTrmtAmt4;
+	private String apcTrmtAmtExtra;
+
 	private String apcTrmtAmtTot;
 
 	private String rtlOgnzTotTrmtAmt1;
