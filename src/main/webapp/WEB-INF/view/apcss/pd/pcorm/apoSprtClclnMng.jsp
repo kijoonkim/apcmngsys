@@ -2580,7 +2580,6 @@
     }
     formData.append('saveObj',JSON.stringify(saveObj));
 
-    return;
     if (!gfn_comConfirm("Q0001", "정산신청 증빙서류 제출")) {	//	Q0001	{0} 하시겠습니까?
       return;
     }
