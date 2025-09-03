@@ -526,7 +526,9 @@
                 </li>
               </ul>
               <%--저장버튼--%>
+<c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
               <div><sbux-button id="btnSaveClclnRslt" name="btnSaveClclnRslt" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRslt"></sbux-button></div>
+</c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnRslt" style="height: 300px"></div>
@@ -538,7 +540,7 @@
   </div>
 
 </section>
-
+<c:set var="isAdmin" value="${loginVO.untyAuthrtType == '00' or loginVO.untyAuthrtType == '10'}" />
 </body>
 <script type="text/javascript">
 
@@ -706,6 +708,7 @@
    * @description 정산결과 그리드
    */
   const fn_createClclnRsltGrid = function() {
+    const isAdmin = ${isAdmin}; // JS의 true/false로 그대로 출력됨
     var SBGridProperties = {};
     SBGridProperties.parentid = 'sb-area-clclnRslt';
     SBGridProperties.id = 'gridClclnRslt';
@@ -728,11 +731,11 @@
       {caption: ['회차','회차'], 			ref: 'clclnSeq', 		width: '6%', type: 'output', style: 'text-align:center'},
       {caption: ['정산가능액(A)\n(천원)','정산가능액(A)\n(천원)'], 		ref: 'clclnPsbltyAmt', 		width: '10%', type: 'output', style: 'text-align:right', typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['정산요청액','정산요청액'], 			ref: 'clclnDmndAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['정산인정액(B)\n(천원)','정산인정액(B)\n(천원)'], 		ref: 'clclnAprvAmt', 		width: '10%', type: 'input', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['정산인정액(B)\n(천원)','정산인정액(B)\n(천원)'], 		ref: 'clclnAprvAmt', 		width: '10%', type: isAdmin ? 'input' : 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','합계'], 			ref: 'blncTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '19%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '19%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule: '0.0 %'}},
     ];
     gridClclnRslt = _SBGrid.create(SBGridProperties);
     gridClclnRslt.bind('valuechanged','fn_clclnRsltValueChange');
@@ -880,6 +883,8 @@
             const unuseAmt = clclnPsbltyAmt - clclnAprvAmt - clclnRjctAmt; // 미사용액
             const blncTot = clclnRjctAmt + unuseAmt;
             /** 집행률 계산**/
+            const implRt = (clclnAprvAmt/clclnPsbltyAmt);
+
 
             jsonClclnRslt.push({
               sprtBizYr : item.sprtBizYr,
@@ -893,7 +898,8 @@
               clclnAprvAmt : clclnAprvAmt,
               clclnRjctAmt : clclnRjctAmt,
               unuseAmt : unuseAmt,
-              blncTot : blncTot
+              blncTot : blncTot,
+              implRt : implRt
             })
           });
         document.querySelector('#clclnRsltList').innerText = data.resultList.length;
@@ -1652,6 +1658,8 @@
       SBUxMethod.attr('btnSbmsnClclnChkDoc','disabled','false');
     }
 
+    // 증빙서류 제출 초기화
+    fn_clearPruf();
     // 제출된 증빙서류
     await fn_searchPrufDoc(); // 제출된 증빙서류 조회
 
@@ -2110,10 +2118,24 @@
 
       elFile.onchange = (e) => {
         const files = Array.from(e.target.files || []);
-        const safe = files.filter(f => __ACCEPT.includes(f.name.split('.').pop().toLowerCase()));
-        const merged = (entry.files || []).concat(safe);
-        entry.files = merged;                    // 상태 저장
-        elFile.files = buildFileList(merged);    // input 동기화
+        const safe = [];
+
+        files.forEach(f => {
+          const ext = f.name.split('.').pop().toLowerCase();
+          if (__ACCEPT.includes(ext)) {
+            safe.push(f);
+          } else {
+            gfn_comAlert("W0021","증빙서류 파일 확장자",`${'${__ACCEPT}'}`); // W0021 {0}은/는 {1}만 가능합니다.
+          }
+        });
+
+        if (safe.length === 0) {
+          e.target.value = ''; // 전부 불허 → 초기화
+          return;
+        }
+
+        entry.files = (entry.files || []).concat(safe);
+        elFile.files = buildFileList(entry.files);
         refreshChips();
       };
 
@@ -2201,10 +2223,24 @@
 
         elFile.onchange = (e) => {
           const files = Array.from(e.target.files || []);
-          const safe  = files.filter(f => __ACCEPT.includes(f.name.split('.').pop().toLowerCase()));
-          const merged = (entry.files || []).concat(safe);
-          entry.files = merged;                    // 상태 저장
-          elFile.files = buildFileList(merged);    // input 동기화
+          const safe = [];
+
+          files.forEach(f => {
+            const ext = f.name.split('.').pop().toLowerCase();
+            if (__ACCEPT.includes(ext)) {
+              safe.push(f);
+            } else {
+              gfn_comAlert("W0021","증빙서류 파일 확장자",`${'${__ACCEPT}'}`); // W0021 {0}은/는 {1}만 가능합니다.
+            }
+          });
+
+          if (safe.length === 0) {
+            e.target.value = ''; // 전부 불허 → 초기화
+            return;
+          }
+
+          entry.files = (entry.files || []).concat(safe);
+          elFile.files = buildFileList(entry.files);
           refreshChips();
         };
 
@@ -2508,10 +2544,10 @@
         gfn_comAlert("W0001", "세부항목"); // W0001 {0}을/를 선택하세요.
         return;
       }
-      if (gfn_isEmpty(amtVl)) {
+     /* if (gfn_isEmpty(amtVl)) {
         gfn_comAlert("W0002", "금액"); // W0002 {0}을/를 입력하세요.
         return;
-      }
+      }*/
 
       // 정산요청정보
       saveObj.clclnDInfoList.push({
@@ -3211,12 +3247,25 @@
     }
 
     elFile.onchange = (e) => {
-      const files  = Array.from(e.target.files || []);
-      const safe   = files.filter(f => __ACCEPT.includes(f.name.split('.').pop().toLowerCase()));
-      const merged = (entry.files || []).concat(safe);
-      entry.files  = merged;                   // 상태 저장
-      const fl = buildFileList(merged);
-      if (fl) elFile.files = fl;               // 가능 환경에서 동기화
+      const files = Array.from(e.target.files || []);
+      const safe = [];
+
+      files.forEach(f => {
+        const ext = f.name.split('.').pop().toLowerCase();
+        if (__ACCEPT.includes(ext)) {
+          safe.push(f);
+        } else {
+          gfn_comAlert("W0021","증빙서류 파일 확장자",`${'${__ACCEPT}'}`); // W0021 {0}은/는 {1}만 가능합니다.
+        }
+      });
+
+      if (safe.length === 0) {
+        e.target.value = ''; // 전부 불허 → 초기화
+        return;
+      }
+
+      entry.files = (entry.files || []).concat(safe);
+      elFile.files = buildFileList(entry.files);
       refreshChips();
     };
 
@@ -3445,7 +3494,7 @@
 
   /**
    * @name fn_clearExsPruf
-   * @description 증빙서류 초기화
+   * @description 기제출 증빙서류 초기화
    */
   function fn_clearExsPruf() {
     const tbody = document.getElementById('pruf-tbody');

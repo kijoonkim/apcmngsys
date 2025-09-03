@@ -682,48 +682,50 @@ public class SprtBizClclnMngController extends BaseController {
 
         SprtBizClclnDmndDocVO sprtBizClclnDmndDocVO = om.readValue(saveObj, SprtBizClclnDmndDocVO.class);
 
-        Map<String, MultipartFile> fileMap = prufFileList.stream().collect(Collectors.toMap(MultipartFile::getOriginalFilename, file -> file));
+        if (prufFileList != null && !prufFileList.isEmpty()) {
+            Map<String, MultipartFile> fileMap = prufFileList.stream().collect(Collectors.toMap(MultipartFile::getOriginalFilename, file -> file));
 
-        List<SprtBizClclnDmndDtlVO> fileSaveList = new ArrayList<>();
+            List<SprtBizClclnDmndDtlVO> fileSaveList = new ArrayList<>();
 
-        for (SprtBizClclnDmndDtlVO fileInfo : sprtBizClclnDmndDocVO.getClclnFileInfoList()) {
+            for (SprtBizClclnDmndDtlVO fileInfo : sprtBizClclnDmndDocVO.getClclnFileInfoList()) {
 
-            String fileId = fileInfo.getFileId();
+                String fileId = fileInfo.getFileId();
 
-            MultipartFile matchedFile = fileMap.get(fileId);
-            if (matchedFile != null) {
-                long size = matchedFile.getSize();
-                String fileNm = matchedFile.getOriginalFilename();
-                String originalFileNm = fileInfo.getOriginalFileName();
-                // 확장자
-                String fileExtension = fileNm.substring(fileNm.lastIndexOf(".") , fileNm.length());
-                //서버에 저장할 파일명
-                String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
+                MultipartFile matchedFile = fileMap.get(fileId);
+                if (matchedFile != null) {
+                    long size = matchedFile.getSize();
+                    String fileNm = matchedFile.getOriginalFilename();
+                    String originalFileNm = fileInfo.getOriginalFileName();
+                    // 확장자
+                    String fileExtension = fileNm.substring(fileNm.lastIndexOf(".") , fileNm.length());
+                    //서버에 저장할 파일명
+                    String physicalFileName = EgovFileUploadUtil.getPhysicalFileName();
 
-                // 폴더 경로
-                String folderPath = makeFolder();
+                    // 폴더 경로
+                    String folderPath = makeFolder();
 
-                String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
-                Path savePath = Paths.get(saveName);
+                    String saveName = uploadPath + File.separator + folderPath +File.separator + physicalFileName + "_" + fileExtension;
+                    Path savePath = Paths.get(saveName);
 
-                fileInfo.setFilePathNm(folderPath);
-                fileInfo.setLgcFileNm(originalFileNm);
-                fileInfo.setPhysFileNm(physicalFileName);
-                fileInfo.setFileSz(size);
-                fileInfo.setFileExtnNm(fileExtension);
-                matchedFile.transferTo(savePath);
+                    fileInfo.setFilePathNm(folderPath);
+                    fileInfo.setLgcFileNm(originalFileNm);
+                    fileInfo.setPhysFileNm(physicalFileName);
+                    fileInfo.setFileSz(size);
+                    fileInfo.setFileExtnNm(fileExtension);
+                    matchedFile.transferTo(savePath);
 
-                fileSaveList.add(fileInfo);
+                    fileSaveList.add(fileInfo);
+                }
             }
-
+            sprtBizClclnDmndDocVO.setClclnFileInfoList(fileSaveList);
         }
+
 
         sprtBizClclnDmndDocVO.setSysFrstInptUserId(getUserId());
         sprtBizClclnDmndDocVO.setSysFrstInptPrgrmId(getPrgrmId());
         sprtBizClclnDmndDocVO.setSysLastChgUserId(getUserId());
         sprtBizClclnDmndDocVO.setSysLastChgPrgrmId(getPrgrmId());
 
-        sprtBizClclnDmndDocVO.setClclnFileInfoList(fileSaveList);
 
         try {
             HashMap<String, Object> rtnObj = sprtBizClclnMngService.insertClclnDDocReg(sprtBizClclnDmndDocVO);

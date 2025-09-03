@@ -351,48 +351,51 @@ public class SprtBizClclnMngServiceImpl extends BaseServiceImpl implements SprtB
                 }
             }
 
-            // 지원사업 정산요청문서
+            /** 파일이 있을 때만 **/
+            if (!filesBySeq.isEmpty()) {
+                // 지원사업 정산요청문서
+                int seq = clclnDmnd.getSeq(); // 정산요청과 요청문서를 맞추기위한 seq
+                List<SprtBizClclnDmndDtlVO> fileInfoBySeq = filesBySeq.get(seq);
 
-            int seq = clclnDmnd.getSeq(); // 정산요청과 요청문서를 맞추기위한 seq
-            List<SprtBizClclnDmndDtlVO> fileInfoBySeq = filesBySeq.get(seq);
+                int docSeq = 0; // 문서순번
+                for ( SprtBizClclnDmndDtlVO docVO :fileInfoBySeq) {
+                    docSeq++;
+                    docVO.setDmndSeq(maxDmndSeq); // 요청순번
+                    docVO.setDocSeq(docSeq); // 문서순번
 
-            int docSeq = 0; // 문서순번
-            for ( SprtBizClclnDmndDtlVO docVO :fileInfoBySeq) {
-                docSeq++;
-                docVO.setDmndSeq(maxDmndSeq); // 요청순번
-                docVO.setDocSeq(docSeq); // 문서순번
+                    // 첨부파일일련번호
+                    long atchflSn = sprtBizRegMngMapper.selectNewSqEvSprtBizAtchflSn();
+                    docVO.setAtchFileSn(atchflSn);
 
-                // 첨부파일일련번호
-                long atchflSn = sprtBizRegMngMapper.selectNewSqEvSprtBizAtchflSn();
-                docVO.setAtchFileSn(atchflSn);
+                    docVO.setSprtBizYr(sprtBizYr);
+                    docVO.setSprtBizCd(sprtBizCd);
+                    docVO.setSprtOgnzId(sprtOgnzId);
+                    docVO.setClclnSeq(clclnSeq);
 
-                docVO.setSprtBizYr(sprtBizYr);
-                docVO.setSprtBizCd(sprtBizCd);
-                docVO.setSprtOgnzId(sprtOgnzId);
-                docVO.setClclnSeq(clclnSeq);
+                    docVO.setSysFrstInptUserId(sprtBizClclnDmndDocVO.getSysFrstInptUserId());
+                    docVO.setSysFrstInptPrgrmId(sprtBizClclnDmndDocVO.getSysFrstInptPrgrmId());
+                    docVO.setSysLastChgUserId(sprtBizClclnDmndDocVO.getSysLastChgUserId());
+                    docVO.setSysLastChgPrgrmId(sprtBizClclnDmndDocVO.getSysLastChgPrgrmId());
 
-                docVO.setSysFrstInptUserId(sprtBizClclnDmndDocVO.getSysFrstInptUserId());
-                docVO.setSysFrstInptPrgrmId(sprtBizClclnDmndDocVO.getSysFrstInptPrgrmId());
-                docVO.setSysLastChgUserId(sprtBizClclnDmndDocVO.getSysLastChgUserId());
-                docVO.setSysLastChgPrgrmId(sprtBizClclnDmndDocVO.getSysLastChgPrgrmId());
-
-                SprtBizClclnDmndDtlVO clclnDmndDocInfo = sprtBizClclnMngMapper.selectClclnDmndDoc(docVO);
-                if (clclnDmndDocInfo == null) {
-                    if (0 == sprtBizClclnMngMapper.insertClclnDmndDoc(docVO)){
-                        throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "지원사업정산요청문서 등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+                    SprtBizClclnDmndDtlVO clclnDmndDocInfo = sprtBizClclnMngMapper.selectClclnDmndDoc(docVO);
+                    if (clclnDmndDocInfo == null) {
+                        if (0 == sprtBizClclnMngMapper.insertClclnDmndDoc(docVO)){
+                            throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "지원사업정산요청문서 등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+                        }
                     }
+
+                    // 첨부파일저장
+                    SprtBizRegFileVO fileVO = new SprtBizRegFileVO();
+                    BeanUtils.copyProperties(docVO, fileVO);
+                    fileVO.setAtchFileSn(atchflSn);
+
+                    if ( 0 == sprtBizRegMngMapper.insertSprtAplyAtchfl(fileVO)){
+                        throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "정산증빙 첨부파일등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+                    }
+
                 }
-
-                // 첨부파일저장
-                SprtBizRegFileVO fileVO = new SprtBizRegFileVO();
-                BeanUtils.copyProperties(docVO, fileVO);
-                fileVO.setAtchFileSn(atchflSn);
-
-                if ( 0 == sprtBizRegMngMapper.insertSprtAplyAtchfl(fileVO)){
-                    throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "정산증빙 첨부파일등록"))); // E0003	{0} 시 오류가 발생하였습니다.
-                }
-
             }
+
 
         }
 
