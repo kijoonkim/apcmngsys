@@ -44,6 +44,10 @@ public class PrdcrVO extends ComVO {
 	 */
 	private String prdcrNm;
 	/**
+	 * 약어명
+	 */
+	private String abbrNm;
+	/**
 	 * 생산자초성
 	 */
 	private String prdcrFrstNm;

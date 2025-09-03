@@ -330,6 +330,7 @@
 			{caption: ['생산자코드'], 		ref: 'prdcrCd', 	type: 'output', 	width: '70px', style: 'text-align:center', sortable: false},
 	        {caption: ['생산자명'], 		ref: 'prdcrNm', 		type: 'input', 	width: '150px', style: 'text-align:center', sortable: false,
 	        	validate : gfn_chkByte.bind({byteLimit: 100})},
+			{caption: ["약어명"],    	ref: 'abbrNm',    type: 'input',   width:'100px', style: 'text-align:center'},
 	        	{
 		    		caption : ["영농관리"],
 		    		ref : 'agrcYn',
@@ -493,6 +494,7 @@
 					rowSeq			: item.rowSeq
 				  ,	prdcrCd			: item.prdcrCd
 				  , prdcrNm 		: item.prdcrNm
+				  , abbrNm			: item.abbrNm
 				  , rprsItemCd 		: item.rprsItemCd
 				  , rprsItemNm 		: item.rprsItemNm
 				  , rprsVrtyCd 		: item.rprsVrtyCd
