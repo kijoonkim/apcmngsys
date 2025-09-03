@@ -3038,7 +3038,11 @@
         SBUxMethod.set(idArticle,row.dmndArtclCd);
         SBUxMethod.set(idCn, row.dmndCn);
         SBUxMethod.set(idAmt, row.dmndAmt);
-        SBUxMethod.set(idRmrk, row.dmndRmrk);
+        if (row.dmndRmrk === null || row.dmndRmrk === 'null') {
+          SBUxMethod.set(idRmrk, '');
+        } else {
+          SBUxMethod.set(idRmrk, row.dmndRmrk);
+        }
 
         /** 공통,세부 증빙 넣기!! **/
         // 공통/세부 컨테이너
