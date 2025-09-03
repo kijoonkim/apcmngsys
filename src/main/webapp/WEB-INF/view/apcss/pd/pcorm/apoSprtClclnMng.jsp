@@ -2628,6 +2628,7 @@
       if (_.isEqual("S", data.resultStatus)) {
         fn_clear();
         fn_clearPruf(); // 증빙서류 초기화
+        fn_clearExsPruf(); // 기제출 증빙서류 초기화
         gfn_comAlert("I0001");					// I0001 처리 되었습니다.
       }
     } catch(e) {
