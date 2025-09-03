@@ -595,6 +595,116 @@
 								</td>
 								<td>%</td>
 							</tr>
+							<tr class="extra-row">
+								<th class="text-center">
+									<span id="itemNmExtra">조정품목</span>
+									<sbux-input id="dtl-inp-itemCdExtra" name="dtl-inp-extraItemCd" uitype="hidden"></sbux-input>
+								</th>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcGnrlTrmtAmtExtra"
+											name="dtl-inp-apcGnrlTrmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcGnrlTrmtAmtExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcOgnzCprtnSortTrstExtra"
+											name="dtl-inp-apcOgnzCprtnSortTrstExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcOgnzCprtnSortTrstExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcCtrtEmspapExtra"
+											name="dtl-inp-apcCtrtEmspapExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcCtrtEmspapExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTrmtAmtExtra"
+											name="dtl-inp-apcTrmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder="자동계산"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTrmtVlmExtra"
+											name="dtl-inp-apcTrmtVlmExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcTrmtVlmExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>톤</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTmSpmtAmtExtra"
+											name="dtl-inp-apcTmSpmtAmtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder=""
+											group-id="groupExtra"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											onkeyup="fn_cal(this)"
+											onchange="fn_changeValue('dtl-inp-apcTmSpmtAmtExtra')"
+											autocomplete="off"
+											readonly
+									></sbux-input>
+								</td>
+								<td>(백만원)</td>
+								<td style="border-right:hidden; padding-right: 0px !important;">
+									<sbux-input
+											id="dtl-inp-apcTmSpmtRtExtra"
+											name="dtl-inp-apcTmSpmtRtExtra"
+											uitype="text"
+											class="form-control input-sm"
+											placeholder="자동계산"
+											mask = "{ 'alias': 'numeric', 'autoGroup': 3, 'groupSeparator': ',', 'isShortcutChar': true, 'autoUnmask': true, 'digits': 0}"
+											readonly
+									></sbux-input>
+								</td>
+								<td>%</td>
+							</tr>
 							<tr>
 								<th class="text-center">계</th>
 
@@ -843,6 +953,11 @@
 	}
 
 	const fn_clearForm = async function() {
+
+		const extraRow = document.querySelector('.extra-row');
+		extraRow.style.display = 'none';
+		SBUxMethod.clearGroupData('groupExtra');
+
 		for (var sn = 1; sn < 5; sn++) {
 			//SBUxMethod.set('dtl-inp-apcTrmtVlm'+sn,null);
 			//SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt'+sn,null);
@@ -854,6 +969,7 @@
 			SBUxMethod.changeGroupAttr('group'+sn,'disabled','true');
 			//그룹 초기화
 			SBUxMethod.clearGroupData('group'+sn);
+
 			// 아이템
 			SBUxMethod.set('dtl-inp-itemChk'+sn,null);
 			SBUxMethod.set('dtl-inp-itemCd'+sn,null);
@@ -891,7 +1007,7 @@
 		await cfn_selectPrgrs();
 
 		// 전년도
-		await fn_selectAtMcIfList("Y");
+		await fn_selectAtMcIfList(true);
 		await fn_selectAtMcIfList();
 	}
 
@@ -899,13 +1015,13 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_selectAtMcIfList = async function(prevData) {
+	const fn_selectAtMcIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			jsonPrevData.length = 0;
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
@@ -925,7 +1041,11 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+
+			const extraRow = document.querySelector('.extra-row');
+			extraRow.style.display = 'none';
+
+			if (isPrev === true) {
 				data.resultList.forEach(item => {
 					const vo = {
 						apcCd : item.apcCd
@@ -947,23 +1067,36 @@
 				});
 			} else {
 				data.resultList.forEach((item, index) => {
-					let sn = item.sn;
-					SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
-					if (sn == '4') {
-						$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
-						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemNm); // 품목명
-					} else {
-						$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
-						SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemCd); // 품목코드
-					}
-					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
 
-					SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
-					SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
-					SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
-					SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
-					SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+					if (_.isEqual("XC01", item.itemCd)) {
+
+						extraRow.style.display = '';
+
+						SBUxMethod.set('dtl-inp-apcTrmtVlmExtra', item.apcTrmtVlm);
+						SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtExtra', item.apcGnrlTrmtAmt);
+						SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstExtra', item.apcOgnzCprtnSortTrst);
+						SBUxMethod.set('dtl-inp-apcCtrtEmspapExtra', item.apcCtrtEmspap);
+						SBUxMethod.set('dtl-inp-apcTmSpmtAmtExtra', item.tmSpmtAmt);
+					} else {
+						let sn = item.sn;
+						SBUxMethod.set('dtl-inp-itemChk' + sn, 'Y');//품목 존재 여부 확인
+						if (sn == '4') {
+							$('#itemNm' + sn).text("기타품목 : " + item.itemNm);
+							SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemNm); // 품목명
+						} else {
+							$('#itemNm' + sn).text("품목" + sn + " : " + item.itemNm);
+							SBUxMethod.set('dtl-inp-itemCd' + sn, item.itemCd); // 품목코드
+						}
+						SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
+
+						SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
+						SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
+						SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
+						SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
+						SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+					}
 				});
+
 				fn_cal();
 				fn_itemChk();
 			}
@@ -1082,9 +1215,20 @@
 
 			apcTrmtVlmArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcTrmtVlm'+(i+1)));
 			apcTmSpmtAmtArr[i] = convertToNumberOrZero(SBUxMethod.get('dtl-inp-apcTmSpmtAmt'+(i+1)));
-
 		}
 
+		// 조정값
+		const apcGnrlTrmtAmtExtra = parseInt(SBUxMethod.get('dtl-inp-apcGnrlTrmtAmtExtra')) || 0;
+		const apcOgnzCprtnSortTrstExtra = parseInt(SBUxMethod.get('dtl-inp-apcOgnzCprtnSortTrstExtra')) || 0;
+		const apcCtrtEmspapExtra = parseInt(SBUxMethod.get('dtl-inp-apcCtrtEmspapExtra')) || 0;
+		const apcTrmtVlmExtra = parseInt(SBUxMethod.get('dtl-inp-apcTrmtVlmExtra')) || 0;
+		const apcTmSpmtAmtExtra = parseInt(SBUxMethod.get('dtl-inp-apcTmSpmtAmtExtra')) || 0;
+
+		apcGnrlTrmtAmtArr.push(apcGnrlTrmtAmtExtra);
+		apcOgnzCprtnSortTrstArr.push(apcOgnzCprtnSortTrstExtra);
+		apcCtrtEmspapArr.push(apcCtrtEmspapExtra);
+		apcTrmtVlmArr.push(apcTrmtVlmExtra);
+		apcTmSpmtAmtArr.push(apcTmSpmtAmtExtra);
 
 		SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtTot',apcGnrlTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0));
 		SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstTot',apcOgnzCprtnSortTrstArr.reduce((acc, cur) => {return acc + cur;}, 0));
@@ -1112,6 +1256,12 @@
 			SBUxMethod.set('dtl-inp-apcTmSpmtRt'+(i+1),rt1.toFixed(0));
 		}
 
+		const sumExtra = apcGnrlTrmtAmtExtra + apcOgnzCprtnSortTrstExtra + apcCtrtEmspapExtra;
+		const rtExtra = sumExtra === 0 ? 0 : rtExtra / sumExtra * 100;
+		SBUxMethod.set('dtl-inp-apcTrmtAmtExtra', sumExtra);
+		SBUxMethod.set('dtl-inp-apcTmSpmtRtExtra', rtExtra.toFixed(0));
+
+
 		let apcTrmtAmtTot = apcTrmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
 		SBUxMethod.set('dtl-inp-apcTrmtAmtTot',apcTrmtAmtTot);
 		let apcTmSpmtAmtTot = apcTmSpmtAmtArr.reduce((acc, cur) => {return acc + cur;}, 0);
@@ -1122,9 +1272,9 @@
 		SBUxMethod.set('dtl-inp-apcTmSpmtAmtTot1',fn_numberToKorean( apcTmSpmtAmtTot ));
 
 		let totRt;
-		if(apcTrmtAmtTot === 0){
+		if (apcTrmtAmtTot === 0){
 			totRt = 0;
-		}else{
+		} else {
 			totRt = apcTmSpmtAmtTot / apcTrmtAmtTot * 100 ;
 		}
 		SBUxMethod.set('dtl-inp-apcTmSpmtRtTot',totRt.toFixed(0));
@@ -1244,33 +1394,59 @@
 		const tr = $('.div-msg').closest('tr');
 		tr.find('td, th').css('vertical-align', 'middle');
 
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005", "전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
-		if (gfn_isEmpty(jsonPrevData)) return;
-
+		let itemCount = 0;
 		for (let i = 1; i <= 4; i++) {
 			SBUxMethod.clearGroupData('group'+i);
-			let isExist = false;
 			if (SBUxMethod.get('dtl-inp-itemChk' + i) === 'Y') {
-				isExist = true;
-			}
-			if (isExist) {
 				SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
+				itemCount++;
 			}
 		}
 
+		// 등록된 품목이 하나도 없을 때
+		if (itemCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도 1.운영자 개요에서 등록된 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		const extraRow = document.querySelector('.extra-row');
+		extraRow.style.display = 'none';
+
+		let matchedCount = 0;
 		jsonPrevData.forEach(item => {
-			let sn = item.sn;
-			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
-			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
-					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
-					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
-				SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
-				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
-				SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
-				SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
-				SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+			if (_.isEqual("XC01", item.itemCd)) {
+				extraRow.style.display = '';
+				SBUxMethod.set('dtl-inp-apcTrmtVlmExtra', item.apcTrmtVlm);
+				SBUxMethod.set('dtl-inp-apcGnrlTrmtAmtExtra', item.apcGnrlTrmtAmt);
+				SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrstExtra', item.apcOgnzCprtnSortTrst);
+				SBUxMethod.set('dtl-inp-apcCtrtEmspapExtra', item.apcCtrtEmspap);
+				SBUxMethod.set('dtl-inp-apcTmSpmtAmtExtra', item.tmSpmtAmt);
+			} else {
+				let sn = item.sn;
+				const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
+				if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
+						(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
+						(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
+					matchedCount++;
+					SBUxMethod.set('dtl-inp-apcTrmtVlm' + sn, item.apcTrmtVlm);
+					SBUxMethod.set('dtl-inp-apcGnrlTrmtAmt' + sn, item.apcGnrlTrmtAmt);
+					SBUxMethod.set('dtl-inp-apcOgnzCprtnSortTrst' + sn, item.apcOgnzCprtnSortTrst);
+					SBUxMethod.set('dtl-inp-apcCtrtEmspap' + sn, item.apcCtrtEmspap);
+					SBUxMethod.set('dtl-inp-apcTmSpmtAmt' + sn, item.tmSpmtAmt);
+				}
 			}
 		});
+
+		// 일치하는 전년도 데이터가 하나도 없을 때
+		if (matchedCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도와 일치하는 전년도 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
 		fn_cal();
 	}

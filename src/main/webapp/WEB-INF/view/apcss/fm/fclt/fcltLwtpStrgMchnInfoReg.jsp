@@ -369,8 +369,6 @@
 
 	// 기준연도
 	var jsonCrtrYr = [];
-	// 전년도
-	var jsonPrevData = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -465,18 +463,15 @@
 		//await cfn_selectPrgrs();
 
 		await fn_setGrdLtMcIfList();
-		// 전년도
-		await fn_setGrdLtMcIfList("Y");
 	}
 
-	const fn_setGrdLtMcIfList = async function(prevData) {
+	const fn_setGrdLtMcIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
-		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -489,52 +484,54 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
-				jsonPrevData = data.resultList;
-			} else {
-				data.resultList.forEach((item, index) => {
-					let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn;//보유현황
-
-					if (lwtpStrgPlcHldYn == 'N') {
-						SBUxMethod.changeGroupAttr('group1', 'disabled', 'true');
-						SBUxMethod.changeGroupAttr('group2', 'disabled', 'true');
-						SBUxMethod.set('dtl-rdo-itemChk', 'N');
-					} else if (lwtpStrgPlcHldYn == 'Y') {
-						SBUxMethod.changeGroupAttr('group1', 'disabled', 'false');
-						SBUxMethod.changeGroupAttr('group2', 'disabled', 'false');
-						SBUxMethod.set('dtl-rdo-itemChk', 'Y');
-						SBUxMethod.set('dtl-inp-strgPlcStrgAblt', item.strgPlcStrgAblt);
-						SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt', item.strgPlcStrmStrgAblt);
-						SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt', item.strgPlcLtrmStrgAblt);
-						//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
-
-						//저장 가동률 계산
-						fn_strgPlcOprtngRt();
-
-						//운영 안함 여부
-						let operNonYn = item.operYn == "Y" ? "N" : "Y";
-						SBUxMethod.set('warehouseSeCd_chk_mon_2_non', operNonYn);
-						//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
-
-						if (item.operYn == 'Y') {
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_2', item.operPeriodYn1);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_3', item.operPeriodYn2);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_4', item.operPeriodYn3);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_5', item.operPeriodYn4);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_6', item.operPeriodYn5);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_7', item.operPeriodYn6);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_8', item.operPeriodYn7);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_9', item.operPeriodYn8);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_10', item.operPeriodYn9);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_11', item.operPeriodYn10);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_12', item.operPeriodYn11);
-							SBUxMethod.set('warehouseSeCd_chk_mon_2_13', item.operPeriodYn12);
-
-							//fn_checkSelect(null,2);
-						}
-					}
-				});
+			if (isPrev === true && gfn_isEmpty(data.resultList)) {
+				gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+				return;
 			}
+
+			data.resultList.forEach((item, index) => {
+				let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn;//보유현황
+
+				if (lwtpStrgPlcHldYn == 'N') {
+					SBUxMethod.changeGroupAttr('group1', 'disabled', 'true');
+					SBUxMethod.changeGroupAttr('group2', 'disabled', 'true');
+					SBUxMethod.set('dtl-rdo-itemChk', 'N');
+				} else if (lwtpStrgPlcHldYn == 'Y') {
+					SBUxMethod.changeGroupAttr('group1', 'disabled', 'false');
+					SBUxMethod.changeGroupAttr('group2', 'disabled', 'false');
+					SBUxMethod.set('dtl-rdo-itemChk', 'Y');
+					SBUxMethod.set('dtl-inp-strgPlcStrgAblt', item.strgPlcStrgAblt);
+					SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt', item.strgPlcStrmStrgAblt);
+					SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt', item.strgPlcLtrmStrgAblt);
+					//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
+
+					//저장 가동률 계산
+					fn_strgPlcOprtngRt();
+
+					//운영 안함 여부
+					let operNonYn = item.operYn == "Y" ? "N" : "Y";
+					SBUxMethod.set('warehouseSeCd_chk_mon_2_non', operNonYn);
+					//SBUxMethod.set('warehouseSeCd_chk_mon_2_1',item.operPeriodYn);
+
+					if (item.operYn == 'Y') {
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_2', item.operPeriodYn1);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_3', item.operPeriodYn2);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_4', item.operPeriodYn3);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_5', item.operPeriodYn4);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_6', item.operPeriodYn5);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_7', item.operPeriodYn6);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_8', item.operPeriodYn7);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_9', item.operPeriodYn8);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_10', item.operPeriodYn9);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_11', item.operPeriodYn10);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_12', item.operPeriodYn11);
+						SBUxMethod.set('warehouseSeCd_chk_mon_2_13', item.operPeriodYn12);
+
+						//fn_checkSelect(null,2);
+					}
+				}
+			});
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -550,7 +547,7 @@
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-			alert("apc를 선택해주세요");
+			gfn_comAlert("W0001", "APC명");	//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 		if (gfn_isEmpty(crtrYr)) {
@@ -604,7 +601,6 @@
 			}
 		}
 
-		return;
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	};
 
@@ -788,51 +784,13 @@
 		}
 	}
 
-	function fn_pySearch() {
-		if (gfn_isEmpty(jsonPrevData)) return;
+	/** 전년도 데이터 set **/
+	async function fn_pySearch() {
 
 		fn_clearForm();
+		// 전년도
+		await fn_setGrdLtMcIfList(true);
 
-		jsonPrevData.forEach(item => {
-			let lwtpStrgPlcHldYn = item.lwtpStrgPlcHldYn; //보유현황
-
-			if (lwtpStrgPlcHldYn == 'N') {
-				SBUxMethod.changeGroupAttr('group1', 'disabled', 'true');
-				SBUxMethod.changeGroupAttr('group2', 'disabled', 'true');
-				SBUxMethod.set('dtl-rdo-itemChk', 'N');
-			} else if (lwtpStrgPlcHldYn == 'Y') {
-				SBUxMethod.changeGroupAttr('group1', 'disabled', 'false');
-				SBUxMethod.changeGroupAttr('group2', 'disabled', 'false');
-				SBUxMethod.set('dtl-rdo-itemChk', 'Y');
-				SBUxMethod.set('dtl-inp-strgPlcStrgAblt', item.strgPlcStrgAblt);
-				SBUxMethod.set('dtl-inp-strgPlcStrmStrgAblt', item.strgPlcStrmStrgAblt);
-				SBUxMethod.set('dtl-inp-strgPlcLtrmStrgAblt', item.strgPlcLtrmStrgAblt);
-				//SBUxMethod.set('dtl-inp-strgPlcOprtngRt',item.strgPlcOprtngRt);
-
-				//저장 가동률 계산
-				fn_strgPlcOprtngRt();
-
-				//운영 안함 여부
-				let operNonYn = item.operYn == "Y" ? "N" : "Y";
-				SBUxMethod.set('warehouseSeCd_chk_mon_2_non', operNonYn);
-
-				if (item.operYn == 'Y') {
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_2', item.operPeriodYn1);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_3', item.operPeriodYn2);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_4', item.operPeriodYn3);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_5', item.operPeriodYn4);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_6', item.operPeriodYn5);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_7', item.operPeriodYn6);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_8', item.operPeriodYn7);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_9', item.operPeriodYn8);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_10', item.operPeriodYn9);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_11', item.operPeriodYn10);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_12', item.operPeriodYn11);
-					SBUxMethod.set('warehouseSeCd_chk_mon_2_13', item.operPeriodYn12);
-
-				}
-			}
-		});
 	}
 
 </script>

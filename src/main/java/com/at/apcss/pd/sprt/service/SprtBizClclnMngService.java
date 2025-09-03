@@ -2,6 +2,8 @@ package com.at.apcss.pd.sprt.service;
 
 import com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO;
 import com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO;
+import com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDocVO;
+import com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO;
 import com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO;
 
 import java.util.HashMap;
@@ -88,4 +90,60 @@ public interface SprtBizClclnMngService {
      * @throws Exception
      */
     public HashMap<String, Object> updateSprtBizAplyDoc(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 정산증빙서류 파일등록
+     * @param sprtBizClclnDmndDocVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> insertClclnDDocReg(SprtBizClclnDmndDocVO sprtBizClclnDmndDocVO) throws Exception;
+
+    /**
+     * 정산결과 목록 조회
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnMngVO> selectSprtClclnRsltList(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 정산결과 정산인정액 수정
+     * @param clclnUpdateList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateClclnAprvAmt(List<SprtBizClclnMngVO> clclnUpdateList) throws Exception;
+
+    /**
+     * 정산신청 증빙조회
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnDmndDtlVO> selectClclnPrufList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO) throws Exception;
+
+    /**
+     * 증빙서류내용 수정(내용/파일추가)
+     * @param sprtBizClclnDmndDocVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> updateClclnPrufDoc(SprtBizClclnDmndDocVO sprtBizClclnDmndDocVO) throws Exception;
+
+    /**
+     * 증빙서류삭제
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteClclnPrufDoc(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO) throws Exception;
+
+    /**
+     * 지원사업정산 증빙서류 팝업 - 파일정보조회
+     * @param sprtBizRegFileVO
+     * @return
+     * @throws Exception
+     */
+    public SprtBizRegFileVO selectSprtClclnPrufAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
 }

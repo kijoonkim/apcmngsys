@@ -388,6 +388,9 @@
             -- 체크리스트
             , FLCHK.LGC_FILE_NM AS CHK_LGC_FILE_NM
 
+            --정산요청액
+            , DMND_SUM.SUM_DMND_AMT AS DMND_AMT_TOT
+
         FROM TB_EV_SPRT_BIZ_OGNZ SBO
 
         JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
@@ -455,6 +458,19 @@
         LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL FLCHK
         ON FLCHK.ATCH_FILE_SN = CHK.ATCH_FILE_SN
         AND FLCHK.DEL_YN = 'N'
+
+        -- 정산요청액
+        LEFT JOIN (
+                    SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ,
+                           SUM(DMND_AMT) AS SUM_DMND_AMT
+                    FROM TB_EV_SPRT_BIZ_CLCLN_D
+                    WHERE DEL_YN = 'N'
+                    GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ
+                ) DMND_SUM
+                    ON DMND_SUM.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                    AND DMND_SUM.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                    AND DMND_SUM.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                    AND DMND_SUM.CLCLN_SEQ = SBC.CLCLN_SEQ
 
         WHERE SBO.DEL_YN = 'N'
         ]]>
@@ -778,4 +794,536 @@
               AND ATCH_FILE_SN = #{atchFileSn}
         ]]>
     </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnDmndSeq-->
+    <!-- DESC : 산지조직지원 - 정산요청 요청순서 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectClclnDmndSeq" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO" resultType="java.lang.Integer">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnDmndSeq*/
+                NVL(MAX(DMND_SEQ), 0) AS DMND_SEQ
+            FROM TB_EV_SPRT_BIZ_CLCLN_D
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND CLCLN_SEQ = #{clclnSeq}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnDmnd-->
+    <!-- DESC : 산지조직지원 - 정산요청 단건 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectClclnDmnd" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            SELECT
+                SPRT_BIZ_YR
+                 , SPRT_BIZ_CD
+                 , SPRT_OGNZ_ID
+                 , CLCLN_SEQ
+                 , DMND_SEQ
+                 , DMND_AMT
+                 , DMND_ARTCL_KND
+                 , DMND_ARTCL_CD
+                 , DMND_CN
+                 , DMND_RMRK
+            FROM TB_EV_SPRT_BIZ_CLCLN_D
+            WHERE DEL_YN = 'N'
+              AND SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND CLCLN_SEQ = #{clclnSeq}
+              AND DMND_SEQ = #{dmndSeq}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.insertClclnDmnd   -->
+    <!-- DESC : 산지조직지원 - 정산요청 등록                                             -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertClclnDmnd" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            INSERT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.insertClclnDmnd*/
+            INTO TB_EV_SPRT_BIZ_CLCLN_D (
+                SPRT_BIZ_YR
+                , SPRT_BIZ_CD
+                , SPRT_OGNZ_ID
+                , CLCLN_SEQ
+                , DMND_SEQ
+                , DMND_AMT
+                , DMND_ARTCL_KND
+                , DMND_ARTCL_CD
+                , DMND_CN
+                , DMND_RMRK
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                #{sprtBizYr}
+                , #{sprtBizCd}
+                , #{sprtOgnzId}
+                , #{clclnSeq}
+                , #{dmndSeq}
+                , #{dmndAmt}
+                , #{dmndArtclKnd}
+                , #{dmndArtclCd}
+                , #{dmndCn}
+                , #{dmndRmrk}
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnDmndDoc-->
+    <!-- DESC : 산지조직지원 - 정산요청문서 단건 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectClclnDmndDoc" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            SELECT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnDmndDoc*/
+                SPRT_BIZ_YR
+                 , SPRT_BIZ_CD
+                 , SPRT_OGNZ_ID
+                 , CLCLN_SEQ
+                 , DMND_SEQ
+                 , DOC_SEQ
+                 , DOC_KND
+                 , DOC_CD
+                 , DOC_RMRK
+                 , ATCH_FILE_SN
+                 , RGTR
+                 , RGTR_ID
+                 , REG_DT
+                 , IDFR
+                 , IDFR_ID
+                 , IDFR_DT
+                 , IDFR_RMRK
+                 , APRV_YN
+                 , CHG_YN
+                 , DEL_YN
+            FROM TB_EV_SPRT_BIZ_CLCLN_D_DOC
+            WHERE DEL_YN = 'N'
+              AND SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND CLCLN_SEQ = #{clclnSeq}
+              AND DMND_SEQ = #{dmndSeq}
+              AND DOC_SEQ = #{docSeq}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.insertClclnDmndDoc-->
+    <!-- DESC : 산지조직지원 - 정산요청문서 단건 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertClclnDmndDoc" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            INSERT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.insertClclnDmndDoc*/
+            INTO TB_EV_SPRT_BIZ_CLCLN_D_DOC (
+                SPRT_BIZ_YR
+                , SPRT_BIZ_CD
+                , SPRT_OGNZ_ID
+                , CLCLN_SEQ
+                , DMND_SEQ
+                , DOC_SEQ
+                , DOC_KND
+                , DOC_CD
+                , DOC_RMRK
+                , ATCH_FILE_SN
+                , RGTR
+                , RGTR_ID
+                , REG_DT
+                , DEL_YN
+                , SYS_FRST_INPT_DT
+                , SYS_FRST_INPT_USER_ID
+                , SYS_FRST_INPT_PRGRM_ID
+                , SYS_LAST_CHG_DT
+                , SYS_LAST_CHG_USER_ID
+                , SYS_LAST_CHG_PRGRM_ID
+            ) VALUES (
+                #{sprtBizYr}
+                , #{sprtBizCd}
+                , #{sprtOgnzId}
+                , #{clclnSeq}
+                , #{dmndSeq}
+                , #{docSeq}
+                , #{docKnd}
+                , #{docCd}
+                , #{docRmrk}
+                , #{atchFileSn}
+                , (SELECT FN_GET_COM_USER_NM(#{sysFrstInptUserId}) FROM DUAL)
+                , #{sysFrstInptUserId}
+                , SYSDATE
+                , 'N'
+                , SYSDATE
+                , #{sysFrstInptUserId}
+                , #{sysFrstInptPrgrmId}
+                , SYSDATE
+                , #{sysLastChgUserId}
+                , #{sysLastChgPrgrmId}
+            )
+        ]]>
+    </insert>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnRsltList-->
+    <!-- DESC : 산지조직지원 - 정산결과 목록 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.27  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtClclnRsltList" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+            SELECT
+                SBO.SPRT_BIZ_YR AS SPRT_BIZ_YR
+                 , SBO.SPRT_BIZ_CD AS SPRT_BIZ_CD
+                 , SBO.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+                 , SBO.BRNO AS BRNO
+                 , SBO.CRNO AS CRNO
+
+                 , EUA.APO_CD AS APO_CD
+                 , EUA.CORP_NM AS CORP_NM
+
+                 -- 배정액 국비/자부담
+                 , SBA.RPN_AMT_NE AS RPN_AMT_NE
+                 , SBA.RPN_AMT_SLF AS RPN_AMT_SLF
+                 -- 합계
+                 , NVL(SBA.RPN_AMT_NE,0) + NVL(SBA.RPN_AMT_NE,0) AS CLCLN_PSBLTY_AMT
+
+                 -- 차수
+                 , SBC.CLCLN_SEQ AS CLCLN_SEQ
+
+                 -- 정산요청액합계
+                 , DMND_SUM.SUM_DMND_AMT AS DMND_AMT_TOT
+
+                 -- 정산인정액
+                 , SBC.CLCLN_APRV_AMT AS CLCLN_APRV_AMT
+            FROM TB_EV_SPRT_BIZ_OGNZ SBO
+
+            JOIN TB_EV_SPRT_BIZ_APLY_DOC SBAD
+                ON SBAD.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                AND SBAD.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                AND SBAD.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                AND SBAD.APLY_DOC_CD = 'BIZ_APLY'
+                AND SBAD.DEL_YN = 'N'
+
+            LEFT JOIN VW_EV_UO_APRV EUA
+                ON EUA.YR = SBO.SPRT_BIZ_YR
+                AND EUA.BRNO = SBO.BRNO
+                AND EUA.CRNO = SBO.CRNO
+
+            LEFT JOIN TB_EV_SPRT_BIZ_APLY SBA
+                ON SBA.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                AND SBA.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                AND SBA.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                AND SBA.DEL_YN = 'N'
+
+            -- 정산
+            LEFT JOIN TB_EV_SPRT_BIZ_CLCLN SBC
+                ON SBC.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                AND SBC.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                AND SBC.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                AND SBC.DEL_YN = 'N'
+
+            -- 정산요청액
+            LEFT JOIN (
+                    SELECT SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ,
+                    SUM(DMND_AMT) AS SUM_DMND_AMT
+                    FROM TB_EV_SPRT_BIZ_CLCLN_D
+                    WHERE DEL_YN = 'N'
+                    GROUP BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ
+                ) DMND_SUM
+                ON DMND_SUM.SPRT_BIZ_YR = SBO.SPRT_BIZ_YR
+                AND DMND_SUM.SPRT_BIZ_CD = SBO.SPRT_BIZ_CD
+                AND DMND_SUM.SPRT_OGNZ_ID = SBO.SPRT_OGNZ_ID
+                AND DMND_SUM.CLCLN_SEQ = SBC.CLCLN_SEQ
+            WHERE SBO.DEL_YN = 'N'
+        ]]>
+        <choose>
+            <when test='superUserYn != null and superUserYn.equals("Y")'>
+
+            </when>
+
+            <otherwise>
+                AND EUA.APO_CD = REPLACE(#{untyOgnzCd}, 'UO', '')
+            </otherwise>
+        </choose>
+        <if test='crtrYr != null and crtrYr != ""'>
+            AND SBO.SPRT_BIZ_YR = #{crtrYr}
+        </if>
+
+        <if test='brno != null and brno != ""'>
+            AND SBO.BRNO = #{brno}
+        </if>
+
+        <if test='corpNm != null and corpNm != ""'>
+            AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
+        </if>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateClclnAprvAmt-->
+    <!-- DESC : 산지조직지원 - 정산결과 목록 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.28  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateClclnAprvAmt" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+            UPDATE
+                TB_EV_SPRT_BIZ_CLCLN
+            SET
+                CLCLN_APRV_AMT = #{clclnAprvAmt}
+              , SYS_LAST_CHG_DT         = SYSDATE
+              , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND CLCLN_SEQ = #{clclnSeq}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectClclnPrufList-->
+    <!-- DESC : 산지조직지원 - 정산신청 증빙 조회                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.08.28  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectClclnPrufList" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            SELECT
+                CD.SPRT_BIZ_YR AS SPRT_BIZ_YR
+                , CD.SPRT_BIZ_CD AS SPRT_BIZ_CD
+                , CD.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+                , CD.CLCLN_SEQ AS CLCLN_SEQ
+                , CD.DMND_SEQ AS DMND_SEQ
+                , CD.DMND_AMT AS DMND_AMT
+                , CD.DMND_ARTCL_KND AS DMND_ARTCL_KND
+                , (SELECT FN_GET_EV_SRPT_BIZ_CRTR_NM ('PRUF_ARTCL_KND',CD.DMND_ARTCL_KND) FROM DUAL) AS DMND_ARTCL_KND_NM
+                , CD.DMND_ARTCL_CD AS DMND_ARTCL_CD
+                , (SELECT FN_GET_EV_SRPT_BIZ_CRTR_NM (CD.DMND_ARTCL_KND, CD.DMND_ARTCL_CD) FROM DUAL) AS DMND_ARTCL_CD_NM
+                , CD.DMND_CN AS DMND_CN
+                , CD.DMND_RMRK AS DMND_RMRK
+
+                , DOC.DOC_SEQ AS DOC_SEQ
+                , DOC.DOC_KND AS DOC_KND
+                , DOC.DOC_CD AS DOC_CD
+                , (SELECT FN_GET_EV_SRPT_BIZ_DTL_NM (CD.SPRT_BIZ_YR,CD.SPRT_BIZ_CD,DOC.DOC_KND,DOC.DOC_CD) FROM DUAL) AS DOC_NM
+                , DOC.ATCH_FILE_SN AS ATCH_FILE_SN
+                , DOC.RGTR AS RGTR
+                , DOC.RGTR_ID AS RGTR_ID
+                , DOC.REG_DT AS REG_DT
+                , DOC.IDFR AS IDFR
+                , DOC.IDFR_ID AS IDFR_ID
+                , DOC.IDFR_DT AS IDFR_DT
+                , DOC.IDFR_RMRK AS IDFR_RMRK
+                , DOC.APRV_YN AS APRV_YN
+                , DOC.CHG_YN AS CHG_YN
+
+                , FL.LGC_FILE_NM AS LGC_FILE_NM
+            FROM TB_EV_SPRT_BIZ_CLCLN_D CD
+
+            JOIN TB_EV_SPRT_BIZ_CLCLN_D_DOC DOC
+                ON DOC.SPRT_BIZ_YR = CD.SPRT_BIZ_YR
+                AND DOC.SPRT_BIZ_CD = CD.SPRT_BIZ_CD
+                AND DOC.SPRT_OGNZ_ID = CD.SPRT_OGNZ_ID
+                AND DOC.CLCLN_SEQ = CD.CLCLN_SEQ
+                AND DOC.DMND_SEQ = CD.DMND_SEQ
+                AND DOC.DEL_YN ='N'
+
+            JOIN TB_EV_SPRT_BIZ_ATCHFL FL
+                ON FL.ATCH_FILE_SN = DOC.ATCH_FILE_SN
+                AND FL.DEL_YN = 'N'
+
+            WHERE CD.SPRT_BIZ_YR = #{sprtBizYr}
+            AND CD.SPRT_BIZ_CD = #{sprtBizCd}
+            AND CD.SPRT_OGNZ_ID = #{sprtOgnzId}
+            AND CD.CLCLN_SEQ = #{clclnSeq}
+
+            ORDER BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, DMND_SEQ, DOC_SEQ
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateClclnDmnd   -->
+    <!-- DESC : 지원사업정산요청 수정                                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.02  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateClclnDmnd" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+        UPDATE /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateClclnDmnd*/
+            TB_EV_SPRT_BIZ_CLCLN_D
+        SET
+            DMND_AMT = #{dmndAmt}
+          , DMND_CN = #{dmndCn}
+          , DMND_RMRK = #{dmndRmrk}
+          , SYS_LAST_CHG_DT         = SYSDATE
+          , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+          , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+        WHERE SPRT_BIZ_YR = #{sprtBizYr}
+          AND SPRT_BIZ_CD = #{sprtBizCd}
+          AND SPRT_OGNZ_ID = #{sprtOgnzId}
+          AND CLCLN_SEQ = #{clclnSeq}
+          AND DMND_SEQ = #{dmndSeq}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectDocSeq      -->
+    <!-- DESC : 지원사업정산요청문서 문서순서 조회                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.02  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectDocSeq" resultType="java.lang.Integer" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+        SELECT /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectMaxDocSeq*/
+            NVL(MAX(DOC_SEQ), 0) AS DOC_SEQ
+        FROM TB_EV_SPRT_BIZ_CLCLN_D_DOC
+        WHERE SPRT_BIZ_YR = #{sprtBizYr}
+          AND SPRT_BIZ_CD = #{sprtBizCd}
+          AND SPRT_OGNZ_ID = #{sprtOgnzId}
+          AND CLCLN_SEQ = #{clclnSeq}
+        ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.deleteClclnPrufDoc      -->
+    <!-- DESC : 지원사업정산요청문서 증빙서류 삭제                                        -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.02  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="deleteClclnPrufDoc" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+            UPDATE
+                TB_EV_SPRT_BIZ_CLCLN_D_DOC
+            SET
+                DEL_YN = 'Y'
+              , SYS_LAST_CHG_DT         = SYSDATE
+              , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+            AND SPRT_BIZ_CD = #{sprtBizCd}
+            AND SPRT_OGNZ_ID = #{sprtOgnzId}
+            AND CLCLN_SEQ = #{clclnSeq}
+            AND DMND_SEQ = #{dmndSeq}
+            AND DOC_SEQ = #{docSeq}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.deleteSprtAtchFile-->
+    <!-- DESC : 지원사업 첨부파일삭제                                                   -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.02  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="deleteSprtAtchFile" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+        UPDATE
+            TB_EV_SPRT_BIZ_ATCHFL
+        SET
+            DEL_YN = 'Y'
+          , SYS_LAST_CHG_DT         = SYSDATE
+          , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+          , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+        WHERE ATCH_FILE_SN = #{atchFileSn}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnPrufAtchfl-->
+    <!-- DESC : 지원사업정산 증빙서류 팝업 - 파일정보조회                                                   -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.02  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtClclnPrufAtchfl" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
+        <![CDATA[
+        SELECT
+            SBA.ATCH_FILE_SN
+             , SBA.FILE_PATH_NM
+             , SBA.LGC_FILE_NM
+             , SBA.PHYS_FILE_NM
+             , SBA.FILE_SZ
+             , SBA.FILE_EXTN_NM
+             , SBA.INQ_CNT
+             , SBA.DWNLD_CNT
+
+             , DOC.SPRT_BIZ_YR
+             , DOC.SPRT_BIZ_CD
+             , DOC.SPRT_OGNZ_ID
+             , DOC.ATCH_FILE_SN
+             , DOC.CLCLN_SEQ
+             , DOC.DOC_SEQ
+
+             , SBO.BRNO
+             , SBO.CRNO
+
+             , EUA.CORP_NM
+             , EUA.APO_CD
+        FROM TB_EV_SPRT_BIZ_ATCHFL SBA
+
+                 JOIN TB_EV_SPRT_BIZ_CLCLN_D_DOC DOC
+                      ON DOC.ATCH_FILE_SN = SBA.ATCH_FILE_SN
+                          AND DOC.DEL_YN = 'N'
+
+                 LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+                           ON SBO.SPRT_BIZ_YR = DOC.SPRT_BIZ_YR
+                               AND SBO.SPRT_BIZ_CD = DOC.SPRT_BIZ_CD
+                               AND SBO.SPRT_OGNZ_ID = DOC.SPRT_OGNZ_ID
+
+                 LEFT JOIN VW_EV_UO_APRV EUA
+                           ON EUA.BRNO = SBO.BRNO
+                               AND EUA.CRNO = SBO.CRNO
+
+        WHERE SBA.DEL_YN = 'N'
+          AND SBA.ATCH_FILE_SN = #{atchFileSn}
+
+        ]]>
+    </select>
 </mapper>

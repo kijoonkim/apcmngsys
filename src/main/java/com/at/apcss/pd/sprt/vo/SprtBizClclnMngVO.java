@@ -529,6 +529,11 @@ public class SprtBizClclnMngVO extends ComVO {
      */
     private String chkIdfrDt;
 
+    /**
+     * 정산요청액 합계
+     */
+    private int dmndAmtTot;
+
     private String superUserYn;
     private String untyOgnzCd;
 

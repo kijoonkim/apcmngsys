@@ -504,20 +504,20 @@
 
 		await fn_setGrdGdsMcList();
 		// 전년도
-		await fn_setGrdGdsMcList("Y");
+		await fn_setGrdGdsMcList(true);
 	}
 
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_setGrdGdsMcList = async function(prevData) {
+	const fn_setGrdGdsMcList = async function(isPrev = false) {
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -531,7 +531,8 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+			if (isPrev === true) {
+				console.log(data.resultList);
 				jsonPrevData = data.resultList;
 			} else {
 				data.resultList.forEach((item, index) => {
@@ -577,7 +578,7 @@
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-			alert("apc를 선택해주세요");
+			gfn_comAlert("W0001", "APC명");	//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
@@ -618,7 +619,6 @@
 			}
 		}
 
-		return;
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
@@ -743,46 +743,66 @@
 		}
 	}
 
+	/** 전년도 데이터 set **/
 	function fn_pySearch() {
 
-		if (gfn_isEmpty(jsonPrevData)) return;
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
+		let itemCount = 0;
+		// 초기화
 		for (let i =1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn' + i, "N");
-			let isExist = false;
+
 			if (SBUxMethod.get('dtl-inp-itemChk' + i) === 'Y') {
-				isExist = true;
-			}
-			if (isExist) {
 				// SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
 				SBUxMethod.attr('dtl-inp-sortMchnHoldYn' + i, 'disabled', 'false');
+				itemCount++;
 			}
 		}
+		// 등록된 품목이 하나도 없을 때
+		if (itemCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도 1.운영자 개요에서 등록된 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		let matchedCount = 0;
 
 		jsonPrevData.forEach(item => {
 			const sn = item.sn;
-			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
+			const itemCd = SBUxMethod.get('dtl-inp-itemCd' + sn);
 
+			// 품목 매칭 로직
 			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
 					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
 					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
-				let sortMchnHoldYn = item.sortMchnHoldYn;
+
+				const sortMchnHoldYn = item.sortMchnHoldYn;
 				SBUxMethod.set('dtl-inp-sortMchnHoldYn' + sn, sortMchnHoldYn);
-				if (sortMchnHoldYn == 'Y') {
-					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');//선별기보유 할경우 해당 그룹 활성화
+				matchedCount++;
+				if (sortMchnHoldYn === 'Y') {
+					SBUxMethod.changeGroupAttr('group' + sn, 'disabled', 'false');
 					SBUxMethod.set("dtl-inp-sortMchnSpcfct" + sn, gfn_nvl(item.sortMchnSpcfct));
 					SBUxMethod.set("dtl-inp-sortBrckMchn" + sn, gfn_nvl(item.sortBrckMchn));
-					SBUxMethod.set("dtl-inp-colorSort" + sn, gfn_nvl(item.colorSort));
-					SBUxMethod.set("dtl-inp-shapSort" + sn, gfn_nvl(item.shapSort));
-					SBUxMethod.set("dtl-inp-mnfcMchn" + sn, gfn_nvl(item.mnfcMchn));
-					//제조사 추가
-					SBUxMethod.set("dtl-inp-mkrNm" + sn, gfn_nvl(item.mkrNm));
+					SBUxMethod.set("dtl-inp-colorSort"    + sn, gfn_nvl(item.colorSort));
+					SBUxMethod.set("dtl-inp-shapSort"     + sn, gfn_nvl(item.shapSort));
+					SBUxMethod.set("dtl-inp-mnfcMchn"     + sn, gfn_nvl(item.mnfcMchn));
+					SBUxMethod.set("dtl-inp-mkrNm"        + sn, gfn_nvl(item.mkrNm));
 				}
 			}
+
 		});
+
+		// 일치하는 전년도 데이터가 하나도 없을 때
+		if (matchedCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도와 일치하는 전년도 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 	}
 </script>
 </html>
