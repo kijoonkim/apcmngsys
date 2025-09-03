@@ -317,8 +317,6 @@
 
 	// 기준연도
 	var jsonCrtrYr = [];
-	// 전년도
-	var jsonPrevData = [];
 
 	window.addEventListener('DOMContentLoaded', function(e) {
 		let date = new Date();
@@ -419,18 +417,15 @@
 		await cfn_selectPrgrs();
 
 		await fn_selectGrdHireInfoList();
-		// 전년도 조회
-		await fn_selectGrdHireInfoList("Y");
 	}
 
-	const fn_selectGrdHireInfoList = async function(prevData) {
+	const fn_selectGrdHireInfoList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
-		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -448,25 +443,27 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
-				jsonPrevData = data.resultList;
-			} else {
-				data.resultList.forEach((item, index) => {
-					SBUxMethod.set('dtl-inp-hireRgllbrSpt', gfn_nvl(item.hireRgllbrSpt));
-					SBUxMethod.set('dtl-inp-hireRgllbrOfc', gfn_nvl(item.hireRgllbrOfc));
-
-					SBUxMethod.set('dtl-inp-hireTmprWgTotSum', gfn_nvl(item.hireTmprWgTotSum));
-					SBUxMethod.set('dtl-inp-hireTmprAvgWg', gfn_nvl(item.hireTmprAvgWg));
-
-					SBUxMethod.set('dtl-inp-hireTmprMin', gfn_nvl(item.hireTmprMin));
-					SBUxMethod.set('dtl-inp-hireTmprMax', gfn_nvl(item.hireTmprMax));
-
-					SBUxMethod.set('dtl-inp-hireFrgnrMin', gfn_nvl(item.hireFrgnrMin));
-					SBUxMethod.set('dtl-inp-hireFrgnrMax', gfn_nvl(item.hireFrgnrMax));
-					SBUxMethod.set('dtl-inp-hireFrgnrAvg', gfn_nvl(item.hireFrgnrAvg));
-					SBUxMethod.set('dtl-inp-hireFrgnrTaskCn', gfn_nvl(item.hireFrgnrTaskCn));
-				});
+			if (isPrev === true && gfn_isEmpty(data.resultList)) {
+				gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+				return;
 			}
+
+			data.resultList.forEach((item, index) => {
+				SBUxMethod.set('dtl-inp-hireRgllbrSpt', gfn_nvl(item.hireRgllbrSpt));
+				SBUxMethod.set('dtl-inp-hireRgllbrOfc', gfn_nvl(item.hireRgllbrOfc));
+
+				SBUxMethod.set('dtl-inp-hireTmprWgTotSum', gfn_nvl(item.hireTmprWgTotSum));
+				SBUxMethod.set('dtl-inp-hireTmprAvgWg', gfn_nvl(item.hireTmprAvgWg));
+
+				SBUxMethod.set('dtl-inp-hireTmprMin', gfn_nvl(item.hireTmprMin));
+				SBUxMethod.set('dtl-inp-hireTmprMax', gfn_nvl(item.hireTmprMax));
+
+				SBUxMethod.set('dtl-inp-hireFrgnrMin', gfn_nvl(item.hireFrgnrMin));
+				SBUxMethod.set('dtl-inp-hireFrgnrMax', gfn_nvl(item.hireFrgnrMax));
+				SBUxMethod.set('dtl-inp-hireFrgnrAvg', gfn_nvl(item.hireFrgnrAvg));
+				SBUxMethod.set('dtl-inp-hireFrgnrTaskCn', gfn_nvl(item.hireFrgnrTaskCn));
+			});
+
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				e = new Error(e);
@@ -594,26 +591,9 @@
 
 	// 전년도 데이터
 	function fn_pySearch() {
-		if (gfn_isEmpty(jsonPrevData)) return;
 
 		fn_clearForm();
-
-		jsonPrevData.forEach(item => {
-			SBUxMethod.set('dtl-inp-hireRgllbrSpt', gfn_nvl(item.hireRgllbrSpt));
-			SBUxMethod.set('dtl-inp-hireRgllbrOfc', gfn_nvl(item.hireRgllbrOfc));
-
-			SBUxMethod.set('dtl-inp-hireTmprWgTotSum', gfn_nvl(item.hireTmprWgTotSum));
-			SBUxMethod.set('dtl-inp-hireTmprAvgWg', gfn_nvl(item.hireTmprAvgWg));
-
-			SBUxMethod.set('dtl-inp-hireTmprMin', gfn_nvl(item.hireTmprMin));
-			SBUxMethod.set('dtl-inp-hireTmprMax', gfn_nvl(item.hireTmprMax));
-
-			SBUxMethod.set('dtl-inp-hireFrgnrMin', gfn_nvl(item.hireFrgnrMin));
-			SBUxMethod.set('dtl-inp-hireFrgnrMax', gfn_nvl(item.hireFrgnrMax));
-			SBUxMethod.set('dtl-inp-hireFrgnrAvg', gfn_nvl(item.hireFrgnrAvg));
-			SBUxMethod.set('dtl-inp-hireFrgnrTaskCn', gfn_nvl(item.hireFrgnrTaskCn));
-		});
-
+		fn_selectGrdHireInfoList(true);
 	}
 
 </script>

@@ -554,20 +554,20 @@
 
 		await fn_selectFcltInfoList();
 		// 전년도
-		await fn_selectFcltInfoList("Y");
+		await fn_selectFcltInfoList(true);
 	}
 
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_selectFcltInfoList = async function(prevData) {
+	const fn_selectFcltInfoList = async function(isPrev = false) {
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -583,7 +583,7 @@
 		//예외처리
 		try {
 			if (_.isEqual("S", data.resultStatus)) {
-				if (_.isEqual(prevData,"Y")) {
+				if (isPrev === true) {
 					data.resultList.forEach(item =>{
 						jsonPrevData.push({
 							apcCd : gfn_nvl(item.apcCd),
@@ -894,6 +894,12 @@
 
 	const fn_pySearch = function() {
 		fn_clearForm();
+
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
 		const data = jsonPrevData[0];
 		SBUxMethod.set('dtl-inp-cspTotArea', gfn_nvl(data.cspTotArea));
 		SBUxMethod.set('dtl-inp-cspTotRmrk', gfn_nvl(data.cspTotRmrk));

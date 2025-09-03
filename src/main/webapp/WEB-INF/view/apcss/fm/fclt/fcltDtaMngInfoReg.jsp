@@ -377,13 +377,13 @@
 		await fn_selectDtMnIfList();
 	}
 
-	const fn_selectDtMnIfList = async function(prevData) {
+	const fn_selectDtMnIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -396,7 +396,12 @@
 
 		//예외처리
 		try {
+			if (isPrev === true && gfn_isEmpty(data.resultDtlList) && gfn_isEmpty(data.resultList)) {
+				gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+				return;
+			}
 
+			// 데이터 관리방법 체크박스
 			await data.resultDtlList.forEach((item, index) => {
 				SBUxMethod.set('dtl-chk-'+item.dataMngTypeDtl,item.dataMngYn);
 				if(!gfn_isEmpty(item.dataMngEtc)){
@@ -748,13 +753,14 @@
 		}
 	}
 
+	/** 전년도 데이터 **/
 	async function fn_pySearch() {
 		if (gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))) {
 			alert('APC를 선택해주세요');
 			return;
 		}
 		await fn_clearForm();
-		await fn_selectDtMnIfList("Y");
+		await fn_selectDtMnIfList(true);
 	}
 </script>
 </html>

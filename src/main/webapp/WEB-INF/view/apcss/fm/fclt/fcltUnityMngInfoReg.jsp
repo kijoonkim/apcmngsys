@@ -314,13 +314,13 @@
 		await fn_selectUniMnIfList();
 	}
 
-	const fn_selectUniMnIfList = async function(prevData) {
+	const fn_selectUniMnIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -338,6 +338,11 @@
 		//await 오류시 확인
 		//예외처리
 		try {
+			if (isPrev === true && gfn_isEmpty(data.resultList)) {
+				gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+				return;
+			}
+
 			data.resultList.forEach((item, index) => {
 				SBUxMethod.set('dtl-rdo-umsYn',item.umsYn);
 				if(item.umsYn == 'Y'){
@@ -487,7 +492,7 @@
 			return;
 		}
 		await fn_clearForm();
-		await fn_selectUniMnIfList("Y");
+		await fn_selectUniMnIfList(true);
 	}
 
 </script>

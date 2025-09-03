@@ -586,10 +586,10 @@
 		await cfn_selectPrgrs();
 		await fn_selectFcltOperInfo();
 		// 전년도
-		await fn_selectFcltOperInfo("Y");
+		await fn_selectFcltOperInfo(true);
 	}
 
-	const fn_selectFcltOperInfo = async function(prevData){
+	const fn_selectFcltOperInfo = async function(isPrev = false){
 
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr  =  SBUxMethod.get("srch-slt-crtrYr");
@@ -600,8 +600,8 @@
 		}
 
 		jsonPrevData.length = 0;
-		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		// 전년도 데이터
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -614,7 +614,7 @@
 		let data = await postJsonPromise;
 		try{
 			if(data.resultList.length > 0){
-				if (_.isEqual(prevData,"Y")) {
+				if (isPrev === true) {
 						const resultVO = data.resultList[0];
 						const userInfoVO = data.resultMap;
 
@@ -1468,6 +1468,11 @@
 	//전년도 데이터
 	const fn_pySearch = async function(){
 		await fn_clearForm();
+
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
 		const data = jsonPrevData[0];
 

@@ -80,6 +80,7 @@
 									uitype="single"
 									jsondata-ref="jsonCrtrYr"
 									class="form-control input-sm"
+									onchange="fn_search"
 							></sbux-select>
 
 						</td>
@@ -1023,17 +1024,17 @@
 
 		await fn_selectAtMcIfList();
 		// 전년도 데이터
-		await fn_selectAtMcIfList("Y");
+		await fn_selectAtMcIfList(true);
 	}
 
-	const fn_selectAtMcIfList = async function(prevData) {
+	const fn_selectAtMcIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -1047,7 +1048,7 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+			if (isPrev === true) {
 				jsonPrevData = data.resultList;
 			} else {
 				data.resultList.forEach((item, index) => {
@@ -1252,41 +1253,58 @@
 		}
 	}
 
-	function fn_pySearch() {
+	/** 전년도 데이터 set **/
+	async function fn_pySearch() {
 
-		if (gfn_isEmpty(jsonPrevData)) return;
+		if (gfn_isEmpty(SBUxMethod.get("srch-inp-apcCd"))) {
+			gfn_comAlert("W0001", "APC명"); // W0001 {0}을/를 선택하세요.
+			return;
+		}
 
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005", "전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		let itemCount = 0;
 		// 초기화
-		for (let i =1; i < 4; i++) {
+		for (let i = 1; i < 4; i++) {
 			//그룹 비활성화
-			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
+			SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'true');
 			//그룹 초기화
-			SBUxMethod.clearGroupData('group'+i);
+			SBUxMethod.clearGroupData('group' + i);
 
-			SBUxMethod.attr('dtl-inp-spcfctCnt'+i,'disabled','true');
-			SBUxMethod.attr('dtl-inp-spcfctGrp'+i,'disabled','true');
-			SBUxMethod.attr('dtl-inp-spcfctGrd'+i,'disabled','true');
+			SBUxMethod.attr('dtl-inp-spcfctCnt' + i, 'disabled', 'true');
+			SBUxMethod.attr('dtl-inp-spcfctGrp' + i, 'disabled', 'true');
+			SBUxMethod.attr('dtl-inp-spcfctGrd' + i, 'disabled', 'true');
 
-			SBUxMethod.set('dtl-inp-spcfctCnt'+i,null);
-			SBUxMethod.set('dtl-inp-spcfctGrp'+i,null);
-			SBUxMethod.set('dtl-inp-spcfctGrd'+i,null);
+			SBUxMethod.set('dtl-inp-spcfctCnt' + i, null);
+			SBUxMethod.set('dtl-inp-spcfctGrp' + i, null);
+			SBUxMethod.set('dtl-inp-spcfctGrd' + i, null);
 
 			// 활성화
-			const itemChk = SBUxMethod.get('dtl-inp-itemChk'+i);
-			if (_.isEqual(itemChk,"Y")) {
+			const itemChk = SBUxMethod.get('dtl-inp-itemChk' + i);
+			if (_.isEqual(itemChk, "Y")) {
 				SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
 				SBUxMethod.attr('dtl-inp-spcfctCnt' + i, 'disabled', 'false');
 				SBUxMethod.attr('dtl-inp-spcfctGrp' + i, 'disabled', 'false');
 				SBUxMethod.attr('dtl-inp-spcfctGrd' + i, 'disabled', 'false');
+				itemCount++;
 			}
 		}
+		// 등록된 품목이 하나도 없을 때
+		if (itemCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도 1.운영자 개요에서 등록된 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
-		jsonPrevData.forEach(item =>{
+		let matchedCount = 0;
+		jsonPrevData.forEach(item => {
 			const sn = item.sn;
-			const itemChk = SBUxMethod.get('dtl-inp-itemChk'+sn);
-			const itemCd = SBUxMethod.get('dtl-inp-itemCd'+sn);
-			if (_.isEqual(itemChk,"Y") && _.isEqual(itemCd, item.itemCd) ) {
-
+			const itemChk = SBUxMethod.get('dtl-inp-itemChk' + sn);
+			const itemCd = SBUxMethod.get('dtl-inp-itemCd' + sn);
+			if (_.isEqual(itemChk, "Y") && _.isEqual(itemCd, item.itemCd)) {
+				matchedCount++;
 				// 입고
 				SBUxMethod.set('dtl-rdo-wbg' + sn, item.wbg);
 				SBUxMethod.set('dtl-rdo-wrhsBrQr' + sn, item.wrhsBrQr);
@@ -1320,6 +1338,12 @@
 				SBUxMethod.set('dtl-inp-spcfctGrd' + sn, item.spcfctGrd);
 			}
 		});
+
+		// 일치하는 전년도 데이터가 하나도 없을 때
+		if (matchedCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도와 일치하는 전년도 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 	}
 </script>
 </html>
