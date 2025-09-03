@@ -146,6 +146,7 @@
 				   PR.APC_CD        	AS APC_CD
 			     , PR.PRDCR_CD      	AS PRDCR_CD
 			     , PR.PRDCR_NM      	AS PRDCR_NM
+	    	     , PR.ABBR_NM			AS ABBR_NM
 			     , PR.PRDCR_FRST_NM 	AS PRDCR_FRST_NM
 			     , PR.RPRS_ITEM_CD  	AS RPRS_ITEM_CD
 			     , PR.RPRS_VRTY_CD  	AS RPRS_VRTY_CD
@@ -521,6 +522,7 @@
 					  APC_CD
 					, PRDCR_CD
 					, PRDCR_NM
+					, ABBR_NM
 					, PRDCR_FRST_NM
 					, RPRS_ITEM_CD
 					, RPRS_VRTY_CD
@@ -551,6 +553,7 @@
 					  #{apcCd}
 					, #{prdcrCd}
 					, #{prdcrNm}
+					, #{abbrNm}
 					, #{prdcrFrstNm}
 					, #{rprsItemCd}
 					, #{rprsVrtyCd}
@@ -596,6 +599,7 @@
 			   SET
 				  PRDCR_CD = #{prdcrCd}
 				, PRDCR_NM = #{prdcrNm}
+			    , ABBR_NM = #{abbrNm}
 				, PRDCR_FRST_NM = #{prdcrFrstNm}
 				, RPRS_ITEM_CD = #{rprsItemCd}
 				, RPRS_VRTY_CD = #{rprsVrtyCd}
@@ -643,6 +647,7 @@
 	    		TB_PRDCR_INFO
 			   SET
 				PRDCR_CD = #{prdcrCd}
+			    , ABBR_NM = #{abbrNm}
 				, RPRS_ITEM_CD = #{rprsItemCd}
 				, RPRS_VRTY_CD = #{rprsVrtyCd}
 				, GDS_SE_CD = #{gdsSeCd}
