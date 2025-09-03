@@ -635,7 +635,7 @@
 
 		await fn_selectStMcOpIfList();
 		// 전년도
-		await fn_selectStMcOpIfList("Y");
+		await fn_selectStMcOpIfList(true);
 	}
 
 
@@ -643,14 +643,14 @@
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_selectStMcOpIfList = async function(prevData) {
+	const fn_selectStMcOpIfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -664,7 +664,7 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+			if (isPrev === true) {
 				jsonPrevData = data.resultList;
 			} else {
 
@@ -718,7 +718,7 @@
 		const apcCd = SBUxMethod.get("srch-inp-apcCd");
 		const crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 		if (gfn_isEmpty(apcCd)) {
-			alert("apc를 선택해주세요");
+			gfn_comAlert("W0001", "APC명");	//	W0001	{0}을/를 선택하세요.
 			return;
 		}
 
@@ -760,7 +760,6 @@
 			}
 		}
 
-		return;
 		fn_subInsert(confirm("등록 하시겠습니까?") , "N");
 	}
 
@@ -933,8 +932,15 @@
 		}
 	}
 
+	/** 전년도 데이터 set **/
 	function fn_pySearch () {
-		if (gfn_isEmpty(jsonPrevData)) return;
+
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		let itemCount = 0;
 
 		for (let i = 1; i < 5; i++) {
 			// 초기화
@@ -950,9 +956,16 @@
 				SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_' + i + '_1', 'disabled', 'false');
 				SBUxMethod.attr('warehouseSeCd_chk_mon_' + i + '_non', 'disabled', 'false');
-
+				itemCount++;
 			}
 		}
+		// 등록된 품목이 하나도 없을 때
+		if (itemCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도 1.운영자 개요에서 등록된 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		let matchedCount = 0;
 
 		jsonPrevData.forEach(item => {
 			let sn = item.sn;
@@ -962,6 +975,8 @@
 			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
 					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
 					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
+				matchedCount++;
+
 				if (item.operYn == 'Y') {
 					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_2', item.operPeriodYn1);
 					SBUxMethod.set('warehouseSeCd_chk_mon_' + sn + '_3', item.operPeriodYn2);
@@ -981,6 +996,12 @@
 				}
 			}
 		});
+
+		// 일치하는 전년도 데이터가 하나도 없을 때
+		if (matchedCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도와 일치하는 전년도 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
 	}
 

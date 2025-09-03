@@ -697,17 +697,17 @@
 
 		await fn_selectItmPrfList();
 		// 전년도
-		await fn_selectItmPrfList("Y");
+		await fn_selectItmPrfList(true);
 	}
 
-	const fn_selectItmPrfList = async function(prevData) {
+	const fn_selectItmPrfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -721,7 +721,7 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+			if (isPrev === true) {
 				data.resultList.forEach(item =>{
 					const vo = {
 						crtrYr : item.crtrYr
@@ -1017,7 +1017,6 @@
 		const tr = $('.div-msg').closest('tr');
 		tr.find('td, th').css('vertical-align', 'middle');
 
-
 		// 입력 초기화
 		SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl',null);
 		SBUxMethod.set('dtl-inp-apcNtslAmtFoodMtrl',null);
@@ -1031,7 +1030,10 @@
 		SBUxMethod.set('dtl-inp-apcNtslAmtEtc',null);
 		SBUxMethod.set('dtl-inp-apcNtslAmtOnlnWhlslMrkt',null);
 
-		if (gfn_isEmpty(jsonPrevData)) return;
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005", "전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 
 		jsonPrevData.forEach(item => {
 			SBUxMethod.set('dtl-inp-apcNtslAmtLgszRtl', item.apcNtslAmtLgszRtl);

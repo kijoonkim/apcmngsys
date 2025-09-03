@@ -530,21 +530,21 @@
 
 		await fn_setGrdStMcInfList();
 		// 전년도
-		await fn_setGrdStMcInfList("Y");
+		await fn_setGrdStMcInfList(true);
 	}
 
 	/**
      * @param {number} pageSize
      * @param {number} pageNo
      */
-	const fn_setGrdStMcInfList = async function(prevData) {
+	const fn_setGrdStMcInfList = async function(isPrev = false) {
 
 		let apcCd = SBUxMethod.get("srch-inp-apcCd");
 		let crtrYr = SBUxMethod.get("srch-slt-crtrYr");
 
 		jsonPrevData.length = 0;
 		//전년도 데이터
-		if(!gfn_isEmpty(prevData) && _.isEqual(prevData,"Y")){
+		if (isPrev === true) {
 			crtrYr = parseFloat(crtrYr) - 1;
 		}
 
@@ -558,7 +558,7 @@
 
 		//예외처리
 		try {
-			if (_.isEqual(prevData,"Y")) {
+			if (isPrev === true) {
 				jsonPrevData = data.resultList;
 			} else {
 				data.resultList.forEach((item, index) => {
@@ -782,24 +782,36 @@
 		}
 	}
 
+	/** 전년도 데이터 set **/
 	function fn_pySearch() {
-		if (gfn_isEmpty(jsonPrevData)) return;
 
+		if (gfn_isEmpty(jsonPrevData)) {
+			gfn_comAlert("W0005","전년도 데이터"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+		let itemCount = 0;
+
+		// 초기화
 		for (let i = 1; i < 5; i++) {
 			SBUxMethod.changeGroupAttr('group'+i,'disabled','true');
 			SBUxMethod.clearGroupData('group'+i);
 			SBUxMethod.attr('dtl-inp-sortMchnHoldYn'+i,'disabled','true');
 			SBUxMethod.set('dtl-inp-sortMchnHoldYn'+i,'N');
 
-			let isExist = false;
 			if (SBUxMethod.get('dtl-inp-itemChk' + i) === 'Y') {
-				isExist = true;
-			}
-			if (isExist) {
 				// SBUxMethod.changeGroupAttr('group' + i, 'disabled', 'false');
 				SBUxMethod.attr('dtl-inp-sortMchnHoldYn' + i, 'disabled', 'false');
+				itemCount++;
 			}
 		}
+
+		// 등록된 품목이 하나도 없을 때
+		if (itemCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도 1.운영자 개요에서 등록된 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
+
+		let matchedCount = 0;
 
 		jsonPrevData.forEach(item => {
 			const sn = item.sn;
@@ -808,6 +820,7 @@
 			if (_.isEqual(SBUxMethod.get('dtl-inp-itemChk' + sn), "Y") && (
 					(sn === 4 && _.isEqual(itemCd, item.itemNm)) ||
 					(sn !== 4 && _.isEqual(itemCd, item.itemCd)))) {
+
 				let sortMchnHoldYn = item.sortMchnHoldYn;
 				SBUxMethod.attr('dtl-inp-sortMchnHoldYn' + item.sn, 'disabled', 'false');
 
@@ -821,6 +834,12 @@
 				}
 			}
 		});
+
+		// 일치하는 전년도 데이터가 하나도 없을 때
+		if (matchedCount === 0) {
+			gfn_comAlert("W0005", "현재 조사연도와 일치하는 전년도 품목"); // W0005  {0}이/가 없습니다.
+			return;
+		}
 	}
 
 </script>
