@@ -2188,11 +2188,14 @@
 
 		if (!gfn_isEmpty(prdcr.prdcrCd)) {
 			let frmhsInfo = '';
+			if (prdcr.abbrNm) {
+				frmhsInfo += '별칭: ' + prdcr.abbrNm + '  ';
+			}
 			if (prdcr.frmhsNm) {
-				frmhsInfo += '재배농가 : ' + prdcr.frmhsNm + ' ';
+				frmhsInfo += '재배농가: ' + prdcr.frmhsNm + ' ';
 			}
 			if (prdcr.frmhsAddr) {
-				frmhsInfo += '주소 : ' + prdcr.frmhsAddr + ' ';
+				frmhsInfo += '주소: ' + prdcr.frmhsAddr + ' ';
 			}
 			SBUxMethod.set("frmhsInfo", frmhsInfo);
 		}
@@ -2211,10 +2214,10 @@
 			SBUxMethod.set("dtl-inp-vhclno", vhcl.vhclno);
 			SBUxMethod.set("dtl-inp-drvrNm", vhcl.drvrNm);
 			if(vhcl.drvrNm){
-				vhclInfo += '기사명 : ' + vhcl.drvrNm + ' ';
+				vhclInfo += '기사명: ' + vhcl.drvrNm + ' ';
 			}
 			if(vhcl.rmrk){
-				vhclInfo += '비고 : ' + vhcl.rmrk + ' ';
+				vhclInfo += '비고: ' + vhcl.rmrk + ' ';
 			}
 		}
 		SBUxMethod.set("vhclInfo",vhclInfo);
