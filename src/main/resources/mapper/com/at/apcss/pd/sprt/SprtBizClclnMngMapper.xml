@@ -1159,7 +1159,7 @@
                 , FL.LGC_FILE_NM AS LGC_FILE_NM
             FROM TB_EV_SPRT_BIZ_CLCLN_D CD
 
-            JOIN TB_EV_SPRT_BIZ_CLCLN_D_DOC DOC
+            LEFT JOIN TB_EV_SPRT_BIZ_CLCLN_D_DOC DOC
                 ON DOC.SPRT_BIZ_YR = CD.SPRT_BIZ_YR
                 AND DOC.SPRT_BIZ_CD = CD.SPRT_BIZ_CD
                 AND DOC.SPRT_OGNZ_ID = CD.SPRT_OGNZ_ID
@@ -1167,7 +1167,7 @@
                 AND DOC.DMND_SEQ = CD.DMND_SEQ
                 AND DOC.DEL_YN ='N'
 
-            JOIN TB_EV_SPRT_BIZ_ATCHFL FL
+            LEFT JOIN TB_EV_SPRT_BIZ_ATCHFL FL
                 ON FL.ATCH_FILE_SN = DOC.ATCH_FILE_SN
                 AND FL.DEL_YN = 'N'
 
