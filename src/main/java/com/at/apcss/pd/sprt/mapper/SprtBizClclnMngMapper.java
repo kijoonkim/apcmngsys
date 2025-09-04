@@ -210,4 +210,12 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public SprtBizRegFileVO selectSprtClclnPrufAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
+
+    /**
+     * 지원사업정산 증빙서류 전체 목록 조회
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    List<SprtBizClclnDmndDtlVO> selectSprtClclnPrufDocList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO);
 }
