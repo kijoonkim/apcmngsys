@@ -203,4 +203,19 @@ public class SprtBizClclnDmndDtlVO extends ComVO {
      */
     private String docNm;
 
+    /**
+     * 사업자번호
+     */
+    private String brno;
+
+    /**
+     * 법인명
+     */
+    private String corpNm;
+
+    /**
+     * 조직코드
+     */
+    private String apoCd;
+
 }
