@@ -16,14 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -36,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @Class Name : SprtBizClclnMngController.java
@@ -326,6 +331,7 @@ public class SprtBizClclnMngController extends BaseController {
             }
 
             FileSystemResource resource = new FileSystemResource(atchFile);
+
 
             // 4. 응담 설정
             /*
@@ -1124,4 +1130,137 @@ public class SprtBizClclnMngController extends BaseController {
                     .body("오류가 발생했습니다. 관리자에게 문의하세요.");
         }
     }
+
+/*    @GetMapping("/pd/downloadAllSprtClclnPrufDoc.do")
+    public ResponseEntity<?> downloadAllSprtClclnPrufDoc (HttpServletRequest request, HttpServletResponse response
+            , @RequestParam("sprtBizYr") String sprtBizYr
+            , @RequestParam("clclnSeq") int clclnSeq
+            , @RequestParam(value = "brno" , required = false) String brno
+            , @RequestParam(value = "corpNm" , required = false) String corpNm
+    ) throws Exception {
+        try {
+            logger.debug("sprtBizYr : {}, clclnSeq : {}, brno :{}, corpNm :{}",sprtBizYr,clclnSeq,brno,corpNm);
+
+            // 1. 파일 정보 조회
+            SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO = new SprtBizClclnDmndDtlVO();
+            sprtBizClclnDmndDtlVO.setSprtBizYr(sprtBizYr);
+            sprtBizClclnDmndDtlVO.setClclnSeq(clclnSeq);
+            sprtBizClclnDmndDtlVO.setBrno(brno);
+            sprtBizClclnDmndDtlVO.setCorpNm(corpNm);
+
+
+            List<SprtBizClclnDmndDtlVO> prufDocList = sprtBizClclnMngService.selectSprtClclnPrufDocList(sprtBizClclnDmndDtlVO);
+            logger.debug("파일은???????"+prufDocList);
+
+            // 파일 없음
+            if (prufDocList == null || prufDocList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+            }
+
+            // 헤더용 파일명
+            String zipFileNm = "산지조직 증빙서류 일괄 다운로드.zip";
+            String convertFileNm = URLEncoder.encode(zipFileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+            String contentDisposition = "attachment; filename=\"" + convertFileNm + "\"";
+
+            // 파일경로
+            String uploadPath = getFilepathPd();
+
+            // 2. 권한 확인
+            String untyAuthrtType = getUntyAuthrtType();
+            String untyOgnzCd = getUntyOgnzCd();
+
+            // 확인들
+            for (SprtBizClclnDmndDtlVO prufDocInfo : prufDocList) {
+
+                // 권한 체크
+                if (!ComConstants.CON_UNTY_AUTHRT_TYPE_SYS.equals(untyAuthrtType)
+                        && !ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
+                    if (!ComUtil.nullToEmpty(untyOgnzCd)
+                            .equals(ComUtil.nullToEmpty("UO" + prufDocInfo.getApoCd()))) {
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.11");
+                    }
+                }
+
+                String filePathNm = prufDocInfo.getFilePathNm();
+                String physFileNm = prufDocInfo.getPhysFileNm();
+                String fileExtnNm = prufDocInfo.getFileExtnNm();
+                String filePath = uploadPath + filePathNm;
+                String fileNm = physFileNm + "_" + fileExtnNm;
+
+                if (filePath == null || filePath.contains("..")) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                }
+
+                File atchFile = new File(filePath, fileNm);
+
+                logger.debug("!!!!!!!!파일은?? : {}",atchFile);
+                if (!atchFile.exists() || !atchFile.isFile()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일을 찾을 수 없습니다.");
+                }
+            }
+
+            FileSystemResource resource = null;
+
+            // 확인통과되면 여기서 생성,전송
+            StreamingResponseBody stream = out -> {
+                ZipOutputStream zos = new ZipOutputStream(out);
+                try {
+                    for (SprtBizClclnDmndDtlVO prufDocInfo : prufDocList) {
+                        // 서버 저장 파일명
+                        String physFileNm = prufDocInfo.getPhysFileNm();
+                        // 확장자명
+                        String fileExtnNm = prufDocInfo.getFileExtnNm();
+                        // 파일 경로명
+                        String filePathNm = prufDocInfo.getFilePathNm();
+                        // 원본 파일명
+                        String lgcFileNm = prufDocInfo.getLgcFileNm();
+                        // 법인명
+                        String coprNm = prufDocInfo.getCorpNm();
+                        // 회차
+                        int seq = prufDocInfo.getClclnSeq();
+                        // 주요항목명
+                        String dmndArtclKndNm = prufDocInfo.getDmndArtclKndNm();
+                        // 세부항목명
+                        String dmndArtclNm = prufDocInfo.getDmndArtclCdNm();
+                        // 증빙명
+                        String docNm = prufDocInfo.getDocNm();
+
+                        // 예시: 법인명_1차_조직화_1.농가교육비_영수증_파일명
+                        String fileNm = coprNm + "_" + seq + "차_" + dmndArtclKndNm + "_"
+                                + dmndArtclNm + "_" + docNm + "_" + lgcFileNm;
+//                        String convertFlNm = URLEncoder.encode(fileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+
+                        // 물리 파일명
+                        String filename = physFileNm + "_" + fileExtnNm;
+
+                        String filePath = uploadPath + filePathNm;
+                        logger.debug("file");
+                        File atchFile = new File(filePath, filename);
+                        logger.debug("!@@@@@@@@@파일은?? : {}",atchFile);
+
+
+                        try (FileInputStream fis = new FileInputStream(atchFile)){
+                            zos.putNextEntry(new ZipEntry(fileNm));
+
+                            StreamUtils.copy(fis, zos);
+//                            fis.close();
+                            zos.closeEntry();
+                        }
+                    }
+                } finally {
+                    zos.close();
+                }
+            };
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.valueOf("application/zip"))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                    .body(stream);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("오류가 발생했습니다. 관리자에게 문의하세요.");
+        }
+
+    }*/
 }

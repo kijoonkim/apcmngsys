@@ -1224,6 +1224,7 @@
           AND SPRT_BIZ_CD = #{sprtBizCd}
           AND SPRT_OGNZ_ID = #{sprtOgnzId}
           AND CLCLN_SEQ = #{clclnSeq}
+          AND DMND_SEQ = #{dmndSeq}
         ]]>
     </select>
 
@@ -1325,5 +1326,86 @@
           AND SBA.ATCH_FILE_SN = #{atchFileSn}
 
         ]]>
+    </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnPrufDocList-->
+    <!-- DESC : 지원사업정산 증빙서류 다운로드 - 증빙파일 전체 목록 조회                     -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.04  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <select id="selectSprtClclnPrufDocList" resultType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnDmndDtlVO">
+        <![CDATA[
+        SELECT
+            CD.SPRT_BIZ_YR AS SPRT_BIZ_YR
+             , CD.SPRT_BIZ_CD AS SPRT_BIZ_CD
+             , CD.SPRT_OGNZ_ID AS SPRT_OGNZ_ID
+             , CD.CLCLN_SEQ AS CLCLN_SEQ
+             , CD.DMND_SEQ AS DMND_SEQ
+             , CD.DMND_AMT AS DMND_AMT
+             , CD.DMND_ARTCL_KND AS DMND_ARTCL_KND
+             , (SELECT FN_GET_EV_SRPT_BIZ_CRTR_NM ('PRUF_ARTCL_KND',CD.DMND_ARTCL_KND) FROM DUAL) AS DMND_ARTCL_KND_NM
+             , CD.DMND_ARTCL_CD AS DMND_ARTCL_CD
+             , (SELECT FN_GET_EV_SRPT_BIZ_CRTR_NM (CD.DMND_ARTCL_KND, CD.DMND_ARTCL_CD) FROM DUAL) AS DMND_ARTCL_CD_NM
+             , CD.DMND_CN AS DMND_CN
+
+             , DOC.DOC_SEQ AS DOC_SEQ
+             , DOC.DOC_KND AS DOC_KND
+             , DOC.DOC_CD AS DOC_CD
+             , (SELECT FN_GET_EV_SRPT_BIZ_DTL_NM (CD.SPRT_BIZ_YR,CD.SPRT_BIZ_CD,DOC.DOC_KND,DOC.DOC_CD) FROM DUAL) AS DOC_NM
+             , DOC.ATCH_FILE_SN AS ATCH_FILE_SN
+
+             , FL.LGC_FILE_NM AS LGC_FILE_NM
+             , FL.FILE_PATH_NM AS FILE_PATH_NM
+             , FL.PHYS_FILE_NM AS PHYS_FILE_NM
+             , FL.FILE_SZ AS FILE_SZ
+             , FL.FILE_EXTN_NM AS FILE_EXTN_NM
+
+             , SBO.BRNO AS BRNO
+             , EUA.CORP_NM AS CORP_NM
+             , EUA.APO_CD AS APO_CD
+
+        FROM TB_EV_SPRT_BIZ_CLCLN_D CD
+
+        LEFT JOIN TB_EV_SPRT_BIZ_CLCLN_D_DOC DOC
+            ON DOC.SPRT_BIZ_YR = CD.SPRT_BIZ_YR
+            AND DOC.SPRT_BIZ_CD = CD.SPRT_BIZ_CD
+            AND DOC.SPRT_OGNZ_ID = CD.SPRT_OGNZ_ID
+            AND DOC.CLCLN_SEQ = CD.CLCLN_SEQ
+            AND DOC.DMND_SEQ = CD.DMND_SEQ
+            AND DOC.DEL_YN ='N'
+
+        JOIN TB_EV_SPRT_BIZ_ATCHFL FL
+            ON FL.ATCH_FILE_SN = DOC.ATCH_FILE_SN
+            AND FL.DEL_YN = 'N'
+
+        LEFT JOIN TB_EV_SPRT_BIZ_OGNZ SBO
+            ON SBO.SPRT_BIZ_YR = CD.SPRT_BIZ_YR
+            AND SBO.SPRT_BIZ_CD = CD.SPRT_BIZ_CD
+            AND SBO.SPRT_OGNZ_ID = CD.SPRT_OGNZ_ID
+            AND SBO.DEL_YN = 'N'
+
+        LEFT JOIN VW_EV_UO_APRV EUA
+            ON EUA.BRNO = SBO.BRNO
+            AND EUA.CRNO = SBO.CRNO
+
+        WHERE CD.DEL_YN = 'N'
+          AND CD.SPRT_BIZ_YR = #{sprtBizYr}
+          AND CD.CLCLN_SEQ = #{clclnSeq}
+
+        ]]>
+        <if test='brno != null and brno != ""'>
+            AND SBO.BRNO = #{brno}
+        </if>
+        <if test='corpNm != null and corpNm != ""'>
+            AND EUA.CORP_NM LIKE '%' || #{corpNm} || '%'
+        </if>
+
+        <![CDATA[
+        ORDER BY SPRT_BIZ_YR, SPRT_BIZ_CD, SPRT_OGNZ_ID, CLCLN_SEQ, DMND_SEQ, DOC_SEQ
+        ]]>
+
     </select>
 </mapper>

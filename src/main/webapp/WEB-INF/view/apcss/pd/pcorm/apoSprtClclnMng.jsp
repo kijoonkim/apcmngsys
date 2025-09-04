@@ -295,6 +295,9 @@
                   <span style="font-size:12px">(조회건수 <span id="clclnAplyList">0</span>건 )</span>
                 </li>
               </ul>
+       <%--       <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+                <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
+              </c:if>--%>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-clclnAply" style="height: 300px"></div>
@@ -930,11 +933,13 @@
     const rjctAmt = dmndAmt - clclnAprvAmt; // 불인정 = 정산요청액 - 정산인정액
     const unuseAmt = psbltyAmt - clclnAprvAmt - rjctAmt; // 미사용액 = 정산가능액 - 정산인정액 - 불인정액
     const blncTot = rjctAmt + unuseAmt; // 잔액합계 = 불인정 + 미사용액
+    const implRt = (clclnAprvAmt/psbltyAmt);
     /** 집행률 넣기 **/
     rowData.clclnRjctAmt = rjctAmt;
     rowData.unuseAmt = unuseAmt;
     rowData.blncTot = blncTot;
     rowData.checkedYn = "Y";
+    rowData.implRt = implRt;
 
     gridClclnRslt.refresh();
   }
@@ -1781,6 +1786,9 @@
       contentType: false,
       success: function (response) {
         if (_.isEqual("S", response.resultStatus)) {
+          fn_clear();
+          fn_clearPruf(); // 증빙서류 초기화
+          fn_clearExsPruf(); // 기제출 증빙서류 초기화
           gfn_comAlert("I0001");	// I0001	처리 되었습니다.
           fn_searchClclnAply();
         }
@@ -3157,7 +3165,7 @@
         const name  = file.lgcFileNm;
         label.textContent = name;
 
-        // 다운로드 버튼
+        // 삭제 버튼
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'btn btn-xs btn-outline-primary btnClass';
@@ -3552,13 +3560,48 @@
     window.open(url, title, "width=1000px,height=900px");
   }
 
+  // 증빙서류 팝업에서 사용
   function fn_getJsonCmnsPrufCd() {
     return jsonCmnsPrufCd;
   }
 
+  // 증빙서류 팝업에서 사용
   function fn_getJsonDtlPrufCd() {
     return jsonDtlPrufCd;
   }
+
+  /**
+   * @name fn_downAllPrufDoc
+   * @description 증빙서류 일괄 다운로드
+   */
+/*  const fn_downAllPrufDoc = function () {
+    const sprtBizYr = SBUxMethod.get('dtl-spi-yr'); // 지업사업연도
+    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnAplySeq')); // 회차
+    const brno   = SBUxMethod.get('dtl-inp-brno')   || ""; // 사업자번호
+    const corpNm = SBUxMethod.get('dtl-inp-corpNm') || ""; // 법인명
+    console.log("일괄다운",clclnSeq, typeof clclnSeq, typeof Number(clclnSeq));
+    console.log("brno",brno,"corpNm",corpNm);
+    console.log(gfn_isEmpty(brno));
+
+    if (gfn_isEmpty(sprtBizYr)) {
+      gfn_comAlert("W0005", "연도"); // W0005  {0}이/가 없습니다.
+      return;
+    }
+
+    if (gfn_isEmpty(clclnSeq)) {
+      gfn_comAlert("W0001", "회차"); // W0005  {0}을/를 선택하세요.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "증빙서류 일괄 다운로드")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const url = "/pd/downloadAllSprtClclnPrufDoc.do?sprtBizYr="+sprtBizYr
+            + "&clclnSeq=" + clclnSeq + "&brno=" + brno + "&corpNm=" + corpNm;
+
+    window.open(url);
+  }*/
 
 </script>
 <%@ include file="../../../frame/inc/bottomScript.jsp" %>
