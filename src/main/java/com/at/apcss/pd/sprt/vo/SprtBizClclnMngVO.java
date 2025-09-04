@@ -532,7 +532,7 @@ public class SprtBizClclnMngVO extends ComVO {
     /**
      * 정산요청액 합계
      */
-    private int dmndAmtTot;
+    private long dmndAmtTot;
 
     private String superUserYn;
     private String untyOgnzCd;

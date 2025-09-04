@@ -41,7 +41,7 @@ public class SprtBizClclnDmndDtlVO extends ComVO {
     /**
      * 요청금액
      */
-    private int dmndAmt;
+    private long dmndAmt;
 
     /**
      * 요청항목종류
