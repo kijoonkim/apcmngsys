@@ -454,7 +454,7 @@
                         <th scope="col" class="th_bg text-center">주요항목</th>
                         <th scope="col" class="th_bg text-center">세부항목</th>
                         <th scope="col" class="th_bg text-center">내용</th>
-                        <th scope="col" class="th_bg text-center">정산요청액(원)</th>
+                        <th scope="col" class="th_bg text-center">정산요청액(천원)</th>
                         <th scope="col" class="th_bg text-center">공통증빙</th>
                         <th scope="col" class="th_bg text-center">세부증빙</th>
                         <th scope="col" class="th_bg text-center">비고</th>
@@ -503,7 +503,7 @@
                         <th scope="col" class="th_bg text-center">주요항목</th>
                         <th scope="col" class="th_bg text-center">세부항목</th>
                         <th scope="col" class="th_bg text-center">내용</th>
-                        <th scope="col" class="th_bg text-center">정산요청액(원)</th>
+                        <th scope="col" class="th_bg text-center">정산요청액(천원)</th>
                         <th scope="col" class="th_bg text-center">공통증빙</th>
                         <th scope="col" class="th_bg text-center">세부증빙</th>
                         <th scope="col" class="th_bg text-center">비고</th>
@@ -695,11 +695,11 @@
       {caption: ['정산요청서','제출여부'], 			ref: 'clclnDmndSbmsnYn', 		width: '7%', type: 'output', style: 'text-align:center'},
       {caption: ['정산요청서','확인여부'], 			ref: 'clclnDmndAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},
       {caption: ['정산요청서','미리보기'], 			ref: 'clclnDmndPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_openClclnAplyPrvw}},
-      {caption: ['정산요청서','정산요청액'], 			ref: 'dmndAmtTot', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['정산요청서','정산요청액(천원)'], 			ref: 'dmndAmtTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       /*{caption: ['증빙서류','제출여부'], 			ref: 'prufSbmsnYn', 	width: '7%', type: 'output', style: 'text-align:right'},
       {caption: ['증빙서류','확인여부'], 			ref: 'prufAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},*/
       {caption: ['증빙서류','미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
-      {caption: ['증빙서류','비고'], 			ref: 'prufRmrk', 		width: '37%', type: 'output', style: 'text-align:left'},
+      {caption: ['증빙서류','비고'], 			ref: 'prufRmrk', 		width: '34%', type: 'output', style: 'text-align:left'},
     ];
     gridClclnAply = _SBGrid.create(SBGridProperties);
     gridClclnAply.bind('click','fn_clickGridClclnAply');
@@ -733,7 +733,7 @@
       {caption: ['법인명','법인명'], 			ref: 'corpNm', 	width: '16%', type: 'output', style: 'text-align:left'},
       {caption: ['회차','회차'], 			ref: 'clclnSeq', 		width: '6%', type: 'output', style: 'text-align:center'},
       {caption: ['정산가능액(A)\n(천원)','정산가능액(A)\n(천원)'], 		ref: 'clclnPsbltyAmt', 		width: '10%', type: 'output', style: 'text-align:right', typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['정산요청액','정산요청액'], 			ref: 'clclnDmndAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
+      {caption: ['정산요청액\n(천원)','정산요청액\n(천원)'], 			ref: 'clclnDmndAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['정산인정액(B)\n(천원)','정산인정액(B)\n(천원)'], 		ref: 'clclnAprvAmt', 		width: '10%', type: isAdmin ? 'input' : 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
@@ -2539,9 +2539,12 @@
 
       const majorVl = SBUxMethod.get(majorId); // 주요항목
       const artclVl = SBUxMethod.get(artclId); // 세부항목
-      const titleVl = SBUxMethod.get(cnId); // 내용
       const amtVl = SBUxMethod.get(amtId); // 금액
       const rmrkVl = SBUxMethod.get(rmrkId); // 비고
+      let titleVl = SBUxMethod.get(cnId); // 내용
+      if (titleVl === null || titleVl === undefined || titleVl === "null") {
+        titleVl = "";
+      }
 
       /** 주요항목,세부항목,금액 없을때 **/
       if (gfn_isEmpty(majorVl)) {
@@ -2637,6 +2640,7 @@
         fn_clear();
         fn_clearPruf(); // 증빙서류 초기화
         fn_clearExsPruf(); // 기제출 증빙서류 초기화
+        await fn_search();
         gfn_comAlert("I0001");					// I0001 처리 되었습니다.
       }
     } catch(e) {
@@ -3323,8 +3327,8 @@
 
     try {
       if (_.isEqual("S", data.resultStatus)) {
-        fn_clear();
-        fn_clearExsPruf(); // 기제출 증빙서류 초기화
+        fn_clearPruf(); // 증빙서류 제출 폼 초기화
+        await fn_searchPrufDoc(); // 제출된 증빙서류 조회
         gfn_comAlert("I0001");	// I0001	처리 되었습니다.
       }
 
@@ -3409,11 +3413,14 @@
 
       const majorVl = SBUxMethod.get(majorId); // 주요항목
       const artclVl = SBUxMethod.get(artclId); // 세부항목
-      const titleVl = SBUxMethod.get(cnId); // 내용
       const amtVl = SBUxMethod.get(amtId); // 금액
       const rmrkVl = SBUxMethod.get(rmrkId); // 비고
       const dmndSeq = document.getElementById(dmndSeqId).textContent; // 정산요청순번
 
+      let titleVl = SBUxMethod.get(cnId); // 내용
+      if (titleVl === null || titleVl === undefined || titleVl === "null") {
+        titleVl = "";
+      }
 
       // 정산요청정보
       updateObj.clclnDInfoList.push({
@@ -3493,6 +3500,7 @@
       if (_.isEqual("S", data.resultStatus)) {
         fn_clear();
         fn_clearExsPruf(); // 기제출 증빙서류 초기화
+        await fn_search(); // 조회
         gfn_comAlert("I0001"); // I0001 처리 되었습니다.
       }
     } catch(e) {

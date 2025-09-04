@@ -314,6 +314,27 @@ public class SprtBizClclnMngServiceImpl extends BaseServiceImpl implements SprtB
             return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산순서"); // {0}이/가 없습니다.
         }
 
+        SprtBizClclnMngVO sprtBizClclnMngVO = new SprtBizClclnMngVO();
+
+        sprtBizClclnMngVO.setSprtBizYr(sprtBizYr);
+        sprtBizClclnMngVO.setSprtBizCd(sprtBizCd);
+        sprtBizClclnMngVO.setSprtOgnzId(sprtOgnzId);
+        sprtBizClclnMngVO.setClclnSeq(clclnSeq);
+
+        // 지원사업정산
+        SprtBizClclnMngVO sprtBizClclnInfo = sprtBizClclnMngMapper.selectSprtBizClcln(sprtBizClclnMngVO);
+
+        sprtBizClclnMngVO.setSysFrstInptUserId(sprtBizClclnDmndDocVO.getSysFrstInptUserId());
+        sprtBizClclnMngVO.setSysFrstInptPrgrmId(sprtBizClclnDmndDocVO.getSysFrstInptPrgrmId());
+        sprtBizClclnMngVO.setSysLastChgUserId(sprtBizClclnDmndDocVO.getSysLastChgUserId());
+        sprtBizClclnMngVO.setSysLastChgPrgrmId(sprtBizClclnDmndDocVO.getSysLastChgPrgrmId());
+
+        if (sprtBizClclnInfo == null || !StringUtils.hasText(sprtBizClclnInfo.getSprtBizYr()) || !StringUtils.hasText(sprtBizClclnInfo.getSprtBizCd()) || !StringUtils.hasText(sprtBizClclnInfo.getSprtOgnzId())) {
+            if (0 == sprtBizClclnMngMapper.insertSprtBizClcln(sprtBizClclnMngVO)) {
+                throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "지원사업정산 신규 등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+            }
+        }
+
         List<SprtBizClclnDmndDtlVO> clclnDmndList = sprtBizClclnDmndDocVO.getClclnDInfoList();
 
         if (clclnDmndList == null || clclnDmndList.isEmpty()) {
@@ -478,6 +499,27 @@ public class SprtBizClclnMngServiceImpl extends BaseServiceImpl implements SprtB
 
         if (clclnSeq == 0) {
             return ComUtil.getResultMap(ComConstants.MSGCD_NOT_FOUND, "정산순서"); // {0}이/가 없습니다.
+        }
+
+        SprtBizClclnMngVO sprtBizClclnMngVO = new SprtBizClclnMngVO();
+
+        sprtBizClclnMngVO.setSprtBizYr(sprtBizYr);
+        sprtBizClclnMngVO.setSprtBizCd(sprtBizCd);
+        sprtBizClclnMngVO.setSprtOgnzId(sprtOgnzId);
+        sprtBizClclnMngVO.setClclnSeq(clclnSeq);
+
+        // 지원사업정산
+        SprtBizClclnMngVO sprtBizClclnInfo = sprtBizClclnMngMapper.selectSprtBizClcln(sprtBizClclnMngVO);
+
+        sprtBizClclnMngVO.setSysFrstInptUserId(sprtBizClclnDmndDocVO.getSysFrstInptUserId());
+        sprtBizClclnMngVO.setSysFrstInptPrgrmId(sprtBizClclnDmndDocVO.getSysFrstInptPrgrmId());
+        sprtBizClclnMngVO.setSysLastChgUserId(sprtBizClclnDmndDocVO.getSysLastChgUserId());
+        sprtBizClclnMngVO.setSysLastChgPrgrmId(sprtBizClclnDmndDocVO.getSysLastChgPrgrmId());
+
+        if (sprtBizClclnInfo == null || !StringUtils.hasText(sprtBizClclnInfo.getSprtBizYr()) || !StringUtils.hasText(sprtBizClclnInfo.getSprtBizCd()) || !StringUtils.hasText(sprtBizClclnInfo.getSprtOgnzId())) {
+            if (0 == sprtBizClclnMngMapper.insertSprtBizClcln(sprtBizClclnMngVO)) {
+                throw new EgovBizException(getMessageForMap(ComUtil.getResultMap(ComConstants.MSGCD_ERR_PARAM_ONE, "지원사업정산 신규 등록"))); // E0003	{0} 시 오류가 발생하였습니다.
+            }
         }
 
         List<SprtBizClclnDmndDtlVO> clclnDmndList = sprtBizClclnDmndDocVO.getClclnDInfoList();
