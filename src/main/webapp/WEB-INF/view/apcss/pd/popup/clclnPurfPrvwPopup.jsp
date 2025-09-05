@@ -458,7 +458,7 @@
     fn_clickDoc: async function(_file) {
         const $fileArea = $('#iframeclclnPrufDocArea');
         const lgcFileNm = _file.lgcFileNm;
-        const extension = lgcFileNm.substring(lgcFileNm.lastIndexOf('.'));
+        const extension = lgcFileNm.substring(lgcFileNm.lastIndexOf('.')).toLowerCase();
         const atchFileSn = _file.atchFileSn;
         if (gfn_isEmpty(atchFileSn)) {
             return;
