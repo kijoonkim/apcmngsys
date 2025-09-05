@@ -285,7 +285,7 @@
     /** ws msg obj **/
     let patch = {
         type : '',
-        code : gv_selectedApcCd,
+        roomId : gv_selectedApcCd,
         tableId : 'sumInfoTable',
         from : '',
         data : {},
@@ -671,7 +671,7 @@
         /** 현황판에 거래처 전달 **/
         ws.send(JSON.stringify({
             type: 'cell.patch_cnpt',
-            code: gv_selectedApcCd,
+            roomId: gv_selectedApcCd,
             userId: gv_userId,
             value: cnptNm
         }));
@@ -805,14 +805,15 @@
         const code = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?code=${'${code}'}&userId=${'${userId}'}`
+            + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
         ws = new WebSocket(url);
         ws.onopen = () => {};
 
         ws.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
-            if (msg.tableId !== 'sumInfoTable' || msg.code !== gv_selectedApcCd) return;
+            console.log(msg,"###########");
+            if (msg.tableId !== 'sumInfoTable' || msg.roomId !== gv_selectedApcCd) return;
 
             if (msg.type === 'init') {
                 /** 현재 상태를 전달함 **/
@@ -827,7 +828,7 @@
                     cnptNm = jsonCnptCd.filter(i => i.cnptCd === selectedCnpt)[0].cnptNm;
                 }
                 ws.send(JSON.stringify({
-                    type:'cell.snapshot', code: gv_selectedApcCd, from:'client',
+                    type:'cell.snapshot', roomId: gv_selectedApcCd, from:'client',
                     data:snap, at: Date.now(), userId: gv_userId || '', cnptNm: cnptNm
                 }));
             }
@@ -851,7 +852,7 @@
     const fn_patchQntt = function(_qntt){
         ws.send(JSON.stringify({
             type: 'cell.patch',
-            code: gv_selectedApcCd,
+            roomId: gv_selectedApcCd,
             userId: gv_userId,
             patchTarget: selectedPckgGrd,
             value: _qntt

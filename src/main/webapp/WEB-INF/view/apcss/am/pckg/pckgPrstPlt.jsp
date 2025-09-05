@@ -262,12 +262,12 @@
         const code = encodeURIComponent(gv_selectedApcCd);
         const userId = encodeURIComponent(gv_userId);
         const url = (location.protocol === 'https:' ? 'wss://' : 'ws://')
-            + location.host + `/ws/chat?code=${'${code}'}&userId=${'${userId}'}`
+            + location.host + `/ws/chat?roomId=${'${code}'}&userId=${'${userId}'}`
         ws = new WebSocket(url);
         ws.onopen = () => {
             ws.send(JSON.stringify({
                 type:'init',
-                code: gv_selectedApcCd,
+                roomId: gv_selectedApcCd,
                 from:'dashboard',
                 tableId: 'sumInfoTable',
                 at: Date.now()
@@ -278,7 +278,8 @@
         ws.onmessage = (e) => {
             let msg;
             try { msg = JSON.parse(e.data) } catch { return; }
-            if (msg.code !== gv_selectedApcCd) return;
+            console.log(e.data,"@@@@@");
+            if (msg.roomId !== gv_selectedApcCd) return;
 
             /** 현황판 최초 진입 **/
             if (msg.type === 'cell.snapshot') {
