@@ -4044,8 +4044,8 @@
                 , (SELECT FN_GET_VRTY_NM(SI.ITEM_CD, SI.VRTY_CD, SI.APC_CD) FROM DUAL) AS VRTY_NM
                 , SI.GRD_CD AS GRD_CD
                 , SI.SPCFCT_CD AS SPCFCT_CD
-                , SI.SORT_QNTT AS SORT_QNTT
-                , SI.SORT_WGHT AS SORT_WGHT
+                , ROUND(SI.SORT_QNTT,2) AS SORT_QNTT
+                , ROUND(SI.SORT_WGHT,2) AS SORT_WGHT
                 , SI.RMRK AS RMRK
             FROM TB_SORT_INVNTR SI
             WHERE SI.DEL_YN = 'N'

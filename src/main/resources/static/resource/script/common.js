@@ -1841,6 +1841,23 @@ const gfn_gridRowPlusMinus = function(_event, _gubun, _nRow){
 	}
 }
 
+/**
+ * @name gfn_objectToArray
+ * @description Object 타입 순환가능 형태로 반환함수
+ * @function
+ * @param {Object} _event
+ * @returns Array
+ */
+const gfn_objectToArray = function(_obj) {
+	const result = [];
+	for (let key in _obj) {
+		if (_obj.hasOwnProperty(key)) {
+			result.push({ [key]: _obj[key] });
+		}
+	}
+	return result;
+}
+
 
 /**
  * @name gfn_cloneJson
