@@ -252,6 +252,8 @@
 		let tab = SBUxMethod.get("idxTab_norm");
 		if(tab === 'grdDsctnTab'){
 			SBUxMethod.hide('srch-dtp-inptYmdTo');
+			/** 고당당도탭 진입시 재조회 **/
+			fn_search();
 		}else{
 			SBUxMethod.show('srch-dtp-inptYmdTo');
 		}
@@ -637,7 +639,9 @@
                 width: '80px',
                 style: 'text-align: right; padding-right: 5px;',
                 merge: false,
-                disabled: true
+                disabled: true,
+				format:{type:'number',rule:'#.###'}
+
             });
         });
 
@@ -1696,9 +1700,7 @@
 
 	/** 고당당도 해당 템플릿으로 출력 **/
 	const fn_typePrint = async function(){
-
 		await fn_initLuckySheet();
-
 	}
 
 	const fn_initLuckySheet = async function(){
@@ -1722,7 +1724,7 @@
 									});
 								}
 
-								/** 50줄 제한 **/
+								/** 200줄 제한 **/
 								const maxRow = 200;
 								exportJson.sheets = exportJson.sheets.map(sheet => {
 									// celldata 줄이기
@@ -1791,6 +1793,9 @@
 												luckysheet.setCellValue(headerRow,idx,caption);
 											});
 											const rmrkKeys = Array.from({ length: dataCol }, (_, i) => `rmrk${'${i + 1}'}`);
+											/** 임시조치 TODO:: 미달 **/
+											rmrkKeys.push('lak');
+											rmrkKeys.push('sum');
 											/** data 부분 **/
 											let dataJson = grdGrdDsctn.getGridDataAll().slice(0,-4);
 											let footJson = grdGrdDsctn.getGridDataAll().slice(-4);
@@ -1827,7 +1832,8 @@
 												/** 규격 **/
 												luckysheet.setCellValue(setRow,3,data.spcfctNm);
 
-												/** 선별 데이터 **/ // 8,
+												/** 선별 데이터 **/
+												/** 선별 수량 배경색과 함수부분 **/
 												if(setRow % 4 === 3){
 													/** row background color **/
 													for(let j = 3; j < 16; j++){
@@ -1837,12 +1843,24 @@
 													//TODO: 여기 함수 넣어야함.
 													rmrkValues.forEach(function(i,idx){
 														let setCol = Number(setStartCol + idx);
-														/** 선별수량 함수 **/
 														let cal = excelFx[idx];
 														let value = "=" + getCellRef(setRow - 3,setCol) + '/' + cal;
-														luckysheet.setCellValue(setRow,setCol,value);
+
+														if(!cal){
+															/** 연산식이 없으면 SUM으로 대체 **/
+															let sumTarget = Array.from({ length: 3 }, (_, i) => {
+																return getCellRef(setRow - (i + 1), setCol);
+															});
+															/** 선별수량 함수 **/
+
+															let cellFx = "=SUM(" + sumTarget.join('+') + ')';
+															value = cellFx;
+														}
+
+														luckysheet.setCellValue(setRow,setCol,value || 0);
 														/** 소수점 2자리 표현 **/
 														luckysheet.setCellFormat(setRow, setCol, "numFmt", "0.00");
+														luckysheet.setCellFormat(setRow, setCol, "ct", { t: "n", fa: "0.00" });
 
 														luckysheet.setCellFormat(setRow, setCol, "fs", 10);
 														luckysheet.setCellFormat(setRow, setCol, "bl", 1);
@@ -2120,16 +2138,24 @@
 					const excelCell = ws.getCell(r + 1, c + 1);
 
 					if (cell.f) {
-						excelCell.value = { formula: cell.f.startsWith('=') ? cell.f.slice(1) : cell.f };
+						// 수식: '=' 제거한 formula, 가능한 경우 result(숫자)도 같이 넣기
+						const resultVal = toNumberIfNumeric(cell.v);
+						excelCell.value = {
+							formula: cell.f.startsWith('=') ? cell.f.slice(1) : cell.f,
+							// result는 옵션이지만 넣으면 시각적으로 즉시 반영됨
+							...(typeof resultVal === 'number' ? { result: resultVal } : {})
+						};
+						applyDecimalFmtIfNeeded(excelCell, resultVal);
 					}else if(cell.ct?.t === 'd' && typeof cell.v === 'number'){
 						const jsDate = new Date(cell.v); // timestamp → Date
 						// excelCell.value = jsDate; // serial date로 변환
 						excelCell.value = getExcelSerialDate(jsDate); // serial date로 변환
 						excelCell.numFmt = cell.ct.fa || 'yyyy-mm-dd';
 					}else if (cell.v != null) {
-						excelCell.value = cell.v;
+						const v = toNumberIfNumeric(cell.v);
+						excelCell.value = v;
+						applyDecimalFmtIfNeeded(excelCell, v);
 					}
-
 					applyCellStyle(cell, excelCell);
 				}
 			}
@@ -2192,6 +2218,7 @@
 		saveAs(blob, `선별결과표_${'${date}'}.xlsx`);
 	}
 
+	/** luckySheet -> excelJs style주입 **/
 	function applyCellStyle(cell, excelCell) {
 		if (!cell) return;
 
@@ -2228,6 +2255,7 @@
 		}
 	}
 
+	/** merge cell 정렬 **/
 	function applyAlignmentToMergeRange(ws, startRow, startCol, endRow, endCol, alignment) {
 		for (let r = startRow; r <= endRow; r++) {
 			for (let c = startCol; c <= endCol; c++) {
@@ -2236,6 +2264,29 @@
 		}
 	}
 
+	/** 숫자처럼 보이면 숫자로 변환 ("8.", "1,234.50", "1e-3" 등 커버) **/
+	function toNumberIfNumeric(v) {
+		if (typeof v === 'number') return v;
+		if (typeof v !== 'string') return v;
+		const n = Number(v.trim().replace(/,/g, ''));
+		return Number.isNaN(n) ? v : n;
+	}
+
+	/** 값 기준으로 "소수부 존재?" 판단 **/
+	function hasFractionValue(v) {
+		const n = toNumberIfNumeric(v);
+		return (typeof n === 'number') && Number.isFinite(n) && Math.abs(n % 1) > Number.EPSILON;
+	}
+
+	/** 필요할 때만 numFmt 적용 **/
+	function applyDecimalFmtIfNeeded(excelCell, value) {
+		if (hasFractionValue(value)) {
+			excelCell.numFmt = '#,##0.##';      // 소수 있으면 2자리로
+		} else {
+			// 정수/숫자 아님 → 포맷 건드리지 않음 (General 유지)
+			excelCell.numFmt = '#,##0';
+		}
+	}
 
 	/** merge cell **/
 	function mergeABCColumnsForGroup(baseRow, lastFlag = false) {
