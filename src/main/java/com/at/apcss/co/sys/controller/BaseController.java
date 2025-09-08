@@ -3,6 +3,7 @@ package com.at.apcss.co.sys.controller;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -611,7 +612,10 @@ public abstract class BaseController {
 		comSysVO.setUserIp(getUserIp(request));
 		comSysVO.setApcCd(getApcCd());
 
+		HashMap<String, Object> rtnObj = null;
+
 		String uri = request.getRequestURI();
+
 		if (StringUtils.hasText(uri)) {
 
 			comSysVO.setPrslType(ComConstants.CON_PRSL_TYPE_UI_ACTION);
@@ -636,13 +640,14 @@ public abstract class BaseController {
 
 			comSysVO.setFlfmtTaskSeCd(flfmtTaskSeCd);
 
-			HashMap<String, Object> rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
-			if (rtnObj != null) {
-				return rtnObj;
+			try {
+				rtnObj = comSysService.insertComeMenuLogPrsnaInfo(comSysVO);
+			} catch (SQLException e) {
+				rtnObj = ComUtil.getResultMap(ComConstants.RESULT_CODE_DEFAULT, ComConstants.RESULT_MESSAGE_DEFAULT);
 			}
 		}
 
-		return null;
+		return rtnObj;
 	}
 
 	/**
