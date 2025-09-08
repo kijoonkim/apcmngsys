@@ -66,10 +66,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_MAP, resultVO);
@@ -95,10 +92,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -126,10 +120,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -155,10 +146,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -184,10 +172,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -213,10 +198,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -244,10 +226,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -305,10 +284,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -332,10 +308,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -360,10 +333,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -395,10 +365,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -422,10 +389,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -450,10 +414,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -478,10 +439,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -506,10 +464,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -545,10 +500,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -635,10 +587,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -655,10 +604,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 		return getSuccessResponseEntity(resultMap);
@@ -682,10 +628,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -709,10 +652,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -729,10 +669,6 @@ public class WghPrfmncController extends BaseController {
 				wghPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				wghPrfmncVO.setSysLastChgUserId(getUserId());
 				wghPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
-
-
-
-
 			});
 
 			wghPrfmncService.saveWghVhclInfo(wghPrfmncVOList);
@@ -743,10 +679,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -765,10 +698,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 		return getSuccessResponseEntity(resultMap);
@@ -786,10 +716,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			 setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -813,10 +740,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -833,10 +757,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
@@ -852,10 +773,7 @@ public class WghPrfmncController extends BaseController {
 	        }catch (Exception e) {
 	            return getErrorResponseEntity(e);
 	        } finally {
-	            HashMap<String, Object> rtnObj = setMenuComLog(request);
-	            if (rtnObj != null) {
-	                return getErrorResponseEntity(rtnObj);
-	            }
+	            setMenuComLog(request);
 	        }
 			resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 	        return getSuccessResponseEntity(resultMap);
@@ -879,10 +797,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -908,10 +823,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -937,10 +849,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -966,10 +875,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -1002,10 +908,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -1039,10 +942,7 @@ public class WghPrfmncController extends BaseController {
 			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		return getSuccessResponseEntity(resultMap);
 	}
@@ -1075,10 +975,7 @@ public class WghPrfmncController extends BaseController {
 		} catch (Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
