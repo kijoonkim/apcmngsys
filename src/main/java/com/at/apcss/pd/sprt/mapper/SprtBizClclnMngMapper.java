@@ -218,4 +218,28 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     List<SprtBizClclnDmndDtlVO> selectSprtClclnPrufDocList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO);
+
+    /**
+     * 지원사업정산요청 삭제
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public int deleteClclnDmnd(SprtBizClclnDmndDtlVO deleteVO) throws Exception;
+
+    /**
+     * 지원사업정산요청문서 삭제시 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnDmndDtlVO> selectClclnDmndDocList(SprtBizClclnDmndDtlVO deleteVO) throws Exception;
+
+    /**
+     * 지원사업첨부파일 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public SprtBizClclnDmndDtlVO selectSprtBizAtchfl(SprtBizClclnDmndDtlVO clclnDmndDocVO) throws Exception;
 }
