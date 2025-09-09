@@ -34,10 +34,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -1131,45 +1128,55 @@ public class SprtBizClclnMngController extends BaseController {
         }
     }
 
-/*    @GetMapping("/pd/downloadAllSprtClclnPrufDoc.do")
-    public ResponseEntity<?> downloadAllSprtClclnPrufDoc (HttpServletRequest request, HttpServletResponse response
+    @GetMapping("/pd/downloadAllSprtClclnPrufDoc.do")
+    public void downloadAllSprtClclnPrufDoc (HttpServletRequest request, HttpServletResponse response
             , @RequestParam("sprtBizYr") String sprtBizYr
             , @RequestParam("clclnSeq") int clclnSeq
             , @RequestParam(value = "brno" , required = false) String brno
             , @RequestParam(value = "corpNm" , required = false) String corpNm
     ) throws Exception {
+
+        ZipOutputStream zos = null;
+
+        // 파일 정보 조회
+        SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO = new SprtBizClclnDmndDtlVO();
+        sprtBizClclnDmndDtlVO.setSprtBizYr(sprtBizYr);
+        sprtBizClclnDmndDtlVO.setClclnSeq(clclnSeq);
+        sprtBizClclnDmndDtlVO.setBrno(brno);
+        sprtBizClclnDmndDtlVO.setCorpNm(corpNm);
+
+
+        List<SprtBizClclnDmndDtlVO> prufDocList = sprtBizClclnMngService.selectSprtClclnPrufDocList(sprtBizClclnDmndDtlVO);
+
         try {
-            logger.debug("sprtBizYr : {}, clclnSeq : {}, brno :{}, corpNm :{}",sprtBizYr,clclnSeq,brno,corpNm);
-
-            // 1. 파일 정보 조회
-            SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO = new SprtBizClclnDmndDtlVO();
-            sprtBizClclnDmndDtlVO.setSprtBizYr(sprtBizYr);
-            sprtBizClclnDmndDtlVO.setClclnSeq(clclnSeq);
-            sprtBizClclnDmndDtlVO.setBrno(brno);
-            sprtBizClclnDmndDtlVO.setCorpNm(corpNm);
-
-
-            List<SprtBizClclnDmndDtlVO> prufDocList = sprtBizClclnMngService.selectSprtClclnPrufDocList(sprtBizClclnDmndDtlVO);
-            logger.debug("파일은???????"+prufDocList);
-
             // 파일 없음
             if (prufDocList == null || prufDocList.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+//                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일정보를 찾을 수 없습니다.");
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return;
             }
 
             // 헤더용 파일명
             String zipFileNm = "산지조직 증빙서류 일괄 다운로드.zip";
             String convertFileNm = URLEncoder.encode(zipFileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
-            String contentDisposition = "attachment; filename=\"" + convertFileNm + "\"";
 
             // 파일경로
             String uploadPath = getFilepathPd();
 
-            // 2. 권한 확인
+            // 권한 확인
             String untyAuthrtType = getUntyAuthrtType();
             String untyOgnzCd = getUntyOgnzCd();
 
-            // 확인들
+            // 파일명 중복확인용 List
+            List<String> fileNameList = new ArrayList<>();
+
+            // 파일명 중복count
+            int dupCount = 0;
+            // 실제 존재하는 파일만 넣는 List
+            List<File> existFile = new ArrayList<>();
+            // 중복제거한 파일명 List
+            List<String> existEntryFileNm = new ArrayList<>();
+
             for (SprtBizClclnDmndDtlVO prufDocInfo : prufDocList) {
 
                 // 권한 체크
@@ -1177,90 +1184,140 @@ public class SprtBizClclnMngController extends BaseController {
                         && !ComConstants.CON_UNTY_AUTHRT_TYPE_AT.equals(untyAuthrtType)) {
                     if (!ComUtil.nullToEmpty(untyOgnzCd)
                             .equals(ComUtil.nullToEmpty("UO" + prufDocInfo.getApoCd()))) {
-                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.11");
+//                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.11");
+                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        return;
                     }
                 }
 
-                String filePathNm = prufDocInfo.getFilePathNm();
+                // 서버 저장 파일명
                 String physFileNm = prufDocInfo.getPhysFileNm();
+                // 확장자명
                 String fileExtnNm = prufDocInfo.getFileExtnNm();
-                String filePath = uploadPath + filePathNm;
-                String fileNm = physFileNm + "_" + fileExtnNm;
+                // 파일 경로명
+                String filePathNm = prufDocInfo.getFilePathNm();
+                // 법인명
+                String coprNm = prufDocInfo.getCorpNm();
+                // 회차
+                int seq = prufDocInfo.getClclnSeq();
+                // 주요항목명
+                String dmndArtclKndNm = prufDocInfo.getDmndArtclKndNm();
+                // 세부항목명
+                String dmndArtclNm = prufDocInfo.getDmndArtclCdNm();
+                // 증빙명
+                String docNm = prufDocInfo.getDocNm();
+                // 원본 파일명
+                String lgcFileNm = prufDocInfo.getLgcFileNm();
 
-                if (filePath == null || filePath.contains("..")) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+
+                // 예시: 법인명_1차_조직화_1.농가교육비_영수증_파일명
+                String fileNm = coprNm + "_" + seq + "차_" + dmndArtclKndNm + "_"
+                        + dmndArtclNm + "_" + docNm + "_" +lgcFileNm;
+
+                String namePart = fileNm.substring(0,fileNm.lastIndexOf('.'));
+                String extensionPart = fileNm.substring(fileNm.lastIndexOf('.'));
+
+                // zip에 들어가는 파일명이 중복이 생기는 경우
+                int duplicateCount = 1;
+                while (fileNameList.contains(fileNm)) {
+                    duplicateCount++;
+                    fileNm = namePart + " (" + duplicateCount + ")" + extensionPart;
                 }
 
-                File atchFile = new File(filePath, fileNm);
+                fileNameList.add(fileNm);
 
-                logger.debug("!!!!!!!!파일은?? : {}",atchFile);
-                if (!atchFile.exists() || !atchFile.isFile()) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("파일을 찾을 수 없습니다.");
+                // 물리 파일명
+                String filename = physFileNm + "_" + fileExtnNm;
+
+                String filePath = uploadPath + filePathNm;
+
+                if (filePath == null || filePath.contains("..")) {
+//                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("잘못된 요청입니다.");
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return;
+                }
+
+                File atchFile = new File(filePath, filename);
+
+                if (atchFile.exists()) {
+                    existFile.add(atchFile);
+                    existEntryFileNm.add(fileNm);
+//                    zos.putNextEntry(new ZipEntry(fileNm));
+//                    try (FileInputStream fis = new FileInputStream(atchFile)) {
+//                        StreamUtils.copy(fis, zos);
+//                    }
+//                    zos.closeEntry();
                 }
             }
 
-            FileSystemResource resource = null;
+            if (existFile.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//                response.setContentType("text/plain;charset=UTF-8");
+//                response.getWriter().write("파일이 없습니다.");
+                return;
+            }
 
-            // 확인통과되면 여기서 생성,전송
-            StreamingResponseBody stream = out -> {
-                ZipOutputStream zos = new ZipOutputStream(out);
-                try {
-                    for (SprtBizClclnDmndDtlVO prufDocInfo : prufDocList) {
-                        // 서버 저장 파일명
-                        String physFileNm = prufDocInfo.getPhysFileNm();
-                        // 확장자명
-                        String fileExtnNm = prufDocInfo.getFileExtnNm();
-                        // 파일 경로명
-                        String filePathNm = prufDocInfo.getFilePathNm();
-                        // 원본 파일명
-                        String lgcFileNm = prufDocInfo.getLgcFileNm();
-                        // 법인명
-                        String coprNm = prufDocInfo.getCorpNm();
-                        // 회차
-                        int seq = prufDocInfo.getClclnSeq();
-                        // 주요항목명
-                        String dmndArtclKndNm = prufDocInfo.getDmndArtclKndNm();
-                        // 세부항목명
-                        String dmndArtclNm = prufDocInfo.getDmndArtclCdNm();
-                        // 증빙명
-                        String docNm = prufDocInfo.getDocNm();
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/zip");
+            response.addHeader("Content-Disposition", "attachment; filename=\"" + convertFileNm +  "\";");
 
-                        // 예시: 법인명_1차_조직화_1.농가교육비_영수증_파일명
-                        String fileNm = coprNm + "_" + seq + "차_" + dmndArtclKndNm + "_"
-                                + dmndArtclNm + "_" + docNm + "_" + lgcFileNm;
-//                        String convertFlNm = URLEncoder.encode(fileNm, StandardCharsets.UTF_8).replaceAll("\\+", "%20");
+            zos = new ZipOutputStream(response.getOutputStream());
 
-                        // 물리 파일명
-                        String filename = physFileNm + "_" + fileExtnNm;
+            for (int i = 0; i < existFile.size(); i++) {
+                String fileNm = existEntryFileNm.get(i);
 
-                        String filePath = uploadPath + filePathNm;
-                        logger.debug("file");
-                        File atchFile = new File(filePath, filename);
-                        logger.debug("!@@@@@@@@@파일은?? : {}",atchFile);
-
-
-                        try (FileInputStream fis = new FileInputStream(atchFile)){
-                            zos.putNextEntry(new ZipEntry(fileNm));
-
-                            StreamUtils.copy(fis, zos);
-//                            fis.close();
-                            zos.closeEntry();
-                        }
-                    }
-                } finally {
-                    zos.close();
+                zos.putNextEntry(new ZipEntry(fileNm));
+                try (FileInputStream fis = new FileInputStream(existFile.get(i))) {
+                    StreamUtils.copy(fis, zos);
                 }
-            };
+                zos.closeEntry(); // 하나의 entry 쓰기를 끝낼 때
+            }
 
-            return ResponseEntity.ok()
-                    .contentType(MediaType.valueOf("application/zip"))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-                    .body(stream);
+            // null 체크 후 finish
+            if (zos != null) {
+                zos.finish(); // ZipOutputStream 전체 아카이브를 마무리
+            }
 
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("오류가 발생했습니다. 관리자에게 문의하세요.");
+        }  catch (Exception e) {
+            logger.error("ZIP 다운로드 오류", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        } finally {
+            if (zos != null) {
+                try {
+                    zos.close();
+                } catch (IOException ignore) {
+                    logger.debug(ignore.getMessage());
+                }
+            }
+        }
+    }
+
+    @PostMapping(value = "/pd/sprt/deleteClclnDmndList.do", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE})
+    public ResponseEntity<HashMap<String, Object>> deleteClclnDmndList(@RequestBody List<SprtBizClclnDmndDtlVO> clclnDmndDelList, HttpServletRequest request) throws Exception{
+
+        HashMap<String, Object> resultMap = new HashMap<String,Object>();
+
+        // audit 항목
+        for (SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO:clclnDmndDelList) {
+            sprtBizClclnDmndDtlVO.setSysFrstInptUserId(getUserId());
+            sprtBizClclnDmndDtlVO.setSysFrstInptPrgrmId(getPrgrmId());
+            sprtBizClclnDmndDtlVO.setSysLastChgUserId(getUserId());
+            sprtBizClclnDmndDtlVO.setSysLastChgPrgrmId(getPrgrmId());
         }
 
-    }*/
+        try {
+            HashMap<String, Object> rtnObj = sprtBizClclnMngService.deleteClclnDmndList(clclnDmndDelList);
+            if(rtnObj != null) {
+                return getErrorResponseEntity(rtnObj);
+            }
+        }  catch (Exception e) {
+            logger.debug(ComConstants.ERROR_CODE, e.getMessage());
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        return getSuccessResponseEntity(resultMap);
+    }
+
 }

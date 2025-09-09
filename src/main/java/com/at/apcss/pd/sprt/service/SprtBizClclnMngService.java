@@ -154,4 +154,12 @@ public interface SprtBizClclnMngService {
      * @throws Exception
      */
     public List<SprtBizClclnDmndDtlVO> selectSprtClclnPrufDocList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO) throws Exception;
+
+    /**
+     * 지원사업정산 삭제
+     * @param clclnDmndDelList
+     * @return
+     * @throws Exception
+     */
+    public HashMap<String, Object> deleteClclnDmndList(List<SprtBizClclnDmndDtlVO> clclnDmndDelList) throws Exception;
 }
