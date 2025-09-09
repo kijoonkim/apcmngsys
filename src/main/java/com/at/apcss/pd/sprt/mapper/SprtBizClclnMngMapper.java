@@ -242,4 +242,28 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public SprtBizClclnDmndDtlVO selectSprtBizAtchfl(SprtBizClclnDmndDtlVO clclnDmndDocVO) throws Exception;
+
+    /**
+     * 지원사업정산 비고 저장
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public int updateClclnAplyRmrk(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 교부관리 비고 저장
+     * @param sprtBizRegMngVO
+     * @return
+     * @throws Exception
+     */
+    public int updateDtbnRmrk(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
+
+    /**
+     * 교부관리 추가
+     * @param sprtBizRegMngVO
+     * @return
+     * @throws Exception
+     */
+    public int insertSprtAplyDoc(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
 }
