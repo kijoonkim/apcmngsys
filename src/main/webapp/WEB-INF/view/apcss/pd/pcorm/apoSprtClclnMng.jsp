@@ -118,6 +118,9 @@
                   <span style="font-size:12px">(조회건수 <span id="dtbnMngList">0</span>건 )</span>
                 </li>
               </ul>
+              <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
+                  <div><sbux-button id="btnSaveDtbn" name="btnSaveDtbn" uitype="normal" text="저장" class="btn btn-sm btn-primary" onclick="fn_saveDtbnRmrk()"></sbux-button></div>
+              </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
             <div id="sb-area-dtbnMng" style="height: 300px"></div>
@@ -296,7 +299,11 @@
                 </li>
               </ul>
               <c:if test="${loginVO.untyAuthrtType eq '00' || loginVO.untyAuthrtType eq '10'}">
-                <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
+                <div style="display:flex; gap:10px; align-items:center; justify-content: end">
+                  <div><sbux-select id="dtl-slt-clclnDownSeq" name="dtl-slt-clclnDownSeq" class="form-control input-sm" uitype="single" jsondata-ref="jsonClclnSeq"></sbux-select></div>
+                  <div><sbux-button id="btnDownAllPrufDoc" name="btnDownAllPrufDoc" uitype="normal" text="증빙서류 일괄 다운로드" class="btn btn-sm btn-primary" onclick="fn_downAllPrufDoc()"></sbux-button></div>
+                  <div><sbux-button id="btnSaveClclnRmrk" name="btnSaveClclnRmrk" uitype="normal" text="비고 저장" class="btn btn-sm btn-primary" onclick="fn_saveClclnRmrk()"></sbux-button></div>
+                </div>
               </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
@@ -687,6 +694,7 @@
     SBGridProperties.selectmode = 'free';
     SBGridProperties.allowcopy = true;
     SBGridProperties.extendlastcol = 'scroll';
+    SBGridProperties.oneclickedit = true;
 
     SBGridProperties.columns = [
       {caption: ['연도','연도'],			ref: 'sprtBizYr', 	    width: '5%', type: 'output',style: 'text-align:center'},
@@ -699,8 +707,8 @@
       {caption: ['정산요청서','정산요청액(천원)'], 			ref: 'dmndAmtTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       /*{caption: ['증빙서류','제출여부'], 			ref: 'prufSbmsnYn', 	width: '7%', type: 'output', style: 'text-align:right'},
       {caption: ['증빙서류','확인여부'], 			ref: 'prufAprvYn', 		width: '7%', type: 'output', style: 'text-align:center'},*/
-      {caption: ['증빙서류','미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
-      {caption: ['증빙서류','비고'], 			ref: 'prufRmrk', 		width: '34%', type: 'output', style: 'text-align:left'},
+      {caption: ['증빙서류\n미리보기','증빙서류\n미리보기'], 			ref: 'prufPrvw', 		width: '7%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '팝업 열기', callback: fn_opoenClclnPrufPrvw}},
+      {caption: ['비고','비고'], 			ref: 'clclnRmrk', 		width: '34%', type: 'input', style: 'text-align:left'},
     ];
     gridClclnAply = _SBGrid.create(SBGridProperties);
     gridClclnAply.bind('click','fn_clickGridClclnAply');
@@ -781,7 +789,7 @@
       {caption: ['2차 교부결정액','금액'], 			ref: 'dtbnDcsnAmt2', 		width: '6%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['2차 교부결정액','교부결정서'], 			ref: 'dtbnDcsnDoc2', 		width: '6%', type: 'button', style: 'text-align:center',typeinfo : {buttonclass:'btn btn-sm btn-outline-danger btnClass', buttonvalue: '다운로드', callback: function(){fn_dwnldDtbnDcsnDoc(2)}}},
       {caption: ['잔액','잔액'], 			ref: 'blnc', 		width: '7%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['비고','비고'], 			ref: 'rmrk', 		width: '20%', type: 'input', style: 'text-align:center'},
+      {caption: ['비고','비고'], 			ref: 'rmrk', 		width: '20%', type: 'input', style: 'text-align:left',userattr: {colNm: "dtbnRmrk"}},
     ];
     gridDtbnMng = _SBGrid.create(SBGridProperties);
     gridDtbnMng.bind('valuechanged','fn_gridDtbnMngValueChange');
@@ -850,8 +858,8 @@
    * @description 조회
    */
   const fn_search = async function () {
-    await fn_searchClclnAply(); // 정산신청
     await fn_searchDtbnMng(); // 교부관리
+    await fn_searchClclnAply(); // 정산신청
     await fn_searchClclnRslt(); // 정산결과
   }
 
@@ -1076,6 +1084,7 @@
             regDt : item.regDt,
             idfr : item.idfr,
             idfrDt : item.idfrDt,
+            rmrk : item.idfrRmrk,
 
             // 교부결정
             clclnSeqFirst : item.clclnSeqFirst,
@@ -1141,6 +1150,9 @@
       } else {
         fn_calcDtbnSum(checkedData); // 선택
       }
+      gridDtbnMng.refresh();
+    } else if (colNm, "dtbnRmrk") {
+      rowData.checkedYn = "Y";
       gridDtbnMng.refresh();
     }
   }
@@ -1587,6 +1599,7 @@
             chkChgYn : item.chkChgYn,
 
             dmndAmtTot : item.dmndAmtTot,
+            clclnRmrk : item.rsnRmrk
           };
 
          /* const vo1 = { ...vo, clclnSeq: item.clclnSeq};
@@ -3664,7 +3677,7 @@
    */
   const fn_downAllPrufDoc = function () {
     const sprtBizYr = SBUxMethod.get('dtl-spi-yr'); // 지업사업연도
-    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnAplySeq')); // 회차
+    const clclnSeq = Number(SBUxMethod.get('dtl-slt-clclnDownSeq')); // 회차
     const brno   = SBUxMethod.get('dtl-inp-brno')   || ""; // 사업자번호
     const corpNm = SBUxMethod.get('dtl-inp-corpNm') || ""; // 법인명
 
@@ -3764,6 +3777,115 @@
       console.error("failed", e.message);
       gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
     }
+  }
+
+  /**
+   * @name fn_saveClclnRmrk
+   * @description 정산신청 비고 저장
+   */
+  const fn_saveClclnRmrk = async function () {
+    const allData = gridClclnAply.getGridDataAll();
+
+    const saveList = [];
+
+    for (let i = 0; i < allData.length; i++) {
+      if (_.isEqual(gridClclnAply.getRowStatus(i + 2), 2)) { // 상태가 수정인 경우
+        saveList.push({
+          sprtBizYr: allData[i].sprtBizYr,
+          sprtBizCd: allData[i].sprtBizCd,
+          sprtOgnzId: allData[i].sprtOgnzId,
+          clclnSeq: allData[i].clclnSeq,
+          rsnRmrk: allData[i].clclnRmrk,
+        });
+      }
+    }
+
+    if (gfn_isEmpty(saveList)) {
+      gfn_comAlert("W0003", "정산신청 비고 저장"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "정산신청 비고저장")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/updateClclnAplyRmrk.do", saveList);
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        fn_clear();
+        fn_clearExsPruf();
+        fn_clearPruf();
+        await fn_search();
+      } else {
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+  }
+
+  /**
+   * @name fn_saveDtbnRmrk
+   * @description 교부관리 비고 저장
+   */
+  const fn_saveDtbnRmrk = async function () {
+    const allData = gridDtbnMng.getGridDataAll();
+
+    const saveList = [];
+
+    for (let i = 0; i < allData.length; i++) {
+      if (_.isEqual(allData[i].checkedYn, "Y")) { // 상태가 수정이면서 체크된 상태
+        const aplyDocCd = allData[i].aplyDocCd != null ? allData[i].aplyDocCd : "DTBN_APLY";
+
+        saveList.push({
+          sprtBizYr: allData[i].yr,
+          sprtBizCd: allData[i].sprtBizCd,
+          sprtOgnzId: allData[i].sprtOgnzId,
+          aplyDocCd: aplyDocCd,
+          idfrRmrk: allData[i].rmrk
+        });
+      }
+    }
+
+    if (gfn_isEmpty(saveList)) {
+      gfn_comAlert("W0003", "교부관리 저장"); // W0003 {0}할 대상이 없습니다.
+      return;
+    }
+
+    if (!gfn_comConfirm("Q0001", "교부관리 저장")) {	//	Q0001	{0} 하시겠습니까?
+      return;
+    }
+
+    const postJsonPromise = gfn_postJSON("/pd/sprt/updateDtbnRmrk.do", saveList);
+    const data = await postJsonPromise;
+
+    try {
+      if (_.isEqual("S", data.resultStatus)) {
+        gfn_comAlert("I0001");	// I0001	처리 되었습니다.
+        fn_clear();
+        fn_clearExsPruf();
+        fn_clearPruf();
+        await fn_search();
+      } else {
+        gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+      }
+
+    } catch (e) {
+      if (!(e instanceof Error)) {
+        e = new Error(e);
+      }
+      console.error("failed", e.message);
+      gfn_comAlert("E0001");	//	E0001	오류가 발생하였습니다.
+    }
+
   }
 
 </script>

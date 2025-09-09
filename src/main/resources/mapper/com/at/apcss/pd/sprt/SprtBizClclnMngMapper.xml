@@ -35,6 +35,7 @@
                 , DOC.IDFR AS IDFR
                 , DOC.IDFR_DT AS IDFR_DT
                 , DOC.APLY_DOC_CD AS APLY_DOC_CD
+                , DOC.IDFR_RMRK AS IDFR_RMRK
 
                 -- 배정액 국비
                 , SBA.RPN_AMT_NE AS RPN_AMT_NE
@@ -364,6 +365,7 @@
             , NVL(SBA.RPN_AMT_NE,0) + NVL(SBA.RPN_AMT_NE,0) AS CLCLN_PSBLTY_AMT
 
             , SBC.CLCLN_SEQ AS CLCLN_SEQ
+            , SBC.RSN_RMRK AS RSN_RMRK
              -- 정산요청서
             , SBCD.DOC_SEQ AS APLY_DOC_SEQ
             , SBCD.ATCH_FILE_SN AS APLY_ATCH_FILE_SN
@@ -1512,4 +1514,109 @@
               AND DEL_YN = 'N'
         ]]>
     </select>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateClclnAplyRmrk-->
+    <!-- DESC : 지원사업 정산신청 비고저장                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.09  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateClclnAplyRmrk" parameterType="com.at.apcss.pd.sprt.vo.SprtBizClclnMngVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateClclnAplyRmrk*/
+                TB_EV_SPRT_BIZ_CLCLN
+            SET
+                RSN_RMRK = #{rsnRmrk}
+                , SYS_LAST_CHG_DT         = SYSDATE
+                , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+                , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND CLCLN_SEQ = #{clclnSeq}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateDtbnRmrk    -->
+    <!-- DESC : 지원사업 교부관리 비고저장                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.09  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <update id="updateDtbnRmrk" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        <![CDATA[
+            UPDATE /*com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.updateDtbnRmrk*/
+                TB_EV_SPRT_BIZ_APLY_DOC
+            SET
+                IDFR_RMRK = #{idfrRmrk}
+              , SYS_LAST_CHG_DT         = SYSDATE
+              , SYS_LAST_CHG_USER_ID    = #{sysLastChgUserId}
+              , SYS_LAST_CHG_PRGRM_ID   = #{sysLastChgPrgrmId}
+            WHERE SPRT_BIZ_YR = #{sprtBizYr}
+              AND SPRT_BIZ_CD = #{sprtBizCd}
+              AND SPRT_OGNZ_ID = #{sprtOgnzId}
+              AND APLY_DOC_CD = #{aplyDocCd}
+        ]]>
+    </update>
+
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.insertSprtAplyDoc    -->
+    <!-- DESC : 지원사업 교부관리 비고저장                                               -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.09  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
+    <insert id="insertSprtAplyDoc" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegMngVO">
+        INSERT /*com.at.apcss.pd.pcorm.mapper.SprtBizClclnMngMapper.insertSprtAplyDoc*/
+        INTO TB_EV_SPRT_BIZ_APLY_DOC (
+            SPRT_BIZ_YR
+            , SPRT_BIZ_CD
+            , SPRT_OGNZ_ID
+            , APLY_DOC_CD
+            , ATCH_FILE_SN
+            , RGTR
+            , RGTR_ID
+            , REG_DT
+            , IDFR
+            , IDFR_ID
+            , IDFR_DT
+            , IDFR_RMRK
+            , APRV_YN
+            , DEL_YN
+            , SYS_FRST_INPT_DT
+            , SYS_FRST_INPT_USER_ID
+            , SYS_FRST_INPT_PRGRM_ID
+            , SYS_LAST_CHG_DT
+            , SYS_LAST_CHG_USER_ID
+            , SYS_LAST_CHG_PRGRM_ID
+
+        ) VALUES (
+                #{sprtBizYr}
+                 , #{sprtBizCd}
+                 , #{sprtOgnzId}
+                 , #{aplyDocCd}
+                 , #{atchFileSn}
+                 , #{rgtr}
+                 , #{rgtrId}
+                 , #{regDt}
+                 , #{idfr}
+                 , #{idfrId}
+                 , #{idfrDt}
+                 , #{idfrRmrk}
+                 , #{aprvYn}
+                 , 'N'
+                 , SYSDATE
+                 , #{sysFrstInptUserId}
+                 , #{sysFrstInptPrgrmId}
+                 , SYSDATE
+                 , #{sysLastChgUserId}
+                 , #{sysLastChgPrgrmId}
+                 )
+
+    </insert>
 </mapper>
