@@ -2227,10 +2227,13 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV > #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
         </if>
-        <if test='inptYmdFrom != null and inptYmdFrom != "" and inptYmdTo != null and inptYmdTo != ""'>
-                        AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
         </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
                         AND SI.RPRS_PRDCR_CD = #{prdcrCd}
@@ -2387,10 +2390,13 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV > #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
         </if>
-        <if test='inptYmdFrom != null and inptYmdFrom != "" and inptYmdTo != null and inptYmdTo != ""'>
-                        AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
         </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
                         AND SI.RPRS_PRDCR_CD = #{prdcrCd}
@@ -2548,10 +2554,13 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV > #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
         </if>
-        <if test='inptYmdFrom != null and inptYmdFrom != "" and inptYmdTo != null and inptYmdTo != ""'>
-                        AND SI.INPT_YMD BETWEEN #{inptYmdFrom} AND #{inptYmdTo}
+        <if test='inptYmdFrom != null and inptYmdFrom != ""'>
+                        AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
+        </if>
+        <if test='inptYmdTo != null and inptYmdTo != ""'>
+                        AND SI.INPT_YMD <![CDATA[<=]]> #{inptYmdTo}
         </if>
         <if test='prdcrCd != null and prdcrCd != ""'>
                         AND SI.RPRS_PRDCR_CD = #{prdcrCd}
