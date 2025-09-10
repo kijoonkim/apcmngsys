@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sonminseong
-  Date: 2/17/25
-  Time: 10:03 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
@@ -15,7 +8,10 @@
     boolean isMobile = userAgent.matches(".*(Mobile|Android|iPhone|iPad).*");
 %>
 <c:set var="isMobile" value="<%= isMobile %>"/>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -246,6 +242,11 @@
                 border: 1px solid black !important;
             }
         }
+        div.swal2-icon.swal2-icon-show{
+            /* 원하는 스타일 */
+            place-self: center center;
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body style="overflow: hidden">
@@ -305,6 +306,15 @@
                     text="품종선택"
                     class="no-print"
                     onclick="fn_changeVrty()"
+            >
+            </sbux-button>
+            <sbux-button
+                    id="addSoloSaleButton"
+                    name="addSoloSaleButton"
+                    uitype="normal"
+                    text="시판추가"
+                    class="no-print"
+                    onclick="fn_addSoloSale()"
             >
             </sbux-button>
         </div>
@@ -1068,9 +1078,14 @@
         itemCd = itemVrty.itemCd;
         vrtyCd = itemVrty.vrtyCd;
 
-
         await SBUxMethod.refresh("spmtMode", {text: '출하등록', onclick: 'fn_spmtMode'});
         await fn_init();
+
+        let warehouseSeCd = gfn_getCookie("warehouseSeCd");
+        if(warehouseSeCd) {
+            $("#warehouse").val(warehouseSeCd);
+        }
+
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();
         await fn_searchSpmtPrfmncList();
@@ -1616,7 +1631,7 @@
         }, 0);
 
         if(saveList.length < 1){
-            Swal.fire({
+            await Swal.fire({
                 title: "출하실적 대상이 없습니다.",
                 text: "입고실적을 확인해주세요.",
                 icon: "error"
@@ -1653,18 +1668,21 @@
         let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
 
         /** split check **/
-        const splitRmrk = saveList.find(item => {
+        let matchedIndex = -1;
+        const splitRmrk = saveList.some((item,idx) => {
             const $input = $(item).find('input');
             const isEmpty = !$input.val() || $input.val().trim() === '';
             const isSplit = $input.hasClass('left') || $input.hasClass('right');
             if(saveList.length === 1){
+                matchedIndex = idx;
                 return true;
             }else{
-                return isEmpty && isSplit;
+                matchedIndex = idx;
+                return !isEmpty && isSplit;
             }
         });
         const defaultRmrk = splitRmrk
-            ? ($(splitRmrk).find('input').hasClass('left') ? 'left' : 'right')
+            ? ($(saveList[matchedIndex]).find('input').hasClass('left') ? 'left' : 'right')
             : 'merge';
 
         /** 출하실적 saveObj 포맷팅 **/
@@ -1821,6 +1839,7 @@
             gfn_comAlert(data.resultCode, data.resultMessage);
             return;
         }
+        console.log(data.resultList,"선별");
         if (data.resultList.length > 0) {
             let itemCd = data.resultList[0].ITEM_CD;
             let vrtyCd = data.resultList[0].VRTY_CD;
@@ -1884,7 +1903,7 @@
             gdsSeCd 		: gdsSeCd,
         });
         const data = await postJsonPromise;
-
+        console.log(data.resultList,"상품재고");
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
@@ -1897,6 +1916,7 @@
         gdsInvntrList = groupedData;
     }
     /** 출하실적 조회 **/
+    //TODO: 시판은 단건으로 추가될수있는데 출하실적을 보여줄떈 취합을 해야함.
     async function fn_searchSpmtPrfmncList(){
         let wrhsYmd = SBUxMethod.get("srch-dtp-ymd");
         let warehouseSeCd = $("#warehouse").val();
@@ -1912,16 +1932,22 @@
         let postJsonPromise = gfn_postJSON("/am/spmt/selectSpmtPrfmncList.do", SpmtPrfmncVO);
         let data = await postJsonPromise;
 
+        console.log(data.resultList,"출하");
+
         if (!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
         }
+
+        let sipan = data.resultList.filter(i => i.cnptNm === '시판');
+        console.log(sipan,"시판");
 
         const groupedData = data.resultList.reduce((acc, item) => {
             let key = item.spmtno;
             (acc[key] = acc[key] || []).push(item);
             return acc;
         }, {});
+
 
         /** 하단 거래처별 출하수량 입력 **/
         const cnptData = data.resultList.reduce((acc, item) => {
@@ -2394,6 +2420,141 @@
         }
         return $td;
     }
+    const fn_addSoloSale = async function () {
+        return new Promise((resolve) => {
+            // hover는 마우스를 올리기만 해도 여러 번 발생하니 one() 사용
+            $("#sortTable tbody td").one("click.soloSale", function () {
+                $("#sortTable tbody td").off("click.soloSale");
+
+                let $target = $(this);
+                let $input = $target.find('input');
+                let lR = $input.attr('class');
+                let cnptCd = $target.data('cnptCd');
+
+                /**
+                 * 시판추가 가능 조건
+                 * 1.출하가된 자리일것.
+                 * 2.페어에 재고가있을것.
+                 **/
+                let prmCnptCd = jsonCnptList.filter(i => i.cnptNm === '시판')[0];
+                if(cnptCd === prmCnptCd.cnptCd){
+                    /** 거래처 정보가 있으며 시판인경우 true **/
+                    /** 페어 자리에 재고가있을것 **/
+                    let pareTd = lR === 'left' ? $target.next() : $target.prev();
+                    let pareQntt = pareTd.find('input').val();
+                    if(pareQntt > 0){
+                        const $wrap = $('<div id="soloAddWrap"></div>')
+                            .css({
+                                position:'absolute',
+                                top:0,
+                                left:0,
+                                display:'flex',
+                                zIndex:9999,
+                            });
+
+                        const $input = $('<input id="soloAddQntt" type="number" step="1" min="0">')
+                            .attr('style', 'border: 1px solid black !important;')
+                            .appendTo($wrap)
+                            .on('blur', function(){
+                               $btn.trigger('click');
+                            });
+                        const $btn = $('<button class="sbux-btn">확인</button>')
+                            .css({flex:'1 0 auto'})
+                            .on('click',function(){
+                                let pareQntt = pareTd.find('input').val() || 0;
+                                let grdCd = fn_getLogicalIndex($target);
+                                let prdcrIdentno = $target.closest('tr').find('td:first input').val();
+                                fn_addSoloSaleSpmt(pareQntt,grdCd,prdcrIdentno,lR,prmCnptCd.cnptCd);
+                            })
+                            .appendTo($wrap);
+                        $(this).append($wrap);
+                        $input.focus();
+                    }
+                }else{
+                    Swal.fire({
+                        title: '시판 거래처가 아닙니다.',
+                        icon: 'warning',
+                    });
+                }
+            });
+        });
+    };
+
+    const fn_addSoloSaleSpmt = async function(_pareQntt, _grdCd, _prdcrIdentno, _lR, _cnptCd){
+        let qntt = $("#soloAddQntt").val();
+        let spmtYmd = SBUxMethod.get("srch-dtp-ymd");
+        /** 시판 갯수 삭제 **/
+        $("#soloAddWrap").remove();
+        /** 재고에서 사용할수있는 수**/
+        if(_pareQntt - qntt < 0){
+            Swal.fire({
+                title: '재고가 부족합니다.',
+                icon: 'warning',
+            });
+            return;
+        }else{
+            const gdsList = gdsInvntrList[String(_grdCd)];
+            const nGdsInfo = gdsList.filter(i => i.prdcrIdentno == _prdcrIdentno);
+            const unitWght = nGdsInfo[0].invntrWght / nGdsInfo[0].invntrQntt;
+            const vo = JSON.parse(JSON.stringify(nGdsInfo[0]));
+            vo.spmtQntt = qntt;
+            vo.spmtWght = qntt * unitWght;
+            vo.spmtYmd = spmtYmd;
+            vo.prdcrCd = vo.rprsPrdcrCd;
+            vo.cnptCd = '';
+            vo.rmrk = _lR;
+            vo.cnptCd = _cnptCd;
+            console.log(vo);
+            console.log(typeof vo.spmtWght);
+            console.log(qntt);
+            console.log("출하실적저장 펑션");
+            await Swal.fire({
+                title: `시판추가 등록하시겠습니까?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '저장',
+                cancelButtonText: '취소',
+            }).then(async result => {
+                if (result.isConfirmed) {
+                    const postJsonPromise = gfn_postJSON("/am/spmt/insertSpmtPrfmncList.do",[vo]);
+                    const data = await postJsonPromise;
+
+                    if (!_.isEqual("S", data.resultStatus)) {
+                        gfn_comAlert(data.resultCode, data.resultMessage);
+                        return;
+                    }
+                    Swal.fire(
+                        '처리되었습니다.',
+                        '',
+                        'success'
+                    );
+                    /** 등록 이후 원복처리 **/
+                    await fn_reset();
+                }
+            });
+        }
+
+    };
+    const fn_setSheet = async function(){
+        const ROWS = 26;  // 0~25
+        const COLS = 18;  // 0~17
+
+// 빈 2차원 배열 생성 (모두 빈 문자열)
+        const emptyGrid = Array.from({ length: ROWS }, () =>
+            Array.from({ length: COLS }, () => "")
+        );
+
+        luckysheet.create({
+            container: "luckysheet",
+            lang: "en",
+            showinfobar: false,
+            showtoolbar: false,
+            showsheetbar: false,
+            showstatisticBar: false,
+        });
+    }
 
     window.addEventListener("DOMContentLoaded", async function () {
         /** 품목 품종 선택 **/
@@ -2415,6 +2576,8 @@
         await fn_searchSortPrfmnc();
         await fn_searchGdsInvntr();
         await fn_searchSpmtPrfmncList();
+        /** luckysheet.js test **/
+        // await fn_setSheet();
     });
 
 </script>
