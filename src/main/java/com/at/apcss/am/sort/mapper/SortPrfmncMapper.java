@@ -155,14 +155,6 @@ public interface SortPrfmncMapper {
     public List<SortPrfmncVO> selectSortListBySortno(SortPrfmncVO sortPrfmncVO) throws Exception;
 
     /**
-     * 선별결과집계조회
-     * @param sortPrfmncVO
-     * @return
-     * @throws Exception
-     */
-    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception;
-
-    /**
      * 배출구별집계조회
      * @param sortPrfmncVO
      * @return

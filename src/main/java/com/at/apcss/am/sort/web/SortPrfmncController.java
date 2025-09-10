@@ -1,13 +1,16 @@
 package com.at.apcss.am.sort.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
-import com.at.apcss.am.sort.service.SortPrfmncService;
-import com.at.apcss.am.sort.vo.*;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +18,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
+import com.at.apcss.am.sort.vo.SortBffaList;
+import com.at.apcss.am.sort.vo.SortBffaVO;
+import com.at.apcss.am.sort.vo.SortDsctnTotVO;
+import com.at.apcss.am.sort.vo.SortPrfmncVO;
+import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.controller.BaseController;
 
 /**
  * @Class Name : SortPrfmncController.java
@@ -273,24 +280,6 @@ public class SortPrfmncController extends BaseController {
 
 		return getSuccessResponseEntity(resultMap);
 	}
-
-    @PostMapping(value = "/am/sort/selectSortRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
-    public ResponseEntity<HashMap<String, Object>> selectSortRslt(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
-        HashMap<String,Object> resultMap = new HashMap<String,Object>();
-        List<HashMap<String,Object>> resultList;
-
-        try {
-            resultList = sortPrfmncService.selectSortRslt(paramMap);
-        } catch(Exception e) {
-            return getErrorResponseEntity(e);
-        } finally {
-            setMenuComLog(request);
-        }
-
-        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
-        return getSuccessResponseEntity(resultMap);
-    }
 
     @PostMapping(value = "/am/sort/selectExhstDsctn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectExhstDsctn(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
