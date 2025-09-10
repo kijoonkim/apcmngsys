@@ -542,7 +542,7 @@
 </c:if>
             </div>
             <div class="ad_tbl_toplist"></div>
-            <div id="sb-area-clclnRslt" style="height: 300px"></div>
+            <div id="sb-area-clclnRslt" style="height: 530px"></div>
           </div>
         </div>
       </div>
@@ -747,7 +747,7 @@
       {caption: ['잔액','불인정'], 			ref: 'clclnRjctAmt', 	width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','미사용액'], 			ref: 'unuseAmt', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
       {caption: ['잔액','합계'], 			ref: 'blncTot', 		width: '10%', type: 'output', style: 'text-align:right',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule:'#,###'}},
-      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '19%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule: '0.0 %'}},
+      {caption: ['집행률','집행률'], 			ref: 'implRt', 		width: '9%', type: 'output', style: 'text-align:center',typeinfo :{mask : {alias :'numeric'}}, format : {type:'number',rule: '0.0 %'}},
     ];
     gridClclnRslt = _SBGrid.create(SBGridProperties);
     gridClclnRslt.bind('valuechanged','fn_clclnRsltValueChange');
@@ -2387,6 +2387,10 @@
       // 삭제때문 변경
 
       objRows[seq] = row;
+
+      // 항목추가할때 체크 Y로 설정
+      const idCheck = objDoc.prefix + 'chk-dmndCheck' + seq; // prefix : tbl-doc-
+      SBUxMethod.set(idCheck,"Y");
 
     } catch (e) {
       if (!(e instanceof Error)) {
