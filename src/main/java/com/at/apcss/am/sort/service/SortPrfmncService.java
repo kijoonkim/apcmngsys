@@ -159,6 +159,15 @@ public interface SortPrfmncService {
 	 * @throws Exception
 	 */
 	List<SortBffaVO> selectSortBffaListBySortno(SortBffaVO sortBffaVO) throws Exception;
+
+    /**
+     * 선별결과 집계
+     * @param HashMap
+     * @return
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortRslt(HashMap<String, Object> sortRslt) throws Exception;
+
 	/**
 	 * 배출구별 집계
 	 * @param HashMap
