@@ -332,6 +332,7 @@
         LEFT JOIN VW_EV_UO_APRV EUA
             ON EUA.BRNO = SBO.BRNO
             AND EUA.CRNO = SBO.CRNO
+            AND EUA.YR = SBO.SPRT_BIZ_YR
 
         WHERE SBA.DEL_YN = 'N'
           AND SBA.ATCH_FILE_SN = #{atchFileSn}
@@ -723,6 +724,14 @@
         ]]>
     </select>
 
+    <!-- ==========================================================================	-->
+    <!-- NAME : com.at.apcss.pd.sprt.mapper.SprtBizClclnMngMapper.selectSprtClclnBizAtchfl  -->
+    <!-- DESC : 지원사업정산팝업 - 파일정보 조회                                         -->
+    <!-- ==========================================================================	-->
+    <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
+    <!-- ===========  	============  	===========================================	-->
+    <!-- 2025.09.11  	유민지        	Initial Creation                            -->
+    <!-- ==========================================================================	-->
     <select id="selectSprtClclnBizAtchfl" resultType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO" parameterType="com.at.apcss.pd.pcorm.vo.SprtBizRegFileVO">
         <![CDATA[
         SELECT
@@ -761,6 +770,7 @@
                  LEFT JOIN VW_EV_UO_APRV EUA
                            ON EUA.BRNO = SBO.BRNO
                                AND EUA.CRNO = SBO.CRNO
+                               AND EUA.YR = SBO.SPRT_BIZ_YR
 
         WHERE SBA.DEL_YN = 'N'
         AND SBA.ATCH_FILE_SN = #{atchFileSn}
@@ -1323,7 +1333,8 @@
 
                  LEFT JOIN VW_EV_UO_APRV EUA
                            ON EUA.BRNO = SBO.BRNO
-                               AND EUA.CRNO = SBO.CRNO
+                           AND EUA.CRNO = SBO.CRNO
+                           AND EUA.YR = SBO.SPRT_BIZ_YR
 
         WHERE SBA.DEL_YN = 'N'
           AND SBA.ATCH_FILE_SN = #{atchFileSn}
@@ -1393,6 +1404,7 @@
         LEFT JOIN VW_EV_UO_APRV EUA
             ON EUA.BRNO = SBO.BRNO
             AND EUA.CRNO = SBO.CRNO
+            AND EUA.YR = SBO.SPRT_BIZ_YR
 
         WHERE CD.DEL_YN = 'N'
           AND CD.SPRT_BIZ_YR = #{sprtBizYr}
