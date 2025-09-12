@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
-    <title>title : 거래처 상품 등록</title>
+    <title>title : 상품 등록</title>
 </head>
 <body oncontextmenu="return false">
 	<section>
