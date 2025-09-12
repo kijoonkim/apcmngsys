@@ -281,6 +281,8 @@
 	        await fn_searchLastQnttList();
 	        grdWkrpt.refresh();
 
+            console.log(data.resultList, result);
+
 	        //await fn_searchLastQnttList();
           	/* data.resultList.forEach((item, index) => {
   				const wkrpt = {

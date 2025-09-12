@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * @Class Name : CnptSpmtPckgUnitServiceImpl.java
  * @Description : 출하 상품 거래처 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 김호
- * @since 2023.08.01
+ * @author 김은총
+ * @since 2025.09.01
  * @version 1.0
  * @see
  *
@@ -23,7 +23,7 @@ import java.util.List;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.08.01  김호        최초 생성
+ * 2025.09.01  김은총      최초 생성
  * </pre>
  */
 @Service(value="cnptSpmtPckgUnitService")
@@ -36,23 +36,8 @@ public class CnptSpmtPckgUnitServiceImpl extends BaseServiceImpl implements Cnpt
 	private CmnsValidationService cmnsValidationService;
 
 	@Override
-	public CnptSpmtPckgUnitVO selectCnptSpmtPckgUnit(CnptSpmtPckgUnitVO cnptSpmtPckgUnitVO) throws Exception {
-		return cnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnit(cnptSpmtPckgUnitVO);
-	}
-
-	@Override
 	public List<CnptSpmtPckgUnitVO> selectCnptSpmtPckgUnitList(CnptSpmtPckgUnitVO cnptSpmtPckgUnitVO) throws Exception {
 		return cnptSpmtPckgUnitMapper.selectCnptSpmtPckgUnitList(cnptSpmtPckgUnitVO);
-	}
-
-	@Override
-	public int insertCnptSpmtPckgUnit(CnptSpmtPckgUnitVO cnptSpmtPckgUnitVO) throws Exception {
-		return cnptSpmtPckgUnitMapper.insertCnptSpmtPckgUnit(cnptSpmtPckgUnitVO);
-	}
-
-	@Override
-	public int updateCnptSpmtPckgUnit(CnptSpmtPckgUnitVO cnptSpmtPckgUnitVO) throws Exception {
-		return cnptSpmtPckgUnitMapper.updateCnptSpmtPckgUnit(cnptSpmtPckgUnitVO);
 	}
 
 	@Override

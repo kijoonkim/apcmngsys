@@ -1460,7 +1460,7 @@
 				if(grdCnptSpmtPckgUnit.getRowStatus(nRow) == 0 || grdCnptSpmtPckgUnit.getRowStatus(nRow) == 2){
 					if(gfn_comConfirm("Q0001", "등록된 행입니다. 삭제")){
 						var cnptSpmtPckgUnitVO = grdCnptSpmtPckgUnit.getRowData(nRow);
-						fn_deleteSpmtPckgUnitCnpt(cnptSpmtPckgUnitVO);
+						fn_deleteCnptSpmtPckgUnit(cnptSpmtPckgUnitVO);
 						grdCnptSpmtPckgUnit.deleteRow(nRow);
 					}
 				}else{

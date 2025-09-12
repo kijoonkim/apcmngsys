@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * @Class Name : CnptSpmtPckgUnitController.java
  * @Description : 출하 상품 거래처 서비스를 정의하기 위한 Controller 구현 클래스
- * @author 김호
- * @since 2023.08.01
+ * @author 김은총
+ * @since 2025.09.01
  * @version 1.0
  * @see
  *
@@ -28,7 +28,7 @@ import java.util.List;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.08.01  김호        최초 생성
+ * 2025.09.01  김은총        최초 생성
  * </pre>
  */
 @Controller

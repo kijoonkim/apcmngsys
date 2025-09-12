@@ -80,6 +80,15 @@ public class CnptVO extends ComVO {
 	private String rmrk;
 
 	/**
+	 * 출하포장단위코드
+	 */
+	private String spmtPckgUnitCd;
+	/**
+	 * 출하포장단위명
+	 */
+	private String spmtPckgUnitNm;
+
+	/**
 	 * 등록 수
 	 */
 	private int cnt;

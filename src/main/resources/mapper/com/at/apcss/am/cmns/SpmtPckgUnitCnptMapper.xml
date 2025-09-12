@@ -3,22 +3,22 @@
 
 <!-- ==========================================================================	-->
 <!-- NAME : SpmtPckgUnitCnptMapper.xml                                   		-->
-<!-- DESC : 출하매출단가 mapper                                             	-->
+<!-- DESC : 출하상품거래처 mapper                                             	-->
 <!-- ==========================================================================	-->
 <!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 <!-- ===========  	============  	===========================================	-->
-<!-- 2023.08.01  	김 호        		Initial Creation                        -->
+<!-- 2025.09.01  	김은총        	Initial Creation          		            -->
 <!-- ==========================================================================	-->
 
 <mapper namespace="com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper">
 
 	<!-- ==================================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnpt	-->
-	<!-- DESC : 출하매출단가 단건 조회.	                                       				-->
+	<!-- DESC : 출하상품거래처 단건 조회.	                                       				-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
-	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
+	<!-- 2025.09.01  	김은총        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
     <select id="selectSpmtPckgUnitCnpt" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
     	<![CDATA[
@@ -31,21 +31,29 @@
 
 	<!-- ====================================================================================== -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnptList	-->
-	<!-- DESC : 출하매출단가 목록 조회.	                                       					-->
+	<!-- DESC : 출하상품거래처 목록 조회.	                                       					-->
 	<!-- ======================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      						-->
 	<!-- ===========  	============  	=======================================================	-->
-	<!-- 2023.08.01  	김 호        	Initial Creation                            			-->
+	<!-- 2025.09.01  	김은총        	Initial Creation                            			-->
 	<!-- ======================================================================================	-->
     <select id="selectSpmtPckgUnitCnptList" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO" resultType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
     	<![CDATA[
 	    	SELECT /* com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.selectSpmtPckgUnitCnptList */
 		     	   SUR.APC_CD               AS APC_CD
 			     , SUR.SPMT_PCKG_UNIT_CD    AS SPMT_PCKG_UNIT_CD
+			     , SPU.SPMT_PCKG_UNIT_NM    AS SPMT_PCKG_UNIT_NM
 	    	     , SUR.CNPT_CD				AS CNPT_CD
+	    	     , (SELECT FN_GET_CNPT_NM(SUR.CNPT_CD, SUR.APC_CD) FROM DUAL) 					AS CNPT_NM
 	    	     , SUR.USE_YN				AS USE_YN
 			     , SUR.RMRK                 AS RMRK
 			     , SUR.DEL_YN               AS DEL_YN
+				 , SPU.ITEM_CD              AS ITEM_CD
+     			 , SPU.VRTY_CD              AS VRTY_CD
+	    		 , SPU.SPCFCT_CD            AS SPCFCT_CD
+	    	     , (SELECT FN_GET_ITEM_NM(SPU.ITEM_CD, SPU.APC_CD) FROM DUAL) 					AS ITEM_NM
+    		     , (SELECT FN_GET_VRTY_NM(SPU.ITEM_CD, SPU.VRTY_CD, SPU.APC_CD) FROM DUAL) 		AS VRTY_NM
+	    		 , (SELECT FN_GET_SPCFCT_NM(SPU.ITEM_CD, SPU.SPCFCT_CD, SPU.APC_CD) FROM DUAL) 	AS SPCFCT_NM
 			  FROM TB_SPMT_PCKG_UNIT_CNPT   SUR
 			     , TB_SPMT_PCKG_UNIT        SPU
 			 WHERE SUR.SPMT_PCKG_UNIT_CD = SPU.SPMT_PCKG_UNIT_CD
@@ -53,21 +61,31 @@
 			   AND SUR.DEL_YN = 'N'
 			   AND SPU.DEL_YN = 'N'
 			   AND SUR.APC_CD = #{apcCd}
-			   AND SPU.ITEM_CD	= #{itemCd}
-			   AND SPU.VRTY_CD	= #{vrtyCd}
-			   AND SPU.SPMT_PCKG_UNIT_CD= #{spmtPckgUnitCd}
-			   AND SPU.SPCFCT_CD= #{spcfctCd}
 		]]>
-
+		<if test='itemCd != null and itemCd != "" '>
+			   AND SPU.ITEM_CD	= #{itemCd}
+		</if>
+		<if test='vrtyCd != null and vrtyCd != "" '>
+			   AND SPU.VRTY_CD	= #{vrtyCd}
+		</if>
+		<if test='spmtPckgUnitCd != null and spmtPckgUnitCd != "" '>
+			   AND SPU.SPMT_PCKG_UNIT_CD= #{spmtPckgUnitCd}
+		</if>
+		<if test='spcfctCd != null and spcfctCd != "" '>
+			   AND SPU.SPCFCT_CD= #{spcfctCd}
+		</if>
+		<![CDATA[
+			  ORDER BY SPU.ITEM_CD, SPU.SN
+		]]>
     </select>
 
 	<!-- ==================================================================================	-->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.deleteSpmtPckgUnitCnpt	-->
-	<!-- DESC : 출하매출단가 삭제.	                                       					-->
+	<!-- DESC : 출하상품거래처 삭제.	                                       					-->
 	<!-- ==================================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      					-->
 	<!-- ===========  	============  	===================================================	-->
-	<!-- 2023.08.01  	김 호        	Initial Creation                            		-->
+	<!-- 2025.09.01  	김은총        	Initial Creation                            		-->
 	<!-- ==================================================================================	-->
 	<update id="deleteSpmtPckgUnitCnpt" parameterType="com.at.apcss.am.cmns.vo.SpmtPckgUnitCnptVO">
 		<![CDATA[
@@ -81,11 +99,11 @@
 
 	<!-- =========================================================================  -->
 	<!-- NAME : com.at.apcss.am.cmns.mapper.SpmtPckgUnitCnptMapper.mergeApcItemCrtrDtlList	-->
-	<!-- DESC : APC기준 품목 상세 merge  		              				          	-->
+	<!-- DESC : 출하상품 거래처 상세 merge  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- 2025.09.01  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="mergeSpmtPckgUnitCnptList" parameterType="list">
 		MERGE INTO TB_SPMT_PCKG_UNIT_CNPT SPUC

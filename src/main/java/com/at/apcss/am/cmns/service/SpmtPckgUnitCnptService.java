@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * 출하상품거래처 service 인터페이스
- * @author 김호
- * @since 2023.08.01
+ * @author 김은총
+ * @since 2025.09.01
  * @version 1.0
  * @see
  *
@@ -15,7 +15,7 @@ import java.util.List;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.08.01  김호        최초 생성
+ * 2025.09.01  김은총      최초 생성
  * </pre>
  */
 public interface SpmtPckgUnitCnptService {
@@ -34,22 +34,6 @@ public interface SpmtPckgUnitCnptService {
 	 * @throws Exception
 	 */
 	public List<SpmtPckgUnitCnptVO> selectSpmtPckgUnitCnptList(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception;
-
-	/**
-	 * 출하상품거래처 등록
-	 * @param SpmtPckgUnitCnptVO
-	 * @return Integer
-	 * @throws Exception
-	 */
-	public int insertSpmtPckgUnitCnpt(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception;
-
-	/**
-	 * 출하상품거래처 변경
-	 * @param SpmtPckgUnitCnptVO
-	 * @return Integer
-	 * @throws Exception
-	 */
-	public int updateSpmtPckgUnitCnpt(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception;
 
 	/**
 	 * 출하매출단가 삭제

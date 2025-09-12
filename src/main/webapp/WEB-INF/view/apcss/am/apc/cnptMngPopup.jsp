@@ -81,6 +81,9 @@
 	var jsonDlngShapCd	= [];
 	var jsonDlngMthdCd	= [];
 
+	/**
+	 * 출하상품거래처 modal
+	 * */
 	const fn_modalSpmtClick = async function (nRow){
 		SBUxMethod.openModal('modal-cnptSpmtPckgUnit');
 
@@ -88,17 +91,12 @@
 		SBUxMethod.set("cnptSpmtPckgUnit-inp-apcNm", SBUxMethod.get("inp-apcNm"));
 		SBUxMethod.set("cnptSpmtPckgUnit-inp-cnptNm", rowData.cnptNm);
 		SBUxMethod.set("cnptSpmtPckgUnit-inp-cnptCd", rowData.cnptCd);
-		// SBUxMethod.set("cnptSpmtPckgUnit-inp-itemNm", rowData.itemNm);
-		// SBUxMethod.set("cnptSpmtPckgUnit-hin-itemCd", rowData.itemCd);
-		// SBUxMethod.set("cnptSpmtPckgUnit-inp-vrtyNm", rowData.vrtyNm);
-		// SBUxMethod.set("cnptSpmtPckgUnit-hin-vrtyCd", rowData.vrtyCd);
-		// SBUxMethod.set("cnptSpmtPckgUnit-inp-spcfctNm", rowData.spcfctNm);
-		// SBUxMethod.set("cnptSpmtPckgUnit-hin-spcfctCd", rowData.spcfctCd);
-		//
+
 		await fn_initSBSelectCnptSpmtPckgUnit();
 		await fn_createCnptSpmtPckgUnitGrid();
 		await fn_createTotalCnptSpmtPckgUnitGrid();
-		fn_selectCnptSpmtPckgUnitList(rowData);
+		await fn_selectCnptSpmtPckgUnitList(rowData);
+		await fn_selectTotalCnptSpmtPckgUnitList(rowData);
 	}
 
     const fn_cnptMngCreateGrid = async function() {
@@ -150,7 +148,7 @@
 				}
             },
 			{caption : ['사용여부'],	ref : 'useYn',	width : '100px',	style : 'text-align:center',	type : 'multiradio', 		typeinfo : {radiolabel : ['사용', '미사용'], radiovalue : ['Y', 'N']}},
-			{caption: ["상품"],     	ref: 'spmtPckgUnitNm',  type:'output',  width:'120px',    style:'text-align:center'},
+			{caption: ["거래상품"],     	ref: 'spmtPckgUnitNm',  type:'output',  width:'120px',    style:'text-align:center'},
 			{caption: ["변경"], 			ref: 'delYn',  type:'button',  width:'40px',    style:'text-align:center', renderer: function(objGrid, nRow, nCol, strValue, objRowData) {
 					if((grdCnpt.getRowStatus(nRow) == 0 || grdCnpt.getRowStatus(nRow) == 2) && !(strValue== null || strValue == "")){
 						return "<button type='button' class='btn btn-xs btn-outline-danger' onClick='fn_modalSpmtClick(" + nRow + ")'>변경</button>";
@@ -256,6 +254,7 @@
   					  , picNm			: item.picNm
   					  , telno			: item.telno
   					  , rmrk			: item.rmrk
+					  , spmtPckgUnitNm	: item.spmtPckgUnitNm
   					  , delYn			: item.delYn
   					  , apcCd			: item.apcCd
   					  , eml				: item.eml

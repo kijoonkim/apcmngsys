@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * @Class Name : SpmtPckgUnitCnptServiceImpl.java
  * @Description : 출하 상품 거래처 서비스를 정의하기 위한 서비스 구현 클래스
- * @author 김호
- * @since 2023.08.01
+ * @author 김은총
+ * @since 2025.09.01
  * @version 1.0
  * @see
  *
@@ -23,7 +23,7 @@ import java.util.List;
  * << 개정이력(Modification Information) >>
  * 수정일        수정자        수정내용
  * ----------  ----------  ---------------------------
- * 2023.08.01  김호        최초 생성
+ * 2025.09.01  김은총      최초 생성
  * </pre>
  */
 @Service(value="spmtPckgUnitCnptService")
@@ -43,16 +43,6 @@ public class SpmtPckgUnitCnptServiceImpl extends BaseServiceImpl implements Spmt
 	@Override
 	public List<SpmtPckgUnitCnptVO> selectSpmtPckgUnitCnptList(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception {
 		return spmtPckgUnitCnptMapper.selectSpmtPckgUnitCnptList(spmtPckgUnitCnptVO);
-	}
-
-	@Override
-	public int insertSpmtPckgUnitCnpt(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception {
-		return spmtPckgUnitCnptMapper.insertSpmtPckgUnitCnpt(spmtPckgUnitCnptVO);
-	}
-
-	@Override
-	public int updateSpmtPckgUnitCnpt(SpmtPckgUnitCnptVO spmtPckgUnitCnptVO) throws Exception {
-		return spmtPckgUnitCnptMapper.updateSpmtPckgUnitCnpt(spmtPckgUnitCnptVO);
 	}
 
 	@Override

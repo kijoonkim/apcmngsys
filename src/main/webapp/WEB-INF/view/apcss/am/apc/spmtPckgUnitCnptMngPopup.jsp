@@ -164,7 +164,7 @@
   					  , spmtPckgUnitCd	: item.spmtPckgUnitCd
   					  ,	cnptCd		 	: item.cnptCd
   					  , rmrk			: item.rmrk
-					  , useYn		: item.useYn
+					  , useYn			: item.useYn
   					  , delYn			: item.delYn
   					}
   					jsonSpmtPckgUnitCnpt.push(spmtPckgUnitCnptVO);
@@ -192,7 +192,6 @@
 			let rowData = grdSpmtPckgUnitCnpt.getRowData(i);
 			let delYn = rowData.delYn;
 			if(delYn == 'N'){
-
 				saveList.push(rowData);
 			}
 		}
