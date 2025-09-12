@@ -2227,7 +2227,7 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>=]]> #{brix}
         </if>
         <if test='inptYmdFrom != null and inptYmdFrom != ""'>
                         AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
@@ -2390,7 +2390,7 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>=]]> #{brix}
         </if>
         <if test='inptYmdFrom != null and inptYmdFrom != ""'>
                         AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
@@ -2554,7 +2554,7 @@
                         AND SP.APC_CD = #{apcCd}
         </if>
         <if test='brix != null and brix != ""'>
-                        AND SR.SORT_RT_NV <![CDATA[>]]> #{brix}
+                        AND SR.SORT_RT_NV <![CDATA[>=]]> #{brix}
         </if>
         <if test='inptYmdFrom != null and inptYmdFrom != ""'>
                         AND SI.INPT_YMD <![CDATA[>=]]> #{inptYmdFrom}
