@@ -20,8 +20,6 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,7 +190,7 @@
                 </table>
 
                 <div class="table-responsive tbl_scroll_sm">
-                    <div id="sb-area-gridSortRsltList" style="padding-top: 20px; height: 500px;"></div>
+                    <div id="sb-area-gridSortRsltList" style="padding-top: 20px; height: 700px;"></div>
                 </div>
             </div>
         </div>
@@ -251,7 +249,6 @@
     </div>
     <div id="luckysheet" style="position: fixed; height: 100%; width: 100%; z-index: 10000;"></div>
 </body>
-<script src="${ctx}/js/out/sheet.bundle.js"></script>
 <script type="text/javascript">
     let lv_interval = 3 * 60 * 1000;
     let timerId;
@@ -306,7 +303,7 @@
             { caption: ["품종"], ref: 'vrtyNm', type: "output", width: '100px', style: 'text-align: center; padding-right: 5px;' },
             { caption: ["회원정보"], ref: 'mbrInfo', type: 'output', width: '100px', style: 'text-align: center; padding-right: 5px;' },
             { caption: ["등급"], ref: 'grd', type: 'output', width: '50px', style: 'text-align: center;', merge: false },
-            { caption: ["합계"], ref: 'sum', type: 'output', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #E0FFFF;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
+            { caption: ["합계"], ref: 'sum', type: 'output', width: '100px', style: 'text-align: right; padding-right: 5px; background-color: #D9D9D9;', format: { type: 'number', rule: '#,##0', emptyvalue: '0' }, merge: false }
         ];
 
         let addSortRsltGrdCol = [];
@@ -332,7 +329,6 @@
         SBGridProperties.columns = originColumns;
 
         gridSortRsltList = _SBGrid.create(SBGridProperties);
-        gridSortRsltList.rebuild();
     }
 
     /**
@@ -356,10 +352,10 @@
             itemCd: itemCd
         }
 
-        const postJsonPromise = gfn_postJSON("/am/sort/selectSortRslt.do", param);
-        const data = await postJsonPromise;
-
         try {
+            const postJsonPromise = gfn_postJSON("/am/sort/selectSortRslt.do", param);
+            const data = await postJsonPromise;
+
             if(!_.isEqual("S", data.resultStatus)) {
                 gfn_comAlert(data.resultCode, data.resultMessage);
                 return;
@@ -409,14 +405,24 @@
                 jsonSortRsltList.push(sortList);
             });
 
-            gridSortRsltList.refresh();
+            gridSortRsltList.rebuild();
+
+            let allData = gridSortRsltList.getGridDataAll();
+
+            for(let i = 1; i <= allData.length; i++) {
+                const rowData = gridSortRsltList.getRowData(i);
+
+                if(_.isEqual("중량", rowData.grd)) {
+                    gridSortRsltList.setCellStyle('background-color', i, 3, i, gridSortRsltList.getColumns().length - 2, 'skyblue');
+                }
+            }
         } catch(e) {
             if(!(e instanceof Error)) {
                 e = new Error(e);
             }
 
             console.error("failed", e.message);
-            gfn_comAlert("E0001");    // E0001    오류가 발생하였습니다.
+            // gfn_comAlert("E0001");    // E0001    오류가 발생하였습니다.
         }
     }
 
