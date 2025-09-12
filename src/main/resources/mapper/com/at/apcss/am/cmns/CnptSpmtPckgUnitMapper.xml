@@ -84,12 +84,12 @@
 	</update>
 
 	<!-- =========================================================================  -->
-	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.mergeApcItemCrtrDtlList	-->
-	<!-- DESC : APC기준 품목 상세 merge  		              				          	-->
+	<!-- NAME : com.at.apcss.am.cmns.mapper.CnptSpmtPckgUnitMapper.mergeCnptSpmtPckgUnitList	-->
+	<!-- DESC : 출하상품거래처 상세 merge  		              				          	-->
 	<!-- ==========================================================================	-->
 	<!-- DATE   		AUTHOR        	DESCRIPTION                      			-->
 	<!-- ===========  	============  	===========================================	-->
-	<!-- 2025.04.10  	손민성        	Initial Creation                            -->
+	<!-- 2025.09.01  	김은총        	Initial Creation                            -->
 	<!-- ==========================================================================	-->
 	<update id="mergeCnptSpmtPckgUnitList" parameterType="list">
 		MERGE INTO TB_CNPT_SPMT_PCKG_UNIT CSPU
