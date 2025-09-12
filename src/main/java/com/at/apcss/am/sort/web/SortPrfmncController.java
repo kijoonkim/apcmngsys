@@ -1,16 +1,13 @@
 package com.at.apcss.am.sort.web;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
 import com.at.apcss.am.cmns.service.CmnsTaskNoService;
 import com.at.apcss.am.invntr.service.GdsInvntrService;
 import com.at.apcss.am.invntr.vo.GdsInvntrVO;
+import com.at.apcss.am.sort.service.SortPrfmncService;
+import com.at.apcss.am.sort.vo.*;
 import com.at.apcss.am.spmt.vo.SpmtPrfmncVO;
+import com.at.apcss.co.constants.ComConstants;
+import com.at.apcss.co.sys.controller.BaseController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.at.apcss.am.sort.service.SortPrfmncService;
-import com.at.apcss.am.sort.vo.ComSortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortBffaList;
-import com.at.apcss.am.sort.vo.SortBffaVO;
-import com.at.apcss.am.sort.vo.SortDsctnTotVO;
-import com.at.apcss.am.sort.vo.SortPrfmncVO;
-import com.at.apcss.am.sort.vo.WrhsSortGrdVO;
-import com.at.apcss.co.constants.ComConstants;
-import com.at.apcss.co.sys.controller.BaseController;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Class Name : SortPrfmncController.java
@@ -66,10 +59,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -87,10 +77,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -116,10 +103,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -139,7 +123,6 @@ public class SortPrfmncController extends BaseController {
 				sortPrfmncVO.setSysFrstInptPrgrmId(getPrgrmId());
 				sortPrfmncVO.setSysLastChgUserId(getUserId());
 				sortPrfmncVO.setSysLastChgPrgrmId(getPrgrmId());
-
 			}
 
 			HashMap<String, Object> rtnObj = sortPrfmncService.insertSortPrfmncList(sortPrfmncList);
@@ -148,7 +131,6 @@ public class SortPrfmncController extends BaseController {
 			}
 
 		} catch (Exception e) {
-			logger.debug(ComConstants.ERROR_CODE, e.getMessage());
 			return getErrorResponseEntity(e);
 		}
 
@@ -166,10 +148,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -187,10 +166,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -209,10 +185,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -238,10 +211,7 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -266,10 +236,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -299,16 +266,31 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_INSERTED_CNT, result);
 
 		return getSuccessResponseEntity(resultMap);
 	}
+
+    @PostMapping(value = "/am/sort/selectSortRslt.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
+    public ResponseEntity<HashMap<String, Object>> selectSortRslt(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
+        HashMap<String,Object> resultMap = new HashMap<String,Object>();
+        List<HashMap<String,Object>> resultList;
+
+        try {
+            resultList = sortPrfmncService.selectSortRslt(paramMap);
+        } catch(Exception e) {
+            return getErrorResponseEntity(e);
+        } finally {
+            setMenuComLog(request);
+        }
+
+        resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
+
+        return getSuccessResponseEntity(resultMap);
+    }
 
     @PostMapping(value = "/am/sort/selectExhstDsctn.do", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_HTML_VALUE })
 	public ResponseEntity<HashMap<String, Object>> selectExhstDsctn(@RequestBody HashMap<String, Object> paramMap, HttpServletRequest request) throws Exception {
@@ -320,14 +302,10 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
 
 		return getSuccessResponseEntity(resultMap);
     }
@@ -342,14 +320,10 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
 
 		return getSuccessResponseEntity(resultMap);
     }
@@ -364,14 +338,10 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
 
 		return getSuccessResponseEntity(resultMap);
     }
@@ -395,10 +365,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -424,10 +391,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -451,10 +415,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_DELETED_CNT, result);
@@ -472,14 +433,10 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
 
         return getSuccessResponseEntity(resultMap);
     }
@@ -502,10 +459,7 @@ public class SortPrfmncController extends BaseController {
    		} catch(Exception e) {
    			return getErrorResponseEntity(e);
    		} finally {
-   			HashMap<String, Object> rtnObj = setMenuComLog(request);
-   			if (rtnObj != null) {
-   				return getErrorResponseEntity(rtnObj);
-   			}
+   			setMenuComLog(request);
    		}
 
    		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -531,10 +485,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -568,10 +519,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -602,10 +550,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		return getSuccessResponseEntity(resultMap);
@@ -629,10 +574,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -656,10 +598,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
@@ -676,10 +615,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		resultMap.put("sortno",sortno);
 		return getSuccessResponseEntity(resultMap);
@@ -693,10 +629,7 @@ public class SortPrfmncController extends BaseController {
 		} catch(Exception e) {
 			return getErrorResponseEntity(e);
 		} finally {
-			HashMap<String, Object> rtnObj = setMenuComLog(request);
-			if (rtnObj != null) {
-				return getErrorResponseEntity(rtnObj);
-			}
+			setMenuComLog(request);
 		}
 		resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
 		return getSuccessResponseEntity(resultMap);
@@ -712,10 +645,7 @@ public class SortPrfmncController extends BaseController {
 	        }catch (Exception e) {
 	            return getErrorResponseEntity(e);
 	        } finally {
-	            HashMap<String, Object> rtnObj = setMenuComLog(request);
-	            if (rtnObj != null) {
-	                return getErrorResponseEntity(rtnObj);
-	            }
+	            setMenuComLog(request);
 	        }
 			resultMap.put(ComConstants.PROP_RESULT_LIST,resultList);
 	        return getSuccessResponseEntity(resultMap); 
@@ -728,14 +658,10 @@ public class SortPrfmncController extends BaseController {
 
 	        try{
 				resultList = sortPrfmncService.selectGrdDsctnColList(paramMap);
-	            
 	        }catch (Exception e) {
 	            return getErrorResponseEntity(e);
 	        } finally {
-	            HashMap<String, Object> rtnObj = setMenuComLog(request);
-	            if (rtnObj != null) {
-	                return getErrorResponseEntity(rtnObj);
-	            }
+	            setMenuComLog(request);
 	        }
 	        return getSuccessResponseEntity(resultMap); 
 	    }
@@ -750,14 +676,10 @@ public class SortPrfmncController extends BaseController {
         } catch(Exception e) {
             return getErrorResponseEntity(e);
         } finally {
-            HashMap<String, Object> rtnObj = setMenuComLog(request);
-            if (rtnObj != null) {
-                return getErrorResponseEntity(rtnObj);
-            }
+            setMenuComLog(request);
         }
 
         resultMap.put(ComConstants.PROP_RESULT_LIST, resultList);
-
 
         return getSuccessResponseEntity(resultMap);
     }

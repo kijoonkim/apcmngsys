@@ -41,7 +41,7 @@ public class SprtBizClclnDmndDtlVO extends ComVO {
     /**
      * 요청금액
      */
-    private int dmndAmt;
+    private long dmndAmt;
 
     /**
      * 요청항목종류
@@ -202,5 +202,20 @@ public class SprtBizClclnDmndDtlVO extends ComVO {
      * 문서명
      */
     private String docNm;
+
+    /**
+     * 사업자번호
+     */
+    private String brno;
+
+    /**
+     * 법인명
+     */
+    private String corpNm;
+
+    /**
+     * 조직코드
+     */
+    private String apoCd;
 
 }

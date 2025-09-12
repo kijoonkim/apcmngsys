@@ -210,4 +210,60 @@ public interface SprtBizClclnMngMapper {
      * @throws Exception
      */
     public SprtBizRegFileVO selectSprtClclnPrufAtchfl(SprtBizRegFileVO sprtBizRegFileVO) throws Exception;
+
+    /**
+     * 지원사업정산 증빙서류 전체 목록 조회
+     * @param sprtBizClclnDmndDtlVO
+     * @return
+     * @throws Exception
+     */
+    List<SprtBizClclnDmndDtlVO> selectSprtClclnPrufDocList(SprtBizClclnDmndDtlVO sprtBizClclnDmndDtlVO);
+
+    /**
+     * 지원사업정산요청 삭제
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public int deleteClclnDmnd(SprtBizClclnDmndDtlVO deleteVO) throws Exception;
+
+    /**
+     * 지원사업정산요청문서 삭제시 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public List<SprtBizClclnDmndDtlVO> selectClclnDmndDocList(SprtBizClclnDmndDtlVO deleteVO) throws Exception;
+
+    /**
+     * 지원사업첨부파일 조회
+     * @param
+     * @return
+     * @throws Exception
+     */
+    public SprtBizClclnDmndDtlVO selectSprtBizAtchfl(SprtBizClclnDmndDtlVO clclnDmndDocVO) throws Exception;
+
+    /**
+     * 지원사업정산 비고 저장
+     * @param sprtBizClclnMngVO
+     * @return
+     * @throws Exception
+     */
+    public int updateClclnAplyRmrk(SprtBizClclnMngVO sprtBizClclnMngVO) throws Exception;
+
+    /**
+     * 교부관리 비고 저장
+     * @param sprtBizRegMngVO
+     * @return
+     * @throws Exception
+     */
+    public int updateDtbnRmrk(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
+
+    /**
+     * 교부관리 추가
+     * @param sprtBizRegMngVO
+     * @return
+     * @throws Exception
+     */
+    public int insertSprtAplyDoc(SprtBizRegMngVO sprtBizRegMngVO) throws Exception;
 }
